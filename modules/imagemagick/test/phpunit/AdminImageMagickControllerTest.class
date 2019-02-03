@@ -49,8 +49,9 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$platform =& $gallery->getPlatform();
-		$gallery->setPlatform(new AdminImageMagickControllerTestPlatform($platform, $this));
+		$platform     =& $gallery->getPlatform();
+		$testPlatform = new AdminImageMagickControllerTestPlatform($platform, $this);
+		$gallery->setPlatform($testPlatform);
 		$this->_ranIdentify = 0;
 		$this->_slash       = $platform->getDirectorySeparator();
 	}

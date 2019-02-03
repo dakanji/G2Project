@@ -51,10 +51,6 @@ class JpegtranToolkit extends GalleryToolkit {
 
 		list($ret, $jpegtran) = GalleryCoreApi::getPluginParameter('module', 'jpegtran', 'path');
 
-		if ($ret) {
-			return array($ret, null, null);
-		}
-
 		$tmpDir      = $gallery->getConfig('data.gallery.tmp');
 		$platform    =& $gallery->getPlatform();
 		$tmpFilename = $platform->tempnam($tmpDir, 'jpgt_');
@@ -186,12 +182,16 @@ class JpegtranToolkit extends GalleryToolkit {
 
 	/**
 	 * Get the dimensions of a jpeg image.
+	 *
 	 * @param string $filename
+	 *
 	 * @return array GalleryStatus a status code,
 	 *               int width,
 	 *               int height
 	 */
-	public function _getImageDimensions($filename) {
+	public function _getImageDimensions(
+		$filename
+	) {
 		global $gallery;
 
 		/*

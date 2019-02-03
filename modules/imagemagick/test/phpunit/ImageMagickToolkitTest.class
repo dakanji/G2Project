@@ -172,7 +172,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		if ($mimeType == 'image/gif') {
 			$xa                    = $this->_currentEnvironment['name'];
 			$xb                    = version_compare($this->_currentEnvironment['version'], '6.2.6-3', '>');
-			$useNewCoalesceOptions = $xx == 'ImageMagick' && $xb;
+			$useNewCoalesceOptions = $xa == 'ImageMagick' && $xb;
 
 			foreach (array_keys($expected) as $key) {
 				if (!is_int($i = array_search('%src%', $expected[$key]))) {
@@ -616,8 +616,8 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				array(
 					'next.toolkit'   => null,
 					'next.operation' => null,
-					'width'          => 77,
-					'height'         => 59,
+					'width'          => 77.0,
+					'height'         => 59.0,
 				),
 				$context,
 				'context at end ' . $this->_envName()
