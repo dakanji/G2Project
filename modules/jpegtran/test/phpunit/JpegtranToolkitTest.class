@@ -119,7 +119,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'rotate' => array(
-					'params' => array(
+					'params'      => array(
 						array(
 							'type'        => 'int',
 							'description' => 'rotation degrees',
@@ -129,7 +129,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 					'mimeTypes'   => $expectedMimeTypes,
 				),
 				'crop' => array(
-					'params' => array(
+					'params'      => array(
 						array(
 							'type'        => 'float',
 							'description' => 'left edge %',
@@ -168,7 +168,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 		$this->assertEquals(
 			array(
 				'rotate' => array(
-					'params' => array(
+					'params'      => array(
 						array(
 							'type'        => 'int',
 							'description' => 'rotation degrees',
@@ -212,8 +212,8 @@ class JpegtranToolkitTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				'width'  => 60,
-				'height' => 323,
+				'width'  => 60.0,
+				'height' => 323.0,
 			),
 			$context,
 			'context'
@@ -241,8 +241,8 @@ class JpegtranToolkitTest extends GalleryTestCase {
 
 		$this->assertEquals(
 			array(
-				'width'  => 120,
-				'height' => 20,
+				'width'  => 120.0,
+				'height' => 20.0,
 			),
 			$context,
 			'context'
