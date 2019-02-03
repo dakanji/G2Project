@@ -172,7 +172,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		if ($mimeType == 'image/gif') {
 			$xa                    = $this->_currentEnvironment['name'];
 			$xb                    = version_compare($this->_currentEnvironment['version'], '6.2.6-3', '>');
-			$useNewCoalesceOptions = $xx == 'ImageMagick' && $xb;
+			$useNewCoalesceOptions = $xa == 'ImageMagick' && $xb;
 
 			foreach (array_keys($expected) as $key) {
 				if (!is_int($i = array_search('%src%', $expected[$key]))) {
@@ -578,7 +578,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 						array('-size', '150x150', '-geometry', '150x150'),
 						$environment['removeMetaDataSwitch']
 					),
-					'imagemagick.mime' => 'image/png',
+					'imagemagick.mime'      => 'image/png',
 				),
 				$context,
 				'context after thumbnail ' . $this->_envName()
@@ -616,8 +616,8 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				array(
 					'next.toolkit'   => null,
 					'next.operation' => null,
-					'width'          => 77,
-					'height'         => 59,
+					'width'          => 77.0,
+					'height'         => 59.0,
 				),
 				$context,
 				'context at end ' . $this->_envName()
@@ -668,8 +668,8 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				array(
 					'next.toolkit'   => $this->_toolkit,
 					'next.operation' => 'thumbnail',
-					'width'          => 329,
-					'height'         => 250,
+					'width'          => 329.0,
+					'height'         => 250.0,
 				),
 				$context,
 				'context after crop ' . $this->_envName()
@@ -711,8 +711,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				'context at end ' . $this->_envName()
 			);
 
-			unset($this->_files['output1.png']);
-			unset($this->_files['output.png']);
+			unset($this->_files['output1.png'], $this->_files['output.png']);
 		}
 	}
 
@@ -758,7 +757,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 						'-geometry',
 						'320x240',
 					),
-					'imagemagick.mime' => 'image/png',
+					'imagemagick.mime'      => 'image/png',
 				),
 				$context,
 				'context after scale ' . $this->_envName()
@@ -1150,7 +1149,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 					$canConvert,
 					array(
 						'scale' => array(
-							'params' => array(
+							'params'      => array(
 								array(
 									'type'        => 'int',
 									'description' => 'target width (# pixels or #% of full size)',
@@ -1164,7 +1163,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 							'mimeTypes'   => $environment['mimeTypes'],
 						),
 						'thumbnail' => array(
-							'params' => array(
+							'params'      => array(
 								array(
 									'type'        => 'int',
 									'description' => 'target width (# pixels or #% of full size)',
@@ -1178,7 +1177,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 							'mimeTypes'   => $environment['mimeTypes'],
 						),
 						'resize' => array(
-							'params' => array(
+							'params'      => array(
 								array(
 									'type'        => 'int',
 									'description' => 'target width (# pixels or #% of full size)',
@@ -1192,7 +1191,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 							'mimeTypes'   => $environment['mimeTypes'],
 						),
 						'rotate' => array(
-							'params' => array(
+							'params'      => array(
 								array(
 									'type'        => 'int',
 									'description' => 'rotation degrees',
@@ -1202,7 +1201,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 							'mimeTypes'   => $environment['mimeTypes'],
 						),
 						'crop' => array(
-							'params' => array(
+							'params'      => array(
 								array(
 									'type'        => 'float',
 									'description' => 'left edge %',
@@ -1224,7 +1223,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 							'mimeTypes'   => $environment['mimeTypes'],
 						),
 						'composite' => array(
-							'params' => array(
+							'params'      => array(
 								array(
 									'type'        => 'string',
 									'description' => 'overlay path',
@@ -1258,7 +1257,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 							'mimeTypes'   => $environment['mimeTypes'],
 						),
 						'select-page' => array(
-							'params' => array(
+							'params'      => array(
 								array(
 									'type'        => 'int',
 									'description' => 'page number',
@@ -1268,7 +1267,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 							'mimeTypes'   => $canPage,
 						),
 						'compress' => array(
-							'params' => array(
+							'params'      => array(
 								array(
 									'type'        => 'int',
 									'description' => 'target size in kb',
