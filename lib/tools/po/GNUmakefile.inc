@@ -27,8 +27,8 @@ $$gallery = new GallerySetupUtilitiesStub();
 @require '$(GALLERYDIR)/config.php';
 echo $$gallery->getConfig('data.gallery.base'); ?>' | $(PHP) -q 2>&1)
 
-ifdef QUIET
-	MSGFMT_FLAGS = else
+MSGFMT_FLAGS = 
+ifndef QUIET
 	MSGFMT_FLAGS = -v
 endif
 
