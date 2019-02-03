@@ -120,7 +120,7 @@ function find($dir) {
  * Grab all translatable strings in a file into $strings array
  */
 function extractStrings($filename) {
-	global $strings, $gallery;
+	global $strings;
 	$strings["\n/* $filename */"] = array();
 	$startSize                    = count($strings);
 	$localStrings                 = array();
@@ -188,7 +188,7 @@ function extractStrings($filename) {
 						$ignore = $parenCount;
 					}
 				}
-				$param = $gallery->runEval('return ' . $buf . ';');
+				$param = eval('return ' . $buf . ';');
 
 				if (is_string($param)) {
 					// Escape double quotes and newlines
@@ -215,9 +215,9 @@ function extractStrings($filename) {
 							$param[$key] = strtr(
 								$param[$key],
 								array(
-									'"'    => '\\"',
-									"\r\n" => '\n',
-									"\n"   => '\n',
+									'"'     => '\\"',
+									"\r\n"  => '\n',
+									"\n"    => '\n',
 								)
 							);
 						}
@@ -231,12 +231,12 @@ function extractStrings($filename) {
 
 					if (isset($param['cFormat'])) {
 						$string = '/* xgettext:'
-						. ($param['cFormat'] ? '' : 'no-') . "c-format */\n$string";
+								  . ($param['cFormat'] ? '' : 'no-') . "c-format */\n$string";
 					}
 
 					if (!empty($param['hint'])) {
 						$string = '// HINT: ' . str_replace("\n", "\n// ", $param['hint'])
-						. "\n$string";
+								  . "\n$string";
 					}
 
 					if (!isset($strings[$string])) {
@@ -290,7 +290,7 @@ function extractStrings($filename) {
 			}
 
 			// Hint for translators
-			$translatorHint = preg_match('/\shint=((["\']).*?[^\\\\]\2)/s', $string, $matches) ? $gallery->runEval('return ' . $matches[1] . ';') : '';
+			$translatorHint = preg_match('/\shint=((["\']).*?[^\\\\]\2)/s', $string, $matches) ? eval('return ' . $matches[1] . ';') : '';
 
 			// c-format hint for xgettext
 			$cFormatHint = preg_match('/\sc[Ff]ormat=(true|false)/s', $string, $matches) ? '/* xgettext:' . ($matches[1] == 'false' ? 'no-' : '') . "c-format */\n" : '';
@@ -304,7 +304,7 @@ function extractStrings($filename) {
 						"\n"   => '\n',
 					)
 				) . '")';
-			} elseif (isset($one) && isset($many)) {
+			} elseif (isset($one, $many)) {
 				$string = 'ngettext("' . strtr(
 					$one,
 					array(
@@ -312,13 +312,13 @@ function extractStrings($filename) {
 						"\n"   => '\n',
 					)
 				) . '", "'
-				. strtr(
-					$many,
-					array(
-						"\r\n" => '\n',
-						"\n"   => '\n',
-					)
-				) . '")';
+						. strtr(
+							$many,
+							array(
+								"\r\n" => '\n',
+								"\n"   => '\n',
+							)
+						) . '")';
 			} else {
 				// Parse error
 				$string = str_replace("\n", '\n> ', $string);
@@ -353,4 +353,5 @@ function errorExit($message) {
 
 	exit(1);
 }
+
 ?>
