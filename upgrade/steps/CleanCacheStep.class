@@ -24,7 +24,7 @@
  */
 class CleanCacheStep extends UpgradeStep {
 	public function stepName() {
-		return 'Empty Cache';
+		return _('Empty Cache');
 	}
 
 	public function loadTemplateData(&$templateData) {
@@ -63,7 +63,7 @@ class CleanCacheStep extends UpgradeStep {
 		$ret = GalleryCoreApi::removeAllMapEntries('GalleryCacheMap', true);
 
 		if ($ret) {
-			$templateData['errors'][]    = 'Unable to clear the page cache';
+			$templateData['errors'][]    = _('Unable to clear the page cache');
 			$templateData['stackTrace'] .= $ret->getAsHtml();
 		}
 
@@ -71,7 +71,7 @@ class CleanCacheStep extends UpgradeStep {
 		$ret     = $storage->checkPoint();
 
 		if ($ret) {
-			$templateData['errors'][]    = 'Unable to commit database transaction';
+			$templateData['errors'][]    = _('Unable to commit database transaction');
 			$templateData['stackTrace'] .= $ret->getAsHtml();
 		}
 

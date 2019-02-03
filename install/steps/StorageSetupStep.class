@@ -24,7 +24,7 @@
  */
 class StorageSetupStep extends InstallStep {
 	public function stepName() {
-		return 'Storage Setup';
+		return _('Storage Setup');
 	}
 
 	public function loadTemplateData(&$templateData) {

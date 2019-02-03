@@ -34,7 +34,7 @@ class DatabaseBackupStep extends UpgradeStep {
 	public $_progressTitle;
 
 	public function stepName() {
-		return 'Database Backup';
+		return _('Database Backup');
 	}
 
 	public function isOptional() {
@@ -65,7 +65,7 @@ class DatabaseBackupStep extends UpgradeStep {
 
 			if ($ret) {
 				$templateData['stackTrace'] = $ret->getAsHtml();
-				$templateData['errors'][]   = 'Error attempting to enable maintenance mode.';
+				$templateData['errors'][]   = _('Error attempting to enable maintenance mode.');
 				$this->_template->renderHeaderBodyAndFooter($templateData);
 
 				return false;
@@ -76,7 +76,7 @@ class DatabaseBackupStep extends UpgradeStep {
 
 		// Set up the progress bar.
 		$this->_template->renderHeader(true);
-		$this->_progressTitle = 'Backing up the Gallery database';
+		$this->_progressTitle = _('Backing up the Gallery database');
 		$this->_template->renderStatusMessage($this->_progressTitle, '', 0);
 
 		$exporter                          = $storage->getDatabaseExporter();
@@ -90,7 +90,7 @@ class DatabaseBackupStep extends UpgradeStep {
 			}
 		} else {
 			$templateData['stackTrace'] .= $ret->getAsHtml();
-			$templateData['errors'][]    = 'Errors occurred during the database backup';
+			$templateData['errors'][]    = _('Errors occurred during the database backup');
 		}
 
 		$this->_template->renderStatusMessage($this->_progressTitle, '', 1);
@@ -111,7 +111,7 @@ class DatabaseBackupStep extends UpgradeStep {
 
 			if ($ret) {
 				$templateData['stackTrace'] .= $ret->getAsHtml();
-				$templateData['errors'][]    = 'Error attempting to disable maintenance mode.';
+				$templateData['errors'][]    = _('Error attempting to disable maintenance mode.');
 			}
 		}
 
@@ -139,7 +139,7 @@ class DatabaseBackupStep extends UpgradeStep {
 		list($ret, $tableVersions) = $storage->getTableVersions();
 
 		if ($ret) {
-			$templateData['warnings'][]  = 'Unable to determine if automated backup is available.';
+			$templateData['warnings'][]  = _('Unable to determine if automated backup is available.');
 			$templateData['canDoBackup'] = false;
 		} else {
 			list($major, $minor) = $tableVersions['Schema'];
@@ -164,7 +164,7 @@ class DatabaseBackupStep extends UpgradeStep {
 				);
 
 				if ($ret) {
-					$templateData['warnings'][] = 'Unable to determine if automated backup is available.';
+					$templateData['warnings'][] = _('Unable to determine if automated backup is available.');
 					$canDoBackup                = false;
 				} else {
 					$canDoBackup = $results->resultCount() > 0;

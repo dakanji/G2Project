@@ -24,7 +24,7 @@
  */
 class UpgradeCoreModuleStep extends UpgradeStep {
 	public function stepName() {
-		return 'Upgrade Core';
+		return _('Upgrade Core');
 	}
 
 	public function processRequest() {

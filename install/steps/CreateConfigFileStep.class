@@ -112,9 +112,11 @@ class CreateConfigFileStep extends InstallStep {
 						);
 					} else {
 						$templateData['error'] = sprintf(
-							'The config.php file exists but is not writeable.  If your server ' .
-							'is Windows, you may have to disable file sharing for config.php ' .
-							'and set its permissions manually.',
+							_(
+								'The config.php file exists but is not writeable.  If your server ' .
+								'is Windows, you may have to disable file sharing for config.php ' .
+								'and set its permissions manually.'
+							),
 							$configDir
 						);
 					}

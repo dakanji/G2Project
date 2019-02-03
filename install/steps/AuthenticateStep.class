@@ -36,7 +36,7 @@ class AuthenticateStep extends InstallStep {
 	}
 
 	public function stepName() {
-		return 'Authenticate';
+		return _('Authenticate');
 	}
 
 	public function processRequest() {
@@ -62,10 +62,19 @@ class AuthenticateStep extends InstallStep {
 
 			if (!file_exists($authFile)) {
 				if (!$this->_firstTime) {
-					$templateData['errors'][] = sprintf('<b>Error:</b> could not locate <b>authFile.txt</b>. Please place it in your <tt>%s/</tt> directory.', basename($authenticationDir));
+					$templateData['errors'][] = sprintf(
+						_(
+							'<b>Error:</b> could not locate <b>authFile.txt</b>. '
+							. 'Please place it in your <tt>%s/</tt> directory.'
+						),
+						basename($authenticationDir)
+					);
 				}
 			} elseif (!is_readable($authFile)) {
-				$templateData['errors'][] = '<b>Error:</b> your <b>authFile.txt</b> file is not readable. Please give Gallery read permissions on the file.';
+				$templateData['errors'][] = _(
+					'<b>Error:</b> your <b>authFile.txt</b> file is not readable. '
+					. 'Please give Gallery read permissions on the file.'
+				);
 			} else {
 				$fileAuthKey = trim(join('', file($authFile)));
 
@@ -74,7 +83,10 @@ class AuthenticateStep extends InstallStep {
 					GallerySetupUtilities::authenticateThisSession(false);
 					$this->setComplete(true);
 				} else {
-					$templateData['errors'][] = '<b>Error:</b> authFile.txt key does not match. Please download a new authentication string from below and try again.';
+					$templateData['errors'][] = _(
+						'<b>Error:</b> authFile.txt key does not match. '
+						. 'Please download a new authentication string from below and try again.'
+					);
 				}
 			}
 		}

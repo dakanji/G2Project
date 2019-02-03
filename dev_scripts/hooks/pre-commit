@@ -27,17 +27,16 @@ ALL_FILES=${FILE_LIST:-$STAGED_FIX_FILES}
 if [ "$PHP_FILES" != "" ]; then
 	echo ""
 	echo "Running PHP Lint ..."
-	echo ""
 	for PHP_FILE in $PHP_FILES
 	do
-		php -l -d display_errors=0 $PROJECT/$PHP_FILE
+		RET=$(php -l -d display_errors=0 $PROJECT/$PHP_FILE)
 		if [ $? != 0 ]
 		then
 			echo ""
 			echo "PHP Syntax Errors Found ... Aborting"
 			git reset HEAD $PROJECT/$PHP_FILE
 			echo ""
-			echo "Please Fix Errors and Repeat Commit"
+			echo "Please Fix Syntax Errors and Repeat Commit"
 			exit 1
 		fi
 	done

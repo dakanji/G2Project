@@ -24,7 +24,7 @@
  */
 class AuthenticateStep extends UpgradeStep {
 	public function stepName() {
-		return 'Authenticate';
+		return _('Authenticate');
 	}
 
 	public function loadTemplateData(&$templateData) {
@@ -65,9 +65,9 @@ class AuthenticateStep extends UpgradeStep {
 			} else {
 				if (isset($_POST['password_sent'])) {
 					if (empty($_POST['password'])) {
-						$templateData['error']['password'] = '<b>Error:</b> missing password.';
+						$templateData['error']['password'] = _('<b>Error:</b> missing password.');
 					} elseif ($_POST['password'] != $gallery->getConfig('setup.password')) {
-						$templateData['error']['password'] = '<b>Error:</b> invalid password.';
+						$templateData['error']['password'] = _('<b>Error:</b> invalid password.');
 						GallerySetupUtilities::setLoginAttempts(++$attempts);
 
 						if ($attempts > G2_SUPPORT_MAX_LOGIN_ATTEMPTS) {
