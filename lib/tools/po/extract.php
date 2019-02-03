@@ -126,6 +126,15 @@ function extractStrings($filename) {
 	$localStrings                 = array();
 	$data                         = file_get_contents($filename);
 
+	if (!isset($gallery)) {
+		include_once __DIR__ . '/../../../embed.php';
+		$ret = GalleryEmbed::init(
+			array(
+				'fullInit' => false,
+			)
+		);
+	}
+
 	/*
 	 * class|inc|php are module and core PHP files.
 	 * Parse .html as PHP for installer/upgrader templates/*.html files.
@@ -304,7 +313,7 @@ function extractStrings($filename) {
 						"\n"   => '\n',
 					)
 				) . '")';
-			} elseif (isset($one) && isset($many)) {
+			} elseif (isset($one, $many)) {
 				$string = 'ngettext("' . strtr(
 					$one,
 					array(
