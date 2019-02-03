@@ -36,7 +36,7 @@ echo "Developer Environment Update Started"
 
 	# Set strategy for merge conflicts
 	echo "Setting Merge Strategy"
-	git config merge.theirs.driver true
+	git config merge.ours.driver true
 
 
 
