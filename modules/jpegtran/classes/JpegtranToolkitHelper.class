@@ -104,7 +104,6 @@ class JpegtranToolkitHelper {
 	 * Test if the given path has a working jpegtran binary.
 	 *
 	 * @param string path to the jpegtran binary
-	 *
 	 * @return array GalleryStatus general status of tests
 	 *               array ('name' => string: the name of the operation,
 	 *                      'success' => boolean: test successful?
@@ -190,7 +189,7 @@ class JpegtranToolkitHelper {
 			$isFinished        = false;
 
 			while (null !== ($line = array_shift($stderr))) {
-				if (preg_match("/Independent JPEG Group's/", $line)) {
+				if (preg_match("/Independent JPEG Group's JPEGTRAN/", $line)) {
 					$isJpegtran = true;
 				} elseif (preg_match(
 					'/Start Of Frame 0xc0: width=50, height=50, components=3/',

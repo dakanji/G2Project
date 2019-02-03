@@ -45,8 +45,7 @@ class AdminJpegtranControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_savePlatform =& $gallery->getPlatform();
-		$testPlatform        = new AdminJpegtranControllerTestPlatform();
-		$gallery->setPlatform($testPlatform);
+		$gallery->setPlatform(new AdminJpegtranControllerTestPlatform());
 	}
 
 	public function testSaveGoodPath() {
@@ -292,7 +291,7 @@ class AdminJpegtranControllerTestPlatform extends WinNtPlatform {
 		return false;
 	}
 
-	public function exec($args, $returnErrorOutput = false) {
+	public function exec($args) {
 		switch ($args[0][0]) {
 			case '/incompletePath/jpegtran.exe':
 			case '/validPath/jpegtran':

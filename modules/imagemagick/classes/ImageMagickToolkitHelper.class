@@ -296,19 +296,26 @@ class ImageMagickToolkitHelper {
 		$platform =& $gallery->getPlatform();
 
 		if ($imageMagickPath == null) {
-			list($ret, $imageMagickPath) = GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path');
+			list($ret, $imageMagickPath) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'imagemagick',
+				'path'
+			);
 
 			if ($ret) {
 				return array($ret, null);
 			}
-			list($ret, $binary) = GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'binary');
+			list($ret, $binary) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'imagemagick',
+				'binary'
+			);
 
 			if ($ret) {
 				return array($ret, null);
 			}
 		} else {
 			list($ret, $binary) = ImageMagickToolkitHelper::discoverBinary($imageMagickPath);
-
 
 			if ($ret) {
 				return array($ret, null);
@@ -363,12 +370,12 @@ class ImageMagickToolkitHelper {
 		$tests[] = array(
 			'mime'     => array('image/gif'),
 			'file'     => 'test.gif',
-			'expected' => '/(GIF.*PseudoClass|GIF.*RGB|PseudoClass.*GIF|DirectClass.*GIF)/',
+			'expected' => '/(GIF.*PseudoClass|PseudoClass.*GIF|DirectClass.*GIF)/',
 		);
 		$tests[] = array(
 			'mime'     => array('image/jpeg', 'image/pjpeg'),
 			'file'     => 'test.jpg',
-			'expected' => '/(JPEG.*(Direct|Pseudo)Class|JPEG.*RGB|DirectClass.*JPEG)/',
+			'expected' => '/(JPEG.*(Direct|Pseudo)Class|DirectClass.*JPEG)/',
 		);
 		$tests[] = array(
 			'mime'     => array('image/jp2', 'image/jpg2', 'image/jpx'),
@@ -378,32 +385,32 @@ class ImageMagickToolkitHelper {
 		$tests[] = array(
 			'mime'     => array('image/png'),
 			'file'     => 'test.png',
-			'expected' => '/(PNG.*DirectClass|PNG.*RGB|DirectClass.*PNG)/',
+			'expected' => '/(PNG.*DirectClass|DirectClass.*PNG)/',
 		);
 		$tests[] = array(
 			'mime'     => array('image/tiff'),
 			'file'     => 'test.tif',
-			'expected' => '/(TIFF.*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*TIFF|TIFF.*RGB|TIFF.*Gray)/',
+			'expected' => '/(TIFF.*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*TIFF)/',
 		);
 		$tests[] = array(
 			'mime'     => array('image/svg+xml'),
 			'file'     => 'test.svg',
-			'expected' => '/(SVG.*DirectClass|SVG.*RGB|DirectClass.*SVG)/',
+			'expected' => '/(SVG.*DirectClass|DirectClass.*SVG)/',
 		);
 		$tests[] = array(
 			'mime'     => array('image/bmp'),
 			'file'     => 'test.bmp',
-			'expected' => '/(BMP.*PseudoClass|BMP.*RGB|PseudoClass.*BMP)/',
+			'expected' => '/(BMP.*PseudoClass|PseudoClass.*BMP)/',
 		);
 		$tests[] = array(
 			'mime'     => array('application/pdf'),
 			'file'     => 'test.pdf',
-			'expected' => '/(PDF.*(Pseudo|Direct)Class|PBM.*Bilevel|PseudoClass.*PDF)/',
+			'expected' => '/(PDF.*(Pseudo|Direct)Class|PseudoClass.*PDF)/',
 		);
 		$tests[] = array(
 			'mime'     => array('application/postscript'),
 			'file'     => 'test.eps',
-			'expected' => '/(PS.*(Pseudo|Direct)Class|PNG.*RGB|PseudoClass.*PS)/',
+			'expected' => '/(PS.*(Pseudo|Direct)Class|PseudoClass.*PS)/',
 		);
 		$tests[] = array(
 			'mime'     => array('application/photoshop'),
@@ -413,17 +420,17 @@ class ImageMagickToolkitHelper {
 		$tests[] = array(
 			'mime'     => array('image/x-photo-cd'),
 			'file'     => 'truncated.pcd',
-			'expected' => '/(PCD.*(Pseudo|Direct)Class|PCD.*YCC|PseudoClass.*PCD)/',
+			'expected' => '/(PCD.*(Pseudo|Direct)Class|PseudoClass.*PCD)/',
 		);
 		$tests[] = array(
 			'mime'     => array('image/wmf'),
 			'file'     => 'test.wmf',
-			'expected' => '/(WMF.*(Pseudo|Direct)Class|WMF.*RGB|(Pseudo|Direct)Class.*WMF)/',
+			'expected' => '/(WMF.*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*WMF)/',
 		);
 		$tests[] = array(
 			'mime'     => array('image/tga'),
 			'file'     => 'test.tga',
-			'expected' => '/((TGA|ICB).*(Pseudo|Direct)Class|TGA.*RGB|(Pseudo|Direct)Class.*(TGA|ICB))/',
+			'expected' => '/((TGA|ICB).*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*(TGA|ICB))/',
 		);
 
 		$oldPwd = $platform->getcwd();
@@ -445,9 +452,11 @@ class ImageMagickToolkitHelper {
 
 			if ($success || $test['file'] == 'truncated.pcd') {
 				// Ignore error status for truncated.pcd.. it should still identify the file ok
-				if (preg_match($test['expected'], implode(',', $results))) {
-					foreach ($test['mime'] as $type) {
-						$mimeTypes[$type] = 1;
+				foreach ($results as $resultLine) {
+					if (preg_match($test['expected'], $resultLine)) {
+						foreach ($test['mime'] as $type) {
+							$mimeTypes[$type] = 1;
+						}
 					}
 				}
 			}
@@ -560,7 +569,7 @@ class ImageMagickToolkitHelper {
 							),
 						);
 					} elseif (!preg_match(
-						'/(GIF.*PseudoClass|GIF.*RGB|PseudoClass.*GIF|DirectClass.*GIF)/',
+						'/(GIF.*PseudoClass|PseudoClass.*GIF|DirectClass.*GIF)/',
 						implode(',', $results)
 					)
 					) {
@@ -813,9 +822,9 @@ class ImageMagickToolkitHelper {
 			if (preg_match('/(ImageMagick|GraphicsMagick)\s+([\d\.r-]+)/', $resultLine, $matches)) {
 				$version    = array($matches[1], $matches[2]);
 				$vulnerable = ($version[0] == 'ImageMagick' &&
-				version_compare($version[1], '6.3.3-5', '<')) ||
-				($version[0] == 'GraphicsMagick' &&
-				version_compare($version[1], '1.1.6-r1', '<'));
+				   version_compare($version[1], '6.3.3-5', '<')) ||
+				  ($version[0] == 'GraphicsMagick' &&
+				   version_compare($version[1], '1.1.6-r1', '<'));
 
 				return array(null, $version, $vulnerable);
 			}
@@ -947,14 +956,21 @@ class ImageMagickToolkitHelper {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
-		$dataPath = dirname(dirname(__FILE__)) . "${slash}data${slash}";
+		$dataPath = dirname(__DIR__) . "${slash}data${slash}";
 
-		list($ret, $convertCmd) = ImageMagickToolkitHelper::getCommand('convert', $imageMagickPath);
+		list($ret, $convertCmd) = ImageMagickToolkitHelper::getCommand(
+			'convert',
+			$imageMagickPath
+		);
 
 		if ($ret) {
 			return array($ret, null);
 		}
-		list($ret, $identifyCmd) = ImageMagickToolkitHelper::getCommand('identify', $imageMagickPath);
+
+		list($ret, $identifyCmd) = ImageMagickToolkitHelper::getCommand(
+			'identify',
+			$imageMagickPath
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -979,7 +995,14 @@ class ImageMagickToolkitHelper {
 		$cmykSupport             = false;
 		list($success, $results) = $platform->exec(
 			array(
-				array_merge($identifyCmd, array('-format', '%r', $dataPath . 'cmyk.jpg')),
+				array_merge(
+					$identifyCmd,
+					array(
+						'-format',
+						'%r',
+						$dataPath . 'cmyk.jpg',
+					)
+				),
 			)
 		);
 
@@ -988,7 +1011,12 @@ class ImageMagickToolkitHelper {
 				array(
 					array_merge(
 						$convertCmd,
-						array('-colorspace', 'RGB', $dataPath . 'cmyk.jpg', $tmpFilename)
+						array(
+							'-colorspace',
+							'RGB',
+							$dataPath . 'cmyk.jpg',
+							$tmpFilename,
+						)
 					),
 				)
 			);
@@ -996,7 +1024,14 @@ class ImageMagickToolkitHelper {
 			if ($success) {
 				list($success, $results) = $platform->exec(
 					array(
-						array_merge($identifyCmd, array('-format', '%r', $tmpFilename)),
+						array_merge(
+							$identifyCmd,
+							array(
+								'-format',
+								'%r',
+								$tmpFilename,
+							)
+						),
 					)
 				);
 
@@ -1055,7 +1090,6 @@ class ImageMagickToolkitHelper {
 		}
 
 		// Find out how to remove meta data from jpegs
-
 		list($ret, $removeMetaDataSwitch) = ImageMagickToolkitHelper::discoverRemoveMetaDataSwitch(
 			$imageMagickPath
 		);
