@@ -1052,6 +1052,9 @@ class Gallery {
 	 * Replacement function for PHP Eval
 	 */
 	public function runEval($code) {
+		// Temp override
+		return eval($code);
+
 		$tempfile = tempnam(sys_get_temp_dir(), 'EVL');
 		file_put_contents($tempfile, "<?php\n" . $code);
 

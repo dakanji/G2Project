@@ -127,6 +127,10 @@ function extractStrings($filename) {
 	$data                         = file_get_contents($filename);
 
 	if (!isset($gallery)) {
+		include_once __DIR__ . '/../../../modules/core/classes/GalleryUtilities.class';
+
+		include_once __DIR__ . '/../../../init.inc';
+
 		include_once __DIR__ . '/../../../embed.php';
 		$ret = GalleryEmbed::init(
 			array(
