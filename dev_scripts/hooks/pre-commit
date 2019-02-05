@@ -30,7 +30,7 @@ if [ "$PHP_FILES" != "" ]; then
 	echo ""
 	for PHP_FILE in $PHP_FILES
 	do
-		php -l -d display_errors=0 $PROJECT/$PHP_FILE
+		RET=$(php -l -d display_errors=0 $PROJECT/$PHP_FILE)
 		if [ $? != 0 ]
 		then
 			echo ""
