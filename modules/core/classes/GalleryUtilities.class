@@ -232,9 +232,7 @@ class GalleryUtilities {
 		if ($prefix) {
 			$key = GALLERY_FORM_VARIABLE_PREFIX . $key;
 		}
-		unset($_POST[$key]);
-		unset($_FILES[$key]);
-		unset($_GET[$key]);
+		unset($_POST[$key], $_FILES[$key], $_GET[$key]);
 	}
 
 	/**
@@ -1849,5 +1847,25 @@ class GalleryUtilities {
 		}
 
 		return $strArray;
+	}
+
+	/**
+	 * Replacement function for PHP Eval
+	 */
+	public static function doEval($code) {
+		// Temp override
+		return eval($code);
+
+		$tempfile = tempnam(sys_get_temp_dir(), 'EVL');
+		file_put_contents($tempfile, "<?php\n" . $code);
+
+		ob_start();
+
+		include $tempfile;
+		$data = ob_get_contents();
+		ob_end_clean();
+		unlink($tempfile);
+
+		return $data;
 	}
 }

@@ -1047,24 +1047,4 @@ class Gallery {
 
 		return $this->_phpVm;
 	}
-
-	/**
-	 * Replacement function for PHP Eval
-	 */
-	public function runEval($code) {
-		// Temp override
-		return eval($code);
-
-		$tempfile = tempnam(sys_get_temp_dir(), 'EVL');
-		file_put_contents($tempfile, "<?php\n" . $code);
-
-		ob_start();
-
-		include $tempfile;
-		$data = ob_get_contents();
-		ob_end_clean();
-		unlink($tempfile);
-
-		return $data;
-	}
 }

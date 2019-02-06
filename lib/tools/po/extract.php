@@ -120,24 +120,13 @@ function find($dir) {
  * Grab all translatable strings in a file into $strings array
  */
 function extractStrings($filename) {
-	global $strings, $gallery;
+	global $strings;
 	$strings["\n/* $filename */"] = array();
 	$startSize                    = count($strings);
 	$localStrings                 = array();
 	$data                         = file_get_contents($filename);
 
-	if (!isset($gallery)) {
-		include_once __DIR__ . '/../../../modules/core/classes/GalleryUtilities.class';
-
-		include_once __DIR__ . '/../../../init.inc';
-
-		include_once __DIR__ . '/../../../embed.php';
-		$ret = GalleryEmbed::init(
-			array(
-				'fullInit' => false,
-			)
-		);
-	}
+	include_once __DIR__ . '/../../../modules/core/classes/GalleryUtilities.class';
 
 	/*
 	 * class|inc|php are module and core PHP files.
@@ -201,7 +190,7 @@ function extractStrings($filename) {
 						$ignore = $parenCount;
 					}
 				}
-				$param = $gallery->runEval('return ' . $buf . ';');
+				$param = GalleryUtilities::doEval('return ' . $buf . ';');
 
 				if (is_string($param)) {
 					// Escape double quotes and newlines
@@ -303,7 +292,7 @@ function extractStrings($filename) {
 			}
 
 			// Hint for translators
-			$translatorHint = preg_match('/\shint=((["\']).*?[^\\\\]\2)/s', $string, $matches) ? $gallery->runEval('return ' . $matches[1] . ';') : '';
+			$translatorHint = preg_match('/\shint=((["\']).*?[^\\\\]\2)/s', $string, $matches) ? GalleryUtilities::doEval('return ' . $matches[1] . ';') : '';
 
 			// c-format hint for xgettext
 			$cFormatHint = preg_match('/\sc[Ff]ormat=(true|false)/s', $string, $matches) ? '/* xgettext:' . ($matches[1] == 'false' ? 'no-' : '') . "c-format */\n" : '';

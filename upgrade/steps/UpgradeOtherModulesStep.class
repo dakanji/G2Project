@@ -48,8 +48,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 		if ($ret) {
 			$templateData['errors'][]    = 'Unable to initialize Gallery session';
 			$templateData['stackTrace'] .= $ret->getAsHtml();
-			unset($_REQUEST['module']);
-			unset($_REQUEST['theme']);
+			unset($_REQUEST['module'], $_REQUEST['theme']);
 		}
 
 		if (isset($_REQUEST['module']) || isset($_REQUEST['theme'])) {
@@ -370,7 +369,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 		}
 
 		// Deactivate any plugins that need it
-		$gallery->runEval(
+		GalleryUtilities::doEval(
 			'
 		class MockTheme extends GalleryTheme {
 			function __construct($pluginId) {
