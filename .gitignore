@@ -8,9 +8,11 @@
 ehthumbs.db
 Thumbs.db
 
+
 # svn folder #
 ##############
 **/.svn
+
 
 # style guide #
 ##############
@@ -26,12 +28,43 @@ config.php
 authFile.txt
 login.txt
 
+
 # IDE stuff #
 ##############
 .idea
 build
 attic
 
+
 # Misc stuff #
 ##############
 composer.phar
+
+
+# G2 Modules #
+##############
+modules/*
+!modules/archiveupload
+!modules/comment
+!modules/core
+!modules/exif
+!modules/ffmpeg
+!modules/gd
+!modules/icons
+!modules/imagemagick
+!modules/jpegtran
+!modules/keyalbum
+!modules/netpbm
+!modules/rating
+!modules/rearrange
+!modules/rewrite
+!modules/search
+!modules/slideshow
+
+
+# G2 Themes #
+#############
+themes/*
+!themes/carbon
+!themes/matrix
+!themes/siriux
