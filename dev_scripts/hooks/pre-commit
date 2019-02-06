@@ -30,7 +30,7 @@ if [ "$PHP_FILES" != "" ]; then
 	echo ""
 	for PHP_FILE in $PHP_FILES
 	do
-		php -l -d display_errors=0 $PROJECT/$PHP_FILE
+		RET=$(php -l -d display_errors=0 $PROJECT/$PHP_FILE)
 		if [ $? != 0 ]
 		then
 			echo ""
@@ -91,10 +91,3 @@ else
 		echo ""
 	fi
 fi
-
-# Add Dev Tag
-echo "COMMIT DATE: $(date)" > .commitenv
-echo "COMMIT HEAD: $(git log -1 --oneline)"  >> .commitenv
-echo "COMMIT AUTHOR: $GIT_AUTHOR_NAME"  >> .commitenv
-echo " "  >> .commitenv
-git add .commitenv

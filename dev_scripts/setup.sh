@@ -34,9 +34,6 @@ echo "Developer Environment Update Started"
 		touch $WP_XX_ArrayDeclarationSpacingSniff
 	fi
 
-	# Set strategy for merge conflicts
-	echo "Setting Merge Strategy"
-	git config merge.theirs.driver true
 
 
 
