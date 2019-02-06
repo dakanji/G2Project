@@ -381,7 +381,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 		}
 
 		// Deactivate any plugins that need it
-		$gallery->runEval(
+		GalleryUtilities::doEval(
 			'
 		class MockTheme extends GalleryTheme {
 			function __construct($pluginId) {

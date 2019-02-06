@@ -225,8 +225,8 @@ class Smarty {
 	 * @var array
 	 */
 	public $security_settings = array(
-		'PHP_HANDLING' => false,
-		'IF_FUNCS'     => array(
+		'PHP_HANDLING'        => false,
+		'IF_FUNCS'            => array(
 			'array',
 			'list',
 			'isset',
@@ -1539,7 +1539,7 @@ class Smarty {
 		$smarty_compiler->_config                  = $this->_config;
 		$smarty_compiler->request_use_auto_globals = $this->request_use_auto_globals;
 
-		if (isset($cache_include_path) && isset($this->_cache_serials[$cache_include_path])) {
+		if (isset($cache_include_path, $this->_cache_serials[$cache_include_path])) {
 			$smarty_compiler->_cache_serial = $this->_cache_serials[$cache_include_path];
 		}
 		$smarty_compiler->_cache_include = $cache_include_path;
@@ -1889,13 +1889,13 @@ class Smarty {
 		$line = null,
 		$error_type = E_USER_ERROR
 	) {
-		if (isset($file) && isset($line)) {
+		if (isset($file, $line)) {
 			$info = ' (' . basename($file) . ", line $line)";
 		} else {
 			$info = '';
 		}
 
-		if (isset($tpl_line) && isset($tpl_file)) {
+		if (isset($tpl_line, $tpl_file)) {
 			$this->trigger_error('[in ' . $tpl_file . ' line ' . $tpl_line . "]: $error_msg$info", $error_type);
 		} else {
 			$this->trigger_error($error_msg . $info, $error_type);
@@ -2006,9 +2006,7 @@ class Smarty {
 	 * wrapper for eval() retaining $this
 	 */
 	public function _eval($code, $params = null) {
-		global $gallery;
-
-		return $gallery->runEval($code);
+		return GalleryUtilities::doEval($code);
 	}
 
 	/**

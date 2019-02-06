@@ -357,8 +357,8 @@ class GalleryTemplateAdapter {
 			list($item, $entity) = $results;
 		}
 
-		unset($params['item']);
-		unset($params['image']);
+		unset($params['item'], $params['image']);
+
 
 		if (isset($params['fallback'])) {
 			$fallback = $params['fallback'];
@@ -789,10 +789,10 @@ class GalleryTemplateAdapter {
 		$type      = isset($params['type']) ? $params['type'] : 'link';
 		$lowercase = !empty($params['lowercase']);
 		$text      = isset($params['text']) ? $params['text'] : $link['text'];
-		unset($params['link']);
-		unset($params['type']);
-		unset($params['lowercase']);
-		unset($params['text']);
+		unset($params['link'], $params['type'], $params['lowercase'], $params['text']);
+
+
+
 
 		$linkURL = $urlGenerator->generateUrl($link['params'], $link['options']);
 
@@ -1371,7 +1371,7 @@ class GalleryTemplateAdapter {
 				 * Unlikely this will ever be used.. but do update it if exact form of
 				 * translate() calls (with text+arg1+arg2) in this function ever change.
 				 */
-				$gallery->runEval(
+				GalleryUtilities::doEval(
 					'class GalleryTemplateAdapterFallbackCoreModule {
 						function translate($x) {
 							return sprintf($x[\'text\'], $x[\'arg1\'], $x[\'arg2\']);

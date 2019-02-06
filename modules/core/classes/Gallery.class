@@ -172,16 +172,16 @@ class Gallery {
 
 		// Default config settings (can be overridden via config.php or embedded environment)
 		$this->_config = array(
-			'login' => true,        // Offer UserAdmin links (Login/Logout/Your Account)
+			'login'             => true,        // Offer UserAdmin links (Login/Logout/Your Account)
 
 			// UrlGenerator parameters for redirect URL to login page. Can be overridden.
-			'loginRedirect' => array(
+			'loginRedirect'     => array(
 				'view'    => 'core.UserAdmin',
 				'subView' => 'core.UserLogin',
 				'return'  => true,
 			),
 
-			'link'  => true,      // @deprecated - Allow item linking
+			'link'              => true,      // @deprecated - Allow item linking
 			// (now unused, there is a separate replica module
 
 			'showSidebarBlocks' => true, // Can we allow themes to show the sidebar?
@@ -1046,22 +1046,5 @@ class Gallery {
 		}
 
 		return $this->_phpVm;
-	}
-
-	/**
-	 * Replacement function for PHP Eval
-	 */
-	public function runEval($code) {
-		$tempfile = tempnam(sys_get_temp_dir(), 'EVL');
-		file_put_contents($tempfile, $code);
-
-		ob_start();
-
-		include $tempfile;
-		$data = ob_get_contents();
-		ob_end_clean();
-		unlink($tempfile);
-
-		return $data;
 	}
 }
