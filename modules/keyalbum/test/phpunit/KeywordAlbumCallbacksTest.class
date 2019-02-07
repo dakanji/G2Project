@@ -408,7 +408,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$aclCacheKey = "GalleryPermissionHelper::fetchAccessListIds(core.view,$guestId,1)";
+		$aclCacheKey = "GalleryPermissionHelper::fetchAccessListIds(core.view, $guestId, 1)";
 
 		$this->_smarty->_tpl_vars['block']['keyalbum'] = array();
 
@@ -633,11 +633,11 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		$block =& $this->_smarty->_tpl_vars['block']['keyalbum'];
 
 		foreach (array(
-			''        => array(),
-			'test'    => array(
+			''                    => array(),
+			'test'                => array(
 				'test' => 'test',
 			),
-			'one,two;three four' => array(
+			'one,two;three four'  => array(
 				'one'   => 'one',
 				'two'   => 'two',
 				'three' => 'three',
@@ -648,7 +648,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 				'two' => 'two',
 				'3'   => '3',
 			),
-			'B&amp;W' => array(
+			'B&amp;W'             => array(
 				'B&W' => 'B&amp;W',
 			),
 		) as $keywords => $split) {
@@ -680,13 +680,13 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		}
 
 		foreach (array(
-			''        => array(),
-			'test'    => array(
+			''                    => array(),
+			'test'                => array(
 				'test' => 'test',
 			),
-			'one,two;three four' => array(
-				'one' => 'one',
-				'two' => 'two',
+			'one,two;three four'  => array(
+				'one'        => 'one',
+				'two'        => 'two',
 				'three four' => 'three four',
 			),
 			' one ,; two; , , 3 ' => array(
@@ -694,7 +694,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 				'two' => 'two',
 				'3'   => '3',
 			),
-			'B&amp;W' => array(
+			'B&amp;W'             => array(
 				'B&W' => 'B&amp;W',
 			),
 		) as $keywords => $split) {
