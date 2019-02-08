@@ -786,8 +786,7 @@ class GalleryUtilities {
 			}
 		} else {
 			// Unsanitize dangerous html entities
-			// bugs.php.net/bug.php?id=22014 - TODO: remove empty check when min php is 4.3.2+
-			$value = empty($value) ? $value : html_entity_decode($value);
+			$value = html_entity_decode($value);
 
 			// Redo the damage caused by magic_quotes
 			if ($adaptForMagicQuotes) {
