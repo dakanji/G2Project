@@ -132,12 +132,12 @@ class FfmpegToolkitTest extends GalleryTestCase {
 				),
 				'video-framerate' => array(
 					'type'        => 'float',
-					'description' => 'Get video frames per seconds of the movie',
+					'description' => 'Get video frames per second of the movie',
 					'mimeTypes'   => $expectedMimeTypes,
 				),
 				'audio-samplerate' => array(
 					'type'        => 'int',
-					'description' => 'Get audio samples per seconds of the movie',
+					'description' => 'Get audio samples per second of the movie',
 					'mimeTypes'   => $expectedMimeTypes,
 				),
 				'audio-channels' => array(
@@ -427,7 +427,9 @@ class FfmpegToolkitTest extends GalleryTestCase {
 	}
 
 	public function testBinariesFormat046Output() {
-		list($ret, $results, $mimeTypes, $supportsOffset) = FfmpegToolkitHelper::testBinary('/validPath/ffmpeg046FormatsOutput');
+		list($ret, $results, $mimeTypes, $supportsOffset) = FfmpegToolkitHelper::testBinary(
+			'/validPath/ffmpeg046FormatsOutput'
+		);
 
 		if ($ret) {
 			return $ret;

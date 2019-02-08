@@ -210,7 +210,7 @@ class FfmpegToolkitHelper {
 		$properties['video-framerate']['type'] = 'float';
 
 		$properties['video-framerate']['description'] = $gallery->i18n(
-			'Get video frames per seconds of the movie'
+			'Get video frames per second of the movie'
 		);
 
 		$properties['video-framerate']['mimeTypes'] = $mimeTypes;
