@@ -257,6 +257,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+		
 		$this->assertEquals(1, (int)GalleryUtilities::getRequestVariables('toolkitCallCount'));
 		$this->assertEquals('image/jpeg', $mimeType);
 
@@ -308,10 +309,16 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			array(
 				'next.toolkit'     => null,
 				'next.operation'   => null,
-				'width'            => 103,
-				'height'           => 156,
+				'width'            => 103.0,
+				'height'           => 156.0,
 				'netpbm.transform' => array(
-					array($netPbmPath . 'pnmcut', (float)49, (float)71, (float)103, (float)156),
+					array(
+						$netPbmPath . 'pnmcut',
+						(float)49.0,
+						(float)71.0,
+						(float)103.0,
+						(float)156.0,
+					),
 				),
 				'netpbm.mime'     => 'image/png',
 				'netpbm.metadata' => true,
@@ -335,10 +342,11 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		$this->assertTrue(!isset($context['netpbm.transform']), 'extra stuff in context');
 
 		// Ensure if thumbnail operation gets queued it remembers not to preserve metadata
-		$context                        = array(
+		$context = array(
 			'next.toolkit'   => $this->_toolkit,
 			'next.operation' => 'crop',
 		);
+
 		list($ret, $mimeType, $context) = $this->_toolkit->performOperation(
 			'image/png',
 			'thumbnail',
@@ -354,6 +362,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 
 		$context['next.toolkit']   = null;
 		$context['next.operation'] = null;
+
 		$this->assertEquals(
 			array(
 				'next.toolkit'     => null,
@@ -1096,10 +1105,10 @@ class NetPbmToolkitTestPlatform extends WinNtPlatform {
 		return null;
 	}
 
-	public function exec($cmd) {
+	public function exec($cmd, $returnErrorOutput = false) {
 		global $gallery;
 
-		$toolkitCallCount = GalleryUtilities::getRequestVariables('toolkitCallCount');
+		$toolkitCallCount = (int)GalleryUtilities::getRequestVariables('toolkitCallCount');
 		GalleryUtilities::putRequestVariable('toolkitCallCount', $toolkitCallCount + 1);
 
 		if (serialize($cmd) == serialize(
@@ -1273,7 +1282,14 @@ class NetPbmToolkitTestPlatform extends WinNtPlatform {
 		if (serialize($cmd) == serialize(
 			array(
 				array($this->_netPbmPath . 'pngtopnm', '--quiet', 'testPerformOperations8.png'),
-				array($this->_netPbmPath . 'pnmcut', (float)49, (float)71, (float)103, (float)156),
+				array(
+					$this->_netPbmPath .
+					'pnmcut',
+					(float)49.0,
+					(float)71.0,
+					(float)103.0,
+					(float)156.0,
+				),
 				array($this->_netPbmPath . 'pnmtopng', '>', 'TEMPFILE'),
 			)
 		)
@@ -1354,7 +1370,13 @@ class NetPbmToolkitTestPlatform extends WinNtPlatform {
 		if (serialize($cmd) == serialize(
 			array(
 				array($this->_netPbmPath . 'pngtopnm', '--quiet', 'testPerformOperations8.png'),
-				array($this->_netPbmPath . 'pnmcut', (float)49, (float)71, (float)103, (float)156),
+				array(
+					$this->_netPbmPath . 'pnmcut',
+					(float)49.0,
+					(float)71.0,
+					(float)103.0,
+					(float)156.0,
+				),
 				array($this->_netPbmPath . 'pnmscale', '--quiet', '-xysize', 100, 100),
 				array($this->_netPbmPath . 'pnmtopng', '>', 'TEMPFILE'),
 			)

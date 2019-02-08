@@ -55,7 +55,9 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 			}
 		}
 
-		$gallery->setPlatform(new AdminNetPbmControllerTestPlatform($gallery->getPlatform()));
+		$mainPlatform = $gallery->getPlatform();
+		$testPlatform = new AdminNetPbmControllerTestPlatform($mainPlatform);
+		$gallery->setPlatform($testPlatform);
 	}
 
 	public function testSaveGoodNetPbmPathNoJheadPath() {
