@@ -38,7 +38,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
-		list($ret, $aclIds) = 		GalleryCoreApi::fetchAccessListIds($permission, $gallery->getActiveUserId());
+		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds($permission, $gallery->getActiveUserId());
 
 		if ($ret) {
 			return array($ret, null);
@@ -50,20 +50,20 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
 		$query = sprintf('
-	SELECT
-	  [GalleryItem::id]
-	FROM
-	  [GalleryEntity], [GalleryItem], [GalleryAccessSubscriberMap]
-	WHERE
-	  [GalleryEntity::entityType] = ?
-	  AND
-	  [GalleryItem::id] = [GalleryEntity::id]
-	  AND
-	  [GalleryAccessSubscriberMap::itemId] = [GalleryEntity::id]
-	  AND
-	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
-	ORDER BY [GalleryItem::title]
-	', $aclMarkers);
+			SELECT
+				[GalleryItem::id]
+			FROM
+				[GalleryEntity], [GalleryItem], [GalleryAccessSubscriberMap]
+			WHERE
+				[GalleryEntity::entityType] = ?
+			AND
+				[GalleryItem::id] = [GalleryEntity::id]
+			AND
+				[GalleryAccessSubscriberMap::itemId] = [GalleryEntity::id]
+			AND
+				[GalleryAccessSubscriberMap::accessListId] IN (%s)
+			ORDER BY [GalleryItem::title]
+		', $aclMarkers);
 
 		$data   = array();
 		$data[] = $itemType;
@@ -97,14 +97,15 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		$storage =& $gallery->getStorage();
 
 		// Search the item table for all items with owner = $ownerId
-		$query                    = '
-	SELECT
-	  [GalleryItem::id]
-	FROM
-	  [GalleryItem]
-	WHERE
-	  [GalleryItem::ownerId] = ?
-	';
+		$query = '
+			SELECT
+				[GalleryItem::id]
+			FROM
+				[GalleryItem]
+			WHERE
+				[GalleryItem::ownerId] = ?
+		';
+
 		list($ret, $queryResults) = $gallery->search($query, array((int)$ownerId));
 
 		if ($ret) {
@@ -171,7 +172,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 			'Failed to create item type %s, falling back on unknown',
 					get_class($newItem)
 		));
-				list($ret, $newItem) = 			GalleryCoreApi::newFactoryInstanceById('GalleryEntity', 'GalleryUnknownItem');
+				list($ret, $newItem) = GalleryCoreApi::newFactoryInstanceById('GalleryEntity', 'GalleryUnknownItem');
 
 				if (!isset($newItem)) {
 					return array(GalleryCoreApi::error(
@@ -229,7 +230,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		if (! GalleryUtilities::isA($item, 'GalleryDataItem')) {
 			return array(null, null);
 		}
-		list($ret, $toolkits) = 		GalleryCoreApi::getToolkitsByProperty($item->getMimeType(), 'originationTimestamp');
+		list($ret, $toolkits) = GalleryCoreApi::getToolkitsByProperty($item->getMimeType(), 'originationTimestamp');
 
 		if ($ret) {
 			return array($ret, null);
@@ -244,7 +245,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 
 			foreach ($toolkits as $toolkit) {
 				if (isset($toolkit)) {
-					list($ret, $originationTimestamp) = 			$toolkit->getProperty($item->getMimeType(), 'originationTimestamp', $path);
+					list($ret, $originationTimestamp) = $toolkit->getProperty($item->getMimeType(), 'originationTimestamp', $path);
 
 					if ($ret) {
 						return array($ret, null);
@@ -319,7 +320,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		}
 
 		if (!$isViewable && isset($operations)) {
-			list($ret, $newOperations, $outputMimeType) = 		GalleryCoreApi::makeSupportedViewableOperationSequence(
+			list($ret, $newOperations, $outputMimeType) = GalleryCoreApi::makeSupportedViewableOperationSequence(
 			$mimeType,
 			$operations,
 			false
@@ -415,8 +416,10 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		}
 
 		// Get existing derivatives
-		$derivs = array(DERIVATIVE_TYPE_IMAGE_THUMBNAIL => array(),
-			DERIVATIVE_TYPE_IMAGE_RESIZE                   => array(), );
+		$derivs = array(
+			DERIVATIVE_TYPE_IMAGE_THUMBNAIL => array(),
+			DERIVATIVE_TYPE_IMAGE_RESIZE    => array(),
+		);
 
 		if (!$isNew) {
 			list($ret, $tmp) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
@@ -537,7 +540,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 			 * Validate/update the operations to make sure that they're supported
 			 * by an active toolkit and produce a viewable mime type.
 			 */
-			list($ret, $operations, $outputMimeType) = 		GalleryCoreApi::makeSupportedViewableOperationSequence(
+			list($ret, $operations, $outputMimeType) = GalleryCoreApi::makeSupportedViewableOperationSequence(
 			$mimeType,
 			$operations,
 			$type == DERIVATIVE_TYPE_IMAGE_THUMBNAIL
@@ -602,14 +605,14 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 
 		if ($itemHasThumbnail) {
 			// See if the album has a thumbnail.  If not, try to use this item as the thumbnail.
-			list($ret, $thumbnailTable) = 		GalleryCoreApi::fetchThumbnailsByItemIds(array($albumId));
+			list($ret, $thumbnailTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($albumId));
 
 			if ($ret) {
 				return $ret;
 			}
 
 			if (empty($thumbnailTable)) {
-				list($ret, $success) = 			GalleryCoreApi::setThumbnailFromItem($albumId, $item->getId());
+				list($ret, $success) = GalleryCoreApi::setThumbnailFromItem($albumId, $item->getId());
 
 				if ($ret) {
 					return $ret;
@@ -627,7 +630,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		global $gallery;
 
 		// Load the current album thumbnail.
-		list($ret, $thumbnailTable) = 		GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId, $fromItemId));
+		list($ret, $thumbnailTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId, $fromItemId));
 
 		if ($ret) {
 			return array($ret, false);
@@ -787,7 +790,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 				if (empty($parentId)) {
 					$parentId = $item->getId();
 				}
-				list($ret, $preferences) = 			GalleryCoreApi::fetchDerivativePreferencesForItem($parentId);
+				list($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem($parentId);
 
 				if ($ret) {
 					if (!empty($lockIds)) {
@@ -821,14 +824,14 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 				 * Validate the stored preferences to make sure that
 				 * they're supported by an active toolkit.
 				 */
-				list($ret, $isSupported, $outputMimeType) = 			GalleryCoreApi::isSupportedOperationSequence(
-			$sourceMimeType,
-				$derivativeOperations
-			);
+				list($ret, $isSupported, $outputMimeType) = GalleryCoreApi::isSupportedOperationSequence(
+					$sourceMimeType,
+					$derivativeOperations
+				);
 
 				if ($ret) {
 					if (!empty($lockIds)) {
-						// Ignore errors -- we're already in an error handler
+						// Ignore errors -- we are already in an error handler
 						GalleryCoreApi::releaseLocks($lockIds);
 					}
 
@@ -893,7 +896,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 			}
 
 			if (empty($thumbTable)) {
-				list($ret, $success) = 			GalleryItemHelper_medium::setThumbnailFromItem($parentId, $itemId);
+				list($ret, $success) = GalleryItemHelper_medium::setThumbnailFromItem($parentId, $itemId);
 
 				if ($ret) {
 					return array($ret, null);
@@ -928,9 +931,9 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 	public static function invalidateDescendentCountCaches($userId, $itemId) {
 		if (!empty($userId) && empty($itemId)) {
 			$ret = GalleryCoreApi::removeMapEntry(
-		'GalleryDescendentCountsMap',
-			array('userId' => $userId)
-		);
+				'GalleryDescendentCountsMap',
+				array('userId' => $userId)
+			);
 
 			if ($ret) {
 				return $ret;
@@ -950,7 +953,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 						/*
-						 * It's legal to invalidate for objects that are in the
+						 * It is legal to invalidate for objects that are in the
 						 * process of being created
 						 */
 						continue;
@@ -993,9 +996,9 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 
 		if ($event->getEventName() == 'Gallery::ViewableTreeChange') {
 			$ret = GalleryItemHelper_medium::invalidateDescendentCountCaches(
-			$param['userId'],
-			$param['itemId']
-		);
+				$param['userId'],
+				$param['itemId']
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -1037,7 +1040,11 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 			}
 
 			// At the moment, we only have FastDownload files for the guest/anonymous user
-			list($ret, $anonymousUserId) = 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+			list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'core',
+				'id.anonymousUser'
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -1051,9 +1058,13 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 			$groupIds       = array_keys($groupIds);
 			$groupIntersect = array_intersect(array($param['groupId']), $groupIds);
 
-			if (isset($param['userId']) && ($param['userId'] == 0 ||
-						$param['userId'] == $anonymousUserId) ||
-		isset($param['groupId']) && ($param['groupId'] == 0 || !empty($groupIntersect))) {
+			if (isset($param['userId'])
+				&& ($param['userId'] == 0
+				|| $param['userId'] == $anonymousUserId)
+				|| isset($param['groupId'])
+				&& ($param['groupId'] == 0
+				|| !empty($groupIntersect))
+			) {
 				$thumbnailIds      = array();
 				$resizeIds         = array();
 				$preferredIds      = array();
@@ -1091,7 +1102,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 				}
 
 				// Load the thumbnails, resizes, and preferreds
-				list($ret, $thumbnails) = 			GalleryCoreApi::fetchThumbnailsByItemIds($thumbnailIds);
+				list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($thumbnailIds);
 
 				if ($ret) {
 					return array($ret, null);
@@ -1123,8 +1134,9 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 					GalleryCoreApi::deleteFastDownloadFileById($id);
 				}
 			}
-		} elseif ($event->getEventName() == 'GalleryEntity::save' ||
-		$event->getEventName() == 'GalleryEntity::delete') {
+		} elseif ($event->getEventName() == 'GalleryEntity::save'
+			|| $event->getEventName() == 'GalleryEntity::delete'
+		) {
 			$entity = $event->getEntity();
 
 			$expireItemIds = array($entity->getId());

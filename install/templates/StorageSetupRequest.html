@@ -13,8 +13,9 @@
 		<?php echo _('Errors occurred. Please see messages below.'); ?>
 	  </h2>
 	</div>
-	<?php
-} ?>
+		<?php
+}
+	?>
 
 	<h1><?php echo _('Storage Setup'); ?></h1>
 
@@ -48,78 +49,91 @@
 	  </p>
 			<?php echo _('Yes, please omit the security check:'); ?>
 	  <input type="checkbox" name="i_acknowledge_the_risk"/>
-		<?php
-		} ?>
+			<?php
+		}
+		?>
 	</div>
 
-	<?php if (isset($templateData['isMultisite']) && $templateData['isMultisite']) {
-			?>
+	<?php
+	if (isset($templateData['isMultisite']) && $templateData['isMultisite']) {
+		?>
 	<p class="warning">
 		<?php echo _('This is a multisite installation. Remember that each multisite requires its own storage directory.'); ?>
 	</p>
-	<?php
-		} ?>
+		<?php
+	}
+	?>
 
 	<p>
 		<?php echo _("If you're using a modern browser, we'll try to autocomplete any path you enter here.  So if you're having trouble finding the right path to your g2data directory, try experimenting with paths in the text box below and see what completions it provides for you."); ?>
 	</p>
 
-	<?php if (isset($templateData['error'])) {
-			?>
+	<?php
+	if (isset($templateData['error'])) {
+		?>
 	  <div class="error">
-		<?php if (isset($templateData['error']['missing_value'])) {
-				?>
+		<?php
+		if (isset($templateData['error']['missing_value'])) {
+			?>
 			<?php echo _('You must enter a directory'); ?>
+			<?php
+		} ?>
 		<?php
-			} ?>
-		<?php if (isset($templateData['error']['missing_dir'])) {
-				?>
+		if (isset($templateData['error']['missing_dir'])) {
+			?>
 			<?php echo _('The directory you entered does not exist'); ?>
+			<?php
+		} ?>
 		<?php
-			} ?>
-		<?php if (isset($templateData['error']['in_gallery_dir'])) {
-				?>
+		if (isset($templateData['error']['in_gallery_dir'])) {
+			?>
 			<?php echo _('Do not use the installation directory for storage'); ?>
+			<?php
+		} ?>
 		<?php
-			} ?>
-		<?php if (isset($templateData['error']['inaccessible_dir'])) {
-				?>
+		if (isset($templateData['error']['inaccessible_dir'])) {
+			?>
 			<?php echo _('The directory you entered is not accessible.  Change the permissions so that the webserver can read this directory.'); ?>
+			<?php
+		} ?>
 		<?php
-			} ?>
-		<?php if (isset($templateData['error']['readonly_dir'])) {
-				?>
+		if (isset($templateData['error']['readonly_dir'])) {
+			?>
 			<?php echo _('The directory you entered is read only'); ?>
+			<?php
+		} ?>
 		<?php
-			} ?>
-		<?php if (isset($templateData['error']['creation_error'])) {
-				?>
+		if (isset($templateData['error']['creation_error'])) {
+			?>
 			<?php echo _('There was an error creating the directory structure within the storage directory.'); ?>
+			<?php
+		} ?>
 		<?php
-			} ?>
-		<?php if (isset($templateData['error']['web_accessible_dir'])) {
-				?>
+		if (isset($templateData['error']['web_accessible_dir'])) {
+			?>
 			<?php
 			printf(
 				_('Your storage directory is %sweb accessible%s.'),
 				'<a href="http://codex.gallery2.org/index.php/Gallery2:Security#What_does_web-accessible_mean_.2F_what_is_the_document_root.3F" target="_blank">',
 				'</a>'
 			); ?>
+			<?php
+		} ?>
 		<?php
-			} ?>
-		<?php if (isset($templateData['error']['possibly_web_accessible_dir'])) {
-				?>
+		if (isset($templateData['error']['possibly_web_accessible_dir'])) {
+			?>
 			<?php
 			printf(
 				_('Unable to verify that the storage directory is not %sweb accessible%s.'),
 				'<a href="http://codex.gallery2.org/index.php/Gallery2:Security#What_does_web-accessible_mean_.2F_what_is_the_document_root.3F" target="_blank">',
 				'</a>'
 			); ?>
-		<?php
-			} ?>
-	  </div>
-	<?php
+			<?php
 		} ?>
+	  </div>
+		<?php
+	}
+	?>
 
 	<span class="label"><?php echo _('Directory path:'); ?></span>
 	<input id="dir" name="dir" type="text" size="50"
@@ -155,8 +169,9 @@
 	  </i>
 	</p>
 
-	<?php if ($templateData['OS'] == 'unix') {
-			?>
+	<?php
+	if ($templateData['OS'] == 'unix') {
+		?>
 	<div class="example">
 	  <h2> <?php echo _('Unix (with shell access)'); ?> </h2>
 	  <pre> $ <b>mkdir <?php echo $templateData['dir']; ?></b><br/> $ <b>chmod 777 <?php echo $templateData['dir']; ?></b></pre>
@@ -168,18 +183,20 @@
 	  <pre> ftp&gt; <b>cd <?php echo dirname($templateData['dir']); ?></b><br/> ftp&gt; <b>mkdir <?php echo basename($templateData['dir']); ?></b><br/> ftp&gt; <b>chmod 777 <?php echo basename($templateData['dir']); ?></b></pre>
 	</div>
 
-	<?php
-		} else {
-			?>
+		<?php
+	} else {
+		?>
 	<div class="example">
 	  <h2> Windows </h2>
 	  <pre> C:\&gt; <b>mkdir <?php echo $templateData['dir']; ?></b></pre>
 	</div>
-	<?php
-		} ?>
+		<?php
+	}
+	?>
 
-	<?php if (isset($templateData['error']['missing_dir'])) {
-			?>
+	<?php
+	if (isset($templateData['error']['missing_dir'])) {
+		?>
 	<p>
 		<?php echo _('In some web hosting environments, the paths that you see in the shell or via FTP are not the same paths that PHP sees.  In order to find out the real path to your data directory, you can try creating a PHP script called <b>dir.php</b> containing the following code in it and put it into your data directory.'); ?>
 	</p>
@@ -195,8 +212,9 @@
 	<p>
 		<?php echo _('<b>Note</b>: Don\'t forget to delete dir.php when you\'re done!'); ?>
 	</p>
-	<?php
-		} ?>
+		<?php
+	}
+	?>
 
 	<div class="warning">
 		<?php printf(_('For information on how to secure your Gallery storage directory, please read the %sSecurity Guide%s.'), '<a href="http://codex.gallery2.org/index.php/Gallery2:Security" target="_blank">', '</a>'); ?>

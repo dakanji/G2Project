@@ -5,8 +5,9 @@
 		<?php echo _('Install Steps'); ?>
 	  </td>
 	</tr>
-	<?php for ($i = 0; $i < count($steps); $i++) {
-	?>
+	<?php
+	for ($i = 0; $i < count($steps); $i++) {
+		?>
 	<tr>
 	  <td class="navnum">
 		<?php
@@ -15,15 +16,15 @@
 		) {
 			?>
 		<span class="success">&radic;</span>
-		<?php
+			<?php
 		} elseif ($steps[$i]->isInError()) {
 			?>
 		<span class="error">&#10007;</span>
-		<?php
+			<?php
 		} else {
 			?>
 			<?php echo $i; ?>
-		<?php
+			<?php
 		} ?>
 	  </td>
 	  <td class="navtext">
@@ -31,26 +32,30 @@
 		$linkable = ($i == 0 ||
 			  ($i <= $currentStep->getStepNumber() + 1 &&
 			   ($steps[$i - 1]->isComplete() || $steps[$i - 1]->isOptional()))); ?>
-		<?php if ($linkable) {
-			   	?>
+		<?php
+		if ($linkable) {
+			?>
 		  <a href="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $i)); ?>"
-				<?php if ($i == $currentStep->getStepNumber()) {
-			   		?>
-				class="current"
 				<?php
-			   	} ?>
+				if ($i == $currentStep->getStepNumber()) {
+					?>
+				class="current"
+					<?php
+				} ?>
 			  >
-		<?php
-			   } ?>
+			<?php
+		} ?>
 		<?php echo $steps[$i]->stepName(); ?>
-		<?php if ($linkable) {
-			   	?>
-		  </a>
 		<?php
-			   } ?>
+		if ($linkable) {
+			?>
+		  </a>
+			<?php
+		} ?>
 	  </td>
 	</tr>
-	<?php
-} ?>
+		<?php
+	}
+	?>
   </table>
 </div>

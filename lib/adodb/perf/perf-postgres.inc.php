@@ -147,11 +147,9 @@ class perf_postgres extends adodb_perf {
 				break;
 
 			default:
-
 				ADOConnection::outp(sprintf("<p>%s: '%s' using of undefined mode '%s'</p>", __CLASS__, 'optimizeTable', $mode));
 
 				return false;
-
 		}
 		$sql = sprintf($sql, $table);
 

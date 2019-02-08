@@ -183,7 +183,7 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 					'success' => true,
 				);
 			} elseif (isset($form['error']['unzipPath']['exec'])) {
-				$test = array(
+				$test                             = array(
 					'name'    => 'unzip',
 					'success' => false,
 				);

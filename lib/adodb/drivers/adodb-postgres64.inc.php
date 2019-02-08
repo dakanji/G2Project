@@ -908,7 +908,7 @@ class ADODB_postgres64 extends ADOConnection {
 				where firstname not like ? and lastname not like ? and id = ?"
 
 			with plan = 1.51861286163 secs
-			no plan =   1.26903700829 secs
+			no plan = 1.26903700829 secs
 			*/
 			$plan = 'P' . md5($sql);
 

@@ -724,12 +724,12 @@ class GalleryRepositoryUtilities {
 				$isDescriptor = false;
 			} elseif (preg_match($basePattern, $line, $matches)) {
 				list($value, $file, $pluginType, $pluginId, $needsInflation, $byteCount) = $matches;
-				$packageName                                                             = 'base';
-				$isDescriptor                                                            = false;
+				$packageName  = 'base';
+				$isDescriptor = false;
 			} elseif (preg_match($descriptorPattern, $line, $matches)) {
 				list($value, $file, $pluginType, $pluginId, $needsInflation, $byteCount) = $matches;
-				$packageName                                                             = null;
-				$isDescriptor                                                            = true;
+				$packageName  = null;
+				$isDescriptor = true;
 			} else {
 				$platform->fclose($handle);
 

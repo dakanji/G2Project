@@ -318,7 +318,12 @@ class ItemMoveView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$albumIds  = $albumTree = $selectedIds = $peers = $peerDescendentCounts = array();
+		$albumIds              = array();
+		$albumTree             = array();
+		$selectedIds           = array();
+		$peers                 = array();
+		$peerDescendentCounts  = array();
+		
 		$peerTypes = array(
 			'album' => array(),
 			'data'  => array(),
@@ -407,7 +412,9 @@ class ItemMoveView extends GalleryView {
 
 			// Get child counts
 			if (!empty($peerTypes['album'])) {
-				list($ret, $peerDescendentCounts) = GalleryCoreApi::fetchDescendentCounts(array_keys($peerTypes['album']));
+				list($ret, $peerDescendentCounts) = GalleryCoreApi::fetchDescendentCounts(
+					array_keys($peerTypes['album'])
+				);
 
 				if ($ret) {
 					return array($ret, null);
@@ -443,7 +450,10 @@ class ItemMoveView extends GalleryView {
 			);
 
 			// Load all the album entities
-			list($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds['allIds'], 'GalleryAlbumItem');
+			list($ret, $albums) = GalleryCoreApi::loadEntitiesById(
+				$albumIds['allIds'], 
+				'GalleryAlbumItem'
+			);
 
 			if ($ret) {
 				return array($ret, null);

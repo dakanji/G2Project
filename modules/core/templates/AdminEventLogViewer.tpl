@@ -86,7 +86,7 @@ function setRecord(index, record) {
   row.childNodes[i++].innerHTML = locationLink.replace('__PLACEHOLDER__', record['location']);
   row.childNodes[i++].innerHTML = record['client'];
   var summary = record['summary'] ? record['summary'] : '<i>' + noSummaryText + '</i>';
-  row.childNodes[i++].innerHTML =     '<a href="javascript:getRecordDetails(' + record['id'] + ')">' + summary + '</a>';
+  row.childNodes[i++].innerHTML = '<a href="javascript:getRecordDetails(' + record['id'] + ')">' + summary + '</a>';
 }
 
 function changePage(deltaPages) {

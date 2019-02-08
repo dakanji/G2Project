@@ -114,8 +114,13 @@ class RatingHelperTest extends GalleryTestCase {
 		$this->assertTrue($session->isPersistent(), 'is persistent');
 		$this->assertTrue(!empty($session->_sessionId), 'session id');
 
-		$testRating             = mt_rand(1, 5);
-		list($ret, $RatingData) = RatingHelper::rateItem($this->_item->getId(), $testRating, $this->_users[0]->getId());
+		$testRating = mt_rand(1, 5);
+
+		list($ret, $RatingData) = RatingHelper::rateItem(
+			$this->_item->getId(),
+			$testRating,
+			$this->_users[0]->getId()
+		);
 
 		if ($ret) {
 			return $ret;
@@ -167,7 +172,11 @@ class RatingHelperTest extends GalleryTestCase {
 		$this->_becomeGuestUser();
 		$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
 
-		list($ret, $guestId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+		list($ret, $guestId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'core',
+			'id.anonymousUser'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -176,13 +185,21 @@ class RatingHelperTest extends GalleryTestCase {
 
 		// Rate!
 		$testRating             = mt_rand(1, 5);
-		list($ret, $RatingData) = RatingHelper::rateItem($this->_item->getId(), 3, $anonymousUserId);
+		list($ret, $RatingData) = RatingHelper::rateItem(
+			$this->_item->getId(),
+			3,
+			$anonymousUserId
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 		$this->assertTrue($gallery->_session->isPersistent(), 'is persistent');
-		list($ret, $RatingData) = RatingHelper::rateItem($this->_item->getId(), $testRating, $anonymousUserId);
+		list($ret, $RatingData) = RatingHelper::rateItem(
+			$this->_item->getId(),
+			$testRating,
+			$anonymousUserId
+		);
 
 		if ($ret) {
 			return $ret;
@@ -195,7 +212,11 @@ class RatingHelperTest extends GalleryTestCase {
 
 	public function testRateBogusItem() {
 		$testRating             = mt_rand(1, 5);
-		list($ret, $RatingData) = RatingHelper::rateItem(-1, $testRating, $this->_users[0]->getId());
+		list($ret, $RatingData) = RatingHelper::rateItem(
+			-1,
+			$testRating,
+			$this->_users[0]->getId()
+		);
 		// This *should* fail.
 		$this->assertTrue($ret, 'expected error');
 
@@ -210,7 +231,11 @@ class RatingHelperTest extends GalleryTestCase {
 
 		foreach ($this->_users as $user) {
 			$testRating             = mt_rand(1, 5);
-			list($ret, $RatingData) = RatingHelper::rateItem($this->_item->getId(), $testRating, $user->getId());
+			list($ret, $RatingData) = RatingHelper::rateItem(
+				$this->_item->getId(),
+				$testRating,
+				$user->getId()
+			);
 
 			if ($ret) {
 				return $ret;
@@ -267,7 +292,11 @@ class RatingHelperTest extends GalleryTestCase {
 		$this->assertTrue($session->isPersistent(), 'is persistent');
 		$this->assertTrue(!empty($session->_sessionId), 'session id');
 
-		list($ret, $guestId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+		list($ret, $guestId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'core',
+			'id.anonymousUser'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -298,7 +327,11 @@ class RatingHelperTest extends GalleryTestCase {
 			}
 
 			$testRating             = mt_rand(1, 5);
-			list($ret, $RatingData) = RatingHelper::rateItem($this->_item->getId(), $testRating, $userId);
+			list($ret, $RatingData) = RatingHelper::rateItem(
+				$this->_item->getId(),
+				$testRating,
+				$userId
+			);
 
 			if ($ret) {
 				return $ret;
@@ -531,7 +564,12 @@ class RatingHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(
-			array($items[3]->getId(), $items[1]->getId(), $items[2]->getId(), $items[0]->getId()),
+			array(
+				$items[3]->getId(),
+				$items[1]->getId(),
+				$items[2]->getId(),
+				$items[0]->getId(),
+			),
 			$childIds,
 			'order of child ids'
 		);

@@ -1350,8 +1350,8 @@ class GalleryUtilities {
 					);
 				} else {
 					list($file, $cksum, $cksum_crlf, $size, $size_crlf) = $line;
-					$file                                               = trim($file);
-					$manifest[$file]                                    = array(
+					$file            = trim($file);
+					$manifest[$file] = array(
 						'checksum'      => $cksum,
 						'checksum_crlf' => $cksum_crlf,
 						'size'          => $size,

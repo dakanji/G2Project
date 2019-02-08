@@ -11,8 +11,7 @@
 
   SQLite info: http://www.hwaci.com/sw/sqlite/
 
-  Install Instructions:
-  ====================
+  Install Instructions: ====================
   1. Place this in adodb/drivers
   2. Rename the file, remove the .txt prefix.
 */

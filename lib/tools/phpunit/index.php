@@ -536,7 +536,7 @@ if (isset($_GET['filter'])) {
 	$filter = trim($_GET['filter']);
 
 	if (substr($filter, -5) == ':1by1') {
-		$testOneByOne   = $compactView = 1;
+		$testOneByOne   = $compactView   = 1;
 		$_GET['filter'] = $filter = substr($filter, 0, -3) . '-1';
 	} elseif (!empty($_GET['onebyone'])) {
 		$testOneByOne = $compactView = (int)substr($filter, strrpos($filter, '-') + 1);

@@ -8,14 +8,12 @@
   the BSD license will take precedence.
 	  Set tabs to 4 for best viewing.
 
-  Latest version of ADODB is available at http://php.weblogs.com/adodb
-  ======================================================================
+  Latest version of ADODB is available at http://php.weblogs.com/adodb ======================================================================
 
  This file provides PHP4 session management using the ADODB database
  wrapper library, using Oracle CLOB's to store data. Contributed by achim.gosse@ddd.de.
 
- Example
- =======
+ Example =======
 
 	include('adodb.inc.php');
 	include('adodb-session.php');
@@ -37,8 +35,7 @@ To force non-persistent connections, call adodb_session_open first before sessio
 -- \$_SESSION['AVAR']={$_SESSION['AVAR']}</p>";
 
 
- Installation
- ============
+ Installation ============
  1. Create this table in your database (syntax might vary depending on your db):
 
   create table sessions (

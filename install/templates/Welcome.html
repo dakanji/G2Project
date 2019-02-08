@@ -31,8 +31,9 @@
 	  </select>
 	  <noscript><input type="submit" value="<?php echo _('Go'); ?>"/></noscript>
 	</p></form>
-	<?php
-	} ?>
+		<?php
+	}
+	?>
 
 	<div class="go">
 	  <a href="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $stepNumber + 1)); ?>" class="btn continue"><i></i><span><span></span><i></i><?php echo _('Begin Installation&raquo;'); ?></span></a>

@@ -154,11 +154,11 @@ class GalleryStorageExtras {
 
 			while ($target) {
 				foreach ($memberInfo[$target]['members'] as $columnName => $columnInfo) {
-					list($tableName, $unused)                                                  = $this->_gs->_translateTableName($target);
-					$memberData[]                                                              = $columnInfo;
-					$callbacks[]                                                               = $columnName;
+					list($tableName, $unused) = $this->_gs->_translateTableName($target);
+					$memberData[]             = $columnInfo;
+					$callbacks[]              = $columnName;
 					$columns[$tableName . '.' . $this->_gs->_translateColumnName($columnName)] = 1;
-					$tables[$tableName]                                                        = 1;
+					$tables[$tableName] = 1;
 				}
 				$target = $memberInfo[$target]['parent'];
 			}
@@ -219,8 +219,8 @@ class GalleryStorageExtras {
 						$value = $this->_gs->_normalizeValue($row[$i], $memberData[$i], true);
 
 						// Store the value in the object
-						$_prop_name                                              = $callbacks[$i];
-						$entity->$_prop_name                                     = $value;
+						$_prop_name          = $callbacks[$i];
+						$entity->$_prop_name = $value;
 						$entity->_persistentStatus['originalValue'][$_prop_name] = $value;
 					}
 
@@ -1119,7 +1119,8 @@ class GalleryStorageExtras {
 			return $ret;
 		}
 		list($tableName) = $this->_gs->_translateTableName($mapName);
-		$data            = $columns = array();
+		$data            = array();
+		$columns         = array();
 
 		foreach ($mapInfo as $memberName => $memberData) {
 			if (!array_key_exists($memberName, $entry)) {
@@ -1218,7 +1219,9 @@ class GalleryStorageExtras {
 			return $ret;
 		}
 		list($tableName, $unused) = $this->_gs->_translateTableName($mapName);
-		$data                     = $where = array();
+		
+		$data  = array();
+		$where = array();
 
 		foreach ($mapInfo as $memberName => $memberData) {
 			if (array_key_exists($memberName, $match)) {

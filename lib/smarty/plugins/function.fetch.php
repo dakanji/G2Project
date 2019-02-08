@@ -59,7 +59,7 @@ function smarty_function_fetch($params, &$smarty) {
 			// http fetch
 			if ($uri_parts = parse_url($params['file'])) {
 				// set defaults
-				$host      = $server_name = $uri_parts['host'];
+				$host      = $server_name    = $uri_parts['host'];
 				$timeout   = 30;
 				$accept    = 'image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*';
 				$agent     = 'Smarty Template Engine ' . $smarty->_version;

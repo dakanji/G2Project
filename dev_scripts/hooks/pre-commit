@@ -1,7 +1,8 @@
 #!/bin/sh
 
 PHP_CBF_BIN=dev_vendor/bin/phpcbf
-PHP_CBF_CONFIG=phpcs.xml
+PHP_CBF_CONFIG_START=phpcs.xml
+PHP_CBF_CONFIG_END=phpcs.xml
 
 PHP_FIX_BIN=dev_vendor/bin/php-cs-fixer
 PHP_FIX_CONFIG=.php_cs.dist
@@ -69,8 +70,9 @@ else
 			RET=$(git reset HEAD $PROJECT/$TARGET_FILE)
 
 			# Apply coding style to target file
-			RET=$($PHP_CBF_BIN --standard=$PHP_CBF_CONFIG $PROJECT/$TARGET_FILE)
+			RET=$($PHP_CBF_BIN --standard=$PHP_CBF_CONFIG_START $PROJECT/$TARGET_FILE)
 			RET=$($PHP_FIX_BIN fix --config "$PHP_FIX_CONFIG" $PROJECT/$TARGET_FILE)
+			RET=$($PHP_CBF_BIN --standard=$PHP_CBF_CONFIG_END $PROJECT/$TARGET_FILE)
 
 			# Stage target file
 			git add $PROJECT/$TARGET_FILE

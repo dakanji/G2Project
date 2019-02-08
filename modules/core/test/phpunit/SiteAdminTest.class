@@ -51,7 +51,7 @@ class SiteAdminTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$template           = $form = null;
+		$template           = $form           = null;
 		list($ret, $result) = $this->_view->loadTemplate($template, $form);
 
 		if ($ret) {

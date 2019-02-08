@@ -76,7 +76,7 @@ class CallbacksTest extends GalleryTestCase {
 			'albumBlocks'   => array(),
 			'photoBlocks'   => array(),
 		);
-		$ret = $this->_callback->callback(
+		$ret                                         = $this->_callback->callback(
 			array(
 				'checkBlocks' => 'sidebar',
 				'permissions' => array(
@@ -104,7 +104,7 @@ class CallbacksTest extends GalleryTestCase {
 			'albumBlocks'   => array(),
 			'photoBlocks'   => array(),
 		);
-		$ret = $this->_callback->callback(
+		$ret                                         = $this->_callback->callback(
 			array(
 				'checkBlocks' => 'sidebar',
 				'permissions' => array(
@@ -132,7 +132,7 @@ class CallbacksTest extends GalleryTestCase {
 			'albumBlocks'   => array(array('core.ItemLinks', array())),
 			'photoBlocks'   => array(array('core.ItemLinks', array())),
 		);
-		$ret = $this->_callback->callback(
+		$ret                                         = $this->_callback->callback(
 			array(
 				'checkBlocks' => 'sidebar,album',
 				'permissions' => array(
@@ -160,7 +160,7 @@ class CallbacksTest extends GalleryTestCase {
 			'albumBlocks'   => array(array('core.ItemLinks', array())),
 			'photoBlocks'   => array(array('core.ItemLinks', array())),
 		);
-		$ret = $this->_callback->callback(
+		$ret                                         = $this->_callback->callback(
 			array(
 				'checkBlocks' => 'sidebar',
 				'permissions' => array(
@@ -187,7 +187,7 @@ class CallbacksTest extends GalleryTestCase {
 			'myBlocks'    => array(),
 			'photoBlocks' => array(),
 		);
-		$ret = $this->_callback->callback(
+		$ret                                         = $this->_callback->callback(
 			array(
 				'checkBlocks' => 'my',
 				'permissions' => array(),

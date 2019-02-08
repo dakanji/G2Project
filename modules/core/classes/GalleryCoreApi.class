@@ -4095,7 +4095,8 @@ class GalleryCoreApi {
 
 	/**
 	 * Return the list of languages that we support.
-	 * @return array['language code']['country code'] =      *              array('description', 'right-to-left'?)
+	 * @return array['language code']['country code']
+	 *              array('description', 'right-to-left'?)
 	 */
 	public static function getSupportedLanguages() {
 		GalleryCoreApi::requireOnce(

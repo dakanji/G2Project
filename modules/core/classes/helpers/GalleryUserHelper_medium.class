@@ -59,7 +59,12 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 		list($ret, $searchResults) = $gallery->search(
 		$query,
 		$data,
-		array('limit' => array('count' => $count, 'offset' => $offset))
+		array(
+			'limit' => array(
+				'count'  => $count,
+				'offset' => $offset,
+			),
+		)
 	);
 
 		if ($ret) {
@@ -82,7 +87,11 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 		global $gallery;
 
 		if (empty($groupId)) {
-			list($ret, $groupId) = 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
+			list($ret, $groupId) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'core',
+				'id.everybodyGroup'
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -91,29 +100,30 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 		$data = array();
 
 		if (!empty($substring)) {
-			$query  = '
-	    SELECT
-	      COUNT([GalleryUserGroupMap::userId])
-	    FROM
-	      [GalleryUserGroupMap],
-	      [GalleryUser]
-	    WHERE
-	      [GalleryUser::id] = [GalleryUserGroupMap::userId]
-	    AND
-	      [GalleryUser::userName] LIKE ?
-	    AND
-	      [GalleryUserGroupMap::groupId] = ?
-	    ';
+			$query = '
+				SELECT
+					COUNT([GalleryUserGroupMap::userId])
+				FROM
+					[GalleryUserGroupMap],
+					[GalleryUser]
+				WHERE
+					[GalleryUser::id] = [GalleryUserGroupMap::userId]
+				AND
+					[GalleryUser::userName] LIKE ?
+				AND
+					[GalleryUserGroupMap::groupId] = ?
+			';
+
 			$data[] = "%$substring%";
 		} else {
 			$query = '
-	    SELECT
-	      COUNT([GalleryUserGroupMap::userId])
-	    FROM
-	      [GalleryUserGroupMap]
-	    WHERE
-	      [GalleryUserGroupMap::groupId] = ?
-	    ';
+				SELECT
+					COUNT([GalleryUserGroupMap::userId])
+				FROM
+					[GalleryUserGroupMap]
+				WHERE
+					[GalleryUserGroupMap::groupId] = ?
+			';
 		}
 		$data[] = (int)$groupId;
 
@@ -135,13 +145,13 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 		global $gallery;
 
 		$query                     = '
-	SELECT
-	  [GalleryUser::id]
-	FROM
-	  [GalleryUser]
-	WHERE
-	  [GalleryUser::userName] = ?
-	';
+			SELECT
+				[GalleryUser::id]
+			FROM
+				[GalleryUser]
+			WHERE
+				[GalleryUser::userName] = ?
+		';
 		list($ret, $searchResults) = $gallery->search($query, array($userName));
 
 		if ($ret) {
@@ -177,7 +187,7 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 		$language = $user->getLanguage();
 
 		if (empty($language)) {
-			list($ret, $language) = 		GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
+			list($ret, $language) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
 
 			if ($ret) {
 				return array($ret, null);
@@ -259,7 +269,7 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 		 * Get all the permissions the user has on the items,
 		 * need delete permission to delete an item
 		 */
-		list($ret, $userItemPermissions) = 		GalleryCoreApi::fetchPermissionsForItems($itemIds, $user->getId());
+		list($ret, $userItemPermissions) = GalleryCoreApi::fetchPermissionsForItems($itemIds, $user->getId());
 
 		if ($ret) {
 			return $ret;
@@ -291,7 +301,7 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 		$albumIds = array();
 		// First delete all non AlbumItem items
 		foreach ($items as $item) {
-			// don't delete albums
+			// Do not delete albums
 			if ($item->getCanContainChildren()) {
 				$albums[$item->getId()] = $item;
 				$albumIds[]             = $item->getId();
@@ -321,7 +331,7 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 			 * If we want to use it from user space (i.e. let users remove delete their
 			 * accounts) we need to fix this.
 			 */
-			list($ret, $descendentCounts) = 		GalleryCoreApi::fetchDescendentCounts($modifiedAlbumIds);
+			list($ret, $descendentCounts) = GalleryCoreApi::fetchDescendentCounts($modifiedAlbumIds);
 
 			if ($ret) {
 				return $ret;
@@ -435,8 +445,8 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 					$ret   = GalleryCoreApi::addMapEntry(
 			'FailedLoginsMap',
 			array('userName'    => $data['userName'],
-				  'count'          => $count,
-				  'lastAttempt'    => $phpVm->time(), )
+				  'count'       => $count,
+				  'lastAttempt' => $phpVm->time(), )
 			);
 
 					if ($ret) {

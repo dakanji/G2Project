@@ -597,7 +597,14 @@ class GalleryStorage {
 			return array($ret, null);
 		}
 		list($tableName, $unused) = $this->_translateTableName($mapName);
-		$data                     = $selectColumns = $where = $wheredata = $orderBy = array();
+		
+		$data          = array();
+		$selectColumns = array();
+		$where         = array();
+		$wheredata     = array();
+		$orderBy       = array();
+
+
 
 		// SELECT
 		foreach ($select as $columnName) {

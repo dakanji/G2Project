@@ -618,7 +618,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	}
 
 	public function testGenerateReturnUrl() {
-		$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php?' .
+		$_SERVER['REQUEST_URI']                             = '/gallery2/phpunit_test.php?' .
 		GalleryUtilities::prefixFormVariable('view') . '=foo&' .
 		GalleryUtilities::prefixFormVariable('a') . '=123';
 		$_GET[GalleryUtilities::prefixFormVariable('view')] = 'foo';
@@ -1610,7 +1610,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			true
 		);
 
-		$qs = $session->isUsingCookies() ? '' : '?' .
+		$qs                                = $session->isUsingCookies() ? '' : '?' .
 		GalleryUtilities::prefixFormVariable($session->getKey()) . '=' .
 		urlencode($session->getId());
 		$this->_urlGenerator->_localUrlMap = array();

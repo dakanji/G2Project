@@ -45,7 +45,7 @@ if (!$HTMLbody) {
 	define('THIS_SCRIPT', 'index.php?missingObjectFix');
 	$vw       = (isset($_REQUEST['vw']) && $_REQUEST['vw'] != '') ? trim($_REQUEST['vw']) : 'opt';
 	$adv      = (isset($_REQUEST['adv'])) ? true : false;
-	$show     = $hide = false;
+	$show     = $hide     = false;
 	$tmpArray = $args = array();
 	$tmpData  = (isset($_REQUEST['args']) && $_REQUEST['args'] != '') ? trim($_REQUEST['args']) : '';
 
@@ -86,8 +86,8 @@ function process($renderType, $args = array()) {
 	global $gallery, $adv, $hide, $show, $reset;
 	$storage =& $gallery->getStorage();
 
-	$tables   = $ids = $missingIds = array();
-	$gID      = $display = $status = '';
+	$tables   = $ids   = $missingIds   = array();
+	$gID      = $display      = $status      = '';
 	$headData = $bodyForm = $bodyMain = null;
 	$adv      = (!empty($args['adv'])) ? true : false;
 	$reset    = (isset($_REQUEST['reset']) && $_REQUEST['reset'] != '') ? true : false;
@@ -351,7 +351,7 @@ function getItemIdsRecursive($id) {
 
 function getMissingDerivatives($id) {
 	$err                  = null;
-	$itemIds              = $missingIds = $albums = array();
+	$itemIds              = $missingIds              = $albums              = array();
 	list($err, $albumIds) = getAlbumIdsRecursive($id);
 
 	if (!$err) {
@@ -413,7 +413,7 @@ function getRoot() {
 }
 
 function getAlbumSelector($gID) {
-	$err                = $albumSelectorCode = $albumSelector = null;
+	$err                = $albumSelectorCode                = $albumSelector                = null;
 	$albums             = array();
 	list($err, $rootID) = getRoot();
 
@@ -435,8 +435,8 @@ function getAlbumSelector($gID) {
 }
 
 function getAlbumTree($gID) {
-	$err              = $ret = $album = null;
-	$albumIds         = $albums = array();
+	$err              = $ret              = $album              = null;
+	$albumIds         = $albums         = array();
 	list($ret, $tree) = GalleryCoreApi::fetchAlbumTree($gID, null, null, true);
 
 	if ($ret) {

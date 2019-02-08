@@ -145,11 +145,10 @@ class FfmpegToolkit extends GalleryToolkit {
 				// TODO: no longer append .flv when a better work around is found
 				$tmpFilename = $tmpFilename . '.flv';
 				// Add video dimensions (size)
-				if (isset($context['width']) && isset($context['height'])) {
+				if (isset($context['width'], $context['height'])) {
 					$args[] = '-s';
 					$args[] = $context['width'] . 'x' . $context['height'];
-					unset($context['width']);
-					unset($context['height']);
+					unset($context['width'], $context['height']);
 				}
 				// Add video frame rate
 				if (isset($context['frameRate'])) {
@@ -368,7 +367,7 @@ class FfmpegToolkit extends GalleryToolkit {
 		*/
 		$unknownFormat = false;
 		$successfulRun = false;
-		$width         = $height = $duration = $vframerate = $asamplerate = $achannels = 0;
+		$width         = $height         = $duration         = $vframerate         = $asamplerate         = $achannels         = 0;
 
 		foreach ($stderr as $resultLine) {
 			if (preg_match('/Unknown format/', $resultLine, $regs)) {

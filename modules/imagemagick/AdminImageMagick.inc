@@ -251,7 +251,7 @@ class AdminImageMagickView extends GalleryView {
 			$jpegQualityList[] = $i;
 		}
 
-		$tests        = $mimeTypes = $version = array();
+		$tests        = $mimeTypes        = $version        = array();
 		$debugSnippet = '';
 		$failCount    = 0;
 

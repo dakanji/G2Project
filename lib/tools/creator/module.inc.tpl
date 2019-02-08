@@ -53,7 +53,7 @@ class {$ucModuleId}Module extends GalleryModule {ldelim}
 	foreach ($items as $item) {ldelim}
 	    $params['view'] = '{$moduleId}.{$viewName}';
 	    $params['itemId'] = $item->getId();
-	    $links[$item->getId()][] = 		array('text' => $this->translate('{$moduleName}'), 'params' => $params);
+	    $links[$item->getId()][] = array('text' => $this->translate('{$moduleName}'), 'params' => $params);
 	{rdelim}
 
 	return array(null, $links);

@@ -89,13 +89,21 @@ class DeleteSessionsTask extends MaintenanceTask {
 			$phpVm->time() - (7 * 86400),
 		);
 
-		$query               = '
-	SELECT COUNT([GallerySessionMap::id])
-	FROM [GallerySessionMap]
-	WHERE [GallerySessionMap::modificationTimestamp] < ? OR
-	      [GallerySessionMap::creationTimestamp] < ? OR
-	      ([GallerySessionMap::userId] = ? AND [GallerySessionMap::creationTimestamp] < ?)
-	';
+		$query = '
+			SELECT
+				COUNT([GallerySessionMap::id])
+			FROM
+				[GallerySessionMap]
+			WHERE
+				[GallerySessionMap::modificationTimestamp] < ? 
+			OR
+				[GallerySessionMap::creationTimestamp] < ? 
+			OR
+				([GallerySessionMap::userId] = ? 
+			AND
+				[GallerySessionMap::creationTimestamp] < ?)
+		';
+	
 		list($ret, $results) = $gallery->search($query, $data);
 
 		if ($ret) {
@@ -106,9 +114,10 @@ class DeleteSessionsTask extends MaintenanceTask {
 
 		if ($total) {
 			// This limit controls the query text length, 1000 sessionIds => query size = 32kbyte
-			$stepSize                 = $session->_expirationLimit = 1000;
-			$iterations               = ceil($total / $stepSize);
-			$option['limit']['count'] = $stepSize;
+			$stepSize                  = 1000;
+			$session->_expirationLimit = 1000;
+			$iterations                = ceil($total / $stepSize);
+			$option['limit']['count']  = $stepSize;
 
 			for ($i = 1; $i <= $iterations; $i++) {
 				$gallery->guaranteeTimeLimit(120);

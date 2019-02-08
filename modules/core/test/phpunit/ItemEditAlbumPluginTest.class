@@ -529,7 +529,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 			'crop'      => 0,
 			'rotate'    => 0,
 		);
-		$ret = $mockAdapter->runCallbacks();
+		$ret                                         = $mockAdapter->runCallbacks();
 
 		if ($ret) {
 			return $ret;

@@ -1,5 +1,4 @@
-ADOdb Library for PHP5
-======================
+ADOdb Library for PHP5 ======================
 
 [![Join chat on Gitter](https://img.shields.io/gitter/room/form-data/form-data.svg)](https://gitter.im/adodb/adodb?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Download ADOdb](https://img.shields.io/sourceforge/dm/adodb.svg)](https://sourceforge.net/projects/adodb/files/latest/download)
@@ -19,8 +18,7 @@ see [License](https://github.com/ADOdb/ADOdb/blob/master/LICENSE.md) for details
 Home page: http://adodb.org/
 
 
-Introduction
-============
+Introduction ============
 
 PHP's database access functions are not standardized. This creates a
 need for a database class library to hide the differences between the
@@ -34,8 +32,7 @@ Sybase SQL Anywhere, generic ODBC and Microsoft's ADO.
 We hope more people will contribute drivers to support other databases.
 
 
-Installation
-============
+Installation ============
 
 Unpack all the files into a directory accessible by your web server.
 
@@ -58,8 +55,7 @@ print "</pre>";
 ```
 
 
-Documentation and Examples
-==========================
+Documentation and Examples ==========================
 
 Refer to the [ADOdb website](http://adodb.org/) for library documentation and examples. The documentation can also be [downloaded for offline viewing](https://sourceforge.net/projects/adodb/files/Documentation/).
 
@@ -71,8 +67,7 @@ Refer to the [ADOdb website](http://adodb.org/) for library documentation and ex
 There is also a [tutorial](http://adodb.org/dokuwiki/doku.php?id=v5:userguide:mysql_tutorial) that contrasts ADOdb code with PHP native MySQL code.
 
 
-Files
-=====
+Files =====
 
 - `adodb.inc.php` is the library's main file. You only need to include this file.
 - `adodb-*.inc.php` are the database specific driver code.
@@ -84,8 +79,7 @@ statement for databases described in testdatabases.inc.php. The benchmark
 tables are created in test.php.
 
 
-Support
-=======
+Support =======
 
 To discuss with the ADOdb development team and users, connect to our
 [Gitter chatroom](https://gitter.im/adodb/adodb) using your Github credentials.

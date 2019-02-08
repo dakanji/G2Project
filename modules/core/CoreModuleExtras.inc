@@ -996,8 +996,8 @@ class CoreModuleExtras {
 
 				foreach (array(
 					substr($gallery->getConfig('data.gallery.plugins'), 0, -1) => false,
-					$gallery->getConfig('data.gallery.plugins') . 'modules'    => false,
-					$gallery->getConfig('data.gallery.plugins') . 'layouts'    => false,
+					$gallery->getConfig('data.gallery.plugins') . 'modules' => false,
+					$gallery->getConfig('data.gallery.plugins') . 'layouts' => false,
 					substr($gallery->getConfig('data.gallery.plugins_data'), 0, -1) => true,
 					$gallery->getConfig('data.gallery.plugins_data') . 'modules' => true,
 					$gallery->getConfig('data.gallery.plugins_data') . 'layouts' => true,

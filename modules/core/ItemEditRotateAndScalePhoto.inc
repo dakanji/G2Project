@@ -189,7 +189,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 
 		if ($form['formName'] != 'ItemEditRotateAndScalePhoto') {
 			// First time around, reset the form
-			$form['resize']['width']  = $form['resize']['height'] = '';
+			$form['resize']['width']  = $form['resize']['height']  = '';
 			$form['preserveOriginal'] = 1;
 			$form['formName']         = 'ItemEditRotateAndScalePhoto';
 		}

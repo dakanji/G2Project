@@ -714,7 +714,7 @@ class CommentTest extends GalleryTestCase {
 	}
 
 	public function testCheckWithAkismet_MarkedAsHam() {
-		$comment                                                      = new GalleryComment();
+		$comment = new GalleryComment();
 		$comment->_persistentStatus['originalValue']['publishStatus'] = COMMENT_PUBLISH_STATUS_SPAM;
 		$comment->setPublishStatus(COMMENT_PUBLISH_STATUS_PUBLISHED);
 		$akismet = new CommentTest_MockAkismetApi();
@@ -729,7 +729,7 @@ class CommentTest extends GalleryTestCase {
 	}
 
 	public function testCheckWithAkismet_MarkedAsHam_AkismetError() {
-		$comment                                                      = new GalleryComment();
+		$comment = new GalleryComment();
 		$comment->_persistentStatus['originalValue']['publishStatus'] = COMMENT_PUBLISH_STATUS_SPAM;
 		$comment->setPublishStatus(COMMENT_PUBLISH_STATUS_PUBLISHED);
 		$akismet = new CommentTest_MockAkismetApi();
@@ -744,7 +744,7 @@ class CommentTest extends GalleryTestCase {
 	}
 
 	public function testCheckWithAkismet_MarkedAsSpam_AkismetError() {
-		$comment                                                      = new GalleryComment();
+		$comment = new GalleryComment();
 		$comment->_persistentStatus['originalValue']['publishStatus'] = COMMENT_PUBLISH_STATUS_PUBLISHED;
 		$comment->setPublishStatus(COMMENT_PUBLISH_STATUS_SPAM);
 		$akismet = new CommentTest_MockAkismetApi();

@@ -671,8 +671,9 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
 
 					<hr class="faint">
 
-				<?php if (!isModulesOrThemesDirWriteable()) {
-			?>
+				<?php
+				if (!isModulesOrThemesDirWriteable()) {
+					?>
 						<h2>
 							<a href="
 							<?php
@@ -689,17 +690,17 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
 							pre-installer. Usually you can change the filesystem permissions with your FTP
 							program or command line shell.
 						</p>
-				<?php
-		} else {
-			?>
+					<?php
+				} else {
+					?>
 						<h2>
 							<a href="
-							<?php
-							generateUrl(
-								'index.php?chmod&amp;command=' . CMD_CHMOD_MODULES_AND_THEMES_DIR
-								. '&amp;mode=secure'
-							)
-							?>
+					<?php
+					generateUrl(
+						'index.php?chmod&amp;command=' . CMD_CHMOD_MODULES_AND_THEMES_DIR
+						. '&amp;mode=secure'
+					)
+					?>
 							">Make modules &amp; themes directories read-only</a>
 						</h2>
 						<p class="description">
@@ -708,8 +709,8 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
 							with the pre-installer. Usually you can change the filesystem permissions with
 							your FTP program or command line shell.
 						</p>
-				<?php
-		} ?>
+						<?php
+				} ?>
 
 					<hr class="faint">
 
@@ -726,11 +727,12 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
 						<select name="pluginId"
 						onchange="setEditOrSecure(this.options[this.selectedIndex].value, this.form)">
 						<option value="-1">&laquo; select a module or theme &raquo;</option>
-						<?php foreach ($plugins as $pluginId => $writeable) {
-			?>
-							<option value="<?php echo $pluginId; ?>"> <?php echo $pluginId; ?> </option>
 						<?php
-		} ?>
+						foreach ($plugins as $pluginId => $writeable) {
+							?>
+							<option value="<?php echo $pluginId; ?>"> <?php echo $pluginId; ?> </option>
+							<?php
+						} ?>
 					</select>
 					&nbsp;&nbsp;
 					<input type="hidden" name="mode" value="open">
@@ -768,7 +770,8 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
 
 			<hr class="faint">
 
-			<?php if (isGalleryDirWriteable()) {
+			<?php
+			if (isGalleryDirWriteable()) {
 				?>
 				<h2><a href="
 				<?php
@@ -780,7 +783,7 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
 					whole Gallery directory structure read/write before you can upgrade or delete your
 					installation.
 				</p>
-			<?php
+				<?php
 			} else {
 				?>
 				<h2><a href="
@@ -792,7 +795,7 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
 					If your Gallery has been installed with the pre-installer you may want to change
 					all your files back to read-only for a small amount of additional security.
 				</p>
-			<?php
+				<?php
 			} ?>
 
 			<hr class="faint">
@@ -819,7 +822,7 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
 						<span class="hasToolTip" title="Files: <?php echo $permissionBitSet[1]->getAsString(); ?>, Folders: <?php echo $permissionBitSet[0]->getAsString(); ?>"> <?php echo $permissionBitSet[1]->getDescription(); ?></span>
 					</label>
 				</input>
-				<?php
+					<?php
 				} ?>
 			<br><br>
 

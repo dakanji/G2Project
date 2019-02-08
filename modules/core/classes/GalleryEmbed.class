@@ -69,7 +69,7 @@ class GalleryEmbed {
 	 * @param array $initParams (optional--required before calling handleRequest) (
 	 *   'embedUri' => URI to access G2 via CMS application
 	 *                 (example: /portal/index.php?module=gallery2)
-	 *   'g2Uri' =  URL path to G2
+	 *   'g2Uri' = URL path to G2
 	 *                 (example: /gallery2/, see extended docs for special character '|')
 	 *   'loginRedirect' => (optional) URI for redirect to CMS login view (example: /cms/index.php)
 	 *   'embedSessionString' => (optional) To support cookieless browsing, pass in key=value for
@@ -927,8 +927,11 @@ class GalleryEmbed {
 	 *               array (string meta1, string meta2, ...)
 	 */
 	public static function parseHead($headhtml) {
-		$title = '';
-		$css   = $javascript = $meta = array();
+		$title      = '';
+		$css        = array();
+		$javascript = array();
+		$meta       = array();
+		
 
 		// Only one title allowed
 		if (preg_match('|<title(?:\s[^>]*)?>(.*)</title>|Usi', $headhtml, $regs)) {
@@ -974,7 +977,8 @@ class GalleryEmbed {
 	/**
 	 * Get HTML for an image block
 	 * Example:
-	 *   list ($ret, $html, $headHtml) =     *       GalleryEmbed::getImageBlock(array('blocks' => 'randomImage', 'show' => 'title|date'));
+	 *   list ($ret, $html, $headHtml)
+	 *       GalleryEmbed::getImageBlock(array('blocks' => 'randomImage', 'show' => 'title|date'));
 	 *
 	 * @param array $params ('blocks' => string, 'show' => string,
 	 *        (optional)'itemId' => int, (optional)'maxSize' => int, (optional)'exactSize' => int,

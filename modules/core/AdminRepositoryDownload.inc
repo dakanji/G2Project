@@ -247,6 +247,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 			$upgradeData['languages']     = $condensedData;
 			$upgradeData['languageCount'] = count($upgradeData['languages']);
 			$upgradeData['repository']    = $source;
+			
 			list(
 				$ret,
 				$upgradeData['repositoryName']

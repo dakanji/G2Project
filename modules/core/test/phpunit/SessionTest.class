@@ -967,7 +967,7 @@ class SessionTest extends GalleryTestCase {
 
 		$_COOKIE[SESSION_ID_PARAMETER] = $session->getId();
 		$key                           = GalleryUtilities::prefixFormVariable(SESSION_ID_PARAMETER);
-		$_GET[$key]                    = $_POST[$key]                                                          = $session->getId();
+		$_GET[$key]                    = $_POST[$key]                    = $session->getId();
 
 		$session->put('foo', 'bar');
 

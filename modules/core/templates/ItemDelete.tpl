@@ -53,7 +53,7 @@
     function invertCheck(val) {ldelim}
       var frm = document.getElementById('itemAdminForm');
       {foreach from=$ItemDelete.peers item=peer}
-	frm.elements['g2_form[selectedIds][{$peer.id}]'].checked = 	    !frm.elements['g2_form[selectedIds][{$peer.id}]'].checked;
+	frm.elements['g2_form[selectedIds][{$peer.id}]'].checked = !frm.elements['g2_form[selectedIds][{$peer.id}]'].checked;
       {/foreach}
     {rdelim}
     // ]]>

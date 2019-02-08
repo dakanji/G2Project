@@ -22,64 +22,92 @@ if (!defined('ADODB_DIR')) {
 class perf_mysql extends adodb_perf {
 	public $tablesSQL = 'show table status';
 
-	public $createTableSQL = "CREATE TABLE adodb_logsql (
+	public $createTableSQL = 'CREATE TABLE adodb_logsql (
 		  created datetime NOT NULL,
 		  sql0 varchar(250) NOT NULL,
 		  sql1 text NOT NULL,
 		  params text NOT NULL,
 		  tracer text NOT NULL,
 		  timer decimal(16,6) NOT NULL
-		)";
+		)';
 
 	public $settings = array(
-	'Ratios',
-		'MyISAM cache hit ratio' => array('RATIO',
+		'Ratios',
+		'MyISAM cache hit ratio' => array(
+			'RATIO',
 			'=GetKeyHitRatio',
-			'=WarnCacheRatio', ),
-		'InnoDB cache hit ratio' => array('RATIO',
+			'=WarnCacheRatio',
+		),
+		'InnoDB cache hit ratio' => array(
+			'RATIO',
 			'=GetInnoDBHitRatio',
-			'=WarnCacheRatio', ),
-		'data cache hit ratio'   => array('HIDE', // only if called
+			'=WarnCacheRatio',
+		),
+		'data cache hit ratio'   => array(
+			'HIDE', // only if called
 			'=FindDBHitRatio',
-			'=WarnCacheRatio', ),
-		'sql cache hit ratio'    => array('RATIO',
+			'=WarnCacheRatio',
+		),
+		'sql cache hit ratio'    => array(
+			'RATIO',
 			'=GetQHitRatio',
-			'', ),
-	'IO',
-		'data reads'             => array('IO',
+			'',
+		),
+		'IO',
+		'data reads'             => array(
+			'IO',
 			'=GetReads',
-			'Number of selects (Key_reads is not accurate)', ),
-		'data writes'            => array('IO',
+			'Number of selects (Key_reads is not accurate)',
+		),
+		'data writes'            => array(
+			'IO',
 			'=GetWrites',
-			'Number of inserts/updates/deletes * coef (Key_writes is not accurate)', ),
+			'Number of inserts/updates/deletes * coef (Key_writes is not accurate)',
+		),
 
-	'Data Cache',
-		'MyISAM data cache size' => array('DATAC',
-			array("show variables", 'key_buffer_size'),
-			'', ),
-		'BDB data cache size'    => array('DATAC',
-			array("show variables", 'bdb_cache_size'),
-			'', ),
-		'InnoDB data cache size' => array('DATAC',
-			array("show variables", 'innodb_buffer_pool_size'),
-			'', ),
-	'Memory Usage',
-		'read buffer size'       => array('CACHE',
-			array("show variables", 'read_buffer_size'),
-			'(per session)', ),
-		'sort buffer size'       => array('CACHE',
-			array("show variables", 'sort_buffer_size'),
-			'Size of sort buffer (per session)', ),
-		'table cache'            => array('CACHE',
-			array("show variables", 'table_cache'),
-			'Number of tables to keep open', ),
-	'Connections',
-		'current connections'    => array('SESS',
+		'Data Cache',
+		'MyISAM data cache size' => array(
+			'DATAC',
+			array('show variables', 'key_buffer_size'),
+			'',
+		),
+		'BDB data cache size'    => array(
+			'DATAC',
+			array('show variables', 'bdb_cache_size'),
+			'',
+		),
+		'InnoDB data cache size' => array(
+			'DATAC',
+			array('show variables', 'innodb_buffer_pool_size'),
+			'',
+		),
+		'Memory Usage',
+		'read buffer size'       => array(
+			'CACHE',
+			array('show variables', 'read_buffer_size'),
+			'(per session)',
+		),
+		'sort buffer size'       => array(
+			'CACHE',
+			array('show variables', 'sort_buffer_size'),
+			'Size of sort buffer (per session)',
+		),
+		'table cache'            => array(
+			'CACHE',
+			array('show variables', 'table_cache'),
+			'Number of tables to keep open',
+		),
+		'Connections',
+		'current connections'    => array(
+			'SESS',
 			array('show status', 'Threads_connected'),
-			'', ),
-		'max connections'        => array('SESS',
-			array("show variables", 'max_connections'),
-			'', ),
+			'',
+		),
+		'max connections'        => array(
+			'SESS',
+			array('show variables', 'max_connections'),
+			'',
+		),
 
 		false,
 	);
@@ -88,7 +116,7 @@ class perf_mysql extends adodb_perf {
 		$this->conn = $conn;
 	}
 
-	public function Explain($sql, $partial=false) {
+	public function Explain($sql, $partial = false) {
 		if (strtoupper(substr(trim($sql), 0, 6)) !== 'SELECT') {
 			return '<p>Unable to EXPLAIN non-select statement</p>';
 		}
@@ -163,11 +191,11 @@ class perf_mysql extends adodb_perf {
 
 		while (!$rs->EOF) {
 			switch ($rs->fields[0]) {
-			case 'Com_select':
-				$val = $rs->fields[1];
-				$rs->Close();
+				case 'Com_select':
+					$val = $rs->fields[1];
+					$rs->Close();
 
-				return $val;
+					return $val;
 			}
 			$rs->MoveNext();
 		}
@@ -200,21 +228,21 @@ class perf_mysql extends adodb_perf {
 
 		while (!$rs->EOF) {
 			switch ($rs->fields[0]) {
-			case 'Com_insert':
-				$val += $rs->fields[1];
+				case 'Com_insert':
+					$val += $rs->fields[1];
 
-break;
+					break;
 
-			case 'Com_delete':
-				$val += $rs->fields[1];
+				case 'Com_delete':
+					$val += $rs->fields[1];
 
-break;
+					break;
 
-			case 'Com_update':
-				$val += $rs->fields[1]/2;
-				$rs->Close();
+				case 'Com_update':
+					$val += $rs->fields[1] / 2;
+					$rs->Close();
 
-				return $val;
+					return $val;
 			}
 			$rs->MoveNext();
 		}
@@ -250,28 +278,28 @@ break;
 		$rs->Close();
 
 		switch ($type) {
-		case 'MYISAM':
-		case 'ISAM':
-			return $this->DBParameter('MyISAM cache hit ratio') . ' (MyISAM)';
+			case 'MYISAM':
+			case 'ISAM':
+				return $this->DBParameter('MyISAM cache hit ratio') . ' (MyISAM)';
 
-		case 'INNODB':
-			return $this->DBParameter('InnoDB cache hit ratio') . ' (InnoDB)';
+			case 'INNODB':
+				return $this->DBParameter('InnoDB cache hit ratio') . ' (InnoDB)';
 
-		default:
-			return $type . ' not supported';
+			default:
+				return $type . ' not supported';
 		}
 	}
 
 	public function GetQHitRatio() {
 		//Total number of queries = Qcache_inserts + Qcache_hits + Qcache_not_cached
-		$hits   = $this->_DBParameter(array("show status", "Qcache_hits"));
-		$total  = $this->_DBParameter(array("show status", "Qcache_inserts"));
-		$total += $this->_DBParameter(array("show status", "Qcache_not_cached"));
+		$hits   = $this->_DBParameter(array('show status', 'Qcache_hits'));
+		$total  = $this->_DBParameter(array('show status', 'Qcache_inserts'));
+		$total += $this->_DBParameter(array('show status', 'Qcache_not_cached'));
 
 		$total += $hits;
 
 		if ($total) {
-			return round(($hits*100)/$total, 2);
+			return round(($hits * 100) / $total, 2);
 		}
 
 		return 0;
@@ -315,7 +343,7 @@ break;
 		$stat = substr($stat, $at, 200);
 
 		if (preg_match('!Buffer pool hit rate\s*([0-9]*) / ([0-9]*)!', $stat, $arr)) {
-			$val                        = 100*$arr[1]/$arr[2];
+			$val                        = 100 * $arr[1] / $arr[2];
 			$_SESSION['INNODB_HIT_PCT'] = $val;
 
 			return round($val, 2);
@@ -331,14 +359,14 @@ break;
 	}
 
 	public function GetKeyHitRatio() {
-		$hits = $this->_DBParameter(array("show status", "Key_read_requests"));
-		$reqs = $this->_DBParameter(array("show status", "Key_reads"));
+		$hits = $this->_DBParameter(array('show status', 'Key_read_requests'));
+		$reqs = $this->_DBParameter(array('show status', 'Key_reads'));
 
 		if ($reqs == 0) {
 			return 0;
 		}
 
-		return round(($hits/($reqs+$hits))*100, 2);
+		return round(($hits / ($reqs + $hits)) * 100, 2);
 	}
 
 	// start hack
@@ -362,21 +390,21 @@ break;
 		$sql = '';
 
 		switch ($mode) {
-			case ADODB_OPT_LOW: $sql = $this->optimizeTableLow;
+			case ADODB_OPT_LOW:
+				$sql = $this->optimizeTableLow;
 
-break;
+				break;
 
-			case ADODB_OPT_HIGH: $sql = $this->optimizeTableHigh;
+			case ADODB_OPT_HIGH:
+				$sql = $this->optimizeTableHigh;
 
-break;
+				break;
 
 			default:
-
 				// May dont use __FUNCTION__ constant for BC (__FUNCTION__ Added in PHP 4.3.0)
 				ADOConnection::outp(sprintf("<p>%s: '%s' using of undefined mode '%s'</p>", __CLASS__, __FUNCTION__, $mode));
 
 				return false;
-
 		}
 		$sql = sprintf($sql, $table);
 

@@ -134,7 +134,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 	public function finishScan($halted) {
 		if (!$halted) {
 			foreach ($this->_idMap as $dir => $dirMap) {
-				$hash            = $flavors = $wrongFormat = array();
+				$hash            = $flavors            = $wrongFormat            = array();
 				$max             = 0;
 				$probablyCorrect = '';
 

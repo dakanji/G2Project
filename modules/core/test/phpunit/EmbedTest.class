@@ -259,7 +259,10 @@ class EmbedTest extends GalleryTestCase {
 		 */
 	}
 
-	// GalleryInitSecondPass should only be called if there are no params at all or if fullInit = 	 * true
+	/*
+	 * GalleryInitSecondPass should only be called if there are no params at all or
+	 * if fullInit = true
+	 */
 	public function testInitSecondPass() {
 		$firstCacheKey  = 'GalleryEmbed::initFirstPass';
 		$secondCacheKey = 'GalleryEmbed::initSecondPass';

@@ -177,7 +177,7 @@ function readPo($path) {
 	for ($line = 'a'; $lines && trim($line); $header[] = $line) {
 		$line = array_shift($lines);
 	}
-	$id  = $str = false;
+	$id  = $str  = false;
 	$key = $value = $before = '';
 
 	while ($lines) {
@@ -192,7 +192,7 @@ function readPo($path) {
 				'msgstr' => $value,
 				'before' => $before,
 			);
-			$id         = $str = false;
+			$id         = $str  = false;
 			$key        = $value = $before = '';
 
 			continue;

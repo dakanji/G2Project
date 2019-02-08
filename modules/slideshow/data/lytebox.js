@@ -305,8 +305,8 @@ LyteBox.prototype.start                 = function (imageLink, doSlide, doFrame)
 		myLytebox.togglePlayPause("lbPause", "lbPlay"); return false; }
 	this.doc.getElementById('lbPlay').onclick    = function () {
 		myLytebox.togglePlayPause("lbPlay", "lbPause"); return false; }
-	this.isSlideshow = doSlide;
-	this.isPaused    = (this.slideNum != 0 ? true : false);
+	this.isSlideshow                             = doSlide;
+	this.isPaused                                = (this.slideNum != 0 ? true : false);
 	if (this.isSlideshow && this.showPlayPause && this.isPaused) {
 		this.doc.getElementById('lbPlay').style.display  = '';
 		this.doc.getElementById('lbPause').style.display = 'none';
@@ -497,14 +497,17 @@ LyteBox.prototype.updateDetails         = function () {
 	if (this.isSlideshow && this.slideArray.length > 1) {
 		object.style.display = '';
 		object.innerHTML     = "Image " + eval(this.activeSlide + 1) + " of " + this.slideArray.length;
+
 		this.doc.getElementById('lbNavDisplay').style.display = (this.navType == 2 && this.showNavigation ? '' : 'none');
 	} else if (this.imageArray.length > 1 && !this.isLyteframe) {
 		object.style.display = '';
 		object.innerHTML     = "Image " + eval(this.activeImage + 1) + " of " + this.imageArray.length;
+
 		this.doc.getElementById('lbNavDisplay').style.display = (this.navType == 2 ? '' : 'none');
 	} else if (this.frameArray.length > 1 && this.isLyteframe) {
 		object.style.display = '';
 		object.innerHTML     = "Page " + eval(this.activeFrame + 1) + " of " + this.frameArray.length;
+
 		this.doc.getElementById('lbNavDisplay').style.display = '';
 	} else {
 		this.doc.getElementById('lbNavDisplay').style.display = 'none';
@@ -526,7 +529,8 @@ LyteBox.prototype.updateNav             = function () {
 				this.doc.getElementById('lbPrev2_Off').style.display = ''; }
 		}
 		if (this.activeSlide != (this.slideArray.length - 1)) {
-			var object               = (this.navType == 2 ? this.doc.getElementById('lbNext2') : this.doc.getElementById('lbNext'));
+			var object = (this.navType == 2 ? this.doc.getElementById('lbNext2') : this.doc.getElementById('lbNext'));
+
 				object.style.display = '';
 				object.onclick       = function () {
 					if (myLytebox.pauseOnNextClick) {

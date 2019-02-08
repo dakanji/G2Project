@@ -67,10 +67,11 @@ class CreateConfigFileStep extends InstallStep {
 			}
 		} else {
 			// Don't (overwrite) the config file, if we recommend an upgrade
-			$writeConfigFile = false;
-			$freshInstall    = $galleryStub->getConfig('freshInstall');
-			$versionStatus   = $upgradeRecommended = false;
-			$versions        = array(
+			$writeConfigFile    = false;
+			$freshInstall       = $galleryStub->getConfig('freshInstall');
+			$versionStatus      = false;
+			$upgradeRecommended = false;
+			$versions           = array(
 				'installed' => '',
 				'codebase'  => false,
 			);

@@ -241,7 +241,7 @@ class ADODB2_sybase extends ADODB_DataDict {
 	ON { table | view } ( column [ ASC | DESC ] [ ,...n ] )
 		[ WITH < index_option > [ ,...n] ]
 		[ ON filegroup ]
-		< index_option > :: = 			{ PAD_INDEX |
+		< index_option > :: = { PAD_INDEX |
 				FILLFACTOR = fillfactor |
 				IGNORE_DUP_KEY |
 				DROP_EXISTING |

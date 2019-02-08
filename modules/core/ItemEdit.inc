@@ -91,7 +91,7 @@ class ItemEditController extends GalleryController {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
-		$status                                                          = array();
+		$status = array();
 		list($ret, $error, $status['editMessage'], $requiresProgressBar) = $plugin->handleRequest(
 			$form,
 			$item,

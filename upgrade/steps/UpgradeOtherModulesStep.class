@@ -38,7 +38,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 		$this->_startDebugLog('Upgrade Plugins');
 		$gallery->startRecordingDebugSnippet();
 
-		$totalPlugins               = $currentModule = $currentTheme = 0;
+		$totalPlugins               = $currentModule               = $currentTheme               = 0;
 		$templateData['stackTrace'] = '';
 		$template                   = new StatusTemplate();
 		$template->renderHeader(true);
@@ -210,8 +210,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			}
 		}
 
-		$groupedModules             = $groupLabel = array();
-		$moduleInstalledStatus      = $pluginIsUpgradeable = $pluginIsCompatible = $installedVersion = $deactivatedPlugins = array();
+		$groupedModules             = $groupLabel             = array();
+		$moduleInstalledStatus      = $pluginIsUpgradeable      = $pluginIsCompatible      = $installedVersion      = $deactivatedPlugins      = array();
 		$templateData['stackTrace'] = '';
 
 		if (empty($templateData['errors'])) {

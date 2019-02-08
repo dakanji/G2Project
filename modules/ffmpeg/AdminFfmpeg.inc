@@ -314,7 +314,7 @@ class AdminFfmpegView extends GalleryView {
 		$mimeTypes        = array();
 		$mimeTypesEncoder = $encoderCodecs = array();
 		$encoderCodecs    = array();
-		$version          = $encodeWarnings = array();
+		$version          = $encodeWarnings          = array();
 		$debugSnippet     = '';
 		$failCount        = 0;
 

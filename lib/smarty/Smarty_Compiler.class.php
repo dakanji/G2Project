@@ -246,7 +246,7 @@ class Smarty_Compiler extends Smarty {
 				}
 
 				if ($prefilter[3] || is_callable($prefilter[0])) {
-					$source_content = call_user_func_array(
+					$source_content                               = call_user_func_array(
 						$prefilter[0],
 						array($source_content, &$this)
 					);
@@ -402,7 +402,7 @@ class Smarty_Compiler extends Smarty {
 				}
 
 				if ($postfilter[3] || is_callable($postfilter[0])) {
-					$compiled_content = call_user_func_array(
+					$compiled_content                              = call_user_func_array(
 						$postfilter[0],
 						array($compiled_content, &$this)
 					);
@@ -1557,8 +1557,6 @@ class Smarty_Compiler extends Smarty {
 		$arg_list = array();
 
 		if (isset($type, $name, $this->_plugins[$type], $this->_plugins[$type][$name])
-
-
 			&& empty($this->_plugins[$type][$name][4])
 			&& is_array($this->_plugins[$type][$name][5])
 		) {

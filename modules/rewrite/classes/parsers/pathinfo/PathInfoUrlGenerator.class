@@ -29,7 +29,8 @@ GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteUrlGenerator.class')
  */
 class PathInfoUrlGenerator extends RewriteUrlGenerator {
 	/**
-	 * Base parameter string for all generated URLs, e.g. 'module=gallery'.  Index of array =    * $forceDirect (true/false) only relevant for embedded Gallery.
+	 * Base parameter string for all generated URLs, e.g. 'module=gallery'.
+	 * Index of array = $forceDirect (true/false) only relevant for embedded Gallery.
 	 * @var array 0 => string query string, 1 => string forceDirect query string
 	 * @access private
 	 */
@@ -176,8 +177,8 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 	 */
 	public function _getBaseUrl($forceDirect = false) {
 		if (!isset($this->_baseUrl[$forceDirect])) {
-			$url  = $this->getCurrentUrlDir($forceDirect) . $this->_piFile[$forceDirect];
-			$url .= (substr($url, -1) != '/') ? '/' : '';
+			$url                          = $this->getCurrentUrlDir($forceDirect) . $this->_piFile[$forceDirect];
+			$url                         .= (substr($url, -1) != '/') ? '/' : '';
 			$this->_baseUrl[$forceDirect] = $url;
 		}
 

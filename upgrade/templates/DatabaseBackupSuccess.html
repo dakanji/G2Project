@@ -4,18 +4,22 @@
 	<p>
 		<?php echo _("We've successfully backed up the data in your Gallery database."); ?>
 	</p>
-	<?php if (!empty($templateData['backupWarnings'])) {
-	?>
+	<?php
+	if (!empty($templateData['backupWarnings'])) {
+		?>
 	<p>
 		<?php echo _('The following warnings were produced during the backup process:'); ?>
 	</p>
-		<?php foreach ($templateData['backupWarnings'] as $warning) {
-		?>
-			<?php echo $warning; ?> <br/>
 		<?php
-	} ?>	    
-	<?php
-} ?>
+		foreach ($templateData['backupWarnings'] as $warning) {
+			?>
+			<?php echo $warning; ?> <br/>
+			<?php
+		} ?>
+			
+		<?php
+	}
+	?>
 
 	<p>
 		<?php printf(_('Database backup completed and the backup file is located at: %s.'), $templateData['backupFileName']); ?>

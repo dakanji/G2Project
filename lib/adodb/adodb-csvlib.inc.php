@@ -21,11 +21,8 @@ $ADODB_INCLUDED_CSV = 1;
   Latest version is available at http://adodb.sourceforge.net
 
   Library for CSV serialization. This is used by the csv/proxy driver and is the
-  CacheExecute() serialization format.
-
-  ==== NOTE ====
-  Format documented at http://php.weblogs.com/ADODB_CSV
-  ==============
+  CacheExecute() serialization format. ==== NOTE ====
+  Format documented at http://php.weblogs.com/ADODB_CSV ==============
 */
 
 	/**

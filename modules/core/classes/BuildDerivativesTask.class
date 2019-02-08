@@ -116,7 +116,10 @@ class BuildDerivativesTask extends MaintenanceTask {
 			return array($ret, null, null);
 		}
 
-		$i     = $broken = $built = 0;
+		$i          = 0;
+		$broken     = 0;
+		$built      = 0;
+		
 		$total = $derivatives->resultCount() + $items->resultCount();
 		$gallery->guaranteeTimeLimit(120);
 

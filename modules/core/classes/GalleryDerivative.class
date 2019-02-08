@@ -517,6 +517,7 @@ class GalleryDerivative extends GalleryChildEntity {
 			'mimeType'       => $this->getMimeType(),
 			'parentId'       => $this->getParentId(),
 		);
+		
 		list($ret, $data['pseudoFileName']) = GalleryUtilities::getPseudoFileName($this);
 
 		if ($ret) {

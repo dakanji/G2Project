@@ -1,29 +1,33 @@
 	<h1><?php echo _('Database Backup'); ?></h1>
 
-	<?php if (empty($templateData['errors'])) {
-	?>
+	<?php
+	if (empty($templateData['errors'])) {
+		?>
 	<p>
 		<?php echo _('Before you upgrade, we <b>strongly recommend</b> that you make a backup of your database!  If you fail to make a backup and something goes wrong, there is a strong possibility that we will not be able to help you recover your data!'); ?>
 	</p>
-		<?php if (!empty($templateData['canDoBackup'])) {
-		?>
+		<?php
+		if (!empty($templateData['canDoBackup'])) {
+			?>
 	  <p><?php echo _('You have three options:'); ?></p>
-		<?php
-	} else {
-		?>
+			<?php
+		} else {
+			?>
 	  <p><?php echo _('You have two options:'); ?></p>
-		<?php
-	} ?>
+			<?php
+		} ?>
 	<ol>
-		<?php if (!empty($templateData['canDoBackup'])) {
-		?>
-	   <li><?php echo _('Do the automated backup (<b>recommended</b>).'); ?></li>
 		<?php
-	} ?>
+		if (!empty($templateData['canDoBackup'])) {
+			?>
+	   <li><?php echo _('Do the automated backup (<b>recommended</b>).'); ?></li>
+			<?php
+		} ?>
 	   <li><?php echo _('Do a manual backup (see below).'); ?>
 	<div class="example">
-		<?php if (!strncmp($templateData['storeConfig']['type'], 'mysql', 5)) {
-		?>
+		<?php
+		if (!strncmp($templateData['storeConfig']['type'], 'mysql', 5)) {
+			?>
 	  <h3> <?php echo _('MySQL'); ?> </h3>
 			<?php
 			printf(
@@ -35,9 +39,9 @@
 			)
 			?>
 
-		<?php
-	} elseif (!strncmp($templateData['storeConfig']['type'], 'postgres', 8)) {
-		?>
+			<?php
+		} elseif (!strncmp($templateData['storeConfig']['type'], 'postgres', 8)) {
+			?>
 	  <h3> <?php echo _('PostgreSQL'); ?> </h3>
 			<?php
 			printf(
@@ -48,9 +52,9 @@
 			)
 			?>
 
-		<?php
-	} elseif ($templateData['storeConfig']['type'] == 'oci8po') {
-		?>
+			<?php
+		} elseif ($templateData['storeConfig']['type'] == 'oci8po') {
+			?>
 	  <h3> <?php echo _('Oracle'); ?> </h3>
 			<?php
 			printf(
@@ -61,9 +65,9 @@
 			)
 			?>
 
-		<?php
-	} elseif (strstr($templateData['storeConfig']['type'], 'db2')) {
-		?>
+			<?php
+		} elseif (strstr($templateData['storeConfig']['type'], 'db2')) {
+			?>
 	  <h3> <?php echo _('IBM DB2'); ?> </h3>
 			<?php
 			printf(
@@ -72,9 +76,9 @@
 			)
 			?>
 
-		<?php
-	} elseif (strstr($templateData['storeConfig']['type'], 'mssql')) {
-		?>
+			<?php
+		} elseif (strstr($templateData['storeConfig']['type'], 'mssql')) {
+			?>
 	  <h3> <?php echo _('Microsoft SQL Server'); ?> </h3>
 			<?php
 			printf(
@@ -84,38 +88,40 @@
 				$templateData['storeConfig']['database']
 			)
 			?>
-		<?php
-	} ?>
+			<?php
+		} ?>
 	</div>
 	   </li>
 	   <li><?php echo _('Continue without a backup (<b>discouraged</b>).'); ?></li>
 	</ol>
 
 	<p>
-		<?php if (!empty($templateData['canDoBackup'])) {
-		?>
-			<?php echo _('If you choose to perform the automated backup, please be patient.  If you cancel or reload the page, you may interfere with the backup process.'); ?>
 		<?php
-	} ?>
+		if (!empty($templateData['canDoBackup'])) {
+			?>
+			<?php echo _('If you choose to perform the automated backup, please be patient.  If you cancel or reload the page, you may interfere with the backup process.'); ?>
+			<?php
+		} ?>
 	</p>
 
 	<div class="go">
 		<?php $nextStep = $stepNumber + 1; ?>
-		<?php if (!empty($templateData['canDoBackup'])) {
-		?>
+		<?php
+		if (!empty($templateData['canDoBackup'])) {
+			?>
 	   <a href="<?php generateUrl('index.php?step=' . $stepNumber . '&amp;backupDatabase=1'); ?>" class="btn continue"><i></i><span><span></span><i></i>
 			<?php echo _('Begin Database Backup'); ?></span></a>
 	   <a href="<?php generateUrl('index.php?step=' . $nextStep); ?>" class="btn continue"><i></i><span><span></span><i></i>
 			<?php echo _('Skip Database Backup'); ?></span></a>
-		<?php
-	} else {
-		?>
+			<?php
+		} else {
+			?>
 	   <a href="<?php generateUrl('index.php?step=' . $nextStep); ?>" class="btn continue"><i></i><span><span></span><i></i>
 			<?php printf(_('Continue to Step %d&raquo;'), $nextStep); ?></span></a>
+			<?php
+		} ?>
 		<?php
-	} ?>
-	<?php
-} else {
+	} else {
 		?>
 	<h2>
 		<?php echo _('Stack Trace:'); ?>
@@ -125,6 +131,7 @@
 	</div>
 
 	<br />
-	<?php
-	} ?>
+		<?php
+	}
+	?>
 	 </div>

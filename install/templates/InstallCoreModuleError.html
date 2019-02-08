@@ -21,12 +21,14 @@
 	<h2>
 		<?php echo _('Stack Trace:'); ?>
 	</h2>
-	<?php if (!empty($templateData['stackTrace'])) {
-	?>
+	<?php
+	if (!empty($templateData['stackTrace'])) {
+		?>
 	<div class="stack_trace">
 		<?php echo implode('</br>', $templateData['stackTrace']); ?>
 	</div>
-	<?php
-} ?>
+		<?php
+	}
+	?>
 
 	<br/>

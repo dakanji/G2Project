@@ -179,7 +179,7 @@ class GallerySession {
 
 		// Check to see if we have an existing session
 		$this->_sessionId              = '';
-		$this->_isSearchEngineSession  = $this->_isSessionSaved = $this->_isPersistent = false;
+		$this->_isSearchEngineSession  = $this->_isSessionSaved  = $this->_isPersistent  = false;
 		$this->_isPersistentSessionNew = false;
 
 		if (!empty($_COOKIE[SESSION_ID_PARAMETER])) {

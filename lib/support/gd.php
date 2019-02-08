@@ -235,16 +235,18 @@ $gdInfo = getGdLibraryInfo();
 			<a href="../../">Gallery</a> &raquo;
 			<a href="<?php generateUrl('index.php'); ?>">Support</a> &raquo; GD Library Info
 		</div>
-		<?php if ($gdInfo == '') {
-	?>
-			<h2>No GD library found.</h2>
 		<?php
-} else {
-		?>
+		if ($gdInfo == '') {
+			?>
+			<h2>No GD library found.</h2>
+			<?php
+		} else {
+			?>
 			<h2>This information might be useful for the GD module developers:</h2>
 			<pre style="padding-left: 20px"><?php echo $gdInfo; ?></pre>
-		<?php
-	} ?>
+			<?php
+		}
+		?>
 	</div>
 </body>
 </html>

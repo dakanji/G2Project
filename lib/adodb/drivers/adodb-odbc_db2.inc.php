@@ -58,8 +58,7 @@ library.
 So I guess this means the message [above] was related to using a 3rd party
 odbc driver.
 
-Setting SQL_CUR_USE_ODBC
-========================
+Setting SQL_CUR_USE_ODBC ========================
 To set SQL_CUR_USE_ODBC for drivers that require it, do this:
 
 $db = NewADOConnection('odbc_db2');
@@ -68,8 +67,7 @@ $db->Connect($dsn, $userid, $pwd);
 
 
 
-USING CLI INTERFACE
-===================
+USING CLI INTERFACE ===================
 
 I have had reports that the $host and $database params have to be reversed in
 Connect() when using the CLI interface. From Halmai Csongor csongor.halmai#nexum.hu:
@@ -82,8 +80,7 @@ Connect() when using the CLI interface. From Halmai Csongor csongor.halmai#nexum
 > In case of DB2 I had to swap the first and last arguments in order to connect properly.
 
 
-System Error 5
-==============
+System Error 5 ==============
 IF you get a System Error 5 when trying to Connect/Load, it could be a permission problem. Give the user connecting
 to DB2 full rights to the DB2 SQLLIB directory, and place the user in the DBUSERS group.
 */

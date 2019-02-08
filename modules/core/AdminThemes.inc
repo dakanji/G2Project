@@ -36,7 +36,10 @@ class AdminThemesController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$status  = $error = $errorMessage = array();
+		$status       = array();
+		$error        = array();
+		$errorMessage = array();
+		
 		$theme   = null;
 		$themeId = GalleryUtilities::getRequestVariables('themeId');
 

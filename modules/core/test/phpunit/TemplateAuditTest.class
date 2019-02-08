@@ -219,7 +219,7 @@ class TemplateAuditTest extends CodeAuditTestCase {
 									'without the forJavascript=true attribute.'
 				);
 				$inScriptTag = false;
-				$textCount   = $forJsCount = 0;
+				$textCount   = $forJsCount   = 0;
 			}
 		}
 	}

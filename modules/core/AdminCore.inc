@@ -44,7 +44,7 @@ class AdminCoreController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$status  = $error = array();
+		$status  = $error  = array();
 		$canSave = !empty($form['action']) &&
 		array_intersect(array_keys($form['action']), array('save', 'emailTest'));
 
@@ -294,7 +294,7 @@ class AdminCoreView extends GalleryView {
 
 		$platform   =& $gallery->getPlatform();
 		$translator =& $gallery->getTranslator();
-		$AdminCore  = $can = array();
+		$AdminCore  = $can  = array();
 
 		// Set up our session time lists
 		$sessionTimeList = array();

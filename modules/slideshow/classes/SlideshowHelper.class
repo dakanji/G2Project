@@ -92,7 +92,7 @@ class SlideshowHelper {
 		}
 
 		$itemId                              = $item->getId();
-		$prevOffset                          = $nextOffset                                                                            = null;
+		$prevOffset                          = $nextOffset                          = null;
 		list($ret, $prevOffset, $nextOffset) = SlideshowHelper::paginateItemSlideshow(
 			$itemId,
 			$offset
@@ -208,7 +208,6 @@ class SlideshowHelper {
 						$image = $child;
 					}
 				} elseif (isset($permissions[$childId]['core.viewResizes'], $resizedImages[$childId])
-
 				) {
 					$maxSize = 0;
 

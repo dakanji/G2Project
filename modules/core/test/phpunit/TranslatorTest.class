@@ -58,7 +58,7 @@ class TranslatorTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			list($ret, $actual) = 		GalleryCoreApi::getPluginParameter('module', 'core', $param);
+			list($ret, $actual) = GalleryCoreApi::getPluginParameter('module', 'core', $param);
 
 			if ($ret) {
 				return $ret;
@@ -97,7 +97,7 @@ class TranslatorTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			list($ret, $actual) = 		GalleryCoreApi::getPluginParameter('module', 'core', $param);
+			list($ret, $actual) = GalleryCoreApi::getPluginParameter('module', 'core', $param);
 
 			if ($ret) {
 				return $ret;
@@ -175,7 +175,7 @@ class TranslatorTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			list($ret, $actual) = 		GalleryCoreApi::getPluginParameter('module', 'core', $param);
+			list($ret, $actual) = GalleryCoreApi::getPluginParameter('module', 'core', $param);
 
 			if ($ret) {
 				return $ret;
@@ -310,7 +310,7 @@ class TranslatorTest extends GalleryTestCase {
 		$translator->init('es_AR');
 
 		// Singular text data
-		list($ret, $results) = 		$translator->translateDomain($domain, array('text' => 'Description'));
+		list($ret, $results) = $translator->translateDomain($domain, array('text' => 'Description'));
 
 		if ($ret) {
 			return $ret;
@@ -324,7 +324,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		// Test something with some non-ascii in the result
 		$translator->init('fr_FR');
-		list($ret, $results) = 		$translator->translateDomain($domain, array('text' => 'Create'));
+		list($ret, $results) = $translator->translateDomain($domain, array('text' => 'Create'));
 
 		if ($ret) {
 			return $ret;
@@ -345,12 +345,12 @@ class TranslatorTest extends GalleryTestCase {
 		$translator->init('es_AR');
 
 		// Plural text data, count=1
-		list($ret, $results) = 		$translator->translateDomain(
+		list($ret, $results) = $translator->translateDomain(
 			$domain,
-					 array('one'    => '%d user matches your filter',
-						   'many'      => '%d users match your filter',
-						   'count'     => 1,
-						   'arg1'      => 1, )
+					 array('one'   => '%d user matches your filter',
+						   'many'  => '%d users match your filter',
+						   'count' => 1,
+						   'arg1'  => 1, )
 		);
 
 		if ($ret) {
@@ -364,12 +364,12 @@ class TranslatorTest extends GalleryTestCase {
 		}
 
 		// Plural text data, count=2 (plural)
-		list($ret, $results) = 		$translator->translateDomain(
+		list($ret, $results) = $translator->translateDomain(
 			$domain,
-					 array('one'    => '%d user matches your filter',
-						   'many'      => '%d users match your filter',
-						   'count'     => 2,
-						   'arg1'      => 2, )
+					 array('one'   => '%d user matches your filter',
+						   'many'  => '%d users match your filter',
+						   'count' => 2,
+						   'arg1'  => 2, )
 		);
 
 		if ($ret) {
@@ -396,7 +396,7 @@ class TranslatorTest extends GalleryTestCase {
 		$translator->init('pt_BR');
 
 		// Singular text data
-		list($ret, $results) = 		$translator->translateDomain($domain, array('text' => 'Album'));
+		list($ret, $results) = $translator->translateDomain($domain, array('text' => 'Album'));
 
 		if ($ret) {
 			return $ret;
@@ -420,7 +420,7 @@ class TranslatorTest extends GalleryTestCase {
 		list($ret, $text) = $translator->translateDomain(
 		'modules_core',
 		array('text' => 'test <!-- old style hint, no longer removed -->',
-			  'hint'    => 'this is a hint to assist translators', )
+			  'hint' => 'this is a hint to assist translators', )
 	);
 
 		if ($ret) {

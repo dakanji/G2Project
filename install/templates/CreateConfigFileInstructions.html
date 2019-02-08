@@ -1,11 +1,13 @@
 	<h1><?php echo _('Create a config file'); ?></h1>
 
-	<?php if (!empty($templateData['error'])) {
-	?>
+	<?php
+	if (!empty($templateData['error'])) {
+		?>
 	<div class="error">
 	  <h2>
-		<?php if (!empty($templateData['error']['configWriteError'])) {
-		?>
+		<?php
+		if (!empty($templateData['error']['configWriteError'])) {
+			?>
 			<?php
 			printf(
 				_("Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix this. You can also download the %sconfig.php%s file and replace the existing config.php in the %s directory yourself."),
@@ -15,43 +17,47 @@
 				'<tt>' . $templateData['galleryDir'] . '</tt>'
 			)
 			?>
-		<?php
-	} else {
-		?>
+			<?php
+		} else {
+			?>
 			<?php echo $templateData['error']; ?>
-		<?php
-	} ?>
+			<?php
+		} ?>
 	  </h2>
 	</div>
-	<?php
-} ?>
+		<?php
+	}
+	?>
 
 	<p>
 		<?php printf(_('Now we need to write out all the information you provided into a file called <b>config.php</b> in your <b>%s</b> directory.  This is a very important file that gives Gallery all the information that it needs to operate.  After we create it, you can read through this file and make changes to it if you want.'), $templateData['galleryDir']); ?>
 	</p>
 
 	<p>
-	<?php if (empty($templateData['error'])) {
+	<?php
+	if (empty($templateData['error'])) {
 		?>
 		<?php printf(_('Before we can proceed, you should create a file in your <b>%s</b> directory called <i>config.php</i>.  You must make sure that the webserver will be able to write to it.'), $templateData['galleryDir']); ?>
-		<?php if ($templateData['OS'] == 'unix') {
+		<?php
+		if ($templateData['OS'] == 'unix') {
 			?>
 	<div class="example">
 	  <h2> <?php echo _('Unix (with shell access)'); ?> </h2>
 	  <pre> $ <b>touch config.php</b> <br/> $ <b>chmod 666 config.php</b> </pre>
 	</div>
 
-		<?php
+			<?php
 		} else {
 			?>
 	<div class="example">
 	  <h2> Windows </h2>
 	  <pre> <?php echo _("On Windows, you shouldn't have to do anything special."); ?> </pre>
 	</div>
-		<?php
+			<?php
 		} ?>
-	<?php
-	} ?>
+		<?php
+	}
+	?>
 	<?php echo _("When you've created this file and set the permissions properly, you can proceed.  If there's a problem, we'll tell you what to fix."); ?>
 	</p>
 

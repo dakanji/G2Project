@@ -25,8 +25,9 @@
 	  </b>
 	</td>
 	  </tr>
-		<?php if ($templateData['isConfigUpgradeRequired'] && !isset($templateData['isTryingToDowngrade'])) {
-	?>
+		<?php
+		if ($templateData['isConfigUpgradeRequired'] && !isset($templateData['isTryingToDowngrade'])) {
+			?>
 	  <tr>
 	<td>
 			<?php echo _('Config.php upgrade'); ?>
@@ -35,8 +36,9 @@
 	  <b> <?php echo _('Required'); ?> </b>
 	</td>
 	  </tr>
-			<?php if (!$templateData['isConfigWriteable']) {
-		?>
+			<?php
+			if (!$templateData['isConfigWriteable']) {
+				?>
 	  <tr>
 	<td colspan="2" class="error">
 				<?php printf(_('Unable to write to config.php in your %s directory.  Please change its permissions.'), basename(GALLERY_CONFIG_DIR)); ?>
@@ -46,18 +48,20 @@
 				} ?>
 	</td>
 	  </tr>
+				<?php
+			} ?>
 			<?php
-	} ?>
-		<?php
-} ?>
+		}
+		?>
 	</table>
 
-	<?php if (isset($templateData['isTryingToDowngrade'])) {
+	<?php
+	if (isset($templateData['isTryingToDowngrade'])) {
 		?>
 	<p class="error">
 		<?php echo _('The installed version is newer than the version you are trying to upgrade to. You cannot downgrade G2. Please replace the gallery2 files with files from the currently installed version or later.'); ?>
 	</p>
-	<?php
+		<?php
 	} else {
 		?>
 	<p>
@@ -75,12 +79,12 @@
 		) {
 			?>
 	  <a href="javascript:document.forms[0].submit()" class="btn continue"><i></i><span><span></span><i></i><?php echo _('Begin Upgrade'); ?></span></a>
-		<?php
+			<?php
 		} else {
 			?>
 	  <a href="<?php generateUrl('index.php?step=' . $stepNumber); ?>" class="btn continue"><i></i><span><span></span><i></i><?php echo _('Recheck config.php'); ?></span></a>
-		<?php
+			<?php
 		} ?>
 	</div>
-	<?php
+		<?php
 	} ?>

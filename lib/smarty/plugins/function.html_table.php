@@ -50,7 +50,7 @@ function smarty_function_html_table($params, &$smarty) {
 	$tr_attr    = '';
 	$th_attr    = '';
 	$td_attr    = '';
-	$cols       = $cols_count = 3;
+	$cols       = $cols_count       = 3;
 	$rows       = 3;
 	$trailpad   = '&nbsp;';
 	$vdir       = 'down';

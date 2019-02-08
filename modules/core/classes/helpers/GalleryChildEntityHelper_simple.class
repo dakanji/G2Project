@@ -586,7 +586,10 @@ class GalleryChildEntityHelper_simple {
 
 		$directionList = explode('|', $orderDirection);
 		$direction     = '';
-		$order         = $select = $condition = $join = array();
+		$order         = array();
+		$select        = array();
+		$condition     = array();
+		$join          = array();
 
 		foreach (explode('|', $orderBy) as $orderType) {
 			if (!empty($directionList)) {

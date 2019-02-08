@@ -278,7 +278,8 @@ class GalleryTranslator {
 
 	/**
 	 * Return the list of languages that we support.
-	 * @return array['language code']['country code'] =      *              array('description', 'right-to-left'?)
+	 * @return array['language code']['country code']
+	 *              array('description', 'right-to-left'?)
 	 * @deprecated Remove on next major api bump. Use GalleryCoreApi::getSupportedLanguages
 	 */
 	public function getSupportedLanguages() {

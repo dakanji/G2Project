@@ -1403,7 +1403,7 @@ class GalleryTheme extends GalleryPlugin {
 		 * Initialize
 		 */
 		$theme =& $template->getVariableByReference('theme');
-		$load  = $childItems = $childData = array();
+		$load  = $childItems  = $childData  = array();
 
 		foreach ($dataToLoad as $key) {
 			$load[$key] = true;
@@ -1854,7 +1854,7 @@ class GalleryTheme extends GalleryPlugin {
 					}
 				}
 
-				if (isset($itemLinks, $callbacks['getItemLinks'])   && !empty($allItems)) {
+				if (isset($itemLinks, $callbacks['getItemLinks']) && !empty($allItems)) {
 					list($ret, $links) = $module->getItemLinks(
 						$allItems,
 						$wantsDetailedLinks,
@@ -1972,7 +1972,8 @@ class GalleryTheme extends GalleryPlugin {
 			}
 
 			if ($page < $theme['totalPages']) {
-				$navigator['next']['urlParams']         = $navigator['last']['urlParams'] = $theme['pageUrl'];
+				$navigator['next']['urlParams']         = $theme['pageUrl'];
+				$navigator['last']['urlParams']         = $theme['pageUrl'];
 				$navigator['next']['urlParams']['page'] = $page + 1;
 				$navigator['last']['urlParams']['page'] = $theme['totalPages'];
 			}

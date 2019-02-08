@@ -54,26 +54,19 @@ October 4, 1582 (Julian) was followed immediately by Friday, October 15,
 
 Since 0.06, we handle this correctly, so:
 
-adodb_mktime(0,0,0,10,15,1582) - adodb_mktime(0,0,0,10,4,1582)
-	== 24 * 3600 (1 day)
-
-=============================================================================
+adodb_mktime(0,0,0,10,15,1582) - adodb_mktime(0,0,0,10,4,1582) == 24 * 3600 (1 day) =============================================================================
 
 COPYRIGHT
 
 (c) 2003-2014 John Lim and released under BSD-style license except for code by
 jackbbs, which includes adodb_mktime, adodb_get_gmt_diff, adodb_is_leap_year
-and originally found at http://www.php.net/manual/en/function.mktime.php
-
-=============================================================================
+and originally found at http://www.php.net/manual/en/function.mktime.php =============================================================================
 
 BUG REPORTS
 
 These should be posted to the ADOdb forums at
 
-	http://phplens.com/lens/lensforum/topics.php?id=4
-
-=============================================================================
+	http://phplens.com/lens/lensforum/topics.php?id=4 =============================================================================
 
 FUNCTION DESCRIPTIONS
 
@@ -228,9 +221,7 @@ adodb_date syntax, and 2nd element is the time format, also in adodb_date syntax
 	%w - day of the week as a decimal, Sunday being 0
 	%W - week number of the current year as a decimal number, starting with the
 		 first Monday as the first day of the first week
-</pre>
-
-=============================================================================
+</pre> =============================================================================
 
 NOTES
 

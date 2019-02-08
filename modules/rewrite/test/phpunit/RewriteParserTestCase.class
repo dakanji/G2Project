@@ -490,26 +490,26 @@ class RewriteParserMockModule extends GalleryModule {
 		$rules = array();
 
 		$rules[0] = array('pattern' => 'bogus1',
-			  'match'                  => array('view' => 'php.Unit'), );
+			  'match'               => array('view' => 'php.Unit'), );
 
 		// Rule 1: Duplicate match
 		$rules[1] = array('pattern' => 'bogus2',
-			  'match'                  => array('view' => 'php.Unit'), );
+			  'match'               => array('view' => 'php.Unit'), );
 
 		// Rule 2: Bad parser
 		$rules[2] = array('pattern' => 'bogus3',
-			  'parser'                 => 'bogus', );
+			  'parser'              => 'bogus', );
 
 		// Rule 3: Conditions
 		$rules[3] = array('conditions' => array(array('test' => 'REQUEST_METHOD',
-							  'pattern'                                     => 'OPTIONS', ),
-						array('test'                                     => 'HTTP:Authorization',
-							  'pattern'                                     => '%authorization', ), ),
+							  'pattern'                      => 'OPTIONS', ),
+						array('test'    => 'HTTP:Authorization',
+							  'pattern' => '%authorization', ), ),
 			  'keywords'               => array('authorization' => array('pattern' => '(.+)')), );
 
 		// Rule 4: Bad test condition
 		$rules[4] = array('conditions' => array(array('test' => 'REQUEST_FILENAME',
-							  'pattern'                                     => '/foo/bar', )));
+							  'pattern'                      => '/foo/bar', )));
 
 		// Rule 5: Restrict
 		$rules[5] = array('restrict' => array('view' => 'php.Unit'));

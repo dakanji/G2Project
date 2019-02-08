@@ -18,8 +18,7 @@
 
 CREATE Table SCripts
 
-Oracle
-======
+Oracle ======
 
 CREATE TABLE SESSIONS2
 (
@@ -39,8 +38,7 @@ CREATE INDEX SESS2_EXP_REF ON SESSIONS2(EXPIREREF);
 
 
 
- MySQL
- =====
+ MySQL =====
 
 CREATE TABLE sessions2(
 	sesskey VARCHAR( 64 ) NOT NULL DEFAULT '',

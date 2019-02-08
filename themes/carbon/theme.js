@@ -95,6 +95,7 @@ function scrollRight(menuId) {
 			return;
 		} else {
 			leftPosition += 10;
+
 			document.getElementById(menuId).style.left = leftPosition + "px";
 		}
 	}
@@ -108,6 +109,7 @@ function scrollLeft(menuId) {
 			return;
 		} else {
 			leftPosition -= 10;
+
 			document.getElementById(menuId).style.left = leftPosition + "px";
 		}
 	}

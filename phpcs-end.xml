@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruleset name="G2_Ruleset">
+	<description>Coding Standards for Gallery 2 Community Edition</description>
+
+
+	<!-- GENERAL:
+		- Rules basically follow PSR2
+		- php-cs-fixer should be run after this as neither gives satisfactory results alone.
+	-->
+
+	<!-- Assume UTF-8 -->
+	<config name="encoding" value="utf-8" />
+
+	<!-- ARGS -->
+	<arg name="tab-width" value="4" />
+	<arg name="extensions" value="php,inc,class,css,js,xml,xaml,html" />
+	<arg name="ignore" value="*g2data/*,*/lib/composer/*,*/dev_vendor/*,*/dev_scripts/*,*MANIFEST*,*GNUmakefile*" />
+
+	<!-- Load WordPress Standards -->
+	<config name="installed_paths" value="dev_vendor/wp-coding-standards/wpcs" />
+
+	<!-- APPLY ADDITIONAL SELECTED WORDPRESS RULES -->
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+		<properties>
+			<property name="maxColumn" value="70" />
+			<property name="exact" value="true" />
+			<property name="alignMultilineItems" value="!=100" />
+		</properties>
+	</rule>
+	
+	<!-- APPLY ADDITIONAL SELECTED GENERIC RULES -->
+	<rule ref="Generic.Formatting.MultipleStatementAlignment">
+		<properties>
+			<property name="maxPadding" value="45" />
+		</properties>
+	</rule>
+</ruleset>

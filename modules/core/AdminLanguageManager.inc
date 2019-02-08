@@ -490,8 +490,9 @@ class AdminLanguageManagerView extends GalleryView {
 		}
 
 		// Get list of upgradeable packages in repository
-		$upgradeInfo    = $languagePackages = array();
-		$enableAllFlags = array(
+		$upgradeInfo      = $array();
+		$languagePackages = array();
+		$enableAllFlags   = array(
 			'upgrade'  => false,
 			'remove'   => false,
 			'download' => false,

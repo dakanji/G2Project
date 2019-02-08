@@ -35,7 +35,7 @@ if (!empty($_REQUEST['type']) && $_REQUEST['type'] == 'detail') {
 $precision = isset($_GET['precision']) ? (int)$_GET['precision'] : ($type == 'detail' ? 2 : 1);
 $pow       = 10 ** $precision;
 
-$poFiles                                               = findPoFiles('../../..');
+$poFiles = findPoFiles('../../..');
 list($reportData, $mostRecentPoDate, $totalTranslated) = parsePoFiles($poFiles);
 
 require __DIR__ . '/localization/main_' . $type . '.inc';
@@ -75,7 +75,7 @@ function parsePoFiles($poFiles) {
 	 * single data structure.
 	 */
 	global $pow;
-	$poData           = $seenPlugins = $maxMessageCount = array();
+	$poData           = $seenPlugins           = $maxMessageCount           = array();
 	$mostRecentPoDate = $totalTranslated = 0;
 
 	foreach ($poFiles as $poFile) {

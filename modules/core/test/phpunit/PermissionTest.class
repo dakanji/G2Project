@@ -612,7 +612,7 @@ class PermissionTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$event          = GalleryCoreApi::newEvent(
+		$event                                      = GalleryCoreApi::newEvent(
 			'Gallery::RemovePermission'
 		);
 		$itemIdsAndBits                             = array();

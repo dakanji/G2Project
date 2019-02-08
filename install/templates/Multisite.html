@@ -7,8 +7,9 @@
 <div class="error">
   <h2> <?php echo _('Errors occurred. Please see messages below.'); ?> </h2>
 </div>
-<?php
-} ?>
+	<?php
+}
+?>
 
 <h1><?php echo _('Installation Type'); ?></h1>
 <br/>
@@ -53,56 +54,62 @@
 	)
 	?>
   </p>
-	<?php if (isset($templateData['error']['dir'])) {
+	<?php
+	if (isset($templateData['error']['dir'])) {
 		?>
 	  <div class="error" style="padding-top: 0.8em; padding-bottom: 0.9em">
-		<?php if (isset($templateData['error']['dir']['empty'])) {
+		<?php
+		if (isset($templateData['error']['dir']['empty'])) {
 			?>
 			<?php echo _('You must enter a directory'); ?>
-		<?php
+			<?php
 		} elseif (isset($templateData['error']['dir']['codebase'])) {
 			?>
 			<?php printf(_('You entered the %s directory. If you want to install a Gallery there, select the standard installation type. If you want to install a multisite, choose a different directory.'), basename($templateData['configPath'])); ?>
-		<?php
+			<?php
 		} elseif (isset($templateData['error']['dir']['missing'])) {
 			?>
-			<?php if (!empty($templateData['openBasedir'])) {
+			<?php
+			if (!empty($templateData['openBasedir'])) {
 				?>
 				<?php echo _('The directory you entered either does not exist, or is prohibited by your webserver configuration.  Your webserver is configured to only allow access to the following directories.  You must choose a directory under one of these, or you must modify the <b>open_basedir</b> setting in your PHP configuration to allow a new directory.'); ?>
 		<ul>
-				<?php foreach ($templateData['openBasedir'] as $dir) {
+				<?php
+				foreach ($templateData['openBasedir'] as $dir) {
 					?>
 		  <li> <?php echo $dir; ?> </li>
-				<?php
+					<?php
 				} ?>
 		</ul>
 				<?php echo _('If your multisite installation is in a different virtual host, you should contact your system administrator and request that they configure your <b>open_basedir</b> setting so that your virtual hosts can access each other.'); ?>
-			<?php
+				<?php
 			} else {
 				?>
 				<?php echo _('The directory you entered does not exist'); ?>
-			<?php
+				<?php
 			} ?>
-		<?php
+			<?php
 		} elseif (isset($templateData['error']['dir']['inaccessible'])) {
 			?>
 			<?php echo _('The directory you entered is not accessible.  Change the permissions so that the webserver can read this directory.'); ?>
-		<?php
+			<?php
 		} elseif (isset($templateData['error']['dir']['creation_error'])) {
 			?>
 			<?php echo _('Unable to create multisite files. Ensure the files listed below are writeable.'); ?>
 		  <br/><br/>
-			<?php foreach (array('main.php', 'index.php', 'embed.php', 'upgrade/index.php', 'lib/support/index.php (optional)') as $file) {
+			<?php
+			foreach (array('main.php', 'index.php', 'embed.php', 'upgrade/index.php', 'lib/support/index.php (optional)') as $file) {
 				?>
 				<?php printf('%s%s%s', $templateData['configPath'], DIRECTORY_SEPARATOR, $file); ?> <br/>
-			<?php
+				<?php
 			} ?>
-		<?php
+			<?php
 		} ?>
 	</div>
 	 <br/>
-	<?php
-	} ?>
+		<?php
+	}
+	?>
   <p>
 	<?php echo _('Directory for the new Gallery installation (example: /var/www/example.com/gallery2) '); ?>
   </p>
@@ -114,13 +121,15 @@
 		}
 		?>
 		/>
-	<?php if (isset($templateData['error']['uri']['missing'])) {
-			?>
+	<?php
+	if (isset($templateData['error']['uri']['missing'])) {
+		?>
 	<div class="error" style="margin-top: 1em; padding-top: 0.8em; padding-bottom: 0.9em">
 		<?php echo _('You must provide the URL for your new multisite'); ?>
 	</div>
-	<?php
-		} ?>
+		<?php
+	}
+	?>
   <p>
 	<?php echo _('URL for the new Gallery installation (example: http://example.com/gallery2/main.php) '); ?>
   </p>

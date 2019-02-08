@@ -32,40 +32,48 @@
  */
 define('EXIF_SUMMARY', 1);
 
+
 /**
  * Detailed EXIF setting
  */
 define('EXIF_DETAILED', 2);
+
 
 /**
  * Import EXIF description into item summary
  */
 define('EXIF_ITEM_SUMMARY', 1);
 
+
 /**
  * Import EXIF description into item description
  */
 define('EXIF_ITEM_DESCRIPTION', 2);
+
 
 /**
  * Import IPTC keywords into item keywords
  */
 define('IPTC_ITEM_KEYWORDS', 4);
 
+
 /**
  * Import IPTC Name into item title
  */
 define('IPTC_ITEM_TITLE', 32);
+
 
 /**
  * Rotate pictures based on exifData
  */
 define('EXIF_ITEM_ROTATE', 8);
 
+
 /**
  * Preserve original on rotating
  */
 define('EXIF_ITEM_ROTATE_PRESERVE', 16);
+
 
 /**
  * A helper class for the EXIF module.
@@ -143,6 +151,7 @@ class ExifHelper {
 
 		$ret = self::setProperties($viewMode, $properties);
 
+
 		if ($ret) {
 			return $ret;
 		}
@@ -159,6 +168,7 @@ class ExifHelper {
 	 */
 	public static function addDefaultIptcProperties($viewMode) {
 		list($ret, $properties) = self::getProperties($viewMode);
+
 
 		if ($ret) {
 			return $ret;
@@ -184,6 +194,7 @@ class ExifHelper {
 
 		$ret = self::setProperties($viewMode, $properties);
 
+
 		if ($ret) {
 			return $ret;
 		}
@@ -202,7 +213,9 @@ class ExifHelper {
 		global $gallery;
 		GalleryCoreApi::requireOnce('modules/exif/lib/exifer/exif.inc');
 
+
 		$platform =& $gallery->getPlatform();
+
 
 		if (!$platform->file_exists($path)) {
 			$rawExifData = null;
@@ -211,8 +224,10 @@ class ExifHelper {
 		}
 		$rawExifData = read_exif_data_raw($path, false);
 
+
 		if ($gallery->getDebug()) {
 			$buf = print_r($rawExifData, true);
+
 			$gallery->debug(str_replace("\0", '', $buf));
 		}
 	}
@@ -233,6 +248,7 @@ class ExifHelper {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
+
 		if (!$platform->file_exists($path)) {
 			return array(
 				GalleryCoreApi::error(
@@ -245,14 +261,20 @@ class ExifHelper {
 			);
 		}
 		GalleryCoreApi::requireOnce('modules/exif/lib/JPEG/JPEG.inc');
+
 		$result = new JPEG($path);
+
 
 		if ($gallery->getDebug()) {
 			// Capture old-school print_r() to support older PHP
 			ob_start();
+
 			print_r($result->getRawInfo());
+
 			$buf = ob_get_contents();
+
 			ob_end_clean();
+
 			$gallery->debug(str_replace("\0", '', $buf));
 		}
 
@@ -271,8 +293,11 @@ class ExifHelper {
 	 */
 	public static function getExifData($path, $viewMode) {
 		$rawExifData = array();
+
 		self::_fetchRawExifData($path, $rawExifData);
+
 		list($ret, $iptcObj) = self::getIptcObject($path);
+
 
 		if ($ret) {
 			return array($ret, null);
@@ -280,8 +305,11 @@ class ExifHelper {
 
 		$exifKeys = self::getExifKeys();
 
-		$results                = array();
+
+		$results = array();
+
 		list($ret, $properties) = self::getProperties($viewMode);
+
 
 		if ($ret) {
 			return array($ret, null);
@@ -292,7 +320,9 @@ class ExifHelper {
 
 			for ($i = 1; $i < sizeof($exifKeys[$property]); $i++) {
 				$keyPath = explode('.', $exifKeys[$property][$i]);
-				$value   = self::getExifValue($rawExifData, $keyPath);
+
+				$value = self::getExifValue($rawExifData, $keyPath);
+
 
 				if (!isset($value)) {
 					$value = self::getIptcValue($iptcObj, $keyPath);
@@ -307,6 +337,7 @@ class ExifHelper {
 						'title' => $title,
 						'value' => $value,
 					);
+
 
 					break;
 				}
@@ -329,10 +360,12 @@ class ExifHelper {
 
 		GalleryUtilities::sanitizeInputValues($value, false);
 
+
 		switch ($property) {
 			case 'ApertureValue':
 				// Convert "f 2.8" to "f/2.8"
 				$results = sscanf($value, 'f %s');
+
 
 				if (count($results) == 1) {
 					$value = 'f/' . $results[0];
@@ -343,15 +376,18 @@ class ExifHelper {
 			case 'DateTime':
 				$value = self::_parseDate($value);
 
+
 				if (isset($value)) {
 					// Convert to localized string
 					list($ret, $format) = GalleryCoreApi::getPluginParameter('module', 'core', 'format.datetime');
+
 
 					if ($ret || empty($format)) {
 						$format = '$x $X';
 					}
 					$platform =& $gallery->getPlatform();
-					$value    = $platform->strftime($format, $value);
+
+					$value = $platform->strftime($format, $value);
 				}
 
 				break;
@@ -375,6 +411,7 @@ class ExifHelper {
 					$value
 				);
 
+
 				break;
 		}
 
@@ -393,7 +430,9 @@ class ExifHelper {
 	 */
 	public static function getOriginationTimestamp($path) {
 		$rawExifData = array();
+
 		self::_fetchRawExifData($path, $rawExifData);
+
 		/*
 		 * The method name indicates, that we want the earliest date available for the img.
 		 * As of specs and practice with raw camera images and Adobe manipulated ones it seems,
@@ -408,8 +447,10 @@ class ExifHelper {
 		) as $tag) {
 			$value = self::getExifValue($rawExifData, explode('.', $tag));
 
+
 			if (isset($value)) {
 				$value = self::_parseDate($value);
+
 
 				if (isset($value)) {
 					return $value;
@@ -482,6 +523,7 @@ class ExifHelper {
 	public static function getExifValue(&$source, $keyPath) {
 		$key = array_shift($keyPath);
 
+
 		if (!isset($source[$key])) {
 			return null;
 		}
@@ -515,6 +557,7 @@ class ExifHelper {
 		}
 		$result = $object->getIPTCField($keyPath[1]);
 
+
 		if ($result == false) {
 			return null;
 		}
@@ -523,6 +566,7 @@ class ExifHelper {
 			$result = implode('; ', $result);
 		}
 		$result = GalleryCoreApi::convertToUtf8($result, $sourceEncoding);
+
 
 		return $result;
 	}
@@ -548,11 +592,13 @@ class ExifHelper {
 			)
 		);
 
+
 		if ($ret) {
 			return array($ret, null);
 		}
 
 		$data = array();
+
 
 		while ($result = $searchResults->nextResult()) {
 			$data[] = $result[0];
@@ -578,6 +624,7 @@ class ExifHelper {
 			)
 		);
 
+
 		if ($ret) {
 			return $ret;
 		}
@@ -591,6 +638,7 @@ class ExifHelper {
 					'sequence' => $i,
 				)
 			);
+
 
 			if ($ret) {
 				return $ret;
@@ -629,843 +677,1042 @@ class ExifHelper {
 		}
 
 		// Must haves
-		$data['ApertureValue']     = array(
+		$data['ApertureValue'] = array(
 			$gallery->i18n('Aperture Value'),
 			'SubIFD.ApertureValue',
 			'SubIFD.FNumber',
 		);
+
 		$data['ShutterSpeedValue'] = array(
 			$gallery->i18n('Shutter Speed Value'),
 			'SubIFD.ShutterSpeedValue',
 			'SubIFD.ExposureTime',
 		);
-		$data['ISO']               = array(
+
+		$data['ISO'] = array(
 			$gallery->i18n('ISO'),
 			'SubIFD.MakerNote.Settings 1.ISO',
 			'SubIFD.MakerNote.ISOSelection',
 			'SubIFD.MakerNote.ISOSetting',
 			'SubIFD.ISOSpeedRatings',
 		);
-		$data['FocalLength']       = array(
+
+		$data['FocalLength'] = array(
 			$gallery->i18n('Focal Length'),
 			'SubIFD.FocalLength',
 		);
-		$data['Flash']             = array(
+
+		$data['Flash'] = array(
 			$gallery->i18n('Flash'),
 			'SubIFD.Flash',
 			'SubIFD.MakerNote.Settings 1.Flash',
 		);
 
+
 		// Not sure
-		$data['ACDComment']              = array(
+		$data['ACDComment'] = array(
 			$gallery->i18n('ACD Comment'),
 			'IFD0.ACDComment',
 		);
-		$data['AEWarning']               = array(
+
+		$data['AEWarning'] = array(
 			$gallery->i18n('AE Warning'),
 			'SubIFD.MakerNote.AEWarning',
 		);
-		$data['AFFocusPosition']         = array(
+
+		$data['AFFocusPosition'] = array(
 			$gallery->i18n('AF Focus Position'),
 			'SubIFD.MakerNote.AFFocusPosition',
 		);
-		$data['AFPointSelected']         = array(
+
+		$data['AFPointSelected'] = array(
 			$gallery->i18n('AF Point Selected'),
 			'SubIFD.MakerNote.Settings 1.AFPointSelected',
 		);
-		$data['AFPointUsed']             = array(
+
+		$data['AFPointUsed'] = array(
 			$gallery->i18n('AF Point Used'),
 			'SubIFD.MakerNote.Settings 4.AFPointUsed',
 		);
-		$data['Adapter']                 = array(
+
+		$data['Adapter'] = array(
 			$gallery->i18n('Adapter'),
 			'SubIFD.MakerNote.Adapter',
 		);
-		$data['Artist']                  = array(
+
+		$data['Artist'] = array(
 			$gallery->i18n('Artist'),
 			'IFD0.Artist',
 		);
-		$data['BatteryLevel']            = array(
+
+		$data['BatteryLevel'] = array(
 			$gallery->i18n('Battery Level'),
 			'IFD1.BatteryLevel',
 		);
-		$data['BitsPerSample']           = array(
+
+		$data['BitsPerSample'] = array(
 			$gallery->i18n('Bits Per Sample'),
 			'IFD1.BitsPerSample',
 		);
-		$data['BlurWarning']             = array(
+
+		$data['BlurWarning'] = array(
 			$gallery->i18n('Blur Warning'),
 			'SubIFD.MakerNote.BlurWarning',
 		);
-		$data['BrightnessValue']         = array(
+
+		$data['BrightnessValue'] = array(
 			$gallery->i18n('Brightness Value'),
 			'SubIFD.BrightnessValue',
 		);
-		$data['CCDSensitivity']          = array(
+
+		$data['CCDSensitivity'] = array(
 			$gallery->i18n('CCD Sensitivity'),
 			'SubIFD.MakerNote.CCDSensitivity',
 		);
-		$data['CameraID']                = array(
+
+		$data['CameraID'] = array(
 			$gallery->i18n('Camera ID'),
 			'SubIFD.MakerNote.CameraID',
 		);
-		$data['CameraSerialNumber']      = array(
+
+		$data['CameraSerialNumber'] = array(
 			$gallery->i18n('Camera Serial Number'),
 			'SubIFD.MakerNote.CameraSerialNumber',
 		);
-		$data['Color']                   = array(
+
+		$data['Color'] = array(
 			$gallery->i18n('Color'),
 			'SubIFD.MakerNote.Color',
 		);
-		$data['ColorMode']               = array(
+
+		$data['ColorMode'] = array(
 			$gallery->i18n('Color Mode'),
 			'SubIFD.MakerNote.ColorMode',
 		);
-		$data['ColorSpace']              = array(
+
+		$data['ColorSpace'] = array(
 			$gallery->i18n('Color Space'),
 			'SubIFD.ColorSpace',
 		);
+
 		$data['ComponentsConfiguration'] = array(
 			$gallery->i18n('Components Configuration'),
 			'SubIFD.ComponentsConfiguration',
 		);
-		$data['CompressedBitsPerPixel']  = array(
+
+		$data['CompressedBitsPerPixel'] = array(
 			$gallery->i18n('Compressed Bits Per Pixel'),
 			'SubIFD.CompressedBitsPerPixel',
 		);
-		$data['Compression']             = array(
+
+		$data['Compression'] = array(
 			$gallery->i18n('Compression'),
 			'IFD1.Compression',
 		);
+
 		$data['ContinuousTakingBracket'] = array(
 			$gallery->i18n('Continuous Taking Bracket'),
 			'SubIFD.MakerNote.ContinuousTakingBracket',
 		);
-		$data['Contrast']                = array(
+
+		$data['Contrast'] = array(
 			$gallery->i18n('Contrast'),
 			'SubIFD.Contrast',
 			'SubIFD.MakerNote.Settings 1.Contrast',
 		);
-		$data['Converter']               = array(
+
+		$data['Converter'] = array(
 			$gallery->i18n('Converter'),
 			'SubIFD.MakerNote.Converter',
 		);
-		$data['Copyright']               = array(
+
+		$data['Copyright'] = array(
 			$gallery->i18n('Copyright'),
 			'IFD0.Copyright',
 		);
-		$data['CustomFunctions']         = array(
+
+		$data['CustomFunctions'] = array(
 			$gallery->i18n('Custom Functions'),
 			'SubIFD.MakerNote.CustomFunctions',
 		);
-		$data['CustomerRender']          = array(
+
+		$data['CustomerRender'] = array(
 			$gallery->i18n('Customer Render'),
 			'SubIFD.CustomerRender',
 		);
+
 		// See comment inside getOriginationTimestamp() for changed order of physical props.
-		$data['DateTime']                 = array(
+		$data['DateTime'] = array(
 			$gallery->i18n('Date/Time'),
 			'SubIFD.DateTimeOriginal',
 			'SubIFD.DateTimeDigitized',
 			'IFD0.DateTime',
 		);
-		$data['DigitalZoom']              = array(
+
+		$data['DigitalZoom'] = array(
 			$gallery->i18n('Digital Zoom'),
 			'SubIFD.MakerNote.DigitalZoom',
 			'SubIFD.MakerNote.DigiZoom',
 		);
-		$data['DigitalZoomRatio']         = array(
+
+		$data['DigitalZoomRatio'] = array(
 			$gallery->i18n('Digital Zoom Ratio'),
 			'SubIFD.DigitalZoomRatio',
 		);
-		$data['DriveMode']                = array(
+
+		$data['DriveMode'] = array(
 			$gallery->i18n('DriveMode'),
 			'SubIFD.MakerNote.Settings 1.DriveMode',
 		);
-		$data['EasyShooting']             = array(
+
+		$data['EasyShooting'] = array(
 			$gallery->i18n('Easy Shooting'),
 			'SubIFD.MakerNote.Settings 1.EasyShooting',
 		);
-		$data['ExposureBiasValue']        = array(
+
+		$data['ExposureBiasValue'] = array(
 			$gallery->i18n('Exposure Bias Value'),
 			'SubIFD.ExposureBiasValue',
 		);
-		$data['ExposureIndex']            = array(
+
+		$data['ExposureIndex'] = array(
 			$gallery->i18n('Exposure Index'),
 			'IFD1.ExposureIndex',
 			'SubIFD.ExposureIndex',
 		);
-		$data['ExposureMode']             = array(
+
+		$data['ExposureMode'] = array(
 			$gallery->i18n('Exposure Mode'),
 			'SubIFD.ExposureMode',
 			'SubIFD.MakerNote.Settings 1.ExposureMode',
 		);
-		$data['ExposureProgram']          = array(
+
+		$data['ExposureProgram'] = array(
 			$gallery->i18n('Exposure Program'),
 			'SubIFD.ExposureProgram',
 		);
-		$data['FileSource']               = array(
+
+		$data['FileSource'] = array(
 			$gallery->i18n('File Source'),
 			'SubIFD.FileSource',
 		);
-		$data['FirmwareVersion']          = array(
+
+		$data['FirmwareVersion'] = array(
 			$gallery->i18n('Firmware Version'),
 			'SubIFD.MakerNote.FirmwareVersion',
 		);
-		$data['FlashBias']                = array(
+
+		$data['FlashBias'] = array(
 			$gallery->i18n('Flash Bias'),
 			'SubIFD.MakerNote.Settings 4.FlashBias',
 		);
-		$data['FlashDetails']             = array(
+
+		$data['FlashDetails'] = array(
 			$gallery->i18n('Flash Details'),
 			'SubIFD.MakerNote.Settings 1.FlashDetails',
 		);
-		$data['FlashEnergy']              = array(
+
+		$data['FlashEnergy'] = array(
 			$gallery->i18n('Flash Energy'),
 			'IFD1.FlashEnergy',
 			'SubIFD.FlashEnergy',
 		);
-		$data['FlashMode']                = array(
+
+		$data['FlashMode'] = array(
 			$gallery->i18n('Flash Mode'),
 			'SubIFD.MakerNote.FlashMode',
 		);
-		$data['FlashPixVersion']          = array(
+
+		$data['FlashPixVersion'] = array(
 			$gallery->i18n('Flash Pix Version'),
 			'SubIFD.FlashPixVersion',
 		);
-		$data['FlashSetting']             = array(
+
+		$data['FlashSetting'] = array(
 			$gallery->i18n('Flash Setting'),
 			'SubIFD.MakerNote.FlashSetting',
 		);
-		$data['FlashStrength']            = array(
+
+		$data['FlashStrength'] = array(
 			$gallery->i18n('Flash Strength'),
 			'SubIFD.MakerNote.FlashStrength',
 		);
+
 		$data['FocalPlaneResolutionUnit'] = array(
 			$gallery->i18n('Focal Plane Resolution Unit'),
 			'SubIFD.FocalPlaneResolutionUnit',
 		);
-		$data['FocalPlaneXResolution']    = array(
+
+		$data['FocalPlaneXResolution'] = array(
 			$gallery->i18n('Focal Plane X Resolution'),
 			'SubIFD.FocalPlaneXResolution',
 		);
-		$data['FocalPlaneYResolution']    = array(
+
+		$data['FocalPlaneYResolution'] = array(
 			$gallery->i18n('Focal Plane Y Resolution'),
 			'SubIFD.FocalPlaneYResolution',
 		);
-		$data['FocalUnits']               = array(
+
+		$data['FocalUnits'] = array(
 			$gallery->i18n('Focal Units'),
 			'SubIFD.MakerNote.Settings 1.FocalUnits',
 		);
-		$data['Focus']                    = array(
+
+		$data['Focus'] = array(
 			$gallery->i18n('Focus'),
 			'SubIFD.MakerNote.Focus',
 		);
-		$data['FocusMode']                = array(
+
+		$data['FocusMode'] = array(
 			$gallery->i18n('Focus Mode'),
 			'SubIFD.MakerNote.FocusMode',
 			'SubIFD.MakerNote.Settings 1.FocusMode',
 		);
-		$data['FocusWarning']             = array(
+
+		$data['FocusWarning'] = array(
 			$gallery->i18n('Focus Warning'),
 			'SubIFD.MakerNote.FocusWarning',
 		);
-		$data['GainControl']              = array(
+
+		$data['GainControl'] = array(
 			$gallery->i18n('Gain Control'),
 			'SubIFD.GainControl',
 		);
-		$data['ImageAdjustment']          = array(
+
+		$data['ImageAdjustment'] = array(
 			$gallery->i18n('Image Adjustment'),
 			'SubIFD.MakerNote.ImageAdjustment',
 		);
-		$data['ImageDescription']         = array(
+
+		$data['ImageDescription'] = array(
 			$gallery->i18n('Image Description'),
 			'IFD0.ImageDescription',
 		);
-		$data['ImageHistory']             = array(
+
+		$data['ImageHistory'] = array(
 			$gallery->i18n('Image History'),
 			'SubIFD.ImageHistory',
 		);
-		$data['ImageLength']              = array(
+
+		$data['ImageLength'] = array(
 			$gallery->i18n('Image Length'),
 			'IFD1.ImageLength',
 		);
-		$data['ImageNumber']              = array(
+
+		$data['ImageNumber'] = array(
 			$gallery->i18n('Image Number'),
 			'IFD1.ImageNumber',
 			'SubIFD.MakerNote.ImageNumber',
 		);
-		$data['ImageSharpening']          = array(
+
+		$data['ImageSharpening'] = array(
 			$gallery->i18n('Image Sharpening'),
 			'SubIFD.MakerNote.ImageSharpening',
 		);
-		$data['ImageSize']                = array(
+
+		$data['ImageSize'] = array(
 			$gallery->i18n('Image Size'),
 			'SubIFD.MakerNote.Settings 1.ImageSize',
 		);
-		$data['ImageType']                = array(
+
+		$data['ImageType'] = array(
 			$gallery->i18n('Image Type'),
 			'IFD0.ImageType',
 			'SubIFD.MakerNote.ImageType',
 		);
-		$data['ImageWidth']               = array(
+
+		$data['ImageWidth'] = array(
 			$gallery->i18n('Image Width'),
 			'IFD1.ImageWidth',
 		);
-		$data['InterColorProfile']        = array(
+
+		$data['InterColorProfile'] = array(
 			$gallery->i18n('Inter Color Profile'),
 			'IFD1.InterColorProfile',
 		);
-		$data['Interlace']                = array(
+
+		$data['Interlace'] = array(
 			$gallery->i18n('Interlace'),
 			'IFD1.Interlace',
 		);
-		$data['InteroperabilityIFD.InteroperabilityIndex']   = array(
+
+		$data['InteroperabilityIFD.InteroperabilityIndex'] = array(
 			$gallery->i18n('Interoperability Index'),
 			'InteroperabilityIFD.InteroperabilityIndex',
 		);
+
 		$data['InteroperabilityIFD.InteroperabilityVersion'] = array(
 			$gallery->i18n('Interoperability Version'),
 			'InteroperabilityIFD.InteroperabilityVersion',
 		);
-		$data['InteroperabilityIFD.RelatedImageFileFormat']  = array(
+
+		$data['InteroperabilityIFD.RelatedImageFileFormat'] = array(
 			$gallery->i18n('Related Image File Format'),
 			'InteroperabilityIFD.RelatedImageFileFormat',
 		);
-		$data['InteroperabilityIFD.RelatedImageLength']      = array(
+
+		$data['InteroperabilityIFD.RelatedImageLength'] = array(
 			$gallery->i18n('Related Image Length'),
 			'InteroperabilityIFD.RelatedImageLength',
 		);
-		$data['InteroperabilityIFD.RelatedImageWidth']       = array(
+
+		$data['InteroperabilityIFD.RelatedImageWidth'] = array(
 			$gallery->i18n('Related Image Width'),
 			'InteroperabilityIFD.RelatedImageWidth',
 		);
-		$data['JPEGTables']               = array(
+
+		$data['JPEGTables'] = array(
 			$gallery->i18n('JPEG Tables'),
 			'IFD1.JPEGTables',
 		);
-		$data['JpegIFByteCount']          = array(
+
+		$data['JpegIFByteCount'] = array(
 			$gallery->i18n('Jpeg IF Byte Count'),
 			'IFD1.JpegIFByteCount',
 		);
-		$data['JpegIFOffset']             = array(
+
+		$data['JpegIFOffset'] = array(
 			$gallery->i18n('Jpeg IF Offset'),
 			'IFD1.JpegIFOffset',
 		);
-		$data['JpegQual']                 = array(
+
+		$data['JpegQual'] = array(
 			$gallery->i18n('Jpeg Quality'),
 			'SubIFD.MakerNote.JpegQual',
 		);
-		$data['LightSource']              = array(
+
+		$data['LightSource'] = array(
 			$gallery->i18n('Light Source'),
 			'SubIFD.LightSource',
 		);
-		$data['LongFocalLength']          = array(
+
+		$data['LongFocalLength'] = array(
 			$gallery->i18n('Long Focal Length'),
 			'SubIFD.MakerNote.Settings 1.LongFocalLength',
 		);
-		$data['Macro']                    = array(
+
+		$data['Macro'] = array(
 			$gallery->i18n('Macro'),
 			'SubIFD.MakerNote.Macro',
 			'SubIFD.MakerNote.Settings 1.Macro',
 		);
-		$data['Make']                     = array(
+
+		$data['Make'] = array(
 			$gallery->i18n('Make'),
 			'IFD0.Make',
 		);
-		$data['ManualFocusDistance']      = array(
+
+		$data['ManualFocusDistance'] = array(
 			$gallery->i18n('Manual Focus Distance'),
 			'SubIFD.MakerNote.ManualFocusDistance',
 		);
-		$data['MaxApertureValue']         = array(
+
+		$data['MaxApertureValue'] = array(
 			$gallery->i18n('Max Aperture Value'),
 			'SubIFD.MaxApertureValue',
 		);
-		$data['MeteringMode']             = array(
+
+		$data['MeteringMode'] = array(
 			$gallery->i18n('Metering Mode'),
 			'SubIFD.MeteringMode',
 			'SubIFD.MakerNote.Settings 1.MeteringMode',
 		);
-		$data['Model']                    = array(
+
+		$data['Model'] = array(
 			$gallery->i18n('Model'),
 			'IFD0.Model',
 		);
-		$data['Noise']                    = array(
+
+		$data['Noise'] = array(
 			$gallery->i18n('Noise'),
 			'IFD1.Noise',
 		);
-		$data['NoiseReduction']           = array(
+
+		$data['NoiseReduction'] = array(
 			$gallery->i18n('Noise Reduction'),
 			'SubIFD.MakerNote.NoiseReduction',
 		);
-		$data['Orientation']              = array(
+
+		$data['Orientation'] = array(
 			$gallery->i18n('Orientation'),
 			'IFD0.Orientation',
 		);
-		$data['OwnerName']                = array(
+
+		$data['OwnerName'] = array(
 			$gallery->i18n('Owner Name'),
 			'SubIFD.MakerNote.OwnerName',
 		);
-		$data['PhotometricInterpret']     = array(
+
+		$data['PhotometricInterpret'] = array(
 			$gallery->i18n('Photometric Interpretation'),
 			'IFD0.PhotometricInterpret',
 			'IFD1.PhotometricInterpretation',
 		);
-		$data['PhotoshopSettings']        = array(
+
+		$data['PhotoshopSettings'] = array(
 			$gallery->i18n('Photoshop Settings'),
 			'IFD0.PhotoshopSettings',
 		);
-		$data['PictInfo']                 = array(
+
+		$data['PictInfo'] = array(
 			$gallery->i18n('Picture Info'),
 			'SubIFD.MakerNote.PictInfo',
 		);
-		$data['PictureMode']              = array(
+
+		$data['PictureMode'] = array(
 			$gallery->i18n('Picture Mode'),
 			'SubIFD.MakerNote.PictureMode',
 		);
-		$data['PlanarConfiguration']      = array(
+
+		$data['PlanarConfiguration'] = array(
 			$gallery->i18n('Planar Configuration'),
 			'IFD1.PlanarConfiguration',
 			'IFD0.PlanarConfig',
 		);
-		$data['Predictor']                = array(
+
+		$data['Predictor'] = array(
 			$gallery->i18n('Predictor'),
 			'IFD1.Predictor',
 		);
-		$data['PrimaryChromaticities']    = array(
+
+		$data['PrimaryChromaticities'] = array(
 			$gallery->i18n('Primary Chromaticities'),
 			'IFD0.PrimaryChromaticities',
 		);
-		$data['Quality']                  = array(
+
+		$data['Quality'] = array(
 			$gallery->i18n('Quality'),
 			'SubIFD.MakerNote.Quality',
 			'SubIFD.MakerNote.Settings 1.Quality',
 		);
-		$data['ReferenceBlackWhite']      = array(
+
+		$data['ReferenceBlackWhite'] = array(
 			$gallery->i18n('Reference Black/White'),
 			'IFD0.ReferenceBlackWhite',
 		);
-		$data['RelatedSoundFile']         = array(
+
+		$data['RelatedSoundFile'] = array(
 			$gallery->i18n('Related Sound File'),
 			'SubIFD.RelatedSoundFile',
 		);
-		$data['ResolutionUnit']           = array(
+
+		$data['ResolutionUnit'] = array(
 			$gallery->i18n('Resolution Unit'),
 			'IFD0.ResolutionUnit',
 		);
-		$data['RowsPerStrip']             = array(
+
+		$data['RowsPerStrip'] = array(
 			$gallery->i18n('Rows Per Strip'),
 			'IFD1.RowsPerStrip',
 		);
-		$data['SamplesPerPixel']          = array(
+
+		$data['SamplesPerPixel'] = array(
 			$gallery->i18n('Samples Per Pixel'),
 			'IFD1.SamplesPerPixel',
 			'IFD0.SamplePerPixel',
 		);
-		$data['Saturation']               = array(
+
+		$data['Saturation'] = array(
 			$gallery->i18n('Saturation'),
 			'SubIFD.Saturation',
 			'SubIFD.MakerNote.Saturation',
 			'SubIFD.MakerNote.Settings 1.Saturation',
 		);
-		$data['SceneCaptureMode']         = array(
+
+		$data['SceneCaptureMode'] = array(
 			$gallery->i18n('Scene Capture Mode'),
 			'SubIFD.SceneCaptureMode',
 		);
-		$data['SceneType']                = array(
+
+		$data['SceneType'] = array(
 			$gallery->i18n('Scene Type'),
 			'SubIFD.SceneType',
 		);
-		$data['SecurityClassification']   = array(
+
+		$data['SecurityClassification'] = array(
 			$gallery->i18n('Security Classification'),
 			'IFD1.SecurityClassification',
 		);
-		$data['SelfTimer']                = array(
+
+		$data['SelfTimer'] = array(
 			$gallery->i18n('Self Timer'),
 			'SubIFD.MakerNote.Settings 1.SelfTimer',
 		);
-		$data['SelfTimerMode']            = array(
+
+		$data['SelfTimerMode'] = array(
 			$gallery->i18n('Self Timer Mode'),
 			'IFD1.SelfTimerMode',
 		);
-		$data['SensingMethod']            = array(
+
+		$data['SensingMethod'] = array(
 			$gallery->i18n('Sensing Method'),
 			'SubIFD.SensingMethod',
 		);
-		$data['SequenceNumber']           = array(
+
+		$data['SequenceNumber'] = array(
 			$gallery->i18n('Sequence Number'),
 			'SubIFD.MakerNote.Settings 4.SequenceNumber',
 		);
-		$data['Sharpness']                = array(
+
+		$data['Sharpness'] = array(
 			$gallery->i18n('Sharpness'),
 			'SubIFD.Sharpness',
 			'SubIFD.MakerNote.Sharpness',
 			'SubIFD.MakerNote.Settings 1.Sharpness',
 		);
-		$data['ShortFocalLength']         = array(
+
+		$data['ShortFocalLength'] = array(
 			$gallery->i18n('Short Focal Length'),
 			'SubIFD.MakerNote.Settings 1.ShortFocalLength',
 		);
-		$data['SlowSync']                 = array(
+
+		$data['SlowSync'] = array(
 			$gallery->i18n('Slow Sync'),
 			'SubIFD.MakerNote.SlowSync',
 		);
-		$data['Software']                 = array(
+
+		$data['Software'] = array(
 			$gallery->i18n('Software'),
 			'IFD0.Software',
 		);
-		$data['SoftwareRelease']          = array(
+
+		$data['SoftwareRelease'] = array(
 			$gallery->i18n('Software Release'),
 			'SubIFD.MakerNote.SoftwareRelease',
 		);
+
 		$data['SpatialFrequencyResponse'] = array(
 			$gallery->i18n('Spatial Frequency Response'),
 			'IFD1.SpatialFrequencyResponse',
 			'SubIFD.SpacialFreqResponse',
 		);
-		$data['SpecialMode']              = array(
+
+		$data['SpecialMode'] = array(
 			$gallery->i18n('Special Mode'),
 			'SubIFD.MakerNote.SpecialMode',
 		);
-		$data['SpectralSensitivity']      = array(
+
+		$data['SpectralSensitivity'] = array(
 			$gallery->i18n('Spectral Sensitivity'),
 			'SubIFD.SpectralSensitivity',
 		);
-		$data['StripByteCounts']          = array(
+
+		$data['StripByteCounts'] = array(
 			$gallery->i18n('Strip Byte Counts'),
 			'IFD1.StripByteCounts',
 		);
-		$data['StripOffsets']             = array(
+
+		$data['StripOffsets'] = array(
 			$gallery->i18n('Strip Offsets'),
 			'IFD1.StripOffsets',
 		);
-		$data['SubIFDs']                  = array(
+
+		$data['SubIFDs'] = array(
 			$gallery->i18n('SubIFDs'),
 			'IFD1.SubIFDs',
 		);
-		$data['SubfileType']              = array(
+
+		$data['SubfileType'] = array(
 			$gallery->i18n('Subfile Type'),
 			'IFD1.SubfileType',
 		);
-		$data['SubjectDistance']          = array(
+
+		$data['SubjectDistance'] = array(
 			$gallery->i18n('Subject Distance'),
 			'SubIFD.SubjectDistance',
 			'SubIFD.MakerNote.Settings 4.SubjectDistance',
 		);
-		$data['SubjectLocation']          = array(
+
+		$data['SubjectLocation'] = array(
 			$gallery->i18n('Subject Location'),
 			'IFD1.SubjectLocation',
 			'SubIFD.SubjectLocation',
 		);
-		$data['SubsecTime']               = array(
+
+		$data['SubsecTime'] = array(
 			$gallery->i18n('Subsec Time'),
 			'SubIFD.SubsecTime',
 		);
-		$data['SubsecTimeDigitized']      = array(
+
+		$data['SubsecTimeDigitized'] = array(
 			$gallery->i18n('Subsec Time (Digitized)'),
 			'SubIFD.SubsecTimeDigitized',
 		);
-		$data['SubsecTimeOriginal']       = array(
+
+		$data['SubsecTimeOriginal'] = array(
 			$gallery->i18n('Subsec Time (Original)'),
 			'SubIFD.SubsecTimeOriginal',
 		);
-		$data['TIFF/EPStandardID']        = array(
+
+		$data['TIFF/EPStandardID'] = array(
 			$gallery->i18n('TIFF/EP Standard ID'),
 			'IFD1.TIFF/EPStandardID',
 		);
 
-		$data['TileByteCounts']    = array(
+
+		$data['TileByteCounts'] = array(
 			$gallery->i18n('Tile Byte Counts'),
 			'IFD1.TileByteCounts',
 		);
-		$data['TileLength']        = array(
+
+		$data['TileLength'] = array(
 			$gallery->i18n('Tile Length'),
 			'IFD1.TileLength',
 		);
-		$data['TileOffsets']       = array(
+
+		$data['TileOffsets'] = array(
 			$gallery->i18n('Tile Offsets'),
 			'IFD1.TileOffsets',
 		);
-		$data['TileWidth']         = array(
+
+		$data['TileWidth'] = array(
 			$gallery->i18n('Tile Width'),
 			'IFD1.TileWidth',
 		);
-		$data['TimeZoneOffset']    = array(
+
+		$data['TimeZoneOffset'] = array(
 			$gallery->i18n('Time Zone Offset'),
 			'IFD1.TimeZoneOffset',
 		);
-		$data['Tone']              = array(
+
+		$data['Tone'] = array(
 			$gallery->i18n('Tone'),
 			'SubIFD.MakerNote.Tone',
 		);
-		$data['TransferFunction']  = array(
+
+		$data['TransferFunction'] = array(
 			$gallery->i18n('Transfer Function'),
 			'IFD1.TransferFunction',
 		);
-		$data['UserComment']       = array(
+
+		$data['UserComment'] = array(
 			$gallery->i18n('User Comment'),
 			'SubIFD.UserComment',
 			'IFD0.UserCommentOld',
 		);
-		$data['Version']           = array(
+
+		$data['Version'] = array(
 			$gallery->i18n('Version'),
 			'SubIFD.MakerNote.Version',
 		);
-		$data['WhiteBalance']      = array(
+
+		$data['WhiteBalance'] = array(
 			$gallery->i18n('White Balance'),
 			'SubIFD.WhiteBalance',
 			'SubIFD.MakerNote.WhiteBalance',
 			'SubIFD.MakerNote.Settings 4.WhiteBalance',
 		);
-		$data['WhitePoint']        = array(
+
+		$data['WhitePoint'] = array(
 			$gallery->i18n('White Point'),
 			'IFD0.WhitePoint',
 		);
+
 		$data['YCbCrCoefficients'] = array(
 			$gallery->i18n('Y/Cb/Cr Coefficients'),
 			'IFD0.YCbCrCoefficients',
 		);
-		$data['YCbCrPositioning']  = array(
+
+		$data['YCbCrPositioning'] = array(
 			$gallery->i18n('Y/Cb/Cr Positioning'),
 			'IFD0.YCbCrPositioning',
 		);
-		$data['YCbCrSubSampling']  = array(
+
+		$data['YCbCrSubSampling'] = array(
 			$gallery->i18n('Y/Cb/Cr Sub-Sampling'),
 			'IFD1.YCbCrSubSampling',
 		);
-		$data['xResolution']       = array(
+
+		$data['xResolution'] = array(
 			$gallery->i18n('X Resolution'),
 			'IFD0.xResolution',
 		);
-		$data['yResolution']       = array(
+
+		$data['yResolution'] = array(
 			$gallery->i18n('Y Resolution'),
 			'IFD0.yResolution',
 		);
+
 
 		$data['ExifImageHeight'] = array(
 			$gallery->i18n('Exif Image Height'),
 			'SubIFD.ExifImageHeight',
 		);
-		$data['ExifImageWidth']  = array(
+
+		$data['ExifImageWidth'] = array(
 			$gallery->i18n('Exif Image Width'),
 			'SubIFD.ExifImageWidth',
 		);
 
+
 		// EXIF GPS fields, see exifer/makers/gps.inc
-		$data['GPS/Version']                = array(
+		$data['GPS/Version'] = array(
 			$gallery->i18n('GPS: Version'),
 			'GPS.Version',
 		);
-		$data['GPS/LatitudeReference']      = array(
+
+		$data['GPS/LatitudeReference'] = array(
 			$gallery->i18n('GPS: Latitude Reference'),
 			'GPS.Latitude Reference',
 		);
-		$data['GPS/Latitude']               = array(
+
+		$data['GPS/Latitude'] = array(
 			$gallery->i18n('GPS: Latitude'),
 			'GPS.Latitude',
 		);
-		$data['GPS/LongitudeReference']     = array(
+
+		$data['GPS/LongitudeReference'] = array(
 			$gallery->i18n('GPS: Longitude Reference'),
 			'GPS.Longitude Reference',
 		);
-		$data['GPS/Longitude']              = array(
+
+		$data['GPS/Longitude'] = array(
 			$gallery->i18n('GPS: Longitude'),
 			'GPS.Longitude',
 		);
-		$data['GPS/AltitudeReference']      = array(
+
+		$data['GPS/AltitudeReference'] = array(
 			$gallery->i18n('GPS: Altitude Reference'),
 			'GPS.Altitude Reference',
 		);
-		$data['GPS/Altitude']               = array(
+
+		$data['GPS/Altitude'] = array(
 			$gallery->i18n('GPS: Altitude'),
 			'GPS.Altitude',
 		);
-		$data['GPS/Time']                   = array(
+
+		$data['GPS/Time'] = array(
 			$gallery->i18n('GPS: Time'),
 			'GPS.Time',
 		);
-		$data['GPS/Satellite']              = array(
+
+		$data['GPS/Satellite'] = array(
 			$gallery->i18n('GPS: Satellite'),
 			'GPS.Satellite',
 		);
-		$data['GPS/ReceiveStatus']          = array(
+
+		$data['GPS/ReceiveStatus'] = array(
 			$gallery->i18n('GPS: Receive Status'),
 			'GPS.ReceiveStatus',
 		);
-		$data['GPS/MeasurementMode']        = array(
+
+		$data['GPS/MeasurementMode'] = array(
 			$gallery->i18n('GPS: Measurement Mode'),
 			'GPS.MeasurementMode',
 		);
-		$data['GPS/MeasurementPrecision']   = array(
+
+		$data['GPS/MeasurementPrecision'] = array(
 			$gallery->i18n('GPS: Measurement Precision'),
 			'GPS.MeasurementPrecision',
 		);
-		$data['GPS/SpeedUnit']              = array(
+
+		$data['GPS/SpeedUnit'] = array(
 			$gallery->i18n('GPS: Speed Unit'),
 			'GPS.SpeedUnit',
 		);
-		$data['GPS/ReceiverSpeed']          = array(
+
+		$data['GPS/ReceiverSpeed'] = array(
 			$gallery->i18n('GPS: Receiver Speed'),
 			'GPS.ReceiverSpeed',
 		);
-		$data['GPS/MovementDirectionRef']   = array(
+
+		$data['GPS/MovementDirectionRef'] = array(
 			$gallery->i18n('GPS: Movement Direction Reference'),
 			'GPS.MovementDirectionRef',
 		);
-		$data['GPS/MovementDirection']      = array(
+
+		$data['GPS/MovementDirection'] = array(
 			$gallery->i18n('GPS: Movement Direction'),
 			'GPS.MovementDirection',
 		);
-		$data['GPS/ImageDirectionRef']      = array(
+
+		$data['GPS/ImageDirectionRef'] = array(
 			$gallery->i18n('GPS: Image Direction Reference'),
 			'GPS.ImageDirectionRef',
 		);
-		$data['GPS/ImageDirection']         = array(
+
+		$data['GPS/ImageDirection'] = array(
 			$gallery->i18n('GPS: Movement Image Direction'),
 			'GPS.ImageDirection',
 		);
-		$data['GPS/GeodeticSurveyData']     = array(
+
+		$data['GPS/GeodeticSurveyData'] = array(
 			$gallery->i18n('GPS: Geodetic Survey Data'),
 			'GPS.GeodeticSurveyData',
 		);
-		$data['GPS/DestLatitudeRef']        = array(
+
+		$data['GPS/DestLatitudeRef'] = array(
 			$gallery->i18n('GPS: Destination Latitude Reference'),
 			'GPS.DestLatitudeRef',
 		);
-		$data['GPS/DestinationLatitude']    = array(
+
+		$data['GPS/DestinationLatitude'] = array(
 			$gallery->i18n('GPS: Destination Latitude'),
 			'GPS.DestinationLatitude',
 		);
-		$data['GPS/DestLongitudeRef']       = array(
+
+		$data['GPS/DestLongitudeRef'] = array(
 			$gallery->i18n('GPS: Destination Longitude Reference'),
 			'GPS.DestLongitudeRef',
 		);
-		$data['GPS/DestinationLongitude']   = array(
+
+		$data['GPS/DestinationLongitude'] = array(
 			$gallery->i18n('GPS: Destination Longitude'),
 			'GPS.DestinationLongitude',
 		);
-		$data['GPS/DestBearingRef']         = array(
+
+		$data['GPS/DestBearingRef'] = array(
 			$gallery->i18n('GPS: Destination Bearing Reference'),
 			'GPS.DestBearingRef',
 		);
-		$data['GPS/DestinationBearing']     = array(
+
+		$data['GPS/DestinationBearing'] = array(
 			$gallery->i18n('GPS: Destination Bearing'),
 			'GPS.DestinationBearing',
 		);
-		$data['GPS/DestDistanceRef']        = array(
+
+		$data['GPS/DestDistanceRef'] = array(
 			$gallery->i18n('GPS: Destination Distance Reference'),
 			'GPS.DestDistanceRef',
 		);
-		$data['GPS/DestinationDistance']    = array(
+
+		$data['GPS/DestinationDistance'] = array(
 			$gallery->i18n('GPS: Destination Distance'),
 			'GPS.DestinationDistance',
 		);
-		$data['GPS/ProcessingMethod']       = array(
+
+		$data['GPS/ProcessingMethod'] = array(
 			$gallery->i18n('GPS: Processing Method'),
 			'GPS.ProcessingMethod',
 		);
-		$data['GPS/AreaInformation']        = array(
+
+		$data['GPS/AreaInformation'] = array(
 			$gallery->i18n('GPS: Area Information'),
 			'GPS.AreaInformation',
 		);
-		$data['GPS/Datestamp']              = array(
+
+		$data['GPS/Datestamp'] = array(
 			$gallery->i18n('GPS: Datestamp'),
 			'GPS.Datestamp',
 		);
+
 		$data['GPS/DifferentialCorrection'] = array(
 			$gallery->i18n('GPS: Differential Correction'),
 			'GPS.DifferentialCorrection',
 		);
+
 
 		// IPTC fields, see http://www.iptc.org/IIM/, if you have time to waste.
 		$data['IPTC/SupplementalCategories'] = array(
 			$gallery->i18n('IPTC: Supplemental Categories'),
 			'IPTC.SupplementalCategories',
 		);
-		$data['IPTC/Keywords']               = array(
+
+		$data['IPTC/Keywords'] = array(
 			$gallery->i18n('IPTC: Keywords'),
 			'IPTC.Keywords',
 		);
-		$data['IPTC/Caption']                = array(
+
+		$data['IPTC/Caption'] = array(
 			$gallery->i18n('IPTC: Caption'),
 			'IPTC.Caption',
 		);
-		$data['IPTC/CaptionWriter']          = array(
+
+		$data['IPTC/CaptionWriter'] = array(
 			$gallery->i18n('IPTC: Caption Writer'),
 			'IPTC.CaptionWriter',
 		);
-		$data['IPTC/Headline']               = array(
+
+		$data['IPTC/Headline'] = array(
 			$gallery->i18n('IPTC: Headline'),
 			'IPTC.Headline',
 		);
-		$data['IPTC/SpecialInstructions']    = array(
+
+		$data['IPTC/SpecialInstructions'] = array(
 			$gallery->i18n('IPTC: Special Instructions'),
 			'IPTC.SpecialInstructions',
 		);
-		$data['IPTC/Category']               = array(
+
+		$data['IPTC/Category'] = array(
 			$gallery->i18n('IPTC: Category'),
 			'IPTC.Category',
 		);
-		$data['IPTC/Byline']                 = array(
+
+		$data['IPTC/Byline'] = array(
 			$gallery->i18n('IPTC: Byline'),
 			'IPTC.Byline',
 		);
-		$data['IPTC/BylineTitle']            = array(
+
+		$data['IPTC/BylineTitle'] = array(
 			$gallery->i18n('IPTC: Byline Title'),
 			'IPTC.BylineTitle',
 		);
-		$data['IPTC/Credit']                 = array(
+
+		$data['IPTC/Credit'] = array(
 			$gallery->i18n('IPTC: Credit'),
 			'IPTC.Credit',
 		);
-		$data['IPTC/Source']                 = array(
+
+		$data['IPTC/Source'] = array(
 			$gallery->i18n('IPTC: Source'),
 			'IPTC.Source',
 		);
-		$data['IPTC/CopyrightNotice']        = array(
+
+		$data['IPTC/CopyrightNotice'] = array(
 			$gallery->i18n('IPTC: Copyright Notice'),
 			'IPTC.CopyrightNotice',
 		);
-		$data['IPTC/ObjectName']             = array(
+
+		$data['IPTC/ObjectName'] = array(
 			$gallery->i18n('IPTC: Object Name'),
 			'IPTC.ObjectName',
 		);
-		$data['IPTC/City']                   = array(
+
+		$data['IPTC/City'] = array(
 			$gallery->i18n('IPTC: City'),
 			'IPTC.City',
 		);
-		$data['IPTC/ProvinceState']          = array(
+
+		$data['IPTC/ProvinceState'] = array(
 			$gallery->i18n('IPTC: Province State'),
 			'IPTC.ProvinceState',
 		);
-		$data['IPTC/CountryName']            = array(
+
+		$data['IPTC/CountryName'] = array(
 			$gallery->i18n('IPTC: Country Name'),
 			'IPTC.CountryName',
 		);
+
 		$data['IPTC/OriginalTransmissionReference'] = array(
 			$gallery->i18n('IPTC: Original Transmission Reference'),
 			'IPTC.OriginalTransmissionReference',
 		);
-		$data['IPTC/DateCreated']                   = array(
+
+		$data['IPTC/DateCreated'] = array(
 			$gallery->i18n('IPTC: Date Created'),
 			'IPTC.DateCreated',
 		);
-		$data['IPTC/CopyrightFlag']                 = array(
+
+		$data['IPTC/CopyrightFlag'] = array(
 			$gallery->i18n('IPTC: Copyright Flag'),
 			'IPTC.CopyrightFlag',
 		);
-		$data['IPTC/TimeCreated']                   = array(
+
+		$data['IPTC/TimeCreated'] = array(
 			$gallery->i18n('IPTC: Time Created'),
 			'IPTC.TimeCreated',
 		);
-		$data['IPTC/ContentLocationName']           = array(
+
+		$data['IPTC/ContentLocationName'] = array(
 			$gallery->i18n('IPTC: Content Location Name'),
 			'IPTC.ContentLocationName',
 		);
-		$data['IPTC/Sublocation']                   = array(
+
+		$data['IPTC/Sublocation'] = array(
 			$gallery->i18n('IPTC: Sub Location'),
 			'IPTC.Sublocation',
 		);
+
 
 		return $data;
 	}

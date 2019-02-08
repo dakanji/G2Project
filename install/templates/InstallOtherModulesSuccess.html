@@ -1,55 +1,65 @@
-    <?php if (!empty($templateData['stackTrace'])) {
+	<?php if (!empty($templateData['stackTrace'])) {
 	?>
-    <div class="stack_trace">
-      <?php echo implode('<br/>', $templateData['stackTrace']) ?>
-    </div><br/>
-    <?php
-} ?>
+	<div class="stack_trace">
+		<?php echo implode('<br/>', $templateData['stackTrace']); ?>
+	</div><br/>
+		<?php
+}
+	?>
 
-    <h1><?php echo _('Install Plugins') ?></h1>
+	<h1><?php echo _('Install Plugins'); ?></h1>
 
-    <?php if (isset($templateData['needsConfiguration'])) {
+	<?php
+	if (isset($templateData['needsConfiguration'])) {
 		?>
-    <ul class="warning">
-    <?php foreach ($templateData['needsConfiguration'] as $moduleId => $moduleName) {
+	<ul class="warning">
+		<?php
+		foreach ($templateData['needsConfiguration'] as $moduleId => $moduleName) {
 			?>
-      <li><?php printf(_("The <i>%s</i> module was installed, but needs configuration to be activated"), $moduleName) ?></li>
-    <?php
+	  <li><?php printf(_('The <i>%s</i> module was installed, but needs configuration to be activated'), $moduleName); ?></li>
+			<?php
 		} ?>
-    </ul>
-    <p>
-      <?php echo _("After finishing this installation, login as Admin and browse to Site Admin. Go to the <i>Modules</i> view and configure the above listed modules."); ?>
-    </p>
-    <?php
-	} ?>
+	</ul>
+	<p>
+		<?php echo _('After finishing this installation, login as Admin and browse to Site Admin. Go to the <i>Modules</i> view and configure the above listed modules.'); ?>
+	</p>
+		<?php
+	}
+	?>
 
-    <?php if (isset($templateData['activated'])) {
+	<?php
+	if (isset($templateData['activated'])) {
 		?>
-    <ul class="success">
-    <?php foreach ($templateData['activated'] as $moduleId => $moduleName) {
+	<ul class="success">
+		<?php
+		foreach ($templateData['activated'] as $moduleId => $moduleName) {
 			?>
-      <li><?php printf(_("Activated the <i>%s</i> module successfully"), $moduleName) ?></li>
-    <?php
+	  <li><?php printf(_('Activated the <i>%s</i> module successfully'), $moduleName); ?></li>
+			<?php
 		} ?>
-    </ul>
-    <?php
-	} ?>
+	</ul>
+		<?php
+	}
+	?>
 
-    <?php if ($templateData['anyInstallable']) {
+	<?php
+	if ($templateData['anyInstallable']) {
 		?>
-    <div class="go">
-	  <a href="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $currentStep->getStepNumber())) ?>" class="btn continue"><i></i><span><span></span><i></i><?php echo _('Activate More Modules'); ?></span></a>
-      <?php $nextStep = $stepNumber + 1 ?>
-	  <a href="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $nextStep)) ?>" class="btn continue"><i></i><span><span></span><i></i><?php printf(_('Continue to Step %d&raquo;'), $nextStep); ?></span></a>
-    </div>
-    <?php
-	} ?>
+	<div class="go">
+	  <a href="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $currentStep->getStepNumber())); ?>" class="btn continue"><i></i><span><span></span><i></i><?php echo _('Activate More Modules'); ?></span></a>
+		<?php $nextStep = $stepNumber + 1; ?>
+	  <a href="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $nextStep)); ?>" class="btn continue"><i></i><span><span></span><i></i><?php printf(_('Continue to Step %d&raquo;'), $nextStep); ?></span></a>
+	</div>
+		<?php
+	}
+	?>
 
-    <?php if (!empty($templateData['debug'])) {
+	<?php
+	if (!empty($templateData['debug'])) {
 		?>
-    <div class="debug">
-      <h3> <?php echo _("Debug Output") ?> </h3>
-      <pre><?php echo $templateData['debug'] ?></pre>
-    </div>
-    <?php
+	<div class="debug">
+	  <h3> <?php echo _('Debug Output'); ?> </h3>
+	  <pre><?php echo $templateData['debug']; ?></pre>
+	</div>
+		<?php
 	} ?>

@@ -47,7 +47,9 @@ class ItemPermissionsController extends GalleryController {
 		}
 
 		$applyToChildren = isset($form['applyToSubItems']);
-		$status          = $error = array();
+		
+		$status = array();
+		$error  = array();
 
 		if (isset($form['action']['deleteGroupPermission'])) {
 			// Figure out which one we're working with
@@ -56,7 +58,8 @@ class ItemPermissionsController extends GalleryController {
 
 			// Handle delete group perm actions
 			list($groupId, $permissionId) = explode(',', $form['group']['delete'][$index]);
-			$ret                          = GalleryCoreApi::removeGroupPermission(
+			
+			$ret = GalleryCoreApi::removeGroupPermission(
 				$itemId,
 				$groupId,
 				$permissionId,

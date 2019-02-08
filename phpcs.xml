@@ -14,7 +14,7 @@
 	<!-- ARGS -->
 	<arg name="tab-width" value="4" />
 	<arg name="extensions" value="php,inc,class,css,js,xml,xaml,html" />
-	<arg name="ignore" value="*/lib/composer/*,*/dev_vendor/*,*/dev_scripts/*,*MANIFEST*,*GNUmakefile*" />
+	<arg name="ignore" value="*g2data/*,*/lib/composer/*,*/dev_vendor/*,*/dev_scripts/*,*MANIFEST*,*GNUmakefile*" />
 
 	<!-- Load WordPress Standards -->
 	<config name="installed_paths" value="dev_vendor/wp-coding-standards/wpcs" />
@@ -37,13 +37,6 @@
 	<rule ref="WordPress.Arrays.ArrayIndentation" />
 	<rule ref="WordPress.WhiteSpace.PrecisionAlignment" />
 	<rule ref="WordPress.PHP.TypeCasts" />
-	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
-		<properties>
-			<property name="maxColumn" value="80" />
-			<property name="exact" value="false" />
-			<property name="alignMultilineItems" value="!=100" />
-		</properties>
-	</rule>
 	<rule ref="WordPress.Arrays.ArrayDeclarationSpacing">
 		<properties>
 			<property name="allow_single_item_single_line_associative_arrays" value="false" />
@@ -70,11 +63,6 @@
 			<property name="ignoreComments" value="true" />
 			<property name="lineLimit" value="100" />
 			<property name="absoluteLineLimit" value="120" />
-		</properties>
-	</rule>
-	<rule ref="Generic.Formatting.MultipleStatementAlignment">
-		<properties>
-			<property name="maxPadding" value="25" />
 		</properties>
 	</rule>
 	<rule ref="Generic.WhiteSpace.ScopeIndent">

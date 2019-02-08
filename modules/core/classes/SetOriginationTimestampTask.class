@@ -76,7 +76,8 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 			return array($ret, null, null);
 		}
 
-		$i          = $updated = 0;
+		$i          = 0;
+		$updated    = 0;
 		$toolkitMap = array();
 		$total      = $results->resultCount();
 

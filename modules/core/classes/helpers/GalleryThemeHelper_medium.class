@@ -173,8 +173,9 @@ class GalleryThemeHelper_medium {
 			return array($ret, null, null);
 		}
 
-		$status = null;
-		$error  = $errorMessage = array();
+		$status        = null;
+		$error         = array();
+		$errorMessage  = array();
 
 		if ($theme->isAdvancedSettings()) {
 			list($ret, $error, $status) = $theme->handleSettingsRequest($form, $itemId);

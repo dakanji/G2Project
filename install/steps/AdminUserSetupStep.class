@@ -74,9 +74,12 @@ class AdminUserSetupStep extends InstallStep {
 
 			if ($templateData['freshInstall']) {
 				// It's a fresh install, show the admin data fields and check their value
-				$this->_adminName = $templateData['adminName'] = $this->sanitize($_POST['adminName']);
-				$this->_email     = $templateData['email'] = $this->sanitize($_POST['email']);
-				$this->_fullName  = $templateData['fullName'] = $this->sanitize($_POST['fullName']);
+				$this->_adminName          = $this->sanitize($_POST['adminName']);
+				$templateData['adminName'] = $this->sanitize($_POST['adminName']);
+				$this->_email              = $this->sanitize($_POST['email']);
+				$templateData['email']     = $this->sanitize($_POST['email']);
+				$this->_fullName           = $this->sanitize($_POST['fullName']);
+				$templateData['fullName']  = $this->sanitize($_POST['fullName']);
 
 				$adminNameOk = false;
 

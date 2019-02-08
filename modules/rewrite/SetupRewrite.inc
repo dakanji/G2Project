@@ -39,7 +39,7 @@ class SetupRewriteController extends GalleryController {
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 		global $gallery;
 		$platform =& $gallery->getPlatform();
-		$status   = $error = array();
+		$status   = $error   = array();
 		$results  = array(
 			'redirect' => array(
 				'view'    => 'core.SiteAdmin',

@@ -6,8 +6,9 @@
 		<?php echo _("We've successfully upgraded the Gallery Core Module."); ?>
 	</p>
 
-	<?php if ($templateData['canChmod'] && !$templateData['isConfigSecure']) {
-	?>
+	<?php
+	if ($templateData['canChmod'] && !$templateData['isConfigSecure']) {
+		?>
 	<p>
 		<?php printf(_('<b>Reminder</b>: Now update the permissions on config.php to make sure it is not writeable by other people.  Right now your config.php has modes of %s.  We suggest that you do this:'), $templateData['configFileMode']); ?>
 	</p>
@@ -17,5 +18,5 @@
 	<div class="go">
 	  <a href="<?php generateUrl('index.php?step=' . $stepNumber); ?>" class="btn redo"><i></i><span><span></span><i></i><?php echo _('Recheck config.php'); ?></span></a>
 	</div>
-	<?php
-} ?>
+		<?php
+	} ?>

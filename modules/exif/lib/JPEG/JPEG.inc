@@ -2144,13 +2144,13 @@ class JPEG // extends PEAR
 
 			case 0x040A: // CopyrightFlag
 				$this->_info['adobe']['CopyrightFlag'] = $this->_getByte($data, $pos);
-				$pos += $length;
+				$pos                                  += $length;
 
 				break;
 
 			case 0x040B: // ImageURL
 				$this->_info['adobe']['ImageURL'] = $this->_getFixedString($data, $pos, $length);
-				$pos += $length;
+				$pos                             += $length;
 
 				break;
 
@@ -2159,15 +2159,15 @@ class JPEG // extends PEAR
 				$pos += 4;
 
 				if ($aux == 1) {
-					$this->_info['adobe']['ThumbnailWidth'] = $this->_getLong($data, $pos);
-					$pos += 4;
+					$this->_info['adobe']['ThumbnailWidth']  = $this->_getLong($data, $pos);
+					$pos                                    += 4;
 					$this->_info['adobe']['ThumbnailHeight'] = $this->_getLong($data, $pos);
-					$pos += 4;
+					$pos                                    += 4;
 
 					$pos += 16; // Skip some data
 
 					$this->_info['adobe']['ThumbnailData'] = $this->_getFixedString($data, $pos, $length - 28);
-					$pos += $length - 28;
+					$pos                                  += $length - 28;
 				}
 
 				break;
@@ -2275,7 +2275,7 @@ class JPEG // extends PEAR
 							$aux[0]                      = $this->_info['iptc'][$label];
 							$this->_info['iptc'][$label] = $aux;
 						}
-						$this->_info['iptc'][$label][count($this->_info['iptc'][$label])] = 							$this->_getFixedString($data, $pos, $length);
+						$this->_info['iptc'][$label][count($this->_info['iptc'][$label])] = $this->_getFixedString($data, $pos, $length);
 					} else {
 						$this->_info['iptc'][$label] = $this->_getFixedString($data, $pos, $length);
 					}

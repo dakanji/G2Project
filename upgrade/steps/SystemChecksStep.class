@@ -724,7 +724,7 @@ class SystemChecksStep extends UpgradeStep {
 			set_time_limit(180);
 		}
 
-		$missing  = $modified = $shouldRemove = array();
+		$missing  = $modified  = $shouldRemove  = array();
 		$stepSize = max((int)(count($manifest) / 22), 1);
 		$i        = 0;
 

@@ -235,7 +235,7 @@ class ItemAttributesTest extends GalleryTestCase {
 		}
 
 		// Backdate our last viewed time by *almost* one day
-		$lastViewed =& $session->get('core.lastViewed');
+		$lastViewed                             =& $session->get('core.lastViewed');
 		$lastViewed[$this->_items[0]->getId()] -= 86398;
 
 		$ret = GalleryCoreApi::incrementItemViewCount($this->_items[0]->getId(), 1);
@@ -254,7 +254,7 @@ class ItemAttributesTest extends GalleryTestCase {
 		$this->assertEquals(1, $viewCount);
 
 		// Backdate it further over the day line
-		$lastViewed =& $session->get('core.lastViewed');
+		$lastViewed                             =& $session->get('core.lastViewed');
 		$lastViewed[$this->_items[0]->getId()] -= 4;
 
 		$ret = GalleryCoreApi::incrementItemViewCount($this->_items[0]->getId(), 1);

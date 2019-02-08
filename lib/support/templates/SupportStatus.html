@@ -15,10 +15,12 @@
 	<a href="<?php generateUrl('index.php'); ?>">Support</a> &raquo; 
 	<?php echo $templateData['title']; ?>
 	  </div>
+	<?php
+}
+?>
 <?php
-} ?>
-<?php if (isset($templateData['showStatusBlock'])) {
-		?>
+if (isset($templateData['showStatusBlock'])) {
+	?>
   <table id="progressBarTable" class="boxTable" cellspacing="0">
 	<tr>
 	  <td class="main">
@@ -58,41 +60,49 @@
 	  </td>
 	</tr>
 	  </table>
-<?php
-	} ?>
+	<?php
+}
+?>
 
-<?php if (isset($templateData['showStatus'])) {
-		?>
+<?php
+if (isset($templateData['showStatus'])) {
+	?>
 <script type="text/javascript">updateStatus(<?php printf('"%s", "%s", %s', $templateData['status']['title'], $templateData['status']['description'], $templateData['status']['percentComplete']); ?>)</script>
-<?php
-	} ?>
+	<?php
+}
+?>
 
-<?php if (isset($templateData['hideStatusBlock'])) {
-		?>
+<?php
+if (isset($templateData['hideStatusBlock'])) {
+	?>
 <script type="text/javascript">document.getElementById("progressBarTable").style.display="none"</script>
-<?php
-	} ?>
+	<?php
+}
+?>
 
-	<?php if (isset($templateData['showBodyAndFooter'])) {
+	<?php
+	if (isset($templateData['showBodyAndFooter'])) {
 		?>
 	  <table id="regularTable" class="boxTable" cellspacing="0">
 	  <tr>
 
 	  <td class="main">
 
-		<?php if (!empty($templateData['errors'])) {
+		<?php
+		if (!empty($templateData['errors'])) {
 			?>
 		<div class="error">
 		  <h2>Errors Occurred</h2>
 		  <p>
-			<?php foreach ($templateData['errors'] as $error) {
+			<?php
+			foreach ($templateData['errors'] as $error) {
 				?>
 				<?php echo $error; ?><br/>
-			<?php
+				<?php
 			} ?>
 		  </p>
 		</div>
-		<?php
+			<?php
 		} ?>
 
 		<?php include __DIR__ . '/' . $templateData['bodyFile']; ?>
@@ -103,6 +113,7 @@
 	</div>
   </body>
 </html>
-	<?php
-	} ?>
+		<?php
+	}
+	?>
 

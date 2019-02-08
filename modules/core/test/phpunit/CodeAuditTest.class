@@ -182,7 +182,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 		$checkEntityType   = $fileName != 'modules/core/test/phpunit/EntityTest.class';
 		$currentFunction   = null;
 		$currentClass      = null;
-		$longLineTable     = $returnTable = array();
+		$longLineTable     = $returnTable     = array();
 
 		if ($this->_lineEnding == "\n" && strpos($buffer, "\r\n") !== false) {
 			$this->_errorCount++;

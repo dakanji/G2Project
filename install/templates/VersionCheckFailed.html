@@ -1,33 +1,37 @@
 	<h1><?php echo _('Version Check'); ?></h1>
 
-	<?php if ($templateData['configFileWritten']) {
-	?>
+	<?php
+	if ($templateData['configFileWritten']) {
+		?>
 	<div class="success">
 	  <h2>
 		<?php echo _('Config file created successfully.'); ?>
 	  </h2>
 	</div>
-	<?php
-} ?>
+		<?php
+	}
+	?>
 	<div class="error">
 	  <h2>
 		<?php echo _('This is not a fresh install and the installed version does not match the new version.'); ?>
 	  </h2>
 	</div>
 
-	<?php if (!$templateData['recommendUpgrade']) {
+	<?php
+	if (!$templateData['recommendUpgrade']) {
 		?>
 	<p class="error">
 		<?php echo _('The installed version cannot be upgraded to the new version!'); ?>
 	</p>
-	<?php
+		<?php
 	} else {
 		?>
 	<p>
 		<?php echo _('The installed version is older than the new version. You should run the upgrader and not the installer!'); ?>
 	</p>
-	<?php
-	} ?>
+		<?php
+	}
+	?>
 
 	<table>
 	  <tr>
@@ -60,20 +64,22 @@
 	  </tr>
 	</table>
 
-	<?php if ($templateData['recommendUpgrade']) {
+	<?php
+	if ($templateData['recommendUpgrade']) {
+		?>
+		<?php
+		if (!$templateData['isMultisite']) {
 			?>
-		<?php if (!$templateData['isMultisite']) {
-				?>
 	<div class="go">
 	  <a href="../upgrade/index.php" class="btn continue"><i></i><span><span></span><i></i><?php echo _('Go to the Upgrader!'); ?></span></a>
 	</div>
-		<?php
-			} else {
-				?>
+			<?php
+		} else {
+			?>
 	<p>
 			<?php printf(_('You should go now to the upgrader.  Enter the URL in your browser for %s/upgrade/index.php%s in your %s directory.'), '<tt>', '</tt>', '<tt>' . $templateData['galleryDir'] . '</tt>'); ?>
 	</p>
-		<?php
-			} ?>
-	<?php
+			<?php
 		} ?>
+		<?php
+	} ?>

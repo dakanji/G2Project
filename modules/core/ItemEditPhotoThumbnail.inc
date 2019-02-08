@@ -383,8 +383,8 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 				'width'  => $item->getWidth(),
 				'height' => $item->getHeight(),
 			);
+			
 			$ItemEditPhotoThumbnail['editThumbnail']['aspectRatioList'] = $aspectRatioList;
-
 			$orientationList                                            = array();
 			$orientationList['landscape']                               = $module->translate('Landscape');
 			$orientationList['portrait']                                = $module->translate('Portrait');
@@ -396,7 +396,8 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			 * settings so that we can start out with those values selected in the dropdowns.
 			 */
 			$currentAspect = round($crop['width'] / $crop['height'], 2);
-			$i             = 0;
+			
+			$i = 0;
 
 			// Set defaults
 			$selectedAspect                                             = 0;
