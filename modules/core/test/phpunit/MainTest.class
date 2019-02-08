@@ -314,8 +314,8 @@ class MainTest extends GalleryTestCase {
 
 		// Make sure the redirect has no sessionId in it
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
-		unset($_COOKIE[SESSION_ID_PARAMETER]);
-		unset($_SERVER['HTTP_COOKIE']);
+		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
+
 		$session = new GallerySession();
 		$ret     = $session->init();
 
@@ -350,8 +350,8 @@ class MainTest extends GalleryTestCase {
 	public function testDoRedirectRemoveTrailingQMark() {
 		// Make sure the redirect has no sessionId in it
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
-		unset($_COOKIE[SESSION_ID_PARAMETER]);
-		unset($_SERVER['HTTP_COOKIE']);
+		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
+
 		$session = new GallerySession();
 		$ret     = $session->init();
 

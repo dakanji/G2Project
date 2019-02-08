@@ -93,9 +93,9 @@ class RewriteSimpleHelper {
 			str_replace('%2F', '/', urlencode(substr($path, 1))),
 			$url
 		);
-		unset($params['itemId']);
+		unset($params['itemId'], $params['path']);
 		// If the generated url is built by old request variables unset the old path
-		unset($params['path']);
+
 
 		return true;
 	}
@@ -127,7 +127,7 @@ class RewriteSimpleHelper {
 
 			$language = explode('_', $activeLanguage);
 
-			if (isset($language[0]) && isset($language[1])) {
+			if (isset($language[0], $language[1])) {
 				list($defaultLanguageCode, $null) = GalleryTranslator::doStatic()->getSupportedLanguageCode($language[0], false);
 
 				if ($defaultLanguageCode == $activeLanguage) {

@@ -183,7 +183,7 @@ class NetPbmToolkitHelper {
 
 		if (!empty($qualityMimeTypes)) {
 			$operations['compress'] = array(
-				'params' => array(
+				'params'      => array(
 					array(
 						'type'        => 'int',
 						'description' => $gallery->i18n('target size in kb'),
@@ -301,7 +301,7 @@ class NetPbmToolkitHelper {
 
 
 		$binaryData = array(
-			''          => array(
+			''                       => array(
 				'pnmscale',
 				'pnmcut|pamcut',
 				'pnmfile|pamfile',
@@ -314,9 +314,9 @@ class NetPbmToolkitHelper {
 				'ppmtogif',
 				'exist' => 'ppmquant|pnmquant',
 			),
-			'image/png'  => array('pngtopnm', 'pnmtopng'),
-			'image/tiff' => array('tifftopnm', 'pnmtotiff|pamtotiff'),
-			'image/bmp'  => array(
+			'image/png'              => array('pngtopnm', 'pnmtopng'),
+			'image/tiff'             => array('tifftopnm', 'pnmtotiff|pamtotiff'),
+			'image/bmp'              => array(
 				'bmptopnm|bmptoppm',
 				'ppmtobmp',
 				'exist' => 'ppmquant|pnmquant',

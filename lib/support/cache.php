@@ -158,7 +158,7 @@ function clearInstallUpgradeLogs() {
 $status = array();
 $caches = getCaches();
 
-if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
+if (isset($_REQUEST['clear'], $_REQUEST['target'])) {
 	include_once __DIR__ . '/../../embed.php';
 	$ret = GalleryEmbed::init(
 		array(
@@ -212,29 +212,34 @@ if (isset($_REQUEST['clear']) && isset($_REQUEST['target'])) {
 	rebuild anything it needs.
 	  </h2>
 
-		<?php if (!empty($status)) : ?>
+		<?php if (!empty($status)) {
+	?>
 	  <div class="success">
-			<?php foreach ($status as $line) : ?>
+			<?php foreach ($status as $line) {
+		?>
 	<pre class="<?php echo $line[0]; ?>"><?php echo $line[1]; ?></pre>
-			<?php endforeach; ?>
+			<?php
+	} ?>
 	  </div>
-		<?php endif; ?>
+		<?php
+} ?>
 
 		<?php startForm(); ?>
 		<p>
 		<?php $caches = getCaches(); ?>
-		<?php foreach ($caches as $key => $info) : ?>
+		<?php foreach ($caches as $key => $info) {
+		?>
 	  <input type="checkbox" name="target[<?php echo $key; ?>]"
 			<?php
-			if ($info[0]) :
+			if ($info[0]) {
 				?>
 				 checked="checked" 
 				<?php
-			endif;
-			?>
+			} ?>
 			>
 			<?php echo $info[3]; ?> <br>
-		<?php endforeach; ?>
+		<?php
+	} ?>
 	  <input type="submit" name="clear" value="Clear Cache">
 	</p>
 	  </form>

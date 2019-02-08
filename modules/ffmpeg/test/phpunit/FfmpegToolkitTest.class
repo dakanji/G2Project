@@ -103,7 +103,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 					'outputMimeType' => 'image/jpeg',
 				),
 				'select-offset' => array(
-					'params' => array(
+					'params'         => array(
 						array(
 							'type'        => 'float',
 							'description' => 'offset in seconds',

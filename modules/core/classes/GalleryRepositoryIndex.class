@@ -415,7 +415,7 @@ class GalleryRepositoryIndex {
 			$language = 'en_US';
 		}
 
-		if (!isset($this->_index[$pluginType . 's'][$pluginId]            ['descriptions'][$language]['name'])
+		if (!isset($this->_index[$pluginType . 's'][$pluginId]['descriptions'][$language]['name'])
 		) {
 			return array(
 				GalleryCoreApi::error(

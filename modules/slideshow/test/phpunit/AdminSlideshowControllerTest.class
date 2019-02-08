@@ -67,8 +67,8 @@ class AdminSlideshowControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'slideshow.AdminSlideshow',
 				),
-				'error'  => array(),
-				'status' => array(
+				'error'    => array(),
+				'status'   => array(
 					'installed' => 'TEST_VERSION',
 				),
 			),
@@ -95,8 +95,8 @@ class AdminSlideshowControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'slideshow.AdminSlideshow',
 				),
-				'error'  => array(),
-				'status' => array(
+				'error'    => array(),
+				'status'   => array(
 					'downloadFailed' => 1,
 				),
 			),
@@ -130,8 +130,8 @@ class AdminSlideshowControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'slideshow.AdminSlideshow',
 				),
-				'error'  => array(),
-				'status' => array(
+				'error'    => array(),
+				'status'   => array(
 					'uninstalled' => 1,
 				),
 			),

@@ -245,8 +245,8 @@ class RewriteHelperTest extends GalleryTestCase {
 			'queryString' => array(
 				'view' => 'php.Unit',
 			),
-			'options'  => $this->_defaultOptions,
-			'flags'    => array(),
+			'options'     => $this->_defaultOptions,
+			'flags'       => array(),
 		);
 		$tests[] = array(
 			$activeRules,
@@ -306,8 +306,8 @@ class RewriteHelperTest extends GalleryTestCase {
 				'subView' => 'php.Sub',
 				'static'  => 'value',
 			),
-			'options'  => $this->_defaultOptions,
-			'flags'    => array(),
+			'options'     => $this->_defaultOptions,
+			'flags'       => array(),
 		);
 		$tests[] = array(
 			$activeRules,
@@ -409,7 +409,7 @@ class RewriteHelperTest extends GalleryTestCase {
 		$expectedShortUrls                    = array();
 		$expectedRegexRules                   = array();
 		$expectedRegexRules[]                 = array(
-			'conditions' => array(
+			'conditions'  => array(
 				array(
 					'test'    => 'REQUEST_METHOD',
 					'pattern' => 'OPTIONS',
@@ -441,7 +441,7 @@ class RewriteHelperTest extends GalleryTestCase {
 		$expectedShortUrls                   = array();
 		$expectedRegexRules                  = array();
 		$expectedRegexRules[]                = array(
-			'conditions' => array(
+			'conditions'  => array(
 				array(
 					'test'    => 'QUERY_STRING',
 					'pattern' => 'g2_view=php\\.Unit',
@@ -464,7 +464,7 @@ class RewriteHelperTest extends GalleryTestCase {
 					'test'    => 'HTTP:Referer',
 					'pattern' => '!^[a-zA-Z0-9\\+\\.\\-]+://'
 						. $serverName . '/',
-					'flags' => array('NC'),
+					'flags'   => array('NC'),
 				),
 				array(
 					'test'    => 'HTTP:Referer',
@@ -497,8 +497,8 @@ class RewriteHelperTest extends GalleryTestCase {
 			'queryString' => array(
 				'view' => 'php.Unit',
 			),
-			'options'  => $this->_defaultOptions,
-			'flags'    => array(),
+			'options'     => $this->_defaultOptions,
+			'flags'       => array(),
 		);
 		$tests[] = array(
 			$activeRules,
@@ -564,8 +564,8 @@ class RewriteHelperTest extends GalleryTestCase {
 			'queryString' => array(
 				'view' => 'php.Unit',
 			),
-			'options'  => $expectedOptions,
-			'flags'    => array(),
+			'options'     => $expectedOptions,
+			'flags'       => array(),
 		);
 		$tests[] = array(
 			$activeRules,
@@ -679,8 +679,8 @@ class RewriteHelperTest extends GalleryTestCase {
 			'queryString' => array(
 				'view' => 'php.Unit',
 			),
-			'options'  => $this->_defaultOptions,
-			'flags'    => array(),
+			'options'     => $this->_defaultOptions,
+			'flags'       => array(),
 		);
 		$expectedRegexRules[] = array(
 			'pattern'     => 'phpunit2',
@@ -688,8 +688,8 @@ class RewriteHelperTest extends GalleryTestCase {
 			'queryString' => array(
 				'view' => 'php.Unit',
 			),
-			'options'  => $this->_defaultOptions,
-			'flags'    => array(),
+			'options'     => $this->_defaultOptions,
+			'flags'       => array(),
 		);
 
 		list($ret, $code, $regexRules, $shortUrls, $errno) = RewriteHelper::parseActiveRules(
@@ -754,7 +754,7 @@ class RewriteHelperTest extends GalleryTestCase {
 		);
 		// Conditions
 		$expectedRegexRules[] = array(
-			'conditions' => array(
+			'conditions'  => array(
 				array(
 					'test'    => 'REQUEST_METHOD',
 					'pattern' => 'OPTIONS',
@@ -771,7 +771,7 @@ class RewriteHelperTest extends GalleryTestCase {
 		);
 		// Restrict
 		$expectedRegexRules[] = array(
-			'conditions' => array(
+			'conditions'  => array(
 				array(
 					'test'    => 'QUERY_STRING',
 					'pattern' => 'g2_view=php\\.Unit',
@@ -794,7 +794,7 @@ class RewriteHelperTest extends GalleryTestCase {
 					'test'    => 'HTTP:Referer',
 					'pattern' => '!^[a-zA-Z0-9\\+\\.\\-]+://'
 						. $serverName . '/',
-					'flags' => array('NC'),
+					'flags'   => array('NC'),
 				),
 				array(
 					'test'    => 'HTTP:Referer',
@@ -821,8 +821,8 @@ class RewriteHelperTest extends GalleryTestCase {
 			'queryString' => array(
 				'view' => 'php.Unit',
 			),
-			'options'  => $this->_defaultOptions,
-			'flags'    => array('QSA', 'L'),
+			'options'     => $this->_defaultOptions,
+			'flags'       => array('QSA', 'L'),
 		);
 		// Regex pattern
 		$expectedRegexRules[] = array(
@@ -838,8 +838,8 @@ class RewriteHelperTest extends GalleryTestCase {
 			'queryString' => array(
 				'view' => 'php.Unit',
 			),
-			'options'  => $this->_defaultOptions,
-			'flags'    => array('QSA', 'L'),
+			'options'     => $this->_defaultOptions,
+			'flags'       => array('QSA', 'L'),
 		);
 
 		list($ret, $code, $regexRules, $shortUrls, $errno) = RewriteHelper::parseActiveRules(
@@ -1008,12 +1008,12 @@ class RewriteHelperMockModule extends GalleryModule {
 
 		// Rule 4: Query string and match combination
 		$rules[4] = array(
-			'match'    => array(
+			'match'       => array(
 				'view'    => 'php.Unit',
 				'subView' => 'php.Sub',
 			),
-			'pattern'  => 'php/%unit%',
-			'keywords' => array(
+			'pattern'     => 'php/%unit%',
+			'keywords'    => array(
 				'unit' => array(
 					'pattern' => '(.*)',
 				),
@@ -1050,7 +1050,7 @@ class RewriteHelperMockModule extends GalleryModule {
 
 		// Rule 6: Restrict
 		$rules[6] = array(
-			'restrict' => array(
+			'restrict'      => array(
 				GalleryUtilities::prefixFormVariable('view') => 'php\\.Unit',
 				'param'                                      => 'php/%unit%',
 			),

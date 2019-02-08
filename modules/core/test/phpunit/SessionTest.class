@@ -78,9 +78,9 @@ class SessionTest extends GalleryTestCase {
 		}
 
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
-		unset($_COOKIE[SESSION_ID_PARAMETER]);
-		unset($_SERVER['HTTP_COOKIE']);
-		unset($_SERVER['HTTPS']);
+		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE'], $_SERVER['HTTPS']);
+
+
 
 		list($ret, $guestId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 
@@ -327,8 +327,8 @@ class SessionTest extends GalleryTestCase {
 		global $gallery;
 
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
-		unset($_COOKIE[SESSION_ID_PARAMETER]);
-		unset($_SERVER['HTTP_COOKIE']);
+		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
+
 
 		// Mock storage to simulate a collision on the first attempt
 		$gallery->_storage = new SessionTestStorage(2);
@@ -511,8 +511,8 @@ class SessionTest extends GalleryTestCase {
 				$_SERVER['HTTP_COOKIE'] = '';
 			}
 			// Verify that we can connect to the same session with the same identifying data
-			unset($_SERVER['HTTP_X_FORWARDED_FOR']);
-			unset($_SERVER['HTTP_CLIENT_IP']);
+			unset($_SERVER['HTTP_X_FORWARDED_FOR'], $_SERVER['HTTP_CLIENT_IP']);
+
 			$_SERVER['HTTP_USER_AGENT'] = 'TEST_USER_AGENT';
 			$_SERVER['REMOTE_ADDR']     = '1.2.3.4';
 			$session                    = new GallerySession();
@@ -680,8 +680,8 @@ class SessionTest extends GalleryTestCase {
 	public function testInitSwitchToSecure() {
 		global $gallery;
 
-		unset($_COOKIE[SESSION_ID_PARAMETER]);
-		unset($_SERVER['HTTPS']);
+		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTPS']);
+
 		$session = new GallerySession();
 		$ret     = $session->initEmpty(false, $gallery->getActiveUserId());
 
@@ -967,7 +967,7 @@ class SessionTest extends GalleryTestCase {
 
 		$_COOKIE[SESSION_ID_PARAMETER] = $session->getId();
 		$key                           = GalleryUtilities::prefixFormVariable(SESSION_ID_PARAMETER);
-		$_GET[$key]                    = $_POST[$key]                    = $session->getId();
+		$_GET[$key]                    = $_POST[$key]                                                          = $session->getId();
 
 		$session->put('foo', 'bar');
 
@@ -3219,8 +3219,8 @@ class SessionTest extends GalleryTestCase {
 			'er'    => false,
 		);
 
-		unset($_COOKIE[SESSION_ID_PARAMETER]);
-		unset($_SERVER['HTTP_COOKIE']);
+		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
+
 
 		foreach ($tests as $testCase) {
 			// Skip if module isn't present

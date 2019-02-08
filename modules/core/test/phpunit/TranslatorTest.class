@@ -52,7 +52,7 @@ class TranslatorTest extends GalleryTestCase {
 		}
 		// Disable browser check, set default lang != hardcoded lang, set dir perms
 		foreach (array('default.language' => 'fr_FR', 'language.useBrowserPref' => '0',
-			   'permissions.directory' => '755', ) as $param => $value) {
+			   'permissions.directory'    => '755', ) as $param => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'core', $param, $value);
 
 			if ($ret) {
@@ -347,10 +347,10 @@ class TranslatorTest extends GalleryTestCase {
 		// Plural text data, count=1
 		list($ret, $results) = 		$translator->translateDomain(
 			$domain,
-					 array('one' => '%d user matches your filter',
-						   'many'   => '%d users match your filter',
-						   'count'  => 1,
-						   'arg1'   => 1, )
+					 array('one'    => '%d user matches your filter',
+						   'many'      => '%d users match your filter',
+						   'count'     => 1,
+						   'arg1'      => 1, )
 		);
 
 		if ($ret) {
@@ -366,10 +366,10 @@ class TranslatorTest extends GalleryTestCase {
 		// Plural text data, count=2 (plural)
 		list($ret, $results) = 		$translator->translateDomain(
 			$domain,
-					 array('one' => '%d user matches your filter',
-						   'many'   => '%d users match your filter',
-						   'count'  => 2,
-						   'arg1'   => 2, )
+					 array('one'    => '%d user matches your filter',
+						   'many'      => '%d users match your filter',
+						   'count'     => 2,
+						   'arg1'      => 2, )
 		);
 
 		if ($ret) {

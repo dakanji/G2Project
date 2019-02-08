@@ -579,10 +579,10 @@ class ThemeTest extends GalleryTestCase {
 		$results = $this->_theme->splitHtml($html, $extraHtml);
 		$this->assertEquals(
 			array(
-				'headHtml' => '
+				'headHtml'          => '
 	    <foo>
 	    ',
-				'bodyHtml' => '
+				'bodyHtml'          => '
 	    <p>Example</p>
 	    ',
 				'sidebarBlocksHtml' => 'sidebar stuff',
@@ -626,10 +626,10 @@ class ThemeTest extends GalleryTestCase {
 		$results = $this->_theme->splitHtml($html, $extraHtml);
 		$this->assertEquals(
 			array(
-				'headHtml' => '
+				'headHtml'          => '
 	    ' . $randomHtml . 'for head
 	    ',
-				'bodyHtml' => '
+				'bodyHtml'          => '
 	    ' . $randomHtml . 'for body
 	    ',
 				'sidebarBlocksHtml' => 'sidebar stuff',

@@ -98,10 +98,10 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -142,10 +142,10 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -188,10 +188,10 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -225,10 +225,10 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -262,9 +262,9 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			'session.lifetime'        => 'IGNORED',
 			'misc.markup'             => 'IGNORED',
 			// Set the cookie path in this test, the domain has to be a valid value
-			'cookie.domain' => '.example.com',
-			'lock.system'   => 'IGNORED',
-			'format.date'   => 'IGNORED',
+			'cookie.domain'           => '.example.com',
+			'lock.system'             => 'IGNORED',
+			'format.date'             => 'IGNORED',
 		);
 
 		// Some test cases
@@ -327,7 +327,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			$kind    = $testCase['saved'] ? 'redirect' : 'delegate';
 			$this->assertEquals(
 				array(
-					$kind => array(
+					$kind    => array(
 						'view'    => 'core.SiteAdmin',
 						'subView' => 'core.AdminCore',
 					),
@@ -378,9 +378,9 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			'session.lifetime'        => 'IGNORED',
 			'misc.markup'             => 'IGNORED',
 			// Set the cookie domain in this test, set the path to a valid value
-			'cookie.path' => '/sub/',
-			'lock.system' => 'IGNORED',
-			'format.date' => 'IGNORED',
+			'cookie.path'             => '/sub/',
+			'lock.system'             => 'IGNORED',
+			'format.date'             => 'IGNORED',
 		);
 
 		// Some test cases
@@ -444,7 +444,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			$kind    = $testCase['saved'] ? 'redirect' : 'delegate';
 			$this->assertEquals(
 				array(
-					$kind => array(
+					$kind    => array(
 						'view'    => 'core.SiteAdmin',
 						'subView' => 'core.AdminCore',
 					),
@@ -489,8 +489,8 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status' => array(),
-				'error'  => array('form[error][smtp][invalidFrom]'),
+				'status'   => array(),
+				'error'    => array('form[error][smtp][invalidFrom]'),
 			),
 			$results
 		);
@@ -507,8 +507,8 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status' => array(),
-				'error'  => array('form[emailTestError][invalidTo]'),
+				'status'   => array(),
+				'error'    => array('form[emailTestError][invalidTo]'),
 			),
 			$results
 		);
@@ -525,8 +525,8 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status' => array(),
-				'error'  => array('form[emailTestError][invalidTo]'),
+				'status'   => array(),
+				'error'    => array('form[emailTestError][invalidTo]'),
 			),
 			$results
 		);
@@ -554,11 +554,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status' => array(
+				'status'   => array(
 					'saved'            => 1,
 					'emailTestSuccess' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -636,8 +636,8 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCore',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);

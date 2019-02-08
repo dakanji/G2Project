@@ -110,7 +110,7 @@ class CoreModuleTest extends GalleryTestCase {
 					'view' => 'core.ItemPermissions',
 				),
 				array(
-					'name' => $this->_module->_translate(
+					'name'   => $this->_module->_translate(
 						array(
 							'text' => 'Delete %s',
 							'arg1' => $this->_module->translate('Album'),
@@ -177,7 +177,7 @@ class CoreModuleTest extends GalleryTestCase {
 					'view' => 'core.ItemPermissions',
 				),
 				array(
-					'name' => $this->_module->_translate(
+					'name'   => $this->_module->_translate(
 						array(
 							'text' => 'Delete %s',
 							'arg1' => $this->_module->translate('Album'),

@@ -81,10 +81,10 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item[0]->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'deleted' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -126,8 +126,8 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 					'view'   => 'core.ShowItem',
 					'itemId' => $this->_item[0]->getId(),
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);

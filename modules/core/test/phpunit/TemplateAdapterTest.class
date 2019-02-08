@@ -177,7 +177,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 				'params' => array(
 					'view' => 'fun.View',
 				),
-				'arg1' => 'foo=bar',
+				'arg1'   => 'foo=bar',
 			),
 			$this->_mockSmarty
 		);
@@ -202,7 +202,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 					'foo' => 'foo',
 					'bar' => 'bar',
 				),
-				'foo' => 'bar',
+				'foo'     => 'bar',
 			),
 			$this->_mockSmarty
 		);

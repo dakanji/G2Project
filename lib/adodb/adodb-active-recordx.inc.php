@@ -180,8 +180,8 @@ class ADODB_Active_Record {
 
 		if (isset($options['new']) && true === $options['new']) {
 			$table =& $this->TableInfo();
-			unset($table->_hasMany);
-			unset($table->_belongsTo);
+			unset($table->_hasMany, $table->_belongsTo);
+
 			$table->_hasMany   = array();
 			$table->_belongsTo = array();
 		}

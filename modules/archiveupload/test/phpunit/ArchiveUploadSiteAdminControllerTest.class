@@ -59,10 +59,10 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -89,10 +89,10 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -117,8 +117,8 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -134,8 +134,8 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminPlugins',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -152,8 +152,8 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
 				),
-				'status' => array(),
-				'error'  => array('form[error][unzipPath][exec]'),
+				'status'   => array(),
+				'error'    => array('form[error][unzipPath][exec]'),
 			),
 			$results
 		);
@@ -170,8 +170,8 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
 				),
-				'status' => array(),
-				'error'  => array('form[error][unzipPath][badPath]'),
+				'status'   => array(),
+				'error'    => array('form[error][unzipPath][badPath]'),
 			),
 			$results
 		);
@@ -188,8 +188,8 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
 				),
-				'status' => array(),
-				'error'  => array('form[error][unzipPath][notExecutable]'),
+				'status'   => array(),
+				'error'    => array('form[error][unzipPath][notExecutable]'),
 			),
 			$results
 		);
@@ -206,8 +206,8 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
 				),
-				'status' => array(),
-				'error'  => array('form[error][unzipPath][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][unzipPath][missing]'),
 			),
 			$results
 		);

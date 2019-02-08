@@ -677,7 +677,7 @@ class GalleryPermissionHelper_advanced {
 				'itemIdsAndBits' => array(
 					$itemId => $zeroBits,
 				),
-				'format' => 'newBits',
+				'format'         => 'newBits',
 			)
 		);
 		list($ret) = GalleryCoreApi::postEvent($event);

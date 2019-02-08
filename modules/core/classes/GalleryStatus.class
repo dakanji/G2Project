@@ -137,7 +137,7 @@ class GalleryStatus {
 				$traceEntry['line']
 			);
 
-			if (isset($traceEntry['class']) && isset($traceEntry['function'])) {
+			if (isset($traceEntry['class'], $traceEntry['function'])) {
 				$buf .= " ($traceEntry[class]::$traceEntry[function]) ";
 			} elseif (isset($traceEntry['class'])) {
 				$buf .= " ($traceEntry[function]) ";
@@ -172,7 +172,7 @@ class GalleryStatus {
 				$traceEntry['line']
 			);
 
-			if (isset($traceEntry['class']) && isset($traceEntry['function'])) {
+			if (isset($traceEntry['class'], $traceEntry['function'])) {
 				$buf .= " ($traceEntry[class]::$traceEntry[function]) ";
 			} elseif (isset($traceEntry['class'])) {
 				$buf .= " ($traceEntry[function]) ";

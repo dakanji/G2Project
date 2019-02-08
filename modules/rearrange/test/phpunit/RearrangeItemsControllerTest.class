@@ -95,8 +95,8 @@ class RearrangeItemsControllerTest extends GalleryControllerTestCase {
 					'subView' => 'rearrange.RearrangeItems',
 					'itemId'  => $this->_album->getId(),
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -115,10 +115,10 @@ class RearrangeItemsControllerTest extends GalleryControllerTestCase {
 					'subView' => 'rearrange.RearrangeItems',
 					'itemId'  => $this->_album->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);

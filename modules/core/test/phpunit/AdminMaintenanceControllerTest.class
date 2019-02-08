@@ -118,13 +118,13 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminMaintenance',
 				),
-				'status' => array(
+				'status'   => array(
 					'run' => array(
 						'taskId'  => 'AdminMaintenanceControllerTestTaskSuccess',
 						'success' => true,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -160,8 +160,8 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 				'delegate' => array(
 					'view' => 'core.ProgressBar',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Run Progress Bar - Main'
@@ -225,8 +225,8 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 				'delegate' => array(
 					'view' => 'core.ProgressBar',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Progress Bar Fail - Main'
@@ -292,8 +292,8 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 				'delegate' => array(
 					'view' => 'core.ProgressBar',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Progress Bar Error - Main'
@@ -348,13 +348,13 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminMaintenance',
 				),
-				'status' => array(
+				'status'   => array(
 					'run' => array(
 						'taskId'  => 'AdminMaintenanceControllerTestTaskFail',
 						'success' => false,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);

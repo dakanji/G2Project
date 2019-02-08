@@ -322,7 +322,7 @@ function sortByPercentDone($a, $b) {
 	}
 
 	if ($a['exactPercentDone'] == $b['exactPercentDone']) {
-		if (isset($a['name']) && isset($b['name'])) {
+		if (isset($a['name'], $b['name'])) {
 			return ($a['name'] < $b['name']) ? -1 : 1;
 		}
 

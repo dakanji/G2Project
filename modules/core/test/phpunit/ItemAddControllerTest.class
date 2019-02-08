@@ -216,8 +216,8 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 				'delegate' => array(
 					'view' => 'core.ProgressBar',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -988,7 +988,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.ItemAddConfirmation',
 					'itemId'  => $this->_album->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'addedFiles' => array(
 						array(
 							'fileName' => 'foo-' . $item->getId(),
@@ -997,7 +997,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 						),
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);

@@ -347,7 +347,7 @@ class FastDownloadTest extends GalleryTestCase {
 					$this->_item[0]->getId() => $bits,
 					$this->_item[1]->getId() => $bits2,
 				),
-				'format' => $format,
+				'format'         => $format,
 			)
 		);
 

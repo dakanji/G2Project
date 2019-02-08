@@ -568,9 +568,9 @@ class ADODB_mssqlnative extends ADOConnection {
 
 		if ($retErrors != null) {
 			foreach ($retErrors as $arrError) {
-				$this->_errorMsg .= 'SQLState: ' . $arrError[ 'SQLSTATE'] . "\n";
-				$this->_errorMsg .= 'Error Code: ' . $arrError[ 'code'] . "\n";
-				$this->_errorMsg .= 'Message: ' . $arrError[ 'message'] . "\n";
+				$this->_errorMsg .= 'SQLState: ' . $arrError['SQLSTATE'] . "\n";
+				$this->_errorMsg .= 'Error Code: ' . $arrError['code'] . "\n";
+				$this->_errorMsg .= 'Message: ' . $arrError['message'] . "\n";
 			}
 		}
 

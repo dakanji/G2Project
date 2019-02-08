@@ -292,7 +292,11 @@ class AdminFfmpegView extends GalleryView {
 		// Load our default values if we didn't just come from this form.
 		if ($form['formName'] != 'AdminFfmpeg') {
 			foreach (array('path', 'useWatermark') as $key) {
-				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'ffmpeg', $key);
+				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter(
+					'module',
+					'ffmpeg',
+					$key
+				);
 
 				if ($ret) {
 					return array($ret, null);
@@ -305,11 +309,14 @@ class AdminFfmpegView extends GalleryView {
 			}
 		}
 
-		$platform     =& $gallery->getPlatform();
-		$tests        = $mimeTypes = $mimeTypesEncoder = $encoderCodecs = array();
-		$version      = $encodeWarnings = array();
-		$debugSnippet = '';
-		$failCount    = 0;
+		$platform         =& $gallery->getPlatform();
+		$tests            = array();
+		$mimeTypes        = array();
+		$mimeTypesEncoder = $encoderCodecs = array();
+		$encoderCodecs    = array();
+		$version          = $encodeWarnings = array();
+		$debugSnippet     = '';
+		$failCount        = 0;
 
 		if (isset($form['action']['test'])) {
 			if (empty($form['path'])) {
@@ -329,8 +336,11 @@ class AdminFfmpegView extends GalleryView {
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 						$form['error']['path']['badPath'] = 1;
-						$tests                            = $mimeTypes                    = $mimeTypesEncoder                    = array();
-						$encoderCodecs                    = $version                    = array();
+						$tests                            = array();
+						$mimeTypes                        = array();
+						$mimeTypesEncoder                 = array();
+						$encoderCodecs                    = array();
+						$version                          = array();
 					} else {
 						return array($ret, null);
 					}
@@ -370,7 +380,13 @@ class AdminFfmpegView extends GalleryView {
 		$AdminFfmpeg['debugSnippet']     = $debugSnippet;
 		$AdminFfmpeg['failCount']        = $failCount;
 		$AdminFfmpeg['isConfigure']      = !$isActive;
-		$AdminFfmpeg['canExec']          = !in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')));
+		$AdminFfmpeg['canExec']          = !in_array(
+			'exec',
+			preg_split(
+				'/,\s*/',
+				ini_get('disable_functions')
+			)
+		);
 		$AdminFfmpeg['canWatermark']     = isset($toolkit);
 
 		if ($failCount > 0) {

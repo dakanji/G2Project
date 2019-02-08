@@ -109,10 +109,10 @@ class AdminModerateSpamControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.AdminModerateSpam',
 				),
-				'status' => array(
+				'status'   => array(
 					'allSpamDeleted' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);

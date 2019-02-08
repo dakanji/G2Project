@@ -50,8 +50,8 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCreateGroup',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -76,8 +76,8 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.AdminEditGroup',
 					'groupId' => $group->getId(),
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -94,8 +94,8 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(),
-				'error'  => array('form[error][text][noGroupSpecified]'),
+				'status'   => array(),
+				'error'    => array('form[error][text][noGroupSpecified]'),
 			),
 			$results
 		);
@@ -114,8 +114,8 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(),
-				'error'  => array('form[error][text][noSuchGroup]'),
+				'status'   => array(),
+				'error'    => array('form[error][text][noSuchGroup]'),
 			),
 			$results
 		);
@@ -140,8 +140,8 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.AdminDeleteGroup',
 					'groupId' => $group->getId(),
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -158,8 +158,8 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(),
-				'error'  => array('form[error][text][noGroupSpecified]'),
+				'status'   => array(),
+				'error'    => array('form[error][text][noGroupSpecified]'),
 			),
 			$results
 		);
@@ -178,8 +178,8 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(),
-				'error'  => array('form[error][text][noSuchGroup]'),
+				'status'   => array(),
+				'error'    => array('form[error][text][noSuchGroup]'),
 			),
 			$results
 		);
@@ -209,8 +209,8 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(),
-				'error'  => array('form[error][text][cantDeleteGroup]'),
+				'status'   => array(),
+				'error'    => array('form[error][text][cantDeleteGroup]'),
 			),
 			$results
 		);
@@ -240,8 +240,8 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(),
-				'error'  => array('form[error][text][cantDeleteGroup]'),
+				'status'   => array(),
+				'error'    => array('form[error][text][cantDeleteGroup]'),
 			),
 			$results
 		);
@@ -271,8 +271,8 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(),
-				'error'  => array('form[error][text][cantEditGroupUsers]'),
+				'status'   => array(),
+				'error'    => array('form[error][text][cantEditGroupUsers]'),
 			),
 			$results
 		);
@@ -306,8 +306,8 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(),
-				'error'  => array('form[error][text][cantDeleteGroup]'),
+				'status'   => array(),
+				'error'    => array('form[error][text][cantDeleteGroup]'),
 			),
 			$results
 		);
@@ -332,8 +332,8 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.AdminEditGroupUsers',
 					'groupId' => $group->getId(),
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -350,8 +350,8 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(),
-				'error'  => array('form[error][text][noGroupSpecified]'),
+				'status'   => array(),
+				'error'    => array('form[error][text][noGroupSpecified]'),
 			),
 			$results
 		);
@@ -370,8 +370,8 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(),
-				'error'  => array('form[error][text][noSuchGroup]'),
+				'status'   => array(),
+				'error'    => array('form[error][text][noSuchGroup]'),
 			),
 			$results
 		);

@@ -72,10 +72,10 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 					'editPlugin' => 'ItemEditAlbum',
 					'itemId'     => $this->_getChildId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'editMessage' => $core->translate('Album created successfully.'),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -117,10 +117,10 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 					'editPlugin' => 'ItemEditAlbum',
 					'itemId'     => $this->_getSecondChildId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'editMessage' => $core->translate('Album created successfully.'),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -153,8 +153,8 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemAddAlbum',
 				),
-				'status' => array(),
-				'error'  => array('form[error][pathComponent][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][pathComponent][missing]'),
 			),
 			$results
 		);
@@ -178,8 +178,8 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemAddAlbum',
 				),
-				'status' => array(),
-				'error'  => array('form[error][pathComponent][invalid]'),
+				'status'   => array(),
+				'error'    => array('form[error][pathComponent][invalid]'),
 			),
 			$results
 		);
@@ -215,10 +215,10 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 					'editPlugin' => 'ItemEditAlbum',
 					'itemId'     => $id,
 				),
-				'status' => array(
+				'status'   => array(
 					'editMessage' => $core->translate('Album created successfully.'),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -273,10 +273,10 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 					'editPlugin' => 'ItemEditAlbum',
 					'itemId'     => $id,
 				),
-				'status' => array(
+				'status'   => array(
 					'editMessage' => $core->translate('Album created successfully.'),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -348,10 +348,10 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 					'editPlugin' => 'ItemEditAlbum',
 					'itemId'     => ($id = $this->_getChildId()),
 				),
-				'status' => array(
+				'status'   => array(
 					'editMessage' => $core->translate('Album created successfully.'),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);

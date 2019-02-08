@@ -114,8 +114,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 
 						if (isset($resizesTable[$newOperations])) {
 							// Keep existing resize
-							unset($resizesTable[$newOperations]);
-							unset($form['resizes'][$i]);
+							unset($resizesTable[$newOperations], $form['resizes'][$i]);
 						} else {
 							// Create resize with these settings on next pass
 							$form['resizes'][$i]['operations'] = $newOperations;

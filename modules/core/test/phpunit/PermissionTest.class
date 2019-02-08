@@ -817,7 +817,7 @@ class PermissionTest extends GalleryTestCase {
 				'itemIdsAndBits' => array(
 					$this->_albums[0]->getId() => $zeroBits,
 				),
-				'format' => 'newBits',
+				'format'         => 'newBits',
 			)
 		);
 		$this->assertEquals($event, $listener->getEvent(), 'RemovePermission is not as expected');

@@ -84,8 +84,7 @@ class RatingHelperTest extends GalleryTestCase {
 		$this->_origSession = $gallery->_session;
 
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
-		unset($_COOKIE[SESSION_ID_PARAMETER]);
-		unset($_SERVER['HTTP_COOKIE']);
+		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 	}
 
 	public function tearDown() {
@@ -458,8 +457,8 @@ class RatingHelperTest extends GalleryTestCase {
 		);
 
 		// Get the item summary again, but without having the permissions
-		unset($content);
-		unset($template);
+		unset($content, $template);
+
 		$template            = new GalleryTemplate(__DIR__ . '/../../../..');
 		list($ret, $content) = $module->getItemSummaries(
 			array($this->_item),

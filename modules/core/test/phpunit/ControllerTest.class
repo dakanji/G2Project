@@ -305,8 +305,8 @@ class ControllerTest extends GalleryTestCase {
 					'subView' => 'core.UserLogin',
 					'return'  => true,
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Unexpected result'
@@ -324,8 +324,8 @@ class ControllerTest extends GalleryTestCase {
 					'subView' => 'core.UserLogin',
 					'return'  => true,
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Unexpected result'

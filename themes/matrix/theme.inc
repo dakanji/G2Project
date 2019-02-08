@@ -65,12 +65,12 @@ class MatrixTheme extends GalleryTheme {
 						array('imageblock.ImageBlock', array()),
 					)
 				),
-				'albumBlocks' => serialize(
+				'albumBlocks'     => serialize(
 					array(
 						array('comment.ViewComments', array()),
 					)
 				),
-				'photoBlocks' => serialize(
+				'photoBlocks'     => serialize(
 					array(
 						array('exif.ExifInfo', array()),
 						array('comment.ViewComments', array()),

@@ -106,10 +106,10 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'added' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -156,10 +156,10 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'added' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results,
 			'First Comment'
@@ -172,8 +172,8 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 				'delegate' => array(
 					'view' => 'comment.AddComment',
 				),
-				'status' => array(),
-				'error'  => array('form[error][comment][flood]'),
+				'status'   => array(),
+				'error'    => array('form[error][comment][flood]'),
 			),
 			$results,
 			'Flood Comment'
@@ -198,10 +198,10 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'added' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results,
 			'First Comment'
@@ -216,10 +216,10 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'added' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Second Comment'
@@ -261,10 +261,10 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'added' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -309,8 +309,8 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 				'delegate' => array(
 					'view' => 'comment.AddComment',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -350,8 +350,8 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 				'delegate' => array(
 					'view' => 'comment.AddComment',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -373,8 +373,8 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 				'delegate' => array(
 					'view' => 'comment.AddComment',
 				),
-				'status' => array(),
-				'error'  => array('form[error][comment][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][comment][missing]'),
 			),
 			$results
 		);
@@ -404,8 +404,8 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 				'delegate' => array(
 					'view' => 'comment.AddComment',
 				),
-				'status' => array(),
-				'error'  => array('form[error][comment][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][comment][missing]'),
 			),
 			$results
 		);
@@ -452,10 +452,10 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'added' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -474,10 +474,10 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'added' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -578,10 +578,10 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'added' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -644,8 +644,8 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view'   => 'core.ShowItem',
 					'itemId' => $this->_item->getId(),
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -684,8 +684,8 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 				'delegate' => array(
 					'view' => 'comment.AddComment',
 				),
-				'status' => array(),
-				'error'  => array('form[error][AddCommentTestValidation]'),
+				'status'   => array(),
+				'error'    => array('form[error][AddCommentTestValidation]'),
 			),
 			$results
 		);
@@ -715,8 +715,8 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 				'delegate' => array(
 					'view' => 'comment.AddComment',
 				),
-				'status' => array(),
-				'error'  => array('form[error][AddCommentTestValidation]'),
+				'status'   => array(),
+				'error'    => array('form[error][AddCommentTestValidation]'),
 			),
 			$results
 		);
@@ -750,10 +750,10 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 					'view'   => 'comment.CommentChangeConfirmation',
 					'itemId' => $this->_item->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'added' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);

@@ -67,8 +67,8 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -86,8 +86,8 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.AdminEditUser',
 					'userId'  => $this->_user[0]->getId(),
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Undo Edit User'
@@ -112,10 +112,10 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(
+				'status'   => array(
 					'modifiedUser' => $this->_user[0]->getUserName(),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -140,10 +140,10 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(
+				'status'   => array(
 					'modifiedUser' => $newUserName,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -168,8 +168,8 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditUser',
 				),
-				'status' => array(),
-				'error'  => array('form[error][userName][duplicate]'),
+				'status'   => array(),
+				'error'    => array('form[error][userName][duplicate]'),
 			),
 			$results
 		);
@@ -193,8 +193,8 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditUser',
 				),
-				'status' => array(),
-				'error'  => array(
+				'status'   => array(),
+				'error'    => array(
 					'form[error][userName][missing]',
 					'form[error][password2][mismatch]',
 				),
@@ -220,8 +220,8 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditUser',
 				),
-				'status' => array(),
-				'error'  => array('form[error][email][invalid]'),
+				'status'   => array(),
+				'error'    => array('form[error][email][invalid]'),
 			),
 			$results
 		);
@@ -246,10 +246,10 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(
+				'status'   => array(
 					'modifiedUser' => $this->_user[0]->getUserName(),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -283,10 +283,10 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(
+				'status'   => array(
 					'modifiedUser' => $userName,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -327,10 +327,10 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(
+				'status'   => array(
 					'modifiedUser' => $userName,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -360,10 +360,10 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(
+				'status'   => array(
 					'modifiedUser' => $userName,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -409,10 +409,10 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(
+				'status'   => array(
 					'modifiedUser' => $this->_user[0]->getUserName(),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);

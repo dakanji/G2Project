@@ -187,7 +187,7 @@ class RewriteHelper {
 				}
 
 				// Save the pattern for the URL generator to use
-				if (isset($rules[$ruleId]['match']) && isset($activeRule['pattern'])) {
+				if (isset($rules[$ruleId]['match'], $activeRule['pattern'])) {
 					$shortUrl = array(
 						'match'   => $rules[$ruleId]['match'],
 						'pattern' => $activeRule['pattern'],
@@ -271,7 +271,7 @@ class RewriteHelper {
 				// Merge with default options.  Later values override defaults.
 				$rules[$ruleId]['options'] = array_merge(
 					array(
-						'forceDirect' => isset($rules[$ruleId]['queryString']['view'])
+						'forceDirect'            => isset($rules[$ruleId]['queryString']['view'])
 									&& $rules[$ruleId]['queryString']['view'] == 'watermark.DownloadItem',
 						'forceServerRelativeUrl' => true,
 						'forceSessionId'         => false,
@@ -283,7 +283,7 @@ class RewriteHelper {
 				);
 
 				// Build the list of flags to apply to this rule
-				if (isset($rules[$ruleId]['flags']) && isset($flags)) {
+				if (isset($rules[$ruleId]['flags'], $flags)) {
 					$rules[$ruleId]['flags'] = array_merge(
 						$rules[$ruleId]['flags'],
 						$flags['mandatory']

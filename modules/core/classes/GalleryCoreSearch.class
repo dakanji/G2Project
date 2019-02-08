@@ -78,9 +78,9 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 
 		foreach (array(
 			'descriptions' => '[GalleryItem::description]',
-			'keywords'  => '[GalleryItem::keywords]',
-			'summaries' => '[GalleryItem::summary]',
-			'titles'    => '[GalleryItem::title]',
+			'keywords'     => '[GalleryItem::keywords]',
+			'summaries'    => '[GalleryItem::summary]',
+			'titles'       => '[GalleryItem::title]',
 		) as $key => $column) {
 			if (isset($options[$key])) {
 				$whereList[]        = "$column LIKE ?";
@@ -210,9 +210,9 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 			$fields = array();
 
 			foreach (array(
-				'[GalleryItem::title]' => $text['title'],
-				'[GalleryItem::summary]' => $text['summary'],
-				'[GalleryItem::keywords]' => $text['keywords'],
+				'[GalleryItem::title]'       => $text['title'],
+				'[GalleryItem::summary]'     => $text['summary'],
+				'[GalleryItem::keywords]'    => $text['keywords'],
 				'[GalleryItem::description]' => $text['description'],
 			) as $columnName => $fieldText) {
 				if (isset($selectMap[$columnName])) {

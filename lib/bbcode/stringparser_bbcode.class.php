@@ -1419,8 +1419,8 @@ class StringParser_BBCode extends StringParser {
 		for ($i = 0; $i < $count; $i++) {
 			$node->appendChild($dest_nodes[$i]);
 		}
-		unset($dest_nodes);
-		unset($paragraph);
+		unset($dest_nodes, $paragraph);
+
 
 		return true;
 	}

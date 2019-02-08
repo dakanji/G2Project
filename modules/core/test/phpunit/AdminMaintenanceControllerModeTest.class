@@ -83,12 +83,12 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminMaintenance',
 				),
-				'status' => array(
+				'status'   => array(
 					'setMode' => array(
 						'setOn' => 1,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -121,12 +121,12 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminMaintenance',
 				),
-				'status' => array(
+				'status'   => array(
 					'setMode' => array(
 						'setOn' => 1,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results,
 			'The url was not properly'
@@ -162,12 +162,12 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminMaintenance',
 				),
-				'status' => array(
+				'status'   => array(
 					'setMode' => array(
 						'setOff' => 1,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -189,12 +189,12 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminMaintenance',
 				),
-				'status' => array(
+				'status'   => array(
 					'setMode' => array(
 						'setOff' => 1,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results,
 			'The maintenance  mode was set'

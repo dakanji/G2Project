@@ -89,8 +89,7 @@ class JPEG // extends PEAR
 		$this->_fp   = null;
 		$this->_type = 'unknown';
 
-		unset($this->_info);
-		unset($this->_markers);
+		unset($this->_info, $this->_markers);
 	}
 
 	/**
@@ -728,8 +727,7 @@ class JPEG // extends PEAR
 		$this->_fp   = null;
 		$this->_type = 'unknown';
 
-		unset($this->_markers);
-		unset($this->_info);
+		unset($this->_markers, $this->_info);
 	}
 
 	/**
@@ -747,8 +745,8 @@ class JPEG // extends PEAR
 	 * @access private
 	 */
 	public function _readJPEG() {
-		unset($this->_markers);
-		unset($this->_info);
+		unset($this->_markers, $this->_info);
+
 		$this->_markers = array();
 		$this->_info    = array();
 
@@ -1357,7 +1355,7 @@ class JPEG // extends PEAR
 		$EXIFTags = $this->_exifTagNames($mode);
 
 		$numEntries = $this->_getShort($data, $base + $offset, $isBigEndian);
-		$offset += 2;
+		$offset    += 2;
 
 		$exifTIFFOffset      = 0;
 		$exifTIFFLength      = 0;
@@ -1365,11 +1363,11 @@ class JPEG // extends PEAR
 		$exifThumbnailLength = 0;
 
 		for ($i = 0; $i < $numEntries; $i++) {
-			$tag = $this->_getShort($data, $base + $offset, $isBigEndian);
+			$tag     = $this->_getShort($data, $base + $offset, $isBigEndian);
 			$offset += 2;
-			$type = $this->_getShort($data, $base + $offset, $isBigEndian);
+			$type    = $this->_getShort($data, $base + $offset, $isBigEndian);
 			$offset += 2;
-			$count = $this->_getLong($data, $base + $offset, $isBigEndian);
+			$count   = $this->_getLong($data, $base + $offset, $isBigEndian);
 			$offset += 4;
 
 			if (($type < 1) || ($type > 12)) {
@@ -1683,7 +1681,7 @@ class JPEG // extends PEAR
 				$pos               = $this->_putLong($data, $pos, 0x01, $isBigEndian); // Count = 1
 				$tiffDataOffsetPos = $pos;
 				$pos               = $this->_putLong($data, $pos, 0x00, $isBigEndian); // For Now
-				$tiffData          =& $entries[$i]['value'] ;
+				$tiffData          =& $entries[$i]['value'];
 			} else { // Regular Entry
 				$pos = $this->_putShort($data, $pos, $tag, $isBigEndian);
 				$pos = $this->_putShort($data, $pos, $type, $isBigEndian);
@@ -2121,7 +2119,7 @@ class JPEG // extends PEAR
 			$pos += 2;
 
 			$strlen = $this->_getByte($data, $pos);
-			$pos += 1;
+			$pos   += 1;
 			$header = '';
 
 			for ($i = 0; $i < $strlen; $i++) {
@@ -2130,7 +2128,7 @@ class JPEG // extends PEAR
 			$pos += $strlen + 1 - ($strlen % 2);  // The string is padded to even length, counting the length byte itself
 
 			$length = $this->_getLong($data, $pos);
-			$pos += 4;
+			$pos   += 4;
 
 			$basePos = $pos;
 
@@ -2157,7 +2155,7 @@ class JPEG // extends PEAR
 				break;
 
 			case 0x040C: // Thumbnail
-				$aux = $this->_getLong($data, $pos);
+				$aux  = $this->_getLong($data, $pos);
 				$pos += 4;
 
 				if ($aux == 1) {
@@ -2211,14 +2209,14 @@ class JPEG // extends PEAR
 			if ($tagmarker != 0x1C) {
 				return $pos;
 			}
-			$pos += 1;
+			$pos         += 1;
 			$recordNumber = $this->_getByte($data, $pos);
-			$pos += 1;
+			$pos         += 1;
 
-			$type = $this->_getByte($data, $pos);
-			$pos += 1;
+			$type   = $this->_getByte($data, $pos);
+			$pos   += 1;
 			$length = $this->_getShort($data, $pos);
-			$pos += 2;
+			$pos   += 2;
 
 			// Detect extended datasets (MSB is flag for standard/extended, rest is length)
 			$isExtended = (bool)($length >> 15);
@@ -2277,7 +2275,7 @@ class JPEG // extends PEAR
 							$aux[0]                      = $this->_info['iptc'][$label];
 							$this->_info['iptc'][$label] = $aux;
 						}
-						$this->_info['iptc'][$label][ count($this->_info['iptc'][$label]) ] = 							$this->_getFixedString($data, $pos, $length);
+						$this->_info['iptc'][$label][count($this->_info['iptc'][$label])] = 							$this->_getFixedString($data, $pos, $length);
 					} else {
 						$this->_info['iptc'][$label] = $this->_getFixedString($data, $pos, $length);
 					}

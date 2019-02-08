@@ -823,12 +823,12 @@ class GallerySession {
 			 *                          userId is not == anonymousUserId
 			 * - authToken: we only check the authToken for persistent sessions
 			 */
-			unset($sessionDataCopy['core.lastViewed']);
-			unset($sessionDataCopy['permissionCache']);
-			unset($sessionDataCopy['core.navigation']);
-			unset($sessionDataCopy['embed.id.externalUser']);
-			unset($sessionDataCopy['core.authToken']);
-			unset($sessionDataCopy['secure']);
+			unset($sessionDataCopy['core.lastViewed'], $sessionDataCopy['permissionCache'], $sessionDataCopy['core.navigation'], $sessionDataCopy['embed.id.externalUser'], $sessionDataCopy['core.authToken'], $sessionDataCopy['secure']);
+
+
+
+
+
 			list(
 				$ret,
 				$detectedLanguageCode

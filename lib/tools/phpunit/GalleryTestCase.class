@@ -1348,8 +1348,7 @@ class GalleryTestCase extends TestCase {
 				unset($registry['pluginIds'][$classType]);
 			}
 		} else {
-			unset($registry['implementations'][$classType]);
-			unset($registry['pluginIds'][$classType]);
+			unset($registry['implementations'][$classType], $registry['pluginIds'][$classType]);
 		}
 
 		if (isset($registry['hints'][$classType])) {

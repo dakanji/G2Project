@@ -60,8 +60,8 @@ class CoreCallbacks {
 				 */
 				foreach (array(
 					'checkSidebarBlocks' => 'sidebar',
-					'checkAlbumBlocks' => 'album',
-					'checkPhotoBlocks' => 'photo',
+					'checkAlbumBlocks'   => 'album',
+					'checkPhotoBlocks'   => 'photo',
 				) as $oldParam => $key) {
 					if (!empty($params[$oldParam])) {
 						$check .= empty($check) ? $key : ",$key";

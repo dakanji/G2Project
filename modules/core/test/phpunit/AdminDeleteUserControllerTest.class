@@ -99,8 +99,8 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -131,10 +131,10 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(
+				'status'   => array(
 					'deletedUser' => $user->getUserName(),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Failed to create user'
@@ -169,8 +169,8 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminDeleteUser',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -201,8 +201,8 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminDeleteUser',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -252,8 +252,8 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminDeleteUser',
 				),
-				'status' => array(),
-				'error'  => array('form[error][text][noSuchUser]'),
+				'status'   => array(),
+				'error'    => array('form[error][text][noSuchUser]'),
 			),
 			$results
 		);
@@ -300,8 +300,8 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminDeleteUser',
 				),
-				'status' => array(),
-				'error'  => array('form[error][text][newOwnerIsDeletedUser]'),
+				'status'   => array(),
+				'error'    => array('form[error][text][newOwnerIsDeletedUser]'),
 			),
 			$results
 		);
@@ -361,8 +361,8 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminDeleteUser',
 				),
-				'status' => array(),
-				'error'  => array('form[error][text][newOwnerIsGuest]'),
+				'status'   => array(),
+				'error'    => array('form[error][text][newOwnerIsGuest]'),
 			),
 			$results
 		);
@@ -441,10 +441,10 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(
+				'status'   => array(
 					'deletedUser' => $user->getUserName(),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Failed to create user'
@@ -516,10 +516,10 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(
+				'status'   => array(
 					'deletedUser' => $user->getUserName(),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Failed to create user'
@@ -616,10 +616,10 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(
+				'status'   => array(
 					'deletedUser' => $user->getUserName(),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Failed to create user'

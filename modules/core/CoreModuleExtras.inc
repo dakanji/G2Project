@@ -206,26 +206,26 @@ class CoreModuleExtras {
 				}
 
 				foreach (array(
-					'permissions.directory' => '0755',
-					'permissions.file' => '0644',
-					'exec.expectedStatus' => '0',
-					'exec.beNice' => '0',
-					'default.orderBy' => 'orderWeight',
-					'default.orderDirection' => '1',
-					'default.theme' => 'matrix',
-					'default.language' => $defaultLanguage,
-					'language.useBrowserPref' => '0',
-					'default.newAlbumsUseDefaults' => 'false',
-					'session.lifetime' => 21 * 86400, // Three weeks
-					'session.inactivityTimeout' => 7 * 86400, // One week
+					'permissions.directory'             => '0755',
+					'permissions.file'                  => '0644',
+					'exec.expectedStatus'               => '0',
+					'exec.beNice'                       => '0',
+					'default.orderBy'                   => 'orderWeight',
+					'default.orderDirection'            => '1',
+					'default.theme'                     => 'matrix',
+					'default.language'                  => $defaultLanguage,
+					'language.useBrowserPref'           => '0',
+					'default.newAlbumsUseDefaults'      => 'false',
+					'session.lifetime'                  => 21 * 86400, // Three weeks
+					'session.inactivityTimeout'         => 7 * 86400, // One week
 					'session.siteAdministrationTimeout' => 30 * 60, // 30 minutes
-					'misc.markup' => 'bbcode',
-					'lock.system' => $flockType,
-					'format.date' => '%x',
-					'format.time' => '%X',
-					'format.datetime' => '%c',
-					'repository.updateTime' => '0',
-					'acceleration' => serialize(
+					'misc.markup'                       => 'bbcode',
+					'lock.system'                       => $flockType,
+					'format.date'                       => '%x',
+					'format.time'                       => '%X',
+					'format.datetime'                   => '%c',
+					'repository.updateTime'             => '0',
+					'acceleration'                      => serialize(
 						array(
 							'guest' => array(
 								'type' => 'none',
@@ -235,9 +235,9 @@ class CoreModuleExtras {
 							),
 						)
 					),
-					'smarty.compile_check' => '0',
-					'validation.level' => 'MEDIUM',
-					'core.repositories' => serialize(
+					'smarty.compile_check'              => '0',
+					'validation.level'                  => 'MEDIUM',
+					'core.repositories'                 => serialize(
 						array(
 							'released' => 1,
 						)
@@ -996,8 +996,8 @@ class CoreModuleExtras {
 
 				foreach (array(
 					substr($gallery->getConfig('data.gallery.plugins'), 0, -1) => false,
-					$gallery->getConfig('data.gallery.plugins') . 'modules' => false,
-					$gallery->getConfig('data.gallery.plugins') . 'layouts' => false,
+					$gallery->getConfig('data.gallery.plugins') . 'modules'    => false,
+					$gallery->getConfig('data.gallery.plugins') . 'layouts'    => false,
 					substr($gallery->getConfig('data.gallery.plugins_data'), 0, -1) => true,
 					$gallery->getConfig('data.gallery.plugins_data') . 'modules' => true,
 					$gallery->getConfig('data.gallery.plugins_data') . 'layouts' => true,
@@ -1658,8 +1658,8 @@ class CoreModuleExtras {
 			case '0.9.34':
 				// Add date/time formats
 				foreach (array(
-					'format.date' => '%x',
-					'format.time' => '%X',
+					'format.date'     => '%x',
+					'format.time'     => '%X',
 					'format.datetime' => '%c',
 				) as $key => $value) {
 					$ret = $module->setParameter($key, $value);
@@ -1877,9 +1877,9 @@ class CoreModuleExtras {
 				}
 
 				foreach (array(
-					'cookie.path' => '',
-					'cookie.domain' => '',
-					'exec.beNice' => '0',
+					'cookie.path'           => '',
+					'cookie.domain'         => '',
+					'exec.beNice'           => '0',
 					'repository.updateTime' => '0',
 				) as $key => $value) {
 					if (!isset($coreParams[$key])) {
@@ -2479,7 +2479,7 @@ class CoreModuleExtras {
 				}
 
 				foreach (array(
-					'session.lifetime' => array(25 * 365 * 86400, 21 * 86400),
+					'session.lifetime'          => array(25 * 365 * 86400, 21 * 86400),
 					'session.inactivityTimeout' => array(14 * 86400, 7 * 86400),
 				) as
 				$key => $oldAndNew) {

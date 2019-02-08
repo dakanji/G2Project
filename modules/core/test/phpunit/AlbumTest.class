@@ -927,9 +927,9 @@ class AlbumTest extends GalleryTestCase {
 
 		// Set our defaults to something else
 		foreach (array(
-			'default.theme' => 'x',
-			'default.orderBy' => 'y',
-			'default.orderDirection' => 'z',
+			'default.theme'                => 'x',
+			'default.orderBy'              => 'y',
+			'default.orderDirection'       => 'z',
 			'default.newAlbumsUseDefaults' => 'false',
 		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'core', $key, $value);

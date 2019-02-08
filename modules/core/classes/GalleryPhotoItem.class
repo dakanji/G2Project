@@ -268,9 +268,9 @@ class GalleryPhotoItem extends GalleryDataItem {
 				}
 
 				$html = sprintf('<img src="%s"%s', $src, $sizeStr);
-				unset($params['fallback']);
-				unset($params['forceFullUrl']);
-				unset($params['forceRawImage']);
+				unset($params['fallback'], $params['forceFullUrl'], $params['forceRawImage']);
+
+
 
 				foreach ($params as $attr => $value) {
 					if (isset($value)) {

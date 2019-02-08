@@ -232,12 +232,13 @@ function adodb_log_sql(&$connx, $sql, $inputarr) {
 			} else {
 				$ok = $conn->Execute(
 					"create table $perf_table (
-				created varchar(50),
-				sql0 varchar(250),
-				sql1 varchar(4000),
-				params varchar(3000),
-				tracer varchar(500),
-				timer decimal(16,6))"
+						created varchar(50),
+						sql0 varchar(250),
+						sql1 varchar(4000),
+						params varchar(3000),
+						tracer varchar(500),
+						timer decimal(16,6)
+					)"
 				);
 			}
 
@@ -546,7 +547,7 @@ class adodb_perf {
 		$saveE                 = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
 
-		if (isset($_GET['exps']) && isset($_GET['sql'])) {
+		if (isset($_GET['exps'], $_GET['sql'])) {
 			$partial = !empty($_GET['part']);
 			echo '<a name=explain></a>' . $this->Explain($_GET['sql'], $partial) . "\n";
 		}
@@ -634,7 +635,7 @@ class adodb_perf {
 		$saveE                 = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
 
-		if (isset($_GET['expe']) && isset($_GET['sql'])) {
+		if (isset($_GET['expe'], $_GET['sql'])) {
 			$partial = !empty($_GET['part']);
 			echo '<a name=explain></a>' . $this->Explain($_GET['sql'], $partial) . "\n";
 		}
@@ -1251,11 +1252,11 @@ class adodb_perf {
 		}
 
 		$mode    = ADODB_OPT_LOW;
-		$lastArg = $args[ $numArgs - 1];
+		$lastArg = $args[$numArgs - 1];
 
 		if (!is_string($lastArg)) {
 			$mode = $lastArg;
-			unset($args[ $numArgs - 1]);
+			unset($args[$numArgs - 1]);
 		}
 
 		foreach ($args as $table) {

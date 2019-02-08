@@ -44,8 +44,8 @@ class RewriteParserTestCase extends GalleryTestCase {
 		$activeRules['rewriteparsermock'][0] = array('pattern' => 'bogus');
 
 		foreach (array('activeRules' => serialize($activeRules),
-			   'allowEmptyReferer' => '0',
-			   'accessList' => serialize(array('phpunit.test')), )
+			   'allowEmptyReferer'   => '0',
+			   'accessList'          => serialize(array('phpunit.test')), )
 		as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', $key, $value);
 
@@ -60,8 +60,8 @@ class RewriteParserTestCase extends GalleryTestCase {
 		// Set up our mock platform
 		$this->_platform = new RewriteParserMockPlatform();
 		$this->_platform->init($this);
-		unset($this->_fileContent);
-		unset($this->_embeddedFileContent);
+		unset($this->_fileContent, $this->_embeddedFileContent);
+
 		$gallery->setPlatform($this->_platform);
 
 		// Register a new module
@@ -505,7 +505,7 @@ class RewriteParserMockModule extends GalleryModule {
 							  'pattern'                                     => 'OPTIONS', ),
 						array('test'                                     => 'HTTP:Authorization',
 							  'pattern'                                     => '%authorization', ), ),
-			  'keywords' => array('authorization' => array('pattern' => '(.+)')), );
+			  'keywords'               => array('authorization' => array('pattern' => '(.+)')), );
 
 		// Rule 4: Bad test condition
 		$rules[4] = array('conditions' => array(array('test' => 'REQUEST_FILENAME',
@@ -640,7 +640,7 @@ class RewriteParserMockPlatform extends GalleryPlatform {
 			return strlen($string);
 		}
 
-		return parent::fwrite($handle, $string, $length=0);
+		return parent::fwrite($handle, $string, $length =0);
 	}
 
 	public function feof($handle) {

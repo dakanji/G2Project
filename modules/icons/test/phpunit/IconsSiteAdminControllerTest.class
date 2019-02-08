@@ -55,8 +55,8 @@ class IconsSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'icons.IconsSiteAdmin',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -73,10 +73,10 @@ class IconsSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'icons.IconsSiteAdmin',
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -99,8 +99,8 @@ class IconsSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'icons.IconsSiteAdmin',
 				),
-				'status' => array(),
-				'error'  => array('form[error][iconpack][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][iconpack][missing]'),
 			),
 			$results
 		);

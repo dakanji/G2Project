@@ -51,11 +51,11 @@ class NetPbmModule extends GalleryModule {
 		}
 
 		foreach (array(
-			'path'      => '',
+			'path'        => '',
 			'jpegQuality' => '75',
-			'pnmtojpeg' => 'pnmtojpeg',
-			'bmptopnm'  => 'bmptopnm',
-			'pnmcomp'   => 'pnmcomp',
+			'pnmtojpeg'   => 'pnmtojpeg',
+			'bmptopnm'    => 'bmptopnm',
+			'pnmcomp'     => 'pnmcomp',
 		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);

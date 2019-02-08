@@ -78,12 +78,12 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 					'view'   => 'core.ShowItem',
 					'itemId' => $album->getParentId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'deleted' => array(
 						'count' => 1,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -137,8 +137,8 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 					'itemId'  => $this->_album->getId(),
 					'page'    => 2,
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Delete Next Page Out Of Range'
@@ -184,8 +184,8 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 					'itemId'  => $this->_album->getId(),
 					'page'    => 1,
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -230,12 +230,12 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 					'view'   => 'core.ShowItem',
 					'itemId' => $this->_album->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'deleted' => array(
 						'count' => 5,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);

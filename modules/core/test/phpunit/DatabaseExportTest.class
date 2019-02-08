@@ -117,10 +117,10 @@ class DatabaseExportTest extends GalleryTestCase {
 				'requiredModuleApi' => array(3, 6),
 			),
 			'core' => array(
-				'available' => 1,
-				'version'   => '1.2.12',
-				'active'    => '1',
-				'callbacks' => 'registerEventListeners|getItemLinks|'
+				'available'         => 1,
+				'version'           => '1.2.12',
+				'active'            => '1',
+				'callbacks'         => 'registerEventListeners|getItemLinks|'
 				. 'getSystemLinks|getSiteAdminViews|'
 				. 'getUserAdminViews|getItemAdminViews',
 				'requiredCoreApi'   => array(7, 27),

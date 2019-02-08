@@ -375,7 +375,7 @@ class ItemEditThemeControllerTestTheme {
 			'typeParams' => array(
 				'size' => 2,
 			),
-			'value' => 4,
+			'value'      => 4,
 		);
 		$settings[] = array(
 			'key'        => 'columns',
@@ -384,7 +384,7 @@ class ItemEditThemeControllerTestTheme {
 			'typeParams' => array(
 				'size' => 2,
 			),
-			'value' => 3,
+			'value'      => 3,
 		);
 
 		return array(null, $settings);

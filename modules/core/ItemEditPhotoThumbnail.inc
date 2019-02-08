@@ -48,7 +48,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			}
 		}
 
-		if (isset($form['action']['crop']) && isset($thumbnail)) {
+		if (isset($form['action']['crop'], $thumbnail)) {
 			// Get our source
 			list($ret, $source) = GalleryCoreApi::loadEntitiesById(
 				$thumbnail->getDerivativeSourceId(),
@@ -132,7 +132,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 				return array($ret, null, null, null);
 			}
 			$status = $module->translate('Thumbnail cropped successfully');
-		} elseif (isset($form['action']['reset']) && isset($thumbnail)) {
+		} elseif (isset($form['action']['reset'], $thumbnail)) {
 			list($ret, $lock) = GalleryCoreApi::acquireWriteLock($thumbnail->getId());
 
 			if ($ret) {

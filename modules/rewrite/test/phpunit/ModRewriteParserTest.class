@@ -44,12 +44,12 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 		// Set up our environment
 		foreach (array(
-			'modrewrite.status' => serialize(
+			'modrewrite.status'           => serialize(
 				array(
 					'needOptions' => true,
 				)
 			),
-			'modrewrite.galleryLocation' => '/gallery2/',
+			'modrewrite.galleryLocation'  => '/gallery2/',
 			'modrewrite.embeddedHtaccess' => '/phpunit/embedded',
 			'modrewrite.embeddedLocation' => '/embedded/',
 		) as $key => $value) {

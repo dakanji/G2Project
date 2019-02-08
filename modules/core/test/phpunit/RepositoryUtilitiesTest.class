@@ -339,8 +339,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 					'module' => '2.0',
 					'theme'  => '1.0',
 				),
-				'pluginType'   => 'module',
-				'isCompatible' => true,
+				'pluginType'        => 'module',
+				'isCompatible'      => true,
 			),
 			array(
 
@@ -351,8 +351,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 					'module' => '2.0',
 					'theme'  => '1.0',
 				),
-				'pluginType'   => 'module',
-				'isCompatible' => false,
+				'pluginType'        => 'module',
+				'isCompatible'      => false,
 			),
 			array(
 
@@ -363,8 +363,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 					'module' => '1.0',
 					'theme'  => '1.0',
 				),
-				'pluginType'   => 'module',
-				'isCompatible' => false,
+				'pluginType'        => 'module',
+				'isCompatible'      => false,
 			),
 			array(
 
@@ -375,8 +375,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 					'module' => '2.0',
 					'theme'  => '1.0',
 				),
-				'pluginType'   => 'module',
-				'isCompatible' => true,
+				'pluginType'        => 'module',
+				'isCompatible'      => true,
 			),
 			array(
 
@@ -387,8 +387,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 					'module' => '2.5',
 					'theme'  => '10.0',
 				),
-				'pluginType'   => 'module',
-				'isCompatible' => false,
+				'pluginType'        => 'module',
+				'isCompatible'      => false,
 			),
 		);
 
@@ -447,8 +447,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			array(
 
 				// Cases with specified provided APIs.
-				'pluginType'   => 'theme',
-				'providedApis' => array(
+				'pluginType'        => 'theme',
+				'providedApis'      => array(
 					'core'   => '3.0',
 					'module' => '2.0',
 					'theme'  => '1.0',
@@ -458,8 +458,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			),
 			array(
 
-				'pluginType'   => 'module',
-				'providedApis' => array(
+				'pluginType'        => 'module',
+				'providedApis'      => array(
 					'core'   => '3.0',
 					'module' => '2.0',
 					'theme'  => '1.0',
@@ -1122,7 +1122,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$expected = array(
 			'module' => array(
 				'testModule' => array(
-					'files' => array(
+					'files'      => array(
 						array('base', 'modules/testModule-1.0-22222-base.package'),
 						array('lang-en_GB', 'modules/testModule-lang-en_GB-11111-22222.package'),
 					),
@@ -1131,7 +1131,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			),
 			'theme' => array(
 				'testTheme' => array(
-					'files' => array(
+					'files'      => array(
 						array('base', 'themes/testTheme-1.0.1.123-22222-base.package'),
 						array('lang-en_GB', 'themes/testTheme-lang-en_GB-11111-22222.package'),
 					),

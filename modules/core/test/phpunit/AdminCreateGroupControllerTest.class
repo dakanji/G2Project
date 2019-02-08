@@ -40,8 +40,8 @@ class AdminCreateGroupControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -59,10 +59,10 @@ class AdminCreateGroupControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(
+				'status'   => array(
 					'createdGroup' => $groupName,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -81,8 +81,8 @@ class AdminCreateGroupControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCreateGroup',
 				),
-				'status' => array(),
-				'error'  => array('form[error][groupName][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][groupName][missing]'),
 			),
 			$results
 		);
@@ -102,10 +102,10 @@ class AdminCreateGroupControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(
+				'status'   => array(
 					'createdGroup' => $groupName,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -119,8 +119,8 @@ class AdminCreateGroupControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCreateGroup',
 				),
-				'status' => array(),
-				'error'  => array('form[error][groupName][exists]'),
+				'status'   => array(),
+				'error'    => array('form[error][groupName][exists]'),
 			),
 			$results
 		);

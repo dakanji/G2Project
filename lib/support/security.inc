@@ -154,30 +154,37 @@ function render($renderType, $options = array()) {
 				proceed until you pass the security check.
 			</h2>
 
-			<?php if ($renderType == 'missingConfig') : ?>
+			<?php if ($renderType == 'missingConfig') {
+		?>
 				<div class="error">
 					You must create a config.php file in the Gallery directory before
 					you can continue configuring the application.  Use the
 					<a href="../../install">installer</a> to create one.
 				</div>
-			<?php endif; ?>
+			<?php
+	} ?>
 
-			<?php if ($renderType == 'missingSetupPassword') : ?>
+			<?php if ($renderType == 'missingSetupPassword') {
+		?>
 				<div class="error">
 					You must enter a setup password in your gallery/config.php file in order
 					to be able to set up Gallery. If your config.php is empty, you should run
 					the <a href="../../install">installer</a> to install your Gallery.
 				</div>
-			<?php endif; ?>
+			<?php
+	} ?>
 
-			<?php if ($renderType == 'passwordForm') : ?>
+			<?php if ($renderType == 'passwordForm') {
+		?>
 				<?php startForm(); ?>
-				<?php if (!empty($options['attempts'])) : ?>
+				<?php if (!empty($options['attempts'])) {
+			?>
 					<div class="warning">
 						Failed login attempts: <?php echo $options['attempts']; ?> out of a total of
 						<?php echo G2_SUPPORT_MAX_LOGIN_ATTEMPTS; ?>.
 					</div>
-				<?php endif; ?>
+				<?php
+		} ?>
 
 				<p>
 					In order to verify you, we require you to enter your Gallery setup password.  This is
@@ -193,23 +200,31 @@ function render($renderType, $options = array()) {
 					<script type="text/javascript">document.forms[0]['password'].focus();</script>
 					<input type="submit" value="Verify Me">
 				</p>
-				<?php if (isset($options['missingPassword'])) : ?>
+				<?php if (isset($options['missingPassword'])) {
+			?>
 					<div class="warning">
 						Please enter a password!
 					</div>
-				<?php endif; ?>
+				<?php
+		} ?>
 			</form>
-			<?php endif; ?>
+			<?php
+	} ?>
 
-		<?php if ($renderType == 'loginTxtForm') : ?>
+		<?php if ($renderType == 'loginTxtForm') {
+		?>
 			<?php startForm(); ?>
 			<p>
 				<span class="error"><b>
-					<?php if (!empty($options['error'])) : ?>
+					<?php if (!empty($options['error'])) {
+			?>
 						There was a problem connecting to the database.
-					<?php else : ?>
+					<?php
+		} else {
+			?>
 						You have exceeded the maximum attempts to login by entering a password.
-					<?php endif; ?>
+					<?php
+		} ?>
 				</b></span>
 
 				To prevent somebody from hacking your website, we now
@@ -225,25 +240,36 @@ function render($renderType, $options = array()) {
 				Create this file: <b><?php echo $options['baseDir']; ?>authFile.txt</b> <br>
 				Put this in the file: <b><?php echo $options['key']; ?></b>
 			</div>
-			<?php if (!empty($options['authFileErrors'])) : ?>
+			<?php if (!empty($options['authFileErrors'])) {
+			?>
 				<div class="error">
-					<?php if (!empty($options['authFileErrors']['missing'])) : ?>
+					<?php if (!empty($options['authFileErrors']['missing'])) {
+				?>
 						The authFile.txt file does not exist.
-					<?php elseif (!empty($options['authFileErrors']['unreadable'])) : ?>
+					<?php
+			} elseif (!empty($options['authFileErrors']['unreadable'])) {
+				?>
 						The authFile.txt file exists, but is not readable by the webserver.
 						<br> Try: <b>chmod 644 authFile.txt</b>
-					<?php elseif (!empty($options['authFileErrors']['mismatch'])) : ?>
+					<?php
+			} elseif (!empty($options['authFileErrors']['mismatch'])) {
+				?>
 						The password in your authFile.txt file does not match the key above!
-					<?php endif; ?>
+					<?php
+			} ?>
 				</div>
-			<?php endif; ?>
+			<?php
+		} ?>
 			<p>
-				<?php if (!empty($options['error'])) : ?>
-				<?php endif; ?>
+				<?php if (!empty($options['error'])) {
+			?>
+				<?php
+		} ?>
 				<input type="submit" value="Verify me">
 			</p>
 		</form>
-		<?php endif; ?>
+		<?php
+	} ?>
 </div>
 </body>
 </html>

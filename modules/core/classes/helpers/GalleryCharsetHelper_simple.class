@@ -211,7 +211,7 @@ class GalleryCharsetHelper_simple {
 		if ($phpVm->function_exists('recode_string')) {
 			return $phpVm->recode_string('UTF-8..' . $targetEncoding, $string);
 		}
-		
+
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/helpers/GalleryCharsetHelper_medium.class'
 		);

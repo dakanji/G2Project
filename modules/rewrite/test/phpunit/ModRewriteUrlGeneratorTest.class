@@ -46,7 +46,7 @@ class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 
 		// Set up our environment
 		foreach (array(
-			'modrewrite.galleryLocation' => '/gallery2/',
+			'modrewrite.galleryLocation'  => '/gallery2/',
 			'modrewrite.embeddedLocation' => '/cms/',
 		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', $key, $value);

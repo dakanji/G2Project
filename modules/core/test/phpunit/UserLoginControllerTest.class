@@ -155,8 +155,8 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				),
-				'status' => array(),
-				'error'  => array('form[error][username][disabled]'),
+				'status'   => array(),
+				'error'    => array('form[error][username][disabled]'),
 			),
 			$results
 		);
@@ -216,8 +216,8 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				),
-				'status' => array(),
-				'error'  => array('form[error][invalidPassword]'),
+				'status'   => array(),
+				'error'    => array('form[error][invalidPassword]'),
 			),
 			$results
 		);
@@ -244,8 +244,8 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				),
-				'status' => array(),
-				'error'  => array('form[error][invalidPassword]'),
+				'status'   => array(),
+				'error'    => array('form[error][invalidPassword]'),
 			),
 			$results
 		);
@@ -263,8 +263,8 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				),
-				'status' => array(),
-				'error'  => array(
+				'status'   => array(),
+				'error'    => array(
 					'form[error][username][missing]',
 					'form[error][password][missing]',
 				),
@@ -308,8 +308,8 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				),
-				'status' => array(),
-				'error'  => array('form[error][UserLoginControllerTestPlugin][anError]'),
+				'status'   => array(),
+				'error'    => array('form[error][UserLoginControllerTestPlugin][anError]'),
 			),
 			$results
 		);
@@ -341,8 +341,8 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				),
-				'status' => array(),
-				'error'  => array(
+				'status'   => array(),
+				'error'    => array(
 					'form[error][UserLoginControllerTestPlugin1][anError]',
 					'form[error][UserLoginControllerTestPlugin2][anError]',
 				),
@@ -377,8 +377,8 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				),
-				'status' => array(),
-				'error'  => array('form[error][UserLoginControllerTestPlugin1][anError]'),
+				'status'   => array(),
+				'error'    => array('form[error][UserLoginControllerTestPlugin1][anError]'),
 			),
 			$results
 		);
@@ -405,8 +405,8 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.UserAdmin',
 					'subView' => 'core.UserLogin',
 				),
-				'status' => array(),
-				'error'  => array('form[error][UserLoginControllerTestPlugin][anError]'),
+				'status'   => array(),
+				'error'    => array('form[error][UserLoginControllerTestPlugin][anError]'),
 			),
 			$results
 		);

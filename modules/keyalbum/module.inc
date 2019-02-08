@@ -50,12 +50,12 @@ class KeyAlbumModule extends GalleryModule {
 		}
 
 		foreach (array(
-			'themeId' => '',
-			'orderBy' => '',
+			'themeId'        => '',
+			'orderBy'        => '',
 			'orderDirection' => '',
-			'summaryLinks' => 'all',
-			'description' => '',
-			'split'   => ';,',
+			'summaryLinks'   => 'all',
+			'description'    => '',
+			'split'          => ';,',
 		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$this->setParameter($key, $value);
@@ -207,8 +207,8 @@ class KeyAlbumModule extends GalleryModule {
 	public function getRewriteRules() {
 		return array(
 			array(
-				'comment' => $this->translate('Keyword Album'),
-				'match'   => array(
+				'comment'  => $this->translate('Keyword Album'),
+				'match'    => array(
 					'view' => 'keyalbum.KeywordAlbum',
 				),
 				'pattern'  => 'key/%keyword%',

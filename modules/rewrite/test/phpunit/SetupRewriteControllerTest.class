@@ -86,8 +86,8 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminPlugins',
 				),
-				'error'  => array(),
-				'status' => array(
+				'error'    => array(),
+				'status'   => array(
 					'saved' => 1,
 				),
 			),
@@ -136,8 +136,8 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.SetupRewrite',
 				),
-				'error'  => array(),
-				'status' => array(
+				'error'    => array(),
+				'status'   => array(
 					'saved' => 1,
 				),
 			),
@@ -179,8 +179,8 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.SetupRewrite',
 				),
-				'error'  => array(),
-				'status' => array(),
+				'error'    => array(),
+				'status'   => array(),
 			),
 			$results,
 			'handleRequest'
@@ -208,8 +208,8 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminPlugins',
 				),
-				'error'  => array(),
-				'status' => array(),
+				'error'    => array(),
+				'status'   => array(),
 			),
 			$results,
 			'handleRequest'
@@ -226,8 +226,8 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.SetupRewrite',
 				),
-				'error'  => array(),
-				'status' => array(),
+				'error'    => array(),
+				'status'   => array(),
 			),
 			$results,
 			'handleRequest'
@@ -245,8 +245,8 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.SetupRewrite',
 				),
-				'error'  => array(),
-				'status' => array(
+				'error'    => array(),
+				'status'   => array(
 					'testSaved' => 1,
 				),
 			),
@@ -265,8 +265,8 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.SetupRewrite',
 				),
-				'error'  => array('form[error][test]'),
-				'status' => array(),
+				'error'    => array('form[error][test]'),
+				'status'   => array(),
 			),
 			$results,
 			'handleRequest'
@@ -284,8 +284,8 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.SetupRewrite',
 				),
-				'error'  => array(),
-				'status' => array(
+				'error'    => array(),
+				'status'   => array(
 					'adminSaved' => 1,
 				),
 			),
@@ -307,8 +307,8 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'rewrite.SetupRewrite',
 				),
-				'error'  => array('form[error][admin]'),
-				'status' => array(),
+				'error'    => array('form[error][admin]'),
+				'status'   => array(),
 			),
 			$results,
 			'handleRequest'

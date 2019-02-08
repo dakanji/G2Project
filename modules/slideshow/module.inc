@@ -306,7 +306,7 @@ class SlideshowModule extends GalleryModule {
 					'RewriteSimpleHelper',
 					'parsePath',
 				),
-				'help' => $this->translate(
+				'help'     => $this->translate(
 					'Path to an item (eg, /album/image.jpg.html)'
 				),
 			),

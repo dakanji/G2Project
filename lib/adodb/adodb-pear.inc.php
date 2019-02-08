@@ -252,10 +252,10 @@ class DB {
 		if (!is_object($value)) {
 			return false;
 		}
+
 		$class = strtolower(get_class($value));
 
-		return $class == 'pear_error' || is_subclass_of($value, 'pear_error') ||
-		$class        == 'db_error'   || is_subclass_of($value, 'db_error');
+		return $class == 'pear_error' || is_subclass_of($value, 'pear_error') || $class == 'db_error' || is_subclass_of($value, 'db_error');
 	}
 
 	/**
@@ -270,9 +270,10 @@ class DB {
 	public function isWarning($value) {
 		return false;
 		/*
-		return is_object($value) &&
-			(get_class( $value ) == "db_warning" ||
-			 is_subclass_of($value, "db_warning"));*/
+		 * return is_object($value) &&
+		 *	(get_class( $value ) == "db_warning" ||
+		 *	 is_subclass_of($value, "db_warning"));
+		 */
 	}
 
 	/**

@@ -134,8 +134,8 @@ class ItemAddController extends GalleryController {
 				'delegate' => array(
 					'view' => 'core.ProgressBar',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 		);
 	}

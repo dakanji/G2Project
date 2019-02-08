@@ -47,8 +47,8 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -73,8 +73,8 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.AdminEditGroup',
 					'groupId' => $group->getId(),
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Undo Edit Group'
@@ -102,10 +102,10 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(
+				'status'   => array(
 					'modifiedGroup' => $newGroupName,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -130,8 +130,8 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditGroup',
 				),
-				'status' => array(),
-				'error'  => array('form[error][groupName][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][groupName][missing]'),
 			),
 			$results
 		);

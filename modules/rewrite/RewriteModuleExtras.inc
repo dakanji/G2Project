@@ -39,21 +39,21 @@ class RewriteModuleExtras {
 			case null:
 				// Initial install
 				foreach (array(
-					'accessList' => serialize(array()),
-					'allowEmptyReferer' => '1',
-					'shortUrls' => serialize(array()),
-					'activeRules' => serialize(array()),
-					'parserId' => '',
-					'modrewrite.galleryLocation' => '',
-					'modrewrite.status' => serialize(array()),
-					'modrewrite.embeddedLocation' => '',
-					'modrewrite.embeddedHtaccess' => '',
-					'isapirewrite.forced' => '0',
-					'isapirewrite.galleryLocation' => '',
+					'accessList'                    => serialize(array()),
+					'allowEmptyReferer'             => '1',
+					'shortUrls'                     => serialize(array()),
+					'activeRules'                   => serialize(array()),
+					'parserId'                      => '',
+					'modrewrite.galleryLocation'    => '',
+					'modrewrite.status'             => serialize(array()),
+					'modrewrite.embeddedLocation'   => '',
+					'modrewrite.embeddedHtaccess'   => '',
+					'isapirewrite.forced'           => '0',
+					'isapirewrite.galleryLocation'  => '',
 					'isapirewrite.embeddedLocation' => '',
-					'isapirewrite.httpdini' => '',
-					'pathinfo.forced' => '0',
-					'pathinfo.parser' => serialize(array()),
+					'isapirewrite.httpdini'         => '',
+					'pathinfo.forced'               => '0',
+					'pathinfo.parser'               => serialize(array()),
 				) as $key => $value) {
 					$ret = $module->setParameter($key, $value);
 
@@ -87,7 +87,7 @@ class RewriteModuleExtras {
 			case '0.9.2':
 				// Reset Gallery location, needs to be reconfigured
 				foreach (array(
-					'galleryLocation' => '',
+					'galleryLocation'  => '',
 					'embeddedLocation' => '',
 					'embeddedHtaccess' => '',
 				) as $key => $value) {
@@ -520,7 +520,7 @@ class RewriteModuleExtras {
 
 			foreach ($history as $ruleId => $rule) {
 				if (isset($rules[$ruleId])) {
-					if (isset($rules[$ruleId]['pattern']) && isset($rule['pattern'])) {
+					if (isset($rules[$ruleId]['pattern'], $rule['pattern'])) {
 						if (isset($seen[$rule['pattern']])) {
 							continue;
 						}

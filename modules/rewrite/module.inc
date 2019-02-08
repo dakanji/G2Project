@@ -353,8 +353,8 @@ class RewriteModule extends GalleryModule {
 			'pattern'  => 'd/%itemId%-%serialNumber%/%fileName%',
 			'keywords' => array(
 				'serialNumber' => array(
-					'pattern' => '([0-9]+)',
-					'help'    => $this->translate(
+					'pattern'  => '([0-9]+)',
+					'help'     => $this->translate(
 						'Ensures browsers do not use cached version when image has changed'
 					),
 					'function' => array('rewrite', 'RewriteSimpleHelper', 'parseSerialNumber'),
@@ -380,8 +380,8 @@ class RewriteModule extends GalleryModule {
 
 		// Rule 2: File not found
 		$rules[2] = array(
-			'comment'  => $this->translate('404 File not found'),
-			'keywords' => array(
+			'comment'     => $this->translate('404 File not found'),
+			'keywords'    => array(
 				'path' => array(
 					'pattern' => '([^?]+)',
 					'ignore'  => true,
@@ -390,15 +390,15 @@ class RewriteModule extends GalleryModule {
 			'queryString' => array(
 				'view' => 'rewrite.FileNotFound',
 			),
-			'pattern'  => '%path%',
-			'locked'   => true,
+			'pattern'     => '%path%',
+			'locked'      => true,
 		);
 
 		// Rule 3: Block hotlinked items
 		$rules[3] = array(
-			'comment'  => $this->translate('Block hotlinked items'),
-			'flags'    => array('F'),
-			'restrict' => array(
+			'comment'       => $this->translate('Block hotlinked items'),
+			'flags'         => array('F'),
+			'restrict'      => array(
 				'view' => 'core.DownloadItem',
 			),
 			'exemptReferer' => true,
@@ -406,8 +406,8 @@ class RewriteModule extends GalleryModule {
 
 		// Rule 5: Send HTML for hotlinked items
 		$rules[5] = array(
-			'comment'  => $this->translate('Send HTML for hotlinked items'),
-			'restrict' => array(
+			'comment'       => $this->translate('Send HTML for hotlinked items'),
+			'restrict'      => array(
 				GalleryUtilities::prefixFormVariable('view')   => 'core.DownloadItem',
 				GalleryUtilities::prefixFormVariable('itemId') => '%itemId%',
 			),
@@ -415,11 +415,11 @@ class RewriteModule extends GalleryModule {
 			'queryString'   => array(
 				'view' => 'rewrite.DownloadItem',
 			),
-			'options'  => array(
+			'options'       => array(
 				'forceDirect' => true,
 			),
-			'flags'    => array('L'),
-			'help'     => $this->translate(
+			'flags'         => array('L'),
+			'help'          => $this->translate(
 				'Blocks use of images in other sites (HTML creates broken'
 				. ' image), but allows linking to images.'
 			),

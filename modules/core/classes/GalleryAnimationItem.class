@@ -230,7 +230,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 				switch ($this->getMimeType()) {
 					case 'application/x-shockwave-flash':
 						return sprintf(
-			'<script type="text/javascript">
+							'<script type="text/javascript">
 		    // <![CDATA[
 		    if (window.ActiveXObject) {
 			document.write(\'<object id="animation"\');
@@ -290,7 +290,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 
 					case 'application/x-director':
 						return sprintf(
-			'<script type="text/javascript">
+							'<script type="text/javascript">
 		    // <![CDATA[
 		    if (window.ActiveXObject) {
 			document.write(\'<object id="animation"\');

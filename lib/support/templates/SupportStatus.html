@@ -1,4 +1,5 @@
-<?php if (isset($templateData['showHeader'])) : ?>
+<?php if (isset($templateData['showHeader'])) {
+	?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
   <head>
@@ -14,8 +15,10 @@
 	<a href="<?php generateUrl('index.php'); ?>">Support</a> &raquo; 
 	<?php echo $templateData['title']; ?>
 	  </div>
-<?php endif; ?>
-<?php if (isset($templateData['showStatusBlock'])) : ?>
+<?php
+} ?>
+<?php if (isset($templateData['showStatusBlock'])) {
+		?>
   <table id="progressBarTable" class="boxTable" cellspacing="0">
 	<tr>
 	  <td class="main">
@@ -55,32 +58,42 @@
 	  </td>
 	</tr>
 	  </table>
-<?php endif; ?>
+<?php
+	} ?>
 
-<?php if (isset($templateData['showStatus'])) : ?>
+<?php if (isset($templateData['showStatus'])) {
+		?>
 <script type="text/javascript">updateStatus(<?php printf('"%s", "%s", %s', $templateData['status']['title'], $templateData['status']['description'], $templateData['status']['percentComplete']); ?>)</script>
-<?php endif; ?>
+<?php
+	} ?>
 
-<?php if (isset($templateData['hideStatusBlock'])) : ?>
+<?php if (isset($templateData['hideStatusBlock'])) {
+		?>
 <script type="text/javascript">document.getElementById("progressBarTable").style.display="none"</script>
-<?php endif; ?>
+<?php
+	} ?>
 
-	<?php if (isset($templateData['showBodyAndFooter'])) : ?>
+	<?php if (isset($templateData['showBodyAndFooter'])) {
+		?>
 	  <table id="regularTable" class="boxTable" cellspacing="0">
 	  <tr>
 
 	  <td class="main">
 
-		<?php if (!empty($templateData['errors'])) : ?>
+		<?php if (!empty($templateData['errors'])) {
+			?>
 		<div class="error">
 		  <h2>Errors Occurred</h2>
 		  <p>
-			<?php foreach ($templateData['errors'] as $error) : ?>
+			<?php foreach ($templateData['errors'] as $error) {
+				?>
 				<?php echo $error; ?><br/>
-			<?php endforeach; ?>
+			<?php
+			} ?>
 		  </p>
 		</div>
-		<?php endif; ?>
+		<?php
+		} ?>
 
 		<?php include __DIR__ . '/' . $templateData['bodyFile']; ?>
 
@@ -90,5 +103,6 @@
 	</div>
   </body>
 </html>
-	<?php endif; ?>
+	<?php
+	} ?>
 

@@ -339,10 +339,10 @@ class PluginParameterTestMockStorage {
 
 		// Make sure all fields but the itemId are of type string
 		foreach (array(
-			'pluginType' => 'module',
-			'pluginId' => 'foo',
-			'itemId'   => 2,
-			'parameterName' => 'bar',
+			'pluginType'     => 'module',
+			'pluginId'       => 'foo',
+			'itemId'         => 2,
+			'parameterName'  => 'bar',
 			'parameterValue' => '99',
 		) as $field => $value) {
 			$tc->assertTrue(!empty($entry[$field]), "check if field $field is specified");
@@ -362,9 +362,9 @@ class PluginParameterTestMockStorage {
 		$tc =& $this->_testCase;
 
 		foreach (array(
-			'pluginType' => 'module',
-			'pluginId' => 'foo',
-			'itemId'   => 3,
+			'pluginType'    => 'module',
+			'pluginId'      => 'foo',
+			'itemId'        => 3,
 			'parameterName' => 'bar',
 		) as $field => $value) {
 			$tc->assertTrue(!empty($match[$field]), "check if field $field is specified");

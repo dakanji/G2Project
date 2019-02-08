@@ -217,7 +217,7 @@ class GdToolkitHelper {
 
 		if (!empty($qualityMimeTypes)) {
 			$operations['compress'] = array(
-				'params' => array(
+				'params'      => array(
 					array(
 						'type'        => 'int',
 						'description' => $gallery->i18n('target size in kb'),
@@ -226,7 +226,7 @@ class GdToolkitHelper {
 				'description' => $gallery->i18n(
 					'Reduce image quality to reach target file size'
 				),
-				'mimeTypes' => $qualityMimeTypes,
+				'mimeTypes'   => $qualityMimeTypes,
 			);
 		}
 

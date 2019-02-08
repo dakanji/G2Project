@@ -76,7 +76,7 @@ class FfmpegToolkitHelper {
 
 		if ($supportsOffset) {
 			$operations['select-offset'] = array(
-				'params' => array(
+				'params'         => array(
 					array(
 						'type'        => 'float',
 						'description' => $gallery->i18n('offset in seconds'),
@@ -314,20 +314,20 @@ class FfmpegToolkitHelper {
 		 * @todo: Add 'adpcm_swf' => 'adpcm_swf' to relevantAudioCodecs if/when videos play
 		 *        correctly
 		 */
-		$relevantAudioCodecs = array(
+		$relevantAudioCodecs     = array(
 			'mp3'        => 'mp3',
 			'libmp3lame' => 'mp3',
 		);
-		list($ignored, $results) = $platform->exec(array(array($ffmpegPath, '-formats')));
-		$version = array();
+		list($ignored, $results)           = $platform->exec(array(array($ffmpegPath, '-formats')));
+		$version                           = array();
 		list($ignored, $ignored, $version) = $platform->exec(array(array($ffmpegPath, '-version')));
 
-		$mimeTypes = array();
-		$mimeTypesEncoder = array();
+		$mimeTypes          = array();
+		$mimeTypesEncoder   = array();
 		$encoderAudioCodecs = array();
 
 		$success = false;
-		$i = 0;
+		$i       = 0;
 
 		while ($i < sizeof($results)) {
 			$resultLine = $results[$i++];
@@ -401,10 +401,11 @@ class FfmpegToolkitHelper {
 					}
 
 					$our_key = $i++;
+
 					if (array_key_exists($our_key, $results)) {
 						$resultLine = $results[$our_key];
 					} else {
-						$resultLine = "";
+						$resultLine = '';
 					}
 				} while ($i < sizeof($results) && !preg_match('|Codecs:|', $resultLine));
 				$success = true;
@@ -427,7 +428,7 @@ class FfmpegToolkitHelper {
 
 							if (count($resultArr) > 1) {
 								$capabilities = $resultArr[0];
-								$types = $resultArr[1];
+								$types        = $resultArr[1];
 
 								foreach (explode(',', $types) as $type) {
 									if (isset($relevantTypes[$type])) {
@@ -454,6 +455,7 @@ class FfmpegToolkitHelper {
 						}
 
 						$our_key = $i++;
+
 						if (array_key_exists($our_key, $results)) {
 							$resultLine = $results[$our_key];
 						} else {

@@ -45,8 +45,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		foreach (array(
-			'akismet.apiKey' => '',
-			'akismet.active' => '0',
+			'akismet.apiKey'    => '',
+			'akismet.active'    => '0',
 			'comments.moderate' => '0',
 		) as $key => $value) {
 			$value = GalleryCoreApi::setPluginParameter('module', 'comment', $key, $value);
@@ -67,8 +67,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -89,20 +89,20 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
 
 		foreach (array(
-			'comments.latest' => '1',
-			'comments.show' => '12',
+			'comments.latest'   => '1',
+			'comments.show'     => '12',
 			'comments.moderate' => '1',
-			'akismet.apiKey' => '3abX',
-			'akismet.active' => '1',
+			'akismet.apiKey'    => '3abX',
+			'akismet.active'    => '1',
 		) as $key => $expectedValue) {
 			list($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'comment', $key);
 
@@ -123,8 +123,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
-				'status' => array(),
-				'error'  => array('form[error][show]'),
+				'status'   => array(),
+				'error'    => array('form[error][show]'),
 			),
 			$results
 		);
@@ -141,8 +141,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
-				'status' => array(),
-				'error'  => array('form[error][show]'),
+				'status'   => array(),
+				'error'    => array('form[error][show]'),
 			),
 			$results
 		);
@@ -162,10 +162,10 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -197,8 +197,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
-				'status' => array(),
-				'error'  => array('form[error][apiKey][invalid]'),
+				'status'   => array(),
+				'error'    => array('form[error][apiKey][invalid]'),
 			),
 			$results
 		);
@@ -231,8 +231,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'comment.CommentSiteAdmin',
 				),
-				'status' => array(),
-				'error'  => array('form[error][apiKey][invalid]'),
+				'status'   => array(),
+				'error'    => array('form[error][apiKey][invalid]'),
 			),
 			$results
 		);
@@ -247,8 +247,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 				'delegate' => array(
 					'view' => 'core.ProgressBar',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);

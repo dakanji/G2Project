@@ -428,8 +428,7 @@ class AkismetApiTest_AkismetApiWithMockRequest extends AkismetApi {
 	}
 
 	public function _request($type, &$comment, $includeBrowserSpecificDetails) {
-		return $_REQUEST['mock']['_request']
-		[serialize(array($type, $comment, $includeBrowserSpecificDetails))];
+		return $_REQUEST['mock']['_request'][serialize(array($type, $comment, $includeBrowserSpecificDetails))];
 	}
 
 	public function _getUserAgent() {

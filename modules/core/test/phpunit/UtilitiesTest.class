@@ -136,7 +136,7 @@ class UtilitiesTest extends GalleryTestCase {
 						'a' => '2',
 						'b' => '3\'3',
 					),
-					'inner3' => array(
+					'inner3'   => array(
 						'a' => '4',
 						'b' => '5\'5',
 					),
@@ -268,7 +268,7 @@ class UtilitiesTest extends GalleryTestCase {
 						'a' => '2',
 						'b' => '3\'3',
 					),
-					'inner3' => array(
+					'inner3'   => array(
 						'a' => '4',
 						'b' => '5\'5',
 					),
@@ -473,9 +473,9 @@ class UtilitiesTest extends GalleryTestCase {
 	// Verify that UTF-8 values can be sanitized and unsanitized safely
 	public function testSanitizeRoundTrip() {
 		foreach (array(
-			"t\xc3\xa9st" => "t\xc3\xa9st",
+			"t\xc3\xa9st"                      => "t\xc3\xa9st",
 			"\x47\x32\xce\x93\xce\xb2\xc3\x80" => "G2\xce\x93\xce\xb2\xc3\x80",
-			'apo\'strophe quo"tes' => 'apo\'strophe quo&quot;tes',
+			'apo\'strophe quo"tes'             => 'apo\'strophe quo&quot;tes',
 		) as
 		$raw => $cooked) {
 			if (get_magic_quotes_gpc()) {

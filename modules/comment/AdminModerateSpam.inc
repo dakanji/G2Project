@@ -197,8 +197,8 @@ class AdminModerateSpamView extends GalleryView {
 			}
 
 			foreach (array(
-				'delete' => 'comment.delete',
-				'edit' => 'comment.edit',
+				'delete'      => 'comment.delete',
+				'edit'        => 'comment.edit',
 				'markNotSpam' => 'comment.edit',
 			) as $canFlag => $permission) {
 				$can[$comment['id']][$canFlag] = isset($permissions[$permission]);

@@ -514,7 +514,7 @@ class GalleryTranslator {
 
 		// Validate our parameters
 		if (!(isset($data['text'])
-			|| (isset($data['one']) && isset($data['many']) && isset($data['count'])))
+			|| (isset($data['one'], $data['many'], $data['count'])))
 		) {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}

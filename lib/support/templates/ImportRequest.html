@@ -48,20 +48,26 @@ if (isset($templateData['verifiedFile'])) {
 	<h4>Warning</h4>
 	<p class="description">Restoring the database to a backup that does not match the images in the Gallery data directory could severely damage your Gallery installation.</p>
 
-	<?php foreach ($templateData['warnings'] as $warning) : ?>
+	<?php foreach ($templateData['warnings'] as $warning) {
+	?>
 		<p class="description"><?php echo $warning; ?><br/></p>
-	<?php endforeach; ?>
-	<?php if (!empty($templateData['versionWarnings'])) : ?>
+	<?php
+} ?>
+	<?php if (!empty($templateData['versionWarnings'])) {
+		?>
 		<h4>Version Incompatibilities Detected</h4>
 		<p>
-			<?php foreach ($templateData['versionWarnings'] as $warning) : ?>
+			<?php foreach ($templateData['versionWarnings'] as $warning) {
+			?>
 				<?php echo $warning; ?><br/>
-			<?php endforeach; ?>
+			<?php
+		} ?>
 		</p>
 		<p>If you are restoring the database because of a failed upgrade, you should be alright.
 			<p>Otherwise, restore the above modules to the indicated versions or risk the possibility
 				of seriously damaging your installation.</p>
-	<?php endif; ?>
+	<?php
+	} ?>
 		</div>
 		<br/><br/>
 		<input type="hidden" value="Begin Import" name="importDatabase" />

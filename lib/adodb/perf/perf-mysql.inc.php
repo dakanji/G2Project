@@ -39,17 +39,17 @@ class perf_mysql extends adodb_perf {
 		'InnoDB cache hit ratio' => array('RATIO',
 			'=GetInnoDBHitRatio',
 			'=WarnCacheRatio', ),
-		'data cache hit ratio' => array('HIDE', // only if called
+		'data cache hit ratio'   => array('HIDE', // only if called
 			'=FindDBHitRatio',
 			'=WarnCacheRatio', ),
-		'sql cache hit ratio' => array('RATIO',
+		'sql cache hit ratio'    => array('RATIO',
 			'=GetQHitRatio',
 			'', ),
 	'IO',
-		'data reads' => array('IO',
+		'data reads'             => array('IO',
 			'=GetReads',
 			'Number of selects (Key_reads is not accurate)', ),
-		'data writes' => array('IO',
+		'data writes'            => array('IO',
 			'=GetWrites',
 			'Number of inserts/updates/deletes * coef (Key_writes is not accurate)', ),
 
@@ -57,27 +57,27 @@ class perf_mysql extends adodb_perf {
 		'MyISAM data cache size' => array('DATAC',
 			array("show variables", 'key_buffer_size'),
 			'', ),
-		'BDB data cache size' => array('DATAC',
+		'BDB data cache size'    => array('DATAC',
 			array("show variables", 'bdb_cache_size'),
 			'', ),
 		'InnoDB data cache size' => array('DATAC',
 			array("show variables", 'innodb_buffer_pool_size'),
 			'', ),
 	'Memory Usage',
-		'read buffer size' => array('CACHE',
+		'read buffer size'       => array('CACHE',
 			array("show variables", 'read_buffer_size'),
 			'(per session)', ),
-		'sort buffer size' => array('CACHE',
+		'sort buffer size'       => array('CACHE',
 			array("show variables", 'sort_buffer_size'),
 			'Size of sort buffer (per session)', ),
-		'table cache' => array('CACHE',
+		'table cache'            => array('CACHE',
 			array("show variables", 'table_cache'),
 			'Number of tables to keep open', ),
 	'Connections',
-		'current connections' => array('SESS',
+		'current connections'    => array('SESS',
 			array('show status', 'Threads_connected'),
 			'', ),
-		'max connections' => array('SESS',
+		'max connections'        => array('SESS',
 			array("show variables", 'max_connections'),
 			'', ),
 
@@ -264,8 +264,8 @@ break;
 
 	public function GetQHitRatio() {
 		//Total number of queries = Qcache_inserts + Qcache_hits + Qcache_not_cached
-		$hits  = $this->_DBParameter(array("show status", "Qcache_hits"));
-		$total = $this->_DBParameter(array("show status", "Qcache_inserts"));
+		$hits   = $this->_DBParameter(array("show status", "Qcache_hits"));
+		$total  = $this->_DBParameter(array("show status", "Qcache_inserts"));
 		$total += $this->_DBParameter(array("show status", "Qcache_not_cached"));
 
 		$total += $hits;
@@ -371,12 +371,12 @@ break;
 break;
 
 			default:
-			{
+
 				// May dont use __FUNCTION__ constant for BC (__FUNCTION__ Added in PHP 4.3.0)
 				ADOConnection::outp(sprintf("<p>%s: '%s' using of undefined mode '%s'</p>", __CLASS__, __FUNCTION__, $mode));
 
 				return false;
-			}
+
 		}
 		$sql = sprintf($sql, $table);
 

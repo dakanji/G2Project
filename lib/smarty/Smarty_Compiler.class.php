@@ -1556,9 +1556,9 @@ class Smarty_Compiler extends Smarty {
 	public function _compile_arg_list($type, $name, $attrs, &$cache_code) {
 		$arg_list = array();
 
-		if (isset($type) && isset($name)
-			&& isset($this->_plugins[$type])
-			&& isset($this->_plugins[$type][$name])
+		if (isset($type, $name, $this->_plugins[$type], $this->_plugins[$type][$name])
+
+
 			&& empty($this->_plugins[$type][$name][4])
 			&& is_array($this->_plugins[$type][$name][5])
 		) {

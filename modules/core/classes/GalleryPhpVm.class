@@ -211,7 +211,7 @@ class GalleryPhpVm {
 	 * @param int $max (optional)
 	 */
 	public function rand($min = null, $max = null) {
-		if (isset($min) && isset($max)) {
+		if (isset($min, $max)) {
 			return mt_rand($min, $max);
 		}
 
@@ -287,7 +287,7 @@ class GalleryPhpVm {
 	 * @param int $encodingMode The encoding mode. Can be FORCE_GZIP (default) or FORCE_DEFLATE.
 	 */
 	public function gzencode($data, $level = null, $encodingMode = null) {
-		if (isset($level) && isset($encodingMode)) {
+		if (isset($level, $encodingMode)) {
 			return gzencode($data, $level, $encodingMode);
 		}
 

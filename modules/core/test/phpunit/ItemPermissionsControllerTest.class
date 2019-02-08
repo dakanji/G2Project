@@ -81,8 +81,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			array('redirect' => array('view' => 'core.ItemAdmin',
 			'subView'                        => 'core.ItemPermissions',
 			'itemId'                         => $this->_albumParent->getId(), ),
-			'status' => array('changedOwner' => 1),
-			'error'  => array(), ),
+			'status'         => array('changedOwner' => 1),
+			'error'          => array(), ),
 			$results
 		);
 
@@ -114,8 +114,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			array('redirect' => array('view' => 'core.ItemAdmin',
 			'subView'                        => 'core.ItemPermissions',
 			'itemId'                         => $this->_albumParent->getId(), ),
-			'status' => array('changedOwner' => 1),
-			'error'  => array(), ),
+			'status'         => array('changedOwner' => 1),
+			'error'          => array(), ),
 			$results
 		);
 
@@ -147,8 +147,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array('delegate' => array('view' => 'core.ItemAdmin',
 			'subView'                        => 'core.ItemPermissions', ),
-			'status' => array(),
-			'error'  => array('form[error][owner][missingUser]'), ),
+			'status'         => array(),
+			'error'          => array('form[error][owner][missingUser]'), ),
 			$results
 		);
 	}
@@ -167,8 +167,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array('delegate' => array('view' => 'core.ItemAdmin',
 			'subView'                        => 'core.ItemPermissions', ),
-			'status' => array(),
-			'error'  => array('form[error][owner][invalidUser]'), ),
+			'status'         => array(),
+			'error'          => array('form[error][owner][invalidUser]'), ),
 			$results
 		);
 	}
@@ -190,8 +190,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			'subView'                        => 'core.ItemPermissions',
 			'itemId'                         => $this->_albumParent->getId(),
 			'form[group][groupName]'         => $this->_group->getGroupName(), ),
-			'status' => array('addedGroupPermission' => 1),
-			'error'  => array(), ),
+			'status'         => array('addedGroupPermission' => 1),
+			'error'          => array(), ),
 			$results
 		);
 
@@ -265,8 +265,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			'subView'                        => 'core.ItemPermissions',
 			'itemId'                         => $this->_albumParent->getId(),
 			'form[group][groupName]'         => $this->_group->getGroupName(), ),
-			'status' => array('addedGroupPermission' => 1),
-			'error'  => array(), ),
+			'status'         => array('addedGroupPermission' => 1),
+			'error'          => array(), ),
 			$results
 		);
 
@@ -309,8 +309,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array('delegate' => array('view' => 'core.ItemAdmin',
 			'subView'                        => 'core.ItemPermissions', ),
-			'status' => array(),
-			'error'  => array('form[error][group][missingGroup]'), ),
+			'status'         => array(),
+			'error'          => array('form[error][group][missingGroup]'), ),
 			$results
 		);
 	}
@@ -330,8 +330,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array('delegate' => array('view' => 'core.ItemAdmin',
 			'subView'                        => 'core.ItemPermissions', ),
-			'status' => array(),
-			'error'  => array('form[error][group][invalidGroup]'), ),
+			'status'         => array(),
+			'error'          => array('form[error][group][invalidGroup]'), ),
 			$results
 		);
 	}
@@ -351,8 +351,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array('delegate' => array('view' => 'core.ItemAdmin',
 			'subView'                        => 'core.ItemPermissions', ),
-			'status' => array(),
-			'error'  => array('form[error][group][invalidPermission]'), ),
+			'status'         => array(),
+			'error'          => array('form[error][group][invalidPermission]'), ),
 			$results
 		);
 	}
@@ -386,8 +386,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array('delegate' => array('view' => 'core.ItemAdmin',
 			'subView'                        => 'core.ItemPermissions', ),
-			'status' => array(),
-			'error'  => array('form[error][group][alreadyHadPermission]'), ),
+			'status'         => array(),
+			'error'          => array('form[error][group][alreadyHadPermission]'), ),
 			$results
 		);
 	}
@@ -422,8 +422,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			'itemId'                         => $this->_albumParent->getId(),
 			'form[group][permission]'        => 'core.edit',
 			'form[group][groupName]'         => $this->_group->getGroupName(), ),
-			'status' => array('deletedGroupPermission' => 1),
-			'error'  => array(), ),
+			'status'         => array('deletedGroupPermission' => 1),
+			'error'          => array(), ),
 			$results
 		);
 
@@ -473,8 +473,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			'itemId'                         => $this->_albumParent->getId(),
 			'form[group][permission]'        => 'core.edit',
 			'form[group][groupName]'         => $this->_group->getGroupName(), ),
-			'status' => array('deletedGroupPermission' => 1),
-			'error'  => array(), ),
+			'status'         => array('deletedGroupPermission' => 1),
+			'error'          => array(), ),
 			$results
 		);
 
@@ -514,8 +514,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			'subView'                        => 'core.ItemPermissions',
 			'itemId'                         => $this->_albumParent->getId(),
 			'form[user][userName]'           => $this->_user->getUserName(), ),
-			'status' => array('addedUserPermission' => 1),
-			'error'  => array(), ),
+			'status'         => array('addedUserPermission' => 1),
+			'error'          => array(), ),
 			$results
 		);
 
@@ -586,8 +586,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			'subView'                        => 'core.ItemPermissions',
 			'itemId'                         => $this->_albumParent->getId(),
 			'form[user][userName]'           => $this->_user->getUserName(), ),
-			'status' => array('addedUserPermission' => 1),
-			'error'  => array(), ),
+			'status'         => array('addedUserPermission' => 1),
+			'error'          => array(), ),
 			$results
 		);
 
@@ -630,8 +630,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array('delegate' => array('view' => 'core.ItemAdmin',
 			'subView'                        => 'core.ItemPermissions', ),
-			'status' => array(),
-			'error'  => array('form[error][user][missingUser]'), ),
+			'status'         => array(),
+			'error'          => array('form[error][user][missingUser]'), ),
 			$results
 		);
 	}
@@ -648,8 +648,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array('delegate' => array('view' => 'core.ItemAdmin',
 			'subView'                        => 'core.ItemPermissions', ),
-			'status' => array(),
-			'error'  => array('form[error][user][invalidUser]'), ),
+			'status'         => array(),
+			'error'          => array('form[error][user][invalidUser]'), ),
 			$results
 		);
 	}
@@ -666,8 +666,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array('delegate' => array('view' => 'core.ItemAdmin',
 			'subView'                        => 'core.ItemPermissions', ),
-			'status' => array(),
-			'error'  => array('form[error][user][invalidPermission]'), ),
+			'status'         => array(),
+			'error'          => array('form[error][user][invalidPermission]'), ),
 			$results
 		);
 	}
@@ -698,8 +698,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			array('delegate' => array('view' => 'core.ItemAdmin',
 			'subView'                        => 'core.ItemPermissions', ),
-			'status' => array(),
-			'error'  => array('form[error][user][alreadyHadPermission]'), ),
+			'status'         => array(),
+			'error'          => array('form[error][user][alreadyHadPermission]'), ),
 			$results
 		);
 	}
@@ -734,8 +734,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			'itemId'                         => $this->_albumParent->getId(),
 			'form[user][permission]'         => 'core.edit',
 			'form[user][userName]'           => $this->_user->getUserName(), ),
-			'status' => array('deletedUserPermission' => 1),
-			'error'  => array(), ),
+			'status'         => array('deletedUserPermission' => 1),
+			'error'          => array(), ),
 			$results
 		);
 
@@ -786,8 +786,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			'itemId'                         => $this->_albumParent->getId(),
 			'form[user][permission]'         => 'core.edit',
 			'form[user][userName]'           => $this->_user->getUserName(), ),
-			'status' => array('deletedUserPermission' => 1),
-			'error'  => array(), ),
+			'status'         => array('deletedUserPermission' => 1),
+			'error'          => array(), ),
 			$results
 		);
 
@@ -880,8 +880,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			'itemId'                         => $this->_albumParent->getId(),
 			'form[user][permission]'         => 'core.all',
 			'form[user][userName]'           => $this->_user->getUserName(), ),
-			'status' => array('deletedUserPermission' => 1, 'addedBackSelfPermission' => 1),
-			'error'  => array(), ),
+			'status'         => array('deletedUserPermission' => 1, 'addedBackSelfPermission' => 1),
+			'error'          => array(), ),
 			$results
 		);
 
@@ -941,8 +941,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			'itemId'                         => $this->_albumParent->getId(),
 			'form[group][permission]'        => 'core.all',
 			'form[group][groupName]'         => $this->_group->getGroupName(), ),
-			'status' => array('deletedGroupPermission' => 1, 'addedBackSelfPermission' => 1),
-			'error'  => array(), ),
+			'status'         => array('deletedGroupPermission' => 1, 'addedBackSelfPermission' => 1),
+			'error'          => array(), ),
 			$results
 		);
 

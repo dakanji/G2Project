@@ -109,12 +109,12 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(
+				'status'   => array(
 					'added' => array(
 						'summary' => 3,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -144,12 +144,12 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(
+				'status'   => array(
 					'removed' => array(
 						'summary' => 3,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -176,8 +176,8 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(),
-				'error'  => array('form[error][summary][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][summary][missing]'),
 			),
 			$results
 		);
@@ -199,12 +199,12 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(
+				'status'   => array(
 					'movedUp' => array(
 						'summary' => 2,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -234,8 +234,8 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(),
-				'error'  => array('form[error][summary][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][summary][missing]'),
 			),
 			$results
 		);
@@ -257,12 +257,12 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(
+				'status'   => array(
 					'movedDown' => array(
 						'summary' => 2,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -294,8 +294,8 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(),
-				'error'  => array('form[error][summary][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][summary][missing]'),
 			),
 			$results
 		);
@@ -317,12 +317,12 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(
+				'status'   => array(
 					'restored' => array(
 						'summary' => 1,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -356,12 +356,12 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(
+				'status'   => array(
 					'added' => array(
 						'detailed' => 3,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -391,12 +391,12 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(
+				'status'   => array(
 					'removed' => array(
 						'detailed' => 3,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -423,8 +423,8 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(),
-				'error'  => array('form[error][detailed][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][detailed][missing]'),
 			),
 			$results
 		);
@@ -447,12 +447,12 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(
+				'status'   => array(
 					'movedUp' => array(
 						'detailed' => 3,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -488,8 +488,8 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(),
-				'error'  => array('form[error][detailed][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][detailed][missing]'),
 			),
 			$results
 		);
@@ -512,12 +512,12 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(
+				'status'   => array(
 					'movedDown' => array(
 						'detailed' => 3,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -553,8 +553,8 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(),
-				'error'  => array('form[error][detailed][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][detailed][missing]'),
 			),
 			$results
 		);
@@ -576,12 +576,12 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(
+				'status'   => array(
 					'restored' => array(
 						'detailed' => 1,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -616,10 +616,10 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -660,10 +660,10 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'exif.AdminExif',
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);

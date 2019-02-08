@@ -1463,9 +1463,9 @@ class GalleryPlatform {
 	 * Clear any cached saved state in this platform.
 	 */
 	public function resetPlatform() {
-		unset($this->_umask);
-		unset($this->_filePerms);
-		unset($this->_dirPerms);
+		unset($this->_umask, $this->_filePerms, $this->_dirPerms);
+
+
 		GalleryDataCache::remove('GalleryPlatform::_loadPermissionPreferences');
 	}
 }

@@ -74,13 +74,13 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 			}
 
 			foreach (array('themeId' => $form['themeId'],
-			   'orderBy' => (empty($form['presort']) ? '' : $form['presort'] . '|')
+			   'orderBy'             => (empty($form['presort']) ? '' : $form['presort'] . '|')
 					. $form['orderBy'],
-				'orderDirection' => !isset($form['orderDirection']) ? ''
+				'orderDirection'     => !isset($form['orderDirection']) ? ''
 						: $form['orderDirection'],
-				'summaryLinks' => $form['summaryLinks'],
-				'description' => $form['description'],
-				'split' => $split, )
+				'summaryLinks'       => $form['summaryLinks'],
+				'description'        => $form['description'],
+				'split'              => $split, )
 			as $key => $value) {
 				$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum', $key, $value);
 
@@ -94,8 +94,8 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 		$method  = empty($error) ? 'redirect' : 'delegate';
 		$results = array($method => array('view' => 'core.SiteAdmin',
 					  'subView'                           => 'keyalbum.KeywordAlbumSiteAdmin', ),
-			 'status' => $status,
-			 'error'  => $error, );
+			 'status'            => $status,
+			 'error'             => $error, );
 
 		return array(null, $results);
 	}

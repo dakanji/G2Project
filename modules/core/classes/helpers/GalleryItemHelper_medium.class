@@ -97,7 +97,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		$storage =& $gallery->getStorage();
 
 		// Search the item table for all items with owner = $ownerId
-		$query = '
+		$query                    = '
 	SELECT
 	  [GalleryItem::id]
 	FROM

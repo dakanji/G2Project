@@ -292,8 +292,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		if (isset($this->_testStorage->_updatedMapData['GalleryPluginParameterMap'])) {
 			$timestampWritten = true;
 
-			$updateTimestamp = $this->_testStorage->_updatedMapData
-			['GalleryPluginParameterMap'][0]['change']['parameterValue'];
+			$updateTimestamp = $this->_testStorage->_updatedMapData['GalleryPluginParameterMap'][0]['change']['parameterValue'];
 		} elseif (isset($this->_testStorage->_addedMapData['GalleryPluginParameterMap'])) {
 			$addedData = $this->_testStorage->_addedMapData['GalleryPluginParameterMap'][0];
 
@@ -615,8 +614,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 				'pluginId'        => 'testTheme',
 				'package'         => 'lang-en_US',
 				'expectedVersion' => $sampleStringsRevision,
-				'expectedBuild'   => $this->_sampleIndex['themes']['testTheme']
-				['languages'][$sampleStringsRevision]['en_US'],
+				'expectedBuild'   => $this->_sampleIndex['themes']['testTheme']['languages'][$sampleStringsRevision]['en_US'],
 			),
 		);
 

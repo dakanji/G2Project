@@ -459,9 +459,9 @@ class GalleryRepository {
 						'plugin' => implode('.', $providedPluginApiVersion),
 					),
 				),
-				'locked'        => $locked,
-				'isDowngraded'  => $isDowngraded,
-				'isUpgradeable' => $isUpgradeable,
+				'locked'            => $locked,
+				'isDowngraded'      => $isDowngraded,
+				'isUpgradeable'     => $isUpgradeable,
 			);
 		}
 
@@ -1077,9 +1077,9 @@ class GalleryRepository {
 					$ret = GalleryCoreApi::addMapEntry(
 						'GalleryPluginPackageMap',
 						array(
-							'pluginType'  => $pluginType,
-							'pluginId'    => $pluginId,
-							'packageName' => (
+							'pluginType'     => $pluginType,
+							'pluginId'       => $pluginId,
+							'packageName'    => (
 							'lang-' . GalleryUtilities::getFileBase(basename($file))
 							),
 							'packageVersion' => $stringsRevision,

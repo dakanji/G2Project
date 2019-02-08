@@ -65,8 +65,8 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -96,11 +96,11 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.AdminEditGroupUsers',
 					'groupId' => $this->_group->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'removedUsers' => 1,
 					'removedUser'  => $this->_user->getUserName(),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -143,11 +143,11 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.AdminEditGroupUsers',
 					'groupId' => $this->_group->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'removedUsers' => 2,
 					'removedUser'  => 2,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -193,8 +193,8 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditGroupUsers',
 				),
-				'status' => array(),
-				'error'  => array('form[error][list][cantRemoveSelf]'),
+				'status'   => array(),
+				'error'    => array('form[error][list][cantRemoveSelf]'),
 			),
 			$results
 		);
@@ -222,10 +222,10 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.AdminEditGroupUsers',
 					'groupId' => $this->_group->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'addedUser' => $this->_user->getUserName(),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -244,8 +244,8 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditGroupUsers',
 				),
-				'status' => array(),
-				'error'  => array('form[error][text][userName][invalid]'),
+				'status'   => array(),
+				'error'    => array('form[error][text][userName][invalid]'),
 			),
 			$results
 		);
@@ -264,8 +264,8 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditGroupUsers',
 				),
-				'status' => array(),
-				'error'  => array('form[error][text][userName][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][text][userName][missing]'),
 			),
 			$results
 		);
@@ -292,8 +292,8 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminEditGroupUsers',
 				),
-				'status' => array(),
-				'error'  => array('form[error][text][userName][alreadyInGroup]'),
+				'status'   => array(),
+				'error'    => array('form[error][text][userName][alreadyInGroup]'),
 			),
 			$results
 		);

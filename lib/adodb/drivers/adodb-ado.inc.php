@@ -129,55 +129,54 @@ class ADODB_ado extends ADOConnection {
 	}
 
 	/*
-	adSchemaCatalogs = 1,
-	adSchemaCharacterSets = 2,
-	adSchemaCollations = 3,
-	adSchemaColumns = 4,
-	adSchemaCheckConstraints = 5,
-	adSchemaConstraintColumnUsage = 6,
-	adSchemaConstraintTableUsage = 7,
-	adSchemaKeyColumnUsage = 8,
-	adSchemaReferentialContraints = 9,
-	adSchemaTableConstraints = 10,
-	adSchemaColumnsDomainUsage = 11,
-	adSchemaIndexes = 12,
-	adSchemaColumnPrivileges = 13,
-	adSchemaTablePrivileges = 14,
-	adSchemaUsagePrivileges = 15,
-	adSchemaProcedures = 16,
-	adSchemaSchemata = 17,
-	adSchemaSQLLanguages = 18,
-	adSchemaStatistics = 19,
-	adSchemaTables = 20,
-	adSchemaTranslations = 21,
-	adSchemaProviderTypes = 22,
-	adSchemaViews = 23,
-	adSchemaViewColumnUsage = 24,
-	adSchemaViewTableUsage = 25,
-	adSchemaProcedureParameters = 26,
-	adSchemaForeignKeys = 27,
-	adSchemaPrimaryKeys = 28,
-	adSchemaProcedureColumns = 29,
-	adSchemaDBInfoKeywords = 30,
-	adSchemaDBInfoLiterals = 31,
-	adSchemaCubes = 32,
-	adSchemaDimensions = 33,
-	adSchemaHierarchies = 34,
-	adSchemaLevels = 35,
-	adSchemaMeasures = 36,
-	adSchemaProperties = 37,
-	adSchemaMembers = 38
-
-	*/
+	 *   adSchemaCatalogs              = 1,
+	 *   adSchemaCharacterSets         = 2,
+	 *   adSchemaCollations            = 3,
+	 *   adSchemaColumns               = 4,
+	 *   adSchemaCheckConstraints      = 5,
+	 *   adSchemaConstraintColumnUsage = 6,
+	 *   adSchemaConstraintTableUsage  = 7,
+	 *   adSchemaKeyColumnUsage        = 8,
+	 *   adSchemaReferentialContraints = 9,
+	 *   adSchemaTableConstraints      = 10,
+	 *   adSchemaColumnsDomainUsage    = 11,
+	 *   adSchemaIndexes               = 12,
+	 *   adSchemaColumnPrivileges      = 13,
+	 *   adSchemaTablePrivileges       = 14,
+	 *   adSchemaUsagePrivileges       = 15,
+	 *   adSchemaProcedures            = 16,
+	 *   adSchemaSchemata              = 17,
+	 *   adSchemaSQLLanguages          = 18,
+	 *   adSchemaStatistics            = 19,
+	 *   adSchemaTables                = 20,
+	 *   adSchemaTranslations          = 21,
+	 *   adSchemaProviderTypes         = 22,
+	 *   adSchemaViews                 = 23,
+	 *   adSchemaViewColumnUsage       = 24,
+	 *   adSchemaViewTableUsage        = 25,
+	 *   adSchemaProcedureParameters   = 26,
+	 *   adSchemaForeignKeys           = 27,
+	 *   adSchemaPrimaryKeys           = 28,
+	 *   adSchemaProcedureColumns      = 29,
+	 *   adSchemaDBInfoKeywords        = 30,
+	 *   adSchemaDBInfoLiterals        = 31,
+	 *   adSchemaCubes                 = 32,
+	 *   adSchemaDimensions            = 33,
+	 *   adSchemaHierarchies           = 34,
+	 *   adSchemaLevels                = 35,
+	 *   adSchemaMeasures              = 36,
+	 *   adSchemaProperties            = 37,
+	 *   adSchemaMembers               = 38
+	 */
 
 	public function MetaTables($ttype = false, $showSchema = false, $mask = false) {
 		$arr = array();
 		$dbc = $this->_connectionID;
 
-		$adors = @$dbc->OpenSchema(20);//tables
+		$adors = @$dbc->OpenSchema(20); //tables
 		if ($adors) {
-			$f = $adors->Fields(2);//table/view name
-			$t = $adors->Fields(3);//table type
+			$f = $adors->Fields(2); //table/view name
+			$t = $adors->Fields(3); //table type
 			while (!$adors->EOF) {
 				$tt = substr($t->value, 0, 6);
 
@@ -198,10 +197,10 @@ class ADODB_ado extends ADOConnection {
 		$arr   = array();
 		$dbc   = $this->_connectionID;
 
-		$adors = @$dbc->OpenSchema(4);//tables
+		$adors = @$dbc->OpenSchema(4); //tables
 
 		if ($adors) {
-			$t = $adors->Fields(2);//table/view name
+			$t = $adors->Fields(2); //table/view name
 			while (!$adors->EOF) {
 				if (strtoupper($t->Value) == $table) {
 					$fld                         = new ADOFieldObject();
@@ -561,15 +560,15 @@ class ADORecordSet_ado extends ADORecordSet {
 
 		switch ($t) {
 			case 0:
-			case 12: // variant
-			case 8: // bstr
+			case 12:  // variant
+			case 8:   // bstr
 			case 129: //char
 			case 130: //wc
 			case 200: // varc
-			case 202:// varWC
+			case 202: // varWC
 			case 128: // bin
 			case 204: // varBin
-			case 72: // guid
+			case 72:  // guid
 				if ($len <= $this->blobSize) {
 					return 'C';
 				}
@@ -638,7 +637,7 @@ class ADORecordSet_ado extends ADORecordSet {
 		$f = reset($this->_flds);
 
 		if ($this->hideErrors) {
-			$olde = error_reporting(E_ERROR | E_CORE_ERROR);// sometimes $f->value be null
+			$olde = error_reporting(E_ERROR | E_CORE_ERROR); // sometimes $f->value be null
 		}
 
 		for ($i = 0,$max = $this->_numOfFields; $i < $max; $i++) {
@@ -648,7 +647,8 @@ class ADORecordSet_ado extends ADORecordSet {
 					if (!strlen((string)$f->value)) {
 						$this->fields[] = false;
 					} else {
-						if (!is_numeric($f->value)) { // $val = variant_date_to_timestamp($f->value);
+						if (!is_numeric($f->value)) {
+							// $val = variant_date_to_timestamp($f->value);
 							// VT_DATE stores dates as (float) fractional days since 1899/12/30 00:00:00
 							$val = (float)variant_cast($f->value, VT_R8) * 3600 * 24 - 2209161600;
 						} else {
@@ -761,7 +761,7 @@ class ADORecordSet_ado extends ADORecordSet {
 
 	public function _close() {
 		$this->_flds = false;
-		@$this->_queryID->Close();// by Pete Dishman (peterd@telephonetics.co.uk)
+		@$this->_queryID->Close(); // by Pete Dishman (peterd@telephonetics.co.uk)
 		$this->_queryID = false;
 	}
 }

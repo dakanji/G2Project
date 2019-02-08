@@ -138,8 +138,8 @@ class CommentCallbacks {
 
 				foreach (array(
 					'delete' => 'comment.delete',
-					'edit' => 'comment.edit',
-					'view' => 'comment.view',
+					'edit'   => 'comment.edit',
+					'view'   => 'comment.view',
 				) as $canFlag => $permission) {
 					$can[$canFlag] = isset($permissions[$permission]);
 				}

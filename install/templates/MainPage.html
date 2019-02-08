@@ -1,4 +1,5 @@
-<?php if (isset($templateData['MainPage']['showHeader'])): ?>
+<?php if (isset($templateData['MainPage']['showHeader'])) {
+	?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
   <head>
@@ -9,10 +10,11 @@
 
   <body<?php if (isset($translator)
 		 && $translator->isRightToLeft()) {
-	echo ' style="direction:rtl"';
-} ?>>
+		echo ' style="direction:rtl"';
+	} ?>>
     <div id="box">
-<?php endif; ?>
+<?php
+} ?>
 
 <?php
 /*
@@ -28,7 +30,8 @@
  * we hide it and display a success message).
  */
  ?>
-<?php if (isset($templateData['MainPage']['showStatusBlock'])): ?>
+<?php if (isset($templateData['MainPage']['showStatusBlock'])) {
+ 	?>
   <table id="progressBarTable" class="boxTable" cellspacing="0">
     <?php include __DIR__ . '/Header.html'; ?>
     <tr>
@@ -76,17 +79,23 @@
       </td>
     </tr>
   </table>
-<?php endif; ?>
+<?php
+ } ?>
 
-<?php if (isset($templateData['MainPage']['showStatus'])): ?>
+<?php if (isset($templateData['MainPage']['showStatus'])) {
+ 	?>
 <script type="text/javascript">updateStatus(<?php printf('"%s", "%s", %s', $templateData['MainPage']['status']['title'], $templateData['MainPage']['status']['description'], $templateData['MainPage']['status']['percentComplete']); ?>)</script>
-<?php endif; ?>
+<?php
+ } ?>
 
-<?php if (isset($templateData['MainPage']['hideStatusBlock'])): ?>
+<?php if (isset($templateData['MainPage']['hideStatusBlock'])) {
+ 	?>
 <script type="text/javascript">document.getElementById("progressBarTable").style.display="none"</script>
-<?php endif; ?>
+<?php
+ } ?>
 
-<?php if (isset($templateData['MainPage']['showBodyAndFooter'])): ?>
+<?php if (isset($templateData['MainPage']['showBodyAndFooter'])) {
+ 	?>
   <table id="regularTable" class="boxTable" cellspacing="0">
     <?php include __DIR__ . '/Header.html'; ?>
     <tr>
@@ -97,57 +106,73 @@
       <td class="main">
       <table id="statusTable" cellspacing="0">
         <tr>
-          <?php if ($templateData['percentComplete'] != 0): ?>
+          <?php if ($templateData['percentComplete'] != 0) {
+ 		?>
             <td class="progressMade"
                 style="width:<?php echo $templateData['percentComplete'] ?>%">&nbsp;</td>
-          <?php endif; ?>
+          <?php
+ 	} ?>
 
-          <?php if ($templateData['percentComplete'] != 100): ?>
+          <?php if ($templateData['percentComplete'] != 100) {
+ 		?>
             <td class="progressToGo"
                 style="width:<?php echo(100 - $templateData['percentComplete']) . '%' .
 						(($templateData['percentComplete'] == 0) ? '' : ';border-left:none')
 						?>">&nbsp;</td>
-          <?php endif; ?>
+          <?php
+ 	} ?>
         </tr>
       </table>
       <p id="progressStatus"><?php printf(_('Install %d%% complete'), $templateData['percentComplete']); ?></p>
 
-      <?php if (!empty($templateData['errors'])): ?>
+      <?php if (!empty($templateData['errors'])) {
+ 		?>
         <div class="error">
           <h2>
-            <?php foreach ($templateData['errors'] as $error): ?>
+            <?php foreach ($templateData['errors'] as $error) {
+ 			?>
               <?php echo $error ?>
               <?php if (count($templateData['errors']) > 2) {
-							echo "<br/>\n";
-						} ?>
-            <?php endforeach; ?>
+ 				echo "<br/>\n";
+ 			} ?>
+            <?php
+ 		} ?>
           </h2>
         </div>
-      <?php endif; ?>
+      <?php
+ 	} ?>
 
-      <?php if (!empty($templateData['warnings'])): ?>
+      <?php if (!empty($templateData['warnings'])) {
+ 		?>
         <div class="warning">
           <h2>
-            <?php foreach ($templateData['warnings'] as $warning): ?>
+            <?php foreach ($templateData['warnings'] as $warning) {
+ 			?>
               <?php echo $warning ?> <br/>
-            <?php endforeach; ?>
+            <?php
+ 		} ?>
           </h2>
         </div>
-      <?php endif; ?>
+      <?php
+ 	} ?>
 
       <?php include __DIR__ . '/' . $templateData['bodyFile']; ?>
 
-      <?php if ($currentStep->isComplete() && !$currentStep->isLastStep()): ?>
+      <?php if ($currentStep->isComplete() && !$currentStep->isLastStep()) {
+ 		?>
         <div class="go">
-          <?php if ($currentStep->isRedoable()): ?>
+          <?php if ($currentStep->isRedoable()) {
+ 			?>
           <a href="<?php generateUrl('index.php?step=' . $stepNumber . '&amp;doOver=1') ?>" class="btn redo"><i></i><span><span></span><i></i>
             <?php echo _('Redo this step'); ?></span></a>
-          <?php endif; ?>
+          <?php
+ 		} ?>
           <?php $nextStep = $stepNumber + 1 ?>
           <a href="<?php generateUrl('index.php?step=' . $nextStep) ?>" class="btn continue"><i></i><span><span></span><i></i>
             <?php printf(_('Continue to Step %d&raquo;'), $nextStep); ?></span></a>
         </div>
-      <?php endif; ?>
+      <?php
+ 	} ?>
       </td>
     </tr>
   </table>
@@ -158,4 +183,5 @@
     </div>
   </body>
 </html>
-<?php endif; ?>
+<?php
+ } ?>

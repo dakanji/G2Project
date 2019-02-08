@@ -87,8 +87,8 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 				'redirect' => array(
 					'return' => true,
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -109,10 +109,10 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.ItemReorder',
 					'itemId'  => $this->_parentAlbum->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -150,10 +150,10 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.ItemReorder',
 					'itemId'  => $this->_parentAlbum->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -191,10 +191,10 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.ItemReorder',
 					'itemId'  => $this->_parentAlbum->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -232,10 +232,10 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.ItemReorder',
 					'itemId'  => $this->_parentAlbum->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -296,8 +296,8 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemReorder',
 				),
-				'status' => array(),
-				'error'  => array('form[error][selectedId][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][selectedId][missing]'),
 			),
 			$results
 		);
@@ -315,8 +315,8 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemReorder',
 				),
-				'status' => array(),
-				'error'  => array('form[error][targetId][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][targetId][missing]'),
 			),
 			$results
 		);
@@ -352,10 +352,10 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.ItemReorder',
 					'itemId'  => $this->_parentAlbum->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -402,10 +402,10 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.ItemReorder',
 					'itemId'  => $this->_parentAlbum->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);

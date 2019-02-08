@@ -285,8 +285,7 @@ class ADODB_db2 extends ADOConnection {
 
 	public function ServerInfo() {
 		$row = $this->GetRow(
-			'SELECT service_level, fixpack_num FROM TABLE(sysproc.env_get_inst_info())
-			as INSTANCEINFO'
+			'SELECT service_level, fixpack_num FROM TABLE(sysproc.env_get_inst_info()) as INSTANCEINFO'
 		);
 
 
@@ -345,11 +344,11 @@ class ADODB_db2 extends ADOConnection {
 	}
 
 	/*
-		This algorithm is not very efficient, but works even if table locking
-		is not available.
-
-		Will return false if unable to generate an ID after $MAXLOOPS attempts.
-	*/
+	 *	This algorithm is not very efficient, but works even if table locking
+	 *	is not available.
+	 *
+	 *	Will return false if unable to generate an ID after $MAXLOOPS attempts.
+	 */
 	public function GenID($seq = 'adodbseq', $start = 1) {
 		// if you have to modify the parameter below, your database is overloaded,
 		// or you need to implement generation of id's yourself!
@@ -507,16 +506,16 @@ class ADODB_db2 extends ADOConnection {
 
 		$ADODB_FETCH_MODE = $savem;
 		/*
-		$rs->fields indices
-		0 PKTABLE_CAT
-		1 PKTABLE_SCHEM
-		2 PKTABLE_NAME
-		3 PKCOLUMN_NAME
-		4 FKTABLE_CAT
-		5 FKTABLE_SCHEM
-		6 FKTABLE_NAME
-		7 FKCOLUMN_NAME
-		*/
+		 *      $rs->fields indices
+		 *      0 PKTABLE_CAT
+		 *      1 PKTABLE_SCHEM
+		 *      2 PKTABLE_NAME
+		 *      3 PKCOLUMN_NAME
+		 *      4 FKTABLE_CAT
+		 *      5 FKTABLE_SCHEM
+		 *      6 FKTABLE_NAME
+		 *      7 FKCOLUMN_NAME
+		 */
 		if (!$rs) {
 			return false;
 		}

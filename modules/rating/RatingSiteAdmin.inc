@@ -64,12 +64,12 @@ class RatingSiteAdminController extends GalleryController {
 
 		if (isset($form['action']['save']) && empty($error)) {
 			foreach (array('allowAlbumRating' => empty($form['allowAlbumRating']) ? 0 : 1,
-			   'themeId' => $form['themeId'],
-			   'orderBy' => (empty($form['presort']) ? '' : $form['presort'] . '|')
+			   'themeId'                      => $form['themeId'],
+			   'orderBy'                      => (empty($form['presort']) ? '' : $form['presort'] . '|')
 					. $form['orderBy'],
-			   'orderDirection' => $form['orderDirection'],
-			   'minLimit' => $form['minLimit'],
-			   'description' => $form['description'], )
+			   'orderDirection'               => $form['orderDirection'],
+			   'minLimit'                     => $form['minLimit'],
+			   'description'                  => $form['description'], )
 			as $key => $value) {
 				$ret = GalleryCoreApi::setPluginParameter('module', 'rating', $key, $value);
 
@@ -83,8 +83,8 @@ class RatingSiteAdminController extends GalleryController {
 		$method  = empty($error) ? 'redirect' : 'delegate';
 		$results = array($method => array('view' => 'core.SiteAdmin',
 					  'subView'                           => 'rating.RatingSiteAdmin', ),
-			 'status' => $status,
-			 'error'  => $error, );
+			 'status'            => $status,
+			 'error'             => $error, );
 
 		return array(null, $results);
 	}

@@ -46,7 +46,7 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 
 		foreach (array(
 			'jpegQuality' => 75,
-			'pnmcomp' => 'pamcomp',
+			'pnmcomp'     => 'pamcomp',
 		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'netpbm', $key, $value);
 
@@ -73,10 +73,10 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'netpbm.AdminNetPbm',
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -106,10 +106,10 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'netpbm.AdminNetPbm',
 				),
-				'status' => array(
+				'status'   => array(
 					'saved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -144,8 +144,8 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'netpbm.AdminNetPbm',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -161,8 +161,8 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminPlugins',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -181,8 +181,8 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'netpbm.AdminNetPbm',
 				),
-				'status' => array(),
-				'error'  => array('form[error][path][testError]'),
+				'status'   => array(),
+				'error'    => array('form[error][path][testError]'),
 			),
 			$results
 		);
@@ -201,8 +201,8 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'netpbm.AdminNetPbm',
 				),
-				'status' => array(),
-				'error'  => array('form[error][path][badPath]'),
+				'status'   => array(),
+				'error'    => array('form[error][path][badPath]'),
 			),
 			$results
 		);
@@ -221,8 +221,8 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'netpbm.AdminNetPbm',
 				),
-				'status' => array(),
-				'error'  => array('form[error][path][missing]'),
+				'status'   => array(),
+				'error'    => array('form[error][path][missing]'),
 			),
 			$results
 		);
@@ -242,8 +242,8 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'netpbm.AdminNetPbm',
 				),
-				'status' => array(),
-				'error'  => array('form[error][jheadPath][badPath]'),
+				'status'   => array(),
+				'error'    => array('form[error][jheadPath][badPath]'),
 			),
 			$results
 		);

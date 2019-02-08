@@ -4470,41 +4470,41 @@ if (!defined('_ADODB_LAYER')) {
 
 			// changed in 2.32 to hashing instead of switch stmt for speed...
 			static $typeMap = array(
-				'VARCHAR'    => 'C',
-				'VARCHAR2'   => 'C',
-				'CHAR'       => 'C',
-				'C'          => 'C',
-				'STRING'     => 'C',
-				'NCHAR'      => 'C',
-				'NVARCHAR'   => 'C',
-				'VARYING'    => 'C',
-				'BPCHAR'     => 'C',
-				'CHARACTER'  => 'C',
-				'INTERVAL'   => 'C',  // Postgres
-				'MACADDR'    => 'C', // postgres
-				'VAR_STRING' => 'C', // mysql
+				'VARCHAR'                     => 'C',
+				'VARCHAR2'                    => 'C',
+				'CHAR'                        => 'C',
+				'C'                           => 'C',
+				'STRING'                      => 'C',
+				'NCHAR'                       => 'C',
+				'NVARCHAR'                    => 'C',
+				'VARYING'                     => 'C',
+				'BPCHAR'                      => 'C',
+				'CHARACTER'                   => 'C',
+				'INTERVAL'                    => 'C',  // Postgres
+				'MACADDR'                     => 'C', // postgres
+				'VAR_STRING'                  => 'C', // mysql
 				//
-				'LONGCHAR' => 'X',
-				'TEXT'     => 'X',
-				'NTEXT'    => 'X',
-				'M'        => 'X',
-				'X'        => 'X',
-				'CLOB'     => 'X',
-				'NCLOB'    => 'X',
-				'LVARCHAR' => 'X',
+				'LONGCHAR'                    => 'X',
+				'TEXT'                        => 'X',
+				'NTEXT'                       => 'X',
+				'M'                           => 'X',
+				'X'                           => 'X',
+				'CLOB'                        => 'X',
+				'NCLOB'                       => 'X',
+				'LVARCHAR'                    => 'X',
 
-				'BLOB'       => 'B',
-				'IMAGE'      => 'B',
-				'BINARY'     => 'B',
-				'VARBINARY'  => 'B',
-				'LONGBINARY' => 'B',
-				'B'          => 'B',
+				'BLOB'                        => 'B',
+				'IMAGE'                       => 'B',
+				'BINARY'                      => 'B',
+				'VARBINARY'                   => 'B',
+				'LONGBINARY'                  => 'B',
+				'B'                           => 'B',
 
-				'YEAR'  => 'D', // mysql
-				'DATE'  => 'D',
-				'D'     => 'D',
+				'YEAR'                        => 'D', // mysql
+				'DATE'                        => 'D',
+				'D'                           => 'D',
 
-				'UNIQUEIDENTIFIER' => 'C', // MS SQL Server
+				'UNIQUEIDENTIFIER'            => 'C', // MS SQL Server
 				//
 				'SMALLDATETIME'               => 'T',
 				'TIME'                        => 'T',
@@ -4515,63 +4515,63 @@ if (!defined('_ADODB_LAYER')) {
 				'T'                           => 'T',
 				'TIMESTAMP WITHOUT TIME ZONE' => 'T', // postgresql
 				//
-				'BOOL'    => 'L',
-				'BOOLEAN' => 'L',
-				'BIT'     => 'L',
-				'L'       => 'L',
+				'BOOL'                        => 'L',
+				'BOOLEAN'                     => 'L',
+				'BIT'                         => 'L',
+				'L'                           => 'L',
 
-				'COUNTER'      => 'R',
-				'R'            => 'R',
-				'SERIAL'       => 'R', // ifx
-				'INT IDENTITY' => 'R',
+				'COUNTER'                     => 'R',
+				'R'                           => 'R',
+				'SERIAL'                      => 'R', // ifx
+				'INT IDENTITY'                => 'R',
 
-				'INT'              => 'I',
-				'INT2'             => 'I',
-				'INT4'             => 'I',
-				'INT8'             => 'I',
-				'INTEGER'          => 'I',
-				'INTEGER UNSIGNED' => 'I',
-				'SHORT'            => 'I',
-				'TINYINT'          => 'I',
-				'SMALLINT'         => 'I',
-				'I'                => 'I',
+				'INT'                         => 'I',
+				'INT2'                        => 'I',
+				'INT4'                        => 'I',
+				'INT8'                        => 'I',
+				'INTEGER'                     => 'I',
+				'INTEGER UNSIGNED'            => 'I',
+				'SHORT'                       => 'I',
+				'TINYINT'                     => 'I',
+				'SMALLINT'                    => 'I',
+				'I'                           => 'I',
 
-				'LONG'             => 'N', // interbase is numeric, oci8 is blob
-				'BIGINT'           => 'N', // this is bigger than PHP 32-bit integers
-				'DECIMAL'          => 'N',
-				'DEC'              => 'N',
-				'REAL'             => 'N',
-				'DOUBLE'           => 'N',
-				'DOUBLE PRECISION' => 'N',
-				'SMALLFLOAT'       => 'N',
-				'FLOAT'            => 'N',
-				'NUMBER'           => 'N',
-				'NUM'              => 'N',
-				'NUMERIC'          => 'N',
-				'MONEY'            => 'N',
+				'LONG'                        => 'N', // interbase is numeric, oci8 is blob
+				'BIGINT'                      => 'N', // this is bigger than PHP 32-bit integers
+				'DECIMAL'                     => 'N',
+				'DEC'                         => 'N',
+				'REAL'                        => 'N',
+				'DOUBLE'                      => 'N',
+				'DOUBLE PRECISION'            => 'N',
+				'SMALLFLOAT'                  => 'N',
+				'FLOAT'                       => 'N',
+				'NUMBER'                      => 'N',
+				'NUM'                         => 'N',
+				'NUMERIC'                     => 'N',
+				'MONEY'                       => 'N',
 
 				// informix 9.2
-				'SQLINT'      => 'I',
-				'SQLSERIAL'   => 'I',
-				'SQLSMINT'    => 'I',
-				'SQLSMFLOAT'  => 'N',
-				'SQLFLOAT'    => 'N',
-				'SQLMONEY'    => 'N',
-				'SQLDECIMAL'  => 'N',
-				'SQLDATE'     => 'D',
-				'SQLVCHAR'    => 'C',
-				'SQLCHAR'     => 'C',
-				'SQLDTIME'    => 'T',
-				'SQLINTERVAL' => 'N',
-				'SQLBYTES'    => 'B',
-				'SQLTEXT'     => 'X',
+				'SQLINT'                      => 'I',
+				'SQLSERIAL'                   => 'I',
+				'SQLSMINT'                    => 'I',
+				'SQLSMFLOAT'                  => 'N',
+				'SQLFLOAT'                    => 'N',
+				'SQLMONEY'                    => 'N',
+				'SQLDECIMAL'                  => 'N',
+				'SQLDATE'                     => 'D',
+				'SQLVCHAR'                    => 'C',
+				'SQLCHAR'                     => 'C',
+				'SQLDTIME'                    => 'T',
+				'SQLINTERVAL'                 => 'N',
+				'SQLBYTES'                    => 'B',
+				'SQLTEXT'                     => 'X',
 				// informix 10
-				'SQLINT8'     => 'I8',
-				'SQLSERIAL8'  => 'I8',
-				'SQLNCHAR'    => 'C',
-				'SQLNVCHAR'   => 'C',
-				'SQLLVARCHAR' => 'X',
-				'SQLBOOL'     => 'L',
+				'SQLINT8'                     => 'I8',
+				'SQLSERIAL8'                  => 'I8',
+				'SQLNCHAR'                    => 'C',
+				'SQLNVCHAR'                   => 'C',
+				'SQLLVARCHAR'                 => 'X',
+				'SQLBOOL'                     => 'L',
 			);
 
 			$tmap = false;
@@ -5164,8 +5164,8 @@ if (!defined('_ADODB_LAYER')) {
 				foreach ($opt as $k => $v) {
 					switch (strtolower($k)) {
 						case 'new':
-										$nconnect          = true;
-							$persist              = true;
+							$nconnect = true;
+							$persist  = true;
 
 							break;
 

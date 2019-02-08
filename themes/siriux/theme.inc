@@ -37,14 +37,14 @@ class SiriuxTheme extends GalleryTheme {
 		$this->setRequiredThemeApi(array(2, 4));
 		$this->setStandardSettings(
 			array(
-				'perPage'      => 9,
-				'contentWidth' => 700,
-				'albumBlocks'  => serialize(
+				'perPage'        => 9,
+				'contentWidth'   => 700,
+				'albumBlocks'    => serialize(
 					array(
 						array('comment.ViewComments', array()),
 					)
 				),
-				'photoBlocks' => serialize(
+				'photoBlocks'    => serialize(
 					array(
 						array('exif.ExifInfo', array()),
 						array('comment.ViewComments', array()),
@@ -244,7 +244,7 @@ class SiriuxTheme extends GalleryTheme {
 			'typeParams' => array(
 				'size' => 2,
 			),
-			'value' => $params['contentWidth'],
+			'value'      => $params['contentWidth'],
 		);
 		$settings[] = array(
 			'key'   => 'groupByYear',

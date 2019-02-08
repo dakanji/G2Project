@@ -277,10 +277,10 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.ItemMoveSingle',
 					'itemId'  => $this->_item->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'moved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -337,10 +337,10 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.ItemMoveSingle',
 					'itemId'  => $this->_item->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'moved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -396,8 +396,8 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMoveSingle',
 				),
-				'status' => array(),
-				'error'  => array('form[error][destination][empty]'),
+				'status'   => array(),
+				'error'    => array('form[error][destination][empty]'),
 			),
 			$results
 		);
@@ -418,8 +418,8 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMoveSingle',
 				),
-				'status' => array(),
-				'error'  => array('form[error][destination][selfMove]'),
+				'status'   => array(),
+				'error'    => array('form[error][destination][selfMove]'),
 			),
 			$results
 		);
@@ -446,8 +446,8 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMoveSingle',
 				),
-				'status' => array(),
-				'error'  => array('form[error][destination][selfMove]'),
+				'status'   => array(),
+				'error'    => array('form[error][destination][selfMove]'),
 			),
 			$results
 		);
@@ -593,10 +593,10 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.ItemMoveSingle',
 					'itemId'  => $this->_item->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'moved' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);

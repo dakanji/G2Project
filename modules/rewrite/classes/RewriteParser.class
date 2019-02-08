@@ -145,7 +145,7 @@ class RewriteParser {
 			return false;
 		}
 
-		if (isset($activeRule['pattern']) && isset($rule['pattern']) && isset($rule['locked'])
+		if (isset($activeRule['pattern'], $rule['pattern'], $rule['locked'])
 			&& $activeRule['pattern'] != $rule['pattern']
 		) {
 			return false;

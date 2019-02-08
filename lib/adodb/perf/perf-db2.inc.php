@@ -44,23 +44,23 @@ class perf_db2 extends adodb_perf {
 		),
 
 		'Data Cache',
-		'data cache buffers' => array(
+		'data cache buffers'   => array(
 			'DATAC',
 			'select sum(npages) from SYSCAT.BUFFERPOOLS',
 			'See <a href=http://www7b.boulder.ibm.com/dmdd/library/techarticle/anshum/0107anshum.html#bufferpoolsize>tuning reference</a>.',
 		),
-		'cache blocksize' => array(
+		'cache blocksize'      => array(
 			'DATAC',
 			'select avg(pagesize) from SYSCAT.BUFFERPOOLS',
 			'',
 		),
-		'data cache size' => array(
+		'data cache size'      => array(
 			'DATAC',
 			'select sum(npages*pagesize) from SYSCAT.BUFFERPOOLS',
 			'',
 		),
 		'Connections',
-		'current connections' => array(
+		'current connections'  => array(
 			'SESS',
 			"SELECT count(*) FROM TABLE(SNAPSHOT_APPL_INFO('',-2)) as t",
 			'',

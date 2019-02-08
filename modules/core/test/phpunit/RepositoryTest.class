@@ -108,7 +108,7 @@ class RepositoryTest extends GalleryTestCase {
 		switch ($testCase) {
 			case 1:
 				$case = array(
-					'installed' => array(
+					'installed'           => array(
 						'testModule' => array(
 							'packages' => array(
 								'base' => array(
@@ -189,7 +189,7 @@ class RepositoryTest extends GalleryTestCase {
 							'currentBuild'   => '19710411131300',
 							'locked'         => 0,
 						),
-						'languages' => array(
+						'languages'   => array(
 							'en_US' => array(
 								'name'         => 'en_US',
 								'currentBuild' => null,
@@ -219,16 +219,16 @@ class RepositoryTest extends GalleryTestCase {
 								'locked'       => 0,
 							),
 						),
-						'complete' => false,
+						'complete'    => false,
 					),
-					'expectedPackages' => array(),
+					'expectedPackages'    => array(),
 				);
 
 				break;
 
 			case 2:
 				$case = array(
-					'installed' => array(
+					'installed'           => array(
 						'testModule' => array(
 							'packages' => array(
 								'base' => array(
@@ -299,7 +299,7 @@ class RepositoryTest extends GalleryTestCase {
 						),
 					),
 					'expectedUpgradeInfo' => array(
-						'base' => array(
+						'base'        => array(
 							'newVersion'     => '1.0.0',
 							'newBuild'       => '44444',
 							'currentVersion' => '2.0.0',
@@ -341,7 +341,7 @@ class RepositoryTest extends GalleryTestCase {
 							),
 						),
 					),
-					'expectedPackages' => array(),
+					'expectedPackages'    => array(),
 				);
 
 				break;
@@ -429,8 +429,8 @@ class RepositoryTest extends GalleryTestCase {
 							'isCompatible'   => true,
 							'locked'         => 0,
 						),
-						'complete'  => false,
-						'languages' => array(
+						'complete'    => false,
+						'languages'   => array(
 							'en_US' => array(
 								'name'         => 'en_US',
 								'currentBuild' => null,
@@ -479,7 +479,7 @@ class RepositoryTest extends GalleryTestCase {
 
 			case 4:
 				$case = array(
-					'installed' => array(
+					'installed'           => array(
 						'testModule' => array(
 							'packages' => array(
 								'base' => array(
@@ -600,8 +600,8 @@ class RepositoryTest extends GalleryTestCase {
 							'currentBuild'   => '44444',
 							'locked'         => 0,
 						),
-						'complete'  => true,
-						'languages' => array(
+						'complete'    => true,
+						'languages'   => array(
 							'en_US' => array(
 								'name'         => 'en_US',
 								'currentBuild' => '33333',
@@ -632,14 +632,14 @@ class RepositoryTest extends GalleryTestCase {
 							),
 						),
 					),
-					'expectedPackages' => array(),
+					'expectedPackages'    => array(),
 				);
 
 				break;
 
 			case 5:
 				$case = array(
-					'installed' => array(
+					'installed'           => array(
 						'testModule' => array(
 							'packages' => array(
 								'base' => array(
@@ -710,7 +710,7 @@ class RepositoryTest extends GalleryTestCase {
 						),
 					),
 					'expectedUpgradeInfo' => array(
-						'base' => array(
+						'base'        => array(
 							'newVersion'     => '1.0.0',
 							'newBuild'       => '44444',
 							'currentVersion' => null,
@@ -752,7 +752,7 @@ class RepositoryTest extends GalleryTestCase {
 							),
 						),
 					),
-					'expectedPackages' => array(),
+					'expectedPackages'    => array(),
 				);
 
 				break;
@@ -860,7 +860,7 @@ class RepositoryTest extends GalleryTestCase {
 						),
 					),
 					'expectedUpgradeInfo' => array(
-						'base' => array(
+						'base'        => array(
 							'newVersion'     => '1.0.0',
 							'newBuild'       => '44444',
 							'currentVersion' => '1.0.0',
@@ -921,7 +921,7 @@ class RepositoryTest extends GalleryTestCase {
 
 			case 7:
 				$case = array(
-					'installed' => array(
+					'installed'           => array(
 						'testModule' => array(
 							'packages' => array(
 								'base' => array(
@@ -1032,7 +1032,7 @@ class RepositoryTest extends GalleryTestCase {
 							'currentBuild'   => '11111',
 							'locked'         => 1,
 						),
-						'languages' => array(
+						'languages'   => array(
 							'en_US' => array(
 								'name'         => 'en_US',
 								'currentBuild' => '00001',
@@ -1069,16 +1069,16 @@ class RepositoryTest extends GalleryTestCase {
 								'locked'       => 0,
 							),
 						),
-						'complete' => 0,
+						'complete'    => 0,
 					),
-					'expectedPackages' => array(/* no upgrades; the base package is locked */),
+					'expectedPackages'    => array(/* no upgrades; the base package is locked */),
 				);
 
 				break;
 
 			case 8:
 				$case = array(
-					'installed' => array(
+					'installed'           => array(
 						'testModule' => array(
 							'packages' => array(
 								'base' => array(
@@ -1179,7 +1179,7 @@ class RepositoryTest extends GalleryTestCase {
 						),
 					),
 					'expectedUpgradeInfo' => array(
-						'base' => array(
+						'base'        => array(
 							'newVersion'     => '1.0.0',
 							'newBuild'       => '44444',
 							'currentVersion' => '1.0.0',
@@ -1222,9 +1222,9 @@ class RepositoryTest extends GalleryTestCase {
 						),
 					),
 					// This better be incompatible!
-					'requiredModuleApi' => array(9999, 9999),
+					'requiredModuleApi'   => array(9999, 9999),
 					// the module is incompatible, but the theme is ok
-					'expectedPackages' => array(
+					'expectedPackages'    => array(
 						'theme' => array(
 							'testTheme' => array(
 								'lang-en_US' => 1,
@@ -1400,8 +1400,8 @@ class RepositoryTest extends GalleryTestCase {
 					'0.1.0',
 					'+'
 				),
-				'expectedRelation'    => 'newer',
-				'expectedApiVersions' => array(
+				'expectedRelation'      => 'newer',
+				'expectedApiVersions'   => array(
 					'core'   => $repositoryCoreApiVersion,
 					'module' => $repositoryModuleApiVersion,
 					'theme'  => $repositoryThemeApiVersion,
@@ -1414,8 +1414,8 @@ class RepositoryTest extends GalleryTestCase {
 					'0.1.0',
 					'-'
 				),
-				'expectedRelation'    => 'older',
-				'expectedApiVersions' => array(),
+				'expectedRelation'      => 'older',
+				'expectedApiVersions'   => array(),
 			),
 			array(
 				// Simulate an identical repository core version as the one currently installed.
@@ -1543,7 +1543,7 @@ class RepositoryTest extends GalleryTestCase {
 		switch ($testCase) {
 			case 0:
 				$case = array(// Compatible, locally available, upgradeable.
-					'pluginData' => array(
+					'pluginData'         => array(
 						'showAll'    => 'showAll',
 						'pluginType' => 'module',
 						'coreApis'   => array(
@@ -1551,15 +1551,15 @@ class RepositoryTest extends GalleryTestCase {
 							'module' => $moduleApi,
 							'theme'  => $themeApi,
 						),
-						'plugins' => array(
+						'plugins'    => array(
 							'module' => array(
 								'testModule' => $testModule,
 							),
 						),
 					),
-					'isCompatible'      => true,
-					'isAvailable'       => true,
-					'installedPackages' => array(
+					'isCompatible'       => true,
+					'isAvailable'        => true,
+					'installedPackages'  => array(
 						'base' => array(
 							'version' => '0.0.9',
 							'build'   => '44444',
@@ -1585,9 +1585,9 @@ class RepositoryTest extends GalleryTestCase {
 									'plugin' => $moduleApiString,
 								),
 							),
-							'locked'        => 0,
-							'isDowngraded'  => false,
-							'isUpgradeable' => true,
+							'locked'            => 0,
+							'isDowngraded'      => false,
+							'isUpgradeable'     => true,
 						),
 					),
 				);
@@ -1596,7 +1596,7 @@ class RepositoryTest extends GalleryTestCase {
 
 			case 1:
 				$case = array(// Compatible, locally available, upgradeable but also locked
-					'pluginData' => array(
+					'pluginData'         => array(
 						'showAll'    => 'showAll',
 						'pluginType' => 'module',
 						'coreApis'   => array(
@@ -1604,15 +1604,15 @@ class RepositoryTest extends GalleryTestCase {
 							'module' => $moduleApi,
 							'theme'  => $themeApi,
 						),
-						'plugins' => array(
+						'plugins'    => array(
 							'module' => array(
 								'testModule' => $testModule,
 							),
 						),
 					),
-					'isCompatible'      => true,
-					'isAvailable'       => true,
-					'installedPackages' => array(
+					'isCompatible'       => true,
+					'isAvailable'        => true,
+					'installedPackages'  => array(
 						'base' => array(
 							'version' => '0.0.9',
 							'build'   => '44444',
@@ -1638,9 +1638,9 @@ class RepositoryTest extends GalleryTestCase {
 									'plugin' => $moduleApiString,
 								),
 							),
-							'locked'        => 1,
-							'isDowngraded'  => false,
-							'isUpgradeable' => true,
+							'locked'            => 1,
+							'isDowngraded'      => false,
+							'isUpgradeable'     => true,
 						),
 					),
 				);
@@ -1649,7 +1649,7 @@ class RepositoryTest extends GalleryTestCase {
 
 			case 2:
 				$case = array(// Incompatible, locally unavailable, no action.
-					'pluginData' => array(
+					'pluginData'         => array(
 						'showAll'    => 'showAll',
 						'pluginType' => 'module',
 						'coreApis'   => array(
@@ -1657,7 +1657,7 @@ class RepositoryTest extends GalleryTestCase {
 							'module' => $moduleApi,
 							'theme'  => $themeApi,
 						),
-						'plugins' => array(
+						'plugins'    => array(
 							'module' => array(
 								'testModule' => $testModule,
 							),
@@ -1685,9 +1685,9 @@ class RepositoryTest extends GalleryTestCase {
 									'plugin' => $moduleApiString,
 								),
 							),
-							'locked'        => 0,
-							'isDowngraded'  => false,
-							'isUpgradeable' => false,
+							'locked'            => 0,
+							'isDowngraded'      => false,
+							'isUpgradeable'     => false,
 						),
 					),
 				);
@@ -1696,7 +1696,7 @@ class RepositoryTest extends GalleryTestCase {
 
 			case 3:
 				$case = array(// Compatible, locally available, no action (all packages up-to-date).
-					'pluginData' => array(
+					'pluginData'         => array(
 						'showAll'    => 'showAll',
 						'pluginType' => 'module',
 						'coreApis'   => array(
@@ -1704,16 +1704,16 @@ class RepositoryTest extends GalleryTestCase {
 							'module' => $moduleApi,
 							'theme'  => $themeApi,
 						),
-						'plugins' => array(
+						'plugins'    => array(
 							'module' => array(
 								'testModule' => $testModule,
 							),
 						),
 					),
-					'isCompatible'      => true,
-					'isAvailable'       => true,
-					'isDowngraded'      => false,
-					'installedPackages' => array(
+					'isCompatible'       => true,
+					'isAvailable'        => true,
+					'isDowngraded'       => false,
+					'installedPackages'  => array(
 						'base' => array(
 							'version' => '1.0.0',
 							'build'   => '44444',
@@ -1759,9 +1759,9 @@ class RepositoryTest extends GalleryTestCase {
 									'plugin' => $moduleApiString,
 								),
 							),
-							'locked'        => 0,
-							'isDowngraded'  => false,
-							'isUpgradeable' => false,
+							'locked'            => 0,
+							'isDowngraded'      => false,
+							'isUpgradeable'     => false,
 						),
 					),
 				);
@@ -1858,7 +1858,7 @@ class RepositoryTest extends GalleryTestCase {
 				'module' => array(3, 4),
 				'theme'  => array(5, 6),
 			),
-			'plugins'  => array(
+			'plugins'    => array(
 				'theme' => array(
 					'testTheme' => $testTheme,
 				),
@@ -2590,8 +2590,8 @@ class RepositoryTest extends GalleryTestCase {
 					'currentBuild'   => '1',
 					'locked'         => false,
 				),
-				'languages' => $languages,
-				'complete'  => 0,
+				'languages'   => $languages,
+				'complete'    => 0,
 			),
 			$info
 		);
@@ -2622,8 +2622,8 @@ class RepositoryTest extends GalleryTestCase {
 					'currentBuild'   => '1',
 					'locked'         => false,
 				),
-				'languages' => array(),
-				'complete'  => true,
+				'languages'   => array(),
+				'complete'    => true,
 			),
 			$info
 		);
@@ -2792,7 +2792,7 @@ class RepositoryTest extends GalleryTestCase {
 	public function _buildDescriptor($pluginData) {
 		// Leave the files empty so we don't have to generate a lot of platform calls
 		return array(
-			'header'    => array(
+			'header'       => array(
 				'id'                => $pluginData['id'],
 				'version'           => '1.0.0',
 				'requiredCoreApi'   => GalleryCoreApi::getApiVersion(),
@@ -2807,7 +2807,7 @@ class RepositoryTest extends GalleryTestCase {
 					'groupLabel'  => 'Test Group',
 				),
 			),
-			'directories' => array(
+			'directories'  => array(
 				'locale/' => array(
 					'packages' => array('base'),
 				),
@@ -2824,8 +2824,8 @@ class RepositoryTest extends GalleryTestCase {
 					'packages' => array('base'),
 				),
 			),
-			'files'     => array(),
-			'languages' => array(
+			'files'        => array(),
+			'languages'    => array(
 				'22222' => array(
 					'en_US' => '33333',
 				),

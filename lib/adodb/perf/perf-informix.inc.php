@@ -49,20 +49,20 @@ class perf_informix extends adodb_perf {
 			'=WarnCacheRatio',
 		),
 		'IO',
-		'data reads'  => array(
+		'data reads'           => array(
 			'IO',
 			"select value from sysmaster:sysprofile where name='pagreads'",
 			'Page reads',
 		),
 
-		'data writes' => array(
+		'data writes'          => array(
 			'IO',
 			"select value from sysmaster:sysprofile where name='pagwrites'",
 			'Page writes',
 		),
 
 		'Connections',
-		'current connections' => array(
+		'current connections'  => array(
 			'SESS',
 			'select count(*) from sysmaster:syssessions',
 			'Number of sessions',

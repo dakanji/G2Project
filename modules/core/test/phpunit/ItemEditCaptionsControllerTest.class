@@ -90,7 +90,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 					'itemId'  => $this->_album->getId(),
 					'page'    => 2,
 				),
-				'status' => array(
+				'status'   => array(
 					'successCount'            => 3,
 					'errorCount'              => 0,
 					$this->_items[0]->getId() => array(
@@ -103,7 +103,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 						'saved' => 1,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -154,7 +154,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 					'itemId'  => $this->_album->getId(),
 					'page'    => 3,
 				),
-				'status' => array(
+				'status'   => array(
 					'successCount'            => 3,
 					'errorCount'              => 0,
 					$this->_items[0]->getId() => array(
@@ -167,7 +167,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 						'saved' => 1,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -218,7 +218,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 					'itemId'  => $this->_album->getId(),
 					'page'    => 1,
 				),
-				'status' => array(
+				'status'   => array(
 					'successCount'            => 3,
 					'errorCount'              => 0,
 					$this->_items[0]->getId() => array(
@@ -231,7 +231,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 						'saved' => 1,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -265,9 +265,9 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemEditCaptions',
 				),
-				'return' => 1,
-				'status' => array(),
-				'error'  => array(),
+				'return'   => 1,
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -342,7 +342,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 					'itemId'  => $this->_album->getId(),
 					'page'    => 2,
 				),
-				'status' => array(
+				'status'   => array(
 					'successCount'            => 1,
 					'errorCount'              => 2,
 					$this->_items[0]->getId() => array(
@@ -355,7 +355,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 						'obsolete' => 1,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -428,7 +428,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 					'itemId'  => $this->_album->getId(),
 					'page'    => 1,
 				),
-				'status' => array(
+				'status'   => array(
 					'successCount'            => 3,
 					'errorCount'              => 0,
 					$this->_items[0]->getId() => array(
@@ -441,7 +441,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 						'saved' => 1,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);

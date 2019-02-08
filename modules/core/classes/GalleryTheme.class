@@ -132,7 +132,7 @@ class GalleryTheme extends GalleryPlugin {
 
 		$settings = array();
 
-		if (isset($params['rows']) && isset($standard['rows'])) {
+		if (isset($params['rows'], $standard['rows'])) {
 			$settings[] = array(
 				'key'        => 'rows',
 				'name'       => $core->translate('Rows per album page'),
@@ -140,11 +140,11 @@ class GalleryTheme extends GalleryPlugin {
 				'typeParams' => array(
 					'size' => 2,
 				),
-				'value' => $params['rows'],
+				'value'      => $params['rows'],
 			);
 		}
 
-		if (isset($params['columns']) && isset($standard['columns'])) {
+		if (isset($params['columns'], $standard['columns'])) {
 			$settings[] = array(
 				'key'        => 'columns',
 				'name'       => $core->translate('Columns per album page'),
@@ -152,11 +152,11 @@ class GalleryTheme extends GalleryPlugin {
 				'typeParams' => array(
 					'size' => 2,
 				),
-				'value' => $params['columns'],
+				'value'      => $params['columns'],
 			);
 		}
 
-		if (isset($params['perPage']) && isset($standard['perPage'])) {
+		if (isset($params['perPage'], $standard['perPage'])) {
 			$settings[] = array(
 				'key'        => 'perPage',
 				'name'       => $core->translate('Number of items to show per page'),
@@ -164,11 +164,11 @@ class GalleryTheme extends GalleryPlugin {
 				'typeParams' => array(
 					'size' => 2,
 				),
-				'value' => $params['perPage'],
+				'value'      => $params['perPage'],
 			);
 		}
 
-		if (isset($params['rowHeight']) && isset($standard['rowHeight'])) {
+		if (isset($params['rowHeight'], $standard['rowHeight'])) {
 			$settings[] = array(
 				'key'        => 'rowHeight',
 				'name'       => $core->translate('Row height (pixels)'),
@@ -176,11 +176,11 @@ class GalleryTheme extends GalleryPlugin {
 				'typeParams' => array(
 					'size' => 3,
 				),
-				'value' => $params['rowHeight'],
+				'value'      => $params['rowHeight'],
 			);
 		}
 
-		if (isset($params['columnWidth']) && isset($standard['columnWidth'])) {
+		if (isset($params['columnWidth'], $standard['columnWidth'])) {
 			$settings[] = array(
 				'key'        => 'columnWidth',
 				'name'       => $core->translate('Column width (pixels)'),
@@ -188,11 +188,11 @@ class GalleryTheme extends GalleryPlugin {
 				'typeParams' => array(
 					'size' => 3,
 				),
-				'value' => $params['columnWidth'],
+				'value'      => $params['columnWidth'],
 			);
 		}
 
-		if (isset($params['showImageOwner']) && isset($standard['showImageOwner'])) {
+		if (isset($params['showImageOwner'], $standard['showImageOwner'])) {
 			$settings[] = array(
 				'key'   => 'showImageOwner',
 				'name'  => $core->translate('Show image owners'),
@@ -201,7 +201,7 @@ class GalleryTheme extends GalleryPlugin {
 			);
 		}
 
-		if (isset($params['showAlbumOwner']) && isset($standard['showAlbumOwner'])) {
+		if (isset($params['showAlbumOwner'], $standard['showAlbumOwner'])) {
 			$settings[] = array(
 				'key'   => 'showAlbumOwner',
 				'name'  => $core->translate('Show album owners'),
@@ -210,7 +210,7 @@ class GalleryTheme extends GalleryPlugin {
 			);
 		}
 
-		if (isset($params['showMicroThumbs']) && isset($standard['showMicroThumbs'])) {
+		if (isset($params['showMicroThumbs'], $standard['showMicroThumbs'])) {
 			$settings[] = array(
 				'key'   => 'showMicroThumbs',
 				'name'  => $core->translate('Show micro navigation thumbnails'),
@@ -219,7 +219,7 @@ class GalleryTheme extends GalleryPlugin {
 			);
 		}
 
-		if (isset($params['sidebarBlocks']) && isset($standard['sidebarBlocks'])) {
+		if (isset($params['sidebarBlocks'], $standard['sidebarBlocks'])) {
 			$settings[] = array(
 				'key'        => 'sidebarBlocks',
 				'name'       => $core->translate('Blocks to show in the sidebar'),
@@ -227,11 +227,11 @@ class GalleryTheme extends GalleryPlugin {
 				'typeParams' => array(
 					'packType' => 'block-list',
 				),
-				'value' => $params['sidebarBlocks'],
+				'value'      => $params['sidebarBlocks'],
 			);
 		}
 
-		if (isset($params['albumBlocks']) && isset($standard['albumBlocks'])) {
+		if (isset($params['albumBlocks'], $standard['albumBlocks'])) {
 			$settings[] = array(
 				'key'        => 'albumBlocks',
 				'name'       => $core->translate('Blocks to show on album pages'),
@@ -239,11 +239,11 @@ class GalleryTheme extends GalleryPlugin {
 				'typeParams' => array(
 					'packType' => 'block-list',
 				),
-				'value' => $params['albumBlocks'],
+				'value'      => $params['albumBlocks'],
 			);
 		}
 
-		if (isset($params['photoBlocks']) && isset($standard['photoBlocks'])) {
+		if (isset($params['photoBlocks'], $standard['photoBlocks'])) {
 			$settings[] = array(
 				'key'        => 'photoBlocks',
 				'name'       => $core->translate('Blocks to show on photo pages'),
@@ -251,11 +251,11 @@ class GalleryTheme extends GalleryPlugin {
 				'typeParams' => array(
 					'packType' => 'block-list',
 				),
-				'value' => $params['photoBlocks'],
+				'value'      => $params['photoBlocks'],
 			);
 		}
 
-		if (isset($params['dynamicLinks']) && isset($standard['dynamicLinks'])) {
+		if (isset($params['dynamicLinks'], $standard['dynamicLinks'])) {
 			$settings[] = array(
 				'key'     => 'dynamicLinks',
 				'name'    => $core->translate('Thumbnail links in dynamic albums'),
@@ -267,7 +267,7 @@ class GalleryTheme extends GalleryPlugin {
 						'Separate link to original album'
 					),
 				),
-				'value' => $params['dynamicLinks'],
+				'value'   => $params['dynamicLinks'],
 			);
 		}
 
@@ -296,7 +296,7 @@ class GalleryTheme extends GalleryPlugin {
 			$sample = ' (<a href="' . $sampleUrl . '">'
 			. $core->translate('View Samples') . '</a>)';
 
-			if (isset($params['albumFrame']) && isset($standard['albumFrame'])) {
+			if (isset($params['albumFrame'], $standard['albumFrame'])) {
 				$settings[] = array(
 					'key'     => 'albumFrame',
 					'name'    => $core->translate('Album Frame') . $sample,
@@ -306,7 +306,7 @@ class GalleryTheme extends GalleryPlugin {
 				);
 			}
 
-			if (isset($params['itemFrame']) && isset($standard['itemFrame'])) {
+			if (isset($params['itemFrame'], $standard['itemFrame'])) {
 				$settings[] = array(
 					'key'     => 'itemFrame',
 					'name'    => $core->translate('Item Frame') . $sample,
@@ -316,7 +316,7 @@ class GalleryTheme extends GalleryPlugin {
 				);
 			}
 
-			if (isset($params['photoFrame']) && isset($standard['photoFrame'])) {
+			if (isset($params['photoFrame'], $standard['photoFrame'])) {
 				$settings[] = array(
 					'key'     => 'photoFrame',
 					'name'    => $core->translate('Photo Frame') . $sample,
@@ -334,7 +334,7 @@ class GalleryTheme extends GalleryPlugin {
 			return array($ret, null, null);
 		}
 
-		if (isset($colorpack) && isset($params['colorpack'])) {
+		if (isset($colorpack, $params['colorpack'])) {
 			list($ret, $list) = $colorpack->getColorPacks();
 
 			if ($ret) {
@@ -1178,9 +1178,7 @@ class GalleryTheme extends GalleryPlugin {
 						}
 					} else {
 						// Not available; unset params so theme won't try to use imageframe
-						unset($theme['params']['albumFrame']);
-						unset($theme['params']['itemFrame']);
-						unset($theme['params']['photoFrame']);
+						unset($theme['params']['albumFrame'], $theme['params']['itemFrame'], $theme['params']['photoFrame']);
 					}
 				}
 
@@ -1817,11 +1815,11 @@ class GalleryTheme extends GalleryPlugin {
 				$required = false;
 
 				foreach (array(
-					'systemLinks' => 'getSystemLinks',
-					'itemLinks' => 'getItemLinks',
+					'systemLinks'   => 'getSystemLinks',
+					'itemLinks'     => 'getItemLinks',
 					'itemSummaries' => 'getItemSummaries',
 				) as $key => $callbackKey) {
-					if (isset($load[$key]) && isset($callbacks[$callbackKey])) {
+					if (isset($load[$key], $callbacks[$callbackKey])) {
 						$required = true;
 
 						break;
@@ -1843,7 +1841,7 @@ class GalleryTheme extends GalleryPlugin {
 					return $ret;
 				}
 
-				if (isset($load['systemLinks']) && isset($callbacks['getSystemLinks'])) {
+				if (isset($load['systemLinks'], $callbacks['getSystemLinks'])) {
 					// We don't use the acting user for system links -- it's too confusing
 					list($ret, $links) = $module->getSystemLinks();
 
@@ -1856,7 +1854,7 @@ class GalleryTheme extends GalleryPlugin {
 					}
 				}
 
-				if (isset($itemLinks) && isset($callbacks['getItemLinks']) && !empty($allItems)) {
+				if (isset($itemLinks, $callbacks['getItemLinks'])   && !empty($allItems)) {
 					list($ret, $links) = $module->getItemLinks(
 						$allItems,
 						$wantsDetailedLinks,
@@ -1885,7 +1883,7 @@ class GalleryTheme extends GalleryPlugin {
 					}
 				}
 
-				if (isset($itemSummaries) && isset($callbacks['getItemSummaries'])) {
+				if (isset($itemSummaries, $callbacks['getItemSummaries'])) {
 					list($ret, $content) = $module->getItemSummaries($childItems, $permissions, $template);
 
 					if ($ret) {
@@ -1955,7 +1953,7 @@ class GalleryTheme extends GalleryPlugin {
 		 * --------------------------------------------------------------------------------------
 		 * 'pageNavigator'
 		 */
-		if (isset($load['pageNavigator']) && isset($theme['totalPages'])) {
+		if (isset($load['pageNavigator'], $theme['totalPages'])) {
 			$page = GalleryUtilities::getRequestVariables('page');
 
 			if (empty($page)) {
@@ -2014,7 +2012,7 @@ class GalleryTheme extends GalleryPlugin {
 		 * --------------------------------------------------------------------------------------
 		 * 'jumpRange'
 		 */
-		if (isset($load['jumpRange']) && isset($theme['totalPages'])) {
+		if (isset($load['jumpRange'], $theme['totalPages'])) {
 			$page = GalleryUtilities::getRequestVariables('page');
 
 			if (empty($page)) {

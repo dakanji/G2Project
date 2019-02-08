@@ -61,8 +61,7 @@ class DataCacheTest extends GalleryTestCase {
 		$session =& $gallery->getSession();
 		$session->remove('theme.guestPreviewMode');
 
-		unset($_SERVER['HTTP_PRAGMA']);
-		unset($_SERVER['HTTP_CACHE_CONTROL']);
+		unset($_SERVER['HTTP_PRAGMA'], $_SERVER['HTTP_CACHE_CONTROL']);
 	}
 
 	public function tearDown() {

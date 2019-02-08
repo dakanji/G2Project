@@ -833,8 +833,8 @@ class EmbedTest extends GalleryTestCase {
 		$gallery->setConfig('baseUri', 'http://192.168.1.25');
 		GalleryUtilities::putRequestVariable('getEmbedPath', '1', false);
 		$_SERVER['REMOTE_ADDR'] = '192.168.1.25';
-		unset($_SERVER['SERVER_ADDR']);
-		unset($_SERVER['SERVER_NAME']);
+		unset($_SERVER['SERVER_ADDR'], $_SERVER['SERVER_NAME']);
+
 
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('gethostbyname', array('192.168.1.25'), '192.168.1.25');
@@ -855,8 +855,8 @@ class EmbedTest extends GalleryTestCase {
 		$gallery->setConfig('baseUri', 'http://192.168.1.25');
 		GalleryUtilities::putRequestVariable('getEmbedPath', '1', false);
 		$_SERVER['REMOTE_ADDR'] = '192.168.1.25';
-		unset($_SERVER['SERVER_ADDR']);
-		unset($_SERVER['SERVER_NAME']);
+		unset($_SERVER['SERVER_ADDR'], $_SERVER['SERVER_NAME']);
+
 
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('gethostbyname', array('192.168.1.25'), '192.168.1.25');

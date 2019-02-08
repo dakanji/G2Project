@@ -100,8 +100,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 		if (isset($context['imagemagick.transform'])) {
 			$transform = $context['imagemagick.transform'];
 			$mimeType  = $context['imagemagick.mime'];
-			unset($context['imagemagick.transform']);
-			unset($context['imagemagick.mime']);
+			unset($context['imagemagick.transform'], $context['imagemagick.mime']);
 		} else {
 			$transform = array();
 		}

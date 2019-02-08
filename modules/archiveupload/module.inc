@@ -52,7 +52,7 @@ class ArchiveUploadModule extends GalleryModule {
 		}
 
 		foreach (array(
-			'unzipPath' => '',
+			'unzipPath'  => '',
 			'removeMeta' => 1,
 		) as $key => $value) {
 			if (!isset($params[$key])) {

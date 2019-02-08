@@ -594,7 +594,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 			if (GdToolkitHelper::isOperationSupported('scale', $this->_gdFunctionality)) {
 				$expectedOperations['scale'] = array(
-					'params' => array(
+					'params'      => array(
 						array(
 							'type'        => 'int',
 							'description' => 'target width (# pixels or #% of full size)',
@@ -611,7 +611,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 			if (GdToolkitHelper::isOperationSupported('thumbnail', $this->_gdFunctionality)) {
 				$expectedOperations['thumbnail'] = array(
-					'params' => array(
+					'params'      => array(
 						array(
 							'type'        => 'int',
 							'description' => 'target width (# pixels or #% of full size)',
@@ -628,7 +628,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 			if (GdToolkitHelper::isOperationSupported('resize', $this->_gdFunctionality)) {
 				$expectedOperations['resize'] = array(
-					'params' => array(
+					'params'      => array(
 						array(
 							'type'        => 'int',
 							'description' => 'target width (# pixels or #% of full size)',
@@ -645,7 +645,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 			if (GdToolkitHelper::isOperationSupported('rotate', $this->_gdFunctionality)) {
 				$expectedOperations['rotate'] = array(
-					'params' => array(
+					'params'      => array(
 						array(
 							'type'        => 'int',
 							'description' => 'rotation degrees',
@@ -658,7 +658,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 			if (GdToolkitHelper::isOperationSupported('crop', $this->_gdFunctionality)) {
 				$expectedOperations['crop'] = array(
-					'params' => array(
+					'params'      => array(
 						array(
 							'type'        => 'float',
 							'description' => 'left edge %',
@@ -683,7 +683,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 			if (GdToolkitHelper::isOperationSupported('composite', $this->_gdFunctionality)) {
 				$expectedOperations['composite'] = array(
-					'params' => array(
+					'params'      => array(
 						array(
 							'type'        => 'string',
 							'description' => 'overlay path',
@@ -721,7 +721,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 			if (!empty($qualityMimeTypes)) {
 				$expectedOperations['compress'] = array(
-					'params' => array(
+					'params'      => array(
 						array(
 							'type'        => 'int',
 							'description' => 'target size in kb',

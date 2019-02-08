@@ -1,34 +1,45 @@
-    <?php if (!empty($templateData['error']['password'])): ?>
+    <?php if (!empty($templateData['error']['password'])) {
+	?>
       <div class="error">
         <h2><?php echo $templateData['error']['password']; ?></h2>
       </div>
-    <?php endif; ?>
-    <?php if (!empty($templateData['authFileErrors'])): ?>
+    <?php
+} ?>
+    <?php if (!empty($templateData['authFileErrors'])) {
+		?>
       <div class="error">
-	<?php if (!empty($templateData['authFileErrors']['missing'])): ?>
+	<?php if (!empty($templateData['authFileErrors']['missing'])) {
+			?>
 	  <?php printf(
 	_('<b>Error:</b> could not locate %s.  Please place it in your %s directory.'),
 					  '<b>authFile.txt</b>',
 	'<tt>' . dirname($templateData['authFile']) . '</tt>'
 ) ?>
-	<?php elseif (!empty($templateData['authFileErrors']['unreadable'])): ?>
+	<?php
+		} elseif (!empty($templateData['authFileErrors']['unreadable'])) {
+			?>
 	  <?php printf(
 						_('<b>Error:</b> your %s file is not readable.  Please give Gallery read permissions on the file.'),
 					  '<b>authFile.txt</b>'
 					  ) ?>
-	<?php elseif (!empty($templateData['authFileErrors']['mismatch'])): ?>
+	<?php
+		} elseif (!empty($templateData['authFileErrors']['mismatch'])) {
+			?>
 	  <?php printf(
 						_('<b>Error:</b> your %s key does not match correctly.  Please use the new authentication string from below and try again.'),
 					  '<b>authFile.txt</b>'
 					  ) ?>
-	<?php endif; ?>
+	<?php
+		} ?>
       </div>
-      <?php endif; ?>
+      <?php
+	} ?>
 
     <h1><?php echo _('Authenticate') ?></h1>
 
     <form method="post" action="">
-    <?php if ($templateData['renderType'] == 'password'): ?>
+    <?php if ($templateData['renderType'] == 'password') {
+		?>
       <p>
 	<?php echo _("In order to proceed with the upgrade process, we have to verify that you are who you claim.  When you performed the install, you entered a password which went into your config.php.  Type that in now.  Refer to your config.php if you've forgotten what you entered."); ?>
       </p>
@@ -44,7 +55,9 @@
 	  </td>
 	</tr>
       </table>
-      <?php else: ?>
+      <?php
+	} else {
+		?>
       <p>
 	<span class="error"><?php echo _('You have exceeded the maximum attempts to login by entering a password.') ?></span>
       </p>
@@ -64,7 +77,8 @@
       <p>
         <?php echo _("Once you've uploaded the file, click below to continue."); ?>
       </p>
-      <?php endif; ?>
+      <?php
+	} ?>
     </form>
 
     <div class="go">

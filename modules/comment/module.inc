@@ -100,10 +100,10 @@ class CommentModule extends GalleryModule {
 				}
 
 				foreach (array(
-					'comments.show' => 10,
-					'comments.latest' => 1,
+					'comments.show'     => 10,
+					'comments.latest'   => 1,
 					'comments.moderate' => 0,
-					'validation.level' => 'HIGH',
+					'validation.level'  => 'HIGH',
 				) as $key => $value) {
 					$ret = $this->setParameter($key, $value);
 
@@ -148,9 +148,9 @@ class CommentModule extends GalleryModule {
 			case '1.0.4':
 			case '1.0.5':
 				foreach (array(
-					'comments.show' => 10,
+					'comments.show'    => 10,
 					'comments.captcha' => 0,
-					'comments.latest' => 1,
+					'comments.latest'  => 1,
 				) as $key => $value) {
 					$ret = $this->setParameter($key, $value);
 

@@ -61,9 +61,9 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 
 		// Set up our environment
 		foreach (array(
-			'isapirewrite.forced' => '0',
-			'isapirewrite.galleryLocation' => '/gallery2/',
-			'isapirewrite.httpdini' => 'C:\phpunit\gallery2',
+			'isapirewrite.forced'           => '0',
+			'isapirewrite.galleryLocation'  => '/gallery2/',
+			'isapirewrite.httpdini'         => 'C:\phpunit\gallery2',
 			'isapirewrite.embeddedLocation' => '/embedded/',
 		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', $key, $value);

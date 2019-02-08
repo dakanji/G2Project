@@ -59,7 +59,7 @@ class RewriteModuleTest extends GalleryTestCase {
 
 		// Set up our environment
 		foreach (array(
-			'parserId' => 'rewritemodulemock',
+			'parserId'    => 'rewritemodulemock',
 			'activeRules' => serialize(array()),
 		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', $key, $value);

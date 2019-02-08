@@ -37,17 +37,17 @@ class CarbonTheme extends GalleryTheme {
 		$this->setRequiredThemeApi(array(2, 5));
 		$this->setStandardSettings(
 			array(
-				'rows'            => 3,
-				'columns'         => 3,
-				'showImageOwner'  => 0,
-				'showAlbumOwner'  => 1,
-				'albumFrame'      => '',
-				'itemFrame'       => '',
-				'photoFrame'      => '',
-				'colorpack'       => '',
-				'showMicroThumbs' => 1,
-				'dynamicLinks'    => 'browse',
-				'sidebarBlocks'   => serialize(
+				'rows'                 => 3,
+				'columns'              => 3,
+				'showImageOwner'       => 0,
+				'showAlbumOwner'       => 1,
+				'albumFrame'           => '',
+				'itemFrame'            => '',
+				'photoFrame'           => '',
+				'colorpack'            => '',
+				'showMicroThumbs'      => 1,
+				'dynamicLinks'         => 'browse',
+				'sidebarBlocks'        => serialize(
 					array(
 						array(
 							'search.SearchBlock',
@@ -65,12 +65,12 @@ class CarbonTheme extends GalleryTheme {
 						array('imageblock.ImageBlock', array()),
 					)
 				),
-				'albumBlocks' => serialize(
+				'albumBlocks'          => serialize(
 					array(
 						array('comment.ViewComments', array()),
 					)
 				),
-				'photoBlocks' => serialize(
+				'photoBlocks'          => serialize(
 					array(
 						array('exif.ExifInfo', array()),
 						array('comment.ViewComments', array()),
@@ -135,26 +135,26 @@ class CarbonTheme extends GalleryTheme {
 			'value' => $params['itemDetails'],
 		);
 		$settings[] = array(
-			'key'   => 'albumUpperBlocks',
-			'name'  => $this->translate(
+			'key'        => 'albumUpperBlocks',
+			'name'       => $this->translate(
 				'Blocks to show on album pages (below description)'
 			),
 			'type'       => 'block-list',
 			'typeParams' => array(
 				'packType' => 'block-list',
 			),
-			'value' => $params['albumUpperBlocks'],
+			'value'      => $params['albumUpperBlocks'],
 		);
 		$settings[] = array(
-			'key'   => 'photoUpperBlocks',
-			'name'  => $this->translate(
+			'key'        => 'photoUpperBlocks',
+			'name'       => $this->translate(
 				'Blocks to show on photo pages (below description)'
 			),
 			'type'       => 'block-list',
 			'typeParams' => array(
 				'packType' => 'block-list',
 			),
-			'value' => $params['photoUpperBlocks'],
+			'value'      => $params['photoUpperBlocks'],
 		);
 		$settings[] = array(
 			'key'        => 'sidebarTop',
@@ -163,18 +163,18 @@ class CarbonTheme extends GalleryTheme {
 			'typeParams' => array(
 				'size' => 4,
 			),
-			'value' => $params['sidebarTop'],
+			'value'      => $params['sidebarTop'],
 		);
 		$settings[] = array(
-			'key'   => 'maxMicroThumbs',
-			'name'  => $this->translate(
+			'key'        => 'maxMicroThumbs',
+			'name'       => $this->translate(
 				'Maximum number of micro navigation thumbnails'
 			),
 			'type'       => 'text-field',
 			'typeParams' => array(
 				'size' => 2,
 			),
-			'value' => $params['maxMicroThumbs'],
+			'value'      => $params['maxMicroThumbs'],
 		);
 		$settings[] = array(
 			'key'        => 'logoImageLocation',
@@ -183,7 +183,7 @@ class CarbonTheme extends GalleryTheme {
 			'typeParams' => array(
 				'size' => 30,
 			),
-			'value' => $params['logoImageLocation'],
+			'value'      => $params['logoImageLocation'],
 		);
 		$settings[] = array(
 			'key'        => 'extraLink',
@@ -192,7 +192,7 @@ class CarbonTheme extends GalleryTheme {
 			'typeParams' => array(
 				'size' => 30,
 			),
-			'value' => $params['extraLink'],
+			'value'      => $params['extraLink'],
 		);
 		$settings[] = array(
 			'key'        => 'extraLinkUrl',
@@ -201,7 +201,7 @@ class CarbonTheme extends GalleryTheme {
 			'typeParams' => array(
 				'size' => 30,
 			),
-			'value' => $params['extraLinkUrl'],
+			'value'      => $params['extraLinkUrl'],
 		);
 		$settings[] = array(
 			'key'        => 'copyright',
@@ -210,7 +210,7 @@ class CarbonTheme extends GalleryTheme {
 			'typeParams' => array(
 				'size' => 30,
 			),
-			'value' => $params['copyright'],
+			'value'      => $params['copyright'],
 		);
 
 		return array(null, $settings, $params);

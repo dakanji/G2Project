@@ -46,7 +46,7 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 
 		// Set up our environment
 		foreach (array(
-			'isapirewrite.galleryLocation' => '/gallery2/',
+			'isapirewrite.galleryLocation'  => '/gallery2/',
 			'isapirewrite.embeddedLocation' => '/cms/',
 		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', $key, $value);

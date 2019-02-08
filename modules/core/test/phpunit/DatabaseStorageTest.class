@@ -103,7 +103,7 @@ class DatabaseStorageTest extends GalleryTestCase {
 		$results = GalleryStorageExtras::parseSqlTemplate($this->_data, 'database_with_only_tables');
 		$this->assertEquals(
 			array(
-				'table' => array(
+				'table'  => array(
 					'SomeTable' => "Some postgres SQL\n",
 				),
 				'alter'  => array(),
@@ -127,7 +127,7 @@ class DatabaseStorageTest extends GalleryTestCase {
 						),
 					),
 				),
-				'test'  => array(),
+				'test'   => array(),
 			),
 			$results
 		);

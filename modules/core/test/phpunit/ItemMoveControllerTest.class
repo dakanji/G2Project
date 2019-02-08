@@ -316,12 +316,12 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.ItemMove',
 					'itemId'  => $this->_album[1]->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'moved' => array(
 						'count' => 1,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -369,12 +369,12 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.ItemMove',
 					'itemId'  => $this->_album[0]->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'moved' => array(
 						'count' => 1,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -462,8 +462,8 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 					'itemId'  => $this->_album[1]->getId(),
 					'page'    => 2,
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Move Next Page Out Of Range'
@@ -509,8 +509,8 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 					'itemId'  => $this->_album[1]->getId(),
 					'page'    => 1,
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -537,8 +537,8 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
 				),
-				'status' => array(),
-				'error'  => array('form[error][destination][empty]'),
+				'status'   => array(),
+				'error'    => array('form[error][destination][empty]'),
 			),
 			$results
 		);
@@ -566,8 +566,8 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
 				),
-				'status' => array(),
-				'error'  => array(
+				'status'   => array(),
+				'error'    => array(
 					'form[error][source][' .
 								   $this->_album[1]->getId() .
 								   '][selfMove]',
@@ -599,8 +599,8 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
 				),
-				'status' => array(),
-				'error'  => array(
+				'status'   => array(),
+				'error'    => array(
 					'form[error][source][' .
 								   $this->_album[1]->getId() .
 								   '][selfMove]',
@@ -632,8 +632,8 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
 				),
-				'status' => array(),
-				'error'  => array('form[error][destination][permission]'),
+				'status'   => array(),
+				'error'    => array('form[error][destination][permission]'),
 			),
 			$results
 		);
@@ -661,8 +661,8 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
 				),
-				'status' => array(),
-				'error'  => array(
+				'status'   => array(),
+				'error'    => array(
 					'form[error][source][' .
 								   $this->_album[4]->getId() .
 								   '][permission][delete]',
@@ -694,8 +694,8 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
 				),
-				'status' => array(),
-				'error'  => array(
+				'status'   => array(),
+				'error'    => array(
 					'form[error][source][' .
 								   $this->_album[3]->getId() .
 								   '][permission][addAlbumItem]',
@@ -727,8 +727,8 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.ItemAdmin',
 					'subView' => 'core.ItemMove',
 				),
-				'status' => array(),
-				'error'  => array(
+				'status'   => array(),
+				'error'    => array(
 					'form[error][source][' .
 								   $this->_item->getId() .
 								   '][permission][addDataItem]',
@@ -792,12 +792,12 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.ItemMove',
 					'itemId'  => $this->_album[3]->getId(),
 				),
-				'status' => array(
+				'status'   => array(
 					'moved' => array(
 						'count' => 1,
 					),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);

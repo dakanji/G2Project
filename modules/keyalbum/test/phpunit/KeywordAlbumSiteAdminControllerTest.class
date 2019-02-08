@@ -52,7 +52,7 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->_markForCleanup($this->_entity);
 
 		foreach (array(
-			'themeId' => 'keyalbumTest',
+			'themeId'         => 'keyalbumTest',
 			'themeSettingsId' => $this->_entity->getId(),
 		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum', $key, $value);
@@ -80,8 +80,8 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'keyalbum.KeywordAlbumSiteAdmin',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -114,13 +114,13 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'keyalbum.KeywordAlbumSiteAdmin',
 				),
-				'status' => array(
+				'status'   => array(
 					'statusMessage' => $core->translate(
 						'Successfully saved theme settings'
 					),
-					'saved' => 1,
+					'saved'         => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -183,8 +183,8 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'keyalbum.KeywordAlbumSiteAdmin',
 				),
-				'status' => array(),
-				'error'  => array('form[error][split]'),
+				'status'   => array(),
+				'error'    => array('form[error][split]'),
 			),
 			$results
 		);

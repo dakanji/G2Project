@@ -74,9 +74,7 @@ class NetPbmToolkit extends GalleryToolkit {
 			$transform        = $context['netpbm.transform'];
 			$mimeType         = $context['netpbm.mime'];
 			$preserveMetaData = $context['netpbm.metadata'];
-			unset($context['netpbm.transform']);
-			unset($context['netpbm.mime']);
-			unset($context['netpbm.metadata']);
+			unset($context['netpbm.transform'], $context['netpbm.mime'], $context['netpbm.metadata']);
 		} else {
 			$transform        = array();
 			$preserveMetaData = true;
@@ -89,7 +87,7 @@ class NetPbmToolkit extends GalleryToolkit {
 
 		// Use context look-ahead to see if we can queue up parameters to use later..
 		$queueIt = isset($context['next.toolkit']) && $context['next.toolkit'] == $this
-		                                           && $operationName != 'compress'                                            && $context['next.operation'] != 'compress';
+												                                 && $operationName != 'compress'                               && $context['next.operation'] != 'compress';
 
 		$usePercent = in_array($operationName, array('thumbnail', 'scale', 'resize'))
 		&& (substr($parameters[0], -1) == '%'

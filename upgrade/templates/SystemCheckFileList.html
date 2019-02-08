@@ -5,14 +5,18 @@
 		<?php echo $heading; ?>
 	</b>
   </span>
-	<?php if (!empty($notice)) : ?>
+	<?php if (!empty($notice)) {
+	?>
   <br/>
 		<?php echo $notice; ?>
-	<?php endif; ?>
+	<?php
+} ?>
   <textarea wrap="off" readonly="readonly" rows="<?php echo count($files); ?>"
 			class="manifestBlock" id="SystemCheck_<?php echo $blockId; ?>"
 			style="display: none">
-	<?php foreach ($files as $fileName) : ?>
+	<?php foreach ($files as $fileName) {
+		?>
 		<?php echo "$fileName\n"; ?>
-	<?php endforeach; ?>
+	<?php
+	} ?>
   </textarea>

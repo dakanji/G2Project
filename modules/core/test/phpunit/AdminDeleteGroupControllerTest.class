@@ -39,8 +39,8 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -82,10 +82,10 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminGroups',
 				),
-				'status' => array(
+				'status'   => array(
 					'deletedGroup' => $group->getGroupName(),
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Failed to delete group'

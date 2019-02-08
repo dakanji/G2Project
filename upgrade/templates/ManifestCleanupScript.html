@@ -1,34 +1,40 @@
-<?php if ($isWindows) : ?>
-	<?php foreach ($removeList as $file => $isDir) : ?>
+<?php if ($isWindows) {
+	?>
+	<?php foreach ($removeList as $file => $isDir) {
+		?>
 		<?php
-		if ($isDir) :
+		if ($isDir) {
 			?>
 			rmdir 
 			<?php
-		else :
+		} else {
 			?>
 	del 
 			<?php
-		endif;
-		?>
+		} ?>
 		<?php echo str_replace('/', '\\', $file); ?>
 
-	<?php endforeach; ?>
-<?php else : ?>
+	<?php
+	} ?>
+<?php
+} else {
+		?>
 #!/bin/sh
-	<?php foreach ($removeList as $file => $isDir) : ?>
+	<?php foreach ($removeList as $file => $isDir) {
+			?>
 		<?php
-		if ($isDir) :
+		if ($isDir) {
 			?>
 			rmdir 
 			<?php
-		else :
+		} else {
 			?>
 	rm 
 			<?php
-		endif;
-		?>
+		} ?>
 		<?php echo $file; ?>
 
-	<?php endforeach; ?>
-<?php endif; ?>
+	<?php
+		} ?>
+<?php
+	} ?>

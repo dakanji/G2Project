@@ -59,10 +59,10 @@ class NetPbmToolkitTest extends GalleryTestCase {
 
 		foreach (array(
 			'jpegQuality' => 75,
-			'pnmtojpeg' => 'ppmtojpeg',
-			'bmptopnm'  => 'bmptoppm',
-			'pnmcomp'   => 'pnmcomp',
-			'jheadPath' => '/usr/local/bin/',
+			'pnmtojpeg'   => 'ppmtojpeg',
+			'bmptopnm'    => 'bmptoppm',
+			'pnmcomp'     => 'pnmcomp',
+			'jheadPath'   => '/usr/local/bin/',
 		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'netpbm', $key, $value);
 
@@ -257,7 +257,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		
+
 		$this->assertEquals(1, (int)GalleryUtilities::getRequestVariables('toolkitCallCount'));
 		$this->assertEquals('image/jpeg', $mimeType);
 
@@ -320,8 +320,8 @@ class NetPbmToolkitTest extends GalleryTestCase {
 						(float)156.0,
 					),
 				),
-				'netpbm.mime'     => 'image/png',
-				'netpbm.metadata' => true,
+				'netpbm.mime'      => 'image/png',
+				'netpbm.metadata'  => true,
 			),
 			$context,
 			'context'
@@ -372,8 +372,8 @@ class NetPbmToolkitTest extends GalleryTestCase {
 				'netpbm.transform' => array(
 					array($netPbmPath . 'pnmscale', '--quiet', '-xysize', 100, 100),
 				),
-				'netpbm.mime'     => 'image/png',
-				'netpbm.metadata' => false,
+				'netpbm.mime'      => 'image/png',
+				'netpbm.metadata'  => false,
 			),
 			$context,
 			'context2'
@@ -471,8 +471,8 @@ class NetPbmToolkitTest extends GalleryTestCase {
 						'TEMPFILE',
 					),
 				),
-				'netpbm.mime'     => 'image/png',
-				'netpbm.metadata' => true,
+				'netpbm.mime'      => 'image/png',
+				'netpbm.metadata'  => true,
 			),
 			array(
 				'netpbm.tmp'       => array('TEMPFILE', 'TEMPFILE'),
@@ -488,8 +488,8 @@ class NetPbmToolkitTest extends GalleryTestCase {
 					),
 					array($netPbmPath . 'pnmflip', '-ccw'),
 				),
-				'netpbm.mime'     => 'image/png',
-				'netpbm.metadata' => true,
+				'netpbm.mime'      => 'image/png',
+				'netpbm.metadata'  => true,
 			),
 			array(
 				'netpbm.tmp'       => array('TEMPFILE', 'TEMPFILE'),
@@ -513,8 +513,8 @@ class NetPbmToolkitTest extends GalleryTestCase {
 						480,
 					),
 				),
-				'netpbm.mime'     => 'image/png',
-				'netpbm.metadata' => true,
+				'netpbm.mime'      => 'image/png',
+				'netpbm.metadata'  => true,
 			),
 			array(
 				'netpbm.tmp'       => array('TEMPFILE', 'TEMPFILE', 'TEMPFILE', 'TEMPFILE'),
@@ -545,8 +545,8 @@ class NetPbmToolkitTest extends GalleryTestCase {
 						'TEMPFILE',
 					),
 				),
-				'netpbm.mime'     => 'image/png',
-				'netpbm.metadata' => true,
+				'netpbm.mime'      => 'image/png',
+				'netpbm.metadata'  => true,
 			),
 			array(
 				'width'  => 150,
@@ -580,8 +580,8 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			}
 
 			$checkContext = $context;
-			unset($checkContext['next.toolkit']);
-			unset($checkContext['next.operation']);
+			unset($checkContext['next.toolkit'], $checkContext['next.operation']);
+
 			$this->assertEquals($expectedContexts[$j++], $checkContext, 'context $j');
 		}
 	}
@@ -704,7 +704,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 					'outputMimeType' => 'image/jpeg',
 				),
 				'scale' => array(
-					'params' => array(
+					'params'      => array(
 						array(
 							'type'        => 'int',
 							'description' => 'target width (# pixels or #% of full size)',
@@ -717,10 +717,10 @@ class NetPbmToolkitTest extends GalleryTestCase {
 					),
 					'description' => 'Scale the image to the target size, ' .
 							 'maintain aspect ratio',
-					'mimeTypes' => $mimeTypes,
+					'mimeTypes'   => $mimeTypes,
 				),
 				'thumbnail' => array(
-					'params' => array(
+					'params'      => array(
 						array(
 							'type'        => 'int',
 							'description' => 'target width (# pixels or #% of full size)',
@@ -733,10 +733,10 @@ class NetPbmToolkitTest extends GalleryTestCase {
 					),
 					'description' => 'Scale the image to the target ' .
 						 'size, maintain aspect ratio',
-					'mimeTypes' => $mimeTypes,
+					'mimeTypes'   => $mimeTypes,
 				),
 				'resize' => array(
-					'params' => array(
+					'params'      => array(
 						array(
 							'type'        => 'int',
 							'description' => 'target width (# pixels or #% of full size)',
@@ -750,7 +750,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 					'mimeTypes'   => $mimeTypes,
 				),
 				'rotate' => array(
-					'params' => array(
+					'params'      => array(
 						array(
 							'type'        => 'int',
 							'description' => 'rotation degrees',
@@ -760,7 +760,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 					'mimeTypes'   => $mimeTypes,
 				),
 				'crop' => array(
-					'params' => array(
+					'params'      => array(
 						array(
 							'type'        => 'float',
 							'description' => 'left edge %',
@@ -782,7 +782,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 					'mimeTypes'   => $mimeTypes,
 				),
 				'composite' => array(
-					'params' => array(
+					'params'      => array(
 						array(
 							'type'        => 'string',
 							'description' => 'overlay path',

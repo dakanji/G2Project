@@ -32,7 +32,15 @@ class FfmpegToolkit extends GalleryToolkit {
 	 * @see GalleryToolkit::getProperty
 	 */
 	public function getProperty($mimeType, $propertyName, $sourceFilename) {
-		list($ret, $width, $height, $duration, $frameRate, $sampleRate, $audioChannels) = $this->_getMovieDimensions($mimeType, $sourceFilename);
+		list(
+			$ret,
+			$width,
+			$height,
+			$duration,
+			$frameRate,
+			$sampleRate,
+			$audioChannels
+		) = $this->_getMovieDimensions($mimeType, $sourceFilename);
 
 		if ($ret) {
 			return array($ret, null);
@@ -156,8 +164,9 @@ class FfmpegToolkit extends GalleryToolkit {
 				if (isset($context['audioChannels'])) {
 					if ($context['audioChannels'] > 0) {
 						$audioChannelIndex = count($args);
-						$args[]            = '-ac';
-						$args[]            = $context['audioChannels'];
+
+						$args[] = '-ac';
+						$args[] = $context['audioChannels'];
 					} else {
 						$args[] = '-an';
 						$muted  = true;
@@ -170,8 +179,9 @@ class FfmpegToolkit extends GalleryToolkit {
 				if (isset($context['sampleRate'])) {
 					if (!$muted) {
 						$audioRateIndex = count($args);
-						$args[]         = '-ar';
-						$args[]         = $context['sampleRate'];
+
+						$args[] = '-ar';
+						$args[] = $context['sampleRate'];
 					}
 					unset($context['sampleRate']);
 				}
@@ -202,11 +212,13 @@ class FfmpegToolkit extends GalleryToolkit {
 							$audioError = true;
 						}
 					}
+
 					// Return if already muted or known error not found
 					if ($muted || !$audioError || $audioRateIndex == -1) {
 						return array($ret, null, null);
 					}
 					$spliceWith = array('-an');
+
 					// Try muting audio
 					if ($audioRateIndex > -1) {
 						array_splice($args, $audioRateIndex, 2, $spliceWith);
@@ -216,6 +228,7 @@ class FfmpegToolkit extends GalleryToolkit {
 					if ($audioChannelIndex > -1) {
 						array_splice($args, $audioChannelIndex, 2, $spliceWith);
 					}
+
 					// Run ffmpeg again with new args
 					list($ret, $stdout, $stderr) = $this->_ffmpeg($sourceFilename, $args);
 
@@ -247,21 +260,21 @@ class FfmpegToolkit extends GalleryToolkit {
 				break;
 
 			case 'set-audio-channels':
-				// Doesn't change file; just remembers audio setting for future operation
+				// Does not change file; just remembers audio setting for future operation
 				$futureOp                 = true;
 				$context['audioChannels'] = $parameters[0];
 
 				break;
 
 			case 'set-audio-samplerate':
-				// Doesn't change file; just remembers audio setting for future operation
+				//  Does not change file; just remembers audio setting for future operation
 				$futureOp              = true;
 				$context['sampleRate'] = $parameters[0];
 
 				break;
 
 			case 'set-video-dimensions':
-				// Doesn't change file; just remembers video settings for future operation
+				//  Does not change file; just remembers video settings for future operation
 				$futureOp          = true;
 				$context['width']  = $parameters[0];
 				$context['height'] = $parameters[1];
@@ -269,21 +282,21 @@ class FfmpegToolkit extends GalleryToolkit {
 				break;
 
 			case 'set-video-framerate':
-				// Doesn't change file; just remembers video setting for future operation
+				//  Does not change file; just remembers video setting for future operation
 				$futureOp             = true;
 				$context['frameRate'] = $parameters[0];
 
 				break;
 
 			case 'set-video-sameq':
-				// Doesn't change file; just remembers video setting for future operation
+				//  Does not change file; just remembers video setting for future operation
 				$futureOp                     = true;
 				$context['ffmpeg.videosameq'] = true;
 
 				break;
 
 			case 'select-offset':
-				// Doesn't change file; just remembers offset for future operation
+				//  Does not change file; just remembers offset for future operation
 				$futureOp                 = true;
 				$context['ffmpeg.offset'] = $parameters[0];
 

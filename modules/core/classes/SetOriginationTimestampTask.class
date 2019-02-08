@@ -43,7 +43,7 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 				'Update capture date stored in Gallery for all items with an available ' .
 				 'date in the original data file (usually from EXIF data).'
 			),
-			'confirmRun' => true,
+			'confirmRun'  => true,
 		);
 	}
 

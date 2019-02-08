@@ -120,8 +120,8 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable(
 			'form',
 			array(
-				'save'     => 'Save',
-				'language' => array(
+				'save'           => 'Save',
+				'language'       => array(
 					'useBrowserPref' => $newValue,
 				),
 				'languageAction' => array(
@@ -161,10 +161,10 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminLanguageManager',
 				),
-				'status' => array(
+				'status'   => array(
 					'languageSettingsSaved' => true,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Language general settings not updated'
@@ -179,11 +179,11 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable(
 			'form',
 			array(
-				'save'    => 'Save',
-				'default' => array(
+				'save'           => 'Save',
+				'default'        => array(
 					'language' => $newValue,
 				),
-				'language' => array(
+				'language'       => array(
 					'useBrowserPref' => $this->_useBrowserPref,
 				),
 				'languageAction' => array(
@@ -225,10 +225,10 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminLanguageManager',
 				),
-				'status' => array(
+				'status'   => array(
 					'languageSettingsSaved' => true,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Language general settings not updated'
@@ -249,8 +249,8 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		}
 
 		$form = array(
-			'formName' => 'adminLanguages',
-			'default'  => array(
+			'formName'       => 'adminLanguages',
+			'default'        => array(
 				'language' => $defaultLanguage,
 			),
 			'save'           => 'Save',
@@ -420,8 +420,8 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable(
 			'form',
 			array(
-				'formName' => 'adminLanguages',
-				'default'  => array(
+				'formName'       => 'adminLanguages',
+				'default'        => array(
 					'language' => $defaultLanguage,
 				),
 				'save'           => 'Save',
@@ -438,8 +438,8 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 				'delegate' => array(
 					'view' => 'core.ProgressBar',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results,
 			'language general settings not updated'
@@ -451,11 +451,11 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		$platform =& $gallery->getPlatform();
 
 		$form = array(
-			'formName' => 'adminLanguages',
-			'default'  => array(
+			'formName'       => 'adminLanguages',
+			'default'        => array(
 				'language' => $this->_defaultLanguage,
 			),
-			'language' => array(
+			'language'       => array(
 				'useBrowserPref' => $this->_useBrowserPref,
 			),
 			'save'           => 'Save',

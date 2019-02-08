@@ -2290,8 +2290,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 	public function testGenerateUrlWithoutPersistentSession() {
 		global $gallery;
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
-		unset($_COOKIE[SESSION_ID_PARAMETER]);
-		unset($_SERVER['HTTP_COOKIE']);
+		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
+
 
 		$session = new GallerySession();
 		$ret     = $session->init();

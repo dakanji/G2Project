@@ -889,7 +889,7 @@ class PluginCallbackTest extends GalleryTestCase {
 	public function testCalculateStateChangesIds() {
 		$this->assertEquals(
 			array(
-				'states' => array(
+				'states'  => array(
 					'theme' => array(
 						'b' => '2',
 					),

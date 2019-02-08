@@ -169,8 +169,8 @@ class GalleryPluginHelper_simple {
 			) {
 				$s = $status[$pluginId];
 
-				if (isset($s['active'])
-					&& isset($s['version'])
+				if (isset($s['active'], $s['version'])
+
 					&& ($s['version'] != $plugin->getVersion()
 					|| !GalleryPluginHelper_simple::isPluginCompatibleWithApis($plugin))
 				) {

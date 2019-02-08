@@ -64,10 +64,10 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.AdminThemes',
 					'themeId' => 'testThemeId2',
 				),
-				'status' => array(
+				'status'   => array(
 					'savedTheme' => 'Test Theme 2',
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -92,10 +92,10 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.AdminThemes',
 					'themeId' => 'testThemeId2',
 				),
-				'status' => array(
+				'status'   => array(
 					'restoredTheme' => 'Test Theme 2',
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -115,8 +115,8 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminThemes',
 				),
-				'status' => array(),
-				'error'  => array(
+				'status'   => array(),
+				'error'    => array(
 					'form[error][key][rows][invalid]',
 					'form[error][key][columns][invalid]',
 				),
@@ -144,10 +144,10 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 					'subView' => 'core.AdminThemes',
 					'themeId' => 'AdminThemesControllerTest',
 				),
-				'status' => array(
+				'status'   => array(
 					'savedDefaults' => 1,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -359,7 +359,7 @@ class TestThemeId1Theme extends GalleryTheme {
 			'typeParams' => array(
 				'size' => 2,
 			),
-			'value' => 4,
+			'value'      => 4,
 		);
 		$settings[] = array(
 			'key'        => 'columns',
@@ -368,7 +368,7 @@ class TestThemeId1Theme extends GalleryTheme {
 			'typeParams' => array(
 				'size' => 2,
 			),
-			'value' => 99,
+			'value'      => 99,
 		);
 
 		return array(null, $settings);
@@ -446,7 +446,7 @@ class TestThemeId2Theme extends GalleryTheme {
 			'typeParams' => array(
 				'size' => 2,
 			),
-			'value' => 4,
+			'value'      => 4,
 		);
 		$settings[] = array(
 			'key'        => 'columns',
@@ -455,7 +455,7 @@ class TestThemeId2Theme extends GalleryTheme {
 			'typeParams' => array(
 				'size' => 2,
 			),
-			'value' => 3,
+			'value'      => 3,
 		);
 
 		return array(null, $settings);

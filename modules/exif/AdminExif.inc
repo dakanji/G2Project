@@ -426,7 +426,7 @@ class AdminExifView extends GalleryView {
 		$availableList = array();
 
 		foreach ($exifKeys as $key => $data) {
-			if (isset($summaryList[$key]) && isset($detailedList[$key])) {
+			if (isset($summaryList[$key], $detailedList[$key])) {
 				continue;
 			}
 

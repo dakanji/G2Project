@@ -56,7 +56,7 @@ class FfmpegModule extends GalleryModule {
 		}
 
 		foreach (array(
-			'path' => '',
+			'path'         => '',
 			'useWatermark' => 0,
 		) as $key => $value) {
 			if (!isset($params[$key])) {

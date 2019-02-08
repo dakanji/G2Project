@@ -39,8 +39,8 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(),
-				'error'  => array(),
+				'status'   => array(),
+				'error'    => array(),
 			),
 			$results
 		);
@@ -63,10 +63,10 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(
+				'status'   => array(
 					'createdUser' => $userName,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Failed to create user'
@@ -99,10 +99,10 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(
+				'status'   => array(
 					'createdUser' => $userName,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Failed to create user'
@@ -129,8 +129,8 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCreateUser',
 				),
-				'status' => array(),
-				'error'  => array(
+				'status'   => array(),
+				'error'    => array(
 					'form[error][userName][missing]',
 					'form[error][email][missing]',
 					'form[error][password1][missing]',
@@ -161,8 +161,8 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCreateUser',
 				),
-				'status' => array(),
-				'error'  => array('form[error][password2][mismatch]'),
+				'status'   => array(),
+				'error'    => array('form[error][password2][mismatch]'),
 			),
 			$results
 		);
@@ -187,10 +187,10 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminUsers',
 				),
-				'status' => array(
+				'status'   => array(
 					'createdUser' => $userName,
 				),
-				'error' => array(),
+				'error'    => array(),
 			),
 			$results,
 			'Failed to create user'
@@ -205,8 +205,8 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 					'view'    => 'core.SiteAdmin',
 					'subView' => 'core.AdminCreateUser',
 				),
-				'status' => array(),
-				'error'  => array('form[error][userName][exists]'),
+				'status'   => array(),
+				'error'    => array('form[error][userName][exists]'),
 			),
 			$results
 		);

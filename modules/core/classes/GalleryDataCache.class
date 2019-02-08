@@ -113,9 +113,7 @@ class GalleryDataCache {
 			return;
 		}
 
-		unset($cache['positions'][$key]);
-		unset($cache['keys'][$key]);
-		unset($cache['protected'][$key]);
+		unset($cache['positions'][$key], $cache['keys'][$key], $cache['protected'][$key]);
 	}
 
 	/**
@@ -130,9 +128,7 @@ class GalleryDataCache {
 		}
 
 		foreach (preg_grep("/$pattern/", array_keys($cache['keys'])) as $key) {
-			unset($cache['positions'][$key]);
-			unset($cache['keys'][$key]);
-			unset($cache['protected'][$key]);
+			unset($cache['positions'][$key], $cache['keys'][$key], $cache['protected'][$key]);
 		}
 	}
 
@@ -177,8 +173,8 @@ class GalleryDataCache {
 		asort($cache['positions']);
 
 		foreach ($cache['positions'] as $key => $position) {
-			unset($cache['keys'][$key]);
-			unset($cache['positions'][$key]);
+			unset($cache['keys'][$key], $cache['positions'][$key]);
+
 
 			if ($numToExpire-- == 0) {
 				break;
@@ -251,8 +247,7 @@ class GalleryDataCache {
 		} else {
 			foreach (array_keys($cache['keys']) as $key) {
 				if (!isset($cache['protected'][$key])) {
-					unset($cache['positions'][$key]);
-					unset($cache['keys'][$key]);
+					unset($cache['positions'][$key], $cache['keys'][$key]);
 				}
 			}
 		}
