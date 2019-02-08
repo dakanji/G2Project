@@ -116,19 +116,15 @@ class MockObject {
 		$i = 0;
 
 		foreach ($expected as $key => $value) {
-			$exp_key = GalleryCoreApi::convertToUtf8($key);
-			$exp_val = GalleryCoreApi::convertToUtf8($value);
-			$act_val = GalleryCoreApi::convertToUtf8($actual[$i++]);
-
 			if ($i > count($actual)) {
 				return false;
 			}
 
-			if (!strncmp($exp_key, 'fuzzy', 5)) {
-				if (!preg_match($exp_val, $act_val)) {
+			if (!strncmp($key, 'fuzzy', 5)) {
+				if (!preg_match($value, $actual[$i++])) {
 					return false;
 				}
-			} elseif ($exp_val != $act_val) {
+			} elseif ($value != $actual[$i++]) {
 				return false;
 			}
 		}
