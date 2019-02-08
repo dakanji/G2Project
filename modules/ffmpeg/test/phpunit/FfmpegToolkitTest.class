@@ -212,7 +212,9 @@ class FfmpegToolkitTest extends GalleryTestCase {
 
 	// 0.4.8 and newer have an alternative / new output format, one video format per line
 	public function testBinariesFormat048Output() {
-		list($ret, $results, $mimeTypes) = FfmpegToolkitHelper::testBinary('/validPath/ffmpeg048FormatsOutput');
+		list($ret, $results, $mimeTypes) = FfmpegToolkitHelper::testBinary(
+			'/validPath/ffmpeg048FormatsOutput'
+		);
 
 		if ($ret) {
 			return $ret;

@@ -66,7 +66,8 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_savePlatform =& $gallery->getPlatform();
-		$gallery->setPlatform(new AdminFfmpegControllerTestPlatform());
+		$AdminFfmpegControllerTestPlatform = new AdminFfmpegControllerTestPlatform();
+		$gallery->setPlatform($AdminFfmpegControllerTestPlatform);
 	}
 
 	public function testSaveGoodPath() {

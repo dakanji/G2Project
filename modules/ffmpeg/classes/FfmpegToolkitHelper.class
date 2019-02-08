@@ -47,8 +47,15 @@ class FfmpegToolkitHelper {
 			return array(GalleryCoreApi::error(ERROR_MISSING_VALUE), null);
 		}
 
-		list($ret, $tests, $mimeTypes, $supportsOffset,
-		$mimeTypesEncoder, $encoderAudioCodecs, $version) = FfmpegToolkitHelper::testBinary($ffmpegPath);
+		list(
+			$ret,
+			$tests,
+			$mimeTypes,
+			$supportsOffset,
+			$mimeTypesEncoder,
+			$encoderAudioCodecs,
+			$version
+		) = FfmpegToolkitHelper::testBinary($ffmpegPath);
 
 		if ($ret) {
 			return array($ret, null);
@@ -57,9 +64,14 @@ class FfmpegToolkitHelper {
 		// -------------------- Operations --------------------
 
 		// extract
-		$operations['convert-to-image/jpeg']['params']         = array();
-		$operations['convert-to-image/jpeg']['description']    = $gallery->i18n('Convert to a JPEG');
-		$operations['convert-to-image/jpeg']['mimeTypes']      = $mimeTypes;
+		$operations['convert-to-image/jpeg']['params'] = array();
+
+		$operations['convert-to-image/jpeg']['description'] = $gallery->i18n(
+			'Convert to a JPEG'
+		);
+
+		$operations['convert-to-image/jpeg']['mimeTypes'] = $mimeTypes;
+
 		$operations['convert-to-image/jpeg']['outputMimeType'] = 'image/jpeg';
 
 		if ($supportsOffset) {
@@ -78,13 +90,18 @@ class FfmpegToolkitHelper {
 
 		// Convert to Flash Video
 		if (in_array('video/x-flv', $mimeTypesEncoder)) {
-			$operations['convert-to-video/x-flv']['params']         = array();
-			$operations['convert-to-video/x-flv']['description']    = $gallery->i18n('Convert to Flash Video');
-			$operations['convert-to-video/x-flv']['mimeTypes']      = $mimeTypes;
+			$operations['convert-to-video/x-flv']['params'] = array();
+
+			$operations['convert-to-video/x-flv']['description'] = $gallery->i18n(
+				'Convert to Flash Video'
+			);
+
+			$operations['convert-to-video/x-flv']['mimeTypes'] = $mimeTypes;
+
 			$operations['convert-to-video/x-flv']['outputMimeType'] = 'video/x-flv';
 
 			// set-video-dimensions
-			$operations['set-video-dimensions']['params']         = array(
+			$operations['set-video-dimensions']['params'] = array(
 				array(
 					'type'        => 'int',
 					'description' => $gallery->i18n('video width in pixels'),
@@ -94,12 +111,17 @@ class FfmpegToolkitHelper {
 					'description' => $gallery->i18n('video height in pixels'),
 				),
 			);
-			$operations['set-video-dimensions']['description']    = $gallery->i18n('Set video dimensions');
-			$operations['set-video-dimensions']['mimeTypes']      = $mimeTypes;
+
+			$operations['set-video-dimensions']['description'] = $gallery->i18n(
+				'Set video dimensions'
+			);
+
+			$operations['set-video-dimensions']['mimeTypes'] = $mimeTypes;
+
 			$operations['set-video-dimensions']['outputMimeType'] = null;
 
 			// set-video-framerate
-			$operations['set-video-framerate']['params']         = array(
+			$operations['set-video-framerate']['params'] = array(
 				array(
 					'type'        => 'float',
 					'description' => $gallery->i18n(
@@ -107,21 +129,29 @@ class FfmpegToolkitHelper {
 					),
 				),
 			);
-			$operations['set-video-framerate']['description']    = $gallery->i18n(
+
+			$operations['set-video-framerate']['description'] = $gallery->i18n(
 				'Set video frames per second property'
 			);
-			$operations['set-video-framerate']['mimeTypes']      = $mimeTypes;
+
+			$operations['set-video-framerate']['mimeTypes'] = $mimeTypes;
+
 			$operations['set-video-framerate']['outputMimeType'] = null;
 
-			$operations['set-video-sameq']['params']         = array();
-			$operations['set-video-sameq']['description']    = $gallery->i18n('Set same video quality');
-			$operations['set-video-sameq']['mimeTypes']      = $mimeTypes;
+			$operations['set-video-sameq']['params'] = array();
+
+			$operations['set-video-sameq']['description'] = $gallery->i18n(
+				'Set same video quality'
+			);
+
+			$operations['set-video-sameq']['mimeTypes'] = $mimeTypes;
+
 			$operations['set-video-sameq']['outputMimeType'] = null;
 
 			// If mp3 audio supported
 			if (in_array('mp3', $encoderAudioCodecs)) {
 				// set-audio-channels
-				$operations['set-audio-channels']['params']         = array(
+				$operations['set-audio-channels']['params'] = array(
 					array(
 						'type'        => 'int',
 						'description' => $gallery->i18n(
@@ -129,14 +159,17 @@ class FfmpegToolkitHelper {
 						),
 					),
 				);
-				$operations['set-audio-channels']['description']    = $gallery->i18n(
+
+				$operations['set-audio-channels']['description'] = $gallery->i18n(
 					'Set audio channels property'
 				);
-				$operations['set-audio-channels']['mimeTypes']      = $mimeTypes;
+
+				$operations['set-audio-channels']['mimeTypes'] = $mimeTypes;
+
 				$operations['set-audio-channels']['outputMimeType'] = null;
 
 				// set-audio-samplerate
-				$operations['set-audio-samplerate']['params']         = array(
+				$operations['set-audio-samplerate']['params'] = array(
 					array(
 						'type'        => 'int',
 						'description' => $gallery->i18n(
@@ -144,10 +177,13 @@ class FfmpegToolkitHelper {
 						),
 					),
 				);
-				$operations['set-audio-samplerate']['description']    = $gallery->i18n(
+
+				$operations['set-audio-samplerate']['description'] = $gallery->i18n(
 					'Set audio rate property'
 				);
-				$operations['set-audio-samplerate']['mimeTypes']      = $mimeTypes;
+
+				$operations['set-audio-samplerate']['mimeTypes'] = $mimeTypes;
+
 				$operations['set-audio-samplerate']['outputMimeType'] = null;
 			}
 		}
@@ -155,25 +191,45 @@ class FfmpegToolkitHelper {
 		// -------------------- Properties --------------------
 
 		// Dimensions
-		$properties['dimensions']['type']        = 'int,int';
-		$properties['dimensions']['description'] = $gallery->i18n('Get the width and height of the movie');
-		$properties['dimensions']['mimeTypes']   = $mimeTypes;
+		$properties['dimensions']['type'] = 'int,int';
 
-		$properties['dimensions-and-duration']['type']        = 'int,int,float';
-		$properties['dimensions-and-duration']['description'] = $gallery->i18n('Get the width, height and duration of the movie');
-		$properties['dimensions-and-duration']['mimeTypes']   = $mimeTypes;
+		$properties['dimensions']['description'] = $gallery->i18n(
+			'Get the width and height of the movie'
+		);
 
-		$properties['video-framerate']['type']        = 'float';
-		$properties['video-framerate']['description'] = $gallery->i18n('Get video frames per seconds of the movie');
-		$properties['video-framerate']['mimeTypes']   = $mimeTypes;
+		$properties['dimensions']['mimeTypes'] = $mimeTypes;
 
-		$properties['audio-samplerate']['type']        = 'int';
-		$properties['audio-samplerate']['description'] = $gallery->i18n('Get audio samples per seconds of the movie');
-		$properties['audio-samplerate']['mimeTypes']   = $mimeTypes;
+		$properties['dimensions-and-duration']['type'] = 'int,int,float';
 
-		$properties['audio-channels']['type']        = 'int';
-		$properties['audio-channels']['description'] = $gallery->i18n('Get number of audio channels in movie');
-		$properties['audio-channels']['mimeTypes']   = $mimeTypes;
+		$properties['dimensions-and-duration']['description'] = $gallery->i18n(
+			'Get the width, height and duration of the movie'
+		);
+
+		$properties['dimensions-and-duration']['mimeTypes'] = $mimeTypes;
+
+		$properties['video-framerate']['type'] = 'float';
+
+		$properties['video-framerate']['description'] = $gallery->i18n(
+			'Get video frames per seconds of the movie'
+		);
+
+		$properties['video-framerate']['mimeTypes'] = $mimeTypes;
+
+		$properties['audio-samplerate']['type'] = 'int';
+
+		$properties['audio-samplerate']['description'] = $gallery->i18n(
+			'Get audio samples per second of the movie'
+		);
+
+		$properties['audio-samplerate']['mimeTypes'] = $mimeTypes;
+
+		$properties['audio-channels']['type'] = 'int';
+
+		$properties['audio-channels']['description'] = $gallery->i18n(
+			'Get number of audio channels in movie'
+		);
+
+		$properties['audio-channels']['mimeTypes'] = $mimeTypes;
 
 		return array(
 			null,
@@ -258,20 +314,20 @@ class FfmpegToolkitHelper {
 		 * @todo: Add 'adpcm_swf' => 'adpcm_swf' to relevantAudioCodecs if/when videos play
 		 *        correctly
 		 */
-		$relevantAudioCodecs     = array(
+		$relevantAudioCodecs = array(
 			'mp3'        => 'mp3',
 			'libmp3lame' => 'mp3',
 		);
-		list($ignored, $results)           = $platform->exec(array(array($ffmpegPath, '-formats')));
-		$version                           = array();
+		list($ignored, $results) = $platform->exec(array(array($ffmpegPath, '-formats')));
+		$version = array();
 		list($ignored, $ignored, $version) = $platform->exec(array(array($ffmpegPath, '-version')));
 
-		$mimeTypes          = array();
-		$mimeTypesEncoder   = array();
+		$mimeTypes = array();
+		$mimeTypesEncoder = array();
 		$encoderAudioCodecs = array();
 
 		$success = false;
-		$i       = 0;
+		$i = 0;
 
 		while ($i < sizeof($results)) {
 			$resultLine = $results[$i++];
@@ -343,7 +399,13 @@ class FfmpegToolkitHelper {
 							$mimeTypes[$mime] = 1;
 						}
 					}
-					$resultLine = $results[$i++];
+
+					$our_key = $i++;
+					if (array_key_exists($our_key, $results)) {
+						$resultLine = $results[$our_key];
+					} else {
+						$resultLine = "";
+					}
 				} while ($i < sizeof($results) && !preg_match('|Codecs:|', $resultLine));
 				$success = true;
 			} elseif (preg_match('/(File formats|Codecs):/', $resultLine, $regs)) {
@@ -357,41 +419,56 @@ class FfmpegToolkitHelper {
 				if (!strcmp('File formats', $regs[1])) {
 					// Parse File formats
 					do {
-						list($capabilities, $types) = preg_split('/\s+/', $resultLine, -1, PREG_SPLIT_NO_EMPTY);
+						if (!strpos($resultLine, '=')) {
+							$resultArr = preg_split(
+								'/\s+/',
+								trim($resultLine)
+							);
 
-						foreach (explode(',', $types) as $type) {
-							if (isset($relevantTypes[$type])) {
-								list($ret, $mime) = GalleryCoreApi::convertExtensionToMime(
-									$relevantTypes[$type]
-								);
+							if (count($resultArr) > 1) {
+								$capabilities = $resultArr[0];
+								$types = $resultArr[1];
 
-								if ($ret) {
-									return array($ret, null, null, null, null, null, null);
-								}
+								foreach (explode(',', $types) as $type) {
+									if (isset($relevantTypes[$type])) {
+										list($ret, $mime) = GalleryCoreApi::convertExtensionToMime(
+											$relevantTypes[$type]
+										);
 
-								if (preg_match('|D|', $capabilities)) {
-									$mimeTypes[$mime] = 1;
-								}
+										if ($ret) {
+											return array($ret, null, null, null, null, null, null);
+										}
 
-								if (isset($relevantEncode[$type])
-									&& preg_match('|E|', $capabilities)
-								) {
-									$mimeTypesEncoder[$mime] = 1;
+										if (preg_match('|D|', $capabilities)) {
+											$mimeTypes[$mime] = 1;
+										}
+
+										if (isset($relevantEncode[$type])
+											&& preg_match('|E|', $capabilities)
+										) {
+											$mimeTypesEncoder[$mime] = 1;
+										}
+									}
 								}
 							}
 						}
 
-						$resultLine = $results[$i++];
-					} while (!empty($resultLine));
+						$our_key = $i++;
+						if (array_key_exists($our_key, $results)) {
+							$resultLine = $results[$our_key];
+						} else {
+							$resultLine = null;
+						}
+					} while (!is_null($resultLine));
 					$success = true;
 				} else {
 					// Parse codecs
 					do {
 						$type   = substr($resultLine, 8);
-						$decode = ('D' == substr($resultLine, 1, 1));
-						$encode = ('E' == substr($resultLine, 2, 1));
 						$audio  = ('A' == substr($resultLine, 3, 1));
 						$video  = ('V' == substr($resultLine, 3, 1));
+						$decode = ('D' == substr($resultLine, 1, 1));
+						$encode = ('E' == substr($resultLine, 2, 1));
 
 						if (isset($relevantAudioCodecs[$type]) && $encode && $audio) {
 							$encoderAudioCodecs[$relevantAudioCodecs[$type]] = 1;
