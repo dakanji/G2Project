@@ -138,6 +138,10 @@ class GalleryCharsetHelper_simple {
 			$sourceEncoding = GalleryCharsetHelper_simple::detectSystemCharset();
 		}
 
+		if (strcmp($sourceEncoding, 'ISO-8859-1')) {
+			return utf8_encode($string);
+		}
+
 		if (empty($sourceEncoding) || !strcmp($sourceEncoding, 'UTF-8')) {
 			return $string;
 		}
@@ -190,6 +194,10 @@ class GalleryCharsetHelper_simple {
 
 		if (empty($targetEncoding)) {
 			$targetEncoding = GalleryCharsetHelper_simple::detectSystemCharset();
+		}
+
+		if (strcmp($targetEncoding, 'ISO-8859-1')) {
+			return utf8_decode($string);
 		}
 
 		if (empty($targetEncoding) || !strcmp($targetEncoding, 'UTF-8')) {

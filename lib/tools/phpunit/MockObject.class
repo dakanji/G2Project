@@ -68,7 +68,7 @@ class MockObject {
 
 	public function _makeReply($function, $request) {
 		while ($expected = array_shift($_GET[$this->_className]['replies'])) {
-			if ($expected[0] == $function && $this->_parametersMatch($expected[1], $request)) {
+			if (($expected[0] == $function) && ($this->_parametersMatch($expected[1], $request))) {
 				$this->_called[$function][] = $request;
 
 				return $expected[2];
@@ -116,15 +116,19 @@ class MockObject {
 		$i = 0;
 
 		foreach ($expected as $key => $value) {
-			if ($i >= count($actual)) {
+			$exp_key = GalleryCoreApi::convertToUtf8($key);
+			$exp_val = GalleryCoreApi::convertToUtf8($value);
+			$act_val = GalleryCoreApi::convertToUtf8($actual[$i++]);
+
+			if ($i > count($actual)) {
 				return false;
 			}
 
-			if (!strncmp($key, 'fuzzy', 5)) {
-				if (!preg_match($value, $actual[$i++])) {
+			if (!strncmp($exp_key, 'fuzzy', 5)) {
+				if (!preg_match($exp_val, $act_val)) {
 					return false;
 				}
-			} elseif ($value != $actual[$i++]) {
+			} elseif ($exp_val != $act_val) {
 				return false;
 			}
 		}

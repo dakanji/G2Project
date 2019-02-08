@@ -218,13 +218,14 @@ class SimpleCallbackTest extends GalleryTestCase {
 	public function testLookupDirectoriesWithUmlauts() {
 		// Filesystem doesn't accept / return UTF-8 characters
 		global $gallery;
+
 		$gallery->_phpVm = new SimpleCallbackTestPhpVm();
 		$platform        = new SimpleCallbackTestPlatform();
-		$platform->setReply('is_dir', array('/php�unit'), true);
-		$platform->setReply('opendir', array('/php�unit'), 'dh');
+		$platform->setReply('is_dir', array('/php' . chr(228) . 'unit'), true);
+		$platform->setReply('opendir', array('/php' . chr(228) . 'unit'), 'dh');
 		$platform->setReply('getDirectorySeparator', array(), '/');
-		$platform->setReply('readdir', array('dh'), 't�st');
-		$platform->setReply('is_dir', array('/php�unit/t�st'), true);
+		$platform->setReply('readdir', array('dh'), 't' . chr(228) . 'st');
+		$platform->setReply('is_dir', array('/php' . chr(228) . 'unit/t' . chr(228) . 'st'), true);
 		$platform->setReply('readdir', array('dh'), false);
 		$platform->setReply('closedir', array('dh'), true);
 		$gallery->setPlatform($platform);
@@ -239,7 +240,11 @@ class SimpleCallbackTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('prefix', $prefix);
 		$results = $this->_runCallback();
 
-		$this->assertEquals($prefix . '/t' . $umlautUtf8 . 'st', $results, 'results');
+		$this->assertEquals(
+			$prefix . '/t' . $umlautUtf8 . 'st',
+			$results,
+			'Umlaut Dir Match'
+		);
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
@@ -318,14 +323,14 @@ class SimpleCallbackTest extends GalleryTestCase {
 		global $gallery;
 		$gallery->_phpVm = new SimpleCallbackTestPhpVm();
 		$platform        = new SimpleCallbackTestPlatform();
-		$platform->setReply('is_dir', array('/php�unit'), true);
-		$platform->setReply('opendir', array('/php�unit'), 'dh');
+		$platform->setReply('is_dir', array('/php' . chr(228) . 'unit'), true);
+		$platform->setReply('opendir', array('/php' . chr(228) . 'unit'), 'dh');
 		$platform->setReply('getDirectorySeparator', array(), '/');
-		$platform->setReply('readdir', array('dh'), 't�st');
-		$platform->setReply('is_dir', array('/php�unit/t�st'), false);
-		$platform->setReply('is_file', array('/php�unit/t�st'), true);
+		$platform->setReply('readdir', array('dh'), 't' . chr(228) . 'st');
+		$platform->setReply('is_dir', array('/php' . chr(228) . 'unit/t' . chr(228) . 'st'), false);
+		$platform->setReply('is_file', array('/php' . chr(228) . 'unit/t' . chr(228) . 'st'), true);
 		$platform->setReply('readdir', array('dh'), 'dir');
-		$platform->setReply('is_dir', array('/php�unit/dir'), true);
+		$platform->setReply('is_dir', array('/php' . chr(228) . 'unit/dir'), true);
 		$platform->setReply('readdir', array('dh'), false);
 		$platform->setReply('closedir', array('dh'), true);
 		$gallery->setPlatform($platform);
@@ -341,7 +346,11 @@ class SimpleCallbackTest extends GalleryTestCase {
 		$results = $this->_runCallback();
 
 		// Dirs listed first, results in UTF-8
-		$this->assertEquals("$prefix/dir\n$prefix/t" . $umlautUtf8 . 'st', $results, 'results');
+		$this->assertEquals(
+			"$prefix/dir\n$prefix/t" . $umlautUtf8 . 'st',
+			$results,
+			'Umlaut File Match'
+		);
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
