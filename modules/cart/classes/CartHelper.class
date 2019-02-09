@@ -54,7 +54,7 @@ class CartHelper {
 	 * @param array $ids int item ids
 	 * @return GalleryStatus a status code
 	 */
-	public function addItemsToCart($ids) {
+	public static function addItemsToCart($ids) {
 		list($ret, $cartItemIds) = CartHelper::fetchCartItemCounts();
 
 		if ($ret) {
@@ -120,7 +120,7 @@ class CartHelper {
 	 * @return array GalleryStatus a status code
 	 *               array of items
 	 */
-	public function loadCartItems() {
+	public static function loadCartItems() {
 		list($ret, $cartItemIds) = CartHelper::fetchCartItemCounts();
 
 		if ($ret) {
