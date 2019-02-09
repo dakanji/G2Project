@@ -30,7 +30,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 		parent::__construct($methodName, 'cart.ViewCart');
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 

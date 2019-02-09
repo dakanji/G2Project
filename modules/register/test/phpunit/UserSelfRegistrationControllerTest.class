@@ -33,7 +33,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'register.UserSelfRegistration');
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		global $gallery;
 		$ret = parent::setUp();
 

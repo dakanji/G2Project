@@ -30,7 +30,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		parent::__construct($methodName, 'linkitem', 'ItemAddLinkItem');
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {

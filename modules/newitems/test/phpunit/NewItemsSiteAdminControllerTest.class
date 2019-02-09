@@ -33,7 +33,7 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'newitems.NewItemsSiteAdmin');
 	}
 
-	public function setUp() {
+	public function setUp($x1 = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {
