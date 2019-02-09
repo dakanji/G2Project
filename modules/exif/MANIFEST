@@ -1,11 +1,11 @@
 # $Revision: 20959 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/exif/AdminExif.inc	3489801384	2494866296	13104	13564
+modules/exif/AdminExif.inc	3148323801	1296778680	13095	13555
 modules/exif/Callbacks.inc	3994437207	671767577	3216	3332
 modules/exif/ExifDescriptionOption.inc	2766973502	1030834242	7168	7414
-modules/exif/SwitchDetailMode.inc	2581160368	1313027598	3246	3363
+modules/exif/SwitchDetailMode.inc	340004370	3155054440	3258	3378
 modules/exif/classes/ExifExtractor.class	3894197244	3830513482	3032	3141
-modules/exif/classes/ExifHelper.class	3167652928	264612812	43864	45336
+modules/exif/classes/ExifHelper.class	1190500060	2694353074	40297	42016
 modules/exif/classes/ExifInterface_1_0.class	3652362094	2900676090	1669	1713
 modules/exif/classes/ExifToolkit.class	775604975	3247938660	1625	1674
 modules/exif/classes/GNUmakefile	1995366819	843025639	51	52
@@ -13,14 +13,14 @@ modules/exif/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
 modules/exif/classes/GalleryStorage/schema.tpl	2077851286	3261133679	2819	2918
 modules/exif/classes/Maps.inc	3008246352	1569508203	413	429
 modules/exif/classes/Maps.xml	1215849070	3620169907	798	827
-modules/exif/lib/JPEG/JPEG.inc	509982030	4288578620	83763	86829
+modules/exif/lib/JPEG/JPEG.inc	2597119834	1709323171	84738	87801
 modules/exif/lib/exifer/exif.inc	999076899	1767811611	44553	46202
-modules/exif/lib/exifer/makers/canon.inc	3848494787	3359814098	22963	23962
-modules/exif/lib/exifer/makers/fujifilm.inc	1340992931	228760867	9617	10060
-modules/exif/lib/exifer/makers/gps.inc	4168866287	1143186868	9887	10263
+modules/exif/lib/exifer/makers/canon.inc	1279136446	3387485459	22965	23964
+modules/exif/lib/exifer/makers/fujifilm.inc	2977672121	3581934349	9619	10062
+modules/exif/lib/exifer/makers/gps.inc	3743798971	501253912	9889	10265
 modules/exif/lib/exifer/makers/nikon.inc	341255429	3555838978	13081	13682
-modules/exif/lib/exifer/makers/olympus.inc	239293671	1363326831	6207	6469
-modules/exif/lib/exifer/makers/sanyo.inc	4083338378	3851562963	5796	6027
+modules/exif/lib/exifer/makers/olympus.inc	2036485517	2991813025	6209	6471
+modules/exif/lib/exifer/makers/sanyo.inc	2352875163	2866075218	5798	6029
 modules/exif/module.inc	2564004216	2095287068	6322	6590
 modules/exif/po/GNUmakefile	1866879166	2808215985	98	103
 modules/exif/po/af.mo	929112889	929112889	14284	14284
@@ -95,7 +95,7 @@ modules/exif/po/zh_CN.po	1453081279	717192515	17405	18240
 modules/exif/po/zh_TW.mo	3580243132	3580243132	16428	16428
 modules/exif/po/zh_TW.po	2411886802	2218294618	16833	17647
 modules/exif/templates/AdminExif.tpl	3369000771	3057740647	8830	9050
-modules/exif/templates/blocks/ExifInfo.tpl	349887071	3625560100	2716	2798
+modules/exif/templates/blocks/ExifInfo.tpl	3785305567	3948582996	2713	2794
 modules/exif/templates/blocks/blocks.inc	194178372	3445259255	111	117
 modules/exif/test/data/CanonS30.small.jpg	2552529221	2552529221	8163	8163
 modules/exif/test/data/descr.jpg	1814766410	1814766410	2365	2365
@@ -110,7 +110,7 @@ modules/exif/test/phpunit/ExifDescriptionOptionTest.class	454757312	2754490784	1
 modules/exif/test/phpunit/ExifExtractorTest.class	1922746965	2424757549	7014	7277
 modules/exif/test/phpunit/ExifHelperTest.class	2643904893	337014363	21961	22613
 modules/exif/test/phpunit/ExifToolkitTest.class	3524587590	2602440645	1671	1729
-modules/exif/test/phpunit/SwitchDetailModeControllerTest.class	449573372	1354008656	5917	6145
+modules/exif/test/phpunit/SwitchDetailModeControllerTest.class	406637642	2930466495	5946	6178
 R	modules/exif/Preloads.inc
 R	modules/exif/classes/ExifPropertiesMap.class
 R	modules/exif/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile

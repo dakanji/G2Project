@@ -1,19 +1,19 @@
 # $Revision: 20949 $
 # File crc32 crc32(crlf) size size(crlf)  or  R File
 modules/comment/AddComment.inc	1387751066	3084560781	7226	7506
-modules/comment/AdminModerateSpam.inc	3163563729	4285896952	7620	7920
+modules/comment/AdminModerateSpam.inc	41175086	4027263202	7694	8006
 modules/comment/Callbacks.inc	2757019208	1652218420	5296	5483
-modules/comment/CommentCallback.inc	4188591447	2550153585	4488	4673
+modules/comment/CommentCallback.inc	2471186475	4076951860	4495	4680
 modules/comment/CommentChangeConfirmation.inc	412955503	2041428434	1547	1600
 modules/comment/CommentSiteAdmin.inc	3420429344	2880760448	8417	8743
 modules/comment/DeleteComment.inc	324862931	3169137128	4384	4545
 modules/comment/EditComment.inc	872345176	2934288922	8008	8299
-modules/comment/ShowAllComments.inc	2514392741	556311898	6907	7175
-modules/comment/ShowComments.inc	2244007955	1397613738	4025	4177
-modules/comment/classes/AkismetApi.class	3459982672	1394470612	7804	8067
-modules/comment/classes/CommentAddNotification.class	1897782699	2566807658	3448	3583
+modules/comment/ShowAllComments.inc	3641168538	2777558684	6924	7195
+modules/comment/ShowComments.inc	81684346	3256366791	4040	4195
+modules/comment/classes/AkismetApi.class	3621329930	2841326541	7828	8097
+modules/comment/classes/CommentAddNotification.class	3504665479	336764959	3461	3598
 modules/comment/classes/CommentCaptchaAdminOption.class	4022231981	3197875147	1527	1573
-modules/comment/classes/Entities.inc	3071985354	1552947957	1318	1362
+modules/comment/classes/Entities.inc	2675930378	1945095849	1279	1323
 modules/comment/classes/GNUmakefile	1995366819	843025639	51	52
 modules/comment/classes/GalleryComment.class	3689238633	3220426269	5655	5898
 modules/comment/classes/GalleryCommentHelper.class	2870564168	1096963163	16963	17661
@@ -24,7 +24,7 @@ modules/comment/classes/GalleryStorage/xml-src/A_GalleryComment_1.0.xml	10021371
 modules/comment/classes/GalleryStorage/xml-src/A_GalleryComment_1.1.xml	655476383	1641493701	551	573
 modules/comment/classes/GalleryStorage/xml-src/A_GalleryComment_1.2.xml	3499811928	3549880060	563	586
 modules/comment/comment.css	3744732992	1248097610	142	154
-modules/comment/module.inc	438568040	2367053428	11170	11637
+modules/comment/module.inc	2484759373	3076118467	11192	11663
 modules/comment/po/GNUmakefile	1866879166	2808215985	98	103
 modules/comment/po/af.mo	656801443	656801443	3738	3738
 modules/comment/po/af.po	3652079803	2859532351	8454	8887
@@ -124,17 +124,17 @@ modules/comment/templates/ShowComments.tpl	4205555145	1382995389	1028	1064
 modules/comment/templates/blocks/AddComment.tpl	2477465774	654975537	1092	1128
 modules/comment/templates/blocks/ViewComments.tpl	3244566125	534510370	1176	1207
 modules/comment/templates/blocks/blocks.inc	2093515822	3076752183	995	1031
-modules/comment/test/phpunit/AddCommentControllerTest.class	3177540759	1159075649	23316	24150
+modules/comment/test/phpunit/AddCommentControllerTest.class	4052170305	1850434692	23364	24210
 modules/comment/test/phpunit/AdminModerateSpamControllerTest.class	3486496727	717139044	3549	3687
-modules/comment/test/phpunit/AkismetApiTest.class	553454632	2211677713	12592	13030
+modules/comment/test/phpunit/AkismetApiTest.class	2185766581	1570493689	12589	13026
 modules/comment/test/phpunit/CommentCallbackViewTest.class	1653642480	2005147844	6409	6665
-modules/comment/test/phpunit/CommentSearchTest.class	2023210462	4246480821	9751	10178
+modules/comment/test/phpunit/CommentSearchTest.class	3255587557	3251705838	9763	10193
 modules/comment/test/phpunit/CommentSiteAdminControllerTest.class	4277331161	1010509375	9591	9957
 modules/comment/test/phpunit/CommentTest.class	748959291	2798997899	20864	21688
 modules/comment/test/phpunit/DeleteCommentControllerTest.class	1096654985	3991879501	4077	4212
 modules/comment/test/phpunit/EditCommentControllerTest.class	3442772651	1594956387	16517	17057
-modules/comment/test/phpunit/ShowAllCommentsViewTest.class	1581840408	2051781697	9752	10140
-modules/comment/test/phpunit/ShowCommentsViewTest.class	803206283	1112376795	6994	7263
+modules/comment/test/phpunit/ShowAllCommentsViewTest.class	58689388	2227474431	9788	10185
+modules/comment/test/phpunit/ShowCommentsViewTest.class	751701081	2044797813	7030	7308
 R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
 R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile
 R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_GalleryComment_1_0.sql
