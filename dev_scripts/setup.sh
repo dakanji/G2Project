@@ -9,7 +9,10 @@ then
 	fi
 
 	echo "symlinking '.git/hooks' to '/dev_scripts/hooks'"
-	ln -s dev_scripts/hooks .git/hooks
+	ABSPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+	HOOKSPATH=$ABSPATH/hooks
+	ln -s $HOOKSPATH .git/hooks
+	
 fi
 
 #####################################################
