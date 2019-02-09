@@ -435,11 +435,14 @@ class GalleryItemHelper_simple {
 			return array($ret, null);
 		}
 
-		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.view');
+		if (!$IgnorePerms) {
+			$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.view');
 
-		if ($ret) {
-			return array($ret, null);
+			if ($ret) {
+				return array($ret, null);
+			}
 		}
+
 		$parentSequence[] = $itemId;
 		$parentSequence   = implode('/', $parentSequence);
 

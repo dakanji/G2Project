@@ -2208,7 +2208,7 @@ class GalleryCoreApi {
 		$itemId = null,
 		$depth = null,
 		$userId = null,
-		$IgnorePerms = false
+		$IgnorePerms = null
 	) {
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/helpers/GalleryItemHelper_simple.class'
