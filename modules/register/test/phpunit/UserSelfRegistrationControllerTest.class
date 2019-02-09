@@ -671,7 +671,7 @@ class RegisterDummyPlatform {
 		$headers = null
 	) {
 		// Handle email..
-		$this->_handleMail($to, $subject, $body, $headers);
+		$this->_handleMail($to, $subject, implode(',', $body), $headers);
 	}
 
 	public function mail($to, $subject, $body, $headers = null) {
@@ -682,7 +682,7 @@ class RegisterDummyPlatform {
 	protected function _handleMail($to, $subject, $body, $headers) {
 		global $gallery;
 
-		// Don't actually send email
+		// Do not actually send email
 		$this->_test->_emailSubject .= $subject;
 		$this->_test->_emailBody     = $body;
 
