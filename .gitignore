@@ -45,21 +45,32 @@ composer.phar
 ##############
 modules/*
 !modules/archiveupload
+!modules/captcha
+!modules/cart
 !modules/comment
 !modules/core
+!modules/dynamicalbum
 !modules/exif
 !modules/ffmpeg
 !modules/gd
 !modules/icons
 !modules/imagemagick
+!modules/itemadd
 !modules/jpegtran
 !modules/keyalbum
+!modules/linkitem
+!modules/linksinthehead
 !modules/netpbm
+!modules/newitems
 !modules/rating
 !modules/rearrange
 !modules/rewrite
 !modules/search
 !modules/slideshow
+!modules/squarethumb
+!modules/thumbnail
+!modules/thumbpage
+!modules/useralbum
 
 
 # G2 Themes #
