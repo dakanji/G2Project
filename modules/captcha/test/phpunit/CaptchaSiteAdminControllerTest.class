@@ -31,7 +31,7 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'captcha.CaptchaSiteAdmin');
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -248,7 +248,7 @@ class CaptchaSiteAdminTestOption extends CaptchaAdminOption {
 		$this->_param = $param;
 	}
 
-	public function getOptionData() {
+	public static function getOptionData() {
 		return array(
 			null,
 			'test level',

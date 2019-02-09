@@ -74,7 +74,12 @@ class CaptchaSiteAdminController extends GalleryController {
 					if (!isset($optionInstances[$optionId])) {
 						return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 					}
-					list($ret, $title, $paramData, $choices) = $optionInstances[$optionId]->getOptionData();
+					list(
+						$ret,
+						$title,
+						$paramData,
+						$choices
+					) = $optionInstances[$optionId]->getOptionData();
 
 					if ($ret) {
 						return array($ret, null);
@@ -207,7 +212,9 @@ class CaptchaAdminOption {
 			return array(null, $testOptions);
 		}
 
-		list($ret, $optionIds) = GalleryCoreApi::getAllFactoryImplementationIds('CaptchaAdminOption');
+		list($ret, $optionIds) = GalleryCoreApi::getAllFactoryImplementationIds(
+			'CaptchaAdminOption'
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -216,7 +223,10 @@ class CaptchaAdminOption {
 		$optionInstances = array();
 
 		foreach (array_keys($optionIds) as $optionId) {
-			list($ret, $optionInstances[$optionId]) = GalleryCoreApi::newFactoryInstanceById('CaptchaAdminOption', $optionId);
+			list($ret, $optionInstances[$optionId]) = GalleryCoreApi::newFactoryInstanceById(
+				'CaptchaAdminOption',
+				$optionId
+			);
 
 			if ($ret) {
 				return array($ret, null);
