@@ -48,7 +48,7 @@ class CaptchaSiteAdminController extends GalleryController {
 				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 			}
 
-			// Make sure that we're between 0 and 5, then store the value
+			// Make sure that we are between 0 and 5, then store the value
 			$form['failedAttemptThreshold'] = min($form['failedAttemptThreshold'], 5);
 			$form['failedAttemptThreshold'] = max($form['failedAttemptThreshold'], 0);
 			$ret                            = GalleryCoreApi::setPluginParameter(
@@ -64,8 +64,7 @@ class CaptchaSiteAdminController extends GalleryController {
 
 			// Save configuration for other modules
 			if (!empty($form['level'])) {
-				$CaptchaAdminOption = new CaptchaAdminOption;
-				list($ret, $optionInstances) = $CaptchaAdminOption->getAllOptions();
+				list($ret, $optionInstances) = CaptchaAdminOption::doStatic()->getAllOptions();
 
 				if ($ret) {
 					return array($ret, null);
@@ -149,8 +148,7 @@ class CaptchaSiteAdminView extends GalleryView {
 		}
 
 		// Load admin options
-		$CaptchaAdminOption = new CaptchaAdminOption;
-		list($ret, $optionInstances) = $CaptchaAdminOption->getAllOptions();
+		list($ret, $optionInstances) = CaptchaAdminOption::doStatic()->getAllOptions();
 
 		if ($ret) {
 			return array($ret, null);
@@ -191,15 +189,29 @@ class CaptchaSiteAdminView extends GalleryView {
 			),
 		);
 	}
-}
-
-/**
+}/**
  * Interface for other modules to add captcha configuration into captcha site admin.
  *
  * @package Captcha
  * @subpackage UserInterface
  */
 class CaptchaAdminOption {
+	public function __construct() {
+	}
+
+	/**
+	 * Load as Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new CaptchaAdminOption();
+		}
+
+		return $singleton;
+	}
+
 	/**
 	 * Return all available options.
 	 *

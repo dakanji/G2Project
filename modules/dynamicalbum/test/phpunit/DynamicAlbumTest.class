@@ -169,7 +169,8 @@ class DynamicAlbumTest extends GalleryTestCase {
 				$key . ': item parent'
 			);
 			$this->assertEquals(
-				'desc ' . $key, $item->getDescription(),
+				'desc ' . $key,
+				$item->getDescription(),
 				$key . ': description'
 			);
 		}
@@ -208,8 +209,11 @@ class DynamicAlbumTest extends GalleryTestCase {
 				is_array($params),
 				$key . ': theme settings'
 			);
-			$this->assertTrue(GalleryUtilities::isA(
-				$item, 'GalleryDataItem'),
+			$this->assertTrue(
+				GalleryUtilities::isA(
+					$item,
+					'GalleryDataItem'
+				),
 				$key . ': item'
 			);
 			$this->assertTrue(
@@ -256,7 +260,8 @@ class DynamicAlbumTest extends GalleryTestCase {
 			$theme                 =& $template->getVariableByReference('theme');
 			$theme['actingUserId'] = $gallery->getActiveUserId();
 
-			list($ret, $result) = $view->loadTemplate($template, $form = array());
+			$form               = array();
+			list($ret, $result) = $view->loadTemplate($template, $form);
 
 			if ($ret) {
 				return $ret;
@@ -296,7 +301,8 @@ class DynamicAlbumTest extends GalleryTestCase {
 			$theme                 =& $template->getVariableByReference('theme');
 			$theme['actingUserId'] = $gallery->getActiveUserId();
 
-			list($ret, $result) = $view->loadTemplate($template, $form = array());
+			$form               = array();
+			list($ret, $result) = $view->loadTemplate($template, $form);
 
 			if ($ret) {
 				return $ret;
@@ -351,9 +357,10 @@ class DynamicAlbumTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_items[2]->getId());
 
+		$form               = array();
 		list($ret, $result) = $this->_updatesView->loadTemplate(
 			$this->_template,
-			$form = array()
+			$form
 		);
 
 		if ($ret) {
@@ -393,13 +400,16 @@ class DynamicAlbumTest extends GalleryTestCase {
 			return $ret;
 		}
 
+		$form               = array();
 		list($ret, $result) = $this->_popularView->loadTemplate(
-			$this->_template, $form = array()
+			$this->_template,
+			$form
 		);
 
 		if ($ret) {
 			$this->assertTrue(
-				$ret->getErrorCode() & ERROR_PERMISSION_DENIED, 'permission denied'
+				$ret->getErrorCode() & ERROR_PERMISSION_DENIED,
+				'permission denied'
 			);
 		} else {
 			$this->assertTrue(false, 'should get error');
@@ -420,13 +430,16 @@ class DynamicAlbumTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_items[3]->getId());
 
+		$form               = array();
 		list($ret, $result) = $this->_randomView->loadTemplate(
-			$this->_template, $form = array()
+			$this->_template,
+			$form
 		);
 
 		if ($ret) {
 			$this->assertTrue(
-				$ret->getErrorCode() & ERROR_MISSING_OBJECT, 'wrong error code'
+				$ret->getErrorCode() & ERROR_MISSING_OBJECT,
+				'wrong error code'
 			);
 
 			if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {

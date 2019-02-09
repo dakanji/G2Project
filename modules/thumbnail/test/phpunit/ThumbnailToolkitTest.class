@@ -169,8 +169,9 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 			$this->assertTrue(false, 'Error expected for bad operation');
 		}
 
-		$platform =& $gallery->getPlatform();
-		$gallery->setPlatform(new ThumbnailToolkitTestDummyPlatform());
+		$platform      =& $gallery->getPlatform();
+		$dummyPlatform = new ThumbnailToolkitTestDummyPlatform();
+		$gallery->setPlatform($dummyPlatform);
 
 		list($ret, $outputMimeType) = $this->_toolkit->performOperation(
 			'test/fakemime',

@@ -110,7 +110,11 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		list($ret, $threshold) = GalleryCoreApi::getPluginParameter('module', 'captcha', 'failedAttemptThreshold');
+		list($ret, $threshold) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'captcha',
+			'failedAttemptThreshold'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -138,7 +142,11 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		list($ret, $threshold) = GalleryCoreApi::getPluginParameter('module', 'captcha', 'failedAttemptThreshold');
+		list($ret, $threshold) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'captcha',
+			'failedAttemptThreshold'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -164,7 +172,11 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		list($ret, $threshold) = GalleryCoreApi::getPluginParameter('module', 'captcha', 'failedAttemptThreshold');
+		list($ret, $threshold) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'captcha',
+			'failedAttemptThreshold'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -175,7 +187,7 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testAdminOptions() {
-		CaptchaAdminOption::testOptions(
+		CaptchaAdminOption::doStatic()->testOptions(
 			array(
 				'testOptionId1' => new CaptchaSiteAdminTestOption(),
 				'testOptionId2' => new CaptchaSiteAdminTestOption('unittest.2.level'),
@@ -222,7 +234,7 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testBogusOptionLevel() {
-		CaptchaAdminOption::testOptions(
+		CaptchaAdminOption::doStatic()->testOptions(
 			array(
 				'testOptionId' => new CaptchaSiteAdminTestOption(),
 			)
