@@ -101,9 +101,9 @@ class NewItemsTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals(3, count($content), 'item count');
-		$this->assert(strpos($content[$this->_items[1]->getId()], 'giUpdated'), '1=Updated');
-		$this->assert(strpos($content[$this->_items[2]->getId()], 'giNew'), '2=New');
-		$this->assert(strpos($content[$this->_items[3]->getId()], 'giUpdated'), '3=Updated');
+		$this->assertTrue(strpos($content[$this->_items[1]->getId()], 'giUpdated'), '1=Updated');
+		$this->assertTrue(strpos($content[$this->_items[2]->getId()], 'giNew'), '2=New');
+		$this->assertTrue(strpos($content[$this->_items[3]->getId()], 'giUpdated'), '3=Updated');
 	}
 
 	public function testSortOrder() {

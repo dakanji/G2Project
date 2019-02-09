@@ -135,7 +135,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($albumId), 'Album should not have been created');
+		$this->assertTrue(empty($albumId), 'Album should not have been created');
 
 		$this->assertEquals(
 			array(
@@ -168,7 +168,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($albumId), 'Album was not created');
+		$this->assertTrue(isset($albumId), 'Album was not created');
 
 		$this->assertEquals(
 			array(
@@ -431,7 +431,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($albumId), 'Album was not created');
+		$this->assertTrue(isset($albumId), 'Album was not created');
 		$secArray = array(
 			'core.view'        => 1,
 			'core.viewAll'     => 1,
@@ -468,7 +468,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($permissions), 'Registered Permissions');
+		$this->assertTrue(empty($permissions), 'Registered Permissions');
 
 		// make sure applicable core.view* permissions are there for specific users
 		// undocumented feature allows you to pass groupId as well as userId
@@ -558,7 +558,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($albumId), 'Album was not created');
+		$this->assertTrue(isset($albumId), 'Album was not created');
 		$secArray = array(
 			'core.view'        => 1,
 			'core.viewAll'     => 1,
@@ -707,7 +707,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($albumId), 'Album was not created');
+		$this->assertTrue(isset($albumId), 'Album was not created');
 		$secArray = array(
 			'core.view'        => 1,
 			'core.viewAll'     => 1,

@@ -131,7 +131,7 @@ class UserAlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(GalleryUtilities::isA($album, 'GalleryAlbumItem'), 'album');
+		$this->assertTrue(GalleryUtilities::isA($album, 'GalleryAlbumItem'), 'album');
 		$this->assertEquals($user->getId(), $album->getOwnerId(), 'owner');
 
 		// Verify permissions..
@@ -152,11 +152,11 @@ class UserAlbumTest extends GalleryTestCase {
 				$seenViewSource = true;
 			}
 		}
-		$this->assert($seenViewResizes, sprintf(
+		$this->assertTrue($seenViewResizes, sprintf(
 		'missing view resizes for all users: %d',
 						 $this->_allUserGroupId
 	));
-		$this->assert(!$seenViewSource, sprintf(
+		$this->assertFalse($seenViewSource, sprintf(
 		'unexpected view source for all users: %d',
 						$this->_allUserGroupId
 	));
@@ -166,7 +166,7 @@ class UserAlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($hasCoreAll, 'core.all permission not granted to album owner');
+		$this->assertTrue($hasCoreAll, 'core.all permission not granted to album owner');
 
 		// Create a subalbum..
 		list($ret, $subalbum) = $this->_createRandomAlbum($albumId, array('ownerId' => $user->getId()));
@@ -275,7 +275,7 @@ class UserAlbumTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert(
+		$this->assertTrue(
 		$targetLocation == $rootAlbum,
 			  'useralbum.targetLocation should equal core.id.rootAlbum'
 	);
@@ -303,7 +303,7 @@ class UserAlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!empty($userAlbum), 'User should have valid album');
+		$this->assertFalse(empty($userAlbum), 'User should have valid album');
 
 		$ret = GalleryCoreApi::deleteEntityById($userAlbum, 'GalleryAlbumItem');
 
@@ -321,7 +321,7 @@ class UserAlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!isset($userAlbum), 'User album should be empty');
+		$this->assertFalse(isset($userAlbum), 'User album should be empty');
 	}
 
 	public function testUserAlbumCollision() {
@@ -365,7 +365,7 @@ class UserAlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(GalleryUtilities::isA($album, 'GalleryAlbumItem'), 'album');
+		$this->assertTrue(GalleryUtilities::isA($album, 'GalleryAlbumItem'), 'album');
 		$this->assertEquals($user->getId(), $album->getOwnerId(), 'owner');
 	}
 }

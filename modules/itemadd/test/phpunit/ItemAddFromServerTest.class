@@ -376,7 +376,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 				$results[1]['addedFiles'][$i]['fileName'],
 				'added #' . $i
 			);
-			$this->assert(isset($results[1]['addedFiles'][$i]['id']));
+			$this->assertTrue(isset($results[1]['addedFiles'][$i]['id']));
 			$i++;
 		}
 
@@ -404,7 +404,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 				$subalbum = array_shift($subalbums);
 
 				if ($subalbum) {
-					$this->assert(GalleryUtilities::isA($subalbum, 'GalleryAlbumItem'), 'subalbum');
+					$this->assertTrue(GalleryUtilities::isA($subalbum, 'GalleryAlbumItem'), 'subalbum');
 					$dirName = $platform->legalizePathComponent($dirName);
 					$this->assertEquals($dirName, $subalbum->getPathComponent(), 'subalbum path');
 				} else {
@@ -436,7 +436,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 			$item =& $items[$results[1]['addedFiles'][$i]['id']];
 
 			if (!isset($item)) {
-				$this->assert(false, 'Item ' . $i++ . ' missing');
+				$this->assertTrue(false, 'Item ' . $i++ . ' missing');
 
 				continue;
 			}
@@ -471,7 +471,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$this->assert(
+			$this->assertTrue(
 				!isset($seenWeights[$item->getParentId()][$orderWeight]),
 				'Seen this weight before: ' . $orderWeight
 			);
@@ -608,7 +608,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		$results = $this->handleRequest($this->_rootAlbum);
 
 		if (empty($results[1]['addedFiles'][0]['id'])) {
-			$this->assert(false, 'missing id of added item');
+			$this->assertTrue(false, 'missing id of added item');
 		} else {
 			$id = $results[1]['addedFiles'][0]['id'];
 			$this->assertEquals(

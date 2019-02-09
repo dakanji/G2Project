@@ -159,7 +159,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 		$this->assertEquals(__DIR__, $params['uploadLocalServer.dir.3'], 'new dir');
-		$this->assert(!isset($params['uploadLocalServer.dir.4']), 'end of list');
+		$this->assertFalse(isset($params['uploadLocalServer.dir.4']), 'end of list');
 
 		$valueMap['uploadLocalServer.dir.1'] = 'a';
 		$valueMap['uploadLocalServer.dir.2'] = 'b';
@@ -564,7 +564,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals('a', $param['uploadLocalServer.dir.1']);
 		$this->assertEquals('b', $param['uploadLocalServer.dir.2']);
 		$this->assertEquals('c', $param['uploadLocalServer.dir.3']);
-		$this->assert(!isset($param['uploadLocalServer.dir.4']), 'end of list');
+		$this->assertFalse(isset($param['uploadLocalServer.dir.4']), 'end of list');
 	}
 
 	public function testRemoveUploadLocalServerDirMissing() {

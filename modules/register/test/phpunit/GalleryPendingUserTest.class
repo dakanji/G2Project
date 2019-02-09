@@ -88,7 +88,7 @@ class GalleryPendingUserTest extends GalleryTestCase {
 		}
 
 		if (empty($pendingUser) || empty($user)) {
-			return $this->assert(false, 'factory error');
+			return $this->assertTrue(false, 'factory error');
 		}
 
 		$password = 'testpass' . mt_rand(1, 999);
@@ -100,7 +100,7 @@ class GalleryPendingUserTest extends GalleryTestCase {
 			'hash length'
 		);
 		$user->setHashedPassword($pendingUser->getHashedPassword());
-		$this->assert($user->isCorrectPassword($password), 'check password');
+		$this->assertTrue($user->isCorrectPassword($password), 'check password');
 	}
 
 	public function _createRandomPendingUser() {

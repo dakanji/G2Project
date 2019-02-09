@@ -304,8 +304,16 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals('test/image', $mimeType, 'Output mime type');
-		$this->assertEquals(array('queue:crop', 'thumbnail'), $gallery->_squareQueue, 'operations');
+		$this->assertEquals(
+			'test/image',
+			$mimeType,
+			'Output mime type'
+		);
+		$this->assertEquals(
+			array('queue:crop', 'thumbnail'),
+			$gallery->_squareQueue,
+			'operations'
+		);
 
 		// Already small
 		$gallery->_squareQueue = array();
@@ -441,7 +449,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		// Operation is smaller than the smallest side
 		$derivative->setDerivativeOperations('thumbnail|50');
 
-		$toolkit::doStatic()->estimateDimensions($derivative, $item);
+		$this->_toolkit->estimateDimensions($derivative, $item);
 
 		$this->assertEquals(50, $derivative->getWidth());
 		$this->assertEquals(50, $derivative->getHeight());
@@ -459,7 +467,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		// Operation is bigger than the smallest side
 		$derivative->setDerivativeOperations('thumbnail|200');
 
-		$toolkit::doStatic()->estimateDimensions($derivative, $item);
+		$this->_toolkit->estimateDimensions($derivative, $item);
 
 		$this->assertEquals(100, $derivative->getWidth());
 		$this->assertEquals(100, $derivative->getHeight());
@@ -477,7 +485,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		// Operation is bigger than the biggest side
 		$derivative->setDerivativeOperations('thumbnail|400');
 
-		$toolkit::doStatic()->estimateDimensions($derivative, $item);
+		$this->_toolkit->estimateDimensions($derivative, $item);
 
 		$this->assertEquals(100, $derivative->getWidth());
 		$this->assertEquals(100, $derivative->getHeight());
@@ -495,7 +503,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		// Operation is bigger than the biggest side, but source is a derivative
 		$derivative->setDerivativeOperations('thumbnail|400');
 
-		$toolkit::doStatic()->estimateDimensions($derivative, $source);
+		$this->_toolkit->estimateDimensions($derivative, $source);
 
 		$this->assertEquals(400, $derivative->getWidth());
 		$this->assertEquals(400, $derivative->getHeight());

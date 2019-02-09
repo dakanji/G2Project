@@ -87,7 +87,10 @@ class LinksInTheHeadTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		list($ret, $links_in_the_head) = GalleryCoreApi::fetchAllPluginParameters('module', 'linksinthehead');
+		list($ret, $links_in_the_head) = GalleryCoreApi::fetchAllPluginParameters(
+			'module',
+			'linksinthehead'
+		);
 
 		if ($ret) {
 			return array($ret, null);

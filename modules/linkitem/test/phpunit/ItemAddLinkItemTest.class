@@ -137,7 +137,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(GalleryUtilities::isExactlyA($item, 'GalleryLinkItem'), 'type');
+		$this->assertTrue(GalleryUtilities::isExactlyA($item, 'GalleryLinkItem'), 'type');
 		$this->assertEquals((string)$this->_album->getId(), $item->getLink(), 'link');
 
 		list($ret, $thumbnailTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($childIds[0]));
@@ -150,7 +150,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		$this->assertEquals($highlight->getId(), $thumbnail->getDerivativeSourceId(), 'src');
 		$this->assertEquals('thumbnail|123', $thumbnail->getDerivativeOperations(), 'op');
 		// For Oracle, null is replaced with '' when loading data from the database
-		$this->assert(
+		$this->assertTrue(
 			in_array($thumbnail->getPostFilterOperations(), array(null, '')),
 			'postfilter'
 		);
@@ -189,7 +189,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 				'op'
 			);
 		} else {
-			$this->assert(false, 'Missing thumbnail!');
+			$this->assertTrue(false, 'Missing thumbnail!');
 		}
 	}
 
@@ -237,7 +237,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(GalleryUtilities::isExactlyA($item, 'GalleryLinkItem'), 'type');
+		$this->assertTrue(GalleryUtilities::isExactlyA($item, 'GalleryLinkItem'), 'type');
 		$this->assertEquals('http://test.com/test.html', $item->getLink(), 'link');
 
 		list($ret, $thumbnailTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($childIds[0]));
@@ -262,7 +262,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 				'postfilter'
 			);
 		} else {
-			$this->assert(false, 'Missing thumbnail!');
+			$this->assertTrue(false, 'Missing thumbnail!');
 		}
 	}
 

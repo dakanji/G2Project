@@ -191,6 +191,6 @@ class ThumbnailImageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($path != $existingPath, 'path collision');
+		$this->assertTrue($path != $existingPath, 'path collision');
 	}
 }

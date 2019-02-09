@@ -133,7 +133,10 @@ class UserSelfRegistrationController extends GalleryController {
 					}
 
 					// Send confirmation email or create the "real" user, per module settings
-					list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'register');
+					list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
+						'module',
+						'register'
+					);
 
 					if ($ret) {
 						return array($ret, null);

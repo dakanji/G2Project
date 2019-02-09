@@ -244,11 +244,26 @@ GalleryCoreApi::requireOnce('modules/captcha/CaptchaSiteAdmin.inc');
  * @subpackage PHPUnit
  */
 class CaptchaSiteAdminTestOption extends CaptchaAdminOption {
+	public $_param;
+
 	public function __construct($param = 'unittest.level') {
 		$this->_param = $param;
 	}
 
-	public static function getOptionData() {
+	/**
+	 * Load as Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new CaptchaSiteAdminTestOption();
+		}
+
+		return $singleton;
+	}
+
+	public function getOptionData() {
 		return array(
 			null,
 			'test level',

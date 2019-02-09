@@ -111,7 +111,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 
 		if (!$platform->unlink($gallery->getConfig('data.gallery.base') . '/unittest.jpg')) {
-			$this->assert(false, 'Unlink failed');
+			$this->assertTrue(false, 'Unlink failed');
 		}
 		$ret = GalleryCoreApi::unregisterToolkitOperation(
 			'Thumbnail',
@@ -148,7 +148,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 				'Error expected for bad mime'
 			);
 		} else {
-			$this->assert(false, 'Error expected for bad mime');
+			$this->assertTrue(false, 'Error expected for bad mime');
 		}
 
 		list($ret, $outputMimeType) = $this->_toolkit->performOperation(
@@ -166,7 +166,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 				'Error expected for bad operation'
 			);
 		} else {
-			$this->assert(false, 'Error expected for bad operation');
+			$this->assertTrue(false, 'Error expected for bad operation');
 		}
 
 		$platform =& $gallery->getPlatform();
@@ -187,7 +187,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 				'Error expected for copy failure'
 			);
 		} else {
-			$this->assert(false, 'Error expected for copy failure');
+			$this->assertTrue(false, 'Error expected for copy failure');
 		}
 
 		$gallery->setPlatform($platform);
@@ -288,7 +288,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		} elseif ($ret) {
 			return $ret;
 		} else {
-			$this->assert(false, 'Error expected for bad operation');
+			$this->assertTrue(false, 'Error expected for bad operation');
 		}
 	}
 }

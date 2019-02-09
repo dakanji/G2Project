@@ -131,9 +131,14 @@ class UpdatesAlbumView extends GalleryView {
 	 * @see GalleryView::loadTemplate
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
-		list($itemId, $show, $albumId) = GalleryUtilities::getRequestVariables('itemId', 'show', 'albumId');
-		$theme                         =& $template->getVariableByReference('theme');
-		$theme['pageUrl']              = array(
+		list($itemId, $show, $albumId) = GalleryUtilities::getRequestVariables(
+			'itemId',
+			'show',
+			'albumId'
+		);
+
+		$theme            =& $template->getVariableByReference('theme');
+		$theme['pageUrl'] = array(
 			'view' => $this->_view,
 		);
 
@@ -178,7 +183,6 @@ class UpdatesAlbumView extends GalleryView {
 	 * @param int $userId
 	 * @return array GalleryStatus a status code
 	 *               array of item ids
-	 * @static
 	 */
 	public function getChildIds(
 		$userId,

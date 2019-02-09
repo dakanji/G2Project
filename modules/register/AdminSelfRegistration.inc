@@ -70,7 +70,11 @@ class AdminSelfRegistrationController extends GalleryController {
 			GalleryCoreApi::requireOnce(
 				'modules/register/classes/GalleryPendingUserHelper.class'
 			);
-			list($ret, $pendingUser) = GalleryCoreApi::loadEntitiesById($form['userId'], 'GalleryPendingUser');
+
+			list($ret, $pendingUser) = GalleryCoreApi::loadEntitiesById(
+				$form['userId'],
+				'GalleryPendingUser'
+			);
 
 			if ($ret) {
 				if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
@@ -86,7 +90,10 @@ class AdminSelfRegistrationController extends GalleryController {
 				$status['activated'] = $userName;
 			}
 		} elseif (isset($form['action']['delete'])) {
-			list($ret, $pendingUser) = GalleryCoreApi::loadEntitiesById($form['userId'], 'GalleryPendingUser');
+			list($ret, $pendingUser) = GalleryCoreApi::loadEntitiesById(
+				$form['userId'],
+				'GalleryPendingUser'
+			);
 
 			if ($ret) {
 				if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
@@ -162,7 +169,11 @@ class AdminSelfRegistrationView extends GalleryView {
 				'emailusers',
 				'usersubject',
 			) as $key) {
-				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'register', $key);
+				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter(
+					'module',
+					'register',
+					$key
+				);
 
 				if ($ret) {
 					return array($ret, null);
@@ -188,6 +199,7 @@ class AdminSelfRegistrationView extends GalleryView {
 			if ($form['list']['page'] > $form['list']['maxPages']) {
 				$form['list']['page'] = $form['list']['maxPages'];
 			}
+
 			$form['list']['nextPage'] = min($form['list']['page'] + 1, $form['list']['maxPages']);
 			$form['list']['backPage'] = max(1, $form['list']['page'] - 1);
 
@@ -201,13 +213,15 @@ class AdminSelfRegistrationView extends GalleryView {
 			}
 		}
 
-		$selfregistration                          = array();
+		$selfregistration = array();
+
 		$selfregistration['emailConfirmationList'] = array(
 			'admin' => $module->translate('Activation by administrator'),
 			'email' => $module->translate('Use confirmation emails'),
 			'auto'  => $module->translate('Accept without confirmation'),
 		);
-		$selfregistration['reallySendList']        = array(
+
+		$selfregistration['reallySendList'] = array(
 			'true'  => $module->translate('Yes'),
 			'false' => $module->translate('No'),
 		);

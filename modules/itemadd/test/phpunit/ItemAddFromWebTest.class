@@ -213,31 +213,31 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$results[1]['addedFiles'][0]['fileName'],
 			'filename 1'
 		);
-		$this->assert(isset($results[1]['addedFiles'][0]['id']), 'id 1');
+		$this->assertTrue(isset($results[1]['addedFiles'][0]['id']), 'id 1');
 		$this->assertEquals(
 			'http://www.test.com/test2.jpg',
 			$results[1]['addedFiles'][1]['fileName'],
 			'filename 2'
 		);
-		$this->assert(isset($results[1]['addedFiles'][1]['id']), 'id 2');
+		$this->assertTrue(isset($results[1]['addedFiles'][1]['id']), 'id 2');
 		$this->assertEquals(
 			'http://www.test.com/test3.jpg?foo=bar',
 			$results[1]['addedFiles'][2]['fileName'],
 			'filename 3'
 		);
-		$this->assert(isset($results[1]['addedFiles'][2]['id']), 'id 3');
+		$this->assertTrue(isset($results[1]['addedFiles'][2]['id']), 'id 3');
 		$this->assertEquals(
 			'http://www.test.com/main.php?g2_itemId=123',
 			$results[1]['addedFiles'][3]['fileName'],
 			'filename 4'
 		);
-		$this->assert(isset($results[1]['addedFiles'][3]['id']), 'id 4');
+		$this->assertTrue(isset($results[1]['addedFiles'][3]['id']), 'id 4');
 		$this->assertEquals(
 			'http://www.test.com/apo\'strophe.jpg',
 			$results[1]['addedFiles'][4]['fileName'],
 			'filename 5'
 		);
-		$this->assert(isset($results[1]['addedFiles'][4]['id']), 'id 5');
+		$this->assertTrue(isset($results[1]['addedFiles'][4]['id']), 'id 5');
 
 		list($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_album);
 
@@ -288,7 +288,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$results[1]['addedFiles'][0]['fileName'],
 			'filename'
 		);
-		$this->assert(isset($results[1]['addedFiles'][0]['id']), 'id 1');
+		$this->assertTrue(isset($results[1]['addedFiles'][0]['id']), 'id 1');
 
 		list($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_album);
 

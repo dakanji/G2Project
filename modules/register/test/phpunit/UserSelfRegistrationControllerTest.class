@@ -98,7 +98,8 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
 		$savePlatform =& $gallery->getPlatform();
-		$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
+		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
+		$gallery->setPlatform($DummyPlatform);
 
 		$results = $this->handleRequest();
 		$this->assertEquals(
@@ -122,12 +123,19 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(GalleryUtilities::isA($user, 'GalleryUser'), 'type is GalleryUser');
+		$this->assertTrue(GalleryUtilities::isA($user, 'GalleryUser'), 'type is GalleryUser');
 		$this->_markForCleanup($user);
 
 		// Make sure welcome email was "sent"
-		$this->assert(!empty($this->_emailBody), 'test platform mail() should have been called');
-		$this->assertEquals('WelcomeEmail', $this->_emailSubject, 'email subject');
+		$this->assertFalse(
+			empty($this->_emailBody),
+			'test platform mail() should have been called'
+		);
+		$this->assertEquals(
+			'WelcomeEmail',
+			$this->_emailSubject,
+			'email subject'
+		);
 	}
 
 	public function testRegisterWithEMailActivation() {
@@ -148,7 +156,8 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
 		$savePlatform =& $gallery->getPlatform();
-		$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
+		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
+		$gallery->setPlatform($DummyPlatform);
 
 		$results = $this->handleRequest();
 		$this->assertEquals(
@@ -177,8 +186,15 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		$this->_markForCleanup($user);
 
 		// Make sure confirmation email was "sent"
-		$this->assert(!empty($this->_emailBody), 'test platform mail() should have been called');
-		$this->assertEquals('ConfEmail', $this->_emailSubject, 'email subject');
+		$this->assertFalse(empty(
+			$this->_emailBody),
+			'test platform mail() should have been called'
+		);
+		$this->assertEquals(
+			'ConfEmail',
+			$this->_emailSubject,
+			'email subject'
+		);
 	}
 
 	public function testEntities() {
@@ -203,7 +219,8 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password2]', 'pass&word>');
 
 		$savePlatform =& $gallery->getPlatform();
-		$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
+		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
+		$gallery->setPlatform($DummyPlatform);
 
 		$results = $this->handleRequest();
 		$this->assertEquals(
@@ -233,7 +250,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 		// verify un-entitized username was used in email
 		// the confirm link should also use unentitized(but urlencoded) value; not verified here
-		$this->assert(
+		$this->assertTrue(
 			strpos($this->_emailBody, $userName) !== false,
 			'Email body should have unentitized username: ' . $this->_emailBody
 		);
@@ -243,9 +260,9 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!empty($userEntity), 'factory error');
+		$this->assertFalse(empty($userEntity), 'factory error');
 		$userEntity->setHashedPassword($user->getHashedPassword());
-		$this->assert($userEntity->isCorrectPassword('pass&word>'), 'password check');
+		$this->assertTrue($userEntity->isCorrectPassword('pass&word>'), 'password check');
 	}
 
 	public function testMissingInputs() {
@@ -398,7 +415,8 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
 		$savePlatform =& $gallery->getPlatform();
-		$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
+		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
+		$gallery->setPlatform($DummyPlatform);
 
 		$results = $this->handleRequest();
 		$this->assertEquals(
@@ -553,7 +571,8 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		$this->_controller->setPluginInstances(array($plugin));
 
 		$savePlatform =& $gallery->getPlatform();
-		$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
+		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
+		$gallery->setPlatform($DummyPlatform);
 
 		$results = $this->handleRequest();
 		$this->assertEquals(
@@ -610,7 +629,8 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		$this->_controller->setPluginInstances(array($plugin));
 
 		$savePlatform =& $gallery->getPlatform();
-		$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
+		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
+		$gallery->setPlatform($DummyPlatform);
 
 		$results = $this->handleRequest();
 		$this->assertEquals(
@@ -642,7 +662,26 @@ class RegisterDummyPlatform {
 		$this->_test     =& $test;
 	}
 
+	public function sendEmail(
+		$file,
+		$body,
+		$from,
+		$to,
+		$subject,
+		$headers = null
+	) {
+		// Handle email..
+		$this->_handleMail($to, $subject, $body, $headers);
+	}
+
 	public function mail($to, $subject, $body, $headers = null) {
+		// Handle email..
+		$this->_handleMail($to, $subject, $body, $headers);
+	}
+
+	protected function _handleMail($to, $subject, $body, $headers) {
+		global $gallery;
+
 		// Don't actually send email
 		$this->_test->_emailSubject .= $subject;
 		$this->_test->_emailBody     = $body;

@@ -134,18 +134,18 @@ class GalleryPendingUser extends GalleryEntity {
 	 *
 	 * @return GalleryStatus a status code
 	 */
-	public function create($userName) {
+	public function create($userName = NULL, $x2 = NULL, $x3 = NULL) {
 		global $gallery;
 
 		// first check for a collision in the pending users table
 		$query = '
-	SELECT
-	  [GalleryPendingUser::id]
-	FROM
-	  [GalleryPendingUser]
-	WHERE
-	  [GalleryPendingUser::userName] = ?
-	';
+			SELECT
+				[GalleryPendingUser::id]
+			FROM
+				[GalleryPendingUser]
+			WHERE
+				[GalleryPendingUser::userName] = ?
+		';
 
 		// Check to see if we have a collision
 		list($ret, $results) = $gallery->search(
@@ -170,13 +170,13 @@ class GalleryPendingUser extends GalleryEntity {
 
 		// then check for a collision in the real user table
 		$query = '
-	SELECT
-	  [GalleryUser::id]
-	FROM
-	  [GalleryUser]
-	WHERE
-	  [GalleryUser::userName] = ?
-	';
+			SELECT
+				[GalleryUser::id]
+			FROM
+				[GalleryUser]
+			WHERE
+				[GalleryUser::userName] = ?
+		';
 
 		// Check to see if we have a collision
 		list($ret, $results) = $gallery->search(

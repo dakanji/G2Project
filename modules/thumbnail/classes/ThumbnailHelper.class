@@ -465,7 +465,8 @@ class ThumbnailHelper {
 			if (!isset($derivative)) {
 				return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 			}
-			$ret = $derivative->createThumbnailImage(
+
+			$ret = $derivative->create(
 				$item->getId(),
 				DERIVATIVE_TYPE_IMAGE_THUMBNAIL
 			);

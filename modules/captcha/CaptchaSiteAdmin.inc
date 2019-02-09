@@ -64,7 +64,8 @@ class CaptchaSiteAdminController extends GalleryController {
 
 			// Save configuration for other modules
 			if (!empty($form['level'])) {
-				list($ret, $optionInstances) = CaptchaAdminOption::getAllOptions();
+				$CaptchaAdminOption = new CaptchaAdminOption;
+				list($ret, $optionInstances) = $CaptchaAdminOption->getAllOptions();
 
 				if ($ret) {
 					return array($ret, null);
@@ -148,7 +149,8 @@ class CaptchaSiteAdminView extends GalleryView {
 		}
 
 		// Load admin options
-		list($ret, $optionInstances) = CaptchaAdminOption::getAllOptions();
+		$CaptchaAdminOption = new CaptchaAdminOption;
+		list($ret, $optionInstances) = $CaptchaAdminOption->getAllOptions();
 
 		if ($ret) {
 			return array($ret, null);
@@ -205,8 +207,8 @@ class CaptchaAdminOption {
 	 *               array of string optionId => CaptchaAdminOption instance
 	 * @static
 	 */
-	public static function getAllOptions() {
-		$testOptions = CaptchaAdminOption::testOptions();
+	public function getAllOptions() {
+		$testOptions = $this->testOptions();
 
 		if (isset($testOptions)) {
 			return array(null, $testOptions);
@@ -243,8 +245,8 @@ class CaptchaAdminOption {
 	 * @return null or array of string optionId => CaptchaAdminOption test instance
 	 * @static
 	 */
-	public static function testOptions($options = null) {
-		static $testOptions = null;
+	public function testOptions($options = null) {
+		$testOptions = null;
 
 		if (isset($options)) {
 			$testOptions = $options;
@@ -261,7 +263,7 @@ class CaptchaAdminOption {
 	 *               array(pluginType, pluginId, parameterName) to configure
 	 *               array of string choices (any of HIGH, MEDIUM, LOW, OFF)
 	 */
-	public static function getOptionData() {
+	public function getOptionData() {
 		return array(
 			GalleryCoreApi::error(ERROR_UNIMPLEMENTED),
 			null,

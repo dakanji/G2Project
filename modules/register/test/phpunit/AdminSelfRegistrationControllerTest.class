@@ -51,7 +51,10 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		}
 
 		// Create a pending user..
-		list($ret, $pendingUser) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryPendingUser');
+		list($ret, $pendingUser) = GalleryCoreApi::newFactoryInstance(
+			'GalleryEntity',
+			'GalleryPendingUser'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -72,7 +75,10 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 	public function tearDown() {
 		if (isset($this->_pendingUser)) {
-			$ret = GalleryCoreApi::deleteEntityById($this->_pendingUser->getId(), 'GalleryEntity');
+			$ret = GalleryCoreApi::deleteEntityById(
+				$this->_pendingUser->getId(),
+				'GalleryEntity'
+			);
 
 			if ($ret) {
 				$this->failWithStatus($ret);
@@ -122,7 +128,11 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		);
 
 		foreach ($valueMap as $key => $expectedValue) {
-			list($ret, $realValue) = GalleryCoreApi::getPluginParameter('module', 'register', $key);
+			list($ret, $realValue) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'register',
+				$key
+			);
 
 			if ($ret) {
 				return $ret;
@@ -167,7 +177,8 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testAdminSelfRegistrationControllerActivateMissingUser() {
-		GalleryUtilities::putRequestVariable('form[userId]', 99999999 /* very unlikely id */);
+		 // set very unlikely user id
+		GalleryUtilities::putRequestVariable('form[userId]', 99999999);
 		GalleryUtilities::putRequestVariable('form[action][activate]', '1');
 
 		$results = $this->handleRequest();
@@ -212,7 +223,8 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testAdminSelfRegistrationControllerDeleteMissingUser() {
-		GalleryUtilities::putRequestVariable('form[userId]', 99999999 /* very unlikely id */);
+		// set very unlikely user id
+		GalleryUtilities::putRequestVariable('form[userId]', 99999999);
 		GalleryUtilities::putRequestVariable('form[action][delete]', '1');
 
 		$results = $this->handleRequest();
@@ -233,31 +245,33 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryCoreApi::requireOnce(
 			'modules/register/classes/GalleryPendingUserHelper.class'
 		);
+		
 		list($ret, $count) = GalleryPendingUserHelper::fetchUserCount();
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($count > 0, 'User count');
+		$this->assertTrue($count > 0, 'User count');
+
 		list($ret, $count) = GalleryPendingUserHelper::fetchUserCount('testuser');
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($count > 0, 'User count with filter');
+		$this->assertTrue($count > 0, 'User count with filter');
 
 		list($ret, $data) = GalleryPendingUserHelper::fetchUserData(3, 0);
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!empty($data), 'User data');
+		$this->assertTrue(!empty($data), 'User data');
 
 		list($ret, $data) = GalleryPendingUserHelper::fetchUserData(3, 0, 'testuser');
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!empty($data), 'User data with filter');
+		$this->assertTrue(!empty($data), 'User data with filter');
 	}
 }

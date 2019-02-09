@@ -147,7 +147,7 @@ class LinkItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $gone) = $link->refresh();
-		$this->assert(!isset($gone), 'link should be gone');
+		$this->assertFalse(isset($gone), 'link should be gone');
 
 		if ($ret) {
 			$this->assertEquals(
@@ -156,7 +156,7 @@ class LinkItemTest extends GalleryTestCase {
 				'expected error code'
 			);
 		} else {
-			$this->assert(false, 'expected error');
+			$this->assertTrue(false, 'expected error');
 		}
 	}
 
@@ -186,7 +186,7 @@ class LinkItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $gone) = $link->refresh();
-		$this->assert(!isset($gone), 'link should be gone');
+		$this->assertFalse(isset($gone), 'link should be gone');
 
 		if ($ret) {
 			$this->assertEquals(
@@ -195,7 +195,7 @@ class LinkItemTest extends GalleryTestCase {
 				'expected error code'
 			);
 		} else {
-			$this->assert(false, 'expected error');
+			$this->assertTrue(false, 'expected error');
 		}
 	}
 
@@ -260,7 +260,7 @@ class LinkItemTest extends GalleryTestCase {
 				'redirect URL'
 			);
 		} else {
-			$this->assert(false, 'no Location header');
+			$this->assertTrue(false, 'no Location header');
 		}
 
 		$gallery->_session = $backup;
@@ -278,7 +278,7 @@ class LinkItemTest extends GalleryTestCase {
 		$this->assertEquals('image/jpeg', $mimeType);
 
 		if (!GalleryUtilities::isExactlyA($toolkit, 'LinkItemToolkit')) {
-			return $this->assert(false, 'LinkItemToolkit');
+			return $this->assertTrue(false, 'LinkItemToolkit');
 		}
 
 		$ret = $this->_markPluginParametersForCleanup('module', 'linkitem');
@@ -325,7 +325,7 @@ class LinkItemTest extends GalleryTestCase {
 			),
 			$context
 		);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 
 		$ret = GalleryCoreApi::setPluginParameter('module', 'linkitem', 'urlSnapshot', '1');
 
@@ -399,7 +399,7 @@ class LinkItemTest extends GalleryTestCase {
 			),
 			$context
 		);
-		$this->assert($platform->isComplete(), $platform->getRemaining());
+		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 		$gallery->setPlatform($savePlatform);
 	}
 }

@@ -166,7 +166,7 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($count > 0, 'Should be at least one NewItems sort in db');
+		$this->assertTrue($count > 0, 'Should be at least one NewItems sort in db');
 
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
 

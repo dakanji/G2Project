@@ -174,14 +174,14 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(GalleryUtilities::isA($toolkit, 'ThumbnailToolkit'), 'Toolkit');
+		$this->assertTrue(GalleryUtilities::isA($toolkit, 'ThumbnailToolkit'), 'Toolkit');
 
 		list($ret, $mimeMap) = ThumbnailHelper::fetchMimeTypeMap();
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($mimeMap['test/fakemime']), 'Map entry not found after add');
+		$this->assertTrue(isset($mimeMap['test/fakemime']), 'Map entry not found after add');
 		$itemId = $mimeMap['test/fakemime'];
 
 		GalleryUtilities::removeFormVariables('form');
@@ -211,7 +211,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(GalleryUtilities::isA($toolkit, 'ThumbnailToolkit'), 'Toolkit');
+		$this->assertTrue(GalleryUtilities::isA($toolkit, 'ThumbnailToolkit'), 'Toolkit');
 
 		$results = $this->handleRequest();
 		$this->assertEquals(
@@ -255,8 +255,8 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!isset($mimeMap['test/fakemime']), 'Map entry still found after delete');
-		$this->assert(isset($mimeMap['test/fakemime2']), 'Map entry not found after delete');
+		$this->assertFalse(isset($mimeMap['test/fakemime']), 'Map entry still found after delete');
+		$this->assertTrue(isset($mimeMap['test/fakemime2']), 'Map entry not found after delete');
 		$this->assertEquals($itemId, $mimeMap['test/fakemime2'], 'Wrong map id');
 
 		list($ret, $toolkit, $outputMimeType) = GalleryCoreApi::getToolkitByOperation('test/fakemime', 'thumbnail');
@@ -264,7 +264,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!isset($toolkit), 'Toolkit should not be found');
+		$this->assertFalse(isset($toolkit), 'Toolkit should not be found');
 
 		GalleryUtilities::removeFormVariables('form');
 		GalleryUtilities::putRequestVariable('form[action][delete]', '1');
@@ -291,14 +291,14 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!isset($mimeMap['test/fakemime']), 'Map entry still found after delete');
-		$this->assert(!isset($mimeMap['test/fakemime2']), 'Map entry still found after delete');
+		$this->assertFalse(isset($mimeMap['test/fakemime']), 'Map entry still found after delete');
+		$this->assertFalse(isset($mimeMap['test/fakemime2']), 'Map entry still found after delete');
 
 		list($ret, $toolkit, $outputMimeType) = GalleryCoreApi::getToolkitByOperation('test/fakemime2', 'thumbnail');
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!isset($toolkit), 'Toolkit should not be found');
+		$this->assertFalse(isset($toolkit), 'Toolkit should not be found');
 	}
 }

@@ -42,9 +42,15 @@ class RandomAlbumView extends UpdatesAlbumView {
 	 * @param int $userId
 	 * @return array GalleryStatus a status code
 	 *               array of item ids
-	 * @static
 	 */
-	public function getChildIds($userId) {
+	 public function getChildIds(
+ 		$userId,
+ 		$param = 'date',
+ 		$orderBy = 'creationTimestamp',
+ 		$orderDirection = ORDER_DESCENDING,
+ 		$table = 'GalleryEntity',
+ 		$id = 'id'
+ 	) {
 		return parent::getChildIds($userId, 'random', 'random', ORDER_ASCENDING, null, 'id');
 	}
 }
