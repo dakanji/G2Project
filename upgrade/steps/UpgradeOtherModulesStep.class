@@ -269,7 +269,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 					$templateData['stackTrace'] .= $ret->getAsHtml();
 				} else {
 					$pluginIsCompatible['module'][$moduleId] = GalleryCoreApi::isPluginCompatibleWithApis(
-						modulePlugin
+						$modulePlugin
 					);
 
 					if (!$pluginIsCompatible['module'][$moduleId]) {
