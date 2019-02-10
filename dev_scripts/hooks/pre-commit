@@ -11,7 +11,7 @@ PROJECT=$(php -r "echo dirname(dirname(dirname(realpath('$0'))));")
 STAGED_PHP_FILES=$(git diff-index --name-only --cached --diff-filter=ACMRT HEAD -- | egrep '\.php$|\.inc$|\.class$')
 STAGED_FIX_FILES=$(git diff-index --name-only --cached --diff-filter=ACMRT HEAD -- | egrep '\.php$|\.inc$|\.class$|\.css$|\.js$|\.xml$|\.xaml$|\.html$')
 
-# Determine if file list present
+# Get file list
 if [ "$#" -eq 1 ]
 then
 	oIFS=$IFS
@@ -21,6 +21,7 @@ then
 	IFS=$oIFS
 fi
 
+# Filter file list
 PHP_FILES=${FILE_LIST:-$STAGED_PHP_FILES}
 ALL_FILES=${FILE_LIST:-$STAGED_FIX_FILES}
 
@@ -36,7 +37,7 @@ if [ "$PHP_FILES" != "" ]; then
 		then
 			echo ""
 			echo "PHP Syntax Errors Found ... Aborting"
-			git reset HEAD $PROJECT/$PHP_FILE
+			RET=$(git reset HEAD $PROJECT/$PHP_FILE)
 			echo ""
 			echo "Please Fix Errors and Repeat Commit"
 			exit 1
@@ -44,7 +45,7 @@ if [ "$PHP_FILES" != "" ]; then
 	done
 fi
 
-# Check if PHP-CS-FIXER and PHPCBF are set up correctly
+# Check if PHP-CS-FIXER is set up correctly
 if [ ! -x $PHP_FIX_BIN ]; then
 	echo ""
 	echo ""
@@ -52,6 +53,7 @@ if [ ! -x $PHP_FIX_BIN ]; then
 	echo ""
 	exit 1
 else
+	# Check if PHPCBF is set up correctly
 	if [ ! -x $PHP_CBF_BIN ]; then
 		echo ""
 		echo ""

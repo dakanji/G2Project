@@ -1,24 +1,37 @@
 #!/bin/sh
 
-if [ ! -L .git/hooks ];
-then
-	if [ -x .git/hooks ];
-	then
-		echo "copying '.git/hooks' to '.git/old_hooks'"
-		mv .git/hooks .git/old_hooks
+# Get key paths
+ABSPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+HOOKSPATH=$ABSPATH/hooks
+MAINPATH=$ABSPATH/..
+
+if [ ! -L $MAINPATH/.git/hooks ]; then
+	echo ""
+	if [ -x $MAINPATH/.git/hooks ]; then
+		echo "Copying '.git/hooks' to '.git/old_hooks'"
+		mv $MAINPATH/.git/hooks $MAINPATH/.git/old_hooks
 	fi
 
-	echo "symlinking '.git/hooks' to '/dev_scripts/hooks'"
-	ABSPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-	HOOKSPATH=$ABSPATH/hooks
-	ln -s $HOOKSPATH .git/hooks
-	
+	echo "Symlinking '.git/hooks' to 'dev_scripts/hooks'"
+	ln -s $HOOKSPATH $MAINPATH/.git/hooks
+else
+	if [ ! -d "$MAINPATH/dev_vendor/php-cs-fixer" ]; then
+		echo ""
+		echo "Removing symlink from '.git/hooks' to 'dev_scripts/hooks'"
+		rm -f $MAINPATH/.git/hooks
+
+		if [ -d "$MAINPATH/.git/old_hooks" ]; then
+			echo "Restoring orignal '.git/hooks' folder"
+			mv $MAINPATH/.git/old_hooks $MAINPATH/.git/hooks
+		fi
+		echo ""
+	fi
 fi
 
-#####################################################
-# Code below is to update the developer environment #
-#####################################################
-if [ -d "dev_vendor/php-cs-fixer" ]; then
+############################################
+# Code Below Updates Developer Environment #
+############################################
+if [ -d "$MAINPATH/dev_vendor/php-cs-fixer" ]; then
 echo ""
 echo ""
 echo "Developer Environment Update Started"
@@ -26,15 +39,15 @@ echo "Developer Environment Update Started"
 
 
 	# Update WordPress ArrayDeclarationSpacingSniff if required
-	WP_ArrayDeclarationSpacingSniff=dev_vendor/wp-coding-standards/wpcs/WordPress/Sniffs/Arrays/ArrayDeclarationSpacingSniff.php
-	WP_AA_ArrayDeclarationSpacingSniff=dev_scripts/overrides/wpcs-ArrayDeclarationSpacingSniff.php
-	WP_XX_ArrayDeclarationSpacingSniff=dev_vendor/wp-coding-standards/wpcs/WordPress/Sniffs/Arrays/updated
-	if [ -e $WP_ArrayDeclarationSpacingSniff ] && [ -e $WP_AA_ArrayDeclarationSpacingSniff ] && [ ! -e $WP_XX_ArrayDeclarationSpacingSniff ];
+	WP_AA_ArrSniff=$MAINPATH/dev_vendor/wp-coding-standards/wpcs/WordPress/Sniffs/Arrays/ArrayDeclarationSpacingSniff.php
+	WP_BB_ArrSniff=$MAINPATH/dev_scripts/overrides/wpcs-ArrayDeclarationSpacingSniff.php
+	WP_CC_ArrSniff=$MAINPATH/dev_vendor/wp-coding-standards/wpcs/WordPress/Sniffs/Arrays/updated
+	if [ -e $WP_AA_ArrSniff ] && [ -e $WP_BB_ArrSniff ] && [ ! -e $WP_CC_ArrSniff ];
 	then
 		echo "Overriding WordPress ArrayDeclarationSpacingSniff CS"
-		rm -f $WP_ArrayDeclarationSpacingSniff
-		cp $WP_AA_ArrayDeclarationSpacingSniff $WP_ArrayDeclarationSpacingSniff
-		touch $WP_XX_ArrayDeclarationSpacingSniff
+		rm -f $WP_AA_ArrSniff
+		cp $WP_BB_ArrSniff $WP_AA_ArrSniff
+		touch $WP_CC_ArrSniff
 	fi
 
 

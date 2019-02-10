@@ -2,7 +2,7 @@
 
 # Update the Developer Environment at Random
 LO_VAL=1
-HI_VAL=9
+HI_VAL=13
 FREQ_UPDATE_FLAG=$(($LO_VAL + $RANDOM%(1 + $HI_VAL - $LO_VAL)))
 if [ $FREQ_UPDATE_FLAG -eq $((($HI_VAL + $LO_VAL) / 2)) ];
 then
