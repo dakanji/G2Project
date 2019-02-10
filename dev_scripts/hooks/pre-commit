@@ -1,5 +1,9 @@
 #!/bin/sh
 
+BASE_DIR=$(dirname $0)
+
+test -f $BASE_DIR/.hook-config && source $BASE_DIR/.hook-config
+
 PHP_CBF_BIN=dev_vendor/bin/phpcbf
 PHP_CBF_CONFIG_START=phpcs.xml
 PHP_CBF_CONFIG_END=phpcs-end.xml
@@ -7,7 +11,8 @@ PHP_CBF_CONFIG_END=phpcs-end.xml
 PHP_FIX_BIN=dev_vendor/bin/php-cs-fixer
 PHP_FIX_CONFIG=.php_cs.dist
 
-PROJECT=$(php -r "echo dirname(dirname(dirname(realpath('$0'))));")
+PHP_BIN=${PHP_BIN:-php}
+PROJECT=$($PHP_BIN -r "echo dirname(dirname(dirname(realpath('$0'))));")
 STAGED_PHP_FILES=$(git diff-index --name-only --cached --diff-filter=ACMRT HEAD -- | egrep '\.php$|\.inc$|\.class$')
 STAGED_FIX_FILES=$(git diff-index --name-only --cached --diff-filter=ACMRT HEAD -- | egrep '\.php$|\.inc$|\.class$|\.css$|\.js$|\.xml$|\.xaml$|\.html$')
 
@@ -32,7 +37,7 @@ if [ "$PHP_FILES" != "" ]; then
 	echo ""
 	for PHP_FILE in $PHP_FILES
 	do
-		RET=$(php -l -d display_errors=0 $PROJECT/$PHP_FILE)
+		RET=$($PHP_BIN -l -d display_errors=0 $PROJECT/$PHP_FILE)
 		if [ $? != 0 ]
 		then
 			echo ""
