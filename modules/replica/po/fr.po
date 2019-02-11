@@ -1,0 +1,135 @@
+# $Id: fr.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Replica 1.0.5\n"
+"POT-Creation-Date: 2003-08-10 04:27+0200\n"
+"PO-Revision-Date: 2006-09-30 00:00+0100\n"
+"Last-Translator: Arnaud MOURONVAL <ArnaudMouronval@yahoo.com>\n"
+"Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "create replica"
+msgstr "créer une réplique"
+
+msgid "replicate an item"
+msgstr "répliquer un élément"
+
+msgid "Replica"
+msgstr "Réplique"
+
+msgid "Create item copies sharing the same original data file"
+msgstr "Créer des copies d'éléments partageant le même fichier original"
+
+msgid "Display"
+msgstr "Affichage"
+
+msgid "Create Replica"
+msgstr "Créer une réplique"
+
+msgid "Replicate Album"
+msgstr "Répliquer l'album"
+
+msgid "Replicate Photo"
+msgstr "Répliquer la photo"
+
+msgid "Replicate Movie"
+msgstr "Répliquer le film"
+
+#, c-format
+msgid "Replicate %s"
+msgstr "Répliquer %s"
+
+msgid "Create Replicas"
+msgstr "Créer des répliques"
+
+#, c-format
+msgid "Successfully replicated %d item"
+msgid_plural "Successfully replicated %d items"
+msgstr[0] "%d élément répliqué avec succès"
+msgstr[1] "%d éléments répliqués avec succès"
+
+msgid "This album contains no items to replicate."
+msgstr "Cet album ne contient aucun élément à répliquer"
+
+msgid ""
+"A replica is an item that shares the original data file with another item, to save disk "
+"space. In all other respects it is a separate item, with its own captions, thumbnail, "
+"resizes, comments, etc. Captions are initially copied from the source item but may be "
+"changed. Either the replica or the source may be moved or deleted without affecting the "
+"other."
+msgstr ""
+"Une réplique est un élément qui partage le fichier original avec un autre élément pour "
+"sauver de l'espace disque. De tous les autres points de vue, il s'agit d'un élément distinct "
+"avec sa propre description, sa propre vignette, ses propres commentaires, etc. Les sous-"
+"titres sont initialement copiés depuis l'élément source mais peuvent être changés. La source "
+"et la réplique peuvent tous deux être déplacés ou supprimés sans en affecter l'autre."
+
+msgid "Source"
+msgstr "Source"
+
+msgid "Choose the items you want to replicate"
+msgstr "Choisir les éléments à répliquer"
+
+#, c-format
+msgid "(page %d of %d)"
+msgstr "Affichage de la page %d sur %d"
+
+msgid "No sources chosen"
+msgstr "Aucune source choisie"
+
+msgid "Check All"
+msgstr "Cocher tout"
+
+msgid "Check None"
+msgstr "Décocher tout"
+
+msgid "Invert"
+msgstr "Inverser"
+
+msgid "Previous Page"
+msgstr "Page précédente"
+
+msgid "Next Page"
+msgstr "Page suivante"
+
+msgid "Destination"
+msgstr "Destination"
+
+msgid "Choose a new album for the replica"
+msgstr "Choisir un album pour la réplique"
+
+msgid "No destination chosen"
+msgstr "Aucune destination choisie"
+
+msgid "Create"
+msgstr "Créer"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Successfully created"
+msgstr "Créé avec succès"
+
+msgid "Choose a destination album"
+msgstr "Choisir un album de destination"

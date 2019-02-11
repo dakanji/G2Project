@@ -1,0 +1,89 @@
+# $Id: ja.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Size Limit 1.0.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-08-15 22:41+0900\n"
+"PO-Revision-Date: 2007-03-06 17:51+0900\n"
+"Last-Translator: Kennichi Uehara <ken.w3m+nospam@gmail.com>\n"
+"Language-Team: Japanese <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, c-format
+msgid "WARNING: Cannot resize mime type %s"
+msgstr "警告: MIMEタイプ %s をリサイズできません。"
+
+#, c-format
+msgid "WARNING: Cannot compress mime type %s"
+msgstr "警告: MIMEタイプ %s を圧縮できません。"
+
+msgid "Resize complete"
+msgstr "リサイズ完了"
+
+msgid "Resize Status"
+msgstr "リサイズ状況"
+
+msgid "Resizing photo"
+msgstr "画像をリサイズ中"
+
+msgid "Size Limit"
+msgstr "サイズ制限"
+
+msgid "Define picture size limit"
+msgstr "画像サイズ上限を定義"
+
+msgid "Display"
+msgstr "表示"
+
+msgid "Maximum dimensions of full sized images"
+msgstr "完全サイズの画像最大容量"
+
+msgid "No Limits"
+msgstr "無制限"
+
+msgid "You must specify at least one of the dimensions"
+msgstr "少なくとも容量の一つを指定する必要があります。"
+
+msgid "Maximum file size of full sized images in kilobytes"
+msgstr "完全サイズの画像の最大ファイルサイズ(KB)"
+
+msgid "You must enter a number (greater than zero)"
+msgstr "数字を入力しなければなりません。(0より大きい)"
+
+msgid "Keep original image?"
+msgstr "元の画像を保持しますか?"
+
+msgid "Check here to apply size limits to the pictures in this album and all subalbums"
+msgstr ""
+"このサイズ制限を、このアルバムと全てのサブアルバムの画像に適用するには、ここをチェックしてく"
+"ださい。"
+
+msgid "Checking this option will rebuild pictures according to appropriate limits"
+msgstr "このオプションをチェックすると、適切な制限にしたがって画像が再構築されます。"
+
+msgid "Use these size limits in all subalbums"
+msgstr "これらのサイズ制限を全てのサブアルバムで使用する"
+
+msgid "Checking this option will set same picture size limits in all subalbums"
+msgstr ""
+"このオプションをチェックすると、全てのサブアルバムで画像のサイズ制限を同じ大きさにします。"

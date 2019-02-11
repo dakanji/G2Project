@@ -1,0 +1,88 @@
+# $Id: ru.po 17594 2008-05-07 17:02:06Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Konstantin Ivanov <Continental@vollen.ru>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Hidden Items 1.0.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-10-21 10:45+0200\n"
+"PO-Revision-Date: 2008-03-18 13:03+0300\n"
+"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+
+msgid "Hide Album"
+msgstr "Скрыть альбом"
+
+msgid "Hide Photo"
+msgstr "Скрыть фотографию"
+
+msgid "Hide Movie"
+msgstr "Скрыть видеоролик"
+
+#, c-format
+msgid "Hide %s"
+msgstr "Скрыть %s"
+
+msgid "Hidden Items"
+msgstr "Скрытые элементы"
+
+msgid "Hide items/albums from guests until directly accessed with the right URL"
+msgstr ""
+"Прячет элементы/альбомы от гостей. Увидеть эти элементы можно, только указав точный адрес URL"
+
+msgid "Display"
+msgstr "Отображение"
+
+msgid "Hide"
+msgstr "Скрыть"
+
+msgid "Update permissions"
+msgstr "Обновить правила доступа"
+
+msgid ""
+"Hidden items are not visible to guest users until the page for the item is accessed directly."
+msgstr "Скрытые элементы не видны гостям, но страница элемента доступна по прямой ссылке."
+
+msgid "Contents of hidden albums are restricted until the URL for the album is visited."
+msgstr ""
+"Содержимое скрытого альбома будет запрещено к просмотру до тех пор, пока не укажут точный "
+"адрес URL к нему."
+
+msgid ""
+"Note that guests need permission to view resizes and/or original items, as visiting the "
+"direct URL grants only simple view permission; access to resizes/originals is still "
+"controlled by item permissions."
+msgstr ""
+"Обратите внимание, что гостям должен быть разрешён просмотр изображений промежуточных "
+"размеров и/или оригиналов, т.к. переход по прямой ссылке дает возможность просмотра только "
+"одного конкретного изображения. Доступ к изображениям промежуточных размеров и их оригиналов "
+"контролируется правилами доступа к элементам."
+
+msgid "Hidden"
+msgstr "Скрыто"

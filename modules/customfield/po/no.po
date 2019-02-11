@@ -1,0 +1,234 @@
+# $Id: no.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Sverre M. Vikan <sverre AT urven DOT net>
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Custom Fields 1.0.13\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-01-10 11:05+0100\n"
+"PO-Revision-Date: 2006-03-09 23:17+0100\n"
+"Last-Translator: Sverre M. Vikan <sverre AT urven DOT net>\n"
+"Language-Team: Norwegian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Display settings saved successfully"
+msgstr "Vellykket lagring av visningsinnstillinger"
+
+msgid "New field added successfully"
+msgstr "Vellykket tilføyelse av nytt felt"
+
+msgid "Field moved successfully"
+msgstr "Vellykket flytting av felt"
+
+msgid "Field removed successfully"
+msgstr "Vellykket fjerning av felt"
+
+msgid "Picklist updated successfully"
+msgstr "Vellykket oppdatering av plukkliste"
+
+msgid "Field name already in use"
+msgstr "Feltnavnet er allerede i bruk"
+
+msgid "Changes saved successfully"
+msgstr "Vellykket lagring av endringer"
+
+msgid "Custom Fields"
+msgstr "Egendefinerte felt"
+
+msgid "Create custom data fields for Gallery items"
+msgstr "Opprett egendefinerte datafelt for Gallery-objekter"
+
+msgid "Extra Data"
+msgstr "Ekstra data"
+
+msgid "Common Fields"
+msgstr "Vanlige felt"
+
+msgid "Album Fields"
+msgstr "Albumfelt"
+
+msgid "Photo Fields"
+msgstr "Fotofelt"
+
+msgid "Custom Fields Module"
+msgstr "Modul for egendefinerte felt"
+
+msgid "Search custom fields"
+msgstr "Søk egendefinerte felt"
+
+msgid "Field name cannot be empty"
+msgstr "Feltnavnet kan ikke være tomt"
+
+msgid "Display"
+msgstr "Visning"
+
+msgid ""
+"Set the display order and visibility of the fields below. Summary fields are typically "
+"displayed with thumbnails in an album view. Detail fields are usually shown when viewing the "
+"specific item."
+msgstr ""
+"Sett visningsrekkefølge og synlighet for feltene under. Sammendragsfelt er vanligvis vist "
+"med miniatyrbilder i en albumvisning. Detaljerte felt er vanligvis vist under visning av det "
+"spesifikke objektet."
+
+msgid "Field"
+msgstr "Felt"
+
+msgid "Summary"
+msgstr "Sammendrag"
+
+msgid "Detail"
+msgstr "Detalj"
+
+msgid "Order"
+msgstr "Rekkefølge"
+
+msgid "up"
+msgstr "opp"
+
+msgid "down"
+msgstr "ned"
+
+msgid "Save"
+msgstr "Lagre"
+
+msgid "Reset"
+msgstr "Nullstill"
+
+msgid "Add/Remove"
+msgstr "Legg til/fjern"
+
+msgid "Save any changes above before using the controls below."
+msgstr "Lagre alle endringer over før du bruker kontrollene under."
+
+msgid "Add"
+msgstr "Legg til"
+
+msgid "Field:"
+msgstr "Felt:"
+
+msgid "Action:"
+msgstr "Handling:"
+
+msgid "Remove"
+msgstr "Fjern"
+
+msgid "Move to Album"
+msgstr "Flytt til album"
+
+msgid "Move to Photo"
+msgstr "Flytt til foto"
+
+msgid "Move to Common"
+msgstr "Flytt til vanlige"
+
+msgid "Go"
+msgstr "Gå"
+
+msgid "Picklist Values"
+msgstr "Plukklisteverdier"
+
+msgid ""
+"Custom fields allow freeform text entry by default. Enter values below to restrict field "
+"values to a specific list of choices. Enter one choice per line. Remove all choices to "
+"return to freeform text. Note that existing field values will not be changed or deleted when "
+"a picklist is added."
+msgstr ""
+"Egendefinerte felt tillater fritekst som standard. Skriv inn verdier under for å begrense "
+"feltverdier til en gitt liste av valg. Skriv inn ett valg per linje. Fjern alle valg for å "
+"gå tilbake til fritekst. Merk at eksiterende feltverdier ikke vil bli endret eller slettet "
+"når en plukkliste blir lagt til."
+
+msgid "Choices:"
+msgstr "Valg:"
+
+msgid "Add a custom field above to enable this section."
+msgstr "Legg til et egendefinert felt over for å aktivere denne seksjonen."
+
+msgid ""
+"These are album-specific custom field settings. Common fields are available on all items; "
+"Album and Photo fields can be assigned only to items of the appropriate type."
+msgstr ""
+"Disse er albumspesifikke innstillinger for egendefinerte felt. Vanlige felt er tilgjengelige "
+"for alle objekter; album- og fotofelt kan bare tilegnes objekter av riktig type."
+
+msgid "Edit custom field values for this album"
+msgstr "Endre verdier for dette albumets egendefinerte felt"
+
+msgid ""
+"WARNING: Values for all fields that do not also exist in the global settings will be deleted "
+"for this album and its items!"
+msgstr ""
+"ADVARSEL: Verdier for alle disse feltene som ikke også eksisterer i globale innstillinger, "
+"vil bli slettet for dette albumet og dets objekter!"
+
+msgid "Revert to global custom field settings for this album"
+msgstr "Gå tilbake til globale innstillinger for egendefinerte felt for dette albumet"
+
+msgid "WARNING: Values for this custom field in this album will be deleted!"
+msgstr "ADVARSEL: Verdier for dette egendefinerte feltet i dette albumet vil bli slettet!"
+
+msgid "WARNING: Values for this custom field on non-photo items in this album will be deleted!"
+msgstr ""
+"ADVARSEL: Verdier for dette egendefinerte feltet på ikke-foto-objekter i dette albumet vil "
+"bli slettet!"
+
+msgid "Override global custom field settings for this album"
+msgstr "Overstyr de globale instillingene for egendefinerte felt for dette albumet"
+
+msgid "Edit custom field settings for this album"
+msgstr "Rediger innstillingene for dette albumets egendefinerte felt"
+
+msgid "No Value"
+msgstr "Ingen verdi"
+
+msgid ""
+"These are the global settings for custom fields. They can be overridden at the album level. "
+"Common fields are available on all Gallery items; Album and Photo fields can be assigned "
+"only to items of the appropriate type."
+msgstr ""
+"Dette er de globale innstillingene for egendefinerte felt. De kan overstyres på albumnivå. "
+"Vanlige felt er tilgjengelige for alle Gallery-objekter; album- og fotofelt kan bare "
+"tilegnes objekter av riktig type."
+
+msgid ""
+"WARNING: All values for this custom field will be deleted! (Except in albums with album-"
+"specific settings)"
+msgstr ""
+"ADVARSEL: Alle verdier for dette egendefinerte feltet vil bli slettet! (Unntatt i album med "
+"albumspesifikke innstillinger)"
+
+msgid ""
+"WARNING: Values for this custom field on non-album items will be deleted! (Except in albums "
+"with album-specific settings)"
+msgstr ""
+"ADVARSEL: Verdier for dette egendefinerte feltet på ikke-albumobjekter vil bli slettet!"
+"(Unntatt i album med albumspesifikke innstillinger)"
+
+msgid ""
+"WARNING: Values for this custom field on non-photo items will be deleted! (Except in albums "
+"with album-specific settings)"
+msgstr ""
+"ADVARSEL: Verdier for dette egendefinerte feltet på ikke-foto-objekter vil bli slettet!"
+"(Unntatt i album med albumspesifikke innstillinger)"

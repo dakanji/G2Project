@@ -1,0 +1,137 @@
+# $Id: da.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# - Bjorn Graabek <bjorn@graabek.com>, 2007
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Replica 1.0.5\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:51-0800\n"
+"PO-Revision-Date: 2007-06-16 23:40+0100\n"
+"Last-Translator: Jens Hyllegaard <Jens@linushvj.dk>\n"
+"Language-Team: Danish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "create replica"
+msgstr "opret replika"
+
+msgid "replicate an item"
+msgstr "repliker et emne"
+
+msgid "Replica"
+msgstr "Replika"
+
+msgid "Create item copies sharing the same original data file"
+msgstr "Opret emnekopier der deler samme originale datafil"
+
+msgid "Display"
+msgstr "Vis"
+
+msgid "Create Replica"
+msgstr "Opret replika"
+
+msgid "Replicate Album"
+msgstr "Repliker album"
+
+msgid "Replicate Photo"
+msgstr "Repliker foto"
+
+msgid "Replicate Movie"
+msgstr "Repliker film"
+
+#, c-format
+msgid "Replicate %s"
+msgstr "Repliker %s"
+
+msgid "Create Replicas"
+msgstr "Opret replika'er"
+
+#, c-format
+msgid "Successfully replicated %d item"
+msgid_plural "Successfully replicated %d items"
+msgstr[0] "Replikerede %d emne korrekt"
+msgstr[1] "Replikerede %d emner korrekt"
+
+msgid "This album contains no items to replicate."
+msgstr "Dette album indeholder ikke nogen emner der kan replikeres."
+
+msgid ""
+"A replica is an item that shares the original data file with another item, to save disk "
+"space. In all other respects it is a separate item, with its own captions, thumbnail, "
+"resizes, comments, etc. Captions are initially copied from the source item but may be "
+"changed. Either the replica or the source may be moved or deleted without affecting the "
+"other."
+msgstr ""
+"En replika er et emne der, for at spare diskplads, deler den originale datafil med et andet "
+"emne. I alle andre henseender er det et seperat emne, med sin egen titel, miniature, "
+"størrelser, kommentarer osv. Titler kopieres fra kilde emnet men kan ændres. Både replikaen "
+"og kilden kan flyttes eller slettes uden at påvirke den anden. "
+
+msgid "Source"
+msgstr "Kilde"
+
+msgid "Choose the items you want to replicate"
+msgstr "Vælg de emner du ønsker at replikere"
+
+#, c-format
+msgid "(page %d of %d)"
+msgstr "(side %d af %d)"
+
+msgid "No sources chosen"
+msgstr "Ingen kilder valgt"
+
+msgid "Check All"
+msgstr "Markér alle"
+
+msgid "Check None"
+msgstr "Markér ingen"
+
+msgid "Invert"
+msgstr "Spejlvend"
+
+msgid "Previous Page"
+msgstr "Forrige side"
+
+msgid "Next Page"
+msgstr "Næste side"
+
+msgid "Destination"
+msgstr "Destination"
+
+msgid "Choose a new album for the replica"
+msgstr "Vælg et nyt album for replika"
+
+msgid "No destination chosen"
+msgstr "Ingen destination valgt"
+
+msgid "Create"
+msgstr "Opret"
+
+msgid "Cancel"
+msgstr "Annuller"
+
+msgid "Successfully created"
+msgstr "Oprettede med success"
+
+msgid "Choose a destination album"
+msgstr "Vælg et destinationsalbum"

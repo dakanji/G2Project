@@ -1,0 +1,208 @@
+# $Id: pl.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Notification 1.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2008-07-25 21:12+0900\n"
+"PO-Revision-Date: 2008-09-05 13:50+0100\n"
+"Last-Translator: Kappana <kappana@gnoms.net>\n"
+"Language-Team: Japanese <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Notification"
+msgstr "Powiadomienia"
+
+msgid "Allow users to be notified of events by subscription."
+msgstr "Umożliwia użytkownikom subskrybcję powiadomień o wydarzeniach w galerii."
+
+msgid "Gallery"
+msgstr "Galeria"
+
+msgid "Watch List"
+msgstr "Lista obserwowanych"
+
+msgid "Watch"
+msgstr "Obserwuj"
+
+msgid "Plugin Activation Event"
+msgstr "Aktywacja modułu"
+
+#, c-format
+msgid "The %s %s was activated"
+msgstr "Aktywowano %s %s"
+
+msgid "Plugin Deactivation Event"
+msgstr "Deaktywacja modułu"
+
+#, c-format
+msgid "The %s %s was deactivated"
+msgstr "Deaktywowano %s %s"
+
+msgid "Error Event"
+msgstr "Wystąpienie błędu"
+
+msgid "Item Order Event"
+msgstr "Zmiana kolejności pozycji"
+
+#, c-format
+msgid "The child items for %s have been reordered."
+msgstr "Zmieniono kolejność pozycji w %s."
+
+msgid "User Login Event"
+msgstr "Zalogowanie się użytkownika"
+
+#, c-format
+msgid "User %s has logged in."
+msgstr "Użytkownik %s zalogował się do galerii."
+
+msgid "User Login Failed Event"
+msgstr "Nieudane logowanie użytkownika"
+
+#, c-format
+msgid "User %s login failed."
+msgstr "Nieudane logowanie użytkownika %s."
+
+msgid "User Logout Event"
+msgstr "Wylogowanie się użytkownika"
+
+#, c-format
+msgid "User %s has logged out."
+msgstr "Użytkownik %s wylogował się z galerii."
+
+msgid "Permission Removed Event"
+msgstr "Odebranie uprawnień"
+
+#, c-format
+msgid "Permission Change on %s items."
+msgstr "Zmieniono uprawnienia dla pozycji %s."
+
+msgid "Plugin Uninstalled Event"
+msgstr "Odinstalowanie modułu"
+
+#, c-format
+msgid "The %s %s was uninstalled"
+msgstr "Odinstalowano %s %s"
+
+msgid "Album Structure Change Event"
+msgstr "Zmiana struktury albumu"
+
+msgid "Viewable Tree Change Event Occurred"
+msgstr "Zmieniono strukturę drzewa"
+
+msgid "Entity Saved Event"
+msgstr "Zapisanie obiektu"
+
+#, c-format
+msgid "%s was saved"
+msgstr "Zapisano %s"
+
+msgid "Entity Deleted Event"
+msgstr "Skasowanie obiektu"
+
+#, c-format
+msgid "%s was deleted"
+msgstr "Skasowano %s"
+
+msgid "Item Added"
+msgstr "Dodanie pozycji"
+
+#, c-format
+msgid ""
+"A new %s has been added. To view it, click here: \n"
+"%s"
+msgstr ""
+"Dodano %s. Aby przeglądać, kliknij tutaj: \n"
+"%s"
+
+msgid "Select Event"
+msgstr "Wybierz zdarzenie"
+
+msgid "Select Handler"
+msgstr "Wybierz sposób powiadamiania"
+
+msgid "Send an email"
+msgstr "Wyślij email"
+
+msgid ""
+"If you no longer wish to subscribe to this notification please update your account settings "
+"at:"
+msgstr ""
+"Jeśli nie chcesz dłużej otrzymywać powiadomień, proszę zaktualizuj swoje ustawienia na "
+"stronie:"
+
+msgid "Item Notification Settings"
+msgstr "Ustawienia powiadomień pozycji"
+
+msgid "Settings saved successfully"
+msgstr "Ustawienia zostały zapisane poprawnie"
+
+msgid "Event"
+msgstr "Zdarzenie"
+
+msgid "Action"
+msgstr "Akcja"
+
+msgid "Subscribe"
+msgstr "Subskrybuj"
+
+msgid "Apply to sub items"
+msgstr "Zastosuj do podpozycji"
+
+msgid "Not authorized to receive notifications"
+msgstr "Brak uprawnień do otrzymywania powiadomień"
+
+msgid "Save"
+msgstr "Zapisz"
+
+msgid "Reset"
+msgstr "Przywróć ustawienia domyślne"
+
+msgid "Site Notification Administration"
+msgstr "Ustawienia powiadomień"
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "Handler"
+msgstr "Sposób powiadamiania"
+
+msgid "Enabled"
+msgstr "Włączone"
+
+msgid "Public"
+msgstr "Publiczne"
+
+msgid "Event Handler is required"
+msgstr "Proszę wybrać sposób powiadamiania"
+
+msgid "User Notification Administration"
+msgstr "Ustawienia powiadomień użytkownika"
+
+msgid "Events"
+msgstr "Zdarzenia"
+
+msgid "Method"
+msgstr "Metoda"
+
+msgid "You are not subscribed to any available events"
+msgstr "Brak subskrybcji powiadomień o zdarzeniach"

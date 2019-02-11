@@ -1,0 +1,107 @@
+# $Id: sk.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Branislav Hanacek <brango@radegast>, 2006.
+# Branislav Hanacek <brango@brango.sk>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Reupload 1.0.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-03 10:22+0200\n"
+"PO-Revision-Date: 2007-11-29 03:58+0100\n"
+"Last-Translator: Matej Spanik <retsamm@gmail.com>\n"
+"Language-Team: Slovak <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: KBabel 1.11.4\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "Reuploaded file successfully."
+msgstr "Súbor bol úspešne znovu nahraný."
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabyty"
+msgstr[2] "%d megabytov"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobyty"
+msgstr[2] "%d kilobytov"
+
+msgid "Reupload"
+msgstr "Znovu Nahrávanie"
+
+msgid "Allows reupload of pictures."
+msgstr "Povolí znovu nahrať obrázky."
+
+msgid "Extra Data"
+msgstr "Extra Dáta"
+
+msgid "Reupload Photo"
+msgstr "Znovu Nahrať fotku"
+
+msgid ""
+"Your webserver is configured to disallow file uploads from your web browser at this time.  "
+"Please contact your system administrator for assistance."
+msgstr ""
+"Server je nakonfigurovany na zakazovanie nahravania suborov z Vasho prehliadaca.  Prosim "
+"kontaktujte administratora serveru."
+
+msgid "Upload a new revision of this picture instead of the old one."
+msgstr "Nahrať novú verziu tohoto obrázku namiesto starého."
+
+msgid "You cannot reupload this item because it shares its data file with other items."
+msgstr ""
+
+#, c-format
+msgid ""
+"<b>Note:</b> The new file cannot be larger than %s. If you want to upload a larger file you "
+"must ask your system administrator to allow larger uploads."
+msgstr ""
+"<b>Poznámka:</b>  Nový súbor nemôže byť väčší ako %s.  Ak chcete nahrať väčší súbor musíte "
+"požiadať administrátora aby povolil nahrávanie väčších súborov."
+
+msgid "File"
+msgstr "Súbor"
+
+msgid "Reupload File"
+msgstr "Znovu Nahrať Súbor"
+
+msgid "Unable to reupload file."
+msgstr "Nie je možné znovu nahrať súbor."
+
+#, c-format
+msgid "Please check the size and try again. The new file cannot be larger than %s."
+msgstr "Prosím skontrolujte veľkosť a skúste znovu.  Nový súbor nemôže byť väčší ako %s."
+
+msgid ""
+"Unable to reupload file. Are you sure the file is of the same type (image, movie) as the "
+"original?"
+msgstr ""
+"Nie je možné znovu nahrať súbor.  Ste si istý, že súbor je rovnakého typu(obrázok, video) "
+"ako originál?"

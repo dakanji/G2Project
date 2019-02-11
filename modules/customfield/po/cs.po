@@ -1,0 +1,231 @@
+# $Id: cs.po 20123 2009-02-17 18:08:19Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Custom Fields 1.0.13\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-01-30 16:17+0100\n"
+"PO-Revision-Date: 2005-07-31 20:24+0200\n"
+"Last-Translator: Jan Korbel <jackc@teptin.net>\n"
+"Language-Team: Czech <cs@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+msgid "Display settings saved successfully"
+msgstr "Nastavení zobrazení úspěšně uloženo"
+
+msgid "New field added successfully"
+msgstr "Nová pole úspěšně přidána"
+
+msgid "Field moved successfully"
+msgstr "Pole úspěšně přesunuta"
+
+msgid "Field removed successfully"
+msgstr "Pole úspěšně odstraněno"
+
+msgid "Picklist updated successfully"
+msgstr "Volby úspěšně aktualizovány"
+
+msgid "Field name already in use"
+msgstr "Takové jméno pole už existuje"
+
+msgid "Changes saved successfully"
+msgstr "Změny úspěšně uloženy"
+
+msgid "Custom Fields"
+msgstr "Vlastní pole"
+
+msgid "Create custom data fields for Gallery items"
+msgstr "Vytvoření vlastních polí položek Galerie"
+
+msgid "Extra Data"
+msgstr "Další data"
+
+msgid "Common Fields"
+msgstr "Obvyklá pole"
+
+msgid "Album Fields"
+msgstr "Pole alba"
+
+msgid "Photo Fields"
+msgstr "Pole fotografie"
+
+msgid "Custom Fields Module"
+msgstr "Modul pro vlastní pole"
+
+msgid "Search custom fields"
+msgstr "Hledat ve vlastních polích"
+
+msgid "Field name cannot be empty"
+msgstr "Jméno pole nemůže být prázdné"
+
+msgid "Display"
+msgstr "Zobrazení"
+
+msgid ""
+"Set the display order and visibility of the fields below. Summary fields are typically "
+"displayed with thumbnails in an album view. Detail fields are usually shown when viewing the "
+"specific item."
+msgstr ""
+"Nastavit pořadí zobrazení polí, která jsou definována níže. Souhrnná pole jsou obvykle "
+"zobrazena spolu s náhledy při prohlížení a detailní pole naopak při prohlížení určité "
+"položky."
+
+msgid "Field"
+msgstr "Pole"
+
+msgid "Summary"
+msgstr "Souhrn"
+
+msgid "Detail"
+msgstr "Detaily"
+
+msgid "Order"
+msgstr "Pořadí"
+
+msgid "up"
+msgstr "nahoru"
+
+msgid "down"
+msgstr "dolu"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Reset"
+msgstr "Výchozí hodnoty"
+
+msgid "Add/Remove"
+msgstr "Přidat/odebrat"
+
+msgid "Save any changes above before using the controls below."
+msgstr "Před použitím ovládacích prvků níže uložte všechny změny"
+
+msgid "Add"
+msgstr "Přidat"
+
+msgid "Field:"
+msgstr "Pole:"
+
+msgid "Action:"
+msgstr "Akce:"
+
+msgid "Remove"
+msgstr "Odstranit"
+
+msgid "Move to Album"
+msgstr "Přesunout do alba"
+
+msgid "Move to Photo"
+msgstr "Přesunout k fotografii"
+
+msgid "Move to Common"
+msgstr "Přesunout mezi obvyklá"
+
+msgid "Go"
+msgstr "Jdi"
+
+msgid "Picklist Values"
+msgstr "Volby"
+
+msgid ""
+"Custom fields allow freeform text entry by default. Enter values below to restrict field "
+"values to a specific list of choices. Enter one choice per line. Remove all choices to "
+"return to freeform text. Note that existing field values will not be changed or deleted when "
+"a picklist is added."
+msgstr ""
+"Vlastní pole ve výchozím nastavení neomezují zadávaný text. Pokud je chcete omezit, na každý "
+"řádek seznamu vyplňte jednu volbu. Pokud chcete zrušit omezení, jednoduše smažte všechny "
+"položky. Při přidání nových voleb zůstanou zachovány všechny existující."
+
+msgid "Choices:"
+msgstr "Volby:"
+
+msgid "Add a custom field above to enable this section."
+msgstr "K aktivaci této sekce upravte vlastní pole nahoře."
+
+msgid ""
+"These are album-specific custom field settings. Common fields are available on all items; "
+"Album and Photo fields can be assigned only to items of the appropriate type."
+msgstr ""
+"Toto je nastavení pro vlastní pole specifického alba. Obvyklá pole jsou dostupná pro všechny "
+"položky; Pole alba a fotografie mohou být přiřazeny pouze k položkám daného typu."
+
+msgid "Edit custom field values for this album"
+msgstr "Upravit hodnoty pro vlastní pole tohoto alba"
+
+msgid ""
+"WARNING: Values for all fields that do not also exist in the global settings will be deleted "
+"for this album and its items!"
+msgstr ""
+"Varování: Hodnoty všech polí tohoto alba a jeho položek budou smazány, pokud nejsou v "
+"globálních nastaveních!"
+
+msgid "Revert to global custom field settings for this album"
+msgstr "Vrátit zpět ke globálním nastavením polí pro toto album"
+
+msgid "WARNING: Values for this custom field in this album will be deleted!"
+msgstr "Varování: Hodnoty pro toto vlastní pole tohoto alba budou smazány!"
+
+msgid "WARNING: Values for this custom field on non-photo items in this album will be deleted!"
+msgstr ""
+"Varování: Hodnoty pro toto vlastní pole položek, které nejsou fotografie, budou smazány!"
+
+msgid "Override global custom field settings for this album"
+msgstr "Potlačit globální nastavení vlastních polí pro toto album"
+
+msgid "Edit custom field settings for this album"
+msgstr "Upravit nastavení pro vlastní pole tohoto alba"
+
+msgid "No Value"
+msgstr "Bez hodnoty"
+
+msgid ""
+"These are the global settings for custom fields. They can be overridden at the album level. "
+"Common fields are available on all Gallery items; Album and Photo fields can be assigned "
+"only to items of the appropriate type."
+msgstr ""
+"Toto je globální nastavení pro vlastní pole, které může být potlačeno nastavením konkrétního "
+"alba. Obvyklá pole jsou dostupná pro všechny položky; pole alba a fotografie mohou být "
+"přiřazeny pouze k položkám daného typu."
+
+msgid ""
+"WARNING: All values for this custom field will be deleted! (Except in albums with album-"
+"specific settings)"
+msgstr ""
+"Varování: Všechny hodnoty těchto vlastních polí budou smazány! (Kromě alb se specifickým "
+"nastavením)"
+
+msgid ""
+"WARNING: Values for this custom field on non-album items will be deleted! (Except in albums "
+"with album-specific settings)"
+msgstr ""
+"Varování: Hodnoty pro toto vlastní pole položek, které nejsou alba, budou smazány! (Kromě "
+"položek v albech se specifickými nastaveními)"
+
+msgid ""
+"WARNING: Values for this custom field on non-photo items will be deleted! (Except in albums "
+"with album-specific settings)"
+msgstr ""
+"Varování: Hodnoty pro toto vlastní pole položek, které nejsou fotografie, budou smazány! "
+"(Kromě·položek·v·albech·se·specifickými·nastaveními)"

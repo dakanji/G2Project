@@ -1,0 +1,239 @@
+# $Id: sv.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Swedish translation
+# Hampus Nygren <hampus@friendlyfire.net>, 2005.
+#
+# Changed the translation from html to UTF-8
+# Anders Lindquist <andersl@saaf.se>, 2005
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Custom Fields 1.0.13\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2003-02-11 03:09-0800\n"
+"PO-Revision-Date: 2006-03-13 19:05+0100\n"
+"Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
+"Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Swedish\n"
+"X-Poedit-Country: SWEDEN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Display settings saved successfully"
+msgstr "Visningsinställningarna sparades framgångsrikt"
+
+msgid "New field added successfully"
+msgstr "Nytt fält skapat"
+
+msgid "Field moved successfully"
+msgstr "Fält flyttat"
+
+msgid "Field removed successfully"
+msgstr "fält borttaget"
+
+msgid "Picklist updated successfully"
+msgstr "Listan uppdaterad"
+
+msgid "Field name already in use"
+msgstr "Fältnamnet redan använt"
+
+msgid "Changes saved successfully"
+msgstr "Ändringar sparade"
+
+msgid "Custom Fields"
+msgstr "Specialfält"
+
+msgid "Create custom data fields for Gallery items"
+msgstr "Skapa specialfält för Galleryobjekt"
+
+msgid "Extra Data"
+msgstr "Extra Information"
+
+msgid "Common Fields"
+msgstr "Vanliga fält"
+
+msgid "Album Fields"
+msgstr "Albumfält"
+
+msgid "Photo Fields"
+msgstr "Fotofält"
+
+msgid "Custom Fields Module"
+msgstr "Modul för Specialfält"
+
+msgid "Search custom fields"
+msgstr "Sök specialfält"
+
+msgid "Field name cannot be empty"
+msgstr "Fältnamnet kan inte vara tomt"
+
+msgid "Display"
+msgstr "Visa"
+
+msgid ""
+"Set the display order and visibility of the fields below. Summary fields are typically "
+"displayed with thumbnails in an album view. Detail fields are usually shown when viewing the "
+"specific item."
+msgstr ""
+"Angiv sortering och synlighet av fälten nedanför. Summafält visas typisk med miniaturer i "
+"albumvisningen. Detaljfält visas normalt när ett element visas."
+
+msgid "Field"
+msgstr "Fält"
+
+msgid "Summary"
+msgstr "Summering"
+
+msgid "Detail"
+msgstr "Detalj"
+
+msgid "Order"
+msgstr "Sortering"
+
+msgid "up"
+msgstr "up"
+
+msgid "down"
+msgstr "ner"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Reset"
+msgstr "Nollställ"
+
+msgid "Add/Remove"
+msgstr "Lägg till/Ta bort"
+
+msgid "Save any changes above before using the controls below."
+msgstr "Spara ändringar ovanför innan du använder inställningarna nedan."
+
+msgid "Add"
+msgstr "Lägg till"
+
+msgid "Field:"
+msgstr "Fält:"
+
+msgid "Action:"
+msgstr "Funktion:"
+
+msgid "Remove"
+msgstr "Ta bort"
+
+msgid "Move to Album"
+msgstr "Flytta till album"
+
+msgid "Move to Photo"
+msgstr "Flytta till foto"
+
+msgid "Move to Common"
+msgstr "Flytta till Vanliga"
+
+msgid "Go"
+msgstr "Gå"
+
+msgid "Picklist Values"
+msgstr "Listvärden"
+
+msgid ""
+"Custom fields allow freeform text entry by default. Enter values below to restrict field "
+"values to a specific list of choices. Enter one choice per line. Remove all choices to "
+"return to freeform text. Note that existing field values will not be changed or deleted when "
+"a picklist is added."
+msgstr ""
+"Specialfält tillåter fritext som standard. Fyll i värde nedan för att begränsa fältvärdena "
+"till en lista av val. Fyll i ett val per rad. Ta bort alla val för att gå tillbaka till "
+"fritext. Lägg märke till att existerande fältvärden inte kommer att förändras eller raderas "
+"när en lista läggs till."
+
+msgid "Choices:"
+msgstr "Val:"
+
+msgid "Add a custom field above to enable this section."
+msgstr "Lägg till ett specialfält ovanför för att aktivera denna sektionen."
+
+msgid ""
+"These are album-specific custom field settings. Common fields are available on all items; "
+"Album and Photo fields can be assigned only to items of the appropriate type."
+msgstr ""
+"Detta är inställningar för album-specifika specialfält. Vanliga fält är tillgängliga på alla "
+"objekt; Album och foto-fält kan endast tilldelas till objekt av passande typ."
+
+msgid "Edit custom field values for this album"
+msgstr "Redigera specialfältvärden för detta album"
+
+msgid ""
+"WARNING: Values for all fields that do not also exist in the global settings will be deleted "
+"for this album and its items!"
+msgstr ""
+"VARNING: Alla fältvärden som inte också existerar i de globala inställningarna kommer att "
+"bli borttagna för detta album och dess objekt!"
+
+msgid "Revert to global custom field settings for this album"
+msgstr "Återgå till globala specialfältinställningar för detta album"
+
+msgid "WARNING: Values for this custom field in this album will be deleted!"
+msgstr "VARNING: Värden för detta specialfält i detta album kommer att bli borttaget!"
+
+msgid "WARNING: Values for this custom field on non-photo items in this album will be deleted!"
+msgstr ""
+"VARNING: Värden för detta specialfält på icke-foto-objekt i detta album kommer att bli "
+"borttagna!"
+
+msgid "Override global custom field settings for this album"
+msgstr "Åtsidosätt de globala inställningarna för specialfält för detta album"
+
+msgid "Edit custom field settings for this album"
+msgstr "Regigera inställningarna för specialfält för detta album"
+
+msgid "No Value"
+msgstr "Inget Värde"
+
+msgid ""
+"These are the global settings for custom fields. They can be overridden at the album level. "
+"Common fields are available on all Gallery items; Album and Photo fields can be assigned "
+"only to items of the appropriate type."
+msgstr ""
+"Detta är de globala inställningarna för specialfält. De kan bli åtsidosättas på albumnivå. "
+"Vanliga fält finns tillgängliga för alla Gallery-objekt; Album och Foto-fält kan endast "
+"kopplas samman med objekt av rätt typ."
+
+msgid ""
+"WARNING: All values for this custom field will be deleted! (Except in albums with album-"
+"specific settings)"
+msgstr ""
+"VARNING: Alla värde för detta specialfält kommer att tas bort! (Undantaget i album med album-"
+"specifika inställningar)"
+
+msgid ""
+"WARNING: Values for this custom field on non-album items will be deleted! (Except in albums "
+"with album-specific settings)"
+msgstr ""
+"VARNING: Värde för detta specialfält för icke-album objekt kommer att tas bort! (Undantaget "
+"i album med album-specifika inställningar)"
+
+msgid ""
+"WARNING: Values for this custom field on non-photo items will be deleted! (Except in albums "
+"with album-specific settings)"
+msgstr ""
+"VARNING: Värde för detta specialfält för icke-foto objekt kommer att tas bort! (Undantaget i "
+"album med album-specifika inställningar)"

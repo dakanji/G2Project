@@ -1,0 +1,132 @@
+# $Id: zh_TW.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Replica 1.0.5\n"
+"POT-Creation-Date: 2005-07-27 23:11-0400\n"
+"PO-Revision-Date: 2005-08-24 14:00-0400\n"
+"Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
+"Language-Team: Chinese Traditional <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "create replica"
+msgstr "產生項目副本"
+
+msgid "replicate an item"
+msgstr "複製一個項目"
+
+msgid "Replica"
+msgstr "項目副本"
+
+msgid "Create item copies sharing the same original data file"
+msgstr "產生共用同一個原始資料檔案的項目拷貝"
+
+msgid "Display"
+msgstr "顯示"
+
+msgid "Create Replica"
+msgstr "產生項目副本"
+
+msgid "Replicate Album"
+msgstr "複製相簿"
+
+msgid "Replicate Photo"
+msgstr "複製照片"
+
+msgid "Replicate Movie"
+msgstr "複製影片"
+
+#, c-format
+msgid "Replicate %s"
+msgstr "複製%s"
+
+msgid "Create Replicas"
+msgstr "產生項目副本"
+
+#, c-format
+msgid "Successfully replicated %d item"
+msgid_plural "Successfully replicated %d items"
+msgstr[0] "成功複製了 %d 個項目"
+
+msgid "This album contains no items to replicate."
+msgstr "這相簿中沒有可以複製的項目。"
+
+msgid ""
+"A replica is an item that shares the original data file with another item, to save disk "
+"space. In all other respects it is a separate item, with its own captions, thumbnail, "
+"resizes, comments, etc. Captions are initially copied from the source item but may be "
+"changed. Either the replica or the source may be moved or deleted without affecting the "
+"other."
+msgstr ""
+"副本是一個和其它項目共用同一個原始資料檔案的項目，目的是為了節省磁碟空間。除此之外它是一個完"
+"全分開的項目，有自己的說明、縮略圖、縮放大小圖、回應...等等。在剛產生的時候，說明是由原始項目"
+"拷貝來的，但是可以更改。副本和原件都可由任意移動或刪除，並不會互相影響。"
+
+msgid "Source"
+msgstr "來源"
+
+msgid "Choose the items you want to replicate"
+msgstr "選擇你要複製的項目"
+
+#, c-format
+msgid "(page %d of %d)"
+msgstr "（第 %2$d 之 %1$d 頁）"
+
+msgid "No sources chosen"
+msgstr "未選擇來源位置"
+
+msgid "Check All"
+msgstr "選擇全部"
+
+msgid "Check None"
+msgstr "全部不選"
+
+msgid "Invert"
+msgstr "反向選擇"
+
+msgid "Previous Page"
+msgstr "上一頁"
+
+msgid "Next Page"
+msgstr "下一頁"
+
+msgid "Destination"
+msgstr "目標位置"
+
+msgid "Choose a new album for the replica"
+msgstr "選擇要包含副件的相簿"
+
+msgid "No destination chosen"
+msgstr "未選擇目標位置"
+
+msgid "Create"
+msgstr "新建"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Successfully created"
+msgstr "成功產生項目副本"
+
+msgid "Choose a destination album"
+msgstr "選擇一個移動目標相簿"

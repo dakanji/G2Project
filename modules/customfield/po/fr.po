@@ -1,0 +1,235 @@
+# $Id: fr.po 20123 2009-02-17 18:08:19Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Custom Fields 1.0.13\n"
+"POT-Creation-Date: 2004-11-25 00:03+0100\n"
+"PO-Revision-Date: 2006-10-01 00:00+0100\n"
+"Last-Translator: Arnaud MOURONVAL <Arnaud.Mouronval@yahoo.com>\n"
+"Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Display settings saved successfully"
+msgstr "Paramètres d'affichage sauvegardés avec succès"
+
+msgid "New field added successfully"
+msgstr "Nouveaux champs ajoutés avec succès"
+
+msgid "Field moved successfully"
+msgstr "Champ déplacé avec succès"
+
+msgid "Field removed successfully"
+msgstr "Champ supprimé avec succès"
+
+msgid "Picklist updated successfully"
+msgstr "Liste de choix mise à jour avec succès"
+
+msgid "Field name already in use"
+msgstr "Nom de champ déjà utilisé"
+
+msgid "Changes saved successfully"
+msgstr "Modifications sauvegardées avec succès"
+
+msgid "Custom Fields"
+msgstr "Champs personnalisés"
+
+msgid "Create custom data fields for Gallery items"
+msgstr "Créer les données des champs personnalisés pour les éléments de Gallery"
+
+msgid "Extra Data"
+msgstr "Données supplémentaires"
+
+msgid "Common Fields"
+msgstr "Champs communs"
+
+msgid "Album Fields"
+msgstr "Champs d'album"
+
+msgid "Photo Fields"
+msgstr "Champs de photo"
+
+msgid "Custom Fields Module"
+msgstr "Champs personnalisés"
+
+msgid "Search custom fields"
+msgstr "Rechercher les champs personnalisés"
+
+msgid "Field name cannot be empty"
+msgstr "Le nom du champ ne peut pas être vide"
+
+msgid "Display"
+msgstr "Affichage"
+
+msgid ""
+"Set the display order and visibility of the fields below. Summary fields are typically "
+"displayed with thumbnails in an album view. Detail fields are usually shown when viewing the "
+"specific item."
+msgstr ""
+"Spécifiez l'ordre d'affichage et la visibilité des champs ci-dessous. Les champs résumés "
+"sont typiquement affichés avec les vignettes dans une vue d'album. Les champs détails sont "
+"habituellement montrés en affichant un élément spécifique."
+
+msgid "Field"
+msgstr "Champ"
+
+msgid "Summary"
+msgstr "Résumé"
+
+msgid "Detail"
+msgstr "Détail"
+
+msgid "Order"
+msgstr "Ordre"
+
+msgid "up"
+msgstr "haut"
+
+msgid "down"
+msgstr "bas"
+
+msgid "Save"
+msgstr "Sauver"
+
+msgid "Reset"
+msgstr "Réinitialiser"
+
+msgid "Add/Remove"
+msgstr "Ajouter / Supprimer"
+
+msgid "Save any changes above before using the controls below."
+msgstr "Sauvez toutes les modifications ci-dessus avant d'utiliser les contrôles ci-dessous."
+
+msgid "Add"
+msgstr "Ajouter"
+
+msgid "Field:"
+msgstr "Champ&nbsp;:"
+
+msgid "Action:"
+msgstr "Action&nbsp;: "
+
+msgid "Remove"
+msgstr "Supprimer"
+
+msgid "Move to Album"
+msgstr "Déplacer vers Album"
+
+msgid "Move to Photo"
+msgstr "Déplacer vers Photo"
+
+msgid "Move to Common"
+msgstr "Déplacer vers Commun"
+
+msgid "Go"
+msgstr "Go"
+
+msgid "Picklist Values"
+msgstr "Valeurs des listes de choix"
+
+msgid ""
+"Custom fields allow freeform text entry by default. Enter values below to restrict field "
+"values to a specific list of choices. Enter one choice per line. Remove all choices to "
+"return to freeform text. Note that existing field values will not be changed or deleted when "
+"a picklist is added."
+msgstr ""
+"Les champs pesonnalisés permettent par défaut de saisir du texte libre. Saisissez ci-dessous "
+"les valeurs pour restreindre le choix de saisie. Saisissez un choix par ligne. Supprimez "
+"tous les choix pour retourner à la saisie d'un texte libre. Notez que les choix existants ne "
+"sont pas altérés par la modification ou la suppression d'un choix."
+
+msgid "Choices:"
+msgstr "Choix&nbsp;:"
+
+msgid "Add a custom field above to enable this section."
+msgstr "Ajouter un champ personnalisé ci-dessus pour activer cette section."
+
+msgid ""
+"These are album-specific custom field settings. Common fields are available on all items; "
+"Album and Photo fields can be assigned only to items of the appropriate type."
+msgstr ""
+"Ce sont les paramètres des champs personnalisés spécifiques aux albums. Les champs communs "
+"sont disponibles pour tous les éléments, les champs pour albums et photos ne peuvent être "
+"attribués qu'aux éléments du type approprié."
+
+msgid "Edit custom field values for this album"
+msgstr "Éditer les valeurs des champs personnalisés pour cet album"
+
+msgid ""
+"WARNING: Values for all fields that do not also exist in the global settings will be deleted "
+"for this album and its items!"
+msgstr ""
+"Attention&nbsp;: Les valeurs pour tous ces champs qui n'existent pas dans les paramètres "
+"globaux seront effacées pour cet album et tous ses éléments&nbsp;!"
+
+msgid "Revert to global custom field settings for this album"
+msgstr "Revenir aux paramètre global concernant les champs personnalisés pour cet album"
+
+msgid "WARNING: Values for this custom field in this album will be deleted!"
+msgstr ""
+"Attention&nbsp;: Les valeurs pour ce champ personnalisé vont être effacées dans cet "
+"album&nbsp;!"
+
+msgid "WARNING: Values for this custom field on non-photo items in this album will be deleted!"
+msgstr ""
+"Attention&nbsp;: Les valeurs pour ce champ personnalisé vont être effacées pour les éléments "
+"non photo de cet album&nbsp;!"
+
+msgid "Override global custom field settings for this album"
+msgstr "Remplacer les paramètres globaux des champs personnalisés pour cet album"
+
+msgid "Edit custom field settings for this album"
+msgstr "Éditer les paramètres des champs personnalisés pour cet album"
+
+msgid "No Value"
+msgstr "Aucune valeur"
+
+msgid ""
+"These are the global settings for custom fields. They can be overridden at the album level. "
+"Common fields are available on all Gallery items; Album and Photo fields can be assigned "
+"only to items of the appropriate type."
+msgstr ""
+"Ce sont les paramètres globaux pour les champs personnalisés. Ceux-ci peuvent être remplacés "
+"au niveau des albums. Les champs communs sont disponibles pour tous les éléments de Gallery. "
+"Les champs pour albums et photos ne peuvent être attribués qu'aux éléments du type approprié."
+
+msgid ""
+"WARNING: All values for this custom field will be deleted! (Except in albums with album-"
+"specific settings)"
+msgstr ""
+"Attention&nbsp;: Toutes les valeurs pour ce champ personnalisé vont être effacées (à "
+"l'exception des albums ayant des paramètres spécifiques)&nbsp;!"
+
+msgid ""
+"WARNING: Values for this custom field on non-album items will be deleted! (Except in albums "
+"with album-specific settings)"
+msgstr ""
+"Attention&nbsp;: Les valeurs pour ce champ personnalisé vont être effacées pour les éléments "
+"non album (à l'exception des élements à l'intérieur d'albums ayant des paramètres "
+"spécifiques)&nbsp;!"
+
+msgid ""
+"WARNING: Values for this custom field on non-photo items will be deleted! (Except in albums "
+"with album-specific settings)"
+msgstr ""
+"Attention&nbsp;: Les valeurs pour ce champ personnalisé vont être effacées pour les éléments "
+"non photo (à l'exception des albums ayant des paramètres spécifiques)&nbsp;!"

@@ -1,0 +1,134 @@
+# $Id: ja.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Replica 1.0.5\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:56-0800\n"
+"PO-Revision-Date: 2007-03-14 23:50+0900\n"
+"Last-Translator: Yosuke Suzuki\n"
+"Language-Team: Japanese <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "create replica"
+msgstr "複製を作る"
+
+msgid "replicate an item"
+msgstr "アイテムを複製する"
+
+msgid "Replica"
+msgstr "複製"
+
+msgid "Create item copies sharing the same original data file"
+msgstr "元のデータファイルを共有するアイテムのコピーを作成する"
+
+msgid "Display"
+msgstr "表示"
+
+msgid "Create Replica"
+msgstr "複製を作る"
+
+msgid "Replicate Album"
+msgstr "アルバムの複製"
+
+msgid "Replicate Photo"
+msgstr "画像の複製"
+
+msgid "Replicate Movie"
+msgstr "動画の複製"
+
+#, c-format
+msgid "Replicate %s"
+msgstr "%s の複製"
+
+msgid "Create Replicas"
+msgstr "複製を作る"
+
+#, c-format
+msgid "Successfully replicated %d item"
+msgid_plural "Successfully replicated %d items"
+msgstr[0] "%d アイテムの複製に成功しました。"
+
+msgid "This album contains no items to replicate."
+msgstr "このアルバムには複製すべきアイテムがありません。"
+
+msgid ""
+"A replica is an item that shares the original data file with another item, to save disk "
+"space. In all other respects it is a separate item, with its own captions, thumbnail, "
+"resizes, comments, etc. Captions are initially copied from the source item but may be "
+"changed. Either the replica or the source may be moved or deleted without affecting the "
+"other."
+msgstr ""
+"複製アイテムはディスクスペースの節約のため、元のデータを他のアイテムと共有します。見出し、サ"
+"ムネイル、リサイズ画像、コメント、その他全ての項目はアイテム別になっています。見出しは始めは"
+"元のアイテムからコピーされますが、後に変更されるでしょう。複製か元のどちらかの移動や削除は、"
+"もう一方への影響はありません。"
+
+msgid "Source"
+msgstr "ソース"
+
+msgid "Choose the items you want to replicate"
+msgstr "複製したいアイテムを選択してください。"
+
+#, c-format
+msgid "(page %d of %d)"
+msgstr "(ページ %d / %d)"
+
+msgid "No sources chosen"
+msgstr "選択された元がありません"
+
+msgid "Check All"
+msgstr "全てをチェック"
+
+msgid "Check None"
+msgstr "どれもチェックしない"
+
+msgid "Invert"
+msgstr "挿入"
+
+msgid "Previous Page"
+msgstr "前のページ"
+
+msgid "Next Page"
+msgstr "次のページ"
+
+msgid "Destination"
+msgstr "宛先"
+
+msgid "Choose a new album for the replica"
+msgstr "複製のための新しいアルバムを選択"
+
+msgid "No destination chosen"
+msgstr "選択された宛先がありません"
+
+msgid "Create"
+msgstr "作成"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "Successfully created"
+msgstr "作成に成功しました"
+
+msgid "Choose a destination album"
+msgstr "対象となるアルバムを選択してください。"

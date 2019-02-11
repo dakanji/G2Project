@@ -1,0 +1,140 @@
+# $Id: es_MX.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Replica 1.0.5\n"
+"POT-Creation-Date: 2005-01-01 14:00-0600\n"
+"PO-Revision-Date: 2005-01-01 16:12-0800\n"
+"Last-Translator: Wieland E. Kublun <wieland.kublun@gmx.net>, www.kublun.com\n"
+"Language-Team: Mexican Spanish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Mexican Spanish\n"
+"X-Poedit-Country: MEXICO\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "create replica"
+msgstr "crear replica"
+
+msgid "replicate an item"
+msgstr "replicar un elemento"
+
+msgid "Replica"
+msgstr "Replica"
+
+msgid "Create item copies sharing the same original data file"
+msgstr "Crea copias de un elemento compartiendo el mismo fichero de datos original"
+
+msgid "Display"
+msgstr "Visualización"
+
+msgid "Create Replica"
+msgstr "Crear Replica"
+
+msgid "Replicate Album"
+msgstr "Replicar Álbum"
+
+msgid "Replicate Photo"
+msgstr "Replical Foto"
+
+msgid "Replicate Movie"
+msgstr "Replicar Película"
+
+#, c-format
+msgid "Replicate %s"
+msgstr "Replicar %s"
+
+msgid "Create Replicas"
+msgstr "Crear Replicas"
+
+#, c-format
+msgid "Successfully replicated %d item"
+msgid_plural "Successfully replicated %d items"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "This album contains no items to replicate."
+msgstr "Este álbum no contiene elementos a replicar."
+
+msgid ""
+"A replica is an item that shares the original data file with another item, to save disk "
+"space. In all other respects it is a separate item, with its own captions, thumbnail, "
+"resizes, comments, etc. Captions are initially copied from the source item but may be "
+"changed. Either the replica or the source may be moved or deleted without affecting the "
+"other."
+msgstr ""
+"Una replica es un elemento que comparte el archivo de datos original con otro elemento, para "
+"salvar espacio en disco.  Por lo demás es un elmento separado con sus propias etiquetas, "
+"miniatura, redimensiones, comentarios, etc. Las etiquetas se copian inicialmente del "
+"elemento fuente pero pueden ser modificadas. Tanto la replica como la fuente pueden ser "
+"movidas o borradas sin que afecte uno al otro."
+
+msgid "Source"
+msgstr "Fuente"
+
+msgid "Choose the items you want to replicate"
+msgstr "Elige los elementos que quieres replicar"
+
+#, fuzzy, c-format
+msgid "(page %d of %d)"
+msgstr "Visualizando p&aacute;gina %d de %d"
+
+#, fuzzy
+msgid "No sources chosen"
+msgstr "No se eliji&oacute; destino"
+
+msgid "Check All"
+msgstr "Seleccionar todo"
+
+msgid "Check None"
+msgstr "De-seleccioar todo"
+
+msgid "Invert"
+msgstr "Invertir"
+
+msgid "Previous Page"
+msgstr "P&aacute;gina anterior "
+
+#, fuzzy
+msgid "Next Page"
+msgstr "Siguiente p&aacute;gina >>"
+
+msgid "Destination"
+msgstr "Destino"
+
+msgid "Choose a new album for the replica"
+msgstr "Elegir un nuevo álbum para la replica"
+
+msgid "No destination chosen"
+msgstr "No se eliji&oacute; destino"
+
+msgid "Create"
+msgstr "Crear"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Successfully created"
+msgstr "Creado con éxito"
+
+#, fuzzy
+msgid "Choose a destination album"
+msgstr "Elija el destino para los elementos seleccionados"

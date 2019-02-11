@@ -1,0 +1,111 @@
+# $Id: cs.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Permalinks 1.0.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-02-12 17:36+0100\n"
+"PO-Revision-Date: 2006-02-19 11:16+0100\n"
+"Last-Translator: Jan Korbel <jackc@teptin.net>\n"
+"Language-Team: Czech <cs@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+msgid "Permalink(s) deleted successfully"
+msgstr "Alias(y) úspěšně vymazán"
+
+msgid "Permalinks"
+msgstr "Aliasy"
+
+msgid "Create simpler permanent aliases to your items space"
+msgstr "Aliasy (trvalé aliasy) pro Vaše položky"
+
+msgid "Gallery"
+msgstr "Galerie"
+
+msgid "Name you have defined as an alias to your item"
+msgstr "Jméno aliasu pro položku"
+
+msgid ""
+"Enable this rule to allow Permalinks you define to work. Disabling this rule will break your "
+"Permalinks."
+msgstr "Zapnutí tohoto pravidla aliasy aktivuje. Vypnutí je deaktivuje."
+
+msgid "Permalink post activation"
+msgstr "Po-aktivace aliasu"
+
+msgid "URL Rewrite Module"
+msgstr "Modul přepisu URL"
+
+#, c-format
+msgid ""
+"Now that you have activated the Permalinks module, you have to activate Permalinks rule in "
+"the %s."
+msgstr "Po aktivaci modulu aliasů (trvalých odkazů) musíte aktivovat pravidlo aliasů v %s."
+
+msgid "Edit the permalinks that refer to this item. You can add or delete permalinks."
+msgstr "Editovat aliasy pro tuto položku. Aliasy můžete přidat nebo smazat."
+
+msgid "You have no permalinks"
+msgstr "Nemáte žádné aliasy"
+
+msgid "Existing permalinks"
+msgstr "Existující aliasy"
+
+msgid "Delete"
+msgstr "Smazat"
+
+msgid "Permalink name"
+msgstr "Jméno aliasu"
+
+#, c-format
+msgid "Permalink '%s' already exists, possibly on another item"
+msgstr "Alias '%s' již existuje, pravděpodobně u jiné položky"
+
+msgid "Add a new permalink:"
+msgstr "Přidat nový alias:"
+
+#, c-format
+msgid "Set to '%s'"
+msgstr "Nastaveno na '%s'"
+
+msgid "Auto-permalink"
+msgstr "Automatické aliasy"
+
+msgid ""
+"If you use this feature, any time a new album is created, a permalink to it with the name of "
+"the album will be created, unless a permalink by the same name already exists. You will be "
+"able to remove the permalink if you wish."
+msgstr ""
+"Pokud zapnete tuto funkci, vždy při vytvoření nového alba bude vytvořen alias se stejným "
+"jménem, pokud takový alias již nebude existovat. Pokud budete chtít, budete moci alias "
+"smazat."
+
+msgid "Enable auto-permalink"
+msgstr "Zapnout automatické aliasy"
+
+msgid "Global list of permalinks"
+msgstr "Globální seznam aliasů"
+
+msgid "Save"
+msgstr "Uložit"

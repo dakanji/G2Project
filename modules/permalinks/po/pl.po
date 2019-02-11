@@ -1,0 +1,118 @@
+# $Id: pl.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Permalinks 1.0.12\n"
+"POT-Creation-Date: 2006-02-23 10:15+0100\n"
+"PO-Revision-Date: 2006-12-27 16:35+0100\n"
+"Last-Translator: Kappana <kappana@gnoms.net>\n"
+"Language-Team: Polish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-Country: POLAND\n"
+
+msgid "Permalink(s) deleted successfully"
+msgstr "Link(i) bezpośrednie usunięto"
+
+msgid "Permalinks"
+msgstr "Linki bezpośrednie"
+
+msgid "Create simpler permanent aliases to your items space"
+msgstr "Tworzy proste linki bezpośrednie do pozycji (albumów) w galerii"
+
+msgid "Gallery"
+msgstr "Galeria"
+
+msgid "Name you have defined as an alias to your item"
+msgstr "Nazwa ustawiona jako alias dla tej pozycji"
+
+msgid ""
+"Enable this rule to allow Permalinks you define to work. Disabling this rule will break your "
+"Permalinks."
+msgstr ""
+"Włącz tę regułę, aby zezwolić na używanie linków bezpośrednich. Wyłączenie reguły przerwie "
+"działanie linków bezpośrednich."
+
+msgid "Permalink post activation"
+msgstr "Aktywacja linków bezpośrednich"
+
+msgid "URL Rewrite Module"
+msgstr "module tworzenia krótkich adresów URL"
+
+#, c-format
+msgid ""
+"Now that you have activated the Permalinks module, you have to activate Permalinks rule in "
+"the %s."
+msgstr ""
+"Teraz kiedy moduł linków bezpośrednich jest aktywny, konieczne jest aktywowanie reguły "
+"linków bezpośrednich w %s."
+
+msgid "Edit the permalinks that refer to this item. You can add or delete permalinks."
+msgstr ""
+"Edytuj linki bezpośrednie które odpowiadają tej pozycji. Można dodać lub usunąć linki "
+"bezpośrednie."
+
+msgid "You have no permalinks"
+msgstr "Nie istnieją żadne linki bezpośrednie"
+
+msgid "Existing permalinks"
+msgstr "Aktualne linki bezpośrednie"
+
+msgid "Delete"
+msgstr "Usuń"
+
+msgid "Permalink name"
+msgstr "Nazwa linka"
+
+#, c-format
+msgid "Permalink '%s' already exists, possibly on another item"
+msgstr "Link bezpośredni '%s' już istnieje, prawdopodobnie dla innej pozycji"
+
+msgid "Add a new permalink:"
+msgstr "Dodaj nowy link bezpośredni:"
+
+#, c-format
+msgid "Set to '%s'"
+msgstr "Ustaw na '%s'"
+
+msgid "Auto-permalink"
+msgstr "Automatyczne linki bezpośrednie"
+
+msgid ""
+"If you use this feature, any time a new album is created, a permalink to it with the name of "
+"the album will be created, unless a permalink by the same name already exists. You will be "
+"able to remove the permalink if you wish."
+msgstr ""
+"Jeśli zostanie użyta ta opcja, podczas tworzenia nowego albumu będzie również automatycznie "
+"tworzony link bezpośredni do tego albumu. Nazwa takiego linka będzie identyczna z nazwą "
+"tworzonego albumu, chyba, że link o takiej nazwie już istnieje. Stworzony w ten sposób link "
+"będzie mógł być skasowany w każdej chwili."
+
+msgid "Enable auto-permalink"
+msgstr "Włącz automatyczne tworzenie linków"
+
+msgid "Global list of permalinks"
+msgstr "Lista aktualnych linków bezpośrednich"
+
+msgid "Save"
+msgstr "Zapisz"

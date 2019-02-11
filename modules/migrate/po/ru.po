@@ -1,0 +1,490 @@
+# $Id: ru.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Konstantin Ivanov <Continental@vollen.ru>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Migration 1.0.13\n"
+"POT-Creation-Date: 2003-10-19 05:10+0200\n"
+"PO-Revision-Date: 2008-10-12 09:34+0300\n"
+"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.10.1\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+
+msgid "Importing Users"
+msgstr "Импорт пользователей"
+
+msgid "Importing Photos"
+msgstr "Импорт фотографий"
+
+msgid "Creating thumbnails"
+msgstr "Создание миниатюр"
+
+#, c-format
+msgid "Thumbnail %d of %d"
+msgstr "Миниатюра %d из %d"
+
+#, c-format
+msgid "%sTitle%s was truncated for %sitem %d%s."
+msgstr "%sЗаголовок%s  %sэлемента %d%s был искажён  ."
+
+#, c-format
+msgid "%sSummary%s was truncated for %sitem %d%s."
+msgstr "%sПодзаголовок%s  %sэлемента %d%s был искажён ."
+
+msgid "Set:"
+msgstr "Установить: "
+
+msgid "Truncated:"
+msgstr "Искажения:"
+
+msgid "Migration"
+msgstr "Миграция"
+
+msgid "Migrate your Gallery 1 albums to Gallery 2"
+msgstr "Импорт альбомов из Gallery 1 в Gallery 2"
+
+msgid "Import"
+msgstr "Импорт"
+
+msgid "Gallery 1"
+msgstr "Gallery 1"
+
+msgid "G1-&gt;G2 Mapping"
+msgstr "G1-&gt;G2 Переходы"
+
+msgid "G1 path"
+msgstr "Путь к G1"
+
+#, c-format
+msgid ""
+"G1 URL redirect. Use only if G2 is installed where G1 used to be and you have run a G1 "
+"import with the URL redirect option selected. Otherwise follow instructions in %sMigrate "
+"Site Admin%s."
+msgstr ""
+"URL перенаправление для G1.  Используйте эту опцию только в том случае, если G2 "
+"инсталлирована на том же сервере, что и G1 и вы выполнили импорт G1 с включенной опцией URL "
+"перенаправления. В противном случае, следуйте инструкциям в %sАдминистрирование Миграция%s."
+
+msgid "Select Albums and Users"
+msgstr "Выберите альбомы и пользователей"
+
+msgid "You must choose something to import!"
+msgstr "Вы должны выбрать что-либо для импорта!"
+
+msgid "You must specify a custom field name"
+msgstr "Вы должны указать имя дополнительного поля"
+
+msgid "Import Users"
+msgstr "Импорт пользователей"
+
+msgid "Select the users to migrate"
+msgstr "Выберите пользователей для импорта"
+
+msgid "Check All"
+msgstr "Отметить всё"
+
+msgid "Clear All"
+msgstr "Снять отметку со всего"
+
+msgid "Invert Selection"
+msgstr "Инвертировать"
+
+msgid "Select"
+msgstr "Выбрать"
+
+msgid "Username"
+msgstr "Имя пользователя"
+
+msgid "No available users"
+msgstr "Нет доступных пользователей"
+
+msgid "These users are already in your gallery, and will not be imported:"
+msgstr "Эти пользователи уже находятся в вашей галерее, и импортированы не будут:"
+
+msgid "Import Albums"
+msgstr "Импорт альбомов"
+
+msgid "Select the albums to migrate"
+msgstr "Выберите альбомы для импорта"
+
+msgid "Source:"
+msgstr "Источник:"
+
+#, c-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+msgid "Destination:"
+msgstr "Назначение:"
+
+msgid "Character Encoding of Source Text:"
+msgstr "Кодировка исходного текста:"
+
+msgid "URL Redirection"
+msgstr "URL перенаправление"
+
+msgid "Record G1-&gt;G2 mappings during import"
+msgstr "Записать переходы G1-&gt;G2 в процессе импорта"
+
+msgid "Thumbnail generation"
+msgstr "Создание миниатюр"
+
+msgid ""
+"Normally Gallery will generate thumbnails the first time you look at them, then save them "
+"for subsequent views.  If you check this box, we'll create the thumbnails at migration "
+"time.  Migration will take longer but the first time you view an album will go much faster."
+msgstr ""
+"Обычно Галерея создает миниатюры, когда вы первый раз просматриваете элементы альбома, и "
+"затем сохраняет их для последующих просмотров. Если вы поставите галочку, миниатюры будут "
+"созданы во время импорта. Импорт будет продолжаться дольше, но первый просмотр альбома будет "
+"идти намного быстрее."
+
+msgid "Item captions"
+msgstr "Заголовки элементов"
+
+msgid ""
+"Gallery 2 has the following fields for all items and albums: title, summary text shown with "
+"thumbnails and description text shown in item or album view. G1 albums already have these "
+"three items (though the names of summary and description are reversed). G1 items have only a "
+"filename and caption. For items imported into G2:"
+msgstr ""
+"Gallery 2 содержит следующие поля для всех элементов и альбомов: заголовок, подзаголовок и "
+"текст описания,  который отображается вместе с миниатюрой элемента или альбома. Альбомы G1 "
+"так же содержат эти три элемента (но имена подзаголовка и описания поменяны местами). "
+"Элементы G1 содержат только имя файла и заголовок. Для элементов, импортируемых в G2:"
+
+msgid "Set title from:"
+msgstr "Установить заголовок из:"
+
+msgid "Base filename"
+msgstr "Базовое имя файла"
+
+msgid "Caption"
+msgstr "Заголовок"
+
+msgid "Custom Field:"
+msgstr "Дополнительное поле:"
+
+msgid "Enter a custom field name"
+msgstr "Введите имя дополнительного поля"
+
+msgid "Blank"
+msgstr "Пустой"
+
+msgid "Set summary from:"
+msgstr "Установить подзаголовок из:"
+
+msgid "Set description from:"
+msgstr "Установить описание из:"
+
+msgid "Default to same as summary if custom field not set"
+msgstr "По умолчанию аналогично подзаголовку, если не установлено дополнительное поле"
+
+msgid "Custom fields"
+msgstr "Дополнительные поля"
+
+msgid ""
+"Custom fields will not be imported.  Activate Custom Fields module to enable this option."
+msgstr ""
+"Дополнительные поля не будут импортированы. Активизируйте модуль Дополнительные поля для "
+"выполнения этой функции."
+
+msgid "Import custom fields"
+msgstr "Импортировать дополнительные поля"
+
+msgid ""
+"Do not create Gallery 2 custom fields for fields selected above for title, summary or "
+"description"
+msgstr ""
+"Не создавать в Gallery 2 дополнительные поля для полей, которые были выбраны для заголовка, "
+"подзаголовка или описания."
+
+msgid "Prepare Import"
+msgstr "Подготовить данные к импорту"
+
+msgid "Confirm Migration"
+msgstr "Подтверждение миграции"
+
+msgid "Users to import:"
+msgstr "Пользователи, которые будут импортированы:"
+
+msgid "Albums to import:"
+msgstr "Альбомы, которые будут импортированы:"
+
+msgid "Album Name"
+msgstr "Имя альбома"
+
+msgid "Album Title"
+msgstr "Заголовок альбома"
+
+msgid "Album Notes"
+msgstr "Примечание альбома"
+
+msgid "An album already exists with this name.  This album will be renamed."
+msgstr "Альбом с таким именем уже существует. Этот альбом будет переименован."
+
+#, c-format
+msgid "This album has an illegal name and will be renamed to <i>%s</i>"
+msgstr "Данный альбом содержит неверное имя и будет переименован в <i>%s</i>"
+
+#, c-format
+msgid "This album's owner (%s) hasn't been imported."
+msgstr "Владелец этого альбома (%s) не был импортирован."
+
+#, c-format
+msgid "Import %s now."
+msgstr "Импортировать %s сейчас."
+
+msgid ""
+"Top level albums and albums whose parents are not selected will be imported into this album:"
+msgstr ""
+"Альбомы верхнего уровня и альбомы, чьи родители не были выбраны, будут импортированы в этот "
+"альбом:"
+
+#, c-format
+msgid "Title: %s"
+msgstr "Заголовок: %s"
+
+#, c-format
+msgid "Description: %s"
+msgstr "Описание: %s"
+
+msgid "Your Gallery 1 will be converted from this character encoding into UTF-8:"
+msgstr "Ваша Gallery 1 будет преобразована из этой кодировки в кодировку  UTF-8:"
+
+#, c-format
+msgid "Encoding: %s"
+msgstr "Кодировка: %s"
+
+msgid "G1-&gt;G2 mappings will be recorded for use in URL Redirection"
+msgstr "G1-&gt;G2 переходы будут записаны для использования в URL перенаправлениях"
+
+msgid "Thumbnails will be generated during migration"
+msgstr "Миниатюры будут созданы во время миграции"
+
+msgid "Item fields will be imported from:"
+msgstr "Следующие поля элементов будут импортированы из:"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Custom field:"
+msgstr "Дополнительное поле:"
+
+msgid "Summary"
+msgstr "Подзаголовок"
+
+msgid "Description"
+msgstr "Описание"
+
+msgid "(Default to summary value if not set)"
+msgstr "(Значение по умолчанию аналогично подзаголовку, если не  установлено другое)"
+
+msgid "Custom fields will be imported"
+msgstr "Дополнительные поля будут импортированы"
+
+msgid "Custom fields imported into item fields above will not be duplicated as custom fields"
+msgstr ""
+"Для указанных выше дополнительных полей, которые будут импортированы в поля элементов, не "
+"будут созданы дубликаты дополнительных полей."
+
+msgid "Hidden Items"
+msgstr "Скрытые элементы"
+
+msgid ""
+"Any hidden albums or items will be imported with restricted view permissions. Activate the "
+"Hidden Items module before migration to import these as \"hidden\" which means they are "
+"invisible to guest users until accessed by the direct URL for those items."
+msgstr ""
+"Любые скрытые альбомы или элементы будут импортированы с ограниченными правами просмотра. "
+"Активизируйте модуль Скрытые элементы перед миграцией для того, чтобы импортировать все "
+"''скрытые'' элементы, которые не видны гостям до тех пор, пока они не используют точный "
+"адрес URL для таких элементов."
+
+msgid "Cancel"
+msgstr "Отменить"
+
+msgid "Import Complete"
+msgstr "Импорт завершён"
+
+#, c-format
+msgid "Successfully imported %d user."
+msgid_plural "Successfully imported %d users."
+msgstr[0] "Успешно импортирован %d пользователь."
+msgstr[1] "Успешно импортировано %d пользователя."
+msgstr[2] "Успешно импортировано %d пользователей."
+
+msgid "No users imported."
+msgstr "Пользователи импортированы не были"
+
+#, c-format
+msgid "Imported %s"
+msgstr "Импортировано %s "
+
+#, c-format
+msgid "Error while importing %d user."
+msgid_plural "Errors while importing %d users."
+msgstr[0] "Возникла ошибка при импорте %d пользователя."
+msgstr[1] "Возникла ошибка при импорте %d пользователей."
+msgstr[2] "Возникла ошибка при импорте %d пользователей."
+
+#, c-format
+msgid "Error importing %s"
+msgstr "Возникла ошибка при импорте %s"
+
+#, c-format
+msgid "Successfully imported %d album."
+msgid_plural "Successfully imported %d albums."
+msgstr[0] "%d альбом успешно импортирован."
+msgstr[1] "%d альбома успешно импортированы."
+msgstr[2] "%d альбомов успешно импортированы."
+
+msgid "No albums imported."
+msgstr "Альбомы импортированы не были"
+
+#, c-format
+msgid "Error while importing %d album."
+msgid_plural "Errors while importing %d albums."
+msgstr[0] "Возникла ошибка при импорте %d альбома."
+msgstr[1] "Возникла ошибка при импорте %d альбомов."
+msgstr[2] "Возникла ошибка при импорте %d альбомов."
+
+msgid "Import more data"
+msgstr "Импортировать ещё"
+
+msgid "To enable URL Redirection under Apache webserver:"
+msgstr "Для разрешения URL перенаправлений на сервере Apache:"
+
+#, c-format
+msgid "Ensure the %s Apache module is enabled."
+msgstr "Удостоверьтесь, что модуль %s сервера Apache включен."
+
+msgid ""
+"Edit or create a file called <tt>.htaccess</tt> in your Gallery1 directory and add the text "
+"shown below to the file. Remove G1 rewrite rules from an existing file. Redirects will also "
+"work in your Gallery2 directory if G2 is installed in the path where G1 used to be. However, "
+"if you also use the G2 URL Rewrite module then activate the G1 redirect rule in that module "
+"instead of using the block shown below."
+msgstr ""
+"Редактируйте или создайте файл с названием <tt>.htaccess</tt> с папке с вашей Gallery 1 и "
+"внесите указанный ниже текст в этот файл. Удалите rewrite rules из существующего файла. "
+"Перенаправления будут так же работать в папке с вашей Gallery 2 в случае, если Gallery 2 "
+"была установлена в папку, где ранее была G1. Однако, если вы также используете модуль URL "
+"Rewrite в Gallery 2, тогда активируйте модуль правил перенаправления G1 вместо использования "
+"блока, указанного ниже."
+
+msgid ""
+"Add the same <tt>.htaccess</tt> block in the Gallery1 albums directory if you also wish to "
+"redirect links to image files and album directories. Note that these redirects are not "
+"active until the G1 images are actually removed or moved. Omit the !-f line shown below to "
+"redirect anyway."
+msgstr ""
+"Добавьте аналогичный блок <tt>.htaccess</tt> в папку с альбомами Gallery1, если вы также "
+"желаете перенаправить ссылки на файлы изображений и директорий альбомов. Обратите внимание, "
+"что эти перенаправления не будут активны до тех пор, пока изображения G1 не будут в "
+"действительности удалены или перемещены. Удалите строку !-f для перенаправления в любом "
+"случае."
+
+msgid ""
+"If G2 is installed in the path where G1 used to exist, you will need to remove the G1 file "
+"\"gallery_remote2.php\" file before you can use Gallery Remote to upload images to G2."
+msgstr ""
+"Если G2 инсталлирована в папку, где ранее находилась G1, необходимо удалить в G1 файл  "
+"'gallery_remote2.php' перед тем, как вы начнете использовать Gallery Remote для загрузки "
+"изображений в G2."
+
+msgid "Download .htaccess file"
+msgstr "Скачать файл '.htaccess' "
+
+msgid "Import from Gallery 1"
+msgstr "Импорт из Gallery 1"
+
+msgid ""
+"Copy all or part of an existing Gallery 1 installation into your Gallery 2.  It won't modify "
+"your Gallery 1 data in any way."
+msgstr ""
+"Копирует целиком или частично существующую инсталляцию Gallery 1 в Gallery 2. В любом случае "
+"это не окажет влияния на ваши данные в Gallery 1."
+
+#, c-format
+msgid ""
+"You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
+"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+msgstr ""
+"У вас не активизирован ни один графический инструмент для работы с JPEG изображениями. Если "
+"вы импортируете сейчас, вы не будете иметь  миниатюр. Зайдите на страницу %sМодули и темы%s "
+"для активизации графических инструментов."
+
+msgid "Path to Gallery 1 albums directory"
+msgstr "Путь к папке с альбомами Gallery 1"
+
+msgid "Example: /var/www/albums"
+msgstr "Пример: /var/www/albums"
+
+msgid "You did not enter a path."
+msgstr "Вы не ввели путь."
+
+msgid "The path that you entered is invalid."
+msgstr "Введенный путь неверен."
+
+msgid ""
+"<b>Note:</b> Before you import any data you should make sure your Gallery 1 is installed "
+"correctly by adding a photo through the Gallery 1 web interface.  Make sure you resolve any "
+"errors you see there first."
+msgstr ""
+"<b>Примечание:</b> Перед тем как импортировать любые данные вы должны удостовериться, что "
+"Gallery 1 инсталлирована корректно. Вы можете проверить это, попробовав добавить фотографию "
+"в Gallery 1 через форму веб-интерфейса. Если вы уверены, что решили все проблемы можете "
+"продолжать дальше."
+
+msgid "Recently Used Paths"
+msgstr "Последние использованные пути"
+
+msgid "Gallery can redirect old Gallery1 URLs to the new Gallery2 pages."
+msgstr "Галерея может перенаправлять старые адреса URL Gallery 1 к новым страницам Gallery 2."
+
+#, c-format
+msgid "There is one G1-&gt;G2 map entry"
+msgid_plural "There are %d G1-&gt;G2 map entries"
+msgstr[0] "Здесь находится %d запись о переходе G1-&gt;G2"
+msgstr[1] "Здесь находятся %d  записи о переходах G1-&gt;G2"
+msgstr[2] "Здесь находятся %d записей о переходах G1-&gt;G2"
+
+msgid ""
+"Deleting map entries will cause old G1 URLs to produce HTTP Not Found errors instead of "
+"redirecting to G2 pages.  Delete all entries?"
+msgstr ""
+"Удаление записей о переходах приведёт к тому, что старые адреса URL G1 будут выдавать ошибки "
+"HTTP ''Файл не найден''  вместо перенаправления на страницы G2. Удалить все записи?"
+
+msgid "Delete All"
+msgstr "Удалить всё"
+
+msgid "Map entries deleted successfully"
+msgstr "Записи о переходах успешно удалены"

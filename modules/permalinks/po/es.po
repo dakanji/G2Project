@@ -1,0 +1,118 @@
+# $Id: es.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Óscar García Amor <oscar.garcia@moire.org>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Permalinks 1.0.12\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-10-31 16:46+0100\n"
+"PO-Revision-Date: 2006-10-31 17:00+0100\n"
+"Last-Translator: Óscar García Amor <oscar.garcia@moire.org>\n"
+"Language-Team: Spanish <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Permalink(s) deleted successfully"
+msgstr "Enlace(s) Permanente(s) eliminados con éxito"
+
+msgid "Permalinks"
+msgstr "Enlaces Permanentes"
+
+msgid "Create simpler permanent aliases to your items space"
+msgstr "Crea alias permanentes simples para tus elementos"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "Name you have defined as an alias to your item"
+msgstr "El nombre que has definido es un alias a tu elemento"
+
+msgid ""
+"Enable this rule to allow Permalinks you define to work. Disabling this rule will break your "
+"Permalinks."
+msgstr ""
+"Habilita esta regla para permitir que Enlaces Permamentes que definas funcionen. El "
+"deshabilitar esta regla rompera tus Enlaces Permanentes."
+
+msgid "Permalink post activation"
+msgstr "Activación de publicación de Enlaces Permanentes"
+
+msgid "URL Rewrite Module"
+msgstr "Módulo de Reescritura de URL"
+
+#, c-format
+msgid ""
+"Now that you have activated the Permalinks module, you have to activate Permalinks rule in "
+"the %s."
+msgstr ""
+"Ahora que has activado el módulo de Enlaces Permanentes, debes activar la regla de Enlaces "
+"Permanentes en %s."
+
+msgid "Edit the permalinks that refer to this item. You can add or delete permalinks."
+msgstr ""
+"Edita los enlaces permanentes que hacen referencia a este elemento. Puedes añadir o eliminar "
+"enlaces permanentes."
+
+msgid "You have no permalinks"
+msgstr "No tienes enlaces permanentes"
+
+msgid "Existing permalinks"
+msgstr "Enlaces permanentes existentes"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Permalink name"
+msgstr "Nombre del Enlace Permanente"
+
+#, c-format
+msgid "Permalink '%s' already exists, possibly on another item"
+msgstr "El Enlace Permanente '%s' ya existe, posiblemente en otro elemento"
+
+msgid "Add a new permalink:"
+msgstr "Añadir un nuevo enlace permanente:"
+
+#, c-format
+msgid "Set to '%s'"
+msgstr "Poner a '%s'"
+
+msgid "Auto-permalink"
+msgstr "Auto-enlace-permanente"
+
+msgid ""
+"If you use this feature, any time a new album is created, a permalink to it with the name of "
+"the album will be created, unless a permalink by the same name already exists. You will be "
+"able to remove the permalink if you wish."
+msgstr ""
+"Si utilizas esta característica, cuando un nuevo álbum sea creado, un enlace permanente al "
+"mismo con el nombre del álbum será creado, a no ser que un enlace permantente con el mismo "
+"nombre exista ya.  Podras borrar el enlace permanente si lo deseas."
+
+msgid "Enable auto-permalink"
+msgstr "Habilitar auto-enlace-permanente"
+
+msgid "Global list of permalinks"
+msgstr "Lista global de enlaces permanentes"
+
+msgid "Save"
+msgstr "Guardar"

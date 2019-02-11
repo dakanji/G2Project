@@ -1,0 +1,141 @@
+# $Id: de.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Replica 1.0.5\n"
+"POT-Creation-Date: 2003-02-11 03:09-0800\n"
+"PO-Revision-Date: 2006-11-07 17:36+0100\n"
+"Last-Translator: Andy Staudacher <ast@gmx.ch>\n"
+"Language-Team: German <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: KBabel 1.10.1\n"
+
+msgid "create replica"
+msgstr "erstelle Replik"
+
+msgid "replicate an item"
+msgstr "Element replizieren"
+
+msgid "Replica"
+msgstr "Replik"
+
+msgid "Create item copies sharing the same original data file"
+msgstr "Erstelle Elementkopien, welche dieselbe Originaldatei teilen"
+
+msgid "Display"
+msgstr "Anzeige"
+
+msgid "Create Replica"
+msgstr "Erstelle Replik"
+
+msgid "Replicate Album"
+msgstr "Album replizieren"
+
+msgid "Replicate Photo"
+msgstr "Foto replizieren"
+
+msgid "Replicate Movie"
+msgstr "Film replizieren"
+
+#, c-format
+msgid "Replicate %s"
+msgstr "%s replzieren"
+
+msgid "Create Replicas"
+msgstr "Erstelle Repliken"
+
+#, c-format
+msgid "Successfully replicated %d item"
+msgid_plural "Successfully replicated %d items"
+msgstr[0] "Erfolgreich %d Element repliziert"
+msgstr[1] "Erfolgreich %d Elemente repliziert"
+
+msgid "This album contains no items to replicate."
+msgstr "Dieses Album enthält keine Elemente, welche repliziert werden können."
+
+msgid ""
+"A replica is an item that shares the original data file with another item, to save disk "
+"space. In all other respects it is a separate item, with its own captions, thumbnail, "
+"resizes, comments, etc. Captions are initially copied from the source item but may be "
+"changed. Either the replica or the source may be moved or deleted without affecting the "
+"other."
+msgstr ""
+"Eine Replik ist ein Element, welches sich die Originaldatei mit einem anderen Element teilt "
+"um Speicherplatz zu sparen.  Aber in allen anderen Belangen ist es ein separates Element, "
+"mit eigenem Titel, Vorschaubild, eigenen skalierten Bildern, Kommentaren, etc.  Der Titel "
+"und andere Element-Eigenschaften werden ursprünglich vom Quell-Element  kopiert.  Werden "
+"danach Änderungen am Titel vorgenommen, beeinflussen diese das Quell-Element aber nicht.  "
+"Sie können sowohl das Quell-Element als auch die Replik verschieben oder löschen ohne dass "
+"das andere Element irgendwie davon beeinträchtigt würde."
+
+msgid "Source"
+msgstr "Quelle"
+
+msgid "Choose the items you want to replicate"
+msgstr "Bitte wählen Sie die Elemente, welche Sie replizieren möchten"
+
+#, c-format
+msgid "(page %d of %d)"
+msgstr "(Seite %d von %d)"
+
+msgid "No sources chosen"
+msgstr "Keine Quellen ausgewählt"
+
+msgid "Check All"
+msgstr "Alles auswählen"
+
+msgid "Check None"
+msgstr "Nichts auswählen"
+
+msgid "Invert"
+msgstr "Invertiere"
+
+msgid "Previous Page"
+msgstr "Vorherige Seite"
+
+msgid "Next Page"
+msgstr "Nächste Seite"
+
+msgid "Destination"
+msgstr "Ziel"
+
+msgid "Choose a new album for the replica"
+msgstr "Bitte wählen Sie ein neues Album für die Replik"
+
+msgid "No destination chosen"
+msgstr "Kein Ziel ausgewählt"
+
+msgid "Create"
+msgstr "Erstellen"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Successfully created"
+msgstr "Erfolgreich erstellt"
+
+msgid "Choose a destination album"
+msgstr "Wählen Sie ein Zielalbum"

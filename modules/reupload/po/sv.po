@@ -1,0 +1,101 @@
+# $Id: sv.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Reupload 1.0.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-13 23:24+0100\n"
+"PO-Revision-Date: 2008-09-24 23:32+0100\n"
+"Last-Translator: Martin Öberg <strickz@users.sourceforge.net>\n"
+"Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Reuploaded file successfully."
+msgstr "Lyckades återuppladde filen"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabytes"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobytes"
+
+msgid "Reupload"
+msgstr "Återuppladda"
+
+msgid "Allows reupload of pictures."
+msgstr "Tillåter återuppladning av bilder"
+
+msgid "Extra Data"
+msgstr "Extra data"
+
+msgid "Reupload Photo"
+msgstr "Återuppladda foto"
+
+msgid ""
+"Your webserver is configured to disallow file uploads from your web browser at this time.  "
+"Please contact your system administrator for assistance."
+msgstr ""
+"Din webbserver är konfigurerad till att inte tillåta uppladdningar från din webbläsare. "
+"Kontakta din systemadministratör för hjälp."
+
+msgid "Upload a new revision of this picture instead of the old one."
+msgstr "Ladda upp en ny revision av den här bilden istället för den gamla."
+
+msgid "You cannot reupload this item because it shares its data file with other items."
+msgstr ""
+"Du kan inte ladda upp detta objekt igen eftersom det delar sin datafil med andra objekt."
+
+#, c-format
+msgid ""
+"<b>Note:</b> The new file cannot be larger than %s. If you want to upload a larger file you "
+"must ask your system administrator to allow larger uploads."
+msgstr ""
+"<b>OBS:</b> Den nya filen kan inte vara större än %s. Om du vill ladda upp en större fil så "
+"måste du be din systemadministratör att konfigurera om webbservern så att den tillåter "
+"uppladdning av större filer."
+
+msgid "File"
+msgstr "Fil"
+
+msgid "Reupload File"
+msgstr "Återuppladda fil"
+
+msgid "Unable to reupload file."
+msgstr "Kan inte återuppladda filen."
+
+#, c-format
+msgid "Please check the size and try again. The new file cannot be larger than %s."
+msgstr "Kontrollera storleken och försök igen. Den nya filen kan inte vara större än %s."
+
+msgid ""
+"Unable to reupload file. Are you sure the file is of the same type (image, movie) as the "
+"original?"
+msgstr ""
+"Kan inte återuppladda filen. Är du säker på att filen är av samma typ (bild, film) som "
+"orginalfilen?"

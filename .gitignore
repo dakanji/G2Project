@@ -12,6 +12,7 @@ Thumbs.db
 # svn folder #
 ##############
 **/.svn
+.git
 
 
 # style guide #
@@ -44,15 +45,19 @@ composer.phar
 # G2 Modules #
 ##############
 modules/*
+!modules/albumselect
 !modules/archiveupload
 !modules/captcha
 !modules/cart
+!modules/colorpack
 !modules/comment
 !modules/core
+!modules/customfield
 !modules/dynamicalbum
 !modules/exif
 !modules/ffmpeg
 !modules/gd
+!modules/hidden
 !modules/icons
 !modules/imagemagick
 !modules/itemadd
@@ -60,13 +65,23 @@ modules/*
 !modules/keyalbum
 !modules/linkitem
 !modules/linksinthehead
+!modules/migrate
+!modules/mime
 !modules/netpbm
 !modules/newitems
+!modules/notification
+!modules/password
+!modules/permalinks
+!modules/randomhighlight
 !modules/rating
 !modules/rearrange
 !modules/register
+!modules/replica
+!modules/reupload
 !modules/rewrite
 !modules/search
+!modules/sitemap
+!modules/sizelimit
 !modules/slideshow
 !modules/squarethumb
 !modules/thumbnail

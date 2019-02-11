@@ -1,0 +1,93 @@
+# $Id: sk.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Branislav Hanacek <brango@radegast>, 2006.
+# Branislav Hanacek <brango@brango.sk>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Size Limit 1.0.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-03 10:22+0200\n"
+"PO-Revision-Date: 2007-11-29 04:12+0100\n"
+"Last-Translator: Matej Spanik <retsamm@gmail.com>\n"
+"Language-Team: Slovak <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: KBabel 1.11.4\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#, c-format
+msgid "WARNING: Cannot resize mime type %s"
+msgstr "VAROVANIE: Nemožno zmenit veľkosť mime typu %s"
+
+#, c-format
+msgid "WARNING: Cannot compress mime type %s"
+msgstr "VAROVANIE: Nemožno skomprimovať mime typ %s"
+
+msgid "Resize complete"
+msgstr "Menenie veľkosti hotové"
+
+msgid "Resize Status"
+msgstr "Stav Menenia Veľkosti"
+
+msgid "Resizing photo"
+msgstr "Menenie veľkosti fotky"
+
+msgid "Size Limit"
+msgstr "Limit Veľkosti"
+
+msgid "Define picture size limit"
+msgstr "Definovať limit veľkosti obrázku"
+
+msgid "Display"
+msgstr "Zobrazenie"
+
+msgid "Maximum dimensions of full sized images"
+msgstr "Maximálne rozmery obrázkov plnej veľkosti"
+
+msgid "No Limits"
+msgstr "Žiadne Limity"
+
+msgid "You must specify at least one of the dimensions"
+msgstr "Musíte vybrať aspoň jeden rozmer."
+
+msgid "Maximum file size of full sized images in kilobytes"
+msgstr "Maximálna veľkosť súboru pre obrázky plnej veľkosti v kilobajtoch"
+
+msgid "You must enter a number (greater than zero)"
+msgstr "Musíte zadať číslo (väčšie ako nula)"
+
+msgid "Keep original image?"
+msgstr "Ponechať originál obrázok?"
+
+msgid "Check here to apply size limits to the pictures in this album and all subalbums"
+msgstr "Kliknite sem pre aplikovanie limitov veľkosti na obrázky v tomto albume a podalbumoch"
+
+msgid "Checking this option will rebuild pictures according to appropriate limits"
+msgstr "Zaškrtnutie tejto možnosti prerobí všetky obrázky podľa príslušných limitov"
+
+msgid "Use these size limits in all subalbums"
+msgstr "Použiť tieto limity vo všetkých podalbumoch"
+
+msgid "Checking this option will set same picture size limits in all subalbums"
+msgstr "Zaškrtnutie tejto možnosti nastaví rovnaké limity na veľkosť vo všetkých podalbumoch."

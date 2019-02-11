@@ -1,0 +1,238 @@
+# $Id: ru.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Konstantin Ivanov <Continental@vollen.ru>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Custom Fields 1.0.13\n"
+"POT-Creation-Date: 2004-09-06 00:20-0800\n"
+"PO-Revision-Date: 2008-10-11 22:49+0300\n"
+"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+
+msgid "Display settings saved successfully"
+msgstr "Параметры отображения успешно сохранены."
+
+msgid "New field added successfully"
+msgstr "Новое поле успешно добавлено"
+
+msgid "Field moved successfully"
+msgstr "Поле успешно перемещено"
+
+msgid "Field removed successfully"
+msgstr "Поле успешно удалено"
+
+msgid "Picklist updated successfully"
+msgstr "Список вариантов успешно обновлён"
+
+msgid "Field name already in use"
+msgstr "Поле с таким именем уже используется"
+
+msgid "Changes saved successfully"
+msgstr "Изменения успешно сохранены"
+
+msgid "Custom Fields"
+msgstr "Дополнительные поля"
+
+msgid "Create custom data fields for Gallery items"
+msgstr "Создание дополнительных полей с записями для элементов Галереи"
+
+msgid "Extra Data"
+msgstr "Дополнительно"
+
+msgid "Common Fields"
+msgstr "Общие поля"
+
+msgid "Album Fields"
+msgstr "Поля альбома"
+
+msgid "Photo Fields"
+msgstr "Поля фотографии"
+
+msgid "Custom Fields Module"
+msgstr "Модуль Дополнительные поля"
+
+msgid "Search custom fields"
+msgstr "Искать в дополнительных полях"
+
+msgid "Field name cannot be empty"
+msgstr "Название поля не может быть пустым"
+
+msgid "Display"
+msgstr "Отображение"
+
+msgid ""
+"Set the display order and visibility of the fields below. Summary fields are typically "
+"displayed with thumbnails in an album view. Detail fields are usually shown when viewing the "
+"specific item."
+msgstr ""
+"Устанавливает отображение и его порядок для нижеуказанных полей. В альбоме обычно вместе с "
+"миниатюрами отображается подзаголовок. Поля с подробным описанием обычно отображаются при "
+"просмотре конкретного элемента."
+
+msgid "Field"
+msgstr "Поле"
+
+msgid "Summary"
+msgstr "Подзаголовок"
+
+msgid "Detail"
+msgstr "Описание"
+
+msgid "Order"
+msgstr "Порядок"
+
+msgid "up"
+msgstr "вверх"
+
+msgid "down"
+msgstr "вниз"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Reset"
+msgstr "Отменить"
+
+msgid "Add/Remove"
+msgstr "Добавить/Удалить"
+
+msgid "Save any changes above before using the controls below."
+msgstr "Сохраните все изменения выше перед использованием параметров ниже."
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Field:"
+msgstr "Поле:"
+
+msgid "Action:"
+msgstr "Действие:"
+
+msgid "Remove"
+msgstr "Удалить"
+
+msgid "Move to Album"
+msgstr "Отнести к альбому"
+
+msgid "Move to Photo"
+msgstr "Отнести к фотографии"
+
+msgid "Move to Common"
+msgstr "Отнести к общим"
+
+msgid "Go"
+msgstr "Выполнить"
+
+msgid "Picklist Values"
+msgstr "Список вариантов"
+
+msgid ""
+"Custom fields allow freeform text entry by default. Enter values below to restrict field "
+"values to a specific list of choices. Enter one choice per line. Remove all choices to "
+"return to freeform text. Note that existing field values will not be changed or deleted when "
+"a picklist is added."
+msgstr ""
+"По умолчанию дополнительные поля допускают ввод текста любого содержания. Введите значения "
+"ниже для фиксирования значений полей в виде определенного списка выбора. Перечислите каждый "
+"вариант выбора на своей строчке. Удалите все варианты выбора, чтобы вернуться к возможности "
+"ввода любого текста. Обратите внимание, что существующие значения полей не будут изменены "
+"или удалены при добавлении списка выбора."
+
+msgid "Choices:"
+msgstr "Варианты выбора:"
+
+msgid "Add a custom field above to enable this section."
+msgstr "Для активизации этого раздела добавьте сначала дополнительное поле выше"
+
+msgid ""
+"These are album-specific custom field settings. Common fields are available on all items; "
+"Album and Photo fields can be assigned only to items of the appropriate type."
+msgstr ""
+"Это настройки дополнительных полей для альбома. Общие поля доступны для всех элементов. Поля "
+"альбома и фотографии могут быть присвоены только к элементам соответствующего типа."
+
+msgid "Edit custom field values for this album"
+msgstr "Редактировать значения дополнительных полей для данного альбома"
+
+msgid ""
+"WARNING: Values for all fields that do not also exist in the global settings will be deleted "
+"for this album and its items!"
+msgstr ""
+"ПРЕДУПРЕЖДЕНИЕ: Значения всех полей, которые не присутствуют также в глобальных параметрах "
+"настройки, будут удалены для этого альбома и его элементов."
+
+msgid "Revert to global custom field settings for this album"
+msgstr "Вернуться к глобальным параметрам настройки дополнительных полей для этого альбома"
+
+msgid "WARNING: Values for this custom field in this album will be deleted!"
+msgstr "ПРЕДУПРЕЖДЕНИЕ: Значения этого дополнительного поля в данном альбоме будут удалены!"
+
+msgid "WARNING: Values for this custom field on non-photo items in this album will be deleted!"
+msgstr ""
+"ПРЕДУПРЕЖДЕНИЕ: Значения этого дополнительного поля для элементов,  не являющихся "
+"фотографиями, в данном альбоме будут удалены!"
+
+msgid "Override global custom field settings for this album"
+msgstr "Переназначить глобальные настройки дополнительных полей в этом альбоме"
+
+msgid "Edit custom field settings for this album"
+msgstr "Редактировать настройки дополнительных полей в этом альбоме"
+
+msgid "No Value"
+msgstr "Значение отсутствует"
+
+msgid ""
+"These are the global settings for custom fields. They can be overridden at the album level. "
+"Common fields are available on all Gallery items; Album and Photo fields can be assigned "
+"only to items of the appropriate type."
+msgstr ""
+"Это глобальные настройки дополнительных полей. Они могут быть переназначены на уровне "
+"настроек альбома. Общие поля доступны для всех элементов Галереи. Поля альбома и фотографии "
+"могут быть присвоены только к элементам соответствующего типа."
+
+msgid ""
+"WARNING: All values for this custom field will be deleted! (Except in albums with album-"
+"specific settings)"
+msgstr ""
+"ПРЕДУПРЕЖДЕНИЕ: Все значение дополнительных полей будут удалены! (Но не в альбомах со "
+"специальными настройками)"
+
+msgid ""
+"WARNING: Values for this custom field on non-album items will be deleted! (Except in albums "
+"with album-specific settings)"
+msgstr ""
+"ПРЕДУПРЕЖДЕНИЕ: Значение этих дополнительных полей для элементов,  не являющихся альбомами, "
+"будут удалены! (Исключая элементы в альбомах, имеющих особые альбомные настройки)"
+
+msgid ""
+"WARNING: Values for this custom field on non-photo items will be deleted! (Except in albums "
+"with album-specific settings)"
+msgstr ""
+"ПРЕДУПРЕЖДЕНИЕ: Значение этих дополнительных полей для элементов, не являющихся "
+"фотографиями, будут удалены! (Исключая элементы в альбомах, имеющих особые альбомные "
+"настройки)"

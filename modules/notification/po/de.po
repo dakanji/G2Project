@@ -1,0 +1,212 @@
+# $Id: de.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Andy Staudacher <ast@gmx.ch>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Notification 1.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2008-10-03 10:13+0200\n"
+"PO-Revision-Date: 2008-10-12 04:05+0100\n"
+"Last-Translator: Andy Staudacher <ast@gmx.ch>\n"
+"Language-Team: German <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Notification"
+msgstr "Benachrichtigung"
+
+msgid "Allow users to be notified of events by subscription."
+msgstr "Erlaubt Benutzern über Veränderungen benachrichtigt zu werden."
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "Watch List"
+msgstr "Abonnements-Liste"
+
+msgid "Watch"
+msgstr "Abonnieren"
+
+msgid "Plugin Activation Event"
+msgstr "Erweiterungs-Aktivierung Ereignis"
+
+#, c-format
+msgid "The %s %s was activated"
+msgstr "Das %s %s wurde aktiviert"
+
+msgid "Plugin Deactivation Event"
+msgstr "Erweiterungs-Deaktivierung Ereignis"
+
+#, c-format
+msgid "The %s %s was deactivated"
+msgstr "Das %s %s wurde deaktiviert"
+
+msgid "Error Event"
+msgstr "Fehler Ereignis"
+
+msgid "Item Order Event"
+msgstr "Element-Sortierreihenfolge Ereignis"
+
+#, c-format
+msgid "The child items for %s have been reordered."
+msgstr "Die Elemente vom Album %s wurden neu sortiert."
+
+msgid "User Login Event"
+msgstr "Benutzer-Anmeldungs Ereignis"
+
+#, c-format
+msgid "User %s has logged in."
+msgstr "Benutzer %s hat sich angemeldet."
+
+msgid "User Login Failed Event"
+msgstr "Ereignis für gescheiterte Benutzer-Anmeldungs-Versuche"
+
+#, c-format
+msgid "User %s login failed."
+msgstr "Anmeldung gescheitert für Benutzer %s "
+
+msgid "User Logout Event"
+msgstr "Benutzer-Abmeldungs Ereignis"
+
+#, c-format
+msgid "User %s has logged out."
+msgstr "Benutzer %s hat sich abgemeldet."
+
+msgid "Permission Removed Event"
+msgstr "Berechtigungs-Entfernung Ereignis"
+
+#, c-format
+msgid "Permission Change on %s items."
+msgstr "Änderung der Berechtigungen für %s Elemente."
+
+msgid "Plugin Uninstalled Event"
+msgstr "Erweiterungs-Deinstallation Ereignis"
+
+#, c-format
+msgid "The %s %s was uninstalled"
+msgstr "Das %s %s wurde deinstalliert"
+
+msgid "Album Structure Change Event"
+msgstr "Album-Struktur-Veränderung Ereignis"
+
+msgid "Viewable Tree Change Event Occurred"
+msgstr "Die sichtbare Album-Struktur wurde verändert."
+
+msgid "Entity Saved Event"
+msgstr "Speicherungs-Ereignis"
+
+#, c-format
+msgid "%s was saved"
+msgstr "%s wurde gespeichert"
+
+msgid "Entity Deleted Event"
+msgstr "Löschungs-Ereignis"
+
+#, c-format
+msgid "%s was deleted"
+msgstr "%s wurde gelöscht"
+
+msgid "Item Added"
+msgstr "Element hinzugefügt"
+
+#, c-format
+msgid ""
+"A new %s has been added. To view it, click here: \n"
+"%s"
+msgstr ""
+"Ein neues %s wurde hinzugefügt. Um es zu sehen, folgen Sie bitte folgendem Link: \n"
+"%s"
+
+msgid "Select Event"
+msgstr "Ereignis wählen"
+
+msgid "Select Handler"
+msgstr "Aktion wählen"
+
+msgid "Send an email"
+msgstr "E-Mail versenden"
+
+msgid ""
+"If you no longer wish to subscribe to this notification please update your account settings "
+"at:"
+msgstr ""
+"Falls Sie keine weiteren Meldungen erhalten möchten, bitte ändern Sie Ihre "
+"Benutzereinstellungen bei:"
+
+msgid "Item Notification Settings"
+msgstr "Element Benachrichtigungs-Einstellungen"
+
+msgid "Settings saved successfully"
+msgstr "Die Einstellungen wurden erfolgreich gespeichert"
+
+msgid "Event"
+msgstr "Ereignis"
+
+msgid "Action"
+msgstr "Aktion"
+
+msgid "Subscribe"
+msgstr "Abonnieren"
+
+msgid "Apply to sub items"
+msgstr "Auf Unteralben anwenden"
+
+msgid "Not authorized to receive notifications"
+msgstr "Nicht berechtigt um Benachrichtigungen zu erhalten"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+msgid "Site Notification Administration"
+msgstr "Site Administration für Benachrichtigungen"
+
+msgid "Description"
+msgstr "Beschreibung"
+
+msgid "Handler"
+msgstr "Aktion"
+
+msgid "Enabled"
+msgstr "Aktiv"
+
+msgid "Public"
+msgstr "Öffentlich"
+
+msgid "Event Handler is required"
+msgstr "Ereignis Aktion ist erforderlich"
+
+msgid "User Notification Administration"
+msgstr "Benutzereinstellungen für Benachrichtigungen"
+
+msgid "Events"
+msgstr "Ereignisse"
+
+msgid "Method"
+msgstr "Methode"
+
+msgid "You are not subscribed to any available events"
+msgstr "Sie sind momentan für keine Benachrichtigungen abonniert"

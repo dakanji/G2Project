@@ -1,0 +1,115 @@
+# $Id: fr.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Permalinks 1.0.12\n"
+"POT-Creation-Date: 2005-01-21 19:00+0200\n"
+"PO-Revision-Date: 2006-02-20 00:00+0100\n"
+"Last-Translator: Arnaud MOURONVAL <ArnaudMouronval@yahoo.com>\n"
+"Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Permalink(s) deleted successfully"
+msgstr "Lien(s) permanent(s) supprimé(s) avec succès"
+
+msgid "Permalinks"
+msgstr "Liens permanents"
+
+msgid "Create simpler permanent aliases to your items space"
+msgstr "Créer simplement des liens permanents vers vos éléments de Gallery"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "Name you have defined as an alias to your item"
+msgstr "Nom que vous avez défini comme alias vers votre élément"
+
+msgid ""
+"Enable this rule to allow Permalinks you define to work. Disabling this rule will break your "
+"Permalinks."
+msgstr ""
+"Activez cette règle pour faire fonctionner les liens permanents que vous définissez. "
+"Désactiver cette règle cassera vos liens permanents."
+
+msgid "Permalink post activation"
+msgstr "Post-activation des liens permanents"
+
+msgid "URL Rewrite Module"
+msgstr "Module de réécriture d'URL"
+
+#, c-format
+msgid ""
+"Now that you have activated the Permalinks module, you have to activate Permalinks rule in "
+"the %s."
+msgstr ""
+"Maintenant que vous avez activé le module 'Liens permanents', vous devez activer la règle "
+"'Liens permanents' dans le %s."
+
+msgid "Edit the permalinks that refer to this item. You can add or delete permalinks."
+msgstr ""
+"Éditer les liens permanent vers cet élément. Vous pouvez ajouter ou supprimer les liens "
+"permanents."
+
+msgid "You have no permalinks"
+msgstr "Vous n'avez pas de lien permanent"
+
+msgid "Existing permalinks"
+msgstr "Liens permanents existants"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Permalink name"
+msgstr "Nom du lien permanent"
+
+#, c-format
+msgid "Permalink '%s' already exists, possibly on another item"
+msgstr "Le lien permanent '%s' existe déjà, probablement pour un autre élément"
+
+msgid "Add a new permalink:"
+msgstr "Ajouter un nouveau lien permanent&nbsp;:"
+
+#, c-format
+msgid "Set to '%s'"
+msgstr "Mettre à '%s'"
+
+msgid "Auto-permalink"
+msgstr "Liens permanents automatiques"
+
+msgid ""
+"If you use this feature, any time a new album is created, a permalink to it with the name of "
+"the album will be created, unless a permalink by the same name already exists. You will be "
+"able to remove the permalink if you wish."
+msgstr ""
+"Si vous utilisez cette fonctionnalité, dès qu'un nouvel album est créé, unlien permanent "
+"pour ce dernier sera créé avec son nom, à moins qu'un autre lien permanent avec le même nom "
+"existe déjà. Vous pourrez supprimer ce lien permanent si vous le souhaitez."
+
+msgid "Enable auto-permalink"
+msgstr "Activer les liens permanents automatiques"
+
+msgid "Global list of permalinks"
+msgstr "Liste globale des liens permanents"
+
+msgid "Save"
+msgstr "Sauver"

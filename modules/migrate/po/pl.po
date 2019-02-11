@@ -1,0 +1,483 @@
+# $Id: pl.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Migration 1.0.13\n"
+"POT-Creation-Date: 2006-02-23 10:15+0100\n"
+"PO-Revision-Date: 2006-12-27 16:35+0100\n"
+"Last-Translator: Kappana <kappana@gnoms.net>\n"
+"Language-Team: Polish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-Country: POLAND\n"
+
+msgid "Importing Users"
+msgstr "Importowanie użytkowników"
+
+msgid "Importing Photos"
+msgstr "Importowanie zdjęć"
+
+msgid "Creating thumbnails"
+msgstr "Tworzenie miniaturek"
+
+#, c-format
+msgid "Thumbnail %d of %d"
+msgstr "Miniaturka %d z %d"
+
+#, c-format
+msgid "%sTitle%s was truncated for %sitem %d%s."
+msgstr "%sTytuł%s został obcięty dla %spozycji %d%s."
+
+#, c-format
+msgid "%sSummary%s was truncated for %sitem %d%s."
+msgstr "%sPodsumowanie%s zostało obcięte dla %spozycji %d%s."
+
+msgid "Set:"
+msgstr "Ustawione:"
+
+msgid "Truncated:"
+msgstr "Obcięte:"
+
+msgid "Migration"
+msgstr "Migracja"
+
+msgid "Migrate your Gallery 1 albums to Gallery 2"
+msgstr "Migruje albumy z Gallery 1 do Gallery 2"
+
+msgid "Import"
+msgstr "Import"
+
+msgid "Gallery 1"
+msgstr "Gallery 1"
+
+msgid "G1-&gt;G2 Mapping"
+msgstr "Mapowanie G1-&gt;G2"
+
+msgid "G1 path"
+msgstr "Katalog G1"
+
+#, c-format
+msgid ""
+"G1 URL redirect. Use only if G2 is installed where G1 used to be and you have run a G1 "
+"import with the URL redirect option selected. Otherwise follow instructions in %sMigrate "
+"Site Admin%s."
+msgstr ""
+"Przekierowanie adresów URL G1. Należy użyć tylko wtedy, gdy G2 jest zainstalowana w miejscu "
+"G1 i został uruchomiony import G1 z włączoną opcją przekierowania URL. W przeciwnym razie "
+"proszę skorzystać z instrukcji %smigrowania strony WWW%s."
+
+msgid "Select Albums and Users"
+msgstr "Wybierz albumy i użytkowników"
+
+msgid "You must choose something to import!"
+msgstr "Proszę wybrać cokolwiek do importu!"
+
+msgid "You must specify a custom field name"
+msgstr "Proszę określić nazwę pola dodatkowego"
+
+msgid "Import Users"
+msgstr "Import użytkowników"
+
+msgid "Select the users to migrate"
+msgstr "Proszę wybrać użytkowników do migracji"
+
+msgid "Check All"
+msgstr "Zaznacz wszystko"
+
+msgid "Clear All"
+msgstr "Odznacz wszystko"
+
+msgid "Invert Selection"
+msgstr "Odwróć wybór"
+
+msgid "Select"
+msgstr "Wybierz"
+
+msgid "Username"
+msgstr "Użytkownik"
+
+msgid "No available users"
+msgstr "Brak dostępnych użytkowników"
+
+msgid "These users are already in your gallery, and will not be imported:"
+msgstr "Następujący użytkownicy są już w twojej galerii i nie będą zaimportowani:"
+
+msgid "Import Albums"
+msgstr "Import albumów"
+
+msgid "Select the albums to migrate"
+msgstr "Wybierz albumy do migracji"
+
+msgid "Source:"
+msgstr "Źródło:"
+
+#, c-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+msgid "Destination:"
+msgstr "Miejsce docelowe:"
+
+msgid "Character Encoding of Source Text:"
+msgstr "Kodowanie znaków:"
+
+msgid "URL Redirection"
+msgstr "Przekierowania URL"
+
+msgid "Record G1-&gt;G2 mappings during import"
+msgstr "Zapisz mapowanie G1-&gt;G2 podczas importu"
+
+msgid "Thumbnail generation"
+msgstr "Tworzenie miniaturek"
+
+msgid ""
+"Normally Gallery will generate thumbnails the first time you look at them, then save them "
+"for subsequent views.  If you check this box, we'll create the thumbnails at migration "
+"time.  Migration will take longer but the first time you view an album will go much faster."
+msgstr ""
+"Zazwyczaj galeria tworzy miniaturki podczas pierwszego przeglądania albumu z nowymi "
+"zdjęciami. Jeśli jednak opcja ta zostanie zaznaczona, miniaturki zostaną stworzone podczas "
+"migracji. Migracja potrwa nieco dłużej, ale za to pierwsze odświeżenie albumu będzie trwało "
+"o wiele krócej."
+
+msgid "Item captions"
+msgstr "Podpisy pozycji"
+
+msgid ""
+"Gallery 2 has the following fields for all items and albums: title, summary text shown with "
+"thumbnails and description text shown in item or album view. G1 albums already have these "
+"three items (though the names of summary and description are reversed). G1 items have only a "
+"filename and caption. For items imported into G2:"
+msgstr ""
+"Gallery 2 posiada ten sam zestaw pól dostępnych zarówno dla wszystkich pozycji jak i "
+"albumów, są to: tytuł, podsumowanie pokazywane razem z miniaturkami oraz tekst opisowy "
+"pokazywany w widoku pozycji lub albumu. Albumy Gallery 1 również posiadają te trzy pola z "
+"tym, że nazwy podsumowania i opisu są zamienione. Pozycje G1 posiadają natomiast wyłącznie "
+"pola: nazwa pliku i podpis. Dla pozycji importowanych do G2:"
+
+msgid "Set title from:"
+msgstr "Ustaw tytuł z:"
+
+msgid "Base filename"
+msgstr "Nazwa pliku"
+
+msgid "Caption"
+msgstr "Podpis"
+
+msgid "Custom Field:"
+msgstr "Pole dodatkowe:"
+
+msgid "Enter a custom field name"
+msgstr "Podaj nazwę pola dodatkowego"
+
+msgid "Blank"
+msgstr "Puste"
+
+msgid "Set summary from:"
+msgstr "Ustaw podsumowanie z:"
+
+msgid "Set description from:"
+msgstr "Ustaw opis z:"
+
+msgid "Default to same as summary if custom field not set"
+msgstr "Domyślnie taki sam opis jak w podsumowaniu jeśli pole było puste"
+
+msgid "Custom fields"
+msgstr "Pola dodatkowe"
+
+msgid ""
+"Custom fields will not be imported.  Activate Custom Fields module to enable this option."
+msgstr ""
+"Pola dodatkowe nie będą importowane. Aktywuj moduł dodatkowych pól, aby móc skorzystać z tej "
+"opcji."
+
+msgid "Import custom fields"
+msgstr "Importuj pola dodatkowe"
+
+msgid ""
+"Do not create Gallery 2 custom fields for fields selected above for title, summary or "
+"description"
+msgstr ""
+"Nie twórz dodatkowch pól w Gallery 2 dla powyżej wybranych pól dla tytułu, podsumowania i "
+"opisu"
+
+msgid "Prepare Import"
+msgstr "Przygotuj import"
+
+msgid "Confirm Migration"
+msgstr "Potwierdź migrację"
+
+msgid "Users to import:"
+msgstr "Użytkownicy do importu:"
+
+msgid "Albums to import:"
+msgstr "Albumy do importu:"
+
+msgid "Album Name"
+msgstr "Nazwa"
+
+msgid "Album Title"
+msgstr "Tytuł"
+
+msgid "Album Notes"
+msgstr "Uwagi"
+
+msgid "An album already exists with this name.  This album will be renamed."
+msgstr "Album o takiej nazwie już istnieje. Nazwa zostanie zmieniona."
+
+#, c-format
+msgid "This album has an illegal name and will be renamed to <i>%s</i>"
+msgstr "Ten album posiada nieprawidłową nazwę, zostanie ona zmieniona na <i>%s</i>"
+
+#, c-format
+msgid "This album's owner (%s) hasn't been imported."
+msgstr "Właściciel tego albumu (%s) nie został zaimportowany."
+
+#, c-format
+msgid "Import %s now."
+msgstr "Zaimportuj %s teraz."
+
+msgid ""
+"Top level albums and albums whose parents are not selected will be imported into this album:"
+msgstr ""
+"Albumy, które umieszczone były na najwyższym poziomie, jak i te, których albumy nadrzędne "
+"nie zostały wybrane, będą zaimportowane do albumu: "
+
+#, c-format
+msgid "Title: %s"
+msgstr "Tytuł: %s"
+
+#, c-format
+msgid "Description: %s"
+msgstr "Opis: %s"
+
+msgid "Your Gallery 1 will be converted from this character encoding into UTF-8:"
+msgstr "Twoja Gallery 1 zostanie przekonwertowana do UTF-8 z następującego kodowania znaków:"
+
+#, c-format
+msgid "Encoding: %s"
+msgstr "Kodowanie: %s"
+
+msgid "G1-&gt;G2 mappings will be recorded for use in URL Redirection"
+msgstr "Mapowania G1-&gt;G2 zostaną zapisane w celu ich wykorzystania do przekierowywania URL"
+
+msgid "Thumbnails will be generated during migration"
+msgstr "Miniaturki zostaną stworzone podczas migracji"
+
+msgid "Item fields will be imported from:"
+msgstr "Pola pozycji zostaną zaimportowane z:"
+
+msgid "Title"
+msgstr "Tytuł"
+
+msgid "Custom field:"
+msgstr "Pole dodatkowe:"
+
+msgid "Summary"
+msgstr "Podsumowanie"
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "(Default to summary value if not set)"
+msgstr "(Domyślnie taki sam opis jak w podsumowaniu jeśli pole było puste)"
+
+msgid "Custom fields will be imported"
+msgstr "Pola dodatkowe zostaną zaimportowane"
+
+msgid "Custom fields imported into item fields above will not be duplicated as custom fields"
+msgstr ""
+"Pola dodatkowe zaimportowane jako pola określone powyżej, nie będą importowane jako pola "
+"dodatkowe"
+
+msgid "Hidden Items"
+msgstr "Ukryte pozycje"
+
+msgid ""
+"Any hidden albums or items will be imported with restricted view permissions. Activate the "
+"Hidden Items module before migration to import these as \"hidden\" which means they are "
+"invisible to guest users until accessed by the direct URL for those items."
+msgstr ""
+"Ukryte albumy czy pozycje zostaną zaimportowane z ograniczonymi prawami do przeglądu. Przed "
+"rozpoczęciem migracji należy aktywować moduł \"Ukryte pozycje\", aby zaimportować je jako "
+"\"ukryte\". Pozycje i albumy będą wówczas niewidoczne dopóki nie zostanie wprowadzony ich "
+"prawidłowy adres URL."
+
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgid "Import Complete"
+msgstr "Import zakończony"
+
+#, c-format
+msgid "Successfully imported %d user."
+msgid_plural "Successfully imported %d users."
+msgstr[0] "Zaimportowano %d użytkownika."
+msgstr[1] "Zaimportowano %d użytkowników."
+msgstr[2] "Zaimportowano %d użytkowników."
+
+msgid "No users imported."
+msgstr "Żaden użytkownik nie został zaimportowany."
+
+#, c-format
+msgid "Imported %s"
+msgstr "Zaimportowano %s"
+
+#, c-format
+msgid "Error while importing %d user."
+msgid_plural "Errors while importing %d users."
+msgstr[0] "Wystąpil błąd podczas importowania %d użytkownika."
+msgstr[1] "Wystąpil błąd podczas importowania %d użytkowników."
+msgstr[2] "Wystąpil błąd podczas importowania %d użytkowników."
+
+#, c-format
+msgid "Error importing %s"
+msgstr "Wystąpil błąd podczas importowania %s"
+
+#, c-format
+msgid "Successfully imported %d album."
+msgid_plural "Successfully imported %d albums."
+msgstr[0] "Zaimportowano %d album."
+msgstr[1] "Zaimportowano %d albumy."
+msgstr[2] "Zaimportowano %d albumów."
+
+msgid "No albums imported."
+msgstr "Żaden album nie został zaimportowany."
+
+#, c-format
+msgid "Error while importing %d album."
+msgid_plural "Errors while importing %d albums."
+msgstr[0] "Wystąpil błąd podczas importowania %d albumu."
+msgstr[1] "Wystąpil błąd podczas importowania %d albumów."
+msgstr[2] "Wystąpil błąd podczas importowania %d albumów."
+
+msgid "Import more data"
+msgstr "Zaimportuj więcej danych"
+
+msgid "To enable URL Redirection under Apache webserver:"
+msgstr "Aby włączyć przekierowania URL pod Apachem:"
+
+#, c-format
+msgid "Ensure the %s Apache module is enabled."
+msgstr "Proszę upewnić się, że Apache %s jest włączony."
+
+msgid ""
+"Edit or create a file called <tt>.htaccess</tt> in your Gallery1 directory and add the text "
+"shown below to the file. Remove G1 rewrite rules from an existing file. Redirects will also "
+"work in your Gallery2 directory if G2 is installed in the path where G1 used to be. However, "
+"if you also use the G2 URL Rewrite module then activate the G1 redirect rule in that module "
+"instead of using the block shown below."
+msgstr ""
+"Wyedytuj lub stwórz w katalogu Gallery 1 plik <tt>.htaccess</tt> i dodaj do niego tekst "
+"podany poniżej. Usuń regułę tworzenia krótkich adresów URL G1 z istniejącego pliku. "
+"Przekierowania będą również działać, jeśli Gallery 2 została zainstalowana na tej samej "
+"ścieżce co poprzednio G1. Jednakże, jeśli używasz modułu tworzenia krótkich adresów URL w "
+"G2, wówczas tam aktywuj regułę przekierowania G1, zamiast korzystać z bloku pokazanego "
+"poniżej."
+
+msgid ""
+"Add the same <tt>.htaccess</tt> block in the Gallery1 albums directory if you also wish to "
+"redirect links to image files and album directories. Note that these redirects are not "
+"active until the G1 images are actually removed or moved. Omit the !-f line shown below to "
+"redirect anyway."
+msgstr ""
+"Jeśli chcesz przekierować linki do plików zdjęć i katalogów albumów, dodaj taki sam blok "
+"<tt>.htaccess</tt> w katalogu albumu w Gallery 1. Pamiętaj przy tym, że przekierowania nie "
+"będą aktywne, dopóki zdjęcia z G1 nie zostaną usunięte lub przeniesione. Pomiń linię !-f "
+"pokazaną poniżej, jeśli mimo to chcesz przekierowywać."
+
+msgid ""
+"If G2 is installed in the path where G1 used to exist, you will need to remove the G1 file "
+"\"gallery_remote2.php\" file before you can use Gallery Remote to upload images to G2."
+msgstr ""
+"Jeśli G2 została zainstalowana na tej samej ścieżce co G1, wówczas zanim użyjesz modułu "
+"Dostępu zdalnego do przesłania zdjęć do G2, musisz z G1 usunąć plik \"gallery_remote2.php\"."
+
+msgid "Download .htaccess file"
+msgstr "Pobierz plik .htaccess"
+
+msgid "Import from Gallery 1"
+msgstr "Import z Gallery 1"
+
+msgid ""
+"Copy all or part of an existing Gallery 1 installation into your Gallery 2.  It won't modify "
+"your Gallery 1 data in any way."
+msgstr ""
+"Skopiuj wszystko lub część z istniejącej instalacji Gallery 1 do twojej Gallery 2. Proces "
+"ten w żaden sposób nie naruszy ani nie zmodyfikuje instalacji Gallery 1."
+
+#, c-format
+msgid ""
+"You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
+"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+msgstr ""
+"Nie ma zainstalowanych żadnych narzędzi graficznych wspierających obrazy JPEG. Jeśli "
+"zaimportujesz zdjęcia teraz, nie zostaną stworzone żadne miniaturki. Przejdź do sekcji %"
+"sModuły%s, aby aktywować jedno z narzędzi graficznych."
+
+msgid "Path to Gallery 1 albums directory"
+msgstr "Ścieżka do katalogu Gallery 1"
+
+msgid "Example: /var/www/albums"
+msgstr "Przykład: /var/www/albums"
+
+msgid "You did not enter a path."
+msgstr "Nie podano ścieżki"
+
+msgid "The path that you entered is invalid."
+msgstr "Podana ścieżka nie jest prawidłowa."
+
+msgid ""
+"<b>Note:</b> Before you import any data you should make sure your Gallery 1 is installed "
+"correctly by adding a photo through the Gallery 1 web interface.  Make sure you resolve any "
+"errors you see there first."
+msgstr ""
+"<b>Uwaga:</b> Przed rozpoczęciem importu danych, należy upewnić się, że Gallery 1 została "
+"zainstalowana poprawnie. Można to sprawdzić poprzez dodanie zdjęcia w Gallery 1. Proszę "
+"upewnić się, że zostały rozwiązane wszystkie zaobserwowane tam błędy."
+
+msgid "Recently Used Paths"
+msgstr "Ostatnio użyte ścieżki"
+
+msgid "Gallery can redirect old Gallery1 URLs to the new Gallery2 pages."
+msgstr "Galeria może przekierować adresy URL starej Gallery 1 do nowych stron w Gallery 2."
+
+#, c-format
+msgid "There is one G1-&gt;G2 map entry"
+msgid_plural "There are %d G1-&gt;G2 map entries"
+msgstr[0] "Znaleziono jedno mapowanie stron G1-&gt;G2"
+msgstr[1] "Znaleziono %d mapowania stron G1-&gt;G2"
+msgstr[2] "Znaleziono %d mapowań stron G1-&gt;G2"
+
+msgid ""
+"Deleting map entries will cause old G1 URLs to produce HTTP Not Found errors instead of "
+"redirecting to G2 pages.  Delete all entries?"
+msgstr ""
+"Usunięcie mapowania spowoduje, że stare adresy URL do G1 generować będą błędy HTTP Not "
+"Found, zamiast przekierowywać do stron G2. Usunąć mapowania wszystkich stron"
+
+msgid "Delete All"
+msgstr "Usuń wszystko"
+
+msgid "Map entries deleted successfully"
+msgstr "Mapowanie stron zostało usunięte"

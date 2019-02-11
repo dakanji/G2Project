@@ -1,0 +1,102 @@
+# $Id: cs.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Reupload 1.0.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-02-19 11:32+0100\n"
+"PO-Revision-Date: 2006-03-11 22:14+0100\n"
+"Last-Translator: Jan Korbel <jackc@teptin.net>\n"
+"Language-Team: Czech <cs@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+msgid "Reuploaded file successfully."
+msgstr "Soubor úspěšně nahrán znovu."
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabyty"
+msgstr[2] "%d megabytů"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobyty"
+msgstr[2] "%d kilobytů"
+
+msgid "Reupload"
+msgstr "Znovu nahrát"
+
+msgid "Allows reupload of pictures."
+msgstr "Umožní znovunahrání obrázků."
+
+msgid "Extra Data"
+msgstr "Další data"
+
+msgid "Reupload Photo"
+msgstr "Znovu nahrát foto"
+
+msgid ""
+"Your webserver is configured to disallow file uploads from your web browser at this time.  "
+"Please contact your system administrator for assistance."
+msgstr ""
+"Na tento webový server je zakázáno uploadovat soubory z webového prohlížeče.  Prosím "
+"kontaktujte správce serveru."
+
+msgid "Upload a new revision of this picture instead of the old one."
+msgstr "Nahrát novou verzi tohoto obrázku místo staré."
+
+msgid "You cannot reupload this item because it shares its data file with other items."
+msgstr ""
+
+#, c-format
+msgid ""
+"<b>Note:</b> The new file cannot be larger than %s. If you want to upload a larger file you "
+"must ask your system administrator to allow larger uploads."
+msgstr ""
+"<b>Poznámka:</b> Nový soubor nesmí být větší než %s. Pokud chcete nahrát větší soubor, "
+"požádejte správce serveru o povolení větších uploadů."
+
+msgid "File"
+msgstr "Soubor"
+
+msgid "Reupload File"
+msgstr "Znovu nahrát soubor"
+
+msgid "Unable to reupload file."
+msgstr "Soubor nelze znovu nahrát."
+
+#, c-format
+msgid "Please check the size and try again. The new file cannot be larger than %s."
+msgstr "Prosím zkontrolujte velikost a zkuste to znovu. Nový soubor nesmí být větší než %s."
+
+msgid ""
+"Unable to reupload file. Are you sure the file is of the same type (image, movie) as the "
+"original?"
+msgstr ""
+"Nelze znovu nahrát soubor. Jste si jisti, že je soubor stejného typu (obrázek, video) jako "
+"originál?"

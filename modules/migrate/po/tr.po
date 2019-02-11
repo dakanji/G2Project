@@ -1,0 +1,439 @@
+# $Id: tr.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - İshak Göker Işık <admin@ansolon.org>
+# - Roman Neumüller <email@katpatuka.org>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Migration 1.0.13\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-14 17:28-0700\n"
+"PO-Revision-Date: 2007-09-12 21:33+0200\n"
+"Last-Translator: Roman Neumüller <email@katpatuka.org>\n"
+"Language-Team: Turkish <admin@ansolon.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Turkish\n"
+"X-Poedit-Country: TURKEY\n"
+
+msgid "Importing Users"
+msgstr "Kullanıcılar Alınıyor"
+
+msgid "Importing Photos"
+msgstr "Fotolar Alınıyor"
+
+msgid "Creating thumbnails"
+msgstr "Thumbnaillar yaratılıyor"
+
+#, c-format
+msgid "Thumbnail %d of %d"
+msgstr "Thumbnail %d / %d"
+
+#, c-format
+msgid "%sTitle%s was truncated for %sitem %d%s."
+msgstr ""
+
+#, c-format
+msgid "%sSummary%s was truncated for %sitem %d%s."
+msgstr ""
+
+msgid "Set:"
+msgstr ""
+
+msgid "Truncated:"
+msgstr ""
+
+msgid "Migration"
+msgstr "Taşıma"
+
+msgid "Migrate your Gallery 1 albums to Gallery 2"
+msgstr "Galeri 1 albümlerinizi Gallery 2'ye taşıyın"
+
+msgid "Import"
+msgstr "Dış Alım"
+
+msgid "Gallery 1"
+msgstr "Galeri 1"
+
+msgid "G1-&gt;G2 Mapping"
+msgstr "G1-&gt;G2 Eşleme"
+
+msgid "G1 path"
+msgstr "G1 veriyolu"
+
+#, c-format
+msgid ""
+"G1 URL redirect. Use only if G2 is installed where G1 used to be and you have run a G1 "
+"import with the URL redirect option selected. Otherwise follow instructions in %sMigrate "
+"Site Admin%s."
+msgstr ""
+
+msgid "Select Albums and Users"
+msgstr "Albümleri ve Kullanıcıları Seç"
+
+msgid "You must choose something to import!"
+msgstr "Dış alım yapmak için birşeyler seçmelisiniz!"
+
+msgid "You must specify a custom field name"
+msgstr ""
+
+msgid "Import Users"
+msgstr "Kullanıcılar Al"
+
+msgid "Select the users to migrate"
+msgstr "Taşınacak kullanıcıları seç"
+
+msgid "Check All"
+msgstr "Hepsini Seç"
+
+msgid "Clear All"
+msgstr "Hepsini Temizle"
+
+msgid "Invert Selection"
+msgstr "Seçimi Ters Çevir"
+
+msgid "Select"
+msgstr "Seç"
+
+msgid "Username"
+msgstr "Kullanıcı adı"
+
+msgid "No available users"
+msgstr "Mevcut kullanıcı yok"
+
+msgid "These users are already in your gallery, and will not be imported:"
+msgstr "Bu kullanıcılar zaten galeride mevcut, bu yüzden dışalımları yapılmayacak:"
+
+msgid "Import Albums"
+msgstr "Albümleri Al"
+
+msgid "Select the albums to migrate"
+msgstr "Taşınacak albümleri seç"
+
+msgid "Source:"
+msgstr "Kaynak:"
+
+#, c-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+msgid "Destination:"
+msgstr "Hedef:"
+
+msgid "Character Encoding of Source Text:"
+msgstr ""
+
+msgid "URL Redirection"
+msgstr "URL Yönlendirme"
+
+msgid "Record G1-&gt;G2 mappings during import"
+msgstr ""
+
+msgid "Thumbnail generation"
+msgstr "Thumbnail üretimi"
+
+msgid ""
+"Normally Gallery will generate thumbnails the first time you look at them, then save them "
+"for subsequent views.  If you check this box, we'll create the thumbnails at migration "
+"time.  Migration will take longer but the first time you view an album will go much faster."
+msgstr ""
+
+msgid "Item captions"
+msgstr ""
+
+msgid ""
+"Gallery 2 has the following fields for all items and albums: title, summary text shown with "
+"thumbnails and description text shown in item or album view. G1 albums already have these "
+"three items (though the names of summary and description are reversed). G1 items have only a "
+"filename and caption. For items imported into G2:"
+msgstr ""
+
+msgid "Set title from:"
+msgstr ""
+
+msgid "Base filename"
+msgstr "Temel dosyaadı"
+
+msgid "Caption"
+msgstr "Başlık"
+
+msgid "Custom Field:"
+msgstr "İsteğe bağlı Alan:"
+
+msgid "Enter a custom field name"
+msgstr ""
+
+msgid "Blank"
+msgstr "Boş"
+
+msgid "Set summary from:"
+msgstr ""
+
+msgid "Set description from:"
+msgstr ""
+
+msgid "Default to same as summary if custom field not set"
+msgstr ""
+
+msgid "Custom fields"
+msgstr "İsteğe bağlı alanlar"
+
+msgid ""
+"Custom fields will not be imported.  Activate Custom Fields module to enable this option."
+msgstr ""
+
+msgid "Import custom fields"
+msgstr "İsteğe bağlı alanları al"
+
+msgid ""
+"Do not create Gallery 2 custom fields for fields selected above for title, summary or "
+"description"
+msgstr ""
+
+msgid "Prepare Import"
+msgstr "Alım için Hazırla"
+
+msgid "Confirm Migration"
+msgstr "Taşımayı Onayla"
+
+msgid "Users to import:"
+msgstr "Alınacak Kullanıcılar:"
+
+msgid "Albums to import:"
+msgstr "Alınacak Albümler:"
+
+msgid "Album Name"
+msgstr "Albüm Adı"
+
+msgid "Album Title"
+msgstr "Albüm Başlığı"
+
+msgid "Album Notes"
+msgstr "Albüm Notları"
+
+msgid "An album already exists with this name.  This album will be renamed."
+msgstr "Bu isimle bir albüm zaten mevcut. Bu albüm yeniden adlandırılacak."
+
+#, c-format
+msgid "This album has an illegal name and will be renamed to <i>%s</i>"
+msgstr ""
+
+#, c-format
+msgid "This album's owner (%s) hasn't been imported."
+msgstr ""
+
+#, c-format
+msgid "Import %s now."
+msgstr "Şimdi dışardan al  %s."
+
+msgid ""
+"Top level albums and albums whose parents are not selected will be imported into this album:"
+msgstr ""
+
+#, c-format
+msgid "Title: %s"
+msgstr "Başlık: %s"
+
+#, c-format
+msgid "Description: %s"
+msgstr "Açıkalama: %s"
+
+msgid "Your Gallery 1 will be converted from this character encoding into UTF-8:"
+msgstr ""
+
+#, c-format
+msgid "Encoding: %s"
+msgstr ""
+
+msgid "G1-&gt;G2 mappings will be recorded for use in URL Redirection"
+msgstr ""
+
+msgid "Thumbnails will be generated during migration"
+msgstr ""
+
+msgid "Item fields will be imported from:"
+msgstr ""
+
+msgid "Title"
+msgstr "Başlık"
+
+msgid "Custom field:"
+msgstr ""
+
+msgid "Summary"
+msgstr "Özet"
+
+msgid "Description"
+msgstr "Açıklama"
+
+msgid "(Default to summary value if not set)"
+msgstr ""
+
+msgid "Custom fields will be imported"
+msgstr ""
+
+msgid "Custom fields imported into item fields above will not be duplicated as custom fields"
+msgstr ""
+
+msgid "Hidden Items"
+msgstr "Saklı Ögeler"
+
+msgid ""
+"Any hidden albums or items will be imported with restricted view permissions. Activate the "
+"Hidden Items module before migration to import these as \"hidden\" which means they are "
+"invisible to guest users until accessed by the direct URL for those items."
+msgstr ""
+
+msgid "Cancel"
+msgstr "İptal"
+
+msgid "Import Complete"
+msgstr "Dışalım Tamamlandı"
+
+#, c-format
+msgid "Successfully imported %d user."
+msgid_plural "Successfully imported %d users."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "No users imported."
+msgstr ""
+
+#, c-format
+msgid "Imported %s"
+msgstr "Alındı %s"
+
+#, c-format
+msgid "Error while importing %d user."
+msgid_plural "Errors while importing %d users."
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format
+msgid "Error importing %s"
+msgstr "Alımda hata %s"
+
+#, c-format
+msgid "Successfully imported %d album."
+msgid_plural "Successfully imported %d albums."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "No albums imported."
+msgstr "Hiçbir albüm alınmadı."
+
+#, c-format
+msgid "Error while importing %d album."
+msgid_plural "Errors while importing %d albums."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Import more data"
+msgstr "Daha fazla veri al"
+
+msgid "To enable URL Redirection under Apache webserver:"
+msgstr ""
+
+#, c-format
+msgid "Ensure the %s Apache module is enabled."
+msgstr ""
+
+msgid ""
+"Edit or create a file called <tt>.htaccess</tt> in your Gallery1 directory and add the text "
+"shown below to the file. Remove G1 rewrite rules from an existing file. Redirects will also "
+"work in your Gallery2 directory if G2 is installed in the path where G1 used to be. However, "
+"if you also use the G2 URL Rewrite module then activate the G1 redirect rule in that module "
+"instead of using the block shown below."
+msgstr ""
+
+msgid ""
+"Add the same <tt>.htaccess</tt> block in the Gallery1 albums directory if you also wish to "
+"redirect links to image files and album directories. Note that these redirects are not "
+"active until the G1 images are actually removed or moved. Omit the !-f line shown below to "
+"redirect anyway."
+msgstr ""
+
+msgid ""
+"If G2 is installed in the path where G1 used to exist, you will need to remove the G1 file "
+"\"gallery_remote2.php\" file before you can use Gallery Remote to upload images to G2."
+msgstr ""
+
+msgid "Download .htaccess file"
+msgstr ".htaccess dosyasını yükle"
+
+msgid "Import from Gallery 1"
+msgstr "Galeri 1'den dışalım yap"
+
+msgid ""
+"Copy all or part of an existing Gallery 1 installation into your Gallery 2.  It won't modify "
+"your Gallery 1 data in any way."
+msgstr ""
+
+#, c-format
+msgid ""
+"You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
+"will not have any thumbnails.  Visit the %sModules%s page to activate a Graphics Toolkit."
+msgstr ""
+
+msgid "Path to Gallery 1 albums directory"
+msgstr "G1 albüm klasörünün veri yolu"
+
+msgid "Example: /var/www/albums"
+msgstr "Örnek: /var/www/albums"
+
+msgid "You did not enter a path."
+msgstr "Veriyolu girmediniz."
+
+msgid "The path that you entered is invalid."
+msgstr "Girdiğiniz veriyolu geçersiz."
+
+msgid ""
+"<b>Note:</b> Before you import any data you should make sure your Gallery 1 is installed "
+"correctly by adding a photo through the Gallery 1 web interface.  Make sure you resolve any "
+"errors you see there first."
+msgstr ""
+
+msgid "Recently Used Paths"
+msgstr "Son Kullanılan Veriyolları"
+
+msgid "Gallery can redirect old Gallery1 URLs to the new Gallery2 pages."
+msgstr "Galeri eski Galeri 1 URL'lerini yeni Galeri 2 sayfalarına yönlendirebilir."
+
+#, c-format
+msgid "There is one G1-&gt;G2 map entry"
+msgid_plural "There are %d G1-&gt;G2 map entries"
+msgstr[0] "1 adet G1-&gt;G2 eşleşme girdisi var"
+msgstr[1] "%d adet G1-&gt;G2 eşleşme girdisi var"
+
+msgid ""
+"Deleting map entries will cause old G1 URLs to produce HTTP Not Found errors instead of "
+"redirecting to G2 pages.  Delete all entries?"
+msgstr ""
+"Eşleme girdilerini silmeK eski G1 URL'lerinin HTTP Bulunamadı hatası vermesini sağlayacak ve "
+"eski G1 URL'leriniz G2 sayfalarına yönlendirilmeyecektir. Tüm girdileri silelim mi?"
+
+msgid "Delete All"
+msgstr "Hepsini Sil"
+
+msgid "Map entries deleted successfully"
+msgstr "Harita girdileri başarıyla silindi"
