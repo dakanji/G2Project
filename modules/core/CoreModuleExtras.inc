@@ -3358,7 +3358,7 @@ class CoreModuleExtras {
 	 *                        'add' => array of string additions)
 	 * @access private
 	 */
-	public function _prepareConfigUpgrade($currentVersion) {
+	public static function _prepareConfigUpgrade($currentVersion) {
 		global $gallery;
 		$configChanges = array();
 
