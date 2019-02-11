@@ -34,7 +34,7 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 		$this->GalleryTestCase($methodName, 'migrate.ConfirmImport');
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		global $gallery;
 
 		$ret = parent::setUp();

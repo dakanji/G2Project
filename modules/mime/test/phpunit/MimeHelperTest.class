@@ -33,7 +33,7 @@ class MimeHelperTest extends GalleryTestCase {
 		parent::__construct($methodname);
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {

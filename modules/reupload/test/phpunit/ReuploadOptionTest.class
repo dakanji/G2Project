@@ -32,7 +32,7 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 		parent::__construct($methodName, 'reupload', 'ReuploadPhotoOption');
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		global $gallery;
 		$ret = parent::setUp();
 

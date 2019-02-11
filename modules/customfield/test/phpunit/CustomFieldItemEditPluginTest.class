@@ -32,7 +32,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		parent::__construct($methodName, 'customfield', 'CustomFieldItemEdit');
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {

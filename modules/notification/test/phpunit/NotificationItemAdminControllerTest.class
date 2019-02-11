@@ -31,7 +31,7 @@ class NotificationItemAdminControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'notification.NotificationItemAdmin');
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		global $gallery;
 
 		parent::setUp();

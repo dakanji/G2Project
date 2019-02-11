@@ -29,7 +29,7 @@ class MimeAdminControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'mime.MimeAdmin');
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {

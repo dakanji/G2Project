@@ -33,7 +33,7 @@ class Gallery1DataParserTest extends GalleryControllerTestCase {
 		$this->GalleryTestCase($methodName);
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		global $gallery;
 
 		$ret = parent::setUp();

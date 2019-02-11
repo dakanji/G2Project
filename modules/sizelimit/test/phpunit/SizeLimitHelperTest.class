@@ -34,7 +34,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
 		parent::__construct($methodname);
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		global $gallery;
 
 		$ret = parent::setUp();

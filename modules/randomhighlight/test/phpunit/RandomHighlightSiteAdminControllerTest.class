@@ -31,7 +31,7 @@ class RandomHighlightSiteAdminControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'randomhighlight.RandomHighlightSiteAdmin');
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {

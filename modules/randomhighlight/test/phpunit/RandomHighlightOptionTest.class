@@ -32,7 +32,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 		parent::__construct($methodName, 'randomhighlight', 'RandomHighlightOption');
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {

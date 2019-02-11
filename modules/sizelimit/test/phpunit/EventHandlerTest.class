@@ -30,7 +30,7 @@ class EventHandlerTest extends GalleryTestCase {
 		parent::__construct($methodname);
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -49,9 +49,9 @@ class EventHandlerTest extends GalleryTestCase {
 		$event = GalleryCoreApi::newEvent('GalleryEntity::save');
 
 		foreach (array(
-			'width' => 768,
-			'height' => 1024,
-			'size' => 1000,
+			'width'        => 768,
+			'height'       => 1024,
+			'size'         => 1000,
 			'keepOriginal' => 1,
 		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter(

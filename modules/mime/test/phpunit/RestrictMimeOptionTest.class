@@ -32,7 +32,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		parent::__construct($methodName, 'quotas', 'RestrictMimeOption');
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		global $gallery;
 		$ret = parent::setUp();
 

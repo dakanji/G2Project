@@ -30,7 +30,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'replica.ItemCreateReplica');
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		global $gallery;
 
 		$ret = parent::setUp();

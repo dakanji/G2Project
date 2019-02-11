@@ -30,7 +30,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'customfield.CustomFieldSiteAdmin');
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {

@@ -31,7 +31,7 @@ class AlbumSelectSiteAdminControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'albumselect.AlbumSelectSiteAdmin');
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {

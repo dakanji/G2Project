@@ -31,7 +31,7 @@ class PermalinksSiteAdminControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'permalinks.PermalinksSiteAdmin');
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		$ret = parent::setUp();
 
 		if ($ret) {

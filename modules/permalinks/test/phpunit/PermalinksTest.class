@@ -35,7 +35,7 @@ class PermalinksTest extends GalleryTestCase {
 		parent::__construct($methodName);
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		global $gallery;
 		$ret = parent::setUp();
 

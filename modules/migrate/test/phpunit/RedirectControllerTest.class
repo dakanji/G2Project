@@ -30,7 +30,7 @@ class RedirectControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'migrate.Redirect');
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		global $gallery;
 		$ret = parent::setUp();
 

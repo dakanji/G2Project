@@ -36,7 +36,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 		);
 	}
 
-	public function setUp() {
+	public function setUp($setup = null) {
 		global $gallery;
 		$ret = parent::setUp();
 
