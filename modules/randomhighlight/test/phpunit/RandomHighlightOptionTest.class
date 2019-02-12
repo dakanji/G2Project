@@ -200,7 +200,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($appropriate, 'appropriate');
+		$this->assertTrue($appropriate, 'appropriate');
 		$this->assertEquals(0, $this->_highlight->getWidth(), 'no width yet');
 
 		$form['RandomHighlightOption']['isRandomHighlight'] = 1;
@@ -233,7 +233,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 			return $ret;
 		}
 		// For Oracle, null is replaced with '' when loading data from the database
-		$this->assert(in_array($highlight->getOnLoadHandlers(), array(null, '')), 'off');
+		$this->assertTrue(in_array($highlight->getOnLoadHandlers(), array(null, '')), 'off');
 	}
 
 	public function testRandomHighlighNew() {

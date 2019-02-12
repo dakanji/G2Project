@@ -51,7 +51,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 	}
 
 	public function tearDown() {
-		$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -207,7 +207,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 		$this->_platform->setReply('is_file', array('/path/to'), 0);
 
 		list($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to');
-		$this->assert($ret && $ret->getErrorCode() & ERROR_BAD_PATH);
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_BAD_PATH);
 		$this->assertEquals($testArray, null);
 	}
 

@@ -47,7 +47,7 @@ class CustomFieldSearchTest extends GalleryTestCase {
 		}
 
 		if (empty($moduleStatusList['search']['active'])) {
-			return $this->assert(false, 'Search module not installed');
+			return $this->assertTrue(false, 'Search module not installed');
 		}
 
 		// Get search instance..
@@ -56,7 +56,7 @@ class CustomFieldSearchTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($this->_search), 'Missing CustomFieldSearch instance');
+		$this->assertTrue(isset($this->_search), 'Missing CustomFieldSearch instance');
 
 		list($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'customfield');
 

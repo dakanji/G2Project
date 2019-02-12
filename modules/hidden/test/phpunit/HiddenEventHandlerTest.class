@@ -154,7 +154,7 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-		$this->assert($storage->isComplete(), $storage->getRemaining());
+		$this->assertTrue($storage->isComplete(), $storage->getRemaining());
 	}
 
 	public function testHiddenViewableTreeChangeHandlerForCoreView() {
@@ -213,28 +213,28 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($permissions['core.view']), 'Top Album should not have core.view');
+		$this->assertTrue(empty($permissions['core.view']), 'Top Album should not have core.view');
 
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subAlbum->getId());
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!empty($permissions['core.view']), 'Sub album should have core.view');
+		$this->assertFalse(empty($permissions['core.view']), 'Sub album should have core.view');
 
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subItems[0]->getId());
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($permissions['core.view']), 'Sub item should not have core.view');
+		$this->assertTrue(empty($permissions['core.view']), 'Sub item should not have core.view');
 
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subItems[1]->getId());
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!empty($permissions['core.view']), 'Sub item[1] should have core.view');
+		$this->assertFalse(empty($permissions['core.view']), 'Sub item[1] should have core.view');
 	}
 
 	public function testHiddenViewableTreeChangeHandlerForCoreViewAll() {
@@ -293,28 +293,28 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($permissions['core.view']), 'Top Album should not have core.view');
+		$this->assertTrue(empty($permissions['core.view']), 'Top Album should not have core.view');
 
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subAlbum->getId());
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!empty($permissions['core.view']), 'Sub album should have core.view');
+		$this->assertFalse(empty($permissions['core.view']), 'Sub album should have core.view');
 
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subItems[0]->getId());
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($permissions['core.view']), 'Sub item should not have core.view');
+		$this->assertTrue(empty($permissions['core.view']), 'Sub item should not have core.view');
 
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subItems[1]->getId());
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!empty($permissions['core.view']), 'Sub item[1] should have core.view');
+		$this->assertFalse(empty($permissions['core.view']), 'Sub item[1] should have core.view');
 	}
 
 	public function testHiddenViewableTreeChangeHandlerForCoreAll() {
@@ -373,28 +373,28 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($permissions['core.view']), 'Top Album should not have core.view');
+		$this->assertTrue(empty($permissions['core.view']), 'Top Album should not have core.view');
 
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subAlbum->getId());
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!empty($permissions['core.view']), 'Sub album should have core.view');
+		$this->assertFalse(empty($permissions['core.view']), 'Sub album should have core.view');
 
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subItems[0]->getId());
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($permissions['core.view']), 'Sub item should not have core.view');
+		$this->assertTrue(empty($permissions['core.view']), 'Sub item should not have core.view');
 
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subItems[1]->getId());
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!empty($permissions['core.view']), 'Sub item[1] should have core.view');
+		$this->assertFalse(empty($permissions['core.view']), 'Sub item[1] should have core.view');
 	}
 
 	public function testHiddenViewableTreeChangeHandlerForUnhiddenAlbum() {
@@ -457,20 +457,20 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!empty($permissions['core.view']), 'Sub album should have core.view');
+		$this->assertFalse(empty($permissions['core.view']), 'Sub album should have core.view');
 
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subItems[0]->getId());
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($permissions['core.view']), 'Sub item should not have core.view');
+		$this->assertTrue(empty($permissions['core.view']), 'Sub item should not have core.view');
 
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($this->_subItems[1]->getId());
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!empty($permissions['core.view']), 'Sub item[1] should have core.view');
+		$this->assertFalse(empty($permissions['core.view']), 'Sub item[1] should have core.view');
 	}
 }

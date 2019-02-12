@@ -68,7 +68,7 @@ class DcrawToolkitTest extends GalleryTestCase {
 	}
 
 	public function tearDown() {
-		$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -215,7 +215,7 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array(),
 			array()
 		);
-		$this->assert($ret && $ret->getErrorCode() & ERROR_TOOLKIT_FAILURE);
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_TOOLKIT_FAILURE);
 	}
 
 	public function testConvertDcrawToPpmBadMimetype() {
@@ -227,7 +227,7 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array(),
 			array()
 		);
-		$this->assert($ret && $ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION);
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION);
 	}
 
 	public function testConvertDcrawToPpmBadTempFile() {
@@ -246,7 +246,7 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array(),
 			array()
 		);
-		$this->assert($ret && $ret->getErrorCode() & ERROR_BAD_PATH);
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_BAD_PATH);
 	}
 
 	public function testConvertDcrawToPpmFailedExec() {
@@ -276,7 +276,7 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array(),
 			array()
 		);
-		$this->assert($ret && $ret->getErrorCode() & ERROR_TOOLKIT_FAILURE);
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_TOOLKIT_FAILURE);
 	}
 
 	public function testConvertDcrawToPpmFailedRename() {
@@ -307,7 +307,7 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array(),
 			array()
 		);
-		$this->assert($ret && $ret->getErrorCode() & ERROR_PLATFORM_FAILURE);
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_PLATFORM_FAILURE);
 	}
 
 	public function testBadOperationName() {
@@ -319,7 +319,7 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array(),
 			array()
 		);
-		$this->assert($ret && $ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION);
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION);
 	}
 
 	/*
@@ -360,7 +360,7 @@ class DcrawToolkitTest extends GalleryTestCase {
 			'dimensions',
 			'INPUTFILE'
 		);
-		$this->assert($ret && $ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION);
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION);
 	}
 
 	public function testGetBadPropertyName() {
@@ -369,6 +369,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			'BAD PROPERTY',
 			'INPUTFILE'
 		);
-		$this->assert($ret && $ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION);
+		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION);
 	}
 }

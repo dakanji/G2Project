@@ -227,7 +227,7 @@ class NotificationEventHandlingTest extends GalleryTestCase {
 		$gallery->_lockSystem =& $this->_saveLockSystem;
 
 		if (!empty($this->_storageSet)) {
-			$this->assert($storage->isComplete(), $storage->getRemaining());
+			$this->assertTrue($storage->isComplete(), $storage->getRemaining());
 		}
 
 		parent::tearDown();
@@ -320,7 +320,7 @@ class NotificationEventHandlingTest extends GalleryTestCase {
 				'Subscribers did not match'
 			);
 		} else {
-			$this->assert(false, 'handleNotification not called');
+			$this->assertTrue(false, 'handleNotification not called');
 		}
 
 		if (GalleryDataCache::containsKey('NotificationEventHandlingTest:notification')) {

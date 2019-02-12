@@ -379,7 +379,7 @@ class Gallery1DataParserTest extends GalleryControllerTestCase {
 
 	public function testGetUserFieldsByReallyMissingUid() {
 		list($ret, $fields) = Gallery1DataParser::getUserFieldsByUid($this->_albumsDir, '1054014347_123456789');
-		$this->assert($ret->getErrorCode() & ERROR_BAD_PARAMETER);
+		$this->assertTrue($ret->getErrorCode() & ERROR_BAD_PARAMETER);
 	}
 
 	public function testIsValidUid() {

@@ -173,7 +173,7 @@ class NotificationItemAdminControllerTest extends GalleryControllerTestCase {
 		$gallery->_lockSystem =& $this->_saveLockSystem;
 
 		if (!empty($this->_storageSet)) {
-			$this->assert($storage->isComplete(), $storage->getRemaining());
+			$this->assertTrue($storage->isComplete(), $storage->getRemaining());
 		}
 
 		parent::tearDown();

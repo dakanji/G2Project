@@ -182,7 +182,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($appropriate, 'appropriate');
+		$this->assertTrue($appropriate, 'appropriate');
 	}
 
 	// change dimensions, don't keep original
@@ -399,7 +399,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			}
 
 			if (!GalleryUtilities::isExactlyA($resized, 'GalleryDerivativeImage')) {
-				return $this->assert(false, 'Not a derivative image');
+				return $this->assertTrue(false, 'Not a derivative image');
 			}
 			$ret = $resized->rebuildCache();
 
@@ -555,7 +555,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		if (!GalleryUtilities::isExactlyA($resized, 'GalleryDerivativeImage')) {
-			return $this->assert(false, 'Not a derivative');
+			return $this->assertTrue(false, 'Not a derivative');
 		}
 		$ret = $resized->rebuildCache();
 
@@ -621,7 +621,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			}
 
 			if (!GalleryUtilities::isExactlyA($resized, 'GalleryDerivativeImage')) {
-				return $this->assert(false, 'Not a derivative');
+				return $this->assertTrue(false, 'Not a derivative');
 			}
 			$ret = $resized->rebuildCache();
 
@@ -673,7 +673,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		if (!GalleryUtilities::isExactlyA($resized, 'GalleryDerivativeImage')) {
-			return $this->assert(false, 'Not a derivative');
+			return $this->assertTrue(false, 'Not a derivative');
 		}
 		$ret = $resized->rebuildCache();
 
@@ -750,7 +750,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			}
 
 			if (!GalleryUtilities::isExactlyA($resized, 'GalleryDerivativeImage')) {
-				return $this->assert(false, 'Not a derivative');
+				return $this->assertTrue(false, 'Not a derivative');
 			}
 			$ret = $resized->rebuildCache();
 
@@ -1106,7 +1106,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 				'same old thumbnail'
 			);
 		} else {
-			$this->assert(false, 'no thumbnail for our item id after test');
+			$this->assertTrue(false, 'no thumbnail for our item id after test');
 		}
 	}
 }

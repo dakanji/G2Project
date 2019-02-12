@@ -158,7 +158,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(
+		$this->assertTrue(
 			GalleryUtilities::isExactlyA($resized, 'GalleryDerivativeImage'),
 			'not a derivative image'
 		);
@@ -180,7 +180,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
 			'unsupported',
 			array('anything')
 		);
-		$this->assert($ret->getErrorCode() & ERROR_UNSUPPORTED_FILE_TYPE);
+		$this->assertTrue($ret->getErrorCode() & ERROR_UNSUPPORTED_FILE_TYPE);
 	}
 
 	// change size, replace original
@@ -197,7 +197,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 		$ret = SizeLimitHelper::applyLimits($this->_item, 'test', array(26));
-		$this->assert(!$ret, 'applyLimits');
+		$this->assertFalse($ret, 'applyLimits');
 
 		list($ret, $this->_item) = $this->_item->refresh();
 

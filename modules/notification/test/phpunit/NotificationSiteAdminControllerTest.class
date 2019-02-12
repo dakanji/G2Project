@@ -157,7 +157,7 @@ class NotificationSiteAdminControllerTest extends GalleryControllerTestCase {
 		$gallery->_lockSystem =& $this->_saveLockSystem;
 
 		if (!empty($this->_storageSet)) {
-			$this->assert($storage->isComplete(), $storage->getRemaining());
+			$this->assertTrue($storage->isComplete(), $storage->getRemaining());
 		}
 
 		parent::tearDown();
@@ -251,7 +251,7 @@ class NotificationSiteAdminControllerTest extends GalleryControllerTestCase {
 			'Unexpected results array'
 		);
 
-		$this->assert(
+		$this->assertTrue(
 			empty($_GET['g2_form']['notificationMap'][0]['errorMsg']),
 			'Error message returned'
 		);
@@ -392,7 +392,7 @@ class NotificationSiteAdminControllerTest extends GalleryControllerTestCase {
 			'Unexpected results array'
 		);
 
-		$this->assert(
+		$this->assertTrue(
 			empty($_GET['g2_form']['notificationMap'][0]['errorMsg']),
 			'Error message returned'
 		);
@@ -481,7 +481,7 @@ class NotificationSiteAdminControllerTest extends GalleryControllerTestCase {
 			'Unexpected results array'
 		);
 
-		$this->assert(
+		$this->assertTrue(
 			empty($_GET['g2_form']['notificationMap'][0]['errorMsg']),
 			'Error message returned'
 		);
@@ -628,7 +628,7 @@ class NotificationSiteAdminControllerTest extends GalleryControllerTestCase {
 			'Unexpected results array'
 		);
 
-		$this->assert(
+		$this->assertTrue(
 			empty($_GET['g2_form']['notificationMap'][0]['errorMsg']),
 			'Error message returned'
 		);
@@ -718,7 +718,7 @@ class NotificationSiteAdminControllerTest extends GalleryControllerTestCase {
 			'Unexpected results array'
 		);
 
-		$this->assert(
+		$this->assertTrue(
 			empty($_GET['g2_form']['notificationMap'][0]['errorMsg']),
 			'Error message returned'
 		);
@@ -814,7 +814,7 @@ class NotificationSiteAdminControllerTest extends GalleryControllerTestCase {
 			'Unexpected results array'
 		);
 
-		$this->assert(
+		$this->assertTrue(
 			empty($_GET['g2_form']['notificationMap'][0]['errorMsg']),
 			'Error message returned'
 		);
@@ -913,7 +913,7 @@ class NotificationSiteAdminControllerTest extends GalleryControllerTestCase {
 			'Unexpected results array'
 		);
 
-		$this->assert(
+		$this->assertTrue(
 			empty($_GET['g2_form']['notificationMap'][0]['errorMsg']),
 			'Error message returned'
 		);
@@ -1010,7 +1010,7 @@ class NotificationSiteAdminControllerTest extends GalleryControllerTestCase {
 			'Unexpected results array'
 		);
 
-		$this->assert(
+		$this->assertTrue(
 			empty($_GET['g2_form']['notificationMap'][0]['errorMsg']),
 			'Error message returned'
 		);

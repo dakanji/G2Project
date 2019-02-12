@@ -170,8 +170,8 @@ class SitemapViewTest extends GalleryTestCase {
 			substr($results, 0, 43),
 			'header'
 		);
-		$this->assert(strpos($results, '<?xml'), 'xml');
-		$this->assert(strpos($results, '</urlset>'), 'end');
+		$this->assertTrue(strpos($results, '<?xml'), 'xml');
+		$this->assertTrue(strpos($results, '</urlset>'), 'end');
 	}
 }
 

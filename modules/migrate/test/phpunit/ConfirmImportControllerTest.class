@@ -291,7 +291,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 		} else {
 			$pattern = '/^' . $expectedProgressBarDump . '$/';
 			$dump    = join(' ', $mockAdapter->getProgressBarDump());
-			$this->assert(
+			$this->assertTrue(
 				preg_match($pattern, $dump),
 				"Progress Bar Dump [$dump] did not match pattern [$pattern]"
 			);
@@ -714,7 +714,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$this->assert(
+			$this->assertTrue(
 				!isset($seenWeights[$orderWeight]),
 				'Seen this weight before: ' . $orderWeight
 			);
@@ -780,7 +780,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 		if (count($chipperThumb) == 1) {
 			$chipperThumb = array_shift($chipperThumb);
-			$this->assert(GalleryUtilities::isA($chipperThumb, 'GalleryDerivative'), 'derivative');
+			$this->assertTrue(GalleryUtilities::isA($chipperThumb, 'GalleryDerivative'), 'derivative');
 			$this->assertEquals(
 				'crop|34.568,40.923,34.877,35.077;thumbnail|150',
 				$chipperThumb->getDerivativeOperations(),
@@ -1073,7 +1073,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals(1, count($thumbTable), 'thumbnail table');
 		$thumbnail = $thumbTable[$ids[0]];
-		$this->assert(GalleryUtilities::isA($thumbnail, 'GalleryDerivative'));
+		$this->assertTrue(GalleryUtilities::isA($thumbnail, 'GalleryDerivative'));
 
 		if (isset($thumbnail)) {
 			list($ret, $isCurrent) = $thumbnail->isCacheCurrent();
@@ -1081,7 +1081,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$this->assert($isCurrent, 'Cache is not current!');
+			$this->assertTrue($isCurrent, 'Cache is not current!');
 		}
 
 		// verify filename was assigned to title, caption to summary, blank description
@@ -1457,7 +1457,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$this->assert(
+			$this->assertTrue(
 				!isset($seenWeights[$orderWeight]),
 				'Seen this weight before: ' . $orderWeight
 			);
@@ -1673,7 +1673,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(array(), $status['userImportFailure']);
 		$this->assertEquals(array(), $status['userImportSuccess']);
 		$this->assertEquals(array(), $status['albumImportFailure']);
-		$this->assert($buflen > 0, 'Should have gotten truncate message');
+		$this->assertTrue($buflen > 0, 'Should have gotten truncate message');
 		$testAlbumId = $status['albumImportSuccess']['no_NO'];
 		// Get the allegedly successfully imported album
 		list($ret, $testAlbum) = GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');
@@ -1827,7 +1827,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(array(), $status['userImportFailure']);
 		$this->assertEquals(array(), $status['userImportSuccess']);
 		$this->assertEquals(array(), $status['albumImportFailure']);
-		$this->assert($buflen > 0, 'Should have gotten truncate message');
+		$this->assertTrue($buflen > 0, 'Should have gotten truncate message');
 		$testAlbumId = $status['albumImportSuccess']['fr_FR'];
 		// Get the allegedly successfully imported album
 		list($ret, $testAlbum) = GalleryCoreApi::loadEntitiesById($testAlbumId, 'GalleryAlbumItem');

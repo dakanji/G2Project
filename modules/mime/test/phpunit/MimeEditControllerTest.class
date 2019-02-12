@@ -74,7 +74,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$isViewable);
+		$this->assertFalse($isViewable);
 	}
 
 	public function testApplyViewable() {
@@ -105,7 +105,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($isViewable);
+		$this->assertTrue($isViewable);
 	}
 
 	public function testSave() {
@@ -138,7 +138,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$isViewable, 'viewable');
+		$this->assertFalse($isViewable, 'viewable');
 	}
 
 	public function testMissingType() {
@@ -265,7 +265,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$isViewable, 'viewable');
+		$this->assertFalse($isViewable, 'viewable');
 
 		if (empty($extensions)) {
 			// Delete mime entry in case test failed..

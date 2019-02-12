@@ -158,6 +158,6 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 		$result = $this->_handleRequestAfterEdit($form, $this->_item);
 
 		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('newAlias');
-		$this->assert(empty($destId));
+		$this->assertTrue(empty($destId));
 	}
 }

@@ -50,7 +50,7 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function tearDown() {
-		$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
+		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 		$ret = parent::tearDown();
 
 		if ($ret) {

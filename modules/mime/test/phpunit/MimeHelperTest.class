@@ -72,6 +72,6 @@ class MimeHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertEquals(array('xxx'), $typeMap['ext']['test/test'], 'Extensions');
-		$this->assert(!$typeMap['viewable']['test/test'], 'Viewable');
+		$this->assertFalse($typeMap['viewable']['test/test'], 'Viewable');
 	}
 }

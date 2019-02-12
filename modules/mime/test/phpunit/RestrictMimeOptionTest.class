@@ -109,7 +109,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(!$isAppropriate);
+		$this->assertFalse($isAppropriate);
 	}
 
 	public function testAllow() {

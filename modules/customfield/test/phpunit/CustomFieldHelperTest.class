@@ -182,13 +182,13 @@ class CustomFieldHelperTest extends GalleryTestCase {
 		);
 
 		list($ret) = CustomFieldHelper::fetchFieldValues('');
-		$this->assert(
+		$this->assertTrue(
 			ERROR_BAD_PARAMETER & $ret->getErrorCode(),
 			'Non-array value should return an error 1'
 		);
 
 		list($ret) = CustomFieldHelper::fetchFieldValues(array());
-		$this->assert(
+		$this->assertTrue(
 			ERROR_BAD_PARAMETER & $ret->getErrorCode(),
 			'Non-array value should return an error 2'
 		);

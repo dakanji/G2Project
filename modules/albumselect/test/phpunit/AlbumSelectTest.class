@@ -157,8 +157,8 @@ class AlbumSelectTest extends GalleryTestCase {
 			$data['titlesForJs'][$this->_album->getId()],
 			'title for javascript'
 		);
-		$this->assert(!empty($data['params']), 'params');
-		$this->assert(!empty($data['tree']), 'tree');
+		$this->assertFalse(empty($data['params']), 'params');
+		$this->assertFalse(empty($data['tree']), 'tree');
 		// Test album and its subalbums should be last 4 tree items: subalbums 1,2,3
 		$albumNode = count($data['tree']) - 3;
 		$this->assertEquals(
@@ -225,8 +225,8 @@ class AlbumSelectTest extends GalleryTestCase {
 			$data['titlesForJs'][$this->_album->getId()],
 			'title for javascript'
 		);
-		$this->assert(!empty($data['params']), 'params');
-		$this->assert(!empty($data['tree']), 'tree');
+		$this->assertFalse(empty($data['params']), 'params');
+		$this->assertFalse(empty($data['tree']), 'tree');
 		// Test album and its subalbums should be last 4 tree items: subalbums 3,2,1
 		$albumNode = count($data['tree']) - 3;
 
@@ -321,8 +321,8 @@ class AlbumSelectTest extends GalleryTestCase {
 			$data['titlesForJs'][$this->_album->getId()],
 			'title for javascript'
 		);
-		$this->assert(!empty($data['params']), 'params');
-		$this->assert(!empty($data['tree']), 'tree');
+		$this->assertFalse(empty($data['params']), 'params');
+		$this->assertFalse(empty($data['tree']), 'tree');
 		// Find test album in tree; subalbum order is 2,3,1
 		$tree = $data['tree'];
 
@@ -331,7 +331,7 @@ class AlbumSelectTest extends GalleryTestCase {
 				break;
 			}
 		}
-		$this->assert($i < count($tree), 'test album not found');
+		$this->assertTrue($i < count($tree), 'test album not found');
 		$albumNode = $tree[$i]['nodeId'];
 		$this->assertEquals(
 			array(
@@ -471,7 +471,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		// Make sure the cache was invalidated
 		list($treeList, $titles) = GalleryDataCache::getFromDisk($cachePathInfo);
-		$this->assert(empty($titles), 'cache should be gone');
+		$this->assertTrue(empty($titles), 'cache should be gone');
 	}
 
 	public function testAlternateRoot() {
@@ -501,7 +501,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumTree'];
 
-		$this->assert(!empty($data['albumTreeName']), 'albumTreeName');
+		$this->assertFalse(empty($data['albumTreeName']), 'albumTreeName');
 
 		// And now with an alternative root
 		$gallery->setConfig('defaultAlbumId', $this->_album->getId());
@@ -521,7 +521,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumTree'];
 
-		$this->assert(!empty($data['albumTreeName']), 'albumTreeName');
+		$this->assertFalse(empty($data['albumTreeName']), 'albumTreeName');
 		$this->assertEquals(3, count($data['tree']), 'default album: count');
 		$this->assertEquals($this->_subalbum[1]->getId(), $data['tree'][0]['id'], 'default: 1');
 		$this->assertEquals($this->_subalbum[2]->getId(), $data['tree'][1]['id'], 'default: 2');
@@ -557,9 +557,9 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumTree'];
 
-		$this->assert(!empty($data['albumTreeName']), 'albumTreeName');
-		$this->assert(!empty($data['links']), 'URL prefix not defined');
-		$this->assert(
+		$this->assertFalse(empty($data['albumTreeName']), 'albumTreeName');
+		$this->assertFalse(empty($data['links']), 'URL prefix not defined');
+		$this->assertTrue(
 			preg_match('#^(http|/)#', $data['links']['prefix']),
 			'URL prefix (' . $data['links']['prefix'] .
 			  ') is neither absolute nor server-relative'
@@ -649,7 +649,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 	public function _assertAlbumTreeData($smarty, $message, $withSubAlbum2 = true) {
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
-		$this->assert(!empty($data['tree']), 'tree');
+		$this->assertFalse(empty($data['tree']), 'tree');
 		// Test album and its subalbums should be last 3 (2) tree items: subalbums 1,(2,)3
 		$albumNode  = count($data['tree']) - ($withSubAlbum2 ? 3 : 2);
 		$expected   = array();

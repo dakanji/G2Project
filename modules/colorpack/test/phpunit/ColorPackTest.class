@@ -57,7 +57,7 @@ class ColorPackTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(isset($list[''], $list['blue']), 'Should have "" and "blue" keys');
+		$this->assertTrue(isset($list[''], $list['blue']), 'Should have "" and "blue" keys');
 	}
 
 	public function testColorPackSelect() {

@@ -261,7 +261,7 @@ class NotificationHelperTest extends GalleryTestCase {
 		$gallery->_lockSystem =& $this->_saveLockSystem;
 
 		if (!empty($this->_storageSet)) {
-			$this->assert($storage->isComplete(), $storage->getRemaining());
+			$this->assertTrue($storage->isComplete(), $storage->getRemaining());
 		}
 
 		parent::tearDown();
@@ -580,7 +580,7 @@ class NotificationHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($storage->isComplete(), $storage->getRemaining());
+		$this->assertTrue($storage->isComplete(), $storage->getRemaining());
 	}
 
 	public function testSubscribeNonRecursive() {
@@ -654,7 +654,7 @@ class NotificationHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($storage->isComplete(), $storage->getRemaining());
+		$this->assertTrue($storage->isComplete(), $storage->getRemaining());
 	}
 
 	public function testUnsubscribe() {
@@ -768,7 +768,7 @@ class NotificationHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($storage->isComplete(), $storage->getRemaining());
+		$this->assertTrue($storage->isComplete(), $storage->getRemaining());
 	}
 
 	public function testUnsubscribeNonRecursive() {
@@ -877,7 +877,7 @@ class NotificationHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assert($storage->isComplete(), $storage->getRemaining());
+		$this->assertTrue($storage->isComplete(), $storage->getRemaining());
 	}
 
 	public function testFormatItemAddedMessage() {

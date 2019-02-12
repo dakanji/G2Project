@@ -61,7 +61,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert($appropriate, 'appropriate');
+		$this->assertTrue($appropriate, 'appropriate');
 	}
 
 	public function testNone() {
@@ -79,7 +79,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($params), 'Params not empty:');
+		$this->assertTrue(empty($params), 'Params not empty:');
 	}
 
 	public function testDimWidth() {
@@ -205,7 +205,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($params));
+		$this->assertTrue(empty($params));
 	}
 
 	public function test0Size() {
@@ -228,7 +228,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assert(empty($params));
+		$this->assertTrue(empty($params));
 	}
 
 	public function testApplyToDescendents() {
