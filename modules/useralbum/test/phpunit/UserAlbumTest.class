@@ -39,9 +39,10 @@ class UserAlbumTest extends GalleryTestCase {
 		}
 
 		// Enable event listener (normally disabled for unit tests)
-		$this->_registerTestEventListener('GalleryEntity::save', new UserAlbumModule());
-		$this->_registerTestEventListener('GalleryEntity::delete', new UserAlbumModule());
-		$this->_registerTestEventListener('Gallery::Login', new UserAlbumModule());
+		$UserAlbumModule = new UserAlbumModule();
+		$this->_registerTestEventListener('GalleryEntity::save', $UserAlbumModule);
+		$this->_registerTestEventListener('GalleryEntity::delete', $UserAlbumModule);
+		$this->_registerTestEventListener('Gallery::Login', $UserAlbumModule);
 
 		$ret = $this->_markPluginParametersForCleanup('module', 'useralbum');
 

@@ -67,8 +67,9 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		}
 
 		global $gallery;
-		$this->_savePlatform =& $gallery->getPlatform();
-		$gallery->setPlatform(new ItemAddFromWebTestPlatform($this));
+		$this->_savePlatform        =& $gallery->getPlatform();
+		$ItemAddFromWebTestPlatform = new ItemAddFromWebTestPlatform($this);
+		$gallery->setPlatform($ItemAddFromWebTestPlatform);
 
 		$this->_session        =& $gallery->getSession();
 		$this->_saveRecentUrls = $this->_session->get('itemadd.view.ItemAddFromWeb.recentUrls');
