@@ -31,7 +31,7 @@ class SizeLimitOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::isAppropriate
 	 */
-	public function isAppropriate($item, $thumbnail) {
+	public static function isAppropriate($item, $thumbnail) {
 		return array(null, true);
 	}
 
