@@ -1,0 +1,140 @@
+# $Id: sr.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Dcraw 1.0.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-08-14 16:53+0200\n"
+"PO-Revision-Date: 2005-09-07 17:57+0200\n"
+"Last-Translator: Jozef Selesi <selesi@gmail.com>\n"
+"Language-Team: Srpski <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.10\n"
+
+msgid "Dcraw"
+msgstr "Dcraw"
+
+msgid "Graphics toolkit for processing images in raw format"
+msgstr "Grafička alatka za obradu slika u RAW formatu"
+
+msgid "Graphics Toolkits"
+msgstr "Grafičke alatke"
+
+msgid "Convert to PPM"
+msgstr "Konverzija u PPM"
+
+msgid "Get the width and height of the image"
+msgstr "Preuzmi širinu i visinu slike"
+
+msgid "Convert to a PPM"
+msgstr "Konverzija u PPM"
+
+msgid "Binary output:"
+msgstr "Binarni izlaz:"
+
+msgid "Dcraw Settings"
+msgstr "Dcraw parametri"
+
+msgid "Settings saved successfully"
+msgstr "Parametri uspešno sačuvani"
+
+msgid ""
+"Dcraw is a graphics toolkit that can be used to process RAW images produced by high end "
+"digital cameras.   You must install the Dcraw binary on your server, then enter the path to "
+"it in the text box below.  If you're on a Unix machine, don't forget to make the binary "
+"executable (<i>chmod 755 dcraw</i> should do it)."
+msgstr ""
+"Dcraw je grafička alatka kojom se mogu obrađivati RAW slike koje prave bolji digitalni foto "
+"aparati. Morate instalirati Dcraw binarnu datoteku na vaš server, a zatim uneti njenu "
+"putanju u polje ispod. Ako koristite Unix, nemojte zaboraviti da je učinite izvršnom "
+"(<i>chmod 755 dcraw</i> bi trebalo to da uradi)."
+
+msgid "<b>Note</b>: Gallery supports Dcraw v5.40 and more recent."
+msgstr "<b>Napomena</b>: Galerija podržava Dcraw v5.40 i noviji."
+
+msgid ""
+"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
+"php.ini.  This module cannot be used until that setting is changed."
+msgstr ""
+
+msgid "Path to dcraw binary:"
+msgstr "Putanja Dcraw binarne datoteke:"
+
+msgid "You must enter the path to your Dcraw binary."
+msgstr "Morate uneti putanju vaše Dcraw binarne datoteke."
+
+msgid "The path you entered is not a valid Dcraw binary or is not accessible."
+msgstr "Putanja koju ste uneli nije ispravna Dcraw binarna datoteka ili je nedostupna."
+
+msgid ""
+"The path you entered isn't a valid Dcraw binary.  Use the 'test' button to check where the "
+"error is."
+msgstr ""
+"Putanja koju ste uneli nije ispravna Dcraw binarna datoteka. Kliknite na dugme 'Proveri "
+"ispravnost' da biste videli u čemu je problem."
+
+msgid "The path you entered isn't valid."
+msgstr "Putanja koju ste uneli nije ispravna."
+
+msgid "Save Settings"
+msgstr "Sačuvaj parametre"
+
+msgid "Test Settings"
+msgstr "Proveri ispravnost"
+
+msgid "Cancel"
+msgstr "Otkaži"
+
+msgid "Reset"
+msgstr "Poništi"
+
+msgid "Dcraw binary test results"
+msgstr "Rezultati testa Dcraw binarne datoteke"
+
+msgid "Binary Name"
+msgstr "Naziv datoteke"
+
+msgid "Pass/Fail"
+msgstr "Uspešno"
+
+msgid "Passed"
+msgstr "Da"
+
+msgid "Failed"
+msgstr "Ne"
+
+msgid "Error messages:"
+msgstr "Poruke o grešci:"
+
+#, c-format
+msgid "Debug output (%d failed test)"
+msgid_plural "Debug output (%d failed tests)"
+msgstr[0] "Izlaz za otklanjanje grešaka (%d neuspeli test)"
+msgstr[1] "Izlaz za otklanjanje grešaka (%d neuspelih testova)"
+
+msgid ""
+"We gathered this debug output while testing your Dcraw binaries.  If you read through this "
+"carefully you may discover the reason why your Dcraw binaries failed the tests."
+msgstr ""
+"U toku testiranja vaših Dcraw binarnih datoteka, sakupili smo sledeće podatke za otklanjanje "
+"grešaka. Ako ih pažljivo pročitate, možete otkriti uzrok neuspeha testova Dcraw datoteka."

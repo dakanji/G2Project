@@ -1,0 +1,136 @@
+# $Id: zh_TW.po 18950 2008-11-28 17:26:00Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Dcraw 1.0.12\n"
+"POT-Creation-Date: 2005-08-08 18:43-0400\n"
+"PO-Revision-Date: 2008-11-19 23:30-0500\n"
+"Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
+"Language-Team: Traditional Chinese <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Dcraw"
+msgstr "Dcraw"
+
+msgid "Graphics toolkit for processing images in raw format"
+msgstr "處理 RAW 格式圖像的圖形工具"
+
+msgid "Graphics Toolkits"
+msgstr "圖形工具"
+
+msgid "Convert to PPM"
+msgstr "轉換成 PPM"
+
+msgid "Get the width and height of the image"
+msgstr "取得圖片寬度和高度值"
+
+msgid "Convert to a PPM"
+msgstr "轉換成一個 PPM 檔案"
+
+msgid "Binary output:"
+msgstr "執行檔輸出："
+
+msgid "Dcraw Settings"
+msgstr "Dcraw 設定"
+
+msgid "Settings saved successfully"
+msgstr "設定儲存成功"
+
+msgid ""
+"Dcraw is a graphics toolkit that can be used to process RAW images produced by high end "
+"digital cameras.   You must install the Dcraw binary on your server, then enter the path to "
+"it in the text box below.  If you're on a Unix machine, don't forget to make the binary "
+"executable (<i>chmod 755 dcraw</i> should do it)."
+msgstr ""
+"Dcraw 是一個可以用來處理高階數位相機產生的 RAW 影像檔案的圖形工具。你必須在你的伺服器上安裝 "
+"Dcraw 執行檔，然後在下面的文字框中輸入它的路徑。如果你使用的是 UNIX 系統，不要忘記將執行檔設"
+"定為可執行（用「chmod 755 dcraw」即可）。"
+
+msgid "<b>Note</b>: Gallery supports Dcraw v5.40 and more recent."
+msgstr "<b>注意</b>：Gallery 支援 Dcraw v5.40 和更新的版本。"
+
+msgid ""
+"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
+"php.ini.  This module cannot be used until that setting is changed."
+msgstr ""
+"你的 PHP 中的 exec() 函式被 php.ini 中的 <b>disabled_functions</b> 參數關閉了。在這個設定改變"
+"前將無法使用這個模組。"
+
+msgid "Path to dcraw binary:"
+msgstr "Dcraw 執行檔路徑："
+
+msgid "You must enter the path to your Dcraw binary."
+msgstr "你必須輸入一個指到你的 Dcraw 執行檔的路徑。"
+
+msgid "The path you entered is not a valid Dcraw binary or is not accessible."
+msgstr "無法存取你輸入的路徑或它不包含有效的 Dcraw 執行檔。"
+
+msgid ""
+"The path you entered isn't a valid Dcraw binary.  Use the 'test' button to check where the "
+"error is."
+msgstr "你輸入的路徑中不包含有效的 Dcraw 執行檔。使用「測試」按鈕檢查錯誤所在。"
+
+msgid "The path you entered isn't valid."
+msgstr "你所輸入的不是一個有效的路徑。"
+
+msgid "Save Settings"
+msgstr "儲存設定"
+
+msgid "Test Settings"
+msgstr "測試設定"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid "Dcraw binary test results"
+msgstr "Dcraw 執行檔測試結果"
+
+msgid "Binary Name"
+msgstr "執行檔名稱"
+
+msgid "Pass/Fail"
+msgstr "通過／失敗"
+
+msgid "Passed"
+msgstr "通過"
+
+msgid "Failed"
+msgstr "失敗"
+
+msgid "Error messages:"
+msgstr "錯誤信息："
+
+#, c-format
+msgid "Debug output (%d failed test)"
+msgid_plural "Debug output (%d failed tests)"
+msgstr[0] "除錯輸出（%d 項失敗的測試）"
+
+msgid ""
+"We gathered this debug output while testing your Dcraw binaries.  If you read through this "
+"carefully you may discover the reason why your Dcraw binaries failed the tests."
+msgstr ""
+"我們在測試你的 Dcraw 執行檔時收集了這些除錯輸出。如果你仔細閱讀這些資料，也許可以發現你的 "
+"Dcraw 測試失敗的原因。"

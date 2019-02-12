@@ -1,0 +1,147 @@
+# $Id: pl.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Dcraw 1.0.12\n"
+"POT-Creation-Date: 2006-02-23 10:15+0100\n"
+"PO-Revision-Date: 2008-02-27 22:13+0100\n"
+"Last-Translator: Kappana <kappana@gnoms.net>\n"
+"Language-Team: Polish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-Country: POLAND\n"
+
+msgid "Dcraw"
+msgstr "Dcraw"
+
+msgid "Graphics toolkit for processing images in raw format"
+msgstr "Narzędzie graficzne do obróbki zdjęć w formacie raw"
+
+msgid "Graphics Toolkits"
+msgstr "Narzędzia graficzne"
+
+msgid "Convert to PPM"
+msgstr "Zapisz jako PPM"
+
+msgid "Get the width and height of the image"
+msgstr "Pobierz długość i wysokość zdjęcia"
+
+msgid "Convert to a PPM"
+msgstr "Zapisz jako PPM"
+
+msgid "Binary output:"
+msgstr "Wynik binarny:"
+
+msgid "Dcraw Settings"
+msgstr "Ustawienia Dcraw"
+
+msgid "Settings saved successfully"
+msgstr "Ustawienia zostały zapisane"
+
+msgid ""
+"Dcraw is a graphics toolkit that can be used to process RAW images produced by high end "
+"digital cameras.   You must install the Dcraw binary on your server, then enter the path to "
+"it in the text box below.  If you're on a Unix machine, don't forget to make the binary "
+"executable (<i>chmod 755 dcraw</i> should do it)."
+msgstr ""
+"Dcraw jest zestawem narzędzi graficznych, które mogą być używane do przetwarzania obrazów w "
+"formacie raw. Aby używać Dcraw należy zainstalować binaria Dcraw, a następnie wprowadzić "
+"ścieżkę do nich w oknie tekstowym poniżej. Jeśli Dcraw instalowany jest na komputerze "
+"pracującym pod kontrolą systemu Unix, należy pamiętać o ustawieniu praw wykonywalności "
+"(<i>chmod 755 *</i> w katalogu Dcraw)."
+
+msgid "<b>Note</b>: Gallery supports Dcraw v5.40 and more recent."
+msgstr "<b>Uwaga</b>: Galeria wspiera Dcraw w wersji 5.40 i nowsze."
+
+msgid ""
+"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
+"php.ini.  This module cannot be used until that setting is changed."
+msgstr ""
+"Funkcja exec() została wyłączona w zainstalowanym PHP za pomocą parametru "
+"<b>disabled_functions</b> w pliku php.ini.  Ten moduł nie może być używany dopóki to "
+"ustawienie nie zostanie zmienione."
+
+msgid "Path to dcraw binary:"
+msgstr "Katalog Dcraw"
+
+msgid "You must enter the path to your Dcraw binary."
+msgstr "Musisz wprowadzić ścieżkę do binariów Dcraw."
+
+msgid "The path you entered is not a valid Dcraw binary or is not accessible."
+msgstr ""
+"Wprowadzona ścieżka nie zawiera prawidłowych binariów Dcraw lub nie ma ustawionych praw "
+"dostępu."
+
+msgid ""
+"The path you entered isn't a valid Dcraw binary.  Use the 'test' button to check where the "
+"error is."
+msgstr ""
+"Wprowadzona ścieżka nie zawiera prawidłowych binariów Dcraw. proszę użyc opcji 'Przetestuj "
+"ustawienia', aby zobaczyć gdzie jest błąd."
+
+msgid "The path you entered isn't valid."
+msgstr "Wprowadzona ścieżka nie jest prawidłowa."
+
+msgid "Save Settings"
+msgstr "Zapisz ustawienia"
+
+msgid "Test Settings"
+msgstr "Przetestuj ustawienia"
+
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgid "Reset"
+msgstr "Przywróć ustawienia domyślne"
+
+msgid "Dcraw binary test results"
+msgstr "Rezultaty testu binarnego Dcraw"
+
+msgid "Binary Name"
+msgstr "Nazwa binariów"
+
+msgid "Pass/Fail"
+msgstr "Status"
+
+msgid "Passed"
+msgstr "OK"
+
+msgid "Failed"
+msgstr "Błąd"
+
+msgid "Error messages:"
+msgstr "Komunikaty błędów:"
+
+#, c-format
+msgid "Debug output (%d failed test)"
+msgid_plural "Debug output (%d failed tests)"
+msgstr[0] "Wynik debugowania (%d nieudany test)"
+msgstr[1] "Wynik debugowania (%d nieudane testy)"
+msgstr[2] "Wynik debugowania (%d nieudanych testów)"
+
+msgid ""
+"We gathered this debug output while testing your Dcraw binaries.  If you read through this "
+"carefully you may discover the reason why your Dcraw binaries failed the tests."
+msgstr ""
+"Poniższy wynik debugingu został zebrany podczas testowania plików Dcraw. Po zapoznaniu się z "
+"nim dokładnie, możliwe jest odnalezienie przyczyny nieudanych testów Dcraw."

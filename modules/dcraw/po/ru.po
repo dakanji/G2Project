@@ -1,0 +1,147 @@
+# $Id: ru.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Konstantin Ivanov <Continental@vollen.ru>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Dcraw 1.0.12\n"
+"POT-Creation-Date: 2003-02-11 03:09-0800\n"
+"PO-Revision-Date: 2008-10-11 22:53+0300\n"
+"Last-Translator: Ser Moro <webber@morozov-sm.ru>\n"
+"Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+
+msgid "Dcraw"
+msgstr "Dcraw"
+
+msgid "Graphics toolkit for processing images in raw format"
+msgstr "Графический инструмент для работы с изображениями в формате RAW"
+
+msgid "Graphics Toolkits"
+msgstr "Графические инструменты"
+
+msgid "Convert to PPM"
+msgstr "Преобразовать в PPM"
+
+msgid "Get the width and height of the image"
+msgstr "Получить ширину и высоту изображения"
+
+msgid "Convert to a PPM"
+msgstr "Преобразовать в PPM"
+
+msgid "Binary output:"
+msgstr "Бинарный результат:"
+
+msgid "Dcraw Settings"
+msgstr "Настройки Dcraw"
+
+msgid "Settings saved successfully"
+msgstr "Настройки успешно сохранены"
+
+msgid ""
+"Dcraw is a graphics toolkit that can be used to process RAW images produced by high end "
+"digital cameras.   You must install the Dcraw binary on your server, then enter the path to "
+"it in the text box below.  If you're on a Unix machine, don't forget to make the binary "
+"executable (<i>chmod 755 dcraw</i> should do it)."
+msgstr ""
+"Dcraw – графический инструмент для работы с изображениями в формате RAW современных цифровых "
+"камер. Вам необходимо установить бинарный код Dcraw на ваш сервер, затем ввести пусть к нему "
+"в текстовом поле ниже.  Если вы используете Unix, не забудьте сделать код исполняемым "
+"(используйте команду <i>chmod 755 dcraw</i>)"
+
+msgid "<b>Note</b>: Gallery supports Dcraw v5.40 and more recent."
+msgstr "<b>Примечание</b>: Галерея поддерживает Dcraw v5.40 и выше."
+
+msgid ""
+"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
+"php.ini.  This module cannot be used until that setting is changed."
+msgstr ""
+"Функция exec() отключена в вашем PHP в разделе <b>disabled_functions</b> файла  'php.ini'.  "
+"Модуль не будет работать, если функция exec() отключена."
+
+msgid "Path to dcraw binary:"
+msgstr "Путь к бинарному коду Dcraw:"
+
+msgid "You must enter the path to your Dcraw binary."
+msgstr "Вы должны ввести путь к бинарному коду Dcraw."
+
+msgid "The path you entered is not a valid Dcraw binary or is not accessible."
+msgstr "Введенный путь содержит неверный бинарный код Dcraw или он не доступен."
+
+msgid ""
+"The path you entered isn't a valid Dcraw binary.  Use the 'test' button to check where the "
+"error is."
+msgstr ""
+"Введенный путь содержит неверный бинарный код  Dcraw. Нажмите кнопку ''Тестировать "
+"настройки'', чтобы проверить, в чём ошибка."
+
+msgid "The path you entered isn't valid."
+msgstr "Введенным путь неверен."
+
+msgid "Save Settings"
+msgstr "Сохранить настройки"
+
+msgid "Test Settings"
+msgstr "Тестировать настройки"
+
+msgid "Cancel"
+msgstr "Отменить"
+
+msgid "Reset"
+msgstr "Сбросить"
+
+msgid "Dcraw binary test results"
+msgstr "Результаты теста бинарного кода Dcraw"
+
+msgid "Binary Name"
+msgstr "Двоичное имя "
+
+msgid "Pass/Fail"
+msgstr "Успешно/Неудачно "
+
+msgid "Passed"
+msgstr "Успешно "
+
+msgid "Failed"
+msgstr "Неудачно"
+
+msgid "Error messages:"
+msgstr "Сообщения об ошибках:"
+
+#, c-format
+msgid "Debug output (%d failed test)"
+msgid_plural "Debug output (%d failed tests)"
+msgstr[0] "Результат отладки (%d неудавшийся тест)"
+msgstr[1] "Результат отладки (%d неудавшихся теста)"
+msgstr[2] "Результат отладки (%d неудавшихся тестов)"
+
+msgid ""
+"We gathered this debug output while testing your Dcraw binaries.  If you read through this "
+"carefully you may discover the reason why your Dcraw binaries failed the tests."
+msgstr ""
+"При тестировании бинарного кода Dcraw  были получены отладочные данные. Если вы внимательно "
+"просмотрите их, сможете найти причину, по которой  Dcraw не прошёл тесты."

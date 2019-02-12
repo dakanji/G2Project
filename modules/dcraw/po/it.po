@@ -1,0 +1,143 @@
+# $Id: it.po 18173 2008-10-17 07:14:30Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Dcraw 1.0.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-05-14 12:54+0000\n"
+"PO-Revision-Date: 2008-03-27 11:29+0100\n"
+"Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
+"Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Poedit-Language: Italian\n"
+
+msgid "Dcraw"
+msgstr "Dcraw"
+
+msgid "Graphics toolkit for processing images in raw format"
+msgstr "Set di strumenti grafici per processare immagini in formato raw"
+
+msgid "Graphics Toolkits"
+msgstr "Strumenti Grafici"
+
+msgid "Convert to PPM"
+msgstr "Converti in PPM"
+
+msgid "Get the width and height of the image"
+msgstr "Ottieni la larghezza e l'altezza dell'immagine"
+
+msgid "Convert to a PPM"
+msgstr "Converti in un PPM"
+
+msgid "Binary output:"
+msgstr "Output binario:"
+
+msgid "Dcraw Settings"
+msgstr "Configurazione Dcraw"
+
+msgid "Settings saved successfully"
+msgstr "Configurazione salvata con successo"
+
+msgid ""
+"Dcraw is a graphics toolkit that can be used to process RAW images produced by high end "
+"digital cameras.   You must install the Dcraw binary on your server, then enter the path to "
+"it in the text box below.  If you're on a Unix machine, don't forget to make the binary "
+"executable (<i>chmod 755 dcraw</i> should do it)."
+msgstr ""
+"Dcraw è un set di strumenti grafici che può essere usato per elaborare immagini RAW prodotte "
+"da fotocamere digitali high end. È necessario installare il binario Dcraw nel server, poi "
+"inserirne il percorso nella casella di testo qui sotto. Se si è su una macchina Unix, "
+"bisogna rendere eseguibile il binario (<i>chmod 755 draw</i> dovrebbe bastare)."
+
+msgid "<b>Note</b>: Gallery supports Dcraw v5.40 and more recent."
+msgstr "<b>Nota</b>: Gallery supporta Dcraw v5.40 e più recenti."
+
+msgid ""
+"The exec() function is disabled in your PHP by the <b>disabled_functions</b> parameter in "
+"php.ini.  This module cannot be used until that setting is changed."
+msgstr ""
+"La funzione exec() è disabilitata in questo PHP dal parametro <b>disabled_functions</b> di "
+"php.ini. Questo modulo non può essere utilizzato finché quella configurazione non viene "
+"modificata."
+
+msgid "Path to dcraw binary:"
+msgstr "Percorso del binario dcraw:"
+
+msgid "You must enter the path to your Dcraw binary."
+msgstr "È necessario inserire il percorso del binario Dcraw."
+
+msgid "The path you entered is not a valid Dcraw binary or is not accessible."
+msgstr "Il percorso inserito non punta a un binario Dcraw valido oppure non è accessibile."
+
+msgid ""
+"The path you entered isn't a valid Dcraw binary.  Use the 'test' button to check where the "
+"error is."
+msgstr ""
+"Il percorso inserito non punta a un binario Dcraw valido. Usare il pulsante 'test' per "
+"controllare dove si trova l'errore."
+
+msgid "The path you entered isn't valid."
+msgstr "Il percorso inserito non è valido."
+
+msgid "Save Settings"
+msgstr "Salva Configurazione"
+
+msgid "Test Settings"
+msgstr "Prova Configurazione"
+
+msgid "Cancel"
+msgstr "Annulla"
+
+msgid "Reset"
+msgstr "Reimposta"
+
+msgid "Dcraw binary test results"
+msgstr "Risultati test binario Dcraw"
+
+msgid "Binary Name"
+msgstr "Nome Binario"
+
+msgid "Pass/Fail"
+msgstr "OK/Errore"
+
+msgid "Passed"
+msgstr "OK"
+
+msgid "Failed"
+msgstr "Errore"
+
+msgid "Error messages:"
+msgstr "Messaggi di errore:"
+
+#, c-format
+msgid "Debug output (%d failed test)"
+msgid_plural "Debug output (%d failed tests)"
+msgstr[0] "Debug output (%d test fallito)"
+msgstr[1] "Debug output (%d test falliti)"
+
+msgid ""
+"We gathered this debug output while testing your Dcraw binaries.  If you read through this "
+"carefully you may discover the reason why your Dcraw binaries failed the tests."
+msgstr ""
+"È stato ritornato questo messaggio di debug durante il test dei binari Dcraw. Leggerlo "
+"attentamente per capire il motivo per cui i binari Dcraw non hanno superato il test."
