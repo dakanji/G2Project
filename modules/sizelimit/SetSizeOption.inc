@@ -31,14 +31,14 @@ class SetSizeOption extends ItemAddOption {
 	/**
 	 * @see ItemAddOption::isAppropriate
 	 */
-	public static function isAppropriate() {
+	public function isAppropriate() {
 		return array(null, true);
 	}
 
 	/**
 	 * @see ItemAddOption::handleRequestAfterAdd
 	 */
-	public static function handleRequestAfterAdd($form, $items) {
+	public function handleRequestAfterAdd($form, $items) {
 		$errors             = array();
 		$warnings           = array();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'sizelimit');
