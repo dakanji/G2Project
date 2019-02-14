@@ -202,7 +202,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			'crop',
 			'SOURCE',
 			'DEST',
-			array('10', '20', '60', '40.4'),
+			array('8', '20', '60', '40.4'),
 			array()
 		);
 
@@ -228,7 +228,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			'crop',
 			'SOURCE',
 			'DEST',
-			array('10', '20', '60', '40.4'),
+			array('8', '16', '60', '40.4'),
 			array(
 				'width'  => 200,
 				'height' => 50,
@@ -305,7 +305,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			'crop',
 			'SOURCE',
 			'DEST',
-			array('10', '20', '60', '40.4'),
+			array('8', '20', '60', '40.4'),
 			array('IGNORE')
 		);
 
@@ -367,7 +367,7 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			'crop',
 			'SOURCE',
 			'DEST',
-			array('10', '20', '60', '40.4'),
+			array('8', '16', '60', '40.4'),
 			array('IGNORE')
 		);
 
@@ -510,7 +510,7 @@ class JpegtranToolkitTestPlatform {
 						'-copy',
 						'all',
 						'-crop',
-						'60x323+10+160',
+						'60x323+8+160',
 						'-outfile',
 						'TEMPFILE',
 						'SOURCE',
@@ -552,7 +552,7 @@ class JpegtranToolkitTestPlatform {
 						'-copy',
 						'all',
 						'-crop',
-						'120x20+20+10',
+						'120x20+16+8',
 						'-outfile',
 						'TEMPFILE',
 						'SOURCE',
