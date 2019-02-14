@@ -190,14 +190,17 @@ class ItemCreateReplicaController extends GalleryController {
 				$redirect['itemId']  = $itemId;
 			}
 		} elseif (isset($form['action']['next'])) {
-			$page                = GalleryUtilities::getRequestVariables('page');
-			list($ret, $peerIds) = GalleryCoreApi::fetchLinkableChildItemIdsWithPermission($itemId, 'core.view');
+			$page                = (int)GalleryUtilities::getRequestVariables('page');
+			list($ret, $peerIds) = GalleryCoreApi::fetchLinkableChildItemIdsWithPermission(
+				$itemId,
+				'core.view'
+			);
 
 			if ($ret) {
 				return array($ret, null);
 			}
 
-			$numPages = ceil(sizeof($peerIds) / $form['numPerPage']);
+			$numPages = (int)ceil(sizeof($peerIds) / $form['numPerPage']);
 
 			$results['delegate']['itemId'] = $itemId;
 			$results['delegate']['page']   = min($page + 1, $numPages);
