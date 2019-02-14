@@ -27,6 +27,25 @@
  */
 class UserChangePasswordController extends GalleryController {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new UserChangePasswordController();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryController::handleRequest
 	 */
 	public function handleRequest($form) {
@@ -153,6 +172,25 @@ class UserChangePasswordController extends GalleryController {
  * This view will show a form to change a password
  */
 class UserChangePasswordView extends GalleryView {
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new UserChangePasswordView();
+		}
+
+		return $singleton;
+	}
+
 	/**
 	 * @see GalleryView::loadTemplate
 	 */

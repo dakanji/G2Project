@@ -28,6 +28,25 @@
  */
 class AdminEventLogViewerView extends GalleryView {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new AdminEventLogViewerView();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryView::loadTemplate
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {

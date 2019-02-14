@@ -27,6 +27,25 @@
  */
 class AdminEditGroupController extends GalleryController {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new AdminEditGroupController();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryController::handleRequest
 	 */
 	public function handleRequest($form) {
@@ -121,6 +140,25 @@ class AdminEditGroupController extends GalleryController {
  * This view will show options available to groups
  */
 class AdminEditGroupView extends GalleryView {
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new AdminEditGroupView();
+		}
+
+		return $singleton;
+	}
+
 	/**
 	 * @see GalleryView::loadTemplate
 	 */

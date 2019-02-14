@@ -27,6 +27,25 @@
  */
 class LogoutController extends GalleryController {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new LogoutController();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryController::isAllowedInMaintenance
 	 */
 	public function isAllowedInMaintenance() {

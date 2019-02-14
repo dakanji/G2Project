@@ -27,6 +27,25 @@
  */
 class AdminCreateUserController extends GalleryController {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new AdminCreateUserController();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryController::handleRequest
 	 */
 	public function handleRequest($form) {
@@ -124,6 +143,25 @@ class AdminCreateUserController extends GalleryController {
  * This view will prompt for data to create a new user
  */
 class AdminCreateUserView extends GalleryView {
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new AdminCreateUserView();
+		}
+
+		return $singleton;
+	}
+
 	/**
 	 * @see GalleryView::loadTemplate
 	 */

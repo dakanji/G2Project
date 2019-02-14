@@ -26,6 +26,25 @@
  * @version $Revision: 17829 $
  */
 class ErrorPageView extends GalleryView {
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ErrorPageView();
+		}
+
+		return $singleton;
+	}
+
 	public function setError($error) {
 		$this->_error = $error;
 	}
@@ -145,7 +164,7 @@ class ErrorPageView extends GalleryView {
 	 *                 not be considered an error.
 	 * @static
 	 */
-	public static function errorHandler($error, $g2Data = null, $initOk = null) {
+	public function errorHandler($error, $g2Data = null, $initOk = null) {
 		global $gallery;
 		$failsafe = false;
 

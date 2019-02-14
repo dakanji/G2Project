@@ -30,11 +30,30 @@
  */
 class CoreModuleExtras {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new CoreModuleExtras();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryModule::upgrade
 	 * @param GalleryModule $module the core module
 	 * @param string $currentVersion the current installed version
 	 */
-	public static function upgrade($module, $currentVersion, $statusMonitor) {
+	public function upgrade($module, $currentVersion, $statusMonitor) {
 		global $gallery;
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
@@ -80,7 +99,7 @@ class CoreModuleExtras {
 		 * in the 1.0.26 upgrade block below.
 		 */
 		if (version_compare($currentVersion, '1.0.26', '>')) {
-			list($ret, $converted) = CoreModuleExtras::convertCharacterSetToUtf8($module, $statusMonitor);
+			list($ret, $converted) = $this->convertCharacterSetToUtf8($module, $statusMonitor);
 
 			if ($ret) {
 				return $ret;
@@ -602,7 +621,7 @@ class CoreModuleExtras {
 				 * code after this will need valid factory registrations so we can't wait until
 				 * upgrade() completes to register during reactivate().
 				 */
-				$ret = CoreModuleExtras::performFactoryRegistrations($module);
+				$ret = $this->performFactoryRegistrations($module);
 
 				if ($ret) {
 					return $ret;
@@ -693,7 +712,7 @@ class CoreModuleExtras {
 				// Fall Through
 			case '0.9.5':
 				$gallery->guaranteeTimeLimit(30);
-				$ret = CoreModuleExtras::_createAccessListCompacterLock($module);
+				$ret = $this->_createAccessListCompacterLock($module);
 
 				if ($ret) {
 					return $ret;
@@ -2437,7 +2456,7 @@ class CoreModuleExtras {
 				 * upgrade their MySQL from 3.x to 4.x at any time.  We still call it here for
 				 * historical accuracy for users upgrading from before 1.0.26.
 				 */
-				list($ret, $converted) = CoreModuleExtras::convertCharacterSetToUtf8($module, $statusMonitor);
+				list($ret, $converted) = $this->convertCharacterSetToUtf8($module, $statusMonitor);
 
 				if ($ret) {
 					return $ret;
@@ -3358,7 +3377,7 @@ class CoreModuleExtras {
 	 *                        'add' => array of string additions)
 	 * @access private
 	 */
-	public static function _prepareConfigUpgrade($currentVersion) {
+	public function _prepareConfigUpgrade($currentVersion) {
 		global $gallery;
 		$configChanges = array();
 
@@ -3749,8 +3768,8 @@ class CoreModuleExtras {
 	 * @param string $currentVersion current core version
 	 * @return boolean true if change is required
 	 */
-	public static function isConfigUpgradeRequired($currentVersion) {
-		$configChanges = CoreModuleExtras::_prepareConfigUpgrade($currentVersion);
+	public function isConfigUpgradeRequired($currentVersion) {
+		$configChanges = $this->_prepareConfigUpgrade($currentVersion);
 
 		return !empty($configChanges);
 	}
@@ -3761,7 +3780,7 @@ class CoreModuleExtras {
 	 * @param string $currentVersion current core version
 	 * @return GalleryStatus a status code
 	 */
-	public static function performConfigUpgrade($currentVersion) {
+	public function performConfigUpgrade($currentVersion) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -3777,7 +3796,7 @@ class CoreModuleExtras {
 			);
 		}
 
-		$configChanges = CoreModuleExtras::_prepareConfigUpgrade($currentVersion);
+		$configChanges = $this->_prepareConfigUpgrade($currentVersion);
 
 		foreach ($configChanges as $change) {
 			// preg_replace $count param is only PHP 5.1.0+
@@ -3839,7 +3858,7 @@ class CoreModuleExtras {
 	 * @param GalleryModule $module the core module
 	 * @return GalleryStatus a status code
 	 */
-	public static function _createAllUsersGroup($module) {
+	public function _createAllUsersGroup($module) {
 		global $gallery;
 
 		list($ret, $id) = $module->getParameter('id.allUserGroup');
@@ -3883,7 +3902,7 @@ class CoreModuleExtras {
 	 * @param GalleryModule $module the core module
 	 * @return GalleryStatus a status code
 	 */
-	public static function _createSiteAdminsGroup($module) {
+	public function _createSiteAdminsGroup($module) {
 		global $gallery;
 
 		list($ret, $id) = $module->getParameter('id.adminGroup');
@@ -3927,7 +3946,7 @@ class CoreModuleExtras {
 	 * @param GalleryModule $module the core module
 	 * @return GalleryStatus a status code
 	 */
-	public static function _createEverybodyGroup($module) {
+	public function _createEverybodyGroup($module) {
 		global $gallery;
 
 		list($ret, $id) = $module->getParameter('id.everybodyGroup');
@@ -3971,7 +3990,7 @@ class CoreModuleExtras {
 	 * @param GalleryModule $module the core module
 	 * @return GalleryStatus a status code
 	 */
-	public static function _createAnonymousUser($module) {
+	public function _createAnonymousUser($module) {
 		global $gallery;
 
 		list($ret, $id) = $module->getParameter('id.anonymousUser');
@@ -4030,7 +4049,7 @@ class CoreModuleExtras {
 	 * @param GalleryModule $module the core module
 	 * @return GalleryStatus a status code
 	 */
-	public static function _createAdminUser($module) {
+	public function _createAdminUser($module) {
 		global $gallery;
 
 		// Don't create if there is already a user in the admin group
@@ -4098,7 +4117,7 @@ class CoreModuleExtras {
 	 * @param GalleryModule $module the core module
 	 * @return GalleryStatus a status code
 	 */
-	public static function _createRootAlbumItem($module) {
+	public function _createRootAlbumItem($module) {
 		global $gallery;
 
 		// Do we already have a root?
@@ -4168,7 +4187,7 @@ class CoreModuleExtras {
 	 * @param GalleryModule $module the core module
 	 * @return GalleryStatus a status code
 	 */
-	public static function _createAccessListCompacterLock($module) {
+	public function _createAccessListCompacterLock($module) {
 		global $gallery;
 
 		// Do we already have a root?
@@ -4199,7 +4218,7 @@ class CoreModuleExtras {
 	/**
 	 * @see GalleryModule::performFactoryRegistrations
 	 */
-	public static function performFactoryRegistrations($module) {
+	public function performFactoryRegistrations($module) {
 		// Register all our factory implementations
 		$regs[] = array(
 			'GalleryEntity',
@@ -4538,7 +4557,7 @@ class CoreModuleExtras {
 	 *               bool true if any conversions took place
 	 * @access public
 	 */
-	public static function convertCharacterSetToUtf8($module, $statusMonitor) {
+	public function convertCharacterSetToUtf8($module, $statusMonitor) {
 		global $gallery;
 		$storage   =& $gallery->getStorage();
 		$converted = false;

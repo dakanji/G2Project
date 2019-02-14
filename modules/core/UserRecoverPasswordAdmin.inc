@@ -28,6 +28,25 @@
  */
 class UserRecoverPasswordAdminController extends GalleryController {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new UserRecoverPasswordAdminController();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryController::handleRequest
 	 */
 	public function handleRequest($form) {
@@ -150,6 +169,25 @@ class UserRecoverPasswordAdminController extends GalleryController {
  * This view shows information about password recovery
  */
 class UserRecoverPasswordAdminView extends GalleryView {
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new UserRecoverPasswordAdminView();
+		}
+
+		return $singleton;
+	}
+
 	/**
 	 * @see GalleryView::loadTemplate
 	 */

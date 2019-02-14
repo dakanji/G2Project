@@ -18,7 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-GalleryCoreApi::requireOnce('modules/core/classes/helpers/UserRecoverPasswordHelper_simple.class');
+GalleryCoreApi::requireOnce(
+	'modules/core/classes/helpers/UserRecoverPasswordHelper_simple.class'
+);
 
 /**
  * This controller will handle the recovery of passwords that have been lost or forgotten
@@ -29,6 +31,25 @@ GalleryCoreApi::requireOnce('modules/core/classes/helpers/UserRecoverPasswordHel
  * @version $Revision: 20992 $
  */
 class UserRecoverPasswordController extends GalleryController {
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new UserRecoverPasswordController();
+		}
+
+		return $singleton;
+	}
+
 	/**
 	 * ValidationPlugin instances to use when handling this request.  Only used by test code.
 	 *
@@ -316,6 +337,25 @@ class UserRecoverPasswordController extends GalleryController {
  * This view shows information about password recovery
  */
 class UserRecoverPasswordView extends GalleryView {
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new UserRecoverPasswordView();
+		}
+
+		return $singleton;
+	}
+
 	/**
 	 * @see GalleryView::loadTemplate
 	 */

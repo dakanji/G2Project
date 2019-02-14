@@ -27,6 +27,25 @@
  */
 class AdminCoreController extends GalleryController {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new AdminCoreController();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryController::handleRequest
 	 */
 	public function handleRequest($form) {
@@ -101,10 +120,8 @@ class AdminCoreController extends GalleryController {
 					}
 					$urlComponents = parse_url($urlGenerator->getCurrentUrlDir());
 					$currentHost   = '.' . $urlComponents['host'];
-					/*
-					 * The cookie domain should be a substring of the host and contain an embedded
-					 * dot
-					 */
+
+					// Cookie domain should be a substring of the host and contain an embedded dot
 					if (strpos($currentHost, $cookieDomain) !== false
 						&& strpos($cookieDomain, '.', 1)
 					) {
@@ -238,6 +255,25 @@ class AdminCoreController extends GalleryController {
  */
 class AdminCoreView extends GalleryView {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new AdminCoreView();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryView::loadTemplate
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
@@ -348,11 +384,27 @@ class AdminCoreView extends GalleryView {
 			$can['setPermissions'] = true;
 
 			// Set up our permission selection lists
-			$AdminCore['permissionsDirectoryList'] = array('700', '750', '755', '770', '775', '777');
-			$AdminCore['permissionsFileList']      = array('600', '640', '644', '660', '664', '666');
+			$AdminCore['permissionsDirectoryList'] = array(
+				'700',
+				'750',
+				'755',
+				'770',
+				'775',
+				'777',
+			);
+
+			$AdminCore['permissionsFileList'] = array(
+				'600',
+				'640',
+				'644',
+				'660',
+				'664',
+				'666',
+			);
 
 			$can['tweakSystemProcesses'] = true;
-			$AdminCore['beNiceList']     = array(
+
+			$AdminCore['beNiceList'] = array(
 				'0' => $module->translate('High Priority (Me first!)'),
 				'1' => $module->translate('Low Priority (I want to share!)'),
 			);

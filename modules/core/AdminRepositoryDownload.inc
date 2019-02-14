@@ -18,8 +18,12 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryUtilities.class');
+GalleryCoreApi::requireOnce(
+	'modules/core/classes/GalleryRepository.class'
+);
+GalleryCoreApi::requireOnce(
+	'modules/core/classes/GalleryRepositoryUtilities.class'
+);
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/AdminRepositoryDownloadAndInstallController.class'
 );
@@ -32,6 +36,25 @@ GalleryCoreApi::requireOnce(
  * @version $Revision: 17580 $
  */
 class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstallController {
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new AdminRepositoryDownloadController();
+		}
+
+		return $singleton;
+	}
+
 	/**
 	 * @see GalleryController::handleRequest
 	 */
@@ -160,6 +183,25 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
  */
 class AdminRepositoryDownloadView extends GalleryView {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new AdminRepositoryDownloadView();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryView::loadTemplate
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
@@ -247,7 +289,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 			$upgradeData['languages']     = $condensedData;
 			$upgradeData['languageCount'] = count($upgradeData['languages']);
 			$upgradeData['repository']    = $source;
-			
+
 			list(
 				$ret,
 				$upgradeData['repositoryName']

@@ -27,6 +27,25 @@
  */
 class ProgressBarView extends GalleryView {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ProgressBarView();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryView::getViewType
 	 */
 	public function getViewType() {

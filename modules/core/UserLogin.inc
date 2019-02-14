@@ -35,6 +35,25 @@ class UserLoginController extends GalleryController {
 	public $_pluginInstances;
 
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new UserLoginController();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Tests can use this method to hardwire a specific set of plugin instances to use.
 	 * This avoids situations where some of the option instances will do unpredictable
 	 * things and derail the tests.
@@ -201,6 +220,25 @@ class UserLoginController extends GalleryController {
  * This view prompts for login information
  */
 class UserLoginView extends GalleryView {
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new UserLoginView();
+		}
+
+		return $singleton;
+	}
+
 	/**
 	 * @see GalleryView::loadTemplate
 	 */

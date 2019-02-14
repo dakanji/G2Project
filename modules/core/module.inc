@@ -32,7 +32,7 @@ class CoreModule extends GalleryModule {
 		$this->setName($gallery->i18n('Core'));
 		$this->setGalleryVersion('2.3.3');
 
-		// Don't forget to update CoreModuleExtras::upgrade and _prepareConfigUpgrade too!
+		// Do not forget to update CoreModuleExtras::upgrade and _prepareConfigUpgrade too!
 		$this->setVersion('1.3.0.2');
 		$this->_templateVersion = 1;
 
@@ -108,7 +108,10 @@ class CoreModule extends GalleryModule {
 			$isAlbum = $item->getCanContainChildren();
 
 			// Permissions for its parent
-			list($ret, $parentPermissions) = GalleryCoreApi::getPermissions($item->getParentId(), $userId);
+			list($ret, $parentPermissions) = GalleryCoreApi::getPermissions(
+				$item->getParentId(),
+				$userId
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -169,8 +172,14 @@ class CoreModule extends GalleryModule {
 			}
 
 			if (isset($permissions[$itemId]['core.edit'])) {
+				if (isset($permissions[$itemId]['core.changePermissions'])) {
+					$itemPerm = $this->_translate('Edit Permissions');
+				} else {
+					$itemPerm = $this->_translate('View Permissions');
+				}
+
 				$links[$itemId][] = array(
-					'text'   => isset($permissions[$itemId]['core.changePermissions']) ? $this->_translate('Edit Permissions') : $this->_translate('View Permissions'),
+					'text'   => $itemPerm,
 					'params' => array(
 						'view'    => 'core.ItemAdmin',
 						'subView' => 'core.ItemPermissions',
@@ -191,7 +200,7 @@ class CoreModule extends GalleryModule {
 				if (!function_exists('smarty_modifier_escape')) {
 					GalleryCoreApi::requireOnce('lib/smarty/plugins/modifier.escape.php');
 				}
-				$title                   = smarty_modifier_escape(
+				$title = smarty_modifier_escape(
 					GalleryUtilities::markup(
 						$item->getTitle(),
 						'strip'
@@ -199,11 +208,13 @@ class CoreModule extends GalleryModule {
 					'javascript',
 					'UTF-8'
 				);
+
 				list($thisItemId, $page) = GalleryUtilities::getRequestVariables('itemId', 'page');
 				// If no page item defined, we will navigate to the parent of the deleted item
 				if (empty($thisItemId)) {
 					$thisItemId = $itemId;
 				}
+
 				$urlParams = array(
 					'controller' => 'core.ItemDeleteSingle',
 					'itemId'     => $itemId,
@@ -213,16 +224,23 @@ class CoreModule extends GalleryModule {
 				if (!empty($page)) {
 					$urlParams['page'] = $page;
 				}
-				$url              = $urlGenerator->generateUrl($urlParams);
-				$moreUrl          = $isAlbum ? '' : $urlGenerator->generateUrl(
-					array(
-						'view'       => 'core.ItemAdmin',
-						'subView'    => 'core.ItemDelete',
-						'itemId'     => $item->getParentId(),
-						'selectedId' => $itemId,
-						'return'     => 1,
-					)
-				);
+
+				$url = $urlGenerator->generateUrl($urlParams);
+
+				if ($isAlbum) {
+					$moreUrl = '';
+				} else {
+					$moreUrl = $urlGenerator->generateUrl(
+						array(
+							'view'       => 'core.ItemAdmin',
+							'subView'    => 'core.ItemDelete',
+							'itemId'     => $item->getParentId(),
+							'selectedId' => $itemId,
+							'return'     => 1,
+						)
+					);
+				}
+
 				$links[$itemId][] = array(
 					'text'   => $this->_translate(
 						array(
@@ -273,7 +291,7 @@ class CoreModule extends GalleryModule {
 				&& !empty($childCounts[$itemId])
 				&& $childCounts[$itemId] > 0
 			) {
-				$link                        = array(
+				$link = array(
 					'text'   => $this->_translate('Edit Captions'),
 					'params' => array(
 						'view'    => 'core.ItemAdmin',
@@ -282,7 +300,11 @@ class CoreModule extends GalleryModule {
 						'return'  => 1,
 					),
 				);
-				list($thisItemId, $thisPage) = GalleryUtilities::getRequestVariables('itemId', 'page');
+
+				list($thisItemId, $thisPage) = GalleryUtilities::getRequestVariables(
+					'itemId',
+					'page'
+				);
 
 				if (!empty($thisItemId) && !empty($thisPage) && $thisItemId == $item->getId()) {
 					$link['params']['albumPage'] = $thisPage;
@@ -531,7 +553,12 @@ class CoreModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-			$childCount = empty($childCounts[$item->getId()]) ? 0 : $childCounts[$item->getId()];
+
+			if (empty($childCounts[$item->getId()])) {
+				$childCount = 0;
+			} else {
+				$childCount = $childCounts[$item->getId()];
+			}
 		}
 
 		// Fetch thumbnail ids
@@ -583,8 +610,15 @@ class CoreModule extends GalleryModule {
 				),
 				'view' => 'core.ItemEdit',
 			);
+
+			if (isset($permissions['core.changePermissions'])) {
+				$viewsPerm = $this->_translate('Edit Permissions');
+			} else {
+				$viewsPerm = $this->_translate('View Permissions');
+			}
+
 			$views[] = array(
-				'name' => isset($permissions['core.changePermissions']) ? $this->_translate('Edit Permissions') : $this->_translate('View Permissions'),
+				'name' => $viewsPerm,
 				'view' => 'core.ItemPermissions',
 			);
 		}
@@ -621,15 +655,21 @@ class CoreModule extends GalleryModule {
 						'pageId'     => $thisItemId,
 					)
 				);
-				$moreUrl      = $isAlbum ? '' : $urlGenerator->generateUrl(
-					array(
-						'view'       => 'core.ItemAdmin',
-						'subView'    => 'core.ItemDelete',
-						'itemId'     => $item->getParentId(),
-						'selectedId' => $itemId,
-					)
-				);
-				$views[]      = array(
+
+				if ($isAlbum) {
+					$moreUrl = '';
+				} else {
+					$moreUrl = $urlGenerator->generateUrl(
+						array(
+							'view'       => 'core.ItemAdmin',
+							'subView'    => 'core.ItemDelete',
+							'itemId'     => $item->getParentId(),
+							'selectedId' => $itemId,
+						)
+					);
+				}
+
+				$views[] = array(
 					'name'   => $this->_translate(
 						array(
 							'text' => 'Delete %s',
@@ -686,7 +726,7 @@ class CoreModule extends GalleryModule {
 	 */
 	public function upgrade($currentVersion, $statusMonitor = null) {
 		GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
-		$ret = CoreModuleExtras::upgrade($this, $currentVersion, $statusMonitor);
+		$ret = CoreModuleExtras::doStatic()->upgrade($this, $currentVersion, $statusMonitor);
 
 		if ($ret) {
 			return $ret;
@@ -739,7 +779,12 @@ class CoreModule extends GalleryModule {
 						$maintenanceMode = explode(':', rtrim($versionArray[2]), 2);
 
 						if ($maintenanceMode[0] == 'maintenance-mode') {
-							$newMode = empty($maintenanceMode[1]) ? true : $maintenanceMode[1];
+							if (empty($maintenanceMode[1])) {
+								$newMode = true;
+							} else {
+								$newMode = $maintenanceMode[1];
+							}
+
 							$gallery->setConfig('mode.maintenance', $newMode);
 						}
 					}
@@ -764,7 +809,7 @@ class CoreModule extends GalleryModule {
 	 */
 	public function performFactoryRegistrations() {
 		GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
-		$ret = CoreModuleExtras::performFactoryRegistrations($this);
+		$ret = CoreModuleExtras::doStatic()->performFactoryRegistrations($this);
 
 		if ($ret) {
 			return $ret;

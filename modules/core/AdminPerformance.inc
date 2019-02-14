@@ -27,6 +27,25 @@
  */
 class AdminPerformanceController extends GalleryController {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new AdminPerformanceController();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryController::handleRequest
 	 */
 	public function handleRequest($form) {
@@ -41,7 +60,7 @@ class AdminPerformanceController extends GalleryController {
 		$results = array();
 		$status  = array();
 		$error   = array();
-		
+
 		list($ret, $acceleration) = GalleryCoreApi::getPluginParameter('module', 'core', 'acceleration');
 
 		if ($ret) {
@@ -143,6 +162,25 @@ class AdminPerformanceController extends GalleryController {
  * Update performance settings
  */
 class AdminPerformanceView extends GalleryView {
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new AdminPerformanceView();
+		}
+
+		return $singleton;
+	}
+
 	/**
 	 * @see GalleryView::loadTemplate
 	 */

@@ -27,6 +27,25 @@
  */
 class AdminThemesController extends GalleryController {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new AdminThemesController();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryController::handleRequest
 	 */
 	public function handleRequest($form) {
@@ -39,7 +58,7 @@ class AdminThemesController extends GalleryController {
 		$status       = array();
 		$error        = array();
 		$errorMessage = array();
-		
+
 		$theme   = null;
 		$themeId = GalleryUtilities::getRequestVariables('themeId');
 
@@ -268,6 +287,25 @@ class AdminThemesController extends GalleryController {
  * This view will show administration options for available themes
  */
 class AdminThemesView extends GalleryView {
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new AdminThemesView();
+		}
+
+		return $singleton;
+	}
+
 	/**
 	 * @see GalleryView::loadTemplate
 	 */

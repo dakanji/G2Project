@@ -27,6 +27,25 @@
  */
 class ShowItemController extends GalleryController {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ShowItemController();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryController::handleRequest
 	 */
 	public function handleRequest($form) {
@@ -60,7 +79,13 @@ class ShowItemController extends GalleryController {
  */
 class ShowItemView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

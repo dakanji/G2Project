@@ -27,6 +27,25 @@
  */
 class CreateThumbnailOption extends ItemAddOption {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new CreateThumbnailOption();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see ItemAddOption::loadTemplate
 	 */
 	public function loadTemplate(&$template, &$form, $item) {
