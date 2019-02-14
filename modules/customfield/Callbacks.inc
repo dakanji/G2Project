@@ -46,7 +46,7 @@ class CustomFieldCallbacks {
 					return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 				}
 
-				list($ret, $fields) = CustomFieldHelper::fetchFieldValues(array($item), 'detail');
+				list($ret, $fields) = CustomFieldHelper::doStatic()->fetchFieldValues(array($item), 'detail');
 
 				if ($ret) {
 					return $ret;

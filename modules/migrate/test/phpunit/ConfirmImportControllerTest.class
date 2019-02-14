@@ -755,7 +755,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 			GalleryCoreApi::requireOnce(
 				'modules/customfield/classes/CustomFieldHelper.class'
 			);
-			list($ret, $fields) = CustomFieldHelper::fetchFieldValues(array($testItem), 'detail');
+			list($ret, $fields) = CustomFieldHelper::doStatic()->fetchFieldValues(array($testItem), 'detail');
 
 			if ($ret) {
 				return $ret;
@@ -2120,7 +2120,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 			GalleryCoreApi::requireOnce(
 				'modules/customfield/classes/CustomFieldHelper.class'
 			);
-			list($ret, $fields) = CustomFieldHelper::fetchFieldValues(array($testItem), 'detail');
+			list($ret, $fields) = CustomFieldHelper::doStatic()->fetchFieldValues(array($testItem), 'detail');
 
 			if ($ret) {
 				return $ret;

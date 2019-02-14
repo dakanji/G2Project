@@ -37,7 +37,7 @@ class CustomFieldHelperTest extends GalleryTestCase {
 		$form['action']['add']['common'] = 'Add';
 		$form['common']['newField']      = '';
 		// This only test empty field name (Bug 1165012)
-		list($ret, $status) = CustomFieldHelper::handleAdminAction($form);
+		list($ret, $status) = CustomFieldHelper::doStatic()->handleAdminAction($form);
 
 		if ($ret) {
 			return $ret;
@@ -73,7 +73,7 @@ class CustomFieldHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $data) = CustomFieldHelper::fetchFieldValues(
+		list($ret, $data) = CustomFieldHelper::doStatic()->fetchFieldValues(
 			array(
 				$this->_album,
 				$this->_item,
@@ -101,7 +101,7 @@ class CustomFieldHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$ret = CustomFieldHelper::saveParameters(
+		$ret = CustomFieldHelper::doStatic()->saveParameters(
 			array(
 				'common' => array(
 					array(
@@ -146,19 +146,19 @@ class CustomFieldHelperTest extends GalleryTestCase {
 			'Year'         => 2010,
 			'Photographer' => 'Jack Frost',
 		);
-		$ret        = CustomFieldHelper::saveFieldValues($this->_item, $itemFields);
+		$ret        = CustomFieldHelper::doStatic()->saveFieldValues($this->_item, $itemFields);
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$ret = CustomFieldHelper::saveFieldValues($this->_album, $itemFields);
+		$ret = CustomFieldHelper::doStatic()->saveFieldValues($this->_album, $itemFields);
 
 		if ($ret) {
 			return $ret;
 		}
 
-		list($ret, $data) = CustomFieldHelper::fetchFieldValues(
+		list($ret, $data) = CustomFieldHelper::doStatic()->fetchFieldValues(
 			array(
 				$this->_album,
 				$this->_item,
@@ -181,13 +181,13 @@ class CustomFieldHelperTest extends GalleryTestCase {
 			'Multi-item retrieve failed'
 		);
 
-		list($ret) = CustomFieldHelper::fetchFieldValues('');
+		list($ret) = CustomFieldHelper::doStatic()->fetchFieldValues('');
 		$this->assertTrue(
 			ERROR_BAD_PARAMETER & $ret->getErrorCode(),
 			'Non-array value should return an error 1'
 		);
 
-		list($ret) = CustomFieldHelper::fetchFieldValues(array());
+		list($ret) = CustomFieldHelper::doStatic()->fetchFieldValues(array());
 		$this->assertTrue(
 			ERROR_BAD_PARAMETER & $ret->getErrorCode(),
 			'Non-array value should return an error 2'

@@ -65,7 +65,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$ret = CustomFieldHelper::saveParameters(
+		$ret = CustomFieldHelper::doStatic()->saveParameters(
 			array(
 				'common' => array(
 					array(
@@ -97,7 +97,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$ret = CustomFieldHelper::saveFieldValues(
+		$ret = CustomFieldHelper::doStatic()->saveFieldValues(
 			$this->_item,
 			array(
 				'Catalog Id' => 'A2',
@@ -130,7 +130,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 		);
 
 		// Check values are retained..
-		list($ret, $data, $tmp, $isContainer) = CustomFieldHelper::fetchFieldValues(array($this->_item));
+		list($ret, $data, $tmp, $isContainer) = CustomFieldHelper::doStatic()->fetchFieldValues(array($this->_item));
 
 		if ($ret) {
 			return $ret;
@@ -183,7 +183,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals($this->_album->getId(), $adminMode, 'Session admin mode');
 
 		// Set values..
-		$ret = CustomFieldHelper::saveFieldValues(
+		$ret = CustomFieldHelper::doStatic()->saveFieldValues(
 			$this->_item,
 			array(
 				'Catalog Id' => 'A3',
@@ -212,7 +212,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 		);
 
 		// Check values..
-		list($ret, $data, $tmp, $isContainer) = CustomFieldHelper::fetchFieldValues(array($this->_item));
+		list($ret, $data, $tmp, $isContainer) = CustomFieldHelper::doStatic()->fetchFieldValues(array($this->_item));
 
 		if ($ret) {
 			return $ret;

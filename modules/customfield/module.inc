@@ -83,7 +83,7 @@ class CustomFieldModule extends GalleryModule {
 		GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.markup.php');
 		$summaries = array();
 
-		list($ret, $data) = CustomFieldHelper::fetchFieldValues($items, 'summary');
+		list($ret, $data) = CustomFieldHelper::doStatic()->fetchFieldValues($items, 'summary');
 
 		if ($ret) {
 			return array($ret, null);

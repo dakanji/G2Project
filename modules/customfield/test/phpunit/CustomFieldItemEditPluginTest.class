@@ -80,7 +80,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 			return $ret;
 		}
 
-		$ret = CustomFieldHelper::saveParameters(
+		$ret = CustomFieldHelper::doStatic()->saveParameters(
 			array(
 				'common' => array(
 					array(
@@ -117,7 +117,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$ret = CustomFieldHelper::saveParameters(
+		$ret = CustomFieldHelper::doStatic()->saveParameters(
 			array(
 				'common' => array(
 					array(
@@ -177,7 +177,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 			$results
 		);
 
-		list($ret, $data) = CustomFieldHelper::fetchFieldValues(array($this->_itemG), 'summary');
+		list($ret, $data) = CustomFieldHelper::doStatic()->fetchFieldValues(array($this->_itemG), 'summary');
 
 		if ($ret) {
 			return $ret;
@@ -190,7 +190,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 			'Summary data'
 		);
 
-		list($ret, $data) = CustomFieldHelper::fetchFieldValues(array($this->_itemG), 'detail');
+		list($ret, $data) = CustomFieldHelper::doStatic()->fetchFieldValues(array($this->_itemG), 'detail');
 
 		if ($ret) {
 			return $ret;
@@ -204,7 +204,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 			'Detail data'
 		);
 
-		list($ret, $data) = CustomFieldHelper::fetchFieldValues(array($this->_itemG), null, 'photo');
+		list($ret, $data) = CustomFieldHelper::doStatic()->fetchFieldValues(array($this->_itemG), null, 'photo');
 
 		if ($ret) {
 			return $ret;
@@ -233,7 +233,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 			$results
 		);
 
-		list($ret, $data) = CustomFieldHelper::fetchFieldValues(array($this->_albumS), 'summary');
+		list($ret, $data) = CustomFieldHelper::doStatic()->fetchFieldValues(array($this->_albumS), 'summary');
 
 		if ($ret) {
 			return $ret;
@@ -246,7 +246,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 			'Summary data 2'
 		);
 
-		list($ret, $data) = CustomFieldHelper::fetchFieldValues(array($this->_albumS), 'detail');
+		list($ret, $data) = CustomFieldHelper::doStatic()->fetchFieldValues(array($this->_albumS), 'detail');
 
 		if ($ret) {
 			return $ret;
@@ -260,7 +260,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 			'Detail data 2'
 		);
 
-		list($ret, $data) = CustomFieldHelper::fetchFieldValues(array($this->_albumS), null, 'album');
+		list($ret, $data) = CustomFieldHelper::doStatic()->fetchFieldValues(array($this->_albumS), null, 'album');
 
 		if ($ret) {
 			return $ret;
@@ -522,7 +522,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		);
 
 		// Check appropriate field values have been removed with settings changes
-		list($ret, $data) = CustomFieldHelper::fetchFieldValues(array($this->_albumS));
+		list($ret, $data) = CustomFieldHelper::doStatic()->fetchFieldValues(array($this->_albumS));
 
 		if ($ret) {
 			return $ret;
@@ -561,7 +561,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 			$results
 		);
 
-		list($ret, $data) = CustomFieldHelper::fetchFieldValues(array($this->_itemG), 'summary');
+		list($ret, $data) = CustomFieldHelper::doStatic()->fetchFieldValues(array($this->_itemG), 'summary');
 
 		if ($ret) {
 			return $ret;

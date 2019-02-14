@@ -41,7 +41,7 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 		}
 
 		if (isset($form['cfAdmin'])) {
-			list($ret, $adminStatus) = CustomFieldHelper::handleAdminAction($form, $item->getId());
+			list($ret, $adminStatus) = CustomFieldHelper::doStatic()->handleAdminAction($form, $item->getId());
 
 			if ($ret) {
 				return array($ret, null, null, null);
@@ -98,7 +98,7 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 				}
 			}
 
-			$ret = CustomFieldHelper::saveFieldValues($item, $form['fields']);
+			$ret = CustomFieldHelper::doStatic()->saveFieldValues($item, $form['fields']);
 
 			if ($ret) {
 				return array($ret, null, null, null);
@@ -130,7 +130,7 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 
 		switch ($adminMode) {
 			case 1:
-				$ret = CustomFieldHelper::loadAdminForm($form, $item->getId());
+				$ret = CustomFieldHelper::doStatic()->loadAdminForm($form, $item->getId());
 
 				if ($ret) {
 					return array($ret, null, null);
@@ -141,7 +141,7 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 
 			default:
 				$set                                           = GalleryUtilities::isA($item, 'GalleryAlbumItem') ? 'album' : (GalleryUtilities::isA($item, 'GalleryPhotoItem') ? 'photo' : 'common');
-				list($ret, $tmp, $param, $isContainerSettings) = CustomFieldHelper::fetchFieldValues(array($item), null, $set);
+				list($ret, $tmp, $param, $isContainerSettings) = CustomFieldHelper::doStatic()->fetchFieldValues(array($item), null, $set);
 
 				if ($ret) {
 					return array($ret, null, null);
@@ -176,7 +176,7 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 		if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 			return true;
 		}
-		list($ret, $param) = CustomFieldHelper::loadParameters($item->getParentId());
+		list($ret, $param) = CustomFieldHelper::doStatic()->loadParameters($item->getParentId());
 
 		if ($ret) {
 			return false;

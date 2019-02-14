@@ -58,12 +58,12 @@ class CustomFieldItemAdminController extends GalleryController {
 			// Activate album-specific settings:
 			if ($adminMode == 2) {
 				// Copy in global settings
-				list($ret, $globalParam) = CustomFieldHelper::loadParameters();
+				list($ret, $globalParam) = CustomFieldHelper::doStatic()->loadParameters();
 
 				if ($ret) {
 					return array($ret, null);
 				}
-				$ret = CustomFieldHelper::saveParameters($globalParam, $itemId);
+				$ret = CustomFieldHelper::doStatic()->saveParameters($globalParam, $itemId);
 
 				if ($ret) {
 					return array($ret, null);
@@ -109,7 +109,7 @@ class CustomFieldItemAdminController extends GalleryController {
 					);
 				}
 				// Clear setId for existing field values that can be retained
-				list($ret, $globalParam) = CustomFieldHelper::loadParameters();
+				list($ret, $globalParam) = CustomFieldHelper::doStatic()->loadParameters();
 
 				if ($ret) {
 					return array($ret, null);

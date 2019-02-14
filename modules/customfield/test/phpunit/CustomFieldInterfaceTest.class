@@ -198,7 +198,7 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $data, $tmp, $isContainer) = CustomFieldHelper::fetchFieldValues(array($this->_item));
+		list($ret, $data, $tmp, $isContainer) = CustomFieldHelper::doStatic()->fetchFieldValues(array($this->_item));
 
 		if ($ret) {
 			return $ret;
