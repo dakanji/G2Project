@@ -43,7 +43,9 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		// create custom platform to return dummy filesize, imagesize, etc.
-		$gallery->setPlatform(new SetSizeOptionTestPlatform($gallery->getPlatform()));
+		$galleryPlatform           = $gallery->getPlatform();
+		$SetSizeOptionTestPlatform = new SetSizeOptionTestPlatform($galleryPlatform);
+		$gallery->setPlatform($SetSizeOptionTestPlatform);
 
 		// Register dummy toolkit and operations
 		$ret = GalleryCoreApi::registerFactoryImplementation(

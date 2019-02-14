@@ -44,7 +44,9 @@ class SizeLimitHelperTest extends GalleryTestCase {
 		}
 
 		// create custom platform to return dummy filesize, imagesize, etc.
-		$gallery->setPlatform(new SizeLimitHelperTestPlatform($gallery->getPlatform()));
+		$galleryPlatform             = $gallery->getPlatform();
+		$SizeLimitHelperTestPlatform = new SizeLimitHelperTestPlatform($galleryPlatform);
+		$gallery->setPlatform($SizeLimitHelperTestPlatform);
 
 		// Register dummy toolkit and operations
 		$ret = GalleryCoreApi::registerFactoryImplementation(

@@ -45,7 +45,9 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 		}
 
 		// create custom platform to return dummy filesize, imagesize, etc.
-		$gallery->setPlatform(new SizeLimitOptionTestPlatform($gallery->getPlatform()));
+		$galleryPlatform             = $gallery->getPlatform();
+		$SizeLimitOptionTestPlatform = new SizeLimitOptionTestPlatform($galleryPlatform);
+		$gallery->setPlatform($SizeLimitOptionTestPlatform);
 
 		list($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 

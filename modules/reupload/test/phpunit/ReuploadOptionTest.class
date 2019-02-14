@@ -83,7 +83,9 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 		$this->_itemSize = $this->_item->getSize();
 
 		// create custom platform to return dummy filesize, imagesize, etc.
-		$gallery->setPlatform(new ReuploadOptionTestPlatform($gallery->getPlatform()));
+		$galleryPlatform            = $gallery->getPlatform();
+		$ReuploadOptionTestPlatform = new ReuploadOptionTestPlatform($galleryPlatform);
+		$gallery->setPlatform($ReuploadOptionTestPlatform);
 	}
 
 	public function testReupload() {
