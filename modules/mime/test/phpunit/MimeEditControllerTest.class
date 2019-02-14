@@ -60,7 +60,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 					'mimeType' => 'test/test',
 				),
 				'status'   => array(
-					'mimeSaved' => 'test/test',
+					'mimeSaved' => true,
 				),
 				'error'    => array(),
 			),
@@ -91,7 +91,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 					'mimeType' => 'test/test',
 				),
 				'status'   => array(
-					'mimeSaved' => 'test/test',
+					'mimeSaved' => true,
 				),
 				'error'    => array(),
 			),
@@ -120,7 +120,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 					'subView' => 'mime.MimeAdmin',
 				),
 				'status'   => array(
-					'mimeSaved' => 'test/test',
+					'mimeSaved' => true,
 				),
 				'error'    => array(),
 			),
@@ -241,7 +241,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 					'subView' => 'mime.MimeAdmin',
 				),
 				'status'   => array(
-					'mimeSaved' => 'test/test',
+					'mimeSaved' => true,
 				),
 				'error'    => array(),
 			),
