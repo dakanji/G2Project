@@ -27,6 +27,25 @@
  */
 class ItemEditController extends GalleryController {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ItemEditController();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryController::handleRequest
 	 */
 	public function handleRequest($form) {
@@ -215,6 +234,25 @@ class ItemEditController extends GalleryController {
  * This view will show options to edit an item
  */
 class ItemEditView extends GalleryView {
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ItemEditView();
+		}
+
+		return $singleton;
+	}
+
 	/**
 	 * Returns sizes for "maxlength" in forms
 	 * @todo This function is duplicated in ItemEditCaptions.inc, so it needs to be consolidated
@@ -450,6 +488,25 @@ class ItemEditView extends GalleryView {
  */
 class ItemEditPlugin {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ItemEditPlugin();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Does this plugin support the given item type?
 	 *
 	 * @param GalleryItem $item
@@ -541,6 +598,25 @@ class ItemEditPlugin {
  */
 class ItemEditOption {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ItemEditOption();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Return all the available option plugins
 	 *
 	 * @param string $editPlugin name of ItemEditPlugin
@@ -550,7 +626,7 @@ class ItemEditOption {
 	 *               array ItemEditOption instances
 	 * @static
 	 */
-	public static function getAllOptions($editPlugin, $item, $thumbnail) {
+	public function getAllOptions($editPlugin, $item, $thumbnail) {
 		list($ret, $allOptionIds) = GalleryCoreApi::getAllFactoryImplementationIdsWithHint(
 			'ItemEditOption',
 			$editPlugin
@@ -597,7 +673,7 @@ class ItemEditOption {
 	 *               string the path to a template file to include
 	 *               string localization domain for the template file
 	 */
-	public static function loadTemplate(&$template, &$form, $item, $thumbnail) {
+	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
 	}
 
@@ -612,7 +688,7 @@ class ItemEditOption {
 	 *               array error messages
 	 *               array localized warning messages
 	 */
-	public static function handleRequestAfterEdit($form, &$item, &$preferred) {
+	public function handleRequestAfterEdit($form, &$item, &$preferred) {
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null, null);
 	}
 
@@ -624,7 +700,7 @@ class ItemEditOption {
 	 * @return array GalleryStatus a status code
 	 *               boolean true or false
 	 */
-	public static function isAppropriate($item, $thumbnail) {
+	public function isAppropriate($item, $thumbnail) {
 		return array(null, false);
 	}
 
@@ -634,7 +710,7 @@ class ItemEditOption {
 	 * @param array $form the state of the current form
 	 * @return boolean
 	 */
-	public static function requiresProgressBar($form) {
+	public function requiresProgressBar($form) {
 		return false;
 	}
 }

@@ -32,7 +32,7 @@ class PasswordOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::isAppropriate
 	 */
-	public static function isAppropriate($item, $thumbnail) {
+	public function isAppropriate($item, $thumbnail) {
 		list($ret, $canChange) = GalleryCoreApi::hasItemPermission($item->getId(), 'core.changePermissions');
 
 		if ($ret) {
@@ -55,7 +55,7 @@ class PasswordOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::loadTemplate
 	 */
-	public static function loadTemplate(&$template, &$form, $item, $thumbnail) {
+	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
 		$form['PasswordOption']['hasPassword'] = $item->hasOnLoadHandler('Password');
 		$form['PasswordOption']['isAlbum']     = $item->getCanContainChildren();
 
@@ -65,7 +65,7 @@ class PasswordOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::handleRequestAfterEdit
 	 */
-	public static function handleRequestAfterEdit($form, &$item, &$preferred) {
+	public function handleRequestAfterEdit($form, &$item, &$preferred) {
 		$error          = $warning          = array();
 		$useProgressBar = $item->getCanContainChildren();
 
@@ -111,7 +111,7 @@ class PasswordOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::requiresProgressBar
 	 */
-	public static function requiresProgressBar($form) {
+	public function requiresProgressBar($form) {
 		// Progress bar if adding new password or removing password from an album
 		return isset($form['PasswordOption']['progressBar']) && (
 		($form['PasswordOption']['progressBar'] == 'add'

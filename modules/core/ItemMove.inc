@@ -27,6 +27,25 @@
  */
 class ItemMoveController extends GalleryController {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ItemMoveController();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryController::handleRequest
 	 * @todo Scalability - Don't load all album-items into memory. Need a way to load the items
 	 *       incrementally, e.g. with an AJAX-powered tree widget.
@@ -283,6 +302,25 @@ class ItemMoveController extends GalleryController {
  */
 class ItemMoveView extends GalleryView {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ItemMoveView();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryView::loadTemplate
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
@@ -318,12 +356,12 @@ class ItemMoveView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$albumIds              = array();
-		$albumTree             = array();
-		$selectedIds           = array();
-		$peers                 = array();
-		$peerDescendentCounts  = array();
-		
+		$albumIds             = array();
+		$albumTree            = array();
+		$selectedIds          = array();
+		$peers                = array();
+		$peerDescendentCounts = array();
+
 		$peerTypes = array(
 			'album' => array(),
 			'data'  => array(),
@@ -451,7 +489,7 @@ class ItemMoveView extends GalleryView {
 
 			// Load all the album entities
 			list($ret, $albums) = GalleryCoreApi::loadEntitiesById(
-				$albumIds['allIds'], 
+				$albumIds['allIds'],
 				'GalleryAlbumItem'
 			);
 

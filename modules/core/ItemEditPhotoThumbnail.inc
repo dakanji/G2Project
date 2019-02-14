@@ -27,6 +27,25 @@
  */
 class ItemEditPhotoThumbnail extends ItemEditPlugin {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ItemEditPhotoThumbnail();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see ItemEditPlugin::handleRequest
 	 */
 	public function handleRequest($form, &$item, &$preferred) {
@@ -383,7 +402,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 				'width'  => $item->getWidth(),
 				'height' => $item->getHeight(),
 			);
-			
+
 			$ItemEditPhotoThumbnail['editThumbnail']['aspectRatioList'] = $aspectRatioList;
 			$orientationList                                            = array();
 			$orientationList['landscape']                               = $module->translate('Landscape');
@@ -396,7 +415,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			 * settings so that we can start out with those values selected in the dropdowns.
 			 */
 			$currentAspect = round($crop['width'] / $crop['height'], 2);
-			
+
 			$i = 0;
 
 			// Set defaults

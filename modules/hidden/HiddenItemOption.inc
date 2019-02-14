@@ -30,7 +30,7 @@ class HiddenItemOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::isAppropriate
 	 */
-	public static function isAppropriate($item, $thumbnail) {
+	public function isAppropriate($item, $thumbnail) {
 		list($ret, $canHide) = GalleryCoreApi::hasItemPermission($item->getId(), 'core.changePermissions');
 
 		if ($ret) {
@@ -43,7 +43,7 @@ class HiddenItemOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::loadTemplate
 	 */
-	public static function loadTemplate(&$template, &$form, $item, $thumbnail) {
+	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
 		$form['HiddenItemOption']['isHidden'] = $item->hasOnLoadHandler('Hidden');
 		$form['HiddenItemOption']['isAlbum']  = $item->getCanContainChildren();
 
@@ -74,7 +74,7 @@ class HiddenItemOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::handleRequestAfterEdit
 	 */
-	public static function handleRequestAfterEdit($form, &$item, &$preferred) {
+	public function handleRequestAfterEdit($form, &$item, &$preferred) {
 		GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenHelper.class');
 		$error          = array();
 		$warning        = array();
@@ -106,7 +106,7 @@ class HiddenItemOption extends ItemEditOption {
 	/**
 	 * @see ItemEditOption::requiresProgressBar
 	 */
-	public static function requiresProgressBar($form) {
+	public function requiresProgressBar($form) {
 		// Progress bar if changing hidden status for an album
 		return isset($form['HiddenItemOption']['progressBar'])
 		&& ($form['HiddenItemOption']['progressBar'] == 'hide') == !empty($form['HiddenItemOption']['setHidden']);

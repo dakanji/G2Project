@@ -27,6 +27,25 @@
  */
 class ItemPermissionsController extends GalleryController {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ItemPermissionsController();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryController::handleRequest
 	 */
 	public function handleRequest($form) {
@@ -47,7 +66,7 @@ class ItemPermissionsController extends GalleryController {
 		}
 
 		$applyToChildren = isset($form['applyToSubItems']);
-		
+
 		$status = array();
 		$error  = array();
 
@@ -58,7 +77,7 @@ class ItemPermissionsController extends GalleryController {
 
 			// Handle delete group perm actions
 			list($groupId, $permissionId) = explode(',', $form['group']['delete'][$index]);
-			
+
 			$ret = GalleryCoreApi::removeGroupPermission(
 				$itemId,
 				$groupId,
@@ -440,6 +459,25 @@ class ItemPermissionsController extends GalleryController {
  * This view will prompt for permission settings of an item
  */
 class ItemPermissionsView extends GalleryView {
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ItemPermissionsView();
+		}
+
+		return $singleton;
+	}
+
 	/**
 	 * @see GalleryView::loadTemplate
 	 */

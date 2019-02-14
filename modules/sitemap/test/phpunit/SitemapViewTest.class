@@ -184,7 +184,7 @@ class SitemapViewTestUrlGenerator {
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPhpVm.class');
 
 class SitemapViewTestVm extends GalleryPhpVm {
-	public function header($string) {
+	public function header($string, $replace = null) {
 		echo "Header: $string\n";
 	}
 

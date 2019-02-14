@@ -35,7 +35,7 @@ class CustomFieldItemAdminController extends GalleryController {
 	/**
 	 * @see GalleryController::handleRequest
 	 */
-	public function handleRequest() {
+	public function handleRequest($form) {
 		global $gallery;
 		$session =& $gallery->getSession();
 

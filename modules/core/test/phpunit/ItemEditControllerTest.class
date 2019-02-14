@@ -350,11 +350,11 @@ class ItemEditControllerTestPluginRequiresProgressBar extends ItemEditPlugin {
  * @subpackage PHPUnit
  */
 class ItemEditControllerTestOption extends ItemEditOption {
-	public static function isAppropriate($item, $thumbnail) {
+	public function isAppropriate($item, $thumbnail) {
 		return array(null, true);
 	}
 
-	public static function handleRequestAfterEdit($form, &$item, &$preferred) {
+	public function handleRequestAfterEdit($form, &$item, &$preferred) {
 		return array(
 			null,
 			array('an error'),
@@ -370,11 +370,11 @@ class ItemEditControllerTestOption extends ItemEditOption {
  * @subpackage PHPUnit
  */
 class ItemEditControllerTestOptionWithProgressBar extends ItemEditOption {
-	public static function isAppropriate($item, $thumbnail) {
+	public function isAppropriate($item, $thumbnail) {
 		return array(null, true);
 	}
 
-	public static function handleRequestAfterEdit($form, &$item, &$preferred) {
+	public function handleRequestAfterEdit($form, &$item, &$preferred) {
 		return array(
 			null,
 			array('another error'),
@@ -382,7 +382,7 @@ class ItemEditControllerTestOptionWithProgressBar extends ItemEditOption {
 		);
 	}
 
-	public static function requiresProgressBar($form) {
+	public function requiresProgressBar($form) {
 		return true;
 	}
 }

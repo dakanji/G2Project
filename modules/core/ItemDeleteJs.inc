@@ -27,6 +27,25 @@
  */
 class ItemDeleteJsView extends GalleryView {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ItemDeleteJsView();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryView::isImmediate
 	 */
 	public function isImmediate() {

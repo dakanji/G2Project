@@ -35,18 +35,13 @@ class ItemAddController extends GalleryController {
 	public $_optionInstances;
 
 	/**
-	 * Tests can use this method to hardwire a specific set of option instances to use.
-	 * This avoids situations where some of the option instances will do unpredictable
-	 * things and derail the tests.
-	 *
-	 * @param array $optionInstances (optionId => ItemAddOption, ...)
+	 * Constructor
 	 */
-	public function setOptionInstances($optionInstances) {
-		$this->_optionInstances = $optionInstances;
+	public function __construct() {
 	}
 
 	/**
-	 * Load as Singleton
+	 * Load Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -56,6 +51,17 @@ class ItemAddController extends GalleryController {
 		}
 
 		return $singleton;
+	}
+
+	/**
+	 * Tests can use this method to hardwire a specific set of option instances to use.
+	 * This avoids situations where some of the option instances will do unpredictable
+	 * things and derail the tests.
+	 *
+	 * @param array $optionInstances (optionId => ItemAddOption, ...)
+	 */
+	public function setOptionInstances($optionInstances) {
+		$this->_optionInstances = $optionInstances;
 	}
 
 	/**
@@ -696,6 +702,25 @@ class ItemAddController extends GalleryController {
  */
 class ItemAddView extends GalleryView {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ItemAddView();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryView::loadTemplate
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
@@ -883,6 +908,25 @@ class ItemAddView extends GalleryView {
  */
 class ItemAddPlugin {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ItemAddPlugin();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Load the template with data from this plugin
 	 * @see GalleryView::loadTemplate
 	 *
@@ -919,7 +963,7 @@ class ItemAddPlugin {
 	 * Return a localized title for this plugin, suitable for display to the user
 	 *
 	 * @return array GalleryStatus a status code
-	 *               return-array (same as GalleryController::handleRequest)
+	 *               return-array (same as GalleryController::doStatic()->handleRequest)
 	 */
 	public function getTitle() {
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
@@ -944,13 +988,32 @@ class ItemAddPlugin {
  */
 class ItemAddOption {
 	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ItemAddOption();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Return all the available option plugins
 	 *
 	 * @return array GalleryStatus a status code
 	 *               array ItemAddOption instances
 	 * @static
 	 */
-	public static function getAllAddOptions() {
+	public function getAllAddOptions() {
 		// Get all the option plugins
 		list($ret, $allOptionIds) = GalleryCoreApi::getAllFactoryImplementationIds('ItemAddOption');
 
