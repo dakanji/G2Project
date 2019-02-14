@@ -74,7 +74,7 @@ class EventHandlerTest extends GalleryTestCase {
 		}
 
 		GalleryCoreApi::requireOnce('modules/sizelimit/module.inc');
-		list($ret, $data) = SizeLimitModule::handleEvent($event);
+		list($ret, $data) = SizeLimitModule::doStatic()->handleEvent($event);
 
 		if ($ret) {
 			return $ret;
