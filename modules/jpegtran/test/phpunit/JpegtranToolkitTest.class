@@ -221,6 +221,32 @@ class JpegtranToolkitTest extends GalleryTestCase {
 		$this->assertEquals('image/jpeg', $mimeType, 'output mimetype != input mimetype');
 	}
 
+	public function testPerformOperationCropNotMcuBoundary() {
+		$this->_platform->setTestEnvironment('normal');
+		list($ret, $mimeType, $context) = $this->_toolkit->performOperation(
+			'image/jpeg',
+			'crop',
+			'SOURCE',
+			'DEST',
+			array('10', '20', '60', '40.4'),
+			array()
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(
+			array(
+				'width'  => 60.0,
+				'height' => 323.0,
+			),
+			$context,
+			'bad mcu boundaries without context'
+		);
+		$this->assertEquals('image/jpeg', $mimeType, 'output mimetype != input mimetype');
+	}
+
 	public function testPerformOperationCropWithContext() {
 		$this->_platform->setTestEnvironment('hasGetImageSize');
 		list($ret, $mimeType, $context) = $this->_toolkit->performOperation(
@@ -246,6 +272,35 @@ class JpegtranToolkitTest extends GalleryTestCase {
 			),
 			$context,
 			'context'
+		);
+		$this->assertEquals('image/jpeg', $mimeType, 'output mimetype != input mimetype');
+	}
+
+	public function testPerformOperationCropWithContextNotMcuBoundary() {
+		$this->_platform->setTestEnvironment('hasGetImageSize');
+		list($ret, $mimeType, $context) = $this->_toolkit->performOperation(
+			'image/jpeg',
+			'crop',
+			'SOURCE',
+			'DEST',
+			array('10', '20', '60', '40.4'),
+			array(
+				'width'  => 200,
+				'height' => 50,
+			)
+		);
+
+		if ($ret) {
+			return $ret;
+		}
+
+		$this->assertEquals(
+			array(
+				'width'  => 120.0,
+				'height' => 20.0,
+			),
+			$context,
+			'bad mcu boundaries with context'
 		);
 		$this->assertEquals('image/jpeg', $mimeType, 'output mimetype != input mimetype');
 	}
