@@ -98,7 +98,9 @@ class AlbumSelectCallbacks {
 					),
 				);
 
-				list($treeList, $titles, $titlesForJs, $links) = GalleryDataCache::getFromDisk($cachePathInfo);
+				list($treeList, $titles, $titlesForJs, $links) = GalleryDataCache::getFromDisk(
+					$cachePathInfo
+				);
 
 				if (!isset($titles) || !isset($treeList) || !isset($titlesForJs) || !isset($links)) {
 					if (isset($callbackParams['stripTitles'])) {
@@ -106,9 +108,14 @@ class AlbumSelectCallbacks {
 					}
 
 					if (isset($callbackParams['truncateTitles'])) {
-						GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.entitytruncate.php');
+						GalleryCoreApi::requireOnce(
+							'lib/smarty_plugins/modifier.entitytruncate.php'
+						);
 					}
-					list($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($rootAlbumId, 'GalleryItem');
+					list($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById(
+						$rootAlbumId,
+						'GalleryItem'
+					);
 
 					if ($ret) {
 						return $ret;
@@ -158,7 +165,11 @@ class AlbumSelectCallbacks {
 						}
 
 						foreach ($items as $item) {
-							$title = $item->getTitle() ? $item->getTitle() : $item->getPathComponent();
+							if ($item->getTitle()) {
+								$title = $item->getTitle();
+							} else {
+								$title = $item->getPathComponent();
+							}
 							$title = preg_replace('/\r\n/', ' ', $title);
 
 							if (isset($callbackParams['stripTitles'])) {
@@ -175,8 +186,8 @@ class AlbumSelectCallbacks {
 						}
 
 						$newTreeSorter = new AlbumSelectTreeSorter($titles);
-						$sorter = ($params['sort'] == 'title') ? $newTreeSorter : null;
-						$nodeId = 0;
+						$sorter        = ($params['sort'] == 'title') ? $newTreeSorter : null;
+						$nodeId        = 0;
 						$this->_parseTree(
 							$tree,
 							$treeList,
@@ -265,10 +276,8 @@ class AlbumSelectCallbacks {
 						}
 					}
 
-					GalleryDataCache::putToDisk(
-						$cachePathInfo,
-						$dataToCache = array($treeList, $titles, $titlesForJs, $links)
-					);
+					$dataToCache = array($treeList, $titles, $titlesForJs, $links);
+					GalleryDataCache::putToDisk($cachePathInfo, $dataToCache);
 				}
 
 				$translator    =& $gallery->getTranslator();
@@ -414,6 +423,7 @@ class AlbumSelectCallbacks {
 				);
 
 				$subAlbumTitle = $subAlbum->getTitle();
+
 				if ($subAlbumTitle) {
 					$title = $subAlbumTitle;
 				} else {
