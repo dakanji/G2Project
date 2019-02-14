@@ -552,8 +552,9 @@ class NotificationEventHandlingTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$savePlatform =& $gallery->getPlatform();
-		$gallery->setPlatform(new NotificationEventHandlingPlatform($savePlatform, $this));
+		$savePlatform              =& $gallery->getPlatform();
+		$NotificationEventPlatform = new NotificationEventHandlingPlatform($savePlatform, $this);
+		$gallery->setPlatform($NotificationEventPlatform);
 
 		$ret = $handler->handleNotification($this->_userIds, $notification);
 
@@ -795,7 +796,7 @@ class NotificationEventHandlingPlatform {
 		$headers = null
 	) {
 		// Handle email..
-		$this->_handleMail($to, $subject, $body, $headers);
+		$this->_handleMail($to, $subject, implode(',', $body), $headers);
 	}
 
 	public function mail($to, $subject, $body, $headers = null) {

@@ -204,8 +204,9 @@ class PermalinksTest extends GalleryTestCase {
 
 	public function testListener() {
 		// The event listener is deactivated during unit tests, register it
-		GalleryCoreApi::registerEventListener('GalleryEntity::delete', new PermalinksModule());
-		GalleryCoreApi::registerEventListener('GalleryEntity::save', new PermalinksModule());
+		$PermalinksModule = new PermalinksModule();
+		GalleryCoreApi::registerEventListener('GalleryEntity::delete', $PermalinksModule);
+		GalleryCoreApi::registerEventListener('GalleryEntity::save', $PermalinksModule);
 
 		GalleryCoreApi::setPluginParameter('module', 'permalinks', 'autoPermalink', 1);
 
@@ -271,7 +272,8 @@ class PermalinksTest extends GalleryTestCase {
 
 	public function testListenerCollision() {
 		// The event listener is deactivated during unit tests, register it
-		GalleryCoreApi::registerEventListener('GalleryEntity::save', new PermalinksModule());
+		$PermalinksModule = new PermalinksModule();
+		GalleryCoreApi::registerEventListener('GalleryEntity::save', $PermalinksModule);
 
 		GalleryCoreApi::setPluginParameter('module', 'permalinks', 'autoPermalink', 1);
 
