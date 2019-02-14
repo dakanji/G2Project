@@ -86,7 +86,7 @@ class ItemEditController extends GalleryController {
 		$thumbnail = empty($thumbnails) ? null : array_shift($thumbnails);
 
 		// Get all the edit options
-		list($ret, $optionInstances) = ItemEditOption::getAllOptions(
+		list($ret, $optionInstances) = ItemEditOption::doStatic()->getAllOptions(
 			$editPlugin,
 			$item,
 			$thumbnail
@@ -409,7 +409,11 @@ class ItemEditView extends GalleryView {
 		}
 
 		// Get all the edit options
-		list($ret, $optionInstances) = ItemEditOption::getAllOptions($editPlugin, $item, $thumbnail);
+		list($ret, $optionInstances) = ItemEditOption::doStatic()->getAllOptions(
+			$editPlugin,
+			$item,
+			$thumbnail
+		);
 
 		if ($ret) {
 			return array($ret, null);
