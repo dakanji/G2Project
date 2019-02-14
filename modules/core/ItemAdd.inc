@@ -298,7 +298,7 @@ class ItemAddController extends GalleryController {
 		$this->_processingItemsMessage = $this->_coreModule->translate('Processing items');
 
 		if (!isset($this->_optionInstances)) {
-			list($ret, $this->_optionInstances) = ItemAddOption::getAllAddOptions();
+			list($ret, $this->_optionInstances) = ItemAddOption::doStatic()->getAllAddOptions();
 
 			if ($ret) {
 				return array($ret, null);
@@ -782,7 +782,7 @@ class ItemAddView extends GalleryView {
 		}
 
 		// Get all the add options
-		list($ret, $optionInstances) = ItemAddOption::getAllAddOptions();
+		list($ret, $optionInstances) = ItemAddOption::doStatic()->getAllAddOptions();
 
 		if ($ret) {
 			return array($ret, null);
@@ -847,7 +847,11 @@ class ItemAddView extends GalleryView {
 		$ItemAdd['options'] = array();
 
 		foreach ($optionInstances as $option) {
-			list($ret, $entry['file'], $entry['l10Domain']) = $option->loadTemplate($template, $form, $item);
+			list($ret, $entry['file'], $entry['l10Domain']) = $option->loadTemplate(
+				$template,
+				$form,
+				$item
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -1015,7 +1019,9 @@ class ItemAddOption {
 	 */
 	public function getAllAddOptions() {
 		// Get all the option plugins
-		list($ret, $allOptionIds) = GalleryCoreApi::getAllFactoryImplementationIds('ItemAddOption');
+		list($ret, $allOptionIds) = GalleryCoreApi::getAllFactoryImplementationIds(
+			'ItemAddOption'
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -1024,7 +1030,10 @@ class ItemAddOption {
 		$optionInstances = array();
 
 		foreach (array_keys($allOptionIds) as $optionId) {
-			list($ret, $option) = GalleryCoreApi::newFactoryInstanceById('ItemAddOption', $optionId);
+			list($ret, $option) = GalleryCoreApi::newFactoryInstanceById(
+				'ItemAddOption',
+				$optionId
+			);
 
 			if ($ret) {
 				return array($ret, null);
