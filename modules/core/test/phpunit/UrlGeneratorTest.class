@@ -78,7 +78,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			GalleryDataCache::put('G2_EMBED', $this->_origEmbed, true);
 		} else {
 			GalleryDataCache::remove('G2_EMBED');
-			$this->assertTrue(!GalleryDataCache::containsKey('G2_EMBED'), 'Could not remove a GDC var');
+			$this->assertFalse(GalleryDataCache::containsKey('G2_EMBED'), 'Could not remove a GDC var');
 		}
 		$session->remove('core.authToken');
 
@@ -1856,7 +1856,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			GalleryDataCache::put($key, $savedEmbed, true);
 		} else {
 			GalleryDataCache::remove($key);
-			$this->assertTrue(!GalleryDataCache::containsKey($key), 'Could not remove a GDC var');
+			$this->assertFalse(GalleryDataCache::containsKey($key), 'Could not remove a GDC var');
 		}
 	}
 
@@ -2273,7 +2273,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 				if ($embedded) {
 					$this->assertEquals($isSet, $urlGenerator->_isCookiePathConfigured, $msg);
 				} else {
-					$this->assertTrue(!isset($urlGenerator->_isCookiePathConfigured), $msg);
+					$this->assertFalse(isset($urlGenerator->_isCookiePathConfigured), $msg);
 				}
 			}
 		}
@@ -2646,7 +2646,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			'url map'
 		);
 		$this->assertTrue($this->_urlGenerator->_localUrlMapDirty, 'dirty flag');
-		$this->assertTrue(!empty($gallery->_shutdownActions), 'shutdown action');
+		$this->assertFalse(empty($gallery->_shutdownActions), 'shutdown action');
 	}
 
 	public function testLocalUrlMapCacheHit() {
@@ -2669,7 +2669,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			),
 			'url'
 		);
-		$this->assertTrue(!isset($this->_urlGenerator->_localUrlMapDirty), 'dirty flag');
+		$this->assertFalse(isset($this->_urlGenerator->_localUrlMapDirty), 'dirty flag');
 		$this->assertTrue(empty($gallery->_shutdownActions), 'shutdown action');
 	}
 
@@ -2765,7 +2765,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			$this->_urlGenerator->_localUrlMap,
 			'url map'
 		);
-		$this->assertTrue(!isset($this->_urlGenerator->_localUrlMapDirty), 'dirty flag');
+		$this->assertFalse(isset($this->_urlGenerator->_localUrlMapDirty), 'dirty flag');
 		$this->assertTrue(empty($gallery->_shutdownActions), 'shutdown action');
 	}
 }

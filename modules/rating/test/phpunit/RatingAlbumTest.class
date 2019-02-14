@@ -109,7 +109,7 @@ class RatingAlbumTest extends GalleryTestCase {
 		$this->assertTrue(GalleryUtilities::isA($theme, 'GalleryTheme'), 'theme');
 		$this->assertTrue(is_array($params), 'theme settings');
 		$this->assertTrue(GalleryUtilities::isA($item, 'GalleryDynamicAlbum'), 'item');
-		$this->assertTrue(!isset($item->parent), 'item parent');
+		$this->assertFalse(isset($item->parent), 'item parent');
 		$this->assertEquals('test desc', $item->getDescription(), 'description');
 	}
 
@@ -164,8 +164,8 @@ class RatingAlbumTest extends GalleryTestCase {
 			'page url'
 		);
 		$this->assertTrue(in_array($this->_items[1]->getId(), $theme['allChildIds']), 'item 1');
-		$this->assertTrue(!in_array($this->_items[2]->getId(), $theme['allChildIds']), 'item 2');
-		$this->assertTrue(!in_array($this->_items[3]->getId(), $theme['allChildIds']), 'item 3');
+		$this->assertFalse(in_array($this->_items[2]->getId(), $theme['allChildIds']), 'item 2');
+		$this->assertFalse(in_array($this->_items[3]->getId(), $theme['allChildIds']), 'item 3');
 	}
 
 	public function testLoadTemplateForItem() {

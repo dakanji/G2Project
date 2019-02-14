@@ -1503,7 +1503,7 @@ class StorageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!empty($externalMapInfo), 'empty result');
+		$this->assertFalse(empty($externalMapInfo), 'empty result');
 
 		// Verify that a second call reads from memory, no platform activity
 		list($ret, $externalMapInfo) = GalleryCoreApi::describeMap('GalleryTest2Map');
@@ -1511,7 +1511,7 @@ class StorageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!empty($externalMapInfo), 'empty result on second call');
+		$this->assertFalse(empty($externalMapInfo), 'empty result on second call');
 	}
 
 	public function testDescribeMapReadsFromMemoryCache() {
@@ -1602,7 +1602,7 @@ class StorageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!empty($entityInfo), 'empty result');
+		$this->assertFalse(empty($entityInfo), 'empty result');
 
 		// Verify that a second call reads from memory, no database activity
 		list($ret, $entityInfo) = GalleryCoreApi::describeEntity('GalleryEntity');
@@ -1610,7 +1610,7 @@ class StorageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!empty($entityInfo), 'empty result on second call');
+		$this->assertFalse(empty($entityInfo), 'empty result on second call');
 	}
 
 	public function testRemoveAllMapEntriesTransactional() {

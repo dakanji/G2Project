@@ -410,7 +410,7 @@ class RewriteParserTestCase extends GalleryTestCase {
 		$this->assertEquals($expected, unserialize($activeRules));
 
 		if ($this->_parser->getParserType() == 'preGallery') {
-			$this->assertTrue(!empty($this->_fileContent), 'fileContent');
+			$this->assertFalse(empty($this->_fileContent), 'fileContent');
 		}
 
 		GalleryDataCache::remove('G2_EMBED');
@@ -441,7 +441,7 @@ class RewriteParserTestCase extends GalleryTestCase {
 		$this->assertEquals($expected, unserialize($activeRules));
 
 		if ($this->_parser->getParserType() == 'preGallery') {
-			$this->assertTrue(!isset($this->_fileContent), 'fileContent');
+			$this->assertFalse(isset($this->_fileContent), 'fileContent');
 		}
 
 		GalleryDataCache::remove('G2_EMBED');
@@ -453,7 +453,7 @@ class RewriteParserTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$status, 'pass');
+		$this->assertFalse($status, 'pass');
 
 		GalleryUtilities::putRequestVariable('rewriteTest', 'fail');
 		list($ret, $status) = $this->_parser->needsConfiguration();

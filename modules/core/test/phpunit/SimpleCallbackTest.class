@@ -191,7 +191,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		$results = $this->_runCallback();
 
 		$this->assertTrue(strstr($results, 'classes'), 'Missing classes in: ' . $results);
-		$this->assertTrue(!strstr($results, 'templates'), 'Should not have templates in: ' . $results);
+		$this->assertFalse(strstr($results, 'templates'), 'Should not have templates in: ' . $results);
 	}
 
 	public function testLookupDirectoriesWithEntity() {

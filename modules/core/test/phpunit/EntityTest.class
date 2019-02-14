@@ -123,7 +123,7 @@ class EntityTest extends GalleryTestCase {
 					'itemId' => $this->_entity->getId(),
 				)
 			);
-			$this->assertTrue(!empty($data), 'Entity data should be in disk cache');
+			$this->assertFalse(empty($data), 'Entity data should be in disk cache');
 
 			list($ret, $newEntity) = GalleryCoreApi::loadEntitiesById($this->_entity->getId());
 
@@ -146,7 +146,7 @@ class EntityTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$newEntity->_wasOnLoadCalled(), 'onLoad for memory cache load');
+		$this->assertFalse($newEntity->_wasOnLoadCalled(), 'onLoad for memory cache load');
 
 		// Refresh from db
 		list($ret, $newEntity) = $this->_entity->refresh();
@@ -169,19 +169,19 @@ class EntityTest extends GalleryTestCase {
 
 		$entity->removeOnLoadHandler('NotThere');
 		$this->assertEquals(null, $entity->getOnLoadHandlers(), 1);
-		$this->assertTrue(!$entity->hasOnLoadHandler('NotThere'), 2);
+		$this->assertFalse($entity->hasOnLoadHandler('NotThere'), 2);
 		$entity->addOnLoadHandler('EntityTestOnLoadHandler');
 		$this->assertEquals('|EntityTestOnLoadHandler|', $entity->getOnLoadHandlers(), 3);
 		$this->assertTrue($entity->hasOnLoadHandler('EntityTestOnLoadHandler'), 4);
 		$entity->removeOnLoadHandler('EntityTestOnLoadHandler');
 		$this->assertEquals(null, $entity->getOnLoadHandlers(), 5);
-		$this->assertTrue(!$entity->hasOnLoadHandler('EntityTestOnLoadHandler'), 6);
+		$this->assertFalse($entity->hasOnLoadHandler('EntityTestOnLoadHandler'), 6);
 		$entity->addOnLoadHandler('OneTest');
 		$entity->addOnLoadHandler('EntityTestOnLoadHandler');
 		$this->assertEquals('|OneTest|EntityTestOnLoadHandler|', $entity->getOnLoadHandlers(), 7);
 		$this->assertTrue($entity->hasOnLoadHandler('OneTest'), 8);
-		$this->assertTrue(!$entity->hasOnLoadHandler('OneTesto'), 9);
-		$this->assertTrue(!$entity->hasOnLoadHandler('aOneTest'), 10);
+		$this->assertFalse($entity->hasOnLoadHandler('OneTesto'), 9);
+		$this->assertFalse($entity->hasOnLoadHandler('aOneTest'), 10);
 		$this->assertTrue($entity->hasOnLoadHandler('EntityTestOnLoadHandler'), 11);
 		$entity->removeOnLoadHandler('OneTest');
 		$this->assertEquals('|EntityTestOnLoadHandler|', $entity->getOnLoadHandlers(), 12);
@@ -192,7 +192,7 @@ class EntityTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->_markForCleanup($entity);
-		$this->assertTrue(!$entity->_wasOnLoadCalled(), 'onLoad for new entity');
+		$this->assertFalse($entity->_wasOnLoadCalled(), 'onLoad for new entity');
 
 		list($ret, $newEntity) = GalleryCoreApi::loadEntitiesById($entity->getId());
 
@@ -239,7 +239,7 @@ class EntityTest extends GalleryTestCase {
 		$newValue = (string)$oldValue;
 
 		$this->_entity->setModificationTimestamp($newValue);
-		$this->assertTrue(!$this->_entity->isModified(), 'is not modified');
+		$this->assertFalse($this->_entity->isModified(), 'is not modified');
 	}
 
 	public function testSetBackToOldValue() {
@@ -253,7 +253,7 @@ class EntityTest extends GalleryTestCase {
 		$this->assertTrue($this->_entity->isModified(), 'is modified');
 
 		$this->_entity->setModificationTimestamp($oldValue);
-		$this->assertTrue(!$this->_entity->isModified(), 'is not modified');
+		$this->assertFalse($this->_entity->isModified(), 'is not modified');
 	}
 
 	public function testSetSetSet() {
@@ -274,7 +274,7 @@ class EntityTest extends GalleryTestCase {
 		 * different
 		 */
 		$entity->resetOriginalValues();
-		$this->assertTrue(!$entity->isModified(), 'not yet modified');
+		$this->assertFalse($entity->isModified(), 'not yet modified');
 		$entity->setIsLinkable(true);
 		$entity->setIsLinkable(false);
 		$entity->setIsLinkable(true);
@@ -290,7 +290,7 @@ class EntityTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!$entity->isModified('onLoadHandlers'));
+		$this->assertFalse($entity->isModified('onLoadHandlers'));
 		$entity->setOnLoadHandlers('foo');
 		$this->assertTrue($entity->isModified('onLoadHandlers'));
 	}
@@ -318,9 +318,9 @@ class EntityTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!$entity->isModified('onLoadHandlers'), 'after refresh');
+		$this->assertFalse($entity->isModified('onLoadHandlers'), 'after refresh');
 		$entity->setOnLoadHandlers('');
-		$this->assertTrue(!$entity->isModified('onLoadHandlers'), 'should not be modified');
+		$this->assertFalse($entity->isModified('onLoadHandlers'), 'should not be modified');
 	}
 
 	public function testSaveWithoutEvent() {

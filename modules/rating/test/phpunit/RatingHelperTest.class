@@ -112,7 +112,7 @@ class RatingHelperTest extends GalleryTestCase {
 		global $gallery;
 		$session =& $gallery->getSession();
 		$this->assertTrue($session->isPersistent(), 'is persistent');
-		$this->assertTrue(!empty($session->_sessionId), 'session id');
+		$this->assertFalse(empty($session->_sessionId), 'session id');
 
 		$testRating = mt_rand(1, 5);
 
@@ -140,7 +140,7 @@ class RatingHelperTest extends GalleryTestCase {
 		global $gallery;
 		$session =& $gallery->getSession();
 		$this->assertTrue($session->isPersistent(), 'is persistent');
-		$this->assertTrue(!empty($session->_sessionId), 'session id');
+		$this->assertFalse(empty($session->_sessionId), 'session id');
 		$testRating = mt_rand(1, 5);
 
 		$_SERVER['HTTP_USER_AGENT'] = 'Googlebot/2.1 (+http://www.googlebot.com/bot.html)';
@@ -290,7 +290,7 @@ class RatingHelperTest extends GalleryTestCase {
 		global $gallery;
 		$session =& $gallery->getSession();
 		$this->assertTrue($session->isPersistent(), 'is persistent');
-		$this->assertTrue(!empty($session->_sessionId), 'session id');
+		$this->assertFalse(empty($session->_sessionId), 'session id');
 
 		list($ret, $guestId) = GalleryCoreApi::getPluginParameter(
 			'module',
@@ -399,7 +399,7 @@ class RatingHelperTest extends GalleryTestCase {
 			(float)$RatingData[$this->_item->getId()]['rating'],
 			'Average rating test failed.'
 		);
-		$this->assertTrue(!isset($RatingData['userRating']), 'no user rating');
+		$this->assertFalse(isset($RatingData['userRating']), 'no user rating');
 		$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
 
 		// Fetch as another guest with a persistent session that hasn't rated yet
@@ -419,7 +419,7 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!isset($RatingData['userRating']), 'no user rating');
+		$this->assertFalse(isset($RatingData['userRating']), 'no user rating');
 	}
 
 	public function testFetchRatingsForUser() {
@@ -504,7 +504,7 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!isset($content[$itemId]), 'Got an item summary');
+		$this->assertFalse(isset($content[$itemId]), 'Got an item summary');
 	}
 
 	public function testSortOrder() {

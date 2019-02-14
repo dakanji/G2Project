@@ -1081,7 +1081,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'thumbnail',
 			array(3, 4)
 		);
-		$this->assertTrue(!$success);
+		$this->assertFalse($success);
 	}
 
 	public function testDiscoverMimeTypes() {

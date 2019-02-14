@@ -363,7 +363,7 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!isset($plugins[$module->getId()]), 'PluginMap entry still set');
+		$this->assertFalse(isset($plugins[$module->getId()]), 'PluginMap entry still set');
 
 		// Flush cached permissions
 		GalleryDataCache::reset();
@@ -477,7 +477,7 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$isActive, 'is active');
+		$this->assertFalse($isActive, 'is active');
 	}
 
 	public function testInstallBadCoreApi() {
@@ -528,7 +528,7 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$isActive, 'is active');
+		$this->assertFalse($isActive, 'is active');
 	}
 
 	public function testPermissionsCleanup() {

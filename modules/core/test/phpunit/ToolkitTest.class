@@ -365,7 +365,7 @@ class ToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!$isSupported, '3-1');
+		$this->assertFalse($isSupported, '3-1');
 
 		// Unregister toolkit
 		$ret = GalleryCoreApi::unregisterToolkit('TestToolkit');
@@ -383,7 +383,7 @@ class ToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!$isSupported, '4-1');
+		$this->assertFalse($isSupported, '4-1');
 	}
 
 	public function testGetOperationMimeTypes() {

@@ -675,7 +675,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 
 		// Verify that the preferred is still there
 		list($ret, $this->_derivative[0]) = $this->_derivative[0]->refresh();
-		$this->assertTrue(!$ret);
+		$this->assertFalse($ret);
 
 		// Make sure that its postfilter is still the same, but its rotate op is gone
 		$this->assertEquals('bogus|1,2,3', $this->_derivative[0]->getDerivativeOperations());
@@ -736,14 +736,14 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$result, 'should not be supported');
+		$this->assertFalse($result, 'should not be supported');
 
 		list($ret, $result) = $this->_plugin->_checkForOperation('scale', array());
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$result, 'should not be supported');
+		$this->assertFalse($result, 'should not be supported');
 	}
 }
 

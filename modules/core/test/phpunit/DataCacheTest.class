@@ -103,7 +103,7 @@ class DataCacheTest extends GalleryTestCase {
 		GalleryDataCache::put($pKey, $pValue, true);
 		$this->assertTrue(GalleryDataCache::containsKey($pKey), 'Could not put a protected var to GDC');
 		GalleryDataCache::reset();
-		$this->assertTrue(!GalleryDataCache::containsKey($key), 'Could not reset GDC');
+		$this->assertFalse(GalleryDataCache::containsKey($key), 'Could not reset GDC');
 		$this->assertTrue(GalleryDataCache::containsKey($pKey), 'Reset GDC deleted a protected var');
 		GalleryDataCache::reset(true);
 		$this->assertTrue(
@@ -122,9 +122,9 @@ class DataCacheTest extends GalleryTestCase {
 		GalleryDataCache::removeByPattern('bar');
 
 		$this->assertTrue(GalleryDataCache::containsKey('foo(1, 2, 3, 4)', 'baz'));
-		$this->assertTrue(!GalleryDataCache::containsKey('foo(2, 3, 4)', 'baz'));
-		$this->assertTrue(!GalleryDataCache::containsKey('bar(3, 4)', 'baz'));
-		$this->assertTrue(!GalleryDataCache::containsKey('bar(4)', 'baz'));
+		$this->assertFalse(GalleryDataCache::containsKey('foo(2, 3, 4)', 'baz'));
+		$this->assertFalse(GalleryDataCache::containsKey('bar(3, 4)', 'baz'));
+		$this->assertFalse(GalleryDataCache::containsKey('bar(4)', 'baz'));
 	}
 
 	public function testGetCacheTuple() {

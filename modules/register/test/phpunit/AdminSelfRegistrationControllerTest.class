@@ -177,7 +177,7 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testAdminSelfRegistrationControllerActivateMissingUser() {
-		 // set very unlikely user id
+		// set very unlikely user id
 		GalleryUtilities::putRequestVariable('form[userId]', 99999999);
 		GalleryUtilities::putRequestVariable('form[action][activate]', '1');
 
@@ -245,7 +245,7 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryCoreApi::requireOnce(
 			'modules/register/classes/GalleryPendingUserHelper.class'
 		);
-		
+
 		list($ret, $count) = GalleryPendingUserHelper::fetchUserCount();
 
 		if ($ret) {
@@ -265,13 +265,13 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!empty($data), 'User data');
+		$this->assertFalse(empty($data), 'User data');
 
 		list($ret, $data) = GalleryPendingUserHelper::fetchUserData(3, 0, 'testuser');
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!empty($data), 'User data with filter');
+		$this->assertFalse(empty($data), 'User data with filter');
 	}
 }

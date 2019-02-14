@@ -111,7 +111,7 @@ class ViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$wasSpecified, 'not specified');
+		$this->assertFalse($wasSpecified, 'not specified');
 		$this->assertEquals($this->_getRootId(), $item->getId(), 'root album by default');
 
 		// ShowItem view returns wasSpecified==true even when root album selected by default

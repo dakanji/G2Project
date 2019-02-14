@@ -237,7 +237,7 @@ class DerivativeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$current, 'cache is no longer current');
+		$this->assertFalse($current, 'cache is no longer current');
 	}
 
 	public function testRebuildThumbnailOfSmallerThumbnail() {
@@ -434,7 +434,7 @@ class DerivativeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$rebuilt, 'cache was rebuilt but it was not forced to');
+		$this->assertFalse($rebuilt, 'cache was rebuilt but it was not forced to');
 
 		// And try to fix the derivative item
 		list($ret, $derivative, $rebuilt) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($derivative->getId(), true);
@@ -453,7 +453,7 @@ class DerivativeTest extends GalleryTestCase {
 		$this->assertTrue($current, 'cache is not current after fix');
 
 		// Check if the derivative is not marked as broken
-		$this->assertTrue(!$derivative->getIsBroken(), 'Derivative is still broken');
+		$this->assertFalse($derivative->getIsBroken(), 'Derivative is still broken');
 
 		/*
 		 * Check if the derivative is marked as broken even if it failed to set the broken image
@@ -504,7 +504,7 @@ class DerivativeTest extends GalleryTestCase {
 			!isset($$derivativeRet),
 			'GalleryDerivativeHelper_advanced::rebuildCache() did not return null'
 		);
-		$this->assertTrue(!$rebuilt, 'it should have failed and not rebuilt the derivative cache');
+		$this->assertFalse($rebuilt, 'it should have failed and not rebuilt the derivative cache');
 		// Refresh the derivative to get the state from the db
 		list($ret, $derivative) = $derivative->refresh();
 

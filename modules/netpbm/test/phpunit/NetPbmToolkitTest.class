@@ -339,7 +339,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!isset($context['netpbm.transform']), 'extra stuff in context');
+		$this->assertFalse(isset($context['netpbm.transform']), 'extra stuff in context');
 
 		// Ensure if thumbnail operation gets queued it remembers not to preserve metadata
 		$context = array(
@@ -673,7 +673,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		$this->assertEquals(null, $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('crop', array(1, 2, 3, 4), 'thumbnail', array(3, 4));
-		$this->assertTrue(!$success);
+		$this->assertFalse($success);
 	}
 
 	public function testGetOperationsAndProperties() {

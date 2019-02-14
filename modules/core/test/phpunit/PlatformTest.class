@@ -108,31 +108,31 @@ class PlatformTest extends GalleryTestCase {
 
 	public function testMoveUploadedFile() {
 		// XXX: How do we test this?  We don't have an uploaded file :-(
-		$this->assertTrue(!$this->_platform->move_uploaded_file($this->_sourceFile, $this->_destFile));
+		$this->assertFalse($this->_platform->move_uploaded_file($this->_sourceFile, $this->_destFile));
 	}
 
 	public function testFileExists() {
 		$this->assertTrue($this->_platform->file_exists($this->_sourceFile));
-		$this->assertTrue(!$this->_platform->file_exists($this->_destFile));
+		$this->assertFalse($this->_platform->file_exists($this->_destFile));
 	}
 
 	public function testIsLink() {
-		$this->assertTrue(!$this->_platform->is_link($this->_sourceFile));
+		$this->assertFalse($this->_platform->is_link($this->_sourceFile));
 	}
 
 	public function testIsDir() {
 		$this->assertTrue($this->_platform->is_dir(__DIR__));
-		$this->assertTrue(!$this->_platform->is_dir(__FILE__));
+		$this->assertFalse($this->_platform->is_dir(__FILE__));
 	}
 
 	public function testIsFile() {
 		$this->assertTrue($this->_platform->is_file(__FILE__));
-		$this->assertTrue(!$this->_platform->is_file('bogus-file-name'));
+		$this->assertFalse($this->_platform->is_file('bogus-file-name'));
 	}
 
 	public function testIsWriteable() {
 		// On Win32, all files are writeable so the next assertion isn't that useful!
-		// $this->assertTrue(!$this->_platform->is_writeable(__FILE__));
+		// $this->assertFalse($this->_platform->is_writeable(__FILE__));
 
 		$this->assertTrue($this->_platform->copy($this->_sourceFile, $this->_destFile));
 		$this->assertTrue($this->_platform->is_writeable($this->_destFile));
@@ -144,14 +144,14 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testIsUploadedFile() {
-		$this->assertTrue(!$this->_platform->is_uploaded_file($this->_sourceFile));
+		$this->assertFalse($this->_platform->is_uploaded_file($this->_sourceFile));
 	}
 
 	public function testIsExecutable() {
 		if (GalleryUtilities::isA($this->_platform, 'WinNtPlatform')) {
 			$this->assertTrue($this->_platform->is_executable($this->_sourceFile));
 		} else {
-			$this->assertTrue(!$this->_platform->is_executable($this->_sourceFile));
+			$this->assertFalse($this->_platform->is_executable($this->_sourceFile));
 		}
 	}
 
@@ -218,7 +218,7 @@ class PlatformTest extends GalleryTestCase {
 		$this->assertTrue($this->_platform->mkdir($this->_destFile . '/1'));
 
 		// XXX: this generates a PHP error that I can't seem to turn off.
-		// $this->assertTrue(!$this->_platform->rmdir($this->_destFile));
+		// $this->assertFalse($this->_platform->rmdir($this->_destFile));
 
 		$this->assertTrue($this->_platform->rmdir($this->_destFile . '/1'));
 		$this->assertTrue($this->_platform->rmdir($this->_destFile));
@@ -239,7 +239,7 @@ class PlatformTest extends GalleryTestCase {
 
 	public function testIsLegalPathComponent() {
 		$this->assertTrue($this->_platform->isLegalPathComponent('TheQuickBrownFox'));
-		$this->assertTrue(!$this->_platform->isLegalPathComponent('The!QuickBrownFox'));
+		$this->assertFalse($this->_platform->isLegalPathComponent('The!QuickBrownFox'));
 	}
 
 	public function testLegalizePathComponent() {
@@ -365,8 +365,8 @@ class PlatformTest extends GalleryTestCase {
 
 	public function testIsLegalPathComponentForBlacklistedExtension() {
 		$this->_platform->_blacklistedFileExtensions[] = 'xxx';
-		$this->assertTrue(!$this->_platform->isLegalPathComponent('test.xxx'));
-		$this->assertTrue(!$this->_platform->isLegalPathComponent('test.XXX'), 'upper case');
+		$this->assertFalse($this->_platform->isLegalPathComponent('test.xxx'));
+		$this->assertFalse($this->_platform->isLegalPathComponent('test.XXX'), 'upper case');
 	}
 
 	/**
@@ -395,7 +395,7 @@ class PlatformTest extends GalleryTestCase {
 				$gallery->setConfig('data.gallery.tmp', $tmpDir);
 				list($success, $output, $stderr) = $this->_platform->exec(array(array('ls', '/bogus/path')));
 				$this->assertFalse($success, 'expected exec to return error');
-				$this->assertTrue(!empty($stderr), 'expected some stderr output to be returned');
+				$this->assertFalse(empty($stderr), 'expected some stderr output to be returned');
 				$this->_platform->rmdir($tmpDir);
 			}
 		}
@@ -512,7 +512,7 @@ class PlatformTest extends GalleryTestCase {
 					$stat = $this->_platform->stat($this->_destFile);
 			}
 
-			$this->assertTrue(!empty($stat), "$test stat $testNumber $debug");
+			$this->assertFalse(empty($stat), "$test stat $testNumber $debug");
 
 			if ($test == 'symlink') {
 				// On some systems symlinks always have 777 permissions
@@ -695,10 +695,10 @@ class PlatformTest extends GalleryTestCase {
 		global $gallery;
 		$isWin = GalleryUtilities::isA($this->_platform, 'WinNtPlatform');
 
-		$this->assertTrue(!$this->_platform->isRestrictedByOpenBaseDir(__FILE__), 'this file');
+		$this->assertFalse($this->_platform->isRestrictedByOpenBaseDir(__FILE__), 'this file');
 
 		$gallery->_phpVm = new PlatformTestPhpVm(__DIR__, $this);
-		$this->assertTrue(!$this->_platform->isRestrictedByOpenBaseDir(__FILE__), 'simple case');
+		$this->assertFalse($this->_platform->isRestrictedByOpenBaseDir(__FILE__), 'simple case');
 
 		// Bad paths are still checked even though no realpath
 		$this->assertTrue(
@@ -806,8 +806,8 @@ class PlatformTest extends GalleryTestCase {
 		);
 
 		$gallery->_phpVm = new PlatformTestPhpVm('/tes', $this);
-		$this->assertTrue(!$platform->isRestrictedByOpenBaseDir('/testfile'), 'file with prefix');
-		$this->assertTrue(!$platform->isRestrictedByOpenBaseDir('/test/file'), 'dir with prefix');
+		$this->assertFalse($platform->isRestrictedByOpenBaseDir('/testfile'), 'file with prefix');
+		$this->assertFalse($platform->isRestrictedByOpenBaseDir('/test/file'), 'dir with prefix');
 		$this->assertTrue(
 			!$platform->isRestrictedByOpenBaseDir('/tes/bad/path'),
 			'given path can be invalid and match a prefix'
@@ -836,7 +836,7 @@ class PlatformTest extends GalleryTestCase {
 				)
 			);
 			$gallery->_phpVm = new PlatformTestPhpVm('/lin', $this);
-			$this->assertTrue(!$platform->isRestrictedByOpenBaseDir('/linnen'), 'nonlink with prefix');
+			$this->assertFalse($platform->isRestrictedByOpenBaseDir('/linnen'), 'nonlink with prefix');
 			$this->assertTrue($platform->isRestrictedByOpenBaseDir('/linkfile'), 'link with prefix');
 			$this->assertTrue($platform->isRestrictedByOpenBaseDir('/link/file'), 'dir with prefix');
 			$this->assertTrue($platform->isRestrictedByOpenBaseDir('/lonk/file'), 'not match prefix');
@@ -874,7 +874,7 @@ class PlatformTest extends GalleryTestCase {
 			)
 		);
 		$gallery->_phpVm = new PlatformTestPhpVm("${s}test${s}", $this);
-		$this->assertTrue(!$platform->isRestrictedByOpenBaseDir("${s}test"), 'no trailing slash');
+		$this->assertFalse($platform->isRestrictedByOpenBaseDir("${s}test"), 'no trailing slash');
 		$this->assertTrue(
 			$platform->isRestrictedByOpenBaseDir("${s}testing"),
 			'should not match basedir with trailing slash'
@@ -937,7 +937,7 @@ class PlatformTest extends GalleryTestCase {
 				'/'          => '/',
 			)
 		);
-		$this->assertTrue(!$platform->isRestrictedByOpenBaseDir('/'), '/ should be allowed');
+		$this->assertFalse($platform->isRestrictedByOpenBaseDir('/'), '/ should be allowed');
 		$this->assertTrue(
 			!$platform->isRestrictedByOpenBaseDir('/test/file'),
 			'/test/file should be allowed'

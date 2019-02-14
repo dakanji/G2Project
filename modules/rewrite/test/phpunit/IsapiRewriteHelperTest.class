@@ -131,7 +131,7 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
-		$this->assertTrue(!empty($this->_fileContent), 'success fileContent');
+		$this->assertFalse(empty($this->_fileContent), 'success fileContent');
 		unset($this->_fileContent);
 
 		$this->_platform->_isReadable = false;
@@ -142,7 +142,7 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_READ, $code, 'readable');
-		$this->assertTrue(!isset($this->_fileContent), 'readable fileContent');
+		$this->assertFalse(isset($this->_fileContent), 'readable fileContent');
 
 		$this->_platform->_isReadable  = true;
 		$this->_platform->_isWriteable = false;
@@ -153,7 +153,7 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_WRITE, $code, 'writeable');
-		$this->assertTrue(!isset($this->_fileContent), 'writeable fileContent');
+		$this->assertFalse(isset($this->_fileContent), 'writeable fileContent');
 	}
 
 	public function testCheckIsapiRewrite() {

@@ -111,7 +111,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		$this->assertTrue(GalleryUtilities::isA($theme, 'GalleryTheme'), 'theme');
 		$this->assertTrue(is_array($params), 'theme settings');
 		$this->assertTrue(GalleryUtilities::isA($item, 'GalleryDynamicAlbum'), 'item');
-		$this->assertTrue(!isset($item->parent), 'item parent');
+		$this->assertFalse(isset($item->parent), 'item parent');
 		$this->assertEquals('desc', $item->getDescription(), 'description');
 	}
 
@@ -187,7 +187,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 			$theme['pageUrl'],
 			'page url'
 		);
-		$this->assertTrue(!in_array($this->_album->getId(), $theme['allChildIds']), 'album id');
+		$this->assertFalse(in_array($this->_album->getId(), $theme['allChildIds']), 'album id');
 		$this->assertTrue(in_array($this->_item->getId(), $theme['allChildIds']), 'item id');
 	}
 

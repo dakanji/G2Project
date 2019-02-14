@@ -556,7 +556,7 @@ class UserAndGroupTest extends GalleryTestCase {
 				return $ret;
 			}
 			$groupName = $entity->getGroupName();
-			$this->assertTrue(!empty($groupName), "$paramName: group name should not be empty");
+			$this->assertFalse(empty($groupName), "$paramName: group name should not be empty");
 		}
 	}
 
@@ -1350,7 +1350,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		// Create it again
 		list($ret, $duplicateGroup) = $this->_createRandomGroup($groupTag);
 		$this->assertTrue($ret->getErrorCode() & ERROR_COLLISION, 'There should have been a collision');
-		$this->assertTrue(!isset($duplicateGroup));
+		$this->assertFalse(isset($duplicateGroup));
 
 		// Delete it
 		$ret = $this->_deleteAndVerifyEntity($group->getId());
@@ -1388,7 +1388,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		// Create it again
 		list($ret, $duplicateUser) = $this->_createRandomUser($userTag);
 		$this->assertTrue($ret->getErrorCode() & ERROR_COLLISION, 'There should have been a collision');
-		$this->assertTrue(!isset($duplicateUser));
+		$this->assertFalse(isset($duplicateUser));
 
 		// Delete it
 		$ret = $this->_deleteAndVerifyEntity($user->getId());
@@ -1505,7 +1505,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$inGroup);
+		$this->assertFalse($inGroup);
 
 		// Delete user
 		$ret = $this->_deleteAndVerifyEntity($user->getId());
@@ -1701,7 +1701,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$hasPermission, 'guest user shouldn\'t have core.view on item');
+		$this->assertFalse($hasPermission, 'guest user shouldn\'t have core.view on item');
 	}
 
 	public function testAddDuplicateUserToGroup() {
@@ -1763,7 +1763,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!empty($user), 'factory error');
+		$this->assertFalse(empty($user), 'factory error');
 
 		$user->changePassword('password');
 		$this->assertTrue($user->isCorrectPassword('password'), 'password');
@@ -1779,7 +1779,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!empty($user), 'factory error');
+		$this->assertFalse(empty($user), 'factory error');
 
 		// We still support old style simple md5 (G1 thru 1.4.0, G2 thru alpha-4)
 		$user->setHashedPassword(md5('password'));
@@ -1792,7 +1792,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!empty($user), 'factory error');
+		$this->assertFalse(empty($user), 'factory error');
 
 		/*
 		 * 2.0 was released with installer not entitizing password prior to hashing, while
@@ -1815,13 +1815,13 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!empty($user), 'factory error');
+		$this->assertFalse(empty($user), 'factory error');
 
 		set_error_handler('UserAndGroupTest_error_handler');
 
 		// First test with a precomputed hash (12 iterations, also checks file includes)
 		$user->setHashedPassword('$P$FFfHBaR3tCn6NGNEMqrhZZ/1Bi6JQ81');
-		$this->assertTrue(!$user->isCorrectPassword('wrong password'), 'wrong password');
+		$this->assertFalse($user->isCorrectPassword('wrong password'), 'wrong password');
 		$this->assertTrue($user->isCorrectPassword('password'), 'password');
 
 		/*

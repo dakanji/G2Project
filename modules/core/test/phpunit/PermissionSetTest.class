@@ -127,9 +127,9 @@ class PermissionSetTest extends GalleryTestCase {
 
 		// Only one all access perm
 		list($ret, $ids) = GalleryCoreApi::getPermissionIds(GALLERY_PERMISSION_ALL_ACCESS);
-		$this->assertTrue(!isset($ids['test.test1']));
-		$this->assertTrue(!isset($ids['test.test2']));
-		$this->assertTrue(!isset($ids['test.test3']));
+		$this->assertFalse(isset($ids['test.test1']));
+		$this->assertFalse(isset($ids['test.test2']));
+		$this->assertFalse(isset($ids['test.test3']));
 		$this->assertEquals($ids['test.test4'], 'all access permission', 'all access permission');
 	}
 

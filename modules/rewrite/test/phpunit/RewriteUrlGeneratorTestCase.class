@@ -156,7 +156,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			GalleryDataCache::put('G2_EMBED', $this->_origEmbed, true);
 		} else {
 			GalleryDataCache::remove('G2_EMBED');
-			$this->assertTrue(!GalleryDataCache::containsKey('G2_EMBED'), 'Could not remove a GDC var');
+			$this->assertFalse(GalleryDataCache::containsKey('G2_EMBED'), 'Could not remove a GDC var');
 		}
 
 		$ret = parent::tearDown();
@@ -299,7 +299,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!$urlGenerator->_error);
+		$this->assertFalse($urlGenerator->_error);
 		$this->assertEquals(
 			'http://example.com/gallery2/',
 			$urlGenerator->_getBaseUrl(),
@@ -316,7 +316,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'baseUrl no forceDirect'
 		);
 
-		$this->assertTrue(!$urlGenerator->_error);
+		$this->assertFalse($urlGenerator->_error);
 		$this->assertEquals('', $urlGenerator->_getBaseParamString(), 'baseParamss default');
 		$this->assertEquals('', $urlGenerator->_getBaseParamString(true), 'baseParams forceDirect');
 		$this->assertEquals(
@@ -335,7 +335,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!$urlGenerator->_error);
+		$this->assertFalse($urlGenerator->_error);
 		$this->assertEquals(
 			'http://example.com/cms/',
 			$urlGenerator->_getBaseUrl(),
@@ -352,7 +352,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'baseUrl no forceDirect'
 		);
 
-		$this->assertTrue(!$urlGenerator->_error);
+		$this->assertFalse($urlGenerator->_error);
 		$this->assertEquals('', $urlGenerator->_getBaseParamString(), 'baseParamss default');
 		$this->assertEquals('', $urlGenerator->_getBaseParamString(true), 'baseParams forceDirect');
 		$this->assertEquals(

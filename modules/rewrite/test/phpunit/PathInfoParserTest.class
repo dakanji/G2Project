@@ -118,6 +118,6 @@ class PathInfoParserTest extends RewriteParserTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!$status, 'forced');
+		$this->assertFalse($status, 'forced');
 	}
 }

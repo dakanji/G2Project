@@ -406,7 +406,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			),
 			$index->_index
 		);
-		$this->assertTrue(!$index->_isLoaded, 'GalleryRepositoryIndex::isLoaded is set.');
+		$this->assertFalse($index->_isLoaded, 'GalleryRepositoryIndex::isLoaded is set.');
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 

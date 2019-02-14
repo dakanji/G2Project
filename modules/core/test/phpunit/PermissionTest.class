@@ -1196,7 +1196,7 @@ class PermissionTest extends GalleryTestCase {
 
 		$this->assertTrue(in_array($newAclId[0], $aclIds), 'missing user acl');
 		$this->assertTrue(in_array($newAclId[1], $aclIds), 'missing group acl');
-		$this->assertTrue(!in_array($newAclId[2], $aclIds), 'shouldn\'t see this acl');
+		$this->assertFalse(in_array($newAclId[2], $aclIds), 'shouldn\'t see this acl');
 
 		// Test session based permission
 		$session =& $gallery->getSession();
@@ -1221,7 +1221,7 @@ class PermissionTest extends GalleryTestCase {
 		}
 
 		// Don't use session permissions if given user not current user
-		$this->assertTrue(!in_array($newAclId[2], $aclIds), 'shouldn\'t see entity acl');
+		$this->assertFalse(in_array($newAclId[2], $aclIds), 'shouldn\'t see entity acl');
 
 		$ret = GalleryCoreApi::removeMapEntry(
 			'GalleryAccessMap',
@@ -1252,7 +1252,7 @@ class PermissionTest extends GalleryTestCase {
 
 		$this->assertTrue(in_array($newAclId[0], $aclIds), 'should see acl 0');
 		$this->assertTrue(in_array($newAclId[1], $aclIds), 'should see acl 1');
-		$this->assertTrue(!in_array($newAclId[2], $aclIds), 'shouldn\'t see this acl');
+		$this->assertFalse(in_array($newAclId[2], $aclIds), 'shouldn\'t see this acl');
 	}
 
 	public function testFetchAccessListIdsForArrayWithTwoPermissions() {
@@ -1274,7 +1274,7 @@ class PermissionTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(in_array($newAclId[0], $aclIds), 'should see acl 0');
-		$this->assertTrue(!in_array($newAclId[1], $aclIds), 'shouldn\'t see this acl');
+		$this->assertFalse(in_array($newAclId[1], $aclIds), 'shouldn\'t see this acl');
 		$this->assertTrue(in_array($newAclId[2], $aclIds), 'should see acl 2');
 	}
 
@@ -1293,9 +1293,9 @@ class PermissionTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!in_array($newAclId[0], $aclIds), 'shouldn\'t see acl 0');
-		$this->assertTrue(!in_array($newAclId[1], $aclIds), 'shouldn\'t see acl 1');
-		$this->assertTrue(!in_array($newAclId[2], $aclIds), 'shouldn\'t see acl 2');
+		$this->assertFalse(in_array($newAclId[0], $aclIds), 'shouldn\'t see acl 0');
+		$this->assertFalse(in_array($newAclId[1], $aclIds), 'shouldn\'t see acl 1');
+		$this->assertFalse(in_array($newAclId[2], $aclIds), 'shouldn\'t see acl 2');
 	}
 
 	public function testFetchAccessListIdsForArrayWithFourPermissions() {
@@ -1317,8 +1317,8 @@ class PermissionTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(in_array($newAclId[0], $aclIds), 'should see acl 0');
-		$this->assertTrue(!in_array($newAclId[1], $aclIds), 'shouldn\'t see acl 1');
-		$this->assertTrue(!in_array($newAclId[2], $aclIds), 'shouldn\'t see acl 2');
+		$this->assertFalse(in_array($newAclId[1], $aclIds), 'shouldn\'t see acl 1');
+		$this->assertFalse(in_array($newAclId[2], $aclIds), 'shouldn\'t see acl 2');
 	}
 
 	public function _prepareForFetchAccessListIds() {
@@ -1709,7 +1709,7 @@ class PermissionTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$hasItemPermission, 'new user should not have core.changePermissions');
+		$this->assertFalse($hasItemPermission, 'new user should not have core.changePermissions');
 	}
 
 	public function testHasItemPermissionChecksPermissionCache() {
@@ -1741,7 +1741,7 @@ class PermissionTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$hasItemPermission, 'core.changePermissions not in cached result');
+		$this->assertFalse($hasItemPermission, 'core.changePermissions not in cached result');
 
 		list($ret, $hasItemPermission) = GalleryCoreApi::hasItemPermission($itemId, 'core.foo', $userId);
 
@@ -1869,7 +1869,7 @@ class PermissionTest extends GalleryTestCase {
 			return $ret;
 		}
 		$ret = GalleryCoreApi::assertHasItemPermission($this->_albums[2]->getId(), 'core.view');
-		$this->assertTrue(!$ret, 'multiroot');
+		$this->assertFalse($ret, 'multiroot');
 	}
 
 	public function testRecursiveRemove() {
@@ -1947,7 +1947,7 @@ class PermissionTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$canView, 'should not have view permission');
+		$this->assertFalse($canView, 'should not have view permission');
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($this->_albums[0]->getId());
 
 		if ($ret) {
@@ -2024,7 +2024,7 @@ class PermissionTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$searchResults->resultCount(), 'Precondition failed');
+		$this->assertFalse($searchResults->resultCount(), 'Precondition failed');
 
 		// 3. Execute the method under test
 		list($ret, $groupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');

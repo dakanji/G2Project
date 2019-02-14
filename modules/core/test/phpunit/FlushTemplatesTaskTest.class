@@ -99,7 +99,7 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 			)
 		);
 
-		$this->assertTrue(!$success, 'should have failed');
+		$this->assertFalse($success, 'should have failed');
 		$this->assertEquals(array($expected), $details);
 		$this->assertEquals(
 			array(

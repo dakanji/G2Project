@@ -95,7 +95,7 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!$urlGenerator->_error);
+		$this->assertFalse($urlGenerator->_error);
 		$this->assertEquals(
 			'http://example.com/gallery2/phpunit_test.php/',
 			$urlGenerator->_getBaseUrl(),
@@ -124,7 +124,7 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!$urlGenerator->_error);
+		$this->assertFalse($urlGenerator->_error);
 		$this->assertEquals(
 			'http://example.com/cms/index.php/',
 			$urlGenerator->_getBaseUrl(),

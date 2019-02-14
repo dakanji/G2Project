@@ -627,7 +627,7 @@ class UtilitiesTest extends GalleryTestCase {
 	public function testIsA() {
 		$this->assertTrue(GalleryUtilities::isA(new UtilitiesTest('x'), 'GalleryTestCase'));
 		$this->assertTrue(GalleryUtilities::isA(new UtilitiesTest('x'), 'UtilitiesTest'));
-		$this->assertTrue(!GalleryUtilities::isA(new UtilitiesTest('x'), 'GalleryEntity'));
+		$this->assertFalse(GalleryUtilities::isA(new UtilitiesTest('x'), 'GalleryEntity'));
 	}
 
 	public function testIsExactlyA() {
@@ -659,25 +659,25 @@ class UtilitiesTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertTrue(GalleryUtilities::isExactlyA($album, 'GalleryAlbumItem'), 'album');
-		$this->assertTrue(!GalleryUtilities::isExactlyA($album, 'GalleryItem'), 'item');
+		$this->assertFalse(GalleryUtilities::isExactlyA($album, 'GalleryItem'), 'item');
 	}
 
 	public function testHasRequestVariable() {
 		$key = 'TESTKEY';
-		$this->assertTrue(!GalleryUtilities::hasRequestVariable($key));
+		$this->assertFalse(GalleryUtilities::hasRequestVariable($key));
 		GalleryUtilities::putRequestVariable($key, 'TESTVALUE');
 		$this->assertTrue(GalleryUtilities::hasRequestVariable($key));
-		$this->assertTrue(!GalleryUtilities::hasRequestVariable($key, false));
+		$this->assertFalse(GalleryUtilities::hasRequestVariable($key, false));
 		GalleryUtilities::putRequestVariable($key, 'TESTVALUE', false);
 		$this->assertTrue(GalleryUtilities::hasRequestVariable($key, false));
 	}
 
 	public function testHasRequestVariable2() {
 		$key = 'foo[TEST][KEY]';
-		$this->assertTrue(!GalleryUtilities::hasRequestVariable($key));
+		$this->assertFalse(GalleryUtilities::hasRequestVariable($key));
 		GalleryUtilities::putRequestVariable($key, 'TESTVALUE');
 		$this->assertTrue(GalleryUtilities::hasRequestVariable($key));
-		$this->assertTrue(!GalleryUtilities::hasRequestVariable($key, false));
+		$this->assertFalse(GalleryUtilities::hasRequestVariable($key, false));
 		GalleryUtilities::putRequestVariable($key, 'TESTVALUE', false);
 		$this->assertTrue(GalleryUtilities::hasRequestVariable($key, false));
 	}
@@ -687,11 +687,11 @@ class UtilitiesTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable($key, 'TESTVALUE');
 		$this->assertTrue(GalleryUtilities::hasRequestVariable($key));
 		GalleryUtilities::removeRequestVariable($key);
-		$this->assertTrue(!GalleryUtilities::hasRequestVariable($key));
+		$this->assertFalse(GalleryUtilities::hasRequestVariable($key));
 		GalleryUtilities::putRequestVariable($key, 'TESTVALUE', false);
 		$this->assertTrue(GalleryUtilities::hasRequestVariable($key, false));
 		GalleryUtilities::removeRequestVariable($key, false);
-		$this->assertTrue(!GalleryUtilities::hasRequestVariable($key, false));
+		$this->assertFalse(GalleryUtilities::hasRequestVariable($key, false));
 	}
 
 	public function testRemoveRequestVariable2() {
@@ -699,7 +699,7 @@ class UtilitiesTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable($key, 'TESTVALUE');
 		$this->assertTrue(GalleryUtilities::hasRequestVariable($key));
 		GalleryUtilities::removeRequestVariable($key);
-		$this->assertTrue(!GalleryUtilities::hasRequestVariable($key));
+		$this->assertFalse(GalleryUtilities::hasRequestVariable($key));
 	}
 
 	public function testRemoveFormVariables() {
@@ -842,7 +842,7 @@ class UtilitiesTest extends GalleryTestCase {
 		$this->assertTrue(GalleryUtilities::isTrustedProxy('10.1.2.3'), '10/8 failed');
 		$this->assertTrue(GalleryUtilities::isTrustedProxy('172.16.254.253'), '172.16/12 failed 1');
 		$this->assertTrue(GalleryUtilities::isTrustedProxy('172.31.254.253'), '172.16/12 failed 2');
-		$this->assertTrue(!GalleryUtilities::isTrustedProxy('172.32.254.253'), '172.16/12 failed 3');
+		$this->assertFalse(GalleryUtilities::isTrustedProxy('172.32.254.253'), '172.16/12 failed 3');
 		$this->assertTrue(GalleryUtilities::isTrustedProxy('192.168.1.2'), '192.168/16 failed');
 	}
 
@@ -1866,7 +1866,7 @@ class UtilitiesTest extends GalleryTestCase {
 
 			foreach ($tests as $tC) {
 				$_COOKIE = array();
-				$this->assertTrue(!count($_COOKIE), 'Could not reset superglobal $_COOKIE');
+				$this->assertFalse(count($_COOKIE), 'Could not reset superglobal $_COOKIE');
 				// Execute the test
 				$fixedCookies = array();
 
@@ -1981,7 +1981,7 @@ class UtilitiesTest extends GalleryTestCase {
 		// Assume we don't have r+w permission for the root directory '/'.
 		list($success, $created) = GalleryUtilities::guaranteeDirExists('/noread/permission');
 		// Basically we verify that the function finishes / that there is no infinite loop.
-		$this->assertTrue(!$success, 'guaranteeDirExists');
+		$this->assertFalse($success, 'guaranteeDirExists');
 		$this->assertEquals(array(), $created);
 	}
 
@@ -2383,7 +2383,7 @@ class UtilitiesTest extends GalleryTestCase {
 			'test@tld-is.tooLong',
 			'two@ats@fun.com',
 		) as $invalid) {
-			$this->assertTrue(!GalleryUtilities::isValidEmailString($invalid), $invalid);
+			$this->assertFalse(GalleryUtilities::isValidEmailString($invalid), $invalid);
 		}
 	}
 }

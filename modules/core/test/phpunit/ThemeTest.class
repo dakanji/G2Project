@@ -431,7 +431,7 @@ class ThemeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$isActive, 'is active');
+		$this->assertFalse($isActive, 'is active');
 	}
 
 	public function testInstallBadCoreApi() {
@@ -468,7 +468,7 @@ class ThemeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$isActive, 'is active');
+		$this->assertFalse($isActive, 'is active');
 	}
 
 	public function testDeactivateDefaultTheme() {

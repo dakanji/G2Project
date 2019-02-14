@@ -161,9 +161,9 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!in_array('Make', $properties));
-		$this->assertTrue(!in_array('ISO', $properties));
-		$this->assertTrue(!in_array('IPTC/CopyrightNotice', $properties));
+		$this->assertFalse(in_array('Make', $properties));
+		$this->assertFalse(in_array('ISO', $properties));
+		$this->assertFalse(in_array('IPTC/CopyrightNotice', $properties));
 	}
 
 	public function testRemoveFromSummaryMissing() {
@@ -408,9 +408,9 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!in_array('Make', $properties));
-		$this->assertTrue(!in_array('ISO', $properties));
-		$this->assertTrue(!in_array('IPTC/CopyrightNotice', $properties));
+		$this->assertFalse(in_array('Make', $properties));
+		$this->assertFalse(in_array('ISO', $properties));
+		$this->assertFalse(in_array('IPTC/CopyrightNotice', $properties));
 	}
 
 	public function testRemoveFromDetailedMissing() {

@@ -523,7 +523,7 @@ class GdToolkitTest extends GalleryTestCase {
 		$this->assertEquals(null, $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('crop', array(1, 2), 'thumbnail', array(3, 4));
-		$this->assertTrue(!$success);
+		$this->assertFalse($success);
 	}
 
 	public function testDiscoverMimeTypes() {
@@ -771,7 +771,7 @@ class GdToolkitTest extends GalleryTestCase {
 		// After some operation, the resource has no transparent color index anymore...
 		$gd->imagecolortransparent($res, -1);
 		$hasTransparency = $this->_toolkit->_canHaveTransparency('image/gif', $res);
-		$this->assertTrue(!$hasTransparency, 'has transparency 2');
+		$this->assertFalse($hasTransparency, 'has transparency 2');
 
 		// Call the method under test through the save wrapper
 		$ret = $this->_toolkit->_saveImageResourceToFile(

@@ -645,7 +645,7 @@ class ItemTest extends GalleryTestCase {
 		// We should see children 0 & 2 and the parent
 		$this->assertTrue(in_array($this->_album->getId(), $ids), 'parent');
 		$this->assertTrue(in_array($child[0]->getId(), $ids), 'child 0');
-		$this->assertTrue(!in_array($child[1]->getId(), $ids), 'child 1');
+		$this->assertFalse(in_array($child[1]->getId(), $ids), 'child 1');
 		$this->assertTrue(in_array($child[2]->getId(), $ids), 'child 2');
 
 		// Make sure there's no duplication
@@ -751,7 +751,7 @@ class ItemTest extends GalleryTestCase {
 		// We should see children 0 & 2
 		$this->assertTrue(in_array($this->_album->getId(), $ids), 'parent');
 		$this->assertTrue(in_array($child[0]->getId(), $ids), 'child 0');
-		$this->assertTrue(!in_array($child[1]->getId(), $ids), 'child 1');
+		$this->assertFalse(in_array($child[1]->getId(), $ids), 'child 1');
 		$this->assertTrue(in_array($child[2]->getId(), $ids), 'child 2');
 
 		// Make sure there's no duplication
@@ -1262,7 +1262,7 @@ class ItemTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!$success, 'should not be able to set thumbnail');
+		$this->assertFalse($success, 'should not be able to set thumbnail');
 
 		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(
 			array($this->_album->getId())
@@ -1272,7 +1272,7 @@ class ItemTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!isset($thumbTable[$this->_album->getId()]));
+		$this->assertFalse(isset($thumbTable[$this->_album->getId()]));
 	}
 
 	/*
@@ -1335,7 +1335,7 @@ class ItemTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!$success, 'should not be able to set thumbnail');
+		$this->assertFalse($success, 'should not be able to set thumbnail');
 	}
 
 	public function testAddItemToAlbum() {
@@ -2429,7 +2429,7 @@ class ItemTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!empty($thumbTable[$newItem->getId()]), 'missing thumbnail');
+		$this->assertFalse(empty($thumbTable[$newItem->getId()]), 'missing thumbnail');
 		$operation = $thumbTable[$newItem->getId()]->getDerivativeOperations();
 		$this->assertTrue(
 			($operation == 'thumbnail|[0]' ||

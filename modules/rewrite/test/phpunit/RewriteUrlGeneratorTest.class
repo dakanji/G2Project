@@ -98,7 +98,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!$urlGenerator->_error);
+		$this->assertFalse($urlGenerator->_error);
 		$this->assertEquals(
 			array(
 				'php.Unit' => array(
@@ -125,7 +125,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 		$url    = 't/%phpunit%';
 
 		$ret = $this->_urlGenerator->_parseShortUrl($url, $params, $options, $functions);
-		$this->assertTrue(!$ret, 'status');
+		$this->assertFalse($ret, 'status');
 	}
 
 	public function testParseShortUrlNoUrlEncode() {

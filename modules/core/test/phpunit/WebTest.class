@@ -85,7 +85,7 @@ class WebTest extends GalleryTestCase {
 
 		$expectedBody[] = 'not found!';
 
-		$this->assertTrue(!$success);
+		$this->assertFalse($success);
 		$this->assertEquals($response, 'HTTP/1.1 404 NOT FOUND');
 		$this->assertEquals($expectedHeaders, $headers);
 		$this->assertEquals(join("\n", $expectedBody) . "\n", $body);
@@ -109,7 +109,7 @@ class WebTest extends GalleryTestCase {
 
 		$expectedBody[] = 'config error!';
 
-		$this->assertTrue(!$success);
+		$this->assertFalse($success);
 		$this->assertTrue($response, 'HTTP/1.1 500 INTERNAL SERVER ERROR');
 		$this->assertEquals($expectedHeaders, $headers);
 		$this->assertEquals(join("\n", $expectedBody) . "\n", $body);
@@ -285,7 +285,7 @@ class WebTest extends GalleryTestCase {
 			array(),
 			6
 		);
-		$this->assertTrue(!$success);
+		$this->assertFalse($success);
 		$this->assertEquals(null, $body);
 		$this->assertEquals(null, $response);
 		$this->assertEquals(null, $headers);

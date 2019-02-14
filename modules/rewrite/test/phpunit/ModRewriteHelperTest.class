@@ -175,7 +175,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
-		$this->assertTrue(!empty($this->_fileContent), 'success fileContent');
+		$this->assertFalse(empty($this->_fileContent), 'success fileContent');
 		unset($this->_fileContent);
 
 		$this->_platform->_isReadable = false;
@@ -186,7 +186,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_READ, $code, 'readable');
-		$this->assertTrue(!isset($this->_fileContent), 'readable fileContent');
+		$this->assertFalse(isset($this->_fileContent), 'readable fileContent');
 
 		$this->_platform->_isReadable  = true;
 		$this->_platform->_isWriteable = false;
@@ -197,7 +197,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_WRITE, $code, 'writeable');
-		$this->assertTrue(!isset($this->_fileContent), 'writeable fileContent');
+		$this->assertFalse(isset($this->_fileContent), 'writeable fileContent');
 	}
 
 	public function testWriteFileEmbedded() {
@@ -208,7 +208,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
-		$this->assertTrue(!empty($this->_embeddedFileContent), 'success fileContent');
+		$this->assertFalse(empty($this->_embeddedFileContent), 'success fileContent');
 		unset($this->_embeddedFileContent);
 
 		$this->_platform->_isReadableEmbed = false;
@@ -219,7 +219,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_EMBED_HTACCESS_CANT_READ, $code, 'readable');
-		$this->assertTrue(!isset($this->_embeddedFileContent), 'readable fileContent');
+		$this->assertFalse(isset($this->_embeddedFileContent), 'readable fileContent');
 
 		$this->_platform->_isReadableEmbed  = true;
 		$this->_platform->_isWriteableEmbed = false;
@@ -230,7 +230,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_EMBED_HTACCESS_CANT_WRITE, $code, 'writeable');
-		$this->assertTrue(!isset($this->_embeddedFileContent), 'writeable fileContent');
+		$this->assertFalse(isset($this->_embeddedFileContent), 'writeable fileContent');
 	}
 
 	public function testGetHtaccessContentForEmbeddedDownloadItemRule() {

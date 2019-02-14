@@ -268,7 +268,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 
 		$this->assertTrue($info['runId'] > 0);
 		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
-		$this->assertTrue(!$info['success']);
+		$this->assertFalse($info['success']);
 		$this->assertEquals(array('fail details'), $info['details']);
 	}
 
@@ -333,7 +333,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 
 		$this->assertTrue($info['runId'] > 0);
 		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
-		$this->assertTrue(!$info['success']);
+		$this->assertFalse($info['success']);
 		$this->assertTrue(strstr($info['details'], 'ERROR_UNKNOWN'));
 	}
 
@@ -367,7 +367,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 
 		$this->assertTrue($info['runId'] > 0);
 		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
-		$this->assertTrue(!$info['success']);
+		$this->assertFalse($info['success']);
 		$this->assertEquals(array('fail details'), $info['details']);
 	}
 }

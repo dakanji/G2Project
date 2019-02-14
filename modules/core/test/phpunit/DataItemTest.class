@@ -326,6 +326,6 @@ class DataItemTest extends GalleryTestCase {
 		}
 		// Verify results
 		$this->assertEquals($platform->filesize(__FILE__), $item->getSize(), 'updated size');
-		$this->assertTrue(!$platform->file_exists($path), 'fast-download file should be removed');
+		$this->assertFalse($platform->file_exists($path), 'fast-download file should be removed');
 	}
 }

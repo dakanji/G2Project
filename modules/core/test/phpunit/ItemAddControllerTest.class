@@ -522,7 +522,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!in_array($archive->getId(), $childIds), 'archive item has not been deleted');
+		$this->assertFalse(in_array($archive->getId(), $childIds), 'archive item has not been deleted');
 		$this->assertTrue(in_array($item->getId(), $childIds), 'normal item has been deleted');
 
 		list($ret, $item) = GalleryCoreApi::loadEntitiesById($addedItems[0]['id'], 'GalleryDataItem');
@@ -649,7 +649,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!in_array($archive->getId(), $childIds), 'archive item has not been deleted');
+		$this->assertFalse(in_array($archive->getId(), $childIds), 'archive item has not been deleted');
 		$this->assertTrue(in_array($item->getId(), $childIds), 'normal item has been deleted');
 
 		list($ret, $item) = GalleryCoreApi::loadEntitiesById($addedItems[0]['id'], 'GalleryDataItem');

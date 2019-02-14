@@ -63,7 +63,7 @@ class PluginCallbackTest extends GalleryTestCase {
 				'pluginId' => 'PluginCallbackControllerTest',
 			)
 		);
-		$this->assertTrue(!$ret);
+		$this->assertFalse($ret);
 
 		$ret = parent::tearDown();
 
@@ -376,7 +376,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
-		$this->assertTrue(!$this->_testPlugin->wasCalled('activate'), 'activate was called');
+		$this->assertFalse($this->_testPlugin->wasCalled('activate'), 'activate was called');
 	}
 
 	// Deactivate a module that is active (should succeed)
@@ -469,7 +469,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
-		$this->assertTrue(!$this->_testPlugin->wasCalled('deactivate'), 'deactivate was called');
+		$this->assertFalse($this->_testPlugin->wasCalled('deactivate'), 'deactivate was called');
 	}
 
 	// Deactivate a theme that is inactive (should succeed silently)
@@ -486,7 +486,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
-		$this->assertTrue(!$this->_testPlugin->wasCalled('deactivate'), 'deactivate was called');
+		$this->assertFalse($this->_testPlugin->wasCalled('deactivate'), 'deactivate was called');
 	}
 
 	public function testUninstallActiveModule() {
@@ -973,7 +973,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		ob_end_clean();
 
 		$this->assertEquals('{"status":"error"}', $results);
-		$this->assertTrue(!empty($mockStorage->rolledBack), 'Rollback did not occur');
+		$this->assertFalse(empty($mockStorage->rolledBack), 'Rollback did not occur');
 		$this->assertTrue(MockGalleryStatus::doStatic()->wasPutInSession(), 'Error not put into the session');
 		$gallery->_storage = $saveStorage;
 	}
@@ -998,7 +998,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		ob_end_clean();
 
 		$this->assertEquals('{"status":"error"}', $results);
-		$this->assertTrue(!empty($mockStorage->rolledBack), 'Rollback did not occur');
+		$this->assertFalse(empty($mockStorage->rolledBack), 'Rollback did not occur');
 		$this->assertTrue(MockGalleryStatus::doStatic()->wasPutInSession(), 'Error not put into the session');
 		$gallery->_storage = $saveStorage;
 	}
@@ -1024,8 +1024,8 @@ class PluginCallbackTest extends GalleryTestCase {
 		ob_end_clean();
 
 		$this->assertEquals('{"status":"error"}', $results);
-		$this->assertTrue(!empty($mockStorage->checkPointed), 'Checkpoint did not occur');
-		$this->assertTrue(!empty($mockStorage->rolledBack), 'Rollback did not occur');
+		$this->assertFalse(empty($mockStorage->checkPointed), 'Checkpoint did not occur');
+		$this->assertFalse(empty($mockStorage->rolledBack), 'Rollback did not occur');
 		$this->assertTrue(MockGalleryStatus::doStatic()->wasPutInSession(), 'Error not put into the session');
 		$gallery->_storage = $saveStorage;
 	}

@@ -206,7 +206,7 @@ class ControllerTest extends GalleryTestCase {
 
 	public function testOmitAuthTokenCheckDefaultsToFalse() {
 		$controller = new GalleryController();
-		$this->assertTrue(!$controller->omitAuthTokenCheck(), 'should default to false');
+		$this->assertFalse($controller->omitAuthTokenCheck(), 'should default to false');
 	}
 
 	public function testGetItemOnlyReturnsItems() {

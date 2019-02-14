@@ -218,7 +218,7 @@ class FastDownloadTest extends GalleryTestCase {
 			50
 		);
 
-		$this->assertTrue(!$ret, 'status');
+		$this->assertFalse($ret, 'status');
 	}
 
 	// Fake event that removes permissions that don't affect the guest user

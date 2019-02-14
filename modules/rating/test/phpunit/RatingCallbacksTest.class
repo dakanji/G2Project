@@ -187,7 +187,7 @@ class RatingCallbacksTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!isset($this->_smarty->_tpl_vars['block']), 'Received rating block.');
+		$this->assertFalse(isset($this->_smarty->_tpl_vars['block']), 'Received rating block.');
 	}
 
 	public function testRatingNoViewPermissionPermissionNone() {
@@ -250,7 +250,7 @@ class RatingCallbacksTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!isset($this->_smarty->_tpl_vars['block']), 'Received rating block.');
+		$this->assertFalse(isset($this->_smarty->_tpl_vars['block']), 'Received rating block.');
 	}
 
 	public function testRatingPermissionViewOnly() {
@@ -403,7 +403,7 @@ class RatingCallbacksTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!isset($this->_smarty->_tpl_vars['block']), 'Received rating block.');
+		$this->assertFalse(isset($this->_smarty->_tpl_vars['block']), 'Received rating block.');
 	}
 
 	public function testRatingForDisabledAlbum() {
@@ -425,6 +425,6 @@ class RatingCallbacksTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!isset($this->_smarty->_tpl_vars['block']), 'Received rating block.');
+		$this->assertFalse(isset($this->_smarty->_tpl_vars['block']), 'Received rating block.');
 	}
 }

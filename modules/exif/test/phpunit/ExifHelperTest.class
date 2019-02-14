@@ -161,7 +161,7 @@ class ExifHelperTest extends GalleryTestCase {
 
 		for ($i = 0; $i < sizeof($exifData); $i++) {
 			$title = $exifData[$i]['title'];
-			$this->assertTrue(!isset($seen[$title]), "$title is duplicated");
+			$this->assertFalse(isset($seen[$title]), "$title is duplicated");
 			$seen[$title] = 1;
 		}
 	}
@@ -579,8 +579,8 @@ class ExifHelperTest extends GalleryTestCase {
 		}
 
 		// Make sure they are gone.
-		$this->assertTrue(!in_array('IPTC/Caption', $properties), 'Caption not gone');
-		$this->assertTrue(!in_array('IPTC/CopyrightNotice', $properties), 'CopyrightNotice not gone');
+		$this->assertFalse(in_array('IPTC/Caption', $properties), 'Caption not gone');
+		$this->assertFalse(in_array('IPTC/CopyrightNotice', $properties), 'CopyrightNotice not gone');
 
 		// Add them back with the function to test.
 		$ret = ExifHelper::addDefaultIptcProperties(EXIF_SUMMARY);
@@ -627,9 +627,9 @@ class ExifHelperTest extends GalleryTestCase {
 		}
 
 		// Make sure they are gone.
-		$this->assertTrue(!in_array('IPTC/Caption', $properties), 'Caption not gone');
-		$this->assertTrue(!in_array('IPTC/CopyrightNotice', $properties), 'CopyrightNotice not gone');
-		$this->assertTrue(!in_array('IPTC/Keywords', $properties), 'Keywords not gone');
+		$this->assertFalse(in_array('IPTC/Caption', $properties), 'Caption not gone');
+		$this->assertFalse(in_array('IPTC/CopyrightNotice', $properties), 'CopyrightNotice not gone');
+		$this->assertFalse(in_array('IPTC/Keywords', $properties), 'Keywords not gone');
 
 		// Add them back with the function to test.
 		$ret = ExifHelper::addDefaultIptcProperties(EXIF_DETAILED);

@@ -348,13 +348,13 @@ class EmbedTest extends GalleryTestCase {
 		$this->assertTrue(is_int($apiVersion[1]), 'minor');
 		$this->assertTrue(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), 'same version');
 		$apiVersion[1] += 7;
-		$this->assertTrue(!GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), 'API too old');
+		$this->assertFalse(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), 'API too old');
 		$apiVersion[1] -= 9;
 		$this->assertTrue(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), 'API is newer');
 		$apiVersion[0] += 1;
-		$this->assertTrue(!GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), '(major) API too old');
+		$this->assertFalse(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), '(major) API too old');
 		$apiVersion[0] -= 2;
-		$this->assertTrue(!GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), '(major) API too new');
+		$this->assertFalse(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), '(major) API too new');
 	}
 
 	// Test the session doesn't change if the activeUserId equals the session's external id
@@ -946,7 +946,7 @@ class EmbedTest extends GalleryTestCase {
 		}
 		$this->_markForCleanup($user);
 		$this->assertTrue($user->isCorrectPassword('secret'), 'correct password');
-		$this->assertTrue(!$user->isCorrectPassword('123456'), 'incorrect password');
+		$this->assertFalse($user->isCorrectPassword('123456'), 'incorrect password');
 	}
 
 	public function testUpdateUserWithClearTextPassword() {
@@ -976,7 +976,7 @@ class EmbedTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($user->isCorrectPassword('secret'), 'correct password');
-		$this->assertTrue(!$user->isCorrectPassword('123456'), 'incorrect password');
+		$this->assertFalse($user->isCorrectPassword('123456'), 'incorrect password');
 	}
 
 	public function testUpdateUserWithMd5PasswordHash() {
@@ -1007,7 +1007,7 @@ class EmbedTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($user->isCorrectPassword('secret'), 'correct password');
-		$this->assertTrue(!$user->isCorrectPassword('123456'), 'incorrect password');
+		$this->assertFalse($user->isCorrectPassword('123456'), 'incorrect password');
 	}
 
 	public function testUpdateUserWithPhpassPasswordHash() {

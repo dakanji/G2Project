@@ -338,7 +338,7 @@ class LockTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!GalleryCoreApi::isWriteLocked($targetId), $lockSystem . ' unlock');
+		$this->assertFalse(GalleryCoreApi::isWriteLocked($targetId), $lockSystem . ' unlock');
 	}
 
 	// See comment above
@@ -406,7 +406,7 @@ class LockTest extends GalleryTestCase {
 			}
 		} else {
 			// Lock successfully acquired, this should only happen on nontransactional databases
-			$this->assertTrue(!$storage->isTransactional(), 'Lock acquired on transactional database.');
+			$this->assertFalse($storage->isTransactional(), 'Lock acquired on transactional database.');
 
 			$ret = GalleryCoreApi::releaseLocks($secondLockId);
 

@@ -57,7 +57,7 @@ class MapTest extends GalleryTestCase {
 				'description'    => null,
 			)
 		);
-		$this->assertTrue(!$ret, 'should succeed with null value');
+		$this->assertFalse($ret, 'should succeed with null value');
 
 		if ($ret) {
 			return $ret;
@@ -102,7 +102,7 @@ class MapTest extends GalleryTestCase {
 				'description' => null,
 			)
 		);
-		$this->assertTrue(!$ret, 'should succeed setting null value');
+		$this->assertFalse($ret, 'should succeed setting null value');
 
 		if ($ret) {
 			return $ret;
@@ -118,7 +118,7 @@ class MapTest extends GalleryTestCase {
 				'parametersCrc' => 'changed',
 			)
 		);
-		$this->assertTrue(!$ret, 'should succeed matching null value');
+		$this->assertFalse($ret, 'should succeed matching null value');
 
 		if ($ret) {
 			return $ret;

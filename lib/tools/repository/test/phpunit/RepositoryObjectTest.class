@@ -52,7 +52,7 @@ class RepositoryObjectTest extends GalleryTestCase {
 		$this->assertTrue($ret, 'Output directory set to non-existent directory.');
 
 		$ret = $object->setOutputDir('validDirectory');
-		$this->assertTrue(!$ret, 'Error returned on a valid directory.');
+		$this->assertFalse($ret, 'Error returned on a valid directory.');
 
 		// Output directory should always end with a directory separator.
 		$this->assertTrue(
@@ -98,7 +98,7 @@ class RepositoryObjectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$object->wasFileWritten(), 'Existing file overwritten.');
+		$this->assertFalse($object->wasFileWritten(), 'Existing file overwritten.');
 
 		// Test overwriting an existing file with a template variable contents.
 		$object->setTemplate(new RepositoryTestTemplate('', $templateVariableContents));

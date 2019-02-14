@@ -737,7 +737,7 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		// The album's derivative is sourced to the child
-		$this->assertTrue(!empty($thumbTable), 'thumb');
+		$this->assertFalse(empty($thumbTable), 'thumb');
 
 		if (!empty($thumbTable)) {
 			$thumb = $thumbTable[$subAlbum->getId()];

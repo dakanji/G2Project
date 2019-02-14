@@ -134,7 +134,7 @@ class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!$this->_urlGenerator->_error, 'init error in non-embedded');
+		$this->assertFalse($this->_urlGenerator->_error, 'init error in non-embedded');
 
 		GalleryDataCache::put('G2_EMBED', true, true);
 		$ret = $this->_urlGeneratorInit('ModRewriteUrlGenerator');
@@ -173,6 +173,6 @@ class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue(!$this->_urlGenerator->_error, 'init error when embedded');
+		$this->assertFalse($this->_urlGenerator->_error, 'init error when embedded');
 	}
 }

@@ -63,7 +63,7 @@ class CoreApiTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!empty($blocks), 'No blocks found!');
+		$this->assertFalse(empty($blocks), 'No blocks found!');
 		$this->assertTrue(isset($blocks['core']['LanguageSelector']));
 		$this->assertTrue(isset($blocks['core']['ItemLinks']));
 		$this->assertTrue(isset($blocks['core']['LoginBlock']));

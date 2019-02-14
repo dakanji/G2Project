@@ -300,7 +300,7 @@ class CommentTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!isset($content[$itemId]), 'got an item summary');
+		$this->assertFalse(isset($content[$itemId]), 'got an item summary');
 	}
 
 	public function testCreateModifyAndDeleteComment() {
@@ -624,7 +624,7 @@ class CommentTest extends GalleryTestCase {
 		$event->setEntity($GalleryComment);
 		$helper->handleEvent($event);
 
-		$this->assertTrue(!$helper->wasCalled('checkWithAkismet'), 'Called Akismet');
+		$this->assertFalse($helper->wasCalled('checkWithAkismet'), 'Called Akismet');
 	}
 
 	public function testSaveCommentDoesntCheckWithAkismetWhenListenerIsDisabled() {
@@ -643,7 +643,7 @@ class CommentTest extends GalleryTestCase {
 		$event->setEntity($GalleryComment);
 		$helper->handleEvent($event);
 
-		$this->assertTrue(!$helper->wasCalled('checkWithAkismet'));
+		$this->assertFalse($helper->wasCalled('checkWithAkismet'));
 
 		GalleryCommentHelper::doStatic()->setAkismetSaveListenerSwitch(true);
 	}

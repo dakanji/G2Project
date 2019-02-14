@@ -209,7 +209,7 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$isViewable, 'test');
+		$this->assertFalse($isViewable, 'test');
 	}
 
 	public function testAddMimeType() {

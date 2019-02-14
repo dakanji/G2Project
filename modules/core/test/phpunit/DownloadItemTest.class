@@ -159,7 +159,7 @@ class DownloadItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $output) = $this->_download();
-		$this->assertTrue(!$ret, 'expected success');
+		$this->assertFalse($ret, 'expected success');
 	}
 
 	public function testPreferredPermission() {
@@ -207,7 +207,7 @@ class DownloadItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $output) = $this->_download();
-		$this->assertTrue(!$ret, 'expected success');
+		$this->assertFalse($ret, 'expected success');
 	}
 
 	public function testResizePermission() {
@@ -255,7 +255,7 @@ class DownloadItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $output) = $this->_download();
-		$this->assertTrue(!$ret, 'expected success');
+		$this->assertFalse($ret, 'expected success');
 	}
 
 	public function testThumbnailPermission() {
@@ -303,7 +303,7 @@ class DownloadItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $output) = $this->_download();
-		$this->assertTrue(!$ret, 'expected success');
+		$this->assertFalse($ret, 'expected success');
 	}
 
 	public function testPrintService() {
@@ -333,7 +333,7 @@ class DownloadItemTest extends GalleryTestCase {
 
 		$session->put('core.isPrintService', array(2, $this->_item->getId(), 5));
 		list($ret, $output) = $this->_download();
-		$this->assertTrue(!$ret, 'expected success');
+		$this->assertFalse($ret, 'expected success');
 	}
 
 	public function testDownloadBogusEntityFailsWithErrorMissingObject() {

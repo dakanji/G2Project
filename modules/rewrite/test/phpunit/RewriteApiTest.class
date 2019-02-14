@@ -115,7 +115,7 @@ class RewriteApiTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertTrue(!$isCompatible, 'should be incompatible, requiring lower major version');
+		$this->assertFalse($isCompatible, 'should be incompatible, requiring lower major version');
 	}
 
 	public function testGetParserId() {
@@ -312,7 +312,7 @@ class RewriteApiTest extends GalleryTestCase {
 		}
 
 		// Verify the results
-		$this->assertTrue(!$success, 'should have failed');
+		$this->assertFalse($success, 'should have failed');
 	}
 
 	public function testActivateRewriteRulesForModuleUsesPatternHistory() {

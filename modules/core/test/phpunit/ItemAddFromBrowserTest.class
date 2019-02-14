@@ -144,7 +144,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$this->assertTrue(!isset($seenWeights[$orderWeight]), 'Seen this weight before');
+			$this->assertFalse(isset($seenWeights[$orderWeight]), 'Seen this weight before');
 			$seenWeights[$orderWeight] = 1;
 		}
 
@@ -348,7 +348,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 			$results[1]['addedFiles'][0]['warnings'][0],
 			'Warning'
 		);
-		$this->assertTrue(!isset($results[1]['addedFiles'][0]['id']), 'id');
+		$this->assertFalse(isset($results[1]['addedFiles'][0]['id']), 'id');
 
 		$this->assertEquals($files[2][0], $results[1]['addedFiles'][1]['fileName'], 'Filename');
 		$this->assertEquals(
@@ -361,7 +361,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 			$results[1]['addedFiles'][1]['warnings'][0],
 			'Warning'
 		);
-		$this->assertTrue(!isset($results[1]['addedFiles'][1]['id']), 'id');
+		$this->assertFalse(isset($results[1]['addedFiles'][1]['id']), 'id');
 	}
 
 	// One file upload fails and one succeeds
@@ -408,11 +408,11 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 			$results[1]['addedFiles'][0]['warnings'][0],
 			'Warning 1'
 		);
-		$this->assertTrue(!isset($results[1]['addedFiles'][0]['id']), 'id');
+		$this->assertFalse(isset($results[1]['addedFiles'][0]['id']), 'id');
 
 		$this->assertEquals($files[2], $results[1]['addedFiles'][1]['fileName'], 'Filename');
 		$this->assertTrue(empty($results[1]['addedFiles'][1]['warnings'][0]), 'Warning 2');
-		$this->assertTrue(!empty($results[1]['addedFiles'][1]['id']), 'id');
+		$this->assertFalse(empty($results[1]['addedFiles'][1]['id']), 'id');
 	}
 
 	public function testMaliciousMarkup() {

@@ -199,8 +199,8 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			$found[$keyword['name']] = true;
 		}
 		$this->assertTrue(isset($found['testkeyword12345']), 'album keyword');
-		$this->assertTrue(!isset($found['testkeyword54321']), 'item not public!');
-		$this->assertTrue(!isset($found['testkeyword99999']), 'item not public!');
+		$this->assertFalse(isset($found['testkeyword54321']), 'item not public!');
+		$this->assertFalse(isset($found['testkeyword99999']), 'item not public!');
 	}
 
 	public function testLoadKeywordsSizeLimit() {
