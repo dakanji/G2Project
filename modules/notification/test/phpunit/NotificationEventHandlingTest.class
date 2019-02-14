@@ -18,15 +18,27 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-GalleryCoreApi::requireOnce('modules/notification/classes/NotificationHelper.class');
-GalleryCoreApi::requireOnce('modules/notification/classes/NotificationEvent_1_0.class');
-GalleryCoreApi::requireOnce('modules/notification/classes/NotificationRouter.class');
-GalleryCoreApi::requireOnce('modules/notification/classes/NotificationHandler_1_0.class');
+GalleryCoreApi::requireOnce(
+	'modules/notification/classes/NotificationHelper.class'
+);
+GalleryCoreApi::requireOnce(
+	'modules/notification/classes/NotificationEvent_1_0.class'
+);
+GalleryCoreApi::requireOnce(
+	'modules/notification/classes/NotificationRouter.class'
+);
+GalleryCoreApi::requireOnce(
+	'modules/notification/classes/NotificationHandler_1_0.class'
+);
 GalleryCoreApi::requireOnce(
 	'modules/notification/classes/NotificationItemStateChangeHandler.class'
 );
-GalleryCoreApi::requireOnce('modules/notification/classes/GalleryCoreEventNotifications.class');
-GalleryCoreApi::requireOnce('modules/notification/classes/NotificationMethodEmail.class');
+GalleryCoreApi::requireOnce(
+	'modules/notification/classes/GalleryCoreEventNotifications.class'
+);
+GalleryCoreApi::requireOnce(
+	'modules/notification/classes/NotificationMethodEmail.class'
+);
 
 /**
  * NotificationHelper tests
@@ -774,8 +786,25 @@ class NotificationEventHandlingPlatform {
 		$this->_test     =& $test;
 	}
 
+	public function sendEmail(
+		$file,
+		$body,
+		$from,
+		$to,
+		$subject,
+		$headers = null
+	) {
+		// Handle email..
+		$this->_handleMail($to, $subject, $body, $headers);
+	}
+
 	public function mail($to, $subject, $body, $headers = null) {
-		// Don't actually send email
+		// Handle email..
+		$this->_handleMail($to, $subject, $body, $headers);
+	}
+
+	protected function _handleMail($to, $subject, $body, $headers) {
+		// Do not actually send email
 		$this->_test->_emailSubject[] .= $subject;
 		$this->_test->_emailBody[]     = trim($body);
 		$this->_test->_emailTo[]       = $to;
