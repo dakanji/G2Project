@@ -131,7 +131,8 @@ class NotificationMethodEmail extends NotificationHandler_1_0 {
 					'forceFullUrl' => true,
 				)
 			);
-			$ret            = GalleryCoreApi::sendTemplatedEmail(
+
+			$ret = GalleryCoreApi::sendTemplatedEmail(
 				'modules/notification/templates/NotificationEmail.tpl',
 				array(
 					'body'           => $body,

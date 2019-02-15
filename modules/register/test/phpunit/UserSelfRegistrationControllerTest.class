@@ -97,7 +97,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password1]', 'password');
 		GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
-		$savePlatform =& $gallery->getPlatform();
+		$savePlatform  =& $gallery->getPlatform();
 		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
 		$gallery->setPlatform($DummyPlatform);
 
@@ -155,7 +155,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password1]', 'password');
 		GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
-		$savePlatform =& $gallery->getPlatform();
+		$savePlatform  =& $gallery->getPlatform();
 		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
 		$gallery->setPlatform($DummyPlatform);
 
@@ -186,8 +186,10 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		$this->_markForCleanup($user);
 
 		// Make sure confirmation email was "sent"
-		$this->assertFalse(empty(
-			$this->_emailBody),
+		$this->assertFalse(
+			empty(
+				$this->_emailBody
+			),
 			'test platform mail() should have been called'
 		);
 		$this->assertEquals(
@@ -218,7 +220,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password1]', 'pass&word>');
 		GalleryUtilities::putRequestVariable('form[password2]', 'pass&word>');
 
-		$savePlatform =& $gallery->getPlatform();
+		$savePlatform  =& $gallery->getPlatform();
 		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
 		$gallery->setPlatform($DummyPlatform);
 
@@ -414,7 +416,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password1]', 'password');
 		GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
-		$savePlatform =& $gallery->getPlatform();
+		$savePlatform  =& $gallery->getPlatform();
 		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
 		$gallery->setPlatform($DummyPlatform);
 
@@ -570,7 +572,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 		$this->_controller->setPluginInstances(array($plugin));
 
-		$savePlatform =& $gallery->getPlatform();
+		$savePlatform  =& $gallery->getPlatform();
 		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
 		$gallery->setPlatform($DummyPlatform);
 
@@ -628,7 +630,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		$plugin->setContinue(false);
 		$this->_controller->setPluginInstances(array($plugin));
 
-		$savePlatform =& $gallery->getPlatform();
+		$savePlatform  =& $gallery->getPlatform();
 		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
 		$gallery->setPlatform($DummyPlatform);
 
@@ -671,7 +673,8 @@ class RegisterDummyPlatform {
 		$headers = null
 	) {
 		// Handle email..
-		$this->_handleMail($to, $subject, implode(',', $body), $headers);
+		$body = $body['body'];
+		$this->_handleMail($to, $subject, $body, $headers);
 	}
 
 	public function mail($to, $subject, $body, $headers = null) {
