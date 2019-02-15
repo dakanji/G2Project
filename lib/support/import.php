@@ -41,7 +41,11 @@ $templateData = array();
 
 $template = new SupportStatusTemplate('Database Import');
 
-$configFilePath = (defined('GALLERY_CONFIG_DIR') ? GALLERY_CONFIG_DIR . '/' : $g2Base) . 'config.php';
+if (defined('GALLERY_CONFIG_DIR')) {
+	$configFilePath = GALLERY_CONFIG_DIR . '/config.php';
+} else {
+	$configFilePath = $g2Base . 'config.php';
+}
 
 require_once __DIR__ . '/../../embed.php';
 

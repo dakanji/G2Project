@@ -33,8 +33,8 @@ define('CMD_CHMOD_LOCALE_DIR', 'chmodLocaleDir');
 // For get/post input sanitation
 require_once __DIR__ . '/../../modules/core/classes/GalleryUtilities.class';
 
-$DEFAULT_FOLDER_PERMISSIONS = PermissionBits::fromString('555');
-$DEFAULT_FILE_PERMISSIONS   = PermissionBits::fromString('444');
+$DEFAULT_FOLDER_PERMISSIONS = PermissionBits::doStatic()->fromString('555');
+$DEFAULT_FILE_PERMISSIONS   = PermissionBits::doStatic()->fromString('444');
 
 $status = array();
 $ret    = null;
@@ -78,8 +78,8 @@ if (strlen($permissions) != 6) {
 }
 
 if (empty($status['error'])) {
-	$folderPermissions = PermissionBits::fromString(substr($permissions, 0, 3));
-	$filePermissions   = PermissionBits::fromString(substr($permissions, 3, 3));
+	$folderPermissions = PermissionBits::doStatic()->fromString(substr($permissions, 0, 3));
+	$filePermissions   = PermissionBits::doStatic()->fromString(substr($permissions, 3, 3));
 
 	if (!$folderPermissions->isValid()) {
 		$status['error'][] = 'Invalid folder permissions! Aborting action and resetting permissions.';
@@ -309,16 +309,16 @@ function getPermissionSets() {
 	$permissionSets = array();
 
 	$permissionSets[] = array(
-		PermissionBits::fromString('777'),
-		PermissionBits::fromString('666'),
+		PermissionBits::doStatic()->fromString('777'),
+		PermissionBits::doStatic()->fromString('666'),
 	);
 	$permissionSets[] = array(
-		PermissionBits::fromString('555'),
-		PermissionBits::fromString('444'),
+		PermissionBits::doStatic()->fromString('555'),
+		PermissionBits::doStatic()->fromString('444'),
 	);
 	$permissionSets[] = array(
-		PermissionBits::fromString('755'),
-		PermissionBits::fromString('644'),
+		PermissionBits::doStatic()->fromString('755'),
+		PermissionBits::doStatic()->fromString('644'),
 	);
 
 	return $permissionSets;
@@ -343,8 +343,17 @@ class PermissionBits {
 	 * Constructor
 	 * @param int $bits permission bits in decimal integer representation, eg. octdec(0755)
 	 */
-	public function __construct($bits) {
-		$this->_bits = decoct($bits);
+	public function __construct($bits = null) {
+		if (!is_null($bits)) {
+			$this->_bits = decoct($bits);
+		}
+	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		return new PermissionBits();
 	}
 
 	/**
@@ -678,7 +687,7 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
 							<a href="
 							<?php
 							generateUrl(
-								'index.php?chmod&amp;command=' . CMD_CHMOD_MODULES_AND_THEMES_DIR
+						'index.php?chmod&amp;command=' . CMD_CHMOD_MODULES_AND_THEMES_DIR
 								. '&amp;mode=open'
 							)
 							?>

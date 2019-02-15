@@ -27,19 +27,25 @@
 if (!defined('G2_SUPPORT')) {
 	define('G2_SUPPORT_FILE', true);
 
-	include_once __DIR__ . '/lib/support/defaultloc.inc';
+	include_once __DIR__ . '/defaultloc.inc';
 }
 // Prime variables
-if ($_POST['searchstring']) {
+if (array_key_exists('searchstring', $_POST)) {
 	$search_string = $_POST['searchstring'];
+} else {
+	$search_string = null;
 }
 
-if ($_POST['advance']) {
+if (array_key_exists('advance', $_POST)) {
 	$advance = true;
+} else {
+	$advance = false;
 }
 
-if ($_POST['deep']) {
+if (array_key_exists('deep', $_POST)) {
 	$deep = true;
+} else {
+	$deep = false;
 }
 
 // if neither $advance nor $deep is set, this is a reset call so, move on to rendering html
