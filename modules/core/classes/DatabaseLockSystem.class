@@ -31,6 +31,19 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryLockSystem.class');
  */
 class DatabaseLockSystem extends GalleryLockSystem {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new DatabaseLockSystem();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryLockSystem::_acquireLock
 	 */
 	public function _acquireLock($ids, $timeout, $lockType) {

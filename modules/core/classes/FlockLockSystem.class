@@ -40,6 +40,19 @@ class FlockLockSystem extends GalleryLockSystem {
 	public $_references;
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new FlockLockSystem();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryLockSystem::_acquireLock
 	 */
 	public function _acquireLock($ids, $timeout, $lockType) {
