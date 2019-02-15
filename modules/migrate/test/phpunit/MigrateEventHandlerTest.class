@@ -31,7 +31,7 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 	public $_temporaryAlbumId;
 
 	public function __construct($methodName) {
-		$this->GalleryTestCase($methodName, 'migrate.ConfirmImport');
+		parent::__construct($methodName, 'migrate.ConfirmImport');
 	}
 
 	public function setUp($setup = null) {
@@ -53,7 +53,7 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 
 		$this->_temporaryAlbumId = $this->_temporaryAlbum->getId();
 
-		list($ret, $this->_mapCount) = G1MigrateHelper::fetchMapCount();
+		list($ret, $this->_mapCount) = G1MigrateHelper::doStatic()->fetchMapCount();
 
 		if ($ret) {
 			return $ret;
@@ -63,7 +63,7 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 	public function tearDown() {
 		global $gallery;
 
-		list($ret, $mapCount) = G1MigrateHelper::fetchMapCount();
+		list($ret, $mapCount) = G1MigrateHelper::doStatic()->fetchMapCount();
 
 		if ($ret) {
 			return $ret;
@@ -121,7 +121,9 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 		}
 
 		// Verify album mapping
-		list($ret, $mapping) = G1MigrateHelper::fetchMapping($g1MapHandlerAlbum->getPathComponent());
+		list($ret, $mapping) = G1MigrateHelper::doStatic()->fetchMapping(
+			$g1MapHandlerAlbum->getPathComponent()
+		);
 
 		if ($ret) {
 			return $ret;
@@ -133,7 +135,7 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 		);
 
 		// Verify item mapping
-		list($ret, $mapping) = G1MigrateHelper::fetchMapping(
+		list($ret, $mapping) = G1MigrateHelper::doStatic()->fetchMapping(
 			$g1MapHandlerAlbum->getPathComponent(),
 			$g1MapHandlerItem->getPathComponent()
 		);
@@ -149,7 +151,7 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 
 		$event = GalleryCoreApi::newEvent('GalleryEntity::delete');
 		$event->setEntity($g1MapHandlerItem);
-		list($ret) = MigrateModule::handleEvent($event);
+		list($ret) = MigrateModule::doStatic()->handleEvent($event);
 
 		if ($ret) {
 			return $ret;
@@ -157,14 +159,14 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 
 		$event = GalleryCoreApi::newEvent('GalleryEntity::delete');
 		$event->setEntity($g1MapHandlerAlbum);
-		list($ret) = MigrateModule::handleEvent($event);
+		list($ret) = MigrateModule::doStatic()->handleEvent($event);
 
 		if ($ret) {
 			return $ret;
 		}
 
 		// Verify album mapping deleted
-		list($ret, $mapping) = G1MigrateHelper::fetchMapping($g1MapHandlerAlbum->getPathComponent());
+		list($ret, $mapping) = G1MigrateHelper::doStatic()->fetchMapping($g1MapHandlerAlbum->getPathComponent());
 
 		if ($ret) {
 			return $ret;
@@ -172,7 +174,7 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 		$this->assertEquals(null, $mapping, 'G1MigrateMap does not match Album Id');
 
 		// Verify item mapping
-		list($ret, $mapping) = G1MigrateHelper::fetchMapping(
+		list($ret, $mapping) = G1MigrateHelper::doStatic()->fetchMapping(
 			$g1MapHandlerAlbum->getPathComponent(),
 			$g1MapHandlerItem->getPathComponent()
 		);

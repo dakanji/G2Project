@@ -57,7 +57,7 @@ class SelectGalleryController extends GalleryController {
 				}
 				$form['albumsPath'] = trim($tmp);
 
-				if (!Gallery1DataParser::isValidAlbumsPath($form['albumsPath'])) {
+				if (!Gallery1DataParser::doStatic()->isValidAlbumsPath($form['albumsPath'])) {
 					$error[] = 'form[error][albumsPath][invalid]';
 				}
 			}
@@ -152,7 +152,7 @@ class SelectGalleryView extends GalleryView {
 			}
 		}
 
-		list($ret, $mapCount) = G1MigrateHelper::fetchMapCount();
+		list($ret, $mapCount) = G1MigrateHelper::doStatic()->fetchMapCount();
 
 		if ($ret) {
 			return array($ret, null);

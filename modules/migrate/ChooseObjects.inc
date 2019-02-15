@@ -179,7 +179,7 @@ class ChooseObjectsView extends GalleryView {
 		}
 
 		$existingUsers        = $newUsers        = array();
-		list($ret, $allUsers) = Gallery1DataParser::getUserUids($albumsPath);
+		list($ret, $allUsers) = Gallery1DataParser::doStatic()->getUserUids($albumsPath);
 
 		if ($ret) {
 			return array($ret, null);
@@ -281,13 +281,13 @@ class ChooseObjectsView extends GalleryView {
 	 * @access private
 	 */
 	public function _createG1AlbumTree($albumsPath) {
-		list($ret, $albumList) = Gallery1DataParser::getAlbumList($albumsPath);
+		list($ret, $albumList) = Gallery1DataParser::doStatic()->getAlbumList($albumsPath);
 
 		if ($ret) {
 			return array($ret, null);
 		}
 
-		list($ret, $hierarchy) = Gallery1DataParser::getAlbumHierarchy($albumsPath);
+		list($ret, $hierarchy) = Gallery1DataParser::doStatic()->getAlbumHierarchy($albumsPath);
 
 		if ($ret) {
 			return array($ret, null);

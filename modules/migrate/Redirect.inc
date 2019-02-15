@@ -80,7 +80,7 @@ class RedirectController extends GalleryController {
 					}
 			}
 
-			list($ret, $id) = G1MigrateHelper::fetchMapping($path[0], $path[1]);
+			list($ret, $id) = G1MigrateHelper::doStatic()->fetchMapping($path[0], $path[1]);
 
 			if ($ret) {
 				return array($ret, null);
@@ -127,7 +127,7 @@ class RedirectController extends GalleryController {
 				}
 			}
 		} else {
-			list($ret, $id) = G1MigrateHelper::fetchMapping($path[0]);
+			list($ret, $id) = G1MigrateHelper::doStatic()->fetchMapping($path[0]);
 
 			if ($ret) {
 				return array($ret, null);

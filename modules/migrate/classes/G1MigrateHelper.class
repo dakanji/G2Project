@@ -28,12 +28,25 @@
  */
 class G1MigrateHelper {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new G1MigrateHelper();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Count number of mappings in migration table
 	 *
 	 * @return array GalleryStatus a status code
 	 *               int count
 	 */
-	public static function fetchMapCount() {
+	public function fetchMapCount() {
 		global $gallery;
 
 		$query = 'SELECT COUNT(*) FROM [G1MigrateMap]';
@@ -61,12 +74,21 @@ class G1MigrateHelper {
 	 * @return array GalleryStatus a status code
 	 *               int id of G2 item or null if not found
 	 */
-	public static function fetchMapping($g1album, $g1item = null) {
+	public function fetchMapping($g1album, $g1item = null) {
 		global $gallery;
 
-		$query = 'SELECT [G1MigrateMap::itemId] FROM [G1MigrateMap]
-		  WHERE [G1MigrateMap::g1album]=? AND [G1MigrateMap::g1item]';
-		$data  = array($g1album);
+		$query = '
+			SELECT
+				[G1MigrateMap::itemId]
+			FROM
+				[G1MigrateMap]
+			WHERE
+				[G1MigrateMap::g1album]=?
+			AND
+				[G1MigrateMap::g1item]
+		';
+
+		$data = array($g1album);
 
 		if (isset($g1item)) {
 			$query .= '=?';

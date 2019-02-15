@@ -28,12 +28,25 @@
  */
 class Gallery1DataParser {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new Gallery1DataParser();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Verify that the given path holds an albumdb and that the albumdb is readable
 	 *
 	 * @param string $path Path to albums
 	 * @return boolean True if the path is valid, otherwise false
 	 */
-	public static function isValidAlbumsPath($path) {
+	public function isValidAlbumsPath($path) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -53,7 +66,7 @@ class Gallery1DataParser {
 	 * @return array GalleryStatus a status code,
 	 *               object Unserialized user metadata
 	 */
-	public static function loadFile($fileName) {
+	public function loadFile($fileName) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 
@@ -102,12 +115,12 @@ class Gallery1DataParser {
 	 * @return array GalleryStatus a status code,
 	 *               array of objects
 	 */
-	public static function getAlbumList($path) {
+	public function getAlbumList($path) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
 
-		list($ret, $albumOrder) = Gallery1DataParser::loadFile($path . 'albumdb.dat');
+		list($ret, $albumOrder) = Gallery1DataParser::doStatic()->loadFile($path . 'albumdb.dat');
 
 		if ($ret) {
 			return array($ret, null);
@@ -115,7 +128,7 @@ class Gallery1DataParser {
 
 		// TODO: check that there is an $albumOrder
 		foreach ($albumOrder as $albumName) {
-			list($ret, $albumFields) = Gallery1DataParser::loadAlbumFields($path . $albumName . $slash);
+			list($ret, $albumFields) = Gallery1DataParser::doStatic()->loadAlbumFields($path . $albumName . $slash);
 
 			if ($ret) {
 				return array($ret, '');
@@ -133,19 +146,19 @@ class Gallery1DataParser {
 	 * @return array GalleryStatus a status code,
 	 *               array of albums and their parents
 	 */
-	public static function getParentAlbumList($path) {
+	public function getParentAlbumList($path) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
 
-		list($ret, $albumOrder) = Gallery1DataParser::loadFile($path . 'albumdb.dat');
+		list($ret, $albumOrder) = Gallery1DataParser::doStatic()->loadFile($path . 'albumdb.dat');
 
 		if ($ret) {
 			return array($ret, null);
 		}
 
 		foreach ($albumOrder as $albumName) {
-			list($ret, $albumFields) = Gallery1DataParser::loadAlbumFields($path . $albumName . $slash);
+			list($ret, $albumFields) = Gallery1DataParser::doStatic()->loadAlbumFields($path . $albumName . $slash);
 
 			if ($ret) {
 				return array($ret, '');
@@ -163,8 +176,8 @@ class Gallery1DataParser {
 	 * @return array GalleryStatus a status code,
 	 *               array of albumnames and their children, and their children...
 	 */
-	public static function getAlbumHierarchy($path) {
-		list($ret, $parentAlbumList) = Gallery1DataParser::getParentAlbumList($path);
+	public function getAlbumHierarchy($path) {
+		list($ret, $parentAlbumList) = Gallery1DataParser::doStatic()->getParentAlbumList($path);
 
 		if ($ret) {
 			return array($ret, null);
@@ -195,19 +208,19 @@ class Gallery1DataParser {
 	 * @return array GalleryStatus a status code,
 	 *               array of albumnames
 	 */
-	public static function getRootAlbums($path) {
+	public function getRootAlbums($path) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
 
-		list($ret, $albumOrder) = Gallery1DataParser::loadFile($path . 'albumdb.dat');
+		list($ret, $albumOrder) = Gallery1DataParser::doStatic()->loadFile($path . 'albumdb.dat');
 
 		if ($ret) {
 			return array($ret, null);
 		}
 
 		foreach ($albumOrder as $albumName) {
-			list($ret, $albumFields) = Gallery1DataParser::loadAlbumFields($path . $albumName . $slash);
+			list($ret, $albumFields) = Gallery1DataParser::doStatic()->loadAlbumFields($path . $albumName . $slash);
 
 			if ($ret) {
 				return array($ret, '');
@@ -228,7 +241,7 @@ class Gallery1DataParser {
 	 * @return array GalleryStatus a status code,
 	 *               object Unserialized album metadata
 	 */
-	public static function loadAlbumFields($path) {
+	public function loadAlbumFields($path) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
@@ -241,7 +254,7 @@ class Gallery1DataParser {
 		$path              = trim($tmp);
 		$albumPath         = explode($slash, $path);
 		$albumName         = $albumPath[count($albumPath) - 2];
-		list($ret, $album) = Gallery1DataParser::loadFile($path . 'album.dat');
+		list($ret, $album) = Gallery1DataParser::doStatic()->loadFile($path . 'album.dat');
 
 		if ($ret) {
 			return array($ret, null);
@@ -262,8 +275,8 @@ class Gallery1DataParser {
 	 * @return array GalleryStatus a status code,
 	 *               integer Count of photos
 	 */
-	public static function getPhotoCount($path) {
-		list($ret, $photos) = Gallery1DataParser::loadFile($path . 'photos.dat');
+	public function getPhotoCount($path) {
+		list($ret, $photos) = Gallery1DataParser::doStatic()->loadFile($path . 'photos.dat');
 
 		if ($ret) {
 			return array($ret, null);
@@ -280,12 +293,12 @@ class Gallery1DataParser {
 	 * @return array GalleryStatus a status code,
 	 *               array Galleryphotos
 	 */
-	public static function getPhotos($path) {
+	public function getPhotos($path) {
 		global $gallery;
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
 
-		list($ret, $photos) = Gallery1DataParser::loadFile($path . $slash . 'photos.dat');
+		list($ret, $photos) = Gallery1DataParser::doStatic()->loadFile($path . $slash . 'photos.dat');
 
 		if ($ret) {
 			return array($ret, null);
@@ -301,7 +314,7 @@ class Gallery1DataParser {
 	 * @return array GalleryStatus a status code,
 	 *               array Associative array of uids and usernames
 	 */
-	public static function getUserUids($path) {
+	public function getUserUids($path) {
 		global $gallery;
 		static $uids;
 
@@ -312,7 +325,7 @@ class Gallery1DataParser {
 			$platform =& $gallery->getPlatform();
 			$slash    = $platform->getDirectorySeparator();
 
-			list($ret, $userDB) = Gallery1DataParser::loadFile($path . '.users' . $slash . 'userdb.dat');
+			list($ret, $userDB) = Gallery1DataParser::doStatic()->loadFile($path . '.users' . $slash . 'userdb.dat');
 
 			if ($ret) {
 				return array($ret, null);
@@ -320,8 +333,8 @@ class Gallery1DataParser {
 			$uids[$path] = array();
 
 			foreach ($userDB->userMap as $username => $uid) {
-				if (Gallery1DataParser::isValidUid($path, $uid)
-					&& !Gallery1DataParser::isValidUid($path, $username)
+				if (Gallery1DataParser::doStatic()->isValidUid($path, $uid)
+					&& !Gallery1DataParser::doStatic()->isValidUid($path, $username)
 					&& !preg_match('/nobody|everybody|loggedin/i', $username)
 				) {
 					$uids[$path][$uid] = $username;
@@ -338,7 +351,7 @@ class Gallery1DataParser {
 	 * @param string $uid Uid to be tested
 	 * @return boolean
 	 */
-	public static function isValidUidString($uid) {
+	public function isValidUidString($uid) {
 		if (preg_match('/^\d{9,}_\d+$/', $uid)) {
 			return true;
 		}
@@ -353,7 +366,7 @@ class Gallery1DataParser {
 	 * @param string $uid Uid to be tested
 	 * @return boolean
 	 */
-	public static function isValidUid($path, $uid) {
+	public function isValidUid($path, $uid) {
 		global $gallery;
 		static $valid;
 
@@ -368,8 +381,8 @@ class Gallery1DataParser {
 			$platform =& $gallery->getPlatform();
 			$slash    = $platform->getDirectorySeparator();
 
-			if (Gallery1DataParser::isValidUidString($uid)) {
-				list($ret, $fields) = Gallery1DataParser::getUserFieldsByUid($path, $uid);
+			if (Gallery1DataParser::doStatic()->isValidUidString($uid)) {
+				list($ret, $fields) = Gallery1DataParser::doStatic()->getUserFieldsByUid($path, $uid);
 
 				if (!$ret) {
 					$valid[$path][$uid] = true;
@@ -392,7 +405,7 @@ class Gallery1DataParser {
 	 * @return array GalleryStatus a status code,
 	 *               array User metadata
 	 */
-	public static function getUserFieldsByUid($path, $uid) {
+	public function getUserFieldsByUid($path, $uid) {
 		global $gallery;
 		static $fields;
 
@@ -408,8 +421,8 @@ class Gallery1DataParser {
 			$slash               = $platform->getDirectorySeparator();
 			$fields[$path][$uid] = array();
 
-			if (Gallery1DataParser::isValidUidString($uid)) {
-				list($ret, $user) = Gallery1DataParser::loadFile($path . '.users' . $slash . $uid);
+			if (Gallery1DataParser::doStatic()->isValidUidString($uid)) {
+				list($ret, $user) = Gallery1DataParser::doStatic()->loadFile($path . '.users' . $slash . $uid);
 
 				if ($ret) {
 					return array($ret, null);
@@ -432,15 +445,15 @@ class Gallery1DataParser {
 	 * @return array GalleryStatus a status code,
 	 *               array User metadata
 	 */
-	public static function getUserFieldsByUsername($path, $username) {
-		list($ret, $uids) = Gallery1DataParser::getUserUids($path);
+	public function getUserFieldsByUsername($path, $username) {
+		list($ret, $uids) = Gallery1DataParser::doStatic()->getUserUids($path);
 
 		if ($ret) {
 			return array($ret, null);
 		}
 		$usernames          = array_flip($uids);
 		$uid                = $usernames[$username];
-		list($ret, $fields) = Gallery1DataParser::getUserFieldsByUid($path, $uid);
+		list($ret, $fields) = Gallery1DataParser::doStatic()->getUserFieldsByUid($path, $uid);
 
 		if ($ret) {
 			return array($ret, null);

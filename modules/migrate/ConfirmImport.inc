@@ -27,6 +27,19 @@
  */
 class ConfirmImportController extends GalleryController {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ConfirmImportController();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryController::handleRequest
 	 */
 	public function handleRequest($form) {
@@ -210,13 +223,13 @@ class ConfirmImportController extends GalleryController {
 
 		// Get list of userids in advance
 		GalleryCoreApi::requireOnce('modules/migrate/classes/Gallery1DataParser.class');
-		list($ret, $albumList) = Gallery1DataParser::getAlbumList($albumsPath);
+		list($ret, $albumList) = Gallery1DataParser::doStatic()->getAlbumList($albumsPath);
 
 		if ($ret) {
 			return $ret;
 		}
 
-		list($ret, $uidMap) = Gallery1DataParser::getUserUids($albumsPath);
+		list($ret, $uidMap) = Gallery1DataParser::doStatic()->getUserUids($albumsPath);
 
 		if ($ret) {
 			return $ret;
@@ -235,7 +248,7 @@ class ConfirmImportController extends GalleryController {
 			$gallery->guaranteeTimeLimit(30);
 
 			// convert from uid to username
-			list($ret, $fields) = Gallery1DataParser::getUserFieldsByUid($albumsPath, $uid);
+			list($ret, $fields) = Gallery1DataParser::doStatic()->getUserFieldsByUid($albumsPath, $uid);
 
 			if ($ret) {
 				return $ret;
@@ -371,18 +384,24 @@ class ConfirmImportController extends GalleryController {
 			if (!in_array($sourceAlbumName, array_keys($albumList))) {
 				return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 			}
-			list($ret, $albumfields[$sourceAlbumName]) = Gallery1DataParser::loadAlbumFields($albumsPath . $sourceAlbumName);
+			list($ret, $albumfields[$sourceAlbumName]) = Gallery1DataParser::doStatic()->loadAlbumFields($albumsPath . $sourceAlbumName);
 
 			if ($ret) {
 				return $ret;
 			}
 
-			list($ret, $photos) = Gallery1DataParser::getPhotos($albumsPath . $sourceAlbumName);
+			list($ret, $photos) = Gallery1DataParser::doStatic()->getPhotos($albumsPath . $sourceAlbumName);
 
 			if ($ret) {
 				return $ret;
 			}
-			$totalItemsToImport += 1 + count($photos);
+
+			if (is_countable($photos)) {
+				$picCount = count($photos);
+			} else {
+				$picCount = 0;
+			}
+			$totalItemsToImport += 1 + $picCount;
 		}
 
 		/*
@@ -408,7 +427,7 @@ class ConfirmImportController extends GalleryController {
 
 				if ($album['parentAlbumName'] != '.root') {
 					// load parent album to check if this album is hidden
-					list($ret, $parentPhotos) = Gallery1DataParser::getPhotos($albumsPath . $album['parentAlbumName']);
+					list($ret, $parentPhotos) = Gallery1DataParser::doStatic()->getPhotos($albumsPath . $album['parentAlbumName']);
 
 					if ($ret) {
 						return $ret;
@@ -579,10 +598,10 @@ class ConfirmImportController extends GalleryController {
 
 				// Set album owner
 				if (isset($album['owner'])) {
-					$validUID = Gallery1DataParser::isValidUid($albumsPath, $album['owner']);
+					$validUID = Gallery1DataParser::doStatic()->isValidUid($albumsPath, $album['owner']);
 
 					if ($validUID) {
-						list($ret, $albumUserFields) = Gallery1DataParser::getUserFieldsByUid($albumsPath, $album['owner']);
+						list($ret, $albumUserFields) = Gallery1DataParser::doStatic()->getUserFieldsByUid($albumsPath, $album['owner']);
 
 						if ($ret) {
 							return $ret;
@@ -695,10 +714,10 @@ class ConfirmImportController extends GalleryController {
 				}
 
 				// Set album owner permissions
-				$validUID = Gallery1DataParser::isValidUid($albumsPath, $album['owner']);
+				$validUID = Gallery1DataParser::doStatic()->isValidUid($albumsPath, $album['owner']);
 
 				if ($validUID) {
-					list($ret, $albumUserFields) = Gallery1DataParser::getUserFieldsByUid(
+					list($ret, $albumUserFields) = Gallery1DataParser::doStatic()->getUserFieldsByUid(
 						$albumsPath,
 						$album['owner']
 					);
@@ -792,13 +811,13 @@ class ConfirmImportController extends GalleryController {
 										break;
 
 									default:
-										$validPermUID = Gallery1DataParser::isValidUid(
+										$validPermUID = Gallery1DataParser::doStatic()->isValidUid(
 											$albumsPath,
 											$tmpuser
 										);
 
 										if ($validPermUID) {
-											list($ret, $permsUserFields) = Gallery1DataParser::getUserFieldsByUid(
+											list($ret, $permsUserFields) = Gallery1DataParser::doStatic()->getUserFieldsByUid(
 												$albumsPath,
 												$tmpuser
 											);
@@ -985,7 +1004,7 @@ class ConfirmImportController extends GalleryController {
 
 
 			unset($photos);
-			list($ret, $photos) = Gallery1DataParser::getPhotos($albumsPath . $album['name']);
+			list($ret, $photos) = Gallery1DataParser::doStatic()->getPhotos($albumsPath . $album['name']);
 
 			if ($ret) {
 				return $ret;
@@ -1318,7 +1337,7 @@ class ConfirmImportController extends GalleryController {
 							$defaultToAlbumUID = false;
 							$newItem->setownerId($guestUserId);
 						} elseif (strcmp('logged-in', $importAlbumItem->owner)) {
-							$validItemUID = Gallery1DataParser::isValidUid(
+							$validItemUID = Gallery1DataParser::doStatic()->isValidUid(
 								$albumsPath,
 								$importAlbumItem->owner
 							);
@@ -1331,7 +1350,7 @@ class ConfirmImportController extends GalleryController {
 					}
 
 					if ($defaultToAlbumUID) {
-						$validItemUID = Gallery1DataParser::isValidUid($albumsPath, $album['owner']);
+						$validItemUID = Gallery1DataParser::doStatic()->isValidUid($albumsPath, $album['owner']);
 
 						if ($validItemUID) {
 							$itemUID = $album['owner'];
@@ -1339,7 +1358,7 @@ class ConfirmImportController extends GalleryController {
 					}
 
 					if ($validItemUID && $itemUID) {
-						list($ret, $albumItemUserFields) = Gallery1DataParser::getUserFieldsByUid($albumsPath, $itemUID);
+						list($ret, $albumItemUserFields) = Gallery1DataParser::doStatic()->getUserFieldsByUid($albumsPath, $itemUID);
 
 						if ($ret) {
 							GalleryCoreApi::releaseLocks($importLockIds);
@@ -1409,7 +1428,7 @@ class ConfirmImportController extends GalleryController {
 							// Try to set the correct comment owner.
 							if (strcmp($importComment->UID, 'everybody')) {
 								// It is not the guest user. Get the corresponding G2 userId
-								$validCommentUid = Gallery1DataParser::isValidUid(
+								$validCommentUid = Gallery1DataParser::doStatic()->isValidUid(
 									$albumsPath,
 									$importComment->UID
 								);
@@ -1417,7 +1436,7 @@ class ConfirmImportController extends GalleryController {
 
 								if (!$validCommentUid) {
 									// Fallback to the album owner.
-									$validCommentUid = Gallery1DataParser::isValidUid(
+									$validCommentUid = Gallery1DataParser::doStatic()->isValidUid(
 										$albumsPath,
 										$album['owner']
 									);
@@ -1425,7 +1444,7 @@ class ConfirmImportController extends GalleryController {
 								}
 
 								if ($validCommentUid) {
-									list($ret, $commentG1User) = Gallery1DataParser::getUserFieldsByUid(
+									list($ret, $commentG1User) = Gallery1DataParser::doStatic()->getUserFieldsByUid(
 										$albumsPath,
 										$g1CommenterId
 									);
@@ -1499,7 +1518,7 @@ class ConfirmImportController extends GalleryController {
 								$comment->setSubject('');
 							}
 							$comment->setComment(
-								ConfirmImportController::convertHtml(
+								$this->convertHtml(
 									$markupType,
 									$importComment->commentText,
 									$sourceEncoding
@@ -1790,7 +1809,7 @@ class ConfirmImportController extends GalleryController {
 
 		switch ($markupType) {
 			case 'bbcode':
-				$item = ConfirmImportController::convertHtmlToBbcode($item);
+				$item = $this->convertHtmlToBbcode($item);
 
 				break;
 
@@ -1927,6 +1946,19 @@ class ConfirmImportController extends GalleryController {
  */
 class ConfirmImportView extends GalleryView {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ConfirmImportView();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryView::loadTemplate
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
@@ -1951,12 +1983,12 @@ class ConfirmImportView extends GalleryView {
 		}
 		$albumsPath         = GalleryUtilities::getRequestVariables('albumsPath');
 		$destinationAlbumID = $form['destinationAlbumID'];
-		list($ret, $uids)   = Gallery1DataParser::getUserUids($albumsPath);
+		list($ret, $uids)   = Gallery1DataParser::doStatic()->getUserUids($albumsPath);
 
 		if ($ret) {
 			return array($ret, null);
 		}
-		list($ret, $albums) = Gallery1DataParser::getAlbumList($albumsPath);
+		list($ret, $albums) = Gallery1DataParser::doStatic()->getAlbumList($albumsPath);
 
 		if ($ret) {
 			return array($ret, null);
@@ -1980,7 +2012,7 @@ class ConfirmImportView extends GalleryView {
 			if (!in_array($sourceAlbumName, array_keys($albums))) {
 				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 			}
-			list($ret, $albumfields[$sourceAlbumName]) = Gallery1DataParser::loadAlbumFields($albumsPath . $sourceAlbumName);
+			list($ret, $albumfields[$sourceAlbumName]) = Gallery1DataParser::doStatic()->loadAlbumFields($albumsPath . $sourceAlbumName);
 
 			if ($ret) {
 				return array($ret, null);
@@ -2013,10 +2045,10 @@ class ConfirmImportView extends GalleryView {
 				$illegalAlbumNames[$albumName] = false;
 			}
 
-			$validUid = Gallery1DataParser::isValidUid($albumsPath, $album['owner']);
+			$validUid = Gallery1DataParser::doStatic()->isValidUid($albumsPath, $album['owner']);
 
 			if ($validUid) {
-				list($ret, $testUser) = Gallery1DataParser::getUserFieldsByUid(
+				list($ret, $testUser) = Gallery1DataParser::doStatic()->getUserFieldsByUid(
 					$albumsPath,
 					$album['owner']
 				);

@@ -27,6 +27,19 @@
  */
 class ImportResultsView extends GalleryView {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ImportResultsView();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryView::loadTemplate
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {

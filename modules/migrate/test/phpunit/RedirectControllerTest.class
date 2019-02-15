@@ -370,7 +370,7 @@ class MockPhpVm extends GalleryPhpVm {
 		$this->_test =& $test;
 	}
 
-	public function header($header) {
+	public function header($header, $replace = null) {
 		$this->_test->_headers[] = $header;
 	}
 
