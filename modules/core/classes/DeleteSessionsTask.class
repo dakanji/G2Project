@@ -29,6 +29,19 @@ GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
  */
 class DeleteSessionsTask extends MaintenanceTask {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new DeleteSessionsTask();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see MaintenanceTask::getInfo
 	 */
 	public function getInfo() {
@@ -95,15 +108,15 @@ class DeleteSessionsTask extends MaintenanceTask {
 			FROM
 				[GallerySessionMap]
 			WHERE
-				[GallerySessionMap::modificationTimestamp] < ? 
+				[GallerySessionMap::modificationTimestamp] < ?
 			OR
-				[GallerySessionMap::creationTimestamp] < ? 
+				[GallerySessionMap::creationTimestamp] < ?
 			OR
-				([GallerySessionMap::userId] = ? 
+				([GallerySessionMap::userId] = ?
 			AND
 				[GallerySessionMap::creationTimestamp] < ?)
 		';
-	
+
 		list($ret, $results) = $gallery->search($query, $data);
 
 		if ($ret) {

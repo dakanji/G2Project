@@ -27,12 +27,6 @@
  */
 class AdminThemesController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -287,12 +281,6 @@ class AdminThemesController extends GalleryController {
  * This view will show administration options for available themes
  */
 class AdminThemesView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

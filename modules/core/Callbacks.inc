@@ -25,12 +25,6 @@
  */
 class CoreCallbacks {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {

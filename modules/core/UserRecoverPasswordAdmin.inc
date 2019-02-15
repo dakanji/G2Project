@@ -28,12 +28,6 @@
  */
 class UserRecoverPasswordAdminController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -169,12 +163,6 @@ class UserRecoverPasswordAdminController extends GalleryController {
  * This view shows information about password recovery
  */
 class UserRecoverPasswordAdminView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

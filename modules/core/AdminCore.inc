@@ -27,12 +27,6 @@
  */
 class AdminCoreController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -254,12 +248,6 @@ class AdminCoreController extends GalleryController {
  * This view will prompt for general Gallery settings
  */
 class AdminCoreView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

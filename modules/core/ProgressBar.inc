@@ -27,12 +27,6 @@
  */
 class ProgressBarView extends GalleryView {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {

@@ -27,12 +27,6 @@
  */
 class AdminEditGroupUsersController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -175,12 +169,6 @@ class AdminEditGroupUsersController extends GalleryController {
  * This view will show the possibilities of user-group mappings for a specified group.
  */
 class AdminEditGroupUsersView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

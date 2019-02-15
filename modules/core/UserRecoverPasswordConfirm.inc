@@ -32,12 +32,6 @@ GalleryCoreApi::requireOnce(
  */
 class UserRecoverPasswordConfirmController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -180,12 +174,6 @@ class UserRecoverPasswordConfirmController extends GalleryController {
  * This view shows information about password recovery
  */
 class UserRecoverPasswordConfirmView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

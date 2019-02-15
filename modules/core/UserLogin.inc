@@ -35,12 +35,6 @@ class UserLoginController extends GalleryController {
 	public $_pluginInstances;
 
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -220,12 +214,6 @@ class UserLoginController extends GalleryController {
  * This view prompts for login information
  */
 class UserLoginView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

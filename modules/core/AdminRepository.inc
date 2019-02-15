@@ -34,12 +34,6 @@ GalleryCoreApi::requireOnce(
  */
 class AdminRepositoryController extends AdminRepositoryDownloadAndInstallController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -194,12 +188,6 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
  * This view will show all repository-related features.
  */
 class AdminRepositoryView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

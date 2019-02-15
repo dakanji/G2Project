@@ -27,12 +27,6 @@
  */
 class AdminDeleteGroupController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -99,12 +93,6 @@ class AdminDeleteGroupController extends GalleryController {
  * This view will prompt for confirmation to delete a group
  */
 class AdminDeleteGroupView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

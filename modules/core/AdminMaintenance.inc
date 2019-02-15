@@ -29,12 +29,6 @@ GalleryCoreApi::requireOnce('modules/core/classes/helpers/MaintenanceHelper_simp
  */
 class AdminMaintenanceController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -195,12 +189,6 @@ class AdminMaintenanceController extends GalleryController {
  */
 class AdminMaintenanceView extends GalleryView {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -300,12 +288,6 @@ class AdminMaintenanceView extends GalleryView {
  * @abstract
  */
 class MaintenanceTask {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

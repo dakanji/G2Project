@@ -31,6 +31,19 @@ GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
  */
 class BuildDerivativesTask extends MaintenanceTask {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new BuildDerivativesTask();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see MaintenanceTask::getInfo
 	 */
 	public function getInfo() {
@@ -116,10 +129,10 @@ class BuildDerivativesTask extends MaintenanceTask {
 			return array($ret, null, null);
 		}
 
-		$i          = 0;
-		$broken     = 0;
-		$built      = 0;
-		
+		$i      = 0;
+		$broken = 0;
+		$built  = 0;
+
 		$total = $derivatives->resultCount() + $items->resultCount();
 		$gallery->guaranteeTimeLimit(120);
 

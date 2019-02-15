@@ -30,6 +30,19 @@ GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
  */
 class ConvertDatabaseToUtf8Task extends MaintenanceTask {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ConvertDatabaseToUtf8Task();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see MaintenanceTask::getInfo
 	 */
 	public function getInfo() {
@@ -61,7 +74,7 @@ class ConvertDatabaseToUtf8Task extends MaintenanceTask {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
-		list($ret, $converted) = CoreModuleExtras::convertCharacterSetToUtf8(
+		list($ret, $converted) = CoreModuleExtras::doStatic()->convertCharacterSetToUtf8(
 			$module,
 			new MockStatusMonitor()
 		);
@@ -86,6 +99,19 @@ class ConvertDatabaseToUtf8Task extends MaintenanceTask {
  * @todo use the real progress bar when we unify the two implementations.
  */
 class MockStatusMonitor {
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new MockStatusMonitor();
+		}
+
+		return $singleton;
+	}
+
 	public function renderStatusMessage() {
 	}
 }

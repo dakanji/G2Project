@@ -28,12 +28,6 @@
  */
 class ItemEditCaptionsController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -177,12 +171,6 @@ class ItemEditCaptionsController extends GalleryController {
  * This view will allow the user to edit many item captions at once.
  */
 class ItemEditCaptionsView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

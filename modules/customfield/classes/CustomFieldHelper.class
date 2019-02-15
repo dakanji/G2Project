@@ -42,12 +42,6 @@ GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldInterface_1_
  */
 class CustomFieldHelper extends CustomFieldInterface_1_0 {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {

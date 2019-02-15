@@ -27,12 +27,6 @@
  */
 class AdminGroupsController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -151,12 +145,6 @@ class AdminGroupsController extends GalleryController {
  * This view will show available options to administer the groups of Gallery
  */
 class AdminGroupsView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

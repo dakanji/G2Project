@@ -27,6 +27,19 @@
  */
 class CoreCaptchaAdminOption extends CaptchaAdminOption {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new CoreCaptchaAdminOption();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see CaptchaAdminOption::getOptionData
 	 */
 	public function getOptionData() {

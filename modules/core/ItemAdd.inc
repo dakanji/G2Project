@@ -35,12 +35,6 @@ class ItemAddController extends GalleryController {
 	public $_optionInstances;
 
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -702,12 +696,6 @@ class ItemAddController extends GalleryController {
  */
 class ItemAddView extends GalleryView {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -912,12 +900,6 @@ class ItemAddView extends GalleryView {
  */
 class ItemAddPlugin {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -991,12 +973,6 @@ class ItemAddPlugin {
  * @abstract
  */
 class ItemAddOption {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

@@ -27,12 +27,6 @@
  */
 class ItemEditController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -234,12 +228,6 @@ class ItemEditController extends GalleryController {
  * This view will show options to edit an item
  */
 class ItemEditView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */
@@ -492,12 +480,6 @@ class ItemEditView extends GalleryView {
  */
 class ItemEditPlugin {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -601,12 +583,6 @@ class ItemEditPlugin {
  * @abstract
  */
 class ItemEditOption {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

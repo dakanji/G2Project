@@ -48,6 +48,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 		include_once __DIR__ . '/../../modules/core/module.inc';
 
 		include_once __DIR__ . '/../../modules/core/CoreModuleExtras.inc';
+
 		$core     = new CoreModule();
 		$versions = $core->getInstalledVersions();
 
@@ -65,7 +66,9 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 		$templateData['galleryVersion'] = $core->getGalleryVersion();
 		$templateData['storeConfig']    = $gallery->getConfig('storage.config');
 
-		$templateData['isConfigUpgradeRequired'] = CoreModuleExtras::isConfigUpgradeRequired($versions['core']);
+		$templateData['isConfigUpgradeRequired'] = CoreModuleExtras::doStatic()->isConfigUpgradeRequired(
+			$versions['core']
+		);
 		$platform                                =& $gallery->getPlatform();
 		$configFilePath                          = GALLERY_CONFIG_DIR . '/config.php';
 		$templateData['isConfigWriteable']       = $platform->is_writeable($configFilePath);
@@ -96,7 +99,9 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 						$ret     = $storage->commitTransaction();
 
 						if (!$ret && $templateData['isConfigUpgradeRequired']) {
-							$ret = CoreModuleExtras::performConfigUpgrade($versions['core']);
+							$ret = CoreModuleExtras::doStatic()->performConfigUpgrade(
+								$versions['core']
+							);
 						}
 					}
 				}

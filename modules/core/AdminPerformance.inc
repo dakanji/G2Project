@@ -27,12 +27,6 @@
  */
 class AdminPerformanceController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -162,12 +156,6 @@ class AdminPerformanceController extends GalleryController {
  * Update performance settings
  */
 class AdminPerformanceView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

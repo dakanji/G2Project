@@ -27,12 +27,6 @@
  */
 class UserChangePasswordController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -172,12 +166,6 @@ class UserChangePasswordController extends GalleryController {
  * This view will show a form to change a password
  */
 class UserChangePasswordView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

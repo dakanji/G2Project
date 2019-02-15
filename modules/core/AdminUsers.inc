@@ -27,12 +27,6 @@
  */
 class AdminUsersController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -136,12 +130,6 @@ class AdminUsersController extends GalleryController {
  * This view will show available options to administer the users of Gallery
  */
 class AdminUsersView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

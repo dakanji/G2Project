@@ -27,12 +27,6 @@
  */
 class ItemDeleteController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -81,7 +75,7 @@ class ItemDeleteController extends GalleryController {
 
 				foreach ($selectedIds as $selectedId) {
 					if (!isset($permissions[$selectedId]['core.view'])) {
-						// Avoid information disclosure, act as if the item didn't exist.
+						// Avoid information disclosure, act as if the item does not exist.
 						return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 					}
 					// Make sure we have permission to delete this item
@@ -111,7 +105,7 @@ class ItemDeleteController extends GalleryController {
 					}
 				}
 
-				// if we're still here then all are deletable
+				// if we are still here, all are deletable
 				$storage =& $gallery->getStorage();
 
 				foreach ($selectedIds as $selectedId) {
@@ -185,12 +179,6 @@ class ItemDeleteController extends GalleryController {
  * This view will prompt for selecting items to delete
  */
 class ItemDeleteView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

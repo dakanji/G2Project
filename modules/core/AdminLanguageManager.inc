@@ -37,12 +37,6 @@ GalleryCoreApi::requireOnce(
  */
 class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -466,12 +460,6 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
  * This view will show all repository-related features.
  */
 class AdminLanguageManagerView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

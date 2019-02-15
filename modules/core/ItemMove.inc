@@ -27,12 +27,6 @@
  */
 class ItemMoveController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -102,7 +96,10 @@ class ItemMoveController extends GalleryController {
 				$selectedIds = array_keys($form['selectedIds']);
 
 				// Load the source items
-				list($ret, $selectedItems) = GalleryCoreApi::loadEntitiesById($selectedIds, 'GalleryItem');
+				list($ret, $selectedItems) = GalleryCoreApi::loadEntitiesById(
+					$selectedIds,
+					'GalleryItem'
+				);
 
 				if ($ret) {
 					return array($ret, null);
@@ -213,7 +210,10 @@ class ItemMoveController extends GalleryController {
 
 						if (GalleryUtilities::isA($selectedItem, 'GalleryDataItem')) {
 							// Update for derivative preferences of new parent
-							$ret = GalleryCoreApi::addExistingItemToAlbum($selectedItem, $newParentId);
+							$ret = GalleryCoreApi::addExistingItemToAlbum(
+								$selectedItem,
+								$newParentId
+							);
 
 							if ($ret) {
 								$lockIds[] = $currentLockId;
@@ -266,7 +266,10 @@ class ItemMoveController extends GalleryController {
 			}
 		} elseif (isset($form['action']['next'])) {
 			$page                = GalleryUtilities::getRequestVariables('page');
-			list($ret, $peerIds) = GalleryCoreApi::fetchChildItemIdsWithPermission($itemId, 'core.delete');
+			list($ret, $peerIds) = GalleryCoreApi::fetchChildItemIdsWithPermission(
+				$itemId,
+				'core.delete'
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -301,12 +304,6 @@ class ItemMoveController extends GalleryController {
  * This view will prompt for which items to move and where is the destination.
  */
 class ItemMoveView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

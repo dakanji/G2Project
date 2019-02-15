@@ -27,12 +27,6 @@
  */
 class UserPreferencesController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -201,12 +195,6 @@ class UserPreferencesController extends GalleryController {
  * This view will show a form to change user options
  */
 class UserPreferencesView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

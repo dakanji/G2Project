@@ -30,6 +30,19 @@ GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
  */
 class DatabaseBackupTask extends MaintenanceTask {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new DatabaseBackupTask();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see MaintenanceTask::getInfo
 	 */
 	public function getInfo() {

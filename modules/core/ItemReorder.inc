@@ -27,12 +27,6 @@
  */
 class ItemReorderController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -206,12 +200,6 @@ class ItemReorderController extends GalleryController {
  * This view will prompt for how to change the order of items in the album
  */
 class ItemReorderView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

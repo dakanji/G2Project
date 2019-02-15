@@ -30,6 +30,19 @@ GalleryCoreApi::requireOnce('modules/core/classes/FlushDatabaseCacheTask.class')
  */
 class ResetViewCountsTask extends FlushDatabaseCacheTask {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ResetViewCountsTask();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see MaintenanceTask::getInfo
 	 */
 	public function getInfo() {

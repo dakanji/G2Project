@@ -27,12 +27,6 @@
  */
 class ItemPermissionsController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -459,12 +453,6 @@ class ItemPermissionsController extends GalleryController {
  * This view will prompt for permission settings of an item
  */
 class ItemPermissionsView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */

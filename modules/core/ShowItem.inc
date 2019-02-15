@@ -27,12 +27,6 @@
  */
 class ShowItemController extends GalleryController {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Load Singleton
 	 */
 	public static function doStatic() {
@@ -78,12 +72,6 @@ class ShowItemController extends GalleryController {
  * Handle the rendering of an album or item.
  */
 class ShowItemView extends GalleryView {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
 	/**
 	 * Load Singleton
 	 */
