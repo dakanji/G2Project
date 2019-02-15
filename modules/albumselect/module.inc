@@ -43,6 +43,19 @@ class AlbumSelectModule extends GalleryModule {
 	}
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new AlbumSelectModule();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryModule::performFactoryRegistrations
 	 */
 	public function performFactoryRegistrations() {

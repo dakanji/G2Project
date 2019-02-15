@@ -52,6 +52,19 @@ class HiddenModule extends GalleryModule {
 	}
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new HiddenModule();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryModule::upgrade
 	 */
 	public function upgrade($currentVersion, $statusMonitor = null) {

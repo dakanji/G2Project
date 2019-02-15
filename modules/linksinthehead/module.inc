@@ -45,6 +45,19 @@ class LinksInTheHeadModule extends GalleryModule {
 	}
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new LinksInTheHeadModule();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryModule::getSiteAdminViews
 	 */
 	public function getSiteAdminViews() {

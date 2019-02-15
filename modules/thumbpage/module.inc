@@ -44,6 +44,19 @@ class ThumbPageModule extends GalleryModule {
 	}
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ThumbPageModule();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryModule::performFactoryRegistrations
 	 */
 	public function performFactoryRegistrations() {

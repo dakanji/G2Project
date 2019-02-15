@@ -45,6 +45,19 @@ class DcrawModule extends GalleryModule {
 	}
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new DcrawModule();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryModule::performFactoryRegistrations
 	 */
 	public function performFactoryRegistrations() {

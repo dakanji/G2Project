@@ -41,6 +41,19 @@ class SitemapModule extends GalleryModule {
 	}
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new SitemapModule();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryModule::getSiteAdminViews
 	 */
 	public function getSiteAdminViews() {

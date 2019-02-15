@@ -40,6 +40,19 @@ class RearrangeModule extends GalleryModule {
 	}
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new RearrangeModule();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryModule::getItemLinks
 	 */
 	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {

@@ -45,6 +45,19 @@ class MigrateModule extends GalleryModule {
 	}
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new MigrateModule();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryModule::install
 	 *
 	 * We pushed all this code into its own file since we need it very rarely so it doesn't

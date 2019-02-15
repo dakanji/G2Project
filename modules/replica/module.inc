@@ -43,6 +43,19 @@ class ReplicaModule extends GalleryModule {
 	}
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ReplicaModule();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryModule::getItemLinks
 	 */
 	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {

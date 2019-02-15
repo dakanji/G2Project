@@ -41,6 +41,19 @@ class NetPbmModule extends GalleryModule {
 	}
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new NetPbmModule();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryModule::upgrade
 	 */
 	public function upgrade($currentVersion, $x1 = null) {

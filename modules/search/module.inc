@@ -41,4 +41,17 @@ class SearchModule extends GalleryModule {
 		$this->setRequiredCoreApi(array(7, 27));
 		$this->setRequiredModuleApi(array(3, 6));
 	}
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new SearchModule();
+		}
+
+		return $singleton;
+	}
 }
