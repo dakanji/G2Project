@@ -45,7 +45,12 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		// Set our threshold to a known value
-		$ret = GalleryCoreApi::setPluginParameter('module', 'captcha', 'failedAttemptThreshold', 1);
+		$ret = GalleryCoreApi::setPluginParameter(
+			'module',
+			'captcha',
+			'failedAttemptThreshold',
+			1
+		);
 
 		if ($ret) {
 			return $ret;
@@ -71,7 +76,11 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		list($ret, $threshold) = GalleryCoreApi::getPluginParameter('module', 'captcha', 'failedAttemptThreshold');
+		list($ret, $threshold) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'captcha',
+			'failedAttemptThreshold'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -187,7 +196,7 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testAdminOptions() {
-		CaptchaAdminOption::doStatic()->testOptions(
+		CaptchaAdminOption::doStatic()->setTestOptions(
 			array(
 				'testOptionId1' => new CaptchaSiteAdminTestOption(),
 				'testOptionId2' => new CaptchaSiteAdminTestOption('unittest.2.level'),
@@ -223,6 +232,8 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(3, (int)$params['failedAttemptThreshold'], 'threshold');
 		$this->assertEquals('HIGH', $params['unittest.level'], 'level 1');
 		$this->assertEquals('LOW', $params['unittest.2.level'], 'level 2');
+
+		CaptchaAdminOption::doStatic()->delTestOptions();
 	}
 
 	public function testBogusOptionId() {
@@ -234,7 +245,7 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testBogusOptionLevel() {
-		CaptchaAdminOption::doStatic()->testOptions(
+		CaptchaAdminOption::doStatic()->setTestOptions(
 			array(
 				'testOptionId' => new CaptchaSiteAdminTestOption(),
 			)
@@ -245,6 +256,8 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[level][testOptionId]', 'MEDIUM');
 
 		$this->handleRequest(ERROR_BAD_PARAMETER);
+
+		CaptchaAdminOption::doStatic()->delTestOptions();
 	}
 }
 

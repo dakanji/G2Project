@@ -44,14 +44,15 @@ class CaptchaSiteAdminController extends GalleryController {
 			if (!isset($form['failedAttemptThreshold'])
 				|| !is_numeric($form['failedAttemptThreshold'])
 			) {
-				// We don't allow free-form input in the HTML, so this should never happen.
+				// We disallow freeform HTML input. So this should never happen.
 				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 			}
 
 			// Make sure that we are between 0 and 5, then store the value
 			$form['failedAttemptThreshold'] = min($form['failedAttemptThreshold'], 5);
 			$form['failedAttemptThreshold'] = max($form['failedAttemptThreshold'], 0);
-			$ret                            = GalleryCoreApi::setPluginParameter(
+
+			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
 				'captcha',
 				'failedAttemptThreshold',
@@ -140,7 +141,11 @@ class CaptchaSiteAdminView extends GalleryView {
 		if ($form['formName'] != 'CaptchaSiteAdmin') {
 			$form['formName'] = 'CaptchaSiteAdmin';
 
-			list($ret, $form['failedAttemptThreshold']) = GalleryCoreApi::getPluginParameter('module', 'captcha', 'failedAttemptThreshold');
+			list($ret, $form['failedAttemptThreshold']) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'captcha',
+				'failedAttemptThreshold'
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -161,7 +166,11 @@ class CaptchaSiteAdminView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-			list($ret, $param) = GalleryCoreApi::getPluginParameter($paramData[0], $paramData[1], $paramData[2]);
+			list($ret, $param) = GalleryCoreApi::getPluginParameter(
+				$paramData[0],
+				$paramData[1],
+				$paramData[2]
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -196,8 +205,7 @@ class CaptchaSiteAdminView extends GalleryView {
  * @subpackage UserInterface
  */
 class CaptchaAdminOption {
-	public function __construct() {
-	}
+	public $testOptions;
 
 	/**
 	 * Load as Singleton
@@ -217,13 +225,10 @@ class CaptchaAdminOption {
 	 *
 	 * @return array GalleryStatus a status code
 	 *               array of string optionId => CaptchaAdminOption instance
-	 * @static
 	 */
 	public function getAllOptions() {
-		$testOptions = $this->testOptions();
-
-		if (isset($testOptions)) {
-			return array(null, $testOptions);
+		if (!is_null($this->testOptions)) {
+			return array(null, $this->testOptions);
 		}
 
 		list($ret, $optionIds) = GalleryCoreApi::getAllFactoryImplementationIds(
@@ -253,18 +258,20 @@ class CaptchaAdminOption {
 	/**
 	 * Set options to use with unit tests.
 	 *
-	 * @param array $options (optional) array of string optionId => CaptchaAdminOption instance
+	 * @param array $options array of string optionId => CaptchaAdminOption instance
 	 * @return null or array of string optionId => CaptchaAdminOption test instance
-	 * @static
 	 */
-	public function testOptions($options = null) {
-		$testOptions = null;
+	public function setTestOptions($options) {
+		$this->testOptions = $options;
+	}
 
-		if (isset($options)) {
-			$testOptions = $options;
-		}
-
-		return $testOptions;
+	/**
+	 * Set options to use with unit tests.
+	 *
+	 * @return null or array of string optionId => CaptchaAdminOption test instance
+	 */
+	public function delTestOptions() {
+		$this->testOptions = null;
 	}
 
 	/**
