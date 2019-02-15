@@ -797,8 +797,13 @@ class NotificationEventHandlingPlatform {
 		$subject,
 		$headers = null
 	) {
-		// Handle email..
-		$body = $body['body'];
+		// Stringify Email Body..
+		if (array_key_exists('l10Domain', $body)) {
+			unset($body['l10Domain']);
+		}
+		$body = implode("\n\n", $body);
+
+		// Handle Email..
 		$this->_handleMail($to, $subject, $body, $headers);
 	}
 
