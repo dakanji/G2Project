@@ -161,13 +161,13 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
-		$ret = HiddenHelper::hideItem($this->_topAlbum);
+		$ret = HiddenHelper::doStatic()->hideItem($this->_topAlbum);
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$ret = HiddenHelper::hideItem($this->_subItems[0]);
+		$ret = HiddenHelper::doStatic()->hideItem($this->_subItems[0]);
 
 		if ($ret) {
 			return $ret;
@@ -241,13 +241,13 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
-		$ret = HiddenHelper::hideItem($this->_topAlbum);
+		$ret = HiddenHelper::doStatic()->hideItem($this->_topAlbum);
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$ret = HiddenHelper::hideItem($this->_subItems[0]);
+		$ret = HiddenHelper::doStatic()->hideItem($this->_subItems[0]);
 
 		if ($ret) {
 			return $ret;
@@ -321,13 +321,13 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
-		$ret = HiddenHelper::hideItem($this->_topAlbum);
+		$ret = HiddenHelper::doStatic()->hideItem($this->_topAlbum);
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$ret = HiddenHelper::hideItem($this->_subItems[0]);
+		$ret = HiddenHelper::doStatic()->hideItem($this->_subItems[0]);
 
 		if ($ret) {
 			return $ret;
@@ -401,7 +401,7 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		global $gallery;
 		$storage =& $gallery->getStorage();
 
-		$ret = HiddenHelper::hideItem($this->_subItems[0]);
+		$ret = HiddenHelper::doStatic()->hideItem($this->_subItems[0]);
 
 		if ($ret) {
 			return $ret;

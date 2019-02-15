@@ -195,7 +195,7 @@ class HiddenModule extends GalleryModule {
 			}
 
 			foreach ($items as $item) {
-				$ret = HiddenHelper::unHideItem($item);
+				$ret = HiddenHelper::doStatic()->unHideItem($item);
 
 				if ($ret) {
 					return $ret;
@@ -255,7 +255,7 @@ class HiddenModule extends GalleryModule {
 					&& $item->isModified('parentId')
 					&& !$item->hasOnLoadHandler('Hidden')
 				) {
-					$ret = HiddenHelper::handleMoveItem($item);
+					$ret = HiddenHelper::doStatic()->handleMoveItem($item);
 
 					if ($ret) {
 						return array($ret, null);

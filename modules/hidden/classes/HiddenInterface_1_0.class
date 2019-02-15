@@ -30,13 +30,26 @@
  */
 class HiddenInterface_1_0 {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new HiddenInterface_1_0();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Hide an item
 	 *
 	 * @param GalleryItem $item
 	 * @param boolean $useProgressBar (default is false)
 	 * @return GalleryStatus a status code
 	 */
-	public static function hideItem(&$item, $useProgressBar = false) {
+	public function hideItem(&$item, $useProgressBar = false) {
 		return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
 	}
 
@@ -47,7 +60,7 @@ class HiddenInterface_1_0 {
 	 * @param boolean $useProgressBar (default is false)
 	 * @return GalleryStatus a status code
 	 */
-	public static function unHideItem(&$item, $useProgressBar = false) {
+	public function unHideItem(&$item, $useProgressBar = false) {
 		return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
 	}
 
@@ -58,7 +71,7 @@ class HiddenInterface_1_0 {
 	 * @return array GalleryStatus a status code
 	 *               boolean true if hidden
 	 */
-	public static function isHidden($item) {
+	public function isHidden($item) {
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
 }

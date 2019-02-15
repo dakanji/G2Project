@@ -87,13 +87,13 @@ class HiddenItemOption extends ItemEditOption {
 		}
 
 		if (!empty($form['HiddenItemOption']['setHidden'])) {
-			$ret = HiddenHelper::hideItem($item, $useProgressBar);
+			$ret = HiddenHelper::doStatic()->hideItem($item, $useProgressBar);
 
 			if ($ret) {
 				return array($ret, null, null);
 			}
 		} else {
-			$ret = HiddenHelper::unHideItem($item, $useProgressBar);
+			$ret = HiddenHelper::doStatic()->unHideItem($item, $useProgressBar);
 
 			if ($ret) {
 				return array($ret, null, null);

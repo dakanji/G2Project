@@ -28,10 +28,23 @@ GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenInterface_1_0.class');
  * @version $Revision: 17580 $
  */
 class HiddenHelper extends HiddenInterface_1_0 {
-	public static $_notEmpty = true;
-	public static $progressBar;
-	public static $coreParams;
-	public static $passwordInterface;
+	public $_notEmpty = true;
+	public $progressBar;
+	public $coreParams;
+	public $passwordInterface;
+
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new HiddenHelper();
+		}
+
+		return $singleton;
+	}
 
 	/**
 	 * Hides an item.
@@ -50,7 +63,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	 * @param int $passwordAncestor used in recursive calls
 	 * @return GalleryStatus a status code
 	 */
-	public static function hideItem(
+	public function hideItem(
 		&$item,
 		$useProgressBar = false,
 		$hideId = null,
@@ -79,7 +92,9 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		}
 
 		if (!isset($passwordInterface)) {
-			list($ret, $passwordInterface) = GalleryCoreApi::newFactoryInstance('PasswordInterface_1_0');
+			list($ret, $passwordInterface) = GalleryCoreApi::newFactoryInstance(
+				'PasswordInterface_1_0'
+			);
 
 			if ($ret) {
 				return $ret;
@@ -149,7 +164,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 
 		// Remove session based permission for a hidden ancestor
 		if (!isset($hiddenAncestor)) {
-			list($ret, $hiddenAncestor, $passwordAncestor) = HiddenHelper::_checkAncestors(
+			list($ret, $hiddenAncestor, $passwordAncestor) = $this->_checkAncestors(
 				$item,
 				$passwordInterface
 			);
@@ -251,7 +266,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 				}
 
 				foreach ($childItems as $child) {
-					$ret = HiddenHelper::hideItem(
+					$ret = $this->hideItem(
 						$child,
 						false,
 						$hideId,
@@ -275,7 +290,11 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			}
 
 			if ($progressBar) {
-				$templateAdapter->updateProgressBar($progressBar['title'], $progressBar['text'], 1);
+				$templateAdapter->updateProgressBar(
+					$progressBar['title'],
+					$progressBar['text'],
+					1
+				);
 				$progressBar = false;
 			}
 		}
@@ -295,7 +314,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	 * @param int $passwordAncestor used in recursive calls
 	 * @return GalleryStatus a status code
 	 */
-	public static function unHideItem(
+	public function unHideItem(
 		&$item,
 		$useProgressBar = false,
 		$hideId = null,
@@ -424,7 +443,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 
 		// Check for a hidden ancestor
 		if (!isset($hiddenAncestor)) {
-			list($ret, $hiddenAncestor, $passwordAncestor) = HiddenHelper::_checkAncestors(
+			list($ret, $hiddenAncestor, $passwordAncestor) = $this->_checkAncestors(
 				$item,
 				$passwordInterface
 			);
@@ -539,7 +558,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 				}
 
 				foreach ($childItems as $child) {
-					$ret = HiddenHelper::unHideItem(
+					$ret = $this->unHideItem(
 						$child,
 						false,
 						$hideId,
@@ -585,7 +604,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	 *               mixed id of nearest password protected ancestor or false
 	 * @access private
 	 */
-	public static function _checkAncestors($item, $passwordInterface) {
+	public function _checkAncestors($item, $passwordInterface) {
 		list($ret, $ancestors) = GalleryCoreApi::fetchParents($item);
 
 		if ($ret) {
@@ -620,11 +639,14 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	 * @param GalleryItem $item item that has moved
 	 * @return GalleryStatus a status code
 	 */
-	public static function handleMoveItem($item) {
+	public function handleMoveItem($item) {
 		global $gallery;
 		$oldParentId         = $item->getOriginalValue('parentId');
 		$newParentId         = $item->getParentId();
-		list($ret, $parents) = GalleryCoreApi::loadEntitiesById(array($oldParentId, $newParentId), 'GalleryItem');
+		list($ret, $parents) = GalleryCoreApi::loadEntitiesById(
+			array($oldParentId, $newParentId),
+			'GalleryItem'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -650,7 +672,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		if ($hiddenAncestors[1]) {
 			// New location is hidden
 			$gallery->guaranteeTimeLimit(60);
-			$ret = HiddenHelper::hideItem($item, false, $hiddenAncestors[1], $hiddenAncestors[0]);
+			$ret = $this->hideItem($item, false, $hiddenAncestors[1], $hiddenAncestors[0]);
 
 			if ($ret) {
 				return $ret;
@@ -658,7 +680,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		} elseif ($hiddenAncestors[0]) {
 			// Old location was hidden, new location is not
 			$gallery->guaranteeTimeLimit(60);
-			$ret = HiddenHelper::unHideItem($item, false, $hiddenAncestors[0], false);
+			$ret = $this->unHideItem($item, false, $hiddenAncestors[0], false);
 
 			if ($ret) {
 				return $ret;
@@ -671,7 +693,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	/**
 	 * @see HiddenInterface_1_0::isHidden
 	 */
-	public static function isHidden($item) {
+	public function isHidden($item) {
 		return array(null, $item->hasOnLoadHandler('Hidden'));
 	}
 }
