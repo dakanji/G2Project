@@ -21,11 +21,7 @@
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.4",
         "friendsofphp/php-cs-fixer": "^2.14",
-        "php-cs-fixer/phpunit-constraint-xmlmatchesxsd": "^1.0",
-        "php-cs-fixer/phpunit-constraint-isidenticalstring": "^1.0",
-        "wp-coding-standards/wpcs": "^2.0",
-        "phpunit/php-invoker": "^2.0",
-        "symfony/lock": "^3.4"
+        "wp-coding-standards/wpcs": "^2.0"
     },
     "scripts": {
         "post-install-cmd": [
