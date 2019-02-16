@@ -1,0 +1,3736 @@
+# $Id: el.po 16548 2007-06-07 16:55:18Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Core 1.2.0.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 09:29-0700\n"
+"PO-Revision-Date: 2007-03-16 10:47+0200\n"
+"Last-Translator: Anthi Andreou <tp_s@hotmail.com>\n"
+"Language-Team: Greek <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-Language: Greek\n"
+"X-Poedit-Country: GREECE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "Gallery Email Test"
+msgstr "Δοκιμή Email Γκαλερί"
+
+msgid "forever"
+msgstr "για πάντα"
+
+msgid "High Priority (Me first!)"
+msgstr "Υψηλή Προτεραιότητα (Εμένα πρώτα!)"
+
+msgid "Low Priority (I want to share!)"
+msgstr "Χαμηλή Προτεραιότητα (Θέλω να μοιραστώ!)"
+
+msgid "No Markup"
+msgstr "Χωρίς Markup"
+
+msgid "BBCode"
+msgstr "BBCode"
+
+msgid "Raw HTML"
+msgstr "Χύμα HTML"
+
+msgid "Database"
+msgstr "Βάση Δεδομένων"
+
+msgid "File"
+msgstr "Αρχείο: "
+
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d Λεπτό"
+msgstr[1] "%d Λεπτά"
+
+#, c-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d Ώρα"
+msgstr[1] "%d Ώρες"
+
+#, c-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d Ημέρα"
+msgstr[1] "%d Ημέρες"
+
+#, c-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "%d Εβδομάδα"
+msgstr[1] "%d Εβδομάδες"
+
+msgid "<none>"
+msgstr "<κανένα>"
+
+msgid "No acceleration"
+msgstr "Καμία Επιτάχυνση"
+
+msgid "Partial acceleration"
+msgstr "Μερική Επιτάχυνση"
+
+msgid "Full acceleration"
+msgstr "Πλήρης Επιτάχυνση"
+
+msgid "Themes"
+msgstr "Θέματα"
+
+msgid "Updating Repository Index"
+msgstr "Ενημέρωση ευρετηρίου του χώρου αποθήκευσης"
+
+msgid "Scanning plugins"
+msgstr "Ανίχνευση για πρόσθετα"
+
+msgid "Update Plugin List"
+msgstr "Ενημέρωση Λίστας Πρόσθετων"
+
+msgid "Done."
+msgstr "Ολοκληρώθηκε."
+
+msgid "Updating Packages"
+msgstr "Ενημέρωση Πακέτων"
+
+#, c-format
+msgid "Preparing %s"
+msgstr "Προετοιμασία %s"
+
+#, c-format
+msgid "Downloading %s"
+msgstr "Κατέβασμα %s"
+
+#, c-format
+msgid "Activating %s"
+msgstr "Ενεργοποίηση %s"
+
+msgid "Deleting Language Packs"
+msgstr "Διαγραφή Πακέτων Γλωσσών"
+
+msgid "Update completed with errors."
+msgstr "Η Ενημέρωση Ολοκληρώθηκε με σφάλματα."
+
+msgid "Update complete."
+msgstr "Η Ενημέρωση Ολοκληρώθηκε."
+
+msgid "install"
+msgstr "εγκατάσταση"
+
+msgid "upgrade"
+msgstr "Αναβάθμιση"
+
+msgid "activate"
+msgstr "ενεργοποίηση"
+
+msgid "uninstall"
+msgstr "απεγκατάσταση"
+
+msgid "deactivate"
+msgstr "απενεργοποίηση"
+
+msgid "Inherit settings from parent album"
+msgstr "Κληρονόμηση ρυθμίσεων από το γονικό άλμπουμ"
+
+msgid "Use these settings"
+msgstr "Χρήση αυτών των ρυθμίσεων"
+
+msgid "Installing the core module"
+msgstr "Εγκατάσταση της μονάδας πυρήνα"
+
+msgid "key"
+msgstr "κλειδί"
+
+msgid "All access"
+msgstr "Πλήρες Πρόσβαση"
+
+msgid "[core] View item"
+msgstr "[πυρήνας] Προβολή Αρχείου"
+
+msgid "[core] View resized version(s)"
+msgstr "[core] Προβολή αρχείων διαφορετικού μεγέθους"
+
+msgid "[core] View original version"
+msgstr "[core] Προβολή πρωτότυπης έκδοσης"
+
+msgid "[core] View all versions"
+msgstr "[core] Προβολή Όλων των εκδόσεων"
+
+msgid "[core] Add sub-album"
+msgstr "[core] Προσθήκη υπο-άλπουμ"
+
+msgid "[core] Add sub-item"
+msgstr "[core] Προσθήκη υπο-αρχείου"
+
+msgid "[core] Edit item"
+msgstr "[core] Επεξεργασία αρχείου"
+
+msgid "[core] Change item permissions"
+msgstr "[core] Αλλαγή Δικαιωμάτων Αρχείου"
+
+msgid "[core] Delete item"
+msgstr "[core] Διαγραφή Αρχείου"
+
+msgid "Upgrading permissions"
+msgstr "Αναβάθμιση Δικαιωμάτων"
+
+msgid "Deleting old permission tables"
+msgstr "Διαγραφή Παλαιών Πινάκων Δικαιωμάτων"
+
+msgid "Registered Users"
+msgstr "Καταχωρημένοι Χρήστες"
+
+msgid "All Users"
+msgstr "Όλοι οι Χρήστες"
+
+msgid "Detecting broken derivatives"
+msgstr "Ανίχνευση σπασμένων παραγώγων"
+
+msgid "Clearing fast-download cache"
+msgstr "Καθαρισμός cache γρήγορου-κατεβάσματος"
+
+msgid "Deleting old fast-download cache"
+msgstr "Διαγραφή cache γρήγορου-κατεβάσματος"
+
+msgid "Updating panorama items"
+msgstr "Ενημέρωση πανοραμικών αρχείων"
+
+msgid "Optimizing AccessSubscriberMap table"
+msgstr "Βελτιστοποίηση του πίνακα AccessSubscriberMap"
+
+msgid "Converting Schema Table"
+msgstr ""
+
+msgid "Loading Table Descriptions"
+msgstr ""
+
+msgid "Site Admins"
+msgstr "Διαχειριστές"
+
+msgid "Everybody"
+msgstr "Όλοι"
+
+msgid "Guest"
+msgstr "Επισκέπτης"
+
+msgid "Gallery"
+msgstr "Γκαλερί"
+
+msgid "This is the main page of your Gallery"
+msgstr "Αυτή είναι η κυρια σελίδα της Γκαλερί"
+
+msgid "Converting MySQL data to UTF8"
+msgstr "Μετατροπή δεδομένων MySQL σε UTF8"
+
+#, c-format
+msgid "Upgrading permissions (%d items complete, %d remaining)"
+msgstr "Αναβάθμιση Δικαιωμάτων (%d αρχεία ολοκληρώθηκαν, %d απομένουν)"
+
+#, c-format
+msgid "Detecting broken derivatives, loading (%d derivatives checked, %d remaining)"
+msgstr "Εντοπισμός σπασμένων παραγώγων, φόρτωση (%d παράγωγα ελεγμένα, %d απομένουν)"
+
+#, c-format
+msgid "Detecting broken derivatives (%d derivatives checked, %d remaining)"
+msgstr "Εντοπισμός σπασμένων παραγώγων (%d παράγωγα ελεγμένα, %d απομένουν)"
+
+#, c-format
+msgid "Detecting broken derivatives, saving (%d derivatives checked, %d remaining)"
+msgstr "Εντοπισμός σπασμένων παραγώγων, αποθήκευση (%d παράγωγα ελεγμένα, %d απομένουν)"
+
+#, c-format
+msgid ""
+"Detecting broken derivatives, saving item %d of %d (%d derivatives complete, %d remaining)"
+msgstr ""
+"Εντοπισμός σπασμένων παραγώγων, αποθήκευση αντικειμένου %d ααπό %d (%d παράγωγα "
+"ολοκληρωμένα, %d απομένουν)"
+
+#, fuzzy, c-format
+msgid "Deleting old session files (iteration %d)"
+msgstr "Δικαιώματα Αντικειμένου"
+
+msgid "add items"
+msgstr "Προσθήκη αρχείων"
+
+msgid "Album created successfully."
+msgstr "Το άλπουμ δημιουργήθηκε με επιτυχία"
+
+msgid "add sub-album"
+msgstr "Προσθήκη υπο-άλπουμ"
+
+msgid "add items confirmation"
+msgstr "Επιβεβαίωση προσθήκης αρχείων"
+
+msgid "Base filename"
+msgstr "Βασικό όνομα αρχείου"
+
+msgid "Caption"
+msgstr "Τίτλος: "
+
+msgid "Blank"
+msgstr "Κενό"
+
+msgid "From Web Browser"
+msgstr "Από Περιηγητή (Web Browser)"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabytes"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format
+msgid "Input file %s exceeds maximum permitted file size"
+msgstr "Το εισαγώμενο αρχείο %s υπερβαίνει το μέγιστο επιτρεπτό μέγεθος αρχείου"
+
+#, c-format
+msgid "Input file %s exceeds file size specified in the form"
+msgstr "Το εισαγώμενο αρχείο %s υπερβαίνει το μεγεθος αρχείου που καθορίζεται στη φόρμα"
+
+#, c-format
+msgid "Input file %s was only partially uploaded"
+msgstr "Το εισαγώμενο αρχείο %s ανέβηκε μόνο μερικώς"
+
+#, c-format
+msgid "Input file %s was not uploaded. Error %d"
+msgstr "Το εισαγώμενο αρχείο %s δεν ανέβηκε. Σφάλμα %d"
+
+msgid "Gallery Item Administration"
+msgstr "Διαχείρηση Αντκειμένου Γκαλερί"
+
+msgid "delete an item"
+msgstr "Διαγραφή Αρχείου"
+
+msgid "delete confirmation"
+msgstr "Επιβεβαίωση Διαγραφής"
+
+#, c-format
+msgid "delete %s"
+msgstr "Διαγραφή %s"
+
+#, c-format
+msgid "edit %s"
+msgstr "Επεξεργασία %s"
+
+msgid "Settings saved successfully."
+msgstr "Οι ρυθμίσεις αποθηκεύτηκαν με επιτυχία"
+
+msgid "Apply resized image settings"
+msgstr "Ενημερώστε τις ρυθμίσεις για φωτογραφίες αλλαγμένου μεγέθους"
+
+msgid "Preparing..."
+msgstr "Προετοιμασία..."
+
+msgid "Apply thumbnail settings"
+msgstr "Εφαρμογή ρυθμίσεων μικρογραφιών"
+
+msgid "Rebuilding thumbnails..."
+msgstr "Ανακατασκευή μικρογραφιών..."
+
+msgid "Album"
+msgstr "Άλπουμ"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Επεξεργασία εικόνας %d από %d"
+
+msgid "Changes saved successfully"
+msgstr "Οι αλλαγές αποθηκεύτηκαν με επιτυχία"
+
+msgid "Animation Size"
+msgstr "Μέγεθος Κινούμενης Εικόνας"
+
+msgid "edit captions"
+msgstr "επεξεργασία τίτλων"
+
+msgid "General"
+msgstr "Γενικά"
+
+msgid "Movie Size"
+msgstr "Μέγεθος Ταινίας"
+
+msgid "Photo"
+msgstr "Φωτογραφία"
+
+msgid "Thumbnail cropped successfully"
+msgstr "Το ξάκρισμα της μικρογραφίας έγινε με επιτυχία"
+
+msgid "Thumbnail reset successfully"
+msgstr "Η μικρογραφία επανήλθε επιτυχώς"
+
+msgid "Photo 5x3"
+msgstr "Φωτογραφία 5x3"
+
+msgid "Photo 6x4"
+msgstr "Φωτογραφία 6x4"
+
+msgid "Photo 7x5"
+msgstr "Φωτογραφία 7x5"
+
+msgid "Photo 10x8"
+msgstr "Φωτογραφία 10x8"
+
+msgid "Fullscreen 4x3"
+msgstr "Πλήρης Οθόνη 4x3"
+
+msgid "Widescreen 16x9"
+msgstr "Πλατιά Οθόνη 16x9"
+
+msgid "CinemaScope 2.35x1"
+msgstr "CinemaScope 2.35x1"
+
+msgid "Square 1x1"
+msgstr "Τετράγωνο 1x1"
+
+msgid "As Image"
+msgstr "Όπως Εικόνα"
+
+msgid "Landscape"
+msgstr "Οριζόντια"
+
+msgid "Portrait"
+msgstr "Κατακόρυφα"
+
+msgid "Crop Thumbnail"
+msgstr "Ξάκρισμα Μικρογραφίας"
+
+#, fuzzy
+msgid "Reverted rotate and scale changes successfully"
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
+
+msgid "Rotated photo successfully"
+msgstr "Επιτυχής περιστροφή φωτογραφίας"
+
+msgid "Scaled photo successfully"
+msgstr "Η Φωτογραφία Κλιμακώθηκε με επιτυχία."
+
+msgid "Modify Photo"
+msgstr "Επεξεργασία Φωτογραφίας"
+
+msgid "Successfully changed theme"
+msgstr "Η αλλαγή θέματος έγινε με επιτυχία"
+
+msgid "&laquo; default theme &raquo;"
+msgstr "&laquo; τρέχον θέμα &raquo;"
+
+msgid "Theme"
+msgstr "Θέμα"
+
+msgid "make highlight"
+msgstr "κάντο κύριο Σημείο"
+
+msgid "move item"
+msgstr "μετακίνηση αρχείου"
+
+#, c-format
+msgid "move %s"
+msgstr "Μετακίνηση %s"
+
+#, c-format
+msgid "edit %s permissions"
+msgstr "Επεξεργασία %s Δικαιωμάτων"
+
+msgid "reorder items"
+msgstr "Αναταξινόμηση Αρχείων"
+
+msgid "Maintenance"
+msgstr "Συντήρηση"
+
+msgid "Gallery Site Administration"
+msgstr "Διαχείρηση της Γκαλερί"
+
+msgid "site admin"
+msgstr "Διαχείριση"
+
+msgid "Gallery User Administration"
+msgstr "Διαχείρηση Χρηστών Γκαλερί"
+
+msgid "change password"
+msgstr "Αλλαγή Κωδικού Πρόσβασης"
+
+msgid "your account"
+msgstr "ο λογαριασμός σου"
+
+msgid "Password Recovery"
+msgstr "Ανάκτηση Κωδικού"
+
+msgid "Core"
+msgstr "Core"
+
+msgid "Gallery 2 Core Module"
+msgstr "Gallery 2 Core Module"
+
+msgid "Add Items"
+msgstr "Προσθέστε Αρχεία"
+
+msgid "Edit Album"
+msgstr "Επεξεργασία Άλπουμ"
+
+msgid "Edit Photo"
+msgstr "Επεξεργασία Φωτογραφίας"
+
+msgid "Edit Movie"
+msgstr "Επεξεργασία Ταινίας"
+
+msgid "Add Album"
+msgstr "Προσθήκη Άλπουμ"
+
+msgid "Edit Permissions"
+msgstr "Επεξεργασία Δικαιωμάτων"
+
+msgid "View Permissions"
+msgstr "Προβολή Δικαιωμάτων"
+
+msgid "Delete Album"
+msgstr "Διαγραφή Άλπουμ"
+
+msgid "Delete Photo"
+msgstr "Διαγραφή Φωτογραφίας"
+
+msgid "Delete Movie"
+msgstr "Διαγραφή Ταινίας"
+
+msgid "Move Album"
+msgstr "Μετακίνηση Άλπουμ"
+
+msgid "Move Photo"
+msgstr "Μετακίνηση Φωτογραφίας"
+
+msgid "Move Movie"
+msgstr "Μετακίνηση Ταινίας"
+
+msgid "Edit Captions"
+msgstr "Επεξεργασία τίτλων"
+
+msgid "Make Highlight"
+msgstr "Κάντο Κύριο Σημείο"
+
+msgid "Reorder Items"
+msgstr "Αναταξινόμηση Αρχείων"
+
+msgid "Site Admin"
+msgstr "Διαχείρηση της Γκαλλερύ"
+
+msgid "Login"
+msgstr "Σύνδεση"
+
+msgid "Your Account"
+msgstr "Ο Λογαριασμός Σου"
+
+msgid "Logout"
+msgstr "Αποσύνδεση"
+
+msgid "Plugins"
+msgstr "Πρόσθετα"
+
+msgid "Users"
+msgstr "Χρήστες"
+
+msgid "Groups"
+msgstr "Ομάδες"
+
+msgid "Performance"
+msgstr "Απόδοση"
+
+msgid "Toolkit Priority"
+msgstr "Προτεραιότητα Εργαλειοθήκης"
+
+msgid "Graphics Toolkits"
+msgstr "Εργαλειοθήκη Γραφικών"
+
+msgid "Account Settings"
+msgstr "Ρυθμίσεις Λογαριασμού"
+
+msgid "Change Password"
+msgstr "Αλλαγή κωδικού πρόσβασης"
+
+#, c-format
+msgid "Edit %s"
+msgstr "Επεξεργασία %s"
+
+#, c-format
+msgid "Delete %s"
+msgstr "Διαγραφή %s"
+
+#, c-format
+msgid "Move %s"
+msgstr "Μετακίνηση %s"
+
+msgid "Build all thumbnails/resizes"
+msgstr "Κατασκευή όλων των μικρογραφιών/αναδιαστασιολογήσεων(resized)"
+
+msgid ""
+"Ensure data files for all derivatives (thumbnails, etc) have been built and rebuild broken "
+"ones."
+msgstr ""
+"Εξασφάλιση ότι τα αρχεία δεδομένων για όλα τα παράγωγα (μικρογραφίες, κλπ) έχουν "
+"κατασκευαστεί και έχουν ανακατασκευαστεί τα σπασμένα."
+
+msgid "Build All Thumbnails/Resizes"
+msgstr "Κατασκευή όλων των μικρογραφιών/αναδιαστασιολογήσεων(resized)"
+
+msgid "Debug output for failed items:"
+msgstr "Αποσφαλμάτωση εξόδου για αποτυχημένα αρχεία:"
+
+#, c-format
+msgid "Checked %d items"
+msgstr "Επιλέχθηκαν %d αρχεία"
+
+#, c-format
+msgid "%d items built"
+msgstr "%d αρχεία κατασκευάστηκαν"
+
+#, c-format
+msgid "%d items failed"
+msgstr "%d αρχεία απότυχαν"
+
+msgid "Convert MySQL database to UTF8"
+msgstr "Μετατροπή Βάσης Δεδομένων MySQL σε UTF8"
+
+msgid ""
+"If you created your database with MySQL 3.x and you upgrade to MySQL 4.x, you will "
+"experience scrambled characters until you convert your database to use UTF8.  This operation "
+"is harmless if your database is already converted, so it's safe to try it if you're unsure.  "
+"After using this, you should run the 'Delete database cache' task to get rid of any "
+"corruption in your cache."
+msgstr ""
+"Αν δημιουργήσατε την βάση δεδομένων σας με την MySQL 3.x και αναβαθμίσετε σε MySQL 4.x, θα "
+"βιώσετε ανακατεμένους χαρακτήρες μέχρι να μετατρέψετε την βάση δεδομένων σας ώστε να "
+"χρησιμοποιεί UTF8. Αυτή η διαδικασία είναι ακίνδυνη αν η βάση δεδομένων σας έχει ήδη "
+"μετατραπεί, έτσι είναι ασφαλές να δοκιμάσετε αν δεν είστε σίγουροι. Μετά από αυτή τη χρήση, "
+"θα πρέπει να τρέξετε την εργασία 'Διαγραφή cache βάσης δεδομένων'  για να ξεφορτωθείτε "
+"οποιαδήποτε φθορά στην cache."
+
+msgid "Database successfully converted to UTF8"
+msgstr "Η βάση δεδομένων μετατράπηκε επιτυχώς σε UTF8"
+
+msgid "No conversion required"
+msgstr "Δεν χρειάζεται μετατροπή"
+
+msgid "Delete user sessions"
+msgstr "Διαγραφή συνεδριών χρήστη"
+
+msgid ""
+"Delete all persistent user sessions according to your current session expiration settings."
+msgstr ""
+"Διαγραφή όλων των επίμονων συνεδριών χρήστη σύμφωνα με τις τρέχουσες ρυθμίσεις λήξης "
+"συνεδρίας."
+
+#, c-format
+msgid "Deleted %d sessions."
+msgstr "Διαγράφηκαν %d συνεδρίες."
+
+msgid "Delete database cache"
+msgstr "Διαγραφή cache βάσης δεδομένων"
+
+msgid ""
+"Gallery stores commonly used database information on disk for increased performance. If you "
+"modify the database directly, you should run this task to clean out the cache and force "
+"Gallery to reload the information from the database."
+msgstr ""
+"Η Γκαλερί αποθηκεύει συχνά χρησιμοποιούμενες πληροφορίες της βάσης δεδομένων στον δίσκο για "
+"αυξημένες επιδόσεις. Αν τροποποιήσετε την βάση δεδομένων απευθείας, πρέπει να τρέξετε αυτή "
+"την εργασία για να καθαρίσετε την cache και να αναγκάσετε την Γκαλερί να επαναφορτώσει τις "
+"πληροφορίες από την βάση δεδομένων."
+
+#, c-format
+msgid "Successfully deleted directory: %s"
+msgstr "Διαγράφηκε επιτυχώς ο κατάλογος: %s"
+
+#, c-format
+msgid "Unable to delete directory: %s"
+msgstr "Δεν μπορεί να διαγραφεί ο κατάλογος: %s"
+
+msgid "Delete template cache"
+msgstr "Διαγραφή της cache προτύπου"
+
+msgid ""
+"Gallery compiles template files and saves them for increased performance.  If you're "
+"experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
+"Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
+"file."
+msgstr ""
+"Η Γκαλερί συλλέγει αρχεία προτύπων και τα αποθηκεύει για αυξημένες επιδόσεις. Αν "
+"αντιμετοπίζετε προβλήματα που λένε <i>Smarty error</i> τότε μπορείτε να δοκιμάσετε να "
+"τρέξετε αυτή την εργασία. Επίσης τρέξτε το αν αφαιρέσατε ένα αρχείο local/*.tpl ώστε το "
+"Smarty να γυρίσει πίσω στο προκαθορισμένο αρχείο tpl."
+
+msgid "Template cache deleted successfully"
+msgstr "Η cache προτύπου διαγράφηκε επιτυχώς"
+
+msgid "album"
+msgstr "άλπουμ"
+
+msgid "Animation"
+msgstr "Κινούμενη Εικόνα"
+
+msgid "animation"
+msgstr "κινούμενη εικόνα"
+
+msgid "Gallery Core"
+msgstr "Gallery Core"
+
+msgid "Gallery Core Module"
+msgstr "Gallery Core Module"
+
+msgid "Search descriptions"
+msgstr "Αναζήτηση περιγραφών"
+
+msgid "Search keywords"
+msgstr "Αναζήτηση Λέξεων Κλειδιών"
+
+msgid "Search summaries"
+msgstr "Αναζήτηση Περιλήψεων"
+
+msgid "Search titles"
+msgstr "Αναζήτηση τίτλων"
+
+msgid "Description"
+msgstr "Περιγραφή"
+
+msgid "Keywords"
+msgstr "Λέξεις Κλειδιά"
+
+msgid "Summary"
+msgstr "Περίληψη"
+
+msgid "Title"
+msgstr "Τίτλος"
+
+msgid "Owner"
+msgstr "Ιδιοκτήτης"
+
+msgid "Dynamic Album"
+msgstr "Δυναμικό Άλπουμ"
+
+msgid "dynamic album"
+msgstr "δυναμικό άλπουμ"
+
+msgid "Group"
+msgstr "Ομάδα"
+
+msgid "group"
+msgstr "ομάδα"
+
+msgid "Other"
+msgstr "Λοιπά"
+
+msgid "Movie"
+msgstr "Ταινία"
+
+msgid "movie"
+msgstr "ταινία"
+
+msgid "photo"
+msgstr "Φωτογραφία"
+
+msgid "Couldn't create repository cache path."
+msgstr "Δεν μπόρεσε να δημιουργηθεί το μονοπάτι για τον χώρο της cache"
+
+msgid ""
+"Couldn't create cache subdirectory. Make sure the web server has write permissions in it."
+msgstr ""
+"Δεν μπόρεσε να δημιουργηθεί υποκατάλογος της cache. Σιγουρευτείτε ότι ο web server έχει "
+"άδειες γραφής σε αυτόν."
+
+msgid "Official Release Repository"
+msgstr "Επίσημη Έκδοση Χώρου Αποθήκευσης"
+
+msgid "Experimental Repository"
+msgstr "Δοκιμαστικός χώρος αποθήκευσης"
+
+msgid "Community Repository"
+msgstr "Χώρος αποθήκευσης κοινότητας"
+
+#, c-format
+msgid "Error downloading index from '%s'."
+msgstr "Σφάλμα κατεβάσματος ευρετηρίου από '%s'."
+
+#, c-format
+msgid "Error downloading index hash from '%s'."
+msgstr "Σφάλμα κατεβάσματος hash ευρετηρίου από '%s'."
+
+msgid "Index integrity check failed."
+msgstr "Απέτυχε ο έλεγχος ακεραιότητας ευρετηρίου"
+
+msgid "&laquo; default sort order &raquo;"
+msgstr "&laquo; προεπιλεγμένη ταξινόμηση &raquo;"
+
+msgid "Manual sort order"
+msgstr "Χειροκίνητη ταξινόμηση"
+
+msgid "Origination Date"
+msgstr "Ημερομηνία Δημιουργίας"
+
+msgid "Creation Date"
+msgstr "Ημερομηνία Δημιουργίας"
+
+msgid "Last Changed Date"
+msgstr "Τελευταία Ημερομηνία Αλλαγής"
+
+msgid "Name"
+msgstr "Πλήρες Όνομα"
+
+msgid "View Count"
+msgstr "Προβολή Μέτρησης"
+
+msgid "Random"
+msgstr "Τυχαία"
+
+msgid "&laquo; no presort &raquo;"
+msgstr "&laquo;  Χωρίς Ταξινόμιση &raquo;"
+
+msgid "Albums First"
+msgstr "Πρώτα τα άλμπουμ"
+
+msgid "Most Viewed First"
+msgstr "Πρώτα τα πιο προβαλλόμενα"
+
+msgid "Ascending"
+msgstr "Αύξουσα"
+
+msgid "Descending"
+msgstr "Φθίνουσα"
+
+msgid "Validation disabled until you set allowSessionAccess in config.php"
+msgstr "Η εξακρίβωση απενεργοποιήθηκε μέχρι να θέσετε allowSessionAccess στο config.php"
+
+msgid "This page is valid XHTML 1.0"
+msgstr "Αυτή η σελίδα έχει έγκυρη XHTML 1.0"
+
+msgid "Donate to the Gallery project"
+msgstr "Δωρίστε στο έργο Γκαλερί (Menalto Gallery)"
+
+msgid "G2.2: Double Double"
+msgstr "G2.2: Διπλό Διπλό"
+
+#, c-format
+msgid "Powered by Gallery v%s"
+msgstr "Powered by Gallery v%s"
+
+#, c-format
+msgid "Estimated time remaining: %d:%02d"
+msgstr "Υπολογιζόμενος χρόνος που παραμένει: %d:%02d"
+
+#, c-format
+msgid "Memory used: %s, total: %s"
+msgstr "Μνήμη που χρησιμοποιήθηκε: %s, σύνολο: %s"
+
+msgid "Rows per album page"
+msgstr "Γραμμές ανά σελίδα άλπουμ"
+
+msgid "Columns per album page"
+msgstr "Στήλες ανά σελίδα άλπουμ"
+
+msgid "Number of items to show per page"
+msgstr "Αριθμός αρχείων για προβολή ανά σελίδα"
+
+msgid "Row height (pixels)"
+msgstr "Ύψος Γραμμής (pixels)"
+
+msgid "Column width (pixels)"
+msgstr "Πλάτος Στήλης (pixels)"
+
+msgid "Show image owners"
+msgstr "Εμφάνιση Ιδιοκτήτη Εικόνων"
+
+msgid "Show album owners"
+msgstr "Εμφάνιση Ιδιοκτήτη Άλπουμ"
+
+msgid "Show micro navigation thumbnails"
+msgstr "Εμφάνιση Μικρογραφιών πλοήγησης"
+
+msgid "Blocks to show in the sidebar"
+msgstr "Προβολή μπλοκς στην πλευρική μπάρα"
+
+msgid "Blocks to show on album pages"
+msgstr "Προβολή μπλοκ στις σελίδες των άλπουμ"
+
+msgid "Blocks to show on photo pages"
+msgstr "Προβολή μπλοκ στις σελίδες φωτογραφιών"
+
+msgid "Thumbnail links in dynamic albums"
+msgstr "Σύνδεσμοι μικρογραφιών σε δυναμικά άλπουμ"
+
+msgid "Browse dynamic album"
+msgstr "Περιήγηση Δυναμικού Άλπουμ"
+
+msgid "Jump to original album"
+msgstr "Πήγαινε στο πρότυπο άλπουμ"
+
+msgid "Separate link to original album"
+msgstr "Διαχωρισμός συνδέσμου στο πρωτότυπο άλπουμ"
+
+msgid "View Samples"
+msgstr "Προβολή Δειγμάτων"
+
+msgid "Album Frame"
+msgstr "Πλαίσιο Άλπουμ"
+
+msgid "Item Frame"
+msgstr "Πλαίσιο Αρχείου"
+
+msgid "Photo Frame"
+msgstr "Πλαίσιο Φωτογραφίας"
+
+msgid "Color Pack"
+msgstr "Πακέτο Χρωμάτων"
+
+msgid "You must enter a number greater than 0"
+msgstr "Δώστε ένα αριθμό μεγαλύτερο από το 0"
+
+msgid "Error reading block settings. Clear your browser cache and try again."
+msgstr ""
+"Σφάλμα στις ρυθμίσεις του μπλοκ. Καθάρισε το cache του περιηγητή σου και δοκίμασε ξανά."
+
+#, c-format
+msgid "%dx%d"
+msgstr "%dx%d"
+
+msgid "Audio"
+msgstr "Ήχος"
+
+msgid "audio"
+msgstr "ήχος"
+
+msgid "Archive"
+msgstr "Αρχειοθήκη"
+
+msgid "archive"
+msgstr "αρχειοθήκη"
+
+msgid "Document"
+msgstr "Κείμενο"
+
+msgid "document"
+msgstr "κείμενο"
+
+msgid "Spreadsheet"
+msgstr "Υπολογιστικό Φύλλο"
+
+msgid "spreadsheet"
+msgstr "υπολογιστικό φύλλο"
+
+msgid "file"
+msgstr "Αρχείο: "
+
+msgid "Back"
+msgstr "<< Πίσω"
+
+#, c-format
+msgid "Back to %s"
+msgstr "Πίσω στο %s"
+
+msgid "User"
+msgstr "Χρήστης"
+
+msgid "user"
+msgstr "χρήστης"
+
+msgid "Optimize database"
+msgstr "Βελτιστοποίηση βάσης δεδομένων"
+
+msgid ""
+"Improve the performance of your database.  Results will vary depending on which database "
+"you're using, but this routine maintenance will make your Gallery run faster.  Especially "
+"useful after adding or deleting many items."
+msgstr ""
+"Βελτιώστε την απόδοση της βάσης δεδομένων σας. Τα αποτελέσματα εξαρτώνται από το ποια βάση "
+"δεδομένων χρησιμοποιείτε, αλλά αυτή η ρουτίνα συντήρησης θα κάνει την Γκαλερί σας να τρέχει "
+"γρηγορότερα. Ειδικά χρήσιμο μετά από προσθήκη ή διαγραφή πολλών αρχείων."
+
+msgid "Database optimized successfully"
+msgstr "Η βάση δεδομένων βελτιστοποιήθηκε επιτυχώς"
+
+msgid "Reset view counts"
+msgstr "Επαναφορά μετρητή προβολών"
+
+msgid ""
+"Reset number of views to zero for all albums and items.  This task flushes the database "
+"cache as well."
+msgstr ""
+"Επαναφορά του αριθμού προβολών στο μηδέν για όλα τα άλμπουμ και τα αρχεία. Αυτή η εργασία "
+"διαγράφει επίσης την cache της βάσης δεδομένων."
+
+msgid "View counts reset successfully"
+msgstr "Επιτυχής επαναφορά του μετρητή προβολών"
+
+msgid "Refresh capture dates"
+msgstr "Ανανέωση ημερομηνιών λήψης"
+
+msgid ""
+"Update capture date stored in Gallery for all items with an available date in the original "
+"data file (usually from EXIF data)."
+msgstr ""
+"Ενημέρωση της ημερομηνίας λήψης που είναι αποθηκευμένη στην Γκαλερί για όλα τα αρχεία που "
+"έχουν διαθέσιμη ημερομηνία στο πρωτότυπο αρχείο δεδομένων (συνήθως από τα δεδομένα EXIF)."
+
+msgid "Processing..."
+msgstr "Επεξεργασία..."
+
+msgid "Refresh Capture Dates"
+msgstr "Ανανέωση Ημερομηνιών Λήψης"
+
+#, c-format
+msgid "Processing item %d of %d"
+msgstr "Επεξεργασία αρχείου %d από %d"
+
+#, c-format
+msgid "Updated %d of %d items"
+msgstr "Ενημερώθηκαν %d από %d αρχεία"
+
+msgid "System information"
+msgstr "Πληροφορίες Συστήματος"
+
+msgid "Get system details; useful for copy/paste into G2 support forum."
+msgstr ""
+"Λήψη λεπτομερειών συστήματος, χρήσιμο για αντιγραφή/επικόλληση στο forum υποστηριξης του G2."
+
+msgid "core"
+msgstr "core"
+
+msgid "unknown"
+msgstr "άγνωστο"
+
+msgid "Gallery version"
+msgstr "Έκδοση Γκαλερί"
+
+msgid "PHP version"
+msgstr "Έκδοση PHP"
+
+msgid "Webserver"
+msgstr "Webserver"
+
+msgid "Toolkits"
+msgstr "Εργαλειοθήκη"
+
+msgid "Acceleration"
+msgstr "Επιτάχυνση"
+
+msgid "Operating system"
+msgstr "Λειτουργικό σύστημα"
+
+msgid "Default theme"
+msgstr "Προεπιλεγμένο Θέμα"
+
+msgid "gettext"
+msgstr "gettext"
+
+msgid "enabled"
+msgstr "ενεργοποιημένο"
+
+msgid "disabled"
+msgstr "απενεργοποιημένο"
+
+msgid "Locale"
+msgstr "Τοπική προσαρμογή"
+
+msgid "Browser"
+msgstr "Περιηγητής(Browser)"
+
+#, c-format
+msgid "Rows in %s table = %d"
+msgstr "Γραμμές στον πίνακα %s = %d"
+
+msgid "Successfully saved theme settings"
+msgstr "Οι ρυθμίσεις θέματος αποθηκεύτηκαν με επιτυχία"
+
+msgid "General Settings"
+msgstr "Γενικές Ρυθμίσεις"
+
+msgid "Settings saved successfully"
+msgstr "Οι ρυθμίσεις αποθηκεύτηκαν με επιτυχία"
+
+msgid "Added local upload directory successfully"
+msgstr "Ο τοπικός κατάλογος προστέθηκε με επιτυχία"
+
+msgid "Removed local upload directory successfully"
+msgstr "Ο τοπικός κατάλογος αφαιρέθηκε με επιτυχία"
+
+msgid "Test email sent successfully"
+msgstr "Το δοκιμαστικό email στάλθηκε με επιτυχία"
+
+msgid "There was a problem processing your request, see below for details."
+msgstr ""
+"Υπήρξε ένα πρόβλημα κατά την επεξεργασία της αίτησης σας, δείτε παρακάτω για λεπτομέρειες."
+
+msgid "Error sending test email, see below for details."
+msgstr "Σφάλμα στην αποστολή δοκιμαστικού email, διαβάστε λεπτομέρειες πιο κάτω."
+
+msgid "Language Settings"
+msgstr "Ρυθμίσεις Γλώσσας"
+
+msgid ""
+"Select language defaults for Gallery. Individual users can override this setting in their "
+"personal preferences or via the language selector block if available. Gallery will try to "
+"automatically detect the language preference of each user if the browser preference check is "
+"enabled."
+msgstr ""
+"Επιλογή προκαθορισμένης γλώσσας για την Γκαλερί. Οι χρήστες μπορούν ατομικά να αγνοήσουν "
+"αυτή τη ρύθμιση στις ατομικές τους προτιμήσεις ή μέσω του μπλοκ επιλογής γλώσσας εάν είναι "
+"διαθέσιμο. Η Γκαλερί θα  προσπαθήσει να εντοπίσει αυτόματα την προτίμηση του κάθε χρήστη εάν "
+"είναι ενεργοποιημένη η επιλογή προτίμησης του browser."
+
+msgid "Default language"
+msgstr "Προεπιλεγμένη Γλώσσα"
+
+msgid "Check Browser Preference"
+msgstr "Ελέγχος ρυθμίσεων περιηγητή(browser)"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system administrator to "
+"reconfigure PHP with the %s option enabled."
+msgstr ""
+"Ο webserver σας δεν υποστηρίζει τοπική προσαρμογή. Παρακαλούμε ζητήστε από τον διαχειριστή "
+"του συστήματος σας να μεταρρυθμίσει την PHP και να ενεργοποιήσει την επιλογή %s."
+
+msgid "Date Formats"
+msgstr "Μορφές Ημερομηνιών"
+
+#, c-format
+msgid ""
+"Specify how dates and times are displayed by Gallery.  See %sphp.net%s for details of how to "
+"enter a format string.  Note that the display of some tokens varies according to the active "
+"language."
+msgstr ""
+"Καθοριστε το πως οι ημερομηνίες και η ώρα θα εμφανίζονται στην Γκαλερί. Δείτε %sphp.net%s "
+"για λεπτομέρειες του πως να εισάγετε μία συμβολοσειρά μορφοποίησης. Σημειώστε ότι η εμφάνιση "
+"μερικών  συμβόλων ποικίλλει ανάλογα με την ενεργό γλώσσα."
+
+msgid "Style"
+msgstr "Στυλ"
+
+msgid "Format"
+msgstr "Μορφή"
+
+msgid "Sample"
+msgstr "Δείγμα"
+
+msgid "Date"
+msgstr "Ημερομηνία"
+
+msgid "Time"
+msgstr "Ώρα"
+
+msgid "Date/Time"
+msgstr "Ημερομηνία/Ώρα"
+
+msgid "Filesystem Permissions"
+msgstr "Δικαιώματα Αρχείου Συστήματος"
+
+msgid ""
+"Specify the default permissions for files and directories that Gallery creates. This doesn't "
+"apply to files/directories that Gallery has already created."
+msgstr ""
+"Καθορισμός των προκαθορισμένων αδειών για αρχεία και καταλόγους που δημιουργεί η Γκαλερί. "
+"Αυτό δεν εφαρμόζεται σε αρχεία/καταλόγους που η Γκαλερί έχει ήδη δημιουργήσει."
+
+msgid "New directories"
+msgstr "Νέοι Κατάλογοι"
+
+msgid "New files"
+msgstr "Νέα Αρχεία"
+
+msgid "Session Settings"
+msgstr "Ρυθμίσεις Συνεδρίας"
+
+msgid "Session Lifetime"
+msgstr "Διάρκεια Ζωής Συνεδρίας"
+
+msgid "Inactivity Timeout"
+msgstr "Παύση Αδράνειας"
+
+msgid "Embedded Markup"
+msgstr "Ενσωματωμένο Markup"
+
+msgid ""
+"What kind of markup should we allow in user-entered fields?  For security reasons we do not "
+"recommend that you allow raw HTML.  BBCode is a special kind of markup that is secure and "
+"allows for simple text formatting like bold, italics, lists, images and urls."
+msgstr ""
+
+msgid "Markup"
+msgstr "Markup"
+
+msgid "Email"
+msgstr "Email"
+
+msgid ""
+"By default Gallery uses PHP's built in mail function to send email which requires no "
+"configuration.  To use a smtp/mail server enter the information below, including "
+"authentication information if required.  Optionally add :port after the server name to use a "
+"non-default port."
+msgstr ""
+"Εξ ορισμού η Γκαλερί χρησιμοποιεί την προ εγκατεστημένη λειτουργία ηλεκτρονικού ταχυδρομείου "
+"της PHP για την αποστολή ηλεκτρονικού μηνύματος, και η οποία απαιτεί καμία διαμόρφωση.   Για "
+"να χρησιμοποιήσετε έναν smtp/mail server δώστε τις πληροφορίες πιο κάτω,  "
+"συμπεριλαμβανομένων των πληροφοριών πιστοποίησης αν είναι απαραίτητο. Προαιρετικά προσθέστε :"
+"port μετά από το όνομα του server για να χρησιμοποιήσετε ένα μη προεπιλεγμένο port."
+
+msgid "Server"
+msgstr "Server"
+
+msgid "Username"
+msgstr "Όνομα Χρήστη"
+
+msgid "Password"
+msgstr "Κωδικός Πρόσβασης"
+
+msgid "SMTP From Address"
+msgstr "SMTP From Address"
+
+msgid "Invalid email address"
+msgstr "Μη έγκυρη ηλεκτρονική διεύθυνση (email)"
+
+msgid ""
+"Send a test email to verify your settings are correct (whether using PHP mail or SMTP "
+"settings above).  Below enter a recipient email address for a test message."
+msgstr ""
+"Στείλτε ένα δοκιμαστικό ηλεκτρονικό μήνυμα για να επιβεβαιώσετε ότι οι ρυθμίσεις είναι "
+"ορθές. (είτε χρησιμοποιώντας ρυθμίσεις του PHP mail ή SMTP). Δώστε μία ηλεκτρονική διεύθυνση "
+"παραλήπτη πιο κάτω για το δοκιμαστικό μήνυμα."
+
+msgid "Send Email"
+msgstr "Αποστολή ηλεκτρονικού μηνύματος (email)"
+
+msgid "Email Test Error"
+msgstr "Σφάλμα στο δοκιμαστικό email"
+
+msgid "Cookies"
+msgstr "Cookies"
+
+msgid ""
+"When Gallery is embedded in another application (portal, CMS, forum, etc.), then you have "
+"the choice between two options. Everyone else does not have to care about the cookie "
+"settings. Read on for more details."
+msgstr ""
+"Όταν η Γκαλερί είναι ενσωματωμένη σε άλλη εφαρμογή (portal, CMS, forum, κλπ.), τότε μπορείτε "
+"να διαλέξετε ανάμεσα σε δύο επιλογές. Οποιοσδήποτε άλλος δεν χρειάζεται να ασχολείται με τις "
+"ρυθμίσεις των cookies. Διαβάστε για περισσότερες λεπτομέρειες."
+
+msgid ""
+"If your Gallery is embedded and you leave the following fields empty, then all DownloadItem "
+"links (the URLs of the images and other items) in the embedded Gallery have <b>an appended "
+"GALLERYSID string</b> in the URL which is <b>a minor security risk</b> when your Gallery "
+"users start copy'n'pasting image URLs in forums, guestbooks, etc. The alternative is to set "
+"the <b>cookie path</b>. Gallery will then <b>not append the GALLERYSID to the embedded "
+"DownloadItem URLs</b>. E.g. when Gallery is reachable at http://www.example.com/application/"
+"gallery2/ and the embedding application is at http://www.example.com/application/, then you "
+"have to compare the path /application/gallery2/ with /application/. The cookie path is the "
+"part of the paths that is equal, in this case it is '/application/'. Most often it is just "
+"'/'."
+msgstr ""
+"Αν η Γκαλερί είναι ενσωματωμένη και αφήσετε τα ακόλουθα πεδία άδεια, τότε όλοι οι σύνδεσμοι "
+"DownloadItem (τα URL των εικόνων και άλλων αντικειμένων) στην ενσωματωμένη Gallery  έχουν "
+"<b>ένα επίθεμα GALLERYSID<b> στο URL το οποίο είναι <b>ένας δευτερεύον κίνδυνος ασφάλειας<b> "
+"όταν οι χρήστες της Γκαλερί αρχίσουν να αντιγράφουν και να επικολλούν τα URL των εικόνων σε "
+"φόρουμ, βιββλία διευθύνσεων, κλπ. Το ενναλακτικό είναι να καθορίσετε ένα <b>cookie path</b>. "
+"Η Gallery τότε <b>δεν θα προσθέσει το επίθεμα GALLERYSID στο ενσωματωμένο URL DownloadItem</"
+"b>.  Για παράδειγμα όταν η Γκαλερί βρίσκεται στο http://www.example.com/application/"
+"gallery2/ και η εφαρμογή που την ενσωματώνει στο http://www.example.com/application/, τότε "
+"πρέπει να συγκρίθεί το path /application/gallery2/ με το /application/. Το path του cookie "
+"είναι το κομάτι των path που είναι ίδια, σε αυτή την περίπτωση είναι '/application/'. Πιο "
+"συχνά είναι μόνο '/'."
+
+msgid ""
+"The <b>cookie domain</b> is also only needed for embedded Gallery installs and only if you "
+"want to get rid of the GALLERYSID string in the embedded DownloadItem URLs. <b>In most "
+"cases, the cookie domain can be left blank.</b> Set it only, if Gallery and the embedding "
+"application are only reachable with <b>different subdomains</b>. E.g. when Gallery is at "
+"http://photos.example.com/ and the application is at http://www.example.com/, then you have "
+"to set the cookie domain example.com (the part of the host string that is common to both, "
+"Gallery and the embedding application)."
+msgstr ""
+"Το <b>cookie domain</b> χρειάζεται επίσης για ενσωματωμένες εγκαταστάσεις της Gallery και "
+"μόνο αν θέλετε να ξεφορτωθείτε τη συμβολοσειρά του GALLERYSID στο ενσωματωμένο URL "
+"DownloadItem. <b>Στις περισσότερες περιπτώσεις, το cookie domain μπορεί να αφεθεί κενό.</b> "
+"Καθορίστε το μόνο αν η Gallery και η εφαρμογή που την ενσωματώνει είναι προσβάσιμες με "
+"<b>διαφορετικά subdomains</b>. Π.χ. όταν η Gallery είναι στο http://photos.example.com/ και "
+"η εφαρμογή είναι στο http://www.example.com/, τότε πρέπει να καθορίσετε το cookie domain "
+"example.com (το τμήμα της συμβολοσειράς που είναι κοινό και στα δύο, την Gallery και την "
+"εφαρμογή που την ενσωματώνει)."
+
+msgid ""
+"Once you change the cookie settings, <b>all registered users</b> of your Gallery will "
+"<b>have to clear their browser cookie cache</b>. If they do not, they will experience "
+"login / logout / lost session problems."
+msgstr ""
+"Μόλις αλλάξετε τις ρυθμίσεις cookie, <b>όλοι οι καταχωρημένοι χρήστες</b> της Gallery θα "
+"<b>πρέπει να καθαρίσουν την cache των cookie στον browser τους</b>. Αν δεν το κάνουν, θα "
+"έχουν προβλήματα με login / logout / lost session."
+
+msgid "Path"
+msgstr "Διαδρομή"
+
+msgid "Invalid cookie path"
+msgstr "Μη έγκυρη διαδρομή cookie"
+
+msgid "Domain"
+msgstr "Domain"
+
+msgid "Invalid cookie domain"
+msgstr "Μη έγκυρο cookie domain"
+
+msgid "Locking System"
+msgstr "Κλείδωμα συστήματος"
+
+msgid ""
+"Gallery uses a system of locks to prevent simultaneous changes from interfering with each "
+"other.  There are two types of locking, each with its advantages and disadvantages.  "
+"<b>File</b> based locking is fast and efficient, but won't work on NFS filesystems and will "
+"be unreliable on Windows.  <b>Database</b> locking is slower but is more reliable.  If you "
+"are unsure which to choose, we recommend using file locking.  If you're getting many lock "
+"timeouts, you can try switching to database locking instead.  It's ok to switch back and "
+"forth."
+msgstr ""
+"Η Γκαλερί χρησιμοποιεί ένα σύστημα κλειδώματος για να αποτρέψει τις ταυτόχρονες αλλαγές να "
+"παρεμποδίζει η μια την άλλη. Υπάρχουν δύο τύποι κλειδωμάτων, κάθε ένας με τα πλεονεκτήματα "
+"και τα μειονεκτήματά του. <b>Αρχείο</b>Το κλείδωμα αρχείου είναι γρήγορο και αποδοτικό, αλλά "
+"δεν θα λειτουργήσει σε NFS filesystems και θα είναι αναξιόπιστο στα windows. <b>Βάση "
+"Δεδομένων</b>Το κλείδωμα βάσεων δεδομένων είναι πιό αργό αλλά είναι πιό αξιόπιστο. Εάν είστε "
+"αβέβαιοι ποιο να επιλέξετε, εμείς συστήνουμε το κλείδωμα αρχείων. Εάν παίρνετε πολλά "
+"διαλείμματα κλειδαριών, μπορείτε να προσπαθήσετε στο κλείδωμα βάσεων δεδομένων αντ' αυτού. "
+"Είναι εντάξει να το μεταστρέψετε πέρα δώθε."
+
+msgid "Lock system"
+msgstr "Κλείδωμα Συστήματος"
+
+msgid "Helper Processes"
+msgstr "Βοηθητικές Διαδικασίες"
+
+msgid ""
+"Some Gallery modules will use programs on your server to do image processing, archiving and "
+"other operations.  These programs can be very computationally intensive and can impact the "
+"overall performance of a shared web server.  You can make these programs run at a lower "
+"priority so that they play nice.  If you're in a shared hosting environment and your web "
+"host is complaining, try setting your priority low."
+msgstr ""
+
+msgid "Priority"
+msgstr "Προτεραιότητα"
+
+msgid "Save"
+msgstr "Αποθήκευση"
+
+msgid "Reset"
+msgstr "Επαναφορά"
+
+msgid "Create A New Group"
+msgstr "Δημιουργία Νέας Ομάδας"
+
+msgid "Group Name"
+msgstr "Όνομα Ομάδας"
+
+msgid "(required)"
+msgstr "(απαιτείται)"
+
+msgid "You must enter a group name"
+msgstr "Πρέπει να δώσετε όνομα ομάδας"
+
+#, c-format
+msgid "Group '%s' already exists"
+msgstr "Η ομάδα '%s' υπάρχει ήδη"
+
+msgid "Create Group"
+msgstr "Δημιουργία Ομάδας"
+
+msgid "Cancel"
+msgstr "Ακυρο"
+
+msgid "Create A New User"
+msgstr "Δημιουργία Νέου Χρήστη"
+
+msgid "You must enter a username"
+msgstr "Πρέπει να δώσετε Όνομα Χρήστη"
+
+#, c-format
+msgid "Username '%s' already exists"
+msgstr "Ο Χρήστης '%s' υπάρχει ήδη"
+
+msgid "Full Name"
+msgstr "Πλήρες Όνομα"
+
+msgid "Email Address"
+msgstr "Ηλεκτρονική Διεύθυνση (email)"
+
+msgid "You must enter an email address"
+msgstr "Δώστε μία έγκυρη ηλ.διεύθυνση (email)"
+
+msgid "Language"
+msgstr "Γλώσσα"
+
+msgid "You must enter a password"
+msgstr "Πρέπει να δώσετε κωδικό πρόσβασης"
+
+msgid "Verify Password"
+msgstr "Επιβεβαίωση Κωδικού"
+
+msgid "You must enter the password a second time"
+msgstr "Πρέπει να δώσετε κωδικό πρόσβασης ξανά"
+
+msgid "The passwords you entered did not match"
+msgstr "Οι κωδικοί που δώσατε δεν είναι οι ίδιοι"
+
+msgid "Create User"
+msgstr "Δημιουργία Χρήστη"
+
+msgid "Delete A Group"
+msgstr "Διαγραφή Ομάδας"
+
+msgid "Are you sure?"
+msgstr "Είστε σίγουροι;"
+
+#, c-format
+msgid "This will completely remove %s from Gallery.  There is no undo!"
+msgstr ""
+"Αυτό θα αφαιρέσει εντελώς τον χρήστη %s από την Γκαλερί.  Δεν μπορεί να ανατραπεί αν "
+"εκτελεστεί!"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
+msgid "Delete a User"
+msgstr "Διαγραφή Χρήστη"
+
+#, c-format
+msgid "User %s is the owner of %s items."
+msgstr "Ο χρήστης %s είναι ο ιδιοκτήτης %s αρχείων."
+
+#, c-format
+msgid "Delete user <strong>%s</strong> and..."
+msgstr "Διαγραφή χρήστη <strong>%s</strong> και..."
+
+#, c-format
+msgid "Assign a new owner for all items of %s"
+msgstr "Ανάθεση νέου ιδιοκτήτη για όλα τα αντικείμενα του %s"
+
+#, c-format
+msgid ""
+"Delete all items of %s and assign a new owner for all remaining non empty albums. Items that "
+"%s doesn't have permission to delete will also be reassigned to a new owner."
+msgstr ""
+"Διαγραφή όλων των αντικειμένων του %s και ανάθεση ενός νέου ιδιοκτήτη για όλα τα "
+"εναπομείναντα μη άδεια άλμπουμ. Αρχεία που %s δεν έχουν δικαίωμα διαγραφής θα επανατεθούν σε "
+"νέο ιδιοκτήτη."
+
+msgid "New owner (leaving blank means one of the Site Admins):"
+msgstr "Νέος Ιδιοκτήτης (αφήνοντας το κενό εννοεί ένα από τους διαχειριστές)"
+
+#, c-format
+msgid "User '%s' does not exist! Cannot assign items to a nonexistent user."
+msgstr ""
+"Ο χρήστης '%s' δεν υπάρχει! Δεν γίνεται να ανατεθούν αντικείμενα σε χρήστη που δεν υπάρχει."
+
+msgid "The new owner must be a different user than the user we are deleting!"
+msgstr "Ο νέος ιδιοκτήτης πρέπει να είναι διαφορετικός χρήστης από το χρήστη που διαγράφουμε!"
+
+msgid "The new owner cannot be a Guest / Anonymous user!"
+msgstr "Ο νέος ιδιοκτήτης δεν μπορεί να είναι επισκέπτης / Ανώνυμος χρήστης"
+
+#, c-format
+msgid "This will completely remove <strong>%s</strong> from Gallery.  There is no undo!"
+msgstr "Αυτό θα αφαιρέσει πλήρως <strong>%s</strong> από την Gallery.  Δεν υπάρχει αναίρεση!"
+
+msgid "Edit a group"
+msgstr "Επεξεργασία Ομάδας"
+
+#, c-format
+msgid "Edit Members of Group '%s'"
+msgstr "Επεξεργασία Χρηστών Ομάδας '%s'"
+
+#, c-format
+msgid "Added user '%s' to group '%s'"
+msgstr "Προστέθηκε ο χρήστης '%s' στην ομάδα '%s'"
+
+#, c-format
+msgid "Removed user '%s' from group '%s'"
+msgid_plural "Removed %s users from group '%s'"
+msgstr[0] "Αφαιρέθηκε ο χρήστης '%s' από την ομάδα '%s'"
+msgstr[1] "Αφαιρέθηκαν οι χρήστες '%s' από την ομάδα '%s'"
+
+#, c-format
+msgid "This group contains %d user"
+msgid_plural "This group contains %d users"
+msgstr[0] "Αυτή η ομάδα έχει %d χρήστη"
+msgstr[1] "Αυτή η ομάδα έχει %d χρήστες"
+
+msgid "Members"
+msgstr "Μέλη"
+
+msgid "&laquo; first"
+msgstr "&laquo; πρώτη"
+
+msgid "&laquo; back"
+msgstr "&laquo; πίσω"
+
+#, c-format
+msgid "Viewing page %d of %d"
+msgstr "Σελίδα %d από %d"
+
+msgid "next &raquo;"
+msgstr "επόμενη &raquo;"
+
+msgid "last &raquo;"
+msgstr "τελευταία &raquo;"
+
+msgid "Filter"
+msgstr "Φίλτρο:"
+
+msgid "Clear"
+msgstr "Καθαρισμός"
+
+#, c-format
+msgid "%d user matches your filter"
+msgid_plural "%d users match your filter"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Remove selected"
+msgstr "Αφαίρεση επιλεγμένων"
+
+msgid "You must select a user to remove."
+msgstr "Διαλέξτε τον χρήστη που θα αφαιρέσετε"
+
+msgid "You can't remove yourself from this group."
+msgstr "Δεν μπορείτε να αφαιρέσετε τον εαυτό σας από αυτή την ομάδα"
+
+msgid "Add Member"
+msgstr "Εγγραφή Νέου Μέλους"
+
+msgid "Add"
+msgstr "Προσθήκη"
+
+msgid "You must enter a username."
+msgstr "Πρέπει να δώσετε όνομα χρήστη."
+
+#, c-format
+msgid "User '%s' does not exist."
+msgstr "Ο Χρήστης '%s' δεν υπάρχει."
+
+msgid "This user already is in this group."
+msgstr "Ο Χρήστης ανοίκει ήδη σ' αυτή την ομάδα"
+
+msgid "Done"
+msgstr "Επιτυχία"
+
+msgid "Edit a user"
+msgstr "Επεξεργασία Χρήστη"
+
+msgid "That username is already in use"
+msgstr "Αυτό το όνομα χρησιμοποιείται ήδη από άλλον χρήστη."
+
+msgid "You must enter a new username"
+msgstr "Πρέπει να βάλετε ένα νέο Όνομα Χρήστη"
+
+msgid "E-mail Address"
+msgstr "Ηλεκτρονική Διεύθυνση(email)"
+
+msgid "(suggested)"
+msgstr "(προτείνεται)"
+
+msgid "Options"
+msgstr "Επιλογές"
+
+msgid "Lock user."
+msgstr "Κλείδωμα Χρήστη."
+
+msgid ""
+"Locked users are unable to edit their own account information. (Password, Name, Email, etc.)"
+msgstr ""
+"Οι κλειδωμένοι χρήστες δεν μπορούν να αλλάξουν τις πληροφορίες του λογαριασμού τους. "
+"(Κωδικός πρόσβασης, όνομα, ηλεκτρονικό ταχυδρομείο, κλπ....)"
+
+msgid "Reset failed login count."
+msgstr "Επαναφορά αποτυχεμένων μετρήσεων συνδεσης"
+
+#, c-format
+msgid "%d failed login attempt since the last successful login."
+msgid_plural "%d failed login attempts since the last successful login."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Group Management"
+msgstr "Διαχείριση Ομάδων"
+
+#, c-format
+msgid "Removed group '%s'"
+msgstr "Αφαιρέθηκε η ομάδα '%s'"
+
+#, c-format
+msgid "Created group '%s'"
+msgstr "Δημιουργήθηκε η ομάδα '%s'"
+
+#, c-format
+msgid "Modified group '%s'"
+msgstr "Επεξεργάστηκε η ομάδα '%s'"
+
+#, c-format
+msgid "There is %d group in the system."
+msgid_plural "There are %d total groups in the system."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Edit Group"
+msgstr "Επεξεργασία Ομάδας"
+
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+msgid "Add/Remove Users"
+msgstr "Προσθαφαίρεση  Χρηστών"
+
+#, c-format
+msgid "Group '%s' does not exist."
+msgstr "Η Ομάδα '%s' δεν υπάρχει."
+
+msgid "You cannot delete that group"
+msgstr "Δεν μπορείτε να διαγράψετε αυτή την ομάδα"
+
+msgid "You cannot edit that group's users"
+msgstr "Δεν μπορείτε να τροποποιήσετε τους χρήστες αυτής της ομάδας"
+
+msgid "Edit Group (by list)"
+msgstr "Επεξεργασία ομάδας (κατά λίστα)"
+
+msgid "Action"
+msgstr "Ενέργεια"
+
+msgid "edit"
+msgstr "Επεξεργασία"
+
+msgid "delete"
+msgstr "Διαγραφή"
+
+msgid "members"
+msgstr "Μέλη"
+
+#, c-format
+msgid "%d group matches your filter"
+msgid_plural "%d groups match your filter"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "System Maintenance"
+msgstr "Συντήρηση Συστήματος"
+
+#, c-format
+msgid "Completed %s task successfully."
+msgstr "Η ενέργεια ολοκληρώθηκε %s με επιτυχία"
+
+#, c-format
+msgid "The %s task failed to complete successfully."
+msgstr "Η ενέργεια απέτυχε να ολοκληρωθεί %s με επιτυχία"
+
+msgid "Task name"
+msgstr "Όνομα Ενέργειας"
+
+msgid "Last run"
+msgstr "Τελευταία Χρήση"
+
+msgid "Success/Fail"
+msgstr "Επιτυχία/Αποτυχία"
+
+msgid "Not run yet"
+msgstr "Δεν χρησιμοποιήθηκε ακόμη"
+
+msgid "Success"
+msgstr "Επιτυχία"
+
+msgid "Failed"
+msgstr "Αποτυχία"
+
+msgid "run now"
+msgstr "Τρέξτε το τώρα"
+
+msgid "Last Run Details:"
+msgstr "Λεπτομέρειες τελευταίας χρήσης:"
+
+msgid "Performance Tuning"
+msgstr "Συντονισμός Απόδοσης"
+
+msgid "Updated performance settings successfully"
+msgstr "Ενημερώθηκαν με επιτυχία οι ρυθμίσεις απόδοσης"
+
+msgid "Deleted all saved pages"
+msgstr "Διαγράφηκαν όλες οι αποθηκευμένες σελίδες"
+
+msgid ""
+"Improve your Gallery performance by storing entire web pages in the database.  This can "
+"considerably reduce the amount of webserver and database resources required to display a web "
+"page.  The tradeoff is that the web page you see may be a little bit out of date, however "
+"you can always get the most recent version of the page by forcing a refresh in your browser "
+"(typically by holding down the shift key and clicking the reload button)."
+msgstr ""
+
+msgid "Partial Acceleration"
+msgstr "Μερική Επιτάχυνση"
+
+#, no-c-format
+msgid ""
+"Partial acceleration gives you roughly 10-25% performance increase, but some forms of "
+"dynamic data (like view counts) will not get updated right away.  All content that appears "
+"in blocks (like the random image block, any sidebar blocks, etc) will always be updated."
+msgstr ""
+"Η μερική επιτάχυνση σας δίνει την αύξηση απόδοσης κατά προσέγγιση 10-25%, αλλά μερικές "
+"μορφές δυναμικών στοιχείων (όπως τις αριθμήσεις προβολής) δεν θα ενημερωθούν αμέσως. Όλο το "
+"περιεχόμενο που εμφανίζεται στα μπλοκ (όπως το μπλοκ Τυχαία Φωτογραφία, οποιονδήποτε πλαϊνών "
+"μπαρών, κ.λπ...) θα ενημερώνονται πάντα."
+
+msgid "Full Acceleration"
+msgstr "Πλήρης Επιτάχυνση"
+
+#, no-c-format
+msgid ""
+"Full acceleration gives roughly a 90% performance increase, but no dynamic data (random "
+"image block, other sidebar blocks, number of items in your shopping cart, view counts, etc) "
+"will get updated until the saved page expires."
+msgstr ""
+"Η πλήρης επιτάχυνση δίνει μια κατά προσέγγιση αύξηση απόδοσης 90%, αλλά κανένα δυναμικό "
+"στοιχείο (μπλοκ Τυχαίας Φωτογραφίας, οποιονδήποτε πλαϊνών μπαρών, αριθμός στοιχείων στην "
+"κάρτα αγορών σας, αριθμήσεις προβολής, κ.λπ...) δεν θα ενημερωθεί έως ότου λήξει η σωζόμενη "
+"σελίδα."
+
+msgid ""
+"You can additionally specify when saved pages expire.  Setting a longer expiration time will "
+"reduce the load on your server, but will increase the interval before users see changes.  "
+"Lower expiration times mean that users will see more current data, but they will place a "
+"higher load on your server."
+msgstr ""
+"Μπορείτε πρόσθετα να διευκρινίσετε πότε οι σωζόμενες σελίδες λήγουν. Ο καθορισμός ενός πιό "
+"μακροχρόνιου χρόνου λήξης θα μειώσει το φορτίο στον κεντρικό υπολογιστή σας, αλλά θα αυξήσει "
+"το διάστημα προτού να δουν οι χρήστες τις αλλαγές. Οι χαμηλότεροι χρόνοι λήξης σημαίνουν ότι "
+"οι χρήστες θα δουν περισσότερα τρέχοντα στοιχεία, αλλά θα τοποθετήσουν ένα υψηλότερο φορτίο "
+"στον κεντρικό υπολογιστή σας"
+
+msgid "Here are some standard acceleration profiles:"
+msgstr "Εδώ είναι μερικά τυποποιημένα σχεδιαγράμματα επιτάχυνσης:"
+
+msgid "Medium acceleration"
+msgstr "Μέση επιτάχυνση"
+
+msgid "High acceleration"
+msgstr "Υψηλή Επιτάχυνση"
+
+msgid "Guest Users"
+msgstr "Επισκέπτες"
+
+msgid "Expires after:"
+msgstr "Λήγει μετά:"
+
+msgid "Clear Saved Pages"
+msgstr "Καθαρισμός αποθηκευμένων σελίδων"
+
+msgid "Status: Inactive"
+msgstr "Κατάσταση: Ανενεργό"
+
+msgid "__PLUGIN__ deactivated"
+msgstr "__PLUGIN__ απενεργοποιημένο"
+
+msgid "Status: Active"
+msgstr "Κατάσταση: Ενεργό"
+
+msgid "__PLUGIN__ activated"
+msgstr "__PLUGIN__ ενεργοποιήθηκε"
+
+msgid "Status: Not Installed"
+msgstr "Κατάσταση: Μη Εγκατεστημένο"
+
+msgid "__PLUGIN__ uninstalled"
+msgstr "__PLUGIN__ απεγκαταστάθηκε"
+
+msgid "Status: Upgrade Required (Inactive)"
+msgstr "Κατάσταση: Χρειάζεται Αναβάθμιση (Ανενεργό)"
+
+msgid "Status: Incompatible Plugin (Inactive)"
+msgstr "Κατάσταση: Ασυμβίβαστο Plugin (Ανενεργό)"
+
+msgid "Status: Inactive (Configuration Required)"
+msgstr "Κατάσταση: Ανενεργό (Χρειάζεται να ρυθμιστεί)"
+
+msgid "__PLUGIN__ needs configuration"
+msgstr "__PLUGIN__ χρειάζεται ρύθμιση"
+
+msgid "__PLUGIN__ deleted"
+msgstr "__PLUGIN__ διαγραφτηκε"
+
+msgid "Warning!"
+msgstr "Προειδοποίηση!"
+
+msgid "Do you really want to uninstall __PLUGIN__?"
+msgstr "Θέλετε πραγματικά να απεγκαταστήσετε το __PLUGIN__?"
+
+msgid "This will also remove any permissions and clean up any data created by this module."
+msgstr ""
+
+msgid ""
+"This plugin will be uninstalled, but its files will be kept so that you can reinstall it."
+msgstr ""
+"Αυτό το πρόσθετο θα αποεγκατασταθεί, αλλά τα αρχεία του θα κρατηθούν έτσι ώστε μπορείτε να "
+"το επανατοποθετήσετε."
+
+msgid "Yes"
+msgstr "Ναι"
+
+msgid "No"
+msgstr "Όχι"
+
+msgid "Do you really want to delete __PLUGIN__?"
+msgstr "Θέλετε πραγματικά να διαγράψετε το __PLUGIN__?"
+
+#, fuzzy
+msgid "This plugin will be uninstalled and its files will be deleted permanently."
+msgstr "Αυτό το πρόσθετο θα αποεγκατασταθεί και τα αρχεία του θα διαγραφούν"
+
+msgid "The files of this plugin will be deleted permanently."
+msgstr ""
+
+msgid "disabled(__COUNT__)"
+msgstr "Eκτός Λειτουργίας(__COUNT__)"
+
+msgid "up to date(__COUNT__)"
+msgstr "Ενημερωμένο(__COUNT__)"
+
+msgid "not installed(__COUNT__)"
+msgstr "Μη Εγκατεστημένο(__COUNT__)"
+
+msgid "upgrade required(__COUNT__)"
+msgstr "Απαιτείται αναβάθμιση(__COUNT__)"
+
+msgid "incompatible(__COUNT__)"
+msgstr "ασυμβίβαστο(__COUNT__)"
+
+msgid "Failed to completely delete __PLUGIN__"
+msgstr "Αποτυχία ολοκληρωτικής διαγραφής __PLUGIN__"
+
+msgid "Gallery Plugins"
+msgstr "Πρόσθετα Γκαλερί"
+
+msgid "Get More Plugins"
+msgstr "Πάρτε περισσότερα πρόσθετα"
+
+#, c-format
+msgid ""
+"Want more features?  New plugins are just a click away.  Just click the %s link to get "
+"started."
+msgstr ""
+"Θέλετε περισσότερα χαρακτηριστικά; Νέα πρόσθετα είναι μόνο ένα πάτημα μακριά. Απλά πατήστε "
+"τον σύνδεσμο %s."
+
+msgid ""
+"Gallery features come as separate plugins.  You can download and install plugins to add more "
+"features to your Gallery, or you can disable features if you don't want to use them.  In "
+"order to use a feature, you must install, configure (if necessary) and activate it.  If you "
+"don't wish to use a feature, you can deactivate it."
+msgstr ""
+"Τα χαρακτηριστικά γνωρίσματα της γκαλερί έρχονται ως χωριστά plugins. Μπορείτε να "
+"μεταφορτώσετε και να εγκαταστήσετε plugins για να προσθέσετε περισσότερα χαρακτηριστικά "
+"γνωρίσματα στη γκαλερί σας, ή μπορείτε να θέσετε εκτός λειτουργίας τα χαρακτηριστικά "
+"γνωρίσματα εάν δεν θέλετε να τα χρησιμοποιήσετε. Προκειμένου να χρησιμοποιηθεί ένα "
+"χαρακτηριστικό γνώρισμα, πρέπει να το εγκαταστήσετε, να το διαμορφώσετε (εάν είναι "
+"απαραίτητο) και να το ενεργοποιείσετε. Εάν δεν επιθυμείτε να χρησιμοποιήσετε ένα "
+"χαρακτηριστικό γνώρισμα, μπορείτε να το απενεργοποιήσετε."
+
+msgid "Plugin Name"
+msgstr "Όνομα Πρόσθετου"
+
+msgid "Installed"
+msgstr "Εγκατεστημένο"
+
+msgid "Version"
+msgstr "Έκδοση"
+
+msgid "Actions"
+msgstr "Ενέργειες"
+
+msgid "help"
+msgstr "Βοήθεια"
+
+#, c-format
+msgid "Screenshot for %s"
+msgstr "Στιγμιότυπο Οθόνης για %s"
+
+msgid "Incompatible plugin!"
+msgstr "Ασυμβίβαστο plugin!"
+
+#, c-format
+msgid "Core API Required: %s (available: %s)"
+msgstr "Core API Ζητούμενο: %s (διαθέσιμο: %s)"
+
+#, c-format
+msgid "Plugin API Required: %s (available: %s)"
+msgstr "Plugin API Ζητούμενο: %s (διαθέσιμο: %s)"
+
+msgid "configure"
+msgstr "ρύθμιση"
+
+msgid "up to date"
+msgstr "Ενημερωμένο"
+
+msgid "upgrade required"
+msgstr "Απαιτείται Αναβάθμιση"
+
+msgid "not installed"
+msgstr "Μη Εγκατεστημένο"
+
+msgid "incompatible"
+msgstr "Ασυμβίβαστο"
+
+msgid "Repository"
+msgstr "Χώρος Αποθήκευσης"
+
+msgid "Please make sure that your internet connection is set up properly or try again later."
+msgstr ""
+"Παρακαλούμε σιγουρευτείτε ότι η σύνδεση με το διαδίκτυό σας είναι σωστά ρυθμισμένη ή "
+"προσπαθήστε πάλι αργότερα."
+
+#, c-format
+msgid "Failed to scan status from plugin: %s."
+msgstr "Απέτυχε να ανιχνευτεί η κατάσταση από το plugin: %s."
+
+msgid ""
+"Your local copy of the repository was broken and has been fixed.  Please download the plugin "
+"list again."
+msgstr ""
+"Το τοπικό αντίγραφό της αποθήκης ήταν σπασμένο και έχει διορθωθεί. Παρακαλώ ξανακατεβάστε "
+"τον κατάλογο plugin."
+
+#, c-format
+msgid ""
+"Failed to download the %s plugin because the following files/directories could not be "
+"modified:"
+msgstr ""
+"Απέτυχε το κατέβασμα του %s plugin επειδή τα ακόλουθοι αρχεία/κατάλογοι δεν μπόρεσαν να "
+"τροποποιηθούν:"
+
+msgid "The repository index has been successfully updated."
+msgstr "Ο κατάλογος του χώρου αποθήκευσης έχει ενημερωθεί με επιτυχία."
+
+msgid "All plugins are already up-to-date."
+msgstr "Όλα τα plugins είναι ήδη ενημερωμένα."
+
+#, c-format
+msgid "%s plugin updated."
+msgstr "%s plugin ενημερώθηκε."
+
+#, c-format
+msgid "%d language pack deleted."
+msgid_plural "%d language packs deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid ""
+"No personal information about you or your Gallery installation is sent to the Gallery server "
+"at any time."
+msgstr ""
+"Καμία προσωπική πληροφορία για σας ή την εγκατάσταση της Γκαλερί σας δεν αποστέλνεται στον "
+"server της Γκαλερί οποιαδήποτε στιγμή."
+
+#, c-format
+msgid ""
+"Download and install new plugins quickly and easily.  If you decide you don't like a plugin, "
+"you can delete it from your Gallery.  There are multiple different plugin repositories, you "
+"can choose which ones you want to use (it's ok to use all of them at once).  Once you've "
+"chosen, you must periodically download the latest plugin list to find out about available "
+"updates. %s On slower connections the process might take a minute or two."
+msgstr ""
+"Κατεβάστε και εγκαταστήστε καινούργια πρόσθετα γρήγορα και εύκολα.  Αν αποφασίσετε ότι δεν "
+"θέλετε ένα πρόσθετο, μπορείτε να το διαγράψετε από την Γκαλερί. Υπάρχουν διάφορα πρόσθετα τα "
+"οποία μπορείτε να διαλέξετε ποια θέλετε να χρησιμοποιήσετε (μπορείτε να τα χρησιμοποιήσετε "
+"όλα μαζί). Αφού διαλέξετε ποια θέλετε να χρησιμοποιήσετε, περιοδικά κατεβάστε την λίστα με "
+"τα τελευταία πρόσθετα για να βρείτε τις διαθέσιμες αναβαθμίσεις %s Σε αργές συνδέσεις αυτό "
+"μπορεί να πάρει ένα ή δύο λεπτά."
+
+#, c-format
+msgid "Officially Released Gallery Project plugins (%srecommended%s)"
+msgstr "Επίσημα δημοσιευμένα plugin της Γκαλερί (%sπροτεινόμενα%s)"
+
+#, c-format
+msgid "last updated on %s"
+msgstr "Τελευταία ενημέρωση στις %s"
+
+#, c-format
+msgid "Experimental Gallery Project plugins (%scool new features, might be buggy%s)"
+msgstr ""
+"Πειραματικά Πρόσθετα της Γκαλερί (%sνέα χαρακτηριστικά γνωρίσματα, μπορεί να έχουν σφάλματα%"
+"s) "
+
+#, c-format
+msgid "Community plugins (%suse at your own risk!%s)"
+msgstr "Plugins Κοινότητας (%sχρησιμοποιήσε τα με δικό σου ρίσκο!%s)"
+
+msgid "Repository Error"
+msgstr "Σφάλμα χώρου αποθήκευσης"
+
+msgid "You must select at least one repository."
+msgstr "Πρέπει να διαλέξετε τουλάχιστον ένα αποθηκευτικό χώρο"
+
+msgid "Ok"
+msgstr "ΟΚ"
+
+msgid "Configure your Gallery"
+msgstr "Ρύθμιση Γκαλερί"
+
+msgid ""
+"Before you can proceed, you have to change some permissions so that Gallery can install "
+"plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"
+msgstr ""
+"Πριν μπορέσετε να συνεχίσετε, πρέπει να αλλάξετε κάποια δικαιώματα για να μπορέσει η Γκαλερί "
+"να εγκαταστήσει πρόσθετα. Είναι εύκολο. Απλά κάντε το πιο κάτω σε ένα shell ή μέσο ftp."
+
+msgid ""
+"If you have trouble changing permissions, ask your system administrator for assistance.  "
+"When you've fixed the permissions, click the Continue button to proceed."
+msgstr ""
+"Άν έχετε πρόβλημα να αλλάξετε δικαιώματα, ζητήστε την βοήθεια του διαχειριστή. Όταν "
+"διορθώσετε τα δικαιώματα, πατήστε το κουμπί Συνέχισε για να προχωρήσετε."
+
+msgid "Continue"
+msgstr "Συνέχισε"
+
+msgid "Download Plugin List"
+msgstr "Κατέβασμα λίστας Plugin"
+
+msgid "Show Repository List"
+msgstr "Προβολή Λίστας Χώρου Αποθήκευσης"
+
+msgid "Upgrade Gallery"
+msgstr "Αναβάθμιση Γκάλερι"
+
+msgid ""
+"A new version of Gallery is available, but it cannot be upgraded through this interface. "
+"Upgrading it might make some of your current plugins stop working, but others that rely on "
+"the features of the new version may become available. Here are the recommended steps for "
+"upgrading:"
+msgstr ""
+"Μια νέα έκδοση της Γκαλερί είναι διαθέσιμη, αλλά δεν μπορεί να αναβαθμιστεί μέσω αυτής της "
+"διεπαφής. Η αναβάθμιση μπορεί να κάνει μερικά από τα τρέχοντα πρόσθετα σας να σταματήσουν να "
+"δουλεύουν, αλλά άλλα που στηρίζονται στα χαρακτηριστικά γνωρίσματα της νέας έκδοσης μπορούν "
+"να διατεθούν. Εδώ είναι τα συνιστώμενα βήματα για την αναβάθμιση:"
+
+#, fuzzy, c-format
+msgid "%sDownload%s the new Gallery package"
+msgstr "%sΚατέβασμα%s Γκαλερί core"
+
+#, c-format
+msgid "Read the %supgrade instructions%s and perform the upgrade"
+msgstr "Διαβάστε τις %sοδηγίες αναβάθμισης%s και εκτελέστε την αναβάθμιση"
+
+msgid "Incompatible plugins are marked with an exclamation icon."
+msgstr "Τα ασυμβίβαστα πρόσθετα είναι μαρκαρισμένα με θαυμαστικό."
+
+#, c-format
+msgid ""
+"A new core module version is available. There may be plugins that are incompatible with the "
+"installed core module, which are not shown here. You can view a %scomplete list%s of "
+"plugins, including incompatible ones, which are marked with a red icon."
+msgstr ""
+"Μια νέα έκδοση core module είναι διαθέσιμη. Μπορεί να υπάρξουν plugins που είναι ασυμβίβαστα "
+"με το εγκατεστημένο core module, τα οποία δεν παρουσιάζονται εδώ. Μπορείτε να δείτε την %"
+"sολοκληρωμένη λίστα%s των plugins, συμπεριλαμβανομένων ασυμβίβαστων, οι οποίοι είναι "
+"μαρκαρισμένοι με μια κόκκινη εικόνα."
+
+msgid "upgrade available"
+msgstr "Διαθέσιμη αναβάθμιση"
+
+msgid "locked"
+msgstr "κλειδωμένο"
+
+msgid "Theme Name"
+msgstr "Όνομα Θέματος"
+
+msgid "Module Name"
+msgstr "Όνομα Module"
+
+msgid "Latest"
+msgstr "Πρόσφατα"
+
+msgid "Locked Plugin"
+msgstr "Κλειδωμένο Plugin"
+
+msgid "Incompatible Plugin"
+msgstr "Ασυμβίβαστο Plugin"
+
+msgid "Upgrade Available"
+msgstr "Διαθέσιμη Αναβάθμιση "
+
+msgid "download"
+msgstr "Κατέβασμα"
+
+msgid "modify"
+msgstr "επεξεργασία"
+
+msgid "Upgrade All Plugins"
+msgstr "Αναβάθμιση όλων των Plugins"
+
+msgid ""
+"Gallery can automatically upgrade your themes and modules to the latest available versions. "
+"No new plugins will be downloaded."
+msgstr ""
+"Η Γκαλερί μπορεί να αναβαθμίσει αυτόματα τα θέματα και τα modules στην τελευταία διαθέσιμη "
+"έκδοση. Κανένα νέο plugin δεν θα μεταφορτωθεί."
+
+msgid "Upgrade All"
+msgstr "Αναβάθμιση όλων"
+
+#, c-format
+msgid "Download %s"
+msgstr "Κατέβασμα %s"
+
+msgid "No packages have been selected."
+msgstr "Δεν εγκαταστάθηκε κανένα πακέτο."
+
+msgid ""
+"Download a package in order to use this plugin.  You can upgrade by choosing a newer version "
+"of the package to download.  Language packages are optional, You only need to download the "
+"ones that you want to use on your site."
+msgstr ""
+"Κατεβάστε ένα πακέτο για να μπορέσετε να χρησιμοποιήσετε αυτό το πρόσθετο. Μπορείτε να "
+"αναβαθμίσετε με την επιλογή μιας νεώτερης έκδοσης της συσκευασίας. Οι γλωσσικές συσκευασίες "
+"είναι προαιρετικές, πρέπει μόνο να μεταφορτώσετε αυτές που θέλετε να χρησιμοποιήσετε στην "
+"γκαλερί σας."
+
+msgid "Base Packages"
+msgstr "Βασικά Πακέτα"
+
+#, c-format
+msgid "%s: version %s (build %s)"
+msgstr "%s: έκδοση %s (κατασκευή %s)"
+
+#, c-format
+msgid "%s: version %s (build %s) %sdowngrading is not supported!%s"
+msgstr "%s: έκδοση %s (κατασκευή %s) %sδεν υποστηρίζεται υποβάθμιση%s"
+
+#, c-format
+msgid "%sCurrently Installed%s: version %s (build %s)"
+msgstr "%sΤρέχον εγκατεστημένη%s: έκδοση %s (κατασκευή %s)"
+
+msgid "Language Packages"
+msgstr "Γλωσσικά πακέτα"
+
+#, c-format
+msgid "(%sselect all%s%sselect none%s)"
+msgstr "(%sεπιλογή όλων%s%sκαμία επιλογή%s)"
+
+#, c-format
+msgid "%s version %s (upgrading from %s)"
+msgstr "%s έκδοση %s (αναβάθμιση από %s)"
+
+#, c-format
+msgid "%s version %s"
+msgstr "%s έκδοση %s"
+
+#, c-format
+msgid "%s version %s (%snewer version %s is installed%s)"
+msgstr "%s έκδοση %s (%sνεώτερη έκδοση %s εγκαταστήθηκε%s)"
+
+#, c-format
+msgid "%s version %s (currently installed)"
+msgstr "%s έκδοση %s (τρέχον εγκατεστημένη)"
+
+msgid "No compatible language packages available"
+msgstr "Δεν βρέθηκαν διαθέσιμα συμβατά γλωσσικά πακέτα"
+
+msgid "You must select a base package before choosing language packs."
+msgstr "Πρέπει να διαλέξετε ένα βασικό πακέτο για να διαλέξετε γλωσσικό πακέτο."
+
+msgid "Update"
+msgstr "Ενημέρωση"
+
+msgid "Gallery Themes"
+msgstr "Θέματα Γκαλερί"
+
+#, c-format
+msgid "Successfully activated theme %s"
+msgstr "Το θέμα ενεργοποιήθηκε %s με επιτυχία"
+
+#, c-format
+msgid "Successfully deactivated theme %s"
+msgstr "Το θέμα απενεργοποιήθηκε %s με επιτυχία"
+
+#, c-format
+msgid "Successfully installed theme %s"
+msgstr "Το θέμα εγκαταστάθηκε %s με επιτυχία"
+
+#, c-format
+msgid "Successfully uninstalled theme %s"
+msgstr "Το θέμα απεγκαταστάθηκε %s με επιτυχία"
+
+#, c-format
+msgid "Successfully upgraded theme %s"
+msgstr "Το θέμα αναβαθμίστηκε %s με επιτυχία"
+
+msgid "Successfully saved default album settings"
+msgstr "Οι προεπιλεγμένες ρυθμίσεις άλπουμ αποθηκεύτικαν με επιτυχία."
+
+msgid "Restored theme settings"
+msgstr "Ανάκτιση Ρυθμίσεων Θέματος"
+
+msgid "Defaults"
+msgstr "Προεπιλογές"
+
+msgid ""
+"These are default display settings for albums in your gallery.  They can be overridden in "
+"each album."
+msgstr ""
+"Αυτές είναι οι προεπιλεγμένες ρυθμίσεις προβολής για τα άλπουμς στην γκαλερί σας. Το κάθε "
+"άλπουμ μπορεί να έχει τις δικές του ρυθμίσεις."
+
+msgid "Default sort order"
+msgstr "Προεπιλεγμένη Ταξινόμιση"
+
+msgid "with"
+msgstr "με"
+
+#, c-format
+msgid ""
+"The %s theme is incompatible with your Gallery version or no longer available.  Please "
+"upgrade the %s theme or pick another default theme."
+msgstr ""
+
+msgid "New albums"
+msgstr "Νέα Άλπουμς"
+
+msgid "Save Defaults"
+msgstr "Αποθήκευση Προεπιλογών"
+
+#, c-format
+msgid "%s Theme Settings"
+msgstr "%s Ρυθμίσεις Θέματος"
+
+msgid ""
+"These are the global settings for the theme.  They can be overridden at the album level."
+msgstr ""
+"Αυτές είναι οι προεπιλεγμένες γενικές ρυθμίσεις για το θέμα. Μπορούν να αλλαχθούν στο "
+"επίπεδο άλπουμ."
+
+msgid "Available"
+msgstr "Διαθέσιμο"
+
+msgid "Choose a block"
+msgstr "Διάλεξε Μπλοκ"
+
+msgid "Selected"
+msgstr "Επιλεγμένο"
+
+msgid "Remove"
+msgstr "Αφαίρεση"
+
+msgid "Move Up"
+msgstr "Μετακίνηση προς τα πάνω"
+
+msgid "Move Down"
+msgstr "Μετακίνηση προς τα κάτω"
+
+msgid "Parameter"
+msgstr "Παράμετρος"
+
+msgid "Value"
+msgstr "Αξία"
+
+msgid "There are no settings for this theme"
+msgstr "Δεν υπάρχουν ρυθμίσεις γι' αυτό το θέμα"
+
+msgid "Save Theme Settings"
+msgstr "Αποθήκευση Ρυθμίσεων Θέματος"
+
+msgid ""
+"The toolkits shown below have some overlap in supported operations and mime types.  Rank the "
+"toolkits here to determine which will perform these operations."
+msgstr ""
+
+msgid "Toolkit"
+msgstr "Εργαλειοθήκη Γραφικών"
+
+msgid "Order"
+msgstr "Ταξινόμηση"
+
+msgid "up"
+msgstr "πάνω"
+
+msgid "down"
+msgstr "κάτω"
+
+msgid "User Management"
+msgstr "Διαχείριση Χρηστών"
+
+#, c-format
+msgid "Removed user '%s'"
+msgstr "Αφαιρέθηκε ο χρήστης '%s'"
+
+#, c-format
+msgid "Created user '%s'"
+msgstr "Δημιουργήθηκε ο χρήστης '%s'"
+
+#, c-format
+msgid "Modified user '%s'"
+msgstr "Τροποποιήθηκε ο χρήστης '%s'"
+
+#, c-format
+msgid "There is %d user in the system."
+msgid_plural "There are %d total users in the system."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Edit User"
+msgstr "Επεξεργασία Χρήστη"
+
+msgid "You cannot delete yourself!"
+msgstr "Δεν μπορείς να διαγράψεις τον εαυτό σου!"
+
+msgid "You cannot delete the special guest user."
+msgstr "Δεν μπορείς να διαγράψεις τον ειδικό επισκέπτη."
+
+msgid "Edit User (by list)"
+msgstr "Επεξεργασία Χρήστη (κατά λίστα)"
+
+msgid "Locked"
+msgstr "Κλειδωμένο"
+
+msgid "Failed Logins"
+msgstr "Αποτυχημένες Συνδέσεις"
+
+msgid "Thumbnails"
+msgstr "Μικρογραφίες"
+
+msgid ""
+"Gallery can create thumbnails at upload time, or create them the first time you want to see "
+"the thumbnail itself.  Either way, it will create the thumbnail once and save it, but if you "
+"create them at upload time it makes viewing albums for the first time go faster at the "
+"expense of a longer upload time."
+msgstr ""
+"Η Γκαλερί μπορεί να δημιουργήσει μικρογραφίες κατά το ανέβασμα των φωτογραφιών σας, ή να τις "
+"δημιουργήσει την πρώτη φορά που θα θέλετε να δείτε την μικρογραφία.  Όποιο τρόπο και να "
+"διαλέξετε, η μικρογραφία θα δημιουργηθεί μια φορά και θα αποθηκευτεί. Αν την δημιουργήσετε "
+"κατά το ανέβασμα της φωτογραφίας, θα πάρει περισσότερο χρόνο το ανέβασμα αλλά θα κάνει την "
+"πρώτη προβολή των άλπουμ πιο γρήγορη."
+
+msgid "Create thumbnails now"
+msgstr "Δημιουργία Μικρογραφιών Τώρα"
+
+msgid "This is a test email from Gallery2"
+msgstr "Αυτό είναι ένα δοκιμαστικό Ηλ. Μήνυμα (email) από την Gallery2"
+
+msgid "Edit Conflict!"
+msgstr "Επεξεργασία Σύγκρουσης!"
+
+msgid "Security Violation"
+msgstr "Παραβίαση Ασφάλειας"
+
+msgid "Database Error"
+msgstr "Σφάλμα Βάσης Δεδομένων"
+
+msgid "Platform Error"
+msgstr "Σφάλμα Πλατφόρμας"
+
+msgid "Authentication Failure"
+msgstr "Η Πιστοποίηση Απέτυχε"
+
+msgid "Error"
+msgstr "Σφάλμα"
+
+msgid ""
+"Your change cannot be completed because somebody else has made a conflicting change to the "
+"same item.  Use the back button in your browser to go back to the page you were on, then "
+"<b>reload that page</b> and try your change again."
+msgstr ""
+"Η αλλαγή σας δεν μπορεί να ολοκληρωθεί επειδή κάποιος άλλος έχει κάνει μια συγκρουόμενη "
+"αλλαγή στο ίδιο στοιχείο. Χρησιμοποιήστε το πίσω κουμπί στον περιηγητή σας(browswer) για να "
+"επιστρέψετε στη σελίδα που ήσασταν, κατόπιν <b>ξαναφόρτωμα εκείνη την σελίδα</b> και "
+"δοκιμάστε ξανά την αλλαγή σας."
+
+msgid "Go back and try again"
+msgstr "Πήγαινε πίσω και δοκίμασε ξανά"
+
+msgid ""
+"If this problem happens repeatedly, it may be because of corruption in your cache.  Site "
+"Administrators can clear out this cache."
+msgstr ""
+"Εάν αυτό το πρόβλημα συμβαίνει επανειλημμένα, μπορεί να είναι λόγω καταστροφής στην μνήμη. "
+"Οι διαχειριστές μπορούν να καθαρίσουν την μνήμη."
+
+msgid "Clear the cache"
+msgstr "Καθαρισμός cache"
+
+msgid "Alternatively, you can return to the main Gallery page and resume browsing."
+msgstr ""
+"Εναλλακτικά, μπορείτε να επιστρέψετε στην κύρια σελίδα της Γκαλερί και να επαναλάβετε την "
+"περιήγηση."
+
+msgid "The action you attempted is not permitted."
+msgstr "Η ενέργεια που προσπαθήσατε δεν επιτρέπεται."
+
+msgid ""
+"Your change cannot be completed due to a loss of session data. Please try again. If it still "
+"doesn't work, try logging out and logging back in."
+msgstr ""
+"Η αλλαγή σας δεν μπορεί να ολοκληρωθεί λόγω απώλειας στοιχείων συνεδρίας. Παρακαλώ "
+"προσπαθήστε ξανά. Εάν ακόμη δεν λειτουργεί, δοκιμάστε ξανά αφού αποσυνδεθείτε και συνδεθείτε "
+"ξανά."
+
+msgid "An error has occurred while interacting with the database."
+msgstr "Δημιουργήθηκε ένα σφάλμα αλληλεπιδρώντας με τη βάση δεδομένων."
+
+msgid ""
+"The exact nature of database errors is not captured unless Gallery debug mode is enabled in "
+"config.php.  Before seeking support for this error please enable buffered debug output and "
+"retry the operation.  Look near the bottom of the lengthy debug output to find error details."
+msgstr ""
+
+msgid "An error has occurred while interacting with the platform."
+msgstr "Δημιουργήθηκε ένα σφάλμα αλληλεπιδρώντας με την πλατφόρμα."
+
+msgid ""
+"The exact nature of the platform error is unknown. A common cause are insufficient file "
+"system permissions. This can happen if you or your webhost changed something in the file "
+"system, e.g. by restoring data from a backup."
+msgstr ""
+"Η ακριβής φύση του λάθους πλατφορμών είναι άγνωστη. Μια κοινή αιτία είναι οι ανεπαρκείς "
+"άδειες συστημάτων αρχείων. Αυτό μπορεί να συμβεί εάν εσείς ή το webhost σας αλλάξατε κάτι "
+"στο σύστημα αρχείων, π.χ. με την αποκατάσταση των στοιχείων από ένα στήριγμα(backup)."
+
+msgid "Item not found."
+msgstr "Δεν βρέθηκε αρχείο"
+
+msgid "An error has occurred."
+msgstr "Προέκυψε ένα σφάλμα."
+
+msgid "Back to the Gallery"
+msgstr "Πίσω στην Γκαλερί"
+
+msgid "Error Detail"
+msgstr "Λεπτομέρειες σφάλματος"
+
+msgid "System Information"
+msgstr "Πληροφορίες Συστήματος"
+
+msgid ""
+"You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
+"images, you will probably not have any thumbnails."
+msgstr ""
+"Δεν υπάρχει ενεργοποιημένο οποιοδήποτε κουτί εργαλείων γραφικής παράστασης που μπορεί να "
+"χειριστεί τις εικόνες JPEG. Εάν προσθέτετε τις εικόνες, πιθανώς να μην έχετε οποιεσδήποτε "
+"μικρογραφίες."
+
+#, c-format
+msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
+msgstr ""
+
+msgid "Add Sub-Album"
+msgstr "Προσθήκη υπο-άλπουμ"
+
+msgid ""
+"The name of this album on your hard disk.  It must be unique in this album.  Only use "
+"alphanumeric characters, underscores or dashes.  You will be able to rename it later."
+msgstr ""
+"Το όνομα αυτού του άλπουμ στο σκληρό σας δίσκο. Πρέπει να είναι μοναδικό σε αυτό το άλπουμ. "
+"Χρησιμοποιήστε μόνο αλφανουμερικούς χαρακτήρες χρήσης, υπογραμμίσης(_) ή παύλα(-). Θα είστε "
+"σε θέση να το μετονομάσετε αργότερα."
+
+msgid "Your name contains invalid characters.  Please enter another."
+msgstr "Το όνομα περιέχει μη έγκυρους χαρακτήρες. Παρακαλούμε επιλέξτε ένα άλλο."
+
+msgid "You must enter a name for this album."
+msgstr "Πρέπει να ορίσετε όνομα γι' αυτό το άλπουμ"
+
+msgid "The name you entered is already in use.  Please enter another."
+msgstr "Το όνομα που δώσατε χρησιμοποιείται ήδη. Παρακαλούμε επιλέξτε ένα άλλο."
+
+msgid "This is the album title."
+msgstr "Τίτλος Άλπουμ"
+
+msgid "This is the album summary."
+msgstr "Περίληψη Άλπουμ"
+
+msgid "Keywords are not visible, but are searchable."
+msgstr "Οι λέξεις κλειδιά δεν είναι ορατές, αλλά είναι εξερευνήσιμες."
+
+msgid "This is the long description of the album."
+msgstr "Μακροσκελής Περιγραφή Αρχείου."
+
+msgid "Create"
+msgstr "Δημιουργία"
+
+msgid "Upload Complete"
+msgstr "Ολοκληρώθηκε το ανέβασμα"
+
+#, c-format
+msgid "Successfully added %d file."
+msgid_plural "Successfully added %d files."
+msgstr[0] "Προστέθηκε με επιτυχία το %d αρχείο."
+msgstr[1] "Προστέθηκαν με επιτυχία τα %d αρχεία."
+
+msgid "No files added."
+msgstr "Δεν προστέθηκε κανένα αρχείο."
+
+#, c-format
+msgid "Added %s"
+msgstr "Προστέθηκε %s"
+
+#, c-format
+msgid "Failed to add %s"
+msgstr "Απότυχε να προστεθεί το %s"
+
+msgid "Add more files"
+msgstr "Προσθέστε περισσότερα αρχεία"
+
+msgid ""
+"Your webserver is configured to disallow file uploads from your web browser at this time.  "
+"Please contact your system administrator for assistance."
+msgstr ""
+"Ο webserver σας είναι ρυθμισμένος για να απαγορεύει το ανέβασμα αρχείων από τον περιηγητή "
+"σας. Επικοινωνήστε με τον διαχειριστή του συστήματος σας για βοήθεια."
+
+msgid "Upload files directly from your computer."
+msgstr "Ανεβάστε αρχεία από τον υπολογιστή σας."
+
+msgid "Enter the full path to the file and an optional caption in the boxes below."
+msgstr "Δώστε την πλήρη διαδρομή του αρχείου και προαιρετικά ένα τίτλο στα κουτιά πιο κάτω."
+
+#, c-format
+msgid ""
+"<b>Note:</b> You can upload up to %s at one time.  If you want to upload more than that, you "
+"must upload the files separately, use a different upload format, or ask your system "
+"administrator to allow larger uploads."
+msgstr ""
+"<b>Σημείωση:</b> Μπορείτε να ανεβάσετε μέχρι %s κάθε φορά. Αν θέλετε να ανεβάσετε "
+"περισσότερα, πρέπει να ανεβάσετε τα αρχεία ξεχωριστά, να χρησιμοποιήσετε διαφορετικό τρόπο "
+"ανεβάσματος, ή να ζητήσετε από τον διαχειριστή του συστήματος σας να επιτρέψει μεγαλύτερα "
+"ανεβάσματα."
+
+#, c-format
+msgid ""
+"<b>Note:</b> You can upload up to %s at one time.  No individual file may be larger than %s. "
+"If you want to upload more than that, you must upload the files separately, use a different "
+"upload format, or ask your system administrator to allow larger uploads."
+msgstr ""
+"<b>Σημείωση:</b> Μπορείτε να ανεβάσετε μέχρι %s κάθε φορά. Κανένα μεμονωμένο αρχείο δεν "
+"μπορεί να είναι μεγαλύτερο από %s.   Αν θέλετε να ανεβάσετε περισσότερα, πρέπει να ανεβάσετε "
+"τα αρχεία ξεχωριστά, να χρησιμοποιήσετε διαφορετικό τρόπο ανεβάσματος, ή να ζητήσετε από τον "
+"διαχειριστή του συστήματος σας να επιτρέψει μεγαλύτερα ανεβάσματα."
+
+msgid "More Upload Boxes..."
+msgstr "Περισσότερα κουτιά ανεβάσματος..."
+
+msgid "Set item titles from:"
+msgstr "Καθορίστε τους τίτλους των αρχείων από:"
+
+msgid "Assign caption to:"
+msgstr "Ορίστε τον τίτλο σε:"
+
+msgid "No Thumbnail"
+msgstr "Καμία μικρογραφία"
+
+msgid "Delete Items"
+msgstr "Διαγραφή Αρχείου"
+
+msgid "No items were selected for deletion"
+msgstr "Δεν επιλέγχθηκε κανένα αρχείο για διαγραφή"
+
+#, c-format
+msgid "Successfully deleted %d item"
+msgid_plural "Successfully deleted %d items"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "This album contains no items to delete"
+msgstr "Το άλπουμ δεν περιέχει κανένα αρχείο για διαγραφή"
+
+msgid "Choose the items you want to delete"
+msgstr "Επιλέξτε τα αρχεία που θέλετε να διαγράψετε"
+
+#, c-format
+msgid "(page %d of %d)"
+msgstr "(σελίδα %d από %d)"
+
+msgid "Items selected here will remain selected when moving between pages."
+msgstr ""
+"Τα αρχεία που είναι διαλεγμένα εδώ θα παραμείνουν διαλεγμένα κατά την μετακίνηση σε άλλες "
+"σελίδες"
+
+#, c-format
+msgid "One item selected on other pages."
+msgid_plural "%d items selected on other pages."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "(data)"
+msgstr "(στοιχεία)"
+
+#, c-format
+msgid "(album containing %d item)"
+msgid_plural "(album containing %d items)"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "(empty album)"
+msgstr "(κενό άλπουμ)"
+
+msgid "Check All"
+msgstr "Επιλογή όλων"
+
+msgid "Check None"
+msgstr "Επιλογή καμία"
+
+msgid "Invert"
+msgstr "Αναστρέψτε"
+
+msgid "Previous Page"
+msgstr "Προηγούμενη σελίδα"
+
+msgid "Next Page"
+msgstr "Επόμενη Σελίδα"
+
+msgid "Deletion Complete"
+msgstr "Η Διαγραφή ολοκληρώθηκε"
+
+msgid "Item successfully deleted"
+msgstr "Το αρχείο διαγράφτηκε με επιτυχία."
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "Είστε σίγουροι ότι θέλετε οπωσδήποτε να διαγράψετε το %s;"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "There is no undo!"
+msgstr "Δεν υπάρχει αναίρεση!"
+
+msgid "There was a problem processing your request."
+msgstr "Υπήρξε ένα πρόβλημα κατά την επεξεργασία της αίτησης σας."
+
+msgid "Sort order"
+msgstr "Ταξινόμιση"
+
+msgid ""
+"This sets the sort order for the album.  This applies to all current items, and any newly "
+"added items."
+msgstr ""
+"Αυτό δηλώνει την ταξινόμηση του άλμπουμ. Εφαρμόζεται σε όλα τα υπάρχοντα αρχεία και "
+"οποιαδήποτε νέα αρχεία ανεβάσετε."
+
+msgid "Apply to all subalbums"
+msgstr "Εφαρμογή σε όλα τα υπο-άλπουμς"
+
+msgid " Every item requires a thumbnail. Set the default size in pixels here."
+msgstr ""
+"Το κάθε άλπουμ χρειάζεται μια μικρογραφία. Δώστε το προεπιλεγμένο μέγεθος σε pixels εδώ."
+
+msgid "You must enter a number (greater than zero)"
+msgstr "Πρέπει να εισαγάγετε ένα αριθμό (μεγαλύτερο από το μηδέν)"
+
+msgid "Use this thumbnail size in all subalbums"
+msgstr "Χρησιμοποιήστε αυτή την μικρογραφία σε όλα τα υπο-άλπουμς"
+
+msgid "Resized Images"
+msgstr "Φωτογραφίες άλλου μεγεθους"
+
+msgid "Each item in your album can have multiple sizes. Define the default sizes here."
+msgstr ""
+"Το κάθε αρχείο στο άλπουμ σας μπορεί να έχει διαφορετικά μεγέθη. Προσδιορίστε τα "
+"προεπιλεγμένο μέγεθη εδώ."
+
+msgid "Active"
+msgstr "Ενεργό"
+
+msgid "Target Size (pixels)"
+msgstr "Μέγεθος (pixels)"
+
+msgid "You must enter a valid size"
+msgstr "Πρέπει να εισαγάγετε ένα έγκυρο μέγεθος"
+
+msgid "Use these target sizes in all subalbums"
+msgstr "Χρησιμοποίησε αυτό το μέγεθος σε όλα τα υπο-άλπουμς"
+
+msgid "Apply settings to existing items"
+msgstr "Εφαρμογή Ρυθμίσεων στα υπάρχοντα αρχεία"
+
+msgid ""
+"The thumbnail and resized image settings are for all new items. To apply these settings to "
+"all the items in your album, check the appropriate box. Including subalbums will apply each "
+"album's own settings to its thumbnails/resizes, which may not match the settings above. "
+"Building images now makes this operation take longer, but saves the time to build and cache "
+"each file when it is first viewed."
+msgstr ""
+"Οι ρυθμίσεις μικρογραφιών και άλλων μεγεθών είναι για όλα τα νέα αρχεία. Για να εφαρμόσετε "
+"αυτές τις ρυθμίσεις σε όλα τα αρχεία στο άλμπουμ σας, επιλέξτε το ανάλογο κουτί. "
+"Συμπεριλαμβανομένων και των υπό-άλμπουμ θα εφαρμοστεί στις ρυθμίσεις του κάθε άλμπουμ στις "
+"μικρογραφίες/άλλα μεγέθη, οι οποίες μπορεί να είναι διαφορετικές από τις πιο πάνω. Η "
+"κατασκευή των φωτογραφιών τώρα παίρνει μεγαλύτερο χρόνο, αλλά εξοικονομεί χρόνο στην "
+"κατασκευή και να αποθηκεύσει το κάθε αρχείο κατά την πρώτη προβολή του αρχείου."
+
+msgid "Apply album setting to thumbnails"
+msgstr "Εφαρμόστε τις ρυθμίσεις του άλπουμ στην μικρογραφία"
+
+msgid "... and for all subalbums"
+msgstr "...και σε όλα τα υπο-άλπουμς"
+
+msgid "Build thumbnails too"
+msgstr "Κατασκευάστε και τις μικρογραφίες"
+
+msgid "Apply album setting to resized images"
+msgstr "Εφαρμόστε τις ρυθμίσεις του άλπουμ στις φωτογραφίες διαφορετικού μεγέθους"
+
+msgid "Build resizes too"
+msgstr "Κατασκευαστε και τις φωτογραφίες διαφορετικού μεγεθους"
+
+msgid ""
+"In order for Gallery to properly display this animation, it has to know the animation's "
+"width and height.  If you have installed a graphics toolkit that can handle animation types, "
+"then these values may already be set.  If not, they may be set to 0.  If you do not enter "
+"the correct values here, the animation may appear distorted when viewed in your web "
+"browser.  Note that changing these values does <b>not</b> change the animation itself so "
+"experimenting won't cause harm."
+msgstr ""
+"Για να μπορέσει η Γκαλερί να εμφανίσει αυτή την κινούμενη εικόνα, πρέπει να γνωρίζει το "
+"πλάτος και το μέγεθος της. Αν εγκαταστήσατε εργαλειοθήκη γραφικών που να υποστηρίζει τύπους "
+"κινούμενων εικόνων (animations), τότε αυτές οι τιμές μπορεί να έχουν ήδη οριστεί. Αν όχι, "
+"μπορεί να ορίστηκαν στο 0.  Αν δεν δώσετε τις σωστές τιμές εδώ, η κινούμενη εικόνα μπορεί να "
+"εμφανιστεί διαστρεβλωμένη στον περιηγητή σας. Σημειώστε ότι με το να αλλάξετε αυτές τις "
+"τιμές <b>δεν</b> αλλάζει η ίδια η κινούμενη εικόνα γι' αυτό οποιοσδήποτε πειραματισμός δεν "
+"θα προκαλέσει ζημία."
+
+msgid "Width"
+msgstr "Πλάτος"
+
+msgid "You must enter a value greater than or equal to 0"
+msgstr "Πρέπει να εισαγάγετε μεγαλύτερο ή ίσο με το 0"
+
+msgid "Height"
+msgstr "Ύψος"
+
+msgid "There were errors saving some items"
+msgstr "Υπήρξαν σφάλματα στην αποθήκευση κάποιων αρχείων"
+
+msgid "There were errors saving all items"
+msgstr "Υπήρξαν σφάλματα στην αποθήκευση όλων των αρχείων"
+
+msgid "Successfully saved all items"
+msgstr "Όλα τα αρχεία αποθηκεύτηκαν με επιτυχία."
+
+msgid "This album contains no items"
+msgstr "Το άλπουμ δεν περιέχει κανένα αρχείο"
+
+msgid "Saved successfully."
+msgstr "Αποθηκεύτηκε με επιτυχία."
+
+msgid "This item was modified by somebody else at the same time.  Your changes were lost."
+msgstr "Το αρχείο τροποποιήθηκε από κάποιον άλλο την ίδια στιγμή. Οι αλλαγές σας χάθηκαν."
+
+msgid "You do not have permissions to modify this item."
+msgstr "Δεν έχετε δικαιώματα επεξεργασίας αυτού του αρχείου."
+
+msgid "Save and Done"
+msgstr "Φυλάξτε και τελειώσατε"
+
+#, c-format
+msgid "Save and Edit Previous %s"
+msgstr "Φυλάξτε και τροποποιήστε το προηγούμενο %s"
+
+#, c-format
+msgid "Save and Edit Next %s"
+msgstr "Φυλάξτε και τροποποιήστε το επόμενο %s"
+
+msgid ""
+"The name of this item on your hard disk.  It must be unique in this album.  Only use "
+"alphanumeric characters, underscores or dashes."
+msgstr ""
+"Το όνομα αυτού του αρχείου στον δίσκο σας. Πρέπει να είναι μοναδικό σ' αυτό το άλμπουμ. "
+"Χρησιμοποιήστε αλφανουμερικούς χαρακτήρες, υπογράμμιση (_) ή παύλες (-)."
+
+msgid "Your name contains invalid characters.  Please choose another."
+msgstr "Το όνομα σας περιέχει άκυρους χαρακτήρες. Διαλέξτε ένα άλλο."
+
+msgid "You must enter a name for this item."
+msgstr "Πρέπει να εισαγάγετε ένα όνομα γι' αυτό το αρχείο"
+
+msgid "The name you entered is already in use.  Please choose another."
+msgstr "Το όνομα που διαλέξατε χρησιμοποιείται ήδη. Διαλέξτε ένα άλλο"
+
+msgid "The title of this item."
+msgstr "Τίτλος Αρχείου"
+
+msgid "The root album must have a title."
+msgstr "Το κυρίος άλπουμ πρέπει να έχει ένα τίτλο"
+
+msgid "The summary of this item."
+msgstr "Περίληψη Αρχείου"
+
+msgid "This is the long description of the item."
+msgstr "Μακροσκελής Περιγραφή Αρχείου."
+
+#, c-format
+msgid "%s Date and Time"
+msgstr "%s Ημερομηνία και Ώρα"
+
+msgid "Set the date and time when this image was captured."
+msgstr "Δώστε την ημερομηνία και την ώρα που βγάλατε αυτή την φωτογραφία"
+
+msgid "Set the date and time to be displayed for this item."
+msgstr "Δώστε την ημερομηνία και την ώρα γι' αυτό το αρχείο"
+
+#, c-format
+msgid "Set the date and time to be displayed for this %s."
+msgstr "Δώστε την ημερομηνία και την ώρα γι' αυτό %s."
+
+msgid "Date:"
+msgstr "Ημερομηνία:"
+
+msgid "Time:"
+msgstr "Ώρα:"
+
+msgid "Use the original capture date and time from file information (e.g. Exif tag):"
+msgstr ""
+"Χρησιμοποιήστε την αρχική ημερομηνία και το χρόνο σύλληψης από τις πληροφορίες αρχείων (π.χ. "
+"ετικέττα Exif): "
+
+msgid "You must enter a valid date and time"
+msgstr "Πρέπει να εισαγάγετε μια έγκυρη ημερομηνία και ώρα"
+
+msgid "Thumbnail"
+msgstr "Μικρογραφία"
+
+msgid ""
+"Set the size of the thumbnail.  The largest side of the thumbnail will be no larger than "
+"this value. Leave this field blank if you don't want a thumbnail."
+msgstr ""
+"Δηλώστε το μέγεθος της μικρογραφίας. Η μεγαλύτερη μεριά της μικρογραφίας δεν θα είναι "
+"μεγαλύτερη από αυτή την τιμή. Αφήστε κενό αν δεν θέλετε καμία μικρογραφία."
+
+msgid ""
+"There are no graphics toolkits enabled that support this type of item, so we cannot create "
+"or modify a thumbnail."
+msgstr ""
+"Δεν υπάρχει ενεργοποιημένη καμία εργαλειοθήκη που να υποστηρίζει αυτό τον τύπο φωτογραφίας, "
+"γι' αυτό δεν μπορεί να δημιουργηθεί ή να επεξεργασθεί μικρογραφία."
+
+msgid "Unable to create a thumbnail for this item"
+msgstr "Αδυναμία δημιουργίας μικρογραφίας γι' αυτό το αρχείο"
+
+msgid ""
+"In order for Gallery to properly display this movie, it has to know the movie's width and "
+"height.  If you have installed a graphics toolkit that can handle movie types, then these "
+"values may already be set.  If not, they may be set to 0.  If you do not enter the correct "
+"values here, the movie may appear distorted when viewed in your web browser.  Note that "
+"changing these values do <b>not</b> change the movie itself so experimentation won't cause "
+"harm."
+msgstr ""
+"Για να μπορέσει η Γκαλερί να προβάλει αυτή την ταινία όπως πρέπει, χρειάζεται να γνωρίζει το "
+"πλάτος και το ύψος της ταινίας. Αν έχετε εγκαταστήσει μία εργαλειοθήκη γραφικών η οποία "
+"μπορεί να χειριστεί ταινίες, τότε ίσως οι τιμές αυτές να έχουν ήδη οριστεί. Αν όχι, μπορεί "
+"να είναι ορισμένες σε 0. Αν δεν δώσετε τις σωστές τιμές εδώ, η ταινία μπορεί να εμφανιστεί "
+"διαστρεβλωμένη στον περιηγητή σας. Σημειώστε ότι αλλάζοντας αυτές τις τιμές <b>δεν</b> "
+"αλλάζει η ταινία γι' αυτό ο οποιοσδήποτε πειραματισμός δεν θα βλάψει."
+
+msgid "Resized Photos"
+msgstr "Φωτογραφίες άλλου μεγεθους"
+
+msgid ""
+"These sizes are alternate resized versions of the original you would like to have available "
+"for viewing."
+msgstr ""
+"Αυτά τα μεγέθη είναι εκδόσεις άλλων μεγεθών του πρωτότυπου που θα θέλατε να είναι διαθέσιμα "
+"για εμφάνιση."
+
+msgid ""
+"There are no graphics toolkits enabled that support this type of photo, so we cannot create "
+"or modify resized versions."
+msgstr ""
+"Δεν υπάρχει ενεργοποιημένη καμία εργαλειοθήκη που να υποστηρίζει αυτό τον τύπο φωτογραφίας, "
+"γι' αυτό δεν μπορεί να δημιουργηθούν ή να επεξεργασθούν φωτογραφίες άλλων μεγεθών."
+
+msgid ""
+"You can select which part of the photo will be used for the thumbnail.  This will have no "
+"effect on the resized or original versions of the image."
+msgstr ""
+"Μπορείτε να διαλέξετε πιο κομμάτι της φωτογραφίας θα χρησιμοποιηθεί για μικρογραφία. Αυτό "
+"δεν θα έχει καμία επίδραση στις φωτογραφίες διαφορετικού μεγέθους ή στις προτώτυπες "
+"φωτογραφίες."
+
+msgid "Aspect Ratio: "
+msgstr "Αναλογίας Μεγέθους"
+
+msgid "Crop"
+msgstr "Ξάκρισμα"
+
+msgid "Undo Changes"
+msgstr "Αναίρεση αλλαγών"
+
+msgid "Reset to default"
+msgstr "Επαναφορά στις προεπιλογές"
+
+msgid ""
+"There are no graphics toolkits enabled that support this type of photo, so we cannot crop "
+"the thumbnail."
+msgstr ""
+"Δεν υπάρχει καμία εργαλειοθήκη γραφικών ενεργοποιημένη που να υποστηρίζει αυτό τον τύπο "
+"φωτογραφίας, γι' αυτό δεν μπορεί να ξακριστεί η μικρογραφία."
+
+msgid "Rotate"
+msgstr "Περιστροφή"
+
+msgid "You can only rotate the photo in 90 degree increments."
+msgstr "Μπορείτε να περιστρέψετε την φωτογραφία μόνο κατά 90 μοίρες"
+
+msgid "CC 90&deg;"
+msgstr "Αριστερά 90&deg;"
+
+msgid "180&deg;"
+msgstr "Περιστροφή 180&deg;"
+
+msgid "C 90&deg;"
+msgstr "Δεξιά 90&deg;"
+
+msgid ""
+"There are no graphics toolkits enabled that support this type of photo, so we cannot rotate "
+"it."
+msgstr ""
+"Δεν υπάρχει καμία εργαλειοθήκη γραφικών ενεργοποιημένη που να υποστηρίζει αυτό τον τύπο "
+"φωτογραφίας, γι' αυτό δεν μπορεί περιστραφεί η φωτογραφία."
+
+msgid "Scale"
+msgstr "Κλιμάκωση"
+
+msgid ""
+"Shrink or enlarge the original photo.  When Gallery scales a photo, it maintains the same "
+"aspect ratio (height to width) of the original photo to avoid distortion.  Your photo will "
+"be scaled until it fits inside a bounding box with the size you enter here."
+msgstr ""
+"Συρρικνώστε ή μεγαλώστε την πρωτότυπη φωτογραφία. Όταν η Γκαλερί κλιμακώνει μια φωτογραφία, "
+"διατηρεί την αναλογία διαστάσεων (ύψος προς πλάτος) της πρωτότυπης φωτογραφίας για να "
+"αποφύγει οποιαδήποτε διαστρέβλωση.  Η φωτογραφία σας θα κλιμακωθεί στο μέγεθος που δώσατε "
+"εδώ."
+
+msgid ""
+"There are no graphics toolkits enabled that support this type of photo, so we cannot scale "
+"it."
+msgstr ""
+"Δεν υπάρχει καμία εργαλειοθήκη γραφικών ενεργοποιημένη που να υποστηρίζει αυτό τον τύπο "
+"φωτογραφίας, γι' αυτό δεν μπορεί να κλιμακωθεί η φωτογραφία."
+
+msgid "You must enter a size"
+msgstr "Πρέπει να εισαγάγετε μέγεθος"
+
+msgid "Preserve Original"
+msgstr "Διατήρηση Πρωτότυπου"
+
+msgid ""
+"Gallery does not modify your original photo when rotating and scaling. Instead, it "
+"duplicates your photo and works with copies.  This requires a little extra disk space but "
+"prevents your original from getting damaged.  Disabling this option will cause any actions "
+"(rotating, scaling, etc) to modify the original."
+msgstr ""
+"Η Γκαλερί δεν τροποποιεί τις πρωτότυπες φωτογραφίες κατά την περιστροφή ή την κλιμάκωση.   "
+"Δημιουργεί αντίγραφο της φωτογραφίας και δουλεύει με τα αντίγραφα. Αυτό απαιτεί λίγο "
+"επιπλέον χώρο στον δίσκο αλλά αποτρέπει την καταστροφή των πρωτότυπων φωτογραφιών. "
+"Απενεργοποιώντας αυτή την επιλογή οποιαδήποτε λειτουργία (περιστροφής, κλιμάκωσης, κτλ) θα "
+"τροποποιήσει την πρωτότυπη φωτογραφία."
+
+msgid "This is a link to another photo, so you cannot change the original"
+msgstr ""
+"Αυτή είναι μια σύνδεση σε μια άλλη φωτογραφία γι' αυτό δεν μπορείτε να αλλάξετε την πρωτότυπη"
+
+msgid "There are links to this photo, so you cannot change the original"
+msgstr "Υπάρχουν συνδέσμοι σ' αυτή την φωτογραφία και δεν μπορείται να αλλάξετε την πρωτότυπη."
+
+msgid ""
+"There is no toolkit support to modify the original so operations may only be applied to the "
+"copies"
+msgstr ""
+"Δεν υπάρχει καμία υποστήριξη εργαλειοθήκης για επεξεργασία της πρωτότυπης γι' αυτό οι "
+"λειτουργίες θα εφαρμοσθούν μόνο στα αντίγραφα"
+
+msgid "Preserve Original Photo"
+msgstr "Διατήρηση Πρωτότυπης Φωτογραφίας"
+
+msgid "Modified Photo"
+msgstr "Επεξεργασμένη Φωτογραφία"
+
+msgid ""
+"You are using a copy of the original photo that has been scaled or rotated.  The original "
+"photo is still available, but is no longer being used.  Any changes you make will be applied "
+"to the copy instead."
+msgstr ""
+"Χρησιμοποιείτε αντίγραφο της πρωτότυπης φωτογραφίας το οποίο έχει κλιμακωθεί ή περιστραφεί. "
+"Η πρωτότυπη φωτογραφία είναι ακόμη διαθέσιμη, αλλά δεν χρησιμοποιείται πλέον. Οποιεσδήποτε "
+"αλλαγές κάνετε θα εφαρμοσθούν στο αντίγραφο."
+
+msgid "Restore original"
+msgstr "Επανακτίστε το πρότυπο"
+
+msgid "Choose a theme"
+msgstr "Επιλέξτε Θέμα"
+
+#, c-format
+msgid ""
+"This album is configured to use the %s theme which is either incompatible with this Gallery "
+"version or no longer available.  Please upgrade the %s theme or use another theme for this "
+"album."
+msgstr ""
+
+#, c-format
+msgid ""
+"Themes control the look and feel of the album.  You can choose a different theme for each "
+"album.  If you don't choose a theme, we'll use the %s theme by default."
+msgstr ""
+"Τα θέματα ελέγχουν τον τρόπο προβολής και εμφάνισης του άλπουμ.  Μπορείτε να διαλέξετε "
+"διαφορετικό θέμα για κάθε άλπουμ.  Αν δεν διαλέξετε ένα θέμα, θα χρησιμοποιηθεί το %s θέμα "
+"που είναι προεπιλεγμένο."
+
+msgid "Use this theme in all subalbums"
+msgstr "Χρησιμοποιήστε αυτό το θέμα σε όλα τα υπο-άλπουμ"
+
+msgid "Choose Theme"
+msgstr "Διαλέξτε Θέμα"
+
+#, c-format
+msgid "Configure the %s theme"
+msgstr "Ρύθμισει του θέματος %s"
+
+msgid "These settings only apply to the theme for this album."
+msgstr "Αυτές οι ρυθμίσεις ενεργοποιούνται μόνο στο θέμα γι' αυτό το άλπουμ"
+
+#, c-format
+msgid "Use these settings in all subalbums that use the %s theme"
+msgstr "Χρησιμοποιήστε αυτές τις ρυθμίσεις σε όλα τα υπο-άλπουμς που χρησιμοποιούν το θέμα %s"
+
+msgid "Album Highlight"
+msgstr "Κύριο Σημείο Άλπουμ"
+
+msgid "You can make this item the thumbnail for its parent or any ancestor album."
+msgstr ""
+"Μπορείτε να κάνετε αυτό το αρχείο μικρογραφία για το γονικό άλπουμ ή όποιοδήποτε άλλο άλπουμ."
+
+msgid "Highlight for:"
+msgstr "Κύριο Σημείο για:"
+
+msgid "Highlight"
+msgstr "Κύριο Σημείο"
+
+msgid "Move an Item"
+msgstr "Μετακίνηση Αρχείου"
+
+#, c-format
+msgid "Successfully moved %d item"
+msgid_plural "Successfully moved %d items"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "This album contains no items to move."
+msgstr "Αυτό το άλπουμ δεν περιέχει αρχεία για μετακίνηση"
+
+msgid "Source"
+msgstr "Πηγή"
+
+msgid "Choose the items you want to move"
+msgstr "Επιλέξτε τα αρχεία που θέλετε να μεταφέρετε"
+
+msgid ""
+"The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
+msgstr ""
+"Ο προορισμός που επιλέγξατε δεν δέχεται υπο-άλπουμ, γι' αυτό όλα υπο-άλπουμ έχουν "
+"απεπιλεγχθεί."
+
+msgid ""
+"The destination you chose only accepts sub-albums, so all non-albums have been deselected."
+msgstr ""
+"Ο προορισμός που επιλέγξατε δέχεται μόνο υπο-άλπουμ, γι' αυτό όλα τα μη άλπουμς έχουν "
+"απεπιλεγχθεί."
+
+msgid "You are not allowed to move this item away from here."
+msgstr "Δεν επιτρέπεται να μετακινήσετε αυτό το αρχείο από εδώ."
+
+msgid "You are not allowed to move an album to the chosen destination."
+msgstr "Δεν επιτρέπεται να μετακινήσετε ένα άλπουμ στον προορισμό που διαλέξατε"
+
+msgid "You are not allowed to move an item to the chosen destination."
+msgstr "Δεν επιτρέπεται να μετακινήσετε ένα αρχείο στον προορισμό που διαλέξατε"
+
+msgid "You cannot move an album into its own subtree."
+msgstr "Δεν μπορείτε να μετακινήσετε ένα άλπουμ στο δικό του υπο-δέντρο"
+
+msgid "Destination"
+msgstr "Προορισμός"
+
+msgid "Choose a new album for them"
+msgstr "Διαλέξτε ένα νέο άλπουμ γι' αυτά"
+
+msgid "You don't have the permission to add items in this album"
+msgstr "Δεν έχετε δικαίωμα να προσθέσετε αρχεία σ' αυτό το άλπουμ"
+
+msgid "No destination chosen"
+msgstr "Δεν επιλέχθηκε κανένας προορισμός"
+
+msgid "Move"
+msgstr "Μετακίνηση"
+
+msgid "Successfully moved"
+msgstr "Μετακινήθηκε με επιτυχία"
+
+msgid "Choose a destination album"
+msgstr "Επιλέξτε το άλπουμ προορισμού"
+
+msgid "Permissions"
+msgstr "Δικαιώματα"
+
+msgid "Owner changed successfully"
+msgstr "Η αλλαγή ιδιοκτήτη έγινε με επιτυχία"
+
+msgid "Group permission added successfully"
+msgstr "Τα δικαιώματα της ομάδας προστέθηκαν με επιτυχία"
+
+msgid "User permission added successfully"
+msgstr "Τα δικαιώματα του Χρήστη προστέθηκαν με επιτυχία"
+
+msgid "Group permission removed successfully"
+msgstr "Τα δικαιώματα της ομάδας αφαιρέθηκαν με επιτυχία"
+
+msgid "User permission removed successfully"
+msgstr "Τα δικαιώματα του Χρήστη αφαιρέθηκαν με επιτυχία"
+
+msgid ""
+"Each item has its own independent set of permissions.  Changing the parent's permissions has "
+"no effect on the permissions of the child.  This allows you to restrict access to the parent "
+"of this item, but still grant full access to this item, or vice versa.  The most efficient "
+"way to use this permission system is to create groups and assign permissions to them.  Then "
+"if you want to grant permissions to a specific user, you can add (or remove) the user from "
+"the appropriate group."
+msgstr ""
+"Κάθε αρχείο έχει ανεξάρτητο δικό του σύνολο δικαιωμάτων. Αλλάζοντας τα δικαιώματα του "
+"γονικού δεν έχει καμία επίδραση στα δικαιώματα του θυγατρικού.  Αυτό σας επιτρέπει να "
+"περιορίσετε την πρόσβαση στο γονικό στοιχείο αρχείο, αλλά ακόμα χορηγεί την πλήρη πρόσβαση "
+"σε αυτό το αρχείο, ή αντίστροφα. Ο αποδοτικότερος τρόπος να χρησιμοποιηθεί αυτό το σύστημα "
+"δικαιωμάτων είναι να δημιουργηθούν ομάδες και να οριστούν δικαιώματα σε αυτές.  Κατόπιν εάν "
+"θέλετε να χορηγήσετε δικαιώματα σε έναν συγκεκριμένο χρήστη, μπορείτε να προσθέσετε (ή να "
+"αφαιρέσετε) το χρήστη από την αρμόδια ομάδα. "
+
+#, c-format
+msgid "This item is owned by user: %s"
+msgstr "Το αρχείο είναι ιδιοκτησία του χρήστη: %s"
+
+#, c-format
+msgid "This item is owned by user: %s (%s)"
+msgstr "Το αρχείο είναι ιδιοκτησία του χρήστη: %s (%s)"
+
+msgid "New owner"
+msgstr "Νέος ιδιοκτήτης"
+
+msgid "Change"
+msgstr "Αλλαγή"
+
+msgid "Apply new owner to sub-items"
+msgstr "Εφαρμογή νέου ιδιοκτήτη στα υπο-αρχεία"
+
+msgid "You must enter a user name"
+msgstr "Πρέπει να δώσετε όνομα χρήστη"
+
+msgid "The user name you entered is invalid"
+msgstr "Το όνομα χρήστη που καταχωρήσατε είναι μη έγκυρο"
+
+msgid "Apply changes"
+msgstr "Αποθήκευση Αλλαγών"
+
+msgid ""
+"This item has sub-items.  The changes you make here can be applied to just this item, or you "
+"can apply them to all sub-items.  Note that applying changes to sub-items will merge your "
+"change into the existing permissions of the sub-items and may be very time consuming if you "
+"have many sub-items.  It's more efficient to grant permissions to groups and then add and "
+"remove users from groups whenever possible. Changes are applied to sub-items by default."
+msgstr ""
+"Αυτό το αρχείο έχει υπο-αρχεία. Οι αλλαγές που κάνετε εδώ μπορούν να εφαρμοστούν ακριβώς σε "
+"αυτό το αρχείο, ή μπορείτε να τις εφαρμόσετε σε όλα τα υπο-αρχεία. Σημειώστε ότι η εφαρμογή "
+"των αλλαγών στα υπο-αρχεία θα συγχωνεύσει την αλλαγή σας στις υπάρχουσες άδειες των υπο-"
+"υποαρχείων και μπορεί να πάρει πολύ χρόνο εάν έχετε πολλά υπο-αρχεία. Είναι αποδοτικότερο να "
+"χορηγηθούν οι άδειες στις ομάδες και να προσταφαιρεθούν χρήστες στις ομάδες όποτε είναι "
+"δυνατόν. Οι αλλαγές εφαρμόζονται στα υπο-αρχεία εξ ορισμού."
+
+msgid "Apply to sub-items"
+msgstr "Εφαρμογή σε όλα τα υπο-αρχεία"
+
+msgid "Group Permissions"
+msgstr "Δικαιώματα Ομάδας"
+
+msgid "Group name"
+msgstr "Όνομα Ομάδας: "
+
+msgid "Permission"
+msgstr "Δικαιώματα"
+
+msgid "New Group Permission"
+msgstr "Δικαιώματα Νέας Ομάδας"
+
+msgid "Add Permission"
+msgstr "Δώστε δικαιώματα"
+
+msgid "The permission you chose is invalid"
+msgstr "Το δικαίωμα που διαλέξατε είναι μη έγκυρο"
+
+msgid "The group name you entered is invalid"
+msgstr "Η ομάδα που καταχωρήσατε είναι μη έγκυρη"
+
+msgid "Group already has this permission (check sub-permissions)"
+msgstr "Η ομάδα έχει ήδη τα δικαιώματα της (ελέγξτε τα υπο-δικαιώματα)"
+
+msgid "User Permissions"
+msgstr "Δικαιώματα Χρήστη"
+
+msgid "User name"
+msgstr "Όνομα Χρήστη"
+
+msgid "New User Permission"
+msgstr "Δικαιώματα Νέου Χρήστη"
+
+msgid "The user already has this permission (check sub-permissions)"
+msgstr "Ο χρήστης έχει ήδη αυτό το δικαίωμα (ελέγξτε τα υπο-δικαιώματα)"
+
+msgid "Reorder Album"
+msgstr "Αναταξινόμηση Άλπουμ"
+
+msgid "Order saved successfully"
+msgstr "Η ταξινόμηση αποθηκεύτηκε με επιτυχία"
+
+msgid ""
+"This album has an automatic sort order specified, so you cannot change the order of items "
+"manually.  You must remove the automatic sort order to continue."
+msgstr ""
+"Αυτό το άλπουμ είναι δηλωμένο για αυτόματη ταξινόμηση, και δεν μπορείτε να αναταξινομήσετε "
+"τα αρχεία. Πρέπει να αφαιρέσετε την αυτόματη ταξινόμηση για να μπορέσετε να συνεχίσετε"
+
+msgid "change"
+msgstr "Αλλαγή"
+
+msgid "Change the order of the items in this album."
+msgstr "Αλλάγή ταξινόμησης γι' αυτό το άλπουμ"
+
+msgid "Move this item"
+msgstr "Μετακίνηση Αρχείου"
+
+msgid "before"
+msgstr "πριν"
+
+msgid "after"
+msgstr "μετά"
+
+msgid "Reorder"
+msgstr "Αναταξινόμηση"
+
+msgid ""
+"JavaScript must be enabled for this page to function properly. However, it seems JavaScript "
+"is either disabled or not supported by your browser. Please enable JavaScript by changing "
+"your browser options, then try again."
+msgstr ""
+"Για να λειτουργήσει κανονικά αυτή η λειτουργία χρειάζεται να είναι ενεργοποιημένη η "
+"JavaScript. Από ότι φαίνεται η JavaScript σας είναι απενεργοποιημένη ή δεν υποστηρίζεται απο "
+"τον περιηγητή σας.  Παρακαλούμε ενεργοποιήστε την JavaScript αλλάζοντας τις ρυθμίσεις του "
+"περιηγητή σας, και δοκιμάστε ξανά."
+
+msgid "Site is temporarily down for maintenance."
+msgstr "Η σελίδα είναι προσωρινά ανενεργή για συντήρηση"
+
+msgid "Admin Login"
+msgstr "Σύνδεση Διαχειριστή"
+
+msgid "Enter a URL"
+msgstr "Δώστε ένα σύνδεσμο"
+
+msgid "Enter some text describing the URL"
+msgstr "Δώστε μια περιγραφή για τον σύνδεσμο"
+
+msgid "Enter an image URL"
+msgstr "Δώστε τον σύνδεσμο της εικόνας"
+
+msgid "B <!-- Button label for Bold -->"
+msgstr "B"
+
+msgid "i <!-- Button label for italic -->"
+msgstr "i"
+
+msgid "list"
+msgstr "λίστα"
+
+msgid "bullet"
+msgstr "bullet"
+
+msgid "url"
+msgstr "σύνδεσμος"
+
+msgid "image"
+msgstr "Φωτογραφία"
+
+msgid "color"
+msgstr "χρώμα"
+
+#, c-format
+msgid "You can also use the <a href=\"%s\" target=\"_new\">color name</a> for example: %s"
+msgstr ""
+
+msgid "Configuration Error: Missing Theme"
+msgstr "Σφάλμα Ρυθμίσεων: Ελλειπόν Θέμα"
+
+msgid "Missing Theme"
+msgstr "Ελλειπόν Θέμα"
+
+#, c-format
+msgid ""
+"This page is configured to use the %s theme, but it is either inactive, not installed, or "
+"incompatible."
+msgstr ""
+"Αυτή η σελίδα είναι ρυθμισμένη για το θέμα %s, αλλά είτε είναι ανενεργό, μη εγκατεστημένο, ή "
+"ασυμβίβαστο."
+
+#, c-format
+msgid ""
+"This album is configured to use the %s theme, but it is either inactive, not installed, or "
+"incompatible."
+msgstr ""
+"Αυτό το άλπουμ είναι ρυθμισμένο για το θέμα %s, αλλά είτε είναι ανενεργό, μη εγκατεστημένο, "
+"ή ασυμβίβαστο."
+
+#, c-format
+msgid ""
+"To fix this problem you can %sinstall or activate this theme%s or select another default "
+"theme."
+msgstr ""
+"Για να διορθώσετε αυτό το πρόβλημα μπορείτε  %s να εγκαταστήσετε ή να ενεργοποιήσετε αυτό το "
+"θέμα %s ή να επιλέξετε ένα άλλο θέμα προεπιλογής."
+
+#, c-format
+msgid ""
+"To fix this problem you can %slogin as a site administrator%s and then %sinstall or activate "
+"this theme%s or select another default theme."
+msgstr ""
+"Για να διορθώσετε αυτό το πρόβλημα μπορείτε %s να συνδεθείτε ως διαχειριστής %s και μετά %s "
+"να εγκαταστήσετε ή να ενεργοποιήσετε αυτό το θέμα %s ή να επιλέξετε ένα άλλο θέμα "
+"προεπιλογής."
+
+#, c-format
+msgid ""
+"To fix this problem you can either %schoose a new theme for this album%s or %sinstall or "
+"activate this theme%s."
+msgstr ""
+"Για να διορθώσετε αυτό το πρόβλημα μπορείτε είτε  %s να διαλέξετε ένα νέο θέμα για το άλπουμ "
+"%s ή  %s να εγκαταστήσετε ή να ενεργοποιήσετε αυτό το θέμα %s"
+
+#, c-format
+msgid ""
+"To fix this problem you can either %schoose a new theme for this album%s or %slogin as a "
+"site administrator%s and then %sinstall or activate this theme%s."
+msgstr ""
+"Για να διορθώσετε αυτό το πρόβλημα %sεπιλέξτε ένα νέο θέμα γι΄ αυτό το άλμπουμ%s ή %"
+"sσυνδεθείτε ως διαχειριστής%s και μετά %sεγκαταστήστε ή ενεργοποιήστε αυτό το θέμα%s."
+
+#, c-format
+msgid ""
+"To fix this problem you can either %slogin%s and then %schoose a new theme for this album%s "
+"or %slogin as a site administrator%s and then %sinstall or activate this theme%s."
+msgstr ""
+"Για να διορθώσετε αυτό το πρόβλημα μπορείτε να %sσυνδεθείτε%s και μετά %sνα επιλέξετε ένα "
+"νέο θέμα γι' αυτό το άλμπουμ%s ή %sσυνδεθείτε ως διαχειριστής%s και μετά %s εγκαταστήστε ή "
+"ενεργοποιήστε αυτό το θέμα%s."
+
+msgid "Admin Options"
+msgstr "Επιλογές Διαχειριστή"
+
+msgid "User Options"
+msgstr "Επιλογές Χρήστη"
+
+msgid "Password changed successfully"
+msgstr "Ο κωδικός σας άλλαξε με επιτυχία"
+
+msgid ""
+"You must enter your current password to prove that it's you, then enter your new password "
+"twice to make sure that you didn't make a mistake."
+msgstr ""
+"Πρέπει να δώσετε τον τρέχον κωδικό πρόσβασης σας για να αποδείξετε ότι είστε εσείς, μετά "
+"δώστε τον καινούργιο σας κωδικό δύο φορές και φροντίστε να μην κάνετε λαθος."
+
+msgid "Current Password"
+msgstr "Τρέχον κωδικός πρόσβασης"
+
+msgid "You must enter your current password"
+msgstr "Βάλτε τον τρέχον κωδικό σας"
+
+msgid "Incorrect password"
+msgstr "Λανθασμένος κωδικός πρόσβασης"
+
+msgid "New Password"
+msgstr "Νέος κωδικός πρόσβασης"
+
+msgid "You must enter a new password"
+msgstr "Βάλτε ένα νέο κωδικό"
+
+msgid "Verify New Password"
+msgstr "Επιβεβαίωση Νέου Κωδικού"
+
+msgid "You must enter your new password again!"
+msgstr "Βάλτε τον νέο κωδικό ξανά!"
+
+msgid ""
+"This account is not allowed to modify account settings.  Please contact your Gallery "
+"administrator"
+msgstr ""
+"Αυτός ο λογαριασμός δεν επιτρέπεται να τροποποιήσει ρυθμίσεις λογαριασμού. Παρακαλούμε "
+"επικονωνήστε με τον διαχειριστή της Γκαλερί."
+
+msgid ""
+"Your administrator has locked this account, preventing changes from being made to the "
+"account information."
+msgstr ""
+"Ο διαχειριστής έχει κλειδώσει αυτό τον λογαριασμό, αποτρέποντας αλλαγές στις πληροφορίες του "
+"λογαριασμού."
+
+msgid "Login to your account"
+msgstr "Σύνδεση στον λογαριασμό σας"
+
+msgid "Your password has been recovered, please login."
+msgstr "Ο Κωδικός πρόσβασης σας έχει ανακτηθεί, παρακαλούμε συνδεθείτε"
+
+#, c-format
+msgid ""
+"Logins to this account are temporarily disabled due to multiple failed login attempts.  Wait "
+"for access to be restored, or use the <a href=\"%s\">recover password</a> page to re-enable "
+"this account."
+msgstr ""
+"Οι συνδέσεις γι' αυτό τον λογαριασμό έχουν κλειδωθεί προσωρινά λόγο πολλών αποτυχημένων "
+"προσπαθειών σύνδεσης. Περιμένετε για να σας δωθεί ξανά η άδεια να συνδεθείτε, ή "
+"χρησιμοποιήστε το <a href=\"%s\">recover password</a> για να επανεργοποιήσετε τον λογαριασμό."
+
+msgid "Your login information is incorrect.  Please try again."
+msgstr "Οι πληροφορίες σύνδεσης σας είναι λανθασμένες. Παρακαλούμε δοκιμάστε ξανά."
+
+#, c-format
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
+"page"
+msgstr ""
+"Χαμένοι ή ξεχασμένοι κωδικοί πρόσβασης μπορούν να ανακτηθούν χρησιμοποιόντας την σελίδα <a "
+"href=\"%s\">Ανάκτηση Κωδικού</a>"
+
+#, c-format
+msgid "Welcome, %s!"
+msgstr "Καλοσώρισες, %s!"
+
+msgid "Account settings saved successfully"
+msgstr "Οι ρυθμίσεις του λογαριασμού αποθηκεύτηκαν με επιτυχία"
+
+msgid "(required, password required for change)"
+msgstr "(απαραίτητο, κωδικός πρόσβασης απαραίτητος για αλλαγή)"
+
+msgid "(suggested, password required for change)"
+msgstr "(προτεινόμενο, κωδικός πρόσβασης απαιτείται για αλλαγή)"
+
+msgid "(required to change the e-mail address)"
+msgstr "(Απαιτείται για αλλαγή ηλεκτρονικής διεύθυνσης-email)"
+
+msgid "You must enter your current password to change the e-mail address"
+msgstr ""
+"Πρέπει να εισαγάγετε τον κωδικό πρόσβασης σας για να αλλάξετε την ηλεκτρονική σας διεύθυνση "
+"(email)"
+
+msgid "Recover a lost or forgotten password"
+msgstr "Ανάκτηση χαμένου ή ξεχασμένου κωδικού πρόσβασης"
+
+msgid ""
+"Recovering your password requires that your user account has an email address assigned, and "
+"that you have access to the listed email address.  A confirmation will be emailed to you "
+"containing a URL which you must visit to set a new password for your account.  To prevent "
+"abuse, password recovery requests can not be attempted more than once in a 20 minute "
+"period.  A recovery confirmation is valid for seven days.  If it is not used during that "
+"time, it will be purged from the system and a new request will have to be made."
+msgstr ""
+"Για να ανακτήσετε τον κωδικό πρόσβασης πρέπει απαραίτητα να έχετε μια προσβάσιμη σε σας "
+"ηλεκτρονική διεύθυνση (email), δηλωμένη στον λογαριασμό σας. Θα σας σταλεί επιβεβαίωση στο "
+"email που έχετε δηλωσει στον λογαριασμό σας η οποία θα περιλαμβάνει ένα σύνδεσμο τον οποίο "
+"θα πρέπει να επισκεφτείτε για να δηλώσετε τον καινούργιο σας κωδικό. Για αποφυγή "
+"οποιασδήποτε κατάχρησης, μπορείτε να προσπαθήσετε να ανακτήσετε τον κωδικό σας μια φορά κάθε "
+"20 λεπτά. Μια επιβεβαίωση αποκατάστασης ισχύει για επτά (7) ημέρες. Εάν δεν χρησιμοποιηθεί "
+"κατά τη διάρκεια εκείνου του χρόνου, θα πρέπει να υποβάλετε ξανά το αίτημα σας για ανάκτηση "
+"κωδικού."
+
+msgid "Your recovery request has been sent!"
+msgstr "Η αίτηση σας για ανάκτηση έχει σταλεί!"
+
+msgid ""
+"Note that if the account does not have an email address, you may not receive the email and "
+"you should contact your system administrator for help."
+msgstr ""
+"Σημειώστε ότι αν ο λογαριασμός σας δεν έχει μια έγκυρη ηλεκτρονική διεύθυνση (email), δεν θα "
+"μπορέσετε να λάμβάνετε μηνύματα (email) και θα πρέπει να επικοινωνήσετε με τον διαχειριστή "
+"για βοήθεια."
+
+#, c-format
+msgid ""
+"Administrators can use the %sEmergency Password Recovery%s page to recover the admin account "
+"if they fail to receive recovery email due to server problems, or lack of a working email "
+"address."
+msgstr ""
+"Οι διαχειριστές μπορούν να χρησιμοποιήσουν την σελίδα %sΈκτακτη Ανάγκη Ανάκτησης Κωδικού%s "
+"για να επανακτήσουν τον λογαριασμό διαχείρισης σε περίπτωση που αποτύχουν να πάρουν το "
+"ηλεκτρονικό μήνυμα ανάκτησης λόγο προβλημάτων στον server, ή έλλειψης ενεργής ηλεκτρονικής "
+"διεύθυνσης."
+
+msgid "Recover"
+msgstr "Ανάκτηση"
+
+#, c-format
+msgid ""
+"In order to proceed with the password reset, we have to verify that you are who you claim.  "
+"The best way to be sure is to ask you to make a tiny change in the Gallery directory which "
+"will prove that you have the right permissions.  So, we're going to ask that you create a "
+"new text file called %s in your gallery2 directory. It must contain the following randomly "
+"generated characters:"
+msgstr ""
+"Για να μπορέσετε να προχωρήσετε με την επαναφορά του κωδικού σας, πρέπει να επαληθεύσουμε "
+"ότι είστε αυτός που λέτε. Ο καλύτερος τρόπος για να είμαστε σίγουροι είναι να σας ζητήσουμε "
+"να κάνετε μία μικρή αλλαγή στον κατάλογο της Γκαλερί σας η οποία θα αποδείξει ότι έχετε τα "
+"σωστά δικαιώματα. Γι' αυτό θα σας ζητήσουμε να δημιουργήσετε ένα αρχείο κειμένου το οποίο θα "
+"ονομάσετε %s και να το ανεβάσετε στον κατάλογο της Γκαλερί σας. Πρέπει να περιέχει τους "
+"ακόλουθους τυχαίους χαρακτήρες:"
+
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#, c-format
+msgid ""
+"As a convenience to you, we've prepared a %scorrect version of login.txt%s for you.  "
+"Download that and copy it into your install directory and you're all set."
+msgstr ""
+"Για την ευκολία σας, έχουμε ετοιμάσει μια %s ορθή έκδοση σύνδεσης του login.txt%s για σένα. "
+"Κατεβάστε το αρχείο, και τοποθετήστε το στον κατάλογο εγκατάστασης της Γκαλερί και είστε "
+"έτοιμοι."
+
+msgid "Once you've uploaded the file, click refresh to continue."
+msgstr "Μόλις φορτώσετε το αρχείο, επαναφορτίστε (refresh) για να συνεχίσετε."
+
+msgid "Emergency Administrator Password Reset"
+msgstr "Ανάγκη Επαναφοράς Κωδικού Διαχειριστή"
+
+msgid ""
+"This page can be used by a system administrator to securely reset the password on any "
+"account."
+msgstr ""
+"Αυτή η σελίδα μπορεί να χρησιμοποιηθεί από έναν διαχειριστή για να επαναρυθμίσει με ασφάλεια "
+"τον κωδικό πρόσβασης σε οποιοδήποτε λογαριασμό."
+
+msgid "Authorization Confirmed"
+msgstr "Η έγκριση επιβεβαιώθηκε"
+
+msgid ""
+"Your authorization has been confirmed.  Please enter your new password below.  After setting "
+"your new password you will be taken to the login page."
+msgstr ""
+"Η έγκριση σας επιβεβαιώθηκε. Παρακαλούμε δώστε τον καινούργιο κωδικό πρόσβασης σας πιο "
+"κάτω.  Αφού ρυθμίσετε τον καινούργιο σας κωδικό θα μεταφερθείτε στην σελίδα σύνδεσης."
+
+msgid "Recover Password for Username"
+msgstr "Ανάκτηση Κωδικού Πρόσβασης για Χρήστη"
+
+msgid "You must enter a username to recover the password for."
+msgstr "Πρέπει να εισαγάγετε ένα όνομα χρήστη για να ανακτήσετε τον κωδικό πρόσβασης για."
+
+msgid "The username you entered does not exist."
+msgstr "Ο Χρήστης που επιλέξατε δεν υπάρχει."
+
+msgid "Authorization Incorrect"
+msgstr "Λανθασμένη Έγκριση"
+
+msgid "Recovery Instructions"
+msgstr "Οδηγίες Ανάκτησης"
+
+msgid "AuthFile Missing"
+msgstr "Λείπει το AuthFile"
+
+msgid "AuthFile Unreadable"
+msgstr "Δυσανάγνωστο AuthFile"
+
+#, c-format
+msgid "Your %s file is not readable. Please give Gallery read permissions on the file."
+msgstr ""
+"%s Το αρχείο σας δεν είναι αναγνώσιμο. Παρακαλώ δώστε στην Γκαλερί δικαιώματα για να "
+"μπορέσει να διαβάσει το αρχείο."
+
+msgid "Refresh"
+msgstr "Ανανέωση"
+
+msgid "This page will allow you to reset the password on your account."
+msgstr "Σ' αυτή την σελίδα θα μπορέσετε να επαναφέρετε τον κωδικό πρόσβασης σας"
+
+#, c-format
+msgid ""
+"There is no request which matches the username and authorization provided. Request a new "
+"authorization from the <a href=\"%s\">lost password page</a>"
+msgstr ""
+
+#, c-format
+msgid ""
+"The request you are trying to access has expired.  Request a new authorization from the <a "
+"href=\"%s\">lost password page</a>."
+msgstr ""
+
+msgid "Authorization missing"
+msgstr "Έλλειπής Έγκριση"
+
+msgid "Username missing"
+msgstr "Λείπει το όνομα χρήστη"
+
+msgid "Submit"
+msgstr "Υποβολή"
+
+#, c-format
+msgid "Hello %s,"
+msgstr "Γεια σου %s,"
+
+#, c-format
+msgid "You receive this email because a password recovery for %s was requested by %s at %s"
+msgstr "Λαβατε αυτό το email γιατί ζητήθηκε ανάκτηση κωδικού πρόσβασης για %s από %s στο %s"
+
+#, c-format
+msgid "Your username is: %s"
+msgstr "Το όνομα χρήστη σας είναι: %s"
+
+msgid ""
+"To finish the password recovery process please click the following link and enter the "
+"required information:"
+msgstr ""
+"Για να ανακτήσετε τον κωδικό πρόσβασής σας, παρακαλούμε όπως κάνετε κλικ στον ακόλουθο "
+"σύνδεσμο και δώσετε τις απαραίτητες πληροφορίες:"
+
+msgid "If you did not request this recovery email, you may safely ignore it."
+msgstr ""
+"Αν δεν ζητήσατε ανάκτηση του κωδικού πρόσβασης σας, μην ανησυχείτε. Μπορείτε να αγνοήσετε "
+"αυτό το email."
+
+msgid "Thank you!"
+msgstr "Ευχαριστώ!"
+
+msgid "guest"
+msgstr "επισκέπτης"
+
+#, c-format
+msgid "display mode: %s"
+msgstr "Τρόπος προβολής: %s"
+
+#, c-format
+msgid "Date: %s"
+msgstr "Ημερομηνία: %s"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Ιδιοκτήτης: %s"
+
+#, c-format
+msgid "Size: %d item"
+msgid_plural "Size: %d items"
+msgstr[0] "Μέγεθος: %d Αρχείο"
+msgstr[1] "Μέγεθος: %d Αρχεία"
+
+#, c-format
+msgid "(%d item total)"
+msgid_plural "(%d items total)"
+msgstr[0] "(%d σύνολο αρχείου)"
+msgstr[1] "(%d σύνολο αρχείων)"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Προβολές: %d"
+
+msgid "&laquo; album actions &raquo;"
+msgstr "&laquo; ενέργειες άλπουμ &raquo;"
+
+msgid "&laquo; item actions &raquo;"
+msgstr "&laquo;ενέργειες αρχείου &raquo;"
+
+msgid "Go"
+msgstr "Πήγαινε"
+
+msgid "Navigation"
+msgstr "Πλοήγηση"
+
+msgid "next"
+msgstr "επόμενη"
+
+msgid "last"
+msgstr "τελευταία"
+
+#, c-format
+msgid "Page %d of %d"
+msgstr "Σελίδα %d από %d"
+
+#, c-format
+msgid "%d of %d"
+msgstr "%d από %d"
+
+msgid "first"
+msgstr "πρώτη"
+
+msgid "previous"
+msgstr "προηγούμενη"
+
+msgid "Page:"
+msgstr "Σελίδα:"
+
+#, c-format
+msgid "%d. %s"
+msgstr "%d. %s"
+
+msgid "Size: "
+msgstr "Μέγεθος:"
+
+msgid "Unknown"
+msgstr "Άγνωστο"
+
+msgid "Full size: "
+msgstr "Πλήρες Μέγεθος:"
+
+msgid "Setting"
+msgstr "Ρυθμίσεις"
+
+msgid "Use Global"
+msgstr "Χρησιμοποιήστε Καθολικές Ρυθμίσεις"
+
+msgid "Language selector"
+msgstr "Επιλογή Γλώσσας"
+
+msgid "Item actions"
+msgstr "Ενέργειες Αρχείων"
+
+msgid "Use dropdown menu"
+msgstr "Χρησιμοποιήστε το dropdown μενού"
+
+msgid "Login block"
+msgstr "Μπλοκ Σύνδεσης"
+
+msgid "Links to album/photo peers"
+msgstr ""

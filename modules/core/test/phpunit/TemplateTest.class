@@ -1,0 +1,126 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
+/**
+ * Test Template functionality
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 15513 $
+ */
+class TemplateTest extends GalleryTestCase {
+
+    function TemplateTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function testResourceGetTemplate() {
+	global $gallery;
+	$template = new GalleryTemplate('/path/to/fake/templatedir');
+	$mockSmarty = new TemplateTestMockSmarty();
+	$mockSmarty->template_dir = '/legal/path';
+
+	/* Test retrieving non-overridden template */
+	$mockPlatform = new TemplateTestMockPlatform();
+	$gallery->setPlatform($mockPlatform);
+	$mockPlatform->set('file_exists', '/legal/path/local/templateThatHasNoLocal.tpl', false);
+	$success = $template->resourceGetTemplate(
+			      'templateThatHasNoLocal.tpl', $templateSource, $mockSmarty);
+	$this->assert($success, "Didn't return success");
+	$this->assertEquals('/legal/path/templateThatHasNoLocal.tpl', $templateSource);
+
+	/* Test retrieving an overridden template */
+	$mockPlatform = new TemplatetestMockPlatform();
+	$gallery->setPlatform($mockPlatform);
+	$mockPlatform->set('file_exists', '/legal/path/local/template.tpl', true);
+	$mockPlatform->set('is_readable', '/legal/path/local/template.tpl', true);
+	$success = $template->resourceGetTemplate('template.tpl', $templateSource, $mockSmarty);
+	$this->assert($success, "Didn't return success");
+	$this->assertEquals('/legal/path/local/template.tpl', $templateSource);
+    }
+
+    function testResourceGetTimestamp() {
+	global $gallery;
+	$template = new GalleryTemplate('/path/to/fake/templatedir');
+	$mockSmarty = new TemplateTestMockSmarty();
+	$mockSmarty->template_dir = '/legal/path';
+
+	/* Test retrieving non-overridden template */
+	$mockPlatform = new TemplatetestMockPlatform();
+	$gallery->setPlatform($mockPlatform);
+	$mockPlatform->set('file_exists', '/legal/path/local/templateThatHasNoLocal.tpl', false);
+	$mockPlatform->set('file_exists', '/legal/path/templateThatHasNoLocal.tpl', true);
+	$mockPlatform->set('stat', '/legal/path/templateThatHasNoLocal.tpl',
+			   array(0, 0, 0, 0, 0, 0, 0, 0, 0, 98765));
+	$success = $template->resourceGetTimestamp(
+	    'templateThatHasNoLocal.tpl', $templateTimestamp, $mockSmarty);
+	$this->assert($success, "1: Didn't return success");
+	$this->assertEquals(98765, $templateTimestamp, 'no override');
+
+	/* Test retrieving an overridden template */
+	$mockPlatform = new TemplatetestMockPlatform();
+	$gallery->setPlatform($mockPlatform);
+	$mockPlatform->set('file_exists', '/legal/path/local/template.tpl', true);
+	$mockPlatform->set('is_readable', '/legal/path/local/template.tpl', true);
+	$mockPlatform->set('stat', '/legal/path/local/template.tpl',
+			   array(0, 0, 0, 0, 0, 0, 0, 0, 0, 12345));
+	$success = $template->resourceGetTimestamp('template.tpl', $templateTimestamp, $mockSmarty);
+	$this->assert($success, "2: Didn't return success");
+	$this->assertEquals(12345, $templateTimestamp, 'override');
+
+	/* Ensure static call is ok */
+	$success = GalleryTemplate::resourceGetTimestamp(
+	    'template.tpl', $templateTimestamp, $mockSmarty);
+	$this->assert($success, "3: Didn't return success");
+	$this->assertEquals(12345, $templateTimestamp, 'static');
+    }
+}
+
+class TemplateTestMockPlatform {
+    function set($func, $filename, $return) {
+	$this->_returns[$func][$filename] = $return;
+    }
+
+    function file_exists($filename) {
+	return $this->_returns['file_exists'][$filename];
+    }
+
+    function is_readable($filename) {
+	return $this->_returns['file_exists'][$filename];
+    }
+
+    function stat($filename) {
+	return $this->_returns['stat'][$filename];
+    }
+}
+
+class TemplateTestMockSmarty {
+    function TemplatetestMockSmarty() {
+	$this->template_dir = '/legal/path';
+    }
+
+    function _read_file($templateName) {
+	/* Return the name as if it were the contents */
+	return $templateName;
+    }
+}
+?>

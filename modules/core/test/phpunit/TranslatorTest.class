@@ -1,0 +1,410 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Test Translator functionality.
+ * Note: This file contains UTF-8 characters!
+ *
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 15603 $
+ */
+class TranslatorTest extends GalleryTestCase {
+
+    function TranslatorTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+	parent::setUp();
+
+	list ($ret, $this->_languageCode) = $gallery->getActiveLanguageCode();
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	$ret = $this->_markPluginParametersForCleanup('module', 'core');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	/* Disable browser check and set default lang != hardcoded lang */
+	foreach (array('default.language' => 'fr_FR', 'language.useBrowserPref' => '0')
+		 as $param => $value) {
+	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', $param, $value);
+	    if ($ret) {
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
+	    }
+	    list ($ret, $actual) =
+		GalleryCoreApi::getPluginParameter('module', 'core', $param);
+	    if ($ret) {
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
+	    }
+	    $this->assertEquals($value, $actual, $param);
+	}
+    }
+
+    function tearDown() {
+	global $gallery;
+	$ret = $gallery->setActiveLanguageCode($this->_languageCode);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	/* Init a new translator so that we reset our locale */
+	$translator = new GalleryTranslator();
+	$translator->init($this->_languageCode);
+
+	parent::tearDown();
+    }
+
+    function testGetLanguageCodeFromRequest() {
+	global $gallery;
+	$origLang = getenv('LANG');
+
+	foreach (array('language.useBrowserPref' => '1')
+		 as $param => $value) {
+	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', $param, $value);
+	    if ($ret) {
+		return $this->failWithStatus($ret);
+	    }
+	    list ($ret, $actual) =
+		GalleryCoreApi::getPluginParameter('module', 'core', $param);
+	    if ($ret) {
+		return $this->failWithStatus($ret);
+	    }
+	    $this->assertEquals($value, $actual, $param);
+	}
+
+	/* Init with a null language code and a valid accept language */
+	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de_DE';
+	$translator = new GalleryTranslator();
+	list ($ret, $languageCode) = $translator->init();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	if (function_exists('dgettext')) {
+	    $this->assertEquals('de_DE', getenv('LANG'), 'null init, valid language');
+	} else {
+	    $this->assertEquals($origLang, getenv('LANG'), 'null init, lang unchanged');
+	}
+	$this->assertEquals('de_DE', $languageCode, 'returned language code');
+
+	/* Init with a null language code and a valid accept language/country */
+	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'pt_BR';
+	$translator = new GalleryTranslator();
+	$translator->init();
+	if (function_exists('dgettext')) {
+	    $this->assertEquals('pt_BR', getenv('LANG'), 'null init, valid language/country');
+	} else {
+	    $this->assertEquals($origLang, getenv('LANG'), 'null init, lang unchanged 2');
+	}
+
+	/* Invalid accept language/country, fall back to default */
+	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'xx_YY';
+	$this->assertEquals(null, $translator->getLanguageCodeFromRequest(), 'invalid locale');
+
+	/* Invalid,valid accept language */
+	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'xx,no';
+	$this->assertEquals('no_NO', $translator->getLanguageCodeFromRequest(),
+			    'invalid, valid language');
+
+	/* Init with a real language code, thus browser pref has no meaning */
+	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'en_US';
+	$translator = new GalleryTranslator();
+	$translator->init('no_NO');
+	if (function_exists('dgettext')) {
+	    $this->assertEquals('no_NO', getenv('LANG'), 'valid init');
+	} else {
+	    $this->assertEquals($origLang, getenv('LANG'), 'valid init, lang unchanged');
+	}
+    }
+
+    /* Use the Gallery::initTranslator method and make sure the activeLanguageCode has changed  */
+    function testGetLanguageCodeFromRequest2() {
+	global $gallery;
+	$origLang = getenv('LANG');
+
+	/*
+	 * Remove the active language from the session, since it has precedence over the browser's
+	 * accepted languages header
+	 */
+	$session =& $gallery->getSession();
+	$session->remove('core.language');
+
+	foreach (array('language.useBrowserPref' => '1')
+		 as $param => $value) {
+	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', $param, $value);
+	    if ($ret) {
+		return $this->failWithStatus($ret);
+	    }
+	    list ($ret, $actual) =
+		GalleryCoreApi::getPluginParameter('module', 'core', $param);
+	    if ($ret) {
+		return $this->failWithStatus($ret);
+	    }
+	    $this->assertEquals($value, $actual, $param);
+	}
+
+	/* Init with a null language code and a valid accept language */
+	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de';
+	$gallery->_translator = null;
+	$ret = $gallery->initTranslator();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	if (function_exists('dgettext')) {
+	    $this->assertEquals('de_DE', getenv('LANG'), 'null init, valid language');
+	} else {
+	    $this->assertEquals($origLang, getenv('LANG'), 'null init, lang unchanged');
+	}
+	/* Verify that the activeLanguageCode was changed */
+	list ($ret, $langCode) = $gallery->getActiveLanguageCode();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals('de_DE', $langCode, 'active language code');
+    }
+
+    /*
+     * The translator should init to the site-wide default language if session/request defines no
+     * preference
+     */
+    function testInitToDefaultLanguage() {
+	global $gallery;
+	$session =& $gallery->getSession();
+	$session->remove('core.language');
+
+	/* Default language is set to fr_FR, browser check is off */
+	$gallery->_translator = null;
+	$ret = $gallery->initTranslator();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	list ($ret, $langCode) = $gallery->getActiveLanguageCode();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals('fr_FR', $langCode);
+    }
+
+    /* If we init without database support, fallback to en_US */
+    function testInitToHardcodedDefaultLanguage() {
+	global $gallery;
+	$session =& $gallery->getSession();
+	$session->remove('core.language');
+	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de';
+
+	$gallery->_translator = null;
+	$ret = $gallery->initTranslator(true);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	list ($ret, $langCode) = $gallery->getActiveLanguageCode();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals('en_US', $langCode);
+    }
+
+    /* If the session defines an active language, use it */
+    function testInitToActiveLanguage() {
+	global $gallery;
+
+	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de_DE';
+	$ret = $gallery->setActiveLanguageCode('fr_FR');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$gallery->_translator = null;
+	$ret = $gallery->initTranslator();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	list ($ret, $langCode) = $gallery->getActiveLanguageCode();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals('fr_FR', $langCode);
+    }
+
+    function testInitWithoutDatabaseWithActiveLanguage() {
+	global $gallery;
+
+	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de_DE';
+	$ret = $gallery->setActiveLanguageCode('fr_FR');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$gallery->_translator = null;
+	$ret = $gallery->initTranslator(true);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	list ($ret, $langCode) = $gallery->getActiveLanguageCode();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals('fr_FR', $langCode);
+    }
+
+    function testTranslateSingular() {
+	global $gallery;
+
+	$domain = 'modules_core';
+	$translator = new GalleryTranslator();
+	$translator->init('es_AR');
+
+	/* Singular text data */
+	list ($ret, $results) =
+	    $translator->translateDomain($domain, array('text' => 'Description'));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	if ($translator->canTranslate()) {
+	    $this->assertEquals('Descripci&oacute;n', $results);
+	} else {
+	    $this->assertEquals('Description', $results);
+	}
+
+	/* Test something with some non-ascii in the result */
+	$translator->init('fr_FR');
+	list ($ret, $results) =
+	    $translator->translateDomain($domain, array('text' => 'Create'));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	if ($translator->canTranslate()) {
+	    $this->assertEquals('Créer', $results);
+	} else {
+	    $this->assertEquals('Create', $results);
+	}
+    }
+
+    function testTranslatePlural() {
+	global $gallery;
+
+	$domain = 'modules_core';
+	$translator = new GalleryTranslator();
+	$translator->init('es_AR');
+
+	/* Plural text data, count=1 */
+	list ($ret, $results) =
+	    $translator->translateDomain($domain,
+					 array('one' => '%d user matches your filter',
+					       'many' => '%d users match your filter',
+					       'count' => 1,
+					       'arg1' => 1));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	if ($translator->canTranslate()) {
+	    $this->assertEquals('1 usuario coincide con su filtro', $results);
+	} else {
+	    $this->assertEquals('1 user matches your filter', $results);
+	}
+
+	/* Plural text data, count=2 (plural) */
+	list ($ret, $results) =
+	    $translator->translateDomain($domain,
+					 array('one' => '%d user matches your filter',
+					       'many' => '%d users match your filter',
+					       'count' => 2,
+					       'arg1' => 2));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	if ($translator->canTranslate()) {
+	    if ($translator->canTranslatePlural()) {
+		$this->assertEquals('2 usuarios coinciden con su filtro', $results);
+	    } else {
+		$this->assertEquals('2 usuario coincide con su filtro', $results);
+	    }
+	} else {
+	    $this->assertEquals('2 users match your filter', $results);
+	}
+    }
+
+    function testTranslateCharset() {
+	global $gallery;
+
+	$domain = 'modules_core';
+
+	$translator = new GalleryTranslator();
+	$translator->init('pt_BR');
+
+	/* Singular text data */
+	list ($ret, $results) =
+	    $translator->translateDomain($domain, array('text' => 'Album'));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	if ($translator->canTranslate()) {
+	    $this->assertEquals("\xC3\x81lbum", $results);
+	} else {
+	    $this->assertEquals('Album', $results);
+	}
+    }
+
+    function testComment() {
+	$translator = new GalleryTranslator();
+	list ($ret, $languageCode) = $translator->init('en_US');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $text) = $translator->translateDomain('modules_core',
+	    array('text' => 'test <!-- this is a comment to assist translators -->'));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals('test', $text);
+    }
+
+    function testApiChange() {
+	/* Core API 7.10 now allows simple string param, and 'args' array insead of 'arg1', etc */
+	$translator = new GalleryTranslator();
+	list ($ret, $languageCode) = $translator->init('en_US');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $text) = $translator->translateDomain('modules_core', 'Test');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals('Test', $text);
+
+	list ($ret, $text) = $translator->translateDomain('modules_core',
+		array('text' => 'Test %s Test %s', 'args' => array('foo', 'bar')));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals('Test foo Test bar', $text);
+    }
+}
+?>

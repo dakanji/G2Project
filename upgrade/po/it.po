@@ -1,0 +1,813 @@
+# $Id: it.po 16578 2007-06-10 20:53:13Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upgrader 2.2.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-06-01 11:42+0000\n"
+"PO-Revision-Date: 2007-01-09 14:22+0100\n"
+"Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
+"Language-Team: Italian <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Country: ITALY\n"
+
+msgid "Unknown"
+msgstr "Sconosciuto"
+
+msgid "Authenticate"
+msgstr "Autenticazione"
+
+msgid "<b>Error:</b> missing password."
+msgstr "<b>Errore:</b> password mancante."
+
+msgid "<b>Error:</b> invalid password."
+msgstr "<b>Errore:</b> password non valida."
+
+msgid "Empty Cache"
+msgstr "Svuotamento Cache"
+
+msgid "Unable to clear the page cache"
+msgstr "Impossibile eliminare la cache delle pagine"
+
+msgid "Unable to commit database transaction"
+msgstr "Impossibile compiere la transazione nel database"
+
+msgid "Finish Upgrade"
+msgstr "Conclusione Aggiornamento"
+
+msgid "System Checks"
+msgstr "Controlli sul Sistema"
+
+msgid "Performing system checks"
+msgstr "Esecuzione controlli sul sistema"
+
+msgid "PHP version >= 4.3.0 or >= 5.0.4"
+msgstr "Versione PHP >= 4.3.0 o >= 5.0.4"
+
+#, c-format
+msgid ""
+"Error: Gallery 2 requires PHP version 4.3.0 or newer or 5.0.4 or newer. You have PHP version "
+"%s installed. Contact your webserver administrator to request an upgrade, available at the %"
+"sPHP website%s."
+msgstr ""
+"Errore: Gallery 2 necessita di PHP versione 4.3.0 o più recente oppure 5.0.4 o più recente. "
+"Attualmente hai PHP versione %s. Contatta l'amministratore del tuo server web per chiedere "
+"un upgrade, disponibile al %ssito di PHP%s."
+
+msgid "PHP Version"
+msgstr "Versione PHP"
+
+msgid "FILE directive supported"
+msgstr "Direttiva FILE supportata"
+
+msgid ""
+"Error: your PHP __FILE__ directive is not functioning correctly. Please file a support "
+"request with your webserver administrator or in the Gallery forums."
+msgstr ""
+"Errore: la direttiva __FILE__ di PHP non funziona correttamente. Inoltra una richiesta di "
+"supporto all'amministratore del tuo webserver o nei forum di Gallery."
+
+msgid "FILE Directive"
+msgstr "Direttiva FILE"
+
+msgid "Safe mode disabled"
+msgstr "Safe mode disabilitata"
+
+msgid ""
+"Error: Your version of PHP is configured with safe mode enabled.  You must disable safe mode "
+"before Gallery will run."
+msgstr ""
+"Errore: La versione di PHP che hai è configurata con safe mode abilitato. Devi disabilitare "
+"safe mode affinché Gallery funzioni."
+
+msgid "Safe Mode"
+msgstr "Safe Mode"
+
+msgid "Regular expressions"
+msgstr "Espressioni regolari"
+
+#, c-format
+msgid ""
+"Error: Your PHP is configured without support for %sPerl Compatible Regular Expressions%s. "
+"You must enable these functions before Gallery will run."
+msgstr ""
+"Errore: La versione di PHP che hai è configurata senza il supporto alle %sPerl Compatible "
+"Regular Expressions%s. Devi attivare queste opzioni affinché Gallery funzioni."
+
+msgid "exec() allowed"
+msgstr "exec() concesso"
+
+msgid ""
+"Warning: The exec() function is disabled in your PHP by the <b>disabled_functions</b> "
+"parameter in php.ini. You won't be able to use modules that require external binaries (e.g. "
+"ImageMagick, NetPBM or Ffmpeg). This can only be set server-wide, so you will need to change "
+"it in the global php.ini."
+msgstr ""
+"Warning: La funzione exec() è disabilitata in PHP dal parametro <b>disabled_functions</b> di "
+"php.ini. Non sarai in grado di utilizzare moduli che necessitano di binari esterni (ad es. "
+"ImageMagick, NetPBM o Ffmpeg). Questo può essere configurato solo a livello di server, "
+"quindi dovrai cambiarlo nel file php.ini globale."
+
+msgid "set_time_limit() allowed"
+msgstr "set_time_limit() concesso"
+
+#, c-format
+msgid ""
+"Warning: The set_time_limit() function is disabled in your PHP by the <b>disabled_functions</"
+"b> parameter in php.ini.  Gallery can function with this setting, but it will not operate "
+"reliably.  Any operation that takes longer than %d seconds will fail (and in some cases just "
+"return a blank page) possibly leading to data corruption."
+msgstr ""
+"Warning: La funzione set_time_limit() è disabilitata in PHP dal parametro "
+"<b>disabled_functions</b> di php.ini. Gallery può funzionare comunque, ma non in maniera "
+"affidabile. Ogni operazione che richiederà più di %d secondi verrà interrotta (e in alcuni "
+"casi ti ritornerà una pagina bianca) col rischio di danneggiare i dati."
+
+msgid "Filesystem Operations"
+msgstr "Operazioni sul Filesystem"
+
+#, c-format
+msgid ""
+"Error: Essential filesystem operations are disabled in your PHP by the "
+"<b>disabled_functions</b> parameter in php.ini. You must allow these functions before "
+"Gallery will run. These functions are missing: %s."
+msgstr ""
+"Errore: Delle operazioni essenziali sul filesystem sono disabilitate in PHP dal parametro "
+"<b>disabled_functions</b> di php.ini. Devi permettere queste funzioni per far funzionare "
+"Gallery. Le funzioni mancanti sono : %s."
+
+msgid "Memory limit"
+msgstr "Limite memoria"
+
+msgid "no limit"
+msgstr "nessun limite"
+
+#, c-format
+msgid ""
+"Warning: Your PHP is configured to limit the memory to %sb (<b>memory_limit</b> parameter in "
+"php.ini). You should raise this limit to at least <b>%sMB</b> for proper Gallery operation."
+msgstr ""
+"Warning: Il tuo PHP è configurato per limitare la memoria a %sb (parametro <b>memory_limit</"
+"b> in php.ini). Dovresti aumentare questo limite ad almeno <b>%sMB</b> affinché Gallery "
+"lavori correttamente."
+
+msgid "File uploads allowed"
+msgstr "Upload file consentito"
+
+msgid ""
+"Warning: Your PHP is configured not to allow file uploads (<b>file_uploads</b> parameter in "
+"php.ini). You will need to enable this option if you want to upload files to your Gallery "
+"with a web browser."
+msgstr ""
+"Warning: il tuo PHP è configurato per non permettere gli upload di file (parametro "
+"<b>file_uploads</b> in php.ini). Dovrai attivare questa opzione se vuoi fare l'upload di "
+"file in Gallery con un browser."
+
+msgid "Maximum upload size"
+msgstr "Dimensione massima per l'upload"
+
+#, c-format
+msgid ""
+"Warning: Your PHP is configured to limit the size of file uploads to %sb "
+"(<b>upload_max_filesize</b> parameter in php.ini). You should raise this limit to allow "
+"uploading bigger files."
+msgstr ""
+"Warning: Il tuo PHP è configurato in modo da limitare la dimensione dell'upload di file ad "
+"un massimo di %sb (parametro <b>upload_max_filesize</b> in php.ini). Dovresti aumentare "
+"questo limite per permettere l'upload di file più grandi."
+
+msgid "Maximum POST size"
+msgstr "Dimensione massima per il POST"
+
+#, c-format
+msgid ""
+"Warning: Your PHP is configured to limit the post data to a maximum of %sb "
+"(<b>post_max_size</b> parameter in php.ini). You should raise this limit to allow uploading "
+"bigger files."
+msgstr ""
+"Warning: Il tuo PHP è configurato in modo da limitare i dati di post ad un massimo di %sb "
+"(parametro <b>post_max_size</b> in php.ini). Dovresti aumentare questo limite per permettere "
+"l'upload di file più grandi."
+
+msgid "Translation support"
+msgstr "Supporto alla traduzione"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization. To enable support for additional languages "
+"please instruct your system administrator to reconfigure PHP with the %sgettext%s option "
+"enabled."
+msgstr ""
+"Il tuo webserver non supporta la localizzazione. Per abilitare il supporto a lingue "
+"aggiuntive chiedi al tuo amministratore di sistema di riconfigurare PHP con l'opzione %"
+"sgettext%s attivata."
+
+#, c-format
+msgid ""
+"Your PHP is missing the function %sbind_textdomain_codeset%s. This means Gallery may display "
+"extended characters for some languages incorrectly."
+msgstr ""
+"Il PHP che hai non ha la funzione %sbind_textdomain_codeset%s. Questo significa che Gallery "
+"potrebbe visualizzare non correttamente i caratteri estesi di alcune lingue."
+
+#, c-format
+msgid ""
+"Your PHP is missing the function %sdngettext%s. This means Gallery will be unable to "
+"translate plural forms."
+msgstr ""
+"Il PHP che hai non ha la funzione %sdngettext%s. Questo significa che Gallery non sarà in "
+"grado di tradurre le forme plurali."
+
+msgid "Zend compatibility mode"
+msgstr "Compatibility mode di Zend"
+
+#, c-format
+msgid ""
+"Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
+msgstr ""
+"Warning: Il tuo PHP è configurato con ze1_compatibility_mode di Zend che può causare dei "
+"crash di PHP. Clicca <a href=\"%s\">qui</a> per fare un test del tuo PHP. Se vedi \"SUCCESS"
+"\" allora il tuo PHP va bene. Se ottieni un errore allora devi disattivare "
+"ze1_compatibility_mode prima di procedere."
+
+msgid "putenv() allowed"
+msgstr "putenv() concesso"
+
+msgid ""
+"Warning: The putenv() function is disabled in your PHP by the <b>disabled_functions</b> "
+"parameter in php.ini.  Gallery can function with this setting, but on some rare systems "
+"Gallery will be unable to run in other languages than the system language and English."
+msgstr ""
+"Warning: La funzione putenv() è disabilitata in PHP dal parametro <b>disabled_functions</b> "
+"di php.ini. Gallery può funzionare anche così, ma raramente su alcuni sistemi Gallery non "
+"sarà in grado di funzionare in lingue diverse dalla lingua di sistema e dall'inglese."
+
+msgid "Output buffering disabled"
+msgstr "Buffering dell'output disabilitato"
+
+#, c-format
+msgid ""
+"Warning: Output buffering is enabled in your PHP by the <b>%s</b> parameter(s) in php.ini.  "
+"Gallery can function with this setting - downloading files is even faster - but Gallery "
+"might be unable to serve large files (e.g. large videos) and run into the memory limit. "
+"Also, some features like the progress bars might not work correctly if output buffering is "
+"enabled unless ini_set() is allowed."
+msgstr ""
+"Attenzione: Il buffering dell'output è abilitato nel tuo PHP dai parametri <b>%s</b> in php."
+"ini. Gallery può funzionare anche con questa configurazione - il download dei file è anche "
+"più veloce - ma Gallery potrebbe non essere in grado di servire file grandi (ad es. grandi "
+"video) e incappare nei limiti della memoria. Inoltre, alcune caratteristiche come le barre "
+"di avanzamento potrebbero non funzionare correttamente se il buffering dell'output è attivo, "
+"a meno che non sia permesso ini_set()."
+
+msgid "Storage Directory Permissions"
+msgstr "Permessi Cartella di Memorizzazione"
+
+msgid "Test skipped due to other errors."
+msgstr "Test saltato a causa di altri errori."
+
+#, c-format
+msgid ""
+"Error: Some files and or directories in your storage directory are not writeable by the "
+"webserver user. Run chown -R webserverUser %s OR run chmod -R 777 %s."
+msgstr ""
+"Errore: Alcuni file e/o cartelle nella tua cartella di memorizzazione non sono scrivibili "
+"dall'utente del server web. Lancia chown -R webserverUser %s OPPURE lancia chmod -R 777 %s."
+
+msgid "Gallery file integrity"
+msgstr "Integrità file di Gallery"
+
+msgid "Manifest missing or inaccessible."
+msgstr "Manifest mancante o non accessibile."
+
+msgid "Upgrade Core"
+msgstr "Aggiornamento Core"
+
+msgid "Upgrade Plugins"
+msgstr "Aggiornamento Plugins"
+
+msgid "Unable to initialize Gallery session"
+msgstr "Impossibile inizializzare la sessione di Gallery"
+
+#, c-format
+msgid "Unable to load the %s module"
+msgstr "Impossibile caricare il modulo %s"
+
+msgid "Upgrading modules"
+msgstr "Aggiornamento moduli"
+
+#, c-format
+msgid "%s module needs configuration"
+msgstr "Il modulo %s ha bisogno di configurazione"
+
+#, c-format
+msgid "Unable to upgrade the %s module"
+msgstr "Impossibile aggiornare il modulo %s"
+
+#, c-format
+msgid "Unable to load the %s theme"
+msgstr "Impossibile caricare il tema %s"
+
+msgid "Upgrading themes"
+msgstr "Aggiornamento temi"
+
+#, c-format
+msgid "Unable to upgrade the %s theme"
+msgstr "Impossibile aggiornare il tema %s"
+
+msgid "Unable to get the module list"
+msgstr "Impossibile ottenere la lista dei moduli"
+
+msgid "Unable to get the theme list"
+msgstr "Impossibile ottenere la lista dei temi"
+
+#, c-format
+msgid "Unable to query the %s module"
+msgstr "Impossibile interrogare il modulo %s"
+
+msgid "Other"
+msgstr "Altro"
+
+#, c-format
+msgid "Unable to query the %s theme"
+msgstr "Impossibile interrogare il tema %s"
+
+msgid "Themes"
+msgstr "Temi"
+
+#, c-format
+msgid "Unable to deactivate the %s theme"
+msgstr "Impossibile disattivare il tema %s"
+
+#, c-format
+msgid "Unable to deactivate the %s module"
+msgstr "Impossibile disattivare il modulo %s"
+
+msgid "Welcome"
+msgstr "Benvenuto"
+
+#, c-format
+msgid "<b>Error:</b> could not locate %s.  Please place it in your %s directory."
+msgstr "<b>Errore:</b> impossibile trovare %s.  Mettilo nella cartella %s."
+
+#, c-format
+msgid ""
+"<b>Error:</b> your %s file is not readable.  Please give Gallery read permissions on the "
+"file."
+msgstr ""
+"<b>Errore:</b> il file %s non è leggibile.  Dai a Gallery i permessi di lettura per quel "
+"file."
+
+#, c-format
+msgid ""
+"<b>Error:</b> your %s key does not match correctly.  Please use the new authentication "
+"string from below and try again."
+msgstr ""
+"<b>Errore:</b> le chiavi %s non corrispondono correttamente.  Usa la nuova stringa di "
+"autenticazione che segue e prova di nuovo."
+
+msgid ""
+"In order to proceed with the upgrade process, we have to verify that you are who you claim.  "
+"When you performed the install, you entered a password which went into your config.php.  "
+"Type that in now.  Refer to your config.php if you've forgotten what you entered."
+msgstr ""
+"Per procedere nell'aggiornamento, dobbiamo verificare che tu sia davvero chi dici di essere. "
+"Quando hai fatto l'installazione, hai inserito una password che è stata scritta nel file "
+"config.php. Inseriscila adesso. Fa' riferimento al file config.php se non ti ricordi cosa "
+"hai inserito."
+
+msgid "Password:"
+msgstr "Password:"
+
+msgid "You have exceeded the maximum attempts to login by entering a password."
+msgstr "Hai oltrepassato il numero massimo di tentativi di accesso con password."
+
+msgid ""
+"To prevent somebody from hacking your website, we now require you to complete a stricter "
+"authentication process."
+msgstr ""
+"Per prevenire che qualcuno manometta il tuo sito, ora sei obbligato a completare un processo "
+"di autenticazione più restrittivo."
+
+#, c-format
+msgid ""
+"In order to proceed with the upgrade process, we have to verify that you are who you claim.  "
+"The best way to be sure is to ask you to make a tiny change in the Gallery directory which "
+"will prove that you have the right permissions.  So, we're going to ask that you create a "
+"new text file called %s in the %s directory on your webserver (that's the same directory "
+"where %s is located). It must contain the following randomly generated characters:"
+msgstr ""
+"Per procedere nell'aggiornamento, dobbiamo verificare che tu sia davvero chi dici di essere. "
+"Il modo migliore per essere sicuri è di chiederti di fare una piccola modifica alla cartella "
+"di Gallery in modo da provare che hai le autorizzazioni giuste. Allora, ti chiediamo di "
+"creare un nuovo file di testo chiamato %s nella cartella %s del tuo webserver (è il nome "
+"della cartella dove %s si trova). Deve contenere i seguenti caratteri generati casualmente:"
+
+msgid "Once you've uploaded the file, click below to continue."
+msgstr "Una volta che hai caricato il file, clicca qui sotto per continuare."
+
+msgid "Authenticate Me"
+msgstr "Autenticami"
+
+msgid "Authentication successful!"
+msgstr "Autenticazione avvenuta con successo!"
+
+msgid "Successfully cleaned caches."
+msgstr "Le cache sono state ripulite con successo."
+
+msgid "Delete Caches"
+msgstr "Elimina le Cache"
+
+msgid ""
+"Gallery creates temporary copies of some of your data on your hard drive.  This helps it to "
+"run faster.  But when you upgrade, some of these files might be out of date so it's a good "
+"idea to get rid of them now.  Gallery will create them again as it needs them."
+msgstr ""
+"Gallery crea copie temporanee di alcuni dati nell'hard disk. Questo la aiuta ad andare più "
+"veloce. Però quando fai l'aggiornamento, alcuni di questi file potrebbero essere troppo "
+"vecchi, quindi sarebbe una buona idea sbarazzarcene adesso. Gallery li creerà di nuovo "
+"quando ne avrà bisogno."
+
+msgid ""
+"We were unable to clean the following cache directories.  This is probably ok, but if you "
+"notice any weird behaviour, you should try to delete these directories yourself.  It's "
+"perfectly safe to get rid of them at any time."
+msgstr ""
+"Non siamo stati in grado di ripulire le seguenti directory di cache. Questo probabilmente va "
+"bene, ma se riscontri qualche comportamento strano, dovresti provare a cancellare queste "
+"directory manualmente. Non c'è alcun rischio a cancellarle in qualsiasi momento."
+
+msgid ""
+"Even though there were errors, you can still continue.  Or, you can try deleting these "
+"directories yourself and then click the <b>Try Again</b> link below."
+msgstr ""
+"Anche se ci sono errori, puoi comunque continuare. Oppure puoi provare a cancellare queste "
+"directory e cliccare sul link <b>Prova Ancora</b> qui sotto."
+
+msgid "Try Again"
+msgstr "Prova Ancora"
+
+msgid "Finished!"
+msgstr "Finito!"
+
+msgid ""
+"Congratulations! Your Gallery 2 upgrade is complete!  To upgrade any additional Gallery 2 "
+"plugins you may use the Site Administrator interface."
+msgstr ""
+"Congratulazioni! L'aggiornamento di Gallery 2 è completo! Per aggiornare i plugin "
+"addizionali di Gallery 2 puoi utilizzare l'interfaccia Amministrazione Sito."
+
+msgid "Go to my Gallery!"
+msgstr "Vai alla mia Gallery!"
+
+msgid "Upgrader Help"
+msgstr "Help Upgrader"
+
+msgid "Start Over"
+msgstr "Ricomincia da Capo"
+
+msgid "Warning"
+msgstr "Warning"
+
+#, c-format
+msgid ""
+"Your config.php appears to use the old form of multisite support.  Please see the %sHelp File"
+"%s for instructions to update your configuration before proceeding."
+msgstr ""
+"Il tuo config.php sembra utilizzare la vecchia gestione del supporto ai siti multipli. Vedi "
+"il %sFile di Help%s per le istruzioni su come aggiornare la configurazione prima di "
+"procedere."
+
+msgid "Welcome to the Gallery Upgrader"
+msgstr "Benvenuto nell'Aggiornamento di Gallery"
+
+#, c-format
+msgid "Upgrade %d%% complete"
+msgstr "Aggiornamento completato al %d%%"
+
+msgid "Redo this step"
+msgstr "Ripeti questa fase"
+
+#, c-format
+msgid "Continue to Step %d&raquo;"
+msgstr "Continua con la Fase %d&raquo;"
+
+msgid "Gallery: <strong>your photos</strong> on <strong>your website</strong>"
+msgstr "Gallery: <strong>le tue foto</strong> sul <strong>tuo sito</strong>"
+
+#, c-format
+msgid "Missing files (%d)"
+msgstr "File Mancanti (%d)"
+
+msgid ""
+"Note: You're running Gallery from SVN, so recently removed files may appear here.  It might "
+"be safe to ignore these."
+msgstr ""
+"Nota: Stai eseguendo una versione SVN di Gallery, quindi file rimossi di recente potrebbero "
+"comparire qui. Puoi tranquillamente ignorarli."
+
+#, c-format
+msgid "Modified files (%d)"
+msgstr "File Modificati (%d)"
+
+msgid ""
+"Note: You're running Gallery from SVN, so some modified files are to be expected.  You can "
+"probably ignore these, but to be safe you should make sure that you do 'svn update' before "
+"continuing."
+msgstr ""
+"Nota: Stai eseguendo una versione SVN di Gallery, quindi aspettati di trovare dei file "
+"modificati. Puoi tranquillamente ignorarli, ma per essere sicuro dovresti eseguire 'svn "
+"update' prima di continuare."
+
+#, c-format
+msgid "Old files (%d)"
+msgstr "File vecchi (%d)"
+
+#, c-format
+msgid ""
+"These files are no longer part of Gallery. They probably won't cause any problems but it is "
+"a good idea to remove them to keep your install clean.  Gallery can't remove these files for "
+"you, but you can download and run %s in your gallery2 directory to delete them for you."
+msgstr ""
+"Questi file non fanno più parte di Gallery. Probabilmente non creeranno alcun problema ma "
+"sarebbe una buona idea quella di cancellarli e tenere pulita l'installazione. Gallery non "
+"può eliminare questi file per te, ma puoi scaricare e lanciare questo %s nella cartella di "
+"gallery2 per cancellarli."
+
+msgid "this script"
+msgstr "questo script"
+
+msgid "Upgrade Steps"
+msgstr "Fasi Aggiornamento"
+
+msgid "Missing or invalid config.php"
+msgstr "config.php mancante o non valido"
+
+msgid "You tried to run the upgrade process but a valid config.php is missing."
+msgstr "Hai tentato di lanciare il processo di aggiornamento ma manca un valido config.php."
+
+msgid ""
+"If you've lost your config.php file when replacing the Gallery 2 files in the preparation "
+"for this upgrade, please restore it and try again."
+msgstr ""
+"Se hai perduto il tuo file config.php durante la sostituzione dei file di Gallery 2 in "
+"preparazione all'aggiornamento, per favore recuperalo e prova di nuovo."
+
+msgid "If you actually want to run the Gallery 2 installer, please follow the link below."
+msgstr "Se vuoi effettivamente lanciare l'installer di Gallery 2, segui il link qui sotto."
+
+msgid ""
+"If you want to upgrade from Gallery 1, you first need to install Gallery 2 and then use the "
+"import module to import your data from Gallery 1. Please follow the link below to install "
+"Gallery 2."
+msgstr ""
+"Se vuoi fare l'upgrade da Gallery 1, devi prima installare Gallery 2 e poi usare il modulo "
+"di importazione per importare i dati da Gallery 1. Clicca sul link di seguito per installare "
+"Gallery 2."
+
+msgid "Go to the Gallery 2 Installer"
+msgstr "Vai all'Installer di Gallery"
+
+msgid "Success"
+msgstr "OK"
+
+msgid "Failed"
+msgstr "Errore"
+
+msgid ""
+"If you are using Apache, create a file named .htaccess in the main Gallery directory with "
+"the following content:"
+msgstr ""
+"Se usi Apache, crea un file chiamato .htaccess nella directory principale di Gallery con il "
+"seguente contenuto:"
+
+msgid "An error occurred while upgrading Gallery Core Module"
+msgstr "Si è verificato un errore durante l'aggiornamento del Modulo Core di Gallery"
+
+#, c-format
+msgid ""
+"Something went wrong when we tried to upgrade the core module.  In the boxes below you can "
+"find some debug information.  Report this in the %sGallery Forums%s and we'll help you "
+"diagnose the problem."
+msgstr ""
+"Qualcosa è andato storto quando si è tentato l'aggiornamento del modulo core. Nei riquadri "
+"qui sotto puoi trovare qualche informazione di debug. Riportale nei %sGallery Forums%s e ti "
+"aiuteremo a capire qual è il problema."
+
+msgid "Stack Trace:"
+msgstr "Stack Trace:"
+
+msgid "Debug Output:"
+msgstr "Output Debug:"
+
+msgid "Upgrading the Gallery Core Module"
+msgstr "Aggiornamento del Modulo Core di Gallery"
+
+msgid ""
+"The Gallery Core Module is the heart of the Gallery application.  You can upgrade most other "
+"modules using the Site Administration interface, but this module must be handled separately "
+"in order for the upgrade to go smoothly."
+msgstr ""
+"Il Modulo Core di Gallery è il cuore dell'applicazione Gallery. Puoi aggiornare gli altri "
+"moduli usando l'interfaccia Amministrazione Sito, ma questo modulo deve essere gestito "
+"separatamente affiché l'aggiornamento vada liscio."
+
+msgid "Currently installed"
+msgstr "Attualmente installato"
+
+#, c-format
+msgid "Core Module version: %s (Gallery %s)"
+msgstr "Versione Modulo Core: %s (Gallery %s)"
+
+msgid "New version"
+msgstr "Nuova Versione"
+
+msgid "Config.php upgrade"
+msgstr "Aggiornamento config.php"
+
+msgid "Required"
+msgstr "Obbligatorio"
+
+#, c-format
+msgid "Unable to write to config.php in your %s directory.  Please change its permissions."
+msgstr "Impossibile scrivere in config.php nella directory di %s. Modifica i suoi permessi."
+
+msgid "You can do <i>chmod 666 config.php</i> to fix this."
+msgstr "Puoi fare <i>chmod 666 config.php</i> per mettere a posto la cosa."
+
+msgid ""
+"The installed version is newer than the version you are trying to upgrade to. You cannot "
+"downgrade G2. Please replace the gallery2 files with files from the currently installed "
+"version or later."
+msgstr ""
+"La versione installata è più recente di quella a cui stai cercando di fare l'aggiornamento. "
+"Non puoi fare il downgrade di G2. Sostituisci i file di gallery2 coi file dell'installazione "
+"corrente o più recenti."
+
+msgid ""
+"Before you upgrade, we <b>strongly recommend</b> that you make a backup of your database!  "
+"If you fail to make a backup and something goes wrong, there is a strong possibility that we "
+"will not be able to help you recover your data!  Refer to the following example:"
+msgstr ""
+"Prima di fare l'aggiornamento, <b>ti raccomandiamo caldamente</b> di fare un backup del "
+"database! Se non fai il backup e qualcosa va storto, c'è una forte possibilità che non "
+"saremo in grado di aiutarti a recuperare i tuoi dati! Fa' riferimento all'esempio seguente:"
+
+msgid "MySQL"
+msgstr "MySQL"
+
+msgid "PostgreSQL"
+msgstr "PostgreSQL"
+
+msgid "Oracle"
+msgstr "Oracle"
+
+msgid "IBM DB2"
+msgstr "IBM DB2"
+
+msgid "Microsoft SQL Server"
+msgstr "Microsoft SQL Server"
+
+msgid ""
+"Once the upgrade has begun, please be patient.  If you cancel or reload the page, you may "
+"interfere with the upgrade process."
+msgstr ""
+"Una volta che l'aggiornamento sarà iniziato, sii paziente. Se annulli o ricarichi la pagina, "
+"potresti interferire con il processo di aggiornamento."
+
+msgid "Begin Upgrade"
+msgstr "Inizio Aggiornamento"
+
+msgid "Recheck config.php"
+msgstr "Ricontrolla config.php"
+
+msgid "Upgraded Gallery Core Module successfully."
+msgstr "Modulo Core di Gallery aggiornato con successo."
+
+msgid "We've successfully upgraded the Gallery Core Module."
+msgstr "Abbiamo aggiornano con successo il Modulo Core di Gallery."
+
+#, c-format
+msgid ""
+"<b>Reminder</b>: Now update the permissions on config.php to make sure it is not writeable "
+"by other people.  Right now your config.php has modes of %s.  We suggest that you do this:"
+msgstr ""
+"<b>Promemoria</b>: Adesso aggiorna i permessi di config.php in modo da renderlo non "
+"scrivibile da altre persone.  In questo momento config.php ha i permessi %s.  Ti suggeriamo "
+"di fare questo:"
+
+msgid "Your Gallery Core Module is up to date!"
+msgstr "Il Modulo Core della tua Gallery è aggiornato!"
+
+msgid ""
+"The following plugins can be automatically upgraded for you.  If you choose not to upgrade "
+"them now, you may experience problems with your Gallery.   You can always upgrade or "
+"deactivate them on the Site Administration page, or return to this page later so any "
+"decision you make here is not permanent."
+msgstr ""
+"I seguenti plugin possono essere aggiornati automaticamente. Se scegli di non aggiornarli "
+"adesso, potresti riscontrare problemi con la tua Gallery. Puoi sempre aggiornarli o "
+"disattivarli nella pagina Amministrazione Sito, oppure ritornare a questa pagina più tardi, "
+"così le decisioni che prendi qui non sono permanenti."
+
+msgid "Deactivated Plugins"
+msgstr "Plugins Disattivati"
+
+msgid ""
+"The following plugins were active, but they are missing or incompatible with your current "
+"version of Gallery.  They have been deactivated.  Install the latest version of these "
+"plugins to reactivate them."
+msgstr ""
+"I plugin seguenti erano attivi, ma sono mancanti oppure sono incompatibili con la versione "
+"corrente di Gallery. Sono stati disattivati. Installa l'ultima versione di questi plugin per "
+"poterli riattivare."
+
+msgid "Module"
+msgstr "Modulo"
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Current"
+msgstr "Corrente"
+
+msgid "New"
+msgstr "Nuovo"
+
+msgid "Description"
+msgstr "Descrizione"
+
+msgid "Incompatible with this version of Gallery"
+msgstr "Incompatibile con questa versione di Gallery"
+
+msgid "(un)check all"
+msgstr "(de)seleziona tutto"
+
+#, c-format
+msgid "Skip Upgrade and Continue to Step %d&raquo;"
+msgstr "Salta l'Aggiornamento e Continua con la Fase %d&raquo;"
+
+msgid "Upgrade Selected Plugins"
+msgstr "Aggiorna Plugin Selezionati"
+
+#, c-format
+msgid "Upgraded the %s module successfully"
+msgstr "Modulo %s aggiornato con successo."
+
+#, c-format
+msgid "Upgraded the %s theme successfully"
+msgstr "Tema %s aggiornato con successo"
+
+msgid "Upgrade More Plugins"
+msgstr "Aggiorna Altri Plugins"
+
+#, c-format
+msgid ""
+"Upgrading Gallery 2 requires %d steps. This upgrade tool will guide you through these steps "
+"and provide assistance along the way if additional steps are required. Please read the %"
+"sHelp File%s before proceeding."
+msgstr ""
+"L'aggiornamento di Gallery 2 necessita di %d fasi. Questo strumento di aggiornamento ti "
+"guiderà attraverso queste fasi e ti darà assistenza lungo il cammino se ci sarà bisogno di "
+"ulteriori passi. Leggi il %sFile di Help%s prima di continuare."
+
+msgid ""
+"If you have a busy site, consider putting your Gallery in maintenance mode. This gives "
+"visitors a message that the site is temporarily offline, rather than showing everybody this "
+"upgrade page. Edit your config.php file to activate maintenance mode."
+msgstr ""
+"Se hai un sito trafficato, considera la possibilità di mettere Gallery in modalità "
+"manutenzione. Questo dà ai visitatori un messaggio che il sito è temporaneamente offline, "
+"piuttosto che mostrare a tutti questa pagina di aggiornamento. Modifica il file config.php "
+"per attivare la modalità manutenzione."
+
+msgid "Select Language:"
+msgstr "Seleziona Lingua:"
+
+msgid "Go"
+msgstr "Vai"

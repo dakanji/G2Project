@@ -1,0 +1,159 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
+/**
+ * Test Template functionality
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 15513 $
+ */
+class TemplateAuditTest extends CodeAuditTestCase {
+
+    function TemplateAuditTest($methodName) {
+	global $gallery;
+
+	$this->CodeAuditTestCase($methodName);
+
+	$platform =& $gallery->getPlatform();
+	$this->_lineEnding = $platform->getLineEnding();
+
+	$this->_revisionPattern = ' \* \$Revision(:.+)?\$';
+	$lines[] = '\{\*';
+	$lines[] = $this->_revisionPattern;
+	$lines[] = ' \* If you want to customize this file, do not edit it directly since ' .
+	    'future upgrades';
+	$lines[] = ' \* may overwrite it.  Instead, copy it into a new directory called ' .
+	    '"local" and edit that';
+	$lines[] = ' \* version.  Gallery will look for that file first and use it if it exists.';
+	$lines[] = ' \*}';
+
+	$this->_revisionPlaceHolder = ' * REVISION PLACEHOLDER';
+	$this->_headerPattern = join("(\r\n|\n)", $lines);
+	$this->_headerLines = $lines;
+	$this->_expectedHeaderLines = $lines;
+	array_splice($this->_expectedHeaderLines, 1, 1, $this->_revisionPlaceHolder);
+
+	$this->_exceptions = array();
+	$this->_exceptions['header'] = array();
+
+	$this->_exception['hiddenFormVars'] = array(
+	    'modules/digibug/templates/DigibugPrintPhotos.tpl',
+	    'modules/shutterfly/templates/PrintPhotos.tpl',
+	    'modules/uploadapplet/templates/ItemAddUploadApplet.tpl'
+	    );
+
+	/* Get rid of backslashes so that we can perform string compares later */
+	for ($i = 0; $i < sizeof($this->_expectedHeaderLines); $i++) {
+	    $this->_expectedHeaderLines[$i] = stripslashes($this->_expectedHeaderLines[$i]);
+	}
+
+	$this->_errorCount = 0;
+    }
+
+    /**
+     * @see CodeAuditTestCase::shouldCheckFile
+     */
+    function shouldCheckFile($fileName) {
+	if (preg_match('#Storage.schema\.tpl$|tools/repository/.*tpl#', $fileName)
+		|| !parent::shouldCheckFile($fileName)) {
+	    return false;
+	}
+	if (substr($fileName, -4) == '.tpl') {
+	    return true;
+	}
+
+	return false;
+    }
+
+    /**
+     * @see CodeAuditTestCase::checkFile
+     */
+    function checkFile($fileName, $buffer) {
+	$truncatedFileName = substr($fileName,
+				    strlen(dirname(dirname(dirname(dirname($fileName)))))+1);
+
+	$this->_checkHiddenFormVars($truncatedFileName, $buffer);
+
+	if (preg_match('/^' . $this->_headerPattern . '/', $buffer)) {
+	    return;
+	} else {
+	    /* Grab the expected number of lines and compare them */
+	    $actual = split("(\r\n|\n)", $buffer, sizeof($this->_expectedHeaderLines)+1);
+	    array_splice($actual, sizeof($this->_expectedHeaderLines), 1);
+
+	    /* Get rid of the revision line, since we can't compare that */
+	    for ($i = 0; $i < sizeof($actual); $i++) {
+		if (strstr($actual[$i], 'Revision')) {
+		    list ($revision) = array_splice($actual, $i, 1, $this->_revisionPlaceHolder);
+		    break;
+		}
+	    }
+
+	    if (empty($revision)) {
+		$this->assert(false, sprintf('[%s] Missing revision line', $truncatedFileName));
+	    } else if (!preg_match('/^' . $this->_revisionPattern . '/', $revision)) {
+		$this->assert(false, sprintf('[%s] Invalid revision line: [%s]<br/>' .
+					     'Expected pattern: [%s]',
+					     $truncatedFileName,
+					     $revision, $this->_revisionPattern));
+	    }
+
+	    if (!isset($this->_exceptions['header'][$truncatedFileName])) {
+		$this->assertEquals($this->_expectedHeaderLines, $actual,
+				    sprintf('[%s] Malformed template header', $truncatedFileName));
+		$this->_errorCount++;
+	    }
+
+	    if ($this->_errorCount > 3) {
+		$this->halt();
+	    }
+	}
+    }
+    function _checkHiddenFormVars($fileName, $buffer) {
+	$inHtmlForm = false;
+	$hasHiddenFormVars = false;
+	$formStartLine = 0;
+	$lines = split("(\r\n|\n)", $buffer);
+
+	if (in_array($fileName, $this->_exception['hiddenFormVars'])) {
+	    return;
+	}
+
+	for ($i = 0; $i < count($lines); $i++) {
+	    if (preg_match('/<form\s/', $lines[$i], $matches)) {
+		$inHtmlForm = true;
+		$formStartLine = $i;
+	    }
+	    if (preg_match('/hiddenFormVars/', $lines[$i], $matches)) {
+		$hasHiddenFormVars = true;
+	    }
+	    if (preg_match('/<\/form>/', $lines[$i], $matches)) {
+		$this->assert($hasHiddenFormVars, "$fileName: Form (line $formStartLine) is " .
+				"missing hidden form vars");
+		$inHtmlForm = false;
+		$hasHiddenFormVars = false;
+	    }
+	}
+    }
+}
+?>

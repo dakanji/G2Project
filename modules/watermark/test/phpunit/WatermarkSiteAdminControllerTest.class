@@ -1,0 +1,397 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
+
+/**
+ * WatermarkSiteAdmin controller tests
+ * Also tests WatermarkHelper::fetchWatermarks()
+ *
+ * @package Watermark
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 15513 $
+ */
+class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
+
+    function WatermarkSiteAdminControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'watermark.WatermarkSiteAdmin');
+    }
+
+    function setUp() {
+	parent::setUp();
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'watermark');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	$rand = rand();
+	$this->_randomName = 'phpunit_' . $rand . '.jpg';
+	$this->_expectedName = 'phpunit_' . $rand . '_jpg';
+
+	/* Get the list of watermarks before, then after delete any that we created */
+	list ($ret, $this->_beforeWatermarks) = WatermarkHelper::fetchWatermarks();
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+    }
+
+    function tearDown() {
+	/* Get the list of watermarks before, then after delete any that we created */
+	list ($ret, $this->_afterWatermarks) = WatermarkHelper::fetchWatermarks();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	foreach (array_keys($this->_afterWatermarks) as $id) {
+	    if (!isset($this->_beforeWatermarks[$id])) {
+		$ret = GalleryCoreApi::deleteEntityById($id);
+		if ($ret) {
+		    return $this->failWithStatus($ret);
+		}
+	    }
+	}
+
+	parent::tearDown();
+    }
+
+    function testNoFile() {
+	/* No file */
+	GalleryUtilities::putRequestVariable('form[action][add]', '1');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'watermark.WatermarkSiteAdmin'),
+				  'status' => array('addError' => 1),
+				  'error' => array()),
+			    $results, 'No file');
+    }
+
+    function testAdd() {
+	/* Add */
+	GalleryUtilities::putRequestVariable('form[action][add]', '1');
+	GalleryUtilities::putRequestVariable('form[name][1]', $this->_randomName);
+	GalleryUtilities::putRequestVariable('form[type][1]', 'image/jpeg');
+	GalleryUtilities::putRequestVariable('form[tmp_name][1]',
+	    GalleryCoreApi::getPluginBaseDir('module', 'core')
+		. 'modules/core/test/data/test1.jpg');
+
+	$results = $this->handleRequest();
+	$counter =& GalleryTestCase::getEntityCounter();
+	$expectedId = $counter->getRecentEntityId('WatermarkImage');
+	$this->assertEquals(array('redirect' => array(
+				      'view' => 'core.SiteAdmin',
+				      'subView' => 'watermark.WatermarkSiteAdminEdit',
+				      'watermarkId' => $expectedId),
+				  'status' => array('add' => 1),
+				  'error' => array()),
+			    $results, 'Add');
+
+	/* Verify */
+	list ($ret, $map) = $this->_fetchWatermarkMapByFilename();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assert(isset($map[$this->_expectedName]), 'Watermark is missing');
+    }
+
+    function testAddDuplicate() {
+	for ($i = 0; $i < 2; $i++) {
+	    /* Add */
+	    GalleryUtilities::putRequestVariable('form[action][add]', '1');
+	    GalleryUtilities::putRequestVariable('form[name][1]', $this->_randomName);
+	    GalleryUtilities::putRequestVariable('form[type][1]', 'image/jpeg');
+	    GalleryUtilities::putRequestVariable('form[tmp_name][1]',
+		GalleryCoreApi::getPluginBaseDir('module', 'core')
+		    . 'modules/core/test/data/test1.jpg');
+
+	    $results = $this->handleRequest();
+	    $counter =& GalleryTestCase::getEntityCounter();
+	    $expectedId = $counter->getRecentEntityId('WatermarkImage');
+	    $this->assertEquals(array('redirect' => array(
+					  'view' => 'core.SiteAdmin',
+					  'subView' => 'watermark.WatermarkSiteAdminEdit',
+					  'watermarkId' => $expectedId),
+				      'status' => array('add' => 1),
+				      'error' => array()),
+				$results, 'Add');
+	}
+
+	/* Verify */
+	list ($ret, $map) = $this->_fetchWatermarkMapByFilename();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assert(isset($map[$this->_expectedName]), 'Watermark is missing');
+	$this->assert(isset($map['_' . $this->_expectedName]), 'Watermark 2 is missing');
+    }
+
+    function testAddWrongMimeType() {
+	/* Add same name, browser doesn't send correct mime type */
+	GalleryUtilities::putRequestVariable('form[action][add]', '1');
+	GalleryUtilities::putRequestVariable('form[name][1]', $this->_randomName);
+	GalleryUtilities::putRequestVariable('form[type][1]', 'image/jpeg');
+	GalleryUtilities::putRequestVariable('form[type][1]', 'application/octet-stream');
+	GalleryUtilities::putRequestVariable('form[tmp_name][1]',
+	    GalleryCoreApi::getPluginBaseDir('module', 'core')
+		. 'modules/core/test/data/test1.jpg');
+
+	$results = $this->handleRequest();
+	$counter =& GalleryTestCase::getEntityCounter();
+	$expectedId = $counter->getRecentEntityId('WatermarkImage');
+	$this->assertEquals(array('redirect' => array(
+				      'view' => 'core.SiteAdmin',
+				      'subView' => 'watermark.WatermarkSiteAdminEdit',
+				      'watermarkId' => $expectedId),
+				  'status' => array('add' => 1),
+				  'error' => array()),
+			    $results, 'Add same name, bad mime');
+
+	list ($ret, $map) = $this->_fetchWatermarkMapByFilename();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	if (GalleryUtilities::isA($map[$this->_expectedName], 'WatermarkImage')) {
+	    $this->assertEquals('image/jpeg', $map[$this->_expectedName]->getMimeType(),
+				'Watermark mime type incorrect');
+	} else {
+	    $this->assert(false, 'Expected object is not a watermark!');
+	}
+    }
+
+    function testDelete() {
+	/* Create something to delete */
+	GalleryUtilities::putRequestVariable('form[action][add]', '1');
+	GalleryUtilities::putRequestVariable('form[name][1]', $this->_randomName);
+	GalleryUtilities::putRequestVariable('form[type][1]', 'image/jpeg');
+	GalleryUtilities::putRequestVariable('form[tmp_name][1]',
+	    GalleryCoreApi::getPluginBaseDir('module', 'core')
+		. 'modules/core/test/data/test1.jpg');
+
+	$results = $this->handleRequest();
+	$counter =& GalleryTestCase::getEntityCounter();
+	$expectedId = $counter->getRecentEntityId('WatermarkImage');
+	$this->assertEquals(array('redirect' => array(
+				      'view' => 'core.SiteAdmin',
+				      'subView' => 'watermark.WatermarkSiteAdminEdit',
+				      'watermarkId' => $expectedId),
+				  'status' => array('add' => 1),
+				  'error' => array()),
+			    $results, 'Add');
+
+	list ($ret, $map) = $this->_fetchWatermarkMapByFilename();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	if (GalleryUtilities::isA($map[$this->_expectedName], 'WatermarkImage')) {
+	    /* Delete it */
+	    GalleryUtilities::removeFormVariables('form');
+	    GalleryUtilities::putRequestVariable('form[action][delete]', '1');
+	    GalleryUtilities::putRequestVariable('form[delete][watermarkId]',
+						 $map[$this->_expectedName]->getId());
+
+	    $results = $this->handleRequest();
+	    $this->assertEquals(array('redirect' => array(
+					  'view' => 'core.SiteAdmin',
+					  'subView' => 'watermark.WatermarkSiteAdmin'),
+				      'status' => array('delete' => 1),
+				      'error' => array()),
+				$results, 'Delete');
+
+	    /* Verify that it's gone */
+	    $ret = $this->_verifyMissing($map[$this->_expectedName]->getId());
+	    if ($ret) {
+		return $this->failWithStatus($ret);
+	    }
+	} else {
+	    $this->assert(false, 'Expected object is not a watermark!');
+	}
+    }
+
+    function testDeleteInUse() {
+	/* Create something to delete */
+	GalleryUtilities::putRequestVariable('form[action][add]', '1');
+	GalleryUtilities::putRequestVariable('form[name][1]', $this->_randomName);
+	GalleryUtilities::putRequestVariable('form[type][1]', 'image/jpeg');
+	GalleryUtilities::putRequestVariable('form[tmp_name][1]',
+	    GalleryCoreApi::getPluginBaseDir('module', 'core')
+		. 'modules/core/test/data/test1.jpg');
+
+	$results = $this->handleRequest();
+	$counter =& GalleryTestCase::getEntityCounter();
+	$expectedId = $counter->getRecentEntityId('WatermarkImage');
+	$this->assertEquals(
+	    array('redirect' => array('view' => 'core.SiteAdmin',
+				      'subView' => 'watermark.WatermarkSiteAdminEdit',
+				      'watermarkId' => $expectedId),
+		  'status' => array('add' => 1),
+		  'error' => array()),
+	    $results, 'Add');
+
+	list ($ret, $map) = $this->_fetchWatermarkMapByFilename();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$watermark = $map[$this->_expectedName];
+
+	/* Use this watermark */
+	list ($ret, $item) = $this->_createRandomDataItem($this->_getRootId());
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->_markForCleanup($item);
+	list ($ret, $derivative) = $this->_createDerivative(
+	    $item, $item->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL, '', 'test/file',
+	    array('postFilterOperations' =>
+		      'composite|plugins_data/modules/watermark/' . $this->_expectedName . ',...'));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	if (GalleryUtilities::isA($watermark, 'WatermarkImage')) {
+	    /* Try to delete it */
+	    GalleryUtilities::removeFormVariables('form');
+	    GalleryUtilities::putRequestVariable('form[action][delete]', '1');
+	    GalleryUtilities::putRequestVariable('form[delete][watermarkId]',
+						 $watermark->getId());
+
+	    $results = $this->handleRequest();
+	    $this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+							  'subView' => 'watermark.ConfirmDelete',
+							  'watermarkId' => $watermark->getId(),
+							  'fromAdmin' => 1),
+				      'status' => array(),
+				      'error' => array()),
+				$results, 'Confirm Delete');
+
+	    /* Verify that it's NOT gone */
+	    $ret = $this->_verifyEntity($watermark);
+	    if ($ret) {
+		return $this->failWithStatus($ret);
+	    }
+	} else {
+	    $this->assert(false, 'Expected object is not a watermark!');
+	}
+    }
+
+    function testIllegalDelete() {
+	/* valid, but illegal */
+	GalleryUtilities::putRequestVariable('form[action][delete]', 1);
+	GalleryUtilities::putRequestVariable('form[delete][watermarkId]', 1);
+
+	$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
+
+	/* invalid & illegal */
+	GalleryUtilities::putRequestVariable('form[action][delete]', 1);
+	GalleryUtilities::putRequestVariable('form[delete][watermarkId]', 123456789);
+
+	$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
+    }
+
+    function testAddMaliciousFile() {
+	$rand = rand();
+	$randomName = 'phpunit_' . $rand . '.php';
+	$expectedName = 'phpunit_' . $rand . '_php';
+
+	GalleryUtilities::putRequestVariable('form[action][add]', '1');
+	GalleryUtilities::putRequestVariable('form[name][1]', $randomName);
+	GalleryUtilities::putRequestVariable('form[type][1]', 'some/type');
+	GalleryUtilities::putRequestVariable('form[tmp_name][1]', __FILE__);
+
+	$results = $this->handleRequest();
+	$counter =& GalleryTestCase::getEntityCounter();
+	$expectedId = $counter->getRecentEntityId('WatermarkImage');
+	$this->assertEquals(array('redirect' => array(
+				      'view' => 'core.SiteAdmin',
+				      'subView' => 'watermark.WatermarkSiteAdminEdit',
+				      'watermarkId' => $expectedId),
+				  'status' => array('add' => 1),
+				  'error' => array()),
+			    $results, 'Add');
+
+	list ($ret, $map) = $this->_fetchWatermarkMapByFilename();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assert(isset($map[$expectedName]), 'Watermark is missing');
+
+	if (GalleryUtilities::isA($map[$expectedName], 'WatermarkImage')) {
+	    $this->assertEquals('application/unknown', $map[$expectedName]->getMimeType(),
+				'Watermark mime type incorrect');
+
+	    list ($ret, $path) = $map[$expectedName]->fetchPath();
+	    if ($ret) {
+		return $this->failWithStatus($ret);
+	    }
+
+	    /* We're expecting the same name, but the . changed to _ in the file extension */
+	    $this->assertEquals($expectedName, basename($path));
+	} else {
+	    $this->assert(false, 'Object is not a watermark');
+	}
+    }
+
+    function _fetchWatermarkMapByFilename() {
+	list ($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
+	if ($ret) {
+	    return array($this, null);
+	}
+	$results = array();
+	foreach ($watermarks as $id => $watermark) {
+	    $results[$watermark->getFileName()] = $watermark;
+	}
+	return array(null, $results);
+    }
+
+    function testSave() {
+	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+	GalleryUtilities::putRequestVariable('form[allowUserWatermarks]', 1);
+	GalleryUtilities::putRequestVariable('form[hotlinkWatermarkId]', 123);
+	GalleryUtilities::putRequestVariable('form[defaultWatermarkId]', 456);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'watermark.WatermarkSiteAdmin'),
+				  'status' => array('savedSettings' => 1),
+				  'error' => array()),
+			    $results);
+    }
+
+    function testSaveMissingId() {
+	GalleryUtilities::putRequestVariable('form[action][save]', '1');
+	GalleryUtilities::putRequestVariable('form[forceDefaultWatermark]', 1);
+	GalleryUtilities::putRequestVariable('form[hotlinkWatermarkId]', 123);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'watermark.WatermarkSiteAdmin'),
+				  'status' => array('missingDefault' => 1, 'savedSettings' => 1),
+				  'error' => array()),
+			    $results);
+    }
+}
+?>

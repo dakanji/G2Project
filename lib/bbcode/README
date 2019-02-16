@@ -1,0 +1,16 @@
+The BBCode library was written by Christian Seiler and can be found
+here:
+
+	http://www.christian-seiler.de/projekte/php/bbcode/
+
+It is released under the artistic license.  It has been modified very
+slighly to fit into Gallery, and all modifications to the original
+source can be found by browsing the CVS repository here:
+
+http://svn.sourceforge.net/viewvc/gallery/trunk/gallery2/lib/bbcode/bbcode.class
+
+The initial revision of this file in CVS is the original file from
+Christian's website.
+
+The class name was changed from BBCode to GalleryBbcode to avoid
+issues with other applications that include their own BBCode class.

@@ -1,0 +1,272 @@
+# $Id: pl.po 16040 2007-03-16 23:04:36Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Comments 1.1.3\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-19 11:56-0800\n"
+"PO-Revision-Date: 2006-12-27 16:34+0100\n"
+"Last-Translator: Kappana <kappana@gnoms.net>\n"
+"Language-Team: Polish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-Country: POLAND\n"
+
+msgid "Add Comment"
+msgstr "Dodaj komentarz"
+
+msgid "add comment"
+msgstr "dodaj komentarz"
+
+msgid "show comments"
+msgstr "obejrzyj komentarze"
+
+msgid "Comments"
+msgstr "Komentarze"
+
+msgid "User commenting system"
+msgstr "Komentarze użytkownika"
+
+msgid "Extra Data"
+msgstr "Dodatkowe dane"
+
+msgid "[comment] Add comments"
+msgstr "[komentarz] Dodaj komentarze"
+
+msgid "[comment] Edit comments"
+msgstr "[komentarz] Edytuj komentarze"
+
+msgid "[comment] Delete comments"
+msgstr "[komentarz] Kasuj komentarze"
+
+msgid "[comment] View comments"
+msgstr "[komentarz] Obejrzyj komentarze"
+
+msgid "[comment] All access"
+msgstr "[komentarz] Pełny dostęp"
+
+msgid "View Latest Comments"
+msgstr "Obejrzyj komentarze"
+
+msgid "View Comments"
+msgstr "Obejrzyj komentarze"
+
+#, c-format
+msgid "Comments: %d"
+msgstr "Komentarze: %d"
+
+msgid "Guest Comments"
+msgstr "Komentarze gości"
+
+msgid "Comment Module"
+msgstr "Moduł komentarzy"
+
+msgid "Search comments"
+msgstr "Przeszukaj komentarze"
+
+msgid "Subject"
+msgstr "Temat"
+
+msgid "Comment"
+msgstr "Komentarz"
+
+msgid "Commenter"
+msgstr "Komentator"
+
+msgid "guest"
+msgstr "gość"
+
+msgid "Comment Preview"
+msgstr "Podgląd komentarza"
+
+msgid "Name"
+msgstr "Imię i nazwisko"
+
+msgid "Posted by"
+msgstr "Przesłany przez"
+
+#, c-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+msgid "(required)"
+msgstr "(wymagany)"
+
+msgid "You must enter a comment!"
+msgstr "Proszę wprowadzić komentarz!"
+
+msgid "Preview"
+msgstr "Podgląd"
+
+msgid "Save"
+msgstr "Zachowaj"
+
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgid "edit"
+msgstr "edytuj"
+
+msgid "delete"
+msgstr "kasuj"
+
+msgid "show full"
+msgstr "pokaż wszystko"
+
+msgid "show summary"
+msgstr "pokaż podsumowanie"
+
+#, c-format
+msgid "Posted by %s on %s (%s)"
+msgstr "Przesłany przez %s na %s (%s)"
+
+#, c-format
+msgid "Posted by %s on %s"
+msgstr "Przesłany przez %s w %s"
+
+#, c-format
+msgid "Posted by %s (guest) on %s (%s)"
+msgstr "Przesłany przez %s (gość) na %s (%s)"
+
+#, c-format
+msgid "Posted by %s (guest) on %s"
+msgstr "Przesłany przez %s (gość) w %s"
+
+msgid "Comment change confirmation"
+msgstr "Potwierdzenie zmiany komentarza"
+
+msgid "Comment added successfully"
+msgstr "Kometarz został dodany"
+
+msgid "Comment deleted successfully"
+msgstr "Komentarz został skasowany"
+
+msgid "Comment modified successfully"
+msgstr "Komentarz został zmodyfikowany."
+
+#, c-format
+msgid "Back to %s"
+msgstr "Powrót do %s"
+
+msgid "Comments Settings"
+msgstr "Ustawienia komentarzy"
+
+msgid "Settings saved successfully"
+msgstr "Ustawienia zapisane"
+
+msgid "Show link for Latest Comments:"
+msgstr "Pokaż link do strony z komentarzami:"
+
+msgid "Number of comments on Latest Comments page:"
+msgstr "Ilość komentarzy na stronie:"
+
+msgid "Invalid value"
+msgstr "Nieprawidłowa wartość"
+
+msgid "Reset"
+msgstr "Przywróć ustawienia domyślne"
+
+msgid "Delete this comment?"
+msgstr "Skasować ten komentarz?"
+
+msgid "Are you sure?"
+msgstr "Czy jesteś pewien?"
+
+msgid "Delete this comment?  There is no undo!"
+msgstr "Skasować ten komentarz? Operacja jest nieodwracalna!"
+
+msgid "Delete"
+msgstr "Kasuj"
+
+msgid "Edit comment"
+msgstr "Edytuj komentarz"
+
+msgid "You must enter a username."
+msgstr "Proszę wprowadzić nazwę użytkownika."
+
+msgid "The username you entered is invalid."
+msgstr "Wprowadzona nazwa użytkownika jest nieprawidłowa."
+
+msgid "Host"
+msgstr "Host"
+
+msgid "You must enter a comment"
+msgstr "Proszę wprowadzić komentarz"
+
+msgid "Latest Comments"
+msgstr "Ostatnie komentarze"
+
+msgid "Comment changed successfully"
+msgstr "Komentarz został zmieniony"
+
+msgid "There are no comments for this item"
+msgstr "Nie ma komentarzy do tej pozycji"
+
+msgid "Recent comments"
+msgstr "Ostatnie komentarze"
+
+#, c-format
+msgid "(view all %d comments)"
+msgstr "(zobacz wszystkie komentarze %d)"
+
+msgid "Show comments"
+msgstr "Obejrzyj komentarze"
+
+msgid "Number of comments"
+msgstr "Ilość komentarzy"
+
+msgid "1"
+msgstr "1"
+
+msgid "2"
+msgstr "2"
+
+msgid "3"
+msgstr "3"
+
+msgid "4"
+msgstr "4"
+
+msgid "5"
+msgstr "5"
+
+msgid "10"
+msgstr "10"
+
+msgid "20"
+msgstr "20"
+
+msgid "30"
+msgstr "30"
+
+msgid "50"
+msgstr "50"
+
+msgid "100"
+msgstr "100"
+
+msgid "999"
+msgstr "999"
+
+msgid "Show a text box that expands into the full form"
+msgstr "Pokaż pole tekstowe, które rozwija się do pelnego formularza"

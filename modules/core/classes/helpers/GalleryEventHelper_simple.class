@@ -1,0 +1,130 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Helper class for GalleryItems
+ * @package GalleryCore
+ * @subpackage Helpers
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 15513 $
+ * @static
+ */
+class GalleryEventHelper_simple {
+
+    /**
+     * Get the static event listeners registry
+     *
+     * @staticvar array $eventListeners The event listener table
+     * @return array
+     * @access private
+     */
+    function &_getEventListeners() {
+	static $eventListeners = array();
+	return $eventListeners;
+    }
+
+    /**
+     * @see GalleryCoreApi::newEvent
+     */
+    function newEvent($eventName) {
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryEvent.class');
+	$event = new GalleryEvent();
+	$event->setEventName($eventName);
+	return $event;
+    }
+
+    /**
+     * @see GalleryCoreApi::registerEventListener
+     */
+    function registerEventListener($eventName, &$listener, $disableForUnitTests=false) {
+	if ($disableForUnitTests && class_exists('GalleryTestCase')) {
+	    return;
+	}
+
+	$eventListeners =& GalleryEventHelper_simple::_getEventListeners();
+	if (empty($eventListeners[$eventName])) {
+	    $eventListeners[$eventName] = array();
+	}
+
+	$eventListeners[$eventName][] =& $listener;
+    }
+
+    /**
+     * @see GalleryCoreApi::postEvent
+     */
+    function postEvent($event) {
+	static $allListenersRegistered;
+	/*
+	 * TODO: We should push this information into the database.  It's very costly to
+	 * load up all the modules now that there are so many of them.
+	 */
+	if (!isset($allListenersRegistered)) {
+	    list ($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    foreach ($moduleStatus as $moduleId => $status) {
+		if (!empty($status['active'])) {
+		    if (in_array('registerEventListeners', explode('|', $status['callbacks']))) {
+			/*
+			 * Ignore version mismatches when loading the module, since we don't want
+			 * event propagation during the upgrader to lead to the plugin framework
+			 * deactivating plugins, which will in turn post more events.  All we want
+			 * to do is to ignore plugins that are not current, which we'll do below.
+			 */
+			list ($ret, $module) =
+			    GalleryCoreApi::loadPlugin('module', $moduleId, true);
+			if ($ret) {
+			    return array($ret, null);
+			}
+
+			if (!GalleryCoreApi::isPluginCompatibleWithApis($module)) {
+			    continue;
+			}
+
+			$module->registerEventListeners();
+		    }
+		}
+	    }
+
+	    $allListenersRegistered = true;
+	}
+
+	$eventListeners =& GalleryEventHelper_simple::_getEventListeners();
+
+	$result = array();
+	if (!empty($eventListeners[$event->getEventName()])) {
+	    $listeners = $eventListeners[$event->getEventName()];
+	    for ($i = 0; $i < count($listeners); $i++) {
+		list ($ret, $data) = $listeners[$i]->handleEvent($event);
+		if ($ret) {
+		    return array($ret, null);
+		}
+		if (isset($data)) {
+		    $result[] = $data;
+		}
+	    }
+	}
+
+	return array(null, $result);
+    }
+}
+?>

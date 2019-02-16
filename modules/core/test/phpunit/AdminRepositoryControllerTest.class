@@ -1,0 +1,383 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * AdminRepository controller tests
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Jozef Selesi <selesi at gmail dot com>
+ * @version $Revision: 15513 $
+ */
+class AdminRepositoryControllerTest extends GalleryControllerTestCase {
+
+    var $_galleryTemplateAdapter;
+
+    function AdminRepositoryControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'core.AdminRepository');
+    }
+
+    function setUp() {
+	parent::setUp();
+	global $gallery;
+
+	$this->_originalSession = $gallery->_session;
+	$this->_galleryTemplateAdapter =& $gallery->getTemplateAdapter();
+    }
+
+    function tearDown() {
+	global $gallery;
+	$gallery->_templateAdapter =& $this->_galleryTemplateAdapter;
+	$gallery->_session = $this->_originalSession;
+	
+	parent::tearDown();
+    }
+
+    function testUpdateIndex() {
+	global $gallery;
+	GalleryUtilities::putRequestVariable('form[action][update]', 1);
+
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'core.ProgressBar'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+
+	/* Assert that we have 1 callback in the queue */
+	$this->assertEquals(1, $mockAdapter->getCallbackCount());
+
+	$callback = $mockAdapter->getCallback(0);
+	$this->assertEquals(array($this->_controller, 'updatePluginStatus'), $callback[0]);
+    }
+
+    function testSaveRepositories() {
+	global $gallery;
+	GalleryUtilities::putRequestVariable('form[repositories][released]', 1);
+	GalleryUtilities::putRequestVariable(
+	    'form[repositories][experimental]', '<script>something malicious</script>');
+	GalleryUtilities::putRequestVariable('form[repositories][experimental]', 'experimental');
+	GalleryUtilities::putRequestVariable('form[repositories][community]', 'checked');
+	GalleryUtilities::putRequestVariable('form[repositories][something_else]', 1);
+	GalleryUtilities::putRequestVariable('form[action][update]', 1);
+
+	$this->_markPluginParametersForCleanup('module', 'core');
+	$ret = GalleryCoreApi::setPluginParameter(
+	    'module', 'core', 'core.repositories', serialize(array()));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'core.ProgressBar'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+
+	list ($ret, $data) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'core.repositories');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(array('released' => 1, 'community' => 1, 'experimental' => 1),
+			    unserialize($data));
+    }
+
+    function testUpdatePluginStatus() {
+	global $gallery;
+
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+
+	$repository = new AdminRepositoryControllerTestRepository();
+	$repository->setReply('downloadIndex', array(), null);
+	$repository->setReply('scanPlugin', array('module', 'module1'), null);
+	$repository->setReply('scanPlugin', array('module', 'module2'), null);
+	$repository->setReply('scanPlugin', array('theme', 'theme1'), null);
+	$repository->setReply('scanPlugin', array('theme', 'theme2'), null);
+
+	$mockUrlGenerator = new AdminRepositoryControllerTestUrlGenerator();
+	$gallery->_urlGenerator =& $mockUrlGenerator;
+
+	$ret = $this->_controller->updatePluginStatus(
+	    array('module' => array(
+		      'module1' => array('active' => true, 'available' => true),
+		      'module2' => array('active' => true, 'available' => true)),
+		  'theme' => array(
+		      'theme1' => array('active' => true, 'available' => true),
+		      'theme2' => array('active' => true, 'available' => true))),
+	    array('test' => $repository));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	/* Assert that we saw what we expected */
+	$this->assertEquals(
+	    array('0', '0', '0.56' /* index downloads have a higher weight */,
+		  '0.67', '0.78', '0.89', '1.0' /* 4 steps for the plugins */,
+		  'complete:view=core.SiteAdmin,subView=core.AdminRepository,statusId=STATUSID'),
+	    $mockAdapter->getProgressBarDump());
+
+	$this->assert($repository->isComplete(), $repository->getRemaining());
+    }
+
+    function testUpdatePluginStatusIgnoresPluginScanErrors() {
+	global $gallery;
+
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+	$gallery->_session = new AdminRepositoryControllerTestSession();
+
+	$repository = new AdminRepositoryControllerTestRepository();
+	$repository->setReply('downloadIndex', array(), null);
+	$repository->setReply('scanPlugin', array('module', 'module1'), null);
+	$repository->setReply('scanPlugin',
+			      array('module', 'module2'),
+			      GalleryCoreApi::error(ERROR_BAD_PATH));
+	$repository->setReply('scanPlugin', array('theme', 'theme1'), null);
+	$repository->setReply('scanPlugin', array('theme', 'theme2'), null);
+
+	$mockUrlGenerator = new AdminRepositoryControllerTestUrlGenerator();
+	$gallery->_urlGenerator =& $mockUrlGenerator;
+
+	$ret = $this->_controller->updatePluginStatus(
+	    array('module' => array(
+		      'module1' => array('active' => true, 'available' => true),
+		      'module2' => array('active' => false, 'available' => true)),
+		  'theme' => array(
+		      'theme1' => array('active' => true, 'available' => true),
+		      'theme2' => array('active' => true, 'available' => true))),
+	    array('test' => $repository));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	/* Assert that we saw what we expected */
+	$this->assertEquals(
+	    array('0', '0', '0.56' /* index downloads have a higher weight */,
+		  '0.67', '0.78', '0.89', '1.0' /* 4 steps for the plugins */,
+		  'complete:view=core.SiteAdmin,subView=core.AdminRepository,statusId=STATUSID'),
+	    $mockAdapter->getProgressBarDump());
+
+	$this->assert($repository->isComplete(), $repository->getRemaining());
+
+	$session =& $gallery->getSession();
+	$expectedStatus['error']['scanPlugin'] = array('module2');
+	$this->assertEquals($expectedStatus, $session->getStatus('STATUSID'),
+			    'scanPlugin error should be in status');
+    }
+
+    function testUpdatePluginStatusFailsHardOnStorageError() {
+	global $gallery;
+
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+	$gallery->_session = new AdminRepositoryControllerTestSession();
+
+	$repository = new AdminRepositoryControllerTestRepository();
+	$repository->setReply('downloadIndex', array(), null);
+	$repository->setReply('scanPlugin', array('module', 'module1'), null);
+	$repository->setReply('scanPlugin',
+			      array('module', 'module2'),
+			      GalleryCoreApi::error(ERROR_STORAGE_FAILURE));
+	$repository->setReply('scanPlugin', array('theme', 'theme1'), null);
+	$repository->setReply('scanPlugin', array('theme', 'theme2'), null);
+
+	$mockUrlGenerator = new AdminRepositoryControllerTestUrlGenerator();
+	$gallery->_urlGenerator =& $mockUrlGenerator;
+
+	/* Run the test and verify that the operation fails as expected */
+	$ret = $this->_controller->updatePluginStatus(
+	    array('module' => array(
+		      'module1' => array('active' => true, 'available' => true),
+		      'module2' => array('active' => false, 'available' => true)),
+		  'theme' => array(
+		      'theme1' => array('active' => true, 'available' => true),
+		      'theme2' => array('active' => true, 'available' => true))),
+	    array('test' => $repository));
+	if ($ret && $ret->getErrorCode() & ERROR_STORAGE_FAILURE) {
+	    /* Good, as expected */
+	} else if ($ret) {
+	    $this->failWithStatus($ret);
+	} else {
+	    $this->fail('ERROR_STORAGE_FAILURE should not be ignored');
+	}
+    }
+
+    function testUpgradeAllNoUpgradeAvailable() {
+	GalleryUtilities::putRequestVariable('form[action][upgradeAll]', 1);
+
+	$repository = new AdminRepositoryControllerTestRepository();
+	$repository->setReply('getAllUpgradeablePackages', array(), array(null, array()));
+	$this->_controller->_repositories['test'] = $repository;
+
+	/* Test case when no upgradeable packages exist. */
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'core.AdminRepository'),
+				  'status' => array('noUpgradeAvailable' => 1),
+				  'error' => array()),
+			    $results);
+    }
+
+    function testUpgradeAll() {
+	GalleryUtilities::putRequestVariable('form[action][upgradeAll]', 1);
+
+	$packages = array(
+	    'module' => array('testModule' => array('package1' => 1, 'lang-en_US' => 1)));
+
+	$repository = new AdminRepositoryControllerTestRepository();
+	$repository->setReply('getAllUpgradeablePackages', array(), array(null, $packages));
+	$this->_controller->_repositories['test'] = $repository;
+
+	/* Test case when some packages are upgradeable. */
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' => array('view' => 'core.ProgressBar'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+
+	/*
+	 * We don't test the download process itself here, because it shares
+	 * the general download code path that is tested in testDownload.
+	 */
+    }
+}
+
+class AdminRepositoryControllerTestUrlGenerator {
+    function generateUrl($params=array(), $options=array()) {
+	$buf = array();
+	foreach ($params as $key => $value) {
+	    if ($key == 'statusId') {
+		$value = 'STATUSID';
+	    }
+	    $buf[] = "$key=$value";
+	}
+	return implode(',', $buf);
+    }
+}
+
+
+/**
+ * Test repository.
+ *
+ * Much of the code is duplicated from UnitTestPlatform. It might be a good idea to create
+ * an abstract Mock class with the generic methods.
+ *
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ */
+class AdminRepositoryControllerTestRepository {
+
+    function AdminRepositoryControllerTestRepository() {
+	$_GET['TestRepository'] = array('replies' => array(), 'errorCount' => 0);
+    }
+
+    /**
+     * Specify inputs and outputs for a function
+     *
+     * @param string $function the function name
+     * @param mixed $inputs input values
+     * @param mixed $outputs output values
+     */
+    function setReply($function, $inputs, $outputs) {
+	$_GET['TestRepository']['replies'][] = array($function, $inputs, $outputs);
+    }
+
+    function isComplete() {
+	return empty($_GET['TestRepository']['replies']) &&
+	       !$_GET['TestRepository']['errorCount'];
+    }
+
+    function getRemaining() {
+	return 'Error count: ' . $_GET['TestRepository']['errorCount'] . "\nRemaining requests: "
+	     . print_r($_GET['TestRepository']['replies'], true);
+    }
+
+    function _makeReply($function, $request) {
+	$expected = array_shift($_GET['TestRepository']['replies']);
+	if ($expected[0] == $function && $this->_parametersMatch($expected[1], $request)) {
+	    return $expected[2];
+	}
+
+	$_GET['TestRepository']['errorCount']++;
+	printf("Unhandled reply<br/>\n");
+	printf("Received:<br/>\nFunction: %s<br/>\nRequest: <pre>%s</pre><br/>\n",
+	       $function, print_r($request, true));
+	printf("Expected:<br/>\nFunction: %s<br/>\nRequest: <pre>%s</pre><br/>\n",
+	       $expected[0], print_r($expected[1], true));
+    }
+
+    function _parametersMatch($expected, $actual) {
+	$i = 0;
+	foreach ($expected as $key => $value) {
+	    if ($i >= count($actual)) {
+		return false;
+	    }
+	    if (!strncmp($key, 'fuzzy', 5)) {
+		if (!preg_match($value, $actual[$i++])) {
+		    return false;
+		}
+	    } else if ($value != $actual[$i++]) {
+		return false;
+	    }
+	}
+	return ($i == count($actual));
+    }
+
+    /* Everything below this is a function from GalleryRepository. */
+    function init() {
+	return $this->_makeReply('init', array());
+    }
+
+    function downloadIndex() {
+	return $this->_makeReply('downloadIndex', array());
+    }
+
+    function scanPlugin($pluginType, $pluginId) {
+	return $this->_makeReply('scanPlugin', array($pluginType, $pluginId));
+    }
+
+    function getAllUpgradeablePackages() {
+	return $this->_makeReply('getAllUpgradeablePackages', array());
+    }
+}
+
+class AdminRepositoryControllerTestSession extends GallerySession {
+    var $_testStatus = array();
+
+    function putStatus($statusData) {
+	$this->_testStatus[] = $statusData;
+	return 'STATUSID';
+    }
+
+    function getStatus($statusId, $remove=true) {
+	if ($statusId == 'STATUSID') {
+	    return empty($this->_testStatus) ? false : array_pop($this->_testStatus);
+	}
+	return false;
+    }
+}
+?>

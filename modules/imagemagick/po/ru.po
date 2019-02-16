@@ -1,0 +1,268 @@
+# $Id: ru.po 16040 2007-03-16 23:04:36Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Konstantin Ivanov <Continental@vollen.ru>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: ImageMagick 1.1.1\n"
+"POT-Creation-Date: 2003-02-11 03:09-0800\n"
+"PO-Revision-Date: 2006-03-17 13:01+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
+"Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+msgid "ImageMagick"
+msgstr "ImageMagick"
+
+msgid "ImageMagick / GraphicsMagick Graphics Toolkit"
+msgstr "Графические Инструменты ImageMagick / GraphicsMagick"
+
+msgid "Graphics Toolkits"
+msgstr "Графические Инструменты "
+
+msgid "Convert to"
+msgstr "Преобразовать в"
+
+#, no-c-format
+msgid "target width (# pixels or #% of full size)"
+msgstr ""
+
+msgid "(optional) target height, defaults to same as width"
+msgstr "(дополнительно) конечная высота, по умолчанию аналогична ширине "
+
+msgid "Scale the image to the target size, maintain aspect ratio"
+msgstr "Масштабировать изображение до желаемого размера, сохраняя отношение сторон"
+
+#, no-c-format
+msgid "target height (# pixels or #% of full size)"
+msgstr ""
+
+msgid "Resize the image to the target dimensions"
+msgstr "Изменить размеры изображения для желаемых размеров"
+
+msgid "rotation degrees"
+msgstr "угол поворота"
+
+msgid "Rotate the image"
+msgstr "Поворот изображения"
+
+msgid "left edge %"
+msgstr "отступ слева %"
+
+msgid "top edge %"
+msgstr "отступ сверху %"
+
+msgid "width %"
+msgstr "ширина %"
+
+msgid "height %"
+msgstr "высота %"
+
+msgid "Crop the image"
+msgstr "Обрезать изображение"
+
+msgid "overlay path"
+msgstr "overlay путь"
+
+msgid "overlay mime type"
+msgstr "overlay mime тип"
+
+msgid "overlay width"
+msgstr "overlay ширина"
+
+msgid "overlay height"
+msgstr "overlay высота"
+
+msgid "alignment type"
+msgstr "выравнивание"
+
+msgid "alignment x %"
+msgstr "Выравнивание по оси x %"
+
+msgid "alignment y %"
+msgstr "Выравнивание по оси y %"
+
+msgid "Overlay source image with a second one"
+msgstr "Overlay source image with a second one"
+
+msgid "page number"
+msgstr "номер страницы"
+
+msgid "Select a single page from a multi-page file"
+msgstr "Выберете одну страницу из многостраничного файла"
+
+msgid "target size in kb"
+msgstr "конечный размер в Кб"
+
+msgid "Reduce image quality to reach target file size"
+msgstr "Уменьшить качество изображения для достижения желаемого размера файла"
+
+msgid "Get the width and height of the image"
+msgstr "Получить ширину и высоту изображения"
+
+msgid "Get the number of pages"
+msgstr "Получить количество страниц"
+
+msgid "Get the colorspace of the image"
+msgstr "Получить цветовую модель изображения"
+
+msgid "File does not exist"
+msgstr "Файл не существует"
+
+msgid "Problem executing binary:"
+msgstr "Проблема при выполнении бинарного кода:"
+
+msgid "Binary output:"
+msgstr "Результат выполнения бинарного кода:"
+
+msgid "ImageMagick Settings"
+msgstr "Настройки ImageMagick"
+
+msgid "Settings saved successfully"
+msgstr "Настройки успешно сохранены"
+
+msgid ""
+"ImageMagick is a graphics toolkit that can be used to process images that you upload to "
+"Gallery.  You must install the ImageMagick binaries on your server, then enter the path to "
+"them in the text box below.  If you're on a Unix machine, don't forget to make the binaries "
+"executable (<i>chmod 755 *</i> in the ImageMagick directory should do it)"
+msgstr ""
+"ImageMagick является графическим инструментом, который может быть  использован для работы с "
+"изображениями, которые Вы загружаете в Галерею. Сначала Вам потребуется установить бинарный "
+"код ImageMagick на Ваш сервер, после чего указать путь к нему в текстовом поле ниже. Если Вы "
+"используете Unix, не забудьте сделать код исполняемым (команда <i>chmod 755 *</i> в "
+"директории с ImageMagick) "
+
+msgid "Directory to ImageMagick/GraphicsMagick binaries:"
+msgstr "Путь к бинарному коду ImageMagick/GraphicsMagick:"
+
+msgid "You must enter a path to your ImageMagick binaries"
+msgstr "Вы должны ввести путь к ImageMagick в бинарное виде"
+
+msgid "The path you entered is not a valid directory or is not accessible."
+msgstr "Введенным Вами путь содержит неверный бинарный  Dcraw или не доступен."
+
+msgid ""
+"The path you entered doesn't contain valid ImageMagick binaries. Use the 'test' button to "
+"check where the error is."
+msgstr ""
+"Введенным Вами путь содержит неверный бинарный  ImageMagick. Нажмите кнопку \"Тестировать "
+"настройки\", чтобы проверить, в чем ошибка."
+
+msgid "The path you entered isn't a valid path."
+msgstr "Введенным Вами путь неверен."
+
+msgid "JPEG Quality:"
+msgstr "Качество JPEG:"
+
+msgid ""
+"ImageMagick can detect non-webviewable color spaces like CMYK and create a webviewable copy "
+"of such images. Only activate this option if you actually add CMYK based JPEG or TIFF images "
+"since the color space detection slows down the add item process a little bit."
+msgstr ""
+"ImageMagick может обнаруживать не отображаемые через веб цветовые пространства, например, "
+"как CMYK и создавать копию подобных изображений, доступных для просмотра через веб. Сделайте "
+"данную опцию активной только в том случае, если Вы дейсвительно планируете работу с "
+"изображениями JPEG или TIFF со CMYK, т.к. процесс определение цветового пространства "
+"несколько замедляет процесс добавления элементов."
+
+msgid "CMYK Support:"
+msgstr "Поддержка CMYK:"
+
+msgid "Save Settings"
+msgstr "Сохранить настройки"
+
+msgid "Test Settings"
+msgstr "Тестировать настройки"
+
+msgid "Cancel"
+msgstr "Отменить"
+
+msgid "Reset"
+msgstr "Сбросить"
+
+msgid "ImageMagick binary test results"
+msgstr "Результаты теста бинарного ImageMagick"
+
+msgid "Binary Name"
+msgstr "Двоичное имя "
+
+msgid "Pass/Fail"
+msgstr "Успешно/Неудачно "
+
+msgid "Passed"
+msgstr "Успешно "
+
+msgid "Failed"
+msgstr "Неудачно"
+
+msgid "Error messages:"
+msgstr "Сообщения об ошибках:"
+
+msgid "Version"
+msgstr "Версия"
+
+#, fuzzy, c-format
+msgid ""
+"Warning: This version of %s has known vulnerabilities that could be exploited to execute "
+"arbitrary commands or cause a denial of service (references: %s1%s, %s2%s, %s3%s, %s4%s). "
+"You may wish to upgrade. This determination may be inaccurate for ImageMagick packages in "
+"Linux distributions."
+msgstr ""
+"Внимание: Данная версия %s имеет %sизвестную проблему безопасности%s, что может привести к "
+"бесконечному циклу. Возможно, Вы пожалете сделать обновление. Данное утверждение может быть "
+"неверно для %sDebian%s."
+
+msgid "Use this version anyway"
+msgstr "Использовать данную версию в любом случае"
+
+msgid "Supported MIME Types"
+msgstr "Поддерживаемые MIME типы"
+
+msgid "The ImageMagick module can support files with the following MIME types:"
+msgstr "Модуль ImageMagick может поддерживать работу со следующими MIME типами:"
+
+#, c-format
+msgid "Debug output (%d failed test)"
+msgid_plural "Debug output (%d failed tests)"
+msgstr[0] "Результат отладки (%d неудавшийся тест)"
+msgstr[1] "Результат отладки (%d неудавшихся теста)"
+msgstr[2] "Результат отладки (%d неудавшихся тестов)"
+
+msgid ""
+"We gathered this debug output while testing your ImageMagick binaries.  If you read through "
+"this carefully you may discover the reason why your ImageMagick binaries failed the tests."
+msgstr ""
+"Результаты отладки были получены в результате теста бинарного  ImageMagick. Если Вы "
+"внимательно просмотрите их, Вы сможете найти причину, по которой Ваш бинарный код  "
+"ImageMagick не прошел тесты."
+
+#~ msgid "target width"
+#~ msgstr "конечная ширина"
+
+#~ msgid "target height"
+#~ msgstr "конечная высота"

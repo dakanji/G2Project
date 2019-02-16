@@ -1,0 +1,154 @@
+html {
+  font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+  font-size: 62.5%;
+  background-color: #eee;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: rgb(85, 26,139);
+}
+
+body {
+  font-size: 1.2em;
+}
+
+#content {
+  width: 760px;
+  background: #FFF;
+  margin: 0px auto;
+  text-align: left;
+  border-bottom: 1px solid #999;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
+  padding-bottom: 15px;
+}
+
+div#title {
+  background: #ccc;
+  margin: 0px;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+  margin-bottom: 10px;
+  padding: 5px 20px 5px 20px;
+  font-size: 1.5em;
+}
+
+h1, h2, h3 {
+  font-family: "Gill Sans", Verdana, Arial, sans-serif;
+  color: #333;
+  padding: 0px 20px 0px 20px;
+}
+
+h1 {
+  font-size: 1.5em;
+  border-bottom: 1px solid #ddd;
+}
+
+h2 {
+  font-size: 1.3em;
+}
+
+h3 {
+  font-size: 1.1em;
+}
+
+p {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+p.description {
+  margin-top: -10px;
+  padding-left: 40px;
+}
+
+span.subtext {
+  font-size: 0.9em;
+}
+
+div.error {
+  border: 1px solid red;
+  background: #ffcccc;
+  padding: 10px;
+  margin: 20px;
+  font-size: 1.3em;
+}
+
+div.warning {
+  border: 1px solid orange;
+  background: #ffffcc;
+  padding: 10px;
+  margin: 20px;
+  font-size: 1.3em;
+}
+
+div.info {
+  border: 1px solid black;
+  background: #cccccc;
+  padding: 10px;
+  margin: 20px;
+  font-size: 1.3em;
+}
+
+pre.error, span.error {
+  color: red;
+}
+
+span.hasToolTip {
+  border-bottom: 1px dashed rgb(0, 0, 238);
+}
+
+div.success {
+  border: 1px solid green;
+  background: #ccffcc;
+  padding: 10px;
+  margin: 20px;
+  font-size: 1.3em;
+}
+
+div.results {
+  border: 1px solid #999;
+  background: #ccc;
+  padding: 10px;
+  margin: 20px;
+}
+
+div.results h2 {
+  padding: 0px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #999;
+}
+
+pre {
+  font-family: monospace;
+  font-size: 1.2em;
+  margin: 0px;
+}
+
+.highlightedLink {
+  font-weight: bold;
+  color: blue;
+}
+
+.disabledLink {
+  font-weight: lighter;
+  color: #888888;
+}
+
+label {
+ cursor: pointer;
+}
+
+hr.faint {
+  border-top: 1px solid #fffffe;
+}
+
+tt {
+  font-family: monospace;
+  font-size: 1.1em;
+}

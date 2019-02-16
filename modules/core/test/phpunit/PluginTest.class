@@ -1,0 +1,172 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Test Plugin functionality
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 15513 $
+ */
+class PluginTest extends GalleryTestCase {
+
+    function testCoreApiTooNew() {
+	$plugin = new PluginTestPlugin();
+	$plugin->setPluginType('theme');
+	$version = GalleryCoreApi::getApiVersion();
+	$plugin->setRequiredCoreApi(array($version[0], $version[1]+1));
+	$plugin->setRequiredThemeApi(GalleryTheme::getApiVersion());
+	$this->assert(!GalleryCoreApi::isPluginCompatibleWithApis($plugin),
+		      'should not be compatible');
+    }
+
+    function testCoreApiOldMinorButOkMajor() {
+	$plugin = new PluginTestPlugin();
+	$plugin->setPluginType('theme');
+	$version = GalleryCoreApi::getApiVersion();
+	$plugin->setRequiredCoreApi(array($version[0], 0));
+	$plugin->setRequiredThemeApi(GalleryTheme::getApiVersion());
+	$this->assert(GalleryCoreApi::isPluginCompatibleWithApis($plugin),
+		      'should be compatible');
+    }
+
+    function testCompatibleTheme() {
+	$plugin = new PluginTestPlugin();
+	$plugin->setPluginType('theme');
+	$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
+	$plugin->setRequiredThemeApi(GalleryTheme::getApiVersion());
+	$this->assert(GalleryCoreApi::isPluginCompatibleWithApis($plugin),
+		      'should be compatible');
+    }
+
+    function testThemeTooNew() {
+	$plugin = new PluginTestPlugin();
+	$plugin->setPluginType('theme');
+	$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
+	$version = GalleryTheme::getApiVersion();
+	$plugin->setRequiredThemeApi(array($version[0], $version[1]+1));
+	$this->assert(!GalleryCoreApi::isPluginCompatibleWithApis($plugin),
+		      'should not be compatible');
+    }
+
+    function testCompatibleModule() {
+	$plugin = new PluginTestPlugin();
+	$plugin->setPluginType('module');
+	$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
+	$plugin->setRequiredModuleApi(GalleryModule::getApiVersion());
+	$this->assert(GalleryCoreApi::isPluginCompatibleWithApis($plugin),
+		      'should be compatible');
+    }
+
+    function testModuleTooNew() {
+	$plugin = new PluginTestPlugin();
+	$plugin->setPluginType('module');
+	$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
+	$version = GalleryModule::getApiVersion();
+	$plugin->setRequiredModuleApi(array($version[0], $version[1]+1));
+	$this->assert(!GalleryCoreApi::isPluginCompatibleWithApis($plugin),
+		      'should not be compatible');
+    }
+
+    function testLoadBadPluginType() {
+	list ($ret, $plugin) = GalleryCoreApi::loadPlugin('wrong_value', 'Anything');
+	if (!$ret) {
+	    return $this->assert(false, 'Should have been an error');
+	}
+
+	$this->assert($ret->getErrorCode() & ERROR_BAD_PARAMETER);
+    }
+
+    function testLoadPlugin() {
+	list ($ret, $plugin) = GalleryCoreApi::loadPlugin('module', 'PluginTestCompatible');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+    }
+    function testFetchPluginStatusForWrongPluginType() {
+	list ($ret, $status) = GalleryCoreApi::fetchPluginStatus('foo');
+	$this->assert(ERROR_BAD_PARAMETER & $ret->getErrorCode(), 'Wrong status code');
+    }
+
+    function testGetAllPluginIds() {
+	global $gallery;
+
+	foreach (array('theme', 'module') as $type) {
+	    $expectedIds = array();
+
+	    /* Mock platform */
+	    $platform = new UnitTestPlatform();
+	    foreach (GalleryCoreApi::getPluginBaseDirs() as $pluginBaseDir) {
+		$path = $pluginBaseDir . $type . 's/';
+		$platform->setReply('opendir', array($path), 'fh');
+		$platform->setReply('readdir', array('fh'), '.');
+		$platform->setReply('readdir', array('fh'), '..');
+		$platform->setReply('readdir', array('fh'), 'CVS');
+		$platform->setReply('readdir', array('fh'), 'moo');
+		$platform->setReply('is_file', array($path . 'moo/' . $type . '.inc'), true);
+		$platform->setReply('readdir', array('fh'), 'foo');
+		$platform->setReply('is_file', array($path . 'foo/' . $type . '.inc'), false);
+		$platform->setReply('readdir', array('fh'), 'bar');
+		$platform->setReply('is_file', array($path . 'bar/' . $type . '.inc'), true);
+		$platform->setReply('readdir', array('fh'), false);
+		$platform->setReply('closedir', array('fh'), true);
+
+		$expectedIds += array_merge($expectedIds, array('moo', 'bar'));
+	    }
+	    $gallery->setPlatform($platform);
+
+	    list ($ret, $pluginIds) = GalleryCoreApi::getAllPluginIds($type);
+	    if ($ret) {
+		return $this->failWithStatus($ret);
+	    }
+	    $this->assertEquals($expectedIds, $pluginIds, "$type ids do not match");
+	}
+    }
+}
+
+class PluginTestCompatibleModule extends GalleryModule {
+}
+
+class PluginTestPlugin extends GalleryPlugin {
+    function setPluginType($type) {
+	$this->_type = $type;
+    }
+
+    function getPluginType() {
+	return $this->_type;
+    }
+
+    function setRequiredModuleApi($requirement) {
+	$this->_requiredModuleApi = $requirement;
+    }
+
+    function getRequiredModuleApi() {
+	return $this->_requiredModuleApi;
+    }
+
+    function setRequiredThemeApi($requirement) {
+	$this->_requiredThemeApi = $requirement;
+    }
+
+    function getRequiredThemeApi() {
+	return $this->_requiredThemeApi;
+    }
+}
+?>

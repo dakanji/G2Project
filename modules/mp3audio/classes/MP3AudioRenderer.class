@@ -1,0 +1,114 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryRenderer.class');
+
+/**
+ * A renderer for MP3 Audio.
+ * @package MP3Audio
+ * @subpackage Classes
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 15878 $
+ */
+class MP3AudioRenderer extends GalleryRenderer {
+    /**
+     * @see GalleryRenderer::canBeViewedInline
+     */
+    function canBeViewedInline($item) {
+	return GalleryUtilities::isA($item, 'GalleryDataItem')
+	    && $item->getMimeType() == 'audio/mpeg';
+    }
+
+    /**
+     * @see GalleryRenderer::render
+     */
+    function render($format, $entity, $item, $params) {
+	global $gallery;
+	$fallback = trim(preg_replace("/[\r\n]/", '', $params['fallback']));
+
+	if ($format != 'HTML' || $entity->getMimeType() != 'audio/mpeg') {
+	    return null;
+	}
+
+	$urlGenerator =& $gallery->getUrlGenerator();
+	$src = $urlGenerator->generateUrl(
+		array('view' => 'core.DownloadItem', 'itemId' => $entity->getId(),
+		      'serialNumber' => $entity->getSerialNumber()),
+		array('forceFullUrl' => true, 'forceSessionId' => true, 'htmlEntities' => false));
+	/* Set allowDL=false to omit download button in lower right of player */
+	$flashVars = 'mp3Url=' . urlencode($src) . '&allowDl=true';
+
+	GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.markup.php');
+	$title = smarty_modifier_markup($item->getTitle(), 'strip');
+	$flashVars .= '&title=' . urlencode($title);
+
+	$itemId = $item->getId();
+	list ($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
+	if (!$ret && !empty($thumbnail)) {
+	    $thumbUrl = $urlGenerator->generateUrl(
+		array('view' => 'core.DownloadItem', 'itemId' => $thumbnail[$itemId]->getId(),
+		      'serialNumber' => $thumbnail[$itemId]->getSerialNumber()),
+		array('forceFullUrl' => true, 'forceSessionId' => true, 'htmlEntities' => false));
+	    $flashVars .= '&thumbUrl=' . urlencode($thumbUrl);
+	}
+
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'mp3audio');
+	if ($ret) {
+	    return null;
+	}
+	foreach (array('langArtist' => $module->translate('Artist'),
+		       'langAlbum' => $module->translate('Album'),
+		       'langSong' => $module->translate('Song'),
+		       'langTrack' => $module->translate('Track'),
+		       'langGenre' => $module->translate('Genre'),
+		       'langYear' => $module->translate('Year'),
+		       'langDownload' => $module->translate('Download'),
+		       'langInfo' => $module->translate('Info'),
+		    ) as $key => $value) {
+	    $flashVars .= '&' . $key . '=' . urlencode($value);
+	}
+
+	$playerUrl = $urlGenerator->generateUrl(
+		array('href' => 'modules/mp3audio/lib/G2mp3.swf'),
+		array('forceFullUrl' => true));
+
+	return sprintf('<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+    codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0"
+			 width="525" height="292" id="%s"%s>
+		    <param name="movie" value="%s"/>
+		    <param name="FlashVars" value="%s"/>
+		    <param name="quality" value="high"/>
+		    <param name="wmode" value="transparent"/>
+		    <param name="scale" value="noscale"/>
+		    <param name="salign" value="lt"/>
+		    <param name="allowScriptAccess" value="always"/>
+		    <embed src="%s" flashvars="%s" type="application/x-shockwave-flash"
+			   width="525" height="292" quality="high" wmode="transparent"
+			   scale="noscale" allowScriptAccess="always" salign="lt"
+			   pluginspage="http://www.macromedia.com/go/getflashplayer"/>
+		    <noembed>%s</noembed>
+		</object>',
+
+		!empty($params['id']) ? $params['id'] : 'audio',
+		!empty($params['class']) ? ' class="' . $params['class'] . '"' : '',
+		$playerUrl, $flashVars, $playerUrl, $flashVars, $fallback);
+    }
+}
+?>

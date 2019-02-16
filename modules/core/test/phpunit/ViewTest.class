@@ -1,0 +1,206 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryPluginHelper_medium.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
+
+/**
+ * Test GalleryView functionality
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Ernesto Baschny <ernst@baschny.de>
+ * @version $Revision: 17265 $
+ */
+class ViewTest extends GalleryTestCase {
+    function ViewTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	parent::setUp();
+	GalleryPluginHelper_medium::setPluginInstance('module', 'viewtest', new ViewTestModule());
+    }
+
+    function testLoadViewSuccess() {
+	list ($ret, $view) = GalleryView::loadView('core.ShowItem');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+    }
+
+    function testLoadViewFail() {
+	list ($ret, $view) = GalleryView::loadView('viewtest.SomeRandomView');
+	if ($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
+	    /* this is what we expect */
+	} else {
+	    $this->assert(false, 'The view of a deactivated module should not load.');
+	}
+    }
+
+    function testGetConfigurationView() {
+	/*
+	 * We can load the config view even though the module is deactivated
+	 * because we're an admin.
+	 */
+	list ($ret, $view) = GalleryView::loadView('viewtest.ViewTestConfig');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+    }
+
+    function testGetItem() {
+	global $gallery;
+
+	list ($ret, $view) = GalleryView::loadView('core.ShowItemError');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->_markForCleanup($album);
+
+	GalleryUtilities::putRequestVariable('itemId', $album->getId());
+
+	list ($ret, $item, $wasSpecified) = $view->getItem();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assert($wasSpecified, 'itemId specified');
+	$this->assertEquals($album->getId(), $item->getId(), 'itemId');
+
+	GalleryUtilities::removeRequestVariable('itemId');
+
+	list ($ret, $item, $wasSpecified) = $view->getItem();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assert(!$wasSpecified, 'not specified');
+	$this->assertEquals($this->_getRootId(), $item->getId(), 'root album by default');
+
+	/* ShowItem view returns wasSpecified==true even when root album selected by default */
+	list ($ret, $view) = GalleryView::loadView('core.ShowItem');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $item, $wasSpecified) = $view->getItem();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assert($wasSpecified, 'ShowItem specified');
+	$this->assertEquals($this->_getRootId(), $item->getId(), 'ShowItem root album by default');
+
+	/* Override default album */
+	$gallery->setConfig('defaultAlbumId', $album->getId());
+	GalleryUtilities::removeRequestVariable('itemId');
+
+	list ($ret, $item) = $view->getItem();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals($album->getId(), $item->getId(), 'Alternate default album');
+    }
+    
+    function testGetItemOnlyReturnsItems() {
+	global $gallery;
+
+	list ($ret, $view) = GalleryView::loadView('core.ShowItemError');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	GalleryUtilities::putRequestVariable('itemId', $gallery->getActiveUserId());
+
+	list ($ret, $item, $wasSpecified) = $view->getItem();
+	$this->assert($ret, 'getItem() should return an error if the itemId is the id of a user.');
+	$this->assert($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'ERROR_MISSING_OBJECT');
+    }
+
+    function testGetItemRequiresViewPermission() {
+	global $gallery;
+
+	list ($ret, $view) = GalleryView::loadView('core.ShowItemError');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->_markForCleanup($album);
+
+	GalleryUtilities::putRequestVariable('itemId', $album->getId());
+
+	$ret = GalleryCoreApi::removeItemPermissions($album->getId());
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $item, $wasSpecified) = $view->getItem();
+	if ($ret) {
+	    if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+	    	$this->fail('Wrong error code, expected ERROR_MISSING_OBJECT');
+		return $this->failWithStatus($ret);
+	    }
+	} else {
+	    $this->fail('Expected ERROR_MISSING_OBJECT, no error returned');
+	}
+
+	/* No permission check */
+	list ($ret, $item, $wasSpecified) = $view->getItem(false);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assert($wasSpecified, 'no permissions check, itemId specified');
+	$this->assertEquals($album->getId(), $item->getId(), 'no permission check, itemId');
+
+	/* Prepare test with permission */
+	$ret = GalleryCoreApi::addUserPermission(
+	    $album->getId(), $gallery->getActiveUserId(), 'core.view');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $item, $wasSpecified) = $view->getItem();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assert($wasSpecified, 'with permissions, itemId specified');
+	$this->assertEquals($album->getId(), $item->getId(), 'with permission, itemId');
+    }
+}
+
+class ViewTestModule {
+    function isActive() {
+	return array(null, false);
+    }
+
+    function getConfigurationView() {
+	return 'viewtest.ViewTestConfig';
+    }
+}
+
+class ViewTestConfigView extends GalleryView { }
+
+?>

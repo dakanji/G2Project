@@ -1,0 +1,198 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * ItemEdit controller tests
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 15513 $
+ */
+class ItemEditControllerTest extends GalleryControllerTestCase {
+
+    function ItemEditControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'core.ItemEdit');
+    }
+
+    function setUp() {
+	parent::setUp();
+
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->_markForCleanup($this->_album);
+
+	list ($ret, $this->_item) =
+	    $this->_createRandomDataItem($this->_album->getId(), 'test/file');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$path = 'modules/core/test/phpunit/ItemEditControllerTest.class';
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'ItemEditPlugin', 'ItemEditControllerTestPluginSuccess',
+	    'ItemEditControllerTestPluginSuccess', $path, 'coreTest', null);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'ItemEditPlugin', 'ItemEditControllerTestPluginFailAndWarn',
+	    'ItemEditControllerTestPluginFailAndWarn', $path, 'coreTest', null);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'ItemEditOption', 'ItemEditControllerTestOption', 'ItemEditControllerTestOption',
+	    $path, 'coreTest', array('ItemEditControllerTestPluginFailAndWarn'));
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	$this->_markFactoryModuleForCleanup('coreTest');
+    }
+
+    function testHandleRequestWithPreferred() {
+	list ($ret, $this->_preferred) =
+	    $this->_createDerivative($this->_item, $this->_item->getId(),
+				     DERIVATIVE_TYPE_IMAGE_PREFERRED, 'rotate|90');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
+	GalleryUtilities::putRequestVariable('form[serialNumber]', $this->_item->getSerialNumber());
+	GalleryUtilities::putRequestVariable('editPlugin', 'ItemEditControllerTestPluginSuccess');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(
+	    array('redirect' => array('view' => 'core.ItemAdmin',
+				      'subView' => 'core.ItemEdit',
+				      'editPlugin' => 'ItemEditControllerTestPluginSuccess',
+				      'itemId' => $this->_item->getId()),
+		  'status' => array('editMessage' => 'success',
+				    'warning' => array()),
+		  'error' => array()),
+	    $results);
+    }
+
+    function testHandleRequestWithoutPreferred() {
+	GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
+	GalleryUtilities::putRequestVariable('form[serialNumber]', $this->_item->getSerialNumber());
+	GalleryUtilities::putRequestVariable('editPlugin', 'ItemEditControllerTestPluginSuccess');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(
+	    array('redirect' => array('view' => 'core.ItemAdmin',
+				      'subView' => 'core.ItemEdit',
+				      'editPlugin' => 'ItemEditControllerTestPluginSuccess',
+				      'itemId' => $this->_item->getId()),
+		  'status' => array('editMessage' => 'success',
+				    'warning' => array()),
+		  'error' => array()),
+	    $results);
+    }
+
+    function testHandleRequestDelegate() {
+	GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
+	GalleryUtilities::putRequestVariable('form[serialNumber]', $this->_item->getSerialNumber());
+	GalleryUtilities::putRequestVariable(
+	    'editPlugin', 'ItemEditControllerTestPluginFailAndWarn');
+	GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(
+	    array('delegate' => array('view' => 'core.ItemAdmin',
+				      'subView' => 'core.ItemEdit',
+				      'editPlugin' => 'ItemEditControllerTestPluginFailAndWarn'),
+		  'status' => array('editMessage' => null,
+				    'warning' => array('a warning')),   /* from its option */
+		  'error' => array('failed',   /* from the plugin */
+				   'an error') /* from its option */
+		  ),
+	    $results);
+    }
+}
+
+/**
+ * Test plugin that returns success
+ *
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ */
+class ItemEditControllerTestPluginSuccess {
+    function handleRequest($form, &$item, &$preferred) {
+	/* TODO: We should verify the item is legit here */
+
+	/* Check to see if we have a preferred source */
+	list ($ret, $preferredTable) =
+	    GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
+	if ($ret) {
+	    return array($ret, null, null, null);
+	}
+
+	if ($preferred != null &&
+	    (empty($preferredTable) ||
+	     !is_object($preferredTable[$item->getId()]) ||
+	     $preferredTable[$item->getId()]->getId() != $preferred->getId())) {
+	    return array(GalleryCoreApi::error(ERROR_UNKNOWN),
+			 array('PREFERRED MISMATCH'), null, null);
+	}
+
+	return array(null, array(), 'success', false);
+    }
+}
+
+/**
+ * Test plugin that fails
+ *
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ */
+class ItemEditControllerTestPluginFailAndWarn extends ItemEditPlugin {
+    function handleRequest($form, &$item, &$preferred) {
+	return array(null, array('failed'), null, false);
+    }
+}
+
+/**
+ * Test ItemEditOption that returns warnings and errors
+ *
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ */
+class ItemEditControllerTestOption extends ItemEditOption {
+    function isAppropriate($item, $thumbnail) {
+	return array(null, true);
+    }
+
+    function handleRequestAfterEdit($form, &$item, &$preferred) {
+	return array(null,
+		     array('an error'),
+		     array('a warning'));
+    }
+}
+
+?>

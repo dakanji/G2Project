@@ -1,0 +1,392 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Utility functions useful in managing GalleryComments
+ *
+ * @package Comment
+ * @subpackage Classes
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17265 $
+ * @static
+ */
+class GalleryCommentHelper /* implements GalleryEventListener */ {
+
+    /**
+     * Return the comments associated with the given item
+     *
+     * @param int $itemId GalleryItem id
+     * @param int $count (optional) max number to retrieve
+     * @param string $orderDirection (optional) ORDER_DESCENDING to list newest first
+     * @return array (object GalleryStatus a status code,
+     *                array (entityId => GalleryComment, ...)
+     */
+    function fetchComments($itemId, $count=null, $orderDirection=ORDER_ASCENDING) {
+	global $gallery;
+
+	switch($orderDirection) {
+	case ORDER_ASCENDING:
+	    $direction = 'ASC';
+	    break;
+
+	case ORDER_DESCENDING:
+	    $direction = 'DESC';
+	    break;
+
+	default:
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	}
+
+	$query = '
+	SELECT
+	  [GalleryComment::id]
+	FROM
+	  [GalleryComment], [GalleryChildEntity]
+	WHERE
+	  [GalleryChildEntity::parentId] = ?
+	  AND
+	  [GalleryChildEntity::id] = [GalleryComment::id]
+	ORDER BY
+	  [GalleryComment::date] ' . $direction . '
+	';
+	list ($ret, $searchResults) =
+		$gallery->search($query, array((int)$itemId),
+					       array('limit' => array('count' => (int)$count)));
+
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	/* Get all of our ids */
+	$allIds = array();
+	while ($result = $searchResults->nextResult()) {
+	    $allIds[] = (int)$result[0];
+	}
+
+	/* Load all the comments at once */
+	$comments = array();
+	if (!empty($allIds)) {
+	    list ($ret, $comments) = GalleryCoreApi::loadEntitiesById($allIds);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+
+	return array(null, $comments);
+    }
+
+    /**
+     * Return all comments in subtree under given item, with comment.view permission
+     *
+     * @param array $itemId int GalleryItem id
+     * @param int $count (optional) max number to retrieve
+     * @param int $offset (optional) start of the range
+     * @param string $orderDirection (optional) ORDER_DESCENDING to list newest first
+     * @return array (object GalleryStatus a status code,
+     *                array (entityId => GalleryComment, ...)
+     *                int total number of comments available
+     */
+    function fetchAllComments($itemId, $count=null, $offset=null, $orderDirection=ORDER_ASCENDING) {
+	global $gallery;
+
+	switch($orderDirection) {
+	case ORDER_ASCENDING:
+	    $direction = 'ASC';
+	    break;
+
+	case ORDER_DESCENDING:
+	    $direction = 'DESC';
+	    break;
+
+	default:
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER),
+			 null, null);
+	}
+
+	list ($ret, $sequence) = GalleryCoreApi::fetchParentSequence($itemId);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	$sequence = implode('/', $sequence);
+	if (!empty($sequence)) {
+	    $sequence .= '/';
+	}
+	$sequence .= $itemId . '/%';
+
+	list ($ret, $aclIds) =
+	    GalleryCoreApi::fetchAccessListIds('comment.view', $gallery->getActiveUserId());
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	list ($ret, $viewItemAclIds) =
+	    GalleryCoreApi::fetchAccessListIds('core.view', $gallery->getActiveUserId());
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	$aclIds = array_intersect($viewItemAclIds, $aclIds);
+	$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
+
+	if (empty($aclIds)) {
+	    return array(null, array(), 0);
+	}
+
+	$queryBase = '
+	FROM
+	  [GalleryItemAttributesMap], [GalleryAccessSubscriberMap],
+	  [GalleryChildEntity], [GalleryComment]
+	WHERE
+	  ([GalleryItemAttributesMap::itemId] = ?
+	   OR
+	   [GalleryItemAttributesMap::parentSequence] LIKE ?)
+	 AND
+	   [GalleryAccessSubscriberMap::itemId] = [GalleryItemAttributesMap::itemId]
+	 AND
+	   [GalleryAccessSubscriberMap::accessListId] IN (' . $aclMarkers . ')
+	 AND
+	   [GalleryChildEntity::parentId] = [GalleryItemAttributesMap::itemId]
+	 AND
+	   [GalleryComment::id] = [GalleryChildEntity::id]
+	';
+	$query = '
+	SELECT
+	  [GalleryComment::id] ' . $queryBase . '
+	ORDER BY
+	  [GalleryComment::date] ' . $direction . '
+	';
+	$data = array_merge(array((int)$itemId, $sequence), $aclIds);
+
+	list ($ret, $searchResults) =
+	    $gallery->search($query, $data, array('limit' => array('count' => (int)$count,
+								   'offset' => (int)$offset)));
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+
+	/* Get all of our ids */
+	$allIds = array();
+	while ($result = $searchResults->nextResult()) {
+	    $allIds[] = (int)$result[0];
+	}
+
+	/* Load all the comments at once */
+	$comments = array();
+	if (!empty($allIds)) {
+	    list ($ret, $comments) = GalleryCoreApi::loadEntitiesById($allIds);
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	}
+
+	/* Get total count of comments */
+	if (!$count && !$offset) {
+	    $totalCount = count($allIds);
+	} else {
+	    $query = '
+	    SELECT
+	      COUNT([GalleryComment::id]) ' . $queryBase;
+	    list ($ret, $searchResults) = $gallery->search($query, $data);
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	    if ($result = $searchResults->nextResult()) {
+		$totalCount = (int)$result[0];
+	    } else {
+		$totalCount = count($allIds);
+	    }
+	}
+
+	return array(null, $comments, $totalCount);
+    }
+
+    /**
+     * Return the number of comments associated with the given item ids
+     *
+     * @param array $itemIds int GalleryItem ids
+     * @return array object GalleryStatus a status code
+     *               int a count
+     */
+    function fetchCommentCounts($itemIds) {
+	global $gallery;
+
+	$markers = GalleryUtilities::makeMarkers(sizeof($itemIds));
+	$query = '
+	SELECT
+	  [GalleryChildEntity::parentId],
+	  COUNT([GalleryComment::id])
+	FROM
+	  [GalleryComment], [GalleryChildEntity]
+	WHERE
+	  [GalleryChildEntity::parentId] IN (' . $markers . ')
+	  AND
+	  [GalleryChildEntity::id] = [GalleryComment::id]
+	GROUP BY
+	  [GalleryChildEntity::parentId]
+	';
+
+	list ($ret, $searchResults) = $gallery->search($query, $itemIds);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	$data = array();
+	while ($result = $searchResults->nextResult()) {
+	    $data[$result[0]] = (int)$result[1];
+	}
+
+	return array(null, $data);
+    }
+
+    /**
+     * Get information needed for the AddComment page
+     *
+     * @param object GalleryItem $item to work from
+     * @param array $form form being modified
+     * @return array object GalleryStatus a status code
+     *               array values used for the AddComment page (itemId, host, validation plugins)
+     */
+    function getAddComment(&$item, &$form) {
+	/* Make sure we have permission to add a comment */
+	list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
+	if ($ret) {
+	    return array($ret, null);
+	}
+	if (empty($permissions['core.view'])) {
+	    /* Avoid information disclosure, act as if the item didn't exist. */
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	}
+	if (empty($permissions['comment.add'])) {
+	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
+	}
+
+	if ($form['formName'] != 'AddComment') {
+	    $form['formName'] = 'AddComment';
+	    $form['subject'] = $form['comment'] = $form['author'] = '';
+	} else {
+	    foreach (array('subject', 'comment', 'author') as $key) {
+		if (empty($form[$key])) {
+		    $form[$key] = '';
+		}
+	    }
+	}
+
+	/* Check if we should use validation plugins for new comments */
+	$plugins = array();
+	list ($ret, $useValidationPlugins) = GalleryCommentHelper::useValidationPlugins();
+	if ($ret) {
+	    return array($ret, null);
+	} else if ($useValidationPlugins) {
+	    list ($ret, $allPluginIds) =
+		GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
+	    if ( $ret) {
+		return array($ret, null);
+	    }
+
+	    /* Let each plugin load its template data */
+	    foreach (array_keys($allPluginIds) as $pluginId) {
+		list ($ret, $plugin) =
+		    GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin', $pluginId);
+		if ($ret) {
+		    return array($ret, null);
+		}
+		list ($ret, $data['file'], $data['l10Domain']) = $plugin->loadTemplate($form);
+		if ($ret) {
+		    return array($ret, null);
+		} else if (isset($data['file'])) {
+		    $plugins[] = $data;
+		}
+	    }
+	}
+
+	$AddComment = array('itemId' => $item->getId(),
+		'host' => GalleryUtilities::getRemoteHostAddress(),
+		'plugins' => $plugins);
+
+	return array(null, $AddComment);
+    }
+
+    /**
+     * Determine if we should use validation plugins for new comments.
+     *
+     * @return array object GalleryStatus a status code
+     *               boolean true to use validation plugins
+     */
+    function useValidationPlugins() {
+	list ($ret, $level) =
+	    GalleryCoreApi::getPluginParameter('module', 'comment', 'validation.level');
+	if ($ret) {
+	    return array($ret, null);
+	}
+	if ($level == 'OFF') {
+	    return array(null, false);
+	}
+
+	list ($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	return array(null, $isAnonymous);
+    }
+
+     /**
+     * Event handler for GalleryEntity::delete
+     *
+     * Delete all comments by a user
+     * (Item deletion and their attached comments is already handled in GalleryItem::delete)
+     *
+     * @see GalleryEventListener::handleEvent
+     */
+    function handleEvent($event) {
+	global $gallery;
+
+	switch ($event->getEventName()) {
+	case 'GalleryEntity::delete':
+	    $entity = $event->getEntity();
+	    if (!GalleryUtilities::isA($entity, 'GalleryUser')) {
+		return array(null, null);
+	    }
+
+	    /* Delete all comments owned by this user */
+	    $query = '
+	    SELECT
+	      [GalleryComment::id]
+	    FROM
+	      [GalleryComment]
+	    WHERE
+	      [GalleryComment::commenterId] = ?
+	    ';
+
+	    list ($ret, $searchResults) = $gallery->search($query, array((int)$entity->getId()));
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    while ($result = $searchResults->nextResult()) {
+		$ret = GalleryCoreApi::deleteEntityById((int)$result[0]);
+		if ($ret) {
+		    return array($ret, null);
+		}
+	    }
+	}
+
+	return array(null, null);
+    }
+}
+?>

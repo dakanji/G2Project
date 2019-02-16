@@ -1,0 +1,24 @@
+    <h1><?php print _('Erase data for a clean install') ?></h1>
+
+    <?php if (empty($templateData['errors'])): ?>
+    <p>
+      <?php print _("Are you really sure you want to delete all your data in your Gallery storage directory and all your data in your Gallery database?") ?>
+    </p>
+    <?php else: ?>
+    <div class="error">
+      <h2>
+      <?php print _("There was an error erasing the db and storage directory data. Here's the error:") ?>
+      </h2>
+    </div>
+    <div>
+      <?php print $templateData['errors'] ?>
+    </div>
+    <?php endif; ?>
+    <div class="go">
+	  <div class="btn btn-redo"><div><div><div><div><div><div><div><div>
+      <a href="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $currentStep->getStepNumber())) ?>"><?php print _('Cancel') ?></a>
+	  </div></div></div></div></div></div></div></div></div>
+	  <div class="btn btn-warn"><div><div><div><div><div><div><div><div>
+      <a href="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $currentStep->getStepNumber())) ?>&amp;action=clean"><?php print _('Erase all data') ?></a>
+	  </div></div></div></div></div></div></div></div></div>
+    </div>

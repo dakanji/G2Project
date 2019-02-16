@@ -1,0 +1,205 @@
+# $Id: sv.po 16040 2007-03-16 23:04:36Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Swedish translation
+# Hampus Nygren <hampus@friendlyfire.net>       
+#
+# Changed the translation from html to UTF-8
+# Anders Lindquist <andersl@saaf.se>, 2005
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Publish XP 1.0.7\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2003-10-19 05:10+0200\n"
+"PO-Revision-Date: 2007-01-02 21:50+0100\n"
+"Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
+"Language-Team: Swedish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Swedish\n"
+"X-Poedit-Country: SWEDEN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Windows XP"
+msgstr "Windows XP"
+
+msgid "Publish XP"
+msgstr "Publicera XP"
+
+msgid "Publish photos to Gallery directly from Windows XP"
+msgstr "Publicera bilder till Gallery direkt från Windows XP"
+
+msgid "Import"
+msgstr "Importera"
+
+#, c-format
+msgid "%s at %s"
+msgstr "%s på %s"
+
+#, c-format
+msgid "Publish Your Photos and Movies to %s"
+msgstr "Publicera dina bilder och filmer till %s"
+
+msgid "Upload to Gallery"
+msgstr "Ladda upp till Gallery"
+
+msgid ""
+"Windows XP comes with a nice feature that allows you to publish content from your desktop "
+"directly to a web service.  Follow the instructions below to enable this service on your "
+"Windows XP system."
+msgstr ""
+"Windows XP har en trevlig funktion som tillåter dig att publicera innehåll från ditt "
+"skrivbord direkt till en webtjänst. Följ instruktionerna nedan för att aktivera denna tjänst "
+"i din Windows XP"
+
+msgid "Step 1"
+msgstr "Steg 1"
+
+msgid ""
+"Download the configuration file using right-click 'Save Target As...'  Once downloaded, "
+"rename it to 'install_registry.reg'.  If it asks you for confirmation about changing the "
+"file type, answer 'yes'.  Right click on this file and you should see a menu appear.  Select "
+"the Merge option (this should be at the top of the menu).  It will ask you if you want to "
+"import these values into your registry.  Click 'Ok'.  It will tell you that the files were "
+"imported successfully.  Click 'Ok' again."
+msgstr ""
+"Ladda ner konfigurationsfilen genom att högerklicka och välja  'Spara Som...' När filen "
+"laddats ner, byt namn på filen till 'install_registry.reg'. Om den frågar dig efter "
+"godkännande om ändring av filtypen, svara 'ja'. Högerklicka på denna fil och du bör se en "
+"meny visa sig. Välj alternativet Infoga (det bör vara det översta alternativet i menyn). Du "
+"blir tillfrågad om du vill importera dessa värden till ditt register. Klicka på 'ok'. Den "
+"kommer att meddela dig att filerna importerades framgångsrikt. Klicka på 'ok' igen."
+
+msgid "Download [install_registry.reg]"
+msgstr "Ladda net [install_registry.reg]"
+
+msgid "Step 2"
+msgstr "Steg 2"
+
+msgid ""
+"Open your Windows Explorer and browse to a folder containing supported images. Select the "
+"image(s) or a folder and there should be a link on the left that says 'Publish this file to "
+"the web...'  Click this link and then follow the instructions to log into your Gallery, "
+"select an album and publish the image."
+msgstr ""
+"Öppna din Utforskare och bläddra till katalogen innehållande bilder som stöds. Välj bilden/"
+"bilder eller katalogen och det ska då finnas en länk till vänster som säger 'Publicera denna "
+"fil p&ring webben'. Klicka på länken och fälj instruktionerna fär att logga in på Gallery, "
+"välj ett album och publicera bilden."
+
+msgid "Specify the name and title for the new album."
+msgstr "Specificera namnet och titeln för det nya albumet."
+
+msgid "Create a new album"
+msgstr "Skapa ett nytt album"
+
+msgid "Name"
+msgstr "Namn"
+
+msgid "(required)"
+msgstr "(obligatorisk)"
+
+msgid ""
+"The name of this album on your hard disk.  It must be unique in this album.  Only use "
+"alphanumeric characters, underscores or dashes.  You will be able to rename it later."
+msgstr ""
+"Namnet på detta album på din hårddisk. Det måste vara unikt i detta albumet. Använd endast "
+"alfanumeriska tecken, understrykningsstreck eller bindestreck. Du kan byta namn på det "
+"senare."
+
+msgid "Your name contains invalid characters.  Please enter another."
+msgstr "Ditt namn innehåller ogiltiga tecken. Vänligen fyll ett nytt."
+
+msgid "You must enter a name for this album."
+msgstr "Du måste fylla i ett namn för detta albumet."
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "This is the album title."
+msgstr "Detta är albumets titel."
+
+msgid "Summary"
+msgstr "Sammanfattning"
+
+msgid "This is the album summary."
+msgstr "Detta är albumets sammanfattning."
+
+msgid "Keywords"
+msgstr "Nyckelord"
+
+msgid "Keywords are not visible, but are searchable."
+msgstr "Nyckelord är inte synliga, men sökbara."
+
+msgid "Description"
+msgstr "Beskrivning"
+
+msgid "This is the long description of the album."
+msgstr "Detta är albumets låa beskrivningen."
+
+msgid "Set options for the photos to be added."
+msgstr "Ange alternativ för bilder som skall läggas till"
+
+msgid "Standard Options"
+msgstr "Standard Optioner"
+
+msgid ""
+"Now that you have chosen the destination album, the following options can be used when "
+"adding the photos to Gallery."
+msgstr ""
+"Nu när du valt destinationsalbum, följande alternativ kan användas vid tillägg av foton till "
+"Gallery."
+
+msgid "Strip file extensions?"
+msgstr "Ta bort filändelser?"
+
+msgid "Set captions on the published items?"
+msgstr "Sätt rubriker på publicerade objekt?"
+
+msgid "Login to your account"
+msgstr "Logga in på ditt konto"
+
+msgid "Username"
+msgstr "Användarnamn"
+
+msgid "You must enter a username"
+msgstr "Du måste fylla i ett användarnamn"
+
+msgid "Logins temporarily disabled due to multiple failed login attempts."
+msgstr "Inloggningar är temporärt inte tillåtna pga. multipla felaktiga inloggnings försök."
+
+msgid "Password"
+msgstr "Lösenord"
+
+msgid "You must enter a password"
+msgstr "Du måste fylla i ett lösenord"
+
+msgid "Your login information is incorrect.  Please try again."
+msgstr "Din inloggininformation var inte korrekt. Vänligen försök igen."
+
+msgid "Choose an album for new photos, or create a new album."
+msgstr "Välj ett album för nya foton, eller skapa ett nytt album"
+
+msgid "New Album"
+msgstr "Nytt Album"
+
+msgid "You must select an album"
+msgstr "Du måste väja ett album"

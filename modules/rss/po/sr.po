@@ -1,0 +1,502 @@
+# $Id: sr.po 16040 2007-03-16 23:04:36Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: RSS 1.1.0\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:53-0800\n"
+"PO-Revision-Date: 2005-09-06 17:10+0200\n"
+"Last-Translator: Jozef Selesi <selesi@gmail.com>\n"
+"Language-Team: Srpski <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.10\n"
+
+msgid "This feed no longer exists!"
+msgstr ""
+
+msgid "Feeds of that type are not allowed!"
+msgstr ""
+
+msgid "Not permitted to view this item"
+msgstr ""
+
+msgid "Incorrect feed type!"
+msgstr ""
+
+msgid "Comments module is not active or comment feeds are not allowed!"
+msgstr ""
+
+msgid "Not permitted to view comments for this item"
+msgstr ""
+
+msgid "RSS"
+msgstr ""
+
+msgid "Export"
+msgstr ""
+
+msgid "RSS Feed for this Album"
+msgstr ""
+
+msgid "RSS Feed for this Photo"
+msgstr ""
+
+msgid "RSS Feed for this Movie"
+msgstr ""
+
+msgid "Configure RSS Feeds"
+msgstr ""
+
+msgid "Simple RSS Feed"
+msgstr ""
+
+msgid "Short URL for Simple RSS Feeds"
+msgstr ""
+
+msgid "RSS Feed"
+msgstr ""
+
+msgid "The name of the configured RSS Feed"
+msgstr ""
+
+msgid "Short URL for Configurable RSS Feeds"
+msgstr ""
+
+#, c-format
+msgid "RSS Feed for this %s"
+msgstr ""
+
+msgid "Items in an album"
+msgstr ""
+
+msgid "Sub-albums of an album"
+msgstr ""
+
+msgid "Items in an album and its sub-albums"
+msgstr ""
+
+msgid "Comments for an album"
+msgstr ""
+
+msgid "Comments for an item"
+msgstr ""
+
+msgid "Comments for an album and its subalbums"
+msgstr ""
+
+#, c-format
+msgid "In album <a href=\"%s\">%s</a>"
+msgstr ""
+
+msgid "RSS Feeds"
+msgstr ""
+
+msgid "Settings have been saved"
+msgstr ""
+
+msgid "Feed successfully deleted"
+msgstr ""
+
+msgid "An error occured"
+msgstr ""
+
+msgid "List"
+msgstr ""
+
+msgid "Edit Feed"
+msgstr ""
+
+msgid "New Feed"
+msgstr ""
+
+msgid "Feed URL"
+msgstr ""
+
+msgid "Feed name"
+msgstr ""
+
+msgid "You can't change the name of the feed"
+msgstr ""
+
+msgid ""
+"Pick name for your feed (this name will be referenced in the URL to your feed so try to use "
+"only letters)"
+msgstr ""
+
+msgid "You must enter a name"
+msgstr ""
+
+msgid "This name is already used, please select another one"
+msgstr ""
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "Feed settings"
+msgstr ""
+
+msgid "Choose what type of data that will be present in the feed"
+msgstr ""
+
+msgid "Type of feed"
+msgstr ""
+
+msgid "Items in this album"
+msgstr ""
+
+msgid ""
+"Feeds of this type are disallowed by the administrator. Users won't be able to view them."
+msgstr ""
+
+msgid "Sub-albums of this album"
+msgstr ""
+
+msgid "Items in this album and its subalbums"
+msgstr ""
+
+msgid "Limit the number of items per album"
+msgstr ""
+
+msgid "Invalid limit (must be a positive number, 0 to disable the limit)"
+msgstr ""
+
+msgid "(enter 0 to disable the limit)"
+msgstr ""
+
+msgid "Comments for this album"
+msgstr ""
+
+msgid "Comments for this album and its subalbums"
+msgstr ""
+
+msgid "Comments for this item"
+msgstr ""
+
+msgid "Which items"
+msgstr ""
+
+msgid "New items only"
+msgstr ""
+
+msgid "New and updated items"
+msgstr ""
+
+msgid "Choose the options for the feed"
+msgstr ""
+
+msgid "RSS version"
+msgstr ""
+
+msgid "Invalid version"
+msgstr ""
+
+msgid "Number of items"
+msgstr ""
+
+msgid "Invalid number"
+msgstr ""
+
+msgid "language tag"
+msgstr ""
+
+msgid "Invalid language value"
+msgstr ""
+
+msgid "by default: en-us."
+msgstr ""
+
+msgid "List of all possible values"
+msgstr ""
+
+msgid "category tag"
+msgstr ""
+
+msgid "ttl tag"
+msgstr ""
+
+msgid "Invalid time to live, this must be a number of minutes (0 to disable ttl)"
+msgstr ""
+
+msgid ""
+"Time to live: this must be a number of minutes (0 to disable ttl) aggregators should wait "
+"between checks of whether the feed has been updated"
+msgstr ""
+
+msgid "Copyright"
+msgstr ""
+
+msgid "Invalid copyright"
+msgstr ""
+
+msgid "Use image tag"
+msgstr ""
+
+msgid "Include image tag"
+msgstr ""
+
+msgid "This adds a main image to the feed, corresponding to the thumbnail for this item"
+msgstr ""
+
+msgid "Invalid value"
+msgstr ""
+
+msgid "Use enclosures"
+msgstr ""
+
+msgid "Include enclosure tags"
+msgstr ""
+
+msgid ""
+"This adds an enclosure to each image in the feed, that contains the full resolution image"
+msgstr ""
+
+msgid "Cloud tag (RSS 2.0)"
+msgstr ""
+
+msgid "If you want to use the cloud tag, you can set up its properties here"
+msgstr ""
+
+msgid "Example: "
+msgstr ""
+
+msgid "domain"
+msgstr ""
+
+msgid "port"
+msgstr ""
+
+msgid "path"
+msgstr ""
+
+msgid "registerProcedure"
+msgstr ""
+
+msgid "protocol"
+msgstr ""
+
+msgid "Cloud tag"
+msgstr ""
+
+msgid "Include the cloud tag"
+msgstr ""
+
+msgid "Invalid string"
+msgstr ""
+
+msgid "Invalid port number"
+msgstr ""
+
+msgid "Update Feed"
+msgstr ""
+
+msgid "Create Feed"
+msgstr ""
+
+msgid "Cancel"
+msgstr "Otkaži"
+
+msgid "RSS feeds for this item"
+msgstr ""
+
+msgid "No feeds have yet been defined"
+msgstr ""
+
+msgid "Feed link"
+msgstr ""
+
+msgid "Feed type"
+msgstr ""
+
+msgid "Actions"
+msgstr "Akcije"
+
+msgid "delete"
+msgstr "izbriši"
+
+msgid "edit"
+msgstr "izmeni"
+
+msgid "This is a list of all the feeds that are available on this Gallery"
+msgstr ""
+
+msgid "RSS Settings"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Simple Feed Settings"
+msgstr ""
+
+msgid "General settings"
+msgstr ""
+
+msgid "These are the default and maximum values that are used by all feeds on your Gallery"
+msgstr ""
+
+msgid "Default number of items in feeds"
+msgstr ""
+
+msgid "Invalid default number"
+msgstr ""
+
+msgid "Maximum number of items in feeds"
+msgstr ""
+
+msgid "Invalid maximum number"
+msgstr ""
+
+msgid "Default ttl"
+msgstr ""
+
+msgid "Default copyright"
+msgstr ""
+
+msgid "Feed Types"
+msgstr ""
+
+msgid "Configure which types of feeds are allowed"
+msgstr ""
+
+msgid "Allow Simple RSS Feed to be used"
+msgstr ""
+
+msgid ""
+"If you enable this, users will be able to subscribe to a feed for any album or photo they "
+"can view."
+msgstr ""
+
+msgid ""
+"To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
+msgstr ""
+
+msgid "Allow configurable RSS feeds to be used"
+msgstr ""
+
+msgid ""
+"Only album owners will be able to define such feeds. They can set parameters for the type of "
+"feed they want."
+msgstr ""
+
+msgid ""
+"Once a feed is defined, users will be able to subscribe to those feeds if they can view the "
+"associated item."
+msgstr ""
+
+msgid "Allow RSS feeds of photos inside an album"
+msgstr ""
+
+msgid "Fast"
+msgstr ""
+
+msgid "Allow RSS feeds of subalbums of an album"
+msgstr ""
+
+msgid "Slow"
+msgstr ""
+
+msgid "Allow RSS feeds of photos inside an album and its subalbums"
+msgstr ""
+
+msgid "Slower"
+msgstr ""
+
+msgid "Allow RSS feeds comments of a photo"
+msgstr ""
+
+msgid "Allow RSS feeds comments of an album"
+msgstr ""
+
+msgid "Allow RSS feeds comments for an album and its subalbums"
+msgstr ""
+
+msgid "Save Settings"
+msgstr ""
+
+msgid "Reset"
+msgstr "Poništi"
+
+msgid "Helping users discover RSS feeds"
+msgstr ""
+
+msgid ""
+"If you want to help users discover feeds in your Gallery, you can add the RSS block to the "
+"themes used in your Gallery."
+msgstr ""
+
+msgid ""
+"This will have two effects: the block itself, which users can see and pick feeds from (and "
+"get a list of all feeds); and hidden page headers that modern web browsers will use to make "
+"it easier for the user to subscribe to the feeds."
+msgstr ""
+
+msgid "Global list of RSS feeds"
+msgstr ""
+
+msgid "On item"
+msgstr ""
+
+msgid "Simple Feed settings"
+msgstr ""
+
+msgid "For albums"
+msgstr ""
+
+msgid "Items in the album"
+msgstr ""
+
+msgid "Sub-albums of the album"
+msgstr ""
+
+msgid "Items in the album and its subalbums"
+msgstr ""
+
+msgid "Comments for the album"
+msgstr ""
+
+msgid "For items"
+msgstr ""
+
+msgid "Comments for items (always selected)"
+msgstr ""
+
+msgid "List all RSS Feeds"
+msgstr ""
+
+msgid "List of RSS Feeds"
+msgstr ""
+
+msgid "Number of feeds to display"
+msgstr ""
+
+msgid "1"
+msgstr ""
+
+msgid "5"
+msgstr ""
+
+msgid "10"
+msgstr ""
+
+msgid "all"
+msgstr ""

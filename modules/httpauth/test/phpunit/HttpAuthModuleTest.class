@@ -1,0 +1,330 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * HTTP auth module tests.
+ * @package HttpAuth
+ * @subpackage PHPUnit
+ * @author Jack Bates <ms419@freezone.co.uk>
+ * @version $Revision: 15853 $
+ */
+class HttpAuthModuleTest extends GalleryTestCase {
+
+    function HttpAuthModuleTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	parent::setUp();
+	global $gallery;
+	$urlGenerator =& $gallery->getUrlGenerator();
+
+	/* Load HTTP auth module */
+	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'httpauth');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	/* Mock disable HTTP auth URL rewrite rules */
+	$this->_activeRules =& HttpAuthModuleTestRewriteApi::_fetchActiveRulesForModule('httpauth');
+	$this->_activeRules = array();
+	$this->_activateCalls =& HttpAuthModuleTestRewriteApi::_getActivateCalls();
+	$this->_markFactoryForCleanup();
+	$this->_registerFactoryImplementationForTest(
+	    'RewriteApi', 'HttpAuthModuleTestRewriteApi', 'HttpAuthModuleTestRewriteApi',
+	    'modules/httpauth/test/phpunit/HttpAuthModuleTest.class', 'test');
+
+	/* Define HTTP auth works request */
+	$this->_httpAuthWorksRequest = implode("\r\n", array(
+	    'GET ' . $urlGenerator->generateUrl(
+		array('view' => 'httpauth.HttpAuthWorks'),
+		array('forceServerRelativeUrl' => true,
+		      'htmlEntities' => false)) . ' HTTP/1.0',
+	    'Host: ' . $urlGenerator->getHostName(),
+	    'Authorization: Basic ' . base64_encode('USERNAME:PASSWORD'),
+	    '',
+	    ''));
+
+	/* Define success and failure responses */
+	$this->_accessAuthorizationResponse = implode("\r\n", array(
+	    'HTTP/1.1 200 OK',
+	    'Date: Mon, 24 Nov 2003 05:40:03 GMT',
+	    'Server: Apache/1.3.28 (Unix)',
+	    'Content-Length: 26',
+	    'Connection: close',
+	    'Content-Type: text/html',
+	    '',
+	    '')) .  "Basic\nUSERNAME\nPASSWORD";
+	$this->_missingAuthorizationResponse = implode("\r\n", array(
+	    'HTTP/1.1 200 OK',
+	    'Date: Mon, 24 Nov 2003 05:40:03 GMT',
+	    'Server: Apache/1.3.28 (Unix)',
+	    'Content-Length: 26',
+	    'Connection: close',
+	    'Content-Type: text/html',
+	    '',
+	    '')) . "\n\n\n\n";
+
+	/* Use HttpAuthModuleTestPlatform */
+	$this->_platform =& new HttpAuthModuleTestPlatform();
+	$this->_platform->_messages[$this->_httpAuthWorksRequest] =
+	    $this->_accessAuthorizationResponse;
+	$gallery->setPlatform($this->_platform);
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'httpauth');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	foreach (array('httpAuthPlugin' => true, 'useGlobally' => true) as $key => $value) {
+	    $ret = GalleryCoreApi::setPluginParameter('module', 'httpauth', $key, $value);
+	    if ($ret) {
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
+	    }
+	}
+
+	/* Use HttpAuthModuleTestPhpVm */
+	$this->_phpVm = new HttpAuthModuleTestPhpVm();
+	$gallery->_phpVm =& $this->_phpVm;
+
+	/* Clear response headers */
+	$this->_headers =& GalleryUtilities::_getResponseHeaders();
+	$this->_headers = array();
+
+	/* Reset auth related server and request variables */
+	unset($_SERVER['PHP_AUTH_USER']);
+	unset($_SERVER['PHP_AUTH_PW']);
+	unset($_SERVER['REMOTE_USER']);
+	GalleryUtilities::removeRequestVariable('authorization');
+
+	$this->_registerTestEventListener('Gallery::ActivatePlugin', $this->_module);
+	$this->_registerTestEventListener('Gallery::Error', $this->_module);
+	$this->_registerTestEventListener('Gallery::Logout', $this->_module);
+    }
+
+    function tearDown() {
+	GalleryDataCache::reset();
+	parent::tearDown();
+    }
+
+    function testGetRewriteRules() {
+	$rules = $this->_module->getRewriteRules();
+	$this->assertEquals(array(), array_keys($rules));
+    }
+
+    function testGetRewriteRulesAuthorizationRuleActive() {
+	$this->_activeRules = array('authorization');
+
+	$rules = $this->_module->getRewriteRules();
+	$this->assertEquals(array('authorization'), array_keys($rules));
+    }
+
+    function testGetRewriteRulesMissingAuthorization() {
+	$this->_platform->_messages[$this->_httpAuthWorksRequest] =
+	    $this->_missingAuthorizationResponse;
+
+	$rules = $this->_module->getRewriteRules();
+	$this->assertEquals(array('authorization'), array_keys($rules));
+    }
+
+    function testHandleEventActivatePlugin() {
+	$event = GalleryCoreApi::newEvent('Gallery::ActivatePlugin');
+	$event->setData(array('pluginType' => 'module',
+			      'pluginId' => 'rewrite'));
+	list ($ret, $results) = GalleryCoreApi::postEvent($event);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(array(array('httpauth')), $this->_activateCalls);
+    }
+
+    function testHandleEventErrorPermissionDenied() {
+	$error = GalleryCoreApi::error(ERROR_PERMISSION_DENIED);
+	$event = GalleryCoreApi::newEvent('Gallery::Error');
+	$event->setData(array('error' => $error));
+	list ($ret, $results) = GalleryCoreApi::postEvent($event);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $params) = $this->_module->fetchParameters();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(array('status' => 'HTTP/1.0 401 Unauthorized',
+		'www-authenticate' => "WWW-Authenticate: Basic realm='$params[authName]'"),
+	    $this->_headers);
+    }
+
+    function testHandleEventErrorPermissionDeniedIgnoredIfUseGloballyDisabled() {
+	$ret = GalleryCoreApi::setPluginParameter('module', 'httpauth', 'useGlobally', false);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$error = GalleryCoreApi::error(ERROR_PERMISSION_DENIED);
+	$event = GalleryCoreApi::newEvent('Gallery::Error');
+	$event->setData(array('error' => $error));
+	list ($ret, $results) = GalleryCoreApi::postEvent($event);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(array(), $this->_headers);
+    }
+
+    function testHandleEventLogoutNoUsername() {
+	global $gallery;
+
+	$activeUser = $gallery->getActiveUser();
+	$event = GalleryCoreApi::newEvent('Gallery::Logout');
+	$event->setEntity($activeUser);
+	list ($ret, $results) = GalleryCoreApi::postEvent($event);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(array(), $results);
+    }
+
+    function testHandleEventLogoutWithHttpUsername() {
+	global $gallery;
+
+	$activeUser = $gallery->getActiveUser();
+	$_SERVER['PHP_AUTH_USER'] = $activeUser->getUserName();
+
+	$event = GalleryCoreApi::newEvent('Gallery::Logout');
+	$event->setEntity($activeUser);
+	list ($ret, $results) = GalleryCoreApi::postEvent($event);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(array(array('delegate' => array('view' => 'httpauth.TryLogout'))),
+			    $results);
+    }
+
+    function testHandleEventLogoutWithRemoteUser() {
+	global $gallery;
+
+	$activeUser = $gallery->getActiveUser();
+	$_SERVER['REMOTE_USER'] = $activeUser->getUserName();
+
+	$event = GalleryCoreApi::newEvent('Gallery::Logout');
+	$event->setEntity($activeUser);
+	list ($ret, $results) = GalleryCoreApi::postEvent($event);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(array(array('delegate' => array('view' => 'httpauth.TryLogout'))),
+			    $results);
+    }
+}
+
+class HttpAuthModuleTestPhpVm extends GalleryPhpVm {
+
+    function header($header, $replace=null) {
+	/* Avoid modifying actual header information */
+    }
+}
+
+class HttpAuthModuleTestRewriteApi {
+    var $foo;
+
+    function &_fetchActiveRulesForModule($moduleId) {
+	static $activeRules;
+	return $activeRules;
+    }
+
+    function &_getActivateCalls() {
+	static $activateCalls;
+	return $activateCalls;
+    }
+
+    function isCompatibleWithApi($version) {
+	return array(null, true);
+    }
+
+    function fetchActiveRulesForModule($moduleId) {
+	return array(null, HttpAuthModuleTestRewriteApi::_fetchActiveRulesForModule($moduleId));
+    }
+
+    function activateRewriteRulesForModule($moduleId) {
+	$activateCalls =& HttpAuthModuleTestRewriteApi::_getActivateCalls();
+	$activateCalls[] = array($moduleId);
+    }
+}
+
+class HttpAuthModuleTestPlatform extends GalleryPlatform {
+    var $_messages;
+    var $_buffer;
+
+    function fsockopen($target, $port, &$errno, &$errstr, $timeout) {
+	return 'test';
+    }
+
+    function feof($handle) {
+	return empty($this->_buffer);
+    }
+
+    function fgets($handle, $length) {
+	if (empty($this->_buffer)) {
+	    return null;
+	}
+
+	if (strpos($this->_buffer, "\n") < $length) {
+	    $length = strpos($this->_buffer, "\n") + 1;
+	}
+
+	return $this->fread($handle, $length);
+    }
+
+    function fread($handle, $length) {
+	if (empty($this->_buffer)) {
+	    return null;
+	}
+
+	$buffer = substr($this->_buffer, 0, $length);
+	$this->_buffer = substr($this->_buffer, $length);
+	return $buffer;
+    }
+
+    function fwrite($handle, $string, $length=0) {
+	if (isset($this->_messages[$string])) {
+	    $this->_buffer = $this->_messages[$string];
+	    return strlen($string);
+	}
+    }
+
+    function fflush($handle) {
+	return true;
+    }
+
+    function fclose($handle) {
+	return true;
+    }
+}
+?>

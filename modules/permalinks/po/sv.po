@@ -1,0 +1,118 @@
+# $Id: sv.po 16040 2007-03-16 23:04:36Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Permalinks 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-13 20:16+0100\n"
+"PO-Revision-Date: 2006-03-13 20:20+0100\n"
+"Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
+"Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Swedish\n"
+"X-Poedit-Country: SWEDEN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Permalink(s) deleted successfully"
+msgstr "Lyckades ta bort permanentalänkar(na)"
+
+msgid "Permalinks"
+msgstr "Permanentalänkar"
+
+msgid "Create simpler permanent aliases to your items space"
+msgstr "Skapa enklare permanenta aliases till dina objekt"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "Name you have defined as an alias to your item"
+msgstr "Namn som du har definierat till dina objekt"
+
+msgid ""
+"Enable this rule to allow Permalinks you define to work. Disabling this rule will break your "
+"Permalinks."
+msgstr ""
+"Aktivera den här reglen för möjliggöra skapandet av permanentalänkar. Om du avaktiverar den "
+"här reglen så bryts dina permanentalänkar."
+
+msgid "Permalink post activation"
+msgstr "Permanentalänkar postaktivering"
+
+msgid "URL Rewrite Module"
+msgstr "Modul för omskrivning av URL:er"
+
+#, c-format
+msgid ""
+"Now that you have activated the Permalinks module, you have to activate Permalinks rule in "
+"the %s."
+msgstr ""
+"När du nu har aktiverat modulen Permanentalänkar så måste du aktivera reglerna för "
+"Permanentalänkar i %s."
+
+msgid "Edit the permalinks that refer to this item. You can add or delete permalinks."
+msgstr ""
+"Editera permanentalänkar som hör till det här objektet. Du kan lägga till och ta bort "
+"permanentalänkar."
+
+msgid "You have no permalinks"
+msgstr "Du har inga permanentalänkar"
+
+msgid "Existing permalinks"
+msgstr "Existerande permanentalänkar"
+
+msgid "Delete"
+msgstr "Radera"
+
+msgid "Permalink name"
+msgstr "Namn på permanentlänk"
+
+#, c-format
+msgid "Permalink '%s' already exists, possibly on another item"
+msgstr "Permanentlänk '%s' existerar redan, kanske ett annat objekt"
+
+msgid "Add a new permalink:"
+msgstr "Lägg till en ny permanentlänk"
+
+#, c-format
+msgid "Set to '%s'"
+msgstr "Sätt till '%s'"
+
+msgid "Auto-permalink"
+msgstr "Automatisk permanentlänk"
+
+msgid ""
+"If you use this feature, any time a new album is created, a permalink to it with the name of "
+"the album will be created, unless a permalink by the same name already exists. You will be "
+"able to remove the permalink if you wish."
+msgstr ""
+"Om du använder den här funktionen så kommer det varje gång ett nytt album skapas så kommer "
+"även en ny permanentlänk med samma namn som albumet skapas, om det inte redan existerar en "
+"permanentlänk med samma namn. Du kan ta bort den permanentalänken om du vill."
+
+msgid "Enable auto-permalink"
+msgstr "Aktivera automatiska permanentlänkar"
+
+msgid "Global list of permalinks"
+msgstr "Global lista över permanentalänkar"
+
+msgid "Save"
+msgstr "Spara"

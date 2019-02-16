@@ -1,0 +1,756 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Test Web functionality
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 16471 $
+ */
+class WebTest extends GalleryTestCase {
+
+    function WebTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+	parent::setUp();
+
+	$gallery->_platform = new WebTestPlatform($this);
+    }
+
+    function testFetchWebPage() {
+	list ($success, $body, $response, $headers, $actualUrl) =
+	    GalleryCoreApi::fetchWebPage('http://www.test.server/testFetchWebPage');
+
+	$expectedHeaders['Connection'] = 'close';
+	$expectedHeaders['Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Accept-Ranges'] = 'bytes';
+	$expectedHeaders['ETag'] = '"122ae4-5-3fc199b0"';
+	$expectedHeaders['Server'] = 'Apache/1.3.28 (Unix)';
+	$expectedHeaders['Content-Length'] = '5';
+	$expectedHeaders['Content-Type'] = 'text/html';
+	$expectedHeaders['Last-Modified'] = 'Mon, 24 Nov 2003 05:40:00 GMT';
+	$expectedHeaders['Client-Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Client-Peer'] = '209.237.226.157:80';
+	$expectedHeaders['Client-Response-Num'] = '1';
+
+	$expectedBody[] = 'test';
+
+	$this->assert($success);
+	$this->assertEquals($response, 'HTTP/1.1 200 OK');
+	$this->assertEquals($expectedHeaders, $headers);
+	$this->assertEquals(join("\n", $expectedBody) . "\n", $body);
+	$this->assertEquals('http://www.test.server/testFetchWebPage', $actualUrl);
+    }
+
+    function testFetchWebPageError404() {
+	list ($success, $body, $response, $headers, $actualUrl) =
+	    GalleryCoreApi::fetchWebPage('http://www.test.server/testFetchWebPageNotExists');
+
+	$expectedHeaders['Connection'] = 'close';
+	$expectedHeaders['Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Accept-Ranges'] = 'bytes';
+	$expectedHeaders['ETag'] = '"122ae4-5-3fc199b0"';
+	$expectedHeaders['Server'] = 'Apache/1.3.28 (Unix)';
+	$expectedHeaders['Content-Length'] = '11';
+	$expectedHeaders['Content-Type'] = 'text/html';
+	$expectedHeaders['Last-Modified'] = 'Mon, 24 Nov 2003 05:40:00 GMT';
+	$expectedHeaders['Client-Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Client-Peer'] = '209.237.226.157:80';
+	$expectedHeaders['Client-Response-Num'] = '1';
+
+	$expectedBody[] = 'not found!';
+
+	$this->assert(!$success);
+	$this->assertEquals($response, 'HTTP/1.1 404 NOT FOUND');
+	$this->assertEquals($expectedHeaders, $headers);
+	$this->assertEquals(join("\n", $expectedBody) . "\n", $body);
+	$this->assertEquals('http://www.test.server/testFetchWebPageNotExists', $actualUrl);
+    }
+
+    function testFetchWebPageError500() {
+	list ($success, $body, $response, $headers, $actualUrl) =
+	    GalleryCoreApi::fetchWebPage('http://www.test.server/testFetchWebPageBadConfiguration');
+
+	$expectedHeaders['Connection'] = 'close';
+	$expectedHeaders['Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Accept-Ranges'] = 'bytes';
+	$expectedHeaders['ETag'] = '"122ae4-5-3fc199b0"';
+	$expectedHeaders['Server'] = 'Apache/1.3.28 (Unix)';
+	$expectedHeaders['Content-Length'] = '14';
+	$expectedHeaders['Content-Type'] = 'text/html';
+	$expectedHeaders['Last-Modified'] = 'Mon, 24 Nov 2003 05:40:00 GMT';
+	$expectedHeaders['Client-Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Client-Peer'] = '209.237.226.157:80';
+	$expectedHeaders['Client-Response-Num'] = '1';
+
+	$expectedBody[] = 'config error!';
+
+	$this->assert(!$success);
+	$this->assert($response, 'HTTP/1.1 500 INTERNAL SERVER ERROR');
+	$this->assertEquals($expectedHeaders, $headers);
+	$this->assertEquals(join("\n", $expectedBody) . "\n", $body);
+	$this->assertEquals('http://www.test.server/testFetchWebPageBadConfiguration', $actualUrl);
+    }
+
+    function testFetchWebPageWithSpaces() {
+	list ($success, $body, $response, $headers, $actualUrl) =
+	    GalleryCoreApi::fetchWebPage('http://www.test.server/testFetchWebPage With Spaces');
+
+	$expectedHeaders['Connection'] = 'close';
+	$expectedHeaders['Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Accept-Ranges'] = 'bytes';
+	$expectedHeaders['ETag'] = '"122ae4-5-3fc199b0"';
+	$expectedHeaders['Server'] = 'Apache/1.3.28 (Unix)';
+	$expectedHeaders['Content-Length'] = '5';
+	$expectedHeaders['Content-Type'] = 'text/html';
+	$expectedHeaders['Last-Modified'] = 'Mon, 24 Nov 2003 05:40:00 GMT';
+	$expectedHeaders['Client-Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Client-Peer'] = '209.237.226.157:80';
+	$expectedHeaders['Client-Response-Num'] = '1';
+
+	$expectedBody[] = 'test';
+	$expectedBody[] = '';			  /* newline at the end of the file */
+
+	$this->assert($success);
+	$this->assertEquals($response, 'HTTP/1.1 200 OK');
+	$this->assertEquals($expectedHeaders, $headers);
+	$this->assertEquals(join("\n", $expectedBody), $body);
+	$this->assertEquals('http://www.test.server/testFetchWebPage%20With%20Spaces', $actualUrl);
+    }
+
+    function testFetchWebPageExtraHeaders() {
+	list ($success, $body, $response, $headers, $actualUrl) =
+	    GalleryCoreApi::fetchWebPage('http://www.test.server/testFetchWebPageExtraHeaders',
+					 array('ExtraHeader' => 'ExtraValue'));
+
+	$expectedHeaders['Connection'] = 'close';
+	$expectedHeaders['Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Accept-Ranges'] = 'bytes';
+	$expectedHeaders['ETag'] = '"122ae4-5-3fc199b0"';
+	$expectedHeaders['Server'] = 'Apache/1.3.28 (Unix)';
+	$expectedHeaders['Content-Length'] = '5';
+	$expectedHeaders['Content-Type'] = 'text/html';
+	$expectedHeaders['Last-Modified'] = 'Mon, 24 Nov 2003 05:40:00 GMT';
+	$expectedHeaders['Client-Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Client-Peer'] = '209.237.226.157:80';
+	$expectedHeaders['Client-Response-Num'] = '1';
+
+	$expectedBody[] = 'test';
+	$expectedBody[] = '';			  /* newline at the end of the file */
+
+	$this->assert($success, 'fetch failed!');
+	$this->assertEquals('HTTP/1.1 200 OK', $response, 'http response status');
+	$this->assertEquals($expectedHeaders, $headers, 'http response headers');
+	$this->assertEquals(implode("\n", $expectedBody), $body, 'body');
+	$this->assertEquals('http://www.test.server/testFetchWebPageExtraHeaders', $actualUrl);
+    }
+
+    function testFetchWebPageAlternatePort() {
+	list ($success, $body, $response, $headers, $actualUrl) =
+	    GalleryCoreApi::fetchWebPage('http://www.test.server2:8080/testFetchWebPage');
+
+	$expectedHeaders['Connection'] = 'close';
+	$expectedHeaders['Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Accept-Ranges'] = 'bytes';
+	$expectedHeaders['ETag'] = '"122ae4-5-3fc199b0"';
+	$expectedHeaders['Server'] = 'Apache/1.3.28 (Unix)';
+	$expectedHeaders['Content-Length'] = '5';
+	$expectedHeaders['Content-Type'] = 'text/html';
+	$expectedHeaders['Last-Modified'] = 'Mon, 24 Nov 2003 05:40:00 GMT';
+	$expectedHeaders['Client-Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Client-Peer'] = '209.237.226.157:80';
+	$expectedHeaders['Client-Response-Num'] = '1';
+
+	$expectedBody[] = 'test';
+	$expectedBody[] = '';			  /* newline at the end of the file */
+
+	$this->assert($success);
+	$this->assertEquals($response, 'HTTP/1.1 200 OK');
+	$this->assertEquals($expectedHeaders, $headers);
+	$this->assertEquals(join("\n", $expectedBody), $body);
+	$this->assertEquals('http://www.test.server2:8080/testFetchWebPage', $actualUrl);
+    }
+
+    function testFetchWebPageWithQueryString() {
+	list ($success, $body, $response, $headers, $actualUrl) =
+	    GalleryCoreApi::fetchWebPage(
+		'http://www.test.server/testFetchWebPage?foo=bar&baz=blat');
+
+	$expectedHeaders['Connection'] = 'close';
+	$expectedHeaders['Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Accept-Ranges'] = 'bytes';
+	$expectedHeaders['ETag'] = '"122ae4-5-3fc199b0"';
+	$expectedHeaders['Server'] = 'Apache/1.3.28 (Unix)';
+	$expectedHeaders['Content-Length'] = '5';
+	$expectedHeaders['Content-Type'] = 'text/html';
+	$expectedHeaders['Last-Modified'] = 'Mon, 24 Nov 2003 05:40:00 GMT';
+	$expectedHeaders['Client-Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Client-Peer'] = '209.237.226.157:80';
+	$expectedHeaders['Client-Response-Num'] = '1';
+
+	$expectedBody[] = 'test';
+	$expectedBody[] = '';			  /* newline at the end of the file */
+
+	$this->assert($success);
+	$this->assertEquals($response, 'HTTP/1.1 200 OK');
+	$this->assertEquals($expectedHeaders, $headers);
+	$this->assertEquals(join("\n", $expectedBody), $body);
+	$this->assertEquals('http://www.test.server/testFetchWebPage?foo=bar&baz=blat', $actualUrl);
+    }
+
+    function testFetchRedirectedWebPage() {
+	list ($success,$body, $response, $headers, $actualUrl) =
+	    GalleryCoreApi::fetchWebPage('http://www.test.server/testFetchRedirectedWebPage');
+
+	$expectedHeaders['Connection'] = 'close';
+	$expectedHeaders['Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Accept-Ranges'] = 'bytes';
+	$expectedHeaders['ETag'] = '"122ae4-5-3fc199b0"';
+	$expectedHeaders['Server'] = 'Apache/1.3.28 (Unix)';
+	$expectedHeaders['Content-Length'] = '5';
+	$expectedHeaders['Content-Type'] = 'text/html';
+	$expectedHeaders['Last-Modified'] = 'Mon, 24 Nov 2003 05:40:00 GMT';
+	$expectedHeaders['Client-Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Client-Peer'] = '209.237.226.157:80';
+	$expectedHeaders['Client-Response-Num'] = '1';
+
+	$expectedBody[] = 'test';
+	$expectedBody[] = '';			  /* newline at the end of the file */
+
+	$this->assert($success);
+	$this->assertEquals($response, 'HTTP/1.1 200 OK');
+	$this->assertEquals($expectedHeaders, $headers);
+	$this->assertEquals(join("\n", $expectedBody), $body);
+	$this->assertEquals($actualUrl, 'http://www.test.server/testFetchWebPage');
+    }
+
+    function testFetchWebPageTooManyRedirects() {
+	list ($success, $body, $response, $headers, $actualUrl) =
+	    WebHelper_simple::fetchWebPage('http://www.test.server/testFetchRedirectedWebPage',
+					   array(), 6);
+	$this->assert(!$success);
+	$this->assertEquals(null, $body);
+	$this->assertEquals(null, $response);
+	$this->assertEquals(null, $headers);
+	$this->assertEquals(null, $actualUrl);
+    }
+
+    function testFetchRedirectedDoubleLocation() {
+	/* Make sure we redirect ok if bad http response sends 2 Location headers */
+	list ($success, $body, $response, $headers, $actualUrl) =
+	    GalleryCoreApi::fetchWebPage('http://www.test.server/testFetchRedirectedWebPage2');
+
+	$expectedHeaders['Connection'] = 'close';
+	$expectedHeaders['Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Accept-Ranges'] = 'bytes';
+	$expectedHeaders['ETag'] = '"122ae4-5-3fc199b0"';
+	$expectedHeaders['Server'] = 'Apache/1.3.28 (Unix)';
+	$expectedHeaders['Content-Length'] = '5';
+	$expectedHeaders['Content-Type'] = 'text/html';
+	$expectedHeaders['Last-Modified'] = 'Mon, 24 Nov 2003 05:40:00 GMT';
+	$expectedHeaders['Client-Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Client-Peer'] = '209.237.226.157:80';
+	$expectedHeaders['Client-Response-Num'] = '1';
+
+	$expectedBody[] = 'test';
+	$expectedBody[] = '';			  /* newline at the end of the file */
+
+	$this->assert($success);
+	$this->assertEquals($response, 'HTTP/1.1 200 OK');
+	$this->assertEquals($expectedHeaders, $headers);
+	$this->assertEquals(join("\n", $expectedBody), $body);
+	$this->assertEquals($actualUrl, 'http://www.test.server/testFetchWebPage');
+    }
+
+    function testFetchRepeatedHeader() {
+	list ($success, $body, $response, $headers, $actualUrl) =
+	    GalleryCoreApi::fetchWebPage('http://www.test.server/testFetchCookieWebPage');
+
+	$expectedHeaders['Connection'] = 'close';
+	$expectedHeaders['Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Accept-Ranges'] = 'bytes';
+	$expectedHeaders['ETag'] = '"122ae4-5-3fc199b0"';
+	$expectedHeaders['Server'] = 'Apache/1.3.28 (Unix)';
+	$expectedHeaders['Set-Cookie'] = array('sessionid=12345; Path=/', 'mycookie=foo; Path=/');
+	$expectedHeaders['Content-Length'] = '5';
+	$expectedHeaders['Content-Type'] = 'text/html';
+	$expectedHeaders['Last-Modified'] = 'Mon, 24 Nov 2003 05:40:00 GMT';
+	$expectedHeaders['Client-Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Client-Peer'] = '209.237.226.157:80';
+	$expectedHeaders['Client-Response-Num'] = '1';
+
+	$expectedBody[] = 'test';
+	$expectedBody[] = '';			  /* newline at the end of the file */
+
+	$this->assert($success);
+	$this->assertEquals($response, 'HTTP/1.1 200 OK');
+	$this->assertEquals($expectedHeaders, $headers);
+	$this->assertEquals(join("\n", $expectedBody), $body);
+	$this->assertEquals($actualUrl, 'http://www.test.server/testFetchCookieWebPage');
+    }
+
+    function testPostToWebPage() {
+	list ($body, $response, $headers) =
+	    GalleryCoreApi::postToWebPage('http://www.test.server/testPostToWebPage',
+					  array('key1' => 'value1',
+						'key2' => 'value 2',
+						'key 3' => 'http://value:3/'));
+
+	$expectedHeaders['Connection'] = 'close';
+	$expectedHeaders['Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Accept-Ranges'] = 'bytes';
+	$expectedHeaders['ETag'] = '"122ae4-5-3fc199b0"';
+	$expectedHeaders['Server'] = 'Apache/1.3.28 (Unix)';
+	$expectedHeaders['Content-Length'] = '15';
+	$expectedHeaders['Content-Type'] = 'text/html';
+	$expectedHeaders['Last-Modified'] = 'Mon, 24 Nov 2003 05:40:00 GMT';
+	$expectedHeaders['Client-Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Client-Peer'] = '209.237.226.157:80';
+	$expectedHeaders['Client-Response-Num'] = '1';
+
+	$expectedBody[] = 'post successful';
+	$expectedBody[] = '';			  /* newline at the end of the file */
+
+	$this->assertEquals($response, 'HTTP/1.1 200 OK');
+	$this->assertEquals($expectedHeaders, $headers);
+	$this->assertEquals(join("\n", $expectedBody), $body);
+    }
+
+    function testFetchWebFile() {
+	list ($return, $response, $headers) =
+	    GalleryCoreApi::fetchWebFile(
+		'http://www.test.server/testFetchWebFile', 'testFetchWebFile.tmp');
+
+	$expectedHeaders['Connection'] = 'close';
+	$expectedHeaders['Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Accept-Ranges'] = 'bytes';
+	$expectedHeaders['ETag'] = '"122ae4-5-3fc199b0"';
+	$expectedHeaders['Server'] = 'Apache/1.3.28 (Unix)';
+	$expectedHeaders['Content-Length'] = '5';
+	$expectedHeaders['Content-Type'] = 'text/html';
+	$expectedHeaders['Last-Modified'] = 'Mon, 24 Nov 2003 05:40:00 GMT';
+	$expectedHeaders['Client-Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Client-Peer'] = '209.237.226.157:80';
+	$expectedHeaders['Client-Response-Num'] = '1';
+
+
+	$this->assertEquals(true, $return);
+	$this->assertEquals($response, 'HTTP/1.1 200 OK');
+	$this->assertEquals("test\n",
+			    $this->_outputFile['testFetchWebFile.tmp']);
+    }
+
+    function testFetchWebFileExtraHeaders() {
+	list ($return, $response, $headers) =
+	    GalleryCoreApi::fetchWebFile('http://www.test.server/testFetchWebFileExtraHeaders',
+					 'testFetchWebFile.tmp',
+					 array('ExtraHeader' => 'ExtraValue'));
+
+	$expectedHeaders['Connection'] = 'close';
+	$expectedHeaders['Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Accept-Ranges'] = 'bytes';
+	$expectedHeaders['ETag'] = '"122ae4-5-3fc199b0"';
+	$expectedHeaders['Server'] = 'Apache/1.3.28 (Unix)';
+	$expectedHeaders['Content-Length'] = '5';
+	$expectedHeaders['Content-Type'] = 'text/html';
+	$expectedHeaders['Last-Modified'] = 'Mon, 24 Nov 2003 05:40:00 GMT';
+	$expectedHeaders['Client-Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Client-Peer'] = '209.237.226.157:80';
+	$expectedHeaders['Client-Response-Num'] = '1';
+
+	$this->assertEquals(true, $return);
+	$this->assertEquals($response, 'HTTP/1.1 200 OK');
+	$this->assertEquals("test\n",
+			    $this->_outputFile['testFetchWebFile.tmp']);
+    }
+
+    function testRequestWebPage() {
+	list ($status, $headers, $body) =
+	    GalleryCoreApi::requestWebPage('http://www.test.server/testRequestWebPage',
+					   'OPTIONS',
+					   array('ExtraHeader' => 'ExtraValue'),
+					   'request body');
+
+	$expectedHeaders['Connection'] = 'close';
+	$expectedHeaders['Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Accept-Ranges'] = 'bytes';
+	$expectedHeaders['ETag'] = '"122ae4-5-3fc199b0"';
+	$expectedHeaders['Server'] = 'Apache/1.3.28 (Unix)';
+	$expectedHeaders['Content-Length'] = '15';
+	$expectedHeaders['Content-Type'] = 'text/html';
+	$expectedHeaders['Last-Modified'] = 'Mon, 24 Nov 2003 05:40:00 GMT';
+	$expectedHeaders['Client-Date'] = 'Mon, 24 Nov 2003 05:40:03 GMT';
+	$expectedHeaders['Client-Peer'] = '209.237.226.157:80';
+	$expectedHeaders['Client-Response-Num'] = '1';
+
+	$expectedBody[] = 'options successful';
+	$expectedBody[] = '';			  /* newline at the end of the file */
+
+	$this->assertEquals('HTTP/1.1 200 OK', $status);
+	$this->assertEquals($expectedHeaders, $headers);
+	$this->assertEquals(join("\n", $expectedBody), $body);
+    }
+}
+
+/**
+ * Mock platform
+ */
+class WebTestPlatform {
+
+    function WebTestPlatform(&$testCase) {
+	$this->_testCase =& $testCase;
+	$this->_readBuffer = array();
+    }
+
+    function fsockopen($target, $port, &$errno, &$errstr, $timeout) {
+	if ($target == 'www.test.server' && $port == '80') {
+	    return 'test-resource-1';
+	}
+
+	if ($target == 'www.test.server2' && $port == '8080') {
+	    return 'test-resource-1';
+	}
+
+	$errno = 1;
+	$errstring = 'test failure';
+    }
+
+    function fwrite($handle, $string, $length=0) {
+	if ($handle == 'test-resource-1') {
+	    switch($string) {
+	    case "GET /testFetchWebPage HTTP/1.0\r\n" .
+		"Host: www.test.server\r\n" .
+		"\r\n":
+	    case "GET /testFetchWebFile HTTP/1.0\r\n" .
+		"Host: www.test.server\r\n" .
+		"\r\n":
+	    case "GET /testFetchWebPage%20With%20Spaces HTTP/1.0\r\n" .
+		"Host: www.test.server\r\n" .
+		"\r\n":
+	    case "GET /testFetchWebPage HTTP/1.0\r\n" .
+		"Host: www.test.server2\r\n" .
+		"\r\n":
+	    case "GET /testFetchWebPage?foo=bar&baz=blat HTTP/1.0\r\n" .
+		"Host: www.test.server\r\n" .
+		"\r\n":
+	    case "GET /testFetchWebPageExtraHeaders HTTP/1.0\r\n" .
+		"Host: www.test.server\r\n" .
+		"ExtraHeader: ExtraValue\r\n" .
+		"\r\n":
+	    case "GET /testFetchWebFileExtraHeaders HTTP/1.0\r\n" .
+		"Host: www.test.server\r\n" .
+		"ExtraHeader: ExtraValue\r\n" .
+		"\r\n":
+		$buffer = array();
+		$buffer[] = 'HTTP/1.1 200 OK';
+		$buffer[] = 'Connection: close';
+		$buffer[] = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
+		$buffer[] = 'Accept-Ranges: bytes';
+		$buffer[] = 'ETag: "122ae4-5-3fc199b0"';
+		$buffer[] = 'Server: Apache/1.3.28 (Unix)';
+		$buffer[] = 'Content-Length: 5';
+		$buffer[] = 'Content-Type: text/html';
+		$buffer[] = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
+		$buffer[] = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
+		$buffer[] = 'Client-Peer: 209.237.226.157:80';
+		$buffer[] = 'Client-Response-Num: 1';
+		$buffer[] = '';
+		$buffer[] = 'test';
+		$buffer[] = '';
+		$this->_readBuffer[$handle] = $buffer;
+		return strlen($string);
+
+	    case "GET /testFetchWebPageNotExists HTTP/1.0\r\n" .
+		"Host: www.test.server\r\n" .
+		"\r\n":
+		$buffer = array();
+		$buffer[] = 'HTTP/1.1 404 NOT FOUND';
+		$buffer[] = 'Connection: close';
+		$buffer[] = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
+		$buffer[] = 'Accept-Ranges: bytes';
+		$buffer[] = 'ETag: "122ae4-5-3fc199b0"';
+		$buffer[] = 'Server: Apache/1.3.28 (Unix)';
+		$buffer[] = 'Content-Length: 11';
+		$buffer[] = 'Content-Type: text/html';
+		$buffer[] = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
+		$buffer[] = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
+		$buffer[] = 'Client-Peer: 209.237.226.157:80';
+		$buffer[] = 'Client-Response-Num: 1';
+		$buffer[] = '';
+		$buffer[] = 'not found!';
+		$buffer[] = '';
+		$this->_readBuffer[$handle] = $buffer;
+		return strlen($string);
+
+	    case "GET /testFetchWebPageBadConfiguration HTTP/1.0\r\n" .
+		"Host: www.test.server\r\n" .
+		"\r\n":
+		$buffer = array();
+		$buffer[] = 'HTTP/1.1 500 INTERNAL SERVER ERROR';
+		$buffer[] = 'Connection: close';
+		$buffer[] = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
+		$buffer[] = 'Accept-Ranges: bytes';
+		$buffer[] = 'ETag: "122ae4-5-3fc199b0"';
+		$buffer[] = 'Server: Apache/1.3.28 (Unix)';
+		$buffer[] = 'Content-Length: 14';
+		$buffer[] = 'Content-Type: text/html';
+		$buffer[] = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
+		$buffer[] = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
+		$buffer[] = 'Client-Peer: 209.237.226.157:80';
+		$buffer[] = 'Client-Response-Num: 1';
+		$buffer[] = '';
+		$buffer[] = 'config error!';
+		$buffer[] = '';
+		$this->_readBuffer[$handle] = $buffer;
+		return strlen($string);
+
+	    case "GET /testFetchRedirectedWebPage HTTP/1.0\r\n" .
+		"Host: www.test.server\r\n" .
+		"\r\n":
+		$buffer = array();
+		$buffer[] = 'HTTP/1.1 302 Found';
+		$buffer[] = 'Date: Mon, 24 Nov 2003 06:35:01 GMT';
+		$buffer[] = 'Server: Apache/1.3.26 (Unix) PHP/4.1.2';
+		$buffer[] = 'Location: http://www.test.server/testFetchWebPage';
+		$buffer[] = 'Connection: close';
+		$buffer[] = 'Content-Type: text/html; charset=iso-8859-1';
+		$buffer[] = '';
+		$buffer[] = '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">';
+		$buffer[] = '<HTML><HEAD>';
+		$buffer[] = '<TITLE>302 Found</TITLE>';
+		$buffer[] = '</HEAD><BODY>';
+		$buffer[] = '<H1>Found</H1>';
+		$buffer[] = 'The document has moved <A HREF="http://www.test.server' .
+		    '/testFetchWebPage">here</A>.<P>';
+		$buffer[] = '<HR>';
+		$buffer[] = '<ADDRESS>Apache/1.3.26 Server at www.test.server Port 80</ADDRESS>';
+		$buffer[] = '</BODY></HTML>';
+		$this->_readBuffer[$handle] = $buffer;
+		return strlen($string);
+
+	    case "GET /testFetchRedirectedWebPage2 HTTP/1.0\r\n" .
+		"Host: www.test.server\r\n" .
+		"\r\n":
+		$buffer = array();
+		$buffer[] = 'HTTP/1.1 302 Found';
+		$buffer[] = 'Date: Mon, 24 Nov 2004 06:35:02 GMT';
+		$buffer[] = 'Server: Apache/1.3.33 (Unix) PHP/4.3.4';
+		$buffer[] = 'Location: http://www.test.server/testFetchWebPage';
+		$buffer[] = 'Connection: close';
+		$buffer[] = 'Content-Type: text/html; charset=iso-8859-1';
+		$buffer[] = 'Location: http://www.test.server/testFetchNOTUsed';
+		$buffer[] = '';
+		$buffer[] = 'Moved.';
+		$this->_readBuffer[$handle] = $buffer;
+		return strlen($string);
+
+	    case "GET /testFetchCookieWebPage HTTP/1.0\r\n" .
+		"Host: www.test.server\r\n" .
+		"\r\n":
+		$buffer = array();
+		$buffer[] = 'HTTP/1.1 200 OK';
+		$buffer[] = 'Connection: close';
+		$buffer[] = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
+		$buffer[] = 'Accept-Ranges: bytes';
+		$buffer[] = 'ETag: "122ae4-5-3fc199b0"';
+		$buffer[] = 'Server: Apache/1.3.28 (Unix)';
+		$buffer[] = 'Set-Cookie: sessionid=12345; Path=/';
+		$buffer[] = 'Set-Cookie: mycookie=foo; Path=/';
+		$buffer[] = 'Content-Length: 5';
+		$buffer[] = 'Content-Type: text/html';
+		$buffer[] = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
+		$buffer[] = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
+		$buffer[] = 'Client-Peer: 209.237.226.157:80';
+		$buffer[] = 'Client-Response-Num: 1';
+		$buffer[] = '';
+		$buffer[] = 'test';
+		$buffer[] = '';
+		$this->_readBuffer[$handle] = $buffer;
+		return strlen($string);
+
+	    case "POST /testPostToWebPage HTTP/1.0\r\n" .
+		 "Host: www.test.server\r\n" .
+		 "Content-Type: application/x-www-form-urlencoded\r\n".
+		 "Content-Length: 58\r\n" .
+		 "\r\n" .
+		 "key1=value1&key2=value+2&key+3=http%3A%2F%2Fvalue%3A3%2F\r\n":
+		$buffer = array();
+		$buffer[] = 'HTTP/1.1 200 OK';
+		$buffer[] = 'Connection: close';
+		$buffer[] = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
+		$buffer[] = 'Accept-Ranges: bytes';
+		$buffer[] = 'ETag: "122ae4-5-3fc199b0"';
+		$buffer[] = 'Server: Apache/1.3.28 (Unix)';
+		$buffer[] = 'Content-Length: 15';
+		$buffer[] = 'Content-Type: text/html';
+		$buffer[] = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
+		$buffer[] = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
+		$buffer[] = 'Client-Peer: 209.237.226.157:80';
+		$buffer[] = 'Client-Response-Num: 1';
+		$buffer[] = '';
+		$buffer[] = 'post successful';
+		$buffer[] = '';
+		$this->_readBuffer[$handle] = $buffer;
+		return strlen($string);
+
+	    case "OPTIONS /testRequestWebPage HTTP/1.0\r\n" .
+		 "Host: www.test.server\r\n" .
+		 "ExtraHeader: ExtraValue\r\n" .
+		 "\r\n" .
+		 "request body":
+		$buffer = array();
+		$buffer[] = 'HTTP/1.1 200 OK';
+		$buffer[] = 'Connection: close';
+		$buffer[] = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
+		$buffer[] = 'Accept-Ranges: bytes';
+		$buffer[] = 'ETag: "122ae4-5-3fc199b0"';
+		$buffer[] = 'Server: Apache/1.3.28 (Unix)';
+		$buffer[] = 'Content-Length: 15';
+		$buffer[] = 'Content-Type: text/html';
+		$buffer[] = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
+		$buffer[] = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
+		$buffer[] = 'Client-Peer: 209.237.226.157:80';
+		$buffer[] = 'Client-Response-Num: 1';
+		$buffer[] = '';
+		$buffer[] = 'options successful';
+		$buffer[] = '';
+		$this->_readBuffer[$handle] = $buffer;
+		return strlen($string);
+
+	    default:
+		print "Unexpected write: $string";
+	    }
+	}
+
+	if ($handle == 'testFetchWebFile.tmp') {
+	    if (!isset($this->_testCase->_outputFile[$handle])) {
+		$this->_testCase->_outputFile[$handle] = '';
+	    }
+
+	    $this->_testCase->_outputFile[$handle] .= $string;
+	    return strlen($string);
+	}
+
+	print "Unexpected handle: [$handle]\n";
+
+	return 0;
+    }
+
+    function feof($handle) {
+	return (empty($this->_readBuffer[$handle]));
+    }
+
+    function fgets($handle, $length) {
+	if (empty($this->_readBuffer[$handle])) {
+	    return null;
+	}
+
+	return array_shift($this->_readBuffer[$handle]) . "\n";
+    }
+
+    function fread($handle, $length) {
+	if (empty($this->_readBuffer[$handle])) {
+	    return null;
+	}
+
+	/*
+	 * Return the number of bytes requested, or if that exceeds what we have available
+	 * return what we have available.
+	 */
+	if ($length >= strlen(join("\n", $this->_readBuffer[$handle]))) {
+	    $tmp = join("\n", $this->_readBuffer[$handle]);
+	    unset($this->_readBuffer[$handle]);
+	    return $tmp;
+	} else {
+	    $buf = join("\n", $this->_readBuffer[$handle]);
+	    $tmp = substr($buf, 0, $length);
+	    $this->_readBuffer[$handle] = split("\n", substr($buf, $length+1));
+	    return $tmp;
+	}
+    }
+
+    function fclose($handle) {
+	switch($handle) {
+	case 'test-resource-1':
+	    unset($this->_readBuffer[$handle]);
+	    return true;
+
+	default:
+	    return false;
+	}
+    }
+
+    function fflush($handle) {
+	switch($handle) {
+	case 'test-resource-1':
+	    return true;
+
+	default:
+	    return false;
+	}
+    }
+
+    function filesize($file) {
+	return filesize($file);
+    }
+
+    function getDirectorySeparator() {
+	return '/';
+    }
+
+    function file_exists($path) {
+	switch(realpath($path)) {
+	case __FILE__:
+	case realpath(dirname(__FILE__) . '/../../classes/GalleryAlbumItem.class'):
+	    return true;
+
+	default:
+	    return false;
+	}
+    }
+
+    function fopen($filename, $modes) {
+	if ($filename == 'testFetchWebFile.tmp' && $modes == 'wb') {
+	    $this->_fileBuffer[$filename] = '';
+	    return $filename;
+	}
+    }
+
+    function realpath($file) {
+	/* These are used in testIsPathInList */
+	switch ($file) {
+	case '/foo/bar':
+	case '/foobar':
+	case '/foo':
+	case '/bar':
+	    return $file;
+	}
+
+	$path = realpath($file);
+
+	/* Stick with Unix slashes for the purpose of our tests */
+	return str_replace('\\', '/', $path);
+    }
+}
+?>

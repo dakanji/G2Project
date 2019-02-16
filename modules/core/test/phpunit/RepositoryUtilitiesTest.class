@@ -1,0 +1,473 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/core/test/phpunit/RepositoryTestStorage.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryUtilities.class');
+
+/**
+ * Test repository utilities functionality
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Jozef Selesi <selesi at gmail dot com>
+ * @version $Revision: 15693 $
+ */
+class RepositoryUtilitiesTest extends GalleryTestCase {
+
+    var $_galleryStorage;
+
+    function setUp() {
+	parent::setUp();
+
+	global $gallery;
+	$this->_galleryStorage =& $gallery->_storage;
+	$this->_testStorage =& RepositoryTestStorage::getSingleton();
+	$gallery->_storage =& $this->_testStorage;
+    }
+
+    function tearDown() {
+	global $gallery;
+	$gallery->_storage =& $this->_galleryStorage;
+
+	parent::tearDown();
+    }
+
+    function testCompareVersions() {
+	$utilities = new GalleryRepositoryUtilities();
+
+	$testCases = array(
+	    array('version1' => '1.2.3', 'version2' => '1.2.3',
+		  'build1' => '', 'build2' => '',
+		  'relation' => 'equal'),
+	    array('version1' => '1.2.3', 'version2' => '1.2.4',
+		  'build1' => '', 'build2' => '',
+		  'relation' => 'older'),
+	    array('version1' => '1.2', 'version2' => '1.2.3',
+		  'build1' => '', 'build2' => '',
+		  'relation' => 'older'),
+	    array('version1' => '1.2.3', 'version2' => '1.2',
+		  'build1' => '', 'build2' => '',
+		  'relation' => 'newer'),
+	    array('version1' => '1.2.3', 'version2' => '1.2.2',
+		  'build1' => '', 'build2' => '',
+		  'relation' => 'newer'),
+	    array('version1' => '1.2.3', 'version2' => '1.2.3',
+		  'build1' => '20050101120000', 'build2' => '20050101120000',
+		  'relation' => 'equal'),
+	    array('version1' => '1.2.3', 'version2' => '1.2.3',
+		  'build1' => '20050101120001', 'build2' => '20050101120000',
+		  'relation' => 'newer'),
+	    array('version1' => '1.2.3', 'version2' => '1.2.3',
+		  'build1' => '20050101120000', 'build2' => '20050101120001',
+		  'relation' => 'older'));
+
+	foreach ($testCases as $case) {
+	    list ($ret, $relation) = $utilities->compareVersions($case['version1'],
+		$case['version2'], $case['build1'], $case['build2']);
+	    if ($ret) {
+		$this->failWithStatus($ret);
+	    }
+	    $this->assert($relation == $case['relation'], sprintf(
+		"Relation('%s':'%s', '%s':'%s') should be '%s', not '%s'.", $case['version1'],
+		$case['build1'], $case['version2'], $case['build2'], $case['relation'], $relation));
+	}
+    }
+
+    function testCompareRevisions() {
+	$utilities = new GalleryRepositoryUtilities();
+
+	$testCases = array(
+	    array('revision1' => '1.2', 'revision2' => '1.3', 'expectedRelation' => 'older'),
+	    array('revision1' => '1.2', 'revision2' => '1.2', 'expectedRelation' => 'equal'),
+	    array('revision1' => '3.2', 'revision2' => '1.3', 'expectedRelation' => 'newer'));
+
+	foreach ($testCases as $case) {
+	    $relation = $utilities->compareRevisions($case['revision1'], $case['revision2']);
+	    $this->assertEquals($case['expectedRelation'], $relation);
+	}
+    }
+
+    function testExtractRevision() {
+	$utilities = new GalleryRepositoryUtilities();
+
+	$testCases = array(
+	    '$' . 'Id: it.po 13690 2006-05-19 18:01:46Z mindless $' => '13690',
+	    '$' . 'Revision: 210 $' => '210');
+
+	foreach ($testCases as $case => $result) {
+	    list ($ret, $revision) = $utilities->extractRevision($case);
+	    if ($ret) {
+		$this->failWithStatus($ret);
+	    }
+	    $this->assertEquals($result, $revision, "Testcase: $case");
+	}
+    }
+
+    function testGetFirstBytesFromFile() {
+	global $gallery;
+	$platform = new UnitTestPlatform();
+	$gallery->setPlatform($platform);
+
+	$fileName = 'testfile.ext';
+	$fileContents = "First line of file.\nSecond line of file.";
+
+	$testCases = array('10' => 'First line', '21' => "First line of file.\nS");
+
+	$utilities = new GalleryRepositoryUtilities();
+	foreach ($testCases as $bytes => $result) {
+	    $platform->setReply('fopen', array($fileName, 'r', 0), $fileName);
+	    $platform->setReply(
+		'fread', array($fileName, $bytes), substr($fileContents, 0, $bytes));
+	    $platform->setReply('fclose', array($fileName), true);
+
+	    list ($ret, $bytes) = $utilities->getFirstBytesFromFile($fileName, $bytes);
+	    if ($ret) {
+		$this->failWithStatus($ret);
+	    }
+	    $this->assertEquals($bytes, $result, "Unexpected file data returned for $bytes bytes.");
+	}
+	$this->assert($platform->isComplete(), $platform->getRemaining());
+    }
+
+    function testGetLanguageDescription() {
+	$utilities = new GalleryRepositoryUtilities();
+
+	$testCases = array(
+	    'en_US' => 'English (US)',
+	    'hu_HU' => 'Magyar');
+
+	foreach ($testCases as $case => $result) {
+	    list ($ret, $description) = $utilities->getLanguageDescription($case);
+	    if ($ret) {
+		$this->failWithStatus($ret);
+	    }
+	    $this->assertEquals($result, $description, "Testcase: $case");
+	}
+    }
+
+    function testGetLanguageBaseRevision() {
+	global $gallery;
+
+	$stringsPath = sprintf('%stestPlugins/testModule/po/strings.raw',
+		GalleryCoreApi::getPluginBaseDir('testPlugin', 'testModule'));
+	$stringsContents = '# $' . 'Id: strings.raw 13933 2006-07-08 23:55:12Z bharat $';
+
+	$platform = new UnitTestPlatform();
+	$platform->setReply('file_exists', array($stringsPath), true);
+	$platform->setReply('fopen', array($stringsPath, 'r', 0), 'handle');
+	$platform->setReply('fread', array('handle', 128), $stringsContents);
+	$platform->setReply('fclose', array('handle'), true);
+	$gallery->setPlatform($platform);
+
+	$utilities = new GalleryRepositoryUtilities();
+	list ($ret, $revision) = $utilities->getLanguageBaseRevision('testPlugin', 'testModule');
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+	$this->assertEquals('13933', $revision, 'Incorrect revision returned.');
+    }
+
+    function testIsPluginAvailable() {
+	global $gallery;
+
+	$testCases = array(
+	    array('pluginType' => 'module', 'pluginId' => 'testModule', 'isAvailable' => true),
+	    array('pluginType' => 'module', 'pluginId' => 'anotherModule', 'isAvailable' => false));
+
+	foreach ($testCases as $case) {
+	    $platform = new UnitTestPlatform();
+	    foreach (GalleryCoreApi::getPluginBaseDirs() as $baseDir) {
+		$path = $baseDir . $case['pluginType'] . 's/';
+		$platform->setReply('opendir', array($path), 'fh');
+		$platform->setReply('readdir', array('fh'),  'testModule');
+		$platform->setReply('is_file', array(sprintf('%stestModule/%s.inc',
+						     $path, $case['pluginType'])),
+				    true);
+		$platform->setReply('readdir', array('fh'), false);
+		$platform->setReply('closedir', array('fh'), true);
+	    }
+	    $gallery->setPlatform($platform);
+
+	    $utilities = new GalleryRepositoryUtilities();
+	    list ($ret, $isAvailable) =
+		$utilities->isPluginAvailable($case['pluginType'], $case['pluginId']);
+	    if ($ret) {
+		$this->failWithStatus($ret);
+	    }
+	    $this->assertEquals($case['isAvailable'], $isAvailable);
+	}
+    }
+
+    function testIsPluginCompatible() {
+	$utilities = new GalleryRepositoryUtilities();
+
+	$coreApi = implode('.', GalleryCoreApi::getApiVersion());
+	$moduleApi = implode('.', GalleryModule::getApiVersion());
+	$themeApi = implode('.', GalleryTheme::getApiVersion());
+
+	$testCases = array(array(
+	    /* Cases with provided APIs from current Gallery install. */
+	    'requiredCoreApi' => $coreApi, 'requiredPluginApi' => $moduleApi,
+	    'providedApis' => null, 'pluginType' => 'module', 'isCompatible' => true), array(
+
+	    'requiredCoreApi' => $coreApi, 'requiredPluginApi' => $themeApi,
+	    'providedApis' => null, 'pluginType' => 'theme', 'isCompatible' => true), array(
+
+	    /* Cases with specified provided APIs. */
+	    'requiredCoreApi' => '2.0', 'requiredPluginApi' => '2.0',
+	    'providedApis' => array('core' => '2.0', 'module' => '2.0', 'theme' => '1.0'),
+	    'pluginType' => 'module', 'isCompatible' => true), array(
+
+	    'requiredCoreApi' => '2.0', 'requiredPluginApi' => '2.0',
+	    'providedApis' => array('core' => '1.9', 'module' => '2.0', 'theme' => '1.0'),
+	    'pluginType' => 'module', 'isCompatible' => false), array(
+
+	    'requiredCoreApi' => '2.0', 'requiredPluginApi' => '2.0',
+	    'providedApis' => array('core' => '2.5', 'module' => '1.0', 'theme' => '1.0'),
+	    'pluginType' => 'module', 'isCompatible' => false), array(
+
+	    'requiredCoreApi' => '2.0', 'requiredPluginApi' => '2.0',
+	    'providedApis' => array('core' => '2.5', 'module' => '2.0', 'theme' => '1.0'),
+	    'pluginType' => 'module', 'isCompatible' => true), array(
+
+	    'requiredCoreApi' => '2.0', 'requiredPluginApi' => '2.0',
+	    'providedApis' => array('core' => '1.0', 'module' => '2.5', 'theme' => '10.0'),
+	    'pluginType' => 'module', 'isCompatible' => false));
+
+	foreach ($testCases as $case) {
+	    $providedApis = is_null($case['providedApis'])
+			     ? null
+			     : array('core' => explode('.', $case['providedApis']['core']),
+				     'module' => explode('.', $case['providedApis']['module']),
+				     'theme' => explode('.', $case['providedApis']['theme']));
+
+	    $isCompatible = $utilities->isPluginCompatible($case['pluginType'],
+		explode('.', $case['requiredCoreApi']), explode('.', $case['requiredPluginApi']),
+		$providedApis);
+
+	    $this->assertEquals($case['isCompatible'], $isCompatible,
+		sprintf('Type: %s; Required: %sc, %sp; Provided: %sc, %sm, %st',
+		$case['pluginType'], $case['requiredCoreApi'], $case['requiredPluginApi'],
+		$case['providedApis']['core'], $case['providedApis']['module'],
+		$case['providedApis']['theme']));
+	}
+    }
+
+    function testGetProvidedApis() {
+	$utilities = new GalleryRepositoryUtilities();
+
+	$coreApi = implode('.', GalleryCoreApi::getApiVersion());
+	$moduleApi = implode('.', GalleryModule::getApiVersion());
+	$themeApi = implode('.', GalleryTheme::getApiVersion());
+
+	$testCases = array(array(
+	    /* Cases with provided APIs from current Gallery install. */
+	    'pluginType' => 'module',
+	    'providedApis' => null,
+	    'expectedCoreApi' => $coreApi, 'expectedPluginApi' => $moduleApi), array(
+
+	    'pluginType' => 'theme',
+	    'providedApis' => null,
+	    'expectedCoreApi' => $coreApi, 'expectedPluginApi' => $themeApi), array(
+
+	    /* Cases with specified provided APIs. */
+	    'pluginType' => 'theme',
+	    'providedApis' => array('core' => '3.0', 'module' => '2.0', 'theme' => '1.0'),
+	    'expectedCoreApi' => '3.0', 'expectedPluginApi' => '1.0'), array(
+
+	    'pluginType' => 'module',
+	    'providedApis' => array('core' => '3.0', 'module' => '2.0', 'theme' => '1.0'),
+	    'expectedCoreApi' => '3.0', 'expectedPluginApi' => '2.0'));
+
+	foreach ($testCases as $case) {
+	    $providedApis = is_null($case['providedApis'])
+			     ? null
+			     : array('core' => explode('.', $case['providedApis']['core']),
+				     'module' => explode('.', $case['providedApis']['module']),
+				     'theme' => explode('.', $case['providedApis']['theme']));
+
+	    list ($providedCoreApi, $providedPluginApi) =
+		$utilities->getProvidedApis($case['pluginType'], $providedApis);
+
+	    $this->assertEquals(explode('.', $case['expectedCoreApi']), $providedCoreApi);
+	    $this->assertEquals(explode('.', $case['expectedPluginApi']), $providedPluginApi);
+	}
+    }
+
+    function testGetPluginPackages() {
+	$this->_testStorage->reset();
+	$this->_testStorage->setSearchResults(
+	    array(array(0, '1.23', '19700411131300', 'pkg1'),
+		  array(1, '3.45', '19710411131300', 'pkg2')));
+
+	$utilities = new GalleryRepositoryUtilities();
+	list ($ret, $packages) = $utilities->getPluginPackages('module', 'testModule');
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+	$this->assertEquals(
+	    array('pkg1' => array('locked' => 0, 'version' => '1.23', 'build' => '19700411131300'),
+		  'pkg2' => array('locked' => 1, 'version' => '3.45', 'build' => '19710411131300')),
+	    $packages);
+
+	/*
+	 * Make sure we executed the right query.  In a perfect world, this would be
+	 * part of the setSearchResults() call above.
+	 */
+	$expectedQuery = array(
+		'map' => 'GalleryPluginPackageMap',
+		'select' => array('locked', 'packageVersion', 'packageBuild', 'packageName'),
+		'where' => array('pluginType' => 'module', 'pluginId' => 'testModule'));
+	$searches = $this->_testStorage->getSearches();
+	$this->assertEquals($expectedQuery, $searches[0]);
+    }
+
+    function testGetPluginVersion() {
+	/* Since we can't mock the core API, we'll use the cache to store our mock plugin. */
+	GalleryDataCache::put('GalleryPluginHelper::loadPlugin(module, testModule)',
+			      new RepositoryUtilitiesTestPlugin());
+	GalleryDataCache::put('GalleryPluginHelper::fetchPluginStatus(module)',
+			      array('testModule' => array('active' => 1, 'available' => 1)));
+
+	$utilities = new GalleryRepositoryUtilities();
+	list ($ret, $version) = $utilities->getPluginVersion('module', 'testModule');
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+	$this->assertEquals('someVersion', $version);
+    }
+
+    function testDownloadFileWithoutGzinflate() {
+	global $gallery;
+	$gallery->_phpVm = new RepositoryUtilitiesTestPhpVm(false);
+	$utilities = new GalleryRepositoryUtilities();
+
+	/*
+	 * Sigh.  It would be really nice if we could mock up GalleryCoreApi::fetchWebPage()
+	 * instead of mocking the platform.
+	 */
+	$platform = new UnitTestPlatform();
+	$platform->setReply('fsockopen', array('example.com', 80, null, null, 5), 'fd');
+	$platform->setReply(
+	    'fwrite',
+	    array('fd', "GET /repository/index HTTP/1.0\r\nHost: example.com\r\n\r\n", null),
+	    true);
+	$platform->setReply('fflush', array('fd'), null);
+	$platform->setReply('fgets', array('fd', 4096), "HTTP/1.1 200 OK\r\n");
+	$platform->setReply('feof', array('fd'), false);
+	$platform->setReply('fgets', array('fd', 4096), "\r\n");
+	$platform->setReply('feof', array('fd'), false);
+	$platform->setReply('fread', array('fd', 4096), 'data');
+	$platform->setReply('feof', array('fd'), true);
+	$platform->setReply('fclose', array('fd'), null);
+	$gallery->setPlatform($platform);
+
+	$this->assertEquals(
+	    array(true, 'data'),
+	    $utilities->downloadFile('http://example.com/repository/index'));
+	$this->assert($platform->isComplete(), $platform->getRemaining());
+    }
+
+    function testDownloadFileWithGzinflate() {
+	global $gallery;
+	$gallery->_phpVm = new RepositoryUtilitiesTestPhpVm(true);
+	$utilities = new GalleryRepositoryUtilities();
+
+	/*
+	 * Sigh.  It would be really nice if we could mock up GalleryCoreApi::fetchWebPage()
+	 * instead of mocking the platform.
+	 */
+	$platform = new UnitTestPlatform();
+	$platform->setReply('fsockopen', array('example.com', 80, null, null, 5), 'fd');
+	$platform->setReply(
+	    'fwrite',
+	    array('fd', "GET /repository/index.gz HTTP/1.0\r\nHost: example.com\r\n\r\n", null),
+	    true);
+	$platform->setReply('fflush', array('fd'), null);
+	$platform->setReply('fgets', array('fd', 4096), "HTTP/1.1 200 OK\r\n");
+	$platform->setReply('feof', array('fd'), false);
+	$platform->setReply('fgets', array('fd', 4096), "\r\n");
+	$platform->setReply('feof', array('fd'), false);
+	$platform->setReply('fread', array('fd', 4096), 'data');
+	$platform->setReply('feof', array('fd'), true);
+	$platform->setReply('fclose', array('fd'), null);
+	$gallery->setPlatform($platform);
+
+	$this->assertEquals(
+	    array(true, 'uncompressed-data'),
+	    $utilities->downloadFile('http://example.com/repository/index'));
+	$this->assert($platform->isComplete(), $platform->getRemaining());
+    }
+
+    function testDownloadFileWithGzinflateButIgnoringCompression() {
+	global $gallery;
+	$gallery->_phpVm = new RepositoryUtilitiesTestPhpVm(true);
+	$utilities = new GalleryRepositoryUtilities();
+
+	/*
+	 * Sigh.  It would be really nice if we could mock up GalleryCoreApi::fetchWebPage()
+	 * instead of mocking the platform.
+	 */
+	$platform = new UnitTestPlatform();
+	$platform->setReply('fsockopen', array('example.com', 80, null, null, 5), 'fd');
+	$platform->setReply(
+	    'fwrite',
+	    array('fd', "GET /repository/index HTTP/1.0\r\nHost: example.com\r\n\r\n", null),
+	    true);
+	$platform->setReply('fflush', array('fd'), null);
+	$platform->setReply('fgets', array('fd', 4096), "HTTP/1.1 200 OK\r\n");
+	$platform->setReply('feof', array('fd'), false);
+	$platform->setReply('fgets', array('fd', 4096), "\r\n");
+	$platform->setReply('feof', array('fd'), false);
+	$platform->setReply('fread', array('fd', 4096), 'data');
+	$platform->setReply('feof', array('fd'), true);
+	$platform->setReply('fclose', array('fd'), null);
+	$gallery->setPlatform($platform);
+
+	$this->assertEquals(
+	    array(true, 'data'),
+	    $utilities->downloadFile('http://example.com/repository/index', true));
+	$this->assert($platform->isComplete(), $platform->getRemaining());
+    }
+}
+
+class RepositoryUtilitiesTestPhpVm extends GalleryPhpVm {
+    function RepositoryUtilitiesTestPhpVm($gzinflateExists) {
+	$this->_gzinflateExists = $gzinflateExists;
+    }
+
+    function function_exists($func) {
+	if ($func == 'gzinflate') {
+	    return $this->_gzinflateExists;
+	}
+	return function_exists($func);
+    }
+
+    function gzinflate($data) {
+	return "uncompressed-$data";
+    }
+}
+
+class RepositoryUtilitiesTestPlugin {
+
+    function getVersion() {
+	return 'someVersion';
+    }
+}
+?>

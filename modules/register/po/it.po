@@ -1,0 +1,286 @@
+# $Id: it.po 16040 2007-03-16 23:04:36Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Registration 1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-09-15 17:59+0000\n"
+"PO-Revision-Date: 2007-01-09 12:44+0100\n"
+"Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
+"Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Italian\n"
+"X-Poedit-Country: ITALY\n"
+
+msgid "Activation by administrator"
+msgstr "Attivazione da amministratore"
+
+msgid "Use confirmation emails"
+msgstr "Usa email di conferma"
+
+msgid "Accept without confirmation"
+msgstr "Accetta senza conferma"
+
+msgid "Yes"
+msgstr "Sì"
+
+msgid "No"
+msgstr "No"
+
+msgid "Registration"
+msgstr "Registrazione"
+
+msgid "New User Registration"
+msgstr "Registrazione Nuovo Utente"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "Account activation"
+msgstr "Attivazione Account"
+
+msgid "New user registration"
+msgstr "Registrazione nuovo utente"
+
+msgid "Register"
+msgstr "Registrati"
+
+msgid "New user registration:"
+msgstr "Registrazione nuovo utente:"
+
+#, c-format
+msgid "    Username: %s"
+msgstr "    Nome utente: %s"
+
+#, c-format
+msgid "   Full name: %s"
+msgstr "   Nome completo: %s"
+
+#, c-format
+msgid "       Email: %s"
+msgstr "       Email: %s"
+
+msgid "Activate or delete this user here"
+msgstr "Attiva o elimina qui questo utente"
+
+msgid "Registration Settings"
+msgstr "Configurazione Registrazione"
+
+msgid "Settings saved successfully"
+msgstr "Configurazione salvata con successo"
+
+#, c-format
+msgid "Activated user %s"
+msgstr "Utente %s attivato"
+
+#, c-format
+msgid "Deleted user %s"
+msgstr "Utente %s rimosso"
+
+msgid "Confirmation Policy"
+msgstr "Politica di Conferma"
+
+msgid ""
+"The Registration module can accept new user registrations instantly, require the user to "
+"click a confirmation link in an email that is sent by the module, or require account "
+"activation by a site administrator."
+msgstr ""
+"Il modulo Registrazione può accettare registrazioni di nuovi utenti istantaneamente, può "
+"richiedere che l'utente clicchi su un link di conferma in un'email inviata dal modulo, "
+"oppure necessitare che sia l'amministratore ad attivare l'account."
+
+msgid "Choose policy:"
+msgstr "Scegli la politica:"
+
+msgid "Email details"
+msgstr "Dettagli email"
+
+msgid "Sender(From) Email Address:"
+msgstr "Indirizzo Email Mittente (Da):"
+
+msgid "Confirmation Email Subject:"
+msgstr "Oggetto Email di Conferma:"
+
+msgid "Admin Email Subject:"
+msgstr "Oggetto Email Amministratore:"
+
+msgid "Email Site Administrators for all new registrations"
+msgstr "Manda email agli Amministratori del Sito per ogni nuova registrazione"
+
+msgid "Save"
+msgstr "Salva"
+
+msgid "Reset"
+msgstr "Resetta"
+
+msgid "Pending Registrations"
+msgstr "Registrazioni in Attesa"
+
+msgid "&laquo; first"
+msgstr "&laquo; prima"
+
+msgid "&laquo; back"
+msgstr "&laquo; indietro"
+
+#, c-format
+msgid "Viewing page %d of %d"
+msgstr "Pagina %d di %d"
+
+msgid "next &raquo;"
+msgstr "successiva &raquo;"
+
+msgid "last &raquo;"
+msgstr "ultima &raquo;"
+
+msgid "Username"
+msgstr "Nome Utente"
+
+msgid "Full Name"
+msgstr "Nome Completo"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Action"
+msgstr "Azione"
+
+msgid "activate"
+msgstr "attiva"
+
+msgid "delete"
+msgstr "elimina"
+
+msgid "Account Activation"
+msgstr "Attivazione Account"
+
+msgid "This user cannot be activated."
+msgstr "Questo utente non può essere attivato."
+
+msgid ""
+"This can happen if the URL you entered is not correct or you already activated this account. "
+"Please check if your mail client broke the link into several lines and append them without "
+"spaces."
+msgstr ""
+"Questo può capitare quando l'URL che hai inserito non è corretto oppure hai già attivato "
+"questo account. Per favore controlla se il tuo programma di posta ha diviso il link in più "
+"righe e concatenale senza spazi."
+
+msgid "Your account has been activated."
+msgstr "Il tuo account è stato attivato."
+
+msgid "You can now login to your account with your username and password."
+msgstr "Ora puoi fare il login con i tuoi nome utente e password."
+
+#, c-format
+msgid "Hello %s,"
+msgstr "Ciao %s,"
+
+#, c-format
+msgid "You receive this email because you have registered at %s"
+msgstr "Hai ricevuto questa email perché ti sei registrato presso %s"
+
+#, c-format
+msgid "Your username is: %s"
+msgstr "Il tuo nome utente è: %s"
+
+msgid "To finish the registration process please click the following link:"
+msgstr "Per completare il processo di registrazione clicca sul link che segue:"
+
+msgid ""
+"If you did not register at this site then please ignore this email.  The registration will "
+"not become valid and you will not receive any further emails.  Sorry for the inconvenience."
+msgstr ""
+"Se non ti sei registrato presso questo sito per favore ignora questa email. La registrazione "
+"non diverrà valida e non riceverai altre email. Ci scusiamo per l'inconveniente."
+
+msgid "Thank you!"
+msgstr "Grazie!"
+
+msgid "Registration successful"
+msgstr "Registrazione avvenuta con successo"
+
+msgid "Your registration was successful."
+msgstr "La tua registrazione è avvenuta con successo."
+
+msgid ""
+"You will shortly receive an email containing a link. You have to click this link to confirm "
+"and activate your account.  This procedure is necessary to prevent account abuse."
+msgstr ""
+"Tra breve riceverai un'email contenente un link. Devi cliccare su questo link per confermare "
+"e attivare il tuo account. Questa procedura è necessaria per prevenire gli abusi degli "
+"account."
+
+msgid "Your registration will be processed and your account activated soon."
+msgstr "La tua registrazione sarà processata e il tuo account sarà presto attivato."
+
+msgid "Your registration was successful and your account has been activated."
+msgstr "La tua registrazione è avvenuta con successo e l'account è stato attivato."
+
+#, c-format
+msgid "You can now %slogin%s to your account with your username and password."
+msgstr "Ora puoi fare il %slogin%s con i tuoi nome utente e password."
+
+msgid "Register As New User"
+msgstr "Registrati Come Nuovo Utente"
+
+msgid "(required)"
+msgstr "(obbligatorio)"
+
+msgid "You must enter a username"
+msgstr "Devi inserire un nome utente"
+
+#, c-format
+msgid "Username '%s' already exists"
+msgstr "Il nome utente '%s' esiste già"
+
+msgid "You must enter your full name"
+msgstr "Devi inserire il tuo nome completo"
+
+msgid "Email Address"
+msgstr "Indirizzo Email"
+
+msgid "You must enter an email address"
+msgstr "Devi inserire un indirizzo email"
+
+msgid "Invalid email address"
+msgstr "Indirizzo email non valido"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "You must enter a password"
+msgstr "Devi inserire una password"
+
+msgid "Verify Password"
+msgstr "Verifica Password"
+
+msgid "You must enter the password a second time"
+msgstr "Devi inserire la password una seconda volta"
+
+msgid "The passwords you entered did not match"
+msgstr "Le password che hai inserito non corrispondono"
+
+msgid "Cancel"
+msgstr "Annulla"

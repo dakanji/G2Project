@@ -1,0 +1,83 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Mock template adapter for tests
+ * @package Gallery
+ * @subpackage PHPUnit
+ */
+class MockTemplateAdapter {
+    function MockTemplateAdapter($useProgressBar=true) {
+	$this->_useProgressBar = $useProgressBar;
+    }
+
+    function registerTrailerCallback($callback, $args) {
+	$this->_callbacks[] = array($callback, $args);
+    }
+
+    function runCallbacks() {
+	foreach ($this->_callbacks as $callback) {
+	    $ret = call_user_func_array($callback[0], $callback[1]);
+	    if (is_array($ret)) {
+		$ret = $ret[0];
+	    }
+	    if ($ret) {
+		/* If progress bar is in use, report error via its interface */
+		if ($this->_useProgressBar) {
+		    $this->errorProgressBar($ret);
+		}
+		return $ret;
+	    }
+	}
+
+	return null;
+    }
+
+    function getCallback($index) {
+	return $this->_callbacks[$index];
+    }
+
+    function getCallbackCount() {
+	return sizeof($this->_callbacks);
+    }
+
+    function getProgressBarDump() {
+	return $this->_progress;
+    }
+
+    function updateProgressBar($title, $description, $percentComplete) {
+	/* Replace localized comma decimal separator with a dot */
+	$this->_progress[] = str_replace(',', '.', round($percentComplete, 2));
+	return null;
+    }
+
+    function resetProgressBarStats() {
+	$this->_progress[] = 'reset';
+    }
+
+    function errorProgressBar($status) {
+	$this->_progress[] = 'error';
+    }
+
+    function completeProgressBar($url) {
+	$this->_progress[] = 'complete:' . $url;
+    }
+}
+?>

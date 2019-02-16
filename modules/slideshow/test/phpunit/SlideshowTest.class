@@ -1,0 +1,659 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Test Slideshow functionality
+ *
+ * @package Slideshow
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 17265 $
+ */
+class SlideshowTest extends GalleryTestCase {
+
+    function SlideshowTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    /**
+     * Create an album for testing
+     */
+    function setUp() {
+	parent::setUp();
+	global $gallery;
+
+	/* Register a dummy toolkit and operation */
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'GalleryToolkit', 'SlideshowToolkit', 'SlideshowToolkit',
+	    'modules/slideshow/test/phpunit/SlideshowTest.class', 'slideshow_test', null);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	$this->_markToolkitForCleanup('SlideshowToolkit');
+
+	$ret = GalleryCoreApi::registerToolkitOperation('SlideshowToolkit',
+	    array('image/gif', 'image/jpeg'), 'testoperation',
+	    array(array('type' => 'int', 'description' => 'size')), 'desc');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'ExifInterface_1_0', 'SlideshowExif', 'SlideshowExif',
+	    'modules/slideshow/test/phpunit/SlideshowTest.class', 'slideshowTest', null);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	$this->_markFactoryModuleForCleanup('slideshowTest');
+
+	/* Create a new subalbum and give AllUser group only core.view */
+	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->_markForCleanup($album);
+
+	list ($ret, $allUsersGroupId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = GalleryCoreApi::removeGroupPermission(
+	    $album->getId(), $allUsersGroupId, 'core.viewAll');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	$ret = GalleryCoreApi::addGroupPermission(
+	    $album->getId(), $allUsersGroupId, 'core.view');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	// Add some photos, with these derivatives:
+	// 1:thumb  2:resize/thumb  3:resizes/thumb
+	// 4:preferred/thumb 5:preferred/resize/thumb 6:preferred/resizes/thumb
+	// 7:none  8:resize  9:preferred  10:preferred/resize
+	$photoSizes = array(array('T'), array('R','T'), array('R','R2','T'),
+	    array('P','T'), array('P','R','T'), array('P','R','R2','T'),
+	    array(), array('R'), array('P'), array('P','R'));
+	list ($ret, $lockId) = GalleryCoreApi::acquireReadLock($album->getId());
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	$photoData = array();
+	$prefix = GalleryCoreApi::getPluginBaseDir('module', 'core')
+	    . 'modules/core/test/data/test';
+	$imagePaths = array($prefix . '1.gif', $prefix . '2.gif',
+	    $prefix . '[3].gif', $prefix . '4.gif',
+	    GalleryCoreApi::getPluginBaseDir('module', 'exif')
+		. 'modules/exif/test/data/CanonS30.small.jpg');
+	$imageSizes = array(array(62,75), array(200,178), array(120,54),
+			    array(366,292), array(38,50));
+	for ($i = 0; $i < 10; $i++) {
+	    list ($ret, $photoDatum) = $this->_addPhoto($album->getId(),
+		  $imagePaths[$i%5], $imageSizes[$i%5], $i + 1, $photoSizes[$i]);
+	    if ($ret) {
+		return $this->failWithStatus($ret);
+	    }
+	    $photoData[] = $photoDatum;
+	    if ($i == 7) {
+		list ($ret, $subalbum) =
+		    $this->_createRandomAlbum($album->getId());
+		if ($ret) {
+		    print $ret->getAsHtml();
+		    return $this->failWithStatus($ret);
+		}
+	    }
+	}
+	$ret = GalleryCoreApi::releaseLocks($lockId);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	list ($ret, $lockId) = GalleryCoreApi::acquireReadLock($subalbum->getId());
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	list ($ret, $photoDatum) = $this->_addPhoto($subalbum->getId(),
+	    $imagePaths[2], $imageSizes[2], 11, $photoSizes[1]);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	$ret = GalleryCoreApi::addGroupPermission(
+	    $photoDatum['id'], $allUsersGroupId, 'core.viewAll');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	$photoData[] = $photoDatum;
+	list ($ret, $photoDatum) = $this->_addPhoto($subalbum->getId(),
+	    $imagePaths[3], $imageSizes[3], 12, $photoSizes[3]);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	$ret = GalleryCoreApi::addGroupPermission(
+	    $photoDatum['id'], $allUsersGroupId, 'core.viewSource');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	$photoData[] = $photoDatum;
+	$ret = GalleryCoreApi::releaseLocks($lockId);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $guestId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'slideshow');
+	if ($ret || !isset($module)) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	list ($ret, $view) = GalleryView::loadView('slideshow.Slideshow');
+	if ($ret || !isset($view)) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->_album = $album;
+	$this->_subalbum = $subalbum;
+	$this->_photoData = $photoData;
+	$this->_view = $view;
+	$this->_allUsersGroupId = $allUsersGroupId;
+	$this->_admin = $gallery->getActiveUser();
+
+	list ($ret, $this->_guest) = GalleryCoreApi::loadEntitiesById($guestId);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+    }
+
+    function _addPhoto($parentId, $imagePath, $imageSize, $index, $sizes) {
+	list ($ret, $photo) =
+	    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryPhotoItem');
+	if ($ret) {
+	    return array($ret, null);
+	}
+	list ($ret, $mimeType) = GalleryCoreApi::getMimeType($imagePath);
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$ret = $photo->create($parentId, $imagePath, $mimeType,
+			      'testitem_' . time() . substr($imagePath, -4));
+	if ($ret) {
+	    return array($ret, null);
+	}
+	// omit data once in a while
+	if ($index % 6) {
+	    $photo->setTitle("Item #$index");
+	}
+	if ($index % 3) {
+	    $photo->setSummary("Summary $index");
+	}
+	if ($index % 2) {
+	    $photo->setDescription("Description $index");
+	}
+	$photo->setWidth($imageSize[0]);
+	$photo->setHeight($imageSize[1]);
+	$ret = $photo->save();
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$idData = array('id' => $photo->getId());
+	if (in_array('P', $sizes)) {
+	    // add preferred image, with fake rotate|90 (just swap wd/ht)
+	    list ($ret, $idData['P']) =
+		$this->_addDerivative($photo, DERIVATIVE_TYPE_IMAGE_PREFERRED);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+	if (in_array('T', $sizes)) {
+	    // add thumbnail
+	    list ($ret, $idData['T']) = $this->_addDerivative($photo,
+		DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 150);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+	if (in_array('R', $sizes)) {
+	    // add one resize
+	    list ($ret, $idData['R']) = $this->_addDerivative($photo,
+		DERIVATIVE_TYPE_IMAGE_RESIZE, 300);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+	if (in_array('R2', $sizes)) {
+	    // add another resize
+	    list ($ret, $idData['R2']) = $this->_addDerivative($photo,
+		DERIVATIVE_TYPE_IMAGE_RESIZE, 600);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+	return array(null, $idData);
+    }
+
+    function _addDerivative($photo, $derivativeType, $size=0) {
+	list ($ret, $derivative) =
+	    GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative', $photo->getEntityType());
+	if ($ret) {
+	    return array($ret, null);
+	}
+	if (!isset($derivative)) {
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	}
+	$ret = $derivative->create($photo->getId(), $derivativeType);
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$derivative->setDerivativeSourceId($photo->getId());
+	$derivative->setMimeType($photo->getMimeType());
+	$derivative->setDerivativeOperations('testoperation|0');
+	if ($size) {
+	    // Set scaled size:
+	    $w = $photo->getWidth();
+	    $h = $photo->getHeight();
+	    if ($w <= $size && $h <= $size &&
+		    $derivativeType==DERIVATIVE_TYPE_IMAGE_THUMBNAIL) {
+		$derivative->setWidth($w);
+		$derivative->setHeight($h);
+	    } else if ($w >= $h) {
+		$derivative->setWidth($size);
+		$derivative->setHeight((int)($size*$h/$w));
+	    } else {
+		$derivative->setHeight($size);
+		$derivative->setWidth((int)($size*$w/$h));
+	    }
+	} else {
+	    // Set rotated size (swap wd/ht):
+	    $derivative->setWidth($photo->getHeight());
+	    $derivative->setHeight($photo->getWidth());
+	}
+	$ret = $derivative->save();
+	if ($ret) {
+	    return array($ret, null);
+	}
+	return array(null, $derivative->getId());
+    }
+
+    function _runTest($test, $expectedResults, $startId=null, $itemList=null) {
+	global $gallery;
+	$gallery->setActiveUser($this->_guest);
+	$recursive = ($test == 'recursive');
+	list ($ret, $slideData, $start) = $this->_view->buildSlideshow(
+	    isset($itemList) ? $itemList : $this->_album, $startId, $recursive);
+	if ($ret) {
+	    return $ret;
+	}
+	$this->assert(isset($slideData) && isset($start),
+	    "$test: Generate slideshow data<br>");
+	$this->assertEquals(count($expectedResults) - 1, count($slideData),
+	    "$test: Slideshow data size");
+
+	$slideIds = array();
+	foreach ($slideData as $slide) {
+	    foreach (array('id', 'sources.0.id', 'sources.0.serialNumber',
+			   'data', 'sizeClassMap') as $attribute) {
+		$k = explode('.', $attribute);
+		$this->assert(
+		    (count($k)==1 && isset($slide[$attribute])) ||
+		    (count($k)==3 && isset($slide[$k[0]][$k[1]][$k[2]])),
+		    "$test: Slideshow item missing $attribute attribute");
+	    }
+	    $this->assert(isset($expectedResults[$slide['id']]),
+			  "$test: Slide id " . $slide['id'] . " not expected");
+	    // Verify sources and sizeClassMap..
+	    if (isset($expectedResults[$slide['id']]) &&
+		isset($slide['sizeClassMap']) && isset($slide['exif'])) {
+		$this->assertEquals(
+		    count($expectedResults[$slide['id']][0]),
+		    count($slide['sources']), "$test: Slide " .
+		    $slide['id'] . ' wrong number of sources');
+		foreach ($expectedResults[$slide['id']][0] as $i => $id) {
+		    $this->assertEquals($id, $slide['sources'][$i]['id'],
+			"$test: Slide id " . $slide['id'] . " source $i id"
+			. '<br><pre>' . print_r($this->_photoData, true) . '</pre>');
+		}
+		foreach ($expectedResults[$slide['id']][1] as $i => $index) {
+		    $this->assertEquals($index, $slide['sizeClassMap'][$i],
+			"$test: Slide id " . $slide['id'] . " size map $i"
+			. '<br>' . print_r($this->_photoData, true));
+		    if ($index != $slide['sizeClassMap'][$i]) {
+			ob_start();
+			print_r($expectedResults);
+			print_r($slide);
+			$obContent = ob_get_contents();
+			ob_clean();
+			printf("<pre>%s</pre>", $obContent);
+			return GalleryCoreApi::error(ERROR_UNKNOWN);
+		    }
+		}
+		if (in_array($slide['id'], $expectedResults['idsWithExif'])) {
+		    $this->assert(isset($slide['exif']['DateTime']['value']),
+		      "$test: Slide id " . $slide['id'] .
+		      ' missing EXIF Date/Time');
+		}
+	    }
+	    $slideIds[] = $slide['id'];
+	}
+	$this->assertEquals(count($expectedResults) - 1,
+	    count(array_intersect(array_keys($expectedResults), $slideIds)),
+	    "$test: Slideshow doesn't contain correct set of photo ids");
+	$gallery->setActiveUser($this->_admin);
+
+	return null;
+    }
+
+    /*
+     * Derivatives:
+     * P = rotate|90
+     * T = 150
+     * R = 300
+     * R2 = 600
+     *
+     * Our test photos and derivatives:
+     * 0 62x75                                   T=62x75
+     * 1 200x178            R=300x267            T=150x133
+     * 2 120x54             R=300x135 R2=600x270 T=120x54
+     * 3 366x292  P=292x366                      T=120x150
+     * 4 38x50    P=50x38   R=300x228            T=38x50
+     * 5 62x75    P=75x62   R=300x248 R2=600x496 T=75x62
+     * 6 200x178
+     * 7 120x54             R=300x135
+     * 8 366x292  P=292x366
+     * 9 38x50    P=50x38   R=300x228
+     */
+    function testSlideshow() {
+	$pd = $this->_photoData;
+
+	// First test, only core.view permission:
+	// see thumbnails (4 of the 10 have none)
+	$ret = $this->_runTest('view', array(
+	    $pd[0]['id'] => array(array($pd[0]['T']), array(0,0,0,0,0,0)),
+	    $pd[1]['id'] => array(array($pd[1]['T']), array(0,0,0,0,0,0)),
+	    $pd[2]['id'] => array(array($pd[2]['T']), array(0,0,0,0,0,0)),
+	    $pd[3]['id'] => array(array($pd[3]['T']), array(0,0,0,0,0,0)),
+	    $pd[4]['id'] => array(array($pd[4]['T']), array(0,0,0,0,0,0)),
+	    $pd[5]['id'] => array(array($pd[5]['T']), array(0,0,0,0,0,0)),
+	    'idsWithExif' => array($pd[4]['id'])));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	// core.viewResize permission:
+	// see resize and thumb (2 have neither)
+	$ret = GalleryCoreApi::addGroupPermission(
+			$this->_album->getId(), $this->_allUsersGroupId,
+			'core.viewResizes', TRUE);
+	if ($ret) {
+	    $this->assert(false, "Set viewResizes permission");
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = $this->_runTest('viewResize', array(
+	    $pd[0]['id'] => array(array($pd[0]['T']),
+				  array(0,0,0,0,0,0)),
+	    $pd[1]['id'] => array(array($pd[1]['R'], $pd[1]['T']),
+				  array(0,0,0,0,0,0)),
+	    $pd[2]['id'] => array(array($pd[2]['R'], $pd[2]['R2'], $pd[2]['T']),
+				  array(0,1,1,1,1,1)),
+	    $pd[3]['id'] => array(array($pd[3]['T']),
+				  array(0,0,0,0,0,0)),
+	    $pd[4]['id'] => array(array($pd[4]['R'], $pd[4]['T']),
+				  array(0,0,0,0,0,0)),
+	    $pd[5]['id'] => array(array($pd[5]['R'], $pd[5]['R2'], $pd[5]['T']),
+				  array(0,1,1,1,1,1)),
+	    $pd[7]['id'] => array(array($pd[7]['R']),
+				  array(0,0,0,0,0,0)),
+	    $pd[9]['id'] => array(array($pd[9]['R']),
+				  array(0,0,0,0,0,0)),
+	    'idsWithExif' => array($pd[4]['id'], $pd[9]['id'])));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	// core.viewSource permission: see full/preferred and thumb
+	$ret = GalleryCoreApi::removeGroupPermission(
+			$this->_album->getId(), $this->_allUsersGroupId,
+			'core.viewResizes', TRUE);
+	if ($ret) {
+	    $this->assert(false, 'Remove viewResizes permission');
+	    return $this->failWithStatus($ret);
+	}
+	$ret = GalleryCoreApi::addGroupPermission(
+			$this->_album->getId(), $this->_allUsersGroupId,
+			'core.viewSource', TRUE);
+	if ($ret) {
+	    $this->assert(false, 'Set viewSource permission');
+	    return $this->failWithStatus($ret);
+	}
+	$ret = $this->_runTest('viewSource', array(
+	    $pd[0]['id'] => array(array($pd[0]['id'], $pd[0]['T']),
+				  array(0,0,0,0,0,0)),
+	    $pd[1]['id'] => array(array($pd[1]['id'], $pd[1]['T']),
+				  array(0,0,0,0,0,0)),
+	    $pd[2]['id'] => array(array($pd[2]['id'], $pd[2]['T']),
+				  array(0,0,0,0,0,0)),
+	    $pd[3]['id'] => array(array($pd[3]['P'], $pd[3]['T']),
+				  array(1,0,0,0,0,0)),
+	    $pd[4]['id'] => array(array($pd[4]['P'], $pd[4]['T']),
+				  array(0,0,0,0,0,0)),
+	    $pd[5]['id'] => array(array($pd[5]['P'], $pd[5]['T']),
+				  array(0,0,0,0,0,0)),
+	    $pd[6]['id'] => array(array($pd[6]['id']),
+				  array(0,0,0,0,0,0)),
+	    $pd[7]['id'] => array(array($pd[7]['id']),
+				  array(0,0,0,0,0,0)),
+	    $pd[8]['id'] => array(array($pd[8]['P']),
+				  array(0,0,0,0,0,0)),
+	    $pd[9]['id'] => array(array($pd[9]['P']),
+				  array(0,0,0,0,0,0)),
+	    'idsWithExif' => array($pd[4]['id'], $pd[9]['id'])),
+	  $pd[4]['id']);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	// core.viewAll permission: see all
+	$ret = GalleryCoreApi::addGroupPermission(
+			$this->_album->getId(), $this->_allUsersGroupId,
+			'core.viewAll', TRUE);
+	if ($ret) {
+	    $this->assert(false, "Set viewAll permission");
+	    return $this->failWithStatus($ret);
+	}
+	$ret = $this->_runTest('viewAll', array(
+	    $pd[0]['id'] => array(array($pd[0]['id'], $pd[0]['T']),
+				  array(0,0,0,0,0,0)),
+	    $pd[1]['id'] => array(array($pd[1]['id'], $pd[1]['R'], $pd[1]['T']),
+				  array(1,1,1,1,1,1)),
+	    $pd[2]['id'] => array(array($pd[2]['id'], $pd[2]['R'], $pd[2]['R2'], $pd[2]['T']),
+				  array(1,2,2,2,2,2)),
+	    $pd[3]['id'] => array(array($pd[3]['P'], $pd[3]['T']),
+				  array(1,0,0,0,0,0)),
+	    $pd[4]['id'] => array(array($pd[4]['P'], $pd[4]['R'], $pd[4]['T']),
+				  array(1,1,1,1,1,1)),
+	    $pd[5]['id'] => array(array($pd[5]['P'], $pd[5]['R'], $pd[5]['R2'], $pd[5]['T']),
+				  array(1,2,2,2,2,2)),
+	    $pd[6]['id'] => array(array($pd[6]['id']),
+				  array(0,0,0,0,0,0)),
+	    $pd[7]['id'] => array(array($pd[7]['id'], $pd[7]['R']),
+				  array(1,1,1,1,1,1)),
+	    $pd[8]['id'] => array(array($pd[8]['P']),
+				  array(0,0,0,0,0,0)),
+	    $pd[9]['id'] => array(array($pd[9]['P'], $pd[9]['R']),
+				  array(1,1,1,1,1,1)),
+	    'idsWithExif' => array($pd[4]['id'], $pd[9]['id'])),
+	  $pd[7]['id']);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	// recursive test
+	$ret = $this->_runTest('recursive', array(
+	    $pd[0]['id'] => array(array($pd[0]['id'], $pd[0]['T']),
+				  array(0,0,0,0,0,0)),
+	    $pd[1]['id'] => array(array($pd[1]['id'], $pd[1]['R'], $pd[1]['T']),
+				  array(1,1,1,1,1,1)),
+	    $pd[2]['id'] => array(array($pd[2]['id'], $pd[2]['R'], $pd[2]['R2'], $pd[2]['T']),
+				  array(1,2,2,2,2,2)),
+	    $pd[3]['id'] => array(array($pd[3]['P'], $pd[3]['T']),
+				  array(1,0,0,0,0,0)),
+	    $pd[4]['id'] => array(array($pd[4]['P'], $pd[4]['R'], $pd[4]['T']),
+				  array(1,1,1,1,1,1)),
+	    $pd[5]['id'] => array(array($pd[5]['P'], $pd[5]['R'], $pd[5]['R2'], $pd[5]['T']),
+				  array(1,2,2,2,2,2)),
+	    $pd[6]['id'] => array(array($pd[6]['id']),
+				  array(0,0,0,0,0,0)),
+	    $pd[7]['id'] => array(array($pd[7]['id'], $pd[7]['R']),
+				  array(1,1,1,1,1,1)),
+	    $pd[10]['id'] => array(array($pd[10]['id'], $pd[10]['R'], $pd[10]['T']),
+				   array(1,1,1,1,1,1)),
+	    $pd[11]['id'] => array(array($pd[11]['P'], $pd[11]['T']),
+				   array(1,0,0,0,0,0)),
+	    $pd[8]['id'] => array(array($pd[8]['P']),
+				  array(0,0,0,0,0,0)),
+	    $pd[9]['id'] => array(array($pd[9]['P'], $pd[9]['R']),
+				  array(1,1,1,1,1,1)),
+	    'idsWithExif' => array($pd[4]['id'], $pd[9]['id'])));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	// itemList test
+	$ret = $this->_runTest('itemList', array(
+	    $pd[2]['id'] => array(array($pd[2]['id'], $pd[2]['R'], $pd[2]['R2'], $pd[2]['T']),
+				  array(1,2,2,2,2,2)),
+	    $pd[11]['id'] => array(array($pd[11]['P'], $pd[11]['T']),
+				   array(1,0,0,0,0,0)),
+	    $pd[4]['id'] => array(array($pd[4]['P'], $pd[4]['R'], $pd[4]['T']),
+				  array(1,1,1,1,1,1)),
+	    $pd[10]['id'] => array(array($pd[10]['id'], $pd[10]['R'], $pd[10]['T']),
+				   array(1,1,1,1,1,1)),
+	    $pd[0]['id'] => array(array($pd[0]['id'], $pd[0]['T']),
+				  array(0,0,0,0,0,0)),
+	    'idsWithExif' => array($pd[4]['id'])), null,
+		array($pd[2]['id'], $pd[11]['id'], $pd[4]['id'],
+		      $pd[10]['id'], $pd[0]['id']));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+    }
+
+    function testSlideshowForItemListWithoutPermission() {
+	$pd = $this->_photoData;
+
+	$ret = GalleryCoreApi::removeGroupPermission(
+	    $pd[11]['id'], $this->_allUsersGroupId, 'core.view');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = $this->_runTest('itemList', array(), null,
+	    array($pd[2]['id'], $pd[11]['id'], $pd[4]['id'], $pd[10]['id'], $pd[0]['id']));
+	if (!$ret) {
+	    $this->fail('Expected the slideshow to fail');
+	} else {
+	    $this->assert($ret->getErrorCode() & ERROR_MISSING_OBJECT,
+		'expected ERROR_MISSING_OBJECT');
+	    if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+		return $this->failWithStatus($ret);
+	    }
+	}
+    }
+
+    // test with links?
+}
+
+/**
+ * Required classes
+ */
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
+GalleryCoreApi::requireOnce('modules/exif/classes/ExifInterface_1_0.class');
+
+/**
+ * Test toolkit
+ * @package Slideshow
+ * @subpackage PHPUnit
+ */
+class SlideshowToolkit extends GalleryToolkit {
+    function performOperation($mimeType, $operationName, $sourceFilename,
+			      $destFilename, $parameters, $context=array()) {
+	/* Just copy file and return dummy mime type */
+	global $gallery;
+	if ($sourceFilename != $destFilename) {
+	    $platform =& $gallery->getPlatform();
+	    if (!$platform->copy($sourceFilename, $destFilename)) {
+		return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE),
+			     null, null);
+	    }
+	}
+	return array(null, 'test/image', $context);
+    }
+}
+
+/**
+ * Test toolkit
+ * @package Slideshow
+ * @subpackage PHPUnit
+ */
+class SlideshowExif extends ExifInterface_1_0 {
+    function getMetaData($itemIds, $properties=array()) {
+	if (!is_array($itemIds)) {
+	    $itemIds = array($itemIds);
+	}
+	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$data = array();
+	foreach ($items as $item) {
+	    if (GalleryUtilities::isA($item, 'GalleryDataItem') &&
+		    $item->getMimeType() == 'image/jpeg') {
+		$data[$item->getId()]['DateTime']['value'] = 'date';
+	    }
+	}
+	return array(null, $data);
+    }
+}
+?>

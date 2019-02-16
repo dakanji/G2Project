@@ -1,0 +1,320 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/rss/SimpleRender.inc');
+GalleryCoreApi::requireOnce('modules/rss/Render.inc');
+
+/**
+ * Rss Render tests
+ *
+ * @package Rss
+ * @subpackage PHPUnit
+ * @author Jonatan Heyman <http://heyman.info>
+ * @author Pierre-Luc Paour
+ * @author Daniel Grund <http://www.photogrund.nl>
+ * @version $Revision: 15513 $
+ */
+class RssRenderTest extends GalleryControllerTestCase {
+
+    function RssRenderTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+
+	parent::setUp();
+
+	$ret = $this->_markPluginParametersForCleanup('module', 'rss');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	/* set the expected default parameters */
+	foreach (array('defaultVersion' => '2.0',
+		       'defaultCount' => 10,
+		       'maxCount' => 50,
+		       'allowSimpleFeed' => 1,
+		       'allowConfigurableFeed' => 1,
+		       'allowAlbums' => 1,
+		       'allowPhotos' => 1,
+		       'allowPhotosRecurse' => 1,
+		       'allowCommentsAlbum' => 1,
+		       'allowCommentsPhoto' => 1,
+		       'defaultCopyright' => '',
+		       'defaultTtl' => 120,
+		       'sfAlbumType' => 'photos',
+		       'sfDate' => 'new',
+		       'sfPhotosRecurseLimit' => '10',
+		    ) as $key => $value) {
+	    $ret = GalleryCoreApi::setPluginParameter('module', 'rss', $key, $value);
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+
+	$gallery->_phpVm = new RssRenderTestVm();
+
+	/* Create something to map */
+	list ($ret, $this->_root) = $this->_createRandomAlbum(
+		$this->_getRootId(), array('modificationTimestamp' => 123456789));
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	$this->_markForCleanup($this->_root);
+
+	list ($ret, $this->_item1) = $this->_createRandomDataItem(
+		$this->_root->getId(),
+		'image/test',
+		array('modificationTimestamp' => 123456789),
+		__FILE__,
+		'GalleryPhotoItem');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $this->_album) = $this->_createRandomAlbum(
+		$this->_root->getId(), array('modificationTimestamp' => 123456789));
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $this->_item2) = $this->_createRandomDataItem(
+		$this->_album->getId(),
+		'image/test',
+		array('modificationTimestamp' => 123456789),
+		__FILE__,
+		'GalleryPhotoItem');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->_simpleRender = new SimpleRenderView();
+	$this->_render = new RenderView();
+    }
+
+    function testValidateRssSimple() {
+	global $gallery;
+	$urlGenerator =& $gallery->getUrlGenerator();
+
+	$feedUrl = urlencode($urlGenerator->generateUrl(
+	    array(
+		'view' => 'rss.SimpleRender',
+		'itemId' => $this->_root->getId()),
+	    array(
+		'forceSessionId' => false,
+		'forceFullUrl' => true,
+		'htmlEntities' => false)));
+
+	$validate = GalleryCoreApi::fetchWebPage('http://www.feedvalidator.org/check.cgi?url='
+	    . $feedUrl);
+
+	$this->assert($validate[0], 'http://www.feedvalidator.com couldn\'t be reached. ' .
+		'This is not a real validation failure.');
+
+	if (!$validate) {
+	    $this->assert(strpos($validate[1], 'Congratulations!'),
+		    'The validator says the feed is invalid:' . $validate[1]);
+	}
+     }
+
+    function testValidateRss() {
+	global $gallery;
+
+	/* create a test feed */
+	$name = 'test'.rand();
+	$params = array(
+	    'itemId' => $this->_root->getId(),
+	    'feedType' => 'photosRecurse',
+	    'feedDate' => 'new',
+	    'version' => '2.0',
+	    'count' => '10',
+	    'ttl' => '120',
+	    'category' => 'photos',
+	    'language' => 'en-us',
+	    'copyright' => 'me',
+	    'description' => 'my description',
+	    'useImage' => true,
+	    'useEnclosure' => false,
+	    'useCloud' => false,
+	    'photosRecurseLimit' => '5',
+	    );
+	$ret = RssMapHelper::createFeed($name, $params);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->_feedsToDelete[] = $name;
+
+	$urlGenerator =& $gallery->getUrlGenerator();
+	$feedUrl = urlencode($urlGenerator->generateUrl(
+	    array(
+		'view' => 'rss.Render',
+		'name' => $name),
+	    array(
+		'forceSessionId' => false,
+		'forceFullUrl' => true,
+		'htmlEntities' => false)));
+
+	$validate = GalleryCoreApi::fetchWebPage('http://www.feedvalidator.org/check.cgi?url='
+	    . $feedUrl);
+
+	$this->assert($validate[0], 'http://www.feedvalidator.com couldn\'t be reached. ' .
+		'This is not a real validation failure.');
+
+	if (!$validate) {
+	    $this->assert(strpos($validate[1], 'Congratulations!'),
+		    'The validator says the feed is invalid:' . $validate[1]);
+	}
+    }
+
+    function testRssSimpleRenderAlbum() {
+	global $gallery;
+
+	GalleryUtilities::putRequestVariable('itemId', $this->_root->getId());
+	list ($ret, $version) =
+	    GalleryCoreApi::getPluginParameter('module', 'rss', '_version');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = GalleryCoreApi::setPluginParameter('module', 'rss', 'sfAlbumType', 'album');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$gallery->_urlGenerator = new RenderViewTestUrlGenerator();
+	ob_start();
+	$ret = $this->_simpleRender->renderImmediate(null, null);
+	if ($ret) {
+	    ob_end_clean();
+	    return $this->failWithStatus($ret);
+	}
+
+	$results = ob_get_contents();
+	ob_end_clean();
+	$platform =& $gallery->getPlatform();
+
+	$this->assertEquals(
+	    array(
+		'Header: Content-type: text/xml; charset=UTF-8',
+		'<rss version="2.0">',
+		'<channel>',
+		'<title><![CDATA[I am Jack\'s title]]></title>',
+		'<link>url:' . $this->_root->getId() . '</link>',
+		'<description><![CDATA[This is my description]]></description>',
+		'<language>en-us</language>',
+		'<generator>Gallery 2 RSS Module, version ' . $version . '</generator>',
+		'<lastBuildDate>' . date('r', 1234567890) . '</lastBuildDate>',
+		'<ttl>120</ttl>',
+		'<item>',
+		' <title><![CDATA[I am Jack\'s title]]></title>',
+		' <link>url:' . $this->_album->getId() . '</link>',
+		' <guid isPermaLink="false">url:' . $this->_album->getId() . '</guid>',
+		' <description><![CDATA[This is my description]]></description>',
+		' <category>album</category>',
+		' <pubDate>' . date('r', 1234567890) . '</pubDate>',
+		'</item>',
+		'</channel>',
+		'</rss>'),
+	    split($platform->getLineEnding(), $results));
+    }
+
+    function testRssSimpleRenderPhotos() {
+	global $gallery;
+
+	GalleryUtilities::putRequestVariable('itemId', $this->_root->getId());
+	list ($ret, $version) =
+	    GalleryCoreApi::getPluginParameter('module', 'rss', '_version');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = GalleryCoreApi::setPluginParameter('module', 'rss', 'sfAlbumType', 'photos');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$gallery->_urlGenerator = new RenderViewTestUrlGenerator();
+	ob_start();
+	$ret = $this->_simpleRender->renderImmediate(null, null);
+	if ($ret) {
+	    ob_end_clean();
+	    return $this->failWithStatus($ret);
+	}
+
+	$results = ob_get_contents();
+	ob_end_clean();
+	$platform =& $gallery->getPlatform();
+
+	$this->assertEquals(
+	    array(
+		'Header: Content-type: text/xml; charset=UTF-8',
+		'<rss version="2.0">',
+		'<channel>',
+		'<title><![CDATA[I am Jack\'s title]]></title>',
+		'<link>url:' . $this->_root->getId() . '</link>',
+		'<description><![CDATA[This is my description]]></description>',
+		'<language>en-us</language>',
+		'<generator>Gallery 2 RSS Module, version ' .$version . '</generator>',
+		'<lastBuildDate>' . date('r', 1234567890) . '</lastBuildDate>',
+		'<ttl>120</ttl>',
+		'<item>',
+		' <title><![CDATA[I am Jack\'s title]]></title>',
+		' <link>url:' . $this->_item1->getId() . '</link>',
+		' <guid isPermaLink="false">url:' . $this->_item1->getId() . '</guid>',
+		' <description><![CDATA[This is a description]]></description>',
+		' <category>photo</category>',
+		' <pubDate>' . date('r', 1234567890) . '</pubDate>',
+		'</item>',
+		'</channel>',
+		'</rss>'),
+	    split($platform->getLineEnding(), $results));
+    }
+}
+
+class RenderViewTestUrlGenerator {
+    function generateUrl($params) {
+	return sprintf('url:%d', $params['itemId']);
+    }
+}
+
+class RssRenderTestVm {
+    function header($string) {
+	global $gallery;
+	$platform =& $gallery->getPlatform();
+
+	print 'Header: ' . $string . $platform->getLineEnding();
+    }
+
+    function headers_sent() {
+	return false;
+    }
+
+    function time() {
+	return 1234567890;
+    }
+}
+?>

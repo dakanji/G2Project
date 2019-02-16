@@ -1,0 +1,469 @@
+# $Id: sr.po 16040 2007-03-16 23:04:36Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Migration 1.0.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-08-14 16:53+0200\n"
+"PO-Revision-Date: 2005-09-07 13:35+0200\n"
+"Last-Translator: Jozef Selesi <selesi@gmail.com>\n"
+"Language-Team: Srpski <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.10\n"
+
+msgid "Importing Users"
+msgstr "Prenos korisnika"
+
+msgid "Importing Photos"
+msgstr "Prenos fotografija"
+
+msgid "Creating thumbnails"
+msgstr "Pravljenje umanjenih prikaza"
+
+#, c-format
+msgid "%sTitle%s was truncated for %sitem %d%s."
+msgstr "%sNaslov%s je skraćen za %sobjekat %d%s."
+
+#, c-format
+msgid "%sSummary%s was truncated for %sitem %d%s."
+msgstr "%sSažetak%s je skraćen za %sobjekat %d%s."
+
+msgid "Set:"
+msgstr "Skup:"
+
+msgid "Truncated:"
+msgstr "Skraćeno:"
+
+#, c-format
+msgid "Thumbnail %d of %d"
+msgstr "%d. umanjen prikaz od %d"
+
+msgid "Migration"
+msgstr "Migracija"
+
+msgid "Migrate your Gallery 1 albums to Gallery 2"
+msgstr "Migriranje albuma iz vaše Galerije 1 u Galeriju 2"
+
+msgid "Import"
+msgstr "Prenos"
+
+msgid "Gallery 1"
+msgstr "Galerija 1"
+
+msgid "G1-&gt;G2 Mapping"
+msgstr "Mapiranje G1-&gt;G2"
+
+msgid "G1 path"
+msgstr "Putanja G1"
+
+#, c-format
+msgid ""
+"G1 URL redirect. Use only if G2 is installed where G1 used to be and you have run a G1 "
+"import with the URL redirect option selected. Otherwise follow instructions in %sMigrate "
+"Site Admin%s."
+msgstr ""
+"Preusmeravanje G1 adrese. Koristite ovu mogućnost samo ako je G2 instalirana gde je bila G1, "
+"a pokrenuli ste prenos iz G1 sa uključenom mogućnošću preusmeravanja adrese. U protivnom, "
+"sledite uputstva u %sMigriranju Administracije%s."
+
+msgid "Select Albums and Users"
+msgstr "Izaberite albume i korisnike"
+
+msgid "You must choose something to import!"
+msgstr "Morate izabrati nešto za prenos!"
+
+msgid "You must specify a custom field name"
+msgstr "Morate uneti naziv posebnog polja"
+
+msgid "Import Users"
+msgstr "Prenos korisnika"
+
+msgid "Select the users to migrate"
+msgstr "Izaberite korisnike koje želite da prenesete"
+
+msgid "Check All"
+msgstr "Obeleži sve"
+
+msgid "Clear All"
+msgstr "Isključi sve"
+
+msgid "Invert Selection"
+msgstr "Obrni"
+
+msgid "Select"
+msgstr "Izaberi"
+
+msgid "Username"
+msgstr "Korisničko ime"
+
+msgid "No available users"
+msgstr "Nema odgovarajućih korisnika"
+
+msgid "These users are already in your gallery, and will not be imported:"
+msgstr "Ovi korisnici se već nalaze u vašoj Galeriji, i neće biti preneti:"
+
+msgid "Import Albums"
+msgstr "Prenos albuma"
+
+msgid "Select the albums to migrate"
+msgstr "Izaberite albume koje želite da prenesete"
+
+msgid "Source:"
+msgstr "Izvor:"
+
+#, c-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+msgid "Destination:"
+msgstr "Odredište:"
+
+msgid "Character Encoding of Source Text:"
+msgstr "Kodni raspored znakova u izvornom tekstu:"
+
+msgid "URL Redirection"
+msgstr "Preusmeravanje adrese"
+
+msgid "Record G1->G2 mappings during import"
+msgstr "Sačuvaj G1->G2 mapiranja u toku prenosa"
+
+msgid "Thumbnail generation"
+msgstr "Generacija umanjenih prikaza"
+
+msgid ""
+"Normally Gallery will generate thumbnails the first time you look at them, then save them "
+"for subsequent views.  If you check this box, we'll create the thumbnails at migration "
+"time.  Migration will take longer but the first time you view an album will go much faster."
+msgstr ""
+"U normalnim okolnostima, Galerija će generisati umanjene prikaze prvi put kada ih "
+"pregledate, i sačuvati ih za sledeći put. Ako obeležite ovo polje, napravićemo umanjene "
+"prikaze u toku prenosa. Migracija će trajati duže, ali će prvo prikazivanje albuma biti brže."
+
+msgid "Item captions"
+msgstr "Natpisi objekata"
+
+msgid ""
+"Gallery 2 has the following fields for all items and albums: title, summary text shown with "
+"thumbnails and description text shown in item or album view. G1 albums already have these "
+"three items (though the names of summary and description are reversed). G1 items have only a "
+"filename and caption. For items imported into G2:"
+msgstr ""
+"Galerija 2 ima sledeća polja za sve objekte i albume: naslov, sažetak koji se prikazuje uz "
+"umanjen prikaz i opis koji se prikazuje pilikom pregledanja albuma ili objekta. G1 albumi "
+"već imaju ova tri polja (iako su nazivi sažetka i opisa obrnuti). G1 objekti imaju samo "
+"naziv i natpis. Za objekte koji će biti preneti u G2:"
+
+msgid "Set title from:"
+msgstr "Preuzmi naslov iz:"
+
+msgid "Base filename"
+msgstr "Osnovnog naziva datoteke"
+
+msgid "Caption"
+msgstr "Natpisa"
+
+msgid "Custom Field:"
+msgstr "Posebnog polja:"
+
+msgid "Enter a custom field name"
+msgstr "Unesite nazov posebnog polja"
+
+msgid "Blank"
+msgstr "Prazno"
+
+msgid "Set summary from:"
+msgstr "Preuzmi sažetak iz:"
+
+msgid "Set description from:"
+msgstr "Preuzmi opis iz:"
+
+msgid "Default to same as summary if custom field not set"
+msgstr "Podrazumevana vrednost je ista kao i kod sažetka ako posebno polje nije uneto"
+
+msgid "Custom fields"
+msgstr "Posebna polja"
+
+msgid ""
+"Custom fields will not be imported.  Activate Custom Fields module to enable this option."
+msgstr ""
+"Posebna polja neće biti preneta. Aktivirajte modul za Posebna polja da omogućite ovu opciju."
+
+msgid "Import custom fields"
+msgstr "Prenos posebnih polja"
+
+msgid ""
+"Do not create Gallery 2 custom fields for fields selected above for title, summary or "
+"description"
+msgstr ""
+"Nemoj praviti posebna polja u Galeriji 2 za gore izabrana polja za naslov, sažetak ili opis."
+
+msgid "Prepare Import"
+msgstr "Pripremanje prenosa"
+
+msgid "Confirm Migration"
+msgstr "Potvrda migracije"
+
+msgid "Users to import:"
+msgstr "Korisnici koji će biti preneti:"
+
+msgid "Albums to import:"
+msgstr "Albumu koji će biti preneti:"
+
+msgid "Album Name"
+msgstr "Naziv albuma"
+
+msgid "Album Title"
+msgstr "Naslov albuma"
+
+msgid "Album Notes"
+msgstr "Napomene albuma"
+
+msgid "An album already exists with this name.  This album will be renamed."
+msgstr "Album sa ovim nazivom već postoji, pa će mu naziv biti promenjen."
+
+#, c-format
+msgid "This album has an illegal name and will be renamed to <i>%s</i>"
+msgstr "Album ima neispravno ime, pa će biti preimenovan u <i>%s</i>"
+
+#, c-format
+msgid "This album's owner (%s) hasn't been imported."
+msgstr "Vlasnik albuma (%s) nije prenet."
+
+#, c-format
+msgid "Import %s now."
+msgstr "Prenesi %s sada"
+
+msgid ""
+"Top level albums and albums whose parents are not selected will be imported into this album:"
+msgstr "Osnovni albumi i albumi čiji roditelji nisu izabrani, biće preneti u ovaj album:"
+
+#, c-format
+msgid "Title: %s"
+msgstr "Naslov: %s"
+
+#, c-format
+msgid "Description: %s"
+msgstr "Opis: %s"
+
+msgid "Your Gallery 1 will be converted from this character encoding into UTF-8:"
+msgstr "Vaša Galerija 1 će biti konvertovana iz ovog kodnog rasporeda znakova u UTF-8."
+
+#, c-format
+msgid "Encoding: %s"
+msgstr "Kodni raspored: %s"
+
+msgid "G1->G2 mappings will be recorded for use in URL Redirection"
+msgstr "G1->G2 mapiranja će biti sačuvana za korišćenje prilikom preusmeravanja adresa"
+
+msgid "Thumbnails will be generated during migration"
+msgstr "Umanjeni prikazi će biti generisani u toku migracije"
+
+msgid "Item fields will be imported from:"
+msgstr "Polja objekata će biti preneta iz:"
+
+msgid "Title"
+msgstr "Naslov"
+
+msgid "Custom field:"
+msgstr "Posebno polje:"
+
+msgid "Summary"
+msgstr "Sažetak"
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "(Default to summary value if not set)"
+msgstr "(ako nije navedeno, podrazumeva se vrednost sažetka)"
+
+msgid "Custom fields will be imported"
+msgstr "Posebna polja će biti preneta"
+
+msgid "Custom fields imported into item fields above will not be duplicated as custom fields"
+msgstr "Posebna polja preneta u polja iznad neće biti duplirana kao posebna polja"
+
+msgid "Hidden Items"
+msgstr ""
+
+msgid ""
+"Any hidden albums or items will be imported with restricted view permissions. Activate the "
+"Hidden Items module before migration to import these as \"hidden\" which means they are "
+"invisible to guest users until accessed by the direct URL for those items."
+msgstr ""
+
+msgid "Cancel"
+msgstr "Otkaži"
+
+msgid "Import Complete"
+msgstr "Prenos završen"
+
+#, c-format
+msgid "Successfully imported %d user."
+msgid_plural "Successfully imported %d users."
+msgstr[0] "Uspešno prenet %d korisnik."
+msgstr[1] "Uspešno preneto %d korisnika."
+
+msgid "No users imported."
+msgstr "Ni jedan korisnik nije prenet."
+
+#, c-format
+msgid "Imported %s"
+msgstr "Prenet %s"
+
+#, c-format
+msgid "Error while importing %d user."
+msgid_plural "Errors while importing %d users."
+msgstr[0] "Greška prilikom prenosa %d korisnika."
+msgstr[1] "Greška prilikom prenosa %d korisnika."
+
+#, c-format
+msgid "Error importing %s"
+msgstr "Greška prilikom prenosa %s"
+
+#, c-format
+msgid "Successfully imported %d album."
+msgid_plural "Successfully imported %d albums."
+msgstr[0] "Uspešno prenet %d album."
+msgstr[1] "Uspešno preneto %d albuma."
+
+msgid "No albums imported."
+msgstr "Ni jedan album nije prenet."
+
+#, c-format
+msgid "Error while importing %d album."
+msgid_plural "Errors while importing %d albums."
+msgstr[0] "Greška prilikom prenosa %d albuma."
+msgstr[1] "Greška prilikom prenosa %d albuma."
+
+msgid "Import more data"
+msgstr "Prenesi još podataka"
+
+msgid "To enable URL Redirection under Apache webserver:"
+msgstr "Da biste omogućili preusmeravanje adresa pod Apache web serverom:"
+
+#, c-format
+msgid "Ensure the %s Apache module is enabled."
+msgstr "Uverite se da je aktiviran Apache modul %s."
+
+msgid ""
+"Edit or create a file called <tt>.htaccess</tt> in your Gallery1 directory and add the text "
+"shown below to the file. Remove G1 rewrite rules from an existing file. Redirects will also "
+"work in your Gallery2 directory if G2 is installed in the path where G1 used to be. However, "
+"if you also use the G2 URL Rewrite module then activate the G1 redirect rule in that module "
+"instead of using the block shown below."
+msgstr ""
+"Izmenite ili napravite datoteku sa nazivom <tt>.htaccess</tt> u vašem direktorijumu sa "
+"Galerijom 1 i dodajte u nju dole naveden tekst. Uklonite pravila za prepisivanje adresa "
+"Galerije 1 iz postojeće datoteke. Preusmeravanje će raditi i u vašem direktorijumu sa "
+"Galerijom 2, ako je instalirana na mesto gde se nalazila Galerija 1. Međutim, ako koristite "
+"modul za prepisivanje adresa Galerije 2, onda aktivirajte G1 pravilo preusmeravanja u tom "
+"modulu, umesto onoga što je navedeno u odeljku ispod."
+
+msgid ""
+"Add the same <tt>.htaccess</tt> block in the Gallery1 albums directory if you also wish to "
+"redirect links to image files and album directories. Note that these redirects are not "
+"active until the G1 images are actually removed or moved. Omit the !-f line shown below to "
+"redirect anyway."
+msgstr ""
+"Dodajte isti <tt>.htaccess</tt> odeljak u direktorijum sa albumima Galerije 1 ako želite da "
+"preusmeravate i adrese albuma i slika. Obratite pažnju na to da ova preusmerenja nisu "
+"aktivna sve dok se same slike ne uklone iz Galerije 1. Preskočite dole navedenu liniju sa !-"
+"f, ako želite da preusmerite i posojeće objekte."
+
+msgid ""
+"If G2 is installed in the path where G1 used to exist, you will need to remove the G1 file "
+"\"gallery_remote2.php\" file before you can use Gallery Remote to upload images to G2."
+msgstr ""
+"Ako je G2 instalirana na putanju gde je bila G1, moraćete da uklonite datoteku Galerije 1 sa "
+"nazivom \"gallery_remote2.php\", pre nego što ćete moći da koristite Daljinsku Galeriju za "
+"prenos slika u G2."
+
+msgid "Download .htaccess file"
+msgstr "Prenos .htaccess datoteke"
+
+msgid "Import from Gallery 1"
+msgstr "Prenos iz Galerije 1"
+
+msgid ""
+"Copy all or part of an existing Gallery 1 installation into your Gallery 2.  It won't modify "
+"your Gallery 1 data in any way."
+msgstr ""
+"Prenos čitave ili dela postojeće instalacije Galerije 1 u vašu Galeriju 2. Vaši podaci u "
+"Galeriji 1 neće ni na koji način biti izmenjeni."
+
+#, c-format
+msgid ""
+"You don't have any Graphics Toolkit activated to handle JPEG images.  If you import now, you "
+"will not have any thumbnails.  Visit the <a href=\"%s\">Modules</a> page to activate a "
+"Graphics Toolkit."
+msgstr ""
+"Nija aktivirana ni jedna grafička alatka koja može da radi sa JPEG slikama. Ako sada "
+"izvršite prenos, nećete imati ni jedan umenjen prikaz. Otvorite stranu <a href=\"%s"
+"\">Moduli</a> da aktivirate jednu od grafičkih alatki."
+
+msgid "Path to Gallery 1 albums directory"
+msgstr "Putanja do postojećeg direktorijuma sa Galerijom 1"
+
+msgid "Example: /var/www/albums"
+msgstr "Primer: /var/www/albumi"
+
+msgid "You did not enter a path."
+msgstr "Niste uneli ispravnu putanju."
+
+msgid "The path that you entered is invalid."
+msgstr "Putanja koju ste uneli nije ispravna."
+
+msgid ""
+"<b>Note:</b> Before you import any data you should make sure your Gallery 1 is installed "
+"correctly by adding a photo through the Gallery 1 web interface.  Make sure you resolve any "
+"errors you see there first."
+msgstr ""
+"<b>Napomena:</b> Pre nego što prenesete bilo koje podatke, treba da se uverite da je "
+"Galerija 1 ispravno instalirana, tako što ćete dodati jednu fotografiju kroz njen web "
+"interfejs. Rešite eventualne probleme koji se prilikom toga jave."
+
+msgid "Recently Used Paths"
+msgstr "Nedavno korišćene putanje"
+
+msgid "Gallery can redirect old Gallery1 URLs to the new Gallery2 pages."
+msgstr "Možete preusmeriti stare adrese iz Galerije 1 na nove stranice Galerije 2."
+
+#, c-format
+msgid "There is one G1->G2 map entry"
+msgid_plural "There are %d G1->G2 map entries"
+msgstr[0] "Postoji jedna stavka u G1->G2 mapi."
+msgstr[1] "Postoji %d stavki u G1->G2 mapi."
+
+msgid ""
+"Deleting map entries will cause old G1 URLs to produce HTTP Not Found errors instead of "
+"redirecting to G2 pages.  Delete all entries?"
+msgstr ""
+"Brisanje stavki mapiranja će prouzrokovati da se prilikom pristupa starim G1 adresama "
+"prikažu HTTP Not Found greške umesto odgovarajućih G2 strana. Da li ste sigurni da želite da "
+"obrišete sve stavke?"
+
+msgid "Delete All"
+msgstr "Briši sve"
+
+msgid "Map entries deleted successfully"
+msgstr "Stavke mapiranja uspešno izbrisane"

@@ -1,0 +1,252 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplateAdapter.class');
+
+/**
+ * Test Gallery Template Adapter functionality
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Jesse Mullan
+ * @version $Revision: 15513 $
+ */
+class TemplateAdapterTest extends GalleryTestCase {
+    function GalleryTemplateAdapterTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function _setupAdapterWithMocks() {
+	global $gallery;
+	$this->_mockUrlGenerator =& new TemplateAdapterMockUrlGenerator();
+	$gallery->setUrlGenerator($this->_mockUrlGenerator);
+
+	$this->_mockSmarty = new TemplateAdapterMockSmarty();
+	$this->_templateAdapter = new GalleryTemplateAdapter();
+
+	$this->_templateAdapter->_theme = new TemplateAdapterMockTheme();
+    }
+
+    function testLinkId1() {
+	$test = array('urlParams' => array());
+	$result = GalleryTemplateAdapter::linkId($test);
+	$this->assertEquals('gbAdminLink gbLink', $result);
+    }
+
+    function testLinkId2() {
+	$test = array('urlParams' => array('view' => 'core.:ItemAdmin'));
+	$result = GalleryTemplateAdapter::linkId($test);
+	$this->assertEquals('gbAdminLink gbLink-core_ItemAdmin', $result);
+    }
+
+    function testLinkId3() {
+	$test = array('urlParams' => array('view' => '.;-_monkey'));
+	$result = GalleryTemplateAdapter::linkId($test);
+	$this->assertEquals('gbAdminLink gbLink-monkey', $result);
+    }
+
+    function testLinkId4() {
+	$test = array('urlParams' => array('controller' => 'core.Monkey',
+					   'view' => 'core.Pirate',
+					   'subView' => 'core.Ninja'));
+	$result = GalleryTemplateAdapter::linkId($test);
+	$this->assertEquals('gbAdminLink gbLink-core_Monkey-core_Pirate-core_Ninja', $result);
+    }
+
+    function testLinkId5() {
+	$test = array('view' => 'core.Pirate');
+	$result = GalleryTemplateAdapter::linkId($test);
+	$this->assertEquals('gbAdminLink gbLink-core_Pirate', $result);
+    }
+
+    function testLinkId6() {
+	$test = array('view' => 'core.Pirate',
+		      'urlParams' => array('controller' => 'core.Monkey',
+					   'view' => 'core.Pirate',
+					   'subView' => 'core.Ninja'));
+	$result = GalleryTemplateAdapter::linkId($test);
+	$this->assertEquals('gbAdminLink gbLink-core_Monkey-core_Pirate-core_Ninja', $result);
+    }
+
+    function testSafeCssName1() {
+	$string = 'core.ItemAdmin';
+	$result = GalleryTemplateAdapter::_safeCssName($string);
+	$this->assertEquals('core_ItemAdmin', $result);
+    }
+
+    function testSafeCssName2() {
+	$string = 'core..ItemAdmin';
+	$result = GalleryTemplateAdapter::_safeCssName($string);
+	$this->assertEquals('core_ItemAdmin', $result);
+    }
+
+    function testSafeCssName3() {
+	$string = '.;-_monkey';
+	$result = GalleryTemplateAdapter::_safeCssName($string);
+	$this->assertEquals('-monkey', $result);
+    }
+
+    function testForceFullUrlOn() {
+	$this->_setupAdapterWithMocks();
+	$this->_templateAdapter->url(array('arg1' => 'foo=bar',
+				    'forceFullUrl' => 'anything'), $this->_mockSmarty);
+
+	$this->assertEquals(array(array('foo' => 'bar'), array('forceFullUrl' => true)),
+			    $this->_mockUrlGenerator->_calls[0]);
+    }
+
+    function testForceFullUrlOff() {
+	$this->_setupAdapterWithMocks();
+	$this->_templateAdapter->url(array('arg1' => 'foo=bar'), $this->_mockSmarty);
+
+	$this->assertEquals(array(array('foo' => 'bar'), array()),
+			    $this->_mockUrlGenerator->_calls[0]);
+    }
+
+    function testUrlParamsAndArgs() {
+	$this->_setupAdapterWithMocks();
+	$this->_templateAdapter->url(array('params' => array('view' => 'fun.View'),
+					   'arg1' => 'foo=bar'), $this->_mockSmarty);
+
+	$this->assertEquals(array(array('view' => 'fun.View', 'foo' => 'bar'), array()),
+			    $this->_mockUrlGenerator->_calls[0]);
+    }
+
+    function testUrlOptionsAndBulkOptions() {
+	$this->_setupAdapterWithMocks();
+	$this->_templateAdapter->url(array('options' => array('foo' => 'foo', 'bar' => 'bar'),
+					   'foo' => 'bar'), $this->_mockSmarty);
+
+	$this->assertEquals(array(array(), array('foo' => 'bar', 'bar' => 'bar')),
+			    $this->_mockUrlGenerator->_calls[0]);
+    }
+
+    function testChangeInDescendents() {
+	$test = array('module' => 'pirate', 'text' => 'ninja', 'l10Domain' => 'en_US');
+	$this->_setupAdapterWithMocks();
+	$result = GalleryTemplateAdapter::changeInDescendents($test, $this->_mockSmarty);
+	$this->assertEquals('<input type="checkbox" id="pirate_ChangeInDescendents" ' .
+	    'name="g2_form[changeInDescendents][pirate]"/> <label ' .
+	    'for="pirate_ChangeInDescendents"> ninja</label>', $result);
+    }
+
+    /* Make sure viewL10domain doesn't get ignored */
+    function testTextViewL10domain() {
+	global $gallery;
+	$gallery->_translator = new TemplateAdapterMockTranslator();
+	$this->_setupAdapterWithMocks();
+	$this->_mockSmarty->_tpl_vars['l10Domain'] = 'en_US';
+	$this->_mockSmarty->_tpl_vars['viewL10domain'] = 'te_TE';
+	$translated = $this->_templateAdapter->text(array('text' => 'Test failed'),
+						    $this->_mockSmarty);
+
+	$this->assertEquals('Test passed', $translated);
+    }
+
+    function testThemeUrls() {
+	$this->_setupAdapterWithMocks();
+	$results = $this->_templateAdapter->theme(
+	    array('url' => 'foo.css'), $this->_mockSmarty);
+	$this->assertEquals(array('href' => 'themes/mock/foo.css'),
+			    $results);
+    }
+
+    function testThemeUrlsWithOverride() {
+	global $gallery;
+	$this->_setupAdapterWithMocks();
+
+	$base = dirname(dirname(dirname(__FILE__))) . '/../../';
+	$mockPlatform = new UnitTestPlatform();
+	$mockPlatform->setReply('file_exists', array($base . 'themes/mock/local/foo.css'), 1);
+	$mockPlatform->setReply('is_readable', array($base . 'themes/mock/local/foo.css'), 1);
+	$gallery->_platform =& $mockPlatform;
+
+	$results = $this->_templateAdapter->theme(
+	    array('url' => 'foo.css'), $this->_mockSmarty);
+	$this->assertEquals(array('href' => 'themes/mock/local/foo.css'),
+			    $results);
+    }
+
+    function testThemeUrlsWithOverrideSubdir() {
+	global $gallery;
+	$this->_setupAdapterWithMocks();
+
+	$base = dirname(dirname(dirname(__FILE__))) . '/../../';
+	$mockPlatform = new UnitTestPlatform();
+	$mockPlatform->setReply(
+	    'file_exists', array($base . 'themes/mock/templates/local/foo.css'), 1);
+	$mockPlatform->setReply(
+	    'is_readable', array($base . 'themes/mock/templates/local/foo.css'), 1);
+	$gallery->_platform =& $mockPlatform;
+
+	$results = $this->_templateAdapter->theme(
+	    array('url' => 'templates/foo.css'), $this->_mockSmarty);
+	$this->assertEquals(array('href' => 'themes/mock/templates/local/foo.css'),
+			    $results);
+    }
+
+    function testAutoCompleteIncludesAuthToken() {
+	global $gallery;
+	$session =& $gallery->getSession();
+	$this->_setupAdapterWithMocks();
+
+	$url = 'http://example.com/main.php?foo=bar';
+	$this->_mockSmarty->_tpl_vars = 1;
+	$this->_templateAdapter->autoComplete(
+				array('element' => 'giFormUsername'), $url, $this->_mockSmarty);
+	$expectedUrl = $url . '&g2_authToken=' . $session->getAuthToken();
+	$this->assertEquals(
+	    array('smarty_include_tpl_file' => 'gallery:modules/core/templates/AutoComplete.tpl',
+		  'smarty_include_vars' => array('element' => 'giFormUsername',
+						 'url' => $expectedUrl,
+			      'callCount' => 1)),
+	    $this->_mockSmarty->_includes[0]);
+    }
+}
+
+class TemplateAdapterMockTheme {
+    function getId() {
+	return 'mock';
+    }
+}
+
+class TemplateAdapterMockSmarty {
+    var $_includes = array();
+
+    function _smarty_include($params) {
+	$this->_includes[] = $params;
+    }
+}
+
+class TemplateAdapterMockUrlGenerator {
+    function generateUrl($params=array(), $options=array()) {
+	$this->_calls[] = array($params, $options);
+	return $params;
+    }
+}
+
+class TemplateAdapterMockTranslator {
+    function translateDomain($domain, $params) {
+	if ($domain == 'te_TE' && $params['text'] == 'Test failed') {
+	    return array(null, 'Test passed');
+	}
+	return array(null, null);
+    }
+}
+?>

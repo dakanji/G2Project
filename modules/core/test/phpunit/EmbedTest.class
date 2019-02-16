@@ -1,0 +1,409 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryEmbed.class');
+
+/**
+ * Test Embed functionality
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Andy Staudacher <ast@gmx.ch>
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 15513 $
+ */
+class EmbedTest extends GalleryTestCase {
+
+    function setUp() {
+	parent::setUp();
+
+	/* Some of the test replace the global gallery object, therefore back it up */
+	global $gallery;
+	$this->_origGallery =& $gallery;
+	$this->_savedSession = $gallery->_session;
+	$gallery->_session = new GallerySession();
+	$ret = $gallery->_session->init();
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $ret;
+	}
+	$ret = $gallery->_session->start();
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $ret;
+	}
+	/* Clean all cached variables */
+	GalleryDataCache::reset();
+    }
+
+    function tearDown() {
+	/* Restore */
+	global $gallery;
+	$GLOBALS['gallery'] =& $this->_origGallery;
+	$gallery =& $GLOBALS['gallery'];
+	$gallery->_session = $this->_savedSession;
+	GalleryDataCache::reset();
+
+	parent::tearDown();
+    }
+
+    function EmbedTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    /**
+     * create some pseudo <head> html section and use parseHtml to extract the title, css, and
+     * javascript. Multiple css styles are allowed and multiple javascript sections are allowed.
+     * Furthermore, there are 2 types of css tags and 2 types of script tags.
+     */
+    function testParseHtml() {
+	/* Create some pseudo html <head> section */
+	$refTitle = '
+  Gallery
+';
+	$refCss = array('<link rel="stylesheet" type="text/css" '.
+			'href="http://www.domain.com/gallery2/themes/matrix/theme.css"/>',
+			'<style type="text/css" media="all">@import ' .
+			'url(http://domain.com/some/path/themes/classic_theme/style/style.css);'.
+			'</style>',
+			'<link rel="stylesheet" type="text/css" ' .
+			'href="http://localhost/gallery2/modules/icons/icons.css"/>',
+			'<link rel="stylesheet" type="text/css" '.
+			'href="http://127.0.0.1/gallery2/modules/colorpack/color.css"/>');
+	$refJs = array('<script type="text/javascript" '.
+		       'src="themes/Xaraya_Classic/scripts/switch_styles.js"></script>',
+		       '<script type="text/javascript">
+
+    //<![CDATA[
+    var agent = navigator.userAgent.toLowerCase();
+    var appver = parseInt(navigator.appVersion);
+    '."var bCanBlend = (agent.indexOf('msie') != -1) && (agent.indexOf('opera') == -1) &&
+		    (appver >= 4) && (agent.indexOf('msie 4') == -1) &&
+		    (agent.indexOf('msie 5.0') == -1);
+    var filterNames = new Array(16), filters = new Array(16);
+    filterNames[0] = 'Blend';
+    filters[0] = 'progid:DXImageTransform.Microsoft.Fade(duration=1)';
+    filterNames[1] = 'Blinds';
+    filters[1] = 'progid:DXImageTransform.Microsoft.Blinds(duration=1,bands=20)';
+    // ]]>
+
+</script>",
+		       '<script type="text/javascript" '.
+		       'src="http://127.0.0.1/gallery2/lib/javascript/BlockToggle.js"></script>');
+	$headHtml =  '   <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<!-- the title -->
+	<title>'.$refTitle.'</title>
+<!-- Some css links -->
+'.$refCss[0].'
+<!-- A css import style -->
+   '.$refCss[1].'
+	    '.$refCss[2].$refCss[3].'
+
+  '.$refJs[0].'
+
+<!-- Some javascript code -->
+'.$refJs[1].'
+ <!-- A javascript src link -->
+      '.$refJs[2].'</head>';
+
+	list ($title, $css, $javascript) = GalleryEmbed::parseHead($headHtml);
+	$this->assertEquals($title, $refTitle, 'the title does not match the reference title');
+	$this->assert(is_array($css), '$css should be an array!');
+	if (is_array($css)) {
+	    $this->assertEquals(count($css), count($refCss), 'array size of $css is incorrect!');
+	    for ($i = 0; $i < count($css); $i++) {
+		$this->assertEquals($css[$i], $refCss[$i],
+				    'css style not captured correctly or out of order!');
+	    }
+	}
+	$this->assert(is_array($javascript), '$javascript should be an array!');
+	if (is_array($javascript)) {
+	    $this->assertEquals(count($javascript), count($refJs),
+				'array size of $javascript is incorrect!');
+	    for ($i = 0; $i < count($javascript); $i++) {
+		$this->assertEquals($javascript[$i], $refJs[$i],
+				    'javascript not captured correctly or out of order!');
+	    }
+	}
+    }
+
+    /*
+     * GalleryEmbed::init shouldn't be called more than once per HTTP request. If it is called
+     * multiple times, then we make sure that it doesn't call initFirstPass or initSecondPass
+     * more than once per HTTP request.
+     */
+    function testInitMultipleTimes() {
+	$expectedUrl = 'http://example.com/cms/';
+	$_SERVER['HTTP_HOST'] = 'example.com';
+	/* These cache keys are the same as the ones defined in GalleryEmbed::init */
+	$firstCacheKey = 'GalleryEmbed::initFirstPass';
+	$secondCacheKey = 'GalleryEmbed::initSecondPass';
+	/* Init a first time */
+	$ret = GalleryEmbed::init(array('embedUri' => '/cms/index.php?mod=g2', 'g2Uri' => '/'));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	/* Check if we get the the urls that it should generate (sanity check) */
+	global $gallery;
+	$urlgenerator =& $gallery->getUrlGenerator();
+	$this->assertEquals($expectedUrl, $urlgenerator->getCurrentUrlDir(),
+			   'First init call failed.');
+	/* And check if init first pass has been called, but not init second pass */
+	$this->assert(GalleryDataCache::containsKey($firstCacheKey),
+		      'GalleryInitFirstPass has not been called in first init.');
+	$this->assert(!GalleryDataCache::containsKey($secondCacheKey),
+		      'GallerySecondPass has been called in first init.');
+	/*
+	 * Now do what you shouldn't do, call init a second time. It shouldn't call initFirstPass
+	 * again, i.e. the generated urls should be the same as before.
+	 */
+	$ret = GalleryEmbed::init(array('embedUri' => '/cms2nd/index.php?mod=g2', 'g2Uri' => '/'));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	global $gallery;
+	$urlgenerator =& $gallery->getUrlGenerator();
+	/* force the embedded url directory */
+	$this->assertEquals('http://example.com/', $urlgenerator->getCurrentUrlDir(true),
+			   'Second init call called initFirstPass again.');
+	/* And check if init first pass has been called, but not init second pass */
+	$this->assert(GalleryDataCache::containsKey($firstCacheKey),
+		      'GalleryInitFirstPass has not been called in second init.');
+	$this->assert(!GalleryDataCache::containsKey($secondCacheKey),
+		      'GallerySecondPass has been called in second init.');
+	/* Now check initSecondPass */
+	/*
+	 * TODO: Currently, calling initSecondPass just sets the activeUserId, which isn't
+	 * harmful and the same is done in GalleryEmbed::init (checkActiveUser)
+	 * Once we put more logic into initSecondPass, we can and should add here a test.
+	 */
+    }
+
+    /*
+     * GalleryInitSecondPass should only be called if there are no params at all or if fullInit =
+     * true
+     */
+    function testInitSecondPass() {
+	$firstCacheKey = 'GalleryEmbed::initFirstPass';
+	$secondCacheKey = 'GalleryEmbed::initSecondPass';
+	$ret = GalleryEmbed::init();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	/* Both, init first pass and second pass should have been called */
+	$this->assert(GalleryDataCache::containsKey($firstCacheKey),
+		      'GalleryInitFirstPass has not been called in first call.');
+	$this->assert(GalleryDataCache::containsKey($secondCacheKey),
+		      'GallerySecondPass has not been called in first call.');
+	/* Reset for next try */
+	GalleryDataCache::reset();
+	$this->assert(!GalleryDataCache::containsKey($firstCacheKey),
+		      'GDC reset did not delete GalleryEmbed:initFirstPass key.');
+	$this->assert(!GalleryDataCache::containsKey($secondCacheKey),
+		      'GDC reset did not delete GalleryEmbed:initSecondPass key.');
+
+	/* we set fullInit = false, only InitFirstPass should be called */
+	$ret = GalleryEmbed::init(array('fullInit' => false));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	/* Verify */
+	$this->assert(GalleryDataCache::containsKey($firstCacheKey),
+		      'GalleryInitFirstPass has not been called in second call.');
+	$this->assert(!GalleryDataCache::containsKey($secondCacheKey),
+		      'GallerySecondPass has been called in second call.');
+	/* Reset for next try */
+	GalleryDataCache::reset();
+	$this->assert(!GalleryDataCache::containsKey($firstCacheKey),
+		      'GDC reset did not delete GalleryEmbed:initFirstPass key.');
+	$this->assert(!GalleryDataCache::containsKey($secondCacheKey),
+		      'GDC reset did not delete GalleryEmbed:initSecondPass key.');
+	/* we set fullInit = true, both should be called */
+	$ret = GalleryEmbed::init(array('fullInit' => true));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	/* Verify */
+	$this->assert(GalleryDataCache::containsKey($firstCacheKey),
+		      'GalleryInitFirstPass has not been called in third call.');
+	$this->assert(GalleryDataCache::containsKey($secondCacheKey),
+		      'GallerySecondPass has not been called in third call.');
+    }
+
+    /*
+     * Check in all cases that the session's active language code doesn't change when
+     * calling checkActiveUser
+     */
+    function testCheckActiveUser() {
+	global $gallery;
+
+	/* First, create test users an mappings */
+	$user = $activeUserId = array();
+	for ($i = 0; $i < 2; $i++) {
+	    $activeUserId[$i] = '_test_' . $i . '_' . rand();
+	    $ret = GalleryEmbed::createUser($activeUserId[$i],
+					    array('username' => 'test_' . rand(),
+						  'language' => 'en_GB'));
+	    if ($ret) {
+		return $this->failWithStatus($ret);
+	    }
+	    list ($ret, $user[$i]) = GalleryCoreApi::loadEntityByExternalId($activeUserId[$i],
+									    'GalleryUser');
+	    if ($ret) {
+		return $this->failWithStatus($ret);
+	    }
+	    $this->_markForCleanup($user[$i]);
+	    $this->assertEquals('en_GB', $user[$i]->getlanguage(),
+				'user language assertion failed');
+	}
+	$session =& $gallery->getSession();
+	$session->_sessionId = md5(rand());
+
+	/*
+	 * Check that the session doesn't change if the activeUserId is the same as the
+	 * session's external id
+	 */
+	$gallery->setActiveUser($user[0]);
+	$this->assertEquals($user[0]->getId(), $session->getUserId(),
+			    'session user id assertion failed');
+	$session->put('embed.id.externalUser', $activeUserId[0]);
+	$this->assertEquals($activeUserId[0], $session->get('embed.id.externalUser'),
+			    'embed.id.externalUser assertion failed');
+	$activeLanguageCode[0] = 'some language code';
+	$session->put('core.language', $activeLanguageCode[0]);
+	$this->assertEquals($activeLanguageCode[0], $session->get('core.language'),
+			    'core.language assertion failed');
+
+	/* Call the function under test */
+	$sessionId = $session->getId();
+	$ret = GalleryEmbed::checkActiveUser($activeUserId[0]);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals($user[0]->getId(), $session->getUserId(),
+			    'session user id has changed');
+	$this->assertEquals($activeUserId[0], $session->get('embed.id.externalUser'),
+			    'embed.id.externalUser has changed');
+	$this->assertEquals($activeLanguageCode[0], $session->get('core.language'),
+			    'core.language has changed');
+	$this->assertEquals($sessionId, $session->getId(),
+			    'session id should not have changed');
+
+	/* Check that the session changes correctly if the activeUserId is different */
+	$sessionId = $session->getId();
+	$ret = GalleryEmbed::checkActiveUser($activeUserId[1]);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals($user[1]->getId(), $session->getUserId(),
+			    'session user idhas not changed');
+	$this->assertEquals($activeUserId[1], $session->get('embed.id.externalUser'),
+			    'embed.id.externalUser has not changed');
+	$this->assertEquals($activeLanguageCode[0], $session->get('core.language'),
+			    'core.language should not have changed');
+	$this->assertEquals($sessionId, $session->getId(),
+			    'session id should not have changed (2)');
+
+	/* Check that the session changes to an anonymous session if the activeUserId is '' */
+	$sessionId = $session->getId();
+	$ret = GalleryEmbed::checkActiveUser('');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals(null, $session->getUserId(),
+			    'session user idshould be null after logout');
+	$this->assertEquals('', $session->get('embed.id.externalUser'),
+			    'embed.id.externalUser should be \'\' after logout');
+	$this->assertEquals($activeLanguageCode[0], $session->get('core.language'),
+			    'core.language should not have changed (guest)');
+	$this->assert($session->getId() != $sessionId, 'session id should have changed');
+
+	/* Also check the special case of guest user id '' */
+	$sessionId = $session->getId();
+	$ret = GalleryEmbed::checkActiveUser('');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals(null, $session->getUserId(),
+			    'session user id should be null after logout');
+	$this->assertEquals('', $session->get('embed.id.externalUser'),
+			    'embed.id.externalUser should still be empty');
+	$this->assertEquals($activeLanguageCode[0], $session->get('core.language'),
+			    'core.language should not have changed (guest)');
+	$this->assertEquals($sessionId, $session->getId(),
+			    'session id should not have changed (3)');
+
+	/* And login again */
+	$sessionId = $session->getId();
+	$ret = GalleryEmbed::checkActiveUser($activeUserId[0]);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals($user[0]->getId(), $session->getUserId(),
+			    'session user id after login');
+	$this->assertEquals($activeUserId[0], $session->get('embed.id.externalUser'),
+			    'embed.id.externalUser should be \'\' after logout');
+	$this->assertEquals($activeLanguageCode[0], $session->get('core.language'),
+			    'core.language should not have changed (login)');
+	$this->assertEquals($sessionId, $session->getId(),
+			    'session id should not have changed (4)');
+    }
+
+    function testIsCompatibleWithEmbedApi() {
+	$apiVersion = GalleryEmbed::getApiVersion();
+	$this->assertEquals(2, count($apiVersion));
+	$this->assert(is_int($apiVersion[0]), 'major');
+	$this->assert(is_int($apiVersion[1]), 'minor');
+	$this->assert(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), 'same version');
+	$apiVersion[1] += 7;
+	$this->assert(!GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), 'API too old');
+	$apiVersion[1] -= 9;
+	$this->assert(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), 'API is newer');
+	$apiVersion[0] += 1;
+	$this->assert(!GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), '(major) API too old');
+	$apiVersion[0] -= 2;
+	$this->assert(!GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), '(major) API too new');
+    }
+
+    function testCheckApiVersionOnInit() {
+	$apiVersion = GalleryEmbed::getApiVersion();
+	$apiVersion[1] -= 2;
+	$ret = GalleryEmbed::init(array('apiVersion' => $apiVersion));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$apiVersion[1] += 7;
+	$ret = GalleryEmbed::init(array('apiVersion' => $apiVersion));
+	$this->assert(!empty($ret) && $ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH,
+		      'API too old');
+	if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
+	    return $this->failWithStatus($ret);
+	}
+	$apiVersion[1] -= 8;
+	$apiVersion[0] -= 1;
+	$ret = GalleryEmbed::init(array('apiVersion' => $apiVersion));
+	$this->assert(!empty($ret) && $ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH,
+		      '(major) API too old');
+	if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
+	    return $this->failWithStatus($ret);
+	}
+    }
+}
+?>

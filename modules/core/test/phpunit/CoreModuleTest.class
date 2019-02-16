@@ -1,0 +1,262 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Test CoreModule functionality
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 15513 $
+ */
+class CoreModuleTest extends GalleryTestCase {
+    var $_module;
+
+    function CoreModuleTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+	parent::setUp();
+
+	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'core');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $this->_parentAlbum) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->_markForCleanup($this->_parentAlbum);
+
+	$ret = GalleryCoreApi::addUserPermission($this->_parentAlbum->getId(),
+						       $gallery->getActiveUserId(),
+						       'core.all');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+    }
+
+    function testGetItemAdminViews() {
+	list ($ret, $content) = $this->_module->getItemAdminViews($this->_parentAlbum);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(
+	    array(
+		array('name' => $this->_module->_translate(
+			  array('text' => 'Edit %s',
+				'arg1' => $this->_module->translate('Album')),
+			  'Album'),
+		      'view' => 'core.ItemEdit'),
+		array('name' => $this->_module->translate('Edit Permissions'),
+		      'view' => 'core.ItemPermissions'),
+		array('name' => $this->_module->_translate(
+			  array('text' => 'Delete %s',
+				'arg1' => $this->_module->translate('Album')),
+			  'Album'),
+		      'view' => 'core.ItemDeleteSingle'),
+		array('name' => $this->_module->_translate(
+			  array('text' => 'Move %s',
+				'arg1' => $this->_module->translate('Album')),
+			  'Album'),
+		      'view' => 'core.ItemMoveSingle'),
+		array('name' => $this->_module->translate('Add Items'),
+		      'view' => 'core.ItemAdd'),
+		array('name' => $this->_module->translate('Add Album'),
+		      'view' => 'core.ItemAddAlbum')
+		),
+	    $content, 'empty album');
+
+	list ($ret) = $this->_createRandomDataItem($this->_parentAlbum->getId());
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $content) = $this->_module->getItemAdminViews($this->_parentAlbum);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(
+	    array(
+		array('name' => $this->_module->translate('Edit Captions'),
+		      'view' => 'core.ItemEditCaptions'),
+		array('name' => $this->_module->_translate(
+			  array('text' => 'Edit %s',
+				'arg1' => $this->_module->translate('Album')),
+			  'Album'),
+		      'view' => 'core.ItemEdit'),
+		array('name' => $this->_module->translate('Edit Permissions'),
+		      'view' => 'core.ItemPermissions'),
+		array('name' => $this->_module->_translate(
+			  array('text' => 'Delete %s',
+				'arg1' => $this->_module->translate('Album')),
+			  'Album'),
+		      'view' => 'core.ItemDeleteSingle'),
+		array('name' => $this->_module->_translate(
+			  array('text' => 'Move %s',
+				'arg1' => $this->_module->translate('Album')),
+			  'Album'),
+		      'view' => 'core.ItemMoveSingle'),
+		array('name' => $this->_module->translate('Add Items'),
+		      'view' => 'core.ItemAdd'),
+		array('name' => $this->_module->translate('Add Album'),
+		      'view' => 'core.ItemAddAlbum')
+		),
+	    $content, 'nonempty album');
+    }
+
+    function testGetConfigurationView() {
+	$content = $this->_module->getConfigurationView();
+	$this->assertEquals(null, $content);
+    }
+
+    function testGetSystemLinks() {
+        global $gallery;
+
+	list ($ret, $content) = $this->_module->getSystemLinks();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(
+	    array('SiteAdmin' => array(
+		      'text' => $this->_module->translate('Site Admin'),
+		      'params' => array('view' => 'core.SiteAdmin',
+					'return' => 1)),
+		  'YourAccount' => array(
+		      'text' => $this->_module->translate('Your Account'),
+		      'params' => array('view' => 'core.UserAdmin',
+					'subView' => 'core.UserPreferences',
+					'return' => 1)),
+		  'Logout' => array(
+		      'text' => $this->_module->translate('Logout'),
+		      'params' => array('controller' => 'core.Logout',
+					'return' => 1))
+		  ),
+	    $content, 'Admin User');
+
+
+        list ($ret, $this->_user1) =
+            $this->_createUser(array('hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
+                                     'email' => 'test2@email.com',
+                                     'fullName' => 'Test User 2',
+                                     'language' => 'te',
+                                     'locked' => 0));
+        if ($ret) {
+            return $this->failWithStatus($ret);
+        }
+
+        $this->_markForCleanup($this->_user1);
+
+        $gallery->setActiveUser($this->_user1);
+
+	list ($ret, $content) = $this->_module->getSystemLinks();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(
+	    array('YourAccount' => array(
+		      'text' => $this->_module->translate('Your Account'),
+		      'params' => array('view' => 'core.UserAdmin',
+					'subView' => 'core.UserPreferences',
+					'return' => 1)),
+		  'Logout' => array(
+		      'text' => $this->_module->translate('Logout'),
+		      'params' => array('controller' => 'core.Logout',
+					'return' => 1))
+		  ),
+	    $content, 'Normal User');
+
+        list ($ret, $this->_user2) =
+            $this->_createUser(array('hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
+                                     'email' => 'test2@email.com',
+                                     'fullName' => 'Test User 2',
+                                     'language' => 'te',
+                                     'locked' => 1));
+        if ($ret) {
+            return $this->failWithStatus($ret);
+        }
+
+        $this->_markForCleanup($this->_user2);
+
+        $gallery->setActiveUser($this->_user2);
+
+	list ($ret, $content) = $this->_module->getSystemLinks();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals(
+	    array('YourAccount' => array(
+		      'text' => $this->_module->translate('Your Account'),
+		      'params' => array('view' => 'core.UserAdmin',
+					'subView' => 'core.UserPreferences',
+					'return' => 1)),
+		  'Logout' => array(
+		      'text' => $this->_module->translate('Logout'),
+		      'params' => array('controller' => 'core.Logout',
+					'return' => 1))
+		  ),
+	    $content, 'Locked User');
+    }
+
+    function testSetModuleParameter() {
+	$key = 'test-key';
+	$value = rand();
+
+	$ret = $this->_module->setParameter($key, $value);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $newValue) = $this->_module->getParameter($key);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	/* Clean up */
+	$ret = GalleryCoreApi::removePluginParameter('module', 'core', $key);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals($value, (int)$newValue);
+    }
+}
+
+/**
+ * Mock template class
+ *
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ */
+class CoreModuleMockTemplate {
+    function setVariable() {
+    }
+}
+?>

@@ -1,0 +1,208 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
+
+/**
+ * Test GalleryController functionality
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Ernesto Baschny <ernst@baschny.de>
+ * @version $Revision: 15813 $
+ */
+class ControllerTest extends GalleryTestCase {
+    function ControllerTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	parent::setUp();
+	
+	global $gallery;
+	$session =& $gallery->getSession();
+
+	GalleryCoreApi::requireOnce(
+	    'modules/core/classes/helpers/GalleryPluginHelper_medium.class');
+	GalleryPluginHelper_medium::setPluginInstance('module', 'controllertest',
+						      new ControllerTestModule());
+	$session->remove('core.authToken');
+	$this->_originalIsPersistentSession = $session->isPersistent();
+	GalleryUtilities::removeRequestVariable('authToken');
+    }
+
+    function tearDown() {
+	global $gallery;
+	$session =& $gallery->getSession();
+
+	$session->remove('core.authToken');
+	$session->_isPersistent = $this->_originalIsPersistentSession;
+	parent::tearDown();
+    }
+
+    function testLoadControllerSuccess() {
+	list ($ret, $controller) = GalleryController::loadController('core.ItemEdit');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assert(isset($controller));
+    }
+
+    function testLoadControllerFail() {
+	list ($ret, $controller) =
+	    GalleryController::loadController('controllertest.SomeRandomController');
+	if ($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
+	    /* this is what we expect */
+	} else {
+	    $this->assert(false, 'The controller of a deactivated module should not load.');
+	}
+    }
+
+    function testLoadConfigurationController() {
+	/*
+	 * We can load the config controller even though the module is deactivated
+	 * because we're an admin.
+	 */
+	list ($ret, $controller) = GalleryController::loadController('controllertest.ConfigView');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assert(isset($controller));
+    }
+
+    function testAssertIsGenuineRequestDefaultsToFalse() {
+	$ret = GalleryController::assertIsGenuineRequest();
+	if ($ret && $ret->getErrorCode() & ERROR_REQUEST_FORGED) {
+	    /* this is what we expect */
+	} else if ($ret) {
+	    return $this->failWithStatus($ret);
+	} else {
+	    $this->assert(false, 'should throw an error by default');
+	}
+    }
+
+    function testAssertIsGenuineRequestHandlesEmptyValue() {
+	GalleryUtilities::putRequestVariable('authToken', '');
+	$ret = GalleryController::assertIsGenuineRequest();
+	if ($ret && $ret->getErrorCode() & ERROR_REQUEST_FORGED) {
+	    /* this is what we expect */
+	} else if ($ret) {
+	    return $this->failWithStatus($ret);
+	} else {
+	    $this->assert(false);
+	}
+    }
+
+    function testAssertIsGenuineRequestWithValidAuthToken() {
+	global $gallery;
+	$session =& $gallery->getSession();
+
+	$validAuthToken = 'ABCDEF123456';
+	$session->put('core.authToken', $validAuthToken);
+	GalleryUtilities::putRequestVariable('authToken', $validAuthToken);
+	$ret = GalleryController::assertIsGenuineRequest();
+	if ($ret) {
+	    $this->fail('specified auth token in request parameters should be correct');
+	    return $this->failWithStatus($ret);
+	}
+    }
+
+    function testAssertIsGenuineRequestWithInValidAuthToken() {
+	global $gallery;
+	$session =& $gallery->getSession();
+
+	$validAuthToken = 'ABCDEF123456';
+	$session->put('core.authToken', $validAuthToken);
+	GalleryUtilities::putRequestVariable('authToken', '098765432109');
+	$ret = GalleryController::assertIsGenuineRequest();
+	if ($ret && $ret->getErrorCode() & ERROR_REQUEST_FORGED) {
+	    /* this is what we expect */
+	} else if ($ret) {
+	    return $this->failWithStatus($ret);
+	} else {
+	    $this->assert(false, 'invalid auth token was accepted');
+	}
+    }
+
+    function testAssertIsGenuineRequestIgnoresNonPersistentSessions() {
+	global $gallery;
+	$session =& $gallery->getSession();
+
+	$session->_isPersistent = false;
+	$ret = GalleryController::assertIsGenuineRequest();
+	if ($ret) {
+	    $this->fail('check should be omitted for non-persistent sessions');
+	    return $this->failWithStatus($ret);
+	}
+
+	$validAuthToken = 'ABCDEF123456';
+	$session->put('core.authToken', $validAuthToken);
+	GalleryUtilities::putRequestVariable('authToken', '098765432109');
+	$ret = GalleryController::assertIsGenuineRequest();
+	if ($ret) {
+	    $this->fail('specified auth token should be ignored for non-persistent sessions');
+	    return $this->failWithStatus($ret);
+	}
+    }
+
+    function testAssertIsGunuineRequestOmittedInMaintenanceMode() {
+	global $gallery;
+	$session =& $gallery->getSession();
+
+	$validAuthToken = 'ABCDEF123456';
+	$session->put('core.authToken', $validAuthToken);
+	GalleryUtilities::putRequestVariable('authToken', '098765432109');
+	$gallery->setConfig('mode.maintenance', true);
+	$ret = GalleryController::assertIsGenuineRequest();
+	if ($ret) {
+	    $this->fail('specified auth token should be ignored in maintenance mode');
+	    return $this->failWithStatus($ret);
+	}
+    }
+
+    function testOmitAuthTokenCheckDefaultsToFalse() {
+	$controller = new GalleryController();
+	$this->assert(!$controller->omitAuthTokenCheck(), 'should default to false');
+    }
+}
+
+/**
+ * Mock GalleryModule
+ *
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ */
+class ControllerTestModule {
+    function isActive() {
+	return array(null, false);
+    }
+
+    function getConfigurationView() {
+	return 'controllertest.ConfigView';
+    }
+}
+
+/**
+ * Mock GalleryController
+ *
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ */
+class ConfigViewController extends GalleryController { }
+?>

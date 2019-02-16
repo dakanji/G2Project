@@ -1,0 +1,337 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Test Image Block helper
+ * @package ImageBlock
+ * @subpackage PHPUnit
+ * @author Jay Rossiter <cryptographite@users.sf.net>
+ * @version $Revision: 15875 $
+ */
+class ImageBlockHelperTest extends GalleryTestCase {
+
+    function ImageBlockHelperTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function _createTopAlbum() {
+	/* Create a new album and image, set thumbnail and highlight */
+	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$this->_markForCleanup($album);
+	return array(null, $album);
+    }
+
+    function _createHierarchy() {
+	list ($ret, $this->_topAlbum, $this->_topItems) =
+	    $this->_createSubAlbumWithItems($this->_getRootId());
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->_markForCleanup($this->_topAlbum);
+
+	list ($ret, $this->_subAlbum, $this->_subItems) =
+	    $this->_createSubAlbumWithItems($this->_topAlbum->getId());
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+    }
+
+    function _createSubAlbumWithItems($parentId) {
+	/* Create a new album and image, set thumbnail and highlight */
+	list ($ret, $album) = $this->_createRandomAlbum($parentId);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+
+	$items = array();
+	for ($i = 0; $i < 5; $i++) {
+	    list ($ret, $items[$i]) = $this->_createRandomDataItem($album->getId());
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	}
+
+	return array(null, $album, $items);
+    }
+
+    function testImageBlockHelperGetDisabledFlag() {
+	$ret = $this->_createHierarchy();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = GalleryCoreApi::addMapEntry(
+	    'ImageBlockDisabledMap', array('itemId' => $this->_topAlbum->getId()));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_topAlbum->getId());
+	$this->assert($disabledFlag, 'getDisabledFlag returned false');
+
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'ImageBlockDisabledMap', array('itemId' => $this->_topAlbum->getId()));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_topAlbum->getId());
+	$this->assert(!$disabledFlag, 'getDisabledFlag returned true');
+    }
+
+    function testImageBlockHelperSetDisabledFlag() {
+	global $gallery;
+
+	$ret = $this->_createHierarchy();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = ImageBlockHelper::setDisabledFlag($this->_topAlbum, false, true);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$itemIds = array();
+	foreach ($this->_topItems as $item) {
+	    $itemIds[] = (int)$item->getId();
+	}
+	$itemIds[] = (int)$this->_topAlbum->getId();
+	sort($itemIds);
+
+	$query = 'SELECT [ImageBlockDisabledMap::itemId] ' .
+		 'FROM [ImageBlockDisabledMap] ' .
+		 'WHERE [ImageBlockDisabledMap::itemId] IN (' .
+		 GalleryUtilities::makeMarkers(sizeof($itemIds)) .
+		 ')';
+
+	list ($ret, $searchResults) = $gallery->search($query, $itemIds);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$dbItemIds = array();
+	while ($rec = $searchResults->nextResult()) {
+	    $dbItemIds[] = (int)$rec[0];
+	}
+	sort($itemIds);
+	sort($dbItemIds);
+	$this->assertEquals($itemIds, $dbItemIds, 'Items not added to the DisableMap');
+
+	$ret = ImageBlockHelper::setDisabledFlag($this->_topAlbum, false, false);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $searchResults) = $gallery->search($query, $itemIds);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$dbItemIds = array();
+	while ($rec = $searchResults->nextResult()) {
+	    $dbItemIds[] = (int)$rec[0];
+	}
+	$this->assertEquals(array(), $dbItemIds, 'Items not removed from the DisabledMap');
+    }
+
+    function testImageBlockHelperSetDisabledFlagRecursive() {
+	global $gallery;
+
+	$ret = $this->_createHierarchy();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+
+	$ret = ImageBlockHelper::setDisabledFlag($this->_topAlbum, true, true);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$itemIds = array();
+	foreach (array_merge($this->_topItems, $this->_subItems) as $item) {
+	    $itemIds[] = (int)$item->getId();
+	}
+	$itemIds[] = (int)$this->_topAlbum->getId();
+	$itemIds[] = (int)$this->_subAlbum->getId();
+	sort($itemIds);
+
+	$query = 'SELECT [ImageBlockDisabledMap::itemId] ' .
+		 'FROM [ImageBlockDisabledMap] ' .
+		 'WHERE [ImageBlockDisabledMap::itemId] IN (' .
+		 GalleryUtilities::makeMarkers(sizeof($itemIds)) .
+		 ')';
+
+	list ($ret, $searchResults) = $gallery->search($query, $itemIds);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$dbItemIds = array();
+	while ($rec = $searchResults->nextResult()) {
+	    $dbItemIds[] = (int)$rec[0];
+	}
+	sort($dbItemIds);
+	$this->assertEquals($itemIds, $dbItemIds, 'Items not added to the DisableMap');
+
+	$ret = ImageBlockHelper::setDisabledFlag($this->_topAlbum, true, false);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$query = 'SELECT [ImageBlockDisabledMap::itemId] ' .
+		 'FROM [ImageBlockDisabledMap] ' .
+		 'WHERE [ImageBlockDisabledMap::itemId] IN (' .
+		 GalleryUtilities::makeMarkers(sizeof($itemIds)) .
+		 ')';
+
+	list ($ret, $searchResults) = $gallery->search($query, $itemIds);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$dbItemIds = array();
+	while ($rec = $searchResults->nextResult()) {
+	    $dbItemIds[] = (int)$rec[0];
+	}
+	$this->assertEquals(array(), $dbItemIds, 'Items not removed from the DisabledMap');
+    }
+
+    function testImageBlockHelperSetDisabledFlagFirstSubAlbumThenRecursive() {
+	global $gallery;
+
+	$ret = $this->_createHierarchy();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	/* Prepare the test by first disabling the subalbum */
+	$ret = ImageBlockHelper::setDisabledFlag($this->_subAlbum, false, true);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$itemIds = array();
+	foreach ($this->_subItems as $item) {
+	    $itemIds[] = (int)$item->getId();
+	}
+	$itemIds[] = (int)$this->_subAlbum->getId();
+
+	/* Verify the precondition of the test */
+	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('ImageBlockDisabledMap',
+								  array('itemId'),
+								  array('itemId' => $itemIds));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$dbItemIds = array();
+	while ($rec = $searchResults->nextResult()) {
+	    $dbItemIds[] = (int)$rec[0];
+	}
+
+	sort($itemIds);
+	sort($dbItemIds);
+	$this->assertEquals($itemIds, $dbItemIds,
+			    'Precondition: Items not added to the DisableMap');
+
+	/* Execute the test: Ensure that we succeed and don't attempt to insert duplicate rows. */
+	$ret = ImageBlockHelper::setDisabledFlag($this->_topAlbum, true, true);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	foreach ($this->_topItems as $item) {
+	    $itemIds[] = (int)$item->getId();
+	}
+	$itemIds[] = (int)$this->_topAlbum->getId();
+
+	/* Verify the results */
+	list ($ret, $searchResults) = GalleryCoreApi::getMapEntry('ImageBlockDisabledMap',
+								  array('itemId'),
+								  array('itemId' => $itemIds));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$dbItemIds = array();
+	while ($rec = $searchResults->nextResult()) {
+	    $dbItemIds[] = (int)$rec[0];
+	}
+
+	sort($dbItemIds);
+	sort($itemIds);
+	$this->assertEquals($itemIds, $dbItemIds, 'Not all items have been flagged as disabled');
+    }
+
+    /**
+     * Verify the fix for bug 1536395
+     * http://sourceforge.net/tracker/index.php?func=detail&aid=1536395&group_id=7130&atid=107130
+     */
+    function testMaxSizeWithoutViewSourcePermission() {
+	global $gallery;
+
+	list ($ret, $top) = $this->_createTopAlbum();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $album) = $this->_createRandomAlbum($top->getId());
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $photo) = $this->_createRandomDataItem($album->getId());
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $thumbnail) = $this->_createDerivative(
+	    $album, $photo->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = GalleryCoreApi::removeItemPermissions($photo->getId());
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = GalleryCoreApi::addUserPermission(
+	    $photo->getId(), $gallery->getActiveUserId(), 'core.view');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $results) = ImageBlockHelper::_getBlockData(
+	    'Album', 'recent', 1, $top->getId(), false, null, 200 /* maxSize */);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals($thumbnail->getId(), $results[0]['thumb']['id']);
+    }
+}
+?>

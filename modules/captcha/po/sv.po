@@ -1,0 +1,157 @@
+# $Id: sv.po 16040 2007-03-16 23:04:36Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Captcha 1.1.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-12 08:11-0700\n"
+"PO-Revision-Date: 2007-01-02 22:35+0100\n"
+"Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
+"Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Captcha"
+msgstr "Captcha"
+
+msgid ""
+"Prevents abuse by deterring automated bots with input that requires visual comprehension"
+msgstr ""
+"Förhindrar missbruk från automatiserade program som kommer ha svårt för att tolka texten "
+"automatiskt"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "Reset captcha failure counts"
+msgstr "Nollställ captcha felräknaren"
+
+msgid ""
+"Captcha records failure counts in the database when configured for medium security level.  "
+"Run this task to clear all counters."
+msgstr ""
+"Captcha lagrar felräknaren i databasen när den är konfigurerad till medel säkerhetsnivå. Kör "
+"denna rutin för att nollställa alla räknare."
+
+msgid "Successfully reset failure counts"
+msgstr "Lyckades nollställa felräknarna"
+
+msgid "Captcha plugin configuration test"
+msgstr "Konfigurationstest av Captcha modulen"
+
+msgid ""
+"The Captcha module requires your webserver to have the GD graphics module installed.  The "
+"following GD functions are required."
+msgstr ""
+"Captcha modulen kräver att din webbserver har den grafiska verktygslådan GD installerad. "
+"Följande GD funktioner krävs."
+
+msgid "Function name"
+msgstr "Funktions namn"
+
+msgid "Pass/fail"
+msgstr "Lyckades/Misslyckades"
+
+msgid "Available"
+msgstr "Tillgänglig"
+
+msgid "Missing"
+msgstr "Saknad"
+
+msgid ""
+"Critical GD functions are not available.   Please ask your system administrator for help."
+msgstr "Kritiska GD funktioner är inte tillgängliga. Be din systemadministratör om hjälp."
+
+msgid "Your webserver is properly configured to use the Captcha module."
+msgstr "Din webbserver är inte riktigt konfigurerad för att använda Captcha modulen."
+
+msgid "Continue"
+msgstr "Fortsätt"
+
+msgid "Captcha Settings"
+msgstr "Captcha Inställningar"
+
+msgid "Settings saved successfully"
+msgstr "Lyckades spara inställningarna"
+
+msgid "High Security - Always On"
+msgstr "Hög säkerket - Alltid på"
+
+msgid "Always require the Captcha value to be entered before proceeding."
+msgstr "Kommer alltid att kräva att Captcha texten matas in innan man kan fortsätta."
+
+msgid "Medium/Low Security - Failed Attempts"
+msgstr "Medel/Låg Säkerhet - Misslyckade försök"
+
+msgid ""
+"Users are not required to pass the Captcha test unless they have failed validation or user "
+"input at least this many times.  After that, they have to enter the Captcha value to log in, "
+"or perform certain other secured actions."
+msgstr ""
+"Användare behöver inte klara Captcha testen förutom när dom har misslyckats med att bekräfta "
+"eller har försökt åtminstone så här många gånger. Efter det måste dom skriva in Captcha "
+"texten för att kunna logga in, eller utföra vissa andra skyddade funktioner."
+
+msgid "Failed attempts:"
+msgstr "Misslyckat försök:"
+
+msgid ""
+"Medium security counts failures by a key value such as the username used in a login "
+"attempt.  This means after one username has too many failures then anyone, even the real "
+"account owner, must perform captcha validation for their next login.  Low security counts "
+"failures in the session.  This provides some protection against casual password guessers, "
+"but no protection against automated attacks."
+msgstr ""
+"Medelsäkerhet: fel av typ: misslyckade inloggningsförsök med ett användarnamn. Det betyder "
+"att när ett användarnamn har haft för många misslyckade inloggningsförsök så måste "
+"användaren utföra en captcha validering vid nästa inloggningsförsök. Lågsäkerhetsnivå: "
+"erbjuder visst skydd mot tillfälliga försök att knäcka lösenordet via gissningar, men inget "
+"skydd mot automatiserade attacker."
+
+msgid "Configure validation policy for modules using captcha:"
+msgstr "Konfigurera validerings policy för moduler som använder captcha:"
+
+msgid "High"
+msgstr "Hög"
+
+msgid "Medium"
+msgstr "Medel"
+
+msgid "Low"
+msgstr "Låg"
+
+msgid "Off"
+msgstr "Av"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Reset"
+msgstr "Återställ"
+
+msgid "Type the word appearing in the picture."
+msgstr "Skriv ordet som syns i bilden."
+
+msgid "You must enter the number appearing in the picture."
+msgstr "Du måste ange nummret som synns i bilden."
+
+msgid "Incorrect number."
+msgstr "Felaktigt nummer."

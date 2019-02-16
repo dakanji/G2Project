@@ -1,0 +1,173 @@
+# $Id: sr.po 16040 2007-03-16 23:04:36Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upload Applet 1.0.7\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:53-0800\n"
+"PO-Revision-Date: 2005-09-07 22:44+0200\n"
+"Last-Translator: Jozef Selesi <selesi@gmail.com>\n"
+"Language-Team: Srpski <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10\n"
+
+msgid "Upload Applet"
+msgstr "Alatka za prenos"
+
+msgid "Easy to use upload applet for media"
+msgstr "Alatka za jednostavan prenos datoteka"
+
+msgid "Import"
+msgstr "Prenos"
+
+msgid ""
+"The upload applet relies on a G2 module that is not currently enabled.  Please ask an "
+"administrator to enable the 'remote' module."
+msgstr ""
+"Alatka za prenos se oslanja na modul Galerije 2 koji trenutno nije aktiviran. Molimo vas da "
+"tražite od administratora da aktivira 'Daljinski' modul."
+
+msgid "Downloading the Gallery Remote Applet"
+msgstr "Preuzimanje alatke za daljinski upravljanje Galerijom"
+
+msgid "Your browser doesn't support applets; you should use one of the other upload methods."
+msgstr "Vaš čitač ne podržava aplete; koristite neku od drugih metoda za prenos."
+
+msgid "Uploading files..."
+msgstr ""
+
+#, fuzzy
+msgid "Upload complete"
+msgstr "Alatka za prenos"
+
+msgid ""
+"You can keep uploading or go to some of the pictures you uploaded by clicking on the links "
+"above"
+msgstr ""
+
+#, fuzzy
+msgid "Upload Applet Settings"
+msgstr "Alatka za prenos"
+
+msgid "Defaults"
+msgstr "Podrazumevan"
+
+msgid ""
+"These variables provide default values for applets users execute on your site. Users will be "
+"able to override these defaults by making changes in the user interface of the applets, or "
+"by changing their local defaults file."
+msgstr ""
+
+msgid "You have no default variables"
+msgstr ""
+
+msgid "Variable"
+msgstr ""
+
+msgid "Action"
+msgstr "Akcija"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid "Add a new default variable"
+msgstr ""
+
+msgid "You must enter a variable name and value"
+msgstr ""
+
+msgid "New variable"
+msgstr ""
+
+msgid "Add variable"
+msgstr ""
+
+msgid "Overrides"
+msgstr ""
+
+msgid ""
+"These variables override any other values for applets users execute on your site. Users will "
+"not be able to change these values."
+msgstr ""
+
+msgid "You have no override variables"
+msgstr ""
+
+msgid "Add a new override variable"
+msgstr ""
+
+msgid "Help"
+msgstr ""
+
+msgid "Here are a selection of variables that affect uploads."
+msgstr ""
+
+msgid "variable"
+msgstr ""
+
+msgid "values"
+msgstr ""
+
+msgid "help"
+msgstr ""
+
+msgid ""
+"instructs the applet to resize pictures before uploading to the album; by default, resizes "
+"to the album's intermediate image size"
+msgstr ""
+
+msgid "dimension the images will be resized to; this overrides album settings"
+msgstr ""
+
+msgid "no automatic captions"
+msgstr ""
+
+msgid "use filenames for captions"
+msgstr ""
+
+msgid "if using the filename for captions, strip the extension"
+msgstr ""
+
+msgid "use EXIF extension for caption"
+msgstr ""
+
+msgid ""
+"if false, the upload applet will use UTF-8 to send image meta-data to Gallery, rather than "
+"escaping it with HTML entities"
+msgstr ""
+
+msgid ""
+"set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick "
+"is not found"
+msgstr ""
+
+msgid "if true, the applet will not complain if it can't find ImageMagick"
+msgstr ""
+
+msgid "if true, the applet will not complain if it can't find Jpegtran"
+msgstr ""
+
+msgid "quality of JPEG compression when resizing with ImageMagick"
+msgstr ""
+
+msgid "Complete list of variables"
+msgstr ""

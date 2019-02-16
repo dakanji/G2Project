@@ -1,0 +1,835 @@
+# $Id: vi.po 16578 2007-06-10 20:53:13Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upgrader 2.2.2\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:46-0800\n"
+"PO-Revision-Date: 2005-08-29 15:17+0100\n"
+"Last-Translator: Trung Dong Huynh <trungdong@donggiang.com>\n"
+"Language-Team: Vietnamese <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Unknown"
+msgstr "Không xác định"
+
+msgid "Authenticate"
+msgstr "Xác nhận"
+
+msgid "<b>Error:</b> missing password."
+msgstr "<b>Lỗi:</b> thiếu mật khẩu."
+
+msgid "<b>Error:</b> invalid password."
+msgstr "<b>Lỗi:</b> sai mật khẩu."
+
+msgid "Empty Cache"
+msgstr "Xóa cache"
+
+#, fuzzy
+msgid "Unable to clear the page cache"
+msgstr "Không thể nạp kiểu trình bày %s"
+
+msgid "Unable to commit database transaction"
+msgstr "Không thể thực hiện thao tác cơ sở dữ liệu"
+
+#, fuzzy
+msgid "Finish Upgrade"
+msgstr "Bắt đầu nâng cấp"
+
+msgid "System Checks"
+msgstr "Các kiểm tra hệ thống"
+
+msgid "Performing system checks"
+msgstr ""
+
+#, fuzzy
+msgid "PHP version >= 4.3.0 or >= 5.0.4"
+msgstr "Phiên bản PHP >= 4.1.0 hoặc >= 5.0.4"
+
+#, fuzzy, c-format
+msgid ""
+"Error: Gallery 2 requires PHP version 4.3.0 or newer or 5.0.4 or newer. You have PHP version "
+"%s installed. Contact your webserver administrator to request an upgrade, available at the %"
+"sPHP website%s."
+msgstr ""
+"Lỗi: Gallery 2 yêu cầu phải có PHP phiên bản 4.1.0 hoặc mới hơn, hay 5.0.4 hoặc mới hơn. "
+"Phiên bản PHP bạn đang dùng là %s. Hãy liên hệ với quản trị máy chủ của bạn để yêu cầu nâng "
+"cấp lên lên phiên bản PHP mới hơn có tại %strang web PHP%s."
+
+msgid "PHP Version"
+msgstr "Phiên bản PHP"
+
+msgid "FILE directive supported"
+msgstr "Chỉ thị FILE được hỗ trợ"
+
+msgid ""
+"Error: your PHP __FILE__ directive is not functioning correctly. Please file a support "
+"request with your webserver administrator or in the Gallery forums."
+msgstr ""
+"Lỗi: Chỉ thị PHP  __FILE__ không hoạt động đúng. Hãy gửi một yêu cầu trợ giúp đến quản trị "
+"máy chủ của bạn hoặc gửi lên diễn đàn của Gallery."
+
+msgid "FILE Directive"
+msgstr "Chỉ thị FILE"
+
+msgid "Safe mode disabled"
+msgstr "Chế độ safe mode đã được tắt"
+
+msgid ""
+"Error: Your version of PHP is configured with safe mode enabled.  You must disable safe mode "
+"before Gallery will run."
+msgstr ""
+"Lỗi: Phiên bản PHP bạn đang dùng được cấu hình chạy trong safe mode. Bạn phải tắt chế độ "
+"safe mode để chạy được Gallery."
+
+msgid "Safe Mode"
+msgstr "Safe Mode"
+
+msgid "Regular expressions"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Error: Your PHP is configured without support for %sPerl Compatible Regular Expressions%s. "
+"You must enable these functions before Gallery will run."
+msgstr ""
+"Lỗi: Phiên bản PHP bạn đang dùng được cấu hình chạy trong safe mode. Bạn phải tắt chế độ "
+"safe mode để chạy được Gallery."
+
+msgid "exec() allowed"
+msgstr "cho phép dùng exec()"
+
+msgid ""
+"Warning: The exec() function is disabled in your PHP by the <b>disabled_functions</b> "
+"parameter in php.ini. You won't be able to use modules that require external binaries (e.g. "
+"ImageMagick, NetPBM or Ffmpeg). This can only be set server-wide, so you will need to change "
+"it in the global php.ini."
+msgstr ""
+"Cảnh báo: Hàm exec() đang bị tắt trong chương trình PHP bằng thông số <b>disabled_functions</"
+"b> trong tập tin php.ini. Bạn sẽ không thể sử dụng các module cần dùng các chương trình "
+"ngoài (ví dụ như ImageMagick, NetPBM hay Ffmpeg). Thông số này chỉ có thể được đặt cho cả "
+"máy chủ nên bạn phải thay đổi thông số này trong tập tin php.ini toàn cục."
+
+msgid "set_time_limit() allowed"
+msgstr "cho phép dùng set_time_limit()"
+
+#, c-format
+msgid ""
+"Warning: The set_time_limit() function is disabled in your PHP by the <b>disabled_functions</"
+"b> parameter in php.ini.  Gallery can function with this setting, but it will not operate "
+"reliably.  Any operation that takes longer than %d seconds will fail (and in some cases just "
+"return a blank page) possibly leading to data corruption."
+msgstr ""
+"Cảnh báo: Hàm set_time_limit() đang bị tắt trong chương trình PHP bằng thông số "
+"<b>disabled_functions</b> trong tập tin php.ini. Gallery tuy vẫn có thể hoạt động nhưng có "
+"thể sẽ không ổn định. Bất kỳ thao tác nào cần chạy lâu hơn %d giây sẽ thất bại (trong một số "
+"trường hợp chỉ hiển thị một trang trắng) và có khả năng dẫn đến hỏng dữ liệu."
+
+msgid "Filesystem Operations"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Error: Essential filesystem operations are disabled in your PHP by the "
+"<b>disabled_functions</b> parameter in php.ini. You must allow these functions before "
+"Gallery will run. These functions are missing: %s."
+msgstr ""
+"Cảnh báo: Hàm set_time_limit() đang bị tắt trong chương trình PHP bằng thông số "
+"<b>disabled_functions</b> trong tập tin php.ini. Gallery tuy vẫn có thể hoạt động nhưng có "
+"thể sẽ không ổn định. Bất kỳ thao tác nào cần chạy lâu hơn %d giây sẽ thất bại (trong một số "
+"trường hợp chỉ hiển thị một trang trắng) và có khả năng dẫn đến hỏng dữ liệu."
+
+msgid "Memory limit"
+msgstr "Giới hạn bộ nhớ"
+
+msgid "no limit"
+msgstr "không giới hạn"
+
+#, c-format
+msgid ""
+"Warning: Your PHP is configured to limit the memory to %sb (<b>memory_limit</b> parameter in "
+"php.ini). You should raise this limit to at least <b>%sMB</b> for proper Gallery operation."
+msgstr ""
+"Cảnh báo: Chương trình PHP của bạn đặt giới hạn bộ nhớ là %sb (trong thông số "
+"<b>memory_limit</b> ở tập tin php.ini. Bạn nên nâng giới hạn này lên ít nhất là <b>%sMB</b> "
+"để Gallery có thể hoạt động ổn định."
+
+msgid "File uploads allowed"
+msgstr "Cho phép tải tập tin lên"
+
+msgid ""
+"Warning: Your PHP is configured not to allow file uploads (<b>file_uploads</b> parameter in "
+"php.ini). You will need to enable this option if you want to upload files to your Gallery "
+"with a web browser."
+msgstr ""
+"Cảnh báo: Chương trình PHP của bạn được cài đặt cấm tải tập tin lên (bằng thông số "
+"<b>file_uploads</b> trong tập tin php.ini). Bạn cần phải thay đổi cài đặt này nếu bạn muốn "
+"tải tập tin vào Gallery của bạn thông qua trình duyệt web."
+
+msgid "Maximum upload size"
+msgstr "Kích thước tải lên tối đa"
+
+#, fuzzy, c-format
+msgid ""
+"Warning: Your PHP is configured to limit the size of file uploads to %sb "
+"(<b>upload_max_filesize</b> parameter in php.ini). You should raise this limit to allow "
+"uploading bigger files."
+msgstr ""
+"Cảnh báo: Chương trình PHP của bạn đặt giới hạn kích thước tập tin tải lên là %sb (trong "
+"thông số <b>post_max_filesize</b> ở tập tin php.ini). Bạn nên nâng giới hạn này lên để cho "
+"phép tải các tập tin có kích thước lớn hơn."
+
+msgid "Maximum POST size"
+msgstr "Kích thước POST tối đa"
+
+#, c-format
+msgid ""
+"Warning: Your PHP is configured to limit the post data to a maximum of %sb "
+"(<b>post_max_size</b> parameter in php.ini). You should raise this limit to allow uploading "
+"bigger files."
+msgstr ""
+"Cảnh báo: Chương trình PHP của bạn đặt giới hạn dữ liệu gửi lên tối đã là %sb (trong thông "
+"số <b>post_max_size</b> ở tập tin php.ini). Bạn nên nâng giới hạn này lên để cho phép tải "
+"các tập tin có kích thước lớn hơn."
+
+msgid "Translation support"
+msgstr ""
+
+#, c-format
+msgid ""
+"Your webserver does not support localization. To enable support for additional languages "
+"please instruct your system administrator to reconfigure PHP with the %sgettext%s option "
+"enabled."
+msgstr ""
+
+#, c-format
+msgid ""
+"Your PHP is missing the function %sbind_textdomain_codeset%s. This means Gallery may display "
+"extended characters for some languages incorrectly."
+msgstr ""
+
+#, c-format
+msgid ""
+"Your PHP is missing the function %sdngettext%s. This means Gallery will be unable to "
+"translate plural forms."
+msgstr ""
+
+msgid "Zend compatibility mode"
+msgstr "Chế độ tương thích với Zend"
+
+#, fuzzy, c-format
+msgid ""
+"Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
+msgstr ""
+"Cảnh báo: Chương trình PHP của bạn được cài đặt chế độ Zend ze1_compatibility_mode. Chế độ "
+"này có thể làm cho PHP bị ngưng hoạt động. Bạn hãy nhấp chuột vào <a href=\"%s\">đây</a> để "
+"kiểm tra thử. Nếu kết quả là \"SUCCESS\" thì chương trình PHP của bạn không bị ảnh hưởng. "
+"Nếu bạn gặp lỗi thì bạn phải tắt chế độ ze1_compatibility_mode trước khi tiếp tục."
+
+#, fuzzy
+msgid "putenv() allowed"
+msgstr "cho phép dùng exec()"
+
+#, fuzzy
+msgid ""
+"Warning: The putenv() function is disabled in your PHP by the <b>disabled_functions</b> "
+"parameter in php.ini.  Gallery can function with this setting, but on some rare systems "
+"Gallery will be unable to run in other languages than the system language and English."
+msgstr ""
+"Cảnh báo: Hàm set_time_limit() đang bị tắt trong chương trình PHP bằng thông số "
+"<b>disabled_functions</b> trong tập tin php.ini. Gallery tuy vẫn có thể hoạt động nhưng có "
+"thể sẽ không ổn định. Bất kỳ thao tác nào cần chạy lâu hơn %d giây sẽ thất bại (trong một số "
+"trường hợp chỉ hiển thị một trang trắng) và có khả năng dẫn đến hỏng dữ liệu."
+
+msgid "Output buffering disabled"
+msgstr ""
+
+#, c-format
+msgid ""
+"Warning: Output buffering is enabled in your PHP by the <b>%s</b> parameter(s) in php.ini.  "
+"Gallery can function with this setting - downloading files is even faster - but Gallery "
+"might be unable to serve large files (e.g. large videos) and run into the memory limit. "
+"Also, some features like the progress bars might not work correctly if output buffering is "
+"enabled unless ini_set() is allowed."
+msgstr ""
+
+msgid "Storage Directory Permissions"
+msgstr "Quyền hạn trong thư mục lưu trữ"
+
+msgid "Test skipped due to other errors."
+msgstr "Kiểm tra bị bỏ qua vì một số lỗi khác."
+
+#, c-format
+msgid ""
+"Error: Some files and or directories in your storage directory are not writeable by the "
+"webserver user. Run chown -R webserverUser %s OR run chmod -R 777 %s."
+msgstr ""
+"Lỗi: Một số tập tin và thư mục trong thư mục lưu trữ của bạn không thể ghi được dưới quyền "
+"người dùng webuser. Bạn hãy chạy lệnh chown -R webserverUser %s HOẶC lệnh chmod - R 777 %s."
+
+msgid "Gallery file integrity"
+msgstr "Tính toàn vẹn các tập tin Gallery"
+
+msgid "Manifest missing or inaccessible."
+msgstr "Thiếu tập tin Manifest hoặc không truy cập được."
+
+msgid "Upgrade Core"
+msgstr "Nâng cấp Lõi"
+
+#, fuzzy
+msgid "Upgrade Plugins"
+msgstr "Tình trạng nâng cấp"
+
+msgid "Unable to initialize Gallery session"
+msgstr ""
+
+#, c-format
+msgid "Unable to load the %s module"
+msgstr "Không thể nạp module %s"
+
+msgid "Upgrading modules"
+msgstr "Đang nâng cấp các module"
+
+#, c-format
+msgid "%s module needs configuration"
+msgstr "Module %s cần được chỉnh cấu hình"
+
+#, c-format
+msgid "Unable to upgrade the %s module"
+msgstr "Không thể nâng cấp module %s"
+
+#, c-format
+msgid "Unable to load the %s theme"
+msgstr "Không thể nạp kiểu trình bày %s"
+
+msgid "Upgrading themes"
+msgstr "Đang nâng cấp các kiểu trình bày"
+
+#, c-format
+msgid "Unable to upgrade the %s theme"
+msgstr "Không thể nâng cấp kiểu trình bày %s"
+
+msgid "Unable to get the module list"
+msgstr "Không thể nạp danh sách các module"
+
+msgid "Unable to get the theme list"
+msgstr "Không thể nạp danh sách các kiểu trình bày"
+
+#, fuzzy, c-format
+msgid "Unable to query the %s module"
+msgstr "Không thể nâng cấp module %s"
+
+msgid "Other"
+msgstr "Khác"
+
+#, fuzzy, c-format
+msgid "Unable to query the %s theme"
+msgstr "Không thể nâng cấp kiểu trình bày %s"
+
+msgid "Themes"
+msgstr "Kiểu trình bày"
+
+#, fuzzy, c-format
+msgid "Unable to deactivate the %s theme"
+msgstr "Không thể nạp kiểu trình bày %s"
+
+#, fuzzy, c-format
+msgid "Unable to deactivate the %s module"
+msgstr "Không thể nạp module %s"
+
+msgid "Welcome"
+msgstr "Chào mừng"
+
+#, c-format
+msgid "<b>Error:</b> could not locate %s.  Please place it in your %s directory."
+msgstr ""
+
+#, c-format
+msgid ""
+"<b>Error:</b> your %s file is not readable.  Please give Gallery read permissions on the "
+"file."
+msgstr ""
+
+#, c-format
+msgid ""
+"<b>Error:</b> your %s key does not match correctly.  Please use the new authentication "
+"string from below and try again."
+msgstr ""
+
+#, fuzzy
+msgid ""
+"In order to proceed with the upgrade process, we have to verify that you are who you claim.  "
+"When you performed the install, you entered a password which went into your config.php.  "
+"Type that in now.  Refer to your config.php if you've forgotten what you entered."
+msgstr ""
+"Để bắt đầu cài đặt, chúng tôi cần xác nhận bạn đúng là người chủ của Gallery này. Khi bạn "
+"cài Gallery, bạn đã nhập vào một mật khẩu, và mật khẩu này được lưu trong tập tin config."
+"php. Bạn hãy điền mật khẩu này vào đây. Tham khảo tập tin config.php nếu bạn quên."
+
+msgid "Password:"
+msgstr "Mật khẩu:"
+
+msgid "You have exceeded the maximum attempts to login by entering a password."
+msgstr ""
+
+msgid ""
+"To prevent somebody from hacking your website, we now require you to complete a stricter "
+"authentication process."
+msgstr ""
+
+#, c-format
+msgid ""
+"In order to proceed with the upgrade process, we have to verify that you are who you claim.  "
+"The best way to be sure is to ask you to make a tiny change in the Gallery directory which "
+"will prove that you have the right permissions.  So, we're going to ask that you create a "
+"new text file called %s in the %s directory on your webserver (that's the same directory "
+"where %s is located). It must contain the following randomly generated characters:"
+msgstr ""
+
+msgid "Once you've uploaded the file, click below to continue."
+msgstr ""
+
+msgid "Authenticate Me"
+msgstr "Xác nhận tôi"
+
+msgid "Authentication successful!"
+msgstr "Đã xác nhận người dùng!"
+
+#, fuzzy
+msgid "Successfully cleaned caches."
+msgstr "Các thư mục cache đã được xóa thành công."
+
+#, fuzzy
+msgid "Delete Caches"
+msgstr "Xóa các thư mục cache"
+
+msgid ""
+"Gallery creates temporary copies of some of your data on your hard drive.  This helps it to "
+"run faster.  But when you upgrade, some of these files might be out of date so it's a good "
+"idea to get rid of them now.  Gallery will create them again as it needs them."
+msgstr ""
+"Gallery tạo các phiên bản dữ liệu tạm trên ổ cứng để nó chạy nhanh hơn. Nhưng khi bạn nâng "
+"cấp, một số tập tin tạm này có thể sẽ trở nên không hợp lệ cho nên chúng ta nên xóa tất cả "
+"tập tin tạm ở bước này. Gallery sẽ tự động tạo lại các tập tin tạm khi cần."
+
+msgid ""
+"We were unable to clean the following cache directories.  This is probably ok, but if you "
+"notice any weird behaviour, you should try to delete these directories yourself.  It's "
+"perfectly safe to get rid of them at any time."
+msgstr ""
+"Không thể xóa các thư mục cache sau đây. Đây không phải là một vấn đề nghiêm trọng nhưng nếu "
+"bạn thấy Gallery hoạt động không bình thường thì bạn nên thử tự xóa các thư mục này. Bạn có "
+"thể xóa các thư mục này bất cứ lúc nào cũng được."
+
+msgid ""
+"Even though there were errors, you can still continue.  Or, you can try deleting these "
+"directories yourself and then click the <b>Try Again</b> link below."
+msgstr ""
+"Tuy có một số lỗi nhưng bạn vẫn có thể tiếp tục được. Hoặc bạn có thể thử tự xóa các thư mục "
+"này và ấn vào liên kết <b>Thử lại</b> dưới đây."
+
+msgid "Try Again"
+msgstr "Thử lại"
+
+msgid "Finished!"
+msgstr "Đã hoàn tất!"
+
+#, fuzzy
+msgid ""
+"Congratulations! Your Gallery 2 upgrade is complete!  To upgrade any additional Gallery 2 "
+"plugins you may use the Site Administrator interface."
+msgstr ""
+"Chúc mừng bạn! Quá trình nâng cấp Gallery 2 của bạn đã hoàn tất. Để nâng cấp các module khác "
+"của Gallery 2, bạn hãy vào phần Quản trị của Gallery."
+
+msgid "Go to my Gallery!"
+msgstr "Vào Gallery của tôi!"
+
+msgid "Upgrader Help"
+msgstr "Trợ giúp chương trình nâng cấp"
+
+msgid "Start Over"
+msgstr "Bắt đầu lại từ đầu"
+
+msgid "Warning"
+msgstr "Cảnh báo"
+
+#, c-format
+msgid ""
+"Your config.php appears to use the old form of multisite support.  Please see the %sHelp File"
+"%s for instructions to update your configuration before proceeding."
+msgstr ""
+"Tập tin config.php của bạn đang dùng kiểu hỗ trợ nhiều trang Gallery cũ. Hãy xem %sHướng dẫn%"
+"s để biết cách cập nhật tập tin cấu hình của bạn trước khi tiếp tục."
+
+msgid "Welcome to the Gallery Upgrader"
+msgstr "Chào mừng bạn đến Công cụ cập nhật Gallery"
+
+#, c-format
+msgid "Upgrade %d%% complete"
+msgstr "Nâng cấp hoàn tất %d%%"
+
+msgid "Redo this step"
+msgstr "Thực hiện lại bước này"
+
+#, c-format
+msgid "Continue to Step %d&raquo;"
+msgstr "Tiếp tục sang Bước %d&raquo;"
+
+msgid "Gallery: <strong>your photos</strong> on <strong>your website</strong>"
+msgstr "Gallery: <strong>ảnh của bạn</strong> trên chính <strong>trang web của bạn</strong>"
+
+#, c-format
+msgid "Missing files (%d)"
+msgstr "Các tập tin thiếu(%d)"
+
+#, fuzzy
+msgid ""
+"Note: You're running Gallery from SVN, so recently removed files may appear here.  It might "
+"be safe to ignore these."
+msgstr ""
+"Lưu ý: Bạn đang dùng phiên bản Gallery từ CVS và một số tập tin mới bị xóa gần đây được liệt "
+"kê dưới đây. Tuy nhiên, thường bạn có thể bỏ qua các cảnh báo này."
+
+#, c-format
+msgid "Modified files (%d)"
+msgstr "Các tập tin bị hiệu chỉnh (%d)"
+
+#, fuzzy
+msgid ""
+"Note: You're running Gallery from SVN, so some modified files are to be expected.  You can "
+"probably ignore these, but to be safe you should make sure that you do 'svn update' before "
+"continuing."
+msgstr ""
+"Lưu ý: Bạn đang dùng phiên bản Gallery từ CVS và một số tập tin mới được hiệu chỉnh được "
+"liệt kê dưới đây. Tuy bạn có thể bỏ qua các cảnh báo này, nhưng để an toàn, bạn nên chạy "
+"lệnh <b>cvs update -Pd</b> trước khi tiếp tục."
+
+#, c-format
+msgid "Old files (%d)"
+msgstr "Các tập tin cũ (%d)"
+
+#, fuzzy, c-format
+msgid ""
+"These files are no longer part of Gallery. They probably won't cause any problems but it is "
+"a good idea to remove them to keep your install clean.  Gallery can't remove these files for "
+"you, but you can download and run %s in your gallery2 directory to delete them for you."
+msgstr ""
+"Các tập tin này không còn được Gallery dùng nữa. Chúng có thể sẽ không gây ra vấn đề gì "
+"nhưng nói chung bạn nên xóa chúng đi để bản Gallery của bạn được sạch."
+
+msgid "this script"
+msgstr ""
+
+msgid "Upgrade Steps"
+msgstr "Các bước nâng cấp"
+
+msgid "Missing or invalid config.php"
+msgstr "Tập tin config.php bị thiếu hoặc không hợp lệ"
+
+msgid "You tried to run the upgrade process but a valid config.php is missing."
+msgstr "Bạn chạy chương trình nâng cấp nhưng thiếu tập tin config.php hợp lệ."
+
+msgid ""
+"If you've lost your config.php file when replacing the Gallery 2 files in the preparation "
+"for this upgrade, please restore it and try again."
+msgstr ""
+"Nếu bạn mất tập tin config.php khi thay thế các tập tin của Gallery 2 trong lúc chuẩn bị "
+"nâng cấp thì bạn hãy khôi phục lại nó trước khi thử lại lần nữa."
+
+msgid "If you actually want to run the Gallery 2 installer, please follow the link below."
+msgstr "Nếu bạn muốn chạy chương trình cài đặt Gallery 2 thì hãy dùng liên kết dưới đây."
+
+msgid ""
+"If you want to upgrade from Gallery 1, you first need to install Gallery 2 and then use the "
+"import module to import your data from Gallery 1. Please follow the link below to install "
+"Gallery 2."
+msgstr ""
+"Nếu bạn muốn nâng cấp từ Gallery 1, trước hết bạn phải cài Gallery 2 và sau đó dùng module "
+"import để chuyển dữ liệu từ Gallery 1 của bạn. Hãy dùng liên kết dưới đây để cài đặt Gallery "
+"2."
+
+msgid "Go to the Gallery 2 Installer"
+msgstr "Đi đến Chương trình cài đặt Gallery 2"
+
+msgid "Success"
+msgstr "Thành công"
+
+msgid "Failed"
+msgstr "Thất bại"
+
+msgid ""
+"If you are using Apache, create a file named .htaccess in the main Gallery directory with "
+"the following content:"
+msgstr ""
+"Nếu bạn đang dùng Apache, hãy tạo tập tin có tên .htaccess trong thư mục chính của Gallery "
+"với nội dung dưới đây:"
+
+msgid "An error occurred while upgrading Gallery Core Module"
+msgstr "Có lỗi khi nâng cấp module Lõi của Gallery"
+
+#, c-format
+msgid ""
+"Something went wrong when we tried to upgrade the core module.  In the boxes below you can "
+"find some debug information.  Report this in the %sGallery Forums%s and we'll help you "
+"diagnose the problem."
+msgstr ""
+"Có lỗi khi nâng cấp module lõi. Bạn có thể đọc thông tin debug trong hộp ở dưới đây. Hãy báo "
+"lại lỗi này trong %sDiễn đàn Gallery%s và chúng tôi sẽ giúp bạn tìm hiểu chẩn đoán lỗi này."
+
+msgid "Stack Trace:"
+msgstr "Stack Trace:"
+
+msgid "Debug Output:"
+msgstr "Kết xuất debug:"
+
+msgid "Upgrading the Gallery Core Module"
+msgstr "Nâng cấp module Lõi của Gallery"
+
+msgid ""
+"The Gallery Core Module is the heart of the Gallery application.  You can upgrade most other "
+"modules using the Site Administration interface, but this module must be handled separately "
+"in order for the upgrade to go smoothly."
+msgstr ""
+"Module Lõi của Gallery là trái tim của ứng dụng Galley. Bạn có thể nâng cấp hầu hết các "
+"module khác thông qua giao diện trong phần Quản trị, nhưng riêng module này cần được nâng "
+"cấp riêng."
+
+msgid "Currently installed"
+msgstr "Đang được cài đặt"
+
+#, c-format
+msgid "Core Module version: %s (Gallery %s)"
+msgstr ""
+
+msgid "New version"
+msgstr "Phiên bản mới"
+
+msgid "Config.php upgrade"
+msgstr "Nâng cấp tập tin config.php"
+
+msgid "Required"
+msgstr "Cần có"
+
+#, c-format
+msgid "Unable to write to config.php in your %s directory.  Please change its permissions."
+msgstr ""
+"Không thể ghi và tập tin config.php trong thư mục %s của bạn. Hãy chỉnh lại quyền truy cập "
+"của tập tin này."
+
+msgid "You can do <i>chmod 666 config.php</i> to fix this."
+msgstr "Bạn có thể dùng lệnh <i>chmod 666 config.php</i>."
+
+msgid ""
+"The installed version is newer than the version you are trying to upgrade to. You cannot "
+"downgrade G2. Please replace the gallery2 files with files from the currently installed "
+"version or later."
+msgstr ""
+"Phiên bản đang cài mới hơn phiên bản bạn đang định nâng cấp. Bạn không thể giảm cấp G2. Bạn "
+"hãy thay thế các tập tin của gallery2 bằng các tập tin của phiên bản đang được cài hoặc mới "
+"hơn."
+
+#, fuzzy
+msgid ""
+"Before you upgrade, we <b>strongly recommend</b> that you make a backup of your database!  "
+"If you fail to make a backup and something goes wrong, there is a strong possibility that we "
+"will not be able to help you recover your data!  Refer to the following example:"
+msgstr ""
+"Trước khi bạn nâng cấp, chúng tôi <b>đặc biệt khuyến cáo</b> bạn nên sao lưu cơ sở dữ liệu "
+"của Gallery lại. Nếu có lỗi trong quá trình nâng cấp mà bạn không sao lưu thì có nhiều khả "
+"năng là chúng tôi sẽ không thể giúp bạn khôi phục lại dữ liệu của bạn được! Hãy tham khảo "
+"các ví dụ dưới đây:"
+
+msgid "MySQL"
+msgstr "MySQL"
+
+msgid "PostgreSQL"
+msgstr "PostgreSQL"
+
+msgid "Oracle"
+msgstr ""
+
+msgid "IBM DB2"
+msgstr ""
+
+msgid "Microsoft SQL Server"
+msgstr ""
+
+msgid ""
+"Once the upgrade has begun, please be patient.  If you cancel or reload the page, you may "
+"interfere with the upgrade process."
+msgstr ""
+"Một khi quá trình nâng cấp được thực hiện, xin bạn hãy kiên nhẫn. Nếu bạn dừng hoặc nạp lại "
+"trang web thì có thể sẽ làm quá trình nâng cấp bị thất bại."
+
+msgid "Begin Upgrade"
+msgstr "Bắt đầu nâng cấp"
+
+msgid "Recheck config.php"
+msgstr "Kiểm tra lại tập tin config.php"
+
+msgid "Upgraded Gallery Core Module successfully."
+msgstr "Nâng cấp module Lõi của Gallery thành công."
+
+msgid "We've successfully upgraded the Gallery Core Module."
+msgstr "Module Lõi của Gallery đã được cập nhật thành công."
+
+#, c-format
+msgid ""
+"<b>Reminder</b>: Now update the permissions on config.php to make sure it is not writeable "
+"by other people.  Right now your config.php has modes of %s.  We suggest that you do this:"
+msgstr ""
+
+msgid "Your Gallery Core Module is up to date!"
+msgstr "Module Lõi của Gallery hiện đang dùng phiên bản mới nhất!"
+
+#, fuzzy
+msgid ""
+"The following plugins can be automatically upgraded for you.  If you choose not to upgrade "
+"them now, you may experience problems with your Gallery.   You can always upgrade or "
+"deactivate them on the Site Administration page, or return to this page later so any "
+"decision you make here is not permanent."
+msgstr ""
+"Các module dưới đây sẽ được tự động nâng cấp. Nếu bạn chọn không nâng cấp ngay bây giờ thì "
+"Gallery của bạn có thể sẽ có trục trặc khi hoạt động. Bạn lúc nào cũng có thể nâng cấp hoặc "
+"bỏ kích hoạt chúng trong trang Quản trị, hoặc quay lại trang này sau để nâng cấp chúng."
+
+msgid "Deactivated Plugins"
+msgstr ""
+
+msgid ""
+"The following plugins were active, but they are missing or incompatible with your current "
+"version of Gallery.  They have been deactivated.  Install the latest version of these "
+"plugins to reactivate them."
+msgstr ""
+
+msgid "Module"
+msgstr "Module"
+
+msgid "Theme"
+msgstr "Kiểu trình bày"
+
+msgid "Name"
+msgstr "Tên"
+
+msgid "Current"
+msgstr "Hiện tại"
+
+msgid "New"
+msgstr "Mới"
+
+msgid "Description"
+msgstr "Mô tả"
+
+msgid "Incompatible with this version of Gallery"
+msgstr ""
+
+msgid "(un)check all"
+msgstr "(bỏ) đánh dấu tất cả"
+
+#, c-format
+msgid "Skip Upgrade and Continue to Step %d&raquo;"
+msgstr "Bỏ qua nâng cấp và thực hiện tiếp bước %d&raquo;"
+
+#, fuzzy
+msgid "Upgrade Selected Plugins"
+msgstr "Nâng cấp các module đang chọn"
+
+#, c-format
+msgid "Upgraded the %s module successfully"
+msgstr "Nâng cấp module %s thành công"
+
+#, c-format
+msgid "Upgraded the %s theme successfully"
+msgstr "Nâng cấp kiểu trình bày %s thành công"
+
+#, fuzzy
+msgid "Upgrade More Plugins"
+msgstr "Tình trạng nâng cấp"
+
+#, c-format
+msgid ""
+"Upgrading Gallery 2 requires %d steps. This upgrade tool will guide you through these steps "
+"and provide assistance along the way if additional steps are required. Please read the %"
+"sHelp File%s before proceeding."
+msgstr ""
+"Nâng cấp Gallery 2 cần phải qua %d bước. Công cụ nâng cấp này sẽ hướng dẫn bạn qua những "
+"bước này và hỗ trợ bạn nếu cần thực hiện thêm một số bước khác. Xin hãy đọc %sHướng dẫn%s "
+"trước khi tiếp tục."
+
+msgid ""
+"If you have a busy site, consider putting your Gallery in maintenance mode. This gives "
+"visitors a message that the site is temporarily offline, rather than showing everybody this "
+"upgrade page. Edit your config.php file to activate maintenance mode."
+msgstr ""
+
+msgid "Select Language:"
+msgstr "Chọn ngôn ngữ:"
+
+msgid "Go"
+msgstr "Đi tiếp"
+
+#~ msgid ""
+#~ "<b>Reminder</b>: Now check the permissions on config.php and make sure it is not globally "
+#~ "writeable."
+#~ msgstr ""
+#~ "<b>Nhắc nhở</b>: Bây giờ bạn hãy kiểm tra lại quyền truy cập trên tập tin config.php và "
+#~ "bảm đảm là người khác không thể ghi lên tập tin này được."
+
+#, fuzzy
+#~ msgid "mysqldump -u%s -p -h %s --opt %s > %s.sql"
+#~ msgstr "mysqldump -u%s -p<i>MậtKhẩuCủaBạn</i> --opt %s > %s.sql"
+
+#, fuzzy
+#~ msgid "pg_dump -h %s --format=t %s > %s.sql"
+#~ msgstr "pg_dump --format=t %s > %s.sql"
+
+#~ msgid "Upgrade More Modules"
+#~ msgstr "Nâng cấp thêm module"
+
+#~ msgid "Upgrade Modules"
+#~ msgstr "Nâng cấp các module"
+
+#, fuzzy
+#~ msgid "the Gallery website"
+#~ msgstr "Đi đến Chương trình cài đặt Gallery 2"
+
+#~ msgid "Upgrade Other Modules"
+#~ msgstr "Nâng cấp các module khác"
+
+#~ msgid "Missing Code"
+#~ msgstr "Mã bị thiếu"
+
+#~ msgid ""
+#~ "The code for some plugins that were previously active can no longer be found. You must "
+#~ "restore code for these plugins before this upgrade can continue. Code for the plugins "
+#~ "must be the same version or newer than what was installed before."
+#~ msgstr ""
+#~ "Mã chương trình của một số plugin đang hoạt động trước đây không tìm thấy. Bạn cần phải "
+#~ "khôi phục lại mã của các plugin này trước khi tiếp tục nâng cấp. Mã chương trình cho các "
+#~ "plugin này phải cùng phiên bản hoặc mới hơn phiên bản đã được cài trước đây."
+
+#~ msgid "Finished"
+#~ msgstr "Hoàn tất"

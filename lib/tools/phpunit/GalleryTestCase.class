@@ -1,0 +1,1062 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Gallery specific version of PHPUnit's TestCase class.
+ * @package Gallery
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 15634 $
+ */
+class GalleryTestCase extends TestCase {
+
+    var $_cleanup;
+
+    function GalleryTestCase($methodName) {
+	$this->TestCase($methodName);
+	$this->_cleanup = array('entity' => array(),
+				'factoryModuleId' => array(),
+				'toolkitId' => array(),
+				'pluginParameters' => array(),
+				'factoryRegistry' => null,
+				'eventListeners' => null);
+    }
+
+    function &getEntityCounter() {
+	static $_counter;
+	if (!isset($_counter)) {
+	    $_counter = new EntityCounterEventListener();
+	}
+
+	return $_counter;
+    }
+ 
+    function _registerTestEventListener($eventName, &$listener) {
+	/*
+	 * Right now, this is just a wrapper for the normal core API method.
+	 * The magic is done in setUp and tearDown / markEventListenersForCleanup.
+	 */
+	GalleryCoreApi::registerEventListener($eventName, $listener);
+    }
+
+    function failWithStatus($ret) {
+	global $gallery;
+
+	/* Fail with as much debug info as we can muster. */
+	$this->assert(false, $ret->getAsHtml() . $gallery->getDebugBuffer());
+    }
+
+    function setUp() {
+	global $gallery;
+
+	$counter =& GalleryTestCase::getEntityCounter();
+	$counter->setCount(0);
+
+	GalleryDataCache::setFileCachingEnabled(false);
+
+	parent::setUp();
+
+	switch (strtolower(get_class($gallery->getPlatform()))) {
+	case 'unixplatform':
+	case 'winntplatform':
+	    break;
+
+	default:
+	    $this->assert(false, 'Unknown platform in GalleryTestCase::setUp -- did you ' .
+			  ' change the platform before calling parent::setUp in your test case?');
+	}
+
+	/* Save useful vars so that tests don't have to worry about overwriting them */
+	$this->_saveVars[] = $_GET;
+	$this->_saveVars[] = $_POST;
+	$this->_saveVars[] = $_FILES;
+	$this->_saveVars[] = $_COOKIE;
+	$this->_saveVars[] = $_SERVER;
+	$this->_saveVars[] = $_ENV;
+	$this->_saveVars[] = $gallery->getStorage();
+	$this->_saveVars[] = $gallery->getPlatform();
+	$this->_saveVars[] = $gallery->getActiveUser();
+	$this->_saveVars[] = $gallery->getUrlGenerator();
+	$this->_saveVars[] = $gallery->getTranslator();
+	$this->_saveVars[] = $gallery->_config;
+	$this->_saveVars[] = $gallery->_phpVm;
+	$this->_saveVars[] = isset($gallery->_lockSystem) ? $gallery->_lockSystem : null;
+	$this->_saveVars[] = $gallery->_storage;
+
+	$_GET = array();
+	$_POST = array();
+	$_FILES = array();
+
+	$session =& $gallery->getSession();
+	if (!$session->isUsingCookies()) {
+	    $_GET[GALLERY_FORM_VARIABLE_PREFIX . $session->getKey()] = $session->getId();
+	}
+	$this->_saveSID = $session->getId();
+	$this->_saveVars[] = $session->get('core.language');
+
+	$ret = $this->_markEventListenersForCleanup();
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $ret;
+	}
+
+	/*
+	 * Try to ensure enough time for this test to complete.  If a test
+	 * needs more time, then it should extend the limit itself.
+	 */
+	$gallery->guaranteeTimeLimit(30);
+
+	/* Start with a clean slate*/
+	GalleryDataCache::reset();
+
+	/* Preload a few things to lighten the load on our dummy platforms */
+	GalleryCoreApi::fetchPluginStatus('module');
+	GalleryCoreApi::fetchPluginStatus('theme');
+
+	$storage =& $gallery->getStorage();
+	$ret = $storage->beginTransaction();
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $ret;
+	}
+
+	list ($ret, $this->_rootAlbumId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $ret;
+	}
+
+	$gallery->clearDebugBuffer();
+    }
+
+    function tearDown() {
+	global $gallery;
+
+	/* Restore saved vars */
+	$_GET = array_shift($this->_saveVars);
+	$_POST = array_shift($this->_saveVars);
+	$_FILES = array_shift($this->_saveVars);
+	$_COOKIE = array_shift($this->_saveVars);
+	$_SERVER = array_shift($this->_saveVars);
+	$_ENV = array_shift($this->_saveVars);
+	$gallery->_storage = array_shift($this->_saveVars);
+	$platform = array_shift($this->_saveVars);
+	$gallery->setPlatform($platform);
+	$gallery->setActiveUser(array_shift($this->_saveVars));
+	$urlGenerator = array_shift($this->_saveVars);
+	$gallery->setUrlGenerator($urlGenerator);
+	$gallery->_translator = array_shift($this->_saveVars);
+	$gallery->_config = array_shift($this->_saveVars);
+	$gallery->_phpVm = array_shift($this->_saveVars);
+
+	/* Release any queued locks before restoring lockSystem */
+	if (isset($gallery->_lockSystem)) {
+	    $gallery->_lockSystem->releaseQueue();
+	}
+
+	/* Make sure we're not hanging onto any locks */
+	$lockIds = GalleryCoreApi::getLockIds();
+	if (!empty($lockIds)) {
+	    GalleryCoreApi::releaseAllLocks();
+	    $this->assert(0, 'There are unreleased locks!');
+	}
+
+	$gallery->_lockSystem = array_shift($this->_saveVars);
+	$gallery->_storage = array_shift($this->_saveVars);
+	$gallery->_shutdownActions = null;
+	$gallery->_templateAdapter = null;
+
+	/* Do our cleanup */
+	foreach ($this->_cleanup['pluginParameters'] as $cleanupPlugin) {
+	    $pluginType = array_shift($cleanupPlugin);
+	    $pluginId = array_shift($cleanupPlugin);
+	    $pluginParams = array_shift($cleanupPlugin);
+
+	    /* Retrieve the post-test plugin params */
+	    list($ret, $newPluginParams) =
+		GalleryCoreApi::fetchAllPluginParameters($pluginType, $pluginId);
+	    if ($ret) {
+		print $ret->getAsHtml();
+		return $ret;
+	    }
+
+	    /* Remove each new key from the DB */
+	    foreach ($newPluginParams as $key => $newParam) {
+		if (!array_key_exists($key, $pluginParams)) {
+		    $ret = GalleryCoreApi::removePluginParameter($pluginType, $pluginId, $key);
+		    if ($ret) {
+			/* Print the error, but continue to remove the parameters */
+			print $ret->getAsHtml();
+		    }
+		}
+	    }
+
+	    /* Restore each key from the saved list */
+	    foreach ($pluginParams as $key => $pluginParam) {
+		$ret = GalleryCoreApi::setPluginParameter($pluginType, $pluginId,
+							  $key, $pluginParam);
+		if ($ret) {
+		    /* Print the error, but continue to set the variables */
+		    print $ret->getAsHtml();
+		}
+	    }
+	}
+
+	if (isset($this->_cleanup['factoryRegistry'])) {
+	    GalleryCoreApi::requireOnce(
+		'modules/core/classes/helpers/GalleryFactoryHelper_simple.class');
+	    $registryData =& GalleryFactoryHelper_simple::_getFactoryData();
+	    $registryData[1] = $this->_cleanup['factoryRegistry'];
+	}
+
+	foreach ($this->_cleanup['entity'] as $entity) {
+	    $ret = GalleryCoreApi::deleteEntityById($entity->getId());
+	    if ($ret) {
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
+	    }
+	}
+
+	foreach ($this->_cleanup['toolkitId'] as $toolkitId) {
+	    $ret = GalleryCoreApi::unregisterToolkit($toolkitId);
+	    if ($ret) {
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
+	    }
+	}
+
+	foreach ($this->_cleanup['factoryModuleId'] as $moduleId) {
+	    $ret = GalleryCoreApi::unregisterFactoryImplementationsByModuleId($moduleId);
+	    if ($ret) {
+		print $ret->getAsHtml();
+		return $this->failWithStatus($ret);
+	    }
+	}
+
+	$storage =& $gallery->getStorage();
+	$ret = $storage->commitTransaction();
+	if ($ret) {
+	    $this->fail($ret->getAsText());
+	}
+
+	$session =& $gallery->getSession();
+	$language = array_shift($this->_saveVars);
+	if (isset($language)) {
+	    $session->put('core.language', $language);
+	} else {
+	    $session->remove('core.language');
+	}
+
+	parent::tearDown();
+
+	GalleryDataCache::setFileCachingEnabled(true);
+	GalleryDataCache::setMemoryCachingEnabled(true);
+
+	$counter =& GalleryTestCase::getEntityCounter();
+	$this->assert(
+	    $counter->getCount() == 0,
+	    sprintf('%d entities were created and not deleted <br/>' .
+		    '(did you put parent::tearDown() at the <i>end</i> of your tearDown() method?',
+		    $counter->getCount()));
+
+	if (is_object($session)) {
+	    $this->assertEquals($this->_saveSID, $session->getId(), 'Session ID changed by test');
+	} else {
+	    $this->assert(false, 'Session is not an object anymore!');
+	}
+
+	$eventListeners =& GalleryEventHelper_simple::_getEventListeners();
+	$eventListeners = $this->_cleanup['eventListeners'];
+
+	/* Clean out any saved state in the platform */
+	$gallery->_platform->resetPlatform();
+    }
+
+    /** @return int id */
+    function _getRootId() {
+	return (int)$this->_rootAlbumId;
+    }
+
+    /** @param object GalleryEntity $entity to delete in tearDown */
+    function _markForCleanup($entity) {
+	$this->_cleanup['entity'][] = $entity;
+    }
+
+    /** @param string $moduleId to unregister from factory in tearDown */
+    function _markFactoryModuleForCleanup($moduleId) {
+	$this->_cleanup['factoryModuleId'][] = $moduleId;
+    }
+
+    /** @param string $toolkitId to unregister in tearDown */
+    function _markToolkitForCleanup($toolkitId) {
+	$this->_cleanup['toolkitId'][] = $toolkitId;
+    }
+
+    /**
+     * Store plugin parameters to be restored in tearDown
+     *
+     * @param string $pluginType
+     * @param string $pluginId
+     * @return object GalleryStatus
+     */
+    function _markPluginParametersForCleanup($pluginType, $pluginId) {
+	list($ret, $pluginParams) =
+	    GalleryCoreApi::fetchAllPluginParameters($pluginType, $pluginId);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $ret;
+	}
+
+	$this->_cleanup['pluginParameters'][] = array($pluginType, $pluginId, $pluginParams);
+	return null;
+    }
+
+    /**
+     * Set core parameter for markup type.
+     * @param string $markup markup type
+     * @param bool $saveParams (optional) true to first mark core parameters for cleanup
+     * @return object GalleryStatus
+     */
+    function _setMarkupType($markup, $saveParams=false) {
+	if ($saveParams) {
+	    $ret = $this->_markPluginParametersForCleanup('module', 'core');
+	    if ($ret) {
+		return $ret;
+	    }
+	}
+	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', $markup);
+	if ($ret) {
+	    return $ret;
+	}
+	return null;
+    }
+
+    function assert($boolean, $message=null) {
+	global $gallery;
+	$message = $gallery->getDebugBuffer() . $message;
+	parent::assert($boolean, $message);
+    }
+
+    function assertEquals($expected, $actual, $message=null) {
+	global $gallery;
+	$message = $gallery->getDebugBuffer() . $message;
+	$err = $this->DeepCompare($expected, $actual);
+	if ($err) {
+	    $message .= sprintf('&nbsp;<br/><b>Mismatch At</b>: %s', htmlspecialchars($err));
+	}
+	parent::assertEquals($expected, $actual, $message);
+    }
+
+    /**
+     * Create a random album
+     *
+     * @param int $parentId the id of the parent album
+     * @param array $fields (optional) fields to set in the new instance (field => value, ..)
+     * @return array object GalleryStatus a status code
+     *               object GalleryAlbumItem
+     * @access protected
+     */
+    function _createRandomAlbum($parentId, $fields=array()) {
+	global $gallery;
+
+	if (empty($parentId)) {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	}
+
+	list ($ret, $album) = GalleryCoreApi::createAlbum(
+	    $parentId, 'albumtest' . rand(),
+	    'I am Jack\'s title', 'This is my summary',
+	    'This is my description', null);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	if (!empty($fields)) {
+	    list ($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($album->getId());
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    $ret = $this->_verifyFields($album, array_keys($fields));
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    /* Change some settings */
+	    foreach ($fields as $field => $value) {
+		$func = "set$field";
+		$album->$func($value);
+	    }
+
+	    /* Save it */
+	    $ret = $album->save();
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    /* Leggo of our locks */
+	    if (isset($lockIds)) {
+		$ret = GalleryCoreApi::releaseLocks($lockIds);
+		if ($ret) {
+		    return array($ret, null);
+		}
+	    }
+	}
+
+	return array(null, $album);
+    }
+
+
+    /**
+     * Create a random data item
+     *
+     * @param int $parentId the id of the parent album
+     * @param string $mimeType (optional) mime type (default application/unknown)
+     * @param array $fields (optional) fields to set in the new instance (field => value, ..)
+     * @param string $inputFile (optional) data file (default __FILE__)
+     * @param string $itemClass (optional) class to instantiate (default from factory)
+     * @return array object GalleryStatus a status code
+     *               object GalleryDataItem
+     * @access protected
+     */
+    function _createRandomDataItem($parentId, $mimeType='application/unknown',
+				   $fields=array(), $inputFile=__FILE__,
+				   $itemClass=null) {
+	global $gallery;
+
+	if (isset($itemClass)) {
+	    list ($ret, $item) =
+		GalleryCoreApi::newFactoryInstanceById('GalleryEntity', $itemClass);
+	} else {
+	    list ($ret, $item) = GalleryCoreApi::newItemByMimeType($mimeType);
+	}
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	if (!isset($item)) {
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	}
+
+	$lockIds = array();
+	list ($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock($parentId);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	if (get_magic_quotes_gpc()) {
+	    $inputFile = addslashes($inputFile);
+	}
+
+	$ret = $item->create($parentId, $inputFile, $mimeType,
+			     'test-' . rand(1, 5000) . '.dat');
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	/* Change some settings */
+	$item->setTitle('I am Jack\'s title');
+	$item->setSummary('This is a summary');
+	$item->setKeywords('These are some keywords');
+	$item->setDescription('This is a description');
+
+	$ret = $this->_verifyFields($item, array_keys($fields));
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	foreach ($fields as $field => $value) {
+	    $func = "set$field";
+	    $item->$func($value);
+	}
+
+	/* Save it */
+	$ret = $item->save();
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	/* Leggo of our locks */
+	if (isset($lockIds)) {
+	    $ret = GalleryCoreApi::releaseLocks($lockIds);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+
+	return array(null, $item);
+    }
+
+    /**
+     * Create a random link item
+     *
+     * @param int $parentId the id of the parent album
+     * @param object GalleryItem $targetItem target item
+     * @return array object GalleryStatus a status code
+     *               object GalleryDataItem
+     * @access protected
+     */
+    function _createLinkedItem($parentId, $targetItem) {
+	global $gallery;
+
+	if (!isset($targetItem)) {
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	}
+
+	list ($ret, $lockIds[]) =
+	    GalleryCoreApi::acquireReadLock(array($parentId, $targetItem->getId()));
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	$className = get_class($targetItem);
+	$linkedItem = new $className();
+	$ret = $linkedItem->createLink($targetItem, $parentId);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	/* Save it */
+	$ret = $linkedItem->save();
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	/* Leggo of our locks */
+	if (isset($lockIds)) {
+	    $ret = GalleryCoreApi::releaseLocks($lockIds);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+
+	return array(null, $linkedItem);
+    }
+
+    /**
+     * Create a random user
+     *
+     * @param string $userTag (optional) suffix to add on username
+     * @param string $password (optional)
+     * @return array object GalleryStatus a status code
+     *               object GalleryUser
+     * @access protected
+     */
+    function _createRandomUser($userTag=null, $password='password') {
+	list ($ret, $user) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	if (!isset($user)) {
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	}
+
+	if (!isset($userTag)) {
+	    $userTag = rand();
+	}
+
+	$ret = $user->create('testuser-' . $userTag);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	$user->setFullName('User ' . $userTag);
+	$user->changePassword($password);
+	$user->setEmail('user-' . $userTag . '@example.com');
+
+	$ret = $user->save();
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	return array(null, $user);
+    }
+
+    /**
+     * Create a random group
+     *
+     * @param string $groupTag (optional) suffix to add on group name
+     * @return array object GalleryStatus a status code
+     *               object GalleryGroup
+     * @access protected
+     */
+    function _createRandomGroup($groupTag=null) {
+	list ($ret, $group) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryGroup');
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	if (!isset($group)) {
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
+	}
+
+	if (!isset($groupTag)) {
+	    $groupTag = rand();
+	}
+
+	$ret = $group->create('Test Group ' . $groupTag);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	$ret = $group->save();
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	return array(null, $group);
+    }
+
+    function _createDerivative(&$parent, $sourceId, $type,
+			       $operations='test-operation|100', $mimeType='test/file',
+			       $fields=array()) {
+	global $gallery;
+	$parentId = $parent->getId();
+
+	list ($ret, $derivative) =
+	    GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative', $parent->getEntityType());
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	$ret = $derivative->create($parentId, $type);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	/* Set bogus values */
+	$derivative->setMimeType($mimeType);
+	$derivative->setDerivativeSourceId($sourceId);
+	$derivative->setDerivativeOperations($operations);
+
+	$ret = $this->_verifyFields($derivative, array_keys($fields));
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	foreach ($fields as $field => $value) {
+	    $func = "set$field";
+	    $derivative->$func($value);
+	}
+
+	$ret = $derivative->save();
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	return array(null, $derivative);
+    }
+
+    function _deleteAndVerifyEntity($id) {
+	global $gallery;
+
+	$ret = GalleryCoreApi::deleteEntityById($id);
+	if ($ret) {
+	    return $ret;
+	}
+
+	$ret = $this->_verifyMissing($id);
+	if ($ret) {
+	    return $ret;
+	}
+
+	return null;
+    }
+
+    function _verifyMissing($id) {
+	global $gallery;
+
+	GalleryDataCache::reset();
+
+	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($id);
+	if ($ret) {
+	    if (!$ret->getErrorCode() & ERROR_MISSING_OBJECT) {
+		return $ret;
+	    }
+	} else {
+	    /* We failed to delete! */
+	    return GalleryCoreApi::error(ERROR_UNKNOWN);
+	}
+
+	return null;
+    }
+
+    function _verifyEntity($entity) {
+	global $gallery;
+
+	GalleryDataCache::reset();
+
+	/* Load it back from the storage */
+	list ($ret, $newEntity) = GalleryCoreApi::loadEntitiesById($entity->getId());
+	if ($ret) {
+	    return $ret;
+	}
+
+	/* Verify it */
+	$this->assertEquals($entity, $newEntity);
+
+	return null;
+    }
+
+    function _createUser($fields=array()) {
+	global $gallery;
+
+	list ($ret, $user) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	if (!isset($user)) {
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT),
+			 null);
+	}
+
+	$ret = $user->create('testuser-'.rand());
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	$ret = $this->_verifyFields($user, array_keys($fields));
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	foreach ($fields as $field => $value) {
+	    $func = "set$field";
+	    $user->$func($value);
+	}
+
+	$ret = $user->save();
+	if ($ret) {
+	    return array($ret, null);
+	}
+	return array(null, $user);
+    }
+
+    /**
+     * Get an id that is not used for anything.
+     */
+    function _getUnusedId() {
+	global $gallery;
+	static $unusedId;
+	if (!isset($unusedId)) {
+	    $storage =& $gallery->getStorage();
+	    list ($ret, $unusedId) = $storage->getUniqueId();
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+
+	return array(null, $unusedId);
+    }
+
+    function _becomeGuestUser() {
+	global $gallery;
+
+	list ($ret, $anonymousUserId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $anonymousUser) = GalleryCoreApi::loadEntitiesById($anonymousUserId);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$gallery->setActiveUser($anonymousUser);
+    }
+
+    function DeepCompare($obj1, $obj2, $context=null) {
+	if (gettype($obj1) !== gettype($obj2)) {
+	    return "[$context] $obj1 type (" . gettype($obj1)
+		 . ") !== $obj2 type (" . gettype($obj2) . ')';
+	}
+
+	if (is_object($obj1)) {
+	    $obj1 = (array)$obj1;
+	    $obj2 = (array)$obj2;
+	}
+	if (is_array($obj1)) {
+	    $keys1 = array_keys($obj1);
+	    $keys2 = array_keys($obj2);
+
+	    while (true) {
+		if (empty($keys1) && empty($keys2)) {
+		    break;
+		} else if (empty($keys1) && !empty($keys2)) {
+		    return "[$context] extra keys in array 2: " . implode(',', $keys2);
+		} else if (empty($keys2) && !empty($keys1)) {
+		    return "[$context] extra keys in array 1: " . implode(',', $keys1);
+		}
+
+		$key1 = array_shift($keys1);
+		$key2 = array_shift($keys2);
+
+		if ($key1 !== $key2) {
+		    return "[$context] $key1 !== $key2";
+		}
+
+		$err = $this->DeepCompare($obj1[$key1], $obj2[$key2], "$context $key1");
+		if (isset($err)) {
+		    return $err;
+		}
+	    }
+	} else {
+	    if ($obj1 !== $obj2) {
+		return "[$context] $obj1 !== $obj2";
+	    }
+	}
+
+	return null;
+    }
+
+    function _verifyFields($entity, $fields) {
+	$vars = get_class_vars(get_class($entity));
+	foreach ($fields as $field) {
+	    if (!array_key_exists($field, $vars)) {
+		return GalleryCoreApi::error(
+		    ERROR_BAD_PARAMETER, __FILE__, __LINE__, "Bad param $field");
+	    }
+	}
+	return null;
+    }
+
+    /**
+     * Adds an authToken to the given URL
+     * @param string $url
+     * @param bool $htmlEntities whether to use HTML entities or not, defaults to true
+     * @return string URL with authToken
+     */
+    function _signUrl($url, $htmlEntities=true) {
+	global $gallery;
+	$session =& $gallery->getSession();
+
+	$this->assert($session->isPersistent(), 'test for authToken assumes persistent session');
+
+	$authToken = array('authToken' => $session->getAuthToken());
+	$url = GalleryUrlGenerator::appendParamsToUrl($url, $authToken);
+	if (!$htmlEntities) {
+	    $url = str_replace('&amp;', '&', $url);
+	}
+	return $url;
+    }
+
+    /**
+     * Convenience method to mark a username as disabled.
+     * @param string $userName the username
+     * @return object GalleryStatus a status code
+     */
+    function _disableUserName($userName) {
+	return GalleryCoreApi::addMapEntry(
+	    'FailedLoginsMap',
+	    array('userName' => $userName,
+		  'count' => 100,
+		  'lastAttempt' => time()));
+    }
+
+    /**
+     * Create a backup of the factory data which will be restored in tearDown.
+     */
+    function _markFactoryForCleanup() {
+	GalleryCoreApi::requireOnce(
+	    'modules/core/classes/helpers/GalleryFactoryHelper_simple.class');
+	/* Don't use references here */
+	list ($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
+	$this->_cleanup['factoryRegistry'] = $registry;
+    }
+
+    /**
+     * Create a backup of the registered event listeners which will be restored in tearDown.
+     */
+    function _markEventListenersForCleanup() {
+	static $listenersAreRegistered;
+	if (empty($listenersAreRegistered)) {
+	    GalleryCoreApi::requireOnce(
+			'modules/core/classes/helpers/GalleryEventHelper_simple.class');
+	    /* Trigger all modules to register their event listeners */
+	    $event = GalleryCoreApi::newEvent('GalleryTest:PseudoEvent');
+	    list ($ret, $ignored) = GalleryCoreApi::postEvent($event);
+	    if ($ret) {
+		return $ret;
+	    }
+	    $listenersAreRegistered = true;
+	}
+
+	/* Don't use references here */
+	$eventListeners = GalleryEventHelper_simple::_getEventListeners();
+	$this->_cleanup['eventListeners'] = $eventListeners;
+
+	return null;
+    }
+
+    /**
+     * Register a factory implementation temporarily for this test.
+     * You need to call _markFactoryForCleanup() before changing the factory during a test.
+     * Will register the new implementation always with top priority.
+     * @see GalleryCoreApi::registerFactoryImplementation
+     */
+    function _registerFactoryImplementationForTest($classType, $className, $implId, $implPath,
+						   $implModuleId, $hints=array()) {
+	GalleryCoreApi::requireOnce(
+	    'modules/core/classes/helpers/GalleryFactoryHelper_simple.class');
+	$registryData =& GalleryFactoryHelper_simple::_getFactoryData();
+	$registry =& $registryData[1];
+
+	/* Prepend the new implementation at the beginning of the arrays */
+	foreach (array('implementations', 'ids', 'pluginIds') as $key) {
+	    if (!isset($registry[$key][$classType]) || !is_array($registry[$key][$classType])) {
+		$registry[$key][$classType] = array();
+	    }
+	}
+
+	$this->_array_unshift_key_value($registry['implementations'][$classType],
+					$className, $implPath);
+	$this->_array_unshift_key_value($registry['ids'][$classType],
+					$implId, $className);
+	$this->_array_unshift_key_value($registry['pluginIds'][$classType],
+					$className, $implModuleId);
+
+	foreach ($hints as $hint) {
+	    if (!isset($registry['hints'][$classType][$hint])
+		    || !is_array($registry['hints'][$classType][$hint])) {
+		$registry['hints'][$classType][$hint] = array();
+	    }
+	    $this->_array_unshift_key_value($registry['hints'][$classType][$hint],
+					    $implId, $className);
+	}
+    }
+
+    /**
+     * Utility method to array_unshift a single key => value pair.
+     * @access private
+     */
+    function _array_unshift_key_value(&$array, $key, $value) {
+	unset($array[$key]);
+	$array = array_merge(array($key => $value), $array);
+    }
+
+    /**
+     * Unregister a specific factory implementation or all implementations of a spefific type
+     * temporarily for this test.
+     * You need to call _markFactoryForCleanup() before changing the factory during a test.
+     * To register all implementations of a specific type, leave implId and className empty.
+     * @param string $classType
+     * @param string $implId (optional)
+     * @param string $className (optional)
+     * @access private
+     */
+    function _unregisterFactoryImplementationForTest($classType, $implId=null, $className=null) {
+	GalleryCoreApi::requireOnce(
+	    'modules/core/classes/helpers/GalleryFactoryHelper_simple.class');
+	$registryData =& GalleryFactoryHelper_simple::_getFactoryData();
+	$registry =& $registryData[1];
+
+	/* Remove the implementation from all internal data structures */
+	if (isset($implId)) {
+	    unset($registry['ids'][$classType][$implId]);
+		if (empty($registry['ids'][$classType])) {
+		    unset($registry['ids'][$classType]);
+	    }
+	} else {
+	    unset($registry['ids'][$classType]);
+	}
+
+	if (isset($className)) {
+	    unset($registry['implementations'][$classType][$className]);
+	    if (empty($registry['implementations'][$classType])) {
+		unset($registry['ids'][$classType]);
+	    }
+	    unset($registry['pluginIds'][$classType][$className]);
+	    if (empty($registry['pluginIds'][$classType])) {
+		unset($registry['pluginIds'][$classType]);
+	    }
+	} else {
+	    unset($registry['implementations'][$classType]);
+	    unset($registry['pluginIds'][$classType]);
+	}
+	if (isset($registry['hints'][$classType])) {
+	    foreach ($registry['hints'][$classType] as $hint => $implementation) {
+		list ($implementationId, $ignore) = each($implementation);
+		if (!isset($implId) || $implementationId == $implId) {
+		    unset($registry['hints'][$classType][$hint][$implId]);
+		}
+	    }
+	    if (empty($registry['hints'][$classType][$hint])) {
+		unset($registry['hints'][$classType][$hint]);
+	    }
+	    if (empty($registry['hints'][$classType])) {
+		unset($registry['hints'][$classType]);
+	    }
+	}
+    }
+}
+
+/**
+ * Event listener that tracks how many entities were created and destroyed during the test.
+ * We can use this to track to see if a test is leaking entities (ie, not doing proper cleanup).
+ */
+class EntityCounterEventListener /* extends GalleryEventListener */ {
+
+    function EntityCounterEventListener() {
+	$this->_count = 0;
+	$this->_ids = array();
+    }
+
+    function handleEvent($event) {
+	switch ($event->getEventName()) {
+	case 'GalleryEntity::delete':
+	    $entity = $event->getEntity();
+	    $this->_count--;
+	    break;
+
+	case 'GalleryEntity::save':
+	    $entity = $event->getEntity();
+	    if ($entity->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
+		$this->_count++;
+		$this->_ids[$entity->getClassName()][] = $entity->getId();
+	    }
+	    break;
+	}
+
+	return array(null, null);
+    }
+
+    function getRecentEntityId($className) {
+	return $this->_ids[$className][sizeof($this->_ids[$className])-1];
+    }
+
+    function setCount($count) {
+	$this->_count = $count;
+    }
+
+    function getCount() {
+	return $this->_count;
+    }
+}
+
+class NullEventListener {
+    function handleEvent($event) {
+	$this->_event = $event;
+    }
+}
+?>

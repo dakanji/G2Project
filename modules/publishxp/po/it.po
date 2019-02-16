@@ -1,0 +1,197 @@
+# $Id: it.po 16040 2007-03-16 23:04:36Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Publish XP 1.0.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-09-07 18:20+0000\n"
+"PO-Revision-Date: 2007-01-09 12:36+0100\n"
+"Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
+"Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Italian\n"
+"X-Poedit-Country: ITALY\n"
+
+msgid "Windows XP"
+msgstr "Windows XP"
+
+msgid "Publish XP"
+msgstr "Publish XP"
+
+msgid "Publish photos to Gallery directly from Windows XP"
+msgstr "Pubblica foto in Gallery direttamente da Windows XP"
+
+msgid "Import"
+msgstr "Importa"
+
+#, c-format
+msgid "%s at %s"
+msgstr "%s presso %s"
+
+#, c-format
+msgid "Publish Your Photos and Movies to %s"
+msgstr "Pubblica le Tue Foto e i Tuoi Filmati in %s"
+
+msgid "Upload to Gallery"
+msgstr "Carica in Gallery"
+
+msgid ""
+"Windows XP comes with a nice feature that allows you to publish content from your desktop "
+"directly to a web service.  Follow the instructions below to enable this service on your "
+"Windows XP system."
+msgstr ""
+"Windows XP possiede un'interessante funzione che permette di pubblicare contenuti dal tuo "
+"desktop direttamente in un servizio web. Segui le istruzioni qui sotto per attivare questo "
+"servizio nel tuo sistema Windows XP."
+
+msgid "Step 1"
+msgstr "Fase 1"
+
+msgid ""
+"Download the configuration file using right-click 'Save Target As...'  Once downloaded, "
+"rename it to 'install_registry.reg'.  If it asks you for confirmation about changing the "
+"file type, answer 'yes'.  Right click on this file and you should see a menu appear.  Select "
+"the Merge option (this should be at the top of the menu).  It will ask you if you want to "
+"import these values into your registry.  Click 'Ok'.  It will tell you that the files were "
+"imported successfully.  Click 'Ok' again."
+msgstr ""
+"Scarica il file di configurazione usando tasto-destro 'Salva oggetto con nome...' Una volta "
+"scaricato, rinominalo in 'install_registry.reg'. Se ti chiede la conferma per modificare il "
+"tipo di file, rispondi 'sì'. Clicca col tasto destro su questo file e dovresti veder "
+"comparire un menu. Seleziona l'opzione Unisci (dovrebbe trovarsi in cima al menu). Ti "
+"chiederà se vuoi importare questi valori nel tuo registro. Clicca 'Sì'. Ti dirà che i file "
+"sono stati importati con successo. Clicca 'OK' di nuovo."
+
+msgid "Download [install_registry.reg]"
+msgstr "Scarica [install_registry.reg]"
+
+msgid "Step 2"
+msgstr "Fase 2"
+
+msgid ""
+"Open your Windows Explorer and browse to a folder containing supported images. Select the "
+"image(s) or a folder and there should be a link on the left that says 'Publish this file to "
+"the web...'  Click this link and then follow the instructions to log into your Gallery, "
+"select an album and publish the image."
+msgstr ""
+"Apri Gestione Risorse di Windows e apri una cartella che contenga delle immagini supportate. "
+"Seleziona le immagini o una cartella e dovrebbe esserci un link sulla sinistra che dice "
+"'Pubblica questi file nel web...' Clicca su questo link e poi segui le istruzioni per "
+"connetterti alla tua Gallery, seleziona un album e pubblica le immagini."
+
+msgid "Specify the name and title for the new album."
+msgstr "Specifica il nome e il titolo del nuovo album."
+
+msgid "Create a new album"
+msgstr "Crea un nuovo album"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "(required)"
+msgstr "(obbligatorio)"
+
+msgid ""
+"The name of this album on your hard disk.  It must be unique in this album.  Only use "
+"alphanumeric characters, underscores or dashes.  You will be able to rename it later."
+msgstr ""
+"Il nome di questo album nel tuo disco fisso. Deve essere unico in questo album. Usa solo "
+"caratteri alfanumerici, underscore o trattini. Potrai rinominarlo più tardi."
+
+msgid "Your name contains invalid characters.  Please enter another."
+msgstr "Il nome contiene caratteri non validi. Inseriscine un altro."
+
+msgid "You must enter a name for this album."
+msgstr "Devi inserire un nome per questo album."
+
+msgid "Title"
+msgstr "Titolo"
+
+msgid "This is the album title."
+msgstr "Questo è il titolo dell'album."
+
+msgid "Summary"
+msgstr "Sommario"
+
+msgid "This is the album summary."
+msgstr "Questo è il sommario dell'album."
+
+msgid "Keywords"
+msgstr "Keywords"
+
+msgid "Keywords are not visible, but are searchable."
+msgstr " Le keywords non sono visibili, ma sono ricercabili."
+
+msgid "Description"
+msgstr "Descrizione"
+
+msgid "This is the long description of the album."
+msgstr " Questa è la descrizione estesa dell'album."
+
+msgid "Set options for the photos to be added."
+msgstr "Imposta le opzioni per le foto da aggiungere."
+
+msgid "Standard Options"
+msgstr "Opzioni Standard"
+
+msgid ""
+"Now that you have chosen the destination album, the following options can be used when "
+"adding the photos to Gallery."
+msgstr ""
+"Ora che hai scelto l'album di destinazione, le opzioni che seguono possono essere utilizzate "
+"quando aggiungi foto a Gallery."
+
+msgid "Strip file extensions?"
+msgstr "Togliere le estensioni dei file?"
+
+msgid "Set captions on the published items?"
+msgstr "Impostare le didascalie degli oggetti pubblicati?"
+
+msgid "Login to your account"
+msgstr "Fa' il login con il tuo account"
+
+msgid "Username"
+msgstr "Nome utente"
+
+msgid "You must enter a username"
+msgstr "Devi inserire un nome utente"
+
+msgid "Logins temporarily disabled due to multiple failed login attempts."
+msgstr "Login temporaneamente disabilitato a causa di molteplici tentativi di login falliti."
+
+msgid "Password"
+msgstr "Password"
+
+msgid "You must enter a password"
+msgstr "Devi inserire una password"
+
+msgid "Your login information is incorrect.  Please try again."
+msgstr "Le informazioni di login non sono corrette. Prova ancora."
+
+msgid "Choose an album for new photos, or create a new album."
+msgstr "Scegli un album per le nuove foto, oppure crea un nuovo album."
+
+msgid "New Album"
+msgstr "Nuovo Album"
+
+msgid "You must select an album"
+msgstr "Devi selezionare un album"

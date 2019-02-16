@@ -1,0 +1,522 @@
+# $Id: sv.po 16040 2007-03-16 23:04:36Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: RSS 1.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-13 23:34+0100\n"
+"PO-Revision-Date: 2007-03-08 08:30+0100\n"
+"Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
+"Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "This feed no longer exists!"
+msgstr "Den här matningskällan existerar inte längre!"
+
+msgid "Feeds of that type are not allowed!"
+msgstr "Matningskällor av den här typen är inte tillåtna!"
+
+msgid "Not permitted to view this item"
+msgstr "Inte tillåten att se detta objekt"
+
+msgid "Incorrect feed type!"
+msgstr "Felaktig matningskälltyp"
+
+msgid "Comments module is not active or comment feeds are not allowed!"
+msgstr "Kommentars modulen är inte aktiverad allternativt är inte kommentars matning tillåten"
+
+msgid "Not permitted to view comments for this item"
+msgstr "Inte tillåten att se komentarer för detta objekt"
+
+msgid "RSS"
+msgstr "RSS"
+
+msgid "Export"
+msgstr "Exportera"
+
+msgid "RSS Feed for this Album"
+msgstr "RSS Matning för detta album"
+
+msgid "RSS Feed for this Photo"
+msgstr "RSS Matning för detta foto"
+
+msgid "RSS Feed for this Movie"
+msgstr "RSS Matning för denna film"
+
+msgid "Configure RSS Feeds"
+msgstr "Konfigurera RSS Matning"
+
+msgid "Simple RSS Feed"
+msgstr "Enkel RSS Matning"
+
+msgid "Short URL for Simple RSS Feeds"
+msgstr "Kort URL för enkel RSS Matning"
+
+msgid "RSS Feed"
+msgstr "RSS Matning"
+
+msgid "The name of the configured RSS Feed"
+msgstr "Namnet för den konfigurerade RSS Matningen"
+
+msgid "Short URL for Configurable RSS Feeds"
+msgstr "Kort URL för konfigurerbar RSS Matning"
+
+#, c-format
+msgid "RSS Feed for this %s"
+msgstr "RSS Matning för %s"
+
+msgid "Items in an album"
+msgstr "Objekt i ett album"
+
+msgid "Sub-albums of an album"
+msgstr "Underalbum till ett album"
+
+msgid "Items in an album and its sub-albums"
+msgstr "Objekt i ett album och dess underalbum"
+
+msgid "Comments for an album"
+msgstr "Kommentarer till ett album"
+
+msgid "Comments for an item"
+msgstr "Kommentarer till ett objekt"
+
+msgid "Comments for an album and its subalbums"
+msgstr "Kommentarer till ett album och dess underalbum"
+
+#, c-format
+msgid "In album <a href=\"%s\">%s</a>"
+msgstr "I albumet <a href=\"%s\">%s</a>"
+
+msgid "RSS Feeds"
+msgstr "RSS Matning"
+
+msgid "Settings have been saved"
+msgstr "Inställningar sparade"
+
+msgid "Feed successfully deleted"
+msgstr "Matningskälla borttagen"
+
+msgid "An error occured"
+msgstr "Ett fel inträffade"
+
+msgid "List"
+msgstr "Lista"
+
+msgid "Edit Feed"
+msgstr "Editera Matning"
+
+msgid "New Feed"
+msgstr "Ny Matning"
+
+msgid "Feed URL"
+msgstr "Matnings URL"
+
+msgid "Feed name"
+msgstr "Matnings namn"
+
+msgid "You can't change the name of the feed"
+msgstr "Du kan inte ändra namnet på matningen"
+
+msgid ""
+"Pick name for your feed (this name will be referenced in the URL to your feed so try to use "
+"only letters)"
+msgstr ""
+"Välj ett namn för din matning (det namnet är angivet i URL:en till din matning så försök att "
+"bara använda bokstäver)"
+
+msgid "You must enter a name"
+msgstr "Du måste ange ett namn"
+
+msgid "This name is already used, please select another one"
+msgstr "Det här namnet är redan använt, välj ett annat namn"
+
+msgid "Description"
+msgstr "Beskrivning"
+
+msgid "Feed settings"
+msgstr "Matnings insällningar"
+
+msgid "Choose what type of data that will be present in the feed"
+msgstr "Välj vilken typ av data som kommer att presenteras i matningen"
+
+msgid "Type of feed"
+msgstr "Typ av matning"
+
+msgid "Items in this album"
+msgstr "Objekt i detta album"
+
+msgid ""
+"Feeds of this type are disallowed by the administrator. Users won't be able to view them."
+msgstr ""
+"Matningar av den här typen är inte tillåten av administratören. Användare kommer inte kunna "
+"se dem."
+
+msgid "Sub-albums of this album"
+msgstr "Underalbum till detta album"
+
+msgid "Items in this album and its subalbums"
+msgstr "Objekt i detta album och dess underalbum"
+
+msgid "Limit the number of items per album"
+msgstr "Begränsa antalet objekt per album"
+
+msgid "Invalid limit (must be a positive number, 0 to disable the limit)"
+msgstr "Ogiltig begränsning (måste vara ett positivt nummer, 0 för ingen negränsning)"
+
+msgid "(enter 0 to disable the limit)"
+msgstr "(mata in 0 för obegränsat)"
+
+msgid "Comments for this album"
+msgstr "Kommentarer till detta album"
+
+msgid "Comments for this album and its subalbums"
+msgstr "Kommentarer till detta album och dess underalbum"
+
+msgid "Comments for this item"
+msgstr "Kommentarer till detta objekt"
+
+msgid "Which items"
+msgstr "Vilket objekt"
+
+msgid "New items only"
+msgstr "Endast nya objekt"
+
+msgid "New and updated items"
+msgstr "Nya och uppdaterade objekt"
+
+msgid "Choose the options for the feed"
+msgstr "Välj optioner för matningen"
+
+msgid "RSS version"
+msgstr "RSS version"
+
+msgid "Invalid version"
+msgstr "Ogiltig version"
+
+msgid "Number of items"
+msgstr "Antal objekt"
+
+msgid "Invalid number"
+msgstr "Ogiltigt nummer"
+
+msgid "language tag"
+msgstr "Språk tag"
+
+msgid "Invalid language value"
+msgstr "Ogiltigt språk värde"
+
+msgid "by default: en-us."
+msgstr "standard: en-us"
+
+msgid "List of all possible values"
+msgstr "Lista på alla möjliga värden"
+
+msgid "category tag"
+msgstr "kategori tag"
+
+msgid "ttl tag"
+msgstr "ttl tag"
+
+msgid "Invalid time to live, this must be a number of minutes (0 to disable ttl)"
+msgstr "Ogiltig <i>time to live</i>, det måste vara antalet minuter (0 för obegränsat)"
+
+msgid ""
+"Time to live: this must be a number of minutes (0 to disable ttl) aggregators should wait "
+"between checks of whether the feed has been updated"
+msgstr ""
+"<i>Time to live</i>: detta måste vara antalet minuter (0 för obegränsat) uppsamlare bör "
+"vänta mellan kontrollerna om matningskällan har blivit uppdaterad"
+
+msgid "Copyright"
+msgstr "Copyright"
+
+msgid "Invalid copyright"
+msgstr "Ogiltig copyright"
+
+msgid "Use image tag"
+msgstr "Använd bild tag"
+
+msgid "Include image tag"
+msgstr "Inkludera bild tag"
+
+msgid "This adds a main image to the feed, corresponding to the thumbnail for this item"
+msgstr "Det här adderar en huvud bild till matningen som motsvarar tumnageln för detta objekt"
+
+msgid "Invalid value"
+msgstr "Ogiltigt värde"
+
+msgid "Use enclosures"
+msgstr "Använd bilagor"
+
+msgid "Include enclosure tags"
+msgstr "Inkludera bilags taggar"
+
+msgid ""
+"This adds an enclosure to each image in the feed, that contains the full resolution image"
+msgstr ""
+"Det här adderar en bilaga till varje bild i matningen som innehåller en bild med full "
+"upplösning"
+
+msgid "Cloud tag (RSS 2.0)"
+msgstr "Moln tag (RSS 2.0)"
+
+msgid "If you want to use the cloud tag, you can set up its properties here"
+msgstr "Om du vill använda moln tag, så kan du ställa in egenskaperna här"
+
+msgid "Example: "
+msgstr "Exempel: "
+
+msgid "domain"
+msgstr "domän"
+
+msgid "port"
+msgstr "port"
+
+msgid "path"
+msgstr "sökväg"
+
+msgid "registerProcedure"
+msgstr "registreringsprocedur"
+
+msgid "protocol"
+msgstr "protokoll"
+
+msgid "Cloud tag"
+msgstr "Moln tag"
+
+msgid "Include the cloud tag"
+msgstr "Inkludera moln tag"
+
+msgid "Invalid string"
+msgstr "Ogiltig sträng"
+
+msgid "Invalid port number"
+msgstr "Ogiltigt port nummer"
+
+msgid "Update Feed"
+msgstr "Uppdatera Matning"
+
+msgid "Create Feed"
+msgstr "Skapa Matning"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "RSS feeds for this item"
+msgstr "RSS matning för detta objekt"
+
+msgid "No feeds have yet been defined"
+msgstr "Inga matningar har ännu blibvit definierade"
+
+msgid "Feed link"
+msgstr "Matnings länk"
+
+msgid "Feed type"
+msgstr "Matnings typ"
+
+msgid "Actions"
+msgstr "Händelser"
+
+msgid "delete"
+msgstr "radera"
+
+msgid "edit"
+msgstr "editera"
+
+msgid "This is a list of all the feeds that are available on this Gallery"
+msgstr "Det här är en lista av alla matningar som finns tillgängliga i detta Galleri"
+
+msgid "RSS Settings"
+msgstr "RSS Inställningar"
+
+msgid "Settings"
+msgstr "Inställningar"
+
+msgid "Simple Feed Settings"
+msgstr "Enkel Matnings inställning"
+
+msgid "General settings"
+msgstr "Allmänna inställningar"
+
+msgid "These are the default and maximum values that are used by all feeds on your Gallery"
+msgstr "Detta är standard och maximum värden som är använda av alla matningar på ditt Galleri"
+
+msgid "Default number of items in feeds"
+msgstr "Standard värde på objekt i matningarna"
+
+msgid "Invalid default number"
+msgstr "Ogiltigt standard värde"
+
+msgid "Maximum number of items in feeds"
+msgstr "Maximalt antal objekt i matningarna"
+
+msgid "Invalid maximum number"
+msgstr "Ogiltigt max värde"
+
+msgid "Default ttl"
+msgstr "Standard ttl"
+
+msgid "Default copyright"
+msgstr "Standard copyright"
+
+msgid "Feed Types"
+msgstr "Matnings typ"
+
+msgid "Configure which types of feeds are allowed"
+msgstr "Konfigurera vilka typer av matning som är tillåtna"
+
+msgid "Allow Simple RSS Feed to be used"
+msgstr "Tillåt Enkel RSS Matning"
+
+msgid ""
+"If you enable this, users will be able to subscribe to a feed for any album or photo they "
+"can view."
+msgstr ""
+"Om du aktiverar detta så kan användare prenumerera till en matning för alla album eller "
+"foton som dom kan se."
+
+msgid ""
+"To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
+msgstr ""
+"För att editera inställningarna för enkel matnin, använd motsvarande flik högst upp på "
+"skärmen."
+
+msgid "Allow configurable RSS feeds to be used"
+msgstr "Tillåt konfigurerbara RSS matningar"
+
+msgid ""
+"Only album owners will be able to define such feeds. They can set parameters for the type of "
+"feed they want."
+msgstr ""
+"Bara album ägare kan definiera en sån matning. Dom kan sätta parametrar för den typ av "
+"matning dom vill ha."
+
+msgid ""
+"Once a feed is defined, users will be able to subscribe to those feeds if they can view the "
+"associated item."
+msgstr ""
+"Så fort en matning är definierad så kan användare prenumerera på dessa matningar om dom kan "
+"se objekten."
+
+msgid "Allow RSS feeds of photos inside an album"
+msgstr "Tillåt RSS matning av foton inuti ett album"
+
+msgid "Fast"
+msgstr "Snabb"
+
+msgid "Allow RSS feeds of subalbums of an album"
+msgstr "Tillåt RSS matning av underalbum till ett album"
+
+msgid "Slow"
+msgstr "Sakta"
+
+msgid "Allow RSS feeds of photos inside an album and its subalbums"
+msgstr "Tillåt RSS matning av foton inuti ett album och dess underalbum"
+
+msgid "Slower"
+msgstr "Långsammare"
+
+msgid "Allow RSS feeds comments of a photo"
+msgstr "Tillåt RSS matning av kommentarer till ett foto"
+
+msgid "Allow RSS feeds comments of an album"
+msgstr "Tillåt RSS matning av komentarer till ett album"
+
+msgid "Allow RSS feeds comments for an album and its subalbums"
+msgstr "Tillåt RSS matning av kommentarer inuti ett album och dess underalbum"
+
+msgid "Save Settings"
+msgstr "Spara Inställningar"
+
+msgid "Reset"
+msgstr "Återställ"
+
+msgid "Helping users discover RSS feeds"
+msgstr "Hjälp användare upptäcka RSS matning"
+
+msgid ""
+"If you want to help users discover feeds in your Gallery, you can add the RSS block to the "
+"themes used in your Gallery."
+msgstr ""
+"Om du vill hjälpa användare att upptäcka matningar i ditt Galleri så kan du addera RSS "
+"blocket till temat som används i ditt Galleri."
+
+msgid ""
+"This will have two effects: the block itself, which users can see and pick feeds from (and "
+"get a list of all feeds); and hidden page headers that modern web browsers will use to make "
+"it easier for the user to subscribe to the feeds."
+msgstr ""
+"Det här har två effekter: blocket stjälv som användare kan se och välja matning från (och få "
+"en lista på alla matningar); och dolda sidhuvuden som moderna webbläsare kan använda för att "
+"göra det enklare för användaren att prenumerera till matningen."
+
+msgid "Global list of RSS feeds"
+msgstr "Global lista av RSS matningar"
+
+msgid "On item"
+msgstr "På objekt"
+
+msgid "Simple Feed settings"
+msgstr "Enkel Matnings inställning"
+
+msgid "For albums"
+msgstr "För album"
+
+msgid "Items in the album"
+msgstr "Objekt i albumet"
+
+msgid "Sub-albums of the album"
+msgstr "Underalbum till albumet"
+
+msgid "Items in the album and its subalbums"
+msgstr "Objekt i album och dess underalbum"
+
+msgid "Comments for the album"
+msgstr "Kommentarer till albumet"
+
+msgid "For items"
+msgstr "För objekt"
+
+msgid "Comments for items (always selected)"
+msgstr "Kommentarer till objekt (alltid vald)"
+
+msgid "List all RSS Feeds"
+msgstr "Lista alla RSS matningar"
+
+msgid "List of RSS Feeds"
+msgstr "Lista på RSS matningar"
+
+msgid "Number of feeds to display"
+msgstr "Antal matningar att visa"
+
+msgid "1"
+msgstr "1"
+
+msgid "5"
+msgstr "5"
+
+msgid "10"
+msgstr "10"
+
+msgid "all"
+msgstr "alla"

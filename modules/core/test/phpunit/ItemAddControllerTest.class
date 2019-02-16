@@ -1,0 +1,424 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * ItemAdd controller tests
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17652 $
+ */
+class ItemAddControllerTest extends GalleryControllerTestCase {
+
+    function ItemAddControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'core.ItemAdd');
+    }
+
+    function setUp() {
+	parent::setUp();
+
+	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId(),
+							       array('orderBy' => 'orderWeight'));
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	$this->_markForCleanup($this->_album);
+
+	$path = 'modules/core/test/phpunit/ItemAddControllerTest.class';
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'ItemAddPlugin', 'ItemAddControllerTestPluginSuccess',
+	    'ItemAddControllerTestPluginSuccess', $path, 'coreTest', null);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'ItemAddPlugin', 'ItemAddControllerTestPluginContinue',
+	    'ItemAddControllerTestPluginContinue', $path, 'coreTest', null);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'ItemAddPlugin', 'ItemAddControllerTestPluginFail', 'ItemAddControllerTestPluginFail',
+	    $path, 'coreTest', null);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	$ret = GalleryCoreApi::registerFactoryImplementation(
+	    'GalleryToolkit', 'ItemAddControllerTestToolkit', 'ItemAddControllerTestToolkit',
+	    $path, 'coreTest', null);
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+	$this->_markToolkitForCleanup('ItemAddControllerTestToolkit');
+	$this->_markFactoryModuleForCleanup('coreTest');
+
+	$ret = GalleryCoreApi::registerToolkitOperation(
+	    'ItemAddControllerTestToolkit', array('test/archive'), 'extract',
+	    array(), 'test-description');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->_controller->setOptionInstances(array());
+    }
+
+    function testHandleRequestContinueAdding() {
+	GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginContinue');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' =>
+				  array('view' => 'core.ItemAdmin',
+					'subView' => 'core.ItemAdd',
+					'addPlugin' => 'ItemAddControllerTestPluginContinue'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
+    }
+
+    function testHandleRequestDoneAdding() {
+	list ($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.ItemAdmin',
+						      'subView' => 'core.ItemAddConfirmation',
+						      'itemId' => $this->_album->getId()),
+				  'status' => array('addedFiles' => array(
+							array('fileName' => 'foo-' . $item->getId(),
+							      'id' => $item->getId(),
+							      'warnings' => array()))),
+				  'error' => array()),
+			    $results);
+    }
+
+    function testHandleRequestWithOption() {
+	list ($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->_controller->setOptionInstances(
+	    array('ItemAddTestOption' => new ItemAddTestOption()));
+
+	GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.ItemAdmin',
+						      'subView' => 'core.ItemAddConfirmation',
+						      'itemId' => $this->_album->getId()),
+				  'status' => array('addedFiles' => array(
+							array('fileName' => 'foo-' . $item->getId(),
+							      'id' => $item->getId(),
+							      'warnings' => array('a warning')))),
+				  'error' => array('an error')),
+			    $results);
+    }
+
+    function testHandleRequestWithArchiveExtract() {
+	$sortAddedFilesFunc =
+	    create_function('$a, $b', 'return strcmp($a[\'fileName\'], $b[\'fileName\']);');
+
+	list ($ret, $archive) = $this->_createRandomDataItem(
+	    $this->_album->getId(), 'test/archive',
+	    array('pathComponent' => 'foo.zip', 'title' => 'foo', 'summary' => 'hoho'));
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	list ($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->_controller->setOptionInstances(
+	    array('ItemAddTestOption' => new ItemAddTestOption()));
+
+	GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
+
+ 	$isUnix = strncasecmp(PHP_OS, 'win', 3);
+	$results = $this->handleRequest();
+	$this->assertEquals(array('view' => 'core.ItemAdmin',
+					    'subView' => 'core.ItemAddConfirmation',
+					    'itemId' => $this->_album->getId()),
+			    $results['redirect'], 'redirect');
+	$this->assertEquals(array_fill(0, $isUnix ? 7 : 4, 'an error'),
+			    $results['error'], 'error');
+	$this->assertEquals($isUnix ? 7 : 4, count($results['status']['addedFiles']),
+			    'added wrong # of items');
+	$addedFiles = $results['status']['addedFiles'];
+
+	/*
+	 * Sort the added files list by filename because we can't guarantee
+	 * the file order across platforms.
+	 */
+	usort($addedFiles, $sortAddedFilesFunc);
+
+	$itemNames = array();
+	foreach ($addedFiles as $i => $addedItem) {
+	    $itemNames[] = $addedItem['fileName'];
+	    $this->assertEquals(array('a warning'), $addedItem['warnings'],
+				"warning $i - item not processed by ItemAddOption");
+	}
+
+	$expected = array();
+	$expected[] = 'blah.ext';
+	if ($isUnix) {
+	    $expected[] = 'foo&lt;body onload=alert(album_xss)&gt;bar';
+	    $expected[] = 'foo&lt;body onload=alert(item_xss)&gt;.ext';
+	}
+	$expected[] = 'foo-' . $item->getId();
+	if ($isUnix) {
+	    $expected[] = 'foo.ext';
+	}
+	$expected[] = 'foo.ext';
+	$expected[] = 'subdir';
+
+	$this->assertEquals($expected, $itemNames, 'files');
+
+	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assert(!in_array($archive->getId(), $childIds), 'archive item has been deleted');
+
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($addedFiles[0]['id']);
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals('blah', $item->getTitle(), 'title set with base filename');
+	$this->assertEquals('hoho', $item->getSummary(), 'summary set from archive');
+	$this->assert($item->getParentId() != $this->_album->getId(), 'should be in subalbum');
+    }
+
+    function testHandleRequestWithXss() {
+ 	list ($ret, $archive) = $this->_createRandomDataItem(
+ 	    $this->_album->getId(), 'test/archive',
+ 	    array('pathComponent' => 'foo.zip', 'title' => 'foo', 'summary' => 'hoho'));
+ 	if ($ret) {
+ 	    return $this->failWithStatus($ret);
+ 	}
+ 	list ($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
+ 	if ($ret) {
+ 	    return $this->failWithStatus($ret);
+ 	}
+	GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+ 	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
+
+ 	$this->_controller->setOptionInstances(
+ 	    array('ItemAddTestOption' => new ItemAddTestOption(false)));
+
+	$results = $this->handleRequest();
+ 	if ($ret) {
+ 	    return $this->failWithStatus($ret);
+ 	}
+ 	$addedItems = $results['status']['addedFiles'];
+
+ 	/*
+ 	 * Sort the added files list by filename because we can't guarantee
+ 	 * the file order across platforms.
+ 	 */
+ 	$sortAddedFilesFunc =
+ 	    create_function('$a, $b', 'return strcmp($a[\'fileName\'], $b[\'fileName\']);');
+ 	usort($addedItems, $sortAddedFilesFunc);
+ 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($addedItems[2]['id']);
+ 	if ($ret) {
+ 	    return $this->failWithStatus($ret);
+ 	}
+
+ 	$isUnix = strncasecmp(PHP_OS, 'win', 3);
+ 	if ($isUnix) {
+ 	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById(
+ 		array($addedItems[1]['id'], $addedItems[2]['id']),
+ 		'GalleryItem');
+ 	    if ($ret) {
+		return $this->failWithStatus($ret);
+ 	    }
+
+ 	    /**
+ 	     * On Windows, this file can't be created to begin with because it can't handle
+ 	     * the < and > in the filename.
+ 	     * @todo switch to using a mock platform so that we can test this properly on Windows
+ 	     */
+
+	    $this->assertEquals('foo&lt;body onload=alert(item_xss)&gt;', $item->getTitle());
+	    $this->assertEquals('hoho', $item->getSummary());
+	    $this->assertEquals('foo_body onload_alert_item_xss___ext', $item->getPathComponent());
+	}
+    }
+
+    function testHandleRequestWithErrors() {
+	GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+	GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginFail');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('delegate' =>
+				  array('view' => 'core.ItemAdmin',
+					'subView' => 'core.ItemAdd',
+					'addPlugin' => 'ItemAddControllerTestPluginFail'),
+				  'status' => array(),
+				  'error' => array('failed')),
+			    $results);
+    }
+}
+
+/**
+ * ItemAddPlugin that doesn't fail, nor complete
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ */
+class ItemAddControllerTestPluginContinue {
+    function handleRequest($form, &$item) {
+	if (!GalleryUtilities::isExactlyA($item, 'GalleryAlbumItem')) {
+	    return
+		array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+	}
+
+	return array(null, array(), array());
+    }
+}
+
+/**
+ * ItemAddPlugin that always completes
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ */
+class ItemAddControllerTestPluginSuccess {
+    function handleRequest($form, &$item) {
+	if (!GalleryUtilities::isExactlyA($item, 'GalleryAlbumItem')) {
+	    return
+		array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+	}
+
+	/* Pretend we just added item(s) that are already there */
+	list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	$addedFiles = array();
+	foreach ($childIds as $id) {
+	    $addedFiles[] = array('fileName' => 'foo-' . $id, 'id' => $id, 'warnings' => array());
+	}
+
+	return array(null, array(), array('addedFiles' => $addedFiles));
+    }
+}
+
+/**
+ * ItemAddPlugin that always fails
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ */
+class ItemAddControllerTestPluginFail {
+    function handleRequest($form, &$item) {
+	if (!GalleryUtilities::isExactlyA($item, 'GalleryAlbumItem')) {
+	    return
+		array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
+	}
+	return array(null, array('failed'), array());
+    }
+}
+
+/**
+ * Test ItemAddOption
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ */
+class ItemAddTestOption extends ItemAddOption {
+    function ItemAddTestOption() {
+    }
+
+    function handleRequestAfterAdd($form, $items) {
+	$errors = array();
+	$warnings = array();
+	for ($i = 0; $i < count($items); $i++) {
+	    $errors[] = 'an error';
+	    $warnings[$i] = array();
+	    $warnings[$i][] = 'a warning';
+	}
+	return array(null, $errors, $warnings);
+    }
+
+    function isAppropriate() {
+	return array(null, true);
+    }
+}
+
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
+
+/**
+ * Test toolkit
+ *
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ *
+ */
+class ItemAddControllerTestToolkit extends GalleryToolkit {
+
+    function performOperation($mimeType, $operationName, $sourceFilename,
+			      $destFilename, $parameters, $context=array()) {
+	global $gallery;
+	$platform =& $gallery->getPlatform();
+
+	if ($operationName != 'extract') {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER),
+			 null, null);
+	}
+
+	$platform->copy(__FILE__, $destFilename . '/foo.ext');
+	$platform->mkdir($destFilename . '/subdir');
+	$platform->copy(__FILE__, $destFilename . '/subdir' . '/blah.ext');
+
+	/**
+	 * Windows can't handle < and > in filenames so the next 3 ops will fail.  They'd fail in
+	 * production, too so at least for now this is a sane test.
+	 * @todo switch to using a mock platform so that we can test this properly on Windows
+	 */
+	$isUnix = strncasecmp(PHP_OS, 'win', 3);
+	if ($isUnix) {
+	    $platform->copy(__FILE__, $destFilename . '/foo<body onload=alert(item_xss)>.ext');
+	    $platform->mkdir($destFilename . '/foo<body onload=alert(album_xss)>bar');
+	    $platform->copy(
+		__FILE__, $destFilename . '/foo<body onload=alert(album_xss)>bar' . '/foo.ext');
+	}
+
+	return array(null, $mimeType, $context);
+    }
+}
+
+function sortAddedFiles($a, $b) {
+    return strcmp($a['fileName'], $b['fileName']);
+}
+?>

@@ -1,0 +1,95 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/core/classes/BuildDerivativesTask.class');
+
+/**
+ * Test the BuildDerivatives maintenance task functionality
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Alan Harder <alan.harder@sun.com>
+ * @version $Revision: 15906 $
+ */
+class BuildDerivativesTaskTest extends GalleryTestCase {
+
+    function BuildDerivativesTaskTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+	parent::setUp();
+
+	$this->_task = new BuildDerivativesTask();
+    }
+
+    function testQueries() {
+	global $gallery;
+
+	/*
+	 * Mock storage returns no ids, so this just tests the queries run ok.
+	 * @todo A better test could create a test item with no derivative and another
+	 * with a broken derivative and verify the queries found those ids..
+	 */
+	$mockStorage = new BuildDerivativesTaskTestStorage($gallery->getStorage());
+	$gallery->_storage =& $mockStorage;
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	list ($ret, $success, $details) = $this->_task->run();
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->assert($success);
+	$this->assertEquals(array($module->translate(
+			array('text' => 'Checked %d items', 'arg1' => 0))), $details);
+	$this->assertEquals(2, $mockStorage->searchCount(), 'query count');
+    }
+}
+
+class BuildDerivativesTaskTestStorage {
+    function BuildDerivativesTaskTestStorage($storage) {
+	$this->_storage = $storage;
+	$this->_searchCount = 0;
+    }
+
+    function search($query, $data=array(), $optional=array()) {
+	list ($ret, $results) = $this->_storage->search($query, $data, $optional);
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$this->_searchCount++;
+	/* Return no results so task doesn't actually act on any derivatives */
+	$rs = new ADORecordSet(0);
+	$rs->Init();
+	return array(null, new GallerySearchResults($rs));
+    }
+
+    function searchCount() {
+	return $this->_searchCount;
+    }
+}
+?>

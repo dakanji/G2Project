@@ -1,0 +1,867 @@
+# $Id: tr.po 16555 2007-06-07 23:01:52Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Goker ISIK <admin@ansolon.com>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upgrader 2.2.2\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-07 15:46-0700\n"
+"PO-Revision-Date: 2006-09-20 01:46+0200\n"
+"Last-Translator: Ishak Goker ISIK <admin@ansolon.com>\n"
+"Language-Team: Turkish <admin@ansolon.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Turkish\n"
+"X-Poedit-Country: TURKEY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+msgid "Authenticate"
+msgstr "Doğrula"
+
+msgid "<b>Error:</b> missing password."
+msgstr "<b>Hata:</b> kayıp şifre."
+
+msgid "<b>Error:</b> invalid password."
+msgstr "<b>Hata:</b> geçersiz şifre."
+
+msgid "Empty Cache"
+msgstr "Boş Önbellek"
+
+msgid "Unable to clear the page cache"
+msgstr "Sayfa önbelleği temizlenemiyor"
+
+msgid "Unable to commit database transaction"
+msgstr "Veritabanı işlemi gerçekleştirilemiyor"
+
+msgid "Finish Upgrade"
+msgstr "Güncellemeyi Bitir"
+
+msgid "System Checks"
+msgstr "Sistem Kontrolü"
+
+msgid "Performing system checks"
+msgstr "Sistem kontrolleri yapılıyor"
+
+msgid "PHP version >= 4.3.0 or >= 5.0.4"
+msgstr "PHP versiyon >= 4.3.0 ya da >= 5.0.4"
+
+# param0 = existing php version, param1 = '<a href...>', param2 = '</a>'
+#, c-format
+msgid ""
+"Error: Gallery 2 requires PHP version 4.3.0 or newer or 5.0.4 or newer. You have PHP version "
+"%s installed. Contact your webserver administrator to request an upgrade, available at the %"
+"sPHP website%s."
+msgstr ""
+"Hata: Galeri 2 için PHP versiyonu 4.3.0 ya da daha üstü veya 5.0.4 ya da daha üstü "
+"gereklidir. Şu anda kullanmakta olduğunuz PHP versiyonunuz %s. Webserver yöneticinizle "
+"iletişime geçip PHP versiyonunuzun güncellenmesini isteyin. Dosyalara %sPHP websitesinden%s "
+"ulaşılabilir."
+
+msgid "PHP Version"
+msgstr "PHP Versiyonu"
+
+msgid "FILE directive supported"
+msgstr "DOSYA direktifleri destekleniyor"
+
+msgid ""
+"Error: your PHP __FILE__ directive is not functioning correctly. Please file a support "
+"request with your webserver administrator or in the Gallery forums."
+msgstr ""
+"Hata: PHP __FILE__ direktifleriniz doğru olarak çalışmıyor. Lütfen webserver yöneticinizden "
+"ya da Galeri forumlarından destek isteyiniz."
+
+msgid "FILE Directive"
+msgstr "DOSYA Direktifi"
+
+msgid "Safe mode disabled"
+msgstr "Safe mode kapalı"
+
+msgid ""
+"Error: Your version of PHP is configured with safe mode enabled.  You must disable safe mode "
+"before Gallery will run."
+msgstr ""
+"Hata: PHP versiyonunuz safe mode açık olarak yapılandırılmış. Galeriyi çalıştırmadan çnce "
+"safe mode'u kapatmalısınız."
+
+msgid "Safe Mode"
+msgstr "Güvenli Kip"
+
+msgid "Regular expressions"
+msgstr "Alışılmış ifadeler"
+
+#, c-format
+msgid ""
+"Error: Your PHP is configured without support for %sPerl Compatible Regular Expressions%s. "
+"You must enable these functions before Gallery will run."
+msgstr ""
+"Hata: PHP versiyonunuz  %sPerl Compatible Regular Expressions%s desteklemeyen biçimde "
+"yapılandırılmış.  Galeriyi çalıştırmadan önce bu fonksiyonları açık duruma getirmelisiniz."
+
+msgid "exec() allowed"
+msgstr "exec() allowed"
+
+msgid ""
+"Warning: The exec() function is disabled in your PHP by the <b>disabled_functions</b> "
+"parameter in php.ini. You won't be able to use modules that require external binaries (e.g. "
+"ImageMagick, NetPBM or Ffmpeg). This can only be set server-wide, so you will need to change "
+"it in the global php.ini."
+msgstr ""
+"Uyarı: exec() function fonksiyonu php.ini de bulunan <b>disabled_functions</b> parametresi "
+"kullanılarak kapalı duruma geitirlmiş. Bu durumda dışarıdan binary gerektiren modülleri "
+"kullanamazsınız (ör. ImageMagick, NetPBM or Ffmpeg). Bu özellik sadece tüm server için "
+"değiştirilebilir, bu nedenle bu özelliği global php.ini dosyasından değiştirmelisiniz."
+
+msgid "set_time_limit() allowed"
+msgstr "set_time_limit() allowed"
+
+#, c-format
+msgid ""
+"Warning: The set_time_limit() function is disabled in your PHP by the <b>disabled_functions</"
+"b> parameter in php.ini.  Gallery can function with this setting, but it will not operate "
+"reliably.  Any operation that takes longer than %d seconds will fail (and in some cases just "
+"return a blank page) possibly leading to data corruption."
+msgstr ""
+"Uyarı: set_time_limit() fonksiyonu php.ini de bulunan <b>disabled_functions</b> parametresi "
+"kullanılarak kapalı konuma getirilmiş. Galeri bu durumda çalışmasını sürdürebilir, ancak "
+"operasyonları güvenilir olarak gerçekleştiremez. %d saniyeden fazla süren her işlem "
+"başarısızlıkla sonuçlanır (bazen boş sayfala sonuçlanır) ve veri bozulmasına yol açabilir."
+
+msgid "Filesystem Operations"
+msgstr "Dosyasistemi Operasyonları"
+
+#, fuzzy, c-format
+msgid ""
+"Error: Essential filesystem operations are disabled in your PHP by the "
+"<b>disabled_functions</b> parameter in php.ini. You must allow these functions before "
+"Gallery will run. These functions are missing: %s."
+msgstr ""
+"Uyarı: putenv() fonksiyonu php.ini de bulunan <b>disabled_functions</b> parametresi "
+"kullanılarak kapalı konuma getirilmiş. Galeri bu durumda çalışmasını sürdürebilir, ancak "
+"ender bulunan sistemlerde Galeri İngilizce ve sistem dili dışındaki dillerde çalışamaz."
+
+msgid "Memory limit"
+msgstr "Hafıza limiti"
+
+msgid "no limit"
+msgstr "limit yok"
+
+#, c-format
+msgid ""
+"Warning: Your PHP is configured to limit the memory to %sb (<b>memory_limit</b> parameter in "
+"php.ini). You should raise this limit to at least <b>%sMB</b> for proper Gallery operation."
+msgstr ""
+"Uyarı: PHP'nizin hafıza limiti %sb  olarak yapılandırılmış [php.ini de bulunan "
+"<b>memory_limit</b> parametresi] . Galerinizin düzgün olarak çalışması için bu limiti en az "
+"<b>%sMB</b>'a yükseltmelisiniz."
+
+msgid "File uploads allowed"
+msgstr "Dosya gönderimi izinli"
+
+msgid ""
+"Warning: Your PHP is configured not to allow file uploads (<b>file_uploads</b> parameter in "
+"php.ini). You will need to enable this option if you want to upload files to your Gallery "
+"with a web browser."
+msgstr ""
+"Uyarı: PHP'niz dosya gönderimine izin vermeyecek şekilde yapılandırılmış [php.ini de bulunan "
+"<b>file_uploads</b> parametresi] . Galerinize web tarayıcısı kullanarak dosya göndermek "
+"istiyorsanız bu seçeneği açık duruma getirmelisiniz."
+
+msgid "Maximum upload size"
+msgstr "Maksimum gönderme boyutu"
+
+#, fuzzy, c-format
+msgid ""
+"Warning: Your PHP is configured to limit the size of file uploads to %sb "
+"(<b>upload_max_filesize</b> parameter in php.ini). You should raise this limit to allow "
+"uploading bigger files."
+msgstr ""
+"Uyarı: PHP'nizin dosya gönder limiti en fazla %sb olarak yapılandırılmış [php.ini de bulunan "
+"<b>upload_max_filesize</b> parametresi] . Daha büyük dosyalar gönderebilmek için bu limiti "
+"yükseltmelisiniz. "
+
+msgid "Maximum POST size"
+msgstr "Maksimum POST büyüklüğü"
+
+#, c-format
+msgid ""
+"Warning: Your PHP is configured to limit the post data to a maximum of %sb "
+"(<b>post_max_size</b> parameter in php.ini). You should raise this limit to allow uploading "
+"bigger files."
+msgstr ""
+"Uyarı: PHP'nizin veri gönder limiti en fazla %sb olarak yapılandırılmış [php.ini de bulunan "
+"<b>post_max_size</b> parametresi] . Daha büyük veri gönderebilmek için bu limiti "
+"yükseltmelisiniz. "
+
+msgid "Translation support"
+msgstr "Çeviri desteği"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization. To enable support for additional languages "
+"please instruct your system administrator to reconfigure PHP with the %sgettext%s option "
+"enabled."
+msgstr ""
+"Webserverınız yerelleştirmeyi desteklemiyor. Galerinizde diğer dil desteğini aktif duruma "
+"geçirebilmek için, sistem yöneticinizle bağlantıya geçerek, PHP'nizin %sgettext%s destekli "
+"olarak yapılandırılmasını sağlayın."
+
+#, c-format
+msgid ""
+"Your PHP is missing the function %sbind_textdomain_codeset%s. This means Gallery may display "
+"extended characters for some languages incorrectly."
+msgstr ""
+"PHP'nizin %sbind_textdomain_codeset%s fonksiyonu eksik. Bu nedenle Galeriniz bazı dillerdeki "
+"genişletilmiş karakterleri yanlış gösterebilir."
+
+#, c-format
+msgid ""
+"Your PHP is missing the function %sdngettext%s. This means Gallery will be unable to "
+"translate plural forms."
+msgstr ""
+"PHP'nizin  %sdngettext%s fonksiyonu eksik. Bunun anlamı Galeriniz çoğul anlamların "
+"çevirisini yapamayacak."
+
+msgid "Zend compatibility mode"
+msgstr "Zend uyumluluk modu"
+
+#, fuzzy, c-format
+msgid ""
+"Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
+msgstr ""
+"Uyarı: PHP'niz Zend ze1_compatibility_mode ile yapılandırılmış, bu durum PHP'nizin "
+"bozulmasına yol açabilir. <a href=\"%s\">Buraya tıklayarak</a> PHP'nizi test edin. Eğer  "
+"\"BAŞARILI\" görüyorsanız PHP'nizde sorun yok. Eğer hatayla karşılaşıyorsanız, işlem "
+"yapmadan önce  ze1_compatibility_mode'u kapatmalısınız."
+
+msgid "putenv() allowed"
+msgstr "putenv() izinli"
+
+msgid ""
+"Warning: The putenv() function is disabled in your PHP by the <b>disabled_functions</b> "
+"parameter in php.ini.  Gallery can function with this setting, but on some rare systems "
+"Gallery will be unable to run in other languages than the system language and English."
+msgstr ""
+"Uyarı: putenv() fonksiyonu php.ini de bulunan <b>disabled_functions</b> parametresi "
+"kullanılarak kapalı konuma getirilmiş. Galeri bu durumda çalışmasını sürdürebilir, ancak "
+"ender bulunan sistemlerde Galeri İngilizce ve sistem dili dışındaki dillerde çalışamaz."
+
+msgid "Output buffering disabled"
+msgstr "Tampon çıktısı kapalı"
+
+#, fuzzy, c-format
+msgid ""
+"Warning: Output buffering is enabled in your PHP by the <b>%s</b> parameter(s) in php.ini.  "
+"Gallery can function with this setting - downloading files is even faster - but Gallery "
+"might be unable to serve large files (e.g. large videos) and run into the memory limit. "
+"Also, some features like the progress bars might not work correctly if output buffering is "
+"enabled unless ini_set() is allowed."
+msgstr ""
+"Uyarı:  Tampon çıktısı php'nizde bulunan php.ini dosyasındaki <b>%s</b> parametreleri "
+"kullanılarak aktif duruma getirildi. Galeri bu ayarlarla çalışabilir - dosyaları daha hızlı "
+"yükleyebilir- ancak Galeri büyük dosya hizmeti veremez (ör. büyük videolar) ve bellek "
+"limitinde çalışır. Dahası, ilerleme çubuğu gibi bazı özellikler doğru olarak "
+"çalışmayabilir,  ini_set()'e izin verilene kadar."
+
+msgid "Storage Directory Permissions"
+msgstr "Depolama Klasör İzinleri"
+
+msgid "Test skipped due to other errors."
+msgstr "Hata nedeniyel test geçildi."
+
+#, c-format
+msgid ""
+"Error: Some files and or directories in your storage directory are not writeable by the "
+"webserver user. Run chown -R webserverUser %s OR run chmod -R 777 %s."
+msgstr ""
+"Hata: Depolama klasörünüzde bulunan bazı dosya ve/veya bazı klasörler web server kullanıcısı "
+"tarafından yazılabilir değil.  chown -R webserverUser %s veya chmod -R 777 %s komutlarını "
+"çalıştırın."
+
+msgid "Gallery file integrity"
+msgstr "Galeri dosya bütünlüğü"
+
+msgid "Manifest missing or inaccessible."
+msgstr "Manifest kayıp ya da ulaşılamaz"
+
+msgid "Upgrade Core"
+msgstr "Çekirdeği Güncelle"
+
+msgid "Upgrade Plugins"
+msgstr "Eklentileri güncelle"
+
+msgid "Unable to initialize Gallery session"
+msgstr "Galeri oturumu başlatılamıyor"
+
+#, c-format
+msgid "Unable to load the %s module"
+msgstr "Modül %s yüklenemiyor"
+
+msgid "Upgrading modules"
+msgstr "Modüller güncelleniyor"
+
+#, c-format
+msgid "%s module needs configuration"
+msgstr "%s modülünün yapılandırmaya ihtiyacı var"
+
+#, c-format
+msgid "Unable to upgrade the %s module"
+msgstr "Modül %s güncellenemiyor"
+
+#, c-format
+msgid "Unable to load the %s theme"
+msgstr "%s Teması yüklenemiyor"
+
+msgid "Upgrading themes"
+msgstr "Temalar güncelleniyor"
+
+#, c-format
+msgid "Unable to upgrade the %s theme"
+msgstr "%s Teması güncellenemiyor"
+
+msgid "Unable to get the module list"
+msgstr "Modül listesi alınamıyor"
+
+msgid "Unable to get the theme list"
+msgstr "Tema listesi alınamıyor"
+
+#, c-format
+msgid "Unable to query the %s module"
+msgstr "Modül %s sorgulanamıyor"
+
+msgid "Other"
+msgstr "Diğer"
+
+#, c-format
+msgid "Unable to query the %s theme"
+msgstr "%s teması güncellenemiyor"
+
+msgid "Themes"
+msgstr "Temalar"
+
+#, c-format
+msgid "Unable to deactivate the %s theme"
+msgstr "%s Teması deaktif duruma getirilemiyor"
+
+#, c-format
+msgid "Unable to deactivate the %s module"
+msgstr "Modül %s deaktif duruma getirilemiyor"
+
+msgid "Welcome"
+msgstr "Hoşgeldin"
+
+#, c-format
+msgid "<b>Error:</b> could not locate %s.  Please place it in your %s directory."
+msgstr "<b>Hata:</b>%s bulunamıyor.Lütfen %s klasörüne yerleştirin."
+
+#, c-format
+msgid ""
+"<b>Error:</b> your %s file is not readable.  Please give Gallery read permissions on the "
+"file."
+msgstr ""
+"<b>Hata:</b> %s dosyanız okunabilir değil.  Lütfen Galeriye dosyayı okuma izni veriniz."
+
+#, c-format
+msgid ""
+"<b>Error:</b> your %s key does not match correctly.  Please use the new authentication "
+"string from below and try again."
+msgstr ""
+"<b>Hata:</b> %s anahtarınız doğru olarak eşleşmedi.  Lütfen aşağıda bulunan yeni kimlik "
+"denetleme dizinini kullanınız ve tekrar deneyiniz."
+
+#, fuzzy
+msgid ""
+"In order to proceed with the upgrade process, we have to verify that you are who you claim.  "
+"When you performed the install, you entered a password which went into your config.php.  "
+"Type that in now.  Refer to your config.php if you've forgotten what you entered."
+msgstr ""
+"Kuruluma geçmek için, haklarınız olduğunu doğrulamalısınız. Kurulum gerçekleştirdiğinizde, "
+"config.php'ye kaydedilen bir şifre girişi yaptınız. Şimdi bu şifreyi yazın. Eğer unutuysanız "
+"config.php dosyasına bakarak hatırlayabilirsiniz."
+
+msgid "Password:"
+msgstr "Şifre:"
+
+msgid "You have exceeded the maximum attempts to login by entering a password."
+msgstr "Oturum açmak için gereken  şifre girme hakkınızı aştınız."
+
+msgid ""
+"To prevent somebody from hacking your website, we now require you to complete a stricter "
+"authentication process."
+msgstr ""
+"Herhangi birisinin websitenizi hacklemesini engellemek için, eksiksiz ve katı kimlik denetim "
+"işlemi istiyoruz."
+
+#, c-format
+msgid ""
+"In order to proceed with the upgrade process, we have to verify that you are who you claim.  "
+"The best way to be sure is to ask you to make a tiny change in the Gallery directory which "
+"will prove that you have the right permissions.  So, we're going to ask that you create a "
+"new text file called %s in the %s directory on your webserver (that's the same directory "
+"where %s is located). It must contain the following randomly generated characters:"
+msgstr ""
+"Güncellemeye geçmek için, geçerli haklarınız olduğunuz doğrulamalıyız. Emin olmanın en iyi "
+"yolu sizden Galeri klasöründe gerekli izinlere sahip olduğunuzu gösterecek küçük bir "
+"değişiklik yapmanızı istemektir. Bu yüzden sizden %s adında yeni bir text dosyasını "
+"webserverınızın %s klasöründe yaratmanızı istiyoruz.(%s dosyasının buldunuğu klasör). Bu "
+"dosya takip eden rastgele oluşturulmuş karakterli içermelidir:"
+
+msgid "Once you've uploaded the file, click below to continue."
+msgstr "Dosyayı gönderdikten sonra, aşağıya tıklayarak devam ediniz."
+
+msgid "Authenticate Me"
+msgstr "Beni Doğrula"
+
+msgid "Authentication successful!"
+msgstr "Doğrulama başarılı!"
+
+msgid "Successfully cleaned caches."
+msgstr "Önbellekler başarıyla temizlendi."
+
+msgid "Delete Caches"
+msgstr "Önbellekleri Sil"
+
+msgid ""
+"Gallery creates temporary copies of some of your data on your hard drive.  This helps it to "
+"run faster.  But when you upgrade, some of these files might be out of date so it's a good "
+"idea to get rid of them now.  Gallery will create them again as it needs them."
+msgstr ""
+"Galeri sabit disikinizde bazı verilerin geçici kopyalarını yaratır. Bu sistemin daha hızlı "
+"çalışmasını sağlar. Ancak güncelleme yaparken, bu dosyaların bazıları güncelliğini yitirmiş "
+"olabilir bu yüzden bu dosyalardan kurtulmak iyi fikirdir. Galeri ihtiyaç duyması halinde bu "
+"dosyaları tekrar yaratacaktır."
+
+msgid ""
+"We were unable to clean the following cache directories.  This is probably ok, but if you "
+"notice any weird behaviour, you should try to delete these directories yourself.  It's "
+"perfectly safe to get rid of them at any time."
+msgstr ""
+"Bu önbellek klasörlerini temizleyemiyoruz. Büyük ihtimal sorun yok, ancak garip birşeylerle "
+"karşılaşırsanız, bu klasörleri kendiniz silmeyi denemelisiniz. Bu dosyalardan kurtulmak her "
+"zaman için güvenlidir."
+
+msgid ""
+"Even though there were errors, you can still continue.  Or, you can try deleting these "
+"directories yourself and then click the <b>Try Again</b> link below."
+msgstr ""
+"Hatalar olmasına rağmen halen devam edebilirsiniz. Ya da, bu klasörleri kendiniz silmeyi "
+"deneyip <b>Tekrar Dene</b> bağlantısına tıklayın."
+
+msgid "Try Again"
+msgstr "Tekrar Dene"
+
+msgid "Finished!"
+msgstr "Bitti!"
+
+#, fuzzy
+msgid ""
+"Congratulations! Your Gallery 2 upgrade is complete!  To upgrade any additional Gallery 2 "
+"plugins you may use the Site Administrator interface."
+msgstr ""
+"Tebrikler! Galeri 2  güncellemesi tamamlandı! Diğer Galeri 2 modüllerini güncellemek için "
+"Site Yönetici arabirimini kullanmalısınız."
+
+msgid "Go to my Gallery!"
+msgstr "Galerime Git!"
+
+msgid "Upgrader Help"
+msgstr "Güncelleme Yardım"
+
+msgid "Start Over"
+msgstr "Baştan Başla"
+
+msgid "Warning"
+msgstr "Uyarı"
+
+#, c-format
+msgid ""
+"Your config.php appears to use the old form of multisite support.  Please see the %sHelp File"
+"%s for instructions to update your configuration before proceeding."
+msgstr ""
+"Config.php'nizin eski tip çoklu site desteği olduğu göünüyor. İşlem yapmadan önce lütfen %"
+"sYardım Dosyalarına%s göz atıın ve yapılandırmanızı nasıl güncelleyeğiniz konusunda bilgi "
+"alın."
+
+msgid "Welcome to the Gallery Upgrader"
+msgstr "Galeri Güncelleyicisine Hoşgeldiniz"
+
+# param0 = integer percentage
+#, c-format
+msgid "Upgrade %d%% complete"
+msgstr "Güncelleme %d%% tamamlandı"
+
+msgid "Redo this step"
+msgstr "Bu adımı geri al"
+
+#, c-format
+msgid "Continue to Step %d&raquo;"
+msgstr "Devam et Adım %d&raquo;"
+
+msgid "Gallery: <strong>your photos</strong> on <strong>your website</strong>"
+msgstr "Galeri: <strong>sizin resimleriniz</strong> - <strong>sizin sitenizde/strong>"
+
+#, c-format
+msgid "Missing files (%d)"
+msgstr "Kayıp dosyalar (%d)"
+
+msgid ""
+"Note: You're running Gallery from SVN, so recently removed files may appear here.  It might "
+"be safe to ignore these."
+msgstr ""
+"Not: Galeriyi SVN'den çalıştırıyorsunuz, bu nedenle kaldırılmış dosyalar görünebilir. "
+"Bunları güvenilir olarak görmezden gelebilirsiniz."
+
+#, c-format
+msgid "Modified files (%d)"
+msgstr "Modifiye edilmiş dosyalar (%d)"
+
+msgid ""
+"Note: You're running Gallery from SVN, so some modified files are to be expected.  You can "
+"probably ignore these, but to be safe you should make sure that you do 'svn update' before "
+"continuing."
+msgstr ""
+"Not: Galeriyi SVN'den çalıştırıyorsunuz, bu yüzden bazı modifiye edilmiş dosyalar "
+"beklenebilir. Bunları güvenli olarak yok sayabilirsiniz, ancak güvenli olmasından emin olmak "
+"istiyorsanız devam etmeden önce 'svn update'  yaptığınızdan emin olun."
+
+#, c-format
+msgid "Old files (%d)"
+msgstr "Eski dosyalar (%d)"
+
+#, c-format
+msgid ""
+"These files are no longer part of Gallery. They probably won't cause any problems but it is "
+"a good idea to remove them to keep your install clean.  Gallery can't remove these files for "
+"you, but you can download and run %s in your gallery2 directory to delete them for you."
+msgstr ""
+"Bu dosyalar artık Galerinin bir parçası değil. Büyük ihtimalle hiç bir probleme yol açmazlar "
+"ancak kurulumunuzu temiz tutmak açısından bu dosyaları kaldırmak iyi bir fikir. Galeri bu "
+"dosyaları sizin için kaldıramaz, ancak %s'yi galeri2 klasörüne yüklemeniz ve çalıştırmanız "
+"durumunda dosyaları sizin için siler."
+
+msgid "this script"
+msgstr "bu script"
+
+msgid "Upgrade Steps"
+msgstr "Güncelleme Adımları"
+
+msgid "Missing or invalid config.php"
+msgstr "Kayıp ya da geçersiz config.php"
+
+msgid "You tried to run the upgrade process but a valid config.php is missing."
+msgstr "Güncelleme işlemini çalıştırmayı denediniz ancak geçerli config.php dosyası kayıp."
+
+msgid ""
+"If you've lost your config.php file when replacing the Gallery 2 files in the preparation "
+"for this upgrade, please restore it and try again."
+msgstr ""
+"Eğer config.php dosyasınızı Galeri 2 dosyalarınızı yenilerken kaybettiyseniz, lütfen "
+"dosyanızı yenileyin ve tekrar deneyin."
+
+msgid "If you actually want to run the Gallery 2 installer, please follow the link below."
+msgstr "Eğer Galeri 2 kurulumunu çalıştırmak istiyorsanız, lütfen aşağıdaki linki takip edin."
+
+msgid ""
+"If you want to upgrade from Gallery 1, you first need to install Gallery 2 and then use the "
+"import module to import your data from Gallery 1. Please follow the link below to install "
+"Gallery 2."
+msgstr ""
+"Eğer Galeri 1'den güncellemek istiyorsanız, ilk olarak Galeri 2'yi kurmalısınız ve "
+"sonrasında dışalım modülünü kullanarak Galeri 1'de bulunan verilerinizi alabilirsiniz. "
+"Lütfen aşağıdaki linki kullanarak Galeri 2'yi kurunuz."
+
+msgid "Go to the Gallery 2 Installer"
+msgstr "Galeri 2 Kurulumuna Git"
+
+msgid "Success"
+msgstr "Başarılı"
+
+msgid "Failed"
+msgstr "Başarısız"
+
+msgid ""
+"If you are using Apache, create a file named .htaccess in the main Gallery directory with "
+"the following content:"
+msgstr ""
+"Eğer Apache kullanıyor iseniz, .htaccess adında bir dosyayu Galeri ana klasöründe "
+"oluşturarak izleyen içeriği bu dosyanın içine ekleyin: "
+
+msgid "An error occurred while upgrading Gallery Core Module"
+msgstr "Galeri Çekirdek Modülü güncellenmesinden hatayla karşılaşıldı"
+
+#, c-format
+msgid ""
+"Something went wrong when we tried to upgrade the core module.  In the boxes below you can "
+"find some debug information.  Report this in the %sGallery Forums%s and we'll help you "
+"diagnose the problem."
+msgstr ""
+"Çekirdek modülü güncellemeye çalırşırken birşeyler ters gitti. Aşağıda bulunan kutularda "
+"bazı debug(hata) bilgisi bulabilirsiniz. Bu hataları %sGaleri Forumlarına%s gönderirseniz, "
+"problemlerinizi tanımlama ve yardım etme şansı bulabiliriz."
+
+msgid "Stack Trace:"
+msgstr "Stack Trace:"
+
+msgid "Debug Output:"
+msgstr "Debug Çıktısı:"
+
+msgid "Upgrading the Gallery Core Module"
+msgstr "Galeri Çekirdek Modülü Güncellemesi"
+
+msgid ""
+"The Gallery Core Module is the heart of the Gallery application.  You can upgrade most other "
+"modules using the Site Administration interface, but this module must be handled separately "
+"in order for the upgrade to go smoothly."
+msgstr ""
+"Galeri Çekirdek Modülü Galeri uygulamasının kalbidir. Diğer birçok modülü Site Yönetimi "
+"arabirimini kullanarak güncelleyebilirsiniz, ancak bu modülün ayrı olarak ele alınması "
+"güncellemein düzgün yapılması açısından önemlidir."
+
+msgid "Currently installed"
+msgstr "Kuruldu"
+
+#, c-format
+msgid "Core Module version: %s (Gallery %s)"
+msgstr "Çekirdek (Core) Modül Versiyonu: %s (Galeri %s)"
+
+msgid "New version"
+msgstr "Yeni versiyon"
+
+msgid "Config.php upgrade"
+msgstr "Config.php güncellemesi"
+
+msgid "Required"
+msgstr "Gerekli"
+
+#, c-format
+msgid "Unable to write to config.php in your %s directory.  Please change its permissions."
+msgstr ""
+"%s klasöründe bulunan config.php dosyasına yazılamıyor. Lütfen izinlerini değiştiriniz."
+
+msgid "You can do <i>chmod 666 config.php</i> to fix this."
+msgstr "<i>chmod 666 config.php</i> yaparak bu problemi çözebilirsiniz."
+
+msgid ""
+"The installed version is newer than the version you are trying to upgrade to. You cannot "
+"downgrade G2. Please replace the gallery2 files with files from the currently installed "
+"version or later."
+msgstr ""
+"Kurulu olan versiyon, güncellemeye çalıştığınız versiyondan daha yeni. G2 programının da "
+"versiyon alçaltması yapamazsınız. Lütfen Galeri 2 dosyalarınızı şu anda kurulu olan ile ve "
+"ya da daha yenisi ile değiştirin."
+
+#, fuzzy
+msgid ""
+"Before you upgrade, we <b>strongly recommend</b> that you make a backup of your database!  "
+"If you fail to make a backup and something goes wrong, there is a strong possibility that we "
+"will not be able to help you recover your data!  Refer to the following example:"
+msgstr ""
+"Güncellemeye başlamadan önce veritbanınızın yedeğiniz almanızı <b>özellikle öneriyoruz.</b>  "
+"Eğer veritabanını yedeklemekte başarısız olursanız ve birşeyler ters giderse, büyük bir "
+"ihtimal ile verilerinizi kurtarmak için şansımız olmaz. Örnekleri referans alın:"
+
+msgid "MySQL"
+msgstr "MySQL"
+
+msgid "PostgreSQL"
+msgstr "PostgreSQL"
+
+msgid "Oracle"
+msgstr "Oracle"
+
+msgid "IBM DB2"
+msgstr "IBM DB2"
+
+msgid "Microsoft SQL Server"
+msgstr "Microsoft SQL Server"
+
+msgid ""
+"Once the upgrade has begun, please be patient.  If you cancel or reload the page, you may "
+"interfere with the upgrade process."
+msgstr ""
+"Güncelleme başladığında, lütfen sabırlı olun. Eğer sayfayı iptal eder ya da yeniden "
+"yüklerseniz, güncelleme işlemine zarar verebilirsiniz."
+
+msgid "Begin Upgrade"
+msgstr "Güncellemeye Başla"
+
+msgid "Recheck config.php"
+msgstr "Config.php dosyasını yeniden kontrol et"
+
+msgid "Upgraded Gallery Core Module successfully."
+msgstr "Galeri Çekirdek Modülü güncellemesi başarılı."
+
+msgid "We've successfully upgraded the Gallery Core Module."
+msgstr "Galeri Çekirdek Modülünü başarıyla güncelledik."
+
+#, c-format
+msgid ""
+"<b>Reminder</b>: Now update the permissions on config.php to make sure it is not writeable "
+"by other people.  Right now your config.php has modes of %s.  We suggest that you do this:"
+msgstr ""
+"<b>Hatırlatma</b>: Şimdi, config.php dosyanızın izinlerini güncelleyin ve diğer kişiler "
+"tarafından yazılabilir olmadığından emin olun.  Şu anda config.php dosyanızın durumu  %s.  "
+"Biz bu olmasını öneriyoruz:"
+
+msgid "Your Gallery Core Module is up to date!"
+msgstr "Galeri Çekirdek Modülünüz Günce!"
+
+#, fuzzy
+msgid ""
+"The following plugins can be automatically upgraded for you.  If you choose not to upgrade "
+"them now, you may experience problems with your Gallery.   You can always upgrade or "
+"deactivate them on the Site Administration page, or return to this page later so any "
+"decision you make here is not permanent."
+msgstr ""
+"Bu modüller sizin için otomatik olarak güncellenebilir. Eğer şimdi güncellemeyi seçmez "
+"iseniz, Galerinizde problemlerle karşılaşabilirsiniz. Daim bu modülleri Site Yönetim "
+"sayfasını kullanarak güncelleyin ya da aktif durumunu kapalı konuma getirin, ya da daha "
+"sonra bu sayfaya tekrar geri dönün burada akmış olduğunuz kararlar kalıcı olmayacak."
+
+msgid "Deactivated Plugins"
+msgstr "Deaktif edilmiş eklentiler"
+
+msgid ""
+"The following plugins were active, but they are missing or incompatible with your current "
+"version of Gallery.  They have been deactivated.  Install the latest version of these "
+"plugins to reactivate them."
+msgstr ""
+"Görünen eklentiler aktif, ancak kayıp ya da Galeri'nin bu versiyonu ile uyumlu değiller. "
+"Deaktif duruma getirilecekler. Bu eklentiler son versiyonlarını yükledikten sonra aktif "
+"duruma getirin."
+
+msgid "Module"
+msgstr "Modül"
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Name"
+msgstr "İsim"
+
+msgid "Current"
+msgstr "Şimdiki"
+
+msgid "New"
+msgstr "Yeni"
+
+msgid "Description"
+msgstr "Açıklama"
+
+msgid "Incompatible with this version of Gallery"
+msgstr "Galerinin bu versiyonuyla uyumsuz"
+
+msgid "(un)check all"
+msgstr "tüm çekleri kaldır"
+
+#, c-format
+msgid "Skip Upgrade and Continue to Step %d&raquo;"
+msgstr "Güncellemeyi geç ve Adım  %d&raquo; ile devam et"
+
+#, fuzzy
+msgid "Upgrade Selected Plugins"
+msgstr "Seçili Modülleri Güncelle"
+
+#, c-format
+msgid "Upgraded the %s module successfully"
+msgstr "%s modülü başarıyla güncellendi."
+
+#, c-format
+msgid "Upgraded the %s theme successfully"
+msgstr "%s teması başarıyla güncellendi."
+
+#, fuzzy
+msgid "Upgrade More Plugins"
+msgstr "Eklentileri güncelle"
+
+#, c-format
+msgid ""
+"Upgrading Gallery 2 requires %d steps. This upgrade tool will guide you through these steps "
+"and provide assistance along the way if additional steps are required. Please read the %"
+"sHelp File%s before proceeding."
+msgstr ""
+"Galeri 2 güncellemesi için %d adım gereklidir. Bu güncelleme aracı adımlarda size rehberlik "
+"edecek ve gerekli başka adımlar olması durumunda size yol gösterecektir. İşlem yapmadan önce "
+"lütfen %sYardım Dosyasını%s okuyunuz."
+
+msgid ""
+"If you have a busy site, consider putting your Gallery in maintenance mode. This gives "
+"visitors a message that the site is temporarily offline, rather than showing everybody this "
+"upgrade page. Edit your config.php file to activate maintenance mode."
+msgstr ""
+"Eğer meşgul bir siteniz varsa, Galerinizi bakım moduna ayarlayın. Bu ziyaretçilere sitenin "
+"geçici olarak offline olduğu mesajınız verir, böylece bu güncelleme sayfası gözükmez. Config."
+"php'de düzenleme yaparak bakım modunu aktif duruma getirebilirsiniz."
+
+msgid "Select Language:"
+msgstr "Dil Seç:"
+
+msgid "Go"
+msgstr "Git"
+
+#~ msgid ""
+#~ "<b>Reminder</b>: Now check the permissions on config.php and make sure it is not globally "
+#~ "writeable."
+#~ msgstr ""
+#~ "<b>Hatırlatma</b>: config.php dosyanızın izinlerinizi kontrol edin ve global olarak "
+#~ "yazılabilir olduğundan emin olun."
+
+#~ msgid "mysqldump -u%s -p -h %s --opt %s > %s.sql"
+#~ msgstr "mysqldump -u%s -p -h %s --opt %s > %s.sql"
+
+#~ msgid "pg_dump -h %s --format=t %s > %s.sql"
+#~ msgstr "pg_dump -h %s --format=t %s > %s.sql"
+
+#~ msgid "Upgrade More Modules"
+#~ msgstr "Daha Fazla Modül Güncelle"
+
+#~ msgid "Upgrade Modules"
+#~ msgstr "Modülleri Güncelle"
+
+#, fuzzy
+#~ msgid "the Gallery website"
+#~ msgstr "Galeri 2 Kurulumuna Git"
+
+#~ msgid "Upgrade Other Modules"
+#~ msgstr "Diğer Modülleri Güncelle"
+
+#~ msgid "Missing Code"
+#~ msgstr "Kayıp Kod"
+
+#~ msgid ""
+#~ "The code for some plugins that were previously active can no longer be found. You must "
+#~ "restore code for these plugins before this upgrade can continue. Code for the plugins "
+#~ "must be the same version or newer than what was installed before."
+#~ msgstr ""
+#~ "Bazı eklentiler için önceden aktif olan kodlar bulunamıyor. Güncellemeye devam etmeden "
+#~ "önce kodları geri yüklemelisiniz. Eklentiler için kullanılan kod aynı versiyon ya da "
+#~ "önceden yüklenenden yeni olmak zorundadır."
+
+#~ msgid "Finished"
+#~ msgstr "Bitti"

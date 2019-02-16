@@ -1,0 +1,207 @@
+# $Id: sr.po 16040 2007-03-16 23:04:36Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Publish XP 1.0.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-08-14 16:53+0200\n"
+"PO-Revision-Date: 2005-09-07 21:47+0200\n"
+"Last-Translator: Jozef Selesi <selesi@gmail.com>\n"
+"Language-Team: Srpski <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10\n"
+
+msgid "Windows XP"
+msgstr "Windows XP"
+
+msgid "Publish XP"
+msgstr "Publish XP"
+
+msgid "Publish photos to Gallery directly from Windows XP"
+msgstr ""
+
+msgid "Import"
+msgstr "Prenos"
+
+#, c-format
+msgid "%s at %s"
+msgstr "%s u %s"
+
+#, c-format
+msgid "Publish Your Photos and Movies to %s"
+msgstr "Objavite svoje fotografije i filmove na %s"
+
+msgid "Upload to Gallery"
+msgstr "Prenos u Galeriju"
+
+msgid ""
+"Windows XP comes with a nice feature that allows you to publish content from your desktop "
+"directly to a web service.  Follow the instructions below to enable this service on your "
+"Windows XP system."
+msgstr ""
+"Windows XP ima mogućnost objavljivanja sadržaja sa vaše radne površine direktno na neki web "
+"servis. Pratite dole navedena uputstva da uključite ovaj servis na vašem Windows XP sistemu."
+
+msgid "Step 1"
+msgstr "Prvi korak"
+
+msgid ""
+"Download the configuration file using right-click 'Save Target As...'  Once downloaded, "
+"rename it to 'install_registry.reg'.  If it asks you for confirmation about changing the "
+"file type, answer 'yes'.  Right click on this file and you should see a menu appear.  Select "
+"the Merge option (this should be at the top of the menu).  It will ask you if you want to "
+"import these values into your registry.  Click 'Ok'.  It will tell you that the files were "
+"imported successfully.  Click 'Ok' again."
+msgstr ""
+"Preuzmite konfiguracionu datoteku biranjem 'Save Target As...' iz menija dobijenog desnim "
+"dugmetom miša. Kad ste je preuzeli, promenite joj ime u 'install_registry.reg'. Ako dobijete "
+"pitanje u vezi sa promenom vrste datoteke, odgovorite potvrdno. Kliknite desnim dugmetom na "
+"ovu datoteku i izaberite opciju Merge iz menija koji će se pojaviti (trebalo bi da se nalazi "
+"pri vrhu menija). Pitaće vas da li želite da uvezete vrednosti u registar. Kliknite na 'OK'. "
+"Reći će vam da su vrednosti uspešno uvezene. Kliknite ponovo na 'OK'."
+
+msgid "Download [install_registry.reg]"
+msgstr "Preuzmi [install_registry.reg]"
+
+msgid "Step 2"
+msgstr "Drugi korak"
+
+msgid ""
+"Open your Windows Explorer and browse to a folder containing supported images. Select the "
+"image(s) or a folder and there should be a link on the left that says 'Publish this file to "
+"the web...'  Click this link and then follow the instructions to log into your Gallery, "
+"select an album and publish the image."
+msgstr ""
+"Otvorite Windows Explorer i pređite u direktorijum koji sadrži slike. Obeležite sliku ili "
+"direktorijum, i sa leve strane bi trebalo da se pojavi opcija 'Publish this file to the "
+"web...'. Kliknite na nju i sledite uputstva da se prijavite u svoju Galeriju, izaberete "
+"album i objavite sliku."
+
+msgid "Specify the name and title for the new album."
+msgstr "Unesite ime i naslov novog albuma."
+
+msgid "Create a new album"
+msgstr "Napravi nov album"
+
+msgid "Name"
+msgstr "Naziv"
+
+msgid "(required)"
+msgstr "(obavezno)"
+
+msgid ""
+"The name of this album on your hard disk.  It must be unique in this album.  Only use "
+"alphanumeric characters, underscores or dashes.  You will be able to rename it later."
+msgstr ""
+"Naziv ovog albuma na vašem hard disku. Mora biti jedinstven u ovom albumu. Koristite smo "
+"alfanumeričke znake, donje crte ili povlake. Kasnije ćete moći da ga preimenujete."
+
+msgid "Your name contains invalid characters.  Please enter another."
+msgstr "Unet naziv sadrži neispravne znake. Molimo vas da unesete neki drugi."
+
+msgid "You must enter a name for this album."
+msgstr "Morate uneti naziv za ovaj album."
+
+msgid "Title"
+msgstr "Naslov"
+
+msgid "This is the album title."
+msgstr "Ovo je naslov albuma."
+
+msgid "Summary"
+msgstr "Sažetak"
+
+msgid "This is the album summary."
+msgstr "Ovo je sažetak albuma."
+
+msgid "Keywords"
+msgstr "Ključne reči"
+
+msgid "Keywords are not visible, but are searchable."
+msgstr "Ključne reči nisu vidljive, ali se mogu koristiti prilikom pretraživanja."
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "This is the long description of the album."
+msgstr "Ovo je dugačak opis albuma."
+
+msgid "Set options for the photos to be added."
+msgstr "Izaberite opcije za fotografije koje će biti dodate."
+
+msgid "Standard Options"
+msgstr ""
+
+msgid ""
+"Now that you have chosen the destination album, the following options can be used when "
+"adding the photos to Gallery."
+msgstr ""
+"Pošto ste izabrali odredišni album, možete koristiti sledeće mogućnosti prilikom dodavanja "
+"fotografija u Galeriju."
+
+msgid "Strip file extensions?"
+msgstr "Uklanjanje postojećih datotečnih ekstenzija?"
+
+msgid "Set captions on the published items?"
+msgstr "Popunjavanje natpisa na objavljenim objektima?"
+
+msgid "Login to your account"
+msgstr "Prijavite se u svoj nalog"
+
+msgid "Username"
+msgstr "Korisničko ime"
+
+msgid "You must enter a username"
+msgstr "Morate uneti korisničko ime"
+
+msgid "Logins temporarily disabled due to multiple failed login attempts."
+msgstr ""
+
+msgid "Password"
+msgstr "Lozinka"
+
+msgid "You must enter a password"
+msgstr "Morate uneti lozinku"
+
+msgid "Your login information is incorrect.  Please try again."
+msgstr "Informacije koje ste uneli nisu tačne. Molimo vas da pokušate ponovo."
+
+msgid "Choose an album for new photos, or create a new album."
+msgstr "Izaberite album za nove fotografije, ili napravite nov album."
+
+msgid "New Album"
+msgstr "Nov album"
+
+msgid "You must select an album"
+msgstr "Morate izabrati album"
+
+#~ msgid "Implementation for direct publishing from XP"
+#~ msgstr "Implementacija direktnog objavljivanja iz XP-a"
+
+#~ msgid "Specify your authentication credentials."
+#~ msgstr "Unesite sledeće podatke kako bismo proverili vaš identitet."
+
+#~ msgid "Specify extra options for uploaded photos"
+#~ msgstr "Navedite dodatne opcije za prenete fotografije"
+
+#~ msgid "Choose an album"
+#~ msgstr "Izaberite album"

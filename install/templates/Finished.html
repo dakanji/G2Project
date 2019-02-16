@@ -1,0 +1,17 @@
+    <div class="success"><h1><?php print _("Finished!") ?></h1></div>
+
+    <p>
+      <?php print _("Congratulations! Your Gallery 2 install is complete! See... that wasn't so hard, was it? Now it's time to upload some photos!") ?>
+    </p>
+
+    <?php if (!$templateData['isMultisite']): ?>
+    <div class="go">
+	  <div class="btn btn-continue"><div><div><div><div><div><div><div><div>
+	  <a href="../main.php"><?php print _('Go to my Gallery!') ?></a>
+	  </div></div></div></div></div></div></div></div></div>
+    </div>
+    <?php else: ?>
+    <p>
+      <?php printf(_("You may now go to your new Gallery.  Enter the URL in your browser for %smain.php%s in your %s directory."), '<tt>', '</tt>', '<tt>' . $templateData['galleryDir'] . '</tt>') ?>
+    </p>
+    <?php endif; ?>

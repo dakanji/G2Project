@@ -1,0 +1,187 @@
+# $Id: sk.po 16040 2007-03-16 23:04:36Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Branislav Hanacek <brango@radegast>, 2006.
+# Branislav Hanacek <brango@brango.sk>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Publish XP 1.0.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-03 10:22+0200\n"
+"PO-Revision-Date: 2006-09-10 21:10+0200\n"
+"Last-Translator: Branislav Hanacek <brango@brango.sk>\n"
+"Language-Team: Slovak <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: KBabel 1.11.4\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "Windows XP"
+msgstr ""
+
+msgid "Publish XP"
+msgstr ""
+
+msgid "Publish photos to Gallery directly from Windows XP"
+msgstr ""
+
+msgid "Import"
+msgstr ""
+
+#, c-format
+msgid "%s at %s"
+msgstr ""
+
+#, c-format
+msgid "Publish Your Photos and Movies to %s"
+msgstr ""
+
+msgid "Upload to Gallery"
+msgstr ""
+
+msgid ""
+"Windows XP comes with a nice feature that allows you to publish content from your desktop "
+"directly to a web service.  Follow the instructions below to enable this service on your "
+"Windows XP system."
+msgstr ""
+
+msgid "Step 1"
+msgstr ""
+
+msgid ""
+"Download the configuration file using right-click 'Save Target As...'  Once downloaded, "
+"rename it to 'install_registry.reg'.  If it asks you for confirmation about changing the "
+"file type, answer 'yes'.  Right click on this file and you should see a menu appear.  Select "
+"the Merge option (this should be at the top of the menu).  It will ask you if you want to "
+"import these values into your registry.  Click 'Ok'.  It will tell you that the files were "
+"imported successfully.  Click 'Ok' again."
+msgstr ""
+
+msgid "Download [install_registry.reg]"
+msgstr ""
+
+msgid "Step 2"
+msgstr ""
+
+msgid ""
+"Open your Windows Explorer and browse to a folder containing supported images. Select the "
+"image(s) or a folder and there should be a link on the left that says 'Publish this file to "
+"the web...'  Click this link and then follow the instructions to log into your Gallery, "
+"select an album and publish the image."
+msgstr ""
+
+msgid "Specify the name and title for the new album."
+msgstr ""
+
+msgid "Create a new album"
+msgstr ""
+
+msgid "Name"
+msgstr "Meno"
+
+msgid "(required)"
+msgstr "(požadované)"
+
+msgid ""
+"The name of this album on your hard disk.  It must be unique in this album.  Only use "
+"alphanumeric characters, underscores or dashes.  You will be able to rename it later."
+msgstr ""
+"Meno albumu na vašom disku. Musí byť jedinečné v rámci tohoto albumu. Použite iba "
+"alfanumerické znaky, podčiarkovníky a pomlčky. Meno je možné neskôr zmeniť."
+
+msgid "Your name contains invalid characters.  Please enter another."
+msgstr "Vami zadané meno obsahuje nepovolené znaky. Prosím, zadajte iné meno."
+
+msgid "You must enter a name for this album."
+msgstr "Musíte zadať meno pre tento album."
+
+msgid "Title"
+msgstr "Titulok"
+
+msgid "This is the album title."
+msgstr ""
+
+msgid "Summary"
+msgstr "Súhrn"
+
+msgid "This is the album summary."
+msgstr ""
+
+msgid "Keywords"
+msgstr "Kľúčové slová"
+
+msgid "Keywords are not visible, but are searchable."
+msgstr ""
+
+msgid "Description"
+msgstr "Popis"
+
+msgid "This is the long description of the album."
+msgstr ""
+
+msgid "Set options for the photos to be added."
+msgstr ""
+
+msgid "Standard Options"
+msgstr ""
+
+msgid ""
+"Now that you have chosen the destination album, the following options can be used when "
+"adding the photos to Gallery."
+msgstr ""
+
+msgid "Strip file extensions?"
+msgstr ""
+
+msgid "Set captions on the published items?"
+msgstr ""
+
+msgid "Login to your account"
+msgstr ""
+
+msgid "Username"
+msgstr "Používateľské meno"
+
+msgid "You must enter a username"
+msgstr "Musíte zadať meno používateľa"
+
+msgid "Logins temporarily disabled due to multiple failed login attempts."
+msgstr ""
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "You must enter a password"
+msgstr "Musíte zadať heslo"
+
+msgid "Your login information is incorrect.  Please try again."
+msgstr ""
+
+msgid "Choose an album for new photos, or create a new album."
+msgstr ""
+
+msgid "New Album"
+msgstr ""
+
+msgid "You must select an album"
+msgstr ""

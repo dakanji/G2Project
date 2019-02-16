@@ -1,0 +1,99 @@
+# $Id: tr.po 16040 2007-03-16 23:04:36Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Reupload 1.0.5\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-12-20 09:57-0800\n"
+"PO-Revision-Date: 2006-09-20 01:23+0200\n"
+"Last-Translator: Ishak Goker ISIK <admin@ansolon.com>\n"
+"Language-Team: Turkish <admin@ansolon.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-Language: Turkish\n"
+"X-Poedit-Country: TURKEY\n"
+
+msgid "Reuploaded file successfully."
+msgstr "Dosya başarıyla Yeniden yüklendi."
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabyte"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobytes"
+
+msgid "Reupload"
+msgstr "Yeniden Yükle"
+
+msgid "Allows reupload of pictures."
+msgstr "Resimlerin yeniden yüklenmesine izin verir."
+
+msgid "Extra Data"
+msgstr "Ekstra Veri"
+
+msgid "Reupload Photo"
+msgstr "Fotoyu Yenidenyükle"
+
+msgid ""
+"Your webserver is configured to disallow file uploads from your web browser at this time.  "
+"Please contact your system administrator for assistance."
+msgstr ""
+"Web Serverınız web tarayıcınızdan yükleme yapılamayacak şekilde yapılandırılmış. Lütfen "
+"sorununuz için sistem yöneticinizle iletişime geçiniz."
+
+msgid "Upload a new revision of this picture instead of the old one."
+msgstr "Eskisinin yerine bu resmin düzeltilmiş halini yükleyin."
+
+#, c-format
+msgid ""
+"<b>Note:</b> The new file cannot be larger than %s. If you want to upload a larger file you "
+"must ask your system administrator to allow larger uploads."
+msgstr ""
+"<b>Not:</b> Yeni dosya  %s boyutundan büyük olamaz. Eğer daha büyük bir dosya yüklemek "
+"isterseniz, Sistem yöneticinizle görüşerek daha büyük dosyalar yüklemek istediğinizi "
+"söylemelisiniz."
+
+msgid "File"
+msgstr "Dosya"
+
+msgid "Reupload File"
+msgstr "Dosyayı Yenidenyükle"
+
+msgid "Unable to reupload file."
+msgstr "Dosya yeniden yüklenemiyor."
+
+#, c-format
+msgid "Please check the size and try again. The new file cannot be larger than %s."
+msgstr "Lütfen boyutu kontrol edip tekrar deneyiniz. Yeni dosya  %s boyutundan büyük olamaz."
+
+msgid ""
+"Unable to reupload file. Are you sure the file is of the same type (image, movie) as the "
+"original?"
+msgstr ""
+"Dosya yeniden yüklenemiyor. Bu dosyanın orjinali ile aynı türde(resimü, film) olduğuna emin "
+"misiniz?"

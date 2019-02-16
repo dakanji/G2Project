@@ -1,0 +1,339 @@
+li.giSelected {
+  padding-right: 22px;
+  background: url(bullet_arrow.png) right center no-repeat;
+}
+
+.gbAdminLink {
+  padding-right: 22px !important;
+  background: url(bullet.png) right center no-repeat;
+}
+
+.gbAdminLink a {
+  margin-right: -22px;
+  padding-right: 22px;
+}
+
+/* Special */
+.gbLink-Help {
+  width: 16px;
+  height: 16px;
+  background: url(help.png) left center no-repeat;
+}
+
+.gbLink-Help a {
+  display: none;
+}
+
+/* Core */
+.gbLink-core_ItemAdmin-core_ItemAdd {
+  background: url(add_items.png) right center no-repeat;
+}
+.gbLink-core_ItemAdmin-core_ItemAddAlbum {
+  background: url(add_album.png) right center no-repeat;
+}
+.gbLink-core_ItemAdmin-core_ItemDelete,
+.gbLink-core_ItemAdmin-core_ItemDeleteSingle {
+  background: url(delete_photo.png) right center no-repeat;
+}
+.gbLink-core_ItemAdmin-core_ItemDelete-album,
+.gbLink-core_ItemAdmin-core_ItemDeleteSingle-album {
+  background: url(delete_album.png) right center no-repeat;
+}
+.gbLink-core_ItemAdmin-core_ItemEdit {
+  background: url(edit_photo.png) right center no-repeat;
+}
+.gbLink-core_ItemAdmin-core_ItemEdit-album {
+  background: url(edit_album.png) right center no-repeat;
+}
+.gbLink-core_ItemAdmin-core_ItemEditCaptions {
+  background: url(edit_captions.png) right center no-repeat;
+}
+.gbLink-core_ItemAdmin-core_ItemPermissions {
+  background: url(edit_permissions.png) right center no-repeat;
+}
+.gbLink-core_ItemAdmin-core_ItemReorder {
+  background: url(reorder_items.png) right center no-repeat;
+}
+.gbLink-core_ItemAdmin-core_ItemMove,
+.gbLink-core_ItemAdmin-core_ItemMoveSingle {
+  background: url(move_photo.png) right center no-repeat;
+}
+.gbLink-core_ItemAdmin-core_ItemMakeHighlight {
+  background: url(make_highlight.png) right center no-repeat;
+}
+.gbLink-core_AdminCore {
+  background: url(general.png) right center no-repeat;
+}
+.gbLink-core_AdminPlugins {
+  background: url(modules.png) right center no-repeat;
+}
+.icon-plugin-active {
+  background-image: url(bullet_checked.png);
+}
+.icon-plugin-inactive {
+  background-image: url(delete.png);
+}
+.icon-plugin-upgrade {
+  background-image: url(upgrade.png);
+}
+.icon-plugin-uninstall {
+  background-image: url(bullet_delete.png);
+}
+.icon-plugin-incompatible {
+  background-image: url(error.png);
+}
+.icon-plugin-locked {
+  background-image: url(lock.png);
+}
+.gbLink-core_AdminThemes {
+  background: url(layout.png) right center no-repeat;
+}
+.gbLink-core_AdminToolkitPriority {
+  background: url(toolkit_priority.png) right center no-repeat;
+}
+.gbLink-core_AdminMaintenance {
+  background: url(site_maintenance.png) right center no-repeat;
+}
+.gbLink-core_AdminPerformance {
+  background: url(admin_performance.png) right center no-repeat;
+}
+
+/* Users */
+.gbLink-core_UserChangePassword {
+  background: url(change_password.png) right center no-repeat;
+}
+.gbLink-core_UserPreferences {
+  background: url(account_setting.png) right center no-repeat;
+}
+.gbLink-core_AdminUsers {
+  background: url(users.png) right center no-repeat;
+}
+.gbLink-core_AdminGroups {
+  background: url(groups.png) right center no-repeat;
+}
+.gbLink-core_UserLogin {
+  background: url(change_password.png) right center no-repeat;
+}
+.gbLink-register_UserSelfRegistration {
+  background: url(registration.png) right center no-repeat;
+}
+#giFormUsername, .giFormUsername {
+  background-image: url(user.png);
+}
+#giFormGroupname {
+  background-image: url(group.png);
+}
+#giFormPassword {
+  background-image: url(change_password.png);
+}
+
+/* Import */
+.gbLink-archiveupload_ArchiveUploadSiteAdmin {
+  background: url(import_archive.png) right center no-repeat;
+}
+.gbLink-itemadd_ItemAddSiteAdmin {
+  background: url(webserver.png) right center no-repeat;
+}
+.gbLink-migrate_SelectGallery {
+  background: url(gallery.png) right center no-repeat;
+}
+.gbLink-picasa_SelectPicasaExportPath {
+  background: url(picasa.png) right center no-repeat;
+}
+.gbLink-uploadapplet_UploadAppletSiteAdmin {
+  background: url(uploadapplet.png) right center no-repeat;
+}
+.gbLink-webcam_WebCamSiteAdmin {
+  background: url(webcam.png) right center no-repeat;
+}
+
+/* Extra Data */
+.gbLink-comment_AddComment,
+.gbLink-comment_CommentSiteAdmin {
+  background: url(add_comment.png) right center no-repeat;
+}
+.gbLink-comment_ShowAllComments,
+.gbLink-core_ItemAdmin-comment_ShowComments {
+  background: url(view_comment.png) right center no-repeat;
+}
+.gbLink-customfield_CustomFieldSiteAdmin {
+  background: url(custom_fields.png) right center no-repeat;
+}
+.gbLink-exif_AdminExif {
+  background: url(exif_parser.png) right center no-repeat;
+}
+.gbLink-getid3_AdminGetid3 {
+  background: url(getid3.png) right center no-repeat;
+}
+.gbLink-mime_MimeAdmin {
+  background: url(mime_types.png) right center no-repeat;
+}
+.gbLink-multilang_MultiLangSiteAdmin {
+  background: url(multilang.png) right center no-repeat;
+}
+.gbLink-rating_RatingSiteAdmin {
+  background: url(rating.png) right center no-repeat;
+}
+
+/* Graphics Toolkits */
+.gbLink-dcraw_AdminDcraw {
+  background: url(dcraw.png) right center no-repeat;
+}
+.gbLink-ffmpeg_AdminFfmpeg {
+  background: url(ffmpeg.png) right center no-repeat;
+}
+.gbLink-gd_AdminGd {
+  background: url(gd.png) right center no-repeat;
+}
+.gbLink-imagemagick_AdminImageMagick {
+  background: url(image_magick.png) right center no-repeat;
+}
+.gbLink-netpbm_AdminNetPbm {
+  background: url(pbm.png) right center no-repeat;
+}
+
+/* Blocks */
+.gbLink-albumselect_AlbumSelectSiteAdmin {
+  background: url(album.png) right center no-repeat;
+}
+.gbLink-imageblock_ImageBlockSiteAdmin {
+  background: url(random_popular.png) right center no-repeat;
+}
+
+/* Gallery */
+.gbLink-captcha_CaptchaSiteAdmin {
+  background: url(captcha.png) right center no-repeat;
+}
+.gbLink-debug_ShowTree {
+  background: url(debug_tree.png) right center no-repeat;
+}
+.gbLink-members_AdminMembers, .gbLink-members_MembersList {
+  background: url(members.png) right center no-repeat;
+}
+.gbLink-notification_NotificationSiteAdmin {
+  background: url(email.png) right center no-repeat;
+}
+.gbLink-notification_NotificationUserAdmin, .gbLink-notification_NotificationItem {
+  background: url(magnifier.png) right center no-repeat;
+}
+.gbLink-permalinks_PermalinksSiteAdmin {
+  background: url(permalinks.png) right center no-repeat;
+}
+.gbLink-quotas_AdminQuotas {
+  background: url(quotas.png) right center no-repeat;
+}
+.gbLink-register_AdminSelfRegistration {
+  background: url(registration.png) right center no-repeat;
+}
+.gbLink-rewrite_AdminRewrite {
+  background: url(url_rewrite.png) right center no-repeat;
+}
+.gbLink-search_SearchScan {
+  background: url(advanced_search.png) right center no-repeat;
+}
+.gbLink-useralbum_UserAlbumSiteAdmin {
+  background: url(user_albums.png) right center no-repeat;
+}
+
+/* Display */
+.gbLink-dynamicalbum_DynamicAlbumSiteAdmin, .gbLink-dynamicalbum_UpdatesAlbum,
+.gbLink-dynamicalbum_PopularAlbum, .gbLink-dynamicalbum_RandomAlbum {
+  background: url(dynamic_album.png) right center no-repeat;
+}
+.gbLink-icons_IconsSiteAdmin {
+  background: url(icon_module.png) right center no-repeat;
+}
+.gbLink-keyalbum_KeywordAlbumSiteAdmin {
+  background: url(keyword_album.png) right center no-repeat;
+}
+.gbLink-linkitem_LinkItemSiteAdmin {
+  background: url(create_link.png) right center no-repeat;
+}
+.gbLink-newitems_NewItemsSiteAdmin {
+  background: url(new_items.png) right center no-repeat;
+}
+.gbLink-panorama_PanoramaSiteAdmin, .gbLink-panorama_Panorama {
+  background: url(panorama.png) right center no-repeat;
+}
+.gbLink-randomhighlight_RandomHighlightSiteAdmin {
+  background: url(random_highlight.png) right center no-repeat;
+}
+.gbLink-core_ItemAdmin-rearrange_RearrangeItems {
+  background: url(reorder_items.png) right center no-repeat;
+}
+.gbLink-core_ItemAdmin-replica_ItemCreateReplica,
+.gbLink-core_ItemAdmin-replica_ItemCreateReplicaSingle {
+  background: url(page_copy.png) right center no-repeat;
+}
+.gbLink-slideshow_Slideshow {
+  background: url(view_slideshow.png) right bottom no-repeat;
+}
+.gbLink-slideshowapplet_SlideshowApplet,
+.gbLink-slideshowapplet_SlideshowAppletSiteAdmin {
+  background: url(view_fullscreen_slideshow.png) right center no-repeat;
+}
+.gbLink-squarethumb_SquareThumbSiteAdmin {
+  background: url(squarethumb.png) right center no-repeat;
+}
+.gbLink-thumbnail_ThumbnailSiteAdmin {
+  background: url(thumbnails.png) right center no-repeat;
+}
+.gbLink-watermark_WatermarkSiteAdmin,
+.gbLink-watermark_UserWatermarks {
+  background: url(watermark.png) right center no-repeat;
+}
+
+/* Commerce */
+.gbLink-ecard_SendEcard,
+.gbLink-ecard_AdminEcard {
+  background: url(ecard.png) right center no-repeat;
+
+.gbLink-cart_ViewCart {
+  background: url(cart.png) right center no-repeat;
+}
+.gbLink-cart_AddToCart {
+  background: url(add_cart.png) right center no-repeat;
+}
+.gbLink-digibug_DigibugPrintPhotos {
+  background: url(digibug-print.png) right center no-repeat;
+}
+.gbLink-digibug_AdminDigibug {
+  background: url(digibug-admin.png) right center no-repeat;
+}
+.gbLink-fotokasten_PrintPhotos {
+  background: url(fotokasten-print.png) right center no-repeat;
+}
+.gbLink-fotokasten_FotokastenSiteAdmin {
+  background: url(fotokasten-admin.png) right center no-repeat;
+}
+.gbLink-photoaccess_PrintPhoto {
+  background: url(print.png) right center no-repeat;
+}
+.gbLink-shutterfly_PrintPhotos {
+  background: url(shutterfly-print.png) right center no-repeat;
+}
+.gbLink-zipcart_ZipCartAdmin {
+  background: url(zip_download.png) right center no-repeat;
+}
+
+/* Authentication */
+.gbLink-httpauth_HttpAuthSiteAdmin {
+  background: url(change_password.png) right center no-repeat;
+}
+
+/* Remote Interfaces */
+.gbLink-remote_RemoteSiteAdmin {
+  background: url(remote.png) right center no-repeat;
+}
+.gbLink-webdav_WebDavSiteAdmin, .gbLink-webdav_WebDavMount {
+  background: url(folder_picture.png) right center no-repeat;
+}
+
+/* Export */
+.gbLink-rss_SimpleRender, .gbLink-core_ItemAdmin-rss_EditFeed, .gbLink-rss_RssSiteAdmin {
+  background: url(rss_feed.png) right center no-repeat;
+}
+.gbLink-sitemap_AdminSitemap {
+  background: url(google_sitemap.png) right center no-repeat;
+}
+

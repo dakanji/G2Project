@@ -1,0 +1,298 @@
+# $Id: sr.po 16040 2007-03-16 23:04:36Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Quotas 1.1.0\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-15 23:34-0700\n"
+"PO-Revision-Date: 2005-09-07 20:06+0200\n"
+"Last-Translator: Jozef Selesi <selesi@gmail.com>\n"
+"Language-Team: Srpski <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.10\n"
+
+msgid "KB"
+msgstr "KB"
+
+msgid "MB"
+msgstr "MB"
+
+msgid "GB"
+msgstr "GB"
+
+#, c-format
+msgid "Warning: You have reached your disk quota (%s %s), this item will not be added."
+msgstr ""
+"Upozorenje: Popunili ste sav prostor koji imate na raspolaganju (%s %s), pa ovaj objekat "
+"neće biti dodat."
+
+#, c-format
+msgid "You are using %s %s of your allotted %s %s."
+msgstr "Iskoristili ste %s %s od dozvoljenih %s %s."
+
+msgid "Quotas"
+msgstr "Kvote"
+
+msgid "User/Group Disk Quotas"
+msgstr "Korisničke i grupne disk kvote"
+
+msgid "Gallery"
+msgstr "Galerija"
+
+msgid "Create A New Group Quota"
+msgstr "Pravljenje nove grupne kvote"
+
+msgid "Group Name"
+msgstr "Naziv grupe"
+
+msgid "(required)"
+msgstr "(obavezno)"
+
+#, c-format
+msgid "Group quota for '%s' already exists"
+msgstr "Grupna kvota za %s već postoji"
+
+msgid "Quota Size"
+msgstr "Veličina kvote"
+
+msgid "You must enter a quota size."
+msgstr "Morate uneti veličinu kvote."
+
+msgid "Quota size must be less than 2097152 MB (2048 GB)."
+msgstr "Kvota mora biti manja od 2097152 MB (2048 GB)."
+
+msgid "Invalid quota size, positive numbers and decimals only."
+msgstr "Neispravna veličina kvote, dozvoljeni su samo pozitivni realni brojevi."
+
+msgid "Create Group Quota"
+msgstr "Pravljenje grupne kvote"
+
+msgid "Cancel"
+msgstr "Otkaži"
+
+msgid "Create A New User Quota"
+msgstr "Pravljenje nove korisničke kvote"
+
+msgid "User Name"
+msgstr "Korisničko ime"
+
+#, c-format
+msgid "User quota for '%s' already exists"
+msgstr "Kvota za korisnika '%s' već postoji"
+
+msgid "Create User Quota"
+msgstr "Napravi korisničku kvotu"
+
+msgid "Delete A Group Quota"
+msgstr "Brisanje grupne kvote"
+
+msgid "Are you sure?"
+msgstr "Da li ste sigurni?"
+
+#, c-format
+msgid "This will completely remove the %s (%s %s) group quota from Gallery.  There is no undo!"
+msgstr ""
+"Ovim će se potpuno ukloniti grupna kvota %s (%s %s) iz Galerije. Ova radnja se ne može "
+"poništiti!"
+
+msgid "Delete"
+msgstr "Briši"
+
+msgid "Delete A User Quota"
+msgstr "Brisanje korisničke kvote"
+
+#, c-format
+msgid "This will completely remove the %s (%s %s) user quota from Gallery. There is no undo!"
+msgstr ""
+"Ovim će se potpuno ukloniti korisnička kvota %s (%s %s) iz Galerije. Ova radnja se ne može "
+"poništiti!"
+
+msgid "Edit A Group Quota"
+msgstr "Ažuriranje grupne kvote"
+
+msgid "Save"
+msgstr "Sačuvaj"
+
+msgid "Undo"
+msgstr "Poništi"
+
+msgid "Edit A User Quota"
+msgstr "Ažuriranje korisničke kvote"
+
+msgid "Quotas Administration"
+msgstr "Administracija kvota"
+
+#, c-format
+msgid "Removed group quota for '%s'"
+msgstr "Obrisana kvota grupe '%s'"
+
+#, c-format
+msgid "Created group quota for '%s'"
+msgstr "Napravljena kvota grupe '%s'"
+
+#, c-format
+msgid "Modified group quota for '%s'"
+msgstr "Izmenjena kvota grupe '%s'"
+
+#, c-format
+msgid "Removed user quota for '%s'"
+msgstr "Uklonjena kvota korisnika '%s'"
+
+#, c-format
+msgid "Created user quota for '%s'"
+msgstr "Napravljena kvota za korisnika '%s'"
+
+#, c-format
+msgid "Modified user quota for '%s'"
+msgstr "Izmenjena kvota korisnika '%s'"
+
+msgid ""
+"This system will let you assign disk space quotas to users. By creating a group quota, any "
+"users in that group will be assigned that quota. If a user belongs to more than one group, "
+"the highest quota of all the groups will be assigned. Although, if you create a user quota "
+"that will override any group quotas."
+msgstr ""
+"Ovaj sistem će vam omogućiti da korisnicima dodelite prostor na disku. Praveći grupnu kvotu, "
+"svim korisnicima u toj grupi će biti dodeljena ta kvota. Ako se korisnik nalazi u više "
+"grupa, biće dodeljena najveća kvota od svih grupa. Međutim, ako definišete korisničku kvotu, "
+"biće nadređena svim grupnim kvotama."
+
+#, c-format
+msgid "There is %d group quota in the system."
+msgid_plural "There are %d total group quotas in the system."
+msgstr[0] "U sistemu je dodeljena %d grupna kvota."
+msgstr[1] "U sistemu je dodeljeno %d grupnih kvota."
+
+msgid "Group Quotas"
+msgstr "Grupne kvote"
+
+msgid "Create Quota"
+msgstr "Napravi kvotu"
+
+msgid "Edit Quota"
+msgstr "Izmeni kvotu"
+
+msgid "Delete Quota"
+msgstr "Obriši kvotu"
+
+#, c-format
+msgid "Group quota for '%s' does not exist. You must create one first."
+msgstr "Ne postoji kvota grupe '%s'. Morate je prvo napraviti."
+
+#, c-format
+msgid "Group quota for '%s' already exists."
+msgstr "Kvota grupe '%s' već postoji."
+
+#, c-format
+msgid "Group '%s' does not exist."
+msgstr "Grupa '%s' ne postoji."
+
+msgid "You must enter a group name"
+msgstr "Morate uneti naziv grupe"
+
+msgid "Edit Group Quotas (by list)"
+msgstr "Izmena grupnih kvota (pomoću liste)"
+
+msgid "&laquo; first"
+msgstr "&laquo; prva"
+
+msgid "&laquo; back"
+msgstr "&laquo; prethodna"
+
+#, c-format
+msgid "Viewing page %d of %d"
+msgstr "Ovo je %d. strana od %d"
+
+msgid "next &raquo;"
+msgstr "sledeća &raquo;"
+
+msgid "last &raquo;"
+msgstr "poslednja &raquo;"
+
+msgid "Quota"
+msgstr "Kvota"
+
+msgid "Action"
+msgstr "Radnja"
+
+msgid "edit"
+msgstr "izmeni"
+
+msgid "delete"
+msgstr "obriši"
+
+#, c-format
+msgid "There is %d user quota in the system."
+msgid_plural "There are %d total user quotas in the system."
+msgstr[0] "U sistemu je dodeljena %d korisnička kvota."
+msgstr[1] "U sistemu je dodeljeno %d korisničkih kvota."
+
+msgid "User Quotas"
+msgstr "Korisničke kvote"
+
+#, c-format
+msgid "User quota for '%s' does not exist. You must create one first."
+msgstr "Kvota korisnika '%s' ne postoji. Morate je prvo definisati."
+
+#, c-format
+msgid "User quota for '%s' already exists."
+msgstr "Kvota korisnika '%s' je već definisana."
+
+#, c-format
+msgid "User '%s' does not exist."
+msgstr "Korisnik '%s' ne postoji."
+
+msgid "You must enter a username"
+msgstr "Morate uneti korisničko ime"
+
+msgid "Edit User Quotas (by list)"
+msgstr "Izmena korisničkih kvota (pomoću liste)"
+
+msgid "Username"
+msgstr "Korisničko ime"
+
+#, c-format
+msgid "Used: %0.2f %s (%s%%)"
+msgstr "Utrošeno: %0.2f %s (%s%%)"
+
+#, c-format
+msgid "Quota: %0.2f %s"
+msgstr "Kvota: %0.2f %s"
+
+#, c-format
+msgid "Used: %0.2f %s"
+msgstr "Utrošeno: %0.2f %s"
+
+#, fuzzy
+msgid "Quota: Unlimited"
+msgstr "Veličina kvote"
+
+#, fuzzy
+msgid "User Quota Block"
+msgstr "Korisničke kvote"
+
+#, fuzzy
+#~ msgid "Warning: You have reached your disk quota (%s %s), "
+#~ msgstr ""
+#~ "Upozorenje: Popunili ste sav prostor koji imate na raspolaganju (%s %s), pa ovaj objekat "
+#~ "neće biti dodat."

@@ -1,0 +1,804 @@
+# $Id: no.po 16578 2007-06-10 20:53:13Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Sverre M. Vikan <sverre AT urven DOT net>
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Upgrader 2.2.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-02-15 09:31+0100\n"
+"PO-Revision-Date: 2006-12-31 18:57+0100\n"
+"Last-Translator: Sverre M. Vikan <sverre AT urven DOT net>\n"
+"Language-Team: Norwegian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Unknown"
+msgstr "Ukjent"
+
+msgid "Authenticate"
+msgstr "Autentiser"
+
+msgid "<b>Error:</b> missing password."
+msgstr "<b>Feil:</b> passord mangler."
+
+msgid "<b>Error:</b> invalid password."
+msgstr "<b>Feil:</b> ugyldig passord."
+
+msgid "Empty Cache"
+msgstr "Tøm hurtiglager"
+
+msgid "Unable to clear the page cache"
+msgstr "Kan ikke tømme hurtiglageret for sider"
+
+msgid "Unable to commit database transaction"
+msgstr "Kan ikke utføre databasetransaksjon"
+
+msgid "Finish Upgrade"
+msgstr "Fullfør oppgradering"
+
+msgid "System Checks"
+msgstr "Systemkontroller"
+
+msgid "Performing system checks"
+msgstr "Utfører systemkontroller"
+
+msgid "PHP version >= 4.3.0 or >= 5.0.4"
+msgstr "PHP versjon >= 4.3.0 eller >=5.0.4"
+
+#, c-format
+msgid ""
+"Error: Gallery 2 requires PHP version 4.3.0 or newer or 5.0.4 or newer. You have PHP version "
+"%s installed. Contact your webserver administrator to request an upgrade, available at the %"
+"sPHP website%s."
+msgstr ""
+"Feil: Gallery 2 krever PHP versjon 4.3.0 eller nyere eller 5.0.4 eller nyere. Du har PHP "
+"versjon %s installert. Kontakt din nettjeneradministrator for å be om en oppgradering, som "
+"er tilgjengelig på %snettstedet til PHP%s."
+
+msgid "PHP Version"
+msgstr "PHP versjon"
+
+msgid "FILE directive supported"
+msgstr "FILE-direktiv støttes"
+
+msgid ""
+"Error: your PHP __FILE__ directive is not functioning correctly. Please file a support "
+"request with your webserver administrator or in the Gallery forums."
+msgstr ""
+"Feil: ditt PHP __FILE__-direktiv fungerer ikke korrekt. Vennligst be om brukerstøtte fra din "
+"nettjeneradministrator eller i Gallerys forum."
+
+msgid "FILE Directive"
+msgstr "FILE-direktiv"
+
+msgid "Safe mode disabled"
+msgstr "Sikker modus deaktivert"
+
+msgid ""
+"Error: Your version of PHP is configured with safe mode enabled.  You must disable safe mode "
+"before Gallery will run."
+msgstr ""
+"Feil: Din versjon av PHP er satt opp med sikker modus (safe mode) aktivert. Du må slå av "
+"sikker modus før Gallery kan kjøre."
+
+msgid "Safe Mode"
+msgstr "Sikker modus"
+
+msgid "Regular expressions"
+msgstr "Regulære uttrykk"
+
+#, c-format
+msgid ""
+"Error: Your PHP is configured without support for %sPerl Compatible Regular Expressions%s. "
+"You must enable these functions before Gallery will run."
+msgstr ""
+"Feil: Din PHP er satt opp uten støtte for %sPerl Compatible Regular Expressions%s. Du må "
+"aktivere disse funksjonene før Gallery kan kjøre."
+
+msgid "exec() allowed"
+msgstr "exec() tillatt"
+
+msgid ""
+"Warning: The exec() function is disabled in your PHP by the <b>disabled_functions</b> "
+"parameter in php.ini. You won't be able to use modules that require external binaries (e.g. "
+"ImageMagick, NetPBM or Ffmpeg). This can only be set server-wide, so you will need to change "
+"it in the global php.ini."
+msgstr ""
+"Advarsel: Funksjonen exec() er deaktivert i din PHP med parameteret <b>disabled_functions</"
+"b> i php.ini. Det vil ikke være mulig å benytte moduler som krever eksterne programmer (f."
+"eks. ImageMagick, NetPBM eller FFMPEG). Dette kan bare velges på tjenersiden, så du blir "
+"nødt til å endre det i den globale php.ini."
+
+msgid "set_time_limit() allowed"
+msgstr "set_time_limit() tillatt"
+
+#, c-format
+msgid ""
+"Warning: The set_time_limit() function is disabled in your PHP by the <b>disabled_functions</"
+"b> parameter in php.ini.  Gallery can function with this setting, but it will not operate "
+"reliably.  Any operation that takes longer than %d seconds will fail (and in some cases just "
+"return a blank page) possibly leading to data corruption."
+msgstr ""
+"Advarsel: Funksjonen set_time_limit() er deaktivert i din PHP med parameteret "
+"<b>disable_functions</b> i php.ini. Gallery kan fungere uten denne innstillingen, men vil "
+"ikke jobbe stabilt. Enhver operasjon som tar lengre enn %d sekunder vil mislykkes (og i noen "
+"tilfeller gi en blank side) og muligens lede til ødelagte filer."
+
+msgid "Filesystem Operations"
+msgstr "Filsystemoperasjoner"
+
+#, c-format
+msgid ""
+"Error: Essential filesystem operations are disabled in your PHP by the "
+"<b>disabled_functions</b> parameter in php.ini. You must allow these functions before "
+"Gallery will run. These functions are missing: %s."
+msgstr ""
+"Feil: Essensielle filsystemoperasjoner er deaktiverte i din PHP av parameteret "
+"<b>disabled_functions</b> i php.ini. Du må tillate disse funksjonene før Gallery vil kjøre. "
+"Disse funksjonene mangler: %s."
+
+msgid "Memory limit"
+msgstr "Minnebegrensning"
+
+msgid "no limit"
+msgstr "ingen begrensning"
+
+#, c-format
+msgid ""
+"Warning: Your PHP is configured to limit the memory to %sb (<b>memory_limit</b> parameter in "
+"php.ini). You should raise this limit to at least <b>%sMB</b> for proper Gallery operation."
+msgstr ""
+"Advarsel: Din PHP er satt opp til å begrense minnet til %s B (parameteret <b>memory_limit</"
+"b> i php.ini). Du bør øke denne grensen til minst <b>%s MiB</b> for at Gallery skal operere "
+"riktig."
+
+msgid "File uploads allowed"
+msgstr "Filopplastinger tillatt"
+
+msgid ""
+"Warning: Your PHP is configured not to allow file uploads (<b>file_uploads</b> parameter in "
+"php.ini). You will need to enable this option if you want to upload files to your Gallery "
+"with a web browser."
+msgstr ""
+"Advarsel: Din PHP er satt opp til å ikke tillate filopplasting (parameteret <b>file_uploads</"
+"b> i php.ini). Du vil måtte aktivere dette valget om du ønsker å laste opp filer til ditt "
+"galleri gjennom en nettleser."
+
+msgid "Maximum upload size"
+msgstr "Største opplastingsstørrelse"
+
+#, c-format
+msgid ""
+"Warning: Your PHP is configured to limit the size of file uploads to %sb "
+"(<b>upload_max_filesize</b> parameter in php.ini). You should raise this limit to allow "
+"uploading bigger files."
+msgstr ""
+"Advarsel: Din PHP er satt opp til å begrense størrelsen på filopplastinger til %s B "
+"(parameteret <b>upload_max_filesize</b> i php.ini)l. Du bør øke denne grensen for å tillate "
+"opplasting av større filer."
+
+msgid "Maximum POST size"
+msgstr "Største POST-størrelse"
+
+#, c-format
+msgid ""
+"Warning: Your PHP is configured to limit the post data to a maximum of %sb "
+"(<b>post_max_size</b> parameter in php.ini). You should raise this limit to allow uploading "
+"bigger files."
+msgstr ""
+"Advarsel: Din PHP er satt opp til å begrense post-data til %s B. (parameteret "
+"<b>post_max_size</b> i php.ini). Du bør øke denne grensen for å tillate opplasting av større "
+"filer."
+
+msgid "Translation support"
+msgstr "Støtte for oversettelse"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization. To enable support for additional languages "
+"please instruct your system administrator to reconfigure PHP with the %sgettext%s option "
+"enabled."
+msgstr ""
+"Din nettjener støtter ikke lokaltilpasning. Vennligst be din systemadministrator om å sette "
+"opp PHP på nytt med valget %sgettext%s aktivert for å aktivere støtte for flere språk."
+
+#, c-format
+msgid ""
+"Your PHP is missing the function %sbind_textdomain_codeset%s. This means Gallery may display "
+"extended characters for some languages incorrectly."
+msgstr ""
+"Din PHP mangler funksjonen %sbind_textdomain_codeset%s. Dette betyr at Gallery kan vise "
+"utvidede tegn for noen språk feil."
+
+#, c-format
+msgid ""
+"Your PHP is missing the function %sdngettext%s. This means Gallery will be unable to "
+"translate plural forms."
+msgstr ""
+"Din PHP mangler funksjonen %sdngettext%s. Dette betyr at Gallery ikke vil kunne oversette "
+"flertallsformer."
+
+msgid "Zend compatibility mode"
+msgstr "Zend kompatibilitetsmodus"
+
+#, c-format
+msgid ""
+"Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to "
+"crash.  Click <a href=\"%s\">here</a> to test your PHP.  If you see \"SUCCESS\" then your "
+"PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode "
+"before proceeding."
+msgstr ""
+"Advarsel: Din PHP er satt opp med Zend ze1_compatibility_mode, noe som kan få PHP til å "
+"bryte sammen. <a href=\"%s\">Test din PHP</a>. Om du ser «VELLYKKET» er din PHP ok. Om du "
+"får en feilmelding eller ingen respons må du slå av ze1_compatibility_mode før du fortsetter."
+
+msgid "putenv() allowed"
+msgstr "putenv() tillatt"
+
+msgid ""
+"Warning: The putenv() function is disabled in your PHP by the <b>disabled_functions</b> "
+"parameter in php.ini.  Gallery can function with this setting, but on some rare systems "
+"Gallery will be unable to run in other languages than the system language and English."
+msgstr ""
+"Advarsel: Funksjonen putenv() er deaktivert i din PHP med parameteret <b>disabled_functions</"
+"b> i php.ini. Gallery kan fungere med denne innstillingen, men på noen sjeldne systemer vil "
+"Gallery være ute av stand til å vise andre språk en systemspråket og engelsk."
+
+msgid "Output buffering disabled"
+msgstr "Mellomlagring av utdata deaktivert"
+
+#, c-format
+msgid ""
+"Warning: Output buffering is enabled in your PHP by the <b>%s</b> parameter(s) in php.ini.  "
+"Gallery can function with this setting - downloading files is even faster - but Gallery "
+"might be unable to serve large files (e.g. large videos) and run into the memory limit. "
+"Also, some features like the progress bars might not work correctly if output buffering is "
+"enabled unless ini_set() is allowed."
+msgstr ""
+"Advarsel: Mellomlagring av utdata er aktivert i din PHP med parameteret <b>%s</b> i php.ini. "
+"Gallery kan fungere med denne innstillingen &ndash; nedlasting av filer er raskere &ndash; "
+"men Gallery kan være ute av stand til å betjene store filer (f.eks. store filmer) og treffe "
+"minnebegrensningen. Noen funksjoner, så som fremdriftsvisere, behøver ikke fungere korrekt "
+"om mellomlagring av utdata er aktivert, med mindre ini_set() er tillatt."
+
+msgid "Storage Directory Permissions"
+msgstr "Tilganger for lagringskatalog"
+
+msgid "Test skipped due to other errors."
+msgstr "Test hoppet over grunnet feil."
+
+#, c-format
+msgid ""
+"Error: Some files and or directories in your storage directory are not writeable by the "
+"webserver user. Run chown -R webserverUser %s OR run chmod -R 777 %s."
+msgstr ""
+"Feil: Noen filer og/eller kataloger i din lagringskatalog er ikke skrivbare av "
+"nettjenerbrukeren. Kjør chown -R webserverUser %s ELLER kjør chmod -R 777 %s."
+
+msgid "Gallery file integrity"
+msgstr "Gallery filintegritet"
+
+msgid "Manifest missing or inaccessible."
+msgstr "Manifest mangler eller er ikke tilgjengelig."
+
+msgid "Upgrade Core"
+msgstr "Oppgrader kjerne"
+
+msgid "Upgrade Plugins"
+msgstr "Oppgrader programtillegg"
+
+msgid "Unable to initialize Gallery session"
+msgstr "Kunne ikke klargjøre Galleryøkt"
+
+#, c-format
+msgid "Unable to load the %s module"
+msgstr "Kan ikke laste modulen %s"
+
+msgid "Upgrading modules"
+msgstr "Oppgraderer moduler"
+
+#, c-format
+msgid "%s module needs configuration"
+msgstr "Modulen %s behøver oppgradering"
+
+#, c-format
+msgid "Unable to upgrade the %s module"
+msgstr "Kan ikke oppgradere modulen %s"
+
+#, c-format
+msgid "Unable to load the %s theme"
+msgstr "Kan ikke laste temaet %s"
+
+msgid "Upgrading themes"
+msgstr "Oppgraderer temaer"
+
+#, c-format
+msgid "Unable to upgrade the %s theme"
+msgstr "Kan ikke oppgradere temaet %s"
+
+msgid "Unable to get the module list"
+msgstr "Kan ikke hente modullisten"
+
+msgid "Unable to get the theme list"
+msgstr "Kan ikke hente temalisten"
+
+#, c-format
+msgid "Unable to query the %s module"
+msgstr "Kan ikke spørre modulen %s"
+
+msgid "Other"
+msgstr "Annet"
+
+#, c-format
+msgid "Unable to query the %s theme"
+msgstr "Kan ikke spørre temaet %s"
+
+msgid "Themes"
+msgstr "Temaer"
+
+#, c-format
+msgid "Unable to deactivate the %s theme"
+msgstr "Kan ikke deaktivere temaet %s"
+
+#, c-format
+msgid "Unable to deactivate the %s module"
+msgstr "Kan ikke deaktivere modulen %s"
+
+msgid "Welcome"
+msgstr "Velkommen"
+
+#, c-format
+msgid "<b>Error:</b> could not locate %s.  Please place it in your %s directory."
+msgstr "<b>Feil:</b> kunne ikke finne %s. Vennligst legg den i katalogen %s."
+
+#, c-format
+msgid ""
+"<b>Error:</b> your %s file is not readable.  Please give Gallery read permissions on the "
+"file."
+msgstr "<b>Feil:</b> filen %s er ikke lesbar. Vennligst gi Gallery lesetilganger til filen."
+
+#, c-format
+msgid ""
+"<b>Error:</b> your %s key does not match correctly.  Please use the new authentication "
+"string from below and try again."
+msgstr ""
+"<b>Feil:</b> nøkkelen %s stemmer ikke overens. Vennligst bruk den nye autentiseringsnøkkelen "
+"nedenfor og forsøk igjen."
+
+msgid ""
+"In order to proceed with the upgrade process, we have to verify that you are who you claim.  "
+"When you performed the install, you entered a password which went into your config.php.  "
+"Type that in now.  Refer to your config.php if you've forgotten what you entered."
+msgstr ""
+"For å fortsette med oppgraderingsprosessen, må vi verifisere at du er den du påstår du er. "
+"Når du utførte installasjonen, skrev du inn et passord som ble lagret i din config.php. "
+"Skriv inn det nå. Se i config.php om du har glemt hva du skrev."
+
+msgid "Password:"
+msgstr "Passord:"
+
+msgid "You have exceeded the maximum attempts to login by entering a password."
+msgstr "Du har overgått maks antall innloggingsforsøk ved innskriving av passord."
+
+msgid ""
+"To prevent somebody from hacking your website, we now require you to complete a stricter "
+"authentication process."
+msgstr ""
+"For å forhindre noen fra å hacke nettstedet ditt, krever vi nå at du gjennomgår en strengere "
+"autentiseringsprosess."
+
+#, c-format
+msgid ""
+"In order to proceed with the upgrade process, we have to verify that you are who you claim.  "
+"The best way to be sure is to ask you to make a tiny change in the Gallery directory which "
+"will prove that you have the right permissions.  So, we're going to ask that you create a "
+"new text file called %s in the %s directory on your webserver (that's the same directory "
+"where %s is located). It must contain the following randomly generated characters:"
+msgstr ""
+"For å fortsette oppgraderingsprosessen, må vi verifisere at du er den du påstår du er. Den "
+"beste måten å være sikker på er å be deg om å gjøre en endring i Gallery-katalogen som vil "
+"bevise at du har de rette tilgangene. Så vi vil be deg opprette en ny tekstfil kalt %s i "
+"katalogen %s på din nettjener (det er den samme katalogen som %s befinner seg). Den må "
+"inneholde følgende vilkårlig genererte tegn:"
+
+msgid "Once you've uploaded the file, click below to continue."
+msgstr "Når du har lastet opp filen, trykk nedenfor for å fortsette."
+
+msgid "Authenticate Me"
+msgstr "Autentiser meg"
+
+msgid "Authentication successful!"
+msgstr "Vellykket autentisering!"
+
+msgid "Successfully cleaned caches."
+msgstr "Vellykket rensing av hurtiglager."
+
+msgid "Delete Caches"
+msgstr "Slett hurtiglager!"
+
+msgid ""
+"Gallery creates temporary copies of some of your data on your hard drive.  This helps it to "
+"run faster.  But when you upgrade, some of these files might be out of date so it's a good "
+"idea to get rid of them now.  Gallery will create them again as it needs them."
+msgstr ""
+"Gallery oppretter midlertidige kopier av noe av din data på din harddisk. Dette hjelper den "
+"å kjøre raskere. Når du oppgraderer kan noen av disse filene være utdaterte, så det er en "
+"god idé å bli kvitt de nå. Gallery vil opprette dem igjen ved behov."
+
+msgid ""
+"We were unable to clean the following cache directories.  This is probably ok, but if you "
+"notice any weird behaviour, you should try to delete these directories yourself.  It's "
+"perfectly safe to get rid of them at any time."
+msgstr ""
+"Vi kunne ikke tømme følgende hurtiglagerkataloger. Dette er sannsynligvis ok, men om du "
+"merker rar oppførsel bør du forsøke å slette disse katalogene selv. Det er trygt å kvitte "
+"seg med dem når som helst."
+
+msgid ""
+"Even though there were errors, you can still continue.  Or, you can try deleting these "
+"directories yourself and then click the <b>Try Again</b> link below."
+msgstr ""
+"Selv om det oppsod feil kan du fortsette, eller du kan forsøke å slette disse katalogene "
+"selv, og så trykke på <b>Prøv igjen</b> nedenfor."
+
+msgid "Try Again"
+msgstr "Prøv igjen"
+
+msgid "Finished!"
+msgstr "Fullført!"
+
+msgid ""
+"Congratulations! Your Gallery 2 upgrade is complete!  To upgrade any additional Gallery 2 "
+"plugins you may use the Site Administrator interface."
+msgstr ""
+"Gratulerer! Oppgradering av Gallery 2 er fullført! For å oppgradere andre Gallery 2-moduler "
+"kan du bruke nettstedadministrasjonen."
+
+msgid "Go to my Gallery!"
+msgstr "Gå til mitt galleri!"
+
+msgid "Upgrader Help"
+msgstr "Oppgraderingshjelp"
+
+msgid "Start Over"
+msgstr "Start på nytt"
+
+msgid "Warning"
+msgstr "Advarsel"
+
+#, c-format
+msgid ""
+"Your config.php appears to use the old form of multisite support.  Please see the %sHelp File"
+"%s for instructions to update your configuration before proceeding."
+msgstr ""
+"Din config.php ser ut til å bruke den gamle formen for flerstedstøtte. Vennligst se %"
+"sHjelpefilen%s for instruksjoner om hvordan du oppdaterer ditt oppsett for du fortsetter."
+
+msgid "Welcome to the Gallery Upgrader"
+msgstr "Velkommen til Galleryoppgradereren"
+
+#, c-format
+msgid "Upgrade %d%% complete"
+msgstr "Oppgradering %d%% fullført"
+
+msgid "Redo this step"
+msgstr "Gjør dette trinnet om igjen"
+
+#, c-format
+msgid "Continue to Step %d&raquo;"
+msgstr "Fortsett til trinn %d&raquo;"
+
+msgid "Gallery: <strong>your photos</strong> on <strong>your website</strong>"
+msgstr "Gallery: <strong>Dine bilder</strong> på <strong>ditt nettsted</strong>"
+
+#, c-format
+msgid "Missing files (%d)"
+msgstr "Manglende filer (%d)"
+
+msgid ""
+"Note: You're running Gallery from SVN, so recently removed files may appear here.  It might "
+"be safe to ignore these."
+msgstr ""
+"Merknad: Du kjører Gallery fra SVN, så nylig flyttede filer kan opptre her. De kan være "
+"trygt å se bort fra disse."
+
+#, c-format
+msgid "Modified files (%d)"
+msgstr "Endrede filer (%d)"
+
+msgid ""
+"Note: You're running Gallery from SVN, so some modified files are to be expected.  You can "
+"probably ignore these, but to be safe you should make sure that you do 'svn update' before "
+"continuing."
+msgstr ""
+"Merknad: Du kjører Gallery fra SVN, så enkelte endrede filer er å forvente. Du kan "
+"sannsynligvis se bort fra disse, men for å være sikker bør du forsikre deg om at du kjører "
+"«svn update» før du fortsetter."
+
+#, c-format
+msgid "Old files (%d)"
+msgstr "Gamle filer (%d)"
+
+#, c-format
+msgid ""
+"These files are no longer part of Gallery. They probably won't cause any problems but it is "
+"a good idea to remove them to keep your install clean.  Gallery can't remove these files for "
+"you, but you can download and run %s in your gallery2 directory to delete them for you."
+msgstr ""
+"Disse filene er ikke lenger en del av Gallery. De vil sannsynligvis ikke gjøre noe skade, "
+"men det er en god idé å fjerne dem for å holde installasjonen din ren. Gallery kan ikke "
+"flytte disse filene for deg, men du kan laste ned og kjøre %s i din Gallery 2-katalog for å "
+"slette dem for deg."
+
+msgid "this script"
+msgstr "dette skriptet"
+
+msgid "Upgrade Steps"
+msgstr "Oppgraderingstrinn"
+
+msgid "Missing or invalid config.php"
+msgstr "Manglende eller ugyldig config.php"
+
+msgid "You tried to run the upgrade process but a valid config.php is missing."
+msgstr "Du forsøkte å kjøre oppgraderingsprosessen men en gyldig config.php mangler."
+
+msgid ""
+"If you've lost your config.php file when replacing the Gallery 2 files in the preparation "
+"for this upgrade, please restore it and try again."
+msgstr ""
+"Om du har mistet din config.php under erstatningen av Galler 2-filene under forberedelsen "
+"for denne oppgraderingen, vennligst gjenopprett den og forsøk igjen."
+
+msgid "If you actually want to run the Gallery 2 installer, please follow the link below."
+msgstr "Om du faktisk ønsker å kjøre Gallery 2-installereren, vennligst følg lenken nedenfor."
+
+msgid ""
+"If you want to upgrade from Gallery 1, you first need to install Gallery 2 and then use the "
+"import module to import your data from Gallery 1. Please follow the link below to install "
+"Gallery 2."
+msgstr ""
+"Om du ønsker å oppgradere fra Gallery 1 må du først installere Gallery 2, og så bruke "
+"importeringsmodulen for å importere dine data fra Gallery 1. Vennligst følg lenken nedenfor "
+"for å installere Gallery 2."
+
+msgid "Go to the Gallery 2 Installer"
+msgstr "Gå til Gallery 2-installereren"
+
+msgid "Success"
+msgstr "Vellykket"
+
+msgid "Failed"
+msgstr "Mislykket"
+
+msgid ""
+"If you are using Apache, create a file named .htaccess in the main Gallery directory with "
+"the following content:"
+msgstr ""
+"Opprett en fil kalt .htaccess i galleriets hovedkatalog med følgende innhold om du bruker "
+"Apache:"
+
+msgid "An error occurred while upgrading Gallery Core Module"
+msgstr "En feil oppstod under oppgradering av Gallerys kjernemodul"
+
+#, c-format
+msgid ""
+"Something went wrong when we tried to upgrade the core module.  In the boxes below you can "
+"find some debug information.  Report this in the %sGallery Forums%s and we'll help you "
+"diagnose the problem."
+msgstr ""
+"Noe gikk galt når vi forsøkte å oppgradere kjernemodulen. I boksene nedenfor kan du finne "
+"noe feilrettingsinformasjon. Rapporter dette i %sGallerys forum%s og vi vil hjelpe deg med å "
+"diagnostisere problemet."
+
+msgid "Stack Trace:"
+msgstr "Stabelsporing:"
+
+msgid "Debug Output:"
+msgstr "Feilrettingsutdata:"
+
+msgid "Upgrading the Gallery Core Module"
+msgstr "Oppgraderer Gallerys kjernemodul"
+
+msgid ""
+"The Gallery Core Module is the heart of the Gallery application.  You can upgrade most other "
+"modules using the Site Administration interface, but this module must be handled separately "
+"in order for the upgrade to go smoothly."
+msgstr ""
+"Gallerys kjernemodul er hjertet i Gallery. Du kan oppgradere de fleste andre modulene "
+"gjennom nettstedadministrasjonen, men denne modulen må behandles for seg selv for at "
+"oppgraderingen skal utføres enkelt."
+
+msgid "Currently installed"
+msgstr "For tiden installert"
+
+#, c-format
+msgid "Core Module version: %s (Gallery %s)"
+msgstr "Kjernemodulversjon: %s (Gallery %s)"
+
+msgid "New version"
+msgstr "Ny versjon"
+
+msgid "Config.php upgrade"
+msgstr "Oppgradering av config.php"
+
+msgid "Required"
+msgstr "Påkrevd"
+
+#, c-format
+msgid "Unable to write to config.php in your %s directory.  Please change its permissions."
+msgstr "Kunne ikke skrive til config.php i katalogen %s. Vennligst endre dens tilganger."
+
+msgid "You can do <i>chmod 666 config.php</i> to fix this."
+msgstr "Du kan kjøre <i>chmod 666 config.php</i> for å reparere dette."
+
+msgid ""
+"The installed version is newer than the version you are trying to upgrade to. You cannot "
+"downgrade G2. Please replace the gallery2 files with files from the currently installed "
+"version or later."
+msgstr ""
+"Den installerte versjonen er nyere enn den versjonen du forsøker å oppgradere til. Du kan "
+"ikke nedgradere G2. Vennligst erstatt Gallery 2-filene med filer fra gjeldende versjon eller "
+"senere."
+
+msgid ""
+"Before you upgrade, we <b>strongly recommend</b> that you make a backup of your database!  "
+"If you fail to make a backup and something goes wrong, there is a strong possibility that we "
+"will not be able to help you recover your data!  Refer to the following example:"
+msgstr ""
+"Før du oppgraderer, <b>anbefaler vi på det sterkeste</b> at du lager en sikkerhetskopi av "
+"databasen din! om du ikke lager en sikkerhetskopi og noe går galt, er det veldig sannsynlig "
+"at vi ikke kan hjelpe deg med å berge dine data! Se på frølgende eksempel:"
+
+msgid "MySQL"
+msgstr "MySQL"
+
+msgid "PostgreSQL"
+msgstr "PostgreSQL"
+
+msgid "Oracle"
+msgstr "Oracle"
+
+msgid "IBM DB2"
+msgstr "IBM DB2"
+
+msgid "Microsoft SQL Server"
+msgstr "Microsoft SQL Server"
+
+msgid ""
+"Once the upgrade has begun, please be patient.  If you cancel or reload the page, you may "
+"interfere with the upgrade process."
+msgstr ""
+"Vennligst vær tålmodig når oppgraderingen har begynt. Om du avbryter eller oppdaterer siden "
+"kan du forstyrre oppgraderingsprosessen."
+
+msgid "Begin Upgrade"
+msgstr "Start oppgradering"
+
+msgid "Recheck config.php"
+msgstr "Kontroller config.php igjen"
+
+msgid "Upgraded Gallery Core Module successfully."
+msgstr "Vellykket oppgradering av Gallerys kjernemodul"
+
+msgid "We've successfully upgraded the Gallery Core Module."
+msgstr "Vi har gjort en vellykket oppgradering av Gallerys kjernemodul."
+
+#, c-format
+msgid ""
+"<b>Reminder</b>: Now update the permissions on config.php to make sure it is not writeable "
+"by other people.  Right now your config.php has modes of %s.  We suggest that you do this:"
+msgstr ""
+"<b>Påminnelse</b>: Oppdater nå tilgangene til config.php for å forsikre om at den ikke er "
+"skrivbar av andre. Akkurat nå har din config.php modusene %s. Vi anbefaler at du gjør dette:"
+
+msgid "Your Gallery Core Module is up to date!"
+msgstr "Din Gallerykjerne er oppdatert!"
+
+msgid ""
+"The following plugins can be automatically upgraded for you.  If you choose not to upgrade "
+"them now, you may experience problems with your Gallery.   You can always upgrade or "
+"deactivate them on the Site Administration page, or return to this page later so any "
+"decision you make here is not permanent."
+msgstr ""
+"Følgende programtillegg kan oppgraderes automatisk for deg. Om du velger å ikke oppgradere "
+"dem nå kan du oppleve problemer med galleriet ditt. Du kan alltid oppgradere eller "
+"deaktivere dem i nettstedadministrasjonen, eller gå tilbake til denne siden senere, så "
+"enhver avgjørelse du gjør her er ikke permanent."
+
+msgid "Deactivated Plugins"
+msgstr "Deaktiverte programtillegg"
+
+msgid ""
+"The following plugins were active, but they are missing or incompatible with your current "
+"version of Gallery.  They have been deactivated.  Install the latest version of these "
+"plugins to reactivate them."
+msgstr ""
+"Følgende programtillegg var aktive, men de mangler eller er ukompatible med gjeldende "
+"versjon av Gallery.  De er deaktiverte.  Installer nyeste versjon av disse programtilleggene "
+"for å aktivere dem igjen."
+
+msgid "Module"
+msgstr "Modul"
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Name"
+msgstr "Navn"
+
+msgid "Current"
+msgstr "Gjeldende"
+
+msgid "New"
+msgstr "Ny"
+
+msgid "Description"
+msgstr "Beskrivelse"
+
+msgid "Incompatible with this version of Gallery"
+msgstr "Ukompatibel med denne versjonen av Gallery"
+
+msgid "(un)check all"
+msgstr "(De-)marker alle"
+
+#, c-format
+msgid "Skip Upgrade and Continue to Step %d&raquo;"
+msgstr "Hopp over oppgradering og fortsett til trinn %d&raquo;"
+
+msgid "Upgrade Selected Plugins"
+msgstr "Oppgrader valgte programtillegg"
+
+#, c-format
+msgid "Upgraded the %s module successfully"
+msgstr "Vellykket oppgradering av modulen %s"
+
+#, c-format
+msgid "Upgraded the %s theme successfully"
+msgstr "Vellykket oppgradering av temaet %s"
+
+msgid "Upgrade More Plugins"
+msgstr "Oppgrader flere programtillegg"
+
+#, c-format
+msgid ""
+"Upgrading Gallery 2 requires %d steps. This upgrade tool will guide you through these steps "
+"and provide assistance along the way if additional steps are required. Please read the %"
+"sHelp File%s before proceeding."
+msgstr ""
+"Å oppgradere Gallery 2 krever %d trinn. Dette oppgraderingsverktøyet vil føre deg gjennom "
+"disse trinnene og gi deg assistanse på veien om flere trinn er nødvendige. Vennligst les %"
+"sHjelpefilen%s før du fortsetter."
+
+msgid ""
+"If you have a busy site, consider putting your Gallery in maintenance mode. This gives "
+"visitors a message that the site is temporarily offline, rather than showing everybody this "
+"upgrade page. Edit your config.php file to activate maintenance mode."
+msgstr ""
+"Om du har et travelt nettsted bør du vurdere å sette ditt galleri i vedlikeholdsmodus. Dette "
+"gir besøkende en melding om at nettstedet er midlertidig nede heller enn å vise alle denne "
+"oppgraderingssiden. Rediger din config.php for å aktivere vedlikeholdsmodus."
+
+msgid "Select Language:"
+msgstr "Velg språk:"
+
+msgid "Go"
+msgstr "Gå"

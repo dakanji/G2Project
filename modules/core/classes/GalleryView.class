@@ -1,0 +1,545 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * The API for module views.
+ * This class defines the API for view classes used by the various modules to render HTML
+ * and binary data to the browser.
+ *
+ * @package GalleryCore
+ * @subpackage Classes
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 17265 $
+ * @abstract
+ */
+class GalleryView {
+
+    /**
+     * The localization domain for this view.
+     * @var string
+     * @access private
+     */
+    var $_l10Domain;
+
+
+    /**
+     * Initialize the view.
+     *
+     * @param string $moduleId the name of the module
+     */
+    function init($moduleId) {
+	global $gallery;
+	$this->_l10Domain = 'modules_' . $moduleId;
+    }
+
+    /**
+     * Is this an immediate or a buffered view?
+     *
+     * @return boolean true if it's an immediate view
+     */
+    function isImmediate() {
+	return false;
+    }
+
+    /**
+     * Print out the immediate output for this view.  This will bypass any global templating.  This
+     * style of view should be reserved for binary data.
+     *
+     * @param array $status any status information from a delegating controller
+     * @param array $error any error information from a delegating controller
+     * @return object GalleryStatus a status code
+     */
+    function renderImmediate($status, $error) {
+	return null;
+    }
+
+    /**
+     * Load the template with data from this view.
+     *
+     * @param object GalleryTemplate $template
+     * @param array $form the form values
+     * @return array object GalleryStatus a status code
+     *               array ('body' => string template or 'redirect' => array)
+     */
+    function loadTemplate(&$template, &$form) {
+	return array(null, null);
+    }
+
+    /**
+     * Does this view allow access to non-admins when site is in maintenance mode?
+     * @return boolean
+     */
+    function isAllowedInMaintenance() {
+	return false;
+    }
+
+    /**
+     * Does this view allow direct access even in embed-only mode?
+     * @return boolean
+     */
+    function isAllowedInEmbedOnly() {
+	return false;
+    }
+
+    /**
+     * Does this view change any data? Only controllers should change data, but AJAX and some
+     * immediate views are handled in views in Gallery.
+     * @return bool true if the view changes data
+     */
+    function isControllerLike() {
+	return false;
+    }
+
+    /**
+     * Should session be saved and session cookie sent when this view is accessed?
+     * @return boolean
+     */
+    function shouldSaveSession() {
+	return true;
+    }
+
+    /**
+     * Type of view.
+     * @return view type contant
+     */
+    function getViewType() {
+	return VIEW_TYPE_MODULE;
+    }
+
+    /**
+     * Load a view.
+     *
+     * Be very security conscious about checking the inputs for possible misuse. The view name is in
+     * the format <module>.<classname>, where
+     * - <module> is the module the view belongs to
+     * - <classname> is the name of the .inc-file to be loaded. The class
+     *   that is loaded is the <classname>View, that must extend GalleryView class
+     *
+     * @param string $viewName a view name in the format <module>.<classname> (eg 'core.ShowItem')
+     * @return array object GalleryStatus a status code
+     *               object GalleryView a view
+     * @static
+     */
+    function loadView($viewName) {
+	global $gallery;
+
+	/* Continue to support old style : separator for a while */
+	if (preg_match('/^(\w+)[.:](\w+)$/', $viewName, $regs) == 1) {
+	    $module = $regs[1];
+	    $class = $regs[2];
+	} else {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+					      "$viewName can't be parsed"), null);
+	}
+
+	/* If the module is not active, only let site admins see the config view */
+	list ($ret, $plugin) = GalleryCoreApi::loadPlugin('module', $module);
+	if ($ret) {
+	    return array($ret, null);
+	}
+	list ($ret, $isActive) = $plugin->isActive();
+	if ($ret) {
+	    return array($ret, null);
+	}
+	if (!$isActive) {
+	    if ($viewName == $plugin->getConfigurationView()) {
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+		if ($ret) {
+		    return array($ret, null);
+		}
+	    } else {
+		return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED),
+			     null);
+	    }
+	}
+
+	$viewClassName = $class . 'View';
+	if (!class_exists($viewClassName)) {
+	    $moduleBaseDir = GalleryCoreApi::getPluginBaseDir('module', $module);
+	    $moduleDir = 'modules/' . $module . '/';
+	    $fileName = $moduleDir . $class . '.inc';
+
+	    $platform =& $gallery->getPlatform();
+	    if (!$platform->file_exists($moduleBaseDir . $fileName)) {
+		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+						  $moduleBaseDir . $fileName), null);
+	    }
+
+	    /*
+	     * We bundle view and controller classes together, so we need the controller superclass
+	     * to load the view
+	     */
+	    GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
+	    GalleryCoreApi::requireOnce($fileName);
+
+	    if (!class_exists($viewClassName)) {
+		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+			     "Class $viewClassName not defined in $viewName"), null);
+	    }
+	}
+
+	$view = new $viewClassName();
+	if (!GalleryUtilities::isA($view, 'GalleryView')) {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+			 "Class $viewClassName is not a subclass of GalleryView"), null);
+	}
+
+	/* Tell the view what module its in */
+	$view->init($module);
+
+	return array(null, $view);
+    }
+
+    /**
+     * Prepare all the various things that a view requires in order to load up the template properly
+     * (like the theme, the form variables, the status variables, etc. then call the view's
+     * loadTemplate() method and pass in the given template.
+     *
+     * @return array object GalleryStatus a status code
+     *               array ('body' => string template or 'redirect' => array)
+     *               object GalleryTheme the current theme
+     */
+    function doLoadTemplate(&$template) {
+	global $gallery;
+	$session =& $gallery->getSession();
+
+	/* -------------------------------------------------- */
+	/* Get our form variables */
+	$form = GalleryUtilities::getFormVariables('form');
+	if (!isset($form['formName'])) {
+	    $form['formName'] = '';
+	}
+	$template->setVariableByReference('form', $form);
+
+	/* -------------------------------------------------- */
+	/* Get our status */
+	$statusId = GalleryUtilities::getRequestVariables('statusId');
+	if (!empty($statusId)) {
+	    $status = $session->getStatus($statusId);
+	} else {
+	    $status = array();
+	}
+	$template->setVariable('status', $status);
+
+	/* -------------------------------------------------- */
+	/* Standard user info available for every view */
+	$user = (array)$gallery->getActiveUser();
+	list ($ret, $user['isGuest']) = GalleryCoreApi::isAnonymousUser($user['id']);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	$user['isRegisteredUser'] = !$user['isGuest'];
+	list ($ret, $user['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
+	if ($ret) {
+	    $user['isAdmin'] = false;
+	}
+	$template->setVariable('user', $user);
+	$themeVars = array('guestPreviewMode' => $session->get('theme.guestPreviewMode') ? 1 : 0);
+	if (!$themeVars['guestPreviewMode']) {
+	    $themeVars['actingUserId'] = $gallery->getActiveUserId();
+	} else {
+	    list ($ret, $themeVars['actingUserId']) = GalleryCoreApi::getAnonymousUserId();
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	}
+	$template->setVariable('theme', $themeVars);
+
+	/* -------------------------------------------------- */
+	/* Load up the theme */
+	list ($ret, $theme, $params, $item) = $this->loadThemeAndParameters();
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+
+	if (!isset($theme)) {
+	    /*
+	     * Need to be able to show error page, login and site admin even if we have no theme!
+	     * (In case our default theme is incompatible with current APIs)
+	     */
+	    if ($this->getViewType() == VIEW_TYPE_ADMIN) {
+		$theme = new GalleryTheme();
+		$theme->setId('fallbackTheme');
+		$isFallbackTheme = true;
+	    } else {
+		$redirect = array('view' => 'core.ShowItemError', 'problem' => 'missingTheme');
+		$itemId = GalleryUtilities::getRequestVariables('itemId');
+		if ($itemId) {
+		    $redirect['itemId'] = $itemId;
+		}
+		return array(null, array('redirect' => $redirect), null);
+	    }
+	}
+
+	$templateAdapter =& $gallery->getTemplateAdapter();
+	$templateAdapter->setTheme($theme);
+
+	/* -------------------------------------------------- */
+	/* Specify our base css style before the view's, so that the view can override it */
+	$template->style('modules/core/data/gallery.css');
+
+	/* -------------------------------------------------- */
+	/* Let the view and theme load up template data */
+	list ($ret, $results) = $this->loadTemplate($template, $form);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	if (isset($results['redirect']) || isset($results['redirectUrl'])) {
+	    return array(null, $results, $theme);
+	}
+
+	list ($ret, $results) = $theme->loadTemplate($this, $template, $item, $params, $results);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+
+	return array(null, $results, $theme);
+    }
+
+    /**
+     * This should return a description of the current view.
+     *
+     * It might return a static description or generate a dynamic description using the current
+     * request status
+     *
+     * @return array object GalleryStatus
+     *               string localized description
+     */
+    function getViewDescription() {
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
+    }
+
+    /**
+     * Get the localization domain for this view.
+     * @return string
+     */
+    function getL10Domain() {
+	return $this->_l10Domain;
+    }
+
+    /**
+     * Return the current item, as specified in the itemId request variable.
+     *
+     * If no itemId is specified as request variable the default album is returned.
+     *
+     * @param bool $checkPermissions (optional) Default true. Whether to enfore the required (view)
+     *                                          permission.
+     * @return array GalleryStatus a status code
+     *               GalleryItem an item
+     *               boolean true if item was specified, false if default was used
+     */
+    function getItem($checkPermissions=true) {
+	global $gallery;
+	$itemId = (int)GalleryUtilities::getRequestVariables('itemId');
+	$wasSpecified = true;
+
+	/* If we don't have an itemId, default to the root album */
+	if (empty($itemId)) {
+	    $wasSpecified = false;
+	    list ($ret, $itemId) = GalleryCoreApi::getDefaultAlbumId();
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	}
+
+	/* Load the item */
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
+	if ($ret) {
+	    return array($ret, null, null);
+	}
+	
+	if (!GalleryUtilities::isA($item, 'GalleryItem')) {
+	    /* Invalid itemId given, return MISSING_OBJECT to get standard error page */
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null);
+	}
+
+	if ($checkPermissions) {
+	    list ($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
+	    if ($ret) {
+		return array($ret, null, null);
+	    }
+	    if (!$hasPermission) {
+		/* Avoid information disclosure by treating this as if the item didn't exist. */
+		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null);
+	    }
+	}
+
+	return array(null, $item, $wasSpecified);
+    }
+
+    /**
+     * Return the current item, as specified in the itemId request variable.
+     *
+     * @return array object GalleryStatus a status code
+     *               object GalleryItem an item
+     *               boolean true if item was specified, false if default was used
+     * @deprecated Please use getItem() instead.
+     */
+    function _getItem() {
+	return $this->getItem();
+    }
+
+    /**
+     * Load theme, theme parameters and item to use for this view.
+     *
+     * @return array object GalleryStatus a status code
+     *               object GalleryTheme a theme instance, or null on loadPlugin failure
+     *               array theme parameters
+     *               object GalleryEntity item context
+     */
+    function loadThemeAndParameters() {
+	list ($ret, $item, $wasSpecified) = $this->getItem();
+	if ($ret) {
+	    /* Ignore missing object here to avoid revealing valid/invalid ids */
+	    if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
+		$wasSpecified = false;
+		list ($ret, $itemId) = GalleryCoreApi::getDefaultAlbumId();
+		if (!$ret) {
+		    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
+		}
+	    }
+	    if ($ret) {
+		return array($ret, null, null, null);
+	    }
+	}
+
+	list ($ret, $theme) = $this->loadThemeForItem($wasSpecified ? $item : null);
+	if ($ret || !isset($theme)) {
+	    /* Ignore errors here so fallback theme can be used */
+	    return array(null, null, array(), $item);
+	}
+
+	/* Albums have their own settings.  Items use their parent album's settings */
+	if (GalleryUtilities::isA($item, 'GalleryItem') && !$item->getCanContainChildren()) {
+	    $targetId = $item->getParentId();
+	} else {
+	    $targetId = $item->getId();
+	}
+	list ($ret, $params) = $theme->fetchParameters($wasSpecified ? $targetId : null);
+	if ($ret) {
+	    return array($ret, null, null, null);
+	}
+
+	return array(null, $theme, $params, $item);
+    }
+
+    /**
+     * Get the theme for this item by finding the theme id for the nearest album.
+     *
+     * @param object GalleryItem $item (optional) omit or pass null to load default theme
+     * @return array object GalleryStatus a status code
+     *               object GalleryTheme a theme instance
+     */
+    function loadThemeForItem($item=null) {
+	if (!isset($item)) {
+	    $nearestAlbum = null;
+	} else if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
+	    $nearestAlbum = $item;
+	} else {
+	    list ($ret, $nearestAlbum) = GalleryCoreApi::loadEntitiesById($item->getParentId());
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+
+	/* Load the theme, fallback to the default theme if none is specified */
+	if (isset($nearestAlbum)) {
+	    list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($nearestAlbum);
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	} else {
+	    list ($ret, $themeId) =
+		GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+
+	list ($ret, $theme) = GalleryView::_loadTheme($themeId);
+	if ($ret) {
+	    return array($ret, null);
+	}
+	return array(null, $theme);
+    }
+
+    /**
+     * Load the given theme if it's active.
+     *
+     * @param string $themeId
+     * @return array object GalleryStatus a status code
+     *               object GalleryTheme theme or null
+     * @access private
+     * @static
+     */
+    function _loadTheme($themeId) {
+	$validTheme = false;
+	list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId, false, true);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	if (isset($theme)) {
+	    list ($ret, $validTheme) = $theme->isActive();
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	}
+	if (!$validTheme) {
+	    $theme = null;
+	}
+
+	return array(null, $theme);
+    }
+
+    /**
+     * Process possible permission errors when accessing a view.
+     * If the given status indicates permission denied or missing object and this is a guest
+     * user, redirect to the login view.  Otherwise return given status to be shown by the
+     * error handler.  Missing object is treated like permission denied to avoid information
+     * disclosure by trying URLs with different ids.
+     * @param GalleryStatus $ret or null
+     * @return array for return from GalleryView::loadTemplate or null
+     * @access protected
+     */
+    function _permissionCheck($ret) {
+	global $gallery;
+	$result = null;
+	if ($ret) {
+	    if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
+		$ret->addErrorCode(ERROR_PERMISSION_DENIED);
+	    }
+	    $result = array($ret, null);
+	    if ($ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
+		list ($ret2, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
+		if ($ret2) {
+		    return $result;
+		}
+		if ($isAnonymous) {
+		    /* Redirect to login view */
+		    $result = array(null,
+				    array('redirect' => $gallery->getConfig('loginRedirect')));
+		}
+	    }
+	}
+	return $result;
+    }
+}
+?>

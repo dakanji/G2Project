@@ -1,0 +1,433 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+/**
+ * This is Gallery's templating class.  It hides the details of the implementation (eg, Smarty)
+ * and provides a unified means of handling internationalization.
+ * @package GalleryCore
+ * @subpackage Classes
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 15513 $
+ */
+
+/**
+ * The current protocol version of the template data.  Whenever the template library changes,
+ * bump this number to trigger a complete rebuild of all compiled templates.
+ */
+define('TEMPLATE_DATA_VERSION', 12);
+
+/**
+ * This is Gallery's templating class.  It hides the details of the implementation (eg, Smarty)
+ * and provides a unified means of handling internationalization.
+ */
+class GalleryTemplate {
+
+    /**
+     * The Smarty instance
+     * @var object Smarty
+     * @access private
+     */
+    var $_smarty;
+
+    /**
+     * The directory containing our template files
+     * @var string
+     * @access private
+     */
+    var $_templateDir;
+
+    /**
+     * A directory where the templates will be written into.
+     * @var string
+     * @access private
+     */
+    var $_compiledTemplateDir;
+
+
+    function GalleryTemplate($templateDir, $initSmarty=true, $trimWhitespace=true) {
+	global $gallery;
+	$this->_templateDir = $templateDir;
+
+	/* This will be the place to put the compiled templates */
+	$this->_compiledTemplateDir = $gallery->getConfig('data.smarty.templates_c') .
+	    '%%' . sprintf("%u", crc32($templateDir));
+	if ($initSmarty) {
+	    $this->_smarty = GalleryTemplate::_getSmarty($trimWhitespace);
+	}
+    }
+
+    /**
+     * Assign a template key/value pair
+     *
+     * @param string $key
+     * @param mixed $value
+     */
+    function setVariable($key, $value=null) {
+	$this->_smarty->assign($key, $value);
+    }
+
+    /**
+     * Retrieve a template value
+     *
+     * @param string $key
+     * @return mixed value
+     */
+    function getVariable($key) {
+	$templateVars = $this->_smarty->get_template_vars();
+	return $templateVars[$key];
+    }
+
+    /**
+     * Retrieve a reference to a template value
+     *
+     * @param string $key
+     * @return mixed value
+     */
+    function &getVariableByReference($key) {
+	$templateVars =& $this->_smarty->get_template_vars();
+	return $templateVars[$key];
+    }
+
+    /**
+     * Return true if the given variable is set
+     *
+     * @param string $key
+     * @return boolean
+     */
+    function hasVariable($key) {
+	$templateVars = $this->_smarty->get_template_vars();
+	return isset($templateVars[$key]);
+    }
+
+    /**
+     * Assign a template key/value pair
+     *
+     * @param string $key
+     * @param mixed $value
+     */
+    function setVariableByReference($key, &$value) {
+	$this->_smarty->assign_by_ref($key, $value);
+    }
+
+    /**
+     * Add a template to include in the <head> section
+     * @param string $tpl template path
+     * @param string $l10Domain (optional) localization domain
+     *               default={1stdir}_{2nddir} from template path
+     */
+    function head($tpl, $l10Domain=null) {
+	$head =& $this->getVariableByReference('head');
+	if (!isset($l10Domain)) {
+	    list ($type, $id, $junk) = explode('/', $tpl, 3);
+	    $l10Domain = $type . '_' . $id;
+	}
+	$head['tpl'][$tpl] = $l10Domain;
+    }
+
+    /**
+     * Set the title to include in the <head> section
+     * @param string $title localized title
+     */
+    function title($title) {
+	$head =& $this->getVariableByReference('head');
+	$head['title'] = $title;
+    }
+
+    /**
+     * Add a stylesheet to include in the <head> section
+     * @param string $path stylesheet path relative to gallery2 dir
+     */
+    function style($path) {
+	$head =& $this->getVariableByReference('head');
+	$head['style'][] = $path;
+    }
+
+    /**
+     * Add a JavaScript to include in the <head> section
+     * @param string $path script path relative to gallery2 dir
+     */
+    function javascript($path) {
+	$head =& $this->getVariableByReference('head');
+	$head['javascript'][] = $path;
+    }
+
+    /**
+     * Render the properly localized template
+     *
+     * @param string $templateName
+     * @return array object GalleryStatus the status of the call
+     *               string the HTML content
+     */
+    function fetch($templateName) {
+	$this->_smarty->template_dir = $this->_templateDir;
+
+	$ret = $this->_initCompiledTemplateDir();
+	if ($ret) {
+	    return array($ret, null);
+	}
+	$this->_smarty->compile_dir = $this->_compiledTemplateDir;
+
+	list ($ret, $html) = $this->_smarty->fetch($templateName);
+	if ($ret) {
+	    return array($ret, null);
+	}
+
+	return array(null, $html);
+    }
+
+    /**
+     * Display the properly localized template
+     *
+     * @param string $templateName
+     * @return object GalleryStatus the status of the call
+     */
+    function display($templateName) {
+	$this->_smarty->template_dir = $this->_templateDir;
+
+	$ret = $this->_initCompiledTemplateDir();
+	if ($ret) {
+	    return $ret;
+	}
+	$this->_smarty->compile_dir = $this->_compiledTemplateDir;
+
+	list ($ret, $junk) = $this->_smarty->fetch($templateName, null, null, true);
+	if ($ret) {
+	    return $ret;
+	}
+	return null;
+    }
+
+    /**
+     * Initializes the directory where compiled templates will be saved
+     * for this specific template directory
+     *
+     * Each module should have its own directory for compiled Smarty
+     * templates so that no name clashes occur. This subdirectory will be
+     * created on demand here.
+     *
+     * @return array object GalleryStatus a status code
+     */
+    function _initCompiledTemplateDir() {
+	global $gallery;
+	$platform =& $gallery->getPlatform();
+
+	/* Make a unique subdirectory for compiled templates for this templates dir */
+	$dir = $this->_compiledTemplateDir;
+	if ($platform->file_exists($dir) && !$platform->is_dir($dir)) {
+	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
+	}
+
+	$templateVersionFile = $dir . '/v_' . TEMPLATE_DATA_VERSION;
+	if (!$platform->file_exists($dir)) {
+	    list ($success) = GalleryUtilities::guaranteeDirExists($dir);
+	    if (!$success) {
+		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+					    "Unable to mkdir($dir)");
+	    }
+	    if ($fd = $platform->fopen($templateVersionFile, 'w')) {
+		$platform->fclose($fd);
+	    } else {
+		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+					    sprintf('Unable to write to %s', $templateVersionFile));
+	    }
+	} else {
+	    if (!$platform->is_writeable($dir)) {
+		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
+	    }
+
+	    $rebuild = false;
+	    if (!$platform->file_exists($templateVersionFile)) {
+		$rebuild = true;
+	    }
+
+	    if ($rebuild) {
+		/* Get rid of the current dir and start again. */
+		if (!$platform->recursiveRmDir($dir)) {
+		    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+						"Unable to remove dir $dir");
+		}
+		$this->_initCompiledTemplateDir();
+	    }
+	}
+
+	return null;
+    }
+
+    /**
+     * Return a properly configured instance of Smarty.  This used to be a single shared static
+     * instance of Smarty, but now we build it every time we need it.  Theoretically we shouldn't
+     * be creating more than one GalleryTemplate and hence, more than one Smarty instance per
+     * request.  However, having it as a static object makes it less testable.
+     *
+     * @return object Smarty
+     * @static
+     * @access private
+     */
+    function _getSmarty($trimWhitespace) {
+	global $gallery;
+
+	GalleryCoreApi::requireOnce('modules/core/classes/GallerySmarty.class');
+	$smarty = new GallerySmarty();
+
+	/* Compiled templates go here */
+	$smarty->compile_dir = $gallery->getConfig('data.smarty.templates_c');
+
+	/* Don't let Smarty change the error reporting level */
+	$smarty->error_reporting = error_reporting();
+
+	/* We have our own plugins */
+	$platform =& $gallery->getPlatform();
+	$slash = $platform->getDirectorySeparator();
+	$smarty->plugins_dir[] = dirname(__FILE__) . '/../../../lib/smarty_plugins';
+
+	if ($gallery->getDebug()) {
+	    $smarty->debugging = true;
+	}
+	$smarty->use_sub_dirs = false;
+
+	$templateAdapter =& $gallery->getTemplateAdapter();
+	$smarty->register_object('g', $templateAdapter, array(), true,
+				 array('addToTrailer', 'autoComplete', 'container'));
+
+	$smarty->register_resource('gallery',
+				   array('GalleryTemplate',
+					 'resourceGetTemplate',
+					 'resourceGetTimestamp',
+					 'resourceGetSecure',
+					 'resourceGetTrusted'));
+
+	if ($trimWhitespace) {
+	    $smarty->register_prefilter(array('GalleryTemplate', 'preFilter'));
+	}
+
+	$smarty->assign('head', array('tpl' => array(), 'style' => array()));
+
+	return $smarty;
+    }
+
+    /**
+     * Remove leading whitespace when compiling tpl to produce smaller html page sizes.
+     * @param string $source tpl content
+     * @param object GallerySmarty smarty
+     * @return string processed tpl content ready for compilation
+     * @static
+     */
+    function preFilter($source, &$smarty) {
+	return preg_replace('/^\s+/m', '', $source);
+    }
+
+    /**
+     * Returns the base directory of the specified template. This is required
+     * to support loading templates from g2data/plugins.
+     *
+     * @author Jozef Selesi (selesi at gmail dot com)
+     *
+     * @param string $templateName Template to get base directory for.
+     * @param object Smarty $smarty
+     */
+    function resourceGetTemplateBaseDir($templateName, &$smarty) {
+	if (preg_match('/^(module|theme)s\/(.+)(\/.+)/iU', $templateName, $pluginId)) {
+	    return GalleryCoreApi::getPluginBaseDir($pluginId[1], $pluginId[2]) . '/';
+	} else {
+	    return $smarty->template_dir . '/';
+	}
+    }
+
+    /**
+     * @see http://smarty.php.net/manual/en/template.resources.php
+     *
+     * This is basically the same as the file: resource except that we look for a template
+     * called "local/foo.tpl" first and use that instead, if it exists.  This allows users to
+     * override templates with our own copies without modifying the original.
+     */
+    function resourceGetTemplate($templateName, &$templateSource, &$smarty) {
+	$templateName = GalleryTemplate::_getActualTemplateName(
+	    GalleryTemplate::resourceGetTemplateBaseDir($templateName, $smarty) . $templateName);
+
+	$templateSource = $smarty->_read_file($templateName);
+
+	return true;
+    }
+
+    /**
+     * @see http://smarty.php.net/manual/en/template.resources.php
+     *
+     * This is basically the same as the file: resource except that we look for a template
+     * called "local/foo.tpl" first and use that instead, if it exists.  This allows users to
+     * override templates with our own copies without modifying the original.
+     */
+    function resourceGetTimestamp($templateName, &$templateTimestamp, &$smarty) {
+	global $gallery;
+	$platform =& $gallery->getPlatform();
+
+	$templateName = GalleryTemplate::_getActualTemplateName(
+	    GalleryTemplate::resourceGetTemplateBaseDir($templateName, $smarty) . $templateName);
+
+	if ($platform->file_exists($templateName)) {
+	    $stat = $platform->stat($templateName);
+	    $templateTimestamp = $stat[9];
+
+	    return true;
+	} else {
+	    return false;
+	}
+    }
+
+    /**
+     * Given a template name (/foo/bar.tpl), return one of the following
+     * strings (in order of precedence).
+     *   1.  /foo/local/bar.tpl  (if it exists)
+     *   2.  /foo/bar.tpl        (whether or not it exists)
+     *
+     * @param string $templateName base template name
+     * @return string template to use
+     * @static
+     * @access private
+     */
+    function _getActualTemplateName($templateName) {
+	global $gallery;
+	$platform =& $gallery->getPlatform();
+
+	/* Check for override:  local/file.ext */
+	$localTemplateName = dirname($templateName) . '/local/' . basename($templateName);
+	if ($platform->file_exists($localTemplateName) &&
+		$platform->is_readable($localTemplateName)) {
+	    return $localTemplateName;
+	}
+
+	/* Stick with whatever they gave us */
+	return $templateName;
+    }
+
+    /**
+     * @see http://smarty.php.net/manual/en/template.resources.php
+     */
+    function resourceGetSecure($templateName, &$smarty) {
+	/* Assume all templates are secure */
+	return true;
+    }
+
+    /**
+     * @see http://smarty.php.net/manual/en/template.resources.php
+     */
+    function resourceGetTrusted($templateName, &$smarty) {
+	/* Not used for templates */
+    }
+}
+?>

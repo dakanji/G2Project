@@ -1,0 +1,72 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+GalleryCoreApi::requireOnce('modules/getid3/classes/Getid3Toolkit.class');
+
+/**
+ * Test Getid3Toolkit functionality
+ * @package Getid3
+ * @subpackage PHPUnit
+ * @author Don Willingham <donwillingham@users.sf.net>
+ * @version $Revision: 15513 $
+ */
+class Getid3ToolkitTest extends GalleryTestCase {
+
+    function Getid3ToolkitTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	parent::setUp();
+
+	/* Get a toolkit to work with */
+	$this->_toolkit =& new Getid3Toolkit();
+    }
+
+    function testGetProperties() {
+	list ($ret, $results) =
+	    $this->_toolkit->getProperty('video/x-msvideo', 'originationTimestamp',
+					 dirname(__FILE__) . '/../data/test_small.avi');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	$this->assertEquals(array(mktime(15, 06, 18, 1, 15, 2006)),
+			    $results,
+			    "originationTimestamp for test_small.avi");
+
+	list ($ret, $results) =
+	    $this->_toolkit->getProperty('video/quicktime', 'originationTimestamp',
+					 dirname(__FILE__) . '/../data/newday.mov');
+	if ($ret) {
+	    return $this->failWithStatus($ret);
+	}
+	/* Use mktime() instead of hardcoding a value */
+	/* mktime(21, 18, 18, 5, 28, 2000) */
+	$date = getdate(863289129);
+	$stamp = gmmktime($date['hours'], $date['minutes'],  $date['seconds'],
+			$date['mon'],   $date['mday'],     $date['year']);
+	$this->assertEquals(array($stamp),
+			    $results,
+			    "originationTimestamp for newday.mov");
+
+    }
+}
+
+?>

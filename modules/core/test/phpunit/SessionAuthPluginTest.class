@@ -1,0 +1,97 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+
+GalleryCoreApi::requireOnce('modules/core/test/phpunit/UserLoginControllerTest.class');
+
+/**
+ * Session authentication tests
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 15513 $
+ */
+class SessionAuthTest extends GalleryTestCase {
+
+    function SessionAuthTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+	parent::setUp();
+
+	/* Create a new user */
+	list ($ret, $this->_user) = $this->_createRandomUser(null, 'password');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret);
+	}
+
+	$this->_markForCleanup($this->_user);
+
+	$this->_saveSession = $gallery->_session;
+
+	/* Set up a mock session so that we don't accidentally log out the PHPUnit session */
+	$this->_mockSession = new UserLoginControllerTestSession();
+	$gallery->_session =& $this->_mockSession;
+    }
+
+    function tearDown() {
+	global $gallery;
+	$gallery->_session = $this->_saveSession;
+
+	parent::tearDown();
+    }
+
+    function testSessionAuthValidUser() {
+	$this->_mockSession->setUserId($this->_user->getId());
+
+	GalleryCoreApi::requireOnce('modules/core/classes/SessionAuthPlugin.class');
+
+	$plugin = new SessionAuthPlugin();
+	list ($ret, $user) = $plugin->getUser();
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+
+	$this->assertEquals($this->_user, $user);
+    }
+
+    function testSessionAuthInvalidUser() {
+	list ($ret, $userId) = $this->_getUnusedId();
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+
+	$this->_mockSession->setUserId($userId);
+
+	GalleryCoreApi::requireOnce('modules/core/classes/SessionAuthPlugin.class');
+
+	$plugin = new SessionAuthPlugin();
+	list ($ret, $user) = $plugin->getUser();
+	if ($ret) {
+	    $this->failWithStatus($ret);
+	}
+
+	$this->assert(!isset($user));
+    }
+}
+?>

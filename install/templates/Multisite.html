@@ -1,0 +1,118 @@
+    <script type="text/javascript" src="../lib/yui/yahoo-min.js"></script>
+    <script type="text/javascript" src="../lib/yui/dom-min.js"></script>
+    <script type="text/javascript" src="../lib/yui/event-min.js"></script>
+    <script type="text/javascript" src="../lib/yui/connection-min.js"></script>
+    <script type="text/javascript" src="../lib/yui/animation-min.js"></script>
+    <script type="text/javascript" src="../lib/yui/autocomplete-min.js"></script>
+    <script type="text/javascript" src="../lib/javascript/AutoComplete.js"></script>
+
+    <?php if (isset($templateData['error'])): ?>
+	<div class="error">
+      <h2>
+      <?php print _('Errors occurred. Please see messages below.') ?>
+      </h2>
+    </div>
+    <?php endif; ?>
+
+    <h1><?php print _('Installation Type') ?></h1>
+    <p>
+      <?php print _('Please select the installation type') ?>
+    </p>
+    <form method="post" action="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $stepNumber)) ?>">
+    <div class="multisite">
+      <input type="radio" id="rbStandard" name="isMultisite" value="0" onclick="linkToggle(0)"
+	<?php if (!$templateData['isMultisite']) print 'checked="checked"' ?>>
+      <label for="rbStandard" class="radio">
+	<?php print _('Standard installation') ?>
+      </label>
+      <br/>
+      <?php printf(_('This is the default installation type. Choose this installation type if you want to install a new Gallery in the directory %s which will be accessible with the URL %s.'),
+                   '<tt>' . $templateData['galleryDir'] . '</tt>', '<tt>' . $templateData['galleryUrl'] . '</tt>') ?>
+    </div>
+    <div class="multisite">
+      <input type="radio" id="rbMultisite" name="isMultisite" value="1" onclick="linkToggle(1)"
+	<?php if ($templateData['isMultisite']) print 'checked="checked"' ?>>
+      <label for="rbMultisite" class="radio">
+	<?php print _('Multisite installation') ?>
+      </label>
+      <br/>
+      <?php print _('Gallery can support multiple independent sites with a single installation of the code. Choose this installation type if you want to install a new Gallery on the same webserver but in a different path, subdomain or URL domain.') ?>
+      <br/>
+      <?php printf(_('The multisites don\'t share albums, photos, users, or anything else. They all need their own database and their own storage directory. For more information and explanations about Multisite installations, visit the %s page.'),
+                   '<a href="http://codex.gallery2.org/index.php/Gallery2:Multisite" target="_blank">Multisite Documentation</a>') ?>
+      <br/>
+      <br/>
+      <?php if (isset($templateData['error'])): ?>
+    	<div class="error" style="padding-top: 0.8em; padding-bottom: 0.9em">
+    	  <?php if (isset($templateData['error']['missing_value'])): ?>
+	    <?php print _('You must enter a directory');?>
+	  <?php elseif (isset($templateData['error']['codebase_dir'])): ?>
+	    <?php print _('The directory you entered is the codebase directory. If you want to install a Gallery in the codebase directory, select the standard installation type. If you want to install a multisite, choose another directory.'); ?>
+    	  <?php elseif (isset($templateData['error']['missing_dir'])): ?>
+	    <?php if (!empty($templateData['openBasedir'])): ?>
+	      <?php print _('The directory you entered either does not exist, or is prohibited by your webserver configuration.  Your webserver is configured to only allow access to the following directories.  You must choose a directory under one of these, or you must modify the <b>open_basedir</b> setting in your PHP configuration to allow a new directory.'); ?>
+              <ul>
+              <?php foreach ($templateData['openBasedir'] as $dir): ?>
+                <li> <?php print $dir ?> </li>
+              <?php endforeach; ?>
+              </ul>
+              <?php print _('If your multisite install is in a different virtual host, you should contact your system administrator and request that they configure your <b>open_basedir</b> setting so that your virtual hosts can access each other.'); ?>
+            <?php else: ?>
+    	      <?php print _('The directory you entered does not exist'); ?>
+            <?php endif; ?>
+          <?php elseif (isset($templateData['error']['inaccessible_dir'])): ?>
+	      <?php print _('The directory you entered is not accessible.  Change the permissions so that the webserver can read this directory.'); ?>
+          <?php elseif (isset($templateData['error']['creation_error'])): ?>
+	    <?php print _('Unable to create multisite files. Ensure the files listed below are writeable.'); ?>
+          <?php endif; ?>
+    	</div>
+     	<br/>
+      <?php endif; ?>
+      <?php print _('All multisites are installed from this central code repository (codebase).') ?>
+      <br/>
+      <?php print _('Enter the directory for the new multisite below. The path must be different from this codebase installation\'s path:') ?>
+      <br/>
+      <input type="text" id="dir" name="configPath" size="50"
+	     value="<?php print $templateData['configPath'] ?>" autocomplete="off"/>
+      <script type="text/javascript">
+	// <![CDATA[
+        YAHOO.util.Event.addListener(
+          this, 'load',
+          function(e, data) { autoCompleteAttach(data[0], data[1]); },
+          ['dir', '<?php generateUrl(sprintf('%s?step=%s&%s=%s', INDEX_PHP, $currentStep->getStepNumber(), session_name(), session_id())) ?>&doAutoComplete=1&path=__VALUE__']);
+
+	function linkToggle(m) {
+	  document.getElementById('linkContinue').style.display = m ? 'none' : 'inline';
+	  document.getElementById('linkSelect').style.display = m ? 'inline' : 'none';
+	}
+	// ]]>
+      </script>
+      <br/>
+
+      <?php print _('The directory must be writeable by your webserver/php user or contain the following writeable files:') ?>
+      <div class="example">
+<pre>
+main.php
+index.php
+embed.php
+upgrade/index.php
+lib/support/index.php (optional)
+</pre>
+      </div>
+    </div>
+    </form>
+
+    <div class="go">
+	  <div class="btn btn-continue"><div><div><div><div><div><div><div><div>
+	<a href="javascript:document.forms[0].submit()">
+	  <span id="linkContinue"
+	    <?php if ($templateData['isMultisite']) print ' style="display: none"' ?>>
+	    <?php printf(_('Continue to Step %d&raquo;'), $stepNumber + 1) ?>
+	  </span>
+	  <span id="linkSelect"
+	    <?php if (!$templateData['isMultisite']) print ' style="display: none"' ?>>
+	    <?php print _('Select Directory') ?>
+	  </span>
+	</a>
+	  </div></div></div></div></div></div></div></div></div>
+    </div>

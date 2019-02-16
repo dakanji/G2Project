@@ -1,0 +1,140 @@
+# $Id: ru.po 16040 2007-03-16 23:04:36Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2007 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Konstantin Ivanov <Continental@vollen.ru>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: MIME Maintenance 1.1.2\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-09-12 11:46-0700\n"
+"PO-Revision-Date: 2006-03-17 13:11+0300\n"
+"Last-Translator: Konstantin Ivanov <Continental@vollen.ru>\n"
+"Language-Team: Russian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+
+msgid "This type of file not allowed; item will not be added."
+msgstr ""
+
+msgid "MIME Maintenance"
+msgstr "Поддержка MIME "
+
+msgid "Maintain MIME types and file extensions"
+msgstr "Поддержка MIME типов и файловых расширений"
+
+msgid "Extra Data"
+msgstr "Дополнительные Данные"
+
+msgid "MIME Types"
+msgstr "MIME Типы"
+
+#, fuzzy
+msgid "Settings saved successfully"
+msgstr "Записи MIME успешно сохранены"
+
+msgid "MIME entry saved successfully"
+msgstr "Записи MIME успешно сохранены"
+
+msgid "MIME entry deleted"
+msgstr "Записи MIME удалены"
+
+msgid "Allow all uploads"
+msgstr ""
+
+msgid "Block upload of types selected below"
+msgstr ""
+
+msgid "Only allow uploads of types selected below"
+msgstr ""
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Reset"
+msgstr "Сбросить"
+
+msgid "Add new MIME type"
+msgstr "Добавить новый MIME тип"
+
+msgid "Extensions"
+msgstr "Расширения"
+
+msgid "Viewable"
+msgstr "Видимый"
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "edit"
+msgstr "редактировать"
+
+msgid "delete"
+msgstr "удалить"
+
+msgid "Allow Upload"
+msgstr ""
+
+msgid "Block Upload"
+msgstr ""
+
+#, c-format
+msgid "Edit MIME type: %s"
+msgstr "Редактировать MIME тип: %s"
+
+msgid "New MIME type"
+msgstr "Новый MIME тип"
+
+msgid "Mime entry saved successfully"
+msgstr "Запись MIME успешно сохранена"
+
+msgid "MIME type: "
+msgstr "MIME тип:"
+
+msgid "Viewable?"
+msgstr "Видимый?"
+
+msgid "MIME type must be specified."
+msgstr "Должен быть указан MIME тип."
+
+msgid "This extension is already in use and cannot be reused."
+msgstr "Это расширение уже используется и не может быть использовано повторно."
+
+msgid "You must specify at least one extension."
+msgstr "Вы должны указать по крайней мере одно расширение."
+
+msgid "Apply"
+msgstr "Применить"
+
+msgid "Cancel"
+msgstr "Отменить"
+
+#, fuzzy, c-format
+msgid ""
+"Warning: Adding and allowing upload of any of the following mime types could leave you open "
+"to %sCross Site Scripting%s security vulnerabilities."
+msgstr ""
+"Предупреждение: Добавление любого из следующих mime-типов может привести к открытию доступа %"
+"sМежсайтового исполнения сценариев%s, что является одной из уязвимостей, уменьшающей степень "
+"защиты."

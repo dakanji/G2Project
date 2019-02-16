@@ -1,0 +1,263 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2007 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * A framework for scanning all of our source files for specific patterns.  Subclasses must override
+ * the checkFile() method to implement their own checks.
+ * @package Gallery
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @version $Revision: 15612 $
+ */
+class CodeAuditTestCase extends GalleryTestCase {
+
+    function CodeAuditTestCase($methodName) {
+	$this->GalleryTestCase($methodName);
+	$this->_shouldHalt = false;
+	$this->_baseDir = realpath(dirname(__FILE__) . '/../../..');
+	$this->_checkTime = time();
+    }
+
+    function testCodeAudit() {
+	global $gallery;
+	$platform =& $gallery->getPlatform();
+
+	if (!$platform->file_exists($this->_baseDir . '/.svn/entries')) {
+	    $this->assert(false, 'Test skipped: .svn/entries not found');
+	    return;
+	}
+
+	if (!function_exists('xml_parser_create')) {
+	    $this->assert(false, 'Test skipped: PHP does not have XML support');
+	    return;
+	}
+
+	$this->_scanDir($this->_baseDir);
+	if ($this->_shouldHalt) {
+	    $this->assert(false, 'Halted prematurely');
+	}
+
+	$this->finishScan($this->_shouldHalt);
+    }
+
+    function _scanDir($dirPath) {
+	global $gallery;
+	$platform =& $gallery->getPlatform();
+
+	if (($handle = $platform->fopen($dirPath . '/.svn/entries', 'r')) === false) {;
+	    $this->fail('Unable to parse .svn/entries for dir: ' . $dirPath);
+	    return;
+	}
+
+	/*
+	 * The file starts with a decimal number which is the format version of this working copy
+	 * directory, followed by a line feed (0x0a) character.  No whitespace (except for the
+	 * terminating line feed) is allowed before or after the number.  The changes in each format
+	 * are listed in wc.h.
+	 */
+	if ((int)$platform->fread($handle, 2) < 7) {
+	    /* XML format */
+	    $functionName = '_scanXmlDir';
+	} else {
+	    /* Non-XML format */
+	    $functionName = '_scanNonXmlDir';
+	}
+	$platform->fclose($handle);
+
+	$dirPaths = array($dirPath);
+	while (($dirPath = array_shift($dirPaths)) !== null) {
+	    $this->_timeCheck();
+	    $dirPaths = array_merge($dirPaths, $this->$functionName($dirPath));
+	    if ($this->_shouldHalt) {
+		return;
+	    }
+	}
+    }
+
+    function _scanXmlDir($dirPath) {
+	global $gallery;
+	$platform =& $gallery->getPlatform();
+
+	static $KIND;
+	if (!isset($KIND)) {
+	    $KIND = strtoupper('kind'); /* Won't be KIND in Turkish locale */
+	}
+
+	$parser = xml_parser_create();
+	xml_parse_into_struct($parser, $platform->file_get_contents("$dirPath/.svn/entries"),
+			      $xmlValues, $xmlIndex);
+	xml_parser_free($parser);
+
+	if (empty($xmlIndex['ENTRY'])) {
+	    $this->assert(false, 'Unable to parse .svn/entries for dir: ' . $dirPath);
+	    return array();
+	}
+
+	$dirPaths = array();
+	foreach ($xmlIndex['ENTRY'] as $entry) {
+	    if (empty($xmlValues[$entry]['attributes']['NAME'])) {
+		continue;
+	    }
+
+	    if (!empty($xmlValues[$entry]['attributes']['DELETED'])
+		    && $xmlValues[$entry]['attributes']['DELETED'] == 'true') {
+		print "Skipping deleted entry: $subPath<br/>";
+		continue;
+	    }
+
+	    $subPath = $dirPath . '/' . $xmlValues[$entry]['attributes']['NAME'];
+	    switch ($xmlValues[$entry]['attributes'][$KIND]) {
+	    case 'dir':
+		$dirPaths[] = $subPath;
+		break;
+
+	    case 'file':
+		if ($this->shouldCheckFile($subPath)) {
+		    $this->_timeCheck();
+		    $this->checkFile($subPath, $platform->file_get_contents($subPath));
+		    if ($this->_shouldHalt) {
+			return array();
+		    }
+		}
+		break;
+
+	    default:
+		$this->assert(false, 'Unable to parse ' . $xmlValues[$entry]['attributes'][$KIND]);
+	    }
+	}
+
+	return $dirPaths;
+    }
+
+    function _scanNonXmlDir($dirPath) {
+	global $gallery;
+	$platform =& $gallery->getPlatform();
+
+	/*
+	 * The rest of the file contains one record for each directory entry.  Each record contains
+	 * a number of ordered fields as described below.  The fields are terminated by a line feed
+	 * (0x0a) character.  Empty fields are represented by just the terminator.  Empty fields
+	 * that are only followed by empty fields may be omitted from the record.  Records are
+	 * terminated by a form feed (0x0c) and a cosmetic line feed (0x0a).
+	 *
+	 * By matching records which follow a form feed and a line feed (\f\n) we ignore the first
+	 * record, which is for this directory.
+	 *
+	 * ([^\f\n]*\n){20} matches the 20 don't care fields between the name field and the deleted
+	 * field.  It is enclosed in ()? because empty fields that are only followed by empty fields
+	 * may be omitted from the record.
+	 *
+	 * @see libsvn_wc/README
+	 *
+	 * $matches[1][$i] is the name field.
+	 * $matches[2][$i] is the kind field.
+	 * $matches[5][$i] is the deleted field, if present.
+	 */
+	$count = preg_match_all('/\f\n([^\f\n]*)\n([^\f\n]*)\n(([^\f\n]*\n){20}([^\f\n]*)\n)?/',
+	    $platform->file_get_contents($dirPath . '/.svn/entries'), $matches);
+	$dirPaths = array();
+	for ($i = 0; $i < $count; $i++) {
+	    if ($matches[5][$i] == 'deleted') {
+		print "Skipping deleted entry: $subPath<br/>";
+		continue;
+	    }
+
+	    $subPath = $dirPath . '/' . $matches[1][$i];
+	    switch ($matches[2][$i]) {
+	    case 'dir':
+		$dirPaths[] = $subPath;
+		break;
+
+	    case 'file':
+		if ($this->shouldCheckFile($subPath)) {
+		    $this->_timeCheck();
+		    $this->checkFile($subPath, $platform->file_get_contents($subPath));
+		    if ($this->_shouldHalt) {
+			return array();
+		    }
+		}
+		break;
+
+	    default:
+		$this->assert(false, 'Unable to parse ' . $matches[2][$i]);
+	    }
+	}
+
+	return $dirPaths;
+    }
+
+    /**
+     * Keep this test running.
+     */
+    function _timeCheck() {
+	global $gallery;
+	$gallery->guaranteeTimeLimit(30);
+	if (time() - $this->_checkTime >= 20) {
+	    $this->_checkTime = time();
+	    $usedMemory = (function_exists('memory_get_usage')) ? memory_get_usage() : '"unknown"';
+	    print '<script type="text/javascript">updateStats(0,0,0,'
+		    . $usedMemory . ");</script>\n";
+	}
+    }
+
+    /**
+     * Subclasses can call this to stop scanning.
+     */
+    function halt() {
+	$this->_shouldHalt = true;
+    }
+
+    /**
+     * Overload this method in subclasses to audit the file.
+     * @access protected
+     */
+    function checkFile($fileName, $buffer) {
+    }
+
+    /**
+     * Overload this method in subclasses to run any tasks after the scan is complete.
+     * @param bool $halted true if the scan was halted early
+     * @access protected
+     */
+    function finishScan($halted) {
+    }
+
+    /**
+     * Overload this method in subclasses.  If this method returns true, we'll call checkFile on it.
+     * @return true if we should check this file
+     * @access protected
+     */
+    function shouldCheckFile($fileName) {
+	/*
+	 * By default we accept php|inc|class|tpl|po extensions, with the exception that we only
+	 * take lib/tools/repository from the lib directory.
+	 */
+	if (!preg_match('{\.(?:php|inc|class|tpl|po)$}', $fileName)) {
+	    return false;
+	}
+
+	if (strpos($fileName, $this->_baseDir . '/lib/') === 0) {
+	    return strpos($fileName, $this->_baseDir . '/lib/tools/repository/') === 0;
+	}
+
+	return true;
+    }
+}
+?>

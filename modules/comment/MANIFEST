@@ -1,0 +1,252 @@
+# $Revision: 17277 $
+# File crc32 crc32(crlf) size size(crlf)  or  R File
+modules/comment/AddComment.inc	3399979474	4013451652	6673	6912
+modules/comment/Callbacks.inc	4002130173	1111485645	3798	3932
+modules/comment/CommentChangeConfirmation.inc	1918159307	3643067362	1506	1552
+modules/comment/CommentSiteAdmin.inc	1907241120	496367198	3317	3429
+modules/comment/DeleteComment.inc	2655089860	2407934996	4501	4651
+modules/comment/EditComment.inc	216862135	2221778541	7055	7301
+modules/comment/ShowAllComments.inc	3800729052	1922632890	5606	5778
+modules/comment/ShowComments.inc	262122271	3139438894	2988	3092
+modules/comment/classes/CommentCaptchaAdminOption.class	2700187124	440300557	1535	1578
+modules/comment/classes/Entities.inc	953243210	2314118949	951	966
+modules/comment/classes/GNUmakefile	1995366819	843025639	51	52
+modules/comment/classes/GalleryComment.class	364689015	3610625221	4854	5059
+modules/comment/classes/GalleryCommentHelper.class	2006103401	2026435985	10914	11306
+modules/comment/classes/GalleryCommentSearch.class	6675042	3096533769	5539	5714
+modules/comment/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
+modules/comment/classes/GalleryStorage/schema.tpl	738003739	1362900919	6403	6598
+modules/comment/classes/GalleryStorage/xml-src/A_GalleryComment_1.0.xml	1002137142	2053360015	632	658
+modules/comment/classes/GalleryStorage/xml-src/A_GalleryComment_1.1.xml	655476383	1641493701	551	573
+modules/comment/comment.css	514053237	1661092984	154	166
+modules/comment/locale/af/LC_MESSAGES/modules_comment.mo	878864331	878864331	3690	3690
+modules/comment/locale/ar/LC_MESSAGES/modules_comment.mo	790669509	790669509	3913	3913
+modules/comment/locale/bg/LC_MESSAGES/modules_comment.mo	2611319726	2611319726	4666	4666
+modules/comment/locale/ca/LC_MESSAGES/modules_comment.mo	1933064445	1933064445	4197	4197
+modules/comment/locale/cs/LC_MESSAGES/modules_comment.mo	3036286126	3036286126	4701	4701
+modules/comment/locale/da/LC_MESSAGES/modules_comment.mo	410487847	410487847	4448	4448
+modules/comment/locale/de/LC_MESSAGES/modules_comment.mo	4183503186	4183503186	4597	4597
+modules/comment/locale/el/LC_MESSAGES/modules_comment.mo	3255778068	3255778068	3620	3620
+modules/comment/locale/en_GB/LC_MESSAGES/modules_comment.mo	2142290241	2142290241	491	491
+modules/comment/locale/es/LC_MESSAGES/modules_comment.mo	1360917489	1360917489	4596	4596
+modules/comment/locale/es_AR/LC_MESSAGES/modules_comment.mo	1018254713	1018254713	1039	1039
+modules/comment/locale/es_MX/LC_MESSAGES/modules_comment.mo	1632038898	1632038898	1807	1807
+modules/comment/locale/et/LC_MESSAGES/modules_comment.mo	3503380839	3503380839	4175	4175
+modules/comment/locale/eu/LC_MESSAGES/modules_comment.mo	1714418181	1714418181	4100	4100
+modules/comment/locale/fa/LC_MESSAGES/modules_comment.mo	959294833	959294833	4094	4094
+modules/comment/locale/fi/LC_MESSAGES/modules_comment.mo	80880145	80880145	4475	4475
+modules/comment/locale/fr/LC_MESSAGES/modules_comment.mo	4138902631	4138902631	4902	4902
+modules/comment/locale/ga/LC_MESSAGES/modules_comment.mo	2643509033	2643509033	3692	3692
+modules/comment/locale/he/LC_MESSAGES/modules_comment.mo	3291833575	3291833575	4510	4510
+modules/comment/locale/hu/LC_MESSAGES/modules_comment.mo	3457616065	3457616065	4817	4817
+modules/comment/locale/is/LC_MESSAGES/modules_comment.mo	607731198	607731198	461	461
+modules/comment/locale/it/LC_MESSAGES/modules_comment.mo	4075413108	4075413108	4519	4519
+modules/comment/locale/ja/LC_MESSAGES/modules_comment.mo	2222811319	2222811319	4799	4799
+modules/comment/locale/ko/LC_MESSAGES/modules_comment.mo	3822851025	3822851025	4253	4253
+modules/comment/locale/lt/LC_MESSAGES/modules_comment.mo	2425671251	2425671251	4657	4657
+modules/comment/locale/lv/LC_MESSAGES/modules_comment.mo	304900269	304900269	4625	4625
+modules/comment/locale/nl/LC_MESSAGES/modules_comment.mo	2554281037	2554281037	4047	4047
+modules/comment/locale/no/LC_MESSAGES/modules_comment.mo	1905792854	1905792854	4497	4497
+modules/comment/locale/pl/LC_MESSAGES/modules_comment.mo	2541529673	2541529673	4641	4641
+modules/comment/locale/pt/LC_MESSAGES/modules_comment.mo	209861242	209861242	2887	2887
+modules/comment/locale/pt_BR/LC_MESSAGES/modules_comment.mo	3221834986	3221834986	3951	3951
+modules/comment/locale/ro/LC_MESSAGES/modules_comment.mo	3135399594	3135399594	4525	4525
+modules/comment/locale/ru/LC_MESSAGES/modules_comment.mo	281838955	281838955	5856	5856
+modules/comment/locale/sk/LC_MESSAGES/modules_comment.mo	1120383045	1120383045	1201	1201
+modules/comment/locale/sr/LC_MESSAGES/modules_comment.mo	3263019003	3263019003	4473	4473
+modules/comment/locale/sv/LC_MESSAGES/modules_comment.mo	4038649815	4038649815	4643	4643
+modules/comment/locale/tr/LC_MESSAGES/modules_comment.mo	2983871281	2983871281	4135	4135
+modules/comment/locale/uk/LC_MESSAGES/modules_comment.mo	1730367275	1730367275	5300	5300
+modules/comment/locale/vi/LC_MESSAGES/modules_comment.mo	1910128527	1910128527	3815	3815
+modules/comment/locale/zh_CN/LC_MESSAGES/modules_comment.mo	1125279474	1125279474	3893	3893
+modules/comment/locale/zh_TW/LC_MESSAGES/modules_comment.mo	4246819487	4246819487	4240	4240
+modules/comment/module.inc	442760664	3213914872	9293	9620
+modules/comment/po/GNUmakefile	1866879166	2808215985	98	103
+modules/comment/po/af.po	1291156007	563155925	5947	6243
+modules/comment/po/ar.po	2238722749	3005390957	6316	6606
+modules/comment/po/bg.po	3651482026	1422278990	7310	7610
+modules/comment/po/ca.po	955289710	35176298	5992	6280
+modules/comment/po/cs.po	3480862780	2575069944	6326	6618
+modules/comment/po/da.po	1001216843	2828230720	5533	5805
+modules/comment/po/de.po	82424889	2125041922	6317	6609
+modules/comment/po/el.po	461593308	79287403	7225	7540
+modules/comment/po/en_GB.po	2992568190	1000660965	5324	5593
+modules/comment/po/es.po	2309259692	1226027439	5746	6018
+modules/comment/po/es_AR.po	2774093950	55226728	6235	6553
+modules/comment/po/es_MX.po	4285327225	2638755936	6490	6811
+modules/comment/po/et.po	2451193432	3593260217	5685	5964
+modules/comment/po/eu.po	3633794768	3822004522	5803	6091
+modules/comment/po/fa.po	3869380133	3545570570	6372	6664
+modules/comment/po/fi.po	3869279219	2557217255	6074	6366
+modules/comment/po/fr.po	2975051853	4293746731	5939	6209
+modules/comment/po/ga.po	1017265857	3276336583	6924	7242
+modules/comment/po/he.po	3343473582	3157627856	6266	6553
+modules/comment/po/hu.po	4206147062	4258933372	6003	6278
+modules/comment/po/is.po	3946914145	3624906249	4123	4392
+modules/comment/po/it.po	1639567607	3989328807	5583	5853
+modules/comment/po/ja.po	1737071497	866026840	5979	6249
+modules/comment/po/ko.po	332831845	3361514798	6004	6293
+modules/comment/po/lt.po	290759554	3406431638	5926	6201
+modules/comment/po/lv.po	995474430	2609260372	5669	5941
+modules/comment/po/nl.po	4287050117	3846990170	5980	6269
+modules/comment/po/no.po	3266363787	943084655	5648	5920
+modules/comment/po/pl.po	3373091908	980035381	5712	5984
+modules/comment/po/pt.po	1281134771	290427567	5979	6284
+modules/comment/po/pt_BR.po	2720129735	1580946784	6313	6607
+modules/comment/po/ro.po	2851128733	1834795879	5589	5859
+modules/comment/po/ru.po	69929123	1673810776	8278	8579
+modules/comment/po/sk.po	747620177	2748472888	4643	4923
+modules/comment/po/sr.po	2183650886	2771374614	5840	6125
+modules/comment/po/strings.raw	2179537472	1573726957	3428	3534
+modules/comment/po/sv.po	1782583776	778484717	6026	6307
+modules/comment/po/tr.po	2102520296	2891174524	5756	6043
+modules/comment/po/uk.po	3617282186	1864368950	7099	7384
+modules/comment/po/vi.po	3920919441	3501690383	6114	6406
+modules/comment/po/zh_CN.po	1984483227	4021796853	5628	5917
+modules/comment/po/zh_TW.po	153533643	4068512795	5243	5512
+modules/comment/templates/AddComment.tpl	1831584937	2885080782	3315	3407
+modules/comment/templates/Comment.tpl	4202419980	548450066	2961	3042
+modules/comment/templates/CommentChangeConfirmation.tpl	2632942182	853179640	932	963
+modules/comment/templates/CommentSiteAdmin.tpl	3068560383	4082560420	1470	1517
+modules/comment/templates/DeleteComment.tpl	3542618473	1105047475	1724	1764
+modules/comment/templates/EditComment.tpl	3738059347	1188966418	3528	3629
+modules/comment/templates/ShowAllComments.tpl	2284733406	2530096779	2331	2393
+modules/comment/templates/ShowComments.tpl	2454373611	3666233513	1018	1053
+modules/comment/templates/blocks/AddComment.tpl	268019560	3386482040	1244	1282
+modules/comment/templates/blocks/ViewComments.tpl	3012994880	3240919070	1332	1365
+modules/comment/templates/blocks/blocks.inc	139562107	2222779249	915	944
+modules/comment/test/phpunit/AddCommentControllerTest.class	2309268781	1423964622	19588	20119
+modules/comment/test/phpunit/CommentSearchTest.class	491192330	4147570714	9328	9632
+modules/comment/test/phpunit/CommentSiteAdminControllerTest.class	1058724829	1516655926	3432	3533
+modules/comment/test/phpunit/CommentTest.class	1551152641	1807012557	10055	10370
+modules/comment/test/phpunit/DeleteCommentControllerTest.class	665997995	531270856	4150	4269
+modules/comment/test/phpunit/EditCommentControllerTest.class	434782559	526599209	12087	12393
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_GalleryComment_1_0.sql
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GNUmakefile
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryComment.sql
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/A_GalleryComment_1_0.sql
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GNUmakefile
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryComment.sql
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/A_GalleryComment_1_0.sql
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GNUmakefile
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryComment.sql
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/platform
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/schema.tpl
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/xml-src/A_GalleryComment_1.0.xml
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/xml-src/A_GalleryComment_1_0.xml
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/xml-src/GNUmakefile
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema/xml-src
+R	modules/comment/classes/GalleryStorage/DatabaseStorage/schema
+R	modules/comment/classes/GalleryStorage/DatabaseStorage
+R	modules/comment/classes/interfaces/GNUmakefile
+R	modules/comment/classes/interfaces/GalleryComment.inc
+R	modules/comment/classes/interfaces
+R	modules/comment/locale/ar_SA/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/ar_SA/LC_MESSAGES
+R	modules/comment/locale/ar_SA
+R	modules/comment/locale/bg_BG/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/bg_BG/LC_MESSAGES
+R	modules/comment/locale/bg_BG
+R	modules/comment/locale/cs_CZ/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/cs_CZ/LC_MESSAGES
+R	modules/comment/locale/cs_CZ
+R	modules/comment/locale/da_DK/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/da_DK/LC_MESSAGES
+R	modules/comment/locale/da_DK
+R	modules/comment/locale/de_DE/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/de_DE/LC_MESSAGES
+R	modules/comment/locale/de_DE
+R	modules/comment/locale/el_GR/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/el_GR/LC_MESSAGES
+R	modules/comment/locale/el_GR
+R	modules/comment/locale/es_ES/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/es_ES/LC_MESSAGES
+R	modules/comment/locale/es_ES
+R	modules/comment/locale/eu_ES/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/eu_ES/LC_MESSAGES
+R	modules/comment/locale/eu_ES
+R	modules/comment/locale/fi_FI/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/fi_FI/LC_MESSAGES
+R	modules/comment/locale/fi_FI
+R	modules/comment/locale/fr_FR/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/fr_FR/LC_MESSAGES
+R	modules/comment/locale/fr_FR
+R	modules/comment/locale/ga_IE/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/ga_IE/LC_MESSAGES
+R	modules/comment/locale/ga_IE
+R	modules/comment/locale/he_IL/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/he_IL/LC_MESSAGES
+R	modules/comment/locale/he_IL
+R	modules/comment/locale/hu_HU/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/hu_HU/LC_MESSAGES
+R	modules/comment/locale/hu_HU
+R	modules/comment/locale/is_IS/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/is_IS/LC_MESSAGES
+R	modules/comment/locale/is_IS
+R	modules/comment/locale/it_IT/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/it_IT/LC_MESSAGES
+R	modules/comment/locale/it_IT
+R	modules/comment/locale/ja_JP/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/ja_JP/LC_MESSAGES
+R	modules/comment/locale/ja_JP
+R	modules/comment/locale/nl_NL/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/nl_NL/LC_MESSAGES
+R	modules/comment/locale/nl_NL
+R	modules/comment/locale/no_NO/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/no_NO/LC_MESSAGES
+R	modules/comment/locale/no_NO
+R	modules/comment/locale/pl_PL/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/pl_PL/LC_MESSAGES
+R	modules/comment/locale/pl_PL
+R	modules/comment/locale/pt_PT/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/pt_PT/LC_MESSAGES
+R	modules/comment/locale/pt_PT
+R	modules/comment/locale/ru_RU/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/ru_RU/LC_MESSAGES
+R	modules/comment/locale/ru_RU
+R	modules/comment/locale/sr_YU/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/sr_YU/LC_MESSAGES
+R	modules/comment/locale/sr_YU
+R	modules/comment/locale/sv_SE/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/sv_SE/LC_MESSAGES
+R	modules/comment/locale/sv_SE
+R	modules/comment/locale/tr_TR/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/tr_TR/LC_MESSAGES
+R	modules/comment/locale/tr_TR
+R	modules/comment/locale/vi_VN/LC_MESSAGES/modules_comment.mo
+R	modules/comment/locale/vi_VN/LC_MESSAGES
+R	modules/comment/locale/vi_VN
+R	modules/comment/po/ar_SA.po
+R	modules/comment/po/bg_BG.po
+R	modules/comment/po/cs_CZ.po
+R	modules/comment/po/da_DK.po
+R	modules/comment/po/de_DE.po
+R	modules/comment/po/el_GR.po
+R	modules/comment/po/es_ES.po
+R	modules/comment/po/eu_ES.po
+R	modules/comment/po/fi_FI.po
+R	modules/comment/po/fr_FR.po
+R	modules/comment/po/ga_IE.po
+R	modules/comment/po/he_IL.po
+R	modules/comment/po/hu_HU.po
+R	modules/comment/po/is_IS.po
+R	modules/comment/po/it_IT.po
+R	modules/comment/po/ja_JP.po
+R	modules/comment/po/nl_NL.po
+R	modules/comment/po/no_NO.po
+R	modules/comment/po/pl_PL.po
+R	modules/comment/po/pt_PT.po
+R	modules/comment/po/ru_RU.po
+R	modules/comment/po/sr_YU.po
+R	modules/comment/po/sv_SE.po
+R	modules/comment/po/tr_TR.po
+R	modules/comment/po/vi_VN.po
+R	modules/comment/templates/CommentItemDetails.tpl
+R	modules/comment/test/TestCase/ConfigureComment.class
+R	modules/comment/test/TestCase/CreateGalleryComment.class
+R	modules/comment/test/TestCase
