@@ -1,0 +1,149 @@
+<?php xml version = '1.0'; ?>
+<ruleset name="G2_Ruleset">
+	<description>Coding Standards for Gallery 2 Community Edition</description>
+
+
+	<!-- GENERAL:
+		- Rules basically follow PSR2
+		- php-cs-fixer should be run after this as neither gives satisfactory results alone.
+	-->
+
+	<!-- Assume UTF-8 -->
+	<config name="encoding" value="utf-8" />
+
+	<!-- ARGS -->
+	<arg name="tab-width" value="4" />
+	<arg name="extensions" value="php,inc,class,css,js,xml,xaml,html" />
+	<arg name="ignore" value="*g2data/*,*/lib/composer/*,*/dev_vendor/*,*/dev_scripts/*,*MANIFEST*,*GNUmakefile*" />
+
+	<!-- Load WordPress Standards -->
+	<config name="installed_paths" value="dev_vendor/wp-coding-standards/wpcs" />
+
+	<!-- APPLY PSR2 RULES WITH SOME EXCEPTIONS -->
+	<rule ref="PSR2">
+		<!-- PSR2 EXCEPTION: Allow Tab Indents -->
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent" />
+		<!-- PSR2 EXCEPTION: Put Class Opening Braces on the Same Line -->
+		<exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine" />
+		<!-- PSR2 EXCEPTION: Allow Property Declarations to Start with an Underscore -->
+		<exclude name="PSR2.Classes.PropertyDeclaration.Underscore" />
+		<!-- PSR2 EXCEPTION: Allow Method Declarations to Start with an Underscore -->
+		<exclude name="PSR2.Methods.MethodDeclaration.Underscore" />
+	</rule>
+
+	<!-- APPLY ADDITIONAL SELECTED WORDPRESS RULES -->
+	<rule ref="WordPress.WhiteSpace.DisallowInlineTabs" />
+	<rule ref="WordPress.Arrays.CommaAfterArrayItem" />
+	<rule ref="WordPress.Arrays.ArrayIndentation" />
+	<rule ref="WordPress.WhiteSpace.PrecisionAlignment" />
+	<rule ref="WordPress.PHP.TypeCasts" />
+	<rule ref="WordPress.Arrays.ArrayDeclarationSpacing">
+		<properties>
+			<property name="allow_single_item_single_line_associative_arrays" value="false" />
+		</properties>
+	</rule>
+
+	<!-- APPLY ADDITIONAL SELECTED GENERIC RULES -->
+	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent" />
+	<rule ref="Generic.Formatting.NoSpaceAfterCast" />
+	<rule ref="Generic.PHP.LowerCaseType" />
+	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
+	<rule ref="Generic.NamingConventions.ConstructorName" />
+	<rule ref="Generic.PHP.DisallowAlternativePHPTags" />
+	<rule ref="Generic.Classes.OpeningBraceSameLine" />
+	<rule ref="Generic.ControlStructures.InlineControlStructure" />
+	<rule ref="Generic.PHP.Syntax" />
+	<rule ref="Generic.Strings.UnnecessaryStringConcat">
+		<properties>
+			<property name="allowMultiline" value="true" />
+		</properties>
+	</rule>
+	<rule ref="Generic.Files.LineLength">
+		<properties>
+			<property name="ignoreComments" value="true" />
+			<property name="lineLimit" value="100" />
+			<property name="absoluteLineLimit" value="120" />
+		</properties>
+	</rule>
+	<rule ref="Generic.WhiteSpace.ScopeIndent">
+		<properties>
+			<property name="exact" value="false" />
+			<property name="indent" value="4" />
+			<property name="tabIndent" value="true" />
+			<property name="ignoreIndentationTokens" type="array" value="T_HEREDOC, T_NOWDOC, T_INLINE_HTML" />
+		</properties>
+	</rule>
+	<rule ref="Generic.WhiteSpace.ArbitraryParenthesesSpacing">
+		<properties>
+			<property name="spacing" value="0" />
+			<property name="ignoreNewlines" value="true" />
+		</properties>
+	</rule>
+	<rule ref="Generic.Formatting.SpaceAfterNot">
+		<properties>
+			<property name="spacing" value="0" />
+		</properties>
+	</rule>
+
+	<!-- APPLY ADDITIONAL SELECTED SQUIZ RULES -->
+	<rule ref="Squiz.PHP.InnerFunctions" />
+	<rule ref="Squiz.Scope.StaticThisUsage" />
+	<rule ref="Squiz.WhiteSpace.LanguageConstructSpacing" />
+	<rule ref="Squiz.WhiteSpace.OperatorSpacing" />
+	<rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing" />
+	<rule ref="Squiz.PHP.DisallowMultipleAssignments" />
+	<rule ref="Squiz.WhiteSpace.SemicolonSpacing" />
+	<rule ref="Squiz.Classes.SelfMemberReference">
+		<exclude name="Squiz.Classes.SelfMemberReference.NotUsed" />
+	</rule>
+	<rule ref="Squiz.Strings.DoubleQuoteUsage">
+		<exclude name="Squiz.Strings.DoubleQuoteUsage.ContainsVar" />
+	</rule>
+	<rule ref="Squiz.Functions.MultiLineFunctionDeclaration">
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine" />
+	</rule>
+	<rule ref="Squiz.PHP.EmbeddedPhp">
+		<exclude name="Squiz.PHP.EmbeddedPhp.SpacingBefore" />
+		<exclude name="Squiz.PHP.EmbeddedPhp.Indent" />
+		<exclude name="Squiz.PHP.EmbeddedPhp.OpenTagIndent" />
+		<exclude name="Squiz.PHP.EmbeddedPhp.SpacingAfter" />
+	</rule>
+	<rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+		<properties>
+			<property name="equalsSpacing" value="1" />
+			<property name="requiredSpacesAfterOpen" value="0" />
+			<property name="requiredSpacesBeforeClose" value="0" />
+		</properties>
+	</rule>
+	<rule ref="Squiz.WhiteSpace.FunctionSpacing">
+		<properties>
+			<property name="spacing" value="1" />
+			<property name="spacingBeforeFirst" value="0" />
+			<property name="spacingAfterLast" value="0" />
+		</properties>
+	</rule>
+	<rule ref="Squiz.Strings.ConcatenationSpacing">
+		<properties>
+			<property name="spacing" value="1" />
+			<property name="ignoreNewlines" value="true" />
+		</properties>
+	</rule>
+
+	<!-- APPLY ADDITIONAL SELECTED PEAR RULES -->
+	<rule ref="PEAR.Commenting.InlineComment" />
+	<rule ref="PEAR.ControlStructures.MultiLineCondition" />
+	<rule ref="PEAR.Files.IncludingFile" />
+	<rule ref="PEAR.Formatting.MultiLineAssignment" />
+	<rule ref="PEAR.WhiteSpace.ObjectOperatorIndent" />
+	<rule ref="PEAR.WhiteSpace.ScopeClosingBrace" />
+	<rule ref="PEAR.Functions.FunctionCallSignature">
+		<properties>
+			<property name="requiredSpacesAfterOpen" value="0" />
+			<property name="requiredSpacesBeforeClose" value="0" />
+			<property name="allowMultipleArguments" value="false" />
+		</properties>
+	</rule>
+
+	<!-- APPLY ADDITIONAL SELECTED PSR12 RULES -->
+	<rule ref="PSR12.Keywords.ShortFormTypeKeywords" />
+</ruleset>

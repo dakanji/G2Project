@@ -1,0 +1,97 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+
+# svn folder #
+##############
+**/.svn
+.git
+
+
+# style guide #
+##############
+.php_cs.cache
+dev_vendor
+
+
+# installed G2 #
+##############
+g2data
+config.php
+/.htaccess
+authFile.txt
+login.txt
+
+
+# IDE stuff #
+##############
+.idea
+build
+attic
+
+
+# Misc stuff #
+##############
+composer.phar
+
+
+# G2 Modules #
+##############
+modules/*
+!modules/albumselect
+!modules/archiveupload
+!modules/captcha
+!modules/cart
+!modules/colorpack
+!modules/comment
+!modules/core
+!modules/customfield
+!modules/dcraw
+!modules/dynamicalbum
+!modules/exif
+!modules/ffmpeg
+!modules/gd
+!modules/hidden
+!modules/icons
+!modules/imagemagick
+!modules/itemadd
+!modules/jpegtran
+!modules/keyalbum
+!modules/linkitem
+!modules/linksinthehead
+!modules/mime
+!modules/netpbm
+!modules/newitems
+!modules/notification
+!modules/password
+!modules/permalinks
+!modules/randomhighlight
+!modules/rating
+!modules/rearrange
+!modules/register
+!modules/replica
+!modules/reupload
+!modules/rewrite
+!modules/search
+!modules/sitemap
+!modules/sizelimit
+!modules/slideshow
+!modules/squarethumb
+!modules/thumbnail
+!modules/thumbpage
+!modules/useralbum
+
+
+# G2 Themes #
+#############
+themes/*
+!themes/carbon
+!themes/matrix
+!themes/siriux
