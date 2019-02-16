@@ -40,7 +40,7 @@ class FlockLockSystem extends GalleryLockSystem {
 	public $_references;
 
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

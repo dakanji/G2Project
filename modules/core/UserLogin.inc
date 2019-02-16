@@ -35,7 +35,7 @@ class UserLoginController extends GalleryController {
 	public $_pluginInstances;
 
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -215,7 +215,7 @@ class UserLoginController extends GalleryController {
  */
 class UserLoginView extends GalleryView {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

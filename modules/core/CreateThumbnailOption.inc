@@ -27,7 +27,7 @@
  */
 class CreateThumbnailOption extends ItemAddOption {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

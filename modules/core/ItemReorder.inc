@@ -27,7 +27,7 @@
  */
 class ItemReorderController extends GalleryController {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -201,7 +201,7 @@ class ItemReorderController extends GalleryController {
  */
 class ItemReorderView extends GalleryView {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

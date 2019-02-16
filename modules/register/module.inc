@@ -41,7 +41,7 @@ class RegisterModule extends GalleryModule {
 	}
 
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

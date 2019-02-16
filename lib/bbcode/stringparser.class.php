@@ -986,7 +986,7 @@ class StringParser_Node {
 	}
 
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -1343,7 +1343,6 @@ class StringParser_Node {
 	 * Destroy a node
 	 *
 	 * @access public
-	 * @static
 	 * @param object $node The node to destroy
 	 * @return bool True on success, else false.
 	 */

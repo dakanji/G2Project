@@ -28,7 +28,7 @@
  */
 class ItemEditCaptionsController extends GalleryController {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -172,7 +172,7 @@ class ItemEditCaptionsController extends GalleryController {
  */
 class ItemEditCaptionsView extends GalleryView {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

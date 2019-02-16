@@ -27,7 +27,7 @@
  */
 class AdminEditGroupController extends GalleryController {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -135,7 +135,7 @@ class AdminEditGroupController extends GalleryController {
  */
 class AdminEditGroupView extends GalleryView {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

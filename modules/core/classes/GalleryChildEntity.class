@@ -52,7 +52,7 @@ class GalleryChildEntity extends GalleryEntity {
 	public $parentId;
 
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

@@ -29,7 +29,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
  */
 class AdminPluginsView extends GalleryView {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

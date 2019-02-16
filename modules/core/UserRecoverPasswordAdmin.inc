@@ -28,7 +28,7 @@
  */
 class UserRecoverPasswordAdminController extends GalleryController {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -164,7 +164,7 @@ class UserRecoverPasswordAdminController extends GalleryController {
  */
 class UserRecoverPasswordAdminView extends GalleryView {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

@@ -27,7 +27,7 @@
  */
 class ShowItemController extends GalleryController {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -73,7 +73,7 @@ class ShowItemController extends GalleryController {
  */
 class ShowItemView extends GalleryView {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

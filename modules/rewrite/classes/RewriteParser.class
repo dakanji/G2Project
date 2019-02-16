@@ -54,7 +54,7 @@ class RewriteParser {
 	public $_type;
 
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

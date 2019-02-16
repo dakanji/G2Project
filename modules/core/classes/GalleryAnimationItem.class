@@ -39,7 +39,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
  */
 class GalleryAnimationItem extends GalleryDataItem {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

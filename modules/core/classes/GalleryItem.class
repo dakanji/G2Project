@@ -162,7 +162,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 	public $originationTimestamp;
 
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

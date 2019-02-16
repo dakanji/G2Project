@@ -29,7 +29,7 @@
  */
 class AdminEventLogViewerCallbackView extends GalleryView {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

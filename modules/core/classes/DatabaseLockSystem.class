@@ -31,7 +31,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryLockSystem.class');
  */
 class DatabaseLockSystem extends GalleryLockSystem {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

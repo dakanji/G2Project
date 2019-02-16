@@ -43,7 +43,7 @@
  */
 class AdminDeleteUserController extends GalleryController {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -194,7 +194,7 @@ class AdminDeleteUserController extends GalleryController {
  */
 class AdminDeleteUserView extends GalleryView {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

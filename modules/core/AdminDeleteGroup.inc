@@ -27,7 +27,7 @@
  */
 class AdminDeleteGroupController extends GalleryController {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -94,7 +94,7 @@ class AdminDeleteGroupController extends GalleryController {
  */
 class AdminDeleteGroupView extends GalleryView {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

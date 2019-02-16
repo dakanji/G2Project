@@ -27,7 +27,7 @@
  */
 class UserPreferencesController extends GalleryController {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -196,7 +196,7 @@ class UserPreferencesController extends GalleryController {
  */
 class UserPreferencesView extends GalleryView {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

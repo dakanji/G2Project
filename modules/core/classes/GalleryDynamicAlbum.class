@@ -37,7 +37,7 @@ class GalleryDynamicAlbum extends GalleryItem {
 	public $_itemTypeName;
 
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

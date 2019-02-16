@@ -27,7 +27,7 @@
  */
 class ItemAddAlbumController extends GalleryController {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -160,7 +160,7 @@ class ItemAddAlbumController extends GalleryController {
  */
 class ItemAddAlbumView extends GalleryView {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

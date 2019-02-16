@@ -350,7 +350,7 @@ class PermissionBits {
 	}
 
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		return new PermissionBits();
@@ -360,7 +360,6 @@ class PermissionBits {
 	 * Returns a new PermissionBits object
 	 * @param string $bitsAsString permission set in string representation, e.g. "755"
 	 * @return PermissionBits object
-	 * @static
 	 */
 	public function fromString($bitsAsString) {
 		$bitsAsString = (string)$bitsAsString;

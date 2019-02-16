@@ -29,7 +29,7 @@ GalleryCoreApi::requireOnce('modules/search/classes/GallerySearchInterface_1_0.c
  */
 class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

@@ -130,7 +130,7 @@ class GalleryUrlGenerator {
 	public $_isCookiePathConfigured;
 
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

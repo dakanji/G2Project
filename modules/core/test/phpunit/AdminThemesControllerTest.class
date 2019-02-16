@@ -400,7 +400,7 @@ class TestThemeId1Theme extends GalleryTheme {
  */
 class TestThemeId2Theme extends GalleryTheme {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

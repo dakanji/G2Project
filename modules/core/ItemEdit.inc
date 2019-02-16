@@ -27,7 +27,7 @@
  */
 class ItemEditController extends GalleryController {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -229,7 +229,7 @@ class ItemEditController extends GalleryController {
  */
 class ItemEditView extends GalleryView {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -480,7 +480,7 @@ class ItemEditView extends GalleryView {
  */
 class ItemEditPlugin {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -584,7 +584,7 @@ class ItemEditPlugin {
  */
 class ItemEditOption {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

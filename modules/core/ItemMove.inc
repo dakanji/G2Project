@@ -27,7 +27,7 @@
  */
 class ItemMoveController extends GalleryController {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -305,7 +305,7 @@ class ItemMoveController extends GalleryController {
  */
 class ItemMoveView extends GalleryView {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

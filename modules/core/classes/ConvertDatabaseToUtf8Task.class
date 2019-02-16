@@ -30,7 +30,7 @@ GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
  */
 class ConvertDatabaseToUtf8Task extends MaintenanceTask {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -100,7 +100,7 @@ class ConvertDatabaseToUtf8Task extends MaintenanceTask {
  */
 class MockStatusMonitor {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;

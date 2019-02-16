@@ -27,7 +27,7 @@
  */
 class AdminThemesController extends GalleryController {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
@@ -282,7 +282,7 @@ class AdminThemesController extends GalleryController {
  */
 class AdminThemesView extends GalleryView {
 	/**
-	 * Load Singleton
+	 * Load as Singleton
 	 */
 	public static function doStatic() {
 		static $singleton;
