@@ -30,9 +30,9 @@ Alternatively, you can take a look at [The Release Archives](https://github.com/
 
 For more advanced users interested in the Github branches, these are set out as follows:
 
-- **[Master Branch](https://github.com/dakanji/G2Project/tree/master)** - This branch contains the latest stable code and is always deployable. Relatively few updates, features or bug fixes will have been applied and it will be the closest branch to the last official release by the Gallery Project Team. However, this also means it has not yet been updated for current PHP Versions. The current file set can be [DOWNLOADED HERE](https://github.com/dakanji/G2Project/releases).
-- **[Beta Branch](https://github.com/dakanji/G2Project/tree/beta)** - This branch contains the latest "Release Candidate" code and is always deployable. The current file set can be [DOWNLOADED HERE](https://github.com/dakanji/G2Project/zipball/beta).
-- **[Alpha Branch](https://github.com/dakanji/G2Project/tree/alpha)** - This branch contains the latest semi-stable code and is normally deployable. This branch is never formally "issued" but the current file set can be [DOWNLOADED HERE](https://github.com/dakanji/G2Project/zipball/alpha).
+- **[Master Branch](https://github.com/dakanji/G2Project/tree/master)** - This branch contains the latest stable code and is always deployable. Relatively few updates, features or bug fixes will have been applied and it will be the closest branch to the last official release by the Gallery Project Team. However, this also means it has not yet been updated for current PHP Versions. The current file set can be [DOWNLOADED HERE](https://github.com/dakanji/G2Project/archive/master.zip).
+- **[Beta Branch](https://github.com/dakanji/G2Project/tree/beta)** - This branch contains the latest "Release Candidate" code and is always deployable. The current file set can be [DOWNLOADED HERE](https://github.com/dakanji/G2Project/archive/beta.zip).
+- **[Alpha Branch](https://github.com/dakanji/G2Project/tree/alpha)** - This branch contains the latest semi-stable code and is normally deployable. This branch is never formally "issued" but the current file set can be [DOWNLOADED HERE](https://github.com/dakanji/G2Project/archive/alpha.zip).
 - **Other Branches** - These contain ongoing work streams which may, or may not, be deployable. Note also that these may be deleted without notice.
 
 # Updating Gallery 2
@@ -47,7 +47,7 @@ For more advanced users interested in the Github branches, these are set out as 
 
 1.  Backup your installation including your database
 2.  Update or downgrade PHP to versions between PHP 4.3 and PHP 5.2
-3.  Overwrite your installation with a [Gallery v2.2.6 file set](https://sourceforge.net/projects/gallery/files/gallery2/2.2.6/), navigate to your gallery and follow the on-screen instructions
+3.  Overwrite your installation with a [Gallery v2.2.6 file set](https://github.com/dakanji/G2Project/archive/legacy/v2.2.6.zip), navigate to your gallery and follow the on-screen instructions
 4.  When you are satisfied that the upgrade to Gallery v2.2.6 is complete, backup your Gallery v2.2.6 installation and database
 5.  Update to PHP 5.3, or, preferably, PHP 7.3
 6.  Overwrite your Gallery v2.2.6 installation with the [LATEST COMMUNITY VERSION](https://github.com/dakanji/G2Project/releases), navigate to your gallery and follow the on-screen instructions
