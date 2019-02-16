@@ -64,7 +64,7 @@ class AdminThemesController extends GalleryController {
 				$orderByList,
 				$presortList,
 				$orderDirectionList
-			) = GallerySortInterface_1_2::getAllSortOrders(false);
+			) = GallerySortInterface_1_2::doStatic()->getAllSortOrders(false);
 
 			if ($ret) {
 				return array($ret, null);
@@ -543,7 +543,7 @@ class AdminThemesView extends GalleryView {
 			$orderByList,
 			$presortList,
 			$orderDirectionList
-		) = GallerySortInterface_1_2::getAllSortOrders(false);
+		) = GallerySortInterface_1_2::doStatic()->getAllSortOrders(false);
 
 		if ($ret) {
 			return array($ret, null);

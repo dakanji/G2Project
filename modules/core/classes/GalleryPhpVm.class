@@ -31,6 +31,19 @@
  */
 class GalleryPhpVm {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryPhpVm();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Return true if the given function has been defined.
 	 *
 	 * @param string $functionName

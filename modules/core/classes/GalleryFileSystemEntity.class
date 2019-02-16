@@ -59,6 +59,19 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 	public $pathComponent;
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryFileSystemEntity();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Create a new instance of this FileSystemEntity in the persistent store.
 	 * Let the parent do its work, then add any initialization specific to this class.
 	 *

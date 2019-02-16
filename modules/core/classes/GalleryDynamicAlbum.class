@@ -37,6 +37,19 @@ class GalleryDynamicAlbum extends GalleryItem {
 	public $_itemTypeName;
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryDynamicAlbum();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Initialize dynamic album
 	 *
 	 * @param string $title localized title

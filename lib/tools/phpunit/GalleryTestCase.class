@@ -44,11 +44,7 @@ class GalleryTestCase extends TestCase {
 	 * Load as Singleton
 	 */
 	public static function doStatic($methodName = 'TestCase') {
-		static $singleton;
-
-		if (!isset($singleton)) {
-			$singleton = new GalleryTestCase($methodName);
-		}
+		$singleton = new GalleryTestCase($methodName);
 
 		return $singleton;
 	}
@@ -1158,7 +1154,7 @@ class GalleryTestCase extends TestCase {
 		$authToken = array(
 			'authToken' => $session->getAuthToken(),
 		);
-		$url       = GalleryUrlGenerator::appendParamsToUrl($url, $authToken);
+		$url       = GalleryUrlGenerator::doStatic()->appendParamsToUrl($url, $authToken);
 
 		if (!$htmlEntities) {
 			$url = str_replace('&amp;', '&', $url);
@@ -1381,11 +1377,13 @@ class GalleryTestCase extends TestCase {
 	 * @param string $message (optional) Message to be shown on failure
 	 */
 	public function assertErrorEquals($errorCode, $ret, $exactMatch = false, $message = null) {
+		$GalleryStatus = GalleryStatus::doStatic();
+
 		if (!$ret) {
 			$this->fail(
 				sprintf(
 					'Failed to get error %s%s',
-					join(', ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)),
+					join(', ', $GalleryStatus->getErrorCodeConstants($errorCode)),
 					$message ? '<br/>' . $message : ''
 				)
 			);
@@ -1399,8 +1397,8 @@ class GalleryTestCase extends TestCase {
 			$this->fail(
 				sprintf(
 					'Expected error %s, received %s<br>%s%s',
-					join(', ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)),
-					join(', ', GalleryStatus::doStatic()->getErrorCodeConstants($ret->getErrorCode())),
+					join(', ', $GalleryStatus->getErrorCodeConstants($errorCode)),
+					join(', ', $GalleryStatus->getErrorCodeConstants($ret->getErrorCode())),
 					$ret->getAsHtml(),
 					$message ? '<br/>' . $message : ''
 				)

@@ -78,6 +78,19 @@ class GalleryMovieItem extends GalleryDataItem {
 	public $duration;
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryMovieItem();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryDataItem::canBeViewedInline
 	 */
 	public function canBeViewedInline() {

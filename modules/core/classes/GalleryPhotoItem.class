@@ -65,6 +65,19 @@ class GalleryPhotoItem extends GalleryDataItem {
 	public $height;
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryPhotoItem();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryDataItem::canBeViewedInline
 	 */
 	public function canBeViewedInline() {

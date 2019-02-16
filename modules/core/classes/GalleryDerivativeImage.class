@@ -63,6 +63,19 @@ class GalleryDerivativeImage extends GalleryDerivative {
 	public $height;
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryDerivativeImage();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GalleryDerivative::canBeViewedInline
 	 */
 	public function canBeViewedInline() {

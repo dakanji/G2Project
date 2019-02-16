@@ -124,7 +124,7 @@ class PhpVmTest extends GalleryTestCase {
 			return $ret;
 		}
 		$this->assertFalse(empty($session->_sessionId), 'persistent session preparation failed');
-		$url = GalleryUrlGenerator::appendParamsToUrl(
+		$url = GalleryUrlGenerator::doStatic()->appendParamsToUrl(
 			$url,
 			array(
 				$session->getKey() => $session->getId(),

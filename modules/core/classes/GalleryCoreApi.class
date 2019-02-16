@@ -53,7 +53,7 @@ class GalleryCoreApi {
 	 * - remove GalleryPlatform::recursiveFixDirPermissions
 	 * - remove GalleryUtilities::htmlEntityDecode
 	 * - remove GalleryUrlGenerator::getGalleryId
-	 * - remove GalleryStatus::doStatic()->wrap
+	 * - remove GalleryStatus::wrap
 	 * - change GalleryCoreApi::error to only take error code and error message
 	 * - remove GalleryCapabilities (major bump of embed api too?)
 	 * - remove 'link' entry in Gallery.class constructor

@@ -122,9 +122,19 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 		}
 
 		if ($form['formName'] != 'KeywordAlbumSiteAdmin') {
-			foreach (array('themeId', 'orderBy', 'orderDirection', 'summaryLinks', 'description',
-			   'split', ) as $key) {
-				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'keyalbum', $key);
+			foreach (array(
+				'themeId',
+				'orderBy',
+				'orderDirection',
+				'summaryLinks',
+				'description',
+				'split',
+			) as $key) {
+				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter(
+					'module',
+					'keyalbum',
+					$key
+				);
 
 				if ($ret) {
 					return array($ret, null);
@@ -166,7 +176,12 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 
 		// Set up sort order selection list
 		GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_2.class');
-		list($ret, $orderByList, $presortList, $orderDirectionList) = GallerySortInterface_1_2::getAllSortOrders();
+		list(
+			$ret,
+			$orderByList,
+			$presortList,
+			$orderDirectionList
+		) = GallerySortInterface_1_2::doStatic()->getAllSortOrders();
 
 		if ($ret) {
 			return array($ret, null);
@@ -205,10 +220,10 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 			return array($ret, null);
 		}
 		$ret = GalleryCoreApi::loadThemeSettingsForm(
-		$form['themeId'],
-		$themeSettingsId,
-							 $template,
-		$form
+			$form['themeId'],
+			$themeSettingsId,
+			$template,
+			$form
 	);
 
 		if ($ret) {

@@ -55,6 +55,19 @@ class GalleryEvent {
 	}
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryEvent();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Set this event's name
 	 * @param string $eventName
 	 */

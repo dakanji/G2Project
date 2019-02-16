@@ -154,6 +154,19 @@ class GalleryEntity extends GalleryPersistent {
 	public $onLoadHandlers;
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryEntity();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Create a new instance of this GalleryEntity in the persistent store
 	 *
 	 * @return GalleryStatus a status code

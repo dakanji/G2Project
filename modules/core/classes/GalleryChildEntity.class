@@ -52,6 +52,19 @@ class GalleryChildEntity extends GalleryEntity {
 	public $parentId;
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryChildEntity();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Create this item in our persistent store
 	 *
 	 * @param int $parentId the id of the GalleryItem parent

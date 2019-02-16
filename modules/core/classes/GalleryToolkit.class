@@ -282,9 +282,17 @@ class GalleryToolkit {
 							 * the real source is actually smaller than our $target size, but
 							 * it will be corrected once the derivative is actually built.
 							 */
-							list($newWidth, $newHeight) = GalleryUtilities::scaleDimensionsToFit($width, $height, $target);
+							list($newWidth, $newHeight) = GalleryUtilities::scaleDimensionsToFit(
+								$width,
+								$height,
+								$target
+							);
 						} else {
-							list($newWidth, $newHeight) = GalleryUtilities::shrinkDimensionsToFit($width, $height, $target);
+							list($newWidth, $newHeight) = GalleryUtilities::shrinkDimensionsToFit(
+								$width,
+								$height,
+								$target
+							);
 						}
 						$derivative->setWidth($newWidth);
 						$derivative->setHeight($newHeight);

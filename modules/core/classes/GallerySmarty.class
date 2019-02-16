@@ -42,6 +42,19 @@ class GallerySmarty extends Smarty {
 	public $_firstGalleryStatus;
 
 	/**
+	 * Load as Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GallerySmarty();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Fetch should also return a GalleryStatus object
 	 *
 	 * @see Smarty::fetch

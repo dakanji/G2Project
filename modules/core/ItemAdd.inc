@@ -949,7 +949,7 @@ class ItemAddPlugin {
 	 * Return a localized title for this plugin, suitable for display to the user
 	 *
 	 * @return array GalleryStatus a status code
-	 *               return-array (same as GalleryController::doStatic()->handleRequest)
+	 *               return-array (same as GalleryController::handleRequest)
 	 */
 	public function getTitle() {
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);

@@ -1948,7 +1948,8 @@ class RepositoryTest extends GalleryTestCase {
 	public function testCreatePluginDirectory() {
 		global $gallery;
 
-		$repository       = GalleryRepository::doStatic();
+		$repository = GalleryRepository::doStatic();
+
 		$originalPlatform =& $gallery->getPlatform();
 		$slash            = $originalPlatform->getDirectorySeparator();
 

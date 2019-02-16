@@ -38,7 +38,9 @@ class StatusTest extends GalleryTestCase {
 	}
 
 	public function testGetErrorCodeConstantsTwoErrors() {
-		$codes    = GalleryStatus::doStatic()->getErrorCodeConstants(ERROR_COLLISION | ERROR_LOCK_IN_USE);
+		$codes    = GalleryStatus::doStatic()->getErrorCodeConstants(
+			ERROR_COLLISION | ERROR_LOCK_IN_USE
+		);
 		$expected = array('ERROR_COLLISION', 'ERROR_LOCK_IN_USE');
 		$this->assertEquals(sort($expected), sort($codes));
 	}

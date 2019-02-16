@@ -67,6 +67,19 @@ class GalleryGroup extends GalleryEntity {
 	public $groupName;
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryGroup();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Create a new instance of this GalleryGroup in the persistent store
 	 *
 	 * @param string $groupName the name of the new group
@@ -77,14 +90,15 @@ class GalleryGroup extends GalleryEntity {
 		global $gallery;
 
 		// Check to see if we have a collision
-		$query               = '
-	SELECT
-	  [GalleryGroup::id]
-	FROM
-	  [GalleryGroup]
-	WHERE
-	  [GalleryGroup::groupName] = ?
-	';
+		$query = '
+			SELECT
+				[GalleryGroup::id]
+			FROM
+				[GalleryGroup]
+			WHERE
+				[GalleryGroup::groupName] = ?
+		';
+
 		list($ret, $results) = $gallery->search(
 			$query,
 			array($groupName),

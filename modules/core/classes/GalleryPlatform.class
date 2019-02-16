@@ -741,8 +741,7 @@ class GalleryPlatform {
 
 			if ($ret && $gallery->getDebug()) {
 				$gallery->debug(
-					'Error: convertExtensionToMime in ' .
-					'GalleryPlatform::legalizePathComponent'
+					'Error: convertExtensionToMime in GalleryPlatform::legalizePathComponent'
 				);
 			}
 

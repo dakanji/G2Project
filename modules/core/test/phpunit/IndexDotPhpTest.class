@@ -58,7 +58,7 @@ class IndexDotPhpTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$url  = GalleryUrlGenerator::appendParamsToUrl(
+			$url  = GalleryUrlGenerator::doStatic()->appendParamsToUrl(
 				$url,
 				array(
 					$session->getKey() => $session->getId(),

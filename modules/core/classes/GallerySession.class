@@ -171,6 +171,19 @@ class GallerySession {
 	public $_authToken = '';
 
 	/**
+	 * Load as Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GallerySession();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Either create a new session, or attach to an existing one.
 	 * @return GalleryStatus a status code
 	 */
@@ -876,7 +889,7 @@ class GallerySession {
 
 			if (!empty($controller)) {
 				GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
-				list($ret, $controller) = GalleryController::loadController($controller);
+				list($ret, $controller) = GalleryController::doStatic()->loadController($controller);
 
 				if (!$ret && !$controller->shouldSaveSession()) {
 					$flag = false;
@@ -1370,7 +1383,7 @@ class GallerySession {
 	 * @return array
 	 * @static
 	 */
-	public static function getRemoteIdentifier() {
+	public function getRemoteIdentifier() {
 		$httpUserAgent = GalleryUtilities::getServerVar('HTTP_USER_AGENT');
 
 		return array(
@@ -1421,7 +1434,7 @@ class GallerySession {
 	 *
 	 * @return int a score
 	 */
-	public static function compareIdentifiers($a, $b) {
+	public function compareIdentifiers($a, $b) {
 		$score = 0;
 
 		if (is_array($a) && is_array($b)) {

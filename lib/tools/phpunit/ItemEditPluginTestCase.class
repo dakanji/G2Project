@@ -58,13 +58,29 @@ class ItemEditPluginTestCase extends GalleryTestCase {
 		// Get our form variables
 		$form = GalleryUtilities::getFormVariables('form');
 
-		list($ret, $error, $status, $needsProgressBar) = $this->_plugin->handleRequest($form, $item, $preferred);
+		list($ret, $error, $status, $needsProgressBar) = $this->_plugin->handleRequest(
+			$form,
+			$item,
+			$preferred
+		);
 
 		if (isset($errorCode)) {
-			$expectedErrorCode = implode(' | ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode));
+			$GalleryStatus = GalleryStatus::doStatic();
+
+			$expectedErrorCode = implode(
+				' | ',
+				$GalleryStatus->getErrorCodeConstants(
+					$errorCode
+				)
+			);
 
 			if ($ret) {
-				$actualErrorCode = implode(' | ', GalleryStatus::doStatic()->getErrorCodeConstants($ret->getErrorCode()));
+				$actualErrorCode = implode(
+					' | ',
+					$GalleryStatus->getErrorCodeConstants(
+						$ret->getErrorCode()
+					)
+				);
 			} else {
 				$actualErrorCode = 'SUCCESS';
 			}

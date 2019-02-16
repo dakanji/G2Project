@@ -40,6 +40,19 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
  */
 class GalleryUnknownItem extends GalleryDataItem {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryUnknownItem();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Create a new GalleryUnknownItem from an image file
 	 *
 	 * @param int $parentId the id of the parent GalleryItem

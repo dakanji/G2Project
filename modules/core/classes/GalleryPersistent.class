@@ -42,6 +42,19 @@ class GalleryPersistent {
 	}
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryPersistent();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Have we modified any data in this class?
 	 * @param string $member (optional) check just this field
 	 * @return boolean true if modified, false if not.

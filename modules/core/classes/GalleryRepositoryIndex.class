@@ -62,6 +62,15 @@ class GalleryRepositoryIndex {
 	}
 
 	/**
+	 * Load as Singleton
+	 */
+	public static function doStatic($source) {
+		$singleton = new GalleryRepositoryIndex($source);
+
+		return $singleton;
+	}
+
+	/**
 	 * Downloads the repostory index from the Gallery server and
 	 * writes it to the local repository cache.
 	 * @return GalleryStatus a status code
@@ -706,7 +715,6 @@ class GalleryRepositoryIndex {
 						'<'
 					))
 						|| (version_compare(
-
 							implode('.', $requiredPluginApi),
 							implode('.', $entry['header']['requiredPluginApi']),
 							'<'

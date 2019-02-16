@@ -70,8 +70,8 @@ class GalleryView {
 	}
 
 	/**
-	 * Print out the immediate output for this view.  This will bypass any global templating.  This
-	 * style of view should be reserved for binary data.
+	 * Print out the immediate output for this view.  This will bypass any global templating.
+	 * This style of view should be reserved for binary data.
 	 *
 	 * @param array $status any status information from a delegating controller
 	 * @param array $error any error information from a delegating controller
@@ -137,8 +137,8 @@ class GalleryView {
 	/**
 	 * Load a view.
 	 *
-	 * Be very security conscious about checking the inputs for possible misuse. The view name is in
-	 * the format <module>.<classname>, where
+	 * Be very security conscious about checking the inputs for possible misuse.
+	 * The view name is in the format <module>.<classname>, where
 	 * - <module> is the module the view belongs to
 	 * - <classname> is the name of the .inc-file to be loaded. The class
 	 *   that is loaded is the <classname>View, that must extend GalleryView class
@@ -216,8 +216,8 @@ class GalleryView {
 			}
 
 			/*
-			 * We bundle view and controller classes together, so we need the controller superclass
-			 * to load the view
+			 * We bundle view and controller classes together.
+			 * So, we need the controller superclass to load the view
 			 */
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
 			GalleryCoreApi::requireOnce($fileName);
@@ -519,7 +519,10 @@ class GalleryView {
 		} elseif (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 			$nearestAlbum = $item;
 		} else {
-			list($ret, $nearestAlbum) = GalleryCoreApi::loadEntitiesById($item->getParentId(), 'GalleryItem');
+			list($ret, $nearestAlbum) = GalleryCoreApi::loadEntitiesById(
+				$item->getParentId(),
+				'GalleryItem'
+			);
 
 			if ($ret) {
 				return array($ret, null, null);
@@ -542,7 +545,11 @@ class GalleryView {
 					return array($ret, null, null);
 				}
 			} else {
-				list($ret, $themeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
+				list($ret, $themeId) = GalleryCoreApi::getPluginParameter(
+					'module',
+					'core',
+					'default.theme'
+				);
 
 				if ($ret) {
 					return array($ret, null, null);

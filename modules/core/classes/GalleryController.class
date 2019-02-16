@@ -31,6 +31,19 @@
  */
 class GalleryController {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryController();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Take the appropriate action based on the user input provided.
 	 *
 	 * When done, we return a data structure with results from the controller's actions and
@@ -113,9 +126,8 @@ class GalleryController {
 	 * @param string $controllerName a controller name (eg. 'core.Logout')
 	 * @return array GalleryStatus a status code
 	 *               GalleryController a controller
-	 * @static
 	 */
-	public static function loadController($controllerName) {
+	public function loadController($controllerName) {
 		global $gallery;
 
 		// Continue to support old style : separator for a while
@@ -233,9 +245,8 @@ class GalleryController {
 	 * All requests that modify data must be signed, except the request is by a guest.
 	 *
 	 * @return GalleryStatus a status code null on success, ERROR_REQUEST_FORGED on failure
-	 * @static
 	 */
-	public static function assertIsGenuineRequest() {
+	public function assertIsGenuineRequest() {
 		global $gallery;
 		$session =& $gallery->getSession();
 

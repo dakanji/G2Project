@@ -118,6 +118,19 @@ class GalleryUser extends GalleryEntity {
 	public $locked;
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryUser();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Create a new instance of this user in the persistent store
 	 *
 	 * @return GalleryStatus a status code
@@ -126,12 +139,12 @@ class GalleryUser extends GalleryEntity {
 		global $gallery;
 
 		$query = '
-		SELECT
-		[GalleryUser::id]
-		FROM
-		[GalleryUser]
-		WHERE
-		[GalleryUser::userName] = ?
+			SELECT
+				[GalleryUser::id]
+			FROM
+				[GalleryUser]
+			WHERE
+				[GalleryUser::userName] = ?
 		';
 
 		// Check to see if we have a collision
@@ -179,8 +192,13 @@ class GalleryUser extends GalleryEntity {
 	public function isCorrectPassword($password) {
 		$valid = $this->getHashedPassword();
 		$salt  = substr($valid, 0, 4);
+
 		// Support both old (G1 thru 1.4.0; G2 thru alpha-4) and new password schemes:
-		$guess = (strlen($valid) == 32) ? md5($password) : ($salt . md5($salt . $password));
+		if (strlen($valid) == 32) {
+			$guess = md5($password);
+		} else {
+			$guess = $salt . md5($salt . $password);
+		}
 
 		if (!strcmp($guess, $valid)) {
 			return true;
@@ -189,7 +207,12 @@ class GalleryUser extends GalleryEntity {
 		// Passwords with <&"> created by G2 prior to 2.1 were hashed with entities
 		$sanitizedPassword = $password;
 		GalleryUtilities::sanitizeInputValues($sanitizedPassword, false);
-		$guess = (strlen($valid) == 32) ? md5($sanitizedPassword) : ($salt . md5($salt . $sanitizedPassword));
+
+		if (strlen($valid) == 32) {
+			$guess = md5($sanitizedPassword);
+		} else {
+			$guess = $salt . md5($salt . $sanitizedPassword);
+		}
 
 		if (!strcmp($guess, $valid)) {
 			return true;
@@ -233,7 +256,11 @@ class GalleryUser extends GalleryEntity {
 		if ($isNew) {
 			// Add her to the various groups
 			foreach (array('id.allUserGroup', 'id.everybodyGroup') as $groupKey) {
-				list($ret, $groupId) = GalleryCoreApi::getPluginParameter('module', 'core', $groupKey);
+				list($ret, $groupId) = GalleryCoreApi::getPluginParameter(
+					'module',
+					'core',
+					$groupKey
+				);
 
 				if ($ret) {
 					return $ret;
@@ -271,7 +298,11 @@ class GalleryUser extends GalleryEntity {
 		}
 
 		// Don't allow deleting the guest user
-		list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+		list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'core',
+			'id.anonymousUser'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -302,7 +333,11 @@ class GalleryUser extends GalleryEntity {
 		if ($isAdmin) {
 			$newOwnerId = $activeUserId;
 		} else {
-			list($ret, $siteAdminGroupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
+			list($ret, $siteAdminGroupId) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'core',
+				'id.adminGroup'
+			);
 
 			if ($ret) {
 				return $ret;
@@ -322,7 +357,12 @@ class GalleryUser extends GalleryEntity {
 				// Block attempt to delete the only site admin
 				return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 			}
-			$newOwnerId = $adminUsers[0] != $this->getId() ? $adminUsers[0] : $adminUsers[1];
+
+			if ($adminUsers[0] != $this->getId()) {
+				$newOwnerId = $adminUsers[0];
+			} else {
+				$newOwnerId = $adminUsers[1];
+			}
 		}
 
 		// Now remap the owner of all of his items

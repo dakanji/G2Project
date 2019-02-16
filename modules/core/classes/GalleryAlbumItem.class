@@ -76,6 +76,19 @@ class GalleryAlbumItem extends GalleryItem {
 	public $orderDirection;
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryAlbumItem();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Create a new instance of this AlbumItem in the persistent store.
 	 * Also create the album directory on the filesystem.
 	 *

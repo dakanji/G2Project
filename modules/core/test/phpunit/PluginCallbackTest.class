@@ -972,9 +972,19 @@ class PluginCallbackTest extends GalleryTestCase {
 		$results = ob_get_contents();
 		ob_end_clean();
 
-		$this->assertEquals('{"status":"error"}', $results);
-		$this->assertFalse(empty($mockStorage->rolledBack), 'Rollback did not occur');
-		$this->assertTrue(MockGalleryStatus::doStatic()->wasPutInSession(), 'Error not put into the session');
+		$this->assertEquals(
+			'{"status":"error"}',
+			$results,
+			'Status Error'
+		);
+		$this->assertFalse(
+			empty($mockStorage->rolledBack),
+			'Rollback did not occur'
+		);
+		$this->assertTrue(
+			MockGalleryStatus::doStatic()->wasPutInSession(),
+			'Error not put into the session'
+		);
 		$gallery->_storage = $saveStorage;
 	}
 

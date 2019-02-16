@@ -27,10 +27,22 @@
  * @subpackage Classes
  * @author Alan Harder <alan.harder@sun.com>
  * @version $Revision: 17580 $
- * @static
  * @deprecated
  */
 class GalleryCapabilities {
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryCapabilities();
+		}
+
+		return $singleton;
+	}
+
 	/**
 	 * Get a configuration value.
 	 *
@@ -61,7 +73,7 @@ class GalleryCapabilities {
 	 * @param string $key
 	 * @param mixed $value (null to remove the value)
 	 */
-	public static function set($key, $value) {
+	public function set($key, $value) {
 		global $gallery;
 		$gallery->setConfig($key, $value);
 	}

@@ -193,6 +193,19 @@ class Gallery {
 	}
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new Gallery();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Register shutdown function to release any hanging locks.
 	 * This used to be done in the constructor, but moved here to avoid php4 vs php5 issue
 	 * ($gallery = new Gallery() needed for php4, but this is deprecated in php5.3).

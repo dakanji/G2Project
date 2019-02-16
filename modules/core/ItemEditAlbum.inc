@@ -380,7 +380,12 @@ class ItemEditAlbum extends ItemEditPlugin {
 
 		// Set up our sort order selection list
 		GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_2.class');
-		list($ret, $orderByList, $presortList, $orderDirectionList) = GallerySortInterface_1_2::getAllSortOrders();
+		list(
+			$ret,
+			$orderByList,
+			$presortList,
+			$orderDirectionList
+		) = GallerySortInterface_1_2::doStatic()->getAllSortOrders();
 
 		if ($ret) {
 			return array($ret, null, null);

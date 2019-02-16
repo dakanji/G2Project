@@ -129,7 +129,18 @@ class GalleryUrlGenerator {
 	 */
 	public $_isCookiePathConfigured;
 
-	// Static Methods
+	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryUrlGenerator();
+		}
+
+		return $singleton;
+	}
 
 	/**
 	 * Return the current request URI.
@@ -137,9 +148,8 @@ class GalleryUrlGenerator {
 	 *          it returns /gallery2/main.php?g2_view=core.ShowItem
 	 *
 	 * @return string the current URL path component plus query parameters
-	 * @static
 	 */
-	public static function getCurrentRequestUri() {
+	public function getCurrentRequestUri() {
 		$cacheKey = 'GalleryUrlGenerator::currentRequestUri';
 
 		if (GalleryDataCache::containsKey($cacheKey)) {
@@ -178,9 +188,8 @@ class GalleryUrlGenerator {
 	 * @param boolean $htmlEntities (optional) false to not convert ampersands to HTML entities
 	 * @param boolean $urlEncode (optional) false to not URL encode parameter names and values
 	 * @return string the new URL (&amp; separates added params)
-	 * @static
 	 */
-	public static function appendParamsToUrl(
+	public function appendParamsToUrl(
 		$url,
 		$params,
 		$addPrefix = true,
@@ -193,7 +202,7 @@ class GalleryUrlGenerator {
 
 		$args       = array();
 		$flatParams = array();
-		GalleryUrlGenerator::_flattenParamsArray($params, $flatParams);
+		$this->_flattenParamsArray($params, $flatParams);
 
 		foreach ($flatParams as $key => $value) {
 			if ($addPrefix) {
@@ -225,15 +234,14 @@ class GalleryUrlGenerator {
 	 * @param array $nestedParams array of URL parameters, can have nested arrays
 	 * @param array $flatParams flat array of URL parameters
 	 * @param string $keyBase (optional) base of the key for nested array parameters
-	 * @static
 	 * @access private
 	 */
-	public static function _flattenParamsArray($nestedParams, &$flatParams, $keyBase = null) {
+	public function _flattenParamsArray($nestedParams, &$flatParams, $keyBase = null) {
 		foreach ($nestedParams as $key => $value) {
 			$key = empty($keyBase) ? $key : $keyBase . '[' . $key . ']';
 
 			if (is_array($value)) {
-				GalleryUrlGenerator::_flattenParamsArray($value, $flatParams, $key);
+				$this->_flattenParamsArray($value, $flatParams, $key);
 			} else {
 				$flatParams[$key] = $value;
 			}
@@ -244,15 +252,11 @@ class GalleryUrlGenerator {
 	 * Old multisite system used a galleryId based on the current URL.  Return a value here so sites
 	 * won't break before they can upgrade.
 	 * @todo Remove on next major bump of core api
-	 *
-	 * @static
 	 * @deprecated
 	 */
-	public static function getGalleryId() {
+	public function getGalleryId() {
 		return '';
 	}
-
-	// Object Methods
 
 	/**
 	 * Split a URI string into file, path, host and protocol substrings and normalize them.
@@ -326,7 +330,12 @@ class GalleryUrlGenerator {
 		$this->_embedSessionString = $embedSessionString;
 
 		if (isset($baseUri)) {
-			list($this->_protocol[0], $this->_host[0], $this->_path[0], $this->_file[0]) = $this->_parseUri($baseUri);
+			list(
+				$this->_protocol[0],
+				$this->_host[0],
+				$this->_path[0],
+				$this->_file[0]
+			) = $this->_parseUri($baseUri);
 		} else {
 			$this->_file[0] = GALLERY_MAIN_PHP;
 			/*
@@ -339,7 +348,12 @@ class GalleryUrlGenerator {
 
 		// Set the forceDirect configuration parameters (only different if Gallery is embedded)
 		if (!empty($g2Uri)) {
-			list($this->_protocol[1], $this->_host[1], $this->_path[1], $this->_file[1]) = $this->_parseUri($g2Uri);
+			list(
+				$this->_protocol[1],
+				$this->_host[1],
+				$this->_path[1],
+				$this->_file[1]
+			) = $this->_parseUri($g2Uri);
 			// If file[1] is empty, we default to GALLERY_MAIN_PHP, unless it's intended
 			if ($this->_file[1] == '|') {
 				// User actually intends to set the file to an empty string
@@ -370,7 +384,11 @@ class GalleryUrlGenerator {
 		// Set the default value for the protocol part, if necessary
 		foreach (array(false, true) as $forceDirect) {
 			if (empty($this->_protocol[$forceDirect])) {
-				$this->_protocol[$forceDirect] = (GalleryUtilities::getServerVar('HTTPS') == 'on') ? 'https' : 'http';
+				if (GalleryUtilities::getServerVar('HTTPS') == 'on') {
+					$this->_protocol[$forceDirect] = 'https';
+				} else {
+					$this->_protocol[$forceDirect] = 'http';
+				}
 			}
 		}
 
@@ -463,7 +481,10 @@ class GalleryUrlGenerator {
 	public function getCurrentUrl($forceDirect = false) {
 		if (!isset($this->_currentUrl[$forceDirect])) {
 			// Allow overriding protocol / host part, but keep request string unchanged
-			$this->_currentUrl[$forceDirect] = $this->makeUrl(GalleryUrlGenerator::getCurrentRequestUri(), $forceDirect);
+			$this->_currentUrl[$forceDirect] = $this->makeUrl(
+				$this->getCurrentRequestUri(),
+				$forceDirect
+			);
 		}
 
 		return $this->_currentUrl[$forceDirect];
@@ -633,7 +654,11 @@ class GalleryUrlGenerator {
 		if (isset($params['return'])) {
 			// Cache the return URL
 			if (!isset($this->_returnUrlData[$currentView])) {
-				$this->_returnUrlData[$currentView]['return'] = str_replace('&amp;', '&', $this->getNavigationReturnUrl());
+				$this->_returnUrlData[$currentView]['return'] = str_replace(
+					'&amp;',
+					'&',
+					$this->getNavigationReturnUrl()
+				);
 			}
 			$params['return'] = $this->_returnUrlData[$currentView]['return'];
 		}
@@ -688,7 +713,7 @@ class GalleryUrlGenerator {
 		}
 
 		// Add parameters to URL
-		$url = GalleryUrlGenerator::appendParamsToUrl(
+		$url = $this->appendParamsToUrl(
 			$url,
 			$params,
 			true,
@@ -698,7 +723,7 @@ class GalleryUrlGenerator {
 
 		// Add embed session parameters to URL
 		if (!empty($embedSessionParams)) {
-			$url = GalleryUrlGenerator::appendParamsToUrl(
+			$url = $this->appendParamsToUrl(
 				$url,
 				$embedSessionParams,
 				false,
@@ -1041,6 +1066,6 @@ class GalleryUrlGenerator {
 	 * Convenience function.
 	 */
 	public function _saveLocalUrlMapXtra() {
-		GalleryUrlGenerator::_saveLocalUrlMap($this);
+		$this->_saveLocalUrlMap($this);
 	}
 }

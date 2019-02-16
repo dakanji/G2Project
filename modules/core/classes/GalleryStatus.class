@@ -52,20 +52,18 @@ class GalleryStatus {
 	 * @param int $errorCode an error code
 	 * @param string $errorMessage (optional) descriptive message of the error
 	 */
-	public function __construct($errorCode, $errorMessage = null) {
-		$this->_errorCode    = $errorCode;
-		$this->_errorMessage = $errorMessage;
+	public function __construct($errorCode = null, $errorMessage = null) {
+		if (!is_null($errorCode)) {
+			$this->_errorCode    = $errorCode;
+			$this->_errorMessage = $errorMessage;
+		}
 	}
 
 	/**
 	 * Load as Singleton
 	 */
 	public static function doStatic($errorCode = null, $errorMessage = null) {
-		static $singleton;
-
-		if (!isset($singleton)) {
-			$singleton = new GalleryStatus($errorCode, $errorMessage);
-		}
+		$singleton = new GalleryStatus($errorCode, $errorMessage);
 
 		return $singleton;
 	}
@@ -239,7 +237,8 @@ class GalleryStatus {
 			$platform    =& $gallery->getPlatform();
 			$basePaths[] = $platform->realpath(__DIR__ . '/../../../') .
 			$platform->getDirectorySeparator();
-			// The codebase isn't necessarily the config dir (multisites)
+
+			// The codebase is not necessarily the config dir (multisites)
 			$basePaths[] = $platform->realpath(GALLERY_CONFIG_DIR . '/') .
 			$platform->getDirectorySeparator();
 		}

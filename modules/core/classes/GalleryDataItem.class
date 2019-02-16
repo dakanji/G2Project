@@ -66,6 +66,19 @@ class GalleryDataItem extends GalleryItem {
 	public $size;
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryDataItem();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Data items that can be viewed inline (photos, movies, etc) should return true.
 	 * Items that can't be viewed inline (word documents, text, etc) should return false.
 	 *

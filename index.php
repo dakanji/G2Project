@@ -33,7 +33,7 @@ require_once __DIR__ . '/modules/core/classes/GalleryUrlGenerator.class';
 require_once __DIR__ . '/modules/core/classes/GalleryCoreApi.class';
 
 // The REQUEST_URI can either be /path/index.php or just /path/. Get rid of index.php.
-$path = GalleryUrlGenerator::getCurrentRequestUri();
+$path = GalleryUrlGenerator::doStatic()->getCurrentRequestUri();
 
 if (preg_match('|^(/(?:[^?#/]+/)*)(.*)|', $path, $matches)) {
 	$path = $matches[1] . GALLERY_MAIN_PHP;

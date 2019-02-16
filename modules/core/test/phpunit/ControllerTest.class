@@ -70,7 +70,7 @@ class ControllerTest extends GalleryTestCase {
 	}
 
 	public function testLoadControllerSuccess() {
-		list($ret, $controller) = GalleryController::loadController('core.ItemEdit');
+		list($ret, $controller) = GalleryController::doStatic()->loadController('core.ItemEdit');
 
 		if ($ret) {
 			return $ret;
@@ -79,7 +79,7 @@ class ControllerTest extends GalleryTestCase {
 	}
 
 	public function testLoadControllerFail() {
-		list($ret, $controller) = GalleryController::loadController(
+		list($ret, $controller) = GalleryController::doStatic()->loadController(
 			'controllertest.SomeRandomController'
 		);
 
@@ -95,7 +95,7 @@ class ControllerTest extends GalleryTestCase {
 		 * We can load the config controller even though the module is deactivated
 		 * because we're an admin.
 		 */
-		list($ret, $controller) = GalleryController::loadController('controllertest.ConfigView');
+		list($ret, $controller) = GalleryController::doStatic()->loadController('controllertest.ConfigView');
 
 		if ($ret) {
 			return $ret;
@@ -104,7 +104,7 @@ class ControllerTest extends GalleryTestCase {
 	}
 
 	public function testAssertIsGenuineRequestDefaultsToFalse() {
-		$ret = GalleryController::assertIsGenuineRequest();
+		$ret = GalleryController::doStatic()->assertIsGenuineRequest();
 
 		if ($ret && $ret->getErrorCode() & ERROR_REQUEST_FORGED) {
 			// this is what we expect
@@ -117,7 +117,7 @@ class ControllerTest extends GalleryTestCase {
 
 	public function testAssertIsGenuineRequestHandlesEmptyValue() {
 		GalleryUtilities::putRequestVariable('authToken', '');
-		$ret = GalleryController::assertIsGenuineRequest();
+		$ret = GalleryController::doStatic()->assertIsGenuineRequest();
 
 		if ($ret && $ret->getErrorCode() & ERROR_REQUEST_FORGED) {
 			// this is what we expect
@@ -135,7 +135,7 @@ class ControllerTest extends GalleryTestCase {
 		$validAuthToken = 'ABCDEF123456';
 		$session->put('core.authToken', $validAuthToken);
 		GalleryUtilities::putRequestVariable('authToken', $validAuthToken);
-		$ret = GalleryController::assertIsGenuineRequest();
+		$ret = GalleryController::doStatic()->assertIsGenuineRequest();
 
 		if ($ret) {
 			$this->fail('specified auth token in request parameters should be correct');
@@ -151,7 +151,7 @@ class ControllerTest extends GalleryTestCase {
 		$validAuthToken = 'ABCDEF123456';
 		$session->put('core.authToken', $validAuthToken);
 		GalleryUtilities::putRequestVariable('authToken', '098765432109');
-		$ret = GalleryController::assertIsGenuineRequest();
+		$ret = GalleryController::doStatic()->assertIsGenuineRequest();
 
 		if ($ret && $ret->getErrorCode() & ERROR_REQUEST_FORGED) {
 			// this is what we expect
@@ -167,7 +167,8 @@ class ControllerTest extends GalleryTestCase {
 		$session =& $gallery->getSession();
 
 		$session->_isPersistent = false;
-		$ret                    = GalleryController::assertIsGenuineRequest();
+
+		$ret = GalleryController::doStatic()->assertIsGenuineRequest();
 
 		if ($ret) {
 			$this->fail('check should be omitted for non-persistent sessions');
@@ -178,7 +179,7 @@ class ControllerTest extends GalleryTestCase {
 		$validAuthToken = 'ABCDEF123456';
 		$session->put('core.authToken', $validAuthToken);
 		GalleryUtilities::putRequestVariable('authToken', '098765432109');
-		$ret = GalleryController::assertIsGenuineRequest();
+		$ret = GalleryController::doStatic()->assertIsGenuineRequest();
 
 		if ($ret) {
 			$this->fail('specified auth token should be ignored for non-persistent sessions');
@@ -195,7 +196,7 @@ class ControllerTest extends GalleryTestCase {
 		$session->put('core.authToken', $validAuthToken);
 		GalleryUtilities::putRequestVariable('authToken', '098765432109');
 		$gallery->setConfig('mode.maintenance', true);
-		$ret = GalleryController::assertIsGenuineRequest();
+		$ret = GalleryController::doStatic()->assertIsGenuineRequest();
 
 		if ($ret) {
 			$this->fail('specified auth token should be ignored in maintenance mode');

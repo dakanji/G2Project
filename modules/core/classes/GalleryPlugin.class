@@ -137,7 +137,10 @@ class GalleryPlugin {
 			// No translator! (could be an old module calling translate() from constructor)
 			return 'Translation error: ' . print_r($params, true);
 		}
-		list($ret, $content) = $translator->translateDomain($this->getPluginType() . 's_' . $this->getId(), $params);
+		list($ret, $content) = $translator->translateDomain(
+			$this->getPluginType() . 's_' . $this->getId(),
+			$params
+		);
 
 		if ($ret) {
 			if ($gallery->getDebug()) {
@@ -433,7 +436,10 @@ class GalleryPlugin {
 		if ($gallery->getDebug()) {
 			$gallery->debug(sprintf('Removing translations for %s plugin', $this->getId()));
 		}
-		$ret = GalleryCoreApi::removeTranslationsForPlugin($this->getPluginType(), $this->getId());
+		$ret = GalleryCoreApi::removeTranslationsForPlugin(
+			$this->getPluginType(),
+			$this->getId()
+		);
 
 		if ($ret) {
 			return $ret;
@@ -479,7 +485,10 @@ class GalleryPlugin {
 		if ($gallery->getDebug()) {
 			$gallery->debug(sprintf('Removing translations for %s plugin', $this->getId()));
 		}
-		$ret = GalleryCoreApi::removeTranslationsForPlugin($this->getPluginType(), $this->getId());
+		$ret = GalleryCoreApi::removeTranslationsForPlugin(
+			$this->getPluginType(),
+			$this->getId()
+		);
 
 		if ($ret) {
 			return $ret;
@@ -488,7 +497,10 @@ class GalleryPlugin {
 		if ($gallery->getDebug()) {
 			$gallery->debug(sprintf('Installing translations for %s plugin', $this->getId()));
 		}
-		$ret = GalleryCoreApi::installTranslationsForPlugin($this->getPluginType(), $this->getId());
+		$ret = GalleryCoreApi::installTranslationsForPlugin(
+			$this->getPluginType(),
+			$this->getId()
+		);
 
 		if ($ret) {
 			return $ret;

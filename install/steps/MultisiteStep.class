@@ -57,7 +57,7 @@ class MultisiteStep extends InstallStep {
 				$this->readConfigFile();
 				// Remember the value also for the storage and database setup steps
 				$galleryStub->setConfig('isMultisite', false);
-				$uri  = preg_replace('{\?.*}', '', GalleryUrlGenerator::getCurrentRequestUri());
+				$uri  = preg_replace('{\?.*}', '', GalleryUrlGenerator::doStatic()->getCurrentRequestUri());
 				$uri .= '?step=' . ($this->getStepNumber() + 1);
 				// Cookieless browsing (see index.php), 'session.use_trans_sid' won't help here
 				if (!GallerySetupUtilities::areCookiesSupported()) {

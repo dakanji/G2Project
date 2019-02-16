@@ -29,6 +29,19 @@ GalleryCoreApi::requireOnce('modules/search/classes/GallerySearchInterface_1_0.c
  */
 class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryCoreSearch();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see GallerySearchInterface_1_0.getSearchModuleInfo
 	 */
 	public function getSearchModuleInfo() {

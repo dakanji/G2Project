@@ -31,6 +31,19 @@
  */
 class GalleryValidationPlugin {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryValidationPlugin();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Perform validation for this request.
 	 *
 	 * @param array $form the form values

@@ -396,10 +396,16 @@ class GalleryModule extends GalleryPlugin {
 		}
 
 		$query = '
-	SELECT [GalleryEntity::id]
-	  FROM [GalleryEntity]
-	 WHERE [GalleryEntity::entityType] IN (' . GalleryUtilities::makeMarkers($types) . ')
-	';
+			SELECT
+				[GalleryEntity::id]
+			FROM
+				[GalleryEntity]
+			WHERE
+				[GalleryEntity::entityType]
+			IN
+				(' . GalleryUtilities::makeMarkers($types) . ')
+		';
+
 		$gallery->guaranteeTimeLimit(120);
 		list($ret, $searchResults) = $gallery->search($query, $types);
 

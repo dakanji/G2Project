@@ -46,9 +46,9 @@ class RatingSiteAdminController extends GalleryController {
 			}
 
 			list($ret, $error, $status) = GalleryCoreApi::handleThemeSettingsRequest(
-			$form['currentThemeId'],
-			$themeSettingsId,
-			$form
+				$form['currentThemeId'],
+				$themeSettingsId,
+				$form
 		);
 
 			if ($ret) {
@@ -138,7 +138,12 @@ class RatingSiteAdminView extends GalleryView {
 
 		// Set up sort order selection list
 		GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_2.class');
-		list($ret, $orderByList, $presortList, $orderDirectionList) = GallerySortInterface_1_2::getAllSortOrders();
+		list(
+			$ret,
+			$orderByList,
+			$presortList,
+			$orderDirectionList
+		) = GallerySortInterface_1_2::doStatic()->getAllSortOrders();
 
 		if ($ret) {
 			return array($ret, null);
@@ -176,10 +181,10 @@ class RatingSiteAdminView extends GalleryView {
 			return array($ret, null);
 		}
 		$ret = GalleryCoreApi::loadThemeSettingsForm(
-		$form['themeId'],
-		$themeSettingsId,
-							 $template,
-		$form
+			$form['themeId'],
+			$themeSettingsId,
+			$template,
+			$form
 	);
 
 		if ($ret) {

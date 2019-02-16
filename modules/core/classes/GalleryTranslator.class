@@ -305,9 +305,10 @@ class GalleryTranslator {
 
 		list($languageCode, $data) = $this->getSupportedLanguageCode($languageCode);
 
-		// If we're using gettext, try to bind to a language
+		// If we are using gettext, try to bind to a language
 		if (function_exists('dgettext')) {
 			$this->_isRightToLeft = isset($data['right-to-left']);
+
 			// Some systems only require LANG, some (like Mandrake) seem to require LANGUAGE also
 			putenv("LANG=${languageCode}");
 			putenv("LANGUAGE=${languageCode}");
@@ -321,8 +322,8 @@ class GalleryTranslator {
 	}
 
 	/**
-	 * Attempt to set the requested locale.  Try fallbacks and character sets if needed to find a
-	 * valid locale.
+	 * Attempt to set the requested locale.
+	 * Try fallbacks and character sets if needed to find a valid locale.
 	 *
 	 * @param string $locale
 	 * @return string locale selected or boolean false if none
@@ -342,8 +343,8 @@ class GalleryTranslator {
 			return $ret;
 		}
 		/*
-		 * Try appending some character set names; some systems (like FreeBSD) need this.  Some
-		 * require a format with hyphen (eg. Gentoo) and others without (eg. FreeBSD).
+		 * Try appending some character set names; some systems (like FreeBSD) need this.
+		 * Some require a format with hyphen (eg. Gentoo) and others without (eg. FreeBSD).
 		 */
 		foreach (array(
 			'UTF-8',
@@ -370,10 +371,12 @@ class GalleryTranslator {
 		if (substr($locale, 0, 2) == 'no') {
 			return $this->_setlocale($category, substr_replace($locale, 'nb', 0, 2));
 		}
+
 		// For Serbia & Montenegro also try the old country code for Yugoslavia
 		if (substr($locale, 3, 2) == 'CS') {
 			return $this->_setlocale($category, substr_replace($locale, 'YU', 3, 2));
 		}
+
 		$gallery->debug("Warning: Unable to select locale $locale");
 
 		return false;
@@ -387,7 +390,11 @@ class GalleryTranslator {
 	 * @static
 	 */
 	public function getDefaultLanguageCode() {
-		list($ret, $useBrowserPref) = GalleryCoreApi::getPluginParameter('module', 'core', 'language.useBrowserPref');
+		list($ret, $useBrowserPref) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'core',
+			'language.useBrowserPref'
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -400,7 +407,11 @@ class GalleryTranslator {
 
 		if (empty($languageCode)) {
 			// Use the site-wide default language
-			list($ret, $languageCode) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
+			list($ret, $languageCode) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'core',
+				'default.language'
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -426,7 +437,6 @@ class GalleryTranslator {
 	 *        instead of en_US
 	 * @return array (string a language code in <language>_<COUNTRY> format,
 	 *                array data about this language code (description,right-to-left?))
-	 * @static
 	 */
 	public function getSupportedLanguageCode($languageCode, $fallback = true) {
 		static $supportedLanguages;
@@ -520,7 +530,7 @@ class GalleryTranslator {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
-		if (function_exists('dgettext') && $this->_languageCode != 'en_US') {
+		if ($this->_languageCode != 'en_US') {
 			if (isset($domain) && !isset($this->_boundDomains[$domain])) {
 				// The installer and upgrader use a separate domain and should never end up here
 				$localeDir = $gallery->getConfig('data.gallery.locale');
@@ -534,28 +544,12 @@ class GalleryTranslator {
 				$this->_boundDomains[$domain] = 1;
 			}
 
-			/*
-			 * We have to have dngettext (which is only available > PHP 4.2.0, according to the PHP
-			 * manual) in order to do pluralization translations.  If we don't have have dngettext()
-			 * we try to gracefully degrade to using dgettext().
-			 */
 			if (isset($data['one'])) {
-				if (function_exists('dngettext')) {
-					$localized = dngettext($domain, $data['one'], $data['many'], $data['count']);
-				} else {
-					/*
-					 * It would make more sense to fall back to $data['many'] here, since the odds
-					 * are better that it will be more applicable.  However, due to the way that we
-					 * do the pluralization, the keys will be organized by the $data['one'] entry so
-					 * there won't be a $data['many'] key for dgettext() to use.  :-(
-					 */
-					$localized = dgettext($domain, $data['one']);
-				}
+				$localized = dngettext($domain, $data['one'], $data['many'], $data['count']);
 			} else {
 				$localized = dgettext($domain, $data['text']);
 			}
 		} else {
-			// en_US is selected or the server doesn't have gettext
 			if (isset($data['text'])) {
 				$localized = $data['text'];
 			} elseif ($data['count'] == 1) {

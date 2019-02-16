@@ -3169,18 +3169,42 @@ class SessionTest extends GalleryTestCase {
 	}
 
 	public function testCompareIdentifiers() {
-		$this->assertEquals(1, GallerySession::compareIdentifiers(array(0), array(0)));
-		$this->assertEquals(1, GallerySession::compareIdentifiers(array(0), array(0, 1)));
-		$this->assertEquals(1, GallerySession::compareIdentifiers(array(0, 1), array(0)));
+		$this->assertEquals(
+			1,
+			GallerySession::doStatic()->compareIdentifiers(array(0), array(0))
+		);
+		$this->assertEquals(
+			1,
+			GallerySession::doStatic()->compareIdentifiers(array(0), array(0, 1))
+		);
+		$this->assertEquals(
+			1,
+			GallerySession::doStatic()->compareIdentifiers(array(0, 1), array(0))
+		);
 		$this->assertEquals(
 			2,
-			GallerySession::compareIdentifiers(array('x', 1, 'y'), array('x', 0, 'y'))
+			GallerySession::doStatic()->compareIdentifiers(array('x', 1, 'y'), array('x', 0, 'y'))
 		);
-		$this->assertEquals(0, GallerySession::compareIdentifiers(array(1), 'x'));
-		$this->assertEquals(0, GallerySession::compareIdentifiers(array(1), null));
-		$this->assertEquals(0, GallerySession::compareIdentifiers(null, array(1)));
-		$this->assertEquals(0, GallerySession::compareIdentifiers(null, null));
-		$this->assertEquals(0, GallerySession::compareIdentifiers('x', 'x'));
+		$this->assertEquals(
+			0,
+			GallerySession::doStatic()->compareIdentifiers(array(1), 'x')
+		);
+		$this->assertEquals(
+			0,
+			GallerySession::doStatic()->compareIdentifiers(array(1), null)
+		);
+		$this->assertEquals(
+			0,
+			GallerySession::doStatic()->compareIdentifiers(null, array(1))
+		);
+		$this->assertEquals(
+			0,
+			GallerySession::doStatic()->compareIdentifiers(null, null)
+		);
+		$this->assertEquals(
+			0,
+			GallerySession::doStatic()->compareIdentifiers('x', 'x')
+		);
 	}
 
 	// Test if Gallery creates cookies with the correct domain/path and name

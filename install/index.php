@@ -327,7 +327,7 @@ function getGalleryDirUrl() {
 	$urlPath = preg_replace(
 		'|^(.*/)install/index.php(?:\?.*)?$|s',
 		'$1',
-		GalleryUrlGenerator::getCurrentRequestUri()
+		GalleryUrlGenerator::doStatic()->getCurrentRequestUri()
 	);
 
 	return getBaseUrl() . $urlPath;

@@ -28,6 +28,19 @@
  */
 class GalleryRenderer {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryRenderer();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Can this renderer display the given item?
 	 *
 	 * @param GalleryDataItem $item

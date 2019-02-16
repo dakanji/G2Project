@@ -32,6 +32,19 @@
  */
 class GalleryAuthPlugin {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryAuthPlugin();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Perform authentication & return a user object
 	 *
 	 * @return array GalleryStatus a status code

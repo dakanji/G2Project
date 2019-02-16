@@ -53,6 +53,19 @@ class GalleryLockSystem {
 	}
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryLockSystem();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Read lock one or more objects
 	 *
 	 * @param mixed $ids array of ids to lock, or single int id

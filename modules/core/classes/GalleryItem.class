@@ -162,6 +162,19 @@ class GalleryItem extends GalleryFileSystemEntity {
 	public $originationTimestamp;
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryItem();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Create a new instance of this GalleryEntity in the persistent store.
 	 * Let the parent do its work, then add any initialization specific to this class.
 	 *

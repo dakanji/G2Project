@@ -197,6 +197,19 @@ class GalleryStorage {
 	}
 
 	/**
+	 * Load as Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryStorage();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Connect to the database
 	 *
 	 * @return array GalleryStatus a status code
@@ -597,7 +610,7 @@ class GalleryStorage {
 			return array($ret, null);
 		}
 		list($tableName, $unused) = $this->_translateTableName($mapName);
-		
+
 		$data          = array();
 		$selectColumns = array();
 		$where         = array();

@@ -369,7 +369,10 @@ class GalleryTemplateAdapter {
 		$rendererClass = $item->getRenderer();
 
 		if ($rendererClass) {
-			list($ret, $renderer) = GalleryCoreApi::newFactoryInstanceById('GalleryRenderer', $rendererClass);
+			list($ret, $renderer) = GalleryCoreApi::newFactoryInstanceById(
+				'GalleryRenderer',
+				$rendererClass
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -640,7 +643,7 @@ class GalleryTemplateAdapter {
 		$url = trim($content);
 		// Add the auth token to the URL
 		if (strstr($url, 'authToken') === false) {
-			$url = GalleryUrlGenerator::appendParamsToUrl(
+			$url = GalleryUrlGenerator::doStatic()->appendParamsToUrl(
 				$url,
 				array(
 					'authToken' => $session->getAuthToken(),
@@ -921,9 +924,11 @@ class GalleryTemplateAdapter {
 		if ($ret) {
 			return;
 		}
-		$linkTarget       = empty($params['target']) ? '' : (' target="' . $params['target'] . '"');
-		$isAdminOrShowAll = $isAdmin                || (isset($params['showToAll']) && $params['showToAll']);
-		$useLink          = !isset($params['link']) || $params['link'];
+		$linkTarget = empty($params['target']) ? '' : (' target="' . $params['target'] . '"');
+
+		$isAdminOrShowAll = $isAdmin || (isset($params['showToAll']) && $params['showToAll']);
+
+		$useLink = !isset($params['link']) || $params['link'];
 
 		switch ($params['type']) {
 			case 'gallery2':
@@ -940,9 +945,17 @@ class GalleryTemplateAdapter {
 					)
 				);
 
+				if ($useLink) {
+					$useLink1 = '<a href="http://gallery.sourceforge.net"' . $linkTarget . '>';
+					$useLink2 = '</a>';
+				} else {
+					$useLink1 = '';
+					$useLink2 = '';
+				}
+
 				return sprintf(
 					'%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>%s',
-					$useLink ? ('<a href="http://gallery.sourceforge.net"' . $linkTarget . '>') : '',
+					$useLink1,
 					$urlGenerator->generateUrl(
 						array(
 							'href' => 'images/gallery.gif',
@@ -951,7 +964,7 @@ class GalleryTemplateAdapter {
 					$version,
 					$version,
 					'border-style: none',
-					$useLink ? '</a>' : ''
+					$useLink2
 				);
 
 			case 'validation':
@@ -985,9 +998,17 @@ class GalleryTemplateAdapter {
 					);
 				}
 
+				if ($useLink) {
+					$useLink1 = '<a href="' . $validationUri . '"' . $linkTarget . '>';
+					$useLink2 = '</a>';
+				} else {
+					$useLink1 = '';
+					$useLink2 = '';
+				}
+
 				return sprintf(
 					'%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>%s',
-					$useLink ? ('<a href="' . $validationUri . '"' . $linkTarget . '>') : '',
+					$useLink1,
 					$urlGenerator->generateUrl(
 						array(
 							'href' => 'images/xhtml10.png',
@@ -996,7 +1017,7 @@ class GalleryTemplateAdapter {
 					$core->translate('This page is valid XHTML 1.0'),
 					$core->translate('This page is valid XHTML 1.0'),
 					'border-style: none',
-					$useLink ? '</a>' : ''
+					$useLink2
 				);
 
 			case 'donate':
@@ -1005,10 +1026,18 @@ class GalleryTemplateAdapter {
 				}
 				$installedVersions = $core->getInstalledVersions();
 
+				if ($useLink) {
+					$useLink1 = '<a href="http://gallery.sourceforge.net/donate.php?donate_tag=' .
+					$installedVersions['gallery'] . '"' . $linkTarget . '>';
+					$useLink2 = '</a>';
+				} else {
+					$useLink1 = '';
+					$useLink2 = '';
+				}
+
 				return sprintf(
 					'%s<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>%s',
-					$useLink ? ('<a href="http://gallery.sourceforge.net/donate.php?donate_tag=' .
-					$installedVersions['gallery'] . '"' . $linkTarget . '>') : '',
+					$useLink1,
 					$urlGenerator->generateUrl(
 						array(
 							'href' => 'modules/core/data/donate.png',
@@ -1017,7 +1046,7 @@ class GalleryTemplateAdapter {
 					$core->translate('Donate to the Gallery project'),
 					$core->translate('Donate to the Gallery project'),
 					'border-style: none',
-					$useLink ? '</a>' : ''
+					$useLink2
 				);
 
 			case 'gallery2-version':

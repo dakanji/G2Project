@@ -77,7 +77,7 @@ class GalleryRepository {
 	 *               array repository name => GalleryRepository the repository
 	 *               int error count (repositories that failed to load for some reason)
 	 */
-	public static function getRepositories(
+	public function getRepositories(
 		$sources = array(),
 		$repositoryClassName = 'GalleryRepository'
 	) {
@@ -127,7 +127,7 @@ class GalleryRepository {
 	 *
 	 * @static
 	 */
-	public static function clearRepositoryCache(
+	public function clearRepositoryCache(
 		$sources = array(),
 		$repositoryClassName = 'GalleryRepository'
 	) {
@@ -1080,7 +1080,7 @@ class GalleryRepository {
 							'pluginType'     => $pluginType,
 							'pluginId'       => $pluginId,
 							'packageName'    => (
-							'lang-' . GalleryUtilities::getFileBase(basename($file))
+								'lang-' . GalleryUtilities::getFileBase(basename($file))
 							),
 							'packageVersion' => $stringsRevision,
 							'packageBuild'   => $revision,
@@ -1104,10 +1104,8 @@ class GalleryRepository {
 	 * @param $source string the name (released, experimental, community)
 	 * @return array GalleryStatus a status code
 	 *               string the localized name
-	 * @static
-	 * @public
 	 */
-	public static function translateRepositoryName($source) {
+	public function translateRepositoryName($source) {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {

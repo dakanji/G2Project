@@ -28,6 +28,19 @@
  */
 class GalleryEventListener {
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryEventListener();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Handle the event
 	 *
 	 * @param GalleryEvent $event

@@ -526,8 +526,9 @@ class GalleryTheme extends GalleryPlugin {
 					}
 					$value = $json->encode($input);
 					/*
-					 * JSON can't distinguish between regular arrays and assoc arrays if the array is
-					 * empty, so fix it up here.  This isn't essential, but it keeps our interchange
+					 * JSON cannot distinguish between regular arrays and assoc arrays
+					 * if the array is  empty, so fix it up here.
+					 * This is not essential, but it keeps our interchange
 					 * format cleaner (and we enforce this behaviour in our tests).
 					 */
 					$value   = str_replace('[]', '{}', $value);

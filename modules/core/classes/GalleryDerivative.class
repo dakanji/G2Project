@@ -146,6 +146,19 @@ class GalleryDerivative extends GalleryChildEntity {
 	public $isBroken;
 
 	/**
+	 * Load Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new GalleryDerivative();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * Data items that can be viewed inline (photos, movies, etc) should return true.  Items that
 	 * can't be viewed inline (word documents, text, etc) should return false.
 	 *
@@ -517,7 +530,7 @@ class GalleryDerivative extends GalleryChildEntity {
 			'mimeType'       => $this->getMimeType(),
 			'parentId'       => $this->getParentId(),
 		);
-		
+
 		list($ret, $data['pseudoFileName']) = GalleryUtilities::getPseudoFileName($this);
 
 		if ($ret) {
