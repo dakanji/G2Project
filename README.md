@@ -33,6 +33,7 @@ For more advanced users interested in the Github branches, these are set out as 
 - **[Master Branch](https://github.com/dakanji/G2Project/tree/master)** - This branch contains the latest stable code and is always deployable. Relatively few updates, features or bug fixes will have been applied and it will be the closest branch to the last official release by the Gallery Project Team. However, this also means it has not yet been updated for current PHP Versions. The current file set can be [DOWNLOADED HERE](https://github.com/dakanji/G2Project/archive/master.zip).
 - **[Beta Branch](https://github.com/dakanji/G2Project/tree/beta)** - This branch contains the latest "Release Candidate" code and is always deployable. The current file set can be [DOWNLOADED HERE](https://github.com/dakanji/G2Project/archive/beta.zip).
 - **[Alpha Branch](https://github.com/dakanji/G2Project/tree/alpha)** - This branch contains the latest semi-stable code and is normally deployable. This branch is never formally "issued" but the current file set can be [DOWNLOADED HERE](https://github.com/dakanji/G2Project/archive/alpha.zip).
+- **Legacy Branches** - These contain important old official releases. These are for reference only and never updated.
 - **Other Branches** - These contain ongoing work streams which may, or may not, be deployable. Note also that these may be deleted without notice.
 
 # Updating Gallery 2
