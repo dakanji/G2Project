@@ -8,22 +8,35 @@
 ehthumbs.db
 Thumbs.db
 
+
 # svn folder #
 ##############
 **/.svn
+.git
 
-# Git README #
-##############
-README.mediawiki
 
 # style guide #
 ##############
 .php_cs.cache
-wpcs
+dev_vendor
 
-# misc #
+
+# installed G2 #
 ##############
 g2data
 config.php
+/.htaccess
+authFile.txt
+login.txt
 
 
+# IDE stuff #
+##############
+.idea
+build
+attic
+
+
+# Misc stuff #
+##############
+composer.phar

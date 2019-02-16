@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Update the Developer Environment at Random
+LO_VAL=1
+HI_VAL=13
+FREQ_UPDATE_FLAG=$(($LO_VAL + $RANDOM%(1 + $HI_VAL - $LO_VAL)))
+if [ $FREQ_UPDATE_FLAG -eq $((($HI_VAL + $LO_VAL) / 2)) ];
+then
+	composer install
+fi
+
+XX_VAL=$(($HI_VAL * $HI_VAL))
+RARE_UPDATE_FLAG=$(($LO_VAL + $RANDOM%(1 + $XX_VAL - $LO_VAL)))
+if [ $RARE_UPDATE_FLAG -eq $((($XX_VAL + $LO_VAL) / 2)) ];
+then
+	composer install --no-dev && composer install
+fi

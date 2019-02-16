@@ -1,17 +1,20 @@
 #
 # Exclude these files from release archives.
 #
-/.travis.yml export-ignore
-/.php_cs.dist export-ignore
+/.editorconfig export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
 /.php_cs.cache export-ignore
+/.php_cs.dist export-ignore
 /.svn export-ignore
 /.svnignore export-ignore
-/.editorconfig export-ignore
-/.gitignore export-ignore
-/.gitattributes export-ignore
+/LICENSE.md export-ignore
 /phpcs.xml export-ignore
-/README.mediawiki export-ignore
-/wpcs export-ignore
+/README.md export-ignore
+/dev_vendor export-ignore
+/composer.json export-ignore
+/composer.lock export-ignore
+/dev_scripts export-ignore
 
 #
 # Auto detect text files and perform LF normalization
