@@ -70,7 +70,7 @@ class MultiLangHelper {
 	 * @param string $description (optional)
 	 * @return GalleryStatus a status code
 	 */
-	public function setItemData($item, $language, $title = null, $summary = null, $description = null) {
+	public static function setItemData($item, $language, $title = null, $summary = null, $description = null) {
 		$itemId           = $item->getId();
 		list($ret, $data) = MultiLangHelper::getItemData($itemId);
 
