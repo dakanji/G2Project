@@ -60,11 +60,18 @@ class QuotasListenerTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Save/clear quotas for All Users,Everybody groups so they won't interfere with tests
+		/*
+		 * Save/clear quotas for All Users, Everybody groups
+		 * so they won't interfere with tests
+		 */
 		$this->_saveQuota = array();
 
 		foreach (array('allUsersGroup', 'everybodyGroup') as $groupName) {
-			list($ret, $groupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.' . $groupName);
+			list($ret, $groupId) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'core',
+				'id.' . $groupName
+			);
 
 			if ($ret) {
 				return $ret;
@@ -88,19 +95,28 @@ class QuotasListenerTest extends GalleryTestCase {
 	}
 
 	public function tearDown() {
-		$ret = GalleryCoreApi::deleteEntityById($this->_album->getId(), 'GalleryAlbumItem');
+		$ret = GalleryCoreApi::deleteEntityById(
+			$this->_album->getId(),
+			'GalleryAlbumItem'
+		);
 
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
 
-		$ret = GalleryCoreApi::deleteEntityById($this->_user->getId(), 'GalleryUser');
+		$ret = GalleryCoreApi::deleteEntityById(
+			$this->_user->getId(),
+			'GalleryUser'
+		);
 
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
 
-		$ret = GalleryCoreApi::deleteEntityById($this->_group->getId(), 'GalleryGroup');
+		$ret = GalleryCoreApi::deleteEntityById(
+			$this->_group->getId(),
+			'GalleryGroup'
+		);
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -129,11 +145,17 @@ class QuotasListenerTest extends GalleryTestCase {
 
 	public function testDeleteEntityQuotasListener() {
 		// Enable event listener (normally disabled for unit tests)
-		$this->_registerTestEventListener('GalleryEntity::delete', new QuotasModule());
+		$QuotasModule = new QuotasModule();
+		$this->_registerTestEventListener(
+			'GalleryEntity::delete',
+			$QuotasModule
+		);
 
 		$userId = $this->_user->getId();
 
-		list($ret, $quotaExists, $userQuotaInfo) = GalleryQuotasHelper::fetchUserQuota($this->_user->getId());
+		list($ret, $quotaExists, $userQuotaInfo) = GalleryQuotasHelper::fetchUserQuota(
+			$this->_user->getId()
+		);
 
 		if ($ret) {
 			return $ret;
@@ -149,7 +171,9 @@ class QuotasListenerTest extends GalleryTestCase {
 			)
 		);
 
-		list($ret, $quotaExists, $userQuotaInfo) = GalleryQuotasHelper::fetchUserQuota($this->_user->getId());
+		list($ret, $quotaExists, $userQuotaInfo) = GalleryQuotasHelper::fetchUserQuota(
+			$this->_user->getId()
+		);
 
 		if ($ret) {
 			return $ret;
@@ -176,7 +200,9 @@ class QuotasListenerTest extends GalleryTestCase {
 
 		$groupId = $this->_group->getId();
 
-		list($ret, $quotaExists, $groupQuotaInfo) = GalleryQuotasHelper::fetchGroupQuota($this->_group->getId());
+		list($ret, $quotaExists, $groupQuotaInfo) = GalleryQuotasHelper::fetchGroupQuota(
+			$this->_group->getId()
+		);
 
 		if ($ret) {
 			return $ret;
@@ -192,7 +218,9 @@ class QuotasListenerTest extends GalleryTestCase {
 			)
 		);
 
-		list($ret, $quotaExists, $groupQuotaInfo) = GalleryQuotasHelper::fetchGroupQuota($this->_group->getId());
+		list($ret, $quotaExists, $groupQuotaInfo) = GalleryQuotasHelper::fetchGroupQuota(
+			$this->_group->getId()
+		);
 
 		if ($ret) {
 			return $ret;
@@ -209,7 +237,9 @@ class QuotasListenerTest extends GalleryTestCase {
 		);
 		$this->_deleteEntity($this->_group);
 
-		list($ret, $quotaExists, $groupQuotaInfo) = GalleryQuotasHelper::fetchGroupQuota($groupId);
+		list($ret, $quotaExists, $groupQuotaInfo) = GalleryQuotasHelper::fetchGroupQuota(
+			$groupId
+		);
 
 		if ($ret) {
 			return $ret;
