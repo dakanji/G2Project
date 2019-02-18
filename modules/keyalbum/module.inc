@@ -31,7 +31,7 @@ class KeyAlbumModule extends GalleryModule {
 		$this->setId('keyalbum');
 		$this->setName($gallery->i18n('Keyword Albums'));
 		$this->setDescription($gallery->i18n('Dynamic albums based on keyword search'));
-		$this->setVersion('1.0.6');
+		$this->setVersion('7.0.0');
 		$this->_templateVersion = 1;
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getSiteAdminViews|getItemSummaries');

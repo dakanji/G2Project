@@ -29,7 +29,7 @@ class IntegrityModule extends GalleryModule {
 		$this->setId('integrity');
 		$this->setName($gallery->i18n('Integrity Check'));
 		$this->setDescription($gallery->i18n('Check integrity of the Gallery database and files'));
-		$this->setVersion('0.1.2');
+		$this->setVersion('7.0.0');
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks('');
 		$this->setRequiredCoreApi(array(7, 4));

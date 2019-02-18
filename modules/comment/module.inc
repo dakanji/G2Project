@@ -39,7 +39,7 @@ class CommentModule extends GalleryModule {
 		$this->setId('comment');
 		$this->setName($gallery->i18n('Comments'));
 		$this->setDescription($gallery->i18n('User commenting system'));
-		$this->setVersion('1.1.14'); // Update upgrade() function below too
+		$this->setVersion('7.0.0'); // Update upgrade() function below too
 		$this->_templateVersion = 1;
 		$this->setGroup('data', $gallery->i18n('Extra Data'));
 		$this->setCallbacks(

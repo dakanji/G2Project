@@ -37,7 +37,7 @@ class RewriteModule extends GalleryModule {
 				'Enables short URLs using Apache mod_rewrite, ISAPI Rewrite, or PathInfo'
 			)
 		);
-		$this->setVersion('1.1.19'); // Update RewriteModuleExtras::upgrade too!
+		$this->setVersion('7.0.0'); // Update RewriteModuleExtras::upgrade too!
 		$this->_templateVersion = 1;
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks('getSiteAdminViews');

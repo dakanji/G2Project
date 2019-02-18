@@ -480,7 +480,7 @@ class RewriteParserMockModule extends GalleryModule {
 		$this->setId('rewriteparsermock');
 		$this->setName('RewriteParser Test Module');
 		$this->setDescription('Unit test module');
-		$this->setVersion('1');
+		$this->setVersion('7.0.0');
 		$this->setGroup('gallery', 'Gallery');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$this->setRequiredModuleApi(GalleryModule::getApiVersion());

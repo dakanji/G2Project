@@ -39,7 +39,7 @@ class PermalinksModule extends GalleryModule {
 		$this->setDescription(
 			$gallery->i18n('Create simpler permanent aliases to your items space')
 		);
-		$this->setVersion('1.0.12');
+		$this->setVersion('7.0.0');
 		$this->_templateVersion = 1;
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks('getSiteAdminViews');

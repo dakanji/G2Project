@@ -40,7 +40,7 @@ class PasswordModule extends GalleryModule {
 		$this->setDescription(
 			$gallery->i18n('Assign passwords for viewing particular albums')
 		);
-		$this->setVersion('1.0.9');
+		$this->setVersion('7.0.0');
 		$this->_templateVersion = 1;
 		$this->setGroup('display', $this->translate('Display'));
 		$this->setRequiredCoreApi(array(7, 53));
