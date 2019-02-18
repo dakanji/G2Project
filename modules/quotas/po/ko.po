@@ -1,0 +1,288 @@
+# $Id: ko.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Quotas 1.1.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-04-05 14:03+0900\n"
+"PO-Revision-Date: 2006-05-15 00:27+0900\n"
+"Last-Translator: juice <blackmantle@gmail.com>\n"
+"Language-Team: KOREA <gallery-translations@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Poedit-Language: Korean\n"
+"X-Poedit-Country: KOREA, REPUBLIC OF\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "KB"
+msgstr ""
+
+msgid "MB"
+msgstr ""
+
+msgid "GB"
+msgstr ""
+
+#, c-format
+msgid "Warning: You have reached your disk quota (%s %s), this item will not be added."
+msgstr ""
+"경고 : 당신에게 분배받은 몫 만큼  사용중입니다. (%s %s), 더이상 아이템을 추가할 수 없습니다."
+
+#, c-format
+msgid "You are using %s %s of your allotted %s %s."
+msgstr "당신은 %s %s 만큼 사용중입니다. (%s %s 중)"
+
+msgid "Quotas"
+msgstr "할당량 관리"
+
+msgid "User/Group Disk Quotas"
+msgstr "사용자및 동아리 디스크 용량 분배"
+
+msgid "Gallery"
+msgstr ""
+
+msgid "Create A New Group Quota"
+msgstr "동아리에 일정 용량을 할당합니다."
+
+msgid "Group Name"
+msgstr "동아리 이름"
+
+msgid "(required)"
+msgstr "(필수)"
+
+#, c-format
+msgid "Group quota for '%s' already exists"
+msgstr "'%s' 동아리는 이미 분배 받은 디스크 용량이 있습니다."
+
+msgid "Quota Size"
+msgstr "할당할 크기"
+
+msgid "You must enter a quota size."
+msgstr "할당할 크기를 입력하세요"
+
+msgid "Quota size must be less than 2097152 MB (2048 GB)."
+msgstr "분배할 목승  2097152 MB (2048 GB)보다 클 수 없습니다."
+
+msgid "Invalid quota size, positive numbers and decimals only."
+msgstr "할당 크기가 잘못되었습니다. 10진수를 이용해 확실하게 넣어 주십시요."
+
+msgid "Create Group Quota"
+msgstr "동아리에 일정 용량을 분배합니다."
+
+msgid "Cancel"
+msgstr "취소"
+
+msgid "Create A New User Quota"
+msgstr "사용자에게 일정 용량을 분배합니다."
+
+msgid "User Name"
+msgstr "사용자 이름"
+
+#, c-format
+msgid "User quota for '%s' already exists"
+msgstr "'%s' 님에겐 이미 일정 용량이 분배 돼었습니다."
+
+msgid "Create User Quota"
+msgstr "사용자에게 용량 분배하기"
+
+msgid "Delete A Group Quota"
+msgstr "동아리에게 분배한 디스크 용량 지우기"
+
+msgid "Are you sure?"
+msgstr "정말입니까?"
+
+#, c-format
+msgid "This will completely remove the %s (%s %s) group quota from Gallery.  There is no undo!"
+msgstr "Gallery에서 %s (%s %s) 동아리에 할당한 몫을 제거하여습니다. 되돌릴수 없습니다."
+
+msgid "Delete"
+msgstr "삭제"
+
+msgid "Delete A User Quota"
+msgstr "사용자에게 할당한것을 지웁니다."
+
+#, c-format
+msgid "This will completely remove the %s (%s %s) user quota from Gallery. There is no undo!"
+msgstr "Gallery에서 %s (%s %s)님에게 할당한 몫을 제거하여습니다. 되돌릴수 없습니다."
+
+msgid "Edit A Group Quota"
+msgstr "동아리에 분배한 몫 편집"
+
+msgid "Save"
+msgstr "저장"
+
+msgid "Undo"
+msgstr "되돌림"
+
+msgid "Edit A User Quota"
+msgstr "사용자에게 분배한 몫 삭제"
+
+msgid "Quotas Administration"
+msgstr "용량 분배 관리"
+
+#, c-format
+msgid "Removed group quota for '%s'"
+msgstr "'%s' 동아리에 분배한 몫을 제거하였습니다."
+
+#, c-format
+msgid "Created group quota for '%s'"
+msgstr "'%s' 동아리에게 분배를 하였습니다."
+
+#, c-format
+msgid "Modified group quota for '%s'"
+msgstr "'%s' 동아리에 분배한 몫을 수정하였습니다."
+
+#, c-format
+msgid "Removed user quota for '%s'"
+msgstr "'%s' 님에게 분배한 몫을 제거하였습니다."
+
+#, c-format
+msgid "Created user quota for '%s'"
+msgstr "'%s' 님에게 분배를 하였습니다."
+
+#, c-format
+msgid "Modified user quota for '%s'"
+msgstr "'%s' 님에게 분배한 몫을 수정하였습니다."
+
+msgid ""
+"This system will let you assign disk space quotas to users. By creating a group quota, any "
+"users in that group will be assigned that quota. If a user belongs to more than one group, "
+"the highest quota of all the groups will be assigned. Although, if you create a user quota "
+"that will override any group quotas."
+msgstr ""
+"이 장치는 디스크의 남은 공간에 일정 크기를 사용또는 동아리에 분배를 할수 있도록합니다. 만일 "
+"어떤 동아리에 일정 크기를 분배했다면 그 동아리에 속한 사용자는 그 동아리에 분배된 크기를 넘"
+"어 사용할 수 없습니다. 하지만, 그 사용자가 여러 동아리에 소속이 돼었다면, 그 동아리들에게 분"
+"배된 양만큼 사용할 수 있게됩니다. Although, if you create a user quota that will override "
+"any group quotas."
+
+#, c-format
+msgid "There is %d group quota in the system."
+msgid_plural "There are %d total group quotas in the system."
+msgstr[0] "%d개의 동아리가 디스크 용량의 일정용량을 할당 받았습니다."
+
+msgid "Group Quotas"
+msgstr "동아리에게 할당량 분배"
+
+msgid "Create Quota"
+msgstr "분배할 몫 만들기"
+
+msgid "Edit Quota"
+msgstr "분배한 몫 편집"
+
+msgid "Delete Quota"
+msgstr "분배한 몫 삭제"
+
+#, c-format
+msgid "Group quota for '%s' does not exist. You must create one first."
+msgstr "'%s' 동아리는 존재하지 않습니다. 할당하기 위새헌 동아리가 있어야합니다."
+
+#, c-format
+msgid "Group quota for '%s' already exists."
+msgstr "'%s' 동아리는 이미 할당 받았습니다."
+
+#, c-format
+msgid "Group '%s' does not exist."
+msgstr "'%s' 동아리는 없습니다."
+
+msgid "You must enter a group name"
+msgstr "동아리 이름을 입력해야 합니다."
+
+msgid "Edit Group Quotas (by list)"
+msgstr "동아리 별 할당량 편집 (목록 보기)"
+
+msgid "&laquo; first"
+msgstr "&laquo; 처음"
+
+msgid "&laquo; back"
+msgstr "&laquo; 뒤로"
+
+#, c-format
+msgid "Viewing page %d of %d"
+msgstr "%d 페이지 보고 있는중입니다. (총 %d쪽)"
+
+msgid "next &raquo;"
+msgstr "다음 &raquo;"
+
+msgid "last &raquo;"
+msgstr "최근 &raquo;"
+
+msgid "Quota"
+msgstr "용량 분배"
+
+msgid "Action"
+msgstr "명령"
+
+msgid "edit"
+msgstr "편집"
+
+msgid "delete"
+msgstr "삭제"
+
+#, c-format
+msgid "There is %d user quota in the system."
+msgid_plural "There are %d total user quotas in the system."
+msgstr[0] "디스크의 일정 용량을 할당 받은 사용자가 %d명 있습니다."
+
+msgid "User Quotas"
+msgstr "사용자가 사용할 용량 할당"
+
+#, c-format
+msgid "User quota for '%s' does not exist. You must create one first."
+msgstr "'%s' 님은 존재하지 않습니다. 할당하기 위해선 사용자가 있어야 합니다."
+
+#, c-format
+msgid "User quota for '%s' already exists."
+msgstr "'%s'님은 이미 할당 받은 용량이 있습니다."
+
+#, c-format
+msgid "User '%s' does not exist."
+msgstr "'%s'는 존재하지 않는 사용자입니다."
+
+msgid "You must enter a username"
+msgstr "사용자 이름을 입력하십시요."
+
+msgid "Edit User Quotas (by list)"
+msgstr "할당한 사용자 편집(목록 보기)"
+
+msgid "Username"
+msgstr "사용자 이름"
+
+#, c-format
+msgid "Used: %0.2f %s (%s%%)"
+msgstr ""
+
+#, c-format
+msgid "Quota: %0.2f %s"
+msgstr ""
+
+#, c-format
+msgid "Used: %0.2f %s"
+msgstr ""
+
+#, fuzzy
+msgid "Quota: Unlimited"
+msgstr "할당할 크기"
+
+#, fuzzy
+msgid "User Quota Block"
+msgstr "사용자가 사용할 용량 할당"

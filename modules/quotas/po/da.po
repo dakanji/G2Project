@@ -1,0 +1,288 @@
+# $Id: da.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# - Bjorn Graabek <bjorn@graabek.com>, 2007
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Quotas 1.1.4\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2003-02-11 03:09-0800\n"
+"PO-Revision-Date: 2007-03-12 17:49+0000\n"
+"Last-Translator: Bjorn Graabek <bjorn@graabek.com>\n"
+"Language-Team: Danish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "KB"
+msgstr "KB"
+
+msgid "MB"
+msgstr "MB"
+
+msgid "GB"
+msgstr "GB"
+
+#, c-format
+msgid "Warning: You have reached your disk quota (%s %s), this item will not be added."
+msgstr "Advarsel: Du har nået din diskkvota (%s %s), denne fil vil ikke blive tilføjet."
+
+#, c-format
+msgid "You are using %s %s of your allotted %s %s."
+msgstr "Du benytter %s %s af din tildelte %s %s."
+
+msgid "Quotas"
+msgstr "Kvoter"
+
+msgid "User/Group Disk Quotas"
+msgstr "Bruger/Gruppe Diskkvoter"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "Create A New Group Quota"
+msgstr "Opret En Ny Gruppekvote"
+
+msgid "Group Name"
+msgstr "Gruppenavn"
+
+msgid "(required)"
+msgstr "(obligatorisk)"
+
+#, c-format
+msgid "Group quota for '%s' already exists"
+msgstr "Gruppekvote for '%s' findes allerede"
+
+msgid "Quota Size"
+msgstr "Kvotestørrelse"
+
+msgid "You must enter a quota size."
+msgstr "Du skal indtaste en kvotestørrelse."
+
+msgid "Quota size must be less than 2097152 MB (2048 GB)."
+msgstr "Kvotestørrelse skal være mindre end 2097152 MB (2048 GB)."
+
+msgid "Invalid quota size, positive numbers and decimals only."
+msgstr "Ugyldig kvotestørrelse, benyt kun positive tal og decimaler."
+
+msgid "Create Group Quota"
+msgstr "Opret Gruppekvote"
+
+msgid "Cancel"
+msgstr "Afbryd"
+
+msgid "Create A New User Quota"
+msgstr "Opret En Ny Brugerkvote"
+
+msgid "User Name"
+msgstr "Brugernavn"
+
+#, c-format
+msgid "User quota for '%s' already exists"
+msgstr "Brugerkvote for '%s' findes allerede"
+
+msgid "Create User Quota"
+msgstr "Opret brugerkvote"
+
+msgid "Delete A Group Quota"
+msgstr "Slet En Gruppekvote"
+
+msgid "Are you sure?"
+msgstr "Er du sikker?"
+
+#, c-format
+msgid "This will completely remove the %s (%s %s) group quota from Gallery.  There is no undo!"
+msgstr ""
+"Dette vil fuldstændig fjerne %s (%s %s) gruppekvoten fra Gallery. Det kan ikke gøres om!"
+
+msgid "Delete"
+msgstr "Slet"
+
+msgid "Delete A User Quota"
+msgstr "Slet en Brugerkvote"
+
+#, c-format
+msgid "This will completely remove the %s (%s %s) user quota from Gallery. There is no undo!"
+msgstr ""
+"Dette vil fuldstændig fjerne %s (%s %s) brugerkvoten fra Gallery. Det kan ikke gøres om!"
+
+msgid "Edit A Group Quota"
+msgstr "Rediger En Gruppekvote"
+
+msgid "Save"
+msgstr "Gem"
+
+msgid "Undo"
+msgstr "Gør om"
+
+msgid "Edit A User Quota"
+msgstr "Rediger En Brugerkvote"
+
+msgid "Quotas Administration"
+msgstr "Kvoteadministration"
+
+#, c-format
+msgid "Removed group quota for '%s'"
+msgstr "Fjernede gruppekvote for '%s'"
+
+#, c-format
+msgid "Created group quota for '%s'"
+msgstr "Oprettede gruppekvote for '%s'"
+
+#, c-format
+msgid "Modified group quota for '%s'"
+msgstr "Ændrede gruppekvote for '%s'"
+
+#, c-format
+msgid "Removed user quota for '%s'"
+msgstr "Fjernede brugerkvote for '%s'"
+
+#, c-format
+msgid "Created user quota for '%s'"
+msgstr "Oprettede brugerkvote for '%s'"
+
+#, c-format
+msgid "Modified user quota for '%s'"
+msgstr "Ændrede brugerkvote for '%s'"
+
+msgid ""
+"This system will let you assign disk space quotas to users. By creating a group quota, any "
+"users in that group will be assigned that quota. If a user belongs to more than one group, "
+"the highest quota of all the groups will be assigned. Although, if you create a user quota "
+"that will override any group quotas."
+msgstr ""
+"Dette modul lader dig tlldele harddisk-kvoter til brugere. Når en gruppekvote oprettes vil "
+"alle medlemmerne af den gruppe få tildelt samme kvote. Hvis en bruger tilhører mere end en "
+"gruppe vil brugeren få tildelt den største kvote. En brugerkvote tilsidesætter eventuelle "
+"gruppekvoter."
+
+#, c-format
+msgid "There is %d group quota in the system."
+msgid_plural "There are %d total group quotas in the system."
+msgstr[0] "Der er %d gruppekvote i systemet."
+msgstr[1] "Der er %d gruppekvoter i systemet."
+
+msgid "Group Quotas"
+msgstr "Gruppekvoter"
+
+msgid "Create Quota"
+msgstr "Opret Kvote"
+
+msgid "Edit Quota"
+msgstr "Rediger Kvote"
+
+msgid "Delete Quota"
+msgstr "Slet Kvote"
+
+#, c-format
+msgid "Group quota for '%s' does not exist. You must create one first."
+msgstr "Gruppkvote for '%s' eksisterer ikke. Den skal først oprettes."
+
+#, c-format
+msgid "Group quota for '%s' already exists."
+msgstr "Gruppekvote for '%s' eksisterer allerede."
+
+#, c-format
+msgid "Group '%s' does not exist."
+msgstr "Gruppen '%s' eksisterer ikke."
+
+msgid "You must enter a group name"
+msgstr "Du skal indtaste et gruppenavn"
+
+msgid "Edit Group Quotas (by list)"
+msgstr "Rediger Gruppekvoter (pr. liste)"
+
+msgid "&laquo; first"
+msgstr "&laquo; første"
+
+msgid "&laquo; back"
+msgstr "&laquo; tilbage"
+
+#, c-format
+msgid "Viewing page %d of %d"
+msgstr "Viser side %d af %d"
+
+msgid "next &raquo;"
+msgstr "næste &raquo;"
+
+msgid "last &raquo;"
+msgstr "sidste &raquo;"
+
+msgid "Quota"
+msgstr "Kvote"
+
+msgid "Action"
+msgstr "Handling"
+
+msgid "edit"
+msgstr "rediger"
+
+msgid "delete"
+msgstr "slet"
+
+#, c-format
+msgid "There is %d user quota in the system."
+msgid_plural "There are %d total user quotas in the system."
+msgstr[0] "Der ers %d brugerkvote i systemet."
+msgstr[1] "Der er %d brugerkvoter i systemet."
+
+msgid "User Quotas"
+msgstr "Brugerkvoter"
+
+#, c-format
+msgid "User quota for '%s' does not exist. You must create one first."
+msgstr "Brugerkvote for '%s' eksisterer ikke. Du må først oprette en."
+
+#, c-format
+msgid "User quota for '%s' already exists."
+msgstr "Brugerkvote for '%s' eksisterer allerede."
+
+#, c-format
+msgid "User '%s' does not exist."
+msgstr "Brugeren '%s' ksxisterer ikke."
+
+msgid "You must enter a username"
+msgstr "Du skal indtaste et brugernavn"
+
+msgid "Edit User Quotas (by list)"
+msgstr "Rediger Brugerkvote (pr. liste)"
+
+msgid "Username"
+msgstr "Brugernavn"
+
+#, c-format
+msgid "Used: %0.2f %s (%s%%)"
+msgstr "Brugt: %0.2f %s (%s%%)"
+
+#, c-format
+msgid "Quota: %0.2f %s"
+msgstr "Kvote: %0.2f %s"
+
+#, c-format
+msgid "Used: %0.2f %s"
+msgstr "Brugt: %0.2f %s"
+
+msgid "Quota: Unlimited"
+msgstr "Kvote: Ubegrænset"
+
+msgid "User Quota Block"
+msgstr "Brugerkvote Blok"

@@ -1,0 +1,280 @@
+# $Id: zh_TW.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Quotas 1.1.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-08-02 00:32-0400\n"
+"PO-Revision-Date: 2005-08-02 00:32-0400\n"
+"Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
+"Language-Team: Chinese Traditional <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "KB"
+msgstr "KB"
+
+msgid "MB"
+msgstr "MB"
+
+msgid "GB"
+msgstr "GB"
+
+#, c-format
+msgid "Warning: You have reached your disk quota (%s %s), this item will not be added."
+msgstr "你已經用完你的磁碟配額（%s %s），無法加入這個項目。"
+
+#, c-format
+msgid "You are using %s %s of your allotted %s %s."
+msgstr "你正在使用你所配有的 %3$s %4$s 中的 %1$s %2$s。"
+
+msgid "Quotas"
+msgstr "磁碟配額"
+
+msgid "User/Group Disk Quotas"
+msgstr "用戶／成員組磁碟配額"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "Create A New Group Quota"
+msgstr "產生一個新的成員組磁碟配額"
+
+msgid "Group Name"
+msgstr "成員組名稱"
+
+msgid "(required)"
+msgstr "（必需填寫）"
+
+#, c-format
+msgid "Group quota for '%s' already exists"
+msgstr "「%s」的成員組磁碟配額已經存在"
+
+msgid "Quota Size"
+msgstr "磁碟配額大小"
+
+msgid "You must enter a quota size."
+msgstr "你必需輸入磁碟配額大小"
+
+msgid "Quota size must be less than 2097152 MB (2048 GB)."
+msgstr "磁碟配額大小入需小於 2097152 MB（2048 GB）。"
+
+msgid "Invalid quota size, positive numbers and decimals only."
+msgstr "無效的磁碟配額大小，只能使用正數和小數點。"
+
+msgid "Create Group Quota"
+msgstr "產生成員組磁碟配額"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Create A New User Quota"
+msgstr "產生一個新的用戶磁碟配額"
+
+msgid "User Name"
+msgstr "用戶名稱"
+
+#, c-format
+msgid "User quota for '%s' already exists"
+msgstr "「%s」的用戶磁碟配額已經存在"
+
+msgid "Create User Quota"
+msgstr "產生用戶磁碟配額"
+
+msgid "Delete A Group Quota"
+msgstr "刪除成員組磁碟配額"
+
+msgid "Are you sure?"
+msgstr "確定？"
+
+#, c-format
+msgid "This will completely remove the %s (%s %s) group quota from Gallery.  There is no undo!"
+msgstr "這會從 Gallery 中完全消除 %s（%s %s）成員組磁碟配額。這個動作無法復原！"
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid "Delete A User Quota"
+msgstr "刪除用戶磁碟配額"
+
+#, c-format
+msgid "This will completely remove the %s (%s %s) user quota from Gallery. There is no undo!"
+msgstr "這會從 Gallery 中完全消除 %s（%s %s）用戶磁碟配額。這個動作無法復原！"
+
+msgid "Edit A Group Quota"
+msgstr "編輯成員組磁碟配額"
+
+msgid "Save"
+msgstr "儲存"
+
+msgid "Undo"
+msgstr "復原"
+
+msgid "Edit A User Quota"
+msgstr "編輯用戶磁碟配額"
+
+msgid "Quotas Administration"
+msgstr "磁碟配額管理"
+
+#, c-format
+msgid "Removed group quota for '%s'"
+msgstr "已經消除「%s」的成員組磁碟配額"
+
+#, c-format
+msgid "Created group quota for '%s'"
+msgstr "已經產生「%s」的成員組磁碟配額"
+
+#, c-format
+msgid "Modified group quota for '%s'"
+msgstr "已經修改「%s」的成員組磁碟配額"
+
+#, c-format
+msgid "Removed user quota for '%s'"
+msgstr "已經消除「%s」的用戶磁碟配額"
+
+#, c-format
+msgid "Created user quota for '%s'"
+msgstr "已經產生「%s」的用戶磁碟配額"
+
+#, c-format
+msgid "Modified user quota for '%s'"
+msgstr "已經修改「%s」的用戶磁碟配額"
+
+msgid ""
+"This system will let you assign disk space quotas to users. By creating a group quota, any "
+"users in that group will be assigned that quota. If a user belongs to more than one group, "
+"the highest quota of all the groups will be assigned. Although, if you create a user quota "
+"that will override any group quotas."
+msgstr ""
+"這個系統可以讓你為用戶們指定磁碟空間的配額。如果為一個成員組設定磁碟配額，那個成員組中的所有"
+"用戶都會被指定使用那個配額。如果一個用戶同時屬於多個成員組，他會使用其中最高的配額。不過，如"
+"果你為他產生一個用戶磁碟配額則會優先使用。"
+
+#, c-format
+msgid "There is %d group quota in the system."
+msgid_plural "There are %d total group quotas in the system."
+msgstr[0] "系統中有 %d 成員組磁碟配額。"
+
+msgid "Group Quotas"
+msgstr "成員組磁碟配額"
+
+msgid "Create Quota"
+msgstr "產生磁碟配額"
+
+msgid "Edit Quota"
+msgstr "編輯磁碟配額"
+
+msgid "Delete Quota"
+msgstr "刪除磁碟配額"
+
+#, c-format
+msgid "Group quota for '%s' does not exist. You must create one first."
+msgstr "「%s」的成員組磁碟配額不存在。你必需先產生一個新的。"
+
+#, c-format
+msgid "Group quota for '%s' already exists."
+msgstr "「%s」的成員組磁碟配額已經存在。"
+
+#, c-format
+msgid "Group '%s' does not exist."
+msgstr "成員組「%s」不存在。"
+
+msgid "You must enter a group name"
+msgstr "你必需先輸入一個成員組名稱"
+
+msgid "Edit Group Quotas (by list)"
+msgstr "編輯成員組磁碟配額（列表方式）"
+
+msgid "&laquo; first"
+msgstr "&laquo; 第一頁"
+
+msgid "&laquo; back"
+msgstr "&laquo; 上一頁"
+
+#, c-format
+msgid "Viewing page %d of %d"
+msgstr "瀏覽第 %2$d 之 %1$d 頁"
+
+msgid "next &raquo;"
+msgstr "下一頁 &raquo;"
+
+msgid "last &raquo;"
+msgstr "最後一頁 &raquo;"
+
+msgid "Quota"
+msgstr "磁碟配額"
+
+msgid "Action"
+msgstr "操作"
+
+msgid "edit"
+msgstr "編輯"
+
+msgid "delete"
+msgstr "刪除"
+
+#, c-format
+msgid "There is %d user quota in the system."
+msgid_plural "There are %d total user quotas in the system."
+msgstr[0] "系統中有 %d 個用戶的磁碟配額。"
+
+msgid "User Quotas"
+msgstr "用戶磁碟配額"
+
+#, c-format
+msgid "User quota for '%s' does not exist. You must create one first."
+msgstr "「%s」的用戶磁碟配額不存在。你必需先產生一個新的。"
+
+#, c-format
+msgid "User quota for '%s' already exists."
+msgstr "「%s」的用戶磁碟配額已經存在。"
+
+#, c-format
+msgid "User '%s' does not exist."
+msgstr "用戶「%s」不存在。"
+
+msgid "You must enter a username"
+msgstr "你必需輸入一個用戶名稱"
+
+msgid "Edit User Quotas (by list)"
+msgstr "編輯用戶磁碟配額（列表方式）"
+
+msgid "Username"
+msgstr "用戶名稱"
+
+#, c-format
+msgid "Used: %0.2f %s (%s%%)"
+msgstr "使用：%0.2f %s（%s%%）"
+
+#, c-format
+msgid "Quota: %0.2f %s"
+msgstr "磁碟配額：%0.2f %s"
+
+#, c-format
+msgid "Used: %0.2f %s"
+msgstr "使用：%0.2f %s"
+
+msgid "Quota: Unlimited"
+msgstr "磁碟配額：無限制"
+
+msgid "User Quota Block"
+msgstr "用戶磁碟配額區塊"

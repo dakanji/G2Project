@@ -1,0 +1,293 @@
+# $Id: sv.po 18174 2008-10-17 07:52:33Z andy_st $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Swedish translation
+# Hampus Nygren <hampus@friendlyfire.net>, 2005.
+#
+# Changed the translation from html to UTF-8
+# Anders Lindquist <andersl@saaf.se>, 2005
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Quotas 1.1.4\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2003-02-11 03:09-0800\n"
+"PO-Revision-Date: 2007-01-02 22:45+0100\n"
+"Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
+"Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Swedish\n"
+"X-Poedit-Country: SWEDEN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "KB"
+msgstr "KB"
+
+msgid "MB"
+msgstr "MB"
+
+msgid "GB"
+msgstr "GB"
+
+#, c-format
+msgid "Warning: You have reached your disk quota (%s %s), this item will not be added."
+msgstr "Varning: Du har nått din diskkvota (%s %s), detta objekt kommer inte att läggas till."
+
+#, c-format
+msgid "You are using %s %s of your allotted %s %s."
+msgstr "Du använder %s %s av dina tilldelade %s %s."
+
+msgid "Quotas"
+msgstr "Kvoter"
+
+msgid "User/Group Disk Quotas"
+msgstr "Användare/Grupp Diskkvoter"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "Create A New Group Quota"
+msgstr "Skapa en ny gruppkvota"
+
+msgid "Group Name"
+msgstr "Gruppnamn"
+
+msgid "(required)"
+msgstr "(obligatorisk)"
+
+#, c-format
+msgid "Group quota for '%s' already exists"
+msgstr "Gruppkvota for '%s' existerar redan"
+
+msgid "Quota Size"
+msgstr "Kvotstorlek"
+
+msgid "You must enter a quota size."
+msgstr "Du måste fylla i en kvotstorlek"
+
+msgid "Quota size must be less than 2097152 MB (2048 GB)."
+msgstr "Kvotstorlek måste vara mindre än 2097152 MB (2048 GB)."
+
+msgid "Invalid quota size, positive numbers and decimals only."
+msgstr "Ogiltig kvotstorlek, endast posetiva eller decimala nummer giltiga"
+
+msgid "Create Group Quota"
+msgstr "Skapa gruppkvota"
+
+msgid "Cancel"
+msgstr "Ångra"
+
+msgid "Create A New User Quota"
+msgstr "Skapa en ny användarkvota"
+
+msgid "User Name"
+msgstr "Användarnamn"
+
+#, c-format
+msgid "User quota for '%s' already exists"
+msgstr "Användarkvota för '%s' existerar redan"
+
+msgid "Create User Quota"
+msgstr "Skapa användarkvota"
+
+msgid "Delete A Group Quota"
+msgstr "Tag bort en gruppkvota"
+
+msgid "Are you sure?"
+msgstr "Är du säker?"
+
+#, c-format
+msgid "This will completely remove the %s (%s %s) group quota from Gallery.  There is no undo!"
+msgstr ""
+"Detta kommer att ta bort %s (%s %s) gruppkvota från galleriet. Det finns ingen återvändo!"
+
+msgid "Delete"
+msgstr "Tag bort"
+
+msgid "Delete A User Quota"
+msgstr "Tag bort en användarkvota"
+
+#, c-format
+msgid "This will completely remove the %s (%s %s) user quota from Gallery. There is no undo!"
+msgstr ""
+"Detta kommer att ta bort %s (%s %s) användarkvota från galleriet. Det finns ingen återvändo!"
+
+msgid "Edit A Group Quota"
+msgstr "Redigera en gruppkvota"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Undo"
+msgstr "Ångra"
+
+msgid "Edit A User Quota"
+msgstr "Redigera En Användarkvota"
+
+msgid "Quotas Administration"
+msgstr "Kvotadministration"
+
+#, c-format
+msgid "Removed group quota for '%s'"
+msgstr "Tog bort gruppkvota för '%s'"
+
+#, c-format
+msgid "Created group quota for '%s'"
+msgstr "Skapade gruppkvota för '%s'"
+
+#, c-format
+msgid "Modified group quota for '%s'"
+msgstr "Modifierade gruppkvota för '%s'"
+
+#, c-format
+msgid "Removed user quota for '%s'"
+msgstr "Tog bort användarkvota för '%s'"
+
+#, c-format
+msgid "Created user quota for '%s'"
+msgstr "Skapade användarkvota för '%s'"
+
+#, c-format
+msgid "Modified user quota for '%s'"
+msgstr "Modifierade användarkvota för '%s'"
+
+msgid ""
+"This system will let you assign disk space quotas to users. By creating a group quota, any "
+"users in that group will be assigned that quota. If a user belongs to more than one group, "
+"the highest quota of all the groups will be assigned. Although, if you create a user quota "
+"that will override any group quotas."
+msgstr ""
+"Detta systemet tillåter dig att tilldela diskutrymme for användare. Genom att skapa "
+"gruppkvoter så kommer användare i denna gruppen att tilldelas kvoten ifråga. Om en användare "
+"tillhör mer än en grupp kommer användaren att tilldelas den högsta kvoten. Men, om du skapar "
+"en användarkvot så kommer denna att åsidosätta eventuella gruppkvoter."
+
+#, c-format
+msgid "There is %d group quota in the system."
+msgid_plural "There are %d total group quotas in the system."
+msgstr[0] "Det finns %d gruppkvot i systemet."
+msgstr[1] "Det finns %d gruppkvoter i systemet."
+
+msgid "Group Quotas"
+msgstr "Gruppkvoter"
+
+msgid "Create Quota"
+msgstr "Skapa kvota"
+
+msgid "Edit Quota"
+msgstr "Redigera kvota"
+
+msgid "Delete Quota"
+msgstr "Tag bort kvota"
+
+#, c-format
+msgid "Group quota for '%s' does not exist. You must create one first."
+msgstr "Gruppkvota for '%s' existerar inte. Du mäste skapa en först."
+
+#, c-format
+msgid "Group quota for '%s' already exists."
+msgstr "Gruppkvota for '%s' existerar redan."
+
+#, c-format
+msgid "Group '%s' does not exist."
+msgstr "Gruppen '%s' existerar inte."
+
+msgid "You must enter a group name"
+msgstr "Du måste fylla i ett gruppnamn"
+
+msgid "Edit Group Quotas (by list)"
+msgstr "Redigera Gruppkvoter (m.h.a lista)"
+
+msgid "&laquo; first"
+msgstr "&laquo; första"
+
+msgid "&laquo; back"
+msgstr "&laquo; tillbaka"
+
+#, c-format
+msgid "Viewing page %d of %d"
+msgstr "Visar sidan %dav %d"
+
+msgid "next &raquo;"
+msgstr "nästa &raquo;"
+
+msgid "last &raquo;"
+msgstr "sista &raquo;"
+
+msgid "Quota"
+msgstr "Kvota"
+
+msgid "Action"
+msgstr "Händelse"
+
+msgid "edit"
+msgstr "redigera"
+
+msgid "delete"
+msgstr "tag bort"
+
+#, c-format
+msgid "There is %d user quota in the system."
+msgid_plural "There are %d total user quotas in the system."
+msgstr[0] "Det finns %d användarkvot i systemet."
+msgstr[1] "Det finns %d användarkvoter i systemet."
+
+msgid "User Quotas"
+msgstr "Användarkvoter"
+
+#, c-format
+msgid "User quota for '%s' does not exist. You must create one first."
+msgstr "Användarkvota för '%s' existerar inte. Du måste skapa en först."
+
+#, c-format
+msgid "User quota for '%s' already exists."
+msgstr "Användarkvota för '%s' existerar redan."
+
+#, c-format
+msgid "User '%s' does not exist."
+msgstr "Användare '%s' existerar inte."
+
+msgid "You must enter a username"
+msgstr "Du måste fylla i ett användarnamn"
+
+msgid "Edit User Quotas (by list)"
+msgstr "Redigera Användarkvota (m.h.a lista)"
+
+msgid "Username"
+msgstr "Användarnamn"
+
+#, c-format
+msgid "Used: %0.2f %s (%s%%)"
+msgstr "Använt: %0.2f %s (%s%%)"
+
+#, c-format
+msgid "Quota: %0.2f %s"
+msgstr "Kvota: %0.2f %s"
+
+#, c-format
+msgid "Used: %0.2f %s"
+msgstr "Använt: %0.2f %s"
+
+msgid "Quota: Unlimited"
+msgstr "Kvota: Obegränsad"
+
+msgid "User Quota Block"
+msgstr "Användarkvota Block"
