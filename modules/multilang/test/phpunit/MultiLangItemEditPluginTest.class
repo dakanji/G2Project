@@ -41,7 +41,8 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 			return $ret;
 		}
 
-		$this->_registerTestEventListener('GalleryEntity::delete', new MultiLangModule());
+		$MultiLangModule = new MultiLangModule();
+		$this->_registerTestEventListener('GalleryEntity::delete', $MultiLangModule);
 
 		list($ret, $this->_album) = $this->_createRandomAlbum(
 			$this->_getRootId(),
@@ -58,7 +59,6 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
-
 		$ret = $this->_markPluginParametersForCleanup('module', 'multilang');
 
 		if ($ret) {
@@ -76,7 +76,8 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 			return $ret;
 		}
 
-		$session             =& $gallery->getSession();
+		$session =& $gallery->getSession();
+
 		$this->_saveLanguage = $session->get('core.language');
 	}
 
@@ -149,27 +150,49 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals('cn title', $album->getTitle());
-		$this->assertEquals('cn summary', $album->getSummary());
-		$this->assertEquals('', $album->getDescription(), 'cn description');
+		$this->assertEquals(
+			'cn title',
+			$album->getTitle(),
+			'cn title'
+		);
+		$this->assertEquals(
+			'cn summary',
+			$album->getSummary(),
+			'cn summary'
+		);
+		$this->assertEquals(
+			'',
+			$album->getDescription(),
+			'cn description'
+		);
 
-		$ret = GalleryCoreApi::deleteEntityById($this->_subAlbum->getId(), 'GalleryAlbumItem');
+		$ret = GalleryCoreApi::deleteEntityById(
+			$this->_subAlbum->getId(),
+			'GalleryAlbumItem'
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
-		list($ret, $data) = MultiLangHelper::getItemData($this->_subAlbum->getId());
+		list($ret, $data) = MultiLangHelper::getItemData(
+			$this->_subAlbum->getId()
+		);
 
 		if ($ret) {
 			return $ret;
 		}
-		$this->assertEquals(array(), $data, 'MultiLang data for test item not deleted!');
+		$this->assertEquals(
+			array(),
+			$data,
+			'MultiLang data for test item not deleted!'
+		);
 	}
 
 	public function testMissingRootTitle() {
 		$rootAlbumId = $this->_getRootId();
-		$ret         = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'id.rootAlbum',
@@ -179,13 +202,16 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		GalleryUtilities::putRequestVariable('form[language]', 'zh_CN');
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$results = $this->handleRequest($this->_album, $this->_album);
 		$this->assertEquals(
 			array(array('form[error][title][missingRootTitle]'), null),
 			$results
 		);
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
@@ -213,6 +239,7 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 
 		$results = $this->handleRequest($this->_album, $this->_album);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results
@@ -224,6 +251,7 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(' title', $album->getTitle());
 		$this->assertEquals('summary fun', $album->getSummary());
 		$this->assertEquals('desc', $album->getDescription());
