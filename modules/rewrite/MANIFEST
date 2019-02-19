@@ -12,7 +12,7 @@ modules/rewrite/classes/GalleryStorage/xml-src/R_RewriteMap_1.0.xml	2901457058	3
 modules/rewrite/classes/RewriteApi.class	3403743597	3095599691	7876	8179
 modules/rewrite/classes/RewriteCheckConflictTask.class	1065208329	3190103172	4107	4259
 modules/rewrite/classes/RewriteHelper.class	2005233332	3439648240	15270	15792
-modules/rewrite/classes/RewriteParser.class	2457708654	105282857	8616	8920
+modules/rewrite/classes/RewriteParser.class	2298957565	3860500235	8619	8923
 modules/rewrite/classes/RewriteSimpleHelper.class	136832585	4287898280	5000	5181
 modules/rewrite/classes/RewriteUrlGenerator.class	404331314	1524654659	7362	7633
 modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteHelper.class	2149017933	361333999	20479	21284
@@ -45,7 +45,7 @@ modules/rewrite/data/mod_rewrite_no_options/gallery2/.htaccess	3024768581	261050
 modules/rewrite/data/mod_rewrite_no_options/gallery2/Rewrite.txt	2916074531	2916074531	15	15
 modules/rewrite/data/mod_rewrite_no_options/gallery2/Works.txt	28724129	3695621473	13	14
 modules/rewrite/data/path_info/index.php	588079895	3739113429	1236	1270
-modules/rewrite/module.inc	3376983628	1411832102	10771	11201
+modules/rewrite/module.inc	1486044	96748580	10956	11399
 modules/rewrite/po/GNUmakefile	1866879166	2808215985	98	103
 modules/rewrite/po/af.mo	2284435018	2284435018	6162	6162
 modules/rewrite/po/af.po	3380016	2278836363	13976	14502
@@ -123,23 +123,23 @@ modules/rewrite/templates/ModRewriteAdminParser.tpl	134690280	3512326434	1001	10
 modules/rewrite/templates/ModRewriteTestResults.tpl	3964444380	428302022	7843	8055
 modules/rewrite/templates/PathInfoTestResults.tpl	1713672766	1788336269	1822	1882
 modules/rewrite/templates/SetupRewrite.tpl	19522399	2713677547	3822	3923
-modules/rewrite/test/phpunit/AdminRewriteControllerTest.class	1864758227	1131226239	23107	24130
-modules/rewrite/test/phpunit/IsapiRewriteHelperTest.class	2284611820	494723269	9912	10311
-modules/rewrite/test/phpunit/IsapiRewriteParserTest.class	2192586009	2236312812	14701	15332
-modules/rewrite/test/phpunit/IsapiRewriteUrlGeneratorTest.class	4070849560	915585599	4267	4420
-modules/rewrite/test/phpunit/ModRewriteHelperTest.class	1167462514	2132480111	14476	15052
-modules/rewrite/test/phpunit/ModRewriteParserTest.class	834299927	1262861771	16064	16740
-modules/rewrite/test/phpunit/ModRewriteUrlGeneratorTest.class	3422321347	3402185637	5621	5799
+modules/rewrite/test/phpunit/AdminRewriteControllerTest.class	2736714809	1358443045	23111	24134
+modules/rewrite/test/phpunit/IsapiRewriteHelperTest.class	1157414570	444627245	9912	10311
+modules/rewrite/test/phpunit/IsapiRewriteParserTest.class	2299620483	2206967093	14701	15332
+modules/rewrite/test/phpunit/IsapiRewriteUrlGeneratorTest.class	2799849395	2851682487	4267	4420
+modules/rewrite/test/phpunit/ModRewriteHelperTest.class	720295812	2867932307	14476	15052
+modules/rewrite/test/phpunit/ModRewriteParserTest.class	529676631	1214580909	16064	16740
+modules/rewrite/test/phpunit/ModRewriteUrlGeneratorTest.class	2915888728	366354792	5621	5799
 modules/rewrite/test/phpunit/PathInfoHelperTest.class	4051544231	2444900532	5836	6063
-modules/rewrite/test/phpunit/PathInfoParserTest.class	1338616511	2751108793	2967	3090
-modules/rewrite/test/phpunit/PathInfoUrlGeneratorTest.class	3822263273	2432882304	35975	36795
-modules/rewrite/test/phpunit/RewriteApiTest.class	2417631304	1369710933	12967	13513
-modules/rewrite/test/phpunit/RewriteHelperTest.class	2362520585	4212216914	29739	30902
-modules/rewrite/test/phpunit/RewriteModuleTest.class	1993591505	1362722267	12007	12560
-modules/rewrite/test/phpunit/RewriteParserTestCase.class	2839334970	3041400032	19623	20385
+modules/rewrite/test/phpunit/PathInfoParserTest.class	1910714	2862785750	2967	3090
+modules/rewrite/test/phpunit/PathInfoUrlGeneratorTest.class	1215835654	4225394458	35975	36795
+modules/rewrite/test/phpunit/RewriteApiTest.class	414368632	3459762958	12967	13513
+modules/rewrite/test/phpunit/RewriteHelperTest.class	3882976813	2368385368	29743	30906
+modules/rewrite/test/phpunit/RewriteModuleTest.class	3453820572	845384033	12011	12564
+modules/rewrite/test/phpunit/RewriteParserTestCase.class	1024616491	596012512	19627	20389
 modules/rewrite/test/phpunit/RewriteSimpleHelperTest.class	1056094724	941719799	6062	6310
-modules/rewrite/test/phpunit/RewriteUrlGeneratorTest.class	2563988835	1301133601	4033	4175
-modules/rewrite/test/phpunit/RewriteUrlGeneratorTestCase.class	747347126	2454743084	50698	52137
+modules/rewrite/test/phpunit/RewriteUrlGeneratorTest.class	2607396345	2941472614	4033	4175
+modules/rewrite/test/phpunit/RewriteUrlGeneratorTestCase.class	4042614175	2561511075	50698	52137
 modules/rewrite/test/phpunit/SetupRewriteControllerTest.class	2650723382	227505118	8302	8664
 R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
 R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile

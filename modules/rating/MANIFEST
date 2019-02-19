@@ -4,8 +4,8 @@ modules/rating/Callbacks.inc	1318817477	644370748	3266	3382
 modules/rating/Preloads.inc	1542822788	4073649376	1288	1329
 modules/rating/RatingAlbum.inc	2503505019	95937173	6778	7038
 modules/rating/RatingCallback.inc	573506302	4179329585	2923	3033
-modules/rating/RatingItemEdit.inc	944446237	944611102	2409	2493
-modules/rating/RatingSiteAdmin.inc	2482220737	2802944278	5836	6034
+modules/rating/RatingItemEdit.inc	1743450706	1837986340	2388	2472
+modules/rating/RatingSiteAdmin.inc	429133353	3405637549	5865	6068
 modules/rating/classes/GNUmakefile	1995366819	843025639	51	52
 modules/rating/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
 modules/rating/classes/GalleryStorage/schema.tpl	1287325099	324355419	7603	7846
@@ -20,7 +20,7 @@ modules/rating/images/star_r_1.0.gif	950031169	950031169	190	190
 modules/rating/images/star_u_1.0.gif	968361793	968361793	185	185
 modules/rating/images/star_u_noborder.gif	773766236	773766236	171	171
 modules/rating/images/transparent.gif	1799978585	1799978585	177	177
-modules/rating/module.inc	4178405541	484406168	9775	10211
+modules/rating/module.inc	3646750098	2326082352	9959	10408
 modules/rating/po/GNUmakefile	1866879166	2808215985	98	103
 modules/rating/po/af.mo	121205669	121205669	1101	1101
 modules/rating/po/af.po	4142166462	196113847	3351	3497
@@ -101,10 +101,10 @@ modules/rating/templates/RatingItemEdit.tpl	1173479391	559208215	694	708
 modules/rating/templates/RatingSiteAdmin.tpl	309645489	2743105844	3778	3886
 modules/rating/templates/blocks/Rating.tpl	2809670753	2114018607	484	500
 modules/rating/templates/blocks/blocks.inc	3681861761	984357627	105	111
-modules/rating/test/phpunit/RatingAlbumTest.class	1564116365	2560658419	6900	7154
-modules/rating/test/phpunit/RatingCallbackViewTest.class	1846189492	3659525852	7513	7826
-modules/rating/test/phpunit/RatingCallbacksTest.class	647013767	2750852766	10188	10618
-modules/rating/test/phpunit/RatingHelperTest.class	3067775234	3204563827	13961	14538
+modules/rating/test/phpunit/RatingAlbumTest.class	1102585057	162173901	6900	7154
+modules/rating/test/phpunit/RatingCallbackViewTest.class	113083775	2747168897	7513	7826
+modules/rating/test/phpunit/RatingCallbacksTest.class	3154554494	652699395	10188	10618
+modules/rating/test/phpunit/RatingHelperTest.class	1431378512	657308157	13961	14538
 modules/rating/test/phpunit/RatingOptionTest.class	547534241	3547900592	4047	4222
 modules/rating/test/phpunit/RatingSiteAdminControllerTest.class	1156119883	109243409	5878	6094
 R	modules/rating/locale/af/LC_MESSAGES/modules_rating.mo
