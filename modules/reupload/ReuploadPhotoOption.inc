@@ -50,7 +50,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 			}
 
-			list($ret, $hasLinkedEntity) = $this->_hasLinkedEntity($item);
+			list($ret, $hasLinkedEntity) = ReuploadPhotoOption::_hasLinkedEntity($item);
 
 			if ($ret) {
 				return array($ret, null, null);
@@ -217,7 +217,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 			);
 		}
 
-		list($ret, $hasLinkedEntity) = $this->_hasLinkedEntity($item);
+		list($ret, $hasLinkedEntity) = ReuploadPhotoOption::_hasLinkedEntity($item);
 
 		if ($ret) {
 			return array($ret, null, null);
