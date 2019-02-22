@@ -32,7 +32,7 @@ class CartModule extends GalleryModule {
 		$this->setId('cart');
 		$this->setName($gallery->i18n('Cart'));
 		$this->setDescription($gallery->i18n('Shopping Cart Module'));
-		$this->setVersion('7.0.0'); // Update upgrade() function below too
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->_templateVersion = 1;
 		$this->setGroup('commerce', $gallery->i18n('Commerce'));
 		$this->setCallbacks('getItemLinks');

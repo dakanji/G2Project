@@ -31,7 +31,7 @@ class RatingModule extends GalleryModule {
 		$this->setId('rating');
 		$this->setName($gallery->i18n('Rating'));
 		$this->setDescription($gallery->i18n('Item Rating Interface'));
-		$this->setVersion('7.0.0'); // Update upgrade() too
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->_templateVersion = 1;
 		$this->setCallbacks('getSiteAdminViews|getItemSummaries');
 		$this->setGroup('data', $gallery->i18n('Extra Data'));

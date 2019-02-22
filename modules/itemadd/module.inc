@@ -32,7 +32,7 @@ class ItemAddModule extends GalleryModule {
 		$this->setId('itemadd');
 		$this->setName($gallery->i18n('Add Items'));
 		$this->setDescription($gallery->i18n('Add items from local server or the web'));
-		$this->setVersion('7.0.0');
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->_templateVersion = 1;
 		$this->setGroup('import', $gallery->i18n('Import'));
 		$this->setCallbacks('getSiteAdminViews');

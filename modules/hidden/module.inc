@@ -44,7 +44,7 @@ class HiddenModule extends GalleryModule {
 				'accessed with the right URL'
 			)
 		);
-		$this->setVersion('7.0.0');
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->_templateVersion = 1;
 		$this->setGroup('display', $this->translate('Display'));
 		$this->setRequiredCoreApi(array(7, 53));

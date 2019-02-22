@@ -37,7 +37,7 @@ class LinksInTheHeadModule extends GalleryModule {
 		$this->setId('linksinthehead');
 		$this->setName($gallery->i18n('Links In The Head'));
 		$this->setDescription($gallery->i18n('Add links to the header menu.'));
-		$this->setVersion('7.0.0');
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->setGroup('data', $gallery->i18n('Extra Data'));
 		$this->setCallbacks('getSystemLinks|getSiteAdminViews');
 		$this->setRequiredCoreApi(array(7, 10));

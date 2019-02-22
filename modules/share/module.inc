@@ -32,7 +32,7 @@ class ShareModule extends GalleryModule {
 		$this->setId('share');
 		$this->setName($gallery->i18n('Share'));
 		$this->setDescription($gallery->i18n('Share link to Gallery pictures on social media sites'));
-		$this->setVersion('7.0.0'); // Update upgrade() function below too
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->_templateVersion = 1;
 		$this->setGroup('export', $gallery->i18n('Export'));
 		$this->setCallbacks('getSiteAdminViews');

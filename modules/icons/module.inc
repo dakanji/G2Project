@@ -31,7 +31,7 @@ class IconsModule extends GalleryModule {
 		$this->setId('icons');
 		$this->setName($gallery->i18n('Icons'));
 		$this->setDescription($gallery->i18n('Display icons for links'));
-		$this->setVersion('7.0.0'); // Update upgrade() function below too
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->_templateVersion = 1;
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getSiteAdminViews');

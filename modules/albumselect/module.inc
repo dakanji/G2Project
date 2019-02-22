@@ -34,7 +34,7 @@ class AlbumSelectModule extends GalleryModule {
 		$this->setDescription(
 			$gallery->i18n('Jump directly to any album using a select box or tree view')
 		);
-		$this->setVersion('7.0.0');
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->_templateVersion = 1;
 		$this->setGroup('blocks', $gallery->i18n('Blocks'));
 		$this->setCallbacks('getSiteAdminViews');

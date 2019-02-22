@@ -32,7 +32,7 @@ class NetPbmModule extends GalleryModule {
 		$this->setId('netpbm');
 		$this->setName($gallery->i18n('NetPBM'));
 		$this->setDescription($gallery->i18n('NetPBM Graphics Toolkit'));
-		$this->setVersion('7.0.0');
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->_templateVersion = 1;
 		$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 		$this->setCallbacks('getSiteAdminViews');

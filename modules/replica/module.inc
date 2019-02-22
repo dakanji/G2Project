@@ -34,7 +34,7 @@ class ReplicaModule extends GalleryModule {
 		$this->setDescription(
 			$gallery->i18n('Create item copies sharing the same original data file')
 		);
-		$this->setVersion('7.0.0');
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->_templateVersion = 1;
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getItemLinks|getItemAdminViews');

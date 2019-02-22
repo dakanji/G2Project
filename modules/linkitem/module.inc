@@ -31,7 +31,7 @@ class LinkItemModule extends GalleryModule {
 		$this->setId('linkitem');
 		$this->setName($gallery->i18n('Link Items'));
 		$this->setDescription($gallery->i18n('Create links to other albums or external urls'));
-		$this->setVersion('7.0.0');
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->_templateVersion = 1;
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getSiteAdminViews');

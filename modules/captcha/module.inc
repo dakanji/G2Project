@@ -37,7 +37,7 @@ class CaptchaModule extends GalleryModule {
 				'input that requires visual comprehension'
 			)
 		);
-		$this->setVersion('7.0.0'); // Update upgrade() function below too
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->_templateVersion = 1;
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks('getSiteAdminViews');

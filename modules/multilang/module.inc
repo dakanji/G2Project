@@ -34,7 +34,7 @@ class MultiLangModule extends GalleryModule {
 		$this->setId('multilang');
 		$this->setName($gallery->i18n('MultiLanguage'));
 		$this->setDescription($gallery->i18n('Support item captions in multiple languages'));
-		$this->setVersion('7.0.0');
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->_templateVersion = 1;
 		$this->setGroup('data', $gallery->i18n('Extra Data'));
 		$this->setCallbacks('getSiteAdminViews');

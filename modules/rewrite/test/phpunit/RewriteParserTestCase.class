@@ -113,9 +113,9 @@ class RewriteParserTestCase extends GalleryTestCase {
 		}
 
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
-		'module',
-		'rewrite',
-		'activeRules'
+			'module',
+			'rewrite',
+			'activeRules'
 	);
 
 		if ($ret) {
@@ -137,9 +137,9 @@ class RewriteParserTestCase extends GalleryTestCase {
 		}
 
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
-		'module',
-		'rewrite',
-		'activeRules'
+			'module',
+			'rewrite',
+			'activeRules'
 	);
 
 		if ($ret) {
@@ -161,9 +161,9 @@ class RewriteParserTestCase extends GalleryTestCase {
 		}
 
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
-		'module',
-		'rewrite',
-		'activeRules'
+			'module',
+			'rewrite',
+			'activeRules'
 	);
 
 		if ($ret) {
@@ -187,9 +187,9 @@ class RewriteParserTestCase extends GalleryTestCase {
 		}
 
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
-		'module',
-		'rewrite',
-		'activeRules'
+			'module',
+			'rewrite',
+			'activeRules'
 	);
 
 		if ($ret) {
@@ -212,9 +212,9 @@ class RewriteParserTestCase extends GalleryTestCase {
 		}
 
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
-		'module',
-		'rewrite',
-		'activeRules'
+			'module',
+			'rewrite',
+			'activeRules'
 	);
 
 		if ($ret) {
@@ -236,9 +236,9 @@ class RewriteParserTestCase extends GalleryTestCase {
 		}
 
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
-		'module',
-		'rewrite',
-		'activeRules'
+			'module',
+			'rewrite',
+			'activeRules'
 	);
 
 		if ($ret) {
@@ -267,9 +267,9 @@ class RewriteParserTestCase extends GalleryTestCase {
 		}
 
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
-		'module',
-		'rewrite',
-		'activeRules'
+			'module',
+			'rewrite',
+			'activeRules'
 	);
 
 		if ($ret) {
@@ -298,9 +298,9 @@ class RewriteParserTestCase extends GalleryTestCase {
 		}
 
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
-		'module',
-		'rewrite',
-		'activeRules'
+			'module',
+			'rewrite',
+			'activeRules'
 	);
 
 		if ($ret) {
@@ -322,9 +322,9 @@ class RewriteParserTestCase extends GalleryTestCase {
 		}
 
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
-		'module',
-		'rewrite',
-		'activeRules'
+			'module',
+			'rewrite',
+			'activeRules'
 	);
 
 		if ($ret) {
@@ -346,9 +346,9 @@ class RewriteParserTestCase extends GalleryTestCase {
 		}
 
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
-		'module',
-		'rewrite',
-		'activeRules'
+			'module',
+			'rewrite',
+			'activeRules'
 	);
 
 		if ($ret) {
@@ -370,9 +370,9 @@ class RewriteParserTestCase extends GalleryTestCase {
 		}
 
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
-		'module',
-		'rewrite',
-		'activeRules'
+			'module',
+			'rewrite',
+			'activeRules'
 	);
 
 		if ($ret) {
@@ -395,9 +395,9 @@ class RewriteParserTestCase extends GalleryTestCase {
 		}
 
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
-		'module',
-		'rewrite',
-		'activeRules'
+			'module',
+			'rewrite',
+			'activeRules'
 	);
 
 		if ($ret) {
@@ -426,9 +426,9 @@ class RewriteParserTestCase extends GalleryTestCase {
 		}
 
 		list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
-		'module',
-		'rewrite',
-		'activeRules'
+			'module',
+			'rewrite',
+			'activeRules'
 	);
 
 		if ($ret) {
@@ -480,7 +480,7 @@ class RewriteParserMockModule extends GalleryModule {
 		$this->setId('rewriteparsermock');
 		$this->setName('RewriteParser Test Module');
 		$this->setDescription('Unit test module');
-		$this->setVersion('7.0.0');
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->setGroup('gallery', 'Gallery');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$this->setRequiredModuleApi(GalleryModule::getApiVersion());

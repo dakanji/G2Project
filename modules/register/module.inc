@@ -32,7 +32,7 @@ class RegisterModule extends GalleryModule {
 		$this->setId('register');
 		$this->setName($gallery->i18n('Registration'));
 		$this->setDescription($gallery->i18n('New User Registration'));
-		$this->setVersion('7.0.0');
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->_templateVersion = 1;
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks('getSystemLinks|getUserAdminViews|getSiteAdminViews');

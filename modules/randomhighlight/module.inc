@@ -30,7 +30,7 @@ class RandomHighlightModule extends GalleryModule {
 		$this->setId('randomhighlight');
 		$this->setName($gallery->i18n('Random Highlight'));
 		$this->setDescription($gallery->i18n('Periodically change the album highlight'));
-		$this->setVersion('7.0.0'); // Update upgrade() function below too
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->_templateVersion = 1;
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getSiteAdminViews');
