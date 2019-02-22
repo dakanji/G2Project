@@ -1,0 +1,255 @@
+# $Id: ja.po 20123 2009-02-17 18:08:19Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Hybrid Theme 1.1.10\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-14 17:54-0700\n"
+"PO-Revision-Date: 2007-07-20 13:39+0900\n"
+"Last-Translator: momo-i\n"
+"Language-Team: Japanese <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Hybrid"
+msgstr "Hybrid"
+
+msgid "Combined album/image/slideshow dynamic view"
+msgstr "アルバム/画像/スライドショー を組み合わせたダイナミックビュー"
+
+msgid "Show text with thumbnails"
+msgstr "テキストをサムネイルとともに表示"
+
+msgid "Show dates for albums"
+msgstr "アルバムの日付を表示"
+
+msgid "Show dates with thumbnails"
+msgstr "サムネイルに日付を表示する"
+
+msgid "Show dates in image view"
+msgstr "画像ビューに日付を表示する"
+
+msgid "Show album sizes"
+msgstr "アルバムサイズを表示"
+
+msgid "Show view counts"
+msgstr "閲覧数を表示"
+
+msgid "Mouseover on thumbnails"
+msgstr "サムネイル上へのマウスオーバー"
+
+msgid "None"
+msgstr "なし"
+
+msgid "Title"
+msgstr "タイトル"
+
+msgid "Date"
+msgstr "日付"
+
+msgid "Date/Time"
+msgstr "日付/時刻"
+
+msgid "Title (Date)"
+msgstr "タイトル (日付)"
+
+msgid "Title (Date/Time)"
+msgstr "タイトル (日付/時刻)"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "所有者: %s"
+
+#, c-format
+msgid "Viewed: %d time"
+msgid_plural "Viewed: %d times"
+msgstr[0] "閲覧回数: %d 回"
+
+msgid "Date: "
+msgstr "日付: "
+
+msgid "Keywords: "
+msgstr "キーワード: "
+
+msgid "Link to this item:"
+msgstr "このアイテムへのリンク:"
+
+msgid "Error!"
+msgstr "エラー!"
+
+msgid "Show Details"
+msgstr "詳細を表示"
+
+msgid "Hide Details"
+msgstr "詳細を隠す"
+
+msgid "Show Item Links"
+msgstr "アイテムリンクを表示"
+
+msgid "Hide Item Links"
+msgstr "アイテムリンクを隠す"
+
+msgid "Item Details"
+msgstr "アイテムの詳細"
+
+msgid ""
+"Album view:\n"
+"| space = start slideshow\n"
+"| ctrl-right/left = show/hide sidebar\n"
+"| ctrl-up/down = show/hide item links\n"
+"Image view:\n"
+"| space = start/pause slideshow\n"
+"| escape = return to album view\n"
+"| left/right = next/prev image\n"
+"| up/down = show hide description text\n"
+"| page up/down = scroll description text\n"
+"| ctrl-up/down = select full/fit size\n"
+"Arrow keys scroll image in full size; use shift-arrows for funcs above\n"
+"Item Details showing:\n"
+"| escape = close popup"
+msgstr ""
+"アルバムビュー：\n"
+"| スペースキー ＝ スライドショーの開始\n"
+"| Ctrlキー+左右キー ＝ スライドバーの表示(非表示)\n"
+"| Ctrlキー+上下キー ＝ アイテムリンクの表示(非表示)\n"
+"| 画像ビュー：\n"
+"| スペースキー ＝ スライドショーの開始(一時停止)\n"
+"| ESCキー ＝ アルバムビューへ戻る\n"
+"| 左右キー ＝ 次(前)の画像へ\n"
+"| 上下キー ＝ 説明を表示(非表示)\n"
+"| PageUp/Downキー ＝ 説明をスクロール\n"
+"| Ctrlキー+上下キー ＝ サイズをフル/フィットに切り替え\n"
+"矢印キーは、フルサイズに画像をスクロールします；上の機能にShiftキーをt買ってください\n"
+"アイテム概要表示：\n"
+"| ESCキー ＝ ポップアップを閉じる"
+
+#, fuzzy
+msgid "Show text when available"
+msgstr "テキストをサムネイルとともに表示"
+
+msgid "Keep text hidden"
+msgstr ""
+
+msgid "Back to Album View"
+msgstr "アルバムビューに戻る"
+
+msgid "Pause Slideshow"
+msgstr "スライドショーを一時停止"
+
+msgid "Start Slideshow"
+msgstr "スライドショーを開始"
+
+msgid "Full Size"
+msgstr "フルサイズ"
+
+msgid "Fit Size"
+msgstr "フィットサイズ"
+
+msgid "No Previous Image"
+msgstr "前の画像はありません"
+
+msgid "Previous Image"
+msgstr "前の画像"
+
+msgid "Previous Image (Load new page)"
+msgstr "前の画像(新しいページで読込)"
+
+msgid "No Next Image"
+msgstr "次の画像はありません"
+
+msgid "Next Image"
+msgstr "次の画像"
+
+msgid "Next Image (Load new page)"
+msgstr "次の画像(新しいページで読み込む)"
+
+msgid "Hide sidebar"
+msgstr "サイドバーを隠す"
+
+msgid "Show sidebar"
+msgstr "サイドバーを表示"
+
+msgid "no thumbnail"
+msgstr "サムネイルなし"
+
+msgid "Item Actions"
+msgstr "アイテムアクション"
+
+msgid "Continue..."
+msgstr "続ける..."
+
+msgid "Navigation"
+msgstr "ナビ"
+
+msgid "Display Options"
+msgstr "表示オプション"
+
+msgid "Keyboard Controls"
+msgstr "キーボードショートカット"
+
+msgid "View"
+msgstr "目的"
+
+msgid "guest"
+msgstr "ゲスト"
+
+msgid "Slideshow Options"
+msgstr "スライドショーオプション"
+
+msgid "Delay"
+msgstr "遅延"
+
+msgid "3 seconds"
+msgstr "3秒"
+
+msgid "5 seconds"
+msgstr "5秒"
+
+msgid "7 seconds"
+msgstr "7秒"
+
+msgid "10 seconds"
+msgstr "10秒"
+
+msgid "15 seconds"
+msgstr "15秒"
+
+msgid "20 seconds"
+msgstr "20秒"
+
+msgid "Direction"
+msgstr "方向"
+
+msgid "forward"
+msgstr "順方向"
+
+msgid "reverse"
+msgstr "逆方向"
+
+msgid "random"
+msgstr "ランダム"
+
+#~ msgid "Show text"
+#~ msgstr "テキストを表示"
+
+#~ msgid "Hide text"
+#~ msgstr "テキストを隠す"

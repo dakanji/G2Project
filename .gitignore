@@ -40,6 +40,9 @@ attic
 # Misc stuff #
 ##############
 composer.phar
+*.zip
+*.tgz
+*.tar.gz
 
 
 # G2 Modules #
@@ -97,6 +100,12 @@ modules/*
 # G2 Themes #
 #############
 themes/*
+!themes/ajaxian
 !themes/carbon
+!themes/classic
+!themes/floatrix
+!themes/hybrid
 !themes/matrix
 !themes/siriux
+!themes/slider
+!themes/tile

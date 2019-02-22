@@ -1,0 +1,256 @@
+# $Id: fr.po 20123 2009-02-17 18:08:19Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Hybrid Theme 1.1.10\n"
+"POT-Creation-Date: 2004-11-27 20:03+0100\n"
+"PO-Revision-Date: 2007-11-01 00:00+0100\n"
+"Last-Translator: Arnaud MOURONVAL <Arnaud.Mouronval@yahoo.com>\n"
+"Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Hybrid"
+msgstr "Hybride"
+
+msgid "Combined album/image/slideshow dynamic view"
+msgstr "Vue dymamique combinée album / image / diaporama"
+
+msgid "Show text with thumbnails"
+msgstr "Afficher les textes avec les vignettes"
+
+msgid "Show dates for albums"
+msgstr "Afficher les dates pour les albums"
+
+msgid "Show dates with thumbnails"
+msgstr "Afficher les dates avec les vignettes"
+
+msgid "Show dates in image view"
+msgstr "Afficher les dates dans la vue des images"
+
+msgid "Show album sizes"
+msgstr "Afficher la taille des albums"
+
+msgid "Show view counts"
+msgstr "Afficher les compteurs de vues"
+
+msgid "Mouseover on thumbnails"
+msgstr "'Mouseover' sur les vignettes"
+
+msgid "None"
+msgstr "Aucun"
+
+msgid "Title"
+msgstr "Titre"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Date/Time"
+msgstr "Date/Heure"
+
+msgid "Title (Date)"
+msgstr "Titre (Date)"
+
+msgid "Title (Date/Time)"
+msgstr "Titre (Date/Heure)"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Propriétaire&nbsp;: %s"
+
+#, c-format
+msgid "Viewed: %d time"
+msgid_plural "Viewed: %d times"
+msgstr[0] "Consulté&nbsp;: %d fois"
+msgstr[1] "Consulté&nbsp;: %d fois"
+
+msgid "Date: "
+msgstr "Date&nbsp;: "
+
+msgid "Keywords: "
+msgstr "Mots clés&nbsp;: "
+
+msgid "Link to this item:"
+msgstr "Lier à cet élément&nbsp;:"
+
+msgid "Error!"
+msgstr "Erreur&nbsp;!"
+
+msgid "Show Details"
+msgstr "Afficher les détails"
+
+msgid "Hide Details"
+msgstr "Cacher les détails"
+
+msgid "Show Item Links"
+msgstr "Afficher les liens"
+
+msgid "Hide Item Links"
+msgstr "Cacher les liens"
+
+msgid "Item Details"
+msgstr "Détails de l'élément"
+
+msgid ""
+"Album view:\n"
+"| space = start slideshow\n"
+"| ctrl-right/left = show/hide sidebar\n"
+"| ctrl-up/down = show/hide item links\n"
+"Image view:\n"
+"| space = start/pause slideshow\n"
+"| escape = return to album view\n"
+"| left/right = next/prev image\n"
+"| up/down = show hide description text\n"
+"| page up/down = scroll description text\n"
+"| ctrl-up/down = select full/fit size\n"
+"Arrow keys scroll image in full size; use shift-arrows for funcs above\n"
+"Item Details showing:\n"
+"| escape = close popup"
+msgstr ""
+"Vue d'album :\n"
+"| espace = démarrer un diaporama\n"
+"| ctrl-gauche/droite = cacher/afficher la barre latérale\n"
+"| ctrl-haut/bas = afficher/cacher les liens vers les éléments\n"
+"Vue d'image:\n"
+"| espace = démarrer/stopper un diaporama\n"
+"| échap = retourner à la vue de l'album\n"
+"| gauche/droite = image suivante/récédente\n"
+"| haut/bas = afficher/cacher le texte de description\n"
+"| page haut/bas = faire défiler le texte de description\n"
+"| ctrl-haut/bas = choisir entre la taille entière et la taille ajustée\n"
+"Les flèche permettent de faire défiler l'image en pleine taille ; utilisez shift-flèches "
+"pour les fonctions ci-dessus\n"
+"Vue des détails:\n"
+"| échap = fermer la vue"
+
+#, fuzzy
+msgid "Show text when available"
+msgstr "Afficher les textes avec les vignettes"
+
+msgid "Keep text hidden"
+msgstr ""
+
+msgid "Back to Album View"
+msgstr "Retour vers la vue de l'album"
+
+msgid "Pause Slideshow"
+msgstr "Stopper le diaporama"
+
+msgid "Start Slideshow"
+msgstr "Lancer un diaporama"
+
+msgid "Full Size"
+msgstr "Taille entière"
+
+msgid "Fit Size"
+msgstr "Taille ajustée"
+
+msgid "No Previous Image"
+msgstr "Pas d'image précédente"
+
+msgid "Previous Image"
+msgstr "Image précédente"
+
+msgid "Previous Image (Load new page)"
+msgstr "Image précédente (nouvelle page)"
+
+msgid "No Next Image"
+msgstr "Pas d'image suivante"
+
+msgid "Next Image"
+msgstr "Image suivante"
+
+msgid "Next Image (Load new page)"
+msgstr "Image suivante (nouvelle page)"
+
+msgid "Hide sidebar"
+msgstr "Cacher la barre latérale"
+
+msgid "Show sidebar"
+msgstr "Afficher la barre latérale"
+
+msgid "no thumbnail"
+msgstr "aucune vignette"
+
+msgid "Item Actions"
+msgstr "Opérations sur l'élément"
+
+msgid "Continue..."
+msgstr "Continuer..."
+
+msgid "Navigation"
+msgstr "Navigation"
+
+msgid "Display Options"
+msgstr "Options d'affichage"
+
+msgid "Keyboard Controls"
+msgstr "Contrôles au clavier"
+
+msgid "View"
+msgstr "Affichage"
+
+msgid "guest"
+msgstr "invité"
+
+msgid "Slideshow Options"
+msgstr "Options de diaporama"
+
+msgid "Delay"
+msgstr "Délai"
+
+msgid "3 seconds"
+msgstr "3 secondes"
+
+msgid "5 seconds"
+msgstr "5 secondes"
+
+msgid "7 seconds"
+msgstr "7 secondes"
+
+msgid "10 seconds"
+msgstr "10 secondes"
+
+msgid "15 seconds"
+msgstr "15 secondes"
+
+msgid "20 seconds"
+msgstr "20 secondes"
+
+msgid "Direction"
+msgstr "Sens"
+
+msgid "forward"
+msgstr "avant"
+
+msgid "reverse"
+msgstr "arrière"
+
+msgid "random"
+msgstr "aléatoire"
+
+#~ msgid "Show text"
+#~ msgstr "Afficher le texte"
+
+#~ msgid "Hide text"
+#~ msgstr "Cacher le texte"

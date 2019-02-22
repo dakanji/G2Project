@@ -1,0 +1,252 @@
+# $Id: zh_CN.po 20123 2009-02-17 18:08:19Z mindless $
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2008 Bharat Mediratta
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Hybrid Theme 1.1.10\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2007-06-14 17:54-0700\n"
+"PO-Revision-Date: 2005-03-31 14:00+0800\n"
+"Last-Translator: Wayne Zhang <waynez777@hotmail.com>\n"
+"Language-Team: Chinese Simplified <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "Hybrid"
+msgstr ""
+
+msgid "Combined album/image/slideshow dynamic view"
+msgstr "组合动态视图：相册/图片/幻灯片放映"
+
+msgid "Show text with thumbnails"
+msgstr ""
+
+msgid "Show dates for albums"
+msgstr ""
+
+msgid "Show dates with thumbnails"
+msgstr ""
+
+msgid "Show dates in image view"
+msgstr ""
+
+msgid "Show album sizes"
+msgstr ""
+
+msgid "Show view counts"
+msgstr ""
+
+#, fuzzy
+msgid "Mouseover on thumbnails"
+msgstr "无缩略图"
+
+msgid "None"
+msgstr "无"
+
+msgid "Title"
+msgstr "标题"
+
+#, fuzzy
+msgid "Date"
+msgstr "日期: "
+
+msgid "Date/Time"
+msgstr "日期/时间"
+
+msgid "Title (Date)"
+msgstr ""
+
+msgid "Title (Date/Time)"
+msgstr ""
+
+#, c-format
+msgid "Owner: %s"
+msgstr "所有者: %s"
+
+# too many plural forms
+#, fuzzy, c-format
+msgid "Viewed: %d time"
+msgid_plural "Viewed: %d times"
+msgstr[0] "人气: %d"
+msgstr[1] "人气: %d"
+msgstr[2] "人气: %d"
+
+msgid "Date: "
+msgstr "日期: "
+
+msgid "Keywords: "
+msgstr "关键字: "
+
+msgid "Link to this item:"
+msgstr ""
+
+msgid "Error!"
+msgstr "错误！"
+
+#, fuzzy
+msgid "Show Details"
+msgstr "显示详细信息"
+
+#, fuzzy
+msgid "Hide Details"
+msgstr "隐藏详细信息"
+
+#, fuzzy
+msgid "Show Item Links"
+msgstr "显示项目链接"
+
+#, fuzzy
+msgid "Hide Item Links"
+msgstr "隐藏项目链接"
+
+msgid "Item Details"
+msgstr "项目详细信息"
+
+msgid ""
+"Album view:\n"
+"| space = start slideshow\n"
+"| ctrl-right/left = show/hide sidebar\n"
+"| ctrl-up/down = show/hide item links\n"
+"Image view:\n"
+"| space = start/pause slideshow\n"
+"| escape = return to album view\n"
+"| left/right = next/prev image\n"
+"| up/down = show hide description text\n"
+"| page up/down = scroll description text\n"
+"| ctrl-up/down = select full/fit size\n"
+"Arrow keys scroll image in full size; use shift-arrows for funcs above\n"
+"Item Details showing:\n"
+"| escape = close popup"
+msgstr ""
+
+msgid "Show text when available"
+msgstr ""
+
+msgid "Keep text hidden"
+msgstr ""
+
+msgid "Back to Album View"
+msgstr "返回相册查看页面"
+
+msgid "Pause Slideshow"
+msgstr "暂停放映"
+
+msgid "Start Slideshow"
+msgstr "开始放映"
+
+msgid "Full Size"
+msgstr "完全尺寸"
+
+msgid "Fit Size"
+msgstr "适合尺寸"
+
+msgid "No Previous Image"
+msgstr "无上张图片"
+
+msgid "Previous Image"
+msgstr "上张图片"
+
+#, fuzzy
+msgid "Previous Image (Load new page)"
+msgstr "上张图片"
+
+msgid "No Next Image"
+msgstr "无下张图片"
+
+msgid "Next Image"
+msgstr "下张图片"
+
+msgid "Next Image (Load new page)"
+msgstr ""
+
+msgid "Hide sidebar"
+msgstr "隐藏侧边栏"
+
+msgid "Show sidebar"
+msgstr "显示侧边栏"
+
+msgid "no thumbnail"
+msgstr "无缩略图"
+
+msgid "Item Actions"
+msgstr "项目操作"
+
+msgid "Continue..."
+msgstr "继续……"
+
+msgid "Navigation"
+msgstr "导航"
+
+msgid "Display Options"
+msgstr "显示选项"
+
+msgid "Keyboard Controls"
+msgstr ""
+
+msgid "View"
+msgstr "概略"
+
+msgid "guest"
+msgstr "访客"
+
+msgid "Slideshow Options"
+msgstr "幻灯片放映选项"
+
+#, fuzzy
+msgid "Delay"
+msgstr "延时"
+
+msgid "3 seconds"
+msgstr "3秒"
+
+msgid "5 seconds"
+msgstr "5秒"
+
+msgid "7 seconds"
+msgstr "7秒"
+
+msgid "10 seconds"
+msgstr "10秒"
+
+msgid "15 seconds"
+msgstr "15秒"
+
+msgid "20 seconds"
+msgstr "20秒"
+
+#, fuzzy
+msgid "Direction"
+msgstr "方向"
+
+msgid "forward"
+msgstr "向前"
+
+msgid "reverse"
+msgstr "倒转"
+
+msgid "random"
+msgstr "随机"
+
+#~ msgid "Show text"
+#~ msgstr "显示文字"
+
+#~ msgid "Hide text"
+#~ msgstr "隐藏文字"
