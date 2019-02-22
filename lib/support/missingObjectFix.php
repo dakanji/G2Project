@@ -86,11 +86,30 @@ function process($renderType, $args = array()) {
 	global $gallery, $adv, $hide, $show, $reset;
 	$storage =& $gallery->getStorage();
 
-	$tables   = $ids   = $missingIds   = array();
-	$gID      = $display      = $status      = '';
-	$headData = $bodyForm = $bodyMain = null;
-	$adv      = (!empty($args['adv'])) ? true : false;
-	$reset    = (isset($_REQUEST['reset']) && $_REQUEST['reset'] != '') ? true : false;
+	$tables     = array();
+	$ids        = array();
+	$missingIds = array();
+
+	$gID     = '';
+	$display = '';
+	$status  = '';
+
+	$headData = null;
+	$bodyForm = null;
+	$bodyMain = null;
+	$err      = null;
+
+	if (!empty($args['adv'])) {
+		$adv = true;
+	} else {
+		$adv = false;
+	}
+
+	if (isset($_REQUEST['reset']) && $_REQUEST['reset'] != '') {
+		$reset = true;
+	} else {
+		$reset = false;
+	}
 
 	if (!$reset) {
 		list($err, $rootID) = getRoot();
@@ -256,7 +275,7 @@ function process($renderType, $args = array()) {
 				$bodyForm .= '	<input type="hidden" id="vw" name="vw" value="req">' . "\n";
 				$bodyForm .= '	<input type="hidden" id="args" name="args" value="mode:entChk">' . "\n";
 				$bodyForm .= '	<input type="hidden" id="adv" name="adv" value="true"><br>' . "\n";
-				$bodyForm .= '	<input class="neutralbtn continue" type="submit" value="Check Entities" onclick="this.disabled=true;this.form.submit();">' . "\n";
+				$bodyForm .= '	<input class="btn btn-default" type="submit" value="Check Entities" onclick="this.disabled=true;this.form.submit();">' . "\n";
 				$bodyForm .= '</form>' . "\n";
 			} else {
 				$bodyMain = $err;
@@ -270,7 +289,7 @@ function process($renderType, $args = array()) {
 	}
 	$bodyForm .= '<form action="' . THIS_SCRIPT . '" id="resetForm" method="post">' . "\n";
 	$bodyForm .= '	<input type="hidden" id="reset" name="reset" value="true">' . "\n";
-	$bodyForm .= '	<input class="neutralbtn continue" type="submit" value="Reset" onclick="this.disabled=true;this.form.submit();">' . "\n";
+	$bodyForm .= '	<input class="btn btn-default" type="submit" value="Reset" onclick="this.disabled=true;this.form.submit();">' . "\n";
 	$bodyForm .= '</form>' . "\n";
 	$bodyForm .= '</fieldset>' . "\n";
 
@@ -350,8 +369,11 @@ function getItemIdsRecursive($id) {
 }
 
 function getMissingDerivatives($id) {
-	$err                  = null;
-	$itemIds              = $missingIds              = $albums              = array();
+	$err        = null;
+	$itemIds    = array();
+	$missingIds = array();
+	$albums     = array();
+
 	list($err, $albumIds) = getAlbumIdsRecursive($id);
 
 	if (!$err) {
@@ -364,7 +386,10 @@ function getMissingDerivatives($id) {
 			list($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsIgnorePermissions($album);
 
 			if ($ret) {
-				$err = '<div class="error center"><h2>Could not fetch child item ids for Album: ' . $albumId . '.</h2></div><div class="error left">' . $ret->getAsHtml() . '</div>';
+				$err = '<div class="error center"><h2>Could not fetch child item ids for Album: '
+					. $albumId
+					. '.</h2></div><div class="error left">' . $ret->getAsHtml()
+					. '</div>';
 
 				break;
 			}
@@ -393,7 +418,8 @@ function getMissingDerivatives($id) {
 }
 
 function getRoot() {
-	$err = $defaultId = null;
+	$err       = null;
+	$defaultId = null;
 
 	if (GalleryUtilities::isCompatibleWithApi(array(7, 5), GalleryCoreApi::getApiVersion())) {
 		list($ret, $defaultId) = GalleryCoreApi::getDefaultAlbumId();
@@ -402,7 +428,11 @@ function getRoot() {
 			$err = '<div class="error center"><h2>Could not locate gallery root album.</h2></div><div class="error left">' . $ret->getAsHtml() . '</div>';
 		}
 	} else {
-		list($ret, $defaultId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+		list($ret, $defaultId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'core',
+			'id.rootAlbum'
+		);
 
 		if ($ret) {
 			$err = '<div class="error center"><h2>Could not locate gallery root album.</h2></div><div class="error left">' . $ret->getAsHtml() . '</div>';
@@ -413,8 +443,11 @@ function getRoot() {
 }
 
 function getAlbumSelector($gID) {
-	$err                = $albumSelectorCode                = $albumSelector                = null;
-	$albums             = array();
+	$err               = null;
+	$albumSelectorCode = null;
+	$albumSelector     = null;
+	$albums            = array();
+
 	list($err, $rootID) = getRoot();
 
 	if (!$err) {
@@ -529,7 +562,7 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 
 	</head>
 	<body>
-		<div id="content">
+		<div class="container">
 		<?php
 		if ($HTMLbody || $HTMLForm) {
 			?>
@@ -579,7 +612,7 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 			formData = formData + '		<option value=1000>1000 Items</option>';
 			formData = formData + '		<option value=2000>2000 Items</option>';
 			formData = formData + '	</select><br>';
-			formData = formData + '	<input class="neutralbtn continue" type="submit" value="Check Derivatives" onclick="this.disabled=true;this.form.submit();">';
+			formData = formData + '	<input class="btn btn-default" type="submit" value="Check Derivatives" onclick="this.disabled=true;this.form.submit();">';
 			changeContent("derivativesForm", formData);
 		</script>
 			<?php

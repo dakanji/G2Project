@@ -285,7 +285,7 @@ GalleryEmbed::done();
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>support.css">
 </head>
 <body>
-	<div id="content">
+	<div class="container">
 		<div id="title">
 			<a href="../../">Gallery</a> &raquo;
 			<a href="<?php generateUrl('index.php'); ?>">Support</a> &raquo; Reset Passwords
@@ -305,12 +305,12 @@ GalleryEmbed::done();
 				<blockquote>
 					<fieldset>
 						Please create a file called "authFile.txt" in <br> <?php echo GALLERY_CONFIG_DIR; ?> <br> with the following content:<br>
-						<h1><?php echo $authString; ?></h1>
+						<h3><?php echo $authString; ?></h3>
 						Click the "Authenticate" button to proceed once you are done.
 						<form action="<?php echo basename($_SERVER['PHP_SELF']); ?>" method="POST">
 							<input type="hidden" name="auth" value=true>
 							<input type="hidden" name="advance" value=true>
-							<input type="submit" value="Authenticate">
+							<input type="submit" value="Authenticate" class="btn btn-primary">
 						</form>
 					</fieldset>
 				</blockquote>

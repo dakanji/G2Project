@@ -195,37 +195,35 @@ if (isset($_REQUEST['clear'], $_REQUEST['target'])) {
 }
 ?>
 <html lang="en">
-  <head>
+<head>
 	<title>Gallery Support | Cache Maintenance</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>support.css">
-  </head>
-  <body>
-	<div id="content">
-	  <div id="title">
-	<a href="../../">Gallery</a> &raquo;
-	<a href="<?php generateUrl('index.php'); ?>">Support</a> &raquo; Cache Maintenance
-	  </div>
-	  <h2>
-	Gallery caches data on disk to increase performance.
-	Occasionally these caches get out of date and need to be deleted.
-	Anything in the cache can be deleted safely!  Gallery will
-	rebuild anything it needs.
-	  </h2>
+</head>
+<body>
+	<div class="container">
+		<div id="title">
+			<a href="../../">Gallery</a> &raquo;
+			<a href="<?php generateUrl('index.php'); ?>">Support</a> &raquo; Cache Maintenance
+		</div>
+		<h2>
+			Gallery caches data on disk to increase performance.
+			Occasionally these caches get out of date and need to be deleted.
+			Anything in the cache can be deleted safely!  Gallery will rebuild anything it needs.
+		</h2>
 
-		<?php
-		if (!empty($status)) {
-			?>
-	  <div class="success">
-			<?php
-			foreach ($status as $line) {
-				?>
-	<pre class="<?php echo $line[0]; ?>"><?php echo $line[1]; ?></pre>
-				<?php
-			} ?>
-	  </div>
-			<?php
-		}
+<?php if (!empty($status)) {
+	?>
+		<div class="success">
+	<?php foreach ($status as $line) {
 		?>
+			<pre class="<?php echo $line[0]; ?>"><?php echo $line[1]; ?></pre>
+
+	<?php
+	} ?>
+		</div>
+			<?php
+}
+?>
 
 		<?php startForm(); ?>
 		<p>
@@ -245,7 +243,7 @@ if (isset($_REQUEST['clear'], $_REQUEST['target'])) {
 			<?php
 		}
 		?>
-	  <input type="submit" name="clear" value="Clear Cache">
+	  <input type="submit" name="clear" value="Clear Cache" class="btn btn-default">
 	</p>
 	  </form>
 	</div>

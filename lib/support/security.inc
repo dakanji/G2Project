@@ -144,84 +144,82 @@ function render($renderType, $options = array()) {
 		<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>support.css">
 	</head>
 	<body>
-		<div id="content">
+		<div class="container">
 			<div id="title">
-				Security Check
+				<a href="../../">Gallery</a> &raquo;
+				Support &raquo; Authentication
 			</div>
-
+			<h1>
+				Restricted Access Area
+			</h1>
 			<h2>
-				You are attempting to access a secure section of this Gallery installation.  You can't
-				proceed until you pass the security check.
+				Authentication Required
 			</h2>
-
 			<?php
 			if ($renderType == 'missingConfig') {
 				?>
-				<div class="error">
-					You must create a config.php file in the Gallery directory before
-					you can continue configuring the application.  Use the
-					<a href="../../install">installer</a> to create one.
+				<div class="alert alert-danger">
+					Create a Gallery2 config.php file to continue configuring Gallery2.  Use the <a href="../../install">installer</a> to create one.
 				</div>
 				<?php
-			} ?>
+			}
 
-			<?php
-			if ($renderType == 'missingSetupPassword') {
-				?>
-				<div class="error">
-					You must enter a setup password in your gallery/config.php file in order
-					to be able to set up Gallery. If your config.php is empty, you should run
-					the <a href="../../install">installer</a> to install your Gallery.
+	if ($renderType == 'missingSetupPassword') {
+		?>
+				<div class="alert alert-danger">
+					You must enter a setup password in the config.php file to set up Gallery2. If the config.php file is empty, run the <a href="../../install">installer</a> to install Gallery2.
 				</div>
 				<?php
-			} ?>
+	}
 
-			<?php
-			if ($renderType == 'passwordForm') {
-				?>
-				<?php startForm(); ?>
-				<?php
-				if (!empty($options['attempts'])) {
-					?>
-					<div class="warning">
+	if ($renderType == 'passwordForm') {
+		startForm();
+
+		if (!empty($options['attempts'])) {
+			?>
+					<div class="alert alert-warning">
 						Failed login attempts: <?php echo $options['attempts']; ?> out of a total of
 						<?php echo G2_SUPPORT_MAX_LOGIN_ATTEMPTS; ?>.
 					</div>
 					<?php
-				} ?>
+		} ?>
 
-				<p>
-					In order to verify you, we require you to enter your Gallery setup password.  This is
-					the password you entered when you installed Gallery.  It can be found in your
-					gallery/config.php file like this:
-				</p>
-				<pre>
-					$gallery-&gt;setConfig('setup.password', '<b>your password here</b>');
-				</pre>
-				<p>
-					Password:
-					<input type="password" name="password">
-					<script type="text/javascript">document.forms[0]['password'].focus();</script>
-					<input type="submit" value="Verify Me">
-				</p>
+				<div class="alert alert-danger">
+					<p>
+						Please enter the Gallery2 setup password created during installation.
+						<br>
+						It can be found in the config.php file:
+					</p>
+					<br>
+					<pre>
+						$gallery-&gt;setConfig('setup.password', '<b>YOUR SETUP PASSWORD</b>');
+					</pre>
+					<br>
+					<p>
+						<input type="password" name="password" placeholder="Password" required>
+						<input type="submit" value="Authenticate" class="btn btn-primary">
+						<script>document.forms[0]['password'].focus();</script>
+					</p>
+			</div>
+
 				<?php
 				if (isset($options['missingPassword'])) {
 					?>
-					<div class="warning">
+					<div class="alert alert-warning">
 						Please enter a password!
 					</div>
 					<?php
 				} ?>
 			</form>
-				<?php
-			} ?>
+						<?php
+	} ?>
 
 		<?php
 		if ($renderType == 'loginTxtForm') {
 			?>
 			<?php startForm(); ?>
-			<p>
-				<span class="error"><b>
+			<p class="alert alert-danger">
+				<b>
 					<?php
 					if (!empty($options['error'])) {
 						?>
@@ -232,25 +230,24 @@ function render($renderType, $options = array()) {
 						You have exceeded the maximum attempts to login by entering a password.
 						<?php
 					} ?>
-				</b></span>
-
-				To prevent somebody from hacking your website, we now
-				require you to complete a stricter authentication
-				process.  You must create a text file called
-				<strong>authFile.txt</strong> in the gallery2 directory on your
-				webserver (that's the same directory where main.php is
-				located) and put specific text in it.  If you used the preinstaller
-				to install Gallery, then you may have to use it again to set your directory
-				permissions so that you can create the authFile.txt file.
+				</b>
 			</p>
-			<div class="info">
-				Create this file: <b><?php echo $options['baseDir']; ?>authFile.txt</b> <br>
+			<p>
+				To prevent unauthorized access, Gallery2 requires addtional  authentication.
+				<br>
+				You must create a file with a specific name with specific contents and upload this to your Gallery2 installation to authenticate yourself.
+			</p>
+			<div class="alert alert-info">
+				Create this file: <b><?php echo $options['baseDir']; ?>authFile.txt</b>
+				<br>
 				Put this in the file: <b><?php echo $options['key']; ?></b>
+				<br>
+				Please upload this to your Gallery2 installation.
 			</div>
 			<?php
 			if (!empty($options['authFileErrors'])) {
 				?>
-				<div class="error">
+				<div class="alert alert-danger">
 					<?php
 					if (!empty($options['authFileErrors']['missing'])) {
 						?>
@@ -270,12 +267,12 @@ function render($renderType, $options = array()) {
 				<?php
 			} ?>
 			<p>
-				<?php
-				if (!empty($options['error'])) {
-					?>
-					<?php
-				} ?>
-				<input type="submit" value="Verify me">
+			<?php
+			if (!empty($options['error'])) {
+				// DA-Note
+				// TODO: Why is there a redundant if block?
+			} ?>
+				<input type="submit" value="Authenticate">
 			</p>
 		</form>
 			<?php

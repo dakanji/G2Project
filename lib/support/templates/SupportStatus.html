@@ -1,119 +1,114 @@
 <?php if (isset($templateData['showHeader'])) {
 	?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html>
-  <head>
+<head>
 	<title>Gallery Support - <?php echo $templateData['title']; ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<link rel="stylesheet" type="text/css" href="support.css"/>
-  </head>
-
-  <body>
-	<div id="content">
-	  <div id="title">
-	<a href="../../">Gallery</a> &raquo;
-	<a href="<?php generateUrl('index.php'); ?>">Support</a> &raquo; 
-	<?php echo $templateData['title']; ?>
-	  </div>
+</head>
+<body>
+	<div class="container">
+		<div id="title">
+			<a href="../../">Gallery</a> &raquo;
+			<a href="<?php generateUrl('index.php'); ?>">Support</a> &raquo;
+			<?php echo $templateData['title']; ?>
+		</div>
 	<?php
 }
-?>
-<?php
+
 if (isset($templateData['showStatusBlock'])) {
 	?>
-  <table id="progressBarTable" class="boxTable" cellspacing="0">
-	<tr>
-	  <td class="main">
 		<div id="MainPageStatus_statusBlock">
-		  <h2><span id="MainPageStatus_title">&nbsp;</span> </h2>
+			<h2>
+				<span id="MainPageStatus_title">&nbsp;</span>
+			</h2>
 
-		  <h4><span id="MainPageStatus_description">&nbsp;</span></h4>
-		<table id="statusTable" cellspacing="0">
-		<tr>
-		  <td id="MainPageStatus_progressMade" class="progressMade">&nbsp;</td>
-		  <td id="MainPageStatus_progressToGo" class="progressToGo">&nbsp;</td>
-		</tr>
-		</table>
+			<h4>
+				<span id="MainPageStatus_description">&nbsp;</span>
+			</h4>
+			<table id="statusTable" cellspacing="0">
+				<tr>
+					<td id="MainPageStatus_progressMade" class="progressMade">
+						&nbsp;
+					</td>
+					<td id="MainPageStatus_progressToGo" class="progressToGo">
+						&nbsp;
+					</td>
+				</tr>
+			</table>
 		</div>
 
-		<script type="text/javascript">
-		  // <![CDATA[
-		  var saveToGoDisplay = document.getElementById('MainPageStatus_progressToGo').style.display;
-		  function updateStatus(title, description, percentComplete) {
-		document.getElementById('MainPageStatus_title').innerHTML = title;
-		document.getElementById('MainPageStatus_description').innerHTML = description;
+		<script>
+		// <![CDATA[
+		var saveToGoDisplay = document.getElementById('MainPageStatus_progressToGo').style.display;
 
-		var progressMade = Math.round(percentComplete * 100);
-		var progressToGo = document.getElementById('MainPageStatus_progressToGo');
+		function updateStatus(title, description, percentComplete) {
+			document.getElementById('MainPageStatus_title').innerHTML = title;
+			document.getElementById('MainPageStatus_description').innerHTML = description;
 
-		if (progressMade == 100) {
-		  progressToGo.style.display = 'none';
-		} else {
-		  progressToGo.style.display = saveToGoDisplay;
-		  progressToGo.style.width = (100 - progressMade) + "%";
+			var progressMade = Math.round(percentComplete * 100);
+			var progressToGo = document.getElementById('MainPageStatus_progressToGo');
+
+			if (progressMade == 100) {
+				progressToGo.style.display = 'none';
+			} else {
+				progressToGo.style.display = saveToGoDisplay;
+				progressToGo.style.width = (100 - progressMade) + "%";
+			}
+
+			document.getElementById('MainPageStatus_progressMade').style.width = progressMade + "%";
 		}
-
-		document.getElementById('MainPageStatus_progressMade').style.width = progressMade + "%";
-		  }
-		  // ]]>
-		</script>
-	  </td>
-	</tr>
-	  </table>
+		// ]]>
+	</script>
 	<?php
 }
-?>
 
-<?php
 if (isset($templateData['showStatus'])) {
 	?>
-<script type="text/javascript">updateStatus(<?php printf('"%s", "%s", %s', $templateData['status']['title'], $templateData['status']['description'], $templateData['status']['percentComplete']); ?>)</script>
+	<script>
+		updateStatus(<?php printf('"%s", "%s", %s', $templateData['status']['title'], $templateData['status']['description'], $templateData['status']['percentComplete']); ?>)
+	</script>
 	<?php
 }
-?>
 
-<?php
 if (isset($templateData['hideStatusBlock'])) {
 	?>
-<script type="text/javascript">document.getElementById("progressBarTable").style.display="none"</script>
+	<script>
+		document.getElementById("progressBarTable").style.display="none"
+	</script>
 	<?php
 }
-?>
 
+if (isset($templateData['showBodyAndFooter'])) {
+	?>
+	<br><br>
 	<?php
-	if (isset($templateData['showBodyAndFooter'])) {
+	if (!empty($templateData['errors'])) {
 		?>
-	  <table id="regularTable" class="boxTable" cellspacing="0">
-	  <tr>
-
-	  <td class="main">
-
-		<?php
-		if (!empty($templateData['errors'])) {
-			?>
-		<div class="error">
-		  <h2>Errors Occurred</h2>
-		  <p>
-			<?php
-			foreach ($templateData['errors'] as $error) {
-				?>
-				<?php echo $error; ?><br/>
-				<?php
-			} ?>
-		  </p>
+	<div class="panel panel-danger">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				Errors Occurred
+			</h3>
 		</div>
+		<div class="panel-body">
+		<?php
+		foreach ($templateData['errors'] as $error) {
+			?>
+			<?php echo $error; ?><br/>
 			<?php
 		} ?>
-
-		<?php include __DIR__ . '/' . $templateData['bodyFile']; ?>
-
-	  </td>
-	</tr>
-	  </table>
+		</div>
 	</div>
+		<?php
+	} else {
+		?>
+		<?php include __DIR__ . '/' . $templateData['bodyFile']; ?>
+		<?php
+	} ?>
+
   </body>
 </html>
-		<?php
-	}
-	?>
-
+	<?php
+} ?>

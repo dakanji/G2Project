@@ -172,15 +172,16 @@ function process($search_string, $advance, $deep) {
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>support.css">
 </head>
 <body>
-	<div id="content">
+	<div class="container">
 		<div id="title">
 			<a href="../../">Gallery</a> &raquo;
 			<a href="index.php">Support</a> &raquo; MySQL Database Search Tool
 		</div>
 		<div class="center">
 			<h2>
-				A tool for searching the Gallery2 database<br>
-				Valid only for MySQL based installations
+				A tool for searching the Gallery2 database
+				<br>
+				(Only valid for MySQL Databases)
 			</h2>
 			<form action="search_db.php" method="POST">
 				<input type="hidden" name="advance" value=true /><br>
@@ -206,11 +207,11 @@ function process($search_string, $advance, $deep) {
 					<?php
 				}
 				?>
-				<input type="submit" value="Search Database">
+				<input type="submit" value="Search Database" class="btn btn-primary">
 			</form>
 			<form action="search_db.php" method="POST">
 				<input type="hidden" name="searchstring">
-				<input type="submit" value="Reset">
+				<input type="submit" value="Reset" class="btn btn-default">
 			</form>
 		</div>
 

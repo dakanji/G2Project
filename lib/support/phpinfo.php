@@ -77,35 +77,188 @@ if (array_key_exists('_', $_SERVER)) {
 	$php_handler = 'Gallery 2 could not determine the PHP Handler';
 }
 
-//output
-echo '<!DOCTYPE html>';
-echo "<html lang='en'>";
-echo '<head>';
-echo '<title> Gallery Support | PHP Info</title>';
-echo '</head>';
-echo '<body>';
-echo "<div id='title'>";
-echo "<a href='../../'>Gallery</a> &raquo; ";
-echo "<a href='../support/index.php'>Support</a> &raquo; PHP Info";
-echo '</div>';
-
-echo '<center>';
-echo "<h2><a name='additional_data'>User Data</a></h2>";
-echo "<table border='0' cellpadding='3' width='600'>";
-echo "<tr class='h'><th>Item</th><th>G2Data Folder</th><th>PHP User</th></tr>";
-echo "<tr><td class='e'>User Name</td><td class='v'>" . $g2_user . "</td><td class='v'>" . $user . '</td></tr>';
-echo "<tr><td class='e'>User ID</td><td class='v'>" . $g2_uid . "</td><td class='v'>" . $uid . '</td></tr>';
-echo "<tr><td class='e'>Group Name</td><td class='v'>" . $g2_group . "</td><td class='v'>" . $group . '</td></tr>';
-echo "<tr><td class='e'>Group ID</td><td class='v'>" . $g2_gid . "</td><td class='v'>" . $gid . '</td></tr>';
-echo '</table>';
-echo '<center>';
-echo "<h2><a name='additional_data'>Server Information</a></h2>";
-echo "<table border='0' cellpadding='3' width='600'>";
-echo "<tr><td class='e'>Webserver</td><td class='v'>" . $_SERVER['SERVER_SOFTWARE'] . '</td></tr>';
-echo "<tr><td class='e'>Architecture</td><td class='v'>" . @php_uname(m) . '</td></tr>';
-echo "<tr><td class='e'>PHP Handler</td><td class='v'>" . $php_handler . '</td></tr>';
-echo '</table>';
-echo '</center><br>';
-echo '<body>';
-echo '</html>';
+ob_start();
 phpinfo();
+$phpinfo = ob_get_contents();
+ob_clean();
+
+//<link rel="stylesheet" type="text/css" href="support.css">
+
+$phpinfo = str_replace('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">', '', $phpinfo);
+$phpinfo = str_replace('<html xmlns="http://www.w3.org/1999/xhtml">', '<html lang="en">', $phpinfo);
+$phpinfo = str_replace('<title>phpinfo()</title>', '<title> Gallery Support | PHP Info</title>', $phpinfo);
+
+$styleStr = '
+/*!
+ * bootswatch v3.3.7
+ * Homepage: http://bootswatch.com
+ * Copyright 2012-2016 Thomas Park
+ * Licensed under MIT
+ * Based on Bootstrap
+ */
+/*!
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+	vertical-align: baseline;
+}
+
+html {
+	box-sizing: border-box;
+	font: 16px/1.25 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-weight: 200;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+	background: #ffffff;
+	color: #77777;
+	margin: 10px auto;
+}
+
+/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+a {
+	background-color: transparent;
+}
+
+a:active,
+a:hover {
+	outline: 0;
+}
+
+html input[disabled] {
+	cursor: default;
+}
+
+a:hover,
+a:focus {
+	color: #0a6ebd;
+	text-decoration: underline;
+}
+
+a:focus {
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+}
+
+.container {
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+@media (min-width: 768px) {
+	.container {
+		width: 750px;
+	}
+}
+
+@media (min-width: 992px) {
+	.container {
+		width: 970px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.container {
+		width: 1170px;
+	}
+}
+
+.container:before,
+.container:after,
+.form-horizontal .form-group:before,
+.form-horizontal .form-group:after,
+.panel-body:before,
+.panel-body:after {
+	content: " ";
+	display: table;
+}
+
+.container:after,
+.form-horizontal .form-group:after,
+.panel-body:after {
+	clear: both;
+}
+
+@-ms-viewport {
+	width: device-width;
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	letter-spacing: .1px;
+}
+
+p {
+	margin: 0 0 1em;
+}
+
+/*!
+ * Hydrogen CSS
+ * Copyright 2018 Pim Brouwers
+ * Licensed under MIT
+ *https://github.com/pimbrouwers/hydrogen
+ */
+a {
+	color: #0080ff;
+	font-weight: 300;
+	text-decoration: none;
+}
+
+a:hover,
+a:focus {
+	color: #0a6ebd;
+	text-decoration: underline;
+}
+
+a:focus {
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+}
+';
+
+$phpinfo = str_replace('</style>', $styleStr . '</style>', $phpinfo);
+
+$htmlData  = "<div id='title'>";
+$htmlData .= "<a href='../../'>Gallery</a> &raquo; ";
+$htmlData .= "<a href='../support/index.php'>Support</a> &raquo; PHP Info";
+$htmlData .= '</div>';
+
+$phpinfo = str_replace('<div class="center">', '<div class="container">' . $htmlData . '<div class="center">', $phpinfo);
+
+$htmlData  = "<h2><a name='additional_data'>Gallery 2 User Data</a></h2>";
+$htmlData .= "<table border='0' cellpadding='3' width='600'>";
+$htmlData .= "<tr class='h'><th>Item</th><th>G2Data Folder</th><th>PHP User</th></tr>";
+$htmlData .= "<tr><td class='e'>User Name</td><td class='v'>" . $g2_user . "</td><td class='v'>" . $user . '</td></tr>';
+$htmlData .= "<tr><td class='e'>User ID</td><td class='v'>" . $g2_uid . "</td><td class='v'>" . $uid . '</td></tr>';
+$htmlData .= "<tr><td class='e'>Group Name</td><td class='v'>" . $g2_group . "</td><td class='v'>" . $group . '</td></tr>';
+$htmlData .= "<tr><td class='e'>Group ID</td><td class='v'>" . $g2_gid . "</td><td class='v'>" . $gid . '</td></tr>';
+$htmlData .= '</table>';
+$htmlData .= '<center>';
+$htmlData .= "<h2><a name='additional_data'>Server Information</a></h2>";
+$htmlData .= "<table border='0' cellpadding='3' width='600'>";
+$htmlData .= "<tr><td class='e'>Webserver</td><td class='v'>" . $_SERVER['SERVER_SOFTWARE'] . '</td></tr>';
+$htmlData .= "<tr><td class='e'>Architecture</td><td class='v'>" . @php_uname(m) . '</td></tr>';
+$htmlData .= "<tr><td class='e'>PHP Handler</td><td class='v'>" . $php_handler . '</td></tr>';
+$htmlData .= '</table>';
+$htmlData .= '<br>';
+
+$phpinfo = str_replace('<div class="center">', '<div class="center">' . $htmlData, $phpinfo);
+
+$phpinfo = str_replace('</body>', '</div></body>', $phpinfo);
+$phpinfo = str_replace('body {background-color: #fff; color: #222; font-family: sans-serif;}', '', $phpinfo);
+$phpinfo = str_replace('a:link {color: #009; text-decoration: none; background-color: #fff;}', '', $phpinfo);
+$phpinfo = str_replace('a:hover {text-decoration: underline;}', '', $phpinfo);
+
+
+
+
+//output
+echo $phpinfo;

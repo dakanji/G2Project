@@ -121,7 +121,11 @@ function getGdLibraryInfo() {
 			}
 		}
 
-		if ($ok && !($check['value'] & imagetypes())) {
+		if ($ok && $check['value']) {
+			if (!($check['value'] & imagetypes())) {
+				$ok = false;
+			}
+		} else {
 			$ok = false;
 		}
 
@@ -230,7 +234,7 @@ $gdInfo = getGdLibraryInfo();
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>support.css">
 </head>
 <body>
-	<div id="content">
+	<div class="container">
 		<div id="title">
 			<a href="../../">Gallery</a> &raquo;
 			<a href="<?php generateUrl('index.php'); ?>">Support</a> &raquo; GD Library Info

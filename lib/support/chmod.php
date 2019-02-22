@@ -649,7 +649,7 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
 		</head>
 
 		<body>
-			<div id="content">
+			<div class="container">
 				<div id="title">
 					<a href="../../">Gallery</a> &raquo;
 					<a href="<?php generateUrl('index.php'); ?>">Support</a> &raquo;
@@ -744,8 +744,8 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
 					</select>
 					&nbsp;&nbsp;
 					<input type="hidden" name="mode" value="open">
-					<input type="submit" disabled="disabled" name="open" value="Make it open (read/write)"> |
-					<input type="submit" disabled="disabled" name="secure" value="Make it secure (read-only)">
+					<input type="submit" disabled="disabled" name="open" value="Make it open (read/write)" class="btn btn-default"> |
+					<input type="submit" disabled="disabled" name="secure" value="Make it secure (read-only)" class="btn btn-default">
 				</p>
 			</form>
 
@@ -834,7 +834,7 @@ function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermis
 				} ?>
 			<br><br>
 
-			<input type="submit" value="Change the Permissions now!">
+			<input type="submit" value="Change the Permissions now!"  class="btn btn-default">
 		</p>
 	</form>
 	<?php
