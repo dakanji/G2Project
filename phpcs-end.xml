@@ -5,7 +5,7 @@
 
 	<!-- GENERAL:
 		- Rules basically follow PSR2
-		- php-cs-fixer should be run after this as neither gives satisfactory results alone.
+		- This is run after php-cs-fixer to apply operator alignment.
 	-->
 
 	<!-- Assume UTF-8 -->
@@ -19,7 +19,7 @@
 	<!-- Load WordPress Standards -->
 	<config name="installed_paths" value="dev_vendor/wp-coding-standards/wpcs" />
 
-	<!-- APPLY ADDITIONAL SELECTED WORDPRESS RULES -->
+	<!-- APPLY SELECTED WORDPRESS RULES -->
 	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
 		<properties>
 			<property name="maxColumn" value="70" />
@@ -27,8 +27,8 @@
 			<property name="alignMultilineItems" value="!=100" />
 		</properties>
 	</rule>
-	
-	<!-- APPLY ADDITIONAL SELECTED GENERIC RULES -->
+
+	<!-- APPLY SELECTED GENERIC RULES -->
 	<rule ref="Generic.Formatting.MultipleStatementAlignment">
 		<properties>
 			<property name="maxPadding" value="45" />

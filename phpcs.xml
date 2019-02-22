@@ -6,6 +6,7 @@
 	<!-- GENERAL:
 		- Rules basically follow PSR2
 		- php-cs-fixer should be run after this as neither gives satisfactory results alone.
+		- Finally, after php-cs-fixer, a small subset of rules is run to finalise style structure 
 	-->
 
 	<!-- Assume UTF-8 -->
