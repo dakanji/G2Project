@@ -170,7 +170,6 @@ class GalleryPluginHelper_simple {
 				$s = $status[$pluginId];
 
 				if (isset($s['active'], $s['version'])
-
 					&& ($s['version'] != $plugin->getVersion()
 					|| !GalleryPluginHelper_simple::isPluginCompatibleWithApis($plugin))
 				) {
@@ -188,18 +187,29 @@ class GalleryPluginHelper_simple {
 						 * plugin can be upgraded.
 						 */
 						if ($gallery->getDebug()) {
-							$gallery->debug("Unable to deactivate $pluginId, jumping to upgrader.");
+							$gallery->debug(
+								"Unable to deactivate $pluginId,
+								jumping to upgrader."
+							);
 							$gallery->debug_r($redirectInfo);
 						}
 						$urlGenerator =& $gallery->getUrlGenerator();
 						$phpVm        = $gallery->getPhpVm();
-						$phpVm->header('Location: ' .
-						$urlGenerator->getCurrentUrlDir(true) . 'upgrade/index.php');
+						$thisDir      = $urlGenerator->getCurrentUrlDir(true);
+						$phpVm->header('Location: ' . $thisDir . 'upgrade/index.php');
 
 						exit;
 					}
 
 					// Return a handleable error
+					if ($pluginType == 'module') {
+						$flagAPI  = 'requiredModuleApi';
+						$flagType = GalleryModule::doStatic()->getApiVersion();
+					} else {
+						$flagAPI  = 'requiredThemeApi';
+						$flagType = GalleryTheme::doStatic()->getApiVersion();
+					}
+
 					return array(
 						GalleryCoreApi::error(
 							ERROR_PLUGIN_VERSION_MISMATCH,
@@ -212,14 +222,11 @@ class GalleryPluginHelper_simple {
 								$s['version'],
 								join('/', $s['requiredCoreApi']),
 								$pluginType,
-								join('/', $s[$pluginType == 'module' ? 'requiredModuleApi' : 'requiredThemeApi']),
+								join('/', $s[$flagAPI]),
 								$plugin->getVersion(),
 								join('/', GalleryCoreApi::getApiVersion()),
 								$pluginType,
-								join(
-									'/',
-									$pluginType == 'module' ? GalleryModule::doStatic()->getApiVersion() : GalleryTheme::doStatic()->getApiVersion()
-								)
+								join('/', $flagType)
 							)
 						),
 						$plugin,
@@ -247,13 +254,13 @@ class GalleryPluginHelper_simple {
 		) &&
 		(($pluginType == 'module' &&
 		  GalleryUtilities::isCompatibleWithApi(
-			  $plugin->getRequiredModuleApi(),
-			  GalleryModule::doStatic()->getApiVersion()
+		  	$plugin->getRequiredModuleApi(),
+		  	GalleryModule::doStatic()->getApiVersion()
 		  )) ||
 		 ($pluginType == 'theme' &&
 		  GalleryUtilities::isCompatibleWithApi(
-			  $plugin->getRequiredThemeApi(),
-			  GalleryTheme::doStatic()->getApiVersion()
+		  	$plugin->getRequiredThemeApi(),
+		  	GalleryTheme::doStatic()->getApiVersion()
 		  )));
 	}
 

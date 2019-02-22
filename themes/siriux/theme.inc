@@ -99,7 +99,10 @@ class SiriuxTheme extends GalleryTheme {
 
 		// Find the thumbnail size for this album
 		$theme['params']['thumbnailSize'] = 150;
-		list($ret, $preferences)          = GalleryCoreApi::fetchDerivativePreferencesForItem($item->getId());
+
+		list($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem(
+			$item->getId()
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -107,7 +110,11 @@ class SiriuxTheme extends GalleryTheme {
 
 		foreach ($preferences as $preference) {
 			if ($preference['derivativeType'] == DERIVATIVE_TYPE_IMAGE_THUMBNAIL
-				&& preg_match('/thumbnail\|(\d+)/', $preference['derivativeOperations'], $matches)
+				&& preg_match(
+					'/thumbnail\|(\d+)/',
+					$preference['derivativeOperations'],
+					$matches
+				)
 			) {
 				$theme['params']['thumbnailSize'] = $matches[1];
 

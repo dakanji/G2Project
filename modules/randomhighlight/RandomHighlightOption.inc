@@ -37,7 +37,9 @@ class RandomHighlightOption extends ItemEditOption {
 	 * @see ItemEditOption::loadTemplate
 	 */
 	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
-		$form['RandomHighlightOption']['isRandomHighlight'] = $thumbnail->hasOnLoadHandler('RandomHighlight');
+		$tempVar = $thumbnail->hasOnLoadHandler('RandomHighlight');
+
+		$form['RandomHighlightOption']['isRandomHighlight'] = $tempVar;
 
 		return array(
 			null,
