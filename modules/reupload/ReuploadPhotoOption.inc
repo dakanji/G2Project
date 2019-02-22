@@ -27,6 +27,19 @@
  */
 class ReuploadPhotoOption extends ItemEditOption {
 	/**
+	 * Load as Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ReuploadPhotoOption();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see ItemEditOption::handleRequestAfterEdit
 	 */
 	public function handleRequestAfterEdit($form, &$item, &$preferred) {
