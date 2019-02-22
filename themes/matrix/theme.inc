@@ -32,9 +32,11 @@ class MatrixTheme extends GalleryTheme {
 		$this->setId('matrix');
 		$this->setName($gallery->i18n('Matrix'));
 		$this->setDescription($gallery->i18n('Standard Gallery2 look and feel'));
+
 		$this->setVersion('7.0.0');
 		$this->setRequiredCoreApi(array(7, 20));
 		$this->setRequiredThemeApi(array(2, 4));
+
 		$this->setStandardSettings(
 			array(
 				'rows'            => 3,
