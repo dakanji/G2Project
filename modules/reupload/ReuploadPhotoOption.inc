@@ -27,6 +27,19 @@
  */
 class ReuploadPhotoOption extends ItemEditOption {
 	/**
+	 * Load as Singleton
+	 */
+	public static function doStatic() {
+		static $singleton;
+
+		if (!isset($singleton)) {
+			$singleton = new ReuploadPhotoOption();
+		}
+
+		return $singleton;
+	}
+
+	/**
 	 * @see ItemEditOption::handleRequestAfterEdit
 	 */
 	public function handleRequestAfterEdit($form, &$item, &$preferred) {
@@ -50,7 +63,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 			}
 
-			list($ret, $hasLinkedEntity) = ReuploadPhotoOption::_hasLinkedEntity($item);
+			list($ret, $hasLinkedEntity) = $this->_hasLinkedEntity($item);
 
 			if ($ret) {
 				return array($ret, null, null);
@@ -217,7 +230,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 			);
 		}
 
-		list($ret, $hasLinkedEntity) = ReuploadPhotoOption::_hasLinkedEntity($item);
+		list($ret, $hasLinkedEntity) = $this->_hasLinkedEntity($item);
 
 		if ($ret) {
 			return array($ret, null, null);
