@@ -33,41 +33,61 @@
  *
  */
 class {$viewName}Controller extends GalleryController {ldelim}
+	/**
+ 	 * Load as Singleton
+ 	 */
+	public static function doStatic() {ldelim}
+		static $singleton;
+
+		if (!isset($singleton)) {ldelim}
+			$singleton = new {$viewName}Controller();
+		{rdelim}
+
+		return $singleton;
+	{rdelim}
+
     /**
      * @see GalleryController::handleRequest()
      */
     function handleRequest($form) {ldelim}
-	global $gallery;
+		global $gallery;
 
-	$itemId = GalleryUtilities::getRequestVariables('itemId');
+		$itemId = GalleryUtilities::getRequestVariables('itemId');
 
-	$redirect = array();
-	$status = array();
-	$error = array();
-	if (isset($form['action']['save'])) {ldelim}
-	    $ret = GalleryCoreApi::removeMapEntry('{$mapName}', array('itemId' => $itemId));
-	    if ($ret) {ldelim}
-	        return array($ret, null);
-	    {rdelim}
+		$redirect = array();
+		$status = array();
+		$error = array();
+		if (isset($form['action']['save'])) {ldelim}
+	    	$ret = GalleryCoreApi::removeMapEntry(
+				'{$mapName}',
+				array('itemId' => $itemId)
+				);
+	    	if ($ret) {ldelim}
+	        	return array($ret, null);
+	    	{rdelim}
 
-	    $ret = GalleryCoreApi::addMapEntry(
+	    	$ret = GalleryCoreApi::addMapEntry(
                 '{$mapName}',
-                array('itemId' => $itemId, 'itemValue' => $form['value']));
-	    if ($ret) {ldelim}
-	        return array($ret, null);
-	    {rdelim}
+                array(
+					'itemId' => $itemId,
+					'itemValue' => $form['value']
+				)
+			);
+	    	if ($ret) {ldelim}
+	        	return array($ret, null);
+	    	{rdelim}
 
-	    /* Send the user to a confirmation page, for now */
-	    $redirect['view'] = '{$moduleId}.{$viewName}';
-	    $redirect['itemId'] = (int)$itemId;
-	    $status['added'] = 1;
-	{rdelim}
+	    	/* Send the user to a confirmation page, for now */
+	    	$redirect['view']   = '{$moduleId}.{$viewName}';
+	    	$redirect['itemId'] = (int)$itemId;
+	    	$status['added']    = 1;
+		{rdelim}
 
-	$results['status'] = $status;
-	$results['error'] = $error;
-	$results['redirect'] = $redirect;
+		$results['status'] = $status;
+		$results['error'] = $error;
+		$results['redirect'] = $redirect;
 
-	return array(null, $results);
+		return array(null, $results);
     {rdelim}
 {rdelim}
 
@@ -79,28 +99,56 @@ class {$viewName}Controller extends GalleryController {ldelim}
  *
  */
 class {$viewName}View extends GalleryView {ldelim}
+	/**
+	* Load as Singleton
+	*/
+	public static function doStatic() {ldelim}
+		static $singleton;
+
+		if (!isset($singleton)) {ldelim}
+			$singleton = new {$viewName}View();
+		{rdelim}
+
+		return $singleton;
+	{rdelim}
 
     /**
      * @see GalleryView::loadTemplate
      */
-    function loadTemplate(&$template = null, &$form = null) {ldelim}
-	/* Load our item */
-	list ($ret, $item) = $this->getItem();
-	if ($ret) {ldelim}
-	    return array($ret, null);
+    function loadTemplate(
+		&$template = null,
+		&$form = null)
+	{ldelim}
+
+		// Load our item
+		list ($ret, $item) = $this->getItem();
+		if ($ret) {ldelim}
+	    	return array($ret, null);
+			{rdelim}
+
+			${$viewName} = array();
+			${$viewName}['item'] = (array)$item;
+
+			GalleryCoreApi::requireOnce(
+			'modules/{$moduleId}/classes/{$viewName}Helper.class'
+		);
+
+		list (
+			$ret,
+			${$viewName}['value']
+		) = {$viewName}Helper::getItemValue($item->getId());
+
+		if ($ret) {ldelim}
+	    	return array($ret, null);
+		{rdelim}
+
+		$template->setVariable('{$viewName}', ${$viewName});
+
+		return array(
+			null,
+			array(
+				'body' => 'modules/{$moduleId}/templates/{$viewName}.tpl',
+			)
+		);
 	{rdelim}
-
-	${$viewName} = array();
-	${$viewName}['item'] = (array)$item;
-	GalleryCoreApi::requireOnce('modules/{$moduleId}/classes/{$viewName}Helper.class');
-	list ($ret, ${$viewName}['value']) = {$viewName}Helper::getItemValue($item->getId());
-	if ($ret) {ldelim}
-	    return array($ret, null);
-	{rdelim}
-
-	$template->setVariable('{$viewName}', ${$viewName});
-
-	return array(null, array('body' => 'modules/{$moduleId}/templates/{$viewName}.tpl'));
-    {rdelim}
 {rdelim}
-?>
