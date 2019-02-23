@@ -36,7 +36,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -56,7 +56,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 			return array(null, $this->_repositories);
 		}
 
-		return GalleryRepository::doStatic()->getRepositories();
+		return GalleryRepository::getMe()->getRepositories();
 	}
 
 	/**
@@ -115,7 +115,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 			}
 
 			// Remove the default repositories from the data cache
-			GalleryRepository::doStatic()->clearRepositoryCache();
+			GalleryRepository::getMe()->clearRepositoryCache();
 			list($ret, $repositories) = $this->_getRepositories();
 
 			if ($ret) {
@@ -194,7 +194,7 @@ class AdminRepositoryView extends GalleryView {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -225,7 +225,7 @@ class AdminRepositoryView extends GalleryView {
 			$ret,
 			$repositories,
 			$repositoryInitErrorCount
-		) = GalleryRepository::doStatic()->getRepositories();
+		) = GalleryRepository::getMe()->getRepositories();
 
 		if ($ret) {
 			return array($ret, null);
@@ -332,7 +332,7 @@ class AdminRepositoryView extends GalleryView {
 			list(
 				$ret,
 				$message
-			) = GalleryRepository::doStatic()->translateRepositoryName($source);
+			) = GalleryRepository::getMe()->translateRepositoryName($source);
 
 			if ($ret) {
 				return array($ret, null);

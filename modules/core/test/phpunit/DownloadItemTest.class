@@ -50,7 +50,7 @@ class DownloadItemTest extends GalleryTestCase {
 		}
 		$this->_markForCleanup($this->_item);
 
-		list($ret, $this->_view) = GalleryView::doStatic()->loadView('core.DownloadItem');
+		list($ret, $this->_view) = GalleryView::getMe()->loadView('core.DownloadItem');
 
 		if ($ret) {
 			return $ret;

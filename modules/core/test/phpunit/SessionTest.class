@@ -1579,7 +1579,7 @@ class SessionTest extends GalleryTestCase {
 		list(
 			$ret,
 			$detectedLanguageCode
-		) = GalleryTranslator::doStatic()->getDefaultLanguageCode();
+		) = GalleryTranslator::getMe()->getDefaultLanguageCode();
 
 		if ($ret) {
 			return $ret;
@@ -1640,7 +1640,7 @@ class SessionTest extends GalleryTestCase {
 		list(
 			$ret,
 			$detectedLanguageCode
-		) = GalleryTranslator::doStatic()->getDefaultLanguageCode();
+		) = GalleryTranslator::getMe()->getDefaultLanguageCode();
 
 		if ($ret) {
 			return $ret;
@@ -2329,7 +2329,7 @@ class SessionTest extends GalleryTestCase {
 		list(
 			$ret,
 			$detectedLanguageCode
-		) = GalleryTranslator::doStatic()->getDefaultLanguageCode();
+		) = GalleryTranslator::getMe()->getDefaultLanguageCode();
 
 		if ($ret) {
 			return $ret;
@@ -3171,39 +3171,39 @@ class SessionTest extends GalleryTestCase {
 	public function testCompareIdentifiers() {
 		$this->assertEquals(
 			1,
-			GallerySession::doStatic()->compareIdentifiers(array(0), array(0))
+			GallerySession::getMe()->compareIdentifiers(array(0), array(0))
 		);
 		$this->assertEquals(
 			1,
-			GallerySession::doStatic()->compareIdentifiers(array(0), array(0, 1))
+			GallerySession::getMe()->compareIdentifiers(array(0), array(0, 1))
 		);
 		$this->assertEquals(
 			1,
-			GallerySession::doStatic()->compareIdentifiers(array(0, 1), array(0))
+			GallerySession::getMe()->compareIdentifiers(array(0, 1), array(0))
 		);
 		$this->assertEquals(
 			2,
-			GallerySession::doStatic()->compareIdentifiers(array('x', 1, 'y'), array('x', 0, 'y'))
+			GallerySession::getMe()->compareIdentifiers(array('x', 1, 'y'), array('x', 0, 'y'))
 		);
 		$this->assertEquals(
 			0,
-			GallerySession::doStatic()->compareIdentifiers(array(1), 'x')
+			GallerySession::getMe()->compareIdentifiers(array(1), 'x')
 		);
 		$this->assertEquals(
 			0,
-			GallerySession::doStatic()->compareIdentifiers(array(1), null)
+			GallerySession::getMe()->compareIdentifiers(array(1), null)
 		);
 		$this->assertEquals(
 			0,
-			GallerySession::doStatic()->compareIdentifiers(null, array(1))
+			GallerySession::getMe()->compareIdentifiers(null, array(1))
 		);
 		$this->assertEquals(
 			0,
-			GallerySession::doStatic()->compareIdentifiers(null, null)
+			GallerySession::getMe()->compareIdentifiers(null, null)
 		);
 		$this->assertEquals(
 			0,
-			GallerySession::doStatic()->compareIdentifiers('x', 'x')
+			GallerySession::getMe()->compareIdentifiers('x', 'x')
 		);
 	}
 

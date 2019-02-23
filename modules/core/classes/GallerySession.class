@@ -173,7 +173,7 @@ class GallerySession {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -845,7 +845,7 @@ class GallerySession {
 			list(
 				$ret,
 				$detectedLanguageCode
-			) = GalleryTranslator::doStatic()->getDefaultLanguageCode();
+			) = GalleryTranslator::getMe()->getDefaultLanguageCode();
 
 			if ($ret) {
 				return array($ret, null);
@@ -889,14 +889,14 @@ class GallerySession {
 
 			if (!empty($controller)) {
 				GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
-				list($ret, $controller) = GalleryController::doStatic()->loadController($controller);
+				list($ret, $controller) = GalleryController::getMe()->loadController($controller);
 
 				if (!$ret && !$controller->shouldSaveSession()) {
 					$flag = false;
 				}
 			} elseif (!empty($view)) {
 				GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
-				list($ret, $view) = GalleryView::doStatic()->loadView($view);
+				list($ret, $view) = GalleryView::getMe()->loadView($view);
 
 				if (!$ret && !$view->shouldSaveSession()) {
 					$flag = false;

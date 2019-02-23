@@ -32,7 +32,7 @@ class ConvertDatabaseToUtf8Task extends MaintenanceTask {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -74,7 +74,7 @@ class ConvertDatabaseToUtf8Task extends MaintenanceTask {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
-		list($ret, $converted) = CoreModuleExtras::doStatic()->convertCharacterSetToUtf8(
+		list($ret, $converted) = CoreModuleExtras::getMe()->convertCharacterSetToUtf8(
 			$module,
 			new MockStatusMonitor()
 		);
@@ -102,7 +102,7 @@ class MockStatusMonitor {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {

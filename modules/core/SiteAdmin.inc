@@ -29,7 +29,7 @@ class SiteAdminView extends GalleryView {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -235,7 +235,7 @@ class SiteAdminView extends GalleryView {
 			$subViewName = 'core.AdminPlugins';
 		}
 
-		list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
+		list($ret, $subView) = GalleryView::getMe()->loadView($subViewName);
 
 		if ($ret) {
 			return array($ret, null);
@@ -287,7 +287,7 @@ class SiteAdminView extends GalleryView {
 		if (empty($subViewName)) {
 			$subViewName = 'core.AdminCore';
 		}
-		list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
+		list($ret, $subView) = GalleryView::getMe()->loadView($subViewName);
 
 		if ($ret) {
 			return array($ret, null);

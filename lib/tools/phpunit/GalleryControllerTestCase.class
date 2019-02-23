@@ -36,7 +36,7 @@ class GalleryControllerTestCase extends GalleryTestCase {
 		parent::__construct($methodName);
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
-		list($ret, $this->_controller) = GalleryController::doStatic()->loadController($controllerName);
+		list($ret, $this->_controller) = GalleryController::getMe()->loadController($controllerName);
 
 		if ($ret) {
 			$this->fail($ret->getAsHtml());
@@ -61,7 +61,7 @@ class GalleryControllerTestCase extends GalleryTestCase {
 		list($ret, $results) = $this->_controller->handleRequest($form);
 
 		if (isset($errorCode)) {
-			$GalleryStatus = GalleryStatus::doStatic();
+			$GalleryStatus = GalleryStatus::getMe();
 
 			if ($ret) {
 				if (($ret->getErrorCode() & $errorCode) != $errorCode) {

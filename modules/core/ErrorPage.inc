@@ -29,7 +29,7 @@ class ErrorPageView extends GalleryView {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -127,7 +127,7 @@ class ErrorPageView extends GalleryView {
 			}
 
 			GalleryCoreApi::requireOnce('modules/core/module.inc');
-			$installedVersions    = CoreModule::doStatic()->getInstalledVersions();
+			$installedVersions    = CoreModule::getMe()->getInstalledVersions();
 			$ErrorPage['version'] = $installedVersions['gallery'];
 		}
 
@@ -252,7 +252,7 @@ class ErrorPageView extends GalleryView {
 		if (!$failsafe) {
 			$templateAdapter =& $gallery->getTemplateAdapter();
 			$templateAdapter->setTheme($theme);
-			list($ret, $view) = GalleryView::doStatic()->loadView('core.ErrorPage');
+			list($ret, $view) = GalleryView::getMe()->loadView('core.ErrorPage');
 
 			if ($ret) {
 				$failsafe = true;

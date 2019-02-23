@@ -36,7 +36,7 @@ class {$viewName}Controller extends GalleryController {ldelim}
 	/**
  	 * Load as Singleton
  	 */
-	public static function doStatic() {ldelim}
+	public static function getMe() {ldelim}
 		static $singleton;
 
 		if (!isset($singleton)) {ldelim}
@@ -102,7 +102,7 @@ class {$viewName}View extends GalleryView {ldelim}
 	/**
 	* Load as Singleton
 	*/
-	public static function doStatic() {ldelim}
+	public static function getMe() {ldelim}
 		static $singleton;
 
 		if (!isset($singleton)) {ldelim}

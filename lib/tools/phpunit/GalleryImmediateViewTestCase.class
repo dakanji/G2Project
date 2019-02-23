@@ -36,7 +36,7 @@ class GalleryImmediateViewTestCase extends GalleryTestCase {
 		parent::__construct($methodName);
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
-		list($ret, $this->_view) = GalleryView::doStatic()->loadView($viewName);
+		list($ret, $this->_view) = GalleryView::getMe()->loadView($viewName);
 
 		return $ret;
 	}

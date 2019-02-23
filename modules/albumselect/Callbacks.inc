@@ -289,7 +289,7 @@ class AlbumSelectCallbacks {
 				if (!$session->isUsingCookies()) {
 					foreach ($links as $id => $url) {
 						if ($id != 'prefix') {
-							$links[$id] = GalleryUrlGenerator::doStatic()->appendParamsToUrl(
+							$links[$id] = GalleryUrlGenerator::getMe()->appendParamsToUrl(
 								$url,
 								array(
 									$session->getKey() => $session->getId(),

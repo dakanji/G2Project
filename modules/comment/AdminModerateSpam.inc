@@ -52,7 +52,7 @@ class AdminModerateSpamController extends GalleryController {
 
 			while (true) {
 				/** @todo use a progress bar here */
-				list($ret, $comments, $count) = GalleryCommentHelper::doStatic()->fetchAllComments(
+				list($ret, $comments, $count) = GalleryCommentHelper::getMe()->fetchAllComments(
 					$rootId,
 					$batchSize,
 					null,
@@ -126,7 +126,7 @@ class AdminModerateSpamView extends GalleryView {
 			$page = 1;
 		}
 
-		list($ret, $comments, $count) = GalleryCommentHelper::doStatic()->fetchAllComments(
+		list($ret, $comments, $count) = GalleryCommentHelper::getMe()->fetchAllComments(
 			$rootId,
 			$showCount,
 			($page - 1) * $showCount,

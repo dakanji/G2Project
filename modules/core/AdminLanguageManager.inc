@@ -39,7 +39,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -136,7 +136,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 			$ret,
 			$repositories,
 			$repositoryInitErrorCount
-		) = GalleryRepository::doStatic()->getRepositories();
+		) = GalleryRepository::getMe()->getRepositories();
 
 		if ($ret) {
 			return $ret;
@@ -463,7 +463,7 @@ class AdminLanguageManagerView extends GalleryView {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -524,7 +524,7 @@ class AdminLanguageManagerView extends GalleryView {
 			$ret,
 			$repositories,
 			$repositoryInitErrorCount
-		) = GalleryRepository::doStatic()->getRepositories();
+		) = GalleryRepository::getMe()->getRepositories();
 
 		if ($ret) {
 			return array($ret, null);

@@ -52,7 +52,7 @@ class CoreModule extends GalleryModule {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -730,7 +730,7 @@ class CoreModule extends GalleryModule {
 	 */
 	public function upgrade($currentVersion, $statusMonitor = null) {
 		GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
-		$ret = CoreModuleExtras::doStatic()->upgrade($this, $currentVersion, $statusMonitor);
+		$ret = CoreModuleExtras::getMe()->upgrade($this, $currentVersion, $statusMonitor);
 
 		if ($ret) {
 			return $ret;
@@ -813,7 +813,7 @@ class CoreModule extends GalleryModule {
 	 */
 	public function performFactoryRegistrations() {
 		GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
-		$ret = CoreModuleExtras::doStatic()->performFactoryRegistrations($this);
+		$ret = CoreModuleExtras::getMe()->performFactoryRegistrations($this);
 
 		if ($ret) {
 			return $ret;

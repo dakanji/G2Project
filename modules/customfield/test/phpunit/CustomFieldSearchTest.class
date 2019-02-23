@@ -91,7 +91,7 @@ class CustomFieldSearchTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$ret = CustomFieldHelper::doStatic()->saveParameters(
+		$ret = CustomFieldHelper::getMe()->saveParameters(
 			array(
 				'common' => array(
 					array(
@@ -151,7 +151,7 @@ class CustomFieldSearchTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$ret = CustomFieldHelper::doStatic()->saveFieldValues($this->_items[$i], $values[$i]);
+			$ret = CustomFieldHelper::getMe()->saveFieldValues($this->_items[$i], $values[$i]);
 
 			if ($ret) {
 				return $ret;

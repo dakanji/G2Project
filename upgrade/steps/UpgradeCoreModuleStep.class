@@ -66,7 +66,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 		$templateData['galleryVersion'] = $core->getGalleryVersion();
 		$templateData['storeConfig']    = $gallery->getConfig('storage.config');
 
-		$templateData['isConfigUpgradeRequired'] = CoreModuleExtras::doStatic()->isConfigUpgradeRequired(
+		$templateData['isConfigUpgradeRequired'] = CoreModuleExtras::getMe()->isConfigUpgradeRequired(
 			$versions['core']
 		);
 		$platform                                =& $gallery->getPlatform();
@@ -99,7 +99,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 						$ret     = $storage->commitTransaction();
 
 						if (!$ret && $templateData['isConfigUpgradeRequired']) {
-							$ret = CoreModuleExtras::doStatic()->performConfigUpgrade(
+							$ret = CoreModuleExtras::getMe()->performConfigUpgrade(
 								$versions['core']
 							);
 						}

@@ -29,7 +29,7 @@ class AdminThemesController extends GalleryController {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -64,7 +64,7 @@ class AdminThemesController extends GalleryController {
 				$orderByList,
 				$presortList,
 				$orderDirectionList
-			) = GallerySortInterface_1_2::doStatic()->getAllSortOrders(false);
+			) = GallerySortInterface_1_2::getMe()->getAllSortOrders(false);
 
 			if ($ret) {
 				return array($ret, null);
@@ -284,7 +284,7 @@ class AdminThemesView extends GalleryView {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -392,7 +392,7 @@ class AdminThemesView extends GalleryView {
 			);
 			$themeApiCompatible = GalleryUtilities::isCompatibleWithApi(
 				$theme->getRequiredThemeApi(),
-				GalleryTheme::doStatic()->getApiVersion()
+				GalleryTheme::getMe()->getApiVersion()
 			);
 
 			if ($coreApiCompatible && $themeApiCompatible) {
@@ -481,7 +481,7 @@ class AdminThemesView extends GalleryView {
 				);
 				$entry['api']['provided']['theme'] = join(
 					'.',
-					GalleryTheme::doStatic()->getApiVersion()
+					GalleryTheme::getMe()->getApiVersion()
 				);
 				$entry['api']['provided']['core']  = join(
 					'.',
@@ -543,7 +543,7 @@ class AdminThemesView extends GalleryView {
 			$orderByList,
 			$presortList,
 			$orderDirectionList
-		) = GallerySortInterface_1_2::doStatic()->getAllSortOrders(false);
+		) = GallerySortInterface_1_2::getMe()->getAllSortOrders(false);
 
 		if ($ret) {
 			return array($ret, null);

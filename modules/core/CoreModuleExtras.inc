@@ -32,7 +32,7 @@ class CoreModuleExtras {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -216,7 +216,7 @@ class CoreModuleExtras {
 				list($ret, $defaultLanguage) = $gallery->getActiveLanguageCode();
 
 				if ($ret) {
-					$defaultLanguage = GalleryTranslator::doStatic()->getLanguageCodeFromRequest();
+					$defaultLanguage = GalleryTranslator::getMe()->getLanguageCodeFromRequest();
 				}
 
 				foreach (array(

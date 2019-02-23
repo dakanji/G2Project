@@ -33,8 +33,8 @@ define('CMD_CHMOD_LOCALE_DIR', 'chmodLocaleDir');
 // For get/post input sanitation
 require_once __DIR__ . '/../../modules/core/classes/GalleryUtilities.class';
 
-$DEFAULT_FOLDER_PERMISSIONS = PermissionBits::doStatic()->fromString('555');
-$DEFAULT_FILE_PERMISSIONS   = PermissionBits::doStatic()->fromString('444');
+$DEFAULT_FOLDER_PERMISSIONS = PermissionBits::getMe()->fromString('555');
+$DEFAULT_FILE_PERMISSIONS   = PermissionBits::getMe()->fromString('444');
 
 $status = array();
 $ret    = null;
@@ -78,8 +78,8 @@ if (strlen($permissions) != 6) {
 }
 
 if (empty($status['error'])) {
-	$folderPermissions = PermissionBits::doStatic()->fromString(substr($permissions, 0, 3));
-	$filePermissions   = PermissionBits::doStatic()->fromString(substr($permissions, 3, 3));
+	$folderPermissions = PermissionBits::getMe()->fromString(substr($permissions, 0, 3));
+	$filePermissions   = PermissionBits::getMe()->fromString(substr($permissions, 3, 3));
 
 	if (!$folderPermissions->isValid()) {
 		$status['error'][] = 'Invalid folder permissions! Aborting action and resetting permissions.';
@@ -309,16 +309,16 @@ function getPermissionSets() {
 	$permissionSets = array();
 
 	$permissionSets[] = array(
-		PermissionBits::doStatic()->fromString('777'),
-		PermissionBits::doStatic()->fromString('666'),
+		PermissionBits::getMe()->fromString('777'),
+		PermissionBits::getMe()->fromString('666'),
 	);
 	$permissionSets[] = array(
-		PermissionBits::doStatic()->fromString('555'),
-		PermissionBits::doStatic()->fromString('444'),
+		PermissionBits::getMe()->fromString('555'),
+		PermissionBits::getMe()->fromString('444'),
 	);
 	$permissionSets[] = array(
-		PermissionBits::doStatic()->fromString('755'),
-		PermissionBits::doStatic()->fromString('644'),
+		PermissionBits::getMe()->fromString('755'),
+		PermissionBits::getMe()->fromString('644'),
 	);
 
 	return $permissionSets;
@@ -352,7 +352,7 @@ class PermissionBits {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		return new PermissionBits();
 	}
 

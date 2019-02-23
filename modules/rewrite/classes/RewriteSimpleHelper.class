@@ -128,7 +128,7 @@ class RewriteSimpleHelper {
 			$language = explode('_', $activeLanguage);
 
 			if (isset($language[0], $language[1])) {
-				list($defaultLanguageCode, $null) = GalleryTranslator::doStatic()->getSupportedLanguageCode($language[0], false);
+				list($defaultLanguageCode, $null) = GalleryTranslator::getMe()->getSupportedLanguageCode($language[0], false);
 
 				if ($defaultLanguageCode == $activeLanguage) {
 					unset($language[1]);

@@ -31,7 +31,7 @@ class SystemInfoTask extends MaintenanceTask {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -108,8 +108,8 @@ class SystemInfoTask extends MaintenanceTask {
 			array(
 				'text' => 'API = Core %s, Module %s, Theme %s, Embed %s',
 				'arg1' => implode('.', GalleryCoreApi::getApiVersion()),
-				'arg2' => implode('.', GalleryModule::doStatic()->getApiVersion()),
-				'arg3' => implode('.', GalleryTheme::doStatic()->getApiVersion()),
+				'arg2' => implode('.', GalleryModule::getMe()->getApiVersion()),
+				'arg3' => implode('.', GalleryTheme::getMe()->getApiVersion()),
 				'arg4' => implode('.', GalleryEmbed::getApiVersion()),
 			)
 		);
@@ -172,7 +172,7 @@ class SystemInfoTask extends MaintenanceTask {
 			$core->translate('Operating system') . ' = ' . php_uname(),
 			$core->translate('Default theme') . ' = ' . $params['default.theme'],
 			$core->translate('gettext') . ' = ' .
-			(GalleryTranslator::doStatic()->canTranslate() ? $core->translate('enabled') : $core->translate('disabled')),
+			(GalleryTranslator::getMe()->canTranslate() ? $core->translate('enabled') : $core->translate('disabled')),
 			$core->translate('Locale') . ' = ' . $locale,
 			$core->translate('Browser') . ' = ' . GalleryUtilities::getServerVar('HTTP_USER_AGENT'),
 		);

@@ -65,7 +65,7 @@ class CaptchaSiteAdminController extends GalleryController {
 
 			// Save configuration for other modules
 			if (!empty($form['level'])) {
-				list($ret, $optionInstances) = CaptchaAdminOption::doStatic()->getAllOptions();
+				list($ret, $optionInstances) = CaptchaAdminOption::getMe()->getAllOptions();
 
 				if ($ret) {
 					return array($ret, null);
@@ -153,7 +153,7 @@ class CaptchaSiteAdminView extends GalleryView {
 		}
 
 		// Load admin options
-		list($ret, $optionInstances) = CaptchaAdminOption::doStatic()->getAllOptions();
+		list($ret, $optionInstances) = CaptchaAdminOption::getMe()->getAllOptions();
 
 		if ($ret) {
 			return array($ret, null);
@@ -210,7 +210,7 @@ class CaptchaAdminOption {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {

@@ -766,7 +766,7 @@ class ModuleTestModule extends GalleryModule {
 		$this->setGroup('data', 'Gallery');
 		$this->setCallbacks('');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$this->setRequiredModuleApi(GalleryModule::doStatic()->getApiVersion());
+		$this->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 		$this->_activate = true;
 	}
 

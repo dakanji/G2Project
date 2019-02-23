@@ -645,7 +645,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		);
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
-			GalleryModule::doStatic()->getApiVersion()
+			GalleryModule::getMe()->getApiVersion()
 		);
 		$this->assertEquals(
 			'active',
@@ -669,7 +669,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		);
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
-			GalleryModule::doStatic()->getApiVersion()
+			GalleryModule::getMe()->getApiVersion()
 		);
 		$this->assertEquals(
 			'incompatible',
@@ -721,7 +721,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		);
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
-			GalleryModule::doStatic()->getApiVersion()
+			GalleryModule::getMe()->getApiVersion()
 		);
 		$this->assertEquals(
 			'uninstalled',
@@ -750,7 +750,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		);
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
-			GalleryModule::doStatic()->getApiVersion()
+			GalleryModule::getMe()->getApiVersion()
 		);
 		$this->assertEquals(
 			'unupgraded',
@@ -783,7 +783,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		);
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
-			GalleryModule::doStatic()->getApiVersion()
+			GalleryModule::getMe()->getApiVersion()
 		);
 		$this->assertEquals(
 			'unconfigured',
@@ -816,7 +816,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		);
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
-			GalleryModule::doStatic()->getApiVersion()
+			GalleryModule::getMe()->getApiVersion()
 		);
 		$this->assertEquals(
 			'inactive',
@@ -836,7 +836,7 @@ class PluginCallbackTest extends GalleryTestCase {
 				'states'  => array(),
 				'deleted' => array(),
 			),
-			PluginCallbackView::doStatic()->calculateStateChanges(
+			PluginCallbackView::getMe()->calculateStateChanges(
 				array(
 					'theme' => array(
 						'a' => '1',
@@ -863,7 +863,7 @@ class PluginCallbackTest extends GalleryTestCase {
 				'states'  => array(),
 				'deleted' => array(),
 			),
-			PluginCallbackView::doStatic()->calculateStateChanges(
+			PluginCallbackView::getMe()->calculateStateChanges(
 				array(
 					'theme' => array(
 						'a' => '1',
@@ -899,7 +899,7 @@ class PluginCallbackTest extends GalleryTestCase {
 				),
 				'deleted' => array(),
 			),
-			PluginCallbackView::doStatic()->calculateStateChanges(
+			PluginCallbackView::getMe()->calculateStateChanges(
 				array(
 					'theme' => array(
 						'a' => '1',
@@ -932,7 +932,7 @@ class PluginCallbackTest extends GalleryTestCase {
 					),
 				),
 			),
-			PluginCallbackView::doStatic()->calculateStateChanges(
+			PluginCallbackView::getMe()->calculateStateChanges(
 				array(
 					'theme' => array(
 						'a' => '1',
@@ -982,7 +982,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			'Rollback did not occur'
 		);
 		$this->assertTrue(
-			MockGalleryStatus::doStatic()->wasPutInSession(),
+			MockGalleryStatus::getMe()->wasPutInSession(),
 			'Error not put into the session'
 		);
 		$gallery->_storage = $saveStorage;
@@ -1009,7 +1009,7 @@ class PluginCallbackTest extends GalleryTestCase {
 
 		$this->assertEquals('{"status":"error"}', $results);
 		$this->assertFalse(empty($mockStorage->rolledBack), 'Rollback did not occur');
-		$this->assertTrue(MockGalleryStatus::doStatic()->wasPutInSession(), 'Error not put into the session');
+		$this->assertTrue(MockGalleryStatus::getMe()->wasPutInSession(), 'Error not put into the session');
 		$gallery->_storage = $saveStorage;
 	}
 
@@ -1036,7 +1036,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals('{"status":"error"}', $results);
 		$this->assertFalse(empty($mockStorage->checkPointed), 'Checkpoint did not occur');
 		$this->assertFalse(empty($mockStorage->rolledBack), 'Rollback did not occur');
-		$this->assertTrue(MockGalleryStatus::doStatic()->wasPutInSession(), 'Error not put into the session');
+		$this->assertTrue(MockGalleryStatus::getMe()->wasPutInSession(), 'Error not put into the session');
 		$gallery->_storage = $saveStorage;
 	}
 }
@@ -1050,7 +1050,7 @@ class MockGalleryStatus {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -1087,7 +1087,7 @@ class PluginCallbackWithFakeHandler extends PluginCallbackView {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {

@@ -143,7 +143,7 @@ class RatingSiteAdminView extends GalleryView {
 			$orderByList,
 			$presortList,
 			$orderDirectionList
-		) = GallerySortInterface_1_2::doStatic()->getAllSortOrders();
+		) = GallerySortInterface_1_2::getMe()->getAllSortOrders();
 
 		if ($ret) {
 			return array($ret, null);

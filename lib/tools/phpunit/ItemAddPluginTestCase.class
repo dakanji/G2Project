@@ -76,11 +76,11 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 						'Expected error code (%s) but received (%s)',
 						implode(
 							' | ',
-							GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)
+							GalleryStatus::getMe()->getErrorCodeConstants($errorCode)
 						),
 						implode(
 							' | ',
-							$ret ? '' : GalleryStatus::doStatic()->getErrorCodeConstants(
+							$ret ? '' : GalleryStatus::getMe()->getErrorCodeConstants(
 								$ret->getErrorCode()
 							)
 						)

@@ -64,7 +64,7 @@ class GalleryRepositoryIndex {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic($source) {
+	public static function getMe($source) {
 		$singleton = new GalleryRepositoryIndex($source);
 
 		return $singleton;

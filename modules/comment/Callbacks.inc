@@ -94,13 +94,13 @@ class CommentCallbacks {
 				$viewMax = $params['show'];
 
 				GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
-				list($ret, $comments) = GalleryCommentHelper::doStatic()->fetchComments($item->getId(), $viewMax, ORDER_DESCENDING);
+				list($ret, $comments) = GalleryCommentHelper::getMe()->fetchComments($item->getId(), $viewMax, ORDER_DESCENDING);
 
 				if ($ret) {
 					return $ret;
 				}
 
-				list($ret, $counts) = GalleryCommentHelper::doStatic()->fetchCommentCounts(array($item->getId()));
+				list($ret, $counts) = GalleryCommentHelper::getMe()->fetchCommentCounts(array($item->getId()));
 
 				if ($ret) {
 					return $ret;
@@ -166,7 +166,7 @@ class CommentCallbacks {
 
 				GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
 				$form                   =& $smarty->_tpl_vars['form'];
-				list($ret, $AddComment) = GalleryCommentHelper::doStatic()->getAddComment($item, $form);
+				list($ret, $AddComment) = GalleryCommentHelper::getMe()->getAddComment($item, $form);
 
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_PERMISSION_DENIED) {

@@ -638,7 +638,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		 * The return URL needs to be server relative because we don't know at this point in
 		 * wich context it'll be used later on.
 		 */
-		$params['return'] = GalleryUrlGenerator::doStatic()->appendParamsToUrl(
+		$params['return'] = GalleryUrlGenerator::getMe()->appendParamsToUrl(
 			'/gallery2/phpunit_test.php',
 			array(
 				'view' => 'foo',
@@ -1499,7 +1499,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		global $gallery;
 
 		$currentView      = 'core.SiteAdmin';
-		list($ret, $view) = GalleryView::doStatic()->loadView($currentView);
+		list($ret, $view) = GalleryView::getMe()->loadView($currentView);
 
 		if ($ret) {
 			return $this->failWithStatus($ret);
@@ -1526,7 +1526,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		global $gallery;
 
 		$currentView      = 'core.MaintenanceMode';
-		list($ret, $view) = GalleryView::doStatic()->loadView($currentView);
+		list($ret, $view) = GalleryView::getMe()->loadView($currentView);
 
 		if ($ret) {
 			return $this->failWithStatus($ret);
@@ -1569,7 +1569,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 		// Change the current view and generate a 3rd URL
 		$currentView      = 'core.SiteAdmin';
-		list($ret, $view) = GalleryView::doStatic()->loadView($currentView);
+		list($ret, $view) = GalleryView::getMe()->loadView($currentView);
 
 		if ($ret) {
 			return $this->failWithStatus($ret);
@@ -2468,7 +2468,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	public function testAppendParamsToUrl() {
 		$this->assertEquals(
 			'test.php?g2_a=foo1%25bar&amp;g2_b=foo2%25bar',
-			GalleryUrlGenerator::doStatic()->appendParamsToUrl(
+			GalleryUrlGenerator::getMe()->appendParamsToUrl(
 				'test.php',
 				array(
 					'a' => 'foo1%bar',
@@ -2481,7 +2481,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	public function testAppendNestedParamsToUrl() {
 		$this->assertEquals(
 			'test.php?g2_a%5Bb%5D=foo1%25bar&amp;g2_a%5Bc%5D=foo2%25bar',
-			GalleryUrlGenerator::doStatic()->appendParamsToUrl(
+			GalleryUrlGenerator::getMe()->appendParamsToUrl(
 				'test.php',
 				array(
 					'a' => array(
@@ -2497,7 +2497,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	public function testAppendParamsToUrlWithQueryString() {
 		$this->assertEquals(
 			'test.php?foo=bar&amp;g2_a=foo1%25bar&amp;g2_b=foo2%25bar',
-			GalleryUrlGenerator::doStatic()->appendParamsToUrl(
+			GalleryUrlGenerator::getMe()->appendParamsToUrl(
 				'test.php?foo=bar',
 				array(
 					'a' => 'foo1%bar',
@@ -2510,7 +2510,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	public function testAppendParamsToUrlNoPrefix() {
 		$this->assertEquals(
 			'test.php?a=foo1%25bar&amp;b=foo2%25bar',
-			GalleryUrlGenerator::doStatic()->appendParamsToUrl(
+			GalleryUrlGenerator::getMe()->appendParamsToUrl(
 				'test.php',
 				array(
 					'a' => 'foo1%bar',
@@ -2524,7 +2524,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	public function testAppendParamsToUrlNoHtmlEntities() {
 		$this->assertEquals(
 			'test.php?g2_a=foo1%25bar&g2_b=foo2%25bar',
-			GalleryUrlGenerator::doStatic()->appendParamsToUrl(
+			GalleryUrlGenerator::getMe()->appendParamsToUrl(
 				'test.php',
 				array(
 					'a' => 'foo1%bar',
@@ -2539,7 +2539,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	public function testAppendParamsToUrlUrlEncodesParamKeyCorrectly() {
 		$this->assertEquals(
 			'test.php?g2_a%25=foo1%25bar&amp;' . urlencode('g2_b%[c%d][e%f]') . '=foo2%25bar',
-			GalleryUrlGenerator::doStatic()->appendParamsToUrl(
+			GalleryUrlGenerator::getMe()->appendParamsToUrl(
 				'test.php',
 				array(
 					'a%' => 'foo1%bar',
@@ -2556,7 +2556,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	public function testAppendParamsToUrlNoUrlEncode() {
 		$this->assertEquals(
 			'test.php?g2_a%=foo1%bar&amp;g2_b%[c%d][e%f]=foo2%bar',
-			GalleryUrlGenerator::doStatic()->appendParamsToUrl(
+			GalleryUrlGenerator::getMe()->appendParamsToUrl(
 				'test.php',
 				array(
 					'a%' => 'foo1%bar',
@@ -2576,7 +2576,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	public function testAppendParamsToUrlPreservesParamOrder() {
 		$this->assertEquals(
 			'test.php?a=1&b[sub1]=2&b[sub2]=3&c=4',
-			GalleryUrlGenerator::doStatic()->appendParamsToUrl(
+			GalleryUrlGenerator::getMe()->appendParamsToUrl(
 				'test.php',
 				array(
 					'a' => '1',
@@ -2596,7 +2596,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	public function testAppendParamsToUrlEmptyParams() {
 		$this->assertEquals(
 			'test.php',
-			GalleryUrlGenerator::doStatic()->appendParamsToUrl('test.php', array())
+			GalleryUrlGenerator::getMe()->appendParamsToUrl('test.php', array())
 		);
 	}
 
@@ -2607,7 +2607,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	public function testAppendParamsToUrlDoesNotHandleBracketsInKeyString() {
 		$this->assertEquals(
 			'test.php?foo[bar=1&a[b]=2',
-			GalleryUrlGenerator::doStatic()->appendParamsToUrl(
+			GalleryUrlGenerator::getMe()->appendParamsToUrl(
 				'test.php',
 				array(
 					'foo[bar' => '1',

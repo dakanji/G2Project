@@ -204,10 +204,10 @@ class GalleryPluginHelper_simple {
 					// Return a handleable error
 					if ($pluginType == 'module') {
 						$flagAPI  = 'requiredModuleApi';
-						$flagType = GalleryModule::doStatic()->getApiVersion();
+						$flagType = GalleryModule::getMe()->getApiVersion();
 					} else {
 						$flagAPI  = 'requiredThemeApi';
-						$flagType = GalleryTheme::doStatic()->getApiVersion();
+						$flagType = GalleryTheme::getMe()->getApiVersion();
 					}
 
 					return array(
@@ -255,12 +255,12 @@ class GalleryPluginHelper_simple {
 		(($pluginType == 'module' &&
 		  GalleryUtilities::isCompatibleWithApi(
 		  	$plugin->getRequiredModuleApi(),
-		  	GalleryModule::doStatic()->getApiVersion()
+		  	GalleryModule::getMe()->getApiVersion()
 		  )) ||
 		 ($pluginType == 'theme' &&
 		  GalleryUtilities::isCompatibleWithApi(
 		  	$plugin->getRequiredThemeApi(),
-		  	GalleryTheme::doStatic()->getApiVersion()
+		  	GalleryTheme::getMe()->getApiVersion()
 		  )));
 	}
 

@@ -63,10 +63,10 @@ class ItemAddOptionTestCase extends GalleryTestCase {
 					true,
 					sprintf(
 						'Expected error code (%s) but received (%s)',
-						implode(' | ', GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)),
+						implode(' | ', GalleryStatus::getMe()->getErrorCodeConstants($errorCode)),
 						implode(
 							' | ',
-							GalleryStatus::doStatic()->getErrorCodeConstants(
+							GalleryStatus::getMe()->getErrorCodeConstants(
 								$ret->getErrorCode()
 							)
 						)

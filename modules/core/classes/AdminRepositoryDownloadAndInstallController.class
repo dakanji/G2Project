@@ -32,7 +32,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -385,7 +385,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 			list(
 				$ret,
 				$message
-			) = GalleryRepository::doStatic()->translateRepositoryName($source);
+			) = GalleryRepository::getMe()->translateRepositoryName($source);
 
 			if ($ret) {
 				return $ret;

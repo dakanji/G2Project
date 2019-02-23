@@ -73,7 +73,7 @@ class GalleryPlugin {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -536,7 +536,7 @@ class GalleryPlugin {
 
 		/** @todo Change scanPlugin to be called as a static function or helper function */
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
-		list($ret, $repositories) = GalleryRepository::doStatic()->getRepositories();
+		list($ret, $repositories) = GalleryRepository::getMe()->getRepositories();
 
 		if ($ret) {
 			return $ret;

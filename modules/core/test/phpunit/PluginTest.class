@@ -33,7 +33,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin->setPluginType('theme');
 		$version = GalleryCoreApi::getApiVersion();
 		$plugin->setRequiredCoreApi(array($version[0], $version[1] + 1));
-		$plugin->setRequiredThemeApi(GalleryTheme::doStatic()->getApiVersion());
+		$plugin->setRequiredThemeApi(GalleryTheme::getMe()->getApiVersion());
 		$this->assertTrue(
 			!GalleryCoreApi::isPluginCompatibleWithApis($plugin),
 			'should not be compatible'
@@ -45,7 +45,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin->setPluginType('theme');
 		$version = GalleryCoreApi::getApiVersion();
 		$plugin->setRequiredCoreApi(array($version[0], 0));
-		$plugin->setRequiredThemeApi(GalleryTheme::doStatic()->getApiVersion());
+		$plugin->setRequiredThemeApi(GalleryTheme::getMe()->getApiVersion());
 		$this->assertTrue(
 			GalleryCoreApi::isPluginCompatibleWithApis($plugin),
 			'should be compatible'
@@ -56,7 +56,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin = new PluginTestPlugin();
 		$plugin->setPluginType('theme');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$plugin->setRequiredThemeApi(GalleryTheme::doStatic()->getApiVersion());
+		$plugin->setRequiredThemeApi(GalleryTheme::getMe()->getApiVersion());
 		$this->assertTrue(
 			GalleryCoreApi::isPluginCompatibleWithApis($plugin),
 			'should be compatible'
@@ -67,7 +67,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin = new PluginTestPlugin();
 		$plugin->setPluginType('theme');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$version = GalleryTheme::doStatic()->getApiVersion();
+		$version = GalleryTheme::getMe()->getApiVersion();
 		$plugin->setRequiredThemeApi(array($version[0], $version[1] + 1));
 		$this->assertTrue(
 			!GalleryCoreApi::isPluginCompatibleWithApis($plugin),
@@ -79,7 +79,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin = new PluginTestPlugin();
 		$plugin->setPluginType('module');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$plugin->setRequiredModuleApi(GalleryModule::doStatic()->getApiVersion());
+		$plugin->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 		$this->assertTrue(
 			GalleryCoreApi::isPluginCompatibleWithApis($plugin),
 			'should be compatible'
@@ -90,7 +90,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin = new PluginTestPlugin();
 		$plugin->setPluginType('module');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$version = GalleryModule::doStatic()->getApiVersion();
+		$version = GalleryModule::getMe()->getApiVersion();
 		$plugin->setRequiredModuleApi(array($version[0], $version[1] + 1));
 		$this->assertTrue(
 			!GalleryCoreApi::isPluginCompatibleWithApis($plugin),
@@ -166,7 +166,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin->setId('plugintest');
 		$plugin->setVersion('1.0.0');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$plugin->setRequiredThemeApi(GalleryTheme::doStatic()->getApiVersion());
+		$plugin->setRequiredThemeApi(GalleryTheme::getMe()->getApiVersion());
 
 		$themeStatus = array(
 			$plugin->getId() => array(
@@ -230,7 +230,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin->setId('plugintest');
 		$plugin->setVersion('1.0.0');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$plugin->setRequiredModuleApi(GalleryModule::doStatic()->getApiVersion());
+		$plugin->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 
 		$cacheKey = 'GalleryRepository::getRepositories(,GalleryRepository)';
 
@@ -271,7 +271,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin->setId('plugintest');
 		$plugin->setVersion('1.0.0');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$plugin->setRequiredModuleApi(GalleryModule::doStatic()->getApiVersion());
+		$plugin->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 
 		$cacheKey = 'GalleryRepository::getRepositories(,GalleryRepository)';
 

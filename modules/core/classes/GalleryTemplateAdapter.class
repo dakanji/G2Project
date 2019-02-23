@@ -74,7 +74,7 @@ class GalleryTemplateAdapter {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -643,7 +643,7 @@ class GalleryTemplateAdapter {
 		$url = trim($content);
 		// Add the auth token to the URL
 		if (strstr($url, 'authToken') === false) {
-			$url = GalleryUrlGenerator::doStatic()->appendParamsToUrl(
+			$url = GalleryUrlGenerator::getMe()->appendParamsToUrl(
 				$url,
 				array(
 					'authToken' => $session->getAuthToken(),
@@ -762,10 +762,10 @@ class GalleryTemplateAdapter {
 			}
 		}
 
-		$tLinkName = GalleryTemplateAdapter::doStatic()->_safeCssName($linkId);
+		$tLinkName = GalleryTemplateAdapter::getMe()->_safeCssName($linkId);
 
 		if (isset($fallbackLinkId)) {
-			$fLinkName = GalleryTemplateAdapter::doStatic()->_safeCssName($fallbackLinkId);
+			$fLinkName = GalleryTemplateAdapter::getMe()->_safeCssName($fallbackLinkId);
 		} else {
 			$fLinkName = '';
 		}

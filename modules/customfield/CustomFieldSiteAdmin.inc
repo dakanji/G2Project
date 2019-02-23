@@ -39,7 +39,7 @@ class CustomFieldSiteAdminController extends GalleryController {
 			return array($ret, null);
 		}
 
-		list($ret, $status) = CustomFieldHelper::doStatic()->handleAdminAction($form);
+		list($ret, $status) = CustomFieldHelper::getMe()->handleAdminAction($form);
 
 		if ($ret) {
 			return array($ret, null);
@@ -72,7 +72,7 @@ class CustomFieldSiteAdminView extends GalleryView {
 		if ($form['formName'] != 'CustomFieldSiteAdmin') {
 			$form['formName'] = 'CustomFieldSiteAdmin';
 
-			$ret = CustomFieldHelper::doStatic()->loadAdminForm($form);
+			$ret = CustomFieldHelper::getMe()->loadAdminForm($form);
 
 			if ($ret) {
 				return array($ret, null);

@@ -29,7 +29,7 @@ class ItemAdminView extends GalleryView {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -143,7 +143,7 @@ class ItemAdminView extends GalleryView {
 			$subViewName = 'core.ItemEdit';
 		}
 
-		list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
+		list($ret, $subView) = GalleryView::getMe()->loadView($subViewName);
 
 		if ($ret) {
 			return array($ret, null);
@@ -233,7 +233,7 @@ class ItemAdminView extends GalleryView {
 			$subViewName = 'core.ItemEdit';
 		}
 
-		list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
+		list($ret, $subView) = GalleryView::getMe()->loadView($subViewName);
 
 		if ($ret) {
 			return array($ret, null);

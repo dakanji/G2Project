@@ -264,7 +264,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			),
 		);
 
-		$repositories                                   = GalleryRepository::doStatic()->getRepositories();
+		$repositories                                   = GalleryRepository::getMe()->getRepositories();
 		list($ret, $installedPackages, $deletePackages) = $this->_controller->_getFormLanguages(
 			$form,
 			$repositories

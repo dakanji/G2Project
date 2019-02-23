@@ -440,7 +440,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
-		$ret = HiddenHelper::doStatic()->hideItem($this->_subItems[0]);
+		$ret = HiddenHelper::getMe()->hideItem($this->_subItems[0]);
 
 		if ($ret) {
 			return $ret;
@@ -515,7 +515,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
-		$ret = HiddenHelper::doStatic()->hideItem($this->_subAlbum);
+		$ret = HiddenHelper::getMe()->hideItem($this->_subAlbum);
 
 		if ($ret) {
 			return $ret;
@@ -622,7 +622,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 	}
 
 	public function testHideItemInHiddenAlbum() {
-		$ret = HiddenHelper::doStatic()->hideItem($this->_subAlbum);
+		$ret = HiddenHelper::getMe()->hideItem($this->_subAlbum);
 
 		if ($ret) {
 			return $ret;
@@ -672,7 +672,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
-		$ret = HiddenHelper::doStatic()->hideItem($this->_topAlbum);
+		$ret = HiddenHelper::getMe()->hideItem($this->_topAlbum);
 
 		if ($ret) {
 			return $ret;
@@ -779,7 +779,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 	}
 
 	public function testAddItemToHiddenAlbum() {
-		$ret = HiddenHelper::doStatic()->hideItem($this->_subAlbum);
+		$ret = HiddenHelper::getMe()->hideItem($this->_subAlbum);
 
 		if ($ret) {
 			return $ret;
@@ -812,7 +812,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 	}
 
 	public function testMoveItemIntoHiddenAlbum() {
-		$ret = HiddenHelper::doStatic()->hideItem($this->_subAlbum);
+		$ret = HiddenHelper::getMe()->hideItem($this->_subAlbum);
 
 		if ($ret) {
 			return $ret;
@@ -855,7 +855,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$ret = HiddenHelper::doStatic()->hideItem($this->_subAlbum);
+		$ret = HiddenHelper::getMe()->hideItem($this->_subAlbum);
 
 		if ($ret) {
 			return $ret;
@@ -888,7 +888,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 	}
 
 	public function testMoveItemOutOfHiddenAlbum() {
-		$ret = HiddenHelper::doStatic()->hideItem($this->_subAlbum);
+		$ret = HiddenHelper::getMe()->hideItem($this->_subAlbum);
 
 		if ($ret) {
 			return $ret;
@@ -926,12 +926,12 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$ret = HiddenHelper::doStatic()->hideItem($album);
+		$ret = HiddenHelper::getMe()->hideItem($album);
 
 		if ($ret) {
 			return $ret;
 		}
-		$ret = HiddenHelper::doStatic()->hideItem($this->_subAlbum);
+		$ret = HiddenHelper::getMe()->hideItem($this->_subAlbum);
 
 		if ($ret) {
 			return $ret;
@@ -969,7 +969,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$ret = HiddenHelper::doStatic()->hideItem($album);
+		$ret = HiddenHelper::getMe()->hideItem($album);
 
 		if ($ret) {
 			return $ret;
@@ -1020,7 +1020,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 			return $ret;
 		}
 		$this->_markForCleanup($album);
-		$ret = HiddenHelper::doStatic()->hideItem($this->_topAlbum);
+		$ret = HiddenHelper::getMe()->hideItem($this->_topAlbum);
 
 		if ($ret) {
 			return $ret;
@@ -1071,12 +1071,12 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 			return $ret;
 		}
 		$this->_markForCleanup($album);
-		$ret = HiddenHelper::doStatic()->hideItem($album);
+		$ret = HiddenHelper::getMe()->hideItem($album);
 
 		if ($ret) {
 			return $ret;
 		}
-		$ret = HiddenHelper::doStatic()->hideItem($this->_topAlbum);
+		$ret = HiddenHelper::getMe()->hideItem($this->_topAlbum);
 
 		if ($ret) {
 			return $ret;
@@ -1121,12 +1121,12 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 	}
 
 	public function testMoveHiddenItemIntoHiddenAlbum() {
-		$ret = HiddenHelper::doStatic()->hideItem($this->_topItems[1]);
+		$ret = HiddenHelper::getMe()->hideItem($this->_topItems[1]);
 
 		if ($ret) {
 			return $ret;
 		}
-		$ret = HiddenHelper::doStatic()->hideItem($this->_subAlbum);
+		$ret = HiddenHelper::getMe()->hideItem($this->_subAlbum);
 
 		if ($ret) {
 			return $ret;
@@ -1156,12 +1156,12 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 			return $ret;
 		}
 		$this->_markForCleanup($album);
-		$ret = HiddenHelper::doStatic()->hideItem($album);
+		$ret = HiddenHelper::getMe()->hideItem($album);
 
 		if ($ret) {
 			return $ret;
 		}
-		$ret = HiddenHelper::doStatic()->hideItem($this->_subAlbum);
+		$ret = HiddenHelper::getMe()->hideItem($this->_subAlbum);
 
 		if ($ret) {
 			return $ret;
@@ -1273,7 +1273,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$ret = HiddenHelper::doStatic()->hideItem($this->_topItems[1]);
+		$ret = HiddenHelper::getMe()->hideItem($this->_topItems[1]);
 
 		if ($ret) {
 			return $ret;

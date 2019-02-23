@@ -367,7 +367,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 		}
 
 		if (!$handled) {
-			parent::doStatic()->estimateDimensions($derivative, $source);
+			parent::getMe()->estimateDimensions($derivative, $source);
 		}
 	}
 

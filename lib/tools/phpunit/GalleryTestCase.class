@@ -43,7 +43,7 @@ class GalleryTestCase extends TestCase {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic($methodName = 'TestCase') {
+	public static function getMe($methodName = 'TestCase') {
 		$singleton = new GalleryTestCase($methodName);
 
 		return $singleton;
@@ -1154,7 +1154,7 @@ class GalleryTestCase extends TestCase {
 		$authToken = array(
 			'authToken' => $session->getAuthToken(),
 		);
-		$url       = GalleryUrlGenerator::doStatic()->appendParamsToUrl($url, $authToken);
+		$url       = GalleryUrlGenerator::getMe()->appendParamsToUrl($url, $authToken);
 
 		if (!$htmlEntities) {
 			$url = str_replace('&amp;', '&', $url);
@@ -1377,7 +1377,7 @@ class GalleryTestCase extends TestCase {
 	 * @param string $message (optional) Message to be shown on failure
 	 */
 	public function assertErrorEquals($errorCode, $ret, $exactMatch = false, $message = null) {
-		$GalleryStatus = GalleryStatus::doStatic();
+		$GalleryStatus = GalleryStatus::getMe();
 
 		if (!$ret) {
 			$this->fail(

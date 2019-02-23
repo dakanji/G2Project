@@ -76,7 +76,7 @@ class TranslatorTest extends GalleryTestCase {
 		}
 
 		// Init a new translator so that we reset our locale
-		$translator = GalleryTranslator::doStatic();
+		$translator = GalleryTranslator::getMe();
 		$translator->init($this->_languageCode);
 
 		$ret = parent::tearDown();
@@ -107,7 +107,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		// Init with a null language code and a valid accept language
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de_DE';
-		$translator                      = GalleryTranslator::doStatic();
+		$translator                      = GalleryTranslator::getMe();
 		list($ret, $languageCode)        = $translator->init();
 
 		if ($ret) {
@@ -123,7 +123,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		// Init with a null language code and a valid accept language/country
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'pt_BR';
-		$translator                      = GalleryTranslator::doStatic();
+		$translator                      = GalleryTranslator::getMe();
 		$translator->init();
 
 		if (function_exists('dgettext')) {
@@ -146,7 +146,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		// Init with a real language code, thus browser pref has no meaning
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'en_US';
-		$translator                      = GalleryTranslator::doStatic();
+		$translator                      = GalleryTranslator::getMe();
 		$translator->init('no_NO');
 
 		if (function_exists('dgettext')) {
@@ -306,7 +306,7 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$domain     = 'modules_core';
-		$translator = GalleryTranslator::doStatic();
+		$translator = GalleryTranslator::getMe();
 		$translator->init('es_AR');
 
 		// Singular text data
@@ -341,7 +341,7 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$domain     = 'modules_core';
-		$translator = GalleryTranslator::doStatic();
+		$translator = GalleryTranslator::getMe();
 		$translator->init('es_AR');
 
 		// Plural text data, count=1
@@ -392,7 +392,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		$domain = 'modules_core';
 
-		$translator = GalleryTranslator::doStatic();
+		$translator = GalleryTranslator::getMe();
 		$translator->init('pt_BR');
 
 		// Singular text data
@@ -410,7 +410,7 @@ class TranslatorTest extends GalleryTestCase {
 	}
 
 	public function testComment() {
-		$translator               = GalleryTranslator::doStatic();
+		$translator               = GalleryTranslator::getMe();
 		list($ret, $languageCode) = $translator->init('en_US');
 
 		if ($ret) {
@@ -431,7 +431,7 @@ class TranslatorTest extends GalleryTestCase {
 
 	public function testApiChange() {
 		// Core API 7.10 now allows simple string param, and 'args' array insead of 'arg1', etc
-		$translator               = GalleryTranslator::doStatic();
+		$translator               = GalleryTranslator::getMe();
 		list($ret, $languageCode) = $translator->init('en_US');
 
 		if ($ret) {

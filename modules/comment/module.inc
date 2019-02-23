@@ -59,7 +59,7 @@ class CommentModule extends GalleryModule {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -398,7 +398,7 @@ class CommentModule extends GalleryModule {
 		}
 
 		GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
-		list($ret, $commentCounts) = GalleryCommentHelper::doStatic()->fetchCommentCounts($ids);
+		list($ret, $commentCounts) = GalleryCommentHelper::getMe()->fetchCommentCounts($ids);
 
 		if ($ret) {
 			return array($ret, null);

@@ -162,9 +162,9 @@ class GalleryDatabaseImport extends GalleryImportElement {
 			'warnings' => array(),
 		);
 
-		$this->_installedModuleVersion = GalleryModule::doStatic()->getApiVersion();
+		$this->_installedModuleVersion = GalleryModule::getMe()->getApiVersion();
 		$this->_installedCoreVersion   = GalleryCoreApi::getApiVersion();
-		$this->_installedThemeVersion  = GalleryTheme::doStatic()->getApiVersion();
+		$this->_installedThemeVersion  = GalleryTheme::getMe()->getApiVersion();
 
 		list($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core', true);
 

@@ -48,7 +48,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(theme)';
 		GalleryDataCache::put($cacheKey, array('testTheme'));
 
-		$gallery->_translator = AdminLanguagesViewTestTranslator::doStatic();
+		$gallery->_translator = AdminLanguagesViewTestTranslator::getMe();
 
 		$cacheKey              = 'GalleryRepository::getRepositories(,GalleryRepository)';
 		$this->_testRepository = new UnitTestRepository();
@@ -157,7 +157,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 			'remove'   => false,
 			'download' => false,
 		);
-		list($ret, $repositories)     = GalleryRepository::doStatic()->getRepositories();
+		list($ret, $repositories)     = GalleryRepository::getMe()->getRepositories();
 		list($ret, $languagePackages) = $this->_view->_getAllLanguages($repositories['test'], $enableAllFlags);
 
 		if ($ret) {
@@ -251,7 +251,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 			'remove'   => false,
 			'download' => false,
 		);
-		list($ret, $repositories)     = GalleryRepository::doStatic()->getRepositories();
+		list($ret, $repositories)     = GalleryRepository::getMe()->getRepositories();
 		list($ret, $languagePackages) = $this->_view->_getAllLanguages($repositories['test'], $enableAllFlags);
 
 		if ($ret) {
@@ -345,7 +345,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 			'remove'   => false,
 			'download' => false,
 		);
-		list($ret, $repositories)     = GalleryRepository::doStatic()->getRepositories();
+		list($ret, $repositories)     = GalleryRepository::getMe()->getRepositories();
 		list($ret, $languagePackages) = $this->_view->_getAllLanguages(
 			$repositories['test'],
 			$enableAllFlags
@@ -399,7 +399,7 @@ class AdminLanguagesViewTestTranslator extends GalleryTranslator {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {

@@ -45,7 +45,7 @@ class SlideshowModule extends GalleryModule {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -351,7 +351,7 @@ class SlideshowModule extends GalleryModule {
 			 */
 			$template =& $event->getEntity();
 
-			list($ret, $item, $ignored) = GalleryView::doStatic()->getItem();
+			list($ret, $item, $ignored) = GalleryView::getMe()->getItem();
 
 			if ($ret) {
 				return array($ret, null);

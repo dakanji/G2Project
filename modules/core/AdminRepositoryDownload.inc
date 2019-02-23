@@ -39,7 +39,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -140,7 +140,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 				list(
 					$ret,
 					$repositories
-				) = GalleryRepository::doStatic()->getRepositories();
+				) = GalleryRepository::getMe()->getRepositories();
 
 				if ($ret) {
 					return array(null, $ret);
@@ -179,7 +179,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -207,7 +207,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 		}
 
 		// Init repository.
-		list($ret, $repositories) = GalleryRepository::doStatic()->getRepositories();
+		list($ret, $repositories) = GalleryRepository::getMe()->getRepositories();
 
 		if ($ret) {
 			return array($ret, null);
@@ -281,7 +281,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 			list(
 				$ret,
 				$upgradeData['repositoryName']
-			) = GalleryRepository::doStatic()->translateRepositoryName($source);
+			) = GalleryRepository::getMe()->translateRepositoryName($source);
 
 			if ($ret) {
 				return array($ret, null);

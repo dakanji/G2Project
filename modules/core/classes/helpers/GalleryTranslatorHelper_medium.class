@@ -163,7 +163,7 @@ class GalleryTranslatorHelper_medium {
 		$cacheKey = "GalleryTranslator::LanguageDescription::$languageCode";
 
 		if (!GalleryDataCache::containsKey($cacheKey)) {
-			list($newLanguageCode, $languageData) = GalleryTranslator::doStatic()->getSupportedLanguageCode(
+			list($newLanguageCode, $languageData) = GalleryTranslator::getMe()->getSupportedLanguageCode(
 				$languageCode,
 				false
 			);
@@ -213,7 +213,7 @@ class GalleryTranslatorHelper_medium {
 			list(
 				$supportedLanguages,
 				$defaultCountry
-			) = GalleryTranslator::doStatic()->getLanguageData();
+			) = GalleryTranslator::getMe()->getLanguageData();
 
 			$installedLanguages  = array();
 			$localeBase          = $gallery->getConfig('data.gallery.locale');

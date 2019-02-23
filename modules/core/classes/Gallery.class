@@ -195,7 +195,7 @@ class Gallery {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -582,7 +582,7 @@ class Gallery {
 				return $ret;
 			}
 
-			$this->_translator        = GalleryTranslator::doStatic();
+			$this->_translator        = GalleryTranslator::getMe();
 			list($ret, $languageCode) = $this->_translator->init($language, $dontUseDatabase);
 
 			if ($ret) {

@@ -30,7 +30,7 @@ class GalleryRepositoryUtilities {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -324,7 +324,7 @@ class GalleryRepositoryUtilities {
 			 * is typically called from controller code.
 			 */
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
-			$providedPluginApi = $pluginType == 'module' ? GalleryModule::doStatic()->getApiVersion() : GalleryTheme::doStatic()->getApiVersion();
+			$providedPluginApi = $pluginType == 'module' ? GalleryModule::getMe()->getApiVersion() : GalleryTheme::getMe()->getApiVersion();
 		} else {
 			$providedCoreApi[0]   = (int)$providedApis['core'][0];
 			$providedCoreApi[1]   = (int)$providedApis['core'][1];
@@ -842,8 +842,8 @@ class GalleryRepositoryUtilities {
 			$apiQueryParams = sprintf(
 				'coreApi=%s&moduleApi=%s&themeApi=%s',
 				join('.', GalleryCoreApi::getApiVersion()),
-				join('.', GalleryModule::doStatic()->getApiVersion()),
-				join('.', GalleryTheme::doStatic()->getApiVersion())
+				join('.', GalleryModule::getMe()->getApiVersion()),
+				join('.', GalleryTheme::getMe()->getApiVersion())
 			);
 		}
 

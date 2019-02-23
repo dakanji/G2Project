@@ -31,7 +31,7 @@ class RepositoryCallbackView extends GalleryView {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -98,7 +98,7 @@ class RepositoryCallbackView extends GalleryView {
 			}
 
 			// Remove the default repositories from the data cache
-			GalleryRepository::doStatic()->clearRepositoryCache();
+			GalleryRepository::getMe()->clearRepositoryCache();
 		}
 
 		return null;

@@ -51,7 +51,7 @@ class CustomFieldModule extends GalleryModule {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -102,7 +102,7 @@ class CustomFieldModule extends GalleryModule {
 		GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.markup.php');
 		$summaries = array();
 
-		list($ret, $data) = CustomFieldHelper::doStatic()->fetchFieldValues($items, 'summary');
+		list($ret, $data) = CustomFieldHelper::getMe()->fetchFieldValues($items, 'summary');
 
 		if ($ret) {
 			return array($ret, null);

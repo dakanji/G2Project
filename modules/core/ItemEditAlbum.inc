@@ -29,7 +29,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -385,7 +385,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 			$orderByList,
 			$presortList,
 			$orderDirectionList
-		) = GallerySortInterface_1_2::doStatic()->getAllSortOrders();
+		) = GallerySortInterface_1_2::getMe()->getAllSortOrders();
 
 		if ($ret) {
 			return array($ret, null, null);

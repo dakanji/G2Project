@@ -172,7 +172,7 @@ class RepositoryIndex extends RepositoryObject {
 					if ($pluginType == 'modules' && $currentPluginId == 'core') {
 						$index[$pluginType][$currentPluginId]['header']['coreApiVersion']   = GalleryCoreApi::getApiVersion();
 						$index[$pluginType][$currentPluginId]['header']['moduleApiVersion'] = GalleryModule::getApiVersion();
-						$index[$pluginType][$currentPluginId]['header']['themeApiVersion']  = GalleryTheme::doStatic()->getApiVersion();
+						$index[$pluginType][$currentPluginId]['header']['themeApiVersion']  = GalleryTheme::getMe()->getApiVersion();
 					}
 				}
 			} else {

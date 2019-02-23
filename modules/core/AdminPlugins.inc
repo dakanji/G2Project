@@ -31,7 +31,7 @@ class AdminPluginsView extends GalleryView {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -122,7 +122,7 @@ class AdminPluginsView extends GalleryView {
 				$entry['installedVersion'] = isset($status['version']) ? $status['version'] : null;
 				$entry['deletable']        = ($test1 && $test2) ? 1 : 0;
 
-				list($ret, $entry['state']) = PluginCallbackView::doStatic()->getPluginState(
+				list($ret, $entry['state']) = PluginCallbackView::getMe()->getPluginState(
 					$type,
 					$plugin,
 					$status
@@ -140,7 +140,7 @@ class AdminPluginsView extends GalleryView {
 
 				if ($entry['state'] == 'incompatible') {
 					$entry['api']['required']['plugin'] = join('.', $type == 'theme' ? $plugin->getRequiredThemeApi() : $plugin->getRequiredModuleApi());
-					$entry['api']['provided']['plugin'] = join('.', GalleryModule::doStatic()->getApiVersion());
+					$entry['api']['provided']['plugin'] = join('.', GalleryModule::getMe()->getApiVersion());
 					$entry['api']['required']['core']   = join('.', $plugin->getRequiredCoreApi());
 					$entry['api']['provided']['core']   = join('.', GalleryCoreApi::getApiVersion());
 				}
@@ -170,7 +170,7 @@ class AdminPluginsView extends GalleryView {
 			$ret,
 			$repositories,
 			$repositoryInitErrorCount
-		) = GalleryRepository::doStatic()->getRepositories();
+		) = GalleryRepository::getMe()->getRepositories();
 
 		if ($ret) {
 			return array($ret, null);

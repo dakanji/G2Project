@@ -44,7 +44,7 @@ class GalleryViewTestCase extends GalleryTestCase {
 		parent::__construct($methodName);
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
-		list($ret, $this->_view) = GalleryView::doStatic()->loadView($viewName);
+		list($ret, $this->_view) = GalleryView::getMe()->loadView($viewName);
 
 		if ($ret) {
 			$this->fail($ret->getAsHtml());
@@ -71,11 +71,11 @@ class GalleryViewTestCase extends GalleryTestCase {
 							'Expected error code (%s) but received (%s)',
 							implode(
 								' | ',
-								GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)
+								GalleryStatus::getMe()->getErrorCodeConstants($errorCode)
 							),
 							implode(
 								' | ',
-								GalleryStatus::doStatic()->getErrorCodeConstants(
+								GalleryStatus::getMe()->getErrorCodeConstants(
 									$ret->getErrorCode()
 								)
 							)
@@ -88,7 +88,7 @@ class GalleryViewTestCase extends GalleryTestCase {
 						'Expected error code (%s) but test was successful',
 						implode(
 							' | ',
-							GalleryStatus::doStatic()->getErrorCodeConstants($errorCode)
+							GalleryStatus::getMe()->getErrorCodeConstants($errorCode)
 						)
 					)
 				);

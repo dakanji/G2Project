@@ -196,7 +196,7 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testAdminOptions() {
-		CaptchaAdminOption::doStatic()->setTestOptions(
+		CaptchaAdminOption::getMe()->setTestOptions(
 			array(
 				'testOptionId1' => new CaptchaSiteAdminTestOption(),
 				'testOptionId2' => new CaptchaSiteAdminTestOption('unittest.2.level'),
@@ -233,7 +233,7 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals('HIGH', $params['unittest.level'], 'level 1');
 		$this->assertEquals('LOW', $params['unittest.2.level'], 'level 2');
 
-		CaptchaAdminOption::doStatic()->delTestOptions();
+		CaptchaAdminOption::getMe()->delTestOptions();
 	}
 
 	public function testBogusOptionId() {
@@ -245,7 +245,7 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testBogusOptionLevel() {
-		CaptchaAdminOption::doStatic()->setTestOptions(
+		CaptchaAdminOption::getMe()->setTestOptions(
 			array(
 				'testOptionId' => new CaptchaSiteAdminTestOption(),
 			)
@@ -257,7 +257,7 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		$this->handleRequest(ERROR_BAD_PARAMETER);
 
-		CaptchaAdminOption::doStatic()->delTestOptions();
+		CaptchaAdminOption::getMe()->delTestOptions();
 	}
 }
 
@@ -278,7 +278,7 @@ class CaptchaSiteAdminTestOption extends CaptchaAdminOption {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {

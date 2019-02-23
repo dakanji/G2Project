@@ -29,7 +29,7 @@ class UserAdminView extends GalleryView {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -120,7 +120,7 @@ class UserAdminView extends GalleryView {
 		$UserAdmin['isSiteAdmin']    = $isSiteAdmin;
 
 		if (!empty($subViewName)) {
-			list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
+			list($ret, $subView) = GalleryView::getMe()->loadView($subViewName);
 
 			if ($ret) {
 				return array($ret, null);
@@ -170,7 +170,7 @@ class UserAdminView extends GalleryView {
 		if (empty($subViewName)) {
 			$subViewName = 'core.ItemEdit';
 		}
-		list($ret, $subView) = GalleryView::doStatic()->loadView($subViewName);
+		list($ret, $subView) = GalleryView::getMe()->loadView($subViewName);
 
 		if ($ret) {
 			return array($ret, null);

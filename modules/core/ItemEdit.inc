@@ -29,7 +29,7 @@ class ItemEditController extends GalleryController {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -80,7 +80,7 @@ class ItemEditController extends GalleryController {
 		$thumbnail = empty($thumbnails) ? null : array_shift($thumbnails);
 
 		// Get all the edit options
-		list($ret, $optionInstances) = ItemEditOption::doStatic()->getAllOptions(
+		list($ret, $optionInstances) = ItemEditOption::getMe()->getAllOptions(
 			$editPlugin,
 			$item,
 			$thumbnail
@@ -231,7 +231,7 @@ class ItemEditView extends GalleryView {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -397,7 +397,7 @@ class ItemEditView extends GalleryView {
 		}
 
 		// Get all the edit options
-		list($ret, $optionInstances) = ItemEditOption::doStatic()->getAllOptions(
+		list($ret, $optionInstances) = ItemEditOption::getMe()->getAllOptions(
 			$editPlugin,
 			$item,
 			$thumbnail
@@ -482,7 +482,7 @@ class ItemEditPlugin {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -586,7 +586,7 @@ class ItemEditOption {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {

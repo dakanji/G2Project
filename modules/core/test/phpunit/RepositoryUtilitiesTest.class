@@ -46,8 +46,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$this->_apis = sprintf(
 			'coreApi=%s&moduleApi=%s&themeApi=%s',
 			join('.', GalleryCoreApi::getApiVersion()),
-			join('.', GalleryModule::doStatic()->getApiVersion()),
-			join('.', GalleryTheme::doStatic()->getApiVersion())
+			join('.', GalleryModule::getMe()->getApiVersion()),
+			join('.', GalleryTheme::getMe()->getApiVersion())
 		);
 	}
 
@@ -309,8 +309,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$utilities = new GalleryRepositoryUtilities();
 
 		$coreApi   = implode('.', GalleryCoreApi::getApiVersion());
-		$moduleApi = implode('.', GalleryModule::doStatic()->getApiVersion());
-		$themeApi  = implode('.', GalleryTheme::doStatic()->getApiVersion());
+		$moduleApi = implode('.', GalleryModule::getMe()->getApiVersion());
+		$themeApi  = implode('.', GalleryTheme::getMe()->getApiVersion());
 
 		$testCases = array(
 			array(
@@ -426,8 +426,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$utilities = new GalleryRepositoryUtilities();
 
 		$coreApi   = implode('.', GalleryCoreApi::getApiVersion());
-		$moduleApi = implode('.', GalleryModule::doStatic()->getApiVersion());
-		$themeApi  = implode('.', GalleryTheme::doStatic()->getApiVersion());
+		$moduleApi = implode('.', GalleryModule::getMe()->getApiVersion());
+		$themeApi  = implode('.', GalleryTheme::getMe()->getApiVersion());
 
 		$testCases = array(
 			array(

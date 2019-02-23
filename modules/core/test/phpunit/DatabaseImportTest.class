@@ -106,7 +106,7 @@ class DatabaseImportTest extends GalleryTestCase {
 		$cacheKey     = 'GalleryPluginHelper::fetchPluginStatus(module)';
 		GalleryDataCache::put($cacheKey, $pluginStatus);
 
-		$installedModuleVersion = GalleryModule::doStatic()->getApiVersion();
+		$installedModuleVersion = GalleryModule::getMe()->getApiVersion();
 		$installedCoreVersion   = GalleryCoreApi::getApiVersion();
 		$installedModuleApi     = implode('.', $installedModuleVersion);
 		$installedCoreApi       = implode('.', $installedCoreVersion);
@@ -494,7 +494,7 @@ class DatabaseImportTest1Module extends GalleryModule {
 		$this->setGroup('data', 'Gallery');
 		$this->setCallbacks('');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$this->setRequiredModuleApi(GalleryModule::doStatic()->getApiVersion());
+		$this->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 	}
 }
 
@@ -507,7 +507,7 @@ class DatabaseImportTest2Module extends GalleryModule {
 		$this->setGroup('data', 'Gallery');
 		$this->setCallbacks('');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$this->setRequiredModuleApi(GalleryModule::doStatic()->getApiVersion());
+		$this->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 	}
 }
 
@@ -520,7 +520,7 @@ class DatabaseImportTest3Module extends GalleryModule {
 		$this->setGroup('data', 'Gallery');
 		$this->setCallbacks('');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$this->setRequiredModuleApi(GalleryModule::doStatic()->getApiVersion());
+		$this->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 	}
 }
 
@@ -533,6 +533,6 @@ class DatabaseImportTest4Module extends GalleryModule {
 		$this->setGroup('data', 'Gallery');
 		$this->setCallbacks('');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-		$this->setRequiredModuleApi(GalleryModule::doStatic()->getApiVersion());
+		$this->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 	}
 }

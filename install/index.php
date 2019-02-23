@@ -97,12 +97,12 @@ require_once $g2Base . 'modules/core/classes/GalleryTranslator.class';
 
 if (empty($_SESSION['language'])) {
 	// Select language based on preferences sent from browser
-	$_SESSION['language'] = GalleryTranslator::doStatic()->getLanguageCodeFromRequest();
+	$_SESSION['language'] = GalleryTranslator::getMe()->getLanguageCodeFromRequest();
 }
 
 if (function_exists('dgettext')) {
 	$gallery    = new GalleryStub();
-	$translator = GalleryTranslator::doStatic();
+	$translator = GalleryTranslator::getMe();
 	$translator->init($_SESSION['language'], true);
 	unset($gallery);
 	bindtextdomain('gallery2_install', dirname(__DIR__) . '/locale');
@@ -327,7 +327,7 @@ function getGalleryDirUrl() {
 	$urlPath = preg_replace(
 		'|^(.*/)install/index.php(?:\?.*)?$|s',
 		'$1',
-		GalleryUrlGenerator::doStatic()->getCurrentRequestUri()
+		GalleryUrlGenerator::getMe()->getCurrentRequestUri()
 	);
 
 	return getBaseUrl() . $urlPath;

@@ -56,7 +56,7 @@ class HiddenModule extends GalleryModule {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -197,7 +197,7 @@ class HiddenModule extends GalleryModule {
 			}
 
 			foreach ($items as $item) {
-				$ret = HiddenHelper::doStatic()->unHideItem($item);
+				$ret = HiddenHelper::getMe()->unHideItem($item);
 
 				if ($ret) {
 					return $ret;
@@ -257,7 +257,7 @@ class HiddenModule extends GalleryModule {
 					&& $item->isModified('parentId')
 					&& !$item->hasOnLoadHandler('Hidden')
 				) {
-					$ret = HiddenHelper::doStatic()->handleMoveItem($item);
+					$ret = HiddenHelper::getMe()->handleMoveItem($item);
 
 					if ($ret) {
 						return array($ret, null);

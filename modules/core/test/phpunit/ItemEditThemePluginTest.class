@@ -79,7 +79,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		$this->_preferred = null;
 
 		// Reset test theme
-		ItemEditThemeControllerTestTheme::doStatic()->reset();
+		ItemEditThemeControllerTestTheme::getMe()->reset();
 	}
 
 	public function _setTheme(&$item, $themeId) {
@@ -130,7 +130,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 				'setParameter(rows, 3)',
 				'setParameter(columns, 4)',
 			),
-			ItemEditThemeControllerTestTheme::doStatic()->getMap()
+			ItemEditThemeControllerTestTheme::getMe()->getMap()
 		);
 	}
 
@@ -172,7 +172,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 				'setParameter(rows, 3)',
 				sprintf('removeParameter(columns, %d)', $this->_album->getId()),
 			),
-			ItemEditThemeControllerTestTheme::doStatic()->getMap()
+			ItemEditThemeControllerTestTheme::getMe()->getMap()
 		);
 	}
 
@@ -201,7 +201,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 				'setParameter(columns, 4)',
 				'setParameter(columns, 4)',
 			),
-			ItemEditThemeControllerTestTheme::doStatic()->getMap()
+			ItemEditThemeControllerTestTheme::getMe()->getMap()
 		);
 	}
 
@@ -227,7 +227,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 				'setParameter(rows, 3)',
 				'setParameter(columns, 4)',
 			),
-			ItemEditThemeControllerTestTheme::doStatic()->getMap()
+			ItemEditThemeControllerTestTheme::getMe()->getMap()
 		);
 	}
 
@@ -349,7 +349,7 @@ class ItemEditThemeControllerTestTheme {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {

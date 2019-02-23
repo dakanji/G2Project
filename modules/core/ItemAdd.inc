@@ -37,7 +37,7 @@ class ItemAddController extends GalleryController {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -292,7 +292,7 @@ class ItemAddController extends GalleryController {
 		$this->_processingItemsMessage = $this->_coreModule->translate('Processing items');
 
 		if (!isset($this->_optionInstances)) {
-			list($ret, $this->_optionInstances) = ItemAddOption::doStatic()->getAllAddOptions();
+			list($ret, $this->_optionInstances) = ItemAddOption::getMe()->getAllAddOptions();
 
 			if ($ret) {
 				return array($ret, null);
@@ -698,7 +698,7 @@ class ItemAddView extends GalleryView {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -770,7 +770,7 @@ class ItemAddView extends GalleryView {
 		}
 
 		// Get all the add options
-		list($ret, $optionInstances) = ItemAddOption::doStatic()->getAllAddOptions();
+		list($ret, $optionInstances) = ItemAddOption::getMe()->getAllAddOptions();
 
 		if ($ret) {
 			return array($ret, null);
@@ -902,7 +902,7 @@ class ItemAddPlugin {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {
@@ -976,7 +976,7 @@ class ItemAddOption {
 	/**
 	 * Load as Singleton
 	 */
-	public static function doStatic() {
+	public static function getMe() {
 		static $singleton;
 
 		if (!isset($singleton)) {

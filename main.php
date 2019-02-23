@@ -225,7 +225,7 @@ function _GalleryMain($embedded = false, $template = null) {
 
 	if (!empty($controllerName)) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
-		list($ret, $controller) = GalleryController::doStatic()->loadController($controllerName);
+		list($ret, $controller) = GalleryController::getMe()->loadController($controllerName);
 
 		if ($ret) {
 			return array($ret, null);
@@ -273,7 +273,7 @@ function _GalleryMain($embedded = false, $template = null) {
 
 		// Verify the genuineness of the request
 		if (!$controller->omitAuthTokenCheck()) {
-			$ret = GalleryController::doStatic()->assertIsGenuineRequest();
+			$ret = GalleryController::getMe()->assertIsGenuineRequest();
 
 			if ($ret) {
 				return array($ret, null);
@@ -372,7 +372,7 @@ function _GalleryMain($embedded = false, $template = null) {
 		GalleryUtilities::putRequestVariable('view', $viewName);
 	}
 
-	list($ret, $view) = GalleryView::doStatic()->loadView($viewName);
+	list($ret, $view) = GalleryView::getMe()->loadView($viewName);
 
 	if ($ret) {
 		return array($ret, null);
@@ -394,7 +394,7 @@ function _GalleryMain($embedded = false, $template = null) {
 			}
 
 			$viewName         = 'core.MaintenanceMode';
-			list($ret, $view) = GalleryView::doStatic()->loadView($viewName);
+			list($ret, $view) = GalleryView::getMe()->loadView($viewName);
 
 			if ($ret) {
 				return array($ret, null);
@@ -470,7 +470,7 @@ function _GalleryMain($embedded = false, $template = null) {
 
 		if ($view->isControllerLike()) {
 			// Verify the genuineness of the request
-			$ret = GalleryController::doStatic()->assertIsGenuineRequest();
+			$ret = GalleryController::getMe()->assertIsGenuineRequest();
 
 			if ($ret) {
 				return array($ret, null);
@@ -746,7 +746,7 @@ function _GalleryMain_doRedirect(
 	if (!$session->isUsingCookies() && $session->isPersistent()
 		&& strpos($redirectUrl, $session->getKey()) === false
 	) {
-		$redirectUrl = GalleryUrlGenerator::doStatic()->appendParamsToUrl(
+		$redirectUrl = GalleryUrlGenerator::getMe()->appendParamsToUrl(
 			$redirectUrl,
 			array(
 				$session->getKey() => $session->getId(),
@@ -825,7 +825,7 @@ function _GalleryMain_errorHandler($error, $g2Data = null) {
 	global $gallery;
 
 	GalleryCoreApi::requireOnce('modules/core/ErrorPage.inc');
-	$handledError = ErrorPageView::doStatic()->errorHandler($error, $g2Data);
+	$handledError = ErrorPageView::getMe()->errorHandler($error, $g2Data);
 
 	if (!$handledError) {
 		$summary = $error->getErrorMessage();

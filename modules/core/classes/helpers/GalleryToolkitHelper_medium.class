@@ -757,13 +757,13 @@ class GalleryToolkitHelper_medium {
 				}
 
 				if (isset($toolkit)) {
-					$toolkit::doStatic()->estimateDimensions($derivative, $source);
+					$toolkit::getMe()->estimateDimensions($derivative, $source);
 				} else {
 					// Fall back on the best-guess behaviour
 					GalleryCoreApi::requireOnce(
 						'modules/core/classes/GalleryToolkit.class'
 					);
-					GalleryToolkit::doStatic()->estimateDimensions($derivative, $source);
+					GalleryToolkit::getMe()->estimateDimensions($derivative, $source);
 				}
 			}
 		}

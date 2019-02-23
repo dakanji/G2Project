@@ -49,7 +49,7 @@ class {$ucModuleId}Module extends GalleryModule {ldelim}
 	/**
 	* Load as Singleton
 	*/
-	public static function doStatic() {ldelim}
+	public static function getMe() {ldelim}
 		static $singleton;
 
 		if (!isset($singleton)) {ldelim}
