@@ -31,13 +31,19 @@ class ItemAddModule extends GalleryModule {
 		global $gallery;
 		$this->setId('itemadd');
 		$this->setName($gallery->i18n('Add Items'));
-		$this->setDescription($gallery->i18n('Add items from local server or the web'));
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+		$this->setDescription(
+			$gallery->i18n(
+				'Add items from local server or the web'
+			)
+		);
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('import', $gallery->i18n('Import'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 53));
-		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**

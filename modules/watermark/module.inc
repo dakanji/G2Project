@@ -33,14 +33,19 @@ class WatermarkModule extends GalleryModule {
 
 		$this->setId('watermark');
 		$this->setName($gallery->i18n('Watermark'));
-		$this->setDescription($gallery->i18n('Watermark your images'));
-		// Update "upgrade()" too!
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+		$this->setDescription(
+			$gallery->i18n(
+				'Watermark your images'
+			)
+		);
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getSiteAdminViews|getUserAdminViews');
-		$this->setRequiredCoreApi(array(7, 45));
-		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**
@@ -61,10 +66,12 @@ class WatermarkModule extends GalleryModule {
 	 */
 	public function upgrade($currentVersion, $x1 = null) {
 		global $gallery;
-		$platform     =& $gallery->getPlatform();
-		$slash        = $platform->getDirectorySeparator();
+		$platform =& $gallery->getPlatform();
+		$slash    = $platform->getDirectorySeparator();
+
 		$watermarkDir = $gallery->getConfig('data.gallery.plugins_data')
-		. 'modules/watermark' . $slash;
+			. 'modules/watermark'
+			. $slash;
 
 		if (!isset($currentVersion)) {
 			$currentVersion = '0';
@@ -109,8 +116,7 @@ class WatermarkModule extends GalleryModule {
 			case '0.8.9':
 			case '0.9.1':
 				// Move watermark dir from g2data/ to g2data/plugins_data
-				$oldDir = $gallery->getConfig('data.gallery.base')
-				. 'watermark' . $slash;
+				$oldDir = $gallery->getConfig('data.gallery.base') . 'watermark' . $slash;
 
 				if ($platform->is_dir($oldDir)) {
 					if (!$platform->rename($oldDir, $watermarkDir)) {
@@ -138,14 +144,14 @@ class WatermarkModule extends GalleryModule {
 
 				// Update all derivatives that use watermarks
 				$query = "
-				SELECT
-					[GalleryDerivative::id]
-				FROM
-					[GalleryDerivative]
-				WHERE
-					[GalleryDerivative::postFilterOperations]
-				LIKE 
-					'%composite|watermark%'
+					SELECT
+						[GalleryDerivative::id]
+					FROM
+						[GalleryDerivative]
+					WHERE
+						[GalleryDerivative::postFilterOperations]
+					LIKE
+						'%composite|watermark%'
 				";
 
 				// Do them 50 at a time to improve locking efficiency
@@ -243,15 +249,18 @@ class WatermarkModule extends GalleryModule {
 			case '1.1.3':
 				// Combined YUI libraries into a single file
 			case '1.1.4':
-				// Require minimum core API 7.45
+				// Updated GalleryCoreApi requirement to 7.45
 			case '1.1.5':
 			case '1.1.6':
 			case '1.1.7':
 			case '1.1.8':
+			case '2.0.0':
+				// Updated GalleryCoreApi requirement to 8.0
+				// Upgraded GalleryModule requirement to 4.0
 			case 'end of upgrade path':
 				/*
-				 * Leave this bogus case at the end of legit case statements so that we
-				 * always properly terminate our upgrade path with a break.
+				 * Leave this bogus case at the end of the legitimate case statements
+				 * so that we always properly terminate our upgrade path with a break.
 				 */
 				break;
 

@@ -30,13 +30,19 @@ class RearrangeModule extends GalleryModule {
 		global $gallery;
 		$this->setId('rearrange');
 		$this->setName($gallery->i18n('Rearrange'));
-		$this->setDescription($gallery->i18n('Rearrange the order of album items all at once'));
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+		$this->setDescription(
+			$gallery->i18n(
+				'Rearrange the order of album items all at once'
+			)
+		);
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks('getItemLinks|getItemAdminViews');
-		$this->setRequiredCoreApi(array(7, 27));
-		$this->setRequiredModuleApi(array(3, 9));
 	}
 
 	/**

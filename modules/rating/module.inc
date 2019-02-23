@@ -30,13 +30,19 @@ class RatingModule extends GalleryModule {
 
 		$this->setId('rating');
 		$this->setName($gallery->i18n('Rating'));
-		$this->setDescription($gallery->i18n('Item Rating Interface'));
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+		$this->setDescription(
+			$gallery->i18n(
+				'Let Users Rate Gallery2 Items'
+			)
+		);
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setCallbacks('getSiteAdminViews|getItemSummaries');
 		$this->setGroup('data', $gallery->i18n('Extra Data'));
-		$this->setRequiredCoreApi(array(7, 41));
-		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**
@@ -147,8 +153,14 @@ class RatingModule extends GalleryModule {
 		$template->javascript('modules/rating/rating.js');
 
 		$template->setVariable('l10Domain', $this->getL10Domain());
-		$session       =& $gallery->getSession();
-		$authToken     = $session->isPersistent() ? $session->getAuthToken() : '';
+		$session =& $gallery->getSession();
+
+		if ($session->isPersistent()) {
+			$authToken = $session->getAuthToken();
+		} else {
+			$authToken = null;
+		}
+
 		$RatingSummary = array(
 			'ratingValues' => array(1, 2, 3, 4, 5),
 			'firstCall'    => true,
@@ -167,7 +179,6 @@ class RatingModule extends GalleryModule {
 		}
 
 		// Acquire the current rating for the items (populate $RatingData)
-
 		list($ret, $RatingData) = RatingHelper::fetchRatings(
 			$itemIds,
 			$gallery->getActiveUserId()
@@ -202,7 +213,9 @@ class RatingModule extends GalleryModule {
 			$template->setVariable('RatingSummary', $RatingSummary);
 
 			// Render and get the html
-			list($ret, $summaries[$itemId]) = $template->fetch('gallery:modules/rating/templates/RatingInterface.tpl');
+			list($ret, $summaries[$itemId]) = $template->fetch(
+				'gallery:modules/rating/templates/RatingInterface.tpl'
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -226,15 +239,28 @@ class RatingModule extends GalleryModule {
 
 		switch ($currentVersion) {
 			case '0':
-				list($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
+				list($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters(
+					'module',
+					'core'
+				);
 
 				if ($ret) {
 					return $ret;
 				}
 
 				// Initial install.  Register our permissions
-				$permissions[] = array('add', $gallery->i18n('[rating] Add ratings'), 0, array());
-				$permissions[] = array('view', $gallery->i18n('[rating] View ratings'), 0, array());
+				$permissions[] = array(
+					'add',
+					$gallery->i18n('[rating] Add ratings'),
+					0,
+					array(),
+				);
+				$permissions[] = array(
+					'view',
+					$gallery->i18n('[rating] View ratings'),
+					0,
+					array(),
+				);
 				$permissions[] = array(
 					'all',
 					$gallery->i18n('[rating] All access'),
@@ -289,7 +315,15 @@ class RatingModule extends GalleryModule {
 			case '1.0.11':
 				// Combined YUI libraries into a single file
 			case '1.0.12':
+			case '1.0.13':
+			case '2.0.0':
+				// Updated GalleryCoreApi requirement to 8.0
+				// Upgraded GalleryModule requirement to 4.0
 			case 'end of upgrade path':
+				/*
+				 * Leave this bogus case at the end of the legitimate case statements
+				 * so that we always properly terminate our upgrade path with a break.
+				 */
 				break;
 
 			default:

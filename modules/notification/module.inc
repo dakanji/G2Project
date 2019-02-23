@@ -36,13 +36,20 @@ class NotificationModule extends GalleryModule {
 		$this->setId('notification');
 		$this->setName($gallery->i18n('Notification'));
 		$this->setDescription(
-			$gallery->i18n('Allow users to be notified of events by subscription.')
+			$gallery->i18n(
+				'Allow users to subscribe for event notification'
+			)
 		);
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
+		$this->_templateVersion = 1;
+
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
-		$this->setVersion('7.0.0'); // Update upgrade() as required
-		$this->setRequiredCoreApi(array(7, 37));
-		$this->setRequiredModuleApi(array(3, 9));
-		$this->setCallbacks('getSiteAdminViews|getUserAdminViews|getItemLinks|getItemAdminViews');
+		$this->setCallbacks(
+			'getSiteAdminViews|getUserAdminViews|getItemLinks|getItemAdminViews'
+		);
 	}
 
 	/**
@@ -78,7 +85,8 @@ class NotificationModule extends GalleryModule {
 
 		// Entity Delete and Save Handler
 		$handlerPath = 'modules/notification/classes/NotificationItemStateChangeHandler.class';
-		$ret         = GalleryCoreApi::registerFactoryImplementation(
+
+		$ret = GalleryCoreApi::registerFactoryImplementation(
 			'GalleryEventListener',
 			'NotificationItemStateChangeHandler',
 			'NotificationItemStateChangeHandler',
@@ -352,24 +360,34 @@ class NotificationModule extends GalleryModule {
 			}
 
 			if ($currentVersion != '0') {
-				$enableMap           = array();
-				list($ret, $results) = $storage->search('SELECT COUNT(*) FROM [NotificationSubscriptions]', array());
+				$enableMap = array();
+
+				$query = '
+					SELECT
+						COUNT(*)
+					FROM
+						[NotificationSubscriptions]
+				';
+
+				list($ret, $results) = $storage->search($query, array());
 
 				if ($ret) {
 					return $ret;
 				}
-				$count = $results->nextResult();
 
+				$count  = $results->nextResult();
 				$select = array('eventClass', 'userId', 'methodClass', 'filter');
 
 				$offset     = 0;
 				$blockCount = 200;
-				$options    = array(
+
+				$options = array(
 					'limit' => array(
 						'count' => $blockCount,
 					),
 				);
-				$rowsRead   = 0;
+
+				$rowsRead = 0;
 
 				list($ret, $eventMapLock) = $this->getParameter('id.eventMapLock');
 
@@ -403,14 +421,21 @@ class NotificationModule extends GalleryModule {
 					}
 
 					while ($row = $results->nextResult()) {
-						$newRow                     = array(
+						$newRow = array(
 							'userId'      => $row[1],
 							'handlerName' => 'NotificationMethodEmail',
 						);
-						$notificationName           = $row[0] == 'NotificationEventItemAdd' ? 'ItemAddedNotification' : 'CommentAddNotification';
+
+						if ($row[0] == 'NotificationEventItemAdd') {
+							$notificationName = 'ItemAddedNotification';
+						} else {
+							$notificationName = 'CommentAddNotification';
+						}
+
 						$newRow['notificationName'] = $notificationName;
 						$newRow['itemId']           = (int)substr($row[3], 2);
-						$ret                        = GalleryCoreApi::addMapEntry('SubscriptionMap', $newRow);
+
+						$ret = GalleryCoreApi::addMapEntry('SubscriptionMap', $newRow);
 
 						if ($ret) {
 							return $ret;

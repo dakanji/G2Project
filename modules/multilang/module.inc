@@ -33,13 +33,19 @@ class MultiLangModule extends GalleryModule {
 
 		$this->setId('multilang');
 		$this->setName($gallery->i18n('MultiLanguage'));
-		$this->setDescription($gallery->i18n('Support item captions in multiple languages'));
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+		$this->setDescription(
+			$gallery->i18n(
+				'Support item captions in multiple languages'
+			)
+		);
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('data', $gallery->i18n('Extra Data'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 43));
-		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**

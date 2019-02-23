@@ -38,13 +38,17 @@ class PasswordModule extends GalleryModule {
 		$this->setId('password');
 		$this->setName($gallery->i18n('Password Protected Albums'));
 		$this->setDescription(
-			$gallery->i18n('Assign passwords for viewing particular albums')
+			$gallery->i18n(
+				'Assign passwords for viewing particular albums'
+			)
 		);
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('display', $this->translate('Display'));
-		$this->setRequiredCoreApi(array(7, 53));
-		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**
@@ -170,13 +174,20 @@ class PasswordModule extends GalleryModule {
 	 */
 	public function uninstall() {
 		global $gallery;
+
 		GalleryCoreApi::requireOnce('modules/password/classes/PasswordHelper.class');
 
-		$query                     = '
-		SELECT [GalleryEntity::id]
-		FROM [GalleryEntity]
-		WHERE [GalleryEntity::onLoadHandlers] LIKE \'%|Password|%\'
-		';
+		$query = "
+			SELECT
+				[GalleryEntity::id]
+			FROM
+				[GalleryEntity]
+			WHERE
+				[GalleryEntity::onLoadHandlers]
+			LIKE
+				'%|Password|%'
+		";
+
 		list($ret, $searchResults) = $gallery->search($query);
 
 		if ($ret) {

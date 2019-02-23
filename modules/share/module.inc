@@ -31,13 +31,19 @@ class ShareModule extends GalleryModule {
 
 		$this->setId('share');
 		$this->setName($gallery->i18n('Share'));
-		$this->setDescription($gallery->i18n('Share link to Gallery pictures on social media sites'));
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+		$this->setDescription(
+			$gallery->i18n(
+				'Share link to Gallery pictures on social media sites'
+			)
+		);
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('export', $gallery->i18n('Export'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 2));
-		$this->setRequiredModuleApi(array(3, 0));
 	}
 
 	/**
@@ -86,12 +92,27 @@ class ShareModule extends GalleryModule {
 						return $ret;
 					}
 				}
-				// keep going
-
 				// Fall Through
 			case '1.0.0':
-			case '1.0.1': // Fixed typo in block template
+			case '1.0.1':
+				// Fixed typo in block template
+			case '2.0.0':
+				// Updated GalleryCoreApi requirement to 8.0
+				// Upgraded GalleryModule requirement to 4.0
+			case 'end of upgrade path':
+				/*
+				 * Leave this bogus case at the end of the legitimate case statements
+				 * so that we always properly terminate our upgrade path with a break.
+				 */
+				break;
+
 			default:
+				return GalleryCoreApi::error(
+					ERROR_BAD_PLUGIN,
+					__FILE__,
+					__LINE__,
+					sprintf('Unknown module version %s', $currentVersion)
+				);
 		}
 
 		return null;

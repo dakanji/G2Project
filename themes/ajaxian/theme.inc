@@ -31,11 +31,15 @@ class AjaxianTheme extends GalleryTheme {
 
 		$this->setId('ajaxian');
 		$this->setName($gallery->i18n('Ajaxian'));
-		$this->setDescription($gallery->i18n('DHTML-enabled Slideshow theme'));
+		$this->setDescription(
+			$gallery->i18n(
+				'DHTML-enabled Slideshow theme'
+			)
+		);
 
-		$this->setVersion('7.0.0');
-		$this->setRequiredCoreApi(array(7, 27));
-		$this->setRequiredThemeApi(array(2, 5));
+		$this->setVersion('2.0.0');
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredThemeApi(array(3, 0));
 
 		$this->setStandardSettings(
 			array(
@@ -105,7 +109,10 @@ class AjaxianTheme extends GalleryTheme {
 		$theme =& $template->getVariableByReference('theme');
 
 		// From slider
-		list($ret, $imageWidths, $imageHeights) = $this->_buildItemList($childIds, $theme['children']);
+		list($ret, $imageWidths, $imageHeights) = $this->_buildItemList(
+			$childIds,
+			$theme['children']
+		);
 
 		if ($ret) {
 			return array($ret, null);

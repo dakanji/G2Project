@@ -17,9 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- *
- * @package {$moduleName}
- * @author {$authorFullName}
  */
 
 /**
@@ -31,20 +28,22 @@
 class {$ucModuleId}Module extends GalleryModule {ldelim}
 	public function __construct() {ldelim}
 		global $gallery;
-		
+
 		$this->setId('{$moduleId}');
 		$this->setName($gallery->i18n('{$moduleName}'));
-		$this->setDescription($gallery->i18n(
-			'My {$moduleName} module'
-		));
+		$this->setDescription(
+			$gallery->i18n(
+				'My {$moduleName} module'
+			)
+		);
 
 		$this->setVersion('1.0.0');
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
-		$this->setCallbacks('getItemLinks');
-		$this->setGroup('other', $gallery->i18n('Other'));
 
-		$this->setRequiredCoreApi(array(7, 20));
-		$this->setRequiredModuleApi(array(3, 6));
+		$this->setGroup('other', $gallery->i18n('Other'));
+		$this->setCallbacks('getItemLinks');
 	{rdelim}
 
 	/**
@@ -71,7 +70,7 @@ class {$ucModuleId}Module extends GalleryModule {ldelim}
 			$params['itemId'] = $item->getId();
 
 			$links[$item->getId()][] = array(
-				'text' => $this->translate('{$moduleName}'), 
+				'text' => $this->translate('{$moduleName}'),
 				'params' => $params,
 			);
 		{rdelim}

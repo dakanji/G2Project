@@ -33,12 +33,14 @@ class SliderTheme extends GalleryTheme {
 		$this->setId('slider');
 		$this->setName($gallery->i18n('Slider'));
 		$this->setDescription(
-			$gallery->i18n('Image viewer/slideshow; subalbums/other items not shown')
+			$gallery->i18n(
+				'Image viewer/slideshow; subalbums/other items not shown'
+			)
 		);
 
-		$this->setVersion('7.0.0');
-		$this->setRequiredCoreApi(array(7, 36));
-		$this->setRequiredThemeApi(array(2, 5));
+		$this->setVersion('2.0.0');
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredThemeApi(array(3, 0));
 
 		$this->setStandardSettings(
 			array(

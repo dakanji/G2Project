@@ -31,11 +31,15 @@ class FloatrixTheme extends GalleryTheme {
 
 		$this->setId('floatrix');
 		$this->setName($gallery->i18n('Floatrix'));
-		$this->setDescription($gallery->i18n('Variable column theme based on Matrix'));
+		$this->setDescription(
+			$gallery->i18n(
+				'Variable column theme based on Matrix'
+			)
+		);
 
-		$this->setVersion('7.0.0');
-		$this->setRequiredCoreApi(array(7, 20));
-		$this->setRequiredThemeApi(array(2, 5));
+		$this->setVersion('2.0.0');
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredThemeApi(array(3, 0));
 
 		$this->setStandardSettings(
 			array(
@@ -194,7 +198,6 @@ class FloatrixTheme extends GalleryTheme {
 
 		foreach ($theme['itemLinks'] as $i => $link) {
 			if (isset($link['params']['view'], $userViews[$link['params']['view']])
-
 			) {
 				$theme['userLinks'][] = $link;
 				unset($theme['itemLinks'][$i]);

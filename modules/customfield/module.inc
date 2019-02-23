@@ -33,13 +33,19 @@ class CustomFieldModule extends GalleryModule {
 
 		$this->setId('customfield');
 		$this->setName($gallery->i18n('Custom Fields'));
-		$this->setDescription($gallery->i18n('Create custom data fields for Gallery items'));
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+		$this->setDescription(
+			$gallery->i18n(
+				'Create custom data fields for Gallery items'
+			)
+		);
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('data', $gallery->i18n('Extra Data'));
 		$this->setCallbacks('getSiteAdminViews|getItemSummaries');
-		$this->setRequiredCoreApi(array(7, 34));
-		$this->setRequiredModuleApi(array(3, 9));
 	}
 
 	/**

@@ -44,11 +44,13 @@ class HiddenModule extends GalleryModule {
 				'accessed with the right URL'
 			)
 		);
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('display', $this->translate('Display'));
-		$this->setRequiredCoreApi(array(7, 53));
-		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**

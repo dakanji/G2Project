@@ -29,13 +29,19 @@ class RandomHighlightModule extends GalleryModule {
 		global $gallery;
 		$this->setId('randomhighlight');
 		$this->setName($gallery->i18n('Random Highlight'));
-		$this->setDescription($gallery->i18n('Periodically change the album highlight'));
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+		$this->setDescription(
+			$gallery->i18n(
+				'Periodically change the album highlight'
+			)
+		);
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 27));
-		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**
@@ -57,7 +63,10 @@ class RandomHighlightModule extends GalleryModule {
 	public function upgrade($currentVersion, $x1 = null) {
 		global $gallery;
 
-		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'randomhighlight');
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
+			'module',
+			'randomhighlight'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -86,12 +95,21 @@ class RandomHighlightModule extends GalleryModule {
 				case '0.8.6':
 					// Changed from RandomHighlightDerivativeImage entity type to onLoadHandler
 					$storage =& $gallery->getStorage();
-					$query   = 'UPDATE [GalleryEntity]
-		    SET [::entityType] = \'GalleryDerivativeImage\',
-			[::onLoadHandlers] = \'|RandomHighlight|\'
-		  WHERE [GalleryEntity::entityType] = \'RandomHighlightDerivativeImage\'
-		    AND [GalleryEntity::onLoadHandlers] IS NULL';
-					$ret     = $storage->execute($query);
+
+					$query = "
+						UPDATE
+							[GalleryEntity]
+						SET
+							[::entityType] = 'GalleryDerivativeImage',
+							[::onLoadHandlers] = '|RandomHighlight|'
+						WHERE
+							[GalleryEntity::entityType] = 'RandomHighlightDerivativeImage'
+						AND
+							[GalleryEntity::onLoadHandlers]
+						IS NULL
+					";
+
+					$ret = $storage->execute($query);
 
 					if ($ret) {
 						return $ret;
@@ -104,12 +122,21 @@ class RandomHighlightModule extends GalleryModule {
 					if ($ret) {
 						return $ret;
 					}
-					$query = 'UPDATE [GalleryEntity]
-		    SET [::entityType] = \'GalleryDerivativeImage\',
-			[::onLoadHandlers] = ' . $handlers . '
-		  WHERE [GalleryEntity::entityType] = \'RandomHighlightDerivativeImage\'
-		    AND [GalleryEntity::onLoadHandlers] IS NOT NULL';
-					$ret   = $storage->execute($query);
+
+					$query = "
+						UPDATE
+							[GalleryEntity]
+						SET
+							[::entityType] = 'GalleryDerivativeImage',
+							[::onLoadHandlers] = $handlers
+						WHERE
+							[GalleryEntity::entityType] = 'RandomHighlightDerivativeImage'
+						AND
+							[GalleryEntity::onLoadHandlers]
+						IS NOT NULL
+					";
+
+					$ret = $storage->execute($query);
 
 					if ($ret) {
 						return $ret;
@@ -137,7 +164,15 @@ class RandomHighlightModule extends GalleryModule {
 					// .mo file migration
 				case '1.0.7':
 				case '1.0.8':
+				case '1.0.9':
+				case '2.0.0':
+					// Updated GalleryCoreApi requirement to 8.0
+					// Upgraded GalleryModule requirement to 4.0
 				case 'end of upgrade path':
+					/*
+					 * Leave this bogus case at the end of the legitimate case statements
+					 * so that we always properly terminate our upgrade path with a break.
+					 */
 					break;
 
 				default:

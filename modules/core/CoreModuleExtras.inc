@@ -77,10 +77,10 @@ class CoreModuleExtras {
 			}
 		}
 		$gallery->debug(
-			'Old version: ' . $currentVersion
-			. '   New version: ' . $module->getVersion()
+			'Old version: ' . $currentVersion . '   New version: ' . $module->getVersion()
 		);
 		$currentExactVersion = $currentVersion;
+
 		// Enable upgrade from any patch release of earlier versions
 		$currentVersion = preg_replace('/^(1\.[0-3]\.0)\.\d+$/', '$1.x', $currentVersion);
 
@@ -105,7 +105,8 @@ class CoreModuleExtras {
 		 * the general upgrade code to ensure that all map methods work for the other upgrade code.
 		 * (but skip if upgrading from 1.2.0.4 or newer 1.2.0.x, as this upgrade was done in 2.2.2)
 		 */
-		if (version_compare($currentVersion, '1.2.18', '<') && !($currentVersion == '1.2.0.x'
+		if (version_compare($currentVersion, '1.2.18', '<')
+			&& !($currentVersion == '1.2.0.x'
 			&& version_compare($currentExactVersion, '1.2.0.4', '>='))
 		) {
 			$ret = $storage->configureStore($module->getId(), array('Schema:1.0', 'Schema:1.1'));
@@ -165,7 +166,7 @@ class CoreModuleExtras {
 		 * If you add a new feature to the core module and revise the version, you should do the
 		 * following.  Supposing the current version is 1.0.1 and you're adding 1.0.2.  Go to the
 		 * end of the switch and find the 'end of upgrade path' case.  Create a new case *above*
-		 * that one with the old version number.  For our example you'd add: "case '1.0.1':" and
+		 * that one with the old version number.  For our example, add: "case '1.0.1':" and
 		 * then your code.  Do *not* put in a break statement.  (Update _prepareConfigUpgrade too).
 		 */
 		$gallery->debug(sprintf('The current version is %s', $currentVersion));
@@ -718,94 +719,93 @@ class CoreModuleExtras {
 				 * from the permissions table.  Repeat.
 				 */
 				$totalRowsQuery = '
-				SELECT
-				COUNT(DISTINCT [GalleryPermissionMap::itemId])
-				FROM
-				[GalleryPermissionMap]
+					SELECT
+						COUNT(DISTINCT [GalleryPermissionMap::itemId])
+					FROM
+						[GalleryPermissionMap]
 				';
 
 				$findItemIdQuery = '
-				SELECT
-				[GalleryPermissionMap::itemId], COUNT(*) AS C
-				FROM
-				[GalleryPermissionMap]
-				GROUP BY
-				[GalleryPermissionMap::itemId]
-				ORDER BY
-				C DESC
+					SELECT
+						[GalleryPermissionMap::itemId], COUNT(*) AS C
+					FROM
+						[GalleryPermissionMap]
+					GROUP BY
+						[GalleryPermissionMap::itemId]
+					ORDER BY C DESC
 				';
 
 				$permissionRowCountQuery = '
-				SELECT
-				COUNT(*)
-				FROM
-				[GalleryPermissionMap]
-				WHERE
-				[GalleryPermissionMap::itemId] = ?
+					SELECT
+						COUNT(*)
+					FROM
+						[GalleryPermissionMap]
+					WHERE
+						[GalleryPermissionMap::itemId] = ?
 				';
 
 				// Updated this query for core 1.0.11 to write to userOrGroupId column
 				$createAclQuery = '
-				INSERT INTO
-				[GalleryAccessMap] ([::accessListId], [::userOrGroupId], [::permission])
-				SELECT
-				?,
-				[GalleryPermissionMap::userId] + [GalleryPermissionMap::groupId],
-				[GalleryPermissionMap::permission]
-				FROM
-				[GalleryPermissionMap]
-				WHERE
-				[GalleryPermissionMap::itemId] = ?
+					INSERT INTO
+						[GalleryAccessMap] ([::accessListId], [::userOrGroupId], [::permission])
+					SELECT
+						?,
+						[GalleryPermissionMap::userId] + [GalleryPermissionMap::groupId],
+						[GalleryPermissionMap::permission]
+					FROM
+						[GalleryPermissionMap]
+					WHERE
+						[GalleryPermissionMap::itemId] = ?
 				';
 
 				$findPossibleDupesQuery = '
-				SELECT
-				[GalleryPermissionMap=2::itemId], COUNT(*)
-				FROM
-				[GalleryPermissionMap=1], [GalleryPermissionMap=2]
-				WHERE
-				[GalleryPermissionMap=1::itemId] = ?
-				AND
-				[GalleryPermissionMap=1::userId] = [GalleryPermissionMap=2::userId]
-				AND
-				[GalleryPermissionMap=1::groupId] = [GalleryPermissionMap=2::groupId]
-				AND
-				[GalleryPermissionMap=1::permission] = [GalleryPermissionMap=2::permission]
-				GROUP BY
-				[GalleryPermissionMap=2::itemId]
-				HAVING
-				COUNT(*) = ?
+					SELECT
+						[GalleryPermissionMap=2::itemId], COUNT(*)
+					FROM
+						[GalleryPermissionMap=1], [GalleryPermissionMap=2]
+					WHERE
+						[GalleryPermissionMap=1::itemId] = ?
+					AND
+						[GalleryPermissionMap=1::userId] = [GalleryPermissionMap=2::userId]
+					AND
+						[GalleryPermissionMap=1::groupId] = [GalleryPermissionMap=2::groupId]
+					AND
+						[GalleryPermissionMap=1::permission] = [GalleryPermissionMap=2::permission]
+					GROUP BY
+						[GalleryPermissionMap=2::itemId]
+					HAVING
+						COUNT(*) = ?
 				';
 
 				$refineDupesQuery = '
-				SELECT
-				[GalleryPermissionMap::itemId], COUNT(*)
-				FROM
-				[GalleryPermissionMap]
-				WHERE
-				[GalleryPermissionMap::itemId] IN (%s)
-				GROUP BY
-				[GalleryPermissionMap::itemId]
-				HAVING
-				COUNT(*) = ?
+					SELECT
+						[GalleryPermissionMap::itemId], COUNT(*)
+					FROM
+						[GalleryPermissionMap]
+					WHERE
+						[GalleryPermissionMap::itemId] IN (%s)
+					GROUP BY
+						[GalleryPermissionMap::itemId]
+					HAVING
+						COUNT(*) = ?
 				';
 
 				$assignAclQuery = '
-				INSERT INTO
-				[GalleryAccessSubscriberMap] ([::itemId], [::accessListId])
-				SELECT DISTINCT
-				[GalleryPermissionMap::itemId], ?
-				FROM
-				[GalleryPermissionMap]
-				WHERE
-				[GalleryPermissionMap::itemId] IN (%s)
+					INSERT INTO
+						[GalleryAccessSubscriberMap] ([::itemId], [::accessListId])
+					SELECT DISTINCT
+						[GalleryPermissionMap::itemId], ?
+					FROM
+						[GalleryPermissionMap]
+					WHERE
+						[GalleryPermissionMap::itemId] IN (%s)
 				';
 
 				$deleteOldPermsQuery = '
-				DELETE FROM
-				[GalleryPermissionMap]
-				WHERE
-				[GalleryPermissionMap::itemId] IN (%s)
+					DELETE FROM
+						[GalleryPermissionMap]
+					WHERE
+						[GalleryPermissionMap::itemId] IN (%s)
 				';
 
 				// Determine how many items we are going to process for our status message
@@ -826,6 +826,7 @@ class CoreModuleExtras {
 				if ($results->resultCount() == 0) {
 					break;
 				}
+
 				$result               = $results->nextResult();
 				$totalPermissionItems = $result[0];
 
@@ -856,7 +857,8 @@ class CoreModuleExtras {
 					if ($results->resultCount() == 0) {
 						break;
 					}
-					$result                                  = $results->nextResult();
+					$result = $results->nextResult();
+
 					list($targetItemId, $permissionRowCount) = array((int)$result[0], (int)$result[1]);
 
 					// Create a new ACL
@@ -873,11 +875,12 @@ class CoreModuleExtras {
 					}
 
 					/*
-					 * Find all items that share the same permissions as the target.  I haven't figured
-					 * out a good way to do aggregation without using temporary tables, which I'd like
-					 * to avoid for portability.  So, figure out how many rows have at least as many
-					 * matching permissions as our target item.  These are potentially dupes.  We'll
-					 * refine them later on.
+					 * Find all items that share the same permissions as the target.
+					 * We have not yet figured out a good way to do aggregation without using
+					 * temporary tables which we would like to avoid for portability.
+					 * So, figure out how many rows have at least as many matching permissions
+					 * as our target item.  These are potentially dupes.
+					 * We will refine them later on.
 					 */
 					list($ret, $results) = $gallery->search(
 						$findPossibleDupesQuery,
@@ -904,8 +907,9 @@ class CoreModuleExtras {
 						$count = count($chunk);
 
 						/*
-						 * Refine our dupes by eliminating ones that don't have exactly the same number
-						 * of permission rows as our target.  Our target item is included in the dupes,
+						 * Refine our dupes by eliminating ones that do not have exactly
+						 * the same number of permission rows as our target.
+						 * Our target item is included in the dupes,
 						 * so this will always return at least 1 row.
 						 */
 						$markers             = GalleryUtilities::makeMarkers($count);
@@ -986,8 +990,9 @@ class CoreModuleExtras {
 
 			case '0.9.7':
 				/*
-				 * Change GalleryMaintenance::details column to be a serialized array.  The old data is
-				 * transient so just delete it.  Added FlushTemplatesTask, FlushDatabaseCacheTask.
+				 * Change GalleryMaintenance::details column to be a serialized array.
+				 * The old data is transient so just delete it.
+				 * Added FlushTemplatesTask, FlushDatabaseCacheTask.
 				 */
 				$gallery->guaranteeTimeLimit(30);
 				$ret = GalleryCoreApi::removeAllMapEntries('GalleryMaintenanceMap');
@@ -999,10 +1004,12 @@ class CoreModuleExtras {
 				// Fall Through
 			case '0.9.8':
 				/*
-				 * Create 'plugins' and 'plugins_data' directories in g2data.  Remove trailing slash for
-				 * config paths using substr so file_exists can detect either file or dir.  Update: in
-				 * core 1.0.6 the data.gallery.plugins dir moved under gallery2 basedir, not in g2data
-				 * anymore; we may not have permission to create a dir here.  So code below is now
+				 * Create 'plugins' and 'plugins_data' directories in g2data.
+				 * Remove trailing slash for config paths using substr so "file_exists"
+				 * can detect either file or dir.
+				 * Update: in core 1.0.6, the data.gallery.plugins dir moved under
+				 * gallery2 basedir, not in g2data anymore;
+				 * we may not have permission to create a dir here.  So code below is now
 				 * updated to not require those mkdirs to succeed.
 				 */
 				$gallery->guaranteeTimeLimit(30);
@@ -1017,7 +1024,10 @@ class CoreModuleExtras {
 				) as $dir => $isRequired) {
 					if ($platform->file_exists($dir)) {
 						if ($platform->is_dir($dir)) {
-							// No need to do anything.  Except maybe we could check permissions here.
+							/*
+							 * No need to do anything.
+							 * Except maybe we could check permissions here.
+							 */
 						} else {
 							// There's a file there.  There shouldn't be.  Move it out of the way.
 							if (!@$platform->rename($newDir, "$newDir.old")
@@ -1076,12 +1086,13 @@ class CoreModuleExtras {
 				 * Don't change if the user modified the name already!
 				 * Don't change if there is already a group with the new name
 				 */
-				list($ret, $group) = GalleryCoreApi::fetchGroupByGroupName($module->translate('Registered Users'));
+				list($ret, $group) = GalleryCoreApi::fetchGroupByGroupName(
+					$module->translate('Registered Users')
+				);
 
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 						// OK, we can change the group name
-
 						list($ret, $allUserGroupId) = $module->getParameter('id.allUserGroup');
 
 						if ($ret) {
@@ -1138,7 +1149,10 @@ class CoreModuleExtras {
 					$dirList = explode(',', $dirList);
 
 					for ($i = 1; $i <= count($dirList); $i++) {
-						$ret = $module->setParameter('uploadLocalServer.dir.' . $i, $dirList[$i - 1]);
+						$ret = $module->setParameter(
+							'uploadLocalServer.dir.' . $i,
+							$dirList[$i - 1]
+						);
 
 						if ($ret) {
 							return $ret;
@@ -1232,9 +1246,9 @@ class CoreModuleExtras {
 				// Mark old broken derivatives as such with our new isBroken flag
 				/*
 				 * This is the filesize and the crc32 checksum of the broken derivative placeholder
-				 * image that we used in beta 3 and earlier versions.  We may have replaced this image
-				 * by the time this upgrade code is run.  Thus we hardcode filesize(oldImage) and
-				 * crc32(oldImageData) here.
+				 * image that we used in beta 3 and earlier versions.
+				 * We may have replaced this image by the time this upgrade code is run.
+				 * Thus we hardcode filesize(oldImage) and crc32(oldImageData) here.
 				 */
 				$referenceSize = 1589;
 				// CRC is a good measure to compare files (not to detect malicous attacks though)
@@ -1247,12 +1261,20 @@ class CoreModuleExtras {
 				 *         so restrict this query to only GalleryDerivativeImage
 				 */
 				$gallery->guaranteeTimeLimit(60);
-				$query                     = '
-				SELECT [GalleryDerivative::id]
-				FROM [GalleryDerivative], [GalleryEntity]
-				WHERE [GalleryDerivative::isBroken] IS NULL
-				AND [GalleryDerivative::id] = [GalleryEntity::id]
-				AND [GalleryEntity::entityType] = \'GalleryDerviativeImage\'';
+
+				$query = "
+					SELECT
+						[GalleryDerivative::id]
+					FROM
+						[GalleryDerivative], [GalleryEntity]
+					WHERE
+						[GalleryDerivative::isBroken] IS NULL
+					AND
+						[GalleryDerivative::id] = [GalleryEntity::id]
+					AND
+						[GalleryEntity::entityType] = 'GalleryDerviativeImage'
+					";
+
 				list($ret, $searchResults) = $gallery->search($query);
 
 				if ($ret) {
@@ -1269,9 +1291,10 @@ class CoreModuleExtras {
 					$totalDerivatives = sizeof($derivativeIds);
 
 					/*
-					 * The following process is very expensive.  We have to deal with a potentially huge
-					 * (10^6) amount of derivatives.  To not exceed the memory limit we do everything in
-					 * batches.  To not exceed the PHP execution time limit and to not exceed the apache
+					 * The following process is very expensive.
+					 * We have to deal with a potentially huge (10^6) amount of derivatives.
+					 * To not exceed the memory limit, we do everything in batches.
+					 * To not exceed the PHP execution time limit and to not exceed the apache
 					 * timeout we add a progress bar and manipulate the PHP execution time limit
 					 * periodically.
 					 */
@@ -1291,10 +1314,12 @@ class CoreModuleExtras {
 					/*
 					 * The outer loop is for each derivativeId and we upgrade a progress bar every
 					 * $progressStepSize ids.  We don't load entity by entity, but in batches of
-					 * $loadBatchSize.  And we don't save the items that were detected as broken
-					 * derivatives one by one, but also in batches of $saveBatchSize, i.e. we acquire
-					 * and release the locks in this batch size, but still have to save entity by entity
-					 * because Gallery has no mass entity save like loadEntitiesById().
+					 * $loadBatchSize.
+					 * And we don't save the items that were detected as broken
+					 * derivatives one by one, but also in batches of $saveBatchSize,
+					 * i.e. we acquire and release the locks in this batch size,
+					 * but still have to save entity by entity because Gallery has no
+					 * mass entity save like loadEntitiesById().
 					 */
 					$derivatives       = array();
 					$progressStepSize  = min(500, intval($totalDerivatives / 10));
@@ -1326,7 +1351,12 @@ class CoreModuleExtras {
 								return $ret;
 							}
 
-							$currentDerivativeIds    = array_splice($derivativeIds, 0, $loadBatchSize);
+							$currentDerivativeIds = array_splice(
+								$derivativeIds,
+								0,
+								$loadBatchSize
+							);
+
 							list($ret, $derivatives) = GalleryCoreApi::loadEntitiesById(
 								$currentDerivativeIds,
 								'GalleryDerivative'
@@ -1344,8 +1374,8 @@ class CoreModuleExtras {
 							$derivative = array_pop($derivatives);
 
 							/*
-							 * Show the progress, but not for each derivative, this would slow down the
-							 * process considerably
+							 * Show the progress, but not for each derivative,
+							 * this would slow down the process considerably
 							 */
 							if ($itemsProcessed % $progressStepSize == 0
 								|| $itemsProcessed == $totalDerivatives
@@ -1452,8 +1482,10 @@ class CoreModuleExtras {
 									$ret = $statusMonitor->renderStatusMessage(
 										$module->translate(
 											array(
-												'text' => 'Detecting broken derivatives, saving item '
-												. '%d of %d (%d derivatives complete, %d remaining)',
+												'text' => 'Detecting broken derivatives, '
+												. 'saving item '
+												. '%d of %d (%d derivatives complete, '
+												. '%d remaining)',
 												'arg1' => $itemsSaved,
 												'arg2' => sizeof($brokenDerivatives),
 												'arg3' => $itemsProcessed,
@@ -1512,50 +1544,53 @@ class CoreModuleExtras {
 					return $ret;
 				}
 
-				$query = '
-				UPDATE
-				[GalleryPluginParameterMap]
-				SET
-				[::pluginType] = \'theme\'
-				WHERE
-				[GalleryPluginParameterMap::pluginType] = \'layout\'
-				';
-				$ret   = $storage->execute($query);
+				$query = "
+					UPDATE
+						[GalleryPluginParameterMap]
+					SET
+						[::pluginType] = 'theme'
+					WHERE
+						[GalleryPluginParameterMap::pluginType] = 'layout'
+				";
+
+				$ret = $storage->execute($query);
 
 				if ($ret) {
 					return $ret;
 				}
 
 				// After this refactor we only support the matrix theme
-				$query = '
-				UPDATE
-				[GalleryAlbumItem]
-				SET
-				[::theme] = \'matrix\'
-				';
-				$ret   = $storage->execute($query);
+				$query = "
+					UPDATE
+						[GalleryAlbumItem]
+					SET
+						[::theme] = 'matrix'
+				";
+
+				$ret = $storage->execute($query);
 
 				if ($ret) {
 					return $ret;
 				}
 
-				$query = '
-				UPDATE
-				[GalleryPluginMap]
-				SET
-				[::pluginType] = \'theme\'
-				WHERE
-				[GalleryPluginMap::pluginType] = \'layout\'
-				';
-				$ret   = $storage->execute($query);
+				$query = "
+					UPDATE
+						[GalleryPluginMap]
+					SET
+						[::pluginType] = 'theme'
+					WHERE
+						[GalleryPluginMap::pluginType] = 'layout'
+				";
+
+				$ret = $storage->execute($query);
 
 				if ($ret) {
 					return $ret;
 				}
 
 				/*
-				 * Rename g2data 'layouts' directories to be 'themes', or create them if they don't
-				 * already exist (they should exist, though)
+				 * Rename g2data 'layouts' directories to be 'themes',
+				 * or create them if they do not already exist (they should exist, though)
 				 */
 				foreach (array(
 					$gallery->getConfig('data.gallery.plugins'),
@@ -1584,10 +1619,11 @@ class CoreModuleExtras {
 				}
 
 				/*
-				 * If we're coming from 0.8.13 or earlier, then our themes don't have version
-				 * information, so take care of that here by calling installOrUpgrade() on the currently
-				 * active themes to let them update their bookkeeping.  Reactivate them too for good
-				 * measure.
+				 * If we are coming from 0.8.13 or earlier,
+				 * then our themes do not have version information,
+				 * so take care of that here by calling installOrUpgrade() on the currently
+				 * active themes to let them update their bookkeeping.
+				 * Reactivate them too for good measure.
 				 */
 				if (version_compare($currentVersion, '0.8.13', '<=')) {
 					list($ret, $themes) = GalleryCoreApi::fetchPluginStatus('theme');
@@ -1602,9 +1638,7 @@ class CoreModuleExtras {
 						if (!empty($themeStatus['active'])) {
 							list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 
-							if ($ret
-								&& !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)
-							) {
+							if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 								return $ret;
 							}
 
@@ -1620,8 +1654,9 @@ class CoreModuleExtras {
 								&& !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)
 							) {
 								/*
-								 * Theme getSettings may try to load ImageFrame interface, but
-								 * ImageFrame may need to be upgraded.  Ignore version mismatch here.
+								 * Theme getSettings may try to load ImageFrame interface,
+								 * but ImageFrame may need to be upgraded.
+								 * Ignore version mismatch here.
 								 */
 								return $ret;
 							}
@@ -1649,12 +1684,13 @@ class CoreModuleExtras {
 					return $ret;
 				}
 				$query = '
-				UPDATE
-				[GalleryAlbumItem]
-				SET
-				[::theme] = NULL
+					UPDATE
+						[GalleryAlbumItem]
+					SET
+						[::theme] = NULL
 				';
-				$ret   = $storage->execute($query);
+
+				$ret = $storage->execute($query);
 
 				if ($ret) {
 					return $ret;
@@ -1688,8 +1724,8 @@ class CoreModuleExtras {
 
 			case '0.9.36':
 				/*
-				 * Fixed GalleryUtilities::getPseudoFileName for derivatives.  Delete fast-download
-				 * files that may have cached incorrect filenames.
+				 * Fixed GalleryUtilities::getPseudoFileName for derivatives.
+				 * Delete fast-download files that may have cached incorrect filenames.
 				 */
 				$slash   = $platform->getDirectorySeparator();
 				$baseDir = $gallery->getConfig('data.gallery.cache') . 'derivative' . $slash;
@@ -1803,7 +1839,9 @@ class CoreModuleExtras {
 			case '1.0.10':
 				// Rename unnamed pre-beta-3 index to named index
 				if ($storage->getType() == 'mysql') {
-					$gallery->debug('Rename unnamed pre-beta-3 index to named index (ignore errors)');
+					$gallery->debug(
+						'Rename unnamed pre-beta-3 index to named index (ignore errors)'
+					);
 					$query = sprintf(
 						'
 						ALTER TABLE %sAccessMap
@@ -1835,12 +1873,13 @@ class CoreModuleExtras {
 				// If coming from 0.9.5 or earlier then GalleryAccessMap already has userOrGroupId
 				if (version_compare($currentVersion, '0.9.5', '>')) {
 					$query = '
-					UPDATE
-					[GalleryAccessMap]
-					SET
-					[::userOrGroupId] = [::userId] + [::groupId]
+						UPDATE
+							[GalleryAccessMap]
+						SET
+							[::userOrGroupId] = [::userId] + [::groupId]
 					';
-					$ret   = $storage->execute($query, array());
+
+					$ret = $storage->execute($query, array());
 
 					if ($ret) {
 						return $ret;
@@ -1858,13 +1897,15 @@ class CoreModuleExtras {
 				if ($ret) {
 					return $ret;
 				}
-				$query = '
-				UPDATE
-				[GalleryPermissionSetMap]
-				SET
-				[::flags] = ' . $flagModifier . '
-				';
-				$ret   = $storage->execute($query, array(3));
+
+				$query = "
+					UPDATE
+						[GalleryPermissionSetMap]
+					SET
+						[::flags] = $flagModifier
+				";
+
+				$ret = $storage->execute($query, array(3));
 
 				if ($ret) {
 					return $ret;
@@ -1949,9 +1990,13 @@ class CoreModuleExtras {
 				 * cache/entity/.  Delete the old files in cache/derivative/.
 				 */
 				$gallery->guaranteeTimeLimit(60);
-				$query                     = '
-				SELECT [GalleryDerivativeImage::id]
-				FROM [GalleryDerivativeImage]';
+				$query = '
+					SELECT
+						[GalleryDerivativeImage::id]
+					FROM
+						[GalleryDerivativeImage]
+				';
+
 				list($ret, $searchResults) = $gallery->search($query);
 
 				if ($ret) {
@@ -1990,7 +2035,10 @@ class CoreModuleExtras {
 
 					for ($i = 0; $i < $totalDerivatives; $i++) {
 						// Delete the file if it exists
-						list($first, $second) = GalleryDataCache::getCacheTuple($derivativeIds[$i]);
+						list($first, $second) = GalleryDataCache::getCacheTuple(
+							$derivativeIds[$i]
+						);
+
 						$fastDownloadFilePath = sprintf(
 							'%derivative/%s/%s/%d-fast.inc',
 							$base,
@@ -2066,7 +2114,8 @@ class CoreModuleExtras {
 						),
 					)
 				);
-				$ret          = GalleryCoreApi::setPluginParameter(
+
+				$ret = GalleryCoreApi::setPluginParameter(
 					'module',
 					'core',
 					'acceleration',
@@ -2080,7 +2129,12 @@ class CoreModuleExtras {
 				// Fall Through
 			case '1.0.20':
 				// Add configurable captcha security level
-				$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'captcha.level', 'MEDIUM');
+				$ret = GalleryCoreApi::setPluginParameter(
+					'module',
+					'core',
+					'captcha.level',
+					'MEDIUM'
+				);
 
 				if ($ret) {
 					return $ret;
@@ -2089,8 +2143,9 @@ class CoreModuleExtras {
 				// Fall Through
 			case '1.0.21':
 				// GallerySession change: Store sessions in the database and no longer on disk
-				$sessionsDir = $gallery->getConfig('data.gallery.base') . 'sessions' .
-				$platform->getDirectorySeparator();
+				$sessionsDir = $gallery->getConfig('data.gallery.base')
+				. 'sessions'
+				. $platform->getDirectorySeparator();
 
 				if ($platform->file_exists($sessionsDir)) {
 					$stepSize      = 100;
@@ -2179,8 +2234,11 @@ class CoreModuleExtras {
 				$gallery->guaranteeTimeLimit(120);
 
 				if ($storage->getType() == 'mysql') {
-					$gallery->debug('Rename unnamed pre-beta-3 index to named index (ignore errors)');
-					$indexChanges   = array();
+					$gallery->debug(
+						'Rename unnamed pre-beta-3 index to named index (ignore errors)'
+					);
+					$indexChanges = array();
+
 					$indexChanges[] = array(
 						'AccessMap',
 						'permission',
@@ -2369,7 +2427,9 @@ class CoreModuleExtras {
 						// Ignore error, since there's nothing to do for most installations
 						$storage->execute($query);
 					}
-					$gallery->debug('Finished renaming unnamed pre-beta-3 indices to named indices');
+					$gallery->debug(
+						'Finished renaming unnamed pre-beta-3 indices to named indices'
+					);
 				}
 
 				// Commit transactions before we execute a query that we expect to fail
@@ -2494,8 +2554,7 @@ class CoreModuleExtras {
 				foreach (array(
 					'session.lifetime'          => array(25 * 365 * 86400, 21 * 86400),
 					'session.inactivityTimeout' => array(14 * 86400, 7 * 86400),
-				) as
-				$key => $oldAndNew) {
+				) as $key => $oldAndNew) {
 					if ($params[$key] == $oldAndNew[0]) {
 						$ret = $module->setParameter($key, $oldAndNew[1]);
 
@@ -2595,17 +2654,32 @@ class CoreModuleExtras {
 					}
 					$ids     = array_splice($photos, 0, 500);
 					$markers = GalleryUtilities::makeMarkers($ids);
-					$query   = "UPDATE [GalleryItem] SET [::renderer] = 'PanoramaRenderer' " .
-					"WHERE [GalleryItem::id] IN ($markers)";
-					$ret     = $storage->execute($query, $ids);
+
+					$query = "
+						UPDATE
+							[GalleryItem]
+						SET
+							[::renderer] = 'PanoramaRenderer'
+						WHERE
+							[GalleryItem::id] IN ($markers)
+					";
+
+					$ret = $storage->execute($query, $ids);
 
 					if ($ret) {
 						return $ret;
 					}
 
-					$query = "UPDATE [GalleryEntity] SET [::entityType] = 'GalleryPhotoItem' " .
-					"WHERE [GalleryEntity::id] IN ($markers)";
-					$ret   = $storage->execute($query, $ids);
+					$query = "
+						UPDATE
+							[GalleryEntity]
+						SET
+							[::entityType] = 'GalleryPhotoItem'
+						WHERE
+							[GalleryEntity::id] IN ($markers)
+					";
+
+					$ret = $storage->execute($query, $ids);
 
 					if ($ret) {
 						return $ret;
@@ -2626,9 +2700,18 @@ class CoreModuleExtras {
 					}
 					$ids     = array_splice($derivatives, 0, 500);
 					$markers = GalleryUtilities::makeMarkers($ids);
-					$query   = "UPDATE [GalleryEntity] SET [::entityType] = 'GalleryDerivativeImage' "
-					. "WHERE [GalleryEntity::id] IN ($markers)";
-					$ret     = $storage->execute($query, $ids);
+					$query   = "
+						UPDATE
+							[GalleryEntity]
+						SET
+							[::entityType] = 'GalleryDerivativeImage'
+						WHERE
+							[GalleryEntity::id]
+						IN
+							($markers)
+					";
+
+					$ret = $storage->execute($query, $ids);
 
 					if ($ret) {
 						return $ret;
@@ -2666,18 +2749,19 @@ class CoreModuleExtras {
 			case '1.1.6':
 				// Remove useless rows in AccessSubscriberMap
 				$gallery->guaranteeTimeLimit(60);
-				$query                     = '
-				SELECT
-				[GalleryAccessSubscriberMap::itemId]
-				FROM
-				[GalleryAccessSubscriberMap], [GalleryEntity]
-				WHERE
-				[GalleryAccessSubscriberMap::accessListId] = 0
-				AND
-				[GalleryAccessSubscriberMap::itemId] = [GalleryEntity::id]
-				AND
-				[GalleryEntity::entityType] IN (?,?,?,?)
+				$query = '
+					SELECT
+						[GalleryAccessSubscriberMap::itemId]
+					FROM
+						[GalleryAccessSubscriberMap], [GalleryEntity]
+					WHERE
+						[GalleryAccessSubscriberMap::accessListId] = 0
+					AND
+						[GalleryAccessSubscriberMap::itemId] = [GalleryEntity::id]
+					AND
+						[GalleryEntity::entityType] IN (?,?,?,?)
 				';
+
 				list($ret, $searchResults) = $gallery->search(
 					$query,
 					array('GalleryDerivativeImage', 'GalleryUser', 'GalleryGroup', 'GalleryComment')
@@ -2842,7 +2926,8 @@ class CoreModuleExtras {
 				// Prevent PHP from showing errors on direct access to config.php
 			case '1.1.27':
 				// Changed repository cache directory, easiest to just blow away the old one.
-				$oldDir = $gallery->getConfig('data.gallery.plugins_data') . 'modules/core/repository';
+				$oldDir = $gallery->getConfig('data.gallery.plugins_data')
+					. 'modules/core/repository';
 
 				if ($platform->file_exists($oldDir)) {
 					@$platform->recursiveRmDir($oldDir);
@@ -2895,7 +2980,10 @@ class CoreModuleExtras {
 							return $ret;
 						}
 
-						$ret = GalleryCoreApi::installTranslationsForPlugin($pluginType, $pluginId);
+						$ret = GalleryCoreApi::installTranslationsForPlugin(
+							$pluginType,
+							$pluginId
+						);
 
 						if ($ret) {
 							return $ret;
@@ -3100,8 +3188,16 @@ class CoreModuleExtras {
 							continue;
 						}
 
-						$query = 'UPDATE [GallerySchema] SET [::createSql] = ? WHERE [::name] = ?';
-						$ret   = $storage->execute($query, array($tableSql, $nameInSchema));
+						$query = '
+							UPDATE
+								[GallerySchema]
+							SET
+								[::createSql] = ?
+							WHERE
+								[::name] = ?
+						';
+
+						$ret = $storage->execute($query, array($tableSql, $nameInSchema));
 
 						if ($ret) {
 							return $ret;
@@ -3130,10 +3226,16 @@ class CoreModuleExtras {
 				$gallery->guaranteeTimeLimit(30);
 				// Remove _maps & _entities parameters from GalleryPluginParameterMap. See r16620
 				$query = '
-				DELETE FROM [GalleryPluginParameterMap]
-				WHERE [::parameterName] in (\'_maps\', \'_entities\')
-				AND [::pluginType] = \'module\'';
-				$ret   = $storage->execute($query);
+					DELETE FROM
+						[GalleryPluginParameterMap]
+					WHERE
+						[::parameterName]
+					IN
+						(\'_maps\', \'_entities\')
+					AND
+						[::pluginType] = \'module\'';
+
+				$ret = $storage->execute($query);
 
 				if ($ret) {
 					return $ret;
@@ -3312,6 +3414,7 @@ class CoreModuleExtras {
 			case '1.3.0':
 				// R2.3.1 R2.3.2 R2.3.3
 			case '1.3.0.x':
+			case '1.4.0':
 			case 'end of upgrade path':
 				/*
 				 * Leave this bogus case at the end of the legitimate case statements so that we always
@@ -3645,14 +3748,15 @@ class CoreModuleExtras {
 				$edit                = array();
 				$edit['regexp']      = '{(<\?php\s*(?:/\*.*?\*/\s*)?)}s';
 				$edit['replacement'] = '\1/*
-			* Prevent direct access to config.php.
-			*/
-			if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
-			exit;
-			}
+					 * Prevent direct access to config.php.
+					 */
+					if (!isset($gallery) || !method_exists($gallery, \'setConfig\')) {
+						exit;
+					}
 
-			';
-				$configChanges[]     = array(
+				';
+
+				$configChanges[] = array(
 					'remove' => array(),
 					'add'    => array(),
 					'edit'   => array($edit),
@@ -3663,9 +3767,10 @@ class CoreModuleExtras {
 			case '1.1.29':
 			case '1.1.30':
 				// Reposition display_errors from the end to the beginning of the config file.
-				$remove              = array(
+				$remove = array(
 					'{/\*[^/]*\*/\s*\@?ini_set\(\'display_errors\',.*?;\s*}s',
 				);
+
 				$edit                = array();
 				$edit['regexp']      = '{(<\?php\s*(?:/\*.*?\*/\s*)?)}s';
 				$edit['replacement'] = '\1/*
@@ -3742,6 +3847,7 @@ class CoreModuleExtras {
 			case '1.2.37':
 			case '1.3.0':
 			case '1.3.0.x':
+			case '1.4.0':
 			case 'end of upgrade path':
 				/*
 				 * Leave this bogus case at the end of the legitimate case statements so that we always
@@ -4652,9 +4758,17 @@ class CoreModuleExtras {
 							} elseif (!empty($column['Default'])) {
 								$attributes .= 'DEFAULT ' . $column['Default'] . ' ';
 							}
-							$attributes      .= $column['Null'] == 'YES' ? 'NULL' : 'NOT NULL';
+
+							if ($column['Null'] == 'YES') {
+								$attributes .= 'NULL';
+							} elseif (!empty($column['Default'])) {
+								$attributes .= 'NOT NULL';
+							}
+
 							$changeToBinary[] = $change . $binaryType . $attributes;
-							$changeToUtf8[]   = $change . $column['Type'] . ' CHARACTER SET utf8' . $attributes;
+							$changeToUtf8[]   = $change
+								. $column['Type']
+								. ' CHARACTER SET utf8' . $attributes;
 						}
 
 						if (count($changeToBinary)) {

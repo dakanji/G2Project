@@ -28,12 +28,19 @@ class IntegrityModule extends GalleryModule {
 
 		$this->setId('integrity');
 		$this->setName($gallery->i18n('Integrity Check'));
-		$this->setDescription($gallery->i18n('Check integrity of the Gallery database and files'));
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+		$this->setDescription(
+			$gallery->i18n(
+				'Check integrity of the Gallery database and files'
+			)
+		);
+
+		$this->setVersion('1.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
+		$this->_templateVersion = 1;
+
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks('');
-		$this->setRequiredCoreApi(array(7, 4));
-		$this->setRequiredModuleApi(array(3, 0));
 	}
 
 	/**

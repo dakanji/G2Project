@@ -34,14 +34,18 @@ class DcrawModule extends GalleryModule {
 		$this->setId('dcraw');
 		$this->setName($gallery->i18n('Dcraw'));
 		$this->setDescription(
-			$gallery->i18n('Graphics toolkit for processing images in raw format')
+			$gallery->i18n(
+				'Graphics toolkit for processing RAW format images'
+			)
 		);
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 20));
-		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**

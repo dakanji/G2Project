@@ -37,14 +37,18 @@ class PermalinksModule extends GalleryModule {
 		$this->setId('permalinks');
 		$this->setName($gallery->i18n('Permalinks'));
 		$this->setDescription(
-			$gallery->i18n('Create simpler permanent aliases to your items space')
+			$gallery->i18n(
+				'Create simpler permanent aliases to your items space'
+			)
 		);
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 34));
-		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**
@@ -64,7 +68,10 @@ class PermalinksModule extends GalleryModule {
 	 * @see GalleryModule::upgrade
 	 */
 	public function upgrade($currentVersion, $x1 = null) {
-		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'permalinks');
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
+			'module',
+			'permalinks'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -96,7 +103,8 @@ class PermalinksModule extends GalleryModule {
 		}
 
 		// Automatically activate the rewrite rules, if the rewrite module is active
-		$success                = false;
+		$success = false;
+
 		list($ret, $rewriteApi) = GalleryCoreApi::newFactoryInstance('RewriteApi');
 
 		if ($ret) {
@@ -186,7 +194,10 @@ class PermalinksModule extends GalleryModule {
 			$entity = $event->getEntity();
 
 			if (GalleryUtilities::isA($entity, 'GalleryItem')) {
-				GalleryCoreApi::requireOnce('modules/permalinks/classes/PermalinksMapHelper.class');
+				GalleryCoreApi::requireOnce(
+					'modules/permalinks/classes/PermalinksMapHelper.class'
+				);
+
 				list($ret, $results) = PermalinksMapHelper::fetchAliasesForItem($entity->getId());
 
 				if ($ret) {
@@ -202,7 +213,8 @@ class PermalinksModule extends GalleryModule {
 				}
 			}
 		} elseif ($event->getEventName() == 'Gallery::DeactivatePlugin'
-			&& $data['pluginId'] == 'rewrite' && $data['pluginType'] == 'module'
+			&& $data['pluginId'] == 'rewrite'
+			&& $data['pluginType'] == 'module'
 		) {
 			list($ret, $isActive) = $this->isActive();
 

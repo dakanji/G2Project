@@ -102,7 +102,7 @@ class GalleryModule extends GalleryPlugin {
 	 * @return array major number, minor number
 	 */
 	public function getApiVersion() {
-		return array(3, 9);
+		return array(4, 0);
 	}
 
 	/**

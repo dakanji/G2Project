@@ -30,13 +30,19 @@ class LinkItemModule extends GalleryModule {
 		global $gallery;
 		$this->setId('linkitem');
 		$this->setName($gallery->i18n('Link Items'));
-		$this->setDescription($gallery->i18n('Create links to other albums or external urls'));
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+		$this->setDescription(
+			$gallery->i18n(
+				'Create links to other albums or external urls'
+			)
+		);
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 41));
-		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**
@@ -60,7 +66,9 @@ class LinkItemModule extends GalleryModule {
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
 
-		$imageDir      = $gallery->getConfig('data.gallery.plugins_data') . "modules${slash}linkitem";
+		$imageDir  = $gallery->getConfig('data.gallery.plugins_data');
+		$imageDir .= "modules${slash}linkitem";
+
 		list($success) = GalleryUtilities::guaranteeDirExists($imageDir);
 
 		if (!$success) {
@@ -73,9 +81,9 @@ class LinkItemModule extends GalleryModule {
 		}
 
 		$imageFile = "$imageDir${slash}arrow.png";
+		$copyDir   = __DIR__ . "${slash}images${slash}arrow.png";
 
-		if (!$platform->is_file($imageFile) &&
-		!$platform->copy(__DIR__ . "${slash}images${slash}arrow.png", $imageFile)) {
+		if (!$platform->is_file($imageFile) && !$platform->copy($copyDir, $imageFile)) {
 			return GalleryCoreApi::error(
 				ERROR_PLATFORM_FAILURE,
 				__FILE__,
@@ -86,21 +94,28 @@ class LinkItemModule extends GalleryModule {
 
 		if (!empty($currentVersion) && version_compare($currentVersion, '1.0.4', '<=')) {
 			$storage =& $gallery->getStorage();
-			$ret     = $storage->configureStore($this->getId(), array('GalleryLinkItem:1.0'));
+
+			$ret = $storage->configureStore($this->getId(), array('GalleryLinkItem:1.0'));
 
 			if ($ret) {
 				return $ret;
 			}
 		}
 
-		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'linkitem');
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
+			'module',
+			'linkitem'
+		);
 
 		if ($ret) {
 			return $ret;
 		}
 
-		foreach (array('arrowWatermark' => 1, 'urlSnapshot' => 0, 'snapshotExec' => 'khtml2png')
-		as $key => $value) {
+		foreach (array(
+			'arrowWatermark' => 1,
+			'urlSnapshot'    => 0,
+			'snapshotExec'   => 'khtml2png',
+		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
 
@@ -195,7 +210,7 @@ class LinkItemModule extends GalleryModule {
 	/**
 	 * @see GalleryModule::activate
 	 */
-	public function activate($postActivationEvent=true) {
+	public function activate($postActivationEvent = true) {
 		global $gallery;
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
@@ -224,9 +239,15 @@ class LinkItemModule extends GalleryModule {
 	 * @see GalleryModule::getSiteAdminViews
 	 */
 	public function getSiteAdminViews() {
-		return array(null,
-		array(array('name' => $this->translate('Link Items'),
-		'view'             => 'linkitem.LinkItemSiteAdmin', )), );
+		return array(
+			null,
+			array(
+				array(
+					'name' => $this->translate('Link Items'),
+					'view' => 'linkitem.LinkItemSiteAdmin',
+				),
+			),
+		);
 	}
 
 	/**

@@ -33,13 +33,19 @@ class FfmpegModule extends GalleryModule {
 
 		$this->setId('ffmpeg');
 		$this->setName($gallery->i18n('Ffmpeg'));
-		$this->setDescription($gallery->i18n('A toolkit for processing movies'));
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+		$this->setDescription(
+			$gallery->i18n(
+				'A toolkit for processing movies'
+			)
+		);
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 27));
-		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**
@@ -82,7 +88,8 @@ class FfmpegModule extends GalleryModule {
 		}
 
 		$slash         = $platform->getDirectorySeparator();
-		$imageDir      = $gallery->getConfig('data.gallery.plugins_data') . "modules${slash}ffmpeg";
+		$pluginDir     = $gallery->getConfig('data.gallery.plugins_data');
+		$imageDir      = $pluginDir . "modules${slash}ffmpeg";
 		list($success) = GalleryUtilities::guaranteeDirExists($imageDir);
 
 		if (!$success) {
@@ -95,12 +102,10 @@ class FfmpegModule extends GalleryModule {
 		}
 
 		$imageFile = "$imageDir${slash}filmreel.png";
+		$filmReel  = __DIR__ . "${slash}images${slash}filmreel.png";
 
 		if (!$platform->is_file($imageFile)
-			&& !$platform->copy(
-				__DIR__ . "${slash}images${slash}filmreel.png",
-				$imageFile
-			)
+			&& !$platform->copy($filmReel, $imageFile)
 		) {
 			return GalleryCoreApi::error(
 				ERROR_PLATFORM_FAILURE,

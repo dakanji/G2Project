@@ -31,13 +31,19 @@ class RegisterModule extends GalleryModule {
 
 		$this->setId('register');
 		$this->setName($gallery->i18n('Registration'));
-		$this->setDescription($gallery->i18n('New User Registration'));
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+		$this->setDescription(
+			$gallery->i18n(
+				'New User Registration'
+			)
+		);
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks('getSystemLinks|getUserAdminViews|getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 35));
-		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**

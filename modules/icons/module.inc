@@ -30,13 +30,19 @@ class IconsModule extends GalleryModule {
 		global $gallery;
 		$this->setId('icons');
 		$this->setName($gallery->i18n('Icons'));
-		$this->setDescription($gallery->i18n('Display icons for links'));
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+		$this->setDescription(
+			$gallery->i18n(
+				'Display icons for links'
+			)
+		);
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 20));
-		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**
@@ -91,7 +97,9 @@ class IconsModule extends GalleryModule {
 			case '0.9.0':
 			case '0.9.1':
 			case '0.9.2':
-				if (isset($params['iconpack']) && $params['iconpack'] == 'paularmstrongdesigns.com') {
+				if (isset($params['iconpack'])
+					&& $params['iconpack'] == 'paularmstrongdesigns.com'
+				) {
 					// Removed ".com" from paularmstrongdesigns.com dir, IIS 5.1 didn't like it
 					$ret = $this->setParameter('iconpack', 'paularmstrongdesigns');
 
@@ -113,7 +121,15 @@ class IconsModule extends GalleryModule {
 				// .mo file migration
 			case '1.1.3':
 			case '1.1.4':
+			case '1.1.5':
+			case '2.0.0':
+				// Updated GalleryCoreApi requirement to 8.0
+				// Upgraded GalleryModule requirement to 4.0
 			case 'end of upgrade path':
+				/*
+				 * Leave this bogus case at the end of the legitimate case statements
+				 * so that we always properly terminate our upgrade path with a break.
+				 */
 				break;
 
 			default:

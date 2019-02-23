@@ -34,13 +34,19 @@ class ImageMagickModule extends GalleryModule {
 
 		$this->setId('imagemagick');
 		$this->setName($gallery->i18n('ImageMagick'));
-		$this->setDescription($gallery->i18n('ImageMagick / GraphicsMagick Graphics Toolkit'));
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+		$this->setDescription(
+			$gallery->i18n(
+				'ImageMagick / GraphicsMagick Graphics Toolkit'
+			)
+		);
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 20));
-		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**
@@ -166,8 +172,13 @@ class ImageMagickModule extends GalleryModule {
 		}
 
 		foreach ($results['operations'] as $operation => $info) {
-			$outputMimeType = isset($info['outputMimeType']) ? $info['outputMimeType'] : '';
-			$ret            = GalleryCoreApi::registerToolkitOperation(
+			if (isset($info['outputMimeType'])) {
+				$outputMimeType = $info['outputMimeType'];
+			} else {
+				$outputMimeType = null;
+			}
+
+			$ret = GalleryCoreApi::registerToolkitOperation(
 				'ImageMagick',
 				$info['mimeTypes'],
 				$operation,

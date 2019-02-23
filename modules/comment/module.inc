@@ -38,16 +38,22 @@ class CommentModule extends GalleryModule {
 
 		$this->setId('comment');
 		$this->setName($gallery->i18n('Comments'));
-		$this->setDescription($gallery->i18n('User commenting system'));
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+		$this->setDescription(
+			$gallery->i18n(
+				'User commenting system'
+			)
+		);
+
+		$this->setVersion('2.0.0'); // Update upgrade() as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('data', $gallery->i18n('Extra Data'));
 		$this->setCallbacks(
 			'getItemLinks|getItemSummaries|' .
 			'getSiteAdminViews|getItemAdminViews'
 		);
-		$this->setRequiredCoreApi(array(7, 41));
-		$this->setRequiredModuleApi(array(3, 9));
 	}
 
 	/**
@@ -237,10 +243,14 @@ class CommentModule extends GalleryModule {
 				// Fall Through
 			case '1.1.12':
 			case '1.1.13':
+			case '1.1.14':
+			case '2.0.0':
+				// Updated GalleryCoreApi requirement to 8.0
+				// Upgraded GalleryModule requirement to 4.0
 			case 'end of upgrade path':
 				/*
-				 * Leave this bogus case at the end of the legitimate case statements so that we
-				 * always properly terminate our upgrade path with a break.
+				 * Leave this bogus case at the end of the legitimate case statements
+				 * so that we always properly terminate our upgrade path with a break.
 				 */
 				break;
 

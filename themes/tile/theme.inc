@@ -37,9 +37,9 @@ class TileTheme extends GalleryTheme {
 			)
 		);
 
-		$this->setVersion('7.0.0');
-		$this->setRequiredCoreApi(array(7, 27));
-		$this->setRequiredThemeApi(array(2, 5));
+		$this->setVersion('2.0.0');
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredThemeApi(array(3, 0));
 
 		$this->setStandardSettings(
 			array(

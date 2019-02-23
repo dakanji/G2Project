@@ -34,14 +34,18 @@ class ThumbnailModule extends GalleryModule {
 		$this->setId('thumbnail');
 		$this->setName($gallery->i18n('Thumbnail Manager'));
 		$this->setDescription(
-			$gallery->i18n('Set default thumbnails for non-image items')
+			$gallery->i18n(
+				'Set default thumbnails for non-image items'
+			)
 		);
-		$this->setVersion('7.0.0'); // Update upgrade() & ThumbnailModuleExtras::upgrade as required
+
+		$this->setVersion('2.0.0'); // Update upgrade() & ThumbnailModuleExtras::upgrade as required
+		$this->setRequiredCoreApi(array(8, 0));
+		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
+
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getSiteAdminViews');
-		$this->setRequiredCoreApi(array(7, 45));
-		$this->setRequiredModuleApi(array(3, 6));
 	}
 
 	/**

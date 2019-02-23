@@ -49,7 +49,7 @@ class GalleryEmbed {
 	 * @return array major number, minor number
 	 */
 	public static function getApiVersion() {
-		return array(1, 5);
+		return array(2, 0);
 	}
 
 	/**
@@ -931,7 +931,7 @@ class GalleryEmbed {
 		$css        = array();
 		$javascript = array();
 		$meta       = array();
-		
+
 
 		// Only one title allowed
 		if (preg_match('|<title(?:\s[^>]*)?>(.*)</title>|Usi', $headhtml, $regs)) {
