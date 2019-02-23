@@ -79,7 +79,10 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 			 * manager.
 			 */
 			foreach (array('module', 'theme') as $pluginType) {
-				list($ret, $pluginStatus[$pluginType]) = GalleryCoreApi::fetchPluginStatus($pluginType, true);
+				list($ret, $pluginStatus[$pluginType]) = GalleryCoreApi::fetchPluginStatus(
+					$pluginType,
+					true
+				);
 
 				if ($ret) {
 					return array($ret, null);
@@ -231,7 +234,11 @@ class AdminRepositoryView extends GalleryView {
 		if ($form['formName'] != 'AdminRepository') {
 			// Set some defaults
 			$form['formName']    = 'AdminRepository';
-			list($ret, $sources) = GalleryCoreApi::getPluginParameter('module', 'core', 'core.repositories');
+			list($ret, $sources) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'core',
+				'core.repositories'
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -250,7 +257,11 @@ class AdminRepositoryView extends GalleryView {
 		$showIncompatible = GalleryUtilities::getRequestVariables('showIncompatible');
 
 		if ($showIncompatible == 'true') {
-			list($coreApiVersion, $themeApiVersion, $moduleApiVersion) = GalleryUtilities::getRequestVariables('coreApi', 'themeApi', 'moduleApi');
+			list(
+				$coreApiVersion,
+				$themeApiVersion,
+				$moduleApiVersion
+			) = GalleryUtilities::getRequestVariables('coreApi', 'themeApi', 'moduleApi');
 
 			if (empty($coreApiVersion) || empty($themeApiVersion) || empty($moduleApiVersion)) {
 				return array(
@@ -263,9 +274,10 @@ class AdminRepositoryView extends GalleryView {
 					null,
 				);
 			}
-			$coreApis['core']                    = explode('.', $coreApiVersion);
-			$coreApis['module']                  = explode('.', $moduleApiVersion);
-			$coreApis['theme']                   = explode('.', $themeApiVersion);
+			$coreApis['core']   = explode('.', $coreApiVersion);
+			$coreApis['module'] = explode('.', $moduleApiVersion);
+			$coreApis['theme']  = explode('.', $themeApiVersion);
+
 			$AdminRepository['showIncompatible'] = 1;
 		}
 
@@ -345,7 +357,11 @@ class AdminRepositoryView extends GalleryView {
 
 			// Get core upgrade info.
 			if ($source == 'released') {
-				list($ret, $AdminRepository['isCoreUpgradeAvailable'], $apiVersions) = $repository->isCoreUpgradeAvailable();
+				list(
+					$ret,
+					$AdminRepository['isCoreUpgradeAvailable'],
+					$apiVersions
+				) = $repository->isCoreUpgradeAvailable();
 
 				if ($ret) {
 					return array($ret, null);
@@ -376,7 +392,8 @@ class AdminRepositoryView extends GalleryView {
 		$template->setVariable('controller', 'core.AdminRepository');
 
 		if ($repositoryInitErrorCount) {
-			$status                                      =& $template->getVariableByReference('status');
+			$status =& $template->getVariableByReference('status');
+
 			$status['error']['repositoryInitErrorCount'] = $repositoryInitErrorCount;
 		}
 

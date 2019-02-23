@@ -105,7 +105,7 @@ class AdminUserSetupStep extends InstallStep {
 				}
 			} elseif ($passwordOk) {
 				/*
-				 * If we're reusing db tables, we don't create a new admin user and just
+				 * If we are reusing db tables, we do not create a new admin user and just
 				 * change the setup password
 				 */
 				$this->setComplete(true);

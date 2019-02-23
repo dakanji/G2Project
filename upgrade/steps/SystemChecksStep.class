@@ -61,7 +61,8 @@ class SystemChecksStep extends UpgradeStep {
 		if (!empty($_GET['zendtest'])) {
 			header('Content-Type: text/plain');
 			header('Content-Length: 8');
-			$x = array(new stdclass());
+			$stdclass = new stdclass();
+			$x        = array($stdclass);
 			// v-- This may cause PHP to crash!
 			$x = $x[0];
 			echo "SUCCESS\n";

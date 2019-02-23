@@ -134,8 +134,8 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 
 				if ($cmp != -1) {
 					/*
-					 * The new version is older than the installed version, don't
-					 * let the user continue this silly attempt to break his G2
+					 * The new version is older than the installed version.
+					 * Prevent downgrade attempt
 					 */
 					$templateData['isTryingToDowngrade'] = 1;
 				}
