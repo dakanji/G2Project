@@ -347,10 +347,8 @@ class GalleryDatabaseExport {
 	}
 
 	/**
-	 * Simulate calling htmlspecialchars($value, ENT_COMPAT, 'UTF-8'). We avoid using
-	 * htmlspecialchars directly because on some versions of PHP (notable PHP 4.1.2) it
-	 * changes the character set of the input data (in one environment it converted the
-	 * UTF-8 data to ISO-8859-1)
+	 * Simulate calling htmlspecialchars($value, ENT_COMPAT, 'UTF-8').
+	 *
 	 * @param string $valueToConvert String to escape the html special characters.
 	 * @return string The escaped string.
 	 * @todo Move this routine to GalleryUtilities as a common function.

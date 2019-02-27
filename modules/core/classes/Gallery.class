@@ -711,8 +711,7 @@ class Gallery {
 		}
 
 		if (!empty($this->_debug)) {
-			// PHP 6 includes E_STRICT in E_ALL. Hardcode since PHP 4 does not know that constant
-			error_reporting(E_ALL & ~ 2048);
+			error_reporting(E_ALL);
 			ini_set('display_errors', 1);
 			ini_set('log_errors', 1);
 			ini_set('short_open_tag', false);

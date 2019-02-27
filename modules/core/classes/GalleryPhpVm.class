@@ -127,8 +127,8 @@ class GalleryPhpVm {
 	}
 
 	/**
-	 * Set locale information.  Passing multiple locales isn't avialable until PHP 4.3.0 so it's not
-	 * supported here (yet).
+	 * Set locale information.
+	 * @TODO: Support multiple locales
 	 *
 	 * @param string $locale
 	 */
@@ -139,25 +139,18 @@ class GalleryPhpVm {
 	/**
 	 * Send a raw HTTP header
 	 *
-	 * PHP 4.1 compatible header() function.  The second optional parameter http_response_code was
-	 * introduced in PHP 4.3.0 and is therefore not supported in Gallery.
+	 * @TODO: Support second optional parameter http_response_code
 	 *
 	 * @param string $string
 	 * @param boolean $replace (optional)
 	 */
 	public function header($string, $replace = null) {
-		if (!GalleryUtilities::isSafeHttpHeader($string)) {
-			return;
-		}
-
 		return header($string, $replace);
 	}
 
 	/**
 	 * Checks if or where headers have been sent
-	 *
-	 * PHP 4.1 compatible headers_sent() function.  The optional parameters were introduced in PHP
-	 * 4.3.0 and are therefore not supported in Gallery.
+	 * @TODO: Support optional parameters.
 	 *
 	 * @return boolean whether headers are already sent
 	 */

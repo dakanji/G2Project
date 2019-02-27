@@ -867,18 +867,6 @@ class GalleryUrlGenerator {
 		global $gallery;
 
 		if (!empty($url)) {
-			// Detect header injection attempts
-			if (!GalleryUtilities::isSafeHttpHeader($url)) {
-				$message = sprintf(
-					'Invalid return URL! The requested URL %s contains malicious ' .
-					'characters.',
-					$this->makeUrl($this->getCurrentRequestUri()),
-					$url
-				);
-
-				return GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__, $message);
-			}
-
 			/*
 			 * Check for phishing attacks, don't allow return URLs to other sites or to other paths.
 			 * Therefore first get the validPath, e.g. '/gallery2/' Do not allow ../ to break out of

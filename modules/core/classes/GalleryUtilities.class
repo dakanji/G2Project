@@ -752,12 +752,7 @@ class GalleryUtilities {
 				GalleryUtilities::sanitizeInputValues($value[$newKey]);
 			}
 		} else {
-			/*
-			 * Simulate calling htmlspecialchars($value, ENT_COMPAT, 'UTF-8') We avoid using
-			 * htmlspecialchars directly because on some versions of PHP (notable PHP 4.1.2) it
-			 * changes the character set of the input data (in one environment it converted the
-			 * UTF-8 data to ISO-8859-1)
-			 */
+			// Simulate calling htmlspecialchars($value, ENT_COMPAT, 'UTF-8')
 			$value = str_replace(
 				array('&', '"', '<', '>'),
 				array('&amp;', '&quot;', '&lt;', '&gt;'),
@@ -1775,33 +1770,6 @@ class GalleryUtilities {
 	 */
 	public static function strToUpper($string) {
 		return strtr($string, 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
-	}
-
-	/**
-	 * Checks whether the given HTTP header is safe.
-	 *
-	 * PHP versions before PHP 4.4.2 / PHP 5.1.2 allowed for HTTP header injection (HTTP RS).
-	 * This function ensures that servers running older PHP versions are protected as well.
-	 *
-	 * @param string $header
-	 * @return bool true if the given header is safe
-	 */
-	public static function isSafeHttpHeader($header) {
-		if (!is_string($header)) {
-			return false;
-		}
-
-		// Don't allow plain occurrences of CR or LF
-		if (strpos($header, chr(13)) !== false || strpos($header, chr(10)) !== false) {
-			return false;
-		}
-
-		// Don't allow (x times) url encoded versions of CR or LF
-		if (preg_match('/%(25)*(0a|0d)/i', $header)) {
-			return false;
-		}
-
-		return true;
 	}
 
 	/**

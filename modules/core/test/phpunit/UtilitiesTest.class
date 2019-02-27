@@ -2319,28 +2319,6 @@ class UtilitiesTest extends GalleryTestCase {
 		);
 	}
 
-	public function testIsSafeHttpHeader() {
-		$test   = array();
-		$test[] = array(true, chr(9));
-		// Carriage return
-		$test[] = array(false, chr(13));
-		$test[] = array(true, '%2500');
-		// An arbitrary level of url encoding of the line feed (newline) character
-		$test[] = array(false, urlencode(urlencode(urlencode(urlencode(chr(10))))));
-		$test[] = array(true, '');
-		$test[] = array(false, 'X-Foo: test' . chr(10) . 'bar');
-		$test[] = array(false, chr(13) . chr(10));
-		$test[] = array(false, '%0d');
-		$test[] = array(false, '%0D');
-		$i      = 0;
-
-		foreach ($test as $testCase) {
-			$i++;
-			list($expected, $header) = $testCase;
-			$this->assertEquals($expected, GalleryUtilities::isSafeHttpHeader($header), "Case $i");
-		}
-	}
-
 	/**
 	 * The readManifest() code doesn't use GalleryPlatform and is hard to test.  So this test is
 	 * useful for when we're refactoring this code.  Delete /tmp/manifest.txt and run the test

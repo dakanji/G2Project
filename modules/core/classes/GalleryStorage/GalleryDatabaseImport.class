@@ -986,7 +986,6 @@ class GalleryXmlProcessor {
 
 	/**
 	 * This method releases the php parser.
-	 * @todo After PHP 4.x.x then change to a __destruct and change the call to an unset()
 	 */
 	public function release() {
 		xml_parser_free($this->_xmlParser);
@@ -994,7 +993,6 @@ class GalleryXmlProcessor {
 
 	public function getParserError() {
 		return GalleryCoreApi::error(
-
 			ERROR_STORAGE_FAILURE,
 			__FILE__,
 			__LINE__,

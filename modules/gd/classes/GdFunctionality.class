@@ -121,9 +121,6 @@ class GdFunctionality {
 	/**
 	 * Return an array of information about the currently installed GD version
 	 *
-	 * Requires:
-	 * - PHP 4 >= 4.3.0, PHP 5
-	 *
 	 * @return array GalleryStatus
 	 *         array the output of gd_info
 	 */
@@ -150,9 +147,6 @@ class GdFunctionality {
 	/**
 	 * Create a new palette based image with specified width and height
 	 *
-	 * Requires:
-	 * - any PHP
-	 *
 	 * @return array GalleryStatus
 	 *         res GD-resource
 	 */
@@ -171,10 +165,6 @@ class GdFunctionality {
 
 	/**
 	 * Create a new true color image with specified width and height
-	 *
-	 * Requires:
-	 * - PHP 4 >= 4.0.6 or PHP 5
-	 * - GD >= 2.0.1
 	 *
 	 * Danger: The imageCreateTruecolor() function is defined even if the
 	 * GD library does not support it! If called in this situation, the call
@@ -274,10 +264,6 @@ class GdFunctionality {
 	/**
 	 * Create a new image from JPEG file or URL.
 	 *
-	 * Requires:
-	 * - any PHP >= 3.0.16
-	 * - GD >= 1.8 (for JPEG support)
-	 *
 	 * @return array GalleryStatus
 	 *         res GD-resource
 	 */
@@ -289,10 +275,6 @@ class GdFunctionality {
 
 	/**
 	 * Create a new image from PNG file or URL.
-	 *
-	 * Requires:
-	 * - any PHP >= 3.0.13
-	 * - GD (with PNG support)
 	 *
 	 * @return array GalleryStatus
 	 *         res GD-resource
@@ -306,10 +288,6 @@ class GdFunctionality {
 	/**
 	 * Create a new image from WBMP (wap-bmp) file or URL.
 	 *
-	 * Requires:
-	 * - PHP 4 >= 4.0.1 or PHP 5
-	 * - GD >= 1.8 (for WBMP support)
-	 *
 	 * @return array GalleryStatus
 	 *         res GD-resource
 	 */
@@ -321,10 +299,6 @@ class GdFunctionality {
 
 	/**
 	 * Create a new image from XBM file or URL.
-	 *
-	 * Requires:
-	 * - PHP 4 >= 4.0.1 or PHP 5
-	 * - GD
 	 *
 	 * @return array GalleryStatus
 	 *         res GD-resource
@@ -338,10 +312,6 @@ class GdFunctionality {
 	/**
 	 * Create a new image from XPM file or URL.
 	 *
-	 * Requires:
-	 * - PHP 4 >= 4.0.1 or PHP 5
-	 * - GD
-	 *
 	 * @return array GalleryStatus
 	 *         res GD-resource
 	 */
@@ -353,10 +323,6 @@ class GdFunctionality {
 
 	/**
 	 * Output GIF image to file.
-	 *
-	 * Requires:
-	 * - any PHP
-	 * - GD with GIF support
 	 *
 	 * @return GalleryStatus
 	 */
@@ -376,10 +342,6 @@ class GdFunctionality {
 	/**
 	 * Output JPEG image to file.
 	 *
-	 * Requires:
-	 * - any PHP >= 3.0.16
-	 * - GD >= 1.8
-	 *
 	 * @return GalleryStatus
 	 */
 	public function imageJpeg($res, $filename, $quality = 75) {
@@ -397,10 +359,6 @@ class GdFunctionality {
 
 	/**
 	 * Output PNG image to file.
-	 *
-	 * Requires:
-	 * - any PHP 3>= 3.0.13
-	 * - GD
 	 *
 	 * @return GalleryStatus
 	 */
@@ -420,10 +378,6 @@ class GdFunctionality {
 	/**
 	 * Output WBMP image to file.
 	 *
-	 * Requires:
-	 * - PHP 3>= 3.0.15 or PHP 4 >= 4.0.1 or PHP 5
-	 * - GD >= 1.8 (for WBMP support)
-	 *
 	 * @return GalleryStatus
 	 */
 	public function imageWbmp($res, $filename) {
@@ -442,9 +396,6 @@ class GdFunctionality {
 	/**
 	 * Output XBM image to file.
 	 *
-	 * Requires:
-	 * - PHP 5
-	 *
 	 * @return GalleryStatus
 	 */
 	public function imageXbm($res, $filename) {
@@ -462,10 +413,6 @@ class GdFunctionality {
 
 	/**
 	 * Copy and resize part of an image with resampling
-	 *
-	 * Requires:
-	 * - PHP 4 >= 4.0.6 or PHP 5
-	 * - GD >= 2.0.1
 	 *
 	 * @return GalleryStatus
 	 */
@@ -507,9 +454,6 @@ class GdFunctionality {
 	/**
 	 * Copy and resize part of an image
 	 *
-	 * Requires:
-	 * - any PHP
-	 *
 	 * @return GalleryStatus
 	 */
 	public function imageCopyResized(
@@ -547,9 +491,6 @@ class GdFunctionality {
 	/**
 	 * Copy and merge part of an image
 	 *
-	 * Requires:
-	 * - PHP 4 >= 4.0.1 or PHP 5
-	 *
 	 * @return GalleryStatus
 	 */
 	public function imageCopyMerge($dstRes, $srcRes, $dstX, $dstY, $srcX, $srcY, $srcW, $srcH, $pct) {
@@ -564,9 +505,6 @@ class GdFunctionality {
 
 	/**
 	 * Copy part of an image
-	 *
-	 * Requires:
-	 * - any PHP >= 3.0.6
 	 *
 	 * @return GalleryStatus
 	 */
@@ -601,9 +539,6 @@ class GdFunctionality {
 	/**
 	 * Copy and merge part of an image
 	 *
-	 * Requires:
-	 * - PHP 4 >= 4.3.0 or PHP 5
-	 *
 	 * @return array GalleryStatus
 	 *         resource new gd resource
 	 */
@@ -635,9 +570,6 @@ class GdFunctionality {
 	 * Set the flag to save full alpha channel information (as opposed to single-color transparency)
 	 * when saving PNG images
 	 *
-	 * Requires:
-	 * - PHP 4 >= 4.3.2 or PHP 5
-	 *
 	 * @param resource $res
 	 * @return array GalleryStatus
 	 *               bool true on success, false on failure
@@ -666,9 +598,6 @@ class GdFunctionality {
 
 	/**
 	 * Allocate a color for an image.
-	 *
-	 * Requires:
-	 * - PHP 4 >= 4.3.2 or PHP 5
 	 *
 	 * @param resource $res
 	 * @param int $red

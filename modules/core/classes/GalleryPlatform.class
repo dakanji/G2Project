@@ -550,7 +550,7 @@ class GalleryPlatform {
 	 *          1 is GIF, 2 is JPG, 3 is PNG, 4 is SWF, 5 is PSD,
 	 *          6 is BMP, 7 is TIFF(intel byte order), 8 is TIFF(motorola byte order),
 	 *          9 is JPC, 10 is JP2, 11 is JPX, 12 is  JB2, 13 is SWC, 14 is IFF.
-	 *     These values correspond to the IMAGETYPE constants that were added in PHP 4.3.
+	 *     These values correspond to the IMAGETYPE constants.
 	 *     Index 3 is a text string with the correct height="yyy" width="xxx" string
 	 *     that can be used  directly in an IMG tag.
 	 */
@@ -1003,14 +1003,6 @@ class GalleryPlatform {
 		}
 
 		$ret = ftruncate($handle, $size);
-
-		if ($ret === 1) {
-			/*
-			 * Prior to PHP 4.3.3, ftruncate() returns an integer value of 1 on success, instead of
-			 * boolean true. We correct this here.
-			 */
-			return true;
-		}
 
 		return $ret;
 	}

@@ -14,21 +14,10 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- *ten You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-if (!function_exists('file_put_contents')) {
-	// Define file_put_contents if running PHP 4.x
-	function file_put_contents($path, $data) {
-		if (false === ($file = fopen($path, 'w')) || false === fwrite($file, $data)) {
-			return false;
-		}
-		fclose($file);
-
-		return true;
-	}
-}
 
 // Prepare the environment if the script was run directly from command line
 if (empty($SRCDIR)) {
