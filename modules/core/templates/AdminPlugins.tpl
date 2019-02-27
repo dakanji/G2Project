@@ -209,7 +209,7 @@
 	  {/if}
 	</td>
 
-	<td style="width: 150px">
+	<td style="width: 180px">
           {if ($plugin.type == 'module' && $plugin.id == 'core') || $plugin.state == 'incompatible'}
 	    &nbsp;
 	  {else}
