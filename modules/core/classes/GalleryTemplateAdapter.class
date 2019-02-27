@@ -1058,11 +1058,11 @@ class GalleryTemplateAdapter {
 					'<img src="%s" alt="%s" title="%s" style="%s" width="80" height="15"/>',
 					$urlGenerator->generateUrl(
 						array(
-							'href' => 'modules/core/data/g23-skidoo.png',
+							'href' => 'modules/core/data/g24-phoenix.png',
 						)
 					),
-					$core->translate('G2.3: Skidoo'),
-					$core->translate('G2.3: Skidoo'),
+					$core->translate('G2.4: Phoenix'),
+					$core->translate('G2.4: Phoenix'),
 					'border-style: none'
 				);
 		}
