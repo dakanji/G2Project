@@ -35,7 +35,7 @@ class UserLoginController extends GalleryController {
 	public $_pluginInstances;
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -215,7 +215,7 @@ class UserLoginController extends GalleryController {
  */
 class UserLoginView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

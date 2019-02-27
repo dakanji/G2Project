@@ -29,7 +29,7 @@
  */
 class CustomFieldInterface_1_0 {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

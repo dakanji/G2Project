@@ -27,7 +27,7 @@
  */
 class ItemMakeHighlightController extends GalleryController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -98,7 +98,7 @@ class ItemMakeHighlightController extends GalleryController {
  */
 class ItemMakeHighlightView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

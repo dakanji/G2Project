@@ -27,7 +27,7 @@
  */
 class ReuploadPhotoOption extends ItemEditOption {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

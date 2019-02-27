@@ -1048,7 +1048,7 @@ class MockGalleryStatus {
 	}
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -1085,7 +1085,7 @@ class PluginCallbackMockStorage {
 
 class PluginCallbackWithFakeHandler extends PluginCallbackView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

@@ -32,7 +32,7 @@ GalleryCoreApi::requireOnce('modules/comment/module.inc');
  */
 class GalleryCommentHelper {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

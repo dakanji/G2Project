@@ -34,7 +34,7 @@
  */
 class {$viewName}Controller extends GalleryController {ldelim}
 	/**
- 	 * Load as Singleton
+ 	 * Class Loader
  	 */
 	public static function getMe() {ldelim}
 		static $singleton;
@@ -100,7 +100,7 @@ class {$viewName}Controller extends GalleryController {ldelim}
  */
 class {$viewName}View extends GalleryView {ldelim}
 	/**
-	* Load as Singleton
+	* Class Loader
 	*/
 	public static function getMe() {ldelim}
 		static $singleton;

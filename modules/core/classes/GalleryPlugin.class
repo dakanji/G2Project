@@ -71,7 +71,7 @@ class GalleryPlugin {
 	public $_l10Domain;
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

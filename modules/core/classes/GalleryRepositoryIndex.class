@@ -62,7 +62,7 @@ class GalleryRepositoryIndex {
 	}
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe($source) {
 		$singleton = new GalleryRepositoryIndex($source);

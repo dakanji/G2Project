@@ -27,7 +27,7 @@
  */
 class ItemAddAlbumController extends GalleryController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -160,7 +160,7 @@ class ItemAddAlbumController extends GalleryController {
  */
 class ItemAddAlbumView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

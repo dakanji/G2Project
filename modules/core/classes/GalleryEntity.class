@@ -154,7 +154,7 @@ class GalleryEntity extends GalleryPersistent {
 	public $onLoadHandlers;
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

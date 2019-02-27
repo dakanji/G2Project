@@ -27,7 +27,7 @@
  */
 class CreateThumbnailOption extends ItemAddOption {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

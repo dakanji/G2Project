@@ -42,7 +42,7 @@ GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldInterface_1_
  */
 class CustomFieldHelper extends CustomFieldInterface_1_0 {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

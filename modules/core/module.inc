@@ -50,7 +50,7 @@ class CoreModule extends GalleryModule {
 	}
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

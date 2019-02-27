@@ -69,7 +69,7 @@ class GalleryModule extends GalleryPlugin {
 	public $_templateVersion;
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

@@ -27,7 +27,7 @@
  */
 class ItemAddFromBrowser extends ItemAddPlugin {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

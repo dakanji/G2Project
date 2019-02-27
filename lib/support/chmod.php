@@ -350,7 +350,7 @@ class PermissionBits {
 	}
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		return new PermissionBits();

@@ -28,7 +28,7 @@
  */
 class ItemEditCaptionsController extends GalleryController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -172,7 +172,7 @@ class ItemEditCaptionsController extends GalleryController {
  */
 class ItemEditCaptionsView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

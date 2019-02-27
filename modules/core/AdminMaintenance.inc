@@ -29,7 +29,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/helpers/MaintenanceHelper_simp
  */
 class AdminMaintenanceController extends GalleryController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -189,7 +189,7 @@ class AdminMaintenanceController extends GalleryController {
  */
 class AdminMaintenanceView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -289,7 +289,7 @@ class AdminMaintenanceView extends GalleryView {
  */
 class MaintenanceTask {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

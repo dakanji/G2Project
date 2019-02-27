@@ -37,7 +37,7 @@ GalleryCoreApi::requireOnce(
  */
 class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -461,7 +461,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
  */
 class AdminLanguageManagerView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

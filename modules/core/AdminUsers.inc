@@ -27,7 +27,7 @@
  */
 class AdminUsersController extends GalleryController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -131,7 +131,7 @@ class AdminUsersController extends GalleryController {
  */
 class AdminUsersView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

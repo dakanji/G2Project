@@ -27,7 +27,7 @@
  */
 class ItemDeleteController extends GalleryController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -180,7 +180,7 @@ class ItemDeleteController extends GalleryController {
  */
 class ItemDeleteView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

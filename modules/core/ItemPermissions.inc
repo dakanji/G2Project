@@ -27,7 +27,7 @@
  */
 class ItemPermissionsController extends GalleryController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -454,7 +454,7 @@ class ItemPermissionsController extends GalleryController {
  */
 class ItemPermissionsView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

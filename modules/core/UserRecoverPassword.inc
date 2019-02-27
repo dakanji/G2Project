@@ -32,7 +32,7 @@ GalleryCoreApi::requireOnce(
  */
 class UserRecoverPasswordController extends GalleryController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -332,7 +332,7 @@ class UserRecoverPasswordController extends GalleryController {
  */
 class UserRecoverPasswordView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

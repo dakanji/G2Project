@@ -27,7 +27,7 @@
  */
 class ShowItemController extends GalleryController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -73,7 +73,7 @@ class ShowItemController extends GalleryController {
  */
 class ShowItemView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

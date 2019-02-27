@@ -28,7 +28,7 @@
  */
 class ItemDeleteSingleController extends GalleryController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

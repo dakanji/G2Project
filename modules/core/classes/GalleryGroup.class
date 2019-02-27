@@ -67,7 +67,7 @@ class GalleryGroup extends GalleryEntity {
 	public $groupName;
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

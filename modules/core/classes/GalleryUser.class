@@ -118,7 +118,7 @@ class GalleryUser extends GalleryEntity {
 	public $locked;
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

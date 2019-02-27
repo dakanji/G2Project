@@ -35,7 +35,7 @@ class ItemAddController extends GalleryController {
 	public $_optionInstances;
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -696,7 +696,7 @@ class ItemAddController extends GalleryController {
  */
 class ItemAddView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -900,7 +900,7 @@ class ItemAddView extends GalleryView {
  */
 class ItemAddPlugin {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -974,7 +974,7 @@ class ItemAddPlugin {
  */
 class ItemAddOption {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

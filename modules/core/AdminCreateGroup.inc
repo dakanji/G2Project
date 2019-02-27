@@ -27,7 +27,7 @@
  */
 class AdminCreateGroupController extends GalleryController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -119,7 +119,7 @@ class AdminCreateGroupController extends GalleryController {
  */
 class AdminCreateGroupView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

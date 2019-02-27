@@ -59,7 +59,7 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 	public $pathComponent;
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

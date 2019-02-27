@@ -27,7 +27,7 @@
  */
 class ItemReorderController extends GalleryController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -201,7 +201,7 @@ class ItemReorderController extends GalleryController {
  */
 class ItemReorderView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

@@ -78,7 +78,7 @@ class GalleryMovieItem extends GalleryDataItem {
 	public $duration;
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

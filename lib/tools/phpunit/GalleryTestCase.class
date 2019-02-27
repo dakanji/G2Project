@@ -41,7 +41,7 @@ class GalleryTestCase extends TestCase {
 	}
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe($methodName = 'TestCase') {
 		$singleton = new GalleryTestCase($methodName);

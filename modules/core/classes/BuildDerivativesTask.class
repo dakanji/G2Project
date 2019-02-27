@@ -31,7 +31,7 @@ GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
  */
 class BuildDerivativesTask extends MaintenanceTask {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

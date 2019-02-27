@@ -63,7 +63,7 @@ class GalleryDerivativeImage extends GalleryDerivative {
 	public $height;
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

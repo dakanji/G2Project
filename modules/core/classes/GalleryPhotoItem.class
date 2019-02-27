@@ -65,7 +65,7 @@ class GalleryPhotoItem extends GalleryDataItem {
 	public $height;
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

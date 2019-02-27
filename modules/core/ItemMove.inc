@@ -27,7 +27,7 @@
  */
 class ItemMoveController extends GalleryController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -305,7 +305,7 @@ class ItemMoveController extends GalleryController {
  */
 class ItemMoveView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

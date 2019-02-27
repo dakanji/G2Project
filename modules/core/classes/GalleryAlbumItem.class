@@ -76,7 +76,7 @@ class GalleryAlbumItem extends GalleryItem {
 	public $orderDirection;
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

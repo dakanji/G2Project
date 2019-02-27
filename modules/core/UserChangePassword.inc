@@ -27,7 +27,7 @@
  */
 class UserChangePasswordController extends GalleryController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -167,7 +167,7 @@ class UserChangePasswordController extends GalleryController {
  */
 class UserChangePasswordView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

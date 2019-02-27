@@ -27,7 +27,7 @@
  */
 class UserPreferencesController extends GalleryController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -196,7 +196,7 @@ class UserPreferencesController extends GalleryController {
  */
 class UserPreferencesView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

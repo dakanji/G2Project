@@ -42,7 +42,7 @@ class GallerySmarty extends Smarty {
 	public $_firstGalleryStatus;
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

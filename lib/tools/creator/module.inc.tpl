@@ -47,7 +47,7 @@ class {$ucModuleId}Module extends GalleryModule {ldelim}
 	{rdelim}
 
 	/**
-	* Load as Singleton
+	* Class Loader
 	*/
 	public static function getMe() {ldelim}
 		static $singleton;

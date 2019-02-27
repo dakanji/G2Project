@@ -27,7 +27,7 @@
  */
 class UserAdminView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

@@ -1120,7 +1120,7 @@ class DataCacheTestPlatform_testGetFromDisk {
  */
 class DataCacheTestPlatform {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

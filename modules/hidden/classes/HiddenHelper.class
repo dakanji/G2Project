@@ -34,7 +34,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	public $passwordInterface;
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

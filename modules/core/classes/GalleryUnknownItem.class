@@ -40,7 +40,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
  */
 class GalleryUnknownItem extends GalleryDataItem {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

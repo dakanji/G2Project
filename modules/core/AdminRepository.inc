@@ -34,7 +34,7 @@ GalleryCoreApi::requireOnce(
  */
 class AdminRepositoryController extends AdminRepositoryDownloadAndInstallController {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;
@@ -192,7 +192,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
  */
 class AdminRepositoryView extends GalleryView {
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe() {
 		static $singleton;

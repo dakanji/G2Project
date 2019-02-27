@@ -60,7 +60,7 @@ class GalleryStatus {
 	}
 
 	/**
-	 * Load as Singleton
+	 * Class Loader
 	 */
 	public static function getMe($errorCode = null, $errorMessage = null) {
 		$singleton = new GalleryStatus($errorCode, $errorMessage);
