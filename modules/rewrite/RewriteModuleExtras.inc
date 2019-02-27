@@ -157,13 +157,16 @@ class RewriteModuleExtras {
 			case '1.0.4':
 				// Get the custom rules and save it to a plugin param (RewriteMap depricated)
 				$query = '
-			SELECT
-			[RewriteMap::module], [RewriteMap::ruleId], [RewriteMap::pattern]
-			FROM
-			[RewriteMap]
-			ORDER BY
-			[RewriteMap::module] ASC, [RewriteMap::ruleId] ASC
-			';
+					SELECT
+						[RewriteMap::module], 
+						[RewriteMap::ruleId], 
+						[RewriteMap::pattern]
+					FROM
+						[RewriteMap]
+					ORDER BY
+						[RewriteMap::module] ASC, 
+						[RewriteMap::ruleId] ASC
+				';
 
 				/*
 				 * If this is an upgrade from beta 2 we dont have a RewriteMap.  Previous to 0.9.3 rules
@@ -410,7 +413,15 @@ class RewriteModuleExtras {
 			case '1.1.16':
 			case '1.1.17':
 			case '1.1.18':
+			case '1.1.19':
+			case '2.0.0':
+				// Updated GalleryCoreApi requirement to 8.0
+				// Upgraded GalleryModule requirement to 4.0
 			case 'end of upgrade path':
+				/*
+				 * Leave this bogus case at the end of the legitimate case statements
+				 * so that we always properly terminate our upgrade path with a break.
+				 */
 				break;
 
 			default:

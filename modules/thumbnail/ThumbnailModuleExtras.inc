@@ -81,10 +81,15 @@ class ThumbnailModuleExtras {
 				}
 
 				$query = '
-	    INSERT INTO [GalleryChildEntity] SELECT [ThumbnailImage::id], ' . (int)$rootId . '
-	    FROM [ThumbnailImage]
-	    ';
-				$ret   = $storage->execute($query);
+					INSERT INTO 
+						[GalleryChildEntity] 
+					SELECT 
+						[ThumbnailImage::id], ' . (int)$rootId . '
+					FROM 
+						[ThumbnailImage]
+				';
+
+				$ret = $storage->execute($query);
 
 				if ($ret) {
 					return $ret;
@@ -168,16 +173,17 @@ class ThumbnailModuleExtras {
 				}
 
 				// Before 0.9.3, mime-type thumbnails had a parentId of rootId. After 0.9.3 it was 0.
-				$query               = '
-	    SELECT
-	      [ThumbnailImage::id], [ThumbnailImage::fileName]
-	    FROM
-	      [ThumbnailImage], [GalleryChildEntity]
-	    WHERE
-	      [ThumbnailImage::id] = [GalleryChildEntity::id]
-	      AND
-	      [GalleryChildEntity::parentId] IN (?,?)
-	    ';
+				$query = '
+	    			SELECT
+	      				[ThumbnailImage::id], [ThumbnailImage::fileName]
+	    			FROM
+	      				[ThumbnailImage], [GalleryChildEntity]
+	    			WHERE
+	      				[ThumbnailImage::id] = [GalleryChildEntity::id]
+	      			AND
+	      				[GalleryChildEntity::parentId] IN (?,?)
+			    ';
+
 				list($ret, $results) = $gallery->search($query, array((int)$rootId, 0));
 
 				if ($ret) {
@@ -191,9 +197,12 @@ class ThumbnailModuleExtras {
 				}
 
 				$fileSystemEntityQuery = '
-		INSERT INTO [GalleryFileSystemEntity] ([::id], [::pathComponent])
-		VALUES (?, ?)
-	    ';
+					INSERT INTO 
+						[GalleryFileSystemEntity] ([::id],
+						[::pathComponent])
+					VALUES
+						(?, ?)
+	    		';
 
 				if (!empty($ids)) {
 					list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($ids);
@@ -207,10 +216,13 @@ class ThumbnailModuleExtras {
 					 * we can't use loadEntitiesById().
 					 */
 					$parentIdQuery = '
-		UPDATE [GalleryChildEntity]
-		SET [::parentId] = ?
-		WHERE [GalleryChildEntity::id] = ?
-		';
+						UPDATE 
+							[GalleryChildEntity]
+						SET 
+							[::parentId] = ?
+						WHERE 
+							[GalleryChildEntity::id] = ?
+					';
 
 					foreach ($ids as $id) {
 						$gallery->guaranteeTimeLimit(30);
@@ -248,15 +260,16 @@ class ThumbnailModuleExtras {
 
 				// Custom thumbnails are now stored hierarchically, not flat anymore.
 				$query = '
-	    SELECT
-	      [ThumbnailImage::id], [ThumbnailImage::fileName]
-	    FROM
-	      [ThumbnailImage], [GalleryChildEntity]
-	    WHERE
-	      [ThumbnailImage::id] = [GalleryChildEntity::id]
-	      AND
-	      [GalleryChildEntity::parentId] <> ?
-	    ';
+					SELECT 
+						[ThumbnailImage::id], [ThumbnailImage::fileName]
+	    			FROM 
+	    				[ThumbnailImage], [GalleryChildEntity]
+	    			WHERE 
+	    				[ThumbnailImage::id] = [GalleryChildEntity::id]
+			    	AND 
+			    		[GalleryChildEntity::parentId] <> ?
+	    		';
+
 				$gallery->guaranteeTimeLimit(30);
 				list($ret, $results) = $gallery->search($query, array($containerId));
 
@@ -403,12 +416,16 @@ class ThumbnailModuleExtras {
 			case '1.0.11':
 				// Refactored to new event registration from core API 7.34
 			case '1.0.12':
-				// Require minimum core API 7.45
+				// Updated GalleryCoreApi requirement to 7.45
 			case '1.0.13':
+			case '1.0.14':
+			case '2.0.0':
+				// Updated GalleryCoreApi requirement to 8.0
+				// Upgraded GalleryModule requirement to 4.0
 			case 'end of upgrade path':
 				/*
-				 * Leave this bogus case at the end of the legitimate case statements so that we
-				 * always properly terminate our upgrade path with a break.
+				 * Leave this bogus case at the end of the legitimate case statements
+				 * so that we always properly terminate our upgrade path with a break.
 				 */
 				break;
 

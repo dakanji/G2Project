@@ -72,7 +72,7 @@ class SystemChecksStep extends UpgradeStep {
 
 		if (!empty($_GET['downloadCleanupScript'])) {
 			$statusMonitor = null;
-			$manifest      = SystemChecksStep::CheckManifest(
+			$manifest      = $this->CheckManifest(
 				$statusMonitor,
 				function_exists('set_time_limit')
 			);
@@ -142,7 +142,9 @@ class SystemChecksStep extends UpgradeStep {
 		}
 
 		// assert that __FILE__ works correctly
-		if (!self::CheckFileDirective()) {
+		$fileDirectiveWorks = $this->CheckFileDirective();
+
+		if (!$fileDirectiveWorks) {
 			$templateData['check'][] = array(
 				'title'  => 'FILE directive supported',
 				'error'  => true,
@@ -430,7 +432,7 @@ class SystemChecksStep extends UpgradeStep {
 				'notice'  => 'Test skipped due to other errors.',
 			);
 		} else {
-			$storageFiles = SystemChecksStep::CheckStorageDirectory();
+			$storageFiles = $this->CheckStorageDirectory();
 
 			if (!empty($storageFiles)) {
 				$notice = sprintf(
@@ -471,7 +473,7 @@ class SystemChecksStep extends UpgradeStep {
 			);
 		} else {
 			$isSvnInstall = file_exists(__DIR__ . '/.svn');
-			$manifest     = SystemChecksStep::CheckManifest($template, $setTimeLimitAvailable);
+			$manifest     = $this->CheckManifest($template, $setTimeLimitAvailable);
 
 			if (!isset($manifest)) {
 				$templateData['check'][]   = array(
@@ -655,7 +657,7 @@ class SystemChecksStep extends UpgradeStep {
 		$max         = 400;
 		$storagePath = substr($storagePath, 0, strlen($storagePath) - 1);
 
-		return SystemChecksStep::_checkStorageSubDirectory($storagePath, $tested, $max);
+		return $this->_checkStorageSubDirectory($storagePath, $tested, $max);
 	}
 
 	/**
@@ -696,7 +698,7 @@ class SystemChecksStep extends UpgradeStep {
 				// Threshold not yet reached, check subdirectory tree
 				$storageFiles = array_merge(
 					$storageFiles,
-					SystemChecksStep::_checkStorageSubDirectory($path, $tested, $max)
+					$this->_checkStorageSubDirectory($path, $tested, $max)
 				);
 			}
 		}
