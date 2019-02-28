@@ -61,6 +61,12 @@ For more advanced users interested in the Github branches, these are set out as 
 
 It is currently not possible to auto upgrade from Gallery v3 to Gallery 2. You will need to manually transfer your Gallery v3 items.
 
-# Issues / Bugs
+# Contributing
+
+## Code Enhancements and Fixes
+
+Code enhancements and fixes are very much welcome. Please refer to the [Contribution Guidance](https://github.com/dakanji/G2Project/blob/alpha/CONTRIBUTING.md) for information on how to leverage the project developer environment.
+
+## Issues / Bugs
 
 Check the [Known Issues](http://codex.gallery2.org/Gallery2:Known_Issues) list and [Bug Tracker](https://github.com/dakanji/G2Project/issues) for information and some workarounds for known problems.
