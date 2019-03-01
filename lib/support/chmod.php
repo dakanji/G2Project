@@ -61,7 +61,7 @@ if (empty($path)) {
 $path = str_replace('..', '', $path);
 
 if (!file_exists($path)) {
-	// TODO: add open_basedir check
+	// @TODO: add open_basedir check
 	$status['error'][] = "Folder or file '$path' does not exist!";
 }
 
@@ -74,20 +74,27 @@ if (empty($permissions)) {
 }
 
 if (strlen($permissions) != 6) {
-	$status['error'][] = "Unknown permissions '$permissions'! Aborting action and resetting permissions.";
+	$status['error'][] = "Unknown permissions '$permissions'! "
+		. 'Aborting action and resetting permissions.';
 }
 
 if (empty($status['error'])) {
-	$folderPermissions = PermissionBits::getMe()->fromString(substr($permissions, 0, 3));
-	$filePermissions   = PermissionBits::getMe()->fromString(substr($permissions, 3, 3));
+	$folderPermissions = PermissionBits::getMe()->fromString(
+		substr($permissions, 0, 3)
+	);
+	$filePermissions   = PermissionBits::getMe()->fromString(
+		substr($permissions, 3, 3)
+	);
 
 	if (!$folderPermissions->isValid()) {
-		$status['error'][] = 'Invalid folder permissions! Aborting action and resetting permissions.';
+		$status['error'][] = 'Invalid folder permissions! '
+			. 'Aborting action and resetting permissions.';
 		$folderPermissions = $DEFAULT_FOLDER_PERMISSIONS;
 	}
 
 	if (!$filePermissions->isValid()) {
-		$status['error'][] = 'Invalid file permissions! Aborting action and resetting permissions.';
+		$status['error'][] = 'Invalid file permissions! '
+			. 'Aborting action and resetting permissions.';
 		$filePermissions   = $DEFAULT_FILE_PERMISSIONS;
 	}
 } else {
@@ -97,7 +104,13 @@ if (empty($status['error'])) {
 
 // Main program section
 
-printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermissions, $permissionBitSets);
+printPageWithoutFooter(
+	$plugins,
+	$path,
+	$filePermissions,
+	$folderPermissions,
+	$permissionBitSets
+);
 
 if (empty($status['error'])) {
 	$command = trim(getRequestVariable('command'));
@@ -131,10 +144,10 @@ if (empty($status['error'])) {
 
 				if (!empty($ret)) {
 					$status['error'][] = 'Failed to change the filesystem permissions '
-					. 'of the modules/ and themes/ folder.';
+						. 'of the modules/ and themes/ folder.';
 				} else {
 					$status['message'] = 'Successfully changed the filesystem permissions '
-					. 'of the modules/ and the themes/ folder.';
+						. 'of the modules/ and the themes/ folder.';
 				}
 			}
 
@@ -156,10 +169,10 @@ if (empty($status['error'])) {
 
 				if (!empty($ret)) {
 					$status['error'][] = 'Failed to change the filesystem permissions '
-					. "of the '$pluginPath' folder.";
+						. "of the '$pluginPath' folder.";
 				} else {
 					$status['message'] = 'Successfully changed the filesystem permissions '
-					. "of the '$pluginPath' folder.";
+						. "of the '$pluginPath' folder.";
 				}
 			}
 
@@ -176,10 +189,10 @@ if (empty($status['error'])) {
 
 				if (!empty($ret)) {
 					$status['error'][] = 'Failed to change the filesystem permissions '
-					. 'of the Gallery folder.';
+						. 'of the Gallery folder.';
 				} else {
 					$status['message'] = 'Successfully changed the filesystem permissions '
-					. 'of the Gallery folder.';
+						. 'of the Gallery folder.';
 				}
 			}
 
@@ -191,10 +204,10 @@ if (empty($status['error'])) {
 
 			if (!empty($ret)) {
 				$status['error'][] = 'Failed to change the filesystem permissions '
-				. 'of the storage folder.';
+					. 'of the storage folder.';
 			} else {
 				$status['message'] = 'Successfully changed the filesystem permissions '
-				. 'of the storage folder.';
+					. 'of the storage folder.';
 			}
 
 			break;
@@ -205,10 +218,10 @@ if (empty($status['error'])) {
 
 			if (!empty($ret)) {
 				$status['error'][] = 'Failed to change the filesystem permissions '
-				. 'of the locale folder.';
+					. 'of the locale folder.';
 			} else {
 				$status['message'] = 'Successfully changed the filesystem permissions '
-				. 'of the locale folder.';
+					. 'of the locale folder.';
 			}
 
 			break;
@@ -599,8 +612,15 @@ function printStatus($status) {
 	 * Call this function, then call chmodRecursively() which will output some HTML,
 	 * and finally call printFooter();
 	 */
-function printPageWithoutFooter($plugins, $path, $filePermissions, $folderPermissions, $permissionBitSets) {
+function printPageWithoutFooter(
+	$plugins,
+	$path,
+	$filePermissions,
+	$folderPermissions,
+	$permissionBitSets
+) {
 	global $baseUrl; ?>
+	<!DOCTYPE html>
 		<html lang="en">
 		<head>
 			<title>Gallery Support - Change Filesystem Permissions</title>
@@ -850,7 +870,7 @@ function openErrorBox() {
 	<a name="details"></a>
 	<div id="details" class="results">
 		<h2>Details:</h2>
-		<?php
+	<?php
 } // end function openErrorBox() {
 
 function closeErrorBox() {

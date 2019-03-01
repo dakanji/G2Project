@@ -68,7 +68,12 @@ class CaptchaImageView extends GalleryView {
 		// Draw some colored ellipses at random to perturb the background
 		for ($i = 0; $i < 40; $i++) {
 			// Pick a random 50-75% lightness color for this ellipse
-			$color = imagecolorallocate($image, mt_rand(128, 192), mt_rand(128, 192), mt_rand(128, 192));
+			$color = imagecolorallocate(
+				$image,
+				mt_rand(128, 192),
+				mt_rand(128, 192),
+				mt_rand(128, 192)
+			);
 			imageellipse(
 				$image,
 				mt_rand(-15, $width - 5),

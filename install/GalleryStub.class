@@ -34,15 +34,11 @@ class GalleryStub {
 		return isset($this->_hash[$key]) ? $this->_hash[$key] : '';
 	}
 
-	public function setDebug() {
-	}
+	public function setDebug() {}
 
-	public function setDebugLogFile() {
-	}
+	public function setDebugLogFile() {}
 
-	public function setProfile() {
-	}
+	public function setProfile() {}
 
-	public function debug() {
-	}
+	public function debug() {}
 }
