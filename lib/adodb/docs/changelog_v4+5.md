@@ -5,7 +5,7 @@
 - Thanks Zoltan Monori [monzol#fotoprizma.hu] for bug fixes in iterator, SelectLimit, GetRandRow, etc.
 - Under heavy loads, the performance monitor for oci8 disables Ixora views.
 - Fixed sybase driver SQLDate to use str_replace(). Also for adodb5, changed sybase driver UnixDate and UnixTimeStamp calls to static.
-- Changed oci8 lob handler to use &amp; reference $this-&gt;_refLOBs[$numlob]['VAR'] = &amp;$var.
+- Changed oci8 lob handler to use &amp; reference $this-&gt;_refLOBs[$numlob]['VAR'] =& amp;$var.
 - We now strtolower the get_class() function in PEAR::isError() for php5 compat.
 - CacheExecute did not retrieve cache recordsets properly for 5.04 (worked in 4.98). Fixed.
 - New ADODB_Cache_File class for file caching defined in adodb.inc.php.
@@ -93,7 +93,7 @@ and Marcos Pont
 Added zerofill checking support to MetaColumns for mysql and mysqli.
 CacheFlush no longer deletes all files/directories. Only *.cache files
 deleted.
-DB2 timestamp format changed to var $fmtTimeStamp = &quot;'Y-m-d-H:i:s'&quot;;
+DB2 timestamp format changed to var $fmtTimeStamp =& quot;'Y-m-d-H:i:s'&quot;;
 Added some code sanitization to AutoExecute in adodb-lib.inc.php.
 Due to typo, all connections in adodb-oracle.inc.php would become
 persistent, even non-persistent ones. Fixed.

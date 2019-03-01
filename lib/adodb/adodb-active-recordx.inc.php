@@ -153,7 +153,7 @@ class ADODB_Active_Record {
 			$this->_sTable = strtolower(get_class($this));
 			$this->_pTable = $this->_pluralize($this->_sTable);
 		}
-		$this->_table = &$this->_pTable;
+		$this->_table =& $this->_pTable;
 
 		$this->foreignName = $this->_sTable; // CFR: default foreign name (singular)
 
@@ -1309,7 +1309,7 @@ function adodb_GetActiveRecordsClass(
 		$extra['loading'] = ADODB_LAZY_AR;
 	}
 	$save      = $db->SetFetchMode(ADODB_FETCH_NUM);
-	$table     = &$tableObj->_table;
+	$table     =& $tableObj->_table;
 	$tableInfo =& $tableObj->TableInfo();
 
 	if (($k = reset($tableInfo->keys))) {
@@ -1442,7 +1442,7 @@ function adodb_GetActiveRecordsClass(
 
 		if (ADODB_WORK_AR == $extra['loading']) {
 			$arrRef[$rowId] = $obj;
-			$arr[]          = &$arrRef[$rowId];
+			$arr[]          =& $arrRef[$rowId];
 
 			if (!isset($indices)) {
 				$indices = $rowId;
@@ -1486,7 +1486,7 @@ function adodb_GetActiveRecordsClass(
 						$foreignName = $foreignTable->foreignName;
 
 						if (!empty($obj->$foreignName)) {
-							$masterObj = &$uniqArr['_' . $row[0]];
+							$masterObj =& $uniqArr['_' . $row[0]];
 							// Assumption: this property exists in every object since they are instances of the same class
 							if (!is_array($masterObj->$foreignName)) {
 								// Pluck!
@@ -1506,7 +1506,7 @@ function adodb_GetActiveRecordsClass(
 						$foreignName = $foreignTable->foreignName;
 
 						if (!empty($obj->$foreignName)) {
-							$masterObj = &$uniqArr['_' . $row[0]];
+							$masterObj =& $uniqArr['_' . $row[0]];
 							// Assumption: this property exists in every object since they are instances of the same class
 							if (!is_array($masterObj->$foreignName)) {
 								// Pluck!

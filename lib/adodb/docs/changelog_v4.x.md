@@ -13,7 +13,7 @@ Older changelogs:
 - Thanks Zoltan Monori [monzol#fotoprizma.hu] for bug fixes in iterator, SelectLimit, GetRandRow, etc.
 - Under heavy loads, the performance monitor for oci8 disables Ixora views.
 - Fixed sybase driver SQLDate to use str_replace(). Also for adodb5, changed sybase driver UnixDate and UnixTimeStamp calls to static.
-- Changed oci8 lob handler to use &amp; reference $this-&gt;_refLOBs[$numlob]['VAR'] = &amp;$var.
+- Changed oci8 lob handler to use &amp; reference $this-&gt;_refLOBs[$numlob]['VAR'] =& amp;$var.
 - We now strtolower the get_class() function in PEAR::isError() for php5 compat.
 - CacheExecute did not retrieve cache recordsets properly for 5.04 (worked in 4.98). Fixed.
 - New ADODB_Cache_File class for file caching defined in adodb.inc.php.

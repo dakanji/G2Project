@@ -406,7 +406,7 @@ class SimpleCallbackTestPlatform extends UnitTestPlatform {
 
 	public function __construct() {
 		global $gallery;
-		$this->_originalPlatform = & $gallery->getPlatform();
+		$this->_originalPlatform =& $gallery->getPlatform();
 		parent::__construct();
 	}
 
