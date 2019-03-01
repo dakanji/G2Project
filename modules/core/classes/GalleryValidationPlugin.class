@@ -34,13 +34,13 @@ class GalleryValidationPlugin {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryValidationPlugin();
+		if (!isset($instance)) {
+			$instance = new GalleryValidationPlugin();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

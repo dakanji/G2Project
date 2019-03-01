@@ -30,13 +30,13 @@ class ItemPermissionsController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemPermissionsController();
+		if (!isset($instance)) {
+			$instance = new ItemPermissionsController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -457,13 +457,13 @@ class ItemPermissionsView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemPermissionsView();
+		if (!isset($instance)) {
+			$instance = new ItemPermissionsView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

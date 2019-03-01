@@ -30,13 +30,13 @@ class ShowItemErrorView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ShowItemErrorView();
+		if (!isset($instance)) {
+			$instance = new ShowItemErrorView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

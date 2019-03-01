@@ -51,13 +51,13 @@ class ArchiveUploadModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ArchiveUploadModule();
+		if (!isset($instance)) {
+			$instance = new ArchiveUploadModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

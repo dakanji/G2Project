@@ -30,13 +30,13 @@ class ItemEditAnimation extends ItemEditPlugin {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemEditAnimation();
+		if (!isset($instance)) {
+			$instance = new ItemEditAnimation();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

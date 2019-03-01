@@ -200,13 +200,13 @@ class GalleryStorage {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryStorage();
+		if (!isset($instance)) {
+			$instance = new GalleryStorage();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -30,13 +30,13 @@ class UserAdminView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new UserAdminView();
+		if (!isset($instance)) {
+			$instance = new UserAdminView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

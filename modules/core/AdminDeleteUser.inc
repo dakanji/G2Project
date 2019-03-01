@@ -46,13 +46,13 @@ class AdminDeleteUserController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminDeleteUserController();
+		if (!isset($instance)) {
+			$instance = new AdminDeleteUserController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -197,13 +197,13 @@ class AdminDeleteUserView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminDeleteUserView();
+		if (!isset($instance)) {
+			$instance = new AdminDeleteUserView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

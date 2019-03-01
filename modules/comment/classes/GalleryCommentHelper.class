@@ -35,13 +35,13 @@ class GalleryCommentHelper {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryCommentHelper();
+		if (!isset($instance)) {
+			$instance = new GalleryCommentHelper();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

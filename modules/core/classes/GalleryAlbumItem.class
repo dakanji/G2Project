@@ -79,13 +79,13 @@ class GalleryAlbumItem extends GalleryItem {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryAlbumItem();
+		if (!isset($instance)) {
+			$instance = new GalleryAlbumItem();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

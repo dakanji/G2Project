@@ -52,13 +52,13 @@ class CustomFieldModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new CustomFieldModule();
+		if (!isset($instance)) {
+			$instance = new CustomFieldModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

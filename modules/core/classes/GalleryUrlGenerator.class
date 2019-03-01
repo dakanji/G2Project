@@ -133,13 +133,13 @@ class GalleryUrlGenerator {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryUrlGenerator();
+		if (!isset($instance)) {
+			$instance = new GalleryUrlGenerator();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

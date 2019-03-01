@@ -53,13 +53,13 @@ class CoreModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new CoreModule();
+		if (!isset($instance)) {
+			$instance = new CoreModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -52,13 +52,13 @@ class MultiLangModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new MultiLangModule();
+		if (!isset($instance)) {
+			$instance = new MultiLangModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

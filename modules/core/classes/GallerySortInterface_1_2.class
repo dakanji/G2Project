@@ -31,13 +31,13 @@ class GallerySortInterface_1_2 {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GallerySortInterface_1_2();
+		if (!isset($instance)) {
+			$instance = new GallerySortInterface_1_2();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

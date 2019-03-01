@@ -49,13 +49,13 @@ class KeyAlbumModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new KeyAlbumModule();
+		if (!isset($instance)) {
+			$instance = new KeyAlbumModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -30,13 +30,13 @@ class CreateThumbnailOption extends ItemAddOption {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new CreateThumbnailOption();
+		if (!isset($instance)) {
+			$instance = new CreateThumbnailOption();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

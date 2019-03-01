@@ -50,13 +50,13 @@ class ItemAddModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemAddModule();
+		if (!isset($instance)) {
+			$instance = new ItemAddModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

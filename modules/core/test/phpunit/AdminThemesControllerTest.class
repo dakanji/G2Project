@@ -403,13 +403,13 @@ class TestThemeId2Theme extends GalleryTheme {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new TestThemeId2Theme();
+		if (!isset($instance)) {
+			$instance = new TestThemeId2Theme();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	public function &getMap() {
@@ -479,13 +479,13 @@ class TestThemeId2Theme extends GalleryTheme {
  */
 class AdminThemesControllerTestTheme {
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminThemesControllerTestTheme();
+		if (!isset($instance)) {
+			$instance = new AdminThemesControllerTestTheme();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	public function getId() {
@@ -527,36 +527,36 @@ class AdminThemesControllerTestTheme {
 	}
 
 	public function _setCalled($function) {
-		$singleton                      = $this->getMe();
-		$singleton->_callMap[$function] = 1;
+		$instance                      = $this->getMe();
+		$instance->_callMap[$function] = 1;
 	}
 
 	public function wasCalled($function) {
-		$singleton = $this->getMe();
+		$instance = $this->getMe();
 
-		return isset($singleton->_callMap[$function]);
+		return isset($instance->_callMap[$function]);
 	}
 
 	public function resetCalls() {
-		$singleton           = $this->getMe();
-		$singleton->_callMap = array();
+		$instance           = $this->getMe();
+		$instance->_callMap = array();
 	}
 
 	public function _set($key, $val) {
-		$singleton       = $this->getMe();
-		$singleton->$key = $val;
+		$instance       = $this->getMe();
+		$instance->$key = $val;
 	}
 
 	public function isActive() {
-		$singleton = $this->getMe();
+		$instance = $this->getMe();
 
-		return array(null, $singleton->_isActive);
+		return array(null, $instance->_isActive);
 	}
 
 	public function isAdvancedSettings() {
-		$singleton = $this->getMe();
+		$instance = $this->getMe();
 
-		return $singleton->_isAdvancedSettings;
+		return $instance->_isAdvancedSettings;
 	}
 
 	public function translate($str) {

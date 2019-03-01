@@ -75,13 +75,13 @@ class GalleryTemplateAdapter {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryTemplateAdapter();
+		if (!isset($instance)) {
+			$instance = new GalleryTemplateAdapter();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

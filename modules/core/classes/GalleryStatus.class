@@ -63,9 +63,9 @@ class GalleryStatus {
 	 * Class Loader
 	 */
 	public static function getMe($errorCode = null, $errorMessage = null) {
-		$singleton = new GalleryStatus($errorCode, $errorMessage);
+		$instance = new GalleryStatus($errorCode, $errorMessage);
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

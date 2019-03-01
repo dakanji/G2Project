@@ -57,13 +57,13 @@ class RewriteParser {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new RewriteParser();
+		if (!isset($instance)) {
+			$instance = new RewriteParser();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

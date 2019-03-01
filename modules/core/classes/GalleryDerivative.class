@@ -149,13 +149,13 @@ class GalleryDerivative extends GalleryChildEntity {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryDerivative();
+		if (!isset($instance)) {
+			$instance = new GalleryDerivative();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

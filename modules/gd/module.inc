@@ -52,13 +52,13 @@ class GdModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GdModule();
+		if (!isset($instance)) {
+			$instance = new GdModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

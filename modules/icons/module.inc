@@ -49,13 +49,13 @@ class IconsModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new IconsModule();
+		if (!isset($instance)) {
+			$instance = new IconsModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

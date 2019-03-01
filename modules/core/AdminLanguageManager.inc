@@ -40,13 +40,13 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminLanguageManagerController();
+		if (!isset($instance)) {
+			$instance = new AdminLanguageManagerController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -464,13 +464,13 @@ class AdminLanguageManagerView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminLanguageManagerView();
+		if (!isset($instance)) {
+			$instance = new AdminLanguageManagerView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

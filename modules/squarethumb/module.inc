@@ -55,13 +55,13 @@ class SquareThumbModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new SquareThumbModule();
+		if (!isset($instance)) {
+			$instance = new SquareThumbModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

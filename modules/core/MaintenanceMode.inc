@@ -30,13 +30,13 @@ class MaintenanceModeView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new MaintenanceModeView();
+		if (!isset($instance)) {
+			$instance = new MaintenanceModeView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

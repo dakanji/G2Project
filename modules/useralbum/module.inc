@@ -51,13 +51,13 @@ class UserAlbumModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new UserAlbumModule();
+		if (!isset($instance)) {
+			$instance = new UserAlbumModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

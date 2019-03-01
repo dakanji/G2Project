@@ -30,13 +30,13 @@ class UserPreferencesController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new UserPreferencesController();
+		if (!isset($instance)) {
+			$instance = new UserPreferencesController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -199,13 +199,13 @@ class UserPreferencesView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new UserPreferencesView();
+		if (!isset($instance)) {
+			$instance = new UserPreferencesView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

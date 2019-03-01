@@ -1051,13 +1051,13 @@ class MockGalleryStatus {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new MockGalleryStatus();
+		if (!isset($instance)) {
+			$instance = new MockGalleryStatus();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	public function putInSession() {
@@ -1088,13 +1088,13 @@ class PluginCallbackWithFakeHandler extends PluginCallbackView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new PluginCallbackWithFakeHandler();
+		if (!isset($instance)) {
+			$instance = new PluginCallbackWithFakeHandler();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	public function setReply($call, $reply) {

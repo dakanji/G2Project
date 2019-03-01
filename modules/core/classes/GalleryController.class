@@ -34,13 +34,13 @@ class GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryController();
+		if (!isset($instance)) {
+			$instance = new GalleryController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

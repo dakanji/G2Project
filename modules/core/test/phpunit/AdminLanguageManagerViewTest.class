@@ -400,13 +400,13 @@ class AdminLanguagesViewTestTranslator extends GalleryTranslator {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminLanguagesViewTestTranslator();
+		if (!isset($instance)) {
+			$instance = new AdminLanguagesViewTestTranslator();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	public function getLanguageData() {

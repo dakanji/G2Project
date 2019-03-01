@@ -30,13 +30,13 @@ class ItemEditItem extends ItemEditPlugin {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemEditItem();
+		if (!isset($instance)) {
+			$instance = new ItemEditItem();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

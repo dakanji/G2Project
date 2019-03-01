@@ -50,13 +50,13 @@ class ReplicaModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ReplicaModule();
+		if (!isset($instance)) {
+			$instance = new ReplicaModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

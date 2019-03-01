@@ -49,13 +49,13 @@ class ReuploadModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ReuploadModule();
+		if (!isset($instance)) {
+			$instance = new ReuploadModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

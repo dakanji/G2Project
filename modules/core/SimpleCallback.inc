@@ -32,13 +32,13 @@ class SimpleCallbackView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new SimpleCallbackView();
+		if (!isset($instance)) {
+			$instance = new SimpleCallbackView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

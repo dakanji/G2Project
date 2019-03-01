@@ -33,13 +33,13 @@ class HiddenInterface_1_0 {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new HiddenInterface_1_0();
+		if (!isset($instance)) {
+			$instance = new HiddenInterface_1_0();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

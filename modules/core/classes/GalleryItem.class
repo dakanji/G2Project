@@ -165,13 +165,13 @@ class GalleryItem extends GalleryFileSystemEntity {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryItem();
+		if (!isset($instance)) {
+			$instance = new GalleryItem();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

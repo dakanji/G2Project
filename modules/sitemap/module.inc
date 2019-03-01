@@ -48,13 +48,13 @@ class SitemapModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new SitemapModule();
+		if (!isset($instance)) {
+			$instance = new SitemapModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -52,13 +52,13 @@ class ThumbnailModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ThumbnailModule();
+		if (!isset($instance)) {
+			$instance = new ThumbnailModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

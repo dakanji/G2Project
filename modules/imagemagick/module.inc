@@ -53,13 +53,13 @@ class ImageMagickModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ImageMagickModule();
+		if (!isset($instance)) {
+			$instance = new ImageMagickModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

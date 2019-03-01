@@ -33,13 +33,13 @@ class DatabaseBackupTask extends MaintenanceTask {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new DatabaseBackupTask();
+		if (!isset($instance)) {
+			$instance = new DatabaseBackupTask();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -51,13 +51,13 @@ class CaptchaModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new CaptchaModule();
+		if (!isset($instance)) {
+			$instance = new CaptchaModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

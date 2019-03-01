@@ -64,13 +64,13 @@ class GalleryTranslator {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryTranslator();
+		if (!isset($instance)) {
+			$instance = new GalleryTranslator();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

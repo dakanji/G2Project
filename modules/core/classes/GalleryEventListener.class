@@ -31,13 +31,13 @@ class GalleryEventListener {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryEventListener();
+		if (!isset($instance)) {
+			$instance = new GalleryEventListener();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

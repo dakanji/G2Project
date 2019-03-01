@@ -30,13 +30,13 @@ class UserRecoverPasswordDownloadView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new UserRecoverPasswordDownloadView();
+		if (!isset($instance)) {
+			$instance = new UserRecoverPasswordDownloadView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

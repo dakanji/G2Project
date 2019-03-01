@@ -54,13 +54,13 @@ class ExifModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ExifModule();
+		if (!isset($instance)) {
+			$instance = new ExifModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

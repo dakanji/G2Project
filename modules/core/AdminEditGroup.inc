@@ -30,13 +30,13 @@ class AdminEditGroupController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminEditGroupController();
+		if (!isset($instance)) {
+			$instance = new AdminEditGroupController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -138,13 +138,13 @@ class AdminEditGroupView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminEditGroupView();
+		if (!isset($instance)) {
+			$instance = new AdminEditGroupView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

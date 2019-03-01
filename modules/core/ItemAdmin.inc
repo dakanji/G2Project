@@ -30,13 +30,13 @@ class ItemAdminView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemAdminView();
+		if (!isset($instance)) {
+			$instance = new ItemAdminView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

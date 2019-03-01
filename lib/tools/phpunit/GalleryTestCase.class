@@ -44,9 +44,9 @@ class GalleryTestCase extends TestCase {
 	 * Class Loader
 	 */
 	public static function getMe($methodName = 'TestCase') {
-		$singleton = new GalleryTestCase($methodName);
+		$instance = new GalleryTestCase($methodName);
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -50,13 +50,13 @@ class RegisterModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new RegisterModule();
+		if (!isset($instance)) {
+			$instance = new RegisterModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

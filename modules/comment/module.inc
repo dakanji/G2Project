@@ -60,13 +60,13 @@ class CommentModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new CommentModule();
+		if (!isset($instance)) {
+			$instance = new CommentModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

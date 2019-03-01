@@ -32,13 +32,13 @@ class RepositoryCallbackView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new RepositoryCallbackView();
+		if (!isset($instance)) {
+			$instance = new RepositoryCallbackView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

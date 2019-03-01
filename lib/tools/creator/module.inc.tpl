@@ -50,13 +50,13 @@ class {$ucModuleId}Module extends GalleryModule {ldelim}
 	* Class Loader
 	*/
 	public static function getMe() {ldelim}
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {ldelim}
-			$singleton = new {$ucModuleId}Module();
+		if (!isset($instance)) {ldelim}
+			$instance = new {$ucModuleId}Module();
 		{rdelim}
 
-		return $singleton;
+		return $instance;
 	{rdelim}
 
 	/**

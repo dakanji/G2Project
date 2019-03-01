@@ -49,13 +49,13 @@ class RatingModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new RatingModule();
+		if (!isset($instance)) {
+			$instance = new RatingModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

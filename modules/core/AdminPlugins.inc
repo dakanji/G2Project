@@ -32,13 +32,13 @@ class AdminPluginsView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminPluginsView();
+		if (!isset($instance)) {
+			$instance = new AdminPluginsView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

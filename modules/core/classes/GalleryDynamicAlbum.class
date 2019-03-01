@@ -40,13 +40,13 @@ class GalleryDynamicAlbum extends GalleryItem {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryDynamicAlbum();
+		if (!isset($instance)) {
+			$instance = new GalleryDynamicAlbum();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

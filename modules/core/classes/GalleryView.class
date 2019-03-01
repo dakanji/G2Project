@@ -34,13 +34,13 @@ class GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryView();
+		if (!isset($instance)) {
+			$instance = new GalleryView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

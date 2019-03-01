@@ -37,13 +37,13 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminRepositoryController();
+		if (!isset($instance)) {
+			$instance = new AdminRepositoryController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -195,13 +195,13 @@ class AdminRepositoryView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminRepositoryView();
+		if (!isset($instance)) {
+			$instance = new AdminRepositoryView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

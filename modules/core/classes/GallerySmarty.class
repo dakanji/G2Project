@@ -45,13 +45,13 @@ class GallerySmarty extends Smarty {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GallerySmarty();
+		if (!isset($instance)) {
+			$instance = new GallerySmarty();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -49,13 +49,13 @@ class DynamicAlbumModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new DynamicAlbumModule();
+		if (!isset($instance)) {
+			$instance = new DynamicAlbumModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -32,13 +32,13 @@ class PluginCallbackView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new PluginCallbackView();
+		if (!isset($instance)) {
+			$instance = new PluginCallbackView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -34,13 +34,13 @@ class GalleryCapabilities {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryCapabilities();
+		if (!isset($instance)) {
+			$instance = new GalleryCapabilities();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

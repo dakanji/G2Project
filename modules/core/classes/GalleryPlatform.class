@@ -75,13 +75,13 @@ class GalleryPlatform {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryPlatform();
+		if (!isset($instance)) {
+			$instance = new GalleryPlatform();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

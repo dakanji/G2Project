@@ -32,13 +32,13 @@ class AdminEventLogViewerCallbackView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminEventLogViewerCallbackView();
+		if (!isset($instance)) {
+			$instance = new AdminEventLogViewerCallbackView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

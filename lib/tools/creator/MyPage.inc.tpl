@@ -37,13 +37,13 @@ class {$viewName}Controller extends GalleryController {ldelim}
  	 * Class Loader
  	 */
 	public static function getMe() {ldelim}
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {ldelim}
-			$singleton = new {$viewName}Controller();
+		if (!isset($instance)) {ldelim}
+			$instance = new {$viewName}Controller();
 		{rdelim}
 
-		return $singleton;
+		return $instance;
 	{rdelim}
 
     /**
@@ -103,13 +103,13 @@ class {$viewName}View extends GalleryView {ldelim}
 	* Class Loader
 	*/
 	public static function getMe() {ldelim}
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {ldelim}
-			$singleton = new {$viewName}View();
+		if (!isset($instance)) {ldelim}
+			$instance = new {$viewName}View();
 		{rdelim}
 
-		return $singleton;
+		return $instance;
 	{rdelim}
 
     /**

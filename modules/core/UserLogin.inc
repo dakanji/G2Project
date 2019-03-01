@@ -38,13 +38,13 @@ class UserLoginController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new UserLoginController();
+		if (!isset($instance)) {
+			$instance = new UserLoginController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -218,13 +218,13 @@ class UserLoginView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new UserLoginView();
+		if (!isset($instance)) {
+			$instance = new UserLoginView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

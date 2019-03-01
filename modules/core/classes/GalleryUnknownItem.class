@@ -43,13 +43,13 @@ class GalleryUnknownItem extends GalleryDataItem {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryUnknownItem();
+		if (!isset($instance)) {
+			$instance = new GalleryUnknownItem();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

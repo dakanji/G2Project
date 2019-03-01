@@ -62,13 +62,13 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryFileSystemEntity();
+		if (!isset($instance)) {
+			$instance = new GalleryFileSystemEntity();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

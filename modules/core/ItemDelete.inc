@@ -30,13 +30,13 @@ class ItemDeleteController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemDeleteController();
+		if (!isset($instance)) {
+			$instance = new ItemDeleteController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -183,13 +183,13 @@ class ItemDeleteView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemDeleteView();
+		if (!isset($instance)) {
+			$instance = new ItemDeleteView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

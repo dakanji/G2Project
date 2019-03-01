@@ -989,13 +989,13 @@ class StringParser_Node {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new StringParser_Node();
+		if (!isset($instance)) {
+			$instance = new StringParser_Node();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

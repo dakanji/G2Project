@@ -30,13 +30,13 @@ class ItemMoveSingleController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemMoveSingleController();
+		if (!isset($instance)) {
+			$instance = new ItemMoveSingleController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -250,13 +250,13 @@ class ItemMoveSingleView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemMoveSingleView();
+		if (!isset($instance)) {
+			$instance = new ItemMoveSingleView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

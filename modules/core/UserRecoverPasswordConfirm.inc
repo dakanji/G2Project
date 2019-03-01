@@ -35,13 +35,13 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new UserRecoverPasswordConfirmController();
+		if (!isset($instance)) {
+			$instance = new UserRecoverPasswordConfirmController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -178,13 +178,13 @@ class UserRecoverPasswordConfirmView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new UserRecoverPasswordConfirmView();
+		if (!isset($instance)) {
+			$instance = new UserRecoverPasswordConfirmView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

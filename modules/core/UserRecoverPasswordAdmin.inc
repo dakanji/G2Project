@@ -31,13 +31,13 @@ class UserRecoverPasswordAdminController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new UserRecoverPasswordAdminController();
+		if (!isset($instance)) {
+			$instance = new UserRecoverPasswordAdminController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -167,13 +167,13 @@ class UserRecoverPasswordAdminView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new UserRecoverPasswordAdminView();
+		if (!isset($instance)) {
+			$instance = new UserRecoverPasswordAdminView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

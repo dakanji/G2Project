@@ -55,13 +55,13 @@ class GalleryChildEntity extends GalleryEntity {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryChildEntity();
+		if (!isset($instance)) {
+			$instance = new GalleryChildEntity();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

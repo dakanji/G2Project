@@ -54,13 +54,13 @@ class GalleryRepository {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryRepository();
+		if (!isset($instance)) {
+			$instance = new GalleryRepository();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

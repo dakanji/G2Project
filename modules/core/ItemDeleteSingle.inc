@@ -31,13 +31,13 @@ class ItemDeleteSingleController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemDeleteSingleController();
+		if (!isset($instance)) {
+			$instance = new ItemDeleteSingleController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

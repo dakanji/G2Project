@@ -31,13 +31,13 @@ class GalleryRepositoryUtilities {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryRepositoryUtilities();
+		if (!isset($instance)) {
+			$instance = new GalleryRepositoryUtilities();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

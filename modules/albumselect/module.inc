@@ -50,13 +50,13 @@ class AlbumSelectModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AlbumSelectModule();
+		if (!isset($instance)) {
+			$instance = new AlbumSelectModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

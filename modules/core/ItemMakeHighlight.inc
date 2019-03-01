@@ -30,13 +30,13 @@ class ItemMakeHighlightController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemMakeHighlightController();
+		if (!isset($instance)) {
+			$instance = new ItemMakeHighlightController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -101,13 +101,13 @@ class ItemMakeHighlightView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemMakeHighlightView();
+		if (!isset($instance)) {
+			$instance = new ItemMakeHighlightView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

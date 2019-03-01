@@ -30,13 +30,13 @@ class ChangeLanguageController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ChangeLanguageController();
+		if (!isset($instance)) {
+			$instance = new ChangeLanguageController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

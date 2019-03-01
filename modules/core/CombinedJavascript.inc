@@ -31,13 +31,13 @@ class CombinedJavascriptView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new CombinedJavascriptView();
+		if (!isset($instance)) {
+			$instance = new CombinedJavascriptView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -31,13 +31,13 @@ class GalleryRenderer {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryRenderer();
+		if (!isset($instance)) {
+			$instance = new GalleryRenderer();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

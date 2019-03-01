@@ -30,13 +30,13 @@ class ItemReorderController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemReorderController();
+		if (!isset($instance)) {
+			$instance = new ItemReorderController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -204,13 +204,13 @@ class ItemReorderView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemReorderView();
+		if (!isset($instance)) {
+			$instance = new ItemReorderView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

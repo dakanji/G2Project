@@ -70,13 +70,13 @@ class GalleryGroup extends GalleryEntity {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryGroup();
+		if (!isset($instance)) {
+			$instance = new GalleryGroup();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

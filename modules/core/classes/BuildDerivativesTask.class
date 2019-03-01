@@ -34,13 +34,13 @@ class BuildDerivativesTask extends MaintenanceTask {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new BuildDerivativesTask();
+		if (!isset($instance)) {
+			$instance = new BuildDerivativesTask();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -30,13 +30,13 @@ class ErrorPageView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ErrorPageView();
+		if (!isset($instance)) {
+			$instance = new ErrorPageView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	public function setError($error) {

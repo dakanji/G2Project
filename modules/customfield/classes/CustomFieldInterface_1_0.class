@@ -32,13 +32,13 @@ class CustomFieldInterface_1_0 {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new CustomFieldInterface_1_0();
+		if (!isset($instance)) {
+			$instance = new CustomFieldInterface_1_0();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -30,13 +30,13 @@ class AdminCoreController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminCoreController();
+		if (!isset($instance)) {
+			$instance = new AdminCoreController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -252,13 +252,13 @@ class AdminCoreView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminCoreView();
+		if (!isset($instance)) {
+			$instance = new AdminCoreView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

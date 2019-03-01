@@ -30,13 +30,13 @@ class AdminPerformanceController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminPerformanceController();
+		if (!isset($instance)) {
+			$instance = new AdminPerformanceController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -160,13 +160,13 @@ class AdminPerformanceView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminPerformanceView();
+		if (!isset($instance)) {
+			$instance = new AdminPerformanceView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

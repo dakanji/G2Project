@@ -68,13 +68,13 @@ class GalleryPhotoItem extends GalleryDataItem {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryPhotoItem();
+		if (!isset($instance)) {
+			$instance = new GalleryPhotoItem();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

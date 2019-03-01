@@ -48,13 +48,13 @@ class RandomHighlightModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new RandomHighlightModule();
+		if (!isset($instance)) {
+			$instance = new RandomHighlightModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

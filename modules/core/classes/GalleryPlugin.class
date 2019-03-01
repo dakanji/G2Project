@@ -74,13 +74,13 @@ class GalleryPlugin {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryPlugin();
+		if (!isset($instance)) {
+			$instance = new GalleryPlugin();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

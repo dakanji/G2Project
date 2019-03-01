@@ -32,13 +32,13 @@ class DeleteSessionsTask extends MaintenanceTask {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new DeleteSessionsTask();
+		if (!isset($instance)) {
+			$instance = new DeleteSessionsTask();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -35,13 +35,13 @@ class GalleryAuthPlugin {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryAuthPlugin();
+		if (!isset($instance)) {
+			$instance = new GalleryAuthPlugin();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

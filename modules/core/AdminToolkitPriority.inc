@@ -30,13 +30,13 @@ class AdminToolkitPriorityController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminToolkitPriorityController();
+		if (!isset($instance)) {
+			$instance = new AdminToolkitPriorityController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -97,13 +97,13 @@ class AdminToolkitPriorityView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminToolkitPriorityView();
+		if (!isset($instance)) {
+			$instance = new AdminToolkitPriorityView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

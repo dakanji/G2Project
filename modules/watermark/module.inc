@@ -52,13 +52,13 @@ class WatermarkModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new WatermarkModule();
+		if (!isset($instance)) {
+			$instance = new WatermarkModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

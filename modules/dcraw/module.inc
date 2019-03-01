@@ -52,13 +52,13 @@ class DcrawModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new DcrawModule();
+		if (!isset($instance)) {
+			$instance = new DcrawModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

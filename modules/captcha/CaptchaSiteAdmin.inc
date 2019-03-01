@@ -211,13 +211,13 @@ class CaptchaAdminOption {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new CaptchaAdminOption();
+		if (!isset($instance)) {
+			$instance = new CaptchaAdminOption();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

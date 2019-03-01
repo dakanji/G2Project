@@ -72,13 +72,13 @@ class GalleryModule extends GalleryPlugin {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryModule();
+		if (!isset($instance)) {
+			$instance = new GalleryModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

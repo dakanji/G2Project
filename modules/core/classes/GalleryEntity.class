@@ -157,13 +157,13 @@ class GalleryEntity extends GalleryPersistent {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryEntity();
+		if (!isset($instance)) {
+			$instance = new GalleryEntity();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

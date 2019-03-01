@@ -38,13 +38,13 @@ class ItemAddController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemAddController();
+		if (!isset($instance)) {
+			$instance = new ItemAddController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -699,13 +699,13 @@ class ItemAddView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemAddView();
+		if (!isset($instance)) {
+			$instance = new ItemAddView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -903,13 +903,13 @@ class ItemAddPlugin {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemAddPlugin();
+		if (!isset($instance)) {
+			$instance = new ItemAddPlugin();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -977,13 +977,13 @@ class ItemAddOption {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemAddOption();
+		if (!isset($instance)) {
+			$instance = new ItemAddOption();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

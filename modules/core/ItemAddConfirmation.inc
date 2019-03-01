@@ -30,13 +30,13 @@ class ItemAddConfirmationView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemAddConfirmationView();
+		if (!isset($instance)) {
+			$instance = new ItemAddConfirmationView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

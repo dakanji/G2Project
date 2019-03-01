@@ -31,13 +31,13 @@ class ItemEditCaptionsController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemEditCaptionsController();
+		if (!isset($instance)) {
+			$instance = new ItemEditCaptionsController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -175,13 +175,13 @@ class ItemEditCaptionsView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemEditCaptionsView();
+		if (!isset($instance)) {
+			$instance = new ItemEditCaptionsView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

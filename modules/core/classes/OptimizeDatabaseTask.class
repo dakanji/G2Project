@@ -33,13 +33,13 @@ class OptimizeDatabaseTask extends MaintenanceTask {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new OptimizeDatabaseTask();
+		if (!isset($instance)) {
+			$instance = new OptimizeDatabaseTask();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -43,13 +43,13 @@ class FlockLockSystem extends GalleryLockSystem {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new FlockLockSystem();
+		if (!isset($instance)) {
+			$instance = new FlockLockSystem();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

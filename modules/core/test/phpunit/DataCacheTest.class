@@ -1123,13 +1123,13 @@ class DataCacheTestPlatform {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new DataCacheTestPlatform();
+		if (!isset($instance)) {
+			$instance = new DataCacheTestPlatform();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	public function __construct() {

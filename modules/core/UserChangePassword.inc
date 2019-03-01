@@ -30,13 +30,13 @@ class UserChangePasswordController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new UserChangePasswordController();
+		if (!isset($instance)) {
+			$instance = new UserChangePasswordController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -170,13 +170,13 @@ class UserChangePasswordView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new UserChangePasswordView();
+		if (!isset($instance)) {
+			$instance = new UserChangePasswordView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

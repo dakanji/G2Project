@@ -30,13 +30,13 @@ class AdminThemesController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminThemesController();
+		if (!isset($instance)) {
+			$instance = new AdminThemesController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -285,13 +285,13 @@ class AdminThemesView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminThemesView();
+		if (!isset($instance)) {
+			$instance = new AdminThemesView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -30,13 +30,13 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemEditRotateAndScalePhoto();
+		if (!isset($instance)) {
+			$instance = new ItemEditRotateAndScalePhoto();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -30,13 +30,13 @@ class ItemDeleteJsView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemDeleteJsView();
+		if (!isset($instance)) {
+			$instance = new ItemDeleteJsView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

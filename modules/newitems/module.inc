@@ -52,13 +52,13 @@ class NewItemsModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new NewItemsModule();
+		if (!isset($instance)) {
+			$instance = new NewItemsModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

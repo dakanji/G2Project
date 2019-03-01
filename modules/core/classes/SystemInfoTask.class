@@ -32,13 +32,13 @@ class SystemInfoTask extends MaintenanceTask {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new SystemInfoTask();
+		if (!isset($instance)) {
+			$instance = new SystemInfoTask();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

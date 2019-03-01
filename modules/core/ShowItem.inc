@@ -30,13 +30,13 @@ class ShowItemController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ShowItemController();
+		if (!isset($instance)) {
+			$instance = new ShowItemController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -76,13 +76,13 @@ class ShowItemView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ShowItemView();
+		if (!isset($instance)) {
+			$instance = new ShowItemView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

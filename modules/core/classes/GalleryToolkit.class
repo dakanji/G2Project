@@ -37,13 +37,13 @@ class GalleryToolkit {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryToolkit();
+		if (!isset($instance)) {
+			$instance = new GalleryToolkit();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -30,13 +30,13 @@ class ProgressBarView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ProgressBarView();
+		if (!isset($instance)) {
+			$instance = new ProgressBarView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

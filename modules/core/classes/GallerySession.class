@@ -174,13 +174,13 @@ class GallerySession {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GallerySession();
+		if (!isset($instance)) {
+			$instance = new GallerySession();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

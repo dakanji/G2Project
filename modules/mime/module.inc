@@ -51,13 +51,13 @@ class MimeModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new MimeModule();
+		if (!isset($instance)) {
+			$instance = new MimeModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

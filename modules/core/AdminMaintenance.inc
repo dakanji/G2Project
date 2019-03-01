@@ -32,13 +32,13 @@ class AdminMaintenanceController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminMaintenanceController();
+		if (!isset($instance)) {
+			$instance = new AdminMaintenanceController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -192,13 +192,13 @@ class AdminMaintenanceView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminMaintenanceView();
+		if (!isset($instance)) {
+			$instance = new AdminMaintenanceView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -292,13 +292,13 @@ class MaintenanceTask {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new MaintenanceTask();
+		if (!isset($instance)) {
+			$instance = new MaintenanceTask();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

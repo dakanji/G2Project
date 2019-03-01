@@ -65,9 +65,9 @@ class GalleryRepositoryIndex {
 	 * Class Loader
 	 */
 	public static function getMe($source) {
-		$singleton = new GalleryRepositoryIndex($source);
+		$instance = new GalleryRepositoryIndex($source);
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

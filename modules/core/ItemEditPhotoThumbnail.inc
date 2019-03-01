@@ -30,13 +30,13 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemEditPhotoThumbnail();
+		if (!isset($instance)) {
+			$instance = new ItemEditPhotoThumbnail();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -33,13 +33,13 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminRepositoryDownloadAndInstallController();
+		if (!isset($instance)) {
+			$instance = new AdminRepositoryDownloadAndInstallController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -56,13 +56,13 @@ class GalleryTheme extends GalleryPlugin {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryTheme();
+		if (!isset($instance)) {
+			$instance = new GalleryTheme();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -51,13 +51,13 @@ class ThumbPageModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ThumbPageModule();
+		if (!isset($instance)) {
+			$instance = new ThumbPageModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

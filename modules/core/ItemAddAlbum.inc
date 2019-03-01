@@ -30,13 +30,13 @@ class ItemAddAlbumController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemAddAlbumController();
+		if (!isset($instance)) {
+			$instance = new ItemAddAlbumController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -163,13 +163,13 @@ class ItemAddAlbumView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemAddAlbumView();
+		if (!isset($instance)) {
+			$instance = new ItemAddAlbumView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -55,13 +55,13 @@ class PasswordModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new PasswordModule();
+		if (!isset($instance)) {
+			$instance = new PasswordModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

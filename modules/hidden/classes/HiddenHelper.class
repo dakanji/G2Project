@@ -37,13 +37,13 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new HiddenHelper();
+		if (!isset($instance)) {
+			$instance = new HiddenHelper();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

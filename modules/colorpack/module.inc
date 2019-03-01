@@ -49,13 +49,13 @@ class ColorPackModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ColorPackModule();
+		if (!isset($instance)) {
+			$instance = new ColorPackModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

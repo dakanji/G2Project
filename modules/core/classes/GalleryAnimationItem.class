@@ -42,13 +42,13 @@ class GalleryAnimationItem extends GalleryDataItem {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryAnimationItem();
+		if (!isset($instance)) {
+			$instance = new GalleryAnimationItem();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

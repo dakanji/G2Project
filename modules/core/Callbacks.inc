@@ -28,13 +28,13 @@ class CoreCallbacks {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new CoreCallbacks();
+		if (!isset($instance)) {
+			$instance = new CoreCallbacks();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	public function callback($params, &$smarty, $callback, $userId = null) {

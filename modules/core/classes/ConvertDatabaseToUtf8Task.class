@@ -33,13 +33,13 @@ class ConvertDatabaseToUtf8Task extends MaintenanceTask {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ConvertDatabaseToUtf8Task();
+		if (!isset($instance)) {
+			$instance = new ConvertDatabaseToUtf8Task();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -103,13 +103,13 @@ class MockStatusMonitor {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new MockStatusMonitor();
+		if (!isset($instance)) {
+			$instance = new MockStatusMonitor();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	public function renderStatusMessage() {

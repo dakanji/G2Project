@@ -49,13 +49,13 @@ class RearrangeModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new RearrangeModule();
+		if (!isset($instance)) {
+			$instance = new RearrangeModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

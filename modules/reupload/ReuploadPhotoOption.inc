@@ -30,13 +30,13 @@ class ReuploadPhotoOption extends ItemEditOption {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ReuploadPhotoOption();
+		if (!isset($instance)) {
+			$instance = new ReuploadPhotoOption();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

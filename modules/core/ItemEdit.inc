@@ -30,13 +30,13 @@ class ItemEditController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemEditController();
+		if (!isset($instance)) {
+			$instance = new ItemEditController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -232,13 +232,13 @@ class ItemEditView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemEditView();
+		if (!isset($instance)) {
+			$instance = new ItemEditView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -483,13 +483,13 @@ class ItemEditPlugin {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemEditPlugin();
+		if (!isset($instance)) {
+			$instance = new ItemEditPlugin();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -587,13 +587,13 @@ class ItemEditOption {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemEditOption();
+		if (!isset($instance)) {
+			$instance = new ItemEditOption();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -30,13 +30,13 @@ class ItemEditMovie extends ItemEditPlugin {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemEditMovie();
+		if (!isset($instance)) {
+			$instance = new ItemEditMovie();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

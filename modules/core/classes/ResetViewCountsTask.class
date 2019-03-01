@@ -33,13 +33,13 @@ class ResetViewCountsTask extends FlushDatabaseCacheTask {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ResetViewCountsTask();
+		if (!isset($instance)) {
+			$instance = new ResetViewCountsTask();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

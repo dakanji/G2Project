@@ -50,13 +50,13 @@ class QuotasModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new QuotasModule();
+		if (!isset($instance)) {
+			$instance = new QuotasModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

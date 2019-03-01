@@ -33,13 +33,13 @@ class CoreModuleExtras {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new CoreModuleExtras();
+		if (!isset($instance)) {
+			$instance = new CoreModuleExtras();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

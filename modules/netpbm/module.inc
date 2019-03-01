@@ -50,13 +50,13 @@ class NetPbmModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new NetPbmModule();
+		if (!isset($instance)) {
+			$instance = new NetPbmModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -32,13 +32,13 @@ class FlushTemplatesTask extends MaintenanceTask {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new FlushTemplatesTask();
+		if (!isset($instance)) {
+			$instance = new FlushTemplatesTask();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

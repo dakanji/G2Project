@@ -32,13 +32,13 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryCoreSearch();
+		if (!isset($instance)) {
+			$instance = new GalleryCoreSearch();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

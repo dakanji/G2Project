@@ -45,13 +45,13 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new CustomFieldHelper();
+		if (!isset($instance)) {
+			$instance = new CustomFieldHelper();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

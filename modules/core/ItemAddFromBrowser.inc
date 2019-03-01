@@ -30,13 +30,13 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemAddFromBrowser();
+		if (!isset($instance)) {
+			$instance = new ItemAddFromBrowser();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

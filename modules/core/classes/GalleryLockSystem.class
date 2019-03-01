@@ -56,13 +56,13 @@ class GalleryLockSystem {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryLockSystem();
+		if (!isset($instance)) {
+			$instance = new GalleryLockSystem();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

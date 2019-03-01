@@ -30,13 +30,13 @@ class CoreCaptchaAdminOption extends CaptchaAdminOption {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new CoreCaptchaAdminOption();
+		if (!isset($instance)) {
+			$instance = new CoreCaptchaAdminOption();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

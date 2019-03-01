@@ -30,13 +30,13 @@ class AdminCreateUserController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminCreateUserController();
+		if (!isset($instance)) {
+			$instance = new AdminCreateUserController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
@@ -141,13 +141,13 @@ class AdminCreateUserView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new AdminCreateUserView();
+		if (!isset($instance)) {
+			$instance = new AdminCreateUserView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

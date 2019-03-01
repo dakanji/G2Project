@@ -66,13 +66,13 @@ class GalleryDerivativeImage extends GalleryDerivative {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryDerivativeImage();
+		if (!isset($instance)) {
+			$instance = new GalleryDerivativeImage();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

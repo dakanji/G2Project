@@ -350,13 +350,13 @@ class ItemEditThemeControllerTestTheme {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemEditThemeControllerTestTheme();
+		if (!isset($instance)) {
+			$instance = new ItemEditThemeControllerTestTheme();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	public function getId() {

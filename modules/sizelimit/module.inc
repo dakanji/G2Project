@@ -45,13 +45,13 @@ class SizeLimitModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new SizeLimitModule();
+		if (!isset($instance)) {
+			$instance = new SizeLimitModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

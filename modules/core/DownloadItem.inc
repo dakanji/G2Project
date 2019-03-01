@@ -30,13 +30,13 @@ class DownloadItemView extends GalleryView {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new DownloadItemView();
+		if (!isset($instance)) {
+			$instance = new DownloadItemView();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

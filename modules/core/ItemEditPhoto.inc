@@ -30,13 +30,13 @@ class ItemEditPhoto extends ItemEditPlugin {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new ItemEditPhoto();
+		if (!isset($instance)) {
+			$instance = new ItemEditPhoto();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

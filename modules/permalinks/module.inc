@@ -55,13 +55,13 @@ class PermalinksModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new PermalinksModule();
+		if (!isset($instance)) {
+			$instance = new PermalinksModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

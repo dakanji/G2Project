@@ -45,13 +45,13 @@ class GalleryPersistent {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryPersistent();
+		if (!isset($instance)) {
+			$instance = new GalleryPersistent();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

@@ -49,13 +49,13 @@ class LinkItemModule extends GalleryModule {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new LinkItemModule();
+		if (!isset($instance)) {
+			$instance = new LinkItemModule();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

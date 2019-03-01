@@ -30,13 +30,13 @@ class LogoutController extends GalleryController {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new LogoutController();
+		if (!isset($instance)) {
+			$instance = new LogoutController();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**

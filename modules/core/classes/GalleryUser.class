@@ -121,13 +121,13 @@ class GalleryUser extends GalleryEntity {
 	 * Class Loader
 	 */
 	public static function getMe() {
-		static $singleton;
+		static $instance;
 
-		if (!isset($singleton)) {
-			$singleton = new GalleryUser();
+		if (!isset($instance)) {
+			$instance = new GalleryUser();
 		}
 
-		return $singleton;
+		return $instance;
 	}
 
 	/**
