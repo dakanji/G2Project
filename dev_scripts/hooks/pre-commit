@@ -26,7 +26,8 @@ PHP_FILES=${FILE_LIST:-$STAGED_PHP_FILES}
 ALL_FILES=${FILE_LIST:-$STAGED_FIX_FILES}
 
 # Lint PHP files if present
-if [ "$PHP_FILES" != "" ]; then
+if [ "$PHP_FILES" != "" ]
+then
 	echo ""
 	echo "Running PHP Lint ..."
 	echo ""
@@ -37,16 +38,20 @@ if [ "$PHP_FILES" != "" ]; then
 		then
 			echo ""
 			echo "PHP Syntax Errors Found ... Aborting"
+			echo ""
 			RET=$(git reset HEAD $PROJECT/$PHP_FILE)
 			echo ""
 			echo "Please Fix Errors and Repeat Commit"
+			echo "Remember to Run 'git add $PROJECT/$PHP_FILE' before Repeating the Commit"
+			echo ""
 			exit 1
 		fi
 	done
 fi
 
 # Check if PHP-CS-FIXER is set up correctly
-if [ ! -x $PHP_FIX_BIN ]; then
+if [ ! -x $PHP_FIX_BIN ]
+then
 	echo ""
 	echo ""
 	echo "PHP-CS-FIXER not Found or not Executable ... Aborting"
@@ -54,7 +59,8 @@ if [ ! -x $PHP_FIX_BIN ]; then
 	exit 1
 else
 	# Check if PHPCBF is set up correctly
-	if [ ! -x $PHP_CBF_BIN ]; then
+	if [ ! -x $PHP_CBF_BIN ]
+	then
 		echo ""
 		echo ""
    		echo "PHPCBF not Found or not Executable ... Aborting"
@@ -71,19 +77,28 @@ else
 			# Unstage target file
 			RET=$(git reset HEAD $PROJECT/$TARGET_FILE)
 
+
 			# Apply coding style to target file
 			RET=$($PHP_CBF_BIN --standard=$PHP_CBF_CONFIG_START $PROJECT/$TARGET_FILE)
 			RET=$($PHP_FIX_BIN fix --config "$PHP_FIX_CONFIG" $PROJECT/$TARGET_FILE)
 			RET=$($PHP_CBF_BIN --standard=$PHP_CBF_CONFIG_END $PROJECT/$TARGET_FILE)
 
+
+			# Catch misc items in target file not covered by PHPCBF or PHP-CS-FIXER
+			# 1. Close empty braces on one line.
+			RET=$(perl -0777 -p -i -e 's|\{\n(\s+)?\}|{}|gms' $PROJECT/$TARGET_FILE)
+
+
 			# Stage target file
 			git add $PROJECT/$TARGET_FILE
 		done
 
-		# Check for changes staged but not committed
+		# Check for staged changes and abort if none
 		RET=$(git diff --cached)
 
-		if [ "$RET" == "" ]; then
+		if [ "$RET" == "" ]
+		then
+			echo ""
 			echo "NOTE: Commit Emptied After Style Fix ... Aborting"
 			echo ""
 			exit 1
@@ -91,7 +106,9 @@ else
 
 		# Completed
 		echo ""
+		echo ""
 		echo "Coding Style Fixed"
+		echo ""
 		echo ""
 	fi
 fi

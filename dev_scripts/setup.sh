@@ -5,9 +5,11 @@ ABSPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 HOOKSPATH=$ABSPATH/hooks
 MAINPATH=$ABSPATH/..
 
-if [ ! -L $MAINPATH/.git/hooks ]; then
+if [ ! -L $MAINPATH/.git/hooks ]
+then
 	echo ""
-	if [ -x $MAINPATH/.git/hooks ]; then
+	if [ -x $MAINPATH/.git/hooks ]
+	then
 		echo "Copying '.git/hooks' to '.git/old_hooks'"
 		mv $MAINPATH/.git/hooks $MAINPATH/.git/old_hooks
 	fi
@@ -15,12 +17,14 @@ if [ ! -L $MAINPATH/.git/hooks ]; then
 	echo "Symlinking '.git/hooks' to 'dev_scripts/hooks'"
 	ln -s $HOOKSPATH $MAINPATH/.git/hooks
 else
-	if [ ! -d "$MAINPATH/dev_vendor/php-cs-fixer" ]; then
+	if [ ! -d "$MAINPATH/dev_vendor/php-cs-fixer" ]
+	then
 		echo ""
 		echo "Removing symlink from '.git/hooks' to 'dev_scripts/hooks'"
 		rm -f $MAINPATH/.git/hooks
 
-		if [ -d "$MAINPATH/.git/old_hooks" ]; then
+		if [ -d "$MAINPATH/.git/old_hooks" ]
+		then
 			echo "Restoring orignal '.git/hooks' folder"
 			mv $MAINPATH/.git/old_hooks $MAINPATH/.git/hooks
 		fi
@@ -31,18 +35,26 @@ fi
 ############################################
 # Code Below Updates Developer Environment #
 ############################################
-if [ -d "$MAINPATH/dev_vendor/php-cs-fixer" ]; then
-echo ""
-echo ""
-echo "Developer Environment Update Started"
+if [ -d "$MAINPATH/dev_vendor/php-cs-fixer" ]
+then
+	echo ""
+	echo ""
+	echo "Developer Environment Update Started"
 
+
+
+	# Add Upstream Remote
+	if [ ! -d "$MAINPATH/.git/refs/upstream" ]
+	then
+    	git remote add upstream https://github.com/dakanji/G2Project
+	fi
 
 
 	# Update WordPress ArrayDeclarationSpacingSniff if required
 	WP_AA_ArrSniff=$MAINPATH/dev_vendor/wp-coding-standards/wpcs/WordPress/Sniffs/Arrays/ArrayDeclarationSpacingSniff.php
 	WP_BB_ArrSniff=$MAINPATH/dev_scripts/overrides/wpcs-ArrayDeclarationSpacingSniff.php
 	WP_CC_ArrSniff=$MAINPATH/dev_vendor/wp-coding-standards/wpcs/WordPress/Sniffs/Arrays/updated
-	if [ -e $WP_AA_ArrSniff ] && [ -e $WP_BB_ArrSniff ] && [ ! -e $WP_CC_ArrSniff ];
+	if [ -e $WP_AA_ArrSniff ] && [ -e $WP_BB_ArrSniff ] && [ ! -e $WP_CC_ArrSniff ]
 	then
 		echo "Overriding WordPress ArrayDeclarationSpacingSniff CS"
 		rm -f $WP_AA_ArrSniff
@@ -53,7 +65,7 @@ echo "Developer Environment Update Started"
 
 
 
-echo "Developer Environment Update Ended"
-echo ""
-echo ""
+	echo "Developer Environment Update Ended"
+	echo ""
+	echo ""
 fi
