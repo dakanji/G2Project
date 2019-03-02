@@ -1,0 +1,146 @@
+/* ^PHPCS_CSS_T_OPEN_TAG^ $colorpackName = $gallery->i18n('PG Brown'); ^PHPCS_CSS_T_CLOSE_TAG^
+ * $Revision: 2.0 $ $Date: 2006/03/14
+ */
+
+#gallery {
+  color: #2C2316 !important;
+  background-color: #C1B39F !important;
+}
+body.gallery, .PPBackground  { background-color: #C1B39F !important; }
+
+.gcBackground1 { background-color: #A29583 !important; }
+.gcBackground2, .iframeBackground { background-color: #8D7F6A !important; }
+
+.gcBorder1 { border-color: #887862 !important; }
+.gcBorder2 { border-color: #5E503C !important; }
+.gcBorder1Author { border-right: 1px solid #887862 !important; }
+.gcBorder1Top { border-bottom: 1px solid #887862 !important; }
+
+#gallery a { color: #504330 !important; }
+#gallery a:hover { color: #DED1BF !important; }
+#gallery a:active { color: #5E503C !important; }
+
+.giSuccess { color: #190 !important; }
+.giWarning { color: #b31 !important; }
+.giError { color: #d14 !important; }
+.giInfo { color: #5E503C !important; }
+.block-core-PeerList .current { color: #5E503C !important; }
+
+table.gbDataTable th { background-color: #84796A !important; }
+.gbEven { background-color: #C1B39F !important; }
+.gbOdd { background-color: #A29583 !important; }
+
+input.inputTypeSubmit, input.inputTypeButton { background-color: #D0C7B9 !important; }
+#gallery select { background-color: #DED1BF !important; }
+
+
+.giNew, .giUpdated {
+  color: #EDE5D9 !important;
+  border-color: #EDE5D9 !important;
+}
+
+.giTitle, #gallery h2, #gallery h3, #gallery h4 {
+	color: #EDE5D9 !important;
+}
+
+div.gbTabBar span {
+   background: url('tab_left.gif') no-repeat left top !important; }
+
+#gallery div.gbTabBar span span {
+	background: url('tab_right.gif') no-repeat right top !important; }
+
+#gallery div.gbTabBar span.giSelected {
+   background-image: url('tab_left_on.gif') !important; }
+
+
+
+#gallery div.gbTabBar span.giSelected span {
+	color: #807360 !important;
+	background-image: url('tab_right_on.gif') !important; }
+	
+.gbBlock li {
+	color: #eee !important;
+}
+
+#gsSidebar ul span {
+	color: #807360 !important;
+}
+
+
+#gallery div.gbTabBar a {
+	color: #504330 !important;
+	text-decoration: none!important;
+}
+
+#gallery div.gbTabBar a:hover {
+	color: #cEc1aF !important;
+}
+
+span.bsw_ButtonDisabled {
+  color: #807360 !important;
+}
+
+.NavBorder {
+	border: 0 solid #8D7F6A !important;
+	border-top-width: 2px !important;
+}
+
+
+.menuoff { color: #8D7F6A !important;}
+
+
+.descSeparator {
+	border-color: #807360 !important;
+}
+
+.giThumbnail {
+	background-color: #000 !important;
+}
+
+
+div#menu a,div#menu a:visited {color: #8D7F6A !important;}
+
+.helplink a {
+	color: #ffffff !important;
+	background-color: #ccddff !important;
+}
+
+.helplink a:hover {
+	color: #88aadd !important;
+	background-color: #bbccff !important;
+}
+.helplink a:active {
+	color: #6666dd !important;
+}
+
+
+/*
+*******    ** rating ****    ****
+*/
+.giRatingEmpty {
+	background: transparent url('images/rating/star_r_0.0.gif') no-repeat !important;
+}
+.giRatingEmptyUserYes {
+	background: transparent url('images/rating/star_u_noborder.gif') no-repeat !important;
+}
+.giRatingHalfUserNo {
+	background: transparent url('images/rating/star_r_0.5.gif') no-repeat !important;
+}
+.giRatingHalfUserYes {
+	background: transparent url('images/rating/star_07.gif') no-repeat !important;
+}
+.giRatingFullUserNo {
+	background: transparent url('images/rating/star_r_1.0.gif') no-repeat !important;
+}
+.giRatingFullUserYes {
+	background: transparent url('images/rating/star_u_1.0.gif') no-repeat !important;
+}
+.giRatingAverage {
+	background-color: #887862 !important;
+	height: 8px;
+}
+.giRatingAverageContainer {
+	border: 1px solid #8D7F6A !important;
+	height: 8px;
+	width: 80px;
+}

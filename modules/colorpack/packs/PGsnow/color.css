@@ -1,0 +1,155 @@
+/* ^PHPCS_CSS_T_OPEN_TAG^ $colorpackName = $gallery->i18n('PG Snow'); ^PHPCS_CSS_T_CLOSE_TAG^
+ * $Revision: 2.0 $ $Date: 2006/03/14
+ */
+
+#gallery {
+  color: #aaa !important;
+  background-color: #fff !important;
+}
+body.gallery, .PPBackground { background-color: #fff !important; }
+
+.gcBackground1 { background-color: #f9f9f9 !important; }
+.gcBackground2, .iframeBackground { background-color: #f4f4f4 !important; }
+
+.gcBorder1 { border-color: #eaeaea !important; }
+.gcBorder2 { border-color: #dfdfdf !important; }
+.gcBorder1Author { border-right: 1px solid #eaeaea !important; }
+.gcBorder1Top { border-bottom: 1px solid #eaeaea !important; }
+
+#gallery a { color: #888 !important; }
+#gallery a:hover { color: #222 !important; }
+#gallery a:active { color: #aaa !important; }
+
+.giSuccess { color: #190 !important; }
+.giWarning { color: #b31 !important; }
+.giError { color: #d14 !important; }
+.giInfo { color: #aaa !important; }
+.block-core-PeerList .current { color: #ccc !important; }
+
+table.gbDataTable th { background-color: #aaa !important; }
+.gbEven { background-color: #eee !important; }
+.gbOdd { background-color: #ddd !important; }
+
+input.inputTypeSubmit, input.inputTypeButton { background-color: #fff !important; }
+#gallery select { background-color: #fff !important; }
+
+
+
+.giNew, .giUpdated {
+	padding: 2px 5px 3px 5px !important;
+	border-width: 1px 1px 1px 1px !important;
+	border-style: solid !important;
+	line-height: 3.0em !important;
+	color: #ff7777 !important;
+	border-color: #bbbbbb !important;
+}
+
+.giTitle, #gallery h2, #gallery h3, #gallery h4 {
+	color: #aaa !important;
+}
+
+div.gbTabBar span {
+   background: url('tab_left.gif') no-repeat left top !important; }
+
+#gallery div.gbTabBar span span {
+	background: url('tab_right.gif') no-repeat right top !important; }
+
+#gallery div.gbTabBar span.giSelected {
+   background-image: url('tab_left_on.gif') !important; }
+
+#gallery div.gbTabBar span.giSelected span {
+	color: #888 !important;
+	background-image: url('tab_right_on.gif') !important; }
+
+	
+.gbBlock li {
+	color: #aaa !important;
+}
+
+#gsSidebar ul span {
+	color: #aaa !important;
+}
+
+
+#gallery div.gbTabBar a {
+	color: #777 !important;
+	text-decoration: none!important;
+}
+
+#gallery div.gbTabBar a:hover {
+	color: #222 !important;
+}
+
+span.bsw_ButtonDisabled {
+  color: #ddd !important;
+}
+
+.NavBorder {
+	border: 0 solid #aaa !important;
+	border-top-width: 2px !important;
+}
+
+
+.menuoff {
+	color: #a0a0a0 !important;
+}
+
+#footer a { color: #999 !important;}
+#footer a:hover { color: #444 !important;}
+
+
+.descSeparator {
+	border-color: #ddd !important;
+}
+
+
+.giThumbnail {
+	background-color: #000 !important;
+}
+
+
+div#menu a,div#menu a:visited {color: #ddd !important;}
+
+.helplink a {
+	color: #ffffff !important;
+	background-color: #ccddff !important;
+}
+
+.helplink a:hover {
+	color: #88aadd !important;
+	background-color: #bbccff !important;
+}
+.helplink a:active {
+	color: #6666dd !important;
+}
+
+/*
+*******    ** rating ****    ****
+*/
+.giRatingEmpty {
+	background: transparent url('images/rating/star_r_0.0.gif') no-repeat !important;
+}
+.giRatingEmptyUserYes {
+	background: transparent url('images/rating/star_u_noborder.gif') no-repeat !important;
+}
+.giRatingHalfUserNo {
+	background: transparent url('images/rating/star_r_0.5.gif') no-repeat !important;
+}
+.giRatingHalfUserYes {
+	background: transparent url('images/rating/star_07.gif') no-repeat !important;
+}
+.giRatingFullUserNo {
+	background: transparent url('images/rating/star_r_1.0.gif') no-repeat !important;
+}
+.giRatingFullUserYes {
+	background: transparent url('images/rating/star_u_1.0.gif') no-repeat !important;
+}
+.giRatingAverage {
+	background-color: #777 !important;
+	height: 8px;
+}
+.giRatingAverageContainer {
+	border: 1px solid #6f6f6f !important;
+	height: 8px;
+	width: 80px;
+}
