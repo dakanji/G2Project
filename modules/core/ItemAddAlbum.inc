@@ -50,6 +50,7 @@ class ItemAddAlbumController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		// Make sure we have permission do edit this item
@@ -147,9 +148,9 @@ class ItemAddAlbumController extends GalleryController {
 			$results['delegate']['view']    = 'core.ItemAdmin';
 			$results['delegate']['subView'] = 'core.ItemAddAlbum';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
-
 
 		return array(null, $results);
 	}
@@ -183,6 +184,7 @@ class ItemAddAlbumView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		// Make sure we have permission do edit this item

@@ -30,6 +30,7 @@
 class UserAlbumModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
+
 		$this->setId('useralbum');
 		$this->setName($gallery->i18n('User Albums'));
 		$this->setDescription(
@@ -92,6 +93,7 @@ class UserAlbumModule extends GalleryModule {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $rootId) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',
@@ -142,6 +144,7 @@ class UserAlbumModule extends GalleryModule {
 	 */
 	public function getSystemLinks() {
 		global $gallery;
+
 		$links = array();
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(

@@ -17,11 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 if (!defined('G2_SUPPORT')) {
 	include_once __DIR__ . '/lib/support/defaultloc.inc';
 }
-
 
 // Commands
 define('CMD_CHMOD_MODULES_AND_THEMES_DIR', 'chmodModulesAndThemesDir');
@@ -45,7 +43,6 @@ $permissionBitSets = getPermissionSets();
 $plugins = getPluginList();
 
 // Process inputs and set some variables to default values
-
 $path = getRequestVariable('path');
 
 if (empty($path)) {
@@ -57,6 +54,7 @@ if (empty($path)) {
 	 */
 	GalleryUtilities::sanitizeInputValues($path);
 }
+
 // Some basic sanitation
 $path = str_replace('..', '', $path);
 
@@ -82,7 +80,8 @@ if (empty($status['error'])) {
 	$folderPermissions = PermissionBits::getMe()->fromString(
 		substr($permissions, 0, 3)
 	);
-	$filePermissions   = PermissionBits::getMe()->fromString(
+
+	$filePermissions = PermissionBits::getMe()->fromString(
 		substr($permissions, 3, 3)
 	);
 
@@ -103,7 +102,6 @@ if (empty($status['error'])) {
 }
 
 // Main program section
-
 printPageWithoutFooter(
 	$plugins,
 	$path,
@@ -231,6 +229,7 @@ if (empty($status['error'])) {
 			break;
 	}
 }
+
 printStatus($status);
 
 printFooter();
@@ -255,9 +254,11 @@ function chmodRecursively($filename, $folderPermissions, $filePermissions, $star
 		if (function_exists('apache_reset_timeout')) {
 			@apache_reset_timeout();
 		}
+
 		@set_time_limit(600);
 		$start = time();
 	}
+
 	/*
 	 * Have to chmod first before the is_dir check because is_dir does a stat on the
 	 * file / dir which fails if the permissions are too tight.
@@ -279,6 +280,7 @@ function chmodRecursively($filename, $folderPermissions, $filePermissions, $star
 				status('[OK]', $filename);
 			}
 		}
+
 		/*
 		 * Recurse into subdirectories: Open all files / sub-dirs and change the
 		 * permissions recursively.
@@ -288,6 +290,7 @@ function chmodRecursively($filename, $folderPermissions, $filePermissions, $star
 				if ($child == '.' || $child == '..') {
 					continue;
 				}
+
 				$fullpath = "$filename/$child";
 				$ret      = chmodRecursively(
 					$fullpath,
@@ -295,8 +298,10 @@ function chmodRecursively($filename, $folderPermissions, $filePermissions, $star
 					$filePermissions,
 					$start
 				);
-				$error   |= $ret;
+
+				$error |= $ret;
 			}
+
 			closedir($fd);
 		} else {
 			error('Cannot open directory', $filename);
@@ -325,10 +330,12 @@ function getPermissionSets() {
 		PermissionBits::getMe()->fromString('777'),
 		PermissionBits::getMe()->fromString('666'),
 	);
+
 	$permissionSets[] = array(
 		PermissionBits::getMe()->fromString('555'),
 		PermissionBits::getMe()->fromString('444'),
 	);
+
 	$permissionSets[] = array(
 		PermissionBits::getMe()->fromString('755'),
 		PermissionBits::getMe()->fromString('644'),
@@ -357,7 +364,7 @@ class PermissionBits {
 	 * @param int $bits permission bits in decimal integer representation, eg. octdec(0755)
 	 */
 	public function __construct($bits = null) {
-		if (!is_null($bits)) {
+		if (null !== $bits) {
 			$this->_bits = decoct($bits);
 		}
 	}
@@ -475,6 +482,7 @@ function chmodModulesAndThemesDir($makeItWriteable) {
 			// Try to chmod all dirs, even if one fails
 			if (!@chmod(GallerySetupUtilities::getConfigDir() . $dir, $mode)) {
 				error('[ERROR]', GallerySetupUtilities::getConfigDir() . $dir);
+
 				$ret = 1;
 			}
 		}
@@ -545,6 +553,7 @@ function getPluginList() {
 		if (!file_exists(GallerySetupUtilities::getConfigDir() . $base)) {
 			continue;
 		}
+
 		$fh = opendir(GallerySetupUtilities::getConfigDir() . $base);
 
 		if (empty($fh)) {
@@ -556,6 +565,7 @@ function getPluginList() {
 			if ($folderName == '.' || $folderName == '..' || $folderName == '.svn') {
 				continue;
 			}
+
 			$pluginId = $base . trim($folderName);
 
 			if ((int)is_dir(GallerySetupUtilities::getConfigDir() . $base . $folderName)) {
@@ -564,8 +574,10 @@ function getPluginList() {
 				);
 			}
 		}
+
 		closedir($fh);
 	}
+
 	ksort($plugins);
 
 	return $plugins;
@@ -649,6 +661,7 @@ function printPageWithoutFooter(
 					formObj.open.disabled = false;
 					formObj.secure.disabled = true;
 				}
+
 			}
 
 			function printStatusMessage(message) {
@@ -665,6 +678,7 @@ function printPageWithoutFooter(
 				"successfully yourself with an FTP program or a command line shell."
 				errorElement.style.display = 'block';
 			}
+
 			</script>
 		</head>
 
@@ -866,6 +880,7 @@ function openErrorBox() {
 	if ($errorBoxOpen) {
 		return;
 	}
+
 	$errorBoxOpen = 1; ?>
 	<a name="details"></a>
 	<div id="details" class="results">

@@ -36,6 +36,7 @@ class MainPageControllerAndView extends RepositoryControllerAndView {
 	 */
 	public function showAvailableActions() {
 		global $gallery;
+
 		$data         = array();
 		$urlGenerator =& $gallery->getUrlGenerator();
 
@@ -55,19 +56,22 @@ class MainPageControllerAndView extends RepositoryControllerAndView {
 				'action'     => 'showAvailablePlugins',
 			)
 		);
+
 		$data['packageAllPlugins'] = $urlGenerator->generateUrl(
 			array(
 				'controller' => 'PackagePlugin',
 				'action'     => 'packagePlugins',
 			)
 		);
-		$data['generateIndex']     = $urlGenerator->generateUrl(
+
+		$data['generateIndex'] = $urlGenerator->generateUrl(
 			array(
 				'controller' => 'IndexGenerator',
 				'action'     => 'generate',
 			)
 		);
-		$data['browseRepository']  = $urlGenerator->generateUrl(
+
+		$data['browseRepository'] = $urlGenerator->generateUrl(
 			array(
 				'controller' => 'RepositoryManager',
 				'action'     => 'browse',

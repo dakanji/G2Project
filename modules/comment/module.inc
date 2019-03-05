@@ -74,6 +74,7 @@ class CommentModule extends GalleryModule {
 	 */
 	public function upgrade($currentVersion, $x1 = null) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		if (!isset($currentVersion)) {
@@ -88,14 +89,15 @@ class CommentModule extends GalleryModule {
 		switch ($currentVersion) {
 			case '0':
 				// Initial install.  Register our permissions
-				$permissions[]  = array('add', $gallery->i18n('[comment] Add comments'), 0, array());
-				$permissions[]  = array('edit', $gallery->i18n('[comment] Edit comments'), 0, array());
-				$permissions[]  = array(
+				$permissions[] = array('add', $gallery->i18n('[comment] Add comments'), 0, array());
+				$permissions[] = array('edit', $gallery->i18n('[comment] Edit comments'), 0, array());
+				$permissions[] = array(
 					'delete',
 					$gallery->i18n('[comment] Delete comments'),
 					0,
 					array(),
 				);
+
 				 $permissions[] = array('view', $gallery->i18n('[comment] View comments'), 0, array());
 				 $permissions[] = array(
 					 'all',
@@ -151,6 +153,7 @@ class CommentModule extends GalleryModule {
 					return $ret;
 				}
 
+
 				// Fall Through
 			case '0.9.7':
 			case '1.0.0':
@@ -159,6 +162,7 @@ class CommentModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
+
 
 				// Fall Through
 			case '1.0.1':
@@ -178,6 +182,7 @@ class CommentModule extends GalleryModule {
 					}
 				}
 
+
 				// Fall Through
 			case '1.0.6':
 			case '1.0.7':
@@ -186,16 +191,19 @@ class CommentModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
+
 				$ret = $this->setParameter('validation.level', $level ? 'HIGH' : 'OFF');
 
 				if ($ret) {
 					return $ret;
 				}
+
 				$ret = $this->removeParameter('comments.captcha');
 
 				if ($ret) {
 					return $ret;
 				}
+
 
 				// Fall Through
 			case '1.0.8':
@@ -207,6 +215,7 @@ class CommentModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
+
 
 				// Fall Through
 			case '1.1.2':
@@ -223,6 +232,8 @@ class CommentModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
+
+
 				// Fall Through
 			case '1.1.6':
 				// Add CommentAddNotification class
@@ -239,6 +250,7 @@ class CommentModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
+
 
 				// Fall Through
 			case '1.1.12':
@@ -354,6 +366,7 @@ class CommentModule extends GalleryModule {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$links = array();
 
 		foreach ($items as $item) {
@@ -398,6 +411,7 @@ class CommentModule extends GalleryModule {
 		}
 
 		GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
+
 		list($ret, $commentCounts) = GalleryCommentHelper::getMe()->fetchCommentCounts($ids);
 
 		if ($ret) {
@@ -428,7 +442,8 @@ class CommentModule extends GalleryModule {
 	 * @see GalleryModule::getItemAdminViews
 	 */
 	public function getItemAdminViews($item) {
-		$views                   = array();
+		$views = array();
+
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {
@@ -473,18 +488,20 @@ class CommentModule extends GalleryModule {
 	public function getRewriteRules() {
 		$rules = array();
 
-		$rule            = array();
-		$rule['match']   = array(
+		$rule          = array();
+		$rule['match'] = array(
 			'view' => 'comment.AddComment',
 		);
+
 		$rule['pattern'] = 'c/add/%itemId%.html';
 		$rule['comment'] = $this->translate('Add Comment');
 		$rules[]         = $rule;
 
-		$rule            = array();
-		$rule['match']   = array(
+		$rule          = array();
+		$rule['match'] = array(
 			'view' => 'comment.ShowAllComments',
 		);
+
 		$rule['pattern'] = 'c/view/%itemId%.html';
 		$rule['comment'] = $this->translate('View Comments');
 		$rules[]         = $rule;

@@ -32,7 +32,9 @@
 		foreach($arr as $k => $v) {
 			$arr[$k] = ucwords($v);
 		}
+
 	}
+
 	$rs = RSFilter($rs,'do_ucwords');
  */
 function RSFilter($rs, $fn) {
@@ -43,6 +45,7 @@ function RSFilter($rs, $fn) {
 
 		$rs = $rs->connection->_rs2rs($rs);
 	}
+
 	$rows = $rs->RecordCount();
 
 	for ($i = 0; $i < $rows; $i++) {

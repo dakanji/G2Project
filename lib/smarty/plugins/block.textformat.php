@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty {textformat}{/textformat} block plugin
  *
@@ -29,7 +30,7 @@
  * @return string string $content re-formatted
  */
 function smarty_block_textformat($params, $content, &$smarty) {
-	if (is_null($content)) {
+	if (null === $content) {
 		return;
 	}
 
@@ -81,12 +82,14 @@ function smarty_block_textformat($params, $content, &$smarty) {
 		if ($_paragraphs[$_x] == '') {
 			continue;
 		}
+
 		// convert mult. spaces & special chars to single space
 		$_paragraphs[$_x] = preg_replace(array('!\s+!', '!(^\s+)|(\s+$)!'), array(' ', ''), $_paragraphs[$_x]);
 		// indent first line
 		if ($indent_first > 0) {
 			$_paragraphs[$_x] = str_repeat($indent_char, $indent_first) . $_paragraphs[$_x];
 		}
+
 		// wordwrap sentences
 		$_paragraphs[$_x] = wordwrap($_paragraphs[$_x], $wrap - $indent, $wrap_char, $wrap_cut);
 		// indent lines
@@ -94,6 +97,7 @@ function smarty_block_textformat($params, $content, &$smarty) {
 			$_paragraphs[$_x] = preg_replace('!^!m', str_repeat($indent_char, $indent), $_paragraphs[$_x]);
 		}
 	}
+
 	$_output = implode($wrap_char . $wrap_char, $_paragraphs);
 
 	return $assign ? $smarty->assign($assign, $_output) : $_output;

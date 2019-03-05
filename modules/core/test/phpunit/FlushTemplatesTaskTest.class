@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/FlushTemplatesTask.class');
 
 /**
@@ -63,6 +62,7 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 			array($module->translate('Template cache deleted successfully')),
 			$details
 		);
+
 		$this->assertEquals(
 			array(
 				'file_exists(/templates_c)',

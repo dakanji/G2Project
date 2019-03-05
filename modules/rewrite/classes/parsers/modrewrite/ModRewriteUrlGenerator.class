@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteUrlGenerator.class');
 
 /**
@@ -34,7 +33,8 @@ class ModRewriteUrlGenerator extends RewriteUrlGenerator {
 	 */
 	public function init($baseUri = null, $g2Uri = null, $embedSessionString = null) {
 		// Verify that we're configured to work in this mode.  Else disable short-URLs.
-		$location                       = GalleryUtilities::isEmbedded() ? 'embeddedLocation' : 'galleryLocation';
+		$location = GalleryUtilities::isEmbedded() ? 'embeddedLocation' : 'galleryLocation';
+
 		list($ret, $configuredLocation) = GalleryCoreApi::getPluginParameter('module', 'rewrite', 'modrewrite.' . $location);
 
 		if ($ret) {
@@ -83,7 +83,8 @@ class ModRewriteUrlGenerator extends RewriteUrlGenerator {
 				$path = $this->_path[$forceDirect];
 			} else {
 				// Get the configured value, if set
-				$location         = GalleryUtilities::isEmbedded() ? 'embeddedLocation' : 'galleryLocation';
+				$location = GalleryUtilities::isEmbedded() ? 'embeddedLocation' : 'galleryLocation';
+
 				list($ret, $path) = GalleryCoreApi::getPluginParameter(
 					'module',
 					'rewrite',

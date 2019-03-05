@@ -17,6 +17,7 @@
 if (!defined('ADODB_ERROR_HANDLER_TYPE')) {
 	define('ADODB_ERROR_HANDLER_TYPE', E_USER_ERROR);
 }
+
 define('ADODB_ERROR_HANDLER', 'adodb_throw');
 
 class ADODB_Exception extends Exception {
@@ -55,12 +56,14 @@ class ADODB_Exception extends Exception {
 			$this->host     = $thisConnection->host;
 			$this->database = $thisConnection->database;
 		}
+
 		$this->fn  = $fn;
 		$this->msg = $errmsg;
 
 		if (!is_numeric($errno)) {
 			$errno = -1;
 		}
+
 		parent::__construct($s, $errno);
 	}
 }

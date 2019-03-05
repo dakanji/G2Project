@@ -3,6 +3,7 @@
 if (!defined('G2_SUPPORT_FILE')) {
 	die('Illegal Access');
 }
+
 /**
  * Change URL string that brought us here to the required format.
  *
@@ -22,7 +23,6 @@ $newURL = str_replace('?', '&', $newURL);
 // Change placeholder to "?" to finalise the URL
 $newURL = str_replace('{{={placeholder}=}}', '?', $newURL);
 
-
 /**
  * If the request was a "POST" request, build page with a javascript auto self submitting form
  * from PHP's "$_POST" array to submit the params to our new URL.
@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	foreach ($_POST as $k => $v) {
 		$str .= '<input type="hidden" name="' . $k . '" value="' . $v . '">';
 	}
+
 	$str .= '</form>';
 	$str .= '<script type="text/javascript">';
 	$str .= '    var rebounce_now = function () {';

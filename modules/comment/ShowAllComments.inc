@@ -44,6 +44,7 @@ class ShowAllCommentsView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'comment.view');
 
 		if ($ret) {
@@ -55,6 +56,7 @@ class ShowAllCommentsView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$page = GalleryUtilities::getRequestVariables('page');
 
 		if (empty($page)) {
@@ -103,6 +105,7 @@ class ShowAllCommentsView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			list($ret, $itemList) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
 
 			if ($ret) {
@@ -143,6 +146,7 @@ class ShowAllCommentsView extends GalleryView {
 			) as $canFlag => $permission) {
 				$can[$comment['id']][$canFlag] = isset($permissions[$permission]);
 			}
+
 			// If we already set cache control, don't check any more
 			if (!$cacheControl) {
 				// If !comment.view || !core.view
@@ -190,6 +194,7 @@ class ShowAllCommentsView extends GalleryView {
 						}
 					}
 				}
+
 				$itemData[$comment['parentId']] = $it;
 			}
 		}
@@ -207,7 +212,8 @@ class ShowAllCommentsView extends GalleryView {
 					'page'   => 1,
 				),
 			);
-			$navigator['back']  = array(
+
+			$navigator['back'] = array(
 				'urlParams' => array(
 					'view'   => 'comment.ShowAllComments',
 					'itemId' => $item->getId(),
@@ -224,6 +230,7 @@ class ShowAllCommentsView extends GalleryView {
 					'page'   => $page + 1,
 				),
 			);
+
 			$navigator['last'] = array(
 				'urlParams' => array(
 					'view'   => 'comment.ShowAllComments',
@@ -244,6 +251,7 @@ class ShowAllCommentsView extends GalleryView {
 				'navigator'  => $navigator,
 			)
 		);
+
 		$template->style('modules/comment/comment.css');
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('lib/yui/container-min.js');

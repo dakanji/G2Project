@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPhpVm.class');
 
 /**
@@ -39,6 +38,7 @@ class PhpVmTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_phpVm = new GalleryPhpVm();
 	}
 
@@ -123,6 +123,7 @@ class PhpVmTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(empty($session->_sessionId), 'persistent session preparation failed');
 		$url = GalleryUrlGenerator::getMe()->appendParamsToUrl(
 			$url,
@@ -132,11 +133,13 @@ class PhpVmTest extends GalleryTestCase {
 		);
 
 		list($success, $body, $response, $headers) = GalleryCoreApi::fetchWebPage($url);
+
 		$this->assertTrue($success, 'Could not retrieve G2 page');
 
 		if (!preg_match('{^HTTP/1\.\d 200 OK$}', $response)) {
 			$this->assertEquals($response, 'HTTP/1.1 200 OK', 'Could not retrieve G2 page');
 		}
+
 		$this->assertTrue(isset($headers['Set-Cookie']), 'Set-Cookie header not set');
 
 		if (isset($headers['Set-Cookie'])) {
@@ -157,6 +160,7 @@ class PhpVmTest extends GalleryTestCase {
 	// Check is only rudimentary, omit the optional parameters
 	public function testHeadersSent() {
 		global $gallery;
+
 		// When this unit test is executed, we already sent some data to the user agent
 		$phpVm = $gallery->getPhpVm();
 		$this->assertTrue(
@@ -170,6 +174,7 @@ class PhpVmTest extends GalleryTestCase {
 
 	public function testHeaderDetectsHeaderInjection() {
 		global $gallery;
+
 		$phpVm = $gallery->getPhpVm();
 
 		/*

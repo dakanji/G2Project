@@ -53,7 +53,7 @@ class GalleryStatus {
 	 * @param string $errorMessage (optional) descriptive message of the error
 	 */
 	public function __construct($errorCode = null, $errorMessage = null) {
-		if (!is_null($errorCode)) {
+		if (null !== $errorCode) {
 			$this->_errorCode    = $errorCode;
 			$this->_errorMessage = $errorMessage;
 		}
@@ -123,9 +123,10 @@ class GalleryStatus {
 		$message = $showMessage ? $this->_errorMessage : '';
 		$buf     = 'Error  (' . join(', ', $codes) . ')';
 
-		if (!is_null($message)) {
+		if (null !== $message) {
 			$buf .= ' : ' . htmlentities($message) . ' ';
 		}
+
 		$buf .= '<ul>';
 
 		foreach ($trace as $traceEntry) {
@@ -140,8 +141,10 @@ class GalleryStatus {
 			} elseif (isset($traceEntry['class'])) {
 				$buf .= " ($traceEntry[function]) ";
 			}
+
 			$buf .= '</li>';
 		}
+
 		$buf .= '</ul>';
 
 		return $buf;
@@ -159,7 +162,7 @@ class GalleryStatus {
 		$message = $showMessage ? $this->_errorMessage : '';
 		$buf     = 'Error (' . join(', ', $codes) . ')';
 
-		if (!is_null($message)) {
+		if (null !== $message) {
 			$buf .= ' : ' . htmlentities($message) . ' ';
 		}
 
@@ -175,6 +178,7 @@ class GalleryStatus {
 			} elseif (isset($traceEntry['class'])) {
 				$buf .= " ($traceEntry[function]) ";
 			}
+
 			$buf .= "\n";
 		}
 
@@ -186,10 +190,12 @@ class GalleryStatus {
 	 */
 	public function putInSession() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-		$isAdmin             = !$ret && $isAdmin;
+
+		$isAdmin = !$ret && $isAdmin;
 
 		$session->put('core.error.code', $this->getErrorCode());
 		$session->put('core.error.trace', $this->getAsHtml($isAdmin));
@@ -261,6 +267,7 @@ class GalleryStatus {
 				if (empty($traceEntry['line'])) {
 					$traceEntry['line'] = '???';
 				}
+
 				$trace[] = array(
 					'file'     => str_replace($basePaths, '', $traceEntry['file']),
 					'line'     => $traceEntry['line'],

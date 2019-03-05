@@ -63,6 +63,7 @@ class ItemAddController extends GalleryController {
 	 */
 	public function handleRequest($form) {
 		global $gallery;
+
 		$templateAdapter =& $gallery->getTemplateAdapter();
 
 		$addPluginId = GalleryUtilities::getRequestVariables('addPlugin');
@@ -72,6 +73,7 @@ class ItemAddController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		// Make sure we have permission to add to this item
@@ -103,7 +105,9 @@ class ItemAddController extends GalleryController {
 		if ($addPluginId == 'ItemAddWebDav') {
 			// Don't output any HTML (progress-bar)
 			ob_start();
+
 			$ret = $this->handleRequestWithProgressBar($form, $item, $addPlugin);
+
 			ob_end_clean();
 
 			if ($ret) {
@@ -117,7 +121,8 @@ class ItemAddController extends GalleryController {
 				'subView' => 'core.ItemAddConfirmation',
 				'itemId'  => $item->getId(),
 			);
-			$results['error']    = array();
+
+			$results['error'] = array();
 
 			return array(null, $results);
 		}
@@ -149,6 +154,7 @@ class ItemAddController extends GalleryController {
 	 */
 	public function handleRequestWithProgressBar($form, $item, $addPlugin) {
 		global $gallery;
+
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$urlGenerator    =& $gallery->getUrlGenerator();
 		$phpVm           = $gallery->getPhpVm();
@@ -163,6 +169,7 @@ class ItemAddController extends GalleryController {
 		if ($ret) {
 			return $ret;
 		}
+
 		$templateAdapter->updateProgressBar($this->_coreModule->translate('Adding items'), '', 0);
 
 		$error       = array();
@@ -204,6 +211,7 @@ class ItemAddController extends GalleryController {
 			if (!empty($status['addedFiles'])) {
 				$error[] = 'form[error][itemsAddedDespiteFormErrors]';
 			}
+
 			$session->put('itemAdd.error', $error);
 
 			$doRedirect  = true;
@@ -240,6 +248,7 @@ class ItemAddController extends GalleryController {
 						'forceFullUrl' => true,
 					)
 				);
+
 				$templateAdapter->updateProgressBar(
 					$this->_coreModule->translate('Adding items'),
 					'',
@@ -278,6 +287,7 @@ class ItemAddController extends GalleryController {
 	 */
 	public function postprocessItems($form, &$status) {
 		global $gallery;
+
 		$this->_templateAdapter =& $gallery->getTemplateAdapter();
 		$this->_storage         =& $gallery->getStorage();
 
@@ -305,6 +315,7 @@ class ItemAddController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$this->_extractionToolkitMap = array();
 
 			foreach ($extractToolkits as $mimeType => $toolkitList) {
@@ -332,11 +343,13 @@ class ItemAddController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$gallery->guaranteeTimeLimit(60);
 
 		if (!isset($this->_processedItems)) {
 			$this->_processedItems = array();
 		}
+
 		$errors = array();
 
 		// The number of items a ItemAddOption should be able to process in less than 30 seconds
@@ -353,6 +366,7 @@ class ItemAddController extends GalleryController {
 				// We couldn't add this file for whatever reason or it has been processed already
 				continue;
 			}
+
 			list($ret, $addedItem) = GalleryCoreApi::loadEntitiesById($file['id'], 'GalleryItem');
 
 			if ($ret) {
@@ -371,11 +385,13 @@ class ItemAddController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$ret = GalleryCoreApi::deleteEntityById($addedItem->getId(), 'GalleryItem');
 
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				/*
 				 * Remove this element from the status and use array_merge to append the extracted
 				 * items and to reindex the whole array to fill the gap we just created.
@@ -384,6 +400,7 @@ class ItemAddController extends GalleryController {
 				$status['addedFiles'] = array_merge($status['addedFiles'], $extractedItems);
 
 				$gallery->guaranteeTimeLimit(30);
+
 				$ret = $this->_storage->checkPoint();
 
 				if ($ret) {
@@ -411,6 +428,7 @@ class ItemAddController extends GalleryController {
 						'',
 						$optionNumber++ / count($this->_optionInstances)
 					);
+
 					$gallery->guaranteeTimeLimit(60);
 
 					list($ret, $optionErrors, $optionWarnings) = $option->handleRequestAfterAdd($form, $itemsToProcess);
@@ -427,6 +445,7 @@ class ItemAddController extends GalleryController {
 						if (!isset($status['addedFiles'][$key]['warnings'])) {
 							$status['addedFiles'][$key]['warnings'] = array();
 						}
+
 						$status['addedFiles'][$key]['warnings'] = array_merge($status['addedFiles'][$key]['warnings'], $messages);
 					}
 
@@ -440,6 +459,7 @@ class ItemAddController extends GalleryController {
 				foreach ($itemsToProcessKeyMap as $j) {
 					$this->_processedItems[$j] = 1;
 				}
+
 				$itemsToProcess = $itemsToProcessKeyMap = array();
 				$gallery->guaranteeTimeLimit(60);
 				$this->_templateAdapter->updateProgressBar($this->_processingItemsMessage, '', 1);
@@ -461,13 +481,15 @@ class ItemAddController extends GalleryController {
 	 */
 	public function _extractAndAddFiles($archiveItem, $toolkit) {
 		global $gallery;
+
 		$this->_platform =& $gallery->getPlatform();
 
 		$this->_extractingArchiveMessage = $this->_coreModule->translate('Extracting archive');
 		$this->_templateAdapter->updateProgressBar($this->_extractingArchiveMessage, '', 0);
 		$gallery->guaranteeTimeLimit(120);
 
-		$parentId                          = $archiveItem->getParentId();
+		$parentId = $archiveItem->getParentId();
+
 		list($ret, $hasAddAlbumPermission) = GalleryCoreApi::hasItemPermission($parentId, 'core.addAlbumItem');
 
 		if ($ret) {
@@ -506,8 +528,9 @@ class ItemAddController extends GalleryController {
 		 * If archive title matches the filename or base filename then name new items
 		 * with the same strategy; otherwise just use the archive title.
 		 */
-		$archiveTitle      = $archiveItem->getTitle();
-		$archiveName       = $archiveItem->getPathComponent();
+		$archiveTitle = $archiveItem->getTitle();
+		$archiveName  = $archiveItem->getPathComponent();
+
 		list($archiveBase) = GalleryUtilities::getFileNameComponents($archiveName);
 
 		if ($archiveTitle == $archiveName) {
@@ -530,6 +553,7 @@ class ItemAddController extends GalleryController {
 			$titleMode,
 			$hasAddAlbumPermission
 		);
+
 		@$this->_platform->recursiveRmdir($tmpDir);
 		@$this->_platform->unlink($base);
 
@@ -565,6 +589,7 @@ class ItemAddController extends GalleryController {
 				$list[] = $file;
 			}
 		}
+
 		$this->_platform->closedir($dh);
 
 		foreach ($list as $filename) {
@@ -574,6 +599,7 @@ class ItemAddController extends GalleryController {
 				if ($canAddAlbums) {
 					$title = $filename;
 					GalleryUtilities::sanitizeInputValues($title);
+
 					list($ret, $album) = GalleryCoreApi::createAlbum(
 						$parentId,
 						$filename,
@@ -586,11 +612,13 @@ class ItemAddController extends GalleryController {
 					if ($ret) {
 						return $ret;
 					}
+
 					list($ret, $lockId) = GalleryCoreApi::acquireReadLock($album->getId());
 
 					if ($ret) {
 						return $ret;
 					}
+
 					$ret = $this->_recursiveAddDir(
 						$path,
 						$album->getId(),
@@ -605,11 +633,13 @@ class ItemAddController extends GalleryController {
 
 						return $ret;
 					}
+
 					$ret = GalleryCoreApi::releaseLocks($lockId);
 
 					if ($ret) {
 						return $ret;
 					}
+
 					$newItem =& $album;
 				} else {
 					/*
@@ -628,6 +658,7 @@ class ItemAddController extends GalleryController {
 					if ($ret) {
 						return $ret;
 					}
+
 					$newItem = null;
 				}
 			} else {
@@ -642,10 +673,12 @@ class ItemAddController extends GalleryController {
 					GalleryUtilities::sanitizeInputValues($title);
 				} elseif ($titleMode == 'base') {
 					list($title) = GalleryUtilities::getFileNameComponents($filename);
+
 					GalleryUtilities::sanitizeInputValues($title);
 				} else {
 					$title = $archiveItem->getTitle();
 				}
+
 				list($ret, $newItem) = GalleryCoreApi::addItemToAlbum(
 					$path,
 					$filename,
@@ -678,7 +711,9 @@ class ItemAddController extends GalleryController {
 					'',
 					0.1 + 0.9 * count($addedFiles) / (count($list) + count($addedFiles))
 				);
+
 				$gallery->guaranteeTimeLimit(30);
+
 				$ret = $this->_storage->checkPoint();
 
 				if ($ret) {
@@ -713,6 +748,7 @@ class ItemAddView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		$addPlugin = GalleryUtilities::getRequestVariables('addPlugin');
@@ -722,6 +758,7 @@ class ItemAddView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		// Make sure we have permission to add to this item
@@ -791,6 +828,7 @@ class ItemAddView extends GalleryView {
 				$addPlugin = $ids[0];
 			}
 		}
+
 		$session->put($addPluginSessionKey, $addPlugin);
 
 		$errors = $session->get('itemAdd.error');
@@ -812,6 +850,7 @@ class ItemAddView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$plugins[] = array(
 				'title'      => $title,
 				'id'         => $pluginId,
@@ -891,7 +930,6 @@ class ItemAddView extends GalleryView {
 		return array(null, $core->translate('add items'));
 	}
 }
-
 
 /**
  * Interface for plugins to the ItemAdd view and controller.

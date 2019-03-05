@@ -46,6 +46,7 @@ class RegisterModuleTest extends GalleryTestCase {
 
 	public function testSystemLinks() {
 		global $gallery;
+
 		$label = $this->_module->translate('Register');
 
 		list($ret, $links) = $this->_module->getSystemLinks();
@@ -53,15 +54,18 @@ class RegisterModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		// None for non-guest
 		$this->assertEquals(array(), $links, 'admin');
 
 		$gallery->setConfig('anonymousUserId', $gallery->getActiveUserId());
+
 		list($ret, $links) = $this->_module->getSystemLinks();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'Register' => array(
@@ -79,11 +83,13 @@ class RegisterModuleTest extends GalleryTestCase {
 
 		$gallery->setConfig('anonymousUserId', null);
 		$this->_becomeGuestUser();
+
 		list($ret, $links) = $this->_module->getSystemLinks();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'Register' => array(

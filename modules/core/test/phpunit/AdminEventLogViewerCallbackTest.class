@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/AdminEventLogViewerCallback.inc');
 
 /**
@@ -59,6 +58,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $ignored) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
 		if ($ret) {
@@ -72,8 +72,9 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		}
 
 		// Force translated text to English to make comparisons easier.
-		$translator               =& $gallery->getTranslator();
-		$this->_languageCode      = $translator->_languageCode;
+		$translator          =& $gallery->getTranslator();
+		$this->_languageCode = $translator->_languageCode;
+
 		list($ret, $languageCode) = $translator->init('en');
 
 		if ($ret) {
@@ -109,8 +110,10 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 
 	public function tearDown() {
 		global $gallery;
+
 		$translator =& $gallery->getTranslator();
-		list($ret)  = $translator->init($this->_languageCode);
+
+		list($ret) = $translator->init($this->_languageCode);
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -135,6 +138,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 			array('SELECT COUNT(*) FROM [EventLogMap]', array(), array()),
 			array(null, new UnitTestStorageSearchResults(array(array(1))))
 		);
+
 		$this->_storage->setReply(
 			'getMapEntry',
 			array(
@@ -166,7 +170,8 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		$this->_platform->setReply('strftime', array('FAKE_FMT', 5678), 'DATE2');
 
 		ob_start();
-		$ret     = $this->_callback->renderImmediate(array(), array());
+		$ret = $this->_callback->renderImmediate(array(), array());
+
 		$results = ob_get_contents();
 		ob_end_clean();
 
@@ -195,6 +200,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 			array('SELECT COUNT(*) FROM [EventLogMap]', array(), array()),
 			array(null, new UnitTestStorageSearchResults(array(array(1))))
 		);
+
 		$this->_storage->setReply(
 			'getMapEntry',
 			array(
@@ -226,7 +232,8 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		$this->_platform->setReply('strftime', array('FAKE_FMT', 5678), 'DATE2');
 
 		ob_start();
-		$ret     = $this->_callback->renderImmediate(array(), array());
+		$ret = $this->_callback->renderImmediate(array(), array());
+
 		$results = ob_get_contents();
 		ob_end_clean();
 
@@ -290,7 +297,8 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		$this->_platform->setReply('strftime', array('FAKE_FMT', 'DATE_FROM_DB'), 'DATE');
 
 		ob_start();
-		$ret     = $this->_callback->renderImmediate(array(), array());
+		$ret = $this->_callback->renderImmediate(array(), array());
+
 		$results = ob_get_contents();
 		ob_end_clean();
 
@@ -312,7 +320,8 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('id', 'bananas');
 
 		ob_start();
-		$ret     = $this->_callback->renderImmediate(array(), array());
+		$ret = $this->_callback->renderImmediate(array(), array());
+
 		$results = ob_get_contents();
 		ob_end_clean();
 
@@ -356,7 +365,8 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		);
 
 		ob_start();
-		$ret     = $this->_callback->renderImmediate(array(), array());
+		$ret = $this->_callback->renderImmediate(array(), array());
+
 		$results = ob_get_contents();
 		ob_end_clean();
 

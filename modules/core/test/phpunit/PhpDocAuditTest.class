@@ -80,6 +80,7 @@ class PhpDocAuditTest extends CodeAuditTestCase {
 							$max             = count($files);
 						}
 					}
+
 					$mismatches = join(', ', array_keys($packages));
 					$this->assertFalse(
 						true,

@@ -104,6 +104,7 @@ class UserAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 				unset($verifyParams[$key]);
 			}
 		}
+
 		$this->assertEquals(
 			array(
 				'create'         => 'immediate',

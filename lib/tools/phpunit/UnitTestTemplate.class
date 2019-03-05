@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 require_once __DIR__ . '/../../../modules/core/classes/GalleryTemplate.class';
 
 /**
@@ -32,8 +31,7 @@ require_once __DIR__ . '/../../../modules/core/classes/GalleryTemplate.class';
 class UnitTestTemplate extends GalleryTemplate {
 	public $_data = array();
 
-	public function __construct() {
-	}
+	public function __construct() {}
 
 	/**
 	 * @see GalleryTemplate::setVariable

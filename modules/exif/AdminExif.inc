@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 
 /**
@@ -137,6 +136,7 @@ class AdminExifController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$status['restored']['summary'] = 1;
 			$redirect['view']              = 'core.SiteAdmin';
 			$redirect['subView']           = 'exif.AdminExif';
@@ -177,6 +177,7 @@ class AdminExifController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$status['restored']['detailed'] = 1;
 			$redirect['view']               = 'core.SiteAdmin';
 			$redirect['subView']            = 'exif.AdminExif';
@@ -336,6 +337,7 @@ class AdminExifController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$status['saved']     = 1;
 			$redirect['view']    = 'core.SiteAdmin';
 			$redirect['subView'] = 'exif.AdminExif';
@@ -347,6 +349,7 @@ class AdminExifController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'exif.AdminExif';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -385,6 +388,7 @@ class AdminExifView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$form['item'] = array(
 				'summary'            => $addOption & EXIF_ITEM_SUMMARY,
 				'description'        => $addOption & EXIF_ITEM_DESCRIPTION,
@@ -399,7 +403,8 @@ class AdminExifView extends GalleryView {
 		$visibleKeys = array();
 
 		// Prepare the summary list
-		$summaryList     = array();
+		$summaryList = array();
+
 		list($ret, $tmp) = ExifHelper::getProperties(EXIF_SUMMARY);
 
 		if ($ret) {
@@ -411,7 +416,8 @@ class AdminExifView extends GalleryView {
 		}
 
 		// Prepare the detailed list
-		$detailedList    = array();
+		$detailedList = array();
+
 		list($ret, $tmp) = ExifHelper::getProperties(EXIF_DETAILED);
 
 		if ($ret) {
@@ -432,6 +438,7 @@ class AdminExifView extends GalleryView {
 
 			$availableList[$key] = $module->translate($data[0]);
 		}
+
 		asort($availableList);
 
 		// Check toolkit support for rotation

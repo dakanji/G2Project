@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Replace cached inserts with the actual results
  *
@@ -16,6 +17,7 @@ function smarty_core_process_cached_inserts($params, &$smarty) {
 		$params['results'],
 		$match
 	);
+
 	list($cached_inserts, $insert_args) = $match;
 
 	for ($i = 0, $for_max = count($cached_inserts); $i < $for_max; $i++) {
@@ -39,9 +41,9 @@ function smarty_core_process_cached_inserts($params, &$smarty) {
 			if (!smarty_core_get_php_resource($_params, $smarty)) {
 				return false;
 			}
+
 			$resource_type = $_params['resource_type'];
 			$php_resource  = $_params['php_resource'];
-
 
 			if ($resource_type == 'file') {
 				$smarty->_include($php_resource, true);

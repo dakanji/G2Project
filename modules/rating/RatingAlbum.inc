@@ -46,12 +46,15 @@ class RatingAlbumView extends GalleryView {
 		if (!isset($item)) {
 			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null);
 		}
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rating');
 
 		if ($ret) {
 			return array($ret, null, null, null);
 		}
+
 		list($limit, $itemId) = GalleryUtilities::getRequestVariables('limit', 'itemId');
+
 		$item->create(
 			$module->translate(
 				array(
@@ -70,6 +73,7 @@ class RatingAlbumView extends GalleryView {
 		if ($ret) {
 			return array($ret, null, null, null);
 		}
+
 		$item->setDescription($moduleParams['description']);
 
 		if (!empty($itemId)) {
@@ -79,6 +83,7 @@ class RatingAlbumView extends GalleryView {
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
+
 			list($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
 
 			if ($ret) {
@@ -91,11 +96,12 @@ class RatingAlbumView extends GalleryView {
 			}
 
 			// Provide parent, parent URL and get-children function to Theme API
-			$item->urlParams           = array(
+			$item->urlParams = array(
 				'view'        => 'rating.RatingAlbum',
 				'limit'       => $limit,
 				'highlightId' => $itemId,
 			);
+
 			$item->getChildrenFunction = array('RatingAlbumView', 'getChildIds');
 			$viewItem->parent          = $item;
 			$item                      = $viewItem;
@@ -133,7 +139,8 @@ class RatingAlbumView extends GalleryView {
 		$theme =& $template->getVariableByReference('theme');
 
 		list($limit, $itemId) = GalleryUtilities::getRequestVariables('limit', 'itemId');
-		$theme['pageUrl']     = array(
+
+		$theme['pageUrl'] = array(
 			'view'  => 'rating.RatingAlbum',
 			'limit' => $limit,
 		);
@@ -170,6 +177,7 @@ class RatingAlbumView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			list($ret, $result) = $showItem->loadTemplate($template, $form);
 
 			if ($ret) {
@@ -194,6 +202,7 @@ class RatingAlbumView extends GalleryView {
 	 */
 	public function getChildIds($userId, $limit = null) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		if (!isset($limit)) {
@@ -229,6 +238,7 @@ class RatingAlbumView extends GalleryView {
 		if (empty($query)) {
 			return array(null, array());
 		}
+
 		array_unshift($data, (int)(1000 * (float)$limit));
 
 		list($ret, $searchResults) = $gallery->search($query, $data);
@@ -236,6 +246,7 @@ class RatingAlbumView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemIds = array();
 
 		while ($result = $searchResults->nextResult()) {

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
@@ -48,6 +47,7 @@ class ThumbnailToolkit extends GalleryToolkit {
 	) {
 		GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $mimeTypeMap) = ThumbnailHelper::fetchMimeTypeMap();
@@ -68,11 +68,13 @@ class ThumbnailToolkit extends GalleryToolkit {
 				null,
 			);
 		}
+
 		list($ret, $thumbImage) = GalleryCoreApi::loadEntitiesById($mimeTypeMap[$mimeType], 'ThumbnailImage');
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		list($ret, $thumbPath) = $thumbImage->fetchPath();
 
 		if ($ret) {
@@ -94,6 +96,7 @@ class ThumbnailToolkit extends GalleryToolkit {
 				null,
 			);
 		}
+
 		$context['width']  = $thumbImage->getWidth();
 		$context['height'] = $thumbImage->getHeight();
 
@@ -116,6 +119,7 @@ class ThumbnailToolkit extends GalleryToolkit {
 				null,
 			);
 		}
+
 		list($ret, $mimeType, $context) = $toolkit->performOperation(
 			$mimeType,
 			'thumbnail',

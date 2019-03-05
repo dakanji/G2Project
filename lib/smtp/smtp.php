@@ -11,6 +11,7 @@
  *
  ***************************************************************************/
 
+
 /***************************************************************************
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -19,7 +20,6 @@
  *   (at your option) any later version.
  *
  ***************************************************************************/
-
 function server_parse(&$socket, $response) {
 	for ($server_response = ''; substr($server_response, 3, 1) != ' ';) {
 		if (!($server_response = fgets($socket, 256))) {
@@ -106,6 +106,7 @@ function smtpmail($config, $to, $subject, $body, $headers = null) {
 	// Do we want to use AUTH?, send RFC2554 EHLO, else send RFC821 HELO
 	if (!empty($config['smtp.username']) && !empty($config['smtp.password'])) {
 		fputs($socket, 'EHLO ' . $config['smtp.host'] . "\r\n");
+
 		$ret = server_parse($socket, '250');
 
 		if ($ret) {
@@ -113,6 +114,7 @@ function smtpmail($config, $to, $subject, $body, $headers = null) {
 		}
 
 		fputs($socket, "AUTH LOGIN\r\n");
+
 		$ret = server_parse($socket, '334');
 
 		if ($ret) {
@@ -120,6 +122,7 @@ function smtpmail($config, $to, $subject, $body, $headers = null) {
 		}
 
 		fputs($socket, base64_encode($config['smtp.username']) . "\r\n");
+
 		$ret = server_parse($socket, '334');
 
 		if ($ret) {
@@ -134,6 +137,7 @@ function smtpmail($config, $to, $subject, $body, $headers = null) {
 		}
 	} else {
 		fputs($socket, 'HELO ' . $config['smtp.host'] . "\r\n");
+
 		$ret = server_parse($socket, '250');
 
 		if ($ret) {
@@ -144,6 +148,7 @@ function smtpmail($config, $to, $subject, $body, $headers = null) {
 	// From this point onward most server response codes should be 250
 	// Specify who the mail is from....
 	fputs($socket, 'MAIL FROM: <' . $config['smtp.from'] . ">\r\n");
+
 	$ret = server_parse($socket, '250');
 
 	if ($ret) {
@@ -155,6 +160,7 @@ function smtpmail($config, $to, $subject, $body, $headers = null) {
 
 	if (preg_match('#[^ ]+\@[^ ]+#', $to)) {
 		fputs($socket, "RCPT TO: <$to>\r\n");
+
 		$ret = server_parse($socket, '250');
 
 		if ($ret) {
@@ -168,6 +174,7 @@ function smtpmail($config, $to, $subject, $body, $headers = null) {
 
 		if (preg_match('#[^ ]+\@[^ ]+#', $address)) {
 			fputs($socket, "RCPT TO: <$address>\r\n");
+
 			$ret = server_parse($socket, '250');
 
 			if ($ret) {
@@ -202,6 +209,7 @@ function smtpmail($config, $to, $subject, $body, $headers = null) {
 
 	// Ok the all the ingredients are mixed in let's cook this puppy...
 	fputs($socket, ".\r\n");
+
 	$ret = server_parse($socket, '250');
 
 	if ($ret) {

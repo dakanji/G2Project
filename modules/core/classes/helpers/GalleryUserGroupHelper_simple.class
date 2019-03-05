@@ -100,7 +100,7 @@ class GalleryUserGroupHelper_simple {
 		if (GalleryDataCache::containsKey($cacheKey)) {
 			$data = GalleryDataCache::get($cacheKey);
 		} else {
-			$query                     = '
+			$query = '
 	    SELECT
 	      [GalleryGroup::id],
 	      [GalleryGroup::groupName]
@@ -113,6 +113,7 @@ class GalleryUserGroupHelper_simple {
 	    ORDER BY
 	      [GalleryGroup::groupName]
 	    ';
+
 			list($ret, $searchResults) = $gallery->search(
 				$query,
 				array((int)$userId),

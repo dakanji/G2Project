@@ -56,8 +56,10 @@ class GalleryToolkitHelper_medium {
 			if (!empty($signature)) {
 				$signature .= ',';
 			}
+
 			$signature .= $parameterType['type'];
 		}
+
 		$crc = sprintf('%u', crc32($signature));
 
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
@@ -247,6 +249,7 @@ class GalleryToolkitHelper_medium {
 		if (!empty($mimeTypes)) {
 			$entry['mimeType'] = $mimeTypes;
 		}
+
 		$ret = GalleryCoreApi::removeMapEntry('GalleryToolkitOperationMimeTypeMap', $entry);
 
 		if ($ret) {
@@ -461,7 +464,8 @@ class GalleryToolkitHelper_medium {
 						'outputMimeType' => empty($result[1]) ? $mimeType : $result[1],
 						'description'    => $result[2],
 					);
-					$data[]               =& $pointers[$result[0]];
+
+					$data[] =& $pointers[$result[0]];
 				}
 
 				$pointers[$result[0]]['parameters'][] = array(
@@ -518,6 +522,7 @@ class GalleryToolkitHelper_medium {
 					'description' => $result[2],
 				);
 			}
+
 			GalleryDataCache::put($cacheKey, $data);
 		} else {
 			$data = GalleryDataCache::get($cacheKey);
@@ -560,6 +565,7 @@ class GalleryToolkitHelper_medium {
 			while ($result = $searchResults->nextResult()) {
 				$data[$result[0]][] = $result[1];
 			}
+
 			GalleryDataCache::put($cacheKey, $data);
 		} else {
 			$data = GalleryDataCache::get($cacheKey);
@@ -610,6 +616,7 @@ class GalleryToolkitHelper_medium {
 					}
 				}
 			}
+
 			GalleryDataCache::put($cacheKey, $priorityList);
 		} else {
 			$priorityList = GalleryDataCache::get($cacheKey);
@@ -678,7 +685,8 @@ class GalleryToolkitHelper_medium {
 				$ops,
 			) as $tmpOps) {
 				// Remove trailing ';' on empty $ops
-				$tmpOps                                   = preg_replace('/;$/', '', $tmpOps);
+				$tmpOps = preg_replace('/;$/', '', $tmpOps);
+
 				list($ret, $isSupported, $outputMimeType) = GalleryToolkitHelper_medium::isSupportedOperationSequence(
 					$mimeType,
 					$tmpOps
@@ -713,7 +721,8 @@ class GalleryToolkitHelper_medium {
 				$ops . ';convert-to-image/x-portable-pixmap;convert-to-image/jpeg',
 			) as $tmpOps) {
 				// Remove leading ';' on empty $ops
-				$tmpOps                                      = preg_replace('/^;/', '', $tmpOps);
+				$tmpOps = preg_replace('/^;/', '', $tmpOps);
+
 				list($ret, $isSupported, $tmpOutputMimeType) = GalleryToolkitHelper_medium::isSupportedOperationSequence(
 					$mimeType,
 					$tmpOps
@@ -729,6 +738,7 @@ class GalleryToolkitHelper_medium {
 
 					break;
 				}
+
 				// Try the next, or give up if we run out of options.
 			}
 		}
@@ -763,6 +773,7 @@ class GalleryToolkitHelper_medium {
 					GalleryCoreApi::requireOnce(
 						'modules/core/classes/GalleryToolkit.class'
 					);
+
 					GalleryToolkit::getMe()->estimateDimensions($derivative, $source);
 				}
 			}

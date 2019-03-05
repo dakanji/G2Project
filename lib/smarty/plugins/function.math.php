@@ -7,6 +7,7 @@
  * @subpackage PluginsFunction
  */
 
+
 /**
  * Smarty {math} function plugin
  * Type:     function<br>
@@ -43,6 +44,7 @@ function smarty_function_math($params, &$smarty) {
 		'srand' => true,
 		'tan'   => true,
 	);
+
 	// be sure equation parameter is present
 	if (empty($params['equation'])) {
 		trigger_error('math: missing equation parameter', E_USER_WARNING);
@@ -106,6 +108,7 @@ function smarty_function_math($params, &$smarty) {
 			$equation = preg_replace("/\b$key\b/", " \$params['$key'] ", $equation);
 		}
 	}
+
 	$smarty_math_result = null;
 	GalleryUtilities::doEval('$smarty_math_result = ' . $equation . ';');
 
@@ -113,6 +116,7 @@ function smarty_function_math($params, &$smarty) {
 		if (empty($params['assign'])) {
 			return $smarty_math_result;
 		}
+
 		$smarty->assign($params['assign'], $smarty_math_result);
 	} else {
 		if (empty($params['assign'])) {

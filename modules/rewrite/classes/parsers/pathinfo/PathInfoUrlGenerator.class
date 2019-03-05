@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteUrlGenerator.class');
 
 /**
@@ -72,7 +71,8 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 			// Split the query params off (we add them later again, at generateUrl time)
 			if (strpos($this->_piFile[$fD], '?') !== false) {
 				list($this->_piFile[$fD], $this->_baseParamString[$fD]) = explode('?', $this->_piFile[$fD]);
-				$this->_baseParamString[$fD]                            = '?' . $this->_baseParamString[$fD];
+
+				$this->_baseParamString[$fD] = '?' . $this->_baseParamString[$fD];
 			}
 		}
 
@@ -85,6 +85,7 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 		if ($ret) {
 			return $ret;
 		}
+
 		$parser = unserialize($parser);
 
 		// Parse the PATH_INFO string
@@ -95,7 +96,8 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 				$this->getCurrentUrlDir() . $this->_piFile[0],
 				strlen($this->makeUrl('/')) - 1
 			);
-			$len  = strlen($base);
+
+			$len = strlen($base);
 
 			if (strncmp($pathInfo, $base, $len) == 0) {
 				$pathInfo = substr($pathInfo, $len);
@@ -232,6 +234,7 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 					$url = substr($url, 0, $i - 1);
 				}
 			}
+
 			$url .= substr($url, -1) != '/' ? '/' : '';
 
 			$this->_currentUrlBaseDir[$forceDirect] = $url;

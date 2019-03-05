@@ -233,6 +233,7 @@ class Mail_mimePart {
 				foreach ($tmp['headers'] as $key => $value) {
 					$headers[] = $key . ': ' . $value;
 				}
+
 				$subparts[] = implode(MAIL_MIMEPART_CRLF, $headers) . MAIL_MIMEPART_CRLF . MAIL_MIMEPART_CRLF . $tmp['body'];
 			}
 
@@ -342,10 +343,12 @@ class Mail_mimePart {
 					$output .= $newline . $escape . $eol;                    // soft line break; " =\r\n" is okay
 					$newline = '';
 				}
+
 				$newline .= $char;
 			} // end of for
 			$output .= $newline . $eol;
 		}
+
 		$output = substr($output, 0, -1 * strlen($eol)); // Don't want last crlf
 		return $output;
 	}

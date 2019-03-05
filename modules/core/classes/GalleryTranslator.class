@@ -336,12 +336,14 @@ class GalleryTranslator {
 		if (($ret = setlocale($category, $locale)) !== false) {
 			return $ret;
 		}
+
 		// Try just selecting the language
 		if (($i = strpos($locale, '_')) !== false
 			&& ($ret = setlocale($category, substr($locale, 0, $i))) !== false
 		) {
 			return $ret;
 		}
+
 		/*
 		 * Try appending some character set names; some systems (like FreeBSD) need this.
 		 * Some require a format with hyphen (eg. Gentoo) and others without (eg. FreeBSD).
@@ -367,6 +369,7 @@ class GalleryTranslator {
 				return $ret;
 			}
 		}
+
 		// For Norwegian try nb language code in addition to no
 		if (substr($locale, 0, 2) == 'no') {
 			return $this->_setlocale($category, substr_replace($locale, 'nb', 0, 2));
@@ -447,7 +450,8 @@ class GalleryTranslator {
 		}
 
 		list($language, $country) = preg_split('/[-_]/', "${languageCode}_");
-		$country                  = GalleryUtilities::strToUpper($country);
+
+		$country = GalleryUtilities::strToUpper($country);
 
 		if ((empty($country) || !isset($supportedLanguages[$language][$country]))
 			&& isset($defaultCountry[$language])
@@ -581,8 +585,8 @@ class GalleryTranslator {
 		 * This is a useful debug routine.  Uncomment it to have every string prefixed with the
 		 * domain it was localized in.
 		 */
-		// $localized = "<font size=1 color=#C33>$domain/{$this->_languageCode}:</font>$localized";
 
+		// $localized = "<font size=1 color=#C33>$domain/{$this->_languageCode}:</font>$localized";
 		return array(null, $localized);
 	}
 
@@ -594,10 +598,12 @@ class GalleryTranslator {
 	 */
 	public function getLanguageCodeFromLocale($locale) {
 		list($language, $country) = explode('_', $locale . '_');
+
 		// Don't apply default to Chinese for political correctness
 		if ($language == 'zh') {
 			return array(null, $locale);
 		}
+
 		list($value, $defaultCountries) = $this->getLanguageData();
 
 		if (!isset($defaultCountries[$language])) {
@@ -640,6 +646,7 @@ class GalleryTranslator {
 					null,
 				);
 			}
+
 			$country = $defaultCountries[$language];
 		}
 

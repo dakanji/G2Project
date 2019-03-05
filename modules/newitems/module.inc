@@ -125,6 +125,7 @@ class NewItemsModule extends GalleryModule {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$time        = time();
 		$newTime     = $time - $param['days.new']     * 86400;
 		$updatedTime = $time - $param['days.updated'] * 86400;

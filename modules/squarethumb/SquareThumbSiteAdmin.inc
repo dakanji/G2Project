@@ -87,10 +87,10 @@ class SquareThumbSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$status['saved'] = 1;
 			}
 		} // else $form['action']['reset']
-
 		$method  = empty($error) ? 'redirect' : 'delegate';
 		$results = array(
 			$method  => array(
@@ -140,6 +140,7 @@ class SquareThumbSiteAdminView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$form['allowFitToSquareMode'] = isset($toolkit);
 		$form['mode']                 = $form['allowFitToSquareMode'] ? $form['mode'] : 'crop';
 

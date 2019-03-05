@@ -2,7 +2,6 @@
 
 // Czech language
 // v1.0, 19.06.2003 Kamil Jakubovic <jake@host.sk>
-
 $ADODB_LANG_ARRAY = array(
 	'LANG'                       => 'cz',
 	DB_ERROR                     => 'neznámá chyba',

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
@@ -53,6 +52,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('ItemMoveSingleTestToolkit');
 
 		// Register operations that we can perform on our mock data items
@@ -76,6 +76,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemMoveSingleTestToolkit',
 			array('image/test'),
@@ -96,6 +97,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemMoveSingleTestToolkit',
 			array('image/test'),
@@ -166,6 +168,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addDerivativePreference(
 			0,
 			$itemId,
@@ -195,7 +198,9 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		if (!is_array($itemIds)) {
 			$itemIds = array($itemIds);
 		}
-		$data                   = array();
+
+		$data = array();
+
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
 
 		if ($ret) {
@@ -208,6 +213,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 				'op'   => $deriv->getDerivativeOperations(),
 			);
 		}
+
 		list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds($itemIds);
 
 		if ($ret) {
@@ -291,6 +297,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				$this->_getRootId(),
@@ -351,6 +358,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				$this->_getRootId(),
@@ -504,6 +512,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$gallery->getActiveUserId(),
@@ -539,18 +548,23 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$thumb              = $thumbnails[$this->_item->getId()];
+
+		$thumb = $thumbnails[$this->_item->getId()];
+
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumb->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$thumb->setDerivativeOperations('crop|0,0,50,50;' . $thumb->getDerivativeOperations());
+
 		$ret = $thumb->save();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -634,5 +648,4 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
  * @package GalleryCore
  * @subpackage PHPUnit
  */
-class ItemMoveSingleTestToolkit extends GalleryToolkit {
-}
+class ItemMoveSingleTestToolkit extends GalleryToolkit {}

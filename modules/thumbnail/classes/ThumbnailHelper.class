@@ -138,6 +138,7 @@ class ThumbnailHelper {
 	 */
 	public static function fetchMimeTypeMap() {
 		global $gallery;
+
 		list($ret, $searchResults) = $gallery->search(
 			'SELECT [ThumbnailImage::id], [ThumbnailImage::itemMimeTypes]
 			FROM [ThumbnailImage] WHERE [ThumbnailImage::itemMimeTypes] IS NOT NULL'
@@ -146,6 +147,7 @@ class ThumbnailHelper {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$data = array();
 
 		while ($result = $searchResults->nextResult()) {
@@ -173,16 +175,19 @@ class ThumbnailHelper {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		list($ret, $cList) = GalleryCoreApi::getToolkitOperationMimeTypes('convert-to-image/jpeg');
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$data = array_merge_recursive($tList, $cList);
 
 		if ($byMimeType) {
 			return array(null, $data, null);
 		}
+
 		$badMime     = array();
 		$toolkitMime = array();
 
@@ -316,6 +321,7 @@ class ThumbnailHelper {
 			$item->setWidth($knownSize['width']);
 			$item->setHeight($knownSize['height']);
 		}
+
 		$ret = $item->save();
 
 		if ($ret) {
@@ -331,6 +337,7 @@ class ThumbnailHelper {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = GalleryCoreApi::addGroupPermission(
 			$item->getId(),
 			$adminGroupId,
@@ -366,11 +373,13 @@ class ThumbnailHelper {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$mimeTypes = $item->getItemMimeTypesList();
 
 		if ($isAdd) {
@@ -384,8 +393,10 @@ class ThumbnailHelper {
 					$newList[] = $mime;
 				}
 			}
+
 			$item->setItemMimeTypesList($newList);
 		}
+
 		$ret = $item->save();
 
 		if ($ret) {
@@ -393,6 +404,7 @@ class ThumbnailHelper {
 
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -435,12 +447,14 @@ class ThumbnailHelper {
 		}
 
 		if (!empty($derivative)) {
-			$derivative         = array_shift($derivative);
+			$derivative = array_shift($derivative);
+
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($derivative->getId());
 
 			if ($ret) {
 				return $ret;
 			}
+
 			// Make sure operations contains only thumbnail and composite
 			$derivative->setDerivativeOperations(
 				rtrim(
@@ -474,11 +488,13 @@ class ThumbnailHelper {
 			if ($ret) {
 				return $ret;
 			}
+
 			list($ret, $prefs) = GalleryCoreApi::fetchDerivativePreferencesForItem($item->getParentId());
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$op = 'thumbnail|150';
 
 			foreach ($prefs as $pref) {
@@ -488,6 +504,7 @@ class ThumbnailHelper {
 					break;
 				}
 			}
+
 			$derivative->setDerivativeOperations($op);
 		}
 
@@ -516,6 +533,7 @@ class ThumbnailHelper {
 
 		$derivative->setDerivativeSourceId($thumbnailId);
 		$derivative->setMimeType('image/jpeg');
+
 		$ret = $derivative->save();
 
 		if ($ret) {
@@ -546,11 +564,12 @@ class ThumbnailHelper {
 	public static function getMimeTypeMap() {
 		global $gallery;
 
-		$query                     = '
+		$query = '
 		SELECT [GalleryMimeTypeMap::mimeType], [GalleryMimeTypeMap::extension]
 		FROM [GalleryMimeTypeMap]
 		ORDER BY [GalleryMimeTypeMap::mimeType]
 		';
+
 		list($ret, $searchResults) = $gallery->search($query);
 
 		if ($ret) {

@@ -97,6 +97,7 @@ class ItemEditItem extends ItemEditPlugin {
 					$form['originationTimestampSplit']['Date_Day'],
 					$form['originationTimestampSplit']['Date_Year']
 				);
+
 				GalleryUtilities::putRequestVariable(
 					'form[originationTimestamp]',
 					$newOriginationTimestamp
@@ -116,6 +117,7 @@ class ItemEditItem extends ItemEditPlugin {
 				if ($ret) {
 					return array($ret, null, null, null);
 				}
+
 				$thumbnail = empty($thumbnail) ? null : $thumbnail[$item->getId()];
 
 				if (!isset($thumbnail) && $form['thumbnail']['size'] > 0) {
@@ -126,6 +128,7 @@ class ItemEditItem extends ItemEditPlugin {
 						if ($ret) {
 							return array($ret, null, null, null);
 						}
+
 						list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
 
 						if ($ret) {
@@ -180,11 +183,13 @@ class ItemEditItem extends ItemEditPlugin {
 						if ($ret) {
 							return array($ret, null, null, null);
 						}
+
 						$ret = $thumbnail->save();
 
 						if ($ret) {
 							return array($ret, null, null, null);
 						}
+
 						$ret = GalleryCoreApi::releaseLocks(array($lockId));
 
 						if ($ret) {
@@ -265,6 +270,7 @@ class ItemEditItem extends ItemEditPlugin {
 							null,
 						);
 					}
+
 					$ret = $item->rename($form['pathComponent']);
 
 					if ($ret && !($ret->getErrorCode() & ERROR_COLLISION)) {
@@ -345,6 +351,7 @@ class ItemEditItem extends ItemEditPlugin {
 	 */
 	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		if ($form['formName'] != 'ItemEditItem') {
@@ -382,9 +389,10 @@ class ItemEditItem extends ItemEditPlugin {
 			return array($ret, null, null);
 		}
 
-		$can                        = array(
+		$can = array(
 			'createThumbnail' => false,
 		);
+
 		$can['changePathComponent'] = $can['editThumbnail'] = ($item->getId() != $rootAlbumId);
 
 		if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
@@ -410,6 +418,7 @@ class ItemEditItem extends ItemEditPlugin {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			list($ret, $can['createThumbnail']) = GalleryCoreApi::isSupportedOperationSequence(
 				$source->getMimeType(),
 				$thumbnail->getDerivativeOperations()
@@ -427,6 +436,7 @@ class ItemEditItem extends ItemEditPlugin {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$can['createThumbnail'] = isset($operations);
 		}
 

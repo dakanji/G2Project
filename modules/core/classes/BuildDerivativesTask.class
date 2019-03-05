@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
 
 /**
@@ -64,6 +63,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 	 */
 	public function run() {
 		global $gallery;
+
 		$templateAdapter =& $gallery->getTemplateAdapter();
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -87,6 +87,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 		ORDER BY [DerivativeImage::id] DESC
 		';
 		$gallery->guaranteeTimeLimit(120);
+
 		list($ret, $derivatives) = $gallery->search($query);
 
 		if ($ret) {
@@ -123,6 +124,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 		[GalleryDataItem::id] DESC
 		';
 		$gallery->guaranteeTimeLimit(120);
+
 		list($ret, $items) = $gallery->search($query);
 
 		if ($ret) {
@@ -138,8 +140,10 @@ class BuildDerivativesTask extends MaintenanceTask {
 
 		while ($result = $derivatives->nextResult()) {
 			$gallery->startRecordingDebugSnippet();
+
 			list($ret, $derivative, $wasBuilt) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($result[0], true);
-			$debug                             = $gallery->stopRecordingDebugSnippet();
+
+			$debug = $gallery->stopRecordingDebugSnippet();
 
 			if ($ret) {
 				$debug .= "\nError: building $result[0]: " . $ret->getAsHtml();
@@ -166,6 +170,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$error = '';
 			$gallery->startRecordingDebugSnippet();
 
@@ -178,7 +183,9 @@ class BuildDerivativesTask extends MaintenanceTask {
 					$built++;
 				}
 			}
-			$ret   = GalleryCoreApi::applyDerivativePreferences($item, $item->getParentId(), true);
+
+			$ret = GalleryCoreApi::applyDerivativePreferences($item, $item->getParentId(), true);
+
 			$debug = $gallery->stopRecordingDebugSnippet();
 
 			if ($ret) {
@@ -234,6 +241,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $item) = $item->refresh();
 
 		if ($ret) {
@@ -241,6 +249,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 
 			return $ret;
 		}
+
 		$ret = $item->rescan();
 
 		if ($ret) {
@@ -248,6 +257,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 
 			return $ret;
 		}
+
 		$ret = $item->save();
 
 		if ($ret) {
@@ -255,6 +265,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -266,6 +277,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 
 	public function _updateProgress(&$module, $i, $total) {
 		global $gallery;
+
 		$storage         =& $gallery->getStorage();
 		$templateAdapter =& $gallery->getTemplateAdapter();
 
@@ -276,6 +288,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 				'arg2' => $total,
 			)
 		);
+
 		$templateAdapter->updateProgressBar($message, '', $i / $total);
 		// Release locks (avoid too many open files for flock based locking)
 		$ret = $storage->checkPoint();
@@ -283,6 +296,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 		if ($ret) {
 			return $ret;
 		}
+
 		$gallery->guaranteeTimeLimit(120);
 
 		return null;
@@ -292,6 +306,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 		if ($count == 1) {
 			echo '<br/><h3>' . $module->translate('Debug output for failed items:') . '</h3>';
 		}
+
 		echo '<pre class="gcBackground1 gcBorder2">' . $message . '</pre>';
 	}
 

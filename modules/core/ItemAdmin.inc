@@ -51,6 +51,7 @@ class ItemAdminView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		// Find its thumbnail

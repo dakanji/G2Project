@@ -66,6 +66,7 @@ class WatermarkModule extends GalleryModule {
 	 */
 	public function upgrade($currentVersion, $x1 = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
 
@@ -103,6 +104,7 @@ class WatermarkModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
+
 
 				// Fall Through
 			case '0.8.1':
@@ -179,7 +181,8 @@ class WatermarkModule extends GalleryModule {
 						$ids[] = (int)$result[0];
 					}
 
-					$ids              = array();
+					$ids = array();
+
 					list($ret, $lock) = GalleryCoreApi::acquireWriteLock($ids);
 
 					if ($ret) {
@@ -221,6 +224,7 @@ class WatermarkModule extends GalleryModule {
 						return $ret;
 					}
 				}
+
 
 				// Fall Through
 			case '0.9.2':
@@ -305,10 +309,12 @@ class WatermarkModule extends GalleryModule {
 	 */
 	public function uninstall() {
 		global $gallery;
+
 		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 		// Delete all watermarks and remove uses of them
-		$query                     = 'SELECT [WatermarkImage::id] FROM [WatermarkImage]';
+		$query = 'SELECT [WatermarkImage::id] FROM [WatermarkImage]';
+
 		list($ret, $searchResults) = $gallery->search($query);
 
 		if ($ret) {
@@ -417,6 +423,7 @@ class WatermarkModule extends GalleryModule {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $isOn) = $this->getParameter('allowUserWatermarks');
 
 		if ($ret) {
@@ -451,6 +458,7 @@ class WatermarkModule extends GalleryModule {
 				GalleryCoreApi::requireOnce(
 					'modules/watermark/classes/WatermarkHelper.class'
 				);
+
 				list($ret, $watermarkIds) = WatermarkHelper::fetchWatermarkIdsByOwnerId(
 					$entity->getId()
 				);
@@ -490,6 +498,7 @@ class WatermarkModule extends GalleryModule {
 							. $ret->getAsText()
 				);
 			}
+
 			$oldRewriteVersion = false;
 		} else {
 			$oldRewriteVersion = version_compare($rewrite->getVersion(), '1.1.8', '<');
@@ -520,6 +529,7 @@ class WatermarkModule extends GalleryModule {
 			$rule['locked']  = true;
 			$rule['parser']  = 'preGallery';
 		}
+
 		$rules[0] = $rule;
 
 		return $rules;

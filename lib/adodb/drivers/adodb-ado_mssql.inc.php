@@ -9,7 +9,6 @@
 Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Microsoft SQL Server ADO data driver. Requires ADO and MSSQL client.
   Works only on MS Windows.
 
@@ -30,7 +29,6 @@ if (!defined('_ADODB_ADO_LAYER')) {
 	}
 }
 
-
 class ADODB_ado_mssql extends ADODB_ado {
 	public $databaseType = 'ado_mssql';
 	public $hasTop       = 'top';
@@ -45,7 +43,6 @@ class ADODB_ado_mssql extends ADODB_ado {
 	public $_dropSeqSQL  = 'drop table %s';
 
 	//var $_inTransaction = 1; // always open recordsets, so no transaction problems.
-
 	public function _insertid() {
 		return $this->GetOne('select SCOPE_IDENTITY()');
 	}
@@ -66,6 +63,7 @@ class ADODB_ado_mssql extends ADODB_ado {
 		if (!stristr($transaction_mode, 'isolation')) {
 			$transaction_mode = 'ISOLATION LEVEL ' . $transaction_mode;
 		}
+
 		$this->Execute('SET TRANSACTION ' . $transaction_mode);
 	}
 
@@ -87,7 +85,6 @@ class ADODB_ado_mssql extends ADODB_ado {
 		$osoptions[3] = null;
 
 		$adors = @$dbc->OpenSchema(4, $osoptions);//tables
-
 		if ($adors) {
 			while (!$adors->EOF) {
 				$fld                         = new ADOFieldObject();
@@ -99,8 +96,10 @@ class ADODB_ado_mssql extends ADODB_ado {
 
 				$adors->MoveNext();
 			}
+
 			$adors->Close();
 		}
+
 		$false = false;
 
 		return empty($arr) ? $false : $arr;
@@ -117,6 +116,7 @@ class ADODB_ado_mssql extends ADODB_ado {
 
 			return false;
 		}
+
 		$this->Execute('COMMIT TRANSACTION adodbseq');
 
 		return true;
@@ -136,10 +136,12 @@ class ADODB_ado_mssql extends ADODB_ado {
 
 				return false;
 			}
+
 			$this->Execute('COMMIT TRANSACTION adodbseq');
 
 			return $start;
 		}
+
 		$num = $this->GetOne("select id from $seq");
 		$this->Execute('COMMIT TRANSACTION adodbseq');
 
@@ -149,7 +151,6 @@ class ADODB_ado_mssql extends ADODB_ado {
 		//return $this->GetOne("SELECT CONVERT(varchar(255), NEWID()) AS 'Char'");
 	}
 } // end class
-
 class ADORecordSet_ado_mssql extends ADORecordSet_ado {
 	public $databaseType = 'ado_mssql';
 

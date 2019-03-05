@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
 GalleryCoreApi::requireOnce('modules/core/classes/helpers/MaintenanceHelper_simple.class');
 
@@ -53,6 +52,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markFactoryModuleForCleanup('coreTest');
 	}
 
@@ -105,6 +105,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		}
 
 		list($ret, $info) = MaintenanceHelper_simple::fetchLastRun('MaintenanceHelperTestTask');
+
 		$this->assertTrue($info['runId'] > 0, 'run id 1');
 		$this->assertEquals($time, $info['timestamp'], 'timestamp 1');
 		$this->assertTrue($info['success'], 'success 1');
@@ -125,6 +126,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		}
 
 		list($ret, $info) = MaintenanceHelper_simple::fetchLastRun('MaintenanceHelperTestTask');
+
 		$this->assertTrue($info['runId'] > $lastRunId, 'run id 2');
 		$this->assertEquals($time, $info['timestamp'], 'timestamp 2');
 		$this->assertFalse($info['success'], 'success 2');
@@ -133,7 +135,6 @@ class MaintenanceHelperTest extends GalleryTestCase {
 
 	public function testSetMaintenanceModeTrue() {
 		global $gallery;
-
 
 		$UnitTestPlatform = new UnitTestPlatform();
 		$gallery->setPlatform($UnitTestPlatform);
@@ -162,6 +163,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			),
 			true
 		);
+
 		$platform->setReply('atomicWrite', array($versionFile, $writeString), true);
 
 		$ret = GalleryCoreApi::setMaintenanceMode(true);
@@ -175,6 +177,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			$gallery->getConfig('mode.maintenance'),
 			'Configuration not modified'
 		);
+
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
@@ -207,6 +210,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			),
 			true
 		);
+
 		$platform->setReply('atomicWrite', array($versionFile, $writeString), true);
 
 		$ret = GalleryCoreApi::setMaintenanceMode(false);
@@ -220,6 +224,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			$gallery->getConfig('mode.maintenance'),
 			'Configuration not modified'
 		);
+
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
@@ -240,7 +245,6 @@ class MaintenanceHelperTest extends GalleryTestCase {
 
 		$writeString = $module->getVersion() . "\n" . $module->getGalleryVersion() . "\n"
 		. 'maintenance-mode:http://test.gallery.com/maintenance.html';
-
 		$versionFile = $gallery->getConfig('data.gallery.version');
 
 		$platform->setReply('file_exists', array($versionFile), true);
@@ -252,6 +256,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 				$module->getGalleryVersion() . "\n",
 			)
 		);
+
 		$platform->setReply('atomicWrite', array($versionFile, $writeString), true);
 
 		$ret = GalleryCoreApi::setMaintenanceMode('http://test.gallery.com/maintenance.html');
@@ -265,6 +270,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			$gallery->getConfig('mode.maintenance'),
 			'Configuration not modified'
 		);
+
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 

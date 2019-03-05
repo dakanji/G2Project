@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailImage.class');
 GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
 
@@ -98,6 +97,7 @@ class ThumbnailImageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_customThumbnail   = array_shift($thumbnailImages);
 		$this->_mimeTypeThumbnail = array_shift($thumbnailImages);
 	}
@@ -108,6 +108,7 @@ class ThumbnailImageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$id = (string)$this->_customThumbnail->getid();
 
 		$this->assertEquals(
@@ -126,6 +127,7 @@ class ThumbnailImageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals((int)$thumbnailContainerId, $this->_mimeTypeThumbnail->getParentId());
 	}
 
@@ -144,13 +146,16 @@ class ThumbnailImageTest extends GalleryTestCase {
 	}
 
 	public function testCustomThumbForRootAlbum() {
-		$existingPathComponent   = $this->_mimeTypeThumbnail->getPathComponent();
+		$existingPathComponent = $this->_mimeTypeThumbnail->getPathComponent();
+
 		list($ret, $rootAlbumId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 
 		if ($ret) {
 			return $ret;
 		}
-		$filename                = __DIR__ . '/../../images/G2audio.jpg';
+
+		$filename = __DIR__ . '/../../images/G2audio.jpg';
+
 		list($ret, $thumbnailId) = ThumbnailHelper::addItem(
 			null,
 			$rootAlbumId,
@@ -162,11 +167,13 @@ class ThumbnailImageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $thumbnail) = GalleryCoreApi::loadEntitiesById($thumbnailId, 'ThumbnailImage');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($thumbnail);
 
 		// Verify that the new thumbnail exists and has the correct attributes.
@@ -175,22 +182,27 @@ class ThumbnailImageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($thumbnailId, $thumbnailImage->getId(), 'id');
+
 		list($ret, $logicalPath) = $thumbnail->fetchLogicalPath();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $path) = $thumbnail->fetchPath();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $existingPath) = $this->_mimeTypeThumbnail->fetchPath();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($path != $existingPath, 'path collision');
 	}
 }

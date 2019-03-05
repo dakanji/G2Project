@@ -38,6 +38,7 @@ class AuthenticateStep extends UpgradeStep {
 				$templateData['authKey'] = GallerySetupUtilities::generateAuthenticationKey();
 				GallerySetupUtilities::setAuthenticationKey($templateData['authKey']);
 			}
+
 			$templateData['authFile'] = sprintf(
 				'%s%s%s',
 				basename(GALLERY_CONFIG_DIR),
@@ -61,6 +62,7 @@ class AuthenticateStep extends UpgradeStep {
 						$templateData['authFileErrors']['mismatch'] = 1;
 					}
 				}
+
 				$templateData['renderType'] = 'loginTxtForm';
 			} else {
 				if (isset($_POST['password_sent'])) {
@@ -77,6 +79,7 @@ class AuthenticateStep extends UpgradeStep {
 						GallerySetupUtilities::authenticateThisSession();
 					}
 				}
+
 				$templateData['renderType'] = 'password';
 			}
 

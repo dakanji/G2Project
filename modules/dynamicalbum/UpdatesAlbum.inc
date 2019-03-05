@@ -28,6 +28,7 @@
 class UpdatesAlbumView extends GalleryView {
 	public function __construct() {
 		global $gallery;
+
 		$this->_view            = 'dynamicalbum.UpdatesAlbum';
 		$this->_title           = $gallery->i18n('Recent Updates');
 		$this->_itemType        = array($gallery->i18n('Updates'), $gallery->i18n('updates'));
@@ -55,11 +56,13 @@ class UpdatesAlbumView extends GalleryView {
 		if (!isset($item)) {
 			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null);
 		}
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'dynamicalbum');
 
 		if ($ret) {
 			return array($ret, null, null, null);
 		}
+
 		$item->create(
 			$module->translate($this->_title),
 			array($this->_itemType, array_map(array($module, 'translate'), $this->_itemType))
@@ -70,6 +73,7 @@ class UpdatesAlbumView extends GalleryView {
 		if ($ret) {
 			return array($ret, null, null, null);
 		}
+
 		$item->setDescription($moduleParams['description.' . $this->_param]);
 
 		$itemId = GalleryUtilities::getRequestVariables('itemId');
@@ -81,6 +85,7 @@ class UpdatesAlbumView extends GalleryView {
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
+
 			list($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
 
 			if ($ret) {
@@ -93,10 +98,11 @@ class UpdatesAlbumView extends GalleryView {
 			}
 
 			// Provide parent, parent URL and get-children function to Theme API
-			$item->urlParams           = array(
+			$item->urlParams = array(
 				'view'        => $this->_view,
 				'highlightId' => $itemId,
 			);
+
 			$item->getChildrenFunction = array(get_class($this), 'getChildIds');
 			$viewItem->parent          = $item;
 			$item                      = $viewItem;
@@ -164,6 +170,7 @@ class UpdatesAlbumView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			list($ret, $result) = $showItem->loadTemplate($template, $form);
 
 			if ($ret) {
@@ -193,6 +200,7 @@ class UpdatesAlbumView extends GalleryView {
 		$id = 'id'
 	) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'dynamicalbum');
@@ -200,6 +208,7 @@ class UpdatesAlbumView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$size = $params['size.' . $param];
 		$type = $params['type.' . $param];
 
@@ -270,6 +279,7 @@ class UpdatesAlbumView extends GalleryView {
 		if ($table == $class) {
 			$class = null;
 		}
+
 		list($ret, $query, $data) = GalleryCoreApi::buildItemQuery(
 			$table,
 			$id,
@@ -307,6 +317,7 @@ class UpdatesAlbumView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemIds = array();
 
 		while ($result = $searchResults->nextResult()) {

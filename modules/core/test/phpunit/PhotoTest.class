@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
@@ -53,6 +52,7 @@ class PhotoTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('PhotoTestToolkit');
 
 		$ret = GalleryCoreApi::registerToolkitProperty(
@@ -150,6 +150,7 @@ class PhotoTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($photo);
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
@@ -190,6 +191,7 @@ class PhotoTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($photo);
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);

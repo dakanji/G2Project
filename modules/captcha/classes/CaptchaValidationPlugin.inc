@@ -40,6 +40,7 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
 	 */
 	public function performValidation(&$form, $options = array()) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		list($ret, $useCaptcha, $failedAttempts) = $this->_shouldValidate($options);
@@ -166,6 +167,7 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
 
 				if ($securityLevel == 'LOW') {
 					global $gallery;
+
 					$session        =& $gallery->getSession();
 					$failedAttempts = $session->get('captcha.failedAttempts');
 				} elseif (!empty($options['key'])) {

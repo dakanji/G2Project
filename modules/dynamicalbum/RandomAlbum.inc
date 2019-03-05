@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/dynamicalbum/UpdatesAlbum.inc');
 
 /**
@@ -30,6 +29,7 @@ GalleryCoreApi::requireOnce('modules/dynamicalbum/UpdatesAlbum.inc');
 class RandomAlbumView extends UpdatesAlbumView {
 	public function __construct() {
 		global $gallery;
+
 		$this->_view            = 'dynamicalbum.RandomAlbum';
 		$this->_title           = $gallery->i18n('Random Items');
 		$this->_itemType        = array($gallery->i18n('Random'), $gallery->i18n('random'));
@@ -43,14 +43,14 @@ class RandomAlbumView extends UpdatesAlbumView {
 	 * @return array GalleryStatus a status code
 	 *               array of item ids
 	 */
-	 public function getChildIds(
- 		$userId,
- 		$param = 'date',
- 		$orderBy = 'creationTimestamp',
- 		$orderDirection = ORDER_DESCENDING,
- 		$table = 'GalleryEntity',
- 		$id = 'id'
- 	) {
+	public function getChildIds(
+		$userId,
+		$param = 'date',
+		$orderBy = 'creationTimestamp',
+		$orderDirection = ORDER_DESCENDING,
+		$table = 'GalleryEntity',
+		$id = 'id'
+	) {
 		return parent::getChildIds($userId, 'random', 'random', ORDER_ASCENDING, null, 'id');
 	}
 }

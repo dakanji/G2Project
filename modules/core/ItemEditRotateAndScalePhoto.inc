@@ -105,6 +105,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 				if ($ret) {
 					return array($ret, null, null, null);
 				}
+
 				list($ret, $preferred) = $preferred->refresh();
 
 				if ($ret) {
@@ -229,12 +230,14 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		}
 
 		// Can we allow to delete the original?
-		$mimeType            = $item->getMimeType();
+		$mimeType = $item->getMimeType();
+
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, 'rotate');
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$ItemEditRotateAndScalePhoto['editPhoto']['noToolkitSupport'] = !isset($toolkit);
 		// Get worst of rotate and resize
 		if (isset($toolkit)) {
@@ -243,6 +246,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$ItemEditRotateAndScalePhoto['editPhoto']['noToolkitSupport'] = !isset($toolkit);
 		}
 
@@ -258,6 +262,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 			} else {
 				$ItemEditRotateAndScalePhoto['editPhoto']['hasPreferredSource'] = false;
 			}
+
 			$sourceMimeTypes[] = $preferred->getMimeType();
 		}
 

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
 
 /**
@@ -174,6 +173,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(GalleryUtilities::isA($toolkit, 'ThumbnailToolkit'), 'Toolkit');
 
 		list($ret, $mimeMap) = ThumbnailHelper::fetchMimeTypeMap();
@@ -181,6 +181,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($mimeMap['test/fakemime']), 'Map entry not found after add');
 		$itemId = $mimeMap['test/fakemime'];
 
@@ -211,6 +212,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(GalleryUtilities::isA($toolkit, 'ThumbnailToolkit'), 'Toolkit');
 
 		$results = $this->handleRequest();
@@ -255,6 +257,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(isset($mimeMap['test/fakemime']), 'Map entry still found after delete');
 		$this->assertTrue(isset($mimeMap['test/fakemime2']), 'Map entry not found after delete');
 		$this->assertEquals($itemId, $mimeMap['test/fakemime2'], 'Wrong map id');
@@ -264,6 +267,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(isset($toolkit), 'Toolkit should not be found');
 
 		GalleryUtilities::removeFormVariables('form');
@@ -291,6 +295,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(isset($mimeMap['test/fakemime']), 'Map entry still found after delete');
 		$this->assertFalse(isset($mimeMap['test/fakemime2']), 'Map entry still found after delete');
 
@@ -299,6 +304,7 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(isset($toolkit), 'Toolkit should not be found');
 	}
 }

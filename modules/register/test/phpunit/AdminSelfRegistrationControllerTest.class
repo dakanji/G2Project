@@ -44,6 +44,7 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'emailusers', '0');
 
 		if ($ret) {
@@ -59,11 +60,13 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $pendingUser->create('testuser_' . mt_rand(1000, 1000000));
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $pendingUser->save();
 
 		if ($ret) {
@@ -84,6 +87,7 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 				$this->failWithStatus($ret);
 			}
 		}
+
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -137,6 +141,7 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals($expectedValue, $realValue, "value mismatch for $key");
 		}
 	}
@@ -165,6 +170,7 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$username           = $this->_pendingUser->getUserName();
 		$this->_pendingUser = null;
 
@@ -173,6 +179,7 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_pendingUser = $user;
 	}
 
@@ -219,6 +226,7 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_pendingUser = null;
 	}
 
@@ -251,6 +259,7 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($count > 0, 'User count');
 
 		list($ret, $count) = GalleryPendingUserHelper::fetchUserCount('testuser');
@@ -258,6 +267,7 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($count > 0, 'User count with filter');
 
 		list($ret, $data) = GalleryPendingUserHelper::fetchUserData(3, 0);
@@ -265,6 +275,7 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(empty($data), 'User data');
 
 		list($ret, $data) = GalleryPendingUserHelper::fetchUserData(3, 0, 'testuser');
@@ -272,6 +283,7 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(empty($data), 'User data with filter');
 	}
 }

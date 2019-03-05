@@ -60,6 +60,7 @@ class SitemapView extends GalleryView {
 	 */
 	public function renderSitemap($rootId) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$phpVm        = $gallery->getPhpVm();
 
@@ -82,6 +83,7 @@ class SitemapView extends GalleryView {
 		echo "\n";
 
 		$gallery->guaranteeTimeLimit(120);
+
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds(
 			'core.view',
 			$gallery->getActiveUserId()
@@ -140,6 +142,7 @@ class SitemapView extends GalleryView {
 			);
 
 			$gallery->guaranteeTimeLimit(120);
+
 			list($ret, $searchResults) = $gallery->search($query, array_merge($data, $aclIds));
 
 			if ($ret) {
@@ -153,13 +156,15 @@ class SitemapView extends GalleryView {
 				30 * 24 * 3600  => 'monthly',
 				365 * 24 * 3600 => 'yearly',
 			);
-			$i              = 0;
+
+			$i = 0;
 
 			while ($result = $searchResults->nextResult()) {
 				if (($i++ % 100) == 0) {
 					$gallery->guaranteeTimeLimit(200);
 				}
-				$loc        = $urlGenerator->generateUrl(
+
+				$loc = $urlGenerator->generateUrl(
 					array(
 						'view'   => 'core.ShowItem',
 						'itemId' => $result[0],
@@ -169,6 +174,7 @@ class SitemapView extends GalleryView {
 						'forceFullUrl'   => true,
 					)
 				);
+
 				$lastmod    = gmstrftime('%Y-%m-%dT%H:%M:%S+00:00', $result[1]);
 				$changefreq = 'never';
 
@@ -179,15 +185,18 @@ class SitemapView extends GalleryView {
 						break;
 					}
 				}
+
 				printf(
 					'<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq></url>',
 					$loc,
 					$lastmod,
 					$changefreq
 				);
+
 				echo "\n";
 			}
 		}
+
 		echo '</urlset>';
 
 		return null;

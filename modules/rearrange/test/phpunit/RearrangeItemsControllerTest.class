@@ -79,6 +79,7 @@ class RearrangeItemsControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->_childIds[] = $this->_child[$i]->getId();
 		}
 	}

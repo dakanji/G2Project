@@ -53,6 +53,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('ItemMoveTestToolkit');
 
 		// Register operations that we can perform on our mock data items
@@ -76,6 +77,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemMoveTestToolkit',
 			array('image/test'),
@@ -105,6 +107,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$parentId = $this->_album[$i]->getId();
 
 			$itemId = $this->_album[$i]->getId();
@@ -124,6 +127,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 					if ($ret) {
 						return $ret;
 					}
+
 					$ret = GalleryCoreApi::addUserPermission($itemId, $userId, 'core.delete');
 
 					if ($ret) {
@@ -151,6 +155,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 					if ($ret) {
 						return $ret;
 					}
+
 					$ret = GalleryCoreApi::addUserPermission($itemId, $userId, 'core.delete');
 
 					if ($ret) {
@@ -178,6 +183,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 					if ($ret) {
 						return $ret;
 					}
+
 					$ret = GalleryCoreApi::addUserPermission($itemId, $userId, 'core.delete');
 
 					if ($ret) {
@@ -233,6 +239,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addDerivativePreference(
 			0,
 			$itemId,
@@ -262,7 +269,9 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		if (!is_array($itemIds)) {
 			$itemIds = array($itemIds);
 		}
-		$data                   = array();
+
+		$data = array();
+
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
 
 		if ($ret) {
@@ -275,6 +284,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 				'op'   => $deriv->getDerivativeOperations(),
 			);
 		}
+
 		list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds($itemIds);
 
 		if ($ret) {
@@ -298,6 +308,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 	 */
 	public function testMoveItem() {
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_album[1]->getId());
 		GalleryUtilities::putRequestVariable(
 			'form[selectedIds]',
@@ -305,6 +316,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 				$this->_album[2]->getId() => 1,
 			)
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[0]->getId());
 
@@ -358,6 +370,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 				$this->_album[1]->getId() => 1,
 			)
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $peer->getId());
 
@@ -385,6 +398,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				$this->_getRootId(),
@@ -400,6 +414,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array($this->_getRootId(), $this->_album[0]->getId()),
 			$parentSequence,
@@ -411,6 +426,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array($this->_getRootId()),
 			$parentSequence,
@@ -521,6 +537,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 	 */
 	public function testMoveItemIntoBogusDestination() {
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_album[2]->getId());
 		GalleryUtilities::putRequestVariable(
 			'form[selectedIds]',
@@ -528,6 +545,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 				$this->_album[2]->getId() => 1,
 			)
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 
 		$results = $this->handleRequest();
@@ -549,6 +567,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 	 */
 	public function testMoveItemIntoSelf() {
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_album[0]->getId());
 		GalleryUtilities::putRequestVariable(
 			'form[selectedIds]',
@@ -556,6 +575,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 				$this->_album[1]->getId() => 1,
 			)
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[1]->getId());
 
@@ -582,6 +602,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 	 */
 	public function testMoveItemIntoChild() {
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_album[0]->getId());
 		GalleryUtilities::putRequestVariable(
 			'form[selectedIds]',
@@ -589,6 +610,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 				$this->_album[1]->getId() => 1,
 			)
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[3]->getId());
 
@@ -615,6 +637,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 	 */
 	public function testMoveItemIntoAlbumWithNoAddPermissions() {
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_album[3]->getId());
 		GalleryUtilities::putRequestVariable(
 			'form[selectedIds]',
@@ -622,6 +645,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 				$this->_album[4]->getId() => 1,
 			)
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[2]->getId());
 
@@ -644,6 +668,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 	 */
 	public function testMoveItemWithNoDeletePermissions() {
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_album[3]->getId());
 		GalleryUtilities::putRequestVariable(
 			'form[selectedIds]',
@@ -651,6 +676,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 				$this->_album[4]->getId() => 1,
 			)
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[0]->getId());
 
@@ -677,6 +703,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 	 */
 	public function testMoveAlbumIntoDestinationWithNoAddAlbumPermissions() {
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_album[2]->getId());
 		GalleryUtilities::putRequestVariable(
 			'form[selectedIds]',
@@ -684,6 +711,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 				$this->_album[3]->getId() => 1,
 			)
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[1]->getId());
 
@@ -710,6 +738,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 	 */
 	public function testMoveDataItemIntoDestinationWithNoAddDataItemPermissions() {
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_album[3]->getId());
 		GalleryUtilities::putRequestVariable(
 			'form[selectedIds]',
@@ -717,6 +746,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 				$this->_item->getId() => 1,
 			)
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[0]->getId());
 
@@ -757,6 +787,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		// Verify they were created ok..
 		$sizes = $this->_getDerivativeSizes($this->_item->getId());
 		$this->assertEquals(
@@ -781,6 +812,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 				$this->_item->getId() => 1,
 			)
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[1]->getId());
 
@@ -808,6 +840,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				$this->_getRootId(),
@@ -841,5 +874,4 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
  * @package GalleryCore
  * @subpackage PHPUnit
  */
-class ItemMoveTestToolkit extends GalleryToolkit {
-}
+class ItemMoveTestToolkit extends GalleryToolkit {}

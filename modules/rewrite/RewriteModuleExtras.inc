@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 
 /**
@@ -33,6 +32,7 @@ class RewriteModuleExtras {
 	 */
 	public static function upgrade($module, $currentVersion) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		switch ($currentVersion) {
@@ -105,6 +105,7 @@ class RewriteModuleExtras {
 					return $ret;
 				}
 
+
 				// Fall Through
 			case '0.9.3':
 			case '0.9.4':
@@ -118,6 +119,7 @@ class RewriteModuleExtras {
 					}
 				}
 
+
 				// Fall Through
 			case '0.9.5':
 				/*
@@ -125,7 +127,6 @@ class RewriteModuleExtras {
 				 * view names in the active rules list, and the old table is deleted in version 1.1.0 we
 				 * no longer need to do this.
 				 */
-
 			case '0.9.6':
 			case '0.9.7':
 			case '0.9.8':
@@ -140,6 +141,7 @@ class RewriteModuleExtras {
 						return $ret;
 					}
 				}
+
 
 				// Fall Through
 			case '0.9.11':
@@ -221,6 +223,7 @@ class RewriteModuleExtras {
 				if ($ret) {
 					return $ret;
 				}
+
 				$params['accessList'] = $value;
 
 				// Cleanup: Remove all old params
@@ -239,6 +242,7 @@ class RewriteModuleExtras {
 					}
 				}
 
+
 				// Fall Through
 			case '1.1.0':
 				// Major GalleryUrlGenerator change
@@ -253,18 +257,18 @@ class RewriteModuleExtras {
 				 * if 'match' is subset of URL params, instead of indexing by "$view|$subView".  Means
 				 * adding 'match' to $shortUrls.
 				 */
-
 			case '1.1.6':
 				// Add activateRewriteRulesForModule to rewrite API
-
 			case '1.1.7':
 				// Support rewrite rules without 'pattern'
 				GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+
 				list($ret, $activeRules) = $module->getParameter('activeRules');
 
 				if ($ret) {
 					return $ret;
 				}
+
 				$activeRules = unserialize($activeRules);
 
 				list($ret, $modules) = GalleryCoreApi::fetchPluginStatus('module');
@@ -291,6 +295,7 @@ class RewriteModuleExtras {
 						if ($ret) {
 							return $ret;
 						}
+
 						unset($activeRules[$moduleId]);
 
 						continue;
@@ -301,6 +306,7 @@ class RewriteModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
+
 					$rules = $tmpModule->getRewriteRules();
 
 					foreach ($activeRules[$moduleId] as $ruleId => $pattern) {
@@ -339,6 +345,7 @@ class RewriteModuleExtras {
 					if (strncmp($key, 'history.', 8) !== 0) {
 						continue;
 					}
+
 					$history  = unserialize($value);
 					$moduleId = substr($key, 8);
 
@@ -352,6 +359,7 @@ class RewriteModuleExtras {
 						if ($ret) {
 							return $ret;
 						}
+
 						$rules = $tmpModule->getRewriteRules();
 					}
 
@@ -373,15 +381,14 @@ class RewriteModuleExtras {
 					}
 				}
 
+
 				// Fall Through
 			case '1.1.8':
 				// Remove L from mandatory flags, remove pattern for restrict rules
 			case '1.1.9':
 				// Update required module API version for getRewriteRules change from 1.1.8
-
 			case '1.1.10':
 				// Update regex rules structure to reuse code from GalleryUrlGenerator
-
 			case '1.1.11':
 				// Add generateUrl options and %{REQUEST_URI} handling to rewrite rule format
 
@@ -396,6 +403,7 @@ class RewriteModuleExtras {
 				if ($platform->file_exists($dir)) {
 					$platform->recursiveRmdir($dir);
 				}
+
 
 				// Fall Through
 			case '1.1.12':
@@ -445,6 +453,7 @@ class RewriteModuleExtras {
 		if ($ret) {
 			return $ret;
 		}
+
 		$activeRules = unserialize($activeRules);
 
 		// Don't update the rules if not necissary
@@ -461,6 +470,7 @@ class RewriteModuleExtras {
 			if ($ret) {
 				return $ret;
 			}
+
 			unset($activeRules[$pluginId]);
 
 			// Try to activate the new rules
@@ -497,6 +507,7 @@ class RewriteModuleExtras {
 		if ($ret) {
 			return $ret;
 		}
+
 		$rules = $plugin->getRewriteRules();
 
 		list($ret, $history) = RewriteHelper::getHistoryForModule($pluginId);
@@ -504,6 +515,7 @@ class RewriteModuleExtras {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = RewriteHelper::setHistoryForModule($pluginId, array());
 
 		if ($ret) {
@@ -516,6 +528,7 @@ class RewriteModuleExtras {
 			if ($ret) {
 				return $ret;
 			}
+
 			$activeRules  = unserialize($activeRules);
 			$originalSize = count($activeRules);
 
@@ -535,10 +548,12 @@ class RewriteModuleExtras {
 						if (isset($seen[$rule['pattern']])) {
 							continue;
 						}
+
 						$seen[$rule['pattern']] = true;
 					} else {
 						$rule = array();
 					}
+
 					$activeRules[$pluginId][$ruleId] = $rule;
 				}
 			}

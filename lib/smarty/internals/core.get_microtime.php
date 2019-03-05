@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Get seconds and microseconds
  * @return double

@@ -9,7 +9,6 @@
   Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Library for basic performance monitoring and tuning
 
 */
@@ -19,11 +18,9 @@ if (!defined('ADODB_DIR')) {
 	die();
 }
 
-
 class perf_oci8 extends ADODB_perf {
 	public $noShowIxora = 15; // if the sql for suspicious sql is taking too long, then disable ixora
-
-	public $tablesSQL = 'select segment_name as "tablename", sum(bytes)/1024 as "size_in_k",tablespace_name as "tablespace",count(*) "extents" from sys.user_extents
+	public $tablesSQL   = 'select segment_name as "tablename", sum(bytes)/1024 as "size_in_k",tablespace_name as "tablespace",count(*) "extents" from sys.user_extents
 	   group by segment_name,tablespace_name';
 
 	public $version;
@@ -369,14 +366,14 @@ order by 3 desc) where rownum <=10"
 			$rs = $this->conn->Execute('select name, round(bytes/1024./1024,2) as "CurrSize (M)" from  V$sgainfo');
 		}
 
-
 		$ret = rs2html($rs, false, false, false, false);
 
 		return '&nbsp;<p>' . $ret . '&nbsp;</p>';
 	}
 
 	public function FlashUsage() {
-		$rs  = $this->conn->Execute('select * from  V$FLASH_RECOVERY_AREA_USAGE');
+		$rs = $this->conn->Execute('select * from  V$FLASH_RECOVERY_AREA_USAGE');
+
 		$ret = rs2html($rs, false, false, false, false);
 
 		return '&nbsp;<p>' . $ret . '&nbsp;</p>';
@@ -405,7 +402,6 @@ order by 3 desc) where rownum <=10"
 	}
 
 	public function PGA() {
-
 		//if ($this->version['version'] < 9) return 'Oracle 9i or later required';
 	}
 
@@ -437,6 +433,7 @@ order by 3 desc) where rownum <=10"
 		if (!$rs) {
 			return $t . 'Only in 9i or later';
 		}
+
 		//	$rs->Close();
 		if ($rs->EOF) {
 			return $t . 'PGA could be too big';
@@ -478,6 +475,7 @@ CREATE TABLE PLAN_TABLE (
   OTHER                           LONG,
   DISTRIBUTION                    VARCHAR2(30)
 );
+
 </pre>';
 
 			return false;
@@ -485,7 +483,6 @@ CREATE TABLE PLAN_TABLE (
 
 		$rs->Close();
 		//	$this->conn->debug=1;
-
 		if ($partial) {
 			$sqlq = $this->conn->qstr($sql . '%');
 			$arr  = $this->conn->GetArray("select distinct sql1 from adodb_logsql where sql1 like $sqlq");
@@ -516,6 +513,7 @@ CREATE TABLE PLAN_TABLE (
 
 			return $s;
 		}
+
 		$rs = $this->conn->Execute(
 			"
 		select
@@ -581,6 +579,7 @@ select  a.name Buffer_Pool, b.size_for_estimate as cache_mb_estimate,
 		if ($rs->EOF) {
 			return '<p>None found</p>';
 		}
+
 		$check = '';
 		$sql   = '';
 		$s     = "\n\n<table border=1 bgcolor=white><tr><td><b>" . $o1->name . '</b></td><td><b>' . $o2->name . '</b></td><td><b>' . $o3->name . '</b></td></tr>';
@@ -599,6 +598,7 @@ select  a.name Buffer_Pool, b.size_for_estimate as cache_mb_estimate,
 
 					$s .= "\n<tr><td align=right>" . $carr[0] . '</td><td align=right>' . $carr[1] . '</td><td>' . $prefix . $sql . $suffix . '</td></tr>';
 				}
+
 				$sql   = $rs->fields[2];
 				$check = $rs->fields[0] . '::' . $rs->fields[1];
 			} else {
@@ -608,8 +608,10 @@ select  a.name Buffer_Pool, b.size_for_estimate as cache_mb_estimate,
 			if (substr($sql, strlen($sql) - 1) == "\0") {
 				$sql = substr($sql, 0, strlen($sql) - 1);
 			}
+
 			$rs->MoveNext();
 		}
+
 		$rs->Close();
 
 		$carr   = explode('::', $check);
@@ -620,6 +622,7 @@ select  a.name Buffer_Pool, b.size_for_estimate as cache_mb_estimate,
 			$prefix = '';
 			$suffix = '';
 		}
+
 		$s .= "\n<tr><td align=right>" . $carr[0] . '</td><td align=right>' . $carr[1] . '</td><td>' . $prefix . $sql . $suffix . '</td></tr>';
 
 		return $s . "</table>\n\n";
@@ -683,6 +686,7 @@ order by
 		if ($timer > $this->noShowIxora) {
 			return $s;
 		}
+
 		$s .= '<p>';
 
 		$save             = $ADODB_CACHE_MODE;
@@ -699,6 +703,7 @@ order by
 		if (isset($savem)) {
 			$this->conn->SetFetchMode($savem);
 		}
+
 		$ADODB_CACHE_MODE = $save;
 
 		if ($rs) {
@@ -785,6 +790,7 @@ order by
 		if (isset($savem)) {
 			$this->conn->SetFetchMode($savem);
 		}
+
 		$ADODB_CACHE_MODE = $save;
 
 		if ($rs) {

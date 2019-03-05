@@ -89,6 +89,7 @@ class RepositoryControllerAndView {
 		if ($ret) {
 			return $ret;
 		}
+
 		echo $templateContents;
 
 		return null;

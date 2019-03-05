@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 /**
@@ -70,6 +69,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		// Get the list of watermarks before, then after delete any that we created
 		list($ret, $this->_afterWatermarks) = WatermarkHelper::fetchWatermarks();
 
@@ -252,6 +252,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$idToDelete = $watermark->getId();
 
 		// Delete it
@@ -264,6 +265,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 			'defaultWatermarkId',
 			$idToDelete
 		);
+
 		GalleryCoreApi::setPluginParameter('module', 'watermark', 'forceDefaultWatermark', false);
 
 		$results = $this->handleRequest();
@@ -304,6 +306,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$idToDelete = $watermark->getId();
 
 		list($ret, $oldDefaultWatermarkId) = GalleryCoreApi::getPluginParameter('module', 'watermark', 'defaultWatermarkId');
@@ -325,6 +328,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::removeFormVariables('form');
 		GalleryUtilities::putRequestVariable('form[action][delete]', '1');
 		GalleryUtilities::putRequestVariable('form[delete][watermarkId]', $idToDelete);
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'watermark',
@@ -335,6 +339,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'watermark',
@@ -367,23 +372,27 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(!empty($defaultWatermarkId), 'Expected new default watermark');
 		// If there are several watermarks, we can't be sure which one will be selected
 		$this->assertTrue(
 			(int)$defaultWatermarkId != (int)$idToDelete,
 			'Unexpected default watermark id'
 		);
+
 		// Verify that it's gone
 		$ret = $this->_verifyMissing($idToDelete);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $forceDefaultWatermark) = GalleryCoreApi::getPluginParameter('module', 'watermark', 'forceDefaultWatermark');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(!empty($forceDefaultWatermark), '$forceDefaultWatermark is empty');
 	}
 
@@ -394,6 +403,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$idToDelete = $watermark->getId();
 
 		// Use this watermark
@@ -402,7 +412,9 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($item);
+
 		list($ret, $derivative) = $this->_createDerivative(
 			$item,
 			$item->getId(),
@@ -496,6 +508,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($map[$expectedName]), 'Watermark is missing');
 
 		if (GalleryUtilities::isA($map[$expectedName], 'WatermarkImage')) {
@@ -524,6 +537,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return array($this, null);
 		}
+
 		$results = array();
 
 		foreach ($watermarks as $id => $watermark) {

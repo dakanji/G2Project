@@ -107,6 +107,7 @@ class AdminCreateGroupController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'core.AdminCreateGroup';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 

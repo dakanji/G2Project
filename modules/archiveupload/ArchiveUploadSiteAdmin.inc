@@ -59,7 +59,9 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 					if ($retryPath[strlen($retryPath) - 1] != $slash) {
 						$retryPath .= $slash;
 					}
-					$retryPath  .= 'unzip';
+
+					$retryPath .= 'unzip';
+
 					list($valid) = ArchiveUploadHelper::testBinary($retryPath);
 
 					if ($valid) {
@@ -83,6 +85,7 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$ret = GalleryCoreApi::setPluginParameter(
 					'module',
 					'archiveupload',
@@ -99,6 +102,7 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				list($ret, $isActive) = $module->isActive();
 
 				if ($ret) {
@@ -130,6 +134,7 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 				'subView' => 'archiveupload.ArchiveUploadSiteAdmin',
 			);
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -168,11 +173,13 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $isActive) = $module->isActive();
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$form['isConfigure'] = !$isActive;
 		$form['canExec']     = !in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')));
 
@@ -183,10 +190,11 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 					'success' => true,
 				);
 			} elseif (isset($form['error']['unzipPath']['exec'])) {
-				$test                             = array(
+				$test = array(
 					'name'    => 'unzip',
 					'success' => false,
 				);
+
 				list($valid, $errorType, $output) = ArchiveUploadHelper::testBinary($form['unzipPath']);
 
 				if (!empty($output)) {

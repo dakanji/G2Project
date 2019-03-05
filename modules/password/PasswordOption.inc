@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/password/classes/PasswordHelper.class');
 
 /**
@@ -89,7 +88,9 @@ class PasswordOption extends ItemEditOption {
 					$form['PasswordOption']['password1'],
 					false
 				);
+
 				GalleryCoreApi::requireOnce('modules/password/classes/PasswordHelper.class');
+
 				$ret = PasswordHelper::setPassword(
 					$item,
 					$form['PasswordOption']['password1'],
@@ -114,7 +115,7 @@ class PasswordOption extends ItemEditOption {
 	public function requiresProgressBar($form) {
 		// Progress bar if adding new password or removing password from an album
 		return isset($form['PasswordOption']['progressBar']) && (
-		($form['PasswordOption']['progressBar'] == 'add'
+			($form['PasswordOption']['progressBar'] == 'add'
 		 && !empty($form['PasswordOption']['password1'])
 		 && !empty($form['PasswordOption']['password2'])
 		 && $form['PasswordOption']['password1'] == $form['PasswordOption']['password2'])

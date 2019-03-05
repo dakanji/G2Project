@@ -50,6 +50,7 @@ class ThumbOffsetItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('ThumbOffsetTestToolkit');
 
 		$ret = GalleryCoreApi::registerToolkitProperty(
@@ -114,6 +115,7 @@ class ThumbOffsetItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			'select-offset|4.8;test-operation|100',
 			$item->getDerivativeOperations(),
@@ -135,6 +137,7 @@ class ThumbOffsetItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			'test-operation|100',
 			$item->getDerivativeOperations(),

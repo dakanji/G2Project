@@ -10,7 +10,6 @@ reserved.
 Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   21.02.2002 - Wade Johnson wade@wadejohnson.de
 			   Extended ODBC class for Sybase SQLAnywhere.
    1) Added support to retrieve the last row insert ID on tables with
@@ -146,7 +145,6 @@ if (!defined('ADODB_SYBASE_SQLANYWHERE')) {
 			return true;
 		}
 	} //class
-
 	class ADORecordSet_sqlanywhere extends ADORecordSet_odbc {
 		public $databaseType = 'sqlanywhere';
 

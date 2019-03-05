@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/netpbm/classes/NetPbmToolkitHelper.class');
 
 /**
@@ -142,6 +141,7 @@ class AdminNetPbmController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				list($ret, $isActive) = $module->isActive();
 
 				if ($ret) {
@@ -172,6 +172,7 @@ class AdminNetPbmController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'netpbm.AdminNetPbm';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -188,6 +189,7 @@ class AdminNetPbmView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
@@ -205,6 +207,7 @@ class AdminNetPbmView extends GalleryView {
 					return array($ret, null);
 				}
 			}
+
 			$form['formName'] = 'AdminNetPbm';
 		}
 
@@ -235,8 +238,10 @@ class AdminNetPbmView extends GalleryView {
 				$form['error']['path']['missing'] = 1;
 			} else {
 				$gallery->startRecordingDebugSnippet();
+
 				list($ret, $tests, $mimeTypes) = NetPbmToolkitHelper::testBinaries($form['path']);
-				$debugSnippet                  = $gallery->stopRecordingDebugSnippet();
+
+				$debugSnippet = $gallery->stopRecordingDebugSnippet();
 
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {
@@ -255,8 +260,10 @@ class AdminNetPbmView extends GalleryView {
 				$form['error']['jheadPath']['missing'] = 1;
 			} else {
 				$gallery->startRecordingDebugSnippet();
+
 				list($ret, $jheadTests, $jheadMimeTypes) = NetPbmToolkitHelper::testJhead($form['jheadPath']);
-				$debugSnippet                           .= $gallery->stopRecordingDebugSnippet();
+
+				$debugSnippet .= $gallery->stopRecordingDebugSnippet();
 
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {
@@ -278,6 +285,7 @@ class AdminNetPbmView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $isActive) = $module->isActive();
 
 		if ($ret) {

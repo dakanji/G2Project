@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
 
 /**
@@ -111,11 +110,13 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
+
 			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'customfield');
 
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
+
 			$status = $module->translate('Changes saved successfully');
 		}
 
@@ -172,6 +173,7 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 				if ($ret) {
 					return array($ret, null, null);
 				}
+
 				$form['fields'] = $tmp[$item->getId()];
 
 				foreach (array(
@@ -188,8 +190,10 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 				if ($type == 'album') {
 					$form['adminFlag'] = $isContainerSettings[$item->getId()] ? 1 : 2;
 				}
+
 				$tpl = 'modules/customfield/templates/CustomFieldItemEdit.tpl';
 		}
+
 		$template->setVariable('controller', 'customfield.CustomFieldItemEdit');
 
 		return array(null, $tpl, 'modules_customfield');
@@ -202,6 +206,7 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 		if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 			return true;
 		}
+
 		list($ret, $param) = CustomFieldHelper::getMe()->loadParameters($item->getParentId());
 
 		if ($ret) {

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryItem.class');
 
 /**
@@ -64,7 +63,7 @@ class GalleryDynamicAlbum extends GalleryItem {
 	) {
 		global $gallery;
 
-		if (is_null($title)) {
+		if (null === $title) {
 			return GalleryCoreApi::error(
 				ERROR_BAD_PARAMETER,
 				__FILE__,
@@ -97,7 +96,8 @@ class GalleryDynamicAlbum extends GalleryItem {
 			$this->_itemTypeName = $itemTypeNameData;
 		} else {
 			$this->_itemTypeName = array(array('Dynamic Album', 'dynamic album'));
-			list($ret, $module)  = GalleryCoreApi::loadPlugin('module', 'core');
+
+			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if ($ret) {
 				$this->_itemTypeName[] = $this->_itemTypeName[0];

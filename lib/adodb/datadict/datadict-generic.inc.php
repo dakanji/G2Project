@@ -120,6 +120,7 @@ class ADODB2_generic extends ADODB_DataDict {
 		default:
 			return $meta;
 		}
+
 	}
 
 // ifx
@@ -149,5 +150,7 @@ function ActualType($meta)
 		default:
 			return $meta;
 		}
+
 	}
+
 */

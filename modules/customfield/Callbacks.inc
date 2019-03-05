@@ -26,16 +26,24 @@
 class CustomFieldCallbacks {
 	public function callback($params, &$smarty, $callback, $userId = null) {
 		global $gallery;
+
 		GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
 
 		switch ($callback) {
 			case 'LoadCustomFields':
-				list($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId'], 'GalleryItem');
+				list($ret, $item) = GalleryCoreApi::loadEntitiesById(
+					$params['itemId'],
+					'GalleryItem'
+				);
 
 				if ($ret) {
 					return $ret;
 				}
-				list($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($item->getId(), 'core.view');
+
+				list($ret, $hasPermission) = GalleryCoreApi::hasItemPermission(
+					$item->getId(),
+					'core.view'
+				);
 
 				if ($ret) {
 					return $ret;
@@ -46,7 +54,10 @@ class CustomFieldCallbacks {
 					return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 				}
 
-				list($ret, $fields) = CustomFieldHelper::getMe()->fetchFieldValues(array($item), 'detail');
+				list($ret, $fields) = CustomFieldHelper::getMe()->fetchFieldValues(
+					array($item),
+					'detail'
+				);
 
 				if ($ret) {
 					return $ret;

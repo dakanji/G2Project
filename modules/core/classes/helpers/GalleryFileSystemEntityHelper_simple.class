@@ -42,6 +42,7 @@ class GalleryFileSystemEntityHelper_simple {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$rootId = (int)$rootId;
 
 		if ($path == '/') {

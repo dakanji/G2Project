@@ -63,6 +63,7 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
 		GalleryUtilities::putRequestVariable('form[action][editFromText]', 1);
@@ -127,6 +128,7 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
 		GalleryUtilities::putRequestVariable('form[action][deleteFromText]', 1);
@@ -259,6 +261,7 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = $user->save();
 
 		if ($ret) {

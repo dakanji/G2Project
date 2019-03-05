@@ -50,6 +50,7 @@ class ThumbPageItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('ThumbPageTestToolkit');
 
 		$ret = GalleryCoreApi::registerToolkitProperty(
@@ -114,6 +115,7 @@ class ThumbPageItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			'select-page|2;test-operation|100',
 			$item->getDerivativeOperations(),
@@ -135,6 +137,7 @@ class ThumbPageItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			'test-operation|100',
 			$item->getDerivativeOperations(),

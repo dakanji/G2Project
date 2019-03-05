@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/comment/module.inc');
 
 /**
@@ -78,7 +77,8 @@ class GalleryCommentHelper {
 				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
-		$data  = array((int)$itemId);
+		$data = array((int)$itemId);
+
 		$query = '
 		SELECT
 		[GalleryComment::id]
@@ -97,10 +97,12 @@ class GalleryCommentHelper {
 			';
 			$data[] = $publishStatus;
 		}
-		$query                    .= '
+
+		$query .= '
 		ORDER BY
 		[GalleryComment::date] ' . $direction . '
 		';
+
 		list($ret, $searchResults) = $gallery->search(
 			$query,
 			$data,
@@ -183,11 +185,13 @@ class GalleryCommentHelper {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$sequence = implode('/', $sequence);
 
 		if (!empty($sequence)) {
 			$sequence .= '/';
 		}
+
 		$sequence .= $itemId . '/%';
 
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds(
@@ -198,6 +202,7 @@ class GalleryCommentHelper {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
 		if (empty($aclIds)) {
@@ -217,7 +222,7 @@ class GalleryCommentHelper {
 		AND
 		[GalleryAccessSubscriberMap::itemId] = [GalleryItemAttributesMap::itemId]';
 
-		if (is_null($publishStatus)) {
+		if (null === $publishStatus) {
 			$publishStatusCount = null;
 		} else {
 			if (is_countable($publishStatus)) {
@@ -297,9 +302,10 @@ class GalleryCommentHelper {
 		if (!$count && !$offset) {
 			$totalCount = count($allIds);
 		} else {
-			$query                     = '
+			$query = '
 			SELECT
 			COUNT([GalleryComment::id]) ' . $queryBase;
+
 			list($ret, $searchResults) = $gallery->search($query, $data);
 
 			if ($ret) {
@@ -372,7 +378,8 @@ class GalleryCommentHelper {
 	public function getLatestCommentTime($hostAddress) {
 		global $gallery;
 
-		$data  = array($hostAddress);
+		$data = array($hostAddress);
+
 		$query = '
 		SELECT
 			[GalleryComment::date]
@@ -475,6 +482,7 @@ class GalleryCommentHelper {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				list($ret, $data['file'], $data['l10Domain']) = $plugin->loadTemplate($form);
 
 				if ($ret) {
@@ -574,6 +582,7 @@ class GalleryCommentHelper {
 				if (!$this->getAkismetSaveListenerSwitch()) {
 					break;
 				}
+
 				$comment =& $event->getEntity();
 
 				if (GalleryUtilities::isA($comment, 'GalleryComment')) {

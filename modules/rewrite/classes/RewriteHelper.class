@@ -44,6 +44,7 @@ class RewriteHelper {
 	 */
 	public static function getRewriteParser($new = false) {
 		global $gallery;
+
 		static $rewriteParser;
 		$platform =& $gallery->getPlatform();
 
@@ -67,6 +68,7 @@ class RewriteHelper {
 			if ($platform->file_exists(GalleryCoreApi::getCodeBasePath($path))) {
 				GalleryCoreApi::requireOnce($path);
 			}
+
 			$class         = $rewriteParserId . 'Parser';
 			$rewriteParser = new $class();
 		}
@@ -95,6 +97,7 @@ class RewriteHelper {
 		$flags = null
 	) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		if (!is_array($activeRules)) {
@@ -111,6 +114,7 @@ class RewriteHelper {
 		if ($ret) {
 			return array($ret, null, null, null, null);
 		}
+
 		$accessList                                     = unserialize($accessList);
 		$ourHostNames[$urlGenerator->getHostName()]     = true;
 		$ourHostNames[$urlGenerator->getHostName(true)] = true;
@@ -160,6 +164,7 @@ class RewriteHelper {
 				if ($ret) {
 					return array($ret, null, null, null, null);
 				}
+
 				unset($activeRules[$moduleId]);
 
 				continue;
@@ -486,6 +491,7 @@ class RewriteHelper {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$history = empty($history) ? array() : unserialize($history);
 
 		return array(null, $history);

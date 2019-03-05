@@ -29,6 +29,7 @@
 class ReplicaModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
+
 		$this->setId('replica');
 		$this->setName($gallery->i18n('Replica'));
 		$this->setDescription(
@@ -64,6 +65,7 @@ class ReplicaModule extends GalleryModule {
 	 */
 	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {
 		global $gallery;
+
 		$links = array();
 
 		foreach ($items as $item) {
@@ -86,6 +88,7 @@ class ReplicaModule extends GalleryModule {
 						break;
 					}
 				}
+
 				$links[$itemId][] = array(
 					'text'   => $this->_translate('Create Replica'),
 					'params' => array(
@@ -107,7 +110,9 @@ class ReplicaModule extends GalleryModule {
 	 */
 	public function getItemAdminViews($item) {
 		global $gallery;
-		$views                   = array();
+
+		$views = array();
+
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {
@@ -131,6 +136,7 @@ class ReplicaModule extends GalleryModule {
 					_('Replicate Photo');
 					_('Replicate Movie');
 				}
+
 				$itemTypeNames = array_merge($item->itemTypeName(), $item->itemTypeName(false));
 				$views[]       = array(
 					'name' => $this->_translate(

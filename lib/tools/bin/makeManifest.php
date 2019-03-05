@@ -68,6 +68,7 @@ if (empty($SRCDIR)) {
 
 function makeManifest($filterPath = '') {
 	global $SRCDIR;
+
 	$startTime = time();
 
 	if (empty($SRCDIR)) {
@@ -82,6 +83,7 @@ function makeManifest($filterPath = '') {
 		$baseDir = $SRCDIR . '/gallery2/';
 		chdir($baseDir);
 	}
+
 	// Just so we are consistent lets standardize on Unix path sepearators
 	$baseDir = str_replace('\\', '/', $baseDir);
 	$baseDir .= substr($baseDir, -1) == '/' ? '' : '/';
@@ -131,6 +133,7 @@ function makeManifest($filterPath = '') {
 
 		foreach ($entries as $entry) {
 			list($file, $isBinary) = preg_split('/\@\@/', $entry);
+
 			$relativeFilePath      = $file;
 			$file                  = $baseDir . $file;
 
@@ -153,6 +156,7 @@ function makeManifest($filterPath = '') {
 					} else {
 						$data_crlf = str_replace("\n", "\r\n", $data_crlf);
 					}
+
 					$size      = strlen($data);
 					$size_crlf = strlen($data_crlf);
 				}
@@ -200,6 +204,7 @@ function makeManifest($filterPath = '') {
 			file_put_contents($baseDir . $manifest, $newContent);
 			$changed++;
 		}
+
 		$total++;
 	}
 

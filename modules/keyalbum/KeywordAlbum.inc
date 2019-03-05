@@ -46,12 +46,15 @@ class KeywordAlbumView extends GalleryView {
 		if (!isset($item)) {
 			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null);
 		}
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'keyalbum');
 
 		if ($ret) {
 			return array($ret, null, null, null);
 		}
+
 		list($keyword, $itemId) = GalleryUtilities::getRequestVariables('keyword', 'itemId');
+
 		$item->create(
 			$module->translate(
 				array(
@@ -70,6 +73,7 @@ class KeywordAlbumView extends GalleryView {
 		if ($ret) {
 			return array($ret, null, null, null);
 		}
+
 		$item->setDescription($moduleParams['description']);
 
 		if (!empty($itemId)) {
@@ -79,6 +83,7 @@ class KeywordAlbumView extends GalleryView {
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
+
 			list($ret, $hasPermission) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
 
 			if ($ret) {
@@ -91,11 +96,12 @@ class KeywordAlbumView extends GalleryView {
 			}
 
 			// Provide parent, parent URL and get-children function to Theme API
-			$item->urlParams           = array(
+			$item->urlParams = array(
 				'view'        => 'keyalbum.KeywordAlbum',
 				'keyword'     => $keyword,
 				'highlightId' => $itemId,
 			);
+
 			$item->getChildrenFunction = array('KeywordAlbumView', 'getChildIds');
 			$viewItem->parent          = $item;
 			$item                      = $viewItem;
@@ -133,7 +139,8 @@ class KeywordAlbumView extends GalleryView {
 		$theme =& $template->getVariableByReference('theme');
 
 		list($keyword, $itemId) = GalleryUtilities::getRequestVariables('keyword', 'itemId');
-		$rawKeyword             = $keyword;
+
+		$rawKeyword = $keyword;
 		GalleryUtilities::unsanitizeInputValues($rawKeyword, false);
 		$theme['pageUrl'] = array(
 			'view'    => 'keyalbum.KeywordAlbum',
@@ -154,6 +161,7 @@ class KeywordAlbumView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			list($ret, $result) = $showItem->loadTemplate($template, $form);
 
 			if ($ret) {
@@ -178,6 +186,7 @@ class KeywordAlbumView extends GalleryView {
 	 */
 	public function getChildIds($userId, $keyword = null) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		if (!isset($keyword)) {
@@ -193,6 +202,7 @@ class KeywordAlbumView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'keyalbum');
 
 		if ($ret) {
@@ -231,6 +241,7 @@ class KeywordAlbumView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemIds = array();
 
 		while ($result = $searchResults->nextResult()) {

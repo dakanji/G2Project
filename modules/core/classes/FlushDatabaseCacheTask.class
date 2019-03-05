@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
 
 /**
@@ -63,6 +62,7 @@ class FlushDatabaseCacheTask extends MaintenanceTask {
 	 */
 	public function run() {
 		global $gallery;
+
 		$platform     =& $gallery->getPlatform();
 		$cacheBaseDir = $gallery->getConfig('data.gallery.cache');
 

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryChildEntity.class');
 
 /**
@@ -38,6 +37,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -91,6 +91,7 @@ class StorageTest extends GalleryTestCase {
 				),
 			),
 		);
+
 		// Note: keep this cache key in sync with GalleryStorage::describeMap()
 		GalleryDataCache::put('GalleryStorage::describeMap()', $map);
 
@@ -174,6 +175,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function _getNonTransactionalResults() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		return $storage->isTransactional() ? $this->_resultsNonTransactional : $this->_results;
@@ -185,6 +187,7 @@ class StorageTest extends GalleryTestCase {
 		 * with underscore character..
 		 */
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$this->assertEquals(
@@ -197,6 +200,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testGetUniqueId() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		/*
@@ -222,6 +226,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testAddMap() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$ret = $storage->addMapEntry(
@@ -255,6 +260,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testAddMapNonTransactionalDatabaseConnection() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$ret = $storage->addMapEntry(
@@ -288,6 +294,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testAddMapTruncate() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$ret = $storage->addMapEntry(
@@ -321,6 +328,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testUpdateMapTruncate() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$ret = $storage->updateMapEntry(
@@ -354,6 +362,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testUpdateMapTruncateMultipleMatches() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$ret = $storage->updateMapEntry(
@@ -387,6 +396,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testUpdateMapValueIsNull() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		/*
@@ -425,6 +435,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testRemoveMapValueIsNull() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		/*
@@ -460,6 +471,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testAddMapArray() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$ret = $storage->addMapEntry(
@@ -495,6 +507,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testAddMapArrayNonTransactionalDatabaseConnection() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$ret = $storage->addMapEntry(
@@ -534,6 +547,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testAddMapArrayTruncate() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$ret = $storage->addMapEntry(
@@ -590,6 +604,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testGetMapEntry() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$mapName = 'GalleryTest2Map';
@@ -632,6 +647,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testGetMapEntries() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$mapName = 'GalleryTest2Map';
@@ -664,6 +680,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testGetMapEntriesAll() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$mapName = 'GalleryTest2Map';
@@ -693,13 +710,15 @@ class StorageTest extends GalleryTestCase {
 
 	public function testGetMapEntriesLimited() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
-		$mapName  = 'GalleryTest2Map';
-		$select   = array('field4');
-		$match    = array(
+		$mapName = 'GalleryTest2Map';
+		$select  = array('field4');
+		$match   = array(
 			'field3' => array(38, 40, 42),
 		);
+
 		$optional = array(
 			'limit' => array(
 				'count'  => 1,
@@ -739,13 +758,15 @@ class StorageTest extends GalleryTestCase {
 
 	public function testGetMapEntriesOrdered() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
-		$mapName  = 'GalleryTest2Map';
-		$select   = array('field4');
-		$match    = array(
+		$mapName = 'GalleryTest2Map';
+		$select  = array('field4');
+		$match   = array(
 			'field3' => array(38, 40, 42),
 		);
+
 		$optional = array(
 			'orderBy' => array(
 				'field4' => ORDER_DESCENDING,
@@ -780,13 +801,15 @@ class StorageTest extends GalleryTestCase {
 
 	public function testUpdateMapEntry() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$mapName = 'GalleryTest2Map';
 		$match   = array(
 			'field3' => array(38, 40, 42),
 		);
-		$set     = array(
+
+		$set = array(
 			'field4' => 54,
 		);
 
@@ -815,13 +838,15 @@ class StorageTest extends GalleryTestCase {
 
 	public function testUpdateMapEntryNonTransactionalDatabaseConnection() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$mapName = 'GalleryTestMap';
 		$match   = array(
 			'field2' => array(38, 40, 42),
 		);
-		$set     = array(
+
+		$set = array(
 			'field1' => 54,
 		);
 
@@ -848,6 +873,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testSaveEntity() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$storage->_db->setResults(array(new StorageTestRecordSet(), new StorageTestRecordSet()));
@@ -858,6 +884,7 @@ class StorageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $storage->saveEntity($entity);
 
 		if ($ret) {
@@ -892,6 +919,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testTruncateOnSave() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$entity = new GalleryEntity();
@@ -937,6 +965,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testNormalizeValueToTimeStamp() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$memberData['type'] = STORAGE_TYPE_TIMESTAMP;
@@ -949,6 +978,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testNormalizeValueNotNull() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$memberData['notNull'] = true;
@@ -964,19 +994,22 @@ class StorageTest extends GalleryTestCase {
 			$memberData['size'] = $type & STORAGE_TYPE_STRING ? STORAGE_SIZE_MEDIUM : null;
 
 			$this->assertFalse(
-				is_null($storage->_normalizeValue('', $memberData)),
+				null === $storage->_normalizeValue('', $memberData),
 				"empty string for $type"
 			);
+
 			$this->assertFalse(
-				is_null($storage->_normalizeValue('0', $memberData)),
+				null === $storage->_normalizeValue('0', $memberData),
 				"0 string for $type"
 			);
+
 			$this->assertFalse(
-				is_null($storage->_normalizeValue(null, $memberData)),
+				null === $storage->_normalizeValue(null, $memberData),
 				"null for $type"
 			);
+
 			$this->assertFalse(
-				is_null($storage->_normalizeValue(false, $memberData)),
+				null === $storage->_normalizeValue(false, $memberData),
 				"boolean false for $type"
 			);
 		}
@@ -984,6 +1017,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testNormalizeValueBitNotNull() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$memberData['notNull'] = true;
@@ -998,6 +1032,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testNormalizeValueNotNullEmptyAllowed() {
 		global $gallery;
+
 		$storage                                  =& $gallery->getStorage();
 		$storage->_isEmptyAllowedForNotNullColumn = true;
 
@@ -1014,15 +1049,17 @@ class StorageTest extends GalleryTestCase {
 			$memberData['size'] = $type & STORAGE_TYPE_STRING ? STORAGE_SIZE_MEDIUM : null;
 
 			$this->assertFalse(
-				is_null($storage->_normalizeValue('', $memberData)),
+				null === $storage->_normalizeValue('', $memberData),
 				"empty string for $type"
 			);
+
 			$this->assertFalse(
-				is_null($storage->_normalizeValue('0', $memberData)),
+				null === $storage->_normalizeValue('0', $memberData),
 				"0 string for $type"
 			);
+
 			$this->assertFalse(
-				is_null($storage->_normalizeValue(null, $memberData)),
+				null === $storage->_normalizeValue(null, $memberData),
 				"null for $type"
 			);
 		}
@@ -1031,6 +1068,7 @@ class StorageTest extends GalleryTestCase {
 	// Do not change empty strings to NULL
 	public function testNormalizeValueNotNullEmptyNotAllowed() {
 		global $gallery;
+
 		$storage                                  =& $gallery->getStorage();
 		$storage->_isEmptyAllowedForNotNullColumn = false;
 
@@ -1049,15 +1087,17 @@ class StorageTest extends GalleryTestCase {
 			$memberData['size'] = $type & STORAGE_TYPE_STRING ? STORAGE_SIZE_MEDIUM : null;
 
 			$this->assertFalse(
-				is_null($storage->_normalizeValue('', $memberData)),
+				null === $storage->_normalizeValue('', $memberData),
 				"empty string for $type"
 			);
+
 			$this->assertFalse(
-				is_null($storage->_normalizeValue('0', $memberData)),
+				null === $storage->_normalizeValue('0', $memberData),
 				"0 string for $type"
 			);
+
 			$this->assertFalse(
-				is_null($storage->_normalizeValue(null, $memberData)),
+				null === $storage->_normalizeValue(null, $memberData),
 				"null for $type"
 			);
 		}
@@ -1065,6 +1105,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testNormalizeValueToBoolean() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		// We use integers in the DB, thus cast to integer, 3rd param doesn't matter
@@ -1076,6 +1117,7 @@ class StorageTest extends GalleryTestCase {
 			$storage->_normalizeValue('', $memberData, false),
 			'from string 2'
 		);
+
 		$this->assertEquals(null, $storage->_normalizeValue(null, $memberData), 'from null');
 		$this->assertEquals(0, $storage->_normalizeValue(false, $memberData, true), 'from false');
 		$this->assertEquals(1, $storage->_normalizeValue(true, $memberData), 'from true');
@@ -1084,6 +1126,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testNormalizeValueToInteger() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$memberData['type'] = STORAGE_TYPE_INTEGER;
@@ -1092,6 +1135,7 @@ class StorageTest extends GalleryTestCase {
 			$storage->_normalizeValue('1', $memberData, true),
 			'from string'
 		);
+
 		$this->assertEquals(0, $storage->_normalizeValue('0', $memberData), 'from string 2');
 		$this->assertEquals(7, $storage->_normalizeValue('007', $memberData), 'from string 3');
 		$this->assertEquals(0, $storage->_normalizeValue('', $memberData), 'from empty string');
@@ -1100,6 +1144,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testNormalizeValueToString() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$memberData['type'] = STORAGE_TYPE_STRING;
@@ -1117,28 +1162,33 @@ class StorageTest extends GalleryTestCase {
 			$storage->_normalizeValue($value, $memberData, true),
 			'from string 3'
 		);
+
 		$this->assertEquals(
 			str_repeat('x', 128),
 			$storage->_normalizeValue($value, $memberData),
 			'from string with truncate'
 		);
+
 		$this->assertEquals('15', $storage->_normalizeValue(15, $memberData), 'from integer');
 		$this->assertEquals(
 			'0',
 			$storage->_normalizeValue(0, $memberData, true),
 			'from integer 2'
 		);
+
 		$this->assertEquals(
 			'1',
 			$storage->_normalizeValue(true, $memberData, true),
 			'from boolean'
 		);
+
 		$this->assertEquals('', $storage->_normalizeValue(false, $memberData), 'from boolean 2');
 		$this->assertEquals(null, $storage->_normalizeValue(null, $memberData), 'from null');
 	}
 
 	public function testNormalizeValueToOtherType() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$memberData['type'] = 0x00000080;
@@ -1150,6 +1200,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testNormalizeValueToBit() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$memberData['type'] = STORAGE_TYPE_BIT;
@@ -1166,6 +1217,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testNormalizeValueFromTextToString() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$memberData['type'] = STORAGE_TYPE_TEXT;
@@ -1173,11 +1225,13 @@ class StorageTest extends GalleryTestCase {
 			str_repeat('1', 10),
 			$storage->_normalizeValue((int)str_repeat('1', 10), $memberData)
 		);
+
 		$this->assertEquals(null, $storage->_normalizeValue(null, $memberData));
 	}
 
 	public function testSqlInjectionWithNullCharacter() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 		// Use a real SQL connection for this test
 		$storage->_db = $this->_db;
@@ -1195,6 +1249,7 @@ class StorageTest extends GalleryTestCase {
 				'parameterValue' => $testString,
 			)
 		);
+
 		// If the \0 character wasn't properly escaped, PG would throw an error here
 		if ($ret) {
 			return $ret;
@@ -1220,6 +1275,7 @@ class StorageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		// Commit our DB transaction to release locks from the PluginParameterMap table
 		$ret = $storage->checkPoint();
 
@@ -1230,6 +1286,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testEncodeDecodeBlob() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		// Use a real SQL connection for this test
@@ -1246,6 +1303,7 @@ class StorageTest extends GalleryTestCase {
 		$escapedString = $storage->encodeBlob($blobData);
 
 		$key = 'test_' . mt_rand();
+
 		$ret = GalleryCoreApi::addMapEntry(
 			'GalleryCacheMap',
 			array(
@@ -1262,8 +1320,8 @@ class StorageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		// No (PHP) error? Good! Next, get the entry from the db and compare
 
+		// No (PHP) error? Good! Next, get the entry from the db and compare
 		list($ret, $results) = GalleryCoreApi::getMapEntry(
 			'GalleryCacheMap',
 			array('value'),
@@ -1291,6 +1349,7 @@ class StorageTest extends GalleryTestCase {
 				for ($i = 0; $i < strlen($result); $i++) {
 					$bytes .= ' ' . ord($result[$i]);
 				}
+
 				$this->assertFalse(true, 'Result bytes:' . $bytes);
 			}
 		} else {
@@ -1308,6 +1367,7 @@ class StorageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		// Commit our DB transaction to release locks from the Cache table
 		$ret = $storage->checkPoint();
 
@@ -1318,6 +1378,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testTruncateString() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 		// Use a real SQL connection for this test
 		$storage->_db         = $this->_db;
@@ -1369,6 +1430,7 @@ class StorageTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			// Commit our DB transaction to release locks from the PluginParameterMap table
 			$ret = $storage->checkPoint();
 
@@ -1392,15 +1454,17 @@ class StorageTest extends GalleryTestCase {
 
 	public function testOptimize() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		// Result for loadTableVersions
-		$tablesRecordSet    = new StorageTestRecordSet(
+		$tablesRecordSet = new StorageTestRecordSet(
 			array(
 				array('Entity', 1, 0),
 				array('AccessMap', 1, 6),
 			)
 		);
+
 		$optimizeStatements = $storage->_getOptimizeStatements();
 		// Results for optimize statements
 		$expectedQueries = array();
@@ -1414,6 +1478,7 @@ class StorageTest extends GalleryTestCase {
 				);
 			}
 		}
+
 		array_unshift($mockedResults, $tablesRecordSet);
 		$storage->_db->setResults($mockedResults);
 
@@ -1431,16 +1496,18 @@ class StorageTest extends GalleryTestCase {
 
 	public function testOptimizeSpecificTables() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		// Result for loadTableVersions
-		$tablesRecordSet    = new StorageTestRecordSet(
+		$tablesRecordSet = new StorageTestRecordSet(
 			array(
 				array('Entity', 1, 0),
 				array('AccessMap', 1, 6),
 				array('Item', 2, 0),
 			)
 		);
+
 		$optimizeStatements = $storage->_getOptimizeStatements();
 		// Results for optimize statements
 		$expectedQueries = array();
@@ -1454,6 +1521,7 @@ class StorageTest extends GalleryTestCase {
 				);
 			}
 		}
+
 		array_unshift($mockedResults, $tablesRecordSet);
 		$storage->_db->setResults($mockedResults);
 
@@ -1471,12 +1539,13 @@ class StorageTest extends GalleryTestCase {
 
 	public function testDescribeMapWritesToMemoryCache() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		GalleryDataCache::reset();
 
 		// Prepare mocked record sets
-		$map       = array(
+		$map = array(
 			'GalleryTest2Map' => array(
 				'field3' => array(
 					'type'    => STORAGE_TYPE_STRING,
@@ -1495,6 +1564,7 @@ class StorageTest extends GalleryTestCase {
 				),
 			),
 		);
+
 		$recordSet = new StorageTestRecordSet(array(array(serialize($map))));
 		$storage->_db->setResults(array($recordSet, $recordSet));
 
@@ -1503,6 +1573,7 @@ class StorageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(empty($externalMapInfo), 'empty result');
 
 		// Verify that a second call reads from memory, no platform activity
@@ -1511,11 +1582,13 @@ class StorageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(empty($externalMapInfo), 'empty result on second call');
 	}
 
 	public function testDescribeMapReadsFromMemoryCache() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		list($ret, $testMapInfo) = GalleryCoreApi::describeMap('GalleryTestMap');
@@ -1523,6 +1596,7 @@ class StorageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'field1' => array(
@@ -1543,6 +1617,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testDescribeEntityWritesToMemoryCache() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		GalleryDataCache::reset();
@@ -1602,6 +1677,7 @@ class StorageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(empty($entityInfo), 'empty result');
 
 		// Verify that a second call reads from memory, no database activity
@@ -1610,11 +1686,13 @@ class StorageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(empty($entityInfo), 'empty result on second call');
 	}
 
 	public function testRemoveAllMapEntriesTransactional() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$ret = $storage->removeAllMapEntries('GalleryTest2Map');
@@ -1640,6 +1718,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testRemoveAllMapEntriesNonTransactional() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$ret = $storage->removeAllMapEntries('GalleryTest2Map', true);
@@ -1658,6 +1737,7 @@ class StorageTest extends GalleryTestCase {
 
 	public function testSelectRandomInteger() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 		// Use a real SQL connection for this test
 		$storage->_db = $this->_db;
@@ -1670,11 +1750,13 @@ class StorageTest extends GalleryTestCase {
 
 		$query                     = "SELECT [::id], $randStatement FROM [GalleryEntity]";
 		$options['limit']['count'] = 2;
+
 		list($ret, $searchResults) = $storage->search($query, array(), $options);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$randomValues = array();
 
 		while (($result = $searchResults->nextResult()) !== false) {
@@ -1691,6 +1773,7 @@ class StorageTest extends GalleryTestCase {
 				((int)$randValue) >= 0 && ((int)$randValue) <= 2147483647,
 				(int)$randValue . ' must be in the range 0..2147483647'
 			);
+
 			$this->assertTrue(
 				preg_match('/^\d+$/', trim($randValue)),
 				$randValue . ' must be an integer number'

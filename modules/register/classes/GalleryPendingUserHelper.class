@@ -37,10 +37,11 @@ class GalleryPendingUserHelper {
 	public static function fetchPendingUserByUserName($userName) {
 		global $gallery;
 
-		$query                     = '
+		$query = '
 		SELECT [GalleryPendingUser::id] FROM [GalleryPendingUser]
 		WHERE [GalleryPendingUser::userName] = ?
 		';
+
 		list($ret, $searchResults) = $gallery->search($query, array($userName));
 
 		if ($ret) {
@@ -50,8 +51,10 @@ class GalleryPendingUserHelper {
 		if ($searchResults->resultCount() == 0) {
 			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 		}
-		$result           = $searchResults->nextResult();
-		$id               = (int)$result[0];
+
+		$result = $searchResults->nextResult();
+		$id     = (int)$result[0];
+
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($id, 'GalleryPendingUser');
 
 		if ($ret) {
@@ -70,7 +73,9 @@ class GalleryPendingUserHelper {
 	 */
 	public static function fetchUserCount($substring = null) {
 		global $gallery;
-		$data  = array();
+
+		$data = array();
+
 		$query = '
 		SELECT COUNT([GalleryPendingUser::id]) FROM [GalleryPendingUser]
 		';
@@ -105,7 +110,9 @@ class GalleryPendingUserHelper {
 	 */
 	public static function fetchUserData($count = null, $offset = null, $substring = null) {
 		global $gallery;
-		$data  = array();
+
+		$data = array();
+
 		$query = '
 		SELECT [GalleryPendingUser::id], [GalleryPendingUser::userName],
 		[GalleryPendingUser::fullName], [GalleryPendingUser::email],
@@ -175,6 +182,7 @@ class GalleryPendingUserHelper {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'register');
 
 		if ($ret) {
@@ -197,7 +205,8 @@ class GalleryPendingUserHelper {
 				'htmlEntities'   => false,
 			)
 		);
-		$baseUrl         = $generator->generateUrl(
+
+		$baseUrl = $generator->generateUrl(
 			array(),
 			array(
 				'forceFullUrl'   => true,
@@ -207,8 +216,9 @@ class GalleryPendingUserHelper {
 		);
 
 		if (isset($userIdForLocale)) {
-			$translator           =& $gallery->getTranslator();
-			$currentLanguageCode  = $translator->getActiveLanguageCode();
+			$translator          =& $gallery->getTranslator();
+			$currentLanguageCode = $translator->getActiveLanguageCode();
+
 			list($ret, $language) = GalleryCoreApi::fetchLanguageCodeForUser($userIdForLocale);
 
 			if ($ret) {
@@ -268,38 +278,45 @@ class GalleryPendingUserHelper {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'register');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $adminGroupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $adminUserIds) = GalleryCoreApi::fetchUsersForGroup($adminGroupId);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $adminUsers) = GalleryCoreApi::loadEntitiesById(array_keys($adminUserIds), 'GalleryUser');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$toList = $languageCodeList = array();
 
 		foreach ($adminUsers as $admin) {
 			$email = $admin->getEmail();
 
 			if (!empty($email)) {
-				$toList[]             = $email;
+				$toList[] = $email;
+
 				list($ret, $language) = GalleryCoreApi::fetchLanguageCodeForUser($admin->getId());
 
 				if ($ret) {
 					return $ret;
 				}
+
 				$languageCodeList[] = $language;
 			}
 		}
@@ -310,6 +327,7 @@ class GalleryPendingUserHelper {
 			if ($ret) {
 				return $ret;
 			}
+
 			$currentLanguageCode = $defaultLanguageCode;
 			$translator          =& $gallery->getTranslator();
 
@@ -333,6 +351,7 @@ class GalleryPendingUserHelper {
 						return $ret;
 					}
 				}
+
 				$ret = GalleryCoreApi::sendTemplatedEmail(
 					'modules/register/templates/AdminEmail.tpl',
 					array(
@@ -431,6 +450,7 @@ class GalleryPendingUserHelper {
 		// Notify gallery event system
 		$event = GalleryCoreApi::newEvent('GalleryPendingUser::createGalleryUser');
 		$event->setEntity($pendingUser);
+
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {

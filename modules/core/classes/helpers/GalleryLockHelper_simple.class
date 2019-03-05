@@ -34,6 +34,7 @@ class GalleryLockHelper_simple {
 	 */
 	public static function getLockIds() {
 		global $gallery;
+
 		$result =& $gallery->getLockSystem();
 		$ret    = $result[0];
 
@@ -43,6 +44,7 @@ class GalleryLockHelper_simple {
 
 			return $result;  // Doing it this way keeps the Code Audit happy
 		}
+
 		$lockSystem =& $result[1];
 
 		return $lockSystem->getLockIds();
@@ -54,12 +56,14 @@ class GalleryLockHelper_simple {
 	 */
 	public static function acquireReadLock($ids, $timeout = 10) {
 		global $gallery;
+
 		$result =& $gallery->getLockSystem();
 		$ret    = $result[0];
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$lockSystem =& $result[1];
 
 		list($ret, $lockId) = $lockSystem->acquireReadLock($ids, $timeout);
@@ -90,6 +94,7 @@ class GalleryLockHelper_simple {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$lockSystem =& $result[1];
 
 		// Get the parent entity id
@@ -132,6 +137,7 @@ class GalleryLockHelper_simple {
 				$tmp[] = $id;
 			}
 		}
+
 		$parentIds = $tmp;
 
 		if (empty($parentIds)) {
@@ -155,6 +161,7 @@ class GalleryLockHelper_simple {
 	 */
 	public static function isReadLocked($ids) {
 		global $gallery;
+
 		$result =& $gallery->getLockSystem();
 		$ret    = $result[0];
 
@@ -166,6 +173,7 @@ class GalleryLockHelper_simple {
 
 			return false;
 		}
+
 		$lockSystem =& $result[1];
 
 		return $lockSystem->isReadLocked($ids);
@@ -177,12 +185,14 @@ class GalleryLockHelper_simple {
 	 */
 	public static function acquireWriteLock($ids, $timeout = 10) {
 		global $gallery;
+
 		$result =& $gallery->getLockSystem();
 		$ret    = $result[0];
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$lockSystem =& $result[1];
 
 		list($ret, $lockId) = $lockSystem->acquireWriteLock($ids, $timeout);
@@ -200,6 +210,7 @@ class GalleryLockHelper_simple {
 	 */
 	public static function isWriteLocked($ids) {
 		global $gallery;
+
 		$result =& $gallery->getLockSystem();
 		$ret    = $result[0];
 
@@ -211,6 +222,7 @@ class GalleryLockHelper_simple {
 
 			return false;
 		}
+
 		$lockSystem =& $result[1];
 
 		return $lockSystem->isWriteLocked($ids);
@@ -222,12 +234,14 @@ class GalleryLockHelper_simple {
 	 */
 	public static function releaseLocks($lockIds) {
 		global $gallery;
+
 		$result =& $gallery->getLockSystem();
 		$ret    = $result[0];
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$lockSystem =& $result[1];
 
 		$ret = $lockSystem->releaseLocks($lockIds);
@@ -245,12 +259,14 @@ class GalleryLockHelper_simple {
 	 */
 	public static function releaseAllLocks() {
 		global $gallery;
+
 		$result =& $gallery->getLockSystem();
 		$ret    = $result[0];
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$lockSystem =& $result[1];
 
 		$ret = $lockSystem->releaseAllLocks();
@@ -268,12 +284,14 @@ class GalleryLockHelper_simple {
 	 */
 	public static function refreshLocks($freshUntil) {
 		global $gallery;
+
 		$result =& $gallery->getLockSystem();
 		$ret    = $result[0];
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$lockSystem =& $result[1];
 
 		$ret = $lockSystem->refreshLocks($freshUntil);

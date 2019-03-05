@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryLockSystem.class');
 
 /**
@@ -57,6 +56,7 @@ class FlockLockSystem extends GalleryLockSystem {
 	 */
 	public function _acquireLock($ids, $timeout, $lockType) {
 		global $gallery;
+
 		$platform   =& $gallery->getPlatform();
 		$cutoffTime = time() + $timeout;
 
@@ -73,6 +73,7 @@ class FlockLockSystem extends GalleryLockSystem {
 				// Close the files that we already opened successfully and return an error
 				foreach ($notLocked as $lockInfo) {
 					list($fd, $lockFile) = $lockInfo;
+
 					$platform->fclose($fd);
 					/*
 					 * Delete the lock files even if others are locking it too (releaseLock calls
@@ -106,6 +107,7 @@ class FlockLockSystem extends GalleryLockSystem {
 
 			foreach ($tmp as $id => $lockInfo) {
 				list($fd, $lockFile) = $lockInfo;
+
 				// Check if we can lock
 				$flockReturned = $platform->flock($fd, $flockType | LOCK_NB, $wouldBlock);
 
@@ -168,6 +170,7 @@ class FlockLockSystem extends GalleryLockSystem {
 	 */
 	public function _releaseLocksNow($locks) {
 		global $gallery;
+
 		$gallery->guaranteeTimeLimit(count($locks) + 5);
 
 		// Release all locks by closing the files
@@ -185,13 +188,15 @@ class FlockLockSystem extends GalleryLockSystem {
 	 */
 	public function refreshLocks($freshUntil) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Flush one byte to each lock file to update its timestamp
 		foreach ($this->_locks as $lockId => $lock) {
 			foreach ($lock['ids'] as $lockInfo) {
 				list($fd, $lockFile) = $lockInfo;
-				$count               = $platform->fwrite($fd, '.');
+
+				$count = $platform->fwrite($fd, '.');
 
 				if ($count == 0) {
 					return GalleryCoreApi::error(
@@ -201,6 +206,7 @@ class FlockLockSystem extends GalleryLockSystem {
 						$lockFile
 					);
 				}
+
 				$platform->fflush($fd);
 			}
 		}
@@ -227,9 +233,11 @@ class FlockLockSystem extends GalleryLockSystem {
 	 */
 	public function _closeLockFile($lockInfo) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($fd, $lockFile) = $lockInfo;
+
 		$platform->fclose($fd);
 
 		if ($platform->file_exists($lockFile)) {

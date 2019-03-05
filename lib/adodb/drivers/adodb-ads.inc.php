@@ -10,11 +10,9 @@
 
 Set tabs to 4 for best viewing.
 
-
 NOTE: This driver requires the Advantage PHP client libraries, which
 	  can be downloaded for free via:
 	  http://devzone.advantagedatabase.com/dz/content.aspx?key=20
-
 DELPHI FOR PHP USERS:
 	  The following steps can be taken to utilize this driver from the
 	  CodeGear Delphi for PHP product:
@@ -35,6 +33,7 @@ DELPHI FOR PHP USERS:
 			Database object's DriverName property.
 
 */
+
 // security - hide paths
 if (!defined('ADODB_DIR')) {
 	die();
@@ -44,8 +43,6 @@ if (!defined('ADODB_DIR')) {
 
 /*--------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------*/
-
-
 class ADODB_ads extends ADOConnection {
 	public $databaseType    = 'ads';
 	public $fmt             = "'m-d-Y'";
@@ -81,6 +78,7 @@ class ADODB_ads extends ADOConnection {
 		if ($this->debug && $argDatabasename && $this->databaseType != 'vfp') {
 			ADOConnection::outp("For Advantage Connect(), $argDatabasename is not used. Place dsn in 1st parameter.");
 		}
+
 		$last_php_error = $this->resetLastError();
 
 		if ($this->curmode === false) {
@@ -88,6 +86,7 @@ class ADODB_ads extends ADOConnection {
 		} else {
 			$this->_connectionID = ads_connect($argDSN, $argUsername, $argPassword, $this->curmode);
 		}
+
 		$this->_errorMsg = $this->getChangedErrorMsg($last_php_error);
 
 		if (isset($this->connectStmt)) {
@@ -109,6 +108,7 @@ class ADODB_ads extends ADOConnection {
 		if ($this->debug && $argDatabasename) {
 			ADOConnection::outp("For PConnect(), $argDatabasename is not used. Place dsn in 1st parameter.");
 		}
+
 		//  print "dsn=$argDSN u=$argUsername p=$argPassword<br>"; flush();
 		if ($this->curmode === false) {
 			$this->_connectionID = ads_connect($argDSN, $argUsername, $argPassword);
@@ -138,7 +138,8 @@ class ADODB_ads extends ADOConnection {
 			if (!$res) {
 				echo $this->ErrorMsg();
 			} else {
-				$ret['version']     = $res->fields[3];
+				$ret['version'] = $res->fields[3];
+
 				$ret['description'] = 'Advantage Database Server';
 
 				return $ret;
@@ -189,6 +190,7 @@ class ADODB_ads extends ADOConnection {
 				return false;
 			}
 		}
+
 		$res = $this->Execute("INSERT INTO $seqname VALUES( DEFAULT )");
 
 		if (!$res) {
@@ -196,7 +198,9 @@ class ADODB_ads extends ADOConnection {
 
 			return false;
 		}
+
 		$gen = $this->Execute('SELECT LastAutoInc( STATEMENT ) FROM system.iota');
+
 		$ret = $gen->fields[0];
 
 		return $ret;
@@ -251,6 +255,7 @@ class ADODB_ads extends ADOConnection {
 		if ($this->transOff) {
 			return true;
 		}
+
 		$this->transCnt   += 1;
 		$this->_autocommit = false;
 
@@ -269,8 +274,10 @@ class ADODB_ads extends ADOConnection {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
+
 		$this->_autocommit = true;
 		$ret               = ads_commit($this->_connectionID);
+
 		ads_autocommit($this->_connectionID, true);
 
 		return $ret;
@@ -284,8 +291,10 @@ class ADODB_ads extends ADOConnection {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
+
 		$this->_autocommit = true;
 		$ret               = ads_rollback($this->_connectionID);
+
 		ads_autocommit($this->_connectionID, true);
 
 		return $ret;
@@ -301,6 +310,7 @@ class ADODB_ads extends ADOConnection {
 
 			return false;
 		}
+
 		$recordSet2 = $this->Execute('select * from system.views');
 
 		if (!$recordSet2) {
@@ -308,6 +318,7 @@ class ADODB_ads extends ADOConnection {
 
 			return false;
 		}
+
 		$i = 0;
 
 		while (!$recordSet1->EOF) {
@@ -347,6 +358,7 @@ class ADODB_ads extends ADOConnection {
 
 			return false;
 		}
+
 		$i = 0;
 
 		while (!$recordSet->EOF) {
@@ -374,7 +386,6 @@ class ADODB_ads extends ADOConnection {
 	#define SQL_DATETIME    9
 	#endif
 	#define SQL_VARCHAR   12
-
 
 	/ One-parameter shortcuts for date/time data types /
 	#if (ODBCVER >= 0x0300)
@@ -436,6 +447,7 @@ class ADODB_ads extends ADOConnection {
 		if ($this->uCaseTables) {
 			$table = strtoupper($table);
 		}
+
 		$schema = '';
 		$this->_findschema($table, $schema);
 
@@ -456,19 +468,19 @@ class ADODB_ads extends ADOConnection {
 		  $o = $rs->fields[1];
 		  break;
 		}
+
 		$rs->MoveNext();
 		}
+
 		$rs->Close();
 
 		$qid = ads_columns($this->_connectionID,$q,$o,strtoupper($table),'%');
 		} */
-
 		switch ($this->databaseType) {
 			case 'access':
 			case 'vfp':
 				$qid = ads_columns($this->_connectionID);// ,'%','',strtoupper($table),'%');
 				break;
-
 
 			case 'db2':
 				  $colname = '%';
@@ -496,6 +508,7 @@ class ADODB_ads extends ADOConnection {
 		if (!$rs) {
 			return $false;
 		}
+
 		$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
 		$rs->_fetch();
 
@@ -536,16 +549,18 @@ class ADODB_ads extends ADOConnection {
 				} else {
 					$fld->max_length = $rs->fields[7];
 				}
+
 				$fld->not_null                  = !empty($rs->fields[10]);
 				$fld->scale                     = $rs->fields[8];
 				$retarr[strtoupper($fld->name)] = $fld;
 			} elseif (sizeof($retarr) > 0) {
 				break;
 			}
+
 			$rs->MoveNext();
 		}
-		$rs->Close(); //-- crashes 4.03pl1 -- why?
 
+		$rs->Close(); //-- crashes 4.03pl1 -- why?
 		if (empty($retarr)) {
 			$retarr = false;
 		}
@@ -562,6 +577,7 @@ class ADODB_ads extends ADOConnection {
 
 			return false;
 		}
+
 		$i = 0;
 
 		while (!$recordSet->EOF) {
@@ -577,6 +593,7 @@ class ADODB_ads extends ADOConnection {
 		if (!$this->_bindInputArray) {
 			return $sql; // no binding
 		}
+
 		$stmt = ads_prepare($this->_connectionID, $sql);
 
 		if (!$stmt) {
@@ -694,7 +711,8 @@ class ADODB_ads extends ADOConnection {
 
 	// returns true or false
 	public function _close() {
-		$ret                 = @ads_close($this->_connectionID);
+		$ret = @ads_close($this->_connectionID);
+
 		$this->_connectionID = false;
 
 		return $ret;
@@ -708,7 +726,6 @@ class ADODB_ads extends ADOConnection {
 /*--------------------------------------------------------------------------------------
    Class Name: Recordset
 --------------------------------------------------------------------------------------*/
-
 class ADORecordSet_ads extends ADORecordSet {
 	public $bind         = false;
 	public $databaseType = 'ads';
@@ -719,8 +736,10 @@ class ADORecordSet_ads extends ADORecordSet {
 	public function __construct($id, $mode = false) {
 		if ($mode === false) {
 			global $ADODB_FETCH_MODE;
+
 			$mode = $ADODB_FETCH_MODE;
 		}
+
 		$this->fetchMode = $mode;
 
 		$this->_queryID = $id;
@@ -733,8 +752,7 @@ class ADORecordSet_ads extends ADORecordSet {
 
 	// returns the field object
 	public function &FetchField($fieldOffset = -1) {
-		$off = $fieldOffset + 1; // offsets begin at 1
-
+		$off           = $fieldOffset + 1; // offsets begin at 1
 		$o             = new ADOFieldObject();
 		$o->name       = @ads_field_name($this->_queryID, $off);
 		$o->type       = @ads_field_type($this->_queryID, $off);
@@ -769,12 +787,14 @@ class ADORecordSet_ads extends ADORecordSet {
 
 	public function _initrs() {
 		global $ADODB_COUNTRECS;
+
 		$this->_numOfRows   = ($ADODB_COUNTRECS) ? @ads_num_rows($this->_queryID) : -1;
 		$this->_numOfFields = @ads_num_fields($this->_queryID);
 		// some silly drivers such as db2 as/400 and intersystems cache return _numOfRows = 0
 		if ($this->_numOfRows == 0) {
 			$this->_numOfRows = -1;
 		}
+
 		//$this->useFetchArray = $this->connection->useFetchArray;
 		$this->_has_stupid_odbc_fetch_api_change = ADODB_PHPVER >= 0x4200;
 	}
@@ -790,6 +810,7 @@ class ADORecordSet_ads extends ADORecordSet {
 
 			return $rs;
 		}
+
 		$savem           = $this->fetchMode;
 		$this->fetchMode = ADODB_FETCH_NUM;
 		$this->Move($offset);
@@ -818,6 +839,7 @@ class ADORecordSet_ads extends ADORecordSet {
 				return true;
 			}
 		}
+
 		$this->fields = false;
 		$this->EOF    = true;
 

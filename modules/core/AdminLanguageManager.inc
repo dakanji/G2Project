@@ -17,13 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/GalleryRepository.class'
 );
+
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/GalleryRepositoryUtilities.class'
 );
+
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/AdminRepositoryDownloadAndInstallController.class'
 );
@@ -54,6 +55,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 	 */
 	public function handleRequest($form) {
 		global $gallery;
+
 		$templateAdapter =& $gallery->getTemplateAdapter();
 
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
@@ -73,6 +75,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 					}
 				}
 			}
+
 			/*
 			 * We can update the general settings from 1 of two places: either here if there
 			 * were no local repositories; or as part of the progressBar call back.
@@ -82,6 +85,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 					array($this, 'updateLanguageSettings'),
 					array($form)
 				);
+
 				$delegate['view'] = 'core.ProgressBar';
 			} else {
 				list($ret, $status['languageSettingsSaved']) = $this->_updateGeneralSettings($form);
@@ -112,6 +116,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 	 */
 	public function updateLanguageSettings($form) {
 		global $gallery;
+
 		$platform        =& $gallery->getPlatform();
 		$templateAdapter =& $gallery->getTemplateAdapter();
 
@@ -124,6 +129,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 		if ($ret) {
 			return $ret;
 		}
+
 		$heading = $module->translate('Updating Language Settings');
 
 		list($ret, $status['languageSettingsSaved']) = $this->_updateGeneralSettings($form);
@@ -212,6 +218,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 			if ($ret) {
 				return $ret;
 			}
+
 			$status['languagePacksDeleted'] = $languagePacksDeleted;
 
 			if (!empty($failedToDeleteLanguage)) {
@@ -233,6 +240,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 		} else {
 			$message = $module->translate('Update complete.');
 		}
+
 		$templateAdapter->updateProgressBar($heading, $message, 1);
 
 		$redirect['view']    = 'core.SiteAdmin';
@@ -274,6 +282,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 				if ($value == $form[$outer][$inner]) {
 					continue;
 				}
+
 				$ret = GalleryCoreApi::setPluginParameter(
 					'module',
 					'core',
@@ -284,6 +293,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$updatedParms = true;
 			}
 		}
@@ -301,10 +311,12 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 	 */
 	public function _getFormLanguages($form, $repositories) {
 		global $gallery;
+
 		$translator =& $gallery->getTranslator();
 
 		list($languageData) = $translator->getLanguageData();
-		$locales            = array(
+
+		$locales = array(
 			'install' => array(),
 			'delete'  => array(),
 		);
@@ -323,9 +335,11 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					$locales[$actionType][$locale] = 1;
 				}
 			}
+
 			// Ignore bad language codes
 		}
 
@@ -342,6 +356,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 	 */
 	public function _deleteLanguagePackages($deleteLanguages, $callback) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -415,6 +430,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$count += $fileCount;
 			$status = array_merge($status, $downloadStatus);
 		}
@@ -478,6 +494,7 @@ class AdminLanguageManagerView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
+
 		$platform   =& $gallery->getPlatform();
 		$translator =& $gallery->getTranslator();
 		$session    =& $gallery->getSession();
@@ -501,7 +518,8 @@ class AdminLanguageManagerView extends GalleryView {
 					return array($ret, null);
 				}
 
-				list($outer, $inner)  = explode('.', $key);
+				list($outer, $inner) = explode('.', $key);
+
 				$form[$outer][$inner] = $value;
 			}
 
@@ -551,6 +569,7 @@ class AdminLanguageManagerView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$upgradeInfo = array_merge($upgradeInfo, $languagePackages);
 		}
 
@@ -598,11 +617,13 @@ class AdminLanguageManagerView extends GalleryView {
 	 */
 	public function _getAllLanguages($repository, &$enableAllFlags) {
 		global $gallery;
+
 		$translator =& $gallery->getTranslator();
 
 		list($languageData, $defaultCountry) = $translator->getLanguageData();
-		$supportedLanguages                  = GalleryCoreApi::getSupportedLanguages();
-		$packages                            = array();
+
+		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
+		$packages           = array();
 
 		foreach (array('module', 'theme') as $pluginType) {
 			list($ret, $plugins) = GalleryCoreApi::getAllPluginIds($pluginType);
@@ -621,15 +642,18 @@ class AdminLanguageManagerView extends GalleryView {
 
 					return array($ret, null);
 				}
+
 				$isCompatible = $upgradeInfo['base']['isCompatible'];
 
 				foreach ($upgradeInfo['languages'] as $code => $pack) {
 					$gallery->guaranteeTimeLimit(60);
+
 					list($ret, $language, $country) = $translator->getLanguageAndCountryFromLanguageCode($code);
 
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					$installed                = !empty($supportedLanguages[$language][$country]);
 					$enableAllFlags['remove'] = $enableAllFlags['remove'] || $installed;
 					$upgradeable              = $isCompatible && $pack['relation'] == 'older';
@@ -640,7 +664,8 @@ class AdminLanguageManagerView extends GalleryView {
 							'installed'   => $installed,
 							'description' => $languageData[$language][$country]['description'],
 						);
-						$language        = $code;
+
+						$language = $code;
 					} else {
 						if (empty($packages[$language])) {
 							$country             = $defaultCountry[$language];
@@ -657,6 +682,7 @@ class AdminLanguageManagerView extends GalleryView {
 							}
 						}
 					}
+
 					$enableAllFlags['upgrade'] = $enableAllFlags['upgrade']
 					|| $packages[$language]['upgrade'];
 				}
@@ -695,11 +721,12 @@ class AdminLanguageManagerView extends GalleryView {
 				}
 			} else {
 				if (empty($supportedLanguages[$language])) {
-					$packages[$language]        = array(
+					$packages[$language] = array(
 						'upgrade'     => false,
 						'installed'   => false,
 						'description' => $countries[$defaultCountry[$language]]['description'],
 					);
+
 					$enableAllFlags['download'] = true;
 				}
 			}
@@ -708,6 +735,7 @@ class AdminLanguageManagerView extends GalleryView {
 		if (!empty($packages['en'])) {  // don't show English(US) as a managed language
 			unset($packages['en']);
 		}
+
 		ksort($packages);
 
 		return array(null, $packages);
@@ -722,6 +750,7 @@ class AdminLanguageManagerView extends GalleryView {
 	 */
 	public function _determinePackageAvailability($repository, $langCodes) {
 		global $gallery;
+
 		$translator =& $gallery->getTranslator();
 
 		list($ret, $files) = $repository->getLanguagePackageFiles($langCodes);
@@ -729,6 +758,7 @@ class AdminLanguageManagerView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$packageCount = 0;
 
 		foreach ($files as $plugins) {

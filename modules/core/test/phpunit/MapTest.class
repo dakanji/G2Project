@@ -32,7 +32,6 @@ class MapTest extends GalleryTestCase {
 
 	public function testAddNull() {
 		// Ensure addMapEntry() method will accept null input values..
-
 		$name = 'test-' . mt_rand();
 		$ret  = GalleryCoreApi::addMapEntry(
 			'GalleryToolkitOperationMap',
@@ -42,6 +41,7 @@ class MapTest extends GalleryTestCase {
 				'outputMimeType' => 'test',
 			)
 		);
+
 		$this->assertTrue($ret->getErrorCode() & ERROR_BAD_PARAMETER, 'expect error for missing key');
 
 		if ($ret && !($ret->getErrorCode() & ERROR_BAD_PARAMETER)) {
@@ -57,6 +57,7 @@ class MapTest extends GalleryTestCase {
 				'description'    => null,
 			)
 		);
+
 		$this->assertFalse($ret, 'should succeed with null value');
 
 		if ($ret) {
@@ -102,6 +103,7 @@ class MapTest extends GalleryTestCase {
 				'description' => null,
 			)
 		);
+
 		$this->assertFalse($ret, 'should succeed setting null value');
 
 		if ($ret) {
@@ -118,6 +120,7 @@ class MapTest extends GalleryTestCase {
 				'parametersCrc' => 'changed',
 			)
 		);
+
 		$this->assertFalse($ret, 'should succeed matching null value');
 
 		if ($ret) {

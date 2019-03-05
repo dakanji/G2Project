@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryIndex.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryUtilities.class');
@@ -44,6 +43,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 		// Set up mock storage.
 		global $gallery;
+
 		$gallery->_storage  = new RepositoryTestStorage();
 		$this->_testStorage =& $gallery->_storage;
 
@@ -158,6 +158,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 	public function testGetPluginName() {
 		global $gallery;
+
 		list($ret, $saveLanguage) = $gallery->getActiveLanguageCode();
 
 		if ($ret) {
@@ -201,6 +202,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 				continue;
 			}
+
 			list($ret, $name) = $this->_index->getPluginName($case['pluginType'], $case['pluginId']);
 
 			if ($ret) {
@@ -238,6 +240,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			array('http://example.com/repository/test/index', null),
 			array(true, $serializedSampleIndex)
 		);
+
 		$utilities->setReply(
 			'downloadFile',
 			array('http://example.com/repository/test/index.hash', 1),
@@ -250,21 +253,25 @@ class RepositoryIndexTest extends GalleryTestCase {
 			array($this->_index->getRepositoryCacheDir() . 'modules'),
 			true
 		);
+
 		$platform->setReply(
 			'is_dir',
 			array($this->_index->getRepositoryCacheDir() . 'modules'),
 			true
 		);
+
 		$platform->setReply(
 			'file_exists',
 			array($this->_index->getRepositoryCacheDir() . 'themes'),
 			true
 		);
+
 		$platform->setReply(
 			'is_dir',
 			array($this->_index->getRepositoryCacheDir() . 'themes'),
 			true
 		);
+
 		$platform->setReply(
 			'file_put_contents',
 			array(
@@ -273,6 +280,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			),
 			true
 		);
+
 		$gallery->setPlatform($platform);
 
 		// Perform update and verify that the sample index has been loaded.
@@ -304,6 +312,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 			$updateTimestamp = $addedData['parameterValue'];
 		}
+
 		$this->assertTrue($timestampWritten, 'Timestamp in database not updated.');
 		$this->assertTrue($updateTimestamp > time() - 60, 'Timestamp too old.');
 
@@ -326,6 +335,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'timestamp'   => 'updateTime',
@@ -345,6 +355,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			array($this->_index->getRepositoryCacheDir() . 'index.repository'),
 			false
 		);
+
 		$gallery->setPlatform($platform);
 
 		$this->assertTrue(false === $this->_index->existsInCache());
@@ -362,6 +373,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			array($this->_index->getRepositoryCacheDir() . 'index.repository'),
 			serialize($this->_sampleIndex)
 		);
+
 		$gallery->setPlatform($platform);
 
 		$ret = $this->_index->load();
@@ -369,6 +381,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($this->_sampleIndex, $this->_index->_index);
 		$this->assertTrue($this->_index->_isLoaded, 'GalleryRepositoryIndex::isLoaded bit not set.');
 	}
@@ -387,6 +400,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			array($indexPath),
 			serialize(false) // this will cause unserialize to return false
 		);
+
 		$platform->setReply('unlink', array($indexPath), true);
 		$gallery->setPlatform($platform);
 
@@ -395,10 +409,12 @@ class RepositoryIndexTest extends GalleryTestCase {
 		if (!$ret) {
 			$this->assertFalse(true, 'Load Malformed Index');
 		}
+
 		$this->assertTrue(
 			$ret->getErrorCode() & ERROR_BAD_PARAMETER,
 			'Should return ERROR_BAD_PARMETER'
 		);
+
 		$this->assertEquals(
 			array(
 				'modules' => array(),
@@ -406,6 +422,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			),
 			$index->_index
 		);
+
 		$this->assertFalse($index->_isLoaded, 'GalleryRepositoryIndex::isLoaded is set.');
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
@@ -436,6 +453,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		if (!$ret) {
 			return $this->assertFalse(true, 'Unserialize Malformed Index');
 		}
+
 		$this->assertTrue($ret->getErrorCode() & ERROR_BAD_PARAMETER);
 		$this->assertEquals(
 			array(
@@ -444,6 +462,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			),
 			$this->_index->_index
 		);
+
 		$this->assertEquals(
 			false,
 			$this->_index->_isLoaded,
@@ -472,6 +491,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals(
 				$this->_sampleIndex[$pluginType . 's'][$pluginId]['header'],
 				$header
@@ -520,6 +540,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals($case['languages'], $languages);
 		}
 	}
@@ -567,6 +588,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals($case['languages'], $languages);
 		}
 	}
@@ -628,6 +650,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals($version, $case['expectedVersion']);
 			$this->assertEquals($build, $case['expectedBuild']);
 		}
@@ -748,6 +771,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			'GalleryPluginHelper::loadPlugin(module, testModule)',
 			new RepositoryIndexTestModule()
 		);
+
 		GalleryDataCache::put(
 			'GalleryPluginHelper::fetchPluginStatus(module)',
 			array(
@@ -780,6 +804,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $files) = $this->_index->getLanguagePackageFiles('en_GB');
 
 		if ($ret) {
@@ -807,6 +832,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 				),
 			),
 		);
+
 		$this->assertEquals($expected, $files, 'Unexpected results for single language');
 	}
 
@@ -818,6 +844,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			'GalleryPluginHelper::loadPlugin(module, testModule)',
 			new RepositoryIndexTestModule()
 		);
+
 		GalleryDataCache::put(
 			'GalleryPluginHelper::fetchPluginStatus(module)',
 			array(
@@ -832,6 +859,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			'GalleryPluginHelper::loadPlugin(theme, testTheme)',
 			new RepositoryIndexTestTheme()
 		);
+
 		GalleryDataCache::put(
 			'GalleryPluginHelper::fetchPluginStatus(theme)',
 			array(
@@ -851,6 +879,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $files) = $this->_index->getLanguagePackageFiles(array('en_GB', 'pt_BR'));
 
 		if ($ret) {
@@ -880,6 +909,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 				),
 			),
 		);
+
 		$this->assertEquals($expected, $files, 'Unexpected results for multiple languages');
 	}
 
@@ -891,6 +921,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			'GalleryPluginHelper::loadPlugin(module, testModule)',
 			new RepositoryIndexTestModule()
 		);
+
 		GalleryDataCache::put(
 			'GalleryPluginHelper::fetchPluginStatus(module)',
 			array(
@@ -924,6 +955,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 				'noTheme' => 1,
 			)
 		);
+
 		$this->_index->_utilities =& $utilities;
 
 		$ret = $gallery->setActiveLanguageCode('en_GB');
@@ -931,6 +963,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $files) = $this->_index->getLanguagePackageFiles(array('en_GB', 'pt_BR'));
 
 		if ($ret) {
@@ -950,6 +983,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 				),
 			),
 		);
+
 		$this->assertEquals($expected, $files, 'Unexpected results for multiple languages');
 	}
 
@@ -961,6 +995,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			'GalleryPluginHelper::loadPlugin(module, testModule)',
 			new RepositoryIndexTestModule()
 		);
+
 		GalleryDataCache::put(
 			'GalleryPluginHelper::fetchPluginStatus(module)',
 			array(
@@ -994,11 +1029,13 @@ class RepositoryIndexTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $files) = $this->_index->getLanguagePackageFiles(array('en_GB', 'pt_BR'));
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$expected = array(
 			'module' => array(
 				'testModule' => array(
@@ -1011,6 +1048,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 				),
 			),
 		);
+
 		$this->assertEquals($expected, $files, 'Unexpected results for multiple languages');
 	}
 
@@ -1037,6 +1075,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 				'build'   => '44444',
 			),
 		);
+
 		$utilities->setReply(
 			'getPluginPackages',
 			array('module', 'testModule'),
@@ -1066,6 +1105,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 					'build'   => '11111',
 				),
 			);
+
 			$utilities->setReply(
 				'getPluginPackages',
 				array('theme', 'testTheme'),

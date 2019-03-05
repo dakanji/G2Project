@@ -30,8 +30,9 @@ class ItemEditThumbPage extends ItemEditPlugin {
 	 * @see ItemEditPlugin::handleRequest
 	 */
 	public function handleRequest($form, &$item, &$preferred) {
-		$status             = null;
-		$error              = array();
+		$status = null;
+		$error  = array();
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
 
 		if ($ret) {
@@ -44,6 +45,7 @@ class ItemEditThumbPage extends ItemEditPlugin {
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
+
 			$thumb      = array_shift($thumbnails);
 			$operations = $thumb->getDerivativeOperations();
 
@@ -56,17 +58,21 @@ class ItemEditThumbPage extends ItemEditPlugin {
 			} else {
 				$operations = 'select-page|' . $form['page'] . ';' . $operations;
 			}
+
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumb->getId());
 
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
+
 			$thumb->setDerivativeOperations($operations);
+
 			$ret = $thumb->save();
 
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
+
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
 			if ($ret) {
@@ -75,7 +81,6 @@ class ItemEditThumbPage extends ItemEditPlugin {
 
 			$status = $module->translate('Changes saved successfully');
 		} // else $form['action']['reset'])
-
 		return array(null, $error, $status, false);
 	}
 
@@ -96,11 +101,13 @@ class ItemEditThumbPage extends ItemEditPlugin {
 				$form['page'] = $regs[2];
 			}
 		}
+
 		list($ret, $count) = $this->_getPageCount($item);
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$ItemEditThumbPage = array(
 			'pageList' => array(),
 		);
@@ -108,6 +115,7 @@ class ItemEditThumbPage extends ItemEditPlugin {
 		for ($i = 1; $i <= $count; $i++) {
 			$ItemEditThumbPage['pageList'][$i] = $i;
 		}
+
 		$template->setVariable('ItemEditThumbPage', $ItemEditThumbPage);
 		$template->setVariable('controller', 'thumbpage.ItemEditThumbPage');
 
@@ -165,6 +173,7 @@ class ItemEditThumbPage extends ItemEditPlugin {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($item->getMimeType(), 'page-count');
 
 		if ($ret) {
@@ -174,6 +183,7 @@ class ItemEditThumbPage extends ItemEditPlugin {
 		if (!isset($toolkit)) {
 			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
 		}
+
 		list($ret, $result) = $toolkit->getProperty($item->getMimeType(), 'page-count', $path);
 
 		if ($ret) {

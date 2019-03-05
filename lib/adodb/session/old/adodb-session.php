@@ -9,7 +9,6 @@
 	  Set tabs to 4 for best viewing.
 
   Latest version of ADODB is available at http://php.weblogs.com/adodb ======================================================================
-
  This file provides PHP4 session management using the ADODB database
 wrapper library.
 
@@ -34,7 +33,6 @@ To force non-persistent connections, call adodb_session_open first before sessio
 	print "
 -- \$_SESSION['AVAR']={$_SESSION['AVAR']}</p>";
 
-
  Installation ============
  1. Create this table in your database (syntax might vary depending on your db):
 
@@ -54,7 +52,6 @@ To force non-persistent connections, call adodb_session_open first before sessio
 	   DATA varchar(4000) not null,
 	  primary key (sesskey)
   );
-
 
   2. Then define the following parameters. You can either modify
 	 this file, or define them before this file is included:
@@ -77,8 +74,7 @@ To force non-persistent connections, call adodb_session_open first before sessio
 	 To do this, define a notification function, say NotifyFn:
 
 		 function NotifyFn($expireref, $sesskey)
-		 {
-		 }
+		 {}
 
 	 Then you need to define a global variable $ADODB_SESSION_EXPIRE_NOTIFY.
 	 This is an array with 2 elements, the first being the name of the variable
@@ -94,7 +90,6 @@ To force non-persistent connections, call adodb_session_open first before sessio
 	Then when the NotifyFn is called, we are passed the $USERID as the first
 	parameter, eg. NotifyFn($userid, $sesskey).
 */
-
 if (!defined('_ADODB_LAYER')) {
 	include __DIR__ . '/adodb.inc.php';
 }
@@ -123,6 +118,7 @@ if (!defined('ADODB_SESSION')) {
 			setcookie(session_name(), session_id(), false, $ck['path'], $ck['domain'], $ck['secure']);
 			//@session_start();
 		}
+
 		$new_id = session_id();
 		$ok     = $conn->Execute('UPDATE ' . ADODB_Session::table() . ' SET sesskey=' . $conn->qstr($new_id) . ' WHERE sesskey=' . $conn->qstr($old_id));
 
@@ -133,6 +129,7 @@ if (!defined('ADODB_SESSION')) {
 			if (empty($ck)) {
 				$ck = session_get_cookie_params();
 			}
+
 			setcookie(session_name(), session_id(), false, $ck['path'], $ck['domain'], $ck['secure']);
 
 			return false;
@@ -156,7 +153,6 @@ if (!defined('ADODB_SESSION')) {
 	$ADODB_SESSION_CRC,
 	$ADODB_SESSION_TBL;
 
-
 	$ADODB_SESS_LIFE = ini_get('session.gc_maxlifetime');
 
 	if ($ADODB_SESS_LIFE <= 1) {
@@ -164,13 +160,12 @@ if (!defined('ADODB_SESSION')) {
 		//print "<h3>Session Error: PHP.INI setting <i>session.gc_maxlifetime</i>not set: $ADODB_SESS_LIFE</h3>";
 		$ADODB_SESS_LIFE = 1440;
 	}
+
 	$ADODB_SESSION_CRC = false;
 	//$ADODB_SESS_DEBUG = true;
-
 	//////////////////////////////////
 	// SET THE FOLLOWING PARAMETERS
 	//////////////////////////////////
-
 	if (empty($ADODB_SESSION_DRIVER)) {
 		$ADODB_SESSION_DRIVER  = 'mysql';
 		$ADODB_SESSION_CONNECT = 'localhost';
@@ -182,6 +177,7 @@ if (!defined('ADODB_SESSION')) {
 	if (empty($ADODB_SESSION_EXPIRE_NOTIFY)) {
 		$ADODB_SESSION_EXPIRE_NOTIFY = false;
 	}
+
 	//  Made table name configurable - by David Johnson djohnson@inpro.net
 	if (empty($ADODB_SESSION_TBL)) {
 		$ADODB_SESSION_TBL = 'sessions';
@@ -199,6 +195,7 @@ if (!defined('ADODB_SESSION')) {
 	$ADODB_SESS['debug'] = $ADODB_SESS_DEBUG;
 	$ADODB_SESS['table'] = $ADODB_SESS_TBL;
 	*/
+
 
 	/****************************************************************************************\
 		Create the connection to the database.
@@ -312,11 +309,13 @@ if (!defined('ADODB_SESSION')) {
 				echo '
 -- Session: Only updating date - crc32 not changed</p>';
 			}
+
 			$qry = "UPDATE $ADODB_SESSION_TBL SET expiry=$expiry WHERE sesskey='$key' AND expiry >= " . time();
 			$rs  = $ADODB_SESS_CONN->Execute($qry);
 
 			return true;
 		}
+
 		$val = rawurlencode($val);
 
 		$arr = array(
@@ -328,8 +327,10 @@ if (!defined('ADODB_SESSION')) {
 		if ($ADODB_SESSION_EXPIRE_NOTIFY) {
 			$var = reset($ADODB_SESSION_EXPIRE_NOTIFY);
 			global $$var;
+
 			$arr['expireref'] = $$var;
 		}
+
 		$rs            = $ADODB_SESS_CONN->Replace(
 			$ADODB_SESSION_TBL,
 			$arr,
@@ -374,6 +375,7 @@ if (!defined('ADODB_SESSION')) {
 					$del = $ADODB_SESS_CONN->Execute("DELETE FROM $ADODB_SESSION_TBL WHERE sesskey='$key'");
 					$rs->MoveNext();
 				}
+
 				$ADODB_SESS_CONN->CommitTrans();
 			}
 		} else {
@@ -405,6 +407,7 @@ if (!defined('ADODB_SESSION')) {
 					$del = $ADODB_SESS_CONN->Execute("DELETE FROM $ADODB_SESSION_TBL WHERE sesskey='$key'");
 					$rs->MoveNext();
 				}
+
 				$rs->Close();
 
 				$ADODB_SESS_CONN->CommitTrans();
@@ -420,6 +423,7 @@ if (!defined('ADODB_SESSION')) {
 				);
 			}
 		}
+
 		// suggested by Cameron, "GaM3R" <gamr@outworld.cx>
 		if (defined('ADODB_SESSION_OPTIMIZE')) {
 			global $ADODB_SESSION_DRIVER;
@@ -485,7 +489,6 @@ if (!defined('ADODB_SESSION')) {
 }
 
 // TEST SCRIPT -- UNCOMMENT
-
 if (0) {
 	session_start();
 	session_register('AVAR');

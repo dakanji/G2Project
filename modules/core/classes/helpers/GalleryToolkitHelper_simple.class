@@ -82,6 +82,7 @@ class GalleryToolkitHelper_simple {
 					break;
 				}
 			}
+
 			GalleryDataCache::put($cacheKey, array($toolkit, $outputMimeType));
 		} else {
 			list($toolkit, $outputMimeType) = GalleryDataCache::get($cacheKey);
@@ -102,6 +103,7 @@ class GalleryToolkitHelper_simple {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$toolkit = $toolkits[0];
 		} else {
 			$toolkit = GalleryDataCache::get($cacheKey);
@@ -149,8 +151,10 @@ class GalleryToolkitHelper_simple {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$toolkits[] = $toolkit;
 			}
+
 			GalleryDataCache::put($cacheKey, $toolkits);
 		} else {
 			$toolkits = GalleryDataCache::get($cacheKey);

@@ -19,7 +19,6 @@ if (!defined('ADODB_SESSION')) {
 
 require_once ADODB_SESSION . '/crypt.inc.php';
 
-
 class ADODB_Encrypt_MD5 {
 	public function write($data, $key) {
 		$md5crypt = new MD5Crypt();

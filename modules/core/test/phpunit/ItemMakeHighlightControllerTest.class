@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
@@ -53,6 +52,7 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('ItemMakeHighlightTestToolkit');
 
 		// Register operations that we can perform on our mock data items
@@ -82,6 +82,7 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		list($ret, $this->_subalbum) = $this->_createRandomAlbum($this->_album->getId());
@@ -187,5 +188,4 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
  * @package GalleryCore
  * @subpackage PHPUnit
  */
-class ItemMakeHighlightTestToolkit extends GalleryToolkit {
-}
+class ItemMakeHighlightTestToolkit extends GalleryToolkit {}

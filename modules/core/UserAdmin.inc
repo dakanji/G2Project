@@ -44,6 +44,7 @@ class UserAdminView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
+
 		$user = $gallery->getActiveUser();
 
 		// Load the module list
@@ -170,6 +171,7 @@ class UserAdminView extends GalleryView {
 		if (empty($subViewName)) {
 			$subViewName = 'core.ItemEdit';
 		}
+
 		list($ret, $subView) = GalleryView::getMe()->loadView($subViewName);
 
 		if ($ret) {

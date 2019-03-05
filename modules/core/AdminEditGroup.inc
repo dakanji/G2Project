@@ -49,8 +49,9 @@ class AdminEditGroupController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$results           = $status           = $error           = array();
-		$groupId           = (int)GalleryUtilities::getRequestVariables('groupId');
+		$results = $status           = $error           = array();
+		$groupId = (int)GalleryUtilities::getRequestVariables('groupId');
+
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -98,6 +99,7 @@ class AdminEditGroupController extends GalleryController {
 
 				// Enact the change
 				$group->setGroupName($form['groupName']);
+
 				$ret = $group->save();
 
 				if ($ret) {
@@ -123,6 +125,7 @@ class AdminEditGroupController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'core.AdminEditGroup';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -157,7 +160,8 @@ class AdminEditGroupView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$groupId           = GalleryUtilities::getRequestVariables('groupId');
+		$groupId = GalleryUtilities::getRequestVariables('groupId');
+
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {

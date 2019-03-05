@@ -10,7 +10,6 @@
   Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Library for basic performance monitoring and tuning
 
 */
@@ -90,6 +89,7 @@ class perf_mssql extends adodb_perf {
 			$this->sql1 = 'sql1';
 			//$this->explain = false;
 		}
+
 		$this->conn = $conn;
 	}
 
@@ -130,6 +130,7 @@ class perf_mssql extends adodb_perf {
 				$s .= '<tr><td>' . round($rs->fields[8], 1) . '<td>' . round($rs->fields[9], 3) . '<td align=right>' . round($rs->fields[10], 3) . '<td nowrap><pre>' . htmlspecialchars($rs->fields[0]) . "</td></pre></tr>\n"; // NOTE CORRUPT </td></pre> tag is intentional!!!!
 				$rs->MoveNext();
 			}
+
 			$s .= '</table>';
 
 			$rs->NextRecordSet();
@@ -161,10 +162,13 @@ class perf_mssql extends adodb_perf {
 					$s .= '<tr><td>' . $tab . '</td><td align=right>' . $rs2->fields[3] . '</td><td align=right>' . $rs2->fields[4] . '</td><td align=right>' . $rs2->fields[2] . '</td></tr>';
 					$rs2->Close();
 				}
+
 				$rs1->MoveNext();
 			}
+
 			$rs1->Close();
 		}
+
 		$ADODB_FETCH_MODE = $save;
 
 		return $s . '</table>';

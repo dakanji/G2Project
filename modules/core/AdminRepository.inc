@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/GalleryRepository.class'
 );
+
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/AdminRepositoryDownloadAndInstallController.class'
 );
@@ -103,6 +103,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 					$data[$key] = 1;
 				}
 			}
+
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
 				'core',
@@ -116,6 +117,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 
 			// Remove the default repositories from the data cache
 			GalleryRepository::getMe()->clearRepositoryCache();
+
 			list($ret, $repositories) = $this->_getRepositories();
 
 			if ($ret) {
@@ -135,6 +137,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 					),
 				)
 			);
+
 			$delegate['view'] = 'core.ProgressBar';
 		} elseif (isset($form['action']['upgradeAll'])) {
 			list($ret, $repositories) = $this->_getRepositories();
@@ -166,6 +169,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 					array($this, 'performDownloadAndInstallation'),
 					array($packages, $repositories)
 				);
+
 				$delegate['view'] = 'core.ProgressBar';
 			}
 		}
@@ -180,6 +184,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 				$results['delegate'] = $delegate;
 			}
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -209,6 +214,7 @@ class AdminRepositoryView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$session  =& $gallery->getSession();
 
@@ -233,7 +239,8 @@ class AdminRepositoryView extends GalleryView {
 
 		if ($form['formName'] != 'AdminRepository') {
 			// Set some defaults
-			$form['formName']    = 'AdminRepository';
+			$form['formName'] = 'AdminRepository';
+
 			list($ret, $sources) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'core',
@@ -243,6 +250,7 @@ class AdminRepositoryView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			@$form['repositories'] = unserialize($sources);
 		}
 
@@ -274,6 +282,7 @@ class AdminRepositoryView extends GalleryView {
 					null,
 				);
 			}
+
 			$coreApis['core']   = explode('.', $coreApiVersion);
 			$coreApis['module'] = explode('.', $moduleApiVersion);
 			$coreApis['theme']  = explode('.', $themeApiVersion);
@@ -385,6 +394,7 @@ class AdminRepositoryView extends GalleryView {
 			'modules' => $platform->is_writeable($AdminRepository['basePath'] . '/modules'),
 			'themes'  => $platform->is_writeable($AdminRepository['basePath'] . '/themes'),
 		);
+
 		$AdminRepository['authToken'] = $session->getAuthToken();
 
 		// Render the HTML body

@@ -35,6 +35,7 @@ class CartHelper {
 	 */
 	public static function fetchCartItemCounts() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		$cartItemIds = $session->get('cart.itemIds');
@@ -102,6 +103,7 @@ class CartHelper {
 	 */
 	public static function setCartItemCounts($cartItemIds) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		if (empty($cartItemIds)) {
@@ -126,6 +128,7 @@ class CartHelper {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$idList = array_keys($cartItemIds);
 
 		if (!empty($cartItemIds)) {
@@ -135,6 +138,7 @@ class CartHelper {
 				return array($ret, null);
 			}
 		}
+
 		$changed = false;
 		$items   = array();
 
@@ -152,6 +156,7 @@ class CartHelper {
 
 				return array($ret, null);
 			}
+
 			list($ret, $canView) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
 
 			if ($ret) {

@@ -52,6 +52,7 @@ class IconsSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$status['saved'] = 1;
 			}
 		}
@@ -84,7 +85,8 @@ class IconsSiteAdminView extends GalleryView {
 		}
 
 		if ($form['formName'] != 'IconsSiteAdmin') {
-			$form['formName']             = 'IconsSiteAdmin';
+			$form['formName'] = 'IconsSiteAdmin';
+
 			list($ret, $form['iconpack']) = GalleryCoreApi::getPluginParameter('module', 'icons', 'iconpack');
 
 			if ($ret) {
@@ -114,9 +116,10 @@ class IconsSiteAdminView extends GalleryView {
 					continue;
 				}
 
-				$css    = $platform->file(
+				$css = $platform->file(
 					sprintf('%s/iconpacks/%s/icons.css', __DIR__, $dir)
 				);
+
 				$map    = array();
 				$active = array();
 
@@ -141,10 +144,12 @@ class IconsSiteAdminView extends GalleryView {
 								$classes[$class] = 1;
 							}
 						}
+
 						$active = array();
 						$image  = null;
 					}
 				}
+
 				$packs[$dir] = array(
 					'name' => $name,
 					'map'  => $map,

@@ -33,6 +33,7 @@ class ConfirmRegistrationController extends GalleryController {
 		GalleryCoreApi::requireOnce(
 			'modules/register/classes/GalleryPendingUserHelper.class'
 		);
+
 		$results = array(
 			'status' => array(),
 			'error'  => array(),

@@ -18,7 +18,6 @@
 
 	Contributed by Herman Kuiper  herman#ozuzo.net
 */
-
 if (!defined('ADODB_DIR')) {
 	die();
 }
@@ -32,7 +31,6 @@ class ADODB_sqlitepo extends ADODB_sqlite {
 /*--------------------------------------------------------------------------------------
 	   Class Name: Recordset
 --------------------------------------------------------------------------------------*/
-
 class ADORecordset_sqlitepo extends ADORecordset_sqlite {
 	public $databaseType = 'sqlitepo';
 
@@ -50,6 +48,7 @@ class ADORecordset_sqlitepo extends ADORecordset_sqlite {
 				if (($p = strpos($n, '.')) !== false) {
 					$n = substr($n, $p + 1);
 				}
+
 				$this->fields[$n] = $v;
 			}
 		}

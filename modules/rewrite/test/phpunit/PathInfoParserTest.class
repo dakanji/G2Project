@@ -36,6 +36,7 @@ class PathInfoParserTest extends RewriteParserTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp('PathInfoParser');
 
 		if ($ret) {
@@ -48,7 +49,8 @@ class PathInfoParserTest extends RewriteParserTestCase {
 	public function testHandleTestResultsRequest1() {
 		$form = array();
 
-		$form['force']['test']      = 1;
+		$form['force']['test'] = 1;
+
 		list($ret, $error, $status) = $this->_parser->handleTestResultsRequest($form);
 
 		if ($ret) {
@@ -72,6 +74,7 @@ class PathInfoParserTest extends RewriteParserTestCase {
 			),
 			$status
 		);
+
 		$this->assertEquals(array(), $error);
 	}
 
@@ -101,6 +104,7 @@ class PathInfoParserTest extends RewriteParserTestCase {
 			),
 			$status
 		);
+
 		$this->assertEquals(array(), $error);
 	}
 
@@ -112,6 +116,7 @@ class PathInfoParserTest extends RewriteParserTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('pathInfoTest', 'fail');
+
 		list($ret, $status) = $this->_parser->needsConfiguration();
 
 		if ($ret) {

@@ -9,7 +9,6 @@
   Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Library for basic performance monitoring and tuning
 
 */

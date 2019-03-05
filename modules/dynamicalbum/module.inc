@@ -28,6 +28,7 @@
 class DynamicAlbumModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
+
 		$this->setId('dynamicalbum');
 		$this->setName($gallery->i18n('Dynamic Albums'));
 		$this->setDescription(
@@ -62,7 +63,10 @@ class DynamicAlbumModule extends GalleryModule {
 	 * @see GalleryModule::upgrade
 	 */
 	public function upgrade($currentVersion, $x1 = null) {
-		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'dynamicalbum');
+		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
+			'module',
+			'dynamicalbum'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -93,7 +97,10 @@ class DynamicAlbumModule extends GalleryModule {
 		}
 
 		if (!isset($params['themeSettingsId'])) {
-			list($ret, $entity) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryEntity');
+			list($ret, $entity) = GalleryCoreApi::newFactoryInstance(
+				'GalleryEntity',
+				'GalleryEntity'
+			);
 
 			if ($ret) {
 				return $ret;
@@ -107,16 +114,19 @@ class DynamicAlbumModule extends GalleryModule {
 					'Unable to get a GalleryEntity instance'
 				);
 			}
+
 			$ret = $entity->create();
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$ret = $entity->save(false);
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$ret = $this->setParameter('themeSettingsId', $entity->getId());
 
 			if ($ret) {
@@ -146,7 +156,8 @@ class DynamicAlbumModule extends GalleryModule {
 	 * @see GalleryModule::getItemLinks
 	 */
 	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {
-		$links              = array();
+		$links = array();
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'dynamicalbum');
 
 		if ($ret) {

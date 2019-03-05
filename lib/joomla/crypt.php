@@ -100,14 +100,17 @@ class JCrypt {
 					for ($count = 0; $count < 50; ++$count) {
 						$hash = sha1($hash);
 					}
+
 					$microEnd = microtime(true) * 1000000;
 					$entropy .= $microStart . $microEnd;
 
 					if ($microStart > $microEnd) {
 						$microEnd += 1000000;
 					}
+
 					$duration += $microEnd - $microStart;
 				}
+
 				$duration = $duration / $samples;
 
 				/*
@@ -129,6 +132,7 @@ class JCrypt {
 					for ($count = 0; $count < $rounds; ++$count) {
 						$hash = sha1($hash);
 					}
+
 					$entropy .= $microStart . microtime(true);
 				}
 			}

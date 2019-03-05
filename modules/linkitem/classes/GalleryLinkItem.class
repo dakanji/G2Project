@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryItem.class');
 
 /**
@@ -112,6 +111,7 @@ class GalleryLinkItem extends GalleryItem {
 		$this->setLinkedEntity('fake');
 
 		$ret = parent::move($newParentId);
+
 		$this->setLinkedEntity(null);
 
 		if ($ret) {
@@ -151,6 +151,7 @@ class GalleryLinkItem extends GalleryItem {
 
 		if ($view == 'core.ShowItem' && $itemId == $this->getId()) {
 			global $gallery;
+
 			$link = $this->getLink();
 
 			if (is_numeric($link)) {
@@ -160,6 +161,7 @@ class GalleryLinkItem extends GalleryItem {
 				if ($ret) {
 					return $ret;
 				}
+
 				$session->doNotUseTempId();
 				$urlGenerator =& $gallery->getUrlGenerator();
 				$link         = $urlGenerator->generateUrl(

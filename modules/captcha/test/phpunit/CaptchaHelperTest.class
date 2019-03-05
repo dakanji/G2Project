@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/captcha/classes/CaptchaHelper.class');
 
 /**
@@ -93,6 +92,7 @@ class CaptchaHelperTest extends GalleryTestCase {
 
 	public function testTestRequiredGdFunctionsAllMissing() {
 		global $gallery;
+
 		$phpVm = new CaptchaHelperTestPhpVm();
 		$phpVm->setFunctionExists('ImageCreateFromJPEG', false);
 		$phpVm->setFunctionExists('ImageColorAllocate', false);

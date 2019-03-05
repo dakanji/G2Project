@@ -1,7 +1,6 @@
 <?php
 
 // Russian language file contributed by "Cyrill Malevanov" cyrill#malevanov.spb.ru.
-
 $ADODB_LANG_ARRAY = array(
 	'LANG'                       => 'ru',
 	DB_ERROR                     => 'неизвестная ошибка',

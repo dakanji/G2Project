@@ -92,6 +92,7 @@ class ImageMagickModule extends GalleryModule {
 			GalleryCoreApi::requireOnce(
 				'modules/imagemagick/classes/ImageMagickToolkitHelper.class'
 			);
+
 			list($ret, $version, $vulnerable) = ImageMagickToolkitHelper::discoverVersion(
 				$params['path']
 			);
@@ -168,6 +169,7 @@ class ImageMagickModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$priority = min($priority + 1, 40);
 		}
 
@@ -219,6 +221,7 @@ class ImageMagickModule extends GalleryModule {
 				// Skip colorspace if this feature isn't turned on
 				continue;
 			}
+
 			$ret = GalleryCoreApi::registerToolkitProperty(
 				'ImageMagick',
 				$info['mimeTypes'],
@@ -256,6 +259,7 @@ class ImageMagickModule extends GalleryModule {
 		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
 			return array(null, true);
 		}
+
 		// This module requires all fields to be filled out before it can be activated.
 		foreach (array(
 			'path',
@@ -319,6 +323,7 @@ class ImageMagickModule extends GalleryModule {
 				if ($path[strlen($path) - 1] != $slash) {
 					$path .= $slash;
 				}
+
 				$paths[] = $path;
 			}
 
@@ -342,6 +347,7 @@ class ImageMagickModule extends GalleryModule {
 				if ($path[strlen($path) - 1] != $slash) {
 					$path .= $slash;
 				}
+
 				$paths[] = $path;
 			}
 

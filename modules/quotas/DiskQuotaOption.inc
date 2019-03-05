@@ -38,6 +38,7 @@ class DiskQuotaOption extends ItemAddOption {
 	 */
 	public function handleRequestAfterAdd($form, $items) {
 		global $gallery;
+
 		GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 
 		$warnings = $errors = array();
@@ -56,6 +57,7 @@ class DiskQuotaOption extends ItemAddOption {
 			foreach ($items as $item) {
 				$excludedIds[] = $item->getId();
 			}
+
 			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'quotas');
 
 			if ($ret) {
@@ -87,6 +89,7 @@ class DiskQuotaOption extends ItemAddOption {
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					$warnings[$i][] = $module->translate(
 						array(
 							'text' => 'Warning: You have reached your disk quota (%s %s), '
@@ -106,6 +109,7 @@ class DiskQuotaOption extends ItemAddOption {
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					list($ret, $userDiskUsageHumanReadable, $userDiskUsageHumanReadableUnit) = GalleryQuotasHelper::humanReadableFromKilobytes($userDiskUsage);
 
 					if ($ret) {

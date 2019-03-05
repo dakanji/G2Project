@@ -109,7 +109,8 @@ class ExifDescriptionOption extends ItemAddOption {
 				}
 
 				for ($i = 0; $i < count($currentItems); $i++) {
-					$itemId                       = $currentItems[$i]->getId();
+					$itemId = $currentItems[$i]->getId();
+
 					list($ret, $currentItems[$i]) = $currentItems[$i]->refresh();
 
 					if ($ret) {
@@ -200,7 +201,6 @@ class ExifDescriptionOption extends ItemAddOption {
 						 else if ($orientation == '90 deg CW Mirrored') {}
 						 else if ($orientation == '90 deg CCW Mirrored') {}
 						*/
-
 						if ($orientation == 'Upsidedown') {
 							$args = array(180);
 						} elseif ($orientation == '90 deg CW') {
@@ -219,6 +219,7 @@ class ExifDescriptionOption extends ItemAddOption {
 							if ($ret) {
 								return array($ret, null, null);
 							}
+
 							$ret = GalleryCoreApi::applyToolkitOperation(
 								$operation,
 								$args,

@@ -36,11 +36,11 @@ class CodeAuditTestCase extends GalleryTestCase {
 
 	public function testCodeAudit() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		if (!$platform->file_exists($this->_baseDir . '/.svn/entries')) {
 			//$this->skip();
-
 			return;
 		}
 
@@ -63,6 +63,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 
 	public function _scanDir($dirPath) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		if (($handle = $platform->fopen($dirPath . '/.svn/entries', 'r')) === false) {
@@ -84,6 +85,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 			// Non-XML format
 			$functionName = '_scanNonXmlDir';
 		}
+
 		$platform->fclose($handle);
 
 		$dirPaths = array($dirPath);
@@ -100,6 +102,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 
 	public function _scanXmlDir($dirPath) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		static $KIND;
@@ -115,6 +118,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 			$xmlValues,
 			$xmlIndex
 		);
+
 		xml_parser_free($parser);
 
 		if (empty($xmlIndex['ENTRY'])) {
@@ -171,6 +175,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 
 	public function _scanNonXmlDir($dirPath) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		/*
@@ -193,11 +198,12 @@ class CodeAuditTestCase extends GalleryTestCase {
 		 * $matches[2][$i] is the kind field.
 		 * $matches[5][$i] is the deleted field, if present.
 		 */
-		$count    = preg_match_all(
+		$count = preg_match_all(
 			'/\f\n([^\f\n]*)\n([^\f\n]*)\n(([^\f\n]*\n){20}([^\f\n]*)\n)?/',
 			$platform->file_get_contents($dirPath . '/.svn/entries'),
 			$matches
 		);
+
 		$dirPaths = array();
 
 		for ($i = 0; $i < $count; $i++) {
@@ -243,6 +249,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 	 */
 	public function _timeCheck() {
 		global $gallery;
+
 		$gallery->guaranteeTimeLimit(30);
 
 		if (time() - $this->_checkTime >= 20) {
@@ -264,16 +271,14 @@ class CodeAuditTestCase extends GalleryTestCase {
 	 * Overload this method in subclasses to audit the file.
 	 * @access protected
 	 */
-	public function checkFile($fileName, $buffer) {
-	}
+	public function checkFile($fileName, $buffer) {}
 
 	/**
 	 * Overload this method in subclasses to run any tasks after the scan is complete.
 	 * @param bool $halted true if the scan was halted early
 	 * @access protected
 	 */
-	public function finishScan($halted) {
-	}
+	public function finishScan($halted) {}
 
 	/**
 	 * Overload this method in subclasses.  If this method returns true, we'll call checkFile on it.
@@ -318,6 +323,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 			$functionName         = $function;
 			$className            = null;
 		}
+
 		$functionName = GalleryUtilities::strToLower($functionName);
 
 		if (!$fileName || !isset($this->_tokens[$fileName])) {
@@ -369,6 +375,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 					) {
 						continue;
 					}
+
 					$call = $tokens[$k][1] . $tokens[$j][1] . $call;
 				}
 			} elseif ($classMethodCallsOnly) {
@@ -381,6 +388,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 			if (!isset($tokens[$i]) || $tokens[$i] !== '(') {
 				continue;
 			}
+
 			$call      .= '(';
 			$parenCount = 1;
 

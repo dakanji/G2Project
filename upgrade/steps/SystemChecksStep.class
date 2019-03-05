@@ -40,10 +40,12 @@ class SystemChecksStep extends UpgradeStep {
 			case 'g':
 			case 'G':
 				$val *= 1024;
+
 				// Fall Through
 			case 'm':
 			case 'M':
 				$val *= 1024;
+
 				// Fall Through
 			case 'k':
 			case 'K':
@@ -100,6 +102,7 @@ class SystemChecksStep extends UpgradeStep {
 
 		// Normal request
 		global $gallery;
+
 		$failCount             = 0;
 		$suggestedHtaccess     = array();
 		$setTimeLimitAvailable = false;
@@ -115,6 +118,7 @@ class SystemChecksStep extends UpgradeStep {
 				'error'  => true,
 				'notice' => sprintf('Error: Gallery 2 has an absolute mimimum requirement of PHP Version 5.3.3 but you have PHP Version %s installed. Please update to PHP Version 5.3.3, as an absolute mimimum, to use this version of Gallery 2. %s', PHP_VERSION, $prefPHP),
 			);
+
 			$failCount++;
 		} elseif (version_compare(PHP_VERSION, '5.6.0', '<')) {
 			$templateData['check'][] = array(
@@ -150,6 +154,7 @@ class SystemChecksStep extends UpgradeStep {
 				'error'  => true,
 				'notice' => 'Error: your PHP __FILE__ directive is not functioning correctly. Please file a support request with your webserver administrator or in the Gallery Support Forum.',
 			);
+
 			$failCount++;
 		} else {
 			$templateData['check'][] = array(
@@ -165,6 +170,7 @@ class SystemChecksStep extends UpgradeStep {
 				'error'  => true,
 				'notice' => 'Error: Your version of PHP is configured with safe mode enabled. You must disable safe mode before Gallery will run.',
 			);
+
 			$failCount++;
 		} else {
 			$templateData['check'][] = array(
@@ -180,10 +186,11 @@ class SystemChecksStep extends UpgradeStep {
 				'error'  => true,
 				'notice' => sprintf('Error: Your PHP is configured without support for %sPerl Compatible Regular Expressions%s. You must enable these functions before Gallery will run.', '<a href="http://php.net/pcre">', '</a>'),
 			);
+
 			$failCount++;
 		}
-		// skip showing 'success' for this one
 
+		// skip showing 'success' for this one
 		// Warning when exec() is disabled
 		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
 			$templateData['check'][] = array(
@@ -259,10 +266,11 @@ class SystemChecksStep extends UpgradeStep {
 				'error'  => true,
 				'notice' => sprintf('Error: Essential filesystem operations are disabled in your PHP by the <b>disabled_functions</b> parameter in php.ini. You must allow these functions before Gallery will run. These functions are missing: %s.', implode(', ', $missingFilesystemFunctions)),
 			);
+
 			$failCount++;
 		}
-		// skip showing 'success' for this one
 
+		// skip showing 'success' for this one
 		// Warning if file_uploads are not allowed
 		if (!GalleryUtilities::getPhpIniBool('file_uploads')) {
 			$templateData['check'][] = array(
@@ -270,7 +278,8 @@ class SystemChecksStep extends UpgradeStep {
 				'warning' => true,
 				'notice'  => 'Warning: Your PHP is configured not to allow file uploads (<b>file_uploads</b> parameter in php.ini). You will need to enable this option if you want to upload files to your Gallery with a web browser.',
 			);
-			$suggestedHtaccess[]     = 'php_flag file_uploads on';
+
+			$suggestedHtaccess[] = 'php_flag file_uploads on';
 		} else {
 			$templateData['check'][] = array(
 				'title'   => 'File Uploads Allowed',
@@ -291,7 +300,8 @@ class SystemChecksStep extends UpgradeStep {
 				'warning' => true,
 				'notice'  => sprintf('Warning: Your PHP is configured to limit the size of file uploads to a maximum of %sb (<b>upload_max_filesize</b> parameter in php.ini). You should raise this limit to allow uploading bigger files.', ini_get('upload_max_filesize')),
 			);
-			$suggestedHtaccess[]     = sprintf('php_value upload_max_filesize %sM', $minimumUploadSize);
+
+			$suggestedHtaccess[] = sprintf('php_value upload_max_filesize %sM', $minimumUploadSize);
 		} else {
 			$templateData['check'][] = array(
 				'title'   => $title,
@@ -312,7 +322,8 @@ class SystemChecksStep extends UpgradeStep {
 				'warning' => true,
 				'notice'  => sprintf('Warning: Your PHP is configured to limit post data to a maximum of %sb (<b>post_max_size</b> parameter in php.ini). You should raise this limit to allow uploading bigger files.', ini_get('post_max_size')),
 			);
-			$suggestedHtaccess[]     = sprintf('php_value post_max_size %sM', $minimumPostSize);
+
+			$suggestedHtaccess[] = sprintf('php_value post_max_size %sM', $minimumPostSize);
 		} else {
 			$templateData['check'][] = array(
 				'title'   => $title,
@@ -334,7 +345,8 @@ class SystemChecksStep extends UpgradeStep {
 				'warning' => true,
 				'notice'  => sprintf('Warning: Your PHP is configured to limit the memory to %sb (<b>memory_limit</b> parameter in php.ini). You should raise this limit to at least <b>%sMb</b> for proper Gallery operation.', $memoryLimit, $minimumMemoryLimit),
 			);
-			$suggestedHtaccess[]     = sprintf('php_value memory_limit %sM', $minimumMemoryLimit);
+
+			$suggestedHtaccess[] = sprintf('php_value memory_limit %sM', $minimumMemoryLimit);
 		} else {
 			$templateData['check'][] = array(
 				'title'   => $title,
@@ -378,8 +390,8 @@ class SystemChecksStep extends UpgradeStep {
 				'notice'  => sprintf('Warning: Your PHP is configured with Zend ze1_compatibility_mode which can cause PHP to crash.  Click %shere%s to test your PHP.  If you see "SUCCESS" then your PHP is ok.  If you get an error or no response then you must turn off ze1_compatibility_mode before proceeding.', sprintf('<a href="%s">', INDEX_PHP . '?step=' . $this->_stepNumber . '&amp;zendtest=1'), '</a>'),
 			);
 		}
-		// skip showing 'success' for this one
 
+		// skip showing 'success' for this one
 		// Warning if putenv is disabled
 		if (in_array('putenv', preg_split('/,\s*/', ini_get('disable_functions')))) {
 			$templateData['check'][] = array(
@@ -388,8 +400,8 @@ class SystemChecksStep extends UpgradeStep {
 				'notice'  => 'Warning: The putenv() function is disabled in your PHP by the <b>disabled_functions</b> parameter in php.ini.  Gallery can function with this setting, but on some rare systems Gallery will be unable to run in other languages than the system language and English.',
 			);
 		}
-		// skip showing 'success' for this one
 
+		// skip showing 'success' for this one
 		// Warning if output_buffering / handlers are enabled
 		$outputBuffers = array();
 
@@ -418,8 +430,8 @@ class SystemChecksStep extends UpgradeStep {
 				'notice'  => sprintf('Warning: Output buffering is enabled in your PHP by the <b>%s</b> parameter(s) in php.ini.  Gallery can function with this setting - downloading files is even faster - but Gallery might be unable to serve large files (e.g. large videos) and run into the memory limit. Also, some features like the progress bars might not work correctly if output buffering is enabled unless ini_set() is allowed.', implode(', ', $outputBuffers)),
 			);
 		}
-		// skip showing 'success' for this one
 
+		// skip showing 'success' for this one
 		$template->renderStatusMessage('Performing system checks', '', 0.06);
 
 		// Check if the files and dirs in the storage dir are (still) writeable
@@ -451,6 +463,7 @@ class SystemChecksStep extends UpgradeStep {
 					'error'  => true,
 					'notice' => $message,
 				);
+
 				$failCount++;
 			} else {
 				$templateData['check'][] = array(
@@ -476,23 +489,24 @@ class SystemChecksStep extends UpgradeStep {
 			$manifest     = $this->CheckManifest($template, $setTimeLimitAvailable);
 
 			if (!isset($manifest)) {
-				$templateData['check'][]   = array(
+				$templateData['check'][] = array(
 					'title'   => $title,
 					'warning' => true,
 					'notice'  => 'Manifest missing or inaccessible.',
 				);
+
 				$_SESSION['fileintegrity'] = 'Manifest missing or inaccessible';
 			} elseif (empty($manifest['missing']) && empty($manifest['modified'])
 				&& empty($manifest['shouldRemove'])
 			) {
-				$templateData['check'][]   = array(
+				$templateData['check'][] = array(
 					'title'   => $title,
 					'success' => true,
 				);
+
 				$_SESSION['fileintegrity'] = 'Ok';
 			} else {
 				global $currentStep; // needed for ManifestSystemCheck.html
-
 				$message = $notice = '';
 
 				if (!empty($manifest['missing'])) {
@@ -500,6 +514,7 @@ class SystemChecksStep extends UpgradeStep {
 						$notice = 'Note: You are running Gallery from SVN, so recently removed files may appear here.'
 						. 'It might be safe to ignore these.';
 					}
+
 					$heading  = sprintf('Missing files (%d)', count($manifest['missing']));
 					$message .= $this->renderFileList(
 						$manifest['missing'],
@@ -520,6 +535,7 @@ class SystemChecksStep extends UpgradeStep {
 						'safe you should make sure that you do \'svn update\' before ' .
 						'continuing.';
 					}
+
 					$heading  = sprintf('Modified files (%d)', count($manifest['modified']));
 					$message .= $this->renderFileList(
 						$manifest['modified'],
@@ -536,7 +552,7 @@ class SystemChecksStep extends UpgradeStep {
 				}
 
 				if (!empty($manifest['shouldRemove'])) {
-					$notice   = sprintf(
+					$notice = sprintf(
 						'These files are no longer part of Gallery. They probably' .
 						' would not cause any problems but it is a good idea to remove them to keep ' .
 						'your install clean.  Gallery cannot remove these files for you, but you ' .
@@ -552,6 +568,7 @@ class SystemChecksStep extends UpgradeStep {
 						),
 						'</a>'
 					);
+
 					$heading  = sprintf('Old files (%d)', count($manifest['shouldRemove']));
 					$message .= $this->renderFileList(
 						$manifest['shouldRemove'],
@@ -561,11 +578,12 @@ class SystemChecksStep extends UpgradeStep {
 					);
 				}
 
-				$templateData['check'][]   = array(
+				$templateData['check'][] = array(
 					'title'   => $title,
 					'warning' => true,
 					'notice'  => $message,
 				);
+
 				$_SESSION['fileintegrity'] = (empty($manifest['missing']) && empty($manifest['modified'])) ? 'There are some old files' : 'There are missing/modified files!';
 			}
 		}
@@ -590,6 +608,7 @@ class SystemChecksStep extends UpgradeStep {
 					'error'  => true,
 					'notice' => $message,
 				);
+
 				$failCount++;
 			} else {
 				$templateData['check'][] = array(
@@ -670,6 +689,7 @@ class SystemChecksStep extends UpgradeStep {
 	 */
 	public function _checkStorageSubDirectory($dirname, &$tested, $max) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$storageFiles = array();
@@ -702,6 +722,7 @@ class SystemChecksStep extends UpgradeStep {
 				);
 			}
 		}
+
 		$platform->closedir($fd);
 
 		return $storageFiles;
@@ -713,6 +734,7 @@ class SystemChecksStep extends UpgradeStep {
 		if ($useSetTimeLimit) {
 			set_time_limit(180);
 		}
+
 		$manifest = GalleryUtilities::readManifest();
 
 		if (empty($manifest)) {
@@ -737,6 +759,7 @@ class SystemChecksStep extends UpgradeStep {
 			if ($file == 'MANIFEST') {
 				continue;
 			}
+
 			$path = $base . $file;
 
 			if ($i % $stepSize == 0) {
@@ -777,6 +800,7 @@ class SystemChecksStep extends UpgradeStep {
 							$actualSize
 						);
 					}
+
 					$modified[] = $file;
 				}
 			}
@@ -817,6 +841,7 @@ class SystemChecksStep extends UpgradeStep {
 	 */
 	public function _testPrivileges() {
 		global $gallery;
+
 		$storage       =& $gallery->getStorage();
 		$storageExtras = $storage->_getExtras();
 
@@ -833,8 +858,10 @@ class SystemChecksStep extends UpgradeStep {
 		}
 
 		$gallery->startRecordingDebugSnippet();
+
 		list($ret, $metatables) = $storageExtras->_metaTables();
-		$snippet                = $gallery->stopRecordingDebugSnippet();
+
+		$snippet = $gallery->stopRecordingDebugSnippet();
 
 		if ($ret) {
 			$gallery->debug($ret->getAsHtml());
@@ -903,6 +930,7 @@ class SystemChecksStep extends UpgradeStep {
 		$storage->_traceStart();
 		$sequenceId = 'g2privtestseq';
 		$ret        = $storage->_db->CreateSequence($tablePrefix . $sequenceId);
+
 		$storage->_traceStop();
 		$snippet = $gallery->stopRecordingDebugSnippet();
 
@@ -914,9 +942,12 @@ class SystemChecksStep extends UpgradeStep {
 				. 'for missing privileges and clean up the database.' . "\n" . $snippet,
 			);
 		}
+
 		$gallery->startRecordingDebugSnippet();
 		$storage->_traceStart();
+
 		$ret = $storage->_db->DropSequence($tablePrefix . $sequenceId);
+
 		$storage->_traceStop();
 		$snippet = $gallery->stopRecordingDebugSnippet();
 
@@ -940,11 +971,13 @@ class SystemChecksStep extends UpgradeStep {
 	 */
 	public function _executeSql($buffer, $tablePrefix) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		if (empty($buffer)) {
 			return array(false, 'Missing SQL statements');
 		}
+
 		/*
 		 * Split the file where semicolons are followed by a blank line..
 		 * PL/SQL blocks will have other semicolons, so we can't split on every one.
@@ -954,6 +987,7 @@ class SystemChecksStep extends UpgradeStep {
 		if ($pos = strrpos($buffer, ';')) {
 			$buffer = substr($buffer, 0, $pos);
 		}
+
 		$statements    = preg_split('/; *\r?\n *\r?\n/s', $buffer);
 		$storageConfig = $gallery->getConfig('storage.config');
 		$columnPrefix  = $storageConfig['columnPrefix'];
@@ -963,12 +997,14 @@ class SystemChecksStep extends UpgradeStep {
 
 			if (!empty($query)) {
 				$query = str_replace('DB_TABLE_PREFIX', $tablePrefix, $query);
+
 				$query = str_replace('DB_COLUMN_PREFIX', $columnPrefix, $query);
 				// For mysql, another replacement is required
 				$query = str_replace('DB_TABLE_TYPE', '', $query);
 
 				$gallery->startRecordingDebugSnippet();
-				$ret     = $storage->execute($query, array());
+				$ret = $storage->execute($query, array());
+
 				$snippet = $gallery->stopRecordingDebugSnippet();
 
 				if ($ret) {

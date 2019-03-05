@@ -41,6 +41,7 @@ class LinkItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		list($ret, $this->_targetAlbum) = $this->_createRandomAlbum($this->_getRootId());
@@ -74,11 +75,13 @@ class LinkItemTest extends GalleryTestCase {
 		if (empty($link)) {
 			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 		}
+
 		$ret = $link->create($parentId, $target);
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = $link->save();
 
 		if ($ret) {
@@ -113,6 +116,7 @@ class LinkItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $parentSequence) = GalleryCoreApi::fetchParentSequence($this->_link->getId());
 
 		if ($ret) {
@@ -134,11 +138,13 @@ class LinkItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::releaseLocks($this->_lockId);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		unset($this->_lockId);
 
 		$ret = GalleryCoreApi::deleteEntityById($this->_targetAlbum->getId(), 'GalleryAlbumItem');
@@ -148,6 +154,7 @@ class LinkItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $gone) = $link->refresh();
+
 		$this->assertFalse(isset($gone), 'link should be gone');
 
 		if ($ret) {
@@ -168,16 +175,19 @@ class LinkItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $link) = $this->_createLinkItem($this->_album->getId(), $subalbum->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::releaseLocks($this->_lockId);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		unset($this->_lockId);
 
 		$ret = GalleryCoreApi::deleteEntityById($this->_targetAlbum->getId(), 'GalleryAlbumItem');
@@ -187,6 +197,7 @@ class LinkItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $gone) = $link->refresh();
+
 		$this->assertFalse(isset($gone), 'link should be gone');
 
 		if ($ret) {
@@ -202,6 +213,7 @@ class LinkItemTest extends GalleryTestCase {
 
 	public function testShowLinkItemNoPersistentSession() {
 		global $gallery;
+
 		$backup = $gallery->_session;
 		// Make sure the redirect has no sessionId in it
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
@@ -213,6 +225,7 @@ class LinkItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(false, $session->isUsingCookies(), 'isUsingCookies');
 		$this->assertEquals(SESSION_TEMP_ID, $session->getId(), 'temp session id');
 
@@ -222,17 +235,20 @@ class LinkItemTest extends GalleryTestCase {
 
 		$this->_link->setLink($this->_targetAlbum->getId());
 		$this->_markForCleanup($this->_targetAlbum);
-		$this->_lockId               = array($this->_lockId);
+		$this->_lockId = array($this->_lockId);
+
 		list($ret, $this->_lockId[]) = GalleryCoreApi::acquireWriteLock(array($this->_link->getId()));
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_link->save();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$gallery->_session = $session;
 		// Make sure it passes the onLoad conditions
 		GalleryUtilities::putRequestVariable('view', 'core.ShowItem');
@@ -247,6 +263,7 @@ class LinkItemTest extends GalleryTestCase {
 
 			return $ret;
 		}
+
 		GalleryDataCache::setMemoryCachingEnabled(true);
 		// Verify results
 		$this->assertEquals(1, $_REQUEST['phpVmExitCalls'], 'nr of exit calls');
@@ -269,6 +286,7 @@ class LinkItemTest extends GalleryTestCase {
 
 	public function testToolkit() {
 		global $gallery;
+
 		$this->_markForCleanup($this->_targetAlbum);
 
 		list($ret, $toolkit, $mimeType) = GalleryCoreApi::getToolkitByOperation('gallery/linkitem', 'convert-to-image/jpeg');
@@ -276,6 +294,7 @@ class LinkItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('image/jpeg', $mimeType);
 
 		if (!GalleryUtilities::isExactlyA($toolkit, 'LinkItemToolkit')) {
@@ -287,6 +306,7 @@ class LinkItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'linkitem', 'urlSnapshot', '0');
 
 		if ($ret) {
@@ -303,6 +323,7 @@ class LinkItemTest extends GalleryTestCase {
 			),
 			true
 		);
+
 		$gallery->setPlatform($platform);
 
 		list($ret, $mimeType, $context) = $toolkit->performOperation(
@@ -326,6 +347,7 @@ class LinkItemTest extends GalleryTestCase {
 			),
 			$context
 		);
+
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 
 		$ret = GalleryCoreApi::setPluginParameter('module', 'linkitem', 'urlSnapshot', '1');
@@ -333,6 +355,7 @@ class LinkItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'linkitem',
@@ -353,6 +376,7 @@ class LinkItemTest extends GalleryTestCase {
 			),
 			'tmpfile'
 		);
+
 		$platform->setReply('getDirectorySeparator', array(), '/');
 		$platform->setReply(
 			'file_exists',
@@ -361,6 +385,7 @@ class LinkItemTest extends GalleryTestCase {
 			),
 			true
 		);
+
 		$platform->setReply(
 			'file',
 			array(
@@ -369,11 +394,13 @@ class LinkItemTest extends GalleryTestCase {
 			),
 			array('%URL% %WIDTH% %HEIGHT% --out %OUTFILE%' . "\n")
 		);
+
 		$platform->setReply(
 			'exec',
 			array(array(array('getSnapshot', 'theURL', 1024, 768, '--out', 'tmpfile.jpg'))),
 			array(true, '', '')
 		);
+
 		$platform->setReply('unlink', array('tmpfile'), true);
 		$platform->setReply('copy', array('tmpfile.jpg', 'outputFile'), true);
 		$platform->setReply('unlink', array('tmpfile.jpg'), true);
@@ -400,6 +427,7 @@ class LinkItemTest extends GalleryTestCase {
 			),
 			$context
 		);
+
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 		$gallery->setPlatform($savePlatform);
 	}

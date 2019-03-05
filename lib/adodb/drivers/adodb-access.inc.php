@@ -9,7 +9,6 @@
   Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Microsoft Access data driver. Requires ODBC. Works only on MS Windows.
 */
 if (!defined('_ADODB_ODBC_LAYER')) {

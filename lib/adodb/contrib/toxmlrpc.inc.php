@@ -79,8 +79,10 @@ function rs2xmlrpcval_header($adodbrs) {
 		if (isset($fld->default_value)) {
 			$fieldarray['default_value'] = new xmlrpcval($fld->default_value);
 		}
+
 		$fieldstruct[$i] = new xmlrpcval($fieldarray, 'struct');
 	}
+
 	$fieldcount  = new xmlrpcval($numfields, 'int');
 	$recordcount = new xmlrpcval($numrecords, 'int');
 	$sql         = new xmlrpcval($adodbrs->sql);
@@ -135,6 +137,7 @@ function rs2xmlrpcval_body($adodbrs) {
 
 		$adodbrs->MoveNext();
 	}
+
 	$body = new xmlrpcval($rows, 'array');
 
 	return $body;
@@ -205,7 +208,6 @@ function xmlrpcval2rs(&$xmlrpcval) {
 		} // while
 		$fields_array[] = $fld;
 	} // for
-
 	// fetch recordset information into php array
 	$body = $xmlrpcval->structmem('body');
 
@@ -218,7 +220,6 @@ function xmlrpcval2rs(&$xmlrpcval) {
 			$data_array[$i][$j] = $temp->scalarval();
 		} // for j
 	} // for i
-
 	// finally build in-memory recordset object and return it
 	$rs = new ADORecordSet_array();
 	$rs->InitArrayFields($data_array, $fields_array);

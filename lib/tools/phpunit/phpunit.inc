@@ -6,7 +6,6 @@
 //            OntoSys, Inc  <http://www.OntoSys.com>
 //
 // $Id: phpunit.inc 20957 2009-12-16 04:57:07Z mindless $
-
 // Copyright (c) 2000 Fred Yankowski
 
 // Permission is hereby granted, free of charge, to any person
@@ -43,7 +42,6 @@ if (version_compare(phpversion(), '5.3', '>=')) {
  *    function countTestCases();
  * }
  */
-
 function trace($msg) {
 	return;
 	echo $msg;
@@ -83,13 +81,16 @@ function PHPUnit_error_handler($errno, $errstr, $errfile, $errline) {
 			} elseif (isset($traceEntry['function'])) {
 				$buf .= " ($traceEntry[function]) ";
 			}
+
 			$buf    .= ' <B>at line</B> ' . (isset($traceEntry['line']) ? $traceEntry['line'] : '??');
 			$trace[] = $buf;
 		}
+
 		$message .= join('<BR>', $trace);
 	} else {
 		$message .= ' <B>in</B> ' . $errfile . ' <B>at line</B> ' . $errline;
 	}
+
 	$PHPUnit_testRunning->fail($message);
 }
 
@@ -111,7 +112,6 @@ class PHPUnitException {
 		return $this->type;
 	}
 }
-
 
 /**
  * A set of assert methods.
@@ -330,7 +330,7 @@ class Assert {
 			!empty($message) ? $message . ' <br>' : '<br>'
 		);
 
-		if (is_null($actual)) {
+		if (null === $actual) {
 			return $this->fail($message);
 		}
 	}
@@ -348,7 +348,7 @@ class Assert {
 			!empty($message) ? $message . ' <br>' : '<br>'
 		);
 
-		if (!is_null($actual)) {
+		if (null !== $actual) {
 			return $this->fail($message);
 		}
 	}
@@ -532,13 +532,15 @@ class Assert {
 		} else {
 			$translateValue = htmlspecialchars($value);
 		}
+
 		$htmlValue = "<code class=\"$class\">" . $translateValue . '</code>';
 
 		if (is_bool($value)) {
 			$htmlValue = $value ? '<i>true</i>' : '<i>false</i>';
-		} elseif (is_null($value)) {
+		} elseif (null === $value) {
 			$htmlValue = '<i>null</i>';
 		}
+
 		$htmlValue .= '&nbsp;&nbsp;&nbsp;<span class="typeinfo">';
 		$htmlValue .= 'type:' . gettype($value);
 		$htmlValue .= is_object($value) ? ', class:' . get_class($value) : '';
@@ -677,16 +679,18 @@ class Assert_X {
 			}
 		}
 
-		if (is_null($expected) != is_null($actual)) {
+		if ((null === $expected) != (null === $actual)) {
 			$this->failNotEquals($expected, $actual, 'expected', $message);
 
 			return;
 		}
+
 		$itemsAreEqual = ($expected === $actual);
 
 		if ($itemsAreEqual) {
 			return;
 		}
+
 		$this->failNotEquals($expected, $actual, 'expected', $message);
 	}
 
@@ -734,13 +738,15 @@ class Assert_X {
 		} else {
 			$translateValue = htmlspecialchars($value);
 		}
+
 		$htmlValue = "<code class=\"$class\">" . $translateValue . '</code>';
 
 		if (is_bool($value)) {
 			$htmlValue = $value ? '<i>true</i>' : '<i>false</i>';
-		} elseif (is_null($value)) {
+		} elseif (null === $value) {
 			$htmlValue = '<i>null</i>';
 		}
+
 		$htmlValue .= '&nbsp;&nbsp;&nbsp;<span class="typeinfo">';
 		$htmlValue .= 'type:' . gettype($value);
 		$htmlValue .= is_object($value) ? ', class:' . get_class($value) : '';
@@ -758,6 +764,7 @@ class Assert_X {
 			$this->_formatValue($expected, 'expected'),
 			$this->_formatValue($actual, 'actual')
 		);
+
 		$this->fail($str);
 	}
 }
@@ -823,7 +830,6 @@ class TestCase extends Assert {
 
 		$old_handler = set_error_handler('PHPUnit_error_handler');
 		// errors will now be handled by our error handler
-
 		$name = $this->name();
 
 		if (!method_exists($this, $name)) {
@@ -833,13 +839,15 @@ class TestCase extends Assert {
 
 			if ($ret) {
 				global $gallery;
+
 				/*
 				 * DA-HACK
 				 * Array check below is a hack to allow linksinthehead to passe
 				 * TODO Remove and resolve real issue.
-				 */ 
+				 */
 				if (is_array($ret)) {
 					$ret = implode('', $ret);
+
 					if (!empty(trim($ret))) {
 						$this->fail('failed: ' . $ret . '<br>' . $gallery->getDebugBuffer());
 					}
@@ -863,6 +871,7 @@ class TestCase extends Assert {
 				break;
 			}
 		}
+
 		// Original code:
 		//if (isset($old_handler)) {
 		//    set_error_handler($old_handler); // revert to prior error handler
@@ -889,7 +898,6 @@ class TestCase extends Assert {
 	}
 
 	////////////////////////////////////////////////////////////////
-
 	// protected
 	protected function _createResult() {
 		// override this to use specialized subclass of TestResult
@@ -898,6 +906,7 @@ class TestCase extends Assert {
 
 	public function fail($message = 0) {
 		//printf("TestCase::fail(%s)<br>\n", ($message) ? $message : '');
+
 		/* JUnit throws AssertionFailedError here.  We just record the
 		failure and carry on */
 		$this->fExceptions[] = new PHPUnitException($message, 'FAILURE');
@@ -936,7 +945,8 @@ class TestCase extends Assert {
 
 	public function elapsed() {
 		list($startMicro, $startSecs) = explode(' ', $this->fTiming['start']);
-		list($stopMicro, $stopSecs)   = explode(' ', $this->fTiming['stop']);
+
+		list($stopMicro, $stopSecs) = explode(' ', $this->fTiming['stop']);
 
 		return ($stopSecs - $startSecs) + ($stopMicro - $startMicro);
 	}
@@ -959,12 +969,14 @@ class TestCase extends Assert {
 
 	public function runBare() {
 		global $gallery;
+
 		$this->fTiming['start'] = microtime();
 		$ret                    = $this->setUp();
 
 		if ($ret) {
 			$this->fail($ret->getAsHtml() . $gallery->getDebugBuffer());
 		}
+
 		parent::__construct(
 			!empty($this->fLifeCycle['setUp']),
 			'TestSuite setUp() method did not call parent::setUp()'
@@ -973,15 +985,18 @@ class TestCase extends Assert {
 		if (!($this->errored() || $this->failed())) {
 			$this->runTest();
 		}
+
 		$ret = $this->tearDown();
 
 		if ($ret) {
 			$this->fail($ret->getAsHtml() . $gallery->getDebugBuffer());
 		}
+
 		parent::__construct(
 			!empty($this->fLifeCycle['tearDown']),
 			'TestSuite tearDown() method did not call parent::tearDown()'
 		);
+
 		$this->fTiming['stop'] = microtime();
 	}
 }
@@ -996,10 +1011,10 @@ class TestSuite {
 	public function __construct($classname = false, $moduleid = false, $filter = null) {
 		// Find all methods of the given class whose name starts with
 		// "test" and add them to the test suite.
-
 		if (empty($classname)) {
 			return;
 		}
+
 		$this->fClassname = $classname;
 		$this->fModuleId  = $moduleid;
 		$this->fFilter    = $filter;
@@ -1052,6 +1067,7 @@ class TestSuite {
 			if ($testResult->shouldStop()) {
 				break;
 			}
+
 			$test->run($testResult, $ranges);
 		}
 	}
@@ -1069,7 +1085,6 @@ class TestSuite {
 		return $count;
 	}
 }
-
 
 class TestFailure {
 	/* Record failure of a single TestCase, associating it with the
@@ -1102,7 +1117,6 @@ class TestFailure {
 	}
 }
 
-
 class TestResult {
 	// Collect the results of running a set of TestCases.
 	public $fFailures       = array();
@@ -1111,11 +1125,11 @@ class TestResult {
 	public $fUnskippedTests = 0;
 	public $fStop           = false;
 
-	public function __construct() {
-	}
+	public function __construct() {}
 
 	public function _endTest(&$test) {
 		// protected
+
 		/* specialize this for end-of-test action, such as progress
 		reports  */
 	}
@@ -1146,6 +1160,7 @@ class TestResult {
 		if ($skipFlag) {
 			$test->skip();
 		}
+
 		$this->_startTest($test);
 
 		if (!$test->wasSkipped()) {
@@ -1164,6 +1179,7 @@ class TestResult {
 				$this->addFailure($test, $exception);
 			}
 		}
+
 		//    if ($exceptions)
 		//      $this->fFailures[] = new TestFailure(&$test, &$exceptions);
 		$this->_endTest($test);
@@ -1231,8 +1247,10 @@ class TextTestResult extends TestResult {
 				foreach ($exceptions as $na => $exception) {
 					printf("<li>%s</li>\n", $exception->getMessage());
 				}
+
 				echo '</ul>';
 			}
+
 			echo "</ol>\n";
 		}
 
@@ -1250,6 +1268,7 @@ class TextTestResult extends TestResult {
 				printf("<li>%s</li>\n", $exception->getMessage());
 				echo '</ul>';
 			}
+
 			echo "</ol>\n";
 		}
 	}
@@ -1260,6 +1279,7 @@ class TextTestResult extends TestResult {
 		} else {
 			printf('%s ', $test->name());
 		}
+
 		flush();
 	}
 
@@ -1305,6 +1325,7 @@ class PrettyTestResult extends TestResult {
 		foreach ($failures as $failure) {
 			$newFilter[$failure->getClassName() . '.' . $failure->getTestName()] = 1;
 		}
+
 		printf(
 			'<input type="button" onClick="javascript:reRun(\'%s\');" value="Re-run broken tests">',
 			'(' . join('|', array_keys($newFilter)) . ')$'
@@ -1324,8 +1345,10 @@ class PrettyTestResult extends TestResult {
 			foreach ($exceptions as $na => $exception) {
 				printf("\n<li>%s</li>\n", $exception->getMessage());
 			}
+
 			echo '</ul>';
 		}
+
 		echo "</ol>\n";
 	}
 
@@ -1335,6 +1358,7 @@ class PrettyTestResult extends TestResult {
 		} else {
 			$style = '';
 		}
+
 		printf("<TR><TD$style>%d</TD><TD$style>%s </TD><TD$style>%s </TD><TD$style>%s </TD>", $this->fRunTests, $test->getModuleId(), $test->classname(), $test->name());
 		flush();
 	}
@@ -1349,6 +1373,7 @@ class PrettyTestResult extends TestResult {
 			$elapsed              = sprintf('%2.4f', $test->elapsed());
 			$this->_totalElapsed += $elapsed;
 		}
+
 		printf("<TD$outcome</TD><TD>$elapsed</TD></TR>");
 		flush();
 	}

@@ -57,6 +57,7 @@ class RandomHighlightSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$status['saved'] = 1;
 			}
 		}
@@ -87,12 +88,14 @@ class RandomHighlightSiteAdminView extends GalleryView {
 		}
 
 		if ($form['formName'] != 'RandomHighlightSiteAdmin') {
-			$form['formName']     = 'RandomHighlightSiteAdmin';
+			$form['formName'] = 'RandomHighlightSiteAdmin';
+
 			list($ret, $duration) = GalleryCoreApi::getPluginParameter('module', 'randomhighlight', 'duration');
 
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			// String conversion here may use comma as fraction separator, based on locale
 			$form['duration'] = (string)round($duration / 60, 2);
 		}

@@ -34,6 +34,7 @@ class GalleryDerivativeHelper_advanced {
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/helpers/GalleryDerivativeHelper_simple.class'
 		);
+
 		list($ret, $results) = GalleryDerivativeHelper_simple::_loadDerivatives(null, $ids, $types);
 
 		if ($ret) {
@@ -70,9 +71,10 @@ class GalleryDerivativeHelper_advanced {
 	public static function adjustDependentDerivatives($id, $operation, $reverse = false) {
 		global $gallery;
 
-		$ids       = array(
+		$ids = array(
 			(int)$id => 1,
 		);
+
 		$lastCount = 0;
 
 		// Discover the entire derivative dependency tree
@@ -99,6 +101,7 @@ class GalleryDerivativeHelper_advanced {
 				$ids[$result[0]] = 1;
 			}
 		}
+
 		unset($ids[$id]);
 		$ids = array_keys($ids);
 
@@ -145,12 +148,14 @@ class GalleryDerivativeHelper_advanced {
 
 			foreach ($derivatives as $derivative) {
 				foreach ($toolkits as $toolkitId => $toolkit) {
-					$currentOperations             = $derivative->getDerivativeOperations();
+					$currentOperations = $derivative->getDerivativeOperations();
+
 					list($success, $newOperations) = $toolkit->applyTransform($operation, $currentOperations, $reverse);
 
 					if ($success) {
 						// It might not have changed, but setting it here won't hurt
 						$derivative->setDerivativeOperations($newOperations);
+
 						$ret = $derivative->save();
 
 						if ($ret) {
@@ -194,6 +199,7 @@ class GalleryDerivativeHelper_advanced {
 			if ($ret) {
 				return $ret;
 			}
+
 			$isLinked   = false;
 			$isLinkedTo = !empty($linkedIds);
 		}
@@ -259,6 +265,7 @@ class GalleryDerivativeHelper_advanced {
 
 				return $ret;
 			}
+
 			$item->setMimeType($outputMimeType);
 
 			// Get the item to rescan its data object
@@ -347,7 +354,8 @@ class GalleryDerivativeHelper_advanced {
 				}
 			}
 
-			$operationString        = $operation . '|' . join(',', $args);
+			$operationString = $operation . '|' . join(',', $args);
+
 			list($ret, $operations) = GalleryCoreApi::mergeDerivativeOperations(
 				$preferred->getDerivativeOperations(),
 				$operationString
@@ -356,6 +364,7 @@ class GalleryDerivativeHelper_advanced {
 			if ($ret) {
 				return $ret;
 			}
+
 			$preferred->setDerivativeOperations($operations);
 
 			// Let our change ripple down the derivative tree, if necessary
@@ -432,6 +441,7 @@ class GalleryDerivativeHelper_advanced {
 		if ($originalSourceId == $newSourceId) {
 			return null;
 		}
+
 		$originalSourceId = (int)$originalSourceId;
 		$newSourceId      = (int)$newSourceId;
 
@@ -480,6 +490,7 @@ class GalleryDerivativeHelper_advanced {
 			// Remap each derivative
 			foreach ($derivatives as $derivative) {
 				$derivative->setDerivativeSourceId($newSourceId);
+
 				$ret = $derivative->expireCache();
 
 				if ($ret) {
@@ -540,6 +551,7 @@ class GalleryDerivativeHelper_advanced {
 			$derivativeType       = array_fill(0, count($itemId), $derivativeType);
 			$derivativeOperations = array_fill(0, count($itemId), $derivativeOperations);
 		}
+
 		$ret = GalleryCoreApi::addMapEntry(
 			'GalleryDerivativePreferencesMap',
 			array(
@@ -668,7 +680,8 @@ class GalleryDerivativeHelper_advanced {
 					);
 				} else {
 					list($op, $args) = explode('|', $opString);
-					$operations1[]   = array(
+
+					$operations1[] = array(
 						'op'   => $op,
 						'args' => explode(',', $args),
 					);
@@ -683,7 +696,8 @@ class GalleryDerivativeHelper_advanced {
 					);
 				} else {
 					list($op, $args) = explode('|', $opString);
-					$operations2[]   = array(
+
+					$operations2[] = array(
 						'op'   => $op,
 						'args' => explode(',', $args),
 					);
@@ -740,6 +754,7 @@ class GalleryDerivativeHelper_advanced {
 				if (!empty($operations1[$i]['args'])) {
 					$op .= '|' . join(',', $operations1[$i]['args']);
 				}
+
 				$resultsArray[] = $op;
 			}
 
@@ -765,6 +780,7 @@ class GalleryDerivativeHelper_advanced {
 					$newOperations[] = $opString;
 				}
 			}
+
 			$operationSet = join(';', $newOperations);
 		}
 
@@ -784,6 +800,7 @@ class GalleryDerivativeHelper_advanced {
 		foreach ($ids as $idx => $id) {
 			$ids[$idx] = (int)$id;
 		}
+
 		$idMarkers = GalleryUtilities::makeMarkers($ids);
 
 		$query = '

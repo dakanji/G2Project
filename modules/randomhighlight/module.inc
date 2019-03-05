@@ -27,6 +27,7 @@
 class RandomHighlightModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
+
 		$this->setId('randomhighlight');
 		$this->setName($gallery->i18n('Random Highlight'));
 		$this->setDescription(
@@ -114,6 +115,7 @@ class RandomHighlightModule extends GalleryModule {
 					if ($ret) {
 						return $ret;
 					}
+
 					list($ret, $handlers) = $storage->getFunctionSql(
 						'CONCAT',
 						array('[GalleryEntity::onLoadHandlers]', "'RandomHighlight|'")
@@ -141,6 +143,7 @@ class RandomHighlightModule extends GalleryModule {
 					if ($ret) {
 						return $ret;
 					}
+
 
 					// Fall Through
 				case '0.9.0':
@@ -204,6 +207,7 @@ class RandomHighlightModule extends GalleryModule {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::registerFactoryImplementation(
 			'GalleryOnLoadHandler',
 			'RandomHighlightModule',
@@ -267,12 +271,14 @@ class RandomHighlightModule extends GalleryModule {
 		if ($duringUpgrade || $loop || $count >= 3) {
 			return null;
 		}
+
 		// Acquire information whether we need to choose a new highlight
 		list($ret, $duration) = $this->getParameter('duration');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$isOld  = (time() - $thumbnail->getModificationTimestamp() > $duration);
 		$canSee = true;
 
@@ -286,12 +292,14 @@ class RandomHighlightModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
+
 			list($ret, $canSee) = GalleryCoreApi::hasItemPermission($highlight->getParentId(), 'core.view');
 
 			if ($ret) {
 				return $ret;
 			}
 		}
+
 		$viewName = GalleryUtilities::getRequestVariables('view');
 		/*
 		 * Check if we need to pick a new highlight. Don't pick a new one on DownloadItem
@@ -304,8 +312,10 @@ class RandomHighlightModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
+
 			// ->refresh() will call the onLoad handler again, thus use the GDC $loop variable
 			GalleryDataCache::put("randomhighlight:load-$id", true);
+
 			list($ret, $refresh) = $thumbnail->refresh();
 
 			if ($ret) {
@@ -321,6 +331,7 @@ class RandomHighlightModule extends GalleryModule {
 
 		if ($picknew) {
 			global $gallery;
+
 			GalleryDataCache::put('randomhighlight:count', $count + 1);
 			// Query for child items
 			list($ret, $query, $data) = GalleryCoreApi::buildItemQuery(
@@ -340,7 +351,9 @@ class RandomHighlightModule extends GalleryModule {
 
 				return $ret;
 			}
+
 			array_unshift($data, $thumbnail->getParentId());
+
 			list($ret, $searchResults) = $gallery->search($query, $data);
 
 			if ($ret) {
@@ -348,11 +361,13 @@ class RandomHighlightModule extends GalleryModule {
 
 				return $ret;
 			}
+
 			$itemIds = array();
 
 			while ($result = $searchResults->nextResult()) {
 				$itemIds[] = (int)$result[0];
 			}
+
 			// Pick a new random highlight
 			$query = '
 	    SELECT [GalleryDerivative::id] FROM [GalleryDerivative]
@@ -375,6 +390,7 @@ class RandomHighlightModule extends GalleryModule {
 					$oneItemIdAsArray = array_splice($itemIds, mt_rand(0, count($itemIds) - 1), 1);
 					$data[]           = array_shift($oneItemIdAsArray);
 				}
+
 				list($ret, $searchResults) = $gallery->search(
 					$query . GalleryUtilities::makeMarkers(count($data) - 2) . ')',
 					$data
@@ -398,6 +414,7 @@ class RandomHighlightModule extends GalleryModule {
 
 				return null;
 			}
+
 			list($ret, $highlight) = GalleryCoreApi::loadEntitiesById($highlightId, 'GalleryDerivative');
 
 			if ($ret) {
@@ -414,6 +431,7 @@ class RandomHighlightModule extends GalleryModule {
 
 				return $ret;
 			}
+
 			list($ret, $isPublic) = GalleryCoreApi::hasItemPermission($highlight->getParentId(), 'core.view', $guestId);
 
 			if ($ret) {
@@ -421,6 +439,7 @@ class RandomHighlightModule extends GalleryModule {
 
 				return $ret;
 			}
+
 			$onLoadHandlers = $thumbnail->getOnLoadHandlers();
 			$thumbnail->setOnLoadHandlers(
 				preg_replace(
@@ -439,6 +458,7 @@ class RandomHighlightModule extends GalleryModule {
 
 				return $ret;
 			}
+
 			$ret = GalleryCoreApi::expireDerivativeTreeBySourceIds(array($thumbnail->getId()));
 
 			if ($ret) {

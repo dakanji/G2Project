@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/cart/classes/CartHelper.class');
 
 /**
@@ -96,11 +95,11 @@ class ModifyCartControllerTest extends GalleryControllerTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
 		$this->assertEquals(
-		array('redirect'   => array('view' => 'cart.ViewCart',
-							  'itemId'     => $this->_album->getId(), ),
-				  'status' => array('cartModified' => 1),
-				  'error'  => array(), ),
-				$results
+			array('redirect' => array('view' => 'cart.ViewCart',
+							  'itemId'       => $this->_album->getId(), ),
+				  'status'   => array('cartModified' => 1),
+				  'error'    => array(), ),
+			$results
 	);
 
 		// Verify our cart
@@ -121,13 +120,12 @@ class ModifyCartControllerTest extends GalleryControllerTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
 		$this->assertEquals(
-		array('redirect'   => array('view' => 'cart.ViewCart',
-							  'itemId'     => $this->_album->getId(), ),
-				  'status' => array('cartModified' => 1),
-				  'error'  => array(), ),
-				$results
+			array('redirect' => array('view' => 'cart.ViewCart',
+							  'itemId'       => $this->_album->getId(), ),
+				  'status'   => array('cartModified' => 1),
+				  'error'    => array(), ),
+			$results
 	);
-
 
 		// Verify our cart
 		list($ret, $cartItemCounts) = CartHelper::fetchCartItemCounts();
@@ -142,15 +140,16 @@ class ModifyCartControllerTest extends GalleryControllerTestCase {
 	public function testFulfillCart() {
 		// Work with real items in this test
 		list($ret, $photoItem) = $this->_createRandomDataItem(
-		$this->_album->getId(),
-		'image/jpeg',
-		array(),
-		GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.jpg')
+			$this->_album->getId(),
+			'image/jpeg',
+			array(),
+			GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.jpg')
 	);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$photoItemId = $photoItem->getId();
 
 		list($ret, $dataItem) = $this->_createRandomDataItem($this->_album->getId());
@@ -158,6 +157,7 @@ class ModifyCartControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$dataItemId = $dataItem->getId();
 
 		$cartItemCounts = array($dataItemId => 2,
@@ -175,31 +175,32 @@ class ModifyCartControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
 
 		$this->_registerFactoryImplementationForTest(
-		'CartPluginInterface_1_1',
-		'ModifyCartControllerTestCartPlugin',
-		'modifycartcontrollertest',
-		__FILE__,
-		'cart'
+			'CartPluginInterface_1_1',
+			'ModifyCartControllerTestCartPlugin',
+			'modifycartcontrollertest',
+			__FILE__,
+			'cart'
 	);
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
 		$this->assertEquals(
-		array('redirect'   => array('controller' => 'cart.TestPlugin'),
+			array('redirect' => array('controller' => 'cart.TestPlugin'),
 				  // Verify that itemId is not set, see bug 2013274
-				  'status' => array('cartModified' => 1),
-				  'error'  => array(), ),
-				$results
+				  'status'   => array('cartModified' => 1),
+				  'error'    => array(), ),
+			$results
 	);
 
 		// Verify that the cart has been processed correctly (filtered and updated count)
+
 		/**
 		 * @todo Shouldn't we update item counts on fulfillment requests as well?
 		 */
 		$this->assertEquals(
-		array($photoItemId => 1),
-				$_SERVER['ModifyCartControllerTest']['cartItemIds'],
-				'cart contents sent to cart plugin'
+			array($photoItemId => 1),
+			$_SERVER['ModifyCartControllerTest']['cartItemIds'],
+			'cart contents sent to cart plugin'
 	);
 	}
 }

@@ -11,7 +11,6 @@
  */
 
 // $dir
-
 function smarty_core_create_dir_structure($params, &$smarty) {
 	if (!file_exists($params['dir'])) {
 		$_open_basedir_ini = ini_get('open_basedir');
@@ -70,6 +69,7 @@ function smarty_core_create_dir_structure($params, &$smarty) {
 
 				return false;
 			}
+
 			$_new_dir .= '/';
 		}
 	}

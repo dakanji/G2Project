@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryUtilities.class');
 
 /**
@@ -77,13 +76,16 @@ class GalleryRepositoryIndex {
 	 */
 	public function update() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$indexUrl     = $gallery->getConfig('repository.url') . $this->_source . '/index';
 		$indexHashUrl = $indexUrl . '.hash';
 
-		$path                     = $this->getRepositoryCacheDir();
+		$path = $this->getRepositoryCacheDir();
+
 		list($success1, $ignored) = GalleryUtilities::guaranteeDirExists($path . 'modules');
+
 		list($success2, $ignored) = GalleryUtilities::guaranteeDirExists($path . 'themes');
 
 		if (!$success1 || !$success2) {
@@ -218,6 +220,7 @@ class GalleryRepositoryIndex {
 	 */
 	public function existsInCache() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		return $platform->file_exists($this->getRepositoryCacheDir() . 'index.repository');
@@ -229,6 +232,7 @@ class GalleryRepositoryIndex {
 	 */
 	public function load() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$indexPath = $this->getRepositoryCacheDir() . 'index.repository';
@@ -251,6 +255,7 @@ class GalleryRepositoryIndex {
 			if ($ret->getErrorCode() & ERROR_BAD_PARAMETER) {
 				// Remove the broken index so that a subsequent download will fix it
 				$platform->unlink($indexPath);
+
 				$ret = GalleryCoreApi::error(
 					ERROR_BAD_PARAMETER,
 					__FILE__,
@@ -278,6 +283,7 @@ class GalleryRepositoryIndex {
 
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
+
 		$this->_isLoaded = true;
 
 		return null;
@@ -364,7 +370,8 @@ class GalleryRepositoryIndex {
 
 			foreach ($data['languages'][$stringRevision] as $langCode => $version) {
 				list($language, $country) = explode('_', $langCode . '_');
-				$installed                = empty($country) ? !empty($languages[$language]) : !empty($languages[$language][$country]);
+
+				$installed = empty($country) ? !empty($languages[$language]) : !empty($languages[$language][$country]);
 
 				if ($installed) {
 					$languageData[$langCode] = $version;
@@ -619,6 +626,7 @@ class GalleryRepositoryIndex {
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					$pluginList[$pluginType][$pluginId]['localVersion'] = $version;
 				}
 			}
@@ -670,6 +678,7 @@ class GalleryRepositoryIndex {
 	 */
 	public function getLanguagePackageFiles($locales) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$files = array();
@@ -702,6 +711,7 @@ class GalleryRepositoryIndex {
 						if ($ret) {
 							return array($ret, null);
 						}
+
 						$requiredCoreApi   = $plugin->getRequiredCoreApi();
 						$requiredPluginApi = $pluginType == 'module' ? $plugin->getRequiredModuleApi() : $plugin->getRequiredThemeApi();
 					} else {
@@ -723,7 +733,8 @@ class GalleryRepositoryIndex {
 						continue;
 					}
 
-					$stringsRevision        = $entry['header']['stringsRevision'];
+					$stringsRevision = $entry['header']['stringsRevision'];
+
 					list($ret, $pluginName) = $this->getPluginName($pluginType, $pluginId);
 
 					if ($ret) {
@@ -754,6 +765,7 @@ class GalleryRepositoryIndex {
 							&& (empty($revision[$locale])
 							  || $package['version'] < $revision[$locale]);
 						}
+
 						/*
 						 * We want this pack if it is not installed or if the the local revision is
 						 * older than the repository revision
@@ -764,6 +776,7 @@ class GalleryRepositoryIndex {
 							if ($ret) {
 								return array($ret, null);
 							}
+
 							$files[$pluginType][$pluginId]['name']                = $pluginName;
 							$files[$pluginType][$pluginId]['files']['descriptor'] = $descriptorUrl;
 							$files[$pluginType][$pluginId]['files'][$locale]      = $packageUrl;

@@ -27,8 +27,7 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 		public $fmtTimeStamp    = "'Y-m-d H:i:s'";
 		public $hasLimit        = false;
 
-		public function __construct() {
-		}
+		public function __construct() {}
 
 		public function _insertid() {
 			return fbsql_insert_id($this->_connectionID);
@@ -119,14 +118,17 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 					} else {
 						$fld->max_length = -1;
 					}
+
 					$fld->not_null       = ($rs->fields[2] != 'YES');
 					$fld->primary_key    = ($rs->fields[3] == 'PRI');
 					$fld->auto_increment = (strpos($rs->fields[5], 'auto_increment') !== false);
 					$fld->binary         = (strpos($fld->type, 'blob') !== false);
 
 					$retarr[strtoupper($fld->name)] = $fld;
+
 					$rs->MoveNext();
 				}
+
 				$rs->Close();
 
 				return $retarr;
@@ -172,7 +174,6 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 	/*--------------------------------------------------------------------------------------
 	 Class Name: Recordset
 	--------------------------------------------------------------------------------------*/
-
 	class ADORecordSet_fbsql extends ADORecordSet {
 		public $databaseType = 'fbsql';
 		public $canSeek      = true;
@@ -180,6 +181,7 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 		public function __construct($queryID, $mode = false) {
 			if (!$mode) {
 				global $ADODB_FETCH_MODE;
+
 				$mode = $ADODB_FETCH_MODE;
 			}
 
@@ -206,6 +208,7 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 
 		public function _initrs() {
 			global $ADODB_COUNTRECS;
+
 			$this->_numOfRows   = ($ADODB_COUNTRECS) ? @fbsql_num_rows($this->_queryID) : -1;
 			$this->_numOfFields = @fbsql_num_fields($this->_queryID);
 		}
@@ -244,6 +247,7 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 				$t        = $fieldobj->type;
 				$len      = $fieldobj->max_length;
 			}
+
 			$len = -1; // fbsql max_length is not accurate
 			switch (strtoupper($t)) {
 				case 'CHARACTER':
@@ -257,6 +261,7 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 					}
 
 					// so we have to check whether binary...
+
 					// Fall Through
 				case 'IMAGE':
 				case 'LONGBLOB':
@@ -284,7 +289,6 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 					}
 
 					return 'I';
-
 
 				default:
 					return 'N';

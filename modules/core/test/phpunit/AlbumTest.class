@@ -42,6 +42,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_parentAlbum);
 
 		// Register a dummy toolkit
@@ -58,6 +59,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('AlbumTestToolkit');
 
 		// Register operations that we can perform on our mock data items
@@ -248,6 +250,7 @@ class AlbumTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$parentId = $album[$i]->getId();
 		}
 
@@ -257,11 +260,13 @@ class AlbumTest extends GalleryTestCase {
 			$album[0]->getParentId(),
 			'(before) album 0'
 		);
+
 		$this->assertEquals(
 			$album[0]->getId(),
 			$album[1]->getParentId(),
 			'(before) album 1'
 		);
+
 		$this->assertEquals(
 			$album[1]->getId(),
 			$album[2]->getParentId(),
@@ -286,6 +291,7 @@ class AlbumTest extends GalleryTestCase {
 			$parentSequence[0],
 			'(before) sequence 0'
 		);
+
 		$this->assertEquals(
 			array(
 				$this->_getRootId(),
@@ -295,6 +301,7 @@ class AlbumTest extends GalleryTestCase {
 			$parentSequence[1],
 			'(before) sequence 1'
 		);
+
 		$this->assertEquals(
 			array(
 				$this->_getRootId(),
@@ -454,6 +461,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $expected[1]) = GalleryCoreApi::loadEntitiesById($this->_parentAlbum->getId(), 'GalleryAlbumItem');
 
 		if ($ret) {
@@ -473,16 +481,19 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $subalbum) = $this->_createRandomAlbum($album->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::removeItemPermissions($this->_parentAlbum->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $root) = GalleryCoreApi::loadEntitiesById($this->_getRootId(), 'GalleryAlbumItem');
 
 		if ($ret) {
@@ -502,6 +513,7 @@ class AlbumTest extends GalleryTestCase {
 		// For this test we expect guest user to not have delete permission on root album
 		$this->_becomeGuestUser();
 		GalleryDataCache::clearPermissionCache();
+
 		$ret = GalleryCoreApi::assertHasItemPermission($this->_getRootId(), 'core.delete');
 
 		if (!$ret) {
@@ -527,6 +539,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_parentAlbum->getId(),
 			$gallery->getActiveUserId(),
@@ -536,6 +549,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $album) = $this->_createRandomAlbum($this->_parentAlbum->getId());
 
 		if ($ret) {
@@ -547,6 +561,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$album->getId(),
 			$gallery->getActiveUserId(),
@@ -568,6 +583,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				$root,
@@ -586,6 +602,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array($root, $album), $actual, 'albums with both permissions');
 	}
 
@@ -703,9 +720,11 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$derivative->setMimeType('test/file');
 		$derivative->setDerivativeSourceId($this->_parentAlbum->getId());
 		$derivative->setDerivativeOperations('thumbnail|150');
+
 		$ret = $derivative->save();
 
 		if ($ret) {
@@ -848,6 +867,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $innerAlbum->save();
 
 		if ($ret) {
@@ -859,6 +879,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $outerAlbum->save();
 
 		if ($ret) {
@@ -913,6 +934,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'theme',
 			'AlbumTestTheme',
@@ -945,6 +967,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('theme', 'AlbumTestTheme', $child1->getId());
 
 		if ($ret) {
@@ -972,6 +995,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $album2) = $this->_createRandomAlbum(
 			$this->_parentAlbum->getId(),
 			array(
@@ -984,6 +1008,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'theme',
 			'AlbumTestTheme',
@@ -1002,6 +1027,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('theme', 'AlbumTestTheme', $child2->getId());
 
 		if ($ret) {
@@ -1036,6 +1062,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('theme', 'AlbumTestTheme', $child3->getId());
 
 		if ($ret) {
@@ -1053,6 +1080,7 @@ class AlbumTest extends GalleryTestCase {
 	 */
 	public function testFetchAlbumTree() {
 		global $gallery;
+
 		/*
 		 * Create tree.. P--0--2--4        with no permission on 5 so 6 and its subtree
 		 *                \_1-3 \_5--6--7  should appear as a child of 2 in the tree
@@ -1062,48 +1090,56 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $album[1]) = $this->_createRandomAlbum($this->_parentAlbum->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $album[2]) = $this->_createRandomAlbum($album[0]->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $album[3]) = $this->_createRandomAlbum($album[1]->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $album[4]) = $this->_createRandomAlbum($album[2]->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $album[5]) = $this->_createRandomAlbum($album[2]->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $album[6]) = $this->_createRandomAlbum($album[5]->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $album[7]) = $this->_createRandomAlbum($album[6]->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::removeItemPermissions($album[5]->getId());
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$fullTree  = array(
+		$fullTree = array(
 			$album[0]->getId() => array(
 				$album[2]->getId() => array(
 					$album[4]->getId() => array(),
@@ -1116,7 +1152,8 @@ class AlbumTest extends GalleryTestCase {
 				$album[3]->getId() => array(),
 			),
 		);
-		$subTree   = array(
+
+		$subTree = array(
 			$album[2]->getId() => array(
 				$album[4]->getId() => array(),
 				$album[6]->getId() => array(
@@ -1124,6 +1161,7 @@ class AlbumTest extends GalleryTestCase {
 				),
 			),
 		);
+
 		$depthTree = array(
 			$album[0]->getId() => array(
 				$album[2]->getId() => array(),
@@ -1132,7 +1170,8 @@ class AlbumTest extends GalleryTestCase {
 				$album[3]->getId() => array(),
 			),
 		);
-		$allIds    = array(
+
+		$allIds = array(
 			$album[0]->getId(),
 			$album[2]->getId(),
 			$album[4]->getId(),
@@ -1147,6 +1186,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($fullTree, $tree, 'full tree');
 
 		$ids = GalleryUtilities::arrayKeysRecursive($tree);
@@ -1157,6 +1197,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($subTree, $tree, 'sub tree');
 
 		list($ret, $tree) = GalleryCoreApi::fetchAlbumTree($this->_parentAlbum->getId(), 2);
@@ -1164,6 +1205,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($depthTree, $tree, 'depth tree');
 
 		list($ret, $tree) = GalleryCoreApi::fetchAlbumTree(null, 1);
@@ -1171,6 +1213,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array(), $tree[$this->_parentAlbum->getId()], 'test album');
 		$this->assertEquals(
 			array_keys($tree),
@@ -1186,6 +1229,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($subTree, $tree, 'defaultAlbum tree');
 
 		list($ret, $tree) = GalleryCoreApi::fetchAlbumTree($this->_parentAlbum->getId());
@@ -1193,6 +1237,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($fullTree, $tree, 'full tree above defaultAlbum');
 
 		list($ret, $tree) = GalleryCoreApi::fetchAlbumTree($album[2]->getId());
@@ -1200,11 +1245,13 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($subTree[$album[2]->getId()], $tree, 'defaultAlbum sub tree');
 	}
 
 	public function testFetchAlbumTreeNoPermissions() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		list($ret, $user) = $this->_createRandomUser();
@@ -1212,6 +1259,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
 		// Delete all acls for this user
@@ -1225,6 +1273,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		GalleryDataCache::reset();
 
 		/*
@@ -1243,6 +1292,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($group);
 
 		$ret = GalleryCoreApi::addUserToGroup($user->getId(), $group->getId());
@@ -1271,7 +1321,8 @@ class AlbumTest extends GalleryTestCase {
 
 		$savedUser = $gallery->getActiveUser();
 
-		$albumName               = sprintf(' album %d test ', mt_rand());
+		$albumName = sprintf(' album %d test ', mt_rand());
+
 		list($ret, $publicAlbum) = GalleryCoreApi::createAlbum(
 			$this->_parentAlbum->getId(),
 			$albumName,
@@ -1303,7 +1354,8 @@ class AlbumTest extends GalleryTestCase {
 
 		$this->_becomeGuestUser();
 
-		$albumName         = sprintf(' album %d test ', mt_rand());
+		$albumName = sprintf(' album %d test ', mt_rand());
+
 		list($ret, $album) = GalleryCoreApi::createAlbum(
 			$publicAlbum->getId(),
 			$albumName,
@@ -1318,6 +1370,7 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		$ret = GalleryCoreApi::assertHasItemPermission($album->getId(), 'core.all');
+
 		$this->assertErrorEquals(ERROR_PERMISSION_DENIED, $ret);
 
 		$gallery->setActiveUser($savedUser);
@@ -1333,9 +1386,11 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
-		$albumName               = sprintf(' album %d test ', mt_rand());
+		$albumName = sprintf(' album %d test ', mt_rand());
+
 		list($ret, $publicAlbum) = GalleryCoreApi::createAlbum(
 			$this->_parentAlbum->getId(),
 			$albumName,
@@ -1369,7 +1424,8 @@ class AlbumTest extends GalleryTestCase {
 
 		$gallery->setActiveUser($user);
 
-		$albumName         = sprintf(' album %d test ', mt_rand());
+		$albumName = sprintf(' album %d test ', mt_rand());
+
 		list($ret, $album) = GalleryCoreApi::createAlbum(
 			$publicAlbum->getId(),
 			$albumName,
@@ -1390,7 +1446,9 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($guestId != $user->getId(), 'Default guest userid was used');
+
 		$ret = GalleryCoreApi::assertHasItemPermission($album->getId(), 'core.all');
+
 		$this->assertErrorEquals(ERROR_PERMISSION_DENIED, $ret);
 
 		$gallery->setActiveUser($savedUser);
@@ -1406,11 +1464,13 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
 		$gallery->setActiveUser($user);
 
-		$albumName         = sprintf(' album %d test ', mt_rand());
+		$albumName = sprintf(' album %d test ', mt_rand());
+
 		list($ret, $album) = GalleryCoreApi::createAlbum(
 			$this->_parentAlbum->getId(),
 			$albumName,
@@ -1429,6 +1489,7 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($hasPermission, 'core.all not set');
 
 		$gallery->setActiveUser($savedUser);
@@ -1437,7 +1498,8 @@ class AlbumTest extends GalleryTestCase {
 	public function testCreateAlbumWithLeadingAndTrailingSpace() {
 		global $gallery;
 
-		$albumName         = sprintf(' album %d test ', mt_rand());
+		$albumName = sprintf(' album %d test ', mt_rand());
+
 		list($ret, $album) = GalleryCoreApi::createAlbum(
 			$this->_parentAlbum->getId(),
 			$albumName,

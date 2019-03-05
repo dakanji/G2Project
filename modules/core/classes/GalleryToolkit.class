@@ -135,10 +135,11 @@ class GalleryToolkit {
 
 						switch ($rotationAmount) {
 							case '90':
-								$newX      = GalleryUtilities::roundToString(
+								$newX = GalleryUtilities::roundToString(
 									100.0 - GalleryUtilities::castToFloat($y) - GalleryUtilities::castToFloat($height),
 									3
 								);
+
 								$newY      = $x;
 								$newWidth  = $height;
 								$newHeight = $width;
@@ -147,25 +148,28 @@ class GalleryToolkit {
 
 							case '-90':
 							case '270':
-								$newX      = $y;
-								$newY      = GalleryUtilities::roundToString(
+								$newX = $y;
+								$newY = GalleryUtilities::roundToString(
 									100.0 - GalleryUtilities::castToFloat($x) - GalleryUtilities::castToFloat($width),
 									3
 								);
+
 								$newWidth  = $height;
 								$newHeight = $width;
 
 								break;
 
 							case '180':
-								$newX      = GalleryUtilities::roundToString(
+								$newX = GalleryUtilities::roundToString(
 									100.0 - GalleryUtilities::castToFloat($x) - GalleryUtilities::castToFloat($width),
 									3
 								);
-								$newY      = GalleryUtilities::roundToString(
+
+								$newY = GalleryUtilities::roundToString(
 									100.0 - GalleryUtilities::castToFloat($y) - GalleryUtilities::castToFloat($height),
 									3
 								);
+
 								$newWidth  = $width;
 								$newHeight = $height;
 
@@ -190,6 +194,7 @@ class GalleryToolkit {
 						$newOperations[] = $operation;
 					}
 				}
+
 				$transformedOperations = join(';', $newOperations);
 			}
 		}
@@ -294,6 +299,7 @@ class GalleryToolkit {
 								$target
 							);
 						}
+
 						$derivative->setWidth($newWidth);
 						$derivative->setHeight($newHeight);
 					}

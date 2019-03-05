@@ -32,6 +32,7 @@ class GalleryItemAttributesHelper_simple {
 	 */
 	public static function incrementViewCount($itemId, $step = 1) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		$elapsed = time() - $session->getCreationTime();
@@ -66,6 +67,7 @@ class GalleryItemAttributesHelper_simple {
 						'Last-Modified: '
 						. GalleryUtilities::getHttpDate($phpVm->time())
 					);
+
 					GalleryUtilities::setResponseHeader(
 						'Expires: '
 						. GalleryUtilities::getHttpDate(time() - 3600 * 24 * 7)
@@ -76,6 +78,7 @@ class GalleryItemAttributesHelper_simple {
 			$lastViewed = array(
 				$itemId => $elapsed,
 			);
+
 			$session->put('core.lastViewed', $lastViewed);
 		} else {
 			$lastViewed =& $session->get('core.lastViewed');
@@ -86,6 +89,7 @@ class GalleryItemAttributesHelper_simple {
 					return null;
 				}
 			}
+
 			$lastViewed[$itemId] = $elapsed;
 		}
 
@@ -129,6 +133,7 @@ class GalleryItemAttributesHelper_simple {
 		foreach ($itemIds as $idx => $id) {
 			$itemIds[$idx] = (int)$id;
 		}
+
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryItemAttributesMap',
 			array('itemId', 'viewCount'),

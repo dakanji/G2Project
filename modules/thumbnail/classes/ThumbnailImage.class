@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryFileSystemEntity.class');
 
 /**
@@ -144,6 +143,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 	) {
 		GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Validate the input file
@@ -217,13 +217,16 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 		$this->setWidth(0);
 		$this->setHeight(0);
 
-		$platform         =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $path) = $this->fetchPath();
 
 		if ($ret) {
 			return $ret;
 		}
-		$dir           = dirname($path);
+
+		$dir = dirname($path);
+
 		list($success) = GalleryUtilities::guaranteeDirExists($dir);
 
 		if (!$success) {
@@ -235,6 +238,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 		if (!$platform->copy($inputFileName, $newFileName)) {
 			return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
 		}
+
 		$this->setSize($platform->filesize($newFileName));
 
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
@@ -251,6 +255,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 
 				return $ret;
 			}
+
 			$this->setWidth($dimensions[0]);
 			$this->setHeight($dimensions[1]);
 		}
@@ -331,6 +336,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_restoreItemThumbnails();
 
 		if ($ret) {
@@ -366,6 +372,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 			if (empty($derivatives)) {
 				continue;
 			}
+
 			$derivative = array_shift($derivatives);
 
 			// Don't loop in thumbnail delete event.
@@ -508,6 +515,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 	 */
 	public function getThumbnailDir() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
 
@@ -547,6 +555,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 				// Shrink our dimensions if necessary
 				if (isset($params['maxSize'])) {
 					list($width, $height) = GalleryUtilities::shrinkDimensionsToFit($width, $height, $params['maxSize']);
+
 					unset($params['maxSize']);
 				}
 
@@ -558,7 +567,6 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 
 				$html = sprintf('<img src="%s"%s', $src, $sizeStr);
 				unset($params['fallback'], $params['forceFullUrl']);
-
 
 				foreach ($params as $attr => $value) {
 					if (isset($value)) {

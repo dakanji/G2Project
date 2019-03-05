@@ -255,12 +255,14 @@ class RatingModule extends GalleryModule {
 					0,
 					array(),
 				);
+
 				$permissions[] = array(
 					'view',
 					$gallery->i18n('[rating] View ratings'),
 					0,
 					array(),
 				);
+
 				$permissions[] = array(
 					'all',
 					$gallery->i18n('[rating] All access'),
@@ -284,6 +286,7 @@ class RatingModule extends GalleryModule {
 
 				// Give everybody rating permission by default
 				$gallery->guaranteeTimeLimit(300);
+
 				$ret = GalleryCoreApi::addGroupPermission(
 					$coreParams['id.rootAlbum'],
 					$coreParams['id.everybodyGroup'],
@@ -373,16 +376,19 @@ class RatingModule extends GalleryModule {
 					'Unable to get a GalleryEntity instance'
 				);
 			}
+
 			$ret = $entity->create();
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$ret = $entity->save(false);
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$ret = $this->setParameter('themeSettingsId', $entity->getId());
 
 			if ($ret) {
@@ -452,6 +458,7 @@ class RatingModule extends GalleryModule {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$ret = GalleryCoreApi::removeMapEntry(
 					'RatingCacheMap',
 					array(

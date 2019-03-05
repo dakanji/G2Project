@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlugin.class');
 
 /**
@@ -110,8 +109,7 @@ class GalleryModule extends GalleryPlugin {
 	 * register its event listeners before any events are posted.
 	 * @deprecated Will be removed on next major API fump
 	 */
-	public function registerEventListeners() {
-	}
+	public function registerEventListeners() {}
 
 	/**
 	 * Perform the module installation or upgrade, whatever is required.
@@ -168,8 +166,10 @@ class GalleryModule extends GalleryPlugin {
 						. '   New version: ' . $this->getVersion()
 					);
 				}
+
 				$gallery->debug(sprintf('Configure store for %s module', $this->getId()));
 			}
+
 			// The store requires configuration.
 			$storage =& $gallery->getStorage();
 			$ret     = $storage->configureStore($this->getId());
@@ -258,6 +258,7 @@ class GalleryModule extends GalleryPlugin {
 			if ($gallery->getDebug()) {
 				$gallery->debug(sprintf('ConfigureStoreCleanup for %s module', $this->getId()));
 			}
+
 			$ret = $storage->configureStoreCleanup($this->getId());
 
 			if ($ret) {
@@ -283,6 +284,7 @@ class GalleryModule extends GalleryPlugin {
 			if ($gallery->getDebug()) {
 				$gallery->debug(sprintf('Reactivate %s module', $this->getId()));
 			}
+
 			list($ret, $redirect) = $this->reactivate();
 
 			if ($ret) {
@@ -319,6 +321,7 @@ class GalleryModule extends GalleryPlugin {
 				if ($ret) {
 					return $ret;
 				}
+
 				GalleryDataCache::remove($cacheKey);
 			}
 		}
@@ -389,6 +392,7 @@ class GalleryModule extends GalleryPlugin {
 	 */
 	public function _deleteModuleEntities() {
 		global $gallery;
+
 		$types = $this->getModuleEntityTypes();
 
 		if (empty($types)) {
@@ -407,11 +411,13 @@ class GalleryModule extends GalleryPlugin {
 		';
 
 		$gallery->guaranteeTimeLimit(120);
+
 		list($ret, $searchResults) = $gallery->search($query, $types);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$i       = 0;
 		$storage =& $gallery->getStorage();
 
@@ -424,6 +430,7 @@ class GalleryModule extends GalleryPlugin {
 
 			if (!(++$i % 20)) {
 				$gallery->guaranteeTimeLimit(120);
+
 				$ret = $storage->checkPoint();
 
 				if ($ret) {
@@ -472,6 +479,7 @@ class GalleryModule extends GalleryPlugin {
 	 */
 	public function activate($postActivationEvent = true) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		if (!GalleryCoreApi::isPluginCompatibleWithApis($this)) {
@@ -709,7 +717,6 @@ class GalleryModule extends GalleryPlugin {
 	}
 
 	// Getters and setters below
-
 	public function setGroup($group, $groupLabel) {
 		$this->_group = array(
 			'group'      => $group,
@@ -719,7 +726,8 @@ class GalleryModule extends GalleryPlugin {
 
 	public function getGroup() {
 		if (empty($this->_group)) {
-			$groupLabel       = 'Other';
+			$groupLabel = 'Other';
+
 			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if (!$ret) {
@@ -817,6 +825,7 @@ class GalleryModule extends GalleryPlugin {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryPluginParameterMap',
 			array('pluginId', 'itemId', 'parameterName', 'parameterValue'),
@@ -849,6 +858,7 @@ class GalleryModule extends GalleryPlugin {
 				// Remove used block if it is not available any more.
 				if ($pluginName == $this->getId() && !isset($blocks[$pluginName][$blockName])) {
 					unset($themeBlocks[$key]);
+
 					$ret = GalleryCoreApi::setPluginParameter(
 						'theme',
 						$themeId,

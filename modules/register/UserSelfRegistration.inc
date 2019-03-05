@@ -149,6 +149,7 @@ class UserSelfRegistrationController extends GalleryController {
 						if ($ret) {
 							return array($ret, null);
 						}
+
 						$redirect['pending']               = true;
 						$redirect['sentConfirmationEmail'] = true;
 					} elseif ($params['confirmation'] == 'auto') {
@@ -183,6 +184,7 @@ class UserSelfRegistrationController extends GalleryController {
 			$results['delegate']['view']    = 'core.UserAdmin';
 			$results['delegate']['subView'] = 'register.UserSelfRegistration';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkImage.class');
 
 /**
@@ -34,6 +33,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -56,6 +56,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($watermark);
 
 		$ret = GalleryCoreApi::addUserPermission(
@@ -250,6 +251,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 
 	public function _replaceImageTest($postMimeType, $ext = 'yyy') {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $item) = $this->_createRandomDataItem($this->_getRootId());
@@ -257,7 +259,9 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($item);
+
 		list($ret, $derivative) = $this->_createDerivative(
 			$item,
 			$item->getId(),
@@ -273,6 +277,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $derivativeFile) = $derivative->fetchPath();
 
 		if ($ret) {
@@ -286,6 +291,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		if (!$platform->copy(__FILE__, $derivativeFile)) {
 			return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
 		}
+
 		$ret = GalleryCoreApi::addMimeType('yyy', 'test/file', false);
 
 		if ($ret) {
@@ -321,6 +327,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 			'status'   => array(),
 			'error'    => array('form[error][mimeType][mismatch]'),
 		);
+
 		$this->assertEquals($expected, $results);
 
 		$ret = GalleryCoreApi::removeMimeType(

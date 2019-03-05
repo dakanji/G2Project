@@ -51,6 +51,7 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 
 	public function tearDown() {
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
+
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -243,6 +244,7 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 			array(array(array('/path/to/dcraw'))),
 			array(1, array(), array('Wrong version of dcraw'))
 		);
+
 		$this->_platform->setReply(
 			'realpath',
 			array(

@@ -63,7 +63,6 @@ class NetPbmToolkitHelper {
 		}
 
 		// -------------------- Operations --------------------
-
 		// Convert TIFF and PPM to JPEG
 		$convertFrom[] = 'image/x-portable-pixmap';
 
@@ -77,7 +76,7 @@ class NetPbmToolkitHelper {
 		$operations['convert-to-image/jpeg']['outputMimeType'] = 'image/jpeg';
 
 		// Scale
-		$operations['scale']['params'][]    = array(
+		$operations['scale']['params'][] = array(
 			'type'        => 'int',
 			'description' => $gallery->i18n(
 				array(
@@ -86,10 +85,12 @@ class NetPbmToolkitHelper {
 				)
 			),
 		);
-		$operations['scale']['params'][]    = array(
+
+		$operations['scale']['params'][] = array(
 			'type'        => 'int',
 			'description' => $gallery->i18n('(optional) target height, defaults to same as width'),
 		);
+
 		$operations['scale']['description'] = $gallery->i18n('Scale the image to the target size, maintain aspect ratio');
 		$operations['scale']['mimeTypes']   = $mimeTypes;
 
@@ -97,7 +98,7 @@ class NetPbmToolkitHelper {
 		$operations['thumbnail'] = $operations['scale'];
 
 		// Resize
-		$operations['resize']['params'][]    = array(
+		$operations['resize']['params'][] = array(
 			'type'        => 'int',
 			'description' => $gallery->i18n(
 				array(
@@ -106,7 +107,8 @@ class NetPbmToolkitHelper {
 				)
 			),
 		);
-		$operations['resize']['params'][]    = array(
+
+		$operations['resize']['params'][] = array(
 			'type'        => 'int',
 			'description' => $gallery->i18n(
 				array(
@@ -115,66 +117,79 @@ class NetPbmToolkitHelper {
 				)
 			),
 		);
+
 		$operations['resize']['description'] = $gallery->i18n('Resize the image to the target dimensions');
 		$operations['resize']['mimeTypes']   = $mimeTypes;
 
 		// Rotate
-		$operations['rotate']['params'][]    = array(
+		$operations['rotate']['params'][] = array(
 			'type'        => 'int',
 			'description' => $gallery->i18n('rotation degrees'),
 		);
+
 		$operations['rotate']['description'] = $gallery->i18n('Rotate the image');
 		$operations['rotate']['mimeTypes']   = $mimeTypes;
 
 		// Crop
-		$operations['crop']['params'][]    = array(
+		$operations['crop']['params'][] = array(
 			'type'        => 'float',
 			'description' => $gallery->i18n('left edge %'),
 		);
-		$operations['crop']['params'][]    = array(
+
+		$operations['crop']['params'][] = array(
 			'type'        => 'float',
 			'description' => $gallery->i18n('top edge %'),
 		);
-		$operations['crop']['params'][]    = array(
+
+		$operations['crop']['params'][] = array(
 			'type'        => 'float',
 			'description' => $gallery->i18n('width %'),
 		);
-		$operations['crop']['params'][]    = array(
+
+		$operations['crop']['params'][] = array(
 			'type'        => 'float',
 			'description' => $gallery->i18n('height %'),
 		);
+
 		$operations['crop']['description'] = $gallery->i18n('Crop the image');
 		$operations['crop']['mimeTypes']   = $mimeTypes;
 
 		// Watermark
-		$operations['composite']['params'][]    = array(
+		$operations['composite']['params'][] = array(
 			'type'        => 'string',
 			'description' => $gallery->i18n('overlay path'),
 		);
-		$operations['composite']['params'][]    = array(
+
+		$operations['composite']['params'][] = array(
 			'type'        => 'string',
 			'description' => $gallery->i18n('overlay mime type'),
 		);
-		$operations['composite']['params'][]    = array(
+
+		$operations['composite']['params'][] = array(
 			'type'        => 'int',
 			'description' => $gallery->i18n('overlay width'),
 		);
-		$operations['composite']['params'][]    = array(
+
+		$operations['composite']['params'][] = array(
 			'type'        => 'int',
 			'description' => $gallery->i18n('overlay height'),
 		);
-		$operations['composite']['params'][]    = array(
+
+		$operations['composite']['params'][] = array(
 			'type'        => 'string',
 			'description' => $gallery->i18n('alignment type'),
 		);
-		$operations['composite']['params'][]    = array(
+
+		$operations['composite']['params'][] = array(
 			'type'        => 'int',
 			'description' => $gallery->i18n('alignment x %'),
 		);
-		$operations['composite']['params'][]    = array(
+
+		$operations['composite']['params'][] = array(
 			'type'        => 'int',
 			'description' => $gallery->i18n('alignment y %'),
 		);
+
 		$operations['composite']['description'] = $gallery->i18n('Overlay source image with a second one');
 		$operations['composite']['mimeTypes']   = $mimeTypes;
 
@@ -195,7 +210,6 @@ class NetPbmToolkitHelper {
 		}
 
 		// -------------------- Properties --------------------
-
 		// Dimensions
 		$properties['dimensions']['type']        = 'int,int';
 		$properties['dimensions']['description'] = $gallery->i18n('Get the width and height of the image');
@@ -206,7 +220,6 @@ class NetPbmToolkitHelper {
 				'application/x-shockwave-flash',
 			)
 		); // Supported by php getimagesize
-
 		return array(
 			null,
 			array(
@@ -231,6 +244,7 @@ class NetPbmToolkitHelper {
 	 */
 	public static function testJhead($jheadPath) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		/*
 		 * If the path is restricted by open_basedir, then verify that it's legal.
@@ -239,6 +253,7 @@ class NetPbmToolkitHelper {
 		if (!$platform->isRestrictedByOpenBaseDir($jheadPath) && !@$platform->is_dir($jheadPath)) {
 			return array(GalleryCoreApi::error(ERROR_BAD_PATH), null, null);
 		}
+
 		$tests    = array();
 		$fullPath = $jheadPath . 'jhead';
 
@@ -254,6 +269,7 @@ class NetPbmToolkitHelper {
 		} else {
 			list($success, $results) = $platform->exec(array(array($fullPath, '-V')));
 		}
+
 		$tests[] = array(
 			'name'    => 'jhead',
 			'success' => $success,
@@ -279,6 +295,7 @@ class NetPbmToolkitHelper {
 	 */
 	public static function testBinaries($netPbmPath) {
 		global $gallery;
+
 		$platform         =& $gallery->getPlatform();
 		$isRestrictedPath = $platform->isRestrictedByOpenBaseDir($netPbmPath);
 		/*
@@ -298,7 +315,6 @@ class NetPbmToolkitHelper {
 				null,
 			);
 		}
-
 
 		$binaryData = array(
 			''                       => array(
@@ -344,6 +360,7 @@ class NetPbmToolkitHelper {
 					if (!$isRestrictedPath && !$platform->file_exists($fullPath)) {
 						continue;
 					}
+
 					list($success, $results) = $checkExistenceOnly ? array(true, array()) : $platform->exec(array(array($fullPath, '--version')));
 
 					if ($success) {
@@ -376,12 +393,14 @@ class NetPbmToolkitHelper {
 							return array($ret, null, null);
 						}
 					}
+
 					$tests[] = array(
 						'name'    => str_replace('|', $module->translate(' or '), $binaries),
 						'success' => false,
 						'message' => array($module->translate('File does not exist')),
 					);
 				}
+
 				$failCount++;
 			}
 

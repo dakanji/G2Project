@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/rating/RatingCallback.inc');
 
 /**
@@ -35,6 +34,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -48,6 +48,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		list($ret, $this->_item) = $this->_createRandomDataItem(
@@ -83,6 +84,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('rating', $rating);
 
 		ob_start();
+
 		$ret = $this->_view->renderImmediate(array(), array());
 
 		if ($ret) {
@@ -90,6 +92,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 
 			return $ret;
 		}
+
 		$results = explode("\n", ob_get_contents());
 		ob_end_clean();
 
@@ -111,6 +114,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 				'arg1'  => 1,
 			)
 		);
+
 		$this->assertEquals($votesString, $results[2]);
 	}
 
@@ -122,6 +126,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('rating', $rating);
 
 		ob_start();
+
 		$ret = $this->_view->renderImmediate(array(), array());
 
 		if ($ret) {
@@ -129,6 +134,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 
 			return $ret;
 		}
+
 		$results = explode("\n", ob_get_contents());
 		ob_end_clean();
 
@@ -150,6 +156,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 				'arg1'  => 1,
 			)
 		);
+
 		$this->assertEquals($votesString, $results[2], 'Seed vote count is incorrect.');
 
 		// Remove all permissions
@@ -158,6 +165,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$this->_userId,
@@ -167,6 +175,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$this->_userId,
@@ -184,6 +193,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('rating', $newRating);
 
 		ob_start();
+
 		$ret = $this->_view->renderImmediate(array(), array());
 
 		if ($ret) {
@@ -191,6 +201,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 
 			return $ret;
 		}
+
 		$results = explode("\n", ob_get_contents());
 		ob_end_clean();
 
@@ -209,6 +220,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('rating', $rating);
 
 		ob_start();
+
 		$ret = $this->_view->renderImmediate(array(), array());
 
 		if ($ret) {
@@ -216,6 +228,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 
 			return $ret;
 		}
+
 		$results = explode("\n", ob_get_contents());
 		ob_end_clean();
 
@@ -237,6 +250,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 				'arg1'  => 1,
 			)
 		);
+
 		$this->assertEquals($votesString, $results[2], 'Seed vote count is incorrect.');
 
 		// Remove all permissions
@@ -245,6 +259,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$this->_userId,
@@ -254,6 +269,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$this->_userId,
@@ -263,6 +279,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$this->_userId,
@@ -280,6 +297,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('rating', $newRating);
 
 		ob_start();
+
 		$ret = $this->_view->renderImmediate(array(), array());
 
 		if ($ret) {
@@ -287,6 +305,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 
 			return $ret;
 		}
+
 		$results = explode("\n", ob_get_contents());
 		ob_end_clean();
 
@@ -308,6 +327,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 				'arg1'  => 1,
 			)
 		);
+
 		$this->assertEquals($votesString, $results[2], 'Vote count is incorrect.');
 	}
 }

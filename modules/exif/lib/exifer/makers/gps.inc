@@ -2,6 +2,7 @@
 //================================================================================================
 //================================================================================================
 //================================================================================================
+
 /*
 	Exifer
 	Extracts EXIF information from digital photos.
@@ -22,12 +23,10 @@
 	without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 	See the GNU General Public License for more details. http://www.gnu.org/copyleft/gpl.html
 */
+
 //================================================================================================
 //================================================================================================
 //================================================================================================
-
-
-
 //=================
 // Looks up the name of the tag
 //====================================================================
@@ -160,8 +159,6 @@ function lookup_GPS_tag($tag) {
 			$tag = 'DifferentialCorrection';
 
 			break;      //integer in range 0-65535
-
-
 		default:
 			$tag = 'unknown:' . $tag;
 
@@ -181,14 +178,12 @@ function GPSRational($data, $intel) {
 	else {
 		$top = hexdec(substr($data, 0, 8));
 	}               //motorola stores them top-bottom
-
 	if ($intel == 1) {
 		$bottom = hexdec(substr($data, 0, 8));
 	}   //intel stores them bottom-top
 	else {
 		$bottom = hexdec(substr($data, 8, 8));
 	}           //motorola stores them top-bottom
-
 	if ($bottom != 0) {
 		$data = $top / $bottom;
 	} elseif ($top == 0) {
@@ -204,8 +199,7 @@ function GPSRational($data, $intel) {
 // Formats Data for the data type
 //====================================================================
 function formatGPSData($type, $tag, $intel, $data) {
-	if ($type == 'ASCII') {
-	} elseif ($type == 'URATIONAL' || $type == 'SRATIONAL') {
+	if ($type == 'ASCII') {} elseif ($type == 'URATIONAL' || $type == 'SRATIONAL') {
 		$data = bin2hex($data);
 
 		if ($intel == 1 && strlen($data) == 48) {
@@ -221,18 +215,15 @@ function formatGPSData($type, $tag, $intel, $data) {
 		else {
 			$top = hexdec(substr($data, 0, 8));
 		}               //motorola stores them top-bottom
-
 		if ($intel == 1) {
 			$bottom = hexdec(substr($data, 0, 8));
 		}   //intel stores them bottom-top
 		else {
 			$bottom = hexdec(substr($data, 8, 8));
 		}           //motorola stores them top-bottom
-
 		if ($type == 'SRATIONAL' && $top > 2147483647) {
 			$top = $top - 4294967296;
 		}       //this makes the number signed instead of unsigned
-
 		if ($tag == '0002' || $tag == '0004') { //Latitude
 			$hour    = GPSRational(substr($data, 0, 16), $intel);
 			$minutes = GPSRational(substr($data, 16, 16), $intel);
@@ -260,9 +251,9 @@ function formatGPSData($type, $tag, $intel, $data) {
 		if ($intel == 1) {
 			$data = intel2Moto($data);
 		}
+
 		$data = hexdec($data);
-	} elseif ($type == 'UNDEFINED') {
-	} elseif ($type == 'UBYTE') {
+	} elseif ($type == 'UNDEFINED') {} elseif ($type == 'UBYTE') {
 		$data = bin2hex($data);
 
 		if ($intel == 1) {
@@ -306,12 +297,14 @@ function parseGPS($block, &$result, $offset, $seek, $globalOffset) {
 	if ($intel == 1) {
 		$num = intel2Moto($num);
 	}
+
 	$num                      = hexdec($num);
 	$result['GPS']['NumTags'] = $num;
 
 	if ($num > 0) {
 		$block = fread($seek, $num * 12);
 	}
+
 	$place = 0;
 
 	//loop thru all tags  Each field is 12 bytes
@@ -323,6 +316,7 @@ function parseGPS($block, &$result, $offset, $seek, $globalOffset) {
 		if ($intel == 1) {
 			$tag = intel2Moto($tag);
 		}
+
 		$tag_name = lookup_GPS_tag($tag);
 
 		//2 byte datatype
@@ -332,6 +326,7 @@ function parseGPS($block, &$result, $offset, $seek, $globalOffset) {
 		if ($intel == 1) {
 			$type = intel2Moto($type);
 		}
+
 		lookup_type($type, $size);
 
 		//4 byte number of elements
@@ -341,6 +336,7 @@ function parseGPS($block, &$result, $offset, $seek, $globalOffset) {
 		if ($intel == 1) {
 			$count = intel2Moto($count);
 		}
+
 		$bytesofdata = $size * hexdec($count);
 
 		//4 byte value or pointer to value if larger than 4 bytes

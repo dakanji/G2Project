@@ -60,18 +60,21 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 			foreach (array_keys($_REQUEST['module']) as $moduleId) {
 				$currentModule++;
+
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId, true);
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$templateData['errors'][]    = sprintf(
+					$templateData['errors'][] = sprintf(
 						_('Unable to load the %s module'),
 						$moduleId
 					);
+
 					$templateData['stackTrace'] .= $ret->getAsHtml();
 
 					continue;
 				}
+
 				$module->setName($module->translate($module->getName()));
 				$module->setDescription($module->translate($module->getDescription()));
 				$this->resetL10Domain();
@@ -84,6 +87,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				);
 
 				$ret = $module->installOrUpgrade();
+
 				$this->resetL10Domain();
 
 				if ($ret) {
@@ -93,15 +97,17 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 							$module->getName()
 						);
 					} else {
-						$templateData['errors'][]    = sprintf(
+						$templateData['errors'][] = sprintf(
 							_('Unable to upgrade the %s module'),
 							$module->getName()
 						);
+
 						$templateData['stackTrace'] .= $ret->getAsHtml();
 					}
 
 					continue;
 				}
+
 				$templateData['upgradedModule'][$moduleId] = $module->getName();
 				$ret                                       = $storage->checkPoint();
 
@@ -117,18 +123,21 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 			foreach (array_keys($_REQUEST['theme']) as $themeId) {
 				$currentTheme++;
+
 				list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId, true);
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$templateData['errors'][]    = sprintf(
+					$templateData['errors'][] = sprintf(
 						_('Unable to load the %s theme'),
 						$themeId
 					);
+
 					$templateData['stackTrace'] .= $ret->getAsHtml();
 
 					continue;
 				}
+
 				$theme->setName($theme->translate($theme->getName()));
 				$theme->setDescription($theme->translate($theme->getDescription()));
 				$this->resetL10Domain();
@@ -140,18 +149,22 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				);
 
 				$gallery->guaranteeTimeLimit(120);
+
 				$ret = $theme->installOrUpgrade();
+
 				$this->resetL10Domain();
 
 				if ($ret) {
-					$templateData['errors'][]    = sprintf(
+					$templateData['errors'][] = sprintf(
 						_('Unable to upgrade the %s theme'),
 						$theme->getName()
 					);
+
 					$templateData['stackTrace'] .= $ret->getAsHtml();
 
 					continue;
 				}
+
 				$templateData['upgradedTheme'][$themeId] = $theme->getName();
 				$ret                                     = $storage->checkPoint();
 
@@ -170,6 +183,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				$templateData['stackTrace'] .= $ret->getAsHtml();
 			}
 		}
+
 		$templateData['bodyFile']       = _('UpgradeOtherModulesSuccess.html');
 		$templateData['anyUpgradeable'] = false;
 
@@ -182,6 +196,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				$this->setComplete(true);
 			}
 		}
+
 		$template->hideStatusBlock();
 		$template->renderBodyAndFooter($templateData);
 
@@ -194,6 +209,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 		if (!$gallery->getDebug()) {
 			$gallery->setDebug('buffered');
 		}
+
 		$gallery->guaranteeTimeLimit(60);
 
 		/*
@@ -221,6 +237,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				$templateData['errors'][]    = _('Unable to get the module list');
 				$templateData['stackTrace'] .= $ret->getAsHtml();
 			}
+
 			list($ret, $installedModules) = GalleryCoreApi::fetchPluginList('module');
 
 			if ($ret) {
@@ -242,6 +259,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				$templateData['errors'][]    = _('Unable to get the theme list');
 				$templateData['stackTrace'] .= $ret->getAsHtml();
 			}
+
 			list($ret, $installedThemes) = GalleryCoreApi::fetchPluginList('theme');
 
 			if ($ret) {
@@ -262,10 +280,11 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$templateData['errors'][]    = sprintf(
+					$templateData['errors'][] = sprintf(
 						_('Unable to load the %s module'),
 						$moduleId
 					);
+
 					$templateData['stackTrace'] .= $ret->getAsHtml();
 				} else {
 					$pluginIsCompatible['module'][$moduleId] = GalleryCoreApi::isPluginCompatibleWithApis(
@@ -277,10 +296,11 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 						if ($ret) {
 							$this->resetL10Domain();
-							$templateData['errors'][]    = sprintf(
+							$templateData['errors'][] = sprintf(
 								_('Unable to query the %s module'),
 								$moduleId
 							);
+
 							$templateData['stackTrace'] .= $ret->getAsHtml();
 
 							continue;
@@ -295,6 +315,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 					$modulePlugin->setDescription(
 						$modulePlugin->translate($modulePlugin->getDescription())
 					);
+
 					$modules[$moduleId] = $modulePlugin;
 					$this->resetL10Domain();
 				}
@@ -317,6 +338,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 						'groupLabel' => _('Other'),
 					);
 				}
+
 				$groupedModules[$group['group']][$moduleId] =& $module;
 				$groupLabel[$group['group']]                = $group['groupLabel'];
 				$groupType[$group['group']]                 = 'module';
@@ -327,10 +349,11 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$templateData['errors'][]    = sprintf(
+					$templateData['errors'][] = sprintf(
 						_('Unable to load the %s theme'),
 						$themeId
 					);
+
 					$templateData['stackTrace'] .= $ret->getAsHtml();
 				} else {
 					$pluginIsCompatible['theme'][$themeId] = GalleryCoreApi::isPluginCompatibleWithApis($themePlugin);
@@ -340,10 +363,11 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 						if ($ret) {
 							$this->resetL10Domain();
-							$templateData['errors'][]    = sprintf(
+							$templateData['errors'][] = sprintf(
 								'Unable to query the %s theme',
 								$themeId
 							);
+
 							$templateData['stackTrace'] .= $ret->getAsHtml();
 
 							continue;
@@ -358,6 +382,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 					$themePlugin->setDescription(
 						$themePlugin->translate($themePlugin->getDescription())
 					);
+
 					$themes[$themeId] = $themePlugin;
 					$this->resetL10Domain();
 				}
@@ -376,6 +401,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 				$groupedModules['themes'][$themeId] =& $theme;
 			}
+
 			ksort($groupedModules);
 			$templateData['bodyFile'] = 'UpgradeOtherModulesRequest.html';
 		}
@@ -391,6 +417,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			function getId() {
 				return $this->_pluginId;
 			}
+
 		}
 
 		class MockModule extends GalleryModule {
@@ -401,7 +428,9 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			function getId() {
 				return $this->_pluginId;
 			}
+
 		}
+
 		'
 		);
 
@@ -414,7 +443,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			}
 
 			foreach ($deactivatedPlugins[$type] as $pluginId) {
-				$plugin              = new $className($pluginId);
+				$plugin = new $className($pluginId);
+
 				list($ret, $ignored) = $plugin->deactivate(false);
 
 				if ($ret) {
@@ -425,6 +455,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 					} else {
 						$templateData['errors'][] = sprintf('Unable to deactivate the %s module', $pluginId);
 					}
+
 					$templateData['stackTrace'] .= $ret->getAsHtml();
 				}
 			}

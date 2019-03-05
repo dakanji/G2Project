@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/FlushDatabaseCacheTask.class');
 
 /**
@@ -54,7 +53,8 @@ class ResetViewCountsTask extends FlushDatabaseCacheTask {
 			'Reset number of views to zero for all albums and items.  This task flushes the ' .
 			'database cache as well.'
 		);
-		$info['confirmRun']  = true;
+
+		$info['confirmRun'] = true;
 
 		return $info;
 	}
@@ -64,6 +64,7 @@ class ResetViewCountsTask extends FlushDatabaseCacheTask {
 	 */
 	public function run() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$resetCount = '

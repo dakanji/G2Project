@@ -144,11 +144,13 @@ class CreateConfigFileStep extends InstallStep {
 				}
 			}
 		}
+
 		$this->_firstTime = false;
 	}
 
 	public function _getConfigContents() {
 		global $galleryStub;
+
 		$configDir = $_SESSION['configPath'];
 		$baseDir   = dirname(dirname(__DIR__));
 
@@ -159,11 +161,12 @@ class CreateConfigFileStep extends InstallStep {
 			GalleryUrlGenerator::getMe()->getCurrentRequestUri()
 		);
 
-		$contents       = '';
-		$addslashes     = array(
+		$contents   = '';
+		$addslashes = array(
 			'\\' => '\\\\',
 			"'"  => "\\'",
 		);
+
 		$newStoreConfig = $galleryStub->getConfig('storage.config');
 		$in             = @fopen($baseDir . '/install/config.php-template', 'r');
 
@@ -208,6 +211,7 @@ class CreateConfigFileStep extends InstallStep {
 
 			$contents .= $line;
 		}
+
 		fclose($in);
 
 		return $contents;
@@ -254,6 +258,7 @@ class CreateConfigFileStep extends InstallStep {
 				 */
 				$recommendUpgrade = true;
 			}
+
 			/*
 			 * G2 is installed, but its version doesn't match the codebase version.
 			 * And no upgrade is recommended because the codebase version is not newer than

@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Replace nocache-tags by results of the corresponding non-cacheable
  * functions and return it
@@ -28,6 +29,7 @@ function smarty_core_process_compiled_include($params, &$smarty) {
 			$_return
 		);
 	}
+
 	$smarty->_cache_including = $_cache_including;
 
 	return $_return;

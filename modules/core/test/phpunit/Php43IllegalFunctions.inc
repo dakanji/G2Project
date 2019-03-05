@@ -29,7 +29,6 @@ if (php_sapi_name() == 'cli') {
 		'snmp_set_valueretrieval',     // (PHP 4 >= 4.3.3, PHP 5)
 		'stream_wrapper_register',     // (PHP 4 >= 4.3.2, PHP 5)
 		'zlib_get_coding_type',     // (PHP 4 >= 4.3.2, PHP 5)
-
 		'array_combine',     // (PHP 5)
 		'array_diff_key',     // (PHP 5 >= 5.1.0RC1)
 		'array_diff_uassoc',     // (PHP 5)
@@ -411,7 +410,6 @@ if (php_sapi_name() == 'cli') {
 		'variant_sub',     // (PHP 5)
 		'variant_xor',     // (PHP 5)
 		'vfprintf',     // (PHP 5)
-
 		'aggregate',     // (PHP 4 >= 4.2.0)
 		'aggregate_methods',     // (PHP 4 >= 4.2.0)
 		'aggregate_methods_by_list',     // (PHP 4 >= 4.2.0)
@@ -956,7 +954,6 @@ if (php_sapi_name() == 'cli') {
 		'zip_entry_read',     // (PHP 4 >= 4.1.0, PECL)
 		'zip_open',     // (PHP 4 >= 4.1.0, PECL)
 		'zip_read',     // (PHP 4 >= 4.1.0, PECL)
-
 		'cpdf_add_annotation',     // (PHP 3 >= 3.0.12, PHP 4, PHP 5 <= 5.0.4)
 		'cpdf_add_outline',     // (PHP 3 >= 3.0.9, PHP 4, PHP 5 <= 5.0.4)
 		'cpdf_arc',     // (PHP 3 >= 3.0.8, PHP 4, PHP 5 <= 5.0.4)
@@ -1149,6 +1146,7 @@ if (php_sapi_name() == 'cli') {
 		'yp_next',     // (PHP 3 >= 3.0.7, PHP 4, PHP 5 <= 5.0.4)
 		'yp_order',      // (PHP 3 >= 3.0.7, PHP 4, PHP 5 <= 5.0.4)
 	);
+
 	sort($illegalFunctions);
 
 	// Spit out some Perl that will generate an optimized Regexp out of our function list

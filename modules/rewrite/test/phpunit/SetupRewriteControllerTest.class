@@ -33,6 +33,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -58,15 +59,18 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		GalleryUtilities::putRequestVariable('phpunit[config]', 1);
 
 		// Make sure we use the mock parser
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+
 		list($ret, $parser) = RewriteHelper::getRewriteParser(true);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('setuprewritemock', $parser->getParserId(), 'parserId');
 	}
 
@@ -76,6 +80,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[parser]', 'setuprewritemock');
 
@@ -104,6 +109,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('setuprewritemock', $parserId, 'parserId');
 
 		list($ret, $parser) = RewriteHelper::getRewriteParser();
@@ -111,11 +117,13 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $result) = $parser->needsConfiguration();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse($result, 'testSave');
 	}
 
@@ -125,6 +133,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[parser]', 'setuprewritemock');
 		GalleryUtilities::putRequestVariable('phpunit[config]', 0);
@@ -154,6 +163,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('setuprewritemock', $parserId, 'parserId');
 
 		list($ret, $parser) = RewriteHelper::getRewriteParser();
@@ -161,11 +171,13 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $result) = $parser->needsConfiguration();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($result);
 	}
 
@@ -195,6 +207,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('', $parserId, 'parserId');
 	}
 

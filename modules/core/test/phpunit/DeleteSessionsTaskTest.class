@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/DeleteSessionsTask.class');
 
 /**
@@ -54,6 +53,7 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 
 	public function tearDown() {
 		global $gallery;
+
 		$gallery->_session = $this->_origSession;
 
 		return parent::tearDown();
@@ -61,6 +61,7 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 
 	public function testRun() {
 		global $gallery;
+
 		$gallery->_templateAdapter = new MockTemplateAdapter();
 		$mockAdapter               =& $gallery->_templateAdapter;
 		$gallery->_session         = new DeleteSessionsTaskTestSession();
@@ -74,8 +75,9 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$inactivityTimeout           = (int)$params['session.inactivityTimeout'];
-		$lifetime                    = (int)$params['session.lifetime'];
+		$inactivityTimeout = (int)$params['session.inactivityTimeout'];
+		$lifetime          = (int)$params['session.lifetime'];
+
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
@@ -129,6 +131,7 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 			),
 			$details
 		);
+
 		$this->assertEquals(2, $session->callCount, 'call count of _expireSessions()');
 	}
 }

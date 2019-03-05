@@ -1,6 +1,5 @@
 <?php
 
-
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -12,17 +11,14 @@
 	  Set tabs to 4 for best viewing.
 
 */
-
 if (!function_exists('gzcompress')) {
 	trigger_error('gzip functions are not available', E_USER_ERROR);
 
 	return 0;
 }
 
-
 class ADODB_Compress_Gzip {
 	public $_level;
-
 
 	public $_min_length = 1;
 
@@ -46,11 +42,11 @@ class ADODB_Compress_Gzip {
 	}
 
 	public function __construct($level = null, $min_length = null) {
-		if (!is_null($level)) {
+		if (null !== $level) {
 			$this->setLevel($level);
 		}
 
-		if (!is_null($min_length)) {
+		if (null !== $min_length) {
 			$this->setMinLength($min_length);
 		}
 	}
@@ -60,7 +56,7 @@ class ADODB_Compress_Gzip {
 			return $data;
 		}
 
-		if (!is_null($this->_level)) {
+		if (null !== $this->_level) {
 			return gzcompress($data, $this->_level);
 		}
 

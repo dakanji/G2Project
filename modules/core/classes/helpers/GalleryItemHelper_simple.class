@@ -91,6 +91,7 @@ class GalleryItemHelper_simple {
 		if (empty($missing)) {
 			return array(null, $counts);
 		}
+
 		$parentIdMarkers = GalleryUtilities::makeMarkers(count($missing));
 
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
@@ -155,6 +156,7 @@ class GalleryItemHelper_simple {
 		foreach ($itemIds as $idx => $id) {
 			$itemIds[$idx] = (int)$id;
 		}
+
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryDescendentCountsMap',
 			array('itemId', 'descendentCount'),
@@ -217,6 +219,7 @@ class GalleryItemHelper_simple {
 				$counts[$key] = $value;
 			}
 		}
+
 		$counts = GalleryUtilities::strArrToIntArr($counts);
 
 		return array(null, $counts);
@@ -240,6 +243,7 @@ class GalleryItemHelper_simple {
 		foreach ($itemIds as $idx => $id) {
 			$itemIds[$idx] = (int)$id;
 		}
+
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId, false);
 
 		if ($ret) {
@@ -253,7 +257,8 @@ class GalleryItemHelper_simple {
 		$aclMarkers  = GalleryUtilities::makeMarkers(count($aclIds));
 		$itemMarkers = GalleryUtilities::makeMarkers(count($itemIds));
 
-		$storage            =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
+
 		list($ret, $concat) = $storage->getFunctionSql(
 			'CONCAT',
 			array(
@@ -304,7 +309,8 @@ class GalleryItemHelper_simple {
 			$aclMarkers
 		);
 
-		$data                      = array_merge($itemIds, $aclIds);
+		$data = array_merge($itemIds, $aclIds);
+
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
@@ -371,7 +377,8 @@ class GalleryItemHelper_simple {
 		',
 					$aclMarkers
 				);
-				$data  = array_merge(array($itemType), $aclIds);
+
+				$data = array_merge(array($itemType), $aclIds);
 
 				list($ret, $searchResults) = $gallery->search($query, $data);
 
@@ -405,6 +412,7 @@ class GalleryItemHelper_simple {
 		$IgnorePerms = null
 	) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		if (!isset($userId)) {
@@ -420,6 +428,7 @@ class GalleryItemHelper_simple {
 		if (empty($aclIds)) {
 			return array(null, array());
 		}
+
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
 		if (!isset($itemId)) {
@@ -429,6 +438,7 @@ class GalleryItemHelper_simple {
 				return array($ret, null);
 			}
 		}
+
 		list($ret, $parentSequence) = GalleryCoreApi::fetchParentSequence($itemId);
 
 		if ($ret) {
@@ -487,6 +497,7 @@ class GalleryItemHelper_simple {
 			if (isset($depth) && count($path) > $depth) {
 				continue;
 			}
+
 			$branch =& $tree;
 
 			foreach ($path as $id) {
@@ -494,6 +505,7 @@ class GalleryItemHelper_simple {
 					$branch =& $branch[$id];
 				}
 			}
+
 			$branch[$result[0]] = array();
 		}
 

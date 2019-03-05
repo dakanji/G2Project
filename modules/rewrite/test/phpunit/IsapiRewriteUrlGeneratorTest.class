@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce(
 	'modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteUrlGenerator.class'
 );
+
 GalleryCoreApi::requireOnce('modules/rewrite/test/phpunit/RewriteUrlGeneratorTestCase.class');
 
 /**
@@ -38,6 +38,7 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -75,10 +76,11 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 	 * a relative URL is alright.  But it isn't, we should use server-relative URLs in this case.
 	 */
 	public function testGenerateUrlMustBeServerRelative() {
-		$env    = array(
+		$env = array(
 			'REQUEST_URI' => '/gallery2/' . GALLERY_MAIN_PHP .
 							 '?g2_view=core.ShowItem&g2_itemId=17',
 		);
+
 		$params = $this->_getTestUrlParams();
 		// Only test a single URL
 		$params      = $params[6];
@@ -103,6 +105,7 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		}
 
 		GalleryDataCache::put('G2_EMBED', false, true);
+
 		$ret = $this->_urlGeneratorInit('IsapiRewriteUrlGenerator');
 
 		if ($ret) {
@@ -112,6 +115,7 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$this->assertFalse($this->_urlGenerator->_error, 'init error in non-embedded');
 
 		GalleryDataCache::put('G2_EMBED', true, true);
+
 		$ret = $this->_urlGeneratorInit('IsapiRewriteUrlGenerator');
 
 		if ($ret) {
@@ -133,6 +137,7 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		}
 
 		GalleryDataCache::put('G2_EMBED', false, true);
+
 		$ret = $this->_urlGeneratorInit('IsapiRewriteUrlGenerator');
 
 		if ($ret) {
@@ -142,6 +147,7 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$this->assertTrue($this->_urlGenerator->_error, 'no init error in standalone mode');
 
 		GalleryDataCache::put('G2_EMBED', true, true);
+
 		$ret = $this->_urlGeneratorInit('IsapiRewriteUrlGenerator');
 
 		if ($ret) {

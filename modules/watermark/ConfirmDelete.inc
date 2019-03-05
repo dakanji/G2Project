@@ -30,7 +30,10 @@ class ConfirmDeleteController extends GalleryController {
 	 * @see GalleryController::handleRequest
 	 */
 	public function handleRequest($form) {
-		list($ret, $canView) = GalleryCoreApi::hasItemPermission($form['watermarkId'], 'core.view');
+		list($ret, $canView) = GalleryCoreApi::hasItemPermission(
+			$form['watermarkId'],
+			'core.view'
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -40,6 +43,7 @@ class ConfirmDeleteController extends GalleryController {
 			// Avoid information disclosure, act as if the item didn't exist.
 			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 		}
+
 		// Make sure we have permission to edit this item
 		$ret = GalleryCoreApi::assertHasItemPermission($form['watermarkId'], 'core.edit');
 
@@ -60,7 +64,6 @@ class ConfirmDeleteController extends GalleryController {
 
 			$status['delete'] = 1;
 		} // else $form['action']['cancel']
-
 		$results['redirect'] = isset($form['fromAdmin']) ? array(
 			'view'    => 'core.SiteAdmin',
 			'subView' => 'watermark.WatermarkSiteAdmin',
@@ -68,8 +71,9 @@ class ConfirmDeleteController extends GalleryController {
 			'view'    => 'core.UserAdmin',
 			'subView' => 'watermark.UserWatermarks',
 		);
-		$results['status']   = $status;
-		$results['error']    = array();
+
+		$results['status'] = $status;
+		$results['error']  = array();
 
 		return array(null, $results);
 	}
@@ -86,16 +90,30 @@ class ConfirmDeleteView extends GalleryView {
 		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 		if ($form['formName'] != 'ConfirmDelete') {
-			$form['formName']                              = 'ConfirmDelete';
-			list($form['watermarkId'], $form['fromAdmin']) = GalleryUtilities::getRequestVariables('watermarkId', 'fromAdmin');
+			$form['formName'] = 'ConfirmDelete';
+
+			list(
+				$form['watermarkId'],
+				$form['fromAdmin']
+			) = GalleryUtilities::getRequestVariables(
+				'watermarkId',
+				'fromAdmin'
+			);
 		}
 
-		list($ret, $item) = GalleryCoreApi::loadEntitiesById($form['watermarkId'], 'WatermarkImage');
+		list($ret, $item) = GalleryCoreApi::loadEntitiesById(
+			$form['watermarkId'],
+			'WatermarkImage'
+		);
 
 		if ($ret) {
 			return array($ret, null);
 		}
-		list($ret, $canView) = GalleryCoreApi::hasItemPermission($form['watermarkId'], 'core.view');
+
+		list($ret, $canView) = GalleryCoreApi::hasItemPermission(
+			$form['watermarkId'],
+			'core.view'
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -126,6 +144,7 @@ class ConfirmDeleteView extends GalleryView {
 				'count' => count($itemIds),
 			)
 		);
+
 		$template->setVariable('controller', 'watermark.ConfirmDelete');
 
 		return array(

@@ -47,11 +47,9 @@ class ADODB_ldap extends ADOConnection {
 	// error on binding, eg. "Binding: invalid credentials"
 	public $_bind_errmsg = 'Binding: %s';
 
-	public function __construct() {
-	}
+	public function __construct() {}
 
 	// returns true or false
-
 	public function _connect($host, $username, $password, $ldapbase) {
 		global $LDAP_CONNECT_OPTIONS;
 
@@ -103,6 +101,7 @@ class ADODB_ldap extends ADOConnection {
 
 			return false;
 		}
+
 		$this->_errorMsg = '';
 		$this->database  = $ldapbase;
 
@@ -159,8 +158,8 @@ class ADODB_ldap extends ADOConnection {
 			"OPTION_VALUE"=>FALSE
 		)
 	);
-	*/
 
+	*/
 	public function _inject_bind_options($options) {
 		foreach ($options as $option) {
 			ldap_set_option($this->_connectionID, $option['OPTION_NAME'], $option['OPTION_VALUE'])
@@ -197,7 +196,6 @@ class ADODB_ldap extends ADOConnection {
 	}
 
 	// SelectDB
-
 	public function ServerInfo() {
 		if (!empty($this->version)) {
 			return $this->version;
@@ -220,12 +218,15 @@ class ADODB_ldap extends ADOConnection {
 		switch ($version['LDAP_OPT_DEREF']) {
 			case 0:
 				$version['LDAP_OPT_DEREF'] = 'LDAP_DEREF_NEVER';
+
 				// Fall Through
 			case 1:
 				$version['LDAP_OPT_DEREF'] = 'LDAP_DEREF_SEARCHING';
+
 				// Fall Through
 			case 2:
 				$version['LDAP_OPT_DEREF'] = 'LDAP_DEREF_FINDING';
+
 				// Fall Through
 			case 3:
 				$version['LDAP_OPT_DEREF'] = 'LDAP_DEREF_ALWAYS';
@@ -308,7 +309,6 @@ class ADODB_ldap extends ADOConnection {
 /*--------------------------------------------------------------------------------------
 	Class Name: Recordset
 --------------------------------------------------------------------------------------*/
-
 class ADORecordSet_ldap extends ADORecordSet {
 	public $databaseType = 'ldap';
 	public $canSeek      = false;
@@ -317,6 +317,7 @@ class ADORecordSet_ldap extends ADORecordSet {
 	public function __construct($queryID, $mode = false) {
 		if ($mode === false) {
 			global $ADODB_FETCH_MODE;
+
 			$mode = $ADODB_FETCH_MODE;
 		}
 
@@ -402,6 +403,7 @@ class ADORecordSet_ldap extends ADORecordSet {
 					array_shift($v);
 					$results[$i] = $v;
 				}
+
 				$i++;
 			}
 		}

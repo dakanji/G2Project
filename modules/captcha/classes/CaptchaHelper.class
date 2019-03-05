@@ -32,6 +32,7 @@ class CaptchaHelper {
 	 */
 	public static function testRequiredGdFunctions() {
 		global $gallery;
+
 		$phpVm = $gallery->getPhpVm();
 
 		$gdFunctions   = array();
@@ -71,6 +72,7 @@ class CaptchaHelper {
 		for ($i = 0; $i < 6; $i++) {
 			$code .= substr($goodChars, mt_rand(0, strlen($goodChars) - 1), 1);
 		}
+
 		$session =& $gallery->getSession();
 		$session->put('captcha.key', $code);
 	}

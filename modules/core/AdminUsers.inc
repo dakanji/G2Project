@@ -119,6 +119,7 @@ class AdminUsersController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'core.AdminUsers';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -251,6 +252,7 @@ class AdminUsersView extends GalleryView {
 			} else {
 				$form['list']['userNames'][$userId]['can']['delete'] = true;
 			}
+
 			$form['list']['userNames'][$userId]['failedLogins'] = (isset($failedLogins[$user->getUserName()])) ? $failedLogins[$user->getUserName()] : 0;
 		}
 
@@ -260,6 +262,7 @@ class AdminUsersView extends GalleryView {
 				'totalUserCount' => $totalUserCount,
 			)
 		);
+
 		$template->setVariable('controller', 'core.AdminUsers');
 
 		return array(

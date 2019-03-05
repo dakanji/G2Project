@@ -9,7 +9,6 @@ the BSD license will take precedence. See License.txt.
 Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
 	Microsoft Access ADO data driver. Requires ADO and ODBC. Works only on MS Windows.
 */
 
@@ -41,7 +40,6 @@ class ADODB_ado_access extends ADODB_ado {
 
 	function RollbackTrans() { return false;}*/
 }
-
 
 class ADORecordSet_ado_access extends ADORecordSet_ado {
 	public $databaseType = 'ado_access';

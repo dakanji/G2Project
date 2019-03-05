@@ -131,7 +131,6 @@ class ItemEditAnimationPluginTest extends ItemEditPluginTestCase {
 	}
 
 	public function testInvalidSerialNumber() {
-
 		// Use valid inputs
 		GalleryUtilities::putRequestVariable('form[width]', 123);
 		GalleryUtilities::putRequestVariable('form[height]', 456);

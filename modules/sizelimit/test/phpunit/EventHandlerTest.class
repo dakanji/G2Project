@@ -42,6 +42,7 @@ class EventHandlerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 	}
 
@@ -74,6 +75,7 @@ class EventHandlerTest extends GalleryTestCase {
 		}
 
 		GalleryCoreApi::requireOnce('modules/sizelimit/module.inc');
+
 		list($ret, $data) = SizeLimitModule::getMe()->handleEvent($event);
 
 		if ($ret) {

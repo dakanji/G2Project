@@ -12,7 +12,6 @@
  */
 
 // $auto_base, $auto_source = null, $auto_id = null, $exp_time = null
-
 function smarty_core_rm_auto($params, &$smarty) {
 	if (!@is_dir($params['auto_base'])) {
 		return false;

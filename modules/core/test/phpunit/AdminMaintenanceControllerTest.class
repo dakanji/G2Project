@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
 
 /**
@@ -78,6 +77,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markFactoryModuleForCleanup('coreTest');
 	}
 
@@ -143,6 +143,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 
 	public function testRunTaskProgressBar() {
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('form[action][runTask]', 1);
 		GalleryUtilities::putRequestVariable(
 			'taskId',
@@ -207,11 +208,13 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 
 	public function testRunTaskProgressBarFail() {
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('form[action][runTask]', 1);
 		GalleryUtilities::putRequestVariable(
 			'taskId',
 			'AdminMaintenanceControllerTestTaskProgressBar'
 		);
+
 		GalleryUtilities::putRequestVariable('forceTaskToFail', 1);
 
 		$mockAdapter               = new MockTemplateAdapter();
@@ -274,11 +277,13 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 
 	public function testRunTaskProgressBarError() {
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('form[action][runTask]', 1);
 		GalleryUtilities::putRequestVariable(
 			'taskId',
 			'AdminMaintenanceControllerTestTaskProgressBar'
 		);
+
 		GalleryUtilities::putRequestVariable('forceTaskToError', 1);
 
 		$mockAdapter               = new MockTemplateAdapter();
@@ -397,6 +402,7 @@ class AdminMaintenanceControllerTestTaskProgressBar extends MaintenanceTask {
 
 	public function run() {
 		global $gallery;
+
 		$templateAdapter =& $gallery->getTemplateAdapter();
 
 		$success = !GalleryUtilities::getRequestVariables('forceTaskToFail');

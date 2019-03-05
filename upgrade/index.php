@@ -29,6 +29,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * Gallery Upgrader
  * @package Upgrade
@@ -54,7 +55,6 @@ require_once $g2Base . 'bootstrap.inc';
 require_once $g2Base . 'modules/core/classes/GalleryUtilities.class';
 
 require_once $g2Base . 'lib/support/GallerySetupUtilities.class';
-
 
 /*
  * If gettext isn't enabled, subvert the _() text translation function
@@ -116,6 +116,7 @@ if (!empty($storageConfig)) {
 		if (empty($_SESSION['language'])) {
 			$_SESSION['language'] = GalleryTranslator::getMe()->getLanguageCodeFromRequest();
 		}
+
 		$translator->init($_SESSION['language'], true);
 		// Select domain for translation
 		bindtextdomain('gallery2_upgrade', dirname(__DIR__) . '/locale');
@@ -124,6 +125,7 @@ if (!empty($storageConfig)) {
 		if (function_exists('bind_textdomain_codeset')) {
 			bind_textdomain_codeset('gallery2_upgrade', 'UTF-8');
 		}
+
 		// Set the appropriate charset in our HTTP header
 		if (!headers_sent()) {
 			header('Content-Type: text/html; charset=UTF-8');
@@ -134,7 +136,8 @@ if (!empty($storageConfig)) {
 	$gallery->guaranteeTimeLimit(300);
 
 	// Check to see if we have a database.  If we don't, then go to the installer
-	$storage                 =& $gallery->getStorage();
+	$storage =& $gallery->getStorage();
+
 	list($ret, $isInstalled) = $storage->isInstalled();
 
 	if ($ret || !$isInstalled) {
@@ -230,6 +233,7 @@ function selectAdminUser($fallback = false) {
 	if ($ret) {
 		return $ret;
 	}
+
 	list($ret, $adminUserInfo) = GalleryCoreApi::fetchUsersForGroup($siteAdminGroupId, 1);
 
 	if ($ret) {
@@ -239,9 +243,11 @@ function selectAdminUser($fallback = false) {
 	if (empty($adminUserInfo)) {
 		return GalleryCoreApi::error(ERROR_MISSING_VALUE);
 	}
+
 	// Fetch the first admin from list
-	$userId                = key($adminUserInfo);
-	$userName              = current($adminUserInfo);
+	$userId   = key($adminUserInfo);
+	$userName = current($adminUserInfo);
+
 	list($ret, $adminUser) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 	if ($ret) {
@@ -271,6 +277,7 @@ function generateUrl($uri, $print = true) {
 	if (strncmp($uri, 'index.php', 9) && strncmp($uri, '../' . GALLERY_MAIN_PHP, 11)) {
 		// upgrade/images/*, upgrade/styles/*, ... URLs
 		global $gallery;
+
 		// Add @ here in case we haven't yet upgraded config.php to include galleryBaseUrl
 		$baseUrl = @$gallery->getConfig('galleryBaseUrl');
 

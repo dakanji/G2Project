@@ -162,6 +162,7 @@ class MultiLangModule extends GalleryModule {
 	public function needsConfiguration() {
 		// This module requires gettext to be installed
 		global $gallery;
+
 		$translator =& $gallery->getTranslator();
 
 		return array(null, !$translator->canTranslate());
@@ -204,6 +205,7 @@ class MultiLangModule extends GalleryModule {
 
 		if ($view != 'core.ItemAdmin' && empty($controller) && !$duringUpgrade) {
 			GalleryCoreApi::requireOnce('modules/multilang/classes/MultiLangHelper.class');
+
 			$ret = MultiLangHelper::onLoad($entity);
 
 			if ($ret) {

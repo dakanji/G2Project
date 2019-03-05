@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * Container for session related data.
  * @package GalleryCore
@@ -239,6 +240,7 @@ class GallerySession {
 		if (strlen($this->_sessionId) != 32) {
 			$this->_sessionId = '';
 		}
+
 		$this->_sessionId = GalleryUtilities::strToLower($this->_sessionId);
 
 		// Load session data if a session with that id exists and expire the session if necessary
@@ -290,7 +292,6 @@ class GallerySession {
 				}
 			}
 		} // End for existing persistent sessions
-
 		// Initialize the secure flag if HTTPS
 		if ($this->_isPersistent) {
 			$isSecure = (bool)$this->get('secure');
@@ -302,6 +303,7 @@ class GallerySession {
 				} else {
 					$this->remove('secure');
 				}
+
 				$ret = $this->regenerate();
 
 				if ($ret) {
@@ -378,6 +380,7 @@ class GallerySession {
 	 */
 	public function save($useNonTransactionalConnection = false) {
 		global $gallery;
+
 		$phpVm   = $gallery->getPhpVm();
 		$dieRoll = $phpVm->rand(1, 100);
 
@@ -417,6 +420,7 @@ class GallerySession {
 				if ($ret) {
 					return $ret;
 				}
+
 				$this->_isSessionSaved = true;
 			} elseif (!$this->_isSessionSaved) {
 				// Update the session modification timestamp 5% of the time to avoid expiration.
@@ -436,6 +440,7 @@ class GallerySession {
 					if ($ret) {
 						return $ret;
 					}
+
 					$this->_isSessionSaved = true;
 				}
 			}
@@ -477,6 +482,7 @@ class GallerySession {
 				return $ret;
 			}
 		}
+
 		$this->_userId = (int)$userId;
 
 		// Get a sessionId, don't send cookies
@@ -514,6 +520,7 @@ class GallerySession {
 				return $ret;
 			}
 		}
+
 		$this->_sessionId = '';
 		$this->_userId    = null;
 
@@ -594,6 +601,7 @@ class GallerySession {
 	 */
 	public function _setCookie($delete = false) {
 		global $gallery;
+
 		$phpVm = $gallery->getPhpVm();
 
 		/*
@@ -603,7 +611,6 @@ class GallerySession {
 		 * that we can stop sending them.  We can do this by recording how many times we've sent a
 		 * cookie, and how many times that we've received one back in return.  Leave that for later.
 		 */
-
 		if (!$delete) {
 			$cookie = 'Set-Cookie: ' . SESSION_ID_PARAMETER . '=' . $this->_sessionId;
 		} else {
@@ -619,7 +626,9 @@ class GallerySession {
 		if ($ret) {
 			return $ret;
 		}
-		$urlGenerator           =& $gallery->getUrlGenerator();
+
+		$urlGenerator =& $gallery->getUrlGenerator();
+
 		list($ret, $cookiePath) = $urlGenerator->getCookiePath();
 
 		if ($ret) {
@@ -734,6 +743,7 @@ class GallerySession {
 	 */
 	public function _acquireNewPersistentSession() {
 		global $gallery;
+
 		$phpVm   = $gallery->getPhpVm();
 		$storage =& $gallery->getStorage();
 
@@ -757,6 +767,7 @@ class GallerySession {
 			if ($attempt != 0 || empty($this->_sessionId)) {
 				$this->_sessionId = $phpVm->md5(uniqid(substr($remoteHost . microtime() . mt_rand(1, 32767), 0, 114)));
 			}
+
 			$this->_sessionId = $data['id'] = GalleryUtilities::strToLower($this->_sessionId);
 
 			$ret = @GalleryCoreApi::addMapEntry('GallerySessionMap', $data, true);
@@ -838,10 +849,6 @@ class GallerySession {
 			 */
 			unset($sessionDataCopy['core.lastViewed'], $sessionDataCopy['permissionCache'], $sessionDataCopy['core.navigation'], $sessionDataCopy['embed.id.externalUser'], $sessionDataCopy['core.authToken'], $sessionDataCopy['secure']);
 
-
-
-
-
 			list(
 				$ret,
 				$detectedLanguageCode
@@ -889,6 +896,7 @@ class GallerySession {
 
 			if (!empty($controller)) {
 				GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
+
 				list($ret, $controller) = GalleryController::getMe()->loadController($controller);
 
 				if (!$ret && !$controller->shouldSaveSession()) {
@@ -896,6 +904,7 @@ class GallerySession {
 				}
 			} elseif (!empty($view)) {
 				GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
+
 				list($ret, $view) = GalleryView::getMe()->loadView($view);
 
 				if (!$ret && !$view->shouldSaveSession()) {
@@ -927,6 +936,7 @@ class GallerySession {
 			if ($ret) {
 				return $ret;
 			}
+
 			list($ret, $inactivityTimeout) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'core',
@@ -965,6 +975,7 @@ class GallerySession {
 				if ($ret2) {
 					return $ret;
 				}
+
 				$instVersions = $module->getInstalledVersions();
 
 				if (!empty($instVersions['core'])
@@ -1019,6 +1030,7 @@ class GallerySession {
 				 */
 				if (isset($_COOKIE[SESSION_ID_PARAMETER])) {
 					unset($_COOKIE[SESSION_ID_PARAMETER]);
+
 					$ret = $this->_setCookie(true);
 
 					if ($ret) {
@@ -1027,7 +1039,6 @@ class GallerySession {
 				}
 			}
 		} // Else: no sessionId specified, thus we've no session yet
-
 		if (!$this->_isPersistent) {
 			$this->_emptySessionData();
 		}
@@ -1042,6 +1053,7 @@ class GallerySession {
 	public function _emptySessionData() {
 		// Don't (re-)set sessionId since we can't ensure a collision-free id without DB queries
 		global $gallery;
+
 		$phpVm                    = $gallery->getPhpVm();
 		$this->_sessionData       = array();
 		$this->_loadedSessionData = '';
@@ -1050,7 +1062,6 @@ class GallerySession {
 		$this->_modificationTime  = $phpVm->time();
 		$this->_remoteIdentifier  = $this->getRemoteIdentifier();
 		// Don't change userId or isUsingCookies
-
 		$this->_isPersistentSessionNew = false;
 		$this->_isSessionSaved         = false;
 	}
@@ -1083,6 +1094,7 @@ class GallerySession {
 			 * Experimented a lot with str_replace and preg_replace. A perfect solution would be
 			 * again 40% slower (e.g. 12 instead of 8.5ms on a slow box for a lot of data).
 			 */
+
 			// sessionString normal and URL encoded
 			$regexp = GalleryUtilities::prefixFormVariable($this->getKey()) . '(?:=|%3D)' .
 			SESSION_TEMP_ID;
@@ -1096,6 +1108,7 @@ class GallerySession {
 				'\\1',
 				$html
 			);
+
 			// Remove sessionStrings that are not at the end of URLs and sessionIds in the HTML
 			$html = str_replace(
 				array(
@@ -1159,6 +1172,7 @@ class GallerySession {
 	 */
 	public function _expireSessions() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		list($ret, $sessionInactivityTimeout) = GalleryCoreApi::getPluginParameter('module', 'core', 'session.inactivityTimeout');
@@ -1192,12 +1206,14 @@ class GallerySession {
 			if ($ret) {
 				return $ret;
 			}
+
 			// Delete all sessions of guest users that are older than a week
 			$where .= ' OR
 			([GallerySessionMap::userId] = ? AND [GallerySessionMap::creationTimestamp] < ?)';
 			$data[] = (int)$anonymousUserId;
 			$data[] = (int)$lastWeek;
 		}
+
 		// TODO: Make this more OO, eg. by adding function canLimitDelete() to GalleryStorage
 		if ($storage->getType() == 'mysql') {
 			/*
@@ -1205,10 +1221,11 @@ class GallerySession {
 			 * 500 sessionIds + DELETE those sessionIds is more expensive we optimize for MySQL by
 			 * using DELETE ... LIMIT 500
 			 */
-			$query               = '
+			$query = '
 			DELETE FROM [GallerySessionMap]
 			' . $where . '
 			LIMIT ' . (int)$this->_expirationLimit;
+
 			list($ret, $results) = $storage->execute($query, $data);
 
 			if ($ret) {
@@ -1223,7 +1240,8 @@ class GallerySession {
 			SELECT [GallerySessionMap::id]
 			FROM [GallerySessionMap]' . $where;
 			$option['limit']['count'] = $this->_expirationLimit;
-			list($ret, $results)      = $gallery->search($query, $data, $option);
+
+			list($ret, $results) = $gallery->search($query, $data, $option);
 
 			if ($ret) {
 				return $ret;
@@ -1235,13 +1253,15 @@ class GallerySession {
 				while ($row = $results->nextResult()) {
 					$ids[] = $row[0];
 				}
+
 				// Delete the selected sessions
-				$query               = sprintf(
+				$query = sprintf(
 					'
 					DELETE FROM [GallerySessionMap]
 					WHERE [GallerySessionMap::id] IN (%s)',
 					GalleryUtilities::makeMarkers(count($ids))
 				);
+
 				list($ret, $results) = $storage->execute($query, $ids);
 
 				if ($ret) {
@@ -1513,8 +1533,7 @@ class GallerySession {
 	 * @deprecated
 	 * @todo will be removed in the next API branch
 	 */
-	public function jumpNavigation($fromNavId, $destNavId = '') {
-	}
+	public function jumpNavigation($fromNavId, $destNavId = '') {}
 
 	/**
 	 * Return the Unix timestamp from when this session was created.
@@ -1559,6 +1578,7 @@ class GallerySession {
 
 		if (empty($authToken)) {
 			global $gallery;
+
 			$phpVm     = $gallery->getPhpVm();
 			$authToken = substr($phpVm->md5(uniqid(microtime() . mt_rand())), 0, 12);
 			$this->put('core.authToken', $authToken);
@@ -1594,6 +1614,7 @@ class GallerySession {
 	 */
 	public function hasSiteAdminSessionExpired() {
 		global $gallery;
+
 		$phpVm = $gallery->getPhpVm();
 
 		list($ret, $siteAdministrationTimeout) = GalleryCoreApi::getPluginParameter(
@@ -1605,6 +1626,7 @@ class GallerySession {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$lastActivity = (int)$this->get('session.siteAdminActivityTimestamp');
 
 		return array(null, ($lastActivity + (int)$siteAdministrationTimeout) < $phpVm->time());
@@ -1624,6 +1646,7 @@ class SessionAuthPlugin {
 	 */
 	public function getUser() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		$userId = $session->getUserId();

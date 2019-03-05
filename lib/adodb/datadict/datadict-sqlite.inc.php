@@ -35,22 +35,18 @@ class ADODB2_sqlite extends ADODB_DataDict {
 				return 'LONGTEXT'; //  TEXT , TEXT affinity
 			case 'X':
 				return 'TEXT'; //  TEXT , TEXT affinity
-
 			case 'C2':
 				return 'VARCHAR'; //  TEXT , TEXT affinity
 			case 'X2':
 				return 'LONGTEXT'; //  TEXT , TEXT affinity
-
 			case 'B':
 				return 'LONGBLOB'; //  TEXT , NONE affinity , BLOB
-
 			case 'D':
 				return 'DATE'; // NUMERIC , NUMERIC affinity
 			case 'T':
 				return 'DATETIME'; // NUMERIC , NUMERIC affinity
 			case 'L':
 				return 'TINYINT'; // NUMERIC , INTEGER affinity
-
 			case 'R':
 			case 'I4':
 			case 'I':
@@ -61,7 +57,6 @@ class ADODB2_sqlite extends ADODB_DataDict {
 				return 'SMALLINT'; // NUMERIC , INTEGER affinity
 			case 'I8':
 				return 'BIGINT'; // NUMERIC , INTEGER affinity
-
 			case 'F':
 				return 'DOUBLE'; // NUMERIC , REAL affinity
 			case 'N':

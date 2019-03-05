@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkImage.class');
 
 /**
@@ -34,6 +33,7 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -48,6 +48,7 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_user);
 
 		$this->_saveUser = $gallery->getActiveUser();
@@ -60,21 +61,25 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $watermark->save();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $id) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addGroupPermission($watermark->getId(), $id, 'core.all');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$watermark->getId(),
 			$this->_user->getId(),
@@ -84,6 +89,7 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_watermark = $watermark;
 
 		// Create watermarked item
@@ -92,7 +98,9 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_item);
+
 		list($ret, $this->_derivative) = $this->_createDerivative(
 			$this->_item,
 			$this->_item->getId(),
@@ -130,6 +138,7 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 
 	public function testAdminCancel() {
 		global $gallery;
+
 		$gallery->setActiveUser($this->_saveUser);
 
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
@@ -180,11 +189,13 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('', $derivative->getPostfilterOperations(), 'not watermarked');
 	}
 
 	public function testAdminDelete() {
 		global $gallery;
+
 		$gallery->setActiveUser($this->_saveUser);
 
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
@@ -217,6 +228,7 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('', $derivative->getPostfilterOperations(), 'not watermarked');
 	}
 }

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 
@@ -35,6 +34,7 @@ class ThemeTest extends GalleryTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -45,11 +45,13 @@ class ThemeTest extends GalleryTestCase {
 		$gallery->setPlatform($this->_platform);
 
 		GalleryDataCache::reset();
+
 		list($ret, $this->_theme) = GalleryCoreApi::loadPlugin('theme', 'ThemeTest');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_theme->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$this->_theme->setRequiredThemeApi(GalleryTheme::getMe()->getApiVersion());
 
@@ -64,6 +66,7 @@ class ThemeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_item);
 	}
 
@@ -295,8 +298,10 @@ class ThemeTest extends GalleryTestCase {
 			if ($i) {
 				$data .= ',';
 			}
+
 			$data .= $data_pattern;
 		}
+
 		$data = '[' . $data . ']';
 
 		$actual = $this->_theme->packSetting('block-list', $data);
@@ -396,6 +401,7 @@ class ThemeTest extends GalleryTestCase {
 
 	public function testInstallBadThemeApi() {
 		list($major, $minor) = $this->_theme->getRequiredThemeApi();
+
 		$this->_theme->setRequiredThemeApi(array($major - 1, $minor));
 
 		$ret = $this->_theme->installOrUpgrade();
@@ -403,6 +409,7 @@ class ThemeTest extends GalleryTestCase {
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 			return $ret;
 		}
+
 		$this->assertTrue(
 			$ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH),
 			'success?'
@@ -417,6 +424,7 @@ class ThemeTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $this->_theme->getRequiredThemeApi();
+
 		$this->_theme->setRequiredThemeApi(array($major - 1, $minor));
 
 		list($ret, $redirect) = $this->_theme->activate();
@@ -424,6 +432,7 @@ class ThemeTest extends GalleryTestCase {
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 			return $ret;
 		}
+
 		$this->assertTrue($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
 
 		list($ret, $isActive) = $this->_theme->isActive();
@@ -431,11 +440,13 @@ class ThemeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse($isActive, 'is active');
 	}
 
 	public function testInstallBadCoreApi() {
 		list($major, $minor) = $this->_theme->getRequiredCoreApi();
+
 		$this->_theme->setRequiredCoreApi(array($major - 1, $minor));
 
 		$ret = $this->_theme->installOrUpgrade();
@@ -443,6 +454,7 @@ class ThemeTest extends GalleryTestCase {
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 			return $ret;
 		}
+
 		$this->assertTrue($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
 	}
 
@@ -454,6 +466,7 @@ class ThemeTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $this->_theme->getRequiredCoreApi();
+
 		$this->_theme->setRequiredCoreApi(array($major - 1, $minor));
 
 		list($ret, $redirect) = $this->_theme->activate();
@@ -461,6 +474,7 @@ class ThemeTest extends GalleryTestCase {
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 			return $ret;
 		}
+
 		$this->assertTrue($ret && ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH), 'success?');
 
 		list($ret, $isActive) = $this->_theme->isActive();
@@ -468,6 +482,7 @@ class ThemeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse($isActive, 'is active');
 	}
 
@@ -531,6 +546,7 @@ class ThemeTest extends GalleryTestCase {
 				return $this->assertFalse(true, 'block-list error');
 			}
 		}
+
 		list($ret, $results) = $this->_theme->loadTemplate(
 			$view,
 			$template,
@@ -549,6 +565,7 @@ class ThemeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'core.ThemeTestBlock1',
@@ -604,7 +621,6 @@ class ThemeTest extends GalleryTestCase {
 		$randomHtml = str_repeat($randomHtml, 160000 / strlen($randomHtml));
 		$html       = '
 	    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" ...>
-
 	    <html lang="de-DE" xmlns="...">
 
 	    <head>
@@ -636,6 +652,7 @@ class ThemeTest extends GalleryTestCase {
 			),
 			$results
 		);
+
 		ini_set('pcre.backtrack_limit', $backtraceLimit);
 	}
 }
@@ -646,6 +663,7 @@ class ThemeTest extends GalleryTestCase {
 class ThemeTestTheme extends GalleryTheme {
 	public function __construct() {
 		global $gallery;
+
 		$this->setId('themetest');
 		$this->setName('ThemeTest Theme');
 		$this->setDescription('Unit test theme');
@@ -665,8 +683,7 @@ class ThemeTestTheme extends GalleryTheme {
 /**
  * Test view
  */
-class ThemeTestView extends GalleryView {
-}
+class ThemeTestView extends GalleryView {}
 
 /**
  * Test platform for this test
@@ -681,6 +698,7 @@ class ThemeTestPlatform extends GalleryPlatform {
 					array_push($this->_list, $file);
 				}
 			}
+
 			array_push($this->_list, 'themetest');
 
 			return 'themetest';

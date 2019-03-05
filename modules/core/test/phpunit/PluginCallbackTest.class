@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/PluginCallback.inc');
 
 /**
@@ -38,6 +37,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		global $gallery;
 
 		$this->_platform = new UnitTestPlatform();
@@ -63,6 +63,7 @@ class PluginCallbackTest extends GalleryTestCase {
 				'pluginId' => 'PluginCallbackControllerTest',
 			)
 		);
+
 		$this->assertFalse($ret);
 
 		$ret = parent::tearDown();
@@ -99,14 +100,17 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('installOrUpgrade'),
 			'installOrUpgrade not called'
 		);
+
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('autoConfigure'),
 			'autoConfigure not called'
 		);
+
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('activate'),
 			'activate not called'
@@ -128,10 +132,12 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('installOrUpgrade'),
 			'installOrUpgrade not called'
 		);
+
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('activate'),
 			'activate not called'
@@ -153,10 +159,12 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('installOrUpgrade'),
 			'installOrUpgrade not called'
 		);
+
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('autoConfigure'),
 			'autoConfigure not called'
@@ -178,6 +186,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			'activate',
 			array(GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED), array())
 		);
+
 		$result = $this->_handleCallback('install');
 
 		$this->assertEquals(
@@ -186,14 +195,17 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('installOrUpgrade'),
 			'installOrUpgrade not called'
 		);
+
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('autoConfigure'),
 			'autoConfigure not called'
 		);
+
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('activate'),
 			'activate not called'
@@ -216,14 +228,17 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('installOrUpgrade'),
 			'installOrUpgrade not called'
 		);
+
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('autoConfigure'),
 			'autoConfigure not called'
 		);
+
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('activate'),
 			'activate not called'
@@ -245,10 +260,12 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('installOrUpgrade'),
 			'installOrUpgrade not called'
 		);
+
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('activate'),
 			'activate not called'
@@ -273,6 +290,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue($this->_testPlugin->wasCalled('activate'), 'activate not called');
 	}
 
@@ -293,6 +311,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue($this->_testPlugin->wasCalled('activate'), 'activate not called');
 	}
 
@@ -314,6 +333,7 @@ class PluginCallbackTest extends GalleryTestCase {
 				),
 			)
 		);
+
 		$result = $this->_handleCallback('activate');
 
 		$this->assertEquals(
@@ -325,6 +345,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue($this->_testPlugin->wasCalled('activate'), 'activate not called');
 	}
 
@@ -345,6 +366,7 @@ class PluginCallbackTest extends GalleryTestCase {
 				),
 			)
 		);
+
 		$result = $this->_handleCallback('activate');
 
 		$this->assertEquals(
@@ -356,6 +378,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue($this->_testPlugin->wasCalled('activate'), 'activate not called');
 	}
 
@@ -376,6 +399,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertFalse($this->_testPlugin->wasCalled('activate'), 'activate was called');
 	}
 
@@ -394,6 +418,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue($this->_testPlugin->wasCalled('deactivate'), 'deactivate not called');
 	}
 
@@ -424,6 +449,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue($this->_testPlugin->wasCalled('deactivate'), 'deactivate not called');
 	}
 
@@ -469,6 +495,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertFalse($this->_testPlugin->wasCalled('deactivate'), 'deactivate was called');
 	}
 
@@ -486,6 +513,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertFalse($this->_testPlugin->wasCalled('deactivate'), 'deactivate was called');
 	}
 
@@ -503,6 +531,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue($this->_testPlugin->wasCalled('deactivate'), 'deactivate was called');
 		$this->assertTrue($this->_testPlugin->wasCalled('uninstall'), 'uninstall was called');
 	}
@@ -520,6 +549,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue($this->_testPlugin->wasCalled('uninstall'), 'uninstall was called');
 	}
 
@@ -538,6 +568,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue($this->_testPlugin->wasCalled('uninstall'), 'uninstall was not called');
 	}
 
@@ -583,6 +614,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(0, $entries->resultCount());
 
 		$this->assertEquals(
@@ -591,6 +623,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue($this->_testPlugin->wasCalled('deactivate'), 'deactivate was not called');
 		$this->assertTrue($this->_testPlugin->wasCalled('uninstall'), 'uninstall was not called');
 	}
@@ -615,6 +648,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			),
 			$result
 		);
+
 		$this->assertTrue($this->_testPlugin->wasCalled('uninstall'), 'uninstall was not called');
 	}
 
@@ -639,14 +673,17 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getId',
 			'anything'
 		);
+
 		$this->_testPlugin->setResult(
 			'getRequiredCoreApi',
 			GalleryCoreApi::getApiVersion()
 		);
+
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
+
 		$this->assertEquals(
 			'active',
 			$this->_getPluginState(
@@ -663,14 +700,17 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getId',
 			'anything'
 		);
+
 		$this->_testPlugin->setResult(
 			'getRequiredCoreApi',
 			array(0, 0)
 		);
+
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
+
 		$this->assertEquals(
 			'incompatible',
 			$this->_getPluginState(
@@ -687,14 +727,17 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getId',
 			'anything'
 		);
+
 		$this->_testPlugin->setResult(
 			'getRequiredCoreApi',
 			GalleryCoreApi::getApiVersion()
 		);
+
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
 			array(0, 0)
 		);
+
 		$this->assertEquals(
 			'incompatible',
 			$this->_getPluginState(
@@ -711,18 +754,22 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getId',
 			'anything'
 		);
+
 		$this->_testPlugin->setResult(
 			'getVersion',
 			'1.0'
 		);
+
 		$this->_testPlugin->setResult(
 			'getRequiredCoreApi',
 			GalleryCoreApi::getApiVersion()
 		);
+
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
+
 		$this->assertEquals(
 			'uninstalled',
 			$this->_getPluginState(
@@ -740,18 +787,22 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getId',
 			'anything'
 		);
+
 		$this->_testPlugin->setResult(
 			'getVersion',
 			'2.0'
 		);
+
 		$this->_testPlugin->setResult(
 			'getRequiredCoreApi',
 			GalleryCoreApi::getApiVersion()
 		);
+
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
+
 		$this->assertEquals(
 			'unupgraded',
 			$this->_getPluginState(
@@ -769,22 +820,27 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getId',
 			'anything'
 		);
+
 		$this->_testPlugin->setResult(
 			'getVersion',
 			'1.0'
 		);
+
 		$this->_testPlugin->setResult(
 			'needsConfiguration',
 			array(null, true)
 		);
+
 		$this->_testPlugin->setResult(
 			'getRequiredCoreApi',
 			GalleryCoreApi::getApiVersion()
 		);
+
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
+
 		$this->assertEquals(
 			'unconfigured',
 			$this->_getPluginState(
@@ -802,22 +858,27 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getId',
 			'anything'
 		);
+
 		$this->_testPlugin->setResult(
 			'getVersion',
 			'1.0'
 		);
+
 		$this->_testPlugin->setResult(
 			'needsConfiguration',
 			array(null, false)
 		);
+
 		$this->_testPlugin->setResult(
 			'getRequiredCoreApi',
 			GalleryCoreApi::getApiVersion()
 		);
+
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
+
 		$this->assertEquals(
 			'inactive',
 			$this->_getPluginState(
@@ -956,6 +1017,7 @@ class PluginCallbackTest extends GalleryTestCase {
 
 	public function testFailureInPluginStatesBeforeHandlingRequestTriggersRollback() {
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('command', 'test');
 		$saveStorage       = $gallery->_storage;
 		$gallery->_storage = new PluginCallbackMockStorage();
@@ -964,11 +1026,13 @@ class PluginCallbackTest extends GalleryTestCase {
 		$callback->setReply('getPluginStates', array(new MockGalleryStatus(), null));
 
 		ob_start();
+
 		$ret = $callback->renderImmediate(array(), array());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$results = ob_get_contents();
 		ob_end_clean();
 
@@ -977,19 +1041,23 @@ class PluginCallbackTest extends GalleryTestCase {
 			$results,
 			'Status Error'
 		);
+
 		$this->assertFalse(
 			empty($mockStorage->rolledBack),
 			'Rollback did not occur'
 		);
+
 		$this->assertTrue(
 			MockGalleryStatus::getMe()->wasPutInSession(),
 			'Error not put into the session'
 		);
+
 		$gallery->_storage = $saveStorage;
 	}
 
 	public function testFailureInCallbackTriggersRollback() {
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('command', 'test');
 		$saveStorage       = $gallery->_storage;
 		$gallery->_storage = new PluginCallbackMockStorage();
@@ -999,11 +1067,13 @@ class PluginCallbackTest extends GalleryTestCase {
 		$callback->setReply('handleCallback', new MockGalleryStatus());
 
 		ob_start();
+
 		$ret = $callback->renderImmediate(array(), array());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$results = ob_get_contents();
 		ob_end_clean();
 
@@ -1015,6 +1085,7 @@ class PluginCallbackTest extends GalleryTestCase {
 
 	public function testFailureInPluginStatesAfterHandlingRequestTriggersRollback() {
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('command', 'test');
 		$saveStorage       = $gallery->_storage;
 		$gallery->_storage = new PluginCallbackMockStorage();
@@ -1025,11 +1096,13 @@ class PluginCallbackTest extends GalleryTestCase {
 		$callback->setReply('getPluginStates', array(new MockGalleryStatus(), null));
 
 		ob_start();
+
 		$ret = $callback->renderImmediate(array(), array());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$results = ob_get_contents();
 		ob_end_clean();
 
@@ -1202,7 +1275,6 @@ class PluginCallbackControllerTestPlugin {
 	}
 }
 
-class PluginCallbackControllerTestModule extends PluginCallbackControllerTestPlugin {
-}
-class PluginCallbackControllerTestTheme extends PluginCallbackControllerTestPlugin {
-}
+class PluginCallbackControllerTestModule extends PluginCallbackControllerTestPlugin {}
+
+class PluginCallbackControllerTestTheme extends PluginCallbackControllerTestPlugin {}

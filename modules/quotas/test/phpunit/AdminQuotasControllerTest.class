@@ -36,6 +36,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($group);
 
 		GalleryUtilities::putRequestVariable('form[action][group][createFromText]', 1);
@@ -63,6 +64,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
 		GalleryUtilities::putRequestVariable('form[action][user][createFromText]', 1);
@@ -91,6 +93,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($group);
 
 		$this->_createUserOrGroupQuota($group->getId(), 1024);
@@ -111,6 +114,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteUserOrGroupQuota($group->getId());
 
 		// Missing group name
@@ -158,6 +162,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
 		$this->_createUserOrGroupQuota($user->getId(), 1024);
@@ -178,6 +183,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteUserOrGroupQuota($user->getId());
 
 		// Missing user name
@@ -225,6 +231,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($group);
 
 		$this->_createUserOrGroupQuota($group->getId(), 2048);
@@ -245,6 +252,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteUserOrGroupQuota($group->getId());
 
 		// Missing group name
@@ -292,6 +300,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
 		$this->_createUserOrGroupQuota($user->getId(), 2048);
@@ -312,6 +321,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteUserOrGroupQuota($user->getId());
 
 		// Missing user name

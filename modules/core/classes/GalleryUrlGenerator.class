@@ -213,6 +213,7 @@ class GalleryUrlGenerator {
 				$key   = urlencode($key);
 				$value = urlencode($value);
 			}
+
 			$args[] = $key . '=' . $value;
 		}
 
@@ -302,6 +303,7 @@ class GalleryUrlGenerator {
 				$host     = $matches[2];
 				$file     = $matches[3];
 			}
+
 			// $file = '/...', '/.../', '/.../...' or '...' '
 			if (preg_match('{^(/(?:.*/)?)?([^/]*)$}', $file, $matches)) {
 				$path = $matches[1];
@@ -517,6 +519,7 @@ class GalleryUrlGenerator {
 				$first = false;
 			}
 		}
+
 		$url .= !empty($parsed['fragment']) ? '#' . $parsed['fragment'] : '';
 
 		return $url;
@@ -563,6 +566,7 @@ class GalleryUrlGenerator {
 					$url = substr($url, 0, $i);
 				}
 			}
+
 			$url .= substr($url, -1) != '/' ? '/' : '';
 
 			$this->_currentUrlBaseDir[$forceDirect] = $url;
@@ -594,6 +598,7 @@ class GalleryUrlGenerator {
 	 */
 	public function generateUrl($params = array(), $options = array()) {
 		global $gallery;
+
 		$session     =& $gallery->getSession();
 		$currentView = $gallery->getCurrentView();
 
@@ -660,6 +665,7 @@ class GalleryUrlGenerator {
 					$this->getNavigationReturnUrl()
 				);
 			}
+
 			$params['return'] = $this->_returnUrlData[$currentView]['return'];
 		}
 
@@ -704,7 +710,8 @@ class GalleryUrlGenerator {
 			&& $session && !$session->isUsingCookies())
 		) {
 			if (!empty($this->_embedSessionString) && !empty($appSession)) {
-				list($sessionKey, $sessionId)    = explode('=', $this->_embedSessionString, 2);
+				list($sessionKey, $sessionId) = explode('=', $this->_embedSessionString, 2);
+
 				$embedSessionParams              = array();
 				$embedSessionParams[$sessionKey] = $sessionId;
 			} elseif (!empty($sessionId)) {
@@ -828,6 +835,7 @@ class GalleryUrlGenerator {
 					$path          = $urlComponents['path'];
 				}
 			}
+
 			$this->_cookiePath[$forceDirect] = $path;
 		}
 
@@ -848,6 +856,7 @@ class GalleryUrlGenerator {
 	public function initNavigation() {
 		foreach (array('return', 'formUrl') as $param) {
 			$url = GalleryUtilities::getRequestVariables($param);
+
 			$ret = $this->assertIsInternalUrl($url);
 
 			if ($ret) {
@@ -1014,6 +1023,7 @@ class GalleryUrlGenerator {
 				$this->_localUrlMap = array();
 			}
 		}
+
 		$check = GalleryCoreApi::shouldDoCompileCheck();
 
 		if (!$check && isset($this->_localUrlMap[$href])) {
@@ -1046,6 +1056,7 @@ class GalleryUrlGenerator {
 				),
 				$urlGenerator->_localUrlMap
 			);
+
 			$urlGenerator->_localUrlMapDirty = false;
 		}
 	}

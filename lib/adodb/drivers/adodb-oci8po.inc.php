@@ -8,7 +8,6 @@
   the BSD license will take precedence.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Portable version of oci8 driver, to make it more similar to other database drivers.
   The main differences are
 
@@ -112,7 +111,6 @@ class ADODB_oci8po extends ADODB_oci8 {
 /*--------------------------------------------------------------------------------------
 		 Class Name: Recordset
 --------------------------------------------------------------------------------------*/
-
 class ADORecordset_oci8po extends ADORecordset_oci8 {
 	public $databaseType = 'oci8po';
 
@@ -146,6 +144,7 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 		if (ADODB_ASSOC_CASE == ADODB_ASSOC_CASE_LOWER) {
 			$fld->name = strtolower($fld->name);
 		}
+
 		$fld->type       = OCIcolumntype($this->_queryID, $fieldOffset);
 		$fld->max_length = OCIcolumnsize($this->_queryID, $fieldOffset);
 
@@ -166,6 +165,7 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 
 		if ($ret !== false) {
 			global $ADODB_ANSI_PADDING_OFF;
+
 			$this->fields = $ret;
 			$this->_currentRow++;
 			$this->_updatefields();
@@ -204,6 +204,7 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 				return $arr;
 			}
 		}
+
 		$ret = @oci_fetch_array($this->_queryID, $this->fetchMode);
 
 		if ($ret === false) {
@@ -211,6 +212,7 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 
 			return $arr;
 		}
+
 		$this->fields = $ret;
 		$this->_updatefields();
 		$results = array();

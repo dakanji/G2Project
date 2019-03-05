@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/mime/classes/MimeHelper.class');
 
 /**
@@ -71,6 +70,7 @@ class MimeHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array('xxx'), $typeMap['ext']['test/test'], 'Extensions');
 		$this->assertFalse($typeMap['viewable']['test/test'], 'Viewable');
 	}

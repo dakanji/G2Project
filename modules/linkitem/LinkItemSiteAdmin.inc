@@ -51,6 +51,7 @@ class LinkItemSiteAdminController extends GalleryController {
 					return array($ret, null);
 				}
 			}
+
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
 				'linkitem',
@@ -61,6 +62,7 @@ class LinkItemSiteAdminController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$status['saved'] = 1;
 		}
 
@@ -84,6 +86,7 @@ class LinkItemSiteAdminView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();

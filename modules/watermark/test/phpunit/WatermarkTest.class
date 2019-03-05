@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkImage.class');
 
@@ -35,6 +34,7 @@ class WatermarkTest extends GalleryTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -49,6 +49,7 @@ class WatermarkTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		list($ret, $this->_user) = $this->_createUser();
@@ -56,6 +57,7 @@ class WatermarkTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_saveUser = $gallery->getActiveUser();
 		$gallery->setActiveUser($this->_user);
 
@@ -104,6 +106,7 @@ class WatermarkTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
 
 		if ($ret) {
@@ -114,6 +117,7 @@ class WatermarkTest extends GalleryTestCase {
 			isset($watermarks[$this->_watermark->getId()]),
 			'Watermark doesn\'t appear when it should'
 		);
+
 		$this->assertEquals($this->_watermark, $watermarks[$this->_watermark->getId()]);
 	}
 
@@ -217,6 +221,7 @@ class WatermarkTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals($filter, $derivative->getPostFilterOperations());
 		}
 	}
@@ -274,6 +279,7 @@ class WatermarkTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($filter, $thumbnail->getPostFilterOperations());
 	}
 
@@ -325,10 +331,11 @@ class WatermarkTest extends GalleryTestCase {
 		}
 
 		// Verify that we have a preferred now
-		$filter            = sprintf(
+		$filter = sprintf(
 			'composite|plugins_data/modules/watermark/%s,test/file,0,0,manual,1.100,2.200',
 			$this->_watermark->getFileName()
 		);
+
 		list($ret, $table) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
 
 		if ($ret) {
@@ -346,6 +353,7 @@ class WatermarkTest extends GalleryTestCase {
 				if ($ret) {
 					return $ret;
 				}
+
 				$this->assertEquals($preferred->getId(), $derivative->getDerivativeSourceId());
 			}
 		} else {
@@ -412,10 +420,11 @@ class WatermarkTest extends GalleryTestCase {
 		}
 
 		// Verify that we have a preferred now
-		$filter            = sprintf(
+		$filter = sprintf(
 			'composite|plugins_data/modules/watermark/%s,test/file,0,0,manual,1.100,2.200',
 			$this->_watermark->getFileName()
 		);
+
 		list($ret, $table) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
 
 		if ($ret) {
@@ -431,6 +440,7 @@ class WatermarkTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals($item->getId(), $derivative->getDerivativeSourceId());
 		}
 	}

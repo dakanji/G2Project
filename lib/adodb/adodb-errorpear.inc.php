@@ -20,7 +20,6 @@ if (!defined('ADODB_ERROR_HANDLER')) {
 
 // Enabled the following if you want to terminate scripts when an error occurs
 //PEAR::setErrorHandling (PEAR_ERROR_DIE);
-
 // Name of the PEAR_Error derived class to call.
 if (!defined('ADODB_PEAR_ERROR_CLASS')) {
 	define('ADODB_PEAR_ERROR_CLASS', 'PEAR_Error');
@@ -28,6 +27,7 @@ if (!defined('ADODB_PEAR_ERROR_CLASS')) {
 
 // Store the last PEAR_Error object here
 global $ADODB_Last_PEAR_Error;
+
 $ADODB_Last_PEAR_Error = false;
 
   /**

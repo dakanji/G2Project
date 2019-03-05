@@ -41,6 +41,7 @@ class UserAlbumHelper {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $module) = GalleryCoreApi::fetchAllPluginParameters('module', 'useralbum');
 
 		if ($ret) {
@@ -53,6 +54,7 @@ class UserAlbumHelper {
 		if (empty($albumTitle)) {
 			$albumTitle = $user->getUserName();
 		}
+
 		$albumName = $user->getUserName();
 
 		while (true) {
@@ -84,6 +86,7 @@ class UserAlbumHelper {
 
 		// Set owner..
 		$album->setOwnerId($user->getId());
+
 		$ret = $album->save();
 
 		if ($ret) {
@@ -91,10 +94,10 @@ class UserAlbumHelper {
 
 			return $ret;
 		}
+
 		$albumId = $album->getId();
 
 		// Set permissions..
-
 		// If the active user isn't the album owner, the default permissions should be removed
 		$currentUserId = $gallery->getActiveUserId();
 
@@ -124,6 +127,7 @@ class UserAlbumHelper {
 
 			return $ret;
 		}
+
 		$visited = array();
 
 		foreach ($permissions as $permission) {
@@ -145,6 +149,7 @@ class UserAlbumHelper {
 
 							return $ret;
 						}
+
 						$visited[$permission['groupId']] = 1;
 					} elseif (!empty($permission['userId'])
 						&& empty($visited[$permission['userId']])
@@ -160,6 +165,7 @@ class UserAlbumHelper {
 
 							return $ret;
 						}
+
 						$visited[$permission['userId']] = 1;
 					}
 				}

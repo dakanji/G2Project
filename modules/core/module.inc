@@ -67,6 +67,7 @@ class CoreModule extends GalleryModule {
 	 */
 	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		list($ret, $rootId) = GalleryCoreApi::getPluginParameter(
@@ -144,6 +145,7 @@ class CoreModule extends GalleryModule {
 					_('Edit Photo');
 					_('Edit Movie');
 				}
+
 				$links[$itemId][] = array(
 					'text' => $this->_translate(
 						array(
@@ -204,6 +206,7 @@ class CoreModule extends GalleryModule {
 				if (!function_exists('smarty_modifier_escape')) {
 					GalleryCoreApi::requireOnce('lib/smarty/plugins/modifier.escape.php');
 				}
+
 				$title = smarty_modifier_escape(
 					GalleryUtilities::markup(
 						$item->getTitle(),
@@ -214,6 +217,7 @@ class CoreModule extends GalleryModule {
 				);
 
 				list($thisItemId, $page) = GalleryUtilities::getRequestVariables('itemId', 'page');
+
 				// If no page item defined, we will navigate to the parent of the deleted item
 				if (empty($thisItemId)) {
 					$thisItemId = $itemId;
@@ -271,6 +275,7 @@ class CoreModule extends GalleryModule {
 					_('Move Photo');
 					_('Move Movie');
 				}
+
 				$links[$itemId][] = array(
 					'text' => $this->_translate(
 						array(
@@ -313,6 +318,7 @@ class CoreModule extends GalleryModule {
 				if (!empty($thisItemId) && !empty($thisPage) && $thisItemId == $item->getId()) {
 					$link['params']['albumPage'] = $thisPage;
 				}
+
 				$links[$itemId][] = $link;
 			}
 
@@ -355,6 +361,7 @@ class CoreModule extends GalleryModule {
 					'itemId'  => $itemId,
 					'return'  => 1,
 				);
+
 				// First item on the page will be in the list for deletion
 				if ($next) {
 					$params['anchorId'] = $next->getId();
@@ -382,7 +389,8 @@ class CoreModule extends GalleryModule {
 			return array($ret, null);
 		}
 
-		$links               = array();
+		$links = array();
+
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
@@ -425,7 +433,8 @@ class CoreModule extends GalleryModule {
 						'return'  => 1,
 					),
 				);
-				$links['Logout']      = array(
+
+				$links['Logout'] = array(
 					'text'   => $this->translate('Logout'),
 					'params' => array(
 						'controller' => 'core.Logout',
@@ -504,6 +513,7 @@ class CoreModule extends GalleryModule {
 	 */
 	public function getUserAdminViews($user) {
 		global $gallery;
+
 		$views = array();
 
 		if ($gallery->getConfig('login')) {
@@ -519,6 +529,7 @@ class CoreModule extends GalleryModule {
 						'name' => $this->translate('Account Settings'),
 						'view' => 'core.UserPreferences',
 					);
+
 					$views[] = array(
 						'name' => $this->translate('Change Password'),
 						'view' => 'core.UserChangePassword',
@@ -541,7 +552,8 @@ class CoreModule extends GalleryModule {
 	public function getItemAdminViews($item) {
 		global $gallery;
 
-		$views                   = array();
+		$views = array();
+
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {
@@ -571,9 +583,11 @@ class CoreModule extends GalleryModule {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$hasThumb = !empty($thumbTable[$item->getId()]);
 
-		$parentId                      = $item->getParentId();
+		$parentId = $item->getParentId();
+
 		list($ret, $parentPermissions) = GalleryCoreApi::getPermissions($parentId);
 
 		if ($ret) {
@@ -641,6 +655,7 @@ class CoreModule extends GalleryModule {
 				if (!function_exists('smarty_modifier_escape')) {
 					GalleryCoreApi::requireOnce('lib/smarty/plugins/modifier.escape.php');
 				}
+
 				$title = smarty_modifier_escape(
 					GalleryUtilities::markup(
 						$item->getTitle(),
@@ -649,6 +664,7 @@ class CoreModule extends GalleryModule {
 					'javascript',
 					'UTF-8'
 				);
+
 				// This is ItemAdmin view, hence page item is the one we are deleting
 				$thisItemId   = $itemId;
 				$urlGenerator =& $gallery->getUrlGenerator();
@@ -730,6 +746,7 @@ class CoreModule extends GalleryModule {
 	 */
 	public function upgrade($currentVersion, $statusMonitor = null) {
 		GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
+
 		$ret = CoreModuleExtras::getMe()->upgrade($this, $currentVersion, $statusMonitor);
 
 		if ($ret) {
@@ -813,6 +830,7 @@ class CoreModule extends GalleryModule {
 	 */
 	public function performFactoryRegistrations() {
 		GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
+
 		$ret = CoreModuleExtras::getMe()->performFactoryRegistrations($this);
 
 		if ($ret) {

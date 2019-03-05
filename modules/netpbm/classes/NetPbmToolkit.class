@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
@@ -42,6 +41,7 @@ class NetPbmToolkit extends GalleryToolkit {
 						null,
 					);
 				}
+
 				$results = array($width, $height);
 
 				break;
@@ -65,6 +65,7 @@ class NetPbmToolkit extends GalleryToolkit {
 		$context = array()
 	) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Check context for any operations that have been queued up..
@@ -87,7 +88,7 @@ class NetPbmToolkit extends GalleryToolkit {
 
 		// Use context look-ahead to see if we can queue up parameters to use later..
 		$queueIt = isset($context['next.toolkit']) && $context['next.toolkit'] == $this
-																														               && $operationName != 'compress'             && $context['next.operation'] != 'compress';
+																																	            && $operationName != 'compress'          && $context['next.operation'] != 'compress';
 
 		$usePercent = in_array($operationName, array('thumbnail', 'scale', 'resize'))
 		&& (substr($parameters[0], -1) == '%'
@@ -124,8 +125,8 @@ class NetPbmToolkit extends GalleryToolkit {
 				if ($width <= $parameters[0] && $height <= $parameters[0]) {
 					break;
 				}
-				// fall through to scale
 
+				// fall through to scale
 
 				// Fall Through
 			case 'scale':
@@ -259,6 +260,7 @@ class NetPbmToolkit extends GalleryToolkit {
 						null,
 					);
 				}
+
 				$context['netpbm.tmp'][] = $tmpOverlay;
 
 				$tmpAlpha = $platform->tempnam($tmpDir, 'npbm_');
@@ -276,6 +278,7 @@ class NetPbmToolkit extends GalleryToolkit {
 						null,
 					);
 				}
+
 				$context['netpbm.tmp'][] = $tmpAlpha;
 
 				switch ($compositeOverlayMimeType) {
@@ -287,7 +290,8 @@ class NetPbmToolkit extends GalleryToolkit {
 							'>',
 							$tmpOverlay,
 						);
-						$getAlphaCmd   = array(
+
+						$getAlphaCmd = array(
 							$this->_pnmCmd('pngtopnm'),
 							'-alpha',
 							$compositeOverlayPath,
@@ -388,6 +392,7 @@ class NetPbmToolkit extends GalleryToolkit {
 						);
 					}
 				}
+
 				$pnmcomp = array($this->_pnmCmd('pnmcomp'));
 
 				switch ($compositeAlignmentType) {
@@ -495,19 +500,20 @@ class NetPbmToolkit extends GalleryToolkit {
 				$transform[] = $pnmcomp;
 
 				break; // case composite
-
 			case 'compress':
 				$targetSize = $parameters[0];
 				$fileSize   = $platform->filesize($sourceFilename) >> 10; // Size in KB
 				if ($fileSize <= $targetSize) {
 					break;
 				}
+
 				// Use module quality parameter as initial guess
 				list($ret, $quality) = GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jpegQuality');
 
 				if ($ret) {
 					return array($ret, null, null);
 				}
+
 				$maxQuality = 100;
 				$minQuality = 5;
 
@@ -525,6 +531,7 @@ class NetPbmToolkit extends GalleryToolkit {
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					clearstatcache();
 					$fileSize = $platform->filesize($destFilename) >> 10;
 
@@ -535,6 +542,7 @@ class NetPbmToolkit extends GalleryToolkit {
 					if ($fileSize <= $targetSize) {
 						$minQuality = $quality;
 					}
+
 					$quality = round(($minQuality + $maxQuality) / 2);
 				} while ($maxQuality - $minQuality > 2 &&
 					 abs(($fileSize - $targetSize) / $targetSize) > 0.02);
@@ -617,6 +625,7 @@ class NetPbmToolkit extends GalleryToolkit {
 	public function _deleteTempFiles(&$context) {
 		if (!empty($context['netpbm.tmp'])) {
 			global $gallery;
+
 			$platform =& $gallery->getPlatform();
 
 			foreach ($context['netpbm.tmp'] as $tmpFile) {
@@ -624,6 +633,7 @@ class NetPbmToolkit extends GalleryToolkit {
 					@$platform->unlink($tmpFile);
 				}
 			}
+
 			unset($context['netpbm.tmp']);
 		}
 	}
@@ -661,6 +671,7 @@ class NetPbmToolkit extends GalleryToolkit {
 			if (!empty($convertToPnmCmd)) {
 				$cmd[] = $convertToPnmCmd;
 			}
+
 			$cmd[] = array($this->_pnmCmd('pnmfile'), '--allimages');
 		}
 
@@ -701,6 +712,7 @@ class NetPbmToolkit extends GalleryToolkit {
 		$jpegQuality = null
 	) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Figure out our convert-to-pnm command
@@ -773,7 +785,8 @@ class NetPbmToolkit extends GalleryToolkit {
 			}
 
 			if (!empty($jheadPath)) {
-				$cmd                         = array($jheadPath . 'jhead', '-te', $sourceFilename, $tmpFilename);
+				$cmd = array($jheadPath . 'jhead', '-te', $sourceFilename, $tmpFilename);
+
 				list($ret, $stdout, $stderr) = $this->_exec(array($cmd));
 
 				if ($ret) {
@@ -796,6 +809,7 @@ class NetPbmToolkit extends GalleryToolkit {
 				"Failed renaming $tmpFilename -> $destFilename"
 			);
 		}
+
 		$platform->chmod($destFilename);
 
 		return null;
@@ -985,6 +999,7 @@ class NetPbmToolkit extends GalleryToolkit {
 	 */
 	public function _pnmCmd($cmd) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $netPbmPath) = GalleryCoreApi::getPluginParameter('module', 'netpbm', 'path');

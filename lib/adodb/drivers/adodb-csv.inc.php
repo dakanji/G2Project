@@ -40,8 +40,7 @@ if (!defined('_ADODB_CSV_LAYER')) {
 		public $hasTransactions = false;
 		public $_errorNo        = false;
 
-		public function __construct() {
-		}
+		public function __construct() {}
 
 		public function _insertid() {
 			return $this->_insertid;
@@ -60,6 +59,7 @@ if (!defined('_ADODB_CSV_LAYER')) {
 			if (strtolower(substr($argHostname, 0, 7)) !== 'http://') {
 				return false;
 			}
+
 			$this->_url = $argHostname;
 
 			return true;
@@ -70,6 +70,7 @@ if (!defined('_ADODB_CSV_LAYER')) {
 			if (strtolower(substr($argHostname, 0, 7)) !== 'http://') {
 				return false;
 			}
+
 			$this->_url = $argHostname;
 
 			return true;
@@ -139,13 +140,16 @@ if (!defined('_ADODB_CSV_LAYER')) {
 					} else {
 						$sql .= $v;
 					}
+
 					$i += 1;
 				}
+
 				$sql .= $sqlarr[$i];
 
 				if ($i + 1 != sizeof($sqlarr)) {
 					echo 'Input Array does not match ?: ' . htmlspecialchars($sql);
 				}
+
 				$inputarr = false;
 			}
 
@@ -153,12 +157,12 @@ if (!defined('_ADODB_CSV_LAYER')) {
 			(($this->fetchMode !== false) ? $this->fetchMode : $ADODB_FETCH_MODE);
 			$err = false;
 
-
 			$rs = csv2rs($url, $err, false);
 
 			if ($this->debug) {
 				echo urldecode($url) . "<br><i>$err</i><br>";
 			}
+
 			$at = strpos($err, '::::');
 
 			if ($at === false) {
@@ -202,7 +206,6 @@ if (!defined('_ADODB_CSV_LAYER')) {
 			return true;
 		}
 	} // class
-
 	class ADORecordset_csv extends ADORecordset {
 		public function __construct($id, $mode = false) {
 			parent::__construct($id, $mode);

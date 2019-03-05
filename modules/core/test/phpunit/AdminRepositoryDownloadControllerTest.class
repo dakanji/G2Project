@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/AdminRepositoryDownload.inc');
 
 /**
@@ -40,7 +39,9 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		$this->_galleryTemplateAdapter =& $gallery->getTemplateAdapter();
@@ -84,6 +85,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 
 	public function tearDown() {
 		global $gallery;
+
 		$gallery->_templateAdapter =& $this->_galleryTemplateAdapter;
 
 		$ret = parent::tearDown();

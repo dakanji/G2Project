@@ -38,7 +38,8 @@ class AdminCreateUserQuotaController extends GalleryController {
 
 		$results = $status = $error = array();
 
-		$userId           = GalleryUtilities::getRequestVariables('userId');
+		$userId = GalleryUtilities::getRequestVariables('userId');
+
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {
@@ -58,6 +59,7 @@ class AdminCreateUserQuotaController extends GalleryController {
 					GalleryCoreApi::requireOnce(
 						'modules/quotas/classes/GalleryQuotasHelper.class'
 					);
+
 					$form['quotaSize'] = round((float)$form['quotaSize'], 2);
 
 					if ($form['quotaUnit'] == 'KB') {
@@ -74,6 +76,7 @@ class AdminCreateUserQuotaController extends GalleryController {
 						if (!isset($user)) {
 							return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 						}
+
 						list($ret, $quotaExists, $userQuota) = GalleryQuotasHelper::fetchUserQuota($user->getId());
 
 						if ($ret) {
@@ -123,6 +126,7 @@ class AdminCreateUserQuotaController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'quotas.AdminCreateUserQuota';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -144,7 +148,8 @@ class AdminCreateUserQuotaView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$userId           = GalleryUtilities::getRequestVariables('userId');
+		$userId = GalleryUtilities::getRequestVariables('userId');
+
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {
@@ -163,11 +168,13 @@ class AdminCreateUserQuotaView extends GalleryView {
 
 		$AdminCreateUserQuota           = array();
 		$AdminCreateUserQuota['userId'] = $user->getId();
-		list($ret, $module)             = GalleryCoreApi::loadPlugin('module', 'quotas');
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'quotas');
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$AdminCreateUserQuota['quotaUnitChoices'] = array(
 			'KB' => $module->translate('KB'),
 			'MB' => $module->translate('MB'),

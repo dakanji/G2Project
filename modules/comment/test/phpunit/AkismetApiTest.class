@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/comment/classes/GalleryComment.class');
 GalleryCoreApi::requireOnce('modules/comment/classes/AkismetApi.class');
 
@@ -146,6 +145,7 @@ class AkismetApiTest extends GalleryTestCase {
 			$tmp[] = str_replace('%2B', '+', urlencode($key)) . '=' .
 			str_replace('%2B', '+', urlencode($value));
 		}
+
 		$request .= join('&', $tmp);
 
 		$platform->setReply('fsockopen', array($host, $port, null, null, 5), 'HANDLE');
@@ -224,6 +224,7 @@ class AkismetApiTest extends GalleryTestCase {
 
 	public function testRequest() {
 		$this->_markPluginParametersForCleanup('module', 'comment');
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'comment', 'akismet.apiKey', 'API_KEY');
 
 		if ($ret) {
@@ -314,6 +315,7 @@ class AkismetApiTest extends GalleryTestCase {
 
 	public function testRequest_WithoutRequestSpecificDetails() {
 		$this->_markPluginParametersForCleanup('module', 'comment');
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'comment', 'akismet.apiKey', 'API_KEY');
 
 		if ($ret) {

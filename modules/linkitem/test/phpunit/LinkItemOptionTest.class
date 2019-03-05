@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('lib/tools/phpunit/ItemEditOptionTestCase.class');
 
 /**
@@ -44,6 +43,7 @@ class LinkItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		list($ret, $lockId) = GalleryCoreApi::acquireReadLock(array($this->_album->getId()));
@@ -61,11 +61,13 @@ class LinkItemOptionTest extends ItemEditOptionTestCase {
 		if (empty($this->_link)) {
 			return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 		}
+
 		$ret = $this->_link->create($this->_album->getId(), 'http://test.com/test.html');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_link->save();
 
 		if ($ret) {
@@ -87,6 +89,7 @@ class LinkItemOptionTest extends ItemEditOptionTestCase {
 		);
 
 		list($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_link);
+
 		$this->assertEquals(array(), $error);
 		$this->assertEquals(array(), $warning);
 
@@ -95,6 +98,7 @@ class LinkItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('http://test.net/', $link->getLink());
 	}
 
@@ -106,6 +110,7 @@ class LinkItemOptionTest extends ItemEditOptionTestCase {
 		);
 
 		list($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_link);
+
 		$this->assertEquals(array('form[LinkItemOption][error][link][missing]'), $error);
 		$this->assertEquals(array(), $warning);
 	}

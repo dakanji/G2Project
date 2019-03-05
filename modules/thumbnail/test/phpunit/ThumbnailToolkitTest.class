@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
 
 /**
@@ -44,6 +43,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		if ($ret || !isset($module)) {
 			return $ret;
 		}
+
 		list($ret, $this->_toolkit) = GalleryCoreApi::newFactoryInstance('GalleryToolkit', 'ThumbnailToolkit');
 
 		if ($ret || !isset($this->_toolkit)) {
@@ -63,6 +63,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('ThumbnailTestToolkit');
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
@@ -103,16 +104,19 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 
 	public function tearDown() {
 		global $gallery;
+
 		$ret = GalleryCoreApi::deleteEntityById($this->_itemId, 'ThumbnailImage');
 
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
+
 		$platform =& $gallery->getPlatform();
 
 		if (!$platform->unlink($gallery->getConfig('data.gallery.base') . '/unittest.jpg')) {
 			$this->assertTrue(false, 'Unlink failed');
 		}
+
 		$ret = GalleryCoreApi::unregisterToolkitOperation(
 			'Thumbnail',
 			'thumbnail',
@@ -216,7 +220,8 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$fileName                = realpath(__DIR__ . '/../../images/G2video.jpg');
+		$fileName = realpath(__DIR__ . '/../../images/G2video.jpg');
+
 		list($ret, $jpegImageId) = ThumbnailHelper::addItem(
 			'image/jpeg',
 			null,
@@ -232,11 +237,13 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $jpegImage) = GalleryCoreApi::loadEntitiesById($jpegImageId, 'ThumbnailImage');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($jpegImage);
 
 		$ret = GalleryCoreApi::updateMapEntry(

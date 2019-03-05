@@ -2,6 +2,7 @@
 //================================================================================================
 //================================================================================================
 //================================================================================================
+
 /*
 	Exifer
 	Extracts EXIF information from digital photos.
@@ -22,11 +23,10 @@
 	without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 	See the GNU General Public License for more details. http://www.gnu.org/copyleft/gpl.html
 */
-//================================================================================================
-//================================================================================================
-//================================================================================================
 
-
+//================================================================================================
+//================================================================================================
+//================================================================================================
 //=================
 // Looks up the name of the tag for the MakerNote (Depends on Manufacturer)
 //====================================================================
@@ -135,13 +135,13 @@ function lookup_Fujifilm_tag($tag) {
 // Formats Data for the data type
 //====================================================================
 function formatFujifilmData($type, $tag, $intel, $data) {
-	if ($type == 'ASCII') {
-	} elseif ($type == 'URATIONAL' || $type == 'SRATIONAL') {
+	if ($type == 'ASCII') {} elseif ($type == 'URATIONAL' || $type == 'SRATIONAL') {
 		$data = bin2hex($data);
 
 		if ($intel == 1) {
 			$data = intel2Moto($data);
 		}
+
 		$top    = hexdec(substr($data, 8, 8));
 		$bottom = hexdec(substr($data, 0, 8));
 
@@ -162,6 +162,7 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 		if ($intel == 1) {
 			$data = intel2Moto($data);
 		}
+
 		$data = hexdec($data);
 
 		if ($tag == '1001') { //Sharpness
@@ -333,8 +334,7 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 				$data = 'Unknown: ' . $data;
 			}
 		}
-	} elseif ($type == 'UNDEFINED') {
-	} else {
+	} elseif ($type == 'UNDEFINED') {} else {
 		$data = bin2hex($data);
 
 		if ($intel == 1) {
@@ -349,7 +349,6 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 // Fujifilm Special data section
 //====================================================================
 function parseFujifilm($block, &$result) {
-
 	//if($result['Endien']=="Intel") $intel=1;
 	//else $intel=0;
 	$intel = 1;
@@ -359,13 +358,13 @@ function parseFujifilm($block, &$result) {
 	$place  = 8; //current place
 	$offset = 8;
 
-
 	$num    = bin2hex(substr($block, $place, 4));
 	$place += 4;
 
 	if ($intel == 1) {
 		$num = intel2Moto($num);
 	}
+
 	$result['SubIFD']['MakerNote']['Offset'] = hexdec($num);
 
 	//Get number of tags (2 bytes)
@@ -375,6 +374,7 @@ function parseFujifilm($block, &$result) {
 	if ($intel == 1) {
 		$num = intel2Moto($num);
 	}
+
 	$result['SubIFD']['MakerNote']['MakerNoteNumTags'] = hexdec($num);
 
 	//loop thru all tags  Each field is 12 bytes
@@ -386,6 +386,7 @@ function parseFujifilm($block, &$result) {
 		if ($intel == 1) {
 			$tag = intel2Moto($tag);
 		}
+
 		$tag_name = lookup_Fujifilm_tag($tag);
 
 		//2 byte type
@@ -395,6 +396,7 @@ function parseFujifilm($block, &$result) {
 		if ($intel == 1) {
 			$type = intel2Moto($type);
 		}
+
 		lookup_type($type, $size);
 
 		//4 byte count of number of data units
@@ -404,12 +406,12 @@ function parseFujifilm($block, &$result) {
 		if ($intel == 1) {
 			$count = intel2Moto($count);
 		}
+
 		$bytesofdata = $size * hexdec($count);
 
 		//4 byte value of data or pointer to data
 		$value  = substr($block, $place, 4);
 		$place += 4;
-
 
 		if ($bytesofdata <= 4) {
 			$data = $value;
@@ -419,8 +421,10 @@ function parseFujifilm($block, &$result) {
 			if ($intel == 1) {
 				$value = intel2Moto($value);
 			}
+
 			$data = substr($block, hexdec($value) - $offset, $bytesofdata * 2);
 		}
+
 		$formated_data = formatFujifilmData($type, $tag, $intel, $data);
 
 		if ($result['VerboseOutput'] == 1) {
@@ -433,6 +437,7 @@ function parseFujifilm($block, &$result) {
 					$data = intel2Moto($data);
 				}
 			}
+
 			$result['SubIFD']['MakerNote'][$tag_name . '_Verbose']['RawData'] = $data;
 			$result['SubIFD']['MakerNote'][$tag_name . '_Verbose']['Type']    = $type;
 			$result['SubIFD']['MakerNote'][$tag_name . '_Verbose']['Bytes']   = $bytesofdata;

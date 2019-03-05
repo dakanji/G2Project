@@ -36,6 +36,7 @@ class InstallOtherModulesStep extends InstallStep {
 		}
 
 		global $gallery;
+
 		$currentModule = $totalModules = 0;
 		$template      = new StatusTemplate();
 
@@ -58,18 +59,21 @@ class InstallOtherModulesStep extends InstallStep {
 
 			foreach (array_keys($_REQUEST['module']) as $moduleId) {
 				$currentModule++;
+
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$templateData['errors'][]     = sprintf(
+					$templateData['errors'][] = sprintf(
 						_('Unable to load the %s module'),
 						$moduleId
 					);
+
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 
 					continue;
 				}
+
 				$module->setName($module->translate($module->getName()));
 				$module->setDescription($module->translate($module->getDescription()));
 				$this->resetL10Domain();
@@ -85,14 +89,16 @@ class InstallOtherModulesStep extends InstallStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$templateData['errors'][]     = sprintf(
+					$templateData['errors'][] = sprintf(
 						_('Unable to install the %s module'),
 						$module->getName()
 					);
+
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 
 					continue;
 				}
+
 				$moduleInstalled[$moduleId] = true;
 
 				$templateData['installedModule'][$moduleId] = $module->getName();
@@ -108,10 +114,11 @@ class InstallOtherModulesStep extends InstallStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$templateData['errors'][]     = sprintf(
+					$templateData['errors'][] = sprintf(
 						_('Unable to activate the %s module'),
 						$module->getName()
 					);
+
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 
 					continue;
@@ -126,21 +133,25 @@ class InstallOtherModulesStep extends InstallStep {
 				}
 
 				list($ret, $redirect) = $module->activate();
+
 				$this->resetL10Domain();
 
 				if ($ret) {
-					$templateData['errors'][]     = sprintf(
+					$templateData['errors'][] = sprintf(
 						_('Unable to activate the %s module'),
 						$module->getName()
 					);
+
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 
 					continue;
 				}
+
 				$templateData['activated'][$moduleId] = $module->getName();
 
 				continue;
 			}
+
 			$template->hideStatusBlock();
 		} else {
 			$template->renderHeader();
@@ -154,6 +165,7 @@ class InstallOtherModulesStep extends InstallStep {
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
 		}
+
 		$templateData['bodyFile']       = 'InstallOtherModulesSuccess.html';
 		$templateData['anyInstallable'] = false;
 
@@ -166,6 +178,7 @@ class InstallOtherModulesStep extends InstallStep {
 				$this->setComplete(true);
 			}
 		}
+
 		$template->renderBodyAndFooter($templateData);
 
 		return false;
@@ -193,16 +206,18 @@ class InstallOtherModulesStep extends InstallStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$templateData['warnings'][]   = sprintf(
+					$templateData['warnings'][] = sprintf(
 						_('Unable to load the %s module'),
 						$moduleId
 					);
+
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				} else {
 					$modulePlugin->setName($modulePlugin->translate($modulePlugin->getName()));
 					$modulePlugin->setDescription(
 						$modulePlugin->translate($modulePlugin->getDescription())
 					);
+
 					$modules[$moduleId] = $modulePlugin;
 					$this->resetL10Domain();
 				}
@@ -223,6 +238,7 @@ class InstallOtherModulesStep extends InstallStep {
 						'groupLabel' => _('Other'),
 					);
 				}
+
 				$groupedModules[$group['group']][$moduleId] =& $module;
 				$groupLabel[$group['group']]                = $group['groupLabel'];
 			}
@@ -290,6 +306,7 @@ class InstallOtherModulesStep extends InstallStep {
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				}
 			}
+
 			GalleryDataCache::put($cacheKey, true);
 		}
 	}
@@ -318,6 +335,7 @@ class InstallOtherModulesStep extends InstallStep {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $adminUserInfo) = GalleryCoreApi::fetchUsersForGroup($siteAdminGroupId, 1);
 
 		if ($ret) {
@@ -327,7 +345,9 @@ class InstallOtherModulesStep extends InstallStep {
 		if (empty($adminUserInfo)) {
 			return GalleryCoreApi::error(ERROR_MISSING_VALUE);
 		}
-		$adminUserInfo         = array_keys($adminUserInfo);
+
+		$adminUserInfo = array_keys($adminUserInfo);
+
 		list($ret, $adminUser) = GalleryCoreApi::loadEntitiesById(
 			$adminUserInfo[0],
 			'GalleryUser'

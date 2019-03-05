@@ -13,7 +13,6 @@
  *
  */
 
-
 // added Claudio Bustos  clbustos#entelchile.net
 if (!defined('ADODB_ERROR_HANDLER_TYPE')) {
 	define('ADODB_ERROR_HANDLER_TYPE', E_USER_ERROR);
@@ -61,6 +60,7 @@ function ADODB_Error_Handler($dbms, $fn, $errno, $errmsg, $p1, $p2, &$thisConnec
 
 			break;
 	}
+
 	/*
 	 * Log connection error somewhere
 	 *	0 message is sent to PHP's system logger, using the Operating System's system
@@ -84,7 +84,6 @@ function ADODB_Error_Handler($dbms, $fn, $errno, $errmsg, $p1, $p2, &$thisConnec
 			error_log("($t) $s", ADODB_ERROR_LOG_TYPE);
 		}
 	}
-
 
 	//print "<p>$s</p>";
 	trigger_error($s, ADODB_ERROR_HANDLER_TYPE);

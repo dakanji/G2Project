@@ -55,11 +55,13 @@ class UserAlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', 'view', 'allusers');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', 'fullSize', '0');
 
 		if ($ret) {
@@ -71,13 +73,14 @@ class UserAlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_parentAlbum);
 
 		$ret = GalleryCoreApi::setPluginParameter(
-		'module',
-		'useralbum',
-						  'targetLocation',
-		$this->_parentAlbum->getId()
+			'module',
+			'useralbum',
+			'targetLocation',
+			$this->_parentAlbum->getId()
 	);
 
 		if ($ret) {
@@ -112,6 +115,7 @@ class UserAlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
 		// Retrieve the parent album's logical path
@@ -127,11 +131,13 @@ class UserAlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId, 'GalleryAlbumItem');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(GalleryUtilities::isA($album, 'GalleryAlbumItem'), 'album');
 		$this->assertEquals($user->getId(), $album->getOwnerId(), 'owner');
 
@@ -153,13 +159,14 @@ class UserAlbumTest extends GalleryTestCase {
 				$seenViewSource = true;
 			}
 		}
+
 		$this->assertTrue($seenViewResizes, sprintf(
-		'missing view resizes for all users: %d',
-						 $this->_allUserGroupId
+			'missing view resizes for all users: %d',
+			$this->_allUserGroupId
 	));
 		$this->assertFalse($seenViewSource, sprintf(
-		'unexpected view source for all users: %d',
-						$this->_allUserGroupId
+			'unexpected view source for all users: %d',
+			$this->_allUserGroupId
 	));
 
 		list($ret, $hasCoreAll) = GalleryCoreApi::hasItemPermission($albumId, 'core.all', $user->getId());
@@ -167,6 +174,7 @@ class UserAlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($hasCoreAll, 'core.all permission not granted to album owner');
 
 		// Create a subalbum..
@@ -179,15 +187,17 @@ class UserAlbumTest extends GalleryTestCase {
 		// Verify login redirect..
 		$event = GalleryCoreApi::newEvent('Gallery::Login');
 		$event->setEntity($user);
+
 		list($ret, $result) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
-		array(array('controller' => 'useralbum.UserAlbum')),
-				$result,
-		'login redirect'
+			array(array('controller' => 'useralbum.UserAlbum')),
+			$result,
+			'login redirect'
 	);
 
 		$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', 'loginRedirect', '0');
@@ -199,30 +209,35 @@ class UserAlbumTest extends GalleryTestCase {
 		// Verify no login redirect..
 		$event = GalleryCoreApi::newEvent('Gallery::Login');
 		$event->setEntity($user);
+
 		list($ret, $result) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array(), $result, 'no login redirect');
 
 		// Verify system link..
 		$gallery->setActiveUser($user);
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'useralbum');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $links) = $module->getSystemLinks();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
-		array('YourAlbum' => array('text' => $module->translate('Your Album'),
-				  'params'                => array('view' => 'core.ShowItem', 'itemId' => $albumId), )),
-				$links,
-		'system link'
+			array('YourAlbum' => array('text' => $module->translate('Your Album'),
+				  'params'                    => array('view' => 'core.ShowItem', 'itemId' => $albumId), )),
+			$links,
+			'system link'
 	);
 
 		$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', 'homeLink', '0');
@@ -237,6 +252,7 @@ class UserAlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array(), $links, 'no system link');
 	}
 
@@ -248,10 +264,10 @@ class UserAlbumTest extends GalleryTestCase {
 		}
 
 		$ret = GalleryCoreApi::setPluginParameter(
-		'module',
-		'useralbum',
-						  'targetLocation',
-		$album->getId()
+			'module',
+			'useralbum',
+			'targetLocation',
+			$album->getId()
 	);
 
 		if ($ret) {
@@ -277,8 +293,8 @@ class UserAlbumTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(
-		$targetLocation == $rootAlbum,
-			  'useralbum.targetLocation should equal core.id.rootAlbum'
+			$targetLocation == $rootAlbum,
+			'useralbum.targetLocation should equal core.id.rootAlbum'
 	);
 	}
 
@@ -292,18 +308,20 @@ class UserAlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
 		list($ret, $userAlbum) = GalleryCoreApi::getPluginParameter(
-		'module',
-		'useralbum',
-									 'albumId',
-		$user->getId()
+			'module',
+			'useralbum',
+			'albumId',
+			$user->getId()
 	);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(empty($userAlbum), 'User should have valid album');
 
 		$ret = GalleryCoreApi::deleteEntityById($userAlbum, 'GalleryAlbumItem');
@@ -313,15 +331,16 @@ class UserAlbumTest extends GalleryTestCase {
 		}
 
 		list($ret, $userAlbum) = GalleryCoreApi::getPluginParameter(
-		'module',
-		'useralbum',
-									 'albumId',
-		$user->getId()
+			'module',
+			'useralbum',
+			'albumId',
+			$user->getId()
 	);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(isset($userAlbum), 'User album should be empty');
 	}
 
@@ -335,6 +354,7 @@ class UserAlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $album->rename($userName);
 
 		if ($ret) {
@@ -353,6 +373,7 @@ class UserAlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
 		// Verify user's album was created with uniquified path..
@@ -361,11 +382,13 @@ class UserAlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId, 'GalleryAlbumItem');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(GalleryUtilities::isA($album, 'GalleryAlbumItem'), 'album');
 		$this->assertEquals($user->getId(), $album->getOwnerId(), 'owner');
 	}

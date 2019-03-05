@@ -173,7 +173,6 @@ class Gallery {
 		// Default config settings (can be overridden via config.php or embedded environment)
 		$this->_config = array(
 			'login'             => true,        // Offer UserAdmin links (Login/Logout/Your Account)
-
 			// UrlGenerator parameters for redirect URL to login page. Can be overridden.
 			'loginRedirect'     => array(
 				'view'    => 'core.UserAdmin',
@@ -183,7 +182,6 @@ class Gallery {
 
 			'link'              => true,      // @deprecated - Allow item linking
 			// (now unused, there is a separate replica module
-
 			'showSidebarBlocks' => true, // Can we allow themes to show the sidebar?
 			'systemCharset'     => null,     // Specify system character set, skip autodetect
 			'defaultAlbumId'    => null,    // Initial album to display instead of root album
@@ -219,7 +217,8 @@ class Gallery {
 	 * @see GalleryStorage::search
 	 */
 	public function search($query, $data = array(), $options = array()) {
-		$storage             =& $this->getStorage();
+		$storage =& $this->getStorage();
+
 		list($ret, $results) = $storage->search($query, $data, $options);
 
 		if ($ret) {
@@ -264,6 +263,7 @@ class Gallery {
 		if (isset($this->_activeUser)) {
 			return (int)$this->_activeUser->getId();
 		}
+
 		$session =& $this->getSession();
 
 		return (int)$session->getUserId();
@@ -461,6 +461,7 @@ class Gallery {
 					GalleryCoreApi::requireOnce(
 						'modules/core/classes/GalleryStorage/PostgreSqlStorage.class'
 					);
+
 					$this->_storage = new PostgreSqlStorage($config);
 
 					break;
@@ -478,6 +479,7 @@ class Gallery {
 					GalleryCoreApi::requireOnce(
 						'modules/core/classes/GalleryStorage/OracleStorage.class'
 					);
+
 					$this->_storage = new OracleStorage($config);
 
 					break;
@@ -486,6 +488,7 @@ class Gallery {
 					GalleryCoreApi::requireOnce(
 						'modules/core/classes/GalleryStorage/MSSqlStorage.class'
 					);
+
 					$this->_storage = new MSSqlStorage($config);
 
 					break;
@@ -494,6 +497,7 @@ class Gallery {
 					GalleryCoreApi::requireOnce(
 						'modules/core/classes/GalleryStorage/SQLiteStorage.class'
 					);
+
 					$this->_storage = new SQLiteStorage($config);
 
 					break;
@@ -582,12 +586,14 @@ class Gallery {
 				return $ret;
 			}
 
-			$this->_translator        = GalleryTranslator::getMe();
+			$this->_translator = GalleryTranslator::getMe();
+
 			list($ret, $languageCode) = $this->_translator->init($language, $dontUseDatabase);
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$ret = $this->setActiveLanguageCode($languageCode);
 
 			if ($ret) {
@@ -698,7 +704,6 @@ class Gallery {
 	 * @param mixed $debug one of 'buffered', 'logged', 'immediate' or false
 	 */
 	public function setDebug($debug = false) {
-
 		// Try to do the right thing in the face of bogus input
 		if ($debug === true) {
 			$debug = 'buffered';
@@ -813,6 +818,7 @@ class Gallery {
 					} else {
 						$id = '<no session id>';
 					}
+
 					fwrite($fd, "$date [" . $id . "] $msg\n");
 					fclose($fd);
 				}
@@ -839,6 +845,7 @@ class Gallery {
 			if ($escapeHtmlEntities) {
 				$buf = htmlentities($buf);
 			}
+
 			$this->debug($buf);
 		}
 	}
@@ -935,6 +942,7 @@ class Gallery {
 			while (!feof($fd)) {
 				echo fread($fd, 4096);
 			}
+
 			fclose($fd);
 
 			return true;
@@ -955,8 +963,9 @@ class Gallery {
 		if ($time == '') {
 			$time = time();
 		}
+
 		// Use fixed list of weekdays and months, so we don't have to fiddle with locale stuff
-		$months   = array(
+		$months = array(
 			'01' => 'Jan',
 			'02' => 'Feb',
 			'03' => 'Mar',
@@ -970,6 +979,7 @@ class Gallery {
 			'11' => 'Nov',
 			'12' => 'Dec',
 		);
+
 		$weekdays = array(
 			'1' => 'Mon',
 			'2' => 'Tue',
@@ -979,9 +989,10 @@ class Gallery {
 			'6' => 'Sat',
 			'0' => 'Sun',
 		);
-		$dow      = $weekdays[gmstrftime('%w', $time)];
-		$month    = $months[gmstrftime('%m', $time)];
-		$out      = gmstrftime('%%s, %d %%s %Y %H:%M:%S GMT', $time);
+
+		$dow   = $weekdays[gmstrftime('%w', $time)];
+		$month = $months[gmstrftime('%m', $time)];
+		$out   = gmstrftime('%%s, %d %%s %Y %H:%M:%S GMT', $time);
 
 		return sprintf($out, $dow, $month);
 	}
@@ -1005,6 +1016,7 @@ class Gallery {
 		if (!isset($this->_shutdownActions)) {
 			$this->_shutdownActions = array();
 		}
+
 		$action = array($callback, $parameters);
 		// Skip duplicate actions
 		foreach ($this->_shutdownActions as $item) {

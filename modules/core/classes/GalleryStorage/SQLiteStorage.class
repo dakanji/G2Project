@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
 
 /**
@@ -89,6 +88,7 @@ class SQLiteStorage extends GalleryStorage {
 				if (count($args) == 2) {
 					$args[2] = 'LENGTH(' . $args[0] . ') - ' . $args[1] . ' + 1';
 				}
+
 				$sql = sprintf('SUBSTR(%s)', implode(', ', $args));
 
 				break;
@@ -104,6 +104,7 @@ class SQLiteStorage extends GalleryStorage {
 					$sqliteVersion        = $this->_db->GetOne('SELECT sqlite_version(*)');
 					$has64bitRandomValues = version_compare('3.3.5', $sqliteVersion, '<=');
 				}
+
 				/*
 				 * Go from -2^63..2^63-1 to a floating point number 0.0..1.0 and then scale it to the
 				 * desired range. Also avoids the problem of 2's complement that abs(-2^63) won't go
@@ -125,6 +126,7 @@ class SQLiteStorage extends GalleryStorage {
 				while (count($args) > 1) {
 					$sql[] = 'WHEN ' . array_shift($args) . ' THEN ' . array_shift($args);
 				}
+
 				$sql = 'CASE ' . implode(' ', $sql) . ' ELSE ' . $args[0] . ' END';
 
 				break;

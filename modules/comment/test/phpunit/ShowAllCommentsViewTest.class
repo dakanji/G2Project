@@ -33,6 +33,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -56,6 +57,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
@@ -63,6 +65,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_album->getId(),
 			$gallery->getActiveUserId(),
@@ -72,6 +75,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_album->getId(),
 			$gallery->getActiveUserId(),
@@ -87,6 +91,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $this->_item2) = $this->_createRandomDataItem($this->_album->getId());
 
 		if ($ret) {
@@ -113,6 +118,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 			if ($i == 3) {
 				$this->_comment[$i]->setPublishStatus(COMMENT_PUBLISH_STATUS_UNPUBLISHED);
 			}
+
 			$ret = $this->_comment[$i]->save();
 
 			if ($ret) {
@@ -158,6 +164,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 				$can[$comment->getid()][$canFlag] = true;
 			}
 		}
+
 		$can[$this->_comment[2]->getId()]['delete'] = false;
 		$can[$this->_comment[3]->getId()]['delete'] = false;
 
@@ -220,6 +227,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 
 	public function testShowAllCommentsAddsNoCacheWithoutViewPermission() {
 		global $gallery;
+
 		$gallery->_phpVm = new UnitTestPhpVm();
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
@@ -230,6 +238,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 			array('Expires: Sun, 09 Mar 2008 21:00:00 GMT', ''),
 			true
 		);
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
 
 		$template = new UnitTestTemplate();
@@ -239,6 +248,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 				'meta' => array(),
 			)
 		);
+
 		$this->_template =& $template;
 		$results         = $this->loadTemplate();
 
@@ -269,11 +279,13 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 			),
 			$head['meta']
 		);
+
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
 	public function testShowAllCommentsAddsNoCacheWithoutCoreViewPermission() {
 		global $gallery;
+
 		$gallery->_phpVm = new UnitTestPhpVm();
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
@@ -284,6 +296,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 			array('Expires: Sun, 09 Mar 2008 21:00:00 GMT', ''),
 			true
 		);
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
 
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
@@ -310,6 +323,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 				'meta' => array(),
 			)
 		);
+
 		$this->_template =& $template;
 		$results         = $this->loadTemplate();
 
@@ -340,13 +354,16 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 			),
 			$head['meta']
 		);
+
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
 	public function testShowAllCommentsDoesNotAddNoCacheWithViewPermission() {
 		global $gallery;
+
 		$gallery->_phpVm = new UnitTestPhpVm();
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
+
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
@@ -363,6 +380,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$anonymousUserId,
@@ -381,6 +399,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 				'meta' => array(),
 			)
 		);
+
 		$this->_template =& $template;
 		$results         = $this->loadTemplate();
 

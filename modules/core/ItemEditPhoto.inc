@@ -70,12 +70,14 @@ class ItemEditPhoto extends ItemEditPlugin {
 
 			if (empty($error)) {
 				// Load existing resizes
-				$itemId              = $item->getId();
+				$itemId = $item->getId();
+
 				list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array($itemId));
 
 				if ($ret) {
 					return array($ret, null, null, null);
 				}
+
 				$resizes      = isset($resizes[$itemId]) ? $resizes[$itemId] : array();
 				$resizesTable = array();
 
@@ -134,10 +136,12 @@ class ItemEditPhoto extends ItemEditPlugin {
 							$form['resizes'][$i]['mimeType']   = $newOutputMimeType;
 						}
 					}
+
 					// Add new resizes, using existing derivative entities until we run out
 					foreach ($form['resizes'] as $resizeData) {
 						if (!empty($resizesTable)) {
-							$derivative         = array_shift($resizesTable);
+							$derivative = array_shift($resizesTable);
+
 							list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($derivative->getId());
 
 							if ($ret) {
@@ -189,9 +193,11 @@ class ItemEditPhoto extends ItemEditPlugin {
 							if ($ret) {
 								return array($ret, null, null, null);
 							}
+
 							$lockId = null;
 						}
 					}
+
 					// Remove any leftover resizes
 					foreach ($resizesTable as $resize) {
 						$ret = GalleryCoreApi::deleteEntityById($resize->getId(), 'GalleryDerivative');
@@ -207,6 +213,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 				if ($ret) {
 					return array($ret, null, null, null);
 				}
+
 				$status = $module->translate('Changes saved successfully');
 			}
 		}
@@ -298,6 +305,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 			} else {
 				$ItemEditPhoto['editPhoto']['hasPreferredSource'] = false;
 			}
+
 			$sourceMimeTypes[] = $preferred->getMimeType();
 		}
 

@@ -85,8 +85,7 @@ class UpgradeStep {
 		return $this->_isLastStep;
 	}
 
-	public function loadGalleryConfig($config) {
-	}
+	public function loadGalleryConfig($config) {}
 
 	public function sanitize($string) {
 		if (get_magic_quotes_gpc()) {
@@ -113,6 +112,7 @@ class UpgradeStep {
 
 	public function _startDebugLog($header) {
 		global $gallery;
+
 		$gallery->setDebug('logged');
 
 		if (!isset($_SESSION['debugLogFile'])) {
@@ -120,6 +120,7 @@ class UpgradeStep {
 			$tag                      = substr(md5(microtime() . mt_rand(1, 32767)), 0, 10);
 			$_SESSION['debugLogFile'] = $dataBase . '/upgrade_' . $tag . '.log';
 		}
+
 		$gallery->setDebugLogFile($_SESSION['debugLogFile']);
 		$gallery->debug(
 			"\n\n--------------------------------------------------------\n\t$header\n"

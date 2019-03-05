@@ -113,7 +113,8 @@ class RepositoryDescriptor extends RepositoryObject {
 		 * Get translated strings for all supported languages. All
 		 * locales must be installed on the system for this to work.
 		 */
-		$translator                                =& $gallery->getTranslator();
+		$translator =& $gallery->getTranslator();
+
 		list($supportedLanguages, $defaultCountry) = $translator->getLanguageData();
 
 		foreach ($supportedLanguages as $language => $countries) {
@@ -139,10 +140,12 @@ class RepositoryDescriptor extends RepositoryObject {
 					if ($ret) {
 						return $ret;
 					}
+
 					$descriptions[$languageCode][$stringId] = $translatedString;
 				}
 			}
 		}
+
 		$this->_data['descriptions'] = $descriptions;
 
 		// Get file meta data.
@@ -236,6 +239,7 @@ class RepositoryDescriptor extends RepositoryObject {
 	 */
 	public function getFileMetaData($pluginDir, &$data) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$manifest     = array();
@@ -245,9 +249,10 @@ class RepositoryDescriptor extends RepositoryObject {
 		$g2Base       = GalleryCoreApi::getCodeBasePath();
 		$ignoreOffset = strlen(substr($pluginDir, strlen($g2Base)));
 
-		$manifestContents          = $this->filterManifestForBasePackage(
+		$manifestContents = $this->filterManifestForBasePackage(
 			$platform->file_get_contents($manifestFile)
 		);
+
 		$data['files']['MANIFEST'] = array(
 			'bytes'    => (string)strlen($manifestContents),
 			'hash'     => sprintf('%u', crc32($manifestContents)),
@@ -267,6 +272,7 @@ class RepositoryDescriptor extends RepositoryObject {
 					$data['directories'][$dir]['packages'] = $this->getPackageNames($dir);
 				}
 			}
+
 			$data['files'][$file] = array(
 				'bytes'      => $fileInfo['size'],
 				'bytes_crlf' => $fileInfo['size_crlf'],
@@ -282,6 +288,7 @@ class RepositoryDescriptor extends RepositoryObject {
 				if ($ret) {
 					return $ret;
 				}
+
 				$data['header']['stringsRevision'] = $revision;
 			}
 		}
@@ -348,6 +355,7 @@ class RepositoryDescriptor extends RepositoryObject {
 				$files[] = $file;
 			}
 		}
+
 		sort($files);
 
 		return $files;
@@ -366,6 +374,7 @@ class RepositoryDescriptor extends RepositoryObject {
 				$packageTypes = array_merge($packageTypes, $info['packages']);
 			}
 		}
+
 		$packageTypes = array_unique($packageTypes);
 		sort($packageTypes);
 
@@ -379,6 +388,7 @@ class RepositoryDescriptor extends RepositoryObject {
 	 */
 	public function checkIntegrity() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$phpVm    = $gallery->getPhpVm();
 

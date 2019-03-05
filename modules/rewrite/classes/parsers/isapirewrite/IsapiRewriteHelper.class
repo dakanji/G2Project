@@ -34,9 +34,10 @@ class IsapiRewriteHelper {
 		$activeRules = null,
 		$upgradeModule = null
 	) {
-		if (is_null($parser)) {
+		if (null === $parser) {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 		}
+
 		list($ret, $code) = self::checkFile();
 
 		if ($ret) {
@@ -48,7 +49,7 @@ class IsapiRewriteHelper {
 		}
 
 		// By default we use the rules we've already got
-		if (is_null($activeRules)) {
+		if (null === $activeRules) {
 			list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'rewrite',
@@ -58,6 +59,7 @@ class IsapiRewriteHelper {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$activeRules = unserialize($activeRules);
 		}
 
@@ -182,6 +184,7 @@ class IsapiRewriteHelper {
 	 */
 	public static function needsConfiguration($parser) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		if (strpos($urlGenerator->getCurrentUrlDir(true), 'install/index.php') !== false
@@ -201,7 +204,8 @@ class IsapiRewriteHelper {
 				$urlGenerator->getCurrentUrlDir(true)
 			)
 		);
-		$ret               = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'rewrite',
 			'isapirewrite.galleryLocation',
@@ -254,6 +258,7 @@ class IsapiRewriteHelper {
 	 */
 	public static function getHttpdiniContent($regexRules, $embedded = false) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		$Httpdini              = array();
@@ -275,7 +280,8 @@ class IsapiRewriteHelper {
 		$Httpdini['host']        = preg_quote(GalleryUtilities::getServerVar('SERVER_NAME'));
 
 		if ($embedded) {
-			$Httpdini['baseFile']              = $urlGenerator->_file[false];
+			$Httpdini['baseFile'] = $urlGenerator->_file[false];
+
 			list($ret, $Httpdini['directory']) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'rewrite',
@@ -387,6 +393,7 @@ class IsapiRewriteHelper {
 						if ($isNegative) {
 							$condition['pattern'] = '(?!' . $condition['pattern'] . ')';
 						}
+
 						$condition['pattern'] = $condition['pattern'] . '.*?';
 					}
 
@@ -448,6 +455,7 @@ class IsapiRewriteHelper {
 				'$' . count($regexRule['keywords']),
 				$regexRule['substitution']
 			);
+
 			$regexRule['substitution'] = str_replace(
 				'%{QUERY_STRING}',
 				'$' . (count($regexRule['keywords']) + 1),
@@ -476,6 +484,7 @@ class IsapiRewriteHelper {
 
 			$regexRules[$ruleId] = $regexRule;
 		}
+
 		$Httpdini['rules'] = $regexRules;
 
 		// Render template
@@ -483,6 +492,7 @@ class IsapiRewriteHelper {
 		$template = new GalleryTemplate(__DIR__ . '/../../../templates', true, false);
 		$template->setVariable('Httpdini', $Httpdini);
 		$template->setVariable('l10Domain', 'modules_rewrite');
+
 		list($ret, $content) = $template->fetch('Httpdini.tpl');
 
 		if ($ret) {
@@ -518,6 +528,7 @@ class IsapiRewriteHelper {
 	 */
 	public static function checkFile() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $file) = self::getHttpdiniPath();
@@ -556,6 +567,7 @@ class IsapiRewriteHelper {
 	 */
 	public static function checkIsapiRewrite() {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		list($ret, $forced) = GalleryCoreApi::getPluginParameter(
@@ -568,7 +580,7 @@ class IsapiRewriteHelper {
 			return array($ret, null, null);
 		}
 
-		$fetch                = $urlGenerator->generateUrl(
+		$fetch = $urlGenerator->generateUrl(
 			array(
 				'href' => 'modules/rewrite/data/isapi_rewrite/Rewrite.txt',
 			),
@@ -576,6 +588,7 @@ class IsapiRewriteHelper {
 				'forceFullUrl' => true,
 			)
 		);
+
 		list($success, $body) = GalleryCoreAPI::fetchWebPage($fetch);
 
 		if ($success && $body == 'PASS_ISAPI_REWRITE') {
@@ -597,6 +610,7 @@ class IsapiRewriteHelper {
 	 */
 	public static function writeFile($regexRules) {
 		global $gallery;
+
 		$platform  =& $gallery->getPlatform();
 		$galleryId = preg_quote(GALLERY_CONFIG_DIR, '/');
 
@@ -673,6 +687,7 @@ class IsapiRewriteHelper {
 	 */
 	public static function loadTestResultsTemplate(&$template, &$form) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		list(
@@ -724,6 +739,7 @@ class IsapiRewriteHelper {
 	 */
 	public static function loadAdminRewriteTemplate(&$template, &$form) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$AdminParser  = array();
 
@@ -739,8 +755,9 @@ class IsapiRewriteHelper {
 			}
 
 			if (GalleryUtilities::isEmbedded()) {
-				$AdminParser['isEmbedded']            = 1;
-				$AdminParser['host']                  = substr($urlGenerator->makeUrl('/'), 0, -1);
+				$AdminParser['isEmbedded'] = 1;
+				$AdminParser['host']       = substr($urlGenerator->makeUrl('/'), 0, -1);
+
 				list($ret, $form['embeddedLocation']) = GalleryCoreApi::getPluginParameter(
 					'module',
 					'rewrite',

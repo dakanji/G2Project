@@ -49,6 +49,7 @@ class DynamicAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_entity);
 
 		foreach (array(
@@ -130,6 +131,7 @@ class DynamicAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(null, $themeParam, 'Theme param');
 	}
 
@@ -183,6 +185,7 @@ class DynamicAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 				unset($params[$key]);
 			}
 		}
+
 		ksort($params);
 		$this->assertEquals(
 			array(
@@ -215,6 +218,7 @@ class DynamicAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('6', $themeParam, 'Theme param');
 	}
 }

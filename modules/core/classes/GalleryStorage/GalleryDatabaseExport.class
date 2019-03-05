@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /* This class is extensively based on the adodb-sxmlschema03 class developed by Richard Tango-Lowy &
  * Dan Cech, Released under both BSD license and Lesser GPL library license.  Whenever there is any
  * discrepancy between the two licenses, the BSD license will take precedence.  The orignal class
@@ -85,6 +86,7 @@ class GalleryDatabaseExport {
 	 */
 	public function exportToXmlFile($progressCallback, $fileName = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$storage  =& $gallery->getStorage();
 
@@ -187,6 +189,7 @@ class GalleryDatabaseExport {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$this->_callBack['total'] = $this->_callBack['progress'] + count($plugins);
 
 			$ret = $this->_exportPluginStatus($fileHandle, $pluginType, $plugins, $warnings);
@@ -194,6 +197,7 @@ class GalleryDatabaseExport {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$this->updateStatus();
 		}
 
@@ -225,6 +229,7 @@ class GalleryDatabaseExport {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		unset($plugins['core']);
 		$this->updateStatus();
 
@@ -292,6 +297,7 @@ class GalleryDatabaseExport {
 	 */
 	public function _exportPluginStatus($handle, $pluginType, $plugins, &$warnings) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core', true);
@@ -370,6 +376,7 @@ class GalleryDatabaseExport {
 	 */
 	public function _exportModule($handle, $pluginId, &$warnings) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$storage  =& $gallery->getStorage();
 
@@ -405,6 +412,7 @@ class GalleryDatabaseExport {
 			if ($ret) {
 				return $ret;
 			}
+
 			unset($sql['table']['Schema']);
 			$this->updateStatus();
 
@@ -425,6 +433,7 @@ class GalleryDatabaseExport {
 				if ($ret) {
 					return $ret;
 				}
+
 				$this->updateStatus();
 			}
 		}
@@ -447,6 +456,7 @@ class GalleryDatabaseExport {
 				'Unable to write to export file'
 			);
 		}
+
 		$this->updateStatus();
 
 		return null;
@@ -461,6 +471,7 @@ class GalleryDatabaseExport {
 	 */
 	public function _exportSequence($handle, $sequenceId) {
 		global $gallery;
+
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
 
@@ -497,6 +508,7 @@ class GalleryDatabaseExport {
 	 */
 	public function _exportTable($handle, $table, &$warnings) {
 		global $gallery;
+
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
 
@@ -508,14 +520,16 @@ class GalleryDatabaseExport {
 
 		list($name1, $name2, $nameInSchema) = $storage->_translateTableName($table);
 
-		$query               = 'SELECT [::createSql], [::pluginId], [::type], [::info]
+		$query = 'SELECT [::createSql], [::pluginId], [::type], [::info]
 		    FROM [GallerySchema]
 		   WHERE [::name] = ?';
+
 		list($ret, $results) = $storage->search($query, array($nameInSchema));
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$row = $results->nextResult();
 
 		if (empty($row)) {
@@ -528,6 +542,7 @@ class GalleryDatabaseExport {
 
 			return null;
 		}
+
 		list($createSql, $pluginId, $tableType, $tableInfo) = $row;
 
 		$written = $platform->fwrite($handle, '    <table name="' . $table . '">' . "\n");
@@ -633,6 +648,7 @@ class GalleryDatabaseExport {
 	 */
 	public function _exportData($handle, $table, &$warnings) {
 		global $gallery;
+
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
 
@@ -679,12 +695,13 @@ class GalleryDatabaseExport {
 			}
 
 			if ($ret) {
-				$fields                   = array(
+				$fields = array(
 					'id' => array(
 						'type'    => STORAGE_TYPE_INTEGER,
 						'notNull' => 1,
 					),
 				);
+
 				list($ret, $entityFields) = $storage->describeEntity($table);
 
 				if ($ret && $ret->getErrorCode() & ERROR_MISSING_VALUE) {
@@ -702,6 +719,7 @@ class GalleryDatabaseExport {
 				if ($ret) {
 					return $ret;
 				}
+
 				$fields = array_merge($fields, $entityFields[$table]['members']);
 			}
 
@@ -735,6 +753,7 @@ class GalleryDatabaseExport {
 					$line .= 'not-null-empty-allowed="' . (int)$definition['notNullEmptyAllowed']
 					. '" ';
 				}
+
 				$line   .= "/>\n";
 				$written = $platform->fwrite($handle, $line);
 
@@ -746,6 +765,7 @@ class GalleryDatabaseExport {
 						'Unable to write to export file'
 					);
 				}
+
 				$translatedName                   = $storage->_translateColumnName($fieldName);
 				$fieldNames[]                     = $translatedName;
 				$fieldDescriptor[$translatedName] = $definition;
@@ -755,17 +775,19 @@ class GalleryDatabaseExport {
 			$query = 'SELECT ' . implode(', ', $fieldNames) . ' FROM ' . $tableName
 			. ' ORDER BY ' . implode(' ASC, ', $fieldNames) . ' ASC';
 
-			$offset   = 0;
-			$options  = array(
+			$offset  = 0;
+			$options = array(
 				'limit' => array(
 					'count' => $this->_rowChunkSize,
 				),
 			);
+
 			$rowsRead = 0;
 
 			while ($rowsRead < $rowCount) {
 				$options['limit']['offset'] = $offset;
-				list($ret, $results)        = $storage->search($query, array(), $options);
+
+				list($ret, $results) = $storage->search($query, array(), $options);
 
 				if ($ret) {
 					return $ret;
@@ -781,17 +803,19 @@ class GalleryDatabaseExport {
 					$line = '          <row>';
 
 					foreach ($row as $key => $val) {
-						if (is_null($val)) {
+						if (null === $val) {
 							$line .= '<f null="1" />';
 						} else {
-							$val   = $storage->_normalizeValue(
+							$val = $storage->_normalizeValue(
 								$val,
 								$fieldDescriptor[$fieldNames[$key]],
 								true
 							);
+
 							$line .= '<f>' . $this->_encodeHtmlSpecialChars($val) . '</f>';
 						}
 					}
+
 					$line   .= "</row>\n";
 					$written = $platform->fwrite($handle, $line);
 
@@ -804,9 +828,11 @@ class GalleryDatabaseExport {
 						);
 					}
 				}
+
 				$this->updateStatus();
 				$offset += $results->resultCount();
 			}
+
 			$written = $platform->fwrite($handle, '        </data>' . "\n");
 
 			if (!$written) {
@@ -852,12 +878,14 @@ class GalleryDatabaseExport {
 	 */
 	public function _openBackupFileForWriting($fileName = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$storage  =& $gallery->getStorage();
 		$phpVm    = $gallery->getPhpVm();
 
 		if (empty($fileName)) {
-			$dirName               = $gallery->getConfig('data.gallery.backup');
+			$dirName = $gallery->getConfig('data.gallery.backup');
+
 			list($exists, $unused) = GalleryUtilities::guaranteeDirExists($dirName);
 
 			if (!$exists) {

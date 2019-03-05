@@ -64,6 +64,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('form[groupName]', $group->getGroupName());
 		GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
@@ -84,6 +85,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteGroupQuota($group->getId());
 		$this->_deleteEntity($group);
 	}
@@ -164,6 +166,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('form[groupName]', $group->getGroupName());
 		GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
@@ -205,6 +208,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 
 	public function _deleteEntity($entity) {
 		global $gallery;
+
 		$ret = GalleryCoreApi::deleteEntityById($entity->getId(), $entity->getEntityType());
 
 		if ($ret) {

@@ -1,7 +1,6 @@
 <?php
 
 // Farsi - by "Peyman Hooshmandi Raad" <phooshmand#gmail.com>
-
 $ADODB_LANG_ARRAY = array(
 	'LANG'                       => 'fa',
 	DB_ERROR                     => 'خطای ناشناخته',

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/register/classes/GalleryPendingUserHelper.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryValidationPlugin.class');
 
@@ -35,6 +34,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -82,6 +82,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 	public function testRegisterWithAutomaticActivation() {
 		global $gallery;
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
 
 		if ($ret) {
@@ -123,6 +124,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(GalleryUtilities::isA($user, 'GalleryUser'), 'type is GalleryUser');
 		$this->_markForCleanup($user);
 
@@ -131,6 +133,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 			empty($this->_emailBody),
 			'test platform mail() should have been called'
 		);
+
 		$this->assertEquals(
 			'WelcomeEmail',
 			$this->_emailSubject,
@@ -140,6 +143,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 	public function testRegisterWithEMailActivation() {
 		global $gallery;
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'email');
 
 		if ($ret) {
@@ -183,6 +187,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
 		// Make sure confirmation email was "sent"
@@ -192,6 +197,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 			),
 			'test platform mail() should have been called'
 		);
+
 		$this->assertEquals(
 			'ConfEmail',
 			$this->_emailSubject,
@@ -203,6 +209,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		// Make sure emails sent out don't include text like &amp;
 		// Also verify password with <&"> characters is not entitized before being hashed
 		global $gallery;
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'email');
 
 		if ($ret) {
@@ -248,6 +255,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
 		// verify un-entitized username was used in email
@@ -262,6 +270,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(empty($userEntity), 'factory error');
 		$userEntity->setHashedPassword($user->getHashedPassword());
 		$this->assertTrue($userEntity->isCorrectPassword('pass&word>'), 'password check');
@@ -393,6 +402,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 	}
 
@@ -458,6 +468,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 	}
 
@@ -479,12 +490,14 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		$plugin1->setErrors(
 			array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]')
 		);
+
 		$plugin1->setContinue(false);
 
 		$plugin2 = new UserSelfRegistrationControllerTestPlugin();
 		$plugin2->setErrors(
 			array('form[error][UserSelfRegistrationControllerTestPlugin2][anError]')
 		);
+
 		$plugin2->setContinue(true);
 		$this->_controller->setPluginInstances(array($plugin1, $plugin2));
 
@@ -519,12 +532,14 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		$plugin1->setErrors(
 			array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]')
 		);
+
 		$plugin1->setContinue(true);
 
 		$plugin2 = new UserSelfRegistrationControllerTestPlugin();
 		$plugin2->setErrors(
 			array('form[error][UserSelfRegistrationControllerTestPlugin2][anError]')
 		);
+
 		$plugin2->setContinue(false);
 		$this->_controller->setPluginInstances(array($plugin1, $plugin2));
 
@@ -597,6 +612,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 	}
 
@@ -608,6 +624,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
 
 		if ($ret) {
@@ -627,6 +644,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		$plugin->setErrors(
 			array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]')
 		);
+
 		$plugin->setContinue(false);
 		$this->_controller->setPluginInstances(array($plugin));
 
@@ -654,6 +672,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 	}
 }
@@ -676,6 +695,7 @@ class RegisterDummyPlatform {
 		if (array_key_exists('l10Domain', $body)) {
 			unset($body['l10Domain']);
 		}
+
 		$body = implode("\n\n", $body);
 
 		// Handle Email..
@@ -749,7 +769,6 @@ class RegisterDummyPlatform {
 		return $this->_platform->unlink($filename);
 	}
 }
-
 
 /**
  * Mock ValidationPlugin

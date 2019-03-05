@@ -41,11 +41,13 @@ class GalleryThemeHelper_medium {
 				return $ret;
 			}
 		}
+
 		list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$data['theme'] = array(
 			'name'      => $theme->getName(),
 			'l10Domain' => $theme->getL10Domain(),
@@ -79,7 +81,8 @@ class GalleryThemeHelper_medium {
 				$key      = $settings[$i]['key'];
 
 				list($success, $settings[$i]['value']) = $theme->unpackSetting($packType, $settings[$i]['value']);
-				list($success, $globalParams[$key])    = $theme->unpackSetting($packType, $globalParams[$key]);
+
+				list($success, $globalParams[$key]) = $theme->unpackSetting($packType, $globalParams[$key]);
 			}
 		}
 
@@ -122,6 +125,7 @@ class GalleryThemeHelper_medium {
 	 */
 	public static function loadAvailableBlocks($getInactive = false) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
@@ -167,15 +171,16 @@ class GalleryThemeHelper_medium {
 				return array($ret, null, null);
 			}
 		}
+
 		list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
 
-		$status        = null;
-		$error         = array();
-		$errorMessage  = array();
+		$status       = null;
+		$error        = array();
+		$errorMessage = array();
 
 		if ($theme->isAdvancedSettings()) {
 			list($ret, $error, $status) = $theme->handleSettingsRequest($form, $itemId);
@@ -210,11 +215,13 @@ class GalleryThemeHelper_medium {
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					list($ret, $subAlbumIds) = GalleryCoreApi::fetchDescendentAlbumItemIds($item);
 
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					array_unshift($subAlbumIds, $itemId);
 				} else {
 					$subAlbumIds = array($itemId);
@@ -264,6 +271,7 @@ class GalleryThemeHelper_medium {
 					$error[]                      = 'form[error][key][' . $validationKey . '][invalid]';
 					$errorMessage[$validationKey] = $validationMessage;
 				}
+
 				GalleryUtilities::putRequestVariable('form[errorMessage]', $errorMessage);
 			}
 		}

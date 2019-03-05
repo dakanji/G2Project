@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/netpbm/classes/NetPbmToolkitHelper.class');
 GalleryCoreApi::requireOnce('modules/netpbm/classes/NetPbmToolkit.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
@@ -79,7 +78,8 @@ class NetPbmToolkitTest extends GalleryTestCase {
 
 	public function testPerformOperations() {
 		$this->_chmodWasCalled = false;
-		list($ret, $mimeType)  = $this->_toolkit->performOperation(
+
+		list($ret, $mimeType) = $this->_toolkit->performOperation(
 			'image/gif',
 			'thumbnail',
 			'testPerformOperations1.gif',
@@ -90,6 +90,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($this->_chmodWasCalled, 'chmod not called');
 
 		/*
@@ -121,7 +122,8 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		}
 
 		$this->_chmodWasCalled = false;
-		list($ret, $mimeType)  = $this->_toolkit->performOperation(
+
+		list($ret, $mimeType) = $this->_toolkit->performOperation(
 			'image/tiff',
 			'rotate',
 			'testPerformOperations6.tiff',
@@ -132,6 +134,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($this->_chmodWasCalled, 'chmod not called');
 
 		list($ret, $mimeType) = $this->_toolkit->performOperation(
@@ -199,7 +202,8 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		}
 
 		$this->_platform->_counter = 2;
-		list($ret, $mimeType)      = $this->_toolkit->performOperation(
+
+		list($ret, $mimeType) = $this->_toolkit->performOperation(
 			'image/jpeg',
 			'compress',
 			'testPerformOperations14.jpg',
@@ -242,10 +246,12 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			'BOGUS',
 			array('BOGUS')
 		);
+
 		$this->assertTrue($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION, 'bad op');
 
 		// Make sure that we actually convert the file, and don't just copy it over
 		GalleryUtilities::putRequestVariable('toolkitCallCount', 0);
+
 		list($ret, $mimeType) = $this->_toolkit->performOperation(
 			'image/tiff',
 			'convert-to-image/jpeg',
@@ -263,6 +269,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 
 		// Test converting PPM to JPEG
 		GalleryUtilities::putRequestVariable('toolkitCallCount', 0);
+
 		list($ret, $mimeType) = $this->_toolkit->performOperation(
 			'image/x-portable-pixmap',
 			'convert-to-image/jpeg',
@@ -274,6 +281,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(1, (int)GalleryUtilities::getRequestVariables('toolkitCallCount'));
 		$this->assertEquals('image/jpeg', $mimeType);
 	}
@@ -286,10 +294,11 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$context                        = array(
+		$context = array(
 			'next.toolkit'   => $this->_toolkit,
 			'next.operation' => 'thumbnail',
 		);
+
 		list($ret, $mimeType, $context) = $this->_toolkit->performOperation(
 			'image/png',
 			'crop',
@@ -339,6 +348,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(isset($context['netpbm.transform']), 'extra stuff in context');
 
 		// Ensure if thumbnail operation gets queued it remembers not to preserve metadata
@@ -429,7 +439,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$operations       = array(
+		$operations = array(
 			'composite',
 			array(
 				'testPerformOperations12.gif',
@@ -457,6 +467,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			'thumbnail',
 			array(150),
 		);
+
 		$expectedContexts = array(
 			array(
 				'netpbm.tmp'       => array('TEMPFILE', 'TEMPFILE'),
@@ -554,9 +565,10 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			),
 		);
 
-		$context  = array(
+		$context = array(
 			'next.toolkit' => $this->_toolkit,
 		);
+
 		$mimeType = 'image/png';
 
 		for ($i = $j = 0; $i < count($operations); $i += 2) {
@@ -592,6 +604,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array(10, 20), $results);
 
 		list($ret, $results) = $this->_toolkit->getProperty('image/gif', 'dimensions', 'testGetProperties2.gif');
@@ -599,6 +612,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array(30, 40), $results);
 
 		list($ret, $results) = $this->_toolkit->getProperty(
@@ -610,69 +624,83 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array(50, 60), $results);
 
 		list($ret, $results) = $this->_toolkit->getProperty('image/gif', 'BOGUS', 'BOGUS');
+
 		$this->assertTrue($ret->getErrorCode() & ERROR_UNIMPLEMENTED);
 	}
 
 	public function testMergeOperations() {
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('crop', array(1, 2, 3, 4), 'crop', array(3, 4, 5, 6));
+
 		$this->assertTrue($success);
 		$this->assertEquals('crop', $operation);
 		$this->assertEquals(array(3, 4, 5, 6), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('resize', array(1, 2), 'resize', array(3, 4));
+
 		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(90));
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(180), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(-90));
+
 		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('thumbnail', array(1, 2), 'resize', array(3, 4));
+
 		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('thumbnail', array(1, 2), 'thumbnail', array(3, 4));
+
 		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('scale', array(1, 2), 'thumbnail', array(3, 4));
+
 		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(270), 'rotate', array(180));
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(90), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(-180));
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(180));
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(270), 'rotate', array(90));
+
 		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('crop', array(1, 2, 3, 4), 'thumbnail', array(3, 4));
+
 		$this->assertFalse($success);
 	}
 
@@ -682,11 +710,13 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $results) = NetPbmToolkitHelper::getOperationsAndProperties(true);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$mimeTypes = array(
 			'image/jpeg',
 			'image/pjpeg',
@@ -695,6 +725,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			'image/tiff',
 			'image/bmp',
 		);
+
 		$this->assertEquals(
 			array(
 				'convert-to-image/jpeg' => array(
@@ -832,6 +863,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			),
 			$results['operations']
 		);
+
 		$mimeTypes[] = 'image/x-portable-pixmap';
 		$mimeTypes[] = 'application/x-shockwave-flash';
 		$this->assertEquals(
@@ -1096,6 +1128,7 @@ class NetPbmToolkitTestPlatform extends WinNtPlatform {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $this->_jheadPath) = GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jheadPath');
 
 		if ($ret) {
@@ -1789,6 +1822,7 @@ class NetPbmToolkitTestPlatform extends WinNtPlatform {
 						return 150 << 10;
 				}
 		}
+
 		echo "filesize $path<br/>\n";
 
 		return 0;

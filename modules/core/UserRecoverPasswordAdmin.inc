@@ -45,6 +45,7 @@ class UserRecoverPasswordAdminController extends GalleryController {
 	 */
 	public function handleRequest($form) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$session  =& $gallery->getSession();
 
@@ -181,6 +182,7 @@ class UserRecoverPasswordAdminView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$session  =& $gallery->getSession();
 
@@ -236,6 +238,7 @@ class UserRecoverPasswordAdminView extends GalleryView {
 	 */
 	public function _generateAuthString() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		GalleryCoreApi::requireOnce('lib/joomla/crypt.php');

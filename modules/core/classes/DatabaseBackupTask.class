@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
 
 /**
@@ -66,6 +65,7 @@ class DatabaseBackupTask extends MaintenanceTask {
 	 */
 	public function run() {
 		global $gallery;
+
 		$this->_templateAdapter =& $gallery->getTemplateAdapter();
 		$storage                =& $gallery->getStorage();
 
@@ -74,6 +74,7 @@ class DatabaseBackupTask extends MaintenanceTask {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$this->_progressBarTitle = $coreModule->translate('Backing up Gallery Database');
 		$this->_statusText       = $coreModule->translate('Exporting...');
 		$this->_templateAdapter->updateProgressBar($this->_progressBarTitle, '', 0);

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
 
 /**
@@ -59,6 +58,7 @@ class SystemInfoTask extends MaintenanceTask {
 	 */
 	public function run() {
 		global $gallery;
+
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
 
@@ -67,6 +67,7 @@ class SystemInfoTask extends MaintenanceTask {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
 		if ($ret) {
@@ -153,6 +154,7 @@ class SystemInfoTask extends MaintenanceTask {
 			if ($ret) {
 				$counts[$table] = 'error';
 			}
+
 			$result         = $results->nextResult();
 			$counts[$table] = $result[0];
 		}

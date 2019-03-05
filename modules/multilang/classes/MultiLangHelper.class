@@ -71,7 +71,8 @@ class MultiLangHelper {
 	 * @return GalleryStatus a status code
 	 */
 	public static function setItemData($item, $language, $title = null, $summary = null, $description = null) {
-		$itemId           = $item->getId();
+		$itemId = $item->getId();
+
 		list($ret, $data) = MultiLangHelper::getItemData($itemId);
 
 		if ($ret) {
@@ -100,6 +101,7 @@ class MultiLangHelper {
 					if ($ret) {
 						return $ret;
 					}
+
 					$item->removeOnLoadHandler('MultiLang');
 					$item->save();
 
@@ -108,6 +110,7 @@ class MultiLangHelper {
 
 						return $ret;
 					}
+
 					$ret = GalleryCoreApi::releaseLocks($lockId);
 
 					if ($ret) {
@@ -157,6 +160,7 @@ class MultiLangHelper {
 					if ($ret) {
 						return $ret;
 					}
+
 					$item->addOnLoadHandler('MultiLang');
 					$item->save();
 
@@ -165,6 +169,7 @@ class MultiLangHelper {
 
 						return $ret;
 					}
+
 					$ret = GalleryCoreApi::releaseLocks($lockId);
 
 					if ($ret) {
@@ -176,6 +181,7 @@ class MultiLangHelper {
 
 		if ($item->getParentId()) {
 			global $gallery;
+
 			$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
 			$event->setData(
 				array(
@@ -183,6 +189,7 @@ class MultiLangHelper {
 					'itemId' => $item->getParentId(),
 				)
 			);
+
 			list($ret) = GalleryCoreApi::postEvent($event);
 
 			if ($ret) {
@@ -201,6 +208,7 @@ class MultiLangHelper {
 	 */
 	public static function onLoad(&$item) {
 		global $gallery;
+
 		list($ret, $language) = $gallery->getActiveLanguageCode();
 
 		if ($ret) {

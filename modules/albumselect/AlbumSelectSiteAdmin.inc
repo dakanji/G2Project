@@ -58,6 +58,7 @@ class AlbumSelectSiteAdminController extends GalleryController {
 					return array($ret, null);
 				}
 			}
+
 			$status['saved'] = 1;
 
 			// Flush our cache
@@ -110,7 +111,8 @@ class AlbumSelectSiteAdminView extends GalleryView {
 		}
 
 		if ($form['formName'] != 'AlbumSelectSiteAdmin') {
-			$form['formName']   = 'AlbumSelectSiteAdmin';
+			$form['formName'] = 'AlbumSelectSiteAdmin';
+
 			list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'albumselect');
 
 			if ($ret) {

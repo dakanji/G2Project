@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
 
 /**
@@ -38,6 +37,7 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		global $gallery;
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'customfield');
@@ -47,6 +47,7 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 
 			return $ret;
 		}
+
 		list($ret, $this->_interface) = GalleryCoreApi::newFactoryInstance('CustomFieldInterface_1_0', 'CustomFieldHelper');
 
 		if ($ret || !isset($this->_interface)) {
@@ -95,13 +96,13 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 	}
 
 	public function testInterface() {
-
 		// Create global fields..
 		list($ret, $duplicates) = $this->_interface->createCustomFields(array('One', 'Two'));
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array(), $duplicates, 'Add global 1');
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield');
@@ -115,6 +116,7 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 				unset($params[$key]);
 			}
 		}
+
 		ksort($params);
 		$this->assertEquals(
 			array(
@@ -132,6 +134,7 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array('Test', 'Two'), $duplicates, 'Add global 2');
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield');
@@ -145,6 +148,7 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 				unset($params[$key]);
 			}
 		}
+
 		ksort($params);
 		$this->assertEquals(
 			array(
@@ -165,6 +169,7 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array(), $duplicates, 'Add album');
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
@@ -176,6 +181,7 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		ksort($params);
 		$this->assertEquals(
 			array(
@@ -203,6 +209,7 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'Photographer' => 'Me',
@@ -211,6 +218,7 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 			$data[$this->_item->getId()],
 			'Field values'
 		);
+
 		$this->assertEquals(true, $isContainer[$this->_item->getId()], 'Album-specific settings');
 	}
 }

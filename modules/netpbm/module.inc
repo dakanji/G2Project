@@ -151,6 +151,7 @@ class NetPbmModule extends GalleryModule {
 				if ($path[strlen($path) - 1] != $slash) {
 					$path .= $slash;
 				}
+
 				$paths[] = $path;
 			}
 
@@ -175,6 +176,7 @@ class NetPbmModule extends GalleryModule {
 				if ($path[strlen($path) - 1] != $slash) {
 					$path .= $slash;
 				}
+
 				$paths[] = $path;
 			}
 
@@ -211,21 +213,25 @@ class NetPbmModule extends GalleryModule {
 				if ($ret) {
 					return array($ret, false);
 				}
+
 				$ret = NetPbmToolkitHelper::saveParameters($testResults);
 
 				if ($ret) {
 					return array($ret, false);
 				}
+
 				$success = true;
 
 				break;
 			}
 		}
+
 		// Now try each path in turn to see which ones work for jhead
 		foreach ($paths as $path) {
 			if (!$platform->isRestrictedByOpenBaseDir($path) && !$platform->file_exists($path)) {
 				continue;
 			}
+
 			list($ret, $testResults) = NetPbmToolkitHelper::testJhead($path);
 
 			if ($ret) {
@@ -274,6 +280,7 @@ class NetPbmModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$priority = min($priority + 1, 40);
 		}
 
@@ -330,6 +337,7 @@ class NetPbmModule extends GalleryModule {
 		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
 			return array(null, true);
 		}
+
 		// This module requires all fields to be filled out before it can be activated.
 		foreach (array('path', 'jpegQuality', 'pnmtojpeg', 'bmptopnm', 'pnmcomp') as $key) {
 			list($ret, $value) = $this->getParameter($key);

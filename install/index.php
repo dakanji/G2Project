@@ -29,6 +29,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * Gallery Installer
  * @package Install
@@ -111,6 +112,7 @@ if (function_exists('dgettext')) {
 	if (function_exists('bind_textdomain_codeset')) {
 		bind_textdomain_codeset('gallery2_install', 'UTF-8');
 	}
+
 	// Set the appropriate charset in our HTTP header
 	if (!headers_sent()) {
 		header('Content-Type: text/html; charset=UTF-8');
@@ -162,6 +164,7 @@ for ($i = 0; $i < $stepNumber; $i++) {
 		break;
 	}
 }
+
 $currentStep =& $steps[$stepNumber];
 
 if (!empty($_GET['doOver'])) {
@@ -219,12 +222,14 @@ function processAutoCompleteRequest() {
 			if ($file == '.' || $file == '..' || ($match && strncmp($file, $match, $matchLength))) {
 				continue;
 			}
+
 			$file = $path . $file;
 
 			if (is_dir($file)) {
 				$dirList[] = $file;
 			}
 		}
+
 		closedir($dir);
 		sort($dirList);
 	}
@@ -314,6 +319,7 @@ function getBaseUrl() {
 	if (!($hostName = GalleryUtilities::getServerVar('HTTP_X_FORWARDED_HOST'))) {
 		$hostName = GalleryUtilities::getServerVar('HTTP_HOST');
 	}
+
 	$protocol = (GalleryUtilities::getServerVar('HTTPS') == 'on') ? 'https' : 'http';
 
 	return sprintf('%s://%s', $protocol, $hostName);

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
 
 /**
@@ -172,7 +171,8 @@ class GalleryAnimationItem extends GalleryDataItem {
 			return $ret;
 		}
 
-		$mimeType            = $this->getMimeType();
+		$mimeType = $this->getMimeType();
+
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
 
 		if ($ret) {
@@ -283,6 +283,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 			document.write(\'  %s\');
 			document.write(\'</object>\');
 		    }
+
 		    //]]>
 		    </script>',
 							// IE Object
@@ -343,6 +344,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 			document.write(\'  %s\');
 			document.write(\'</object>\');
 		    }
+
 		    //]]>
 		    </script>',
 							// IE Object
@@ -363,6 +365,8 @@ class GalleryAnimationItem extends GalleryDataItem {
 					default:
 						return $fallback;
 				}
+
+
 				// Fall Through
 			default:
 				return null;

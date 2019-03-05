@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/register/classes/GalleryPendingUserHelper.class');
 
 /**
@@ -34,6 +33,7 @@ class GalleryPendingUserTest extends GalleryTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -81,6 +81,7 @@ class GalleryPendingUserTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $user) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
 
 		if ($ret) {
@@ -99,6 +100,7 @@ class GalleryPendingUserTest extends GalleryTestCase {
 			strlen($pendingUser->getHashedPassword()),
 			'hash length'
 		);
+
 		$user->setHashedPassword($pendingUser->getHashedPassword());
 		$this->assertTrue($user->isCorrectPassword($password), 'check password');
 	}

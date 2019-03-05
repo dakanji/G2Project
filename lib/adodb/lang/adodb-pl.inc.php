@@ -1,7 +1,6 @@
 <?php
 
 // Contributed by Grzegorz Pacan <gp#dione.cc>
-
 $ADODB_LANG_ARRAY = array(
 	'LANG'                       => 'pl',
 	DB_ERROR                     => 'niezidentyfikowany błąd',

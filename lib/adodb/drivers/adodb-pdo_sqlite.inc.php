@@ -10,11 +10,9 @@
   Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Thanks Diogo Toscano (diogo#scriptcase.net) for the code.
 	And also Sid Dunayer [sdunayer#interserv.com] for extensive fixes.
 */
-
 class ADODB_pdo_sqlite extends ADODB_pdo {
 	public $metaTablesSQL   = "SELECT name FROM sqlite_master WHERE type='table'";
 	public $sysDate         = 'current_date';
@@ -89,13 +87,14 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 					return false;
 				}
 			}
+
 			$parent->Execute(sprintf($this->_genIDSQL, $seq, $num));
 
 			if ($parent->affected_rows() > 0) {
 				$num          += 1;
-				$parent->genID = intval($num);
+				$parent->genID = (int)$num;
 
-				return intval($num);
+				return (int)$num;
 			}
 		}
 
@@ -113,6 +112,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 		if (!$ok) {
 			return false;
 		}
+
 		$start -= 1;
 
 		return $parent->Execute("insert into $seqname values($start)");
@@ -129,6 +129,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 		if ($parent->transOff) {
 			return true;
 		}
+
 		$parent->transCnt   += 1;
 		$parent->_autocommit = false;
 
@@ -149,6 +150,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 		if ($parent->transCnt) {
 			$parent->transCnt -= 1;
 		}
+
 		$parent->_autocommit = true;
 
 		$ret = $parent->Execute('COMMIT');
@@ -166,6 +168,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 		if ($parent->transCnt) {
 			$parent->transCnt -= 1;
 		}
+
 		$parent->_autocommit = true;
 
 		$ret = $parent->Execute('ROLLBACK');
@@ -185,6 +188,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 		if ($parent->fetchMode !== false) {
 			$savem = $parent->SetFetchMode(false);
 		}
+
 		$rs = $parent->Execute("PRAGMA table_info('$tab')");
 
 		if (isset($savem)) {
@@ -196,6 +200,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 
 			return $false;
 		}
+
 		$arr = array();
 
 		while ($r = $rs->FetchRow()) {
@@ -205,6 +210,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 			if (sizeof($type) == 2) {
 				$size = trim($type[1], ')');
 			}
+
 			$fn                 = strtoupper($r['name']);
 			$fld                = new ADOFieldObject();
 			$fld->name          = $r['name'];
@@ -221,6 +227,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 				$arr[strtoupper($fld->name)] = $fld;
 			}
 		}
+
 		$rs->Close();
 		$ADODB_FETCH_MODE = $save;
 

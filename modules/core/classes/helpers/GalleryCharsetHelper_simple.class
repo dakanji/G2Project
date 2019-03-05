@@ -39,6 +39,7 @@ class GalleryCharsetHelper_simple {
 		}
 
 		global $gallery;
+
 		$phpVm          = $gallery->getPhpVm();
 		$sourceEncoding = $gallery->getConfig('systemCharset');
 
@@ -115,6 +116,7 @@ class GalleryCharsetHelper_simple {
 					}
 				}
 		}
+
 		// FreeBSD may return charset with missing hyphen from nl_langinfo
 		$sourceEncoding = str_replace('ISO8859', 'ISO-8859', $sourceEncoding);
 		// Gentoo may return ANSI_X3.4-1968
@@ -132,6 +134,7 @@ class GalleryCharsetHelper_simple {
 	 */
 	public static function convertToUtf8($string, $sourceEncoding = null) {
 		global $gallery;
+
 		$phpVm = $gallery->getPhpVm();
 
 		if (empty($sourceEncoding)) {
@@ -156,9 +159,11 @@ class GalleryCharsetHelper_simple {
 		if ($phpVm->function_exists('recode_string')) {
 			return $phpVm->recode_string($sourceEncoding . '..UTF-8', $string);
 		}
+
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/helpers/GalleryCharsetHelper_medium.class'
 		);
+
 		$charset =& GalleryCharsetHelper_medium::getCharsetTable($sourceEncoding);
 
 		if (isset($charset)) {
@@ -186,6 +191,7 @@ class GalleryCharsetHelper_simple {
 	 */
 	public static function convertFromUtf8($string, $targetEncoding = null) {
 		global $gallery;
+
 		$phpVm = $gallery->getPhpVm();
 
 		if (empty($targetEncoding)) {
@@ -215,6 +221,7 @@ class GalleryCharsetHelper_simple {
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/helpers/GalleryCharsetHelper_medium.class'
 		);
+
 		$sourceCharset =& GalleryCharsetHelper_medium::getCharsetTable($targetEncoding);
 
 		if (isset($sourceCharset)) {
@@ -228,6 +235,7 @@ class GalleryCharsetHelper_simple {
 				if (empty($value)) {
 					continue;
 				}
+
 				// Convert decimal value 128-255 to character
 				$search[]  = $value;
 				$replace[] = chr($key);

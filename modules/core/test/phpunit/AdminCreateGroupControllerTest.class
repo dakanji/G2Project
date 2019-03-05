@@ -110,7 +110,6 @@ class AdminCreateGroupControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-
 		// Create a second group with the same name
 		$results = $this->handleRequest();
 		$this->assertEquals(

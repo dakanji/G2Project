@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/permalinks/classes/PermalinksMapHelper.class');
 
 /**
@@ -54,6 +53,7 @@ class PermalinksSiteAdminController extends GalleryController {
 					return array($ret, null);
 				}
 			}
+
 			$status['PermalinksSiteAdmin']['success'] = $module->translate('Permalink(s) deleted successfully');
 		}
 
@@ -104,7 +104,8 @@ class PermalinksSiteAdminView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$PermalinksSiteAdmin                        = array();
+		$PermalinksSiteAdmin = array();
+
 		list($ret, $PermalinksSiteAdmin['aliases']) = PermalinksMapHelper::fetchAliasesForItem();
 
 		if ($ret) {

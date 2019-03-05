@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryUrlGenerator.class');
 
 /**
@@ -79,6 +78,7 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_shortUrls = empty($this->_shortUrls) ? array() : unserialize($this->_shortUrls);
 
 		return null;
@@ -106,6 +106,7 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 				'modules/' . $shortUrl['onLoad'][0]
 				. '/classes/' . $shortUrl['onLoad'][1] . '.class'
 			);
+
 			$ret = call_user_func(array($shortUrl['onLoad'][1], $shortUrl['onLoad'][2]));
 
 			if ($ret) {

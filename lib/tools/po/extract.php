@@ -25,7 +25,6 @@
  *
  * $Id: extract.php 17580 2008-04-13 00:38:13Z tnalmdal $
  */
-
 if (!empty($_SERVER['SERVER_NAME'])) {
 	errorExit("You must run this from the command line\n");
 }
@@ -51,6 +50,7 @@ foreach ($_SERVER['argv'] as $moduleDir) {
 	if (!is_dir($moduleDir)) {
 		continue;
 	}
+
 	chdir($moduleDir);
 	find('.');
 
@@ -76,6 +76,7 @@ foreach ($strings as $string => $otherFiles) {
 	if (!empty($otherFiles)) {
 		echo ' /* also in: ' . implode(' ', $otherFiles) . ' */';
 	}
+
 	echo "\n";
 }
 
@@ -90,11 +91,14 @@ function find($dir) {
 			if ($file == '.' || $file == '..') {
 				continue;
 			}
+
 			$listing[] = $file;
 		}
+
 		closedir($dh);
 		sort($listing);
 		global $exts;
+
 		$dir = ($dir == '.') ? '' : ($dir . '/');
 
 		foreach ($listing as $file) {
@@ -121,6 +125,7 @@ function find($dir) {
  */
 function extractStrings($filename) {
 	global $strings;
+
 	$strings["\n/* $filename */"] = array();
 	$startSize                    = count($strings);
 	$localStrings                 = array();
@@ -143,8 +148,7 @@ function extractStrings($filename) {
 				&& $tokens[$i + 1] === '('
 			) {
 				// Found a function call for translation, process the contents
-				for ($i += 2; is_array($tokens[$i]) && $tokens[$i][0] == T_WHITESPACE; $i++) {
-				}
+				for ($i += 2; is_array($tokens[$i]) && $tokens[$i][0] == T_WHITESPACE; $i++) {}
 
 				if (is_array($tokens[$i]) && $tokens[$i][0] == T_VARIABLE) {
 					// Skip translate($variable)
@@ -190,11 +194,12 @@ function extractStrings($filename) {
 						$ignore = $parenCount;
 					}
 				}
+
 				$param = GalleryUtilities::doEval('return ' . $buf . ';');
 
 				if (is_string($param)) {
 					// Escape double quotes and newlines
-					$text   = strtr(
+					$text = strtr(
 						$param,
 						array(
 							'"'    => '\"',
@@ -202,6 +207,7 @@ function extractStrings($filename) {
 							"\n"   => '\n',
 						)
 					);
+
 					$string = 'gettext("' . $text . '")';
 
 					if (!isset($strings[$string])) {
@@ -209,6 +215,7 @@ function extractStrings($filename) {
 					} elseif (!isset($localStrings[$string])) {
 						$strings[$string][] = $filename;
 					}
+
 					$localStrings[$string] = true;
 				} elseif (is_array($param)) {
 					foreach (array('text', 'one', 'many') as $key) {
@@ -246,6 +253,7 @@ function extractStrings($filename) {
 					} elseif (!isset($localStrings[$string])) {
 						$strings[$string][] = $filename;
 					}
+
 					$localStrings[$string] = true;
 				}
 			}
@@ -340,6 +348,7 @@ function extractStrings($filename) {
 			} elseif (!isset($localStrings[$string])) {
 				$strings[$string][] = $filename;
 			}
+
 			$localStrings[$string] = true;
 		}
 	}
@@ -355,4 +364,5 @@ function errorExit($message) {
 
 	exit(1);
 }
+
 ?>

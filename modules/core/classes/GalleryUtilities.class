@@ -128,6 +128,7 @@ class GalleryUtilities {
 		if ($prefix) {
 			$key = GALLERY_FORM_VARIABLE_PREFIX . $key;
 		}
+
 		$form = array();
 
 		if (isset($_POST[$key]) && is_array($_POST[$key])) {
@@ -147,6 +148,7 @@ class GalleryUtilities {
 					$postForm['tmp_name'][$i] = addslashes($postForm['tmp_name'][$i]);
 				}
 			}
+
 			$form = GalleryUtilities::array_merge_replace($form, $postForm);
 		}
 
@@ -204,6 +206,7 @@ class GalleryUtilities {
 				if (!isset($array[$key])) {
 					$array[$key] = array();
 				}
+
 				$array[$key] = GalleryUtilities::array_merge_replace($array[$key], $value);
 			} else {
 				if (isset($array[$key]) && is_array($array[$key])) {
@@ -214,6 +217,7 @@ class GalleryUtilities {
 						$array    = array();
 						$array[0] = $temp;
 					}
+
 					$array[$key] = $value;
 				}
 			}
@@ -232,6 +236,7 @@ class GalleryUtilities {
 		if ($prefix) {
 			$key = GALLERY_FORM_VARIABLE_PREFIX . $key;
 		}
+
 		unset($_POST[$key], $_FILES[$key], $_GET[$key]);
 	}
 
@@ -358,6 +363,7 @@ class GalleryUtilities {
 		if ($prefix) {
 			$key = GALLERY_FORM_VARIABLE_PREFIX . $key;
 		}
+
 		$value = GalleryUtilities::_getRequestVariable($key);
 
 		return !empty($value);
@@ -372,6 +378,7 @@ class GalleryUtilities {
 		if ($prefix) {
 			$key = GALLERY_FORM_VARIABLE_PREFIX . $key;
 		}
+
 		$keyPath = preg_split('/[\[\]]/', $key, -1, PREG_SPLIT_NO_EMPTY);
 		GalleryUtilities::_internalRemoveRequestVariable($keyPath, $_GET);
 		GalleryUtilities::_internalRemoveRequestVariable($keyPath, $_POST);
@@ -444,6 +451,7 @@ class GalleryUtilities {
 	 */
 	public static function convertPathToUrl($path, $options = array()) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$dirbase  = $platform->realpath(__DIR__ . '/../../..') . '/';
 
@@ -457,6 +465,7 @@ class GalleryUtilities {
 			$dirbase = str_replace($slash, '/', $dirbase);
 			$path    = str_replace($slash, '/', $path);
 		}
+
 		$relativePath = str_replace($dirbase, '', $path);
 
 		// Prepend the Gallery base URL
@@ -509,6 +518,7 @@ class GalleryUtilities {
 		if (!isset($targetHeight)) {
 			$targetHeight = $targetWidth;
 		}
+
 		$aspect = $height / $width;
 
 		if ($aspect < $targetHeight / $targetWidth) {
@@ -614,6 +624,7 @@ class GalleryUtilities {
 
 				return array(count($slice), join('', $slice));
 			}
+
 			$cookedText   = '';
 			$actualLength = 0;
 
@@ -628,12 +639,14 @@ class GalleryUtilities {
 					// We're done
 					break;
 				}
+
 				$cookedText   .= $charArray[$i];
 				$actualLength += $size;
 			}
 
 			return array($actualLength, $cookedText);
 		}
+
 		// How could we get here?  Our regex should match everything
 		$newString = substr($string, $start, $length);
 
@@ -708,12 +721,13 @@ class GalleryUtilities {
 				$thisCharOrd = ord(substr($thisLetter, $thisPos, 1));
 
 				if ($thisPos == 0) {
-					$charNum      = intval($thisCharOrd - $decrement[$thisLen]);
+					$charNum      = (int)($thisCharOrd - $decrement[$thisLen]);
 					$decimalCode += ($charNum << $shift[$thisLen][$thisPos]);
 				} else {
-					$charNum      = intval($thisCharOrd - 128);
+					$charNum      = (int)($thisCharOrd - 128);
 					$decimalCode += ($charNum << $shift[$thisLen][$thisPos]);
 				}
+
 				$thisPos++;
 			}
 
@@ -722,6 +736,7 @@ class GalleryUtilities {
 			} else {
 				$encodedLetter = '&#' . $decimalCode . ';';
 			}
+
 			$encodedString .= $encodedLetter;
 		}
 
@@ -902,6 +917,7 @@ class GalleryUtilities {
 		if ($decode) {
 			GalleryUtilities::unsanitizeInputValues($html, false);
 		}
+
 		$html = $parser->parse($html);
 
 		if ($decode) {
@@ -963,6 +979,7 @@ class GalleryUtilities {
 	public static function setResponseHeader($header, $replace = true) {
 		// Use our PHP VM for testability
 		global $gallery;
+
 		$phpVm = $gallery->getPhpVm();
 
 		$responseHeaders =& GalleryUtilities::_getResponseHeaders();
@@ -1016,6 +1033,7 @@ class GalleryUtilities {
 	 */
 	public static function isPathInList($path, $list) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
 		$path     = $platform->realpath($path) . $slash;
@@ -1025,6 +1043,7 @@ class GalleryUtilities {
 			if (($element = $platform->realpath($element)) === false) {
 				continue;
 			}
+
 			/*
 			 * Make sure the compare directory has a trailing slash so that /tmp doesn't
 			 * accidentally match /tmpfoo
@@ -1089,6 +1108,7 @@ class GalleryUtilities {
 	 */
 	public static function guaranteeDirExists($dir) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		if ($platform->file_exists($dir)) {
@@ -1102,7 +1122,9 @@ class GalleryUtilities {
 		} else {
 			// To avoid looping if getPluginParameter calls guaranteeDirExists
 			GalleryDataCache::put($cacheKey, 0);
+
 			list($ret, $dirPerms) = GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.directory');
+
 			// Ignore error here, then recheck $dir in case it was created in nested call
 			GalleryDataCache::put($cacheKey, $dirPerms);
 
@@ -1116,6 +1138,7 @@ class GalleryUtilities {
 		if ($parentDir == $dir) {
 			return array(false, array());
 		}
+
 		list($success, $created) = GalleryUtilities::guaranteeDirExists($parentDir);
 
 		if ($success) {
@@ -1301,8 +1324,10 @@ class GalleryUtilities {
 					$list[] = $dir . '/' . $file . '/MANIFEST';
 				}
 			}
+
 			closedir($dh);
 		}
+
 		$manifest = array();
 
 		foreach ($list as $file) {
@@ -1345,6 +1370,7 @@ class GalleryUtilities {
 					);
 				} else {
 					list($file, $cksum, $cksum_crlf, $size, $size_crlf) = $line;
+
 					$file            = trim($file);
 					$manifest[$file] = array(
 						'checksum'      => $cksum,
@@ -1481,6 +1507,7 @@ class GalleryUtilities {
 		if (!isset($_SERVER['HTTP_USER_AGENT'])) {
 			return null;
 		}
+
 		$userAgent = $_SERVER['HTTP_USER_AGENT'];
 
 		if (strstr($userAgent, 'Google') || strstr($userAgent, 'gsa-crawler')) {
@@ -1647,6 +1674,7 @@ class GalleryUtilities {
 										),
 										$fixedCookies
 									);
+
 									$lastPos = $i + 1; // Next attr starts at next char
 								}
 
@@ -1663,8 +1691,10 @@ class GalleryUtilities {
 
 								break;
 						}
+
 						$i++;
 					}
+
 					// Register last attr in header, but only if the syntax is correct
 					if (!$quotedStringOpen) {
 						GalleryUtilities::_registerCookieAttr(
@@ -1704,6 +1734,7 @@ class GalleryUtilities {
 	 */
 	public static function _registerCookieAttr($attr, &$fixedCookies) {
 		global $gallery;
+
 		// Split NAME [=VALUE], value is optional for all attributes but the cookie name
 		if (($pos = strpos($attr, '=')) !== false) {
 			$val = substr($attr, $pos + 1);
@@ -1712,24 +1743,28 @@ class GalleryUtilities {
 			// No cookie name=value attr, we can ignore it
 			return null;
 		}
+
 		// Urldecode header data (php-style of name = attr handling)
 		$key = trim(urldecode($key));
 		// Don't accept zero length key
 		if (($len = strlen($key)) == 0) {
 			return null;
 		}
+
 		// Don't fix cookies with '[', ']' or any array-cookies (for simplicity)
 		$pos = strchr($key, '[');
 
 		if (strchr($key, '[') !== false || strchr($key, ']') !== false) {
 			return null;
 		}
+
 		// Make it a binary safe variable name
 		for ($i = 0; $i < $len; $i++) {
 			if ($key[$i] == ' ' || $key[$i] == '.') {
 				$key[$i] = '_';
 			}
 		}
+
 		/*
 		 * Don't register non-NAME attributes like domain, path, ... which are all starting with a
 		 * dollar sign according to RFC 2965
@@ -1737,6 +1772,7 @@ class GalleryUtilities {
 		if (strpos($key, '$') === 0) {
 			return null;
 		}
+
 		// Urldecode value
 		$val = trim(urldecode($val));
 		// Add slashes if magic_quotes_gpc is on

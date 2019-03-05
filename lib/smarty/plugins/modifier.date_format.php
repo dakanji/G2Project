@@ -51,6 +51,7 @@ function smarty_modifier_date_format($string, $format = '%b %e, %Y', $default_da
 			$_win_from[] = '%l';
 			$_win_to[]   = sprintf('%\' 2d', date('h', $timestamp));
 		}
+
 		$format = str_replace($_win_from, $_win_to, $format);
 	}
 

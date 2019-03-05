@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenInterface_1_0.class');
 
 /**
@@ -76,6 +75,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		if ($item->hasOnLoadHandler('Hidden')) {
 			return null;
 		}
+
 		$itemId = $item->getId();
 
 		if (!isset($hideId)) {
@@ -116,17 +116,20 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
+
 			list($ret, $count) = GalleryCoreApi::fetchDescendentCounts(array($item->getId()));
 
 			if ($ret) {
 				return $ret;
 			}
-			$progressBar         = array(
+
+			$progressBar = array(
 				'title' => $module->translate('Hide'),
 				'text'  => $module->translate('Update permissions'),
 				'count' => 0,
 				'total' => $count[$item->getId()] + 1,
 			);
+
 			$progressBar['step'] = min(ceil($progressBar['total'] / 20), 50);
 			$templateAdapter     =& $gallery->getTemplateAdapter();
 			$templateAdapter->updateProgressBar($progressBar['title'], $progressBar['text'], 0);
@@ -152,6 +155,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::removeGroupPermission(
 			$itemId,
 			$coreParams['id.everybodyGroup'],
@@ -205,6 +209,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 				if ($ret) {
 					return $ret;
 				}
+
 				$ret = GalleryCoreApi::addMapEntry(
 					'ItemHiddenMap',
 					array(
@@ -217,6 +222,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 
 					return $ret;
 				}
+
 				list($ret, $item) = $item->refresh();
 
 				if ($ret) {
@@ -224,7 +230,9 @@ class HiddenHelper extends HiddenInterface_1_0 {
 
 					return $ret;
 				}
+
 				$item->addOnLoadHandler('Hidden');
+
 				$ret = $item->save();
 
 				if ($ret) {
@@ -232,6 +240,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 
 					return $ret;
 				}
+
 				$ret = GalleryCoreApi::releaseLocks($lockId);
 
 				if ($ret) {
@@ -295,6 +304,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 					$progressBar['text'],
 					1
 				);
+
 				$progressBar = false;
 			}
 		}
@@ -322,10 +332,12 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		$passwordAncestor = null
 	) {
 		global $gallery;
+
 		// If given item is not hidden or subitem is hidden, we're done
 		if ($item->hasOnLoadHandler('Hidden') == isset($hideId)) {
 			return null;
 		}
+
 		$itemId = $item->getId();
 
 		if (!isset($hideId)) {
@@ -358,17 +370,20 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
+
 			list($ret, $count) = GalleryCoreApi::fetchDescendentCounts(array($item->getId()));
 
 			if ($ret) {
 				return $ret;
 			}
-			$progressBar         = array(
+
+			$progressBar = array(
 				'title' => $module->translate('Hide'),
 				'text'  => $module->translate('Update permissions'),
 				'count' => 0,
 				'total' => $count[$item->getId()] + 1,
 			);
+
 			$progressBar['step'] = min(ceil($progressBar['total'] / 20), 50);
 			$templateAdapter     =& $gallery->getTemplateAdapter();
 			$templateAdapter->updateProgressBar($progressBar['title'], $progressBar['text'], 0);
@@ -421,12 +436,15 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
+
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$item->removeOnLoadHandler('Hidden');
+
 			$ret = $item->save();
 
 			if ($ret) {
@@ -434,6 +452,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 
 				return $ret;
 			}
+
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
 			if ($ret) {
@@ -478,11 +497,13 @@ class HiddenHelper extends HiddenInterface_1_0 {
 					return $ret;
 				}
 			}
+
 			list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($itemId);
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$userSee = $groupSee = false;
 
 			foreach ($permissions as $permission) {
@@ -506,6 +527,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 					if ($ret) {
 						return $ret;
 					}
+
 					$userSee = true;
 				}
 
@@ -521,6 +543,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 					if ($ret) {
 						return $ret;
 					}
+
 					$groupSee = true;
 				}
 			}
@@ -587,6 +610,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 					$progressBar['text'],
 					1
 				);
+
 				$progressBar = false;
 			}
 		}
@@ -610,6 +634,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$hiddenAncestor = $passwordAncestor = false;
 
 		foreach ($ancestors as $ancestor) {
@@ -641,8 +666,10 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	 */
 	public function handleMoveItem($item) {
 		global $gallery;
-		$oldParentId         = $item->getOriginalValue('parentId');
-		$newParentId         = $item->getParentId();
+
+		$oldParentId = $item->getOriginalValue('parentId');
+		$newParentId = $item->getParentId();
+
 		list($ret, $parents) = GalleryCoreApi::loadEntitiesById(
 			array($oldParentId, $newParentId),
 			'GalleryItem'
@@ -658,6 +685,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
+
 			$ancestors[]    = $parent;
 			$hiddenAncestor = false;
 
@@ -666,12 +694,14 @@ class HiddenHelper extends HiddenInterface_1_0 {
 					$hiddenAncestor = $ancestor->getId();
 				}
 			}
+
 			$hiddenAncestors[] = $hiddenAncestor;
 		}
 
 		if ($hiddenAncestors[1]) {
 			// New location is hidden
 			$gallery->guaranteeTimeLimit(60);
+
 			$ret = $this->hideItem($item, false, $hiddenAncestors[1], $hiddenAncestors[0]);
 
 			if ($ret) {
@@ -680,6 +710,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		} elseif ($hiddenAncestors[0]) {
 			// Old location was hidden, new location is not
 			$gallery->guaranteeTimeLimit(60);
+
 			$ret = $this->unHideItem($item, false, $hiddenAncestors[0], false);
 
 			if ($ret) {

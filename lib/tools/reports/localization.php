@@ -32,10 +32,12 @@ if (!empty($_REQUEST['type']) && $_REQUEST['type'] == 'detail') {
 } elseif (php_sapi_name() == 'cli' && $argv[1] == 'detail') {
 	$type = 'detail';
 }
+
 $precision = isset($_GET['precision']) ? (int)$_GET['precision'] : ($type == 'detail' ? 2 : 1);
 $pow       = 10 ** $precision;
 
 $poFiles = findPoFiles('../../..');
+
 list($reportData, $mostRecentPoDate, $totalTranslated) = parsePoFiles($poFiles);
 
 require __DIR__ . '/localization/main_' . $type . '.inc';
@@ -54,6 +56,7 @@ function findPoFiles($dir) {
 			if ($file == '.' || $file == '..') {
 				continue;
 			}
+
 			$path = $dir . '/' . $file;
 
 			if (is_dir($path)) {
@@ -75,6 +78,7 @@ function parsePoFiles($poFiles) {
 	 * single data structure.
 	 */
 	global $pow;
+
 	$poData           = $seenPlugins           = $maxMessageCount           = array();
 	$mostRecentPoDate = $totalTranslated = 0;
 
@@ -82,9 +86,11 @@ function parsePoFiles($poFiles) {
 		if (!preg_match('|((?:\w+/)+)po/(\w{2}(?:_\w{2})?)\.po|', $poFile, $matches)) {
 			continue;
 		}
+
 		list($plugin, $locale) = array($matches[1], $matches[2]);
-		$seenPlugins[$plugin]  = 1;
-		$stat                  = stat($poFile);
+
+		$seenPlugins[$plugin] = 1;
+		$stat                 = stat($poFile);
 
 		if ($stat && $stat['mtime'] > $mostRecentPoDate) {
 			$mostRecentPoDate = $stat['mtime'];
@@ -161,6 +167,7 @@ function parsePoFiles($poFiles) {
 				if (preg_match('/^\s*"(.*)"/', $line, $matches)) {
 					$msgId = $line;
 				}
+
 				$lastLineWasEmptyMsgId = 0;
 
 				continue;
@@ -187,13 +194,16 @@ function parsePoFiles($poFiles) {
 					if ($nextIsFuzzy) {
 						$fuzzy++;
 					}
+
 					$translated++;
 				} else {
 					if ($nextIsFuzzy) {
 						echo "ERROR: DISCARD FUZZY for [$locale, $plugin, $msgId]<br>";
 					}
+
 					$untranslated++;
 				}
+
 				$msgId                  = null;
 				$nextIsFuzzy            = 0;
 				$lastLineWasEmptyMsgStr = 0;
@@ -215,6 +225,7 @@ function parsePoFiles($poFiles) {
 						if ($nextIsFuzzy) {
 							$fuzzy++;
 						}
+
 						$translated++;
 						$msgId       = null;
 						$nextIsFuzzy = 0;
@@ -222,6 +233,7 @@ function parsePoFiles($poFiles) {
 				}
 			}
 		}
+
 		// Catch msgstr "" in last line
 		if (!empty($msgId) && $lastLineWasEmptyMsgStr) {
 			$untranslated++;
@@ -235,6 +247,7 @@ function parsePoFiles($poFiles) {
 			$percentDone      = floor(($translated - $fuzzy) * 100 * $pow / $total) / $pow;
 			$exactPercentDone = ($translated - $fuzzy) * 100                        / $total;
 		}
+
 		$poData[$locale]['plugins'][$plugin] = array(
 			'translated'       => $translated,
 			'untranslated'     => $untranslated,
@@ -245,7 +258,8 @@ function parsePoFiles($poFiles) {
 			'exactPercentDone' => $exactPercentDone,
 			'name'             => $plugin,
 		);
-		$totalTranslated                    += $translated - $fuzzy;
+
+		$totalTranslated += $translated - $fuzzy;
 
 		foreach (array('translated', 'untranslated', 'fuzzy', 'obsolete') as $key) {
 			if (!isset($summary[$locale][$key])) {
@@ -278,6 +292,7 @@ function parsePoFiles($poFiles) {
 				$pluginTotal += $poData[$locale]['plugins'][$plugin]['translated'] - $poData[$locale]['plugins'][$plugin]['fuzzy'];
 			}
 		}
+
 		uasort($poData[$locale]['plugins'], 'sortByPercentDone');
 
 		// Figure out total percentage
@@ -291,6 +306,7 @@ function parsePoFiles($poFiles) {
 		foreach (array('translated', 'untranslated', 'fuzzy', 'obsolete') as $key) {
 			$poData[$locale]['summary'][$key] = floor($summary[$locale][$key] * 100 * $pow / $overallTotal) / $pow;
 		}
+
 		$poData[$locale]['summary']['total'] = $overallTotal;
 	}
 

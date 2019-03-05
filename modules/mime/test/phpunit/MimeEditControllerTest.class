@@ -67,13 +67,17 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 			$results,
 			'Add new'
 		);
+
 		list($ret, $extensions) = GalleryCoreApi::convertMimeToExtensions('test/test');
+
 		$this->assertEquals(array('xxx'), $extensions);
+
 		list($ret, $isViewable) = GalleryCoreApi::isViewableMimeType('test/test');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse($isViewable);
 	}
 
@@ -98,13 +102,17 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 			$results,
 			'Add new'
 		);
+
 		list($ret, $extensions) = GalleryCoreApi::convertMimeToExtensions('test/test');
+
 		$this->assertEquals(array('xxx'), $extensions);
+
 		list($ret, $isViewable) = GalleryCoreApi::isViewableMimeType('test/test');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($isViewable);
 	}
 
@@ -127,17 +135,21 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 			$results,
 			'Add new'
 		);
+
 		list($ret, $extensions) = GalleryCoreApi::convertMimeToExtensions('test/test');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array('xxx'), $extensions);
+
 		list($ret, $isViewable) = GalleryCoreApi::isViewableMimeType('test/test');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse($isViewable, 'viewable');
 	}
 
@@ -248,23 +260,29 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 			$results,
 			'Add new'
 		);
+
 		list($ret, $extensions) = GalleryCoreApi::convertMimeToExtensions('test/test');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array('xxx'), $extensions);
+
 		list($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime('xxx');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('test/test', $mimeType);
+
 		list($ret, $isViewable) = GalleryCoreApi::isViewableMimeType('test/test');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse($isViewable, 'viewable');
 
 		if (empty($extensions)) {

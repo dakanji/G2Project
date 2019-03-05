@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 
 /**
@@ -154,6 +153,7 @@ class ExifHelperTest extends GalleryTestCase {
 				$verifiedCount++;
 			}
 		}
+
 		$this->assertEquals(2, $verifiedCount);
 
 		// Make sure there are no duplicates in the list
@@ -211,6 +211,7 @@ class ExifHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($iptcObj));
 
 		$data      = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'Keywords'));
@@ -274,11 +275,11 @@ class ExifHelperTest extends GalleryTestCase {
 		 * any true IPTC value. Also, 'CopyrightFlag' is named 'Urgency' in the IPTC specification.
 		 * Other IPTC apps partly seem to support 'Urgency'.
 		 */
+
 		/*
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'CopyrightFlag'));
 		$this->assertEquals('c1', $data, 'IPTC/CopyrightFlag mismatch');
 		*/
-
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'ObjectName'));
 		$this->assertEquals('ObjectName, Dokumenttitel', $data, 'IPTC/ObjectName mismatch');
 
@@ -318,6 +319,7 @@ class ExifHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($iptcObj));
 
 		$data      = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'Keywords'));
@@ -352,6 +354,7 @@ class ExifHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($iptcObj));
 
 		$data      = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'Keywords'));
@@ -400,10 +403,12 @@ class ExifHelperTest extends GalleryTestCase {
 			in_array('Supplemental categories', $dataArray),
 			'IPTC/SupplementalCategories 0 missing'
 		);
+
 		$this->assertTrue(
 			in_array('IPTC/SupplementalCategories 1', $dataArray),
 			'IPTC/SupplementalCategories 1 missing'
 		);
+
 		$this->assertTrue(
 			in_array('IPTC/SupplementalCategories 2', $dataArray),
 			'IPTC/SupplementalCategories 2 missing'
@@ -433,6 +438,7 @@ class ExifHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($iptcObj));
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'Caption'), 'ISO-8859-1');
@@ -472,6 +478,7 @@ class ExifHelperTest extends GalleryTestCase {
 	 */
 	public function testPostProcessKeys() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'format.datetime', '%x %X');
@@ -491,18 +498,21 @@ class ExifHelperTest extends GalleryTestCase {
 			ExifHelper::postProcessValue('DateTime', '2005-04-11T14:18:07'),
 			'Mismatch on date without a timezone'
 		);
+
 		// Check negative and incomplete timezone.
 		$this->assertEquals(
 			$platform->strftime('%x %X', mktime(13, 18, 7, 4, 11, 2005)),
 			ExifHelper::postProcessValue('DateTime', '2005-04-11T14:18:07-01'),
 			'Mismatch on date with timezone -01'
 		);
+
 		// Check positive and complete timezone, turn around to next year (happy new year there).
 		$this->assertEquals(
 			$platform->strftime('%x %X', mktime(0, 31, 7, 1, 1, 2006)),
 			ExifHelper::postProcessValue('DateTime', '2005-12-31T22:01:07+02:30'),
 			'Mismatch on date with timezone +02:30'
 		);
+
 		/*
 		 * Check for possible charset problems. E.g. march is M&auml;rz in german.
 		 * This test is expected to fail for some locales depending on strftime defaults (e.g. when
@@ -567,11 +577,13 @@ class ExifHelperTest extends GalleryTestCase {
 		// Remove all IPTC values.
 		array_splice($properties, array_search('IPTC/Caption', $properties), 1);
 		array_splice($properties, array_search('IPTC/CopyrightNotice', $properties), 1);
+
 		$ret = ExifHelper::setProperties(EXIF_SUMMARY, $properties);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 
 		if ($ret) {
@@ -620,6 +632,7 @@ class ExifHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 
 		if ($ret) {

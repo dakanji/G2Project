@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/FlushDatabaseCacheTask.class');
 
 /**
@@ -62,6 +61,7 @@ class FlushDatabaseCacheTaskTest extends GalleryTestCase {
 				)
 			);
 		}
+
 		$this->assertTrue($success, 'should have succeeded');
 		$this->assertEquals($details, $expected);
 		$this->assertEquals(
@@ -87,6 +87,7 @@ class FlushDatabaseCacheTaskTest extends GalleryTestCase {
 				'recursiveRmdir(/cache/theme)',
 			)
 		);
+
 		$gallery->setPlatform($mockPlatform);
 		$task = new FlushDatabaseCacheTask();
 
@@ -109,12 +110,14 @@ class FlushDatabaseCacheTaskTest extends GalleryTestCase {
 				'arg1' => '/cache/theme',
 			)
 		);
+
 		$expected[] = $module->translate(
 			array(
 				'text' => 'Successfully deleted directory: %s',
 				'arg1' => '/cache/module',
 			)
 		);
+
 		$this->assertFalse($success, 'should have failed');
 		$this->assertEquals($expected, $details);
 		$this->assertEquals(

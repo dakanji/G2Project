@@ -28,6 +28,7 @@
 class KeyAlbumModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
+
 		$this->setId('keyalbum');
 		$this->setName($gallery->i18n('Keyword Albums'));
 		$this->setDescription(
@@ -100,16 +101,19 @@ class KeyAlbumModule extends GalleryModule {
 					'Unable to get a GalleryEntity instance'
 				);
 			}
+
 			$ret = $entity->create();
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$ret = $entity->save(false);
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$ret = $this->setParameter('themeSettingsId', $entity->getId());
 
 			if ($ret) {
@@ -153,6 +157,7 @@ class KeyAlbumModule extends GalleryModule {
 	 */
 	public function getItemSummaries($items, $permissions, &$template) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		list($ret, $params) = $this->fetchParameters();
@@ -160,6 +165,7 @@ class KeyAlbumModule extends GalleryModule {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$mode = $params['summaryLinks'];
 
 		if ($mode != 'all') {
@@ -189,6 +195,7 @@ class KeyAlbumModule extends GalleryModule {
 						)
 					) . '">' . $keyword . '</a>';
 				}
+
 				$summaries[$itemId] = $label . implode(',', $links);
 			}
 		}

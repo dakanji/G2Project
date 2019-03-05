@@ -42,6 +42,7 @@ class RewriteApi {
 
 	public function __construct() {
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+
 		list($ret, $this->_parser) = RewriteHelper::getRewriteParser();
 
 		if ($ret) {
@@ -69,6 +70,7 @@ class RewriteApi {
 	 *
 	 * All embedded-related functions need to be called while Gallery is in embedded mode.
 	 */
+
 
 	/**
 	 * Checks if the parser needs configuration.
@@ -182,6 +184,7 @@ class RewriteApi {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$activeRules = unserialize($activeRules);
 
 		if (isset($activeRules[$moduleId])) {
@@ -189,6 +192,7 @@ class RewriteApi {
 		}
 
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+
 		list($ret, $history) = RewriteHelper::getHistoryForModule($moduleId);
 
 		if ($ret) {
@@ -223,9 +227,11 @@ class RewriteApi {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$activeRules = unserialize($activeRules);
 
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+
 		list($ret, $history) = RewriteHelper::getHistoryForModule($moduleId);
 
 		if ($ret) {
@@ -251,6 +257,7 @@ class RewriteApi {
 						$activeRule['pattern'] = $history[$ruleId]['pattern'];
 					}
 				}
+
 				$activeRules[$moduleId][$ruleId] = $activeRule;
 				unset($history[$ruleId]);
 			}

@@ -31,6 +31,7 @@ class CartCallbacks {
 			case 'LoadCart':
 				// The cart contents' count
 				GalleryCoreApi::requireOnce('modules/cart/classes/CartHelper.class');
+
 				list($ret, $cartItemIds) = CartHelper::fetchCartItemCounts();
 
 				if ($ret) {
@@ -51,7 +52,8 @@ class CartCallbacks {
 				$urlParams = array(
 					'view' => 'cart.ViewCart',
 				);
-				$itemId    = GalleryUtilities::getRequestVariables('itemId');
+
+				$itemId = GalleryUtilities::getRequestVariables('itemId');
 
 				if (!empty($itemId)) {
 					$urlParams['itemId'] = $itemId;

@@ -37,6 +37,7 @@ class ItemCreateReplicaController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		$status = $error = array();
@@ -111,7 +112,8 @@ class ItemCreateReplicaController extends GalleryController {
 				 * Lock everything up and start linkin'.  We need to read lock
 				 * the source ids, source hierarchy and destination hierarchy.
 				 */
-				$ids                 = array_merge($selectedIds, array($itemId, $destinationId));
+				$ids = array_merge($selectedIds, array($itemId, $destinationId));
+
 				list($ret, $locks[]) = GalleryCoreApi::acquireReadLock($ids);
 
 				if ($ret) {
@@ -190,7 +192,8 @@ class ItemCreateReplicaController extends GalleryController {
 				$redirect['itemId']  = $itemId;
 			}
 		} elseif (isset($form['action']['next'])) {
-			$page                = (int)GalleryUtilities::getRequestVariables('page');
+			$page = (int)GalleryUtilities::getRequestVariables('page');
+
 			list($ret, $peerIds) = GalleryCoreApi::fetchLinkableChildItemIdsWithPermission(
 				$itemId,
 				'core.view'
@@ -220,6 +223,7 @@ class ItemCreateReplicaController extends GalleryController {
 				$results['delegate']['subView'] = 'replica.ItemCreateReplica';
 			}
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -242,6 +246,7 @@ class ItemCreateReplicaView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		list($selectedId, $page) = GalleryUtilities::getRequestVariables('selectedId', 'page');
@@ -251,6 +256,7 @@ class ItemCreateReplicaView extends GalleryView {
 			if ($selectedId) {
 				$form['selectedIds'][$selectedId] = true;
 			}
+
 			$form['destination'] = '';
 			$form['formName']    = 'ItemCreateReplica';
 			$form['numPerPage']  = 15;
@@ -319,8 +325,10 @@ class ItemCreateReplicaView extends GalleryView {
 
 				// While we're at it, attach the thumbnails
 				if (isset($thumbnails[$peerItem->getId()])) {
-					$thumbnail                              = $thumbnails[$peerItem->getId()];
-					list($ret, $thumbnail)                  = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($thumbnail->getId());
+					$thumbnail = $thumbnails[$peerItem->getId()];
+
+					list($ret, $thumbnail) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($thumbnail->getId());
+
 					$peers[$peerItem->getId()]['thumbnail'] = (array)$thumbnail;
 				}
 			}

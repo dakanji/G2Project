@@ -104,6 +104,7 @@ class ClassicTheme extends GalleryTheme {
 			'type'  => 'checkbox',
 			'value' => $params['showSubalbums'],
 		);
+
 		$settings[] = array(
 			'key'        => 'subalbumDepth',
 			'name'       => $this->translate('Depth of subalbums links (0=no limit)'),
@@ -113,6 +114,7 @@ class ClassicTheme extends GalleryTheme {
 			),
 			'value'      => $params['subalbumDepth'],
 		);
+
 		$settings[] = array(
 			'key'   => 'subalbumSort',
 			'name'  => $this->translate(
@@ -217,6 +219,7 @@ class ClassicTheme extends GalleryTheme {
 		if (!empty($params['showMicroThumbs'])) {
 			$dataTypes[] = 'navThumbnails';
 		}
+
 		$ret = $this->loadCommonTemplateData($template, $item, $params, $dataTypes);
 
 		if ($ret) {
@@ -305,6 +308,7 @@ class ClassicTheme extends GalleryTheme {
 		if ($ret) {
 			return $ret;
 		}
+
 		$treeIds = array();
 
 		foreach ($items as $item) {
@@ -328,12 +332,14 @@ class ClassicTheme extends GalleryTheme {
 					return $ret;
 				}
 			} else {
-				$id               = $item->getId();
+				$id = $item->getId();
+
 				list($ret, $tree) = GalleryCoreApi::fetchAlbumTree($id, $maxDepth, $userId);
 
 				if ($ret) {
 					return $ret;
 				}
+
 				$treeList[$id] = array();
 				$this->_parseTree($tree, $treeList[$id], $treeIds);
 			}

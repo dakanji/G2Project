@@ -150,6 +150,7 @@ class SquareThumbModule extends GalleryModule {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $mimeTypes) = $this->_getSupportedMimeTypes(isset($toolkit));
 
 		if ($ret) {
@@ -226,6 +227,7 @@ class SquareThumbModule extends GalleryModule {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $crop) = GalleryCoreApi::getToolkitOperationMimeTypes('crop');
 
 		if ($ret) {

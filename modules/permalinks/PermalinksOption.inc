@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/permalinks/classes/PermalinksMapHelper.class');
 
 /**
@@ -54,6 +53,7 @@ class PermalinksOption extends ItemEditOption {
 				// Set our error status and fall back to the view.
 				$error[] = 'form[error][PermalinksOption][exists]';
 			}
+
 			// don't do anything if we're successful
 		}
 
@@ -67,6 +67,7 @@ class PermalinksOption extends ItemEditOption {
 
 				// don't do anything if we're successful
 			}
+
 			$warning[] = $module->translate('Permalink(s) deleted successfully');
 		}
 

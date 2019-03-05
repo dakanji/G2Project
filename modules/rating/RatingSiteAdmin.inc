@@ -54,6 +54,7 @@ class RatingSiteAdminController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$status = empty($status) ? array() : array('statusMessage' => $status);
 
 			if (!isset($form['minLimit'])
@@ -77,6 +78,7 @@ class RatingSiteAdminController extends GalleryController {
 					return array($ret, null);
 				}
 			}
+
 			$status['saved'] = 1;
 		}
 
@@ -115,6 +117,7 @@ class RatingSiteAdminView extends GalleryView {
 					return array($ret, null);
 				}
 			}
+
 			// Localize by casting to string
 			$form['minLimit'] = (string)GalleryUtilities::castToFloat($form['minLimit']);
 			$tmp              = explode('|', $form['orderBy'], 2);
@@ -138,6 +141,7 @@ class RatingSiteAdminView extends GalleryView {
 
 		// Set up sort order selection list
 		GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_2.class');
+
 		list(
 			$ret,
 			$orderByList,
@@ -150,7 +154,8 @@ class RatingSiteAdminView extends GalleryView {
 		}
 
 		// Set up theme selection list
-		$themeList               = array('' => $module->translate('&laquo; default theme &raquo;'));
+		$themeList = array('' => $module->translate('&laquo; default theme &raquo;'));
+
 		list($ret, $themeStatus) = GalleryCoreApi::fetchPluginStatus('theme');
 
 		if ($ret) {
@@ -164,6 +169,7 @@ class RatingSiteAdminView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$themeList[$id] = $theme->translate($theme->getName());
 			}
 		}
@@ -180,6 +186,7 @@ class RatingSiteAdminView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = GalleryCoreApi::loadThemeSettingsForm(
 			$form['themeId'],
 			$themeSettingsId,

@@ -50,10 +50,10 @@ class MultiLangSiteAdminController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			// TODO: if removed some language then optionally delete all data for that language?
 			$status['saved'] = 1;
 		} // else $form['action']['reset']
-
 		// Figure out where to redirect upon success
 		$results['redirect']['view']    = 'core.SiteAdmin';
 		$results['redirect']['subView'] = 'multilang.MultiLangSiteAdmin';
@@ -81,12 +81,14 @@ class MultiLangSiteAdminView extends GalleryView {
 		}
 
 		if ($form['formName'] != 'MultiLangSiteAdmin') {
-			$form['formName']      = 'MultiLangSiteAdmin';
+			$form['formName'] = 'MultiLangSiteAdmin';
+
 			list($ret, $languages) = GalleryCoreApi::getPluginParameter('module', 'multilang', 'languages');
 
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$form['languages'] = empty($languages) ? array() : explode('|', $languages);
 		}
 
@@ -98,6 +100,7 @@ class MultiLangSiteAdminView extends GalleryView {
 				$languageList[$language . '_' . $country] = $languageData['description'];
 			}
 		}
+
 		$selectedList = array();
 
 		foreach ($form['languages'] as $language) {
@@ -116,6 +119,7 @@ class MultiLangSiteAdminView extends GalleryView {
 				'selectedList'  => $selectedList,
 			)
 		);
+
 		$template->setVariable('controller', 'multilang.MultiLangSiteAdmin');
 
 		return array(

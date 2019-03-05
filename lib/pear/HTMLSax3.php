@@ -31,9 +31,11 @@
  * @package XML_HTMLSax3
  * @version  Id: HTMLSax3.php,v 1.2 2007/10/29 21:41:34 hfuecks
  */
+
 /**
  * Required classes
  */
+
 //if (!defined('XML_HTMLSAX3')) {
 //    define('XML_HTMLSAX3', 'XML/');
 //}
@@ -228,8 +230,7 @@ class XML_HTMLSax3_StateParser {
 	 * @return string
 	 * @abstract
 	 */
-	public function scanUntilCharacters($string) {
-	}
+	public function scanUntilCharacters($string) {}
 
 	/**
 	 * Moves the position forward past any whitespace characters
@@ -237,8 +238,7 @@ class XML_HTMLSax3_StateParser {
 	 * @return void
 	 * @abstract
 	 */
-	public function ignoreWhitespace() {
-	}
+	public function ignoreWhitespace() {}
 
 	/**
 	 * Begins the parsing operation, setting up any decorators, depending on
@@ -249,69 +249,78 @@ class XML_HTMLSax3_StateParser {
 	 */
 	public function parse($data) {
 		if ($this->parser_options['XML_OPTION_TRIM_DATA_NODES'] == 1) {
-			$decorator                 = new XML_HTMLSax3_Trim(
+			$decorator = new XML_HTMLSax3_Trim(
 				$this->handler_object_data,
 				$this->handler_method_data
 			);
+
 			$this->handler_object_data =& $decorator;
 			$this->handler_method_data = 'trimData';
 		}
 
 		if ($this->parser_options['XML_OPTION_CASE_FOLDING'] == 1) {
-			$open_decor                   = new XML_HTMLSax3_CaseFolding(
+			$open_decor = new XML_HTMLSax3_CaseFolding(
 				$this->handler_object_element,
 				$this->handler_method_opening,
 				$this->handler_method_closing
 			);
+
 			$this->handler_object_element =& $open_decor;
 			$this->handler_method_opening = 'foldOpen';
 			$this->handler_method_closing = 'foldClose';
 		}
 
 		if ($this->parser_options['XML_OPTION_LINEFEED_BREAK'] == 1) {
-			$decorator                 = new XML_HTMLSax3_Linefeed(
+			$decorator = new XML_HTMLSax3_Linefeed(
 				$this->handler_object_data,
 				$this->handler_method_data
 			);
+
 			$this->handler_object_data =& $decorator;
 			$this->handler_method_data = 'breakData';
 		}
 
 		if ($this->parser_options['XML_OPTION_TAB_BREAK'] == 1) {
-			$decorator                 = new XML_HTMLSax3_Tab(
+			$decorator = new XML_HTMLSax3_Tab(
 				$this->handler_object_data,
 				$this->handler_method_data
 			);
+
 			$this->handler_object_data =& $decorator;
 			$this->handler_method_data = 'breakData';
 		}
 
 		if ($this->parser_options['XML_OPTION_ENTITIES_UNPARSED'] == 1) {
-			$decorator                 = new XML_HTMLSax3_Entities_Unparsed(
+			$decorator = new XML_HTMLSax3_Entities_Unparsed(
 				$this->handler_object_data,
 				$this->handler_method_data
 			);
+
 			$this->handler_object_data =& $decorator;
 			$this->handler_method_data = 'breakData';
 		}
 
 		if ($this->parser_options['XML_OPTION_ENTITIES_PARSED'] == 1) {
-			$decorator                 = new XML_HTMLSax3_Entities_Parsed(
+			$decorator = new XML_HTMLSax3_Entities_Parsed(
 				$this->handler_object_data,
 				$this->handler_method_data
 			);
+
 			$this->handler_object_data =& $decorator;
 			$this->handler_method_data = 'breakData';
 		}
+
 		// Note switched on by default
 		if ($this->parser_options['XML_OPTION_STRIP_ESCAPES'] == 1) {
-			$decorator                   = new XML_HTMLSax3_Escape_Stripper(
+			$decorator = new XML_HTMLSax3_Escape_Stripper(
 				$this->handler_object_escape,
 				$this->handler_method_escape
 			);
+
 			$this->handler_object_escape =& $decorator;
 			$this->handler_method_escape = 'strip';
 		}
+
 		$this->rawtext  = $data;
 		$this->length   = strlen($data);
 		$this->position = 0;
@@ -405,8 +414,7 @@ class XML_HTMLSax3_NullHandler {
 	 * @access protected
 	 * @return void
 	 */
-	public function DoNothing() {
-	}
+	public function DoNothing() {}
 }
 
 /**
@@ -461,6 +469,7 @@ class XML_HTMLSax3 {
 
 			return true;
 		}
+
 		//require_once('PEAR.php');
 			//PEAR::raiseError('XML_HTMLSax3::set_object requires '.
 			//    'an object instance');
@@ -499,6 +508,7 @@ class XML_HTMLSax3 {
 
 			return true;
 		}
+
 		//require_once('PEAR.php');
 			//PEAR::raiseError('XML_HTMLSax3::set_option('.$name.') illegal');
 	}
@@ -636,6 +646,7 @@ class XML_HTMLSax3 {
 		$this->state_parser->parse($data);
 	}
 }
+
 ?>
 <?php
 // vim: set expandtab tabstop=4 shiftwidth=4:
@@ -669,6 +680,7 @@ class XML_HTMLSax3 {
  * @package XML_HTMLSax3
  * @version  Id: States.php,v 1.3 2007/10/29 21:41:35 hfuecks
  */
+
 /**
  * Define parser states
  */
@@ -698,11 +710,13 @@ class XML_HTMLSax3_StartingState {
 			$context->handler_object_data
 				->{$context->handler_method_data}($context->htmlsax, $data);
 		}
+
 		$context->IgnoreCharacter();
 
 		return XML_HTMLSAX3_STATE_TAG;
 	}
 }
+
 /**
  * Decides which state to move one from after StartingState
  * @package XML_HTMLSax3
@@ -743,6 +757,7 @@ class XML_HTMLSax3_TagState {
 		}
 	}
 }
+
 /**
  * Dealing with closing XML tags
  * @package XML_HTMLSax3
@@ -767,6 +782,7 @@ class XML_HTMLSax3_ClosingTagState {
 					$context->unscanCharacter();
 				}
 			}
+
 			$context->handler_object_element
 				->{$context->handler_method_closing}($context->htmlsax, $tag, false);
 		}
@@ -774,6 +790,7 @@ class XML_HTMLSax3_ClosingTagState {
 		return XML_HTMLSAX3_STATE_START;
 	}
 }
+
 /**
  * Dealing with opening XML tags
  * @package XML_HTMLSax3
@@ -817,6 +834,7 @@ class XML_HTMLSax3_OpeningTagState {
 				$attributevalue = null;
 				$context->unscanCharacter();
 			}
+
 			$Attributes[$attributename] = $attributevalue;
 
 			$context->ignoreWhitespace();
@@ -845,6 +863,7 @@ class XML_HTMLSax3_OpeningTagState {
 				if ($char != '>') {
 					$context->unscanCharacter();
 				}
+
 				$context->handler_object_element
 					->{$context->handler_method_opening}(
 						$context->htmlsax,
@@ -852,6 +871,7 @@ class XML_HTMLSax3_OpeningTagState {
 						$Attributes,
 						true
 					);
+
 				$context->handler_object_element
 					->{$context->handler_method_closing}(
 						$context->htmlsax,
@@ -919,6 +939,7 @@ class XML_HTMLSax3_EscapeState {
 		return XML_HTMLSAX3_STATE_START;
 	}
 }
+
 /**
  * Deals with JASP/ASP markup
  * @package XML_HTMLSax3
@@ -937,12 +958,14 @@ class XML_HTMLSax3_JaspState {
 			$context->handler_object_jasp
 				->{$context->handler_method_jasp}($context->htmlsax, $text);
 		}
+
 		$context->IgnoreCharacter();
 		$context->IgnoreCharacter();
 
 		return XML_HTMLSAX3_STATE_START;
 	}
 }
+
 /**
  * Deals with XML processing instructions
  * @package XML_HTMLSax3
@@ -962,12 +985,14 @@ class XML_HTMLSax3_PiState {
 			$context->handler_object_pi
 				->{$context->handler_method_pi}($context->htmlsax, $target, $data);
 		}
+
 		$context->IgnoreCharacter();
 		$context->IgnoreCharacter();
 
 		return XML_HTMLSAX3_STATE_START;
 	}
 }
+
 ?>
 <?php
 // vim: set expandtab tabstop=4 shiftwidth=4:
@@ -1002,6 +1027,7 @@ class XML_HTMLSax3_PiState {
  * @version  Id: Decorators.php,v 1.2 2007/10/29 21:41:35 hfuecks
  * @see XML_HTMLSax3::set_option
  */
+
 /**
  * Trims the contents of element data from whitespace at start and end
  * @package XML_HTMLSax3
@@ -1046,6 +1072,7 @@ class XML_HTMLSax3_Trim {
 		}
 	}
 }
+
 /**
  * Coverts tag names to upper case
  * @package XML_HTMLSax3
@@ -1105,6 +1132,7 @@ class XML_HTMLSax3_CaseFolding {
 		$this->orig_obj->{$this->orig_close_method}($parser, strtoupper($tag), $empty);
 	}
 }
+
 /**
  * Breaks up data by linefeed characters, resulting in additional
  * calls to the data handler
@@ -1150,6 +1178,7 @@ class XML_HTMLSax3_Linefeed {
 		}
 	}
 }
+
 /**
  * Breaks up data by tab characters, resulting in additional
  * calls to the data handler
@@ -1195,6 +1224,7 @@ class XML_HTMLSax3_Tab {
 		}
 	}
 }
+
 /**
  * Breaks up data by XML entities and parses them with html_entity_decode(),
  * resulting in additional calls to the data handler<br />
@@ -1241,6 +1271,7 @@ class XML_HTMLSax3_Entities_Parsed {
 		}
 	}
 }
+
 /**
  * Compatibility with older PHP versions
  */
@@ -1252,6 +1283,7 @@ if (version_compare(phpversion(), '4.3', '<') && !function_exists('html_entity_d
 		);
 	}
 }
+
 /**
  * Breaks up data by XML entities but leaves them unparsed,
  * resulting in additional calls to the data handler<br />
@@ -1342,7 +1374,8 @@ class XML_HTMLSax3_Escape_Stripper {
 				'/^\-\-/',          // Opening comment: --
 				'/\-\-$/',          // Closing comment: --
 			);
-			$data     = preg_replace($patterns, '', $data);
+
+			$data = preg_replace($patterns, '', $data);
 
 		// Check for XML CDATA sections (note: don't do both!)
 		} elseif (substr($data, 0, 1) == '[') {
@@ -1350,7 +1383,8 @@ class XML_HTMLSax3_Escape_Stripper {
 				'/^\[.*CDATA.*\[/s', // Opening CDATA
 				'/\].*\]$/s',       // Closing CDATA
 			);
-			$data     = preg_replace($patterns, '', $data);
+
+			$data = preg_replace($patterns, '', $data);
 		}
 
 		$this->orig_obj->{$this->orig_method}($this, $data);

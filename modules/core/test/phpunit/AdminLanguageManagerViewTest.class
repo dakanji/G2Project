@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/AdminLanguageManager.inc');
 
 /**
@@ -40,6 +39,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		global $gallery;
 
 		// Load the cache for testing
@@ -71,6 +71,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 				'HU' => array('Magyar'),
 			),
 		);
+
 		GalleryDataCache::put($cacheKey, $supportedLanguages);
 
 		$UnitTestPlatform = new UnitTestPlatform();
@@ -81,6 +82,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 
 	public function tearDown() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$storage  =& $gallery->getStorage();
 
@@ -97,6 +99,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 
 	public function testGetAllLanguagesCompatible() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		foreach (array(array('module', 'testModule', 1), array('theme', 'testTheme', 1)) as $case) {
@@ -152,12 +155,14 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 			);
 		}
 
-		$enableAllFlags               = array(
+		$enableAllFlags = array(
 			'upgrade'  => false,
 			'remove'   => false,
 			'download' => false,
 		);
-		list($ret, $repositories)     = GalleryRepository::getMe()->getRepositories();
+
+		list($ret, $repositories) = GalleryRepository::getMe()->getRepositories();
+
 		list($ret, $languagePackages) = $this->_view->_getAllLanguages($repositories['test'], $enableAllFlags);
 
 		if ($ret) {
@@ -191,6 +196,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 				'description' => '&#32321;&#39636;&#20013;&#25991;',
 			),
 		);
+
 		$this->assertEquals($expected, $languagePackages, 'Language packages incorrect');
 		$this->assertEquals(
 			array(
@@ -205,6 +211,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 
 	public function testGetAllLanguagesNotCompatible() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		foreach (array(array('module', 'testModule', 1), array('theme', 'testTheme', 1)) as $case) {
@@ -246,12 +253,14 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 			);
 		}
 
-		$enableAllFlags               = array(
+		$enableAllFlags = array(
 			'upgrade'  => false,
 			'remove'   => false,
 			'download' => false,
 		);
-		list($ret, $repositories)     = GalleryRepository::getMe()->getRepositories();
+
+		list($ret, $repositories) = GalleryRepository::getMe()->getRepositories();
+
 		list($ret, $languagePackages) = $this->_view->_getAllLanguages($repositories['test'], $enableAllFlags);
 
 		if ($ret) {
@@ -285,6 +294,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 				'description' => '&#32321;&#39636;&#20013;&#25991;',
 			),
 		);
+
 		$this->assertEquals($expected, $languagePackages, 'Language packages incorrect');
 		$this->assertEquals(
 			array(
@@ -299,6 +309,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 
 	public function testGetAllLanguagesNoPackages() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		foreach (array(array('module', 'testModule', 1), array('theme', 'testTheme', 1)) as $case) {
@@ -340,12 +351,14 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 			);
 		}
 
-		$enableAllFlags               = array(
+		$enableAllFlags = array(
 			'upgrade'  => false,
 			'remove'   => false,
 			'download' => false,
 		);
-		list($ret, $repositories)     = GalleryRepository::getMe()->getRepositories();
+
+		list($ret, $repositories) = GalleryRepository::getMe()->getRepositories();
+
 		list($ret, $languagePackages) = $this->_view->_getAllLanguages(
 			$repositories['test'],
 			$enableAllFlags
@@ -382,6 +395,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 				'description' => '&#32321;&#39636;&#20013;&#25991;',
 			),
 		);
+
 		$this->assertEquals($expected, $languagePackages, 'Language packages incorrect');
 		$this->assertEquals(
 			array(

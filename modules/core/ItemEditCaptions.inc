@@ -51,6 +51,7 @@ class ItemEditCaptionsController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		$status = $error = array();
@@ -114,6 +115,7 @@ class ItemEditCaptionsController extends GalleryController {
 						if ($ret) {
 							return array($ret, null);
 						}
+
 						$status[$id]['saved'] = 1;
 						$status['successCount']++;
 					} else {
@@ -160,6 +162,7 @@ class ItemEditCaptionsController extends GalleryController {
 			$results['delegate']['view']    = 'core.ItemAdmin';
 			$results['delegate']['subView'] = 'core.ItemEditCaptions';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -225,6 +228,7 @@ class ItemEditCaptionsView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		if ($form['formName'] != 'ItemEditCaption') {
@@ -260,11 +264,13 @@ class ItemEditCaptionsView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				list($ret, $params) = $theme->fetchParameters($itemId);
 
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$albumPageSize = $theme->getPageSize($params);
 
 				if (!empty($albumPageSize)) {

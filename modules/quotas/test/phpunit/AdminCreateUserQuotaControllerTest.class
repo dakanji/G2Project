@@ -43,6 +43,7 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_user);
 	}
 
@@ -85,6 +86,7 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteUserQuota($this->_user->getId());
 	}
 

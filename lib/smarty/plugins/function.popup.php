@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty {popup} function plugin
  *
@@ -116,13 +117,15 @@ function smarty_function_popup($params, &$smarty) {
 		$trigger = 'onmouseover';
 	}
 
-	$retval  = $trigger . '="return overlib(\'' . preg_replace(array("!'!", "![\r\n]!"), array("\'", '\r'), $text) . '\'';
-	$retval .= $append . ');"';
+	$retval = $trigger . '="return overlib(\'' . preg_replace(array("!'!", "![\r\n]!"), array("\'", '\r'), $text) . '\'';
+
+	$retval .= $append . ');
+"';
 
 	if ($trigger == 'onmouseover') {
-		$retval .= ' onmouseout="nd();"';
+		$retval .= ' onmouseout="nd();
+"';
 	}
-
 
 	return $retval;
 }

@@ -49,6 +49,7 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_entity);
 
 		foreach (array(
@@ -109,6 +110,7 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 				unset($params[$key]);
 			}
 		}
+
 		ksort($params);
 		$this->assertEquals(
 			array(
@@ -170,6 +172,7 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 				unset($params[$key]);
 			}
 		}
+
 		ksort($params);
 		$this->assertEquals(
 			array(

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryUtilities.class');
 
@@ -54,6 +53,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 	 */
 	public function performDownloadAndInstallation($installPackages, $repositories) {
 		global $gallery;
+
 		$session         =& $gallery->getSession();
 		$platform        =& $gallery->getPlatform();
 		$phpVm           = $gallery->getPhpVm();
@@ -76,6 +76,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 		if ($ret) {
 			return $ret;
 		}
+
 		$titleText = $module->translate('Updating Packages');
 		$templateAdapter->updateProgressBar($titleText, '', 0);
 
@@ -106,9 +107,9 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 					$packageUrls = $pluginDownloadData['files'];
 					$pluginName  = $pluginDownloadData['name'];
 
-					$downloadStatus                                = array();
-					list($ret, $reactivatePlugin, $downloadStatus) = $repository->downloadPackagesForPlugin(
+					$downloadStatus = array();
 
+					list($ret, $reactivatePlugin, $downloadStatus) = $repository->downloadPackagesForPlugin(
 						$pluginType,
 						$pluginId,
 						$pluginDownloadData,
@@ -140,7 +141,6 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 					 * This next block is duplicated in PluginCallback.
 					 * @todo: Refactor this code duplication away
 					 */
-
 					$templateAdapter->updateProgressBar(
 						$titleText,
 						sprintf($module->translate('Cleaning up obsolete files %s'), $pluginName),
@@ -201,6 +201,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 								if ($ret) {
 									return $ret;
 								}
+
 								// Ignore the redirect
 							}
 
@@ -223,6 +224,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 		} else {
 			$message = $module->translate('Update complete.');
 		}
+
 		$templateAdapter->updateProgressBar($titleText, $message, 1);
 
 		// Show link to return to the previously selected tab.
@@ -257,6 +259,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$sourcedFiles[$source] = empty($sourcedFiles[$source]) ? $tmp : array_merge($sourcedFiles[$source], $tmp);
 		}
 
@@ -357,15 +360,18 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 	 */
 	public function updatePluginStatus($pluginStatus, $repositories, $redirect) {
 		global $gallery;
+
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$platform        =& $gallery->getPlatform();
 
-		$status             = array();
+		$status = array();
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$heading = $module->translate('Updating Repository Index');
 		$templateAdapter->updateProgressBar($heading, '', 0);
 
@@ -392,12 +398,14 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 			}
 
 			$templateAdapter->updateProgressBar($heading, $message, $currentProgress);
+
 			$ret = $repository->downloadIndex();
 
 			if ($ret) {
 				/** @todo: Internationalize this error message */
 				$status['error']['download'][] = $ret->getErrorMessage();
 			}
+
 			$currentProgress += $indexWeight * $increment;
 		}
 
@@ -423,6 +431,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 					$pluginType . $sSlash . $pluginId,
 					$currentProgress
 				);
+
 				$ret = $repository->scanPlugin($pluginType, $pluginId);
 
 				if ($ret && !($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
@@ -434,10 +443,12 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 					if ($gallery->getDebug()) {
 						$gallery->debug_r($ret);
 					}
+
 					$status['error']['scanPlugin'][] = $pluginId;
 				} elseif ($ret) {
 					return $ret;
 				}
+
 				$currentProgress += $increment;
 			}
 		}

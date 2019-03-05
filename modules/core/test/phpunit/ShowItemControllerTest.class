@@ -32,6 +32,7 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -63,6 +64,7 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 
 	public function testTurnOnGuestPreviewMode() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 		$session->put('theme.guestPreviewMode', 0);
 
@@ -76,11 +78,13 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->assertEquals(1, $session->get('theme.guestPreviewMode'));
 	}
 
 	public function testTurnOffGuestPreviewMode() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 		$session->put('theme.guestPreviewMode', 1);
 
@@ -94,11 +98,13 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->assertEquals(0, $session->get('theme.guestPreviewMode'));
 	}
 
 	public function testIgnoreGuestPreviewMode() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 		$session->put('theme.guestPreviewMode', 1);
 
@@ -111,6 +117,7 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->assertEquals(1, $session->get('theme.guestPreviewMode'));
 	}
 }

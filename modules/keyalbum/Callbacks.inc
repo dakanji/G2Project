@@ -32,7 +32,8 @@ class KeyAlbumCallbacks {
 				$param      = 'allKeywords' . ($onlyPublic ? '.public' : '')
 				. ($sizeLimit ? '.' . $sizeLimit : '');
 
-				$includeFrequency        = (bool)$params['includeFrequency'];
+				$includeFrequency = (bool)$params['includeFrequency'];
+
 				list($ret, $lastUpdated) = GalleryCoreApi::getPluginParameter(
 					'module',
 					'keyalbum',
@@ -57,6 +58,7 @@ class KeyAlbumCallbacks {
 						return $ret;
 					}
 				}
+
 				list($ret, $keywords) = GalleryCoreApi::getPluginParameter(
 					'module',
 					'keyalbum',
@@ -83,6 +85,7 @@ class KeyAlbumCallbacks {
 				if ($ret) {
 					return $ret;
 				}
+
 				list($ret, $split) = $module->getParameter('split');
 
 				if ($ret) {
@@ -130,6 +133,7 @@ class KeyAlbumCallbacks {
 			if ($ret) {
 				return $ret;
 			}
+
 			list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $guestId);
 
 			if ($ret) {
@@ -148,21 +152,25 @@ class KeyAlbumCallbacks {
 				';
 			}
 		}
+
 		list($ret, $searchResults) = $gallery->search($query, $aclIds);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'keyalbum');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $split) = GalleryCoreApi::getPluginParameter('module', 'keyalbum', 'split');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$maxCount = 1;
 
 		while ($result = $searchResults->nextResult()) {
@@ -178,6 +186,7 @@ class KeyAlbumCallbacks {
 				}
 			}
 		}
+
 		$minCount = $maxCount;
 
 		foreach ($keywords as $keyword) {
@@ -206,8 +215,10 @@ class KeyAlbumCallbacks {
 				$entry                  = array(key($keywords), current($keywords));
 				$newKeywords[$entry[0]] = $entry[1];
 			}
+
 			$keywords = $newKeywords;
 		}
+
 		ksort($keywords);
 		$keywords = array_values($keywords);
 
@@ -225,6 +236,7 @@ class KeyAlbumCallbacks {
 				$maxWeight ** ((float)$keyword['count'] / $maxCount) - $adjustment,
 				2
 			);
+
 			unset($keywords[$i]['count']);
 		}
 
@@ -238,6 +250,7 @@ class KeyAlbumCallbacks {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum', $param . '.time', time());
 
 		if ($ret) {

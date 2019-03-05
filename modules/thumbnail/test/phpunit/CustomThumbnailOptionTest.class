@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
@@ -53,6 +52,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('CustomThumbnailOptionTestToolkit');
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
@@ -75,6 +75,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'CustomThumbnailOptionTestToolkit',
 			array('image/test'),
@@ -124,6 +125,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		list($ret, $this->_item) = $this->_createRandomDataItem(
@@ -180,6 +182,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		list($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_item);
+
 		$this->assertEquals(array('form[CustomThumbnailOption][error][imageMime]'), $error);
 		$this->assertEquals(array(), $warning);
 	}
@@ -206,6 +209,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($thumbnailImage), 'thumbnailImage');
 
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item->getId()));
@@ -213,6 +217,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array($this->_item->getId()), array_keys($thumbnails), 'derivative');
 		$thumbnail = array_shift($thumbnails);
 		$this->assertEquals(
@@ -222,11 +227,12 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		// Remove custom thumbnail..
-		$form   = array(
+		$form = array(
 			'CustomThumbnailOption' => array(
 				'delete' => '1',
 			),
 		);
+
 		$result = $this->_handleRequestAfterEdit($form, $this->_item);
 		$this->assertEquals(array(array(), array()), $result);
 
@@ -235,6 +241,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(isset($thumbnailImage), 'removed thumbnailImage');
 
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_item->getId()));
@@ -242,6 +249,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(empty($thumbnails[$this->_item->getId()]), 'removed thumbnail');
 	}
 
@@ -267,17 +275,19 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($thumbnailImage), 'thumbnailImage');
 
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(
 			array(
-				$this->_item->getId()
+				$this->_item->getId(),
 			)
 		);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array($this->_item->getId()), array_keys($thumbnails), 'derivative');
 		$thumbnail = array_shift($thumbnails);
 		$this->assertEquals(
@@ -298,6 +308,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(isset($thumbnailImage), 'thumbnailImage should have been deleted');
 
 		if (isset($thumbnailImage)) {
@@ -316,6 +327,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(empty($thumbnails), 'item still has a thumbnail');
 	}
 
@@ -341,6 +353,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($thumbnailImage), 'thumbnailImage');
 
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(
@@ -350,6 +363,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array($this->_image->getId()), array_keys($thumbnails), 'derivative');
 		$thumbnail = array_shift($thumbnails);
 		$this->assertEquals(
@@ -357,6 +371,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 			$thumbnail->getDerivativeSourceId(),
 			'source'
 		);
+
 		$this->assertEquals(
 			'thumbnail|200;composite|path/test.png,image/png,20,20,top-left,0,0',
 			$thumbnail->getDerivativeOperations(),
@@ -378,6 +393,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(isset($thumbnailImage), 'removed thumbnailImage');
 
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(
@@ -387,6 +403,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array($this->_image->getId()),
 			array_keys($thumbnails),
@@ -400,6 +417,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 				$thumbnail->getDerivativeSourceId(),
 				'got source'
 			);
+
 			$this->assertEquals(
 				'thumbnail|200;composite|path/test.png,image/png,20,20,top-left,0,0',
 				$thumbnail->getDerivativeOperations(),
@@ -432,7 +450,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		}
 
 		if (!isset($thumbnailImage)) {
-			$this->assertFalse(True, 'thumbnailImage');
+			$this->assertFalse(true, 'thumbnailImage');
 
 			return;
 		}
@@ -444,6 +462,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array($this->_album->getId()), array_keys($thumbnails), 'highlight');
 		$thumbnail = array_shift($thumbnails);
 		$this->assertEquals(
@@ -453,11 +472,12 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		// Remove custom thumbnail..
-		$form   = array(
+		$form = array(
 			'CustomThumbnailOption' => array(
 				'delete' => '1',
 			),
 		);
+
 		$result = $this->_handleRequestAfterEdit($form, $this->_album);
 		$this->assertEquals(array(array(), array()), $result);
 
@@ -466,6 +486,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(isset($thumbnailImage), 'removed thumbnailImage');
 
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(
@@ -475,11 +496,13 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array($this->_album->getId()),
 			array_keys($thumbnails),
 			'got highlight'
 		);
+
 		$thumbnail = array_shift($thumbnails);
 		$this->assertEquals(
 			$this->_derivative->getId(),
@@ -516,6 +539,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($thumbnailImage), 'thumbnailImage');
 
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(
@@ -525,6 +549,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array($album->getId()), array_keys($thumbnails), 'highlight');
 		$thumbnail = array_shift($thumbnails);
 		$this->assertEquals(
@@ -534,11 +559,12 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		// Remove custom thumbnail..
-		$form   = array(
+		$form = array(
 			'CustomThumbnailOption' => array(
 				'delete' => '1',
 			),
 		);
+
 		$result = $this->_handleRequestAfterEdit($form, $album);
 		$this->assertEquals(array(array(), array()), $result);
 
@@ -547,6 +573,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(isset($thumbnailImage), 'removed thumbnailImage');
 
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(
@@ -556,6 +583,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array(), $thumbnails, 'no highlight');
 	}
 
@@ -585,6 +613,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($success, 'guarantee');
 
 		list($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($this->_album->getId());
@@ -592,6 +621,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($thumbnailImage), 'thumbnailImage');
 
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(
@@ -601,6 +631,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array($this->_album->getId()), array_keys($thumbnails), 'highlight');
 		$thumbnail = array_shift($thumbnails);
 		$this->assertEquals(
@@ -627,6 +658,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $thumbnail) = GalleryCoreApi::loadEntitiesById($thumbnailId, 'ThumbnailImage');
 
 		if ($ret) {
@@ -659,6 +691,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($thumbnailImage), 'thumbnailImage');
 
 		// Now add a custom thumbnail with the same name but in capital letters.
@@ -682,6 +715,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($thumbnailImage), 'thumbnailImage');
 	}
 }
@@ -691,5 +725,4 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
  * @package Thumbnail
  * @subpackage PHPUnit
  */
-class CustomThumbnailOptionTestToolkit extends GalleryToolkit {
-}
+class CustomThumbnailOptionTestToolkit extends GalleryToolkit {}

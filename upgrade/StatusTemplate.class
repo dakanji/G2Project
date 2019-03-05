@@ -69,6 +69,7 @@ class StatusTemplate {
 	public function renderBodyAndFooter($templateData) {
 		global $steps;
 		global $currentStep;
+
 		global $stepNumber;
 
 		$stepsComplete                   = $stepNumber - ($currentStep->isComplete() ? 0 : 1);

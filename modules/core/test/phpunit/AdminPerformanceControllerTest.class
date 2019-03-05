@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/AdminPerformance.inc');
 
 /**
@@ -82,7 +81,6 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[acceleration][user][type]', 'full');
 		GalleryUtilities::putRequestVariable('form[acceleration][user][expiration]', '5678');
 		// disableCompileCheck unchecked (disabled checkboxes are not set)
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -103,6 +101,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$acceleration = unserialize($acceleration);
 
 		$this->assertEquals(
@@ -124,6 +123,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(1, (int)$compileCheck, 'compile check');
 	}
 
@@ -166,13 +166,14 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		 * GalleryCoreApi::getPluginParameter calls too.  So for now just make sure that the table
 		 * is clean when we're done.
 		 */
+		$storage =& $gallery->getStorage();
 
-		$storage             =& $gallery->getStorage();
 		list($ret, $results) = $storage->search('SELECT COUNT(*) FROM [GalleryCacheMap]', array());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$result = $results->nextResult();
 		$this->assertEquals(0, (int)$result[0]);
 	}

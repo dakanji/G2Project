@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Handle insert tags
  *
@@ -51,6 +52,7 @@ function smarty_core_run_insert_handler($params, &$smarty) {
 		} else {
 			$smarty->_eval($_params['php_resource']);
 		}
+
 		unset($params['args']['script']);
 	}
 

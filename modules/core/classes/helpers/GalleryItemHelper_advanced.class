@@ -36,6 +36,7 @@ class GalleryItemHelper_advanced {
 		foreach ($itemIds as $idx => $id) {
 			$itemIds[$idx] = (int)$id;
 		}
+
 		$storage       =& $gallery->getStorage();
 		$itemIdMarkers = GalleryUtilities::makeMarkers($itemIds);
 
@@ -121,6 +122,7 @@ class GalleryItemHelper_advanced {
 				'GalleryDataItem'  => $result[2],
 			);
 		}
+
 		$counts = GalleryUtilities::strArrToIntArr($counts);
 
 		return array(null, $counts);
@@ -179,6 +181,7 @@ class GalleryItemHelper_advanced {
 
 		if (empty($thumbnails) || $highlightHasLeftTheAlbum) {
 			$gallery->debug('Picking new thumbnail');
+
 			list($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId, 'GalleryAlbumItem');
 
 			if ($ret) {
@@ -187,6 +190,7 @@ class GalleryItemHelper_advanced {
 
 			// Grab the first few items and try them on for size
 			list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($album, 0, 5);
+
 			$gallery->debug('Found childIds');
 			$gallery->debug_r($childIds);
 
@@ -287,6 +291,7 @@ class GalleryItemHelper_advanced {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = GalleryCoreApi::setItemOrderWeight($album->getId(), $maxWeight + 1000);
 
 		if ($ret) {
@@ -350,6 +355,7 @@ class GalleryItemHelper_advanced {
 		if ($ret) {
 			return $ret;
 		}
+
 		// load all items
 		list($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
 
@@ -367,6 +373,7 @@ class GalleryItemHelper_advanced {
 
 			return $ret;
 		}
+
 		// Get all permissions oldOwner has directly or indirectly on the item
 		list($ret, $oldUserPermissions) = GalleryCoreApi::fetchPermissionsForItems($itemIds, $oldOwner->getId());
 
@@ -393,6 +400,7 @@ class GalleryItemHelper_advanced {
 					}
 				}
 			}
+
 			/*
 			 * Add the new permissions to the item/newOwner map
 			 * (2 db queries: search current directly granted permissions, update)
@@ -415,8 +423,10 @@ class GalleryItemHelper_advanced {
 					return $ret;
 				}
 			}
+
 			// Update the ownerId of the item and save it (1 db query)
 			$item->setownerId($newOwner->getid());
+
 			$ret = $item->save();
 
 			if ($ret) {
@@ -442,7 +452,7 @@ class GalleryItemHelper_advanced {
 	public static function deleteSortOrder($sortOrder) {
 		global $gallery;
 
-		$query                     = '
+		$query = '
 		SELECT
 		[GalleryAlbumItem::id]
 		FROM
@@ -452,6 +462,7 @@ class GalleryItemHelper_advanced {
 		OR [GalleryAlbumItem::orderBy] LIKE ?
 		OR [GalleryAlbumItem::orderBy] = ?
 		';
+
 		list($ret, $searchResults) = $gallery->search(
 			$query,
 			array("$sortOrder|%", "%|$sortOrder", $sortOrder)
@@ -472,7 +483,8 @@ class GalleryItemHelper_advanced {
 
 		while (!empty($ids)) {
 			$gallery->guaranteeTimeLimit(30);
-			$currentIds         = array_splice($ids, 0, $batchSize);
+			$currentIds = array_splice($ids, 0, $batchSize);
+
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($currentIds);
 
 			if ($ret) {
@@ -487,6 +499,7 @@ class GalleryItemHelper_advanced {
 
 			foreach ($albums as $album) {
 				$album->setOrderBy('');
+
 				$ret = $album->save();
 
 				if ($ret) {
@@ -531,7 +544,7 @@ class GalleryItemHelper_advanced {
 	public static function deleteRenderer($rendererClassName) {
 		global $gallery;
 
-		$query                     = '
+		$query = '
 		SELECT
 		[GalleryItem::id]
 		FROM
@@ -539,6 +552,7 @@ class GalleryItemHelper_advanced {
 		WHERE
 		[GalleryItem::renderer] = ?
 		';
+
 		list($ret, $searchResults) = $gallery->search($query, array($rendererClassName));
 
 		if ($ret) {
@@ -556,7 +570,8 @@ class GalleryItemHelper_advanced {
 
 		while (!empty($ids)) {
 			$gallery->guaranteeTimeLimit(30);
-			$currentIds         = array_splice($ids, 0, $batchSize);
+			$currentIds = array_splice($ids, 0, $batchSize);
+
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($currentIds);
 
 			if ($ret) {
@@ -571,6 +586,7 @@ class GalleryItemHelper_advanced {
 
 			foreach ($items as $item) {
 				$item->setRenderer(null);
+
 				$ret = $item->save();
 
 				if ($ret) {

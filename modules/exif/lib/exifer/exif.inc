@@ -2,6 +2,7 @@
 //================================================================================================
 //================================================================================================
 //================================================================================================
+
 /*
 	Exifer 1.5
 	Extracts EXIF information from digital photos.
@@ -17,7 +18,6 @@
 	This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 	without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 	See the GNU General Public License for more details. http://www.gnu.org/copyleft/gpl.html
-
 	SUMMARY:
 				This script will correctly parse all of the EXIF data included in images taken
 				with digital cameras.  It will read the IDF0, IDF1, SubIDF and InteroperabilityIFD
@@ -61,7 +61,6 @@
 
 	If you improve this script or test it with a camera not on my list, please email me a copy of
 	the improvement so everyone can benefit from it.  Thanks!
-
 
 	VERSION HISTORY:
 
@@ -127,13 +126,10 @@
 			+Gives raw data output for IPTC, COM and APP2 fields which are sometimes set by other applications
 			+Improvements to Nikon Makernote parsing
 */
+
 //================================================================================================
 //================================================================================================
 //================================================================================================
-
-
-
-
 //================================================================================================
 //================================================================================================
 // Converts from Intel to Motorola endien.  Just reverses the bytes (assumes hex is passed in)
@@ -259,7 +255,6 @@ function lookup_tag($tag) {
 			$tag = 'ExifOffset';
 
 			break;                      //positive integer
-
 			//used by Exif SubIFD "Image Tags"
 		case '829a':
 			$tag = 'ExposureTime';
@@ -433,7 +428,6 @@ function lookup_tag($tag) {
 			$tag = 'CFAPattern';
 
 			break;                      //undefined data type
-
 		case 'a401':
 			$tag = 'CustomerRender';
 
@@ -474,8 +468,6 @@ function lookup_tag($tag) {
 			$tag = 'Sharpness';
 
 			break;                      //values 0-2
-
-
 			//used by Interoperability IFD
 		case '0001':
 			$tag = 'InteroperabilityIndex';
@@ -497,7 +489,6 @@ function lookup_tag($tag) {
 			$tag = 'RelatedImageLength';
 
 			break;              //integer in range 0-65535
-
 			//used by IFD1 "Thumbnail"
 		case '0100':
 			$tag = 'ImageWidth';
@@ -837,14 +828,12 @@ function formatData($type, $tag, $intel, $data) {
 		else {
 			$top = hexdec(substr($data, 0, 8));
 		}               //motorola stores them top-bottom
-
 		if ($intel == 1) {
 			$bottom = hexdec(substr($data, 0, 8));
 		}   //intel stores them bottom-top
 		else {
 			$bottom = hexdec(substr($data, 8, 8));
 		}           //motorola stores them top-bottom
-
 		if ($type == 'SRATIONAL' && $top > 2147483647) {
 			$top = $top - 4294967296;
 		}       //this makes the number signed instead of unsigned
@@ -888,7 +877,7 @@ function formatData($type, $tag, $intel, $data) {
 					$data = 1 / $data;
 				}
 			} elseif ($tag == '829a' && $top > 0 && $bottom % $top == 0) {
-				$data = '1/' . intval($bottom / $top) . ' sec';
+				$data = '1/' . (int)($bottom / $top) . ' sec';
 			}
 
 			if (is_float($data)) {
@@ -910,6 +899,7 @@ function formatData($type, $tag, $intel, $data) {
 		if ($intel == 1) {
 			$data = intel2Moto($data);
 		}
+
 		$data = hexdec($data);
 
 		if ($type == 'SSHORT' && $data > 32767) {
@@ -918,7 +908,6 @@ function formatData($type, $tag, $intel, $data) {
 		if ($type == 'SLONG' && $data > 2147483647) {
 			$data = $data - 4294967296;
 		}   //this makes the number signed instead of unsigned
-
 		if ($tag == '0112') { //Orientation
 			if ($data == 1) {
 				$data = 'Normal (O deg)';
@@ -1193,6 +1182,7 @@ function read_entry(&$result, $in, $seek, $intel, $ifd_name, $globalOffset) {
 	if ($intel == 1) {
 		$tag = intel2Moto($tag);
 	}
+
 	$tag_name = lookup_tag($tag);
 
 	//2 byte datatype
@@ -1201,6 +1191,7 @@ function read_entry(&$result, $in, $seek, $intel, $ifd_name, $globalOffset) {
 	if ($intel == 1) {
 		$type = intel2Moto($type);
 	}
+
 	lookup_type($type, $size);
 
 	//4 byte number of elements
@@ -1209,6 +1200,7 @@ function read_entry(&$result, $in, $seek, $intel, $ifd_name, $globalOffset) {
 	if ($intel == 1) {
 		$count = intel2Moto($count);
 	}
+
 	$bytesofdata = $size * hexdec($count);
 
 	//4 byte value or pointer to value if larger than 4 bytes
@@ -1222,6 +1214,7 @@ function read_entry(&$result, $in, $seek, $intel, $ifd_name, $globalOffset) {
 		if ($intel == 1) {
 			$value = intel2Moto($value);
 		}
+
 		$v = fseek($seek, $globalOffset + hexdec($value));  //offsets are from TIFF header which is 12 bytes from the start of the file
 		if ($v == 0) {
 			$data = fread($seek, $bytesofdata);
@@ -1240,6 +1233,7 @@ function read_entry(&$result, $in, $seek, $intel, $ifd_name, $globalOffset) {
 		if ($result['VerboseOutput'] == 1) {
 			$result[$ifd_name]['MakerNote']['RawData'] = $data;
 		}
+
 		// not using stripos for php4 compatibility
 		$capmake = strtoupper($make);
 
@@ -1285,6 +1279,7 @@ function read_entry(&$result, $in, $seek, $intel, $ifd_name, $globalOffset) {
 					$data = intel2Moto($data);
 				}
 			}
+
 			$result[$ifd_name][$tag_name . '_Verbose']['RawData'] = $data;
 			$result[$ifd_name][$tag_name . '_Verbose']['Type']    = $type;
 			$result[$ifd_name][$tag_name . '_Verbose']['Bytes']   = $bytesofdata;
@@ -1311,9 +1306,8 @@ function read_exif_data_raw($path, $verbose) {
 		return;
 	}
 
-	$in   = @fopen($path, 'rb'); //the b is for windows machines to open in binary mode
-	$seek = @fopen($path, 'rb'); //There may be an elegant way to do this with one file handle.
-
+	$in           = @fopen($path, 'rb'); //the b is for windows machines to open in binary mode
+	$seek         = @fopen($path, 'rb'); //There may be an elegant way to do this with one file handle.
 	$globalOffset = 0;
 
 	if (!isset($verbose)) {
@@ -1381,6 +1375,7 @@ function read_exif_data_raw($path, $verbose) {
 				$data                   = fread($in, hexdec($size) - 2);
 				$result['IPTC']['Data'] = $data;
 			}
+
 			$globalOffset += hexdec($size) + 2;
 		} elseif ($data == 'ffe2') {  //EXIF extension Marker
 			$result['ValidAPP2Data'] = 1;
@@ -1390,6 +1385,7 @@ function read_exif_data_raw($path, $verbose) {
 				$data                   = fread($in, hexdec($size) - 2);
 				$result['APP2']['Data'] = $data;
 			}
+
 			$globalOffset += hexdec($size) + 2;
 		} elseif ($data == 'fffe') {  //COM extension Marker
 			$result['ValidCOMData'] = 1;
@@ -1399,6 +1395,7 @@ function read_exif_data_raw($path, $verbose) {
 				$data                  = fread($in, hexdec($size) - 2);
 				$result['COM']['Data'] = $data;
 			}
+
 			$globalOffset += hexdec($size) + 2;
 		} elseif ($data == 'ffe1') {
 			$result['ValidEXIFData'] = 1;
@@ -1407,8 +1404,8 @@ function read_exif_data_raw($path, $verbose) {
 		$data = bin2hex(fread($in, 2));
 		$size = bin2hex(fread($in, 2));
 	}
-	//END MARKER LOOP
 
+	//END MARKER LOOP
 	if ($data == 'ffe1') {
 		$result['ValidEXIFData'] = 1;
 	} else {
@@ -1460,10 +1457,8 @@ function read_exif_data_raw($path, $verbose) {
 	if (hexdec($offset) > 8) {
 		$unknown = fread($in, hexdec($offset) - 8);
 	} //fixed this bug in 1.3
-
 	//add 12 to the offset to account for TIFF header
 	$globalOffset += 12;
-
 
 	//===========================================================Start of IFD0
 	$num = bin2hex(fread($in, 2));
@@ -1471,6 +1466,7 @@ function read_exif_data_raw($path, $verbose) {
 	if ($intel == 1) {
 		$num = intel2Moto($num);
 	}
+
 	$num                   = hexdec($num);
 	$result['IFD0NumTags'] = $num;
 
@@ -1489,6 +1485,7 @@ function read_exif_data_raw($path, $verbose) {
 	if ($intel == 1) {
 		$offset = intel2Moto($offset);
 	}
+
 	$result['IFD1Offset'] = hexdec($offset);
 
 	//Check for SubIFD
@@ -1514,6 +1511,7 @@ function read_exif_data_raw($path, $verbose) {
 	if ($intel == 1) {
 		$num = intel2Moto($num);
 	}
+
 	$num                     = hexdec($num);
 	$result['SubIFDNumTags'] = $num;
 
@@ -1533,6 +1531,7 @@ function read_exif_data_raw($path, $verbose) {
 
 		return $result;
 	}
+
 	//seek to IFD1
 	$v = fseek($in, $globalOffset + $result['IFD1Offset']);
 
@@ -1547,6 +1546,7 @@ function read_exif_data_raw($path, $verbose) {
 	if ($intel == 1) {
 		$num = intel2Moto($num);
 	}
+
 	$num                   = hexdec($num);
 	$result['IFD1NumTags'] = $num;
 
@@ -1558,6 +1558,7 @@ function read_exif_data_raw($path, $verbose) {
 		$result['Errors']                   = $result['Errors'] + 1;
 		$result['Error'][$result['Errors']] = 'Illegal size for IFD1';
 	}
+
 	//if verbose output is on, stick in the thumbnail raw data
 	if ($result['VerboseOutput'] == 1 && $result['IFD1']['JpegIFOffset'] > 0 && $result['IFD1']['JpegIFByteCount'] > 0) {
 		$v = fseek($seek, $globalOffset + $result['IFD1']['JpegIFOffset']);
@@ -1567,9 +1568,9 @@ function read_exif_data_raw($path, $verbose) {
 		} elseif ($v == -1) {
 			$result['Errors'] = $result['Errors'] + 1;
 		}
+
 		$result['IFD1']['ThumbnailData'] = $data;
 	}
-
 
 	//Check for Interoperability IFD
 	if (!isset($result['SubIFD']['ExifInteroperabilityOffset']) || $result['SubIFD']['ExifInteroperabilityOffset'] == 0) {
@@ -1578,6 +1579,7 @@ function read_exif_data_raw($path, $verbose) {
 
 		return $result;
 	}
+
 	//seek to InteroperabilityIFD
 	$v = fseek($in, $globalOffset + $result['SubIFD']['ExifInteroperabilityOffset']);
 
@@ -1592,6 +1594,7 @@ function read_exif_data_raw($path, $verbose) {
 	if ($intel == 1) {
 		$num = intel2Moto($num);
 	}
+
 	$num                                  = hexdec($num);
 	$result['InteroperabilityIFDNumTags'] = $num;
 
@@ -1603,6 +1606,7 @@ function read_exif_data_raw($path, $verbose) {
 		$result['Errors']                   = $result['Errors'] + 1;
 		$result['Error'][$result['Errors']] = 'Illegal size for InteroperabilityIFD';
 	}
+
 	fclose($in);
 	fclose($seek);
 
@@ -1618,13 +1622,11 @@ function ConvertToFraction($v, &$n, &$d) {
 	$MaxTerms   = 15;         //Limit to prevent infinite loop
 	$MinDivisor = 1E-6; //Limit to prevent divide by zero
 	$MaxError   = 1E-8; //How close is enough
-
-	$f = $v; //Initialize fraction being converted
-
-	$n_un   = 1; //Initialize fractions with 1/0, 0/1
-	$d_un   = 0;
-	$n_deux = 0;
-	$d_deux = 1;
+	$f          = $v; //Initialize fraction being converted
+	$n_un       = 1; //Initialize fractions with 1/0, 0/1
+	$d_un       = 0;
+	$n_deux     = 0;
+	$d_deux     = 1;
 
 	for ($i = 0; $i < $MaxTerms; $i++) {
 		$a      = floor($f); //Get next term

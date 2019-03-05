@@ -103,11 +103,13 @@ class GalleryPlatform {
 			if (!$results) {
 				return $results;
 			}
+
 			$results = $this->chmod($dest);
 		} else {
 			if (!isset($this->_umask)) {
 				$this->_loadPermissionPreferences();
 			}
+
 			$umask   = umask($this->_umask);
 			$results = copy($source, $dest);
 			umask($umask);
@@ -132,6 +134,7 @@ class GalleryPlatform {
 		if (!isset($this->_umask)) {
 			$this->_loadPermissionPreferences();
 		}
+
 		$umask   = umask($this->_umask);
 		$results = symlink($source, $dest);
 		umask($umask);
@@ -435,6 +438,7 @@ class GalleryPlatform {
 
 		if (!$success) {
 			global $gallery;
+
 			$gallery->debug("atomicWrite($filename): parent directory could not be created");
 
 			return false;
@@ -448,18 +452,21 @@ class GalleryPlatform {
 			if (!isset($this->_filePerms)) {
 				$this->_loadPermissionPreferences();
 			}
+
 			chmod($tempFile, $this->_filePerms);
 			$bytesWritten = fwrite($fd, $data);
 
 			if ($bytesWritten == strlen($data)) {
 				$success = true;
 			}
+
 			fclose($fd);
 		}
 
 		if ($success) {
 			return $this->rename($tempFile, $filename);
 		}
+
 		@unlink($tempFile);
 
 		return false;
@@ -622,6 +629,7 @@ class GalleryPlatform {
 			if (!strcmp($filename, '.') || !strcmp($filename, '..')) {
 				continue;
 			}
+
 			$path = $dirname . $filename;
 
 			if ($this->is_dir($path)) {
@@ -634,6 +642,7 @@ class GalleryPlatform {
 				return false;
 			}
 		}
+
 		closedir($fd);
 
 		return $this->rmdir($dirname);
@@ -652,6 +661,7 @@ class GalleryPlatform {
 			if (!isset($this->_filePerms) || !isset($this->_dirPerms)) {
 				$this->_loadPermissionPreferences();
 			}
+
 			$octalPerms = $this->_dirPerms;
 		} else {
 			// Convert string permission representation to octal
@@ -704,6 +714,7 @@ class GalleryPlatform {
 	 */
 	public function legalizePathComponent($component, $forDirectory = false) {
 		global $gallery;
+
 		$legalChars = $this->getLegalPathCharacters();
 
 		// Scrub out all the illegal characters
@@ -756,6 +767,7 @@ class GalleryPlatform {
 			if (!empty($extension)) {
 				$fileBase .= '.' . $extension;
 			}
+
 			$component = $fileBase;
 		}
 
@@ -801,6 +813,7 @@ class GalleryPlatform {
 	 */
 	public function _isRestrictedByOpenBaseDir($path, $separator, $caseSensitive) {
 		global $gallery;
+
 		$slash       = $this->getDirectorySeparator();
 		$phpVm       = $gallery->getPhpVm();
 		$openBasedir = $phpVm->ini_get('open_basedir');
@@ -842,6 +855,7 @@ class GalleryPlatform {
 				// Realpath will remove a trailing slash, add it back to avoid prefix match
 				$baseDirMatch .= $slash;
 			}
+
 			// Add slash on path so /dir is accepted if /dir/ is a valid basedir
 			if (!$function($baseDirMatch, $realpath . $slash, strlen($baseDirMatch))) {
 				return false;
@@ -906,6 +920,7 @@ class GalleryPlatform {
 		if (false === ($file = fopen($path, 'w')) || false === fwrite($file, $data)) {
 			return false;
 		}
+
 		fclose($file);
 
 		return true;
@@ -1086,7 +1101,7 @@ class GalleryPlatform {
 	public function mail($to = null, $subject = null, $body = null, $headers = null) {
 		global $gallery;
 
-		if (is_null($to) || is_null($subject) || is_null($body)) {
+		if (null === $to || null === $subject || null === $body) {
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
 
@@ -1094,7 +1109,8 @@ class GalleryPlatform {
 			$gallery->debug("mail($to, $subject, $body, $headers)");
 		}
 
-		$config             = array();
+		$config = array();
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
 		if (!$ret) {
@@ -1107,6 +1123,7 @@ class GalleryPlatform {
 
 		if (!empty($config['smtp.host'])) {
 			GalleryCoreApi::requireOnce('lib/smtp/smtp.php');
+
 			$ret = smtpmail($config, $to, $subject, $body, $headers);
 
 			if ($ret && $gallery->getDebug()) {
@@ -1115,12 +1132,14 @@ class GalleryPlatform {
 
 			return !$ret;
 		}
+
 		$phpVm = $gallery->getPhpVm();
 		// Convert \r\n to the appropriate line ending style
 		if ($this->getLineEnding() == "\n") {
 			if (isset($headers)) {
 				$headers = preg_replace("#\r\n#s", "\n", $headers);
 			}
+
 			$body = preg_replace("#\r\n#s", "\n", $body);
 		}
 
@@ -1250,6 +1269,7 @@ class GalleryPlatform {
 			if (!$ret && !empty($filePerms)) {
 				$this->_filePerms = octdec($filePerms);
 			}
+
 			list($ret, $dirPerms) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'core',
@@ -1259,8 +1279,10 @@ class GalleryPlatform {
 			if (!$ret && !empty($dirPerms)) {
 				$this->_dirPerms = octdec($dirPerms);
 			}
+
 			GalleryDataCache::put($cacheKey, array($this->_filePerms, $this->_dirPerms));
 		}
+
 		$this->_umask = 0777 - $this->_filePerms;
 	}
 
@@ -1281,6 +1303,7 @@ class GalleryPlatform {
 			if (!isset($this->_filePerms) || !isset($this->_dirPerms)) {
 				$this->_loadPermissionPreferences();
 			}
+
 			$mode = $this->is_dir($path) ? $this->_dirPerms : $this->_filePerms;
 		}
 
@@ -1330,6 +1353,7 @@ class GalleryPlatform {
 			if (!($dir = $this->opendir($path))) {
 				return false;
 			}
+
 			$slash = $this->getDirectorySeparator();
 			$list  = array();
 
@@ -1338,6 +1362,7 @@ class GalleryPlatform {
 					$list[] = $path . $slash . $file;
 				}
 			}
+
 			$this->closedir($dir);
 
 			foreach ($list as $path) {
@@ -1373,11 +1398,13 @@ class GalleryPlatform {
 		if (!$this->chmod($path)) {
 			return false;
 		}
+
 		$dir = $this->opendir($path);
 
 		if (!$dir) {
 			return false;
 		}
+
 		$slash = $this->getDirectorySeparator();
 
 		while ($file = $this->readdir($dir)) {
@@ -1387,6 +1414,7 @@ class GalleryPlatform {
 				return false;
 			}
 		}
+
 		$this->closedir($dir);
 
 		return true;
@@ -1418,6 +1446,7 @@ class GalleryPlatform {
 				$newFormat .= $piece;
 			}
 		}
+
 		// Call strftime and convert to UTF-8; escape % characters before sprintf
 		$newFormat = str_replace(
 			array('%', '&%%&'),
@@ -1457,7 +1486,6 @@ class GalleryPlatform {
 	 */
 	public function resetPlatform() {
 		unset($this->_umask, $this->_filePerms, $this->_dirPerms);
-
 
 		GalleryDataCache::remove('GalleryPlatform::_loadPermissionPreferences');
 	}

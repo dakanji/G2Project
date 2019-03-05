@@ -37,7 +37,6 @@ In ADOdb, named quotes for MS SQL Server use ". From the MSSQL Docs:
 
 		SET QUOTED_IDENTIFIER { ON | OFF }
 
-
 */
 
 // security - hide paths
@@ -54,7 +53,6 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 	public $typeXL       = 'TEXT';
 
 	//var $alterCol = ' ALTER COLUMN ';
-
 	public function MetaType($t, $len = -1, $fieldobj = false) {
 		if (is_object($t)) {
 			$fieldobj = $t;
@@ -158,14 +156,17 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 	}
 
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname            = $this->TableName($tabname);
-		$f                  = array();
+		$tabname = $this->TableName($tabname);
+		$f       = array();
+
 		list($lines, $pkey) = $this->_GenFields($flds);
-		$s                  = "ALTER TABLE $tabname $this->addCol";
+
+		$s = "ALTER TABLE $tabname $this->addCol";
 
 		foreach ($lines as $v) {
 			$f[] = "\n $v";
 		}
+
 		$s    .= implode(', ', $f);
 		$sql[] = $s;
 
@@ -193,7 +194,8 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 		$sql     = array();
 
 		list($lines, $pkey, $idxs) = $this->_GenFields($flds);
-		$alter                     = 'ALTER TABLE ' . $tabname . $this->alterCol . ' ';
+
+		$alter = 'ALTER TABLE ' . $tabname . $this->alterCol . ' ';
 
 		foreach ($lines as $v) {
 			$not_null = false;
@@ -204,8 +206,9 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 
 			if (preg_match('/^([^ ]+) .*DEFAULT (\'[^\']+\'|\"[^\"]+\"|[^ ]+)/', $v, $matches)) {
 				list(, $colname, $default) = $matches;
-				$v                         = preg_replace('/^' . preg_quote($colname) . '\s/', '', $v);
-				$t                         = trim(str_replace('DEFAULT ' . $default, '', $v));
+
+				$v = preg_replace('/^' . preg_quote($colname) . '\s/', '', $v);
+				$t = trim(str_replace('DEFAULT ' . $default, '', $v));
 
 				if ($constraintname = $this->DefaultConstraintname($tabname, $colname)) {
 					$sql[] = 'ALTER TABLE ' . $tabname . ' DROP CONSTRAINT ' . $constraintname;
@@ -216,6 +219,7 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 				} else {
 					$sql[] = $alter . $colname . ' ' . $t;
 				}
+
 				$sql[] = 'ALTER TABLE ' . $tabname
 					. ' ADD CONSTRAINT DF__' . $tabname . '__' . $colname . '__' . dechex(mt_rand())
 					. ' DEFAULT ' . $default . ' FOR ' . $colname;
@@ -260,6 +264,7 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 		if (!is_array($flds)) {
 			$flds = explode(',', $flds);
 		}
+
 		$f = array();
 		$s = 'ALTER TABLE ' . $tabname;
 
@@ -267,8 +272,10 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 			if ($constraintname = $this->DefaultConstraintname($tabname, $v)) {
 				$sql[] = 'ALTER TABLE ' . $tabname . ' DROP CONSTRAINT ' . $constraintname;
 			}
+
 			$f[] = ' DROP COLUMN ' . $this->NameQuote($v);
 		}
+
 		$s    .= implode(', ', $f);
 		$sql[] = $s;
 
@@ -355,7 +362,6 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 		( search_conditions )
 	}
 
-
 	*/
 
 	/*
@@ -370,6 +376,7 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 			STATISTICS_NORECOMPUTE |
 			SORT_IN_TEMPDB
 		}
+
 	*/
 	public function _IndexSQL($idxname, $tabname, $flds, $idxoptions) {
 		$sql = array();
@@ -392,12 +399,12 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 		if (is_array($flds)) {
 			$flds = implode(', ', $flds);
 		}
+
 		$s = 'CREATE' . $unique . $clustered . ' INDEX ' . $idxname . ' ON ' . $tabname . ' (' . $flds . ')';
 
 		if (isset($idxoptions[$this->upperName])) {
 			$s .= $idxoptions[$this->upperName];
 		}
-
 
 		$sql[] = $s;
 

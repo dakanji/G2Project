@@ -49,6 +49,7 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_entity);
 
 		foreach (array(
@@ -137,6 +138,7 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 				unset($params[$key]);
 			}
 		}
+
 		ksort($params);
 		$this->assertEquals(
 			array(
@@ -162,6 +164,7 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('5', $themeParam, 'Theme param');
 	}
 

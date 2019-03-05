@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
@@ -40,6 +39,7 @@ class ArchiveExtractToolkit extends GalleryToolkit {
 		$context = array()
 	) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		if ($operationName != 'extract' || $mimeType != 'application/zip') {
@@ -70,6 +70,7 @@ class ArchiveExtractToolkit extends GalleryToolkit {
 		if (!$platform->chdir($destFilename)) {
 			return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null);
 		}
+
 		$gallery->guaranteeTimeLimit(60);
 
 		list($success) = $platform->exec(array(array($params['unzipPath'], $sourceFilename)));
@@ -113,11 +114,13 @@ class ArchiveExtractToolkit extends GalleryToolkit {
 	 */
 	public function _pruneDirectory($dir, $prune, $removeMeta) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		if (!($dh = $platform->opendir($dir))) {
 			return false;
 		}
+
 		$list = array();
 
 		while ($file = $platform->readdir($dh)) {
@@ -125,6 +128,7 @@ class ArchiveExtractToolkit extends GalleryToolkit {
 				$list[] = $file;
 			}
 		}
+
 		$platform->closedir($dh);
 		$dir .= $platform->getDirectorySeparator();
 

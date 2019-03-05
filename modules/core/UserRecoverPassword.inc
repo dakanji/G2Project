@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/helpers/UserRecoverPasswordHelper_simple.class'
 );
@@ -169,6 +168,7 @@ class UserRecoverPasswordController extends GalleryController {
 					 * Do not update the auth string.
 					 * We will silently fail to thwart phishing attempts.
 					 */
+
 					// Create a special flag for UnitTests
 					$unitTest = 0;
 
@@ -180,7 +180,7 @@ class UserRecoverPasswordController extends GalleryController {
 
 					if (!empty($lastRequest)) {
 						if (($lastRequest - (7 * 24 * 60 * 60) + (20 * 60)) < time()) {
-							$ret             = GalleryCoreApi::updateMapEntry(
+							$ret = GalleryCoreApi::updateMapEntry(
 								'GalleryRecoverPasswordMap',
 								array(
 									'userName' => $user->getUserName(),
@@ -190,6 +190,7 @@ class UserRecoverPasswordController extends GalleryController {
 									'requestExpires' => $requestExpires,
 								)
 							);
+
 							$shouldSendEmail = true;
 						}
 					} else {
@@ -209,13 +210,14 @@ class UserRecoverPasswordController extends GalleryController {
 						if ($ret) {
 							return array($ret, null);
 						}
+
 						$shouldSendEmail = true;
 					}
 
 					if ($unitTest || (empty($error) && $shouldSendEmail)) {
 						// Generate baseUrl and recoverUrl for the email template
-						$generator  =& $gallery->getUrlGenerator();
-						$baseUrl    = $generator->generateUrl(
+						$generator =& $gallery->getUrlGenerator();
+						$baseUrl   = $generator->generateUrl(
 							array(),
 							array(
 								'forceFullUrl'   => true,
@@ -223,6 +225,7 @@ class UserRecoverPasswordController extends GalleryController {
 								'forceSessionId' => false,
 							)
 						);
+
 						$recoverUrl = $generator->generateUrl(
 							array(
 								'view'       => 'core.UserAdmin',
@@ -261,6 +264,7 @@ class UserRecoverPasswordController extends GalleryController {
 								'body'    => $tplData,
 								'headers' => null,
 							);
+
 							$mailData = serialize($mailData);
 
 							$session =& $gallery->getSession();

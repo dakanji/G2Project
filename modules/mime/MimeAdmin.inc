@@ -49,12 +49,14 @@ class MimeAdminController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$mimeList = ($form['allowMime'] == 'all') ? '' : implode(' | ', array_keys($form['upload']));
 			$ret      = GalleryCoreApi::setPluginParameter('module', 'mime', 'mimeList', $mimeList);
 
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$status['saved'] = true;
 		} elseif (isset($form['action']['delete'])) {
 			$mimeType = $form['action']['delete'];
@@ -67,9 +69,9 @@ class MimeAdminController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$status['deleted'] = $mimeType;
 		} // else $form['action']['reset']
-
 		$results = array(
 			'redirect' => array(
 				'view'    => 'core.SiteAdmin',
@@ -105,6 +107,7 @@ class MimeAdminView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$form['allowMime'] = $params['allowMime'];
 			$form['upload']    = array();
 
@@ -112,7 +115,9 @@ class MimeAdminView extends GalleryView {
 				$form['upload'][$mime] = true;
 			}
 		}
+
 		GalleryCoreApi::requireOnce('modules/mime/classes/MimeHelper.class');
+
 		list($ret, $typeMap) = MimeHelper::getMimeTypeMap();
 
 		if ($ret) {

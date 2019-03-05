@@ -106,12 +106,12 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 			$procedures = array();
 
 			// get index details
-
 			$likepattern = '';
 
 			if ($NamePattern) {
 				$likepattern = " LIKE '" . $NamePattern . "'";
 			}
+
 			$rs = $this->Execute('SHOW PROCEDURE STATUS' . $likepattern);
 
 			if (is_object($rs)) {
@@ -144,6 +144,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
 			}
+
 			$ADODB_FETCH_MODE = $save;
 
 			return $procedures;
@@ -171,6 +172,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				$mask                 = $this->qstr($mask);
 				$this->metaTablesSQL .= " AND table_name LIKE $mask";
 			}
+
 			$ret = ADOConnection::MetaTables($ttype, $showSchema);
 
 			$this->metaTablesSQL = $save;
@@ -197,6 +199,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
 			}
+
 			$ADODB_FETCH_MODE = $save;
 
 			if (!is_object($rs)) {
@@ -231,7 +234,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 
 		// if magic quotes disabled, use mysql_real_escape_string()
 		public function qstr($s, $magic_quotes = false) {
-			if (is_null($s)) {
+			if (null === $s) {
 				return 'NULL';
 			}
 
@@ -304,6 +307,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 			if (empty($this->_genSeqSQL)) {
 				return false;
 			}
+
 			$u = strtoupper($seqname);
 
 			$ok = $this->Execute(sprintf($this->_genSeqSQL, $seqname));
@@ -331,6 +335,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				if ($holdtransOK) {
 					$this->_transOK = true; //if the status was ok before reset
 				}
+
 				$u = strtoupper($seqname);
 				$this->Execute(sprintf($this->_genSeqSQL, $seqname));
 				$cnt = $this->GetOne(sprintf($this->_genSeqCountSQL, $seqname));
@@ -338,6 +343,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				if (!$cnt) {
 					$this->Execute(sprintf($this->_genSeq2SQL, $seqname, $startID - 1));
 				}
+
 				$rs = $this->Execute($getnext);
 			}
 
@@ -365,6 +371,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				if ($db != 'mysql') {
 					$arr[] = $db;
 				}
+
 				$i += 1;
 			}
 
@@ -376,6 +383,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 			if (!$col) {
 				$col = $this->sysTimeStamp;
 			}
+
 			$s      = 'DATE_FORMAT(' . $col . ",'";
 			$concat = false;
 			$len    = strlen($fmt);
@@ -389,6 +397,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 							$i++;
 							$ch = substr($fmt, $i, 1);
 						}
+
 						/** Fall Through */
 					case '-':
 					case '/':
@@ -427,6 +436,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 						} else {
 							$s .= ",('";
 						}
+
 						$concat = true;
 
 						break;
@@ -473,6 +483,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 						break;
 				}
 			}
+
 			$s .= "')";
 
 			if ($concat) {
@@ -586,13 +597,16 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				$dbName = $this->database;
 				$this->SelectDB($schema);
 			}
+
 			global $ADODB_FETCH_MODE;
+
 			$save             = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 			if ($this->fetchMode !== false) {
 				$savem = $this->SetFetchMode(false);
 			}
+
 			$rs = $this->Execute(sprintf($this->metaColumnsSQL, $table));
 
 			if ($schema) {
@@ -602,6 +616,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
 			}
+
 			$ADODB_FETCH_MODE = $save;
 
 			if (!is_object($rs)) {
@@ -637,6 +652,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 					$fld->type       = $type;
 					$fld->max_length = -1;
 				}
+
 				$fld->not_null       = ($rs->fields[2] != 'YES');
 				$fld->primary_key    = ($rs->fields[3] == 'PRI');
 				$fld->auto_increment = (strpos($rs->fields[5], 'auto_increment') !== false);
@@ -660,6 +676,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				} else {
 					$retarr[strtoupper($fld->name)] = $fld;
 				}
+
 				$rs->MoveNext();
 			}
 
@@ -703,6 +720,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 			return mysql_query($sql, $this->_connectionID);
 			/*
 			global $ADODB_COUNTRECS;
+
 			if($ADODB_COUNTRECS)
 			return mysql_query($sql,$this->_connectionID);
 			else
@@ -767,6 +785,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 			if (!empty($owner)) {
 				$table = "$owner.$table";
 			}
+
 			$a_create_table = $this->getRow(sprintf('SHOW CREATE TABLE %s', $table));
 
 			if ($associative) {
@@ -780,6 +799,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 			if (!preg_match_all('/FOREIGN KEY \(`(.*?)`\) REFERENCES `(.*?)` \(`(.*?)`\)/', $create_sql, $matches)) {
 				return false;
 			}
+
 			$foreign_keys = array();
 			$num_keys     = count($matches[0]);
 
@@ -796,6 +816,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				if (!isset($foreign_keys[$ref_table])) {
 					$foreign_keys[$ref_table] = array();
 				}
+
 				$num_fields = count($my_field);
 
 				for ($j = 0; $j < $num_fields; $j ++) {
@@ -814,8 +835,6 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 	/*--------------------------------------------------------------------------------------
 	 Class Name: Recordset
 	--------------------------------------------------------------------------------------*/
-
-
 	class ADORecordSet_mysql extends ADORecordSet {
 		public $databaseType = 'mysql';
 		public $canSeek      = true;
@@ -823,6 +842,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 		public function __construct($queryID, $mode = false) {
 			if ($mode === false) {
 				global $ADODB_FETCH_MODE;
+
 				$mode = $ADODB_FETCH_MODE;
 			}
 
@@ -844,6 +864,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 
 					break;
 			}
+
 			$this->adodbFetchMode = $mode;
 			parent::__construct($queryID);
 		}
@@ -863,6 +884,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				if ($o) {
 					$o->max_length = @mysql_field_len($this->_queryID, $fieldOffset); // suggested by: Jim Nicholson (jnich#att.com)
 				}
+
 				//$o->max_length = -1; // mysql returns the max length less spaces -- so it is unrealiable
 				if ($o) {
 					$o->binary = (strpos($f, 'binary') !== false);
@@ -963,6 +985,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 						return 'C';
 					}
 
+
 					// Fall Through
 				case 'TEXT':
 				case 'LONGTEXT':
@@ -998,7 +1021,6 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 					}
 
 					return 'I';
-
 
 				default:
 					return 'N';

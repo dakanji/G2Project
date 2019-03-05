@@ -9,7 +9,6 @@
 Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   DB2 data driver. Requires ODBC.
 
 From phpdb list:
@@ -65,8 +64,6 @@ $db = NewADOConnection('odbc_db2');
 $db->curMode = SQL_CUR_USE_ODBC;
 $db->Connect($dsn, $userid, $pwd);
 
-
-
 USING CLI INTERFACE ===================
 
 I have had reports that the $host and $database params have to be reversed in
@@ -78,7 +75,6 @@ Connect() when using the CLI interface. From Halmai Csongor csongor.halmai#nexum
 > $connection_object->Connect( $DATABASE_HOST, $DATABASE_AUTH_USER_NAME, $DATABASE_AUTH_PASSWORD, $DATABASE_NAME )
 >
 > In case of DB2 I had to swap the first and last arguments in order to connect properly.
-
 
 System Error 5 ==============
 IF you get a System Error 5 when trying to Connect/Load, it could be a permission problem. Give the user connecting
@@ -116,6 +112,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 			if (strncmp(PHP_OS, 'WIN', 3) === 0) {
 				$this->curmode = SQL_CUR_USE_ODBC;
 			}
+
 			parent::__construct();
 		}
 
@@ -161,11 +158,11 @@ if (!defined('ADODB_ODBC_DB2')) {
 
 				return $false;
 			}
+
 			$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
 
 			$arr = $rs->GetArray();
 			//print_r($arr);
-
 			$rs->Close();
 			$arr2 = array();
 
@@ -207,12 +204,14 @@ if (!defined('ADODB_ODBC_DB2')) {
 		public function MetaIndexes($table, $primary = false, $owner = false) {
 			// save old fetch mode
 			global $ADODB_FETCH_MODE;
+
 			$save             = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 			if ($this->fetchMode !== false) {
 				$savem = $this->SetFetchMode(false);
 			}
+
 			$false = false;
 			// get index details
 			$table = strtoupper($table);
@@ -221,23 +220,27 @@ if (!defined('ADODB_ODBC_DB2')) {
 			if ($primary) {
 				$SQL .= " AND UNIQUERULE='P'";
 			}
+
 			$rs = $this->Execute($SQL);
 
 			if (!is_object($rs)) {
 				if (isset($savem)) {
 					$this->SetFetchMode($savem);
 				}
+
 				$ADODB_FETCH_MODE = $save;
 
 				return $false;
 			}
+
 			$indexes = array();
 			// parse index data into array
 			while ($row = $rs->FetchRow()) {
-				$indexes[$row[0]]            = array(
+				$indexes[$row[0]] = array(
 					'unique'  => ($row[1] == 'U' || $row[1] == 'P'),
 					'columns' => array(),
 				);
+
 				$cols                        = ltrim($row[2], '+');
 				$indexes[$row[0]]['columns'] = explode('+', $cols);
 			}
@@ -256,6 +259,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 			if (!$col) {
 				$col = $this->sysDate;
 			}
+
 			$s = '';
 
 			$len = strlen($fmt);
@@ -264,6 +268,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 				if ($s) {
 					$s .= '||';
 				}
+
 				$ch = $fmt[$i];
 
 				switch ($ch) {
@@ -324,6 +329,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 							$i++;
 							$ch = substr($fmt, $i, 1);
 						}
+
 						$s .= $this->qstr($ch);
 				}
 			}
@@ -339,20 +345,20 @@ if (!defined('ADODB_ODBC_DB2')) {
 				if ($nrows >= 0) {
 					$sql .= " FETCH FIRST $nrows ROWS ONLY ";
 				}
+
 				$rs = $this->Execute($sql, $inputArr);
 			} else {
-				if ($offset > 0 && $nrows < 0) {
-				} else {
+				if ($offset > 0 && $nrows < 0) {} else {
 					$nrows += $offset;
 					$sql   .= " FETCH FIRST $nrows ROWS ONLY ";
 				}
+
 				$rs = ADOConnection::SelectLimit($sql, -1, $offset, $inputArr);
 			}
 
 			return $rs;
 		}
 	}
-
 
 	class ADORecordSet_odbc_db2 extends ADORecordSet_odbc {
 		public $databaseType = 'db2';
@@ -376,6 +382,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 					if ($len <= $this->blobSize) {
 						return 'C';
 					}
+
 
 					// Fall Through
 				case 'LONGCHAR':
@@ -402,10 +409,8 @@ if (!defined('ADODB_ODBC_DB2')) {
 				//case 'BOOLEAN':
 				//case 'BIT':
 				//	return 'L';
-
 				//case 'COUNTER':
 				//	return 'R';
-
 				case 'INT':
 				case 'INTEGER':
 				case 'BIGINT':

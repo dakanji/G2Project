@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/sizelimit/classes/SizeLimitHelper.class');
 
 /**
@@ -43,7 +42,8 @@ class SizeLimitOption extends ItemEditOption {
 		 * Get the parameters for this album;
 		 * we are assuming that both $height and $width are either in or out...
 		 */
-		$SizeLimitOption    = array();
+		$SizeLimitOption = array();
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 			'module',
 			'sizelimit',
@@ -53,6 +53,7 @@ class SizeLimitOption extends ItemEditOption {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		// if there aren't any - assume 'no limits'
 		if (!isset($params['height']) || $params['height'] == 0) {
 			$SizeLimitOption['dimensionChoice'] = 'unlimited';
@@ -100,6 +101,7 @@ class SizeLimitOption extends ItemEditOption {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			array_unshift($subAlbumIds, $item->getId());
 		} else {
 			$subAlbumIds = array($item->getId());
@@ -119,6 +121,7 @@ class SizeLimitOption extends ItemEditOption {
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					$ret = GalleryCoreApi::removePluginParameter(
 						'module',
 						'sizelimit',
@@ -129,6 +132,7 @@ class SizeLimitOption extends ItemEditOption {
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					$ret = GalleryCoreApi::removePluginParameter(
 						'module',
 						'sizelimit',
@@ -160,6 +164,7 @@ class SizeLimitOption extends ItemEditOption {
 					if (!is_numeric($width)) {
 						$width = $form['SizeLimitOption']['dimensions']['width'] = $height;
 					}
+
 					$ret = GalleryCoreApi::setPluginParameter(
 						'module',
 						'sizelimit',
@@ -171,6 +176,7 @@ class SizeLimitOption extends ItemEditOption {
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					$ret = GalleryCoreApi::setPluginParameter(
 						'module',
 						'sizelimit',
@@ -182,6 +188,7 @@ class SizeLimitOption extends ItemEditOption {
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					$setOriginal = true;
 
 					break;
@@ -200,6 +207,7 @@ class SizeLimitOption extends ItemEditOption {
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					$ret = GalleryCoreApi::removePluginParameter(
 						'module',
 						'sizelimit',
@@ -222,6 +230,7 @@ class SizeLimitOption extends ItemEditOption {
 
 						break;
 					}
+
 					// figure out x and y and set them...
 					$filesize = $form['SizeLimitOption']['filesize'];
 					$ret      = GalleryCoreApi::setPluginParameter(
@@ -235,6 +244,7 @@ class SizeLimitOption extends ItemEditOption {
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					$setOriginal = true;
 
 					break;
@@ -286,6 +296,7 @@ class SizeLimitOption extends ItemEditOption {
 	 */
 	public function _applyToDescendents($form, $album) {
 		global $gallery;
+
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$errors          = $warnings          = array();
 

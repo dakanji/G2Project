@@ -9,7 +9,6 @@
   Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Informix port by Mitchell T. Young (mitch@youngfamily.org)
 
   Further mods by "Samuel CARRIERE" <samuel_carriere@hotmail.com>
@@ -35,9 +34,7 @@ class ADODB_informix72 extends ADOConnection {
 	public $hasAffectedRows = true;
 	public $substr          = 'substr';
 	public $metaTablesSQL   = "select tabname,tabtype from systables where tabtype in ('T','V') and owner!='informix'"; //Don't get informix tables and pseudo-tables
-
-
-	public $metaColumnsSQL = "select c.colname, c.coltype, c.collength, d.default,c.colno
+	public $metaColumnsSQL  = "select c.colname, c.coltype, c.collength, d.default,c.colno
 		from syscolumns c, systables t,outer sysdefaults d
 		where c.tabid=t.tabid and d.tabid=t.tabid and d.colno=c.colno
 		and tabname='%s' order by c.colno";
@@ -61,7 +58,6 @@ class ADODB_informix72 extends ADOConnection {
 	public function __construct() {
 		// alternatively, use older method:
 		//putenv("DBDATE=Y4MD-");
-
 		// force ISO date format
 		putenv('GL_DATE=%Y-%m-%d');
 
@@ -102,6 +98,7 @@ class ADODB_informix72 extends ADOConnection {
 		if ($this->transOff) {
 			return true;
 		}
+
 		$this->transCnt += 1;
 		$this->Execute('BEGIN');
 		$this->_autocommit = false;
@@ -121,6 +118,7 @@ class ADODB_informix72 extends ADOConnection {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
+
 		$this->Execute('COMMIT');
 		$this->_autocommit = true;
 
@@ -135,6 +133,7 @@ class ADODB_informix72 extends ADOConnection {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
+
 		$this->Execute('ROLLBACK');
 		$this->_autocommit = true;
 
@@ -151,11 +150,11 @@ class ADODB_informix72 extends ADOConnection {
 
 	/*	Returns: the last error message from previous database operation
 		Note: This function is NOT available for Microsoft SQL Server.	*/
-
 	public function ErrorMsg() {
 		if (!empty($this->_logsql)) {
 			return $this->_errorMsg;
 		}
+
 		$this->_errorMsg = ifx_errormsg();
 
 		return $this->_errorMsg;
@@ -182,10 +181,10 @@ class ADODB_informix72 extends ADOConnection {
 		if ($this->fetchMode !== false) {
 			$savem = $this->SetFetchMode(false);
 		}
+
 		$procedures = array();
 
 		// get index details
-
 		$likepattern = '';
 
 		if ($NamePattern) {
@@ -196,7 +195,6 @@ class ADODB_informix72 extends ADOConnection {
 
 		if (is_object($rs)) {
 			// parse index data into array
-
 			while ($row = $rs->FetchRow()) {
 				$procedures[$row[0]] = array(
 					'type'    => ($row[1] == 'f' ? 'FUNCTION' : 'PROCEDURE'),
@@ -211,6 +209,7 @@ class ADODB_informix72 extends ADOConnection {
 		if (isset($savem)) {
 			$this->SetFetchMode($savem);
 		}
+
 		$ADODB_FETCH_MODE = $save;
 
 		return $procedures;
@@ -228,18 +227,20 @@ class ADODB_informix72 extends ADOConnection {
 			if ($this->fetchMode !== false) {
 				$savem = $this->SetFetchMode(false);
 			}
+
 			$rs = $this->Execute(sprintf($this->metaColumnsSQL, $table));
 
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
 			}
+
 			$ADODB_FETCH_MODE = $save;
 
 			if ($rs === false) {
 				return $false;
 			}
-			$rspkey = $this->Execute(sprintf($this->metaPrimaryKeySQL, $table)); //Added to get primary key colno items
 
+			$rspkey = $this->Execute(sprintf($this->metaPrimaryKeySQL, $table)); //Added to get primary key colno items
 			$retarr = array();
 
 			while (!$rs->EOF) { //print_r($rs->fields);
@@ -258,7 +259,6 @@ class ADODB_informix72 extends ADOConnection {
 				$fld->max_length  = $pr[1]; //!eos
 				$fld->precision   = $pr[2];//!eos
 				$fld->not_null    = $pr[3] == 'N'; //!eos
-
 				if (trim($rs->fields[3]) != 'AAAAAA 0') {
 					$fld->has_default   = 1;
 					$fld->default_value = $rs->fields[3];
@@ -267,6 +267,7 @@ class ADODB_informix72 extends ADOConnection {
 				}
 
 				$retarr[strtolower($fld->name)] = $fld;
+
 				$rs->MoveNext();
 			}
 
@@ -300,6 +301,7 @@ class ADODB_informix72 extends ADOConnection {
 		if (!$rs || $rs->EOF) {
 			return false;
 		}
+
 		$arr = $rs->GetArray();
 		$a   = array();
 
@@ -344,12 +346,14 @@ class ADODB_informix72 extends ADOConnection {
 		if ($argHostname) {
 			putenv("INFORMIXSERVER=$argHostname");
 		}
+
 		putenv('INFORMIXSERVER=' . trim($argHostname));
 		$this->_connectionID = ifx_connect($dbs, $argUsername, $argPassword);
 
 		if ($this->_connectionID === false) {
 			return false;
 		}
+
 		// if ($argDatabasename) return $this->SelectDB($argDatabasename);
 		return true;
 	}
@@ -367,6 +371,7 @@ class ADODB_informix72 extends ADOConnection {
 		if ($this->_connectionID === false) {
 			return false;
 		}
+
 		// if ($argDatabasename) return $this->SelectDB($argDatabasename);
 		return true;
 	}
@@ -379,7 +384,9 @@ class ADODB_informix72 extends ADOConnection {
 		if (!$stmt) return $sql;
 		else return array($sql,$stmt);
 	}
+
 	*/
+
 	// returns query ID if successful, otherwise false
 	public function _query($sql, $inputarr = false) {
 		global $ADODB_COUNTRECS;
@@ -413,9 +420,7 @@ class ADODB_informix72 extends ADOConnection {
 
 		// Following line have been commented because autocommit mode is
 		// not supported by informix SE 7.2
-
 		//if ($this->_autocommit) ifx_query('COMMIT',$this->_connectionID);
-
 		return $this->lastQuery;
 	}
 
@@ -431,11 +436,9 @@ class ADODB_informix72 extends ADOConnection {
 	}
 }
 
-
 /*--------------------------------------------------------------------------------------
 	 Class Name: Recordset
 --------------------------------------------------------------------------------------*/
-
 class ADORecordset_informix72 extends ADORecordSet {
 	public $databaseType = 'informix72';
 	public $canSeek      = true;
@@ -444,8 +447,10 @@ class ADORecordset_informix72 extends ADORecordSet {
 	public function __construct($id, $mode = false) {
 		if ($mode === false) {
 			global $ADODB_FETCH_MODE;
+
 			$mode = $ADODB_FETCH_MODE;
 		}
+
 		$this->fetchMode = $mode;
 
 		return parent::__construct($id);
@@ -469,6 +474,7 @@ class ADORecordset_informix72 extends ADORecordSet {
 				$o->not_null         = $arr[4] == 'N';
 			}
 		}
+
 		$ret = $this->_fieldprops[$fieldOffset];
 
 		return $ret;
@@ -489,12 +495,14 @@ class ADORecordset_informix72 extends ADORecordSet {
 		if ($this->fields) {
 			$this->EOF = false;
 		}
+
 		$this->_currentRow = -1;
 
 		if ($this->fetchMode == ADODB_FETCH_NUM) {
 			foreach ($this->fields as $v) {
 				$arr[] = $v;
 			}
+
 			$this->fields = $arr;
 		}
 
@@ -507,12 +515,14 @@ class ADORecordset_informix72 extends ADORecordSet {
 		if ($this->fields) {
 			$this->EOF = false;
 		}
+
 		$this->_currentRow = 0;
 
 		if ($this->fetchMode == ADODB_FETCH_NUM) {
 			foreach ($this->fields as $v) {
 				$arr[] = $v;
 			}
+
 			$this->fields = $arr;
 		}
 
@@ -530,6 +540,7 @@ class ADORecordset_informix72 extends ADORecordSet {
 			foreach ($this->fields as $v) {
 				$arr[] = $v;
 			}
+
 			$this->fields = $arr;
 		}
 
@@ -559,6 +570,7 @@ function ifx_props($coltype, $collength) {
 	switch ($itype) {
 		case 2:
 			$length = 4;
+
 			// Fall Through
 		case 6:
 		case 9:

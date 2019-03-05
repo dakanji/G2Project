@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * Perform all necessary initialization of the Gallery framework
  * @package Gallery
@@ -51,6 +52,7 @@ function GalleryInitFirstPass($params = array()) {
 	if (!class_exists('GalleryCoreApi')) {
 		include_once $galleryBase . 'modules/core/classes/GalleryCoreApi.class';
 	}
+
 	GalleryCoreApi::requireOnce('modules/core/classes/GalleryConstants.class');
 	GalleryCoreApi::requireOnce('modules/core/classes/GalleryCapabilities.class');
 	GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
@@ -91,6 +93,7 @@ function GalleryInitFirstPass($params = array()) {
 	if (empty($repositoryUrl)) {
 		$gallery->setConfig('repository.url', 'http://gallery.menalto.com/repository/');
 	}
+
 	$gallery->setConfig('repository.cache', $dataBase . 'cache' . $slash . 'repository' . $slash);
 
 	// Set our various data paths
@@ -103,6 +106,7 @@ function GalleryInitFirstPass($params = array()) {
 		'data.smarty.templates_c',
 		$dataBase . 'smarty' . $slash . 'templates_c' . $slash
 	);
+
 	$gallery->setConfig('data.gallery.plugins', $galleryBase . 'plugins' . $slash);
 	$gallery->setConfig('data.gallery.plugins_data', $dataBase . 'plugins_data' . $slash);
 	$gallery->setConfig('data.gallery.version', $dataBase . 'versions.dat');
@@ -116,6 +120,7 @@ function GalleryInitFirstPass($params = array()) {
 		 * core 1.0.6
 		 */
 		list($ret, $urlGenerator) = @GalleryCoreApi::newFactoryInstance('GalleryUrlGenerator');
+
 		// Swallow ERROR_STORAGE_FAILURE, or automatic upgrading fails
 		if ($ret && !($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
 			return $ret;
@@ -126,6 +131,7 @@ function GalleryInitFirstPass($params = array()) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryUrlGenerator.class');
 		$urlGenerator = new GalleryUrlGenerator();
 	}
+
 	// Allow for overrides from GalleryEmbed ($param) or from config.php
 	$configBaseUri = @$gallery->getConfig('baseUri');
 	$ret           = $urlGenerator->init(
@@ -137,6 +143,7 @@ function GalleryInitFirstPass($params = array()) {
 	if ($ret) {
 		return $ret;
 	}
+
 	$gallery->setUrlGenerator($urlGenerator);
 
 	// Initialize our session
@@ -145,6 +152,7 @@ function GalleryInitFirstPass($params = array()) {
 			GalleryCoreApi::requireOnce('modules/core/classes/GallerySession.class');
 			GalleryUtilities::putRequestVariable(SESSION_ID_PARAMETER, $params['gallerySessionId']);
 		}
+
 		$ret = $gallery->initSession();
 
 		if ($ret) {
@@ -172,11 +180,14 @@ function GalleryInitFirstPass($params = array()) {
 
 	if (isset($params['activeLanguage']) || !empty($language)) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTranslator.class');
+
 		list($language) = GalleryTranslator::getMe()->getSupportedLanguageCode(
 			empty($language) ? $params['activeLanguage'] : $language
 		);
+
 		$gallery->setActiveLanguageCode($language);
 	}
+
 	$ret = $gallery->initTranslator(isset($params['noDatabase']));
 
 	if ($ret) {
@@ -188,6 +199,7 @@ function GalleryInitFirstPass($params = array()) {
 
 function GalleryInitSecondPass() {
 	global $gallery;
+
 	$session      =& $gallery->getSession();
 	$urlGenerator =& $gallery->getUrlGenerator();
 

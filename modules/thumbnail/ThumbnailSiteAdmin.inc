@@ -44,6 +44,7 @@ class ThumbnailSiteAdminController extends GalleryController {
 			if (empty($form['mimeType'])) {
 				return array(null, $this->_exitStatus('mime_error'));
 			}
+
 			list($ret, $mimeMap) = ThumbnailHelper::fetchToolkitSupport();
 
 			if ($ret) {
@@ -59,6 +60,7 @@ class ThumbnailSiteAdminController extends GalleryController {
 			if (empty($form['tmp_name'][1])) {
 				return array(null, $this->_exitStatus('file_error'));
 			}
+
 			list($ret) = ThumbnailHelper::addItem(
 				$form['mimeType'],
 				null,
@@ -80,6 +82,7 @@ class ThumbnailSiteAdminController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$status = 'addMime';
 		} elseif (isset($form['action']['delete'], $form['delete']['itemId'])) {
 			if (isset($form['delete']['mimeType'])) {
@@ -92,6 +95,7 @@ class ThumbnailSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$status = 'deleteMime';
 			} else {
 				list($ret, $item) = GalleryCoreApi::loadEntitiesById($form['delete']['itemId'], 'ThumbnailImage');
@@ -99,12 +103,14 @@ class ThumbnailSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$itemMimeTypesList = $item->getItemMimeTypesList();
 				$ret               = GalleryCoreApi::deleteEntityById($form['delete']['itemId'], 'ThumbnailImage');
 
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$ret = GalleryCoreApi::unregisterToolkitOperation(
 					'Thumbnail',
 					'thumbnail',
@@ -114,6 +120,7 @@ class ThumbnailSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$status = 'delete';
 			}
 		}
@@ -127,7 +134,8 @@ class ThumbnailSiteAdminController extends GalleryController {
 		$results['status']              = array(
 			$status => 1,
 		);
-		$results['error']               = array();
+
+		$results['error'] = array();
 
 		return $results;
 	}
@@ -164,6 +172,7 @@ class ThumbnailSiteAdminView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$form['list'] = array();
 
 		if (!empty($list)) {
@@ -186,6 +195,7 @@ class ThumbnailSiteAdminView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		unset($toolkitMime['Thumbnail']);
 		$form['operationSupport'] = $toolkitMime;
 

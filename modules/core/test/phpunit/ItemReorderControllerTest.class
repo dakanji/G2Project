@@ -266,6 +266,7 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_parentAlbum->getId(),
 			$gallery->getActiveUserId(),

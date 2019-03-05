@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty debug_print_var modifier plugin
  *
@@ -64,6 +65,7 @@ function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40) {
 			} else {
 				$results = htmlspecialchars((string)$var);
 			}
+
 			$results = '<i>' . $results . '</i>';
 
 			break;
@@ -80,6 +82,7 @@ function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40) {
 			if (strlen($var) > $length) {
 				$results = substr($var, 0, $length - 3) . '...';
 			}
+
 			$results = htmlspecialchars('"' . $results . '"');
 
 			break;
@@ -91,6 +94,7 @@ function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40) {
 			if (strlen($results) > $length) {
 				$results = substr($results, 0, $length - 3) . '...';
 			}
+
 			$results = htmlspecialchars($results);
 	}
 

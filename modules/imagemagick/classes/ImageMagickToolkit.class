@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 GalleryCoreApi::requireOnce('modules/imagemagick/classes/ImageMagickToolkitHelper.class');
 
@@ -41,6 +40,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$results = array((int)$width, (int)$height);
 
 				break;
@@ -51,6 +51,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$results = array($count);
 
 				break;
@@ -61,6 +62,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$results = array($colorspace);
 
 				break;
@@ -84,6 +86,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 		$context = array()
 	) {
 		global $gallery;
+
 		static $convertOps = array(
 			'thumbnail',
 			'scale',
@@ -162,8 +165,10 @@ class ImageMagickToolkit extends GalleryToolkit {
 					// Don't enlarge images for a thumbnail
 					if ($width > $parameters[0] || $height > $parameters[0]) {
 						$this->_addResizeParam($transform, $parameters[0]);
+
 						list($width, $height) = GalleryUtilities::scaleDimensionsToFit($width, $height, $parameters[0]);
 					}
+
 					// Strip metadata to make derivative files smaller..
 					list($ret, $removeMetaDataSwitch) = GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'removeMetaDataSwitch');
 
@@ -214,6 +219,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 					if (is_int($i = array_search('-size', $transform))) {
 						array_splice($transform, $i, 2);
 					}
+
 					$transform = array_merge($transform, array('-rotate', (string)$parameters[0]));
 
 					if (isset($width) && ($parameters[0] == 90 || $parameters[0] == -90)) {
@@ -236,6 +242,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 					if (is_int($i = array_search('-size', $transform))) {
 						array_splice($transform, $i, 2);
 					}
+
 					$transform = array_merge(
 						$transform,
 						array(
@@ -268,6 +275,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 					if (empty($cmd)) {
 						$cmd = 'composite';
 					}
+
 					$compositeOverlayPath     = $parameters[0];
 					$compositeOverlayMimeType = $parameters[1];
 					$compositeWidth           = $parameters[2];
@@ -374,12 +382,14 @@ class ImageMagickToolkit extends GalleryToolkit {
 					if ($fileSize <= $targetSize) {
 						break;
 					}
+
 					// Use module quality parameter as initial guess
 					list($ret, $quality) = GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'jpegQuality');
 
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					$maxQuality = 100;
 					$minQuality = 5;
 
@@ -397,6 +407,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 						if ($ret) {
 							return array($ret, null, null);
 						}
+
 						clearstatcache();
 						$fileSize = $platform->filesize($destFilename) >> 10;
 
@@ -407,6 +418,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 						if ($fileSize <= $targetSize) {
 							$minQuality = $quality;
 						}
+
 						$quality = round(($minQuality + $maxQuality) / 2);
 					} while ($maxQuality - $minQuality > 2
 					   && abs(($fileSize - $targetSize) / $targetSize) > 0.02);
@@ -501,6 +513,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 		$oldCwd = $platform->getcwd();
 		$platform->chdir($gallery->getConfig('data.gallery.tmp'));
+
 		list($success, $output) = $platform->exec(array(array_merge($cmd, array($filename))));
 
 		if (!$success) {
@@ -508,6 +521,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), 0, 0);
 		}
+
 		$platform->chdir($oldCwd);
 
 		foreach ($output as $line) {
@@ -525,6 +539,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 	 */
 	public function _getPageCount($filename, $mimeType) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $cmd) = ImageMagickToolkitHelper::getCommand('identify');
@@ -578,6 +593,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 	 */
 	public function _getColorspace($filename) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $cmd) = ImageMagickToolkitHelper::getCommand('identify');
@@ -652,6 +668,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 				return $ret;
 			}
 		}
+
 		$jpegQuality = (int)$jpegQuality;
 
 		switch ($outputMimeType) {
@@ -709,7 +726,9 @@ class ImageMagickToolkit extends GalleryToolkit {
 				if ($outputMimeType == 'image/gif') {
 					break;
 				}
+
 				// If the output format isn't gif, pick a frame assuming it's an animated GIF.
+
 				// Fall Through
 			case 'image/tiff':
 			case 'application/pdf':
@@ -725,6 +744,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 					$page = $args['page'] - 1;
 					unset($args['page']);
 				}
+
 				$sourceFilename .= '[' . $page . ']';
 
 				break;
@@ -747,6 +767,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 		if (!empty($args)) {
 			$command = array_merge($command, $args);
 		}
+
 		$replaced = false;
 
 		for ($i = 0; $i < sizeof($command); $i++) {
@@ -778,10 +799,12 @@ class ImageMagickToolkit extends GalleryToolkit {
 				"Can't convert to unknown mime type: $outputMimeType"
 			);
 		}
+
 		$command[] = sprintf('%s:%s', $extensions[0], $tmpFilename);
 
 		$oldCwd = $platform->getcwd();
 		$platform->chdir($gallery->getConfig('data.gallery.tmp'));
+
 		list($success, $output) = $platform->exec(array($command));
 
 		if (!$success) {
@@ -790,6 +813,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 			return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE);
 		}
+
 		$platform->chdir($oldCwd);
 
 		$success = $platform->rename($tmpFilename, $destFilename);

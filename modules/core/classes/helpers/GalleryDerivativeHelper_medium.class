@@ -42,6 +42,7 @@ class GalleryDerivativeHelper_medium {
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/helpers/GalleryDerivativeHelper_simple.class'
 		);
+
 		list($ret, $results) = GalleryDerivativeHelper_simple::_loadDerivatives(
 			$ids,
 			null,
@@ -70,6 +71,7 @@ class GalleryDerivativeHelper_medium {
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/helpers/GalleryDerivativeHelper_simple.class'
 		);
+
 		list($ret, $results) = GalleryDerivativeHelper_simple::_loadDerivatives(
 			$ids,
 			null,

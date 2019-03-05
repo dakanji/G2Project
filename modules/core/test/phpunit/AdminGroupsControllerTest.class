@@ -81,6 +81,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteGroup($group);
 
 		// Missing group name
@@ -145,6 +146,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteGroup($group);
 
 		// Missing group name
@@ -187,6 +189,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 
 	public function testDeleteSiteAdminGroupFromText() {
 		global $gallery;
+
 		list($ret, $id) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
 
 		if ($ret) {
@@ -218,6 +221,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 
 	public function testDeleteAllUsersGroupFromText() {
 		global $gallery;
+
 		list($ret, $id) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');
 
 		if ($ret) {
@@ -249,6 +253,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 
 	public function testEditAllUsersGroupUsersFromText() {
 		global $gallery;
+
 		list($ret, $id) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');
 
 		if ($ret) {
@@ -280,6 +285,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 
 	public function testDeleteEverybodyGroupFromText() {
 		global $gallery;
+
 		list($ret, $id) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',
@@ -337,6 +343,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteGroup($group);
 
 		// Missing group name
@@ -398,6 +405,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = $group->save();
 
 		if ($ret) {
@@ -409,6 +417,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 
 	public function _deleteGroup($group) {
 		global $gallery;
+
 		$ret = GalleryCoreApi::deleteEntityById($group->getId(), 'GalleryGroup');
 
 		if ($ret) {

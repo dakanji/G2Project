@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryIndex.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryUtilities.class');
 
@@ -95,6 +94,7 @@ class GalleryRepository {
 				if ($ret) {
 					return array($ret, null, null);
 				}
+
 				$sources = array_keys(unserialize($sources));
 			}
 
@@ -114,6 +114,7 @@ class GalleryRepository {
 					}
 				}
 			}
+
 			GalleryDataCache::put($cacheKey, array($repositories, $errorCount));
 		} else {
 			list($repositories, $errorCount) = GalleryDataCache::get($cacheKey);
@@ -184,6 +185,7 @@ class GalleryRepository {
 
 			return array($ret, null, null);
 		}
+
 		$repositoryVersion = $header['version'];
 
 		/*
@@ -441,7 +443,8 @@ class GalleryRepository {
 			$isDowngraded = version_compare($localVersion, $plugin['header']['version'], '>');
 
 			list($providedCoreApiVersion, $providedPluginApiVersion) = $this->_utilities->getProvidedApis($pluginType, $coreApis);
-			$pluginList[$pluginId]                                   = array(
+
+			$pluginList[$pluginId] = array(
 				'type'              => $pluginType,
 				'name'              => $plugin['descriptions'][$language]['name'],
 				'description'       => $plugin['descriptions'][$language]['description'],
@@ -695,6 +698,7 @@ class GalleryRepository {
 	 */
 	public function downloadAndUnpack($pluginType, $pluginId, $packageName, $relativePackageUrl) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$phpVm    = $gallery->getPhpVm();
 
@@ -786,7 +790,8 @@ class GalleryRepository {
 	) {
 		global $gallery;
 
-		$status             = array();
+		$status = array();
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -796,12 +801,13 @@ class GalleryRepository {
 		$packageUrls = $pluginDownloadData['files'];
 		$pluginName  = $pluginDownloadData['name'];
 
-		$preparingText   = $module->translate(
+		$preparingText = $module->translate(
 			array(
 				'text' => 'Preparing %s',
 				'arg1' => $pluginName,
 			)
 		);
+
 		$downloadingText = $module->translate(
 			array(
 				'text' => 'Downloading %s',
@@ -939,6 +945,7 @@ class GalleryRepository {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$ret = $this->_utilities->updatePackageMetaData(
 				$pluginType,
 				$pluginId,
@@ -951,6 +958,7 @@ class GalleryRepository {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$reactivatePlugin |= $packageName == 'base';
 		}
 
@@ -999,6 +1007,7 @@ class GalleryRepository {
 	 */
 	public function scanPlugin($pluginType, $pluginId) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Erase all data for this plugin
@@ -1074,6 +1083,7 @@ class GalleryRepository {
 					if ($ret) {
 						return $ret;
 					}
+
 					$ret = GalleryCoreApi::addMapEntry(
 						'GalleryPluginPackageMap',
 						array(
@@ -1186,6 +1196,7 @@ class GalleryRepository {
 	 */
 	public function downloadAndUnpackPackages($filesToDownload, &$callback) {
 		global $gallery;
+
 		$phpVm    = $gallery->getPhpVm();
 		$platform =& $gallery->getPlatform();
 
@@ -1212,6 +1223,7 @@ class GalleryRepository {
 			$aggregateFile,
 			$callback
 		);
+
 		$platform->unlink($aggregateFile);
 
 		if ($ret) {
@@ -1240,6 +1252,7 @@ class GalleryRepository {
 
 					continue;
 				}
+
 				$pluginOutputDir = GalleryCoreApi::getCodeBasePath("{$pluginType}s/$pluginId/");
 
 				$descriptor = $data['descriptor'];
@@ -1271,6 +1284,7 @@ class GalleryRepository {
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					$ret = $utilities->updatePackageMetaData(
 						$pluginType,
 						$pluginId,
@@ -1358,6 +1372,7 @@ class GalleryRepository {
 						$status['failedToInstall'][$pluginType][$pluginId][] = $packageFile[1];
 						$callback['current']++;
 					}
+
 					$percentage = $callback['current'] / $callback['total'];
 					call_user_func($callback['method'], $callback['title'], '', $percentage);
 				}
@@ -1376,6 +1391,7 @@ class GalleryRepository {
 	 */
 	public function removeObsoleteFiles($pluginType, $pluginId) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$manifestPath = GalleryCoreApi::getCodeBasePath("{$pluginType}s/$pluginId/MANIFEST");

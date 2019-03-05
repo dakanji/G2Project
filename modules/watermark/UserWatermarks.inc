@@ -33,12 +33,18 @@ class UserWatermarksController extends GalleryController {
 		global $gallery;
 
 		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
+
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
 		if ($ret) {
 			return array($ret, null);
 		}
-		list($ret, $isOn) = GalleryCoreApi::getPluginParameter('module', 'watermark', 'allowUserWatermarks');
+
+		list($ret, $isOn) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'watermark',
+			'allowUserWatermarks'
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -67,7 +73,9 @@ class UserWatermarksController extends GalleryController {
 			$results['delegate']['view']    = 'core.UserAdmin';
 			$results['delegate']['subView'] = 'watermark.UserWatermarks';
 		} elseif (isset($form['action']['delete'], $form['delete']['watermarkId'])) {
-			list($ret, $wasDeleted) = WatermarkHelper::deleteWatermarkImageById($form['delete']['watermarkId']);
+			list($ret, $wasDeleted) = WatermarkHelper::deleteWatermarkImageById(
+				$form['delete']['watermarkId']
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -101,6 +109,7 @@ class UserWatermarksView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
+
 		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
@@ -108,7 +117,12 @@ class UserWatermarksView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
-		list($ret, $isOn) = GalleryCoreApi::getPluginParameter('module', 'watermark', 'allowUserWatermarks');
+
+		list($ret, $isOn) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'watermark',
+			'allowUserWatermarks'
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -161,6 +175,7 @@ class UserWatermarksView extends GalleryView {
 				'watermarks' => $watermarks,
 			)
 		);
+
 		$template->setVariable('controller', 'watermark.UserWatermarks');
 
 		return array(

@@ -37,6 +37,7 @@ class StorageSetupStep extends InstallStep {
 				$this->_dir = $_SESSION['configPath'] . DIRECTORY_SEPARATOR . 'g2data';
 			}
 		}
+
 		/*
 		 * An example for a slightly obfuscated g2data folder name such that the location
 		 * of the storage folder can't be guessed too easily.
@@ -54,6 +55,7 @@ class StorageSetupStep extends InstallStep {
 				if (substr($dir, -1) != DIRECTORY_SEPARATOR) {
 					$dir .= DIRECTORY_SEPARATOR;
 				}
+
 				$originalDir = $dir;
 				/*
 				 * Make the path absolute since relative to the install/ folder isn't the same as
@@ -79,12 +81,14 @@ class StorageSetupStep extends InstallStep {
 						}
 					}
 				}
+
 				// Ensure that it is an absolute filesystem path
 				$dir = @realpath($dir);
 
 				if (!empty($dir) && substr($dir, -1) != DIRECTORY_SEPARATOR) {
 					$dir .= DIRECTORY_SEPARATOR;
 				}
+
 				// Check if the (newly created) dir exists, is writeable etc.
 				if (!is_dir($dir)) {
 					$templateData['error']['missing_dir'] = 1;
@@ -125,6 +129,7 @@ class StorageSetupStep extends InstallStep {
 					}
 				}
 			}
+
 			$templateData['dir'] = isset($originalDir) ? $originalDir : $this->_dir;
 		} else {
 			$templateData['dir'] = $this->_dir;
@@ -178,6 +183,7 @@ class StorageSetupStep extends InstallStep {
 		if (!secureStorageFolder($dir)) {
 			return array(false, false);
 		}
+
 		// Add a probe file.
 		$probeFileName = 'probe_' . substr(md5(uniqid(mt_rand())), 0, 10) . '.html';
 		$probeFilePath = $dir . $probeFileName;
@@ -221,6 +227,7 @@ class StorageSetupStep extends InstallStep {
 				array_shift($storagePathElements);
 				array_shift($galleryPathElements);
 			}
+
 			// After, e.g. /g2data/ (common part removed).
 			$relativeStoragePath = implode('/', $storagePathElements);
 
@@ -239,7 +246,8 @@ class StorageSetupStep extends InstallStep {
 		$isAccessible = false;
 
 		foreach ($storageUrlCandidates as $storageFolderUrl) {
-			$url                             = $storageFolderUrl . $probeFileName;
+			$url = $storageFolderUrl . $probeFileName;
+
 			list($urlFetched, $isAccessible) = $this->_isUrlAccessible($url, $checkString);
 
 			if ($urlFetched && $isAccessible) {
@@ -270,6 +278,7 @@ class StorageSetupStep extends InstallStep {
 		if (!$components) {
 			return array(false, false);
 		}
+
 		$port = empty($components['port']) ? 80 : $components['port'];
 
 		if (empty($components['path'])) {
@@ -300,6 +309,7 @@ class StorageSetupStep extends InstallStep {
 			// Zero bytes written or false was returned
 			return array(false, false);
 		}
+
 		fflush($fd);
 
 		/*
@@ -328,12 +338,14 @@ class StorageSetupStep extends InstallStep {
 				break;
 			}
 		}
+
 		// Read the body
 		$fetchedPage = '';
 
 		while (!feof($fd)) {
 			$fetchedPage .= fread($fd, 4096);
 		}
+
 		fclose($fd);
 
 		// Check if the expected string is present.

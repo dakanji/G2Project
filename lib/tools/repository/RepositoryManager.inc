@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryUtilities.class');
 GalleryCoreApi::requireOnce('lib/tools/repository/classes/RepositoryObject.class');
 GalleryCoreApi::requireOnce('lib/tools/repository/classes/RepositoryIndex.class');
@@ -40,16 +39,19 @@ class RepositoryManagerControllerAndView extends RepositoryControllerAndView {
 	 */
 	public function browse() {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		// Get repository plugin meta data.
 		$index = new RepositoryIndex();
 		$index->init($gallery->getConfig('repository.path'));
+
 		list($ret, $pluginInfo) = $index->getPluginInfo();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$data['pluginInfo'] = $pluginInfo;
 
 		// Add action links.

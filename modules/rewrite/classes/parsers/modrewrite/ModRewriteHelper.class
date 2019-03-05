@@ -53,7 +53,7 @@ class ModRewriteHelper {
 		}
 
 		// By default we use the rules we've already got
-		if (is_null($activeRules)) {
+		if (null === $activeRules) {
 			list($ret, $activeRules) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'rewrite',
@@ -63,6 +63,7 @@ class ModRewriteHelper {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$activeRules = unserialize($activeRules);
 		}
 
@@ -203,6 +204,7 @@ class ModRewriteHelper {
 	 */
 	public static function needsConfiguration() {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		if (strpos($urlGenerator->getCurrentUrlDir(true), 'install/index.php') !== false
@@ -222,7 +224,8 @@ class ModRewriteHelper {
 				$urlGenerator->getCurrentUrlDir(true)
 			)
 		);
-		$ret               = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'rewrite',
 			'modrewrite.galleryLocation',
@@ -277,6 +280,7 @@ class ModRewriteHelper {
 	 */
 	public static function getHtaccessContent($regexRules, $embedded = false) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		$Htaccess = array();
@@ -300,6 +304,7 @@ class ModRewriteHelper {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$status                  = unserialize($status);
 		$Htaccess['needOptions'] = $status['needOptions'];
 
@@ -308,7 +313,8 @@ class ModRewriteHelper {
 		$Htaccess['baseFile']    = GALLERY_MAIN_PHP;
 
 		if ($embedded) {
-			$Htaccess['baseFile']              = $urlGenerator->_file[false];
+			$Htaccess['baseFile'] = $urlGenerator->_file[false];
+
 			list($ret, $Htaccess['directory']) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'rewrite',
@@ -362,6 +368,7 @@ class ModRewriteHelper {
 					'test'    => 'THE_REQUEST',
 					'pattern' => $Htaccess['rewriteBase'] . $regexRule['pattern'] . '(\\?.|\\ .)',
 				);
+
 				$regexRule['conditions'][] = array(
 					'test'    => 'REQUEST_URI',
 					'pattern' => '!' . $Htaccess['matchBaseFile'] . '$',
@@ -387,6 +394,7 @@ class ModRewriteHelper {
 
 			$regexRules[$ruleId] = $regexRule;
 		}
+
 		$Htaccess['rules'] = $regexRules;
 
 		// Render template
@@ -394,6 +402,7 @@ class ModRewriteHelper {
 		$template = new GalleryTemplate(__DIR__ . '/../../../templates', true, false);
 		$template->setVariable('Htaccess', $Htaccess);
 		$template->setVariable('l10Domain', 'modules_rewrite');
+
 		list($ret, $content) = $template->fetch('Htaccess.tpl');
 
 		if ($ret) {
@@ -435,6 +444,7 @@ class ModRewriteHelper {
 	 */
 	public static function checkFile($embedded = false) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $file) = self::getHtaccessPath($embedded);
@@ -481,6 +491,7 @@ class ModRewriteHelper {
 	 */
 	public static function writeFile($regexRules, $embedded = false) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $file) = self::getHtaccessPath($embedded);
@@ -550,6 +561,7 @@ class ModRewriteHelper {
 	 */
 	public static function checkModRewrite() {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		list($ret, $status) = GalleryCoreApi::getPluginParameter(
@@ -561,6 +573,7 @@ class ModRewriteHelper {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$status = unserialize($status);
 
 		// We can't test with multisite, there are no test files
@@ -571,11 +584,13 @@ class ModRewriteHelper {
 				REWRITE_STATUS_MULTISITE,
 			);
 		}
-		$baseUrl    = preg_replace(
+
+		$baseUrl = preg_replace(
 			'{(install|upgrade)/index\.php.*}',
 			'',
 			$urlGenerator->getCurrentUrlDir(true)
 		);
+
 		$components = parse_url($baseUrl);
 		$path       = $components['path'];
 		$baseUrl   .= 'modules/rewrite/data/';
@@ -593,7 +608,8 @@ class ModRewriteHelper {
 			$target = 'custom';
 		}
 
-		$fetch                = $baseUrl . "mod_rewrite_no_options/$target/Rewrite.txt";
+		$fetch = $baseUrl . "mod_rewrite_no_options/$target/Rewrite.txt";
+
 		list($success, $body) = GalleryCoreAPI::fetchWebPage($fetch);
 
 		if ($success && !strncmp('PASS_REWRITE', $body, 12)) {
@@ -619,7 +635,8 @@ class ModRewriteHelper {
 		 * mod_rewrite needs Options +FollowSymlinks and we might need to explicitly require it in
 		 * the .htaccess file.
 		 */
-		$fetch                = $baseUrl . "mod_rewrite/$target/Rewrite.txt";
+		$fetch = $baseUrl . "mod_rewrite/$target/Rewrite.txt";
+
 		list($success, $body) = GalleryCoreAPI::fetchWebPage($fetch);
 
 		if ($success && !strncmp('PASS_REWRITE', $body, 12)) {
@@ -665,6 +682,7 @@ class ModRewriteHelper {
 	 */
 	public static function loadTestResultsTemplate(&$template, &$form) {
 		global $gallery;
+
 		$urlGenerator      =& $gallery->getUrlGenerator();
 		$baseUrlComponents = parse_url($urlGenerator->getCurrentUrlDir(true));
 		$TestResults       = array();
@@ -686,7 +704,8 @@ class ModRewriteHelper {
 
 		// Check embedded .htaccess
 		if (GalleryUtilities::isEmbedded()) {
-			$TestResults['embedded']                         = array();
+			$TestResults['embedded'] = array();
+
 			list($ret, $TestResults['embedded']['htaccess']) = self::checkFile(true);
 
 			if ($ret) {
@@ -730,6 +749,7 @@ class ModRewriteHelper {
 					'href' => 'modules/rewrite/data/mod_rewrite/' . $target . '/Rewrite.txt',
 				)
 			);
+
 			$TestResults['href']['test2'] = $urlGenerator->generateUrl(
 				array(
 					'href' => 'modules/rewrite/data/mod_rewrite_no_options/' .
@@ -771,6 +791,7 @@ class ModRewriteHelper {
 	 */
 	public static function loadAdminRewriteTemplate(&$template, &$form) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$AdminParser  = array();
 
@@ -815,6 +836,7 @@ class ModRewriteHelper {
 	 */
 	public static function saveEmbedConfig($param, $parser, $saveActiveRules) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		if (empty($param['embeddedLocation']) || empty($param['embeddedHtaccess'])) {
@@ -826,6 +848,7 @@ class ModRewriteHelper {
 		if ($embeddedLocation[strlen($embeddedLocation) - 1] != '/') {
 			$embeddedLocation .= '/';
 		}
+
 		$embeddedHtaccess = rtrim($param['embeddedHtaccess'], '/');
 
 		if (!$platform->is_dir($embeddedHtaccess)

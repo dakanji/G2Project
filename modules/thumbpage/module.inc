@@ -115,6 +115,7 @@ class ThumbPageModule extends GalleryModule {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $movie) = $this->_getSupportedMovieTypes();
 
 		if ($ret) {
@@ -131,17 +132,18 @@ class ThumbPageModule extends GalleryModule {
 				),
 			);
 		}
+
 		$ret = $this->setParameter('pageTypes', implode('|', $page));
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = $this->setParameter('movieTypes', implode('|', $movie));
 
 		if ($ret) {
 			return array($ret, null);
 		}
-
 
 		list($ret, $redirect) = parent::activate($postActivationEvent);
 
@@ -172,6 +174,7 @@ class ThumbPageModule extends GalleryModule {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $select) = GalleryCoreApi::getToolkitOperationMimeTypes('select-page');
 
 		if ($ret) {
@@ -214,6 +217,7 @@ class ThumbPageModule extends GalleryModule {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $select) = GalleryCoreApi::getToolkitOperationMimeTypes(
 			'select-offset'
 		);

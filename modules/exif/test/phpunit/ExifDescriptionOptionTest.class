@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('lib/tools/phpunit/ItemAddOptionTestCase.class');
 
 /**
@@ -36,11 +35,13 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 
 		list($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
@@ -48,6 +49,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		$ret = $this->_markPluginParametersForCleanup('module', 'exif');
@@ -56,7 +58,8 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$this->_items                = array();
+		$this->_items = array();
+
 		list($ret, $this->_items[0]) = $this->_createRandomDataItem(
 			$this->_album->getId(),
 			'image/jpeg',
@@ -70,6 +73,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $this->_items[1]) = $this->_createRandomDataItem(
 			$this->_album->getId(),
 			'image/jpeg',
@@ -154,6 +158,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals('exif description', $item->getDescription(), "description $j");
 			$this->assertEquals("original summary $j", $item->getSummary(), "summary $j");
 		}
@@ -219,11 +224,13 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals(
 				"original description $j",
 				$item->getDescription(),
 				"description $j"
 			);
+
 			$this->assertEquals("original summary $j", $item->getSummary(), "summary $j");
 		}
 	}
@@ -273,6 +280,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('ExifDescriptionOptionTestToolkit');
 
 		// Register operations that we can perform on our mock data items
@@ -348,6 +356,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(0, sizeof($preferredIds), 'there should not be any preferred');
 	}
 
@@ -397,6 +406,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$_REQUEST['exifDescriptionTestToolkit'] = true;
 
 		// Save current size
@@ -408,6 +418,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 
 		// Initialize a Flag for checking rotation
 		global $gallery;
+
 		$gallery->setConfig('rotated', 0);
 
 		// Perform the request and verify that we succeeded
@@ -426,6 +437,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(0, sizeof($preferredIds), 'there should be no preferreds');
 
 		// Verify that the item serial is NOT the same
@@ -494,6 +506,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(1, sizeof($preferredIds), 'there should be a preferred');
 
 		// Verify that the item serial is the same
@@ -502,6 +515,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($originalSerial, $this->_items[0]->getSerialNumber());
 
 		// Verify that the item was rotated
@@ -547,6 +561,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(0, count($preferredIds), 'there should not be a preferred');
 
 		// Verify that the item serial is the same - rotate error was ignored (just logged)
@@ -555,6 +570,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($originalSerial, $this->_items[0]->getSerialNumber());
 	}
 }

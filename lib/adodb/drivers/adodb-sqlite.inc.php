@@ -8,9 +8,7 @@
   the BSD license will take precedence.
 
   Latest version is available at http://adodb.sourceforge.net
-
   SQLite info: http://www.hwaci.com/sw/sqlite/
-
   Install Instructions: ====================
   1. Place this in adodb/drivers
   2. Rename the file, remove the .txt prefix.
@@ -34,8 +32,7 @@ class ADODB_sqlite extends ADOConnection {
 	public $sysTimeStamp    = "adodb_date('Y-m-d H:i:s')";
 	public $fmtTimeStamp    = "'Y-m-d H:i:s'";
 
-	public function __construct() {
-	}
+	public function __construct() {}
 
 	public function ServerInfo() {
 		$arr['version']     = sqlite_libversion();
@@ -49,7 +46,9 @@ class ADODB_sqlite extends ADOConnection {
 		if ($this->transOff) {
 			return true;
 		}
-		$ret             = $this->Execute('BEGIN TRANSACTION');
+
+		$ret = $this->Execute('BEGIN TRANSACTION');
+
 		$this->transCnt += 1;
 
 		return true;
@@ -63,6 +62,7 @@ class ADODB_sqlite extends ADOConnection {
 		if (!$ok) {
 			return $this->RollbackTrans();
 		}
+
 		$ret = $this->Execute('COMMIT');
 
 		if ($this->transCnt > 0) {
@@ -76,6 +76,7 @@ class ADODB_sqlite extends ADOConnection {
 		if ($this->transOff) {
 			return true;
 		}
+
 		$ret = $this->Execute('ROLLBACK');
 
 		if ($this->transCnt > 0) {
@@ -88,6 +89,7 @@ class ADODB_sqlite extends ADOConnection {
 	// mark newnham
 	public function MetaColumns($table, $normalize = true) {
 		global $ADODB_FETCH_MODE;
+
 		$false            = false;
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
@@ -95,6 +97,7 @@ class ADODB_sqlite extends ADOConnection {
 		if ($this->fetchMode !== false) {
 			$savem = $this->SetFetchMode(false);
 		}
+
 		$rs = $this->Execute("PRAGMA table_info('$table')");
 
 		if (isset($savem)) {
@@ -106,6 +109,7 @@ class ADODB_sqlite extends ADOConnection {
 
 			return $false;
 		}
+
 		$arr = array();
 
 		while ($r = $rs->FetchRow()) {
@@ -115,6 +119,7 @@ class ADODB_sqlite extends ADOConnection {
 			if (sizeof($type) == 2) {
 				$size = trim($type[1], ')');
 			}
+
 			$fn                 = strtoupper($r['name']);
 			$fld                = new ADOFieldObject();
 			$fld->name          = $r['name'];
@@ -134,6 +139,7 @@ class ADODB_sqlite extends ADOConnection {
 				$arr[strtoupper($fld->name)] = $fld;
 			}
 		}
+
 		$rs->Close();
 		$ADODB_FETCH_MODE = $save;
 
@@ -191,6 +197,7 @@ class ADODB_sqlite extends ADOConnection {
 		if ($this->_connectionID === false) {
 			return false;
 		}
+
 		$this->_createFunctions();
 
 		return true;
@@ -211,6 +218,7 @@ class ADODB_sqlite extends ADOConnection {
 		if ($this->_connectionID === false) {
 			return false;
 		}
+
 		$this->_createFunctions();
 
 		return true;
@@ -223,6 +231,7 @@ class ADODB_sqlite extends ADOConnection {
 		if (!$rez) {
 			$this->_errorNo = sqlite_last_error($this->_connectionID);
 		}
+
 		// If no data was returned, we don't need to create a real recordset
 		// Note: this code is untested, as I don't have a sqlite2 setup available
 		elseif (sqlite_num_fields($rez) == 0) {
@@ -273,6 +282,7 @@ class ADODB_sqlite extends ADOConnection {
 					return false;
 				}
 			}
+
 			$this->Execute("update $seq set id=id+1 where id=$num");
 
 			if ($this->affected_rows() > 0) {
@@ -294,11 +304,13 @@ class ADODB_sqlite extends ADOConnection {
 		if (empty($this->_genSeqSQL)) {
 			return false;
 		}
+
 		$ok = $this->Execute(sprintf($this->_genSeqSQL, $seqname));
 
 		if (!$ok) {
 			return false;
 		}
+
 		$start -= 1;
 
 		return $this->Execute("insert into $seqname values($start)");
@@ -323,12 +335,14 @@ class ADODB_sqlite extends ADOConnection {
 		$false = false;
 		// save old fetch mode
 		global $ADODB_FETCH_MODE;
+
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
 			$savem = $this->SetFetchMode(false);
 		}
+
 		$SQL = sprintf("SELECT name,sql FROM sqlite_master WHERE type='index' AND tbl_name='%s'", strtolower($table));
 		$rs  = $this->Execute($SQL);
 
@@ -336,6 +350,7 @@ class ADODB_sqlite extends ADOConnection {
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
 			}
+
 			$ADODB_FETCH_MODE = $save;
 
 			return $false;
@@ -354,6 +369,7 @@ class ADODB_sqlite extends ADOConnection {
 					'columns' => array(),
 				);
 			}
+
 			/**
 			 * There must be a more elegant way of doing this,
 			 * the index elements appear in the SQL statement
@@ -378,7 +394,6 @@ class ADODB_sqlite extends ADOConnection {
 /*--------------------------------------------------------------------------------------
 		Class Name: Recordset
 --------------------------------------------------------------------------------------*/
-
 class ADORecordset_sqlite extends ADORecordSet {
 	public $databaseType = 'sqlite';
 	public $bind         = false;
@@ -386,6 +401,7 @@ class ADORecordset_sqlite extends ADORecordSet {
 	public function __construct($queryID, $mode = false) {
 		if ($mode === false) {
 			global $ADODB_FETCH_MODE;
+
 			$mode = $ADODB_FETCH_MODE;
 		}
 
@@ -405,6 +421,7 @@ class ADORecordset_sqlite extends ADORecordSet {
 
 				break;
 		}
+
 		$this->adodbFetchMode = $mode;
 
 		$this->_queryID = $queryID;
@@ -466,6 +483,5 @@ class ADORecordset_sqlite extends ADORecordSet {
 		return !empty($this->fields);
 	}
 
-	public function _close() {
-	}
+	public function _close() {}
 }

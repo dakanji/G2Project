@@ -398,6 +398,7 @@ $gdEnvironments[] = array(
 		'iptcparse'               => true,
 	),
 );
+
 $gdEnvironments[] = array(
 	'name'       => '4.3.1|2.0-bundled|Linux',
 	'phpVersion' => '4.3.1',
@@ -911,6 +912,7 @@ hr {width: 600px; align: center; background-color: #cccccc; border: 0px; height:
 		'iptcparse'               => true,
 	),
 );
+
 $gdEnvironments[] = array(
 	'name'       => '4.3.9RC1|2.0.28-bundled|Linux',
 	'phpVersion' => '4.3.9RC1',

@@ -8,7 +8,6 @@
   the BSD license will take precedence.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Interbase data driver. Requires interbase client. Works on Windows and Unix.
 
   3 Jan 2002 -- suggestions by Hans-Peter Oeri <kampfcaspar75@oeri.ch>
@@ -16,10 +15,8 @@
 
   Docs to interbase at the website
    http://www.synectics.co.za/php3/tutorial/IB_PHP3_API.html
-
   To use gen_id(), see
    http://www.volny.cz/iprenosil/interbase/ip_ib_code.htm#_code_creategen
-
    $rs = $conn->Execute('select gen_id(adodb,1) from rdb$database');
    $id = $rs->fields[0];
    $conn->Execute("insert into table (id, col1,...) values ($id, $val1,...)");
@@ -73,6 +70,7 @@ class ADODB_ibase extends ADOConnection {
 		if ($argDatabasename) {
 			$argHostname .= ':' . $argDatabasename;
 		}
+
 		$fn = ($persist) ? 'ibase_pconnect' : 'ibase_connect';
 
 		if ($this->role) {
@@ -115,6 +113,7 @@ class ADODB_ibase extends ADOConnection {
 			} else {
 				ibase_timefmt($this->ibase_timestampfmt, IBASE_TIMESTAMP);
 			}
+
 			ibase_timefmt($this->ibase_timefmt, IBASE_TIME);
 		} else {
 			ini_set('ibase.timestampformat', $this->ibase_timestampfmt);
@@ -172,6 +171,7 @@ class ADODB_ibase extends ADOConnection {
 
 				break;
 		}
+
 		$arr['version']     = ADOConnection::_findvers($s);
 		$arr['description'] = $s;
 
@@ -182,6 +182,7 @@ class ADODB_ibase extends ADOConnection {
 		if ($this->transOff) {
 			return true;
 		}
+
 		$this->transCnt      += 1;
 		$this->autoCommit     = false;
 		$this->_transactionID = $this->_connectionID;//ibase_trans($this->ibasetrans, $this->_connectionID);
@@ -200,13 +201,16 @@ class ADODB_ibase extends ADOConnection {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
-		$ret              = false;
+
+		$ret = false;
+
 		$this->autoCommit = true;
 
 		if ($this->_transactionID) {
 			//print ' commit ';
 			$ret = ibase_commit($this->_transactionID);
 		}
+
 		$this->_transactionID = false;
 
 		return $ret;
@@ -221,6 +225,7 @@ class ADODB_ibase extends ADOConnection {
 			$savecrecs       = $ADODB_COUNTRECS;
 			$ADODB_COUNTRECS = true; // force countrecs
 			$ret             = ADOConnection::_Execute($sql, $inputarr);
+
 			$ADODB_COUNTRECS = $savecrecs;
 		} else {
 			$ret = ADOConnection::_Execute($sql, $inputarr);
@@ -237,12 +242,15 @@ class ADODB_ibase extends ADOConnection {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
-		$ret              = false;
+
+		$ret = false;
+
 		$this->autoCommit = true;
 
 		if ($this->_transactionID) {
 			$ret = ibase_rollback($this->_transactionID);
 		}
+
 		$this->_transactionID = false;
 
 		return $ret;
@@ -251,6 +259,7 @@ class ADODB_ibase extends ADOConnection {
 	public function MetaIndexes($table, $primary = false, $owner = false) {
 		// save old fetch mode
 		global $ADODB_FETCH_MODE;
+
 		$false            = false;
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
@@ -258,6 +267,7 @@ class ADODB_ibase extends ADOConnection {
 		if ($this->fetchMode !== false) {
 			$savem = $this->SetFetchMode(false);
 		}
+
 		$table = strtoupper($table);
 		$sql   = "SELECT * FROM RDB\$INDICES WHERE RDB\$RELATION_NAME = '" . $table . "'";
 
@@ -266,6 +276,7 @@ class ADODB_ibase extends ADOConnection {
 		} else {
 			$sql .= " AND RDB\$INDEX_NAME NOT LIKE 'RDB\$FOREIGN%'";
 		}
+
 		// get index details
 		$rs = $this->Execute($sql);
 
@@ -274,6 +285,7 @@ class ADODB_ibase extends ADOConnection {
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
 			}
+
 			$ADODB_FETCH_MODE = $save;
 
 			return $false;
@@ -285,14 +297,16 @@ class ADODB_ibase extends ADOConnection {
 			$index = $row[0];
 
 			if (!isset($indexes[$index])) {
-				if (is_null($row[3])) {
+				if (null === $row[3]) {
 					$row[3] = 0;
 				}
+
 				$indexes[$index] = array(
 					'unique'  => ($row[3] == 1),
 					'columns' => array(),
 				);
 			}
+
 			$sql = "SELECT * FROM RDB\$INDEX_SEGMENTS WHERE RDB\$INDEX_NAME = '" . $index . "' ORDER BY RDB\$FIELD_POSITION ASC";
 			$rs1 = $this->Execute($sql);
 
@@ -300,10 +314,12 @@ class ADODB_ibase extends ADOConnection {
 				$indexes[$index]['columns'][$row1[2]] = $row1[1];
 			}
 		}
+
 		// restore fetchmode
 		if (isset($savem)) {
 			$this->SetFetchMode($savem);
 		}
+
 		$ADODB_FETCH_MODE = $save;
 
 		return $indexes;
@@ -314,6 +330,7 @@ class ADODB_ibase extends ADOConnection {
 		if ($this->autoCommit) {
 			$this->BeginTrans();
 		}
+
 		$this->Execute("UPDATE $table SET $col=$col WHERE $where "); // is this correct - jlim?
 		return 1;
 	}
@@ -406,6 +423,7 @@ class ADODB_ibase extends ADOConnection {
 					if (!isset($iarr[0])) {
 						$iarr[0] = ''; // PHP5 compat hack
 					}
+
 					$fnarr = array_merge(array($sql), $iarr);
 					$ret   = call_user_func_array($fn, $fnarr);
 				} else {
@@ -447,6 +465,7 @@ class ADODB_ibase extends ADOConnection {
 
 						default:
 							ADOConnection::outp("Too many parameters to ibase query $sql");
+
 							// Fall Through
 						case 8:
 							$ret = $fn($sql, $iarr[0], $iarr[1], $iarr[2], $iarr[3], $iarr[4], $iarr[5], $iarr[6], $iarr[7]);
@@ -465,6 +484,7 @@ class ADODB_ibase extends ADOConnection {
 					if (sizeof($iarr) == 0) {
 						$iarr[0] = ''; // PHP5 compat hack
 					}
+
 					$fnarr = array_merge(array($conn, $sql), $iarr);
 					$ret   = call_user_func_array($fn, $fnarr);
 				} else {
@@ -506,6 +526,7 @@ class ADODB_ibase extends ADOConnection {
 
 						default:
 							ADOConnection::outp("Too many parameters to ibase query $sql");
+
 							// Fall Through
 						case 8:
 							$ret = $fn($conn, $sql, $iarr[0], $iarr[1], $iarr[2], $iarr[3], $iarr[4], $iarr[5], $iarr[6], $iarr[7]);
@@ -665,7 +686,6 @@ class ADODB_ibase extends ADOConnection {
 	}
 
 	//OPN STUFF end
-
 	// returns array of ADOFieldObjects for current table
 	public function MetaColumns($table, $normalize = true) {
 		global $ADODB_FETCH_MODE;
@@ -683,6 +703,7 @@ class ADODB_ibase extends ADOConnection {
 		}
 
 		$retarr = array();
+
 		//OPN STUFF start
 		$dialect3 = ($this->dialect == 3 ? true : false);
 		//OPN STUFF end
@@ -726,6 +747,7 @@ class ADODB_ibase extends ADOConnection {
 
 						break;
 				}
+
 				//	case 35:$tt = 'TIMESTAMP'; break;
 			}
 
@@ -734,6 +756,7 @@ class ADODB_ibase extends ADOConnection {
 			} else {
 				$fld->sub_type = null;
 			}
+
 			//OPN STUFF end
 			if ($ADODB_FETCH_MODE == ADODB_FETCH_NUM) {
 				$retarr[] = $fld;
@@ -743,6 +766,7 @@ class ADODB_ibase extends ADOConnection {
 
 			$rs->MoveNext();
 		}
+
 		$rs->Close();
 
 		if (empty($retarr)) {
@@ -773,6 +797,7 @@ class ADODB_ibase extends ADOConnection {
 		while ($string = ibase_blob_get($blobid, 8192)) {
 			$realblob .= $string;
 		}
+
 		ibase_blob_close($blobid);
 
 		return $realblob;
@@ -808,10 +833,10 @@ class ADODB_ibase extends ADOConnection {
 		if ($fd === false) {
 			return false;
 		}
+
 		$blob_id = ibase_blob_create($this->_connectionID);
 
 		// fill with data
-
 		while ($val = fread($fd, 32768)) {
 			ibase_blob_add($blob_id, $val);
 		}
@@ -837,7 +862,6 @@ class ADODB_ibase extends ADOConnection {
 		$blob_id = ibase_blob_create($this->_connectionID);
 
 		// ibase_blob_add($blob_id, $val);
-
 		// replacement that solves the problem by which only the first modulus 64K /
 		// of $val are stored at the blob field ////////////////////////////////////
 		// Thx Abel Berenstein  aberenstein#afip.gov.ar
@@ -857,8 +881,8 @@ class ADODB_ibase extends ADOConnection {
 			$data  = substr($val, $start, $tail_size);
 			ibase_blob_add($blob_id, $data);
 		}
-		// end replacement /////////////////////////////////////////////////////////
 
+		// end replacement /////////////////////////////////////////////////////////
 		$blob_id_str = ibase_blob_close($blob_id);
 
 		return $this->Execute("UPDATE $table SET $column=(?) WHERE $where", array($blob_id_str)) != false;
@@ -879,6 +903,7 @@ class ADODB_ibase extends ADOConnection {
 		if (!$col) {
 			$col = $this->sysDate;
 		}
+
 		$s = '';
 
 		$len = strlen($fmt);
@@ -887,6 +912,7 @@ class ADODB_ibase extends ADOConnection {
 			if ($s) {
 				$s .= '||';
 			}
+
 			$ch = $fmt[$i];
 
 			switch ($ch) {
@@ -937,6 +963,7 @@ class ADODB_ibase extends ADOConnection {
 						$i++;
 						$ch = substr($fmt, $i, 1);
 					}
+
 					$s .= $this->qstr($ch);
 
 					break;
@@ -950,7 +977,6 @@ class ADODB_ibase extends ADOConnection {
 /*--------------------------------------------------------------------------------------
 	Class Name: Recordset
 --------------------------------------------------------------------------------------*/
-
 class ADORecordset_ibase extends ADORecordSet {
 	public $databaseType = 'ibase';
 	public $bind         = false;
@@ -967,7 +993,6 @@ class ADORecordset_ibase extends ADORecordSet {
 			Get column information in the Recordset object. fetchField() can be used in order to obtain information about
 			fields in a certain query result. If the field offset isn't specified, the next field that wasn't yet retrieved by
 			fetchField() is retrieved.		*/
-
 	public function FetchField($fieldOffset = -1) {
 		$fld = new ADOFieldObject();
 		$ibf = ibase_field_info($this->_queryID, $fieldOffset);
@@ -1026,10 +1051,11 @@ class ADORecordset_ibase extends ADORecordSet {
 
 			return false;
 		}
+
 		// OPN stuff start - optimized
 		// fix missing nulls and decode blobs automatically
-
 		global $ADODB_ANSI_PADDING_OFF;
+
 		//$ADODB_ANSI_PADDING_OFF=1;
 		$rtrim = !empty($ADODB_ANSI_PADDING_OFF);
 
@@ -1048,8 +1074,8 @@ class ADORecordset_ibase extends ADORecordSet {
 				}
 			}
 		}
-		// OPN stuff end
 
+		// OPN stuff end
 		$this->fields = $f;
 
 		if ($this->fetchMode == ADODB_FETCH_ASSOC) {
@@ -1113,7 +1139,6 @@ class ADORecordset_ibase extends ADORecordSet {
 			case 'TIME':
 				return 'T';
 				//case 'T': return 'T';
-
 				//case 'L': return 'L';
 			case 'INT':
 			case 'SHORT':

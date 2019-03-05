@@ -249,6 +249,7 @@ class GalleryChildEntityHelper_simple {
 			if (empty($query)) {
 				return array(null, array());
 			}
+
 			array_unshift($data, $item->getId());
 			$options = array(
 				'limit' => array(
@@ -293,6 +294,7 @@ class GalleryChildEntityHelper_simple {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$join = array_flip($join);
 
 		$idJoins = $class ? array(
@@ -312,6 +314,7 @@ class GalleryChildEntityHelper_simple {
 			if (empty($aclIds)) {
 				return array(null, null, null);
 			}
+
 			$idJoins['GalleryAccessSubscriberMap'] = 'itemId';
 			$where[]                               = '[GalleryAccessSubscriberMap::accessListId] IN ('
 			. GalleryUtilities::makeMarkers(count($aclIds)) . ')';
@@ -327,10 +330,10 @@ class GalleryChildEntityHelper_simple {
 			$join['INNER JOIN [' . $table . '] ON [BASE::ID] = ['
 			. $table . '::' . $column . ']'] = 1;
 		}
+
 		// Don't self join
 		$baseId = '[' . $baseTable . '::' . $baseIdColumn . ']';
 		unset($join['INNER JOIN [' . $baseTable . '] ON [BASE::ID] = ' . $baseId], $join['LEFT JOIN [' . $baseTable . '] ON [BASE::ID] = ' . $baseId]);
-
 
 		// Postgres requires the order by column to be in the select list
 		$select = empty($select) ? '' : ', ' . implode(', ', $select);
@@ -374,6 +377,7 @@ class GalleryChildEntityHelper_simple {
 			if (!is_array($permission)) {
 				$permission = array($permission);
 			}
+
 			list($ret, $permissionMap) = GalleryCoreApi::fetchPermissionsForItems($parentIds);
 
 			if ($ret) {
@@ -418,6 +422,7 @@ class GalleryChildEntityHelper_simple {
 	 */
 	public static function _fetchDescendentItemIds($item, $offset, $count, $class, $requiredPermission) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		if (!GalleryUtilities::isA($item, 'GalleryItem')) {
@@ -429,11 +434,13 @@ class GalleryChildEntityHelper_simple {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$sequence = implode('/', $sequence);
 
 		if (!empty($sequence)) {
 			$sequence .= '/';
 		}
+
 		$sequence .= $item->getId() . '/%';
 
 		if ($requiredPermission) {
@@ -445,6 +452,7 @@ class GalleryChildEntityHelper_simple {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
 			if (empty($aclIds)) {
@@ -562,6 +570,7 @@ class GalleryChildEntityHelper_simple {
 	 */
 	public static function _getOrderInfo($orderBy, $orderDirection) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		/*
@@ -576,11 +585,13 @@ class GalleryChildEntityHelper_simple {
 			if ($ret) {
 				return array($ret, null, null, null, null);
 			}
+
 			list($ret, $orderDirection) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.orderDirection');
 
 			if ($ret) {
 				return array($ret, null, null, null, null);
 			}
+
 			$usingDefaults = true;
 		}
 
@@ -693,11 +704,13 @@ class GalleryChildEntityHelper_simple {
 					if ($ret) {
 						return array($ret, null, null, null, null);
 					}
+
 					list($ret, $as) = $storage->getFunctionSql('AS', array());
 
 					if ($ret) {
 						return array($ret, null, null, null, null);
 					}
+
 					$order[]  = 2 + count($order);
 					$select[] = "$case $as albumsFirst";
 					$join[]   = 'LEFT JOIN [GalleryAlbumItem=1] ON [BASE::ID] = [GalleryAlbumItem=1::id]';
@@ -721,6 +734,7 @@ class GalleryChildEntityHelper_simple {
 						for ($i = 1; $i <= 3; $i++) {
 							$orderClause = str_replace("%$i%", $i + 1 + count($order), $orderClause);
 						}
+
 						$order[] = $orderClause;
 
 						if (!empty($conditionClause)) {
@@ -733,6 +747,7 @@ class GalleryChildEntityHelper_simple {
 
 						break;
 					}
+
 					// Sort order implementation is missing -- fall through to the default
 					if ($usingDefaults) {
 						return GalleryChildEntityHelper_simple::_getOrderInfo(

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 if (php_sapi_name() == 'cli') {
 	// We don't apply this security check to command-line PHP
 	return;
@@ -63,8 +62,9 @@ if (empty($config)) {
 		DIRECTORY_SEPARATOR,
 		basename($authFile)
 	);
-	$options['baseDir']  = basename($baseDir) . DIRECTORY_SEPARATOR;
-	$options['key']      = GallerySetupUtilities::getAuthenticationKey();
+
+	$options['baseDir'] = basename($baseDir) . DIRECTORY_SEPARATOR;
+	$options['key']     = GallerySetupUtilities::getAuthenticationKey();
 
 	if (empty($options['key'])) {
 		$options['key'] = GallerySetupUtilities::generateAuthenticationKey();
@@ -85,8 +85,10 @@ if (empty($config)) {
 
 				exit;
 			}
+
 			$options['authFileErrors']['mismatch'] = 1;
 		}
+
 		render('loginTxtForm', $options);
 	} elseif (!empty($_POST['password'])) {
 		if ($_POST['password'] == $config['setup.password']) {
@@ -95,6 +97,7 @@ if (empty($config)) {
 
 			exit;
 		}
+
 		$options['attempts']++;
 
 		if (!GallerySetupUtilities::setLoginAttempts($options['attempts'])) {
@@ -104,8 +107,10 @@ if (empty($config)) {
 		if ($options['error'] || $options['attempts'] >= G2_SUPPORT_MAX_LOGIN_ATTEMPTS) {
 			if ($options['attempts'] >= G2_SUPPORT_MAX_LOGIN_ATTEMPTS) {
 				$ret = GallerySetupUtilities::notifySiteAdministrator();
+
 				// swallow return code; we can't do anything with it
 			}
+
 			render('loginTxtForm', $options);
 		} else {
 			$options['wrongPassword'] = 1;
@@ -115,6 +120,7 @@ if (empty($config)) {
 		if (isset($_POST['password'])) {
 			$options['missingPassword'] = 1;
 		}
+
 		render('passwordForm', $options);
 	}
 }
@@ -282,4 +288,5 @@ function render($renderType, $options = array()) {
 </html>
 	<?php
 }
+
 ?>

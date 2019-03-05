@@ -66,23 +66,22 @@ class UserPreferencesController extends GalleryController {
 			$redirect['subView'] = 'core.UserPreferences';
 		} elseif (isset($form['action']['save'])) {
 			// Validate our data before we continue.
-
 			// full name is optional
-
 			// language is optional for everybody
-
 			list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 			if ($ret) {
 				return array($ret, null);
 			}
 
-			$userId             = $gallery->getActiveUserId();
+			$userId = $gallery->getActiveUserId();
+
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($userId);
 
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 			if ($ret) {
@@ -119,12 +118,14 @@ class UserPreferencesController extends GalleryController {
 							'userName' => $user->getUserName(),
 						)
 					);
+
 					list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 					if ($ret) {
 						return array($ret, null);
 					}
 				}
+
 				/*
 				 * To be consistent, we really should post a Gallery::Login event here to show
 				 * that the user successfully authenticated.  But they're not really logging in so
@@ -184,6 +185,7 @@ class UserPreferencesController extends GalleryController {
 			$results['delegate']['view']    = 'core.UserAdmin';
 			$results['delegate']['subView'] = 'core.UserPreferences';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 

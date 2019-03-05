@@ -347,6 +347,7 @@ class Smarty {
 	/**#@+
 	 * @var boolean
 	 */
+
 	/**
 	 * This tells if config file vars of the same name overwrite each other or not.
 	 * if disabled, same name variables are accumulated in an array.
@@ -410,6 +411,7 @@ class Smarty {
 	 * There should be no need to touch anything below this line.
 	 * @access private
 	 */
+
 	/**
 	 * where assigned template vars are kept
 	 *
@@ -550,7 +552,6 @@ class Smarty {
 		'resource'     => array(),
 		'insert'       => array(),
 	);
-
 
 	/**
 	 * cache serials
@@ -942,6 +943,7 @@ class Smarty {
 				array('clear', &$this, &$dummy, $tpl_file, $cache_id, $compile_id, $exp_time)
 			);
 		}
+
 		$_params = array(
 			'auto_base'   => $this->cache_dir,
 			'auto_source' => $tpl_file,
@@ -1014,6 +1016,7 @@ class Smarty {
 		if (!isset($compile_id)) {
 			$compile_id = $this->compile_id;
 		}
+
 		$_params = array(
 			'auto_base'   => $this->compile_dir,
 			'auto_source' => $tpl_file,
@@ -1057,6 +1060,7 @@ class Smarty {
 		if (isset($this->_tpl_vars[$name])) {
 			return $this->_tpl_vars[$name];
 		}
+
 		// var non-existant, return valid reference
 		$_tmp = null;
 
@@ -1077,6 +1081,7 @@ class Smarty {
 		if (isset($this->_config[0]['vars'][$name])) {
 			return $this->_config[0]['vars'][$name];
 		}
+
 		// var non-existant, return valid reference
 		$_tmp = null;
 
@@ -1150,7 +1155,8 @@ class Smarty {
 				'filename' => $resource_name,
 				'depth'    => 0,
 			);
-			$_included_tpls_idx         = count($this->_smarty_debug_info) - 1;
+
+			$_included_tpls_idx = count($this->_smarty_debug_info) - 1;
 		}
 
 		if (!isset($compile_id)) {
@@ -1200,7 +1206,6 @@ class Smarty {
 					$_smarty_results = smarty_core_process_compiled_include($_params, $this);
 				}
 
-
 				if ($display) {
 					if ($this->debugging) {
 						// capture time for debugging info
@@ -1234,18 +1239,21 @@ class Smarty {
 					} else {
 						echo $_smarty_results;
 					}
+
 					error_reporting($_smarty_old_error_level);
 					// restore initial cache_info
 					$this->_cache_info = array_pop($_cache_info);
 
 					return true;
 				}
+
 				error_reporting($_smarty_old_error_level);
 				// restore initial cache_info
 				$this->_cache_info = array_pop($_cache_info);
 
 				return $_smarty_results;
 			}
+
 			$this->_cache_info['template'][$resource_name] = true;
 
 			if ($this->cache_modified_check && $display) {
@@ -1283,6 +1291,7 @@ class Smarty {
 			) {
 				include $_smarty_compile_path;
 			}
+
 			$_smarty_results = ob_get_contents();
 			ob_end_clean();
 
@@ -1309,9 +1318,11 @@ class Smarty {
 				// strip nocache-tags from output
 				$_smarty_results = preg_replace('!(\{/?nocache\:[0-9a-f]{32}#\d+\})!s', '', $_smarty_results);
 			}
+
 			// restore initial cache_info
 			$this->_cache_info = array_pop($_cache_info);
 		}
+
 		$this->_cache_including = $_cache_including;
 
 		if ($display) {
@@ -1329,10 +1340,12 @@ class Smarty {
 				include_once SMARTY_CORE_DIR . 'core.display_debug_console.php';
 				echo smarty_core_display_debug_console($_params, $this);
 			}
+
 			error_reporting($_smarty_old_error_level);
 
 			return;
 		}
+
 		error_reporting($_smarty_old_error_level);
 
 		if (isset($_smarty_results)) {
@@ -1427,6 +1440,7 @@ class Smarty {
 				// no need to check compiled file
 				return true;
 			}
+
 			// get file source and timestamp
 			$_params = array(
 				'resource_name' => $resource_name,
@@ -1441,9 +1455,11 @@ class Smarty {
 				// template not expired, no recompile
 				return true;
 			}
+
 			// compile template
 			return false;
 		}
+
 		// compiled template does not exist, or forced compile
 		return false;
 	}
@@ -1513,7 +1529,6 @@ class Smarty {
 			include_once $this->compiler_file;
 		}
 
-
 		$smarty_compiler = new $this->compiler_class();
 
 		$smarty_compiler->template_dir             = $this->template_dir;
@@ -1542,8 +1557,8 @@ class Smarty {
 		if (isset($cache_include_path, $this->_cache_serials[$cache_include_path])) {
 			$smarty_compiler->_cache_serial = $this->_cache_serials[$cache_include_path];
 		}
-		$smarty_compiler->_cache_include = $cache_include_path;
 
+		$smarty_compiler->_cache_include = $cache_include_path;
 
 		$_results = $smarty_compiler->_compile_file($resource_name, $source_content, $compiled_content);
 
@@ -1611,6 +1626,7 @@ class Smarty {
 					if ($params['get_source']) {
 						$params['source_content'] = $this->_read_file($_resource_name);
 					}
+
 					$params['resource_timestamp'] = filemtime($_resource_name);
 					$_return                      = is_file($_resource_name) && is_readable($_resource_name);
 
@@ -1665,6 +1681,7 @@ class Smarty {
 				if (!$params['quiet']) {
 					$this->trigger_error('(secure mode) accessing "' . $params['resource_name'] . '" is not allowed');
 				}
+
 				$params['source_content']     = null;
 				$params['resource_timestamp'] = null;
 
@@ -1681,7 +1698,6 @@ class Smarty {
 	 * @return boolean
 	 */
 	public function _parse_resource_name(&$params) {
-
 		// split tpl_path by the first colon
 		$_resource_name_parts = explode(':', $params['resource_name'], 2);
 
@@ -1712,6 +1728,7 @@ class Smarty {
 
 						return true;
 					}
+
 					// didn't find the file, try include_path
 					$_params = array(
 						'file_path' => $_fullpath,
@@ -1728,6 +1745,7 @@ class Smarty {
 
 				return false;
 			}
+
 			// absolute path
 			return file_exists($params['resource_name']);
 		}
@@ -1750,8 +1768,10 @@ class Smarty {
 	 * @return string result of modifiers
 	 */
 	public function _run_mod_handler() {
-		$_args                                    = func_get_args();
-		list($_modifier_name, $_map_array)        = array_splice($_args, 0, 2);
+		$_args = func_get_args();
+
+		list($_modifier_name, $_map_array) = array_splice($_args, 0, 2);
+
 		list($_func_name, $_tpl_file, $_tpl_line) = $this->_plugins['modifier'][$_modifier_name];
 
 		$_var = $_args[0];
@@ -1793,6 +1813,7 @@ class Smarty {
 			while (!feof($fd)) {
 				$contents .= fread($fd, 8192);
 			}
+
 			fclose($fd);
 
 			return $contents;
@@ -1922,7 +1943,6 @@ class Smarty {
 	 */
 
 	// $_smarty_include_tpl_file, $_smarty_include_vars
-
 	public function _smarty_include($params) {
 		if ($this->debugging) {
 			$_params = array();
@@ -1934,7 +1954,8 @@ class Smarty {
 				'filename' => $params['smarty_include_tpl_file'],
 				'depth'    => ++$this->_inclusion_depth,
 			);
-			$included_tpls_idx          = count($this->_smarty_debug_info) - 1;
+
+			$included_tpls_idx = count($this->_smarty_debug_info) - 1;
 		}
 
 		$this->_tpl_vars = array_merge($this->_tpl_vars, $params['smarty_include_vars']);
@@ -1944,7 +1965,6 @@ class Smarty {
 		array_unshift($this->_config, $this->_config[0]);
 
 		$_smarty_compile_path = $this->_get_compile_path($params['smarty_include_tpl_file']);
-
 
 		if ($this->_is_compiled($params['smarty_include_tpl_file'], $_smarty_compile_path)
 			|| $this->_compile_resource($params['smarty_include_tpl_file'], $_smarty_compile_path)
@@ -1985,6 +2005,7 @@ class Smarty {
 
 			return $_return;
 		}
+
 		// add a reference to a new set of cache_attrs
 		$_cache_attrs[] = array();
 

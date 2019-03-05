@@ -13,9 +13,7 @@
  */
 
  // $tpl_file, $cache_id, $compile_id, $results
-
 function smarty_core_write_cache_file($params, &$smarty) {
-
 	// put timestamp in cache header
 	$smarty->_cache_info['timestamp'] = time();
 
@@ -33,7 +31,6 @@ function smarty_core_write_cache_file($params, &$smarty) {
 		// and replace it by a single nocache-tag
 		// this new nocache-tag will be replaced by dynamic contents in
 		// smarty_core_process_compiled_includes() on a cache-read
-
 		$match_count = count($match[0]);
 		$results     = preg_split('!(\{/?nocache\:[0-9a-f]{32}#\d+\})!', $params['results'], -1, PREG_SPLIT_DELIM_CAPTURE);
 
@@ -51,13 +48,16 @@ function smarty_core_write_cache_file($params, &$smarty) {
 						unset($results[$i]);
 					}
 				}
+
 				$j++;
 			} elseif ($level > 0) {
 				unset($results[$i]);
 			}
 		}
+
 		$params['results'] = implode('', $results);
 	}
+
 	$smarty->_cache_info['cache_serials'] = $smarty->_cache_serials;
 
 	// prepend the cache header info into cache file
@@ -72,7 +72,6 @@ function smarty_core_write_cache_file($params, &$smarty) {
 		);
 	} else {
 		// use local cache file
-
 		if (!@is_writable($smarty->cache_dir)) {
 			// cache_dir not writable, see if it exists
 			if (!@is_dir($smarty->cache_dir)) {
@@ -80,6 +79,7 @@ function smarty_core_write_cache_file($params, &$smarty) {
 
 				return false;
 			}
+
 			$smarty->trigger_error('unable to write to $cache_dir \'' . realpath($smarty->cache_dir) . '\'. Be sure $cache_dir is writable by the web server user.', E_USER_ERROR);
 
 			return false;

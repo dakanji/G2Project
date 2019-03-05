@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage/GalleryDatabaseImport.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
 
@@ -54,6 +53,7 @@ class DatabaseImportTest extends GalleryTestCase {
 
 	public function tearDown() {
 		global $gallery;
+
 		$this->_xmlParser->release();
 
 		$this->assertTrue($gallery->_platform->isComplete(), $gallery->_platform->getRemaining());
@@ -67,11 +67,11 @@ class DatabaseImportTest extends GalleryTestCase {
 	 * parent to the various GalleryXxxImport classes under test.  When they follow the parent chain
 	 * they expect to find this method.
 	 */
-	public function updateStatus($progress = 1, $total = 0) {
-	}
+	public function updateStatus($progress = 1, $total = 0) {}
 
 	public function testVerifyVersions() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$storage  =& $gallery->getStorage();
 
@@ -103,7 +103,8 @@ class DatabaseImportTest extends GalleryTestCase {
 				'callbacks'         => '',
 			),
 		);
-		$cacheKey     = 'GalleryPluginHelper::fetchPluginStatus(module)';
+
+		$cacheKey = 'GalleryPluginHelper::fetchPluginStatus(module)';
 		GalleryDataCache::put($cacheKey, $pluginStatus);
 
 		$installedModuleVersion = GalleryModule::getMe()->getApiVersion();
@@ -125,6 +126,7 @@ class DatabaseImportTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$expectedError = $coreModule->translate(
 			array(
 				'text' => 'The available version of plugin "%s" may not be compatible with '
@@ -132,7 +134,8 @@ class DatabaseImportTest extends GalleryTestCase {
 				'arg1' => 'DatabaseImportTest1',
 			)
 		);
-		$expected      = array(
+
+		$expected = array(
 			'errors' => array($expectedError),
 		);
 
@@ -215,11 +218,13 @@ class DatabaseImportTest extends GalleryTestCase {
 			array($select, array('module', 'DatabaseImportTest2', 0), array()),
 			array(null, new UnitTestStorageSearchResults(array(array(0, '_version', '1.0.0'))))
 		);
+
 		$storage->setReply(
 			'search',
 			array($select, array('module', 'DatabaseImportTest3', 0), array()),
 			array(null, new UnitTestStorageSearchResults(array(array(0, '_version', '1.0.0'))))
 		);
+
 		$storage->setReply(
 			'search',
 			array($select, array('module', 'DatabaseImportTest4', 0), array()),
@@ -234,6 +239,7 @@ class DatabaseImportTest extends GalleryTestCase {
 
 	public function testVersionsDat() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$versionFile = $gallery->getConfig('data.gallery.version');
@@ -241,16 +247,18 @@ class DatabaseImportTest extends GalleryTestCase {
 		$writeString = implode("\n", array('C2.4', 'G2.2', 'maintenance-mode'));
 		$platform->setReply('atomicWrite', array($versionFile, $writeString), true);
 
-		$attributes     = array(
+		$attributes = array(
 			'core-version'    => 'C2.4',
 			'gallery-version' => 'G2.2',
 			'tables'          => '5',
 		);
+
 		$this->_testObj = new _GalleryExportTag($this, $attributes);
 	}
 
 	public function testImportSequence() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$storage->setExtrasReply('dropSequence', array('testSequence'), null);
@@ -265,6 +273,7 @@ class DatabaseImportTest extends GalleryTestCase {
 
 	public function testCreateTableSql() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$storage->setReply(
@@ -272,6 +281,7 @@ class DatabaseImportTest extends GalleryTestCase {
 			array('GalleryTestTable'),
 			array('g2_GalleryTestTable', null, 'GalleryTestTable')
 		);
+
 		$storage->setReply('execute', array('DROP TABLE g2_GalleryTestTable', array()), null);
 
 		$storage->setExtrasReply('_executeSql', array('test create sql'), null);
@@ -304,6 +314,7 @@ class DatabaseImportTest extends GalleryTestCase {
 
 	public function testDataImport() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$storage->setReply(
@@ -332,6 +343,7 @@ class DatabaseImportTest extends GalleryTestCase {
 			),
 			19
 		);
+
 		$storage->setReply(
 			'_normalizeValue',
 			array(
@@ -345,6 +357,7 @@ class DatabaseImportTest extends GalleryTestCase {
 			),
 			3
 		);
+
 		$storage->setReply(
 			'_normalizeValue',
 			array(
@@ -357,6 +370,7 @@ class DatabaseImportTest extends GalleryTestCase {
 			),
 			'&2147483647'
 		);
+
 		$storage->setReply('execute', array($query, array(19, 3, '&2147483647')), null);
 
 		$storage->setReply(
@@ -372,6 +386,7 @@ class DatabaseImportTest extends GalleryTestCase {
 			),
 			19
 		);
+
 		$storage->setReply(
 			'_normalizeValue',
 			array(
@@ -385,6 +400,7 @@ class DatabaseImportTest extends GalleryTestCase {
 			),
 			4
 		);
+
 		$storage->setReply(
 			'_normalizeValue',
 			array(
@@ -397,6 +413,7 @@ class DatabaseImportTest extends GalleryTestCase {
 			),
 			'<1040647>'
 		);
+
 		$storage->setReply('execute', array($query, array(19, 4, '<1040647>')), null);
 
 		$storage->setReply(
@@ -412,6 +429,7 @@ class DatabaseImportTest extends GalleryTestCase {
 			),
 			24
 		);
+
 		$storage->setReply(
 			'_normalizeValue',
 			array(
@@ -425,6 +443,7 @@ class DatabaseImportTest extends GalleryTestCase {
 			),
 			3
 		);
+
 		$storage->setReply('execute', array($query, array(24, 3, null)), null);
 
 		$inputXml = '<data>
@@ -467,6 +486,7 @@ class DatabaseImportTest extends GalleryTestCase {
 		if ($tag == 'data') {
 			return new _GalleryDataTag($this, 'TestTable', $attributes);
 		}
+
 		$this->fail('Unexepected xml tag: "' . $tag . '"');
 	}
 
@@ -474,15 +494,13 @@ class DatabaseImportTest extends GalleryTestCase {
 	 * XML Callback to process end elements
 	 * @access protected
 	 */
-	public function _processEndElement($tag) {
-	}
+	public function _processEndElement($tag) {}
 
 	/**
 	 * This callback processes the child as it is popped off the stack
 	 * @access protected
 	 */
-	public function _processChildElement($childElement) {
-	}
+	public function _processChildElement($childElement) {}
 }
 
 class DatabaseImportTest1Module extends GalleryModule {

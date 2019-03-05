@@ -98,7 +98,8 @@ if ($ret) {
 			$template->renderStatusMessage('Restoring Gallery Database', '', 0);
 
 			// Do the database import
-			$importer           = $storage->getDatabaseImporter();
+			$importer = $storage->getDatabaseImporter();
+
 			list($ret, $errors) = $importer->importToDb($verifiedFile, 'importProgressCallback');
 
 			if ($ret) {
@@ -156,6 +157,7 @@ if ($renderFullPage) {
 function verifyVersions(&$templateData, $importFile) {
 	global $gallery;
 	global $template;
+
 	$storage =& $gallery->getStorage();
 
 	$importer = $storage->getDatabaseImporter();
@@ -192,6 +194,7 @@ function verifyVersions(&$templateData, $importFile) {
  */
 function getBackupFiles(&$templateData) {
 	global $gallery;
+
 	$platform =& $gallery->getPlatform();
 
 	$backupFiles = $gallery->getConfig('data.gallery.backup') . '*.xml';
@@ -201,6 +204,7 @@ function getBackupFiles(&$templateData) {
 	foreach ($platform->glob($backupFiles) as $fileName) {
 		$files[filectime($fileName) . $fileName] = $fileName;
 	}
+
 	krsort($files);
 
 	$templateData['backupFiles'] = $files;
@@ -216,5 +220,6 @@ function getBackupFiles(&$templateData) {
  */
 function importProgressCallback($percentage) {
 	global $template;
+
 	$template->renderStatusMessage('Importing Gallery Database', '', $percentage);
 }

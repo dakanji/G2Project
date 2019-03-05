@@ -8,6 +8,7 @@ if (!defined('G2_SUPPORT')) {
 // Connect to Gallery2
 function connect() {
 	include_once '../../embed.php';
+
 	$ret = GalleryEmbed::init(
 		array(
 			'fullInit' => true,
@@ -29,18 +30,22 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 		$storage =& $gallery->getStorage();
 		// Empty FailedLoginsMap table
 		$sql = 'TRUNCATE [FailedLoginsMap]';
+
 		$ret = $storage->execute($sql);
 
 		// Empty Lock table
 		$sql = 'TRUNCATE [Lock]';
+
 		$ret = $storage->execute($sql);
 
 		// Empty RecoverPasswordMap table
 		$sql = 'TRUNCATE [RecoverPasswordMap]';
+
 		$ret = $storage->execute($sql);
 
 		// Empty SessionMap table
 		$sql = 'TRUNCATE [SessionMap]';
+
 		$ret = $storage->execute($sql);
 
 		// Disable captcha module if active
@@ -48,7 +53,7 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 
 		if (!$ret) {
 			if (isset($moduleStatus['captcha']) && !empty($moduleStatus['captcha']['active'])) {
-				$sql     = '
+				$sql = '
 				UPDATE
 				[PluginMap]
 				SET
@@ -56,7 +61,8 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 				WHERE
 				[::pluginId] = ?
 				';
-				$ret     = $storage->execute($sql, array(0, 'captcha'));
+				$ret = $storage->execute($sql, array(0, 'captcha'));
+
 				$captcha = 'off';
 			}
 		}
@@ -80,6 +86,7 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 				WHERE
 				[GalleryUser::id] = ?
 				';
+
 				$ret = $storage->execute($sql, array($process_user_name, 6));
 			}
 		}
@@ -97,10 +104,14 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 			} else {
 				// Build and execute the query
 				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($user->getId());
-				list($ret, $user)   = $user->refresh();
+
+				list($ret, $user) = $user->refresh();
+
 				GalleryUtilities::unsanitizeInputValues($process_password_string, false);
 				$user->changePassword($process_password_string);
+
 				$ret = $user->save();
+
 				$ret = GalleryCoreApi::releaseLocks($lockId);
 
 				if (!isset($ret)) {
@@ -132,6 +143,7 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 					$status     = array_merge($status, call_user_func_array($func, array($args[0], $args[1])));
 					$remember[] = $key;
 				}
+
 				$_COOKIE['g2pwdcache'] = join(',', $remember);
 			}
 		}
@@ -144,6 +156,7 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 	if (!isset($html) && isset($process_advance) && !isset($process_auth)) {
 		$html = "<div class=\"warning center\">Unable To Update Password For <i>'" . $process_user_name . "'</i></div>";
 	}
+
 	// return html output
 	return $html;
 }
@@ -177,6 +190,7 @@ function recDelDir($dirname, &$status) {
 		if (!strcmp($filename, '.') || !strcmp($filename, '..')) {
 			continue;
 		}
+
 		$path = "$dirname/$filename";
 
 		if (is_dir($path)) {
@@ -185,6 +199,7 @@ function recDelDir($dirname, &$status) {
 			$status[] = array('error', "Unable to remove cache file: $path");
 		}
 	}
+
 	closedir($fd);
 
 	if (!@rmdir($dirname)) {
@@ -194,6 +209,7 @@ function recDelDir($dirname, &$status) {
 
 function refreshCache($dir, $mark) {
 	global $gallery;
+
 	$path = $gallery->getConfig('data.gallery.base') . $dir;
 	recDelDir($path, $status);
 
@@ -208,6 +224,7 @@ function refreshCache($dir, $mark) {
 
 function validate() {
 	global $gallery, $advance, $authError, $authString;
+
 	$platform =& $gallery->getPlatform();
 
 	if (!isset($advance)) {
@@ -269,12 +286,14 @@ $output = connect();
 if (!isset($output)) {
 	// Validate user
 	list($authError, $authString) = validate();
+
 	// Check if authenticated and this is not a reset call
 	if (!isset($authError) && !isset($reset)) {
 		$caches = getCacheDirs();
 		$output = process($new_password_string, $user_name, $admin_change, $advance, $auth);
 	}
 }
+
 // Deactivate G2 API Framework
 GalleryEmbed::done();
 ?>
@@ -422,6 +441,7 @@ GalleryEmbed::done();
 	</div>
 				<?php
 			}
+
 			?>
 <?php
 if (isset($output)) {
@@ -454,6 +474,7 @@ if (isset($output)) {
 	} ?>
 	<?php
 			}
+
 ?>
 </div>
 </body>

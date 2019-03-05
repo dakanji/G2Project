@@ -31,6 +31,7 @@ class WatermarkSiteAdminController extends GalleryController {
 	 */
 	public function handleRequest($form) {
 		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
+
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
@@ -55,7 +56,9 @@ class WatermarkSiteAdminController extends GalleryController {
 		} elseif (isset($form['action']['add'])) {
 			$status['addError'] = 1;
 		} elseif (isset($form['action']['delete'], $form['delete']['watermarkId'])) {
-			list($ret, $wasDeleted) = WatermarkHelper::deleteWatermarkImageById($form['delete']['watermarkId']);
+			list($ret, $wasDeleted) = WatermarkHelper::deleteWatermarkImageById(
+				$form['delete']['watermarkId']
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -104,6 +107,7 @@ class WatermarkSiteAdminController extends GalleryController {
 			if (!empty($form['forceDefaultWatermark']) && empty($form['defaultWatermarkId'])) {
 				$status['missingDefault'] = 1;
 			}
+
 			$status['savedSettings'] = 1;
 		}
 
@@ -113,6 +117,7 @@ class WatermarkSiteAdminController extends GalleryController {
 				'subView' => 'watermark.WatermarkSiteAdmin',
 			);
 		}
+
 		$results['status'] = $status;
 		$results['error']  = array();
 
@@ -145,18 +150,24 @@ class WatermarkSiteAdminView extends GalleryView {
 				'hotlinkWatermarkId',
 				'defaultWatermarkId',
 			) as $key) {
-				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'watermark', $key);
+				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter(
+					'module',
+					'watermark',
+					$key
+				);
 
 				if ($ret) {
 					return array($ret, null);
 				}
 			}
 		}
+
 		list($ret, $list) = WatermarkHelper::fetchWatermarks();
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$owners       = array();
 		$form['list'] = array();
 
@@ -167,6 +178,7 @@ class WatermarkSiteAdminView extends GalleryView {
 				$ownerIds[]     = $watermark->getOwnerId();
 				$form['list'][] = (array)$watermark;
 			}
+
 			list($ret, $tmp) = GalleryCoreApi::loadEntitiesById($ownerIds, 'GalleryUser');
 
 			if ($ret) {

@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty {cycle} function plugin
  *
@@ -61,6 +62,7 @@ function smarty_function_cycle($params, &$smarty) {
 		) {
 			$cycle_vars[$name]['index'] = 0;
 		}
+
 		$cycle_vars[$name]['values'] = $params['values'];
 	}
 

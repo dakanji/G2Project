@@ -97,26 +97,29 @@ function generateEntityDbXml() {
 								break;
 
 							case 'INDEXED':
-								$indexes[]                                           = array(
+								$indexes[] = array(
 									'columns' => array($member['name']),
 								);
+
 									$member[strtolower($child['child'][$i]['name'])] = 1;
 
 								break;
 
 							case 'UNIQUE':
-								$keys[]                                          = array(
+								$keys[] = array(
 									'columns' => array($member['name']),
 								);
+
 								$member[strtolower($child['child'][$i]['name'])] = 1;
 
 								break;
 
 							case 'PRIMARY':
-								$keys[]            = array(
+								$keys[] = array(
 									'columns' => array($member['name']),
 									'primary' => 1,
 								);
+
 								$member['primary'] = 1;
 
 								break;
@@ -166,6 +169,7 @@ function generateEntityDbXml() {
 					foreach ($child['child'] as $column) {
 						$key['columns'][] = $column['content'];
 					}
+
 					$key['primary'] = isset($child['attrs']['PRIMARY']) && $child['attrs']['PRIMARY'] == 'true';
 					$keys[]         = $key;
 
@@ -177,6 +181,7 @@ function generateEntityDbXml() {
 					foreach ($child['child'] as $column) {
 						$index['columns'][] = $column['content'];
 					}
+
 					$index['primary'] = isset($child['attrs']['PRIMARY']) && $child['attrs']['PRIMARY'] == 'true';
 
 					$indexes[] = $index;
@@ -238,11 +243,12 @@ function generateMapDbXml() {
 		$mapName = str_replace('Toolkit', 'Tk', $mapName);
 		$mapName = str_replace('TkOperation', 'TkOperatn', $mapName);
 
-		$schema  = array(
+		$schema = array(
 			'name'  => $mapName,
 			'major' => $map['child'][1]['child'][0]['content'],
 			'minor' => $map['child'][1]['child'][1]['content'],
 		);
+
 		$tmpFile = "tmp/dbxml/$origMapName.xml";
 
 		$members    = array();
@@ -270,26 +276,29 @@ function generateMapDbXml() {
 								break;
 
 							case 'INDEXED':
-								$indexes[]                                           = array(
+								$indexes[] = array(
 									'columns' => array($member['name']),
 								);
+
 									$member[strtolower($child['child'][$i]['name'])] = 1;
 
 								break;
 
 							case 'UNIQUE':
-								$keys[]                                          = array(
+								$keys[] = array(
 									'columns' => array($member['name']),
 								);
+
 								$member[strtolower($child['child'][$i]['name'])] = 1;
 
 								break;
 
 							case 'PRIMARY':
-								$keys[]            = array(
+								$keys[] = array(
 									'columns' => array($member['name']),
 									'primary' => 1,
 								);
+
 								$member['primary'] = 1;
 
 								break;
@@ -333,6 +342,7 @@ function generateMapDbXml() {
 					foreach ($child['child'] as $column) {
 						$key['columns'][] = $column['content'];
 					}
+
 					$key['primary'] = isset($child['attrs']['PRIMARY']) && $child['attrs']['PRIMARY'] == 'true';
 					$keys[]         = $key;
 
@@ -344,6 +354,7 @@ function generateMapDbXml() {
 					foreach ($child['child'] as $column) {
 						$index['columns'][] = $column['content'];
 					}
+
 					$index['primary'] = isset($child['attrs']['PRIMARY']) && $child['attrs']['PRIMARY'] == 'true';
 
 					$indexes[] = $index;

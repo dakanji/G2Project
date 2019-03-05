@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryChildEntity.class');
 
 /**
@@ -189,6 +188,7 @@ class GalleryDerivative extends GalleryChildEntity {
 		foreach ($derivativesTable as $itemId => $derivatives) {
 			foreach ($derivatives as $derivative) {
 				$ret = GalleryCoreApi::deleteEntityById($derivative->getId(), 'GalleryDerivative');
+
 				/*
 				 * Deletes can cascade in interesting ways.  For example, deleting a derivative
 				 * will get rid of any other derivatives that are sourced to it, so it's possible
@@ -299,6 +299,7 @@ class GalleryDerivative extends GalleryChildEntity {
 				'Unable to build image',
 				$ret->getAsText()
 			);
+
 			$this->setIsBroken(true);
 
 			if ($gallery->getDebug()) {
@@ -371,6 +372,7 @@ class GalleryDerivative extends GalleryChildEntity {
 	 */
 	public function _rebuildCache() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Figure out our target path
@@ -416,7 +418,8 @@ class GalleryDerivative extends GalleryChildEntity {
 		} else {
 			// Get the path of the source file
 			if ($source->isLinked()) {
-				$linkedEntity           = $source->getLinkedEntity();
+				$linkedEntity = $source->getLinkedEntity();
+
 				list($ret, $sourcePath) = $linkedEntity->fetchPath();
 
 				if ($ret) {
@@ -478,11 +481,13 @@ class GalleryDerivative extends GalleryChildEntity {
 				$context['next.operation'] = null;
 			} else {
 				list($nextOperationName) = explode('|', $operations[$i + 1]);
+
 				list($ret, $nextToolkit) = GalleryCoreApi::getToolkitByOperation($nextMimeType, $nextOperationName);
 
 				if ($ret) {
 					return $ret;
 				}
+
 				$context['next.toolkit']   = isset($nextToolkit) ? $nextToolkit : null;
 				$context['next.operation'] = $nextOperationName;
 			}
@@ -538,6 +543,7 @@ class GalleryDerivative extends GalleryChildEntity {
 		}
 
 		GalleryCoreApi::deleteFastDownloadFileById($this->getId());
+
 		$ret = GalleryCoreApi::createFastDownloadFile($this);
 
 		if ($ret) {
@@ -664,6 +670,7 @@ class GalleryDerivative extends GalleryChildEntity {
 	 */
 	public function isCacheCurrent() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $path) = $this->fetchPath();
@@ -683,6 +690,7 @@ class GalleryDerivative extends GalleryChildEntity {
 	 */
 	public function expireCache() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $path) = $this->fetchPath();

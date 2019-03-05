@@ -17,13 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/GalleryRepository.class'
 );
+
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/GalleryRepositoryUtilities.class'
 );
+
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/AdminRepositoryDownloadAndInstallController.class'
 );
@@ -54,6 +55,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 	 */
 	public function handleRequest($form) {
 		global $gallery;
+
 		$translator =& $gallery->getTranslator();
 
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
@@ -75,6 +77,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 				null,
 			);
 		}
+
 		$pluginType = $form['pluginType'];
 		$pluginId   = $form['pluginId'];
 
@@ -98,7 +101,8 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 			// Create package list.
 			$installPackages = array();
 
-			$utils                      = new GalleryRepositoryUtilities();
+			$utils = new GalleryRepositoryUtilities();
+
 			list($ret, $pluginPackages) = $utils->getPluginPackages($pluginType, $pluginId);
 
 			if ($ret) {
@@ -107,8 +111,10 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 
 			if (!empty($form['base'])) {
 				list($languages, $defaultCountry) = $translator->getLanguageData();
-				list($baseSource, $baseNewBuild)  = explode(':', $form['base']);
-				$supportedLanguages               = GalleryCoreApi::getSupportedLanguages();
+
+				list($baseSource, $baseNewBuild) = explode(':', $form['base']);
+
+				$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
 
 				if (empty($pluginPackages['base']['build'])
 					|| $pluginPackages['base']['build'] != $baseNewBuild
@@ -151,6 +157,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 					array($this, 'performDownloadAndInstallation'),
 					array($installPackages, $repositories)
 				);
+
 				$delegate['view'] = 'core.ProgressBar';
 			}
 		}
@@ -165,6 +172,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 				$results['delegate'] = $delegate;
 			}
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -194,6 +202,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
+
 		$translator =& $gallery->getTranslator();
 
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
@@ -220,7 +229,8 @@ class AdminRepositoryDownloadView extends GalleryView {
 			'pluginType' => $pluginType,
 		);
 
-		$utils                      = new GalleryRepositoryUtilities();
+		$utils = new GalleryRepositoryUtilities();
+
 		list($ret, $pluginPackages) = $utils->getPluginPackages($pluginType, $pluginId);
 
 		if ($ret) {
@@ -274,6 +284,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 					}
 				}
 			}
+
 			$upgradeData['languages']     = $condensedData;
 			$upgradeData['languageCount'] = count($upgradeData['languages']);
 			$upgradeData['repository']    = $source;
@@ -293,6 +304,7 @@ class AdminRepositoryDownloadView extends GalleryView {
 				$AdminRepositoryDownload['pluginName'] = $upgradeData['pluginName'];
 			}
 		}
+
 		usort($AdminRepositoryDownload['upgradeData'], array($this, 'versionComparator'));
 
 		if (!empty($AdminRepositoryDownload['upgradeData'][0]['base']['currentVersion'])) {
@@ -302,14 +314,15 @@ class AdminRepositoryDownloadView extends GalleryView {
 				}
 
 				if ($AdminRepositoryDownload['upgradeData'][$i]['base']['relation'] == 'older') {
-					$newEntry['pluginName']    = $AdminRepositoryDownload['pluginName'];
-					$newEntry['base']          = array(
+					$newEntry['pluginName'] = $AdminRepositoryDownload['pluginName'];
+					$newEntry['base']       = array(
 						'newVersion'     => $pluginPackages['base']['version'],
 						'newBuild'       => $pluginPackages['base']['build'],
 						'currentVersion' => $pluginPackages['base']['version'],
 						'currentBuild'   => $pluginPackages['base']['build'],
 						'relation'       => 'equal',
 					);
+
 					$newEntry['repository']    = 'installed';
 					$newEntry['languages']     = array();
 					$newEntry['languageCount'] = 0;

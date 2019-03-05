@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryModule.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
 
@@ -73,11 +72,12 @@ class RepositoryIndex extends RepositoryObject {
 	public function generate() {
 		global $gallery;
 
-		$pluginTypes      = array('modules', 'themes');
-		$pluginCount      = array(
+		$pluginTypes = array('modules', 'themes');
+		$pluginCount = array(
 			'themes'  => 0,
 			'modules' => 0,
 		);
+
 		$index            = array();
 		$buildLookupTable = array();
 
@@ -118,6 +118,7 @@ class RepositoryIndex extends RepositoryObject {
 							null,
 						);
 					}
+
 					$currentPluginId = $descriptor['header']['id'];
 					$indexPluginData = isset($index[$pluginType][$currentPluginId]) ? $index[$pluginType][$currentPluginId] : null;
 
@@ -194,6 +195,7 @@ class RepositoryIndex extends RepositoryObject {
 
 		// Write index to disk.
 		$this->_template->setVariable('contents', $serializedIndex);
+
 		$ret = $this->writeToDisk(true, true);
 
 		if ($ret) {
@@ -204,11 +206,13 @@ class RepositoryIndex extends RepositoryObject {
 		$indexFile = $this->_fileName;
 		$this->setOutputFile($indexFile . '.hash');
 		$this->_template->setVariable('contents', $this->_indexHash);
+
 		$ret = $this->writeToDisk(true);
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$this->setOutputFile($indexFile);
 
 		return array(null, $pluginCount);

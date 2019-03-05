@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
 
 /**
@@ -156,6 +155,7 @@ class DataItemTest extends GalleryTestCase {
 		}
 
 		$new = new GalleryDataItem();
+
 		$ret = $new->create(
 			$subAlbum->getId(),
 			__FILE__,
@@ -247,6 +247,7 @@ class DataItemTest extends GalleryTestCase {
 			) {
 				return $ret;
 			}
+
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
 			if ($ret) {
@@ -279,6 +280,7 @@ class DataItemTest extends GalleryTestCase {
 
 	public function testRescan() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Create a data item with wrong "size" attribute, and a fast-download file
@@ -294,21 +296,25 @@ class DataItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $everybodyId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addGroupPermission($item->getId(), $everybodyId, 'core.viewAll');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::createFastDownloadFile($item, true);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		// Verify setup
 		$this->assertEquals(123, $item->getSize(), 'size');
 		$path = GalleryDataCache::getCachePath(
@@ -317,6 +323,7 @@ class DataItemTest extends GalleryTestCase {
 				'itemId' => $item->getId(),
 			)
 		);
+
 		$this->assertTrue($platform->file_exists($path), 'fast-download file should exist');
 		// Rescan
 		$ret = $item->rescan();
@@ -324,6 +331,7 @@ class DataItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		// Verify results
 		$this->assertEquals($platform->filesize(__FILE__), $item->getSize(), 'updated size');
 		$this->assertFalse($platform->file_exists($path), 'fast-download file should be removed');

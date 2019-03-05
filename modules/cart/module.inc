@@ -68,6 +68,7 @@ class CartModule extends GalleryModule {
 		if (empty($currentVersion)) {
 			$currentVersion = '0';
 		}
+
 		list($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
 		if ($ret) {
@@ -86,8 +87,10 @@ class CartModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
+
 				// Give everybody cart permission by default
 				$gallery->guaranteeTimeLimit(300);
+
 				$ret = GalleryCoreApi::addGroupPermission(
 					$coreParams['id.rootAlbum'],
 					$coreParams['id.everybodyGroup'],
@@ -117,12 +120,14 @@ class CartModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
+
 				$query = "DELETE FROM [Schema] WHERE [Schema::name] = \'CartMap\'";
 				$ret   = $storage->execute($query);
 
 				if ($ret) {
 					return $ret;
 				}
+
 
 				// Fall Through
 			case '0.8.9':
@@ -144,6 +149,7 @@ class CartModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
+
 				// Give everybody cart permission by default
 				$ret = GalleryCoreApi::addGroupPermission(
 					$coreParams['id.rootAlbum'],
@@ -155,6 +161,7 @@ class CartModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
+
 
 				// Fall Through
 			case '1.0.1':
@@ -207,6 +214,7 @@ class CartModule extends GalleryModule {
 					/* Specific translations: */ _('Add Album To Cart');
 					_('Add Photo To Cart');
 				}
+
 				$links[$item->getId()][] = array(
 					'text' => $this->_translate(
 						array(

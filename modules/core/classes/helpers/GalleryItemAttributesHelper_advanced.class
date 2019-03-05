@@ -49,11 +49,13 @@ class GalleryItemAttributesHelper_advanced {
 
 		foreach ($ids as $id) {
 			$gallery->guaranteeTimeLimit(5);
+
 			$ret = GalleryItemAttributesHelper_advanced::setOrderWeight($id, $current);
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$current += $spacing;
 		}
 
@@ -68,7 +70,7 @@ class GalleryItemAttributesHelper_advanced {
 
 		$aggregate = ($direction == LOWER_WEIGHT) ? 'MIN' : 'MAX';
 
-		$query                     = '
+		$query = '
 	SELECT
 	  ' . $aggregate . '([GalleryItemAttributesMap::orderWeight])
 	FROM
@@ -78,6 +80,7 @@ class GalleryItemAttributesHelper_advanced {
 	  AND
 	  [GalleryChildEntity::parentId] = ?
 	';
+
 		list($ret, $searchResults) = $gallery->search($query, array((int)$itemId));
 
 		if ($ret) {
@@ -104,7 +107,7 @@ class GalleryItemAttributesHelper_advanced {
 			$comparison = '>';
 		}
 
-		$query                     = '
+		$query = '
 	SELECT
 	  ' . $aggregate . '([GalleryItemAttributesMap=2::orderWeight])
 	FROM
@@ -122,6 +125,7 @@ class GalleryItemAttributesHelper_advanced {
 	  [GalleryItemAttributesMap=2::orderWeight] ' .
 		$comparison . ' [GalleryItemAttributesMap=1::orderWeight]
 	';
+
 		list($ret, $searchResults) = $gallery->search($query, array((int)$itemId));
 
 		if ($ret) {
@@ -191,6 +195,7 @@ class GalleryItemAttributesHelper_advanced {
 		} else {
 			$parentSequence = join('/', $parentSequence) . '/';
 		}
+
 		$ret = GalleryCoreApi::addMapEntry(
 			'GalleryItemAttributesMap',
 			array(
@@ -256,7 +261,8 @@ class GalleryItemAttributesHelper_advanced {
 		$oldParentSequence = join('/', $oldParentSequence) . '/';
 		$newParentSequence = join('/', $newParentSequence) . '/';
 
-		$storage               =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
+
 		list($ret, $substring) = $storage->getFunctionSql(
 			'SUBSTRING',
 			array(
@@ -268,6 +274,7 @@ class GalleryItemAttributesHelper_advanced {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $newSequenceSql) = $storage->getFunctionSql('CONCAT', array('?', $substring));
 
 		if ($ret) {

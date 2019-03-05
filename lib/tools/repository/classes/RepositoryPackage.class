@@ -52,6 +52,7 @@ class RepositoryPackage extends RepositoryObject {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_descriptor = $descriptor;
 
 		$this->setTemplateFile('package.tpl');
@@ -211,6 +212,7 @@ class RepositoryPackage extends RepositoryObject {
 	 */
 	public function getPackageHash($packageType, $length) {
 		global $gallery;
+
 		$phpVm = $gallery->getPhpVm();
 		$key   = $this->getPackageFileName($packageType) .
 		  GalleryUtilities::getRequestVariables('repositoryName');

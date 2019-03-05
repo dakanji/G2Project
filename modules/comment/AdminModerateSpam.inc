@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
 
 /**
@@ -114,6 +113,7 @@ class AdminModerateSpamView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $showCount) = GalleryCoreApi::getPluginParameter('module', 'comment', 'comments.show');
 
 		if ($ret) {
@@ -171,6 +171,7 @@ class AdminModerateSpamView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			list($ret, $itemList) = GalleryCoreApi::loadEntitiesById($itemIds, 'GalleryItem');
 
 			if ($ret) {
@@ -218,6 +219,7 @@ class AdminModerateSpamView extends GalleryView {
 						}
 					}
 				}
+
 				$itemData[$comment['parentId']] = $it;
 			}
 		}
@@ -226,6 +228,7 @@ class AdminModerateSpamView extends GalleryView {
 			'page'      => $page,
 			'pageCount' => ceil($count / $showCount),
 		);
+
 		$urlParams = array(
 			'view'    => 'core.SiteAdmin',
 			'subView' => 'comment.AdminModerateSpam',
@@ -241,7 +244,8 @@ class AdminModerateSpamView extends GalleryView {
 					)
 				),
 			);
-			$navigator['back']  = array(
+
+			$navigator['back'] = array(
 				'urlParams' => array_merge(
 					$urlParams,
 					array(
@@ -262,6 +266,7 @@ class AdminModerateSpamView extends GalleryView {
 					)
 				),
 			);
+
 			$navigator['last'] = array(
 				'urlParams' => array_merge(
 					$urlParams,
@@ -285,6 +290,7 @@ class AdminModerateSpamView extends GalleryView {
 				'total'      => $count,
 			)
 		);
+
 		$template->style('modules/comment/comment.css');
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('lib/yui/container-min.js');

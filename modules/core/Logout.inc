@@ -55,6 +55,7 @@ class LogoutController extends GalleryController {
 		$event      = GalleryCoreApi::newEvent('Gallery::Logout');
 		$activeUser = $gallery->getActiveUser();
 		$event->setEntity($activeUser);
+
 		list($ret, $eventResults) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -81,6 +82,7 @@ class LogoutController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $guestUser) = GalleryCoreApi::loadEntitiesById($anonymousId, 'GalleryUser');
 
 		if ($ret) {

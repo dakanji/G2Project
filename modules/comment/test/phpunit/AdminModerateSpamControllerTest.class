@@ -42,6 +42,7 @@ class AdminModerateSpamControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		$ret = $this->_markPluginParametersForCleanup('module', 'core');
@@ -94,6 +95,7 @@ class AdminModerateSpamControllerTest extends GalleryControllerTestCase {
 			$comments[$publishStatus]->setSubject('this is a test subject');
 			$comments[$publishStatus]->setComment('this is a test comment');
 			$comments[$publishStatus]->setHost('127.0.0.1');
+
 			$ret = $comments[$publishStatus]->save();
 
 			if ($ret) {

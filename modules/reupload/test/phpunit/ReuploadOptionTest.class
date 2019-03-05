@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
@@ -34,6 +33,7 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 
 	public function setUp($setup = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -61,6 +61,7 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('ReuploadOptionTestToolkit');
 
 		$ret = GalleryCoreApi::registerToolkitProperty(
@@ -80,6 +81,7 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_itemSize = $this->_item->getSize();
 
 		// create custom platform to return dummy filesize, imagesize, etc.
@@ -95,12 +97,14 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 
 		// Perform the request and verify that we succeeded
 		list($errors, $warnings) = $this->_handleRequestAfterEdit($form, $this->_item);
+
 		$this->assertEquals(array(), $errors, 'Errors');
 		$this->assertEquals(
 			array($this->_translate('Reuploaded file successfully.')),
 			$warnings,
 			'Warnings'
 		);
+
 		$this->assertEquals(800, $this->_item->getSize(), 'Item size');
 	}
 
@@ -117,6 +121,7 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 
 		// Perform the request and verify that we failed and filesize didn't change
 		list($errors, $warnings) = $this->_handleRequestAfterEdit($form, $this->_item);
+
 		$this->assertEquals(array('form[error][reupload][failure]'), $errors, 'Errors');
 		$this->assertEquals(array(), $warnings, 'Warnings');
 		$this->assertEquals($this->_itemSize, $this->_item->getSize(), 'Item size');
@@ -131,6 +136,7 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 
 		// Perform the request and verify that we failed and filesize didn't change
 		list($errors, $warnings) = $this->_handleRequestAfterEdit($form, $this->_item);
+
 		$this->assertEquals(array('form[error][reupload][toolkit]'), $errors, 'Errors');
 		$this->assertEquals(array(), $warnings, 'Warnings');
 		// Size might been changed, but transaction was aborted
@@ -139,6 +145,7 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($this->_itemSize, $item->getSize(), 'Item size');
 	}
 
@@ -154,6 +161,7 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 
 		// Perform the request and verify that we failed and filesize didn't change
 		list($errors, $warnings) = $this->_handleRequestAfterEdit($form, $this->_item);
+
 		$this->assertEquals(array(), $errors, 'Errors');
 		$this->assertEquals(array(), $warnings, 'Warnings');
 	}

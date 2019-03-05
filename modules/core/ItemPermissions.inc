@@ -50,6 +50,7 @@ class ItemPermissionsController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		// Make sure we have permission to change permissions of this item
@@ -91,11 +92,13 @@ class ItemPermissionsController extends GalleryController {
 
 			// Stuff the values back into the form for easy re-adding
 			$redirect['form[group][permission]'] = $permissionId;
-			list($ret, $group)                   = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
+
+			list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 			if (!$ret) {
 				$redirect['form[group][groupName]'] = $group->getGroupName();
 			}
+
 			$verifySelfPermissions = true;
 		} elseif (isset($form['action']['deleteUserPermission'])) {
 			// Figure out which one we're working with
@@ -104,7 +107,8 @@ class ItemPermissionsController extends GalleryController {
 
 			// Handle delete user perm actions
 			list($userId, $permissionId) = explode(',', $form['user']['delete'][$index]);
-			$ret                         = GalleryCoreApi::removeUserPermission(
+
+			$ret = GalleryCoreApi::removeUserPermission(
 				$itemId,
 				$userId,
 				$permissionId,
@@ -123,7 +127,8 @@ class ItemPermissionsController extends GalleryController {
 
 			// Stuff the values back into the form for easy re-adding
 			$redirect['form[user][permission]'] = $permissionId;
-			list($ret, $user)                   = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+
+			list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 			if (!$ret) {
 				$redirect['form[user][userName]'] = $user->getUserName();
@@ -150,7 +155,8 @@ class ItemPermissionsController extends GalleryController {
 			}
 
 			// Validate the permission
-			$permission                 = $form['user']['permission'];
+			$permission = $form['user']['permission'];
+
 			list($ret, $allPermissions) = GalleryCoreApi::getPermissionIds();
 
 			if ($ret) {
@@ -211,7 +217,8 @@ class ItemPermissionsController extends GalleryController {
 			}
 
 			// Validate the permission
-			$permission                 = $form['group']['permission'];
+			$permission = $form['group']['permission'];
+
 			list($ret, $allPermissions) = GalleryCoreApi::getPermissionIds();
 
 			if ($ret) {
@@ -298,6 +305,7 @@ class ItemPermissionsController extends GalleryController {
 				$userId = $user->getId();
 				$item->setOwnerId($userId);
 				$item->setSerialNumber($form['serialNumber']);
+
 				$ret = $item->save();
 
 				if ($ret) {
@@ -355,6 +363,7 @@ class ItemPermissionsController extends GalleryController {
 
 						foreach ($descendents as $item) {
 							$item->setOwnerId($userId);
+
 							$ret = $item->save();
 
 							if ($ret) {
@@ -363,6 +372,7 @@ class ItemPermissionsController extends GalleryController {
 								return array($ret, null);
 							}
 						}
+
 						$ret = GalleryCoreApi::releaseLocks($lockId);
 
 						if ($ret) {
@@ -401,8 +411,10 @@ class ItemPermissionsController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$status['addedBackSelfPermission'] = 1;
 			}
+
 			list($ret, $canChange) = GalleryCoreApi::hasItemPermission($itemId, 'core.changePermissions');
 
 			if ($ret) {
@@ -420,6 +432,7 @@ class ItemPermissionsController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$status['addedBackSelfPermission'] = 1;
 			}
 		}
@@ -442,6 +455,7 @@ class ItemPermissionsController extends GalleryController {
 			$results['delegate']['view']    = 'core.ItemAdmin';
 			$results['delegate']['subView'] = 'core.ItemPermissions';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -477,6 +491,7 @@ class ItemPermissionsView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		// Make sure we have permission to edit this item
@@ -485,6 +500,7 @@ class ItemPermissionsView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $canChange) = GalleryCoreApi::hasItemPermission($itemId, 'core.changePermissions');
 
 		if ($ret) {
@@ -527,6 +543,7 @@ class ItemPermissionsView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		ksort($allPermissions);
 
 		// Get all permissions for the item.

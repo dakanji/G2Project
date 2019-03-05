@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/archiveupload/classes/ArchiveExtractToolkit.class');
 
 /**
@@ -34,6 +33,7 @@ class ArchiveExtractToolkitTest extends GalleryTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -45,11 +45,13 @@ class ArchiveExtractToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'archiveupload', 'removeMeta', 0);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $this->_unzipPath) = GalleryCoreApi::getPluginParameter('module', 'archiveupload', 'unzipPath');
 
 		if ($ret) {
@@ -62,6 +64,7 @@ class ArchiveExtractToolkitTest extends GalleryTestCase {
 
 	public function testPerformOperation() {
 		global $gallery;
+
 		$platform = new UnitTestPlatform();
 		$platform->setReply('is_dir', array('testDir'), true);
 		$platform->setReply('getcwd', array(), 'testCwd');
@@ -71,6 +74,7 @@ class ArchiveExtractToolkitTest extends GalleryTestCase {
 			array(array(array($this->_unzipPath, 'testZip.zip'))),
 			array(true, array(), array())
 		);
+
 		$platform->setReply('chdir', array('testCwd'), true);
 		$platform->setReply('recursiveChmod', array('testDir', null, null), true);
 		$gallery->setPlatform($platform);
@@ -96,12 +100,14 @@ class ArchiveExtractToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('application/zip', $results);
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testRemoveMeta() {
 		global $gallery;
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'archiveupload', 'removeMeta', 1);
 
 		if ($ret) {
@@ -117,6 +123,7 @@ class ArchiveExtractToolkitTest extends GalleryTestCase {
 			array(array(array($this->_unzipPath, 'testZip.zip'))),
 			array(true, array(), array())
 		);
+
 		$platform->setReply('chdir', array('testCwd'), true);
 		$platform->setReply('recursiveChmod', array('testDir', null, null), true);
 		$platform->setReply('opendir', array('testDir'), 'testHand');
@@ -170,12 +177,14 @@ class ArchiveExtractToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($results, 'application/zip');
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testRemoveLinks() {
 		global $gallery;
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'archiveupload', 'removeMeta', 1);
 
 		if ($ret) {
@@ -191,6 +200,7 @@ class ArchiveExtractToolkitTest extends GalleryTestCase {
 			array(array(array($this->_unzipPath, 'testZip.zip'))),
 			array(true, array(), array())
 		);
+
 		$platform->setReply('chdir', array('testCwd'), true);
 		$platform->setReply('recursiveChmod', array('testDir', null, null), true);
 		$platform->setReply('opendir', array('testDir'), 'testHand');
@@ -215,6 +225,7 @@ class ArchiveExtractToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('application/zip', $results);
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}

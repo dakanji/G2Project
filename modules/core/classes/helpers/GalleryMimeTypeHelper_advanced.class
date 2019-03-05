@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/helpers/GalleryMimeTypeHelper_simple.class'
 );
@@ -36,7 +35,7 @@ class GalleryMimeTypeHelper_advanced {
 	 * @return GalleryStatus a status code
 	 */
 	public static function initializeMimeTypes() {
-		$mimeTypes         = array(
+		$mimeTypes = array(
 			// This data was lifted from Apache's mime.types listing.
 			'z'       => 'application/x-compress',
 			'ai'      => 'application/postscript',
@@ -203,6 +202,7 @@ class GalleryMimeTypeHelper_advanced {
 			'flv'     => 'video/x-flv',
 			'mp4'     => 'video/mp4',
 		);
+
 		$viewableMimeTypes = array(
 			'image/jpeg'  => 1,
 			'image/pjpeg' => 1,
@@ -223,7 +223,8 @@ class GalleryMimeTypeHelper_advanced {
 				'mimeType'  => $mime,
 				'viewable'  => (int)isset($viewableMimeTypes[$mime]),
 			);
-			$ret         = GalleryCoreApi::addMapEntry('GalleryMimeTypeMap', $mimeTypeMap);
+
+			$ret = GalleryCoreApi::addMapEntry('GalleryMimeTypeMap', $mimeTypeMap);
 
 			if ($ret) {
 				return $ret;
@@ -244,6 +245,7 @@ class GalleryMimeTypeHelper_advanced {
 		if ($ret) {
 			return $ret;
 		}
+
 		GalleryMimeTypeHelper_simple::_deleteCache();
 
 		return null;
@@ -256,7 +258,7 @@ class GalleryMimeTypeHelper_advanced {
 		global $gallery;
 
 		// Check to see if the extension already exists.
-		$query               = '
+		$query = '
 	SELECT
 	    [GalleryMimeTypeMap::extension]
 	FROM
@@ -264,6 +266,7 @@ class GalleryMimeTypeHelper_advanced {
 	WHERE
 	    [GalleryMimeTypeMap::extension] = ?
 	';
+
 		list($ret, $results) = $gallery->search(
 			$query,
 			array($extension),

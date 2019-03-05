@@ -105,36 +105,42 @@ class HybridTheme extends GalleryTheme {
 			'type'  => 'checkbox',
 			'value' => $params['showText'],
 		);
+
 		$settings[] = array(
 			'key'   => 'showAlbumDate',
 			'name'  => $this->translate('Show dates for albums'),
 			'type'  => 'checkbox',
 			'value' => $params['showAlbumDate'],
 		);
+
 		$settings[] = array(
 			'key'   => 'showImageDate',
 			'name'  => $this->translate('Show dates with thumbnails'),
 			'type'  => 'checkbox',
 			'value' => $params['showImageDate'],
 		);
+
 		$settings[] = array(
 			'key'   => 'showDateInViewer',
 			'name'  => $this->translate('Show dates in image view'),
 			'type'  => 'checkbox',
 			'value' => $params['showDateInViewer'],
 		);
+
 		$settings[] = array(
 			'key'   => 'showSize',
 			'name'  => $this->translate('Show album sizes'),
 			'type'  => 'checkbox',
 			'value' => $params['showSize'],
 		);
+
 		$settings[] = array(
 			'key'   => 'showViewCount',
 			'name'  => $this->translate('Show view counts'),
 			'type'  => 'checkbox',
 			'value' => $params['showViewCount'],
 		);
+
 		$settings[] = array(
 			'key'     => 'thumbTitle',
 			'name'    => $this->translate('Mouseover on thumbnails'),
@@ -158,6 +164,7 @@ class HybridTheme extends GalleryTheme {
 	 */
 	public function showAlbumPage(&$template, $item, $params, $childIds) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		$data = array(
@@ -182,11 +189,13 @@ class HybridTheme extends GalleryTheme {
 		if ($params['showAlbumOwner'] || $params['showImageOwner']) {
 			$data[] = 'owner';
 		}
+
 		$ret = $this->loadCommonTemplateData($template, $item, $params, $data, $childIds);
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$theme =& $template->getVariableByReference('theme');
 
 		list($ret, $imageWidths, $imageHeights) = $this->_buildItemList($childIds, $theme['children']);
@@ -256,6 +265,7 @@ class HybridTheme extends GalleryTheme {
 				// Malicious URL.. renderId not for this item
 				return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 			}
+
 			$template->setVariable(
 				'theme',
 				array(
@@ -279,7 +289,9 @@ class HybridTheme extends GalleryTheme {
 			if ($ret) {
 				return array($ret, null);
 			}
-			$theme                 =& $template->getVariableByReference('theme');
+
+			$theme =& $template->getVariableByReference('theme');
+
 			list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
 
 			if ($ret) {
@@ -289,6 +301,7 @@ class HybridTheme extends GalleryTheme {
 			if (!empty($thumbnail)) {
 				$theme['thumbnail'] = (array)$thumbnail[$item->getId()];
 			}
+
 			$template->style('themes/hybrid/theme.css');
 
 			return array(null, 'detail.tpl');
@@ -300,12 +313,15 @@ class HybridTheme extends GalleryTheme {
 		if ($ret) {
 			return array($ret, null);
 		}
-		$theme                =& $template->getVariableByReference('theme');
+
+		$theme =& $template->getVariableByReference('theme');
+
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($parent, null, null, $theme['actingUserId']);
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$perPage = $this->getPageSize($params);
 		$page    = 1;
 
@@ -316,6 +332,7 @@ class HybridTheme extends GalleryTheme {
 				break;
 			}
 		}
+
 		$redirect = array(
 			'view'   => 'core.ShowItem',
 			'itemId' => $parent->getId(),
@@ -324,6 +341,7 @@ class HybridTheme extends GalleryTheme {
 		if ($page != 1) {
 			$redirect['page'] = $page;
 		}
+
 		$redirect['showId'] = $item->getId();
 
 		return array(
@@ -408,27 +426,32 @@ class HybridTheme extends GalleryTheme {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			list($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
 
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			list($ret, $preferredFullImages) = GalleryCoreApi::fetchPreferredsByItemIds($childIds);
 
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			list($ret, $resizedImages) = GalleryCoreApi::fetchResizesByItemIds($childIds);
 
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($childIds);
 
 			if ($ret) {
 				return array($ret, null, null);
 			}
 		}
+
 		$i = -1;
 
 		foreach ($childItems as $child) {
@@ -443,6 +466,7 @@ class HybridTheme extends GalleryTheme {
 						return array($ret, null, null);
 					}
 				}
+
 				$children[$i]['thumbnail'] = (array)$thumbnails[$childId];
 			}
 
@@ -491,6 +515,7 @@ class HybridTheme extends GalleryTheme {
 						return array($ret, null, null);
 					}
 				}
+
 				$image                      = (array)$image;
 				$children[$i]['image']      = $image;
 				$children[$i]['imageIndex'] = count($imageWidths);

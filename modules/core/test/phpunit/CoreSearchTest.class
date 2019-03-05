@@ -154,6 +154,7 @@ class CoreSearchTest extends GalleryTestCase {
 				isset($info['options'][$option]['description']),
 				"options:$option description missing"
 			);
+
 			$this->assertTrue(
 				!empty($info['options'][$option]['enabled']),
 				"options:$option not enabled"

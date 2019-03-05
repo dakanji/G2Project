@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('lib/tools/phpunit/ItemAddOptionTestCase.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
@@ -60,6 +59,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('SetSizeOptionTestToolkit');
 
 		// applying size limits uses 'compress'
@@ -120,6 +120,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		$this->_items = array();
@@ -174,6 +175,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 				)),
 			),
 		);
+
 		$this->_expectResize   = array('scale');
 		$this->_expectCompress = array('compress');
 	}
@@ -184,12 +186,14 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($appropriate, 'appropriate');
 	}
 
 	// change dimensions, don't keep original
 	public function testChangeDimNoOriginal() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		foreach (array(
@@ -209,7 +213,9 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 				return $ret;
 			}
 		}
+
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_noWarnings, $warnings);
 
@@ -225,6 +231,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		$this->assertEquals($this->_expectResize, $operation, 'operation');
 		$this->assertEquals(2, $this->_items[0]->getSerialNumber(), 'Serial Number');
 		$platform->clearstatcache();
+
 		$ret = $this->_items[0]->rescan();
 
 		if ($ret) {
@@ -235,6 +242,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 	// change dimensions on multiple items, don't keep originals
 	public function testMultipleChangeDimNoOriginal() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		foreach (array(
@@ -276,6 +284,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_noWarnings, $warnings);
 
@@ -285,16 +294,19 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals(768, $this->_items[$j]->getWidth(), "Width $j");
 			$this->assertEquals(1024, $this->_items[$j]->getHeight(), "Height $j");
 			$this->assertEquals(2, $this->_items[$j]->getSerialNumber(), "Serial Number $j");
 			$platform->clearstatcache();
+
 			$ret = $this->_items[$j]->rescan();
 
 			if ($ret) {
 				return $ret;
 			}
 		}
+
 		$operation = GalleryUtilities::getRequestVariables('operation');
 		$this->assertEquals($this->_expectResize, $operation, 'operation');
 	}
@@ -320,7 +332,9 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 				return $ret;
 			}
 		}
+
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_noWarnings, $warnings);
 
@@ -334,11 +348,13 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		if (!GalleryUtilities::isExactlyA($resized, 'GalleryDerivativeImage')) {
 			return $ret;
 		}
+
 		$ret = $resized->rebuildCache();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(768, $resized->getWidth(), 'Width');
 		$this->assertEquals(1024, $resized->getHeight(), 'Height');
 		$operation = GalleryUtilities::getRequestVariables('operation');
@@ -388,9 +404,9 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_noWarnings, $warnings);
-
 
 		for ($j = 0; $j < $totalTestItems; $j++) {
 			// Check to see if we have a preferred source
@@ -403,14 +419,17 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if (!GalleryUtilities::isExactlyA($resized, 'GalleryDerivativeImage')) {
 				return $this->assertTrue(false, 'Not a derivative image');
 			}
+
 			$ret = $resized->rebuildCache();
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals(768, $resized->getWidth(), 'Width');
 			$this->assertEquals(1024, $resized->getHeight(), 'Height');
 		}
+
 		$operation = GalleryUtilities::getRequestVariables('operation');
 		$this->assertEquals($this->_expectResize, $operation, 'operation');
 	}
@@ -418,6 +437,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 	// change size, don't keep original
 	public function testChangeSizeNoOriginal() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		foreach (array(
@@ -436,7 +456,9 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 				return $ret;
 			}
 		}
+
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_noWarnings, $warnings);
 		$platform->clearstatcache();
@@ -451,17 +473,20 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		$this->assertEquals(1000, $this->_items[0]->getSize(), 'Size');
 		$operation = GalleryUtilities::getRequestVariables('operation');
 		$this->assertEquals($this->_expectCompress, $operation, 'operation');
+
 		list($ret, $preferred) = GalleryCoreApi::fetchPreferredSource($this->_items[0]);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($this->_items[0], $preferred, 'No preferred');
 	}
 
 	// change size on multiple items, don't keep originals
 	public function testMultipleChangeSizeNoOriginal() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		foreach (array(
@@ -502,6 +527,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_noWarnings, $warnings);
 
@@ -516,13 +542,16 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 
 			// check item size (in KB)
 			$this->assertEquals(1000, $this->_items[$j]->getSize(), 'Size');
+
 			list($ret, $preferred) = GalleryCoreApi::fetchPreferredSource($this->_items[$j]);
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals($this->_items[$j], $preferred, 'No preferred');
 		}
+
 		$operation = GalleryUtilities::getRequestVariables('operation');
 		$this->assertEquals($this->_expectCompress, $operation, 'operation');
 	}
@@ -545,7 +574,9 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 				return $ret;
 			}
 		}
+
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_noWarnings, $warnings);
 
@@ -559,6 +590,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		if (!GalleryUtilities::isExactlyA($resized, 'GalleryDerivativeImage')) {
 			return $this->assertTrue(false, 'Not a derivative');
 		}
+
 		$ret = $resized->rebuildCache();
 
 		if ($ret) {
@@ -611,6 +643,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_noWarnings, $warnings);
 
@@ -625,6 +658,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if (!GalleryUtilities::isExactlyA($resized, 'GalleryDerivativeImage')) {
 				return $this->assertTrue(false, 'Not a derivative');
 			}
+
 			$ret = $resized->rebuildCache();
 
 			if ($ret) {
@@ -634,6 +668,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			// check derivative size
 			$this->assertEquals(1000, $resized->getDerivativeSize(), 'Size');
 		}
+
 		$operation = GalleryUtilities::getRequestVariables('operation');
 		$this->assertEquals($this->_expectCompress, $operation, 'operation');
 	}
@@ -641,6 +676,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 	// change dimensions AND size, keep original
 	public function testChangeBothKeepOriginal() {
 		global $gallery;
+
 		$platform                    =& $gallery->getPlatform();
 		$this->_expectResizeCompress = array_merge($this->_expectResize, $this->_expectCompress);
 
@@ -663,7 +699,9 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 				return $ret;
 			}
 		}
+
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_noWarnings, $warnings);
 
@@ -677,16 +715,19 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		if (!GalleryUtilities::isExactlyA($resized, 'GalleryDerivativeImage')) {
 			return $this->assertTrue(false, 'Not a derivative');
 		}
+
 		$ret = $resized->rebuildCache();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			'scale|768,1024;compress|1000',
 			$resized->getDerivativeOperations(),
 			'Operations'
 		);
+
 		$this->assertEquals(768, $resized->getWidth(), 'Width');
 		$this->assertEquals(1024, $resized->getHeight(), 'Height');
 		$this->assertEquals(1000, $resized->getDerivativeSize(), 'Size');
@@ -740,6 +781,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_noWarnings, $warnings);
 
@@ -754,20 +796,24 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if (!GalleryUtilities::isExactlyA($resized, 'GalleryDerivativeImage')) {
 				return $this->assertTrue(false, 'Not a derivative');
 			}
+
 			$ret = $resized->rebuildCache();
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals(
 				'scale|768,1024;compress|1000',
 				$resized->getDerivativeOperations(),
 				'Operations'
 			);
+
 			$this->assertEquals(768, $resized->getWidth(), 'Width');
 			$this->assertEquals(1024, $resized->getHeight(), 'Height');
 			$this->assertEquals(1000, $resized->getDerivativeSize(), 'Size');
 		}
+
 		$operation = GalleryUtilities::getRequestVariables('operation');
 		$this->assertEquals($this->_expectResizeCompress, $operation, 'operation');
 	}
@@ -775,6 +821,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 	// change dimensions AND size, don't keep original
 	public function testChangeBothNoOriginal() {
 		global $gallery;
+
 		$platform                    =& $gallery->getPlatform();
 		$this->_expectResizeCompress = array_merge($this->_expectResize, $this->_expectCompress);
 
@@ -797,7 +844,9 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 				return $ret;
 			}
 		}
+
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_noWarnings, $warnings);
 
@@ -812,17 +861,20 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		$operation = GalleryUtilities::getRequestVariables('operation');
 		$this->assertEquals($this->_expectResizeCompress, $operation, 'operation');
 		$platform->clearstatcache();
+
 		$ret = $this->_items[0]->rescan();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(1000, $this->_items[0]->getSize(), 'Size');
 	}
 
 	// change dimensions AND size on multiple items, don't keep originals
 	public function testMultipleChangeBothNoOriginal() {
 		global $gallery;
+
 		$platform                    =& $gallery->getPlatform();
 		$this->_expectResizeCompress = array_merge($this->_expectResize, $this->_expectCompress);
 
@@ -868,6 +920,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_noWarnings, $warnings);
 
@@ -877,16 +930,20 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals(768, $item->getWidth(), 'Width');
 			$this->assertEquals(1024, $item->getHeight(), 'Height');
 			$platform->clearstatcache();
+
 			$ret = $item->rescan();
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals(1000, $item->getSize(), 'Size');
 		}
+
 		$operation = GalleryUtilities::getRequestVariables('operation');
 		$this->assertEquals($this->_expectResizeCompress, $operation, 'operation');
 	}
@@ -912,7 +969,9 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 				return $ret;
 			}
 		}
+
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_itemsUnknown);
+
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_expectWarnings, $warnings);
 	}
@@ -961,6 +1020,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_itemsUnknown);
+
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_expectWarnings, $warnings);
 	}
@@ -986,7 +1046,9 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 				return $ret;
 			}
 		}
+
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_noWarnings, $warnings);
 
@@ -1006,6 +1068,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 	// change dimensions, delete larger resizes
 	public function testChangeDimDropResizes() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$id       = $this->_items[0]->getId();
 		$item     =& $this->_items[0];
@@ -1034,6 +1097,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $smallResize) = $this->_createDerivative(
 			$item,
 			$id,
@@ -1045,11 +1109,17 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_verifyEntity($tooLargeResize);
+
 		$this->assertEquals(null, $ret, 'verify large resize before test');
+
 		$ret = $this->_verifyEntity($smallResize);
+
 		$this->assertEquals(null, $ret, 'verify small resize before test');
+
 		$ret = $this->_verifyEntity($thumbnail);
+
 		$this->assertEquals(null, $ret, 'verify thumb before test');
 
 		// Set the sizelimit settings for the album
@@ -1070,8 +1140,10 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 				return $ret;
 			}
 		}
+
 		// Execute the test
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_noWarnings, $warnings);
 
@@ -1090,11 +1162,17 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 
 		// We should have a new thumb and one resize should be deleted
 		$ret = $this->_verifyMissing($tooLargeResize->getId());
+
 		$this->assertEquals(null, $ret, 'verify missing large resize');
+
 		$ret = $this->_verifyEntity($smallResize);
+
 		$this->assertEquals(null, $ret, 'verify small resize');
+
 		$ret = $this->_verifyEntity($thumbnail);
+
 		$this->assertEquals(null, $ret, 'verify that the same thumb still exists');
+
 		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($id));
 
 		if ($ret) {
@@ -1211,6 +1289,7 @@ class SetSizeOptionTestToolkit extends GalleryToolkit {
 		if (!empty($operationRequest)) {
 			$operations = $operationRequest;
 		}
+
 		$operations[] = $operationName;
 		GalleryUtilities::putRequestVariable('operation', $operations);
 

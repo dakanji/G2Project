@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/AdminLanguageManager.inc');
 
 /**
@@ -40,6 +39,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		global $gallery;
 
 		$this->_galleryTemplateAdapter = $gallery->getTemplateAdapter();
@@ -62,11 +62,13 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_useBrowserPref  = $coreParams['language.useBrowserPref'];
 		$this->_defaultLanguage = $coreParams['default.language'];
 
@@ -97,6 +99,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 
 	public function tearDown() {
 		global $gallery;
+
 		$gallery->_templateAdapter = $this->_galleryTemplateAdapter;
 		$platform                  =& $gallery->getPlatform();
 		$storage                   =& $gallery->getStorage();
@@ -114,6 +117,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 
 	public function testUpdateBrowserPreference() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$newValue = ($this->_useBrowserPref) ? 0 : 1;
@@ -173,6 +177,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 
 	public function testUpdateDefaultLanguage() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$newValue = ($this->_defaultLanguage == 'en_GB') ? 'en_US' : 'en_GB';
@@ -196,7 +201,6 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 				),
 			)
 		);
-
 
 		$storage =& $gallery->getStorage();
 		$storage->setReply(
@@ -264,7 +268,8 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			),
 		);
 
-		$repositories                                   = GalleryRepository::getMe()->getRepositories();
+		$repositories = GalleryRepository::getMe()->getRepositories();
+
 		list($ret, $installedPackages, $deletePackages) = $this->_controller->_getFormLanguages(
 			$form,
 			$repositories
@@ -283,6 +288,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 
 	public function testDeleteLanguagePackages() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale');
@@ -295,6 +301,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			array('/g2data/locale/af/LC_MESSAGES/*.mo', null),
 			array('theme.mo', 'module.mo')
 		);
+
 		$platform->setReply('recursiveRmdir', array('/g2data/locale/af'), true);
 		$platform->setReply('file_exists', array('/g2data/locale/cs'), true);
 		$platform->setReply(
@@ -302,6 +309,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			array('/g2data/locale/cs/LC_MESSAGES/*.mo', null),
 			array('theme.mo', 'module.mo')
 		);
+
 		$platform->setReply('recursiveRmdir', array('/g2data/locale/cs'), true);
 
 		list($ret, $packagesDelete) = $this->_controller->_deleteLanguagePackages($packages, $this->_callback);
@@ -448,6 +456,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 
 	public function testUpdateLanguageSettings() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$form = array(
@@ -495,6 +504,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 				),
 			)
 		);
+
 		$this->_testRepository->setReply(
 			'downloadAndUnpackPackages',
 			array(
@@ -514,11 +524,13 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			array(GalleryCoreApi::getCodeBasePath('modules/*/po'), null),
 			array(GalleryCoreApi::getCodeBasePath('modules/testModule/po'))
 		);
+
 		$platform->setReply(
 			'file_exists',
 			array('/g2data/locale/af/LC_MESSAGES/modules_testModule.mo'),
 			true
 		);
+
 		$platform->setReply(
 			'file_exists',
 			array('/g2data/locale/af/LC_MESSAGES/modules_testModule.mo'),
@@ -530,11 +542,13 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			array(GalleryCoreApi::getCodeBasePath('themes/*/po'), null),
 			array(GalleryCoreApi::getCodeBasePath('themes/testTheme/po'))
 		);
+
 		$platform->setReply(
 			'file_exists',
 			array('/g2data/locale/af/LC_MESSAGES/themes_testTheme.mo'),
 			true
 		);
+
 		$platform->setReply(
 			'file_exists',
 			array('/g2data/locale/af/LC_MESSAGES/themes_testTheme.mo'),

@@ -48,6 +48,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		$ret = GalleryCoreApi::removeDerivativePreferencesForItem($this->_album->getId());
@@ -55,6 +56,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addDerivativePreference(
 			1,
 			$this->_album->getId(),
@@ -119,6 +121,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 			array_keys($results[1]['addedFiles'][0]),
 			'key'
 		);
+
 		$this->assertEquals(
 			$this->_album->getTitle(),
 			$results[1]['addedFiles'][0]['fileName'],
@@ -130,6 +133,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(1, count($childIds), 'child count');
 
 		list($ret, $item) = GalleryCoreApi::loadEntitiesById($childIds[0], 'GalleryItem');
@@ -137,6 +141,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(GalleryUtilities::isExactlyA($item, 'GalleryLinkItem'), 'type');
 		$this->assertEquals((string)$this->_album->getId(), $item->getLink(), 'link');
 
@@ -145,6 +150,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array($childIds[0]), array_keys($thumbnailTable), 'thumbnail table');
 		$thumbnail = $thumbnailTable[$childIds[0]];
 		$this->assertEquals($highlight->getId(), $thumbnail->getDerivativeSourceId(), 'src');
@@ -171,6 +177,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(1, count($childIds), 'child count');
 
 		list($ret, $thumbnailTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($childIds[0]));
@@ -178,6 +185,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array($childIds[0]), array_keys($thumbnailTable), 'thumbnail table');
 
 		if (!empty($thumbnailTable[$childIds[0]])) {
@@ -213,7 +221,6 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[action][addLinkItem]', 1);
 		GalleryUtilities::putRequestVariable('form[linkType]', 'url');
 		GalleryUtilities::putRequestVariable('form[linkUrl]', 'http://test.com/test.html');
-
 		$results = $this->handleRequest($this->_album);
 		$this->assertEquals(array(), $results[0], 'no error');
 		$this->assertEquals(array('addedFiles'), array_keys($results[1]), 'addedFiles');
@@ -223,6 +230,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 			array_keys($results[1]['addedFiles'][0]),
 			'key'
 		);
+
 		$this->assertEquals('test.html', $results[1]['addedFiles'][0]['fileName'], 'fileName');
 
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
@@ -230,6 +238,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(1, count($childIds), 'child count');
 
 		list($ret, $item) = GalleryCoreApi::loadEntitiesById($childIds[0], 'GalleryItem');
@@ -237,14 +246,15 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(GalleryUtilities::isExactlyA($item, 'GalleryLinkItem'), 'type');
 		$this->assertEquals('http://test.com/test.html', $item->getLink(), 'link');
-
 		list($ret, $thumbnailTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($childIds[0]));
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array($childIds[0]), array_keys($thumbnailTable), 'thumbnail table');
 
 		if (!empty($thumbnailTable[$childIds[0]])) {
@@ -255,6 +265,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 				$thumbnail->getDerivativeOperations(),
 				'op'
 			);
+
 			$this->assertEquals(
 				'composite|plugins_data/modules/linkitem/arrow.png,' .
 				'image/png,14,14,bottom-right,0,0',

@@ -29,6 +29,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 
 	public function processRequest() {
 		global $gallery;
+
 		$gallery->startRecordingDebugSnippet();
 
 		/*
@@ -69,10 +70,11 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 		$templateData['isConfigUpgradeRequired'] = CoreModuleExtras::getMe()->isConfigUpgradeRequired(
 			$versions['core']
 		);
-		$platform                                =& $gallery->getPlatform();
-		$configFilePath                          = GALLERY_CONFIG_DIR . '/config.php';
-		$templateData['isConfigWriteable']       = $platform->is_writeable($configFilePath);
-		$templateData['canChmod']                = strncasecmp(PHP_OS, 'win', 3);
+
+		$platform                          =& $gallery->getPlatform();
+		$configFilePath                    = GALLERY_CONFIG_DIR . '/config.php';
+		$templateData['isConfigWriteable'] = $platform->is_writeable($configFilePath);
+		$templateData['canChmod']          = strncasecmp(PHP_OS, 'win', 3);
 
 		$template = new StatusTemplate();
 
@@ -82,6 +84,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 			$this->_addSystemInformationToDebugLog($versions);
 
 			$template->renderHeader(true);
+
 			$ret = selectAdminUser(true);
 
 			if (!$ret) {
@@ -120,6 +123,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 				$this->setComplete(true);
 				$this->_performedUpgrade = true;
 			}
+
 			$template->hideStatusBlock();
 		} else {
 			$template->renderHeader();
@@ -158,6 +162,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 
 	public function _addSystemInformationToDebugLog($versions) {
 		global $gallery;
+
 		$storage       =& $gallery->getStorage();
 		$isSvnInstall  = file_exists(dirname(dirname(__DIR__)) . '/.svn');
 		$fileIntegrity = isset($_SESSION['fileintegrity']) ? $_SESSION['fileintegrity'] : 'Unknown';

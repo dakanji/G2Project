@@ -275,6 +275,7 @@ class ItemEditMoviePluginTestPlatform {
 			if (!strcmp($filename, '.') || !strcmp($filename, '..')) {
 				continue;
 			}
+
 			$path = "$dirname/$filename";
 
 			if ($this->is_dir($path)) {
@@ -287,6 +288,7 @@ class ItemEditMoviePluginTestPlatform {
 				return false;
 			}
 		}
+
 		closedir($fd);
 
 		return $this->rmdir($dirname);

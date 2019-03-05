@@ -20,7 +20,6 @@
   01 Mar 2001 jlim - Freek Dijkstra changes, also support for text type
 
   See http://www.varlena.com/varlena/GeneralBits/47.php
-
 	-- What indexes are on my table?
 	select * from pg_indexes where tablename = 'tablename';
 
@@ -116,12 +115,10 @@ class ADODB_postgres64 extends ADOConnection {
 	public $random          = 'random()';       /// random function
 	public $autoRollback    = true; // apparently pgsql does not autorollback properly before php 4.3.4
 							// http://bugs.php.net/bug.php?id=25404
-
 	public $uniqueIisR      = true;
 	public $_bindInputArray = false; // requires postgresql 7.3+ and ability to modify database
 	public $disableBlobs    = false; // set to true to disable blob checking, resulting in 2-5% improvement in performance.
-
-	public $_pnum = 0;
+	public $_pnum           = 0;
 
 	// The last (fmtTimeStamp is not entirely correct:
 	// PostgreSQL also has support for time zones,
@@ -130,7 +127,6 @@ class ADODB_postgres64 extends ADOConnection {
 	// I'm not familiar enough with both ADODB as well as Postgres
 	// to know what the concequences are. The other values are correct (wheren't in 0.94)
 	// -- Freek Dijkstra
-
 	public function __construct() {
 		// changes the metaColumnsSQL, adds columns: attnum[6]
 	}
@@ -177,6 +173,7 @@ class ADODB_postgres64 extends ADOConnection {
 		if (!is_resource($this->_resultid) || get_resource_type($this->_resultid) !== 'pgsql result') {
 			return false;
 		}
+
 		$oid = pg_getlastoid($this->_resultid);
 		// to really return the id, we need the table and column-name, else we can only return the oid != id
 		return empty($table) || empty($column) ? $oid : $this->GetOne("SELECT $column FROM $table WHERE oid=" . (int)$oid);
@@ -197,6 +194,7 @@ class ADODB_postgres64 extends ADOConnection {
 		if ($this->transOff) {
 			return true;
 		}
+
 		$this->transCnt += 1;
 
 		return pg_query($this->_connectionID, 'begin ' . $this->_transmode);
@@ -230,6 +228,7 @@ class ADODB_postgres64 extends ADOConnection {
 		if ($this->transOff) {
 			return true;
 		}
+
 		$this->transCnt -= 1;
 
 		return pg_query($this->_connectionID, 'rollback');
@@ -261,6 +260,7 @@ class ADODB_postgres64 extends ADOConnection {
 					select viewname,'V' from pg_views where viewname like $mask";
 			}
 		}
+
 		$ret = ADOConnection::MetaTables($ttype, $showSchema);
 
 		if ($mask) {
@@ -303,6 +303,7 @@ class ADODB_postgres64 extends ADOConnection {
 		if (!$col) {
 			$col = $this->sysTimeStamp;
 		}
+
 		$s = 'TO_CHAR(' . $col . ",'";
 
 		$len = strlen($fmt);
@@ -471,6 +472,7 @@ class ADODB_postgres64 extends ADOConnection {
 		if ($hastrans) {
 			pg_query($this->_connectionID, 'begin');
 		}
+
 		$fd = @pg_lo_open($this->_connectionID, $blob, 'r');
 
 		if ($fd === false) {
@@ -484,6 +486,7 @@ class ADODB_postgres64 extends ADOConnection {
 		if (!$maxsize) {
 			$maxsize = $this->maxblobsize;
 		}
+
 		$realblob = @pg_lo_read($fd, $maxsize);
 		@pg_loclose($fd);
 
@@ -496,7 +499,6 @@ class ADODB_postgres64 extends ADOConnection {
 
 	/*
 		See http://www.postgresql.org/idocs/index.php?datatype-binary.html
-
 		NOTE: SQL string literals (input strings) must be preceded with two backslashes
 		due to the fact that they must pass through two parsers in the PostgreSQL
 		backend.
@@ -524,6 +526,7 @@ class ADODB_postgres64 extends ADOConnection {
 		if ($blobtype == 'CLOB') {
 			return $this->Execute("UPDATE $table SET $column=" . $this->qstr($val) . " WHERE $where");
 		}
+
 		// do not use bind params which uses qstr(), as blobencode() already quotes data
 		return $this->Execute("UPDATE $table SET $column='" . $this->BlobEncode($val) . "'::bytea WHERE $where");
 	}
@@ -540,7 +543,6 @@ class ADODB_postgres64 extends ADOConnection {
 				$date = 'timestamp ' . $date;
 			}
 		}
-
 
 		return "($date+interval'" . ($dayFraction * 1440) . " minutes')";
 		// return "($date+interval'$dayFraction days')";
@@ -586,6 +588,7 @@ class ADODB_postgres64 extends ADOConnection {
 		if (isset($savem)) {
 			$this->SetFetchMode($savem);
 		}
+
 		$ADODB_FETCH_MODE = $save;
 
 		if ($rs === false) {
@@ -597,7 +600,6 @@ class ADODB_postgres64 extends ADOConnection {
 			// Of course, a modified version of the metaColumnsSQL query using a
 			// LEFT JOIN would have been much more elegant, but postgres does
 			// not support OUTER JOINS. So here is the clumsy way.
-
 			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
 			$rskey = $this->Execute(sprintf($this->metaKeySQL, ($table)));
@@ -607,6 +609,7 @@ class ADODB_postgres64 extends ADOConnection {
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
 			}
+
 			$ADODB_FETCH_MODE = $save;
 
 			$rskey->Close();
@@ -623,6 +626,7 @@ class ADODB_postgres64 extends ADOConnection {
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
 			}
+
 			$ADODB_FETCH_MODE = $save;
 
 			if ($rsdef) {
@@ -641,6 +645,7 @@ class ADODB_postgres64 extends ADOConnection {
 			} else {
 				ADOConnection::outp('==> SQL => ' . $sql);
 			}
+
 			unset($rsdef);
 		}
 
@@ -665,6 +670,7 @@ class ADODB_postgres64 extends ADOConnection {
 				$fld->scale        = $fld->max_length & 0xFFFF;
 				$fld->max_length >>= 16;
 			}
+
 			// dannym
 			// 5 hasdefault; 6 num-of-column
 			$fld->has_default = ($rs->fields[5] == 't');
@@ -675,7 +681,6 @@ class ADODB_postgres64 extends ADOConnection {
 
 			//Freek
 			$fld->not_null = $rs->fields[4] == 't';
-
 
 			// Freek
 			if (is_array($keys)) {
@@ -698,6 +703,7 @@ class ADODB_postgres64 extends ADOConnection {
 
 			$rs->MoveNext();
 		}
+
 		$rs->Close();
 
 		if (empty($retarr)) {
@@ -760,6 +766,7 @@ class ADODB_postgres64 extends ADOConnection {
 		if (isset($savem)) {
 			$this->SetFetchMode($savem);
 		}
+
 		$ADODB_FETCH_MODE = $save;
 
 		if (!is_object($rs)) {
@@ -808,6 +815,7 @@ class ADODB_postgres64 extends ADOConnection {
 			if (strlen($db) == 0) {
 				$db = 'template1';
 			}
+
 			$db = adodb_addslashes($db);
 
 			if ($str) {
@@ -840,7 +848,6 @@ class ADODB_postgres64 extends ADOConnection {
 		}
 
 		//if ($user) $linea = "user=$user host=$linea password=$pwd dbname=$db port=5432";
-
 		if ($ctype === 1) { // persistent
 			$this->_connectionID = pg_pconnect($str);
 		} else {
@@ -855,12 +862,14 @@ class ADODB_postgres64 extends ADOConnection {
 
 				$str .= str_repeat(' ', $ncnt);
 			}
+
 			$this->_connectionID = pg_connect($str);
 		}
 
 		if ($this->_connectionID === false) {
 			return false;
 		}
+
 		$this->Execute("set datestyle='ISO'");
 
 		$info            = $this->ServerInfo();
@@ -934,7 +943,6 @@ class ADODB_postgres64 extends ADOConnection {
 				$exsql = "EXECUTE $plan";
 			}
 
-
 			$rez = @pg_execute($this->_connectionID, $exsql);
 
 			if (!$rez) {
@@ -954,6 +962,7 @@ class ADODB_postgres64 extends ADOConnection {
 						$params .= 'REAL';
 					}
 				}
+
 				$sqlarr = explode('?', $sql);
 				//print_r($sqlarr);
 				$sql = '';
@@ -963,6 +972,7 @@ class ADODB_postgres64 extends ADOConnection {
 					$sql .= $v . ' $' . $i;
 					$i++;
 				}
+
 				$s = "PREPARE $plan ($params) AS " . substr($sql, 0, strlen($sql) - 2);
 				//adodb_pr($s);
 				$rez = pg_execute($this->_connectionID, $s);
@@ -976,11 +986,13 @@ class ADODB_postgres64 extends ADOConnection {
 			//adodb_backtrace();
 			$rez = pg_query($this->_connectionID, $sql);
 		}
+
 		// check if no data returned, then no need to create real recordset
 		if ($rez && pg_num_fields($rez) <= 0) {
 			if (is_resource($this->_resultid) && get_resource_type($this->_resultid) === 'pgsql result') {
 				pg_free_result($this->_resultid);
 			}
+
 			$this->_resultid = $rez;
 
 			return true;
@@ -1048,6 +1060,7 @@ class ADODB_postgres64 extends ADOConnection {
 			@pg_free_result($this->_resultid);
 			$this->_resultid = false;
 		}
+
 		@pg_close($this->_connectionID);
 		$this->_connectionID = false;
 
@@ -1068,7 +1081,6 @@ class ADODB_postgres64 extends ADOConnection {
 /*--------------------------------------------------------------------------------------
 	Class Name: Recordset
 --------------------------------------------------------------------------------------*/
-
 class ADORecordSet_postgres64 extends ADORecordSet {
 	public $_blobArr;
 	public $databaseType = 'postgres64';
@@ -1077,6 +1089,7 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 	public function __construct($queryID, $mode = false) {
 		if ($mode === false) {
 			global $ADODB_FETCH_MODE;
+
 			$mode = $ADODB_FETCH_MODE;
 		}
 
@@ -1098,6 +1111,7 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 
 				break;
 		}
+
 		$this->adodbFetchMode = $mode;
 
 		// Parent's constructor
@@ -1108,6 +1122,7 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 		if ($this->fetchMode == PGSQL_ASSOC && $upper == ADODB_ASSOC_CASE_LOWER) {
 			return $this->fields;
 		}
+
 		$row = ADORecordSet::GetRowAssoc($upper);
 
 		return $row;
@@ -1115,6 +1130,7 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 
 	public function _initrs() {
 		global $ADODB_COUNTRECS;
+
 		$qid                = $this->_queryID;
 		$this->_numOfRows   = ($ADODB_COUNTRECS) ? @pg_num_rows($qid) : -1;
 		$this->_numOfFields = @pg_num_fields($qid);
@@ -1150,7 +1166,6 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 
 	public function FetchField($off = 0) {
 		// offsets begin at 0
-
 		$o             = new ADOFieldObject();
 		$o->name       = @pg_field_name($this->_queryID, $off);
 		$o->type       = @pg_field_type($this->_queryID, $off);
@@ -1201,6 +1216,7 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 					return true;
 				}
 			}
+
 			$this->fields = false;
 			$this->EOF    = true;
 		}
@@ -1248,6 +1264,7 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 					return 'C';
 				}
 
+
 				// Fall Through
 			case 'TEXT':
 				return 'X';
@@ -1265,7 +1282,6 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 
 			case 'DATE':
 				return 'D';
-
 
 			case 'TIMESTAMP WITHOUT TIME ZONE':
 			case 'TIME':
@@ -1285,6 +1301,7 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 				) {
 					return 'I';
 				}
+
 
 				// Fall Through
 			case 'OID':

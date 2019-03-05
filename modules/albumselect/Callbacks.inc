@@ -26,6 +26,7 @@
 class AlbumSelectCallbacks {
 	public function callback($callbackParams, &$smarty, $callback, $userId) {
 		global $gallery;
+
 		static $idCount = '';
 
 		switch ($callback) {
@@ -36,6 +37,7 @@ class AlbumSelectCallbacks {
 					// Set unique name for javascript object
 					$albumTreeName = 'albumTree' . $idCount++;
 				}
+
 				list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 					'module',
 					'albumselect'
@@ -51,11 +53,13 @@ class AlbumSelectCallbacks {
 				if ($ret) {
 					return $ret;
 				}
+
 				list($ret, $rootAlbumId) = GalleryCoreApi::getDefaultAlbumId();
 
 				if ($ret) {
 					return $ret;
 				}
+
 				/*
 				 * Respect session permissions in cache-lookup. Might as well switch from
 				 * userId + sessionAclIds to a aclIds as a cache-key.
@@ -65,6 +69,7 @@ class AlbumSelectCallbacks {
 				if ($ret) {
 					return $ret;
 				}
+
 				list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds(
 					'core.view',
 					$userId,
@@ -74,6 +79,7 @@ class AlbumSelectCallbacks {
 				if ($ret) {
 					return $ret;
 				}
+
 				$sessionPermissions = implode(
 					'-',
 					array_diff($aclIdsWithSessionPermissions, $aclIds)
@@ -112,6 +118,7 @@ class AlbumSelectCallbacks {
 							'lib/smarty_plugins/modifier.entitytruncate.php'
 						);
 					}
+
 					list($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById(
 						$rootAlbumId,
 						'GalleryItem'
@@ -120,6 +127,7 @@ class AlbumSelectCallbacks {
 					if ($ret) {
 						return $ret;
 					}
+
 					$titles = array(
 						'root' => preg_replace('/\r\n/', ' ', $rootAlbum->getTitle()),
 					);
@@ -134,6 +142,7 @@ class AlbumSelectCallbacks {
 							$callbackParams['truncateTitles']
 						);
 					}
+
 					$treeList = array();
 
 					if ($params['sort'] != 'album') {
@@ -170,6 +179,7 @@ class AlbumSelectCallbacks {
 							} else {
 								$title = $item->getPathComponent();
 							}
+
 							$title = preg_replace('/\r\n/', ' ', $title);
 
 							if (isset($callbackParams['stripTitles'])) {
@@ -182,6 +192,7 @@ class AlbumSelectCallbacks {
 									$callbackParams['truncateTitles']
 								);
 							}
+
 							$titles[$item->getId()] = $title;
 						}
 
@@ -244,6 +255,7 @@ class AlbumSelectCallbacks {
 						if ($id == 'root') {
 							continue;
 						}
+
 						$links[$id] = $urlGenerator->generateUrl(
 							array(
 								'view'   => 'core.ShowItem',
@@ -255,6 +267,7 @@ class AlbumSelectCallbacks {
 								'forceSessionId'         => false,
 							)
 						);
+
 						// Find common prefix across all URLs
 						if (!isset($links['prefix'])) {
 							$links['prefix'] = $links[$id];
@@ -315,6 +328,7 @@ class AlbumSelectCallbacks {
 				if (isset($albumTreeName)) {
 					$block['albumselect']['LoadAlbumData'][$type]['albumTreeName'] = $albumTreeName;
 				}
+
 				list($ret, $block['albumselect']['cookiePath']) = $urlGenerator->getCookiePath();
 
 				if ($ret) {

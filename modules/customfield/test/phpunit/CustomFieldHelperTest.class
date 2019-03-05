@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
 
 /**
@@ -42,6 +41,7 @@ class CustomFieldHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'error' => array(
@@ -59,6 +59,7 @@ class CustomFieldHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		list($ret, $this->_item) = $this->_createRandomDataItem($this->_album->getId());
@@ -146,7 +147,8 @@ class CustomFieldHelperTest extends GalleryTestCase {
 			'Year'         => 2010,
 			'Photographer' => 'Jack Frost',
 		);
-		$ret        = CustomFieldHelper::getMe()->saveFieldValues($this->_item, $itemFields);
+
+		$ret = CustomFieldHelper::getMe()->saveFieldValues($this->_item, $itemFields);
 
 		if ($ret) {
 			return $ret;
@@ -182,12 +184,14 @@ class CustomFieldHelperTest extends GalleryTestCase {
 		);
 
 		list($ret) = CustomFieldHelper::getMe()->fetchFieldValues('');
+
 		$this->assertTrue(
 			ERROR_BAD_PARAMETER & $ret->getErrorCode(),
 			'Non-array value should return an error 1'
 		);
 
 		list($ret) = CustomFieldHelper::getMe()->fetchFieldValues(array());
+
 		$this->assertTrue(
 			ERROR_BAD_PARAMETER & $ret->getErrorCode(),
 			'Non-array value should return an error 2'

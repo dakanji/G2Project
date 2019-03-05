@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * assemble filepath of requested plugin
  *
@@ -16,6 +17,7 @@ function smarty_core_assemble_plugin_filepath($params, &$smarty) {
 	if (isset($smarty->_filepaths_cache[$_plugin_filename])) {
 		return $smarty->_filepaths_cache[$_plugin_filename];
 	}
+
 	$_return = false;
 
 	foreach ((array)$smarty->plugins_dir as $_plugin_dir) {
@@ -31,6 +33,7 @@ function smarty_core_assemble_plugin_filepath($params, &$smarty) {
 				break;
 			}
 		}
+
 		// try relative to cwd (or absolute)
 		if (@is_readable($_plugin_filepath)) {
 			$_return = $_plugin_filepath;
@@ -59,6 +62,7 @@ function smarty_core_assemble_plugin_filepath($params, &$smarty) {
 			}
 		}
 	}
+
 	$smarty->_filepaths_cache[$_plugin_filename] = $_return;
 
 	return $_return;

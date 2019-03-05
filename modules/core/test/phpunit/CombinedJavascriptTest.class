@@ -82,6 +82,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 				'If-Modified-Since' => 'Anything',
 			)
 		);
+
 		$gallery->_phpVm->setReply('header', array('HTTP/1.0 304 Not Modified', null), null);
 
 		list($ret, $results) = $this->_renderImmediate();
@@ -104,6 +105,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 				'If-modified-since' => 'Anything',
 			)
 		);
+
 		$gallery->_phpVm->setReply('header', array('HTTP/1.0 304 Not Modified', null), null);
 
 		list($ret, $results) = $this->_renderImmediate();
@@ -169,16 +171,19 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 			array('Cache-Control: private, x-gzip-ok="public"', null),
 			null
 		);
+
 		$gallery->_phpVm->setReply(
 			'header',
 			array('Content-type: text/javascript; charset=UTF-8', null),
 			null
 		);
+
 		$gallery->_phpVm->setReply(
 			'header',
 			array('Last-Modified: Thu, 01 Jan 1970 00:00:01 GMT', null),
 			null
 		);
+
 		$gallery->_phpVm->setReply(
 			'header',
 			array('Expires: Tue, 19 Jan 2038 03:14:07 GMT', null),
@@ -211,11 +216,13 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 			array('Content-type: text/javascript; charset=UTF-8', null),
 			null
 		);
+
 		$gallery->_phpVm->setReply(
 			'header',
 			array('Last-Modified: Thu, 01 Jan 1970 00:00:01 GMT', null),
 			null
 		);
+
 		$gallery->_phpVm->setReply(
 			'header',
 			array('Expires: Tue, 19 Jan 2038 03:14:07 GMT', null),
@@ -269,6 +276,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		 * test. (Verify all header() calls, including those from loadView())
 		 */
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
+
 		list($ret, $this->_view) = GalleryView::getMe()->loadView(
 			'core.CombinedJavascript'
 		);
@@ -286,11 +294,13 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 			array('Content-type: text/javascript; charset=UTF-8', null),
 			null
 		);
+
 		$gallery->_phpVm->setReply(
 			'header',
 			array('Last-Modified: Thu, 01 Jan 1970 00:00:01 GMT', null),
 			null
 		);
+
 		$gallery->_phpVm->setReply(
 			'header',
 			array('Expires: Tue, 19 Jan 2038 03:14:07 GMT', null),

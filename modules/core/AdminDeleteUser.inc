@@ -161,7 +161,6 @@ class AdminDeleteUserController extends GalleryController {
 						return array($ret, null);
 					}
 				} // /if !empty($itemIds)
-
 				// Delete the user
 				$ret = GalleryCoreApi::deleteEntityById($user->getId(), 'GalleryUser');
 
@@ -175,13 +174,13 @@ class AdminDeleteUserController extends GalleryController {
 				$status['deletedUser'] = $user->getUsername();
 			} // /if empty($error) && $userId != $anonymousUserId ...
 		} // /if isset($form['action']['delete'])
-
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
 		} else {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'core.AdminDeleteUser';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -216,7 +215,8 @@ class AdminDeleteUserView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$userId           = GalleryUtilities::getRequestVariables('userId');
+		$userId = GalleryUtilities::getRequestVariables('userId');
+
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {
@@ -237,6 +237,7 @@ class AdminDeleteUserView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$AdminDeleteUser['numberOfItems'] = count($itemIds);
 
 		$template->setVariable('AdminDeleteUser', $AdminDeleteUser);

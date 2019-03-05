@@ -24,7 +24,6 @@ if (!defined('ADODB_DIR')) {
 	die();
 }
 
-
 /*
 enum pdo_param_type {
 PDO::PARAM_NULL, 0
@@ -49,12 +48,10 @@ PDO::PARAM_STMT, 4 /* hierarchical result set
 /* get_col ptr should point to a zend_bool
 PDO::PARAM_BOOL, 5
 
-
 /* magic flag to denote a parameter as being input/output
 PDO::PARAM_INPUT_OUTPUT = 0x80000000
 };
 */
-
 function adodb_pdo_type($t) {
 	switch ($t) {
 		case 2:
@@ -69,8 +66,6 @@ function adodb_pdo_type($t) {
 }
 
 // ----------------------------------------------------------------------------
-
-
 class ADODB_pdo extends ADOConnection {
 	public $databaseType    = 'pdo';
 	public $dataProvider    = 'pdo';
@@ -93,8 +88,7 @@ class ADODB_pdo extends ADOConnection {
 	public $stmt    = false;
 	public $_driver;
 
-	public function __construct() {
-	}
+	public function __construct() {}
 
 	public function _UpdatePDO() {
 		$d                     = $this->_driver;
@@ -212,6 +206,7 @@ class ADODB_pdo extends ADOConnection {
 
 			return true;
 		}
+
 		$this->_driver = new ADODB_pdo_base();
 
 		return false;
@@ -237,12 +232,12 @@ class ADODB_pdo extends ADOConnection {
 	}
 
 	// ------------------------------------------------------------------------------
-
 	public function SelectLimit($sql, $nrows = -1, $offset = -1, $inputarr = false, $secs2cache = 0) {
 		$save                     = $this->_driver->fetchMode;
 		$this->_driver->fetchMode = $this->fetchMode;
 		$this->_driver->debug     = $this->debug;
 		$ret                      = $this->_driver->SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
+
 		$this->_driver->fetchMode = $save;
 
 		return $ret;
@@ -366,6 +361,7 @@ class ADODB_pdo extends ADOConnection {
 		if ($this->transOff) {
 			return true;
 		}
+
 		$this->transCnt   += 1;
 		$this->_autocommit = false;
 		$this->SetAutoCommit(false);
@@ -393,9 +389,11 @@ class ADODB_pdo extends ADOConnection {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
+
 		$this->_autocommit = true;
 
 		$ret = $this->_connectionID->commit();
+
 		$this->SetAutoCommit(true);
 
 		return $ret;
@@ -417,9 +415,11 @@ class ADODB_pdo extends ADOConnection {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
+
 		$this->_autocommit = true;
 
 		$ret = $this->_connectionID->rollback();
+
 		$this->SetAutoCommit(true);
 
 		return $ret;
@@ -441,6 +441,7 @@ class ADODB_pdo extends ADOConnection {
 		if (!$stmt) {
 			return false;
 		}
+
 		$obj = new ADOPDOStatement($stmt, $this);
 
 		return $obj;
@@ -477,6 +478,7 @@ class ADODB_pdo extends ADOConnection {
 		} else {
 			$stmt = $this->_connectionID->prepare($sql);
 		}
+
 		// adodb_backtrace();
 		// var_dump($this->_bindInputArray);
 		if ($stmt) {
@@ -488,7 +490,6 @@ class ADODB_pdo extends ADOConnection {
 				$ok = $stmt->execute();
 			}
 		}
-
 
 		$this->_errormsg = false;
 		$this->_errorno  = false;
@@ -647,7 +648,6 @@ class ADOPDOStatement {
 /*--------------------------------------------------------------------------------------
 	Class Name: Recordset
 --------------------------------------------------------------------------------------*/
-
 class ADORecordSet_pdo extends ADORecordSet {
 	public $bind         = false;
 	public $databaseType = 'pdo';
@@ -656,8 +656,10 @@ class ADORecordSet_pdo extends ADORecordSet {
 	public function __construct($id, $mode = false) {
 		if ($mode === false) {
 			global $ADODB_FETCH_MODE;
+
 			$mode = $ADODB_FETCH_MODE;
 		}
+
 		$this->adodbFetchMode = $mode;
 
 		switch ($mode) {
@@ -677,6 +679,7 @@ class ADORecordSet_pdo extends ADORecordSet {
 
 				break;
 		}
+
 		$this->fetchMode = $mode;
 
 		$this->_queryID = $id;
@@ -687,6 +690,7 @@ class ADORecordSet_pdo extends ADORecordSet {
 		if ($this->_inited) {
 			return;
 		}
+
 		$this->_inited = true;
 
 		if ($this->_queryID) {
@@ -715,13 +719,13 @@ class ADORecordSet_pdo extends ADORecordSet {
 		if (!$this->_numOfRows) {
 			$this->_numOfRows = -1;
 		}
+
 		$this->_numOfFields = $this->_queryID->columnCount();
 	}
 
 	// returns the field object
 	public function FetchField($fieldOffset = -1) {
 		$off = $fieldOffset + 1; // offsets begin at 1
-
 		$o   = new ADOFieldObject();
 		$arr = @$this->_queryID->getColumnMeta($fieldOffset);
 
@@ -733,6 +737,7 @@ class ADORecordSet_pdo extends ADORecordSet {
 			// $false = false;
 			return $o;
 		}
+
 		//adodb_pr($arr);
 		$o->name = $arr['name'];
 

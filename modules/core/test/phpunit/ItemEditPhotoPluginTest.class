@@ -42,6 +42,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		// Register a dummy toolkit
@@ -58,6 +59,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('ItemEditPhotoPluginTestToolkit');
 
 		// Register operations that we can perform on our mock data items
@@ -202,6 +204,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		// Use valid inputs
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 
@@ -210,6 +213,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 			GalleryUtilities::putRequestVariable('form[resizes][' . $i . '][width]', 250 * ($i + 1));
 			GalleryUtilities::putRequestVariable('form[resizes][' . $i . '][height]', 250 * ($i + 1));
 		}
+
 		GalleryUtilities::putRequestVariable('form[resizes][2][width]', '50%');
 		GalleryUtilities::putRequestVariable('form[resizes][2][height]', 600);
 
@@ -239,11 +243,13 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 				if (!isset($resize)) {
 					continue;
 				}
+
 				$this->assertEquals(
 					$derivative[0]->getId(),
 					$resize->getDerivativeSourceId(),
 					'Derivative Source id'
 				);
+
 				$expectedOperations  = ($i < 2) ? ('scale|' . ($i ? 250 : 500) . ',' . ($i ? 250 : 500)) : 'scale|50%,600';
 				$expectedOperations .= ';convert-to-image/jpeg';
 				$this->assertEquals($expectedOperations, $resize->getDerivativeOperations(), $i);
@@ -254,6 +260,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 					"postfilter $i"
 				);
 			}
+
 			// Verify we reuse existing derivatives when possible
 			$this->assertEquals($derivative[2]->getId(), $resizeTable[0]->getId(), 'derivative id');
 		}
@@ -291,6 +298,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 			GalleryUtilities::putRequestVariable('form[resizes][' . $i . '][width]', 'x' . mt_rand());
 			GalleryUtilities::putRequestVariable('form[resizes][' . $i . '][height]', 100);
 		}
+
 		GalleryUtilities::putRequestVariable('form[resizes][2][width]', 100);
 		GalleryUtilities::putRequestVariable('form[resizes][2][height]', 'x' . mt_rand());
 
@@ -319,6 +327,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 			GalleryUtilities::putRequestVariable('form[resizes][' . $i . '][width]', 100 * ($i + 1));
 			GalleryUtilities::putRequestVariable('form[resizes][' . $i . '][height]', 100 * ($i + 1));
 		}
+
 		GalleryUtilities::putRequestVariable('form[resizes][2][height]', 600);
 
 		// Perform the request and verify that we succeeded
@@ -334,6 +343,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $preferred) = GalleryCoreApi::fetchPreferredSource($this->_item);
 
 		if ($ret) {
@@ -350,6 +360,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 					getDerivativeSourceId(),
 					'Derivative Source id'
 				);
+
 				$expectedOperations  = ($i < 2) ? ('scale|' . 100 * ($i + 1) . ',' . 100 * ($i + 1)) : 'scale|300,600';
 				$expectedOperations .= ';convert-to-image/jpeg';
 				$this->assertEquals(
@@ -384,6 +395,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $derivative[0]) = $this->_createDerivative(
 			$this->_item,
 			$itemId,
@@ -410,6 +422,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results
 		);
+
 		list($ret, $resizeTable) = GalleryCoreApi::fetchDerivativesByItemIds(
 			array($this->_item->getId())
 		);
@@ -417,6 +430,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($resizeTable[$itemId], 'no derivative');
 		$preferredId = $resizeTable[$itemId][0]->getId();
 		// check that the derivatives are from the preferred source, not from the original
@@ -429,6 +443,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 				getDerivativeSourceId(),
 				'Derivative Source id'
 			);
+
 			$this->assertEquals(
 				'scale|' . 100 * $i . ',' . 100 * $i . ';convert-to-image/jpeg',
 				$resizeTable[$itemId][$i]->
@@ -458,6 +473,7 @@ class ItemEditPhotoPluginTestToolkit extends GalleryToolkit {
 		$context = array()
 	) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		if ($sourceFilename != $destFilename) {

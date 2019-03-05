@@ -5,7 +5,6 @@
  * @subpackage plugins
  */
 
-
 /**
  * Smarty {html_image} function plugin
  *
@@ -112,6 +111,7 @@ function smarty_function_html_image($params, &$smarty) {
 
 				return;
 			}
+
 			$smarty->trigger_error("html_image: '$_image_path' is not a valid image file", E_USER_NOTICE);
 
 			return;
@@ -139,6 +139,7 @@ function smarty_function_html_image($params, &$smarty) {
 		} else {
 			$dpi_default = 96;
 		}
+
 		$_resize = $dpi_default/$params['dpi'];
 		$width   = round($width * $_resize);
 		$height  = round($height * $_resize);

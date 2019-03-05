@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * escape_special_chars common function
  *

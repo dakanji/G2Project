@@ -29,6 +29,7 @@ class CleanCacheStep extends UpgradeStep {
 
 	public function loadTemplateData(&$templateData) {
 		global $gallery;
+
 		$platform     =& $gallery->getPlatform();
 		$cacheBaseDir = $gallery->getConfig('data.gallery.cache');
 
@@ -57,6 +58,7 @@ class CleanCacheStep extends UpgradeStep {
 					}
 				}
 			}
+
 			$attempts--;
 		} while ($attempts > 0 && !empty($templateData['unclean']));
 

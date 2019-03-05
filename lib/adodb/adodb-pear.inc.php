@@ -44,7 +44,6 @@
 	fetchRows - does not support passing of fetchmode
 	free
  */
-
 define('ADODB_PEAR', __DIR__);
 
 require_once 'PEAR.php';
@@ -74,7 +73,6 @@ if (!defined('DB_OK')) {
 	define('DB_FETCHMODE_ASSOC', 2);
 
 	// for compatibility
-
 	define('DB_GETMODE_ORDERED', DB_FETCHMODE_ORDERED);
 	define('DB_GETMODE_ASSOC', DB_FETCHMODE_ASSOC);
 

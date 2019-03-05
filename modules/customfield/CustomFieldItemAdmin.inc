@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
 
 /**
@@ -37,6 +36,7 @@ class CustomFieldItemAdminController extends GalleryController {
 	 */
 	public function handleRequest($form) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		$adminMode = GalleryUtilities::getRequestVariables('cfAdmin');
@@ -46,6 +46,7 @@ class CustomFieldItemAdminController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		if (!empty($adminMode)) {
@@ -63,25 +64,35 @@ class CustomFieldItemAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$ret = CustomFieldHelper::getMe()->saveParameters($globalParam, $itemId);
 
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				// Mark setId on existing field values
-				list($ret, $searchResults) = $gallery->search(
-					'SELECT [ChildEntity::id] FROM [ChildEntity] WHERE [ChildEntity::parentId]=?',
-					array($itemId)
-				);
+				$query = '
+					SELECT
+						[ChildEntity::id]
+					FROM
+						[ChildEntity]
+					WHERE
+						[ChildEntity::parentId]=?
+				';
+
+				list($ret, $searchResults) = $gallery->search($query, array($itemId));
 
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$idList = array($itemId);
 
 				while ($rec = $searchResults->nextResult()) {
 					$idList[] = $rec[0];
 				}
+
 				$ret = GalleryCoreApi::updateMapEntry(
 					'CustomFieldMap',
 					array(
@@ -108,6 +119,7 @@ class CustomFieldItemAdminController extends GalleryController {
 						$itemId
 					);
 				}
+
 				// Clear setId for existing field values that can be retained
 				list($ret, $globalParam) = CustomFieldHelper::getMe()->loadParameters();
 
@@ -129,6 +141,7 @@ class CustomFieldItemAdminController extends GalleryController {
 					if (empty($fieldList)) {
 						continue;
 					}
+
 					$match = array(
 						'setId' => $itemId,
 						'field' => $fieldList,
@@ -137,6 +150,7 @@ class CustomFieldItemAdminController extends GalleryController {
 					if ($setType > 0) {
 						$match['setType'] = $setType;
 					}
+
 					$ret = GalleryCoreApi::updateMapEntry(
 						'CustomFieldMap',
 						$match,
@@ -149,6 +163,7 @@ class CustomFieldItemAdminController extends GalleryController {
 						return array($ret, null);
 					}
 				}
+
 				// Remove remaining field values
 				$ret = GalleryCoreApi::removeMapEntry(
 					'CustomFieldMap',

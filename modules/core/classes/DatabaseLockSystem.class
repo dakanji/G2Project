@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryLockSystem.class');
 
 /**
@@ -48,6 +47,7 @@ class DatabaseLockSystem extends GalleryLockSystem {
 	 */
 	public function _acquireLock($ids, $timeout, $lockType) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		if ($lockType == LOCK_WRITE) {
@@ -74,6 +74,7 @@ class DatabaseLockSystem extends GalleryLockSystem {
 	 */
 	public function _releaseLocksNow($locks) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$ret = $storage->releaseLocks(array_keys($locks));
@@ -90,6 +91,7 @@ class DatabaseLockSystem extends GalleryLockSystem {
 	 */
 	public function _removeObjectsFromLock(&$lock, $ids) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$ret = $storage->removeIdsFromLock($lock, $ids);
@@ -110,6 +112,7 @@ class DatabaseLockSystem extends GalleryLockSystem {
 	 */
 	public function _moveObjectsBetweenLocks($relock, $newLockId) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$ret = $storage->moveIdsBetweenLocks(
@@ -121,6 +124,7 @@ class DatabaseLockSystem extends GalleryLockSystem {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = parent::_moveObjectsBetweenLocks($relock, $newLockId);
 
 		if ($ret) {
@@ -135,6 +139,7 @@ class DatabaseLockSystem extends GalleryLockSystem {
 	 */
 	public function _newLockId() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		list($ret, $lockId) = $storage->newLockId();

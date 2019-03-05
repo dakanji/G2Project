@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/icons/classes/IconsImpl.class');
 
 /**
@@ -35,6 +34,7 @@ class IconsTest extends GalleryTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -54,6 +54,7 @@ class IconsTest extends GalleryTestCase {
 
 	public function tearDown() {
 		global $gallery;
+
 		$gallery->_translator->_isRightToLeft = $this->_saveRtl;
 
 		$ret = parent::tearDown();
@@ -82,6 +83,7 @@ class IconsTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($iconpack), 'Icon pack was not set');
 		$this->assertTrue(
 			GalleryUtilities::isA($iconpack, 'IconsImpl'),
@@ -95,12 +97,14 @@ class IconsTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$template = new IconsDummyGalleryTemplate();
 		$ret      = $this->_icons->init($template);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(null, $template->style);
 	}
 
@@ -110,17 +114,20 @@ class IconsTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$template = new IconsDummyGalleryTemplate();
 		$ret      = $this->_icons->init($template);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('modules/icons/iconpacks/_phpunitfoo/icons.css', $template->style);
 	}
 
 	public function testRightToLeft() {
 		global $gallery;
+
 		$gallery->_translator->_isRightToLeft = true;
 
 		$ret = GalleryCoreApi::setPluginParameter('module', 'icons', 'iconpack', '_phpunitfoo');
@@ -128,12 +135,14 @@ class IconsTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$template = new IconsDummyGalleryTemplate();
 		$ret      = $this->_icons->init($template);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('modules/icons/iconpacks/_phpunitfoo/icons-rtl.css', $template->style);
 	}
 }
@@ -154,6 +163,5 @@ class IconsDummyGalleryTemplate {
 		$this->style = $path;
 	}
 
-	public function javascript($path) {
-	}
+	public function javascript($path) {}
 }

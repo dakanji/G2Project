@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * Database storage mechanism.  This object provides the hooks for saving and restoring objects in
  * the persistent store.
@@ -245,6 +246,7 @@ class GalleryStorage {
 			$this->_password,
 			$this->_database
 		);
+
 		$this->_traceStop();
 
 		if (!$ret) {
@@ -302,6 +304,7 @@ class GalleryStorage {
 				'modules/core/classes/GalleryStorage/GalleryStorageExtras.class',
 				true
 			);
+
 			$tmp           = new GalleryStorageExtras($this);
 			$this->_extras =& $tmp;
 		}
@@ -609,6 +612,7 @@ class GalleryStorage {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($tableName, $unused) = $this->_translateTableName($mapName);
 
 		$data          = array();
@@ -617,13 +621,12 @@ class GalleryStorage {
 		$wheredata     = array();
 		$orderBy       = array();
 
-
-
 		// SELECT
 		foreach ($select as $columnName) {
 			if (!array_key_exists($columnName, $mapInfo)) {
 				break;
 			}
+
 			$selectColumns[] = $this->_translateColumnName($columnName);
 		}
 
@@ -632,6 +635,7 @@ class GalleryStorage {
 			if (!array_key_exists($columnName, $mapInfo)) {
 				break;
 			}
+
 			$this->_getWhereSql(
 				$columnName,
 				$mapInfo[$columnName],
@@ -647,6 +651,7 @@ class GalleryStorage {
 				if (!array_key_exists($columnName, $mapInfo)) {
 					break;
 				}
+
 				$orderDirection = ($orderDirection == ORDER_DESCENDING) ? 'DESC' : 'ASC';
 				$orderBy[]      = $this->_translateColumnName($columnName) . ' ' . $orderDirection;
 			}
@@ -726,6 +731,7 @@ class GalleryStorage {
 					return $ret;
 				}
 			}
+
 			$db = $this->_db;
 
 			$ret = $this->_guaranteeTransaction();
@@ -740,13 +746,13 @@ class GalleryStorage {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($tableName, $unused) = $this->_translateTableName($mapName);
 
 		$data      = array();
 		$set       = array();
 		$where     = array();
 		$wheredata = array();
-
 
 		foreach ($mapInfo as $memberName => $memberData) {
 			if (array_key_exists($memberName, $match)) {
@@ -819,12 +825,13 @@ class GalleryStorage {
 				$qs[]        = '?';
 				$wheredata[] = $this->_normalizeValue($value, $memberData);
 			}
+
 			$where[] = $this->_translateColumnName($memberName) . ' IN ('
 			. implode(',', $qs) . ')';
 		} else {
 			$value = $this->_normalizeValue($matchValue, $memberData);
 
-			if (is_null($value)) {
+			if (null === $value) {
 				$where[] = $this->_translateColumnName($memberName) . ' IS NULL';
 			} else {
 				$where[]     = $this->_translateColumnName($memberName) . '=?';
@@ -926,12 +933,14 @@ class GalleryStorage {
 		if ($this->_isTransactional) {
 			// Release any queued locks
 			global $gallery;
+
 			$result =& $gallery->getLockSystem(false);
 			$ret    = $result[0];
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$lockSystem =& $result[1];
 
 			if (isset($lockSystem)) {
@@ -985,12 +994,14 @@ class GalleryStorage {
 		if ($this->_isTransactional) {
 			// Release any queued locks
 			global $gallery;
+
 			$result =& $gallery->getLockSystem(false);
 			$ret    = $result[0];
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$lockSystem =& $result[1];
 
 			if (isset($lockSystem)) {
@@ -1216,8 +1227,9 @@ class GalleryStorage {
 	public function _translateQuery($query) {
 		// Change '[Class::member]' to 'table.column' or 'alias.column'
 		while (preg_match('#\[([\w_=]*)::([\w_]*)\]#', $query, $regs)) {
-			$class               = $regs[1];
-			$member              = $regs[2];
+			$class  = $regs[1];
+			$member = $regs[2];
+
 			list($table, $alias) = $this->_translateTableName($class);
 
 			$column = $this->_translateColumnName($member);
@@ -1233,7 +1245,8 @@ class GalleryStorage {
 
 		// Change '[Class]' to 'table'
 		while (preg_match('#\[([\w_=]*)\]#', $query, $regs)) {
-			$class               = $regs[1];
+			$class = $regs[1];
+
 			list($table, $alias) = $this->_translateTableName($class);
 
 			if ($alias == null) {
@@ -1245,6 +1258,7 @@ class GalleryStorage {
 					// XXX TODO: propagate this back up as a GalleryStatus
 					return 'QUERY ERROR';
 				}
+
 				$query = str_replace("[${class}]", "$table $as $alias", $query);
 			}
 		}
@@ -1309,6 +1323,7 @@ class GalleryStorage {
 					$alias .= $chr;
 				}
 			}
+
 			$alias = GalleryUtilities::strToLower($alias) . ($number - 1);
 		} else {
 			$tableName = $split[0];
@@ -1383,6 +1398,7 @@ class GalleryStorage {
 	 */
 	public function _getEntityOrMapInfo($type, $tryAllModules) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		$isInstallOrUpgrade = empty($session) ? false : $session->exists('isInstall') || $session->exists('isUpgrade');
@@ -1492,7 +1508,7 @@ class GalleryStorage {
 		$notNull = !empty($memberData['notNull']) ||
 		(!empty($memberData['notNullEmptyAllowed']) && $this->_isEmptyAllowedForNotNullColumn);
 
-		if (is_null($value) && !$notNull) {
+		if (null === $value && !$notNull) {
 			return $value;
 		}
 
@@ -1682,6 +1698,7 @@ class GallerySearchResults {
 		if (!empty($row) && !empty($this->_fieldNames) && !empty($this->_mapInfo)) {
 			// Normalize fetched values
 			global $gallery;
+
 			$storage =& $gallery->getStorage();
 
 			for ($i = 0; $i < count($row) && $i < count($this->_fieldNames); $i++) {
@@ -1931,6 +1948,7 @@ class MySqlStorage extends GalleryStorage {
 					while (count($args) > 1) {
 						$sql[] = 'WHEN ' . array_shift($args) . ' THEN ' . array_shift($args);
 					}
+
 					$sql = 'CASE ' . implode(' ', $sql) . ' ELSE ' . $args[0] . ' END';
 				}
 
@@ -2034,7 +2052,8 @@ class MySqlStorage extends GalleryStorage {
 	 */
 	public function getUniqueId($sequence = DATABASE_SEQUENCE_ID) {
 		// Make sure we are using a non-transactional connection to avoid duplicating sequence ids
-		$extras         =& $this->_getExtras();
+		$extras =& $this->_getExtras();
+
 		list($ret, $db) = $extras->_getNonTransactionalDatabaseConnection();
 
 		if ($ret) {

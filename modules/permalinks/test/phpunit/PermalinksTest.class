@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/permalinks/classes/PermalinksMapHelper.class');
 
 /**
@@ -37,6 +36,7 @@ class PermalinksTest extends GalleryTestCase {
 
 	public function setUp($setup = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -56,6 +56,7 @@ class PermalinksTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		list($ret, $this->_item) = $this->_createRandomDataItem(
@@ -69,6 +70,7 @@ class PermalinksTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_item->setMimeType('image/gif');
 
 		$ret = PermalinksMapHelper::createAlias('testAlias', $this->_item->getId());
@@ -147,6 +149,7 @@ class PermalinksTest extends GalleryTestCase {
 		if (!$ret) {
 			return $this->assertTrue(false, 'Expected an error');
 		}
+
 		$this->assertTrue(
 			$ret->getErrorCode() & ERROR_COLLISION,
 			'No collision reported, but expected one'
@@ -228,6 +231,7 @@ class PermalinksTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$item->setMimeType('image/gif');
 
 		$ret = PermalinksMapHelper::createAlias('testAlias2', $item->getId());
@@ -283,6 +287,7 @@ class PermalinksTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($album);
 
 		$this->_aliasNamesToDelete[] = $album->pathComponent;

@@ -29,6 +29,7 @@
 class CaptchaModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
+
 		$this->setId('captcha');
 		$this->setName($gallery->i18n('Captcha'));
 		$this->setDescription(
@@ -76,6 +77,7 @@ class CaptchaModule extends GalleryModule {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::registerFactoryImplementation(
 			'MaintenanceTask',
 			'ResetFailureCountsTask',

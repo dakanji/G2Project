@@ -28,6 +28,7 @@
 class ColorPackModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
+
 		$this->setId('colorpack');
 		$this->setName($gallery->i18n('Color Packs'));
 		$this->setDescription(

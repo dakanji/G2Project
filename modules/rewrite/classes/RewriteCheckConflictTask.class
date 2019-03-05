@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
 
 /**
@@ -51,6 +50,7 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 	 */
 	public function run() {
 		global $gallery;
+
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$urlGenerator    =& $gallery->getUrlGenerator();
 		$platform        =& $gallery->getPlatform();
@@ -62,6 +62,7 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$message = $module->translate('Processing...');
 		$templateAdapter->updateProgressBar('', $message, '');
 
@@ -84,7 +85,8 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 				'view'   => 'core.ShowItem',
 				'itemId' => (int)$result[0],
 			);
-			$path   = substr(
+
+			$path = substr(
 				$urlGenerator->generateUrl(
 					$params,
 					array(
@@ -104,6 +106,7 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 				if ($ret) {
 					return array($ret, null, null);
 				}
+
 				$params = array(
 					'view'       => 'core.ItemAdmin',
 					'subView'    => 'core.ItemEdit',
@@ -128,6 +131,7 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 						'arg2' => $total,
 					)
 				);
+
 				$templateAdapter->updateProgressBar($message, '', $i / $total);
 			}
 		}

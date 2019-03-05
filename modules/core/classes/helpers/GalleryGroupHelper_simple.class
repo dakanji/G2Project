@@ -33,7 +33,8 @@ class GalleryGroupHelper_simple {
 	public static function fetchGroupNames($count = null, $offset = null, $substring = null) {
 		global $gallery;
 
-		$data  = array();
+		$data = array();
+
 		$query = '
 	SELECT
 	  [GalleryGroup::id],
@@ -85,7 +86,8 @@ class GalleryGroupHelper_simple {
 	public static function fetchGroupCount($substring = null) {
 		global $gallery;
 
-		$data  = array();
+		$data = array();
+
 		$query = '
 	SELECT
 	  COUNT([GalleryGroup::id])
@@ -119,7 +121,7 @@ class GalleryGroupHelper_simple {
 	public static function fetchGroupByGroupName($groupName = null) {
 		global $gallery;
 
-		$query                     = '
+		$query = '
 	SELECT
 	  [GalleryGroup::id]
 	FROM
@@ -127,6 +129,7 @@ class GalleryGroupHelper_simple {
 	WHERE
 	  [GalleryGroup::groupName] = ?
 	';
+
 		list($ret, $searchResults) = $gallery->search($query, array($groupName));
 
 		if ($ret) {
@@ -136,8 +139,10 @@ class GalleryGroupHelper_simple {
 		if ($searchResults->resultCount() == 0) {
 			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 		}
-		$result            = $searchResults->nextResult();
-		$id                = $result[0];
+
+		$result = $searchResults->nextResult();
+		$id     = $result[0];
+
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($id, 'GalleryGroup');
 
 		if ($ret) {

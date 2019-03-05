@@ -57,6 +57,7 @@ class GalleryView {
 	 */
 	public function init($moduleId) {
 		global $gallery;
+
 		$this->_l10Domain = 'modules_' . $moduleId;
 	}
 
@@ -173,6 +174,7 @@ class GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $isActive) = $plugin->isActive();
 
 		if ($ret) {
@@ -267,6 +269,7 @@ class GalleryView {
 	 */
 	public function doLoadTemplate(&$template) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		// --------------------------------------------------
@@ -276,6 +279,7 @@ class GalleryView {
 		if (!isset($form['formName'])) {
 			$form['formName'] = '';
 		}
+
 		$template->setVariableByReference('form', $form);
 
 		// --------------------------------------------------
@@ -328,7 +332,8 @@ class GalleryView {
 					'view'    => 'core.ShowItemError',
 					'problem' => 'missingTheme',
 				);
-				$itemId   = GalleryUtilities::getRequestVariables('itemId');
+
+				$itemId = GalleryUtilities::getRequestVariables('itemId');
 
 				if ($itemId) {
 					$redirect['itemId'] = $itemId;
@@ -406,12 +411,14 @@ class GalleryView {
 	 */
 	public function getItem($checkPermissions = true) {
 		global $gallery;
+
 		$itemId       = (int)GalleryUtilities::getRequestVariables('itemId');
 		$wasSpecified = true;
 
 		// If we don't have an itemId, default to the root album
 		if (empty($itemId)) {
-			$wasSpecified       = false;
+			$wasSpecified = false;
+
 			list($ret, $itemId) = GalleryCoreApi::getDefaultAlbumId();
 
 			if ($ret) {
@@ -468,7 +475,8 @@ class GalleryView {
 		if ($ret) {
 			// Ignore missing object here to avoid revealing valid/invalid ids
 			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-				$wasSpecified       = false;
+				$wasSpecified = false;
+
 				list($ret, $itemId) = GalleryCoreApi::getDefaultAlbumId();
 
 				if (!$ret) {
@@ -495,6 +503,7 @@ class GalleryView {
 			} else {
 				$targetId = $item->getId();
 			}
+
 			list($ret, $params) = $theme->fetchParameters($wasSpecified ? $targetId : null);
 
 			if ($ret) {
@@ -586,6 +595,7 @@ class GalleryView {
 				'viewName' => $gallery->getCurrentView(),
 			)
 		);
+
 		list($ret, $eventResults) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -613,6 +623,7 @@ class GalleryView {
 				// Handle bad event results gracefully by ignoring it.
 				if ($ret->getErrorCode() & (ERROR_BAD_PARAMETER | ERROR_PLUGIN_VERSION_MISMATCH)) {
 					global $gallery;
+
 					$gallery->debug(
 						sprintf(
 							'Error: The theme [%s] specified by a [%s] event '
@@ -621,6 +632,7 @@ class GalleryView {
 							'Gallery::LoadThemeAndParameters'
 						)
 					);
+
 					$theme = $params = null;
 				} else {
 					return array($ret, null, null);
@@ -645,7 +657,8 @@ class GalleryView {
 	 * @static
 	 */
 	public function _loadTheme($themeId) {
-		$validTheme        = false;
+		$validTheme = false;
+
 		list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId, false, true);
 
 		if ($ret) {
@@ -687,6 +700,7 @@ class GalleryView {
 	 */
 	public function setCacheControl(&$template, $access = null) {
 		global $gallery;
+
 		$phpVm  = $gallery->getPhpVm();
 		$itemId = (int)GalleryUtilities::getRequestVariables('itemId');
 
@@ -703,6 +717,7 @@ class GalleryView {
 
 						break;
 					}
+
 					// If itemId is defined, handle the same way as SHOW_ITEM type
 
 					// Fall Through
@@ -712,6 +727,7 @@ class GalleryView {
 					if ($ret) {
 						return $ret;
 					}
+
 					// Pages shouldn't be cached if not accessible for anonymous
 					if (empty($itemId)) {
 						// If we don't have an itemId, default to the root album
@@ -721,6 +737,7 @@ class GalleryView {
 							return $ret;
 						}
 					}
+
 					list($ret, $anonymousViewable) = GalleryCoreApi::hasItemPermission(
 						$itemId,
 						'core.view',
@@ -771,20 +788,25 @@ class GalleryView {
 	 */
 	public function setStandardTemplateVariables(&$template) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
-		$user                        = (array)$gallery->getActiveUser();
+		$user = (array)$gallery->getActiveUser();
+
 		list($ret, $user['isGuest']) = GalleryCoreApi::isAnonymousUser($user['id']);
 
 		if ($ret) {
 			return $ret;
 		}
-		$user['isRegisteredUser']    = !$user['isGuest'];
+
+		$user['isRegisteredUser'] = !$user['isGuest'];
+
 		list($ret, $user['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
 			$user['isAdmin'] = false;
 		}
+
 		$template->setVariable('user', $user);
 		$themeVars = array(
 			'guestPreviewMode' => $session->get('theme.guestPreviewMode') ? 1 : 0,
@@ -799,6 +821,7 @@ class GalleryView {
 				return $ret;
 			}
 		}
+
 		$template->setVariable('theme', $themeVars);
 
 		return null;
@@ -816,16 +839,19 @@ class GalleryView {
 	 */
 	public function _permissionCheck($ret) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		$result = null;
 
 		if ($ret) {
 			list($ret2, $inGroup) = GalleryCoreApi::isUserInSiteAdminGroup();
+
 			// MISSING_OBJECT should be handled like PERMISSION_DENIED, unless it's an admin
 			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT && ($ret2 || !$inGroup)) {
 				$ret->addErrorCode(ERROR_PERMISSION_DENIED);
 			}
+
 			$result = array($ret, null);
 
 			if ($ret2) {

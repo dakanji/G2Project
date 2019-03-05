@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/helpers/MaintenanceHelper_simple.class');
 
 /**
@@ -82,6 +81,7 @@ class AdminMaintenanceController extends GalleryController {
 							array($this, 'runTask'),
 							array($taskId, $task, true)
 						);
+
 						$results['delegate']['view'] = 'core.ProgressBar';
 					} else {
 						list($ret, $success) = $this->runTask($taskId, $task, false);
@@ -90,10 +90,11 @@ class AdminMaintenanceController extends GalleryController {
 							return array($ret, null);
 						}
 
-						$status['run']       = array(
+						$status['run'] = array(
 							'taskId'  => $taskId,
 							'success' => $success,
 						);
+
 						$redirect['view']    = 'core.SiteAdmin';
 						$redirect['subView'] = 'core.AdminMaintenance';
 					}
@@ -115,6 +116,7 @@ class AdminMaintenanceController extends GalleryController {
 				$urlGenerator =& $gallery->getUrlGenerator();
 				$newMode      = $urlGenerator->makeAbsoluteUrl($maintenanceUrl);
 			}
+
 			$ret = GalleryCoreApi::setMaintenanceMode($newMode);
 
 			if ($ret) {
@@ -152,6 +154,7 @@ class AdminMaintenanceController extends GalleryController {
 
 	public function runTask($taskId, $task, $useProgressBar) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		list($ret1, $success, $details) = $task->run();
@@ -159,6 +162,7 @@ class AdminMaintenanceController extends GalleryController {
 		if ($ret1) {
 			$details = $ret1->getAsHtml();
 		}
+
 		$ret2 = MaintenanceHelper_simple::addRun($taskId, time(), $success, $details);
 
 		if ($ret1 || $ret2) {
@@ -248,7 +252,8 @@ class AdminMaintenanceView extends GalleryView {
 			}
 		}
 
-		$maintenanceMode                = $gallery->getConfig('mode.maintenance');
+		$maintenanceMode = $gallery->getConfig('mode.maintenance');
+
 		list($ret, $maintenanceModeUrl) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',

@@ -9,7 +9,6 @@
 Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Microsoft Visual FoxPro data driver. Requires ODBC. Works only on MS Windows.
 */
 
@@ -19,7 +18,6 @@ if (!defined('ADODB_DIR')) {
 }
 
 require ADODB_DIR . '/drivers/adodb-db2.inc.php';
-
 
 if (!defined('ADODB_DB2OCI')) {
 	define('ADODB_DB2OCI', 1);
@@ -31,11 +29,13 @@ if (!defined('ADODB_DB2OCI')) {
 	 */
 	function _colontrack($p) {
 		global $_COLONARR, $_COLONSZ;
+
 		$v = (int)substr($p[1], 1);
 
 		if ($v > $_COLONSZ) {
 			return $p[1];
 		}
+
 		$_COLONARR[] = $v;
 
 		return '?';
@@ -79,7 +79,6 @@ if (!defined('ADODB_DB2OCI')) {
 			return parent::_Execute($sql, $inputarr);
 		}
 	}
-
 
 	class ADORecordSet_db2oci extends ADORecordSet_odbc {
 		public $databaseType = 'db2oci';

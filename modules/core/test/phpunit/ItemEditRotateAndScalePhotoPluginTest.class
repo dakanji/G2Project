@@ -59,6 +59,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('ItemEditRotateAndScalePhotoPluginTestToolkit');
 
 		// Register operations that we can perform on our mock data items
@@ -247,6 +248,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(1, sizeof($preferredIds), 'there should be a preferred');
 
 		// Verify that the item serial is the same
@@ -255,6 +257,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($originalSerial, $this->_item->getSerialNumber());
 
 		// Verify that the thumbnail's crop is the same
@@ -263,6 +266,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			'crop|10,10,30,40;thumbnail|200',
 			$this->_derivative[1]->getDerivativeOperations()
@@ -313,6 +317,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(0, sizeof($preferredIds), 'there should be no preferreds');
 
 		// Verify that the item modification time has changed
@@ -331,6 +336,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			'crop|10,10,30,40;thumbnail|200',
 			$this->_derivative[1]->getDerivativeOperations()
@@ -443,6 +449,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('rotate|180', $this->_derivative[0]->getDerivativeOperations());
 
 		// Verify that the thumbnail's crop was adjusted
@@ -451,6 +458,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			'crop|50,10,40,30;thumbnail|200',
 			$this->_derivative[1]->getDerivativeOperations()
@@ -471,6 +479,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 
 		// Verify that the derivative is now gone (90 + -90 == 0)
 		list($ret, $this->_derivative[0]) = $this->_derivative[0]->refresh();
+
 		$this->assertTrue($ret && ($ret->getErrorCode() & ERROR_MISSING_OBJECT));
 
 		// Verify that the thumbnail's crop was adjusted
@@ -479,6 +488,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			'crop|10,60,40,30;thumbnail|200',
 			$this->_derivative[1]->getDerivativeOperations()
@@ -490,7 +500,8 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[action][rotate][clockwise]', 1);
 		GalleryUtilities::putRequestVariable('form[serialNumber]', $this->_item->getSerialNumber());
 
-		$results                          = $this->handleRequest($this->_item, $this->_derivative[0]);
+		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
+
 		list($ret, $this->_derivative[1]) = $this->_derivative[1]->refresh();
 
 		if ($ret) {
@@ -536,6 +547,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('rotate|-90', $this->_derivative[0]->getDerivativeOperations());
 
 		// Verify that the thumbnail's crop was adjusted
@@ -544,6 +556,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			'crop|60,50,30,40;thumbnail|200',
 			$this->_derivative[1]->getDerivativeOperations()
@@ -580,6 +593,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			'convert-to-image/jpeg;rotate|180',
 			$this->_blobDerivative[0]->getDerivativeOperations()
@@ -591,6 +605,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			'crop|60,50,30,40;thumbnail|200',
 			$this->_blobDerivative[1]->getDerivativeOperations()
@@ -611,6 +626,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 
 		// Verify that the preferred is gone
 		list($ret, $this->_derivative[0]) = $this->_derivative[0]->refresh();
+
 		$this->assertTrue($ret && ($ret->getErrorCode() & ERROR_MISSING_OBJECT));
 
 		// And that the other derivatives now point at the item
@@ -630,6 +646,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			'crop|10,60,40,30;thumbnail|200',
 			$this->_derivative[1]->getDerivativeOperations()
@@ -650,6 +667,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 
 		$this->_derivative[0]->setDerivativeOperations('rotate|90;bogus|1,2,3');
 		$this->_derivative[0]->setPostFilterOperations('bogus|4,5,6');
+
 		$ret = $this->_derivative[0]->save();
 
 		if ($ret) {
@@ -675,6 +693,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 
 		// Verify that the preferred is still there
 		list($ret, $this->_derivative[0]) = $this->_derivative[0]->refresh();
+
 		$this->assertFalse($ret);
 
 		// Make sure that its postfilter is still the same, but its rotate op is gone
@@ -706,6 +725,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($result, 'should be supported');
 
 		list($ret, $result) = $this->_plugin->_checkForOperation(
@@ -716,6 +736,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($result, 'should be supported');
 
 		list($ret, $result) = $this->_plugin->_checkForOperation(
@@ -726,6 +747,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($result, 'should be supported');
 
 		list($ret, $result) = $this->_plugin->_checkForOperation(
@@ -736,6 +758,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse($result, 'should not be supported');
 
 		list($ret, $result) = $this->_plugin->_checkForOperation('scale', array());
@@ -743,6 +766,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse($result, 'should not be supported');
 	}
 }

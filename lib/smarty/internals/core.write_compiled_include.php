@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Extract non-cacheable parts out of compiled template and write it
  *
@@ -35,8 +36,7 @@ function smarty_core_write_compiled_include($params, &$smarty) {
 			'%3A' => ':',
 		)
 	) . " */\n\n";
-
-	$_compile_path = $params['include_file_path'];
+	$_compile_path      = $params['include_file_path'];
 
 	$smarty->_cache_serials[$_compile_path] = $params['cache_serial'];
 	$_include_compiled                     .= "\$this->_cache_serials['" . $_compile_path . "'] = '" . $params['cache_serial'] . "';\n\n?>";
@@ -80,6 +80,7 @@ function smarty_core_write_compiled_include($params, &$smarty) {
 					}
 				}
 			}
+
 			$source = implode('', $tokens);
 		}
 
@@ -92,6 +93,7 @@ $source
 
 ";
 	}
+
 	$_include_compiled .= "\n\n?>\n";
 
 	$_params = array(

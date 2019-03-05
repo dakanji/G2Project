@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
 
 /**
@@ -58,6 +57,7 @@ class AdminPluginsView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$themeGroup = array(
 			'group'      => 'theme',
 			'groupLabel' => $core->translate('Themes'),
@@ -152,10 +152,12 @@ class AdminPluginsView extends GalleryView {
 				}
 			}
 		}
+
 		usort($plugins, array($this, 'pluginSort'));
 
-		$AdminPlugins                             = array();
-		$AdminPlugins['plugins']                  = $plugins;
+		$AdminPlugins            = array();
+		$AdminPlugins['plugins'] = $plugins;
+
 		list($ret, $AdminPlugins['defaultTheme']) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',
@@ -230,6 +232,7 @@ class AdminPluginsView extends GalleryView {
 				'other'    => 4,
 			);
 		}
+
 		$ag = $a['group'];
 		$bg = $b['group'];
 
@@ -240,11 +243,13 @@ class AdminPluginsView extends GalleryView {
 			if ($ao != $bo) {
 				return ($ao > $bo) ? 1 : -1;
 			}
+
 			$ag = isset($a['groupLabel']) ? $a['groupLabel'] : $ag;
 			$bg = isset($b['groupLabel']) ? $b['groupLabel'] : $bg;
 
 			return ($ag > $bg) ? 1 : -1;
 		}
+
 		$as  = $a['state'];
 		$bs  = $b['state'];
 		$aso = $stateOrder[$as];

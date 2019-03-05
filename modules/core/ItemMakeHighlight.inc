@@ -51,12 +51,14 @@ class ItemMakeHighlightController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		if (isset($form['action']['makeHighlight'])) {
 			if (empty($form['parentId'])) {
 				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 			}
+
 			$parentId = (int)$form['parentId'];
 
 			list($ret, $canView) = GalleryCoreApi::hasItemPermission($parentId, 'core.view');
@@ -84,7 +86,6 @@ class ItemMakeHighlightController extends GalleryController {
 				return array($ret, null);
 			}
 		} // else $form['action']['cancel']
-
 		$results['return'] = true;
 		$results['status'] = $status;
 		$results['error']  = $error;
@@ -119,6 +120,7 @@ class ItemMakeHighlightView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId   = $item->getId();
 		$parentId = $item->getParentId();
 
@@ -151,6 +153,7 @@ class ItemMakeHighlightView extends GalleryView {
 				'parentList' => $parentList,
 			)
 		);
+
 		$template->setVariable('controller', 'core.ItemMakeHighlight');
 
 		return array(

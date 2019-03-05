@@ -235,7 +235,6 @@ class ImageMagickToolkitHelper {
 		}
 
 		// -------------------- Properties --------------------
-
 		// Dimensions
 		$properties['dimensions'] = array(
 			'type'        => 'int,int',
@@ -248,7 +247,6 @@ class ImageMagickToolkitHelper {
 				)
 			),
 		); // Supported by php getimagesize
-
 		if (!empty($multiPageMimeTypes)) {
 			$properties['page-count'] = array(
 				'type'        => 'int',
@@ -293,6 +291,7 @@ class ImageMagickToolkitHelper {
 	 */
 	public static function getCommand($cmd, $imageMagickPath = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		if ($imageMagickPath == null) {
@@ -301,6 +300,7 @@ class ImageMagickToolkitHelper {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			list($ret, $binary) = GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'binary');
 
 			if ($ret) {
@@ -308,7 +308,6 @@ class ImageMagickToolkitHelper {
 			}
 		} else {
 			list($ret, $binary) = ImageMagickToolkitHelper::discoverBinary($imageMagickPath);
-
 
 			if ($ret) {
 				return array($ret, null);
@@ -339,6 +338,7 @@ class ImageMagickToolkitHelper {
 	 */
 	public static function discoverMimeTypes($imageMagickPath = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
 		$dataPath = dirname(__DIR__) . "${slash}data${slash}";
@@ -365,61 +365,73 @@ class ImageMagickToolkitHelper {
 			'file'     => 'test.gif',
 			'expected' => '/(GIF.*PseudoClass|GIF.*RGB|PseudoClass.*GIF|DirectClass.*GIF)/',
 		);
+
 		$tests[] = array(
 			'mime'     => array('image/jpeg', 'image/pjpeg'),
 			'file'     => 'test.jpg',
 			'expected' => '/(JPEG.*(Direct|Pseudo)Class|JPEG.*RGB|DirectClass.*JPEG)/',
 		);
+
 		$tests[] = array(
 			'mime'     => array('image/jp2', 'image/jpg2', 'image/jpx'),
 			'file'     => 'test.jp2',
 			'expected' => '/(JP2.*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*JP2)/',
 		);
+
 		$tests[] = array(
 			'mime'     => array('image/png'),
 			'file'     => 'test.png',
 			'expected' => '/(PNG.*DirectClass|PNG.*RGB|DirectClass.*PNG)/',
 		);
+
 		$tests[] = array(
 			'mime'     => array('image/tiff'),
 			'file'     => 'test.tif',
 			'expected' => '/(TIFF.*(Pseudo|Direct)Class|(Pseudo|Direct)Class.*TIFF|TIFF.*RGB|TIFF.*Gray)/',
 		);
+
 		$tests[] = array(
 			'mime'     => array('image/svg+xml'),
 			'file'     => 'test.svg',
 			'expected' => '/(SVG.*DirectClass|SVG.*RGB|DirectClass.*SVG)/',
 		);
+
 		$tests[] = array(
 			'mime'     => array('image/bmp'),
 			'file'     => 'test.bmp',
 			'expected' => '/(BMP.*PseudoClass|BMP.*RGB|PseudoClass.*BMP)/',
 		);
+
 		$tests[] = array(
 			'mime'     => array('application/pdf'),
 			'file'     => 'test.pdf',
 			'expected' => '/(PDF.*(Pseudo|Direct)Class|PBM.*Bilevel|PseudoClass.*PDF)/',
 		);
+
 		$tests[] = array(
 			'mime'     => array('application/postscript'),
 			'file'     => 'test.eps',
 			'expected' => '/(PS.*(Pseudo|Direct)Class|PNG.*RGB|PseudoClass.*PS)/',
 		);
+
 		$tests[] = array(
 			'mime'     => array('application/photoshop'),
 			'file'     => 'test.psd',
 			'expected' => '/(PSD.*(Pseudo|Direct)Class|PseudoClass.*PSD)/',
 		);
+
 		$tests[] = array(
 			'mime'     => array('image/x-photo-cd'),
 			'file'     => 'truncated.pcd',
 			'expected' => '/(PCD.*(Pseudo|Direct)Class|PCD.*YCC|PseudoClass.*PCD)/',
 		);
+
 		$tests[] = array(
 			'mime'     => array('image/wmf'),
 			'file'     => 'test.wmf',
 			'expected' => '/(WMF.*(Pseudo|Direct)Class|WMF.*RGB|(Pseudo|Direct)Class.*WMF)/',
 		);
+
 		$tests[] = array(
 			'mime'     => array('image/tga'),
 			'file'     => 'test.tga',
@@ -438,7 +450,9 @@ class ImageMagickToolkitHelper {
 			if ($ret) {
 				return array($ret, null);
 			}
-			$command                 = array_merge($command, array($dataPath . $test['file']));
+
+			$command = array_merge($command, array($dataPath . $test['file']));
+
 			list($success, $results) = $platform->exec(array($command));
 
 			$successCount += $success;
@@ -489,6 +503,7 @@ class ImageMagickToolkitHelper {
 	 */
 	public static function testBinaries($imageMagickPath) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
 		$dataPath = dirname(__DIR__) . "${slash}data${slash}";
@@ -538,7 +553,8 @@ class ImageMagickToolkitHelper {
 						$success = false;
 						$results = array($module->translate('File does not exist'));
 					} else {
-						$command                 = array_merge($command, array($dataPath . 'test.gif'));
+						$command = array_merge($command, array($dataPath . 'test.gif'));
+
 						list($success, $results) = $platform->exec(array($command));
 					}
 
@@ -551,6 +567,7 @@ class ImageMagickToolkitHelper {
 								$results
 							),
 						);
+
 						$testArray[] = array(
 							'name'    => 'identify',
 							'success' => false,
@@ -588,6 +605,7 @@ class ImageMagickToolkitHelper {
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					$tmpDir      = $gallery->getConfig('data.gallery.tmp');
 					$tmpFilename = $platform->tempnam($tmpDir, 'imgk_');
 
@@ -610,7 +628,7 @@ class ImageMagickToolkitHelper {
 						$success = false;
 						$results = array($module->translate('File does not exist'));
 					} else {
-						$command                 = array_merge(
+						$command = array_merge(
 							$command,
 							array(
 								'-size',
@@ -621,6 +639,7 @@ class ImageMagickToolkitHelper {
 								'gif:' . $tmpFilename,
 							)
 						);
+
 						list($success, $results) = $platform->exec(array($command));
 					}
 
@@ -649,6 +668,7 @@ class ImageMagickToolkitHelper {
 							'success' => true,
 						);
 					}
+
 					@$platform->unlink($tmpFilename);
 
 					break;
@@ -659,11 +679,13 @@ class ImageMagickToolkitHelper {
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					list($ret, $command) = ImageMagickToolkitHelper::getCommand($compositeCmd, $imageMagickPath);
 
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					$tmpDir      = $gallery->getConfig('data.gallery.tmp');
 					$tmpFilename = $platform->tempnam($tmpDir, 'imgk_');
 
@@ -679,7 +701,8 @@ class ImageMagickToolkitHelper {
 							null,
 						);
 					}
-					$command                 = array_merge(
+
+					$command = array_merge(
 						$command,
 						array(
 							'-geometry',
@@ -689,6 +712,7 @@ class ImageMagickToolkitHelper {
 							'gif:' . $tmpFilename,
 						)
 					);
+
 					list($success, $results) = $platform->exec(array($command));
 
 					if (!$success) {
@@ -716,6 +740,7 @@ class ImageMagickToolkitHelper {
 							'success' => true,
 						);
 					}
+
 					@$platform->unlink($tmpFilename);
 
 					break;
@@ -726,6 +751,7 @@ class ImageMagickToolkitHelper {
 				break;
 			}
 		}
+
 		$platform->chdir($oldCwd);
 
 		return array(null, $testArray);
@@ -743,6 +769,7 @@ class ImageMagickToolkitHelper {
 	 */
 	public static function discoverBinary($imageMagickPath = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		if (empty($imageMagickPath)) {
@@ -799,6 +826,7 @@ class ImageMagickToolkitHelper {
 	 */
 	public static function discoverVersion($imageMagickPath = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $command) = ImageMagickToolkitHelper::getCommand('identify', $imageMagickPath);
@@ -836,6 +864,7 @@ class ImageMagickToolkitHelper {
 	 */
 	public static function discoverCompositeCmd($imageMagickPath = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $binary) = ImageMagickToolkitHelper::discoverBinary($imageMagickPath);
@@ -887,6 +916,7 @@ class ImageMagickToolkitHelper {
 	 */
 	public static function discoverRemoveMetaDataSwitch($imageMagickPath = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
 		$dataPath = dirname(__DIR__) . "${slash}data${slash}";
@@ -917,14 +947,17 @@ class ImageMagickToolkitHelper {
 		}
 
 		foreach (array(array('-strip'), array('+profile', '*')) as $param) {
-			$command                 = array_merge(
+			$command = array_merge(
 				$convertCmd,
 				$param,
 				array($dataPath . 'testProfile.jpg', $tmpFilename)
 			);
-			$originalSize            = $platform->filesize($dataPath . 'testProfile.jpg');
+
+			$originalSize = $platform->filesize($dataPath . 'testProfile.jpg');
+
 			list($success, $results) = $platform->exec(array($command));
-			$size                    = $platform->filesize($tmpFilename);
+
+			$size = $platform->filesize($tmpFilename);
 			@$platform->unlink($tmpFilename);
 
 			if ($success) {
@@ -945,15 +978,17 @@ class ImageMagickToolkitHelper {
 	 */
 	public static function discoverColorspaceSupport($imageMagickPath = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
-		$dataPath = dirname(dirname(__FILE__)) . "${slash}data${slash}";
+		$dataPath = dirname(__DIR__) . "${slash}data${slash}";
 
 		list($ret, $convertCmd) = ImageMagickToolkitHelper::getCommand('convert', $imageMagickPath);
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $identifyCmd) = ImageMagickToolkitHelper::getCommand('identify', $imageMagickPath);
 
 		if ($ret) {
@@ -976,7 +1011,8 @@ class ImageMagickToolkitHelper {
 			);
 		}
 
-		$cmykSupport             = false;
+		$cmykSupport = false;
+
 		list($success, $results) = $platform->exec(
 			array(
 				array_merge($identifyCmd, array('-format', '%r', $dataPath . 'cmyk.jpg')),
@@ -1006,6 +1042,7 @@ class ImageMagickToolkitHelper {
 				}
 			}
 		}
+
 		@$platform->unlink($tmpFilename);
 
 		return array(null, $cmykSupport);
@@ -1024,6 +1061,7 @@ class ImageMagickToolkitHelper {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'imagemagick',
@@ -1043,6 +1081,7 @@ class ImageMagickToolkitHelper {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'imagemagick',
@@ -1055,7 +1094,6 @@ class ImageMagickToolkitHelper {
 		}
 
 		// Find out how to remove meta data from jpegs
-
 		list($ret, $removeMetaDataSwitch) = ImageMagickToolkitHelper::discoverRemoveMetaDataSwitch(
 			$imageMagickPath
 		);
@@ -1063,6 +1101,7 @@ class ImageMagickToolkitHelper {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'imagemagick',
@@ -1076,6 +1115,7 @@ class ImageMagickToolkitHelper {
 
 		// Find out what parameters to use for animated GIFs
 		list($ret, $version) = ImageMagickToolkitHelper::discoverVersion($imageMagickPath);
+
 		// Ignore the error, fallback to old / compatible code
 		if (!empty($version) && $version[0] == 'ImageMagick'
 			&& version_compare($version[1], '6.2.6-3', '>')
@@ -1084,6 +1124,7 @@ class ImageMagickToolkitHelper {
 		} else {
 			$useNewCoalesceOptions = 0;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'imagemagick',

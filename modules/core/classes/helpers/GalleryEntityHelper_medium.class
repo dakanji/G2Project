@@ -34,6 +34,7 @@ class GalleryEntityHelper_medium {
 		if (empty($id)) {
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
+
 		$lockIds = array();
 
 		// Don't write lock it if it's already locked somewhere else
@@ -110,6 +111,7 @@ class GalleryEntityHelper_medium {
 			for ($i = 1; $i < sizeof($linkedEntities); $i++) {
 				$linkedEntities[$i]->setLinkId($linkedEntities[0]->getId());
 				$linkedEntities[$i]->setLinkedEntity($linkedEntities[0]);
+
 				$ret = $linkedEntities[$i]->save();
 
 				if ($ret) {
@@ -152,7 +154,7 @@ class GalleryEntityHelper_medium {
 	public static function fetchEntitiesLinkedTo($targetId) {
 		global $gallery;
 
-		$query                     = '
+		$query   = '
 	SELECT
 	  [GalleryEntity::id]
 	FROM
@@ -162,7 +164,8 @@ class GalleryEntityHelper_medium {
 	ORDER BY
 	  [GalleryEntity::id] ASC
 	';
-		$storage                   =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
+
 		list($ret, $searchResults) = $gallery->search($query, array((int)$targetId));
 
 		if ($ret) {
@@ -199,12 +202,15 @@ class GalleryEntityHelper_medium {
 				if ($i++ % 10 == 0) {
 					$gallery->guaranteeTimeLimit(5);
 				}
-				$id                 = (int)$result[0];
+
+				$id = (int)$result[0];
+
 				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($id);
 
 				if ($ret) {
 					return $ret;
 				}
+
 				list($ret, $entity) = GalleryCoreApi::loadEntitiesById($id, 'GalleryEntity');
 
 				if ($ret) {
@@ -212,7 +218,9 @@ class GalleryEntityHelper_medium {
 
 					return $ret;
 				}
+
 				$entity->removeOnLoadHandler($handlerId);
+
 				$ret = $entity->save();
 
 				if ($ret) {
@@ -220,6 +228,7 @@ class GalleryEntityHelper_medium {
 
 					return $ret;
 				}
+
 				$ret = GalleryCoreApi::releaseLocks($lockId);
 
 				if ($ret) {
@@ -240,6 +249,7 @@ class GalleryEntityHelper_medium {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $entity) = GalleryCoreApi::loadEntitiesById($entityId, 'GalleryEntity');
 
 		if ($ret) {
@@ -247,7 +257,9 @@ class GalleryEntityHelper_medium {
 
 			return $ret;
 		}
+
 		$entity->setModificationTimestamp(time());
+
 		$ret = $entity->save();
 
 		if ($ret) {
@@ -255,6 +267,7 @@ class GalleryEntityHelper_medium {
 
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -276,7 +289,8 @@ class GalleryEntityHelper_medium {
 				'itemId' => $entityId,
 			)
 		);
-		$platform             =& $gallery->getPlatform();
+
+		$platform =& $gallery->getPlatform();
 
 		if ($platform->file_exists($fastDownloadFilePath)) {
 			$platform->unlink($fastDownloadFilePath);
@@ -322,6 +336,7 @@ class GalleryEntityHelper_medium {
 
 					break;
 			}
+
 			$itemIdForPermissions = $entity->getParentId();
 		} elseif (GalleryUtilities::isA($entity, 'GalleryDataItem')) {
 			$requiredPermission = 'core.viewSource';
@@ -370,6 +385,7 @@ class GalleryEntityHelper_medium {
 			} else {
 				return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 			}
+
 			$relativePath = str_replace($gallery->getConfig('data.gallery.base'), '', $fullPath);
 
 			$stats         = $platform->stat($fullPath);
@@ -382,7 +398,8 @@ class GalleryEntityHelper_medium {
 					'itemId' => $entity->getId(),
 				)
 			);
-			$buf                  = sprintf(
+
+			$buf = sprintf(
 				'<?php function GalleryFastDownload() { ' .
 				'return $GLOBALS[\'gallery\']->fastDownload(\'%s\', \'%s\', ' .
 				'\'%s\', \'%s\', %d);} ?>',
@@ -392,6 +409,7 @@ class GalleryEntityHelper_medium {
 				$entity->getMimeType(),
 				$contentLength
 			);
+
 			$platform->atomicWrite($fastDownloadFilePath, $buf);
 		}
 
@@ -418,6 +436,7 @@ class GalleryEntityHelper_medium {
 				$memberAccessInfo[$memberName]['write'] = !empty($memberInfo['external-access'])
 				&& $memberInfo['external-access'] & EXTERNAL_ACCESS_WRITE;
 			}
+
 			$target = $entityInfo[$target]['parent'];
 		}
 

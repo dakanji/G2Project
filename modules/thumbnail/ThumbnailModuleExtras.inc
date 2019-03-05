@@ -95,6 +95,7 @@ class ThumbnailModuleExtras {
 					return $ret;
 				}
 
+
 				// Fall Through
 			case '0.8.3':
 			case '0.8.4':
@@ -128,14 +129,15 @@ class ThumbnailModuleExtras {
 					}
 				}
 
+
 				// Fall Through
 			case '0.9.2':
 			case '0.9.3':
 				// Now allow thumbnail for root album; remove parent for mime type thumbnails
+
 				/* NOTE:
 				 * Upgrade code merged into case '1.0.7' since it changes a superset of this case.
 				 */
-
 			case '0.9.4':
 			case '0.9.5':
 			case '0.9.6':
@@ -159,11 +161,13 @@ class ThumbnailModuleExtras {
 				if ($ret) {
 					return $ret;
 				}
+
 				list($ret, $containerId) = $module->getParameter('id.container');
 
 				if ($ret) {
 					return $ret;
 				}
+
 				$containerId = (int)$containerId;
 
 				list($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
@@ -189,6 +193,7 @@ class ThumbnailModuleExtras {
 				if ($ret) {
 					return $ret;
 				}
+
 				$ids = $fileNames = array();
 
 				while ($result = $results->nextResult()) {
@@ -271,11 +276,13 @@ class ThumbnailModuleExtras {
 	    		';
 
 				$gallery->guaranteeTimeLimit(30);
+
 				list($ret, $results) = $gallery->search($query, array($containerId));
 
 				if ($ret) {
 					return $ret;
 				}
+
 				$ids = $fileNames = array();
 
 				while ($result = $results->nextResult()) {
@@ -309,6 +316,7 @@ class ThumbnailModuleExtras {
 
 							return $ret;
 						}
+
 						// The entity might be obsolete from the cache.
 						list($ret, $thumb) = $thumb->refresh();
 
@@ -317,6 +325,7 @@ class ThumbnailModuleExtras {
 
 							return $ret;
 						}
+
 						list($ret, $path) = $thumb->fetchPath();
 
 						if ($ret) {
@@ -324,7 +333,9 @@ class ThumbnailModuleExtras {
 
 							return $ret;
 						}
-						$dir           = dirname($path);
+
+						$dir = dirname($path);
+
 						list($success) = GalleryUtilities::guaranteeDirExists($dir);
 
 						if (!$success) {
@@ -337,6 +348,7 @@ class ThumbnailModuleExtras {
 								sprintf("Could not create folder '%s'", $dir)
 							);
 						}
+
 						$oldPath = $thumb->getThumbnailDir() . $fileNames[$id];
 
 						if ($platform->file_exists($oldPath)) {
@@ -367,11 +379,13 @@ class ThumbnailModuleExtras {
 									dirname(__DIR__) . '/core/data/broken-image.gif',
 									$path
 								);
+
 								$gallery->debug($message . ' Using image placeholder instead.');
 							} else {
 								$gallery->debug($message . " And file $path already exists, skipping.");
 							}
 						}
+
 						$ret = $thumb->save();
 
 						if ($ret) {
@@ -406,6 +420,7 @@ class ThumbnailModuleExtras {
 				if ($ret) {
 					return $ret;
 				}
+
 
 				// Fall Through
 			case '1.0.8':
@@ -468,6 +483,7 @@ class ThumbnailModuleExtras {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = array();
 		GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailImage.class');
 
@@ -533,11 +549,13 @@ class ThumbnailModuleExtras {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $container->createRoot();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $container->save();
 
 		if ($ret) {

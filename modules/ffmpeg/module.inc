@@ -66,6 +66,7 @@ class FfmpegModule extends GalleryModule {
 	 */
 	public function upgrade($currentVersion, $x1 = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'ffmpeg');
@@ -87,9 +88,10 @@ class FfmpegModule extends GalleryModule {
 			}
 		}
 
-		$slash         = $platform->getDirectorySeparator();
-		$pluginDir     = $gallery->getConfig('data.gallery.plugins_data');
-		$imageDir      = $pluginDir . "modules${slash}ffmpeg";
+		$slash     = $platform->getDirectorySeparator();
+		$pluginDir = $gallery->getConfig('data.gallery.plugins_data');
+		$imageDir  = $pluginDir . "modules${slash}ffmpeg";
+
 		list($success) = GalleryUtilities::guaranteeDirExists($imageDir);
 
 		if (!$success) {
@@ -194,6 +196,7 @@ class FfmpegModule extends GalleryModule {
 				if ($path[strlen($path) - 1] != $slash) {
 					$path .= $slash;
 				}
+
 				$paths[] = $path . 'ffmpeg.exe';
 			}
 
@@ -210,6 +213,7 @@ class FfmpegModule extends GalleryModule {
 				if ($path[strlen($path) - 1] != $slash) {
 					$path .= $slash;
 				}
+
 				$paths[] = $path . 'ffmpeg';
 			}
 
@@ -283,6 +287,7 @@ class FfmpegModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$priority = min($priority + 1, 40);
 		}
 
@@ -333,6 +338,7 @@ class FfmpegModule extends GalleryModule {
 		if (in_array('exec', preg_split('/,\s*/', ini_get('disable_functions')))) {
 			return array(null, true);
 		}
+
 		// This module requires all fields to be filled out before it can be activated.
 		foreach (array('path') as $key) {
 			list($ret, $value) = $this->getParameter($key);

@@ -42,6 +42,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$param = $isAdmin ? 'on' : 'off';
 		}
 
@@ -53,6 +54,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 	 */
 	public function handleRequest($form, &$item, &$addController = null) {
 		global $gallery;
+
 		$this->_platform        =& $gallery->getPlatform();
 		$this->_dirSep          = $this->_platform->getDirectorySeparator();
 		$this->_templateAdapter =& $gallery->getTemplateAdapter();
@@ -112,6 +114,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$this->_addingItemsMessage = $module->translate('Adding items');
 			$this->_fileCountMessage   = $module->translate('Scanning directory');
 
@@ -163,12 +166,14 @@ class ItemAddFromServer extends ItemAddPlugin {
 							$i / ($i + 500)
 						);
 					}
+
 					// Skip current or parent directory entries
 					if (empty($data['selected']) || $directory == '.' || $directory == '..'
 						|| !$this->_platform->is_readable($dir . urldecode($directory))
 					) {
 						continue;
 					}
+
 					$requiresAddAlbumPermission = true;
 
 					$this->_totalItems++;
@@ -208,11 +213,13 @@ class ItemAddFromServer extends ItemAddPlugin {
 							$this->_addedItems / $this->_totalItems
 						);
 					}
+
 					$file = $dir . urldecode($fileKey);
 
 					if (!isset($data['selected'])) {
 						continue;
 					}
+
 					$useSymlink = isset($data['useSymlink']);
 
 					if (!GalleryUtilities::isPathInList(dirname($file), $localServerDirList)
@@ -257,11 +264,13 @@ class ItemAddFromServer extends ItemAddPlugin {
 					if ($this->_addedItems - $this->_lastPostProcessed >= $this->_processBatch) {
 						$this->_lastPostProcessed = $this->_addedItems;
 						$gallery->guaranteeTimeLimit(30);
+
 						list($ret, $optionErrors) = $addController->postprocessItems($form, $status);
 
 						if ($ret) {
 							return array($ret, null, null);
 						}
+
 						$error = array_merge($error, $optionErrors);
 
 						if ($optionErrors) {
@@ -283,12 +292,14 @@ class ItemAddFromServer extends ItemAddPlugin {
 							$this->_addedItems / $this->_totalItems
 						);
 					}
+
 					// Skip current or parent directory entries
 					$path = $dir . urldecode($directory);
 
 					if (!isset($data['selected']) || $directory == '.' || $directory == '..') {
 						continue;
 					}
+
 					$useSymlink = isset($data['useSymlink']);
 
 					list($ret, $albumId) = $this->addDirectory(
@@ -305,8 +316,8 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 						return array($ret, null, null);
 					}
-					$this->_addedItems++; // Increment either way
 
+					$this->_addedItems++; // Increment either way
 					if ($this->_addedItems % $this->_progressBatch == 0) {
 						$gallery->guaranteeTimeLimit(30);
 						$this->_templateAdapter->updateProgressBar(
@@ -365,13 +376,15 @@ class ItemAddFromServer extends ItemAddPlugin {
 	 * @return GalleryStatus
 	 */
 	public function addItem($parentId, $file, $useSymlink, $textFields, &$status, &$error) {
-		$fileName             = basename($file);
-		$base                 = GalleryUtilities::getFileBase($fileName);
+		$fileName = basename($file);
+		$base     = GalleryUtilities::getFileBase($fileName);
+
 		list($ret, $mimeType) = GalleryCoreApi::getMimeType($fileName);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$base = GalleryCoreApi::convertToUtf8($base);
 		GalleryUtilities::sanitizeInputValues($base);
 
@@ -428,9 +441,10 @@ class ItemAddFromServer extends ItemAddPlugin {
 		$dirName     = basename($path);
 		$dirNameUtf8 = GalleryCoreApi::convertToUtf8($dirName);
 		GalleryUtilities::sanitizeInputValues($dirNameUtf8);
-		$dirTitle          = $textFields['title'] ? $dirNameUtf8 : null;
-		$dirSummary        = $textFields['summary'] ? $dirNameUtf8 : null;
-		$dirDescription    = $textFields['description'] ? $dirNameUtf8 : null;
+		$dirTitle       = $textFields['title'] ? $dirNameUtf8 : null;
+		$dirSummary     = $textFields['summary'] ? $dirNameUtf8 : null;
+		$dirDescription = $textFields['description'] ? $dirNameUtf8 : null;
+
 		list($ret, $album) = GalleryCoreApi::createAlbum(
 			$parentId,
 			$dirName,
@@ -496,8 +510,10 @@ class ItemAddFromServer extends ItemAddPlugin {
 			if ($fileName == '.' || $fileName == '..' || $fileName == '.svn') {
 				continue;
 			}
+
 			$dirList[] = $fileName;
 		}
+
 		$this->_platform->closedir($handle);
 		sort($dirList);
 
@@ -584,11 +600,13 @@ class ItemAddFromServer extends ItemAddPlugin {
 		if ($this->_addedItems - $this->_lastPostProcessed >= $this->_processBatch) {
 			$this->_lastPostProcessed = $this->_addedItems;
 			$gallery->guaranteeTimeLimit(30);
+
 			list($ret, $optionErrors) = $this->_addController->postprocessItems($form, $status);
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$error = array_merge($error, $optionErrors);
 		}
 
@@ -649,17 +667,20 @@ class ItemAddFromServer extends ItemAddPlugin {
 			if ($fileName == '.' || $fileName == '..' || $fileName == '.svn') {
 				continue;
 			}
+
 			$fileName = $dirName . $this->_dirSep . $fileName;
 
 			if (!$this->_platform->is_readable($fileName)) {
 				continue;
 			}
+
 			$fileCount++;
 
 			if ($this->_platform->is_dir($fileName)) {
 				$dirList[] = $fileName;
 			}
 		}
+
 		$this->_platform->closedir($handle);
 
 		foreach ($dirList as $subDirName) {
@@ -680,6 +701,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$localServerDirList                = array();
 		$localServerDirListInSystemCharset = array();
 
@@ -773,6 +795,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 						if ($fileName == '.') {
 							continue;
 						}
+
 						$filePath = $path . $slash . $fileName;
 
 						if ($platform->is_readable($filePath)) {
@@ -786,6 +809,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 								if (!$legal && $fileName == '..') {
 									continue;
 								}
+
 								$form['localServerFiles'][] = array(
 									'type'     => 'directory',
 									'fileName' => GalleryCoreApi::convertToUtf8($fileName),
@@ -807,6 +831,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 									if ($ret) {
 										return array($ret, null, null);
 									}
+
 									// Get localized and english names:
 									$mimeTypeItem->setMimeType($mimeType);
 									$mimeTypeItemMap[$mimeType] = array_merge(
@@ -826,6 +851,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 							}
 						}
 					}
+
 					$platform->closedir($handle);
 				} elseif ($platform->is_file($path) && !$platform->is_link($path)) {
 					list($ret, $mimeType) = GalleryCoreApi::getMimeType($path);
@@ -833,11 +859,13 @@ class ItemAddFromServer extends ItemAddPlugin {
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					list($ret, $mimeTypeItem) = GalleryCoreApi::newItemByMimeType($mimeType);
 
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					$mimeTypeItem->setMimeType($mimeType);
 					$mimeTypeItemName = array_merge(
 						$mimeTypeItem->itemTypeName(),
@@ -869,6 +897,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$ItemAddFromServer = array(
 			'pathSeparator'        => $slash,
 			'localServerDirList'   => $localServerDirList,
@@ -903,6 +932,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 		if (!isset($recentPaths)) {
 			$recentPaths = array();
 		}
+
 		$ItemAddFromServer['recentPaths'] = array_keys($recentPaths);
 
 		/*

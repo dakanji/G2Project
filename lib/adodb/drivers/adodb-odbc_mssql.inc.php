@@ -9,7 +9,6 @@
 Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   MSSQL support via ODBC. Requires ODBC. Works on Windows and Unix.
   For Unix configuration, see http://phpbuilder.com/columns/alberto20000919.php3
 */
@@ -22,7 +21,6 @@ if (!defined('ADODB_DIR')) {
 if (!defined('_ADODB_ODBC_LAYER')) {
 	include ADODB_DIR . '/drivers/adodb-odbc.inc.php';
 }
-
 
 class ADODB_odbc_mssql extends ADODB_odbc {
 	public $databaseType     = 'odbc_mssql';
@@ -46,9 +44,10 @@ class ADODB_odbc_mssql extends ADODB_odbc {
 	public $ansiOuter        = true; // for mssql7 or later
 	public $identitySQL      = 'select SCOPE_IDENTITY()'; // 'select SCOPE_IDENTITY'; # for mssql 2000
 	public $hasInsertID      = true;
-	public $connectStmt      = 'SET CONCAT_NULL_YIELDS_NULL OFF'; // When SET CONCAT_NULL_YIELDS_NULL is ON,
-	// concatenating a null value with a string yields a NULL result
+	public $connectStmt      = 'SET CONCAT_NULL_YIELDS_NULL OFF';
 
+	// When SET CONCAT_NULL_YIELDS_NULL is ON,
+	// concatenating a null value with a string yields a NULL result
 	public function __construct() {
 		parent::__construct();
 		//$this->curmode = SQL_CUR_USE_ODBC;
@@ -57,6 +56,7 @@ class ADODB_odbc_mssql extends ADODB_odbc {
 	// crashes php...
 	public function ServerInfo() {
 		global $ADODB_FETCH_MODE;
+
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		$row              = $this->GetRow('execute sp_server_info 2');
@@ -65,6 +65,7 @@ class ADODB_odbc_mssql extends ADODB_odbc {
 		if (!is_array($row)) {
 			return false;
 		}
+
 		$arr['description'] = $row[2];
 		$arr['version']     = ADOConnection::_findvers($arr['description']);
 
@@ -121,6 +122,7 @@ order by constraint_name, referenced_table_name, keyno";
 				if ($upper) {
 					$a = strtoupper($a);
 				}
+
 				$arr2[$a] = $b;
 			}
 		}
@@ -134,6 +136,7 @@ order by constraint_name, referenced_table_name, keyno";
 			$mask                 = $this->qstr($mask);
 			$this->metaTablesSQL .= " AND name like $mask";
 		}
+
 		$ret = ADOConnection::MetaTables($ttype, $showSchema);
 
 		if ($mask) {
@@ -150,13 +153,16 @@ order by constraint_name, referenced_table_name, keyno";
 			$dbName = $this->database;
 			$this->SelectDB($schema);
 		}
+
 		global $ADODB_FETCH_MODE;
+
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
 			$savem = $this->SetFetchMode(false);
 		}
+
 		$rs = $this->Execute(sprintf($this->metaColumnsSQL, $table));
 
 		if ($schema) {
@@ -166,6 +172,7 @@ order by constraint_name, referenced_table_name, keyno";
 		if (isset($savem)) {
 			$this->SetFetchMode($savem);
 		}
+
 		$ADODB_FETCH_MODE = $save;
 
 		if (!is_object($rs)) {
@@ -183,12 +190,11 @@ order by constraint_name, referenced_table_name, keyno";
 
 			$fld->not_null       = (!$rs->fields[3]);
 			$fld->auto_increment = ($rs->fields[4] == 128);     // sys.syscolumns status field. 0x80 = 128 ref: http://msdn.microsoft.com/en-us/library/ms186816.aspx
-
-
 			if (isset($rs->fields[5]) && $rs->fields[5]) {
 				if ($rs->fields[5] > 0) {
 					$fld->max_length = $rs->fields[5];
 				}
+
 				$fld->scale = $rs->fields[6];
 
 				if ($fld->scale > 0) {
@@ -198,12 +204,12 @@ order by constraint_name, referenced_table_name, keyno";
 				$fld->max_length = $rs->fields[2];
 			}
 
-
 			if ($save == ADODB_FETCH_NUM) {
 				$retarr[] = $fld;
 			} else {
 				$retarr[strtoupper($fld->name)] = $fld;
 			}
+
 			$rs->MoveNext();
 		}
 
@@ -225,6 +231,7 @@ order by constraint_name, referenced_table_name, keyno";
 			ORDER BY O.name, I.Name, K.keyno";
 
 		global $ADODB_FETCH_MODE;
+
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
@@ -237,6 +244,7 @@ order by constraint_name, referenced_table_name, keyno";
 		if (isset($savem)) {
 			$this->SetFetchMode($savem);
 		}
+
 		$ADODB_FETCH_MODE = $save;
 
 		if (!is_object($rs)) {
@@ -277,6 +285,7 @@ order by constraint_name, referenced_table_name, keyno";
 		if (!stristr($transaction_mode, 'isolation')) {
 			$transaction_mode = 'ISOLATION LEVEL ' . $transaction_mode;
 		}
+
 		$this->Execute('SET TRANSACTION ' . $transaction_mode);
 	}
 
@@ -304,6 +313,7 @@ order by constraint_name, referenced_table_name, keyno";
 		if ($a && sizeof($a) > 0) {
 			return $a;
 		}
+
 		$false = false;
 
 		return $false;
@@ -319,7 +329,8 @@ order by constraint_name, referenced_table_name, keyno";
 				'\\1 ' . $this->hasTop . " $nrows ",
 				$sql
 			);
-			$rs  = $this->Execute($sql, $inputarr);
+
+			$rs = $this->Execute($sql, $inputarr);
 		} else {
 			$rs = ADOConnection::SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
 		}
@@ -332,6 +343,7 @@ order by constraint_name, referenced_table_name, keyno";
 		if (!$col) {
 			$col = $this->sysTimeStamp;
 		}
+
 		$s = '';
 
 		$len = strlen($fmt);
@@ -340,6 +352,7 @@ order by constraint_name, referenced_table_name, keyno";
 			if ($s) {
 				$s .= '+';
 			}
+
 			$ch = $fmt[$i];
 
 			switch ($ch) {
@@ -402,6 +415,7 @@ order by constraint_name, referenced_table_name, keyno";
 						$i++;
 						$ch = substr($fmt, $i, 1);
 					}
+
 					$s .= $this->qstr($ch);
 
 					break;

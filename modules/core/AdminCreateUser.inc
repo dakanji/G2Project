@@ -126,6 +126,7 @@ class AdminCreateUserController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'core.AdminCreateUser';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -177,6 +178,7 @@ class AdminCreateUserView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$languageList     = array();
 		$languageList[''] = $module->translate('&lt;none&gt;');
 

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/newitems/classes/NewItemsHelper.class');
 
 /**
@@ -115,6 +114,7 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('13', $days, 'days');
 	}
 
@@ -166,6 +166,7 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($count > 0, 'Should be at least one NewItems sort in db');
 
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
@@ -190,6 +191,7 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(0, $count, 'Should be no NewItems sorts in db after reset');
 
 		$ret = $this->_restoreNewItemSorts();
@@ -203,11 +205,13 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('orderWeight', $defaultSort, 'default sort');
 	}
 
 	public function _saveNewItemSorts() {
 		global $gallery;
+
 		$query = 'SELECT [GalleryAlbumItem::id], [GalleryAlbumItem::orderDirection]
 	FROM [GalleryAlbumItem] WHERE [GalleryAlbumItem::orderBy] = \'NewItems\'';
 
@@ -216,11 +220,13 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ids = array();
 
 		while ($result = $results->nextResult()) {
 			$ids[(int)$result[0]] = $result[1];
 		}
+
 		$this->_newItemSortIds = $ids;
 
 		return null;
@@ -230,11 +236,13 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 		if (empty($this->_newItemSortIds)) {
 			return null;
 		}
+
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array_keys($this->_newItemSortIds));
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $items) = GalleryCoreApi::loadEntitiesById(
 			array_keys($this->_newItemSortIds),
 			'GalleryAlbumItem'
@@ -247,12 +255,14 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 		foreach ($items as $item) {
 			$item->setOrderBy('NewItems');
 			$item->setOrderDirection($this->_newItemSortIds[$item->getId()]);
+
 			$ret = $item->save();
 
 			if ($ret) {
 				return $ret;
 			}
 		}
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {

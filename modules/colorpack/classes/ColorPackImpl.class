@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/colorpack/classes/ColorPackInterface_1_0.class');
 
 /**
@@ -33,6 +32,7 @@ class ColorPackImpl extends ColorPackInterface_1_0 {
 	 */
 	public function getColorPacks() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$colorpacks = array();
@@ -54,6 +54,7 @@ class ColorPackImpl extends ColorPackInterface_1_0 {
 					$colorpacks[$file] = isset($colorpackName) ? $this->translate($colorpackName) : $file;
 				}
 			}
+
 			ob_end_clean();
 			$platform->closedir($fd);
 			asort($colorpacks);
@@ -88,7 +89,9 @@ class ColorPackImpl extends ColorPackInterface_1_0 {
 	 */
 	public function translate($string) {
 		global $gallery;
-		$translator          =& $gallery->getTranslator();
+
+		$translator =& $gallery->getTranslator();
+
 		list($ret, $content) = $translator->translateDomain('modules_colorpack', $string);
 
 		if ($ret) {

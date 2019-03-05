@@ -71,6 +71,7 @@ class GallerySetupUtilities {
 				$sessionData[$key] = $value;
 			}
 		}
+
 		// 2. Delete the old session
 		session_unset();
 		session_destroy();
@@ -81,6 +82,7 @@ class GallerySetupUtilities {
 		foreach (array($_GET, $_POST, $_REQUEST, $_COOKIE) as $superGlobal) {
 			unset($superGlobal[$sessionName]);
 		}
+
 		session_start();
 
 		foreach ($sessionData as $key => $value) {
@@ -120,6 +122,7 @@ class GallerySetupUtilities {
 			 * we are ready for them (eg: redirect us to the installer if we have no config.php)
 			 */
 			include_once __DIR__ . '/../../embed.php';
+
 			$ret = GalleryEmbed::init(
 				array(
 					'fullInit' => false,
@@ -169,6 +172,7 @@ class GallerySetupUtilities {
 			 * we are ready for them (eg: redirect us to the installer if we have no config.php)
 			 */
 			include_once __DIR__ . '/../../embed.php';
+
 			$ret = GalleryEmbed::init(
 				array(
 					'fullInit' => false,
@@ -220,6 +224,7 @@ class GallerySetupUtilities {
 		if ($resetLoginAttempts) {
 			GallerySetupUtilities::setLoginAttempts(0);
 		}
+
 		GallerySetupUtilities::regenerateSession();
 	}
 
@@ -254,6 +259,7 @@ class GallerySetupUtilities {
 				false
 			);
 		}
+
 		header('Location: ' . $url);
 	}
 
@@ -355,6 +361,7 @@ class GallerySetupUtilities {
 			session_unset();
 			session_destroy();
 		}
+
 		session_name(G2_SETUP_SESSION_NAME);
 
 		$sessionName = session_name();
@@ -372,12 +379,14 @@ class GallerySetupUtilities {
 			if (function_exists('preg_replace')) {
 				$sessionId = preg_replace('/[^a-zA-Z0-9]/', '', $sessionId);
 			} else {
-				$sessionId = ereg_replace('/[^a-zA-Z0-9]/', '', $sessionId);
+				$sessionId = preg_replace('#/[^a-zA-Z0-9]/#D', '', $sessionId);
 			}
+
 			// Make sure we don't use invalid data at a later point
 			foreach (array($_GET, $_POST, $_REQUEST, $_COOKIE) as $superGlobal) {
 				unset($superGlobal[$sessionName]);
 			}
+
 			/*
 			 * md5 has a 128 bit (32 * 4bit) string, but we want to allow for other possible
 			 * hash functions too which possibly have hash strings of only 10 characters
@@ -460,16 +469,19 @@ class GallerySetupUtilities {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $adminUserIds) = GalleryCoreApi::fetchUsersForGroup($adminGroupId);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $adminUsers) = GalleryCoreApi::loadEntitiesById(array_keys($adminUserIds));
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$toList = array();
 
 		foreach ($adminUsers as $admin) {

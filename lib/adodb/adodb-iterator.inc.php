@@ -18,9 +18,6 @@
 			echo $k; print_r($v); echo "<br>";
 		}
 
-
 	Iterator code based on http://cvs.php.net/cvs.php/php-src/ext/spl/examples/cachingiterator.inc?login=2
-
-
 	Moved to adodb.inc.php to improve performance.
  */

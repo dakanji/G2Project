@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
 
 /**
@@ -88,6 +87,7 @@ class MSSqlStorage extends GalleryStorage {
 				foreach ($args as $key => $value) {
 					$args[$key] = 'CAST(' . $value . ' AS NVARCHAR)';
 				}
+
 				$sql = implode(' + ', $args);
 
 				break;
@@ -115,6 +115,7 @@ class MSSqlStorage extends GalleryStorage {
 				if (count($args) == 2) {
 					$args[2] = 'LEN(' . $args[0] . ') - ' . $args[1] . ' + 1';
 				}
+
 				$sql = sprintf('SUBSTRING(%s)', implode(', ', $args));
 
 				break;
@@ -140,6 +141,7 @@ class MSSqlStorage extends GalleryStorage {
 				while (count($args) > 1) {
 					$sql[] = 'WHEN ' . array_shift($args) . ' THEN ' . array_shift($args);
 				}
+
 				$sql = 'CASE ' . implode(' ', $sql) . ' ELSE ' . $args[0] . ' END';
 
 				break;

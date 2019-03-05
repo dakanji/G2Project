@@ -65,6 +65,7 @@ class GalleryUserHelper_simple {
 		if (!isset($userId)) {
 			$userId = $gallery->getActiveUserId();
 		}
+
 		$sessionPermissions = (int)$sessionPermissions;
 
 		$cacheKey = "GalleryPermissionHelper::getPermissions($itemId,$userId,$sessionPermissions)";
@@ -91,6 +92,7 @@ class GalleryUserHelper_simple {
 		if (empty($aclIds)) {
 			return array(null, false);
 		}
+
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
 		/*

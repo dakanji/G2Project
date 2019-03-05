@@ -35,6 +35,7 @@ class RearrangeItemsController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		// Check permissions
@@ -55,6 +56,7 @@ class RearrangeItemsController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			// Verify valid input
 			if (count($list) != count($childIds)) {
 				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
@@ -83,6 +85,7 @@ class RearrangeItemsController extends GalleryController {
 
 			$event = GalleryCoreApi::newEvent('Gallery::ItemOrder');
 			$event->setData($itemId);
+
 			list($ret) = GalleryCoreApi::postEvent($event);
 
 			if ($ret) {
@@ -91,14 +94,14 @@ class RearrangeItemsController extends GalleryController {
 
 			$status['saved'] = 1;
 		} // else $form['action']['reset']
-
 		$results['redirect'] = array(
 			'view'    => 'core.ItemAdmin',
 			'subView' => 'rearrange.RearrangeItems',
 			'itemId'  => $itemId,
 		);
-		$results['status']   = $status;
-		$results['error']    = $error;
+
+		$results['status'] = $status;
+		$results['error']  = $error;
 
 		return array(null, $results);
 	}
@@ -117,6 +120,7 @@ class RearrangeItemsView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		// Check permissions
@@ -149,11 +153,13 @@ class RearrangeItemsView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			list($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
 
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($childIds);
 
 			if ($ret) {
@@ -177,17 +183,22 @@ class RearrangeItemsView extends GalleryView {
 							return array($ret, null);
 						}
 					}
+
 					$child['thumbnail'] = (array)$thumb;
-					list($w, $h)        = GalleryUtilities::shrinkDimensionsToFit(
+
+					list($w, $h) = GalleryUtilities::shrinkDimensionsToFit(
 						$thumb->getWidth(),
 						$thumb->getHeight(),
 						100
 					);
-					$maxWidth           = max($w, $maxWidth);
-					$maxHeight          = max($h, $maxHeight);
+
+					$maxWidth  = max($w, $maxWidth);
+					$maxHeight = max($h, $maxHeight);
 				}
+
 				$children[] = $child;
 			}
+
 			$RearrangeItems['children']  = $children;
 			$RearrangeItems['count']     = count($children);
 			$RearrangeItems['maxWidth']  = $maxWidth  + 5;
@@ -199,16 +210,19 @@ class RearrangeItemsView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			list($ret, $params) = $theme->fetchParameters($item->getId());
 
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$RearrangeItems['rows']    = empty($params['rows']) ? 0 : $params['rows'];
 			$RearrangeItems['columns'] = empty($params['columns']) ? 0 : $params['columns'];
 		}

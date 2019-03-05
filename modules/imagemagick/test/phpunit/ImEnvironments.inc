@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision: 17804 $
  * @package ImageMagick
@@ -276,7 +277,6 @@ identify: Missing an image file name.',
  * ImageMagick 6.0.7
  * --------------------------------------------------------------------------
  */
-
 $imEnvironment[] = array(
 	'name'                 => 'ImageMagick',
 	'version'              => '6.0.7',
@@ -387,7 +387,6 @@ test.pdf[1] PDF 612x792 612x792+0+0 PseudoClass 256c 947kb 0.030u 0:01',
  * ImageMagick 6.1.3
  * --------------------------------------------------------------------------
  */
-
 $imEnvironment[] = array(
 	'name'                 => 'ImageMagick',
 	'version'              => '6.1.3',
@@ -511,7 +510,6 @@ test.pdf[1] PDF 612x792 612x792+0+0 PseudoClass 256c 947kb 0.030u 0:01',
  * ImageMagick 6.2.7 (coalesce / deconstruct changes)
  * --------------------------------------------------------------------------
  */
-
 $im627                 = $imEnvironment[count($imEnvironment) - 1];
 $im627['version']      = '6.2.7';
 $im627['identify'][''] = 'Version: ImageMagick 6.2.7 11/01/05 Q16 http://www.imagemagick.org

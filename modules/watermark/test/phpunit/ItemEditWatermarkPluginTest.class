@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkImage.class');
 
 /**
@@ -34,6 +33,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -57,6 +57,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_watermark);
 
 		/*
@@ -68,6 +69,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 		$albumId = $this->_album->getId();
 
@@ -76,6 +78,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$subalbumId = $this->_subalbum->getId();
 
 		foreach (array(
@@ -136,6 +139,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 			if ($ret) {
 				return array($ret, null, null, null, null);
 			}
+
 			$sourceId = $preferred->getId();
 		}
 
@@ -197,6 +201,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals(
 				sprintf(
 					'composite|plugins_data/modules/watermark/' .
@@ -238,6 +243,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals(
 				'',
 				$derivative->getPostFilterOperations(),
@@ -306,6 +312,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 				if ($ret) {
 					return $ret;
 				}
+
 				$this->assertEquals(
 					$preferred->getId(),
 					$derivative->getDerivativeSourceId(),
@@ -322,16 +329,19 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_preferred->setDerivativeOperations(null);
 		$this->_preferred->setPostFilterOperations(
 			'composite|plugins_data/modules/watermark/' . $this->_watermark->getFileName()
 			. ',image/gif,62,75,manual,25.000,50.000'
 		);
+
 		$ret = $this->_preferred->save();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -366,6 +376,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals(
 				$this->_item->getId(),
 				$derivative->getDerivativeSourceId(),
@@ -405,11 +416,13 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		$results   = $this->handleRequest($this->_album, $preferred);
 		$this->assertEquals(array(array(), $this->_translate($message)), $results);
 		$this->assertEquals(1, $this->_templateAdapter->getCallbackCount(), 'Callback count');
+
 		$ret = $this->_templateAdapter->runCallbacks();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$progress = $this->_templateAdapter->getProgressBarDump();
 		$this->assertTrue(
 			preg_match(
@@ -445,11 +458,13 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 				if (!isset($derivative)) {
 					continue;
 				}
+
 				list($ret, $derivative) = $derivative->refresh();
 
 				if ($ret) {
 					return $ret;
 				}
+
 				$expected = $getsWatermark && ($applyToThumbnail
 				|| $derivative->getDerivativeType() != DERIVATIVE_TYPE_IMAGE_THUMBNAIL) ? 'composite|plugins_data/modules/watermark/'
 				. $this->_watermark->getFileName() . ',image/gif,62,75,manual,' . $location : '';
@@ -504,6 +519,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			isset($toolkit),
 			$this->_plugin->isSupported($this->_album, null),
@@ -513,11 +529,13 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 
 	public function testPermission() {
 		global $gallery;
+
 		$ret = $this->_markPluginParametersForCleanup('module', 'watermark');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'watermark',
@@ -528,6 +546,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'watermark', 'defaultWatermarkId', 27);
 
 		if ($ret) {
@@ -538,6 +557,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		$this->assertTrue($this->_plugin->isSupported($this->_item, $this->_thumbnail), 'admin');
 
 		$this->_becomeGuestUser();
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$gallery->getActiveUserId(),
@@ -568,6 +588,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('ItemEditWatermarkPluginTestToolkit');
 
 		$ret = GalleryCoreApi::registerToolkitOperation(
@@ -613,5 +634,4 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 	}
 }
 
-class ItemEditWatermarkPluginTestToolkit {
-}
+class ItemEditWatermarkPluginTestToolkit {}

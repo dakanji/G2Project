@@ -90,6 +90,7 @@ class ShowItemView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
+
 		list($ret, $item, $wasSpecified) = $this->getItem(true);
 
 		if ($ret) {
@@ -144,6 +145,7 @@ class ShowItemView extends GalleryView {
 	 */
 	public function getItem($getOriginalSpecified = false) {
 		static $originalSpecified;
+
 		list($ret, $item, $wasSpecified) = parent::getItem();
 
 		if ($ret) {
@@ -158,6 +160,7 @@ class ShowItemView extends GalleryView {
 		if (!$wasSpecified) {
 			GalleryUtilities::putRequestVariable('itemId', $item->getId());
 		}
+
 		// Default wasSpecified=true so without itemId we still use root album theme/params
 		return array(null, $item, $getOriginalSpecified ? $originalSpecified : true);
 	}

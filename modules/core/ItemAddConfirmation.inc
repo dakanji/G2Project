@@ -50,6 +50,7 @@ class ItemAddConfirmationView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		/*

@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * Script for running unit tests
  * @package Gallery
@@ -54,8 +55,9 @@ if ($glob) {
 
 if (!empty($_GET['run'])) {
 	list($action, $run) = explode(':', $_GET['run']);
-	$run                = substr($run, 0, strspn($run, '0123456789'));
-	$runFile            = "${testReportDir}run-$run.html";
+
+	$run     = substr($run, 0, strspn($run, '0123456789'));
+	$runFile = "${testReportDir}run-$run.html";
 
 	switch ($action) {
 		case 'frame':
@@ -72,11 +74,11 @@ if (!empty($_GET['run'])) {
 
 			exit;
 
-
 		case 'deleteall':
 			foreach ($priorRuns as $pr) {
 				unlink("${testReportDir}run-$pr[key].html");
 			}
+
 			header('Location: index.php');
 
 			exit;
@@ -87,6 +89,7 @@ if (!empty($_GET['run'])) {
 			if (file_exists($runFile)) {
 				unlink($runFile);
 			}
+
 			header('Location: index.php');
 
 			break;
@@ -217,6 +220,7 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 	if ($ret) {
 		return $ret;
 	}
+
 	$urlDir       = str_replace('lib/tools/phpunit/', '', $urlGenerator->getCurrentUrlDir());
 	$path         = substr($urlDir, strlen($urlGenerator->makeUrl('/')) - 1);
 	$urlGenerator = new GalleryUrlGenerator();
@@ -225,6 +229,7 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 	if ($ret) {
 		return $ret;
 	}
+
 	$gallery->setUrlGenerator($urlGenerator);
 
 	/*
@@ -294,6 +299,7 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 
 function loadTests($moduleId, $testDir, $filter) {
 	global $gallery;
+
 	$moduleArray = array();
 
 	$platform =& $gallery->getPlatform();
@@ -325,6 +331,7 @@ function loadTests($moduleId, $testDir, $filter) {
 				}
 			}
 		}
+
 		$platform->closedir($dir);
 	}
 
@@ -343,6 +350,7 @@ class GalleryTestResult extends TestResult {
 	public function report() {
 		// report result of test run
 		global $compactView;
+
 		$nRun      = $this->countTests();
 		$nFailures = $this->failureCount();
 
@@ -364,16 +372,19 @@ class GalleryTestResult extends TestResult {
 					$this->_testsRunThenSkipped
 				);
 			}
+
 			printf(
 				"setTxt('testFailCount','%s test%s');",
 				$this->_testsFailed,
 				($this->_testsFailed == 1) ? '' : 's'
 			);
+
 			printf(
 				"setTxt('testErrorCount','%s error%s');",
 				$nFailures,
 				($nFailures == 1) ? '' : 's'
 			);
+
 			printf("setTxt('testReport', '%s');", $this->_getTestResultRecord());
 			printf('setUsername("NAME_PLACEHOLDER", getUsernameFromCookie());');
 			echo "document.getElementById('testSummary').style.display='block';</script>\n";
@@ -389,6 +400,7 @@ class GalleryTestResult extends TestResult {
 		foreach ($failures as $failure) {
 			$newFilter[$failure->getClassName() . '.' . $failure->getTestName()] = 1;
 		}
+
 		printf(
 			'<script type="text/javascript">var failedTestFilter="(%s)$";%s</script>',
 			implode('|', array_keys($newFilter)),
@@ -398,6 +410,7 @@ class GalleryTestResult extends TestResult {
 
 	public function _getTestResultRecord() {
 		global $gallery;
+
 		$storage    =& $gallery->getStorage();
 		$translator =& $gallery->getTranslator();
 
@@ -462,6 +475,7 @@ class GalleryTestResult extends TestResult {
 		if ($this->fRunTests == 1) {
 			echo '<script text="text/javascript">showStatus();</script>';
 		}
+
 		printf('<script type="text/javascript">runningTest("%s");</script>', $test->name());
 		flush();
 	}
@@ -477,6 +491,7 @@ class GalleryTestResult extends TestResult {
 			if (isset($compactView)) {
 				return;
 			}
+
 			$class   = 'Skipped';
 			$text    = 'r.cells[4].lastChild.nodeValue="SKIPPED";';
 			$extra   = 'r.className="skip";';
@@ -506,6 +521,7 @@ class GalleryTestResult extends TestResult {
 				foreach ($test->getExceptions() as $exception) {
 					$failure .= '<li>' . $exception->getMessage() . "</li>\n";
 				}
+
 				$failure .= "</ul>\n";
 				$cmd      = "updateStats(0, 1, 0, $usedMemory)";
 			} else {
@@ -519,9 +535,11 @@ class GalleryTestResult extends TestResult {
 					echo '<meta http-equiv="refresh" content="0; index.php?filter=' .
 					"$x$i-$i" . '&amp;onebyone=true"/>';
 				}
+
 				$cmd = "updateStats(1, 0, 0, $usedMemory)";
 			}
 		}
+
 		echo '<script type="text/javascript">r=document.getElementById(\'testRow'
 		. $this->fRunTests . "');$extra";
 		echo "r.cells[4].className='$class';$text";
@@ -541,6 +559,7 @@ if (isset($_GET['filter'])) {
 	} elseif (!empty($_GET['onebyone'])) {
 		$testOneByOne = $compactView = (int)substr($filter, strrpos($filter, '-') + 1);
 	}
+
 	$range = array();
 	$skip  = explode(',', $filter);
 
@@ -564,6 +583,7 @@ if (isset($_GET['filter'])) {
 			}
 		}
 	}
+
 	$displayFilter = $filter;
 
 	if (count($range) == 0) {
@@ -588,11 +608,13 @@ if (isset($_GET['filter'])) {
 	$displayFilter = null;
 	$range         = array(array(1, FILTER_MAX));
 }
+
 $testSuite = new TestSuite();
 $ret       = PhpUnitGalleryMain($testSuite, $filter);
 
 if ($ret) {
 	$ret = $ret;
+
 	echo $ret->getAsHtml();
 	echo $gallery->getDebugBuffer();
 
@@ -603,6 +625,7 @@ list($ret, $moduleStatusList) = GalleryCoreApi::fetchPluginStatus('module');
 
 if ($ret) {
 	$ret = $ret;
+
 	echo $ret->getAsHtml();
 
 	return;
@@ -651,12 +674,12 @@ foreach (array(
 }
 
 // Uncomment below to see debug output before tests run
+
 /*
  * print "<pre>";
  * print $gallery->getDebugBuffer();
  * print "</pre>";
  */
-
 require __DIR__ . '/index.tpl';
 
 // Compact any ACLs that were created during this test run

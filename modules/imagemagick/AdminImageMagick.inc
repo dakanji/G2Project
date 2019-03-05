@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/imagemagick/classes/ImageMagickToolkitHelper.class');
 
 /**
@@ -110,6 +109,7 @@ class AdminImageMagickController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$ret = GalleryCoreApi::setPluginParameter(
 					'module',
 					'imagemagick',
@@ -157,11 +157,13 @@ class AdminImageMagickController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				list($ret, $isActive) = $module->isActive();
 
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				/*
 				 * If path or cmykSupport has changed and the module is active then
 				 * reactivate to update supported mime types, operations, properties.
@@ -200,6 +202,7 @@ class AdminImageMagickController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'imagemagick.AdminImageMagick';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -216,6 +219,7 @@ class AdminImageMagickView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
@@ -233,6 +237,7 @@ class AdminImageMagickView extends GalleryView {
 					return array($ret, null);
 				}
 			}
+
 			$form['formName'] = 'AdminImageMagick';
 		}
 
@@ -258,8 +263,10 @@ class AdminImageMagickView extends GalleryView {
 		if (isset($form['action']['test'])) {
 			if (!empty($form['path'])) {
 				$gallery->startRecordingDebugSnippet();
+
 				list($ret, $testResults) = ImageMagickToolkitHelper::testBinaries($form['path']);
-				$debugSnippet            = $gallery->stopRecordingDebugSnippet();
+
+				$debugSnippet = $gallery->stopRecordingDebugSnippet();
 
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {
@@ -276,6 +283,7 @@ class AdminImageMagickView extends GalleryView {
 							$success = false;
 							$failCount++;
 						}
+
 						$tests[] = $testResult;
 					}
 
@@ -315,6 +323,7 @@ class AdminImageMagickView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $isActive) = $module->isActive();
 
 		if ($ret) {

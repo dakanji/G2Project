@@ -66,6 +66,7 @@ class ThumbnailModule extends GalleryModule {
 	 */
 	public function upgrade($currentVersion, $x1 = null) {
 		GalleryCoreApi::requireOnce('modules/thumbnail/ThumbnailModuleExtras.inc');
+
 		$ret = ThumbnailModuleExtras::upgrade($this, $currentVersion);
 
 		if ($ret) {
@@ -146,6 +147,7 @@ class ThumbnailModule extends GalleryModule {
 	 */
 	public function activate($postActivationEvent = true) {
 		GalleryCoreApi::requireOnce('modules/thumbnail/ThumbnailModuleExtras.inc');
+
 		list($ret, $ignored) = ThumbnailModuleExtras::activate($postActivationEvent);
 
 		if ($ret) {
@@ -168,6 +170,7 @@ class ThumbnailModule extends GalleryModule {
 		GalleryCoreApi::requireOnce(
 			'modules/thumbnail/classes/ThumbnailHelper.class'
 		);
+
 		global $gallery;
 
 		list($ret, $containerId) = $this->getParameter('id.container');
@@ -175,6 +178,7 @@ class ThumbnailModule extends GalleryModule {
 		if ($ret) {
 			return $ret;
 		}
+
 		$containerId = (int)$containerId;
 
 		// Deletes ThumbnailImage entities and restores thumbnails for affected items.
@@ -240,10 +244,12 @@ class ThumbnailModule extends GalleryModule {
 				// Prevent that we try to restore the thumbnail during the deletion.
 				$key = 'ThumbnailImage::delete';
 				GalleryDataCache::put($key, $entity->getId());
+
 				$ret = GalleryCoreApi::deleteEntityById(
 					$source->getId(),
 					'ThumbnailImage'
 				);
+
 				GalleryDataCache::remove($key);
 
 				if ($ret) {

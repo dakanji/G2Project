@@ -52,6 +52,7 @@ function smarty_modifier_markup($text) {
 				// This code is used by the UI -- we can't return an error. Choose something safe
 				$defaultMarkupType = 'none';
 			}
+
 			GalleryDataCache::put($cacheKey, $defaultMarkupType);
 		}
 
@@ -204,6 +205,7 @@ class GalleryBbcodeMarkupParser {
 			array('block', 'listitem'),
 			array()
 		);
+
 		$this->_bbcode->addCode(
 			'*',
 			'simple_replace',
@@ -216,6 +218,7 @@ class GalleryBbcodeMarkupParser {
 			array('list'),
 			array()
 		);
+
 		$this->_bbcode->setCodeFlag('*', 'closetag', BBCODE_CLOSETAG_OPTIONAL);
 	}
 
@@ -229,14 +232,17 @@ class GalleryBbcodeMarkupParser {
 			if (!isset($attributes['default'])) {
 				return preg_match('#^(https?|ftp|mailto):|^/#', $content);
 			}
+
 			// The code is like [url=http://.../]Text[/url]
 			return preg_match('#^(https?|ftp|mailto):|^/#', $attributes['default']);
 		}
+
 		// Output of HTML.
 		// The code is like [url]http://.../[/url]
 		if (!isset($attributes['default'])) {
 			return '<a href="' . $content . '" rel="nofollow">' . $content . '</a>';
 		}
+
 		// The code is like [url=http://.../]Text[/url]
 		return '<a href="' . $attributes['default'] . '" rel="nofollow">'
 			. $content . '</a>';
@@ -246,6 +252,7 @@ class GalleryBbcodeMarkupParser {
 		if ($action == 'validate') {
 			return preg_match('#^(https?|ftp|mailto):|^/#', $content);
 		}
+
 		// Output of HTML.
 		$size = (isset($attrs['width']) ? ' width="' . (int)$attrs['width'] . '"' : '')
 		. (isset($attrs['height']) ? ' height="' . (int)$attrs['height'] . '"' : '');
@@ -257,6 +264,7 @@ class GalleryBbcodeMarkupParser {
 		if ($action == 'validate') {
 			return !empty($attrs['default']);
 		}
+
 		// Output of HTML.
 		$color = empty($attrs) ? 'bummer' : $attrs['default'];
 

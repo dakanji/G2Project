@@ -74,6 +74,7 @@ class CaptchaImageView extends GalleryView {
 				mt_rand(128, 192),
 				mt_rand(128, 192)
 			);
+
 			imageellipse(
 				$image,
 				mt_rand(-15, $width - 5),
@@ -97,6 +98,7 @@ class CaptchaImageView extends GalleryView {
 				mt_rand(60, 120),
 				mt_rand(60, 120)
 			);
+
 			imagestring(
 				$image,
 				5,

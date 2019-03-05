@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/sizelimit/classes/SizeLimitHelper.class');
 
 /**
@@ -39,8 +38,9 @@ class SetSizeOption extends ItemAddOption {
 	 * @see ItemAddOption::handleRequestAfterAdd
 	 */
 	public function handleRequestAfterAdd($form, $items) {
-		$errors             = array();
-		$warnings           = array();
+		$errors   = array();
+		$warnings = array();
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'sizelimit');
 
 		if ($ret) {
@@ -63,6 +63,7 @@ class SetSizeOption extends ItemAddOption {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$param = array_merge(
 				array(
 					'keepOriginal' => 0,

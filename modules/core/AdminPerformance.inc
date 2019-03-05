@@ -78,6 +78,7 @@ class AdminPerformanceController extends GalleryController {
 						null,
 					);
 				}
+
 				$acceleration[$class]['type'] = $form['acceleration'][$class]['type'];
 
 				switch ($form['acceleration'][$class]['type']) {
@@ -98,6 +99,7 @@ class AdminPerformanceController extends GalleryController {
 						return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 				}
 			}
+
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
 				'core',
@@ -131,6 +133,7 @@ class AdminPerformanceController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$status['cleared'] = 1;
 			$redirect          = array(
 				'view'    => 'core.SiteAdmin',
@@ -214,6 +217,7 @@ class AdminPerformanceView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$form['disableCompileCheck'] = !$compileCheck;
 		}
 

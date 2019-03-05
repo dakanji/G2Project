@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
 
 /**
@@ -179,6 +178,7 @@ class GalleryPhotoItem extends GalleryDataItem {
 		if ($ret) {
 			return $ret;
 		}
+
 		$mimeType = $this->getMimeType();
 
 		// Check for CMYK colorspace and alter mime type if detected
@@ -192,13 +192,15 @@ class GalleryPhotoItem extends GalleryDataItem {
 			list($ret, $colorspace) = $toolkit->getProperty($mimeType, 'colorspace', $path);
 
 			if ($ret) {
-				$ret->addErrorCode(ERROR_BAD_DATA_TYPE); // See BAD_DATA_TYPE comment below
+				$ret->addErrorCode(ERROR_BAD_DATA_TYPE);
+				// See BAD_DATA_TYPE comment below
 				return $ret;
 			}
 
 			if ($colorspace[0] == 'CMYK') {
 				$this->setMimeType($mimeType .= '-cmyk');
 			}
+
 			$toolkit = null;
 		}
 
@@ -251,8 +253,8 @@ class GalleryPhotoItem extends GalleryDataItem {
 
 		switch ($format) {
 			case 'HTML':
-				$urlGenerator         =& $gallery->getUrlGenerator();
-				$src                  = $urlGenerator->generateUrl(
+				$urlGenerator =& $gallery->getUrlGenerator();
+				$src          = $urlGenerator->generateUrl(
 					array(
 						'view'         => 'core.DownloadItem',
 						'itemId'       => $this->getId(),
@@ -262,11 +264,13 @@ class GalleryPhotoItem extends GalleryDataItem {
 						'forceFullUrl' => !empty($params['forceFullUrl']),
 					)
 				);
+
 				list($width, $height) = array($this->getWidth(), $this->getHeight());
 
 				// Shrink our dimensions if necessary
 				if (isset($params['maxSize'])) {
 					list($width, $height) = GalleryUtilities::shrinkDimensionsToFit($width, $height, $params['maxSize']);
+
 					unset($params['maxSize']);
 				}
 
@@ -282,8 +286,6 @@ class GalleryPhotoItem extends GalleryDataItem {
 
 				$html = sprintf('<img src="%s"%s', $src, $sizeStr);
 				unset($params['fallback'], $params['forceFullUrl'], $params['forceRawImage']);
-
-
 
 				foreach ($params as $attr => $value) {
 					if (isset($value)) {

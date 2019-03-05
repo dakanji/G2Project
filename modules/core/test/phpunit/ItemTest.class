@@ -39,7 +39,8 @@ class ItemTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->_userId        = $gallery->getActiveUserId();
+		$this->_userId = $gallery->getActiveUserId();
+
 		list($ret, $groupIds) = GalleryCoreApi::fetchGroupsForUser(
 			$this->_userId
 		);
@@ -75,6 +76,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('ItemTestToolkit');
 
 		// Register jpeg thumbnail/gif scale in case there are no other toolkits active
@@ -100,6 +102,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemTestToolkit',
 			array('image/gif'),
@@ -122,6 +125,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::registerToolkitProperty(
 			'ItemTestToolkit',
 			array('image/gif', 'image/jpeg'),
@@ -157,6 +161,7 @@ class ItemTest extends GalleryTestCase {
 			'coreTest',
 			array('test/movie')
 		);
+
 		$this->_markFactoryModuleForCleanup('coreTest');
 
 		if ($ret) {
@@ -231,10 +236,12 @@ class ItemTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertTrue(
 				GalleryUtilities::isExactlyA($instance, 'GalleryPhotoItem'),
 				'GalleryPhotoItem Instance'
 			);
+
 			$instance->setMimeType($mimeType);
 			$this->assertEquals(
 				$canBeViewedInline,
@@ -246,11 +253,13 @@ class ItemTest extends GalleryTestCase {
 
 	public function testCanBeViewedInlineOthers() {
 		global $gallery;
-		$query                     = '
+
+		$query = '
 		SELECT [GalleryMimeTypeMap::mimeType]
 		FROM [GalleryMimeTypeMap]
 		WHERE [GalleryMimeTypeMap::mimeType] NOT LIKE \'image/%\'
 		';
+
 		list($ret, $searchResults) = $gallery->search($query);
 
 		if ($ret) {
@@ -278,14 +287,16 @@ class ItemTest extends GalleryTestCase {
 				$instance->setWidth(100);
 				$instance->setHeight(100);
 			}
+
 			// We need to be able to render what we can view inline
-			$html     = $instance->render(
+			$html = $instance->render(
 				'HTML',
 				array(
 					'fallback' => 'ERROR',
 					'class'    => 'test',
 				)
 			);
+
 			$inlineOk = ($html != 'ERROR' && $html != null);
 			$this->assertEquals(
 				$inlineOk,
@@ -321,6 +332,7 @@ class ItemTest extends GalleryTestCase {
 			$instance->canBeViewedInline(),
 			'test item'
 		);
+
 		$instance->setRenderer('ItemTestRenderer');
 		$this->assertTrue(
 			$instance->canBeViewedInline(),
@@ -400,6 +412,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
 		for ($i = 0; $i < 3; $i++) {
@@ -440,6 +453,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$child[2]->getId(),
 			$user->getId(),
@@ -526,12 +540,14 @@ class ItemTest extends GalleryTestCase {
 						'core.view',
 						false
 					);
+
 					$ret[1] = GalleryCoreApi::addUserPermission(
 						$child[$i]->getId(),
 						$this->_userId,
 						'core.addDataItem',
 						false
 					);
+
 					$ret[2] = GalleryCoreApi::addUserPermission(
 						$child[$i]->getId(),
 						$this->_userId,
@@ -548,6 +564,7 @@ class ItemTest extends GalleryTestCase {
 						'core.view',
 						false
 					);
+
 					$ret[1] = GalleryCoreApi::addGroupPermission(
 						$child[$i]->getId(),
 						$this->_groupId,
@@ -570,6 +587,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'core.delete' => true,
@@ -583,6 +601,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'core.view'        => true,
@@ -598,6 +617,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'core.view'        => true,
@@ -775,6 +795,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
 		// Without permissions, the user can't add items
@@ -807,6 +828,7 @@ class ItemTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			list($ret, $items[]) = $this->_createRandomDataItem($album->getId());
 
 			if ($ret) {
@@ -822,6 +844,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		GalleryDataCache::reset();
 
 		// Verification
@@ -829,6 +852,7 @@ class ItemTest extends GalleryTestCase {
 			in_array($album->getId(), $ids),
 			'parent album not returned'
 		);
+
 		$itemCount = 1;
 
 		foreach ($items as $item) {
@@ -836,8 +860,10 @@ class ItemTest extends GalleryTestCase {
 				in_array($item->getId(), $ids),
 				'child ' . $item->getId() . ' not returned'
 			);
+
 			$itemCount++;
 		}
+
 		$this->assertTrue(
 			count($ids) == $itemCount,
 			'returned ' . count($ids) . ' instead of ' . $itemCount . ' items'
@@ -861,6 +887,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($oldUser);
 		// Create test user 2, the newOwner
 		list($ret, $newUser) = $this->_createRandomUser();
@@ -868,6 +895,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($newUser);
 		// Create Group 1 for user 1 for indirect permissions
 		list($ret, $group1) = $this->_createRandomGroup();
@@ -875,19 +903,24 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($group1);
+
 		$ret = GalleryCoreApi::addUserToGroup($oldUser->getId(), $group1->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		// Create Group 2 for user2 for indirect permissions
 		list($ret, $group2) = $this->_createRandomGroup();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($group2);
+
 		$ret = GalleryCoreApi::addUserToGroup($newUser->getId(), $group2->getId());
 
 		if ($ret) {
@@ -925,6 +958,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $checkPermissions) = GalleryCoreApi::fetchAllPermissionsForItem(
 			$album->getId(),
 			false
@@ -933,6 +967,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(),
 			$checkPermissions,
@@ -950,6 +985,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		// Add direct permissions to oldOwner
 		$ret = GalleryCoreApi::addUserPermission(
 			$album->getId(),
@@ -961,6 +997,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		// Add indirect permissions to newOwner by a group membership
 		$ret = GalleryCoreApi::addGroupPermission(
 			$album->getId(),
@@ -972,6 +1009,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		// Add direct permissions to newOwner
 		$ret = GalleryCoreApi::addUserPermission(
 			$album->getId(),
@@ -993,6 +1031,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		GalleryDataCache::reset();
 
 		// Verify the owner Id has changed
@@ -1001,6 +1040,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(
 			$album->getOwnerId() == $newUser->getId(),
 			'ownerId was not changed'
@@ -1014,6 +1054,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(count($itemIds) == 0, 'old owner still owns some items');
 		// Verify the new owner owns exactly 1 item
 		list($ret, $itemIds) = GalleryCoreApi::fetchAllItemIdsByOwnerId(
@@ -1023,6 +1064,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(count($itemIds) == 1, 'new owner owns not exactly 1 item');
 		// Verify the permissions are direct / indirect
 		list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem(
@@ -1033,6 +1075,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$groupPermissions = $userPermissions = array();
 
 		foreach ($permissions as $perm) {
@@ -1042,6 +1085,7 @@ class ItemTest extends GalleryTestCase {
 				$groupPermissions[$perm['groupId']][$perm['permission']] = true;
 			}
 		}
+
 		// Verify the new user has the right permissions
 		// Verify direct permissions
 		foreach (array(
@@ -1055,10 +1099,12 @@ class ItemTest extends GalleryTestCase {
 				"direct permission '$permission' not granted"
 			);
 		}
+
 		$this->assertTrue(
 			count($userPermissions[$newUser->getId()]) == 4,
 			'too few/many direct permissions'
 		);
+
 		// Verify indirect permissions
 		foreach (array('core.edit', 'core.view') as $permission) {
 			$this->assertTrue(
@@ -1066,10 +1112,12 @@ class ItemTest extends GalleryTestCase {
 				'indirect permissions changed'
 			);
 		}
+
 		$this->assertTrue(
 			count($groupPermissions[$group2->getId()]) == 2,
 			'too few/many indirect group permissions'
 		);
+
 		// Verify the old user's permissions have not been changed
 		// Verify direct permissions
 		foreach (array('core.addDataItem', 'core.delete') as $permission) {
@@ -1078,10 +1126,12 @@ class ItemTest extends GalleryTestCase {
 				"direct permission '$permission' of old owner changed"
 			);
 		}
+
 		$this->assertTrue(
 			count($userPermissions[$oldUser->getId()]) == 2,
 			'changed direct permissions of old owner'
 		);
+
 		// Verify indirect permissions
 		foreach (array('core.changePermissions', 'core.view') as $permission) {
 			$this->assertTrue(
@@ -1089,6 +1139,7 @@ class ItemTest extends GalleryTestCase {
 				"indirect permission '$permission' of old owner changed"
 			);
 		}
+
 		$this->assertTrue(
 			count($groupPermissions[$group1->getId()]) == 2,
 			'changed indirect permissions of old owner'
@@ -1107,6 +1158,7 @@ class ItemTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$parentId = $album[$i]->getId();
 		}
 
@@ -1152,6 +1204,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($success, 'should be able to set thumbnail');
 
 		/*
@@ -1177,6 +1230,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$thumbnailPreference = null;
 
 		for ($i = 0; $i < sizeof($preferences); $i++) {
@@ -1186,14 +1240,17 @@ class ItemTest extends GalleryTestCase {
 				break;
 			}
 		}
+
 		$this->assertTrue(
 			isset($thumbnailPreference),
 			'missing thumbnail preference'
 		);
+
 		$this->assertTrue(
 			isset($thumbTable[$album[1]->getId()]),
 			'child(1) should have a thumbnail'
 		);
+
 		$this->assertEquals(
 			$thumbTable[$album[1]->getId()]->getDerivativeOperations(),
 			$thumbnailPreference['derivativeOperations']
@@ -1207,6 +1264,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$thumbnailPreference = null;
 
 		for ($i = 0; $i < sizeof($preferences); $i++) {
@@ -1216,14 +1274,17 @@ class ItemTest extends GalleryTestCase {
 				break;
 			}
 		}
+
 		$this->assertTrue(
 			isset($thumbnailPreference),
 			'missing thumbnail preference'
 		);
+
 		$this->assertTrue(
 			isset($thumbTable[$album[0]->getId()]),
 			'child(0) should have a thumbnail'
 		);
+
 		$this->assertEquals(
 			$thumbTable[$album[0]->getId()]->getDerivativeOperations(),
 			$thumbnailPreference['derivativeOperations']
@@ -1340,6 +1401,7 @@ class ItemTest extends GalleryTestCase {
 
 	public function testAddItemToAlbum() {
 		global $gallery;
+
 		$gallery->_shutdownActions = null;
 
 		list($ret, $lockId) = GalleryCoreApi::acquireReadLock($this->_album->getId());
@@ -1381,6 +1443,7 @@ class ItemTest extends GalleryTestCase {
 			GalleryUtilities::isA($newItem, 'GalleryDataItem'),
 			'newItem is not a GalleryDataItem'
 		);
+
 		$this->assertEquals('itemName', $newItem->getPathComponent());
 		$this->assertEquals('title', $newItem->getTitle());
 		$this->assertEquals('caption', $newItem->getSummary());
@@ -1401,11 +1464,13 @@ class ItemTest extends GalleryTestCase {
 		// Test that shutdown actions will update parent album's modification timestamp
 		sleep(1); // Make sure new timestamp won't equal old one even after update
 		$gallery->performShutdownActions();
+
 		list($ret, $album) = $this->_album->refresh();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(
 			$album->getModificationTimestamp() > $this->_album->getModificationTimestamp(),
 			'parent modification timestamp'
@@ -1469,6 +1534,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $newItem) = GalleryCoreApi::addItemToAlbum(
 			__FILE__,
 			'itemNameWts',
@@ -1552,6 +1618,7 @@ class ItemTest extends GalleryTestCase {
 		if (!isset($derivativeTable[$newItem->getId()])) {
 			return $this->assertFalse(true, 'Missing item derivative');
 		}
+
 		$derivs = $derivativeTable[$newItem->getId()];
 
 		if (count($derivs) != 1) {
@@ -1593,6 +1660,7 @@ class ItemTest extends GalleryTestCase {
 
 	public function testDeletingLinks() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Create a target item
@@ -1630,6 +1698,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($platform->file_exists($truePath), "Path [$truePath] should exist");
 
 		for ($i = 0; $i < 2; $i++) {
@@ -1655,11 +1724,13 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $linkedItem[1]) = $linkedItem[1]->refresh();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $thumb) = $thumb->refresh();
 
 		if ($ret) {
@@ -1671,6 +1742,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($platform->file_exists($truePath), "Path [$truePath] should exist");
 
 		list($ret, $linkPath) = $linkedItem[1]->fetchPath();
@@ -1690,16 +1762,19 @@ class ItemTest extends GalleryTestCase {
 
 	public function testDelete() {
 		global $gallery;
+
 		list($ret, $album) = $this->_createRandomAlbum($this->_album->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $item) = $this->_createRandomDataItem($album->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$gallery->_shutdownActions = null;
 
 		$ret = GalleryCoreApi::deleteEntityById($album->getId(), 'GalleryAlbumItem');
@@ -1713,6 +1788,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array(), $ids, 'child item ids');
 
 		/*
@@ -1722,11 +1798,13 @@ class ItemTest extends GalleryTestCase {
 		 */
 		sleep(1); // Make sure new timestamp won't equal old one even after update
 		$gallery->performShutdownActions();
+
 		list($ret, $album) = $this->_album->refresh();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(
 			$album->getModificationTimestamp() > $this->_album->getModificationTimestamp(),
 			'parent modification timestamp'
@@ -1749,6 +1827,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$gallery->_shutdownActions = null;
 
 		list($ret, $parentSequence) = GalleryCoreApi::fetchParentSequence($item->getId());
@@ -1830,20 +1909,24 @@ class ItemTest extends GalleryTestCase {
 		// Test that shutdown actions will update parent album's modification timestamp
 		sleep(1); // Make sure new timestamp won't equal old one even after update
 		$gallery->performShutdownActions();
+
 		list($ret, $refreshedAlbum) = $album->refresh();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(
 			$refreshedAlbum->getModificationTimestamp() > $album->getModificationTimestamp(),
 			'destination album modification timestamp'
 		);
+
 		list($ret, $refreshedAlbum) = $this->_album->refresh();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(
 			$refreshedAlbum->getModificationTimestamp() > $this->_album->getModificationTimestamp(),
 			'source album modification timestamp'
@@ -1977,6 +2060,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($thumbTable[$this->_album->getId()]), 'Missing highlight for album');
 		$this->assertTrue(isset($thumbTable[$photo->getId()]), 'Missing thumbnail for photo');
 
@@ -1994,6 +2078,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($success, 'should be able to set highlight');
 	}
 
@@ -2024,6 +2109,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemTestToolkit',
 			array('test/document'),
@@ -2069,7 +2155,8 @@ class ItemTest extends GalleryTestCase {
 			}
 
 			// Make sure that we have a preferred that contains the proper convert operations
-			$itemId                 = $item->getId();
+			$itemId = $item->getId();
+
 			list($ret, $preferreds) = GalleryCoreApi::fetchPreferredsByItemIds(array($itemId));
 
 			if ($ret) {
@@ -2195,6 +2282,7 @@ class ItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$preferred = $preferreds[$photo->getId()];
 		$this->assertEquals(
 			'test-operation;convert-to-image/x-portable-pixmap;convert-to-image/jpeg',
@@ -2204,6 +2292,7 @@ class ItemTest extends GalleryTestCase {
 
 	public function testSymlinkTwice() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		if (!$platform->isSymlinkSupported()) {
@@ -2365,6 +2454,7 @@ class ItemTest extends GalleryTestCase {
 				$params['default.orderBy'],
 				"orderBy: $index test case"
 			);
+
 			$this->assertEquals(
 				$test['order'][1],
 				$params['default.orderDirection'],
@@ -2522,6 +2612,7 @@ class ItemTestToolkit extends GalleryToolkit {
 		) {
 			return array(null, array(62, 75));
 		}
+
 		// We'll reach this point in testSymlinkTwice, but we want to return an error
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}

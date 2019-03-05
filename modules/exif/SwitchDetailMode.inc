@@ -76,6 +76,7 @@ class SwitchDetailModeView extends GalleryView {
 	 */
 	public function renderImmediate($status = null, $error = null) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		list($ret, $item) = $this->getItem();

@@ -92,6 +92,7 @@ class ItemAddLinkItem extends ItemAddPlugin {
 
 						return array($ret, null, null);
 					}
+
 					$ret = GalleryCoreApi::setItemOrderWeight($newItem->getId(), $maxWeight + 1000);
 
 					if ($ret) {
@@ -116,6 +117,7 @@ class ItemAddLinkItem extends ItemAddPlugin {
 							$source = array_shift($thumbnailTable);
 						}
 					}
+
 					list($ret, $derivative) = GalleryCoreApi::newFactoryInstanceByHint(
 						'GalleryDerivative',
 						$source->getEntityType()
@@ -132,6 +134,7 @@ class ItemAddLinkItem extends ItemAddPlugin {
 
 						return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null);
 					}
+
 					$ret = $derivative->create($newItem->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
 
 					if ($ret) {
@@ -139,6 +142,7 @@ class ItemAddLinkItem extends ItemAddPlugin {
 
 						return array($ret, null, null);
 					}
+
 					list($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem($item->getId());
 
 					if ($ret) {
@@ -160,6 +164,7 @@ class ItemAddLinkItem extends ItemAddPlugin {
 
 						return array(GalleryCoreApi::error(ERROR_MISSING_VALUE), null, null);
 					}
+
 					list($ret, $derivativeOperations, $outputMimeType) = GalleryCoreApi::makeSupportedViewableOperationSequence(
 						$source->getMimeType(),
 						$derivativeOperations
@@ -188,8 +193,9 @@ class ItemAddLinkItem extends ItemAddPlugin {
 						}
 
 						if ($isSupported) {
-							$watermarkOp                              = 'composite|plugins_data/modules/linkitem/arrow.png,'
+							$watermarkOp = 'composite|plugins_data/modules/linkitem/arrow.png,'
 							. 'image/png,14,14,bottom-right,0,0';
+
 							list($ret, $isSupported, $outputMimeType) = GalleryCoreApi::isSupportedOperationSequence(
 								$outputMimeType,
 								$watermarkOp
@@ -210,6 +216,7 @@ class ItemAddLinkItem extends ItemAddPlugin {
 						$derivative->setDerivativeSourceId($source->getId());
 						$derivative->setWidth(0);
 						$derivative->setHeight(0);
+
 						$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
 
 						if ($ret) {
@@ -217,6 +224,7 @@ class ItemAddLinkItem extends ItemAddPlugin {
 
 							return array($ret, null, null);
 						}
+
 						$ret = $derivative->save();
 
 						if ($ret) {
@@ -282,17 +290,20 @@ class ItemAddLinkItem extends ItemAddPlugin {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		list($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds, 'GalleryAlbumItem');
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$template->setVariable(
 			'ItemAddLinkItem',
 			array(
 				'albumTree' => GalleryUtilities::createAlbumTree($albums),
 			)
 		);
+
 		$template->javascript('lib/yui/yahoo-dom-event.js');
 		$template->javascript('lib/yui/container-min.js');
 		$template->javascript('lib/yui/treeview-min.js');

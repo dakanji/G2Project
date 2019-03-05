@@ -31,6 +31,7 @@ class MultiLangItemEdit extends ItemEditPlugin {
 	 */
 	public function handleRequest($form, &$item, &$preferred) {
 		global $gallery;
+
 		$status = null;
 		$error  = array();
 
@@ -80,6 +81,7 @@ class MultiLangItemEdit extends ItemEditPlugin {
 				if ($ret) {
 					return array($ret, null, null, null);
 				}
+
 				$status = $module->translate('Changes saved successfully');
 
 				$session =& $gallery->getSession();
@@ -95,6 +97,7 @@ class MultiLangItemEdit extends ItemEditPlugin {
 	 */
 	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		GalleryCoreApi::requireOnce('modules/multilang/classes/MultiLangHelper.class');
@@ -102,14 +105,17 @@ class MultiLangItemEdit extends ItemEditPlugin {
 		if ($form['formName'] != 'MultiLangItemEdit') {
 			$form['formName'] = 'MultiLangItemEdit';
 		}
-		$form['mainTitle']                = $item->getTitle();
-		$form['mainSummary']              = $item->getSummary();
-		$form['mainDescription']          = $item->getDescription();
+
+		$form['mainTitle']       = $item->getTitle();
+		$form['mainSummary']     = $item->getSummary();
+		$form['mainDescription'] = $item->getDescription();
+
 		list($ret, $form['languageData']) = MultiLangHelper::getItemData($item->getId());
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		/*
 		 * If there was an error and the data wasn't saved
 		 * then overwrite the values from the database with the ones from the form
@@ -128,11 +134,13 @@ class MultiLangItemEdit extends ItemEditPlugin {
 				$languageList[$language . '_' . $country] = $languageData['description'];
 			}
 		}
+
 		list($ret, $languages) = GalleryCoreApi::getPluginParameter('module', 'multilang', 'languages');
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$languages = empty($languages) ? array() : explode('|', $languages);
 		sort($languages);
 
@@ -154,6 +162,7 @@ class MultiLangItemEdit extends ItemEditPlugin {
 		} else {
 			$session->remove('multilang.language');
 		}
+
 		$selectedLanguageIndex = $i = 0;
 
 		foreach ($languages as $language) {
@@ -162,8 +171,10 @@ class MultiLangItemEdit extends ItemEditPlugin {
 			if ($language == $selectedLanguage) {
 				$selectedLanguageIndex = $i;
 			}
+
 			$i++;
 		}
+
 		$form['selectedLanguage'] = $selectedLanguage;
 		$form['selectedIndex']    = $selectedLanguageIndex;
 
@@ -183,6 +194,7 @@ class MultiLangItemEdit extends ItemEditPlugin {
 		if (!GalleryUtilities::isA($item, 'GalleryItem')) {
 			return false;
 		}
+
 		list($ret, $languages) = GalleryCoreApi::getPluginParameter('module', 'multilang', 'languages');
 
 		if ($ret || empty($languages)) {

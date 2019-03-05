@@ -61,6 +61,7 @@
 		</tr>
 			<?php
 		}
+
 		?>
 	</table>
 	  </center>

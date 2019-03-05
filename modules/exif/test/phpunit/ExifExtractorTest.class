@@ -41,6 +41,7 @@ class ExifExtractorTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		global $gallery;
 
 		// Create a new subalbum and add some jpegs
@@ -57,6 +58,7 @@ class ExifExtractorTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$photoIds   = array();
 		$g2Base     = GalleryCoreApi::getCodeBasePath();
 		$imagePaths = array(
@@ -77,8 +79,10 @@ class ExifExtractorTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$photoIds[] = $photoId;
 		}
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -90,6 +94,7 @@ class ExifExtractorTest extends GalleryTestCase {
 		if ($ret || !isset($module)) {
 			return $ret;
 		}
+
 		list($ret, $exif) = GalleryCoreApi::newFactoryInstance(
 			'ExifInterface_1_0',
 			'ExifExtractor'
@@ -109,11 +114,13 @@ class ExifExtractorTest extends GalleryTestCase {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $mimeType) = GalleryCoreApi::getMimeType($imagePath);
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = $photo->create(
 			$parentId,
 			$imagePath,
@@ -124,14 +131,17 @@ class ExifExtractorTest extends GalleryTestCase {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$photo->setTitle("Item #$index");
 		$photo->setSummary("Summary $index");
 		$photo->setDescription("Description $index");
+
 		$ret = $photo->save();
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		// add thumbnail
 		list($ret, $thumbId) = $this->_addDerivative(
 			$photo,
@@ -158,6 +168,7 @@ class ExifExtractorTest extends GalleryTestCase {
 		if ($ret || !isset($toolkit)) {
 			return array($ret, null);
 		}
+
 		list($ret, $derivative) = GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative', $photo->getEntityType());
 
 		if ($ret) {
@@ -173,9 +184,11 @@ class ExifExtractorTest extends GalleryTestCase {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$derivative->setDerivativeSourceId($photo->getId());
 		$derivative->setDerivativeOperations($derivativeOperation);
 		$derivative->setMimeType($outputMimeType);
+
 		$ret = $derivative->save();
 
 		if ($ret) {
@@ -187,6 +200,7 @@ class ExifExtractorTest extends GalleryTestCase {
 
 	public function testOneItemAllDataExif() {
 		list($ret, $data) = $this->_exif->getMetaData($this->_photoIds[0]);
+
 		$this->assertFalse($ret && isset($data[$this->_photoIds[0]]));
 		$this->assertEquals(
 			'1/60 sec',
@@ -196,6 +210,7 @@ class ExifExtractorTest extends GalleryTestCase {
 
 	public function testOneItemAllDataIptc() {
 		list($ret, $data) = $this->_exif->getMetaData($this->_photoIds[3]);
+
 		$this->assertFalse($ret && isset($data[$this->_photoIds[3]]));
 		$this->assertEquals(
 			'Caption: IPTC/Caption',
@@ -207,16 +222,19 @@ class ExifExtractorTest extends GalleryTestCase {
 		list($ret, $data) = $this->_exif->getMetaData(
 			array($this->_photoIds[0], $this->_photoIds[2], $this->_photoIds[3])
 		);
+
 		$this->assertFalse($ret && isset($data));
 		$this->assertEquals(3, count($data), 'Data size');
 		$this->assertEquals(
 			'1/60 sec',
 			$data[$this->_photoIds[0]]['ShutterSpeedValue']['value']
 		);
+
 		$this->assertEquals(
 			sprintf('%.2f mm', 21.31),
 			$data[$this->_photoIds[2]]['FocalLength']['value']
 		);
+
 		$this->assertEquals(
 			'Caption: IPTC/Caption',
 			$data[$this->_photoIds[3]]['IPTC/Caption']['value']
@@ -225,16 +243,19 @@ class ExifExtractorTest extends GalleryTestCase {
 
 	public function testMultiItemMixedTypeAllData() {
 		list($ret, $data) = $this->_exif->getMetaData($this->_photoIds);
+
 		$this->assertFalse($ret && isset($data));
 		$this->assertEquals(4, count($data), 'Data size');
 		$this->assertEquals(
 			'1/60 sec',
 			$data[$this->_photoIds[0]]['ShutterSpeedValue']['value']
 		);
+
 		$this->assertEquals(
 			sprintf('%.2f mm', 21.31),
 			$data[$this->_photoIds[2]]['FocalLength']['value']
 		);
+
 		$this->assertEquals(
 			'Caption: IPTC/Caption',
 			$data[$this->_photoIds[3]]['IPTC/Caption']['value']
@@ -246,18 +267,21 @@ class ExifExtractorTest extends GalleryTestCase {
 			$this->_photoIds,
 			array('DateTime', 'ShutterSpeedValue', 'IPTC/Byline')
 		);
+
 		$this->assertFalse($ret && isset($data));
 		$this->assertEquals(4, count($data), 'Data size');
 		$this->assertEquals(
 			'1/60 sec',
 			$data[$this->_photoIds[0]]['ShutterSpeedValue']['value']
 		);
+
 		$this->assertFalse(isset($data[$this->_photoIds[2]]['FocalLength']));
 		$this->assertFalse(isset($data[$this->_photoIds[2]]['IPTC/Byline']));
 		$this->assertEquals(
 			'Byline: IPTC/Byline',
 			$data[$this->_photoIds[3]]['IPTC/Byline']['value']
 		);
+
 		$this->assertFalse(isset($data[$this->_photoIds[3]]['FocalLength']));
 	}
 }

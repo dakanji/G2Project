@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 
 /**
@@ -76,6 +75,7 @@ class QuotasListenerTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			list($ret, $hasQuota, $quota) = GalleryQuotasHelper::fetchGroupQuota($groupId);
 
 			if ($ret) {
@@ -160,6 +160,7 @@ class QuotasListenerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($quotaExists == false, 'Quota should not exist for this user');
 		$this->assertTrue(empty($userQuotaInfo), 'User should have no quota information');
 
@@ -178,6 +179,7 @@ class QuotasListenerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($quotaExists == true, 'Quota should exist for this user');
 		$this->assertEquals(
 			array(
@@ -188,6 +190,7 @@ class QuotasListenerTest extends GalleryTestCase {
 			$userQuotaInfo,
 			'User should have quota information'
 		);
+
 		$this->_deleteEntity($this->_user);
 
 		list($ret, $quotaExists, $userQuotaInfo) = GalleryQuotasHelper::fetchUserQuota($userId);
@@ -195,6 +198,7 @@ class QuotasListenerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($quotaExists == false, 'Quota should not exist for this user');
 		$this->assertTrue(empty($userQuotaInfo), 'User should have no quota information');
 
@@ -207,6 +211,7 @@ class QuotasListenerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($quotaExists == false, 'Quota should not exist for this group');
 		$this->assertTrue(empty($groupQuotaInfo), 'Group should have no quota information');
 
@@ -225,6 +230,7 @@ class QuotasListenerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($quotaExists == true, 'Quota should exist for this group');
 		$this->assertEquals(
 			array(
@@ -235,6 +241,7 @@ class QuotasListenerTest extends GalleryTestCase {
 			$groupQuotaInfo,
 			'Group should have quota information'
 		);
+
 		$this->_deleteEntity($this->_group);
 
 		list($ret, $quotaExists, $groupQuotaInfo) = GalleryQuotasHelper::fetchGroupQuota(
@@ -244,6 +251,7 @@ class QuotasListenerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($quotaExists == false, 'Quota should not exist for this group');
 		$this->assertTrue(empty($groupQuotaInfo), 'Group should have no quota information');
 

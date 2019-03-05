@@ -30,6 +30,7 @@
 class CodeAuditTest extends CodeAuditTestCase {
 	public function __construct($methodName) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		parent::__construct($methodName);
@@ -235,8 +236,10 @@ class CodeAuditTest extends CodeAuditTestCase {
 						"Return outside of a function on line $i in $fileName"
 					);
 				}
+
 				$return = '';
-				$j      = $i;
+
+				$j = $i;
 
 				do {
 					$return .= trim($lines[$j++]);
@@ -409,6 +412,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 					' --> ' . $returnCount[$function][$i][1]
 				);
 			}
+
 			$this->assertFalse(
 				true,
 				sprintf(
@@ -454,6 +458,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 		if (preg_match('/^' . $this->_preamblePattern . '/', $buffer)) {
 			return;
 		}
+
 		$this->_errorCount++;
 		$errorReported = false;
 
@@ -467,6 +472,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 					. "Expected: [$expected]<br/>"
 					. "Received: [$lines[$i]]<br/>"
 				);
+
 				$errorReported = true;
 			}
 		}
@@ -508,6 +514,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 
 				foreach ($this->_longLineFiles as $entry) {
 					list($fileName, $lineNr) = $entry;
+
 					$this->assertFalse(
 						true,
 						'File: ' . $fileName . ', line number: ' . $lineNr

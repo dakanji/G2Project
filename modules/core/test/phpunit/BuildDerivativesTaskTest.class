@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/BuildDerivativesTask.class');
 
 /**
@@ -34,6 +33,7 @@ class BuildDerivativesTaskTest extends GalleryTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -46,6 +46,7 @@ class BuildDerivativesTaskTest extends GalleryTestCase {
 	public function tearDown() {
 		// Task turns off warnings for MSSQL database; turn back on to restore original state
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		if (GalleryUtilities::isA($storage, 'MSSqlStorage')) {
@@ -67,6 +68,7 @@ class BuildDerivativesTaskTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($noDerivativeItem);
 
 		list($ret, $brokenDerivativeItem) = $this->_createRandomDataItem($this->_getRootId());
@@ -74,6 +76,7 @@ class BuildDerivativesTaskTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($brokenDerivativeItem);
 
 		list($ret, $derivative) = $this->_createDerivative(
@@ -121,6 +124,7 @@ class BuildDerivativesTaskTest extends GalleryTestCase {
 			),
 			$details
 		);
+
 		$searches = $mockStorage->getSearches();
 		$this->assertEquals(2, count($searches), 'query count');
 		$this->assertTrue($searches[0] > 0, 'query 1 should have at least one result');
@@ -140,6 +144,7 @@ class BuildDerivativesTaskTestStorage {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$this->_searches[] = $results->resultCount();
 		// Return no results so task doesn't actually act on any derivatives
 		$rs = new ADORecordSet(0);

@@ -43,11 +43,13 @@ class NewItemsTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'newitems', 'days.new', '1');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'newitems', 'days.updated', '1');
 
 		if ($ret) {
@@ -65,6 +67,7 @@ class NewItemsTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		for ($i = 1; $i <= 3; $i++) {
@@ -75,6 +78,7 @@ class NewItemsTest extends GalleryTestCase {
 			if ($i != 2) {
 				$fields['creationTimestamp'] = time() - 108000;
 			}
+
 			list($ret, $this->_items[$i]) = $this->_createRandomDataItem(
 				$this->_album->getId(),
 				'test/file',
@@ -94,12 +98,14 @@ class NewItemsTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$unused              = null;
+		$unused = null;
+
 		list($ret, $content) = $module->getItemSummaries($this->_items, array(), $unused);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(3, count($content), 'item count');
 		$this->assertTrue(strpos($content[$this->_items[1]->getId()], 'giUpdated'), '1=Updated');
 		$this->assertTrue(strpos($content[$this->_items[2]->getId()], 'giNew'), '2=New');

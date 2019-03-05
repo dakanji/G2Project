@@ -46,6 +46,7 @@ class RewriteSimpleHelper {
 			if ($ret) {
 				return $ret;
 			}
+
 			GalleryUtilities::putRequestVariable('itemId', $itemId);
 		}
 
@@ -62,6 +63,7 @@ class RewriteSimpleHelper {
 	 */
 	public static function parsePath(&$url, &$params, &$entity) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		if (!isset($entity) && ($entity = $urlGenerator->loadEntity($params['itemId'])) == null
@@ -69,6 +71,7 @@ class RewriteSimpleHelper {
 		) {
 			return false;
 		}
+
 		list($ret, $path) = $entity->fetchLogicalPath();
 
 		if ($ret) {
@@ -93,10 +96,9 @@ class RewriteSimpleHelper {
 			str_replace('%2F', '/', urlencode(substr($path, 1))),
 			$url
 		);
+
 		unset($params['itemId'], $params['path']);
 		// If the generated url is built by old request variables unset the old path
-
-
 		return true;
 	}
 
@@ -116,6 +118,7 @@ class RewriteSimpleHelper {
 	 */
 	public static function parseLanguage(&$url, &$params, &$entity) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		if (empty($urlGenerator->_language)) {
@@ -148,11 +151,13 @@ class RewriteSimpleHelper {
 	 */
 	public static function parseSerialNumber(&$url, &$params, &$entity) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		if (!isset($entity) && ($entity = $urlGenerator->loadEntity($params['itemId'])) == null) {
 			return false;
 		}
+
 		$url = str_replace('%serialNumber%', $entity->getSerialNumber(), $url);
 		unset($params['serialNumber']);
 
@@ -164,16 +169,19 @@ class RewriteSimpleHelper {
 	 */
 	public static function parseFileName(&$url, &$params, &$entity) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		if (!isset($entity) && ($entity = $urlGenerator->loadEntity($params['itemId'])) == null) {
 			return false;
 		}
+
 		list($ret, $pseudoFileName) = GalleryUtilities::getPseudoFileName($entity);
 
 		if ($ret) {
 			return false;
 		}
+
 		$url = str_replace('%fileName%', urlencode($pseudoFileName), $url);
 
 		return true;

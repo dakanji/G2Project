@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision: 18156 $
  * @package RepositoryTools
@@ -44,6 +45,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		global $gallery;
 
 		// This maps to ../data/MANIFEST
@@ -280,6 +282,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(),
 			$descriptor->_data,
@@ -307,6 +310,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 			array($testDataDir . 'MANIFEST'),
 			str_repeat('x', 12121)
 		);
+
 		$gallery->setPlatform($platform);
 
 		$descriptor->getFileMetaData(dirname(__DIR__) . '/data/', $data);
@@ -372,6 +376,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 
 	public function testCheckIntegrityMissingManifest() {
 		global $gallery;
+
 		$descriptor = $this->_getDescriptorWithFakeFileMetadata();
 		$ret        = $descriptor->generate(new RepositoryDescriptorTestPlugin());
 
@@ -398,6 +403,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 	 */
 	public function testCheckIntegrity() {
 		global $gallery;
+
 		$descriptor = $this->_getDescriptorWithFakeFileMetadata();
 		$ret        = $descriptor->generate(new RepositoryDescriptorTestPlugin());
 
@@ -456,6 +462,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 				9 => 1,
 			)
 		);
+
 		$platform->setReply('file_exists', array($base . 'po/aa.mo'), true);
 		$platform->setReply('file_get_contents', array($base . 'po/aa.mo'), 'aa.mo');
 		$platform->setReply(
@@ -466,12 +473,14 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 				9 => 1,
 			)
 		);
+
 		$platform->setReply('file_exists', array($base . 'locale/aa/LC_MESSAGES/test.mo'), true);
 		$platform->setReply(
 			'file_get_contents',
 			array($base . 'locale/aa/LC_MESSAGES/test.mo'),
 			'test.mo'
 		);
+
 		$platform->setReply(
 			'stat',
 			array($base . 'locale/aa/LC_MESSAGES/test.mo'),
@@ -480,12 +489,14 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 				9 => 1,
 			)
 		);
+
 		$platform->setReply('file_exists', array($base . 'test/phpunit/file.test'), true);
 		$platform->setReply(
 			'file_get_contents',
 			array($base . 'test/phpunit/file.test'),
 			'file.test'
 		);
+
 		$platform->setReply(
 			'stat',
 			array($base . 'test/phpunit/file.test'),
@@ -506,6 +517,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 			),
 			$descriptor->checkIntegrity()
 		);
+
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 }

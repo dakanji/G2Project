@@ -25,6 +25,7 @@ if (!defined('_ADODB_PROXY_LAYER')) {
 		public $databaseType     = 'proxy';
 		public $databaseProvider = 'csv';
 	}
+
 	class ADORecordset_proxy extends ADORecordset_csv {
 		public $databaseType = 'proxy';
 

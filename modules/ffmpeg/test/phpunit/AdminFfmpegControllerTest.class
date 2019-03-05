@@ -32,6 +32,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -52,6 +53,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_movie);
 
 		list($ret, $this->_thumbnail) = $this->_createDerivative(
@@ -97,6 +99,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('/validPath/ffmpeg', $params['path']);
 		$this->assertEquals('0', $params['useWatermark']);
 	}
@@ -128,6 +131,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('/validPath/ffmpeg', $params['path']);
 		$this->assertEquals('1', $params['useWatermark']);
 	}
@@ -159,6 +163,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('/incompletePath/ffmpeg', $path);
 	}
 
@@ -278,6 +283,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 	public function testAddRemoveWatermark() {
 		global $gallery;
+
 		$gallery->setPlatform($this->_savePlatform);
 
 		$ret = $this->_saveThumbnailOps();
@@ -366,6 +372,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 	public function _saveThumbnailOps() {
 		global $gallery;
+
 		$query = '
 		SELECT
 			[GalleryDerivative::id],
@@ -386,6 +393,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_thumbnailOps = array();
 
 		while ($result = $searchResults->nextResult()) {
@@ -399,11 +407,13 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		if (empty($this->_thumbnailOps)) {
 			return null;
 		}
+
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array_keys($this->_thumbnailOps));
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $thumbnails) = GalleryCoreApi::loadEntitiesById(
 			array_keys($this->_thumbnailOps),
 			'GalleryDerivative'
@@ -417,6 +427,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 		foreach ($thumbnails as $thumbnail) {
 			$thumbnail->setDerivativeOperations($this->_thumbnailOps[$thumbnail->getId()]);
+
 			$ret = $thumbnail->save();
 
 			if ($ret) {
@@ -425,6 +436,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 				return $ret;
 			}
 		}
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {

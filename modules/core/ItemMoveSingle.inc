@@ -50,6 +50,7 @@ class ItemMoveSingleController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		$status = $error = array();
@@ -143,7 +144,8 @@ class ItemMoveSingleController extends GalleryController {
 					return array($ret, null);
 				}
 
-				$oldParentId           = $item->getParentId();
+				$oldParentId = $item->getParentId();
+
 				list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLockParents($oldParentId);
 
 				if ($ret) {
@@ -235,6 +237,7 @@ class ItemMoveSingleController extends GalleryController {
 			$results['delegate']['view']    = 'core.ItemAdmin';
 			$results['delegate']['subView'] = 'core.ItemMoveSingle';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -273,6 +276,7 @@ class ItemMoveSingleView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		if ($form['formName'] != 'ItemMoveSingle') {
@@ -288,6 +292,7 @@ class ItemMoveSingleView extends GalleryView {
 		} else {
 			return array(GalleryCoreApi::error(ERROR_BAD_DATA_TYPE), null);
 		}
+
 		$permissions = array($permissions, 'core.view');
 
 		// Get ids of all all albums where we can add this items

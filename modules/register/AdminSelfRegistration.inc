@@ -87,6 +87,7 @@ class AdminSelfRegistrationController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$status['activated'] = $userName;
 			}
 		} elseif (isset($form['action']['delete'])) {
@@ -100,26 +101,29 @@ class AdminSelfRegistrationController extends GalleryController {
 					return array($ret, null);
 				}
 			} else {
-				$userName         = $pendingUser->getUserName();
+				$userName = $pendingUser->getUserName();
+
 				list($ret, $lock) = GalleryCoreApi::acquireWriteLock(array($pendingUser->getId()));
 
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$ret = $pendingUser->delete();
 
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$ret = GalleryCoreApi::releaseLocks($lock);
 
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$status['deleted'] = $userName;
 			}
 		} // else $form['action']['cancel']
-
 		if (empty($error)) {
 			$results['redirect'] = array(
 				'view'    => 'core.SiteAdmin',
@@ -129,6 +133,7 @@ class AdminSelfRegistrationController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'register.AdminSelfRegistration';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -179,6 +184,7 @@ class AdminSelfRegistrationView extends GalleryView {
 					return array($ret, null);
 				}
 			}
+
 			$form['formName'] = 'AdminSelfRegistration';
 		}
 

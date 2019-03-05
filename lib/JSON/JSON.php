@@ -307,12 +307,13 @@ class Services_JSON {
 						case ($ord_var_c & 0xF0) == 0xE0:
 							// characters U-00000800 - U-0000FFFF, mask 1110XXXX
 							// see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
-							$char   = pack(
+							$char = pack(
 								'C*',
 								$ord_var_c,
 								ord($var[$c + 1]),
 								ord($var[$c + 2])
 							);
+
 							$c     += 2;
 							$utf16  = $this->utf82utf16($char);
 							$ascii .= sprintf('\u%04s', bin2hex($utf16));
@@ -322,13 +323,14 @@ class Services_JSON {
 						case ($ord_var_c & 0xF8) == 0xF0:
 							// characters U-00010000 - U-001FFFFF, mask 11110XXX
 							// see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
-							$char   = pack(
+							$char = pack(
 								'C*',
 								$ord_var_c,
 								ord($var[$c + 1]),
 								ord($var[$c + 2]),
 								ord($var[$c + 3])
 							);
+
 							$c     += 3;
 							$utf16  = $this->utf82utf16($char);
 							$ascii .= sprintf('\u%04s', bin2hex($utf16));
@@ -338,7 +340,7 @@ class Services_JSON {
 						case ($ord_var_c & 0xFC) == 0xF8:
 							// characters U-00200000 - U-03FFFFFF, mask 111110XX
 							// see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
-							$char   = pack(
+							$char = pack(
 								'C*',
 								$ord_var_c,
 								ord($var[$c + 1]),
@@ -346,6 +348,7 @@ class Services_JSON {
 								ord($var[$c + 3]),
 								ord($var[$c + 4])
 							);
+
 							$c     += 4;
 							$utf16  = $this->utf82utf16($char);
 							$ascii .= sprintf('\u%04s', bin2hex($utf16));
@@ -355,7 +358,7 @@ class Services_JSON {
 						case ($ord_var_c & 0xFE) == 0xFC:
 							// characters U-04000000 - U-7FFFFFFF, mask 1111110X
 							// see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
-							$char   = pack(
+							$char = pack(
 								'C*',
 								$ord_var_c,
 								ord($var[$c + 1]),
@@ -364,6 +367,7 @@ class Services_JSON {
 								ord($var[$c + 4]),
 								ord($var[$c + 5])
 							);
+
 							$c     += 5;
 							$utf16  = $this->utf82utf16($char);
 							$ascii .= sprintf('\u%04s', bin2hex($utf16));
@@ -459,7 +463,7 @@ class Services_JSON {
 			return $encoded_value;
 		}
 
-		return $this->encode(strval($name)) . ':' . $encoded_value;
+		return $this->encode((string)$name) . ':' . $encoded_value;
 	}
 
 	/**
@@ -482,7 +486,6 @@ class Services_JSON {
 
 				// eliminate multi-line comments in '/* ... */' form, at end of string
 				'#/\*(.+)\*/\s*$#Us',
-
 			),
 			'',
 			$str
@@ -522,11 +525,9 @@ class Services_JSON {
 
 				if (is_numeric($str)) {
 					// Lookie-loo, it's a number
-
 					// This would work on its own, but I'm trying to be
 					// good about returning integers where appropriate:
 					// return (float)$str;
-
 					// Return float or int, as appropriate
 					return ((float)$str == (int)$str) ? (int)$str : (float)$str;
 				}
@@ -646,7 +647,6 @@ class Services_JSON {
 
 				if (preg_match('/^\[.*\]$/s', $str) || preg_match('/^\{.*\}$/s', $str)) {
 					// array, or object notation
-
 					if ($str[0] == '[') {
 						$stk = array(SERVICES_JSON_IN_ARR);
 						$arr = array();
@@ -681,7 +681,6 @@ class Services_JSON {
 					}
 
 					//print("\nparsing {$chrs}\n");
-
 					$strlen_chrs = strlen($chrs);
 
 					for ($c = 0; $c <= $strlen_chrs; ++$c) {
@@ -700,8 +699,8 @@ class Services_JSON {
 									'delim' => false,
 								)
 							);
-							//print("Found split at {$c}: ".substr($chrs, $top['where'], (1 + $c - $top['where']))."\n");
 
+							//print("Found split at {$c}: ".substr($chrs, $top['where'], (1 + $c - $top['where']))."\n");
 							if (reset($stk) == SERVICES_JSON_IN_ARR) {
 								// we are in an array, so just push an element onto the stack
 								array_push($arr, $this->decode($slice));
@@ -744,6 +743,7 @@ class Services_JSON {
 									'delim' => $chrs[$c],
 								)
 							);
+
 						//print("Found start of string at {$c}\n");
 						} elseif (($chrs[$c] == $top['delim'])
 							&& ($top['what'] == SERVICES_JSON_IN_STR)
@@ -765,6 +765,7 @@ class Services_JSON {
 									'delim' => false,
 								)
 							);
+
 						//print("Found start of array at {$c}\n");
 						} elseif (($chrs[$c] == ']') && ($top['what'] == SERVICES_JSON_IN_ARR)) {
 							// found a right-bracket, and we're in an array
@@ -782,6 +783,7 @@ class Services_JSON {
 									'delim' => false,
 								)
 							);
+
 						//print("Found start of object at {$c}\n");
 						} elseif (($chrs[$c] == '}') && ($top['what'] == SERVICES_JSON_IN_OBJ)) {
 							// found a right-brace, and we're in an object
@@ -799,6 +801,7 @@ class Services_JSON {
 									'delim' => false,
 								)
 							);
+
 							$c++;
 						//print("Found start of comment at {$c}\n");
 						} elseif (($substr_chrs_c_2 == '*/') && ($top['what'] == SERVICES_JSON_IN_CMT)) {
@@ -856,7 +859,6 @@ if (class_exists('PEAR_Error')) {
 		}
 	}
 } else {
-
 	/**
 	 * @todo Ultimately, this class shall be descended from PEAR_Error
 	 */
@@ -867,7 +869,6 @@ if (class_exists('PEAR_Error')) {
 			$mode = null,
 			$options = null,
 			$userinfo = null
-		) {
-		}
+		) {}
 	}
 }

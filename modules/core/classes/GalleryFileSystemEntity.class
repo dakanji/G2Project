@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryChildEntity.class');
 
 /**
@@ -179,7 +178,8 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 			return null;
 		}
 
-		$parentId                     = $this->getParentId();
+		$parentId = $this->getParentId();
+
 		list($ret, $newPathComponent) = GalleryCoreApi::getLegalPathComponent($newPathComponent, $parentId, $this->getId());
 
 		if ($ret) {
@@ -326,6 +326,7 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 
 			return array(null, $path);
 		}
+
 		list($ret, $parent) = $this->fetchParent();
 
 		if ($ret) {
@@ -396,10 +397,12 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 	 */
 	public function fetchPath() {
 		global $gallery;
+
 		$absolutePath = $gallery->getConfig('data.gallery.albums');
 
 		if ($this->isLinked()) {
-			$linkedEntity            = $this->getLinkedEntity();
+			$linkedEntity = $this->getLinkedEntity();
+
 			list($ret, $logicalPath) = $linkedEntity->fetchLogicalPath();
 
 			if ($ret) {

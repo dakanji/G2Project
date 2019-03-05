@@ -30,8 +30,9 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 	 * @see ItemEditPlugin::handleRequest
 	 */
 	public function handleRequest($form, &$item, &$preferred) {
-		$status             = null;
-		$error              = array();
+		$status = null;
+		$error  = array();
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
 
 		if ($ret) {
@@ -56,6 +57,7 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
+
 			$thumb      = array_shift($thumbnails);
 			$operations = $thumb->getDerivativeOperations();
 
@@ -68,17 +70,21 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 			} else {
 				$operations = 'select-offset|' . $form['offset'] . ';' . $operations;
 			}
+
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumb->getId());
 
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
+
 			$thumb->setDerivativeOperations($operations);
+
 			$ret = $thumb->save();
 
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
+
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
 			if ($ret) {
@@ -87,7 +93,6 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 
 			$status = $module->translate('Changes saved successfully');
 		} // else $form['action']['reset'])
-
 		return array(null, $error, $status, false);
 	}
 
@@ -108,11 +113,13 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 				$form['offset'] = $regs[2];
 			}
 		}
+
 		list($ret, $duration) = $this->_getDuration($item);
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$form['duration'] = sprintf('%.3f', $duration);
 		$template->setVariable('controller', 'thumbpage.ItemEditThumbOffset');
 
@@ -166,6 +173,7 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($item->getMimeType(), 'dimensions-and-duration');
 
 		if ($ret) {
@@ -175,6 +183,7 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 		if (!isset($toolkit)) {
 			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
 		}
+
 		list($ret, $result) = $toolkit->getProperty(
 			$item->getMimeType(),
 			'dimensions-and-duration',

@@ -221,6 +221,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 				unset($params[$key]);
 			}
 		}
+
 		ksort($params);
 		$this->assertEquals(
 			array(
@@ -271,6 +272,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 				unset($params[$key]);
 			}
 		}
+
 		ksort($params);
 		$this->assertEquals(
 			array(
@@ -356,6 +358,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 				unset($params[$key]);
 			}
 		}
+
 		ksort($params);
 		$this->assertEquals(
 			array(
@@ -400,6 +403,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 				unset($params[$key]);
 			}
 		}
+
 		ksort($params);
 		$this->assertEquals(
 			array(

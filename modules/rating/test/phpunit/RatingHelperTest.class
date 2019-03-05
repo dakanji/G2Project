@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 GalleryCoreApi::requireOnce('modules/rating/classes/RatingHelper.class');
 
@@ -36,6 +35,7 @@ class RatingHelperTest extends GalleryTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -53,6 +53,7 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		list($ret, $this->_item) = $this->_createRandomDataItem(
@@ -89,6 +90,7 @@ class RatingHelperTest extends GalleryTestCase {
 
 	public function tearDown() {
 		global $gallery;
+
 		$gallery->_session = $this->_origSession;
 
 		list($ret, $languageCode) = $gallery->getActiveLanguageCode();
@@ -110,6 +112,7 @@ class RatingHelperTest extends GalleryTestCase {
 
 	public function testRateItem() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 		$this->assertTrue($session->isPersistent(), 'is persistent');
 		$this->assertFalse(empty($session->_sessionId), 'session id');
@@ -138,6 +141,7 @@ class RatingHelperTest extends GalleryTestCase {
 
 	public function testRateItemAsGoogleBot() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 		$this->assertTrue($session->isPersistent(), 'is persistent');
 		$this->assertFalse(empty($session->_sessionId), 'session id');
@@ -162,12 +166,14 @@ class RatingHelperTest extends GalleryTestCase {
 
 	public function testRateAsGuestWithoutPersistentCookie() {
 		global $gallery;
+
 		$gallery->_session = null;
 		$ret               = $gallery->initSession();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		// It should create a new persistent session
 		$this->_becomeGuestUser();
 		$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
@@ -181,10 +187,12 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$anonymousUserId = (int)$guestId;
 
 		// Rate!
-		$testRating             = mt_rand(1, 5);
+		$testRating = mt_rand(1, 5);
+
 		list($ret, $RatingData) = RatingHelper::rateItem(
 			$this->_item->getId(),
 			3,
@@ -194,7 +202,9 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($gallery->_session->isPersistent(), 'is persistent');
+
 		list($ret, $RatingData) = RatingHelper::rateItem(
 			$this->_item->getId(),
 			$testRating,
@@ -211,12 +221,14 @@ class RatingHelperTest extends GalleryTestCase {
 	}
 
 	public function testRateBogusItem() {
-		$testRating             = mt_rand(1, 5);
+		$testRating = mt_rand(1, 5);
+
 		list($ret, $RatingData) = RatingHelper::rateItem(
 			-1,
 			$testRating,
 			$this->_users[0]->getId()
 		);
+
 		// This *should* fail.
 		$this->assertTrue($ret, 'expected error');
 
@@ -230,7 +242,8 @@ class RatingHelperTest extends GalleryTestCase {
 		$votes       = 0;
 
 		foreach ($this->_users as $user) {
-			$testRating             = mt_rand(1, 5);
+			$testRating = mt_rand(1, 5);
+
 			list($ret, $RatingData) = RatingHelper::rateItem(
 				$this->_item->getId(),
 				$testRating,
@@ -240,6 +253,7 @@ class RatingHelperTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$totalRating += $testRating;
 			$votes++;
 
@@ -259,7 +273,8 @@ class RatingHelperTest extends GalleryTestCase {
 		}
 
 		// Test average
-		$average                = round($totalRating / $votes, 3);
+		$average = round($totalRating / $votes, 3);
+
 		list($ret, $RatingData) = RatingHelper::fetchRatings(
 			array($this->_item->getId()),
 			$this->_users[0]->getId()
@@ -268,6 +283,7 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			$average,
 			(float)$RatingData[$this->_item->getId()]['rating'],
@@ -279,6 +295,7 @@ class RatingHelperTest extends GalleryTestCase {
 			!strpos($RatingData[$this->_item->getId()]['rating'], ','),
 			'Comma found in rating: ' . $RatingData[$this->_item->getId()]['rating']
 		);
+
 		$this->assertTrue(
 			!strpos($RatingData[$this->_item->getId()]['averagePercent'], ','),
 			'Comma found in averagePercent: '
@@ -288,6 +305,7 @@ class RatingHelperTest extends GalleryTestCase {
 
 	public function testFetchRatingsForGuestWithoutPersistentSession() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 		$this->assertTrue($session->isPersistent(), 'is persistent');
 		$this->assertFalse(empty($session->_sessionId), 'session id');
@@ -301,6 +319,7 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$anonymousUserId = (int)$guestId;
 
 		// Create a few ratings
@@ -311,6 +330,7 @@ class RatingHelperTest extends GalleryTestCase {
 		foreach ($this->_users as $user) {
 			$testUserIds[] = $user->getId();
 		}
+
 		$testUserIds[] = $anonymousUserId;
 
 		foreach ($testUserIds as $userId) {
@@ -321,12 +341,14 @@ class RatingHelperTest extends GalleryTestCase {
 				if ($ret) {
 					return $ret;
 				}
+
 				// It should create a new persistent session
 				$this->_becomeGuestUser();
 				$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
 			}
 
-			$testRating             = mt_rand(1, 5);
+			$testRating = mt_rand(1, 5);
+
 			list($ret, $RatingData) = RatingHelper::rateItem(
 				$this->_item->getId(),
 				$testRating,
@@ -336,6 +358,7 @@ class RatingHelperTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$totalRating += $testRating;
 			$votes++;
 
@@ -355,7 +378,8 @@ class RatingHelperTest extends GalleryTestCase {
 		}
 
 		// Test fetch as guest with a persistent session that already has rated
-		$average                = round($totalRating / $votes, 3);
+		$average = round($totalRating / $votes, 3);
+
 		list($ret, $RatingData) = RatingHelper::fetchRatings(
 			array($this->_item->getId()),
 			$anonymousUserId
@@ -364,11 +388,13 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			$average,
 			(float)$RatingData[$this->_item->getId()]['rating'],
 			'average for guest that has rated'
 		);
+
 		$this->assertEquals(
 			$testRating,
 			(int)$RatingData[$this->_item->getId()]['userRating'],
@@ -382,6 +408,7 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		// It should create a new persistent session
 		$this->_becomeGuestUser();
 		$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
@@ -394,11 +421,13 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			$average,
 			(float)$RatingData[$this->_item->getId()]['rating'],
 			'Average rating test failed.'
 		);
+
 		$this->assertFalse(isset($RatingData['userRating']), 'no user rating');
 		$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
 
@@ -409,8 +438,10 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$gallery->_session = $session;
 		$this->assertTrue($gallery->_session->isPersistent(), 'persistent');
+
 		list($ret, $RatingData) = RatingHelper::fetchRatings(
 			array($this->_item->getId()),
 			$anonymousUserId
@@ -419,6 +450,7 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(isset($RatingData['userRating']), 'no user rating');
 	}
 
@@ -438,6 +470,7 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				$this->_item->getId() => array(
@@ -475,7 +508,8 @@ class RatingHelperTest extends GalleryTestCase {
 		// Verify we get a non empty item summary for the item
 		$permissions[$itemId]['rating.view'] = 1;
 		$template                            = new GalleryTemplate(__DIR__ . '/../../../..');
-		list($ret, $content)                 = $module->getItemSummaries(
+
+		list($ret, $content) = $module->getItemSummaries(
 			array($this->_item),
 			$permissions,
 			$template
@@ -484,6 +518,7 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(
 			isset($content[$itemId]) && !empty($content[$itemId]),
 			'Did not get item summary'
@@ -492,7 +527,8 @@ class RatingHelperTest extends GalleryTestCase {
 		// Get the item summary again, but without having the permissions
 		unset($content, $template);
 
-		$template            = new GalleryTemplate(__DIR__ . '/../../../..');
+		$template = new GalleryTemplate(__DIR__ . '/../../../..');
+
 		list($ret, $content) = $module->getItemSummaries(
 			array($this->_item),
 			array(
@@ -504,6 +540,7 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse(isset($content[$itemId]), 'Got an item summary');
 	}
 
@@ -523,6 +560,7 @@ class RatingHelperTest extends GalleryTestCase {
 				return $ret;
 			}
 		}
+
 		// Four items: *, *****, * + random votes, ***** x3; order = 4 2 3 1
 		foreach ($items as $i => $item) {
 			list($ret) = RatingHelper::rateItem(
@@ -546,7 +584,8 @@ class RatingHelperTest extends GalleryTestCase {
 
 		for ($i = 1; $i < count($this->_users); $i++) {
 			$testRating = mt_rand(1, 5);
-			list($ret)  = RatingHelper::rateItem(
+
+			list($ret) = RatingHelper::rateItem(
 				$items[2]->getId(),
 				$testRating,
 				$this->_users[$i]->getId()

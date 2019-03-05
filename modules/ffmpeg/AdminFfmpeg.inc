@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/ffmpeg/classes/FfmpegToolkitHelper.class');
 
 /**
@@ -122,6 +121,7 @@ class AdminFfmpegController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					$status['added'] = 1;
 				} elseif (isset($form['removeWatermark']) && $form['removeWatermark']) {
 					$query = '
@@ -134,6 +134,7 @@ class AdminFfmpegController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					$status['removed'] = 1;
 				}
 
@@ -147,6 +148,7 @@ class AdminFfmpegController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$ret = GalleryCoreApi::setPluginParameter(
 					'module',
 					'ffmpeg',
@@ -164,6 +166,7 @@ class AdminFfmpegController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				list($ret, $isActive) = $module->isActive();
 
 				if ($ret) {
@@ -194,6 +197,7 @@ class AdminFfmpegController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'ffmpeg.AdminFfmpeg';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -202,11 +206,13 @@ class AdminFfmpegController extends GalleryController {
 
 	public function _processThumbnails($query, $operation) {
 		global $gallery;
+
 		list($ret, $searchResults) = $gallery->search($query);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ids = array();
 
 		while ($result = $searchResults->nextResult()) {
@@ -214,12 +220,14 @@ class AdminFfmpegController extends GalleryController {
 		}
 
 		while (!empty($ids)) {
-			$idSet              = array_splice($ids, 0, 100);
+			$idSet = array_splice($ids, 0, 100);
+
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($idSet);
 
 			if ($ret) {
 				return $ret;
 			}
+
 			list($ret, $thumbnails) = GalleryCoreApi::loadEntitiesById($idSet, 'GalleryDerivative');
 
 			if ($ret) {
@@ -230,6 +238,7 @@ class AdminFfmpegController extends GalleryController {
 
 			foreach ($thumbnails as $thumbnail) {
 				$this->$operation($thumbnail);
+
 				$ret = $thumbnail->save();
 
 				if ($ret) {
@@ -238,6 +247,7 @@ class AdminFfmpegController extends GalleryController {
 					return $ret;
 				}
 			}
+
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
 			if ($ret) {
@@ -302,6 +312,7 @@ class AdminFfmpegView extends GalleryView {
 					return array($ret, null);
 				}
 			}
+
 			$form['formName'] = 'AdminFfmpeg';
 		} else {
 			if (!isset($form['useWatermark'])) {
@@ -323,6 +334,7 @@ class AdminFfmpegView extends GalleryView {
 				$form['error']['path']['missing'] = 1;
 			} else {
 				$gallery->startRecordingDebugSnippet();
+
 				list($ret, $tests, $mimeTypes, $supportsOffset,
 				$mimeTypesEncoder, $encoderCodecs, $version) = FfmpegToolkitHelper::testBinary($form['path']);
 
@@ -331,6 +343,7 @@ class AdminFfmpegView extends GalleryView {
 				) {
 					$encodeWarnings['video/x-flv']['mute'] = true;
 				}
+
 				$debugSnippet = $gallery->stopRecordingDebugSnippet();
 
 				if ($ret) {
@@ -365,6 +378,7 @@ class AdminFfmpegView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $isActive) = $module->isActive();
 
 		if ($ret) {
@@ -387,7 +401,8 @@ class AdminFfmpegView extends GalleryView {
 				ini_get('disable_functions')
 			)
 		);
-		$AdminFfmpeg['canWatermark']     = isset($toolkit);
+
+		$AdminFfmpeg['canWatermark'] = isset($toolkit);
 
 		if ($failCount > 0) {
 			$template->javascript('lib/javascript/BlockToggle.js');

@@ -9,7 +9,6 @@
 Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
 	Microsoft ADO data driver. Requires ADO. Works only on MS Windows. PHP5 compat version.
 */
 
@@ -21,8 +20,6 @@ if (!defined('ADODB_DIR')) {
 define('_ADODB_ADO_LAYER', 1);
 /*--------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------*/
-
-
 class ADODB_ado extends ADOConnection {
 	public $databaseType     = 'ado';
 	public $_bindInputArray  = false;
@@ -71,8 +68,6 @@ class ADODB_ado extends ADOConnection {
 		// two modes
 		//	-	if $argProvider is empty, we assume that $argDBorProvider holds provider -- this is for backward compat
 		//	- 	if $argProvider is not empty, then $argDBorProvider holds db
-
-
 		if ($argProvider) {
 			$argDatabasename = $argDBorProvider;
 		} else {
@@ -84,7 +79,6 @@ class ADODB_ado extends ADOConnection {
 				$argProvider = 'MSDASQL';
 			}
 		}
-
 
 		try {
 			$u = 'UID';
@@ -105,10 +99,8 @@ class ADODB_ado extends ADOConnection {
 				$u           = 'User Id';  //User parameter name for OLEDB
 				$p           = 'Password';
 				$argProvider = 'SQLOLEDB'; // SQL Server Provider
-
 				// not yet
 				//if ($argDatabasename) $argHostname .= ";Initial Catalog=$argDatabasename";
-
 				//use trusted conection for SQL if username not specified
 				if (!$argUsername) {
 					$argHostname .= ';Trusted_Connection=Yes';
@@ -125,7 +117,6 @@ class ADODB_ado extends ADOConnection {
 				$argHostname = "PROVIDER=$argProvider;DRIVER={SQL Server};SERVER=$argHostname";
 			}
 
-
 			if ($argDatabasename) {
 				$argHostname .= ";DATABASE=$argDatabasename";
 			}
@@ -141,6 +132,7 @@ class ADODB_ado extends ADOConnection {
 			if ($this->debug) {
 				ADOConnection::outp('Host=' . $argHostname . "<BR>\n version=$dbc->version");
 			}
+
 			// @ added below for php 4.0.1 and earlier
 			@$dbc->Open((string)$argHostname);
 
@@ -204,7 +196,6 @@ class ADODB_ado extends ADOConnection {
 	adSchemaMembers = 38
 
 	*/
-
 	public function MetaTables($ttype = false, $showSchema = false, $mask = false) {
 		$arr = array();
 		$dbc = $this->_connectionID;
@@ -219,9 +210,11 @@ class ADODB_ado extends ADOConnection {
 				if ($tt != 'SYSTEM' && $tt != 'ACCESS') {
 					$arr[] = $f->value;
 				}
+
 				//print $f->value . ' ' . $t->value.'<br>';
 				$adors->MoveNext();
 			}
+
 			$adors->Close();
 		}
 
@@ -234,7 +227,6 @@ class ADODB_ado extends ADOConnection {
 		$dbc   = $this->_connectionID;
 
 		$adors = @$dbc->OpenSchema(4);//tables
-
 		if ($adors) {
 			$t = $adors->Fields(2);//table/view name
 			while (!$adors->EOF) {
@@ -249,6 +241,7 @@ class ADODB_ado extends ADOConnection {
 
 				$adors->MoveNext();
 			}
+
 			$adors->Close();
 		}
 
@@ -261,7 +254,6 @@ class ADODB_ado extends ADOConnection {
 			$dbc = $this->_connectionID;
 
 			//	return rs
-
 			$false = false;
 
 			if ($inputarr) {
@@ -270,6 +262,7 @@ class ADODB_ado extends ADOConnection {
 				} else {
 					$oCmd = new COM('ADODB.Command');
 				}
+
 				$oCmd->ActiveConnection = $dbc;
 				$oCmd->CommandText      = $sql;
 				$oCmd->CommandType      = 1;
@@ -326,8 +319,7 @@ class ADODB_ado extends ADOConnection {
 			}
 
 			return $rs;
-		} catch (exception $e) {
-		}
+		} catch (exception $e) {}
 
 		return $false;
 	}
@@ -341,6 +333,7 @@ class ADODB_ado extends ADOConnection {
 			if (!$this->_thisTransactions) {
 				return false;
 			}
+
 			$o                       = $this->_connectionID->Properties('Transaction DDL');
 			$this->_thisTransactions = $o ? true : false;
 
@@ -348,6 +341,7 @@ class ADODB_ado extends ADOConnection {
 				return false;
 			}
 		}
+
 		@$this->_connectionID->BeginTrans();
 		$this->transCnt += 1;
 
@@ -376,6 +370,7 @@ class ADODB_ado extends ADOConnection {
 		if ($this->transOff) {
 			return true;
 		}
+
 		@$this->_connectionID->RollbackTrans();
 
 		if ($this->transCnt) {
@@ -386,11 +381,11 @@ class ADODB_ado extends ADOConnection {
 	}
 
 	// Returns: the last error message from previous database operation
-
 	public function ErrorMsg() {
 		if (!$this->_connectionID) {
 			return 'No connection established';
 		}
+
 		$errmsg = '';
 
 		try {
@@ -403,10 +398,10 @@ class ADODB_ado extends ADOConnection {
 			if ($errc->Count == 0) {
 				return '';
 			}
+
 			$err    = $errc->Item($errc->Count - 1);
 			$errmsg = $err->Description;
-		} catch (exception $e) {
-		}
+		} catch (exception $e) {}
 
 		return $errmsg;
 	}
@@ -417,6 +412,7 @@ class ADODB_ado extends ADOConnection {
 		if ($errc->Count == 0) {
 			return 0;
 		}
+
 		$err = $errc->Item($errc->Count - 1);
 
 		return $err->NativeError;
@@ -427,6 +423,7 @@ class ADODB_ado extends ADOConnection {
 		if ($this->_connectionID) {
 			$this->_connectionID->Close();
 		}
+
 		$this->_connectionID = false;
 
 		return true;
@@ -436,7 +433,6 @@ class ADODB_ado extends ADOConnection {
 /*--------------------------------------------------------------------------------------
 	 Class Name: Recordset
 --------------------------------------------------------------------------------------*/
-
 class ADORecordSet_ado extends ADORecordSet {
 	public $bind         = false;
 	public $databaseType = 'ado';
@@ -449,8 +445,10 @@ class ADORecordSet_ado extends ADORecordSet {
 	public function __construct($id, $mode = false) {
 		if ($mode === false) {
 			global $ADODB_FETCH_MODE;
+
 			$mode = $ADODB_FETCH_MODE;
 		}
+
 		$this->fetchMode = $mode;
 
 		return parent::__construct($id, $mode);
@@ -459,9 +457,8 @@ class ADORecordSet_ado extends ADORecordSet {
 	// returns the field object
 	public function FetchField($fieldOffset = -1) {
 		$off = $fieldOffset + 1; // offsets begin at 1
-
-		$o  = new ADOFieldObject();
-		$rs = $this->_queryID;
+		$o   = new ADOFieldObject();
+		$rs  = $this->_queryID;
 
 		if (!$rs) {
 			return false;
@@ -473,7 +470,6 @@ class ADORecordSet_ado extends ADORecordSet {
 		$o->type       = $this->MetaType($t);
 		$o->max_length = $f->DefinedSize;
 		$o->ado_type   = $t;
-
 
 		//print "off=$off name=$o->name type=$o->type len=$o->max_length<br>";
 		return $o;
@@ -505,6 +501,7 @@ class ADORecordSet_ado extends ADORecordSet {
 		} catch (Exception $e) {
 			$this->_numOfRows = -1;
 		}
+
 		$f                  = $rs->Fields;
 		$this->_numOfFields = $f->Count;
 	}
@@ -518,6 +515,7 @@ class ADORecordSet_ado extends ADORecordSet {
 		if ($this->_currentRow > $row) {
 			return false;
 		}
+
 		@$rs->Move((int)$row - $this->_currentRow - 1); //adBookmarkFirst
 		return true;
 	}
@@ -630,6 +628,7 @@ class ADORecordSet_ado extends ADORecordSet {
 					return 'C';
 				}
 
+
 				// Fall Through
 			case 201:
 			case 203:
@@ -675,6 +674,7 @@ class ADORecordSet_ado extends ADORecordSet {
 
 			return false;
 		}
+
 		$this->fields = array();
 
 		if (!$this->_tarr) {
@@ -686,10 +686,12 @@ class ADORecordSet_ado extends ADORecordSet {
 				$flds[] = $f;
 				$tarr[] = $f->Type;
 			}
+
 			// bind types and flds only once
 			$this->_tarr = $tarr;
 			$this->_flds = $flds;
 		}
+
 		$t = reset($this->_tarr);
 		$f = reset($this->_flds);
 
@@ -710,6 +712,7 @@ class ADORecordSet_ado extends ADORecordSet {
 						} else {
 							$val = $f->value;
 						}
+
 						$this->fields[] = adodb_date('Y-m-d H:i:s', $val);
 					}
 
@@ -770,7 +773,7 @@ class ADORecordSet_ado extends ADORecordSet {
 						}
 					}
 
-					if (is_null($f->value)) {
+					if (null === $f->value) {
 						$val = null;
 					}
 
@@ -783,6 +786,7 @@ class ADORecordSet_ado extends ADORecordSet {
 
 					break;
 			}
+
 			//print " $f->value $t, ";
 			$f = next($this->_flds);
 			$t = next($this->_tarr);
@@ -790,8 +794,8 @@ class ADORecordSet_ado extends ADORecordSet {
 		if ($this->hideErrors) {
 			error_reporting($olde);
 		}
-		@$rs->MoveNext(); // @ needed for some versions of PHP!
 
+		@$rs->MoveNext(); // @ needed for some versions of PHP!
 		if ($this->fetchMode & ADODB_FETCH_ASSOC) {
 			$this->fields = $this->GetRowAssoc();
 		}
@@ -825,8 +829,8 @@ class ADORecordSet_ado extends ADORecordSet {
 
 		try {
 			@$this->_queryID->Close();// by Pete Dishman (peterd@telephonetics.co.uk)
-		} catch (Exception $e) {
-		}
+		} catch (Exception $e) {}
+
 		$this->_queryID = false;
 	}
 }

@@ -38,6 +38,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 	// disable adodb extension - currently incompatible.
 	global $ADODB_EXTENSION;
+
 	$ADODB_EXTENSION = false;
 
 	class ADODB_mysqli extends ADOConnection {
@@ -88,6 +89,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if (!stristr($transaction_mode, 'isolation')) {
 				$transaction_mode = 'ISOLATION LEVEL ' . $transaction_mode;
 			}
+
 			$this->Execute('SET SESSION TRANSACTION ' . $transaction_mode);
 		}
 
@@ -104,9 +106,10 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if (!extension_loaded('mysqli')) {
 				return null;
 			}
+
 			$this->_connectionID = @mysqli_init();
 
-			if (is_null($this->_connectionID)) {
+			if (null === $this->_connectionID) {
 				// mysqli_init only fails if insufficient memory
 				if ($this->debug) {
 					ADOConnection::outp('mysqli_init() failed : ' . $this->ErrorMsg());
@@ -114,6 +117,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 				return false;
 			}
+
 			/*
 			I suggest a simple fix which would enable adodb and mysqli driver to
 			read connection options from the standard mysql configuration file
@@ -152,6 +156,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if ($this->debug) {
 				ADOConnection::outp('Could not connect : ' . $this->ErrorMsg());
 			}
+
 			$this->_connectionID = null;
 
 			return false;
@@ -180,7 +185,8 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			global $ADODB_GETONE_EOF;
 
 			$ret = false;
-			$rs  = $this->Execute($sql, $inputarr);
+
+			$rs = $this->Execute($sql, $inputarr);
 
 			if ($rs) {
 				if ($rs->EOF) {
@@ -188,6 +194,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				} else {
 					$ret = reset($rs->fields);
 				}
+
 				$rs->Close();
 			}
 
@@ -205,6 +212,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if ($this->transOff) {
 				return true;
 			}
+
 			$this->transCnt += 1;
 
 			//$this->Execute('SET AUTOCOMMIT=0');
@@ -226,6 +234,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if ($this->transCnt) {
 				$this->transCnt -= 1;
 			}
+
 			$this->Execute('COMMIT');
 
 			//$this->Execute('SET AUTOCOMMIT=1');
@@ -242,6 +251,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if ($this->transCnt) {
 				$this->transCnt -= 1;
 			}
+
 			$this->Execute('ROLLBACK');
 			//$this->Execute('SET AUTOCOMMIT=1');
 			mysqli_autocommit($this->_connectionID, true);
@@ -257,6 +267,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if ($where) {
 				$where = ' where ' . $where;
 			}
+
 			$rs = $this->Execute("select $col from $tables $where for update");
 
 			return !empty($rs);
@@ -275,7 +286,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		 * @return string Quoted string
 		 */
 		public function qstr($s, $magic_quotes = false) {
-			if (is_null($s)) {
+			if (null === $s) {
 				return 'NULL';
 			}
 
@@ -292,6 +303,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 				return "'" . str_replace("'", $this->replaceQuote, $s) . "'";
 			}
+
 			// undo magic quotes for "
 			$s = str_replace('\\"', '"', $s);
 
@@ -335,6 +347,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if (empty($this->_genSeqSQL)) {
 				return false;
 			}
+
 			$u = strtoupper($seqname);
 
 			$ok = $this->Execute(sprintf($this->_genSeqSQL, $seqname));
@@ -360,6 +373,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				if ($holdtransOK) {
 					$this->_transOK = true; //if the status was ok before reset
 				}
+
 				$u = strtoupper($seqname);
 				$this->Execute(sprintf($this->_genSeqSQL, $seqname));
 				$cnt = $this->GetOne(sprintf($this->_genSeqCountSQL, $seqname));
@@ -367,6 +381,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				if (!$cnt) {
 					$this->Execute(sprintf($this->_genSeq2SQL, $seqname, $startID - 1));
 				}
+
 				$rs = $this->Execute($getnext);
 			}
 
@@ -393,6 +408,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 					if ($db != 'mysql') {
 						$arr[] = $db;
 					}
+
 					$ret->MoveNext();
 				}
 
@@ -421,6 +437,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
 			}
+
 			$ADODB_FETCH_MODE = $save;
 
 			if (!is_object($rs)) {
@@ -458,6 +475,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if (!$col) {
 				$col = $this->sysTimeStamp;
 			}
+
 			$s      = 'DATE_FORMAT(' . $col . ",'";
 			$concat = false;
 			$len    = strlen($fmt);
@@ -481,6 +499,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 						} else {
 							$s .= ",('";
 						}
+
 						$concat = true;
 
 						break;
@@ -542,11 +561,13 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 							$i++;
 							$ch = substr($fmt, $i, 1);
 						}
+
 						$s .= $ch;
 
 						break;
 				}
 			}
+
 			$s .= "')";
 
 			if ($concat) {
@@ -600,12 +621,12 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			$procedures = array();
 
 			// get index details
-
 			$likepattern = '';
 
 			if ($NamePattern) {
 				$likepattern = " LIKE '" . $NamePattern . "'";
 			}
+
 			$rs = $this->Execute('SHOW PROCEDURE STATUS' . $likepattern);
 
 			if (is_object($rs)) {
@@ -638,6 +659,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
 			}
+
 			$ADODB_FETCH_MODE = $save;
 
 			return $procedures;
@@ -665,6 +687,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				$mask                 = $this->qstr($mask);
 				$this->metaTablesSQL .= " AND table_name LIKE $mask";
 			}
+
 			$ret = ADOConnection::MetaTables($ttype, $showSchema);
 
 			$this->metaTablesSQL = $save;
@@ -683,6 +706,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if (!empty($owner)) {
 				$table = "$owner.$table";
 			}
+
 			$a_create_table = $this->getRow(sprintf('SHOW CREATE TABLE %s', $table));
 
 			if ($associative) {
@@ -696,6 +720,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if (!preg_match_all('/FOREIGN KEY \(`(.*?)`\) REFERENCES `(.*?)` \(`(.*?)`\)/', $create_sql, $matches)) {
 				return false;
 			}
+
 			$foreign_keys = array();
 			$num_keys     = count($matches[0]);
 
@@ -712,6 +737,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				if (!isset($foreign_keys[$ref_table])) {
 					$foreign_keys[$ref_table] = array();
 				}
+
 				$num_fields = count($my_field);
 
 				for ($j = 0; $j < $num_fields; $j ++) {
@@ -734,17 +760,20 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			}
 
 			global $ADODB_FETCH_MODE;
+
 			$save             = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 			if ($this->fetchMode !== false) {
 				$savem = $this->SetFetchMode(false);
 			}
+
 			$rs = $this->Execute(sprintf($this->metaColumnsSQL, $table));
 
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
 			}
+
 			$ADODB_FETCH_MODE = $save;
 
 			if (!is_object($rs)) {
@@ -778,6 +807,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 					$fld->type       = $type;
 					$fld->max_length = -1;
 				}
+
 				$fld->not_null       = ($rs->fields[2] != 'YES');
 				$fld->primary_key    = ($rs->fields[3] == 'PRI');
 				$fld->auto_increment = (strpos($rs->fields[5], 'auto_increment') !== false);
@@ -801,6 +831,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				} else {
 					$retarr[strtoupper($fld->name)] = $fld;
 				}
+
 				$rs->MoveNext();
 			}
 
@@ -814,7 +845,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			//      $this->_connectionID = $this->mysqli_resolve_link($this->_connectionID);
 			$this->database     = $dbName;
 			$this->databaseName = $dbName; // obsolete, retained for compat with older adodb versions
-
 			if ($this->_connectionID) {
 				$result = @mysqli_select_db($this->_connectionID, $dbName);
 
@@ -869,17 +899,16 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		// returns queryID or false
 		public function _query($sql, $inputarr) {
 			global $ADODB_COUNTRECS;
+
 			// Move to the next recordset, or return false if there is none. In a stored proc
 			// call, mysqli_next_result returns true for the last "recordset", but mysqli_store_result
 			// returns false. I think this is because the last "recordset" is actually just the
 			// return value of the stored proc (ie the number of rows affected).
 			// Commented out for reasons of performance. You should retrieve every recordset yourself.
 			//	if (!mysqli_next_result($this->connection->_connectionID))	return false;
-
 			if (is_array($sql)) {
 				// Prepare() not supported because mysqli_stmt_execute does not return a recordset, but
 				// returns as bound variables.
-
 				$stmt = $sql[1];
 				$a    = '';
 
@@ -895,7 +924,8 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 				$fnarr = array_merge(array($stmt, $a), $inputarr);
 				$ret   = call_user_func_array('mysqli_stmt_bind_param', $fnarr);
-				$ret   = mysqli_stmt_execute($stmt);
+
+				$ret = mysqli_stmt_execute($stmt);
 
 				return $ret;
 			}
@@ -908,7 +938,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 			return $mysql_res;
 			*/
-
 			if ($this->multiQuery) {
 				$rs = mysqli_multi_query($this->_connectionID, $sql . ';');
 
@@ -974,7 +1003,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		// GetCharSet - get the name of the character set the client is using now
 		// Under Windows, the functions should work with MySQL 4.1.11 and above, the set of charsets supported
 		// depends on compile flags of mysql distribution
-
 		public function GetCharSet() {
 			//we will use ADO's builtin property charSet
 			if (!method_exists($this->_connectionID, 'character_set_name')) {
@@ -1009,7 +1037,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 	/*--------------------------------------------------------------------------------------
 	 Class Name: Recordset
 	--------------------------------------------------------------------------------------*/
-
 	class ADORecordSet_mysqli extends ADORecordSet {
 		public $databaseType = 'mysqli';
 		public $canSeek      = true;
@@ -1017,6 +1044,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		public function __construct($queryID, $mode = false) {
 			if ($mode === false) {
 				global $ADODB_FETCH_MODE;
+
 				$mode = $ADODB_FETCH_MODE;
 			}
 
@@ -1038,6 +1066,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 					break;
 			}
+
 			$this->adodbFetchMode = $mode;
 			parent::__construct($queryID);
 		}
@@ -1068,13 +1097,13 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		65536 = MYSQLI_UNIQUE_FLAG
 		131072 = MYSQLI_BINCMP_FLAG
 		*/
-
 		public function FetchField($fieldOffset = -1) {
 			$fieldnr = $fieldOffset;
 
 			if ($fieldOffset != -1) {
 				$fieldOffset = @mysqli_field_seek($this->_queryID, $fieldnr);
 			}
+
 			$o = @mysqli_fetch_field($this->_queryID);
 
 			if (!$o) {
@@ -1085,6 +1114,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if (!isset($o->flags)) {
 				$o->flags = 0;
 			}
+
 			// Properties of an ADOFieldObject as set by MetaColumns
 			$o->primary_key    = $o->flags & MYSQLI_PRI_KEY_FLAG;
 			$o->not_null       = $o->flags & MYSQLI_NOT_NULL_FLAG;
@@ -1100,6 +1130,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if ($this->fetchMode == MYSQLI_ASSOC && $upper == ADODB_ASSOC_CASE_LOWER) {
 				return $this->fields;
 			}
+
 			$row = ADORecordSet::GetRowAssoc($upper);
 
 			return $row;
@@ -1146,12 +1177,14 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if (!mysqli_next_result($this->connection->_connectionID)) {
 				return false;
 			}
+
 			// CD: There is no $this->_connectionID variable, at least in the ADO version I'm using
 			$this->_queryID = ($ADODB_COUNTRECS) ? @mysqli_store_result($this->connection->_connectionID) : @mysqli_use_result($this->connection->_connectionID);
 
 			if (!$this->_queryID) {
 				return false;
 			}
+
 			$this->_inited     = false;
 			$this->bind        = false;
 			$this->_currentRow = -1;
@@ -1167,6 +1200,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if ($this->EOF) {
 				return false;
 			}
+
 			$this->_currentRow++;
 			$this->fields = @mysqli_fetch_array($this->_queryID, $this->fetchMode);
 
@@ -1175,6 +1209,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 				return true;
 			}
+
 			$this->EOF = true;
 
 			return false;
@@ -1190,7 +1225,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		public function _close() {
 			//if results are attached to this pointer from Stored Proceedure calls, the next standard query will die 2014
 			//only a problem with persistant connections
-
 			if (isset($this->connection->_connectionID) && $this->connection->_connectionID) {
 				while (mysqli_more_results($this->connection->_connectionID)) {
 					mysqli_next_result($this->connection->_connectionID);
@@ -1200,6 +1234,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			if ($this->_queryID instanceof mysqli_result) {
 				mysqli_free_result($this->_queryID);
 			}
+
 			$this->_queryID = false;
 		}
 
@@ -1231,14 +1266,12 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		254 = MYSQLI_TYPE_STRING
 		255 = MYSQLI_TYPE_GEOMETRY
 		*/
-
 		public function MetaType($t, $len = -1, $fieldobj = false) {
 			if (is_object($t)) {
 				$fieldobj = $t;
 				$t        = $fieldobj->type;
 				$len      = $fieldobj->max_length;
 			}
-
 
 			$len = -1; // mysql max_length is not accurate
 			switch (strtoupper($t)) {
@@ -1258,6 +1291,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 					if ($len <= $this->blobSize) {
 						return 'C';
 					}
+
 
 					// Fall Through
 				case 'TEXT':
@@ -1336,7 +1370,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			$len      = $fieldobj->max_length;
 		}
 
-
 		$len = -1; // mysql max_length is not accurate
 		switch (strtoupper($t)) {
 			case 'STRING':
@@ -1355,6 +1388,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				if ($len <= $this->blobSize) {
 					return 'C';
 				}
+
 
 				// Fall Through
 			case 'TEXT':
@@ -1404,7 +1438,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				}
 
 				return 'I';
-
 
 			// Added floating-point types
 			// Maybe not necessery.

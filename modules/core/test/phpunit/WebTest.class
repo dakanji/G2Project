@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryModule.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
 
@@ -35,6 +34,7 @@ class WebTest extends GalleryTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -46,18 +46,17 @@ class WebTest extends GalleryTestCase {
 
 	public function testFetchWebPage() {
 		list($success, $body, $response, $headers, $actualUrl) = GalleryCoreApi::fetchWebPage('http://www.test.server/testFetchWebPage');
-
-		$expectedHeaders['Connection']          = 'close';
-		$expectedHeaders['Date']                = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Accept-Ranges']       = 'bytes';
-		$expectedHeaders['ETag']                = '"122ae4-5-3fc199b0"';
-		$expectedHeaders['Server']              = 'Apache/1.3.28 (Unix)';
-		$expectedHeaders['Content-Length']      = '5';
-		$expectedHeaders['Content-Type']        = 'text/html';
-		$expectedHeaders['Last-Modified']       = 'Mon, 24 Nov 2003 05:40:00 GMT';
-		$expectedHeaders['Client-Date']         = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
-		$expectedHeaders['Client-Response-Num'] = '1';
+		$expectedHeaders['Connection']                         = 'close';
+		$expectedHeaders['Date']                               = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Accept-Ranges']                      = 'bytes';
+		$expectedHeaders['ETag']                               = '"122ae4-5-3fc199b0"';
+		$expectedHeaders['Server']                             = 'Apache/1.3.28 (Unix)';
+		$expectedHeaders['Content-Length']                     = '5';
+		$expectedHeaders['Content-Type']                       = 'text/html';
+		$expectedHeaders['Last-Modified']                      = 'Mon, 24 Nov 2003 05:40:00 GMT';
+		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
+		$expectedHeaders['Client-Response-Num']                = '1';
 
 		$expectedBody[] = 'test';
 
@@ -70,18 +69,17 @@ class WebTest extends GalleryTestCase {
 
 	public function testFetchWebPageError404() {
 		list($success, $body, $response, $headers, $actualUrl) = GalleryCoreApi::fetchWebPage('http://www.test.server/testFetchWebPageNotExists');
-
-		$expectedHeaders['Connection']          = 'close';
-		$expectedHeaders['Date']                = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Accept-Ranges']       = 'bytes';
-		$expectedHeaders['ETag']                = '"122ae4-5-3fc199b0"';
-		$expectedHeaders['Server']              = 'Apache/1.3.28 (Unix)';
-		$expectedHeaders['Content-Length']      = '11';
-		$expectedHeaders['Content-Type']        = 'text/html';
-		$expectedHeaders['Last-Modified']       = 'Mon, 24 Nov 2003 05:40:00 GMT';
-		$expectedHeaders['Client-Date']         = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
-		$expectedHeaders['Client-Response-Num'] = '1';
+		$expectedHeaders['Connection']                         = 'close';
+		$expectedHeaders['Date']                               = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Accept-Ranges']                      = 'bytes';
+		$expectedHeaders['ETag']                               = '"122ae4-5-3fc199b0"';
+		$expectedHeaders['Server']                             = 'Apache/1.3.28 (Unix)';
+		$expectedHeaders['Content-Length']                     = '11';
+		$expectedHeaders['Content-Type']                       = 'text/html';
+		$expectedHeaders['Last-Modified']                      = 'Mon, 24 Nov 2003 05:40:00 GMT';
+		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
+		$expectedHeaders['Client-Response-Num']                = '1';
 
 		$expectedBody[] = 'not found!';
 
@@ -94,18 +92,17 @@ class WebTest extends GalleryTestCase {
 
 	public function testFetchWebPageError500() {
 		list($success, $body, $response, $headers, $actualUrl) = GalleryCoreApi::fetchWebPage('http://www.test.server/testFetchWebPageBadConfiguration');
-
-		$expectedHeaders['Connection']          = 'close';
-		$expectedHeaders['Date']                = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Accept-Ranges']       = 'bytes';
-		$expectedHeaders['ETag']                = '"122ae4-5-3fc199b0"';
-		$expectedHeaders['Server']              = 'Apache/1.3.28 (Unix)';
-		$expectedHeaders['Content-Length']      = '14';
-		$expectedHeaders['Content-Type']        = 'text/html';
-		$expectedHeaders['Last-Modified']       = 'Mon, 24 Nov 2003 05:40:00 GMT';
-		$expectedHeaders['Client-Date']         = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
-		$expectedHeaders['Client-Response-Num'] = '1';
+		$expectedHeaders['Connection']                         = 'close';
+		$expectedHeaders['Date']                               = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Accept-Ranges']                      = 'bytes';
+		$expectedHeaders['ETag']                               = '"122ae4-5-3fc199b0"';
+		$expectedHeaders['Server']                             = 'Apache/1.3.28 (Unix)';
+		$expectedHeaders['Content-Length']                     = '14';
+		$expectedHeaders['Content-Type']                       = 'text/html';
+		$expectedHeaders['Last-Modified']                      = 'Mon, 24 Nov 2003 05:40:00 GMT';
+		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
+		$expectedHeaders['Client-Response-Num']                = '1';
 
 		$expectedBody[] = 'config error!';
 
@@ -118,22 +115,20 @@ class WebTest extends GalleryTestCase {
 
 	public function testFetchWebPageWithSpaces() {
 		list($success, $body, $response, $headers, $actualUrl) = GalleryCoreApi::fetchWebPage('http://www.test.server/testFetchWebPage With Spaces');
-
-		$expectedHeaders['Connection']          = 'close';
-		$expectedHeaders['Date']                = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Accept-Ranges']       = 'bytes';
-		$expectedHeaders['ETag']                = '"122ae4-5-3fc199b0"';
-		$expectedHeaders['Server']              = 'Apache/1.3.28 (Unix)';
-		$expectedHeaders['Content-Length']      = '5';
-		$expectedHeaders['Content-Type']        = 'text/html';
-		$expectedHeaders['Last-Modified']       = 'Mon, 24 Nov 2003 05:40:00 GMT';
-		$expectedHeaders['Client-Date']         = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
-		$expectedHeaders['Client-Response-Num'] = '1';
+		$expectedHeaders['Connection']                         = 'close';
+		$expectedHeaders['Date']                               = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Accept-Ranges']                      = 'bytes';
+		$expectedHeaders['ETag']                               = '"122ae4-5-3fc199b0"';
+		$expectedHeaders['Server']                             = 'Apache/1.3.28 (Unix)';
+		$expectedHeaders['Content-Length']                     = '5';
+		$expectedHeaders['Content-Type']                       = 'text/html';
+		$expectedHeaders['Last-Modified']                      = 'Mon, 24 Nov 2003 05:40:00 GMT';
+		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
+		$expectedHeaders['Client-Response-Num']                = '1';
 
 		$expectedBody[] = 'test';
 		$expectedBody[] = '';             // newline at the end of the file
-
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -163,7 +158,6 @@ class WebTest extends GalleryTestCase {
 
 		$expectedBody[] = 'test';
 		$expectedBody[] = '';             // newline at the end of the file
-
 		$this->assertTrue($success, 'fetch failed!');
 		$this->assertEquals('HTTP/1.1 200 OK', $response, 'http response status');
 		$this->assertEquals($expectedHeaders, $headers, 'http response headers');
@@ -173,22 +167,20 @@ class WebTest extends GalleryTestCase {
 
 	public function testFetchWebPageAlternatePort() {
 		list($success, $body, $response, $headers, $actualUrl) = GalleryCoreApi::fetchWebPage('http://www.test.server2:8080/testFetchWebPage');
-
-		$expectedHeaders['Connection']          = 'close';
-		$expectedHeaders['Date']                = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Accept-Ranges']       = 'bytes';
-		$expectedHeaders['ETag']                = '"122ae4-5-3fc199b0"';
-		$expectedHeaders['Server']              = 'Apache/1.3.28 (Unix)';
-		$expectedHeaders['Content-Length']      = '5';
-		$expectedHeaders['Content-Type']        = 'text/html';
-		$expectedHeaders['Last-Modified']       = 'Mon, 24 Nov 2003 05:40:00 GMT';
-		$expectedHeaders['Client-Date']         = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
-		$expectedHeaders['Client-Response-Num'] = '1';
+		$expectedHeaders['Connection']                         = 'close';
+		$expectedHeaders['Date']                               = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Accept-Ranges']                      = 'bytes';
+		$expectedHeaders['ETag']                               = '"122ae4-5-3fc199b0"';
+		$expectedHeaders['Server']                             = 'Apache/1.3.28 (Unix)';
+		$expectedHeaders['Content-Length']                     = '5';
+		$expectedHeaders['Content-Type']                       = 'text/html';
+		$expectedHeaders['Last-Modified']                      = 'Mon, 24 Nov 2003 05:40:00 GMT';
+		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
+		$expectedHeaders['Client-Response-Num']                = '1';
 
 		$expectedBody[] = 'test';
 		$expectedBody[] = '';             // newline at the end of the file
-
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -215,7 +207,6 @@ class WebTest extends GalleryTestCase {
 
 		$expectedBody[] = 'test';
 		$expectedBody[] = '';             // newline at the end of the file
-
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -229,22 +220,20 @@ class WebTest extends GalleryTestCase {
 
 	public function testFetchRedirectedWebPage() {
 		list($success, $body, $response, $headers, $actualUrl) = GalleryCoreApi::fetchWebPage('http://www.test.server/testFetchRedirectedWebPage');
-
-		$expectedHeaders['Connection']          = 'close';
-		$expectedHeaders['Date']                = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Accept-Ranges']       = 'bytes';
-		$expectedHeaders['ETag']                = '"122ae4-5-3fc199b0"';
-		$expectedHeaders['Server']              = 'Apache/1.3.28 (Unix)';
-		$expectedHeaders['Content-Length']      = '5';
-		$expectedHeaders['Content-Type']        = 'text/html';
-		$expectedHeaders['Last-Modified']       = 'Mon, 24 Nov 2003 05:40:00 GMT';
-		$expectedHeaders['Client-Date']         = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
-		$expectedHeaders['Client-Response-Num'] = '1';
+		$expectedHeaders['Connection']                         = 'close';
+		$expectedHeaders['Date']                               = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Accept-Ranges']                      = 'bytes';
+		$expectedHeaders['ETag']                               = '"122ae4-5-3fc199b0"';
+		$expectedHeaders['Server']                             = 'Apache/1.3.28 (Unix)';
+		$expectedHeaders['Content-Length']                     = '5';
+		$expectedHeaders['Content-Type']                       = 'text/html';
+		$expectedHeaders['Last-Modified']                      = 'Mon, 24 Nov 2003 05:40:00 GMT';
+		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
+		$expectedHeaders['Client-Response-Num']                = '1';
 
 		$expectedBody[] = 'test';
 		$expectedBody[] = '';             // newline at the end of the file
-
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -255,22 +244,20 @@ class WebTest extends GalleryTestCase {
 	public function testFetchRedirectedWebPageRelativeRedirect() {
 		// Make sure we redirect ok if Location header isn't absolute
 		list($success, $body, $response, $headers, $actualUrl) = GalleryCoreApi::fetchWebPage('http://my.test.server:81/testFetchRelativeRedirect');
-
-		$expectedHeaders['Connection']          = 'close';
-		$expectedHeaders['Date']                = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Accept-Ranges']       = 'bytes';
-		$expectedHeaders['ETag']                = '"122ae4-5-3fc199b0"';
-		$expectedHeaders['Server']              = 'Apache/1.3.28 (Unix)';
-		$expectedHeaders['Content-Length']      = '5';
-		$expectedHeaders['Content-Type']        = 'text/html';
-		$expectedHeaders['Last-Modified']       = 'Mon, 24 Nov 2003 05:40:00 GMT';
-		$expectedHeaders['Client-Date']         = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
-		$expectedHeaders['Client-Response-Num'] = '1';
+		$expectedHeaders['Connection']                         = 'close';
+		$expectedHeaders['Date']                               = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Accept-Ranges']                      = 'bytes';
+		$expectedHeaders['ETag']                               = '"122ae4-5-3fc199b0"';
+		$expectedHeaders['Server']                             = 'Apache/1.3.28 (Unix)';
+		$expectedHeaders['Content-Length']                     = '5';
+		$expectedHeaders['Content-Type']                       = 'text/html';
+		$expectedHeaders['Last-Modified']                      = 'Mon, 24 Nov 2003 05:40:00 GMT';
+		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
+		$expectedHeaders['Client-Response-Num']                = '1';
 
 		$expectedBody[] = 'test';
 		$expectedBody[] = '';             // newline at the end of the file
-
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -280,11 +267,13 @@ class WebTest extends GalleryTestCase {
 
 	public function testFetchWebPageTooManyRedirects() {
 		GalleryCoreApi::requireOnce('modules/core/classes/helpers/WebHelper_simple.class');
+
 		list($success, $body, $response, $headers, $actualUrl) = WebHelper_simple::fetchWebPage(
 			'http://www.test.server/testFetchRedirectedWebPage',
 			array(),
 			6
 		);
+
 		$this->assertFalse($success);
 		$this->assertEquals(null, $body);
 		$this->assertEquals(null, $response);
@@ -295,22 +284,20 @@ class WebTest extends GalleryTestCase {
 	public function testFetchRedirectedDoubleLocation() {
 		// Make sure we redirect ok if bad http response sends 2 Location headers
 		list($success, $body, $response, $headers, $actualUrl) = GalleryCoreApi::fetchWebPage('http://www.test.server/testFetchRedirectedWebPage2');
-
-		$expectedHeaders['Connection']          = 'close';
-		$expectedHeaders['Date']                = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Accept-Ranges']       = 'bytes';
-		$expectedHeaders['ETag']                = '"122ae4-5-3fc199b0"';
-		$expectedHeaders['Server']              = 'Apache/1.3.28 (Unix)';
-		$expectedHeaders['Content-Length']      = '5';
-		$expectedHeaders['Content-Type']        = 'text/html';
-		$expectedHeaders['Last-Modified']       = 'Mon, 24 Nov 2003 05:40:00 GMT';
-		$expectedHeaders['Client-Date']         = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
-		$expectedHeaders['Client-Response-Num'] = '1';
+		$expectedHeaders['Connection']                         = 'close';
+		$expectedHeaders['Date']                               = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Accept-Ranges']                      = 'bytes';
+		$expectedHeaders['ETag']                               = '"122ae4-5-3fc199b0"';
+		$expectedHeaders['Server']                             = 'Apache/1.3.28 (Unix)';
+		$expectedHeaders['Content-Length']                     = '5';
+		$expectedHeaders['Content-Type']                       = 'text/html';
+		$expectedHeaders['Last-Modified']                      = 'Mon, 24 Nov 2003 05:40:00 GMT';
+		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
+		$expectedHeaders['Client-Response-Num']                = '1';
 
 		$expectedBody[] = 'test';
 		$expectedBody[] = '';             // newline at the end of the file
-
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -320,23 +307,21 @@ class WebTest extends GalleryTestCase {
 
 	public function testFetchRepeatedHeader() {
 		list($success, $body, $response, $headers, $actualUrl) = GalleryCoreApi::fetchWebPage('http://www.test.server/testFetchCookieWebPage');
-
-		$expectedHeaders['Connection']          = 'close';
-		$expectedHeaders['Date']                = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Accept-Ranges']       = 'bytes';
-		$expectedHeaders['ETag']                = '"122ae4-5-3fc199b0"';
-		$expectedHeaders['Server']              = 'Apache/1.3.28 (Unix)';
-		$expectedHeaders['Set-Cookie']          = array('sessionid=12345; Path=/', 'mycookie=foo; Path=/');
-		$expectedHeaders['Content-Length']      = '5';
-		$expectedHeaders['Content-Type']        = 'text/html';
-		$expectedHeaders['Last-Modified']       = 'Mon, 24 Nov 2003 05:40:00 GMT';
-		$expectedHeaders['Client-Date']         = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
-		$expectedHeaders['Client-Response-Num'] = '1';
+		$expectedHeaders['Connection']                         = 'close';
+		$expectedHeaders['Date']                               = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Accept-Ranges']                      = 'bytes';
+		$expectedHeaders['ETag']                               = '"122ae4-5-3fc199b0"';
+		$expectedHeaders['Server']                             = 'Apache/1.3.28 (Unix)';
+		$expectedHeaders['Set-Cookie']                         = array('sessionid=12345; Path=/', 'mycookie=foo; Path=/');
+		$expectedHeaders['Content-Length']                     = '5';
+		$expectedHeaders['Content-Type']                       = 'text/html';
+		$expectedHeaders['Last-Modified']                      = 'Mon, 24 Nov 2003 05:40:00 GMT';
+		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
+		$expectedHeaders['Client-Response-Num']                = '1';
 
 		$expectedBody[] = 'test';
 		$expectedBody[] = '';             // newline at the end of the file
-
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -368,7 +353,6 @@ class WebTest extends GalleryTestCase {
 
 		$expectedBody[] = 'post successful';
 		$expectedBody[] = '';             // newline at the end of the file
-
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
 		$this->assertEquals(join("\n", $expectedBody), $body);
@@ -399,7 +383,6 @@ class WebTest extends GalleryTestCase {
 
 		$expectedBody[] = 'post successful';
 		$expectedBody[] = '';             // newline at the end of the file
-
 		$this->assertTrue($return);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals(
@@ -425,7 +408,6 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Date']         = 'Mon, 24 Nov 2003 05:40:03 GMT';
 		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num'] = '1';
-
 
 		$this->assertTrue($return);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
@@ -488,7 +470,6 @@ class WebTest extends GalleryTestCase {
 
 		$expectedBody[] = 'options successful';
 		$expectedBody[] = '';             // newline at the end of the file
-
 		$this->assertEquals('HTTP/1.1 200 OK', $status);
 		$this->assertEquals($expectedHeaders, $headers);
 		$this->assertEquals(join("\n", $expectedBody), $body);
@@ -519,18 +500,17 @@ class WebTest extends GalleryTestCase {
 
 	public function testFetchHttpsWebPage() {
 		list($success, $body, $response, $headers, $actualUrl) = GalleryCoreApi::fetchWebPage('https://secure.test.server/testFetchHttpsWebPage');
-
-		$expectedHeaders['Connection']          = 'close';
-		$expectedHeaders['Date']                = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Accept-Ranges']       = 'bytes';
-		$expectedHeaders['ETag']                = '"122ae4-5-3fc199b0"';
-		$expectedHeaders['Server']              = 'Apache/1.3.28 (Unix)';
-		$expectedHeaders['Content-Length']      = '5';
-		$expectedHeaders['Content-Type']        = 'text/html';
-		$expectedHeaders['Last-Modified']       = 'Mon, 24 Nov 2003 05:40:00 GMT';
-		$expectedHeaders['Client-Date']         = 'Mon, 24 Nov 2003 05:40:03 GMT';
-		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
-		$expectedHeaders['Client-Response-Num'] = '1';
+		$expectedHeaders['Connection']                         = 'close';
+		$expectedHeaders['Date']                               = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Accept-Ranges']                      = 'bytes';
+		$expectedHeaders['ETag']                               = '"122ae4-5-3fc199b0"';
+		$expectedHeaders['Server']                             = 'Apache/1.3.28 (Unix)';
+		$expectedHeaders['Content-Length']                     = '5';
+		$expectedHeaders['Content-Type']                       = 'text/html';
+		$expectedHeaders['Last-Modified']                      = 'Mon, 24 Nov 2003 05:40:00 GMT';
+		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
+		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
+		$expectedHeaders['Client-Response-Num']                = '1';
 
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
@@ -888,6 +868,7 @@ class WebTestPlatform {
 
 			return $tmp;
 		}
+
 		$buf                        = join("\n", $this->_readBuffer[$handle]);
 		$tmp                        = substr($buf, 0, $length);
 		$this->_readBuffer[$handle] = explode("\n", substr($buf, $length + 1));

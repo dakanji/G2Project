@@ -10,7 +10,6 @@
   Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Library for basic performance monitoring and tuning
 
 */
@@ -151,6 +150,7 @@ class perf_postgres extends adodb_perf {
 
 				return false;
 		}
+
 		$sql = sprintf($sql, $table);
 
 		return $conn->Execute($sql) !== false;
@@ -173,6 +173,7 @@ class perf_postgres extends adodb_perf {
 				}
 			}
 		}
+
 		$sql = str_replace('?', "''", $sql);
 		$s   = '<p><b>Explain</b>: ' . htmlspecialchars($sql) . '</p>';
 		$rs  = $this->conn->Execute('EXPLAIN ' . $sql);
@@ -185,6 +186,7 @@ class perf_postgres extends adodb_perf {
 				$rs->MoveNext();
 			}
 		}
+
 		$s .= '</pre>';
 		$s .= $this->Tracer($sql, $partial);
 

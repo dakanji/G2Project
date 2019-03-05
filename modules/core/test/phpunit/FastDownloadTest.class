@@ -45,6 +45,7 @@ class FastDownloadTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->_markForCleanup($this->_item[$i]);
 
 			foreach (array(
@@ -74,6 +75,7 @@ class FastDownloadTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 		// Set the thumbnail of the album
 		list($ret, $this->_derivatives[3][]) = $this->_createDerivative(
@@ -96,6 +98,7 @@ class FastDownloadTest extends GalleryTestCase {
 
 	public function testCreateFastDownloadFileForDerivative() {
 		global $gallery;
+
 		$bytesWritten = '';
 		$platform     = new FastDownloadTestCreateFastDownloadPlatform($bytesWritten);
 		$platform->setStat(7, 50);    // content length
@@ -131,6 +134,7 @@ class FastDownloadTest extends GalleryTestCase {
 				'itemId' => $this->_derivatives[0][0]->getId(),
 			)
 		);
+
 		// Use here another method to assemble the relative path to get a better test coverage
 		$relativePath = 'cache' . $platform->getDirectorySeparator() . $cachePath;
 
@@ -153,6 +157,7 @@ class FastDownloadTest extends GalleryTestCase {
 
 	public function testCreateFastDownloadFileForDataItem() {
 		global $gallery;
+
 		$bytesWritten = '';
 		$platform     = new FastDownloadTestCreateFastDownloadPlatform($bytesWritten);
 		$platform->setStat(7, 50);    // content length
@@ -187,6 +192,7 @@ class FastDownloadTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$relativePath = str_replace($gallery->getConfig('data.gallery.base'), '', $path);
 
 		$this->assertEquals(
@@ -210,6 +216,7 @@ class FastDownloadTest extends GalleryTestCase {
 		global $gallery;
 
 		GalleryUtilities::putRequestVariable('fileName', 'bogus.jpg');
+
 		$ret = $gallery->fastDownload(
 			'/phpunit/cache',
 			'phpunit.jpg',
@@ -332,6 +339,7 @@ class FastDownloadTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $bits2) = GalleryCoreApi::convertPermissionIdsToBits($permissions2);
 
 		if ($ret) {
@@ -370,6 +378,7 @@ class FastDownloadTest extends GalleryTestCase {
 				$ids[] = $this->_derivatives[$j][$i]->getId();
 			}
 		}
+
 		$ids[] = $this->_derivatives[0][2]->getId();
 		$ids[] = $this->_item[0]->getId();
 
@@ -417,8 +426,7 @@ class FastDownloadTestCreateFastDownloadPlatform {
 		return "$file-$mode";
 	}
 
-	public function fclose() {
-	}
+	public function fclose() {}
 
 	public function flock($handle, $operation, &$wouldblock) {
 		$wouldblock = false;

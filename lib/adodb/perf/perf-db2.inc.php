@@ -9,7 +9,6 @@
   Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Library for basic performance monitoring and tuning
 
 */
@@ -20,7 +19,6 @@ if (!defined('ADODB_DIR')) {
 }
 
 // Simple guide to configuring db2: so-so http://www.devx.com/gethelpon/10MinuteSolution/16575
-
 // SELECT * FROM TABLE(SNAPSHOT_APPL('SAMPLE', -1)) as t
 class perf_db2 extends adodb_perf {
 	public $createTableSQL = 'CREATE TABLE adodb_logsql (
@@ -90,6 +88,7 @@ class perf_db2 extends adodb_perf {
 				}
 			}
 		}
+
 		$qno = mt_rand();
 		$ok  = $this->conn->Execute("EXPLAIN PLAN SET QUERYNO=$qno FOR $sql");
 		ob_start();
@@ -103,6 +102,7 @@ class perf_db2 extends adodb_perf {
 				rs2html($rs);
 			}
 		}
+
 		$s = ob_get_contents();
 		ob_end_clean();
 		$this->conn->LogSQL($save);

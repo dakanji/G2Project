@@ -272,6 +272,7 @@ class ArrayDeclarationSpacingSniff extends Sniff {
 		/*
 		 * Check that there is a single space after the array opener and before the array closer.
 		 */
+
 /*
  * DA-OVERRIDE
  * This block adds spaces after/before opening/closing brackets in arrays

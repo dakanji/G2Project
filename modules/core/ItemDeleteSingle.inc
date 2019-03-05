@@ -45,6 +45,7 @@ class ItemDeleteSingleController extends GalleryController {
 	 */
 	public function handleRequest($form) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		list($pageItemId, $page) = GalleryUtilities::getRequestVariables('pageId', 'page');
@@ -54,6 +55,7 @@ class ItemDeleteSingleController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		// The framework shouldn't let us get this far if we don't have delete permission
@@ -109,6 +111,7 @@ class ItemDeleteSingleController extends GalleryController {
 		if (!empty($page)) {
 			$params['page'] = $page;
 		}
+
 		$result['redirect'] = $params;
 		$result['status']   = array();
 		$result['error']    = array();

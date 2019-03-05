@@ -48,6 +48,7 @@ class MovieTest extends GalleryTestCase {
 			'coreTest',
 			array('test/movie')
 		);
+
 		$this->_markFactoryForCleanup();
 		$this->_markToolkitForCleanup('MovieTestToolkit');
 
@@ -75,6 +76,7 @@ class MovieTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_movie);
 	}
 
@@ -82,6 +84,7 @@ class MovieTest extends GalleryTestCase {
 		$this->_movie->setWidth(1);
 		$this->_movie->setHeight(2);
 		$this->_movie->setDuration(3);
+
 		$ret = $this->_movie->rescan();
 
 		if ($ret) {

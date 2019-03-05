@@ -59,7 +59,8 @@ class SimpleCallbackView extends GalleryView {
 	 * @see GalleryView::renderImmediate
 	 */
 	public function renderImmediate($status = null, $error = null) {
-		list($command, $prefix)  = GalleryUtilities::getRequestVariables('command', 'prefix');
+		list($command, $prefix) = GalleryUtilities::getRequestVariables('command', 'prefix');
+
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
 		if ($ret) {
@@ -123,6 +124,7 @@ class SimpleCallbackView extends GalleryView {
 
 	public function _getDirectoryListing($path, $getFiles = true) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// $path is UTF-8, we need it in the system charset for filesystem interactions
@@ -155,6 +157,7 @@ class SimpleCallbackView extends GalleryView {
 				) {
 					continue;
 				}
+
 				$file = $path . $file;
 
 				if ($platform->is_dir($file)) {
@@ -164,6 +167,7 @@ class SimpleCallbackView extends GalleryView {
 					$fileList[] = GalleryCoreApi::convertToUtf8($file);
 				}
 			}
+
 			$platform->closedir($dir);
 			sort($dirList);
 			sort($fileList);

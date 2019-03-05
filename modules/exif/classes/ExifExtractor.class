@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/exif/classes/ExifInterface_1_0.class');
 
 /**
@@ -34,6 +33,7 @@ class ExifExtractor extends ExifInterface_1_0 {
 	 */
 	public static function getMetaData($itemIds, $properties = array()) {
 		global $gallery;
+
 		GalleryCoreApi::requireOnce('modules/exif/lib/exifer/exif.inc');
 
 		if (!is_array($itemIds)) {
@@ -52,20 +52,24 @@ class ExifExtractor extends ExifInterface_1_0 {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			// Only look at JPEG/RAW DataItems..
 			if (!GalleryUtilities::isA($item, 'GalleryDataItem')
 				|| !preg_match('{^image/(p?jpeg(-cmyk)?|x-dcraw)$}', $item->getMimeType())
 			) {
 				continue;
 			}
+
 			list($ret, $path) = $item->fetchPath();
 
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$data[$itemId] = array();
 			$rawExifData   = read_exif_data_raw($path, false);
 			GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
+
 			list($ret, $iptcObj) = ExifHelper::getIptcObject($path);
 
 			if ($ret) {

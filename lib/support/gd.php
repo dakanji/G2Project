@@ -37,7 +37,6 @@ if (!defined('G2_SUPPORT')) {
 	include_once __DIR__ . '/lib/support/defaultloc.inc';
 }
 
-
 /*
  * Gets a lot of information about our GD installation and return it as a
  * giant string, which can be eval'ed to an array.
@@ -71,6 +70,7 @@ function getGdLibraryInfo() {
 	if (isset($matches[2])) {
 		$gdVersion = sprintf('>%s', $gdVersion);
 	}
+
 	$isGdBundled = 0;
 
 	if (preg_match($matcherBundled, $matchString)) {
@@ -110,7 +110,8 @@ function getGdLibraryInfo() {
 			'functions' => array('imageCreateFromXbm', 'imageXbm'),
 		),
 	);
-	$mimeTypes  = array();
+
+	$mimeTypes = array();
 
 	foreach ($mimeChecks as $check) {
 		$ok = true;
@@ -154,6 +155,7 @@ function getGdLibraryInfo() {
 	if (function_exists('imageTypes')) {
 		$imageTypes = imagetypes();
 	}
+
 	$out .= "\t" . sprintf('\'imageTypes\' => %s,', $imageTypes) . "\n";
 
 	if (function_exists('gd_info')) {
@@ -163,6 +165,7 @@ function getGdLibraryInfo() {
 		foreach ($gdInfo as $field => $value) {
 			$out .= "\t\t" . sprintf('\'%s\' => \'%s\',', $field, $value) . "\n";
 		}
+
 		$out .= "\t" . '),' . "\n";
 	}
 
@@ -178,8 +181,10 @@ function getGdLibraryInfo() {
 		if (!is_int($value)) {
 			$value = sprintf('\'%s\'', $value);
 		}
+
 		$out .= "\t\t" . sprintf('\'%s\' => %s,', $constant, $value) . "\n";
 	}
+
 	$out .= "\t" . '),' . "\n";
 
 	$out .= "\t" . '\'mimeTypes\' => array(' . "\n";
@@ -187,6 +192,7 @@ function getGdLibraryInfo() {
 	foreach ($mimeTypes as $mimeType) {
 		$out .= "\t\t" . sprintf('\'%s\',', $mimeType) . "\n";
 	}
+
 	$out .= "\t" . '),' . "\n";
 
 	ob_start();
@@ -217,8 +223,10 @@ function getGdLibraryInfo() {
 		if (!function_exists($fct)) {
 			continue;
 		}
+
 		$out .= "\t\t" . sprintf('\'%s\' => true,', $fct) . "\n";
 	}
+
 	$out .= "\t" . '),' . "\n";
 	$out .= ');' . "\n";
 
@@ -250,6 +258,7 @@ $gdInfo = getGdLibraryInfo();
 			<pre style="padding-left: 20px"><?php echo $gdInfo; ?></pre>
 			<?php
 		}
+
 		?>
 	</div>
 </body>

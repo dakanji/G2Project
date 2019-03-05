@@ -131,12 +131,14 @@ class GalleryPlugin {
 	 */
 	public function translate($params) {
 		global $gallery;
+
 		$translator =& $gallery->getTranslator();
 
 		if (!isset($translator)) {
 			// No translator! (could be an old module calling translate() from constructor)
 			return 'Translation error: ' . print_r($params, true);
 		}
+
 		list($ret, $content) = $translator->translateDomain(
 			$this->getPluginType() . 's_' . $this->getId(),
 			$params
@@ -164,6 +166,7 @@ class GalleryPlugin {
 	 */
 	public function activate($postActivationEvent = true) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$pluginType = $this->getPluginType();
@@ -232,6 +235,7 @@ class GalleryPlugin {
 					'pluginId'   => $this->getId(),
 				)
 			);
+
 			list($ret) = GalleryCoreApi::postEvent($event);
 
 			if ($ret) {
@@ -400,6 +404,7 @@ class GalleryPlugin {
 				'pluginId'   => $this->getId(),
 			)
 		);
+
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -436,6 +441,7 @@ class GalleryPlugin {
 		if ($gallery->getDebug()) {
 			$gallery->debug(sprintf('Removing translations for %s plugin', $this->getId()));
 		}
+
 		$ret = GalleryCoreApi::removeTranslationsForPlugin(
 			$this->getPluginType(),
 			$this->getId()
@@ -454,6 +460,7 @@ class GalleryPlugin {
 				'pluginId'   => $this->getId(),
 			)
 		);
+
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -485,6 +492,7 @@ class GalleryPlugin {
 		if ($gallery->getDebug()) {
 			$gallery->debug(sprintf('Removing translations for %s plugin', $this->getId()));
 		}
+
 		$ret = GalleryCoreApi::removeTranslationsForPlugin(
 			$this->getPluginType(),
 			$this->getId()
@@ -497,6 +505,7 @@ class GalleryPlugin {
 		if ($gallery->getDebug()) {
 			$gallery->debug(sprintf('Installing translations for %s plugin', $this->getId()));
 		}
+
 		$ret = GalleryCoreApi::installTranslationsForPlugin(
 			$this->getPluginType(),
 			$this->getId()
@@ -536,6 +545,7 @@ class GalleryPlugin {
 
 		/** @todo Change scanPlugin to be called as a static function or helper function */
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
+
 		list($ret, $repositories) = GalleryRepository::getMe()->getRepositories();
 
 		if ($ret) {
@@ -548,6 +558,7 @@ class GalleryPlugin {
 			$repository = new GalleryRepository();
 			$repository->init('bogus');
 		}
+
 		$ret = $repository->scanPlugin($this->getPluginType(), $this->getId());
 
 		if ($ret && !($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
@@ -562,6 +573,7 @@ class GalleryPlugin {
 		} elseif ($ret) {
 			return $ret;
 		}
+
 		$this->_flushPluginCache();
 
 		return null;
@@ -581,6 +593,7 @@ class GalleryPlugin {
 				'id'     => '_all',
 			)
 		);
+
 		GalleryDataCache::remove("GalleryPluginHelper::fetchPluginList($pluginType)");
 	}
 
@@ -714,6 +727,7 @@ class GalleryPlugin {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$results = array_merge($results, $params);
 		}
 
@@ -739,7 +753,6 @@ class GalleryPlugin {
 	}
 
 	// Getters and setters below
-
 	public function setId($id) {
 		$this->_id = $id;
 	}

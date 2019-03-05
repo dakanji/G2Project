@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GallerySession.class');
 
 /**
@@ -37,10 +36,12 @@ class IndexDotPhpTest extends GalleryTestCase {
 	 */
 	public function testHttpRedirect() {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$url          = $urlGenerator->getCurrentUrl();
 		// Strip off the /lib/tools/test/ part to get a valid G2 request uri
 		$baseUrl = preg_replace('|^(.*/)lib/tools/.*$|', '$1', $url);
+
 		// Request http://domain.com/path/  and for http://domain.com/path/index.php
 		$i = 0;
 
@@ -58,15 +59,18 @@ class IndexDotPhpTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$url  = GalleryUrlGenerator::getMe()->appendParamsToUrl(
+
+			$url = GalleryUrlGenerator::getMe()->appendParamsToUrl(
 				$url,
 				array(
 					$session->getKey() => $session->getId(),
 				)
 			);
+
 			$url .= ($i++ == 3) ? '#foo' : '';
 			// Make the HTTP request
 			list($success, $body, $response, $headers) = GalleryCoreApi::fetchWebPage($url);
+
 			$this->assertTrue($success, "Could not retrieve G2 page: $url");
 
 			if (!preg_match('{^HTTP/1\.\d 200 OK$}', $response)) {
@@ -76,6 +80,7 @@ class IndexDotPhpTest extends GalleryTestCase {
 					"Could not retrieve G2 page: $url"
 				);
 			}
+
 			$this->assertTrue(isset($headers['Set-Cookie']), "Set-Cookie header not set: $url");
 
 			if (isset($headers['Set-Cookie'])) {
@@ -85,6 +90,7 @@ class IndexDotPhpTest extends GalleryTestCase {
 					'/' . SESSION_ID_PARAMETER . '/',
 					$headers['Set-Cookie']
 				);
+
 				$this->assertTrue(
 					!empty($grep),
 					"G2 cookie not present in HTTP headers: $url." .

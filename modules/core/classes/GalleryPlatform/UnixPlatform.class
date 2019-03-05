@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform.class');
 
 /**
@@ -33,6 +32,7 @@ class UnixPlatform extends GalleryPlatform {
 	 */
 	public function exec($cmdArray) {
 		global $gallery;
+
 		$gallery->guaranteeTimeLimit(5);
 
 		if (!isset($this->_beNice)) {
@@ -42,6 +42,7 @@ class UnixPlatform extends GalleryPlatform {
 				if ($gallery->getDebug()) {
 					$gallery->debug('Unable to look up core.exec.beNice param');
 				}
+
 				$this->_beNice = 0;
 			}
 		}
@@ -77,6 +78,7 @@ class UnixPlatform extends GalleryPlatform {
 		if ($gallery->getDebug()) {
 			$gallery->debug("Executing: $command");
 		}
+
 		/*
 		 * It is the responsibility of exec'ers to chmod output files to preferred perms.
 		 * Set a default umask here in case any code forgets this.
@@ -93,6 +95,7 @@ class UnixPlatform extends GalleryPlatform {
 				if ($gallery->getDebug()) {
 					$gallery->debug('Unable to look up core.exec.expectedStatus param');
 				}
+
 				$this->_execExpectedStatus = 0;
 			}
 		}
@@ -110,9 +113,11 @@ class UnixPlatform extends GalleryPlatform {
 							$stderr[] = $buf;
 						}
 					}
+
 					$this->fclose($fd);
 				}
 			}
+
 			$this->unlink($debugFile);
 		}
 
@@ -129,6 +134,7 @@ class UnixPlatform extends GalleryPlatform {
 			foreach ($stderr as $line) {
 				$gallery->debug($line);
 			}
+
 			$gallery->debug("Status: $status (expected " . $this->_execExpectedStatus . ')');
 		}
 

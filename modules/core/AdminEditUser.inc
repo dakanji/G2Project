@@ -51,7 +51,8 @@ class AdminEditUserController extends GalleryController {
 
 		$results = $status = $error = array();
 
-		$userId           = (int)GalleryUtilities::getRequestVariables('userId');
+		$userId = (int)GalleryUtilities::getRequestVariables('userId');
+
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {
@@ -64,6 +65,7 @@ class AdminEditUserController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$isAnonymous = ($userId == $anonymousUserId);
 
 		if (isset($form['action']['cancel'])) {
@@ -77,7 +79,6 @@ class AdminEditUserController extends GalleryController {
 			$redirect['userId']  = $userId;
 		} elseif (isset($form['action']['save'])) {
 			// Validate our data before we continue.
-
 			// username is required and might conflict
 			if (empty($form['userName'])) {
 				$error[] = 'form[error][userName][missing]';
@@ -96,9 +97,7 @@ class AdminEditUserController extends GalleryController {
 			}
 
 			// full name is optional for everybody
-
 			// language is optional for everybody
-
 			// email is suggested, but optional for administrator edits
 			if (!empty($form['email'])) {
 				$form['email'] = trim($form['email']);
@@ -180,6 +179,7 @@ class AdminEditUserController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'core.AdminEditUser';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -216,7 +216,8 @@ class AdminEditUserView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$userId           = GalleryUtilities::getRequestVariables('userId');
+		$userId = GalleryUtilities::getRequestVariables('userId');
+
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {

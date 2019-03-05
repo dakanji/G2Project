@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * write out a file to disk
  *
@@ -45,6 +46,7 @@ function smarty_core_write_file($params, &$smarty) {
 		@unlink($params['filename']);
 		@rename($_tmp_file, $params['filename']);
 	}
+
 	@chmod($params['filename'], $smarty->_file_perms);
 
 	return true;

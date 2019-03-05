@@ -32,6 +32,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -52,6 +53,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			$module->getVersion() . "\n",
 			$module->getGalleryVersion() . "\n",
 		);
+
 		$this->_versionFile         = $gallery->getConfig('data.gallery.version');
 		$this->_versionContentsBase = $module->getVersion() . "\n" . $module->getGalleryVersion();
 		GalleryDataCache::remove('CoreModule::installedVersions');
@@ -70,6 +72,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			array($this->_versionFile, false),
 			$this->_versionFileContents
 		);
+
 		$this->_platform->setReply('atomicWrite', array($this->_versionFile, $versionStr), true);
 
 		GalleryUtilities::putRequestVariable('form[action][setMode]', 1);
@@ -92,11 +95,13 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 	}
 
 	public function testSetMaintenanceModeOnUrl() {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$url          = $urlGenerator->makeAbsoluteUrl('/maintenance.html');
 
@@ -108,6 +113,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			array($this->_versionFile, false),
 			$this->_versionFileContents
 		);
+
 		$this->_platform->setReply('atomicWrite', array($this->_versionFile, $versionStr), true);
 
 		GalleryUtilities::putRequestVariable('form[action][setMode]', 1);
@@ -131,11 +137,13 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			$results,
 			'The url was not properly'
 		);
+
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 	}
 
 	public function testSetMaintenanceModeOff() {
 		global $gallery;
+
 		$gallery->setConfig('mode.maintenance', true);
 
 		$this->_versionFileContents[] = 'nmaintenance-mode';
@@ -146,6 +154,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			array($this->_versionFile, false),
 			$this->_versionFileContents
 		);
+
 		$this->_platform->setReply(
 			'atomicWrite',
 			array($this->_versionFile, $this->_versionContentsBase),
@@ -171,6 +180,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 	}
 
@@ -199,6 +209,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			$results,
 			'The maintenance  mode was set'
 		);
+
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 	}
 }

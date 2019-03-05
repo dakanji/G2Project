@@ -55,6 +55,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 	 */
 	public function checkFile($fileName, $buffer) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$path = substr($fileName, strlen(dirname(dirname(dirname(dirname($fileName))))) + 1);
@@ -72,6 +73,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 				true,
 				$path . ': first line should be "# $" ."Id$" but was: ' . $line
 			);
+
 			$this->_errorCount++;
 		}
 
@@ -96,6 +98,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 		} else {
 			$newline = '\n';
 		}
+
 		// Make sure __TOKEN__ things aren't translated
 		preg_match_all(
 			'/(?<!^#, fuzzy' . $newline . ')^msgid ("(?:.(?!^msgstr))*__[A-Z]+__.*)^msgstr (.*)' .
@@ -109,6 +112,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 			if (strlen($match[2]) < 5) {
 				continue; // No translation for this string
 			}
+
 			preg_match_all('/__[A-Z]+__/', $match[1], $tokens);
 
 			foreach ($tokens[0] as $token) {
@@ -117,6 +121,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 						true,
 						$path . ': improper translation of ' . $token . ' token'
 					);
+
 					$this->_errorCount++;
 				}
 			}

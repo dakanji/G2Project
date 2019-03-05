@@ -62,7 +62,6 @@ class FfmpegToolkitHelper {
 		}
 
 		// -------------------- Operations --------------------
-
 		// extract
 		$operations['convert-to-image/jpeg']['params'] = array();
 
@@ -189,7 +188,6 @@ class FfmpegToolkitHelper {
 		}
 
 		// -------------------- Properties --------------------
-
 		// Dimensions
 		$properties['dimensions']['type'] = 'int,int';
 
@@ -259,6 +257,7 @@ class FfmpegToolkitHelper {
 	 */
 	public static function testBinary($ffmpegPath) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		/*
@@ -296,6 +295,7 @@ class FfmpegToolkitHelper {
 		}
 
 		// We only care about video for now
+
 		/** @todo: Add '3g2' => '3g2', '3gp' => '3gp' when recognized as videos */
 		$relevantTypes = array(
 			'mpeg' => 'mpeg',
@@ -306,10 +306,12 @@ class FfmpegToolkitHelper {
 			'flv'  => 'flv',
 			'mp4'  => 'mp4',
 		);
+
 		// We only care about encoding flash video for now
 		$relevantEncode = array(
 			'flv' => 'flv',
 		);
+
 		/**
 		 * @todo: Add 'adpcm_swf' => 'adpcm_swf' to relevantAudioCodecs if/when videos play
 		 *        correctly
@@ -319,8 +321,10 @@ class FfmpegToolkitHelper {
 			'libmp3lame' => 'mp3',
 		);
 
-		list($ignored, $results)           = $platform->exec(array(array($ffmpegPath, '-formats')));
-		$version                           = array();
+		list($ignored, $results) = $platform->exec(array(array($ffmpegPath, '-formats')));
+
+		$version = array();
+
 		list($ignored, $ignored, $version) = $platform->exec(array(array($ffmpegPath, '-version')));
 
 		$mimeTypes          = array();
@@ -370,6 +374,7 @@ class FfmpegToolkitHelper {
 			 */
 			if (preg_match('|Input audio/video file formats: (.*)$|', $resultLine, $regs)) {
 				// We have found 0.4.7 format, read single line
+
 				/** @todo: Support mimeTypesEncoder and encoderAudioCodecs */
 				foreach (explode(' ', $regs[1]) as $type) {
 					if (isset($relevantTypes[$type])) {
@@ -380,12 +385,15 @@ class FfmpegToolkitHelper {
 						if ($ret) {
 							return array($ret, null, null, null, null, null, null);
 						}
+
 						$mimeTypes[$mime] = 1;
 					}
 				}
+
 				$success = true;
 			} elseif (preg_match('/  Decod(?:ing|ers): (.*)$/', $resultLine, $regs)) {
 				// We have found 0.4.6 format, read until Codec: line
+
 				/** @todo: Support mimeTypesEncoder and encoderAudioCodecs */
 				do {
 					foreach (explode(' ', $regs[1]) as $type) {
@@ -397,6 +405,7 @@ class FfmpegToolkitHelper {
 							if ($ret) {
 								return array($ret, null, null, null, null, null, null);
 							}
+
 							$mimeTypes[$mime] = 1;
 						}
 					}
@@ -462,7 +471,7 @@ class FfmpegToolkitHelper {
 						} else {
 							$resultLine = null;
 						}
-					} while (!is_null($resultLine));
+					} while (null !== $resultLine);
 					$success = true;
 				} else {
 					// Parse codecs
@@ -476,6 +485,7 @@ class FfmpegToolkitHelper {
 						if (isset($relevantAudioCodecs[$type]) && $encode && $audio) {
 							$encoderAudioCodecs[$relevantAudioCodecs[$type]] = 1;
 						}
+
 						// Check relevant types too since wmv uses an asf container
 						if (isset($relevantTypes[$type]) && $decode && $video) {
 							list($ret, $mime) = GalleryCoreApi::convertExtensionToMime(
@@ -485,13 +495,16 @@ class FfmpegToolkitHelper {
 							if ($ret) {
 								return array($ret, null, null, null, null, null, null);
 							}
+
 							$mimeTypes[$mime] = 1;
 						}
+
 						$resultLine = $results[$i++];
 					} while (!empty($resultLine));
 				}
 			}
 		}
+
 		$tests[] = array(
 			'name'    => 'ffmpeg',
 			'success' => $success,
@@ -499,7 +512,8 @@ class FfmpegToolkitHelper {
 		);
 
 		// Test if this ffmpeg supports -ss flag..
-		$supportsOffset   = false;
+		$supportsOffset = false;
+
 		list($ok, $flags) = $platform->exec(array(array($ffmpegPath, '-h')));
 
 		foreach ($flags as $line) {

@@ -46,6 +46,7 @@ class MailHelperTest extends GalleryTestCase {
 		$this->templateFile = 'modules/core/test/data/MailHelperTest.tpl';
 
 		global $gallery;
+
 		$this->_originalPlatform =& $gallery->getPlatform();
 		$this->_dummyPlatform    = new MailHelperDummyPlatform($this->_originalPlatform);
 		$gallery->setPlatform($this->_dummyPlatform);
@@ -212,6 +213,7 @@ class MailHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$response = $this->_dummyPlatform->getMailData();
 		$this->assertEquals(
 			'Content-Type: text/html',
@@ -236,6 +238,7 @@ class MailHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$response = $this->_dummyPlatform->getMailData();
 		$this->assertEquals('=?utf-8?q?s=c3=a5 utrolig?=', $response['subject']);
 	}
@@ -264,6 +267,7 @@ class MailHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(4, $this->_dummyPlatform->getMailedCount(), 'MailedCount incorrect');
 	}
 }
@@ -281,7 +285,6 @@ class MailHelperDummyPlatform {
 	}
 
 	public function mail($to, $subject, $body, $headers = null) {
-
 		// Normalize the date field in the headers to avoid having to worry about exact seconds
 		$headers = preg_replace("/Date:.*?\r\n/", "Date: ELIDED\r\n", $headers);
 

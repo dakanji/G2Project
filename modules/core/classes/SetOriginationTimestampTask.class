@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
 
 /**
@@ -65,6 +64,7 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 	 */
 	public function run() {
 		global $gallery;
+
 		$templateAdapter =& $gallery->getTemplateAdapter();
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -72,6 +72,7 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$message = $module->translate('Processing...');
 
 		$templateAdapter->updateProgressBar(
@@ -102,6 +103,7 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 			for ($j = 0; $j < 4 && ($result = $results->nextResult()); $j++) {
 				$ids[] = $result[0];
 			}
+
 			list($ret, $items) = GalleryCoreApi::loadEntitiesById($ids, 'GalleryDataItem');
 
 			if ($ret) {
@@ -118,6 +120,7 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 						return array($ret, null, null);
 					}
 				}
+
 				$toolkits = $toolkitMap[$mimeType];
 
 				if (!empty($toolkits)) {
@@ -131,6 +134,7 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 						if (!isset($toolkit)) {
 							continue;
 						}
+
 						list($ret, $originationTimestamp) = $toolkit->getProperty($mimeType, 'originationTimestamp', $path);
 
 						if ($ret) {
@@ -146,6 +150,7 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 								if ($ret) {
 									return array($ret, null, null);
 								}
+
 								$ret = $item->save();
 
 								if ($ret) {
@@ -153,11 +158,13 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 
 									return array($ret, null, null);
 								}
+
 								$ret = GalleryCoreApi::releaseLocks($lockId);
 
 								if ($ret) {
 									return array($ret, null, null);
 								}
+
 								$updated++;
 							}
 
@@ -165,6 +172,7 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 						}
 					}
 				}
+
 				$i++;
 			}
 
@@ -175,6 +183,7 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 					'arg2' => $total,
 				)
 			);
+
 			$templateAdapter->updateProgressBar($message, '', $i / $total);
 		}
 

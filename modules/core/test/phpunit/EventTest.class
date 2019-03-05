@@ -32,6 +32,7 @@ class EventTest extends GalleryTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -44,6 +45,7 @@ class EventTest extends GalleryTestCase {
 
 		// Register a new module
 		GalleryDataCache::reset();
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'EventTest');
 
 		if ($ret) {
@@ -102,6 +104,7 @@ class EventTest extends GalleryTestCase {
 		$bogus = 'bogus entity';
 		$event->setEntity($bogus);
 		$event->setData('some data');
+
 		list($ret, $result) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -122,6 +125,7 @@ class EventTest extends GalleryTestCase {
 		$bogus = 'bogus entity';
 		$event->setEntity($bogus);
 		$event->setData('send result');
+
 		list($ret, $result) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -144,6 +148,7 @@ class EventTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($item);
 
 		$event = $listener->getEvent();
@@ -154,6 +159,7 @@ class EventTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				array(
@@ -229,12 +235,14 @@ class EventTestEventListener // extends GalleryEventListener
 		switch ($event->getEventName()) {
 			case 'GalleryEntity::save':
 				global $gallery;
+
 				$item = $event->getEntity();
 				$ret  = GalleryCoreApi::removeItemPermissions($item->getId());
 
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$ret = GalleryCoreApi::addUserPermission(
 					$item->getId(),
 					$gallery->getActiveUserId(),
@@ -282,6 +290,7 @@ class EventTestPlatform extends GalleryPlatform {
 					array_push($this->_list, $name);
 				}
 			}
+
 			array_push($this->_list, 'eventtest');
 
 			return 'eventtest';
@@ -292,6 +301,7 @@ class EventTestPlatform extends GalleryPlatform {
 
 	public function is_dir($path) {
 		global $gallery;
+
 		static $ignorePath;
 		$ignorePath = $gallery->getConfig('data.gallery.plugins_data') . 'modules/eventtest';
 
@@ -369,5 +379,4 @@ class EventTestModule extends GalleryModule {
 	}
 }
 
-class EventTestFactory {
-}
+class EventTestFactory {}

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
 
 /**
@@ -40,17 +39,20 @@ class ControllerTest extends GalleryTestCase {
 		}
 
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/helpers/GalleryPluginHelper_medium.class'
 		);
+
 		$ControllerTestModule = new ControllerTestModule();
 		GalleryPluginHelper_medium::setPluginInstance(
 			'module',
 			'controllertest',
 			$ControllerTestModule
 		);
+
 		$session->remove('core.authToken');
 		$this->_originalIsPersistentSession = $session->isPersistent();
 		GalleryUtilities::removeRequestVariable('authToken');
@@ -58,6 +60,7 @@ class ControllerTest extends GalleryTestCase {
 
 	public function tearDown() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		$session->remove('core.authToken');
@@ -75,6 +78,7 @@ class ControllerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($controller));
 	}
 
@@ -100,6 +104,7 @@ class ControllerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($controller));
 	}
 
@@ -117,6 +122,7 @@ class ControllerTest extends GalleryTestCase {
 
 	public function testAssertIsGenuineRequestHandlesEmptyValue() {
 		GalleryUtilities::putRequestVariable('authToken', '');
+
 		$ret = GalleryController::getMe()->assertIsGenuineRequest();
 
 		if ($ret && $ret->getErrorCode() & ERROR_REQUEST_FORGED) {
@@ -130,11 +136,13 @@ class ControllerTest extends GalleryTestCase {
 
 	public function testAssertIsGenuineRequestWithValidAuthToken() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		$validAuthToken = 'ABCDEF123456';
 		$session->put('core.authToken', $validAuthToken);
 		GalleryUtilities::putRequestVariable('authToken', $validAuthToken);
+
 		$ret = GalleryController::getMe()->assertIsGenuineRequest();
 
 		if ($ret) {
@@ -146,11 +154,13 @@ class ControllerTest extends GalleryTestCase {
 
 	public function testAssertIsGenuineRequestWithInValidAuthToken() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		$validAuthToken = 'ABCDEF123456';
 		$session->put('core.authToken', $validAuthToken);
 		GalleryUtilities::putRequestVariable('authToken', '098765432109');
+
 		$ret = GalleryController::getMe()->assertIsGenuineRequest();
 
 		if ($ret && $ret->getErrorCode() & ERROR_REQUEST_FORGED) {
@@ -164,6 +174,7 @@ class ControllerTest extends GalleryTestCase {
 
 	public function testAssertIsGenuineRequestIgnoresNonPersistentSessions() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		$session->_isPersistent = false;
@@ -179,6 +190,7 @@ class ControllerTest extends GalleryTestCase {
 		$validAuthToken = 'ABCDEF123456';
 		$session->put('core.authToken', $validAuthToken);
 		GalleryUtilities::putRequestVariable('authToken', '098765432109');
+
 		$ret = GalleryController::getMe()->assertIsGenuineRequest();
 
 		if ($ret) {
@@ -190,12 +202,14 @@ class ControllerTest extends GalleryTestCase {
 
 	public function testAssertIsGunuineRequestOmittedInMaintenanceMode() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		$validAuthToken = 'ABCDEF123456';
 		$session->put('core.authToken', $validAuthToken);
 		GalleryUtilities::putRequestVariable('authToken', '098765432109');
 		$gallery->setConfig('mode.maintenance', true);
+
 		$ret = GalleryController::getMe()->assertIsGenuineRequest();
 
 		if ($ret) {
@@ -217,6 +231,7 @@ class ControllerTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $gallery->getActiveUserId());
 
 		list($ret, $item) = $controller->getItem();
+
 		$this->assertTrue($ret, 'getItem() should return an error if the itemId is the id of a user.');
 
 		if ($ret) {
@@ -227,12 +242,14 @@ class ControllerTest extends GalleryTestCase {
 	public function testGetItemRequiresViewPermission() {
 		global $gallery;
 
-		$controller        = new GalleryController();
+		$controller = new GalleryController();
+
 		list($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($album);
 
 		GalleryUtilities::putRequestVariable('itemId', $album->getId());
@@ -261,6 +278,7 @@ class ControllerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($album->getId(), $item->getId(), 'no permission check, itemId');
 
 		// Prepare test with permission
@@ -279,6 +297,7 @@ class ControllerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals($album->getId(), $item->getId(), 'with permission, itemId');
 	}
 
@@ -287,6 +306,7 @@ class ControllerTest extends GalleryTestCase {
 		GalleryUtilities::removeRequestVariable('itemId');
 
 		list($ret, $item) = $controller->getItem();
+
 		$this->assertTrue($ret, 'getItem() should return an error if the itemId is the id of a user.');
 
 		if ($ret) {
@@ -298,7 +318,9 @@ class ControllerTest extends GalleryTestCase {
 		$galleryController = new GalleryController();
 
 		$this->_becomeGuestUser();
+
 		list($ret, $results) = $galleryController->permissionCheck(GalleryCoreApi::error(ERROR_PERMISSION_DENIED));
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -318,6 +340,7 @@ class ControllerTest extends GalleryTestCase {
 		$galleryController = new GalleryController();
 
 		list($ret, $results) = $galleryController->permissionCheck(GalleryCoreApi::error(ERROR_PERMISSION_DENIED));
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -356,5 +379,4 @@ class ControllerTestModule {
  * @package GalleryCore
  * @subpackage PHPUnit
  */
-class ConfigViewController extends GalleryController {
-}
+class ConfigViewController extends GalleryController {}

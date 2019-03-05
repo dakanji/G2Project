@@ -44,6 +44,7 @@ class UserChangePasswordController extends GalleryController {
 	 */
 	public function handleRequest($form) {
 		global $gallery;
+
 		$user = $gallery->getActiveUser();
 
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
@@ -82,12 +83,14 @@ class UserChangePasswordController extends GalleryController {
 							'userName' => $user->getUserName(),
 						)
 					);
+
 					list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 					if ($ret) {
 						return array($ret, null);
 					}
 				}
+
 				/*
 				 * To be consistent, we really should post a Gallery::Login event here to show
 				 * that the user successfully authenticated.  But they're not really logging in so
@@ -155,6 +158,7 @@ class UserChangePasswordController extends GalleryController {
 			$results['delegate']['view']    = 'core.UserAdmin';
 			$results['delegate']['subView'] = 'core.UserChangePassword';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 

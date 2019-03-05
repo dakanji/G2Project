@@ -50,6 +50,7 @@ class GdFunctionality {
 	 */
 	public function tempnam($tmpDir, $prefix) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		return $platform->tempnam($tmpDir, $prefix);
@@ -61,6 +62,7 @@ class GdFunctionality {
 	 */
 	public function copy($src, $dest) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		return $platform->copy($src, $dest);
@@ -72,6 +74,7 @@ class GdFunctionality {
 	 */
 	public function unlink($file) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		return $platform->unlink($file);
@@ -83,6 +86,7 @@ class GdFunctionality {
 	 */
 	public function filesize($file) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		return $platform->filesize($file);
@@ -95,6 +99,7 @@ class GdFunctionality {
 	 */
 	public function chmod($file) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		return $platform->chmod($file);
@@ -128,6 +133,7 @@ class GdFunctionality {
 		if (!function_exists('gd_info')) {
 			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null);
 		}
+
 		$info = @gd_info();
 
 		return array(null, $info);
@@ -139,6 +145,7 @@ class GdFunctionality {
 	 */
 	public function getImageSize($filename) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		return $platform->getimagesize($filename);
@@ -183,6 +190,7 @@ class GdFunctionality {
 				null,
 			);
 		}
+
 		$res = @imagecreatetruecolor($width, $height);
 
 		if (!$res) {
@@ -198,6 +206,7 @@ class GdFunctionality {
 	 */
 	public function isValidFile($filename) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		if (!$platform->file_exists($filename)
@@ -251,7 +260,9 @@ class GdFunctionality {
 				null,
 			);
 		}
-		$res                  = @imagecreatefromgif($filename);
+
+		$res = @imagecreatefromgif($filename);
+
 		list($ret, $resource) = $this->checkResource($res, $filename);
 
 		if ($ret) {
@@ -330,6 +341,7 @@ class GdFunctionality {
 		if (!function_exists('imageGif')) {
 			return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE | ERROR_UNSUPPORTED_OPERATION);
 		}
+
 		$result = @imagegif($res, $filename);
 
 		if ($result) {
@@ -348,6 +360,7 @@ class GdFunctionality {
 		if (!function_exists('imageJpeg')) {
 			return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE | ERROR_UNSUPPORTED_OPERATION);
 		}
+
 		$result = @imagejpeg($res, $filename, $quality);
 
 		if ($result) {
@@ -366,6 +379,7 @@ class GdFunctionality {
 		if (!function_exists('imagePng')) {
 			return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE | ERROR_UNSUPPORTED_OPERATION);
 		}
+
 		$result = @imagepng($res, $filename);
 
 		if ($result) {
@@ -384,6 +398,7 @@ class GdFunctionality {
 		if (!function_exists('imageWbmp')) {
 			return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE | ERROR_UNSUPPORTED_OPERATION);
 		}
+
 		$result = @imagewbmp($res, $filename);
 
 		if ($result) {
@@ -402,6 +417,7 @@ class GdFunctionality {
 		if (!function_exists('imageXbm')) {
 			return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE | ERROR_UNSUPPORTED_OPERATION);
 		}
+
 		$result = @imagexbm($res, $filename);
 
 		if ($result) {
@@ -431,6 +447,7 @@ class GdFunctionality {
 		if (!function_exists('imageCopyResampled')) {
 			return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE | ERROR_UNSUPPORTED_OPERATION);
 		}
+
 		$result = @imagecopyresampled(
 			$dstRes,
 			$srcRes,
@@ -549,6 +566,7 @@ class GdFunctionality {
 				null,
 			);
 		}
+
 		$res = @imagerotate($srcRes, $angle, $bgdColor);
 
 		if ($res) {

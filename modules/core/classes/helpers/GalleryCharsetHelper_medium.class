@@ -2846,6 +2846,7 @@ class GalleryCharsetHelper_medium {
 			while ($end > $start && $j++ < 3 && (ord($string[$end]) & 0xC0) == 0x80) {
 				$end--;
 			}
+
 			$end = $end > $start ? $end-- : $start;
 
 			return substr($string, $start, $end - $start);

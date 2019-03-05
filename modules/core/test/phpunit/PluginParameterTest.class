@@ -64,6 +64,7 @@ class PluginParameterTest extends GalleryTestCase {
 
 	public function testAddParameter() {
 		global $gallery;
+
 		$key   = 'testParameter';
 		$value = 'testValue';
 
@@ -95,6 +96,7 @@ class PluginParameterTest extends GalleryTestCase {
 
 	public function testUpdateParameter() {
 		global $gallery;
+
 		$key   = 'testParameter';
 		$value = 'testValue';
 
@@ -122,6 +124,7 @@ class PluginParameterTest extends GalleryTestCase {
 
 	public function testFetchAllParameters() {
 		global $gallery;
+
 		$key   = 'testParameter';
 		$value = 'testValue';
 
@@ -151,6 +154,7 @@ class PluginParameterTest extends GalleryTestCase {
 
 	public function testAddItemParameters() {
 		global $gallery;
+
 		$key   = 'testParameter';
 		$value = 'testValue';
 
@@ -241,6 +245,7 @@ class PluginParameterTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals($param, $val, 'Parameter "foo1" (' . $item . ') should be ' . $val);
 		}
 
@@ -270,12 +275,14 @@ class PluginParameterTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals($param, $val, 'Parameter "foo1" (' . $item . ') should be ' . $val);
 		}
 	}
 
 	public function testAddPluginParameterFieldTypes() {
 		global $gallery;
+
 		$gallery->_storage = new PluginParameterTestMockStorage($this);
 
 		// Prevent a db query by mocking up some GDC data
@@ -295,11 +302,13 @@ class PluginParameterTest extends GalleryTestCase {
 				'none' => '',
 			)
 		);
+
 		GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', '99', 2);
 	}
 
 	public function testUpdatePluginParameterFieldTypes() {
 		global $gallery;
+
 		$gallery->_storage = new PluginParameterTestMockStorage($this);
 
 		// Prevent a db query by mocking up some GDC data
@@ -319,6 +328,7 @@ class PluginParameterTest extends GalleryTestCase {
 				'bar' => 'old value',
 			)
 		);
+
 		GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', '55', 3);
 	}
 }
@@ -353,6 +363,7 @@ class PluginParameterTestMockStorage {
 				"type / value '$value' for field $field"
 			);
 		}
+
 		$tc->assertEquals('GalleryPluginParameterMap', $map, 'map name');
 
 		return null;
@@ -374,6 +385,7 @@ class PluginParameterTestMockStorage {
 				"type/value '$value' for field $field"
 			);
 		}
+
 		$tc->assertEquals('GalleryPluginParameterMap', $map, 'map name');
 		$tc->assertTrue(!empty($change['parameterValue']), 'parameterValue must be set');
 		$tc->assertEquals('55', $change['parameterValue'], 'type of parameterValue');

@@ -89,6 +89,7 @@ class AdminCoreController extends GalleryController {
 						if ($value[0] != '/') {
 							$value = '/' . $value;
 						}
+
 						$paths[$key] = $value;
 					}
 
@@ -112,6 +113,7 @@ class AdminCoreController extends GalleryController {
 					if ($cookieDomain[0] != '.') {
 						$cookieDomain = '.' . $cookieDomain;
 					}
+
 					$urlComponents = parse_url($urlGenerator->getCurrentUrlDir());
 					$currentHost   = '.' . $urlComponents['host'];
 
@@ -186,6 +188,7 @@ class AdminCoreController extends GalleryController {
 				&& !preg_match('/^\*+/', $form['smtp']['password'])
 			) {
 				GalleryUtilities::unsanitizeInputValues($form['smtp']['password'], false);
+
 				$ret = GalleryCoreApi::setPluginParameter(
 					'module',
 					'core',
@@ -207,13 +210,14 @@ class AdminCoreController extends GalleryController {
 			$platform = $gallery->getPlatform();
 			$gallery->startRecordingDebugSnippet();
 			ob_start();
-			$ret    = $platform->sendEmail(
+			$ret = $platform->sendEmail(
 				'modules/core/templates/EmailTest.tpl',
 				array(),
 				null,
 				$form['emailTest']['to'],
 				$module->translate('Gallery Email Test')
 			);
+
 			$output = ob_get_contents();
 			ob_end_clean();
 			$debugSnippet = $gallery->stopRecordingDebugSnippet();
@@ -230,13 +234,13 @@ class AdminCoreController extends GalleryController {
 			$redirect['subView'] = 'core.AdminCore';
 		}
 
-
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
 		} else {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'core.AdminCore';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -301,7 +305,8 @@ class AdminCoreView extends GalleryView {
 					return array($ret, null);
 				}
 
-				list($outer, $inner)  = explode('.', $key);
+				list($outer, $inner) = explode('.', $key);
+
 				$form[$outer][$inner] = $value;
 			}
 
@@ -366,6 +371,7 @@ class AdminCoreView extends GalleryView {
 				)
 			);
 		}
+
 		$sessionTimeList[25 * 365 * 86400] = $module->translate('forever');
 
 		if (GalleryUtilities::isA($platform, 'UnixPlatform')) {

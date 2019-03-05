@@ -32,6 +32,7 @@ class GalleryTranslatorHelper_medium {
 	 */
 	public static function installTranslationsForPlugin($pluginType, $pluginId) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$codeBase = GalleryCoreApi::getCodeBasePath();
 
@@ -58,6 +59,7 @@ class GalleryTranslatorHelper_medium {
 				if (!preg_match($codePattern, $moPath, $matches)) {
 					continue;
 				}
+
 				$destinationDir = $g2locale . sprintf($localeDirPattern, $matches[1]);
 
 				list($success, $created) = GalleryUtilities::guaranteeDirExists($destinationDir);
@@ -83,6 +85,7 @@ class GalleryTranslatorHelper_medium {
 	 */
 	public static function removeTranslationsForPlugin($pluginType, $pluginId) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$gallery->guaranteeTimeLimit(30);  // the glob may take a long time
@@ -90,6 +93,7 @@ class GalleryTranslatorHelper_medium {
 			$gallery->getConfig('data.gallery.locale')
 			. "*/LC_MESSAGES/${pluginType}s_$pluginId.mo"
 		);
+
 		$success = true;
 
 		if (!empty($moFiles)) {
@@ -107,6 +111,7 @@ class GalleryTranslatorHelper_medium {
 	 */
 	public static function installTranslationsForLocale($locale = null) {
 		global $gallery;
+
 		$platform   =& $gallery->getPlatform();
 		$codeBase   = GalleryCoreApi::getCodeBasePath();
 		$localeBase = $gallery->getConfig('data.gallery.locale');
@@ -120,6 +125,7 @@ class GalleryTranslatorHelper_medium {
 			// Nothing to do
 			return null;
 		}
+
 		$language = substr($locale, 0, 2);
 
 		foreach (array('modules', 'themes') as $pluginType) {
@@ -143,6 +149,7 @@ class GalleryTranslatorHelper_medium {
 						if (!$success) {
 							return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
 						}
+
 						$success = $platform->copy($sourcePath, $destinationDir . $filename);
 
 						if (!$success) {
@@ -191,6 +198,7 @@ class GalleryTranslatorHelper_medium {
 					null,
 				);
 			}
+
 			$languageDescription = $languageData['description'];
 			GalleryDataCache::put($cacheKey, $languageDescription);
 		} else {
@@ -251,6 +259,7 @@ class GalleryTranslatorHelper_medium {
 				$default['en']['US'] = $supportedLanguages['en']['US'];
 				$supportedLanguages  = $default;
 			}
+
 			GalleryDataCache::put($cacheKey, $supportedLanguages);
 		} else {
 			$supportedLanguages = GalleryDataCache::get($cacheKey);

@@ -20,7 +20,9 @@ if ($langpath == $path || !file_exists($langpath)) {
 	if ($langpath != $path && !in_array(basename($langpath), array('en.po', 'zh.po'))) {
 		fwrite(stdErr(), "\nWarning: $path without $langpath\n");
 	}
+
 	list($po, $header) = readPo($path);
+
 	echo $header;
 
 	foreach ($po as $id => $data) {
@@ -36,7 +38,8 @@ if ($langpath == $path || !file_exists($langpath)) {
 }
 
 list($po, $header) = readPo($path);
-list($langpo)      = readPo($langpath);
+
+list($langpo) = readPo($langpath);
 
 echo $header;
 
@@ -177,6 +180,7 @@ function readPo($path) {
 	for ($line = 'a'; $lines && trim($line); $header[] = $line) {
 		$line = array_shift($lines);
 	}
+
 	$id  = $str  = false;
 	$key = $value = $before = '';
 
@@ -192,8 +196,9 @@ function readPo($path) {
 				'msgstr' => $value,
 				'before' => $before,
 			);
-			$id         = $str  = false;
-			$key        = $value = $before = '';
+
+			$id  = $str  = false;
+			$key = $value = $before = '';
 
 			continue;
 		}

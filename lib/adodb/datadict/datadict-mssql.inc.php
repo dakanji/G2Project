@@ -37,7 +37,6 @@ In ADOdb, named quotes for MS SQL Server use ". From the MSSQL Docs:
 
 		SET QUOTED_IDENTIFIER { ON | OFF }
 
-
 */
 
 // security - hide paths
@@ -55,7 +54,6 @@ class ADODB2_mssql extends ADODB_DataDict {
 	public $typeXL = 'TEXT';
 
 	//var $alterCol = ' ALTER COLUMN ';
-
 	public function MetaType($t, $len = -1, $fieldobj = false) {
 		if (is_object($t)) {
 			$fieldobj = $t;
@@ -149,14 +147,17 @@ class ADODB2_mssql extends ADODB_DataDict {
 	}
 
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname            = $this->TableName($tabname);
-		$f                  = array();
+		$tabname = $this->TableName($tabname);
+		$f       = array();
+
 		list($lines, $pkey) = $this->_GenFields($flds);
-		$s                  = "ALTER TABLE $tabname $this->addCol";
+
+		$s = "ALTER TABLE $tabname $this->addCol";
 
 		foreach ($lines as $v) {
 			$f[] = "\n $v";
 		}
+
 		$s    .= implode(', ', $f);
 		$sql[] = $s;
 
@@ -168,27 +169,31 @@ class ADODB2_mssql extends ADODB_DataDict {
 	{
 		$tabname = $this->TableName ($tabname);
 		$sql = array();
+
 		list($lines,$pkey) = $this->_GenFields($flds);
+
 		foreach($lines as $v) {
 			$sql[] = "ALTER TABLE $tabname $this->alterCol $v";
 		}
 
 		return $sql;
 	}
-	*/
 
+	*/
 	public function DropColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
 		$tabname = $this->TableName($tabname);
 
 		if (!is_array($flds)) {
 			$flds = explode(',', $flds);
 		}
+
 		$f = array();
 		$s = 'ALTER TABLE ' . $tabname;
 
 		foreach ($flds as $v) {
 			$f[] = "\n$this->dropCol " . $this->NameQuote($v);
 		}
+
 		$s    .= implode(', ', $f);
 		$sql[] = $s;
 
@@ -275,7 +280,6 @@ class ADODB2_mssql extends ADODB_DataDict {
 		( search_conditions )
 	}
 
-
 	*/
 
 	/*
@@ -290,6 +294,7 @@ class ADODB2_mssql extends ADODB_DataDict {
 			STATISTICS_NORECOMPUTE |
 			SORT_IN_TEMPDB
 		}
+
 	*/
 	public function _IndexSQL($idxname, $tabname, $flds, $idxoptions) {
 		$sql = array();
@@ -312,12 +317,12 @@ class ADODB2_mssql extends ADODB_DataDict {
 		if (is_array($flds)) {
 			$flds = implode(', ', $flds);
 		}
+
 		$s = 'CREATE' . $unique . $clustered . ' INDEX ' . $idxname . ' ON ' . $tabname . ' (' . $flds . ')';
 
 		if (isset($idxoptions[$this->upperName])) {
 			$s .= $idxoptions[$this->upperName];
 		}
-
 
 		$sql[] = $s;
 

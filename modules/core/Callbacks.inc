@@ -39,6 +39,7 @@ class CoreCallbacks {
 
 	public function callback($params, &$smarty, $callback, $userId = null) {
 		global $gallery;
+
 		$block =& $smarty->_tpl_vars['block'];
 		$theme =& $smarty->_tpl_vars['theme'];
 
@@ -103,7 +104,8 @@ class CoreCallbacks {
 				$item = $params['item'];
 
 				if (isset($item['parent']->getChildrenFunction)) {
-					$parent              = $item['parent'];
+					$parent = $item['parent'];
+
 					list($ret, $peerIds) = call_user_func($parent->getChildrenFunction, $userId);
 
 					if ($ret) {
@@ -122,6 +124,7 @@ class CoreCallbacks {
 						if ($ret) {
 							return $ret;
 						}
+
 						list($ret, $peerIds) = GalleryCoreApi::fetchChildItemIds($parent, null, null, $userId);
 
 						if ($ret) {
@@ -179,6 +182,7 @@ class CoreCallbacks {
 							return $ret;
 						}
 					}
+
 					$j = 0;
 
 					foreach ($peerMap as $i => $id) {
@@ -188,8 +192,10 @@ class CoreCallbacks {
 						if (isset($thumbTable[$id])) {
 							$peer['thumbnail'] = (array)$thumbTable[$id];
 						}
+
 						$peers[] = $peer;
 					}
+
 					$block['core']['LoadPeers'] = array(
 						'peers'         => $peers,
 						'peerCount'     => count($peerIds),

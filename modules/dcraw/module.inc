@@ -87,6 +87,7 @@ class DcrawModule extends GalleryModule {
 	 */
 	public function activate($postActivationEvent = true) {
 		global $gallery;
+
 		GalleryCoreApi::requireOnce('modules/dcraw/classes/DcrawToolkitHelper.class');
 
 		list($ret, $path) = $this->getParameter('path');
@@ -120,6 +121,7 @@ class DcrawModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$priority = min($priority + 1, 40);
 		}
 
@@ -212,6 +214,7 @@ class DcrawModule extends GalleryModule {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $version) = $this->getParameter('version');
 
 		if ($ret) {
@@ -263,6 +266,7 @@ class DcrawModule extends GalleryModule {
 				if ($path[strlen($path) - 1] != $slash) {
 					$path .= $slash;
 				}
+
 				$paths[] = $path;
 			}
 
@@ -284,6 +288,7 @@ class DcrawModule extends GalleryModule {
 				if ($path[strlen($path) - 1] != $slash) {
 					$path .= $slash;
 				}
+
 				$paths[] = $path;
 			}
 

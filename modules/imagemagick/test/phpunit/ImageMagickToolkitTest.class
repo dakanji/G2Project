@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/imagemagick/classes/ImageMagickToolkit.class');
 
 /**
@@ -81,6 +80,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			$this->_files,
 			$this
 		);
+
 		$gallery->setPlatform($this->_platform);
 
 		// Get a toolkit to work with
@@ -145,7 +145,8 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		$namedParams,
 		$quality = null
 	) {
-		$this->_chmodWasCalled      = false;
+		$this->_chmodWasCalled = false;
+
 		list($ret, $outputMimeType) = $this->_toolkit->performOperation(
 			$mimeType,
 			$operation,
@@ -157,6 +158,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$expected = $this->_currentEnvironment['operations'][$operation];
 
 		if (in_array($mimeType, array('image/tiff', 'application/pdf', 'application/postscript'))
@@ -189,7 +191,8 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			}
 		}
 
-		$search                 = array('|%src%|', '|%dst%|');
+		$search = array('|%src%|', '|%dst%|');
+
 		list($ret, $extensions) = GalleryCoreApi::convertMimeToExtensions($outputMimeType);
 
 		if ($ret) {
@@ -204,6 +207,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				"Can't convert to unknown mime type: $outputMimeType"
 			);
 		}
+
 		$replace = array($src, $extensions[0] . ':' . $dst);
 
 		foreach ($namedParams as $key => $value) {
@@ -230,6 +234,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			$this->_files[$dst]['operation'],
 			$this->_currentEnvironment['path'] . " $operation " . implode(' ', $params)
 		);
+
 		$this->assertTrue($this->_chmodWasCalled, 'chmod not called');
 
 		return null;
@@ -612,6 +617,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$this->_files['output.png']['operation']['convert'],
 				'output ' . $this->_envName()
 			);
+
 			$this->assertEquals(
 				array(
 					'next.toolkit'   => null,
@@ -664,6 +670,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				'output ' .
 				$this->_envName()
 			);
+
 			$this->assertEquals(
 				array(
 					'next.toolkit'   => $this->_toolkit,
@@ -700,6 +707,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$this->_files['output.png']['operation']['convert'],
 				'output ' . $this->_envName()
 			);
+
 			$this->assertEquals(
 				array(
 					'next.toolkit'   => null,
@@ -762,6 +770,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$context,
 				'context after scale ' . $this->_envName()
 			);
+
 			$context['next.operation'] = 'thumbnail';
 
 			list($ret, $outputMimeType, $context) = $this->_toolkit->performOperation(
@@ -824,6 +833,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$this->_files['output.png']['operation']['convert'],
 				'output ' . $this->_envName()
 			);
+
 			$this->assertEquals(
 				array(
 					'next.toolkit'   => null,
@@ -878,6 +888,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$context,
 				'context after convert ' . $this->_envName()
 			);
+
 			$this->assertEquals('image/jpeg', $outputMimeType, 'jpeg ' . $this->_envName());
 
 			list($ret, $outputMimeType, $context) = $this->_toolkit->performOperation(
@@ -902,6 +913,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$this->_files['output.jpg']['operation']['convert'],
 				'output ' . $this->_envName()
 			);
+
 			$this->assertEquals(
 				array(
 					'next.toolkit'   => null,
@@ -926,6 +938,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals(array(10, 20), $results, 'dimensions ' . $this->_envName());
 
 			list($ret, $results) = $this->_toolkit->getProperty(
@@ -937,6 +950,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals(array(2), $results, 'page-count ' . $this->_envName());
 
 			if (in_array('image/jpeg-cmyk', $environment['mimeTypes'])) {
@@ -949,6 +963,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				if ($ret) {
 					return $ret;
 				}
+
 				$this->assertEquals(array('CMYK'), $results, 'colorspace ' . $this->_envName());
 			}
 
@@ -957,6 +972,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				'BOGUS',
 				'BOGUS'
 			);
+
 			$this->assertTrue(
 				$ret->getErrorCode() & ERROR_UNIMPLEMENTED,
 				'bad op ' . $this->_envName()
@@ -971,6 +987,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'crop',
 			array(3, 4, 5, 6)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('crop', $operation);
 		$this->assertEquals(array(3, 4, 5, 6), $args);
@@ -981,6 +998,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'resize',
 			array(3, 4)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
@@ -991,6 +1009,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'resize',
 			array(3, 4)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
@@ -1001,6 +1020,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'thumbnail',
 			array(3, 4)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
@@ -1011,6 +1031,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'thumbnail',
 			array(3, 4)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
@@ -1021,6 +1042,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(90)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(180), $args);
@@ -1031,6 +1053,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(-90)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
@@ -1041,6 +1064,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(180)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(90), $args);
@@ -1051,6 +1075,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(-180)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
@@ -1061,6 +1086,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(180)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
@@ -1071,6 +1097,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(90)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
@@ -1081,6 +1108,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'thumbnail',
 			array(3, 4)
 		);
+
 		$this->assertFalse($success);
 	}
 
@@ -1095,6 +1123,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals($environment['mimeTypes'], $results);
 		}
 	}
@@ -1123,6 +1152,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 						$environment['mimeTypes'],
 						array('image/x-portable-pixmap')
 					);
+
 					array_splice($convertTo, $i, 1);
 					$canConvert['convert-to-' . $mimeType] = array(
 						'params'         => array(),
@@ -1132,12 +1162,14 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 					);
 				}
 			}
-			$wantToPage       = array(
+
+			$wantToPage = array(
 				'image/tiff',
 				'application/pdf',
 				'application/postscript',
 				'application/photoshop',
 			);
+
 			$canPage          = array_intersect($wantToPage, $environment['mimeTypes']);
 			$qualityMimeTypes = array_intersect(
 				array('image/jpeg', 'image/png'),
@@ -1305,6 +1337,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 					'mimeTypes'   => array('image/jpeg', 'image/tiff', 'application/photoshop'),
 				);
 			}
+
 			$this->assertEquals($properties, $results['properties'], $this->_envName());
 		}
 	}
@@ -1337,6 +1370,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		}
 
 		list($ret, $results) = ImageMagickToolkitHelper::testBinaries('/bogusPath');
+
 		$this->assertTrue($ret->getErrorCode() & ERROR_BAD_PATH);
 	}
 }
@@ -1374,6 +1408,7 @@ class ImageMagickToolkitTestPlatform {
 			if (basename($firstCmd[0]) != $this->_environment['binary']) {
 				return array(0, array('unprepared for exec()'));
 			}
+
 			array_shift($firstCmd);
 		}
 
@@ -1404,6 +1439,7 @@ class ImageMagickToolkitTestPlatform {
 			} else {
 				$output = explode("\n", $this->_environment['identify']['UNKNOWN']);
 			}
+
 			$status = true;
 		} elseif (($binary == 'convert'
 			&& in_array('convert', $this->_environment['binaries']))
@@ -1432,6 +1468,7 @@ class ImageMagickToolkitTestPlatform {
 						'size' => 0,
 					);
 				}
+
 				$output = array();
 				$status = true;
 			} else {
@@ -1465,8 +1502,9 @@ class ImageMagickToolkitTestPlatform {
 							$binary => $params,
 						),
 					);
-					$output             = array();
-					$status             = true;
+
+					$output = array();
+					$status = true;
 				}
 			}
 		}
@@ -1474,6 +1512,7 @@ class ImageMagickToolkitTestPlatform {
 		if ($status) {
 			return array(1, $output);
 		}
+
 		echo $this->_environment['path'] . ': ERROR exec()ing:<pre>';
 		print_r($cmd);
 		echo "</pre>\n";
@@ -1499,13 +1538,16 @@ class ImageMagickToolkitTestPlatform {
 					} else {
 						$val = $newName;
 					}
+
 					$this->_files[$newBase]['operation'][$operation][$count - 1] = $val;
 				}
 			}
+
 			unset($this->_files[$oldBase]);
 
 			return true;
 		}
+
 		echo $this->_environment['path'] . ": rename($oldName, $newName)<br>\n";
 
 		return false;
@@ -1520,6 +1562,7 @@ class ImageMagickToolkitTestPlatform {
 		if ($path == $this->_environment['path']) {
 			return true;
 		}
+
 		$dirName  = dirname($path) . '/';
 		$baseName = basename($path);
 
@@ -1534,6 +1577,7 @@ class ImageMagickToolkitTestPlatform {
 				return true;
 			}
 		}
+
 		// echo $this->_environment['path'] . ": file_exists($path)<br>\n";
 		return false;
 	}
@@ -1542,6 +1586,7 @@ class ImageMagickToolkitTestPlatform {
 		if ($path == $this->_environment['path']) {
 			return true;
 		}
+
 		// echo $this->_environment['path'] . ": is_dir($path)<br>\n";
 		return false;
 	}
@@ -1571,6 +1616,7 @@ class ImageMagickToolkitTestPlatform {
 		if (isset($this->_copyOk)) {
 			return 1;
 		}
+
 		echo $this->_environment['path'] . ": copy($file1, $file2)<br>\n";
 	}
 
@@ -1597,6 +1643,7 @@ class ImageMagickToolkitTestPlatform {
 		if (isset($this->_files[$basename]['size'])) {
 			return $this->_files[$basename]['size'];
 		}
+
 		echo $this->_environment['path'] . ": filesize($file)<br>\n";
 
 		return 0;
@@ -1617,6 +1664,7 @@ class ImageMagickToolkitTestPlatform {
 
 			return true;
 		}
+
 		echo $this->_environment['path'] . ": unlink($path)<br>\n";
 
 		return false;

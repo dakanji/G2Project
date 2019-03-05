@@ -93,7 +93,12 @@ class DownloadItemView extends GalleryView {
 		$fileName = GalleryUtilities::getRequestVariables('fileName');
 
 		if (!empty($fileName) && $fileName != $pseudoFileName) {
-			return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__, 'malicious url');
+			return GalleryCoreApi::error(
+				ERROR_BAD_PARAMETER,
+				__FILE__,
+				__LINE__,
+				'malicious url'
+			);
 		}
 
 		// Get the path to the file
@@ -105,17 +110,23 @@ class DownloadItemView extends GalleryView {
 
 		// Rebuild derivative cache, if necessary
 		if (!empty($derivativeType)) {
-			list($ret, $item) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($item->getId());
+			list($ret, $item) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent(
+				$item->getId()
+			);
 
 			if ($ret) {
 				return $ret;
 			}
 		}
+
 		$mimeType = $item->getMimeType();
 
 		// Apply Watermark -- skip for thumbnails
 		if ($derivativeType != DERIVATIVE_TYPE_IMAGE_THUMBNAIL) {
-			list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, 'composite');
+			list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation(
+				$mimeType,
+				'composite'
+			);
 
 			if ($ret) {
 				return $ret;
@@ -126,16 +137,24 @@ class DownloadItemView extends GalleryView {
 				 * Allow items that can't be watermarked (movies, audio, etc) to be
 				 * downloaded.  Uncomment the line below to block these downloads.
 				 */
+
 				// return GalleryCoreApi::error(ERROR_PERMISSION_DENIED);
 			} else {
-				list($ret, $hotlinkWatermarkId) = GalleryCoreApi::getPluginParameter('module', 'watermark', 'hotlinkWatermarkId');
+				list($ret, $hotlinkWatermarkId) = GalleryCoreApi::getPluginParameter(
+					'module',
+					'watermark',
+					'hotlinkWatermarkId'
+				);
 
 				if ($ret) {
 					return $ret;
 				}
 
 				if (!empty($hotlinkWatermarkId)) {
-					list($ret, $watermark) = GalleryCoreApi::loadEntitiesById($hotlinkWatermarkId, 'WatermarkImage');
+					list($ret, $watermark) = GalleryCoreApi::loadEntitiesById(
+						$hotlinkWatermarkId,
+						'WatermarkImage'
+					);
 
 					if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 						// Ignore error if this watermark has been deleted
@@ -146,8 +165,13 @@ class DownloadItemView extends GalleryView {
 
 			if (isset($watermark)) {
 				global $gallery;
-				$platform             =& $gallery->getPlatform();
-				$tmpFile              = $platform->tempnam($gallery->getConfig('data.gallery.tmp'), 'wmk_');
+
+				$platform =& $gallery->getPlatform();
+				$tmpFile  = $platform->tempnam(
+					$gallery->getConfig('data.gallery.tmp'),
+					'wmk_'
+				);
+
 				list($ret, $mimeType) = $toolkit->performOperation(
 					$mimeType,
 					'composite',
@@ -167,6 +191,7 @@ class DownloadItemView extends GalleryView {
 				if ($ret) {
 					return $ret;
 				}
+
 				$path = $tmpFile;
 			}
 		}
@@ -192,13 +217,16 @@ class DownloadItemView extends GalleryView {
 
 	public function _sendFile($data) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		/**
 		 * Try to prevent Apache's mod_deflate from gzipping the output since it's likely already
 		 * a binary file and broken versions of mod_deflate sometimes get the byte count wrong.
 		 */
-		if (function_exists('apache_setenv') && !@$gallery->getConfig('apacheSetenvBroken')) {
+		if (function_exists('apache_setenv')
+			&& !@$gallery->getConfig('apacheSetenvBroken')
+		) {
 			@apache_setenv('no-gzip', '1');
 		}
 
@@ -209,6 +237,7 @@ class DownloadItemView extends GalleryView {
 		if ($stats[7] > 0) {
 			header('Content-length: ' . $stats[7]);
 		}
+
 		header('Last-Modified: ' . GalleryUtilities::getHttpDate($stats[9]));
 		header('Expires: ' . GalleryUtilities::getHttpDate(time() + 31536000));
 
@@ -224,9 +253,11 @@ class DownloadItemView extends GalleryView {
 				if (strlen($bits) == 0) {
 					break;
 				}
+
 				echo $bits;
 				$gallery->guaranteeTimeLimit(30);
 			}
+
 			$platform->fclose($fd);
 		}
 
@@ -241,6 +272,7 @@ class DownloadItemView extends GalleryView {
 	 */
 	public function _assertPermissions($item, $derivativeType) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		$itemIdForPermission = $item->getId();
@@ -270,13 +302,17 @@ class DownloadItemView extends GalleryView {
 				// DERIVATIVE_TYPE_IMAGE_PREFERRED uses core.viewSource
 			}
 		}
+
 		$ret = GalleryCoreApi::assertHasItemPermission($itemIdForPermission, $permission);
 
 		if ($ret) {
 			// Avoid information disclosure
 			if ($ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
 				if ($permission != 'core.view') {
-					list($ret2, $hasPermission) = GalleryCoreApi::hasItemPermission($item->getId(), 'core.view');
+					list($ret2, $hasPermission) = GalleryCoreApi::hasItemPermission(
+						$item->getId(),
+						'core.view'
+					);
 
 					if ($ret2) {
 						return $ret2;

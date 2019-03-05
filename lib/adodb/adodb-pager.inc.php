@@ -46,8 +46,9 @@ class ADODB_Pager {
 	public $htmlSpecialChars  = true;
 	public $page              = 'Page';
 	public $linkSelectedColor = 'red';
-	public $cache             = 0;  // secs to cache with CachePageExecute()
+	public $cache             = 0;
 
+	// secs to cache with CachePageExecute()
 	//----------------------------------------------
 	// constructor
 	//
@@ -138,6 +139,7 @@ class ADODB_Pager {
 	// original code by "Pablo Costa" <pablo@cbsp.com.br>
 	public function render_pagelinks() {
 		global $PHP_SELF;
+
 		$pages        = $this->rs->LastPageNo();
 		$linksperpage = $this->linksPerPage ? $this->linksPerPage : $pages;
 
@@ -146,6 +148,7 @@ class ADODB_Pager {
 				$start = $i;
 			}
 		}
+
 		$numbers = '';
 		$end     = $start + $linksperpage - 1;
 		$link    = $this->id . '_next_page';
@@ -153,7 +156,6 @@ class ADODB_Pager {
 		if ($end > $pages) {
 			$end = $pages;
 		}
-
 
 		if ($this->startLinks && $start > 1) {
 			$pos      = $start - 1;
@@ -171,6 +173,7 @@ class ADODB_Pager {
 		if ($this->moreLinks && $end < $pages) {
 			$numbers .= "<a href=$PHP_SELF?$link=$i>$this->moreLinks</a>  ";
 		}
+
 		echo $numbers . ' &nbsp; ';
 	}
 
@@ -230,6 +233,7 @@ class ADODB_Pager {
 			$this->Render_Next(false);
 			$this->Render_Last(false);
 		}
+
 		$s = ob_get_contents();
 		ob_end_clean();
 
@@ -242,6 +246,7 @@ class ADODB_Pager {
 		if (!$this->db->pageExecuteCountRows) {
 			return '';
 		}
+
 		$lastPage = $this->rs->LastPageNo();
 
 		if ($lastPage == -1) {
@@ -277,6 +282,7 @@ class ADODB_Pager {
 		} else {
 			$rs = $this->db->PageExecute($this->sql, $rows, $this->curr_page);
 		}
+
 		$ADODB_COUNTRECS = $savec;
 
 		$this->rs = $rs;

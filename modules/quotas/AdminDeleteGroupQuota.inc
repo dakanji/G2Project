@@ -36,8 +36,9 @@ class AdminDeleteGroupQuotaController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$results           = $status           = $error           = array();
-		$groupId           = GalleryUtilities::getRequestVariables('groupId');
+		$results = $status           = $error           = array();
+		$groupId = GalleryUtilities::getRequestVariables('groupId');
+
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -82,6 +83,7 @@ class AdminDeleteGroupQuotaController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'quotas.AdminDeleteGroupQuota';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -102,8 +104,10 @@ class AdminDeleteGroupQuotaView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
-		$groupId           = GalleryUtilities::getRequestVariables('groupId');
+		$groupId = GalleryUtilities::getRequestVariables('groupId');
+
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -123,11 +127,13 @@ class AdminDeleteGroupQuotaView extends GalleryView {
 		}
 
 		$AdminDeleteGroupQuota = array();
+
 		list($ret, $AdminDeleteGroupQuota['quotaSize'], $AdminDeleteGroupQuota['quotaUnit']) = GalleryQuotasHelper::humanReadableFromKilobytes($groupQuota['quota']);
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$AdminDeleteGroupQuota['group'] = (array)$group;
 
 		$template->setVariable('AdminDeleteGroupQuota', $AdminDeleteGroupQuota);

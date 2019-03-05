@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 GalleryCoreApi::requireOnce('modules/dcraw/classes/DcrawToolkitHelper.class');
 
@@ -55,8 +54,9 @@ class DcrawToolkit extends GalleryToolkit {
 				}
 
 				if (isset($toolkit)) {
-					$platform                             =& $gallery->getPlatform();
-					$tempfile                             = $platform->tempnam($gallery->getConfig('data.gallery.tmp'), 'dcrw_');
+					$platform =& $gallery->getPlatform();
+					$tempfile = $platform->tempnam($gallery->getConfig('data.gallery.tmp'), 'dcrw_');
+
 					list($ret, $outputMimeType, $context) = $this->performOperation(
 						'image/x-dcraw',
 						'convert-to-image/x-portable-pixmap',
@@ -72,6 +72,7 @@ class DcrawToolkit extends GalleryToolkit {
 
 					// We now have a PPM file, get its dimensions
 					list($ret, $results) = $toolkit->getProperty('image/x-portable-pixmap', 'dimensions', $tempfile);
+
 					$platform->unlink($tempfile);
 
 					if ($ret) {
@@ -143,6 +144,7 @@ class DcrawToolkit extends GalleryToolkit {
 				}
 
 				$gallery->guaranteeTimeLimit(90);
+
 				list($success, $output) = $platform->exec(array($cmd));
 
 				if (!$success) {
@@ -171,6 +173,7 @@ class DcrawToolkit extends GalleryToolkit {
 						null,
 					);
 				}
+
 				$platform->chmod($destFilename);
 
 				return array(null, 'image/x-portable-pixmap', $context);

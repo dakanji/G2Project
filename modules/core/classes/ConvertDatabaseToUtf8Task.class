@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
 
 /**
@@ -74,6 +73,7 @@ class ConvertDatabaseToUtf8Task extends MaintenanceTask {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
+
 		list($ret, $converted) = CoreModuleExtras::getMe()->convertCharacterSetToUtf8(
 			$module,
 			new MockStatusMonitor()
@@ -112,6 +112,5 @@ class MockStatusMonitor {
 		return $instance;
 	}
 
-	public function renderStatusMessage() {
-	}
+	public function renderStatusMessage() {}
 }

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('lib/tools/repository/classes/RepositoryObject.class');
 GalleryCoreApi::requireOnce('lib/tools/repository/classes/RepositoryDescriptor.class');
 GalleryCoreApi::requireOnce('lib/tools/repository/classes/RepositoryPackage.class');
@@ -115,6 +114,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 	 */
 	public function packagePlugins() {
 		global $gallery;
+
 		$pluginsPackaged = 0;
 
 		// Set default filter if none is provided.
@@ -141,9 +141,11 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 				if ($ret) {
 					return $ret;
 				}
+
 				$packagedPluginList[] = $pluginInfo;
 			}
 		}
+
 		$this->showView(
 			'PackageResults',
 			array(
@@ -163,6 +165,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 	 */
 	public function doPackagePlugin($pluginType, $pluginId) {
 		global $gallery;
+
 		$outputDir = $gallery->getConfig('repository.path');
 
 		list($ret, $plugin) = GalleryCoreApi::loadPlugin($pluginType, $pluginId, true);
@@ -221,7 +224,8 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 				'packagesWritten' => array(),
 				'packagesSkipped' => array(),
 			);
-			$pluginInfo['errors']      = $integrityErrors;
+
+			$pluginInfo['errors'] = $integrityErrors;
 		}
 
 		return array(null, $pluginInfo);
@@ -236,6 +240,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 	 */
 	public function getAvailablePluginList($links) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$data         = array();
 		$pluginTypes  = array('module', 'theme');

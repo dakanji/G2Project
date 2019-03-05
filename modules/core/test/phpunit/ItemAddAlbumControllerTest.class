@@ -42,6 +42,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_parentAlbum);
 	}
 
@@ -187,6 +188,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	public function testAddAlbumWithSpaces() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$name = ' testalbum-' . mt_rand() . ' ';
@@ -228,6 +230,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(trim($name), $newAlbum->getPathComponent(), 'path component');
 
 		list($ret, $path) = $newAlbum->fetchPath();
@@ -235,6 +238,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($platform->is_dir($path), "directory '$path'");
 		$this->assertEquals(
 			trim($name),
@@ -245,6 +249,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	public function testAddAlbumWithPeriodInName() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$name = ' testalbum-' . mt_rand() . '.foobarbaz';
@@ -286,6 +291,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(trim($name), $newAlbum->getPathComponent(), 'path component');
 
 		list($ret, $path) = $newAlbum->fetchPath();
@@ -293,6 +299,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($platform->is_dir($path), "directory '$path'");
 		$this->assertEquals(
 			trim($name),
@@ -303,6 +310,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	public function _getChildId() {
 		list($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
+
 		$this->assertEquals(1, count($ids));
 
 		return $ids[0];
@@ -310,6 +318,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	public function _getSecondChildId() {
 		list($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
+
 		$this->assertEquals(2, sizeof($ids));
 
 		// We want the larger id, since it's the newer one
@@ -361,6 +370,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(' title', $newAlbum->getTitle(), 'title');
 		$this->assertEquals('summary &lt;div&gt;.&lt;/div&gt;', $newAlbum->getSummary(), 'summary');
 		$this->assertEquals('description .', $newAlbum->getDescription(), 'description');

@@ -75,6 +75,7 @@ class GalleryCapabilities {
 	 */
 	public function set($key, $value) {
 		global $gallery;
+
 		$gallery->setConfig($key, $value);
 	}
 }

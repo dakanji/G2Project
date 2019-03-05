@@ -2,6 +2,7 @@
 //================================================================================================
 //================================================================================================
 //================================================================================================
+
 /*
 	Exifer
 	Extracts EXIF information from digital photos.
@@ -22,12 +23,10 @@
 	without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 	See the GNU General Public License for more details. http://www.gnu.org/copyleft/gpl.html
 */
+
 //================================================================================================
 //================================================================================================
 //================================================================================================
-
-
-
 //=================
 // Looks up the name of the tag for the MakerNote (Depends on Manufacturer)
 //====================================================================
@@ -101,13 +100,13 @@ function lookup_Olympus_tag($tag) {
 // Formats Data for the data type
 //====================================================================
 function formatOlympusData($type, $tag, $intel, $data) {
-	if ($type == 'ASCII') {
-	} elseif ($type == 'URATIONAL' || $type == 'SRATIONAL') {
+	if ($type == 'ASCII') {} elseif ($type == 'URATIONAL' || $type == 'SRATIONAL') {
 		$data = bin2hex($data);
 
 		if ($intel == 1) {
 			$data = intel2Moto($data);
 		}
+
 		$top    = hexdec(substr($data, 8, 8));
 		$bottom = hexdec(substr($data, 0, 8));
 
@@ -132,6 +131,7 @@ function formatOlympusData($type, $tag, $intel, $data) {
 		if ($intel == 1) {
 			$data = intel2Moto($data);
 		}
+
 		$data = hexdec($data);
 
 		if ($tag == '0201') { //JPEGQuality
@@ -155,8 +155,7 @@ function formatOlympusData($type, $tag, $intel, $data) {
 				$data = 'Unknown: ' . $data;
 			}
 		}
-	} elseif ($type == 'UNDEFINED') {
-	} else {
+	} elseif ($type == 'UNDEFINED') {} else {
 		$data = bin2hex($data);
 
 		if ($intel == 1) {
@@ -189,6 +188,7 @@ function parseOlympus($block, &$result, $seek, $globalOffset) {
 	if ($intel == 1) {
 		$num = intel2Moto($num);
 	}
+
 	$result['SubIFD']['MakerNote']['MakerNoteNumTags'] = hexdec($num);
 
 	//loop thru all tags  Each field is 12 bytes
@@ -200,6 +200,7 @@ function parseOlympus($block, &$result, $seek, $globalOffset) {
 		if ($intel == 1) {
 			$tag = intel2Moto($tag);
 		}
+
 		$tag_name = lookup_Olympus_tag($tag);
 
 		//2 byte type
@@ -209,6 +210,7 @@ function parseOlympus($block, &$result, $seek, $globalOffset) {
 		if ($intel == 1) {
 			$type = intel2Moto($type);
 		}
+
 		lookup_type($type, $size);
 
 		//4 byte count of number of data units
@@ -218,12 +220,12 @@ function parseOlympus($block, &$result, $seek, $globalOffset) {
 		if ($intel == 1) {
 			$count = intel2Moto($count);
 		}
+
 		$bytesofdata = $size * hexdec($count);
 
 		//4 byte value of data or pointer to data
 		$value  = substr($block, $place, 4);
 		$place += 4;
-
 
 		if ($bytesofdata <= 4) {
 			$data = $value;
@@ -233,6 +235,7 @@ function parseOlympus($block, &$result, $seek, $globalOffset) {
 			if ($intel == 1) {
 				$value = intel2Moto($value);
 			}
+
 			$v = fseek($seek, $globalOffset + hexdec($value));  //offsets are from TIFF header which is 12 bytes from the start of the file
 			if ($v == 0 && $bytesofdata < $GLOBALS['exiferFileSize']) {
 				$data = fread($seek, $bytesofdata);
@@ -240,6 +243,7 @@ function parseOlympus($block, &$result, $seek, $globalOffset) {
 				$result['Errors'] = $result['Errors']++;
 			}
 		}
+
 		$formated_data = formatOlympusData($type, $tag, $intel, $data);
 
 		if ($result['VerboseOutput'] == 1) {
@@ -252,6 +256,7 @@ function parseOlympus($block, &$result, $seek, $globalOffset) {
 					$data = intel2Moto($data);
 				}
 			}
+
 			$result['SubIFD']['MakerNote'][$tag_name . '_Verbose']['RawData'] = $data;
 			$result['SubIFD']['MakerNote'][$tag_name . '_Verbose']['Type']    = $type;
 			$result['SubIFD']['MakerNote'][$tag_name . '_Verbose']['Bytes']   = $bytesofdata;

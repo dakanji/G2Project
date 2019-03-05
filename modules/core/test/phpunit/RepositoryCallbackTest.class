@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/RepositoryCallback.inc');
 
 /**
@@ -34,17 +33,20 @@ class RepositoryCallbackTest extends GalleryTestCase {
 
 	public function testSaveRepositoryList() {
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('form[repositories][released]', 1);
 		GalleryUtilities::putRequestVariable(
 			'form[repositories][experimental]',
 			'<script>something malicious</script>'
 		);
+
 		GalleryUtilities::putRequestVariable('form[repositories][experimental]', 'experimental');
 		GalleryUtilities::putRequestVariable('form[repositories][community]', 'checked');
 		GalleryUtilities::putRequestVariable('form[repositories][something_else]', 1);
 		GalleryUtilities::putRequestVariable('command', 'saveRepositoryList');
 
 		$this->_markPluginParametersForCleanup('module', 'core');
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',

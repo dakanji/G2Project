@@ -9,7 +9,6 @@
 Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Microsoft Visual FoxPro data driver. Requires ODBC. Works only on MS Windows.
 */
 
@@ -20,7 +19,6 @@ if (!defined('ADODB_DIR')) {
 
 require ADODB_DIR . '/drivers/adodb-db2.inc.php';
 
-
 if (!defined('ADODB_DB2OCI')) {
 	define('ADODB_DB2OCI', 1);
 
@@ -29,6 +27,7 @@ if (!defined('ADODB_DB2OCI')) {
 	function _colontrack($p)
 	{
 	global $_COLONARR,$_COLONSZ;
+
 	$v = (integer) substr($p,1);
 	if ($v > $_COLONSZ) return $p;
 	$_COLONARR[] = $v;
@@ -53,6 +52,7 @@ if (!defined('ADODB_DB2OCI')) {
 
 	return array($sql2,$arr2);
 	}
+
 	*/
 
 	/*
@@ -60,7 +60,6 @@ if (!defined('ADODB_DB2OCI')) {
 
 	Handles colons in comments -- and / * * / and in quoted strings.
 	*/
-
 	function _colonparser($sql, $arr) {
 		$lensql  = strlen($sql);
 		$arrsize = sizeof($arr);
@@ -71,7 +70,6 @@ if (!defined('ADODB_DB2OCI')) {
 		$sql2    = '';
 		$arr2    = array();
 		$nprev   = 0;
-
 
 		while (strlen($ch)) {
 			switch ($ch) {
@@ -147,6 +145,7 @@ if (!defined('ADODB_DB2OCI')) {
 						if ($ch2 == '-') {
 							$state = 'COMMENT2';
 						}
+
 						$at += 1;
 						$ch  = $ch2;
 						$ch2 = $at < $lensql ? $sql[$at] : '';
@@ -208,6 +207,7 @@ if (!defined('ADODB_DB2OCI')) {
 				if (!$arr[$i][2]) {
 					continue;
 				}
+
 				$type      = $arr[$i][3];
 				$schemaval = ($schema) ? $arr[$i][1] . '.' : '';
 				$name      = $schemaval . $arr[$i][2];
@@ -241,7 +241,6 @@ if (!defined('ADODB_DB2OCI')) {
 			return parent::_Execute($sql, $inputarr);
 		}
 	}
-
 
 	class ADORecordSet_db2oci extends ADORecordSet_db2 {
 		public $databaseType = 'db2oci';

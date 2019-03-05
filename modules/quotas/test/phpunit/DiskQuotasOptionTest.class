@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('lib/tools/phpunit/ItemAddOptionTestCase.class');
 GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 
@@ -49,6 +48,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		// Create a dummy user
@@ -57,6 +57,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_user);
 
 		$gallery->setActiveUser($this->_user);
@@ -67,6 +68,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_group);
 
 		list($ret, $this->_group2) = $this->_createRandomGroup();
@@ -74,6 +76,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_group2);
 
 		$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $this->_group->getId());
@@ -81,6 +84,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $this->_group2->getId());
 
 		if ($ret) {
@@ -96,6 +100,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			list($ret, $hasQuota, $quota) = GalleryQuotasHelper::fetchGroupQuota($groupId);
 
 			if ($ret) {
@@ -127,9 +132,10 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		$this->_exceedMessage = $this->_module->translate(
 			'Warning: You have reached your disk quota (%s %s), this item will not be added.'
 		);
-		$this->_KB            = $this->_module->translate('KB');
-		$this->_MB            = $this->_module->translate('MB');
-		$this->_GB            = $this->_module->translate('GB');
+
+		$this->_KB = $this->_module->translate('KB');
+		$this->_MB = $this->_module->translate('MB');
+		$this->_GB = $this->_module->translate('GB');
 
 		$this->_platform =& $gallery->getPlatform();
 
@@ -168,18 +174,23 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
+
 		$this->assertFalse($hasQuota, $this->_user->getId() . ' user quota was not deleted');
+
 		list($ret, $hasQuota) = GalleryQuotasHelper::fetchGroupQuota($this->_group->getId());
 
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
+
 		$this->assertFalse($hasQuota, $this->_group->getId() . ' group quota was not deleted');
+
 		list($ret, $hasQuota) = GalleryQuotasHelper::fetchGroupQuota($this->_group2->getId());
 
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
+
 		$this->assertFalse($hasQuota, $this->_group2->getId() . ' group2 quota was not deleted');
 	}
 
@@ -191,6 +202,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+
 		$this->assertEquals(array(), $errors, 'errors');
 		$this->assertEquals(array(), $warnings, 'warnings');
 	}
@@ -218,8 +230,11 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-		$filesize                = (int)($this->_platform->filesize(__FILE__) / 1024);
+
+		$filesize = (int)($this->_platform->filesize(__FILE__) / 1024);
+
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+
 		$this->assertEquals(array(), $errors, 'errors');
 		$this->assertEquals(
 			array(
@@ -260,6 +275,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+
 		$this->assertEquals(array(), $errors, 'errors');
 		$this->assertEquals(
 			array(array(sprintf($this->_exceedMessage, 5, $this->_KB))),
@@ -271,6 +287,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 
 		// Verify item was deleted
 		list($ret, $tmp) = GalleryCoreApi::loadEntitiesById($item->getId(), 'GalleryDataItem');
+
 		$this->assertTrue(
 			$ret && ($ret->getErrorCode() & ERROR_MISSING_OBJECT),
 			'item should have been deleted'
@@ -303,7 +320,8 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$filesize          = (int)($this->_platform->filesize(__FILE__) / 1024);
+		$filesize = (int)($this->_platform->filesize(__FILE__) / 1024);
+
 		list($ret, $item2) = $this->_createRandomDataItem($this->_album->getId());
 
 		if ($ret) {
@@ -311,6 +329,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item, $item2));
+
 		$this->assertEquals(array(), $errors, 'errors');
 		$this->assertEquals(
 			array(
@@ -329,7 +348,9 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $tmp) = GalleryCoreApi::loadEntitiesById($item2->getId(), 'GalleryDataItem');
+
 		$this->assertTrue(
 			$ret && ($ret->getErrorCode() & ERROR_MISSING_OBJECT),
 			'item should have been deleted'
@@ -360,8 +381,10 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$filesize                = (int)($this->_platform->filesize(__FILE__) / 1024);
+		$filesize = (int)($this->_platform->filesize(__FILE__) / 1024);
+
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+
 		$this->assertEquals(array(), $errors, 'errors');
 		$this->assertEquals(
 			array(
@@ -412,6 +435,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $items);
+
 		$this->assertEquals(array(), $errors, 'errors');
 		$this->assertEquals(
 			array(
@@ -461,6 +485,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addMapEntry(
 			'QuotasMap',
 			array(
@@ -484,8 +509,10 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$filesize                = (int)($this->_platform->filesize(__FILE__) / 1024);
+		$filesize = (int)($this->_platform->filesize(__FILE__) / 1024);
+
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+
 		$this->assertEquals(array(), $errors, 'errors');
 		$this->assertEquals(
 			array(
@@ -519,6 +546,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addMapEntry(
 			'QuotasMap',
 			array(
@@ -530,6 +558,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addMapEntry(
 			'QuotasMap',
 			array(
@@ -549,6 +578,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+
 		$this->assertEquals(array(), $errors, 'errors');
 		$this->assertEquals(
 			array(array(sprintf($this->_exceedMessage, 6, $this->_KB))),
@@ -560,6 +590,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 
 		// Verify item was deleted
 		list($ret, $tmp) = GalleryCoreApi::loadEntitiesById($item->getId(), 'GalleryDataItem');
+
 		$this->assertTrue(
 			$ret && ($ret->getErrorCode() & ERROR_MISSING_OBJECT),
 			'item should have been deleted'

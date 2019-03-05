@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 
 /**
@@ -94,7 +93,8 @@ class TemplateAuditTest extends CodeAuditTestCase {
 			$fileName,
 			strlen(dirname(dirname(dirname(dirname($fileName))))) + 1
 		);
-		$lines             = preg_split("/(\r\n|\n)/", $buffer);
+
+		$lines = preg_split("/(\r\n|\n)/", $buffer);
 
 		if (!in_array($truncatedFileName, $this->_exception['hiddenFormVars'])) {
 			$this->_checkHiddenFormVars($truncatedFileName, $lines);
@@ -111,6 +111,7 @@ class TemplateAuditTest extends CodeAuditTestCase {
 		if (preg_match('#^' . $this->_headerPattern . '#', $buffer)) {
 			return;
 		}
+
 		// Grab the expected number of lines and compare them
 		$actual = preg_split("/(\r\n|\n)/", $buffer, sizeof($this->_expectedHeaderLines) + 1);
 		array_splice($actual, sizeof($this->_expectedHeaderLines), 1);
@@ -149,6 +150,7 @@ class TemplateAuditTest extends CodeAuditTestCase {
 						$truncatedFileName
 					)
 				);
+
 				$this->_errorCount++;
 			}
 		}
@@ -177,6 +179,7 @@ class TemplateAuditTest extends CodeAuditTestCase {
 					"$fileName: Form (line $formStartLine) is " .
 					'missing hidden form vars'
 				);
+
 				$inHtmlForm = $hasHiddenFormVars = false;
 			}
 		}
@@ -218,6 +221,7 @@ class TemplateAuditTest extends CodeAuditTestCase {
 					"$fileName: script block (line $scriptStartLine) has {g->text} calls " .
 									'without the forJavascript=true attribute.'
 				);
+
 				$inScriptTag = false;
 				$textCount   = $forJsCount   = 0;
 			}

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/search/classes/SearchUtilities.class');
 
 /**
@@ -52,6 +51,7 @@ class SearchScanController extends GalleryController {
 			GalleryCoreApi::requireOnce(
 				'modules/search/classes/GallerySearchInterface_1_0.class'
 			);
+
 			list($ret, $ids) = GalleryCoreApi::getAllFactoryImplementationIds('GallerySearchInterface_1_0');
 
 			if ($ret) {
@@ -65,6 +65,7 @@ class SearchScanController extends GalleryController {
 					return array($ret, null);
 				}
 			}
+
 			$itemIds = array();
 
 			foreach ($searchInstances as $id => $instance) {
@@ -85,6 +86,7 @@ class SearchScanController extends GalleryController {
 					}
 				}
 			}
+
 			$itemIds = array_keys($itemIds);
 
 			list($ret, $results['delegate']) = $slideshow->getLinkData($itemIds);
@@ -122,6 +124,7 @@ class SearchScanView extends GalleryView {
 		GalleryCoreApi::requireOnce(
 			'modules/search/classes/GallerySearchInterface_1_0.class'
 		);
+
 		list($ret, $ids) = GalleryCoreApi::getAllFactoryImplementationIds('GallerySearchInterface_1_0');
 
 		if ($ret) {
@@ -196,6 +199,7 @@ class SearchScanView extends GalleryView {
 					}
 				}
 			}
+
 			$itemIds = array_keys($itemIds);
 
 			$thumbnails = array();
@@ -236,6 +240,7 @@ class SearchScanView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$slideshowAvailable = !empty($ids);
 
 		// Render the HTML body

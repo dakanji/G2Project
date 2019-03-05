@@ -32,6 +32,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -56,11 +57,13 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 			}
 
 			$this->assertTrue(isset($this->_comment[$i]), 'Missing comment instance');
+
 			$ret = $this->_comment[$i]->create($this->_item[$i]->getId());
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->_comment[$i]->setCommenterId($gallery->getActiveUserId());
 			$this->_comment[$i]->setHost('127.0.0.1');
 			$this->_comment[$i]->setSubject('this is a test subject');
@@ -126,6 +129,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 			'form[commenterName]',
 			$this->_anonymousUser->getUserName()
 		);
+
 		GalleryUtilities::putRequestVariable(
 			'form[publishStatus]',
 			COMMENT_PUBLISH_STATUS_PUBLISHED
@@ -340,18 +344,22 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 			'form[subject]',
 			'<a href="javascript:alert(1)">a</a>'
 		);
+
 		GalleryUtilities::putRequestVariable(
 			'form[comment]',
 			'comment <applet code="bad.class"> test'
 		);
+
 		GalleryUtilities::putRequestVariable(
 			'form[author]',
 			'this is a author with <script>evilness</script> in it.'
 		);
+
 		GalleryUtilities::putRequestVariable(
 			'form[commenterName]',
 			$this->_anonymousUser->getUserName()
 		);
+
 		GalleryUtilities::putRequestVariable(
 			'form[publishStatus]',
 			COMMENT_PUBLISH_STATUS_PUBLISHED
@@ -385,6 +393,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 			'this is a author with &lt;script&gt;evilness&lt;/script&gt; in it.',
 			$comment->getAuthor()
 		);
+
 		$this->assertEquals('hosty.host.host', $comment->getHost());
 		$this->assertEquals((int)$this->_anonymousUserId, $comment->getCommenterId());
 	}
@@ -425,6 +434,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 			'form[commenterName]',
 			$this->_anonymousUser->getUserName()
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable(
 			'form[publishStatus]',
@@ -466,6 +476,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 			'form[commenterName]',
 			$this->_anonymousUser->getUserName()
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable(
 			'form[publishStatus]',
@@ -507,6 +518,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 			'form[commenterName]',
 			$this->_anonymousUser->getUserName()
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable(
 			'form[publishStatus]',

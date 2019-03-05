@@ -80,7 +80,9 @@ class MockObject {
 		}
 
 		$_GET[$this->_className]['errorCount']++;
+
 		$ret = GalleryCoreApi::error(ERROR_UNKNOWN, null, null, 'Unhandled reply in MockObject');
+
 		echo '<br/><br/>' . $ret->getAsHtml();
 
 		printf(
@@ -92,11 +94,13 @@ class MockObject {
 				)
 			)
 		);
+
 		printf(
 			"Expected:<br/>\nFunction: <b>%s</b><br/>\nRequest: <pre>%s</pre><br/>\n",
 			$expected[0],
 			print_r($expected[1], true)
 		);
+
 		printf(
 			"Received:<br/>\nFunction: <b>%s</b><br/>\nRequest: <pre>%s</pre><br/>\n",
 			$function,

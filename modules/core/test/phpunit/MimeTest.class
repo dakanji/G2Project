@@ -42,11 +42,13 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addMimeType('yyy', 'test/test', false);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addMimeType('ttt', 'test/test3', false);
 
 		if ($ret) {
@@ -98,6 +100,7 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('test/test', $mimeType);
 	}
 
@@ -107,6 +110,7 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('test/test', $mimeType, 'Expected MimeType of test/test');
 
 		list($ret, $mimeType) = GalleryCoreApi::getMimeType('file.XXX', 'test/test2');
@@ -114,6 +118,7 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('test/test', $mimeType, 'Upper case should still produce test/test');
 	}
 
@@ -123,6 +128,7 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			'application/unknown',
 			$mimeType,
@@ -142,6 +148,7 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('test/test3', $mimeType, 'Expected MimeType of test/test3');
 	}
 
@@ -151,6 +158,7 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('application/unknown', $mimeType);
 	}
 
@@ -160,6 +168,7 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('test/test', $mimeType);
 
 		list($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime('XXX');
@@ -167,6 +176,7 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('test/test', $mimeType);
 	}
 
@@ -176,6 +186,7 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		sort($exts);
 		$this->assertEquals(array('xxx', 'yyy'), $exts);
 
@@ -184,6 +195,7 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		sort($exts);
 		$this->assertEquals(array('xxx', 'yyy'), $exts);
 
@@ -193,6 +205,7 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array(), $exts);
 	}
 
@@ -202,6 +215,7 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($isViewable, 'jpeg');
 
 		list($ret, $isViewable) = GalleryCoreApi::isViewableMimeType('test/test');
@@ -209,11 +223,13 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse($isViewable, 'test');
 	}
 
 	public function testAddMimeType() {
 		$ret = GalleryCoreApi::addMimeType('xxx', 'test/test', 1);
+
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_COLLISION);
 
 		$ret = GalleryCoreApi::addMimeType('zzz', 'test/test', 1);

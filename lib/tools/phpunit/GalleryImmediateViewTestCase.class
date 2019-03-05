@@ -36,6 +36,7 @@ class GalleryImmediateViewTestCase extends GalleryTestCase {
 		parent::__construct($methodName);
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
+
 		list($ret, $this->_view) = GalleryView::getMe()->loadView($viewName);
 
 		return $ret;
@@ -43,7 +44,8 @@ class GalleryImmediateViewTestCase extends GalleryTestCase {
 
 	public function _renderImmediate() {
 		ob_start();
-		$ret     = $this->_view->renderImmediate(array(), array());
+		$ret = $this->_view->renderImmediate(array(), array());
+
 		$results = ob_get_contents();
 		ob_end_clean();
 

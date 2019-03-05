@@ -1,6 +1,5 @@
 <?php
 
-
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -13,7 +12,6 @@
 */
 
 // This file is provided for backwards compatibility purposes
-
 if (!defined('ADODB_SESSION')) {
 	include_once __DIR__ . '/adodb-session2.php';
 }

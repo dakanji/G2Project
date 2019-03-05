@@ -42,7 +42,8 @@ class PasswordEntryController extends GalleryController {
 
 		if (isset($form['action']['password'], $form['itemId'], $form['password'])
 		) {
-			$itemId             = $form['itemId'];
+			$itemId = $form['itemId'];
+
 			list($ret, $canSee) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
 
 			if ($ret) {
@@ -81,14 +82,16 @@ class PasswordEntryController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			GalleryUtilities::unsanitizeInputValues($form['password'], false);
 			$isCorrect = $canSee && $hashedPassword
-															         && GalleryUtilities::isCorrectPassword($form['password'], $hashedPassword);
+																	       && GalleryUtilities::isCorrectPassword($form['password'], $hashedPassword);
 
 			// Prepare for validation
-			$options                      = array(
+			$options = array(
 				'pass' => $isCorrect,
 			);
+
 			list($ret, $options['level']) = GalleryCoreApi::getPluginParameter('module', 'password', 'validation.level');
 
 			if ($ret) {
@@ -129,6 +132,7 @@ class PasswordEntryController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$error = array_merge($error, $pluginErrors);
 
 				if (!$continue) {
@@ -149,6 +153,7 @@ class PasswordEntryController extends GalleryController {
 		if (!isset($results['redirect'])) {
 			$results['delegate']['view'] = 'password.PasswordEntry';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 

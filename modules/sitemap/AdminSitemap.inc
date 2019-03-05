@@ -41,6 +41,7 @@ class AdminSitemapView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$template->setVariable(
 			'AdminSitemap',
 			array(

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
 
 /**
@@ -166,6 +165,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 			$params['default.newAlbumsUseDefaults'],
 			'newAlbumsUseDefaults'
 		);
+
 		$this->assertFalse(isset($params['default.doesNotExist']), 'parameter not whitelisted');
 	}
 
@@ -361,6 +361,7 @@ class TestThemeId1Theme extends GalleryTheme {
 			),
 			'value'      => 4,
 		);
+
 		$settings[] = array(
 			'key'        => 'columns',
 			'name'       => 'Columns per album page',
@@ -448,6 +449,7 @@ class TestThemeId2Theme extends GalleryTheme {
 			),
 			'value'      => 4,
 		);
+
 		$settings[] = array(
 			'key'        => 'columns',
 			'name'       => 'Columns per album page',
@@ -472,7 +474,6 @@ class TestThemeId2Theme extends GalleryTheme {
 		return array(null, true);
 	}
 }
-
 
 /**
  * Test theme

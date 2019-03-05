@@ -8,7 +8,6 @@
   the BSD license will take precedence.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Portable version of oci8 driver, to make it more similar to other database drivers.
   The main differences are
 
@@ -30,14 +29,12 @@ class ADODB_oci8quercus extends ADODB_oci8 {
 	public $databaseType = 'oci8quercus';
 	public $dataProvider = 'oci8';
 
-	public function __construct() {
-	}
+	public function __construct() {}
 }
 
 /*--------------------------------------------------------------------------------------
 		 Class Name: Recordset
 --------------------------------------------------------------------------------------*/
-
 class ADORecordset_oci8quercus extends ADORecordset_oci8 {
 	public $databaseType = 'oci8quercus';
 
@@ -47,6 +44,7 @@ class ADORecordset_oci8quercus extends ADORecordset_oci8 {
 
 	public function _FetchField($fieldOffset = -1) {
 		global $QUERCUS;
+
 		$fld = new ADOFieldObject();
 
 		if (!empty($QUERCUS)) {
@@ -81,6 +79,7 @@ class ADORecordset_oci8quercus extends ADORecordset_oci8 {
 				if ($p != 0 && $sc == 0) {
 					$fld->type = 'INT';
 				}
+
 				$fld->scale = $p;
 
 				break;

@@ -102,6 +102,7 @@ class WebHelper_simple {
 
 			return array(false, null, null, null);
 		}
+
 		$platform->fflush($fd);
 
 		/*
@@ -134,6 +135,7 @@ class WebHelper_simple {
 				if (!is_array($headers[$key])) {
 					$headers[$key] = array($headers[$key]);
 				}
+
 				$headers[$key][] = trim($value);
 			} else {
 				$headers[$key] = trim($value);
@@ -171,12 +173,14 @@ class WebHelper_simple {
 					break;
 				}
 			}
+
 			$platform->fclose($ofd);
 
 			if (!$failed) {
 				$success = true;
 			}
 		}
+
 		$platform->fclose($fd);
 
 		// if the HTTP response code did not begin with a 2 this request was not successful
@@ -251,6 +255,7 @@ class WebHelper_simple {
 			if (!empty($postDataRaw)) {
 				$postDataRaw .= '&';
 			}
+
 			$postDataRaw .= urlencode($key) . '=' . urlencode($value);
 		}
 
@@ -265,6 +270,7 @@ class WebHelper_simple {
 	 */
 	public static function requestWebPage($url, $requestMethod = 'GET', $requestHeaders = array(), $requestBody = '') {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Convert illegal characters
@@ -310,6 +316,7 @@ class WebHelper_simple {
 
 			return array(null, null, null);
 		}
+
 		$platform->fflush($handle);
 
 		/*
@@ -343,6 +350,7 @@ class WebHelper_simple {
 				if (!is_array($responseHeaders[$key])) {
 					$responseHeaders[$key] = array($responseHeaders[$key]);
 				}
+
 				$responseHeaders[$key][] = trim($value);
 			} else {
 				$responseHeaders[$key] = trim($value);
@@ -355,6 +363,7 @@ class WebHelper_simple {
 		while (!$platform->feof($handle)) {
 			$responseBody .= $platform->fread($handle, 4096);
 		}
+
 		$platform->fclose($handle);
 
 		return array($responseStatus, $responseHeaders, $responseBody);
@@ -384,6 +393,7 @@ class WebHelper_simple {
 		if (empty($urlComponents['path'])) {
 			$urlComponents['path'] = '/';
 		}
+
 		$uri = $urlComponents['path']
 		. (empty($urlComponents['query']) ? '' : '?' . $urlComponents['query']);
 		// Unescape ampersands, since if the url comes from form input it will be escaped
@@ -419,7 +429,8 @@ class WebHelper_simple {
 			}
 		}
 
-		$port  = empty($components['port']) ? '' : ':' . $components['port'];
+		$port = empty($components['port']) ? '' : ':' . $components['port'];
+
 		$query = empty($components['query']) ? '' : '?' . $components['query'];
 
 		return sprintf(

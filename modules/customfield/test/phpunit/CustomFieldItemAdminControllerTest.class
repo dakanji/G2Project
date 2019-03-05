@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
 
 /**
@@ -112,6 +111,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testCustomFieldItemAdminController() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		// Activate album-specific settings..
@@ -135,6 +135,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'Catalog Id' => 'A2',
@@ -143,6 +144,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 			$data[$this->_item->getId()],
 			'Field values'
 		);
+
 		$this->assertEquals(true, $isContainer[$this->_item->getId()], 'Album-specific settings');
 
 		// Check adminMode in session..
@@ -163,6 +165,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 			$results,
 			'Switch to edit-values'
 		);
+
 		$adminMode = $session->get(CUSTOM_FIELD_SESSION_KEY);
 		$this->assertEquals(null, $adminMode, 'Session admin mode');
 
@@ -179,6 +182,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 			$results,
 			'Switch to edit-settings'
 		);
+
 		$adminMode = $session->get(CUSTOM_FIELD_SESSION_KEY);
 		$this->assertEquals($this->_album->getId(), $adminMode, 'Session admin mode');
 
@@ -217,6 +221,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'Catalog Id' => 'A3',
@@ -225,6 +230,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 			$data[$this->_item->getId()],
 			'Field values'
 		);
+
 		$this->assertEquals(false, $isContainer[$this->_item->getId()], 'Global settings');
 	}
 }

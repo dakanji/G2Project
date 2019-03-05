@@ -37,6 +37,7 @@ class ItemCreateReplicaSingleController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		$status = $error = array();
@@ -160,6 +161,7 @@ class ItemCreateReplicaSingleController extends GalleryController {
 			$results['delegate']['view']    = 'core.ItemAdmin';
 			$results['delegate']['subView'] = 'replica.ItemCreateReplicaSingle';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 

@@ -59,6 +59,7 @@ class DownloadItemView extends GalleryView {
 		if (empty($itemId)) {
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
+
 		list($ret, $image) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryEntity');
 
 		if ($ret) {
@@ -102,16 +103,19 @@ class DownloadItemView extends GalleryView {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId, 'GalleryItem');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $canViewRoot) = GalleryCoreApi::hasItemPermission($albumId, 'core.view');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$galleryTitle = '';
 
 		if ($canViewRoot) {
@@ -142,6 +146,7 @@ class DownloadItemView extends GalleryView {
 	 */
 	public function _assertPermissions($item, $derivativeType) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		$itemIdForPermission = $item->getId();
@@ -171,6 +176,7 @@ class DownloadItemView extends GalleryView {
 				// DERIVATIVE_TYPE_IMAGE_PREFERRED uses core.viewSource
 			}
 		}
+
 		$ret = GalleryCoreApi::assertHasItemPermission($itemIdForPermission, $permission);
 
 		if ($ret) {

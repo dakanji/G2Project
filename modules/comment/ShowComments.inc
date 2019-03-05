@@ -37,6 +37,7 @@ class ShowCommentsView extends GalleryView {
 		}
 
 		GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
+
 		list($ret, $comments) = GalleryCommentHelper::getMe()->fetchComments($item->getId(), null, ORDER_ASCENDING);
 
 		if ($ret) {
@@ -52,6 +53,7 @@ class ShowCommentsView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			// If !comment.view || !core.view
 			list($ret, $anonymousViewable) = GalleryCoreApi::hasItemPermission(
 				$item->getId(),

@@ -42,6 +42,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_albumParent);
 
 		list($ret, $this->_albumChild) = $this->_createRandomAlbum($this->_albumParent->getId());
@@ -55,6 +56,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_group);
 
 		list($ret, $this->_user) = $this->_createRandomUser();
@@ -62,6 +64,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_user);
 	}
 
@@ -128,6 +131,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertEquals($this->_user->getId(), $this->_albumParent->getOwnerId());
+
 		list($ret, $this->_albumChild) = $this->_albumChild->refresh();
 
 		if ($ret) {
@@ -198,7 +202,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		GalleryDataCache::reset();
 
 		// Fetch all permissions and compare the ones we care about
-		$count                   = 0;
+		$count = 0;
+
 		list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), false);
 
 		if ($ret) {
@@ -213,14 +218,17 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 					'permission'    => 'core.edit', ),
 					$permission
 				);
+
 				$count++;
 			}
 		}
+
 		$this->assertEquals(1, $count);
 	}
 
 	public function testAddGroupPermissionCascade() {
 		global $gallery;
+
 		/*
 		 * Create a 3rd album with a different permission on it so that we can
 		 * test cascading in a heterogeneous environment.
@@ -256,6 +264,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			'form[group][groupName]',
 			$this->_group->getGroupName()
 		);
+
 		GalleryUtilities::putRequestVariable('form[applyToSubItems]', 1);
 
 		// Perform the request and verify that we succeeded
@@ -291,10 +300,12 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 						'permission'    => 'core.edit', ),
 						$permission
 					);
+
 					$count++;
 				}
 			}
 		}
+
 		$this->assertEquals(3, $count);
 	}
 
@@ -393,7 +404,6 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testDeleteGroupPermission() {
-
 		// Add a group permission
 		$ret = GalleryCoreApi::addGroupPermission(
 			$this->_albumParent->getId(),
@@ -463,6 +473,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			'form[group][delete][0]',
 			$this->_group->getId() . ',core.edit'
 		);
+
 		GalleryUtilities::putRequestVariable('form[applyToSubItems]', 1);
 
 		// Perform the request and verify that we succeeded
@@ -522,7 +533,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		GalleryDataCache::reset();
 
 		// Fetch all permissions and compare the ones we care about
-		$count                   = 0;
+		$count = 0;
+
 		list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), false);
 
 		if ($ret) {
@@ -537,14 +549,17 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 					'permission'   => 'core.edit', ),
 					$permission
 				);
+
 				$count++;
 			}
 		}
+
 		$this->assertEquals(1, $count);
 	}
 
 	public function testAddUserPermissionCascade() {
 		global $gallery;
+
 		/*
 		 * Create a 3rd album with a different permission on it so that we can
 		 * test cascading in a heterogeneous environment.
@@ -612,10 +627,12 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 						'permission'   => 'core.edit', ),
 						$permission
 					);
+
 					$count++;
 				}
 			}
 		}
+
 		$this->assertEquals(3, $count);
 	}
 
@@ -705,7 +722,6 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testDeleteUserPermission() {
-
 		// Add a user permission
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_albumParent->getId(),
@@ -776,6 +792,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			'form[user][delete][0]',
 			$this->_user->getId() . ',core.edit'
 		);
+
 		GalleryUtilities::putRequestVariable('form[applyToSubItems]', 1);
 
 		// Perform the request and verify that we succeeded
@@ -815,6 +832,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 
 	public function testUnauthorizedPermissionChange() {
 		global $gallery;
+
 		$gallery->setActiveUser($this->_user);
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_albumParent->getId());
@@ -828,6 +846,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 
 	public function testUnauthorizedOwnerChange() {
 		global $gallery;
+
 		$gallery->setActiveUser($this->_user);
 
 		$ret = GalleryCoreApi::addUserPermission(
@@ -852,6 +871,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	public function testRemoveEditPermissionFromSelf() {
 		// Verify that we can't remove our own ability to change permissions
 		global $gallery;
+
 		$gallery->setActiveUser($this->_user);
 
 		$ret = GalleryCoreApi::addUserPermission(
@@ -893,7 +913,9 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($canEdit, 'user should have core.edit permission');
+
 		list($ret, $canChange) = GalleryCoreApi::hasItemPermission(
 			$this->_albumParent->getId(),
 			'core.changePermissions'
@@ -902,12 +924,14 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($canChange, 'user should have core.changePermissios permission');
 	}
 
 	public function testRemoveSelfEditPermissionViaGroup() {
 		// Verify we get user-assigned edit permissions if we remove our access via group perm
 		global $gallery;
+
 		$gallery->setActiveUser($this->_user);
 
 		$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $this->_group->getId());
@@ -915,6 +939,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addGroupPermission(
 			$this->_albumParent->getId(),
 			$this->_group->getId(),
@@ -951,6 +976,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$foundEdit = $foundChange = false;
 
 		foreach ($permissions as $permission) {
@@ -962,6 +988,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 				}
 			}
 		}
+
 		$this->assertTrue($foundEdit, 'user should have core.edit permission');
 		$this->assertTrue($foundChange, 'user should have core.changePermissions permission');
 	}

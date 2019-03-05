@@ -38,6 +38,7 @@ class RatingItemEdit extends ItemEditOption {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			array_unshift($subAlbumIds, $item->getId());
 		} else {
 			$subAlbumIds = array($item->getId());

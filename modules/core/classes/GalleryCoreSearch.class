@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/search/classes/GallerySearchInterface_1_0.class');
 
 /**
@@ -133,6 +132,7 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 				),
 			);
 		}
+
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
 		$countQuery = sprintf(
@@ -186,6 +186,7 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$result  = $results->nextResult();
 		$numRows = (int)$result[0];
 
@@ -240,10 +241,11 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 				}
 			}
 
-			$fields[]        = array(
+			$fields[] = array(
 				'key'   => $text['owner'],
 				'value' => !empty($result[1]) ? $result[1] : $result[2],
 			);
+
 			$searchResults[] = array(
 				'itemId' => (int)$result[0],
 				'fields' => $fields,

@@ -50,13 +50,13 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 	 * Create and delete a group
 	 */
 	public function testDeleteGroup() {
-
 		// Create a group that we can delete
 		list($ret, $group) = $this->_createGroup();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$groupId = $group->getId();
 
 		// Assign a permission using this group
@@ -65,7 +65,9 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($album);
+
 		$ret = GalleryCoreApi::addGroupPermission($album->getId(), $groupId, 'core.view');
 
 		if ($ret) {
@@ -181,6 +183,7 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = $group->save();
 
 		if ($ret) {

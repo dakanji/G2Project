@@ -259,6 +259,7 @@ class SiriuxTheme extends GalleryTheme {
 			),
 			'value'      => $params['contentWidth'],
 		);
+
 		$settings[] = array(
 			'key'   => 'groupByYear',
 			'name'  => $this->translate(
@@ -267,6 +268,7 @@ class SiriuxTheme extends GalleryTheme {
 			'type'  => 'checkbox',
 			'value' => $params['groupByYear'],
 		);
+
 		$settings[] = array(
 			'key'   => 'enableImageMap',
 			'name'  => $this->translate(

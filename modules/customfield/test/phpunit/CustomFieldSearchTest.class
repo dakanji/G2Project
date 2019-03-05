@@ -56,6 +56,7 @@ class CustomFieldSearchTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($this->_search), 'Missing CustomFieldSearch instance');
 
 		list($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'customfield');
@@ -151,6 +152,7 @@ class CustomFieldSearchTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$ret = CustomFieldHelper::getMe()->saveFieldValues($this->_items[$i], $values[$i]);
 
 			if ($ret) {

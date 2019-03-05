@@ -9,11 +9,9 @@
   Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
 	Original Authors: Martin Jansen <mj#php.net>
 	Richard Tango-Lowy <richtl#arscognita.com>
 */
-
 require_once 'Auth/Container.php';
 
 require_once 'adodb.inc.php';
@@ -200,6 +198,7 @@ class Auth_Container_ADOdb extends Auth_Container {
 			if (is_array($this->options['db_fields'])) {
 				$this->options['db_fields'] = join($this->options['db_fields'], ', ');
 			}
+
 			$this->options['db_fields'] = ', ' . $this->options['db_fields'];
 		}
 	}
@@ -266,6 +265,7 @@ class Auth_Container_ADOdb extends Auth_Container {
 				) {
 					continue;
 				}
+
 				// Use reference to the auth object if exists
 				// This is because the auth session variable can change so a static call to setAuthData does not make sence
 				if (is_object($this->_auth_obj)) {
@@ -285,7 +285,6 @@ class Auth_Container_ADOdb extends Auth_Container {
 
 	// }}}
 	// {{{ listUsers()
-
 	public function listUsers() {
 		$err = $this->_prepare();
 
@@ -307,7 +306,8 @@ class Auth_Container_ADOdb extends Auth_Container {
 			$sql_from,
 			$this->options['table']
 		);
-		$res   = $this->db->getAll($query, null, DB_FETCHMODE_ASSOC);
+
+		$res = $this->db->getAll($query, null, DB_FETCHMODE_ASSOC);
 
 		if (DB::isError($res)) {
 			return PEAR::raiseError($res->getMessage(), $res->getCode());

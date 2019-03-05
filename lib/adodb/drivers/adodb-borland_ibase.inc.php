@@ -9,7 +9,6 @@
 Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Support Borland Interbase 6.5 and later
 
 */
@@ -28,6 +27,7 @@ class ADODB_borland_ibase extends ADODB_ibase {
 		if ($this->transOff) {
 			return true;
 		}
+
 		$this->transCnt      += 1;
 		$this->autoCommit     = false;
 		$this->_transactionID = ibase_trans($this->ibasetrans, $this->_connectionID);
@@ -56,6 +56,7 @@ class ADODB_borland_ibase extends ADODB_ibase {
 
 				break;
 		}
+
 		$arr['version']     = '6.5';
 		$arr['description'] = $s;
 
@@ -84,12 +85,12 @@ class ADODB_borland_ibase extends ADODB_ibase {
 			$a   = $offset + 1;
 			$str = " ROWS $a TO 999999999"; // 999 million
 		}
+
 		$sql .= $str;
 
 		return ($secs2cache) ? $this->CacheExecute($secs2cache, $sql, $inputarr) : $this->Execute($sql, $inputarr);
 	}
 }
-
 
 class ADORecordSet_borland_ibase extends ADORecordSet_ibase {
 	public $databaseType = 'borland_ibase';

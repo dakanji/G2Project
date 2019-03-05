@@ -32,6 +32,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -44,6 +45,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_module->translate('Binary output:');
 
 		$this->_platform = new UnitTestPlatform();
@@ -52,6 +54,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 
 	public function tearDown() {
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
+
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -83,6 +86,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 			),
 			$testArray
 		);
+
 		$this->assertEquals('5.62', $version);
 	}
 
@@ -110,6 +114,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 			),
 			$testArray
 		);
+
 		$this->assertEquals('6.35', $version);
 	}
 
@@ -137,6 +142,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 			),
 			$testArray
 		);
+
 		$this->assertEquals('7.17', $version);
 	}
 
@@ -164,6 +170,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 			),
 			$testArray
 		);
+
 		$this->assertEquals('7.73', $version);
 	}
 
@@ -192,6 +199,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 			),
 			$testArray
 		);
+
 		$this->assertEquals('8.53', $version);
 	}
 
@@ -199,6 +207,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 		$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to/dcraw'), 1);
 
 		list($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to/dcraw');
+
 		$this->assertErrorEquals(ERROR_BAD_PATH, $ret);
 	}
 
@@ -207,6 +216,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 		$this->_platform->setReply('is_file', array('/path/to'), 0);
 
 		list($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to');
+
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_BAD_PATH);
 		$this->assertEquals($testArray, null);
 	}

@@ -77,6 +77,7 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
 		$this->assertTrue($user->isCorrectPassword('password'), 'check password');
@@ -113,6 +114,7 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 
 		$this->assertTrue($user->isCorrectPassword('pass&word'), 'check password');
@@ -196,7 +198,6 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 			'Failed to create user'
 		);
 
-
 		// Create a second user with the same name
 		$results = $this->handleRequest();
 		$this->assertEquals(
@@ -216,6 +217,7 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 	}
 }

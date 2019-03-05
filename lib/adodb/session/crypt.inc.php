@@ -10,6 +10,7 @@ class MD5Crypt {
 			if ($ctr == strlen($encrypt_key)) {
 				$ctr = 0;
 			}
+
 			$tmp .= substr($txt, $i, 1) ^ substr($encrypt_key, $ctr, 1);
 			$ctr++;
 		}
@@ -27,6 +28,7 @@ class MD5Crypt {
 			if ($ctr == strlen($encrypt_key)) {
 				$ctr = 0;
 			}
+
 			$tmp .= substr($encrypt_key, $ctr, 1) .
 			(substr($txt, $i, 1) ^ substr($encrypt_key, $ctr, 1));
 			$ctr++;
@@ -66,7 +68,6 @@ class MD5Crypt {
 	}
 }
 
-
 class SHA1Crypt {
 	public function keyED($txt, $encrypt_key) {
 		$encrypt_key = sha1($encrypt_key);
@@ -77,6 +78,7 @@ class SHA1Crypt {
 			if ($ctr == strlen($encrypt_key)) {
 				$ctr = 0;
 			}
+
 			$tmp .= substr($txt, $i, 1) ^ substr($encrypt_key, $ctr, 1);
 			$ctr++;
 		}

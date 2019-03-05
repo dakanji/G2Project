@@ -21,7 +21,8 @@ $params = array(
 	'usernamecol' => 'username',
 	'passwordcol' => 'password',
 );
-$a      = new Auth('ADOdb', $params, 'loginFunction');
+
+$a = new Auth('ADOdb', $params, 'loginFunction');
 $a->start();
 
 if ($a->getAuth()) {

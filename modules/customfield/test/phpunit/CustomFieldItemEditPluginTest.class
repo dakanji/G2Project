@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
 
 /**
@@ -44,7 +43,9 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_albumG);
+
 		list($ret, $this->_itemG) = $this->_createRandomDataItem(
 			$this->_albumG->getId(),
 			'image/test',
@@ -56,12 +57,15 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $this->_albumS) = $this->_createRandomAlbum($this->_getRootId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_albumS);
+
 		list($ret, $this->_itemS) = $this->_createRandomDataItem(
 			$this->_albumS->getId(),
 			'video/test',
@@ -117,6 +121,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = CustomFieldHelper::getMe()->saveParameters(
 			array(
 				'common' => array(
@@ -182,6 +187,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'Location' => 'There',
@@ -195,6 +201,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'Catalog Id' => '123',
@@ -209,6 +216,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'Catalog Id' => '123',
@@ -238,6 +246,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'Category' => 'C',
@@ -251,6 +260,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'Catalog Id' => '456',
@@ -265,6 +275,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'Category'   => 'C',
@@ -276,7 +287,6 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		);
 
 		// ==== Item Admin functions -- set album-specific settings ====
-
 		// Reset
 		GalleryUtilities::removeFormVariables('form');
 		GalleryUtilities::putRequestVariable('form[cfAdmin]', '1');
@@ -348,6 +358,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		ksort($params);
 		$this->assertEquals(
 			array(
@@ -393,6 +404,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		ksort($params);
 		$this->assertEquals(
 			array(
@@ -476,6 +488,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		ksort($params);
 		$this->assertEquals(
 			array(
@@ -510,6 +523,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		ksort($params);
 		$this->assertEquals(
 			array(
@@ -527,6 +541,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'Category' => 'C',
@@ -548,10 +563,12 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 			'form[fields][My Data]',
 			'fun<script>alert(1);</script>'
 		);
+
 		GalleryUtilities::putRequestVariable(
 			'form[fields][Location]',
 			'<p onclick="alert(2)">Click</p>'
 		);
+
 		GalleryUtilities::putRequestVariable('form[fields][Category]', 'A');
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 
@@ -566,6 +583,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'My Data'  => 'fun',

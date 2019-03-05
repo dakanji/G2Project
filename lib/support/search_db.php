@@ -29,6 +29,7 @@ if (!defined('G2_SUPPORT')) {
 
 	include_once __DIR__ . '/defaultloc.inc';
 }
+
 // Prime variables
 if (array_key_exists('searchstring', $_POST)) {
 	$search_string = $_POST['searchstring'];
@@ -52,7 +53,7 @@ if (array_key_exists('deep', $_POST)) {
 if (isset($advance) || isset($deep)) {
 	$output = connect();
 	// if connect function returned data, this is an error so, move on to rendering html
-	if (is_null($output) == false) {
+	if ((null === $output) == false) {
 		$output = process($search_string, $advance, $deep);
 	}
 }
@@ -60,6 +61,7 @@ if (isset($advance) || isset($deep)) {
 // Connect to Gallery2
 function connect() {
 	include_once '../../embed.php';
+
 	$ret = GalleryEmbed::init(
 		array(
 			'fullInit'   => false,
@@ -86,6 +88,7 @@ function process($search_string, $advance, $deep) {
 		if (!$link) {
 			return '<div class=\"error center\">Error: Could not connect to database</div>';
 		}
+
 		mysql_select_db($g2_db['database'], $link);
 
 		// Get all tables in G2 database
@@ -95,12 +98,14 @@ function process($search_string, $advance, $deep) {
 		if (!$table_result) {
 			return '<div class=\"error center\">Error: ' . mysql_error() . '</div>';
 		}
+
 		// Store returned table names in an array
 		$g2_tables = array();
 
 		while ($row = mysql_fetch_row($table_result)) {
 			array_push($g2_tables, $row[0]);
 		}
+
 		// Release memory
 		mysql_free_result($table_result);
 
@@ -128,6 +133,7 @@ function process($search_string, $advance, $deep) {
 							// SQL for standard mode - only looks for whole strings
 							$sql = 'SELECT * FROM ' . $g2_table . ' WHERE ' . $g2_column . ' LIKE ' . $search_string;
 						}
+
 						$success = mysql_query($sql);
 						// If search string is found, append to html output
 						if ($success) {
@@ -138,15 +144,18 @@ function process($search_string, $advance, $deep) {
 								} else {
 									$instance = 'instance';
 								}
+
 								// Append result
 								$html .= '<div class="success center">Found ' . mysql_affected_rows() . ' ' . $instance .
 								' in Column "' . $g2_column . '" of Table "' . $g2_table . '"</div>';
 							}
 						}
+
 						// Release memory
 						mysql_free_result($success);
 					}
 				}
+
 				// Release memory
 				mysql_free_result($result);
 			}
@@ -155,10 +164,12 @@ function process($search_string, $advance, $deep) {
 		// html error message for empty search string if not first page load
 		$html = '<div class="error center">Error: Empty Search String</div>';
 	}
+
 	// html warning message if search string is not found and this is not not the first page load
 	if (!$html && $advance) {
 		$html = '<div class="warning center">The search string "' . $search_string . '" was not found in the database</div>';
 	}
+
 	// return html output
 	return $html;
 }
@@ -195,6 +206,7 @@ function process($search_string, $advance, $deep) {
 					<input required type="search" name="searchstring" placeholder="Search"><br>
 					<?php
 				}
+
 				?>
 				<?php
 				if ($deep) {
@@ -206,6 +218,7 @@ function process($search_string, $advance, $deep) {
 					Match substrings: <input type="checkbox" name="deep" value=true/><br>
 					<?php
 				}
+
 				?>
 				<input type="submit" value="Search Database" class="btn btn-primary">
 			</form>
@@ -222,6 +235,7 @@ function process($search_string, $advance, $deep) {
 			<?php echo $output; ?>
 			<?php
 		}
+
 		?>
 	</div>
 </body>

@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
 
 /**
@@ -134,7 +133,7 @@ class GalleryPendingUser extends GalleryEntity {
 	 *
 	 * @return GalleryStatus a status code
 	 */
-	public function create($userName = NULL, $x2 = NULL, $x3 = NULL) {
+	public function create($userName = null, $x2 = null, $x3 = null) {
 		global $gallery;
 
 		// first check for a collision in the pending users table

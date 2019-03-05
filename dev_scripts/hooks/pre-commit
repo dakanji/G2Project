@@ -78,6 +78,39 @@ else
 			RET=$(git reset HEAD $PROJECT/$TARGET_FILE)
 
 
+			# Prepare misc items in target file for PHPCBF and PHP-CS-FIXER
+			# 01. Add blank line after "global $XYZ" calls
+			RET=$(perl -i -pe 's/^(\s*)global([^;]+;)(\s*)$/$1global$2$3\n\n/' $PROJECT/$TARGET_FILE)
+			# 02. Add blank line before "$query" calls
+			RET=$(perl -i -pe 's/^(\s*)\$query (\.?=)/\n$1\$query $2/' $PROJECT/$TARGET_FILE)
+			# 03. Add blank line before "$ret" calls
+			RET=$(perl -i -pe 's/^(\s*)\$ret =/\n$1\$ret =/' $PROJECT/$TARGET_FILE)
+			# 04. Add blank line after single line "$ret" calls
+			RET=$(perl -i -pe 's/^(\s*)(\$ret)([^;]+;)/$1$2$3\n/' $PROJECT/$TARGET_FILE)
+			# 05. Add blank line before "list" calls
+			RET=$(perl -i -pe 's/^(\s*)list\(/\n$1list(/' $PROJECT/$TARGET_FILE)
+			# 06. Add blank line after single line "list" calls
+			RET=$(perl -i -pe 's/^(\s*)(list\()([^;]+;)/$1$2$3\n/' $PROJECT/$TARGET_FILE)
+			# 07. Add blank line after closing braces
+			RET=$(perl -i -pe 's/^(\s*)\}(\s*)$/$1\}$2\n/' $PROJECT/$TARGET_FILE)
+			# 08. Add blank line after closing multiline statements
+			RET=$(perl -i -pe 's/^(\s*)\);(\s*)$/$1\);$2\n/' $PROJECT/$TARGET_FILE)
+			# 09. Remove excess blank lines
+			RET=$(perl -i -0pe 's/(\n\s*){2,}(\n\s*)/\n$2/gs' $PROJECT/$TARGET_FILE)
+			# 10. Remove blank lines after opening braces
+			RET=$(perl -i -0pe 's/\{(\s*\n\s*){1,}(\n\s*)/\{$2/gs' $PROJECT/$TARGET_FILE)
+			# 11. Remove blank lines after single line comments
+			RET=$(perl -i -0pe 's/([^\w]+)(\/\/[^\n]+\n)(\s*\n)/$1$2/gs' $PROJECT/$TARGET_FILE)
+			# 12. Remove blank lines after multiline comments
+			RET=$(perl -i -0pe 's/(\s*)(\*\/[^\n]*\n)(\s*\n)/$1$2/gs' $PROJECT/$TARGET_FILE)
+			# 13. Remove blank lines between concurrent "global $XYZ" calls
+			RET=$(perl -i -0pe 's/(\s*)global([^;]+;)(\s*\n\s*){1,}(\n\s*)global([^\n]+\n)/$1global$2$4global$5/gs' $PROJECT/$TARGET_FILE)
+			# 14. Add blank line between multi and single line comments
+			RET=$(perl -i -0pe 's/(\s*)(\*\/[^\n]*\n)(\s*)(\/\/)/$1$2\n$3$4/gs' $PROJECT/$TARGET_FILE)
+			# 15. Add blank line between single and multi line comments
+			RET=$(perl -i -0pe 's/(\s*)(\/\/[^\n]+\n)(\s*)(\/\*[^\n]*\n)/$1$2\n$3$4/gs' $PROJECT/$TARGET_FILE)
+
+
 			# Apply coding style to target file
 			RET=$($PHP_CBF_BIN --standard=$PHP_CBF_CONFIG_START $PROJECT/$TARGET_FILE)
 			RET=$($PHP_FIX_BIN fix --config "$PHP_FIX_CONFIG" $PROJECT/$TARGET_FILE)
@@ -85,8 +118,13 @@ else
 
 
 			# Catch misc items in target file not covered by PHPCBF or PHP-CS-FIXER
-			# 1. Close empty braces on one line.
-			RET=$(perl -0777 -p -i -e 's|\{\n(\s+)?\}|{}|gms' $PROJECT/$TARGET_FILE)
+			# 01. Close empty braces on opening line
+			RET=$(perl -i -0pe 's/\{\n(\s*)\}/{}/gs' $PROJECT/$TARGET_FILE)
+			# 02. Ensure blank line before "Fall Through"
+			RET=$(perl -i -pe 's/(\s+)(\/\/ Fall Through)/\n$1$2/' $PROJECT/$TARGET_FILE)
+			# 03. Separate multiline comment blocks
+			RET=$(perl -i -pe 's/(\s*)\*\/\/\*/$1\*\/\n\n\/\*/' $PROJECT/$TARGET_FILE)
+			RET=$(perl -i -0pe 's/(\s*)\*\/(\n\s*)\/\*/$1\*\/\n$2\/\*/gs' $PROJECT/$TARGET_FILE)
 
 
 			# Stage target file

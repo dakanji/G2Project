@@ -40,6 +40,7 @@ class ArchiveUploadHelper {
 	 */
 	public static function testBinary($unzipPath) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		/*
@@ -63,7 +64,8 @@ class ArchiveUploadHelper {
 				array($unzipPath, '-v', dirname(__DIR__) . '/data/test.zip'),
 			)
 		);
-		$valid                           = false;
+
+		$valid = false;
 
 		foreach ($results as $resultLine) {
 			if (strpos($resultLine, 'test.txt') !== false) {
@@ -86,6 +88,7 @@ class ArchiveUploadHelper {
 	 */
 	public static function findUnzipBinary() {
 		global $gallery;
+
 		$platform  =& $gallery->getPlatform();
 		$slash     = $platform->getDirectorySeparator();
 		$validPath = null;
@@ -107,8 +110,10 @@ class ArchiveUploadHelper {
 				if ($path[strlen($path) - 1] != $slash) {
 					$path .= $slash;
 				}
+
 				$paths[] = $path . 'unzip.exe';
 			}
+
 			$paths[] = 'C:\unzip\unzip.exe';
 			$paths[] = 'C:\\cygwin\\bin\\zip.exe';
 		} elseif (GalleryUtilities::isA($platform, 'UnixPlatform')) {
@@ -122,8 +127,10 @@ class ArchiveUploadHelper {
 				if ($path[strlen($path) - 1] != $slash) {
 					$path .= $slash;
 				}
+
 				$paths[] = $path . 'unzip';
 			}
+
 			$paths[] = '/usr/bin/unzip';
 			$paths[] = '/usr/local/bin/unzip';
 			$paths[] = '/bin/unzip';

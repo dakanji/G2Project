@@ -31,6 +31,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 	 */
 	public function handleRequest($form, &$item, &$preferred) {
 		global $gallery;
+
 		$status = null;
 		$error  = array();
 
@@ -47,6 +48,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 				return array($ret, null, null, null);
 			}
 		}
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'watermark');
 
 		if ($ret) {
@@ -88,6 +90,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 							$gallery->i18n('Apply watermark'),
 						)
 					);
+
 					$requiresProgressBar = true;
 				} else {
 					$ret = WatermarkHelper::watermarkItem(
@@ -102,6 +105,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 						return array($ret, null, null, null);
 					}
 				}
+
 				$status = $module->translate('Watermark applied successfully');
 			}
 		} elseif (isset($form['action']['remove'])) {
@@ -117,6 +121,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 						$gallery->i18n('Remove watermarks'),
 					)
 				);
+
 				$requiresProgressBar = true;
 			} else {
 				$ret = $this->removeWatermark($item->getId());
@@ -125,6 +130,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 					return array($ret, null, null, null);
 				}
 			}
+
 			$status = $module->translate('Watermark removed successfully');
 		}
 
@@ -133,6 +139,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 
 	public function bulkOperation($item, $operation, $params, $recursive, $message) {
 		global $gallery;
+
 		$storage      =& $gallery->getStorage();
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$redirect     = $urlGenerator->generateUrl(
@@ -171,7 +178,8 @@ class ItemEditWatermark extends ItemEditPlugin {
 		$total = count($itemIds);
 
 		while (!empty($itemIds)) {
-			$batchIds          = array_splice($itemIds, 0, 100);
+			$batchIds = array_splice($itemIds, 0, 100);
+
 			list($ret, $items) = GalleryCoreApi::loadEntitiesById($batchIds, 'GalleryItem');
 
 			if ($ret) {
@@ -203,6 +211,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 					}
 				}
 			}
+
 			$ret = $storage->checkPoint();
 
 			if ($ret) {
@@ -225,6 +234,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 		if (empty($derivativeTable[$itemId])) {
 			return null;
 		}
+
 		$derivatives = $derivativeTable[$itemId];
 
 		$ids = array();
@@ -253,6 +263,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 				'composite',
 				$derivative->getPostFilterOperations()
 			);
+
 			$derivative->setPostFilterOperations($newPostFilters);
 
 			if ($derivative->getDerivativeType() == DERIVATIVE_TYPE_IMAGE_PREFERRED) {
@@ -308,6 +319,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
 		// Load up all watermarks
 		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
+
 		list($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
 
 		if ($ret) {
@@ -323,12 +335,14 @@ class ItemEditWatermark extends ItemEditPlugin {
 		$derivatives = array();
 
 		if (GalleryUtilities::isA($item, 'GalleryDataItem')) {
-			$displayImage            = $item;
+			$displayImage = $item;
+
 			list($ret, $derivatives) = GalleryCoreApi::fetchDerivativesByItemIds(array($itemId));
 
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$derivatives = isset($derivatives[$itemId]) ? $derivatives[$itemId] : array();
 
 			foreach ($derivatives as $derivative) {
@@ -455,15 +469,21 @@ class ItemEditWatermark extends ItemEditPlugin {
 		}
 
 		// Ok we have no composite for the item .. but maybe we do for its preferred?
-		list($ret, $preferredTable) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
+		list($ret, $preferredTable) = GalleryCoreApi::fetchPreferredsByItemIds(
+			array($item->getId())
+		);
 
 		if ($ret) {
 			return false; // Swallow the error for now
 		}
 
 		if (!empty($preferredTable[$item->getId()])) {
-			$preferred           = $preferredTable[$item->getId()];
-			list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($preferred->getMimeType(), 'composite');
+			$preferred = $preferredTable[$item->getId()];
+
+			list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation(
+				$preferred->getMimeType(),
+				'composite'
+			);
 
 			if ($ret) {
 				return false; // Swallow the error for now

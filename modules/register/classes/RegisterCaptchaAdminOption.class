@@ -35,6 +35,7 @@ class RegisterCaptchaAdminOption extends CaptchaAdminOption {
 		if ($ret) {
 			return array($ret, null, null, null);
 		}
+
 		// Note: we use validation.level for all plugins, but config is via captcha module
 		return array(
 			null,

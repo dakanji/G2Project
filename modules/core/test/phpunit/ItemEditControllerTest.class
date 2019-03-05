@@ -168,6 +168,7 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 			'editPlugin',
 			'ItemEditControllerTestPluginFailAndWarn'
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 
 		$results = $this->handleRequest();
@@ -250,6 +251,7 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 			'editPlugin',
 			'ItemEditControllerTestPluginRequiresProgressBar'
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 
 		$gallery->_templateAdapter = new MockTemplateAdapter();
@@ -293,7 +295,6 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 class ItemEditControllerTestPluginSuccess {
 	public function handleRequest($form, &$item, &$preferred) {
 		// TODO: We should verify the item is legit here
-
 		// Check to see if we have a preferred source
 		list($ret, $preferredTable) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
 
@@ -329,7 +330,6 @@ class ItemEditControllerTestPluginFailAndWarn extends ItemEditPlugin {
 		return array(null, array('failed'), null, false);
 	}
 }
-
 
 /**
  * Test plugin that requires a progress bar

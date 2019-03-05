@@ -9,7 +9,6 @@
 Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   SAPDB data driver. Requires ODBC.
 
 */
@@ -67,6 +66,7 @@ if (!defined('ADODB_SAPDB')) {
 			' ORDER BY INDEXNAME,COLUMNNO';
 
 			global $ADODB_FETCH_MODE;
+
 			$save             = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
@@ -79,6 +79,7 @@ if (!defined('ADODB_SAPDB')) {
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
 			}
+
 			$ADODB_FETCH_MODE = $save;
 
 			if (!is_object($rs)) {
@@ -104,12 +105,14 @@ if (!defined('ADODB_SAPDB')) {
 
 		public function MetaColumns($table, $normalize = true) {
 			global $ADODB_FETCH_MODE;
+
 			$save             = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 			if ($this->fetchMode !== false) {
 				$savem = $this->SetFetchMode(false);
 			}
+
 			$table = $this->Quote(strtoupper($table));
 
 			$retarr = array();
@@ -145,12 +148,14 @@ if (!defined('ADODB_SAPDB')) {
 						}
 					}
 				}
+
 				$retarr[$fld->name] = $fld;
 			}
 
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
 			}
+
 			$ADODB_FETCH_MODE = $save;
 
 			return $retarr;
@@ -181,7 +186,6 @@ if (!defined('ADODB_SAPDB')) {
 		 * See http://listserv.sap.com/pipermail/sapdb.general/2002-January/010405.html
 		 */
 	}
-
 
 	class ADORecordSet_sapdb extends ADORecordSet_odbc {
 		public $databaseType = 'sapdb';

@@ -33,6 +33,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -56,6 +57,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
@@ -63,6 +65,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_album->getId(),
 			$gallery->getActiveUserId(),
@@ -72,6 +75,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_album->getId(),
 			$gallery->getActiveUserId(),
@@ -108,6 +112,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 			if ($i == 3) {
 				$this->_comment[$i]->setPublishStatus(COMMENT_PUBLISH_STATUS_UNPUBLISHED);
 			}
+
 			$ret = $this->_comment[$i]->save();
 
 			if ($ret) {
@@ -118,6 +123,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 
 	public function testShowCommentsAddsNoCacheWithoutViewPermission() {
 		global $gallery;
+
 		$gallery->_phpVm = new UnitTestPhpVm();
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
@@ -128,6 +134,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 			array('Expires: Sun, 09 Mar 2008 21:00:00 GMT', ''),
 			true
 		);
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 
 		$template = new UnitTestTemplate();
@@ -137,6 +144,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 				'meta' => array(),
 			)
 		);
+
 		$this->_template =& $template;
 		$results         = $this->loadTemplate();
 
@@ -167,11 +175,13 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 			),
 			$head['meta']
 		);
+
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
 	public function testShowCommentsAddsNoCacheWithoutCoreViewPermission() {
 		global $gallery;
+
 		$gallery->_phpVm = new UnitTestPhpVm();
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
@@ -182,6 +192,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 			array('Expires: Sun, 09 Mar 2008 21:00:00 GMT', ''),
 			true
 		);
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 
 		$template = new UnitTestTemplate();
@@ -191,6 +202,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 				'meta' => array(),
 			)
 		);
+
 		$this->_template =& $template;
 		$results         = $this->loadTemplate();
 
@@ -221,13 +233,16 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 			),
 			$head['meta']
 		);
+
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
 	public function testShowCommentsDoesNotAddNoCacheWithViewPermission() {
 		global $gallery;
+
 		$gallery->_phpVm = new UnitTestPhpVm();
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
+
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
@@ -244,6 +259,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$anonymousUserId,
@@ -262,6 +278,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 				'meta' => array(),
 			)
 		);
+
 		$this->_template =& $template;
 		$results         = $this->loadTemplate();
 

@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty {counter} function plugin
  *
@@ -31,6 +32,7 @@ function smarty_function_counter($params, &$smarty) {
 			'count'     => 1,
 		);
 	}
+
 	$counter =& $counters[$name];
 
 	if (isset($params['start'])) {

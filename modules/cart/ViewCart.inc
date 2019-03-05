@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/cart/classes/CartHelper.class');
 
 /**
@@ -35,6 +34,7 @@ class ViewCartView extends GalleryView {
 		global $gallery;
 
 		$returnItemId = GalleryUtilities::getRequestVariables('itemId');
+
 		$template->setVariable('itemId', $returnItemId);
 
 		list($ret, $itemList) = CartHelper::loadCartItems();
@@ -42,6 +42,7 @@ class ViewCartView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $cartItemIds) = CartHelper::fetchCartItemCounts();
 
 		if ($ret) {
@@ -53,8 +54,10 @@ class ViewCartView extends GalleryView {
 			foreach ($cartItemIds as $itemId => $count) {
 				$form['counts'][$itemId] = $count;
 			}
+
 			$form['formName'] = 'ViewCart';
 		}
+
 		$ViewCart = array();
 
 		// Find all our cart plugins
@@ -87,7 +90,8 @@ class ViewCartView extends GalleryView {
 			}
 
 			// Filter out unsupported actions
-			$itemIds                   = array_keys($supportedItemIds);
+			$itemIds = array_keys($supportedItemIds);
+
 			list($ret, $permissionMap) = GalleryCoreApi::fetchPermissionsForItems($itemIds);
 
 			if ($ret) {
@@ -160,17 +164,21 @@ class ViewCartView extends GalleryView {
 	 */
 	public function _loadAllCartPlugins() {
 		GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
+
 		list($ret, $basicInterfaceIds) = GalleryCoreApi::getAllFactoryImplementationIds('CartPluginInterface_1_0');
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_1.class');
+
 		list($ret, $advancedInterfaceIds) = GalleryCoreApi::getAllFactoryImplementationIds('CartPluginInterface_1_1');
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$plugins = $instances = array();
 
 		foreach ($basicInterfaceIds as $id => $className) {
@@ -179,6 +187,7 @@ class ViewCartView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$plugins[$id]['requiredPermissions'] = array();
 		}
 
@@ -188,6 +197,7 @@ class ViewCartView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$plugins[$id]['requiredPermissions'] = $instances[$id]->getRequiredPermissions();
 		}
 
@@ -197,6 +207,7 @@ class ViewCartView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			/*
 			 * Figure out what types each plugin can handle so that we can cue the UI
 			 * to only send it the ones of the appropriate types.

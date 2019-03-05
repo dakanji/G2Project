@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty debug_console function plugin
  *
@@ -17,7 +18,6 @@
 function smarty_core_display_debug_console($params, &$smarty) {
 	// we must force compile the debug template in case the environment
 	// changed between separate applications.
-
 	if (empty($smarty->debug_tpl)) {
 		// set path to debug template from SMARTY_DIR
 		$smarty->debug_tpl = SMARTY_DIR . 'debug.tpl';
@@ -25,6 +25,7 @@ function smarty_core_display_debug_console($params, &$smarty) {
 		if ($smarty->security && is_file($smarty->debug_tpl)) {
 			$smarty->secure_dir[] = realpath($smarty->debug_tpl);
 		}
+
 		$smarty->debug_tpl = 'file:' . SMARTY_DIR . 'debug.tpl';
 	}
 

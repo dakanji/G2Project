@@ -124,6 +124,7 @@ class GallerySortInterface_1_2 {
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
+
 			list($ret, $sortName, $isPresort) = $sort->getSortInfo();
 
 			if ($ret) {

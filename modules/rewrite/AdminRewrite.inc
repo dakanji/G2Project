@@ -39,6 +39,7 @@ class AdminRewriteController extends GalleryController {
 		}
 
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+
 		list($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 
 		if ($ret) {
@@ -77,6 +78,7 @@ class AdminRewriteController extends GalleryController {
 
 									break 2;
 								}
+
 								$seenConditions[$condition] = $moduleId . '][' . $ruleId . ']';
 							}
 
@@ -100,6 +102,7 @@ class AdminRewriteController extends GalleryController {
 
 									break 2;
 								}
+
 								$seenPatterns[$pattern] = $moduleId . '][' . $ruleId . ']';
 
 								// Save the pattern
@@ -203,6 +206,7 @@ class AdminRewriteController extends GalleryController {
 				),
 			);
 		}
+
 		$results['error']  = $error;
 		$results['status'] = $status;
 
@@ -219,6 +223,7 @@ class AdminRewriteView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$AdminRewrite = array();
 
@@ -229,11 +234,13 @@ class AdminRewriteView extends GalleryView {
 		}
 
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+
 		list($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$AdminRewrite['parserType'] = $rewriteParser->getParserType();
 		$AdminRewrite['parserId']   = $rewriteParser->getParserId();
 
@@ -273,6 +280,7 @@ class AdminRewriteView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$activeRules = unserialize($activeRules);
 
 				// Get all modules to walk through and get any rules it provieds
@@ -373,6 +381,7 @@ class AdminRewriteView extends GalleryView {
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					$form['accessList'] = unserialize($form['accessList']);
 
 					list($ret, $allowEmptyReferer) = GalleryCoreApi::getPluginParameter(

@@ -11,7 +11,6 @@
  */
 
 //  $file, $assign, $once, $_smarty_include_vars
-
 function smarty_core_smarty_include_php($params, &$smarty) {
 	$_params = array(
 		'resource_name' => $params['smarty_file'],
@@ -30,6 +29,7 @@ function smarty_core_smarty_include_php($params, &$smarty) {
 		} else {
 			$smarty->_eval($_smarty_php_resource, $params['smarty_include_vars']);
 		}
+
 		$smarty->assign($params['smarty_assign'], ob_get_contents());
 		ob_end_clean();
 	} else {

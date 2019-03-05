@@ -24,7 +24,6 @@ if (!defined('ADODB_DIR')) {
 
 require_once ADODB_DIR . '/drivers/adodb-mysql.inc.php';
 
-
 class ADODB_mysqlt extends ADODB_mysql {
 	public $databaseType    = 'mysqlt';
 	public $ansiOuter       = true; // for Version 3.23.17 or later
@@ -57,6 +56,7 @@ class ADODB_mysqlt extends ADODB_mysql {
 		if (!stristr($transaction_mode, 'isolation')) {
 			$transaction_mode = 'ISOLATION LEVEL ' . $transaction_mode;
 		}
+
 		$this->Execute('SET SESSION TRANSACTION ' . $transaction_mode);
 	}
 
@@ -64,6 +64,7 @@ class ADODB_mysqlt extends ADODB_mysql {
 		if ($this->transOff) {
 			return true;
 		}
+
 		$this->transCnt += 1;
 		$this->Execute('SET AUTOCOMMIT=0');
 		$this->Execute('BEGIN');
@@ -83,6 +84,7 @@ class ADODB_mysqlt extends ADODB_mysql {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
+
 		$ok = $this->Execute('COMMIT');
 		$this->Execute('SET AUTOCOMMIT=1');
 
@@ -97,6 +99,7 @@ class ADODB_mysqlt extends ADODB_mysql {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
+
 		$ok = $this->Execute('ROLLBACK');
 		$this->Execute('SET AUTOCOMMIT=1');
 
@@ -111,6 +114,7 @@ class ADODB_mysqlt extends ADODB_mysql {
 		if ($where) {
 			$where = ' where ' . $where;
 		}
+
 		$rs = $this->Execute("select $col from $tables $where for update");
 
 		return !empty($rs);
@@ -123,6 +127,7 @@ class ADORecordSet_mysqlt extends ADORecordSet_mysql {
 	public function __construct($queryID, $mode = false) {
 		if ($mode === false) {
 			global $ADODB_FETCH_MODE;
+
 			$mode = $ADODB_FETCH_MODE;
 		}
 

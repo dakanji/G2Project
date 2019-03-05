@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryUtilities.class');
 
 /**
@@ -72,6 +71,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 
 	public function tearDown() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
@@ -89,6 +89,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 
 	public function _setRepositoryResponses($params = array()) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$cachePath     = $gallery->getConfig('repository.cache') . 'test/';
@@ -118,6 +119,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 
 			return;
 		}
+
 		$platform->setReply(
 			'file_put_contents',
 			array($cachePath . 'testModule-descriptor', serialize($this->_descriptor)),
@@ -139,6 +141,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 				array('module', 'testModule', $package, $wrappedDescriptor),
 				empty($response[$package]) ? array() : $response[$package]
 			);
+
 			$errors |= !empty($response[$package]);
 		}
 
@@ -163,6 +166,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 				if ($package == 'base') {
 					break;
 				}
+
 				// If not the base, then skip the rest of the responses for this package
 				continue;
 			}
@@ -176,6 +180,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 
 				return;
 			}
+
 			$platform->setReply(
 				'file_put_contents',
 				array($cachePath . $relativeFile, $packageFile),
@@ -183,16 +188,19 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			);
 
 			$retCode = !empty($responses[$package]) ? $responses[$package] : false;
+
 			$this->_repository->_utilities->setReply(
 				'unpackPackage',
 				array($cachePath . $relativeFile, $outputDir),
 				null
 			);
+
 			$this->_repository->_utilities->setReply(
 				'verifyPackageIntegrity',
 				array('module', 'testModule', $package, $this->_descriptor),
 				null
 			);
+
 			$this->_repository->_utilities->setReply(
 				'updatePackageMetaData',
 				array(
@@ -222,7 +230,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			),
 		);
 
-		$this->_callback['total']        = 8;
+		$this->_callback['total'] = 8;
+
 		list($ret, $reactivate, $status) = $this->_repository->downloadPackagesForPlugin(
 			'module',
 			'testModule',
@@ -241,11 +250,13 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			$this->_templateAdapter->_progress,
 			'Reported progress didn\'t match'
 		);
+
 		$this->assertEquals(array(), $status, 'Unexpected returned status');
 	}
 
 	public function testDownloadPackagesDescriptorDownloadFailure() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Set up repository responses
@@ -265,7 +276,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			),
 		);
 
-		$this->_callback['total']        = 8;
+		$this->_callback['total'] = 8;
+
 		list($ret, $reactivate, $status) = $this->_repository->downloadPackagesForPlugin(
 			'module',
 			'testModule',
@@ -284,6 +296,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			$this->_templateAdapter->_progress,
 			'Reported progress didn\'t match'
 		);
+
 		$expected = array(
 			'failedToDownload' => array(
 				'module' => array(
@@ -291,11 +304,13 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 				),
 			),
 		);
+
 		$this->assertEquals($expected, $status, 'Unexpected returned status');
 	}
 
 	public function testDownloadPackagesDescriptorOtherFailure() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Set up repository responses
@@ -315,7 +330,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			),
 		);
 
-		$this->_callback['total']        = 8;
+		$this->_callback['total'] = 8;
+
 		list($ret, $reactivate, $status) = $this->_repository->downloadPackagesForPlugin(
 			'module',
 			'testModule',
@@ -335,6 +351,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 
 	public function testDownloadPackagesDescriptorPreVerifyFailure() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Set up repository responses
@@ -356,7 +373,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			),
 		);
 
-		$this->_callback['total']        = 8;
+		$this->_callback['total'] = 8;
+
 		list($ret, $reactivate, $status) = $this->_repository->downloadPackagesForPlugin(
 			'module',
 			'testModule',
@@ -375,6 +393,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			$this->_templateAdapter->_progress,
 			'Reported progress didn\'t match'
 		);
+
 		$expected = array(
 			'failedToInstall' => array(
 				'module' => array(
@@ -382,11 +401,13 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 				),
 			),
 		);
+
 		$this->assertEquals($expected, $status, 'Should have errors');
 	}
 
 	public function testDownloadFailureOnBasePackage() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Set up repository responses
@@ -408,7 +429,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			),
 		);
 
-		$this->_callback['total']        = 8;
+		$this->_callback['total'] = 8;
+
 		list($ret, $reactivate, $status) = $this->_repository->downloadPackagesForPlugin(
 			'module',
 			'testModule',
@@ -427,6 +449,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			$this->_templateAdapter->_progress,
 			'Reported progress didn\'t match'
 		);
+
 		$expected = array(
 			'failedToDownload' => array(
 				'module' => array(
@@ -436,11 +459,13 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 				),
 			),
 		);
+
 		$this->assertEquals($expected, $status, 'Unexpected returned status');
 	}
 
 	public function testDownloadOtherFailureOnBasePackage() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Set up repository responses
@@ -462,7 +487,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			),
 		);
 
-		$this->_callback['total']        = 8;
+		$this->_callback['total'] = 8;
+
 		list($ret, $reactivate, $status) = $this->_repository->downloadPackagesForPlugin(
 			'module',
 			'testModule',
@@ -482,6 +508,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 
 	public function testDownloadFailureOnLanguagePackage() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Set up repository responses
@@ -503,7 +530,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			),
 		);
 
-		$this->_callback['total']        = 8;
+		$this->_callback['total'] = 8;
+
 		list($ret, $reactivate, $status) = $this->_repository->downloadPackagesForPlugin(
 			'module',
 			'testModule',
@@ -514,6 +542,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($reactivate, 'Unexpected don\'t re-activate');
 		$this->assertEquals(7, $this->_callback['current'], 'Callback didn\'t match');
 		$this->assertEquals(
@@ -521,6 +550,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			$this->_templateAdapter->_progress,
 			'Reported progress didn\'t match'
 		);
+
 		$expected = array(
 			'failedToDownload' => array(
 				'module' => array(
@@ -530,11 +560,13 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 				),
 			),
 		);
+
 		$this->assertEquals($expected, $status, 'Unexpected returned status');
 	}
 
 	public function testDownloadOtherFailureOnLanguagePackage() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Set up repository responses
@@ -556,7 +588,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			),
 		);
 
-		$this->_callback['total']        = 8;
+		$this->_callback['total'] = 8;
+
 		list($ret, $reactivate, $status) = $this->_repository->downloadPackagesForPlugin(
 			'module',
 			'testModule',

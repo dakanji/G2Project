@@ -38,7 +38,8 @@ class AdminEditGroupQuotaController extends GalleryController {
 
 		$results = $status = $error = array();
 
-		$groupId           = GalleryUtilities::getRequestVariables('groupId');
+		$groupId = GalleryUtilities::getRequestVariables('groupId');
+
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -62,6 +63,7 @@ class AdminEditGroupQuotaController extends GalleryController {
 					GalleryCoreApi::requireOnce(
 						'modules/quotas/classes/GalleryQuotasHelper.class'
 					);
+
 					$form['quotaSize'] = round((float)$form['quotaSize'], 2);
 
 					if ($form['quotaUnit'] == 'KB') {
@@ -90,7 +92,8 @@ class AdminEditGroupQuotaController extends GalleryController {
 								'userOrGroupId' => $groupQuota['id'],
 								'quotaSize'     => $groupQuota['quota'],
 							);
-							$ret   = GalleryCoreApi::updateMapEntry(
+
+							$ret = GalleryCoreApi::updateMapEntry(
 								'QuotasMap',
 								$match,
 								array(
@@ -133,6 +136,7 @@ class AdminEditGroupQuotaController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'quotas.AdminEditGroupQuota';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -154,7 +158,8 @@ class AdminEditGroupQuotaView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$groupId           = GalleryUtilities::getRequestVariables('groupId');
+		$groupId = GalleryUtilities::getRequestVariables('groupId');
+
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -174,7 +179,8 @@ class AdminEditGroupQuotaView extends GalleryView {
 			$form['formName'] = 'AdminEditGroupQuota';
 		}
 
-		$form['groupName']                                 = $group->getGroupName();
+		$form['groupName'] = $group->getGroupName();
+
 		list($ret, $form['quotaSize'], $form['quotaUnit']) = GalleryQuotasHelper::humanReadableFromKilobytes($groupQuota['quota']);
 
 		if ($ret) {
@@ -183,11 +189,13 @@ class AdminEditGroupQuotaView extends GalleryView {
 
 		$AdminEditGroupQuota            = array();
 		$AdminEditGroupQuota['groupId'] = $group->getId();
-		list($ret, $module)             = GalleryCoreApi::loadPlugin('module', 'quotas');
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'quotas');
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$AdminEditGroupQuota['quotaUnitChoices'] = array(
 			'KB' => $module->translate('KB'),
 			'MB' => $module->translate('MB'),

@@ -37,12 +37,14 @@ class SimpleCallbackTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->_tag              = 'SmplCb-' . mt_rand(0, 999999);
+		$this->_tag = 'SmplCb-' . mt_rand(0, 999999);
+
 		list($ret, $this->_view) = GalleryView::getMe()->loadView('core.SimpleCallback');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_userNames = $this->_groupNames = array();
 		GalleryDataCache::reset();
 	}
@@ -53,6 +55,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 		$this->_users[]     = $user;
 		$this->_userNames[] = $user->getUsername();
@@ -64,13 +67,15 @@ class SimpleCallbackTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($group);
 		$this->_groupNames[] = $group->getGroupName();
 	}
 
 	public function _runCallback() {
 		ob_start();
-		$ret     = $this->_view->renderImmediate(array(), array());
+		$ret = $this->_view->renderImmediate(array(), array());
+
 		$results = ob_get_contents();
 		ob_end_clean();
 
@@ -110,6 +115,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 	public function testLookupUsernameAlternateGuestUser() {
 		global $gallery;
+
 		$this->_createUser();
 		$this->_createUser();
 		$gallery->setConfig('anonymousUserId', $gallery->getActiveUserId());
@@ -197,6 +203,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	public function testLookupDirectoriesWithEntity() {
 		// Filesystem isn't entitized.. search for < should match literal <
 		global $gallery;
+
 		$platform = new SimpleCallbackTestPlatform();
 		$platform->setReply('is_dir', array('/php<unit'), true);
 		$platform->setReply('opendir', array('/php<unit'), 'dh');
@@ -245,6 +252,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 			$results,
 			'Umlaut Dir Match'
 		);
+
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
@@ -296,6 +304,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	public function testLookupFilesWithEntity() {
 		// Filesystem isn't entitized.. search for & should match literal &
 		global $gallery;
+
 		$platform = new SimpleCallbackTestPlatform();
 		$platform->setReply('is_dir', array('/php&unit'), true);
 		$platform->setReply('opendir', array('/php&unit'), 'dh');
@@ -321,6 +330,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	public function testLookupFilesWithUmlauts() {
 		// Filesystem doesn't accepts / return UTF-8 characters
 		global $gallery;
+
 		$gallery->_phpVm = new SimpleCallbackTestPhpVm();
 		$platform        = new SimpleCallbackTestPlatform();
 		$platform->setReply('is_dir', array('/php' . chr(228) . 'unit'), true);
@@ -351,6 +361,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 			$results,
 			'Umlaut File Match'
 		);
+
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
@@ -406,6 +417,7 @@ class SimpleCallbackTestPlatform extends UnitTestPlatform {
 
 	public function __construct() {
 		global $gallery;
+
 		$this->_originalPlatform =& $gallery->getPlatform();
 		parent::__construct();
 	}

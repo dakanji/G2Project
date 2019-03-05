@@ -55,6 +55,7 @@ if (!empty($_ENV['TMP'])) {
 } else {
 	$tmpdir = '/tmp';
 }
+
 $tmpdir .= '/g2_' . mt_rand(1, 30000);
 
 if (file_exists($tmpdir)) {
@@ -93,6 +94,7 @@ while (empty($moduleId)) {
 		strtolower(preg_replace('/ /', '', $moduleName))
 	);
 }
+
 $moduleId   = preg_replace('/\W/', '', $moduleId);
 $ucModuleId = ucfirst($moduleId);
 
@@ -105,7 +107,6 @@ $smarty->assign('viewName', $ucModuleId);
 $smarty->assign('mapName', $ucModuleId . 'Map');
 
 // Start building things!
-
 // Make the module directory
 $modulePath = 'modules/' . $moduleId;
 
@@ -168,6 +169,7 @@ function ask($prompt, $default = '') {
 	if (!empty($default)) {
 		echo " [$default]";
 	}
+
 	echo ' ';
 	$line = trim(fgets(stdin()));
 

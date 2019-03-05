@@ -49,6 +49,7 @@ class UnitTestStorage extends MockObject {
 
 	public function __construct() {
 		parent::__construct();
+
 		list($ret, $this->_lockSystem) = GalleryCoreApi::getPluginParameter('module', 'core', 'lock.system');
 
 		if ($ret) {
@@ -70,6 +71,7 @@ class UnitTestStorage extends MockObject {
 		if ($function == 'search') {
 			$inputs[0] = trim(preg_replace('/\s+/', ' ', $inputs[0]));
 		}
+
 		parent::setReply($function, $inputs, $outputs, $optional);
 	}
 
@@ -301,6 +303,7 @@ class UnitTestStorage extends MockObject {
 		if (!isset($this->_extras)) {
 			$this->_extras = new UnitTestStorageExtras();
 		}
+
 		$this->_extras->setReply($function, $inputs, $outputs, $optional);
 	}
 }

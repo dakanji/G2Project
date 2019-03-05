@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 require_once __DIR__ . '/../../modules/core/classes/GalleryCoreApi.class';
 
 /**
@@ -32,6 +31,7 @@ class WelcomeStep extends InstallStep {
 	public function processRequest() {
 		if (!empty($_POST['language'])) {
 			global $translator, $gallery;
+
 			$gallery = new GalleryStub();
 			$translator->init($_POST['language'], true);
 			unset($gallery);
@@ -48,7 +48,8 @@ class WelcomeStep extends InstallStep {
 		$templateData['bodyFile']   = 'Welcome.html';
 
 		if (isset($translator)) {
-			list($supportedLanguages)  = $translator->getLanguageData();
+			list($supportedLanguages) = $translator->getLanguageData();
+
 			$templateData['languages'] = array();
 
 			foreach ($supportedLanguages as $lang => $list) {

@@ -126,6 +126,7 @@ class FloatrixTheme extends GalleryTheme {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = $this->preloadBlock($template, 'search.SearchBlock');
 
 		if ($ret) {
@@ -160,11 +161,13 @@ class FloatrixTheme extends GalleryTheme {
 		if (!empty($params['showMicroThumbs'])) {
 			$dataTypes[] = 'navThumbnails';
 		}
+
 		$ret = $this->loadCommonTemplateData($template, $item, $params, $dataTypes);
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = $this->preloadBlock($template, 'search.SearchBlock');
 
 		if ($ret) {
@@ -185,8 +188,8 @@ class FloatrixTheme extends GalleryTheme {
 	 * Split item links into user and admin actions
 	 */
 	public function _splitItemLinks(&$template) {
-		$theme              =& $template->getVariableByReference('theme');
-		$userViews          = array(
+		$theme     =& $template->getVariableByReference('theme');
+		$userViews = array(
 			'slideshow.Slideshow'             => true,
 			'slideshowapplet.SlideshowApplet' => true,
 			'comment.AddComment'              => true,
@@ -194,6 +197,7 @@ class FloatrixTheme extends GalleryTheme {
 			'ecard.SendEcard'                 => true,
 			'rss.SimpleRender'                => true,
 		);
+
 		$theme['userLinks'] = array();
 
 		foreach ($theme['itemLinks'] as $i => $link) {

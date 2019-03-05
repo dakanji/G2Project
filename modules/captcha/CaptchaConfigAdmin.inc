@@ -47,7 +47,6 @@ class CaptchaConfigAdminController extends GalleryController {
 	}
 }
 
-
 /**
  * Show the user which required GD functions are missing.  They can't install the module, and
  * there's nothing we can do about it.
@@ -76,6 +75,7 @@ class CaptchaConfigAdminView extends GalleryView {
 				'gdReport' => $gdReport,
 			)
 		);
+
 		$template->setVariable('controller', 'captcha.CaptchaConfigAdmin');
 
 		return array(

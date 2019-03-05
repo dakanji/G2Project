@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * write the compiled resource
  *
@@ -18,6 +19,7 @@ function smarty_core_write_compiled_resource($params, &$smarty) {
 
 			return false;
 		}
+
 		$smarty->trigger_error('unable to write to $compile_dir \'' . realpath($smarty->compile_dir) . '\'. Be sure $compile_dir is writable by the web server user.', E_USER_ERROR);
 
 		return false;

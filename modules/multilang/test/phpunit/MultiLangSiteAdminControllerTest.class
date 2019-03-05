@@ -88,6 +88,7 @@ class MultiLangSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('de_DE|he_IL|zh_CN', $languages, 'languages');
 	}
 
@@ -114,6 +115,7 @@ class MultiLangSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('', $languages, 'languages');
 	}
 }

@@ -267,12 +267,14 @@ class PasswordModule extends GalleryModule {
 				if (isset($permissions['core.view']) || !empty($isHidden)) {
 					// Redirect to PasswordEntry if we have core.view or item is also hidden
 					global $gallery;
+
 					$session =& $gallery->getSession();
 					$ret     = $session->start();
 
 					if ($ret) {
 						return $ret;
 					}
+
 					$session->doNotUseTempId();
 					$urlGenerator =& $gallery->getUrlGenerator();
 					$phpVm        = $gallery->getPhpVm();
@@ -288,6 +290,7 @@ class PasswordModule extends GalleryModule {
 							)
 						)
 					);
+
 					$phpVm->exit_();
 				}
 			}
@@ -308,6 +311,7 @@ class PasswordModule extends GalleryModule {
 			&& $item->isModified('parentId')
 		) {
 			GalleryCoreApi::requireOnce('modules/password/classes/PasswordHelper.class');
+
 			$ret = PasswordHelper::handleMoveItem($item);
 
 			if ($ret) {
@@ -317,6 +321,7 @@ class PasswordModule extends GalleryModule {
 			&& $item->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)
 		) {
 			GalleryCoreApi::requireOnce('modules/password/classes/PasswordHelper.class');
+
 			$ret = PasswordHelper::handleNewItem($item);
 
 			if ($ret) {

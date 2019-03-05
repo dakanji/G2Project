@@ -44,22 +44,27 @@ class RestrictMimeOption extends ItemAddOption {
 	 */
 	public function handleRequestAfterAdd($form, $items) {
 		global $gallery;
-		$errors             = $warnings             = array();
+
+		$errors = $warnings             = array();
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'mime');
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		list($ret, $allowMime) = $module->getParameter('allowMime');
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		list($ret, $mimeList) = $module->getParameter('mimeList');
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$mimeList = array_flip(explode(' | ', $mimeList));
 
 		for ($i = 0; $i < count($items); $i++) {
@@ -89,6 +94,7 @@ class RestrictMimeOption extends ItemAddOption {
 				$warnings[$i][] = $module->translate(
 					'This type of file not allowed; item will not be added.'
 				);
+
 				$gallery->addShutdownAction(
 					array('GalleryCoreApi', 'deleteEntityById'),
 					array($items[$i]->getId())

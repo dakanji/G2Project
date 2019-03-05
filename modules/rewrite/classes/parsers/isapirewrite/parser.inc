@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteParser.class');
 
 // Status code used by the PHP Path Info parser
@@ -51,7 +50,7 @@ class IsapiRewriteParser extends RewriteParser {
 		$activeRules = null,
 		$upgradeModule = null
 	) {
-		if (is_null($parser)) {
+		if (null === $parser) {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 		}
 
@@ -232,7 +231,9 @@ class IsapiRewriteParser extends RewriteParser {
 		GalleryCoreApi::requireOnce(
 			'modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteHelper.class'
 		);
+
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();

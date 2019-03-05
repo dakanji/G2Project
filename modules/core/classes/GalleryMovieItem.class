@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
 
 /**
@@ -129,6 +128,7 @@ class GalleryMovieItem extends GalleryDataItem {
 		$symlink = false
 	) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Validate input
@@ -190,7 +190,8 @@ class GalleryMovieItem extends GalleryDataItem {
 			return $ret;
 		}
 
-		$mimeType            = $this->getMimeType();
+		$mimeType = $this->getMimeType();
+
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions-and-duration');
 
 		if ($ret) {
@@ -300,6 +301,7 @@ class GalleryMovieItem extends GalleryDataItem {
 					case 'video/x-ms-wmv':
 						$classId = 'CLSID:05589FA1-C356-11CE-BF01-00AA0055595A';
 
+
 						// Fall Through
 					case 'video/x-ms-asf':
 					case 'video/x-ms-asx':
@@ -335,6 +337,7 @@ class GalleryMovieItem extends GalleryDataItem {
 					default:
 						return $fallback;
 				}
+
 
 				// Fall Through
 			default:

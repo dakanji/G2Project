@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
 
 /**
@@ -199,6 +198,7 @@ class PostgreSqlStorage extends GalleryStorage {
 				while (count($args) > 1) {
 					$sql[] = 'WHEN ' . array_shift($args) . ' THEN ' . array_shift($args);
 				}
+
 				$sql = 'CASE ' . implode(' ', $sql) . ' ELSE ' . $args[0] . ' END';
 
 				break;
@@ -219,9 +219,10 @@ class PostgreSqlStorage extends GalleryStorage {
 					str_repeat('SELECT ' . $markers . ' UNION ALL ', $args[2]),
 					'UNION ALL '
 				);
-				$sql     = 'INSERT INTO ' . $args[0] . ' (';
-				$sql    .= join(', ', $args[1]);
-				$sql    .= ') ' . $rowList;
+
+				$sql  = 'INSERT INTO ' . $args[0] . ' (';
+				$sql .= join(', ', $args[1]);
+				$sql .= ') ' . $rowList;
 
 				break;
 

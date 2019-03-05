@@ -79,6 +79,7 @@ class AkismetApi {
 	 */
 	public function verifyApiKey($apiKey) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$baseUrl      = $urlGenerator->generateUrl(
 			array(),
@@ -87,8 +88,7 @@ class AkismetApi {
 			)
 		);
 
-		$url = 'http://rest.akismet.com/1.1/verify-key';
-
+		$url                   = 'http://rest.akismet.com/1.1/verify-key';
 		list($ret, $userAgent) = $this->_getUserAgent();
 
 		if ($ret) {
@@ -154,6 +154,7 @@ class AkismetApi {
 	 */
 	public function _request($type, &$comment, $includeBrowserSpecificDetails) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$baseUrl      = $urlGenerator->generateUrl(
 			array(),
@@ -174,14 +175,14 @@ class AkismetApi {
 		}
 
 		// Generate the target URL based on the API Key and the request-type
-		$url = sprintf('http://%s.rest.akismet.com/1.1/%s', $apiKey, $type);
-
+		$url                      = sprintf('http://%s.rest.akismet.com/1.1/%s', $apiKey, $type);
 		$postDataArray['blog']    = $baseUrl;
 		$postDataArray['user_ip'] = $comment->getHost();
 
 		if ($includeBrowserSpecificDetails) {
 			$postDataArray['user_agent'] = GalleryUtilities::getServerVar('HTTP_USER_AGENT');
 		}
+
 		$postDataArray['comment_type']         = $comment->getEntityType();
 		$postDataArray['comment_author']       = $comment->getAuthor();
 		$postDataArray['comment_author_email'] = '';
@@ -250,6 +251,7 @@ class AkismetApi {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$galleryVersion = $core->getGalleryVersion();
 
 		list($ret, $comment) = GalleryCoreApi::loadPlugin('module', 'comment', true);

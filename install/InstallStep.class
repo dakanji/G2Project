@@ -85,8 +85,7 @@ class InstallStep {
 		return $this->_isLastStep;
 	}
 
-	public function loadGalleryConfig($config) {
-	}
+	public function loadGalleryConfig($config) {}
 
 	public function sanitize($string) {
 		if (get_magic_quotes_gpc()) {

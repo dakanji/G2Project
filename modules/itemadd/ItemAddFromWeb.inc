@@ -42,6 +42,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$param = $isAdmin ? 'on' : 'off';
 		}
 
@@ -53,6 +54,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 	 */
 	public function handleRequest($form, &$item, &$addController = null) {
 		global $gallery;
+
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$storage         =& $gallery->getStorage();
 
@@ -103,6 +105,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 						'Referer' => str_replace('&amp;', '&', $url),
 					);
 				}
+
 				list($successfullyCopied, $response, $headers) = GalleryCoreApi::fetchWebFile($url, $tmpFile, $extraHeaders);
 
 				if ($successfullyCopied) {
@@ -114,6 +117,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 					}
 
 					list($base) = GalleryUtilities::getFileNameComponents($fileName);
+
 					GalleryUtilities::sanitizeInputValues($base);
 					$title       = (isset($form['set']['title']) && $form['set']['title']) ? $base : '';
 					$summary     = (isset($form['set']['summary'])
@@ -143,21 +147,25 @@ class ItemAddFromWeb extends ItemAddPlugin {
 						'warnings' => array(),
 					);
 				}
+
 				@$platform->unlink($tmpFile);
 
 				if ($i % 10 == 0 && !empty($status['addedFiles'])) {
 					$gallery->guaranteeTimeLimit(60);
+
 					list($ret, $optionErrors) = $addController->postprocessItems($form, $status);
 
 					if ($ret) {
 						return array($ret, null, null);
 					}
+
 					$error = array_merge($error, $optionErrors);
 
 					if ($optionErrors) {
 						break;
 					}
 				}
+
 				$gallery->guaranteeTimeLimit(60);
 				$templateAdapter->updateProgressBar(
 					$module->translate(
@@ -166,6 +174,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 					'',
 					$i++ / $totalUrls
 				);
+
 				$ret = $storage->checkPoint();
 
 				if ($ret) {
@@ -273,6 +282,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 								break;
 							}
 						}
+
 						$specifiedComponents = parse_url($specifiedBaseUrl);
 
 						if (!empty($specifiedComponents['scheme'])
@@ -285,6 +295,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 							}
 						}
 					}
+
 					/*
 					 * Parse the buffer.  We match:
 					 *  href="foo bar"    href='foo bar'   href=foo
@@ -309,6 +320,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 						if (empty($url) || isset($seenBefore[$url])) {
 							continue;
 						}
+
 						$seenBefore[$url] = 1;
 
 						/*
@@ -354,6 +366,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 										$basePath .= '/';
 									}
 								}
+
 								$tmp .= $basePath;
 								$url  = $tmp . $url;
 							}
@@ -399,6 +412,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 		if (!isset($recentUrls)) {
 			$recentUrls = array();
 		}
+
 		$ItemAddFromWeb['recentUrls'] = array_keys($recentUrls);
 
 		$template->setVariable('ItemAddFromWeb', $ItemAddFromWeb);
@@ -518,6 +532,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 
 			return array(null, $module->translate('Photo'));
 		}
+
 		list($ret, $mimeType) = $this->_getMimeType($url, $headers);
 
 		if ($ret) {
@@ -536,6 +551,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$mimeTypeItem->setMimeType($mimeType);
 			$mimeTypeNameMap[$mimeType] = $mimeTypeItem->itemTypeName();
 		}

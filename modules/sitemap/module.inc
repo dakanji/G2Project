@@ -27,6 +27,7 @@
 class SitemapModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
+
 		$this->setId('sitemap');
 		$this->setName($gallery->i18n('Sitemap'));
 		$this->setDescription(
@@ -77,10 +78,11 @@ class SitemapModule extends GalleryModule {
 	public function getRewriteRules() {
 		$rules = array();
 
-		$rule            = array();
-		$rule['match']   = array(
+		$rule          = array();
+		$rule['match'] = array(
 			'view' => 'sitemap.Sitemap',
 		);
+
 		$rule['pattern'] = 'sitemap';
 		$rule['comment'] = $this->translate('Download Sitemap');
 		$rules[]         = $rule;

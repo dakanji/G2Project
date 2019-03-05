@@ -16,7 +16,6 @@ global $gSQLMaxRows,$gSQLBlockRows,$ADODB_ROUND;
 $ADODB_ROUND   = 4; // rounding
 $gSQLMaxRows   = 1000; // max no of rows to download
 $gSQLBlockRows = 20; // max no of rows per table block
-
 // RecordSet to HTML Table
 //------------------------------------------------------------
 // Convert a recordset to a html table. Multiple tables are generated
@@ -38,8 +37,6 @@ $gSQLBlockRows = 20; // max no of rows per table block
 //	$rs->Close();
 //
 // RETURNS: number of rows displayed
-
-
 function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialchars = true, $echo = true) {
 	$s     = '';
 	$rows  = 0;
@@ -55,6 +52,7 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 	if (!$ztabhtml) {
 		$ztabhtml = "BORDER='1' WIDTH='98%'";
 	}
+
 	//else $docnt = true;
 	$typearr = array();
 	$ncols   = $rs->FieldCount();
@@ -69,6 +67,7 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 			} else {
 				$fname = htmlspecialchars($field->name);
 			}
+
 			$typearr[$i] = $rs->MetaType($field->type, $field->max_length);
 		//print " $field->name $field->type $typearr[$i] ";
 		} else {
@@ -79,8 +78,10 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 		if (strlen($fname) == 0) {
 			$fname = '&nbsp;';
 		}
+
 		$hdr .= "<TH>$fname</TH>";
 	}
+
 	$hdr .= "\n</tr>";
 
 	if ($echo) {
@@ -106,8 +107,7 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 
 			switch ($type) {
 				case 'D':
-					if (strpos($v, ':') !== false) {
-					} else {
+					if (strpos($v, ':') !== false) {} else {
 						if (empty($v)) {
 							$s .= "<TD> &nbsp; </TD>\n";
 						} else {
@@ -116,6 +116,8 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 
 						break;
 					}
+
+
 					// Fall Through
 				case 'T':
 					if (empty($v)) {
@@ -132,6 +134,8 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 					} else {
 						$v = round($v, $ADODB_ROUND);
 					}
+
+
 					// Fall Through
 				case 'I':
 					$vv = stripslashes((trim($v)));
@@ -139,6 +143,7 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 					if (strlen($vv) == 0) {
 						$vv .= '&nbsp;';
 					}
+
 					$s .= '	<TD align=right>' . $vv . "</TD>\n";
 
 					break;
@@ -155,22 +160,25 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 				  function mime_content_type ($file) {
 					return exec("file -bi ".escapeshellarg($file));
 				  }
+
 				}
+
 				$t = mime_content_type($tmpname);
 				$s .= (substr($t,0,5)=="image") ? " <td><img src='$tmpname' alt='$t'></td>\\n" : " <td><a
 				href='$tmpname'>$t</a></td>\\n";
 				break;
 				*/
-
 				default:
 					if ($htmlspecialchars) {
 						$v = htmlspecialchars(trim($v));
 					}
+
 					$v = trim($v);
 
 					if (strlen($v) == 0) {
 						$v = '&nbsp;';
 					}
+
 					$s .= '	<TD>' . str_replace("\n", '<br>', stripslashes($v)) . "</TD>\n";
 			}
 		} // for
@@ -183,7 +191,6 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 
 			break;
 		} // switch
-
 		$rs->MoveNext();
 
 		// additional EOF check to prevent a widow header
@@ -194,10 +201,10 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 			} else {
 				$html .= $s . "</TABLE>\n\n";
 			}
+
 			$s = $hdr;
 		}
 	} // while
-
 	if ($echo) {
 		echo $s . "</TABLE>\n\n";
 	} else {
@@ -220,13 +227,13 @@ function arr2html(&$arr, $ztabhtml = '', $zheaderarray = '') {
 	}
 
 	$s = "<TABLE $ztabhtml>";//';print_r($arr);
-
 	if ($zheaderarray) {
 		$s .= '<TR>';
 
 		for ($i = 0; $i < sizeof($zheaderarray); $i++) {
 			$s .= "	<TH>{$zheaderarray[$i]}</TH>\n";
 		}
+
 		$s .= "\n</TR>";
 	}
 
@@ -241,6 +248,7 @@ function arr2html(&$arr, $ztabhtml = '', $zheaderarray = '') {
 				if (empty($val)) {
 					$val = '&nbsp;';
 				}
+
 				$s .= "	<TD>$val</TD>\n";
 			}
 		} elseif ($a) {
@@ -248,8 +256,10 @@ function arr2html(&$arr, $ztabhtml = '', $zheaderarray = '') {
 		} else {
 			$s .= "	<TD>&nbsp;</TD>\n";
 		}
+
 		$s .= "\n</TR>\n";
 	}
+
 	$s .= '</TABLE>';
 	echo $s;
 }

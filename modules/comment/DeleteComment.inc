@@ -37,6 +37,7 @@ class DeleteCommentController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		$commentId = (int)GalleryUtilities::getRequestVariables('commentId');
@@ -87,6 +88,7 @@ class DeleteCommentController extends GalleryController {
 			$results['delegate']['view']    = 'core.ItemAdmin';
 			$results['delegate']['subView'] = 'comment.DeleteComment';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -132,7 +134,8 @@ class DeleteCommentView extends GalleryView {
 		}
 
 		// Associate the commenter's info
-		$commenterId           = $comment->getCommenterId();
+		$commenterId = $comment->getCommenterId();
+
 		list($ret, $commenter) = GalleryCoreApi::loadEntitiesById($commenterId, 'GalleryUser');
 
 		if ($ret) {

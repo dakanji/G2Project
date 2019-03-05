@@ -76,6 +76,7 @@ function RepositoryToolsMain() {
 		$repositoryPath = $gallery->getConfig('data.gallery.base') . '/repository/';
 		$gallery->setConfig('repository.path', $repositoryPath);
 	}
+
 	$gallery->setConfig('repository.templates', 'lib/tools/repository/templates/');
 
 	if ($isSiteAdmin) {
@@ -109,6 +110,7 @@ function RepositoryToolsMain() {
 				"Bad controller '$controllerName'"
 			);
 		}
+
 		$methodName     = GalleryUtilities::getRequestVariables('action');
 		$controllerPath = sprintf('%s/%s.inc', __DIR__, $controllerName);
 	}
@@ -120,6 +122,7 @@ function RepositoryToolsMain() {
 	if ($ret) {
 		return $ret;
 	}
+
 	$gallery->setUrlGenerator($urlGenerator);
 
 	$platform =& $gallery->getPlatform();

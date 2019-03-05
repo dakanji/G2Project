@@ -23,7 +23,6 @@
  * http://localhost/php/server.php?select+*+from+table&nrows=10&offset=2
  */
 
-
 /*
  * Define the IP address you want to accept requests from
  * as a security measure. If blank we accept anyone promisciously!
@@ -62,10 +61,7 @@ function undomq(&$m) {
 }
 
 ///////////////////////////////////////// DEFINITIONS
-
-
 $remote = $_SERVER['REMOTE_ADDR'];
-
 
 if (!empty($ACCEPTIP)) {
 	if ($remote != '127.0.0.1' && $remote != $ACCEPTIP) {
@@ -73,17 +69,16 @@ if (!empty($ACCEPTIP)) {
 	}
 }
 
-
 if (empty($_REQUEST['sql'])) {
 	err('No SQL');
 }
-
 
 $conn = ADONewConnection($driver);
 
 if (!$conn->Connect($host, $uid, $pwd, $database)) {
 	err($conn->ErrorNo() . $sep . $conn->ErrorMsg());
 }
+
 $sql = undomq($_REQUEST['sql']);
 
 if (isset($_REQUEST['fetch'])) {

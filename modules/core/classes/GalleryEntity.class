@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPersistent.class');
 
 /**
@@ -310,6 +309,7 @@ class GalleryEntity extends GalleryPersistent {
 			if ($postEvent) {
 				$event = GalleryCoreApi::newEvent('GalleryEntity::save');
 				$event->setEntity($this);
+
 				list($ret) = GalleryCoreApi::postEvent($event);
 
 				if ($ret) {
@@ -336,6 +336,7 @@ class GalleryEntity extends GalleryPersistent {
 				GalleryDataCache::remove(
 					sprintf('GalleryEntityHelper::loadEntitiesById(%s)', $this->getId())
 				);
+
 				GalleryDataCache::removeFromDisk(
 					array(
 						'type'   => 'entity',
@@ -347,11 +348,13 @@ class GalleryEntity extends GalleryPersistent {
 					sprintf('GalleryEntityHelper::loadEntitiesById(%s)', $this->getId()),
 					$this
 				);
+
 				list($ret, $classFile) = $this->getClassFile();
 
 				if ($ret) {
 					return $ret;
 				}
+
 				GalleryDataCache::putToDisk(
 					array(
 						'type'   => 'entity',
@@ -410,6 +413,7 @@ class GalleryEntity extends GalleryPersistent {
 
 		$event = GalleryCoreApi::newEvent('GalleryEntity::delete');
 		$event->setEntity($this);
+
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -443,6 +447,7 @@ class GalleryEntity extends GalleryPersistent {
 		GalleryDataCache::remove(
 			sprintf('GalleryEntityHelper::loadEntitiesById(%s)', $this->getId())
 		);
+
 		GalleryDataCache::removeFromDisk(
 			array(
 				'type'   => 'entity',
@@ -485,6 +490,7 @@ class GalleryEntity extends GalleryPersistent {
 					$getFunc = "get$memberName";
 					$this->$setFunc($this->linkedEntity->$getFunc());
 				}
+
 				$target = $data[$target]['parent'];
 			}
 		} else {
@@ -507,6 +513,7 @@ class GalleryEntity extends GalleryPersistent {
 				if (empty($handlerId)) {
 					continue;
 				}
+
 				list($ret, $handler) = GalleryCoreApi::newFactoryInstanceById('GalleryOnLoadHandler', $handlerId);
 
 				if ($ret) {
@@ -566,6 +573,7 @@ class GalleryEntity extends GalleryPersistent {
 		if (empty($onLoadHandlers)) {
 			$onLoadHandlers = '|';
 		}
+
 		$this->setOnLoadHandlers($onLoadHandlers . $handlerId . '|');
 	}
 

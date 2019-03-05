@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage/GalleryStorageExtras.class');
 
 /**
@@ -38,6 +37,7 @@ class DatabaseStorageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_data = array(
 			"## database_with_everything\n",
 			"# A_SomeTable_1.0\n",
@@ -68,6 +68,7 @@ class DatabaseStorageTest extends GalleryTestCase {
 			$this->_data,
 			'database_with_everything'
 		);
+
 		$this->assertEquals(
 			array(
 				'table' => array(

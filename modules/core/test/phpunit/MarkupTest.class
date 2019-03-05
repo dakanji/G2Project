@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.markup.php');
 
 /**
@@ -85,6 +84,7 @@ class MarkupTest extends GalleryTestCase {
 			'&lt;script language=&quot;javascript&quot;' .
 			'&gt;evil!&lt;/script&gt;'
 		);
+
 		$this->assertEquals(
 			'&lt;script language=&quot;javascript&quot;&gt;evil!&lt;/script&gt;',
 			$results
@@ -211,6 +211,7 @@ class MarkupTest extends GalleryTestCase {
 			'[url=http://a.cc/blah.jpg\[url]\]\[[\]' .
 			'[/url][/url][url=[[[[]\]\][\[][[[[]\]\][\[[/url]'
 		);
+
 		$this->assertEquals(
 			'<a href="http://a.cc/blah.jpg\[url" rel="nofollow">\]\[[\]</a>' .
 			'[/url][url=[[[[]\]\][\[][[[[]\]\][\[[/url]',
@@ -228,6 +229,7 @@ class MarkupTest extends GalleryTestCase {
 			'[url=https://example.com/secure.html]' .
 			"Elemente hinzuf\xfcgen[/url] Seitenverh\xe4ltnis"
 		);
+
 		$this->assertEquals(
 			'<a href="https://example.com/secure.html" rel="nofollow">' .
 			"Elemente hinzuf\xfcgen</a> Seitenverh\xe4ltnis",
@@ -251,6 +253,7 @@ class MarkupTest extends GalleryTestCase {
 			'&lt;b&gt; [i] &amp;oacute;',
 			smarty_modifier_markup('&lt;b&gt; [i] &amp;oacute;')
 		);
+
 		$this->assertEquals(
 			'&lt;b&gt; [i] &amp;oacute;',
 			smarty_modifier_markup('&lt;b&gt; [i] &amp;oacute;', 'strip'),
@@ -270,6 +273,7 @@ class MarkupTest extends GalleryTestCase {
 			'&lt;b&gt; <i> &amp;oacute;</i>',
 			smarty_modifier_markup('&lt;b&gt; [i] &amp;oacute;')
 		);
+
 		$this->assertEquals(
 			'&lt;b&gt;  &amp;oacute;',
 			smarty_modifier_markup('&lt;b&gt; [i] &amp;oacute;', 'strip'),
@@ -289,21 +293,25 @@ class MarkupTest extends GalleryTestCase {
 			'<b> [i] &oacute;</b>',
 			smarty_modifier_markup('&lt;b&gt; [i] &amp;oacute;')
 		);
+
 		$this->assertEquals(
 			' [i] &oacute;',
 			smarty_modifier_markup('&lt;b&gt; [i] &amp;oacute;', 'strip'),
 			'strip'
 		);
+
 		$this->assertEquals(
 			'&lt;b&gt; [i] &amp;oacute;',
 			smarty_modifier_markup('&lt;b&gt; [i] &amp;oacute;', 'none'),
 			'override'
 		);
+
 		$this->assertEquals(
 			'&lt;b&gt;  &amp;oacute;',
 			smarty_modifier_markup('&lt;b&gt; [i] &amp;oacute;', 'bbcode', 'strip'),
 			'override+strip'
 		);
+
 		$this->assertEquals(
 			'&lt;b&gt;  &amp;oacute;',
 			smarty_modifier_markup('&lt;b&gt; [i] &amp;oacute;', 'strip', 'bbcode'),

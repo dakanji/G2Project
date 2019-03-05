@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkitHelper.class');
 
 /**
@@ -57,6 +56,7 @@ class AdminGdController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			list($ret, $isActive) = $module->isActive();
 
 			if ($ret) {
@@ -85,6 +85,7 @@ class AdminGdController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'gd.AdminGd';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -115,6 +116,7 @@ class AdminGdView extends GalleryView {
 					return array($ret, null);
 				}
 			}
+
 			$form['formName'] = 'AdminGd';
 		}
 
@@ -128,16 +130,19 @@ class AdminGdView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $isGdBundled) = GdToolkitHelper::isBundled();
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $isGdVersionSupported) = GdToolkitHelper::isGdVersionSupported($gdVersion);
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$minGdVersion = GdToolkitHelper::minGdVersion();
 
 		$mimeTypes = array();
@@ -155,6 +160,7 @@ class AdminGdView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $isActive) = $module->isActive();
 
 		if ($ret) {

@@ -38,6 +38,7 @@ class SetupRewriteController extends GalleryController {
 	public function handleRequest($form) {
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$status   = $error   = array();
 		$results  = array(
@@ -127,6 +128,7 @@ class SetupRewriteController extends GalleryController {
 				'subView' => 'rewrite.SetupRewrite',
 			);
 		}
+
 		$results['error']  = $error;
 		$results['status'] = $status;
 
@@ -143,6 +145,7 @@ class SetupRewriteView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
+
 		$platform     =& $gallery->getPlatform();
 		$SetupRewrite = array();
 
@@ -158,6 +161,7 @@ class SetupRewriteView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $isActive) = $rewrite->isActive();
 
 		if ($ret) {
@@ -177,6 +181,7 @@ class SetupRewriteView extends GalleryView {
 		}
 
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+
 		list($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 
 		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_VALUE)) {

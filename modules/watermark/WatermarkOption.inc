@@ -40,6 +40,7 @@ class WatermarkOption extends ItemAddOption {
 
 		if (!$params['forceDefaultWatermark'] || empty($params['defaultWatermarkId'])) {
 			GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
+
 			list($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
 
 			if ($ret) {
@@ -52,6 +53,7 @@ class WatermarkOption extends ItemAddOption {
 				if (!isset($currentId)) {
 					$currentId = $id;
 				}
+
 				$watermarks[$id] = (array)$watermarks[$id];
 			}
 
@@ -108,6 +110,7 @@ class WatermarkOption extends ItemAddOption {
 				if (!$ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 					return array($ret, null, null);
 				}
+
 				$ret = GalleryCoreApi::addEventLogEntry(
 					'WATERMARK ERROR',
 					'Watermark doesn\'t exist',
@@ -123,6 +126,7 @@ class WatermarkOption extends ItemAddOption {
 				if ($ret) {
 					return array($ret, null, null);
 				}
+
 				$message = $module->translate(
 					'Error: Missing watermark. Please see the Event Logs '
 					. 'page in the Site Admin.'
@@ -138,7 +142,8 @@ class WatermarkOption extends ItemAddOption {
 						DERIVATIVE_TYPE_IMAGE_RESIZE    => $watermark->getApplyToResizes(),
 						DERIVATIVE_TYPE_IMAGE_PREFERRED => $watermark->getApplyToPreferred(),
 					);
-					$ret            = WatermarkHelper::watermarkItem(
+
+					$ret = WatermarkHelper::watermarkItem(
 						$watermark,
 						$item,
 						$watermark->getXPercentage(),

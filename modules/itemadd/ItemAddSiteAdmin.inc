@@ -37,6 +37,7 @@ class ItemAddSiteAdminController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'itemadd');
 
 		if ($ret) {
@@ -75,8 +76,7 @@ class ItemAddSiteAdminController extends GalleryController {
 			// Store the path in UTF-8 in the database
 			if (empty($error)) {
 				for ($i = 1; !empty($params['uploadLocalServer.dir.' . $i])
-				&& ($params['uploadLocalServer.dir.' . $i] != $path); $i++) {
-				}
+				&& ($params['uploadLocalServer.dir.' . $i] != $path); $i++) {}
 
 				if (empty($params['uploadLocalServer.dir.' . $i])) {
 					$ret = GalleryCoreApi::setPluginParameter(
@@ -89,6 +89,7 @@ class ItemAddSiteAdminController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					$status['addedDir'] = 1;
 				}
 			}
@@ -107,6 +108,7 @@ class ItemAddSiteAdminController extends GalleryController {
 						return array($ret, null);
 					}
 				}
+
 				$ret = GalleryCoreApi::removePluginParameter(
 					'module',
 					'itemadd',
@@ -116,6 +118,7 @@ class ItemAddSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$status['removedDir'] = 1;
 			} else {
 				$error[] = 'form[error][uploadLocalServer][selectedDir][missing]';
@@ -130,9 +133,9 @@ class ItemAddSiteAdminController extends GalleryController {
 					return array($ret, null);
 				}
 			}
+
 			$status['saved'] = 1;
 		} // else $form['action']['reset']
-
 		$method  = empty($error) ? 'redirect' : 'delegate';
 		$results = array(
 			$method  => array(
@@ -160,6 +163,7 @@ class ItemAddSiteAdminView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'itemadd');
 
 		if ($ret) {
@@ -184,6 +188,7 @@ class ItemAddSiteAdminView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$localServerDirList = array();
 
 		for ($i = 1; !empty($params['uploadLocalServer.dir.' . $i]); $i++) {

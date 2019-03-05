@@ -11,20 +11,16 @@
 	  Set tabs to 4 for best viewing.
 
 */
-
 if (!function_exists('bzcompress')) {
 	trigger_error('bzip2 functions are not available', E_USER_ERROR);
 
 	return 0;
 }
 
-
 class ADODB_Compress_Bzip2 {
 	public $_block_size;
 
-
 	public $_work_level;
-
 
 	public $_min_length = 1;
 
@@ -58,15 +54,15 @@ class ADODB_Compress_Bzip2 {
 	}
 
 	public function __construct($block_size = null, $work_level = null, $min_length = null) {
-		if (!is_null($block_size)) {
+		if (null !== $block_size) {
 			$this->setBlockSize($block_size);
 		}
 
-		if (!is_null($work_level)) {
+		if (null !== $work_level) {
 			$this->setWorkLevel($work_level);
 		}
 
-		if (!is_null($min_length)) {
+		if (null !== $min_length) {
 			$this->setMinLength($min_length);
 		}
 	}
@@ -76,8 +72,8 @@ class ADODB_Compress_Bzip2 {
 			return $data;
 		}
 
-		if (!is_null($this->_block_size)) {
-			if (!is_null($this->_work_level)) {
+		if (null !== $this->_block_size) {
+			if (null !== $this->_work_level) {
 				return bzcompress($data, $this->_block_size, $this->_work_level);
 			}
 

@@ -84,7 +84,7 @@ class RewriteParser {
 		$activeRules = null,
 		$upgradeModule = null
 	) {
-		if (is_null($parser)) {
+		if (null === $parser) {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null);
 		}
 
@@ -277,7 +277,6 @@ class RewriteParser {
 	}
 
 	// Getters and setters below
-
 	public function _setParserId($parserId) {
 		$this->_parserId = $parserId;
 	}

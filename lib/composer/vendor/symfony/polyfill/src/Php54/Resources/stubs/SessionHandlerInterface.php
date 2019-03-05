@@ -9,6 +9,7 @@
  * file that was distributed with this source code.
  */
 
+
 /**
  * SessionHandlerInterface for PHP < 5.4.
  *

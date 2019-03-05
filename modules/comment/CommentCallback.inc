@@ -45,9 +45,11 @@ class CommentCallbackView extends GalleryView {
 	public function renderImmediate($status = null, $error = null) {
 		global $gallery;
 
-		$result                    = array();
+		$result = array();
+
 		list($command, $commentId) = GalleryUtilities::getRequestVariables('command', 'commentId');
-		$commentId                 = (int)$commentId;
+
+		$commentId = (int)$commentId;
 
 		switch ($command) {
 			case 'delete':
@@ -166,6 +168,7 @@ class CommentCallbackView extends GalleryView {
 		}
 
 		$comment->setPublishStatus($newPublishStatus);
+
 		$ret = $comment->save();
 
 		if ($ret) {

@@ -82,6 +82,7 @@ class AdminDeleteGroupController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'core.AdminDeleteGroup';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -116,7 +117,8 @@ class AdminDeleteGroupView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$groupId           = GalleryUtilities::getRequestVariables('groupId');
+		$groupId = GalleryUtilities::getRequestVariables('groupId');
+
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {

@@ -1,6 +1,5 @@
 <?php
 
-
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -26,7 +25,6 @@
 		ADODB_Session::dataFieldName('session_data');
 
 */
-
 if (!defined('_ADODB_LAYER')) {
 	include realpath(__DIR__ . '/../adodb.inc.php');
 }
@@ -37,10 +35,8 @@ if (defined('ADODB_SESSION')) {
 
 define('ADODB_SESSION', __DIR__);
 
-
 /*
 	Unserialize session data manually. See http://phplens.com/lens/lensforum/msgs.php?id=9821
-
 	From Kerr Schere, to unserialize session data stored via ADOdb.
 	1. Pull the session data from the db and loop through it.
 	2. Inside the loop, you will need to urldecode the data column.
@@ -79,6 +75,7 @@ function adodb_session_regenerate_id() {
 		setcookie(session_name(), session_id(), false, $ck['path'], $ck['domain'], $ck['secure']);
 		//@session_start();
 	}
+
 	$new_id = session_id();
 	$ok     = $conn->Execute('UPDATE ' . ADODB_Session::table() . ' SET sesskey=' . $conn->qstr($new_id) . ' WHERE sesskey=' . $conn->qstr($old_id));
 
@@ -89,6 +86,7 @@ function adodb_session_regenerate_id() {
 		if (empty($ck)) {
 			$ck = session_get_cookie_params();
 		}
+
 		setcookie(session_name(), session_id(), false, $ck['path'], $ck['domain'], $ck['secure']);
 
 		return false;
@@ -140,13 +138,15 @@ class ADODB_Session {
 		if (!is_null($lock)) $_lock = $lock;
 		return $lock;
 	}
+
 	*/
+
 	// !
 	public function driver($driver = null) {
 		static $_driver = 'mysql';
 		static $set     = false;
 
-		if (!is_null($driver)) {
+		if (null !== $driver) {
 			$_driver = trim($driver);
 			$set     = true;
 		} elseif (!$set) {
@@ -164,7 +164,7 @@ class ADODB_Session {
 		static $_host = 'localhost';
 		static $set   = false;
 
-		if (!is_null($host)) {
+		if (null !== $host) {
 			$_host = trim($host);
 			$set   = true;
 		} elseif (!$set) {
@@ -182,7 +182,7 @@ class ADODB_Session {
 		static $_user = 'root';
 		static $set   = false;
 
-		if (!is_null($user)) {
+		if (null !== $user) {
 			$_user = trim($user);
 			$set   = true;
 		} elseif (!$set) {
@@ -200,7 +200,7 @@ class ADODB_Session {
 		static $_password = '';
 		static $set       = false;
 
-		if (!is_null($password)) {
+		if (null !== $password) {
 			$_password = $password;
 			$set       = true;
 		} elseif (!$set) {
@@ -218,7 +218,7 @@ class ADODB_Session {
 		static $_database = 'xphplens_2';
 		static $set       = false;
 
-		if (!is_null($database)) {
+		if (null !== $database) {
 			$_database = trim($database);
 			$set       = true;
 		} elseif (!$set) {
@@ -235,7 +235,7 @@ class ADODB_Session {
 	public function persist($persist = null) {
 		static $_persist = true;
 
-		if (!is_null($persist)) {
+		if (null !== $persist) {
 			$_persist = trim($persist);
 		}
 
@@ -247,7 +247,7 @@ class ADODB_Session {
 		static $_lifetime;
 		static $set = false;
 
-		if (!is_null($lifetime)) {
+		if (null !== $lifetime) {
 			$_lifetime = (int)$lifetime;
 			$set       = true;
 		} elseif (!$set) {
@@ -275,7 +275,7 @@ class ADODB_Session {
 		static $_debug = false;
 		static $set    = false;
 
-		if (!is_null($debug)) {
+		if (null !== $debug) {
 			$_debug = (bool)$debug;
 
 			$conn = self::_conn();
@@ -283,6 +283,7 @@ class ADODB_Session {
 			if ($conn) {
 				$conn->debug = $_debug;
 			}
+
 			$set = true;
 		} elseif (!$set) {
 			// backwards compatibility
@@ -299,7 +300,7 @@ class ADODB_Session {
 		static $_expire_notify;
 		static $set = false;
 
-		if (!is_null($expire_notify)) {
+		if (null !== $expire_notify) {
 			$_expire_notify = $expire_notify;
 			$set            = true;
 		} elseif (!$set) {
@@ -317,7 +318,7 @@ class ADODB_Session {
 		static $_table = 'sessions';
 		static $set    = false;
 
-		if (!is_null($table)) {
+		if (null !== $table) {
 			$_table = trim($table);
 			$set    = true;
 		} elseif (!$set) {
@@ -335,7 +336,7 @@ class ADODB_Session {
 		static $_optimize = false;
 		static $set       = false;
 
-		if (!is_null($optimize)) {
+		if (null !== $optimize) {
 			$_optimize = (bool)$optimize;
 			$set       = true;
 		} elseif (!$set) {
@@ -353,7 +354,7 @@ class ADODB_Session {
 		static $_sync_seconds = 60;
 		static $set           = false;
 
-		if (!is_null($sync_seconds)) {
+		if (null !== $sync_seconds) {
 			$_sync_seconds = (int)$sync_seconds;
 			$set           = true;
 		} elseif (!$set) {
@@ -371,7 +372,7 @@ class ADODB_Session {
 		static $_clob = false;
 		static $set   = false;
 
-		if (!is_null($clob)) {
+		if (null !== $clob) {
 			$_clob = strtolower(trim($clob));
 			$set   = true;
 		} elseif (!$set) {
@@ -388,7 +389,7 @@ class ADODB_Session {
 	public function dataFieldName($data_field_name = null) {
 		static $_data_field_name = 'data';
 
-		if (!is_null($data_field_name)) {
+		if (null !== $data_field_name) {
 			$_data_field_name = trim($data_field_name);
 		}
 
@@ -399,10 +400,11 @@ class ADODB_Session {
 	public function filter($filter = null) {
 		static $_filter = array();
 
-		if (!is_null($filter)) {
+		if (null !== $filter) {
 			if (!is_array($filter)) {
 				$filter = array($filter);
 			}
+
 			$_filter = $filter;
 		}
 
@@ -413,7 +415,7 @@ class ADODB_Session {
 	public function encryptionKey($encryption_key = null) {
 		static $_encryption_key = 'CRYPTED ADODB SESSIONS ROCK!';
 
-		if (!is_null($encryption_key)) {
+		if (null !== $encryption_key) {
 			$_encryption_key = $encryption_key;
 		}
 
@@ -423,7 +425,6 @@ class ADODB_Session {
 	/////////////////////
 	// private methods
 	/////////////////////
-
 	// !
 	public function _conn($conn = null) {
 		return $GLOBALS['ADODB_SESS_CONN'];
@@ -433,7 +434,7 @@ class ADODB_Session {
 	public function _crc($crc = null) {
 		static $_crc = false;
 
-		if (!is_null($crc)) {
+		if (null !== $crc) {
 			$_crc = $crc;
 		}
 
@@ -480,7 +481,6 @@ class ADODB_Session {
 		}
 
 		//echo "<br />\nAffected_Rows=",$conn->Affected_Rows(),"<br />\n";
-
 		if (!is_object($rs)) {
 			return;
 		}
@@ -492,7 +492,6 @@ class ADODB_Session {
 	/////////////////////
 	// public methods
 	/////////////////////
-
 	public function config($driver, $host, $user, $password, $database = false, $options = false) {
 		self::driver($driver);
 		self::host($host);
@@ -536,7 +535,7 @@ class ADODB_Session {
 		$password = self::password();
 		$user     = self::user();
 
-		if (!is_null($persist)) {
+		if (null !== $persist) {
 			self::persist($persist);
 		} else {
 			$persist = self::persist();
@@ -546,7 +545,6 @@ class ADODB_Session {
 		// assert('$database');
 		// assert('$driver');
 		// assert('$host');
-
 		$conn = ADONewConnection($driver);
 
 		if ($debug) {
@@ -582,7 +580,6 @@ class ADODB_Session {
 			ADOConnection::outp('<p>Session: connection failed</p>', false);
 		}
 
-
 		return $ok;
 	}
 
@@ -609,18 +606,16 @@ class ADODB_Session {
 		}
 
 		//assert('$table');
-
 		$qkey   = $conn->quote($key);
 		$binary = $conn->dataProvider === 'mysql' ? '/*! BINARY */' : '';
-
-		$sql = "SELECT $data FROM $table WHERE sesskey = $binary $qkey AND expiry >= " . time();
+		$sql    = "SELECT $data FROM $table WHERE sesskey = $binary $qkey AND expiry >= " . time();
 		/* Lock code does not work as it needs to hold transaction within whole page, and we don't know if
 		  developer has commited elsewhere... :(
 		 */
+
 		// if (ADODB_Session::Lock())
 		// $rs = $conn->RowLock($table, "$binary sesskey = $qkey AND expiry >= " . time(), $data);
 		// else
-
 		$rs = $conn->Execute($sql);
 		//ADODB_Session::_dumprs($rs);
 		if ($rs) {
@@ -635,6 +630,7 @@ class ADODB_Session {
 						$v = $f->read($v, self::_sessionKey());
 					}
 				}
+
 				$v = rawurldecode($v);
 			}
 
@@ -674,10 +670,10 @@ class ADODB_Session {
 		if (!$conn) {
 			return false;
 		}
+
 		$qkey = $conn->qstr($key);
 
 		//assert('$table');
-
 		$expiry = time() + $lifetime;
 
 		$binary = $conn->dataProvider === 'mysql' ? '/*! BINARY */' : '';
@@ -700,12 +696,12 @@ class ADODB_Session {
 				}
 			}
 
-
 			$sql = "UPDATE $table SET expiry = " . $conn->Param('0') . ',expireref=' . $conn->Param('1') . " WHERE $binary sesskey = " . $conn->Param('2') . ' AND expiry >= ' . $conn->Param('3');
 			$rs  = $conn->Execute($sql, array($expiry, $expirevar, $key, time()));
 
 			return true;
 		}
+
 		$val = rawurlencode($val);
 
 		foreach ($filter as $f) {
@@ -767,7 +763,6 @@ class ADODB_Session {
 				$rs->Close();
 			}
 
-
 			$err = '';
 			$rs1 = $conn->Execute($sql);
 
@@ -790,6 +785,7 @@ class ADODB_Session {
 
 			return false;
 		}
+
 		// bug in access driver (could be odbc?) means that info is not committed
 		// properly unless select statement executed in Win2000
 		if ($conn->databaseType == 'access') {
@@ -801,6 +797,7 @@ class ADODB_Session {
 				$rs->Close();
 			}
 		}
+
 		/*
 		if (ADODB_Session::Lock()) {
 			$conn->CommitTrans();
@@ -819,7 +816,6 @@ class ADODB_Session {
 		}
 
 		//assert('$table');
-
 		$qkey   = $conn->quote($key);
 		$binary = $conn->dataProvider === 'mysql' ? '/*! BINARY */' : '';
 
@@ -843,6 +839,7 @@ class ADODB_Session {
 				//assert('$key');
 				$fn($ref, $key);
 			}
+
 			$rs->Close();
 		}
 
@@ -865,7 +862,6 @@ class ADODB_Session {
 		if (!$conn) {
 			return false;
 		}
-
 
 		$time   = time();
 		$binary = $conn->dataProvider === 'mysql' ? '/*! BINARY */' : '';
@@ -890,6 +886,7 @@ class ADODB_Session {
 					$del = $conn->Execute("DELETE FROM $table WHERE sesskey=" . $conn->Param('0'), array($key));
 					$rs->MoveNext();
 				}
+
 				$rs->Close();
 
 				$conn->CompleteTrans();
@@ -943,6 +940,7 @@ class ADODB_Session {
 			} else {
 				$sql .= $conn->sysTimeStamp;
 			}
+
 			$sql .= " FROM $table";
 
 			$rs = $conn->SelectLimit($sql, 1);

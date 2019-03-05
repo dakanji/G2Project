@@ -52,6 +52,7 @@ class ItemDeleteController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		if (isset($form['action']['delete'])) {
@@ -78,6 +79,7 @@ class ItemDeleteController extends GalleryController {
 						// Avoid information disclosure, act as if the item does not exist.
 						return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 					}
+
 					// Make sure we have permission to delete this item
 					if (!isset($permissions[$selectedId]['core.delete'])) {
 						return array(
@@ -142,7 +144,8 @@ class ItemDeleteController extends GalleryController {
 				'itemId' => $itemId,
 			);
 		} elseif (isset($form['action']['next'])) {
-			$page                = GalleryUtilities::getRequestVariables('page');
+			$page = GalleryUtilities::getRequestVariables('page');
+
 			list($ret, $peerIds) = GalleryCoreApi::fetchChildItemIdsWithPermission(
 				$itemId,
 				array('core.delete', 'core.view')
@@ -168,6 +171,7 @@ class ItemDeleteController extends GalleryController {
 			$results['delegate']['view']    = 'core.ItemAdmin';
 			$results['delegate']['subView'] = 'core.ItemDelete';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -203,6 +207,7 @@ class ItemDeleteView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		$variables = GalleryUtilities::getRequestVariables('selectedId', 'anchorId', 'page');
@@ -210,6 +215,7 @@ class ItemDeleteView extends GalleryView {
 		foreach ($variables as $key => $value) {
 			$variables[$key] = is_numeric($value) ? (int)$value : null;
 		}
+
 		list($selectedId, $anchorId, $page) = $variables;
 
 		if ($form['formName'] != 'ItemDelete') {
@@ -218,6 +224,7 @@ class ItemDeleteView extends GalleryView {
 			} elseif ($anchorId) {
 				$selectedId = $anchorId;
 			}
+
 			$form['destination'] = '';
 			$form['formName']    = 'ItemDelete';
 			$form['numPerPage']  = 30;
@@ -288,6 +295,7 @@ class ItemDeleteView extends GalleryView {
 				} else {
 					$peerTypes['data'][$peerItem->getId()] = 1;
 				}
+
 				$peers[$peerItem->getId()]['selected'] = isset($form['selectedIds'][$peerItem->getId()]);
 
 				// While we're at it, attach thumbnails and resizes
@@ -315,7 +323,6 @@ class ItemDeleteView extends GalleryView {
 				}
 			}
 		}
-
 
 		$urlGenerator =& $gallery->getUrlGenerator();
 

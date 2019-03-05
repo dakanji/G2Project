@@ -37,6 +37,7 @@ class EditCommentController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		$commentId = (int)GalleryUtilities::getRequestVariables('commentId');
@@ -139,6 +140,7 @@ class EditCommentController extends GalleryController {
 				$comment->setComment($form['comment']);
 				$comment->setAuthor($form['author']);
 				$comment->setPublishStatus($form['publishStatus']);
+
 				$ret = $comment->save();
 
 				if ($ret) {
@@ -193,6 +195,7 @@ class EditCommentController extends GalleryController {
 			// Stay on the same page
 			$results['delegate']['view'] = 'comment.EditComment';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -209,6 +212,7 @@ class EditCommentView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Load our item
@@ -240,7 +244,8 @@ class EditCommentView extends GalleryView {
 		}
 
 		// Associate the commenter's info
-		$commenterId           = $comment->getCommenterId();
+		$commenterId = $comment->getCommenterId();
+
 		list($ret, $commenter) = GalleryCoreApi::loadEntitiesById($commenterId, 'GalleryUser');
 
 		if ($ret) {
@@ -268,6 +273,7 @@ class EditCommentView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$EditComment['publishStatusList'] = array(
 			COMMENT_PUBLISH_STATUS_PUBLISHED   => $module->translate('Published'),
 			COMMENT_PUBLISH_STATUS_UNPUBLISHED => $module->translate('Unpublished'),

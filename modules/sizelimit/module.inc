@@ -31,7 +31,11 @@ class SizeLimitModule extends GalleryModule {
 
 		$this->setId('sizelimit');
 		$this->setName($gallery->i18n('Size Limit'));
-		$this->setDescription($gallery->i18n('Define picture size limit'));
+		$this->setDescription(
+			$gallery->i18n(
+				'Define picture size limit'
+			)
+		);
 
 		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));

@@ -32,6 +32,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -43,6 +44,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $this->_cmykSupport) = GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'cmykSupport');
 
 		if ($ret) {
@@ -97,10 +99,12 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 			array(null, $path),
 			GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path')
 		);
+
 		$this->assertEquals(
 			array(null, '12'),
 			GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'jpegQuality')
 		);
+
 		$this->assertEquals(3, $this->_ranIdentify, 'ran identify');
 	}
 
@@ -276,10 +280,12 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 			array(null, $path),
 			GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path')
 		);
+
 		$this->assertEquals(
 			array(null, '80'),
 			GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'jpegQuality')
 		);
+
 		$this->assertEquals(3, $this->_ranIdentify, 'ran identify');
 	}
 }

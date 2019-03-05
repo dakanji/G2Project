@@ -16,6 +16,7 @@
 	Updated public variables for Netezza
 	Still need to remove blob functions, as Netezza doesn't suppport blob
 */
+
 // security - hide paths
 if (!defined('ADODB_DIR')) {
 	die();
@@ -48,17 +49,15 @@ class ADODB_netezza extends ADODB_postgres64 {
 	public $fmtDate         = "'Y-m-d'";   // used by DBDate() as the default date format used by the database
 	public $fmtTimeStamp    = "'Y-m-d G:i:s'"; // used by DBTimeStamp as the default timestamp fmt.
 	public $ansiOuter       = true;
-	public $autoRollback    = true; // apparently pgsql does not autorollback properly before 4.3.4
-	// http://bugs.php.net/bug.php?id=25404
+	public $autoRollback    = true;
 
-	public function __construct() {
-	}
+	// apparently pgsql does not autorollback properly before 4.3.4
+	// http://bugs.php.net/bug.php?id=25404
+	public function __construct() {}
 
 	public function MetaColumns($table, $upper = true) {
-
 		// Changed this function to support Netezza which has no concept of keys
 		// could posisbly work on other things from the system table later.
-
 		global $ADODB_FETCH_MODE;
 
 		$table = strtolower($table);
@@ -75,6 +74,7 @@ class ADODB_netezza extends ADODB_postgres64 {
 		if (isset($savem)) {
 			$this->SetFetchMode($savem);
 		}
+
 		$ADODB_FETCH_MODE = $save;
 
 		if ($rs === false) {
@@ -89,7 +89,6 @@ class ADODB_netezza extends ADODB_postgres64 {
 
 			// since we're returning type and length as one string,
 			// split them out here.
-
 			if ($first = strstr($rs->fields[1], '(')) {
 				$fld->max_length = trim($first, '()');
 			} else {
@@ -143,6 +142,7 @@ class ADODB_netezza extends ADODB_postgres64 {
 
 			$rs->MoveNext();
 		}
+
 		$rs->Close();
 
 		return $retarr;
@@ -152,7 +152,6 @@ class ADODB_netezza extends ADODB_postgres64 {
 /*--------------------------------------------------------------------------------------
 	 Class Name: Recordset
 --------------------------------------------------------------------------------------*/
-
 class ADORecordSet_netezza extends ADORecordSet_postgres64 {
 	public $databaseType = 'netezza';
 	public $canSeek      = true;
@@ -164,6 +163,7 @@ class ADORecordSet_netezza extends ADORecordSet_postgres64 {
 	// _initrs modified to disable blob handling
 	public function _initrs() {
 		global $ADODB_COUNTRECS;
+
 		$this->_numOfRows   = ($ADODB_COUNTRECS) ? @pg_num_rows($this->_queryID) : -1;
 		$this->_numOfFields = @pg_num_fields($this->_queryID);
 	}

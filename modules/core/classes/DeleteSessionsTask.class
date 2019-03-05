@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
 
 /**
@@ -62,6 +61,7 @@ class DeleteSessionsTask extends MaintenanceTask {
 	 */
 	public function run() {
 		global $gallery;
+
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$session         =& $gallery->getSession();
 		$phpVm           = $gallery->getPhpVm();
@@ -74,6 +74,7 @@ class DeleteSessionsTask extends MaintenanceTask {
 
 		// Touch this admin session to ensure that we don't delete it
 		$session->put('touch', $phpVm->time());
+
 		$ret = $session->save();
 
 		if ($ret) {
@@ -85,8 +86,10 @@ class DeleteSessionsTask extends MaintenanceTask {
 		if ($ret) {
 			return array($ret, null, null);
 		}
-		$inactivityTimeout           = (int)$params['session.inactivityTimeout'];
-		$lifetime                    = (int)$params['session.lifetime'];
+
+		$inactivityTimeout = (int)$params['session.inactivityTimeout'];
+		$lifetime          = (int)$params['session.lifetime'];
+
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
@@ -122,6 +125,7 @@ class DeleteSessionsTask extends MaintenanceTask {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$result = $results->nextResult();
 		$total  = $result[0];
 
@@ -134,6 +138,7 @@ class DeleteSessionsTask extends MaintenanceTask {
 
 			for ($i = 1; $i <= $iterations; $i++) {
 				$gallery->guaranteeTimeLimit(120);
+
 				$ret = $session->_expireSessions();
 
 				if ($ret) {

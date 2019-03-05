@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform.class');
 
 /**
@@ -48,6 +47,7 @@ class WinNtPlatform extends GalleryPlatform {
 	 */
 	public function exec($cmdArray, $returnErrorOutput = false) {
 		global $gallery;
+
 		$gallery->guaranteeTimeLimit(5);
 
 		// Assemble the command array into a pipeline
@@ -92,6 +92,7 @@ class WinNtPlatform extends GalleryPlatform {
 		if ($gallery->getDebug()) {
 			$gallery->debug("Executing: $command");
 		}
+
 		$results = array();
 		exec($command, $results, $status);
 
@@ -101,6 +102,7 @@ class WinNtPlatform extends GalleryPlatform {
 			if ($gallery->getDebug()) {
 				$gallery->debug('Unable to look up core.exec.expectedStatus param');
 			}
+
 			$expected = 0;
 		}
 
@@ -117,9 +119,11 @@ class WinNtPlatform extends GalleryPlatform {
 							$stderr[] = $buf;
 						}
 					}
+
 					$this->fclose($fd);
 				}
 			}
+
 			$this->unlink($debugFile);
 		}
 
@@ -136,6 +140,7 @@ class WinNtPlatform extends GalleryPlatform {
 			foreach ($stderr as $line) {
 				$gallery->debug($line);
 			}
+
 			$gallery->debug("Status: $status (expected $expected)");
 		}
 

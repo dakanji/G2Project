@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty {popup_init} function plugin
  *
@@ -29,6 +30,7 @@ function smarty_function_popup_init($params, &$smarty) {
 		return '<div id="overDiv" style="position:absolute; visibility:hidden; z-index:' . $zindex . ';"></div>' . "\n"
 		 . '<script type="text/javascript" language="JavaScript" src="' . $params['src'] . '"></script>' . "\n";
 	}
+
 	$smarty->trigger_error('popup_init: missing src parameter');
 }
 

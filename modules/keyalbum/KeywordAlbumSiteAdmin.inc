@@ -64,12 +64,19 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
-			$status = empty($status) ? array() : array('statusMessage' => $status);
+
+			$status = empty($status) ? array() : array(
+				'statusMessage' => $status,
+			);
 		}
 
 		if (isset($form['action']['save']) && empty($error)) {
 			$split = '';
-			$map   = array('semicolon' => ';', 'comma' => ',', 'space' => '\\s');
+			$map   = array(
+				'semicolon' => ';',
+				'comma'     => ',',
+				'space'     => '\\s',
+			);
 
 			foreach ($form['split'] as $key => $unused) {
 				if (isset($map[$key])) {
@@ -83,7 +90,8 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 				'orderDirection' => !isset($form['orderDirection']) ? '' : $form['orderDirection'],
 				'summaryLinks'   => $form['summaryLinks'],
 				'description'    => $form['description'],
-				'split'          => $split, )
+				'split'          => $split,
+			)
 			as $key => $value) {
 				$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum', $key, $value);
 
@@ -91,6 +99,7 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 					return array($ret, null);
 				}
 			}
+
 			$status['saved'] = 1;
 		}
 
@@ -101,7 +110,8 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 				'subView' => 'keyalbum.KeywordAlbumSiteAdmin',
 			),
 			'status' => $status,
-			'error'  => $error, );
+			'error'  => $error,
+		);
 
 		return array(null, $results);
 	}
@@ -140,6 +150,7 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 					return array($ret, null);
 				}
 			}
+
 			$tmp = explode('|', $form['orderBy'], 2);
 
 			if (count($tmp) < 2) {
@@ -148,7 +159,12 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 				$form['orderBy'] = $tmp[1];
 				$form['presort'] = $tmp[0];
 			}
-			$map           = array(';' => 'semicolon', ',' => 'comma', 's' => 'space');
+
+			$map           = array(
+				';' => 'semicolon',
+				',' => 'comma',
+				's' => 'space',
+			);
 			$split         = $form['split'];
 			$form['split'] = array();
 
@@ -169,13 +185,15 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 		}
 
 		$summaryList = array(
-		'all'   => $module->translate('All album views'),
-		'album' => $module->translate('Standard albums'),
-		'key'   => $module->translate('Keyword albums'),
-		'none'  => $module->translate('None'), );
+			'all'   => $module->translate('All album views'),
+			'album' => $module->translate('Standard albums'),
+			'key'   => $module->translate('Keyword albums'),
+			'none'  => $module->translate('None'),
+		);
 
 		// Set up sort order selection list
 		GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_2.class');
+
 		list(
 			$ret,
 			$orderByList,
@@ -188,7 +206,10 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 		}
 
 		// Set up theme selection list
-		$themeList               = array('' => $module->translate('&laquo; default theme &raquo;'));
+		$themeList = array(
+			'' => $module->translate('&laquo; default theme &raquo;'),
+		);
+
 		list($ret, $themeStatus) = GalleryCoreApi::fetchPluginStatus('theme');
 
 		if ($ret) {
@@ -202,16 +223,18 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$themeList[$id] = $theme->translate($theme->getName());
 			}
 		}
 
 		$KeywordAlbumSiteAdmin = array(
-		'summaryList'        => $summaryList,
-		'orderByList'        => $orderByList,
-		'presortList'        => $presortList,
-		'orderDirectionList' => $orderDirectionList,
-		'themeList'          => $themeList, );
+			'summaryList'        => $summaryList,
+			'orderByList'        => $orderByList,
+			'presortList'        => $presortList,
+			'orderDirectionList' => $orderDirectionList,
+			'themeList'          => $themeList,
+		);
 
 		// Set up theme settings
 		list($ret, $themeSettingsId) = GalleryCoreApi::getPluginParameter('module', 'keyalbum', 'themeSettingsId');
@@ -219,12 +242,13 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = GalleryCoreApi::loadThemeSettingsForm(
 			$form['themeId'],
 			$themeSettingsId,
 			$template,
 			$form
-	);
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -237,6 +261,11 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 		$template->setVariable('KeywordAlbumSiteAdmin', $KeywordAlbumSiteAdmin);
 		$template->setVariable('controller', 'keyalbum.KeywordAlbumSiteAdmin');
 
-		return array(null, array('body' => 'modules/keyalbum/templates/KeywordAlbumSiteAdmin.tpl'));
+		return array(
+			null,
+			array(
+				'body' => 'modules/keyalbum/templates/KeywordAlbumSiteAdmin.tpl',
+			),
+		);
 	}
 }

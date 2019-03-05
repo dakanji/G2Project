@@ -26,11 +26,13 @@
 class CommentCallbacks {
 	public function callback($params, &$smarty, $callback, $userId) {
 		global $gallery;
+
 		$phpVm = $gallery->getPhpVm();
 
 		switch ($callback) {
 			case 'LoadComments':
-				$itemId           = $params['itemId'];
+				$itemId = $params['itemId'];
+
 				list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
 
 				if ($ret) {
@@ -59,6 +61,7 @@ class CommentCallbacks {
 					if ($ret) {
 						return $ret;
 					}
+
 					// If !comment.view || !core.view
 					list($ret, $anonymousViewable) = GalleryCoreApi::hasItemPermission(
 						$itemId,
@@ -91,9 +94,11 @@ class CommentCallbacks {
 						$phpVm->header('Expires: ' . $expires);
 					}
 				}
+
 				$viewMax = $params['show'];
 
 				GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
+
 				list($ret, $comments) = GalleryCommentHelper::getMe()->fetchComments($item->getId(), $viewMax, ORDER_DESCENDING);
 
 				if ($ret) {
@@ -165,7 +170,8 @@ class CommentCallbacks {
 				}
 
 				GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
-				$form                   =& $smarty->_tpl_vars['form'];
+				$form =& $smarty->_tpl_vars['form'];
+
 				list($ret, $AddComment) = GalleryCommentHelper::getMe()->getAddComment($item, $form);
 
 				if ($ret) {

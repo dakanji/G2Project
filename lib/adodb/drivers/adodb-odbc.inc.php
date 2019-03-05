@@ -9,9 +9,9 @@
 Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Requires ODBC. Works on Windows and Unix.
 */
+
 // security - hide paths
 if (!defined('ADODB_DIR')) {
 	die();
@@ -21,8 +21,6 @@ if (!defined('ADODB_DIR')) {
 
 /*--------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------*/
-
-
 class ADODB_odbc extends ADOConnection {
 	public $databaseType    = 'odbc';
 	public $fmtDate         = "'Y-m-d'";
@@ -61,6 +59,7 @@ class ADODB_odbc extends ADOConnection {
 			if ($endDSN != ';') {
 				$argDSN .= ';';
 			}
+
 			$argDSN .= 'Database=' . $argDatabasename;
 		}
 
@@ -71,6 +70,7 @@ class ADODB_odbc extends ADOConnection {
 		} else {
 			$this->_connectionID = odbc_connect($argDSN, $argUsername, $argPassword, $this->curmode);
 		}
+
 		$this->_errorMsg = $this->getChangedErrorMsg($last_php_error);
 
 		if (isset($this->connectStmt)) {
@@ -92,6 +92,7 @@ class ADODB_odbc extends ADOConnection {
 		if ($this->debug && $argDatabasename) {
 			ADOConnection::outp("For odbc PConnect(), $argDatabasename is not used. Place dsn in 1st parameter.");
 		}
+
 		//	print "dsn=$argDSN u=$argUsername p=$argPassword<br>"; flush();
 		if ($this->curmode === false) {
 			$this->_connectionID = odbc_connect($argDSN, $argUsername, $argPassword);
@@ -123,10 +124,11 @@ class ADODB_odbc extends ADOConnection {
 			}
 
 			while (true) {
-				$rez   = @odbc_data_source(
+				$rez = @odbc_data_source(
 					$this->_connectionID,
 					$first ? SQL_FETCH_FIRST : SQL_FETCH_NEXT
 				);
+
 				$first = false;
 
 				if (!is_array($rez)) {
@@ -158,11 +160,13 @@ class ADODB_odbc extends ADOConnection {
 		if (empty($this->_genSeqSQL)) {
 			return false;
 		}
+
 		$ok = $this->Execute(sprintf($this->_genSeqSQL, $seqname));
 
 		if (!$ok) {
 			return false;
 		}
+
 		$start -= 1;
 
 		return $this->Execute("insert into $seqname values($start)");
@@ -202,6 +206,7 @@ class ADODB_odbc extends ADOConnection {
 					return false;
 				}
 			}
+
 			$this->Execute("update $seq set id=id+1 where id=$num");
 
 			if ($this->affected_rows() > 0) {
@@ -277,6 +282,7 @@ class ADODB_odbc extends ADOConnection {
 		if ($this->transOff) {
 			return true;
 		}
+
 		$this->transCnt   += 1;
 		$this->_autocommit = false;
 
@@ -295,8 +301,10 @@ class ADODB_odbc extends ADOConnection {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
+
 		$this->_autocommit = true;
 		$ret               = odbc_commit($this->_connectionID);
+
 		odbc_autocommit($this->_connectionID, true);
 
 		return $ret;
@@ -310,8 +318,10 @@ class ADODB_odbc extends ADOConnection {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
+
 		$this->_autocommit = true;
 		$ret               = odbc_rollback($this->_connectionID);
+
 		odbc_autocommit($this->_connectionID, true);
 
 		return $ret;
@@ -323,6 +333,7 @@ class ADODB_odbc extends ADOConnection {
 		if ($this->uCaseTables) {
 			$table = strtoupper($table);
 		}
+
 		$schema = '';
 		$this->_findschema($table, $schema);
 
@@ -335,12 +346,14 @@ class ADODB_odbc extends ADOConnection {
 
 			return false;
 		}
+
 		$rs               = new ADORecordSet_odbc($qid);
 		$ADODB_FETCH_MODE = $savem;
 
 		if (!$rs) {
 			return false;
 		}
+
 		$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
 
 		$arr = $rs->GetArray();
@@ -373,11 +386,11 @@ class ADODB_odbc extends ADOConnection {
 
 			return $false;
 		}
+
 		$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
 
 		$arr = $rs->GetArray();
 		//print_r($arr);
-
 		$rs->Close();
 		$arr2 = array();
 
@@ -389,6 +402,7 @@ class ADODB_odbc extends ADOConnection {
 			if (!$arr[$i][2]) {
 				continue;
 			}
+
 			$type = $arr[$i][3];
 
 			if ($ttype) {
@@ -423,7 +437,6 @@ class ADODB_odbc extends ADOConnection {
 	#define SQL_DATETIME        9
 	#endif
 	#define SQL_VARCHAR     12
-
 
 	/ One-parameter shortcuts for date/time data types /
 	#if (ODBCVER >= 0x0300)
@@ -485,6 +498,7 @@ class ADODB_odbc extends ADOConnection {
 		if ($this->uCaseTables) {
 			$table = strtoupper($table);
 		}
+
 		$schema = '';
 		$this->_findschema($table, $schema);
 
@@ -505,19 +519,19 @@ class ADODB_odbc extends ADOConnection {
 					$o = $rs->fields[1];
 					break;
 				}
+
 				$rs->MoveNext();
 			}
+
 			$rs->Close();
 
 			$qid = odbc_columns($this->_connectionID,$q,$o,strtoupper($table),'%');
 		} */
-
 		switch ($this->databaseType) {
 			case 'access':
 			case 'vfp':
 				$qid = odbc_columns($this->_connectionID);// ,'%','',strtoupper($table),'%');
 				break;
-
 
 			case 'db2':
 				$colname = '%';
@@ -545,6 +559,7 @@ class ADODB_odbc extends ADOConnection {
 		if (!$rs) {
 			return $false;
 		}
+
 		$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
 		$rs->_fetch();
 
@@ -585,16 +600,18 @@ class ADODB_odbc extends ADOConnection {
 				} else {
 					$fld->max_length = $rs->fields[7];
 				}
+
 				$fld->not_null                  = !empty($rs->fields[10]);
 				$fld->scale                     = $rs->fields[8];
 				$retarr[strtoupper($fld->name)] = $fld;
 			} elseif (sizeof($retarr) > 0) {
 				break;
 			}
+
 			$rs->MoveNext();
 		}
-		$rs->Close(); //-- crashes 4.03pl1 -- why?
 
+		$rs->Close(); //-- crashes 4.03pl1 -- why?
 		if (empty($retarr)) {
 			$retarr = false;
 		}
@@ -606,6 +623,7 @@ class ADODB_odbc extends ADOConnection {
 		if (!$this->_bindInputArray) {
 			return $sql; // no binding
 		}
+
 		$stmt = odbc_prepare($this->_connectionID, $sql);
 
 		if (!$stmt) {
@@ -704,7 +722,8 @@ class ADODB_odbc extends ADOConnection {
 
 	// returns true or false
 	public function _close() {
-		$ret                 = @odbc_close($this->_connectionID);
+		$ret = @odbc_close($this->_connectionID);
+
 		$this->_connectionID = false;
 
 		return $ret;
@@ -718,7 +737,6 @@ class ADODB_odbc extends ADOConnection {
 /*--------------------------------------------------------------------------------------
 	 Class Name: Recordset
 --------------------------------------------------------------------------------------*/
-
 class ADORecordSet_odbc extends ADORecordSet {
 	public $bind         = false;
 	public $databaseType = 'odbc';
@@ -729,8 +747,10 @@ class ADORecordSet_odbc extends ADORecordSet {
 	public function __construct($id, $mode = false) {
 		if ($mode === false) {
 			global $ADODB_FETCH_MODE;
+
 			$mode = $ADODB_FETCH_MODE;
 		}
+
 		$this->fetchMode = $mode;
 
 		$this->_queryID = $id;
@@ -743,8 +763,7 @@ class ADORecordSet_odbc extends ADORecordSet {
 
 	// returns the field object
 	public function FetchField($fieldOffset = -1) {
-		$off = $fieldOffset + 1; // offsets begin at 1
-
+		$off           = $fieldOffset + 1; // offsets begin at 1
 		$o             = new ADOFieldObject();
 		$o->name       = @odbc_field_name($this->_queryID, $off);
 		$o->type       = @odbc_field_type($this->_queryID, $off);
@@ -779,12 +798,14 @@ class ADORecordSet_odbc extends ADORecordSet {
 
 	public function _initrs() {
 		global $ADODB_COUNTRECS;
+
 		$this->_numOfRows   = ($ADODB_COUNTRECS) ? @odbc_num_rows($this->_queryID) : -1;
 		$this->_numOfFields = @odbc_num_fields($this->_queryID);
 		// some silly drivers such as db2 as/400 and intersystems cache return _numOfRows = 0
 		if ($this->_numOfRows == 0) {
 			$this->_numOfRows = -1;
 		}
+
 		//$this->useFetchArray = $this->connection->useFetchArray;
 		$this->_has_stupid_odbc_fetch_api_change = ADODB_PHPVER >= 0x4200;
 	}
@@ -800,6 +821,7 @@ class ADORecordSet_odbc extends ADORecordSet {
 
 			return $rs;
 		}
+
 		$savem           = $this->fetchMode;
 		$this->fetchMode = ADODB_FETCH_NUM;
 		$this->Move($offset);
@@ -828,6 +850,7 @@ class ADORecordSet_odbc extends ADORecordSet {
 				return true;
 			}
 		}
+
 		$this->fields = false;
 		$this->EOF    = true;
 

@@ -50,6 +50,7 @@ class ItemReorderController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		// Check permissions
@@ -79,8 +80,9 @@ class ItemReorderController extends GalleryController {
 
 			// Make sure that the selectedId and targetId are children of the album
 			if (empty($error)) {
-				$selectedId           = (int)$form['selectedId'];
-				$targetId             = (int)$form['targetId'];
+				$selectedId = (int)$form['selectedId'];
+				$targetId   = (int)$form['targetId'];
+
 				list($ret, $entities) = GalleryCoreApi::loadEntitiesById(array($selectedId, $targetId), 'GalleryItem');
 
 				if ($ret) {
@@ -157,6 +159,7 @@ class ItemReorderController extends GalleryController {
 						return array($ret, null);
 					}
 				}
+
 				$newWeight = $orderWeights[$targetId] + $delta;
 
 				$ret = GalleryCoreApi::setItemOrderWeight($selectedId, $newWeight);
@@ -167,6 +170,7 @@ class ItemReorderController extends GalleryController {
 
 				$event = GalleryCoreApi::newEvent('Gallery::ItemOrder');
 				$event->setData($itemId);
+
 				list($ret) = GalleryCoreApi::postEvent($event);
 
 				if ($ret) {
@@ -189,6 +193,7 @@ class ItemReorderController extends GalleryController {
 			$results['delegate']['view']    = 'core.ItemAdmin';
 			$results['delegate']['subView'] = 'core.ItemReorder';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -225,6 +230,7 @@ class ItemReorderView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		if ($form['formName'] == 'ItemReorder') {
@@ -274,8 +280,10 @@ class ItemReorderView extends GalleryView {
 				} else {
 					$peerTypes['data'][$peerItem->getId()] = 1;
 				}
+
 				$peers[$peerItem->getId()]['selected'] = isset($form['selectedIds'][$peerItem->getId()]);
 			}
+
 			$ItemReorder['peers']     = $peers;
 			$ItemReorder['peerTypes'] = $peerTypes;
 		}

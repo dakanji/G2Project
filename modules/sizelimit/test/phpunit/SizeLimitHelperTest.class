@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/sizelimit/classes/SizeLimitHelper.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
@@ -61,6 +60,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('SizeLimitHelperTestToolkit');
 
 		// applying size limits uses 'compress'
@@ -99,6 +99,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		// Sample photo image file that can be resized/compressed
@@ -148,6 +149,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
 				return $ret;
 			}
 		}
+
 		$ret = SizeLimitHelper::buildDerivativeWithLimits($this->_item, 'test', array(26));
 
 		if ($ret) {
@@ -160,6 +162,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(
 			GalleryUtilities::isExactlyA($resized, 'GalleryDerivativeImage'),
 			'not a derivative image'
@@ -170,6 +173,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('image/known', $resized->getMimeType(), 'MIME Type');
 		$this->assertEquals('test|26', $resized->getDerivativeOperations(), 'Operations');
 		$this->assertEquals(768, $resized->getWidth(), 'Width');
@@ -182,6 +186,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
 			'unsupported',
 			array('anything')
 		);
+
 		$this->assertTrue($ret->getErrorCode() & ERROR_UNSUPPORTED_FILE_TYPE);
 	}
 
@@ -198,7 +203,9 @@ class SizeLimitHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = SizeLimitHelper::applyLimits($this->_item, 'test', array(26));
+
 		$this->assertFalse($ret, 'applyLimits');
 
 		list($ret, $this->_item) = $this->_item->refresh();
@@ -237,6 +244,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
 		}
 
 		$ret = SizeLimitHelper::applyLimits($this->_itemUnknown, 'test', array(26));
+
 		$this->assertEquals(
 			GALLERY_ERROR | ERROR_UNSUPPORTED_FILE_TYPE,
 			$ret->getErrorCode(),
@@ -322,6 +330,7 @@ class SizeLimitHelperTestToolkit extends GalleryToolkit {
 					null,
 				);
 		}
+
 		GalleryUtilities::putRequestVariable('operation', $operationName);
 
 		return array(null, $mimeType, $context);

@@ -41,6 +41,7 @@ class MimeAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addMimeType('xxx', 'test/test', false);
 
 		if ($ret) {
@@ -91,6 +92,7 @@ class MimeAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('all', $params['allowMime'], 'allowMime');
 		$this->assertEquals('', $params['mimeList'], 'mimeList');
 	}
@@ -121,6 +123,7 @@ class MimeAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('block', $params['allowMime'], 'allowMime');
 		$this->assertEquals('image/bmp | test/test', $params['mimeList'], 'mimeList');
 	}
@@ -142,11 +145,13 @@ class MimeAdminControllerTest extends GalleryControllerTestCase {
 			$results,
 			'Delete'
 		);
+
 		list($ret, $extensions) = GalleryCoreApi::convertMimeToExtensions('test/test');
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$this->assertEquals(array(), $extensions, 'Delete results');
 	}
 }

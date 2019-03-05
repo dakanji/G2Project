@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/search/classes/SearchUtilities.class');
 
 /**
@@ -111,6 +110,7 @@ class SearchShowAllView extends GalleryView {
 				GalleryCoreApi::requireOnce(
 					'modules/search/classes/GallerySearchInterface_1_0.class'
 				);
+
 				list($ret, $searchInstance) = GalleryCoreApi::newFactoryInstanceById(
 					'GallerySearchInterface_1_0',
 					$form['moduleId']
@@ -145,6 +145,7 @@ class SearchShowAllView extends GalleryView {
 						return array($ret, null);
 					}
 				}
+
 				$maxPages = ceil($results['count'] / $pageSize);
 			}
 
@@ -157,6 +158,7 @@ class SearchShowAllView extends GalleryView {
 						$itemIds[$result['itemId']] = 1;
 					}
 				}
+
 				$itemIds = array_keys($itemIds);
 
 				if (!empty($itemIds)) {

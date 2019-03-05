@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
 
 /**
@@ -80,6 +79,7 @@ class Db2Storage extends GalleryStorage {
 				return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
 			}
 		}
+
 		$tmpDb->Close();
 
 		return null;
@@ -189,6 +189,7 @@ class Db2Storage extends GalleryStorage {
 				foreach ($args as $key => $value) {
 					$args[$key] = 'RTRIM(CHAR(' . $value . '))';
 				}
+
 				$sql = implode(' || ', $args);
 
 				break;
@@ -253,6 +254,7 @@ class Db2Storage extends GalleryStorage {
 				while (count($args) > 1) {
 					$sql[] = 'WHEN ' . array_shift($args) . ' THEN ' . array_shift($args);
 				}
+
 				$sql = 'CASE ' . implode(' ', $sql) . ' ELSE ' . $args[0] . ' END';
 
 				break;
@@ -307,6 +309,7 @@ class Db2Storage extends GalleryStorage {
 	 */
 	public function getVersion() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($success, $results) = $platform->exec(array(array('db2level')));

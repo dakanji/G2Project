@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkitHelper.class');
 GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkit.class');
 GalleryCoreApi::requireOnce('modules/gd/test/phpunit/TestGdFunctionality.class');
@@ -130,6 +129,7 @@ class GdToolkitTest extends GalleryTestCase {
 					if ($ret) {
 						return $ret;
 					}
+
 					$this->assertEquals(
 						array(
 							'x'        => 100,
@@ -138,6 +138,7 @@ class GdToolkitTest extends GalleryTestCase {
 						),
 						$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext')
 					);
+
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -157,6 +158,7 @@ class GdToolkitTest extends GalleryTestCase {
 					if ($ret) {
 						return $ret;
 					}
+
 					$this->assertEquals(
 						array(
 							'x'        => 450,
@@ -165,6 +167,7 @@ class GdToolkitTest extends GalleryTestCase {
 						),
 						$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext')
 					);
+
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -184,6 +187,7 @@ class GdToolkitTest extends GalleryTestCase {
 					if ($ret) {
 						return $ret;
 					}
+
 					$this->assertEquals(
 						array(
 							'x'        => 900,
@@ -192,6 +196,7 @@ class GdToolkitTest extends GalleryTestCase {
 						),
 						$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext')
 					);
+
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -211,6 +216,7 @@ class GdToolkitTest extends GalleryTestCase {
 					if ($ret) {
 						return $ret;
 					}
+
 					$this->assertEquals(
 						array(
 							'x'        => 154.0,
@@ -221,6 +227,7 @@ class GdToolkitTest extends GalleryTestCase {
 						$this->_gdFunctionality->getOutputFileData('/valid/cropped.ext'),
 						'crop dimensions mismatch'
 					);
+
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -229,10 +236,11 @@ class GdToolkitTest extends GalleryTestCase {
 				}
 
 				if (GdToolkitHelper::isOperationSupported('rotate', $gd)) {
-					$context                              = array(
+					$context = array(
 						'width'  => 300,
 						'height' => 200,
 					);
+
 					list($ret, $resultMimeType, $context) = $this->_toolkit->performOperation(
 						$mimeType,
 						'rotate',
@@ -245,6 +253,7 @@ class GdToolkitTest extends GalleryTestCase {
 					if ($ret) {
 						return $ret;
 					}
+
 					$this->assertEquals(
 						array(
 							'x'        => 200,
@@ -254,6 +263,7 @@ class GdToolkitTest extends GalleryTestCase {
 						$this->_gdFunctionality->getOutputFileData('/valid/rotated.ext'),
 						'rotate'
 					);
+
 					$this->assertEquals(
 						array(
 							'width'  => 200,
@@ -262,6 +272,7 @@ class GdToolkitTest extends GalleryTestCase {
 						$context,
 						'rotate-context'
 					);
+
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -292,11 +303,13 @@ class GdToolkitTest extends GalleryTestCase {
 						// There's an additional copy to remove the transparencies
 						$expected['copy'] = array('', 0, 0, 0, 0, 400, 400);
 					}
+
 					$this->assertEquals(
 						$expected,
 						$this->_gdFunctionality->getOutputFileData('/valid/converted.jpeg'),
 						"convert-to-image/jpeg from $mimeType"
 					);
+
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -345,6 +358,7 @@ class GdToolkitTest extends GalleryTestCase {
 						$this->_gdFunctionality->getOutputFileData('/valid/composited.ext'),
 						'composite #1 ' . $mimeType
 					);
+
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -372,6 +386,7 @@ class GdToolkitTest extends GalleryTestCase {
 					if ($ret) {
 						return $ret;
 					}
+
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -381,7 +396,8 @@ class GdToolkitTest extends GalleryTestCase {
 
 				if (GdToolkitHelper::isOperationSupported('compress', $gd)) {
 					$this->_gdFunctionality->_counter = 2;
-					list($ret, $resultMimeType)       = $this->_toolkit->performOperation(
+
+					list($ret, $resultMimeType) = $this->_toolkit->performOperation(
 						$mimeType,
 						'compress',
 						'compressMe.jpg',
@@ -392,6 +408,7 @@ class GdToolkitTest extends GalleryTestCase {
 					if ($ret) {
 						return $ret;
 					}
+
 					$this->assertEquals(
 						array(
 							'x'        => 0,
@@ -401,6 +418,7 @@ class GdToolkitTest extends GalleryTestCase {
 						$this->_gdFunctionality->getOutputFileData('/valid/compressed.jpg'),
 						"compress a $mimeType"
 					);
+
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -448,6 +466,7 @@ class GdToolkitTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals(array(300, 300), $results);
 			$this->assertEquals(
 				0,
@@ -457,6 +476,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 			// Test a property that doesn't exist
 			list($ret, $results) = $this->_toolkit->getProperty('image/gif', 'BOGUS', 'BOGUS');
+
 			$this->assertTrue($ret->getErrorCode() & ERROR_UNIMPLEMENTED);
 			$this->assertEquals(
 				0,
@@ -468,61 +488,73 @@ class GdToolkitTest extends GalleryTestCase {
 
 	public function testMergeOperations() {
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('crop', array(1, 2, 3, 4), 'crop', array(3, 4, 5, 6));
+
 		$this->assertTrue($success);
 		$this->assertEquals('crop', $operation);
 		$this->assertEquals(array(3, 4, 5, 6), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('resize', array(1, 2), 'resize', array(3, 4));
+
 		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('thumbnail', array(1, 2), 'resize', array(3, 4));
+
 		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('thumbnail', array(1, 2), 'thumbnail', array(3, 4));
+
 		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('scale', array(1, 2), 'thumbnail', array(3, 4));
+
 		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(90));
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(180), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(-90));
+
 		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(270), 'rotate', array(180));
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(90), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(-180));
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(180));
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(270), 'rotate', array(90));
+
 		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('crop', array(1, 2), 'thumbnail', array(3, 4));
+
 		$this->assertFalse($success);
 	}
 
@@ -536,6 +568,7 @@ class GdToolkitTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals(
 				$environment['mimeTypes'],
 				$results,
@@ -568,6 +601,7 @@ class GdToolkitTest extends GalleryTestCase {
 					$results['operations'],
 					'Environment ' . $environment['name']
 				);
+
 				$this->assertEquals(
 					array(),
 					$results['properties'],
@@ -717,6 +751,7 @@ class GdToolkitTest extends GalleryTestCase {
 					'mimeTypes'   => $environment['mimeTypes'],
 				);
 			}
+
 			$qualityMimeTypes = array_intersect(array('image/jpeg'), $environment['mimeTypes']);
 
 			if (!empty($qualityMimeTypes)) {
@@ -784,6 +819,7 @@ class GdToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_toolkit->_free($res);
 
 		$this->assertEquals(0, $gd->_undestroyedResourceCounter, 'memory leak');

@@ -56,6 +56,7 @@ class GalleryStorageExtras {
 
 			return array(null, $this->_gs->_nonTransactionalDb);
 		}
+
 		$ret = $this->_dbInit();
 
 		if ($ret) {
@@ -95,6 +96,7 @@ class GalleryStorageExtras {
 	 */
 	public function loadEntities($ids) {
 		global $gallery;
+
 		$ret = $this->_dbInit();
 
 		if ($ret) {
@@ -128,6 +130,7 @@ class GalleryStorageExtras {
 					null,
 				);
 			}
+
 			$classNames[$types[$i]][$ids[$i]] = 1;
 		}
 
@@ -155,13 +158,16 @@ class GalleryStorageExtras {
 			while ($target) {
 				foreach ($memberInfo[$target]['members'] as $columnName => $columnInfo) {
 					list($tableName, $unused) = $this->_gs->_translateTableName($target);
-					$memberData[]             = $columnInfo;
-					$callbacks[]              = $columnName;
+
+					$memberData[] = $columnInfo;
+					$callbacks[]  = $columnName;
 					$columns[$tableName . '.' . $this->_gs->_translateColumnName($columnName)] = 1;
 					$tables[$tableName] = 1;
 				}
+
 				$target = $memberInfo[$target]['parent'];
 			}
+
 			$tables  = array_keys($tables);
 			$columns = array_keys($columns);
 
@@ -173,11 +179,16 @@ class GalleryStorageExtras {
 				}
 			}
 
-			$query  = 'SELECT ';
+			$query = 'SELECT ';
+
 			$query .= implode(', ', $columns);
+
 			$query .= ' FROM ';
+
 			$query .= implode(', ', $tables);
+
 			$query .= ' WHERE ';
+
 			$query .= implode(' AND ', $where);
 
 			// Execute the query
@@ -206,6 +217,7 @@ class GalleryStorageExtras {
 							"modules/{$memberInfo[$className]['module']}/classes/$className.class"
 						);
 					}
+
 					$entity = new $className();
 
 					if (empty($entity)) {
@@ -263,6 +275,7 @@ class GalleryStorageExtras {
 		if ($ret) {
 			return $ret;
 		}
+
 		$idColumn = null;
 
 		/*
@@ -275,7 +288,8 @@ class GalleryStorageExtras {
 
 		while ($target) {
 			foreach ($memberInfo[$target]['members'] as $memberName => $memberData) {
-				$type                     = $memberData['type'];
+				$type = $memberData['type'];
+
 				list($tableName, $unused) = $this->_gs->_translateTableName($target);
 
 				// If the member is modified, record the new value in our table
@@ -305,6 +319,7 @@ class GalleryStorageExtras {
 					$id['value']  = $value;
 				}
 			}
+
 			$target = $memberInfo[$target]['parent'];
 		}
 
@@ -355,8 +370,10 @@ class GalleryStorageExtras {
 				}
 
 				if (count($changeList)) {
-					$query  = 'UPDATE ' . $tableName . ' SET';
+					$query = 'UPDATE ' . $tableName . ' SET';
+
 					$query .= ' ' . implode(',', $changeList);
+
 					$query .= ' WHERE ' . $id['column'] . '=?';
 					$data[] = $id['value'];
 
@@ -386,6 +403,7 @@ class GalleryStorageExtras {
 				if (!$recordSet) {
 					return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
 				}
+
 				$this->_gs->_traceStart();
 				$affectedRows = $this->_gs->_db->Affected_Rows();
 				$this->_gs->_traceStop();
@@ -413,6 +431,7 @@ class GalleryStorageExtras {
 
 		$entity->clearPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
 		$entity->resetOriginalValues();
+
 		$ret = $entity->onSave();
 
 		if ($ret) {
@@ -455,8 +474,10 @@ class GalleryStorageExtras {
 		while ($target) {
 			foreach ($memberInfo[$target]['members'] as $columnName => $columnInfo) {
 				list($tableName, $unused) = $this->_gs->_translateTableName($target);
-				$tables[$tableName]       = 1;
+
+				$tables[$tableName] = 1;
 			}
+
 			$target = $memberInfo[$target]['parent'];
 		}
 
@@ -655,6 +676,7 @@ class GalleryStorageExtras {
 				// Success
 				break;
 			}
+
 			// An entity that we want is write locked
 			$this->releaseLocks($lockId);
 
@@ -691,7 +713,8 @@ class GalleryStorageExtras {
 				$readEntityIdCol,
 				$freshUntilCol
 			);
-			$data  = array($lockId, $entityId, $freshUntil);
+
+			$data = array($lockId, $entityId, $freshUntil);
 
 			$this->_gs->_traceStart();
 			$recordSet = $db->Execute($query, $data);
@@ -702,6 +725,7 @@ class GalleryStorageExtras {
 
 				return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null);
 			}
+
 			$lockInfo[$entityId] = true;
 		}
 
@@ -770,6 +794,7 @@ class GalleryStorageExtras {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$lockId = (int)$lockId;
 
 			// Check to see if any of the ids that we care about are locked
@@ -798,6 +823,7 @@ class GalleryStorageExtras {
 				// Success
 				break;
 			}
+
 			// An entity that we want is still locked
 			$this->releaseLocks($lockId);
 
@@ -834,7 +860,8 @@ class GalleryStorageExtras {
 				$writeEntityIdCol,
 				$freshUntilCol
 			);
-			$data  = array($lockId, $entityId, $freshUntil);
+
+			$data = array($lockId, $entityId, $freshUntil);
 
 			$this->_gs->_traceStart();
 			$recordSet = $db->Execute($query, $data);
@@ -845,6 +872,7 @@ class GalleryStorageExtras {
 
 				return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null);
 			}
+
 			$lockInfo[$entityId] = true;
 		}
 
@@ -891,10 +919,11 @@ class GalleryStorageExtras {
 			}
 
 			list($lockTable, $unused) = $this->_gs->_translateTableName('Lock');
-			$lockIdCol                = $this->_gs->_translateColumnName('lockId');
-			$freshUntilCol            = $this->_gs->_translateColumnName('freshUntil');
-			$lockIdMarkers            = GalleryUtilities::makeMarkers(count($lockIds));
-			$query                    = sprintf(
+
+			$lockIdCol     = $this->_gs->_translateColumnName('lockId');
+			$freshUntilCol = $this->_gs->_translateColumnName('freshUntil');
+			$lockIdMarkers = GalleryUtilities::makeMarkers(count($lockIds));
+			$query         = sprintf(
 				'UPDATE %s SET %s = ? WHERE %s in (%s)',
 				$lockTable,
 				$freshUntilCol,
@@ -929,8 +958,9 @@ class GalleryStorageExtras {
 		}
 
 		list($lockTable, $unused) = $this->_gs->_translateTableName('Lock');
-		$freshUntilCol            = $this->_gs->_translateColumnName('freshUntil');
-		$query                    = sprintf(
+
+		$freshUntilCol = $this->_gs->_translateColumnName('freshUntil');
+		$query         = sprintf(
 			'DELETE FROM %s WHERE %s < ?',
 			$lockTable,
 			$freshUntilCol
@@ -999,6 +1029,7 @@ class GalleryStorageExtras {
 		WHERE [::lockId] = ?
 		AND [::' . ($lock['type'] == LOCK_WRITE ? 'write' : 'read') . 'EntityId] IN ('
 		. GalleryUtilities::makeMarkers(count($ids)) . ')';
+
 		$query = $this->_gs->_translateQuery($query);
 
 		$this->_gs->_traceStart();
@@ -1025,6 +1056,7 @@ class GalleryStorageExtras {
 		$query = '
 		UPDATE [Lock] SET [::lockId] = ? WHERE [::lockId] = ? AND [::'
 		. ($lockType == LOCK_WRITE ? 'write' : 'read') . 'EntityId] IN (';
+
 		$query = $this->_gs->_translateQuery($query);
 
 		foreach ($relock as $lockId => $ids) {
@@ -1033,6 +1065,7 @@ class GalleryStorageExtras {
 				$query . GalleryUtilities::makeMarkers(count($ids)) . ')',
 				array_merge(array($newLockId, $lockId), $ids)
 			);
+
 			$this->_gs->_traceStop();
 
 			if (!$recordSet) {
@@ -1110,6 +1143,7 @@ class GalleryStorageExtras {
 			if ($ret) {
 				return $ret;
 			}
+
 			$db = $this->_gs->_db;
 		}
 
@@ -1118,9 +1152,11 @@ class GalleryStorageExtras {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($tableName) = $this->_gs->_translateTableName($mapName);
-		$data            = array();
-		$columns         = array();
+
+		$data    = array();
+		$columns = array();
 
 		foreach ($mapInfo as $memberName => $memberData) {
 			if (!array_key_exists($memberName, $entry)) {
@@ -1135,6 +1171,7 @@ class GalleryStorageExtras {
 			if (is_array($entry[$memberName])) {
 				return $this->_addMapEntries($mapInfo, $tableName, $entry, $db);
 			}
+
 			$columns[] = $this->_gs->_translateColumnName($memberName);
 			$data[]    = $this->_gs->_normalizeValue($entry[$memberName], $memberData);
 		}
@@ -1218,8 +1255,9 @@ class GalleryStorageExtras {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($tableName, $unused) = $this->_gs->_translateTableName($mapName);
-		
+
 		$data  = array();
 		$where = array();
 
@@ -1239,12 +1277,13 @@ class GalleryStorageExtras {
 						$qs[]   = '?';
 						$data[] = $this->_gs->_normalizeValue($value, $memberData);
 					}
+
 					$where[] = $this->_gs->_translateColumnName($memberName) . ' IN ('
 					. implode(',', $qs) . ')';
 				} else {
 					$value = $this->_gs->_normalizeValue($match[$memberName], $memberData);
 
-					if (is_null($value)) {
+					if (null === $value) {
 						$where[] = $this->_gs->_translateColumnName($memberName) . ' IS NULL';
 					} else {
 						$where[] = $this->_gs->_translateColumnName($memberName) . '=?';
@@ -1296,6 +1335,7 @@ class GalleryStorageExtras {
 			if ($ret) {
 				return $ret;
 			}
+
 			$db = $this->_gs->_db;
 		}
 
@@ -1327,6 +1367,7 @@ class GalleryStorageExtras {
 	 */
 	public function getModuleSql($moduleId) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$sqlFile  = sprintf(
 			'%smodules/%s/classes/GalleryStorage/schema.tpl',
@@ -1360,12 +1401,13 @@ class GalleryStorageExtras {
 	 * @static
 	 */
 	public static function parseSqlTemplate($sqlData, $dbType) {
-		$info   = array(
+		$info = array(
 			'table'  => array(),
 			'alter'  => array(),
 			'remove' => array(),
 			'test'   => array(),
 		);
+
 		$dbname = $tablename = null;
 		$record = false;
 
@@ -1389,26 +1431,31 @@ class GalleryStorageExtras {
 					if (!isset($info['test'][$matches[1]][$matches[2]])) {
 						$info['test'][$matches[1]][$matches[2]] = '';
 					}
+
 					$insertPointer =& $info['test'][$matches[1]][$matches[2]];
 				} elseif (preg_match('/^A_(.*)_(\d+)\.(\d+)/', $tablename, $matches)) {
 					if (!isset($info['alter'][$matches[1]][$matches[2]][$matches[3]])) {
 						$info['alter'][$matches[1]][$matches[2]][$matches[3]] = '';
 					}
+
 					$insertPointer =& $info['alter'][$matches[1]][$matches[2]][$matches[3]];
 				} elseif (preg_match('/^R_(.*)_(\d+)\.(\d+)/', $tablename, $matches)) {
 					if (!isset($info['remove'][$matches[1]][$matches[2]][$matches[3]])) {
 						$info['remove'][$matches[1]][$matches[2]][$matches[3]] = '';
 					}
+
 					$insertPointer =& $info['remove'][$matches[1]][$matches[2]][$matches[3]];
 				} else {
 					if (!isset($info['table'][$tablename])) {
 						$info['table'][$tablename] = '';
 					}
+
 					$insertPointer =& $info['table'][$tablename];
 				}
 
 				continue;
 			}
+
 			$insertPointer .= $line . "\n";
 		}
 
@@ -1420,6 +1467,7 @@ class GalleryStorageExtras {
 	 */
 	public function configureStore($moduleId, $upgradeInfo = array()) {
 		global $gallery;
+
 		$gallery->guaranteeTimeLimit(20);
 
 		$this->_clearEntityAndMapCache();
@@ -1460,6 +1508,7 @@ class GalleryStorageExtras {
 			if ($ret) {
 				return $ret;
 			}
+
 			unset($moduleSql['table']['Schema']);
 
 			// Create our sequences now
@@ -1484,14 +1533,16 @@ class GalleryStorageExtras {
 		}
 
 		list($major, $minor) = $tableVersions['Schema'];
-		$canStoreSql         = version_compare("$major.$minor", '1.1', '>=');
-		$canStoreTableInfo   = version_compare("$major.$minor", '1.2', '>=');
+
+		$canStoreSql       = version_compare("$major.$minor", '1.1', '>=');
+		$canStoreTableInfo = version_compare("$major.$minor", '1.2', '>=');
 
 		if (!$canStoreTableInfo && $moduleId == 'core' && !in_array('Schema:1.1', $upgradeInfo)) {
 			// Ensure that the table info can be stored after the first configureStore() call
 			if (!in_array('Schema:1.0', $upgradeInfo)) {
 				$upgradeInfo[] = 'Schema:1.0';
 			}
+
 			$upgradeInfo[] = 'Schema:1.1';
 
 			return $this->configureStore($moduleId, $upgradeInfo);
@@ -1509,6 +1560,7 @@ class GalleryStorageExtras {
 		 */
 		foreach ($moduleSql['table'] as $rawTableName => $sql) {
 			$gallery->guaranteeTimeLimit(20);
+
 			list($tableName, $unused, $tableNameInSchema) = $this->_gs->_translateTableName($rawTableName);
 
 			$type = $info = null;
@@ -1584,6 +1636,7 @@ class GalleryStorageExtras {
 						&& in_array("$rawTableName:$major.$minor", $upgradeInfo)
 					) {
 						$sql = $moduleSql['alter'][$rawTableName][$major][$minor];
+
 						$ret = $this->_executeSql($sql);
 
 						if ($ret) {
@@ -1610,6 +1663,7 @@ class GalleryStorageExtras {
 								return $ret;
 							}
 						}
+
 						// Remember altered tables for post-upgrade optimizations
 						$altered  = array($rawTableName);
 						$cacheKey = 'GalleryStorage::configureStore::alter';
@@ -1617,6 +1671,7 @@ class GalleryStorageExtras {
 						if (GalleryDataCache::containsKey($cacheKey)) {
 							$altered = array_merge(GalleryDataCache::get($cacheKey), $altered);
 						}
+
 						GalleryDataCache::put($cacheKey, $altered, true);
 
 						// Reload all table versions, cause one has now changed
@@ -1646,6 +1701,7 @@ class GalleryStorageExtras {
 	 */
 	public function _getTableInfo($moduleId, $type) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$fileBase      = $type == 'map' ? 'Maps' : 'Entities';
@@ -1678,7 +1734,8 @@ class GalleryStorageExtras {
 		$info = null,
 		$canStoreTableInfo = true
 	) {
-		$data  = array($tableSql);
+		$data = array($tableSql);
+
 		$query = 'UPDATE [GallerySchema] SET [::createSql] = ?';
 
 		if ($canStoreTableInfo) {
@@ -1695,6 +1752,7 @@ class GalleryStorageExtras {
 			$query .= ', [::info] = ?';
 			$data[] = $info;
 		}
+
 		$query .= ' WHERE [::name] = ?';
 		$data[] = $tableNameInSchema;
 
@@ -1743,7 +1801,8 @@ class GalleryStorageExtras {
 				continue;
 			}
 
-			$data  = array();
+			$data = array();
+
 			$query = 'UPDATE [Schema] SET ';
 
 			if (isset($mapInfo[$tableName])) {
@@ -1753,6 +1812,7 @@ class GalleryStorageExtras {
 						$tableName => $mapInfo[$tableName],
 					)
 				);
+
 				$data[] = 'map';
 			} elseif (isset($entityInfo[$tableName])) {
 				$query .= '[::info] = ?, [::type] = ?,';
@@ -1761,6 +1821,7 @@ class GalleryStorageExtras {
 						$tableName => $entityInfo[$tableName],
 					)
 				);
+
 				$data[] = 'entity';
 			} else {
 				// Some tables don't have a map description (i.e. Lock).
@@ -1835,6 +1896,7 @@ class GalleryStorageExtras {
 					}
 				} else {
 					$gallery->guaranteeTimeLimit(20);
+
 					list($major, $minor) = $tableVersions[$tableNameInSchema];
 
 					if (!empty($moduleSql['remove'][$rawTableName][$major][$minor])) {
@@ -1858,6 +1920,7 @@ class GalleryStorageExtras {
 	 */
 	public function unconfigureStore($moduleId) {
 		global $gallery;
+
 		$gallery->guaranteeTimeLimit(20);
 
 		$ret = $this->_dbInit(true);
@@ -1881,7 +1944,8 @@ class GalleryStorageExtras {
 		 * version.  If so, apply it.
 		 */
 		list($schemaTableName, $unused) = $this->_gs->_translateTableName('Schema');
-		$schemaColumnName               = $this->_gs->_translateColumnName('name');
+
+		$schemaColumnName = $this->_gs->_translateColumnName('name');
 
 		foreach ($moduleSql['table'] as $rawTableName => $ignored) {
 			// Don't drop the schema table, it's part of the core.
@@ -1890,6 +1954,7 @@ class GalleryStorageExtras {
 			}
 
 			$this->_gs->_traceStart();
+
 			list($tableName, $unused, $tableNameInSchema) = $this->_gs->_translateTableName($rawTableName);
 
 			if (in_array(GalleryUtilities::strToLower($tableName), $metatables)) {
@@ -1907,11 +1972,13 @@ class GalleryStorageExtras {
 				$schemaTableName,
 				$schemaColumnName
 			);
-			$recordSet  = $this->_gs->_db->Execute($cleanQuery, array($tableNameInSchema));
+
+			$recordSet = $this->_gs->_db->Execute($cleanQuery, array($tableNameInSchema));
 
 			if (empty($recordSet)) {
 				return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
 			}
+
 			$this->_gs->_traceStop();
 		}
 
@@ -1930,7 +1997,8 @@ class GalleryStorageExtras {
 		}
 
 		list($schemaTableName) = $this->_gs->_translateTableName('Schema');
-		$query                 = 'SELECT ' . $this->_gs->_translateColumnName('name') . ', '
+
+		$query = 'SELECT ' . $this->_gs->_translateColumnName('name') . ', '
 		. $this->_gs->_translateColumnName('major') . ', '
 		. $this->_gs->_translateColumnName('minor') . ' FROM ' . $schemaTableName;
 
@@ -1978,6 +2046,7 @@ class GalleryStorageExtras {
 
 			if (!empty($query)) {
 				$query = str_replace('DB_TABLE_PREFIX', $this->_gs->_tablePrefix, $query);
+
 				$query = str_replace('DB_COLUMN_PREFIX', $this->_gs->_columnPrefix, $query);
 
 				// Perform database specific replacements
@@ -2006,6 +2075,7 @@ class GalleryStorageExtras {
 	 */
 	public function executeSqlFile($fileName) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		if (!$platform->file_exists($fileName)) {
@@ -2046,6 +2116,7 @@ class GalleryStorageExtras {
 	 */
 	public function cleanStore() {
 		global $gallery;
+
 		$gallery->guaranteeTimeLimit(20);
 
 		$ret = $this->_dbInit(true);
@@ -2073,7 +2144,8 @@ class GalleryStorageExtras {
 
 			foreach (array_keys($tableVersions) as $rawTableName) {
 				list($tableName, $unused) = $this->_gs->_translateTableName($rawTableName);
-				$query                    = sprintf('DROP TABLE %s', $tableName);
+
+				$query = sprintf('DROP TABLE %s', $tableName);
 
 				$this->_gs->_traceStart();
 				$recordSet = $this->_gs->_db->Execute($query);
@@ -2108,6 +2180,7 @@ class GalleryStorageExtras {
 		if (!isset($this->_gs->_db)) {
 			return '';
 		}
+
 		$this->_gs->_traceStart();
 		$perf = newPerfMonitor($this->_gs->_db);
 		$buf  = $perf->SuspiciousSQL();
@@ -2134,8 +2207,9 @@ class GalleryStorageExtras {
 		}
 
 		list($schemaTableName) = $this->_gs->_translateTableName('Schema');
-		$schemaTableName       = GalleryUtilities::strToLower($schemaTableName);
-		$isInstalled           = preg_match("/\b$schemaTableName\b/", implode(' ', $metatables));
+
+		$schemaTableName = GalleryUtilities::strToLower($schemaTableName);
+		$isInstalled     = preg_match("/\b$schemaTableName\b/", implode(' ', $metatables));
 
 		return array(null, $isInstalled);
 	}
@@ -2211,6 +2285,7 @@ class GalleryStorageExtras {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$db = $this->_gs->_db;
 		}
 
@@ -2256,6 +2331,7 @@ class GalleryStorageExtras {
 				null,
 			);
 		}
+
 		$lockId = (int)$lockId;
 
 		// Put in a lock request
@@ -2269,7 +2345,8 @@ class GalleryStorageExtras {
 			$requestCol,
 			$freshUntilCol
 		);
-		$data          = array($lockId, time() + 30);
+
+		$data = array($lockId, time() + 30);
 
 		$this->_gs->_traceStart();
 		$recordSet = $db->Execute($query, $data);
@@ -2352,11 +2429,13 @@ class GalleryStorageExtras {
 		$local = array();
 
 		if (!empty($checkIds)) {
-			$idCol                = $this->_gs->_translateColumnName('id');
-			$entityTypeCol        = $this->_gs->_translateColumnName('entityType');
+			$idCol         = $this->_gs->_translateColumnName('id');
+			$entityTypeCol = $this->_gs->_translateColumnName('entityType');
+
 			list($table, $unused) = $this->_gs->_translateTableName('GalleryEntity');
-			$markers              = GalleryUtilities::makeMarkers(count($checkIds));
-			$query                = 'SELECT ' . $idCol . ', ' . $entityTypeCol
+
+			$markers = GalleryUtilities::makeMarkers(count($checkIds));
+			$query   = 'SELECT ' . $idCol . ', ' . $entityTypeCol
 			. ' FROM ' . $table . ' WHERE ' . $idCol . ' IN (' . $markers . ')';
 
 			$this->_gs->_traceStart();
@@ -2371,6 +2450,7 @@ class GalleryStorageExtras {
 							null,
 						);
 					}
+
 					/*
 					 * Save a copy locally, in case the global cache is disabled
 					 * (like in the upgrader)
@@ -2594,6 +2674,7 @@ class GalleryStorageExtras {
 
 			if (!$time) {
 				unset($this->_gs->_nonTransactionalDb);
+
 				list($ret) = $this->_getNonTransactionalDatabaseConnection();
 
 				if ($ret) {
@@ -2609,6 +2690,7 @@ class GalleryStorageExtras {
 
 			if (!$time) {
 				unset($this->_gs->_db);
+
 				list($ret, $this->_gs->_db) = $this->_gs->_getConnection();
 
 				if ($ret) {

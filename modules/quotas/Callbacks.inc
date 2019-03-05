@@ -70,8 +70,10 @@ class QuotasCallbacks {
 					if ($block['currentUsagePercent'] > 100) {
 						$block['currentUsagePercent'] = 100;
 					}
+
 					$block['currentUnusedPercent'] = 100 - $block['currentUsagePercent'];
 				}
+
 				list($ret, $block['currentUsage'], $block['currentUsageUnit']) = GalleryQuotasHelper::humanReadableFromKilobytes($block['currentUsage']);
 
 				if ($ret) {

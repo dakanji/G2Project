@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * This is Gallery's templating class.  It hides the details of the implementation (eg, Smarty)
  * and provides a unified means of handling internationalization.
@@ -60,6 +61,7 @@ class GalleryTemplate {
 
 	public function __construct($templateDir, $initSmarty = true, $trimWhitespace = true) {
 		global $gallery;
+
 		$this->_templateDir = $templateDir;
 
 		// This will be the place to put the compiled templates
@@ -137,8 +139,10 @@ class GalleryTemplate {
 
 		if (!isset($l10Domain)) {
 			list($type, $id, $junk) = explode('/', $tpl, 3);
-			$l10Domain              = $type . '_' . $id;
+
+			$l10Domain = $type . '_' . $id;
 		}
+
 		$head['tpl'][$tpl] = $l10Domain;
 	}
 
@@ -179,6 +183,7 @@ class GalleryTemplate {
 	 */
 	public function link($attributes) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		$head     =& $this->getVariableByReference('head');
@@ -192,8 +197,10 @@ class GalleryTemplate {
 					)
 				);
 			}
+
 			$linkHtml .= " $key=\"$value\"";
 		}
+
 		$linkHtml               .= '/>';
 		$head['link'][$linkHtml] = true;
 	}
@@ -276,6 +283,7 @@ class GalleryTemplate {
 	 */
 	public function _initCompiledTemplateDir() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Make a unique subdirectory for compiled templates for this templates dir
@@ -284,6 +292,7 @@ class GalleryTemplate {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$dir = $this->_compiledTemplateDir . DIRECTORY_SEPARATOR . $themeId;
 
 		if ($platform->file_exists($dir) && !$platform->is_dir($dir)) {
@@ -344,6 +353,7 @@ class GalleryTemplate {
 						null,
 					);
 				}
+
 				list($ret, $dir) = $this->_initCompiledTemplateDir();
 
 				if ($ret) {
@@ -383,6 +393,7 @@ class GalleryTemplate {
 		if ($gallery->getDebug()) {
 			$smarty->debugging = true;
 		}
+
 		$smarty->use_sub_dirs = false;
 
 		$smarty->compile_check = GalleryTemplate::shouldDoCompileCheck();
@@ -444,8 +455,10 @@ class GalleryTemplate {
 					'core',
 					'smarty.compile_check'
 				);
+
 				/** @todo Log this error */
 			}
+
 			$compileCheck = (bool)$compileCheck;
 			GalleryDataCache::put($cacheKey, $compileCheck);
 		} else {
@@ -529,6 +542,7 @@ class GalleryTemplate {
 	 */
 	public static function resourceGetTimestamp($templateName, &$templateTimestamp, &$smarty) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$success      = false;
@@ -559,6 +573,7 @@ class GalleryTemplate {
 	 */
 	public static function _getActualTemplatePath($templateName, &$smarty) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Check template override
@@ -637,7 +652,8 @@ class GalleryTemplate {
 	 * @access private
 	 */
 	public static function _getThemeId() {
-		$view               = new GalleryView();
+		$view = new GalleryView();
+
 		list($ret, $itemId) = $view->getItem();
 
 		if ($ret) {

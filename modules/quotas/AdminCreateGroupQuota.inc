@@ -38,7 +38,8 @@ class AdminCreateGroupQuotaController extends GalleryController {
 
 		$results = $status = $error = array();
 
-		$groupId           = GalleryUtilities::getRequestVariables('groupId');
+		$groupId = GalleryUtilities::getRequestVariables('groupId');
+
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -58,6 +59,7 @@ class AdminCreateGroupQuotaController extends GalleryController {
 					GalleryCoreApi::requireOnce(
 						'modules/quotas/classes/GalleryQuotasHelper.class'
 					);
+
 					$form['quotaSize'] = round((float)$form['quotaSize'], 2);
 
 					if ($form['quotaUnit'] == 'KB') {
@@ -77,6 +79,7 @@ class AdminCreateGroupQuotaController extends GalleryController {
 						if (!isset($group)) {
 							return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 						}
+
 						list($ret, $quotaExists, $groupQuota) = GalleryQuotasHelper::fetchGroupQuota($group->getId());
 
 						if ($ret) {
@@ -126,6 +129,7 @@ class AdminCreateGroupQuotaController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'quotas.AdminCreateGroupQuota';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -147,7 +151,8 @@ class AdminCreateGroupQuotaView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$groupId           = GalleryUtilities::getRequestVariables('groupId');
+		$groupId = GalleryUtilities::getRequestVariables('groupId');
+
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -166,11 +171,13 @@ class AdminCreateGroupQuotaView extends GalleryView {
 
 		$AdminCreateGroupQuota            = array();
 		$AdminCreateGroupQuota['groupId'] = $group->getId();
-		list($ret, $module)               = GalleryCoreApi::loadPlugin('module', 'quotas');
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'quotas');
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$AdminCreateGroupQuota['quotaUnitChoices'] = array(
 			'KB' => $module->translate('KB'),
 			'MB' => $module->translate('MB'),

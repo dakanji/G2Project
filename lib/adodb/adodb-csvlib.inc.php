@@ -6,6 +6,7 @@ if (!defined('ADODB_DIR')) {
 }
 
 global $ADODB_INCLUDED_CSV;
+
 $ADODB_INCLUDED_CSV = 1;
 
 /*
@@ -19,11 +20,11 @@ $ADODB_INCLUDED_CSV = 1;
   Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Library for CSV serialization. This is used by the csv/proxy driver and is the
   CacheExecute() serialization format. ==== NOTE ====
   Format documented at http://php.weblogs.com/ADODB_CSV ==============
 */
+
 
 	/**
 	 * convert a recordset into special format
@@ -38,8 +39,8 @@ function _rs2serialize(&$rs, $conn = false, $sql = '') {
 	if ($sql) {
 		$sql = urlencode($sql);
 	}
-	// metadata setup
 
+	// metadata setup
 	if ($max <= 0 || $rs->dataProvider == 'empty') { // is insert/update/delete
 		if (is_object($conn)) {
 			$sql .= ',' . $conn->Affected_Rows();
@@ -52,6 +53,7 @@ function _rs2serialize(&$rs, $conn = false, $sql = '') {
 
 		return $text;
 	}
+
 	$tt = ($rs->timeCreated) ? $rs->timeCreated : time();
 
 	// changed format from ====0 to ====1
@@ -106,6 +108,7 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 
 		return $false;
 	}
+
 	@flock($fp, LOCK_SH);
 	$arr = array();
 	$ttl = 0;
@@ -118,10 +121,10 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 
 			return $false;
 		}
+
 		// check for meta data
 		// $meta[0] is -1 means return an empty recordset
 		// $meta[1] contains a time
-
 		if (strncmp($meta[0], '====', 4) === 0) {
 			if ($meta[0] == '====-1') {
 				if (sizeof($meta) < 5) {
@@ -130,6 +133,7 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 
 					return $false;
 				}
+
 				fclose($fp);
 
 				if ($timeout > 0) {
@@ -149,6 +153,7 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 
 				return $rs;
 			}
+
 			// Under high volume loads, we want only 1 thread/process to _write_file
 			// so that we don't have 50 processes queueing to write the same data.
 			// We use probabilistic timeout, ahead of time.
@@ -204,6 +209,7 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 				}// (timeout>0)
 				$ttl = $meta[1];
 			}
+
 			//================================================
 			// new cache format - use serialize extensively...
 			if ($meta[0] === '====1') {
@@ -217,6 +223,7 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 						$text .= $txt;
 					}
 				}
+
 				fclose($fp);
 				$rs = unserialize($text);
 
@@ -253,6 +260,7 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 
 				break;
 			}
+
 			$fld             = new ADOFieldObject();
 			$fld->name       = urldecode($o2[0]);
 			$fld->type       = $o2[1];
@@ -287,6 +295,7 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 
 		return $false;
 	}
+
 	$rs              = new $rsclass();
 	$rs->timeCreated = $ttl;
 	$rs->InitArrayFields($arr, $flds);
@@ -325,6 +334,7 @@ function adodb_write_file($filename, $contents, $debug = false) {
 		} else {
 			$ok = false;
 		}
+
 		fclose($fd);
 
 		if ($ok) {
@@ -357,6 +367,7 @@ function adodb_write_file($filename, $contents, $debug = false) {
 		} else {
 			$ok = false;
 		}
+
 		fclose($fd);
 		@chmod($filename, 0644);
 	} else {
@@ -365,6 +376,7 @@ function adodb_write_file($filename, $contents, $debug = false) {
 		if ($debug) {
 			ADOConnection::outp(" Failed acquiring lock for $filename<br>\n");
 		}
+
 		$ok = false;
 	}
 

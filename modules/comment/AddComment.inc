@@ -45,6 +45,7 @@ class AddCommentController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		// Make sure we have permission to add a comment
@@ -87,6 +88,7 @@ class AddCommentController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$phpVm       = $gallery->getPhpVm();
 			$currentTime = $phpVm->time();
 
@@ -216,6 +218,7 @@ class AddCommentController extends GalleryController {
 		} else {
 			$results['delegate']['view'] = 'comment.AddComment';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 

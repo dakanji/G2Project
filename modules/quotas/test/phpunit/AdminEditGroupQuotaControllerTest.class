@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 
 /**
@@ -54,6 +53,7 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteEntity($group);
 	}
 
@@ -119,6 +119,7 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue($quotaExists, 'Quota does not exist');
 		$this->assertEquals($group->getId(), $groupQuota['id'], 'Group Ids do not match');
 		$this->assertEquals(6144, $groupQuota['quota'], 'Group quota does not match');

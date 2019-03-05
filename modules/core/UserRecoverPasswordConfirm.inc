@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/helpers/UserRecoverPasswordHelper_simple.class'
 );
@@ -74,6 +73,7 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 				if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 					return array($ret, null);
 				}
+
 				/*
 				 * Check the database to see if a previous request.
 				 * If a request exists, check the timestamp to see if a new request can be
@@ -135,6 +135,7 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 
 						$status['passwordRecovered'] = 1;
 					}
+
 					$ret = GalleryCoreApi::removeMapEntry(
 						'GalleryRecoverPasswordMap',
 						array(
@@ -223,6 +224,7 @@ class UserRecoverPasswordConfirmView extends GalleryView {
 				),
 			);
 		}
+
 		$UserRecoverPasswordConfirm = array();
 		$template->setVariable('UserRecoverPasswordConfirm', $UserRecoverPasswordConfirm);
 		$template->setVariable('controller', 'core.UserRecoverPasswordConfirm');

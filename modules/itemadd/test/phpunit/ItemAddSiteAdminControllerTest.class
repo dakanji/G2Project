@@ -110,6 +110,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('admin', $params['fromweb'], 'fromweb');
 		$this->assertEquals('off', $params['fromserver'], 'fromserver');
 	}
@@ -153,11 +154,13 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		);
 
 		GalleryDataCache::reset();
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'itemadd');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(__DIR__, $params['uploadLocalServer.dir.3'], 'new dir');
 		$this->assertFalse(isset($params['uploadLocalServer.dir.4']), 'end of list');
 
@@ -210,12 +213,14 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testAddUploadLocalServerDirBogus() {
 		global $gallery;
+
 		$gallery->_phpVm = new ItemAddSiteAdminControllerTestPhpVm('');
 
 		GalleryUtilities::putRequestVariable(
 			'form[uploadLocalServer][newDir]',
 			'/this/fake/gallery2/path/wont/exist'
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][addUploadLocalServerDir]', 1);
 
 		// Perform the request and verify that we failed
@@ -255,6 +260,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testAddUploadLocalServerDirNotReadable() {
 		global $gallery;
+
 		$platform = new UnitTestPlatform();
 		$platform->setReply('splitPath', array('/test/path'), array('/', 'test', 'path'));
 		$platform->setReply('isRestrictedByOpenBaseDir', array('/test/path'), false);
@@ -281,6 +287,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testAddUploadLocalServerDirRestricted() {
 		global $gallery;
+
 		$platform = new UnitTestPlatform();
 		$platform->setReply('splitPath', array('/test/path'), array('/', 'test', 'path'));
 		$platform->setReply('isRestrictedByOpenBaseDir', array('/test/path'), true);
@@ -309,6 +316,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function testAddUploadLocalServerDirDotDotPath() {
 		// Apply realpath to paths with ..
 		global $gallery;
+
 		$platform = new UnitTestPlatform();
 		$platform->setReply('splitPath', array('/test/../path'), array('/', 'test', '..', 'path'));
 		$platform->setReply('realpath', array('/test/../path'), '/path');
@@ -343,6 +351,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function testAddUploadLocalServerDirRelativePath() {
 		// Relative path should be converted to absolute (with realpath)
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$saveDir  = $platform->getcwd();
 
@@ -387,6 +396,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('a', $param['uploadLocalServer.dir.1']);
 		$this->assertEquals(
 			$platform->realpath(__DIR__),
@@ -397,6 +407,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testAddUploadLocalServerDirWithEntity() {
 		global $gallery;
+
 		$platform = new UnitTestPlatform();
 		$platform->setReply('splitPath', array('/php&unit'), array('/', 'php&unit'));
 		$platform->setReply('isRestrictedByOpenBaseDir', array('/php&unit'), false);
@@ -471,6 +482,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function testAddUploadLocalServerDirWithSymlink() {
 		// If symlink in the path check open_basedir with realpath but store given path
 		global $gallery;
+
 		$ret = $this->_setUploadDirs(
 			array(
 				1 => 'a',
@@ -517,6 +529,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('a', $param['uploadLocalServer.dir.1']);
 		$this->assertEquals('/link/dir', $param['uploadLocalServer.dir.2'], 'new dir');
 	}
@@ -556,11 +569,13 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		);
 
 		GalleryDataCache::reset();
+
 		list($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'itemadd');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('a', $param['uploadLocalServer.dir.1']);
 		$this->assertEquals('b', $param['uploadLocalServer.dir.2']);
 		$this->assertEquals('c', $param['uploadLocalServer.dir.3']);

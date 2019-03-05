@@ -47,7 +47,8 @@ class ItemEditTheme extends ItemEditPlugin {
 			$error = array();
 
 			if (!empty($form['theme'])) {
-				$themeId           = $form['theme'];
+				$themeId = $form['theme'];
+
 				list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 
 				if ($ret) {
@@ -77,6 +78,7 @@ class ItemEditTheme extends ItemEditPlugin {
 
 			$item->setSerialNumber($form['serialNumber']);
 			$item->setTheme($themeId);
+
 			$ret = $item->save();
 
 			if ($ret) {
@@ -115,6 +117,7 @@ class ItemEditTheme extends ItemEditPlugin {
 						if (isset($form['changeInDescendents']['theme'])) {
 							$album->setTheme($form['theme']);
 						}
+
 						$ret = $album->save();
 
 						if ($ret) {
@@ -123,6 +126,7 @@ class ItemEditTheme extends ItemEditPlugin {
 							return array($ret, null, null, null);
 						}
 					}
+
 					$ret = GalleryCoreApi::releaseLocks($lockId);
 
 					if ($ret) {
@@ -138,6 +142,7 @@ class ItemEditTheme extends ItemEditPlugin {
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
+
 			list($ret, $error, $status) = GalleryCoreApi::handleThemeSettingsRequest(
 				$themeId,
 				$item->getId(),
@@ -202,6 +207,7 @@ class ItemEditTheme extends ItemEditPlugin {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$themeList = array(
 			'' => $module->translate('&laquo; default theme &raquo;'),
 		);
@@ -221,8 +227,10 @@ class ItemEditTheme extends ItemEditPlugin {
 
 				return array($ret, null, null);
 			}
+
 			$themeList[$id] = $tmp->translate($tmp->getName());
 		}
+
 		$ItemEditTheme['themeList'] = $themeList;
 		$ItemEditTheme['theme']     = $themeId;
 

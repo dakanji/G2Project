@@ -1,7 +1,6 @@
 <?php
 
 // Romanian - by "bogdan stefan" <sbogdan#rsb.ro>
-
 $ADODB_LANG_ARRAY = array(
 	'LANG'                       => 'ro',
 	DB_ERROR                     => 'eroare necunoscuta',

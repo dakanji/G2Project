@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/dcraw/classes/DcrawToolkitHelper.class');
 
 /**
@@ -87,6 +86,7 @@ class AdminDcrawController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				list($ret, $isActive) = $module->isActive();
 
 				if ($ret) {
@@ -117,6 +117,7 @@ class AdminDcrawController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'dcraw.AdminDcraw';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -160,8 +161,10 @@ class AdminDcrawView extends GalleryView {
 		if (isset($form['action']['test'])) {
 			if (!empty($form['path'])) {
 				$gallery->startRecordingDebugSnippet();
+
 				list($ret, $testResults) = DcrawToolkitHelper::testBinary($form['path']);
-				$debugSnippet            = $gallery->stopRecordingDebugSnippet();
+
+				$debugSnippet = $gallery->stopRecordingDebugSnippet();
 
 				$success = true;
 
@@ -180,11 +183,11 @@ class AdminDcrawView extends GalleryView {
 							$success = false;
 							$failCount++;
 						}
+
 						$tests[] = $testResult;
 					}
 
-					if ($success) {
-					}
+					if ($success) {}
 				}
 			} else {
 				$form['error']['path']['missing'] = 1;
@@ -196,6 +199,7 @@ class AdminDcrawView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $isActive) = $module->isActive();
 
 		if ($ret) {

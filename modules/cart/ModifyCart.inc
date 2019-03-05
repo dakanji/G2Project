@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/cart/classes/CartHelper.class');
 
 /**
@@ -69,6 +68,7 @@ class ModifyCartController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					$status['cartModified'] = 1;
 
 					break;
@@ -80,6 +80,7 @@ class ModifyCartController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					$status['cartModified'] = 1;
 
 					break;
@@ -91,6 +92,7 @@ class ModifyCartController extends GalleryController {
 						'CartPluginInterface_1_0',
 					) as $interface) {
 						GalleryCoreApi::requireOnce("modules/cart/classes/$interface.class");
+
 						list($ret, $cartPlugin) = GalleryCoreApi::newFactoryInstanceById(
 							$interface,
 							$form['pluginId']

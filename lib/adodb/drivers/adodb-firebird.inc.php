@@ -9,7 +9,6 @@
 Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
 */
 
 // security - hide paths
@@ -46,6 +45,7 @@ class ADODB_firebird extends ADODB_ibase {
 
 				break;
 		}
+
 		$arr['version']     = ADOConnection::_findvers($s);
 		$arr['description'] = $s;
 
@@ -63,6 +63,7 @@ class ADODB_firebird extends ADODB_ibase {
 		if ($nrows >= 0) {
 			$str .= "FIRST $nrows ";
 		}
+
 		$str .= ($offset >= 0) ? "SKIP $offset " : '';
 
 		$sql = preg_replace('/^[ \t]*select/i', $str, $sql);
@@ -76,7 +77,6 @@ class ADODB_firebird extends ADODB_ibase {
 		return $rs;
 	}
 }
-
 
 class ADORecordSet_firebird extends ADORecordSet_ibase {
 	public $databaseType = 'firebird';

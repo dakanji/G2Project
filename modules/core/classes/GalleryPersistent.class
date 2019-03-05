@@ -63,6 +63,7 @@ class GalleryPersistent {
 		if ($member) {
 			return $this->_persistentStatus['originalValue'][$member] !== $this->$member;
 		}
+
 		$target = $this->entityType;
 
 		foreach (array_keys($this->_persistentStatus['originalValue']) as $key) {
@@ -110,6 +111,7 @@ class GalleryPersistent {
 					$this->_persistentStatus['originalValue'][$member] = isset($this->$member) ? $this->$member : null;
 				}
 			}
+
 			$target = $data[$target]['parent'];
 		}
 

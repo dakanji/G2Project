@@ -26,11 +26,6 @@ if (!defined('ADODB_DIR')) {
 
 /*--------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------*/
-
-
-
-
-
 class ADODB_db2 extends ADOConnection {
 	public $databaseType    = 'db2';
 	public $fmtDate         = "'Y-m-d'";
@@ -74,6 +69,7 @@ class ADODB_db2 extends ADOConnection {
 
 			return null;
 		}
+
 		// This needs to be set before the connect().
 		// Replaces the odbc_binmode() call that was in Execute()
 		ini_set('ibm_db2.binmode', $this->binmode);
@@ -98,7 +94,6 @@ class ADODB_db2 extends ADOConnection {
 
 		// For db2_connect(), there is an optional 4th arg.  If present, it must be
 		// an array of valid options.  So far, we don't use them.
-
 		$this->_errorMsg = @db2_conn_errormsg();
 
 		if (isset($this->connectStmt)) {
@@ -192,6 +187,7 @@ class ADODB_db2 extends ADOConnection {
 			if ($s) {
 				$s .= $this->concat_operator;
 			}
+
 			$ch = $fmt[$i];
 
 			switch ($ch) {
@@ -200,6 +196,7 @@ class ADODB_db2 extends ADOConnection {
 					if ($len == 1) {
 						return "year($col)";
 					}
+
 					$s .= "char(year($col))";
 
 					break;
@@ -208,6 +205,7 @@ class ADODB_db2 extends ADOConnection {
 					if ($len == 1) {
 						return "monthname($col)";
 					}
+
 					$s .= "substr(monthname($col),1,3)";
 
 					break;
@@ -216,6 +214,7 @@ class ADODB_db2 extends ADOConnection {
 					if ($len == 1) {
 						return "month($col)";
 					}
+
 					$s .= "right(digits(month($col)),2)";
 
 					break;
@@ -225,6 +224,7 @@ class ADODB_db2 extends ADOConnection {
 					if ($len == 1) {
 						return "day($col)";
 					}
+
 					$s .= "right(digits(day($col)),2)";
 
 					break;
@@ -276,6 +276,7 @@ class ADODB_db2 extends ADOConnection {
 						$i++;
 						$ch = substr($fmt, $i, 1);
 					}
+
 					$s .= $this->qstr($ch);
 			}
 		}
@@ -287,7 +288,6 @@ class ADODB_db2 extends ADOConnection {
 		$row = $this->GetRow(
 			'SELECT service_level, fixpack_num FROM TABLE(sysproc.env_get_inst_info()) as INSTANCEINFO'
 		);
-
 
 		if ($row) {
 			$info['version']     = $row[0] . ':' . $row[1];
@@ -304,6 +304,7 @@ class ADODB_db2 extends ADOConnection {
 		if (empty($this->_genSeqSQL)) {
 			return false;
 		}
+
 		$ok = $this->Execute(sprintf($this->_genSeqSQL, $seqname, $start));
 
 		if (!$ok) {
@@ -330,13 +331,14 @@ class ADODB_db2 extends ADOConnection {
 			if ($nrows >= 0) {
 				$sql .= " FETCH FIRST $nrows ROWS ONLY ";
 			}
+
 			$rs = $this->Execute($sql, $inputArr);
 		} else {
-			if ($offset > 0 && $nrows < 0) {
-			} else {
+			if ($offset > 0 && $nrows < 0) {} else {
 				$nrows += $offset;
 				$sql   .= " FETCH FIRST $nrows ROWS ONLY ";
 			}
+
 			$rs = ADOConnection::SelectLimit($sql, -1, $offset, $inputArr);
 		}
 
@@ -406,6 +408,7 @@ class ADODB_db2 extends ADOConnection {
 		if ($this->transOff) {
 			return true;
 		}
+
 		$this->transCnt   += 1;
 		$this->_autocommit = false;
 
@@ -424,8 +427,10 @@ class ADODB_db2 extends ADOConnection {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
+
 		$this->_autocommit = true;
 		$ret               = db2_commit($this->_connectionID);
+
 		db2_autocommit($this->_connectionID, true);
 
 		return $ret;
@@ -439,8 +444,10 @@ class ADODB_db2 extends ADOConnection {
 		if ($this->transCnt) {
 			$this->transCnt -= 1;
 		}
+
 		$this->_autocommit = true;
 		$ret               = db2_rollback($this->_connectionID);
+
 		db2_autocommit($this->_connectionID, true);
 
 		return $ret;
@@ -452,6 +459,7 @@ class ADODB_db2 extends ADOConnection {
 		if ($this->uCaseTables) {
 			$table = strtoupper($table);
 		}
+
 		$schema = '';
 		$this->_findschema($table, $schema);
 
@@ -464,6 +472,7 @@ class ADODB_db2 extends ADOConnection {
 
 			return false;
 		}
+
 		$rs               = new ADORecordSet_db2($qid);
 		$ADODB_FETCH_MODE = $savem;
 
@@ -490,6 +499,7 @@ class ADODB_db2 extends ADOConnection {
 		if ($this->uCaseTables) {
 			$table = strtoupper($table);
 		}
+
 		$schema = '';
 		$this->_findschema($table, $schema);
 
@@ -502,6 +512,7 @@ class ADODB_db2 extends ADOConnection {
 
 			return false;
 		}
+
 		$rs = new ADORecordSet_db2($qid);
 
 		$ADODB_FETCH_MODE = $savem;
@@ -527,8 +538,10 @@ class ADODB_db2 extends ADOConnection {
 				if (!is_array($foreign_keys[$rs->fields[5] . '.' . $rs->fields[6]])) {
 					$foreign_keys[$rs->fields[5] . '.' . $rs->fields[6]] = array();
 				}
+
 				$foreign_keys[$rs->fields[5] . '.' . $rs->fields[6]][$rs->fields[7]] = $rs->fields[3];
 			}
+
 			$rs->MoveNext();
 		}
 
@@ -566,6 +579,7 @@ class ADODB_db2 extends ADOConnection {
 			if (!$arr[$i][2]) {
 				continue;
 			}
+
 			$type      = $arr[$i][3];
 			$owner     = $arr[$i][1];
 			$schemaval = ($schema) ? $arr[$i][1] . '.' : '';
@@ -602,7 +616,6 @@ class ADODB_db2 extends ADOConnection {
 	#define SQL_DATETIME        9
 	#endif
 	#define SQL_VARCHAR     12
-
 
 	/ One-parameter shortcuts for date/time data types /
 	#if (DB2VER >= 0x0300)
@@ -664,6 +677,7 @@ class ADODB_db2 extends ADOConnection {
 		if ($this->uCaseTables) {
 			$table = strtoupper($table);
 		}
+
 		$schema = '';
 		$this->_findschema($table, $schema);
 
@@ -683,6 +697,7 @@ class ADODB_db2 extends ADOConnection {
 		if (!$rs) {
 			return $false;
 		}
+
 		$rs->_fetch();
 
 		$retarr = array();
@@ -719,6 +734,7 @@ class ADODB_db2 extends ADOConnection {
 				} else {
 					$fld->max_length = $rs->fields[7];
 				}
+
 				$fld->not_null                  = !empty($rs->fields[10]);
 				$fld->scale                     = $rs->fields[8];
 				$fld->primary_key               = false;
@@ -726,8 +742,10 @@ class ADODB_db2 extends ADOConnection {
 			} elseif (sizeof($retarr) > 0) {
 				break;
 			}
+
 			$rs->MoveNext();
 		}
+
 		$rs->Close();
 
 		if (empty($retarr)) {
@@ -746,6 +764,7 @@ class ADODB_db2 extends ADOConnection {
 		if (!$rs) {
 			return $retarr;
 		}
+
 		$rs->_fetch();
 
 		/*
@@ -763,8 +782,10 @@ class ADODB_db2 extends ADOConnection {
 			} elseif (sizeof($retarr) > 0) {
 				break;
 			}
+
 			$rs->MoveNext();
 		}
+
 		$rs->Close();
 
 		if (empty($retarr)) {
@@ -778,6 +799,7 @@ class ADODB_db2 extends ADOConnection {
 		if (!$this->_bindInputArray) {
 			return $sql; // no binding
 		}
+
 		$stmt = db2_prepare($this->_connectionID, $sql);
 
 		if (!$stmt) {
@@ -872,7 +894,8 @@ class ADODB_db2 extends ADOConnection {
 
 	// returns true or false
 	public function _close() {
-		$ret                 = @db2_close($this->_connectionID);
+		$ret = @db2_close($this->_connectionID);
+
 		$this->_connectionID = false;
 
 		return $ret;
@@ -886,7 +909,6 @@ class ADODB_db2 extends ADOConnection {
 /*--------------------------------------------------------------------------------------
 	 Class Name: Recordset
 --------------------------------------------------------------------------------------*/
-
 class ADORecordSet_db2 extends ADORecordSet {
 	public $bind         = false;
 	public $databaseType = 'db2';
@@ -896,8 +918,10 @@ class ADORecordSet_db2 extends ADORecordSet {
 	public function __construct($id, $mode = false) {
 		if ($mode === false) {
 			global $ADODB_FETCH_MODE;
+
 			$mode = $ADODB_FETCH_MODE;
 		}
+
 		$this->fetchMode = $mode;
 
 		$this->_queryID = $id;
@@ -939,6 +963,7 @@ class ADORecordSet_db2 extends ADORecordSet {
 
 	public function _initrs() {
 		global $ADODB_COUNTRECS;
+
 		$this->_numOfRows   = ($ADODB_COUNTRECS) ? @db2_num_rows($this->_queryID) : -1;
 		$this->_numOfFields = @db2_num_fields($this->_queryID);
 		// some silly drivers such as db2 as/400 and intersystems cache return _numOfRows = 0
@@ -958,6 +983,7 @@ class ADORecordSet_db2 extends ADORecordSet {
 
 			return $rs;
 		}
+
 		$savem           = $this->fetchMode;
 		$this->fetchMode = ADODB_FETCH_NUM;
 		$this->Move($offset);
@@ -992,6 +1018,7 @@ class ADORecordSet_db2 extends ADORecordSet {
 				return true;
 			}
 		}
+
 		$this->fields = false;
 		$this->EOF    = true;
 
@@ -1008,6 +1035,7 @@ class ADORecordSet_db2 extends ADORecordSet {
 
 			return true;
 		}
+
 		$this->fields = false;
 
 		return false;

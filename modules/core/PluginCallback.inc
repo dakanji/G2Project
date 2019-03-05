@@ -60,6 +60,7 @@ class PluginCallbackView extends GalleryView {
 	 */
 	public function renderImmediate($status = null, $error = null) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 		$storage =& $gallery->getStorage();
 
@@ -69,7 +70,8 @@ class PluginCallbackView extends GalleryView {
 			header('Content-type: text/plain; charset=UTF-8');
 		}
 
-		$result                   = array();
+		$result = array();
+
 		list($ret, $beforeStates) = $this->getPluginStates();
 
 		if ($ret) {
@@ -167,6 +169,7 @@ class PluginCallbackView extends GalleryView {
 	 */
 	public function handleCallback($command, &$result) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
@@ -175,7 +178,8 @@ class PluginCallbackView extends GalleryView {
 			return $ret;
 		}
 
-		$result                      = array();
+		$result = array();
+
 		list($pluginType, $pluginId) = GalleryUtilities::getRequestVariables(
 			'pluginType',
 			'pluginId'
@@ -289,7 +293,6 @@ class PluginCallbackView extends GalleryView {
 					$autoConfigured = true;
 				}
 
-
 				if ($autoConfigured) {
 					list($ret, $redirect) = $plugin->activate();
 
@@ -336,6 +339,7 @@ class PluginCallbackView extends GalleryView {
 					if ($ret) {
 						return $ret;
 					}
+
 					$result['status'] = 'success';
 				}
 
@@ -362,12 +366,13 @@ class PluginCallbackView extends GalleryView {
 						return $ret;
 					}
 
-					$path    = sprintf(
+					$path = sprintf(
 						'%s%ss/%s',
 						GalleryCoreApi::getCodeBasePath(),
 						$pluginType,
 						$pluginId
 					);
+
 					$success = @$platform->recursiveRmdir($path);
 
 					if (!$success) {

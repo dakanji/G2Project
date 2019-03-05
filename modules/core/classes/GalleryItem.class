@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryFileSystemEntity.class');
 
 /**
@@ -310,10 +309,11 @@ class GalleryItem extends GalleryFileSystemEntity {
 	 */
 	public function delete() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		// Delete any children
-		$query                     = '
+		$query = '
 		SELECT
 		[GalleryChildEntity::id]
 		FROM
@@ -321,6 +321,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 		WHERE
 		[GalleryChildEntity::parentId] = ?
 		';
+
 		list($ret, $searchResults) = $gallery->search($query, array($this->getId()));
 
 		if ($ret) {
@@ -331,6 +332,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 
 		while ($result = $searchResults->nextResult()) {
 			$ret = GalleryCoreApi::deleteEntityById($result[0], 'GalleryChildEntity');
+
 			/*
 			 * Deletes can cascade in interesting ways.  For example, deleting a derivative will
 			 * get rid of any other derivatives that are sourced to it, so it's possible that
@@ -373,6 +375,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 					'itemId' => $this->getParentId(),
 				)
 			);
+
 			list($ret) = GalleryCoreApi::postEvent($event);
 
 			if ($ret) {
@@ -410,6 +413,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 				'itemId' => empty($parentId) ? $this->getParentId() : array($parentId, $this->getParentId()),
 			)
 		);
+
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -422,6 +426,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 		if ($ret) {
 			return $ret;
 		}
+
 		$newParentSequence[] = $this->getParentId();
 		$ret                 = GalleryCoreApi::setParentSequence($this->getId(), $newParentSequence);
 
@@ -439,6 +444,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 	 */
 	public function save($postEvent = true, $x1 = null) {
 		global $gallery;
+
 		$isNew = $this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
 
 		$changedParent = $this->isModified('parentId');
@@ -471,6 +477,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 				if ($ret) {
 					return $ret;
 				}
+
 				$parentSequence[] = $this->getParentId();
 			} else {
 				$parentSequence = array();
@@ -491,6 +498,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 						'itemId' => $this->getParentId(),
 					)
 				);
+
 				list($ret) = GalleryCoreApi::postEvent($event);
 
 				if ($ret) {

@@ -45,6 +45,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		// create 3 random items
@@ -72,11 +73,13 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 				"form[items][$id][description]",
 				"description $id"
 			);
+
 			GalleryUtilities::putRequestVariable(
 				"form[items][$id][serialNumber]",
 				$item->getSerialNumber()
 			);
 		}
+
 		GalleryUtilities::putRequestVariable('form[action][save][done]', 1);
 
 		// Perform the request and verify that we succeeded
@@ -110,7 +113,8 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		// Verify that the changes happened
 		foreach ($this->_items as $item) {
-			$id               = $item->getId();
+			$id = $item->getId();
+
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {
@@ -137,11 +141,13 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 				"form[items][$id][description]",
 				"description $id"
 			);
+
 			GalleryUtilities::putRequestVariable(
 				"form[items][$id][serialNumber]",
 				$item->getSerialNumber()
 			);
 		}
+
 		GalleryUtilities::putRequestVariable('form[action][save][next]', 1);
 
 		// Perform the request and verify that we succeeded
@@ -174,7 +180,8 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		// Verify that the changes happened
 		foreach ($this->_items as $item) {
-			$id               = $item->getId();
+			$id = $item->getId();
+
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {
@@ -201,11 +208,13 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 				"form[items][$id][description]",
 				"description $id"
 			);
+
 			GalleryUtilities::putRequestVariable(
 				"form[items][$id][serialNumber]",
 				$item->getSerialNumber()
 			);
 		}
+
 		GalleryUtilities::putRequestVariable('form[action][save][previous]', 1);
 
 		// Perform the request and verify that we succeeded
@@ -238,7 +247,8 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		// Verify that the changes happened
 		foreach ($this->_items as $item) {
-			$id               = $item->getId();
+			$id = $item->getId();
+
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {
@@ -302,11 +312,13 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 				"form[items][$id][description]",
 				"description $id"
 			);
+
 			GalleryUtilities::putRequestVariable(
 				"form[items][$id][serialNumber]",
 				$item->getSerialNumber()
 			);
 		}
+
 		GalleryUtilities::putRequestVariable('form[action][save][done]', 1);
 
 		// Remove permissions from one item
@@ -315,6 +327,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_items[0]->getId(),
 			$gallery->getActiveUserId(),
@@ -362,7 +375,8 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		// Verify that the appropriate changes happened
 		for ($i = 0; $i < count($this->_items); $i++) {
-			$item                = $this->_items[$i];
+			$item = $this->_items[$i];
+
 			list($ret, $newItem) = $item->refresh();
 
 			if ($ret) {
@@ -402,20 +416,24 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 				"form[items][$id][title]",
 				'title <applet>here</applet>'
 			);
+
 			GalleryUtilities::putRequestVariable(
 				"form[items][$id][summary]",
 				'summary <p onmouseout="alert()">yy</p>'
 			);
+
 			GalleryUtilities::putRequestVariable("form[items][$id][keywords]", '');
 			GalleryUtilities::putRequestVariable(
 				"form[items][$id][description]",
 				'description <script>foo</script>'
 			);
+
 			GalleryUtilities::putRequestVariable(
 				"form[items][$id][serialNumber]",
 				$item->getSerialNumber()
 			);
 		}
+
 		GalleryUtilities::putRequestVariable('form[action][save][done]', 1);
 
 		$results = $this->handleRequest();
@@ -447,7 +465,8 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 		);
 
 		foreach ($this->_items as $item) {
-			$id               = $item->getId();
+			$id = $item->getId();
+
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {

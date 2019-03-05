@@ -34,6 +34,7 @@
  */
 class Smarty_Compiler extends Smarty {
 	// internal vars
+
 	/**#@+
 	 * @access private
 	 */
@@ -246,10 +247,11 @@ class Smarty_Compiler extends Smarty {
 				}
 
 				if ($prefilter[3] || is_callable($prefilter[0])) {
-					$source_content                               = call_user_func_array(
+					$source_content = call_user_func_array(
 						$prefilter[0],
 						array($source_content, &$this)
 					);
+
 					$this->_plugins['prefilter'][$filter_name][3] = true;
 				} else {
 					$this->_trigger_fatal_error("[plugin] prefilter '$filter_name' is not implemented");
@@ -259,7 +261,6 @@ class Smarty_Compiler extends Smarty {
 
 		// fetch all special blocks
 		$search = "~{$ldq}\*(.*?)\*{$rdq}|{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}|{$ldq}\s*php\s*{$rdq}(.*?){$ldq}\s*/php\s*{$rdq}~s";
-
 		preg_match_all($search, $source_content, $match, PREG_SET_ORDER);
 		$this->_folded_blocks = $match;
 
@@ -283,6 +284,7 @@ class Smarty_Compiler extends Smarty {
 				for ($curr_sp = 0, $for_max2 = count($sp_match[1]); $curr_sp < $for_max2; $curr_sp++) {
 					$text_blocks[$curr_tb] = str_replace($sp_match[1][$curr_sp], '%%%SMARTYSP' . $curr_sp . '%%%', $text_blocks[$curr_tb]);
 				}
+
 				// process each one
 				for ($curr_sp = 0, $for_max2 = count($sp_match[1]); $curr_sp < $for_max2; $curr_sp++) {
 					if ($this->php_handling == SMARTY_PHP_PASSTHRU) {
@@ -314,6 +316,7 @@ class Smarty_Compiler extends Smarty {
 
 		if (count($this->_tag_stack) > 0) {
 			list($_open_tag, $_line_no) = end($this->_tag_stack);
+
 			$this->_syntax_error("unclosed tag \{$_open_tag} (opened line $_line_no).", E_USER_ERROR, __FILE__, __LINE__);
 
 			return;
@@ -341,6 +344,7 @@ class Smarty_Compiler extends Smarty {
 						// remove trailing whitespaces from the last text_block
 						$text_blocks[$j] = rtrim($text_blocks[$j]);
 					}
+
 					$text_blocks[$j] = "<?php echo '" . strtr(
 						$text_blocks[$j],
 						array(
@@ -360,6 +364,7 @@ class Smarty_Compiler extends Smarty {
 				}
 			}
 		}
+
 		$compiled_content = '';
 
 		$tag_guard = '%%%SMARTYOTG' . md5(uniqid(mt_rand(), true)) . '%%%';
@@ -370,12 +375,14 @@ class Smarty_Compiler extends Smarty {
 				// tag result empty, remove first newline from following text block
 				$text_blocks[$i + 1] = preg_replace('~^(\r\n|\r|\n)~', '', $text_blocks[$i + 1]);
 			}
+
 			// replace legit PHP tags with placeholder
 			$text_blocks[$i]   = str_replace('<?', $tag_guard, $text_blocks[$i]);
 			$compiled_tags[$i] = str_replace('<?', $tag_guard, $compiled_tags[$i]);
 
 			$compiled_content .= $text_blocks[$i] . $compiled_tags[$i];
 		}
+
 		$compiled_content .= str_replace('<?', $tag_guard, $text_blocks[$i]);
 
 		// escape php tags created by interleaving
@@ -402,10 +409,11 @@ class Smarty_Compiler extends Smarty {
 				}
 
 				if ($postfilter[3] || is_callable($postfilter[0])) {
-					$compiled_content                              = call_user_func_array(
+					$compiled_content = call_user_func_array(
 						$postfilter[0],
 						array($compiled_content, &$this)
 					);
+
 					$this->_plugins['postfilter'][$filter_name][3] = true;
 				} else {
 					$this->_trigger_fatal_error("Smarty plugin error: postfilter '$filter_name' is not implemented");
@@ -441,6 +449,7 @@ class Smarty_Compiler extends Smarty {
 					$_plugins_params .= $plugin_info[2] ? 'true),' : 'false),';
 				}
 			}
+
 			$_plugins_params    .= '))';
 			$plugins_code        = "<?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');\nsmarty_core_load_plugins($_plugins_params, \$this); ?>\n";
 			$template_header    .= $plugins_code;
@@ -573,7 +582,6 @@ class Smarty_Compiler extends Smarty {
 
 				return '<?php endfor; endif; ?>';
 
-
 			case 'foreach':
 				$this->_push_tag('foreach');
 
@@ -665,6 +673,7 @@ class Smarty_Compiler extends Smarty {
 				if ($this->_compile_custom_tag($tag_command, $tag_args, $tag_modifier, $output)) {
 					return $output;
 				}
+
 					$this->_syntax_error("unrecognized tag '$tag_command'", E_USER_ERROR, __FILE__, __LINE__);
 		}
 	}
@@ -695,6 +704,7 @@ class Smarty_Compiler extends Smarty {
 				$have_function = false;
 			}
 		}
+
 		/*
 		 * Otherwise we need to load plugin file and look for the function
 		 * inside it.
@@ -773,6 +783,7 @@ class Smarty_Compiler extends Smarty {
 				$have_function = false;
 			}
 		}
+
 		/*
 		 * Otherwise we need to load plugin file and look for the function
 		 * inside it.
@@ -830,6 +841,7 @@ class Smarty_Compiler extends Smarty {
 			if ($tag_modifier != '') {
 				$this->_parse_modifiers($_out_tag_text, $tag_modifier);
 			}
+
 			$output .= '$_block_repeat=false;echo ' . $_out_tag_text . '; } ';
 			$output .= ' array_pop($this->_tag_stack); ' . $this->_pop_cacheable_state('block', $tag_command) . '?>';
 		}
@@ -869,6 +881,7 @@ class Smarty_Compiler extends Smarty {
 				$have_function = false;
 			}
 		}
+
 		/*
 		 * Otherwise we need to load plugin file and look for the function
 		 * inside it.
@@ -955,6 +968,7 @@ class Smarty_Compiler extends Smarty {
 				if (is_bool($arg_value)) {
 					$arg_value = $arg_value ? 'true' : 'false';
 				}
+
 				$arg_list[] = "'$arg_name' => $arg_value";
 			}
 		}
@@ -988,10 +1002,12 @@ class Smarty_Compiler extends Smarty {
 					$prefix .= "\$_block_repeat=true; \$this->_reg_objects['$object'][0]->$obj_comp(\$this->_tag_stack[count(\$this->_tag_stack)-1][1], null, \$this, \$_block_repeat); ";
 					$prefix .= 'while ($_block_repeat) { ob_start();';
 					$return  = null;
+
 					$postfix = '';
 				} else {
-					$prefix  = '$_obj_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;';
-					$return  = "\$this->_reg_objects['$object'][0]->$obj_comp(\$this->_tag_stack[count(\$this->_tag_stack)-1][1], \$_obj_block_content, \$this, \$_block_repeat)";
+					$prefix = '$_obj_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;';
+					$return = "\$this->_reg_objects['$object'][0]->$obj_comp(\$this->_tag_stack[count(\$this->_tag_stack)-1][1], \$_obj_block_content, \$this, \$_block_repeat)";
+
 					$postfix = '} array_pop($this->_tag_stack);';
 				}
 			} else {
@@ -1049,6 +1065,7 @@ class Smarty_Compiler extends Smarty {
 			if (is_bool($arg_value)) {
 				$arg_value = $arg_value ? 'true' : 'false';
 			}
+
 			$arg_list[] = "'$arg_name' => $arg_value";
 		}
 
@@ -1089,6 +1106,7 @@ class Smarty_Compiler extends Smarty {
 			if (is_bool($arg_value)) {
 				$arg_value = $arg_value ? 'true' : 'false';
 			}
+
 			$arg_list[] = "'$arg_name' => $arg_value";
 		}
 
@@ -1099,7 +1117,6 @@ class Smarty_Compiler extends Smarty {
 		}
 
 		$output .= "\$_smarty_tpl_vars = \$this->_tpl_vars;\n";
-
 
 		$_params = "array('smarty_include_tpl_file' => " . $include_file . ", 'smarty_include_vars' => array(" . implode(',', (array)$arg_list) . '))';
 		$output .= "\$this->_smarty_include($_params);\n" .
@@ -1138,6 +1155,7 @@ class Smarty_Compiler extends Smarty {
 				if (is_bool($arg_value)) {
 					$arg_value = $arg_value ? 'true' : 'false';
 				}
+
 				$arg_list[] = "'$arg_name' => $arg_value";
 			}
 		}
@@ -1180,6 +1198,7 @@ class Smarty_Compiler extends Smarty {
 					} else {
 						$show_attr_value = "(bool)$attr_value";
 					}
+
 					$output .= "{$section_props}['show'] = $show_attr_value;\n";
 
 					break;
@@ -1242,6 +1261,7 @@ class Smarty_Compiler extends Smarty {
 		} else {
 			$output .= "    {$section_props}['total'] = min(ceil(({$section_props}['step'] > 0 ? {$section_props}['loop'] - {$section_props}['start'] : {$section_props}['start']+1)/abs({$section_props}['step'])), {$section_props}['max']);\n";
 		}
+
 		$output .= "    if ({$section_props}['total'] == 0)\n" .
 				   "        {$section_props}['show'] = false;\n" .
 				   "} else\n" .
@@ -1276,11 +1296,13 @@ class Smarty_Compiler extends Smarty {
 		if (empty($attrs['from'])) {
 			return $this->_syntax_error("foreach: missing 'from' attribute", E_USER_ERROR, __FILE__, __LINE__);
 		}
+
 		$from = $attrs['from'];
 
 		if (empty($attrs['item'])) {
 			return $this->_syntax_error("foreach: missing 'item' attribute", E_USER_ERROR, __FILE__, __LINE__);
 		}
+
 		$item = $this->_dequote($attrs['item']);
 
 		if (!preg_match('~^\w+$~', $item)) {
@@ -1293,6 +1315,7 @@ class Smarty_Compiler extends Smarty {
 			if (!preg_match('~^\w+$~', $key)) {
 				return $this->_syntax_error("foreach: 'key' must to be a variable name (literal string)", E_USER_ERROR, __FILE__, __LINE__);
 			}
+
 			$key_part = "\$this->_tpl_vars['$key'] => ";
 		} else {
 			$key      = null;
@@ -1318,6 +1341,7 @@ class Smarty_Compiler extends Smarty {
 			$output .= "if (count(\$_from)):\n";
 			$output .= "    foreach (\$_from as $key_part\$this->_tpl_vars['$item']):\n";
 		}
+
 		$output .= '?>';
 
 		return $output;
@@ -1342,7 +1366,8 @@ class Smarty_Compiler extends Smarty {
 			$this->_capture_stack[] = array($buffer, $assign, $append);
 		} else {
 			list($buffer, $assign, $append) = array_pop($this->_capture_stack);
-			$output                         = "<?php \$this->_smarty_vars['capture'][$buffer] = ob_get_contents(); ";
+
+			$output = "<?php \$this->_smarty_vars['capture'][$buffer] = ob_get_contents(); ";
 
 			if (isset($assign)) {
 				$output .= " \$this->assign($assign, ob_get_contents());";
@@ -1351,6 +1376,7 @@ class Smarty_Compiler extends Smarty {
 			if (isset($append)) {
 				$output .= " \$this->append($append, ob_get_contents());";
 			}
+
 			$output .= 'ob_end_clean(); ?>';
 		}
 
@@ -1365,7 +1391,6 @@ class Smarty_Compiler extends Smarty {
 	 * @return string
 	 */
 	public function _compile_if_tag($tag_args, $elseif = false) {
-
 		// Tokenize args for 'if' tag.
 		preg_match_all(
 			'~(?>
@@ -1386,7 +1411,6 @@ class Smarty_Compiler extends Smarty {
 			$_error_msg .= ' statement requires arguments';
 			$this->_syntax_error($_error_msg, E_USER_ERROR, __FILE__, __LINE__);
 		}
-
 
 		// make sure we have balanced parenthesis
 		$token_count = array_count_values($tokens);
@@ -1502,6 +1526,7 @@ class Smarty_Compiler extends Smarty {
 					} else {
 						$is_arg_start = $i - 1;
 					}
+
 					/* Construct the argument for 'is' expression, so it knows
 					   what to operate on. */
 					$is_arg = implode(' ', array_slice($tokens, $is_arg_start, $i - $is_arg_start));
@@ -1574,7 +1599,7 @@ class Smarty_Compiler extends Smarty {
 				$arg_value = $arg_value ? 'true' : 'false';
 			}
 
-			if (is_null($arg_value)) {
+			if (null === $arg_value) {
 				$arg_value = 'null';
 			}
 
@@ -1662,7 +1687,6 @@ class Smarty_Compiler extends Smarty {
 	 * @return array
 	 */
 	public function _parse_attrs($tag_args) {
-
 		// Tokenize tag attributes.
 		preg_match_all(
 			'~(?:' . $this->_obj_call_regexp . '|' . $this->_qstr_regexp . ' | (?>[^"\'=\s]+)
@@ -1672,6 +1696,7 @@ class Smarty_Compiler extends Smarty {
 			$tag_args,
 			$match
 		);
+
 		$tokens = $match[0];
 
 		$attrs = array();
@@ -1732,6 +1757,7 @@ class Smarty_Compiler extends Smarty {
 
 					break;
 			}
+
 			$last_token = $token;
 		}
 
@@ -1772,13 +1798,15 @@ class Smarty_Compiler extends Smarty {
 
 		if (preg_match('~^(' . $this->_obj_call_regexp . '|' . $this->_dvar_regexp . ')(' . $this->_mod_regexp . '*)$~', $val, $match)) {
 			// $ variable or object
-			$return    = $this->_parse_var($match[1]);
+			$return = $this->_parse_var($match[1]);
+
 			$modifiers = $match[2];
 
 			if (!empty($this->default_modifiers) && !preg_match('~(^|\|)smarty:nodefaults($|\|)~', $modifiers)) {
 				$_default_mod_string = implode('|', (array)$this->default_modifiers);
 				$modifiers           = empty($modifiers) ? $_default_mod_string : $_default_mod_string . '|' . $modifiers;
 			}
+
 			$this->_parse_modifiers($return, $modifiers);
 
 			return $return;
@@ -1851,11 +1879,13 @@ class Smarty_Compiler extends Smarty {
 			foreach ($_match as $_var) {
 				$_replace[$_var] = '".(' . $this->_parse_var(str_replace('`', '', $_var)) . ')."';
 			}
+
 			$var_expr = strtr($var_expr, $_replace);
 			$_return  = preg_replace('~\.""|(?<!\\\\)""\.~', '', $var_expr);
 		} else {
 			$_return = $var_expr;
 		}
+
 		// replace double quoted literal string with single quotes
 		$_return = preg_replace('~^"([\s\w]+)"$~', "'\\1'", $_return);
 
@@ -1946,6 +1976,7 @@ class Smarty_Compiler extends Smarty {
 					$_var_name .= implode('', $_indexes);
 					$_indexes   = array();
 				}
+
 				$_output = $_var_name;
 			} else {
 				$_output = "\$this->_tpl_vars['$_var_name']";
@@ -2070,6 +2101,7 @@ class Smarty_Compiler extends Smarty {
 	 */
 	public function _parse_modifiers(&$output, $modifier_string) {
 		preg_match_all('~\|(@?\w+)((?>:(?:' . $this->_qstr_regexp . '|[^|]+))*)~', '|' . $modifier_string, $_match);
+
 		list(, $_modifiers, $modifier_arg_strings) = $_match;
 
 		for ($_i = 0, $_for_max = count($_modifiers); $_i < $_for_max; $_i++) {
@@ -2100,6 +2132,7 @@ class Smarty_Compiler extends Smarty {
 					$this->_plugins['modifier'][$_modifier_name] = array($_modifier_name, null, null, false);
 				}
 			}
+
 			$this->_add_plugin('modifier', $_modifier_name);
 
 			$this->_parse_vars_props($_modifier_args);
@@ -2229,6 +2262,7 @@ class Smarty_Compiler extends Smarty {
 
 					return;
 				}
+
 				$compiled_ref = '$_GET';
 
 				break;
@@ -2244,6 +2278,7 @@ class Smarty_Compiler extends Smarty {
 
 					return;
 				}
+
 				$compiled_ref = '$_POST';
 
 				break;
@@ -2259,6 +2294,7 @@ class Smarty_Compiler extends Smarty {
 
 					return;
 				}
+
 				$compiled_ref = '$_COOKIE';
 
 				break;
@@ -2274,6 +2310,7 @@ class Smarty_Compiler extends Smarty {
 
 					return;
 				}
+
 				$compiled_ref = '$_ENV';
 
 				break;
@@ -2289,6 +2326,7 @@ class Smarty_Compiler extends Smarty {
 
 					return;
 				}
+
 				$compiled_ref = '$_SERVER';
 
 				break;
@@ -2304,6 +2342,7 @@ class Smarty_Compiler extends Smarty {
 
 					return;
 				}
+
 				$compiled_ref = '$_SESSION';
 
 				break;
@@ -2329,6 +2368,7 @@ class Smarty_Compiler extends Smarty {
 
 					break;
 				}
+
 					$this->_init_smarty_vars = true;
 
 				return null;
@@ -2359,6 +2399,7 @@ class Smarty_Compiler extends Smarty {
 
 					return;
 				}
+
 				array_shift($indexes);
 
 				if (preg_match('!^\.\w+$!', $indexes[0])) {
@@ -2367,6 +2408,7 @@ class Smarty_Compiler extends Smarty {
 					$_val         = $this->_parse_var_props(substr($indexes[0], 1));
 					$compiled_ref = '@constant(' . $_val . ')';
 				}
+
 				$_max_index = 1;
 
 				break;
@@ -2419,9 +2461,11 @@ class Smarty_Compiler extends Smarty {
 				return ((is_object($this->_plugins[$type][$name][0][0])) ? "\$this->_plugins['$type']['$name'][0][0]->"    /* method callback */ : (string)($this->_plugins[$type][$name][0][0]) . '::'    // class callback
 					   ) . $this->_plugins[$type][$name][0][1];
 			}
+
 			// function callback
 			return $this->_plugins[$type][$name][0];
 		}
+
 		// plugin not loaded -> auto-loadable-plugin
 		return 'smarty_' . $type . '_' . $name;
 	}
@@ -2505,6 +2549,7 @@ class Smarty_Compiler extends Smarty {
 		if (!isset($this->_cache_serial)) {
 			$this->_cache_serial = md5(uniqid('Smarty'));
 		}
+
 		$_ret = 'if ($this->caching && !$this->_cache_including): echo \'{nocache:'
 			. $this->_cache_serial . '#' . $this->_nocache_count
 			. '}\'; endif;';
@@ -2579,8 +2624,10 @@ class Smarty_Compiler extends Smarty {
 			} elseif ($_open_tag == 'foreachelse') {
 				$_open_tag = 'foreach';
 			}
+
 			$message = " expected {/$_open_tag} (opened line $_line_no).";
 		}
+
 		$this->_syntax_error(
 			"mismatched tag {/$close_tag}.$message",
 			E_USER_ERROR,

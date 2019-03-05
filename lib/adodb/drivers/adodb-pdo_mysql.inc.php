@@ -9,7 +9,6 @@
   Set tabs to 8.
 
 */
-
 class ADODB_pdo_mysql extends ADODB_pdo {
 	public $metaTablesSQL  = "SELECT
 			TABLE_NAME,
@@ -78,6 +77,7 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 			$mask                 = $this->qstr($mask);
 			$this->metaTablesSQL .= " like $mask";
 		}
+
 		$ret = ADOConnection::MetaTables($ttype, $showSchema);
 
 		$this->metaTablesSQL = $save;
@@ -105,6 +105,7 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 		if (!stristr($transaction_mode, 'isolation')) {
 			$transaction_mode = 'ISOLATION LEVEL ' . $transaction_mode;
 		}
+
 		$this->Execute('SET SESSION TRANSACTION ' . $transaction_mode);
 	}
 
@@ -115,13 +116,16 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 			$dbName = $this->database;
 			$this->SelectDB($schema);
 		}
+
 		global $ADODB_FETCH_MODE;
+
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 		if ($this->fetchMode !== false) {
 			$savem = $this->SetFetchMode(false);
 		}
+
 		$rs = $this->Execute(sprintf($this->metaColumnsSQL, $table));
 
 		if ($schema) {
@@ -131,6 +135,7 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 		if (isset($savem)) {
 			$this->SetFetchMode($savem);
 		}
+
 		$ADODB_FETCH_MODE = $save;
 
 		if (!is_object($rs)) {
@@ -166,6 +171,7 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 				$fld->type       = $type;
 				$fld->max_length = -1;
 			}
+
 			$fld->not_null       = ($rs->fields[2] != 'YES');
 			$fld->primary_key    = ($rs->fields[3] == 'PRI');
 			$fld->auto_increment = (strpos($rs->fields[5], 'auto_increment') !== false);
@@ -188,6 +194,7 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 			} else {
 				$retarr[strtoupper($fld->name)] = $fld;
 			}
+
 			$rs->MoveNext();
 		}
 
@@ -228,6 +235,7 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 		if (!$col) {
 			$col = $this->sysTimeStamp;
 		}
+
 		$s      = 'DATE_FORMAT(' . $col . ",'";
 		$concat = false;
 		$len    = strlen($fmt);
@@ -241,6 +249,8 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 						$i++;
 						$ch = substr($fmt, $i, 1);
 					}
+
+
 					// Fall Through
 				case '-':
 				case '/':
@@ -279,6 +289,7 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 					} else {
 						$s .= ",('";
 					}
+
 					$concat = true;
 
 					break;
@@ -325,6 +336,7 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 					break;
 			}
 		}
+
 		$s .= "')";
 
 		if ($concat) {

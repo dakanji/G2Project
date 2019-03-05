@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GallerySmarty.class');
 GalleryCoreApi::requireOnce('modules/albumselect/Callbacks.inc');
 
@@ -66,6 +65,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		// Manual order: 1,2,3  Title order: 3,2,1  Summary order: 2,3,1
@@ -80,6 +80,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $this->_subalbum[2]) = $this->_createRandomAlbum(
 			$this->_album->getId(),
 			array(
@@ -91,6 +92,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $this->_subalbum[3]) = $this->_createRandomAlbum(
 			$this->_album->getId(),
 			array(
@@ -118,6 +120,7 @@ class AlbumSelectTest extends GalleryTestCase {
 				'module' => 'albumselect',
 			)
 		);
+
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -127,6 +130,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 	public function testAlbumSelectManualSort() {
 		global $gallery;
+
 		$ret = $this->_module->setParameter('sort', 'manual');
 
 		if ($ret) {
@@ -145,6 +149,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
 
 		$this->assertEquals(
@@ -152,11 +157,13 @@ class AlbumSelectTest extends GalleryTestCase {
 			$data['titles'][$this->_album->getId()],
 			'title'
 		);
+
 		$this->assertEquals(
 			'zzz\\\\z&amp;zz&quot;zz',
 			$data['titlesForJs'][$this->_album->getId()],
 			'title for javascript'
 		);
+
 		$this->assertFalse(empty($data['params']), 'params');
 		$this->assertFalse(empty($data['tree']), 'tree');
 		// Test album and its subalbums should be last 4 tree items: subalbums 1,2,3
@@ -195,6 +202,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 	public function testAlbumSelectSortByTitle() {
 		global $gallery;
+
 		$ret = $this->_module->setParameter('sort', 'title');
 
 		if ($ret) {
@@ -213,6 +221,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
 
 		$this->assertEquals(
@@ -220,11 +229,13 @@ class AlbumSelectTest extends GalleryTestCase {
 			$data['titles'][$this->_album->getId()],
 			'title'
 		);
+
 		$this->assertEquals(
 			'zzz\\\\z&amp;zz&quot;zz',
 			$data['titlesForJs'][$this->_album->getId()],
 			'title for javascript'
 		);
+
 		$this->assertFalse(empty($data['params']), 'params');
 		$this->assertFalse(empty($data['tree']), 'tree');
 		// Test album and its subalbums should be last 4 tree items: subalbums 3,2,1
@@ -291,6 +302,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 	public function testAlbumSelectSortByAlbum() {
 		global $gallery;
+
 		$ret = $this->_module->setParameter('sort', 'album');
 
 		if ($ret) {
@@ -309,6 +321,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
 
 		$this->assertEquals(
@@ -316,11 +329,13 @@ class AlbumSelectTest extends GalleryTestCase {
 			$data['titles'][$this->_album->getId()],
 			'title'
 		);
+
 		$this->assertEquals(
 			'zzz\\\\z&amp;zz&quot;zz',
 			$data['titlesForJs'][$this->_album->getId()],
 			'title for javascript'
 		);
+
 		$this->assertFalse(empty($data['params']), 'params');
 		$this->assertFalse(empty($data['tree']), 'tree');
 		// Find test album in tree; subalbum order is 2,3,1
@@ -331,6 +346,7 @@ class AlbumSelectTest extends GalleryTestCase {
 				break;
 			}
 		}
+
 		$this->assertTrue($i < count($tree), 'test album not found');
 		$albumNode = $tree[$i]['nodeId'];
 		$this->assertEquals(
@@ -377,11 +393,13 @@ class AlbumSelectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_registerEventListener('Gallery::ViewableTreeChange', 'AlbumSelectModule');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_registerEventListener('Gallery::ItemOrder', 'AlbumSelectModule');
 
 		if ($ret) {
@@ -389,18 +407,22 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 
 		// Preparation
-		$userId                   = $gallery->getActiveUserId();
+		$userId = $gallery->getActiveUserId();
+
 		list($ret, $languageCode) = $gallery->getActiveLanguageCode();
 
 		if ($ret) {
 			return $ret;
 		}
-		$callbackParams          = array();
+
+		$callbackParams = array();
+
 		list($ret, $rootAlbumId) = GalleryCoreApi::getDefaultAlbumId();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$cachePathInfo = array(
 			'type'   => 'module-data',
 			'module' => 'albumselect',
@@ -425,6 +447,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
 		// Make sure the value is correct and that it is cached
 		$this->assertEquals(
@@ -432,17 +455,21 @@ class AlbumSelectTest extends GalleryTestCase {
 			$data['titles'][$this->_album->getId()],
 			'title'
 		);
+
 		$this->assertEquals(
 			'zzz\\\\z&amp;zz&quot;zz',
 			$data['titlesForJs'][$this->_album->getId()],
 			'title for javascript'
 		);
+
 		list($treeList, $titles, $titlesForJs, $links) = GalleryDataCache::getFromDisk($cachePathInfo);
+
 		$this->assertEquals(
 			'zzz\\z&amp;zz&quot;zz',
 			$titles[$this->_album->getId()],
 			'cached title'
 		);
+
 		$this->assertEquals(
 			'zzz\\\\z&amp;zz&quot;zz',
 			$titlesForJs[$this->_album->getId()],
@@ -451,11 +478,13 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		// Change the album title
 		$this->_album->setTitle('Changed Title');
+
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($this->_album->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_album->save();
 
 		if ($ret) {
@@ -463,6 +492,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -471,11 +501,13 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		// Make sure the cache was invalidated
 		list($treeList, $titles) = GalleryDataCache::getFromDisk($cachePathInfo);
+
 		$this->assertTrue(empty($titles), 'cache should be gone');
 	}
 
 	public function testAlternateRoot() {
 		global $gallery;
+
 		GalleryDataCache::setFileCachingEnabled(true);
 
 		$ret = $this->_module->setParameter('sort', 'manual');
@@ -499,6 +531,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumTree'];
 
 		$this->assertFalse(empty($data['albumTreeName']), 'albumTreeName');
@@ -519,6 +552,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumTree'];
 
 		$this->assertFalse(empty($data['albumTreeName']), 'albumTreeName');
@@ -534,6 +568,7 @@ class AlbumSelectTest extends GalleryTestCase {
 	 */
 	public function testUrlPrefixIsServerRelative() {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 
 		// Force the URL generator to believe that relative URLs are fine
@@ -555,6 +590,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumTree'];
 
 		$this->assertFalse(empty($data['albumTreeName']), 'albumTreeName');
@@ -568,6 +604,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 	public function testAlbumSelectCacheWithSessionPermissions() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		GalleryDataCache::setFileCachingEnabled(true);
@@ -581,11 +618,13 @@ class AlbumSelectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addEntityPermission($itemId, $itemId, 'core.view');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		// Clear the permission cache
 		GalleryDataCache::reset();
 
@@ -600,6 +639,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_assertAlbumTreeData(
 			$smarty,
 			'test albums in tree, without session permissions (1)',
@@ -610,6 +650,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		$session->put(GALLERY_PERMISSION_SESSION_KEY, array($itemId));
 		// Don't use GalleryDataCache::reset() this test is about caching
 		GalleryDataCache::removeByPattern('[Aa]ccessList');
+
 		$ret = $callbacks->callback(
 			array(),
 			$smarty,
@@ -620,6 +661,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_assertAlbumTreeData(
 			$smarty,
 			'test albums in tree with session permissions',
@@ -630,6 +672,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		$session->put(GALLERY_PERMISSION_SESSION_KEY, array());
 		// Don't use GalleryDataCache::reset() this test is about caching
 		GalleryDataCache::removeByPattern('[Aa]ccessList');
+
 		$ret = $callbacks->callback(
 			array(),
 			$smarty,
@@ -640,6 +683,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_assertAlbumTreeData(
 			$smarty,
 			'test albums in tree, without session permissions (2)',
@@ -659,6 +703,7 @@ class AlbumSelectTest extends GalleryTestCase {
 			'parentNode' => 0,
 			'depth'      => 0,
 		);
+
 		$expected[] = array(
 			'id'         => $this->_subalbum[1]->getId(),
 			'nodeId'     => $albumNode + 1,
@@ -674,12 +719,14 @@ class AlbumSelectTest extends GalleryTestCase {
 				'depth'      => 1,
 			);
 		}
+
 		$expected[] = array(
 			'id'         => $this->_subalbum[3]->getId(),
 			'nodeId'     => $albumNode + ($withSubAlbum2 ? 3 : 2),
 			'parentNode' => $albumNode,
 			'depth'      => 1,
 		);
+
 		$this->assertEquals(
 			$expected,
 			array_slice($data['tree'], ($withSubAlbum2 ? -4 : -3)),
@@ -699,9 +746,7 @@ class AlbumSelectDummyGalleryTemplate {
 		$this->data[$key] = $value;
 	}
 
-	public function style($path) {
-	}
+	public function style($path) {}
 
-	public function javascript($path) {
-	}
+	public function javascript($path) {}
 }

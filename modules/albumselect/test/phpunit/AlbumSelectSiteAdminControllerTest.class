@@ -96,6 +96,7 @@ class AlbumSelectSiteAdminControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals($expectedValue, $value, $key);
 		}
 	}

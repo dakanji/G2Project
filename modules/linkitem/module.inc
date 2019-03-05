@@ -28,6 +28,7 @@
 class LinkItemModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
+
 		$this->setId('linkitem');
 		$this->setName($gallery->i18n('Link Items'));
 		$this->setDescription(
@@ -63,6 +64,7 @@ class LinkItemModule extends GalleryModule {
 	 */
 	public function upgrade($currentVersion, $x1 = null) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
 
@@ -259,7 +261,8 @@ class LinkItemModule extends GalleryModule {
 
 		if (GalleryUtilities::isA($entity, 'GalleryAlbumItem')) {
 			global $gallery;
-			$query                     = '
+
+			$query = '
 			SELECT
 			[GalleryLinkItem::id]
 			FROM
@@ -267,6 +270,7 @@ class LinkItemModule extends GalleryModule {
 			WHERE
 			[GalleryLinkItem::link] = ?
 			';
+
 			list($ret, $searchResults) = $gallery->search($query, array((string)$entity->getId()));
 
 			if ($ret) {

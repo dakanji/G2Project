@@ -9,7 +9,6 @@
   Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Library for basic performance monitoring and tuning
 
 */
@@ -120,6 +119,7 @@ class perf_mysql extends adodb_perf {
 		if (strtoupper(substr(trim($sql), 0, 6)) !== 'SELECT') {
 			return '<p>Unable to EXPLAIN non-select statement</p>';
 		}
+
 		$save = $this->conn->LogSQL(false);
 
 		if ($partial) {
@@ -136,6 +136,7 @@ class perf_mysql extends adodb_perf {
 				}
 			}
 		}
+
 		$sql = str_replace('?', "''", $sql);
 
 		if ($partial) {
@@ -170,6 +171,7 @@ class perf_mysql extends adodb_perf {
 
 	public function GetReads() {
 		global $ADODB_FETCH_MODE;
+
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
@@ -182,11 +184,13 @@ class perf_mysql extends adodb_perf {
 		if (isset($savem)) {
 			$this->conn->SetFetchMode($savem);
 		}
+
 		$ADODB_FETCH_MODE = $save;
 
 		if (!$rs) {
 			return 0;
 		}
+
 		$val = 0;
 
 		while (!$rs->EOF) {
@@ -197,6 +201,7 @@ class perf_mysql extends adodb_perf {
 
 					return $val;
 			}
+
 			$rs->MoveNext();
 		}
 
@@ -207,6 +212,7 @@ class perf_mysql extends adodb_perf {
 
 	public function GetWrites() {
 		global $ADODB_FETCH_MODE;
+
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
@@ -219,11 +225,13 @@ class perf_mysql extends adodb_perf {
 		if (isset($savem)) {
 			$this->conn->SetFetchMode($savem);
 		}
+
 		$ADODB_FETCH_MODE = $save;
 
 		if (!$rs) {
 			return 0;
 		}
+
 		$val = 0.0;
 
 		while (!$rs->EOF) {
@@ -244,6 +252,7 @@ class perf_mysql extends adodb_perf {
 
 					return $val;
 			}
+
 			$rs->MoveNext();
 		}
 
@@ -255,8 +264,8 @@ class perf_mysql extends adodb_perf {
 	public function FindDBHitRatio() {
 		// first find out type of table
 		//$this->conn->debug=1;
-
 		global $ADODB_FETCH_MODE;
+
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
@@ -269,11 +278,13 @@ class perf_mysql extends adodb_perf {
 		if (isset($savem)) {
 			$this->conn->SetFetchMode($savem);
 		}
+
 		$ADODB_FETCH_MODE = $save;
 
 		if (!$rs) {
 			return '';
 		}
+
 		$type = strtoupper($rs->fields[1]);
 		$rs->Close();
 
@@ -332,11 +343,13 @@ class perf_mysql extends adodb_perf {
 		if (isset($savem)) {
 			$this->conn->SetFetchMode($savem);
 		}
+
 		$ADODB_FETCH_MODE = $save;
 
 		if (!$rs || $rs->EOF) {
 			return 0;
 		}
+
 		$stat = $rs->fields[0];
 		$rs->Close();
 		$at   = strpos($stat, 'Buffer pool hit rate');
@@ -406,6 +419,7 @@ class perf_mysql extends adodb_perf {
 
 				return false;
 		}
+
 		$sql = sprintf($sql, $table);
 
 		return $conn->Execute($sql) !== false;

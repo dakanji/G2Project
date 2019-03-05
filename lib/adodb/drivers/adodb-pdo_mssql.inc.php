@@ -1,6 +1,5 @@
 <?php
 
-
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -11,7 +10,6 @@
   Set tabs to 8.
 
 */
-
 class ADODB_pdo_mssql extends ADODB_pdo {
 	public $hasTop       = 'top';
 	public $sysDate      = 'convert(datetime,convert(char,GetDate(),102),102)';
@@ -45,6 +43,7 @@ class ADODB_pdo_mssql extends ADODB_pdo {
 		if (!stristr($transaction_mode, 'isolation')) {
 			$transaction_mode = 'ISOLATION LEVEL ' . $transaction_mode;
 		}
+
 		$this->Execute('SET TRANSACTION ' . $transaction_mode);
 	}
 

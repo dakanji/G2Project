@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteUrlGenerator.class');
 
 /**
@@ -34,6 +33,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -115,6 +115,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 		$params['phpunit'] = 'test';
 
 		$ret = $this->_urlGenerator->_parseShortUrl($url, $params, $options, $functions);
+
 		$this->assertTrue($ret, 'status');
 		$this->assertEquals('t/test', $url, 'url');
 		$this->assertEquals(array(), $params, 'params');
@@ -125,6 +126,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 		$url    = 't/%phpunit%';
 
 		$ret = $this->_urlGenerator->_parseShortUrl($url, $params, $options, $functions);
+
 		$this->assertFalse($ret, 'status');
 	}
 
@@ -135,6 +137,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 		$options['urlEncode'] = false;
 
 		$ret = $this->_urlGenerator->_parseShortUrl($url, $params, $options, $functions);
+
 		$this->assertTrue($ret, 'status');
 		$this->assertEquals('t/The Quick!Brown#Fox', $url, 'url');
 		$this->assertEquals(array(), $params, 'params');

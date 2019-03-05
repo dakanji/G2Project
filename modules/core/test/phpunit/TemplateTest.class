@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 
 /**
@@ -34,6 +33,7 @@ class TemplateTest extends GalleryTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -76,12 +76,14 @@ class TemplateTest extends GalleryTestCase {
 			'/legal/path/local/templateThatHasNoLocal.tpl',
 			false
 		);
+
 		$this->_mockPlatform->set('is_readable', '/legal/path/templateThatHasNoLocal.tpl', true);
 		$success = $this->_template->resourceGetTemplate(
 			'templateThatHasNoLocal.tpl',
 			$templateSource,
 			$this->_mockSmarty
 		);
+
 		$this->assertTrue($success, "Didn't return success");
 
 		$this->assertEquals(
@@ -98,22 +100,26 @@ class TemplateTest extends GalleryTestCase {
 			$this->_baseDirOverride . '/local/template.tpl',
 			false
 		);
+
 		$this->_mockPlatform->set('is_readable', $this->_baseDirOverride . '/template.tpl', false);
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/local/template.tpl',
 			false
 		);
+
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/template.tpl',
 			true
 		);
+
 		$success = $this->_template->resourceGetTemplate(
 			'modules/core/templates/template.tpl',
 			$templateSource,
 			$this->_mockSmarty
 		);
+
 		$this->assertTrue($success, "Didn't return success");
 
 		$this->assertEquals(
@@ -130,22 +136,26 @@ class TemplateTest extends GalleryTestCase {
 			$this->_baseDirOverride . '/local/template.tpl',
 			false
 		);
+
 		$this->_mockPlatform->set('is_readable', $this->_baseDirOverride . '/template.tpl', false);
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/local/template.tpl',
 			true
 		);
+
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/template.tpl',
 			true
 		);
+
 		$success = $this->_template->resourceGetTemplate(
 			'modules/core/templates/template.tpl',
 			$templateSource,
 			$this->_mockSmarty
 		);
+
 		$this->assertTrue($success, "Didn't return success");
 
 		$this->assertEquals(
@@ -162,26 +172,31 @@ class TemplateTest extends GalleryTestCase {
 			$this->_baseDirOverride . '/block/local/template.tpl',
 			true
 		);
+
 		$this->_mockPlatform->set(
 			'is_readable',
 			$this->_baseDirOverride . '/block/template.tpl',
 			true
 		);
+
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/block/local/template.tpl',
 			true
 		);
+
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/block/template.tpl',
 			true
 		);
+
 		$success = $this->_template->resourceGetTemplate(
 			'modules/core/templates/block/template.tpl',
 			$templateSource,
 			$this->_mockSmarty
 		);
+
 		$this->assertTrue($success, "Didn't return success");
 
 		$this->assertEquals(
@@ -198,6 +213,7 @@ class TemplateTest extends GalleryTestCase {
 			'/legal/path/local/templateThatHasNoLocal.tpl',
 			false
 		);
+
 		$this->_mockPlatform->set('is_readable', '/legal/path/templateThatHasNoLocal.tpl', true);
 		$this->_mockPlatform->set('file_exists', '/legal/path/templateThatHasNoLocal.tpl', true);
 		$this->_mockPlatform->set(
@@ -205,11 +221,13 @@ class TemplateTest extends GalleryTestCase {
 			'/legal/path/templateThatHasNoLocal.tpl',
 			array(0, 0, 0, 0, 0, 0, 0, 0, 0, 98765)
 		);
+
 		$success = $this->_template->resourceGetTimestamp(
 			'templateThatHasNoLocal.tpl',
 			$templateTimestamp,
 			$this->_mockSmarty
 		);
+
 		$this->assertTrue($success, "Didn't return success");
 		$this->assertEquals(98765, $templateTimestamp, 'no override');
 
@@ -227,32 +245,38 @@ class TemplateTest extends GalleryTestCase {
 			$this->_baseDirOverride . '/local/template.tpl',
 			false
 		);
+
 		$this->_mockPlatform->set('is_readable', $this->_baseDirOverride . '/template.tpl', false);
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/local/template.tpl',
 			true
 		);
+
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/template.tpl',
 			true
 		);
+
 		$this->_mockPlatform->set(
 			'file_exists',
 			'/legal/path/modules/core/templates/local/template.tpl',
 			true
 		);
+
 		$this->_mockPlatform->set(
 			'stat',
 			'/legal/path/modules/core/templates/local/template.tpl',
 			array(0, 0, 0, 0, 0, 0, 0, 0, 0, 12345)
 		);
+
 		$success = $this->_template->resourceGetTimestamp(
 			'modules/core/templates/template.tpl',
 			$templateTimestamp,
 			$this->_mockSmarty
 		);
+
 		$this->assertTrue($success, "Didn't return success");
 		$this->assertEquals(12345, $templateTimestamp, 'override');
 	}
@@ -264,32 +288,38 @@ class TemplateTest extends GalleryTestCase {
 			$this->_baseDirOverride . '/local/template.tpl',
 			false
 		);
+
 		$this->_mockPlatform->set('is_readable', $this->_baseDirOverride . '/template.tpl', false);
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/local/template.tpl',
 			true
 		);
+
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/template.tpl',
 			true
 		);
+
 		$this->_mockPlatform->set(
 			'file_exists',
 			'/legal/path/modules/core/templates/local/template.tpl',
 			true
 		);
+
 		$this->_mockPlatform->set(
 			'stat',
 			'/legal/path/modules/core/templates/local/template.tpl',
 			array(0, 0, 0, 0, 0, 0, 0, 0, 0, 12345)
 		);
+
 		$success = GalleryTemplate::resourceGetTimestamp(
 			'modules/core/templates/template.tpl',
 			$templateTimestamp,
 			$this->_mockSmarty
 		);
+
 		$this->assertTrue($success, "Didn't return success");
 		$this->assertEquals(12345, $templateTimestamp, 'static');
 	}
@@ -300,6 +330,7 @@ class TemplateTest extends GalleryTestCase {
 		$this->assertFalse($template->_smarty->compile_check, 'SmartyCompileCheckByPluginParam 1');
 
 		GalleryDataCache::remove('GalleryTemplate::compileCheck');
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
@@ -377,6 +408,7 @@ class TemplateTest extends GalleryTestCase {
 				$themeClass
 			);
 		}
+
 		list($ret, $album) = $this->_createRandomAlbum(
 			$this->_getRootId(),
 			array(
@@ -387,6 +419,7 @@ class TemplateTest extends GalleryTestCase {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$this->_markForCleanup($album);
 
 		return array(null, $album, $themeId);
@@ -394,6 +427,7 @@ class TemplateTest extends GalleryTestCase {
 
 	public function testGetThemeIdWithViewPermission() {
 		global $gallery;
+
 		$gallery->setPlatform($this->_origPlatform);
 
 		list($ret, $album, $fakeThemeId) = $this->_createAlbumWithNonDefaultTheme('templatetestfake');
@@ -415,7 +449,8 @@ class TemplateTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $album->getId());
 
 		// Execute the function under test
-		$template            = new GalleryTemplate('');
+		$template = new GalleryTemplate('');
+
 		list($ret, $themeId) = $template->_getThemeId();
 
 		if ($ret) {
@@ -427,6 +462,7 @@ class TemplateTest extends GalleryTestCase {
 
 	public function testGetThemeIdForMissingObject() {
 		global $gallery;
+
 		$gallery->setPlatform($this->_origPlatform);
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_getUnusedId());
@@ -437,7 +473,8 @@ class TemplateTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$template            = new GalleryTemplate('');
+		$template = new GalleryTemplate('');
+
 		list($ret, $themeId) = $template->_getThemeId();
 
 		if ($ret) {
@@ -449,6 +486,7 @@ class TemplateTest extends GalleryTestCase {
 
 	public function testGetThemeIdWithoutViewPermissionHasFallback() {
 		global $gallery;
+
 		$gallery->setPlatform($this->_origPlatform);
 
 		list($ret, $album, $fakeThemeId) = $this->_createAlbumWithNonDefaultTheme('templatetestfake');
@@ -471,7 +509,8 @@ class TemplateTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$template            = new GalleryTemplate('');
+		$template = new GalleryTemplate('');
+
 		list($ret, $themeId) = $template->_getThemeId();
 
 		if ($ret) {
@@ -483,6 +522,7 @@ class TemplateTest extends GalleryTestCase {
 
 	public function testGetThemeIdForMissingTheme() {
 		global $gallery;
+
 		$gallery->setPlatform($this->_origPlatform);
 
 		list($ret, $album, $fakeThemeId) = $this->_createAlbumWithNonDefaultTheme('TemplateTest_Missing_Theme');
@@ -499,7 +539,8 @@ class TemplateTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$template            = new GalleryTemplate('');
+		$template = new GalleryTemplate('');
+
 		list($ret, $themeId) = $template->_getThemeId();
 
 		if ($ret) {
@@ -511,6 +552,7 @@ class TemplateTest extends GalleryTestCase {
 
 	public function testGetThemeIdForInactiveTheme() {
 		global $gallery;
+
 		$gallery->setPlatform($this->_origPlatform);
 
 		list($ret, $album, $inactiveThemeId) = $this->_createAlbumWithNonDefaultTheme('templatetestinactive');
@@ -527,7 +569,8 @@ class TemplateTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$template            = new GalleryTemplate('');
+		$template = new GalleryTemplate('');
+
 		list($ret, $themeId) = $template->_getThemeId();
 
 		if ($ret) {
@@ -579,6 +622,7 @@ class TemplateTestMockSmarty {
 		if (isset($this->_tpl_vars[$name])) {
 			return $this->_tpl_vars[$name];
 		}
+
 		// var non-existent, return valid reference
 		$_tmp = null;
 

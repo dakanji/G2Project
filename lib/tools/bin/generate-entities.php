@@ -51,7 +51,6 @@ $smarty->use_sub_dirs    = false;
 $smarty->template_dir    = __DIR__;
 
 // Grab all G2 XML from entity class files
-
 $xml  = '<!DOCTYPE classes SYSTEM "' .
 	"../../../../lib/tools/dtd/GalleryClass2.1.dtd\">\n";
 $xml .= "<classes>\n";
@@ -68,6 +67,7 @@ while (($file = readdir($dh)) !== false) {
 		$files[] = $file;
 	}
 }
+
 closedir($dh);
 sort($files);
 $classXml = '';
@@ -94,6 +94,7 @@ if (!$fp = fopen($entitiesXml, 'wb')) {
 	echo "Unable to write to $entitiesXml\n";
 	cleanExit(1);
 }
+
 fwrite($fp, $xml);
 fclose($fp);
 
@@ -245,6 +246,7 @@ function getXml($filename) {
 				}
 			}
 		}
+
 		fclose($fp);
 	}
 

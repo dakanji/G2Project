@@ -36,6 +36,7 @@ class GalleryControllerTestCase extends GalleryTestCase {
 		parent::__construct($methodName);
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
+
 		list($ret, $this->_controller) = GalleryController::getMe()->loadController($controllerName);
 
 		if ($ret) {
@@ -49,6 +50,7 @@ class GalleryControllerTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		global $gallery;
 
 		$gallery->_session->put('session.siteAdminActivityTimestamp', time());
@@ -106,10 +108,12 @@ class GalleryControllerTestCase extends GalleryTestCase {
 				isset($results['status']),
 				'controller results missing status'
 			);
+
 			$this->assertTrue(
 				isset($results['error']),
 				'controller results missing error'
 			);
+
 			$this->assertTrue(
 				isset($results['redirect']) || isset($results['delegate']) || isset($results['return']),
 				'controller results needs one of (redirect, delegate)'

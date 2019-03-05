@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/icons/classes/IconsInterface_1_0.class');
 
 /**
@@ -33,6 +32,7 @@ class IconsImpl extends IconsInterface_1_0 {
 	 */
 	public function getIconPacks() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		/*
@@ -49,7 +49,8 @@ class IconsImpl extends IconsInterface_1_0 {
 		$icons = array(
 			'' => $module->translate('None'),
 		);
-		$dir   = __DIR__ . '/../iconpacks';
+
+		$dir = __DIR__ . '/../iconpacks';
 
 		if ($platform->is_dir($dir) && $platform->is_readable($dir)
 			&& $fd = $platform->opendir($dir)
@@ -80,6 +81,7 @@ class IconsImpl extends IconsInterface_1_0 {
 
 		if (!empty($iconpack)) {
 			global $gallery;
+
 			$translator =& $gallery->getTranslator();
 			$rtl        = $translator->isRightToLeft() ? '-rtl' : '';
 			$template->style("modules/icons/iconpacks/$iconpack/icons$rtl.css");

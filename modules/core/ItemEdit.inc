@@ -52,6 +52,7 @@ class ItemEditController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		// Make sure we have permission to edit this item
@@ -67,6 +68,7 @@ class ItemEditController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$preferred = empty($preferredTable) ? null : array_shift($preferredTable);
 
 		// Load the thumbnail
@@ -77,6 +79,7 @@ class ItemEditController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$thumbnail = empty($thumbnails) ? null : array_shift($thumbnails);
 
 		// Get all the edit options
@@ -105,6 +108,7 @@ class ItemEditController extends GalleryController {
 		}
 
 		$status = array();
+
 		list($ret, $error, $status['editMessage'], $requiresProgressBar) = $plugin->handleRequest(
 			$form,
 			$item,
@@ -152,6 +156,7 @@ class ItemEditController extends GalleryController {
 					array($this, 'runProgressBarOptions'),
 					array($progressBarOptions, $form, $item, $preferred, $status, $editPlugin)
 				);
+
 				$results['delegate']['view'] = 'core.ProgressBar';
 			}
 		}
@@ -208,6 +213,7 @@ class ItemEditController extends GalleryController {
 			$error             = array_merge($error, $optionErrors);
 			$status['warning'] = array_merge($status['warning'], $optionWarnings);
 		}
+
 		$session =& $gallery->getSession();
 		$session->putStatus($status);
 
@@ -352,10 +358,12 @@ class ItemEditView extends GalleryView {
 				$editPlugin = $defaultEditPlugin;
 			}
 		}
+
 		// Input validation of the given editPlugin id.
 		if (!isset($pluginInstances[$editPlugin])) {
 			$editPlugin = $defaultEditPlugin;
 		}
+
 		$session->put($editPluginSessionKey, $editPlugin);
 
 		// Get display data for all plugins
@@ -367,6 +375,7 @@ class ItemEditView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$plugins[] = array(
 				'title'      => $title,
 				'id'         => $pluginId,

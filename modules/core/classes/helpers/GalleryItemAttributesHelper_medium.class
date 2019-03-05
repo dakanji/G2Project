@@ -53,6 +53,7 @@ class GalleryItemAttributesHelper_medium {
 		foreach ($itemIds as $idx => $id) {
 			$itemIds[$idx] = (int)$id;
 		}
+
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryItemAttributesMap',
 			array('itemId', 'orderWeight'),

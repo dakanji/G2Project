@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenHelper.class');
 
 /**
@@ -50,6 +49,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $this->_topAlbum, $this->_topItems) = $this->_createSubAlbumWithItems(
 			$this->_getRootId(),
 			true
@@ -58,6 +58,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_topAlbum);
 
 		list($ret, $this->_subAlbum, $this->_subItems) = $this->_createSubAlbumWithItems(
@@ -97,6 +98,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$ret = GalleryCoreApi::addGroupPermission(
 				$albumId,
 				$this->_coreParams['id.adminGroup'],
@@ -106,6 +108,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$ret = GalleryCoreApi::addUserPermission(
 				$albumId,
 				$this->_coreParams['id.anonymousUser'],
@@ -115,6 +118,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$ret = GalleryCoreApi::addUserPermission(
 				$albumId,
 				$this->_coreParams['id.anonymousUser'],
@@ -124,6 +128,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$ret = GalleryCoreApi::addGroupPermission(
 				$albumId,
 				$this->_coreParams['id.everybodyGroup'],
@@ -154,17 +159,20 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$isHidden = (bool)$hiddenBy;
 		$this->assertEquals(
 			$isHidden && ($item->getId() == $hiddenBy),
 			$item->hasOnLoadHandler('Hidden'),
 			$messagePrefix . ' onLoadHander'
 		);
+
 		list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($item->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$found = array(false, false, false);
 
 		foreach ($permissions as $permission) {
@@ -178,6 +186,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 					$permission['entityId'],
 					$messagePrefix . ' hidden by itemId'
 				);
+
 				$found[0] = $found[0] || ($permission['entityId'] == $hiddenBy);
 			} elseif (isset($permission['userId'])
 				&& $permission['userId'] == $this->_coreParams['id.anonymousUser']
@@ -189,16 +198,19 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 				$found[2] = true;
 			}
 		}
+
 		$this->assertEquals(
 			$isHidden,
 			$found[0],
 			$messagePrefix . ' hidden permission'
 		);
+
 		$this->assertEquals(
 			false,
 			$found[1],
 			$messagePrefix . ' anonymousUser core.view'
 		);
+
 		$this->assertEquals(
 			!$isHidden,
 			$found[2],
@@ -212,6 +224,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock(
 			array(
 				$item->getParentId(),
@@ -222,6 +235,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $item->move($newParentId);
 
 		if ($ret) {
@@ -229,6 +243,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 
 			return $ret;
 		}
+
 		$ret = $item->save();
 
 		if ($ret) {
@@ -236,6 +251,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::releaseLocks($lockIds);
 
 		if ($ret) {
@@ -326,6 +342,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 
 	public function testHideAlbum() {
 		global $gallery;
+
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$albumId                   = $this->_topAlbum->getId();
@@ -365,6 +382,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$ret = $this->_assertHidden(
 				$this->_subItems[$i],
 				$albumId,
@@ -380,7 +398,6 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		//TODO: This test seems to be flawed. Investigate intent and reactivate
 		//$progress = $mockAdapter->getProgressBarDump();
 		//$this->assertTrue(count($progress) > 3, 'progress bar: ' . print_r($progress, true));
-
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
@@ -398,6 +415,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$this->_subAlbum,
 			false,
@@ -418,6 +436,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$ret = $this->_assertHidden(
 				$this->_subItems[$i],
 				false,
@@ -437,6 +456,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 
 	public function testHideAlbumWithHiddenItem() {
 		global $gallery;
+
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
@@ -445,6 +465,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$this->_subItems[0],
 			$this->_subItems[0]->getId(),
@@ -512,6 +533,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 
 	public function testHideAlbumWithHiddenAlbum() {
 		global $gallery;
+
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
@@ -520,6 +542,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$this->_subAlbum,
 			$this->_subAlbum->getId(),
@@ -544,6 +567,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$this->_subAlbum,
 			$this->_subAlbum->getId(),
@@ -564,6 +588,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$ret = $this->_assertHidden(
 				$this->_subItems[$i],
 				$this->_subAlbum->getId(),
@@ -589,6 +614,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$this->_subAlbum,
 			$this->_subAlbum->getId(),
@@ -609,6 +635,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$ret = $this->_assertHidden(
 				$this->_subItems[$i],
 				$this->_subAlbum->getId(),
@@ -627,6 +654,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$this->_subItems[1],
 			$this->_subAlbum->getId(),
@@ -669,6 +697,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 
 	public function testHideAlbumInHiddenAlbum() {
 		global $gallery;
+
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
@@ -677,6 +706,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$this->_subAlbum,
 			$this->_topAlbum->getId(),
@@ -701,6 +731,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$this->_subAlbum,
 			$this->_subAlbum->getId(),
@@ -721,6 +752,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$ret = $this->_assertHidden(
 				$this->_subItems[$i],
 				$this->_subAlbum->getId(),
@@ -746,6 +778,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$this->_subAlbum,
 			$this->_topAlbum->getId(),
@@ -766,6 +799,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$ret = $this->_assertHidden(
 				$this->_subItems[$i],
 				$this->_topAlbum->getId(),
@@ -784,6 +818,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$this->_subAlbum,
 			$this->_subAlbum->getId(),
@@ -817,6 +852,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$this->_subAlbum,
 			$this->_subAlbum->getId(),
@@ -850,16 +886,19 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $subAlbum) = $this->_createRandomAlbum($album->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = HiddenHelper::getMe()->hideItem($this->_subAlbum);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$subAlbum,
 			$this->_subAlbum->getId(),
@@ -893,6 +932,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$this->_subItems[2],
 			$this->_subAlbum->getId(),
@@ -926,16 +966,19 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = HiddenHelper::getMe()->hideItem($album);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = HiddenHelper::getMe()->hideItem($this->_subAlbum);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$this->_subItems[2],
 			$this->_subAlbum->getId(),
@@ -969,11 +1012,13 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = HiddenHelper::getMe()->hideItem($album);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$album,
 			$album->getId(),
@@ -1019,12 +1064,15 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($album);
+
 		$ret = HiddenHelper::getMe()->hideItem($this->_topAlbum);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$this->_subAlbum,
 			$this->_topAlbum->getId(),
@@ -1070,17 +1118,21 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($album);
+
 		$ret = HiddenHelper::getMe()->hideItem($album);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = HiddenHelper::getMe()->hideItem($this->_topAlbum);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$this->_subItems[1],
 			$this->_topAlbum->getId(),
@@ -1126,6 +1178,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = HiddenHelper::getMe()->hideItem($this->_subAlbum);
 
 		if ($ret) {
@@ -1155,17 +1208,21 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($album);
+
 		$ret = HiddenHelper::getMe()->hideItem($album);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = HiddenHelper::getMe()->hideItem($this->_subAlbum);
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_assertHidden(
 			$this->_subItems[1],
 			$this->_subAlbum->getId(),
@@ -1218,6 +1275,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$ret = $this->_assertHidden(
 				$this->_topItems[1],
 				$this->_topItems[1]->getId(),
@@ -1227,23 +1285,29 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			list($ret, $isHidden) = $interface->isHidden($this->_topItems[1]);
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertTrue($isHidden, 'isHidden item');
+
 			list($ret, $isHidden) = $interface->isHidden($this->_topItems[2]);
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertFalse($isHidden, 'isHidden other item');
+
 			$ret = $interface->hideItem($this->_subAlbum);
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$ret = $this->_assertHidden(
 				$this->_subAlbum,
 				$this->_subAlbum->getId(),
@@ -1253,11 +1317,13 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			list($ret, $isHidden) = $interface->isHidden($this->_subAlbum);
 
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertTrue($isHidden, 'isHidden album');
 		} else {
 			$this->assertTrue(false, 'failed to create factory instance');
@@ -1266,6 +1332,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 
 	public function testOnLoad() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'hidden');
@@ -1273,6 +1340,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = HiddenHelper::getMe()->hideItem($this->_topItems[1]);
 
 		if ($ret) {
@@ -1290,6 +1358,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array(), $session->get(GALLERY_PERMISSION_SESSION_KEY), 'admin');
 
 		$this->_becomeGuestUser();
@@ -1302,6 +1371,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array($this->_topItems[1]->getId()),
 			$session->get(GALLERY_PERMISSION_SESSION_KEY),
@@ -1317,6 +1387,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		GalleryDataCache::reset();
 		$session->put(GALLERY_PERMISSION_SESSION_KEY, array());
 
@@ -1329,6 +1400,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array(), $session->get(GALLERY_PERMISSION_SESSION_KEY), 'no view');
 
 		if (isset($saveSessionPerms)) {

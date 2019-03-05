@@ -32,6 +32,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -44,6 +45,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
@@ -51,6 +53,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_album->getId(),
 			$gallery->getActiveUserId(),
@@ -96,7 +99,8 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			$this->_photoItem->getId() => 3,
 			$this->_movieItem->getId() => 2,
 		);
-		$ret            = CartHelper::setCartItemCounts($cartItemCounts);
+
+		$ret = CartHelper::setCartItemCounts($cartItemCounts);
 
 		if ($ret) {
 			return $ret;
@@ -129,6 +133,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			__FILE__,
 			'cart'
 		);
+
 		$this->_registerFactoryImplementationForTest(
 			'CartPluginInterface_1_0',
 			'ViewCartTestCartPlugin1_0',
@@ -154,6 +159,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			array_keys($templateData['items']),
 			'item ids'
 		);
+
 		$this->assertEquals(
 			array(
 				'ViewCartTestCartPlugin1_0' => array(
@@ -180,6 +186,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			__FILE__,
 			'cart'
 		);
+
 		$this->_registerFactoryImplementationForTest(
 			'CartPluginInterface_1_0',
 			'ViewCartTestCartPlugin1_0',
@@ -187,6 +194,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			__FILE__,
 			'cart'
 		);
+
 		$this->_registerFactoryImplementationForTest(
 			'CartPluginInterface_1_1',
 			'ViewCartTestCartPlugin1_1',
@@ -222,6 +230,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			array_keys($templateData['items']),
 			'item ids'
 		);
+
 		$this->assertEquals(
 			array(
 				'ViewCartTestCartPlugin1_0' => array(
@@ -249,6 +258,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			__FILE__,
 			'cart'
 		);
+
 		$this->_registerFactoryImplementationForTest(
 			'CartPluginInterface_1_0',
 			'ViewCartTestCartPlugin1_0',
@@ -256,6 +266,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			__FILE__,
 			'cart'
 		);
+
 		$this->_registerFactoryImplementationForTest(
 			'CartPluginInterface_1_1',
 			'ViewCartTestCartPlugin1_1',
@@ -291,6 +302,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			array_keys($templateData['items']),
 			'item ids'
 		);
+
 		$this->assertEquals(
 			array(
 				'ViewCartTestCartPlugin1_0' => array(

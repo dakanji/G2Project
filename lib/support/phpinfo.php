@@ -7,6 +7,7 @@ if (!defined('G2_SUPPORT')) {
 
 // Connect to Gallery2
 require_once '../../embed.php';
+
 $ret = GalleryEmbed::init(
 	array(
 		'fullInit' => true,
@@ -18,6 +19,7 @@ if (isset($ret)) {
 
 	exit;
 }
+
 // Get Path to G2Data
 $g2data_path = $gallery->getConfig('data.gallery.base');
 
@@ -83,7 +85,6 @@ $phpinfo = ob_get_contents();
 ob_clean();
 
 //<link rel="stylesheet" type="text/css" href="support.css">
-
 $phpinfo = str_replace('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">', '', $phpinfo);
 $phpinfo = str_replace('<html xmlns="http://www.w3.org/1999/xhtml">', '<html lang="en">', $phpinfo);
 $phpinfo = str_replace('<title>phpinfo()</title>', '<title> Gallery Support | PHP Info</title>', $phpinfo);
@@ -96,6 +97,7 @@ $styleStr = '
  * Licensed under MIT
  * Based on Bootstrap
  */
+
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
@@ -157,18 +159,21 @@ a:focus {
 	.container {
 		width: 750px;
 	}
+
 }
 
 @media (min-width: 992px) {
 	.container {
 		width: 970px;
 	}
+
 }
 
 @media (min-width: 1200px) {
 	.container {
 		width: 1170px;
 	}
+
 }
 
 .container:before,
@@ -222,6 +227,7 @@ a:focus {
 	outline: 5px auto -webkit-focus-ring-color;
 	outline-offset: -2px;
 }
+
 ';
 
 $phpinfo = str_replace('</style>', $styleStr . '</style>', $phpinfo);
@@ -256,9 +262,6 @@ $phpinfo = str_replace('</body>', '</div></body>', $phpinfo);
 $phpinfo = str_replace('body {background-color: #fff; color: #222; font-family: sans-serif;}', '', $phpinfo);
 $phpinfo = str_replace('a:link {color: #009; text-decoration: none; background-color: #fff;}', '', $phpinfo);
 $phpinfo = str_replace('a:hover {text-decoration: underline;}', '', $phpinfo);
-
-
-
 
 //output
 echo $phpinfo;

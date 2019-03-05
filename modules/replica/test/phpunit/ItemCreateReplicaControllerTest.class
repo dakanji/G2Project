@@ -66,6 +66,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 		}
 
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('itemId', $childAlbum->getId());
 		GalleryUtilities::putRequestVariable(
 			'form[selectedIds]',
@@ -73,6 +74,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 				$childItem->getId() => 1,
 			)
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][link]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album->getId());
 
@@ -112,6 +114,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 		}
 
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('itemId', $childAlbum->getId());
 		GalleryUtilities::putRequestVariable(
 			'form[selectedIds]',
@@ -119,6 +122,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 				$grandChildAlbum->getId() => 1,
 			)
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][link]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album->getId());
 
@@ -130,6 +134,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 	 */
 	public function testReplicaWithoutViewFullPermissions() {
 		global $gallery;
+
 		list($ret, $item) = $this->_createRandomDataItem($this->_album->getId());
 
 		if ($ret) {
@@ -149,6 +154,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 				$item->getId() => 1,
 			)
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][link]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album->getId());
 
@@ -172,6 +178,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 		}
 
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('itemId', $childAlbum->getId());
 		GalleryUtilities::putRequestVariable(
 			'form[selectedIds]',
@@ -179,6 +186,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 				$childItem->getId() => 1,
 			)
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][link]', 1);
 
 		$results = $this->handleRequest();
@@ -219,6 +227,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_album->getId(),
 			$gallery->getActiveUserId(),
@@ -236,6 +245,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 				$childItem->getId() => 1,
 			)
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][link]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album->getId());
 
@@ -345,6 +355,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 		}
 
 		global $gallery;
+
 		GalleryUtilities::putRequestVariable('itemId', $childAlbum->getId());
 		GalleryUtilities::putRequestVariable(
 			'form[selectedIds]',
@@ -352,6 +363,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 				$childItem->getId() => 1,
 			)
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
 
 		$results = $this->handleRequest();

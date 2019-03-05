@@ -67,6 +67,7 @@ class AdminUserSetupStep extends InstallStep {
 				if (!$isStars) {
 					$this->_password = $this->sanitize($_POST['passwordA']);
 				}
+
 				$templateData['passwordA'] = '******';
 				$templateData['passwordB'] = '******';
 				$passwordOk                = true;
@@ -90,6 +91,7 @@ class AdminUserSetupStep extends InstallStep {
 				} else {
 					$adminNameOk = true;
 				}
+
 				$emailOk = false;
 
 				if (!empty($this->_email)
@@ -121,6 +123,7 @@ class AdminUserSetupStep extends InstallStep {
 				$galleryStub->setConfig('setup.admin.email', $this->_email);
 				$galleryStub->setConfig('setup.admin.fullName', $this->_fullName);
 			}
+
 			$templateData['bodyFile'] = 'AdminUserSetupSuccess.html';
 		} else {
 			$templateData['bodyFile'] = 'AdminUserSetupRequest.html';

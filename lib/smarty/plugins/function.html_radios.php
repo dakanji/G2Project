@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty {html_radios} function plugin
  *
@@ -108,6 +109,7 @@ function smarty_function_html_radios($params, &$smarty) {
 	if (!isset($options) && !isset($values)) {
 		return ''; // raise error here?
 	}
+
 	$_html_result = array();
 
 	if (isset($options)) {
@@ -139,6 +141,7 @@ function smarty_function_html_radios_output($name, $value, $output, $selected, $
 			$_output .= '<label>';
 		}
 	}
+
 	$_output .= '<input type="radio" name="'
 		. smarty_function_escape_special_chars($name) . '" value="'
 		. smarty_function_escape_special_chars($value) . '"';
@@ -150,11 +153,13 @@ function smarty_function_html_radios_output($name, $value, $output, $selected, $
 	if ((string)$value == $selected) {
 		$_output .= ' checked="checked"';
 	}
+
 	$_output .= $extra . ' />' . $output;
 
 	if ($labels) {
 		$_output .= '</label>';
 	}
+
 	$_output .= $separator;
 
 	return $_output;

@@ -34,6 +34,7 @@ class PathInfoHelperTest extends GalleryTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -63,31 +64,37 @@ class PathInfoHelperTest extends GalleryTestCase {
 
 	public function testCheckPathInfo() {
 		GalleryUtilities::putRequestVariable('pathInfoTest', 'pass');
+
 		list($ret, $status, $trueStatus) = PathInfoHelper::checkPathInfo();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(REWRITE_STATUS_OK, $status, 'status');
 		$this->assertEquals(REWRITE_STATUS_OK, $trueStatus, 'trueStatus');
 	}
 
 	public function testCheckPathInfoFail() {
 		GalleryUtilities::putRequestVariable('pathInfoTest', 'fail');
+
 		list($ret, $status, $trueStatus) = PathInfoHelper::checkPathInfo();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(REWRITE_STATUS_NO_PATH_INFO, $status, 'status');
 		$this->assertEquals(REWRITE_STATUS_NO_PATH_INFO, $trueStatus, 'trueStatus');
 
 		GalleryUtilities::putRequestVariable('pathInfoTest', '404');
+
 		list($ret, $status, $trueStatus) = PathInfoHelper::checkPathInfo();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(REWRITE_STATUS_NO_PATH_INFO, $status, 'status');
 		$this->assertEquals(REWRITE_STATUS_NO_PATH_INFO, $trueStatus, 'trueStatus');
 	}
@@ -100,11 +107,13 @@ class PathInfoHelperTest extends GalleryTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('pathInfoTest', 'fail');
+
 		list($ret, $status, $trueStatus) = PathInfoHelper::checkPathInfo();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(REWRITE_STATUS_OK, $status, 'status');
 		$this->assertEquals(REWRITE_STATUS_NO_PATH_INFO, $trueStatus, 'trueStatus');
 	}
@@ -121,6 +130,7 @@ class PathInfoHelperMockPlatform extends GalleryPlatform {
 
 	public function fsockopen($target, $port, &$errno, &$errstr, $timeout) {
 		global $gallery;
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 		// The hostName can include the port part
 		list($host) = explode(':', $urlGenerator->getHostName());

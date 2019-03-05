@@ -42,8 +42,8 @@ class ADODB_oci805 extends ADODB_oci8 {
 			$sql = "select * from ($sql) where rownum <= $nrows";
 			$nrows = -1;
 		}
-		*/
 
+		*/
 		return ADOConnection::SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
 	}
 }

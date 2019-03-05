@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryPluginHelper_medium.class');
 
 /**
@@ -65,6 +64,7 @@ class FactoryTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markFactoryModuleForCleanup('factoryTest');
 
 		$ret = GalleryCoreApi::registerFactoryImplementation(
@@ -88,6 +88,7 @@ class FactoryTest extends GalleryTestCase {
 			'factoryTest',
 			$FactoryTestModule
 		);
+
 		list($ret, $ignored) = GalleryCoreApi::activatePlugin('module', 'factoryTest');
 
 		if ($ret) {
@@ -100,6 +101,7 @@ class FactoryTest extends GalleryTestCase {
 			'factoryTest2',
 			$FactoryTestModule2
 		);
+
 		list($ret, $ignored) = GalleryCoreApi::activatePlugin('module', 'factoryTest2');
 
 		if ($ret) {
@@ -294,6 +296,7 @@ class FactoryTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'FactoryTestDummyId2' => 'FactoryTestDummy2',
@@ -307,6 +310,7 @@ class FactoryTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'FactoryTestDummyId2' => 'FactoryTestDummy2',
@@ -327,6 +331,7 @@ class FactoryTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(null, $instance, 'newFactoryInstanceByHint');
 
 		list($ret, $instance) = GalleryCoreApi::newFactoryInstance('FactoryTest', 'FactoryTestDummy');
@@ -334,6 +339,7 @@ class FactoryTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(null, $instance, 'newFactoryInstance');
 
 		list($ret, $instance) = GalleryCoreApi::newFactoryInstanceById('FactoryTest', 'FactoryTestDummyId2');
@@ -341,6 +347,7 @@ class FactoryTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(null, $instance, 'newFactoryInstanceById');
 	}
 
@@ -369,7 +376,6 @@ class FactoryTest extends GalleryTestCase {
 		}
 
 		list($ret, $hints) = GalleryCoreApi::getFactoryDefinitionHints(
-
 			'FactoryTest',
 			'FactoryTestDummyId3'
 		);
@@ -377,6 +383,7 @@ class FactoryTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array('new hint'), $hints, 'Unexpected hints on update');
 	}
 
@@ -479,6 +486,7 @@ class FactoryTest extends GalleryTestCase {
 		$result = empty(
 			$registry['hints']['GalleryEventListener']['gallery::error']['TestErrorHandler']
 		);
+
 		$this->assertTrue($result, 'TestErrorHandler error listener is still set');
 	}
 }
@@ -489,10 +497,9 @@ class FactoryTest extends GalleryTestCase {
  * @package GalleryCore
  * @subpackage PHPUnit
  */
-class FactoryTestDummy {
-}
-class FactoryTestDummy2 {
-}
+class FactoryTestDummy {}
+
+class FactoryTestDummy2 {}
 
 /**
  * Bogus classes that we can feed to the factory
@@ -507,6 +514,7 @@ class FactoryTestModule extends GalleryModule {
 		$this->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 	}
 }
+
 class FactoryTestModule2 extends GalleryModule {
 	public function __construct() {
 		$this->setId('factoryTest2');

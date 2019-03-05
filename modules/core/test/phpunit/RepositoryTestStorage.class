@@ -114,8 +114,7 @@ class RepositoryTestStorage {
 		return $this->_removedMapData;
 	}
 
-	public function rollbackTransaction() {
-	}
+	public function rollbackTransaction() {}
 
 	public function getUniqueId($sequence) {
 		return 1;

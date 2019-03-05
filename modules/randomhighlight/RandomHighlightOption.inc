@@ -52,14 +52,17 @@ class RandomHighlightOption extends ItemEditOption {
 	 * @see ItemEditOption::handleRequestAfterEdit
 	 */
 	public function handleRequestAfterEdit($form, &$item, &$preferred) {
-		list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
+		list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(
+			array($item->getId())
+		);
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$thumbnail         = array_shift($thumbnail);
 		$isRandomHighlight = isset($form['RandomHighlightOption']['isRandomHighlight'])
-				 && $form['RandomHighlightOption']['isRandomHighlight'];
+			&& $form['RandomHighlightOption']['isRandomHighlight'];
 
 		if (isset($thumbnail)
 			&& $isRandomHighlight != $thumbnail->hasOnLoadHandler('RandomHighlight')
@@ -69,6 +72,7 @@ class RandomHighlightOption extends ItemEditOption {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			list($ret, $thumbnail) = $thumbnail->refresh();
 
 			if ($ret) {
@@ -82,6 +86,7 @@ class RandomHighlightOption extends ItemEditOption {
 			} else {
 				$thumbnail->removeOnLoadHandler('RandomHighlight');
 			}
+
 			$ret = $thumbnail->save();
 
 			if ($ret) {
@@ -89,6 +94,7 @@ class RandomHighlightOption extends ItemEditOption {
 
 				return array($ret, null, null);
 			}
+
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
 			if ($ret) {

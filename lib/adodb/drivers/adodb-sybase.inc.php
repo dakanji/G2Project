@@ -9,7 +9,6 @@
   Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Sybase driver contributed by Toni (toni.tunkkari@finebyte.com)
 
   - MSSQL date patch applied.
@@ -46,8 +45,7 @@ class ADODB_sybase extends ADOConnection {
 
 	public $port;
 
-	public function __construct() {
-	}
+	public function __construct() {}
 
 	// might require begintrans -- committrans
 	public function _insertid() {
@@ -63,6 +61,7 @@ class ADODB_sybase extends ADOConnection {
 		if ($this->transOff) {
 			return true;
 		}
+
 		$this->transCnt += 1;
 
 		$this->Execute('BEGIN TRAN');
@@ -89,6 +88,7 @@ class ADODB_sybase extends ADOConnection {
 		if ($this->transOff) {
 			return true;
 		}
+
 		$this->transCnt -= 1;
 		$this->Execute('ROLLBACK TRAN');
 
@@ -100,6 +100,7 @@ class ADODB_sybase extends ADOConnection {
 		if (!$this->_hastrans) {
 			$this->BeginTrans();
 		}
+
 		$tables = str_replace(',', ' HOLDLOCK,', $tables);
 
 		return $this->GetOne("select $col from $tables HOLDLOCK where $where");
@@ -117,7 +118,6 @@ class ADODB_sybase extends ADOConnection {
 
 	/*	Returns: the last error message from previous database operation
 		Note: This function is NOT available for Microsoft SQL Server.	*/
-
 	public function ErrorMsg() {
 		if ($this->_logsql) {
 			return $this->_errorMsg;
@@ -244,6 +244,7 @@ class ADODB_sybase extends ADOConnection {
 		if (!$col) {
 			$col = $this->sysTimeStamp;
 		}
+
 		$s = '';
 
 		$len = strlen($fmt);
@@ -252,6 +253,7 @@ class ADODB_sybase extends ADOConnection {
 			if ($s) {
 				$s .= '+';
 			}
+
 			$ch = $fmt[$i];
 
 			switch ($ch) {
@@ -314,6 +316,7 @@ class ADODB_sybase extends ADOConnection {
 						$i++;
 						$ch = substr($fmt, $i, 1);
 					}
+
 					$s .= $this->qstr($ch);
 
 					break;
@@ -348,6 +351,7 @@ class ADODB_sybase extends ADOConnection {
 	 Class Name: Recordset
 --------------------------------------------------------------------------------------*/
 global $ADODB_sybase_mths;
+
 $ADODB_sybase_mths = array(
 	'JAN' => 1,
 	'FEB' => 2,
@@ -385,6 +389,7 @@ class ADORecordset_sybase extends ADORecordSet {
 	public function __construct($id, $mode = false) {
 		if ($mode === false) {
 			global $ADODB_FETCH_MODE;
+
 			$mode = $ADODB_FETCH_MODE;
 		}
 
@@ -393,6 +398,7 @@ class ADORecordset_sybase extends ADORecordSet {
 		} else {
 			$this->fetchMode = $mode;
 		}
+
 		parent::__construct($id, $mode);
 	}
 
@@ -406,6 +412,7 @@ class ADORecordset_sybase extends ADORecordSet {
 		} elseif ($fieldOffset == -1) {  // The $fieldOffset argument is not provided thus its -1
 			$o = @sybase_fetch_field($this->_queryID);
 		}
+
 		// older versions of PHP did not support type, only numeric
 		if ($o && !isset($o->type)) {
 			$o->type = ($o->numeric) ? 'float' : 'varchar';
@@ -416,6 +423,7 @@ class ADORecordset_sybase extends ADORecordSet {
 
 	public function _initrs() {
 		global $ADODB_COUNTRECS;
+
 		$this->_numOfRows   = ($ADODB_COUNTRECS) ? @sybase_num_rows($this->_queryID) : -1;
 		$this->_numOfFields = @sybase_num_fields($this->_queryID);
 	}
@@ -489,12 +497,14 @@ class ADORecordSet_array_sybase extends ADORecordSet_array {
 		if ($themth <= 0) {
 			return false;
 		}
+
 		// h-m-s-MM-DD-YY
 		return adodb_mktime(0, 0, 0, $themth, $rr[2], $rr[3]);
 	}
 
 	public static function UnixTimeStamp($v) {
 		global $ADODB_sybase_mths;
+
 		//11.02.2001 Toni Tunkkari toni.tunkkari@finebyte.com
 		//Changed [0-9] to [0-9 ] in day conversion
 		if (!preg_match('/([A-Za-z]{3})[-/\. ]([0-9 ]{1,2})[-/\. ]([0-9]{4}) +([0-9]{1,2}):([0-9]{1,2}) *([apAP]{0,1})/', $v, $rr)
@@ -531,6 +541,7 @@ class ADORecordSet_array_sybase extends ADORecordSet_array {
 			default:
 				break;
 		}
+
 		// h-m-s-MM-DD-YY
 		return adodb_mktime($rr[4], $rr[5], 0, $themth, $rr[2], $rr[3]);
 	}

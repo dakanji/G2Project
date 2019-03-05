@@ -90,6 +90,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		}
 
 		$item->setTheme($themeId);
+
 		$ret = $item->save();
 
 		if ($ret) {
@@ -191,6 +192,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 			array(array(), $this->_translate('Successfully saved theme settings')),
 			$results
 		);
+
 		// Verify - 3 albums should be set
 		$this->assertEquals(
 			array(
@@ -222,6 +224,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 			array(array(), $this->_translate('Successfully saved theme settings')),
 			$results
 		);
+
 		$this->assertEquals(
 			array(
 				'setParameter(rows, 3)',
@@ -253,6 +256,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('ItemEditThemeControllerTest', $this->_album->getTheme());
 	}
 
@@ -277,6 +281,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$themeId = $this->_album->getTheme();
 		$this->assertTrue(empty($themeId));
 	}
@@ -321,11 +326,13 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $childAlbum) = $this->_childAlbum->refresh();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $grandchildAlbum) = $this->_grandchildAlbum->refresh();
 
 		if ($ret) {
@@ -377,6 +384,7 @@ class ItemEditThemeControllerTestTheme {
 			),
 			'value'      => 4,
 		);
+
 		$settings[] = array(
 			'key'        => 'columns',
 			'name'       => 'Columns per album page',
@@ -523,8 +531,7 @@ class ItemEditThemeTestPlatform {
 		return unlink($path); // needed to release locks
 	}
 
-	public function closedir($path) {
-	}
+	public function closedir($path) {}
 
 	public function realpath($path) {
 		return realpath($path);

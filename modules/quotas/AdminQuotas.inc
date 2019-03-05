@@ -64,7 +64,7 @@ class AdminQuotasController extends GalleryController {
 		if (isset($form['action']['group']['createFromText'])) {
 			if (empty($form['text']['groupName'])) {
 				$error[] = 'form[error][text][noGroupSpecified]';
-			} elseif (is_null($group)) {
+			} elseif (null === $group) {
 				$error[] = 'form[error][text][noSuchGroup]';
 			} else {
 				list($ret, $quotaExists, $groupQuota) = GalleryQuotasHelper::fetchGroupQuota($group->getId());
@@ -87,7 +87,7 @@ class AdminQuotasController extends GalleryController {
 		} elseif (isset($form['action']['user']['createFromText'])) {
 			if (empty($form['text']['userName'])) {
 				$error[] = 'form[error][text][noUserSpecified]';
-			} elseif (is_null($user)) {
+			} elseif (null === $user) {
 				$error[] = 'form[error][text][noSuchUser]';
 			} else {
 				list($ret, $quotaExists, $userQuota) = GalleryQuotasHelper::fetchUserQuota($user->getId());
@@ -284,7 +284,8 @@ class AdminQuotasView extends GalleryView {
 		$form['list']['groupNames'] = array();
 
 		foreach ($groupNames as $groupId => $values) {
-			$form['list']['groupNames'][$groupId]['groupName']  = $values['name'];
+			$form['list']['groupNames'][$groupId]['groupName'] = $values['name'];
+
 			list($ret,
 			$form['list']['groupNames'][$groupId]['quotaSize'],
 			$form['list']['groupNames'][$groupId]['quotaUnit']) = GalleryQuotasHelper::humanReadableFromKilobytes($values['quota']);
@@ -320,7 +321,8 @@ class AdminQuotasView extends GalleryView {
 		$form['list']['userNames'] = array();
 
 		foreach ($userNames as $userId => $values) {
-			$form['list']['userNames'][$userId]['userName']   = $values['name'];
+			$form['list']['userNames'][$userId]['userName'] = $values['name'];
+
 			list($ret,
 			$form['list']['userNames'][$userId]['quotaSize'],
 			$form['list']['userNames'][$userId]['quotaUnit']) = GalleryQuotasHelper::humanReadableFromKilobytes($values['quota']);

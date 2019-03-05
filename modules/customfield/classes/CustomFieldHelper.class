@@ -69,7 +69,8 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 		$fallback = true,
 		$sets = array('common', 'album', 'photo')
 	) {
-		$isContainer       = ($containerId > 0);
+		$isContainer = ($containerId > 0);
+
 		list($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield', $containerId);
 
 		if ($ret) {
@@ -82,6 +83,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			$isContainer = false;
 		}
 
@@ -114,6 +116,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 			if (!isset($param[$set])) {
 				continue;
 			}
+
 			$list = array();
 
 			foreach ($param[$set] as $item) {
@@ -121,6 +124,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 				. ($item['detail'] ? 1 : 0)
 				. (!empty($item['choices']) ? ('`' . implode('`', $item['choices'])) : '');
 			}
+
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
 				'customfield',
@@ -160,13 +164,15 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 				return array(null, false);
 			}
 		}
+
 		$param[$set][] = array(
 			'field'   => $newField,
 			'summary' => false,
 			'detail'  => true,
 			'choices' => array(),
 		);
-		$ret           = $this->saveParameters(
+
+		$ret = $this->saveParameters(
 			array(
 				$set => $param[$set],
 			),
@@ -209,11 +215,13 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 		switch ($exceptType) {
 			case 'album':
 				$setTypes = array(0, 2);
+
 				// Fall Through
 			case 'photo':
 				if (!isset($setTypes)) {
 					$setTypes = array(0, 1);
 				}
+
 				$ret = GalleryCoreApi::removeMapEntry(
 					'CustomFieldMap',
 					array(
@@ -260,6 +268,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 	 */
 	public function fetchFieldValues($items, $viewType = null, $fillSet = null) {
 		global $gallery;
+
 		$data = $result = array();
 
 		if (empty($items) || !is_array($items)) {
@@ -337,6 +346,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 		$photoItemCheckRes = $photoItemCheck ? 2 : 0;
 		$set               = $albumItemCheck ? 1 : $photoItemCheckRes;
 		$containerId       = ($set == 1) ? $item->getId() : $item->getParentId();
+
 		list($ret, $param) = GalleryCoreApi::fetchAllPluginParameters(
 			'module',
 			'customfield',
@@ -346,6 +356,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 		if ($ret) {
 			return $ret;
 		}
+
 		$isContainer = !empty($param);
 		$ret         = GalleryCoreApi::removeMapEntry(
 			'CustomFieldMap',
@@ -436,15 +447,17 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 					}
 				}
 			}
+
 			$ret = $this->saveParameters($newParam, $containerId);
 
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$status['saved'] = 1;
 		} elseif (isset($form['action']['add'])) {
-			foreach ($form['action']['add'] as $set => $tmp) {
-			}
+			foreach ($form['action']['add'] as $set => $tmp) {}
+
 			$newField = str_replace('|', ':', str_replace('`', '&#039;', $form[$set]['newField']));
 
 			if (empty($newField)) {
@@ -452,6 +465,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 
 				return array(null, $status);
 			}
+
 			list($ret, $added) = $this->addField($newField, $set, $containerId);
 
 			if ($ret) {
@@ -464,13 +478,14 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 				$status['error']['duplicate'] = 1;
 			}
 		} elseif (isset($form['action']['go'])) {
-			foreach ($form['action']['go'] as $set => $tmp) {
-			}
+			foreach ($form['action']['go'] as $set => $tmp) {}
+
 			list($ret, $param, $isContainer) = $this->loadParameters($containerId, false);
 
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$idx = $this->findParameter($param[$set], $form[$set]['goField']);
 
 			if ($idx < 0) {
@@ -482,6 +497,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 					// Remove from $set, add to common; no db change
 					$param['common'][] = $param[$set][$idx];
 					unset($param[$set][$idx]);
+
 					$ret = $this->saveParameters(
 						array(
 							'common' => $param['common'],
@@ -499,6 +515,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 				case 'remove':
 					// Remove from $set; delete from all items
 					unset($param[$set][$idx]);
+
 					$ret = $this->saveParameters(
 						array(
 							$set => $param[$set],
@@ -509,6 +526,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					$ret = $this->deleteField(
 						$form[$set]['goField'],
 						$isContainer ? $containerId : 0
@@ -517,6 +535,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					$status['removed'] = 1;
 
 					break;
@@ -528,6 +547,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 					$newSet           = $form[$set]['goAction'];
 					$param[$newSet][] = $param[$set][$idx];
 					unset($param[$set][$idx]);
+
 					$ret = $this->saveParameters(
 						array(
 							'common' => $param['common'],
@@ -539,6 +559,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					$ret = $this->deleteField(
 						$form[$set]['goField'],
 						$isContainer ? $containerId : 0,
@@ -566,6 +587,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 					$choices[] = $tmp;
 				}
 			}
+
 			list($ret, $param) = $this->loadParameters($containerId, false);
 
 			if ($ret) {
@@ -588,13 +610,13 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					$status['picklist'] = 1;
 
 					break;
 				}
 			}
 		} // else $form['action']['reset']
-
 		return array(null, $status);
 	}
 
@@ -617,10 +639,12 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 			'key'  => 'common',
 			'name' => $module->translate('Common Fields'),
 		);
+
 		$form['set'][] = array(
 			'key'  => 'album',
 			'name' => $module->translate('Album Fields'),
 		);
+
 		$form['set'][] = array(
 			'key'  => 'photo',
 			'name' => $module->translate('Photo Fields'),
@@ -665,6 +689,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->saveFieldValues($item, $data);
 
 		if ($ret) {

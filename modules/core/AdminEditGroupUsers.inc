@@ -54,7 +54,8 @@ class AdminEditGroupUsersController extends GalleryController {
 		$results = $error = $status = array();
 
 		// Load the group
-		$groupId           = GalleryUtilities::getRequestVariables('groupId');
+		$groupId = GalleryUtilities::getRequestVariables('groupId');
+
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -101,6 +102,7 @@ class AdminEditGroupUsersController extends GalleryController {
 						if ($ret) {
 							return array($ret, null);
 						}
+
 						$removedUsers++;
 					}
 
@@ -158,6 +160,7 @@ class AdminEditGroupUsersController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'core.AdminEditGroupUsers';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -204,7 +207,8 @@ class AdminEditGroupUsersView extends GalleryView {
 		}
 
 		// Load the group
-		$groupId           = GalleryUtilities::getRequestVariables('groupId');
+		$groupId = GalleryUtilities::getRequestVariables('groupId');
+
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {

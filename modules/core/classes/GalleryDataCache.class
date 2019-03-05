@@ -175,7 +175,6 @@ class GalleryDataCache {
 		foreach ($cache['positions'] as $key => $position) {
 			unset($cache['keys'][$key], $cache['positions'][$key]);
 
-
 			if ($numToExpire-- == 0) {
 				break;
 			}
@@ -288,6 +287,7 @@ class GalleryDataCache {
 		}
 
 		global $gallery;
+
 		$platform  =& $gallery->getPlatform();
 		$cacheFile = GalleryDataCache::getCachePath($pathInfo);
 
@@ -302,6 +302,7 @@ class GalleryDataCache {
 					GalleryCoreApi::requireOnce($classFile);
 				}
 			}
+
 			$data = unserialize(substr($buf, $marker + 1));
 
 			return $data;
@@ -323,6 +324,7 @@ class GalleryDataCache {
 		}
 
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		if (in_array(
@@ -376,6 +378,7 @@ class GalleryDataCache {
 		}
 
 		global $gallery;
+
 		$cacheFile = GalleryDataCache::getCachePath($pathInfo);
 		$platform  =& $gallery->getPlatform();
 		GalleryUtilities::guaranteeDirExists(dirname($cacheFile));
@@ -437,7 +440,8 @@ class GalleryDataCache {
 		switch ($pathInfo['type']) {
 			case 'entity':
 				list($first, $second) = GalleryDataCache::getCacheTuple($pathInfo['itemId']);
-				$cacheFile            = sprintf(
+
+				$cacheFile = sprintf(
 					'%sentity/%s/%s/%d.inc',
 					$base,
 					$first,
@@ -449,7 +453,8 @@ class GalleryDataCache {
 
 			case 'derivative':
 				list($first, $second) = GalleryDataCache::getCacheTuple($pathInfo['itemId']);
-				$cacheFile            = sprintf(
+
+				$cacheFile = sprintf(
 					'%sderivative/%s/%s/%d.dat',
 					$base,
 					$first,
@@ -461,7 +466,8 @@ class GalleryDataCache {
 
 			case 'derivative-relative':
 				list($first, $second) = GalleryDataCache::getCacheTuple($pathInfo['itemId']);
-				$cacheFile            = sprintf(
+
+				$cacheFile = sprintf(
 					'derivative/%s/%s/%d.dat',
 					$first,
 					$second,
@@ -472,7 +478,8 @@ class GalleryDataCache {
 
 			case 'fast-download':
 				list($first, $second) = GalleryDataCache::getCacheTuple($pathInfo['itemId']);
-				$cacheFile            = sprintf(
+
+				$cacheFile = sprintf(
 					'%sentity/%s/%s/%d-fast.inc',
 					$base,
 					$first,
@@ -493,8 +500,10 @@ class GalleryDataCache {
 						if (strstr($pathInfo['itemId'], '..') !== false) {
 							$pathInfo['itemId'] = '0';
 						}
+
 						list($first, $second) = GalleryDataCache::getCacheTuple($pathInfo['itemId']);
-						$cacheFile            = sprintf(
+
+						$cacheFile = sprintf(
 							'%s%s/%s/%s/%s/%s.inc',
 							$base,
 							$pathInfo['type'],
@@ -551,6 +560,7 @@ class GalleryDataCache {
 	 */
 	public static function cachePermissions($ids, $permission) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		if (!isset($session)) {
@@ -619,6 +629,7 @@ class GalleryDataCache {
 	 */
 	public static function hasPermission($id, $permission) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		if (!isset($session)) {
@@ -646,6 +657,7 @@ class GalleryDataCache {
 	 */
 	public static function clearPermissionCache() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		if (isset($session)) {
@@ -669,6 +681,7 @@ class GalleryDataCache {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$acceleration = unserialize($acceleration);
 
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
@@ -745,7 +758,8 @@ class GalleryDataCache {
 	public static function putPageData($type, $itemId, $keyData, $value) {
 		global $gallery;
 
-		$userId             = $gallery->getActiveUserId();
+		$userId = $gallery->getActiveUserId();
+
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
 
 		if ($ret) {
@@ -785,7 +799,8 @@ class GalleryDataCache {
 				)
 			);
 
-			$storage                  =& $gallery->getStorage();
+			$storage =& $gallery->getStorage();
+
 			list($ret, $affectedRows) = $storage->getAffectedRows();
 
 			if ($ret) {
@@ -901,7 +916,9 @@ class GalleryDataCache {
 		if ($ret) {
 			return array($ret, null);
 		}
-		$acceleration            = unserialize($acceleration);
+
+		$acceleration = unserialize($acceleration);
+
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
 		if ($ret) {
@@ -921,6 +938,7 @@ class GalleryDataCache {
 	 */
 	public static function _getExtraPageCacheKey() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		// Add session specific flags & values to the cache key
@@ -929,6 +947,7 @@ class GalleryDataCache {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$isEmbedded = (int)$gallery->isEmbedded();
 		$extraKey   = (int)($session->isUsingCookies()) . '-' . $languageCode . '-' . $isEmbedded;
 
@@ -960,6 +979,7 @@ class GalleryDataCache {
 		if ($ret) {
 			return $ret;
 		}
+
 		$acceleration = unserialize($acceleration);
 
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();

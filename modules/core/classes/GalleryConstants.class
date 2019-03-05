@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @package GalleryCore
  * @subpackage Classes
@@ -138,7 +139,6 @@ define('LOWER_WEIGHT', -1);
  * Indicate a higher weight
  */
 define('HIGHER_WEIGHT', 1);
-
 
 // Permission constants
 
@@ -357,6 +357,7 @@ define('EXTERNAL_ACCESS_WRITE', 0x00000002);
 define('EXTERNAL_ACCESS_FULL', 0x00000003);
 
 // Export / Import Schema Version Number
+
 /**
  * Current Schema Version
  */

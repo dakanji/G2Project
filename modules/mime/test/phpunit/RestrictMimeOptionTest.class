@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('lib/tools/phpunit/ItemAddOptionTestCase.class');
 
 /**
@@ -34,6 +33,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 
 	public function setUp($setup = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -45,6 +45,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		$ret = $this->_markPluginParametersForCleanup('module', 'mime');
@@ -58,6 +59,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_rejectMessage = $this->_module->translate('This type of file not allowed; item will not be added.');
 
 		/*
@@ -72,6 +74,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addMimeType('yyy', 'test/bad', false);
 
 		if ($ret) {
@@ -109,6 +112,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertFalse($isAppropriate);
 	}
 
@@ -120,6 +124,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_module->setParameter('mimeList', 'image/jpeg | test/file | image/gif');
 
 		if ($ret) {
@@ -131,6 +136,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $badItem) = $this->_createRandomDataItem($this->_album->getId(), 'test/bad');
 
 		if ($ret) {
@@ -138,10 +144,12 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+
 		$this->assertEquals(array(), $errors, 'no errors');
 		$this->assertEquals(array(array()), $warnings, 'no warnings');
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($badItem));
+
 		$this->assertEquals(array(), $errors, 'errors');
 		$this->assertEquals(array(array($this->_rejectMessage)), $warnings, 'warnings');
 
@@ -162,6 +170,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_module->setParameter('mimeList', 'video/mpeg | test/bad');
 
 		if ($ret) {
@@ -173,6 +182,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $badItem) = $this->_createRandomDataItem($this->_album->getId(), 'test/bad');
 
 		if ($ret) {
@@ -180,10 +190,12 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+
 		$this->assertEquals(array(), $errors, 'no errors');
 		$this->assertEquals(array(array()), $warnings, 'no warnings');
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($badItem));
+
 		$this->assertEquals(array(), $errors, 'errors');
 		$this->assertEquals(array(array($this->_rejectMessage)), $warnings, 'warnings');
 
@@ -204,6 +216,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_module->setParameter('mimeList', 'video/mpeg | test/bad');
 
 		if ($ret) {
@@ -215,6 +228,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		/*
 		 * See bugs 1836651 and 1836669. Mime-type and extension might not agree. Simulate an item
 		 * with mime-type test/file which corresponds to file extension .xxx, but the item actually
@@ -231,6 +245,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			'somefile.yyy',
 			$badItem->getPathComponent(),
@@ -238,10 +253,12 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		);
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+
 		$this->assertEquals(array(), $errors, 'no errors');
 		$this->assertEquals(array(array()), $warnings, 'no warnings');
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($badItem));
+
 		$this->assertEquals(array(), $errors, 'errors');
 		$this->assertEquals(array(array($this->_rejectMessage)), $warnings, 'warnings');
 
@@ -262,6 +279,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $this->_module->setParameter('mimeList', 'video/mpeg | test/file');
 
 		if ($ret) {
@@ -273,6 +291,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		/*
 		 * See bugs 1836651 and 1836669. Mime-type and extension might not agree. Simulate an item
 		 * with mime-type test/file which corresponds to file extension .xxx, but the item actually
@@ -289,6 +308,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			'somefile.yyy',
 			$badItem->getPathComponent(),
@@ -296,10 +316,12 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		);
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
+
 		$this->assertEquals(array(), $errors, 'no errors');
 		$this->assertEquals(array(array()), $warnings, 'no warnings');
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($badItem));
+
 		$this->assertEquals(array(), $errors, 'errors');
 		$this->assertEquals(array(array($this->_rejectMessage)), $warnings, 'warnings');
 

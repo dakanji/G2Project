@@ -170,8 +170,10 @@ class SiteAdminView extends GalleryView {
 								break;
 							}
 						}
+
 						$outer['selected'] = $selected;
 					}
+
 					$moduleViews[$i] = $outer;
 				}
 
@@ -215,6 +217,7 @@ class SiteAdminView extends GalleryView {
 				$data[0]['groupLabel'] = ucwords($data[0]['group']);
 			}
 		}
+
 		usort($subViewGroups, array($this, 'groupSort'));
 
 		// If we have a specific sub view, render it now
@@ -287,6 +290,7 @@ class SiteAdminView extends GalleryView {
 		if (empty($subViewName)) {
 			$subViewName = 'core.AdminCore';
 		}
+
 		list($ret, $subView) = GalleryView::getMe()->loadView($subViewName);
 
 		if ($ret) {
@@ -298,6 +302,7 @@ class SiteAdminView extends GalleryView {
 		if (!empty($description)) {
 			return array(null, $description);
 		}
+
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -327,6 +332,7 @@ class SiteAdminView extends GalleryView {
 				'other'    => 4,
 			);
 		}
+
 		$ag = $a[0]['group'];
 		$bg = $b[0]['group'];
 		$ao = isset($groupOrder[$ag]) ? $groupOrder[$ag] : $groupOrder[''];
@@ -335,6 +341,7 @@ class SiteAdminView extends GalleryView {
 		if ($ao != $bo) {
 			return ($ao > $bo) ? 1 : -1;
 		}
+
 		$ag = isset($a[0]['groupLabel']) ? $a[0]['groupLabel'] : $ag;
 		$bg = isset($b[0]['groupLabel']) ? $b[0]['groupLabel'] : $bg;
 

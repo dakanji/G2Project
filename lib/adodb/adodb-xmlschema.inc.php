@@ -1,10 +1,12 @@
 <?php
 // Copyright (c) 2004 ars Cognita Inc., all rights reserved
+
 /* ******************************************************************************
 	Released under both BSD license and Lesser GPL library license.
 	 Whenever there is any discrepancy between the two licenses,
 	 the BSD license will take precedence.
 *******************************************************************************/
+
 
 /**
  * xmlschema is a class that allows the user to quickly and easily
@@ -28,11 +30,13 @@ function _file_get_contents($file) {
 	if (!$f) {
 		return '';
 	}
+
 	$t = '';
 
 	while ($s = fread($f, 100000)) {
 		$t .= $s;
 	}
+
 	fclose($f);
 
 	return $t;
@@ -133,24 +137,21 @@ class dbObject {
 	 *
 	 * @access private
 	 */
-	public function _tag_open(&$parser, $tag, $attributes) {
-	}
+	public function _tag_open(&$parser, $tag, $attributes) {}
 
 	/**
 	 * XML Callback to process CDATA elements
 	 *
 	 * @access private
 	 */
-	public function _tag_cdata(&$parser, $cdata) {
-	}
+	public function _tag_cdata(&$parser, $cdata) {}
 
 	/**
 	 * XML Callback to process end elements
 	 *
 	 * @access private
 	 */
-	public function _tag_close(&$parser, $tag) {
-	}
+	public function _tag_close(&$parser, $tag) {}
 
 	public function create(&$xmls) {
 		return array();
@@ -159,8 +160,7 @@ class dbObject {
 	/**
 	 * Destroys the object
 	 */
-	public function destroy() {
-	}
+	public function destroy() {}
 
 	/**
 	 * Checks whether the specified RDBMS is supported by the current
@@ -305,7 +305,6 @@ class dbTable extends dbObject {
 
 			case 'DEFAULT':
 				// Add a field option to the table object
-
 				// Work around ADOdb datadict issue that misinterprets empty strings.
 				if ($attributes['VALUE'] == '') {
 					$attributes['VALUE'] = " '' ";
@@ -530,6 +529,7 @@ class dbTable extends dbObject {
 					$sql[] = $xmls->dict->DropColumnSQL($this->name, '`' . $field->name . '`');
 				}
 			}
+
 			// if table doesn't exist
 		} else {
 			if ($this->drop_table) {
@@ -842,6 +842,7 @@ class dbData extends dbObject {
 
 			case 'F':
 				$this->addField($attributes);
+
 				// Fall Through
 			default:
 				// print_r( array( $tag, $attributes ) );
@@ -957,7 +958,7 @@ class dbData extends dbObject {
 					case 'I2':
 					case 'I4':
 					case 'I8':
-						$fields[$name] = intval($field_data);
+						$fields[$name] = (int)$field_data;
 
 						break;
 
@@ -1186,11 +1187,12 @@ class dbQuerySet extends dbObject {
 			switch ($this->prefixMethod) {
 				case 'AUTO':
 					// Enable auto prefix replacement
-
 					// Process object prefix.
 					// Evaluate SQL statements to prepend prefix to objects
 					$query = $this->prefixQuery('/^\s*((?is)INSERT\s+(INTO\s+)?)((\w+\s*,?\s*)+)(\s.*$)/', $query, $xmls->objectPrefix);
+
 					$query = $this->prefixQuery('/^\s*((?is)UPDATE\s+(FROM\s+)?)((\w+\s*,?\s*)+)(\s.*$)/', $query, $xmls->objectPrefix);
+
 					$query = $this->prefixQuery('/^\s*((?is)DELETE\s+(FROM\s+)?)((\w+\s*,?\s*)+)(\s.*$)/', $query, $xmls->objectPrefix);
 
 					// SELECT statements aren't working yet
@@ -1234,7 +1236,6 @@ class dbQuerySet extends dbObject {
 			$postamble  = $match[5];
 			$objectList = explode(',', $match[3]);
 			// $prefix = $prefix . '_';
-
 			$prefixedList = '';
 
 			foreach ($objectList as $object) {
@@ -1603,7 +1604,6 @@ class adoSchema {
 	 * @return array Array of SQL queries, ready to execute.
 	 */
 	public function RemoveSchemaString($schema, $returnSchema = false) {
-
 		// grab current version
 		if (!($version = $this->SchemaStringVersion($schema))) {
 			return false;
@@ -1681,6 +1681,7 @@ class adoSchema {
 		foreach ($sqlArray as $key => $query) {
 			fwrite($fp, $query . ";\n");
 		}
+
 		fclose($fp);
 	}
 
@@ -1734,8 +1735,7 @@ class adoSchema {
 	 *
 	 * @access private
 	 */
-	public function _tag_cdata(&$parser, $cdata) {
-	}
+	public function _tag_cdata(&$parser, $cdata) {}
 
 	/**
 	 * XML Callback to process end elements
@@ -1743,8 +1743,7 @@ class adoSchema {
 	 * @access private
 	 * @internal
 	 */
-	public function _tag_close(&$parser, $tag) {
-	}
+	public function _tag_close(&$parser, $tag) {}
 
 	/**
 	 * Converts an XML schema string to the specified DTD version.
@@ -1763,7 +1762,6 @@ class adoSchema {
 	 * @return string Converted XML schema or FALSE if an error occurs.
 	 */
 	public function ConvertSchemaString($schema, $newVersion = null, $newFile = null) {
-
 		// grab current version
 		if (!($version = $this->SchemaStringVersion($schema))) {
 			return false;
@@ -1813,7 +1811,6 @@ class adoSchema {
 	 * @return string Converted XML schema or FALSE if an error occurs.
 	 */
 	public function ConvertSchemaFile($filename, $newVersion = null, $newFile = null) {
-
 		// grab current version
 		if (!($version = $this->SchemaFileVersion($filename))) {
 			return false;
@@ -2177,6 +2174,7 @@ class adoSchema {
 
 			return true;
 		}
+
 		logMsg("Platform $platform is NOT supported");
 
 		return false;

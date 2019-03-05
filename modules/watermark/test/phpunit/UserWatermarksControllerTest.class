@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkImage.class');
 
@@ -36,6 +35,7 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -50,6 +50,7 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_user);
 
 		$ret = $this->_markPluginParametersForCleanup('module', 'watermark');
@@ -57,6 +58,7 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'watermark', 'allowUserWatermarks', 1);
 
 		if ($ret) {
@@ -86,6 +88,7 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 
 	public function testAddWatermark() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$dataFile     = GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.gif');
@@ -114,7 +117,6 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-
 
 		// Verify the watermark exists
 		list($ret, $map) = $this->_fetchWatermarkMapByFilename();
@@ -204,7 +206,9 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret->wrap($ret);
 		}
+
 		$this->_markForCleanup($item);
+
 		list($ret, $derivative) = $this->_createDerivative(
 			$item,
 			$item->getId(),
@@ -264,6 +268,7 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 
 	public function testAddMaliciousFile() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$dataFile     = GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.gif');
@@ -293,7 +298,6 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-
 		// Verify the watermark exists
 		list($ret, $map) = $this->_fetchWatermarkMapByFilename();
 
@@ -317,6 +321,7 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 
 	public function testAddWatermarkSameFilenameAsOtherUser() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Start with admin user..
@@ -356,6 +361,7 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($map[$expectedName]), 'First watermark not added');
 
 		// Now change active user and add watermark with same filename..
@@ -384,6 +390,7 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($map[$expectedName]), 'Second watermark not added');
 	}
 
@@ -405,6 +412,7 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_becomeGuestUser();
 
 		$results = $this->handleRequest(ERROR_PERMISSION_DENIED);

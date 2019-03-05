@@ -126,11 +126,13 @@ class RepositoryPackageTest extends GalleryTestCase {
 			array('pluginDirectory/file1'),
 			'pluginDirectory/file1'
 		);
+
 		$platform->setReply(
 			'file_get_contents',
 			array('pluginDirectory/file2'),
 			'pluginDirectory/file2'
 		);
+
 		$platform->setReply('file_exists', array($expectedPackagePath), true);
 		$gallery->setPlatform($platform);
 
@@ -164,41 +166,49 @@ class RepositoryPackageTest extends GalleryTestCase {
 			array('pluginDirectory/file1'),
 			'pluginDirectory/file1'
 		);
+
 		$platform->setReply(
 			'file_get_contents',
 			array('pluginDirectory/file2'),
 			'pluginDirectory/file2'
 		);
+
 		$platform->setReply(
 			'file_exists',
 			array('someoutputdir/testplugin-1.0.0-19700411131300-package1.package'),
 			false
 		);
+
 		$platform->setReply(
 			'file_put_contents',
 			array('someoutputdir/testplugin-1.0.0-19700411131300-package1.package', ''),
 			true
 		);
+
 		$platform->setReply(
 			'file_get_contents',
 			array('pluginDirectory/file2'),
 			'pluginDirectory/file2'
 		);
+
 		$platform->setReply(
 			'file_get_contents',
 			array('pluginDirectory/file3'),
 			'pluginDirectory/file3'
 		);
+
 		$platform->setReply(
 			'file_exists',
 			array('someoutputdir/testplugin-1.0.0-19700411131300-package2.package'),
 			false
 		);
+
 		$platform->setReply(
 			'file_put_contents',
 			array('someoutputdir/testplugin-1.0.0-19700411131300-package2.package', ''),
 			true
 		);
+
 		$gallery->setPlatform($platform);
 
 		// Send data to template.

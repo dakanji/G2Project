@@ -65,6 +65,7 @@ function recursiveRmdir($dirname, &$status) {
 		if (!strcmp($filename, '.') || !strcmp($filename, '..')) {
 			continue;
 		}
+
 		$path = "$dirname/$filename";
 
 		if (is_dir($path)) {
@@ -81,6 +82,7 @@ function recursiveRmdir($dirname, &$status) {
 			}
 		}
 	}
+
 	closedir($fd);
 
 	if (!@rmdir($dirname)) {
@@ -94,6 +96,7 @@ function recursiveRmdir($dirname, &$status) {
 
 function clearPageCache() {
 	global $gallery;
+
 	$storage =& $gallery->getStorage();
 
 	$ret = GalleryCoreApi::removeAllMapEntries('GalleryCacheMap', true);
@@ -103,6 +106,7 @@ function clearPageCache() {
 	} else {
 		$status = array(array('info', 'Successfully deleted page cache'));
 	}
+
 	$ret = $storage->checkPoint();
 
 	if ($ret) {
@@ -114,13 +118,13 @@ function clearPageCache() {
 
 function clearG2DataDir($dir) {
 	global $gallery;
+
 	$path   = $gallery->getConfig('data.gallery.base') . $dir;
 	$status = array(array('info', "Deleting dir: $path"));
 	$count  = recursiveRmdir($path, $status);
 
 	// Commented this out because it's a little noisy
 	// $status[] = array('info', "Removed $count files and directories");
-
 	if (@mkdir($path)) {
 		$status[] = array('info', "Recreating dir: $path");
 	} else {
@@ -132,6 +136,7 @@ function clearG2DataDir($dir) {
 
 function clearInstallUpgradeLogs() {
 	global $gallery;
+
 	$path   = $gallery->getConfig('data.gallery.base');
 	$status = array();
 	$count  = 0;
@@ -148,8 +153,10 @@ function clearInstallUpgradeLogs() {
 				}
 			}
 		}
+
 		closedir($fd);
 	}
+
 	$status[] = array('info', "Removed $count install/upgrade log files");
 
 	return $status;
@@ -160,6 +167,7 @@ $caches = getCaches();
 
 if (isset($_REQUEST['clear'], $_REQUEST['target'])) {
 	include_once __DIR__ . '/../../embed.php';
+
 	$ret = GalleryEmbed::init(
 		array(
 			'fullInit' => false,
@@ -169,8 +177,10 @@ if (isset($_REQUEST['clear'], $_REQUEST['target'])) {
 	if ($ret) {
 		// Try to swallow the error, but define a session to make ::done() pass.
 		global $gallery;
+
 		$gallery->initEmptySession();
 	}
+
 	$remember = array();
 
 	foreach ($_REQUEST['target'] as $key => $ignored) {
@@ -186,13 +196,16 @@ if (isset($_REQUEST['clear'], $_REQUEST['target'])) {
 		$status     = array_merge($status, call_user_func_array($func, $args));
 		$remember[] = $key;
 	}
+
 	$ret = GalleryEmbed::done();
 
 	if ($ret) {
 		$status[] = array('error', 'Error completing transaction!');
 	}
+
 	$_COOKIE['g2cache'] = join(',', $remember);
 }
+
 ?>
 <html lang="en">
 <head>
@@ -211,18 +224,21 @@ if (isset($_REQUEST['clear'], $_REQUEST['target'])) {
 			Anything in the cache can be deleted safely!  Gallery will rebuild anything it needs.
 		</h2>
 
-<?php if (!empty($status)) {
+<?php
+if (!empty($status)) {
 	?>
 		<div class="success">
-	<?php foreach ($status as $line) {
+	<?php
+	foreach ($status as $line) {
 		?>
 			<pre class="<?php echo $line[0]; ?>"><?php echo $line[1]; ?></pre>
 
-	<?php
+		<?php
 	} ?>
 		</div>
 			<?php
 }
+
 ?>
 
 		<?php startForm(); ?>
@@ -242,6 +258,7 @@ if (isset($_REQUEST['clear'], $_REQUEST['target'])) {
 			<?php echo $info[3]; ?> <br>
 			<?php
 		}
+
 		?>
 	  <input type="submit" name="clear" value="Clear Cache" class="btn btn-default">
 	</p>

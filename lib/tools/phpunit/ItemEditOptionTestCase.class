@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 require_once __DIR__ . '/../../../modules/core/classes/GalleryView.class';
 
 require_once __DIR__ . '/../../../modules/core/classes/GalleryController.class';
@@ -62,6 +61,7 @@ class ItemEditOptionTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_statusMonitor = new ItemEditOptionTestImmediateStatusView();
 	}
 
@@ -71,6 +71,7 @@ class ItemEditOptionTestCase extends GalleryTestCase {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$preferred = empty($preferred) ? null : array_shift($preferred);
 
 		list($ret, $error, $warning) = $this->_option->handleRequestAfterEdit(

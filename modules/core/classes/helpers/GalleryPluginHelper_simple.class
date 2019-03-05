@@ -70,6 +70,7 @@ class GalleryPluginHelper_simple {
 						),
 						null,
 					);
+
 			}
 
 			if (!class_exists($pluginClass)) {
@@ -95,6 +96,7 @@ class GalleryPluginHelper_simple {
 						GalleryDataCache::remove(
 							"GalleryPluginHelper::fetchPluginStatus($pluginType)"
 						);
+
 						GalleryDataCache::removeFromDisk(
 							array(
 								'type'   => $pluginType,
@@ -102,6 +104,7 @@ class GalleryPluginHelper_simple {
 								'id'     => '_all',
 							)
 						);
+
 						list($ret, $plugin) = GalleryPluginHelper_simple::loadPlugin(
 							$pluginType,
 							$pluginId,
@@ -191,8 +194,10 @@ class GalleryPluginHelper_simple {
 								"Unable to deactivate $pluginId,
 								jumping to upgrader."
 							);
+
 							$gallery->debug_r($redirectInfo);
 						}
+
 						$urlGenerator =& $gallery->getUrlGenerator();
 						$phpVm        = $gallery->getPhpVm();
 						$thisDir      = $urlGenerator->getCurrentUrlDir(true);
@@ -312,6 +317,7 @@ class GalleryPluginHelper_simple {
 		if ($itemId == null) {
 			$itemId = 0;
 		}
+
 		list($ret, $params) = GalleryPluginHelper_simple::_fetchAllParameters(
 			$pluginType,
 			$pluginId,
@@ -391,6 +397,7 @@ class GalleryPluginHelper_simple {
 					continue;
 				}
 			}
+
 			$queryIds[] = (int)$itemId;
 		}
 
@@ -428,6 +435,7 @@ class GalleryPluginHelper_simple {
 			if (!isset($data[$itemId])) {
 				$data[$itemId] = array();
 			}
+
 			GalleryDataCache::putToDisk(
 				array(
 					'type'   => $pluginType,
@@ -436,6 +444,7 @@ class GalleryPluginHelper_simple {
 				),
 				$data[$itemId]
 			);
+
 			GalleryDataCache::put($cacheBase . $itemId . ')', $data[$itemId]);
 		}
 
@@ -503,6 +512,7 @@ class GalleryPluginHelper_simple {
 							),
 							null,
 						);
+
 				}
 
 				$frameworkParams   = array('version', 'callbacks', 'requiredCoreApi');
@@ -546,6 +556,7 @@ class GalleryPluginHelper_simple {
 							}
 						}
 					}
+
 					$platform->closedir($dir);
 				}
 
@@ -561,6 +572,7 @@ class GalleryPluginHelper_simple {
 						if ($gallery->getDebug()) {
 							$gallery->debug("Plugin $pluginId no longer installed");
 						}
+
 						unset($plugins[$pluginId]);
 					}
 				}
@@ -574,6 +586,7 @@ class GalleryPluginHelper_simple {
 					$plugins
 				);
 			}
+
 			GalleryDataCache::put($cacheKey, $plugins);
 		} else {
 			$plugins = GalleryDataCache::get($cacheKey);
@@ -627,6 +640,7 @@ class GalleryPluginHelper_simple {
 					'active' => (int)$result[1],
 				);
 			}
+
 			GalleryDataCache::put($cacheKey, $data);
 		} else {
 			$data = GalleryDataCache::get($cacheKey);

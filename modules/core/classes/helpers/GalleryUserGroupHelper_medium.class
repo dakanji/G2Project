@@ -63,6 +63,7 @@ class GalleryUserGroupHelper_medium {
 		if ($ret) {
 			return $ret;
 		}
+
 		GalleryDataCache::remove("GalleryUserGroupHelper::isUserInGroup($userId,$groupId)");
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
@@ -72,6 +73,7 @@ class GalleryUserGroupHelper_medium {
 				'itemId' => null,
 			)
 		);
+
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -106,6 +108,7 @@ class GalleryUserGroupHelper_medium {
 		if ($ret) {
 			return $ret;
 		}
+
 		GalleryDataCache::remove("GalleryUserGroupHelper::isUserInGroup($userId,$groupId)");
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
@@ -115,6 +118,7 @@ class GalleryUserGroupHelper_medium {
 				'itemId' => null,
 			)
 		);
+
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -155,6 +159,7 @@ class GalleryUserGroupHelper_medium {
 				'itemId' => null,
 			)
 		);
+
 		list($ret) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -202,6 +207,7 @@ class GalleryUserGroupHelper_medium {
 			if ($ret) {
 				return $ret;
 			}
+
 			$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
 			$event->setData(
 				array(
@@ -209,6 +215,7 @@ class GalleryUserGroupHelper_medium {
 					'itemId' => null,
 				)
 			);
+
 			list($ret) = GalleryCoreApi::postEvent($event);
 
 			if ($ret) {
@@ -246,6 +253,7 @@ class GalleryUserGroupHelper_medium {
 	    ';
 			$data[] = "%$substring%";
 		}
+
 		$query .= '
 	ORDER BY
 	  [GalleryUser::userName]

@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty escape modifier plugin
  *
@@ -50,7 +51,8 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'ISO-88
 			$return = '';
 
 			for ($x = 0; $x < strlen($string); $x++) {
-				$return .= '&#x' . bin2hex($string[$x]) . ';';
+				$return .= '&#x' . bin2hex($string[$x]) . ';
+';
 			}
 
 			return $return;
@@ -59,7 +61,8 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'ISO-88
 			$return = '';
 
 			for ($x = 0; $x < strlen($string); $x++) {
-				$return .= '&#' . ord($string[$x]) . ';';
+				$return .= '&#' . ord($string[$x]) . ';
+';
 			}
 
 			return $return;

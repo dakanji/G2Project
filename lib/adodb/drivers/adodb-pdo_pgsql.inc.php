@@ -10,7 +10,6 @@
   Set tabs to 8.
 
 */
-
 class ADODB_pdo_pgsql extends ADODB_pdo {
 	public $metaDatabasesSQL = "select datname from pg_database where datname not in ('template0','template1') order by 1";
 	public $metaTablesSQL    = "select tablename,'T' from pg_tables where tablename not like 'pg\_%'
@@ -110,6 +109,7 @@ select tablename,'T' from pg_tables where tablename like $mask
 select viewname,'V' from pg_views where viewname like $mask";
 			}
 		}
+
 		$ret = ADOConnection::MetaTables($ttype, $showSchema);
 
 		if ($mask) {
@@ -145,6 +145,7 @@ select viewname,'V' from pg_views where viewname like $mask";
 		if (isset($savem)) {
 			$this->SetFetchMode($savem);
 		}
+
 		$ADODB_FETCH_MODE = $save;
 
 		if ($rs === false) {
@@ -158,7 +159,6 @@ select viewname,'V' from pg_views where viewname like $mask";
 			// Of course, a modified version of the metaColumnsSQL query using a
 			// LEFT JOIN would have been much more elegant, but postgres does
 			// not support OUTER JOINS. So here is the clumsy way.
-
 			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
 			$rskey = $this->Execute(sprintf($this->metaKeySQL, ($table)));
@@ -168,6 +168,7 @@ select viewname,'V' from pg_views where viewname like $mask";
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
 			}
+
 			$ADODB_FETCH_MODE = $save;
 
 			$rskey->Close();
@@ -184,6 +185,7 @@ select viewname,'V' from pg_views where viewname like $mask";
 			if (isset($savem)) {
 				$this->SetFetchMode($savem);
 			}
+
 			$ADODB_FETCH_MODE = $save;
 
 			if ($rsdef) {
@@ -202,6 +204,7 @@ select viewname,'V' from pg_views where viewname like $mask";
 			} else {
 				ADOConnection::outp('==> SQL => ' . $sql);
 			}
+
 			unset($rsdef);
 		}
 
@@ -225,6 +228,7 @@ select viewname,'V' from pg_views where viewname like $mask";
 				$fld->scale        = $fld->max_length & 0xFFFF;
 				$fld->max_length >>= 16;
 			}
+
 			// dannym
 			// 5 hasdefault; 6 num-of-column
 			$fld->has_default = ($rs->fields[5] == 't');
@@ -259,6 +263,7 @@ select viewname,'V' from pg_views where viewname like $mask";
 
 			$rs->MoveNext();
 		}
+
 		$rs->Close();
 
 		if (empty($retarr)) {

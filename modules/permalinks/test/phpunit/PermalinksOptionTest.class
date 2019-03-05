@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/permalinks/classes/PermalinksMapHelper.class');
 
 /**
@@ -59,6 +58,7 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$item->setMimeType('image/gif');
 
 		list($ret, $item1) = $this->_createRandomDataItem(
@@ -72,6 +72,7 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$item1->setMimeType('image/gif');
 
 		$this->_item  = $item;
@@ -106,6 +107,7 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 		$this->_aliasNamesToDelete[] = 'newAlias';
 
 		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('newAlias');
+
 		$this->assertEquals($this->_item->getId(), $destId);
 	}
 
@@ -117,6 +119,7 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 		 * TODO: Use a mock database for this test
 		 */
 		global $gallery;
+
 		$storage = $gallery->getStorage();
 
 		if ($storage->getType() == 'postgres') {
@@ -130,6 +133,7 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 		$this->_aliasNamesToDelete[] = 'newAlias';
 
 		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('newAlias');
+
 		$this->assertEquals($this->_item1->getId(), $destId);
 
 		// now test a collision, this generates an error with some DB drivers, that's OK
@@ -140,6 +144,7 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 		);
 
 		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('newAlias');
+
 		$this->assertEquals($this->_item1->getId(), $destId);
 	}
 
@@ -149,6 +154,7 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 		$result = $this->_handleRequestAfterEdit($form, $this->_item);
 
 		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('newAlias');
+
 		$this->assertEquals($this->_item->getId(), $destId);
 
 		// now delete it
@@ -158,6 +164,7 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 		$result = $this->_handleRequestAfterEdit($form, $this->_item);
 
 		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('newAlias');
+
 		$this->assertTrue(empty($destId));
 	}
 }

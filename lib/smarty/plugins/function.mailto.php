@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty {mailto} function plugin
  *
@@ -54,8 +55,8 @@ function smarty_function_mailto($params, &$smarty) {
 
 		return;
 	}
-	$address = $params['address'];
 
+	$address = $params['address'];
 
 	$text = $address;
 
@@ -86,6 +87,7 @@ function smarty_function_mailto($params, &$smarty) {
 			case 'text':
 				$$var = $value;
 
+
 				// Fall Through
 			default:
 		}
@@ -97,6 +99,7 @@ function smarty_function_mailto($params, &$smarty) {
 		$mail_parm_vals .= (0 == $i) ? '?' : '&';
 		$mail_parm_vals .= $mail_parms[$i];
 	}
+
 	$address .= $mail_parm_vals;
 
 	$encode = (empty($params['encode'])) ? 'none' : $params['encode'];
@@ -146,6 +149,7 @@ function smarty_function_mailto($params, &$smarty) {
 
 			return;
 		}
+
 		$address_encode = '';
 
 		for ($x = 0; $x < strlen($address); $x++) {
@@ -155,6 +159,7 @@ function smarty_function_mailto($params, &$smarty) {
 				$address_encode .= $address[$x];
 			}
 		}
+
 		$text_encode = '';
 
 		for ($x = 0; $x < strlen($text); $x++) {
@@ -165,6 +170,7 @@ function smarty_function_mailto($params, &$smarty) {
 
 		return '<a href="' . $mailto . $address_encode . '" ' . $extra . '>' . $text_encode . '</a>';
 	}
+
 	// no encoding
 	return '<a href="mailto:' . $address . '" ' . $extra . '>' . $text . '</a>';
 }

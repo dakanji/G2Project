@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
@@ -66,6 +65,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('TestToolkit');
 		$this->_markToolkitForCleanup('TestToolkit2');
 	}
@@ -81,7 +81,8 @@ class ToolkitTest extends GalleryTestCase {
 				'description' => 'test-description2',
 			),
 		);
-		$ret    = GalleryCoreApi::registerToolkitOperation(
+
+		$ret = GalleryCoreApi::registerToolkitOperation(
 			'TestToolkit',
 			array('test/type'),
 			'test-operation',
@@ -148,6 +149,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::unregisterToolkit('TestToolkit2');
 
 		if ($ret) {
@@ -227,6 +229,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::registerToolkitProperty(
 			'TestToolkit2',
 			array('test/type'),
@@ -261,6 +264,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::unregisterToolkit('TestToolkit');
 
 		if ($ret) {
@@ -288,7 +292,8 @@ class ToolkitTest extends GalleryTestCase {
 				'description' => 'test-description2',
 			),
 		);
-		$ret    = GalleryCoreApi::registerToolkitOperation(
+
+		$ret = GalleryCoreApi::registerToolkitOperation(
 			'TestToolkit',
 			array('test/type1', 'test/unused'),
 			'test-operation1',
@@ -397,7 +402,8 @@ class ToolkitTest extends GalleryTestCase {
 				'description' => 'test-description2',
 			),
 		);
-		$ret    = GalleryCoreApi::registerToolkitOperation(
+
+		$ret = GalleryCoreApi::registerToolkitOperation(
 			'TestToolkit',
 			array('test/type', 'test/type2'),
 			'test-operation',
@@ -415,6 +421,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(
 			isset($data['test/type']) && in_array('TestToolkit', $data['test/type']),
 			'Operation mime type'
@@ -427,6 +434,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(GalleryUtilities::isA($source, 'GalleryPhotoItem'));
 
 		$source->setWidth(1024);
@@ -437,6 +445,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(GalleryUtilities::isA($derivative, 'GalleryDerivativeImage'));
 
 		$derivative->setDerivativeOperations('thumbnail|200');
@@ -459,6 +468,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(GalleryUtilities::isA($source, 'GalleryPhotoItem'));
 
 		$source->setWidth(1024);
@@ -469,6 +479,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(GalleryUtilities::isA($derivative, 'GalleryDerivativeImage'));
 
 		$derivative->setDerivativeOperations('scale|150');
@@ -491,6 +502,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(GalleryUtilities::isA($source, 'GalleryPhotoItem'));
 
 		$source->setWidth(1024);
@@ -501,6 +513,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(GalleryUtilities::isA($derivative, 'GalleryDerivativeImage'));
 
 		$derivative->setDerivativeOperations('crop|1,2,3,4;scale|150');
@@ -529,6 +542,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(GalleryUtilities::isA($orig, 'GalleryPhotoItem'), 'photo item');
 
 		$orig->setWidth(400);
@@ -539,6 +553,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(GalleryUtilities::isA($source, 'GalleryDerivativeImage'), 'source deriv');
 
 		$source->setDerivativeOperations('thumbnail|100');
@@ -550,6 +565,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(GalleryUtilities::isA($derivative, 'GalleryDerivativeImage'), 'target deriv');
 
 		$derivative->setDerivativeOperations('thumbnail|200');
@@ -586,22 +602,36 @@ class ToolkitTest extends GalleryTestCase {
 		$toolkit = new GalleryToolkit();
 
 		// Rotate transform of cropped operation results in rotated coordinates
-		list($success, $result) = $toolkit->applyTransform('rotate|90', 'rotate|90;crop|15,15,40,50');
+		list($success, $result) = $toolkit->applyTransform(
+			'rotate|90',
+			'rotate|90;
+crop|15,15,40,50'
+		);
 		$this->assertTrue($success);
 		$this->assertEquals('rotate|90;crop|35,15,50,40', $result, 'test 1');
 
 		// Rotate transform of nothing returns nothing
 		list($success, $result) = $toolkit->applyTransform('rotate|90', '');
+
 		$this->assertTrue($success);
 		$this->assertEquals('', $result, 'test 2');
 
 		// Empty transform of cropped opreation returns original values
-		list($success, $result) = $toolkit->applyTransform('', 'rotate|90;crop|15,15,40,50');
+		list($success, $result) = $toolkit->applyTransform(
+			'',
+			'rotate|90;
+crop|15,15,40,50'
+		);
 		$this->assertTrue($success);
 		$this->assertEquals('rotate|90;crop|15,15,40,50', $result, 'test 3');
 
 		// Reverse rotate transform of cropped operation results in rotated coordinates
-		list($success, $result) = $toolkit->applyTransform('rotate|90', 'rotate|90;crop|15,15,40,50', true);
+		list($success, $result) = $toolkit->applyTransform(
+			'rotate|90',
+			'rotate|90;
+crop|15,15,40,50',
+			true
+		);
 		$this->assertTrue($success);
 		$this->assertEquals('rotate|90;crop|15,45,50,40', $result, 'test 4');
 	}
@@ -628,7 +658,11 @@ class ToolkitTest extends GalleryTestCase {
 		$toolkit = new GalleryToolkit();
 
 		// Rotate transform of cropped operation results in rotated coordinates
-		list($success, $result) = $toolkit->applyTransform('rotate|90', 'rotate|90;crop|15,20.5,40.62,50');
+		list($success, $result) = $toolkit->applyTransform(
+			'rotate|90',
+			'rotate|90;
+crop|15,20.5,40.62,50'
+		);
 		$this->assertTrue($success);
 		$this->assertEquals('rotate|90;crop|29.5,15,50,40.62', $result, 'test 1');
 
@@ -720,6 +754,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(30, $priority, 'Toolkit Priority Doesn\'t Match');
 
 		// Test return for an undefined toolkit
@@ -728,6 +763,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(null, $priority, 'Returned value for undefined toolkit');
 	}
 
@@ -738,36 +774,43 @@ class ToolkitTest extends GalleryTestCase {
 			$toolkit->mergeOperations('thumbnail', array(100), 'thumbnail', array(150)),
 			'thumbnail'
 		);
+
 		$this->assertEquals(
 			array(true, 'scale', array(800)),
 			$toolkit->mergeOperations('scale', array(600, 500), 'scale', array(800)),
 			'scale'
 		);
+
 		$this->assertEquals(
 			array(true, 'resize', array(640, 480)),
 			$toolkit->mergeOperations('resize', array(800, 600), 'resize', array(640, 480)),
 			'resize'
 		);
+
 		$this->assertEquals(
 			array(true, 'scale', array(800, 600)),
 			$toolkit->mergeOperations('thumbnail', array(200), 'scale', array(800, 600)),
 			'thumbnail scale'
 		);
+
 		$this->assertEquals(
 			array(true, 'resize', array(640, 480)),
 			$toolkit->mergeOperations('scale', array(800, 600), 'resize', array(640, 480)),
 			'scale resize'
 		);
+
 		$this->assertEquals(
 			array(true, 'thumbnail', array(150)),
 			$toolkit->mergeOperations('resize', array(900, 700), 'thumbnail', array(150)),
 			'resize thumbnail'
 		);
+
 		$this->assertEquals(
 			array(true, 'crop', array(20, 20, 60, 60)),
 			$toolkit->mergeOperations('crop', array(40, 40, 20, 20), 'crop', array(20, 20, 60, 60)),
 			'crop'
 		);
+
 		$this->assertEquals(
 			array(false, null, null),
 			$toolkit->mergeOperations(
@@ -778,21 +821,25 @@ class ToolkitTest extends GalleryTestCase {
 			),
 			'composite should not merge'
 		);
+
 		$this->assertEquals(
 			array(true, 'rotate', array(180)),
 			$toolkit->mergeOperations('rotate', array(90), 'rotate', array(90)),
 			'rotate 90 90'
 		);
+
 		$this->assertEquals(
 			array(true, 'rotate', array(180)),
 			$toolkit->mergeOperations('rotate', array(-90), 'rotate', array(-90)),
 			'rotate -90 -90'
 		);
+
 		$this->assertEquals(
 			array(true, 'rotate', array(-90)),
 			$toolkit->mergeOperations('rotate', array(180), 'rotate', array(90)),
 			'rotate 180 90'
 		);
+
 		$this->assertEquals(
 			array(true, null, null),
 			$toolkit->mergeOperations('rotate', array(180), 'rotate', array(180)),
@@ -807,7 +854,8 @@ class ToolkitTest extends GalleryTestCase {
 				'description' => 'test-description1',
 			),
 		);
-		$ret    = GalleryCoreApi::registerToolkitOperation(
+
+		$ret = GalleryCoreApi::registerToolkitOperation(
 			'TestToolkit',
 			array('test/type'),
 			'test-operation',
@@ -844,6 +892,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(0, sizeof($operations), 'all operations should be gone');
 
 		list($ret, $properties) = GalleryCoreApi::getToolkitProperties('test/type');
@@ -851,6 +900,7 @@ class ToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(0, sizeof($properties), 'all properties should be gone');
 	}
 }
@@ -861,7 +911,6 @@ class ToolkitTest extends GalleryTestCase {
  * @package GalleryCore
  * @subpackage PHPUnit
  */
-class TestToolkit extends GalleryToolkit {
-}
-class TestToolkit2 {
-}
+class TestToolkit extends GalleryToolkit {}
+
+class TestToolkit2 {}

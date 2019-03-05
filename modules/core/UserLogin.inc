@@ -101,13 +101,15 @@ class UserLoginController extends GalleryController {
 				if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 					return array($ret, null);
 				}
+
 				GalleryUtilities::unsanitizeInputValues($form['password'], false);
 				$isCorrect = (isset($user) && $user->isCorrectPassword($form['password']));
 
 				// Prepare for validation
-				$options                      = array(
+				$options = array(
 					'pass' => $isCorrect,
 				);
+
 				list($ret, $options['level']) = GalleryCoreApi::getPluginParameter('module', 'core', 'validation.level');
 
 				if ($ret) {
@@ -163,6 +165,7 @@ class UserLoginController extends GalleryController {
 
 					$event = GalleryCoreApi::newEvent('Gallery::Login');
 					$event->setEntity($user);
+
 					list($ret, $redirect) = GalleryCoreApi::postEvent($event);
 
 					if ($ret) {
@@ -188,6 +191,7 @@ class UserLoginController extends GalleryController {
 							'userName' => $form['username'],
 						)
 					);
+
 					list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 					if ($ret) {
@@ -203,6 +207,7 @@ class UserLoginController extends GalleryController {
 			$results['delegate']['view']    = 'core.UserAdmin';
 			$results['delegate']['subView'] = 'core.UserLogin';
 		}
+
 		$results['status'] = array();
 		$results['error']  = $error;
 
@@ -232,6 +237,7 @@ class UserLoginView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		// Check if the default login view URL has been overridden and redirect appropriately
@@ -258,6 +264,7 @@ class UserLoginView extends GalleryView {
 						'forceFullUrl'   => true,
 					)
 				);
+
 				$redirectUrl = rtrim(str_replace('&amp;', '&', $redirectUrl), '&? ');
 				$phpVm->header("Location: $redirectUrl");
 				$phpVm->exit_();
@@ -269,7 +276,8 @@ class UserLoginView extends GalleryView {
 			$form['username'] = '';
 		}
 
-		$reauthenticate      = false;
+		$reauthenticate = false;
+
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {

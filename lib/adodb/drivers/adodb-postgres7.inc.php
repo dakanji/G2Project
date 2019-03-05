@@ -25,7 +25,6 @@ class ADODB_postgres7 extends ADODB_postgres64 {
 	public $hasLimit     = true;   // set to true for pgsql 6.5+ only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
 	public $ansiOuter    = true;
 	public $charSet      = true; //set to true for Postgres 7 and above - PG client supports encodings
-
 	// Richard 3/18/2012 - Modified SQL to return SERIAL type correctly AS old driver no longer return SERIAL as data type.
 	public $metaColumnsSQL = "
 		SELECT
@@ -102,6 +101,7 @@ class ADODB_postgres7 extends ADODB_postgres64 {
 		if (ADODB_ASSOC_CASE !== ADODB_ASSOC_CASE_NATIVE) {
 			$this->rsPrefix .= 'assoc_';
 		}
+
 		$this->_bindInputArray = PHP_VERSION >= 5.1;
 	}
 
@@ -129,9 +129,12 @@ class ADODB_postgres7 extends ADODB_postgres64 {
 		if ($info['version']>=7.3) {
 			return array($sql,false);
 		}
+
 		return $sql;
 	}
+
 	*/
+
 
 	/**
 	 * Generate the SQL to retrieve MetaColumns data
@@ -193,6 +196,7 @@ class ADODB_postgres7 extends ADODB_postgres64 {
 			} else {
 				$a[$rs->Fields('lookup_table')][] = str_replace('"', '', $rs->Fields('dep_field') . '=' . $rs->Fields('lookup_field'));
 			}
+
 			$rs->MoveNext();
 		}
 
@@ -258,6 +262,7 @@ class ADODB_postgres7 extends ADODB_postgres64 {
 				} else {
 					$sql .= $v . ' $' . $i;
 				}
+
 				$i++;
 			}
 
@@ -265,11 +270,13 @@ class ADODB_postgres7 extends ADODB_postgres64 {
 		} else {
 			$rez = pg_query($this->_connectionID, $sql);
 		}
+
 		// check if no data returned, then no need to create real recordset
 		if ($rez && pg_num_fields($rez) <= 0) {
 			if (is_resource($this->_resultid) && get_resource_type($this->_resultid) === 'pgsql result') {
 				pg_free_result($this->_resultid);
 			}
+
 			$this->_resultid = $rez;
 
 			return true;
@@ -317,7 +324,6 @@ class ADODB_postgres7 extends ADODB_postgres64 {
 /*--------------------------------------------------------------------------------------
 	Class Name: Recordset
 --------------------------------------------------------------------------------------*/
-
 class ADORecordSet_postgres7 extends ADORecordSet_postgres64 {
 	public $databaseType = 'postgres7';
 
@@ -341,6 +347,7 @@ class ADORecordSet_postgres7 extends ADORecordSet_postgres64 {
 					return true;
 				}
 			}
+
 			$this->fields = false;
 			$this->EOF    = true;
 		}
@@ -367,6 +374,7 @@ class ADORecordSet_assoc_postgres7 extends ADORecordSet_postgres64 {
 			if (isset($this->_blobArr)) {
 				$this->_fixblobs();
 			}
+
 			$this->_updatefields();
 		}
 
@@ -392,7 +400,6 @@ class ADORecordSet_assoc_postgres7 extends ADORecordSet_postgres64 {
 					return true;
 				}
 			}
-
 
 			$this->fields = false;
 			$this->EOF    = true;

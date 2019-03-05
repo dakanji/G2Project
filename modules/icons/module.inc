@@ -28,6 +28,7 @@
 class IconsModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
+
 		$this->setId('icons');
 		$this->setName($gallery->i18n('Icons'));
 		$this->setDescription(
@@ -107,6 +108,7 @@ class IconsModule extends GalleryModule {
 						return $ret;
 					}
 				}
+
 
 				// Fall Through
 			case '0.9.3':

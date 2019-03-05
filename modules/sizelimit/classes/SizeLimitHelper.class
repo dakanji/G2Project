@@ -37,7 +37,6 @@ class SizeLimitHelper {
 	 *               array (errors), array (warnings)
 	 */
 	public static function applyLimits(&$item, $operation, $args) {
-
 		// Get the path of the source
 		list($ret, $sourcePath) = $item->fetchPath();
 
@@ -84,6 +83,7 @@ class SizeLimitHelper {
 
 			return $ret;
 		}
+
 		$item->setMimeType($outputMimeType);
 
 		// Get the item to rescan its data object
@@ -187,7 +187,8 @@ class SizeLimitHelper {
 			}
 		}
 
-		$operationString        = $operation . '|' . implode(',', $args);
+		$operationString = $operation . '|' . implode(',', $args);
+
 		list($ret, $operations) = GalleryCoreApi::mergeDerivativeOperations(
 			$preferred->getDerivativeOperations(),
 			$operationString
@@ -196,6 +197,7 @@ class SizeLimitHelper {
 		if ($ret) {
 			return $ret;
 		}
+
 		$preferred->setDerivativeOperations($operations);
 
 		list($ret, $lockIds) = GalleryCoreApi::acquireWriteLock($preferred->getId());
@@ -203,6 +205,7 @@ class SizeLimitHelper {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $preferred->save();
 
 		if ($ret) {
@@ -226,7 +229,8 @@ class SizeLimitHelper {
 				$args[0],
 				$args[1]
 			);
-			$ret                  = SizeLimitHelper::_updateResizes($item->getId(), $width, $height);
+
+			$ret = SizeLimitHelper::_updateResizes($item->getId(), $width, $height);
 
 			if ($ret) {
 				return $ret;

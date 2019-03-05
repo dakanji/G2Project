@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryItem.class');
 
 /**
@@ -104,7 +103,7 @@ class GalleryAlbumItem extends GalleryItem {
 	) {
 		global $gallery;
 
-		if (is_null($albumName) || is_null($parentId)) {
+		if (null === $albumName || null === $parentId) {
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
 
@@ -155,6 +154,7 @@ class GalleryAlbumItem extends GalleryItem {
 					return $ret;
 				}
 			}
+
 			list($ret, $themeParams) = GalleryCoreApi::fetchAllPluginParameters('theme', $theme, $parent->getId());
 
 			if ($ret) {
@@ -255,6 +255,7 @@ class GalleryAlbumItem extends GalleryItem {
 	 */
 	public function _createDir($albumDir) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $perm) = GalleryCoreApi::getPluginParameter(
@@ -303,6 +304,7 @@ class GalleryAlbumItem extends GalleryItem {
 	 */
 	public function save($postEvent = true, $x1 = null) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		$isNew = $this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
@@ -481,6 +483,7 @@ class GalleryAlbumItem extends GalleryItem {
 		if ($ret) {
 			return $ret;
 		}
+
 		$oldChildParentSequence = array_merge($oldParentSequence, array($this->getId()));
 
 		/*
@@ -499,6 +502,7 @@ class GalleryAlbumItem extends GalleryItem {
 		if ($ret) {
 			return $ret;
 		}
+
 		$newChildParentSequence = array_merge(
 			$newParentSequence,
 			array($this->getParentId(), $this->getId())

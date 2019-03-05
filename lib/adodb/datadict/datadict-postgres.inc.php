@@ -32,6 +32,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 			$t        = $fieldobj->type;
 			$len      = $fieldobj->max_length;
 		}
+
 		$is_serial = is_object($fieldobj) && !empty($fieldobj->primary_key) && !empty($fieldobj->unique) &&
 			!empty($fieldobj->has_default)   && substr($fieldobj->default_value, 0, 8) == 'nextval(';
 
@@ -45,6 +46,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 				if ($len <= $this->blobSize) {
 					return 'C';
 				}
+
 
 				// Fall Through
 			case 'TEXT':
@@ -163,11 +165,13 @@ class ADODB2_postgres extends ADODB_DataDict {
 	 * @return array with SQL strings
 	 */
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname            = $this->TableName($tabname);
-		$sql                = array();
-		$not_null           = false;
+		$tabname  = $this->TableName($tabname);
+		$sql      = array();
+		$not_null = false;
+
 		list($lines, $pkey) = $this->_GenFields($flds);
-		$alter              = 'ALTER TABLE ' . $tabname . $this->addCol . ' ';
+
+		$alter = 'ALTER TABLE ' . $tabname . $this->addCol . ' ';
 
 		foreach ($lines as $v) {
 			if (($not_null = preg_match('/NOT NULL/i', $v))) {
@@ -176,16 +180,18 @@ class ADODB2_postgres extends ADODB_DataDict {
 
 			if (preg_match('/^([^ ]+) .*DEFAULT (\'[^\']+\'|\"[^\"]+\"|[^ ]+)/', $v, $matches)) {
 				list(, $colname, $default) = $matches;
-				$sql[]                     = $alter . str_replace('DEFAULT ' . $default, '', $v);
-				$sql[]                     = 'UPDATE ' . $tabname . ' SET ' . $colname . '=' . $default;
-				$sql[]                     = 'ALTER TABLE ' . $tabname . ' ALTER COLUMN ' . $colname . ' SET DEFAULT ' . $default;
+
+				$sql[] = $alter . str_replace('DEFAULT ' . $default, '', $v);
+				$sql[] = 'UPDATE ' . $tabname . ' SET ' . $colname . '=' . $default;
+				$sql[] = 'ALTER TABLE ' . $tabname . ' ALTER COLUMN ' . $colname . ' SET DEFAULT ' . $default;
 			} else {
 				$sql[] = $alter . $v;
 			}
 
 			if ($not_null) {
 				list($colname) = explode(' ', $v);
-				$sql[]         = 'ALTER TABLE ' . $tabname . ' ALTER COLUMN ' . $colname . ' SET NOT NULL';
+
+				$sql[] = 'ALTER TABLE ' . $tabname . ' ALTER COLUMN ' . $colname . ' SET NOT NULL';
 			}
 		}
 
@@ -207,6 +213,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 	 * @param array/ $tableoptions options for the new table see CreateTableSQL, default ''
 	 * @return array with SQL strings
 	 */
+
 	/*
 	function AlterColumnSQL($tabname, $flds, $tableflds='',$tableoptions='')
 	{
@@ -214,18 +221,20 @@ class ADODB2_postgres extends ADODB_DataDict {
 			if ($this->debug) ADOConnection::outp("AlterColumnSQL needs a complete table-definiton for PostgreSQL");
 			return array();
 		}
+
 		return $this->_recreate_copy_table($tabname,False,$tableflds,$tableoptions);
 	}*/
-
 	public function AlterColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
 		// Check if alter single column datatype available - works with 8.0+
 		$has_alter_column = 8.0 <= (float)@$this->serverInfo['version'];
 
 		if ($has_alter_column) {
-			$tabname            = $this->TableName($tabname);
-			$sql                = array();
+			$tabname = $this->TableName($tabname);
+			$sql     = array();
+
 			list($lines, $pkey) = $this->_GenFields($flds);
-			$set_null           = false;
+
+			$set_null = false;
 
 			foreach ($lines as $v) {
 				$alter = 'ALTER TABLE ' . $tabname . $this->alterCol . ' ';
@@ -233,6 +242,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 				if ($not_null = preg_match('/NOT NULL/i', $v)) {
 					$v = preg_replace('/NOT NULL/i', '', $v);
 				}
+
 				// this next block doesn't work - there is no way that I can see to
 				// explicitly ask a column to be null using $flds
 				elseif ($set_null = preg_match('/NULL/i', $v)) {
@@ -244,15 +254,18 @@ class ADODB2_postgres extends ADODB_DataDict {
 				}
 
 				if (preg_match('/^([^ ]+) .*DEFAULT (\'[^\']+\'|\"[^\"]+\"|[^ ]+)/', $v, $matches)) {
-					$existing                  = $this->MetaColumns($tabname);
+					$existing = $this->MetaColumns($tabname);
+
 					list(, $colname, $default) = $matches;
-					$alter                    .= $colname;
+
+					$alter .= $colname;
 
 					if ($this->connection) {
 						$old_coltype = $this->connection->MetaType($existing[strtoupper($colname)]);
 					} else {
 						$old_coltype = $t;
 					}
+
 					$v = preg_replace('/^' . preg_quote($colname) . '\s/', '', $v);
 					$t = trim(str_replace('DEFAULT ' . $default, '', $v));
 
@@ -262,15 +275,18 @@ class ADODB2_postgres extends ADODB_DataDict {
 						$sql[] = $alter . " TYPE $t USING ($colname::BOOL)::INT";
 						$sql[] = $alter . " SET DEFAULT $default";
 					}
+
 					// Type change from int to bool
 					elseif ($old_coltype == 'I' && $t == 'BOOLEAN') {
 						if (strcasecmp('NULL', trim($default)) != 0) {
 							$default = $this->connection->qstr($default);
 						}
+
 						$sql[] = $alter . ' DROP DEFAULT';
 						$sql[] = $alter . " TYPE $t USING CASE WHEN $colname = 0 THEN false ELSE true END";
 						$sql[] = $alter . " SET DEFAULT $default";
 					}
+
 					// Any other column types conversion
 					else {
 						$sql[] = $alter . " TYPE $t";
@@ -279,9 +295,11 @@ class ADODB2_postgres extends ADODB_DataDict {
 				} else {
 					// drop default?
 					preg_match('/^\s*(\S+)\s+(.*)$/', $v, $matches);
+
 					list(, $colname, $rest) = $matches;
-					$alter                 .= $colname;
-					$sql[]                  = $alter . ' TYPE ' . $rest;
+
+					$alter .= $colname;
+					$sql[]  = $alter . ' TYPE ' . $rest;
 				}
 
 				// list($colname) = explode(' ',$v);
@@ -356,6 +374,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 		if ($dropflds && !is_array($dropflds)) {
 			$dropflds = explode(',', $dropflds);
 		}
+
 		$copyflds = array();
 
 		foreach ($this->MetaColumns($tabname) as $fld) {
@@ -368,6 +387,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 				} else {
 					$copyflds[] = $fld->name;
 				}
+
 				// identify the sequence name and the fld its on
 				if ($fld->primary_key && $fld->has_default
 					&& preg_match("/nextval\('([^']+)'::text\)/", $fld->default_value, $matches)
@@ -377,6 +397,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 				}
 			}
 		}
+
 		$copyflds = implode(', ', $copyflds);
 
 		$tempname = $tabname . '_tmp';
@@ -390,6 +411,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 			$seq_name = $tabname . '_' . $seq_fld . '_seq';   // has to be the name of the new implicit sequence
 			$aSql[]   = "SELECT setval('$seq_name',MAX($seq_fld)) FROM $tabname";
 		}
+
 		$aSql[] = "DROP TABLE $tempname";
 		// recreate the indexes, if they not contain one of the droped columns
 		foreach ($this->MetaIndexes($tabname) as $idx_name => $idx_data) {
@@ -405,6 +427,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 				);
 			}
 		}
+
 		$aSql[] = 'COMMIT';
 
 		return $aSql;
@@ -429,6 +452,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 
 			return '';
 		}
+
 		$suffix = '';
 
 		if (strlen($fdefault)) {
@@ -538,6 +562,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 		if (is_array($flds)) {
 			$flds = implode(', ', $flds);
 		}
+
 		$s    .= '(' . $flds . ')';
 		$sql[] = $s;
 
@@ -551,6 +576,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 			if (strlen($fprec)) {
 				$ftype .= ',' . $fprec;
 			}
+
 			$ftype .= ')';
 		}
 

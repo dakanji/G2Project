@@ -30,6 +30,7 @@
 class RewriteModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
+
 		$this->setId('rewrite');
 		$this->setName($gallery->i18n('URL Rewrite'));
 		$this->setDescription(
@@ -65,6 +66,7 @@ class RewriteModule extends GalleryModule {
 	 */
 	public function upgrade($currentVersion, $x1 = null) {
 		GalleryCoreApi::requireOnce('modules/rewrite/RewriteModuleExtras.inc');
+
 		$ret = RewriteModuleExtras::upgrade($this, $currentVersion);
 
 		if ($ret) {
@@ -79,6 +81,7 @@ class RewriteModule extends GalleryModule {
 	 */
 	public function uninstall() {
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+
 		list($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 
 		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_VALUE)) {
@@ -107,6 +110,7 @@ class RewriteModule extends GalleryModule {
 	 */
 	public function needsConfiguration() {
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+
 		list($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 
 		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_VALUE)) {
@@ -138,6 +142,7 @@ class RewriteModule extends GalleryModule {
 	 */
 	public function activate($postActivationEvent = true) {
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+
 		list($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 
 		if ($ret) {
@@ -153,6 +158,7 @@ class RewriteModule extends GalleryModule {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$activeRules = unserialize($activeRules);
 
 		if (empty($activeRules)) {
@@ -163,6 +169,7 @@ class RewriteModule extends GalleryModule {
 					),
 				),
 			);
+
 			/*
 			 * We'll break fast download cache if we activate the short URL for download items with
 			 * an inGallery parser
@@ -267,6 +274,7 @@ class RewriteModule extends GalleryModule {
 		}
 
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+
 		list($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 
 		if ($ret) {

@@ -90,23 +90,27 @@ class AdminEventLogViewerCallbackView extends GalleryView {
 		switch ($command) {
 			case 'getRecords':
 				list($pageNumber, $pageSize) = GalleryUtilities::getRequestVariables('pageNumber', 'pageSize');
-				$pageNumber                  = (int)$pageNumber;
+
+				$pageNumber = (int)$pageNumber;
 
 				if (!$pageNumber) {
 					$pageNumber = 1;
 				}
+
 				$pageSize = (int)$pageSize;
 
 				if (!$pageSize) {
 					$pageSize = 10;
 				}
 
-				$query               = 'SELECT COUNT(*) FROM [EventLogMap]';
+				$query = 'SELECT COUNT(*) FROM [EventLogMap]';
+
 				list($ret, $results) = $gallery->search($query);
 
 				if ($ret) {
 					return $ret;
 				}
+
 				$result       = $results->nextResult();
 				$totalRecords = $result[0];
 				$totalPages   = ceil($totalRecords / $pageSize);
@@ -151,6 +155,7 @@ class AdminEventLogViewerCallbackView extends GalleryView {
 						'summary'  => $result[5],
 					);
 				}
+
 				$data = array(
 					'records'     => $items,
 					'pageMessage' => $pageMessage,

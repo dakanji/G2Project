@@ -57,8 +57,10 @@ if (!$HTMLbody) {
 			$args[$parts[0]] = $parts[1];
 		}
 	}
+
 	list($HTMLhead, $HTMLForm, $HTMLbody) = process($vw, $args);
 }
+
 GalleryEmbed::done();
 
 //----------------------------------------------------------------------
@@ -69,6 +71,7 @@ GalleryEmbed::done();
 //----------------------------------------------------------------------
 function g2Connect() {
 	include_once '../../embed.php';
+
 	$ret = GalleryEmbed::init(
 		array(
 			'fullInit' => true,
@@ -84,6 +87,7 @@ function g2Connect() {
 
 function process($renderType, $args = array()) {
 	global $gallery, $adv, $hide, $show, $reset;
+
 	$storage =& $gallery->getStorage();
 
 	$tables     = array();
@@ -141,7 +145,7 @@ function process($renderType, $args = array()) {
 					list($err, $ids) = getItemIdsRecursive($gID);
 
 					if (!$err) {
-						$tables  = array(
+						$tables = array(
 							'AccessSubscriberMap' => 'itemId',
 							'AlbumItem'           => 'id',
 							'AnimationItem'       => 'id',
@@ -162,16 +166,19 @@ function process($renderType, $args = array()) {
 							'UnknownItem'         => 'id',
 							'User'                => 'id',
 						);
+
 						$display = (count($ids)) ? '<p>Total Missing entities: <strong>' . count($ids) . '</strong></p>' : '';
 
 						foreach ($ids as $id) {
 							foreach ($tables as $table => $field) {
 								$sql = 'DELETE FROM [' . $table . '] WHERE [::' . $field . '] = ?';
+
 								$ret = $storage->execute($sql, array($id));
 
 								if (!$ret) {
 									list($ret, $rows) = $storage->getAffectedRows();
-									$display         .= '<p>Fixed: ' . $rows . 'object(s)</p>';
+
+									$display .= '<p>Fixed: ' . $rows . 'object(s)</p>';
 								}
 							}
 						}
@@ -221,23 +228,26 @@ function process($renderType, $args = array()) {
 					}
 
 					// Delete database references to missing derivatives in this batch
-					$tables   = array(
+					$tables = array(
 						'ChildEntity'     => 'id',
 						'Derivative'      => 'id',
 						'DerivativeImage' => 'id',
 						'Entity'          => 'id',
 					);
+
 					$display .= (count($missingIds)) ? '<p>Total Missing Derivatives: <strong>' . count($missingIds) . '</strong></p>' : '';
 					$status   = ($pass) ? 'Working on derivatives ' . $end . ' to ' . $start : '';
 
 					foreach ($missingIds as $id) {
 						foreach ($tables as $table => $field) {
 							$sql = 'DELETE FROM [' . $table . '] WHERE [::' . $field . '] = ?';
+
 							$ret = $storage->execute($sql, array($id));
 
 							if (!$ret) {
 								list($ret, $rows) = $storage->getAffectedRows();
-								$display         .= '<p>Fixed: ' . $rows . 'derivatives(s)</p>';
+
+								$display .= '<p>Fixed: ' . $rows . 'derivatives(s)</p>';
 							}
 						}
 					}
@@ -260,6 +270,7 @@ function process($renderType, $args = array()) {
 			}
 		}
 	}
+
 	// Build form to show on page
 	$bodyForm = "\n" . '<fieldset><br>' . "\n";
 
@@ -287,6 +298,7 @@ function process($renderType, $args = array()) {
 			$bodyForm .= '</form>' . "\n";
 		}
 	}
+
 	$bodyForm .= '<form action="' . THIS_SCRIPT . '" id="resetForm" method="post">' . "\n";
 	$bodyForm .= '	<input type="hidden" id="reset" name="reset" value="true">' . "\n";
 	$bodyForm .= '	<input class="btn btn-default" type="submit" value="Reset" onclick="this.disabled=true;this.form.submit();">' . "\n";
@@ -324,10 +336,11 @@ function getAlbumIdsRecursive($id) {
 }
 
 function getItemIdsRecursive($id) {
-	$err                  = null;
-	$albums               = array();
-	$itemIds              = array();
-	$missingIds           = array();
+	$err        = null;
+	$albums     = array();
+	$itemIds    = array();
+	$missingIds = array();
+
 	list($err, $albumIds) = getAlbumIdsRecursive($id);
 
 	if (!$err) {
@@ -337,6 +350,7 @@ function getItemIdsRecursive($id) {
 			if ($ret && ($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 				$missingIds[] = $albumId;
 			}
+
 			list($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsIgnorePermissions($album);
 
 			if ($ret) {
@@ -344,6 +358,7 @@ function getItemIdsRecursive($id) {
 
 				break;
 			}
+
 			$itemIds = array_merge($itemIds, $childIds);
 		}
 
@@ -356,6 +371,7 @@ function getItemIdsRecursive($id) {
 
 					continue;
 				}
+
 				list($ret, $path) = $item->fetchPath();
 
 				if ($ret || (!file_exists($path) && !is_dir($path))) {
@@ -383,6 +399,7 @@ function getMissingDerivatives($id) {
 			if ($ret && ($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 				$missingIds[] = $albumId;
 			}
+
 			list($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsIgnorePermissions($album);
 
 			if ($ret) {
@@ -393,6 +410,7 @@ function getMissingDerivatives($id) {
 
 				break;
 			}
+
 			$itemIds = array_merge($itemIds, $childIds);
 		}
 
@@ -405,6 +423,7 @@ function getMissingDerivatives($id) {
 
 					continue;
 				}
+
 				list($ret, $path) = $item->fetchPath();
 
 				if ($ret || (!file_exists($path) && !is_dir($path))) {
@@ -451,7 +470,8 @@ function getAlbumSelector($gID) {
 	list($err, $rootID) = getRoot();
 
 	if (!$err) {
-		$gID                = (isset($gID) && $gID != '') ? $gID : $rootID;
+		$gID = (isset($gID) && $gID != '') ? $gID : $rootID;
+
 		list($err, $albums) = getAlbumTree($gID);
 
 		if (!$err) {
@@ -461,6 +481,7 @@ function getAlbumSelector($gID) {
 				$albumSelector .= '<option value=' . $album->getId() . '>' . $album->getTitle() . '</option>';
 			}
 		}
+
 		$albumSelectorCode = "\n" . jsessAdd('select', $albumSelector) . "\n" . '<script type="text/javascript">window.onload=jsAlbumSelect;</script>' . "\n";
 	}
 
@@ -468,8 +489,9 @@ function getAlbumSelector($gID) {
 }
 
 function getAlbumTree($gID) {
-	$err              = $ret              = $album              = null;
-	$albumIds         = $albums         = array();
+	$err      = $ret              = $album              = null;
+	$albumIds = $albums         = array();
+
 	list($ret, $tree) = GalleryCoreApi::fetchAlbumTree($gID, null, null, true);
 
 	if ($ret) {
@@ -483,6 +505,7 @@ function getAlbumTree($gID) {
 			if ($ret && ($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 				continue;
 			}
+
 			$albums[] = $album;
 		}
 	}
@@ -499,6 +522,7 @@ function statusMsg($display = false) {
 				} else {
 					jsess.missingObjectFix_tgtHTML = \'' . $display . '\' + jsess.missingObjectFix_tgtHTML;
     			}
+
     		</script>
     	' . "\n";
 	}
@@ -528,7 +552,9 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 					var node = document.getElementById(id);
 					node.innerHTML = content;
 				}
+
 			}
+
 			function jsAlbumSelect() {
 				if (typeof(jsess.missingObjectFix_select) !== "undefined") {
 					var selectStr = jsess.missingObjectFix_select;
@@ -547,17 +573,21 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 					var newStr = 'selected value=' + jsess.missingObjectFix_pick + '>';
 					<?php
 				}
+
 				?>
 
 					var selectStr = selectStr.replace(oldStr, newStr);
 				}
+
 				changeContent("gID", selectStr);
 			}
+
 		</script>
 		<?php
 		if ($HTMLhead) {
 			echo $HTMLhead;
 		}
+
 		?>
 
 	</head>
@@ -592,6 +622,7 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 			</div>
 			<?php
 		}
+
 		?>
 
 		</div>
@@ -603,6 +634,7 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 			if (typeof(jsess.missingObjectFix_pick) !== "undefined") {
 				formData = formData + '	<input type="hidden" id="gID" name="gID" value="' + jsess.missingObjectFix_pick + '">';
 			}
+
 			formData = formData + '	<input type="hidden" id="vw" name="vw" value="req">';
 			formData = formData + '	<input type="hidden" id="args" name="args" value="mode:resChk">';
 			formData = formData + '	<select id="batchSize" name="batchSize">';
@@ -617,12 +649,14 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 		</script>
 			<?php
 		}
+
 		?>
 
 		<script type="text/javascript">
 			if (typeof(jsess.missingObjectFix_tgtHTML) !== "undefined") {
 				changeContent('tPara', jsess.missingObjectFix_tgtHTML);
 			}
+
 		</script>
 	</body>
 </html>

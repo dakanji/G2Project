@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/search/classes/GallerySearchInterface_1_0.class');
 
 /**
@@ -33,6 +32,7 @@ class MultiLangSearch extends GallerySearchInterface_1_0 {
 	 */
 	public function getSearchModuleInfo() {
 		global $gallery;
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'multilang');
 
 		if ($ret) {
@@ -49,6 +49,7 @@ class MultiLangSearch extends GallerySearchInterface_1_0 {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $defaultLanguage) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
 
 		if ($ret) {
@@ -62,7 +63,8 @@ class MultiLangSearch extends GallerySearchInterface_1_0 {
 		}
 
 		// Get name for current language
-		$supportedLanguages       = GalleryCoreApi::getSupportedLanguages();
+		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
+
 		list($language, $country) = preg_split('/[-_]/', "${languageCode}_");
 
 		if (empty($supportedLanguages[$language][$country]['description'])) {
@@ -73,6 +75,7 @@ class MultiLangSearch extends GallerySearchInterface_1_0 {
 				),
 			);
 		}
+
 		$languageName = $supportedLanguages[$language][$country]['description'];
 
 		$info['options'] = array(
@@ -148,6 +151,7 @@ class MultiLangSearch extends GallerySearchInterface_1_0 {
 				),
 			);
 		}
+
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
 		$searchClause = array();
@@ -163,6 +167,7 @@ class MultiLangSearch extends GallerySearchInterface_1_0 {
 		if (isset($options['description'])) {
 			$searchClause[] = '[MultiLangItemMap::description] LIKE ?';
 		}
+
 		$searchString = implode(' OR ', $searchClause);
 
 		$countQuery = sprintf(
@@ -219,6 +224,7 @@ class MultiLangSearch extends GallerySearchInterface_1_0 {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$result  = $results->nextResult();
 		$numRows = (int)$result[0];
 

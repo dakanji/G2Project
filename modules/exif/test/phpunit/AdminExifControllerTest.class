@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 
 /**
@@ -37,6 +36,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -347,6 +347,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			'form[available][2]',
 			'IPTC/OriginalTransmissionReference'
 		);
+
 		GalleryUtilities::putRequestVariable('form[action][availableToDetailed]', 1);
 
 		$results = $this->handleRequest();
@@ -471,6 +472,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			$properties[12],
 			'IPTC/CopyrightNotice did not move up???'
 		);
+
 		$this->assertEquals(
 			'SubjectDistance',
 			$properties[28],
@@ -536,6 +538,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			$properties[14],
 			'IPTC/CopyrightNotice should have been moved down???'
 		);
+
 		$this->assertEquals(
 			'SubjectDistance',
 			$properties[29],
@@ -599,6 +602,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			sizeof($properties),
 			'Reset did not return the right number of entries???'
 		);
+
 		$this->assertEquals('Make', $properties[0]);
 		$this->assertEquals('ISO', $properties[8]);
 		$this->assertEquals('IPTC/CopyrightNotice', $properties[13]);
@@ -673,6 +677,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			(EXIF_ITEM_DESCRIPTION | IPTC_ITEM_KEYWORDS | EXIF_ITEM_ROTATE),
 			(int)$addOption

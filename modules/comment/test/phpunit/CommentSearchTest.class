@@ -99,11 +99,13 @@ class CommentSearchTest extends GalleryTestCase {
 				if ($j == 3 && $i == 1) {
 					$this->_comment[$j][$i]->setAuthor($this->_randomKey . ": test author($j,$i)");
 				}
+
 				$this->_comment[$j][$i]->setDate(time());
 
 				if ($i == 2) {
 					$this->_comment[$j][$i]->setPublishStatus(COMMENT_PUBLISH_STATUS_UNPUBLISHED);
 				}
+
 				$ret = $this->_comment[$j][$i]->save();
 
 				if ($ret) {
@@ -154,6 +156,7 @@ class CommentSearchTest extends GalleryTestCase {
 					if ($ret) {
 						return $ret;
 					}
+
 					$ret = GalleryCoreApi::addUserPermission(
 						$this->_item[$j]->getId(),
 						$gallery->getActiveUserId(),
@@ -176,6 +179,7 @@ class CommentSearchTest extends GalleryTestCase {
 					if ($ret) {
 						return $ret;
 					}
+
 					$ret = GalleryCoreApi::addGroupPermission(
 						$this->_item[$j]->getId(),
 						$groupId,
@@ -225,6 +229,7 @@ class CommentSearchTest extends GalleryTestCase {
 			isset($info['options']['comments']['description']),
 			'options:comments description missing'
 		);
+
 		$this->assertTrue(
 			!empty($info['options']['comments']['enabled']),
 			'options:comments not enabled'

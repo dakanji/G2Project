@@ -28,6 +28,7 @@
 class SvnAuditTest extends CodeAuditTestCase {
 	public function __construct($methodName) {
 		global $gallery;
+
 		$this->_platform =& $gallery->getPlatform();
 
 		$this->_exceptions = array(
@@ -165,6 +166,7 @@ class SvnAuditTest extends CodeAuditTestCase {
 						"svn property $key = " . $props[$key]
 						. " for $fileName expected to match $valueMatch"
 					);
+
 					$this->_errorCount++;
 				}
 			}

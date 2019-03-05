@@ -63,6 +63,7 @@ function _adodb_export(&$rs, $sep, $sepreplace, $fp = false, $addtitles = true, 
 	if (!$rs) {
 		return '';
 	}
+
 	//----------
 	// CONSTANTS
 	$NEWLINE       = "\r\n";
@@ -82,11 +83,14 @@ function _adodb_export(&$rs, $sep, $sepreplace, $fp = false, $addtitles = true, 
 			if ($escquote) {
 				$v = str_replace($quote, $escquotequote, $v);
 			}
+
 			$v          = strip_tags(str_replace("\n", $replaceNewLine, str_replace("\r\n", $replaceNewLine, str_replace($sep, $sepreplace, $v))));
 			$elements[] = $v;
 		}
+
 		$s .= implode($sep, $elements) . $NEWLINE;
 	}
+
 	$hasNumIndex = isset($rs->fields[0]);
 
 	$line = 0;
@@ -109,6 +113,7 @@ function _adodb_export(&$rs, $sep, $sepreplace, $fp = false, $addtitles = true, 
 				if ($escquote) {
 					$v = str_replace($quote, $escquotequote, $v);
 				}
+
 				$v = strip_tags(str_replace("\n", $replaceNewLine, str_replace("\r\n", $replaceNewLine, str_replace($sep, $sepreplace, $v))));
 
 				if (strpos($v, $sep) !== false || strpos($v, $quote) !== false) {
@@ -122,6 +127,7 @@ function _adodb_export(&$rs, $sep, $sepreplace, $fp = false, $addtitles = true, 
 				if ($escquote) {
 					$v = str_replace($quote, $escquotequote, trim($v));
 				}
+
 				$v = strip_tags(str_replace("\n", $replaceNewLine, str_replace("\r\n", $replaceNewLine, str_replace($sep, $sepreplace, $v))));
 
 				if (strpos($v, $sep) !== false || strpos($v, $quote) !== false) {
@@ -131,6 +137,7 @@ function _adodb_export(&$rs, $sep, $sepreplace, $fp = false, $addtitles = true, 
 				}
 			}
 		}
+
 		$s .= implode($sep, $elements) . $NEWLINE;
 		$rs->MoveNext();
 		$line += 1;
@@ -141,6 +148,7 @@ function _adodb_export(&$rs, $sep, $sepreplace, $fp = false, $addtitles = true, 
 			} else {
 				fwrite($fp, $s);
 			}
+
 			$s = '';
 		}
 	}
@@ -151,6 +159,7 @@ function _adodb_export(&$rs, $sep, $sepreplace, $fp = false, $addtitles = true, 
 		} else {
 			fwrite($fp, $s);
 		}
+
 		$s = '';
 	}
 

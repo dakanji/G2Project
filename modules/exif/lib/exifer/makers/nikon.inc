@@ -2,6 +2,7 @@
 //================================================================================================
 //================================================================================================
 //================================================================================================
+
 /*
 	Exifer
 	Extracts EXIF information from digital photos.
@@ -22,12 +23,10 @@
 	without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 	See the GNU General Public License for more details. http://www.gnu.org/copyleft/gpl.html
 */
+
 //================================================================================================
 //================================================================================================
 //================================================================================================
-
-
-
 //=================
 // Looks up the name of the tag for the MakerNote (Depends on Manufacturer)
 //====================================================================
@@ -225,13 +224,13 @@ function lookup_Nikon_tag($tag, $model) {
 // Formats Data for the data type
 //====================================================================
 function formatNikonData($type, $tag, $intel, $model, $data) {
-	if ($type == 'ASCII') {
-	} elseif ($type == 'URATIONAL' || $type == 'SRATIONAL') {
+	if ($type == 'ASCII') {} elseif ($type == 'URATIONAL' || $type == 'SRATIONAL') {
 		$data = bin2hex($data);
 
 		if ($intel == 1) {
 			$data = intel2Moto($data);
 		}
+
 		$top    = hexdec(substr($data, 8, 8));
 		$bottom = hexdec(substr($data, 0, 8));
 
@@ -260,6 +259,7 @@ function formatNikonData($type, $tag, $intel, $model, $data) {
 		if ($intel == 1) {
 			$data = intel2Moto($data);
 		}
+
 		$data = hexdec($data);
 
 		if ($tag == '0003' && $model == 0) { //Quality
@@ -436,6 +436,7 @@ function parseNikon($block, &$result) {
 		if ($intel == 1) {
 			$num = intel2Moto($num);
 		}
+
 		$result['SubIFD']['MakerNote']['MakerNoteNumTags'] = hexdec($num);
 
 		//loop thru all tags  Each field is 12 bytes
@@ -447,6 +448,7 @@ function parseNikon($block, &$result) {
 			if ($intel == 1) {
 				$tag = intel2Moto($tag);
 			}
+
 			$tag_name = lookup_Nikon_tag($tag, $model);
 
 			//2 byte type
@@ -456,6 +458,7 @@ function parseNikon($block, &$result) {
 			if ($intel == 1) {
 				$type = intel2Moto($type);
 			}
+
 			lookup_type($type, $size);
 
 			//4 byte count of number of data units
@@ -465,6 +468,7 @@ function parseNikon($block, &$result) {
 			if ($intel == 1) {
 				$count = intel2Moto($count);
 			}
+
 			$bytesofdata = $size * hexdec($count);
 
 			//4 byte value of data or pointer to data
@@ -485,8 +489,10 @@ function parseNikon($block, &$result) {
 				if ($intel == 1) {
 					$value = intel2Moto($value);
 				}
+
 				$data = substr($block, hexdec($value) - $offset, $bytesofdata * 2);
 			}
+
 			$formated_data = formatNikonData($type, $tag, $intel, $model, $data);
 
 			if ($result['VerboseOutput'] == 1) {
@@ -540,6 +546,7 @@ function parseNikon($block, &$result) {
 			if ($intel == 1) {
 				$tag = intel2Moto($tag);
 			}
+
 			$tag_name = lookup_Nikon_tag($tag, $model);
 
 			//2 byte type
@@ -549,6 +556,7 @@ function parseNikon($block, &$result) {
 			if ($intel == 1) {
 				$type = intel2Moto($type);
 			}
+
 			lookup_type($type, $size);
 
 			//4 byte count of number of data units
@@ -558,6 +566,7 @@ function parseNikon($block, &$result) {
 			if ($intel == 1) {
 				$count = intel2Moto($count);
 			}
+
 			$bytesofdata = $size * hexdec($count);
 
 			//4 byte value of data or pointer to data
@@ -572,8 +581,10 @@ function parseNikon($block, &$result) {
 				if ($intel == 1) {
 					$value = intel2Moto($value);
 				}
+
 				$data = substr($block, hexdec($value) + hexdec($offset) + 2, $bytesofdata);
 			}
+
 			$formated_data = formatNikonData($type, $tag, $intel, $model, $data);
 
 			if ($tag == '0002' && $formated_data >= 0x10000) {
@@ -590,6 +601,7 @@ function parseNikon($block, &$result) {
 						$data = intel2Moto($data);
 					}
 				}
+
 				$result['SubIFD']['MakerNote'][$tag_name . '_Verbose']['RawData'] = $data;
 				$result['SubIFD']['MakerNote'][$tag_name . '_Verbose']['Type']    = $type;
 				$result['SubIFD']['MakerNote'][$tag_name . '_Verbose']['Bytes']   = $bytesofdata;

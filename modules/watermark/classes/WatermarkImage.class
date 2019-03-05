@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
 
 /**
@@ -226,6 +225,7 @@ class WatermarkImage extends GalleryEntity {
 	public function create($inputFileName = null, $mimeType = null, $targetName = null) {
 		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$dir      = $this->getWatermarkDir();
 
@@ -258,6 +258,7 @@ class WatermarkImage extends GalleryEntity {
 		if ($ret) {
 			return $ret;
 		}
+
 		$nameMap = array();
 
 		foreach ($watermarks as $watermark) {
@@ -308,6 +309,7 @@ class WatermarkImage extends GalleryEntity {
 	 */
 	public function rescan() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$path = $this->getWatermarkDir() . $this->getFileName();
@@ -327,6 +329,7 @@ class WatermarkImage extends GalleryEntity {
 
 				return $ret;
 			}
+
 			$this->setWidth($dimensions[0]);
 			$this->setHeight($dimensions[1]);
 		}
@@ -387,6 +390,7 @@ class WatermarkImage extends GalleryEntity {
 	 */
 	public function getWatermarkDir() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
 
@@ -420,6 +424,7 @@ class WatermarkImage extends GalleryEntity {
 				// Shrink our dimensions if necessary
 				if (isset($params['maxSize'])) {
 					list($width, $height) = GalleryUtilities::shrinkDimensionsToFit($width, $height, $params['maxSize']);
+
 					unset($params['maxSize']);
 				}
 
@@ -431,7 +436,6 @@ class WatermarkImage extends GalleryEntity {
 
 				$html = sprintf('<img src="%s"%s', $src, $sizeStr);
 				unset($params['fallback'], $params['forceFullUrl']);
-
 
 				foreach ($params as $attr => $value) {
 					if (isset($value)) {

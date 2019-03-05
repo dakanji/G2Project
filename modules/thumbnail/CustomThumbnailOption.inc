@@ -57,6 +57,7 @@ class CustomThumbnailOption extends ItemEditOption {
 				$ItemAdmin = array(
 					'enctype' => 'multipart/form-data',
 				);
+
 				$template->setVariable('ItemAdmin', $ItemAdmin);
 			}
 		}
@@ -143,6 +144,7 @@ class CustomThumbnailOption extends ItemEditOption {
 					null,
 				);
 			}
+
 			$ret = GalleryCoreApi::deleteEntityById($thumbnailImage->getId(), 'ThumbnailImage');
 
 			if ($ret) {

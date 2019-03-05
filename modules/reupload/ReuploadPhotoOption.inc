@@ -44,6 +44,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 	 */
 	public function handleRequestAfterEdit($form, &$item, &$preferred) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$status = $error = array();
@@ -89,11 +90,13 @@ class ReuploadPhotoOption extends ItemEditOption {
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			list($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($item->getId());
 
 			if ($ret) {
 				return array($ret, null, null);
 			}
+
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {
@@ -134,6 +137,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 						'This is the error stack trace: ' . $ret->getAsText()
 					);
 				}
+
 				$platform->copy($tmpfname, $path);
 				$platform->unlink($tmpfname);
 				GalleryCoreApi::releaseLocks($lockIds);
@@ -153,6 +157,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 			}
 
 			$platform->unlink($tmpfname);
+
 			$ret = GalleryCoreApi::releaseLocks($lockIds);
 
 			if ($ret) {
@@ -199,6 +204,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 			$ItemAdmin = array(
 				'enctype' => 'multipart/form-data',
 			);
+
 			$template->setVariable('ItemAdmin', $ItemAdmin);
 		}
 
@@ -275,6 +281,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$hasLink = !empty($linkedIds);
 		}
 

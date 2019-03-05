@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkitHelper.class');
 
@@ -110,6 +109,7 @@ class GdToolkit extends GalleryToolkit {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$results = array((int)$width, (int)$height);
 
 				break;
@@ -149,12 +149,14 @@ class GdToolkit extends GalleryToolkit {
 			);
 		}
 
-		$outputMimeType        = $mimeType;
+		$outputMimeType = $mimeType;
+
 		list($ret, $sourceRes) = $this->_getImageResource($mimeType, $sourceFilename);
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$hasTransparency = $this->_canHaveTransparency($mimeType, $sourceRes);
 
 		if (in_array($operationName, array('thumbnail', 'scale', 'resize'))) {
@@ -201,7 +203,9 @@ class GdToolkit extends GalleryToolkit {
 					$parameters[0],
 					$targetHeight
 				);
-				list($ret, $destRes)          = $this->_resizeImageResource($sourceRes, $destWidth, $destHeight, $hasTransparency);
+
+				list($ret, $destRes) = $this->_resizeImageResource($sourceRes, $destWidth, $destHeight, $hasTransparency);
+
 				$this->_free($sourceRes);
 
 				if ($ret) {
@@ -226,6 +230,7 @@ class GdToolkit extends GalleryToolkit {
 					$parameters[1],
 					$hasTransparency
 				);
+
 				$this->_free($sourceRes);
 
 				if ($ret) {
@@ -244,8 +249,10 @@ class GdToolkit extends GalleryToolkit {
 				 * PHP >= 4.3.0
 				 * $parameters[0]: rotation degrees
 				 */
-				$degrees             = 0 - $parameters[0];
+				$degrees = 0 - $parameters[0];
+
 				list($ret, $destRes) = $gd->imageRotate($sourceRes, $degrees, 0);
+
 				$this->_free($sourceRes);
 
 				if ($ret) {
@@ -276,6 +283,7 @@ class GdToolkit extends GalleryToolkit {
 
 					return array($ret, null, null);
 				}
+
 				$pixelX      = round($parameters[0] / 100 * $width);
 				$pixelY      = round($parameters[1] / 100 * $height);
 				$pixelWidth  = round($parameters[2] / 100 * $width);
@@ -288,6 +296,7 @@ class GdToolkit extends GalleryToolkit {
 
 					return array($ret, null, null);
 				}
+
 				$ret = $gd->imageCopy(
 					$destRes,
 					$sourceRes,
@@ -298,6 +307,7 @@ class GdToolkit extends GalleryToolkit {
 					$pixelWidth,
 					$pixelHeight
 				);
+
 				$this->_free($sourceRes);
 
 				if ($ret) {
@@ -430,7 +440,8 @@ class GdToolkit extends GalleryToolkit {
 				$compositeAlignY = min($compositeAlignY, $sourceHeight - $compositeHeight);
 				$compositeAlignY = max(0, $compositeAlignY);
 
-				$dataDir                = $gallery->getConfig('data.gallery.base');
+				$dataDir = $gallery->getConfig('data.gallery.base');
+
 				list($ret, $overlayRes) = $this->_getImageResource(
 					$compositeOverlayMimeType,
 					$dataDir . $compositeOverlayPath
@@ -454,11 +465,13 @@ class GdToolkit extends GalleryToolkit {
 					$compositeWidth,
 					$compositeHeight
 				);
+
 				$this->_free($overlayRes);
 
 				if ($ret) {
 					return array($ret, null, null);
 				}
+
 				$hasTransparency = true;
 
 				break;
@@ -469,6 +482,7 @@ class GdToolkit extends GalleryToolkit {
 				if ($fileSize <= $targetSize) {
 					break;
 				}
+
 				// Use module quality parameter as initial guess
 				list($ret, $quality) = GalleryCoreApi::getPluginParameter('module', 'gd', 'jpegQuality');
 
@@ -477,12 +491,14 @@ class GdToolkit extends GalleryToolkit {
 
 					return array($ret, null, null);
 				}
+
 				$maxQuality = 100;
 				$minQuality = 5;
 
 				do {
 					// _saveImageResourceToFile changes the resource. Get a fresh one.
 					$this->_free($sourceRes);
+
 					list($ret, $sourceRes) = $this->_getImageResource($mimeType, $sourceFilename);
 
 					if ($ret) {
@@ -502,6 +518,7 @@ class GdToolkit extends GalleryToolkit {
 
 						return array($ret, null, null);
 					}
+
 					clearstatcache();
 					$fileSize = $gd->filesize($destFilename) >> 10;
 
@@ -512,6 +529,7 @@ class GdToolkit extends GalleryToolkit {
 					if ($fileSize <= $targetSize) {
 						$minQuality = $quality;
 					}
+
 					$quality = round(($minQuality + $maxQuality) / 2);
 				} while ($maxQuality - $minQuality > 2
 				   && abs(($fileSize - $targetSize) / $targetSize) > 0.02);
@@ -541,6 +559,7 @@ class GdToolkit extends GalleryToolkit {
 				$outputMimeType,
 				$hasTransparency
 			);
+
 			$this->_free($destRes);
 
 			if ($ret) {
@@ -632,7 +651,8 @@ class GdToolkit extends GalleryToolkit {
 	 * @access private
 	 */
 	public function _getTrueColorImageRes($width, $height, $prepareAlpha = false) {
-		$gd                                  =& $this->_getGdFunctionality();
+		$gd =& $this->_getGdFunctionality();
+
 		list($ret, $hasImageCreateTrueColor) = $this->_hasImageCreateTrueColor();
 
 		if ($ret) {
@@ -648,6 +668,7 @@ class GdToolkit extends GalleryToolkit {
 		} else {
 			// Do something else to get a truecolor GD resource
 			global $gallery;
+
 			$tmpDir  = $gallery->getConfig('data.gallery.tmp');
 			$tmpFile = $gd->tempnam($tmpDir, 'gd');
 			// Create a temporary jpeg file ...
@@ -656,17 +677,20 @@ class GdToolkit extends GalleryToolkit {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$ret = $gd->imageJpeg($tmpRes, $tmpFile);
 
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			// ... and load it back into a resource (now truecolor)
 			list($ret, $res) = $gd->imageCreateFromJpeg($tmpFile);
 
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$gd->unlink($tmpFile);
 		}
 
@@ -724,6 +748,7 @@ class GdToolkit extends GalleryToolkit {
 						return $ret;
 					}
 				}
+
 				$ret = $gd->imageJpeg($res, $filename, $jpegQuality);
 
 				break;
@@ -752,6 +777,7 @@ class GdToolkit extends GalleryToolkit {
 		if ($ret) {
 			return $ret;
 		}
+
 		$gd->chmod($filename);
 
 		return null;
@@ -776,6 +802,7 @@ class GdToolkit extends GalleryToolkit {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $sourceHeight) = $gd->imageSY($sourceRes);
 
 		if ($ret) {
@@ -787,6 +814,7 @@ class GdToolkit extends GalleryToolkit {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$result = false;
 		$ret    = $this->_imageCopyResampled(
 			$destRes,
@@ -834,6 +862,7 @@ class GdToolkit extends GalleryToolkit {
 		}
 
 		list($ret, $width, $height) = $this->_getImageDimensionsForResource($res);
+
 		$this->_free($res);
 
 		if ($ret) {
@@ -852,12 +881,14 @@ class GdToolkit extends GalleryToolkit {
 	 * @access private
 	 */
 	public function _getImageDimensionsForResource($res) {
-		$gd            =& $this->_getGdFunctionality();
+		$gd =& $this->_getGdFunctionality();
+
 		list($ret, $x) = $gd->imageSx($res);
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		list($ret, $y) = $gd->imageSy($res);
 
 		if ($ret) {
@@ -1071,6 +1102,7 @@ class GdToolkit extends GalleryToolkit {
 						}
 					}
 				}
+
 				$this->_free($alphaMixdownDitherImage);
 			}
 		} else {
@@ -1107,9 +1139,10 @@ class GdToolkit extends GalleryToolkit {
 			$gd->imagealphablending($res, true);
 			$gd->imagesavealpha($res, false);
 			// Ignore errors
-
 			$gd->imagecolortransparent($res, -1);
+
 			$ret = $gd->imageCopy($res, $tempImage, 0, 0, 0, 0, $width, $height);
+
 			$this->_free($tempImage);
 
 			if ($ret) {

@@ -74,6 +74,7 @@ class PermalinksSiteAdminControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals($expectedValue, $value, $key);
 		}
 
@@ -101,6 +102,7 @@ class PermalinksSiteAdminControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals($expectedValue, $value, $key);
 		}
 	}

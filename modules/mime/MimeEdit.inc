@@ -35,12 +35,14 @@ class MimeEditController extends GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$status = $error = array();
 
 		if (isset($form['action']['save']) || isset($form['action']['apply'])) {
 			if (empty($form['mimeType'])) {
 				$error[] = 'form[error][mimeType][missing]';
 			}
+
 			$form['mimeType'] = strtolower($form['mimeType']);
 
 			$allEmpty = true;
@@ -95,6 +97,7 @@ class MimeEditController extends GalleryController {
 						return array($ret, null);
 					}
 				}
+
 				$status['mimeSaved'] = true;
 			}
 		}
@@ -118,6 +121,7 @@ class MimeEditController extends GalleryController {
 				'subView' => 'mime.MimeEdit',
 			);
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -178,6 +182,7 @@ class MimeEditView extends GalleryView {
 					$tmp[] = $extension;
 				}
 			}
+
 			$form['extensions'] = $tmp;
 		}
 

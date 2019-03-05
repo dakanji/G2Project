@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryItem.class');
 
 /**
@@ -138,7 +137,7 @@ class GalleryDataItem extends GalleryItem {
 		$platform =& $gallery->getPlatform();
 
 		// Validate input
-		if (is_null($parentId) || is_null($inputFileName) || !$mimeType) {
+		if (null === $parentId || null === $inputFileName || !$mimeType) {
 			return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 		}
 
@@ -226,7 +225,8 @@ class GalleryDataItem extends GalleryItem {
 			return $ret;
 		}
 
-		$platform               =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $sourcePath) = $linkedEntity->fetchPath();
 
 		if ($ret) {
@@ -301,6 +301,7 @@ class GalleryDataItem extends GalleryItem {
 	 */
 	public function rescan() {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $path) = $this->fetchPath();
@@ -336,7 +337,6 @@ class GalleryDataItem extends GalleryItem {
 		}
 
 		$platform =& $gallery->getPlatform();
-
 
 		// Get the current path before we let the superclass do the rename
 		list($ret, $currentPath) = $this->fetchPath();

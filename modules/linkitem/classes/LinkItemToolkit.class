@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
@@ -40,6 +39,7 @@ class LinkItemToolkit extends GalleryToolkit {
 		$context = array()
 	) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		if ($operationName != 'convert-to-image/jpeg' || $mimeType != 'gallery/linkitem') {
@@ -54,6 +54,7 @@ class LinkItemToolkit extends GalleryToolkit {
 				null,
 			);
 		}
+
 		list($ret, $urlSnapshot) = GalleryCoreApi::getPluginParameter('module', 'linkitem', 'urlSnapshot');
 
 		if ($ret) {
@@ -68,6 +69,7 @@ class LinkItemToolkit extends GalleryToolkit {
 			) {
 				return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null);
 			}
+
 			$context['width']  = 270;
 			$context['height'] = 224;
 
@@ -84,6 +86,7 @@ class LinkItemToolkit extends GalleryToolkit {
 		if (!$success) {
 			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null);
 		}
+
 		*/
 		list($ret, $snapshotExec) = GalleryCoreApi::getPluginParameter('module', 'linkitem', 'snapshotExec');
 
@@ -94,6 +97,7 @@ class LinkItemToolkit extends GalleryToolkit {
 		if (empty($snapshotExec)) {
 			return array(GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED), null, null);
 		}
+
 		$tmpBase = $platform->tempnam($gallery->getConfig('data.gallery.tmp'), 'lnk_');
 		$tmpFile = $tmpBase . '.jpg';
 		$map     = array(
@@ -102,20 +106,25 @@ class LinkItemToolkit extends GalleryToolkit {
 			'%URL%'     => $url,
 			'%OUTFILE%' => $tmpFile,
 		);
-		$exec    = explode(' ', LinkItemToolkit::getSnapshotParams());
+
+		$exec = explode(' ', LinkItemToolkit::getSnapshotParams());
 
 		foreach ($exec as $i => $param) {
 			if (isset($map[$param])) {
 				$exec[$i] = $map[$param];
 			}
 		}
+
 		array_unshift($exec, $snapshotExec);
+
 		list($success, $output, $error) = $platform->exec(array($exec));
+
 		@$platform->unlink($tmpBase);
 
 		if (!$success) {
 			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null);
 		}
+
 		$success = $platform->copy($tmpFile, $destFilename);
 		@$platform->unlink($tmpFile);
 
@@ -137,6 +146,7 @@ class LinkItemToolkit extends GalleryToolkit {
 	 */
 	public static function getSnapshotParams() {
 		global $gallery;
+
 		$platform  =& $gallery->getPlatform();
 		$paramFile = dirname(__DIR__) . $platform->getDirectorySeparator() . 'params.txt';
 

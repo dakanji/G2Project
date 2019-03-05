@@ -44,6 +44,7 @@ class ItemOrderTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_parentItem);
 
 		// Give us full perms
@@ -94,6 +95,7 @@ class ItemOrderTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			array_unshift($correctResults, $this->_childItems[$i]->getId());
 		}
 
@@ -122,6 +124,7 @@ class ItemOrderTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$correctResults[] = $this->_childItems[$i]->getId();
 		}
 
@@ -191,6 +194,7 @@ class ItemOrderTest extends GalleryTestCase {
 		for ($i = 0; $i < count($this->_childItems); $i++) {
 			$correctResults[] = $this->_childItems[$i]->getId();
 		}
+
 		sort($correctResults);
 
 		list($ret, $results) = GalleryCoreApi::fetchChildItemIds($this->_parentItem);

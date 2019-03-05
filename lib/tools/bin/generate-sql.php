@@ -177,6 +177,7 @@ class BaseGenerator {
 			$child[2]['child'][0]['content'],
 			$child[2]['child'][1]['content']
 		);
+
 		$output .= sprintf(
 			"  WHERE DB_COLUMN_PREFIXname='%s' AND DB_COLUMN_PREFIXmajor=%d " .
 			   "AND DB_COLUMN_PREFIXminor=%d;\n\n",
@@ -251,8 +252,10 @@ class MySqlGenerator extends BaseGenerator {
 					if ($i < count($child) - 1) {
 						$output .= ',';
 					}
+
 					$output .= "\n";
 				}
+
 				$output .= ") DB_TABLE_TYPE\n";
 				// Character set, enclosed in comments that are ignored by MySQL < 4.1.0
 				$output .= "/*!40100 DEFAULT CHARACTER SET utf8 */;\n\n";
@@ -284,10 +287,13 @@ class MySqlGenerator extends BaseGenerator {
 						if ($i > 3) {
 							$output .= ",\n";
 						}
+
 						$output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 					}
+
 					$output .= ";\n\n";
 				}
+
 				$output .= $this->generateSchemaUpdate($child);
 
 				break;
@@ -322,6 +328,7 @@ class MySqlGenerator extends BaseGenerator {
 								$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 								'_' . $this->getIndexCrc($columns);
 							}
+
 							$output .= '(';
 
 							for ($i = 0; $i < count($columns); $i++) {
@@ -331,6 +338,7 @@ class MySqlGenerator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ')';
 
 							break;
@@ -425,6 +433,7 @@ class MySqlGenerator extends BaseGenerator {
 						$output .= ', ';
 					}
 				}
+
 				$output .= ')';
 
 				break;
@@ -441,6 +450,7 @@ class MySqlGenerator extends BaseGenerator {
 						$output .= ', ';
 					}
 				}
+
 				$output .= ')';
 
 				break;
@@ -491,6 +501,7 @@ class PostgresGenerator extends BaseGenerator {
 				for ($i = 3; $i < count($child); $i++) {
 					$output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 				}
+
 				$output .= $this->generateSchemaUpdate($child);
 
 				break;
@@ -541,6 +552,7 @@ class PostgresGenerator extends BaseGenerator {
 									$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 									'_' . $this->getIndexCrc($c['child']);
 								}
+
 								$output .= ";\n\n";
 
 								break;
@@ -609,6 +621,7 @@ class PostgresGenerator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ')';
 							$output .= ";\n\n";
 
@@ -626,6 +639,7 @@ class PostgresGenerator extends BaseGenerator {
 								$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 								'_' . $this->getIndexCrc($columns);
 							}
+
 							$output .= ' ON ' . 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] . '(';
 
 							for ($i = 0; $i < count($columns); $i++) {
@@ -635,6 +649,7 @@ class PostgresGenerator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ')';
 							$output .= ";\n\n";
 
@@ -661,9 +676,11 @@ class PostgresGenerator extends BaseGenerator {
 					if ($i > 2) {
 						$output .= ",\n";
 					}
+
 					$output        .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 					$firstNonColumn = $i + 1;
 				}
+
 				$output .= ");\n\n";
 
 				for ($i = $firstNonColumn; $i < count($child); $i++) {
@@ -679,6 +696,7 @@ class PostgresGenerator extends BaseGenerator {
 								$output .= ', ';
 							}
 						}
+
 						$output .= ");\n\n";
 					} else /* key */ {
 						if (!empty($child[$i]['attrs']['PRIMARY'])) {
@@ -693,6 +711,7 @@ class PostgresGenerator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ");\n\n";
 						} else {
 							$crc     = $this->getIndexCrc($child[$i]['child']);
@@ -706,6 +725,7 @@ class PostgresGenerator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ");\n\n";
 						}
 					}
@@ -787,6 +807,7 @@ class OracleGenerator extends BaseGenerator {
 				for ($i = 3; $i < count($child); $i++) {
 					$output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 				}
+
 				$output .= $this->generateSchemaUpdate($child);
 
 				break;
@@ -821,6 +842,7 @@ class OracleGenerator extends BaseGenerator {
 									foreach ($c['child'] as $keyColumn) {
 										$keyColumns[] = 'DB_COLUMN_PREFIX' . $keyColumn['content'];
 									}
+
 									$output .= "\n" . '  DROP UNIQUE (' . implode(', ', $keyColumns) . ')';
 								}
 
@@ -843,6 +865,7 @@ class OracleGenerator extends BaseGenerator {
 							default:
 								$output .= "7. UNIMPLEMENTED: REMOVE $c[name]\n";
 						}
+
 						$output .= ";\n\n";
 					}
 				}
@@ -881,6 +904,7 @@ class OracleGenerator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ')';
 
 							break;
@@ -897,6 +921,7 @@ class OracleGenerator extends BaseGenerator {
 								$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 								'_' . $this->getIndexCrc($columns);
 							}
+
 							$output .= ' ON DB_TABLE_PREFIX' . $parent['child'][0]['content'] . '(';
 
 							for ($i = 0; $i < count($columns); $i++) {
@@ -906,6 +931,7 @@ class OracleGenerator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ')';
 
 							break;
@@ -913,6 +939,7 @@ class OracleGenerator extends BaseGenerator {
 						default:
 							$output .= "8. UNIMPLEMLENTED: ADD $c[name]\n";
 					}
+
 					$output .= ";\n\n";
 				}
 
@@ -932,9 +959,11 @@ class OracleGenerator extends BaseGenerator {
 					if ($i > 2) {
 						$output .= ",\n";
 					}
+
 					$output        .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 					$firstNonColumn = $i + 1;
 				}
+
 				$output .= ");\n\n";
 
 				$keyColumns = array();
@@ -952,6 +981,7 @@ class OracleGenerator extends BaseGenerator {
 								$output .= ', ';
 							}
 						}
+
 						$output .= ");\n\n";
 					} else {
 						$keys[] = $child[$i];
@@ -975,8 +1005,10 @@ class OracleGenerator extends BaseGenerator {
 								$output .= ', ';
 							}
 						}
+
 						$output .= ")\n";
 					}
+
 					$output .= ";\n\n";
 				}
 
@@ -1096,6 +1128,7 @@ class Db2Generator extends BaseGenerator {
 				if ($child[1]['content'] != 'INTEGER' && $child[1]['content'] != 'BOOLEAN') {
 					$defaultValue = "'$defaultValue'";
 				}
+
 				$output .= " DEFAULT $defaultValue";
 			}
 		}
@@ -1114,6 +1147,7 @@ class Db2Generator extends BaseGenerator {
 				for ($i = 3; $i < count($child); $i++) {
 					$output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 				}
+
 				$output .= $this->generateSchemaUpdate($child);
 
 				break;
@@ -1166,6 +1200,7 @@ class Db2Generator extends BaseGenerator {
 									substr(md5($parent['child'][0]['content']), -2) .
 									'_' . $this->getIndexCrc($c['child']);
 								}
+
 								$output .= ";\n\n";
 
 								break;
@@ -1209,6 +1244,7 @@ class Db2Generator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ')';
 							$output .= ";\n\n";
 
@@ -1228,6 +1264,7 @@ class Db2Generator extends BaseGenerator {
 								substr(md5($parent['child'][0]['content']), -2) .
 								'_' . $this->getIndexCrc($c['child']);
 							}
+
 							$output .= ' ON ' . 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] . '(';
 
 							for ($i = 0; $i < count($columns); $i++) {
@@ -1237,6 +1274,7 @@ class Db2Generator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ')';
 							$output .= ";\n\n";
 
@@ -1263,9 +1301,11 @@ class Db2Generator extends BaseGenerator {
 					if ($i > 2) {
 						$output .= ",\n";
 					}
+
 					$output        .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 					$firstNonColumn = $i + 1;
 				}
+
 				$output .= ");\n\n";
 
 				for ($i = $firstNonColumn; $i < count($child); $i++) {
@@ -1283,6 +1323,7 @@ class Db2Generator extends BaseGenerator {
 								$output .= ', ';
 							}
 						}
+
 						$output .= ");\n\n";
 					} else /* key */ {
 						if (!empty($child[$i]['attrs']['PRIMARY'])) {
@@ -1297,6 +1338,7 @@ class Db2Generator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ");\n\n";
 						} else {
 							$crc     = $this->getIndexCrc($child[$i]['child']);
@@ -1312,6 +1354,7 @@ class Db2Generator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ");\n\n";
 						}
 					}
@@ -1336,6 +1379,7 @@ class Db2Generator extends BaseGenerator {
 					if (strpos($targetType, 'CLOB') === false) {
 						$copyFrom = 'CAST(' . $copyFrom . ' AS ' . $targetType . ')';
 					}
+
 					$output .= 'UPDATE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' SET DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . 'Temp' .
 					' = ' . $copyFrom . ";\n\n";
@@ -1425,6 +1469,7 @@ class MSSqlGenerator extends BaseGenerator {
 				for ($i = 3; $i < count($child); $i++) {
 					$output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 				}
+
 				$output .= $this->generateSchemaUpdate($child);
 
 				break;
@@ -1476,6 +1521,7 @@ class MSSqlGenerator extends BaseGenerator {
 									'.DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 									'_' . $this->getIndexCrc($c['child']);
 								}
+
 								$output .= ";\n\n";
 
 								break;
@@ -1519,6 +1565,7 @@ class MSSqlGenerator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ')';
 							$output .= ";\n\n";
 
@@ -1536,6 +1583,7 @@ class MSSqlGenerator extends BaseGenerator {
 								$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 								'_' . $this->getIndexCrc($columns);
 							}
+
 							$output .= ' ON ' . 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] . '(';
 
 							for ($i = 0; $i < count($columns); $i++) {
@@ -1545,6 +1593,7 @@ class MSSqlGenerator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ')';
 							$output .= ";\n\n";
 
@@ -1571,9 +1620,11 @@ class MSSqlGenerator extends BaseGenerator {
 					if ($i > 2) {
 						$output .= ",\n";
 					}
+
 					$output        .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 					$firstNonColumn = $i + 1;
 				}
+
 				$output .= ");\n\n";
 
 				for ($i = $firstNonColumn; $i < count($child); $i++) {
@@ -1589,6 +1640,7 @@ class MSSqlGenerator extends BaseGenerator {
 								$output .= ', ';
 							}
 						}
+
 						$output .= ");\n\n";
 					} else /* key */ {
 						if (!empty($child[$i]['attrs']['PRIMARY'])) {
@@ -1603,6 +1655,7 @@ class MSSqlGenerator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ");\n\n";
 						} else {
 							$crc     = $this->getIndexCrc($child[$i]['child']);
@@ -1616,6 +1669,7 @@ class MSSqlGenerator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ");\n\n";
 						}
 					}
@@ -1728,9 +1782,11 @@ class SQLiteGenerator extends BaseGenerator {
 					if ($i > 2) {
 						$output .= ",\n";
 					}
+
 					$output        .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 					$firstNonColumn = $i + 1;
 				}
+
 				$output .= ");\n\n";
 
 				for ($i = $firstNonColumn; $i < count($child); $i++) {
@@ -1746,6 +1802,7 @@ class SQLiteGenerator extends BaseGenerator {
 							$output .= 'DB_TABLE_PREFIX' . $child[0]['content']
 							. '_' . $this->getIndexCrc($columns);
 						}
+
 						$output .= ' ON ' . 'DB_TABLE_PREFIX' . $child[0]['content'] . '(';
 
 						for ($j = 0; $j < count($columns); $j++) {
@@ -1755,11 +1812,13 @@ class SQLiteGenerator extends BaseGenerator {
 								$output .= ', ';
 							}
 						}
+
 						$output .= ')';
 						$output .= ";\n\n";
 
 						break;
 					}
+
 					$output .= 'CREATE UNIQUE INDEX DB_TABLE_PREFIX' . $child[0]['content'];
 
 					if (!empty($child[$i]['attrs']['PRIMARY'])) {
@@ -1767,6 +1826,7 @@ class SQLiteGenerator extends BaseGenerator {
 					} else {
 						$output .= '_' . $this->getIndexCrc($child[$i]['child']);
 					}
+
 					$output .= ' ON DB_TABLE_PREFIX' . $child[0]['content'] . '(';
 
 					for ($j = 0; $j < count($child[$i]['child']); $j++) {
@@ -1776,6 +1836,7 @@ class SQLiteGenerator extends BaseGenerator {
 							$output .= ', ';
 						}
 					}
+
 					$output .= ");\n\n";
 				}
 
@@ -1789,6 +1850,7 @@ class SQLiteGenerator extends BaseGenerator {
 				for ($i = 3; $i < count($child); $i++) {
 					$output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 				}
+
 				$output .= $this->generateSchemaUpdate($child);
 
 				break;
@@ -1818,6 +1880,7 @@ class SQLiteGenerator extends BaseGenerator {
 							} else {
 								$output .= $this->getIndexCrc($columns);
 							}
+
 							$output .= ' ON ' . 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] . '(';
 
 							for ($i = 0; $i < count($columns); $i++) {
@@ -1827,6 +1890,7 @@ class SQLiteGenerator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ')';
 							$output .= ";\n\n";
 
@@ -1844,6 +1908,7 @@ class SQLiteGenerator extends BaseGenerator {
 								$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content']
 								. '_' . $this->getIndexCrc($columns);
 							}
+
 							$output .= ' ON ' . 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] . '(';
 
 							for ($i = 0; $i < count($columns); $i++) {
@@ -1853,6 +1918,7 @@ class SQLiteGenerator extends BaseGenerator {
 									$output .= ', ';
 								}
 							}
+
 							$output .= ')';
 							$output .= ";\n\n";
 
@@ -1915,6 +1981,7 @@ class SQLiteGenerator extends BaseGenerator {
 									$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content']
 									. '_' . $this->getIndexCrc($c['child']);
 								}
+
 								$output .= ";\n\n";
 
 								break;
@@ -1962,6 +2029,7 @@ class SQLiteGenerator extends BaseGenerator {
 					} elseif ($defaultValue !== null) {
 						$output .= " DEFAULT '" . $defaultValue . "'";
 					}
+
 					$output .= ";\n\n";
 					$output .= 'VACUUM DB_TABLE_PREFIX' . $parent['child'][0]['content'] . ";\n\n";
 					$output .= 'UPDATE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .

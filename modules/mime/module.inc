@@ -30,6 +30,7 @@
 class MimeModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
+
 		$this->setId('mime');
 		$this->setName($gallery->i18n('MIME Maintenance'));
 		$this->setDescription(

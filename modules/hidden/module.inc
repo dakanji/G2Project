@@ -71,6 +71,7 @@ class HiddenModule extends GalleryModule {
 	 */
 	public function upgrade($currentVersion, $statusMonitor = null) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		if (empty($currentVersion)) {
@@ -83,7 +84,9 @@ class HiddenModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
+
 			$gallery->guaranteeTimeLimit(60);
+
 			$ret = $storage->execute('DELETE FROM [ItemHiddenMap]');
 
 			if ($ret) {
@@ -91,6 +94,7 @@ class HiddenModule extends GalleryModule {
 			}
 
 			$gallery->guaranteeTimeLimit(60);
+
 			$ret = $storage->execute(
 				'INSERT INTO [ItemHiddenMap] ([::itemId])
 				   SELECT [GalleryEntity::id]
@@ -246,6 +250,7 @@ class HiddenModule extends GalleryModule {
 	 */
 	public function handleEvent($event) {
 		global $gallery;
+
 		GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenHelper.class');
 
 		switch ($event->getEventName()) {
@@ -307,6 +312,7 @@ class HiddenModule extends GalleryModule {
 						if ($ret) {
 							return array($ret, null);
 						}
+
 						list($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds(
 							$item,
 							null,
@@ -320,9 +326,11 @@ class HiddenModule extends GalleryModule {
 
 						$ids = array_merge($ids, $childIds);
 					}
-					$query                     = 'SELECT [::itemId] FROM [ItemHiddenMap]
+
+					$query = 'SELECT [::itemId] FROM [ItemHiddenMap]
 			   WHERE [ItemHiddenMap::itemId] IN ('
 					 . GalleryUtilities::makeMarkers(count($ids)) . ')';
+
 					list($ret, $searchResults) = $gallery->search($query, $ids);
 
 					if ($ret) {
@@ -331,11 +339,13 @@ class HiddenModule extends GalleryModule {
 
 					if ($searchResults->resultCount() > 0) {
 						$gallery->guaranteeTimeLimit(60);
+
 						list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 
 						if ($ret) {
 							return array($ret, null);
 						}
+
 						list($ret, $everybodyGroup) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 
 						if ($ret) {
@@ -354,6 +364,7 @@ class HiddenModule extends GalleryModule {
 							if ($ret) {
 								return array($ret, null);
 							}
+
 							$ret = GalleryCoreApi::removeGroupPermission(
 								$id,
 								$everybodyGroup,

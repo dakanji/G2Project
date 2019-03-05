@@ -75,6 +75,7 @@ class CaptchaSiteAdminController extends GalleryController {
 					if (!isset($optionInstances[$optionId])) {
 						return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 					}
+
 					list(
 						$ret,
 						$title,
@@ -89,6 +90,7 @@ class CaptchaSiteAdminController extends GalleryController {
 					if (!in_array($level, $choices)) {
 						return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 					}
+
 					$ret = GalleryCoreApi::setPluginParameter(
 						$paramData[0],
 						$paramData[1],
@@ -116,6 +118,7 @@ class CaptchaSiteAdminController extends GalleryController {
 			$results['delegate']['view']    = 'core.SiteAdmin';
 			$results['delegate']['subView'] = 'captcha.CaptchaSiteAdmin';
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -158,6 +161,7 @@ class CaptchaSiteAdminView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$optionData = array();
 
 		foreach ($optionInstances as $optionId => $option) {
@@ -166,6 +170,7 @@ class CaptchaSiteAdminView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			list($ret, $param) = GalleryCoreApi::getPluginParameter(
 				$paramData[0],
 				$paramData[1],
@@ -175,6 +180,7 @@ class CaptchaSiteAdminView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$optionData[$optionId] = array(
 				'title'   => $title,
 				'value'   => $param,
@@ -189,6 +195,7 @@ class CaptchaSiteAdminView extends GalleryView {
 				'options'                    => $optionData,
 			)
 		);
+
 		$template->setVariable('controller', 'captcha.CaptchaSiteAdmin');
 
 		return array(
@@ -227,7 +234,7 @@ class CaptchaAdminOption {
 	 *               array of string optionId => CaptchaAdminOption instance
 	 */
 	public function getAllOptions() {
-		if (!is_null($this->testOptions)) {
+		if (null !== $this->testOptions) {
 			return array(null, $this->testOptions);
 		}
 

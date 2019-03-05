@@ -9,7 +9,6 @@
 Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Microsoft Visual FoxPro data driver. Requires ODBC. Works only on MS Windows.
 */
 
@@ -65,7 +64,6 @@ if (!defined('ADODB_VFP')) {
 		}
 	}
 
-
 	class ADORecordSet_vfp extends ADORecordSet_odbc {
 		public $databaseType = 'vfp';
 
@@ -85,6 +83,8 @@ if (!defined('ADODB_VFP')) {
 					if ($len <= $this->blobSize) {
 						return 'C';
 					}
+
+
 					// Fall Through
 				case 'M':
 					return 'X';

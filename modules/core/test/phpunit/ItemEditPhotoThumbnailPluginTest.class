@@ -42,6 +42,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
 
 		// Register a dummy toolkit
@@ -58,6 +59,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markToolkitForCleanup('ItemEditPhotoThumbnailPluginTestToolkit');
 
 		// Register operations that we can perform on our mock data items
@@ -133,6 +135,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markFactoryModuleForCleanup('coreTest');
 
 		list($ret, $this->_item) = $this->_createRandomDataItem(
@@ -451,6 +454,7 @@ class ItemEditPhotoThumbnailPluginTestToolkit extends GalleryToolkit {
 		$context = array()
 	) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		if ($sourceFilename != $destFilename) {

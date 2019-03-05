@@ -70,6 +70,7 @@ class DcrawToolkitHelper {
 	 */
 	public static function testBinary($dcrawPath) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		/*
@@ -100,6 +101,7 @@ class DcrawToolkitHelper {
 		}
 
 		list($success, $stdout, $stderr) = $platform->exec(array(array($dcrawPath)));
+
 		// $success will be 0 here, since we gave no arguments
 		$verCheck = implode(' ', array_merge($stdout, $stderr));
 		$version  = null;

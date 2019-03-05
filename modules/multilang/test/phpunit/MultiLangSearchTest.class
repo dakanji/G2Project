@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/multilang/classes/MultiLangHelper.class');
 
 /**
@@ -59,6 +58,7 @@ class MultiLangSearchTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(isset($this->_search), 'Missing MultiLangSearch instance');
 
 		list($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'multilang');
@@ -67,7 +67,8 @@ class MultiLangSearchTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->_randomKey         = 'a' . mt_rand() . 'z';
+		$this->_randomKey = 'a' . mt_rand() . 'z';
+
 		list($ret, $this->_album) = $this->_createRandomAlbum(
 			$this->_getRootId(),
 			array(
@@ -78,7 +79,9 @@ class MultiLangSearchTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($this->_album);
+
 		list($ret, $this->_item) = $this->_createRandomDataItem($this->_album->getId());
 
 		if ($ret) {
@@ -96,6 +99,7 @@ class MultiLangSearchTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = MultiLangHelper::setItemData(
 			$this->_album,
 			'zq_WX',
@@ -107,6 +111,7 @@ class MultiLangSearchTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = MultiLangHelper::setItemData(
 			$this->_item,
 			'zq_RX',
@@ -143,11 +148,13 @@ class MultiLangSearchTest extends GalleryTestCase {
 
 	public function testGetSearchModuleInfoDefaultLanguage() {
 		global $gallery;
+
 		list($ret, $defaultLanguage) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$gallery->setActiveLanguageCode($defaultLanguage);
 
 		list($ret, $info) = $this->_search->getSearchModuleInfo();
@@ -168,11 +175,13 @@ class MultiLangSearchTest extends GalleryTestCase {
 
 	public function testGetSearchModuleInfoActiveLanguage() {
 		global $gallery;
+
 		list($ret, $defaultLanguage) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$gallery->setActiveLanguageCode($defaultLanguage == 'de_DE' ? 'fr_FR' : 'de_DE');
 
 		list($ret, $info) = $this->_search->getSearchModuleInfo();
@@ -221,6 +230,7 @@ class MultiLangSearchTest extends GalleryTestCase {
 
 	public function testSearchAll() {
 		global $gallery;
+
 		$gallery->setActiveLanguageCode('zq_RX');
 
 		list($ret, $results) = $this->_search->search(
@@ -286,6 +296,7 @@ class MultiLangSearchTest extends GalleryTestCase {
 
 	public function testLimitedSearch() {
 		global $gallery;
+
 		$gallery->setActiveLanguageCode('zq_RX');
 
 		list($ret, $results) = $this->_search->search(
@@ -336,6 +347,7 @@ class MultiLangSearchTest extends GalleryTestCase {
 
 	public function testEmptySearch() {
 		global $gallery;
+
 		$gallery->setActiveLanguageCode('zq_RX');
 
 		/*

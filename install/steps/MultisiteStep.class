@@ -68,11 +68,13 @@ class MultisiteStep extends InstallStep {
 
 				return false;
 			}
+
 			$this->_configPath = rtrim(
 				$this->sanitize($_POST['configPath']),
 				' ' . DIRECTORY_SEPARATOR
 			);
-			$this->_baseUri    = isset($_POST['baseUri']) ? $_POST['baseUri'] : '';
+
+			$this->_baseUri = isset($_POST['baseUri']) ? $_POST['baseUri'] : '';
 
 			if (substr($this->_baseUri, -4) != '.php'
 				&& substr($this->_baseUri, -1) != '/'
@@ -152,31 +154,37 @@ class MultisiteStep extends InstallStep {
 		if (!$out = @fopen("$dir/main.php", 'w')) {
 			return false;
 		}
+
 		fwrite(
 			$out,
 			"<?php\ndefine('GALLERY_CONFIG_DIR', __DIR__);\nrequire('" .
 			$galleryDir . "main.php');\n?>\n"
 		);
+
 		fclose($out);
 
 		if (!$out = @fopen("$dir/embed.php", 'w')) {
 			return false;
 		}
+
 		fwrite(
 			$out,
 			"<?php\ndefine('GALLERY_CONFIG_DIR', __DIR__);\nrequire('" .
 			$galleryDir . "embed.php');\n?>\n"
 		);
+
 		fclose($out);
 
 		if (!$out = @fopen("$dir/index.php", 'w')) {
 			return false;
 		}
+
 		fwrite(
 			$out,
 			"<?php\ndefine('GALLERY_CONFIG_DIR', __DIR__);\nrequire('" .
 			$galleryDir . "index.php');\n?>\n"
 		);
+
 		fclose($out);
 
 		if (!is_dir("$dir/upgrade") && !mkdir("$dir/upgrade", 0755)) {
@@ -186,11 +194,13 @@ class MultisiteStep extends InstallStep {
 		if (!$out = @fopen("$dir/upgrade/index.php", 'w')) {
 			return false;
 		}
+
 		fwrite(
 			$out,
 			"<?php\ndefine('GALLERY_CONFIG_DIR', dirname(__DIR__));\nrequire('" .
 			$galleryDir . 'upgrade' . DIRECTORY_SEPARATOR . "index.php');\n?>\n"
 		);
+
 		fclose($out);
 		// lib/support/index.php is optional; ignore errors
 		if ((is_dir("$dir/lib") || mkdir("$dir/lib", 0755))
@@ -203,6 +213,7 @@ class MultisiteStep extends InstallStep {
 				")));\nrequire('" . $galleryDir . 'lib' . DIRECTORY_SEPARATOR . 'support' .
 				DIRECTORY_SEPARATOR . "index.php');\n?>\n"
 			);
+
 			fclose($out);
 		}
 
@@ -219,16 +230,20 @@ class MultisiteStep extends InstallStep {
 			@include $configFile;
 			ob_end_clean();
 		}
+
 		global $galleryStub;
+
 		// Copy config data from system checks step which will be used in the install log
 		$gallery->setConfig(
 			'systemchecks.fileintegrity',
 			$galleryStub->getConfig('systemchecks.fileintegrity')
 		);
+
 		$gallery->setConfig(
 			'systemchecks.issvninstall',
 			$galleryStub->getConfig('systemchecks.issvninstall')
 		);
+
 		// Replace galleryStub
 		$galleryStub = $gallery;
 	}

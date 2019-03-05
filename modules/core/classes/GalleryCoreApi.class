@@ -3655,6 +3655,7 @@ class GalleryCoreApi {
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/GalleryStatus.class'
 		);
+
 		$status = new GalleryStatus(GALLERY_ERROR | $errorCode, $errorMessage);
 		$status->setStackTrace(debug_backtrace());
 
@@ -3712,7 +3713,8 @@ class GalleryCoreApi {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
-		$storage                   =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
+
 		list($ret, $searchResults) = $storage->getMapEntry($mapName, $select, $match, $optional);
 
 		if ($ret) {
@@ -3801,7 +3803,8 @@ class GalleryCoreApi {
 	public static function describeMap($mapName, $tryAllModules = false) {
 		global $gallery;
 
-		$storage                =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
+
 		list($ret, $entityInfo) = $storage->describeMap($mapName, $tryAllModules);
 
 		if ($ret) {
@@ -3821,7 +3824,9 @@ class GalleryCoreApi {
 	 */
 	public static function describeEntity($entityName, $tryAllModules = false) {
 		global $gallery;
-		$storage                =& $gallery->getStorage();
+
+		$storage =& $gallery->getStorage();
+
 		list($ret, $entityInfo) = $storage->describeEntity($entityName, $tryAllModules);
 
 		if ($ret) {
@@ -3894,6 +3899,7 @@ class GalleryCoreApi {
 	 */
 	public static function getAnonymousUserId() {
 		global $gallery;
+
 		$id = $gallery->getConfig('anonymousUserId');
 
 		if (empty($id)) {
@@ -3921,8 +3927,10 @@ class GalleryCoreApi {
 	public static function isAnonymousUser($userId = null) {
 		if (empty($userId)) {
 			global $gallery;
+
 			$userId = $gallery->getActiveUserId();
 		}
+
 		list($ret, $anonymousId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {

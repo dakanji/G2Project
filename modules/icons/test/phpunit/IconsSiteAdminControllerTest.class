@@ -86,6 +86,7 @@ class IconsSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('testpack', $iconpack, 'iconpack');
 	}
 

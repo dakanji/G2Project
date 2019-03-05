@@ -32,48 +32,40 @@
  */
 define('EXIF_SUMMARY', 1);
 
-
 /**
  * Detailed EXIF setting
  */
 define('EXIF_DETAILED', 2);
-
 
 /**
  * Import EXIF description into item summary
  */
 define('EXIF_ITEM_SUMMARY', 1);
 
-
 /**
  * Import EXIF description into item description
  */
 define('EXIF_ITEM_DESCRIPTION', 2);
-
 
 /**
  * Import IPTC keywords into item keywords
  */
 define('IPTC_ITEM_KEYWORDS', 4);
 
-
 /**
  * Import IPTC Name into item title
  */
 define('IPTC_ITEM_TITLE', 32);
-
 
 /**
  * Rotate pictures based on exifData
  */
 define('EXIF_ITEM_ROTATE', 8);
 
-
 /**
  * Preserve original on rotating
  */
 define('EXIF_ITEM_ROTATE_PRESERVE', 16);
-
 
 /**
  * A helper class for the EXIF module.
@@ -151,7 +143,6 @@ class ExifHelper {
 
 		$ret = self::setProperties($viewMode, $properties);
 
-
 		if ($ret) {
 			return $ret;
 		}
@@ -168,7 +159,6 @@ class ExifHelper {
 	 */
 	public static function addDefaultIptcProperties($viewMode) {
 		list($ret, $properties) = self::getProperties($viewMode);
-
 
 		if ($ret) {
 			return $ret;
@@ -194,7 +184,6 @@ class ExifHelper {
 
 		$ret = self::setProperties($viewMode, $properties);
 
-
 		if ($ret) {
 			return $ret;
 		}
@@ -211,19 +200,18 @@ class ExifHelper {
 	 */
 	public static function _fetchRawExifData($path, &$rawExifData) {
 		global $gallery;
+
 		GalleryCoreApi::requireOnce('modules/exif/lib/exifer/exif.inc');
 
-
 		$platform =& $gallery->getPlatform();
-
 
 		if (!$platform->file_exists($path)) {
 			$rawExifData = null;
 
 			return;
 		}
-		$rawExifData = read_exif_data_raw($path, false);
 
+		$rawExifData = read_exif_data_raw($path, false);
 
 		if ($gallery->getDebug()) {
 			$buf = print_r($rawExifData, true);
@@ -246,8 +234,8 @@ class ExifHelper {
 	 */
 	public static function getIptcObject($path) {
 		global $gallery;
-		$platform =& $gallery->getPlatform();
 
+		$platform =& $gallery->getPlatform();
 
 		if (!$platform->file_exists($path)) {
 			return array(
@@ -260,10 +248,10 @@ class ExifHelper {
 				null,
 			);
 		}
+
 		GalleryCoreApi::requireOnce('modules/exif/lib/JPEG/JPEG.inc');
 
 		$result = new JPEG($path);
-
 
 		if ($gallery->getDebug()) {
 			// Capture old-school print_r() to support older PHP
@@ -298,18 +286,15 @@ class ExifHelper {
 
 		list($ret, $iptcObj) = self::getIptcObject($path);
 
-
 		if ($ret) {
 			return array($ret, null);
 		}
 
 		$exifKeys = self::getExifKeys();
 
-
 		$results = array();
 
 		list($ret, $properties) = self::getProperties($viewMode);
-
 
 		if ($ret) {
 			return array($ret, null);
@@ -322,7 +307,6 @@ class ExifHelper {
 				$keyPath = explode('.', $exifKeys[$property][$i]);
 
 				$value = self::getExifValue($rawExifData, $keyPath);
-
 
 				if (!isset($value)) {
 					$value = self::getIptcValue($iptcObj, $keyPath);
@@ -337,7 +321,6 @@ class ExifHelper {
 						'title' => $title,
 						'value' => $value,
 					);
-
 
 					break;
 				}
@@ -360,12 +343,10 @@ class ExifHelper {
 
 		GalleryUtilities::sanitizeInputValues($value, false);
 
-
 		switch ($property) {
 			case 'ApertureValue':
 				// Convert "f 2.8" to "f/2.8"
 				$results = sscanf($value, 'f %s');
-
 
 				if (count($results) == 1) {
 					$value = 'f/' . $results[0];
@@ -376,15 +357,14 @@ class ExifHelper {
 			case 'DateTime':
 				$value = self::_parseDate($value);
 
-
 				if (isset($value)) {
 					// Convert to localized string
 					list($ret, $format) = GalleryCoreApi::getPluginParameter('module', 'core', 'format.datetime');
 
-
 					if ($ret || empty($format)) {
 						$format = '$x $X';
 					}
+
 					$platform =& $gallery->getPlatform();
 
 					$value = $platform->strftime($format, $value);
@@ -410,7 +390,6 @@ class ExifHelper {
 					},
 					$value
 				);
-
 
 				break;
 		}
@@ -447,10 +426,8 @@ class ExifHelper {
 		) as $tag) {
 			$value = self::getExifValue($rawExifData, explode('.', $tag));
 
-
 			if (isset($value)) {
 				$value = self::_parseDate($value);
-
 
 				if (isset($value)) {
 					return $value;
@@ -470,10 +447,12 @@ class ExifHelper {
 		if ($value == '0000:00:00 00:00:00') {
 			return null;
 		}
+
 		// Standard EXIF format
 		if (preg_match('#(\d+):(\d+):(\d+)\s+(\d+):(\d+):(\d+)#', $value, $m)) {
 			$time = mktime((int)$m[4], (int)$m[5], (int)$m[6], (int)$m[2], (int)$m[3], (int)$m[1]);
 		}
+
 		// This ISO 8601 pattern seems to be used by newer Adobe products
 		elseif (preg_match(
 			'#(\d+)-(\d+)-(\d+)T(\d+):(\d+):(\d+)(([-+])(\d+)(:(\d+))?)?#',
@@ -523,7 +502,6 @@ class ExifHelper {
 	public static function getExifValue(&$source, $keyPath) {
 		$key = array_shift($keyPath);
 
-
 		if (!isset($source[$key])) {
 			return null;
 		}
@@ -555,8 +533,8 @@ class ExifHelper {
 		if ($keyPath[0] != 'IPTC') {
 			return null;
 		}
-		$result = $object->getIPTCField($keyPath[1]);
 
+		$result = $object->getIPTCField($keyPath[1]);
 
 		if ($result == false) {
 			return null;
@@ -565,8 +543,8 @@ class ExifHelper {
 		if (is_array($result)) {
 			$result = implode('; ', $result);
 		}
-		$result = GalleryCoreApi::convertToUtf8($result, $sourceEncoding);
 
+		$result = GalleryCoreApi::convertToUtf8($result, $sourceEncoding);
 
 		return $result;
 	}
@@ -592,13 +570,11 @@ class ExifHelper {
 			)
 		);
 
-
 		if ($ret) {
 			return array($ret, null);
 		}
 
 		$data = array();
-
 
 		while ($result = $searchResults->nextResult()) {
 			$data[] = $result[0];
@@ -615,7 +591,6 @@ class ExifHelper {
 	 * @return GalleryStatus a status code
 	 */
 	public static function setProperties($viewMode, $properties) {
-
 		// Remove all old map entries
 		$ret = GalleryCoreApi::removeMapEntry(
 			'ExifPropertiesMap',
@@ -623,7 +598,6 @@ class ExifHelper {
 				'viewMode' => $viewMode,
 			)
 		);
-
 
 		if ($ret) {
 			return $ret;
@@ -638,7 +612,6 @@ class ExifHelper {
 					'sequence' => $i,
 				)
 			);
-
 
 			if ($ret) {
 				return $ret;
@@ -670,6 +643,7 @@ class ExifHelper {
 	 */
 	public static function getExifKeys() {
 		global $gallery;
+
 		static $data;
 
 		if (!empty($data)) {
@@ -707,7 +681,6 @@ class ExifHelper {
 			'SubIFD.Flash',
 			'SubIFD.MakerNote.Settings 1.Flash',
 		);
-
 
 		// Not sure
 		$data['ACDComment'] = array(
@@ -1349,7 +1322,6 @@ class ExifHelper {
 			'IFD1.TIFF/EPStandardID',
 		);
 
-
 		$data['TileByteCounts'] = array(
 			$gallery->i18n('Tile Byte Counts'),
 			'IFD1.TileByteCounts',
@@ -1433,7 +1405,6 @@ class ExifHelper {
 			'IFD0.yResolution',
 		);
 
-
 		$data['ExifImageHeight'] = array(
 			$gallery->i18n('Exif Image Height'),
 			'SubIFD.ExifImageHeight',
@@ -1443,7 +1414,6 @@ class ExifHelper {
 			$gallery->i18n('Exif Image Width'),
 			'SubIFD.ExifImageWidth',
 		);
-
 
 		// EXIF GPS fields, see exifer/makers/gps.inc
 		$data['GPS/Version'] = array(
@@ -1601,7 +1571,6 @@ class ExifHelper {
 			'GPS.DifferentialCorrection',
 		);
 
-
 		// IPTC fields, see http://www.iptc.org/IIM/, if you have time to waste.
 		$data['IPTC/SupplementalCategories'] = array(
 			$gallery->i18n('IPTC: Supplemental Categories'),
@@ -1712,7 +1681,6 @@ class ExifHelper {
 			$gallery->i18n('IPTC: Sub Location'),
 			'IPTC.Sublocation',
 		);
-
 
 		return $data;
 	}

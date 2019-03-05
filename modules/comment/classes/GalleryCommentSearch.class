@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/comment/module.inc');
 GalleryCoreApi::requireOnce('modules/search/classes/GallerySearchInterface_1_0.class');
 
@@ -60,6 +59,7 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 	 */
 	public function search($options, $criteria, $offset = 0, $count = -1) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		// TODO: Update fetchAccessListIds to also accept an array of permission names
@@ -71,6 +71,7 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $viewAclIds) = GalleryCoreApi::fetchAccessListIds(
 			'core.view',
 			$gallery->getActiveUserId()
@@ -79,6 +80,7 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$aclIds = array_intersect($aclIds, $viewAclIds);
 
 		if (empty($aclIds)) {
@@ -160,6 +162,7 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$result  = $results->nextResult();
 		$numRows = (int)$result[0];
 
@@ -197,6 +200,7 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 				'key'   => $text['subject'],
 				'value' => $result[1],
 			);
+
 			$fields[] = array(
 				'key'   => $text['comment'],
 				'value' => $result[2],
@@ -218,6 +222,7 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 					'value' => $result[5],
 				);
 			}
+
 			$searchResults[] = array(
 				'itemId' => (int)$result[6],
 				'fields' => $fields,

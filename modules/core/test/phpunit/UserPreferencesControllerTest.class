@@ -32,14 +32,16 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$session                 =& $gallery->getSession();
-		$this->_currentLanguage  = $session->get('core.language');
+		$session                =& $gallery->getSession();
+		$this->_currentLanguage = $session->get('core.language');
+
 		list($ret, $this->_user) = $this->_createUser(
 			array(
 				'hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
@@ -61,8 +63,10 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 	public function tearDown() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 		$session->put('core.language', $this->_currentLanguage);
+
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -107,6 +111,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 	public function testEditAll() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
@@ -149,6 +154,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			'form[email]',
 			'  email_with-leading@space.test-o.com'
 		);
+
 		GalleryUtilities::putRequestVariable('form[currentPassword]', 'TestPassword');
 
 		$results = $this->handleRequest();
@@ -310,6 +316,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	// No password is needed for non-email changes
 	public function testEditOtherThanEmailWithoutPassword() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
@@ -353,6 +360,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	// If you provide an email, then return a error message if it's invalid
 	public function testEditOtherThanEmailInvalidPassword() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
@@ -403,6 +411,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 	public function testEditEmailWithInvalidPassword() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
@@ -453,6 +462,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 	public function testEditEmailWithoutPassword() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
@@ -487,6 +497,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 	public function testGuestPreferences() {
 		global $gallery;
+
 		$gallery->setConfig('anonymousUserId', $this->_user->getId());
 
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -528,11 +539,13 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 	public function testEditEmailWithEntityPassword() {
 		global $gallery;
+
 		list($ret, $user) = $this->_createRandomUser(null, 'pass&word');
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($user);
 		$gallery->setActiveUser($user);
 

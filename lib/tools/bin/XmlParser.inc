@@ -46,6 +46,7 @@ class XmlParser {
 					xml_get_current_line_number($this->_xmlObject)
 				)
 			);
+
 			xml_parser_free($this->_xmlObject);
 		}
 
@@ -60,6 +61,7 @@ class XmlParser {
 		if (!empty($attribs)) {
 			$content['attrs'] = $attribs;
 		}
+
 		array_push($this->_output, $content);
 	}
 

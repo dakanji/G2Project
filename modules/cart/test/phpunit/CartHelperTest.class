@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/cart/classes/CartHelper.class');
 
 /**
@@ -50,7 +49,8 @@ class CartHelperTest extends GalleryTestCase {
 			1 => 3,
 			2 => 3,
 		);
-		$ret            = CartHelper::setCartItemCounts($cartItemCounts);
+
+		$ret = CartHelper::setCartItemCounts($cartItemCounts);
 
 		if ($ret) {
 			return $ret;
@@ -75,11 +75,13 @@ class CartHelperTest extends GalleryTestCase {
 	public function testAddItemsToCart() {
 		// Create test data
 		global $gallery;
+
 		list($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($album);
 
 		$ret = GalleryCoreApi::removeItemPermissions($album->getId());
@@ -87,6 +89,7 @@ class CartHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$album->getId(),
 			$gallery->getActiveUserId(),
@@ -96,11 +99,13 @@ class CartHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $item) = $this->_createRandomDataItem($album->getId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		list($ret, $item2) = $this->_createRandomDataItem($album->getId());
 
 		if ($ret) {
@@ -219,13 +224,17 @@ class CartHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($item);
+
 		list($ret, $item2) = $this->_createRandomDataItem($this->_getRootId());
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->_markForCleanup($item2);
+
 		$ret = GalleryCoreApi::removeItemPermissions($item2->getId());
 
 		if ($ret) {
@@ -250,6 +259,7 @@ class CartHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array($item), $cartItems, 'cart items');
 
 		list($ret, $cartItemCounts) = CartHelper::fetchCartItemCounts();
@@ -257,6 +267,7 @@ class CartHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				$item->getId() => 2,
@@ -274,12 +285,14 @@ class CartHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		// Just make sure it's really empty
 		list($ret, $cartItemCounts) = CartHelper::fetchCartItemCounts();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array(), $cartItemCounts, 'preparation of test failed');
 
 		// Load the items
@@ -288,6 +301,7 @@ class CartHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(array(), $cartItems, 'cart items');
 	}
 }

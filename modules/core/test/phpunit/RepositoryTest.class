@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryIndex.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryUtilities.class');
@@ -44,6 +43,7 @@ class RepositoryTest extends GalleryTestCase {
 
 		// Set up mock storage.
 		global $gallery;
+
 		$gallery->_storage  = new RepositoryTestStorage();
 		$this->_testStorage =& $gallery->_storage;
 
@@ -76,11 +76,13 @@ class RepositoryTest extends GalleryTestCase {
 			array($pluginType, $pluginId),
 			array(null, $installed['packages'])
 		);
+
 		$utilities->setReply(
 			'isPluginCompatible',
 			array($pluginType, $header['requiredCoreApi'], $header['requiredPluginApi'], null),
 			$pluginApi == $header['requiredPluginApi'] && $header['requiredCoreApi'] == $coreApi
 		);
+
 		$base = $installed['packages']['base'];
 
 		$utilities->setReply(
@@ -1340,6 +1342,7 @@ class RepositoryTest extends GalleryTestCase {
 						true
 					);
 				}
+
 				$platform->setReply('readdir', array('fh'), false);
 				$platform->setReply('closedir', array('fh'), true);
 
@@ -1350,6 +1353,7 @@ class RepositoryTest extends GalleryTestCase {
 					$pluginType
 				);
 			}
+
 			$gallery->setPlatform($platform);
 
 			list($ret, $packages) = $repository->getAllUpgradeablePackages();
@@ -1357,6 +1361,7 @@ class RepositoryTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertTrue($utilities->isComplete(), $utilities->getRemaining());
 			$this->assertEquals(
 				$case['expectedPackages'],
@@ -1373,6 +1378,7 @@ class RepositoryTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$installedCoreVersion = $core->getVersion();
 
 		// Assign arbitrary repository API versions.
@@ -1437,6 +1443,7 @@ class RepositoryTest extends GalleryTestCase {
 				array($case['repositoryCoreVersion'], $installedCoreVersion, null, null),
 				array(null, $case['expectedRelation'])
 			);
+
 			$repository                     = new GalleryRepository();
 			$repository->_utilities         = $utilities;
 			$repository->_index             = $this->_index;
@@ -1447,17 +1454,20 @@ class RepositoryTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->assertEquals(
 				$case['expectedRelation'] == 'newer',
 				$isAvailable,
 				"Expected relation: {$case['expectedRelation']}, $isAvailable"
 			);
+
 			$this->assertEquals(
 				$case['expectedApiVersions'],
 				$apiVersions,
 				'API Versions'
 			);
 		}
+
 		$this->_index->_index = $this->_sampleIndex;
 	}
 
@@ -1774,11 +1784,13 @@ class RepositoryTest extends GalleryTestCase {
 
 	public function testGetRepositoryPluginList() {
 		global $gallery;
+
 		list($ret, $saveLanguage) = $gallery->getActiveLanguageCode();
 
 		if ($ret) {
 			return $ret;
 		}
+
 		$ret = $gallery->setActiveLanguageCode('en_US');
 
 		if ($ret) {
@@ -1806,6 +1818,7 @@ class RepositoryTest extends GalleryTestCase {
 			if ($case['isAvailable']) {
 				$case['pluginData']['plugins']['module']['testModule']['localVersion'] = 'someVersion';
 			}
+
 			$repository->_index = new RepositoryTestIndex($this->_sampleIndex, $case['pluginData']);
 
 			$this->_setupRepositoryPluginListResponses($utilities, $case);
@@ -1837,6 +1850,7 @@ class RepositoryTest extends GalleryTestCase {
 
 	public function testGetRepositoryPluginListThemeGroupLabel() {
 		global $gallery;
+
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -1892,11 +1906,13 @@ class RepositoryTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-			$data     = array(
+
+			$data = array(
 				'en_GB' => 'en_GB-themes_testTheme-Test Group',
 				'pt_BR' => 'pt_BR-themes_testTheme-Test Group',
 				'pt_PT' => 'pt_PT-themes_testTheme-Test Group',
 			);
+
 			$expected = isset($data[$locale]) ? $data[$locale] : $core->translate('Themes');
 			$this->assertEquals(
 				$expected,
@@ -1963,7 +1979,9 @@ class RepositoryTest extends GalleryTestCase {
 		$platform->setReply('is_dir', array('/cache/modules'), true);
 		$platform->setReply('is_dir', array('/cache/themes'), true);
 		$gallery->setPlatform($platform);
+
 		list($isSetUp, $message) = $repository->createPluginsDirectory();
+
 		$this->assertTrue($isSetUp, $message);
 
 		// guaranteeDirExists($dir) depends on the cache.
@@ -1985,6 +2003,7 @@ class RepositoryTest extends GalleryTestCase {
 			),
 			true
 		);
+
 		$platform->setReply('is_dir', array('/cache/modules'), false);
 		$platform->setReply(
 			'mkdir',
@@ -1994,6 +2013,7 @@ class RepositoryTest extends GalleryTestCase {
 			),
 			true
 		);
+
 		$platform->setReply('is_dir', array('/cache/themes'), false);
 		$platform->setReply(
 			'mkdir',
@@ -2003,7 +2023,9 @@ class RepositoryTest extends GalleryTestCase {
 			),
 			true
 		);
+
 		list($isSetUp, $message) = $repository->createPluginsDirectory();
+
 		$this->assertTrue($isSetUp, $message);
 
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
@@ -2024,7 +2046,7 @@ class RepositoryTest extends GalleryTestCase {
 		$repository         = new GalleryRepository();
 		$repository->_index = new RepositoryTestIndex($this->_sampleIndex, $indexData);
 
-		$pluginData        = array(
+		$pluginData = array(
 			'module' => array(
 				'testModule' => array(
 					'package1' => 1,
@@ -2032,6 +2054,7 @@ class RepositoryTest extends GalleryTestCase {
 				),
 			),
 		);
+
 		list($ret, $files) = $repository->getDownloadFileList($pluginData);
 
 		if ($ret) {
@@ -2086,6 +2109,7 @@ class RepositoryTest extends GalleryTestCase {
 			array($testDescriptorPath, serialize(array($testDescriptorUrl))),
 			true
 		);
+
 		$gallery->setPlatform($platform);
 
 		$repository             = new GalleryRepository();
@@ -2098,11 +2122,13 @@ class RepositoryTest extends GalleryTestCase {
 			array('repositoryUrl/test/RepositoryTest.package', null),
 			array(true, serialize(array('repositoryUrl/test/RepositoryTest.package')))
 		);
+
 		$repository->_utilities->setReply(
 			'unpackPackage',
 			array($testPackagePath, "$modules/testModule/"),
 			null
 		);
+
 		$repository->_utilities->setReply(
 			'downloadFile',
 			array('repositoryUrl/test/RepositoryTest.descriptor', null),
@@ -2120,6 +2146,7 @@ class RepositoryTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertTrue(empty($descriptor), 'Descriptor should be empty after package download.');
 
 		// Test downloading a descriptor.
@@ -2133,6 +2160,7 @@ class RepositoryTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals(
 			array(
 				'pluginId'   => 'testModule',
@@ -2162,11 +2190,13 @@ class RepositoryTest extends GalleryTestCase {
 			array(GalleryCoreApi::getCodeBasePath('modules/RepositoryTest/MANIFEST')),
 			array(null, '11111')
 		);
+
 		$utilities->setReply(
 			'getFileRevision',
 			array(GalleryCoreApi::getCodeBasePath('modules/RepositoryTest/po/strings.raw')),
 			array(null, '22222')
 		);
+
 		$utilities->setReply('getFileRevision', array('po/aa.po'), array(null, '33333'));
 		$utilities->setReply('getFileRevision', array('po/bb_BB.po'), array(null, '44444'));
 
@@ -2180,11 +2210,13 @@ class RepositoryTest extends GalleryTestCase {
 			array($modules . '/RepositoryTest/po/strings.raw'),
 			true
 		);
+
 		$platform->setReply(
 			'glob',
 			array($modules . '/RepositoryTest/po/*.po', null),
 			array('po/aa.po', 'po/bb_BB.po')
 		);
+
 		$platform->setReply('is_writeable', array('po/aa.po'), true);
 		$platform->setReply('is_writeable', array('po/bb_BB.po'), true);
 		$gallery->setPlatform($platform);
@@ -2267,6 +2299,7 @@ class RepositoryTest extends GalleryTestCase {
 			array($modules . '/RepositoryTest/po/strings.raw'),
 			false
 		);
+
 		$gallery->setPlatform($platform);
 
 		$ret = $repository->scanPlugin('module', 'RepositoryTest');
@@ -2320,11 +2353,13 @@ class RepositoryTest extends GalleryTestCase {
 			array(GalleryCoreApi::getCodeBasePath('modules/RepositoryTest/MANIFEST')),
 			array(null, '11111')
 		);
+
 		$utilities->setReply(
 			'getFileRevision',
 			array(GalleryCoreApi::getCodeBasePath('modules/RepositoryTest/po/strings.raw')),
 			array(null, '22222')
 		);
+
 		$utilities->setReply('getFileRevision', array('po/aa.po'), array(null, '33333'));
 		$utilities->setReply('getFileRevision', array('po/bb_BB.po'), array(null, '44444'));
 
@@ -2338,11 +2373,13 @@ class RepositoryTest extends GalleryTestCase {
 			array($modules . '/RepositoryTest/po/strings.raw'),
 			true
 		);
+
 		$platform->setReply(
 			'glob',
 			array($modules . '/RepositoryTest/po/*.po', null),
 			array('po/aa.po', 'po/bb_BB.po')
 		);
+
 		$platform->setReply('is_writeable', array('po/aa.po'), false);
 		$platform->setReply('is_writeable', array('po/bb_BB.po'), true);
 		$gallery->setPlatform($platform);
@@ -2416,6 +2453,7 @@ class RepositoryTest extends GalleryTestCase {
 			array($modules . '/RepositoryTest/MANIFEST'),
 			false
 		);
+
 		$gallery->setPlatform($platform);
 
 		$ret = $repository->scanPlugin('module', 'RepositoryTest');
@@ -2468,6 +2506,7 @@ class RepositoryTest extends GalleryTestCase {
 			$repositories,
 			'Returned repositories did not match'
 		);
+
 		$this->assertEquals(1, $repositoryErrors, 'Returned error count did not match');
 
 		$cacheTag = 'GalleryRepository::getRepositories';
@@ -2482,6 +2521,7 @@ class RepositoryTest extends GalleryTestCase {
 			$cachedRepositories,
 			'Cached repositories did not match'
 		);
+
 		$this->assertEquals(
 			1,
 			$cachedErrorCount,
@@ -2492,6 +2532,7 @@ class RepositoryTest extends GalleryTestCase {
 			array('works', 'broken'),
 			'RepositoryTest_GalleryRepository'
 		);
+
 		$this->assertFalse(GalleryDataCache::containsKey($cacheKey), 'key should be deleted');
 	}
 
@@ -2511,11 +2552,13 @@ class RepositoryTest extends GalleryTestCase {
 				'build'   => '1',
 			),
 		);
+
 		$utilities->setReply(
 			'getPluginPackages',
 			array('module', 'testModule'),
 			array(null, $installedPackages)
 		);
+
 		$utilities->setReply(
 			'isPluginCompatible',
 			array(
@@ -2526,11 +2569,13 @@ class RepositoryTest extends GalleryTestCase {
 			),
 			true
 		);
+
 		$utilities->setReply(
 			'compareVersions',
 			array('1.1', '1.0.0', 1, '44444'),
 			array(null, 'newer')
 		);
+
 		$languages = array();
 
 		foreach (array('en_US', 'en_GB', 'pt_PT', 'pt_BR') as $lang) {
@@ -2542,12 +2587,14 @@ class RepositoryTest extends GalleryTestCase {
 				'relation'     => 'older',
 				'locked'       => 0,
 			);
+
 			GalleryDataCache::put("GalleryTranslator::LanguageDescription::$lang", $lang);
 
 			if (!$isNewer) {
 				$utilities->setReply('compareRevisions', array($currentBuild, '33333'), 'older');
 			}
 		}
+
 		$repository->_utilities =& $utilities;
 
 		$cacheKey           = 'GalleryTranslator::SupportedLanguages';
@@ -2611,6 +2658,7 @@ class RepositoryTest extends GalleryTestCase {
 			$repository->_utilities->isComplete(),
 			$repository->_utilities->getRemaining()
 		);
+
 		$this->assertEquals(
 			array(
 				'upgradeable' => false,
@@ -2632,6 +2680,7 @@ class RepositoryTest extends GalleryTestCase {
 
 	public function _setDownloadAndUnpackPackagesResponses($testData, &$callback) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$platform->setReply('unlink', array('tempFile'), null);
@@ -2758,6 +2807,7 @@ class RepositoryTest extends GalleryTestCase {
 								$fileData['build'],
 								$file
 							);
+
 							$utilities->setReply('unpackPackage', array($path, $outputDir), null);
 							$utilities->setReply(
 								'verifyPackageIntegrity',
@@ -2769,6 +2819,7 @@ class RepositoryTest extends GalleryTestCase {
 								),
 								null
 							);
+
 							$utilities->setReply(
 								'updatePackageMetaData',
 								array(
@@ -2893,24 +2944,26 @@ class RepositoryTest extends GalleryTestCase {
 
 		$expectedMockAdapter = new MockTemplateAdapter();
 		$expectedMockAdapter->updateProgressBar(null, null, 0.1);
-		$expectedCallback         = array(
+		$expectedCallback = array(
 			'method'  => array($expectedMockAdapter, 'updateProgressBar'),
 			'title'   => 'Test',
 			'current' => 1,
 			'total'   => 10,
 		);
+
 		list($repository, $files) = $this->_setDownloadAndUnpackPackagesResponses(
 			$testData,
 			$expectedCallback
 		);
 
-		$mockAdapter                = new MockTemplateAdapter();
-		$callback                   = array(
+		$mockAdapter = new MockTemplateAdapter();
+		$callback    = array(
 			'method'  => array(&$mockAdapter, 'updateProgressBar'),
 			'title'   => 'Test',
 			'current' => 0,
 			'total'   => 10,
 		);
+
 		list($ret, $status, $count) = $repository->downloadAndUnpackPackages(
 			$files,
 			$callback
@@ -2928,6 +2981,7 @@ class RepositoryTest extends GalleryTestCase {
 			$mockAdapter->_progress,
 			'Reported progress did not match'
 		);
+
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 		$this->assertTrue(
 			$repository->_utilities->isComplete(),
@@ -2995,21 +3049,23 @@ class RepositoryTest extends GalleryTestCase {
 
 		$expectedMockAdapter = new MockTemplateAdapter();
 		$expectedMockAdapter->updateProgressBar(null, null, 0.1);
-		$expectedCallback         = array(
+		$expectedCallback = array(
 			'method'  => array($expectedMockAdapter, 'updateProgressBar'),
 			'title'   => 'Test',
 			'current' => 1,
 			'total'   => 10,
 		);
+
 		list($repository, $files) = $this->_setDownloadAndUnpackPackagesResponses($testData, $expectedCallback);
 
-		$mockAdapter                = new MockTemplateAdapter();
-		$callback                   = array(
+		$mockAdapter = new MockTemplateAdapter();
+		$callback    = array(
 			'method'  => array(&$mockAdapter, 'updateProgressBar'),
 			'title'   => 'Test',
 			'current' => 0,
 			'total'   => 10,
 		);
+
 		list($ret, $status, $count) = $repository->downloadAndUnpackPackages(
 			$files,
 			$callback
@@ -3025,6 +3081,7 @@ class RepositoryTest extends GalleryTestCase {
 				'testModule' => array('modules/testModule-1.0.0-44444-base.package'),
 			),
 		);
+
 		$this->assertEquals($expected, $status, 'Unexpected status messages');
 		$this->assertEquals(3, $callback['current'], 'Callback did not match');
 		$this->assertEquals(
@@ -3032,6 +3089,7 @@ class RepositoryTest extends GalleryTestCase {
 			$mockAdapter->_progress,
 			'Reported progress did not match'
 		);
+
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 		$this->assertTrue(
 			$repository->_utilities->isComplete(),
@@ -3085,21 +3143,23 @@ class RepositoryTest extends GalleryTestCase {
 
 		$expectedMockAdapter = new MockTemplateAdapter();
 		$expectedMockAdapter->updateProgressBar(null, null, 0.1);
-		$expectedCallback         = array(
+		$expectedCallback = array(
 			'method'  => array(&$expectedMockAdapter, 'updateProgressBar'),
 			'title'   => 'Test',
 			'current' => 1,
 			'total'   => 10,
 		);
+
 		list($repository, $files) = $this->_setDownloadAndUnpackPackagesResponses($testData, $expectedCallback);
 
-		$mockAdapter                = new MockTemplateAdapter();
-		$callback                   = array(
+		$mockAdapter = new MockTemplateAdapter();
+		$callback    = array(
 			'method'  => array(&$mockAdapter, 'updateProgressBar'),
 			'title'   => 'Test',
 			'current' => 0,
 			'total'   => 10,
 		);
+
 		list($ret, $status, $count) = $repository->downloadAndUnpackPackages(
 			$files,
 			$callback
@@ -3123,6 +3183,7 @@ class RepositoryTest extends GalleryTestCase {
 			$mockAdapter->_progress,
 			'Reported progress did not match'
 		);
+
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 		$this->assertTrue(
 			$repository->_utilities->isComplete(),
@@ -3168,6 +3229,7 @@ class RepositoryTest extends GalleryTestCase {
 			array_keys($files),
 			$callback
 		);
+
 		$this->assertErrorEquals(ERROR_PLATFORM_FAILURE, $ret);
 
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
@@ -3204,11 +3266,13 @@ class RepositoryTest extends GalleryTestCase {
 				'R	modules/RepositoryTest/deleteFile2.tpl',
 			)
 		);
+
 		$platform->setReply(
 			'is_writeable',
 			array($modules . '/RepositoryTest/deleteFile1.class'),
 			true
 		);
+
 		$platform->setReply('unlink', array($modules . '/RepositoryTest/deleteFile1.class'), true);
 		$platform->setReply(
 			'is_writeable',

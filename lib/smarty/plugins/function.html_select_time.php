@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty {html_select_time} function plugin
  *
@@ -90,6 +91,7 @@ function smarty_function_html_select_time($params, &$smarty) {
 		for ($i = 0, $for_max = count($hours); $i < $for_max; $i++) {
 			$hours[$i] = sprintf('%02d', $hours[$i]);
 		}
+
 		$html_result .= '<select name=';
 
 		if (null !== $field_array) {
@@ -105,6 +107,7 @@ function smarty_function_html_select_time($params, &$smarty) {
 		if (null !== $all_extra) {
 			$html_result .= ' ' . $all_extra;
 		}
+
 		$html_result .= '>' . "\n";
 		$html_result .= smarty_function_html_options(
 			array(
@@ -115,6 +118,7 @@ function smarty_function_html_select_time($params, &$smarty) {
 			),
 			$smarty
 		);
+
 		$html_result .= "</select>\n";
 	}
 
@@ -124,7 +128,8 @@ function smarty_function_html_select_time($params, &$smarty) {
 		for ($i = 0, $for_max = count($all_minutes); $i < $for_max; $i += $minute_interval) {
 			$minutes[] = sprintf('%02d', $all_minutes[$i]);
 		}
-		$selected     = intval(floor(strftime('%M', $time) / $minute_interval) * $minute_interval);
+
+		$selected     = (int)(floor(strftime('%M', $time) / $minute_interval) * $minute_interval);
 		$html_result .= '<select name=';
 
 		if (null !== $field_array) {
@@ -140,6 +145,7 @@ function smarty_function_html_select_time($params, &$smarty) {
 		if (null !== $all_extra) {
 			$html_result .= ' ' . $all_extra;
 		}
+
 		$html_result .= '>' . "\n";
 
 		$html_result .= smarty_function_html_options(
@@ -151,6 +157,7 @@ function smarty_function_html_select_time($params, &$smarty) {
 			),
 			$smarty
 		);
+
 		$html_result .= "</select>\n";
 	}
 
@@ -160,7 +167,8 @@ function smarty_function_html_select_time($params, &$smarty) {
 		for ($i = 0, $for_max = count($all_seconds); $i < $for_max; $i += $second_interval) {
 			$seconds[] = sprintf('%02d', $all_seconds[$i]);
 		}
-		$selected     = intval(floor(strftime('%S', $time) / $second_interval) * $second_interval);
+
+		$selected     = (int)(floor(strftime('%S', $time) / $second_interval) * $second_interval);
 		$html_result .= '<select name=';
 
 		if (null !== $field_array) {
@@ -176,6 +184,7 @@ function smarty_function_html_select_time($params, &$smarty) {
 		if (null !== $all_extra) {
 			$html_result .= ' ' . $all_extra;
 		}
+
 		$html_result .= '>' . "\n";
 
 		$html_result .= smarty_function_html_options(
@@ -187,6 +196,7 @@ function smarty_function_html_select_time($params, &$smarty) {
 			),
 			$smarty
 		);
+
 		$html_result .= "</select>\n";
 	}
 
@@ -206,6 +216,7 @@ function smarty_function_html_select_time($params, &$smarty) {
 		if (null !== $all_extra) {
 			$html_result .= ' ' . $all_extra;
 		}
+
 		$html_result .= '>' . "\n";
 
 		$html_result .= smarty_function_html_options(
@@ -217,6 +228,7 @@ function smarty_function_html_select_time($params, &$smarty) {
 			),
 			$smarty
 		);
+
 		$html_result .= "</select>\n";
 	}
 

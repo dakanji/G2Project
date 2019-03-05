@@ -89,7 +89,9 @@ class GalleryQuotasHelper {
 	 */
 	public static function getUserDiskQuota($userId) {
 		global $gallery;
-		$userDiskQuota                               = null;
+
+		$userDiskQuota = null;
+
 		list($ret, $userQuotaExists, $userQuotaInfo) = GalleryQuotasHelper::fetchUserQuota($userId);
 
 		if ($ret) {
@@ -135,6 +137,7 @@ class GalleryQuotasHelper {
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$storage             =& $gallery->getStorage();
 		$groupQuotaIds       = array_keys($groupQuotaIds);
 		$groupQuotaIdMarkers = GalleryUtilities::makeMarkers(count($groupQuotaIds));
@@ -190,11 +193,13 @@ class GalleryQuotasHelper {
 	 */
 	public static function humanReadableFromKilobytes($kilobytes) {
 		global $gallery;
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'quotas');
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
+
 		$suffixes  = array($gallery->i18n('KB'), $gallery->i18n('MB'), $gallery->i18n('GB'));
 		$base      = 1024;
 		$useSuffix = 0;
@@ -204,6 +209,7 @@ class GalleryQuotasHelper {
 			$kilobytes /= (float)$base;
 			$useSuffix++;
 		}
+
 		$humanReadable = (string)round($kilobytes, 2);
 		$unit          = $module->translate($suffixes[$useSuffix]);
 
@@ -268,6 +274,7 @@ class GalleryQuotasHelper {
 	 */
 	public static function fetchQuotaGroupCount() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$query = '
@@ -301,6 +308,7 @@ class GalleryQuotasHelper {
 	 */
 	public static function fetchQuotaUserIdList($count, $offset = 0) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$query = '
@@ -347,6 +355,7 @@ class GalleryQuotasHelper {
 	 */
 	public static function fetchQuotaUserCount() {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$query = '
@@ -382,6 +391,7 @@ class GalleryQuotasHelper {
 	 */
 	public static function fetchGroupQuota($groupId) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 		$query   = '
 		SELECT
@@ -432,6 +442,7 @@ class GalleryQuotasHelper {
 	 */
 	public static function fetchUserQuota($userId) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		$query = '

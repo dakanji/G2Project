@@ -47,7 +47,11 @@ class DynamicAlbumSiteAdminController extends GalleryController {
 		}
 
 		if (isset($form['action']['save']) && empty($error)) {
-			list($ret, $themeSettingsId) = GalleryCoreApi::getPluginParameter('module', 'dynamicalbum', 'themeSettingsId');
+			list($ret, $themeSettingsId) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'dynamicalbum',
+				'themeSettingsId'
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -62,6 +66,7 @@ class DynamicAlbumSiteAdminController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$status = empty($status) ? array() : array(
 				'statusMessage' => $status,
 			);
@@ -104,6 +109,7 @@ class DynamicAlbumSiteAdminController extends GalleryController {
 					return array($ret, null);
 				}
 			}
+
 			$status['saved'] = 1;
 		}
 
@@ -167,6 +173,7 @@ class DynamicAlbumSiteAdminView extends GalleryView {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$defaultList = array(
 			'data'  => $module->translate('Show data items only'),
 			'all'   => $module->translate('Show all items'),
@@ -174,9 +181,10 @@ class DynamicAlbumSiteAdminView extends GalleryView {
 		);
 
 		// Set up theme selection list
-		$themeList               = array(
+		$themeList = array(
 			'' => $module->translate('&laquo; default theme &raquo;'),
 		);
+
 		list($ret, $themeStatus) = GalleryCoreApi::fetchPluginStatus('theme');
 
 		if ($ret) {
@@ -190,16 +198,22 @@ class DynamicAlbumSiteAdminView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$themeList[$id] = $theme->translate($theme->getName());
 			}
 		}
 
 		// Set up theme settings
-		list($ret, $themeSettingsId) = GalleryCoreApi::getPluginParameter('module', 'dynamicalbum', 'themeSettingsId');
+		list($ret, $themeSettingsId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'dynamicalbum',
+			'themeSettingsId'
+		);
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = GalleryCoreApi::loadThemeSettingsForm(
 			$form['themeId'],
 			$themeSettingsId,
@@ -222,6 +236,7 @@ class DynamicAlbumSiteAdminView extends GalleryView {
 				'defaultList' => $defaultList,
 			)
 		);
+
 		$template->setVariable('controller', 'dynamicalbum.DynamicAlbumSiteAdmin');
 
 		return array(

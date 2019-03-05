@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /* This class is extensively based on the adodb-sxmlschema03 class developed by Richard Tango-Lowy &
  * Dan Cech, Released under both BSD license and Lesser GPL library license.  Whenever there is any
  * discrepancy between the two licenses, the BSD license will take precedence.  The orignal class
  * was copyright: Copyright (c) 2004-2005 ars Cognita Inc., all rights reserved.
  */
-
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
 
 /**
@@ -206,6 +206,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 						if (strpos($line, '</plugin-status-list>') !== false) {
 							break;
 						}
+
 						// Find the module definition lines.
 						if (preg_match($parseString, $line, $versions)) {
 							$this->_doStatusCheck($versions, $errors);
@@ -254,7 +255,8 @@ class GalleryDatabaseImport extends GalleryImportElement {
 	 * @param array A keyed array for errors and warnings. Keys are 'errors' and 'warnings'.
 	 */
 	public function _doStatusCheck($versions, &$errors) {
-		$pluginType               = $versions[6];
+		$pluginType = $versions[6];
+
 		list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pluginType);
 
 		if ($ret) {
@@ -367,6 +369,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 	 */
 	public function importToDb($fileName, $progressCallback) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		// Preallocate at least 1 minutes for the database import.
@@ -409,6 +412,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 				if (!$xmlParser->xmlParse($data, $platform->feof($handle))) {
 					return array($xmlParser->getParserError(), null);
 				}
+
 				$this->updateStatus();
 			}
 
@@ -470,6 +474,7 @@ class _GalleryExportTag extends GalleryImportElement {
 	 */
 	public function writeVersions($coreVersion, $galleryVersion) {
 		global $gallery;
+
 		$platform =& $gallery->getPlatform();
 
 		$versionFile = $gallery->getConfig('data.gallery.version');
@@ -566,8 +571,8 @@ class _GallerySequenceTag extends GalleryImportElement {
 	public function importSequence() {
 		$storageExtras =& $this->_storage->_getExtras();
 		$ret           = $storageExtras->dropSequence($this->_sequenceName);
-		// Ignore any errors and assume that if we get an error, then the sequence doesn't exist
 
+		// Ignore any errors and assume that if we get an error, then the sequence doesn't exist
 		$ret = $storageExtras->createSequence($this->_sequenceName, $this->_startValue);
 
 		if ($ret) {
@@ -594,6 +599,7 @@ class _GalleryTableTag extends GalleryImportElement {
 	 */
 	public function _processStartElement($tag, $attributes) {
 		global $gallery;
+
 		// Start with 2 minutes and we will increase it later.
 		$gallery->guaranteeTimeLimit(120);
 
@@ -660,8 +666,8 @@ class _GalleryTableDefinitionTag extends GalleryImportElement {
 		list($table, $unused, $nameInSchema) = $this->_storage->_translateTableName($this->_name);
 
 		$ret = $this->_storage->execute('DROP TABLE ' . $table);
-		// Don't check the return code. Assume the table doesn't exist and create it.
 
+		// Don't check the return code. Assume the table doesn't exist and create it.
 		$storageExtras =& $this->_storage->_getExtras();
 		$ret           = $storageExtras->_executeSql($this->_currentSql);
 
@@ -688,6 +694,7 @@ class _GalleryTableDefinitionTag extends GalleryImportElement {
 
 			return null;
 		}
+
 		$ret = $this->_storage->checkPoint();
 
 		if ($ret) {
@@ -772,7 +779,8 @@ class _GalleryDataTag extends GalleryImportElement {
 		parent::__construct($parent);
 
 		list($this->_tableName) = $this->_storage->_translateTableName($tableName);
-		$this->_rowCounter      = 0;
+
+		$this->_rowCounter = 0;
 	}
 
 	/**
@@ -781,6 +789,7 @@ class _GalleryDataTag extends GalleryImportElement {
 	 */
 	public function _processStartElement($tag, $attributes) {
 		global $gallery;
+
 		// Start with 2 minutes and we will increase it later.
 		$gallery->guaranteeTimeLimit(120);
 
@@ -1060,30 +1069,26 @@ class GalleryXmlHandler {
 	 * @param array $attributes The attributes that were present on the xml element.
 	 * @access protected
 	 */
-	public function _processStartElement($tag, $attributes) {
-	}
+	public function _processStartElement($tag, $attributes) {}
 
 	/**
 	 * XML Callback to process CDATA elements
 	 * @param string $cdata A buffer of data that represents the body of the xml element
 	 * @access protected
 	 */
-	public function _processCData($cdata) {
-	}
+	public function _processCData($cdata) {}
 
 	/**
 	 * XML Callback to process end elements
 	 * @param string $tag The name of the tage being processed
 	 * @access protected
 	 */
-	public function _processEndElement($tag) {
-	}
+	public function _processEndElement($tag) {}
 
 	/**
 	 * This call back processes the child as it is pooped off the stack. Allows the parent element
 	 * to aggregate data from the children elements.
 	 * @access protected
 	 */
-	public function _processChildElement($childElement) {
-	}
+	public function _processChildElement($childElement) {}
 }

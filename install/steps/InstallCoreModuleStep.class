@@ -29,6 +29,7 @@ class InstallCoreModuleStep extends InstallStep {
 
 	public function processRequest() {
 		global $galleryStub;
+
 		define('GALLERY_CONFIG_DIR', $_SESSION['configPath']);
 
 		include __DIR__ . '/../../bootstrap.inc';
@@ -60,6 +61,7 @@ class InstallCoreModuleStep extends InstallStep {
 		$gallery->guaranteeTimeLimit(120);
 
 		$gallery->debug('Init first pass');
+
 		$ret = GalleryInitFirstPass(
 			array(
 				'noDatabase'     => true,
@@ -75,6 +77,7 @@ class InstallCoreModuleStep extends InstallStep {
 					$ret->getAsText()
 				)
 			);
+
 			$templateData['errors'][]     = _('Unable to initialize our Gallery data');
 			$templateData['stackTrace'][] = $ret->getAsHtml();
 		}
@@ -112,7 +115,8 @@ class InstallCoreModuleStep extends InstallStep {
 			 * that they said that it was ok to reuse existing tables in the database setup step,
 			 * which means we don't have to perform an install now.
 			 */
-			$storage                 =& $gallery->getStorage();
+			$storage =& $gallery->getStorage();
+
 			list($ret, $isInstalled) = $storage->isInstalled();
 
 			if ($ret) {
@@ -123,6 +127,7 @@ class InstallCoreModuleStep extends InstallStep {
 						$ret->getAsText()
 					)
 				);
+
 				$templateData['errors'][]     = _('Unable to communicate with the database');
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
@@ -130,7 +135,9 @@ class InstallCoreModuleStep extends InstallStep {
 
 		if (empty($templateData['errors'])) {
 			$gallery->debug('Load core module');
+
 			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core', true);
+
 			$this->resetL10Domain();
 
 			if ($ret) {
@@ -141,6 +148,7 @@ class InstallCoreModuleStep extends InstallStep {
 						$ret->getAsText()
 					)
 				);
+
 				$templateData['errors'][]     = _('Unable to load the core module');
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
@@ -158,10 +166,12 @@ class InstallCoreModuleStep extends InstallStep {
 				'setup.admin.userName',
 				$galleryStub->getConfig('setup.admin.userName')
 			);
+
 			$gallery->setConfig(
 				'setup.admin.email',
 				$galleryStub->getConfig('setup.admin.email')
 			);
+
 			$gallery->setConfig(
 				'setup.admin.fullName',
 				$galleryStub->getConfig('setup.admin.fullName')
@@ -174,6 +184,7 @@ class InstallCoreModuleStep extends InstallStep {
 				GalleryCoreApi::installTranslationsForLocale();
 
 				$gallery->debug('Install core module now!');
+
 				$ret = $core->installOrUpgrade(true, $template);
 
 				if ($ret) {
@@ -185,6 +196,7 @@ class InstallCoreModuleStep extends InstallStep {
 							$ret->getAsText()
 						)
 					);
+
 					$templateData['errors'][]     = _('Unable to install the core module');
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				} else {
@@ -195,7 +207,9 @@ class InstallCoreModuleStep extends InstallStep {
 				$gallery->guaranteeTimeLimit(180);
 
 				$gallery->debug('Activate core module');
+
 				list($ret, $ignored) = $core->activate(false);
+
 				$this->resetL10Domain();
 
 				if ($ret) {
@@ -206,6 +220,7 @@ class InstallCoreModuleStep extends InstallStep {
 							$ret->getAsText()
 						)
 					);
+
 					$templateData['errors'][]     = _('Unable to activate the core module');
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				} else {
@@ -216,6 +231,7 @@ class InstallCoreModuleStep extends InstallStep {
 				$gallery->guaranteeTimeLimit(180);
 
 				$gallery->debug('Commit transaction');
+
 				$ret = $storage->commitTransaction();
 
 				if ($ret) {
@@ -226,6 +242,7 @@ class InstallCoreModuleStep extends InstallStep {
 							$ret->getAsText()
 						)
 					);
+
 					$templateData['errors'][]     = _('Unable to commit database transaction');
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				} else {
@@ -234,6 +251,7 @@ class InstallCoreModuleStep extends InstallStep {
 			} else {
 				$gallery->debug('NOT installing, rollback!');
 				$storage->rollbackTransaction(); // Ignore any errors from this
+
 				/*
 				 * Don't allow this step to complete when only partially installed.  Verify that
 				 * versions.dat is up to date.
@@ -263,6 +281,7 @@ class InstallCoreModuleStep extends InstallStep {
 			$gallery->debug('Error: Failure during install core module step');
 			$templateData['bodyFile'] = 'InstallCoreModuleError.html';
 		}
+
 		$template->hideStatusBlock();
 		$template->renderBodyAndFooter($templateData);
 

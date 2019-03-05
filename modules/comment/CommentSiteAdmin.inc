@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 GalleryCoreApi::requireOnce('modules/comment/classes/AkismetApi.class');
 GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
 
@@ -41,6 +40,7 @@ class CommentSiteAdminController extends GalleryController {
 	 */
 	public function handleRequest($form) {
 		global $gallery;
+
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
@@ -93,6 +93,7 @@ class CommentSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$ret = $module->setParameter(
 					'comments.latest',
 					(isset($form['latest']) && $form['latest']) ? 1 : 0
@@ -128,6 +129,7 @@ class CommentSiteAdminController extends GalleryController {
 				array($this, 'checkAllWithAkismet'),
 				array(new AkismetApi())
 			);
+
 			$delegate['view'] = 'core.ProgressBar';
 		}
 
@@ -139,6 +141,7 @@ class CommentSiteAdminController extends GalleryController {
 		} else {
 			$results['delegate'] = $delegate;
 		}
+
 		$results['status'] = $status;
 		$results['error']  = $error;
 
@@ -152,6 +155,7 @@ class CommentSiteAdminController extends GalleryController {
 	 */
 	public function checkAllWithAkismet($akismet) {
 		global $gallery;
+
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$session         =& $gallery->getSession();
 		$urlGenerator    =& $gallery->getUrlGenerator();
@@ -163,7 +167,8 @@ class CommentSiteAdminController extends GalleryController {
 			return $ret;
 		}
 
-		$status             = array();
+		$status = array();
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 
 		if ($ret) {
@@ -228,6 +233,7 @@ class CommentSiteAdminController extends GalleryController {
 					}
 
 					$comment->setPublishStatus(COMMENT_PUBLISH_STATUS_SPAM);
+
 					$ret = $comment->save();
 
 					if ($ret) {
@@ -239,6 +245,7 @@ class CommentSiteAdminController extends GalleryController {
 					if ($ret) {
 						return $ret;
 					}
+
 					$spamCount++;
 				}
 			}
@@ -262,8 +269,9 @@ class CommentSiteAdminController extends GalleryController {
 			'total'     => $total,
 			'spamCount' => $spamCount,
 		);
-		$statusId          = $session->putStatus($status);
-		$continueUrl       = $urlGenerator->generateUrl(
+
+		$statusId    = $session->putStatus($status);
+		$continueUrl = $urlGenerator->generateUrl(
 			array(
 				'view'     => 'core.SiteAdmin',
 				'subView'  => 'comment.CommentSiteAdmin',
@@ -273,6 +281,7 @@ class CommentSiteAdminController extends GalleryController {
 				'forceFullUrl' => true,
 			)
 		);
+
 		$templateAdapter->completeProgressBar($continueUrl, false);
 
 		return null;

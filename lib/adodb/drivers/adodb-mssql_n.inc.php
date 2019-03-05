@@ -1,7 +1,6 @@
 <?php
 
 /// $Id $
-
 ///////////////////////////////////////////////////////////////////////////
 //                                                                       //
 // NOTICE OF COPYRIGHT                                                   //
@@ -147,7 +146,6 @@ class ADODB_mssql_n extends ADODB_mssql {
 					$pairs['<@#@#@PAIR-' . $key . '@#@#@>'] = $value;
 				}
 
-
 				if (!empty($pairs)) {
 					$inboundValue = str_replace($pairs, array_keys($pairs), $inboundValue);
 				}
@@ -162,7 +160,6 @@ class ADODB_mssql_n extends ADODB_mssql {
 				foreach (array_unique($list_of_literals[0]) as $key => $value) {
 					$literals['<#@#@#LITERAL-' . $key . '#@#@#>'] = $value;
 				}
-
 
 				if (!empty($literals)) {
 					$inboundValue = str_replace($literals, array_keys($literals), $inboundValue);
@@ -187,7 +184,6 @@ class ADODB_mssql_n extends ADODB_mssql {
 				$inboundValue = str_replace(array_keys($literals), $literals, $inboundValue);
 			}
 
-
 			/*
 			 * Any pairs followed by N' must be switched to N' followed by those pairs
 			 * (or strings beginning with single quotes will fail)
@@ -198,7 +194,6 @@ class ADODB_mssql_n extends ADODB_mssql {
 			if (!empty($pairs)) {
 				$inboundValue = str_replace(array_keys($pairs), $pairs, $inboundValue);
 			}
-
 
 			// Print transformation if debug = on
 			if (strcmp($inboundValue, $inboundArray[$inboundKey]) != 0 && $this->debug) {

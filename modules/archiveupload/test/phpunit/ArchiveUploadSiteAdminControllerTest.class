@@ -32,6 +32,7 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -73,6 +74,7 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('/validPath/unzip', $params['unzipPath'], 'unzipPath');
 		$this->assertEquals('1', $params['removeMeta'], 'removeMeta');
 	}
@@ -103,6 +105,7 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
+
 		$this->assertEquals('/incompletePath/unzip', $params['unzipPath'], 'unzipPath');
 		$this->assertEquals('0', $params['removeMeta'], 'removeMeta');
 	}

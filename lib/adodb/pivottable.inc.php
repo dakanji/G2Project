@@ -29,7 +29,6 @@
  *
  * @returns			Sql generated
  */
-
 function PivotTableSQL(
 	&$db,
 	$tables,
@@ -49,9 +48,7 @@ function PivotTableSQL(
 
 	$iif = strpos($db->databaseType, 'access') !== false;
 	// note - vfp 6 still doesn' work even with IIF enabled || $db->databaseType == 'vfp';
-
 	//$hidecnt = false;
-
 	if ($where) {
 		$where = "\nWHERE $where";
 	}
@@ -85,6 +82,7 @@ function PivotTableSQL(
 			} else {
 				$vq = $v;
 			}
+
 			$v = trim($v);
 
 			if (strlen($v) == 0) {
@@ -101,6 +99,7 @@ function PivotTableSQL(
 				} else {
 					$label = "{$v}_$aggfield";
 				}
+
 				$sel .= $iif ? "\n\t$aggfn(IIF($colfield=$vq,$aggfield,0)) AS \"$label\", " : "\n\t$aggfn(CASE WHEN $colfield=$vq THEN $aggfield ELSE 0 END) AS \"$label\", ";
 			}
 		}
@@ -116,7 +115,6 @@ function PivotTableSQL(
 	} else {
 		$sel = substr($sel, 0, strlen($sel) - 2);
 	}
-
 
 	// Strip aliases
 	$rowfields = preg_replace('/ AS (\w+)/i', '', $rowfields);
@@ -144,6 +142,7 @@ if (0) {
 		'CategoryName',                                 // column fields
 		'p.CategoryID = c.CategoryID and s.SupplierID= p.SupplierID' // joins/where
 	);
+
 	echo "<pre>$sql";
 	$rs = $gDB->Execute($sql);
 	rs2html($rs);
@@ -164,8 +163,8 @@ if (0) {
 	FROM products p ,categories c ,suppliers s  WHERE p.CategoryID = c.CategoryID and s.SupplierID= p.SupplierID
 	GROUP BY CompanyName,QuantityPerUnit
 	*/
-	//=====================================================================
 
+	//=====================================================================
 	// example2
 	//
 	// Query the main "product" table
@@ -190,6 +189,7 @@ if (0) {
 		'UnitsInStock',                             // sum this field
 		'Sum'                                       // sum label prefix
 	);
+
 	echo "<pre>$sql";
 	$rs = $gDB->Execute($sql);
 	rs2html($rs);

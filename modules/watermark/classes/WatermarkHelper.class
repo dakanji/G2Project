@@ -51,9 +51,11 @@ class WatermarkHelper {
 		if (empty($aclIds)) {
 			return array(null, 0);
 		}
+
 		$aclMarkers = GalleryUtilities::makeMarkers($aclIds);
 
-		$data  = array();
+		$data = array();
+
 		$query = sprintf(
 			'
 		SELECT
@@ -67,7 +69,8 @@ class WatermarkHelper {
 		',
 			$aclMarkers
 		);
-		$data  = $aclIds;
+
+		$data = $aclIds;
 
 		if (!empty($substring)) {
 			$query .= '
@@ -213,6 +216,7 @@ class WatermarkHelper {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
@@ -235,6 +239,7 @@ class WatermarkHelper {
 			if (!$forceDelete) {
 				return array(null, false);
 			}
+
 			// Remove watermark from those items..
 			list($ret, $watermarkedItems) = GalleryCoreApi::loadEntitiesById($watermarkedItemIds, 'GalleryItem');
 
@@ -297,6 +302,7 @@ class WatermarkHelper {
 					}
 				}
 			}
+
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
 				'watermark',
@@ -415,6 +421,7 @@ class WatermarkHelper {
 				if ($ret) {
 					return $ret;
 				}
+
 				$newPostFilters = null;
 
 				if (in_array($derivative->getId(), $add)) {
@@ -449,6 +456,7 @@ class WatermarkHelper {
 						if (!$replaced) {
 							$ops[] = $filter;
 						}
+
 						$newPostFilters = join(';', $ops);
 					} else {
 						$newPostFilters = $filter;
@@ -459,6 +467,7 @@ class WatermarkHelper {
 						$derivative->getPostFilterOperations()
 					);
 				}
+
 				$derivative->setPostFilterOperations($newPostFilters);
 
 				if ($derivative->getDerivativeType() == DERIVATIVE_TYPE_IMAGE_PREFERRED) {
@@ -543,16 +552,19 @@ class WatermarkHelper {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = $item->create($form['tmp_name'][1], $mimeType, $form['name'][1]);
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = $item->save();
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$itemId = $item->getId();
 
 		// Give appropriate permissions
@@ -561,6 +573,7 @@ class WatermarkHelper {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$ret = GalleryCoreApi::addGroupPermission($itemId, $params['id.adminGroup'], 'core.all');
 
 		if ($ret) {
@@ -604,6 +617,7 @@ class WatermarkHelper {
 	 */
 	public static function handleEditRequest($form, $view, $subViewSuccess, $subViewError) {
 		global $gallery;
+
 		$status = $error = array();
 		$itemId = GalleryUtilities::getRequestVariables('watermarkId');
 
@@ -621,6 +635,7 @@ class WatermarkHelper {
 			// Avoid information disclosure, act as if the item didn't exist.
 			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 		}
+
 		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
 
 		if ($ret) {
@@ -642,6 +657,7 @@ class WatermarkHelper {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				list($ret, $mimeType) = GalleryCoreApi::getMimeType($form['tmp_name'][1], $form['type'][1]);
 
 				if ($ret) {
@@ -704,23 +720,28 @@ class WatermarkHelper {
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					$platform =& $gallery->getPlatform();
 
 					if (!$platform->copy($form['tmp_name'][1], $path)) {
 						return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null);
 					}
+
 					$platform->clearstatcache();
+
 					$ret = $item->rescan();
 
 					if ($ret) {
 						return array($ret, null);
 					}
+
 					// Expire derivatives using this watermark
-					$query                     = '
+					$query = '
 				SELECT [GalleryDerivative::id]
 				FROM [GalleryDerivative]
 				WHERE [GalleryDerivative::postFilterOperations] LIKE ?
 				';
+
 					list($ret, $searchResults) = $gallery->search(
 						$query,
 						array(
@@ -739,6 +760,7 @@ class WatermarkHelper {
 						if ($ret) {
 							return array($ret, null);
 						}
+
 						$ret = $derivative->expireCache();
 
 						if ($ret) {
@@ -799,6 +821,7 @@ class WatermarkHelper {
 			// Avoid information disclosure, act as if the item didn't exist.
 			return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 		}
+
 		$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
 
 		if ($ret) {
@@ -834,6 +857,7 @@ class WatermarkHelper {
 				'watermark' => (array)$watermark,
 			)
 		);
+
 		$template->setVariable('controller', "watermark.$formName");
 
 		return null;

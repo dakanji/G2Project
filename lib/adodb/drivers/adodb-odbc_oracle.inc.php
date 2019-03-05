@@ -9,9 +9,9 @@
 Set tabs to 4 for best viewing.
 
   Latest version is available at http://adodb.sourceforge.net
-
   Oracle support via ODBC. Requires ODBC. Works on Windows.
 */
+
 // security - hide paths
 if (!defined('ADODB_DIR')) {
 	die();
@@ -20,7 +20,6 @@ if (!defined('ADODB_DIR')) {
 if (!defined('_ADODB_ODBC_LAYER')) {
 	include ADODB_DIR . '/drivers/adodb-odbc.inc.php';
 }
-
 
 class ADODB_odbc_oracle extends ADODB_odbc {
 	public $databaseType    = 'odbc_oracle';
@@ -34,7 +33,6 @@ class ADODB_odbc_oracle extends ADODB_odbc {
 	public $sysTimeStamp    = 'SYSDATE';
 
 	//var $_bindInputArray = false;
-
 	public function MetaTables($ttype = false, $showSchema = false, $mask = false) {
 		$false = false;
 		$rs    = $this->Execute($this->metaTablesSQL);
@@ -42,12 +40,14 @@ class ADODB_odbc_oracle extends ADODB_odbc {
 		if ($rs === false) {
 			return $false;
 		}
+
 		$arr  = $rs->GetArray();
 		$arr2 = array();
 
 		for ($i = 0; $i < sizeof($arr); $i++) {
 			$arr2[] = $arr[$i][0];
 		}
+
 		$rs->Close();
 
 		return $arr2;
@@ -63,6 +63,7 @@ class ADODB_odbc_oracle extends ADODB_odbc {
 
 			return $false;
 		}
+
 		$retarr = array();
 
 		while (!$rs->EOF) { //print_r($rs->fields);
@@ -70,7 +71,6 @@ class ADODB_odbc_oracle extends ADODB_odbc {
 			$fld->name       = $rs->fields[0];
 			$fld->type       = $rs->fields[1];
 			$fld->max_length = $rs->fields[2];
-
 
 			if ($ADODB_FETCH_MODE == ADODB_FETCH_NUM) {
 				$retarr[] = $fld;
@@ -80,6 +80,7 @@ class ADODB_odbc_oracle extends ADODB_odbc {
 
 			$rs->MoveNext();
 		}
+
 		$rs->Close();
 
 		return $retarr;

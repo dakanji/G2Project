@@ -32,6 +32,7 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 
 	public function setUp($x1 = null) {
 		global $gallery;
+
 		$ret = parent::setUp();
 
 		if ($ret) {
@@ -61,6 +62,7 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 			$this->_comment[$i]->setHost('127.0.0.1');
 			$this->_comment[$i]->setComment('this is a test comment');
 			$this->_comment[$i]->setDate(time());
+
 			$ret = $this->_comment[$i]->save();
 
 			if ($ret) {

@@ -86,6 +86,7 @@ class GalleryLockSystem {
 			if ($lock['type'] != LOCK_WRITE) {
 				continue;
 			}
+
 			$foundIds = array_intersect(array_keys($lock['ids']), $ids);
 
 			if (count($foundIds) == count($lock['ids'])) {
@@ -99,6 +100,7 @@ class GalleryLockSystem {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				unset($this->_releaseQueue[$lockId]);
 			} elseif (!empty($foundIds)) {
 				// Remove ids from this lock
@@ -160,6 +162,7 @@ class GalleryLockSystem {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				unset($this->_releaseQueue[$lockId]);
 			} elseif (!empty($foundIds)) {
 				// Remove ids from this read lock
@@ -183,6 +186,7 @@ class GalleryLockSystem {
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$this->_locks[$lockId] = array(
 				'lockId' => $lockId,
 				'type'   => LOCK_WRITE,
@@ -257,6 +261,7 @@ class GalleryLockSystem {
 	 */
 	public function releaseLocks($lockIds) {
 		global $gallery;
+
 		$storage =& $gallery->getStorage();
 
 		if (!is_array($lockIds)) {
@@ -269,6 +274,7 @@ class GalleryLockSystem {
 				unset($lockIds[$key]);
 			}
 		}
+
 		// Queue locks for release
 		foreach ($lockIds as $lockId) {
 			$this->_releaseQueue[$lockId] = $this->_locks[$lockId];
@@ -298,6 +304,7 @@ class GalleryLockSystem {
 			if ($ret) {
 				return $ret;
 			}
+
 			$this->_releaseQueue = array();
 		}
 

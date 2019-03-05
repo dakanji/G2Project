@@ -11,7 +11,6 @@
 */
 
 // Code contributed by "Robert Twitty" <rtwitty#neutron.ushmm.org>
-
 // security - hide paths
 if (!defined('ADODB_DIR')) {
 	die();
@@ -26,7 +25,6 @@ if (!defined('ADODB_DIR')) {
 
 	Also, all SQL query strings must be submitted as UTF-8 encoded text.
 */
-
 if (!defined('_ADODB_ODBTP_LAYER')) {
 	include ADODB_DIR . '/drivers/adodb-odbtp.inc.php';
 }

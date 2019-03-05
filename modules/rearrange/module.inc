@@ -28,6 +28,7 @@
 class RearrangeModule extends GalleryModule {
 	public function __construct() {
 		global $gallery;
+
 		$this->setId('rearrange');
 		$this->setName($gallery->i18n('Rearrange'));
 		$this->setDescription(
@@ -121,11 +122,13 @@ class RearrangeModule extends GalleryModule {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $childCounts) = GalleryCoreApi::fetchChildCounts(array($item->getId()));
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$childCount = empty($childCounts[$item->getId()]) ? 0 : $childCounts[$item->getId()];
 
 		if (isset($permissions['core.edit']) && $childCount > 1) {

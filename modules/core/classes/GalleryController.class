@@ -152,6 +152,7 @@ class GalleryController {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $isActive) = $plugin->isActive();
 
 		if ($ret) {
@@ -248,6 +249,7 @@ class GalleryController {
 	 */
 	public function assertIsGenuineRequest() {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 
 		if (!$session->isPersistent()) {
@@ -263,6 +265,7 @@ class GalleryController {
 		if ($session->isCorrectAuthToken($authToken)) {
 			return null;
 		}
+
 		// Omit check if we're in maintenance mode
 		if ($gallery->getConfig('mode.maintenance')) {
 			return null;
@@ -315,7 +318,8 @@ class GalleryController {
 	 */
 	public function permissionCheck($ret) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
-		$view                = new GalleryView();
+		$view = new GalleryView();
+
 		list($ret, $results) = $view->_permissionCheck($ret);
 
 		if (!empty($results['redirect'])) {

@@ -163,6 +163,7 @@ class ADODB2_firebird extends ADODB_DataDict {
 			} else {
 				$tab = $tab1;
 			}
+
 			$seqField = $this->seqField;
 			$seqname  = $this->schema . '.' . $this->seqPrefix . $tab;
 			$trigname = $this->schema . '.trig_' . $this->seqPrefix . $tab;

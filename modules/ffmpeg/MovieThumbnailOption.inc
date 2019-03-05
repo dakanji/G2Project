@@ -35,6 +35,7 @@ class MovieThumbnailOption extends ItemAddOption {
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation('image/jpeg', 'composite');
 
 		if ($ret) {
@@ -71,6 +72,7 @@ class MovieThumbnailOption extends ItemAddOption {
 		if (empty($thumbIds)) {
 			return array(null, $errors, $warnings);
 		}
+
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumbIds);
 
 		if ($ret) {

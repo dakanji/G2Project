@@ -61,6 +61,7 @@ class NewItemsSiteAdminController extends GalleryController {
 						return array($ret, null);
 					}
 				}
+
 				$status['saved'] = 1;
 			}
 		} elseif (isset($form['action']['reset'])) {
@@ -82,15 +83,17 @@ class NewItemsSiteAdminController extends GalleryController {
 					return array($ret, null);
 				}
 			}
+
 			GalleryCoreApi::requireOnce('modules/newitems/classes/NewItemsHelper.class');
+
 			$ret = NewItemsHelper::resetNewItemSorts();
 
 			if ($ret) {
 				return array($ret, null);
 			}
+
 			$status['reset'] = 1;
 		} // else $form['action']['reset']
-
 		// Figure out where to redirect upon success
 		$method                      = empty($error) ? 'redirect' : 'delegate';
 		$results[$method]['view']    = 'core.SiteAdmin';
@@ -127,20 +130,24 @@ class NewItemsSiteAdminView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
+
 				$key                    = explode('.', $key);
 				$form[$key[0]][$key[1]] = $value;
 			}
 		}
+
 		list($ret, $form['count']) = NewItemsHelper::fetchAlbumCount();
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		list($ret, $default) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.orderBy');
 
 		if ($ret) {
 			return array($ret, null);
 		}
+
 		$form['isDefault'] = strpos($default, 'NewItems') !== false;
 
 		$template->setVariable('controller', 'newitems.NewItemsSiteAdmin');

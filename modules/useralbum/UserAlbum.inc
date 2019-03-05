@@ -31,6 +31,7 @@ class UserAlbumController extends GalleryController {
 	 */
 	public function handleRequest($form) {
 		global $gallery;
+
 		$activeUserId = $gallery->getActiveUserId();
 
 		$userId = GalleryUtilities::getRequestVariables('userId');
@@ -74,6 +75,7 @@ class UserAlbumController extends GalleryController {
 			if ($userId != $activeUserId) {
 				return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
 			}
+
 			GalleryCoreApi::requireOnce('modules/useralbum/classes/UserAlbumHelper.class');
 
 			$ret = UserAlbumHelper::createUserAlbum($gallery->getActiveUser());

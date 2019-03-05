@@ -47,6 +47,7 @@ class DatabaseSetupStep extends InstallStep {
 				$this->_config['columnPrefix'] = 'g_';
 				$firstConfig                   = true;
 			}
+
 			// All keys but 'schema' exist in all versions of G2
 			if (!isset($this->_config['schema'])) {
 				$this->_config['schema'] = '';
@@ -96,6 +97,7 @@ class DatabaseSetupStep extends InstallStep {
 						'You must have the MySQL PHP module installed'
 					);
 				}
+
 				$dbPlatformType = 'mysql';
 
 				break;
@@ -106,6 +108,7 @@ class DatabaseSetupStep extends InstallStep {
 						'You must have the MySQL Improved PHP module installed'
 					);
 				}
+
 				$dbPlatformType = 'mysql';
 
 				break;
@@ -116,6 +119,7 @@ class DatabaseSetupStep extends InstallStep {
 						'You must have the ibm_db2 PHP module installed'
 					);
 				}
+
 				$dbPlatformType = 'db2';
 
 				break;
@@ -126,6 +130,7 @@ class DatabaseSetupStep extends InstallStep {
 						'You must have the PostgreSQL PHP module installed'
 					);
 				}
+
 				$dbPlatformType = 'postgres';
 
 				break;
@@ -136,6 +141,7 @@ class DatabaseSetupStep extends InstallStep {
 						'You must have the Oracle OCI8 PHP module installed'
 					);
 				}
+
 				$dbPlatformType = 'oracle';
 
 				break;
@@ -146,6 +152,7 @@ class DatabaseSetupStep extends InstallStep {
 						'You must have the Component Object Model(COM) PHP module installed'
 					);
 				}
+
 				$dbPlatformType = 'mssql';
 
 				break;
@@ -156,6 +163,7 @@ class DatabaseSetupStep extends InstallStep {
 						'You must have the PHP Data Object(PDO) PHP module installed'
 					);
 				}
+
 				$dbPlatformType = 'sqlite';
 
 				break;
@@ -236,6 +244,7 @@ class DatabaseSetupStep extends InstallStep {
 					) {
 						$this->_db->Execute('set search_path to ' . $this->_config['schema']);
 					}
+
 					$this->_captureEnd();
 				}
 			}
@@ -370,21 +379,26 @@ class DatabaseSetupStep extends InstallStep {
 
 				// Drop all Gallery database tables listed in the schema table
 				$this->_captureStart();
+
 				$ret = $this->_cleanDatabase();
 
 				if ($ret) {
 					$ret = $ret;
+
 					global $gallery;
-					$templateData['errors'][]       = _(
+
+					$templateData['errors'][] = _(
 						'Could not execute the required API to drop the Gallery database tables. '
 						. 'Please clean the Gallery database manually.'
 					);
+
 					$templateData['databaseErrors'] = $gallery->getDebugBuffer();
 					$templateData['stackTrace'][]   = $ret->getAsHtml();
 					$gallery->clearDebugBuffer();
 				} else {
 					$dbCleaned = true;
 				}
+
 				$this->_captureEnd();
 				$templateData['databaseErrors'] = $this->_getCaptured();
 
@@ -412,6 +426,7 @@ class DatabaseSetupStep extends InstallStep {
 				// Remember the installed version to compare it later to the codebase version
 				$galleryStub->setConfig('installed.version', $datVersion);
 			}
+
 			$templateData['bodyFile'] = 'DatabaseSetupSuccess.html';
 		} elseif ((empty($templateData['errors']) && empty($templateData['error'])
 			|| !empty($_POST['action']) && $_POST['action'] == 'clean')
@@ -433,10 +448,12 @@ class DatabaseSetupStep extends InstallStep {
 			) as $key => $value) {
 				$templateData['dbList'][$key] = $value;
 			}
+
 			$templateData['dbSelected'][$this->_config['type']] = 1;
 
 			$templateData['bodyFile'] = 'DatabaseSetupRequest.html';
 		}
+
 		unset($this->_db);
 	}
 
@@ -448,6 +465,7 @@ class DatabaseSetupStep extends InstallStep {
 		if (!isset($this->_debugContents)) {
 			$this->_debugContents = '';
 		}
+
 		$this->_debugContents .= ob_get_contents();
 		ob_end_clean();
 	}
@@ -526,6 +544,7 @@ class DatabaseSetupStep extends InstallStep {
 		if (!($sqlData = file($schemaTpl))) {
 			return array(false, sprintf(_('Could not open schema file: "%s".'), $schemaTpl));
 		}
+
 		$moduleSql = GalleryStorageExtras::parseSqlTemplate($sqlData, $dbType);
 
 		for ($i = 1; $i <= 4; $i++) {
@@ -550,6 +569,7 @@ class DatabaseSetupStep extends InstallStep {
 				),
 			);
 		}
+
 		$result = $this->_db->DropSequence($tablePrefix . $sequenceId);
 
 		if (empty($result)) {
@@ -576,6 +596,7 @@ class DatabaseSetupStep extends InstallStep {
 		if (empty($buffer)) {
 			return array(false, _('Missing SQL statements'));
 		}
+
 		/*
 		 * Split the file where semicolons are followed by a blank line..
 		 * PL/SQL blocks will have other semicolons, so we can't split on every one.
@@ -585,6 +606,7 @@ class DatabaseSetupStep extends InstallStep {
 		if ($pos = strrpos($buffer, ';')) {
 			$buffer = substr($buffer, 0, $pos);
 		}
+
 		$statements = preg_split('/; *\r?\n *\r?\n/s', $buffer);
 
 		foreach ($statements as $query) {
@@ -592,6 +614,7 @@ class DatabaseSetupStep extends InstallStep {
 
 			if (!empty($query)) {
 				$query = str_replace('DB_TABLE_PREFIX', $tablePrefix, $query);
+
 				$query = str_replace('DB_COLUMN_PREFIX', $this->_config['columnPrefix'], $query);
 				// For mysql, another replacement is required
 				$query = str_replace('DB_TABLE_TYPE', '', $query);
@@ -677,6 +700,7 @@ class DatabaseSetupStep extends InstallStep {
 					}
 				}
 			}
+
 			/*
 			 * Not all db tables are present, a clean install is definitely
 			 * required
@@ -696,6 +720,7 @@ class DatabaseSetupStep extends InstallStep {
 	 */
 	public function _loadG2Api($level = 1) {
 		global $galleryStub;
+
 		/*
 		 * levels: 0 = off, 1 = basic, 2 = platform, 3 = initfirstpass / db
 		 * firstPass includes platform level
@@ -723,11 +748,13 @@ class DatabaseSetupStep extends InstallStep {
 			if ($configPath[strlen($configPath) - 1] != DIRECTORY_SEPARATOR) {
 				$configPath .= DIRECTORY_SEPARATOR;
 			}
+
 			$GLOBALS['gallery']->setConfig('data.gallery.base', $configPath);
 			$GLOBALS['gallery']->setConfig(
 				'plugins.dirname',
 				$galleryStub->getConfig('plugins.dirname')
 			);
+
 			$GLOBALS['gallery']->setConfig('data.gallery.version', $configPath . 'versions.dat');
 			$GLOBALS['gallery']->setConfig(
 				'data.gallery.locale',
@@ -735,6 +762,7 @@ class DatabaseSetupStep extends InstallStep {
 				. DIRECTORY_SEPARATOR
 			);
 		}
+
 		global $gallery;
 
 		if ($level == $platformLevel && $initiated < $platformLevel) {
@@ -770,11 +798,13 @@ class DatabaseSetupStep extends InstallStep {
 			if (!defined('GALLERY_FORM_VARIABLE_PREFIX')) {
 				define('GALLERY_FORM_VARIABLE_PREFIX', 'g2_');
 			}
-			$ret     = GalleryInitFirstPass(
+
+			$ret = GalleryInitFirstPass(
 				array(
 					'noDatabase' => true,
 				)
 			);
+
 			$success = !$ret;
 
 			GalleryDataCache::setFileCachingEnabled(false);
@@ -814,6 +844,7 @@ class DatabaseSetupStep extends InstallStep {
 			if (!strcmp($filename, '.') || !strcmp($filename, '..')) {
 				continue;
 			}
+
 			$path = $baseDir . $filename;
 
 			if ($platform->is_dir($path)) {
@@ -826,6 +857,7 @@ class DatabaseSetupStep extends InstallStep {
 				return false;
 			}
 		}
+
 		$platform->closedir($dir);
 
 		// Recreate the gallery data directory
@@ -843,6 +875,7 @@ class DatabaseSetupStep extends InstallStep {
 
 		$storage =& $gallery->getStorage();
 		$gallery->setDebug('immediate');
+
 		$ret = $storage->cleanStore();
 
 		if ($ret) {

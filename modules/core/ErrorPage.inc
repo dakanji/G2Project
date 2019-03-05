@@ -55,10 +55,12 @@ class ErrorPageView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
+
 		$theme =& $template->getVariableByReference('theme');
 
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-		$ErrorPage           = array(
+
+		$ErrorPage = array(
 			'isAdmin' => !$ret && $isAdmin,
 		);
 
@@ -122,6 +124,7 @@ class ErrorPageView extends GalleryView {
 					foreach ($list as $tmp) {
 						$toolkitList = array_merge($toolkitList, $tmp);
 					}
+
 					$ErrorPage['toolkits'] = implode(', ', array_unique($toolkitList));
 				}
 			}
@@ -160,6 +163,7 @@ class ErrorPageView extends GalleryView {
 	 */
 	public function errorHandler($error, $g2Data = null, $initOk = null) {
 		global $gallery;
+
 		$failsafe = false;
 
 		// Post Gallery::Error event
@@ -169,6 +173,7 @@ class ErrorPageView extends GalleryView {
 				'error' => $error,
 			)
 		);
+
 		list($ret, $eventResults) = GalleryCoreApi::postEvent($event);
 
 		if ($ret) {
@@ -252,6 +257,7 @@ class ErrorPageView extends GalleryView {
 		if (!$failsafe) {
 			$templateAdapter =& $gallery->getTemplateAdapter();
 			$templateAdapter->setTheme($theme);
+
 			list($ret, $view) = GalleryView::getMe()->loadView('core.ErrorPage');
 
 			if ($ret) {
@@ -264,6 +270,7 @@ class ErrorPageView extends GalleryView {
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 			$template = new GalleryTemplate(dirname(dirname(__DIR__)));
 			$view->setError($error);
+
 			list($ret, $results) = $view->loadTemplate($template, $dummyForm);
 
 			if ($ret) {
@@ -275,6 +282,7 @@ class ErrorPageView extends GalleryView {
 			$t                  =& $template->getVariableByReference('theme');
 			$t['errorTemplate'] = $results['body'];
 			$template->setVariable('l10Domain', 'modules_core');
+
 			list($ret, $templatePath) = $theme->showErrorPage($template);
 
 			if ($ret) {
@@ -284,6 +292,7 @@ class ErrorPageView extends GalleryView {
 
 		if (!$failsafe) {
 			$template->setVariable('l10Domain', 'themes_' . $themeId);
+
 			$ret = $template->display("themes/$themeId/templates/$templatePath");
 
 			if ($ret) {
@@ -294,6 +303,7 @@ class ErrorPageView extends GalleryView {
 		if ($failsafe) {
 			// A catastrophic failure has occurred so just dump the error out to the browser
 			echo '<h2>Error</h2>';
+
 			list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 			if ($gallery->getDebug() || (!$ret && $isAdmin)) {
