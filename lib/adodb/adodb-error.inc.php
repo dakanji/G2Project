@@ -55,7 +55,9 @@ function adodb_errormsg($value) {
 		$ADODB_LANG = 'en';
 	}
 
-	if (isset($ADODB_LANG_ARRAY['LANG']) && $ADODB_LANG_ARRAY['LANG'] == $ADODB_LANG) {} else {
+	if (isset($ADODB_LANG_ARRAY['LANG']) && $ADODB_LANG_ARRAY['LANG'] == $ADODB_LANG) {
+		// Do Nothing
+	} else {
 		include_once ADODB_DIR . "/lang/adodb-$ADODB_LANG.inc.php";
 	}
 

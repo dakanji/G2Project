@@ -119,7 +119,7 @@ else
 
 			# Catch misc items in target file not covered by PHPCBF or PHP-CS-FIXER
 			# 01. Close empty braces on opening line
-			RET=$(perl -i -0pe 's/\{\n(\s*)\}/{}/gs' $PROJECT/$TARGET_FILE)
+			RET=$(perl -i -0pe 's/\{\n(\s*)\}([^\w]*)/{}$2/gs' $PROJECT/$TARGET_FILE)
 			# 02. Ensure blank line before "Fall Through"
 			RET=$(perl -i -pe 's/(\s+)(\/\/ Fall Through)/\n$1$2/' $PROJECT/$TARGET_FILE)
 			# 03. Separate multiline comment blocks

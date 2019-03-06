@@ -334,7 +334,9 @@ class ADODB_db2 extends ADOConnection {
 
 			$rs = $this->Execute($sql, $inputArr);
 		} else {
-			if ($offset > 0 && $nrows < 0) {} else {
+			if ($offset > 0 && $nrows < 0) {
+				// Do Nothing
+			} else {
 				$nrows += $offset;
 				$sql   .= " FETCH FIRST $nrows ROWS ONLY ";
 			}
