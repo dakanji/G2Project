@@ -27,14 +27,12 @@
  */
 
 // $Id$
-
 /**
  * Template compiling class
  * @package Smarty
  */
 class Smarty_Compiler extends Smarty {
 	// internal vars
-
 	/**#@+
 	 * @access private
 	 */
@@ -196,7 +194,6 @@ class Smarty_Compiler extends Smarty {
 		   . $this->_var_regexp . '|' . $this->_num_const_regexp . '|\w+)(?>' . $this->_mod_regexp . '*)\s*)';
 
 		// matches valid parenthesised function parameters:
-		//
 		// "text"
 		//    $foo, $bar, "text"
 		// $foo|bar, "foo"|bar, $foo->bar($foo)|bar
@@ -270,6 +267,7 @@ class Smarty_Compiler extends Smarty {
 		// Gather all template tags.
 		preg_match_all("~{$ldq}\s*(.*?)\s*{$rdq}~s", $source_content, $_match);
 		$template_tags = $_match[1];
+
 		// Split content by template tags to obtain non-template content.
 		$text_blocks = preg_split("~{$ldq}.*?{$rdq}~s", $source_content);
 
@@ -330,6 +328,7 @@ class Smarty_Compiler extends Smarty {
 			if ($compiled_tags[$i] == '{strip}') {
 				$compiled_tags[$i] = '';
 				$strip             = true;
+
 				// remove leading whitespaces
 				$text_blocks[$i + 1] = ltrim($text_blocks[$i + 1]);
 			}
@@ -631,6 +630,7 @@ class Smarty_Compiler extends Smarty {
 				// handle folded tags replaced by {php}
 				$block                   = array_shift($this->_folded_blocks);
 				$this->_current_line_no += substr_count($block[0], "\n");
+
 				/* the number of matched elements in the regexp in _compile_file()
 				   determins the type of folded tag that was found */
 				switch (count($block)) {
@@ -1700,6 +1700,7 @@ class Smarty_Compiler extends Smarty {
 		$tokens = $match[0];
 
 		$attrs = array();
+
 		/* Parse state:
 			0 - expecting attribute name
 			1 - expecting '='
@@ -1906,6 +1907,7 @@ class Smarty_Compiler extends Smarty {
 			$_first_var    = '';
 			$_complete_var = '';
 			$_output       = '';
+
 			// simple check if there is any math, to stop recursion (due to modifiers with "xx % yy" as parameter)
 			foreach ($_math_vars as $_k => $_math_var) {
 				$_math_var = $_math_vars[$_k];
@@ -2483,6 +2485,7 @@ class Smarty_Compiler extends Smarty {
 					);
 
 					include_once SMARTY_CORE_DIR . 'core.load_plugins.php';
+
 					smarty_core_load_plugins($_params, $this);
 				}
 			}
@@ -2497,6 +2500,7 @@ class Smarty_Compiler extends Smarty {
 					);
 
 					include_once SMARTY_CORE_DIR . 'core.load_plugins.php';
+
 					smarty_core_load_plugins($_params, $this);
 				}
 			}

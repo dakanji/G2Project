@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -157,6 +158,7 @@ class CommentCallbackView extends GalleryView {
 
 		if (empty($permissions['core.view'])) {
 			GalleryCoreApi::releaseLocks($lockId);
+
 			// Avoid information disclosure, act as if the item didn't exist.
 			return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 		}

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -122,6 +123,7 @@ class SiteAdminView extends GalleryView {
 				}
 
 				$group = $module->getGroup();
+
 				/**
 				 * Pre 2.2, we only accepted a 'view', which we made the subView to
 				 * core.SiteAdmin.  In 2.2, we now let them specify extra parameters

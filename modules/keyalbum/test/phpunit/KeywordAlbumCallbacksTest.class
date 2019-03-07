@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -63,7 +64,11 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		list($ret, $everybodyGroupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
+		list($ret, $everybodyGroupId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'core',
+			'id.everybodyGroup'
+		);
 
 		if ($ret) {
 			return $ret;
@@ -139,6 +144,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			'keyalbum',
 			'split',
 			';
+
 ,\s'
 		);
 
@@ -251,6 +257,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		}
 
 		$data = $this->_smarty->_tpl_vars['block']['keyalbum']['keywords'];
+
 		//DA-HACK
 		//TODO: Verify that index 0, added to pass test is really correct
 		$this->assertEquals(3, count($data[0]), '3 keywords');
@@ -633,16 +640,22 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		);
 
 		foreach (array(
+
 			// All keywords
 			array('allKeywords.time', false, 0, false, 3, array()),
+
 			// All keywords with frequency data
 			array('allKeywords.time', false, 0, true, 3, array()),
+
 			// Three most common keywords
 			array('allKeywords.3.time', false, 3, false, 6, array()),
+
 			// Keywords for public items
 			array('allKeywords.public.time', true, 0, false, 3, array(123, 456)),
+
 			// Keywords for public items but guest has no ACLs
 			array('allKeywords.public.time', true, 0, false, 3, array()),
+
 			// Verify cached value is used
 			array('allKeywords.public.time', false, 3, false, 3, array()),
 		) as $i => $params) {
@@ -654,7 +667,8 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 
 			GalleryDataCache::put($aclCacheKey, $params[5]);
 			$block = array();
-			$ret   = $this->_callbacks->callback(
+
+			$ret = $this->_callbacks->callback(
 				array(
 					'onlyPublic'              => $params[1],
 					'sizeLimit'               => $params[2],
@@ -830,7 +844,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
  */
 class KeywordAlbumCallbacksTestStorage {
 	public function __construct($storage, $queries) {
-		// Avoid weird reference thing in php4 that makes _extras->_gs point to mock storage
+		// Avoid pointing _extras->_gs to mock storage
 		$storage->_extras = null;
 
 		$this->_storage = $storage;

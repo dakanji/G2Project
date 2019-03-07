@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -50,7 +51,8 @@ class DerivativeTest extends GalleryTestCase {
 
 		// Register a mock data item type
 		$path = 'modules/core/test/phpunit/DerivativeTest.class';
-		$ret  = GalleryCoreApi::registerFactoryImplementation(
+
+		$ret = GalleryCoreApi::registerFactoryImplementation(
 			'GalleryItem',
 			'DerivativeTestItem',
 			'DerivativeTestItem',
@@ -530,6 +532,7 @@ class DerivativeTest extends GalleryTestCase {
 		);
 
 		$this->assertFalse($rebuilt, 'it should have failed and not rebuilt the derivative cache');
+
 		// Refresh the derivative to get the state from the db
 		list($ret, $derivative) = $derivative->refresh();
 
@@ -1209,7 +1212,8 @@ B|1,2',
 			}
 
 			$albumId[$i] = $album[$i]->getId();
-			$ret         = GalleryCoreApi::removeDerivativePreferencesForItem($albumId[$i]);
+
+			$ret = GalleryCoreApi::removeDerivativePreferencesForItem($albumId[$i]);
 
 			if ($ret) {
 				return $ret;

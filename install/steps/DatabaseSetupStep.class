@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -75,6 +76,7 @@ class DatabaseSetupStep extends InstallStep {
 		}
 
 		$dbPlatformType = null;
+
 		// Autoselect mysqli instead of mysqlt if possible
 		$mysqltType = 'mysqlt';
 
@@ -423,6 +425,7 @@ class DatabaseSetupStep extends InstallStep {
 				$galleryStub->setConfig('freshInstall', true);
 			} else {
 				$galleryStub->setConfig('freshInstall', false);
+
 				// Remember the installed version to compare it later to the codebase version
 				$galleryStub->setConfig('installed.version', $datVersion);
 			}
@@ -538,6 +541,7 @@ class DatabaseSetupStep extends InstallStep {
 		// Load the Test SQL code
 		include_once __DIR__ .
 		 '/../../modules/core/classes/GalleryStorage/GalleryStorageExtras.class';
+
 		// GalleryPlatform is not available at this point
 		$schemaTpl = __DIR__ . '/../../modules/core/classes/GalleryStorage/schema.tpl';
 
@@ -616,6 +620,7 @@ class DatabaseSetupStep extends InstallStep {
 				$query = str_replace('DB_TABLE_PREFIX', $tablePrefix, $query);
 
 				$query = str_replace('DB_COLUMN_PREFIX', $this->_config['columnPrefix'], $query);
+
 				// For mysql, another replacement is required
 				$query = str_replace('DB_TABLE_TYPE', '', $query);
 
@@ -654,6 +659,7 @@ class DatabaseSetupStep extends InstallStep {
 		$this->_loadG2Api(2);
 
 		include_once __DIR__ . '/../../modules/core/module.inc';
+
 		$coreModule   = new CoreModule();
 		$instVersions = $coreModule->getInstalledVersions();
 
@@ -735,10 +741,11 @@ class DatabaseSetupStep extends InstallStep {
 
 			// Include basic G2 classes to use G2 API to get the core version etc.
 			include_once __DIR__ . '/../../modules/core/classes/Gallery.class';
-
 			include_once __DIR__ . '/../../modules/core/classes/GalleryDataCache.class';
+
 			$GLOBALS['gallery'] = new Gallery();
 			$GLOBALS['gallery']->init();
+
 			/*
 			 * GalleryInitFirstPass adds a trailing slash if necessary, but we don't call it in
 			 * all cases
@@ -770,14 +777,13 @@ class DatabaseSetupStep extends InstallStep {
 			$initiated = $platformLevel;
 
 			include_once __DIR__ . '/../../modules/core/classes/GalleryCoreApi.class';
-
 			include_once __DIR__ .
 			 '/../../modules/core/classes/GalleryCapabilities.class';
-
 			include_once __DIR__ . '/../../modules/core/classes/GalleryPlatform.class';
 
 			$GalleryPlatform = new GalleryPlatform();
 			$gallery->setPlatform($GalleryPlatform);
+
 			// Configure G2 such that getInstalledVersions() can be called
 			$gallery->initTranslator(true);
 
@@ -792,6 +798,7 @@ class DatabaseSetupStep extends InstallStep {
 			$gallery->setConfig('storage.config', $this->_config);
 			$gallery->setDebug(false);
 			$gallery->setProfile(false);
+
 			// Init paths etc., used for the clean DB function
 			include_once __DIR__ . '/../../init.inc';
 

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -53,8 +54,8 @@ class ItemEditCaptionsController extends GalleryController {
 		}
 
 		$itemId = $item->getId();
-
-		$status = $error = array();
+		$status = array();
+		$error  = array();
 
 		if (isset($form['action']['save'])) {
 			$ids = array_keys($form['items']);
@@ -65,7 +66,7 @@ class ItemEditCaptionsController extends GalleryController {
 				return array($ret, null);
 			}
 
-			// We'll check permissions one at a time below, but precache them now
+			// We will check permissions one at a time below, but precache them now
 			list($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems($ids);
 
 			if ($ret) {
@@ -78,7 +79,11 @@ class ItemEditCaptionsController extends GalleryController {
 				return array($ret, null);
 			}
 
-			list($ret, $markup) = GalleryCoreApi::getPluginParameter('module', 'core', 'misc.markup');
+			list($ret, $markup) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'core',
+				'misc.markup'
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -100,9 +105,20 @@ class ItemEditCaptionsController extends GalleryController {
 					if ($item->getSerialNumber() == $form['items'][$id]['serialNumber']) {
 						if ($markup == 'html') {
 							// Strip malicious content if html markup allowed
-							$form['items'][$id]['title']       = GalleryUtilities::htmlSafe($form['items'][$id]['title'], true);
-							$form['items'][$id]['summary']     = GalleryUtilities::htmlSafe($form['items'][$id]['summary'], true);
-							$form['items'][$id]['description'] = GalleryUtilities::htmlSafe($form['items'][$id]['description'], true);
+							$form['items'][$id]['title'] = GalleryUtilities::htmlSafe(
+								$form['items'][$id]['title'],
+								true
+							);
+
+							$form['items'][$id]['summary'] = GalleryUtilities::htmlSafe(
+								$form['items'][$id]['summary'],
+								true
+							);
+
+							$form['items'][$id]['description'] = GalleryUtilities::htmlSafe(
+								$form['items'][$id]['description'],
+								true
+							);
 						}
 
 						$item->setTitle($form['items'][$id]['title']);
@@ -334,7 +350,9 @@ class ItemEditCaptionsView extends GalleryView {
 		}
 
 		$ItemEditCaptions['fieldLengths']          = array();
-		$ItemEditCaptions['fieldLengths']['title'] = $this->_getSizesForMaxLength($entityInfo['GalleryItem']['members']['title']['size']);
+		$ItemEditCaptions['fieldLengths']['title'] = $this->_getSizesForMaxLength(
+			$entityInfo['GalleryItem']['members']['title']['size']
+		);
 
 		$template->setVariable('ItemEditCaptions', $ItemEditCaptions);
 		$template->setVariable('controller', 'core.ItemEditCaptions');

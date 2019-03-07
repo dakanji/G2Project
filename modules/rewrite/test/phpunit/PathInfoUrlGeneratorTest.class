@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -91,7 +92,8 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		// Standard Gallery init
 		$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php?foo=bar&bar=foo';
 		$urlGenerator           = new PathInfoUrlGenerator();
-		$ret                    = $urlGenerator->init('phpunit_test.php?foo=bar&bar=foo');
+
+		$ret = $urlGenerator->init('phpunit_test.php?foo=bar&bar=foo');
 
 		if ($ret) {
 			return $ret;
@@ -120,9 +122,11 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 
 	public function testGetBaseUrlEmbedded() {
 		$_SERVER['REQUEST_URI'] = '/cms/index.php/?foo=bar&bar=foo';
+
 		// Embedded init with pathinfo and querystring in the base file
 		$urlGenerator = new PathInfoUrlGenerator();
-		$ret          = $urlGenerator->init('/cms/index.php/?foo=bar&bar=foo', '/gallery2/main.php');
+
+		$ret = $urlGenerator->init('/cms/index.php/?foo=bar&bar=foo', '/gallery2/main.php');
 
 		if ($ret) {
 			return $ret;
@@ -180,7 +184,8 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 				$_SERVER['PATH_INFO']   = $path . '/phpunit_test.php' . $pathInfo;
 				GalleryDataCache::reset();
 				$urlGenerator = new PathInfoUrlGenerator();
-				$ret          = $urlGenerator->init($path . '/phpunit_test.php');
+
+				$ret = $urlGenerator->init($path . '/phpunit_test.php');
 
 				if ($ret) {
 					return $ret;

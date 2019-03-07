@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -202,6 +203,7 @@ class ErrorPageView extends GalleryView {
 
 		if (!$failsafe) {
 			$translator =& $gallery->getTranslator();
+
 			/**
 			 * @todo Add a fallback mode to the translator to just output untranslated text.
 			 */
@@ -228,7 +230,8 @@ class ErrorPageView extends GalleryView {
 			if (!isset($urlGenerator)) {
 				GalleryCoreApi::requireOnce('modules/core/classes/GalleryUrlGenerator.class');
 				$urlGenerator = new GalleryUrlGenerator();
-				$ret          = $urlGenerator->init();
+
+				$ret = $urlGenerator->init();
 
 				if ($ret) {
 					$failsafe = true;

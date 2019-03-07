@@ -1,6 +1,6 @@
 <?php
-// vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4:
 
+// vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4:
 /**
  * HTML_Safe Parser
  *
@@ -26,7 +26,6 @@ if (!class_exists('XML_HTMLSax3')) {
 if (class_exists('HTML_Safe')) {
 	return;
 } // @G2 - done if defined elsewhere (when embedded)
-
 /**
  *
  * HTML_Safe Parser

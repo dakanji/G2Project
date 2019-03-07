@@ -17,6 +17,7 @@ class ADODB_pdo_pgsql extends ADODB_pdo {
 	 'sql_packages', 'sql_sizing', 'sql_sizing_profiles')
 	union
         select viewname,'V' from pg_views where viewname not like 'pg\_%'";
+
 	//"select tablename from pg_tables where tablename not like 'pg_%' order by 1";
 	public $isoDates       = true; // accepts dates in ISO format
 	public $sysDate        = 'CURRENT_DATE';
@@ -162,6 +163,7 @@ select viewname,'V' from pg_views where viewname like $mask";
 			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
 			$rskey = $this->Execute(sprintf($this->metaKeySQL, ($table)));
+
 			// fetch all result in once for performance.
 			$keys = $rskey->GetArray();
 

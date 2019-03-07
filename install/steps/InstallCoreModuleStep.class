@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -33,7 +34,6 @@ class InstallCoreModuleStep extends InstallStep {
 		define('GALLERY_CONFIG_DIR', $_SESSION['configPath']);
 
 		include __DIR__ . '/../../bootstrap.inc';
-
 		include __DIR__ . '/../../init.inc';
 
 		$template = new StatusTemplate();
@@ -110,6 +110,7 @@ class InstallCoreModuleStep extends InstallStep {
 
 		if (empty($templateData['errors'])) {
 			$gallery->debug('Check if the persistent storage is installed');
+
 			/*
 			 * Check to see if the database tables already exist.  If they do then we should assume
 			 * that they said that it was ok to reuse existing tables in the database setup step,
@@ -161,6 +162,7 @@ class InstallCoreModuleStep extends InstallStep {
 
 		if ($freshInstall) {
 			$gallery->debug('Hand over admin user parameters');
+
 			// It is a fresh install.  Hand over install config parameters.
 			$gallery->setConfig(
 				'setup.admin.userName',
@@ -251,7 +253,6 @@ class InstallCoreModuleStep extends InstallStep {
 			} else {
 				$gallery->debug('NOT installing, rollback!');
 				$storage->rollbackTransaction(); // Ignore any errors from this
-
 				/*
 				 * Don't allow this step to complete when only partially installed.  Verify that
 				 * versions.dat is up to date.

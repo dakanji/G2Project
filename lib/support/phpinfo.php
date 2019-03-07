@@ -36,6 +36,7 @@ if (function_exists('posix_geteuid')) {
 	$tmp = tempnam(sys_get_temp_dir(), 'phpinfotmp');
 	$uid = fileowner($tmp);
 	$gid = filegroup($tmp);
+
 	// try to run ls on it
 	$out   = `ls -l $tmp`;
 	$lst   = explode(' ', $out);
@@ -90,6 +91,7 @@ $phpinfo = str_replace('<html xmlns="http://www.w3.org/1999/xhtml">', '<html lan
 $phpinfo = str_replace('<title>phpinfo()</title>', '<title> Gallery Support | PHP Info</title>', $phpinfo);
 
 $styleStr = '
+
 /*!
  * bootswatch v3.3.7
  * Homepage: http://bootswatch.com
@@ -159,21 +161,18 @@ a:focus {
 	.container {
 		width: 750px;
 	}
-
 }
 
 @media (min-width: 992px) {
 	.container {
 		width: 970px;
 	}
-
 }
 
 @media (min-width: 1200px) {
 	.container {
 		width: 1170px;
 	}
-
 }
 
 .container:before,

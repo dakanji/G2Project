@@ -28,6 +28,7 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 
 	if (isset($process_password_string)) {
 		$storage =& $gallery->getStorage();
+
 		// Empty FailedLoginsMap table
 		$sql = 'TRUNCATE [FailedLoginsMap]';
 
@@ -61,6 +62,7 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 				WHERE
 				[::pluginId] = ?
 				';
+
 				$ret = $storage->execute($sql, array(0, 'captcha'));
 
 				$captcha = 'off';
@@ -70,6 +72,7 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 		if (isset($process_admin_change)) {
 			// Set target username to change admin username to
 			$process_user_name = 'Admin';
+
 			// Get the G2 setup password
 			$process_password_string = $gallery->getConfig('setup.password');
 
@@ -117,6 +120,7 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 				if (!isset($ret)) {
 					// Prime success flag
 					$success = true;
+
 					// Prevent the G2 setup password from being displayed in the form
 					$process_password_string = null;
 				}
@@ -282,6 +286,7 @@ if (isset($_POST['auth'])) {
 
 // Activate G2 API Framework
 $output = connect();
+
 // if connect function returned data, this is an error.
 if (!isset($output)) {
 	// Validate user

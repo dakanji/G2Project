@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
  */
-
 
 /**
  * Smarty debug_print_var modifier plugin

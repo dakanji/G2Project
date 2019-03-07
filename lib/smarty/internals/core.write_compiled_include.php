@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
  */
-
 
 /**
  * Extract non-cacheable parts out of compiled template and write it
@@ -101,8 +101,8 @@ $source
 		'contents'    => $_include_compiled,
 		'create_dirs' => true,
 	);
-
 	include_once SMARTY_CORE_DIR . 'core.write_file.php';
+
 	smarty_core_write_file($_params, $smarty);
 
 	return true;

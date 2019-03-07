@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -170,7 +171,8 @@ class ModuleTest extends GalleryTestCase {
 			$blockAvailable = true;
 			$pluginName     = key($blocks);
 			$blockName      = key($blocks[$pluginName]);
-			$ret            = GalleryCoreApi::setPluginParameter(
+
+			$ret = GalleryCoreApi::setPluginParameter(
 				'theme',
 				'bogusTheme',
 				'albumBlocks',
@@ -281,7 +283,8 @@ class ModuleTest extends GalleryTestCase {
 
 		// Create an entity
 		$entity = new ModuleTestEntity();
-		$ret    = $entity->create();
+
+		$ret = $entity->create();
 
 		if ($ret) {
 			return $ret;
@@ -640,7 +643,8 @@ class ModuleTest extends GalleryTestCase {
 	public function testInstallOrUpgradeSetsNewModuleVersion() {
 		// Manually set the version to an older one
 		$module = new ModuleTestModule();
-		$ret    = $module->setParameter('_version', '0.5.0');
+
+		$ret = $module->setParameter('_version', '0.5.0');
 
 		if ($ret) {
 			return $ret;

@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
  */
-
 
 /**
  * Smarty {html_select_date} plugin
@@ -38,10 +38,9 @@
  */
 function smarty_function_html_select_date($params, &$smarty) {
 	include_once $smarty->_get_plugin_filepath('shared', 'escape_special_chars');
-
 	include_once $smarty->_get_plugin_filepath('shared', 'make_timestamp');
-
 	include_once $smarty->_get_plugin_filepath('function', 'html_options');
+
 	// Default values.
 	$prefix         = 'Date_';
 	$start_year     = strftime('%Y');
@@ -50,33 +49,42 @@ function smarty_function_html_select_date($params, &$smarty) {
 	$display_months = true;
 	$display_years  = true;
 	$month_format   = '%B';
+
 	// Write months as numbers by default  GL
 	$month_value_format = '%m';
 	$day_format         = '%02d';
+
 	// Write day values using this format MB
 	$day_value_format = '%d';
 	$year_as_text     = false;
+
 	// Display years in reverse order? Ie. 2000,1999,....
 	$reverse_years = false;
+
 	/* Should the select boxes be part of an array when returned from PHP?
 	   e.g. setting it to "birthday", would create "birthday[Day]",
 	   "birthday[Month]" & "birthday[Year]". Can be combined with prefix */
 	$field_array = null;
+
 	/* <select size>'s of the different <select> tags.
 	   If not set, uses default dropdown. */
 	$day_size   = null;
 	$month_size = null;
 	$year_size  = null;
+
 	/* Unparsed attributes common to *ALL* the <select>/<input> tags.
 	   An example might be in the template: all_extra ='class ="foo"'. */
 	$all_extra = null;
+
 	// Separate attributes for the tags.
 	$day_extra   = null;
 	$month_extra = null;
 	$year_extra  = null;
+
 	/* Order in which to display the fields.
 	   "D" -> day, "M" -> month, "Y" -> year. */
 	$field_order = 'MDY';
+
 	// String printed between the different fields.
 	$field_separator = "\n";
 	$time            = time();

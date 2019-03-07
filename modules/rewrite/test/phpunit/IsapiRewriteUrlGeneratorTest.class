@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -82,6 +83,7 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		);
 
 		$params = $this->_getTestUrlParams();
+
 		// Only test a single URL
 		$params      = $params[6];
 		$expectedUrl = '/gallery2/v' . $this->_testAlbumPath;

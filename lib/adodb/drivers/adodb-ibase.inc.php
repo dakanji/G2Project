@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -39,8 +40,10 @@ class ADODB_ibase extends ADOConnection {
 	public $concat_operator    = '||';
 	public $_transactionID;
 	public $metaTablesSQL = "select rdb\$relation_name from rdb\$relations where rdb\$relation_name not like 'RDB\$%'";
+
 	//OPN STUFF start
 	public $metaColumnsSQL = "select a.rdb\$field_name, a.rdb\$null_flag, a.rdb\$default_source, b.rdb\$field_length, b.rdb\$field_scale, b.rdb\$field_sub_type, b.rdb\$field_precision, b.rdb\$field_type from rdb\$relation_fields a, rdb\$fields b where a.rdb\$field_source = b.rdb\$field_name and a.rdb\$relation_name = '%s' order by a.rdb\$field_position asc";
+
 	//OPN STUFF end
 	public $ibasetrans;
 	public $hasGenID         = true;
@@ -425,7 +428,8 @@ class ADODB_ibase extends ADOConnection {
 					}
 
 					$fnarr = array_merge(array($sql), $iarr);
-					$ret   = call_user_func_array($fn, $fnarr);
+
+					$ret = call_user_func_array($fn, $fnarr);
 				} else {
 					switch (sizeof($iarr)) {
 						case 1:
@@ -486,7 +490,8 @@ class ADODB_ibase extends ADOConnection {
 					}
 
 					$fnarr = array_merge(array($conn, $sql), $iarr);
-					$ret   = call_user_func_array($fn, $fnarr);
+
+					$ret = call_user_func_array($fn, $fnarr);
 				} else {
 					switch (sizeof($iarr)) {
 						case 1:
@@ -706,10 +711,12 @@ class ADODB_ibase extends ADOConnection {
 
 		//OPN STUFF start
 		$dialect3 = ($this->dialect == 3 ? true : false);
+
 		//OPN STUFF end
 		while (!$rs->EOF) { //print_r($rs->fields);
 			$fld       = new ADOFieldObject();
 			$fld->name = trim($rs->fields[0]);
+
 			//OPN STUFF start
 			$this->_ConvertFieldType($fld, $rs->fields[7], $rs->fields[3], $rs->fields[4], $rs->fields[5], $rs->fields[6], $dialect3);
 
@@ -1138,6 +1145,7 @@ class ADORecordset_ibase extends ADORecordSet {
 
 			case 'TIME':
 				return 'T';
+
 				//case 'T': return 'T';
 				//case 'L': return 'L';
 			case 'INT':

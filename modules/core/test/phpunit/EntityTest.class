@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -40,7 +41,8 @@ class EntityTest extends GalleryTestCase {
 		global $gallery;
 
 		$this->_entity = new EntityTestEntity();
-		$ret           = $this->_entity->create();
+
+		$ret = $this->_entity->create();
 
 		if ($ret) {
 			return $ret;
@@ -70,7 +72,8 @@ class EntityTest extends GalleryTestCase {
 		$this->_markFactoryModuleForCleanup('coreTest');
 		$this->_savedSession = $gallery->_session;
 		$gallery->_session   = null;
-		$ret                 = $gallery->initSession();
+
+		$ret = $gallery->initSession();
 
 		if ($ret) {
 			return $ret;
@@ -173,7 +176,8 @@ class EntityTest extends GalleryTestCase {
 		global $gallery;
 
 		$entity = new EntityTestEntity();
-		$ret    = $entity->create();
+
+		$ret = $entity->create();
 
 		if ($ret) {
 			return $ret;
@@ -274,7 +278,8 @@ class EntityTest extends GalleryTestCase {
 		 * doesn't become the "original value" when it should stay as null)
 		 */
 		$entity = new EntityTestEntity();
-		$ret    = $entity->create();
+
+		$ret = $entity->create();
 
 		if ($ret) {
 			return $ret;
@@ -295,7 +300,8 @@ class EntityTest extends GalleryTestCase {
 
 	public function testIsModifiedMember() {
 		$entity = new EntityTestEntity();
-		$ret    = $entity->create();
+
+		$ret = $entity->create();
 
 		if ($ret) {
 			return $ret;
@@ -310,7 +316,8 @@ class EntityTest extends GalleryTestCase {
 		// Ensure we can save and reset empty string without triggering modified flag
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
 		$entity = new GalleryEntity();
-		$ret    = $entity->create();
+
+		$ret = $entity->create();
 
 		if ($ret) {
 			return $ret;
@@ -343,7 +350,8 @@ class EntityTest extends GalleryTestCase {
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
 		$entity = new GalleryEntity();
-		$ret    = $entity->create();
+
+		$ret = $entity->create();
 
 		if ($ret) {
 			return $ret;

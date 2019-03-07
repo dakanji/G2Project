@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -24,10 +25,9 @@
 define('G2_SUPPORT_URL_FRAGMENT', '../../support/');
 
 require '../../support/security.inc';
-
 require '../../../bootstrap.inc';
-
 require_once '../../../init.inc';
+
 define('GALLERY_MAIN_PHP', 'index.php');
 
 // Simulate HTTP for command line clients
@@ -117,7 +117,8 @@ function RepositoryToolsMain() {
 
 	// Configure our url Generator for repository mode.
 	$urlGenerator = new GalleryUrlGenerator();
-	$ret          = $urlGenerator->init();
+
+	$ret = $urlGenerator->init();
 
 	if ($ret) {
 		return $ret;
@@ -137,6 +138,7 @@ function RepositoryToolsMain() {
 	$controllerClassName = $controllerName . 'ControllerAndView';
 
 	include_once $controllerPath;
+
 	$controller = new $controllerClassName();
 	$controller->init();
 

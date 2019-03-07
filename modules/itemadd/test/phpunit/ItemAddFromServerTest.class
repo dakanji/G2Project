@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -68,7 +69,8 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		}
 
 		$this->_baseDir = dirname(__DIR__);
-		$ret            = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'itemadd',
 			'uploadLocalServer.dir.1',
@@ -372,6 +374,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 			$results = $this->handleRequest($this->_rootAlbum);
 		} else {
 			$results = $this->handleRequest($this->_rootAlbum, ERROR_UNSUPPORTED_OPERATION);
+
 			// Set the mock platform back to the one that supports symlink for consistency
 			$gallery->setPlatform($this->_symlinkAllowedPlatform);
 
@@ -531,6 +534,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[localServerPath]', $baseDir);
 		GalleryUtilities::putRequestVariable('form[set][title]', 1);
 		GalleryUtilities::putRequestVariable('form[set][summary]', 1);
+
 		// This is what the browser will send us (urlencoded):
 		GalleryUtilities::putRequestVariable(
 			'form[localServerFiles][' . urlencode('December - <#952>.jpg') . '][selected]',

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -573,6 +574,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(isset($groupIds[$siteAdminGroupId]), 'The new ownerId of the item is wrong.');
+
 		// The teardown method takes care of the item deletion
 	}
 
@@ -591,6 +593,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markUserForCleanup($user);
+
 		// Create a new owner
 		list($ret, $newOwner) = $this->_createRandomUser();
 

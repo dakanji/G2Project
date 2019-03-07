@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -154,7 +155,8 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 	 */
 	public function testDescriptorGeneration() {
 		$descriptor = $this->_getDescriptorWithFakeFileMetadata();
-		$ret        = $descriptor->generate(new RepositoryDescriptorTestPlugin());
+
+		$ret = $descriptor->generate(new RepositoryDescriptorTestPlugin());
 
 		if ($ret) {
 			return $ret;
@@ -277,7 +279,8 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		$gallery->_platform->setReply('file_exists', array('/MANIFEST'), false);
 
 		$descriptor = $this->_getDescriptorWithFakeFileMetadata();
-		$ret        = $descriptor->generate(new RepositoryDescriptorTestPlugin());
+
+		$ret = $descriptor->generate(new RepositoryDescriptorTestPlugin());
 
 		if ($ret) {
 			return $ret;
@@ -320,7 +323,8 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 
 	public function testGetDirectoriesInPackage() {
 		$descriptor = $this->_getDescriptorWithFakeFileMetadata();
-		$ret        = $descriptor->generate(new RepositoryDescriptorTestPlugin());
+
+		$ret = $descriptor->generate(new RepositoryDescriptorTestPlugin());
 
 		if ($ret) {
 			return $ret;
@@ -343,7 +347,8 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 
 	public function testGetFilesInPackage() {
 		$descriptor = $this->_getDescriptorWithFakeFileMetadata();
-		$ret        = $descriptor->generate(new RepositoryDescriptorTestPlugin());
+
+		$ret = $descriptor->generate(new RepositoryDescriptorTestPlugin());
 
 		if ($ret) {
 			return $ret;
@@ -362,7 +367,8 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 
 	public function testGetPackages() {
 		$descriptor = $this->_getDescriptorWithFakeFileMetadata();
-		$ret        = $descriptor->generate(new RepositoryDescriptorTestPlugin());
+
+		$ret = $descriptor->generate(new RepositoryDescriptorTestPlugin());
 
 		if ($ret) {
 			return $ret;
@@ -378,7 +384,8 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		global $gallery;
 
 		$descriptor = $this->_getDescriptorWithFakeFileMetadata();
-		$ret        = $descriptor->generate(new RepositoryDescriptorTestPlugin());
+
+		$ret = $descriptor->generate(new RepositoryDescriptorTestPlugin());
 
 		if ($ret) {
 			return $ret;
@@ -405,7 +412,8 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		global $gallery;
 
 		$descriptor = $this->_getDescriptorWithFakeFileMetadata();
-		$ret        = $descriptor->generate(new RepositoryDescriptorTestPlugin());
+
+		$ret = $descriptor->generate(new RepositoryDescriptorTestPlugin());
 
 		if ($ret) {
 			return $ret;

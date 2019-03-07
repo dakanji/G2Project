@@ -1,4 +1,5 @@
 <?php
+
 /*
  @version   v5.20.12  30-Mar-2018
  @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -74,6 +75,7 @@ class ADODB_postgres64 extends ADOConnection {
 			'sql_packages', 'sql_sizing', 'sql_sizing_profiles')
 	union
 		select viewname,'V' from pg_views where viewname not like 'pg\_%'";
+
 	//"select tablename from pg_tables where tablename not like 'pg_%' order by 1";
 	public $isoDates       = true; // accepts dates in ISO format
 	public $sysDate        = 'CURRENT_DATE';
@@ -175,6 +177,7 @@ class ADODB_postgres64 extends ADOConnection {
 		}
 
 		$oid = pg_getlastoid($this->_resultid);
+
 		// to really return the id, we need the table and column-name, else we can only return the oid != id
 		return empty($table) || empty($column) ? $oid : $this->GetOne("SELECT $column FROM $table WHERE oid=" . (int)$oid);
 	}
@@ -545,6 +548,7 @@ class ADODB_postgres64 extends ADOConnection {
 		}
 
 		return "($date+interval'" . ($dayFraction * 1440) . " minutes')";
+
 		// return "($date+interval'$dayFraction days')";
 	}
 
@@ -603,6 +607,7 @@ class ADODB_postgres64 extends ADOConnection {
 			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
 			$rskey = $this->Execute(sprintf($this->metaKeySQL, ($table)));
+
 			// fetch all result in once for performance.
 			$keys = $rskey->GetArray();
 
@@ -776,6 +781,7 @@ class ADODB_postgres64 extends ADOConnection {
 		}
 
 		$col_names = $this->MetaColumnNames($table, true, true);
+
 		//3rd param is use attnum,
 		// see http://sourceforge.net/tracker/index.php?func=detail&aid=1451245&group_id=42718&atid=433976
 		$indexes = array();
@@ -797,7 +803,6 @@ class ADODB_postgres64 extends ADOConnection {
 	}
 
 	// returns true or false
-	//
 	// examples:
 	// 	$db->Connect("host=host1 user=user1 password=secret port=4341");
 	// 	$db->Connect('host1','user1','secret');
@@ -895,7 +900,6 @@ class ADODB_postgres64 extends ADOConnection {
 	}
 
 	// returns true or false
-	//
 	// examples:
 	// 	$db->PConnect("host=host1 user=user1 password=secret port=4341");
 	// 	$db->PConnect('host1','user1','secret');
@@ -964,6 +968,7 @@ class ADODB_postgres64 extends ADOConnection {
 				}
 
 				$sqlarr = explode('?', $sql);
+
 				//print_r($sqlarr);
 				$sql = '';
 				$i   = 1;
@@ -974,8 +979,10 @@ class ADODB_postgres64 extends ADOConnection {
 				}
 
 				$s = "PREPARE $plan ($params) AS " . substr($sql, 0, strlen($sql) - 2);
+
 				//adodb_pr($s);
 				$rez = pg_execute($this->_connectionID, $s);
+
 				//echo $this->ErrorMsg();
 			}
 
@@ -1264,7 +1271,6 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 					return 'C';
 				}
 
-
 				// Fall Through
 			case 'TEXT':
 				return 'X';
@@ -1301,7 +1307,6 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 				) {
 					return 'I';
 				}
-
 
 				// Fall Through
 			case 'OID':

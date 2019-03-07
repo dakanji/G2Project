@@ -1,4 +1,5 @@
 <?php
+
 // contributed by "Horacio Degiorgi" <horaciod@codigophp.com>
 $ADODB_LANG_ARRAY = array(
 	'LANG'                       => 'es',

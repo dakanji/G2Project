@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -116,7 +117,8 @@ class AdminFfmpegController extends GalleryController {
 		    WHERE [GalleryDerivative::id] = [GalleryChildEntity::id]
 		      AND [GalleryChildEntity::parentId] = [GalleryEntity::id]
 		      AND [GalleryEntity::entityType] = \'GalleryMovieItem\'';
-					$ret   = $this->_processThumbnails($query, '_addWatermark');
+
+					$ret = $this->_processThumbnails($query, '_addWatermark');
 
 					if ($ret) {
 						return array($ret, null);
@@ -129,7 +131,8 @@ class AdminFfmpegController extends GalleryController {
 		    FROM [GalleryDerivative]
 		    WHERE [GalleryDerivative::derivativeOperations]
 			  LIKE \'%composite|%filmreel.png%\'';
-					$ret   = $this->_processThumbnails($query, '_removeWatermark');
+
+					$ret = $this->_processThumbnails($query, '_removeWatermark');
 
 					if ($ret) {
 						return array($ret, null);

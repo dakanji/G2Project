@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -48,7 +49,8 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		$acceleration['user']['expiration']  = 0;
 		$acceleration['guest']['type']       = 'none';
 		$acceleration['guest']['expiration'] = 0;
-		$ret                                 = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -80,6 +82,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[acceleration][guest][expiration]', '1234');
 		GalleryUtilities::putRequestVariable('form[acceleration][user][type]', 'full');
 		GalleryUtilities::putRequestVariable('form[acceleration][user][expiration]', '5678');
+
 		// disableCompileCheck unchecked (disabled checkboxes are not set)
 		$results = $this->handleRequest();
 		$this->assertEquals(

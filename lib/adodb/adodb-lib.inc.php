@@ -1,4 +1,5 @@
 <?php
+
 // security - hide paths
 if (!defined('ADODB_DIR')) {
 	die();
@@ -353,7 +354,6 @@ function _adodb_getmenu(
 				$s .="\n</optgroup>";
 				$s .="\n<optgroup label='". htmlspecialchars($group) ."'>";
 			}
-
 		}
 
 		*/
@@ -944,6 +944,7 @@ function _adodb_getupdatesql(&$zthis, &$rs, $arrFields, $forceUpdate = false, $m
 		preg_match('/\sWHERE\s(.*)/is', $rs->sql, $whereClause);
 
 		$discard = false;
+
 		// not a good hack, improvements?
 		if ($whereClause) {
 			// var_dump($whereClause);
@@ -1336,6 +1337,7 @@ function _adodb_debug_execute(&$zthis, $sql, $inputarr) {
 	}
 
 	$sqlTxt = is_array($sql) ? $sql[0] : $sql;
+
 	/*str_replace(', ','##1#__^LF',is_array($sql) ? $sql[0] : $sql);
 	$sqlTxt = str_replace(',',', ',$sqlTxt);
 	$sqlTxt = str_replace('##1#__^LF', ', ' ,$sqlTxt);
@@ -1538,9 +1540,7 @@ function _adodb_find_from($sql)
 
 		elseif($parentheseCount <= 0 && $inString === false && $char == " " && strtoupper(substr($prevChars,-5,5)) == " FROM")
 			return $i;
-
 	}
-
 }
 
 */

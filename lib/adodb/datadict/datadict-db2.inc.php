@@ -122,6 +122,7 @@ class ADODB2_db2 extends ADODB_DataDict {
 		 */
 		$validTypes   = array('CHAR', 'VARC');
 		$invalidTypes = array('BIGI', 'BLOB', 'CLOB', 'DATE', 'DECI', 'DOUB', 'INTE', 'REAL', 'SMAL', 'TIME');
+
 		// check table exists
 		$cols = $this->MetaColumns($tablename);
 
@@ -145,8 +146,10 @@ class ADODB2_db2 extends ADODB_DataDict {
 				 * fields, so account for that too
 				 */
 				$vargs = explode(' ', $v);
+
 				// assume that $vargs[0] is the field name.
 				$i = 0;
+
 				// Find the next non-blank value;
 				for ($i = 1; $i < sizeof($vargs); $i++) {
 					if ($vargs[$i] != '') {

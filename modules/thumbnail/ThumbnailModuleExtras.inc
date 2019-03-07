@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -74,7 +75,8 @@ class ThumbnailModuleExtras {
 				}
 
 				$storage =& $gallery->getStorage();
-				$ret     = $storage->configureStore($module->getId(), array('ThumbnailImage:1.0'));
+
+				$ret = $storage->configureStore($module->getId(), array('ThumbnailImage:1.0'));
 
 				if ($ret) {
 					return $ret;
@@ -94,7 +96,6 @@ class ThumbnailModuleExtras {
 				if ($ret) {
 					return $ret;
 				}
-
 
 				// Fall Through
 			case '0.8.3':
@@ -129,12 +130,10 @@ class ThumbnailModuleExtras {
 					}
 				}
 
-
 				// Fall Through
 			case '0.9.2':
 			case '0.9.3':
 				// Now allow thumbnail for root album; remove parent for mime type thumbnails
-
 				/* NOTE:
 				 * Upgrade code merged into case '1.0.7' since it changes a superset of this case.
 				 */
@@ -231,6 +230,7 @@ class ThumbnailModuleExtras {
 
 					foreach ($ids as $id) {
 						$gallery->guaranteeTimeLimit(30);
+
 						// Change the parent.
 						$ret = $storage->execute($parentIdQuery, array($containerId, $id));
 
@@ -299,6 +299,7 @@ class ThumbnailModuleExtras {
 
 					foreach ($ids as $id) {
 						$gallery->guaranteeTimeLimit(30);
+
 						// Add the necessary rows for a FileSystemEntity.
 						$ret = $storage->execute($fileSystemEntityQuery, array($id, $fileNames[$id]));
 
@@ -420,7 +421,6 @@ class ThumbnailModuleExtras {
 				if ($ret) {
 					return $ret;
 				}
-
 
 				// Fall Through
 			case '1.0.8':

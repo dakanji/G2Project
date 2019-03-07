@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -48,11 +49,13 @@ class ThumbnailHelper {
 	) {
 		global $gallery;
 
-		$where   = $data = array();
-		$query   = '
+		$where = $data = array();
+
+		$query = '
 		SELECT [ThumbnailImage::id], [GalleryFileSystemEntity::pathComponent]
 		FROM [ThumbnailImage], [GalleryFileSystemEntity]
 		';
+
 		$where[] = '[GalleryFileSystemEntity::id] = [ThumbnailImage::id]';
 
 		if (!$listAll) {

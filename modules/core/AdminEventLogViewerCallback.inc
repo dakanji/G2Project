@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -89,7 +90,10 @@ class AdminEventLogViewerCallbackView extends GalleryView {
 
 		switch ($command) {
 			case 'getRecords':
-				list($pageNumber, $pageSize) = GalleryUtilities::getRequestVariables('pageNumber', 'pageSize');
+				list($pageNumber, $pageSize) = GalleryUtilities::getRequestVariables(
+					'pageNumber',
+					'pageSize'
+				);
 
 				$pageNumber = (int)$pageNumber;
 

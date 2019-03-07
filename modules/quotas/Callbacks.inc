@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -42,6 +43,7 @@ class QuotasCallbacks {
 		switch ($callback) {
 			case 'LoadQuotas':
 				GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
+
 				// The user's quota, if any
 				list($ret, $block['quotaExists'], $block['quotaValue']) = GalleryQuotasHelper::getUserDiskQuota($userId);
 

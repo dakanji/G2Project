@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -1134,6 +1135,7 @@ class GalleryPlatform {
 		}
 
 		$phpVm = $gallery->getPhpVm();
+
 		// Convert \r\n to the appropriate line ending style
 		if ($this->getLineEnding() == "\n") {
 			if (isset($headers)) {
@@ -1437,6 +1439,7 @@ class GalleryPlatform {
 		$i          = 0;
 		$newFormat  = '';
 		$textPieces = array();
+
 		// Separate text and tokens so we can convert only token output to UTF-8
 		foreach (preg_split('{(%.)}', $format, -1, PREG_SPLIT_DELIM_CAPTURE) as $piece) {
 			if (++$i % 2) {

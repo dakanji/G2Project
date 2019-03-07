@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -48,7 +49,8 @@ class DataCacheTest extends GalleryTestCase {
 		$acceleration['user']['type']       = 'full';
 		$acceleration['user']['expiration'] = 30;
 		$acceleration['guest']['type']      = 'none';
-		$ret                                = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -98,6 +100,7 @@ class DataCacheTest extends GalleryTestCase {
 		$value = 'test-value';
 		GalleryDataCache::put($key, $value);
 		$this->assertTrue(GalleryDataCache::containsKey($key), 'Could not put a var to GDC');
+
 		// Add a protected var
 		$pKey   = 'prot-test-key';
 		$pValue = 'prot-test-value';
@@ -580,7 +583,8 @@ class DataCacheTest extends GalleryTestCase {
 
 	public function testPutAndGetPageData() {
 		$value = '<html><head><title>foo</title><body>this is some content</body></html>';
-		$ret   = GalleryDataCache::putPageData('test', 0, array('key'), $value);
+
+		$ret = GalleryDataCache::putPageData('test', 0, array('key'), $value);
 
 		if ($ret) {
 			return $ret;
@@ -695,7 +699,8 @@ class DataCacheTest extends GalleryTestCase {
 		global $gallery;
 
 		$acceleration['user']['type'] = 'full';
-		$ret                          = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -720,7 +725,8 @@ class DataCacheTest extends GalleryTestCase {
 
 		$acceleration['user']['type']  = 'full';
 		$acceleration['guest']['type'] = 'full';
-		$ret                           = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -757,7 +763,8 @@ class DataCacheTest extends GalleryTestCase {
 
 		$acceleration['user']['type']  = 'none';
 		$acceleration['guest']['type'] = 'none';
-		$ret                           = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -781,7 +788,8 @@ class DataCacheTest extends GalleryTestCase {
 		global $gallery;
 
 		$acceleration['user']['type'] = 'none';
-		$ret                          = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -887,7 +895,8 @@ class DataCacheTest extends GalleryTestCase {
 		$session->put('theme.guestPreviewMode', 1);
 
 		$acceleration['user']['type'] = 'full';
-		$ret                          = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'acceleration',
@@ -913,6 +922,7 @@ class DataCacheTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new DataCacheTestMockVm();
+
 		// We don't care about rand.
 		$gallery->_phpVm->setRand(1);
 		$activeUser = $gallery->getActiveUser();

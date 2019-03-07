@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -260,6 +261,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 
 		public function _insertid() {
 			return ADOConnection::GetOne('SELECT LAST_INSERT_ID()');
+
 			//return mysql_insert_id($this->_connectionID);
 		}
 
@@ -701,6 +703,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 			$nrows     = (int)$nrows;
 			$offset    = (int)$offset;
 			$offsetStr = ($offset >= 0) ? ((int)$offset) . ',' : '';
+
 			// jason judge, see http://phplens.com/lens/lensforum/msgs.php?id=9220
 			if ($nrows < 0) {
 				$nrows = '18446744073709551615';
@@ -718,6 +721,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 		// returns queryID or false
 		public function _query($sql, $inputarr = false) {
 			return mysql_query($sql, $this->_connectionID);
+
 			/*
 			global $ADODB_COUNTRECS;
 
@@ -891,6 +895,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				}
 			} else {  // The $fieldOffset argument is not provided thus its -1
 				$o = @mysql_fetch_field($this->_queryID);
+
 				//if ($o) $o->max_length = @mysql_field_len($this->_queryID); // suggested by: Jim Nicholson (jnich#att.com)
 				$o->max_length = -1; // mysql returns the max length less spaces -- so it is unrealiable
 			}
@@ -984,7 +989,6 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 					if ($len <= $this->blobSize) {
 						return 'C';
 					}
-
 
 					// Fall Through
 				case 'TEXT':

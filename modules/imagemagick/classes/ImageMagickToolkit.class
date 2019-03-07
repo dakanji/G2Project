@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -162,6 +163,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 			switch ($operationName) {
 				case 'thumbnail':
 					$cmd = 'convert';
+
 					// Don't enlarge images for a thumbnail
 					if ($width > $parameters[0] || $height > $parameters[0]) {
 						$this->_addResizeParam($transform, $parameters[0]);
@@ -728,7 +730,6 @@ class ImageMagickToolkit extends GalleryToolkit {
 				}
 
 				// If the output format isn't gif, pick a frame assuming it's an animated GIF.
-
 				// Fall Through
 			case 'image/tiff':
 			case 'application/pdf':

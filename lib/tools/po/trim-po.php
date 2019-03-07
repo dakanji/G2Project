@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Usage: php trim-po.php xx_YY.po
  * Prints a copy of xx_YY.po, omitting all translations that match xx.po.
@@ -58,6 +59,7 @@ function isValidUtf8($string) {
 	 * http://dev.jpmullan.com/snippets/check_utf8.php
 	 */
 	$valid = false;
+
 	/*
 	 * We are declaring non-strings to be invalid, even if their string
 	 * representation is valid.

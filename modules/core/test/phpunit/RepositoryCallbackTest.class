@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -59,7 +60,8 @@ class RepositoryCallbackTest extends GalleryTestCase {
 		}
 
 		$view = new RepositoryCallbackView();
-		$ret  = $view->renderImmediate(array(), array());
+
+		$ret = $view->renderImmediate(array(), array());
 
 		if ($ret) {
 			return $ret;

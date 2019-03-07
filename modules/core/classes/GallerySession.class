@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -212,6 +213,7 @@ class GallerySession {
 			}
 		} else {
 			$this->_sessionId = GalleryUtilities::getRequestVariables(SESSION_ID_PARAMETER);
+
 			// When logging out (resetting the session), we already know if cookies are used
 			if (!$this->isUsingCookies()) {
 				$this->_isUsingCookies = false;
@@ -236,6 +238,7 @@ class GallerySession {
 		// Sanitize the session id
 		$this->_sessionId = is_string($this->_sessionId) ? $this->_sessionId : '';
 		$this->_sessionId = preg_replace('/[^a-fA-F0-9]/', '', $this->_sessionId);
+
 		// Prevent from querying the DB for sessionIds that are incorrect anyway
 		if (strlen($this->_sessionId) != 32) {
 			$this->_sessionId = '';
@@ -284,7 +287,8 @@ class GallerySession {
 					 * prevent hijacking
 					 */
 					$this->_sessionId = '';
-					$ret              = $this->_emptySessionData();
+
+					$ret = $this->_emptySessionData();
 
 					if ($ret) {
 						return $ret;
@@ -350,7 +354,6 @@ class GallerySession {
 				return $ret;
 			}
 		} // Else: not a new session
-
 		/*
 		 * Send a cookie to the browser, if necessry ( this must be done before we start outputting
 		 * HTML because the DownloadItem requests might come in before we reach $session->save() )
@@ -401,7 +404,8 @@ class GallerySession {
 					$ret = $this->_acquireNewPersistentSession();
 				} else {
 					$this->_modificationTime = $phpVm->time();
-					$ret                     = GalleryCoreApi::updateMapEntry(
+
+					$ret = GalleryCoreApi::updateMapEntry(
 						'GallerySessionMap',
 						array(
 							'id' => $this->_sessionId,
@@ -426,7 +430,8 @@ class GallerySession {
 				// Update the session modification timestamp 5% of the time to avoid expiration.
 				if ($dieRoll <= 5) {
 					$this->_modificationTime = $phpVm->time();
-					$ret                     = GalleryCoreApi::updateMapEntry(
+
+					$ret = GalleryCoreApi::updateMapEntry(
 						'GallerySessionMap',
 						array(
 							'id' => $this->_sessionId,
@@ -509,7 +514,8 @@ class GallerySession {
 
 		if (!empty($this->_sessionId)) {
 			$this->_sessionId = GalleryUtilities::strToLower($this->_sessionId);
-			$ret              = GalleryCoreApi::removeMapEntry(
+
+			$ret = GalleryCoreApi::removeMapEntry(
 				'GallerySessionMap',
 				array(
 					'id' => $this->_sessionId,
@@ -787,10 +793,13 @@ class GallerySession {
 		}
 
 		$this->_isPersistent = true;
+
 		// Make sure we don't save the session a 2nd time for vain
 		$this->_loadedSessionData = $this->_getSerializedSession();
+
 		// Also prevent from doing a "touch"
 		$this->_isSessionSaved = true;
+
 		// To remember to replace SESSION_TEMP_ID with the real id in the generated HTML
 		$this->_isPersistentSessionNew = true;
 
@@ -836,6 +845,7 @@ class GallerySession {
 
 		if ($isAnonymous) {
 			$sessionDataCopy = $this->_sessionData;
+
 			/*
 			 * - lastViewed: We don't care about viewed count, we can check that less strict with
 			 *                HTTP modified since headers
@@ -1061,6 +1071,7 @@ class GallerySession {
 		$this->_userId            = null;
 		$this->_modificationTime  = $phpVm->time();
 		$this->_remoteIdentifier  = $this->getRemoteIdentifier();
+
 		// Don't change userId or isUsingCookies
 		$this->_isPersistentSessionNew = false;
 		$this->_isSessionSaved         = false;
@@ -1089,6 +1100,7 @@ class GallerySession {
 		} elseif (empty($this->_sessionId)) {
 			// Remove sessionId from URLs for guests that have no session (normal case)
 			$sessionString = GalleryUtilities::prefixFormVariable($this->getKey()) . '=' . SESSION_TEMP_ID;
+
 			/*
 			 * Handling only most cases here, still leaving &&, ?& but handling trailing ? and &
 			 * Experimented a lot with str_replace and preg_replace. A perfect solution would be
@@ -1098,6 +1110,7 @@ class GallerySession {
 			// sessionString normal and URL encoded
 			$regexp = GalleryUtilities::prefixFormVariable($this->getKey()) . '(?:=|%3D)' .
 			SESSION_TEMP_ID;
+
 			/*
 			 * Remove trailing & and ? from URLs, also handle JavaScript (no HTML entities) and
 			 * URL encoded (return URL) versions of & and ?

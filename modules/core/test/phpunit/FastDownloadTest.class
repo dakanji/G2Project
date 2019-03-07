@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -77,6 +78,7 @@ class FastDownloadTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
+
 		// Set the thumbnail of the album
 		list($ret, $this->_derivatives[3][]) = $this->_createDerivative(
 			$this->_album,
@@ -89,7 +91,8 @@ class FastDownloadTest extends GalleryTestCase {
 		}
 
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->checkPoint();
+
+		$ret = $storage->checkPoint();
 
 		if ($ret) {
 			return $ret;

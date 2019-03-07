@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -34,11 +35,13 @@ class ADODB_ado_access extends ADODB_ado {
 	public $sysTimeStamp = 'NOW';
 	public $upperCase    = 'ucase';
 
-	/*function BeginTrans() { return false;}
-
-	function CommitTrans() { return false;}
-
-	function RollbackTrans() { return false;}*/
+	/*
+	 * function BeginTrans() { return false;}
+	 *
+	 * function CommitTrans() { return false;}
+	 *
+	 * function RollbackTrans() { return false;}
+	 */
 }
 
 class ADORecordSet_ado_access extends ADORecordSet_ado {

@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -26,6 +27,7 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 
 	public function _init($parentDriver) {
 		$parentDriver->hasTransactions = false;
+
 		// $parentDriver->_bindInputArray = false;
 		$parentDriver->hasInsertID = true;
 		$parentDriver->_connectionID->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
@@ -40,6 +42,7 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 		$fraction = $dayFraction * 24 * 3600;
 
 		return $date . ' + INTERVAL ' . $fraction . ' SECOND';
+
 		//      return "from_unixtime(unix_timestamp($date)+$fraction)";
 	}
 
@@ -217,6 +220,7 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 		$nrows     = (int)$nrows;
 		$offset    = (int)$offset;
 		$offsetStr = ($offset >= 0) ? "$offset," : '';
+
 		// jason judge, see http://phplens.com/lens/lensforum/msgs.php?id=9220
 		if ($nrows < 0) {
 			$nrows = '18446744073709551615';
@@ -249,7 +253,6 @@ class ADODB_pdo_mysql extends ADODB_pdo {
 						$i++;
 						$ch = substr($fmt, $i, 1);
 					}
-
 
 					// Fall Through
 				case '-':

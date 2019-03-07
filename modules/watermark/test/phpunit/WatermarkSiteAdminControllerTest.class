@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -291,6 +292,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(empty($defaultWatermarkId), 'The default Watermark Id was not removed');
+
 		// Verify that it's gone
 		$ret = $this->_verifyMissing($idToDelete);
 
@@ -374,6 +376,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(!empty($defaultWatermarkId), 'Expected new default watermark');
+
 		// If there are several watermarks, we can't be sure which one will be selected
 		$this->assertTrue(
 			(int)$defaultWatermarkId != (int)$idToDelete,

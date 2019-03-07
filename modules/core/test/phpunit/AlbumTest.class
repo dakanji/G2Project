@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -47,7 +48,8 @@ class AlbumTest extends GalleryTestCase {
 
 		// Register a dummy toolkit
 		$path = 'modules/core/test/phpunit/AlbumTest.class';
-		$ret  = GalleryCoreApi::registerFactoryImplementation(
+
+		$ret = GalleryCoreApi::registerFactoryImplementation(
 			'GalleryToolkit',
 			'AlbumTestToolkit',
 			'AlbumTestToolkit',
@@ -789,7 +791,8 @@ class AlbumTest extends GalleryTestCase {
 
 		for ($i = 0; $i < 3; $i++) {
 			$entity[$i] = new GalleryAlbumItem();
-			$ret        = $entity[$i]->create($this->_parentAlbum->getId(), 'valid_path');
+
+			$ret = $entity[$i]->create($this->_parentAlbum->getId(), 'valid_path');
 
 			if ($ret) {
 				return $ret;

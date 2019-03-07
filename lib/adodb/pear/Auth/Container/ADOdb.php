@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -13,11 +14,8 @@
 	Richard Tango-Lowy <richtl#arscognita.com>
 */
 require_once 'Auth/Container.php';
-
 require_once 'adodb.inc.php';
-
 require_once 'adodb-pear.inc.php';
-
 require_once 'adodb-errorpear.inc.php';
 
 /**

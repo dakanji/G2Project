@@ -1,4 +1,5 @@
 <?php
+
 /*
  @version   v5.20.12  30-Mar-2018
  @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -216,6 +217,7 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 		public function FetchField($fieldOffset = -1) {
 			if ($fieldOffset != -1) {
 				$o = @fbsql_fetch_field($this->_queryID, $fieldOffset);
+
 				//$o->max_length = -1; // fbsql returns the max length less spaces -- so it is unrealiable
 				$f         = @fbsql_field_flags($this->_queryID, $fieldOffset);
 				$o->binary = (strpos($f, 'binary') !== false);
@@ -261,7 +263,6 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 					}
 
 					// so we have to check whether binary...
-
 					// Fall Through
 				case 'IMAGE':
 				case 'LONGBLOB':

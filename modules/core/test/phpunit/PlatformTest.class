@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -1151,6 +1152,7 @@ class PlatformTest extends GalleryTestCase {
 
 	public function testStrftime() {
 		$this->assertEquals('2005 03', $this->_platform->strftime('%Y %m', 1110101111));
+
 		// For windows we replace %e with %d and convert leading zeros to spaces
 		$this->assertEquals(' 6 11', $this->_platform->strftime('%e %S', 1110101111));
 

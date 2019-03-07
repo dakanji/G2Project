@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -140,7 +141,8 @@ class DatabaseExportTest extends GalleryTestCase {
 		$platform->setReply('fwrite', array('testHandle', $line, null), strlen($line) + 1);
 
 		$warnings = array();
-		$ret      = $this->_export->_exportPluginStatus('testHandle', 'module', $modules, $warnings);
+
+		$ret = $this->_export->_exportPluginStatus('testHandle', 'module', $modules, $warnings);
 
 		if ($ret) {
 			return $ret;
@@ -260,7 +262,8 @@ class DatabaseExportTest extends GalleryTestCase {
 		);
 
 		$warnings = array();
-		$ret      = $this->_export->_exportTable('testHandle', 'TestTable', $warnings);
+
+		$ret = $this->_export->_exportTable('testHandle', 'TestTable', $warnings);
 
 		if ($ret) {
 			return $ret;
@@ -294,7 +297,8 @@ class DatabaseExportTest extends GalleryTestCase {
 		);
 
 		$warnings = array();
-		$ret      = $this->_export->_exportTable('testHandle', 'TestTable2', $warnings);
+
+		$ret = $this->_export->_exportTable('testHandle', 'TestTable2', $warnings);
 
 		if ($ret) {
 			return $ret;
@@ -490,7 +494,8 @@ class DatabaseExportTest extends GalleryTestCase {
 		);
 
 		$warnings = array();
-		$ret      = $this->_export->_exportData('testHandle', 'TestTableMap', $warnings);
+
+		$ret = $this->_export->_exportData('testHandle', 'TestTableMap', $warnings);
 
 		if ($ret) {
 			return $ret;
@@ -554,7 +559,8 @@ class DatabaseExportTest extends GalleryTestCase {
 		);
 
 		$warnings = array();
-		$ret      = $this->_export->_exportData('testHandle', 'TestTable', $warnings);
+
+		$ret = $this->_export->_exportData('testHandle', 'TestTable', $warnings);
 
 		if ($ret) {
 			return $ret;

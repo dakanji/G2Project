@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
  */
-
 
 /**
  * Smarty {mailto} function plugin
@@ -86,7 +86,6 @@ function smarty_function_mailto($params, &$smarty) {
 			case 'extra':
 			case 'text':
 				$$var = $value;
-
 
 				// Fall Through
 			default:

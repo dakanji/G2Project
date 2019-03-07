@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -144,6 +145,7 @@ class GalleryModule extends GalleryPlugin {
 
 		if ($bootstrap) {
 			$gallery->debug('In bootstrap mode (core module)');
+
 			/*
 			 * If we're in bootstrap mode, then we may not even have a version table.  If we try
 			 * to query it, we will cause our current transaction to abort on some databases.
@@ -172,7 +174,8 @@ class GalleryModule extends GalleryPlugin {
 
 			// The store requires configuration.
 			$storage =& $gallery->getStorage();
-			$ret     = $storage->configureStore($this->getId());
+
+			$ret = $storage->configureStore($this->getId());
 
 			if ($ret) {
 				if ($gallery->getDebug()) {
@@ -375,7 +378,8 @@ class GalleryModule extends GalleryPlugin {
 
 		// Remove all tables
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->unconfigureStore($this->getId());
+
+		$ret = $storage->unconfigureStore($this->getId());
 
 		if ($ret) {
 			return $ret;

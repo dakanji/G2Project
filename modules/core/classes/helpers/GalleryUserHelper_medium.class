@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -49,6 +50,7 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 	WHERE
 	  [GalleryUser::userName] LIKE ?
 	    ';
+
 			$data[] = "%$substring%";
 		}
 
@@ -308,6 +310,7 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 
 		$albums   = array();
 		$albumIds = array();
+
 		// First delete all non AlbumItem items
 		foreach ($items as $item) {
 			// Do not delete albums
@@ -402,7 +405,8 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 
 		if ($event->getEventName() == 'Gallery::Login') {
 			$user = $event->getEntity();
-			$ret  = GalleryCoreApi::removeMapEntry(
+
+			$ret = GalleryCoreApi::removeMapEntry(
 				'FailedLoginsMap',
 				array('userName' => $user->getUserName())
 		);
@@ -412,7 +416,8 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 			}
 
 			$session =& $gallery->getSession();
-			$ret     = $session->regenerate();
+
+			$ret = $session->regenerate();
 
 			if ($ret) {
 				return array($ret, null);
@@ -459,7 +464,8 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 					}
 
 					$phpVm = $gallery->getPhpVm();
-					$ret   = GalleryCoreApi::addMapEntry(
+
+					$ret = GalleryCoreApi::addMapEntry(
 						'FailedLoginsMap',
 						array('userName' => $data['userName'],
 				  'count'                => $count,

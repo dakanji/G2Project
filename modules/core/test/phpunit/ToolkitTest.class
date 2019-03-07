@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -40,7 +41,8 @@ class ToolkitTest extends GalleryTestCase {
 
 		// Register a dummy toolkit
 		$path = 'modules/core/test/phpunit/ToolkitTest.class';
-		$ret  = GalleryCoreApi::registerFactoryImplementation(
+
+		$ret = GalleryCoreApi::registerFactoryImplementation(
 			'GalleryToolkit',
 			'TestToolkit',
 			'TestToolkit',
@@ -607,6 +609,7 @@ class ToolkitTest extends GalleryTestCase {
 			'rotate|90;
 crop|15,15,40,50'
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate|90;crop|35,15,50,40', $result, 'test 1');
 
@@ -622,6 +625,7 @@ crop|15,15,40,50'
 			'rotate|90;
 crop|15,15,40,50'
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate|90;crop|15,15,40,50', $result, 'test 3');
 
@@ -632,6 +636,7 @@ crop|15,15,40,50'
 crop|15,15,40,50',
 			true
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate|90;crop|15,45,50,40', $result, 'test 4');
 	}
@@ -663,6 +668,7 @@ crop|15,15,40,50',
 			'rotate|90;
 crop|15,20.5,40.62,50'
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate|90;crop|29.5,15,50,40.62', $result, 'test 1');
 

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -168,7 +169,8 @@ class RatingHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_session = null;
-		$ret               = $gallery->initSession();
+
+		$ret = $gallery->initSession();
 
 		if ($ret) {
 			return $ret;
@@ -336,7 +338,8 @@ class RatingHelperTest extends GalleryTestCase {
 		foreach ($testUserIds as $userId) {
 			if ($userId == $anonymousUserId) {
 				$gallery->_session = null;
-				$ret               = $gallery->initSession();
+
+				$ret = $gallery->initSession();
 
 				if ($ret) {
 					return $ret;
@@ -403,7 +406,8 @@ class RatingHelperTest extends GalleryTestCase {
 
 		// Fetch ratings as guest without a persistent session
 		$gallery->_session = null;
-		$ret               = $gallery->initSession();
+
+		$ret = $gallery->initSession();
 
 		if ($ret) {
 			return $ret;
@@ -433,7 +437,8 @@ class RatingHelperTest extends GalleryTestCase {
 
 		// Fetch as another guest with a persistent session that hasn't rated yet
 		$session = new GallerySession();
-		$ret     = $session->initEmpty(true, $anonymousUserId);
+
+		$ret = $session->initEmpty(true, $anonymousUserId);
 
 		if ($ret) {
 			return $ret;

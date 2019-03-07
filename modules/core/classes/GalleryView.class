@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -719,7 +720,6 @@ class GalleryView {
 					}
 
 					// If itemId is defined, handle the same way as SHOW_ITEM type
-
 					// Fall Through
 				case VIEW_TYPE_SHOW_ITEM:
 					list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();

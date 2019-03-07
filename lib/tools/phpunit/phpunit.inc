@@ -1,13 +1,10 @@
 <?php
-//
+
 // PHP framework for testing, based on the design of "JUnit".
-//
 // Written by Fred Yankowski <fred@ontosys.com>
 //            OntoSys, Inc  <http://www.OntoSys.com>
-//
 // $Id: phpunit.inc 20957 2009-12-16 04:57:07Z mindless $
 // Copyright (c) 2000 Fred Yankowski
-
 // Permission is hereby granted, free of charge, to any person
 // obtaining a copy of this software and associated documentation
 // files (the "Software"), to deal in the Software without
@@ -15,10 +12,8 @@
 // modify, merge, publish, distribute, sublicense, and/or sell copies
 // of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-//
 // The above copyright notice and this permission notice shall be
 // included in all copies or substantial portions of the Software.
-//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 // EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 // MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -27,8 +22,6 @@
 // ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-//
-
 if (version_compare(phpversion(), '5.3', '>=')) {
 	// Ignore these warnings for PHP 5.3 in Gallery 2.3
 	error_reporting(E_ALL & ~E_STRICT);
@@ -214,6 +207,7 @@ class Assert {
 
 			$serializedActual   = serialize($actual);
 			$serializedExpected = serialize($expected);
+
 			/*
 			 *			$message = sprintf(
 			 *				'%sEXPECTED: %s <br>ACTUAL: %s',
@@ -224,6 +218,7 @@ class Assert {
 			 */
 			if ($serializedActual !== $serializedExpected) {
 				return $this->failNotEquals($expected, $actual, $message);
+
 				//return $this->fail($message);
 			}
 		} elseif (is_numeric($actual) && is_numeric($expected)) {
@@ -279,6 +274,7 @@ class Assert {
 
 			$serializedActual   = serialize($actual);
 			$serializedExpected = serialize($expected);
+
 			/*
 			 *			$message = sprintf(
 			 *				'%sEXPECTED: %s <br>ACTUAL: %s',
@@ -289,6 +285,7 @@ class Assert {
 			 */
 			if ($serializedActual == $serializedExpected) {
 				return $this->failNotEquals($expected, $actual, $message);
+
 				//return $this->fail($message);
 			}
 		} elseif (is_numeric($actual) && is_numeric($expected)) {
@@ -552,6 +549,7 @@ class Assert {
 	public function failNotEquals($expected, $actual, $message = null) {
 		// Private function for reporting failure to match.
 		$str = $message ? ($message . ' <br>') : '';
+
 		//$str .= "($expected_label/actual)<br>";
 		$str .= sprintf(
 			'EXPECTED:<br>%s<br><br>ACTUAL:<br>%s',
@@ -586,10 +584,12 @@ class Assert_X {
 
 		if ($condition === 'true') {
 			$message = sprintf('%sexpected TRUE, actual FALSE', $string);
-			$ret     = $this->_assertHelperTrue($condition, $message);
+
+			$ret = $this->_assertHelperTrue($condition, $message);
 		} elseif ($condition === 'false') {
 			$message = sprintf('%sexpected FALSE, actual TRUE', $string);
-			$ret     = $this->_assertHelperFalse($condition, $message);
+
+			$ret = $this->_assertHelperFalse($condition, $message);
 		}
 
 		if ($ret != 'null') {
@@ -758,6 +758,7 @@ class Assert_X {
 	public function failNotEquals($expected, $actual, $expected_label, $message = 0) {
 		// Private function for reporting failure to match.
 		$str = $message ? ($message . ' <br>') : '';
+
 		//$str .= "($expected_label/actual)<br>";
 		$str .= sprintf(
 			'%s<br>%s',
@@ -829,6 +830,7 @@ class TestCase extends Assert {
 		$GLOBALS['PHPUnit_testRunning'] =& $this;
 
 		$old_handler = set_error_handler('PHPUnit_error_handler');
+
 		// errors will now be handled by our error handler
 		$name = $this->name();
 
@@ -862,8 +864,10 @@ class TestCase extends Assert {
 			// Call set/restore just to see what the current error handler is:
 			$old_handler = set_error_handler('PHPUnit_error_handler');
 			restore_error_handler();
+
 			// Remove current error handler:
 			restore_error_handler();
+
 			// If we just removed PHPUnit_error_handler then previous state is restored.
 			// If all error handlers are gone then test must have called restore_error_handler
 			// (preferably they don't do that).
@@ -906,7 +910,6 @@ class TestCase extends Assert {
 
 	public function fail($message = 0) {
 		//printf("TestCase::fail(%s)<br>\n", ($message) ? $message : '');
-
 		/* JUnit throws AssertionFailedError here.  We just record the
 		failure and carry on */
 		$this->fExceptions[] = new PHPUnitException($message, 'FAILURE');
@@ -971,7 +974,8 @@ class TestCase extends Assert {
 		global $gallery;
 
 		$this->fTiming['start'] = microtime();
-		$ret                    = $this->setUp();
+
+		$ret = $this->setUp();
 
 		if ($ret) {
 			$this->fail($ret->getAsHtml() . $gallery->getDebugBuffer());
@@ -1129,7 +1133,6 @@ class TestResult {
 
 	public function _endTest(&$test) {
 		// protected
-
 		/* specialize this for end-of-test action, such as progress
 		reports  */
 	}
@@ -1306,6 +1309,7 @@ class PrettyTestResult extends TestResult {
 
 	public function report() {
 		echo '</TABLE>';
+
 		// report result of test run
 		$nRun      = $this->countTests();
 		$nFailures = $this->countFailures();

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -49,7 +50,9 @@ class AdminEditGroupController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$results = $status           = $error           = array();
+		$results = array();
+		$status  = array();
+		$error   = array();
 		$groupId = (int)GalleryUtilities::getRequestVariables('groupId');
 
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');

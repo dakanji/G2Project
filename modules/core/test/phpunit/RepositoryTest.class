@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -49,6 +50,7 @@ class RepositoryTest extends GalleryTestCase {
 
 		// Prepare test index.
 		include __DIR__ . '/../../../../lib/tools/repository/test/data/SampleIndex.inc';
+
 		$this->_sampleIndex      = $sampleIndex;
 		$this->_index            = new GalleryRepositoryIndex('test');
 		$this->_index->_index    = $this->_sampleIndex;
@@ -1056,6 +1058,7 @@ class RepositoryTest extends GalleryTestCase {
 								'relation'     => 'equal',
 								'locked'       => 1,
 							),
+
 							/**
 							 * this language is not considered "locked"
 							 * because it does not exist in the original install
@@ -1223,8 +1226,10 @@ class RepositoryTest extends GalleryTestCase {
 							),
 						),
 					),
+
 					// This better be incompatible!
 					'requiredModuleApi'   => array(9999, 9999),
+
 					// the module is incompatible, but the theme is ok
 					'expectedPackages'    => array(
 						'theme' => array(
@@ -1400,6 +1405,7 @@ class RepositoryTest extends GalleryTestCase {
 
 		$testCases = array(
 			array(
+
 				// Simulate a newer repository core version than the one currently installed.
 				'repositoryCoreVersion' => $this->calculateVersion(
 					$installedCoreVersion,
@@ -1414,6 +1420,7 @@ class RepositoryTest extends GalleryTestCase {
 				),
 			),
 			array(
+
 				// Simulate an older repository core version than the one currently installed.
 				'repositoryCoreVersion' => $this->calculateVersion(
 					$installedCoreVersion,
@@ -1424,6 +1431,7 @@ class RepositoryTest extends GalleryTestCase {
 				'expectedApiVersions'   => array(),
 			),
 			array(
+
 				// Simulate an identical repository core version as the one currently installed.
 				'repositoryCoreVersion' => $installedCoreVersion,
 				'expectedRelation'      => 'equal',
@@ -1992,6 +2000,7 @@ class RepositoryTest extends GalleryTestCase {
 		// Test recursive repository cache directory creation.
 		$platform->setReply('file_exists', array('/cache/'), false);
 		$platform->setReply('file_exists', array('/cache/'), false);
+
 		// dirname('/cache/') returns \ on Windows.
 		$platform->setReply('file_exists', array($slash), true);
 		$platform->setReply('is_dir', array($slash), true);

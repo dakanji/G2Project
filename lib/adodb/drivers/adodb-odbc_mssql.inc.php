@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -50,6 +51,7 @@ class ADODB_odbc_mssql extends ADODB_odbc {
 	// concatenating a null value with a string yields a NULL result
 	public function __construct() {
 		parent::__construct();
+
 		//$this->curmode = SQL_CUR_USE_ODBC;
 	}
 
@@ -188,8 +190,11 @@ order by constraint_name, referenced_table_name, keyno";
 			$fld->name = $rs->fields[0];
 			$fld->type = $rs->fields[1];
 
-			$fld->not_null       = (!$rs->fields[3]);
-			$fld->auto_increment = ($rs->fields[4] == 128);     // sys.syscolumns status field. 0x80 = 128 ref: http://msdn.microsoft.com/en-us/library/ms186816.aspx
+			$fld->not_null = (!$rs->fields[3]);
+
+			// sys.syscolumns status field. 0x80 = 128 ref: http://msdn.microsoft.com/en-us/library/ms186816.aspx
+			$fld->auto_increment = ($rs->fields[4] == 128);
+
 			if (isset($rs->fields[5]) && $rs->fields[5]) {
 				if ($rs->fields[5] > 0) {
 					$fld->max_length = $rs->fields[5];
@@ -296,6 +301,7 @@ order by constraint_name, referenced_table_name, keyno";
 
 		$schema = '';
 		$this->_findschema($table, $schema);
+
 		//if (!$schema) $schema = $this->database;
 		if ($schema) {
 			$schema = "and k.table_catalog like '$schema%'";

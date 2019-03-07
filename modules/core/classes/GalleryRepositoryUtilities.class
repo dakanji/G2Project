@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -319,6 +320,7 @@ class GalleryRepositoryUtilities {
 	public function getProvidedApis($pluginType, $providedApis = null) {
 		if (empty($providedApis)) {
 			$providedCoreApi = GalleryCoreApi::getApiVersion();
+
 			/*
 			 * GalleryModule will be loaded, but GalleryTheme may not be, yet because this
 			 * is typically called from controller code.
@@ -836,6 +838,7 @@ class GalleryRepositoryUtilities {
 	 */
 	public function unpackPackage($packageFile, $outputDirecory) {
 		include $packageFile;
+
 		call_user_func($unpackFunction, $outputDirecory);
 	}
 

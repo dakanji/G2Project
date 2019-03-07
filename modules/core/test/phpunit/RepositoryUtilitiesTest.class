@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -326,6 +327,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 		$testCases = array(
 			array(
+
 				// Cases with provided APIs from current Gallery install.
 				'requiredCoreApi'   => $coreApi,
 				'requiredPluginApi' => $moduleApi,
@@ -443,6 +445,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 		$testCases = array(
 			array(
+
 				// Cases with provided APIs from current Gallery install.
 				'pluginType'        => 'module',
 				'providedApis'      => null,
@@ -720,7 +723,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$this->_testStorage->setSearchResults(array());
 
 		$utilities = new GalleryRepositoryUtilities();
-		$ret       = $utilities->updatePackageMetaData(
+
+		$ret = $utilities->updatePackageMetaData(
 			'module',
 			'testModule',
 			'package',
@@ -769,7 +773,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$this->_testStorage->setSearchResults(array('someResults'));
 
 		$utilities = new GalleryRepositoryUtilities();
-		$ret       = $utilities->updatePackageMetaData(
+
+		$ret = $utilities->updatePackageMetaData(
 			'module',
 			'testModule',
 			'package',
@@ -1025,6 +1030,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		);
 
 		$platform = new UnitTestPlatform();
+
 		// moduleFile1
 		$platform->setReply(
 			'file_get_contents',
@@ -1047,7 +1053,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$gallery->setPlatform($platform);
 
 		$utilties = new GalleryRepositoryUtilities();
-		$ret      = $utilties->verifyPackageIntegrity(
+
+		$ret = $utilties->verifyPackageIntegrity(
 			'module',
 			'testModule',
 			'package1',
@@ -1328,6 +1335,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 		foreach ($files as $file => $data) {
 			$encodedFile = urlencode($file);
+
 			// Request data to remote Server
 			$requestData .= sprintf('%sfiles%%5B%d%%5D=%s', $seperator, $counter++, $encodedFile);
 			$seperator    = '&';

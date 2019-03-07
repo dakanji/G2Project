@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -186,8 +187,10 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 	public function testMoveUpSummary() {
 		// The first summary entry, can not be moved up.
 		GalleryUtilities::putRequestVariable('form[summary][0]', 'Make');
+
 		// A summary entry from the middle.
 		GalleryUtilities::putRequestVariable('form[summary][1]', 'ISO');
+
 		// The last summary entry.
 		GalleryUtilities::putRequestVariable('form[summary][2]', 'IPTC/CopyrightNotice');
 		GalleryUtilities::putRequestVariable('form[action][moveUpSummary]', 1);
@@ -218,8 +221,10 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 		// check for the first entry to be still the first entry.
 		$this->assertEquals('Make', $properties[0], 'first entry moved up/disappeared???');
+
 		// ISO should have been moved up.
 		$this->assertEquals('ISO', $properties[7], 'middle entry did not move up???');
+
 		// The previous next to last item shall be our last item now.
 		$this->assertEquals('IPTC/Caption', $properties[count($properties) - 1]);
 	}
@@ -244,8 +249,10 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 	public function testMoveDownSummary() {
 		// The first summary entry.
 		GalleryUtilities::putRequestVariable('form[summary][0]', 'Make');
+
 		// A summary entry from the middle.
 		GalleryUtilities::putRequestVariable('form[summary][1]', 'ISO');
+
 		// The last summary entry, cannot be moved down.
 		GalleryUtilities::putRequestVariable('form[summary][2]', 'IPTC/CopyrightNotice');
 		GalleryUtilities::putRequestVariable('form[action][moveDownSummary]', 1);
@@ -276,10 +283,13 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 		// Count summary entries, must be equal to before the move, one has to adapt.
 		$this->assertEquals(14, count($properties));
+
 		// Must have been moved down.
 		$this->assertEquals('Make', $properties[1]);
+
 		// Ditto.
 		$this->assertEquals('ISO', $properties[9]);
+
 		// Last entry must be the same.
 		$this->assertEquals('IPTC/CopyrightNotice', $properties[count($properties) - 1]);
 	}
@@ -434,9 +444,11 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 	public function testMoveUpDetailed() {
 		// The very first entry, which can't be moved up.
 		GalleryUtilities::putRequestVariable('form[detailed][0]', 'Make');
+
 		// Entries from the middle.
 		GalleryUtilities::putRequestVariable('form[detailed][1]', 'ISO');
 		GalleryUtilities::putRequestVariable('form[detailed][2]', 'IPTC/CopyrightNotice');
+
 		// The very last entry.
 		GalleryUtilities::putRequestVariable('form[detailed][3]', 'SubjectDistance');
 		GalleryUtilities::putRequestVariable('form[action][moveUpDetailed]', 1);
@@ -500,9 +512,11 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 	public function testMoveDownDetailed() {
 		// The very first entry.
 		GalleryUtilities::putRequestVariable('form[detailed][0]', 'Make');
+
 		// Entries from the middle.
 		GalleryUtilities::putRequestVariable('form[detailed][1]', 'ISO');
 		GalleryUtilities::putRequestVariable('form[detailed][2]', 'IPTC/CopyrightNotice');
+
 		// The very last entry, which can't be moved down.
 		GalleryUtilities::putRequestVariable('form[detailed][3]', 'SubjectDistance');
 		GalleryUtilities::putRequestVariable('form[action][moveDownDetailed]', 1);

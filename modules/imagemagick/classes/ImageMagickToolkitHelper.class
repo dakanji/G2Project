@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -44,7 +45,6 @@ class ImageMagickToolkitHelper {
 		}
 
 		// -------------------- Operations --------------------
-
 		/*
 		 * Provide some mime type conversions.  G2 will use convert-to-image/jpeg for
 		 * types that are not viewable inline (TIFF, SVG, PDF, etc)..

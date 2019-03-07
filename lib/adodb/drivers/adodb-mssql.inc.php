@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -26,7 +27,6 @@ if (!defined('ADODB_DIR')) {
 // month strings depends on what language has been configured. The
 // following two variables allow you to control the localization
 // settings - Ugh.
-//
 // MORE LOCALIZATION INFO
 // ----------------------
 // To configure datetime, look for and modify sqlcommn.loc,
@@ -1407,7 +1407,6 @@ class ADORecordSet_array_mssql extends ADORecordSet_array {
 
 /*
 Code Example 1:
-
 select 	object_name(constid) as constraint_name,
 		   object_name(fkeyid) as table_name,
 		col_name(fkeyid, fkey) as column_name,

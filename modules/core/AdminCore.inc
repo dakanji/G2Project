@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -210,6 +211,7 @@ class AdminCoreController extends GalleryController {
 			$platform = $gallery->getPlatform();
 			$gallery->startRecordingDebugSnippet();
 			ob_start();
+
 			$ret = $platform->sendEmail(
 				'modules/core/templates/EmailTest.tpl',
 				array(),

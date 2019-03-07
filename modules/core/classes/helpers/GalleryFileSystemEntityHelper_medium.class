@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -47,6 +48,7 @@ class GalleryFileSystemEntityHelper_medium {
 	  AND
 	    [GalleryChildEntity::id] = [GalleryFileSystemEntity::id]
 	';
+
 		// The check is case-insensitive since it should be DBMS / FS independent.
 		$data = array((int)$parentId, GalleryUtilities::strToUpper($pathComponent));
 
@@ -54,6 +56,7 @@ class GalleryFileSystemEntityHelper_medium {
 			$query .= '
 	      AND [GalleryChildEntity::id] <> ?
 	    ';
+
 			$data[] = (int)$selfId;
 		}
 

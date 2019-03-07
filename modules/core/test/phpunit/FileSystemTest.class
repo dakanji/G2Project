@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -197,7 +198,8 @@ class FileSystemTest extends GalleryTestCase {
 
 		for ($i = 0; $i < 3; $i++) {
 			$entity[$i] = new GalleryFileSystemEntity();
-			$ret        = $entity[$i]->create($this->_albums[0]->getId(), 'valid_path.jpg');
+
+			$ret = $entity[$i]->create($this->_albums[0]->getId(), 'valid_path.jpg');
 
 			if ($ret) {
 				return $ret;
@@ -285,6 +287,7 @@ class FileSystemTest extends GalleryTestCase {
 
 		// Use a windows alike mock platfrom
 		$originalPlatform =& $gallery->getPlatform();
+
 		// Acquire the write locks
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(
 			array(
@@ -313,6 +316,7 @@ class FileSystemTest extends GalleryTestCase {
 		// Now change the mock platform to a unix like system
 		$FileSystemTestPlatformForRename = new FileSystemTestPlatformForRename('/');
 		$gallery->setPlatform($FileSystemTestPlatformForRename);
+
 		// And move again album 1 (back, but all virtual move command), success expected
 		$ret = $this->_albums[2]->move($this->_albums[1]->getId());
 

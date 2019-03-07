@@ -25,7 +25,6 @@ $ADODB_INCLUDED_CSV = 1;
   Format documented at http://php.weblogs.com/ADODB_CSV ==============
 */
 
-
 	/**
 	 * convert a recordset into special format
 	 *
@@ -157,7 +156,6 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 			// Under high volume loads, we want only 1 thread/process to _write_file
 			// so that we don't have 50 processes queueing to write the same data.
 			// We use probabilistic timeout, ahead of time.
-			//
 			// -4 sec before timeout, give processes 1/32 chance of timing out
 			// -2 sec before timeout, give processes 1/16 chance of timing out
 			// -1 sec after timeout give processes 1/4 chance of timing out
@@ -231,6 +229,7 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 					$rs->timeCreated = $ttl;
 				} else {
 					$err = 'Unable to unserialize recordset';
+
 					//echo htmlspecialchars($text),' !--END--!<p>';
 				}
 
@@ -285,6 +284,7 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 
 	fclose($fp);
 	@$arr = unserialize($text);
+
 	//var_dump($arr);
 	if (!is_array($arr)) {
 		$err = 'Recordset had unexpected EOF (in serialized recordset)';
@@ -322,6 +322,7 @@ function adodb_write_file($filename, $contents, $debug = false) {
 	if (strncmp(PHP_OS, 'WIN', 3) === 0) {
 		// skip the decimal place
 		$mtime = substr(str_replace(' ', '_', microtime()), 2);
+
 		// getmypid() actually returns 0 on Win98 - never mind!
 		$tmpname = $filename . uniqid($mtime) . getmypid();
 
@@ -339,6 +340,7 @@ function adodb_write_file($filename, $contents, $debug = false) {
 
 		if ($ok) {
 			@chmod($tmpname, 0644);
+
 			// the tricky moment
 			@unlink($filename);
 

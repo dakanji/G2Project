@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -49,6 +50,7 @@ class ItemAddSiteAdminController extends GalleryController {
 		if (isset($form['action']['addUploadLocalServerDir'])) {
 			$path = $form['uploadLocalServer']['newDir'];
 			GalleryUtilities::unsanitizeInputValues($path, false);
+
 			// $path is UTF-8, $realPath is in the system charset for filesystem interactions
 			$realPath = GalleryCoreApi::convertFromUtf8($path);
 

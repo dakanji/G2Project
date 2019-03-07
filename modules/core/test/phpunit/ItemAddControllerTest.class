@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -1002,6 +1003,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddWebDav');
 
 		ob_start();
+
 		// Do a static call, that's how WebDAV invokes / invoked the controller.
 		list($ret, $results) = ItemAddController::getMe()->handleRequest(array());
 

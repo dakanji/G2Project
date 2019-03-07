@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -50,7 +51,8 @@ class NewItemsSiteAdminController extends GalleryController {
 			if (empty($error)) {
 				foreach (array('days.new', 'days.updated') as $key) {
 					$keys = explode('.', $key);
-					$ret  = GalleryCoreApi::setPluginParameter(
+
+					$ret = GalleryCoreApi::setPluginParameter(
 						'module',
 						'newitems',
 						$key,

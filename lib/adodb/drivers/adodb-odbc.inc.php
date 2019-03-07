@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -192,6 +193,7 @@ class ADODB_odbc extends ADOConnection {
 		// if you have to modify the parameter below, your database is overloaded,
 		// or you need to implement generation of id's yourself!
 		$MAXLOOPS = 100;
+
 		//$this->debug=1;
 		while (--$MAXLOOPS >= 0) {
 			$num = $this->GetOne("select id from $seq");
@@ -303,7 +305,8 @@ class ADODB_odbc extends ADOConnection {
 		}
 
 		$this->_autocommit = true;
-		$ret               = odbc_commit($this->_connectionID);
+
+		$ret = odbc_commit($this->_connectionID);
 
 		odbc_autocommit($this->_connectionID, true);
 
@@ -320,7 +323,8 @@ class ADODB_odbc extends ADOConnection {
 		}
 
 		$this->_autocommit = true;
-		$ret               = odbc_rollback($this->_connectionID);
+
+		$ret = odbc_rollback($this->_connectionID);
 
 		odbc_autocommit($this->_connectionID, true);
 
@@ -358,6 +362,7 @@ class ADODB_odbc extends ADOConnection {
 
 		$arr = $rs->GetArray();
 		$rs->Close();
+
 		//print_r($arr);
 		$arr2 = array();
 
@@ -390,6 +395,7 @@ class ADODB_odbc extends ADOConnection {
 		$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
 
 		$arr = $rs->GetArray();
+
 		//print_r($arr);
 		$rs->Close();
 		$arr2 = array();
@@ -758,6 +764,7 @@ class ADORecordSet_odbc extends ADORecordSet {
 		// the following is required for mysql odbc driver in 4.3.1 -- why?
 		$this->EOF         = false;
 		$this->_currentRow = -1;
+
 		//parent::__construct($id);
 	}
 
@@ -801,6 +808,7 @@ class ADORecordSet_odbc extends ADORecordSet {
 
 		$this->_numOfRows   = ($ADODB_COUNTRECS) ? @odbc_num_rows($this->_queryID) : -1;
 		$this->_numOfFields = @odbc_num_fields($this->_queryID);
+
 		// some silly drivers such as db2 as/400 and intersystems cache return _numOfRows = 0
 		if ($this->_numOfRows == 0) {
 			$this->_numOfRows = -1;

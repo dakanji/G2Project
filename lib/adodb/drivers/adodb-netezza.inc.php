@@ -1,4 +1,5 @@
 <?php
+
 /*
   @version   v5.20.12  30-Mar-2018
   @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -39,6 +40,7 @@ class ADODB_netezza extends ADODB_postgres64 {
 	public $blobEncodeType   = 'C';
 	public $metaColumnsSQL   = "SELECT attname, atttype FROM _v_relation_column_def WHERE name = '%s' AND attnum > 0 ORDER BY attnum";
 	public $metaColumnsSQL1  = "SELECT attname, atttype FROM _v_relation_column_def WHERE name = '%s' AND attnum > 0 ORDER BY attnum";
+
 	// netezza doesn't have keys. it does have distributions, so maybe this is
 	// something that can be pulled from the system tables
 	public $metaKeySQL      = '';

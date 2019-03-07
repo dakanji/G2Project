@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -267,7 +268,8 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 	public function _registerRotateToolkit() {
 		// Register a dummy toolkit
 		$path = 'modules/exif/test/phpunit/ExifDescriptionOptionTest.class';
-		$ret  = GalleryCoreApi::registerFactoryImplementation(
+
+		$ret = GalleryCoreApi::registerFactoryImplementation(
 			'GalleryToolkit',
 			'ExifDescriptionOptionTestToolkit',
 			'ExifDescriptionOptionTestToolkit',
@@ -609,6 +611,7 @@ class ExifDescriptionOptionTestToolkit extends GalleryToolkit {
 		$fd = $platform->fopen($destFilename, 'a');
 		$platform->fwrite($fd, $operationName);
 		$platform->fclose($fd);
+
 		// Clear cache to ensure new filesize will be seen
 		$platform->clearstatcache();
 

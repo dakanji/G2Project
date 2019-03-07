@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -177,7 +178,8 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 		$outputDir .= sprintf('%ss', $pluginType);
 
 		$descriptor = new RepositoryDescriptor();
-		$ret        = $descriptor->init($outputDir);
+
+		$ret = $descriptor->init($outputDir);
 
 		if ($ret) {
 			return array($ret, null);
@@ -205,7 +207,8 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 			}
 
 			$package = new RepositoryPackage();
-			$ret     = $package->init($descriptor, $descriptor->getOutputDir());
+
+			$ret = $package->init($descriptor, $descriptor->getOutputDir());
 
 			if ($ret) {
 				return array($ret, null);

@@ -1,4 +1,5 @@
 <?php
+
 /*
  @version   v5.20.12  30-Mar-2018
  @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -135,7 +136,6 @@ class ADODB_postgres7 extends ADODB_postgres64 {
 
 	*/
 
-
 	/**
 	 * Generate the SQL to retrieve MetaColumns data
 	 * @param string $table Table name
@@ -249,6 +249,7 @@ class ADODB_postgres7 extends ADODB_postgres64 {
 
 		$this->_pnum     = 0;
 		$this->_errorMsg = false;
+
 		// -- added Cristiano da Cunha Duarte
 		if ($inputarr) {
 			$sqlarr = explode('?', trim($sql));

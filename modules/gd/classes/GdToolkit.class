@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -87,6 +88,7 @@ class GdToolkit extends GalleryToolkit {
 	public function _hasImageCreateTrueColor() {
 		if (!isset($this->_hasImageCreateTrueColor)) {
 			$gd =& $this->_getGdFunctionality();
+
 			// Remember the info for later calls
 			list($ret, $this->_hasImageCreateTrueColor) = GdToolkitHelper::hasImageCreateTrueColor($gd);
 
@@ -190,6 +192,7 @@ class GdToolkit extends GalleryToolkit {
 			case 'scale':
 				// $parameters[0]: target width, [1]: optional target height
 				$targetHeight = empty($parameters[1]) ? $parameters[0] : $parameters[1];
+
 				// Don't enlarge images for a thumbnail
 				if ($operationName == 'thumbnail'
 					&& $width <= $parameters[0] && $height <= $targetHeight
@@ -454,6 +457,7 @@ class GdToolkit extends GalleryToolkit {
 				}
 
 				$destRes = $sourceRes;
+
 				// Don't use imageCopyMerge here, as it will lose alpha-transparency
 				$ret = $gd->imageCopy(
 					$destRes,
@@ -671,6 +675,7 @@ class GdToolkit extends GalleryToolkit {
 
 			$tmpDir  = $gallery->getConfig('data.gallery.tmp');
 			$tmpFile = $gd->tempnam($tmpDir, 'gd');
+
 			// Create a temporary jpeg file ...
 			list($ret, $tmpRes) = $gd->imageCreate($width, $height);
 
@@ -700,6 +705,7 @@ class GdToolkit extends GalleryToolkit {
 
 		if ($prepareAlpha) {
 			$this->_prepareResourceForAlphaChannel($res);
+
 			// Ignore errors
 		}
 
@@ -816,7 +822,8 @@ class GdToolkit extends GalleryToolkit {
 		}
 
 		$result = false;
-		$ret    = $this->_imageCopyResampled(
+
+		$ret = $this->_imageCopyResampled(
 			$destRes,
 			$sourceRes,
 			0,
@@ -1037,6 +1044,7 @@ class GdToolkit extends GalleryToolkit {
 		if ($this->_canHaveTransparency($outputMimeType)) {
 			// The output can only have a single transparency color.
 			$transparentColor = $gd->imagecolortransparent($res);
+
 			// No operation if the transparent color is already defined
 			if ($transparentColor == -1) {
 				// No transparency color defined
@@ -1063,6 +1071,7 @@ class GdToolkit extends GalleryToolkit {
 				for ($x = 0; $x < $width; $x++) {
 					for ($y = 0; $y < $height; $y++) {
 						$pixelColor = $gd->imagecolorsforindex($res, $gd->imagecolorat($res, $x, $y));
+
 						// The alpha channel has a max value of 127
 						$gd->imagesetpixel(
 							$alphaMixdownDitherImage,
@@ -1138,6 +1147,7 @@ class GdToolkit extends GalleryToolkit {
 
 			$gd->imagealphablending($res, true);
 			$gd->imagesavealpha($res, false);
+
 			// Ignore errors
 			$gd->imagecolortransparent($res, -1);
 

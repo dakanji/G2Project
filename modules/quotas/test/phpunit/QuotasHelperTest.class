@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -85,7 +86,8 @@ class QuotasHelperTest extends GalleryTestCase {
 
 			if ($hasQuota) {
 				$this->_saveQuota[$groupId] = $quota;
-				$ret                        = GalleryCoreApi::removeMapEntry(
+
+				$ret = GalleryCoreApi::removeMapEntry(
 					'QuotasMap',
 					array(
 						'userOrGroupId' => $groupId,
@@ -425,6 +427,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($groupCount == count($groupIdList), 'Group count is incorrect');
+
 		// add a quota of 105 KB to this group
 		$this->_addMapEntry(
 			array(
@@ -502,6 +505,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($userCount == count($userIdList), 'User count is incorrect');
+
 		// add a quota of 467 KB to this user
 		$this->_addMapEntry(
 			array(
@@ -657,7 +661,8 @@ class QuotasHelperTest extends GalleryTestCase {
 
 		// Execute the method under test
 		$callback = new QuotasCallbacks();
-		$ret      = $callback->callback(array(), $smarty, 'LoadQuotas', $this->_user->getId());
+
+		$ret = $callback->callback(array(), $smarty, 'LoadQuotas', $this->_user->getId());
 
 		if ($ret) {
 			return $ret;
@@ -701,7 +706,8 @@ class QuotasHelperTest extends GalleryTestCase {
 
 		// Check users quota Callback, he has 3 items
 		$callback = new QuotasCallbacks();
-		$ret      = $callback->callback(array(), $smarty, 'LoadQuotas', $this->_user->getId());
+
+		$ret = $callback->callback(array(), $smarty, 'LoadQuotas', $this->_user->getId());
 
 		if ($ret) {
 			return $ret;
@@ -772,7 +778,8 @@ class QuotasHelperTest extends GalleryTestCase {
 
 		// Check users quota Callback, he is in a group that has a quota
 		$callback = new QuotasCallbacks();
-		$ret      = $callback->callback(array(), $smarty, 'LoadQuotas', $this->_user->getId());
+
+		$ret = $callback->callback(array(), $smarty, 'LoadQuotas', $this->_user->getId());
 
 		if ($ret) {
 			return $ret;
@@ -834,7 +841,8 @@ class QuotasHelperTest extends GalleryTestCase {
 
 		// Check users quota again, now that she has a user quota of 401KB
 		$callback = new QuotasCallbacks();
-		$ret      = $callback->callback(array(), $smarty, 'LoadQuotas', $this->_user->getId());
+
+		$ret = $callback->callback(array(), $smarty, 'LoadQuotas', $this->_user->getId());
 
 		if ($ret) {
 			return $ret;

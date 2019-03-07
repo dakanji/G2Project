@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -588,6 +589,7 @@ class GalleryDataCache {
 			}
 
 			array_unshift($permissions, array());
+
 			// Trim down the cache
 			$max = 6;
 
@@ -608,6 +610,7 @@ class GalleryDataCache {
 
 		// Make sure the session permission cache is not too large
 		$maxEntries = 40;
+
 		// Add our new data to the head of the list
 		while (($id = array_shift($ids)) && $maxEntries > $newEntries++) {
 			$permissions[0][$permission][$id] = 1;
@@ -637,6 +640,7 @@ class GalleryDataCache {
 		}
 
 		$permissions = $session->get('permissionCache');
+
 		/*
 		 * Since we add all new data to the head of the list, the odds are good
 		 * that we should find our answer in the first iteration of this loop.
@@ -708,6 +712,7 @@ class GalleryDataCache {
 
 		$key    = md5(serialize($keyData) . '|' . $extraKey . '|' . implode(',', $aclIds));
 		$userId = $gallery->getActiveUserId();
+
 		/*
 		 * Note: there is no complete index for this WHERE clause because the MySQL query optimizer
 		 * would still use the PK for this query. This should not lead to a performance decrease as

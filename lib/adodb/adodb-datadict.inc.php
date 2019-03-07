@@ -37,7 +37,6 @@ if (!function_exists('ctype_alnum')) {
 }
 
 //Lens_ParseTest();
-
 /**
  * Parse arguments, treat "text" (text) and 'text' as quotation marks.
  * To escape, use "" or '' or ))
@@ -86,7 +85,6 @@ function Lens_ParseArgs($args, $endstmtchar = ',', $tokenchars = '_.-') {
 				if ($intoken) {
 					$tokarr[] = $ch;
 				}
-
 
 				// Fall Through
 			case '(':
@@ -187,21 +185,25 @@ function Lens_ParseArgs($args, $endstmtchar = ',', $tokenchars = '_.-') {
 
 class ADODB_DataDict {
 	public $connection;
-	public $debug             = false;
-	public $dropTable         = 'DROP TABLE %s';
-	public $renameTable       = 'RENAME TABLE %s TO %s';
-	public $dropIndex         = 'DROP INDEX %s';
-	public $addCol            = ' ADD';
-	public $alterCol          = ' ALTER COLUMN';
-	public $dropCol           = ' DROP COLUMN';
-	public $renameColumn      = 'ALTER TABLE %s RENAME COLUMN %s TO %s';    // table, old-column, new-column, column-definitions (not used by default)
+	public $debug       = false;
+	public $dropTable   = 'DROP TABLE %s';
+	public $renameTable = 'RENAME TABLE %s TO %s';
+	public $dropIndex   = 'DROP INDEX %s';
+	public $addCol      = ' ADD';
+	public $alterCol    = ' ALTER COLUMN';
+	public $dropCol     = ' DROP COLUMN';
+
+	// table, old-column, new-column, column-definitions (not used by default)
+	public $renameColumn      = 'ALTER TABLE %s RENAME COLUMN %s TO %s';
 	public $nameRegex         = '\w';
 	public $nameRegexBrackets = 'a-zA-Z0-9_\(\)';
 	public $schema            = false;
 	public $serverInfo        = array();
 	public $autoIncrement     = false;
 	public $dataProvider;
-	public $invalidResizeTypes4 = array('CLOB', 'BLOB', 'TEXT', 'DATE', 'TIME'); // for changetablesql
+
+	// for changetablesql
+	public $invalidResizeTypes4 = array('CLOB', 'BLOB', 'TEXT', 'DATE', 'TIME');
 	public $blobSize            = 100;
 
 	/// any varchar/char field this size or greater is treated as a blob
@@ -261,7 +263,6 @@ class ADODB_DataDict {
 			'INTERVAL'                    => 'C',  // Postgres
 			'MACADDR'                     => 'C', // postgres
 			'VAR_STRING'                  => 'C', // mysql
-			//
 			'LONGCHAR'                    => 'X',
 			'TEXT'                        => 'X',
 			'NTEXT'                       => 'X',
@@ -283,7 +284,6 @@ class ADODB_DataDict {
 			'D'                           => 'D',
 
 			'UNIQUEIDENTIFIER'            => 'C', // MS SQL Server
-			//
 			'TIME'                        => 'T',
 			'TIMESTAMP'                   => 'T',
 			'DATETIME'                    => 'T',
@@ -291,7 +291,6 @@ class ADODB_DataDict {
 			'SMALLDATETIME'               => 'T',
 			'T'                           => 'T',
 			'TIMESTAMP WITHOUT TIME ZONE' => 'T', // postgresql
-			//
 			'BOOL'                        => 'L',
 			'BOOLEAN'                     => 'L',
 			'BIT'                         => 'L',
@@ -342,6 +341,7 @@ class ADODB_DataDict {
 			'SQLINTERVAL'                 => 'N',
 			'SQLBYTES'                    => 'B',
 			'SQLTEXT'                     => 'X',
+
 			// informix 10
 			'SQLINT8'                     => 'I8',
 			'SQLSERIAL8'                  => 'I8',
@@ -692,6 +692,7 @@ class ADODB_DataDict {
 				// 'index' token without a name means single column index: name it after column
 				if (array_key_exists('INDEX', $f1) && $f1['INDEX'] == '') {
 					$f1['INDEX'] = isset($f0['NAME']) ? $f0['NAME'] : $f0[0];
+
 					// check if column name used to create an index name was quoted
 					if (($f1['INDEX'][0] == '"' || $f1['INDEX'][0] == "'" || $f1['INDEX'][0] == '`')
 						&& ($f1['INDEX'][0] == substr($f1['INDEX'], -1))
@@ -789,6 +790,7 @@ class ADODB_DataDict {
 					case 'PRIMARY':
 						$fprimary = $v;
 						$fnotnull = true;
+
 						// $funiqueindex = true;
 						break;
 
@@ -822,6 +824,7 @@ class ADODB_DataDict {
 						$fconstraint = $v;
 
 						break;
+
 					// let INDEX keyword create a 'very standard' index on column
 					case 'INDEX':
 						$findex = $v;

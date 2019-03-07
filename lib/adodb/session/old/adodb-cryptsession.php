@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -18,8 +19,11 @@ wrapper library.
  Example =======
 
 	include('adodb.inc.php');
+
 	#---------------------------------#
+
 	include('adodb-cryptsession.php');
+
 	#---------------------------------#
 	session_start();
 	session_register('AVAR');
@@ -30,7 +34,6 @@ wrapper library.
  Installation ============
  1. Create a new database in MySQL or Access "sessions" like
 so:
-
   create table sessions (
 	   SESSKEY char(32) not null,
 	   EXPIRY int(11) unsigned not null,
@@ -271,6 +274,7 @@ if (!defined('ADODB_SESSION')) {
 					$ref = $rs->fields[0];
 					$key = $rs->fields[1];
 					$fn($ref, $key);
+
 					//$del = $ADODB_SESS_CONN->Execute("DELETE FROM $ADODB_SESSION_TBL WHERE sesskey='$key'");
 					$rs->MoveNext();
 				}
@@ -346,7 +350,6 @@ if (!defined('ADODB_SESSION')) {
 }
 
 // TEST SCRIPT -- UNCOMMENT
-
 /*
 if (0) {
 	session_start();

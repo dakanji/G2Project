@@ -1,4 +1,5 @@
 <?php
+
 /*
   (c) 2000-2014 John Lim (jlim#natsoft.com.my). All rights reserved.
   Portions Copyright (c) 2007-2009, iAnywhere Solutions, Inc.
@@ -276,7 +277,8 @@ class ADODB_ads extends ADOConnection {
 		}
 
 		$this->_autocommit = true;
-		$ret               = ads_commit($this->_connectionID);
+
+		$ret = ads_commit($this->_connectionID);
 
 		ads_autocommit($this->_connectionID, true);
 
@@ -293,7 +295,8 @@ class ADODB_ads extends ADOConnection {
 		}
 
 		$this->_autocommit = true;
-		$ret               = ads_rollback($this->_connectionID);
+
+		$ret = ads_rollback($this->_connectionID);
 
 		ads_autocommit($this->_connectionID, true);
 
@@ -747,6 +750,7 @@ class ADORecordSet_ads extends ADORecordSet {
 		// the following is required for mysql odbc driver in 4.3.1 -- why?
 		$this->EOF         = false;
 		$this->_currentRow = -1;
+
 		//parent::__construct($id);
 	}
 
@@ -790,6 +794,7 @@ class ADORecordSet_ads extends ADORecordSet {
 
 		$this->_numOfRows   = ($ADODB_COUNTRECS) ? @ads_num_rows($this->_queryID) : -1;
 		$this->_numOfFields = @ads_num_fields($this->_queryID);
+
 		// some silly drivers such as db2 as/400 and intersystems cache return _numOfRows = 0
 		if ($this->_numOfRows == 0) {
 			$this->_numOfRows = -1;

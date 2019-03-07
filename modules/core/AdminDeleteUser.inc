@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -231,6 +232,7 @@ class AdminDeleteUserView extends GalleryView {
 
 		$AdminDeleteUser         = array();
 		$AdminDeleteUser['user'] = (array)$user;
+
 		// Get all items / the item count of the oldUser
 		list($ret, $itemIds) = GalleryCoreApi::fetchAllItemIdsByOwnerId($user->getId());
 

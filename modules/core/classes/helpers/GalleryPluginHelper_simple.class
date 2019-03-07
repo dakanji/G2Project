@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -70,7 +71,6 @@ class GalleryPluginHelper_simple {
 						),
 						null,
 					);
-
 			}
 
 			if (!class_exists($pluginClass)) {
@@ -145,6 +145,7 @@ class GalleryPluginHelper_simple {
 			}
 
 			$plugin = new $pluginClass();
+
 			// Store it in our table
 			GalleryDataCache::put($cacheKey, $plugin, true);
 		} else {
@@ -406,7 +407,8 @@ class GalleryPluginHelper_simple {
 		}
 
 		$whereId = count($queryIds) > 1 ? 'IN (' . GalleryUtilities::makeMarkers($queryIds) . ')' : '= ?';
-		$query   = '
+
+		$query = '
 	  SELECT
 	    [GalleryPluginParameterMap::itemId],
 	    [GalleryPluginParameterMap::parameterName],
@@ -512,7 +514,6 @@ class GalleryPluginHelper_simple {
 							),
 							null,
 						);
-
 				}
 
 				$frameworkParams   = array('version', 'callbacks', 'requiredCoreApi');

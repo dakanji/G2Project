@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -100,7 +101,8 @@ class ShowAllCommentsView extends GalleryView {
 
 		if (!empty($itemIds)) {
 			$itemIds = array_keys($itemIds);
-			$ret     = GalleryCoreApi::studyPermissions($itemIds);
+
+			$ret = GalleryCoreApi::studyPermissions($itemIds);
 
 			if ($ret) {
 				return array($ret, null);
@@ -125,6 +127,7 @@ class ShowAllCommentsView extends GalleryView {
 		}
 
 		$cacheControl = false;
+
 		// Pages shouldn't be cached if any of the comments is not accessible for anonymous
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 

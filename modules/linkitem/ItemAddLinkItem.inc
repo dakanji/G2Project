@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -63,7 +64,8 @@ class ItemAddLinkItem extends ItemAddPlugin {
 				}
 
 				$link = ($form['linkType'] == 'album') ? (int)$form['linkedAlbumId'] : $form['linkUrl'];
-				$ret  = $newItem->create($item->getId(), $link);
+
+				$ret = $newItem->create($item->getId(), $link);
 
 				if ($ret) {
 					if ($ret->getErrorCode() & (ERROR_MISSING_OBJECT | ERROR_BAD_PARAMETER)) {

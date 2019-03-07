@@ -1,4 +1,5 @@
 <?php
+
 // Chinese language file contributed by "Cuiyan (cysoft)" cysoft#php.net.
 // Simplified Chinese
 $ADODB_LANG_ARRAY = array(

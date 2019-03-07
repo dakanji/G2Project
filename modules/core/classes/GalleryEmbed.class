@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -165,7 +166,8 @@ class GalleryEmbed {
 		global $gallerySetErrorHandler;
 
 		$session =& $gallery->getSession();
-		$ret     = $session->save();
+
+		$ret = $session->save();
 
 		if ($ret) {
 			return $ret;
@@ -173,7 +175,8 @@ class GalleryEmbed {
 
 		if ($gallery->isStorageInitialized()) {
 			$storage =& $gallery->getStorage();
-			$ret     = $storage->commitTransaction();
+
+			$ret = $storage->commitTransaction();
 
 			if ($ret) {
 				return $ret;
@@ -383,8 +386,8 @@ class GalleryEmbed {
 	 */
 	public static function logout($params = array()) {
 		include_once __DIR__ . '/GalleryCoreApi.class';
-
 		include_once __DIR__ . '/GallerySession.class';
+
 		$hasSession = GalleryUtilities::getCookieVar(SESSION_ID_PARAMETER);
 
 		if (empty($hasSession)) {
@@ -411,7 +414,8 @@ class GalleryEmbed {
 			}
 
 			$session =& $gallery->getSession();
-			$ret     = $session->reset();
+
+			$ret = $session->reset();
 
 			if ($ret) {
 				return $ret;
@@ -848,7 +852,8 @@ class GalleryEmbed {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-		$ret     = $session->start();
+
+		$ret = $session->start();
 
 		if ($ret) {
 			return array($ret, null);
@@ -920,7 +925,8 @@ class GalleryEmbed {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-		$ret     = $session->start();
+
+		$ret = $session->start();
 
 		if ($ret) {
 			return array($ret, null);
@@ -1261,7 +1267,8 @@ class GalleryEmbed {
 		$blockId = $moduleId . '.' . $blockName;
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
 		$theme = new GalleryTheme();
-		$ret   = $theme->preloadBlock($template, $blockId, $params);
+
+		$ret = $theme->preloadBlock($template, $blockId, $params);
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -1370,6 +1377,7 @@ class GalleryEmbed {
 			 */
 			$remotehost = GalleryUtilities::getServerVar('REMOTE_ADDR');
 			$remotehost = !empty($remotehost) ? $phpVm->gethostbyname($remotehost) : '';
+
 			// Try SERVER_ADDR first, back up is config::baseUri
 			$localhost = GalleryUtilities::getServerVar('SERVER_ADDR');
 

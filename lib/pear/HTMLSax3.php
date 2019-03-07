@@ -1,6 +1,6 @@
 <?php
+
 // vim: set expandtab tabstop=4 shiftwidth=4:
-//
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
@@ -22,10 +22,9 @@
 // | Authors: Harry Fuecks <hfuecks@phppatterns.com> Port to PEAR + more  |
 // | Authors: Many @ Sitepointforums Advanced PHP Forums                  |
 // +----------------------------------------------------------------------+
-//
 // PEAR  Id: HTMLSax3.php,v 1.2 2007/10/29 21:41:34 hfuecks
 //   G2 $Id: HTMLSax3.php 20957 2009-12-16 04:57:07Z mindless $
-//
+
 /**
  * Main parser components
  * @package XML_HTMLSax3
@@ -41,7 +40,6 @@
 //}
 //require_once(XML_HTMLSAX3 . 'HTMLSax3/States.php');
 //require_once(XML_HTMLSAX3 . 'HTMLSax3/Decorators.php');
-
 /**
  * Base State Parser
  * @package XML_HTMLSax3
@@ -55,102 +53,119 @@ class XML_HTMLSax3_StateParser {
 	 * @access private
 	 */
 	public $htmlsax;
+
 	/**
 	 * User defined object for handling elements
 	 * @var object
 	 * @access private
 	 */
 	public $handler_object_element;
+
 	/**
 	 * User defined open tag handler method
 	 * @var string
 	 * @access private
 	 */
 	public $handler_method_opening;
+
 	/**
 	 * User defined close tag handler method
 	 * @var string
 	 * @access private
 	 */
 	public $handler_method_closing;
+
 	/**
 	 * User defined object for handling data in elements
 	 * @var object
 	 * @access private
 	 */
 	public $handler_object_data;
+
 	/**
 	 * User defined data handler method
 	 * @var string
 	 * @access private
 	 */
 	public $handler_method_data;
+
 	/**
 	 * User defined object for handling processing instructions
 	 * @var object
 	 * @access private
 	 */
 	public $handler_object_pi;
+
 	/**
 	 * User defined processing instruction handler method
 	 * @var string
 	 * @access private
 	 */
 	public $handler_method_pi;
+
 	/**
 	 * User defined object for handling JSP/ASP tags
 	 * @var object
 	 * @access private
 	 */
 	public $handler_object_jasp;
+
 	/**
 	 * User defined JSP/ASP handler method
 	 * @var string
 	 * @access private
 	 */
 	public $handler_method_jasp;
+
 	/**
 	 * User defined object for handling XML escapes
 	 * @var object
 	 * @access private
 	 */
 	public $handler_object_escape;
+
 	/**
 	 * User defined XML escape handler method
 	 * @var string
 	 * @access private
 	 */
 	public $handler_method_escape;
+
 	/**
 	 * User defined handler object or NullHandler
 	 * @var object
 	 * @access private
 	 */
 	public $handler_default;
+
 	/**
 	 * Parser options determining parsing behavior
 	 * @var array
 	 * @access private
 	 */
 	public $parser_options = array();
+
 	/**
 	 * XML document being parsed
 	 * @var string
 	 * @access private
 	 */
 	public $rawtext;
+
 	/**
 	 * Position in XML document relative to start (0)
 	 * @var int
 	 * @access private
 	 */
 	public $position;
+
 	/**
 	 * Length of the XML document in characters
 	 * @var int
 	 * @access private
 	 */
 	public $length;
+
 	/**
 	 * Array of state objects
 	 * @var array
@@ -164,16 +179,15 @@ class XML_HTMLSax3_StateParser {
 	 * @access protected
 	 */
 	public function __construct(& $htmlsax) {
-		$this->htmlsax                         =& $htmlsax;
-		$this->State[XML_HTMLSAX3_STATE_START] = new XML_HTMLSax3_StartingState();
+		$this->htmlsax =& $htmlsax;
 
+		$this->State[XML_HTMLSAX3_STATE_START]       = new XML_HTMLSax3_StartingState();
 		$this->State[XML_HTMLSAX3_STATE_CLOSING_TAG] = new XML_HTMLSax3_ClosingTagState();
 		$this->State[XML_HTMLSAX3_STATE_TAG]         = new XML_HTMLSax3_TagState();
 		$this->State[XML_HTMLSAX3_STATE_OPENING_TAG] = new XML_HTMLSax3_OpeningTagState();
-
-		$this->State[XML_HTMLSAX3_STATE_PI]     = new XML_HTMLSax3_PiState();
-		$this->State[XML_HTMLSAX3_STATE_JASP]   = new XML_HTMLSax3_JaspState();
-		$this->State[XML_HTMLSAX3_STATE_ESCAPE] = new XML_HTMLSax3_EscapeState();
+		$this->State[XML_HTMLSAX3_STATE_PI]          = new XML_HTMLSax3_PiState();
+		$this->State[XML_HTMLSAX3_STATE_JASP]        = new XML_HTMLSax3_JaspState();
+		$this->State[XML_HTMLSAX3_STATE_ESCAPE]      = new XML_HTMLSax3_EscapeState();
 	}
 
 	/**
@@ -449,6 +463,7 @@ class XML_HTMLSax3 {
 	public function __construct() {
 		$this->state_parser = new XML_HTMLSax3_StateParser_Gtet430($this);
 		$nullhandler        = new XML_HTMLSax3_NullHandler();
+
 		$this->set_object($nullhandler);
 		$this->set_element_handler('DoNothing', 'DoNothing');
 		$this->set_data_handler('DoNothing');
@@ -649,8 +664,8 @@ class XML_HTMLSax3 {
 
 ?>
 <?php
+
 // vim: set expandtab tabstop=4 shiftwidth=4:
-//
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
@@ -672,9 +687,7 @@ class XML_HTMLSax3 {
 // | Authors: Harry Fuecks <hfuecks@phppatterns.com> Port to PEAR + more  |
 // | Authors: Many @ Sitepointforums Advanced PHP Forums                  |
 // +----------------------------------------------------------------------+
-//
 // PEAR  Id: States.php,v 1.3 2007/10/29 21:41:35 hfuecks
-//
 /**
  * Parsing states.
  * @package XML_HTMLSax3
@@ -692,6 +705,7 @@ define('XML_HTMLSAX3_STATE_CLOSING_TAG', 4);
 define('XML_HTMLSAX3_STATE_ESCAPE', 6);
 define('XML_HTMLSAX3_STATE_JASP', 7);
 define('XML_HTMLSAX3_STATE_PI', 8);
+
 /**
  * StartingState searches for the start of any XML tag
  * @package XML_HTMLSax3
@@ -932,8 +946,7 @@ class XML_HTMLSax3_EscapeState {
 		$context->IgnoreCharacter();
 
 		if ($text != '') {
-			$context->handler_object_escape
-				->{$context->handler_method_escape}($context->htmlsax, $text);
+			$context->handler_object_escape->{$context->handler_method_escape}($context->htmlsax, $text);
 		}
 
 		return XML_HTMLSAX3_STATE_START;
@@ -955,8 +968,7 @@ class XML_HTMLSax3_JaspState {
 		$text = $context->scanUntilString('%>');
 
 		if ($text != '') {
-			$context->handler_object_jasp
-				->{$context->handler_method_jasp}($context->htmlsax, $text);
+			$context->handler_object_jasp->{$context->handler_method_jasp}($context->htmlsax, $text);
 		}
 
 		$context->IgnoreCharacter();
@@ -982,8 +994,7 @@ class XML_HTMLSax3_PiState {
 		$data   = $context->scanUntilString('?>');
 
 		if ($data != '') {
-			$context->handler_object_pi
-				->{$context->handler_method_pi}($context->htmlsax, $target, $data);
+			$context->handler_object_pi->{$context->handler_method_pi}($context->htmlsax, $target, $data);
 		}
 
 		$context->IgnoreCharacter();
@@ -995,8 +1006,8 @@ class XML_HTMLSax3_PiState {
 
 ?>
 <?php
+
 // vim: set expandtab tabstop=4 shiftwidth=4:
-//
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
@@ -1018,9 +1029,7 @@ class XML_HTMLSax3_PiState {
 // | Authors: Harry Fuecks <hfuecks@phppatterns.com> Port to PEAR + more  |
 // | Authors: Many @ Sitepointforums Advanced PHP Forums                  |
 // +----------------------------------------------------------------------+
-//
 // PEAR  Id: Decorators.php,v 1.2 2007/10/29 21:41:35 hfuecks
-//
 /**
  * Decorators for dealing with parser options
  * @package XML_HTMLSax3
@@ -1040,6 +1049,7 @@ class XML_HTMLSax3_Trim {
 	 * @access private
 	 */
 	public $orig_obj;
+
 	/**
 	 * Original handler method
 	 * @var string
@@ -1085,12 +1095,14 @@ class XML_HTMLSax3_CaseFolding {
 	 * @access private
 	 */
 	public $orig_obj;
+
 	/**
 	 * Original open handler method
 	 * @var string
 	 * @access private
 	 */
 	public $orig_open_method;
+
 	/**
 	 * Original close handler method
 	 * @var string
@@ -1146,6 +1158,7 @@ class XML_HTMLSax3_Linefeed {
 	 * @access private
 	 */
 	public $orig_obj;
+
 	/**
 	 * Original handler method
 	 * @var string
@@ -1192,6 +1205,7 @@ class XML_HTMLSax3_Tab {
 	 * @access private
 	 */
 	public $orig_obj;
+
 	/**
 	 * Original handler method
 	 * @var string
@@ -1238,6 +1252,7 @@ class XML_HTMLSax3_Entities_Parsed {
 	 * @access private
 	 */
 	public $orig_obj;
+
 	/**
 	 * Original handler method
 	 * @var string
@@ -1297,6 +1312,7 @@ class XML_HTMLSax3_Entities_Unparsed {
 	 * @access private
 	 */
 	public $orig_obj;
+
 	/**
 	 * Original handler method
 	 * @var string
@@ -1343,6 +1359,7 @@ class XML_HTMLSax3_Escape_Stripper {
 	 * @access private
 	 */
 	public $orig_obj;
+
 	/**
 	 * Original handler method
 	 * @var string

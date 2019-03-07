@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -28,6 +29,7 @@ define('CMD_CHMOD_PLUGIN_DIR', 'chmodPluginDir');
 define('CMD_CHMOD_GALLERY_DIR', 'chmodGalleryDir');
 define('CMD_CHMOD_STORAGE_DIR', 'chmodStorageDir');
 define('CMD_CHMOD_LOCALE_DIR', 'chmodLocaleDir');
+
 // For get/post input sanitation
 require_once __DIR__ . '/../../modules/core/classes/GalleryUtilities.class';
 
@@ -35,10 +37,12 @@ $DEFAULT_FOLDER_PERMISSIONS = PermissionBits::getMe()->fromString('555');
 $DEFAULT_FILE_PERMISSIONS   = PermissionBits::getMe()->fromString('444');
 
 $status = array();
-$ret    = null;
+
+$ret = null;
 
 // The permission bit sets that we accept / handle.
 $permissionBitSets = getPermissionSets();
+
 // Gather a complete list of plugins in this installation.
 $plugins = getPluginList();
 
@@ -235,7 +239,6 @@ printStatus($status);
 printFooter();
 
 // Functions and Classes
-
 /**
  * Changes the filesystem permissions of a file or a folder recursively.  Also prints out folder
  * names online on success / error and prints out filenames on error as well.
@@ -249,6 +252,7 @@ printFooter();
 function chmodRecursively($filename, $folderPermissions, $filePermissions, $start) {
 	$filename = rtrim($filename, '\\/');
 	$error    = 0;
+
 	// Try to prevent timeouts
 	if (time() - $start > 55) {
 		if (function_exists('apache_reset_timeout')) {
@@ -292,7 +296,8 @@ function chmodRecursively($filename, $folderPermissions, $filePermissions, $star
 				}
 
 				$fullpath = "$filename/$child";
-				$ret      = chmodRecursively(
+
+				$ret = chmodRecursively(
 					$fullpath,
 					$folderPermissions,
 					$filePermissions,
@@ -475,7 +480,8 @@ function isModulesOrThemesDirWriteable() {
  */
 function chmodModulesAndThemesDir($makeItWriteable) {
 	$mode = $makeItWriteable ? 0777 : 0555;
-	$ret  = null;
+
+	$ret = null;
 
 	foreach (array('/modules/', '/themes/') as $dir) {
 		if (file_exists(GallerySetupUtilities::getConfigDir() . $dir)) {
@@ -661,7 +667,6 @@ function printPageWithoutFooter(
 					formObj.open.disabled = false;
 					formObj.secure.disabled = true;
 				}
-
 			}
 
 			function printStatusMessage(message) {

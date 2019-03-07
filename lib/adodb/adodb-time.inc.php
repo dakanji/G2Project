@@ -1,4 +1,5 @@
 <?php
+
 /*
 ADOdb Date Library, part of the ADOdb abstraction library
 Download: http://adodb.sourceforge.net/#download
@@ -52,7 +53,6 @@ October 4, 1582 (Julian) was followed immediately by Friday, October 15,
 1582 (Gregorian).
 
 Since 0.06, we handle this correctly, so:
-
 adodb_mktime(0,0,0,10,15,1582) - adodb_mktime(0,0,0,10,4,1582) == 24 * 3600 (1 day) =============================================================================
 
 COPYRIGHT
@@ -476,6 +476,7 @@ function adodb_date_test() {
 
 	echo '<p>Testing gregorian <=> julian conversion<p>';
 	$t = adodb_mktime(0, 0, 0, 10, 11, 1492);
+
 	//http://www.holidayorigins.com/html/columbus_day.html - Friday check
 	if (!(adodb_date('D Y-m-d', $t) == 'Fri 1492-10-11')) {
 		echo 'Error in Columbus landing<br>';
@@ -589,6 +590,7 @@ function adodb_date_test() {
 		$ts = 3600.0 * ((mt_rand() % 60000) + (mt_rand() % 60000)) + (mt_rand() % 60000);
 		$s1 = date($fmt, $ts);
 		$s2 = adodb_date($fmt, $ts);
+
 		//print "$s1 <br>$s2 <p>";
 		$pos = strcmp($s1, $s2);
 
@@ -732,6 +734,7 @@ function _adodb_is_leap_year($year) {
 
 	if ($year % 400 == 0) {
 		return true;
+
 		// if gregorian calendar (>1582), century not-divisible by 400 is not leap
 	}
 
@@ -767,6 +770,7 @@ function adodb_year_digit_check($y) {
 		}
 
 		$c1 *= 100;
+
 		// if 2-digit year is less than 30 years in future, set it to this century
 		// otherwise if more than 30 years in future, then we set 2-digit year to the prev century.
 		if (($y + $c1) < $yr + 30) {
@@ -811,6 +815,7 @@ function adodb_get_gmt_diff($y, $m, $d) {
 
 		if (empty($tzo)) {
 			$tzo = new DateTimeZone(date_default_timezone_get());
+
 			// $tzt = timezone_transitions_get( $tzo );
 		}
 
@@ -822,6 +827,7 @@ function adodb_get_gmt_diff($y, $m, $d) {
 	}
 
 	$y = date('Y');
+
 	/*
 	if (function_exists('date_default_timezone_get') && function_exists('timezone_offset_get')) {
 		$tzonename = date_default_timezone_get();
@@ -829,7 +835,6 @@ function adodb_get_gmt_diff($y, $m, $d) {
 			$tobj = new DateTimeZone($tzonename);
 			$TZ = -timezone_offset_get($tobj,new DateTime("now",$tzo));
 		}
-
 	}
 
 	*/
@@ -860,6 +865,7 @@ function adodb_getdate($d = false, $fast = false) {
 }
 
 /*
+
 // generate $YRS table for _adodb_getdate()
 function adodb_date_gentable($out=true)
 {
@@ -867,7 +873,6 @@ function adodb_date_gentable($out=true)
 		$s = adodb_gmmktime(0,0,0,1,1,$i);
 		echo "$i => $s,<br>";
 	}
-
 }
 
 adodb_date_gentable();
@@ -983,11 +988,8 @@ function _adodb_getdate($origd = false, $fast = false, $is_gmt = false) {
 
 		// The valid range of a 32bit signed timestamp is typically from
 		// Fri, 13 Dec 1901 20:45:54 GMT to Tue, 19 Jan 2038 03:14:07 GMT
-		//
-
 		// old algorithm iterates through all years. new algorithm does it in
 		// 10 year blocks
-
 		/*
 		# old algo
 		for ($a = 1970 ; --$a >= 0;) {
@@ -1000,7 +1002,6 @@ function _adodb_getdate($origd = false, $fast = false, $is_gmt = false) {
 				$year = $a;
 				break;
 			}
-
 		}
 
 		*/
@@ -1255,6 +1256,7 @@ function adodb_date($fmt, $d = false, $is_gmt = false) {
 				}
 
 				break;
+
 			// YEAR
 			case 'L':
 				$dates .= $arr['leap'] ? '1' : '0';
@@ -1300,6 +1302,7 @@ function adodb_date($fmt, $d = false, $is_gmt = false) {
 				$dates .= substr($year, strlen($year) - 2, 2);
 
 				break;
+
 			// MONTH
 			case 'm':
 				if ($month < 10) {
@@ -1329,6 +1332,7 @@ function adodb_date($fmt, $d = false, $is_gmt = false) {
 				$dates .= date('F', mktime(0, 0, 0, $month, 2, 1971));
 
 				break;
+
 			// DAY
 			case 't':
 				$dates .= $arr['ndays'];
@@ -1444,6 +1448,7 @@ function adodb_date($fmt, $d = false, $is_gmt = false) {
 				$dates .= $hh;
 
 				break;
+
 			// MINUTES
 			case 'i':
 				if ($min < 10) {
@@ -1453,6 +1458,7 @@ function adodb_date($fmt, $d = false, $is_gmt = false) {
 				}
 
 				break;
+
 			// SECONDS
 			case 'U':
 				$dates .= $d;
@@ -1467,6 +1473,7 @@ function adodb_date($fmt, $d = false, $is_gmt = false) {
 				}
 
 				break;
+
 			// AM/PM
 			// Note 00:00 to 11:59 is AM, while 12:00 to 23:59 is PM
 			case 'a':
@@ -1491,6 +1498,7 @@ function adodb_date($fmt, $d = false, $is_gmt = false) {
 				$dates .= $fmt[$i];
 
 				break;
+
 			// ESCAPE
 			case '\\':
 				$i++;
@@ -1598,7 +1606,8 @@ function adodb_mktime($hr, $min, $sec, $mon = false, $day = false, $year = false
 		}
 
 		$_total_date += $day - 1;
-		$ret          = $_total_date * $_day_power + $hr * $_hour_power + $min * $_min_power + $sec + $gmt_different;
+
+		$ret = $_total_date * $_day_power + $hr * $_hour_power + $min * $_min_power + $sec + $gmt_different;
 	} else {
 		for ($a = 1969; $a >= $year; $a--) {
 			$leaf = _adodb_is_leap_year($a);
@@ -1624,13 +1633,16 @@ function adodb_mktime($hr, $min, $sec, $mon = false, $day = false, $year = false
 
 		$_day_time = $hr * $_hour_power + $min * $_min_power + $sec;
 		$_day_time = $_day_power - $_day_time;
-		$ret       = -($_total_date * $_day_power + $_day_time - $gmt_different);
+
+		$ret = -($_total_date * $_day_power + $_day_time - $gmt_different);
 
 		if ($ret < -12220185600) {
 			$ret += 10 * 86400;
+
 		// if earlier than 5 Oct 1582 - gregorian correction
 		} elseif ($ret < -12219321600) {
 			$ret = -12219321600;
+
 			// if in limbo, reset to 15 Oct 1582.
 		}
 	}

@@ -497,6 +497,7 @@ h2 {font-size: 125%;}
 i {color: #666666;}
 img {float: right; border: 0px;}
 hr {width: 600px; align: center; background-color: #cccccc; border: 0px; height: 1px;}
+
 //--&gt;&lt;/style&gt;
 &lt;title&gt;phpinfo()&lt;/title&gt;&lt;/head&gt;
 &lt;body&gt;&lt;div class=&quot;center&quot;&gt;
@@ -1018,6 +1019,7 @@ h2 {font-size: 125%;}
 i {color: #666666; background-color: #cccccc;}
 img {float: right; border: 0px;}
 hr {width: 600px; background-color: #cccccc; border: 0px; height: 1px; color: #000000;}
+
 //--&gt;&lt;/style&gt;
 &lt;title&gt;phpinfo()&lt;/title&gt;&lt;/head&gt;
 &lt;body&gt;&lt;div class=&quot;center&quot;&gt;

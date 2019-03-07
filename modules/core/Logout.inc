@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -71,7 +72,8 @@ class LogoutController extends GalleryController {
 		}
 
 		$session =& $gallery->getSession();
-		$ret     = $session->reset();
+
+		$ret = $session->reset();
 
 		if ($ret) {
 			return array($ret, null);

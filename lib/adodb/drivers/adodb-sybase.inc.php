@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim. All rights reserved.
@@ -30,8 +31,10 @@ class ADODB_sybase extends ADOConnection {
 	public $hasInsertID     = true;
 	public $hasAffectedRows = true;
 	public $metaTablesSQL   = "select name from sysobjects where type='U' or type='V'";
+
 	// see http://sybooks.sybase.com/onlinebooks/group-aw/awg0800e/dbrfen8/@ebt-link;pt=5981;uf=0?target=0;window=new;showtoc=true;book=dbrfen8
 	public $metaColumnsSQL = "SELECT c.column_name, c.column_type, c.width FROM syscolumn c, systable t WHERE t.table_name='%s' AND c.table_id=t.table_id AND t.table_type='BASE'";
+
 	/*
 	"select c.name,t.name,c.length from
 	syscolumns c join systypes t on t.xusertype=c.xusertype join sysobjects o on o.id=c.id
@@ -370,6 +373,7 @@ $ADODB_sybase_mths = array(
 class ADORecordset_sybase extends ADORecordSet {
 	public $databaseType = 'sybase';
 	public $canSeek      = true;
+
 	// _mths works only in non-localised system
 	public $_mths = array(
 		'JAN' => 1,

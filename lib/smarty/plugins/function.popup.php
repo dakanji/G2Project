@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
  */
-
 
 /**
  * Smarty {popup} function plugin
@@ -120,10 +120,12 @@ function smarty_function_popup($params, &$smarty) {
 	$retval = $trigger . '="return overlib(\'' . preg_replace(array("!'!", "![\r\n]!"), array("\'", '\r'), $text) . '\'';
 
 	$retval .= $append . ');
+
 "';
 
 	if ($trigger == 'onmouseover') {
 		$retval .= ' onmouseout="nd();
+
 "';
 	}
 

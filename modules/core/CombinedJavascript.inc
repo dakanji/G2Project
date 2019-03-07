@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -97,6 +98,7 @@ class CombinedJavascriptView extends GalleryView {
 				}
 
 				$phpVm->header('Content-Encoding: gzip');
+
 				/*
 				 * Cache control is public for proxies that handle gzip properly.
 				 * Private for the ones that don't.

@@ -1,26 +1,24 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
+ * This program is free software; you can redistribute it and/or modify it under the terms
+ * of the GNU General Public License as published by the Free Software Foundation;
+ * either version 2 of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with this program;
+ * if not, write to the Free Software Foundation, Inc., 51 Franklin Street - Fifth Floor,
+ * Boston, MA  02110-1301, USA.
  *
  * NOTE: Portions of this file are copied from the Smarty modifier.truncate.php
  * file and are bound by their license, found in lib/smarty/COPYING.lib
  */
-
 
 /**
  * Smarty truncate modifier plugin.  This differs from the standard Smarty plugin
@@ -64,7 +62,7 @@ function smarty_modifier_entitytruncate($string, $length, $etc = '...', $breakWo
 		$pieceLength = strlen($piece);
 
 		if (!$breakWords && $string[$pieceLength - 1] != ' ' && $string[$pieceLength] != ' ') {
-			// We split a word, and we're not allowed to.  Try to back up to the last space
+			// We split a word but we are not allowed to.  Try to back up to the last space
 			$splitIndex = strrpos($piece, ' ');
 
 			if ($splitIndex > 0) {
@@ -76,6 +74,6 @@ function smarty_modifier_entitytruncate($string, $length, $etc = '...', $breakWo
 		$piece .= $etc;
 	}
 
-	// Unicode entities back to UTF-8; may convert entities in original string, but that's ok
+	// Unicode entities back to UTF-8; may convert entities in original string, but that is ok
 	return GalleryUtilities::unicodeEntitiesToUtf8($piece);
 }

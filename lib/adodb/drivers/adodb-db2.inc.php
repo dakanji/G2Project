@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @version   v5.20.12  30-Mar-2018
  * @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -42,7 +43,9 @@ class ADODB_db2 extends ADOConnection {
 
 	public $binmode = DB2_BINARY;
 
-	public $useFetchArray = false; // setting this to true will make array elements in FETCH_ASSOC mode case-sensitive
+	// setting this to true will make array elements in FETCH_ASSOC mode case-sensitive
+	public $useFetchArray = false;
+
 	// breaking backward-compat
 	public $_bindInputArray    = false;
 	public $_genIDSQL          = 'VALUES NEXTVAL FOR %s';
@@ -431,7 +434,8 @@ class ADODB_db2 extends ADOConnection {
 		}
 
 		$this->_autocommit = true;
-		$ret               = db2_commit($this->_connectionID);
+
+		$ret = db2_commit($this->_connectionID);
 
 		db2_autocommit($this->_connectionID, true);
 
@@ -448,7 +452,8 @@ class ADODB_db2 extends ADOConnection {
 		}
 
 		$this->_autocommit = true;
-		$ret               = db2_rollback($this->_connectionID);
+
+		$ret = db2_rollback($this->_connectionID);
 
 		db2_autocommit($this->_connectionID, true);
 
@@ -518,6 +523,7 @@ class ADODB_db2 extends ADOConnection {
 		$rs = new ADORecordSet_db2($qid);
 
 		$ADODB_FETCH_MODE = $savem;
+
 		/*
 		 *      $rs->fields indices
 		 *      0 PKTABLE_CAT
@@ -536,7 +542,9 @@ class ADODB_db2 extends ADOConnection {
 		$foreign_keys = array();
 
 		while (!$rs->EOF) {
-			if (strtoupper(trim($rs->fields[2])) == $table && (!$schema || strtoupper($rs->fields[1]) == $schema)) {
+			if (strtoupper(trim($rs->fields[2])) == $table
+				&& (!$schema || strtoupper($rs->fields[1]) == $schema)
+			) {
 				if (!is_array($foreign_keys[$rs->fields[5] . '.' . $rs->fields[6]])) {
 					$foreign_keys[$rs->fields[5] . '.' . $rs->fields[6]] = array();
 				}
@@ -720,7 +728,9 @@ class ADODB_db2 extends ADOConnection {
 		11 REMARKS
 		*/
 		while (!$rs->EOF) {
-			if (strtoupper(trim($rs->fields[2])) == $table && (!$schema || strtoupper($rs->fields[1]) == $schema)) {
+			if (strtoupper(trim($rs->fields[2])) == $table
+				&& (!$schema || strtoupper($rs->fields[1]) == $schema)
+			) {
 				$fld       = new ADOFieldObject();
 				$fld->name = $rs->fields[3];
 				$fld->type = $this->DB2Types($rs->fields[4]);
@@ -779,7 +789,9 @@ class ADODB_db2 extends ADOConnection {
 		5 PK_NAME
 		*/
 		while (!$rs->EOF) {
-			if (strtoupper(trim($rs->fields[2])) == $table && (!$schema || strtoupper($rs->fields[1]) == $schema)) {
+			if (strtoupper(trim($rs->fields[2])) == $table
+				&& (!$schema || strtoupper($rs->fields[1]) == $schema)
+			) {
 				$retarr[strtoupper($rs->fields[3])]->primary_key = true;
 			} elseif (sizeof($retarr) > 0) {
 				break;
@@ -968,6 +980,7 @@ class ADORecordSet_db2 extends ADORecordSet {
 
 		$this->_numOfRows   = ($ADODB_COUNTRECS) ? @db2_num_rows($this->_queryID) : -1;
 		$this->_numOfFields = @db2_num_fields($this->_queryID);
+
 		// some silly drivers such as db2 as/400 and intersystems cache return _numOfRows = 0
 		if ($this->_numOfRows == 0) {
 			$this->_numOfRows = -1;

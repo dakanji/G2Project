@@ -30,7 +30,6 @@
  */
 
 // $Id$
-
 /**
  * Config file reading class
  * @package Smarty
@@ -62,11 +61,12 @@ class Config_File {
 	 * If set to true, \r or \r\n will be changed to \n.
 	 */
 	public $fix_newlines = true;
-	// #@-
 
+	// #@-
 	/** @access private */
 	public $_config_path = '';
 	public $_config_data = array();
+
 	// #@-
 
 	/**

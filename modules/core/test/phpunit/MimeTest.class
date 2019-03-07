@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -250,7 +251,8 @@ class MimeTest extends GalleryTestCase {
 	public function testAddMimeTypeForLongMimeTypeString() {
 		// See bug 1634796
 		$mimeType = 'application/super.long.test.mime-type.test+html+application+test';
-		$ret      = GalleryCoreApi::addMimeType('mimetest', $mimeType, 0);
+
+		$ret = GalleryCoreApi::addMimeType('mimetest', $mimeType, 0);
 
 		if ($ret) {
 			return $ret;

@@ -87,6 +87,7 @@ class perf_mssql extends adodb_perf {
 	public function __construct(&$conn) {
 		if ($conn->dataProvider == 'odbc') {
 			$this->sql1 = 'sql1';
+
 			//$this->explain = false;
 		}
 
@@ -119,6 +120,7 @@ class perf_mssql extends adodb_perf {
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		$rs               = $this->conn->Execute($sql);
+
 		//adodb_printr($rs);
 		$ADODB_FETCH_MODE = $save;
 
@@ -148,6 +150,7 @@ class perf_mssql extends adodb_perf {
 
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
+
 		//$this->conn->debug=1;
 		$s   = '<table border=1 bgcolor=white><tr><td><b>tablename</b></td><td><b>size_in_k</b></td><td><b>index size</b></td><td><b>reserved size</b></td></tr>';
 		$rs1 = $this->conn->Execute("select distinct name from sysobjects where xtype='U'");

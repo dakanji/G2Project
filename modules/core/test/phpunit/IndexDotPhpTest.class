@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -39,6 +40,7 @@ class IndexDotPhpTest extends GalleryTestCase {
 
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$url          = $urlGenerator->getCurrentUrl();
+
 		// Strip off the /lib/tools/test/ part to get a valid G2 request uri
 		$baseUrl = preg_replace('|^(.*/)lib/tools/.*$|', '$1', $url);
 
@@ -54,7 +56,8 @@ class IndexDotPhpTest extends GalleryTestCase {
 		) as $url) {
 			// Trigger a set-cookie header by offering a session for pickup
 			$session = new GallerySession();
-			$ret     = $session->initEmpty(true);
+
+			$ret = $session->initEmpty(true);
 
 			if ($ret) {
 				return $ret;
@@ -68,6 +71,7 @@ class IndexDotPhpTest extends GalleryTestCase {
 			);
 
 			$url .= ($i++ == 3) ? '#foo' : '';
+
 			// Make the HTTP request
 			list($success, $body, $response, $headers) = GalleryCoreApi::fetchWebPage($url);
 

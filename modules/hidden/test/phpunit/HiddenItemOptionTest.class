@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -93,7 +94,8 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		if ($top) {
 			// Setup permissions
 			$albumId = $album->getId();
-			$ret     = GalleryCoreApi::removeItemPermissions($albumId);
+
+			$ret = GalleryCoreApi::removeItemPermissions($albumId);
 
 			if ($ret) {
 				return array($ret, null, null);

@@ -97,6 +97,7 @@ function adodb_session_regenerate_id() {
 		session_id(md5(uniqid(mt_rand(), true)));
 		$ck = session_get_cookie_params();
 		setcookie(session_name(), session_id(), false, $ck['path'], $ck['domain'], $ck['secure']);
+
 		//@session_start();
 	}
 
@@ -152,7 +153,6 @@ class ADODB_Session {
 	/////////////////////
 	// getter/setter methods
 	/////////////////////
-
 	/*
 
 	function Lock($lock=null)
@@ -495,6 +495,7 @@ class ADODB_Session {
 		$rs = $conn->_rs2rs($rs);
 
 		include_once ADODB_SESSION . '/../tohtml.inc.php';
+
 		rs2html($rs);
 		$rs->MoveFirst();
 	}
@@ -636,6 +637,7 @@ class ADODB_Session {
 		// $rs = $conn->RowLock($table, "$binary sesskey = $qkey AND expiry >= " . time(), sessdata);
 		// else
 		$rs = $conn->Execute($sql, array($key));
+
 		//ADODB_Session::_dumprs($rs);
 		if ($rs) {
 			if ($rs->EOF) {
@@ -850,6 +852,7 @@ class ADODB_Session {
 			if (!$rs->EOF) {
 				$ref = $rs->fields[0];
 				$key = $rs->fields[1];
+
 				//assert('$ref');
 				//assert('$key');
 				$fn($ref, $key);

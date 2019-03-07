@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -40,7 +41,8 @@ class MultiLangSiteAdminController extends GalleryController {
 
 		if (isset($form['action']['save'])) {
 			$languages = isset($form['languages']) ? $form['languages'] : array();
-			$ret       = GalleryCoreApi::setPluginParameter(
+
+			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
 				'multilang',
 				'languages',

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -68,7 +69,10 @@ class UpdatesAlbumView extends GalleryView {
 			array($this->_itemType, array_map(array($module, 'translate'), $this->_itemType))
 		);
 
-		list($ret, $moduleParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'dynamicalbum');
+		list($ret, $moduleParams) = GalleryCoreApi::fetchAllPluginParameters(
+			'module',
+			'dynamicalbum'
+		);
 
 		if ($ret) {
 			return array($ret, null, null, null);
@@ -268,9 +272,10 @@ class UpdatesAlbumView extends GalleryView {
 
 			if (!empty($sequence)) {
 				$sequence = implode('/', $sequence) . '/' . (int)$albumId . '/%';
-				$query    = '[GalleryItemAttributesMap::parentSequence] LIKE ?';
-				$table    = 'GalleryItemAttributesMap';
-				$id       = 'itemId';
+
+				$query = '[GalleryItemAttributesMap::parentSequence] LIKE ?';
+				$table = 'GalleryItemAttributesMap';
+				$id    = 'itemId';
 			} else {
 				$query = '[' . $table . '::' . $id . '] <> ' . (int)$albumId;
 			}

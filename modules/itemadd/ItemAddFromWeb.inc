@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -76,6 +77,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 			GalleryUtilities::putRequestVariable('form[error][webPage][nothingSelected]', 1);
 		} elseif (isset($form['action']['addFromWebPage'])) {
 			$platform =& $gallery->getPlatform();
+
 			// Pass referer checking
 			if (!empty($form['webPage'])) {
 				$extraHeaders = array(

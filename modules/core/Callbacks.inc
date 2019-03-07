@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -69,6 +70,7 @@ class CoreCallbacks {
 
 			case 'ShouldShowEmergencyEditItemLink':
 				$check = isset($params['checkBlocks']) ? $params['checkBlocks'] : '';
+
 				/**
 				 * @todo Remove support for check[Sidebar|Album|Photo]Blocks on next major api bump
 				 */
@@ -150,6 +152,7 @@ class CoreCallbacks {
 
 					$peerNeighborStart = max($peerItemIndex - (int)($windowSize / 2), 0);
 					$peerNeighborEnd   = min($peerItemIndex + (int)(($windowSize + 1) / 2), $peerLast);
+
 					// If the window is pinned to one end, expand it to the entire windowSize
 					if ($peerNeighborStart == 0) {
 						$peerNeighborEnd = min($peerLast, $windowSize);
@@ -215,7 +218,11 @@ class CoreCallbacks {
 				if (!empty($params['level'])) {
 					$options['level'] = $params['level'];
 				} else {
-					list($ret, $options['level']) = GalleryCoreApi::getPluginParameter('module', 'core', 'validation.level');
+					list($ret, $options['level']) = GalleryCoreApi::getPluginParameter(
+						'module',
+						'core',
+						'validation.level'
+					);
 
 					if ($ret) {
 						return $ret;
@@ -229,7 +236,9 @@ class CoreCallbacks {
 				if ($options['level'] == 'OFF') {
 					$allPluginIds = array();
 				} else {
-					list($ret, $allPluginIds) = GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
+					list($ret, $allPluginIds) = GalleryCoreApi::getAllFactoryImplementationIds(
+						'GalleryValidationPlugin'
+					);
 
 					if ($ret) {
 						return $ret;
@@ -240,13 +249,19 @@ class CoreCallbacks {
 				$block['core']['ValidationPlugins'] = array();
 
 				foreach (array_keys($allPluginIds) as $pluginId) {
-					list($ret, $plugin) = GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin', $pluginId);
+					list($ret, $plugin) = GalleryCoreApi::newFactoryInstanceById(
+						'GalleryValidationPlugin',
+						$pluginId
+					);
 
 					if ($ret) {
 						return $ret;
 					}
 
-					list($ret, $data['file'], $data['l10Domain']) = $plugin->loadTemplate($smarty->_tpl_vars['form'], $options);
+					list($ret, $data['file'], $data['l10Domain']) = $plugin->loadTemplate(
+						$smarty->_tpl_vars['form'],
+						$options
+					);
 
 					if ($ret) {
 						return $ret;

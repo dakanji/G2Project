@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -114,20 +115,22 @@ class CartModule extends GalleryModule {
 			case '0.8.7':
 			case '0.8.8':
 				$storage =& $gallery->getStorage();
-				$query   = 'DROP TABLE [CartMap]';
-				$ret     = $storage->execute($query);
+
+				$query = 'DROP TABLE [CartMap]';
+
+				$ret = $storage->execute($query);
 
 				if ($ret) {
 					return $ret;
 				}
 
 				$query = "DELETE FROM [Schema] WHERE [Schema::name] = \'CartMap\'";
-				$ret   = $storage->execute($query);
+
+				$ret = $storage->execute($query);
 
 				if ($ret) {
 					return $ret;
 				}
-
 
 				// Fall Through
 			case '0.8.9':
@@ -161,7 +164,6 @@ class CartModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
 
 				// Fall Through
 			case '1.0.1':

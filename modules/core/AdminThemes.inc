@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -512,6 +513,7 @@ class AdminThemesView extends GalleryView {
 		}
 
 		$AdminThemes = array();
+
 		// Load up the stored defaults
 		foreach (array(
 			'default.orderBy',

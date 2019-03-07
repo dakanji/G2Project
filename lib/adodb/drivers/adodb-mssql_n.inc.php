@@ -33,7 +33,6 @@
 //          http://www.gnu.org/copyleft/gpl.html                         //
 //                                                                       //
 ///////////////////////////////////////////////////////////////////////////
-
 /**
  *  MSSQL Driver with auto-prepended "N" for correct unicode storage
  *  of SQL literal strings. Intended to be used with MSSQL drivers that

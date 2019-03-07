@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -51,7 +52,8 @@ class MimeAdminController extends GalleryController {
 			}
 
 			$mimeList = ($form['allowMime'] == 'all') ? '' : implode(' | ', array_keys($form['upload']));
-			$ret      = GalleryCoreApi::setPluginParameter('module', 'mime', 'mimeList', $mimeList);
+
+			$ret = GalleryCoreApi::setPluginParameter('module', 'mime', 'mimeList', $mimeList);
 
 			if ($ret) {
 				return array($ret, null);
@@ -60,7 +62,8 @@ class MimeAdminController extends GalleryController {
 			$status['saved'] = true;
 		} elseif (isset($form['action']['delete'])) {
 			$mimeType = $form['action']['delete'];
-			$ret      = GalleryCoreApi::removeMimeType(
+
+			$ret = GalleryCoreApi::removeMimeType(
 				array(
 					'mimeType' => $mimeType,
 				)

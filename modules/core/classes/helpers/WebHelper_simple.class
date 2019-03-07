@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -396,6 +397,7 @@ class WebHelper_simple {
 
 		$uri = $urlComponents['path']
 		. (empty($urlComponents['query']) ? '' : '?' . $urlComponents['query']);
+
 		// Unescape ampersands, since if the url comes from form input it will be escaped
 		$urlComponents['uri'] = str_replace('&amp;', '&', $uri);
 

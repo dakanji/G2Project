@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -87,6 +88,7 @@ class RatingHelper {
 
 		// Check for existing votes from this user!
 		$session =& $gallery->getSession();
+
 		/*
 		 * If the user doesn't have a persistent session yet, it's a guest user without a session
 		 * and since we create a persistent session when a guest rates, we know that this guest

@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Smarty shared plugin
  * @package Smarty
  * @subpackage plugins
  */
-
 
 /**
  * escape_special_chars common function

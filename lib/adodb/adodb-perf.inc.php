@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -264,7 +265,6 @@ function adodb_log_sql(&$connx, $sql, $inputarr) {
 The settings data structure is an associative array that database parameter per element.
 
 Each database parameter element in the array is itself an array consisting of:
-
 0: category code, used to group related db parameters
 1: either
 	a. sql string to retrieve value, eg. "select value from v\$parameter where name='db_block_size'",
@@ -832,7 +832,6 @@ class adodb_perf {
 		$this->conn->Execute("delete from $perf_table where created<" . $this->conn->sysTimeStamp);
 	}
 
-	//
 	//                                    HIGH LEVEL UI FUNCTIONS
 	public function UI($pollsecs = 5) {
 		global $ADODB_LOG_CONN;
@@ -921,6 +920,7 @@ class adodb_perf {
 				}
 
 				echo $this->HealthCheck();
+
 				//$this->conn->debug=1;
 				echo $this->CheckMemory();
 
@@ -973,6 +973,7 @@ class adodb_perf {
 	// Runs in infinite loop, returning real-time statistics
 	public function Poll($secs = 5) {
 		$this->conn->fnExecute = false;
+
 		//$this->conn->debug=1;
 		if ($secs <= 1) {
 			$secs = 1;
@@ -1097,6 +1098,7 @@ class adodb_perf {
 
 			if ($category != $oldc) {
 				$oldc = $category;
+
 				//$bgc = ($bgc == ' bgcolor='.$this->color) ? ' bgcolor=white' : ' bgcolor='.$this->color;
 			}
 

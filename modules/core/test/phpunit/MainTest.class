@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -44,7 +45,8 @@ class MainTest extends GalleryTestCase {
 		$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php';
 		GalleryUtilities::putRequestVariable('view', 'core.Foo');
 		$this->_urlGenerator = new GalleryUrlGenerator();
-		$ret                 = $this->_urlGenerator->init('phpunit_test.php');
+
+		$ret = $this->_urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;
@@ -88,6 +90,7 @@ class MainTest extends GalleryTestCase {
 
 	public function _getResponseHeaders() {
 		$headers = GalleryUtilities::_getResponseHeaders();
+
 		// We're not interested in the status header
 		unset($headers['status']);
 
@@ -237,7 +240,8 @@ class MainTest extends GalleryTestCase {
 
 		$base    = 'http://www.example.com/';
 		$session =& $gallery->getSession();
-		$ret     = $session->init();
+
+		$ret = $session->init();
 
 		if ($ret) {
 			return $ret;
@@ -327,7 +331,8 @@ class MainTest extends GalleryTestCase {
 		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 
 		$session = new GallerySession();
-		$ret     = $session->init();
+
+		$ret = $session->init();
 
 		if ($ret) {
 			return $ret;
@@ -364,7 +369,8 @@ class MainTest extends GalleryTestCase {
 		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 
 		$session = new GallerySession();
-		$ret     = $session->init();
+
+		$ret = $session->init();
 
 		if ($ret) {
 			return $ret;

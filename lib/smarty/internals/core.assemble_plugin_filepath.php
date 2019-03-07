@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
  */
-
 
 /**
  * assemble filepath of requested plugin
@@ -26,6 +26,7 @@ function smarty_core_assemble_plugin_filepath($params, &$smarty) {
 		// see if path is relative
 		if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_plugin_dir)) {
 			$_relative_paths[] = $_plugin_dir;
+
 			// relative path, see if it is in the SMARTY_DIR
 			if (@is_readable(SMARTY_DIR . $_plugin_filepath)) {
 				$_return = SMARTY_DIR . $_plugin_filepath;

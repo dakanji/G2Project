@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -314,7 +315,8 @@ class RewriteModuleTest extends GalleryTestCase {
 		}
 
 		$expectedRules['rewrite'][0] = 'phpunit/dummy/%itemId%.html';
-		$ret                         = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'rewrite',
 			'activeRules',

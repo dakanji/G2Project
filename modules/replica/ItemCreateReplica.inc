@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -149,7 +150,8 @@ class ItemCreateReplicaController extends GalleryController {
 					 */
 					if ($selectedItem->isLinked()) {
 						$linkedEntity = $selectedItem->getLinkedEntity();
-						$ret          = $linkedItem->createLink($linkedEntity, $destinationId);
+
+						$ret = $linkedItem->createLink($linkedEntity, $destinationId);
 					} else {
 						$ret = $linkedItem->createLink($selectedItem, $destinationId);
 					}

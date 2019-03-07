@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -50,8 +51,7 @@ class AdminEditUserController extends GalleryController {
 		}
 
 		$results = $status = $error = array();
-
-		$userId = (int)GalleryUtilities::getRequestVariables('userId');
+		$userId  = (int)GalleryUtilities::getRequestVariables('userId');
 
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
@@ -60,7 +60,11 @@ class AdminEditUserController extends GalleryController {
 		}
 
 		// We treat anonymous users differently, so see if we're editing the anonymous user
-		list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+		list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'core',
+			'id.anonymousUser'
+		);
 
 		if ($ret) {
 			return array($ret, null);

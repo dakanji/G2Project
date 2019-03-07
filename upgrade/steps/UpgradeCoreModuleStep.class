@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -47,7 +48,6 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 		}
 
 		include_once __DIR__ . '/../../modules/core/module.inc';
-
 		include_once __DIR__ . '/../../modules/core/CoreModuleExtras.inc';
 
 		$core     = new CoreModule();
@@ -99,7 +99,8 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 
 					if (!$ret) {
 						$storage =& $gallery->getStorage();
-						$ret     = $storage->commitTransaction();
+
+						$ret = $storage->commitTransaction();
 
 						if (!$ret && $templateData['isConfigUpgradeRequired']) {
 							$ret = CoreModuleExtras::getMe()->performConfigUpgrade(

@@ -1,4 +1,5 @@
 <?php
+
 // Translated by Pim Koeman (pim#wittenborg-university.com)
 $ADODB_LANG_ARRAY = array(
 	'LANG'                       => 'nl',

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -260,6 +261,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			'language.useBrowserPref' => 'IGNORED',
 			'session.lifetime'        => 'IGNORED',
 			'misc.markup'             => 'IGNORED',
+
 			// Set the cookie path in this test, the domain has to be a valid value
 			'cookie.domain'           => '.example.com',
 			'lock.system'             => 'IGNORED',
@@ -313,6 +315,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			// Try to change the parameter
 			GalleryUtilities::putRequestVariable('form[cookie][path]', $testCase['path']);
 			GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 			// Just add the other form vars to the request such that it accepts the save request
 			foreach ($valueMap as $key => $value) {
 				list($outer, $inner) = explode('.', $key);
@@ -384,6 +387,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			'language.useBrowserPref' => 'IGNORED',
 			'session.lifetime'        => 'IGNORED',
 			'misc.markup'             => 'IGNORED',
+
 			// Set the cookie domain in this test, set the path to a valid value
 			'cookie.path'             => '/sub/',
 			'lock.system'             => 'IGNORED',

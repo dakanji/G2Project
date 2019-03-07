@@ -1,4 +1,5 @@
 <?php
+
 /*
 
 @version   v5.20.12  30-Mar-2018
@@ -125,7 +126,6 @@ class ADODB_Active_Record {
 	// In our database, table names are pluralized (because there can be
 	// more than one row!)
 	// Similarly, if $table is defined here, it has to be plural form.
-	//
 	// $options is an array that allows us to tweak the constructor's behaviour
 	// if $options['refresh'] is true, we re-scan our metadata information
 	// if $options['new'] is true, we forget all relations
@@ -247,7 +247,6 @@ class ADODB_Active_Record {
 					return $table . 'es';
 				}
 
-
 				// Fall Through
 			default:
 				return $table . 's';
@@ -293,7 +292,6 @@ class ADODB_Active_Record {
 				if ($ut[$len - 4] == 'C' || $ut[$len - 4] == 'S') {
 					return substr($table, 0, $len - 2);
 				}
-
 
 				// Fall Through
 			default:
@@ -829,7 +827,6 @@ class ADODB_Active_Record {
 					return 'null';
 				}
 
-
 				// Fall Through
 			case 'C':
 			case 'X':
@@ -844,7 +841,6 @@ class ADODB_Active_Record {
 
 					break;
 				}
-
 
 				// Fall Through
 			default:
@@ -949,6 +945,7 @@ class ADODB_Active_Record {
 
 		$index = 0;
 		$found = false;
+
 		/** @todo Improve by storing once and for all in table metadata */
 
 		/** @todo Also re-use info for hasManyId */
@@ -980,6 +977,7 @@ class ADODB_Active_Record {
 
 				$obj = new $class($table, false, $db);
 				$obj->Set($row);
+
 				// TODO Copy/paste code below: bad!
 				if (count($table->_hasMany) > 0) {
 					foreach ($table->_hasMany as $foreignTable) {
@@ -1183,6 +1181,7 @@ class ADODB_Active_Record {
 
 		foreach ($table->flds as $name => $fld) {
 			$val = $this->$name;
+
 			/*
 			if (is_null($val)) {
 				if (isset($fld->not_null) && $fld->not_null) {
@@ -1194,9 +1193,7 @@ class ADODB_Active_Record {
 						$this->Error("Cannot update null into $name","Replace");
 						return false;
 					}
-
 				}
-
 			}*/
 			if (null === $val && !empty($fld->auto_increment)) {
 				continue;
@@ -1363,6 +1360,7 @@ function adodb_GetActiveRecordsClass(
 
 	$index = 0;
 	$found = false;
+
 	/** @todo Improve by storing once and for all in table metadata */
 
 	/** @todo Also re-use info for hasManyId */
@@ -1459,6 +1457,7 @@ function adodb_GetActiveRecordsClass(
 
 	$uniqArr = array(); // CFR Keep track of records for relations
 	$arr     = array();
+
 	// arrRef will be the structure that knows about our objects.
 	// It is an associative array.
 	// We will, however, return arr, preserving regular 0.. order so that
@@ -1475,11 +1474,11 @@ function adodb_GetActiveRecordsClass(
 		}
 
 		$obj->Set($row);
+
 		// CFR: FIXME: Insane assumption here:
 		// If the first column returned is an integer, then it's a 'id' field
 		// And to make things a bit worse, I use intval() rather than is_int() because, in fact,
 		// $row[0] is not an integer.
-		//
 		// So, what does this whole block do?
 		// When relationships are found, we perform JOINs. This is fast. But not accurate:
 		// instead of returning n objects with their n' associated cousins,
@@ -1500,6 +1499,7 @@ function adodb_GetActiveRecordsClass(
 			if (!empty($relations['belongsTo'])) {
 				foreach ($relations['belongsTo'] as $foreignTable) {
 					$foreignTableRef = $foreignTable->foreignKey;
+
 					// First array: list of foreign ids we are looking for
 					if (empty($bTos[$foreignTableRef])) {
 						$bTos[$foreignTableRef] = array();
@@ -1536,6 +1536,7 @@ function adodb_GetActiveRecordsClass(
 
 						if (!empty($obj->$foreignName)) {
 							$masterObj =& $uniqArr['_' . $row[0]];
+
 							// Assumption: this property exists in every object since they are instances of the same class
 							if (!is_array($masterObj->$foreignName)) {
 								// Pluck!
@@ -1556,6 +1557,7 @@ function adodb_GetActiveRecordsClass(
 
 						if (!empty($obj->$foreignName)) {
 							$masterObj =& $uniqArr['_' . $row[0]];
+
 							// Assumption: this property exists in every object since they are instances of the same class
 							if (!is_array($masterObj->$foreignName)) {
 								// Pluck!

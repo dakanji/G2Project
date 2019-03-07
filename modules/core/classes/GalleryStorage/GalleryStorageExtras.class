@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -337,9 +338,12 @@ class GalleryStorageExtras {
 				$columns = array_keys($columnChanges);
 				$data    = array_values($columnChanges);
 				$markers = GalleryUtilities::makeMarkers(count($columnChanges));
-				$query   = 'INSERT INTO ' . $tableName . ' (';
-				$query  .= implode(', ', $columns);
-				$query  .= ') VALUES (' . $markers . ')';
+
+				$query = 'INSERT INTO ' . $tableName . ' (';
+
+				$query .= implode(', ', $columns);
+
+				$query .= ') VALUES (' . $markers . ')';
 
 				$this->_gs->_traceStart();
 				$recordSet = $this->_gs->_db->Execute($query, $data);
@@ -656,9 +660,10 @@ class GalleryStorageExtras {
 			// Check to see if any of the ids that we care about are write locked
 			$writeEntityIdCol = $this->_gs->_translateColumnName('writeEntityId');
 			$markers          = GalleryUtilities::makeMarkers(count($entityIds));
-			$query            = 'SELECT COUNT(*) FROM ' . $lockTable
+
+			$query = 'SELECT COUNT(*) FROM ' . $lockTable
 			. ' WHERE ' . $writeEntityIdCol . ' IN (' . $markers . ')';
-			$data             = $entityIds;
+			$data  = $entityIds;
 
 			$this->_gs->_traceStart();
 			$recordSet = $db->Execute($query, $data);
@@ -731,9 +736,10 @@ class GalleryStorageExtras {
 
 		// Drop the lock request, now that we've got the read locks
 		$requestCol = $this->_gs->_translateColumnName('request');
-		$query      = 'DELETE FROM ' . $lockTable
+
+		$query = 'DELETE FROM ' . $lockTable
 		. ' WHERE ' . $lockIdCol . '=? AND ' . $requestCol . '=1';
-		$data       = array($lockId);
+		$data  = array($lockId);
 
 		$this->_gs->_traceStart();
 		$recordSet = $db->Execute($query, $data);
@@ -801,11 +807,12 @@ class GalleryStorageExtras {
 			$readEntityIdCol  = $this->_gs->_translateColumnName('readEntityId');
 			$writeEntityIdCol = $this->_gs->_translateColumnName('writeEntityId');
 			$markers          = GalleryUtilities::makeMarkers(count($entityIds));
-			$query            = 'SELECT COUNT(*) FROM ' . $lockTable . ' ' .
+
+			$query = 'SELECT COUNT(*) FROM ' . $lockTable . ' ' .
 			'WHERE ' . $readEntityIdCol . ' IN (' . $markers . ') ' .
 			'OR ' . $writeEntityIdCol . ' IN (' . $markers . ')';
-			$data             = $entityIds;
-			$data             = array_merge($data, $entityIds);
+			$data  = $entityIds;
+			$data  = array_merge($data, $entityIds);
 
 			$this->_gs->_traceStart();
 			$recordSet = $db->Execute($query, $data);
@@ -878,9 +885,10 @@ class GalleryStorageExtras {
 
 		// Drop the lock request, now that we've got the write locks
 		$requestCol = $this->_gs->_translateColumnName('request');
-		$query      = 'DELETE FROM ' . $lockTable
+
+		$query = 'DELETE FROM ' . $lockTable
 		. ' WHERE ' . $lockIdCol . '=? AND ' . $requestCol . '=1';
-		$data       = array($lockId);
+		$data  = array($lockId);
 
 		$this->_gs->_traceStart();
 		$recordSet = $db->Execute($query, $data);
@@ -923,7 +931,8 @@ class GalleryStorageExtras {
 			$lockIdCol     = $this->_gs->_translateColumnName('lockId');
 			$freshUntilCol = $this->_gs->_translateColumnName('freshUntil');
 			$lockIdMarkers = GalleryUtilities::makeMarkers(count($lockIds));
-			$query         = sprintf(
+
+			$query = sprintf(
 				'UPDATE %s SET %s = ? WHERE %s in (%s)',
 				$lockTable,
 				$freshUntilCol,
@@ -960,7 +969,8 @@ class GalleryStorageExtras {
 		list($lockTable, $unused) = $this->_gs->_translateTableName('Lock');
 
 		$freshUntilCol = $this->_gs->_translateColumnName('freshUntil');
-		$query         = sprintf(
+
+		$query = sprintf(
 			'DELETE FROM %s WHERE %s < ?',
 			$lockTable,
 			$freshUntilCol
@@ -1001,7 +1011,8 @@ class GalleryStorageExtras {
 
 		$lockIdCol = $this->_gs->_translateColumnName('lockId');
 		$markers   = GalleryUtilities::makeMarkers(count($lockIds));
-		$query     = 'DELETE FROM ' . $lockTable . ' WHERE ' . $lockIdCol . ' IN (' . $markers . ')';
+
+		$query = 'DELETE FROM ' . $lockTable . ' WHERE ' . $lockIdCol . ' IN (' . $markers . ')';
 
 		$this->_gs->_traceStart();
 		$recordSet = $db->Execute($query, $lockIds);
@@ -1177,9 +1188,12 @@ class GalleryStorageExtras {
 		}
 
 		$markers = GalleryUtilities::makeMarkers(count($columns));
-		$query   = 'INSERT INTO ' . $tableName . ' (';
-		$query  .= implode(', ', $columns);
-		$query  .= ') VALUES (' . $markers . ')';
+
+		$query = 'INSERT INTO ' . $tableName . ' (';
+
+		$query .= implode(', ', $columns);
+
+		$query .= ') VALUES (' . $markers . ')';
 
 		$this->_gs->_traceStart();
 		$recordSet = $db->Execute($query, $data);
@@ -2338,7 +2352,8 @@ class GalleryStorageExtras {
 		$lockIdCol     = $this->_gs->_translateColumnName('lockId');
 		$requestCol    = $this->_gs->_translateColumnName('request');
 		$freshUntilCol = $this->_gs->_translateColumnName('freshUntil');
-		$query         = sprintf(
+
+		$query = sprintf(
 			'INSERT INTO %s (%s, %s, %s) VALUES(?, 1, ?)',
 			$lockTable,
 			$lockIdCol,
@@ -2435,7 +2450,8 @@ class GalleryStorageExtras {
 			list($table, $unused) = $this->_gs->_translateTableName('GalleryEntity');
 
 			$markers = GalleryUtilities::makeMarkers(count($checkIds));
-			$query   = 'SELECT ' . $idCol . ', ' . $entityTypeCol
+
+			$query = 'SELECT ' . $idCol . ', ' . $entityTypeCol
 			. ' FROM ' . $table . ' WHERE ' . $idCol . ' IN (' . $markers . ')';
 
 			$this->_gs->_traceStart();

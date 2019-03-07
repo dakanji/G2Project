@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -187,6 +188,7 @@ class TemplateAuditTest extends CodeAuditTestCase {
 
 	public function _checkTextInJavascript($fileName, &$lines) {
 		$inScriptTag = false;
+
 		// Parsing for the closing brace of {g->text } is too complex. Using check-sum instead.
 		$scriptStartLine = $textCount = $forJsCount = 0;
 

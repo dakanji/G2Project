@@ -14,7 +14,6 @@
 
 /*
 In ADOdb, named quotes for MS SQL Server use ". From the MSSQL Docs:
-
 	Note Delimiters are for identifiers only. Delimiters cannot be used for keywords,
 	whether or not they are marked as reserved in SQL Server.
 

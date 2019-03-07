@@ -47,7 +47,6 @@ class ADODB2_mysql extends ADODB_DataDict {
 					return 'C';
 				}
 
-
 				// Fall Through
 			case 'TEXT':
 			case 'LONGTEXT':

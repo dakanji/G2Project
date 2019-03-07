@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -153,6 +154,7 @@ class UserPreferencesController extends GalleryController {
 
 				if (isset($form['language'])) {
 					$user->setLanguage($form['language']);
+
 					// update the effective language in the current session
 					$session =& $gallery->getSession();
 					$session->put('core.language', $form['language']);

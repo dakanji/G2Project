@@ -1,6 +1,6 @@
 <?php
-// vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4:
 
+// vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4:
 /**
  * Converts to and from JSON format.
  *
@@ -480,7 +480,6 @@ class Services_JSON {
 
 				// eliminate single line comments in '// ...' form
 				'#^\s*//(.+)$#m',
-
 				// eliminate multi-line comments in '/* ... */' form, at start of string
 				'#^\s*/\*(.+)\*/#Us',
 
@@ -752,6 +751,7 @@ class Services_JSON {
 						) {
 							// found a quote, we're in a string, and it's not escaped
 							array_pop($stk);
+
 						//print("Found end of string at {$c}: ".substr($chrs, $top['where'], (1 + 1 + $c - $top['where']))."\n");
 						} elseif (($chrs[$c] == '[')
 							&& in_array($top['what'], array(SERVICES_JSON_SLICE, SERVICES_JSON_IN_ARR, SERVICES_JSON_IN_OBJ))
@@ -770,6 +770,7 @@ class Services_JSON {
 						} elseif (($chrs[$c] == ']') && ($top['what'] == SERVICES_JSON_IN_ARR)) {
 							// found a right-bracket, and we're in an array
 							array_pop($stk);
+
 						//print("Found end of array at {$c}: ".substr($chrs, $top['where'], (1 + $c - $top['where']))."\n");
 						} elseif (($chrs[$c] == '{')
 							&& in_array($top['what'], array(SERVICES_JSON_SLICE, SERVICES_JSON_IN_ARR, SERVICES_JSON_IN_OBJ))
@@ -788,6 +789,7 @@ class Services_JSON {
 						} elseif (($chrs[$c] == '}') && ($top['what'] == SERVICES_JSON_IN_OBJ)) {
 							// found a right-brace, and we're in an object
 							array_pop($stk);
+
 						//print("Found end of object at {$c}: ".substr($chrs, $top['where'], (1 + $c - $top['where']))."\n");
 						} elseif (($substr_chrs_c_2 == '/*')
 							&& in_array($top['what'], array(SERVICES_JSON_SLICE, SERVICES_JSON_IN_ARR, SERVICES_JSON_IN_OBJ))
@@ -803,6 +805,7 @@ class Services_JSON {
 							);
 
 							$c++;
+
 						//print("Found start of comment at {$c}\n");
 						} elseif (($substr_chrs_c_2 == '*/') && ($top['what'] == SERVICES_JSON_IN_CMT)) {
 							// found a comment end, and we're in one now

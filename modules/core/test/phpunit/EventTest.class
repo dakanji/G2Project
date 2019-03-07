@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -237,7 +238,8 @@ class EventTestEventListener // extends GalleryEventListener
 				global $gallery;
 
 				$item = $event->getEntity();
-				$ret  = GalleryCoreApi::removeItemPermissions($item->getId());
+
+				$ret = GalleryCoreApi::removeItemPermissions($item->getId());
 
 				if ($ret) {
 					return array($ret, null);

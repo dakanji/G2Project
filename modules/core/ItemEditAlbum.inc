@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -237,7 +238,10 @@ class ItemEditAlbum extends ItemEditPlugin {
 						return array($ret, null, null, null);
 					}
 
-					list($ret, $subAlbums) = GalleryCoreApi::loadEntitiesById($subAlbumIds, 'GalleryAlbumItem');
+					list($ret, $subAlbums) = GalleryCoreApi::loadEntitiesById(
+						$subAlbumIds,
+						'GalleryAlbumItem'
+					);
 
 					if ($ret) {
 						return array($ret, null, null, null);
@@ -305,7 +309,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 			$form['formName']       = 'ItemEditAlbum';
 
 			// Load up the data for the resizes table
-			list($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem($item->getId());
+			list($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem(
+				$item->getId()
+			);
 
 			if ($ret) {
 				return array($ret, null, null);
@@ -430,13 +436,21 @@ class ItemEditAlbum extends ItemEditPlugin {
 
 		// Get the items to process
 		if (empty($form['changeInDescendents']['recreateResizes'])) {
-			list($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsWithPermission($item->getId(), 'core.edit');
+			list($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsWithPermission(
+				$item->getId(),
+				'core.edit'
+			);
 
 			if ($ret) {
 				return $ret;
 			}
 		} else {
-			list($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds($item, null, null, 'core.edit');
+			list($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds(
+				$item,
+				null,
+				null,
+				'core.edit'
+			);
 
 			if ($ret) {
 				return $ret;
@@ -451,8 +465,12 @@ class ItemEditAlbum extends ItemEditPlugin {
 
 		while (!empty($childIds)) {
 			$currentChildIds = array_splice($childIds, 0, $batchSize);
+
 			// Load the children
-			list($ret, $childItems) = GalleryCoreApi::loadEntitiesById($currentChildIds, 'GalleryItem');
+			list($ret, $childItems) = GalleryCoreApi::loadEntitiesById(
+				$currentChildIds,
+				'GalleryItem'
+			);
 
 			if ($ret) {
 				return $ret;
@@ -496,7 +514,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 
 				if (!isset($resizePrefs[$albumId])) {
 					// Keep resizes for albums in memory
-					list($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem($albumId);
+					list($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem(
+						$albumId
+					);
 
 					if ($ret) {
 						return $ret;
@@ -512,8 +532,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 								$matches
 							)
 						) {
-							$width                   = $matches[1];
-							$height                  = empty($matches[2]) ? $width : $matches[2];
+							$width  = $matches[1];
+							$height = empty($matches[2]) ? $width : $matches[2];
+
 							$resizePrefs[$albumId][] = array(
 								'operations' => $preference['derivativeOperations'],
 								'width'      => $width,
@@ -536,8 +557,11 @@ class ItemEditAlbum extends ItemEditPlugin {
 
 				for ($i = 0; $i < count($resizePrefs[$albumId]); $i++) {
 					if (!isset($resizePrefs[$albumId][$i][$mimeType])) {
-						list($ret, $resizePrefs[$albumId][$i][$mimeType]['operations'],
-						$resizePrefs[$albumId][$i][$mimeType]['outputMimeType']) = GalleryCoreApi::makeSupportedViewableOperationSequence(
+						list(
+							$ret,
+							$resizePrefs[$albumId][$i][$mimeType]['operations'],
+							$resizePrefs[$albumId][$i][$mimeType]['outputMimeType']
+						) = GalleryCoreApi::makeSupportedViewableOperationSequence(
 							$mimeType,
 							$resizePrefs[$albumId][$i]['operations'],
 							false
@@ -589,7 +613,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 					if (!empty($resizesTable[$childId])) {
 						$derivative = array_shift($resizesTable[$childId]);
 
-						list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($derivative->getId());
+						list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(
+							$derivative->getId()
+						);
 
 						if ($ret) {
 							return $ret;
@@ -705,13 +731,21 @@ class ItemEditAlbum extends ItemEditPlugin {
 
 		// Get the items to process
 		if (empty($form['changeInDescendents']['recreateThumbnails'])) {
-			list($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsWithPermission($item->getId(), 'core.edit');
+			list($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsWithPermission(
+				$item->getId(),
+				'core.edit'
+			);
 
 			if ($ret) {
 				return $ret;
 			}
 		} else {
-			list($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds($item, null, null, 'core.edit');
+			list($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds(
+				$item,
+				null,
+				null,
+				'core.edit'
+			);
 
 			if ($ret) {
 				return $ret;
@@ -726,15 +760,21 @@ class ItemEditAlbum extends ItemEditPlugin {
 
 		while (!empty($childIds)) {
 			$currentChildIds = array_splice($childIds, 0, $batchSize);
+
 			// Load the children
-			list($ret, $childItems) = GalleryCoreApi::loadEntitiesById($currentChildIds, 'GalleryItem');
+			list($ret, $childItems) = GalleryCoreApi::loadEntitiesById(
+				$currentChildIds,
+				'GalleryItem'
+			);
 
 			if ($ret) {
 				return $ret;
 			}
 
 			// Load the thumbnail of the children
-			list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($currentChildIds);
+			list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(
+				$currentChildIds
+			);
 
 			if ($ret) {
 				return $ret;
@@ -800,7 +840,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 
 					if ($ret && $ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 						// Someone deleted the source image, we can only delete the thumbnail
-						list($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($thumbnail->getId());
+						list($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock(
+							$thumbnail->getId()
+						);
 
 						if ($ret) {
 							return $ret;
@@ -863,7 +905,11 @@ class ItemEditAlbum extends ItemEditPlugin {
 				}
 
 				// Change the thumbnail
-				list($ret, $operation, $outputMimeType) = GalleryCoreApi::makeSupportedViewableOperationSequence(
+				list(
+					$ret,
+					$operation,
+					$outputMimeType
+				) = GalleryCoreApi::makeSupportedViewableOperationSequence(
 					$source->getMimeType(),
 					$operation
 				);
@@ -879,7 +925,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 					$thumbnail->expireCache();
 
 					if ($thumbnail->isModified()) {
-						list($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($thumbnail->getId());
+						list($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock(
+							$thumbnail->getId()
+						);
 
 						if ($ret) {
 							return $ret;

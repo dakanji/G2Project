@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -69,7 +70,8 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 		$_SERVER['QUERY_STRING'] = '';
 
 		$this->_urlGenerator = new RewriteUrlGenerator();
-		$ret                 = $this->_urlGenerator->init('phpunit_test.php');
+
+		$ret = $this->_urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;
@@ -92,7 +94,8 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 
 	public function testInit() {
 		$urlGenerator = new RewriteUrlGenerator();
-		$ret          = $urlGenerator->init('phpunit_test.php');
+
+		$ret = $urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;

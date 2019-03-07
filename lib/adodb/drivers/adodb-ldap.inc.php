@@ -1,4 +1,5 @@
 <?php
+
 /*
   @version   v5.20.12  30-Mar-2018
   @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -110,7 +111,6 @@ class ADODB_ldap extends ADOConnection {
 
 	/*
 	Valid Domain Values for LDAP Options:
-
 	LDAP_OPT_DEREF (integer)
 	LDAP_OPT_SIZELIMIT (integer)
 	LDAP_OPT_TIMELIMIT (integer)
@@ -202,6 +202,7 @@ class ADODB_ldap extends ADOConnection {
 		}
 
 		$version = array();
+
 		/*
 		Determines how aliases are handled during search.
 		LDAP_DEREF_NEVER (0x00)

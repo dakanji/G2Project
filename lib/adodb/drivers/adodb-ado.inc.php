@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -18,6 +19,7 @@ if (!defined('ADODB_DIR')) {
 }
 
 define('_ADODB_ADO_LAYER', 1);
+
 /*--------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------*/
 class ADODB_ado extends ADOConnection {
@@ -62,7 +64,6 @@ class ADODB_ado extends ADOConnection {
 	}
 
 	// you can also pass a connection string like this:
-	//
 	// $DB->Connect('USER ID=sa;PASSWORD=pwd;SERVER=mangrove;DATABASE=ai',false,false,'SQLOLEDB');
 	public function _connect($argHostname, $argUsername, $argPassword, $argProvider = 'MSDASQL') {
 		$u = 'UID';
@@ -461,6 +462,7 @@ class ADORecordSet_ado extends ADORecordSet {
 	// should only be used to move forward as we normally use forward-only cursors
 	public function _seek($row) {
 		$rs = $this->_queryID;
+
 		// absoluteposition doesn't work -- my maths is wrong ?
 		//	$rs->AbsolutePosition->$row-2;
 		//	return true;
@@ -579,7 +581,6 @@ class ADORecordSet_ado extends ADORecordSet {
 				if ($len <= $this->blobSize) {
 					return 'C';
 				}
-
 
 				// Fall Through
 			case 201:
@@ -754,6 +755,7 @@ class ADORecordSet_ado extends ADORecordSet {
 	public function NextRecordSet() {
 		$rs             = $this->_queryID;
 		$this->_queryID = $rs->NextRecordSet();
+
 		//$this->_queryID = $this->_QueryId->NextRecordSet();
 		if ($this->_queryID == null) {
 			return false;

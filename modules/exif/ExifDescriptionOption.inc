@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -79,6 +80,7 @@ class ExifDescriptionOption extends ItemAddOption {
 		if (!empty($needed)) {
 			// Copy the array because we will change it with do / while / array_splice
 			$itemsInBatches = $items;
+
 			/*
 			 * Batch size should be <= ulimit max open files, as long as we don't query this value,
 			 * assume a value of 100 which is fairly low
@@ -195,6 +197,7 @@ class ExifDescriptionOption extends ItemAddOption {
 						 */
 
 						/*
+
 						 //elseif ($orientation == 'Normal (O deg)') { leave $args empty }
 						 else if ($orientation == 'Mirrored') {}
 						 else if ($orientation == 'Upsidedown Mirrored') {}

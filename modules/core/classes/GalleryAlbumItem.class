@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -382,7 +383,8 @@ class GalleryAlbumItem extends GalleryItem {
 		}
 
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->checkPoint();
+
+		$ret = $storage->checkPoint();
 
 		if ($ret) {
 			return $ret;
@@ -432,7 +434,8 @@ class GalleryAlbumItem extends GalleryItem {
 		 * our locks at the end.
 		 */
 		$error = null;
-		$ret   = parent::rename($newName);
+
+		$ret = parent::rename($newName);
 
 		if ($ret) {
 			$error = $ret;

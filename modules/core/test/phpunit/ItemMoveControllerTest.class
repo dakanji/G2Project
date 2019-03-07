@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -41,7 +42,8 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 
 		// Register a dummy toolkit
 		$path = 'modules/core/test/phpunit/ItemMoveControllerTest.class';
-		$ret  = GalleryCoreApi::registerFactoryImplementation(
+
+		$ret = GalleryCoreApi::registerFactoryImplementation(
 			'GalleryToolkit',
 			'ItemMoveTestToolkit',
 			'ItemMoveTestToolkit',
@@ -234,7 +236,8 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		$args      = func_get_args();
 		$itemId    = array_shift($args);
 		$thumbSize = array_shift($args);
-		$ret       = GalleryCoreApi::removeDerivativePreferencesForItem($itemId);
+
+		$ret = GalleryCoreApi::removeDerivativePreferencesForItem($itemId);
 
 		if ($ret) {
 			return $ret;
@@ -777,6 +780,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		// Set derivative preferences for old and new parent..
 		$this->_setDerivativePreferences($this->_album[3]->getId(), 120, 500);
 		$this->_setDerivativePreferences($this->_album[1]->getId(), 150, 800);
+
 		// Create initial derivatives..
 		$ret = GalleryCoreApi::addExistingItemToAlbum(
 			$this->_item,

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -737,6 +738,7 @@ class ViewTest extends GalleryTestCase {
 
 		$gallery->_phpVm = new UnitTestPhpVm();
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
+
 		// Optional md5 call if authToken needs to be created and placed in session
 		$gallery->_phpVm->setReply(
 			'md5',
@@ -885,6 +887,7 @@ class ViewTest extends GalleryTestCase {
 
 		$gallery->_phpVm = new UnitTestPhpVm();
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
+
 		// Optional md5 call if authToken needs to be created and placed in session
 		$gallery->_phpVm->setReply(
 			'md5',

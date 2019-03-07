@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -64,6 +65,7 @@ class Db2Storage extends GalleryStorage {
 		$statements[] = 'DROP FUNCTION BIT_AND(SMALLINT, SMALLINT)';
 		$statements[] = 'DROP FUNCTION G2_LIKE(VARCHAR(8000), VARCHAR(8000))';
 		$statements[] = 'DROP FUNCTION G2_BIT_OR(INTEGER, VARCHAR(32))';
+
 		/*
 		 * Unregister the Jar file; use ODBC delimiters, see
 		 * http://gallery.menalto.com/node/37648?from=850#comment-172690
@@ -171,6 +173,7 @@ class Db2Storage extends GalleryStorage {
 	 */
 	public function removeAllMapEntries($mapName, $useNonTransactionalConnection = false) {
 		$extras =& $this->_getExtras();
+
 		// DB2 does not support TRUNCATE
 		return $extras->removeAllMapEntries($mapName, $useNonTransactionalConnection, false);
 	}

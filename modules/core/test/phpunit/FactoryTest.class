@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -39,7 +40,8 @@ class FactoryTest extends GalleryTestCase {
 		}
 
 		$path = 'modules/core/test/phpunit/FactoryTest.class';
-		$ret  = GalleryCoreApi::registerFactoryImplementation(
+
+		$ret = GalleryCoreApi::registerFactoryImplementation(
 			'FactoryTest',
 			'FactoryTestDummy',
 			'FactoryTestDummyId3',
@@ -389,7 +391,8 @@ class FactoryTest extends GalleryTestCase {
 
 	public function testRegisterFactoryImplementationForRequest() {
 		$handlerPath = __DIR__;
-		$ret         = GalleryCoreApi::registerFactoryImplementationForRequest(
+
+		$ret = GalleryCoreApi::registerFactoryImplementationForRequest(
 			'GalleryEventListener',
 			'TestErrorHandler',
 			'TestErrorHandler',
@@ -453,7 +456,8 @@ class FactoryTest extends GalleryTestCase {
 
 	public function testRegisterFactoryImplementationForRequestDeleteCache() {
 		$handlerPath = __DIR__;
-		$ret         = GalleryCoreApi::registerFactoryImplementationForRequest(
+
+		$ret = GalleryCoreApi::registerFactoryImplementationForRequest(
 			'GalleryEventListener',
 			'TestErrorHandler',
 			'TestErrorHandler',

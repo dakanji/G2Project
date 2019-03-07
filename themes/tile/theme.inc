@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -219,6 +220,7 @@ class TileTheme extends GalleryTheme {
 			if ($tmp['id'] == $item->getId()) {
 				if (isset($tmp['imageIndex'])) {
 					$theme['viewIndex'] = $tmp['imageIndex'];
+
 					// Set cookie to popup image just once
 					setcookie('G2_tile_view', '1');
 				}

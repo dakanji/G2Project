@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -101,7 +102,6 @@ class ExifModule extends GalleryModule {
 						return $ret;
 					}
 
-
 					// Fall Through
 				case '0.8.4':
 				case '0.8.5':
@@ -142,7 +142,6 @@ class ExifModule extends GalleryModule {
 					if ($ret) {
 						return $ret;
 					}
-
 
 					// Fall Through
 				case '0.9.2':

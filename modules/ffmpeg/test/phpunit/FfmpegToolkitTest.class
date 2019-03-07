@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -42,7 +43,8 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		}
 
 		$gallery->_platform = new FfmpegToolkitTestPlatform();
-		$ret                = $gallery->_platform->init($this);
+
+		$ret = $gallery->_platform->init($this);
 
 		if ($ret) {
 			return $ret;

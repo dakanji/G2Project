@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,10 +21,8 @@
 
 //----------------------------------------------------------------------
 // *Verification*
-//
 //   Confirm client is verified and has called this page properly.
 //   Redirect otherwise.
-//
 //----------------------------------------------------------------------
 if (!defined('G2_SUPPORT')) {
 	define('G2_SUPPORT_FILE', true);
@@ -33,10 +32,8 @@ if (!defined('G2_SUPPORT')) {
 
 //----------------------------------------------------------------------
 // *Main Procedural Code*
-//
 //   Code entry point.
 //   Prepares HTML code to pass to HTML page section
-//
 //----------------------------------------------------------------------
 $HTMLhead = $HTMLbody = null;
 $HTMLbody = g2Connect();
@@ -65,9 +62,7 @@ GalleryEmbed::done();
 
 //----------------------------------------------------------------------
 // *Script Functions*
-//
 //   Functions used by this script
-//
 //----------------------------------------------------------------------
 function g2Connect() {
 	include_once '../../embed.php';
@@ -320,6 +315,7 @@ function process($renderType, $args = array()) {
 
 function getAlbumIdsRecursive($id) {
 	$err = $albumIds = null;
+
 	// Get ids of all albums from starting point $id.
 	list($ret, $tree) = GalleryCoreApi::fetchAlbumTree($id, null, null, true);
 
@@ -328,6 +324,7 @@ function getAlbumIdsRecursive($id) {
 	} else {
 		// Load all the albumIds
 		$albumIds = GalleryUtilities::arrayKeysRecursive($tree);
+
 		// Add our starting point
 		array_push($albumIds, $id);
 	}
@@ -536,9 +533,7 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 
 //----------------------------------------------------------------------
 // *Page HTML*
-//
 //   Actual HTML to insert into index.php for display
-//
 //----------------------------------------------------------------------
 ?>
 <html lang="en">
@@ -552,7 +547,6 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 					var node = document.getElementById(id);
 					node.innerHTML = content;
 				}
-
 			}
 
 			function jsAlbumSelect() {

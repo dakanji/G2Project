@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -81,7 +82,8 @@ class GalleryDerivativeHelper_advanced {
 		while (sizeof($ids) > $lastCount) {
 			$lastCount = sizeof($ids);
 			$idMarkers = GalleryUtilities::makeMarkers(sizeof($ids));
-			$query     = '
+
+			$query = '
 			SELECT
 			[GalleryDerivative::id]
 			FROM

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -61,7 +62,8 @@ class LogoutControllerTest extends GalleryControllerTestCase {
 
 		// Restore the session
 		$gallery->_session = $this->_saveSession;
-		$ret               = parent::tearDown();
+
+		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -108,7 +110,8 @@ class LogoutControllerTest extends GalleryControllerTestCase {
 
 	public function testLogoutEventDelegate() {
 		$LogoutControllerTestEventListener = new LogoutControllerTestEventListener();
-		$ret                               = GalleryCoreApi::registerEventListener(
+
+		$ret = GalleryCoreApi::registerEventListener(
 			'Gallery::Logout',
 			$LogoutControllerTestEventListener
 		);

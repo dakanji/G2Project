@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
  */
-
 
 /**
  * write out a file to disk
@@ -20,6 +20,7 @@ function smarty_core_write_file($params, &$smarty) {
 		);
 
 		include_once SMARTY_CORE_DIR . 'core.create_dir_structure.php';
+
 		smarty_core_create_dir_structure($_params, $smarty);
 	}
 

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -159,7 +160,8 @@ class GalleryDataItem extends GalleryItem {
 		$this->setMimeType($mimeType);
 
 		$baseName = !empty($targetName) ? $targetName : basename($inputFileName);
-		$ret      = parent::create($parentId, $baseName);
+
+		$ret = parent::create($parentId, $baseName);
 
 		if ($ret) {
 			return $ret;
@@ -350,7 +352,8 @@ class GalleryDataItem extends GalleryItem {
 		 * Jump through hoops to make sure that we release our locks at the end.
 		 */
 		$error = null;
-		$ret   = parent::rename($newName);
+
+		$ret = parent::rename($newName);
 
 		if ($ret) {
 			$error = $ret;

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -161,6 +162,7 @@ class ItemAddController extends GalleryController {
 		$session         =& $gallery->getSession();
 
 		$startTime = $phpVm->time();
+
 		// Auto-redirect if we complete the request within this period. Else show the continueURL
 		$autoRedirectSeconds = 15;
 
@@ -409,6 +411,7 @@ class ItemAddController extends GalleryController {
 			} else {
 				// This is not an archive, add it to our array of item objects
 				$itemsToProcess[] = $addedItem;
+
 				/*
 				 * We can't index $itemsToProcess directly by $i because some options expect it to
 				 * be indexed from 0..n without holes.
@@ -438,6 +441,7 @@ class ItemAddController extends GalleryController {
 					}
 
 					$errors = array_merge($errors, $optionErrors);
+
 					// For each item, put the items warnings into our status array
 					foreach ($optionWarnings as $j => $messages) {
 						$key = $itemsToProcessKeyMap[$j];
@@ -545,7 +549,8 @@ class ItemAddController extends GalleryController {
 		$gallery->guaranteeTimeLimit(30);
 
 		$addedFiles = array();
-		$ret        = $this->_recursiveAddDir(
+
+		$ret = $this->_recursiveAddDir(
 			$tmpDir,
 			$parentId,
 			$addedFiles,
@@ -835,6 +840,7 @@ class ItemAddView extends GalleryView {
 
 		if (!empty($errors)) {
 			$session->remove('itemAdd.error');
+
 			// Same logic as in main.php
 			foreach ($errors as $error) {
 				GalleryUtilities::putRequestVariable($error, 1);

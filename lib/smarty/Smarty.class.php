@@ -31,7 +31,6 @@
  */
 
 // $Id$
-
 /**
  * DIR_SEP isn't used anymore, but third party apps might
  */
@@ -374,8 +373,8 @@ class Smarty {
 	 * It basically converts \r (mac) or \r\n (dos) to \n
 	 */
 	public $config_fix_newlines = true;
-	// #@-
 
+	// #@-
 	/**
 	 * If a template cannot be found, this PHP function will be executed.
 	 * Useful for creating templates on-the-fly or other special action.
@@ -581,6 +580,7 @@ class Smarty {
 	 * @var array
 	 */
 	public $_filepaths_cache = array();
+
 	// #@-
 
 	/**
@@ -903,6 +903,7 @@ class Smarty {
 				);
 
 				include_once SMARTY_CORE_DIR . 'core.load_plugins.php';
+
 				smarty_core_load_plugins($_params, $this);
 
 				break;
@@ -1149,6 +1150,7 @@ class Smarty {
 			$_params = array();
 
 			include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
+
 			$_debug_start_time          = smarty_core_get_microtime($_params, $this);
 			$this->_smarty_debug_info[] = array(
 				'type'     => 'template',
@@ -1188,12 +1190,14 @@ class Smarty {
 					);
 
 					include_once SMARTY_CORE_DIR . 'core.load_plugins.php';
+
 					smarty_core_load_plugins($_params, $this);
 					$_params = array(
 						'results' => $_smarty_results,
 					);
 
 					include_once SMARTY_CORE_DIR . 'core.process_cached_inserts.php';
+
 					$_smarty_results = smarty_core_process_cached_inserts($_params, $this);
 				}
 
@@ -1203,6 +1207,7 @@ class Smarty {
 					);
 
 					include_once SMARTY_CORE_DIR . 'core.process_compiled_include.php';
+
 					$_smarty_results = smarty_core_process_compiled_include($_params, $this);
 				}
 
@@ -1212,9 +1217,10 @@ class Smarty {
 						$_params = array();
 
 						include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
-						$this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = smarty_core_get_microtime($_params, $this) - $_debug_start_time;
 
+						$this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = smarty_core_get_microtime($_params, $this) - $_debug_start_time;
 						include_once SMARTY_CORE_DIR . 'core.display_debug_console.php';
+
 						$_smarty_results .= smarty_core_display_debug_console($_params, $this);
 					}
 
@@ -1241,6 +1247,7 @@ class Smarty {
 					}
 
 					error_reporting($_smarty_old_error_level);
+
 					// restore initial cache_info
 					$this->_cache_info = array_pop($_cache_info);
 
@@ -1248,6 +1255,7 @@ class Smarty {
 				}
 
 				error_reporting($_smarty_old_error_level);
+
 				// restore initial cache_info
 				$this->_cache_info = array_pop($_cache_info);
 
@@ -1309,9 +1317,11 @@ class Smarty {
 			);
 
 			include_once SMARTY_CORE_DIR . 'core.write_cache_file.php';
+
 			smarty_core_write_cache_file($_params, $this);
 
 			include_once SMARTY_CORE_DIR . 'core.process_cached_inserts.php';
+
 			$_smarty_results = smarty_core_process_cached_inserts($_params, $this);
 
 			if ($this->_cache_serials) {
@@ -1335,9 +1345,10 @@ class Smarty {
 				$_params = array();
 
 				include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
-				$this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = (smarty_core_get_microtime($_params, $this) - $_debug_start_time);
 
+				$this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = (smarty_core_get_microtime($_params, $this) - $_debug_start_time);
 				include_once SMARTY_CORE_DIR . 'core.display_debug_console.php';
+
 				echo smarty_core_display_debug_console($_params, $this);
 			}
 
@@ -1362,6 +1373,7 @@ class Smarty {
 	 */
 	public function config_load($file, $section = null, $scope = 'global') {
 		include_once $this->_get_plugin_filepath('function', 'config_load');
+
 		smarty_function_config_load(
 			array(
 				'file'    => $file,
@@ -1487,6 +1499,7 @@ class Smarty {
 			// if a _cache_serial was set, we also have to write an include-file:
 			if ($this->_cache_include_info) {
 				include_once SMARTY_CORE_DIR . 'core.write_compiled_include.php';
+
 				smarty_core_write_compiled_include(
 					array_merge(
 						$this->_cache_include_info,
@@ -1505,6 +1518,7 @@ class Smarty {
 			);
 
 			include_once SMARTY_CORE_DIR . 'core.write_compiled_resource.php';
+
 			smarty_core_write_compiled_resource($_params, $this);
 
 			return true;
@@ -1733,7 +1747,6 @@ class Smarty {
 					$_params = array(
 						'file_path' => $_fullpath,
 					);
-
 					include_once SMARTY_CORE_DIR . 'core.get_include_path.php';
 
 					if (smarty_core_get_include_path($_params, $this)) {
@@ -1756,6 +1769,7 @@ class Smarty {
 			);
 
 			include_once SMARTY_CORE_DIR . 'core.load_resource_plugin.php';
+
 			smarty_core_load_resource_plugin($_params, $this);
 		}
 
@@ -1839,6 +1853,7 @@ class Smarty {
 		if (isset($auto_id)) {
 			// make auto_id safe for directory names
 			$auto_id = str_replace('%7C', $_compile_dir_sep, (urlencode($auto_id)));
+
 			// split into separate directories
 			$_return .= $auto_id . $_compile_dir_sep;
 		}
@@ -1847,6 +1862,7 @@ class Smarty {
 			// make source name safe for filename
 			$_filename = urlencode(basename($auto_source));
 			$_crc32    = sprintf('%08X', crc32($auto_source));
+
 			// prepend %% to avoid name conflicts with
 			// with $params['auto_id'] names
 			$_crc32   = substr($_crc32, 0, 2) . $_compile_dir_sep .
@@ -1946,8 +1962,8 @@ class Smarty {
 	public function _smarty_include($params) {
 		if ($this->debugging) {
 			$_params = array();
-
 			include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
+
 			$debug_start_time           = smarty_core_get_microtime($_params, $this);
 			$this->_smarty_debug_info[] = array(
 				'type'     => 'template',
@@ -1982,6 +1998,7 @@ class Smarty {
 			$_params = array();
 
 			include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
+
 			$this->_smarty_debug_info[$included_tpls_idx]['exec_time'] = smarty_core_get_microtime($_params, $this) - $debug_start_time;
 		}
 

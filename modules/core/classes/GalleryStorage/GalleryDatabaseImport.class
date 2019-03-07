@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -548,6 +549,7 @@ class _GalleryPluginTag extends GalleryImportElement {
 class _GallerySequenceTag extends GalleryImportElement {
 	/** The name of this sequence. */
 	public $_sequenceName;
+
 	/** The starting value. */
 	public $_startValue;
 
@@ -570,7 +572,8 @@ class _GallerySequenceTag extends GalleryImportElement {
 	 */
 	public function importSequence() {
 		$storageExtras =& $this->_storage->_getExtras();
-		$ret           = $storageExtras->dropSequence($this->_sequenceName);
+
+		$ret = $storageExtras->dropSequence($this->_sequenceName);
 
 		// Ignore any errors and assume that if we get an error, then the sequence doesn't exist
 		$ret = $storageExtras->createSequence($this->_sequenceName, $this->_startValue);
@@ -669,7 +672,8 @@ class _GalleryTableDefinitionTag extends GalleryImportElement {
 
 		// Don't check the return code. Assume the table doesn't exist and create it.
 		$storageExtras =& $this->_storage->_getExtras();
-		$ret           = $storageExtras->_executeSql($this->_currentSql);
+
+		$ret = $storageExtras->_executeSql($this->_currentSql);
 
 		if ($ret) {
 			$this->setError($ret);
@@ -680,7 +684,8 @@ class _GalleryTableDefinitionTag extends GalleryImportElement {
 		// Only need to decode if the data is in a CDATA section, which these fields are
 		$sql  = $this->_decodeHtmlSpecialChars($this->_currentSql);
 		$info = $this->_decodeHtmlSpecialChars($this->_tableInfo);
-		$ret  = $storageExtras->_updateSchemaTableInfo(
+
+		$ret = $storageExtras->_updateSchemaTableInfo(
 			$nameInSchema,
 			$sql,
 			$this->_moduleId,
@@ -966,6 +971,7 @@ class GalleryXmlProcessor {
 	 * Push down stack for xml processing.
 	 */
 	public $_elementStack = array();
+
 	/**
 	 * a reference to the PHP supplied XML parser.
 	 */

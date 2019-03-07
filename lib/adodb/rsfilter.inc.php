@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @version   v5.20.12  30-Mar-2018
  * @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -25,14 +26,12 @@
 	an array containing one row repeatedly.
 
 	Example:
-
 	// ucwords() every element in the recordset
 	function do_ucwords(&$arr,$rs)
 	{
 		foreach($arr as $k => $v) {
 			$arr[$k] = ucwords($v);
 		}
-
 	}
 
 	$rs = RSFilter($rs,'do_ucwords');

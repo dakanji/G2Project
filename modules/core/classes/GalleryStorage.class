@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -240,7 +241,8 @@ class GalleryStorage {
 
 		$this->_traceStart();
 		$connectMethod = ($forceNew || !$this->_usePersistentConnections) ? 'NConnect' : 'PConnect';
-		$ret           = $db->$connectMethod(
+
+		$ret = $db->$connectMethod(
 			$this->_hostname,
 			$this->_username,
 			$this->_password,
@@ -935,7 +937,8 @@ class GalleryStorage {
 			global $gallery;
 
 			$result =& $gallery->getLockSystem(false);
-			$ret    = $result[0];
+
+			$ret = $result[0];
 
 			if ($ret) {
 				return $ret;
@@ -996,7 +999,8 @@ class GalleryStorage {
 			global $gallery;
 
 			$result =& $gallery->getLockSystem(false);
-			$ret    = $result[0];
+
+			$ret = $result[0];
 
 			if ($ret) {
 				return $ret;
@@ -1402,8 +1406,10 @@ class GalleryStorage {
 		$session =& $gallery->getSession();
 
 		$isInstallOrUpgrade = empty($session) ? false : $session->exists('isInstall') || $session->exists('isUpgrade');
+
 		// @todo Remove the type constraint from selects and have describeXXX use the same map
 		$typeInfo = array();
+
 		// If this is an install or upgrade force the use all plugins including non-active.
 		if (!$tryAllModules && !$isInstallOrUpgrade) {
 			$query = 'SELECT [Schema::info] FROM [GalleryPluginMap], [Schema]

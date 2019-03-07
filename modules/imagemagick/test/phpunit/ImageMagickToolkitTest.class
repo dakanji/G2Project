@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -46,6 +47,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
 		// Load our environments
 		include __DIR__ . '/ImEnvironments.inc';
+
 		$this->_environments = $imEnvironment;
 	}
 
@@ -354,7 +356,8 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
 			// Test a basic composite operation (top right corner)
 			$dataDir = $gallery->getConfig('data.gallery.base');
-			$ret     = $this->_testOperation(
+
+			$ret = $this->_testOperation(
 				'image/png',
 				'composite',
 				'test.png',   // composite
@@ -412,7 +415,8 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			// Test compress
 			$this->_files['compressMe.jpg']['size'] = 250 << 10;
 			$this->_platform->_counter              = 2;
-			$ret                                    = $this->_testOperation(
+
+			$ret = $this->_testOperation(
 				'image/jpeg',
 				'compress',
 				'compressMe.jpg',
@@ -1652,6 +1656,7 @@ class ImageMagickToolkitTestPlatform {
 	public function tempnam($dir, $prefix) {
 		$fileName                          = $dir . $prefix . md5(mt_rand());
 		$this->_files[basename($fileName)] = 'temp';
+
 		// echo $this->_environment['path'] . ": tempnam($dir, $prefix) = $fileName<br>\n";
 		return $fileName;
 	}

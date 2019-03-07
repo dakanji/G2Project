@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -356,6 +357,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 		// Check the candidates and extract the complete calls
 		foreach ($candidateTokens as $baseIndex) {
 			$call = $tokens[$baseIndex][1];
+
 			// Seek backwards to check static / instance method vs. function call
 			$j = $this->_getNextTokenIndex($tokens, $baseIndex, true);
 
@@ -363,6 +365,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 				&& in_array($tokens[$j][0], array(T_DOUBLE_COLON, T_OBJECT_OPERATOR))
 			) {
 				$k = $this->_getNextTokenIndex($tokens, $j, true);
+
 				// Check whether it matches $foo->bar or Foo::bar
 				if (isset($tokens[$k][0]) && in_array(
 					$tokens[$k][0],
@@ -429,6 +432,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 	public function getFunctionParameters($functionCall) {
 		// Replace the function with an array
 		$parameterString = preg_replace('/^.*?\((.*)\)$/', 'array(\1)', $functionCall);
+
 		// Seek to the beginning of the parameter string
 		$tokens = token_get_all('<?php ' . $parameterString . '; ?>');
 		$i      = 0;

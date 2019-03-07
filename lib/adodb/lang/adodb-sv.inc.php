@@ -1,4 +1,5 @@
 <?php
+
 // Christian Tiberg" christian@commsoft.nu
 $ADODB_LANG_ARRAY = array(
 	'LANG'                       => 'en',

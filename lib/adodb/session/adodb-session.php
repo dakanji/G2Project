@@ -21,7 +21,6 @@
 		SAP
 
 	If you do, then execute:
-
 		ADODB_Session::dataFieldName('session_data');
 
 */
@@ -73,6 +72,7 @@ function adodb_session_regenerate_id() {
 		session_id(md5(uniqid(mt_rand(), true)));
 		$ck = session_get_cookie_params();
 		setcookie(session_name(), session_id(), false, $ck['path'], $ck['domain'], $ck['secure']);
+
 		//@session_start();
 	}
 
@@ -128,7 +128,6 @@ class ADODB_Session {
 	/////////////////////
 	// getter/setter methods
 	/////////////////////
-
 	/*
 
 	function Lock($lock=null)
@@ -486,6 +485,7 @@ class ADODB_Session {
 		}
 
 		include_once ADODB_SESSION . '/../tohtml.inc.php';
+
 		rs2html($rs);
 	}
 
@@ -549,6 +549,7 @@ class ADODB_Session {
 
 		if ($debug) {
 			$conn->debug = true;
+
 			//          ADOConnection::outp( " driver=$driver user=$user pwd=$password db=$database ");
 		}
 
@@ -609,6 +610,7 @@ class ADODB_Session {
 		$qkey   = $conn->quote($key);
 		$binary = $conn->dataProvider === 'mysql' ? '/*! BINARY */' : '';
 		$sql    = "SELECT $data FROM $table WHERE sesskey = $binary $qkey AND expiry >= " . time();
+
 		/* Lock code does not work as it needs to hold transaction within whole page, and we don't know if
 		  developer has commited elsewhere... :(
 		 */
@@ -617,6 +619,7 @@ class ADODB_Session {
 		// $rs = $conn->RowLock($table, "$binary sesskey = $qkey AND expiry >= " . time(), $data);
 		// else
 		$rs = $conn->Execute($sql);
+
 		//ADODB_Session::_dumprs($rs);
 		if ($rs) {
 			if ($rs->EOF) {
@@ -750,6 +753,7 @@ class ADODB_Session {
 
 			$conn->StartTrans();
 			$expiryref = $conn->qstr($arr['expireref']);
+
 			// do we insert or update? => as for sesskey
 			$rs = $conn->Execute("SELECT COUNT(*) AS cnt FROM $table WHERE $binary sesskey = $qkey");
 
@@ -835,6 +839,7 @@ class ADODB_Session {
 			if (!$rs->EOF) {
 				$ref = $rs->fields[0];
 				$key = $rs->fields[1];
+
 				//assert('$ref');
 				//assert('$key');
 				$fn($ref, $key);

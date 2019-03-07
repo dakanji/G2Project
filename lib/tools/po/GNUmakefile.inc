@@ -68,7 +68,6 @@ messages.po: alwaysbuild
 	@$(RM) messages.tmp
 
 alwaysbuild:
-
 clean:
 	@$(RM) messages.po
 

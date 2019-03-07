@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -215,7 +216,8 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 
 	public function testReuseExtension() {
 		$extension = 'test-' . mt_rand(111, 999);
-		$ret       = GalleryCoreApi::addMimeType($extension, 'test/test2', false);
+
+		$ret = GalleryCoreApi::addMimeType($extension, 'test/test2', false);
 
 		if ($ret) {
 			return $ret;

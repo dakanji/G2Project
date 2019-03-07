@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -30,11 +31,8 @@ if (!defined('G2_SUPPORT')) {
 $g2Base = dirname(dirname(__DIR__)) . '/';
 
 require_once $g2Base . 'modules/core/classes/GalleryCoreApi.class';
-
 require_once $g2Base . 'modules/core/classes/GalleryStorage.class';
-
 require_once $g2Base . 'modules/core/classes/GalleryUtilities.class';
-
 require_once $g2Base . 'lib/support/SupportStatusTemplate.class';
 
 $templateData = array();
@@ -69,6 +67,7 @@ if ($ret) {
 
 	if (isset($_REQUEST['importDatabase'])) {
 		$importFile = $_REQUEST['importFile'];
+
 		// Sanitize the input
 		GalleryUtilities::sanitizeInputValues($importFile);
 
@@ -82,6 +81,7 @@ if ($ret) {
 		}
 
 		$verifiedFile = $_REQUEST['verifiedFile'];
+
 		// Sanitize the input
 		GalleryUtilities::sanitizeInputValues($verifiedFile);
 

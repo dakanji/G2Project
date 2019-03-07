@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -96,7 +97,8 @@ class WatermarkModule extends GalleryModule {
 
 			case '0.3':
 				$storage =& $gallery->getStorage();
-				$ret     = $storage->configureStore(
+
+				$ret = $storage->configureStore(
 					$this->getId(),
 					array('WatermarkImage:1.0')
 				);
@@ -104,7 +106,6 @@ class WatermarkModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
 
 				// Fall Through
 			case '0.8.1':
@@ -224,7 +225,6 @@ class WatermarkModule extends GalleryModule {
 						return $ret;
 					}
 				}
-
 
 				// Fall Through
 			case '0.9.2':

@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -253,6 +254,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			}
 
 			$this->Execute('ROLLBACK');
+
 			//$this->Execute('SET AUTOCOMMIT=1');
 			mysqli_autocommit($this->_connectionID, true);
 
@@ -397,7 +399,8 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 		public function MetaDatabases() {
 			$query = 'SHOW DATABASES';
-			$ret   = $this->Execute($query);
+
+			$ret = $this->Execute($query);
 
 			if ($ret && is_object($ret)) {
 				$arr = array();
@@ -923,7 +926,8 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				}
 
 				$fnarr = array_merge(array($stmt, $a), $inputarr);
-				$ret   = call_user_func_array('mysqli_stmt_bind_param', $fnarr);
+
+				$ret = call_user_func_array('mysqli_stmt_bind_param', $fnarr);
 
 				$ret = mysqli_stmt_execute($stmt);
 
@@ -1120,6 +1124,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			$o->not_null       = $o->flags & MYSQLI_NOT_NULL_FLAG;
 			$o->auto_increment = $o->flags & MYSQLI_AUTO_INCREMENT_FLAG;
 			$o->binary         = $o->flags & MYSQLI_BINARY_FLAG;
+
 			// $o->blob = $o->flags & MYSQLI_BLOB_FLAG; /* not returned by MetaColumns */
 			$o->unsigned = $o->flags & MYSQLI_UNSIGNED_FLAG;
 
@@ -1170,6 +1175,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 			mysqli_free_result($this->_queryID);
 			$this->_queryID = -1;
+
 			// Move to the next recordset, or return false if there is none. In a stored proc
 			// call, mysqli_next_result returns true for the last "recordset", but mysqli_store_result
 			// returns false. I think this is because the last "recordset" is actually just the
@@ -1292,7 +1298,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 						return 'C';
 					}
 
-
 					// Fall Through
 				case 'TEXT':
 				case 'LONGTEXT':
@@ -1388,7 +1393,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				if ($len <= $this->blobSize) {
 					return 'C';
 				}
-
 
 				// Fall Through
 			case 'TEXT':

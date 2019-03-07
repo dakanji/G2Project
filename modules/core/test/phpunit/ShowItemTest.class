@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -108,7 +109,6 @@ class ShowItemTest extends GalleryTestCase {
 
 	public function testAlbumSourcePermission() {
 		// Verify viewing album contents requires ?? permission
-
 		/*
 		 * We briefly put code in place to require core.viewSource to view album contents..
 		 * This allows setting permissions such that guests can see an album thumbnail but

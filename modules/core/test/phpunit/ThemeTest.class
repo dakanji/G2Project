@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -578,7 +579,7 @@ class ThemeTest extends GalleryTestCase {
 	}
 
 	public function testSplitHtml() {
-		$html      = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" ...>
+		$html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" ...>
 	    <html lang="de-DE" xmlns="...">
 	    <head>
 	    <foo>
@@ -588,6 +589,7 @@ class ThemeTest extends GalleryTestCase {
 	    </body>
 	    </html>
     	';
+
 		$extraHtml = array(
 			'sidebarBlocksHtml' => 'sidebar stuff',
 			'other'             => 1,
@@ -634,7 +636,8 @@ class ThemeTest extends GalleryTestCase {
 	    </html>
 
     	';
-		$extraHtml  = array(
+
+		$extraHtml = array(
 			'sidebarBlocksHtml' => 'sidebar stuff',
 			'other'             => 1,
 		);

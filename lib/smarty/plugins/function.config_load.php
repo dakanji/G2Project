@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
  */
-
 
 /**
  * Smarty {config_load} function plugin
@@ -28,8 +28,8 @@
 function smarty_function_config_load($params, &$smarty) {
 	if ($smarty->debugging) {
 		$_params = array();
-
 		include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
+
 		$_debug_start_time = smarty_core_get_microtime($_params, $smarty);
 	}
 
@@ -91,6 +91,7 @@ function smarty_function_config_load($params, &$smarty) {
 		// compile config file
 		if (!is_object($smarty->_conf_obj)) {
 			include_once SMARTY_DIR . $smarty->config_class . '.class.php';
+
 			$smarty->_conf_obj               = new $smarty->config_class();
 			$smarty->_conf_obj->overwrite    = $smarty->config_overwrite;
 			$smarty->_conf_obj->booleanize   = $smarty->config_booleanize;
@@ -133,6 +134,7 @@ function smarty_function_config_load($params, &$smarty) {
 		));
 
 		include_once SMARTY_CORE_DIR . 'core.write_compiled_resource.php';
+
 		smarty_core_write_compiled_resource($_params, $smarty);
 	} else {
 		include $_compile_file;
@@ -159,6 +161,7 @@ function smarty_function_config_load($params, &$smarty) {
 		$_params = array();
 
 		include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
+
 		$smarty->_smarty_debug_info[] = array(
 			'type'      => 'config',
 			'filename'  => $_file . ' [' . $_section . '] ' . $_scope,

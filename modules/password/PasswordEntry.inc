@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -85,7 +86,7 @@ class PasswordEntryController extends GalleryController {
 
 			GalleryUtilities::unsanitizeInputValues($form['password'], false);
 			$isCorrect = $canSee && $hashedPassword
-																	       && GalleryUtilities::isCorrectPassword($form['password'], $hashedPassword);
+																			     && GalleryUtilities::isCorrectPassword($form['password'], $hashedPassword);
 
 			// Prepare for validation
 			$options = array(

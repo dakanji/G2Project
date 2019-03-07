@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -321,6 +322,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(0, count($groupIds), 'There are still some group maps.');
+
 		// Make sure there are no mappings left (garbage)
 		$ret = GalleryCoreApi::removeMapEntry(
 			'GalleryUserGroupMap',
@@ -482,7 +484,8 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		$this->_markForCleanup($group);
 		$groupId = $group->getId();
-		$ret     = GalleryCoreApi::addUserToGroup($userId, $groupId);
+
+		$ret = GalleryCoreApi::addUserToGroup($userId, $groupId);
 
 		if ($ret) {
 			$this->_markForCleanup($user);
@@ -701,6 +704,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		$session =& $gallery->getSession();
 		$phpVm   = $gallery->getPhpVm();
+
 		// Ensure admin session isn't timed out (can happen during long unit test run)
 		$session->put('session.siteAdminActivityTimestamp', $phpVm->time() - 2);
 
@@ -710,6 +714,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		 */
 		$deletedItems   = array();
 		$remainingItems = array();
+
 		/*
 		 * These items get delete permission.
 		 * Delete permission is assigned AFTER creating all items, just before
@@ -725,6 +730,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($user1);
+
 		// Create test user 2, the owner of a few subitems in the new item tree
 		list($ret, $user2) = $this->_createRandomUser();
 
@@ -786,6 +792,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		$deletedItems[]          = $subAlbumWithDeletePermission;
 		$deletePermissionItems[] = $subAlbumWithDeletePermission;
+
 		// Add item to album and subalbum
 		list($ret, $subItemWithDeletePermission) = $this->_createRandomDataItem($albumWithDeletePermission->getId());
 
@@ -839,6 +846,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		$remainingItems[]        = $subAlbumWithDeletePermission2;
 		$deletePermissionItems[] = $subAlbumWithDeletePermission2;
+
 		// A subSub album without delete permission
 		list($ret, $subSubAlbumWithoutDeletePermission2) = $this->_createRandomAlbum($subAlbumWithDeletePermission2->getId());
 
@@ -868,6 +876,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		$remainingItems[]        = $subSubAlbumWithDeletePermission2;
 		$deletePermissionItems[] = $subSubAlbumWithDeletePermission2;
+
 		/*
 		 * A subSubSubItem with delete permission
 		 * (but is in a subSubalbum without delete permission)
@@ -880,6 +889,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		$deletedItems[]          = $subSubSubItemWithDeletePermission2;
 		$deletePermissionItems[] = $subSubSubItemWithDeletePermission2;
+
 		// A subSubItem without delete permission
 		list($ret, $subSubSubItemWithoutDeletePermission2) = $this->_createRandomDataItem($subSubAlbumWithDeletePermission2->getId());
 
@@ -1703,6 +1713,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		$session =& $gallery->getSession();
 		$phpVm   = $gallery->getPhpVm();
+
 		// Ensure admin session isn't timed out (can happen during long unit test run)
 		$session->put('session.siteAdminActivityTimestamp', $phpVm->time() - 2);
 
@@ -1735,6 +1746,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		$this->assertTrue($hasPermission, 'activeUser should have core.view on root');
 
 		$userId = $gallery->getActiveUserId();
+
 		// Get id of anonymous id
 		list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 

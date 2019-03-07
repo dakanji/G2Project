@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -64,7 +65,8 @@ class ItemTest extends GalleryTestCase {
 
 		// Register a dummy toolkit
 		$path = 'modules/core/test/phpunit/ItemTest.class';
-		$ret  = GalleryCoreApi::registerFactoryImplementation(
+
+		$ret = GalleryCoreApi::registerFactoryImplementation(
 			'GalleryToolkit',
 			'ItemTestToolkit',
 			'ItemTestToolkit',
@@ -889,6 +891,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($oldUser);
+
 		// Create test user 2, the newOwner
 		list($ret, $newUser) = $this->_createRandomUser();
 
@@ -897,6 +900,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($newUser);
+
 		// Create Group 1 for user 1 for indirect permissions
 		list($ret, $group1) = $this->_createRandomGroup();
 
@@ -1056,6 +1060,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(count($itemIds) == 0, 'old owner still owns some items');
+
 		// Verify the new owner owns exactly 1 item
 		list($ret, $itemIds) = GalleryCoreApi::fetchAllItemIdsByOwnerId(
 			$newUser->getId()
@@ -1066,6 +1071,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(count($itemIds) == 1, 'new owner owns not exactly 1 item');
+
 		// Verify the permissions are direct / indirect
 		list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem(
 			$album->getId(),

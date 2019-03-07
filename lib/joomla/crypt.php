@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @version     $Id: crypt.php 20992 2012-04-01 20:10:53Z bharat $
  * @package     Joomla.Platform
@@ -9,7 +10,6 @@
  */
 
 //defined('JPATH_BASE') or die();
-
 /**
  * JCrypt is a Joomla Platform class for handling basic encryption/decryption of data.
  *
@@ -30,6 +30,7 @@ class JCrypt {
 	 */
 	public function genRandomBytes($length = 16) {
 		$sslStr = '';
+
 		/*
 		 * if a secure randomness generator exists and we don't
 		 * have a buggy PHP version use it.
@@ -70,12 +71,14 @@ class JCrypt {
 		while ($length > strlen($randomStr)) {
 			$bytes  = ($total > $shaHashLength) ? $shaHashLength : $total;
 			$total -= $bytes;
+
 			/*
 			 * Collect any entropy available from the PHP system and filesystem.
 			 * If we have ssl data that isn't strong, we use it once.
 			 */
 			$entropy  = mt_rand() . uniqid(mt_rand(), true) . $sslStr;
 			$entropy .= implode('', @fstat(fopen(__FILE__, 'r')));
+
 			//$entropy .= memory_get_usage();
 			$sslStr = '';
 

@@ -33,16 +33,17 @@ then
 	echo ""
 	for PHP_FILE in $PHP_FILES
 	do
-		RET=$(php -l -d display_errors=0 $PROJECT/$PHP_FILE)
+		FILE="$PROJECT/$PHP_FILE"
+		RET=$(php -l -d display_errors=0 $FILE)
 		if [ $? != 0 ]
 		then
 			echo ""
 			echo "PHP Syntax Errors Found ... Aborting"
 			echo ""
-			RET=$(git reset HEAD $PROJECT/$PHP_FILE)
+			RET=$(git reset HEAD $FILE)
 			echo ""
 			echo "Please Fix Errors and Repeat Commit"
-			echo "Remember to Run 'git add $PROJECT/$PHP_FILE' before Repeating the Commit"
+			echo "Remember to Run 'git add $FILE' before Repeating the Commit"
 			echo ""
 			exit 1
 		fi
@@ -74,61 +75,93 @@ else
 		echo ""
 		for TARGET_FILE in $ALL_FILES
 		do
+			FILE="$PROJECT/$TARGET_FILE"
 			# Unstage target file
-			RET=$(git reset HEAD $PROJECT/$TARGET_FILE)
+			RET=$(git reset HEAD $FILE)
 
 
 			# Prepare misc items in target file for PHPCBF and PHP-CS-FIXER
 			# 01. Add blank line after "global $XYZ" calls
-			RET=$(perl -i -pe 's/^(\s*)global([^;]+;)(\s*)$/$1global$2$3\n\n/' $PROJECT/$TARGET_FILE)
+			RET=$(perl -i -pe 's/^(\s*)global([^;]+;)(\s*)$/$1global$2$3\n\n/' $FILE)
 			# 02. Add blank line before "$query" calls
-			RET=$(perl -i -pe 's/^(\s*)\$query (\.?=)/\n$1\$query $2/' $PROJECT/$TARGET_FILE)
+			RET=$(perl -i -pe 's/^(\s*)\$query\s*(\.?=)/\n$1\$query $2/' $FILE)
 			# 03. Add blank line before "$ret" calls
-			RET=$(perl -i -pe 's/^(\s*)\$ret =/\n$1\$ret =/' $PROJECT/$TARGET_FILE)
+			RET=$(perl -i -pe 's/^(\s*)\$ret(\s*)=/\n$1\$ret =/' $FILE)
 			# 04. Add blank line after single line "$ret" calls
-			RET=$(perl -i -pe 's/^(\s*)(\$ret)([^;]+;)/$1$2$3\n/' $PROJECT/$TARGET_FILE)
+			RET=$(perl -i -pe 's/^(\s*)(\$ret\s*=)([^;]+;)(.*)/$1$2$3$4\n\n/' $FILE)
 			# 05. Add blank line before "list" calls
-			RET=$(perl -i -pe 's/^(\s*)list\(/\n$1list(/' $PROJECT/$TARGET_FILE)
+			RET=$(perl -i -pe 's/^(\s*)list\(/\n$1list(/' $FILE)
 			# 06. Add blank line after single line "list" calls
-			RET=$(perl -i -pe 's/^(\s*)(list\()([^;]+;)/$1$2$3\n/' $PROJECT/$TARGET_FILE)
+			RET=$(perl -i -pe 's/^(\s*)(list\()([^;]+;)(.*)/$1$2$3$4\n\n/' $FILE)
 			# 07. Add blank line after closing braces
-			RET=$(perl -i -pe 's/^(\s*)\}(\s*)$/$1\}$2\n/' $PROJECT/$TARGET_FILE)
-			# 08. Add blank line after closing multiline statements
-			RET=$(perl -i -pe 's/^(\s*)\);(\s*)$/$1\);$2\n/' $PROJECT/$TARGET_FILE)
-			# 09. Remove excess blank lines
-			RET=$(perl -i -0pe 's/(\n\s*){2,}(\n\s*)/\n$2/gs' $PROJECT/$TARGET_FILE)
-			# 10. Remove blank lines after opening braces
-			RET=$(perl -i -0pe 's/\{(\s*\n\s*){1,}(\n\s*)/\{$2/gs' $PROJECT/$TARGET_FILE)
-			# 11. Remove blank lines after single line comments
-			RET=$(perl -i -0pe 's/([^\w]+)(\/\/[^\n]+\n)(\s*\n)/$1$2/gs' $PROJECT/$TARGET_FILE)
-			# 12. Remove blank lines after multiline comments
-			RET=$(perl -i -0pe 's/(\s*)(\*\/[^\n]*\n)(\s*\n)/$1$2/gs' $PROJECT/$TARGET_FILE)
-			# 13. Remove blank lines between concurrent "global $XYZ" calls
-			RET=$(perl -i -0pe 's/(\s*)global([^;]+;)(\s*\n\s*){1,}(\n\s*)global([^\n]+\n)/$1global$2$4global$5/gs' $PROJECT/$TARGET_FILE)
-			# 14. Add blank line between multi and single line comments
-			RET=$(perl -i -0pe 's/(\s*)(\*\/[^\n]*\n)(\s*)(\/\/)/$1$2\n$3$4/gs' $PROJECT/$TARGET_FILE)
-			# 15. Add blank line between single and multi line comments
-			RET=$(perl -i -0pe 's/(\s*)(\/\/[^\n]+\n)(\s*)(\/\*[^\n]*\n)/$1$2\n$3$4/gs' $PROJECT/$TARGET_FILE)
+			RET=$(perl -i -pe 's/^(\s*)\}(\s*)$/$1\}$2\n\n/' $FILE)
+			# 08. Add blank lines before and after "require" and "include" calls
+			RET=$(perl -i -pe 's/^(\s*)(require|include)([^;]+;)(.*)$/\n\n$1$2$3$4\n\n/' $FILE)
+			# 09. Add blank line after closing multiline statements and strings
+			RET=$(perl -i -pe 's/^(\s*)(\)|\x27|");(\s*)$/$1$2;$3\n\n/' $FILE)
+			# 10. Add blank line before single line comments
+			RET=$(perl -i -pe 's/^(\s*)(\/\/.+?)/\n$1$2/' $FILE)
+			# 11.  Add blank line before multi line comments
+			RET=$(perl -i -pe 's/^(\s*)\/\*/\n\n$1\/\*/' $FILE)
+			# 12. Add blank line before "Fall Through"
+			RET=$(perl -i -pe 's/(\s+)(\/\/ Fall Through)/\n$1$2/' $FILE)
+			# 13. Remove blank single line comments
+			RET=$(perl -i -pe 's/^(\s*)(\/\/)(\s*)$//' $FILE)
+			# 14. Remove blank lines after opening braces
+			RET=$(perl -i -0pe 's/\{(\s*\n\s*){1,}(\n\s*)/\{$2/gs' $FILE)
+			# 15. Remove blank lines after multiline comments
+			RET=$(perl -i -0pe 's/(\s*)(\*\/[^\n]*\n)(\s*\n)/$1$2/gs' $FILE)
+			# 16. Add blank line between multi and single line comments
+			RET=$(perl -i -0pe 's/(\s*)(\*\/[^\n]*\n)(\s*)(\/\/)/$1$2\n$3$4/gs' $FILE)
+			# 17. Add blank line between single and multi line comments
+			RET=$(perl -i -0pe 's/(\s*)(\/\/[^\n]+\n)(\s*)(\/\*[^\n]*\n)/$1$2\n$3$4/gs' $FILE)
+			# 18. Remove blank lines after single line comments
+			RET=$(perl -i -0pe 's/([^\w]+)(\/\/[^\n]+\n)(\s*\n){1,}/$1$2/gs' $FILE)
+			RET=$(perl -i -0pe 's/([^\w]+)(\/\/[^\n]+\n)(\s*\n){1,}/$1$2/gs' $FILE)
+			RET=$(perl -i -0pe 's/([^\w]+)(\/\/[^\n]+\n)(\s*\n){1,}/$1$2/gs' $FILE)
+			# 19. Remove blank lines between concurrent "global $XYZ" calls
+			RET=$(perl -i -0pe 's/(\s*)(global)([^;]+;)(\s*\n\s*){1,}(\n\s*)(global)([^\n]+\n)/$1$2$3$5$6$7/gs' $FILE)
+			RET=$(perl -i -0pe 's/(\s*)(global)([^;]+;)(\s*\n\s*){1,}(\n\s*)(global)([^\n]+\n)/$1$2$3$5$6$7/gs' $FILE)
+			RET=$(perl -i -0pe 's/(\s*)(global)([^;]+;)(\s*\n\s*){1,}(\n\s*)(global)([^\n]+\n)/$1$2$3$5$6$7/gs' $FILE)
+			# 20. Remove blank lines before closing braces
+			RET=$(perl -i -0pe 's/(\s*\n\s*){1,}(\n\s*)\}/$2\}/gs' $FILE)
+			RET=$(perl -i -0pe 's/(\s*\n\s*){1,}(\n\s*)\}/$2\}/gs' $FILE)
+			RET=$(perl -i -0pe 's/(\s*\n\s*){1,}(\n\s*)\}/$2\}/gs' $FILE)
+			# 21. Separate multiline comment blocks
+			RET=$(perl -i -pe 's/(\s*)\*\/\/\*/$1\*\/\n\n\/\*/' $FILE)
+			RET=$(perl -i -0pe 's/(\s*)\*\/(\n\s*)\/\*/$1\*\/\n$2\/\*/gs' $FILE)
+			RET=$(perl -i -0pe 's/(\s*)\*\/(\n\s*)\/\*/$1\*\/\n$2\/\*/gs' $FILE)
+			RET=$(perl -i -0pe 's/(\s*)\*\/(\n\s*)\/\*/$1\*\/\n$2\/\*/gs' $FILE)
+			# 22. Remove blank lines after switch case
+			RET=$(perl -i -0pe 's/([^:]+:)(\s*\n\s*){1,}(\n\s*)([\/\w])/$1$3$4/gs' $FILE)
+			RET=$(perl -i -0pe 's/([^:]+:)(\s*\n\s*){1,}(\n\s*)([\/\w])/$1$3$4/gs' $FILE)
+			RET=$(perl -i -0pe 's/([^:]+:)(\s*\n\s*){1,}(\n\s*)([\/\w])/$1$3$4/gs' $FILE)
+			# 23. Remove excess blank lines
+			RET=$(perl -i -0pe 's/(\n\s*){2,}(\n\s*)/\n$2/gs' $FILE)
+			RET=$(perl -i -0pe 's/(\n\s*){2,}(\n\s*)/\n$2/gs' $FILE)
+			RET=$(perl -i -0pe 's/(\n\s*){2,}(\n\s*)/\n$2/gs' $FILE)
+			RET=$(perl -i -0pe 's/(\n\s*){2,}(\n\s*)/\n$2/gs' $FILE)
 
 
 			# Apply coding style to target file
-			RET=$($PHP_CBF_BIN --standard=$PHP_CBF_CONFIG_START $PROJECT/$TARGET_FILE)
-			RET=$($PHP_FIX_BIN fix --config "$PHP_FIX_CONFIG" $PROJECT/$TARGET_FILE)
-			RET=$($PHP_CBF_BIN --standard=$PHP_CBF_CONFIG_END $PROJECT/$TARGET_FILE)
+			RET=$($PHP_CBF_BIN --standard=$PHP_CBF_CONFIG_START $FILE)
+			RET=$($PHP_FIX_BIN fix --config "$PHP_FIX_CONFIG" $FILE)
+			RET=$($PHP_CBF_BIN --standard=$PHP_CBF_CONFIG_END $FILE)
 
 
 			# Catch misc items in target file not covered by PHPCBF or PHP-CS-FIXER
-			# 01. Close empty braces on opening line
-			RET=$(perl -i -0pe 's/\{\n(\s*)\}([^\w]*)/{}$2/gs' $PROJECT/$TARGET_FILE)
-			# 02. Ensure blank line before "Fall Through"
-			RET=$(perl -i -pe 's/(\s+)(\/\/ Fall Through)/\n$1$2/' $PROJECT/$TARGET_FILE)
-			# 03. Separate multiline comment blocks
-			RET=$(perl -i -pe 's/(\s*)\*\/\/\*/$1\*\/\n\n\/\*/' $PROJECT/$TARGET_FILE)
-			RET=$(perl -i -0pe 's/(\s*)\*\/(\n\s*)\/\*/$1\*\/\n$2\/\*/gs' $PROJECT/$TARGET_FILE)
+			# 01. Standardise Assignment by Reference
+			RET=$(perl -i -pe 's/=& \s*/=& /' $FILE)
+			# 02. Close empty braces on opening line
+			RET=$(perl -i -0pe 's/\{\n(\s*)\}([^\w]*)/{}$2/gs' $FILE)
+			# 03. Remove blank lines between concurrent "require" and/or "include" calls
+			RET=$(perl -i -0pe 's/(\s*)(require|include)([^;]+;)(\s*\n\s*){1,}(\n\s*)(require|include)([^\n]+\n)/$1$2$3$5$6$7/gs' $FILE)
+			RET=$(perl -i -0pe 's/(\s*)(require|include)([^;]+;)(\s*\n\s*){1,}(\n\s*)(require|include)([^\n]+\n)/$1$2$3$5$6$7/gs' $FILE)
+			RET=$(perl -i -0pe 's/(\s*)(require|include)([^;]+;)(\s*\n\s*){1,}(\n\s*)(require|include)([^\n]+\n)/$1$2$3$5$6$7/gs' $FILE)
 
 
 			# Stage target file
-			git add $PROJECT/$TARGET_FILE
+			git add $FILE
 		done
 
 		# Check for staged changes and abort if none

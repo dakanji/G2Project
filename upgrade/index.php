@@ -1,4 +1,5 @@
 <?php
+
 /*
  * ATTENTION:
  *
@@ -47,13 +48,9 @@
 $g2Base = dirname(__DIR__) . '/';
 
 require_once $g2Base . 'upgrade/UpgradeStep.class';
-
 require_once $g2Base . 'upgrade/StatusTemplate.class';
-
 require_once $g2Base . 'bootstrap.inc';
-
 require_once $g2Base . 'modules/core/classes/GalleryUtilities.class';
-
 require_once $g2Base . 'lib/support/GallerySetupUtilities.class';
 
 /*
@@ -88,6 +85,7 @@ foreach ($stepOrder as $stepName) {
 GallerySetupUtilities::startSession();
 
 require_once __DIR__ . '/../init.inc';
+
 // Check if config.php is ok
 $storageConfig = @$gallery->getConfig('storage.config');
 
@@ -118,6 +116,7 @@ if (!empty($storageConfig)) {
 		}
 
 		$translator->init($_SESSION['language'], true);
+
 		// Select domain for translation
 		bindtextdomain('gallery2_upgrade', dirname(__DIR__) . '/locale');
 		textdomain('gallery2_upgrade');
@@ -191,6 +190,7 @@ if (!$error) {
 	$currentStep =& $steps[$stepNumber];
 } else {
 	include_once __DIR__ . '/steps/RedirectToInstallerStep.class';
+
 	$currentStep = new RedirectToInstallerStep();
 }
 

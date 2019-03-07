@@ -1,4 +1,5 @@
 <?php
+
 /*
 
   @version   v5.20.12  30-Mar-2018
@@ -477,6 +478,7 @@ END;
 		}
 
 		$indexes = array();
+
 		// parse index data into array
 		while ($row = $rs->FetchRow()) {
 			if ($primary && $row[0] != $primary_key) {
@@ -751,6 +753,7 @@ END;
 	public function SelectLimit($sql, $nrows = -1, $offset = -1, $inputarr = false, $secs2cache = 0) {
 		$nrows  = (int)$nrows;
 		$offset = (int)$offset;
+
 		// Since the methods used to limit the number of returned rows rely
 		// on modifying the provided SQL query, we can't work with prepared
 		// statements so we just extract the SQL string.
@@ -1051,6 +1054,7 @@ END;
 				$sqlarr      = explode(':', $sql);
 				$sql         = '';
 				$lastnomatch = -2;
+
 				// var_dump($sqlarr);echo "<hr>";var_dump($inputarr);echo"<hr>";
 				foreach ($sqlarr as $k => $str) {
 					if ($k == 0) {
@@ -1696,6 +1700,7 @@ class ADORecordset_oci8 extends ADORecordSet {
 			}
 
 			/*
+
 			// based on idea by Gaetano Giunta to detect unusual oracle errors
 			// see http://phplens.com/lens/lensforum/msgs.php?id=6771
 			$err = oci_error($this->_queryID);
@@ -1899,7 +1904,6 @@ class ADORecordset_oci8 extends ADORecordSet {
 				if ($len <= $this->blobSize) {
 					return 'C';
 				}
-
 
 				// Fall Through
 			case 'NCLOB':

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -31,6 +32,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
 class SQLiteStorage extends GalleryStorage {
 	public function __construct($config) {
 		parent::__construct($config);
+
 		/**
 		 * SQLite supports transactions, but they seem to hang on some pages and some select
 		 * statements seem to hang too.
@@ -52,6 +54,7 @@ class SQLiteStorage extends GalleryStorage {
 	 */
 	public function removeAllMapEntries($mapName, $useNonTransactionalConnection = false) {
 		$extras =& $this->_getExtras();
+
 		// SQLite does not support TRUNCATE
 		return $extras->removeAllMapEntries($mapName, $useNonTransactionalConnection, false);
 	}

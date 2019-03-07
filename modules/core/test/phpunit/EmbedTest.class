@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -48,7 +49,8 @@ class EmbedTest extends GalleryTestCase {
 		$this->_origGallery  = $gallery;
 		$this->_savedSession = $gallery->_session;
 		$gallery->_session   = new GallerySession();
-		$ret                 = $gallery->_session->init();
+
+		$ret = $gallery->_session->init();
 
 		if ($ret) {
 			return $ret;
@@ -95,7 +97,8 @@ class EmbedTest extends GalleryTestCase {
 		$refTitle = '
   Gallery
 ';
-		$refCss   = array(
+
+		$refCss = array(
 			'<link rel="stylesheet" type="text/css" ' .
 							'href="http://www.domain.com/gallery2/themes/matrix/theme.css"/>',
 			'<style type="text/css" media="all">@import ' .
@@ -123,6 +126,7 @@ class EmbedTest extends GalleryTestCase {
     filters[0] = 'progid:DXImageTransform.Microsoft.Fade(duration=1)';
     filterNames[1] = 'Blinds';
     filters[1] = 'progid:DXImageTransform.Microsoft.Blinds(duration=1,bands=20)';
+
     // ]]>
 </script>",
 			'<script type="text/javascript" ' .
@@ -195,9 +199,11 @@ class EmbedTest extends GalleryTestCase {
 	public function testInitMultipleTimes() {
 		$expectedUrl          = 'http://example.com/cms/';
 		$_SERVER['HTTP_HOST'] = 'example.com';
+
 		// These cache keys are the same as the ones defined in GalleryEmbed::init
 		$firstCacheKey  = 'GalleryEmbed::initFirstPass';
 		$secondCacheKey = 'GalleryEmbed::initSecondPass';
+
 		// Init a first time
 		$ret = GalleryEmbed::init(
 			array(
@@ -249,6 +255,7 @@ class EmbedTest extends GalleryTestCase {
 		global $gallery;
 
 		$urlgenerator =& $gallery->getUrlGenerator();
+
 		// force the embedded url directory
 		$this->assertEquals(
 			'http://example.com/',
@@ -268,7 +275,6 @@ class EmbedTest extends GalleryTestCase {
 		);
 
 		// Now check initSecondPass
-
 		/*
 		 * TODO: Currently, calling initSecondPass just sets the activeUserId, which isn't
 		 * harmful and the same is done in GalleryEmbed::init (checkActiveUser)
@@ -283,7 +289,8 @@ class EmbedTest extends GalleryTestCase {
 	public function testInitSecondPass() {
 		$firstCacheKey  = 'GalleryEmbed::initFirstPass';
 		$secondCacheKey = 'GalleryEmbed::initSecondPass';
-		$ret            = GalleryEmbed::init();
+
+		$ret = GalleryEmbed::init();
 
 		if ($ret) {
 			return $ret;
@@ -405,7 +412,8 @@ class EmbedTest extends GalleryTestCase {
 
 		// Call the function under test
 		$sessionId = $session->getId();
-		$ret       = GalleryEmbed::checkActiveUser($activeUserIds[0]);
+
+		$ret = GalleryEmbed::checkActiveUser($activeUserIds[0]);
 
 		if ($ret) {
 			return $ret;
@@ -512,7 +520,8 @@ class EmbedTest extends GalleryTestCase {
 		$session->put('core.language', $activeLanguageCode[0]);
 
 		$sessionId = $session->getId();
-		$ret       = GalleryEmbed::checkActiveUser('');
+
+		$ret = GalleryEmbed::checkActiveUser('');
 
 		if ($ret) {
 			return $ret;
@@ -560,7 +569,8 @@ class EmbedTest extends GalleryTestCase {
 
 		// Also test resuming a guest session.
 		$sessionId = $session->getId();
-		$ret       = GalleryEmbed::checkActiveUser('');
+
+		$ret = GalleryEmbed::checkActiveUser('');
 
 		if ($ret) {
 			return $ret;
@@ -614,7 +624,8 @@ class EmbedTest extends GalleryTestCase {
 
 		// And login again
 		$sessionId = $session->getId();
-		$ret       = GalleryEmbed::checkActiveUser($activeUserIds[0]);
+
+		$ret = GalleryEmbed::checkActiveUser($activeUserIds[0]);
 
 		if ($ret) {
 			return $ret;
@@ -746,7 +757,8 @@ class EmbedTest extends GalleryTestCase {
 	public function testCheckApiVersionOnInit() {
 		$apiVersion     = GalleryEmbed::getApiVersion();
 		$apiVersion[1] -= 2;
-		$ret            = GalleryEmbed::init(
+
+		$ret = GalleryEmbed::init(
 			array(
 				'apiVersion' => $apiVersion,
 			)
@@ -757,7 +769,8 @@ class EmbedTest extends GalleryTestCase {
 		}
 
 		$apiVersion[1] += 7;
-		$ret            = GalleryEmbed::init(
+
+		$ret = GalleryEmbed::init(
 			array(
 				'apiVersion' => $apiVersion,
 			)
@@ -774,7 +787,8 @@ class EmbedTest extends GalleryTestCase {
 
 		$apiVersion[1] -= 8;
 		$apiVersion[0] -= 1;
-		$ret            = GalleryEmbed::init(
+
+		$ret = GalleryEmbed::init(
 			array(
 				'apiVersion' => $apiVersion,
 			)
@@ -1005,7 +1019,8 @@ class EmbedTest extends GalleryTestCase {
 
 	public function testCreateUserWithClearTextPassword() {
 		$externalUserId = '_test_' . mt_rand();
-		$ret            = GalleryEmbed::createUser(
+
+		$ret = GalleryEmbed::createUser(
 			$externalUserId,
 			array(
 				'username' => 'test_' . mt_rand(),
@@ -1168,7 +1183,8 @@ class EmbedTest extends GalleryTestCase {
 
 		for ($i = 0; $i < $count; $i++) {
 			$activeUserIds[$i] = '_test_' . $i . '_' . mt_rand();
-			$ret               = GalleryEmbed::createUser(
+
+			$ret = GalleryEmbed::createUser(
 				$activeUserIds[$i],
 				array(
 					'username' => 'test_' . mt_rand(),

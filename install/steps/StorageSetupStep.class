@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -51,12 +52,14 @@ class StorageSetupStep extends InstallStep {
 				$templateData['error']['missing_value'] = 1;
 			} else {
 				$dir = rtrim($this->sanitize($_POST['dir']));
+
 				// Normalize the path, add a traling slash if necessary
 				if (substr($dir, -1) != DIRECTORY_SEPARATOR) {
 					$dir .= DIRECTORY_SEPARATOR;
 				}
 
 				$originalDir = $dir;
+
 				/*
 				 * Make the path absolute since relative to the install/ folder isn't the same as
 				 * relative to the main.php entry file. And also check if it exists.
@@ -75,6 +78,7 @@ class StorageSetupStep extends InstallStep {
 					) {
 						$dir = $parentDir . DIRECTORY_SEPARATOR
 						 . basename($dir) . DIRECTORY_SEPARATOR;
+
 						// Create the storage folder with restrictive permissions
 						if (@mkdir($dir)) {
 							chmod($dir, 0700);
@@ -202,8 +206,10 @@ class StorageSetupStep extends InstallStep {
 
 		// Try to guess the URL to the g2data folder.
 		$storageUrlCandidates = array();
+
 		// Get the URL of the G2 folder.
 		$galleryUrl = getGalleryDirUrl();
+
 		// Get the relative path of the g2data folder to the gallery dir.
 		$storagePath = realpath($dir);
 		$galleryPath = realpath(dirname(dirname(__DIR__)));
@@ -221,6 +227,7 @@ class StorageSetupStep extends InstallStep {
 			$galleryPathElements = explode(DIRECTORY_SEPARATOR, $galleryPath);
 			$storagePathElements = explode(DIRECTORY_SEPARATOR, $storagePath);
 			$max                 = 30;
+
 			// Before: e.g. /foo/bar/gallery2/ and /foo/bar/g2data/.
 			while (!empty($galleryPathElements) && !empty($storagePathElements) && $max-- > 0
 			&& $galleryPathElements[0] == $storagePathElements[0]) {
@@ -318,6 +325,7 @@ class StorageSetupStep extends InstallStep {
 		 */
 		$headers  = array();
 		$response = trim(fgets($fd, 4096));
+
 		/*
 		 * Ignore the status code.
 		 * We expect either a 2xx code which would mean that the file has been fetched successfully

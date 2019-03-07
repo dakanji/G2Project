@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -93,6 +94,7 @@ class ADODB_odbc_oracle extends ADODB_odbc {
 		$this->_errorMsg     = $this->getChangedErrorMsg($last_php_error);
 
 		$this->Execute("ALTER SESSION SET NLS_DATE_FORMAT='YYYY-MM-DD HH24:MI:SS'");
+
 		//if ($this->_connectionID) odbc_autocommit($this->_connectionID,true);
 		return $this->_connectionID != false;
 	}
@@ -104,6 +106,7 @@ class ADODB_odbc_oracle extends ADODB_odbc {
 		$this->_errorMsg     = $this->getChangedErrorMsg($last_php_error);
 
 		$this->Execute("ALTER SESSION SET NLS_DATE_FORMAT='YYYY-MM-DD HH24:MI:SS'");
+
 		//if ($this->_connectionID) odbc_autocommit($this->_connectionID,true);
 		return $this->_connectionID != false;
 	}

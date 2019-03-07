@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim. All rights reserved.
@@ -246,6 +247,7 @@ class ADODB_informix72 extends ADOConnection {
 			while (!$rs->EOF) { //print_r($rs->fields);
 				$fld       = new ADOFieldObject();
 				$fld->name = $rs->fields[0];
+
 				/*  //!eos.
 						$rs->fields[1] is not the correct adodb type
 						$rs->fields[2] is not correct max_length, because can include not-null bit
@@ -377,6 +379,7 @@ class ADODB_informix72 extends ADOConnection {
 	}
 
 	/*
+
 	// ifx_do does not accept bind parameters - weird ???
 	function Prepare($sql)
 	{

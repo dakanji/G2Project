@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -116,15 +117,22 @@ class KeyAlbumCallbacks {
 	 * @return GalleryStatus a status code
 	 * @static
 	 */
-	public function _findAllKeywords($param, $onlyPublic, $sizeLimit, $maxWeight, $includeFrequency) {
+	public function _findAllKeywords(
+		$param,
+		$onlyPublic,
+		$sizeLimit,
+		$maxWeight,
+		$includeFrequency
+	) {
 		global $gallery;
 
-		$query    = '
-		SELECT ' . ($includeFrequency ? '' : 'DISTINCT') . '
-		[GalleryItem::keywords]
-		FROM
-		[GalleryItem]
+		$query = '
+			SELECT ' . ($includeFrequency ? '' : 'DISTINCT') . '
+				[GalleryItem::keywords]
+			FROM
+				[GalleryItem]
 		';
+
 		$keywords = $aclIds = array();
 
 		if ($onlyPublic) {

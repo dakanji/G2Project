@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -26,7 +27,6 @@ if (!empty($_SERVER['SERVER_NAME'])) {
 }
 
 require_once __DIR__ . '/XmlParser.inc';
-
 require_once __DIR__ . '/../../smarty/Smarty.class.php';
 
 $tmpdir = __DIR__ . '/tmp_dbxml_' . mt_rand(1, 30000);
@@ -238,6 +238,7 @@ function generateMapDbXml() {
 		 */
 		$mapName = $origMapName;
 		$mapName = preg_replace('/^Gallery/', '', $mapName);
+
 		// Shorten some table names to fit Oracle's 30 char name limit..
 		$mapName = str_replace('Preferences', 'Prefs', $mapName);
 		$mapName = str_replace('Toolkit', 'Tk', $mapName);

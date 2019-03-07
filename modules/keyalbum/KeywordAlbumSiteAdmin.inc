@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -92,7 +93,7 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 				'description'    => $form['description'],
 				'split'          => $split,
 			)
-			as $key => $value) {
+ as $key => $value) {
 				$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum', $key, $value);
 
 				if ($ret) {
@@ -160,11 +161,12 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 				$form['presort'] = $tmp[0];
 			}
 
-			$map           = array(
+			$map = array(
 				';' => 'semicolon',
 				',' => 'comma',
 				's' => 'space',
 			);
+
 			$split         = $form['split'];
 			$form['split'] = array();
 
@@ -237,7 +239,11 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 		);
 
 		// Set up theme settings
-		list($ret, $themeSettingsId) = GalleryCoreApi::getPluginParameter('module', 'keyalbum', 'themeSettingsId');
+		list($ret, $themeSettingsId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'keyalbum',
+			'themeSettingsId'
+		);
 
 		if ($ret) {
 			return array($ret, null);

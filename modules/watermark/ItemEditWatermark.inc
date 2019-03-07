@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -200,7 +201,8 @@ class ItemEditWatermark extends ItemEditPlugin {
 						}
 					} elseif ($this->isSupported($item, null)) {
 						$params[1] = $item;
-						$ret       = call_user_func_array(
+
+						$ret = call_user_func_array(
 							array('WatermarkHelper', 'watermarkItem'),
 							$params
 						);

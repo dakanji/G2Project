@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
  */
-
 
 /**
  * write the compiled resource
@@ -32,6 +32,7 @@ function smarty_core_write_compiled_resource($params, &$smarty) {
 	);
 
 	include_once SMARTY_CORE_DIR . 'core.write_file.php';
+
 	smarty_core_write_file($_params, $smarty);
 
 	return true;

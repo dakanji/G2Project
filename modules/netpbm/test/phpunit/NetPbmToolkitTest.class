@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -44,7 +45,8 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		}
 
 		$this->_platform = new NetPbmToolkitTestPlatform($gallery->getPlatform(), $this);
-		$ret             = $this->_platform->init();
+
+		$ret = $this->_platform->init();
 
 		if ($ret) {
 			return $ret;

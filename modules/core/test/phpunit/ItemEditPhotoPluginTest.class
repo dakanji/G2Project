@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -47,7 +48,8 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 
 		// Register a dummy toolkit
 		$path = 'modules/core/test/phpunit/ItemEditPhotoPluginTest.class';
-		$ret  = GalleryCoreApi::registerFactoryImplementation(
+
+		$ret = GalleryCoreApi::registerFactoryImplementation(
 			'GalleryToolkit',
 			'ItemEditPhotoPluginTestToolkit',
 			'ItemEditPhotoPluginTestToolkit',
@@ -253,6 +255,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 				$expectedOperations  = ($i < 2) ? ('scale|' . ($i ? 250 : 500) . ',' . ($i ? 250 : 500)) : 'scale|50%,600';
 				$expectedOperations .= ';convert-to-image/jpeg';
 				$this->assertEquals($expectedOperations, $resize->getDerivativeOperations(), $i);
+
 				// check that postfilteroperations are maintained and added to new resizes..
 				$this->assertEquals(
 					'test-operation|0',
@@ -319,6 +322,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 
 	public function testEditResizesNoDerivative() {
 		$itemId = $this->_item->getId();
+
 		// Use valid inputs
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 
@@ -377,7 +381,8 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		 * rotated; however prefered can
 		 */
 		$itemId = $this->_item->getId();
-		$ret    = GalleryCoreApi::registerToolkitOperation(
+
+		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ItemEditPhotoPluginTestToolkit',
 			array('test/blob'),
 			'convert-to-image/jpeg',
@@ -433,6 +438,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 
 		$this->assertTrue($resizeTable[$itemId], 'no derivative');
 		$preferredId = $resizeTable[$itemId][0]->getId();
+
 		// check that the derivatives are from the preferred source, not from the original
 		$this->assertEquals(4, sizeof($resizeTable[$itemId]));
 

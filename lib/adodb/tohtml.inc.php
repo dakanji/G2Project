@@ -1,4 +1,5 @@
 <?php
+
 /*
   @version   v5.20.12  30-Mar-2018
   @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -23,11 +24,9 @@ $gSQLBlockRows = 20; // max no of rows per table block
 // web browsers normally require the whole table to be downloaded
 // before it can be rendered, so we break the output into several
 // smaller faster rendering tables.
-//
 // $rs: the recordset
 // $ztabhtml: the table tag attributes (optional)
 // $zheaderarray: contains the replacement strings for the headers (optional)
-//
 //  USAGE:
 //	include('adodb.inc.php');
 //	$db = ADONewConnection('mysql');
@@ -35,7 +34,6 @@ $gSQLBlockRows = 20; // max no of rows per table block
 //	$rs = $db->Execute('select col1,col2,col3 from table');
 //	rs2html($rs, 'BORDER=2', array('Title1', 'Title2', 'Title3'));
 //	$rs->Close();
-//
 // RETURNS: number of rows displayed
 function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialchars = true, $echo = true) {
 	$s     = '';
@@ -69,6 +67,7 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 			}
 
 			$typearr[$i] = $rs->MetaType($field->type, $field->max_length);
+
 		//print " $field->name $field->type $typearr[$i] ";
 		} else {
 			$fname       = 'Field ' . ($i + 1);
@@ -117,7 +116,6 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 						break;
 					}
 
-
 					// Fall Through
 				case 'T':
 					if (empty($v)) {
@@ -135,7 +133,6 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 						$v = round($v, $ADODB_ROUND);
 					}
 
-
 					// Fall Through
 				case 'I':
 					$vv = stripslashes((trim($v)));
@@ -147,6 +144,7 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 					$s .= '	<TD align=right>' . $vv . "</TD>\n";
 
 					break;
+
 				/*
 				case 'B':
 				if (substr($v,8,2)=="BM" ) $v = substr($v,8);
@@ -160,7 +158,6 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 				  function mime_content_type ($file) {
 					return exec("file -bi ".escapeshellarg($file));
 				  }
-
 				}
 
 				$t = mime_content_type($tmpname);

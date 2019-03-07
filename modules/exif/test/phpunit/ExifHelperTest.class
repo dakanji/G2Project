@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -225,6 +226,7 @@ class ExifHelperTest extends GalleryTestCase {
 		$this->assertEquals('Caption, Beschreibung', $data, 'IPTC/Caption mismatch');
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'CaptionWriter'));
+
 		// Truncated in IPTC data, XMP data is 'CaptionWriter, Verfasser der Beschreibung'
 		$this->assertEquals(
 			'CaptionWriter, Verfasser der Bes',
@@ -297,6 +299,7 @@ class ExifHelperTest extends GalleryTestCase {
 		$this->assertEquals('CountryName, Land', $data, 'IPTC/CountryName mismatch');
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'OriginalTransmissionReference'));
+
 		// shortened in IPTC, is 'OriginalTransmissionReference, Uebertragungsreferenz' in XMP
 		$this->assertEquals(
 			'OriginalTransmissionReference, U',
@@ -370,6 +373,7 @@ class ExifHelperTest extends GalleryTestCase {
 		$this->assertEquals('Caption: IPTC/Caption', $data, 'IPTC/Caption mismatch');
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'CaptionWriter'));
+
 		// SHOULD be truncated in IPTC data, IrfanView doesn't respect hat, can we read it?
 		$this->assertEquals(
 			'Caption writer: IPTC/CaptionWriter, much toooooo looong',
@@ -388,6 +392,7 @@ class ExifHelperTest extends GalleryTestCase {
 		);
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'Category'));
+
 		// IPTC limits this to 3, PS to 2 chars. IrfanView doesn't respect that, can we read it?
 		$this->assertEquals(
 			'Category: IPTC/Category, muuuch tooo loooooong',
@@ -398,6 +403,7 @@ class ExifHelperTest extends GalleryTestCase {
 		$data      = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'SupplementalCategories'));
 		$dataArray = explode('; ', $data);
 		$this->assertEquals(3, count($dataArray), 'SupplementalCategories count');
+
 		// IPTC limits this to 3, PS to 2 chars. IrfanView doesn't respect that, can we read it?
 		$this->assertTrue(
 			in_array('Supplemental categories', $dataArray),

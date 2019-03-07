@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -53,6 +54,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		$error  = array();
 
 		$operation = null;
+
 		// Figure out which command we're taking
 		if (isset($form['action']['resize'])) {
 			if (empty($form['resize']['width']) || empty($form['resize']['height'])) {
@@ -239,6 +241,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		}
 
 		$ItemEditRotateAndScalePhoto['editPhoto']['noToolkitSupport'] = !isset($toolkit);
+
 		// Get worst of rotate and resize
 		if (isset($toolkit)) {
 			list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, 'resize');

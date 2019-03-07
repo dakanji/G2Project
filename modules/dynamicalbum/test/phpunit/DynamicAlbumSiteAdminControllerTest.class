@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -63,7 +64,11 @@ class DynamicAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 			}
 		}
 
-		list($ret, $this->_defaultThemeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
+		list($ret, $this->_defaultThemeId) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'core',
+			'default.theme'
+		);
 
 		if ($ret) {
 			return $ret;

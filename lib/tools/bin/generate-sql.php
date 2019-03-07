@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -257,6 +258,7 @@ class MySqlGenerator extends BaseGenerator {
 				}
 
 				$output .= ") DB_TABLE_TYPE\n";
+
 				// Character set, enclosed in comments that are ignored by MySQL < 4.1.0
 				$output .= "/*!40100 DEFAULT CHARACTER SET utf8 */;\n\n";
 
@@ -1372,6 +1374,7 @@ class Db2Generator extends BaseGenerator {
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' ADD COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . 'Temp';
 					$output .= ' ' . $this->columnDefinition($child[$i]['child'], false) . ";\n\n";
+
 					// Omit the CAST when the target type is CLOB to avoid invalid SQL state.
 					$targetType = $this->columnDefinition($child[$i]['child'], false);
 					$copyFrom   = 'DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'];
@@ -1385,12 +1388,14 @@ class Db2Generator extends BaseGenerator {
 					' = ' . $copyFrom . ";\n\n";
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' DROP COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . ";\n\n";
+
 					/*
 					 * DROP COLUMN puts the table into a state that requires REORG TABLE before
 					 * it can be accessed again.
 					 */
 					$output .= "CALL ADMIN_CMD ('REORG TABLE DB_TABLE_PREFIX" .
 					$parent['child'][0]['content'] . "');\n\n";
+
 					// DB2 can't rename columns
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' ADD COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'];
@@ -1693,6 +1698,7 @@ class MSSqlGenerator extends BaseGenerator {
 					$this->columnDefinition($child[$i]['child'], false) . ");\n\n";
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' DROP COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . ";\n\n";
+
 					// MSSQL can't rename columns
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' ADD DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'];

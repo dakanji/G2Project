@@ -66,6 +66,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 
 	public function GenID($seq = 'adodbseq', $start = 1) {
 		$parent = $this->pdoDriver;
+
 		// if you have to modify the parameter below, your database is overloaded,
 		// or you need to implement generation of id's yourself!
 		$MAXLOOPS = 100;

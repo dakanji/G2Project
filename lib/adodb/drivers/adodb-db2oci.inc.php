@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -23,6 +24,7 @@ if (!defined('ADODB_DB2OCI')) {
 	define('ADODB_DB2OCI', 1);
 
 	/*
+
 	// regex code for smart remapping of :0, :1 bind vars to ? ?
 	function _colontrack($p)
 	{
@@ -128,6 +130,7 @@ if (!defined('ADODB_DB2OCI')) {
 							$n  .= $ch;
 							$ch2 = $at < $lensql ? $sql[$at] : '';
 						} while ('0' <= $ch && $ch <= '9');
+
 						// echo "$n $arrsize ] ";
 						$n = (int)$n;
 
@@ -198,6 +201,7 @@ if (!defined('ADODB_DB2OCI')) {
 			$arr = $rs->GetArray();
 			$rs->Close();
 			$arr2 = array();
+
 			//	adodb_pr($arr);
 			if ($ttype) {
 				$isview = strncmp($ttype, 'V', 1) === 0;

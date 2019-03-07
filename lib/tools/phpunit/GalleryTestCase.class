@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -150,7 +151,8 @@ class GalleryTestCase extends TestCase {
 		}
 
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->beginTransaction();
+
+		$ret = $storage->beginTransaction();
 
 		if ($ret) {
 			return $ret;
@@ -335,7 +337,8 @@ class GalleryTestCase extends TestCase {
 		}
 
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->commitTransaction();
+
+		$ret = $storage->commitTransaction();
 
 		if ($ret) {
 			$this->fail($ret->getAsText());
@@ -670,7 +673,8 @@ class GalleryTestCase extends TestCase {
 
 		$className  = get_class($targetItem);
 		$linkedItem = new $className();
-		$ret        = $linkedItem->createLink($targetItem, $parentId);
+
+		$ret = $linkedItem->createLink($targetItem, $parentId);
 
 		if ($ret) {
 			return array($ret, null);

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -817,6 +818,7 @@ class GalleryUtilities {
 			function ($matches) {
 				foreach ($matches as $match) {
 					return mb_convert_encoding($match, 'UTF-8', 'HTML-ENTITIES');
+
 					//return GalleryUtilities::unicodeValueToUtf8Value($match);
 				}
 			},
@@ -1632,6 +1634,7 @@ class GalleryUtilities {
 				 * don't assign values to cookies that were already fixed/set before
 				 */
 				$fixedCookies = array();
+
 				// Check if the Cookie header contains quoted-strings
 				if (strstr($_SERVER['HTTP_COOKIE'], '"') === false) {
 					/*
@@ -1746,6 +1749,7 @@ class GalleryUtilities {
 
 		// Urldecode header data (php-style of name = attr handling)
 		$key = trim(urldecode($key));
+
 		// Don't accept zero length key
 		if (($len = strlen($key)) == 0) {
 			return null;
@@ -1775,6 +1779,7 @@ class GalleryUtilities {
 
 		// Urldecode value
 		$val = trim(urldecode($val));
+
 		// Add slashes if magic_quotes_gpc is on
 		$phpVm = $gallery->getPhpVm();
 
@@ -1865,6 +1870,7 @@ class GalleryUtilities {
 		ob_start();
 
 		include $tempfile;
+
 		$data = ob_get_contents();
 		ob_end_clean();
 		unlink($tempfile);

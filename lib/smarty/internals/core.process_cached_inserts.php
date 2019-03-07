@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
  */
-
 
 /**
  * Replace cached inserts with the actual results
@@ -25,6 +25,7 @@ function smarty_core_process_cached_inserts($params, &$smarty) {
 			$_params = array();
 
 			include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
+
 			$debug_start_time = smarty_core_get_microtime($_params, $smarty);
 		}
 
@@ -67,6 +68,7 @@ function smarty_core_process_cached_inserts($params, &$smarty) {
 			$_params = array();
 
 			include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
+
 			$smarty->_smarty_debug_info[] = array(
 				'type'      => 'insert',
 				'filename'  => 'insert_' . $name,

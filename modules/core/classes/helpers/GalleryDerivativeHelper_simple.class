@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -122,7 +123,8 @@ class GalleryDerivativeHelper_simple {
 		if (!empty($itemIds)) {
 			$idMarkers = GalleryUtilities::makeMarkers(sizeof($itemIds));
 			$data      = $itemIds;
-			$query     = '
+
+			$query = '
 			SELECT
 			[GalleryDerivative::id], [GalleryChildEntity::parentId]
 			FROM
@@ -135,7 +137,8 @@ class GalleryDerivativeHelper_simple {
 		} else {
 			$idMarkers = GalleryUtilities::makeMarkers(sizeof($sourceIds));
 			$data      = $sourceIds;
-			$query     = '
+
+			$query = '
 			SELECT
 			[GalleryDerivative::id], [GalleryDerivative::derivativeSourceId]
 			FROM
@@ -151,8 +154,9 @@ class GalleryDerivativeHelper_simple {
 
 		if (!empty($types)) {
 			$typeMarkers = GalleryUtilities::makeMarkers(sizeof($types));
-			$query      .= 'AND [GalleryDerivative::derivativeType] IN (' . $typeMarkers . ')';
-			$data        = array_merge($data, $types);
+
+			$query .= 'AND [GalleryDerivative::derivativeType] IN (' . $typeMarkers . ')';
+			$data   = array_merge($data, $types);
 		}
 
 		list($ret, $searchResults) = $gallery->search($query, $data);

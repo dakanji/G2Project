@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty plugin
  * @package Smarty
@@ -94,6 +95,7 @@ function smarty_core_write_cache_file($params, &$smarty) {
 		);
 
 		include_once SMARTY_CORE_DIR . 'core.write_file.php';
+
 		smarty_core_write_file($_params, $smarty);
 
 		return true;

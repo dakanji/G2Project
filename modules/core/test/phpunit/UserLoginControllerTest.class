@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -117,6 +118,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		}
 
 		$results = $this->handleRequest();
+
 		// May get a redirect url (like from useralbum module) or return
 		$this->assertTrue(isset($results['return']) || isset($results['redirect']), 'result');
 		$this->assertEquals(array(), $results['status'], 'status');
@@ -190,6 +192,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password]', 'pass&word');
 
 		$results = $this->handleRequest();
+
 		// May get a redirect url (like from useralbum module) or return
 		$this->assertTrue(isset($results['return']) || isset($results['redirect']), 'result');
 		$this->assertEquals(array(), $results['status'], 'status');
@@ -205,6 +208,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	public function testLoginInvalidUser() {
 		GalleryUtilities::putRequestVariable('form[action][login]', 1);
 		GalleryUtilities::putRequestVariable('form[username]', 'some-bogus-user');
+
 		// From _createRandomUser
 		GalleryUtilities::putRequestVariable('form[password]', 'password');
 
@@ -395,6 +399,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	public function testPlugins4() {
 		GalleryUtilities::putRequestVariable('form[action][login]', 1);
 		GalleryUtilities::putRequestVariable('form[username]', $this->_user->getUserName());
+
 		// from _createRandomUser:
 		GalleryUtilities::putRequestVariable('form[password]', 'password');
 
@@ -425,6 +430,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][login]', 1);
 		GalleryUtilities::putRequestVariable('form[username]', $this->_user->getUserName());
+
 		// from _createRandomUser:
 		GalleryUtilities::putRequestVariable('form[password]', 'password');
 
@@ -434,6 +440,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		$this->_controller->setPluginInstances(array($plugin));
 
 		$results = $this->handleRequest();
+
 		// May get a redirect url (like from useralbum module) or return
 		$this->assertTrue(isset($results['return']) || isset($results['redirect']), 'result');
 		$this->assertEquals(array(), $results['status'], 'status');
@@ -457,6 +464,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][login]', 1);
 		GalleryUtilities::putRequestVariable('form[username]', $this->_user->getUserName());
+
 		// from _createRandomUser:
 		GalleryUtilities::putRequestVariable('form[password]', 'password');
 
@@ -466,6 +474,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		$this->_controller->setPluginInstances(array($plugin));
 
 		$results = $this->handleRequest();
+
 		// May get a redirect url (like from useralbum module) or return
 		$this->assertTrue(isset($results['return']) || isset($results['redirect']), 'result');
 		$this->assertEquals(array(), $results['status'], 'status');

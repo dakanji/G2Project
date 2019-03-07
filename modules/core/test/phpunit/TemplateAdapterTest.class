@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -825,7 +826,8 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$gallery->_platform =& $mockPlatform;
-		$ret                = $this->_markPluginParametersForCleanup('module', 'core');
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'core');
 
 		if ($ret) {
 			return $ret;
@@ -869,7 +871,8 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$gallery->_platform =& $mockPlatform;
-		$ret                = $this->_markPluginParametersForCleanup('module', 'core');
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'core');
 
 		if ($ret) {
 			return $ret;

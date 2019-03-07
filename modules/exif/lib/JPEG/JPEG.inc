@@ -1,12 +1,11 @@
 <?php
+
 // vim: set expandtab tabstop=4 shiftwidth=4:
 // +----------------------------------------------------------------------+
 // Copyright (c) 2003, 2007 Sebastian Delmont <sd@notso.net>
 // All rights reserved.
-//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
-//
 //   * Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //   * Redistributions in binary form must reproduce the above copyright notice,
@@ -15,7 +14,6 @@
 //   * Neither the name of Sebastian Delmont nor the names of its contributors
 //     may be used to endorse or promote products derived from this software
 //     without specific prior written permission.
-//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 // ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -30,9 +28,7 @@
 // | see: http://www.zonageek.com/software/php/jpeg/index.php             |
 // | commented and adapted to Gallery 2 by <rehfeld@georg-rehfeld.de>     |
 // +----------------------------------------------------------------------+
-//
 // $Id: JPEG.inc 16769 2007-07-16 16:06:17Z mindless $
-
 /**************************************************************************
  * JPEG
  * ----
@@ -58,7 +54,6 @@
 
 //-re- nothing used from PEAR
 //require_once 'PEAR.php';
-
 /**
  *
  * @TODO: -re- record error reasons (code + message)
@@ -710,9 +705,7 @@ class JPEG // extends PEAR
 		}
 	}
 
-	//
 	// PRIVATE FUNCTIONS (Internal Use Only!)
-	//
 
 	/**
 	 * Disposes all allocated resources.
@@ -850,6 +843,7 @@ class JPEG // extends PEAR
 				}
 			} elseif (!$done) {
 				$result = @fseek($this->_fp, $length, SEEK_CUR);
+
 				// fseek doesn't seem to like HTTP 'files', but fgetc has no problem
 				if (!($result === 0)) {
 					for ($i = 0; $i < $length; $i++) {
@@ -1072,6 +1066,7 @@ class JPEG // extends PEAR
 
 			if ($origLength > 0) {   // Skip the original data
 				$result = @fseek($this->_fp, $origLength, SEEK_CUR);
+
 				// fseek doesn't seem to like HTTP 'files', but fgetc has no problem
 				if ($result != 0) {
 					for ($i = 0; $i < $origLength; $i++) {
@@ -1878,6 +1873,7 @@ class JPEG // extends PEAR
 						} else {
 							$a = 0;
 							$b = 0;
+
 							// TODO: Allow other types and convert them
 						}
 
@@ -1982,6 +1978,7 @@ class JPEG // extends PEAR
 						} else {
 							$a = 0;
 							$b = 0;
+
 							// TODO: Allow other types and convert them
 						}
 
@@ -2084,6 +2081,7 @@ class JPEG // extends PEAR
 
 		$data  = null;
 		$count = count($this->_markers);
+
 		// Look for APP13: IPTC / Photoshop data
 		for ($i = 0; $i < $count; $i++) {
 			if ($this->_markers[$i]['marker'] == 0xED) {
@@ -2140,6 +2138,7 @@ class JPEG // extends PEAR
 			switch ($type) {
 			case 0x0404: // Caption (IPTC Data)
 				$pos = $this->_readIPTC($data, $pos);
+
 				// TODO: -re- this check fails all the time! Read comment on _readIPTC()!
 				if ($pos == false) {
 					return false;
@@ -2290,6 +2289,7 @@ class JPEG // extends PEAR
 				}
 
 				break;
+
 			// case 0x01: Envelope
 			// case 0x03: Digital newsphoto parameter
 			// case 0x04: Not allocated
@@ -2814,7 +2814,8 @@ class JPEG // extends PEAR
 	 */
 	public function & _iptcNameTags() {
 		$tags = $this->_iptcTagNames();
-		$ret  = $this->_names2Tags($tags);
+
+		$ret = $this->_names2Tags($tags);
 
 		return $ret;
 	}

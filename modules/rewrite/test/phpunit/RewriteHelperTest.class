@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -751,8 +752,10 @@ class RewriteHelperTest extends GalleryTestCase {
 
 		// Initialize active rules in reverse order
 		$activeRules = array();
+
 		// Empty pattern
 		$activeRules['rewritehelpermock'][10] = array();
+
 		// Short pattern
 		$activeRules['rewritehelpermock'][9] = array(
 			'pattern' => 'p',
@@ -770,8 +773,10 @@ class RewriteHelperTest extends GalleryTestCase {
 
 		// Restrict
 		$activeRules['rewritehelpermock'][6] = array();
+
 		// Conditions
 		$activeRules['rewritehelpermock'][11] = array();
+
 		// Custom flags
 		$activeRules['rewritehelpermock'][5] = array(
 			'pattern' => 'phpunit',
@@ -787,6 +792,7 @@ class RewriteHelperTest extends GalleryTestCase {
 		);
 
 		$expectedRegexRules = array();
+
 		// Custom flags
 		$expectedRegexRules[] = array(
 			'pattern'     => 'phpunit',

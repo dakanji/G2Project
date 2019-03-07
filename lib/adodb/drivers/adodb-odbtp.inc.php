@@ -1,4 +1,5 @@
 <?php
+
 /*
   @version   v5.20.12  30-Mar-2018
   @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -116,6 +117,7 @@ class ADODB_odbtp extends ADOConnection {
 
 		if ($this->odbc_driver == ODB_DRIVER_FOXPRO) {
 			$path = @odbtp_get_attr(ODB_ATTR_DATABASENAME, $this->_connectionID);
+
 			//if using vfp dbc file
 			if (!strcasecmp(strrchr($path, '.'), '.dbc')) {
 				$path = substr($path, 0, strrpos($path, '\/'));
@@ -156,6 +158,7 @@ class ADODB_odbtp extends ADOConnection {
 
 		if ($this->odbc_driver == ODB_DRIVER_FOXPRO) {
 			$path = @odbtp_get_attr(ODB_ATTR_DATABASENAME, $this->_connectionID);
+
 			//if using vfp dbc file
 			if (!strcasecmp(strrchr($path, '.'), '.dbc')) {
 				$path = substr($path, 0, strrpos($path, '\/'));
@@ -551,6 +554,7 @@ class ADODB_odbtp extends ADOConnection {
 
 		if (($ret = @odbtp_commit($this->_connectionID))) {
 			$ret = @odbtp_set_attr(ODB_ATTR_TRANSACTIONS, ODB_TXN_NONE, $this->_connectionID);
+
 			//set transaction off
 		}
 
@@ -570,6 +574,7 @@ class ADODB_odbtp extends ADOConnection {
 
 		if (($ret = @odbtp_rollback($this->_connectionID))) {
 			$ret = @odbtp_set_attr(ODB_ATTR_TRANSACTIONS, ODB_TXN_NONE, $this->_connectionID);
+
 			//set transaction off
 		}
 
@@ -774,6 +779,7 @@ class ADODB_odbtp extends ADOConnection {
 			}
 
 			$num_params = @odbtp_num_params($stmtid);
+
 			/*
 			for( $param = 1; $param <= $num_params; $param++ ) {
 				@odbtp_input( $stmtid, $param );

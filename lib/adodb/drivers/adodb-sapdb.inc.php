@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -30,8 +31,10 @@ if (!defined('ADODB_SAPDB')) {
 		public $concat_operator = '||';
 		public $sysDate         = 'DATE';
 		public $sysTimeStamp    = 'TIMESTAMP';
+
 		// used by DBDate() as the default date format used by the database
 		public $fmtDate = "'Y-m-d'";
+
 		// used by DBTimeStamp as the default timestamp fmt.
 		public $fmtTimeStamp    = "'Y-m-d H:i:s'";
 		public $hasInsertId     = true;

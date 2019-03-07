@@ -41,7 +41,6 @@ $database = 'test';
 $sep = ' :::: ';
 
 require './adodb.inc.php';
-
 require_once ADODB_DIR . '/adodb-csvlib.inc.php';
 
 function err($s) {

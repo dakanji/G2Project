@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -118,7 +119,8 @@ class AdminNetPbmController extends GalleryController {
 
 				// Set the jhead binary name
 				$jheadPath = isset($form['jheadPath']) ? $form['jheadPath'] : '';
-				$ret       = GalleryCoreApi::setPluginParameter(
+
+				$ret = GalleryCoreApi::setPluginParameter(
 					'module',
 					'netpbm',
 					'jheadPath',

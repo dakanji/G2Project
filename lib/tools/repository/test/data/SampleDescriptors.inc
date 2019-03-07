@@ -1,4 +1,5 @@
 <?php
+
 /*
  * These are sample descriptors that should be generated from our mock plugins. If the plugin is
  * changed, the changes must be reflected here as well. It is also used in the index generation test

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -86,6 +87,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 		[DerivativeImage]
 		ORDER BY [DerivativeImage::id] DESC
 		';
+
 		$gallery->guaranteeTimeLimit(120);
 
 		list($ret, $derivatives) = $gallery->search($query);
@@ -123,6 +125,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 		ORDER BY
 		[GalleryDataItem::id] DESC
 		';
+
 		$gallery->guaranteeTimeLimit(120);
 
 		list($ret, $items) = $gallery->search($query);
@@ -290,6 +293,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 		);
 
 		$templateAdapter->updateProgressBar($message, '', $i / $total);
+
 		// Release locks (avoid too many open files for flock based locking)
 		$ret = $storage->checkPoint();
 

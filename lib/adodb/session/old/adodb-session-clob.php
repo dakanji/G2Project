@@ -1,4 +1,5 @@
 <?php
+
 /*
   @version   v5.20.12  30-Mar-2018
   @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -16,6 +17,7 @@
 
 	include('adodb.inc.php');
 	include('adodb-session.php');
+
 	session_start();
 	session_register('AVAR');
 	$_SESSION['AVAR'] += 1;
@@ -23,9 +25,9 @@
 -- \$_SESSION['AVAR']={$_SESSION['AVAR']}</p>";
 
 To force non-persistent connections, call adodb_session_open first before session_start():
-
 	include('adodb.inc.php');
 	include('adodb-session.php');
+
 	adodb_session_open(false,false,false);
 	session_start();
 	session_register('AVAR');
@@ -35,7 +37,6 @@ To force non-persistent connections, call adodb_session_open first before sessio
 
  Installation ============
  1. Create this table in your database (syntax might vary depending on your db):
-
   create table sessions (
 	   SESSKEY char(32) not null,
 	   EXPIRY int(11) unsigned not null,
@@ -62,7 +63,6 @@ To force non-persistent connections, call adodb_session_open first before sessio
 	 as the first parameter, and the session key as the second parameter.
 
 	 To do this, define a notification function, say NotifyFn:
-
 		 function NotifyFn($expireref, $sesskey)
 		 {}
 
@@ -119,6 +119,7 @@ if (!defined('ADODB_SESSION')) {
 	}
 
 	$ADODB_SESSION_CRC = false;
+
 	//$ADODB_SESS_DEBUG = true;
 	//////////////////////////////////
 	// SET THE FOLLOWING PARAMETERS
@@ -157,7 +158,6 @@ if (!defined('ADODB_SESSION')) {
 	$ADODB_SESS['debug'] = $ADODB_SESS_DEBUG;
 	$ADODB_SESS['table'] = $ADODB_SESS_TBL;
 	*/
-
 
 	/****************************************************************************************\
 		Create the connection to the database.

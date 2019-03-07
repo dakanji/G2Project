@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Smarty shared plugin
  * @package Smarty
  * @subpackage plugins
  */
-
 
 /**
  * Function: smarty_make_timestamp<br>

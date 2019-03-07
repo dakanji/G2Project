@@ -1,4 +1,5 @@
 <?php
+
 /*
 
 @version   v5.20.12  30-Mar-2018
@@ -73,19 +74,37 @@ function ADODB_SetDatabaseAdapter(&$db, $index = false) {
 }
 
 class ADODB_Active_Record {
-	public static $_changeNames = true; // dynamically pluralize table names
-	public static $_quoteNames  = false;
-
+	// dynamically pluralize table names
+	public static $_changeNames   = true;
+	public static $_quoteNames    = false;
 	public static $_foreignSuffix = '_id';
-	public $_dbat; // associative index pointing to ADODB_Active_DB eg. $ADODB_Active_DBS[_dbat]
-	public $_table; // tablename, if set in class definition then use it as table name
-	public $_tableat; // associative index pointing to ADODB_Active_Table, eg $ADODB_Active_DBS[_dbat]->tables[$this->_tableat]
-	public $_where; // where clause set in Load()
-	public $_saved    = false; // indicates whether data is already inserted.
-	public $_lasterr  = false; // last error message
-	public $_original = false; // the original values loaded or inserted, refreshed on update
-	public $foreignName; // CFR: class name when in a relationship
-	public $lockMode = ' for update '; // you might want to change to
+
+	// associative index pointing to ADODB_Active_DB eg. $ADODB_Active_DBS[_dbat]
+	public $_dbat;
+
+	// tablename, if set in class definition then use it as table name
+	public $_table;
+
+	// associative index pointing to ADODB_Active_Table, eg $ADODB_Active_DBS[_dbat]->tables[$this->_tableat]
+	public $_tableat;
+
+	// where clause set in Load()
+	public $_where;
+
+	// indicates whether data is already inserted.
+	public $_saved = false;
+
+	// last error message
+	public $_lasterr = false;
+
+	// the original values loaded or inserted, refreshed on update
+	public $_original = false;
+
+	// CFR: class name when in a relationship
+	public $foreignName;
+
+	// you might want to change to
+	public $lockMode = ' for update ';
 
 	public static function UseDefaultValues($bool = null) {
 		global $ADODB_ACTIVE_DEFVALS;
@@ -139,8 +158,10 @@ class ADODB_Active_Record {
 			$this->_dbat = key($_ADODB_ACTIVE_DBS);
 		}
 
-		$this->_table   = $table;
-		$this->_tableat = $table; // reserved for setting the assoc value to a non-table name, eg. the sql string in future
+		$this->_table = $table;
+
+		// reserved for setting the assoc value to a non-table name, eg. the sql string in future
+		$this->_tableat = $table;
 		$this->UpdateActiveTable($pkeyarr);
 	}
 
@@ -173,7 +194,6 @@ class ADODB_Active_Record {
 				if ($lastc2 == 'CH' || $lastc2 == 'SH') {
 					return $table . 'es';
 				}
-
 
 				// Fall Through
 			default:
@@ -212,7 +232,6 @@ class ADODB_Active_Record {
 					return substr($tables, 0, $len - 2);
 				}
 
-
 				// Fall Through
 			default:
 				return substr($tables, 0, $len - 1); // ?
@@ -226,6 +245,7 @@ class ADODB_Active_Record {
 		$ar->foreignKey               = ($foreignKey) ? $foreignKey : $foreignRef . self::$_foreignSuffix;
 		$table                        =& $this->TableInfo();
 		$table->_hasMany[$foreignRef] = $ar;
+
 		// $this->$foreignRef = $this->_hasMany[$foreignRef]; // WATCHME Removed assignment by ref. to please __get()
 	}
 
@@ -247,12 +267,22 @@ class ADODB_Active_Record {
 
 	// use when you want ADOdb to auto-pluralize tablename for you. Note that the class must already be defined.
 	// e.g. class Person will generate relationship for table Persons
-	public static function ClassHasMany($parentclass, $foreignRef, $foreignKey = false, $foreignClass = 'ADODB_Active_Record') {
+	public static function ClassHasMany(
+		$parentclass,
+		$foreignRef,
+		$foreignKey = false,
+		$foreignClass = 'ADODB_Active_Record'
+	) {
 		$ar = new $parentclass();
 		$ar->hasMany($foreignRef, $foreignKey, $foreignClass);
 	}
 
-	public function belongsTo($foreignRef, $foreignKey = false, $parentKey = '', $parentClass = 'ADODB_Active_Record') {
+	public function belongsTo(
+		$foreignRef,
+		$foreignKey = false,
+		$parentKey = '',
+		$parentClass = 'ADODB_Active_Record'
+	) {
 		global $inflector;
 
 		$ar              = new $parentClass($this->_pluralize($foreignRef));
@@ -263,20 +293,40 @@ class ADODB_Active_Record {
 
 		$table                          =& $this->TableInfo();
 		$table->_belongsTo[$foreignRef] = $ar;
+
 		// $this->$foreignRef = $this->_belongsTo[$foreignRef];
 	}
 
-	public static function ClassBelongsTo($class, $foreignRef, $foreignKey = false, $parentKey = '', $parentClass = 'ADODB_Active_Record') {
+	public static function ClassBelongsTo(
+		$class,
+		$foreignRef,
+		$foreignKey = false,
+		$parentKey = '',
+		$parentClass = 'ADODB_Active_Record'
+	) {
 		$ar = new $class();
 		$ar->belongsTo($foreignRef, $foreignKey, $parentKey, $parentClass);
 	}
 
-	public static function TableBelongsTo($table, $foreignRef, $foreignKey = false, $parentKey = '', $parentClass = 'ADODB_Active_Record') {
+	public static function TableBelongsTo(
+		$table,
+		$foreignRef,
+		$foreignKey = false,
+		$parentKey = '',
+		$parentClass = 'ADODB_Active_Record'
+	) {
 		$ar = new self($table);
 		$ar->belongsTo($foreignRef, $foreignKey, $parentKey, $parentClass);
 	}
 
-	public static function TableKeyBelongsTo($table, $tablePKey, $foreignRef, $foreignKey = false, $parentKey = '', $parentClass = 'ADODB_Active_Record') {
+	public static function TableKeyBelongsTo(
+		$table,
+		$tablePKey,
+		$foreignRef,
+		$foreignKey = false,
+		$parentKey = '',
+		$parentClass = 'ADODB_Active_Record'
+	) {
 		if (!is_array($tablePKey)) {
 			$tablePKey = array($tablePKey);
 		}
@@ -738,14 +788,12 @@ class ADODB_Active_Record {
 					return $db->qstr($val);
 				}
 
-
 				// Fall Through
 			case 'D':
 			case 'T':
 				if (empty($val)) {
 					return 'null';
 				}
-
 
 				// Fall Through
 			case 'B':
@@ -763,7 +811,6 @@ class ADODB_Active_Record {
 
 					break;
 				}
-
 
 				// Fall Through
 			default:
@@ -986,6 +1033,7 @@ class ADODB_Active_Record {
 
 		foreach ($table->flds as $name => $fld) {
 			$val = $this->$name;
+
 			/*
 			if (is_null($val)) {
 				if (isset($fld->not_null) && $fld->not_null) {
@@ -997,9 +1045,7 @@ class ADODB_Active_Record {
 						$this->Error("Cannot update null into $name","Replace");
 						return false;
 					}
-
 				}
-
 			}*/
 			if (null === $val && !empty($fld->auto_increment)) {
 				continue;
@@ -1192,6 +1238,7 @@ function adodb_GetActiveRecordsClass(
 	}
 
 	$arr = array();
+
 	// arrRef will be the structure that knows about our objects.
 	// It is an associative array.
 	// We will, however, return arr, preserving regular 0.. order so that

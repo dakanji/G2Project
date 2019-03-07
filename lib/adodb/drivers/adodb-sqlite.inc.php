@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -268,6 +269,7 @@ class ADODB_sqlite extends ADOConnection {
 		// if you have to modify the parameter below, your database is overloaded,
 		// or you need to implement generation of id's yourself!
 		$MAXLOOPS = 100;
+
 		//$this->debug=1;
 		while (--$MAXLOOPS >= 0) {
 			@($num = $this->GetOne("select id from $seq"));
@@ -333,6 +335,7 @@ class ADODB_sqlite extends ADOConnection {
 
 	public function MetaIndexes($table, $primary = false, $owner = false) {
 		$false = false;
+
 		// save old fetch mode
 		global $ADODB_FETCH_MODE;
 

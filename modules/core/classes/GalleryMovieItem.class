@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -301,7 +302,6 @@ class GalleryMovieItem extends GalleryDataItem {
 					case 'video/x-ms-wmv':
 						$classId = 'CLSID:05589FA1-C356-11CE-BF01-00AA0055595A';
 
-
 						// Fall Through
 					case 'video/x-ms-asf':
 					case 'video/x-ms-asx':
@@ -337,7 +337,6 @@ class GalleryMovieItem extends GalleryDataItem {
 					default:
 						return $fallback;
 				}
-
 
 				// Fall Through
 			default:

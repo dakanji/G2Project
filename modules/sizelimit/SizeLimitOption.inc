@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -150,6 +151,7 @@ class SizeLimitOption extends ItemEditOption {
 					// figure out x and y and set them...
 					$width  = $form['SizeLimitOption']['dimensions']['width'];
 					$height = $form['SizeLimitOption']['dimensions']['height'];
+
 					// Validate the input data.
 					if (!is_numeric($height) && !is_numeric($width)) {
 						$error[] = 'form[error][SizeLimitOption][dimensions][missing]';
@@ -233,7 +235,8 @@ class SizeLimitOption extends ItemEditOption {
 
 					// figure out x and y and set them...
 					$filesize = $form['SizeLimitOption']['filesize'];
-					$ret      = GalleryCoreApi::setPluginParameter(
+
+					$ret = GalleryCoreApi::setPluginParameter(
 						'module',
 						'sizelimit',
 						'size',
@@ -319,6 +322,7 @@ class SizeLimitOption extends ItemEditOption {
 
 		$preserveOriginal = isset($form['SizeLimitOption']['keepOriginal']) &&
 		$form['SizeLimitOption']['keepOriginal'];
+
 		/*
 		 * NOTE: we only need Descendent Data Items, so in the future we may
 		 *       want to create a separate function. But for now let's just

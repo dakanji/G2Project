@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -88,7 +89,7 @@ class NetPbmToolkit extends GalleryToolkit {
 
 		// Use context look-ahead to see if we can queue up parameters to use later..
 		$queueIt = isset($context['next.toolkit']) && $context['next.toolkit'] == $this
-																																	            && $operationName != 'compress'          && $context['next.operation'] != 'compress';
+																																						       && $operationName != 'compress'       && $context['next.operation'] != 'compress';
 
 		$usePercent = in_array($operationName, array('thumbnail', 'scale', 'resize'))
 		&& (substr($parameters[0], -1) == '%'
@@ -127,7 +128,6 @@ class NetPbmToolkit extends GalleryToolkit {
 				}
 
 				// fall through to scale
-
 				// Fall Through
 			case 'scale':
 				$ysize       = empty($parameters[1]) ? $parameters[0] : $parameters[1];

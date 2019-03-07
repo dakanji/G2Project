@@ -1,12 +1,11 @@
 <?php
-// Copyright (c) 2004-2005 ars Cognita Inc., all rights reserved
 
+// Copyright (c) 2004-2005 ars Cognita Inc., all rights reserved
 /* ******************************************************************************
 	Released under both BSD license and Lesser GPL library license.
 	 Whenever there is any discrepancy between the two licenses,
 	 the BSD license will take precedence.
 *******************************************************************************/
-
 
 /**
  * xmlschema is a class that allows the user to quickly and easily
@@ -124,7 +123,6 @@ if (!defined('XMLS_DEFAULT_UPGRADE_METHOD')) {
  */
 if (!defined('_ADODB_LAYER')) {
 	include 'adodb.inc.php';
-
 	include 'adodb-datadict.inc.php';
 }
 
@@ -372,6 +370,7 @@ class dbTable extends dbObject {
 				}
 
 				break;
+
 			// Table/field option
 			case 'OPT':
 				if (isset($this->current_field)) {
@@ -513,6 +512,7 @@ class dbTable extends dbObject {
 		if ($this->currentPlatform) {
 			if (!isset($value)) {
 				$this->fields[$this->FieldID($field)]['OPTS'][] = $opt;
+
 			// Add the option and value
 			} else {
 				$this->fields[$this->FieldID($field)]['OPTS'][] = array(
@@ -609,6 +609,7 @@ class dbTable extends dbObject {
 						$key                         = key($opt);
 						$value                       = $opt[key($opt)];
 						@$fldarray[$field_id][$key] .= $value;
+
 					// Option doesn't have arguments
 					} else {
 						$fldarray[$field_id][$opt] = $opt;
@@ -639,6 +640,7 @@ class dbTable extends dbObject {
 					$sql[] = $xmls->dict->CreateTableSQL($this->name, $fldarray, $this->opts);
 
 					break;
+
 				// ignore table
 				default:
 					return array();
@@ -663,11 +665,13 @@ class dbTable extends dbObject {
 		if (isset($this->current_field)) {
 			// Drop the current field
 			logMsg("Dropping field '{$this->current_field}' from table '{$this->name}'");
+
 			// $this->drop_field[$this->current_field] = $xmls->dict->DropColumnSQL( $this->name, $this->current_field );
 			$this->drop_field[$this->current_field] = $this->current_field;
 		} else {
 			// Drop the current table
 			logMsg("Dropping table '{$this->name}'");
+
 			// $this->drop_table = $xmls->dict->DropTableSQL( $this->name );
 			$this->drop_table = true;
 		}
@@ -1312,7 +1316,6 @@ class dbQuerySet extends dbObject {
 
 					// SELECT statements aren't working yet
 					// $data = preg_replace( '/(?ias)(^\s*SELECT\s+.*\s+FROM)\s+(\W\s*,?\s*)+((?i)\s+WHERE.*$)/', "\1 $prefix\2 \3", $data );
-
 					// Fall Through
 				case 'MANUAL':
 					// If prefixKey is set and has a value then we use it to override the default constant XMLS_PREFIX.
@@ -1350,6 +1353,7 @@ class dbQuerySet extends dbObject {
 			$preamble   = $match[1];
 			$postamble  = $match[5];
 			$objectList = explode(',', $match[3]);
+
 			// $prefix = $prefix . '_';
 			$prefixedList = '';
 
@@ -1975,13 +1979,13 @@ class adoSchema {
 	}
 
 	/*
+
 	// compat for pre-4.3 - jlim
 	function _file_get_contents($path)
 	{
 		if (function_exists('file_get_contents')) return file_get_contents($path);
 		return join('',file($path));
 	}*/
-
 
 	/**
 	 * Converts an XML schema file to the specified DTD version.
@@ -2321,6 +2325,7 @@ class adoSchema {
 				$this->objectPrefix = '';
 
 				return true;
+
 			// prefix too long
 			case strlen($prefix) > XMLS_PREFIX_MAXLEN:
 				// prefix contains invalid characters

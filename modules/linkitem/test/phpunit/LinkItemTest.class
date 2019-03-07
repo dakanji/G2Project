@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -215,12 +216,14 @@ class LinkItemTest extends GalleryTestCase {
 		global $gallery;
 
 		$backup = $gallery->_session;
+
 		// Make sure the redirect has no sessionId in it
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
 		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 
 		$session = new GallerySession();
-		$ret     = $session->init();
+
+		$ret = $session->init();
 
 		if ($ret) {
 			return $ret;
@@ -250,11 +253,14 @@ class LinkItemTest extends GalleryTestCase {
 		}
 
 		$gallery->_session = $session;
+
 		// Make sure it passes the onLoad conditions
 		GalleryUtilities::putRequestVariable('view', 'core.ShowItem');
 		GalleryUtilities::putRequestVariable('itemId', $this->_link->getId());
+
 		// Make sure onLoad is called
 		GalleryDataCache::setMemoryCachingEnabled(false);
+
 		// Execute the test
 		list($ret, $link) = GalleryCoreApi::loadEntitiesById($this->_link->getId(), 'GalleryLinkItem');
 
@@ -265,6 +271,7 @@ class LinkItemTest extends GalleryTestCase {
 		}
 
 		GalleryDataCache::setMemoryCachingEnabled(true);
+
 		// Verify results
 		$this->assertEquals(1, $_REQUEST['phpVmExitCalls'], 'nr of exit calls');
 		$urlGenerator =& $gallery->getUrlGenerator();

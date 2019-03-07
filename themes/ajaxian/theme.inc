@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -333,6 +334,7 @@ class AjaxianTheme extends GalleryTheme {
 
 			if (!empty($images)) {
 				$image = $images[0];
+
 				// Rebuild derivative if needed so width/height known
 				if (GalleryUtilities::isA($image, 'GalleryDerivativeImage')
 					&& !($image->getWidth()

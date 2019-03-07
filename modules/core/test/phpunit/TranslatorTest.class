@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -200,7 +201,8 @@ class TranslatorTest extends GalleryTestCase {
 		// Init with a null language code and a valid accept language
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de';
 		$gallery->_translator            = null;
-		$ret                             = $gallery->initTranslator();
+
+		$ret = $gallery->initTranslator();
 
 		if ($ret) {
 			return $ret;
@@ -234,7 +236,8 @@ class TranslatorTest extends GalleryTestCase {
 
 		// Default language is set to fr_FR, browser check is off
 		$gallery->_translator = null;
-		$ret                  = $gallery->initTranslator();
+
+		$ret = $gallery->initTranslator();
 
 		if ($ret) {
 			return $ret;
@@ -260,7 +263,8 @@ class TranslatorTest extends GalleryTestCase {
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de';
 
 		$gallery->_translator = null;
-		$ret                  = $gallery->initTranslator(true);
+
+		$ret = $gallery->initTranslator(true);
 
 		if ($ret) {
 			return $ret;
@@ -280,14 +284,16 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de_DE';
-		$ret                             = $gallery->setActiveLanguageCode('fr_FR');
+
+		$ret = $gallery->setActiveLanguageCode('fr_FR');
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$gallery->_translator = null;
-		$ret                  = $gallery->initTranslator();
+
+		$ret = $gallery->initTranslator();
 
 		if ($ret) {
 			return $ret;
@@ -306,14 +312,16 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de_DE';
-		$ret                             = $gallery->setActiveLanguageCode('fr_FR');
+
+		$ret = $gallery->setActiveLanguageCode('fr_FR');
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$gallery->_translator = null;
-		$ret                  = $gallery->initTranslator(true);
+
+		$ret = $gallery->initTranslator(true);
 
 		if ($ret) {
 			return $ret;

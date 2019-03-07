@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -97,6 +98,7 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 
 		while ($result = $results->nextResult()) {
 			$gallery->guaranteeTimeLimit(90);
+
 			// Grab 5 items at a time
 			$ids = array($result[0]);
 

@@ -1,21 +1,20 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
+ * This program is free software; you can redistribute it and/or modify it under the terms
+ * of the GNU General Public License as published by the Free Software Foundation;
+ * either version 2 of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with this program;
+ * if not, write to the Free Software Foundation, Inc., 51 Franklin Street - Fifth Floor,
+ * Boston, MA  02110-1301, USA.
  */
 ini_set('error_reporting', 2047);
 
@@ -26,7 +25,6 @@ if (!empty($_SERVER['SERVER_NAME'])) {
 }
 
 require_once __DIR__ . '/XmlParser.inc';
-
 require_once __DIR__ . '/../../smarty/Smarty.class.php';
 
 $tmpdir = __DIR__ . '/tmp_entities_' . mt_rand(1, 30000);
@@ -235,6 +233,7 @@ function getXml($filename) {
 				if (preg_match('{<class-name>(.*)</class-name>}', $line, $matches)) {
 					$schemaName = $matches[1];
 					$schemaName = preg_replace('/^Gallery/', '', $schemaName);
+
 					// Shorten some table names to fit Oracle's 30 char name limit..
 					$schemaName = preg_replace('/Preferences/', 'Prefs', $schemaName);
 					$schemaName = preg_replace('/Toolkit/', 'Tk', $schemaName);

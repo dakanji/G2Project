@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -40,7 +41,8 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 
 		// Register a dummy toolkit
 		$path = 'modules/core/test/phpunit/ItemMoveSingleControllerTest.class';
-		$ret  = GalleryCoreApi::registerFactoryImplementation(
+
+		$ret = GalleryCoreApi::registerFactoryImplementation(
 			'GalleryToolkit',
 			'ItemMoveSingleTestToolkit',
 			'ItemMoveSingleTestToolkit',
@@ -163,7 +165,8 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		$args      = func_get_args();
 		$itemId    = array_shift($args);
 		$thumbSize = array_shift($args);
-		$ret       = GalleryCoreApi::removeDerivativePreferencesForItem($itemId);
+
+		$ret = GalleryCoreApi::removeDerivativePreferencesForItem($itemId);
 
 		if ($ret) {
 			return $ret;
@@ -315,6 +318,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 					'type' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
 					'op'   => 'thumbnail|200',
 				),
+
 				// Order differs because old 400 kept as-is, and old 300 is reused for 600.
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,
@@ -623,6 +627,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 					'type' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
 					'op'   => 'crop|0,0,50,50;thumbnail|200',
 				),
+
 				// Order differs because old 400 kept as-is, and old 300 is reused for 600.
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,

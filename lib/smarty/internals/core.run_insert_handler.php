@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
  */
-
 
 /**
  * Handle insert tags
@@ -63,6 +63,7 @@ function smarty_core_run_insert_handler($params, &$smarty) {
 		$_params = array();
 
 		include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
+
 		$smarty->_smarty_debug_info[] = array(
 			'type'      => 'insert',
 			'filename'  => 'insert_' . $params['args']['name'],

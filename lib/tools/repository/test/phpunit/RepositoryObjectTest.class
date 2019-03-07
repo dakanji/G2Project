@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -41,6 +42,7 @@ class RepositoryObjectTest extends GalleryTestCase {
 		$object = new RepositoryObject();
 
 		$platform = new UnitTestPlatform();
+
 		// Test an invalid directory.
 		$platform->setReply('is_dir', array('invalidDirectory'), false);
 

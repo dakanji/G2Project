@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -235,6 +236,7 @@ class HybridTheme extends GalleryTheme {
 
 		if (isset($viewIndex)) {
 			$theme['viewIndex'] = $viewIndex;
+
 			// Set cookie to popup image just once
 			setcookie('G2_hybrid_view', $slide ? '2' : '1');
 		}

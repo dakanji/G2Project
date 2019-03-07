@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -448,7 +449,8 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
-		$ret      = $this->_setMarkupType('html', true);
+
+		$ret = $this->_setMarkupType('html', true);
 
 		if ($ret) {
 			return $ret;

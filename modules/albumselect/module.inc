@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -116,7 +117,8 @@ class AlbumSelectModule extends GalleryModule {
 			} elseif ($key == 'sort' && ($params[$key] == '0' || $params[$key] == '1')) {
 				// v0.9.4 changed 'sort' param from 0/1 to manual/title
 				$value = ($params[$key] == 1) ? 'title' : 'manual';
-				$ret   = $this->setParameter($key, $value);
+
+				$ret = $this->setParameter($key, $value);
 
 				if ($ret) {
 					return $ret;

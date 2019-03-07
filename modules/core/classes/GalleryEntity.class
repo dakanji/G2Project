@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -175,7 +176,8 @@ class GalleryEntity extends GalleryPersistent {
 
 		// Create a new instance of this entity in the persistent store
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->newEntity($this);
+
+		$ret = $storage->newEntity($this);
 
 		if ($ret) {
 			return $ret;
@@ -241,7 +243,8 @@ class GalleryEntity extends GalleryPersistent {
 
 		// Follow our usual creation process (same as create() above)
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->newEntity($this);
+
+		$ret = $storage->newEntity($this);
 
 		if ($ret) {
 			return $ret;
@@ -438,7 +441,8 @@ class GalleryEntity extends GalleryPersistent {
 		}
 
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->deleteEntity($this);
+
+		$ret = $storage->deleteEntity($this);
 
 		if ($ret) {
 			return $ret;

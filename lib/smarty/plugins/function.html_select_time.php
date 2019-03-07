@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
  */
-
 
 /**
  * Smarty {html_select_time} function plugin
@@ -23,8 +23,8 @@
  */
 function smarty_function_html_select_time($params, &$smarty) {
 	include_once $smarty->_get_plugin_filepath('shared', 'make_timestamp');
-
 	include_once $smarty->_get_plugin_filepath('function', 'html_options');
+
 	// Default values.
 	$prefix           = 'Time_';
 	$time             = time();
@@ -35,6 +35,7 @@ function smarty_function_html_select_time($params, &$smarty) {
 	$use_24_hours     = true;
 	$minute_interval  = 1;
 	$second_interval  = 1;
+
 	/* Should the select boxes be part of an array when returned from PHP?
 	   e.g. setting it to "birthday", would create "birthday[Hour]",
 	   "birthday[Minute]", "birthday[Seconds]" & "birthday[Meridian]".

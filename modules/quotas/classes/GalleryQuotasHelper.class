@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -55,7 +56,8 @@ class GalleryQuotasHelper {
 		if (!empty($excludeIds)) {
 			$data          = array_merge($data, $excludeIds);
 			$itemIdMarkers = GalleryUtilities::makeMarkers(count($excludeIds));
-			$query        .= '  AND
+
+			$query .= '  AND
 			[GalleryItem::id] NOT IN (' . $itemIdMarkers . ')';
 		}
 
@@ -393,7 +395,8 @@ class GalleryQuotasHelper {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-		$query   = '
+
+		$query = '
 		SELECT
 		[GalleryQuotasMap::userOrGroupId], [GalleryQuotasMap::quotaSize],
 		[GalleryGroup::groupName]

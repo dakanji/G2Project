@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Generic string parsing infrastructure
  *
@@ -40,16 +41,19 @@
  * @see StringParser::_parserMode
  */
 define('STRINGPARSER_MODE_SEARCH', 1);
+
 /**
  * String parser mode: Look at each character of the string
  * @see StringParser::_parserMode
  */
 define('STRINGPARSER_MODE_LOOP', 2);
+
 /**
  * Filter type: Prefilter
  * @see StringParser::addFilter, StringParser::_prefilters
  */
 define('STRINGPARSER_FILTER_PRE', 1);
+
 /**
  * Filter type: Postfilter
  * @see StringParser::addFilter, StringParser::_postfilters
@@ -485,6 +489,7 @@ class StringParser {
 		$topelem =& $this->_stack[$stack_count - 1];
 
 		$node_parent =& $topelem->_parent;
+
 		// remove the child from the tree
 		$res = $node_parent->removeChild($topelem, false);
 
@@ -678,6 +683,7 @@ class StringParser {
 		// HACK: This method ist not yet implemented correctly, the code below
 		// DOES NOT WORK! Do not use!
 		return false;
+
 		/*
 		while ($this->_cpos < $this->_length) {
 			$needle = $this->_strDetect ($this->_charactersSearch, $this->_cpos);
@@ -698,7 +704,6 @@ class StringParser {
 				if (!$res) {
 					return false;
 				}
-
 			}
 
 			// get subtext
@@ -713,7 +718,6 @@ class StringParser {
 			if (!$res && $strict) {
 				return false;
 			}
-
 		}
 
 		// original status 0 => no problem
@@ -1069,13 +1073,16 @@ class StringParser_Node {
 		}
 
 		$index = count($this->_children) - 1;
+
 		// move all nodes to a new index
 		while ($index >= 0) {
 			// save object
 			$object =& $this->_children[$index];
+
 			// we have to unset it because else it will be
 			// overridden in in the loop
 			unset($this->_children[$index]);
+
 			// put object to new position
 			$this->_children[$index + 1] =& $object;
 			$index--;
@@ -1186,13 +1193,16 @@ class StringParser_Node {
 		}
 
 		$index = count($this->_children) - 1;
+
 		// move all nodes to a new index
 		while ($index >= $child) {
 			// save object
 			$object =& $this->_children[$index];
+
 			// we have to unset it because else it will be
 			// overridden in in the loop
 			unset($this->_children[$index]);
+
 			// put object to new position
 			$this->_children[$index + 1] =& $object;
 			$index--;
@@ -1242,13 +1252,16 @@ class StringParser_Node {
 		}
 
 		$index = count($this->_children) - 1;
+
 		// move all nodes to a new index
 		while ($index >= $child + 1) {
 			// save object
 			$object =& $this->_children[$index];
+
 			// we have to unset it because else it will be
 			// overridden in in the loop
 			unset($this->_children[$index]);
+
 			// put object to new position
 			$this->_children[$index + 1] =& $object;
 			$index--;
@@ -1328,11 +1341,14 @@ class StringParser_Node {
 		while ($child < $ccount - 1) {
 			// save object
 			$obj =& $this->_children[$child + 1];
+
 			// we have to unset it because else it will be
 			// overridden in in the loop
 			unset($this->_children[$child + 1]);
+
 			// put object to new position
 			$this->_children[$child] =& $obj;
+
 			// UNSET THE OBJECT!
 			unset($obj);
 			$child++;
@@ -1393,6 +1409,7 @@ class StringParser_Node {
 		// if parent exists: remove node from tree!
 		if ($node->_parent !== null) {
 			$parent =& $node->_parent;
+
 			// directly return that result because the removeChild
 			// method will call destroyNode again
 			return $parent->removeChild($node, true);
@@ -1401,6 +1418,7 @@ class StringParser_Node {
 		// node has children
 		while (count($node->_children)) {
 			$child = 0;
+
 			// remove first child until no more children remain
 			if (!$node->removeChild($child, true)) {
 				return false;

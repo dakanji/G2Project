@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -51,6 +52,7 @@ class ColorPackImpl extends ColorPackInterface_1_0 {
 					$colorpackName = null;
 
 					include $inc;
+
 					$colorpacks[$file] = isset($colorpackName) ? $this->translate($colorpackName) : $file;
 				}
 			}

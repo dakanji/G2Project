@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -134,7 +135,8 @@ function GalleryInitFirstPass($params = array()) {
 
 	// Allow for overrides from GalleryEmbed ($param) or from config.php
 	$configBaseUri = @$gallery->getConfig('baseUri');
-	$ret           = $urlGenerator->init(
+
+	$ret = $urlGenerator->init(
 		isset($params['baseUri']) ? $params['baseUri'] : (!empty($configBaseUri) ? $configBaseUri : null),
 		isset($params['g2Uri']) ? $params['g2Uri'] : null,
 		isset($params['embedSessionString']) ? $params['embedSessionString'] : null
@@ -287,6 +289,7 @@ function GalleryPhpErrorHandler($errorNumber, $errorString, $file, $line, $conte
 		E_USER_ERROR      => 'User Error',
 		E_USER_WARNING    => 'User Warning',
 		E_USER_NOTICE     => 'User Notice',
+
 	// PHP5+: E_STRICT => 'Runtime Notice'
 	// PHP5.2+: E_RECOVERABLE_ERROR => 'Catchable Fatal Error'
 	);

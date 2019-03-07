@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -170,6 +171,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		$this->_platform->setReply('strftime', array('FAKE_FMT', 5678), 'DATE2');
 
 		ob_start();
+
 		$ret = $this->_callback->renderImmediate(array(), array());
 
 		$results = ob_get_contents();
@@ -232,6 +234,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		$this->_platform->setReply('strftime', array('FAKE_FMT', 5678), 'DATE2');
 
 		ob_start();
+
 		$ret = $this->_callback->renderImmediate(array(), array());
 
 		$results = ob_get_contents();
@@ -297,6 +300,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		$this->_platform->setReply('strftime', array('FAKE_FMT', 'DATE_FROM_DB'), 'DATE');
 
 		ob_start();
+
 		$ret = $this->_callback->renderImmediate(array(), array());
 
 		$results = ob_get_contents();
@@ -320,6 +324,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('id', 'bananas');
 
 		ob_start();
+
 		$ret = $this->_callback->renderImmediate(array(), array());
 
 		$results = ob_get_contents();
@@ -365,6 +370,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		);
 
 		ob_start();
+
 		$ret = $this->_callback->renderImmediate(array(), array());
 
 		$results = ob_get_contents();

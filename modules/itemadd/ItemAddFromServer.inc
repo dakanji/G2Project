@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -136,6 +137,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 					if (++$i % 200 == 0) {
 						$gallery->guaranteeTimeLimit(30);
+
 						// Inaccurate, but giving the impression of progress
 						$this->_templateAdapter->updateProgressBar(
 							$this->_fileCountMessage,
@@ -159,6 +161,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 				foreach ($form['localServerDirectories'] as $directory => $data) {
 					if (++$i % 200 == 0) {
 						$gallery->guaranteeTimeLimit(30);
+
 						// Inaccurate, but giving the impression of progress
 						$this->_templateAdapter->updateProgressBar(
 							$this->_fileCountMessage,
@@ -656,6 +659,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 		while (($fileName = $this->_platform->readdir($handle)) !== false) {
 			if (++$progressCount % 200 == 0) {
 				$gallery->guaranteeTimeLimit(30);
+
 				// Inaccurate, but giving the impression of progress
 				$this->_templateAdapter->updateProgressBar(
 					$this->_fileCountMessage,
@@ -745,6 +749,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 		} elseif (isset($form['action']['findFilesFromLocalServer'])) {
 			// If we're uploading from the local server, get a file list now
 			$localServerPath = trim($form['localServerPath']);
+
 			/*
 			 * All input is UTF-8, whether it comes from the browser or from the database.
 			 * When we use realpath, is_dir, opendir, readdir, .., we need the path in the system
@@ -784,6 +789,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 					// Add path to the recent path list
 					$session     =& $gallery->getSession();
 					$recentPaths = $session->get('itemadd.view.ItemAdd.ItemAddFromServer.recentPaths');
+
 					// Use the UTF-8 string, recent paths is only for the output
 					$recentPaths[$form['localServerPath']] = 1;
 					$session->put(

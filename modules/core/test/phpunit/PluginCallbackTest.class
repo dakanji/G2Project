@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -75,7 +76,8 @@ class PluginCallbackTest extends GalleryTestCase {
 
 	public function _handleCallback($command) {
 		$result = array();
-		$ret    = $this->_callback->handleCallback($command, $result);
+
+		$ret = $this->_callback->handleCallback($command, $result);
 
 		if ($ret) {
 			return $ret;
@@ -178,6 +180,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('isActive', array(null, false));
 		$this->_testPlugin->setResult('installOrUpgrade', null);
 		$this->_testPlugin->setResult('autoConfigure', array(null, true));
+
 		/*
 		 * Module author forgot to override autoConfigure. Be robust and still show the configure
 		 * link instead of an error page.

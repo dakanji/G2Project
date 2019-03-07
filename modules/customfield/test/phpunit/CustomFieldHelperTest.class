@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -35,6 +36,7 @@ class CustomFieldHelperTest extends GalleryTestCase {
 		$form                            = GalleryUtilities::getFormVariables('form');
 		$form['action']['add']['common'] = 'Add';
 		$form['common']['newField']      = '';
+
 		// This only test empty field name (Bug 1165012)
 		list($ret, $status) = CustomFieldHelper::getMe()->handleAdminAction($form);
 

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -275,7 +276,8 @@ class UserRecoverPasswordController extends GalleryController {
 						} else {
 							// Send the user email based on our confirmation template
 							$platform = $gallery->getPlatform();
-							$ret      = $platform->sendEmail(
+
+							$ret = $platform->sendEmail(
 								'modules/core/templates/UserRecoverPasswordEmail.tpl',
 								$tplData,
 								'',

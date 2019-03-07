@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @version   v5.20.12  30-Mar-2018
  * @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -17,7 +18,6 @@
 
  /*
  We support:
-
  DB_Common
  ---------
 	 query - returns PEAR_Error on error
@@ -47,9 +47,7 @@
 define('ADODB_PEAR', __DIR__);
 
 require_once 'PEAR.php';
-
 require_once ADODB_PEAR . '/adodb-errorpear.inc.php';
-
 require_once ADODB_PEAR . '/adodb.inc.php';
 
 if (!defined('DB_OK')) {
@@ -103,6 +101,7 @@ class DB {
 	 */
 	public function factory($type) {
 		include_once ADODB_DIR . "/drivers/adodb-$type.inc.php";
+
 		$obj = NewADOConnection($type);
 
 		if (!is_object($obj)) {
@@ -180,6 +179,7 @@ class DB {
 						$persist = $v;
 
 						break;
+
 					// ibase
 					case 'dialect':
 						$obj->dialect = $v;
@@ -195,11 +195,13 @@ class DB {
 						$obj->buffers = $v;
 
 						break;
+
 					// ado
 					case 'charpage':
 						$obj->charPage = $v;
 
 						break;
+
 					// mysql
 					case 'clientflags':
 						$obj->clientFlags = $v;
@@ -267,6 +269,7 @@ class DB {
 	 */
 	public function isWarning($value) {
 		return false;
+
 		/*
 		 * return is_object($value) &&
 		 *	(get_class( $value ) == "db_warning" ||

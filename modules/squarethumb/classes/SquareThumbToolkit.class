@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -247,6 +248,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 			}
 
 			$platform->fwrite($fh, "P6\n$size $size\n255\n");
+
 			// Convert RGB hex string to 3 binary bytes
 			$row = str_repeat(
 				chr(hexdec(substr($square['color'], 0, 2))) .

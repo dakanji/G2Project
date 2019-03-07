@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -155,6 +156,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		$thumbnail = $thumbnailTable[$childIds[0]];
 		$this->assertEquals($highlight->getId(), $thumbnail->getDerivativeSourceId(), 'src');
 		$this->assertEquals('thumbnail|123', $thumbnail->getDerivativeOperations(), 'op');
+
 		// For Oracle, null is replaced with '' when loading data from the database
 		$this->assertTrue(
 			in_array($thumbnail->getPostFilterOperations(), array(null, '')),

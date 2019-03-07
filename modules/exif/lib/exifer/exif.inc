@@ -1,8 +1,8 @@
 <?php
-//================================================================================================
-//================================================================================================
-//================================================================================================
 
+//================================================================================================
+//================================================================================================
+//================================================================================================
 /*
 	Exifer 1.5
 	Extracts EXIF information from digital photos.
@@ -63,7 +63,6 @@
 	the improvement so everyone can benefit from it.  Thanks!
 
 	VERSION HISTORY:
-
 	1.0 	Sept 23, 2002
 
 			First Public Release
@@ -128,8 +127,11 @@
 */
 
 //================================================================================================
+
 //================================================================================================
+
 //================================================================================================
+
 //================================================================================================
 //================================================================================================
 // Converts from Intel to Motorola endien.  Just reverses the bytes (assumes hex is passed in)
@@ -1239,22 +1241,27 @@ function read_entry(&$result, $in, $seek, $intel, $ifd_name, $globalOffset) {
 
 		if (strpos($capmake, 'NIKON') !== false) {
 			include_once __DIR__ . '/makers/nikon.inc';
+
 			parseNikon($data, $result);
 			$result[$ifd_name]['KnownMaker'] = 1;
 		} elseif (strpos($capmake, 'OLYMPUS') !== false) {
 			include_once __DIR__ . '/makers/olympus.inc';
+
 			parseOlympus($data, $result, $seek, $globalOffset);
 			$result[$ifd_name]['KnownMaker'] = 1;
 		} elseif (strpos($capmake, 'Canon') !== false) {
 			include_once __DIR__ . '/makers/canon.inc';
+
 			parseCanon($data, $result, $seek, $globalOffset);
 			$result[$ifd_name]['KnownMaker'] = 1;
 		} elseif (strpos($capmake, 'FUJIFILM') !== false) {
 			include_once __DIR__ . '/makers/fujifilm.inc';
+
 			parseFujifilm($data, $result);
 			$result[$ifd_name]['KnownMaker'] = 1;
 		} elseif (strpos($capmake, 'SANYO') !== false) {
 			include_once __DIR__ . '/makers/sanyo.inc';
+
 			parseSanyo($data, $result, $seek, $globalOffset);
 			$result[$ifd_name]['KnownMaker'] = 1;
 		} else {
@@ -1262,6 +1269,7 @@ function read_entry(&$result, $in, $seek, $intel, $ifd_name, $globalOffset) {
 		}
 	} elseif ($tag_name == 'GPSInfoOffset') {
 		include_once __DIR__ . '/makers/gps.inc';
+
 		$formated_data                = formatData($type, $tag, $intel, $data);
 		$result[$ifd_name]['GPSInfo'] = $formated_data;
 		parseGPS($data, $result, $formated_data, $seek, $globalOffset);
@@ -1290,7 +1298,6 @@ function read_entry(&$result, $in, $seek, $intel, $ifd_name, $globalOffset) {
 //================================================================================================
 //================================================================================================
 // Pass in a file and this reads the EXIF data
-//
 // Usefull resources
 // http://www.ba.wakwak.com/~tsuruzoh/Computer/Digicams/exif-e.html
 // http://www.w3.org/Graphics/JPEG/jfif.txt
@@ -1350,7 +1357,6 @@ function read_exif_data_raw($path, $verbose) {
 	$size = bin2hex(fread($in, 2));
 
 	//LOOP THROUGH MARKERS TILL YOU GET TO FFE1	(exif marker)
-	//
 	$abortCount = 0;
 
 	while (!feof($in) && $data != 'ffe1' && $data != 'ffc0' && $data != 'ffd9' && ++$abortCount < 200) {

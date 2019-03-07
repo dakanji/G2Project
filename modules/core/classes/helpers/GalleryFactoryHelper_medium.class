@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -81,7 +82,8 @@ class GalleryFactoryHelper_medium {
 		}
 
 		$data = empty($hints) ? serialize(null) : serialize($hints);
-		$ret  = GalleryCoreApi::updateMapEntry(
+
+		$ret = GalleryCoreApi::updateMapEntry(
 			'GalleryFactoryMap',
 			array(
 				'classType' => $classType,

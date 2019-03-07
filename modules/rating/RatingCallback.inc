@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -100,6 +101,7 @@ class RatingCallbackView extends GalleryView {
 				. $results['votesString'] . "\n"
 				. $results['userRating'] . "\n"
 				. $session->getAuthToken();
+
 				/*
 				 * If this was the first rating from an anonymous user then their session just became
 				 * persistent (see RatingHelper::rateItem); return the authToken so it can be used

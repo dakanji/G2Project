@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -69,7 +70,8 @@ class CustomFieldModule extends GalleryModule {
 
 		if (!empty($currentVersion) && version_compare($currentVersion, '1.0.1', '<')) {
 			$storage =& $gallery->getStorage();
-			$ret     = $storage->configureStore($this->getId(), array('CustomFieldMap:1.0'));
+
+			$ret = $storage->configureStore($this->getId(), array('CustomFieldMap:1.0'));
 
 			if ($ret) {
 				return $ret;

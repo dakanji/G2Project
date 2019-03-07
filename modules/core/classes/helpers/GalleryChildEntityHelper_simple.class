@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -461,6 +462,7 @@ class GalleryChildEntityHelper_simple {
 		}
 
 		$data[] = $sequence;
+
 		// Prepare the query
 		if ($requiredPermission) {
 			$query = '
@@ -477,7 +479,8 @@ class GalleryChildEntityHelper_simple {
 			AND
 			[GalleryAccessSubscriberMap::accessListId] IN (' . $aclMarkers . ')
 			';
-			$data  = array_merge($data, $aclIds);
+
+			$data = array_merge($data, $aclIds);
 		} else {
 			$query = '
 			SELECT

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -354,6 +355,7 @@ class HiddenModule extends GalleryModule {
 
 						while ($result = $searchResults->nextResult()) {
 							$id = $result[0];
+
 							// Remove public view permission
 							$ret = GalleryCoreApi::removeUserPermission(
 								$id,

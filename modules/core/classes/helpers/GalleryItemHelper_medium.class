@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -794,6 +795,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 				}
 
 				$parentId = $item->getParentId();
+
 				// Use derivative preferences of self for root album highlight
 				if (empty($parentId)) {
 					$parentId = $item->getId();

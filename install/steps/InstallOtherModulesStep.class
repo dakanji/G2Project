@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -102,7 +103,8 @@ class InstallOtherModulesStep extends InstallStep {
 				$moduleInstalled[$moduleId] = true;
 
 				$templateData['installedModule'][$moduleId] = $module->getName();
-				$ret                                        = $storage->checkPoint();
+
+				$ret = $storage->checkPoint();
 
 				if ($ret) {
 					$this->resetL10Domain();
@@ -267,6 +269,7 @@ class InstallOtherModulesStep extends InstallStep {
 
 	public function _init(&$templateData) {
 		include_once __DIR__ . '/../../modules/core/classes/GalleryDataCache.class';
+
 		$cacheKey = 'Installer::installOtherModulesStepInitialized';
 
 		if (!GalleryDataCache::containsKey($cacheKey)) {
@@ -282,7 +285,6 @@ class InstallOtherModulesStep extends InstallStep {
 			}
 
 			include_once __DIR__ . '/../../bootstrap.inc';
-
 			include_once __DIR__ . '/../../init.inc';
 
 			$ret = GalleryInitFirstPass(

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -164,6 +165,7 @@ class ModifyCartController extends GalleryController {
 		// Prepare our results
 		if (!isset($results['redirect'])) {
 			$results['redirect']['view'] = 'cart.ViewCart';
+
 			/*
 			 * Propagate the itemId to have a return link (bug 1818602).
 			 * Don't include the itemId when processing the cart though (bug 2013274).

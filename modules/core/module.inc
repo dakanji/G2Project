@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -257,6 +258,7 @@ class CoreModule extends GalleryModule {
 						),
 						$itemTypeNames[2]
 					),
+
 					// Params are for g->linkId used by icons, or themes ignoring 'script'
 					'params' => array(
 						'view'       => 'core.ItemAdmin',

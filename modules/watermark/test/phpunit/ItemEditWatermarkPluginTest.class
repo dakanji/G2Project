@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -42,7 +43,8 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 
 		// Create a watermark
 		$this->_watermark = new WatermarkImage();
-		$ret              = $this->_watermark->create(
+
+		$ret = $this->_watermark->create(
 			GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.gif'),
 			'image/gif',
 			'phpunit_' . mt_rand() . '.gif'

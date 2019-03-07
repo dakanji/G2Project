@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -107,6 +108,7 @@ class AddToCartControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('itemId', $item->getId());
+
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
 		$this->assertEquals(
@@ -149,6 +151,7 @@ class AddToCartControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
 		$this->assertEquals(
@@ -253,6 +256,7 @@ class AddToCartControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
 		$this->assertEquals(
@@ -298,6 +302,7 @@ class AddToCartControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('itemId', $item->getId());
+
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest(ERROR_MISSING_OBJECT);
 

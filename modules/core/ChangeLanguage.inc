@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -46,7 +47,8 @@ class ChangeLanguageController extends GalleryController {
 		global $gallery;
 
 		$language = GalleryUtilities::getRequestVariables('language');
-		$ret      = $gallery->setActiveLanguageCode($language);
+
+		$ret = $gallery->setActiveLanguageCode($language);
 
 		if ($ret) {
 			return array($ret, null);

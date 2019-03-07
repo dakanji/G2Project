@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -40,7 +41,8 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		}
 
 		$path = 'modules/core/test/phpunit/MaintenanceHelperTest.class';
-		$ret  = GalleryCoreApi::registerFactoryImplementation(
+
+		$ret = GalleryCoreApi::registerFactoryImplementation(
 			'MaintenanceTask',
 			'MaintenanceHelperTestTask',
 			'MaintenanceHelperTestTask',
@@ -281,7 +283,8 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		$gallery->setPlatform($UnitTestPlatform);
 
 		$current = $gallery->getConfig('mode.maintenance');
-		$ret     = GalleryCoreApi::setMaintenanceMode($current);
+
+		$ret = GalleryCoreApi::setMaintenanceMode($current);
 
 		if ($ret) {
 			return $ret;

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -50,6 +51,7 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 		$index->setTemplate(new RepositoryTestTemplate());
 		$index->setTemplateFile('test.tpl');
 		$index->setUtilities(new GalleryRepositoryUtilities());
+
 		/*
 		 * The values given to the test platform contructor in the first
 		 * array will be returned by readdir in the order specified. False
@@ -58,6 +60,7 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 		 * used by fread().
 		 */
 		include __DIR__ . '/../data/SampleDescriptors.inc';
+
 		$serializeModuleDescriptor        = serialize($sampleModuleDescriptor);
 		$serializeThemeDescriptor         = serialize($sampleThemeDescriptor);
 		$serializeModule2Descriptor       = serialize($sampleModule2Descriptor);
@@ -96,6 +99,7 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 
 		// Verify that the index is valid.
 		include __DIR__ . '/../data/SampleIndex.inc';
+
 		$this->assertEquals($sampleIndex, $index->_index, 'Generated index differs from expected.');
 		$this->assertTrue(
 			md5(serialize($sampleIndex)) == $index->_indexHash,
@@ -146,6 +150,7 @@ class RepositoryToolsIndexTestPlatform {
 
 		// Get $sampleIndex from a separate file.
 		include __DIR__ . '/../data/SampleIndex.inc';
+
 		$this->_writtenData['repositorydir/index'] = serialize($sampleIndex);
 	}
 

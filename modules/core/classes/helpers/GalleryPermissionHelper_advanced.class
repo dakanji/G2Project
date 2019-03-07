@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -992,7 +993,7 @@ class GalleryPermissionHelper_advanced {
 			$entityIds[$idx] = (int)$id;
 		}
 
-		$query  = '
+		$query = '
 		SELECT
 		[GalleryAccessSubscriberMap::itemId]
 		FROM
@@ -1003,6 +1004,7 @@ class GalleryPermissionHelper_advanced {
 		AND [GalleryAccessMap::userOrGroupId] IN (' . $entityIdMarkers . ')
 		AND (' . $andPermission . ' = ?)
 		';
+
 		$data   = array_merge(array((int)$itemId), $entityIds);
 		$data[] = $storage->convertIntToBits($bits);
 		$data[] = $storage->convertIntToBits($bits);
@@ -1325,7 +1327,7 @@ class GalleryPermissionHelper_advanced {
 			return $ret;
 		}
 
-		$query  = '
+		$query = '
 		UPDATE
 		[GalleryAccessMap]
 		SET
@@ -1333,6 +1335,7 @@ class GalleryPermissionHelper_advanced {
 		WHERE
 		[GalleryAccessMap::permission] != ?
 		';
+
 		$data   = array();
 		$data[] = $storage->convertIntToBits(0x7FFFFFFF - $removeBits);
 		$data[] = $storage->convertIntToBits($allBits);
@@ -1495,7 +1498,8 @@ class GalleryPermissionHelper_advanced {
 			}
 
 			$master = array_shift($aclIds);
-			$ret    = GalleryCoreApi::updateMapEntry(
+
+			$ret = GalleryCoreApi::updateMapEntry(
 				'GalleryAccessSubscriberMap',
 				array(
 					'accessListId' => $aclIds,

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -26,9 +27,7 @@
 define('G2_SUPPORT_URL_FRAGMENT', '../../support/');
 
 require '../../support/security.inc';
-
 require '../../../bootstrap.inc';
-
 require_once '../../../init.inc';
 
 if (function_exists('date_default_timezone_set')) {
@@ -106,6 +105,7 @@ if (!empty($_GET['run'])) {
 ob_start();
 
 require_once '../../../main.php';
+
 ob_end_clean();
 
 /**
@@ -158,39 +158,22 @@ function PhpUnitOutputInterceptor($message) {
 	ob_start('PhpUnitOutputInterceptor', 256);
 
 	require_once 'phpunit.inc';
-
 	require_once 'GalleryTestCase.class';
-
 	require_once 'GalleryImmediateViewTestCase.class';
-
 	require_once 'GalleryControllerTestCase.class';
-
 	require_once 'GalleryViewTestCase.class';
-
 	require_once 'ItemAddPluginTestCase.class';
-
 	require_once 'ItemEditPluginTestCase.class';
-
 	require_once 'ItemEditOptionTestCase.class';
-
 	require_once 'CodeAuditTestCase.class';
-
 	require_once 'MockObject.class';
-
 	require_once 'UnitTestPlatform.class';
-
 	require_once 'UnitTestStorage.class';
-
 	require_once 'UnitTestPhpVm.class';
-
 	require_once 'UnitTestUrlGenerator.class';
-
 	require_once 'MockTemplateAdapter.class';
-
 	require_once 'UnitTestTemplate.class';
-
 	require_once 'UnitTestRepository.class';
-
 	require_once 'UnitTestRepositoryUtilities.class';
 
 function PhpUnitGalleryMain(&$testSuite, $filter) {
@@ -215,7 +198,8 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 
 	// Configure our url Generator, find the correct base URL
 	$urlGenerator = new GalleryUrlGenerator();
-	$ret          = $urlGenerator->init('index.php');
+
+	$ret = $urlGenerator->init('index.php');
 
 	if ($ret) {
 		return $ret;
@@ -224,7 +208,8 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 	$urlDir       = str_replace('lib/tools/phpunit/', '', $urlGenerator->getCurrentUrlDir());
 	$path         = substr($urlDir, strlen($urlGenerator->makeUrl('/')) - 1);
 	$urlGenerator = new GalleryUrlGenerator();
-	$ret          = $urlGenerator->init($path . GALLERY_MAIN_PHP);
+
+	$ret = $urlGenerator->init($path . GALLERY_MAIN_PHP);
 
 	if ($ret) {
 		return $ret;
@@ -237,7 +222,8 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 	 * transaction for every test.
 	 */
 	$storage =& $gallery->getStorage();
-	$ret     = $storage->commitTransaction();
+
+	$ret = $storage->commitTransaction();
 
 	if ($ret) {
 		return $ret;
@@ -322,6 +308,7 @@ function loadTests($moduleId, $testDir, $filter) {
 				}
 
 				include_once $testDir . '/' . $file;
+
 				$className = $matches[1];
 
 				if (class_exists($className)
@@ -610,7 +597,8 @@ if (isset($_GET['filter'])) {
 }
 
 $testSuite = new TestSuite();
-$ret       = PhpUnitGalleryMain($testSuite, $filter);
+
+$ret = PhpUnitGalleryMain($testSuite, $filter);
 
 if ($ret) {
 	$ret = $ret;
@@ -674,7 +662,6 @@ foreach (array(
 }
 
 // Uncomment below to see debug output before tests run
-
 /*
  * print "<pre>";
  * print $gallery->getDebugBuffer();
@@ -694,7 +681,8 @@ if ($testSuite->countTestCases() > 0) {
 }
 
 $storage =& $gallery->getStorage();
-$ret     = $storage->commitTransaction();
+
+$ret = $storage->commitTransaction();
 
 if ($ret) {
 	echo $ret->getAsHtml();

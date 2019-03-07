@@ -2,6 +2,7 @@
 define('G2_SUPPORT_URL_FRAGMENT', '');
 
 require_once __DIR__ . '/security.inc';
+
 ob_start();
 
 // Tell other scripts we passed security.inc ok
@@ -26,6 +27,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
 			|| strncmp($_SERVER['QUERY_STRING'], $script . '&', strlen($script) + 1) == 0
 		) {
 			include __DIR__ . '/' . $script . '.php';
+
 			$results = ob_get_contents();
 			ob_end_clean();
 			echo $results;

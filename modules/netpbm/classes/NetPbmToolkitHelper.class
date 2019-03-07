@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -246,6 +247,7 @@ class NetPbmToolkitHelper {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
+
 		/*
 		 * If the path is restricted by open_basedir, then verify that it's legal.
 		 * Else just hope that it's valid and use it.
@@ -298,6 +300,7 @@ class NetPbmToolkitHelper {
 
 		$platform         =& $gallery->getPlatform();
 		$isRestrictedPath = $platform->isRestrictedByOpenBaseDir($netPbmPath);
+
 		/*
 		 * If the path is not restricted by open_basedir, then verify that it's legal.
 		 * Else just hope that it's valid and use it.

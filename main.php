@@ -1,21 +1,20 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
+ * This program is free software; you can redistribute it and/or modify it under the terms
+ * of the GNU General Public License as published by the Free Software Foundation;
+ * either version 2 of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with this program;
+ * if not, write to the Free Software Foundation, Inc., 51 Franklin Street - Fifth Floor,
+ * Boston, MA  02110-1301, USA.
  */
 
 /**
@@ -151,13 +150,15 @@ function GalleryMain($embedded = false) {
 
 		// Write out our session data
 		$session =& $gallery->getSession();
-		$ret     = $session->save();
+
+		$ret = $session->save();
 	}
 
 	// Complete our transaction
 	if (!$ret && $gallery->isStorageInitialized()) {
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->commitTransaction();
+
+		$ret = $storage->commitTransaction();
 	}
 
 	if ($ret) {
@@ -498,7 +499,8 @@ function _GalleryMain($embedded = false, $template = null) {
 			 * session)
 			 */
 			$session =& $gallery->getSession();
-			$ret     = $session->start();
+
+			$ret = $session->start();
 
 			if ($ret) {
 				return array($ret, null);
@@ -519,7 +521,8 @@ function _GalleryMain($embedded = false, $template = null) {
 			if ($view->autoCacheControl()) {
 				// r17660 removed the default on the $template parameter
 				$null = null;
-				$ret  = $view->setCacheControl($null);
+
+				$ret = $view->setCacheControl($null);
 
 				if ($ret) {
 					return array($ret, null);
@@ -528,7 +531,8 @@ function _GalleryMain($embedded = false, $template = null) {
 
 			$status = isset($results['status']) ? $results['status'] : array();
 			$error  = isset($results['error']) ? $results['error'] : array();
-			$ret    = $view->renderImmediate($status, $error);
+
+			$ret = $view->renderImmediate($status, $error);
 
 			if ($ret) {
 				list($ret2, $inGroup) = GalleryCoreApi::isUserInSiteAdminGroup();
@@ -637,7 +641,8 @@ function _GalleryMain($embedded = false, $template = null) {
 				 * (only if we do not have one yet)
 				 */
 				$session =& $gallery->getSession();
-				$ret     = $session->start();
+
+				$ret = $session->start();
 
 				if ($ret) {
 					return array($ret, null);

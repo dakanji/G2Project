@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -400,7 +401,8 @@ class GalleryItem extends GalleryFileSystemEntity {
 	 */
 	public function move($newParentId) {
 		$parentId = $this->getParentId();
-		$ret      = parent::move($newParentId);
+
+		$ret = parent::move($newParentId);
 
 		if ($ret) {
 			return $ret;
@@ -428,7 +430,8 @@ class GalleryItem extends GalleryFileSystemEntity {
 		}
 
 		$newParentSequence[] = $this->getParentId();
-		$ret                 = GalleryCoreApi::setParentSequence($this->getId(), $newParentSequence);
+
+		$ret = GalleryCoreApi::setParentSequence($this->getId(), $newParentSequence);
 
 		if ($ret) {
 			return $ret;

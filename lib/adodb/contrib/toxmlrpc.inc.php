@@ -1,4 +1,5 @@
 <?php
+
 	/**
 	 * Helper functions to convert between ADODB recordset objects and XMLRPC values.
 	 * Uses John Lim's AdoDB and Edd Dumbill's phpxmlrpc libs
@@ -114,6 +115,7 @@ function rs2xmlrpcval_body($adodbrs) {
 
 	while (!$adodbrs->EOF) {
 		$columns = array();
+
 		// This should work on all cases of fetch mode: assoc, num, both or default
 		if ($adodbrs->fetchMode == 'ADODB_FETCH_BOTH' || count($adodbrs->fields) == 2 * $adodbrs->FieldCount()) {
 			for ($i = 0; $i < $numfields; $i++) {

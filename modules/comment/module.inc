@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -153,7 +154,6 @@ class CommentModule extends GalleryModule {
 					return $ret;
 				}
 
-
 				// Fall Through
 			case '0.9.7':
 			case '1.0.0':
@@ -162,7 +162,6 @@ class CommentModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
 
 				// Fall Through
 			case '1.0.1':
@@ -181,7 +180,6 @@ class CommentModule extends GalleryModule {
 						return $ret;
 					}
 				}
-
 
 				// Fall Through
 			case '1.0.6':
@@ -204,7 +202,6 @@ class CommentModule extends GalleryModule {
 					return $ret;
 				}
 
-
 				// Fall Through
 			case '1.0.8':
 			case '1.0.9':
@@ -215,7 +212,6 @@ class CommentModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
 
 				// Fall Through
 			case '1.1.2':
@@ -233,7 +229,6 @@ class CommentModule extends GalleryModule {
 					return $ret;
 				}
 
-
 				// Fall Through
 			case '1.1.6':
 				// Add CommentAddNotification class
@@ -250,7 +245,6 @@ class CommentModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
 
 				// Fall Through
 			case '1.1.12':

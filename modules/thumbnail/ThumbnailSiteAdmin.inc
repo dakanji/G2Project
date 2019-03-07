@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -105,7 +106,8 @@ class ThumbnailSiteAdminController extends GalleryController {
 				}
 
 				$itemMimeTypesList = $item->getItemMimeTypesList();
-				$ret               = GalleryCoreApi::deleteEntityById($form['delete']['itemId'], 'ThumbnailImage');
+
+				$ret = GalleryCoreApi::deleteEntityById($form['delete']['itemId'], 'ThumbnailImage');
 
 				if ($ret) {
 					return array($ret, null);

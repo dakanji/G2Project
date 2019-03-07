@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -159,7 +160,8 @@ class DatabaseLockSystem extends GalleryLockSystem {
 
 		if (!empty($this->_locks)) {
 			$storage =& $gallery->getStorage();
-			$ret     = $storage->refreshLocks(array_keys($this->_locks), $freshUntil);
+
+			$ret = $storage->refreshLocks(array_keys($this->_locks), $freshUntil);
 
 			if ($ret) {
 				return $ret;

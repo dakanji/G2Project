@@ -47,7 +47,6 @@ class ADODB2_postgres extends ADODB_DataDict {
 					return 'C';
 				}
 
-
 				// Fall Through
 			case 'TEXT':
 				return 'X';
@@ -413,6 +412,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 		}
 
 		$aSql[] = "DROP TABLE $tempname";
+
 		// recreate the indexes, if they not contain one of the droped columns
 		foreach ($this->MetaIndexes($tabname) as $idx_name => $idx_data) {
 			if (substr($idx_name, -5) != '_pkey' && (!$dropflds || !count(array_intersect($dropflds, $idx_data['columns'])))) {

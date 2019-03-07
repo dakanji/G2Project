@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -44,6 +45,7 @@ class GalleryImmediateViewTestCase extends GalleryTestCase {
 
 	public function _renderImmediate() {
 		ob_start();
+
 		$ret = $this->_view->renderImmediate(array(), array());
 
 		$results = ob_get_contents();

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -55,7 +56,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 		}
 
 		$this->_urlGenerator = new GalleryUrlGenerator();
-		$ret                 = $this->_urlGenerator->init('phpunit_test.php');
+
+		$ret = $this->_urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;
@@ -136,16 +138,19 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 		// Let the url generator know of the new cookie.path value
 		$this->_urlGenerator = new GalleryUrlGenerator();
-		$ret                 = $this->_urlGenerator->init($baseUri, $g2Uri, $embedSessionString);
+
+		$ret = $this->_urlGenerator->init($baseUri, $g2Uri, $embedSessionString);
 
 		if ($ret) {
 			return array($ret, null, null);
 		}
 
 		$gallery->setUrlGenerator($this->_urlGenerator);
+
 		// Let the session know of the new cookie.path value
 		$session = new GallerySession();
-		$ret     = $session->init();
+
+		$ret = $session->init();
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -473,7 +478,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$gallery->_session = null;
 
 		$urlGenerator = new GalleryUrlGenerator();
-		$ret          = $urlGenerator->init('phpunit_test.php');
+
+		$ret = $urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;
@@ -533,7 +539,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$_SERVER['REQUEST_URI'] = '/phpunit_test.php?module=gallery2&foo=bar';
 		GalleryDataCache::reset();
 		$urlGenerator = new GalleryUrlGenerator();
-		$ret          = $urlGenerator->init('/phpunit_test.php?module=gallery2', '/gallery2/');
+
+		$ret = $urlGenerator->init('/phpunit_test.php?module=gallery2', '/gallery2/');
 
 		if ($ret) {
 			return $ret;
@@ -553,7 +560,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$_SERVER['REQUEST_URI'] = '/cms/phpunit_test.php?module=gallery2&foo=bar';
 		GalleryDataCache::reset();
 		$urlGenerator = new GalleryUrlGenerator();
-		$ret          = $urlGenerator->init('/cms/phpunit_test.php?module=gallery2', '/gallery2');
+
+		$ret = $urlGenerator->init('/cms/phpunit_test.php?module=gallery2', '/gallery2');
 
 		if ($ret) {
 			return $ret;
@@ -966,7 +974,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$_SERVER['REQUEST_URI'] = '/phpunit_test.php?module=gallery2&foo=bar';
 		GalleryDataCache::reset();
 		$urlGenerator = new GalleryUrlGenerator();
-		$ret          = $urlGenerator->init('/phpunit_test.php?module=gallery2', '/gallery2/');
+
+		$ret = $urlGenerator->init('/phpunit_test.php?module=gallery2', '/gallery2/');
 
 		if ($ret) {
 			return $ret;
@@ -982,7 +991,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$_SERVER['REQUEST_URI'] = '/cms/phpunit_test.php?module=gallery2&foo=bar';
 		GalleryDataCache::reset();
 		$urlGenerator = new GalleryUrlGenerator();
-		$ret          = $urlGenerator->init('/cms/phpunit_test.php?module=gallery2', '/gallery2/');
+
+		$ret = $urlGenerator->init('/cms/phpunit_test.php?module=gallery2', '/gallery2/');
 
 		if ($ret) {
 			return $ret;
@@ -1005,7 +1015,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$_SERVER['REQUEST_URI'] = '/somedir/?filter=foo';
 		GalleryDataCache::reset();
 		$urlGenerator = new GalleryUrlGenerator();
-		$ret          = $urlGenerator->init('index.php');
+
+		$ret = $urlGenerator->init('index.php');
 
 		if ($ret) {
 			return $ret;
@@ -1337,7 +1348,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 		global $gallery;
 
 		$urlGenerator = new GalleryUrlGenerator();
-		$ret          = $urlGenerator->init('phpunit_test.php?test=on');
+
+		$ret = $urlGenerator->init('phpunit_test.php?test=on');
 
 		if ($ret) {
 			return $ret;
@@ -1457,7 +1469,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 		foreach ($badUrls as $url) {
 			$_GET['g2_return'] = $url;
-			$ret               = $this->_urlGenerator->initNavigation();
+
+			$ret = $this->_urlGenerator->initNavigation();
 
 			$this->assertTrue(
 				$ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED,
@@ -1484,7 +1497,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 		foreach ($goodUrls as $url) {
 			$_GET['g2_return'] = $url;
-			$ret               = $this->_urlGenerator->initNavigation();
+
+			$ret = $this->_urlGenerator->initNavigation();
 
 			if ($ret) {
 				$this->assertFalse(true, "Normal returnUrl '$url' not accepted");
@@ -1527,7 +1541,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 		foreach ($badUrls as $url) {
 			$_GET['g2_return'] = $url;
-			$ret               = $this->_urlGenerator->initNavigation();
+
+			$ret = $this->_urlGenerator->initNavigation();
 
 			$this->assertTrue(
 				$ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED,
@@ -1539,13 +1554,15 @@ class UrlGeneratorTest extends GalleryTestCase {
 	// Regression test to check that we handle embedUri = /foo/bar/ correctly (no file part)
 	public function testInitNavigationHandlesEmbedUriWithoutFilePart() {
 		$urlGenerator = new GalleryUrlGenerator();
-		$ret          = $urlGenerator->init('/foo/bar/');
+
+		$ret = $urlGenerator->init('/foo/bar/');
 
 		if ($ret) {
 			return $ret;
 		}
 
 		GalleryUtilities::putRequestVariable('return', 'foo');
+
 		// Assert that there's no PHP warning during the execution of this function
 		$ret = $urlGenerator->initNavigation();
 
@@ -1752,11 +1769,13 @@ class UrlGeneratorTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('/bad/', $realValue, 'could not set plugin parameter cookie.path');
+
 		// Now do the actual check
 		$_SERVER['REQUEST_URI'] = '/cms/phpunit_test.php?a=b';
 		GalleryDataCache::reset();
 		$urlGenerator = new GalleryUrlGenerator();
-		$ret          = $urlGenerator->init('/cms/phpunit_test.php', '/gallery2/');
+
+		$ret = $urlGenerator->init('/cms/phpunit_test.php', '/gallery2/');
 
 		if ($ret) {
 			return $ret;
@@ -1881,7 +1900,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 			$_SERVER['REQUEST_URI'] .= $testCase['baseUri'];
 			GalleryDataCache::reset();
 			$urlGenerator = new GalleryUrlGenerator();
-			$ret          = $urlGenerator->init($testCase['baseUri'], $testCase['g2Uri']);
+
+			$ret = $urlGenerator->init($testCase['baseUri'], $testCase['g2Uri']);
 
 			if ($ret) {
 				return $ret;
@@ -1928,12 +1948,15 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 				foreach (array(true, false) as $cookiePathConfigured) {
 					$this->_urlGenerator->_isCookiePathConfigured = $cookiePathConfigured;
+
 					// Execute the test
 					$result = $this->_urlGenerator->embedForceSessionId($params);
+
 					// Some debug information
 					$debugInfo = 'isEmbedded: ' . (int)$isEmbedded . ', cookiePathConfigured: ' .
 					(int)$cookiePathConfigured . ', downloadItemRequest: ' .
 					(int)$downloadItemRequest;
+
 					// Check the result
 					if ($isEmbedded && !$cookiePathConfigured && $downloadItemRequest) {
 						$this->assertTrue($result, "wrong result for test case: $debugInfo");
@@ -2345,7 +2368,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 			foreach (array(true, false) as $isSet) {
 				$value = $isSet ? '/' : '';
-				$ret   = GalleryCoreApi::setPluginParameter('module', 'core', 'cookie.path', $value);
+
+				$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'cookie.path', $value);
 
 				if ($ret) {
 					return $ret;
@@ -2370,7 +2394,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 				// Execute the test
 				$urlGenerator = new GalleryUrlGenerator();
-				$ret          = $urlGenerator->init();
+
+				$ret = $urlGenerator->init();
 
 				if ($ret) {
 					return $ret;
@@ -2404,7 +2429,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 
 		$session = new GallerySession();
-		$ret     = $session->init();
+
+		$ret = $session->init();
 
 		if ($ret) {
 			return $ret;

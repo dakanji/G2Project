@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -216,6 +217,7 @@ AND    b.name = 'sorts (memory)'",
 			"select value from v\$parameter where name = 'cursor_sharing'",
 			'Cursor reuse strategy. Recommended is FORCE (8i+) or SIMILAR (9i+). See <a href=http://www.praetoriate.com/oracle_tips_cursor_sharing.htm>cursor_sharing</a>.',
 		),
+
 		/*
 		'cursor reuse' => array('CURSOR',
 			"select count(*) from (select sql_text_wo_constants, count(*)
@@ -234,6 +236,7 @@ AND    b.name = 'sorts (memory)'",
 		),
 		'Waits',
 		'Recent wait events'            => array('WAITS', 'select \'Top 5 events\' from dual', '=TopRecentWaits'),
+
 		//      'Historical wait SQL' => array('WAITS','select \'Last 2 days\' from dual','=TopHistoricalWaits'), -- requires AWR license
 				'Backup',
 		'Achivelog Mode'                => array('BACKUP', 'select log_mode from v$database', '=LogMode'),
@@ -482,6 +485,7 @@ CREATE TABLE PLAN_TABLE (
 		}
 
 		$rs->Close();
+
 		//	$this->conn->debug=1;
 		if ($partial) {
 			$sqlq = $this->conn->qstr($sql . '%');
@@ -753,6 +757,7 @@ where
 order by
   1 desc, s.address, p.piece
 ";
+
 		global $ADODB_CACHE_MODE;
 
 		if (isset($_GET['expeixora'], $_GET['sql'])) {
@@ -803,6 +808,7 @@ order by
 
 	public function clearsql() {
 		$perf_table = adodb_perf::table();
+
 		// using the naive "delete from $perf_table where created<".$this->conn->sysTimeStamp will cause the table to lock, possibly
 		// for a long time
 		$sql = "DECLARE cnt pls_integer;

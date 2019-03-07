@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -108,7 +109,6 @@ class IconsModule extends GalleryModule {
 						return $ret;
 					}
 				}
-
 
 				// Fall Through
 			case '0.9.3':

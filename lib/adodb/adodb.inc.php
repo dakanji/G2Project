@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Set tabs to 4 for best viewing.
  *
@@ -55,7 +56,6 @@ if (!defined('_ADODB_LAYER')) {
 	//==============================================================================================
 	// CONSTANT DEFINITIONS
 	//==============================================================================================
-
 	/**
 	 * Set ADODB_DIR to the directory where this file resides...
 	 * This constant was formerly called $ADODB_RootPath
@@ -86,7 +86,6 @@ if (!defined('_ADODB_LAYER')) {
 	// ********************************************************
 	// Controls $ADODB_FORCE_TYPE mode. Default is ADODB_FORCE_VALUE (3).
 	// Used in GetUpdateSql and GetInsertSql functions. Thx to Niko, nuko#mbnet.fi
-	//
 	// 0 = ignore empty fields. All empty fields in array are ignored.
 	// 1 = force null. All empty, php null and string 'null' fields are changed to sql NULL values.
 	// 2 = force empty. All empty, php null and string 'null' fields are changed to sql empty '' or 0 values.
@@ -95,6 +94,7 @@ if (!defined('_ADODB_LAYER')) {
 	define('ADODB_FORCE_NULL', 1);
 	define('ADODB_FORCE_EMPTY', 2);
 	define('ADODB_FORCE_VALUE', 3);
+
 	// ********************************************************
 	if (!$ADODB_EXTENSION || ADODB_EXTENSION < 4.0) {
 		define('ADODB_BAD_RS', '<p>Bad $rs in %s. Connection or SQL invalid. Try using $connection->debug=true;</p>');
@@ -244,7 +244,6 @@ if (!defined('_ADODB_LAYER')) {
 	//==============================================================================================
 	// CLASS ADOFieldObject
 	//==============================================================================================
-
 	/**
 	 * Helper class for FetchFields -- holds info on a column
 	 */
@@ -252,9 +251,12 @@ if (!defined('_ADODB_LAYER')) {
 		public $name       = '';
 		public $max_length = 0;
 		public $type       = '';
+
 		/*
+
 		// additional fields by dannym... (danny_milo@yahoo.com)
 		var $not_null = false;
+
 		// actually, this has already been built-in in the postgres, fbsql AND mysql module? ^-^
 		// so we can as well make not_null standard (leaving it at "false" does not harm anyways)
 		var $has_default = false; // this one I have done only in mysql and postgres for now ...
@@ -430,14 +432,11 @@ if (!defined('_ADODB_LAYER')) {
 	//==============================================================================================
 	// CLASS ADOConnection
 	//==============================================================================================
-
 	/**
 	 * Connection object. For connecting to databases, and executing queries.
 	 */
 	abstract class ADOConnection {
-		//
 		// PUBLIC VARS
-		//
 		public $dataProvider     = 'native';
 		public $databaseType     = '';     /// RDBMS currently in use, eg. odbc, mysql, mssql
 		public $database         = '';         /// Name of database to be used.
@@ -464,6 +463,7 @@ if (!defined('_ADODB_LAYER')) {
 		public $emptyDate        = '&nbsp;';
 		public $emptyTimeStamp   = '&nbsp;';
 		public $lastInsID        = false;
+
 		//--
 		public $hasInsertID     = false;       /// supports autoincrement ID?
 		public $hasAffectedRows = false;   /// supports affected rows for update/delete?
@@ -509,9 +509,7 @@ if (!defined('_ADODB_LAYER')) {
 
 		public $null2null = 'null'; // in autoexecute/getinsertsql/getupdatesql, this value will be converted to a null
 		public $bulkBind  = false; // enable 2D Execute array
-		//
 		// PRIVATE VARS
-		//
 		public $_oldRaiseFn = false;
 		public $_transOK;
 		public $_connectionID = false;    /// The returned link identifier whenever a successful database connection is made.
@@ -525,7 +523,6 @@ if (!defined('_ADODB_LAYER')) {
 		public $_affected               = false;
 		public $_logsql                 = false;
 		public $_transmode              = ''; // transaction mode
-
 		/*
 		 * Additional parameters that may be passed to drivers in the connect string
 		 * Driver must be coded to accept the parameters
@@ -1154,6 +1151,7 @@ if (!defined('_ADODB_LAYER')) {
 				}
 
 				$element0 = reset($inputarr);
+
 				// is_object check because oci8 descriptors can be passed in
 				$array_2d = $this->bulkBind && is_array($element0) && !is_object(reset($element0));
 
@@ -1207,6 +1205,7 @@ if (!defined('_ADODB_LAYER')) {
 
 						foreach ($arr as $v) {
 							$sql .= $sqlarr[$i];
+
 							// from Ron Baldwin <ron.baldwin#sourceprose.com>
 							// Only quote string types
 							$typ = gettype($v);
@@ -1702,6 +1701,7 @@ if (!defined('_ADODB_LAYER')) {
 			}
 
 			$arr = $rs->GetArrayLimit($nrows, $offset);
+
 			//print_r($arr);
 			if ($close) {
 				$rs->Close();
@@ -2226,6 +2226,7 @@ if (!defined('_ADODB_LAYER')) {
 						} else {
 							$em = 'Cache file locked warning';
 							$en = -32001;
+
 							// do not call error handling for just a warning
 						}
 
@@ -2236,6 +2237,7 @@ if (!defined('_ADODB_LAYER')) {
 
 					if ($rs->EOF && !$eof) {
 						$rs->MoveFirst();
+
 						//$rs = csv2rs($md5file,$err);
 						$rs->connection = $this; // Pablo suggestion
 					}
@@ -3153,6 +3155,7 @@ if (!defined('_ADODB_LAYER')) {
 			}
 
 			$tt = $this->UnixTimeStamp($v);
+
 			// $tt == -1 if pre TIMESTAMP_FIRST_YEAR
 			if (($tt === false || $tt == -1) && $v != false) {
 				return $v;
@@ -3177,6 +3180,7 @@ if (!defined('_ADODB_LAYER')) {
 				if ($this->replaceQuote[0] == '\\') {
 					// only since php 4.0.5
 					$s = adodb_str_replace(array('\\', "\0"), array('\\\\', "\\\0"), $s);
+
 					//$s = str_replace("\0","\\\0", str_replace('\\','\\\\',$s));
 				}
 
@@ -3213,6 +3217,7 @@ if (!defined('_ADODB_LAYER')) {
 				if ($this->replaceQuote[0] == '\\') {
 					// only since php 4.0.5
 					$s = adodb_str_replace(array('\\', "\0"), array('\\\\', "\\\0"), $s);
+
 					//$s = str_replace("\0","\\\0", str_replace('\\','\\\\',$s));
 				}
 
@@ -3350,7 +3355,6 @@ if (!defined('_ADODB_LAYER')) {
 	//==============================================================================================
 	// CLASS ADOFetchObj
 	//==============================================================================================
-
 	/**
 	 * Internal placeholder for record objects. Used by ADORecordSet->FetchObj().
 	 */
@@ -3539,7 +3543,6 @@ if (!defined('_ADODB_LAYER')) {
 		public $bind           = false;      /// used by Fields() to hold array - should be private?
 		public $fetchMode;         /// default fetch mode
 		public $connection = false; /// the parent connection
-
 		/**
 		 *  private variables
 		 */
@@ -3916,6 +3919,7 @@ if (!defined('_ADODB_LAYER')) {
 			}
 
 			$tt = $this->UnixTimeStamp($v);
+
 			// $tt == -1 if pre TIMESTAMP_FIRST_YEAR
 			if (($tt === false || $tt == -1) && $v != false) {
 				return $v;
@@ -3936,6 +3940,7 @@ if (!defined('_ADODB_LAYER')) {
 		 */
 		public function UserDate($v, $fmt = 'Y-m-d') {
 			$tt = $this->UnixDate($v);
+
 			// $tt == -1 if pre TIMESTAMP_FIRST_YEAR
 			if (($tt === false || $tt == -1) && $v != false) {
 				return $v;
@@ -4082,6 +4087,7 @@ if (!defined('_ADODB_LAYER')) {
 			}
 
 			$this->EOF = true;
+
 			/* -- tested error handling when scrolling cursor -- seems useless.
 			$conn = $this->connection;
 			if ($conn && $conn->raiseErrorFn && ($errno = $conn->ErrorNo())) {
@@ -4307,6 +4313,7 @@ if (!defined('_ADODB_LAYER')) {
 		 */
 		public function PO_RecordCount($table = '', $condition = '') {
 			$lnumrows = $this->_numOfRows;
+
 			// the database doesn't support native recordcount, so we do a workaround
 			if ($lnumrows == -1 && $this->connection) {
 				if ($table) {
@@ -4518,7 +4525,6 @@ if (!defined('_ADODB_LAYER')) {
 				'INTERVAL'                    => 'C',  // Postgres
 				'MACADDR'                     => 'C', // postgres
 				'VAR_STRING'                  => 'C', // mysql
-				//
 				'LONGCHAR'                    => 'X',
 				'TEXT'                        => 'X',
 				'NTEXT'                       => 'X',
@@ -4540,7 +4546,6 @@ if (!defined('_ADODB_LAYER')) {
 				'D'                           => 'D',
 
 				'UNIQUEIDENTIFIER'            => 'C', // MS SQL Server
-				//
 				'SMALLDATETIME'               => 'T',
 				'TIME'                        => 'T',
 				'TIMESTAMP'                   => 'T',
@@ -4549,7 +4554,6 @@ if (!defined('_ADODB_LAYER')) {
 				'TIMESTAMPTZ'                 => 'T',
 				'T'                           => 'T',
 				'TIMESTAMP WITHOUT TIME ZONE' => 'T', // postgresql
-				//
 				'BOOL'                        => 'L',
 				'BOOLEAN'                     => 'L',
 				'BIT'                         => 'L',
@@ -4600,6 +4604,7 @@ if (!defined('_ADODB_LAYER')) {
 				'SQLINTERVAL'                 => 'N',
 				'SQLBYTES'                    => 'B',
 				'SQLTEXT'                     => 'X',
+
 				// informix 10
 				'SQLINT8'                     => 'I8',
 				'SQLSERIAL8'                  => 'I8',
@@ -4736,7 +4741,6 @@ if (!defined('_ADODB_LAYER')) {
 	//==============================================================================================
 	// CLASS ADORecordSet_array
 	//==============================================================================================
-
 	/**
 	 * This class encapsulates the concept of a recordset created in memory
 	 * as an array. This is useful for the creation of cached recordsets.
@@ -4780,6 +4784,7 @@ if (!defined('_ADODB_LAYER')) {
 
 			$fobjs = $addfieldnames ? $this->_fieldobjects : false;
 			adodb_transpose($this->_array, $newarr, $hdr, $fobjs);
+
 			//adodb_pr($newarr);
 			$this->_skiprow1 = false;
 			$this->_array    = $newarr;
@@ -5228,6 +5233,7 @@ if (!defined('_ADODB_LAYER')) {
 							$obj->debug = (int)$v;
 
 							break;
+
 						// ibase
 						case 'role':
 							$obj->role = $v;
@@ -5254,26 +5260,31 @@ if (!defined('_ADODB_LAYER')) {
 							$obj->SetFetchMode($v);
 
 							break;
+
 						// ado
 						case 'charpage':
 							$obj->charPage = $v;
 
 							break;
+
 						// mysql, mysqli
 						case 'clientflags':
 							$obj->clientFlags = $v;
 
 							break;
+
 						// mysql, mysqli, postgres
 						case 'port':
 							$obj->port = $v;
 
 							break;
+
 						// mysqli
 						case 'socket':
 							$obj->socket = $v;
 
 							break;
+
 						// oci8
 						case 'nls_date_format':
 							$obj->NLS_DATE_FORMAT = $v;
@@ -5337,20 +5348,17 @@ if (!defined('_ADODB_LAYER')) {
 					return substr($drivername, 6);
 				}
 
-
 				// Fall Through
 			case 'odbc':
 				if (strncmp('odbc_', $drivername, 5) == 0) {
 					return substr($drivername, 5);
 				}
 
-
 				// Fall Through
 			case 'ado':
 				if (strncmp('ado_', $drivername, 4) == 0) {
 					return substr($drivername, 4);
 				}
-
 
 				// Fall Through
 			case 'native':
@@ -5411,6 +5419,7 @@ if (!defined('_ADODB_LAYER')) {
 		}
 
 		include_once ADODB_DIR . '/adodb-perf.inc.php';
+
 		@include_once ADODB_DIR . "/perf/perf-$drivername.inc.php";
 		$class = "Perf_$drivername";
 
@@ -5429,8 +5438,8 @@ if (!defined('_ADODB_LAYER')) {
 		}
 
 		include_once ADODB_DIR . '/adodb-lib.inc.php';
-
 		include_once ADODB_DIR . '/adodb-datadict.inc.php';
+
 		$path = ADODB_DIR . "/datadict/datadict-$drivername.inc.php";
 
 		if (!file_exists($path)) {
@@ -5440,6 +5449,7 @@ if (!defined('_ADODB_LAYER')) {
 		}
 
 		include_once $path;
+
 		$class              = "ADODB2_$drivername";
 		$dict               = new $class();
 		$dict->dataProvider = $conn->dataProvider;

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -36,6 +37,7 @@ class GalleryMimeTypeHelper_advanced {
 	 */
 	public static function initializeMimeTypes() {
 		$mimeTypes = array(
+
 			// This data was lifted from Apache's mime.types listing.
 			'z'       => 'application/x-compress',
 			'ai'      => 'application/postscript',

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -22,11 +23,8 @@ define('G2_SUPPORT_MAX_SESSION_LIFETIME', 2 * 60 * 60);
 define('G2_SETUP_SESSION_NAME', 'G2SETUPSID');
 
 require_once dirname(dirname(__DIR__)) . '/modules/core/classes/GalleryUtilities.class';
-
 require_once dirname(dirname(__DIR__)) . '/modules/core/classes/GalleryDataCache.class';
-
 require_once dirname(dirname(__DIR__)) . '/modules/core/classes/GallerySession.class';
-
 require_once dirname(dirname(__DIR__)) . '/modules/core/classes/GalleryPlatform.class';
 
 /**
@@ -75,9 +73,11 @@ class GallerySetupUtilities {
 		// 2. Delete the old session
 		session_unset();
 		session_destroy();
+
 		// Create the new session with the old data, send cookie
 		session_id($newSessionId);
 		$sessionName = session_name();
+
 		// Make sure we do not use invalid data at a later point
 		foreach (array($_GET, $_POST, $_REQUEST, $_COOKIE) as $superGlobal) {
 			unset($superGlobal[$sessionName]);
@@ -203,7 +203,8 @@ class GallerySetupUtilities {
 			}
 		} else {
 			$storage =& $gallery->getStorage();
-			$ret     = $storage->checkPoint();
+
+			$ret = $storage->checkPoint();
 
 			if ($ret) {
 				return false;
@@ -245,6 +246,7 @@ class GallerySetupUtilities {
 	 */
 	public static function redirectBackToSelf() {
 		include_once __DIR__ . '/../../modules/core/classes/GalleryUrlGenerator.class';
+
 		$urlGenerator = new GalleryUrlGenerator();
 		$url          = $urlGenerator->getCurrentUrl();
 
@@ -495,7 +497,8 @@ class GallerySetupUtilities {
 		// Note: we don't have localization for lib support yet, so this is not internationalized
 		if (!empty($toList)) {
 			$platform = new GalleryPlatform();
-			$ret      = $platform->sendEmail(
+
+			$ret = $platform->sendEmail(
 				'lib/support/templates/FailedPasswordEmail.tpl',
 				array(),
 				'',

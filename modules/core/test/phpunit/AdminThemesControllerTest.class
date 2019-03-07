@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -209,7 +210,8 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Prepare the observed value
 		$originalOrderBy = 'albumsFirst|viewCount';
-		$ret             = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'default.orderBy',
@@ -245,7 +247,8 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Prepare the observed value
 		$originalOrderBy = 'albumsFirst|viewCount';
-		$ret             = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'default.orderBy',
@@ -281,7 +284,8 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Prepare the observed value
 		$originalOrderDirection = 'desc';
-		$ret                    = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'default.orderDirection',
@@ -317,7 +321,8 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Prepare the observed value
 		$originalNewAlbumDefaults = 'true';
-		$ret                      = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'default.newAlbumsUseDefaults',

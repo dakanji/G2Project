@@ -1,4 +1,5 @@
 <?php
+
 /*
  * ATTENTION:
  *
@@ -47,16 +48,12 @@
 $g2Base = dirname(__DIR__) . '/';
 
 require_once $g2Base . 'install/GalleryStub.class';
-
 require_once $g2Base . 'install/InstallStep.class';
-
 require_once $g2Base . 'install/StatusTemplate.class';
-
 require_once $g2Base . 'modules/core/classes/GalleryUtilities.class';
-
 require_once $g2Base . 'modules/core/classes/GalleryDataCache.class';
-
 require_once $g2Base . 'lib/support/GallerySetupUtilities.class';
+
 define('INDEX_PHP', basename(__FILE__));
 
 /*
@@ -93,7 +90,6 @@ foreach ($stepOrder as $stepName) {
 GallerySetupUtilities::startSession();
 
 require_once $g2Base . 'modules/core/classes/GalleryStatus.class';
-
 require_once $g2Base . 'modules/core/classes/GalleryTranslator.class';
 
 if (empty($_SESSION['language'])) {
@@ -194,6 +190,7 @@ if ($currentStep->processRequest()) {
 
 function processAutoCompleteRequest() {
 	$path = !empty($_GET['path']) ? $_GET['path'] : '';
+
 	// Undo the damage caused by magic_quotes
 	if (get_magic_quotes_gpc()) {
 		$path = stripslashes($path);
@@ -330,6 +327,7 @@ function getGalleryDirUrl() {
 	global $g2Base;
 
 	include_once $g2Base . 'modules/core/classes/GalleryUrlGenerator.class';
+
 	$urlPath = preg_replace(
 		'|^(.*/)install/index.php(?:\?.*)?$|s',
 		'$1',

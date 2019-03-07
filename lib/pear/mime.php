@@ -1,4 +1,5 @@
 <?php
+
 // vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4:
 // +-----------------------------------------------------------------------+
 // | Copyright (c) 2002-2003  Richard Heyes                                |
@@ -34,7 +35,6 @@
 // | Author: Richard Heyes <richard@phpguru.org>                           |
 // |         Tomas V.V.Cox <cox@idecnet.com> (port to PEAR)                |
 // +-----------------------------------------------------------------------+
-//
 // $Id: mime.php,v 1.56 2006/05/18 23:05:14 cipri Exp $
 //@G2 - skip PEAR.php/change error handling, skip classes already defined (if embedded)
 //require_once('PEAR.php');
@@ -68,41 +68,49 @@ class Mail_mime {
 	 * @var string
 	 */
 	public $_txtbody;
+
 	/**
 	 * Contains the html part of the email
 	 * @var string
 	 */
 	public $_htmlbody;
+
 	/**
 	 * contains the mime encoded text
 	 * @var string
 	 */
 	public $_mime;
+
 	/**
 	 * contains the multipart content
 	 * @var string
 	 */
 	public $_multipart;
+
 	/**
 	 * list of the attached images
 	 * @var array
 	 */
 	public $_html_images = array();
+
 	/**
 	 * list of the attachements
 	 * @var array
 	 */
 	public $_parts = array();
+
 	/**
 	 * Build parameters
 	 * @var array
 	 */
 	public $_build_params = array();
+
 	/**
 	 * Headers for the mail
 	 * @var array
 	 */
 	public $_headers = array();
+
 	/**
 	 * End Of Line sequence (for serialize)
 	 * @var string
@@ -405,7 +413,8 @@ class Mail_mime {
 	 */
 	public function &_addMixedPart() {
 		$params['content_type'] = 'multipart/mixed';
-		$ret                    = new Mail_mimePart('', $params);
+
+		$ret = new Mail_mimePart('', $params);
 
 		return $ret;
 	}
@@ -470,7 +479,8 @@ class Mail_mime {
 		$params['disposition']  = 'inline';
 		$params['dfilename']    = $value['name'];
 		$params['cid']          = $value['cid'];
-		$ret                    = $obj->addSubpart($value['body'], $params);
+
+		$ret = $obj->addSubpart($value['body'], $params);
 
 		return $ret;
 	}
@@ -504,7 +514,8 @@ class Mail_mime {
 		$params['content_type'] = $value['c_type'] . '; ' .
 								  'name="' . $params['dfilename'] . '"';
 		$params['disposition']  = isset($value['disposition']) ? $value['disposition'] : 'attachment';
-		$ret                    = $obj->addSubpart($value['body'], $params);
+
+		$ret = $obj->addSubpart($value['body'], $params);
 
 		return $ret;
 	}
@@ -753,7 +764,8 @@ class Mail_mime {
 	 */
 	public function txtHeaders($xtra_headers = null, $overwrite = false) {
 		$headers = $this->headers($xtra_headers, $overwrite);
-		$ret     = '';
+
+		$ret = '';
 
 		foreach ($headers as $key => $val) {
 			$ret .= "$key: $val" . MAIL_MIME_CRLF;
@@ -843,7 +855,9 @@ class Mail_mime {
 	 */
 	public function _encodeHeaders($input) {
 		foreach ($input as $hdr_name => $hdr_value) {
-			if (function_exists('iconv_mime_encode') && preg_match('#[\x80-\xFF]{1}#', $hdr_value)) {
+			if (function_exists('iconv_mime_encode')
+				&& preg_match('#[\x80-\xFF]{1}#', $hdr_value)
+			) {
 				$imePref = array();
 
 				if ($this->_build_params['head_encoding'] == 'base64') {

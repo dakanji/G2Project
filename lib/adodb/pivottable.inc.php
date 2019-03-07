@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @version   v5.20.12  30-Mar-2018
  * @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -47,6 +48,7 @@ function PivotTableSQL(
 	}
 
 	$iif = strpos($db->databaseType, 'access') !== false;
+
 	// note - vfp 6 still doesn' work even with IIF enabled || $db->databaseType == 'vfp';
 	//$hidecnt = false;
 	if ($where) {
@@ -127,14 +129,11 @@ function PivotTableSQL(
 // EXAMPLES USING MS NORTHWIND DATABASE
 if (0) {
 	// example1
-	//
 	// Query the main "product" table
 	// Set the rows to CompanyName and QuantityPerUnit
 	// and the columns to the Categories
 	// and define the joins to link to lookup tables
 	// "categories" and "suppliers"
-	//
-
 	$sql = PivotTableSQL(
 		$gDB,                                           // adodb connection
 		'products p ,categories c ,suppliers s',        // tables
@@ -149,7 +148,6 @@ if (0) {
 
 	/*
 	Generated SQL:
-
 	SELECT CompanyName,QuantityPerUnit,
 	SUM(CASE WHEN CategoryName='Beverages' THEN 1 ELSE 0 END) AS "Beverages",
 	SUM(CASE WHEN CategoryName='Condiments' THEN 1 ELSE 0 END) AS "Condiments",
@@ -166,13 +164,11 @@ if (0) {
 
 	//=====================================================================
 	// example2
-	//
 	// Query the main "product" table
 	// Set the rows to CompanyName and QuantityPerUnit
 	// and the columns to the UnitsInStock for diiferent ranges
 	// and define the joins to link to lookup tables
 	// "categories" and "suppliers"
-	//
 	$sql = PivotTableSQL(
 		$gDB,                                       // adodb connection
 		'products p ,categories c ,suppliers s',    // tables
@@ -193,9 +189,9 @@ if (0) {
 	echo "<pre>$sql";
 	$rs = $gDB->Execute($sql);
 	rs2html($rs);
+
 	/*
 	Generated SQL:
-
 	SELECT CompanyName,QuantityPerUnit,
 	SUM(CASE WHEN UnitsInStock <= 0 THEN UnitsInStock ELSE 0 END) AS "Sum  0 ",
 	SUM(CASE WHEN 0 < UnitsInStock and UnitsInStock <= 5 THEN UnitsInStock ELSE 0 END) AS "Sum 1 to 5",

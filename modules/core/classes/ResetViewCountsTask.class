@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -70,7 +71,8 @@ class ResetViewCountsTask extends FlushDatabaseCacheTask {
 		$resetCount = '
 	UPDATE [GalleryItemAttributesMap] SET [::viewCount] = 0
 	';
-		$resetDate  = '
+
+		$resetDate = '
 	UPDATE [GalleryItem] SET [::viewedSinceTimestamp] = ?
 	';
 

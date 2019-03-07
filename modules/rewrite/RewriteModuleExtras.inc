@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -105,7 +106,6 @@ class RewriteModuleExtras {
 					return $ret;
 				}
 
-
 				// Fall Through
 			case '0.9.3':
 			case '0.9.4':
@@ -118,7 +118,6 @@ class RewriteModuleExtras {
 						return $ret;
 					}
 				}
-
 
 				// Fall Through
 			case '0.9.5':
@@ -141,7 +140,6 @@ class RewriteModuleExtras {
 						return $ret;
 					}
 				}
-
 
 				// Fall Through
 			case '0.9.11':
@@ -242,7 +240,6 @@ class RewriteModuleExtras {
 					}
 				}
 
-
 				// Fall Through
 			case '1.1.0':
 				// Major GalleryUrlGenerator change
@@ -311,6 +308,7 @@ class RewriteModuleExtras {
 
 					foreach ($activeRules[$moduleId] as $ruleId => $pattern) {
 						$activeRules[$moduleId][$ruleId] = array();
+
 						/*
 						 * Only save old pattern if the rule defines a pattern.  Saving a pattern for a
 						 * rule which doesn't define a pattern is invalid.
@@ -365,6 +363,7 @@ class RewriteModuleExtras {
 
 					foreach ($history as $ruleId => $pattern) {
 						$history[$ruleId] = array();
+
 						/*
 						 * Only save old pattern if the rule defines a pattern.  Saving a pattern for a
 						 * rule which doesn't define a pattern is invalid.
@@ -381,7 +380,6 @@ class RewriteModuleExtras {
 					}
 				}
 
-
 				// Fall Through
 			case '1.1.8':
 				// Remove L from mandatory flags, remove pattern for restrict rules
@@ -391,7 +389,6 @@ class RewriteModuleExtras {
 				// Update regex rules structure to reuse code from GalleryUrlGenerator
 			case '1.1.11':
 				// Add generateUrl options and %{REQUEST_URI} handling to rewrite rule format
-
 				/**
 				 * Clear the tpl cache since our .htaccess and isapi templates have changed and the file
 				 * modification timestamp is not guaranteed to be newer than the compiled files.
@@ -403,7 +400,6 @@ class RewriteModuleExtras {
 				if ($platform->file_exists($dir)) {
 					$platform->recursiveRmdir($dir);
 				}
-
 
 				// Fall Through
 			case '1.1.12':

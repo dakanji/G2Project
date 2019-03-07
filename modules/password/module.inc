@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -269,7 +270,8 @@ class PasswordModule extends GalleryModule {
 					global $gallery;
 
 					$session =& $gallery->getSession();
-					$ret     = $session->start();
+
+					$ret = $session->start();
 
 					if ($ret) {
 						return $ret;

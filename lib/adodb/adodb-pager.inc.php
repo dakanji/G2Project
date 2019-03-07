@@ -51,13 +51,11 @@ class ADODB_Pager {
 	// secs to cache with CachePageExecute()
 	//----------------------------------------------
 	// constructor
-	//
 	// $db	adodb connection object
 	// $sql	sql statement
 	// $id	optional id to identify which pager,
 	//		if you have multiple on 1 page.
 	//		$id should be only be [a-z0-9]*
-	//
 	public function __construct(&$db, $sql, $id = 'adodb', $showPageLinks = false) {
 		global $PHP_SELF;
 
@@ -115,7 +113,6 @@ class ADODB_Pager {
 
 	//------------------
 	// Link to last page
-	//
 	// for better performance with large recordsets, you can set
 	// $this->db->pageExecuteCountRows = false, which disables
 	// last page counting.
@@ -193,11 +190,11 @@ class ADODB_Pager {
 	//--------------------------------------------------------
 	// Simply rendering of grid. You should override this for
 	// better control over the format of the grid
-	//
 	// We use output buffering to keep code clean and readable.
 	public function RenderGrid() {
 		global $gSQLBlockRows; // used by rs2html to indicate how many rows to display
 		include_once ADODB_DIR . '/tohtml.inc.php';
+
 		ob_start();
 		$gSQLBlockRows = $this->rows;
 		rs2html($this->rs, $this->gridAttributes, $this->gridHeader, $this->htmlSpecialChars);
@@ -209,7 +206,6 @@ class ADODB_Pager {
 
 	//-------------------------------------------------------
 	// Navigation bar
-	//
 	// we use output buffering to keep the code easy to read.
 	public function RenderNav() {
 		ob_start();

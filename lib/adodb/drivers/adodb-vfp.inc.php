@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -58,7 +59,8 @@ if (!defined('ADODB_VFP')) {
 		// TOP requires ORDER BY for VFP
 		public function SelectLimit($sql, $nrows = -1, $offset = -1, $inputarr = false, $secs2cache = 0) {
 			$this->hasTop = preg_match('/ORDER[ \t\r\n]+BY/is', $sql) ? 'top' : false;
-			$ret          = ADOConnection::SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
+
+			$ret = ADOConnection::SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
 
 			return $ret;
 		}
@@ -83,7 +85,6 @@ if (!defined('ADODB_VFP')) {
 					if ($len <= $this->blobSize) {
 						return 'C';
 					}
-
 
 					// Fall Through
 				case 'M':

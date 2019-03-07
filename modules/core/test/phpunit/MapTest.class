@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -33,7 +34,8 @@ class MapTest extends GalleryTestCase {
 	public function testAddNull() {
 		// Ensure addMapEntry() method will accept null input values..
 		$name = 'test-' . mt_rand();
-		$ret  = GalleryCoreApi::addMapEntry(
+
+		$ret = GalleryCoreApi::addMapEntry(
 			'GalleryToolkitOperationMap',
 			array(
 				'name'           => $name,
@@ -79,7 +81,8 @@ class MapTest extends GalleryTestCase {
 	public function testUpdateNull() {
 		// Ensure updateMapEntry() method will accept null input values..
 		$name = 'test-' . mt_rand();
-		$ret  = GalleryCoreApi::addMapEntry(
+
+		$ret = GalleryCoreApi::addMapEntry(
 			'GalleryToolkitOperationMap',
 			array(
 				'name'           => $name,

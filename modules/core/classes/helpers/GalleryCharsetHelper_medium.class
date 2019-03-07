@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -2749,6 +2750,7 @@ class GalleryCharsetHelper_medium {
 		// We need the string length in characters to support negative $start and $length
 		$bytePos    = 0;
 		$characters = array();
+
 		// Parse the whole string into multibyte characters
 		while ($bytePos < $strLenBytes) {
 			$type = ord($string[$bytePos]) & 0xF0;
@@ -2819,6 +2821,7 @@ class GalleryCharsetHelper_medium {
 		if ($start != 0 && (ord($string[$start]) & 0xC0) == 0x80) {
 			// It's the 2nd to 4th byte of a multibyte character, go back to the 1st byte of it
 			$j = 0;
+
 			// Go back a maximum of 3 bytes and stop at the beginning of the string
 			while ($start > 0 && $j++ < 3 && (ord($string[$start]) & 0xC0) == 0x80) {
 				$start--;
@@ -2827,6 +2830,7 @@ class GalleryCharsetHelper_medium {
 
 		// 2. Extract the multibyte unsafe substring starting at the modified $start
 		$result = substr($string, $start, $length);
+
 		// 3. Keep the resulting string up to the last complete character
 		$end = $start + $length - 1;
 
@@ -2842,6 +2846,7 @@ class GalleryCharsetHelper_medium {
 		if (ord($string[$end]) & 0x80) { // Is it a single-byte character?
 			// It's an incomplete multibyte character, go back to the last character
 			$j = 0;
+
 			// Go back a maximum of 3 bytes
 			while ($end > $start && $j++ < 3 && (ord($string[$end]) & 0xC0) == 0x80) {
 				$end--;

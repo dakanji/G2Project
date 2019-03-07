@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -75,6 +76,7 @@ class FlockLockSystem extends GalleryLockSystem {
 					list($fd, $lockFile) = $lockInfo;
 
 					$platform->fclose($fd);
+
 					/*
 					 * Delete the lock files even if others are locking it too (releaseLock calls
 					 * are too often forgotten in error handling)
@@ -113,6 +115,7 @@ class FlockLockSystem extends GalleryLockSystem {
 
 				if ($flockReturned && !$wouldBlock) {
 					$locked[$id] = $lockInfo;
+
 					// Keep track of the number of locks there are for this object
 					if (isset($this->_references[$lockFile])) {
 						$this->_references[$lockFile]++;

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -188,6 +189,7 @@ class CommentSiteAdminController extends GalleryController {
 
 		while (true) {
 			$batchSize = 100;
+
 			/** @todo Should we include UNPUBLISHED comments here as well? */
 			list($ret, $comments, $total) = GalleryCommentHelper::getMe()->fetchAllComments(
 				$rootId,

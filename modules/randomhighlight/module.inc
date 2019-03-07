@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -144,7 +145,6 @@ class RandomHighlightModule extends GalleryModule {
 						return $ret;
 					}
 
-
 					// Fall Through
 				case '0.9.0':
 				case '0.9.1':
@@ -267,6 +267,7 @@ class RandomHighlightModule extends GalleryModule {
 		$id      = $thumbnail->getId();
 		$loop    = GalleryDataCache::containsKey("randomhighlight:load-$id");
 		$count   = GalleryDataCache::containsKey('randomhighlight:count') ? GalleryDataCache::get('randomhighlight:count') : 0;
+
 		// Don't refresh the highlight during an upgrade; also limit # of reselects in 1 request
 		if ($duringUpgrade || $loop || $count >= 3) {
 			return null;
@@ -301,6 +302,7 @@ class RandomHighlightModule extends GalleryModule {
 		}
 
 		$viewName = GalleryUtilities::getRequestVariables('view');
+
 		/*
 		 * Check if we need to pick a new highlight. Don't pick a new one on DownloadItem
 		 * requests, unless we don't have the permission to see the current highlight
@@ -333,6 +335,7 @@ class RandomHighlightModule extends GalleryModule {
 			global $gallery;
 
 			GalleryDataCache::put('randomhighlight:count', $count + 1);
+
 			// Query for child items
 			list($ret, $query, $data) = GalleryCoreApi::buildItemQuery(
 				'GalleryChildEntity',

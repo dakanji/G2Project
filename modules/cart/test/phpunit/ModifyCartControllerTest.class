@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -162,7 +163,8 @@ class ModifyCartControllerTest extends GalleryControllerTestCase {
 
 		$cartItemCounts = array($dataItemId => 2,
 				$photoItemId                => 1, );
-		$ret            = CartHelper::setCartItemCounts($cartItemCounts);
+
+		$ret = CartHelper::setCartItemCounts($cartItemCounts);
 
 		if ($ret) {
 			return $ret;
@@ -186,6 +188,7 @@ class ModifyCartControllerTest extends GalleryControllerTestCase {
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array('redirect' => array('controller' => 'cart.TestPlugin'),
+
 				  // Verify that itemId is not set, see bug 2013274
 				  'status'   => array('cartModified' => 1),
 				  'error'    => array(), ),
@@ -193,7 +196,6 @@ class ModifyCartControllerTest extends GalleryControllerTestCase {
 	);
 
 		// Verify that the cart has been processed correctly (filtered and updated count)
-
 		/**
 		 * @todo Shouldn't we update item counts on fulfillment requests as well?
 		 */

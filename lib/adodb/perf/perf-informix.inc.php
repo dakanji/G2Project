@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -18,10 +19,8 @@ if (!defined('ADODB_DIR')) {
 	die();
 }
 
-//
 // Thx to  Fernando Ortiz, mailto:fortiz#lacorona.com.mx
 // With info taken from http://www.oninit.com/oninit/sysmaster/index.html
-//
 class perf_informix extends adodb_perf {
 	// Maximum size on varchar upto 9.30 255 chars
 	// better truncate varchar to 255 than char(4000) ?

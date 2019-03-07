@@ -1,4 +1,5 @@
 <?php
+
 // contributed by "Levi Fukumori" levi _AT_ fukumori _DOT_ com _DOT_ br
 // portugese (brazilian)
 $ADODB_LANG_ARRAY = array(

@@ -1,21 +1,20 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
+ * This program is free software; you can redistribute it and/or modify it under the terms
+ * of the GNU General Public License as published by the Free Software Foundation;
+ * either version 2 of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with this program;
+ * if not, write to the Free Software Foundation, Inc., 51 Franklin Street - Fifth Floor,
+ * Boston, MA  02110-1301, USA.
  */
 
 /*
@@ -46,7 +45,11 @@ function smarty_modifier_markup($text) {
 
 	if (!isset($markupType)) {
 		if (!GalleryDataCache::containsKey($cacheKey)) {
-			list($ret, $defaultMarkupType) = GalleryCoreApi::getPluginParameter('module', 'core', 'misc.markup');
+			list($ret, $defaultMarkupType) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'core',
+				'misc.markup'
+			);
 
 			if ($ret) {
 				// This code is used by the UI -- we can't return an error. Choose something safe
@@ -90,8 +93,7 @@ class GalleryNoMarkupParser {
 
 class GalleryHtmlMarkupParser {
 	public function parse($text) {
-		// http://bugs.php.net/bug.php?id=22014 - TODO: remove empty check when min php is 4.3.2+
-		return empty($text) ? $text : GalleryUtilities::htmlSafe(html_entity_decode($text));
+		return GalleryUtilities::htmlSafe(html_entity_decode($text));
 	}
 }
 
@@ -114,9 +116,11 @@ class GalleryBbcodeMarkupParser {
 
 		/*
 		 * Escape all characters everywhere
-		 * We don't need to do this 'cause G2 doesn't allow raw entities into the database
-		 * $this->_bbcode->addParser('htmlspecialchars',
-		 *			     array('block', 'inline', 'link', 'listitem'));
+		 * We do not need this as G2 does not allow raw entities into the database
+		 * $this->_bbcode->addParser(
+		 *			     'htmlspecialchars',
+		 *			     array('block', 'inline', 'link', 'listitem')
+		 * );
 		 */
 
 		// Convert line endings
@@ -256,6 +260,7 @@ class GalleryBbcodeMarkupParser {
 		// Output of HTML.
 		$size = (isset($attrs['width']) ? ' width="' . (int)$attrs['width'] . '"' : '')
 		. (isset($attrs['height']) ? ' height="' . (int)$attrs['height'] . '"' : '');
+
 		// Input should have entities already, so no htmlspecialchars here
 		return sprintf('<img src="%s" alt=""%s/>', $content, $size);
 	}

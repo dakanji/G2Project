@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -879,7 +880,8 @@ class StorageTest extends GalleryTestCase {
 		$storage->_db->setResults(array(new StorageTestRecordSet(), new StorageTestRecordSet()));
 
 		$entity = new GalleryChildEntity();
-		$ret    = $entity->create(1234);
+
+		$ret = $entity->create(1234);
 
 		if ($ret) {
 			return $ret;
@@ -923,7 +925,8 @@ class StorageTest extends GalleryTestCase {
 		$storage =& $gallery->getStorage();
 
 		$entity = new GalleryEntity();
-		$ret    = $entity->create();
+
+		$ret = $entity->create();
 
 		if ($ret) {
 			return $ret;
@@ -1233,13 +1236,15 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
+
 		// Use a real SQL connection for this test
 		$storage->_db = $this->_db;
 
 		// \0 -> \\000 special escape, see http://pgsqld.active-venture.com/datatype-binary.html
 		$testString = "The NULL character should be escaped \0 !";
 		$key        = 'test' . mt_rand();
-		$ret        = $storage->addMapEntry(
+
+		$ret = $storage->addMapEntry(
 			'GalleryPluginParameterMap',
 			array(
 				'pluginType'     => 'module',
@@ -1380,12 +1385,14 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
+
 		// Use a real SQL connection for this test
 		$storage->_db         = $this->_db;
 		$storage->_serverInfo = $this->_serverInfo;
 
 		// Test UTF-8 string with 5 characters / 10 bytes
 		$testString = "\xd0\xa0\xd1\x83\xd1\x81\xd1\x81\xd0\xba";
+
 		// Get a STRING-LARGE version of that string
 		$originalStringLarge    = str_repeat($testString, 51);
 		$originalStringTooLarge = str_repeat($testString, 52);
@@ -1466,6 +1473,7 @@ class StorageTest extends GalleryTestCase {
 		);
 
 		$optimizeStatements = $storage->_getOptimizeStatements();
+
 		// Results for optimize statements
 		$expectedQueries = array();
 
@@ -1509,6 +1517,7 @@ class StorageTest extends GalleryTestCase {
 		);
 
 		$optimizeStatements = $storage->_getOptimizeStatements();
+
 		// Results for optimize statements
 		$expectedQueries = array();
 
@@ -1739,6 +1748,7 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
+
 		// Use a real SQL connection for this test
 		$storage->_db = $this->_db;
 

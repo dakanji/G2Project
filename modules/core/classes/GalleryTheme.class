@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -530,6 +531,7 @@ class GalleryTheme extends GalleryPlugin {
 					}
 
 					$value = $json->encode($input);
+
 					/*
 					 * JSON cannot distinguish between regular arrays and assoc arrays
 					 * if the array is  empty, so fix it up here.
@@ -1310,7 +1312,8 @@ class GalleryTheme extends GalleryPlugin {
 			GalleryCoreApi::requireOnce($path);
 			$className = $module . 'Preloads';
 			$instance  = new $className();
-			$ret       = $instance->preload($template, $blockName, $blockParams);
+
+			$ret = $instance->preload($template, $blockName, $blockParams);
 
 			if ($ret) {
 				return $ret;
@@ -1784,6 +1787,7 @@ class GalleryTheme extends GalleryPlugin {
 					}
 
 					$urlGenerator =& $gallery->getUrlGenerator();
+
 					/*
 					 * Need forceFullUrl because values given to ->javascript() are later run thru
 					 * generateUrl(array('href'=>$path)); need full url to avoid any distortion.

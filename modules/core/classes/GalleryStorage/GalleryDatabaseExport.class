@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -403,6 +404,7 @@ class GalleryDatabaseExport {
 		}
 
 		$this->_callBack['total'] += count($sql['table']);
+
 		// If the core module then export schema and sequence tables first
 		if ($pluginId == 'core') {
 			$this->_callBack['total'] += 3;

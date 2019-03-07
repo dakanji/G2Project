@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -244,6 +245,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 					case 'application/x-shockwave-flash':
 						return sprintf(
 							'<script type="text/javascript">
+
 		    // <![CDATA[
 		    if (window.ActiveXObject) {
 			document.write(\'<object id="animation"\');
@@ -305,6 +307,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 					case 'application/x-director':
 						return sprintf(
 							'<script type="text/javascript">
+
 		    // <![CDATA[
 		    if (window.ActiveXObject) {
 			document.write(\'<object id="animation"\');
@@ -365,7 +368,6 @@ class GalleryAnimationItem extends GalleryDataItem {
 					default:
 						return $fallback;
 				}
-
 
 				// Fall Through
 			default:

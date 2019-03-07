@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -51,7 +52,6 @@ if (!function_exists('sqlsrv_log_set_subsystems')) {
 // month strings depends on what language has been configured. The
 // following two variables allow you to control the localization
 // settings - Ugh.
-//
 // MORE LOCALIZATION INFO
 // ----------------------
 // To configure datetime, look for and modify sqlcommn.loc,
@@ -60,7 +60,6 @@ if (!function_exists('sqlsrv_log_set_subsystems')) {
 //	 http://support.microsoft.com/default.aspx?scid=kb;EN-US;q220918
 // Alternatively use:
 // 	   CONVERT(char(12),datecol,120)
-//
 // Also if your month is showing as month-1,
 //   e.g. Jan 13, 2002 is showing as 13/0/2002, then see
 //     http://phplens.com/lens/lensforum/msgs.php?id=7048&x=1
@@ -74,6 +73,7 @@ if (ADODB_PHPVER >= 0x4300) {
 	global $ADODB_mssql_mths;
 
 	$ADODB_mssql_date_order = 'mdy';
+
 	// array, months must be upper-case
 	$ADODB_mssql_mths = array(
 		'JAN' => 1,
@@ -94,6 +94,7 @@ if (ADODB_PHPVER >= 0x4300) {
 class ADODB_mssqlnative extends ADOConnection {
 	public $databaseType = 'mssqlnative';
 	public $dataProvider = 'mssqlnative';
+
 	// string to use to replace quotes
 	public $replaceQuote     = "''";
 	public $fmtDate          = "'Y-m-d'";
@@ -121,6 +122,7 @@ class ADODB_mssqlnative extends ADOConnection {
 		join sys.tables st on st.name=o.name
 		join sys.columns sc on sc.object_id = st.object_id and sc.name=c.name
 		where o.name='%s'";
+
 	// support mssql SELECT TOP 10 * FROM TABLE
 	public $hasTop          = 'top';
 	public $hasGenID        = true;
@@ -131,8 +133,10 @@ class ADODB_mssqlnative extends ADOConnection {
 	public $uniqueSort      = true;
 	public $leftOuter       = '*=';
 	public $rightOuter      = '=*';
+
 	// for mssql7 or later
 	public $ansiOuter = true;
+
 	// 'select SCOPE_IDENTITY'; # for mssql 2000
 	public $identitySQL       = 'select SCOPE_IDENTITY()';
 	public $uniqueOrderBy     = true;
@@ -197,6 +201,7 @@ class ADODB_mssqlnative extends ADOConnection {
 		$ADODB_FETCH_MODE   = $savem;
 		$arr['description'] = $arrServerInfo['SQLServerName'] . ' connected to '
 		. $arrServerInfo['CurrentDatabase'];
+
 		//ADOConnection::_findvers($arr['description']);
 		$arr['version'] = $arrServerInfo['SQLServerVersion'];
 
@@ -714,6 +719,7 @@ class ADODB_mssqlnative extends ADOConnection {
 		}
 
 		$insert = false;
+
 		// handle native driver flaw for retrieving the last insert ID
 		if (preg_match('/^\W*insert[\s\w()",.]+values\s*\((?:[^;\']|\'\'|(?:(?:\'\')*\'[^\']+\'(?:\'\')*))*;?$/i', $sql)) {
 			$insert = true;
@@ -861,7 +867,8 @@ class ADODB_mssqlnative extends ADOConnection {
 		$this->SelectDB('master');
 		$rs   =& $this->Execute($this->metaDatabasesSQL);
 		$rows = $rs->GetRows();
-		$ret  = array();
+
+		$ret = array();
 
 		for ($i = 0; $i < count($rows); $i++) {
 			$ret[] = $rows[$i][0];
@@ -1016,8 +1023,10 @@ class ADODB_mssqlnative extends ADOConnection {
 		}
 
 		$rs->Close();
+
 		// start adg
 		$cached_columns[$table] = $retarr;
+
 		// end adg
 		return $retarr;
 	}
@@ -1048,7 +1057,6 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 		global $ADODB_COUNTRECS;
 
 		// KMN # if ($this->connection->debug) ADOConnection::outp("(before) ADODB_COUNTRECS: {$ADODB_COUNTRECS} _numOfRows: {$this->_numOfRows} _numOfFields: {$this->_numOfFields}");
-
 		/*
 		 * $retRowsAff = sqlsrv_rows_affected($this->_queryID);
 		 * "If you need to determine the number of rows a query will return
@@ -1061,6 +1069,7 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 		$this->_numOfRows   = -1;//not supported
 		$fieldmeta          = sqlsrv_field_metadata($this->_queryID);
 		$this->_numOfFields = ($fieldmeta) ? count($fieldmeta) : -1;
+
 		// KMN # if ($this->connection->debug) ADOConnection::outp("(after) _numOfRows: {$this->_numOfRows} _numOfFields: {$this->_numOfFields}");
 		// Copy the oracle method and cache the metadata at init time
 		if ($this->_numOfFields > 0) {
@@ -1211,12 +1220,14 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 		}
 
 		$this->_currentRow++;
+
 		// # KMN # if ($this->connection->debug) ADOConnection::outp("_currentRow: ".$this->_currentRow);
 		if ($this->_fetch()) {
 			return true;
 		}
 
 		$this->EOF = true;
+
 		//# KMN # if ($this->connection->debug) ADOConnection::outp("eof (end): ".$this->EOF);
 		return false;
 	}

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Description: A tool for searching the Gallery2 database
  * Date: 02 April 2012
@@ -52,6 +53,7 @@ if (array_key_exists('deep', $_POST)) {
 // if neither $advance nor $deep is set, this is a reset call so, move on to rendering html
 if (isset($advance) || isset($deep)) {
 	$output = connect();
+
 	// if connect function returned data, this is an error so, move on to rendering html
 	if ((null === $output) == false) {
 		$output = process($search_string, $advance, $deep);
@@ -111,8 +113,10 @@ function process($search_string, $advance, $deep) {
 
 		// Escape illegal values
 		$search_string = mysql_real_escape_string($search_string);
+
 		// Init variable to hold html output
 		$html = '';
+
 		// Loop through database tables
 		foreach ($g2_tables as $key => $g2_table) {
 			// Get all columns in current database table
@@ -122,6 +126,7 @@ function process($search_string, $advance, $deep) {
 			if ($result) {
 				if (mysql_num_rows($result) > 0) {
 					$numfields = mysql_num_fields($result);
+
 					// Loop through table columns and search for string in each column
 					for ($i = 0; $i < $numfields; $i++) {
 						$g2_column = mysql_field_name($result, $i);
@@ -135,6 +140,7 @@ function process($search_string, $advance, $deep) {
 						}
 
 						$success = mysql_query($sql);
+
 						// If search string is found, append to html output
 						if ($success) {
 							if (mysql_affected_rows() > 0) {

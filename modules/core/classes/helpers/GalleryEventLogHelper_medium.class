@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -92,7 +93,8 @@ class GalleryEventLogHelper_medium {
 
 		if ($affectedRows == 0) {
 			$rowData['id'] = $id;
-			$ret           = GalleryCoreApi::addMapEntry('EventLogMap', $rowData, true);
+
+			$ret = GalleryCoreApi::addMapEntry('EventLogMap', $rowData, true);
 
 			if ($ret) {
 				return $ret;

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -154,7 +155,7 @@ class GalleryEntityHelper_medium {
 	public static function fetchEntitiesLinkedTo($targetId) {
 		global $gallery;
 
-		$query   = '
+		$query = '
 	SELECT
 	  [GalleryEntity::id]
 	FROM
@@ -164,6 +165,7 @@ class GalleryEntityHelper_medium {
 	ORDER BY
 	  [GalleryEntity::id] ASC
 	';
+
 		$storage =& $gallery->getStorage();
 
 		list($ret, $searchResults) = $gallery->search($query, array((int)$targetId));

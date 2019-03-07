@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @version   v5.20.12  30-Mar-2018
  * @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -152,6 +153,7 @@ class ADODB_pdo extends ADOConnection {
 		} catch (Exception $e) {
 			$this->_connectionID = false;
 			$this->_errorno      = -1;
+
 			//var_dump($e);
 			$this->_errormsg = 'Connection attempt failed: ' . $e->getMessage();
 
@@ -181,6 +183,7 @@ class ADODB_pdo extends ADOConnection {
 			$this->_connectionID->setAttribute(PDO::ATTR_CASE, $m);
 
 			$class = 'ADODB_pdo_' . $this->dsnType;
+
 			//$this->_connectionID->setAttribute(PDO::ATTR_AUTOCOMMIT,true);
 			switch ($this->dsnType) {
 				case 'mssql':
@@ -236,7 +239,8 @@ class ADODB_pdo extends ADOConnection {
 		$save                     = $this->_driver->fetchMode;
 		$this->_driver->fetchMode = $this->fetchMode;
 		$this->_driver->debug     = $this->debug;
-		$ret                      = $this->_driver->SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
+
+		$ret = $this->_driver->SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
 
 		$this->_driver->fetchMode = $save;
 
@@ -561,6 +565,7 @@ class ADODB_pdo_base extends ADODB_pdo {
 
 	public function _init($parentDriver) {
 		$parentDriver->_bindInputArray = true;
+
 		// $parentDriver->_connectionID->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY,true);
 	}
 
@@ -734,6 +739,7 @@ class ADORecordSet_pdo extends ADORecordSet {
 			$o->max_length = -1;
 			$o->type       = 'VARCHAR';
 			$o->precision  = 0;
+
 			// $false = false;
 			return $o;
 		}

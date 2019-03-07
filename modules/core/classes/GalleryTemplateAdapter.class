@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -510,7 +511,6 @@ class GalleryTemplateAdapter {
 		$pattern       = '<script type="text/javascript" src="%s"></script>';
 
 		// Special case utilities.js is superset of yahoo-dom-event.js
-
 		/** @todo move this check into GalleryTemplate::javascript */
 		$yde = array_search('lib/yui/yahoo-dom-event.js', $files);
 
@@ -660,6 +660,7 @@ class GalleryTemplateAdapter {
 		}
 
 		$url = trim($content);
+
 		// Add the auth token to the URL
 		if (strstr($url, 'authToken') === false) {
 			$url = GalleryUrlGenerator::getMe()->appendParamsToUrl(
@@ -1329,7 +1330,8 @@ class GalleryTemplateAdapter {
 			$userId    = $smarty->_tpl_vars['theme']['actingUserId'];
 			$className = "${module}Callbacks";
 			$class     = new $className();
-			$ret       = $class->callback($params, $smarty, $file, $userId);
+
+			$ret = $class->callback($params, $smarty, $file, $userId);
 
 			if ($ret) {
 				// What can we do with this error?
@@ -1448,7 +1450,6 @@ class GalleryTemplateAdapter {
 						function translate($x) {
 							return sprintf($x[\'text\'], $x[\'arg1\'], $x[\'arg2\']);
 						}
-
 					}'
 				);
 
@@ -1581,6 +1582,7 @@ class GalleryTemplateAdapter {
 		global $gallery;
 
 		$continueUrl = str_replace('&amp;', '&', $continueUrl);
+
 		// Display the continue link after a short delay to avoid bug 2031942
 		printf(
 			'<script type="text/javascript">'

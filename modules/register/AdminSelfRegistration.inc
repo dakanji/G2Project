@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -82,7 +83,8 @@ class AdminSelfRegistrationController extends GalleryController {
 				}
 			} else {
 				$userName = $pendingUser->getUserName();
-				$ret      = GalleryPendingUserHelper::createGalleryUser($pendingUser);
+
+				$ret = GalleryPendingUserHelper::createGalleryUser($pendingUser);
 
 				if ($ret) {
 					return array($ret, null);

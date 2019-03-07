@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -49,7 +50,8 @@ class ItemOrderTest extends GalleryTestCase {
 
 		// Give us full perms
 		$userId = $gallery->getActiveUserId();
-		$ret    = GalleryCoreApi::addUserPermission(
+
+		$ret = GalleryCoreApi::addUserPermission(
 			$this->_parentItem->getId(),
 			$userId,
 			'core.all',

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -553,7 +554,8 @@ class UtilitiesTest extends GalleryTestCase {
 		$_SERVER['HTTP_HOST']   = 'example.com';
 		$_SERVER['SERVER_PORT'] = 80;
 		$urlGenerator           = new GalleryUrlGenerator();
-		$ret                    = $urlGenerator->init('phpunit_test.php');
+
+		$ret = $urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;
@@ -580,7 +582,8 @@ class UtilitiesTest extends GalleryTestCase {
 
 		// Simulate embedded (request URI doesn't reference Gallery install dir)
 		$urlGenerator = new GalleryUrlGenerator();
-		$ret          = $urlGenerator->init('phpunit_test.php?test=on', '/gallery2/');
+
+		$ret = $urlGenerator->init('phpunit_test.php?test=on', '/gallery2/');
 
 		if ($ret) {
 			return $ret;
@@ -599,7 +602,8 @@ class UtilitiesTest extends GalleryTestCase {
 		$_SERVER['DOCUMENT_ROOT'] = '/g2testroot';
 		$_SERVER['REQUEST_URI']   = '/g2test/phpunit_test.php?foo=bar';
 		$urlGenerator             = new GalleryUrlGenerator();
-		$ret                      = $urlGenerator->init('phpunit_test.php');
+
+		$ret = $urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;
@@ -1513,6 +1517,7 @@ class UtilitiesTest extends GalleryTestCase {
 		$key                     = 'foo' . mt_rand(1, 9999);
 		$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
 		$_SERVER['HTTP_COOKIE'] .= "$key=foo";
+
 		// Execute our fix
 		GalleryUtilities::fixCookieVars(true);
 		$this->assertEquals(
@@ -1532,13 +1537,16 @@ class UtilitiesTest extends GalleryTestCase {
 		$rand = mt_rand(1, 9999);
 		$val1 = 'bar' . $rand;
 		$val2 = 'bar' . ($rand + 3000);
+
 		// Define cookie with $val1 to be the one with higher precedence (more specific path)
 		$_SERVER['HTTP_COOKIE']  = $this->_saveServerHttpCookie;
 		$_COOKIE                 = $this->_saveCookie;
 		$_SERVER['HTTP_COOKIE'] .= !empty($_SERVER['HTTP_COOKIE']) ? ' ; ' : '';
 		$_SERVER['HTTP_COOKIE'] .= "$key=" . urlencode($val1) . '; $key=' . urlencode($val2);
+
 		// Set $_COOKIE as php would, with the wrong cookie value for our key
 		$_COOKIE[$key] = $val2;
+
 		// Execute our fix
 		GalleryUtilities::fixCookieVars(true);
 		$this->assertEquals(
@@ -1603,6 +1611,7 @@ class UtilitiesTest extends GalleryTestCase {
 		$val5 = 'bar2';
 		$key6 = 'foo5';
 		$val6 = '"iui7 asa9a,. \\" a; \\asas, bla"';
+
 		// Use one time commas as delimiters, the other time semicolons
 		foreach (array(',', ';') as $sep) {
 			/*
@@ -1629,6 +1638,7 @@ class UtilitiesTest extends GalleryTestCase {
 
 				// Execute the fix
 				GalleryUtilities::fixCookieVars(true);
+
 				// Check if the actual response matches the expected response
 				$kind = $urlEncoded ? 'urlencoded' : 'true';
 				$this->assertTrue(
@@ -1716,6 +1726,7 @@ class UtilitiesTest extends GalleryTestCase {
 
 		// Test cases
 		$tests = array();
+
 		// 1. add one, successfully
 		$tests[] = array(
 			'add' => array('foo=bar'),
@@ -1953,6 +1964,7 @@ class UtilitiesTest extends GalleryTestCase {
 			foreach ($tests as $tC) {
 				$_COOKIE = array();
 				$this->assertFalse(count($_COOKIE), 'Could not reset superglobal $_COOKIE');
+
 				// Execute the test
 				$fixedCookies = array();
 

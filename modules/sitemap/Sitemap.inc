@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -108,13 +109,15 @@ class SitemapView extends GalleryView {
 		INNER JOIN [GalleryItemAttributesMap]
 			ON [GalleryItem::id] = [GalleryItemAttributesMap::itemId]
 		';
+
 				$matchFrag = '
 		([GalleryItem::id] = ?
 		 OR
 		 [GalleryItemAttributesMap::parentSequence] LIKE ?)
 		AND
 		';
-				$data      = array($rootId, implode('/', $parents) . '/' . $rootId . '/%');
+
+				$data = array($rootId, implode('/', $parents) . '/' . $rootId . '/%');
 			}
 
 			$query = sprintf(

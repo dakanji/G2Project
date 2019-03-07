@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -12,12 +13,10 @@ Set tabs to 4 for best viewing.
   DB2 data driver. Requires ODBC.
 
 From phpdb list:
-
 Hi Andrew,
 
 thanks a lot for your help. Today we discovered what
 our real problem was:
-
 After "playing" a little bit with the php-scripts that try
 to connect to the IBM DB2, we set the optional parameter
 Cursortype when calling odbc_pconnect(....).
@@ -45,7 +44,6 @@ Mark Newnham has discovered that the SQL_CUR_USE_ODBC is not supported by
 IBM's DB2 ODBC driver, so this must be a 3rd party ODBC driver.
 
 From the IBM CLI Reference:
-
 SQL_ATTR_ODBC_CURSORS (DB2 CLI v5)
 This connection attribute is defined by ODBC, but is not supported by DB2
 CLI. Any attempt to set or get this attribute will result in an SQLSTATE of
@@ -99,6 +97,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 		public $sysTime         = 'CURRENT TIME';
 		public $sysDate         = 'CURRENT DATE';
 		public $sysTimeStamp    = 'CURRENT TIMESTAMP';
+
 		// The complete string representation of a timestamp has the form
 		// yyyy-mm-dd-hh.mm.ss.nnnnnn.
 		public $fmtTimeStamp    = "'Y-m-d-H.i.s'";
@@ -123,6 +122,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 		public function ServerInfo() {
 			//odbc_setoption($this->_connectionID,1,101 /*SQL_ATTR_ACCESS_MODE*/, 1 /*SQL_MODE_READ_ONLY*/);
 			$vers = $this->GetOne('select versionnumber from sysibm.sysversions');
+
 			//odbc_setoption($this->_connectionID,1,101, 0 /*SQL_MODE_READ_WRITE*/);
 			return array(
 				'description' => 'DB2 ODBC driver',
@@ -162,6 +162,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 			$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
 
 			$arr = $rs->GetArray();
+
 			//print_r($arr);
 			$rs->Close();
 			$arr2 = array();
@@ -213,6 +214,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 			}
 
 			$false = false;
+
 			// get index details
 			$table = strtoupper($table);
 			$SQL   = "SELECT NAME, UNIQUERULE, COLNAMES FROM SYSIBM.SYSINDEXES WHERE TBNAME='$table'";
@@ -234,6 +236,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 			}
 
 			$indexes = array();
+
 			// parse index data into array
 			while ($row = $rs->FetchRow()) {
 				$indexes[$row[0]] = array(
@@ -382,7 +385,6 @@ if (!defined('ADODB_ODBC_DB2')) {
 					if ($len <= $this->blobSize) {
 						return 'C';
 					}
-
 
 					// Fall Through
 				case 'LONGCHAR':

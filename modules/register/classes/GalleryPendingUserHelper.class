@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -195,6 +196,7 @@ class GalleryPendingUserHelper {
 		$confirmationUrl = $generator->generateUrl(
 			array(
 				'controller' => 'register.ConfirmRegistration',
+
 				// Incoming url params will get sanitized, so decode here
 				'username'   => $decodedUserName,
 				'key'        => $pendingUser->getRegistrationKey(),
@@ -238,6 +240,7 @@ class GalleryPendingUserHelper {
 			'modules/register/templates/' . $tplFile,
 			array(
 				'name'            => $pendingUser->getFullName(),
+
 				// We send plain text email so decode entities in username
 				'username'        => $decodedUserName,
 				'confirmationUrl' => $confirmationUrl,
@@ -356,6 +359,7 @@ class GalleryPendingUserHelper {
 					'modules/register/templates/AdminEmail.tpl',
 					array(
 						'name'      => $pendingUser->getFullName(),
+
 						// We send plain text email so decode entities in username
 						'username'  => $decodedUserName,
 						'email'     => $pendingUser->getEmail(),

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -84,6 +85,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		$ret = $this->_module->setParameter(
 			'split',
 			';
+
 ,\s'
 		);
 
@@ -279,7 +281,8 @@ class KeywordAlbumTest extends GalleryTestCase {
 		$itemList    = array($this->_album, $this->_item);
 		$idList      = array($this->_album->getId(), $this->_item->getId());
 		$permissions = array();
-		$ret         = $this->_module->setParameter('summaryLinks', 'all');
+
+		$ret = $this->_module->setParameter('summaryLinks', 'all');
 
 		if ($ret) {
 			return $ret;
@@ -350,6 +353,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		$ret = $this->_module->setParameter(
 			'split',
 			';
+
 \s'
 		);
 

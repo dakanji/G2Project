@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -139,7 +140,8 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		$smarty    = new GallerySmarty();
 		$callbacks = new AlbumSelectCallbacks();
-		$ret       = $callbacks->callback(
+
+		$ret = $callbacks->callback(
 			array(),
 			$smarty,
 			'LoadAlbumData',
@@ -166,6 +168,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		$this->assertFalse(empty($data['params']), 'params');
 		$this->assertFalse(empty($data['tree']), 'tree');
+
 		// Test album and its subalbums should be last 4 tree items: subalbums 1,2,3
 		$albumNode = count($data['tree']) - 3;
 		$this->assertEquals(
@@ -211,7 +214,8 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		$smarty    = new GallerySmarty();
 		$callbacks = new AlbumSelectCallbacks();
-		$ret       = $callbacks->callback(
+
+		$ret = $callbacks->callback(
 			array(),
 			$smarty,
 			'LoadAlbumData',
@@ -238,6 +242,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		$this->assertFalse(empty($data['params']), 'params');
 		$this->assertFalse(empty($data['tree']), 'tree');
+
 		// Test album and its subalbums should be last 4 tree items: subalbums 3,2,1
 		$albumNode = count($data['tree']) - 3;
 
@@ -311,7 +316,8 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		$smarty    = new GallerySmarty();
 		$callbacks = new AlbumSelectCallbacks();
-		$ret       = $callbacks->callback(
+
+		$ret = $callbacks->callback(
 			array(),
 			$smarty,
 			'LoadAlbumData',
@@ -338,6 +344,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		$this->assertFalse(empty($data['params']), 'params');
 		$this->assertFalse(empty($data['tree']), 'tree');
+
 		// Find test album in tree; subalbum order is 2,3,1
 		$tree = $data['tree'];
 
@@ -449,6 +456,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
+
 		// Make sure the value is correct and that it is cached
 		$this->assertEquals(
 			'zzz\\z&amp;zz&quot;zz',
@@ -519,7 +527,8 @@ class AlbumSelectTest extends GalleryTestCase {
 		// A first call to file-cache a result and to ensure the cache-key includes the rootId
 		$smarty    = new GallerySmarty();
 		$callbacks = new AlbumSelectCallbacks();
-		$ret       = $callbacks->callback(
+
+		$ret = $callbacks->callback(
 			array(
 				'albumTree' => true,
 			),
@@ -540,7 +549,8 @@ class AlbumSelectTest extends GalleryTestCase {
 		$gallery->setConfig('defaultAlbumId', $this->_album->getId());
 		$gallery->setConfig('breadcrumbRootId', $this->_album->getId());
 		$callbacks = new AlbumSelectCallbacks();
-		$ret       = $callbacks->callback(
+
+		$ret = $callbacks->callback(
 			array(
 				'albumTree' => true,
 			),
@@ -578,7 +588,8 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		$smarty    = new GallerySmarty();
 		$callbacks = new AlbumSelectCallbacks();
-		$ret       = $callbacks->callback(
+
+		$ret = $callbacks->callback(
 			array(
 				'albumTree' => true,
 			),
@@ -613,7 +624,8 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		// Make subalbum only visible through session permission
 		$itemId = $this->_subalbum[2]->getId();
-		$ret    = GalleryCoreApi::removeItemPermissions($itemId);
+
+		$ret = GalleryCoreApi::removeItemPermissions($itemId);
 
 		if ($ret) {
 			return $ret;
@@ -648,6 +660,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		// Then test with session permission
 		$session->put(GALLERY_PERMISSION_SESSION_KEY, array($itemId));
+
 		// Don't use GalleryDataCache::reset() this test is about caching
 		GalleryDataCache::removeByPattern('[Aa]ccessList');
 
@@ -670,6 +683,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		// Again without session permissions
 		$session->put(GALLERY_PERMISSION_SESSION_KEY, array());
+
 		// Don't use GalleryDataCache::reset() this test is about caching
 		GalleryDataCache::removeByPattern('[Aa]ccessList');
 
@@ -694,6 +708,7 @@ class AlbumSelectTest extends GalleryTestCase {
 	public function _assertAlbumTreeData($smarty, $message, $withSubAlbum2 = true) {
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
 		$this->assertFalse(empty($data['tree']), 'tree');
+
 		// Test album and its subalbums should be last 3 (2) tree items: subalbums 1,(2,)3
 		$albumNode  = count($data['tree']) - ($withSubAlbum2 ? 3 : 2);
 		$expected   = array();

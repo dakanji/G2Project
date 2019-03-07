@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
@@ -182,7 +183,8 @@ class DcrawModule extends GalleryModule {
 			'dng',
 		) as $extension) {
 			$mimeType = ($extension == 'dng') ? 'image/x-adobe-dng' : 'image/x-dcraw';
-			$ret      = GalleryCoreApi::addMimeType($extension, $mimeType, 0);
+
+			$ret = GalleryCoreApi::addMimeType($extension, $mimeType, 0);
 
 			if ($ret) {
 				if (!($ret->getErrorCode() & ERROR_COLLISION)) {

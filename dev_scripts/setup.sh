@@ -44,7 +44,7 @@ then
 
 
 	# Add Upstream Remote
-	if [ ! -d "$MAINPATH/.git/refs/upstream" ]
+	if [ ! -d "$MAINPATH/.git/refs/remotes/upstream" ]
 	then
     	git remote add upstream https://github.com/dakanji/G2Project
 	fi

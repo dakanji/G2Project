@@ -1,4 +1,5 @@
 <?php
+
 /**
  * BB code string parsing class
  *
@@ -876,6 +877,7 @@ class StringParser_BBCode extends StringParser {
 				if ($closecount) {
 					// get top node
 					$mynode =& $this->_stack[count($this->_stack) - 1];
+
 					// close necessary nodes
 					for ($i = 0; $i <= $closecount; $i++) {
 						if (!$this->_popNode()) {
@@ -970,6 +972,7 @@ class StringParser_BBCode extends StringParser {
 		if ($closecount) {
 			// get top node
 			$mynode =& $this->_stack[count($this->_stack) - 1];
+
 			// close necessary nodes
 			for ($i = 0; $i <= $closecount; $i++) {
 				if (!$this->_popNode()) {
@@ -1257,7 +1260,6 @@ class StringParser_BBCode extends StringParser {
 					}
 
 					// don't break!
-
 					// Fall Through
 				case BBCODE_NEWLINE_DROP:
 					if ($ol && $output[0] == "\n") {
@@ -1275,7 +1277,6 @@ class StringParser_BBCode extends StringParser {
 					}
 
 					// don't break!
-
 					// Fall Through
 				case BBCODE_NEWLINE_DROP:
 					if ($ol && $output[$ol - 1] == "\n") {
@@ -1296,6 +1297,7 @@ class StringParser_BBCode extends StringParser {
 				unset($node);
 				$node =& $parent;
 				unset($parent);
+
 				// if no parent for this paragraph
 				if ($node->_parent === null) {
 					return $before . $output . $after;
@@ -1504,12 +1506,14 @@ class StringParser_BBCode extends StringParser {
 	public function &_breakupNodeByParagraphs(&$node) {
 		$detect_string = $this->_paragraphHandling['detect_string'];
 		$dest_nodes    = array();
+
 		// text node => no problem
 		if ($node->_type == STRINGPARSER_NODE_TEXT) {
 			$cpos = 0;
 
 			while (($npos = strpos($node->content, $detect_string, $cpos)) !== false) {
 				$subnode = new StringParser_Node_Text(substr($node->content, $cpos, $npos - $cpos), $node->occurredAt + $cpos);
+
 				// copy flags
 				foreach ($node->_flags as $flag => $value) {
 					if ($flag == 'newlinemode.begin') {
@@ -1565,6 +1569,7 @@ class StringParser_BBCode extends StringParser {
 
 		$dest_node =& $node->duplicate();
 		$nodecount = count($node->_children);
+
 		// now this node allows breakup - do it
 		for ($i = 0; $i < $nodecount; $i++) {
 			$firstnode =& $node->_children[0];
@@ -1598,6 +1603,7 @@ class StringParser_BBCode extends StringParser {
 	 */
 	public function _isUseContent(&$node, $check_attrs = false) {
 		$name = $this->_getCanonicalName($node->name());
+
 		// this should NOT happen
 		if ($name === false) {
 			return false;
@@ -1650,6 +1656,7 @@ class StringParser_BBCode extends StringParser {
 		}
 
 		$found = false;
+
 		// try to find the code in the code list
 		foreach (array_keys($this->_codes) as $rname) {
 			// match

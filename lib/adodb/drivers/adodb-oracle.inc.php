@@ -1,4 +1,5 @@
 <?php
+
 /*
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -238,6 +239,7 @@ class ADODB_oracle extends ADOConnection {
 		// that we can obtain ONLY from the cursor (and not from the connection)
 		$this->_errorCode = @ora_errorcode($curs);
 		$this->_errorMsg  = @ora_error($curs);
+
 		// </G. Giunta 2004/03/03>
 		@ora_close($curs);
 
@@ -351,7 +353,6 @@ class ADORecordset_oracle extends ADORecordSet {
 				if ($len <= $this->blobSize) {
 					return 'C';
 				}
-
 
 				// Fall Through
 			case 'LONG':

@@ -1,4 +1,5 @@
 <?php
+
 // This is a sample valid index used for testing.
 $sampleIndex = array(
 	'modules' => array(
