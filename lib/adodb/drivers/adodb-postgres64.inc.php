@@ -8,7 +8,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
   Set tabs to 8.
-
   Original version derived from Alberto Cerezal (acerezalp@dbnet.es) - DBNet Informatica & Comunicaciones.
   08 Nov 2000 jlim - Minor corrections, removing mysql stuff
   09 Nov 2000 jlim - added insertid support suggested by "Christopher Kings-Lynne" <chriskl@familyhealth.com.au>
@@ -19,11 +18,9 @@
   15 Dec 2000 jlim - added changes suggested by Additional code changes by "Eric G. Werk" egw@netguide.dk.
   31 Jan 2002 jlim - finally installed postgresql. testing
   01 Mar 2001 jlim - Freek Dijkstra changes, also support for text type
-
   See http://www.varlena.com/varlena/GeneralBits/47.php
 	-- What indexes are on my table?
 	select * from pg_indexes where tablename = 'tablename';
-
 	-- What triggers are on my table?
 	select c.relname as "Table", t.tgname as "Trigger Name",
 	   t.tgconstrname as "Constraint Name", t.tgenabled as "Enabled",
@@ -33,7 +30,6 @@
 	where t.tgfoid = p.oid and t.tgrelid = c.oid
 	   and t.tgconstrrelid = cc.oid
 	   and c.relname = 'tablename';
-
 	-- What constraints are on my table?
 	select r.relname as "Table", c.conname as "Constraint Name",
 	   contype as "Constraint Type", conkey as "Key Columns",
@@ -41,7 +37,6 @@
 	from pg_class r, pg_constraint c
 	where r.oid = c.conrelid
 	   and relname = 'tablename';
-
 */
 
 // security - hide paths
@@ -95,12 +90,11 @@ class ADODB_postgres64 extends ADOConnection {
 		AND a.atttypid = t.oid AND a.attrelid = c.oid ORDER BY a.attnum";
 
 	// get primary key etc -- from Freek Dijkstra
-	public $metaKeySQL = "SELECT ic.relname AS index_name, a.attname AS column_name,i.indisunique AS unique_key, i.indisprimary AS primary_key
+	public $metaKeySQL      = "SELECT ic.relname AS index_name, a.attname AS column_name,i.indisunique AS unique_key, i.indisprimary AS primary_key
 		FROM pg_class bc, pg_class ic, pg_index i, pg_attribute a
 		WHERE bc.oid = i.indrelid AND ic.oid = i.indexrelid
 		AND (i.indkey[0] = a.attnum OR i.indkey[1] = a.attnum OR i.indkey[2] = a.attnum OR i.indkey[3] = a.attnum OR i.indkey[4] = a.attnum OR i.indkey[5] = a.attnum OR i.indkey[6] = a.attnum OR i.indkey[7] = a.attnum)
 		AND a.attrelid = bc.oid AND bc.relname = '%s'";
-
 	public $hasAffectedRows = true;
 	public $hasLimit        = false;  // set to true for pgsql 7 only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
 	// below suggested by Freek Dijkstra
@@ -307,8 +301,7 @@ class ADODB_postgres64 extends ADOConnection {
 			$col = $this->sysTimeStamp;
 		}
 
-		$s = 'TO_CHAR(' . $col . ",'";
-
+		$s   = 'TO_CHAR(' . $col . ",'";
 		$len = strlen($fmt);
 
 		for ($i = 0; $i < $len; $i++) {
@@ -412,11 +405,9 @@ class ADODB_postgres64 extends ADOConnection {
 	 */
 	public function UpdateBlobFile($table, $column, $path, $where, $blobtype = 'BLOB') {
 		pg_query($this->_connectionID, 'begin');
-
 		$fd       = fopen($path, 'r');
 		$contents = fread($fd, filesize($path));
 		fclose($fd);
-
 		$oid    = pg_lo_create($this->_connectionID);
 		$handle = pg_lo_open($this->_connectionID, $oid, 'w');
 		pg_lo_write($handle, $contents);
@@ -605,8 +596,7 @@ class ADODB_postgres64 extends ADOConnection {
 			// LEFT JOIN would have been much more elegant, but postgres does
 			// not support OUTER JOINS. So here is the clumsy way.
 			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-
-			$rskey = $this->Execute(sprintf($this->metaKeySQL, ($table)));
+			$rskey            = $this->Execute(sprintf($this->metaKeySQL, ($table)));
 
 			// fetch all result in once for performance.
 			$keys = $rskey->GetArray();
@@ -616,7 +606,6 @@ class ADODB_postgres64 extends ADOConnection {
 			}
 
 			$ADODB_FETCH_MODE = $save;
-
 			$rskey->Close();
 			unset($rskey);
 		}
@@ -876,7 +865,6 @@ class ADODB_postgres64 extends ADOConnection {
 		}
 
 		$this->Execute("set datestyle='ISO'");
-
 		$info            = $this->ServerInfo();
 		$this->pgVersion = (float)substr($info['version'], 0, 3);
 
@@ -915,16 +903,13 @@ class ADODB_postgres64 extends ADOConnection {
 		if ($inputarr) {
 			/*
 			It appears that PREPARE/EXECUTE is slower for many queries.
-
 			For query executed 1000 times:
 			"select id,firstname,lastname from adoxyz
 				where firstname not like ? and lastname not like ? and id = ?"
-
 			with plan = 1.51861286163 secs
 			no plan = 1.26903700829 secs
 			*/
-			$plan = 'P' . md5($sql);
-
+			$plan  = 'P' . md5($sql);
 			$execp = '';
 
 			foreach ($inputarr as $v) {

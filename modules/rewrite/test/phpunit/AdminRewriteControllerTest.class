@@ -522,7 +522,6 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 			'form[rules][adminrewritemock][0][pattern]',
 			'phpunit/0/'
 		);
-
 		GalleryUtilities::putRequestVariable('form[rules][adminrewritemock][1][active]', 1);
 		GalleryUtilities::putRequestVariable(
 			'form[rules][adminrewritemock][1][pattern]',
@@ -788,6 +787,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
  * @subpackage PHPUnit
  */
 GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteParser.class');
+
 class AdminRewriteMockParser extends RewriteParser {
 	public function __construct() {
 		$this->_setParserId('adminrewritemock');
@@ -949,8 +949,7 @@ class AdminRewriteMockModule extends GalleryModule {
 	}
 
 	public function getRewriteRules() {
-		$rules = array();
-
+		$rules    = array();
 		$rules[0] = array(
 			'pattern' => 'phpunit/dummy/%itemId%.htm',
 			'match'   => array(

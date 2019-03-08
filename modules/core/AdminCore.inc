@@ -399,8 +399,7 @@ class AdminCoreView extends GalleryView {
 			);
 
 			$can['tweakSystemProcesses'] = true;
-
-			$AdminCore['beNiceList'] = array(
+			$AdminCore['beNiceList']     = array(
 				'0' => $module->translate('High Priority (Me first!)'),
 				'1' => $module->translate('Low Priority (I want to share!)'),
 			);
@@ -422,7 +421,6 @@ class AdminCoreView extends GalleryView {
 		$AdminCore['sessionTimeList']    = $sessionTimeList;
 		$AdminCore['embeddedMarkupList'] = $embeddedMarkupList;
 		$AdminCore['lockSystemList']     = $lockSystemList;
-
 		$template->setVariable('controller', 'core.AdminCore');
 		$template->setVariable('AdminCore', $AdminCore);
 		$template->javascript('lib/javascript/BlockToggle.js');

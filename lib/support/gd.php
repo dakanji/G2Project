@@ -146,11 +146,10 @@ function getGdLibraryInfo() {
 		PHP_OS
 	);
 
-	$out .= "\t" . sprintf('\'name\' => \'%s\',', $name) . "\n";
-	$out .= "\t" . sprintf('\'phpVersion\' => \'%s\',', phpversion()) . "\n";
-	$out .= "\t" . sprintf('\'gdVersion\' => \'%s\',', $gdVersion) . "\n";
-	$out .= "\t" . sprintf('\'gdBundled\' => %s,', $isGdBundled) . "\n";
-
+	$out       .= "\t" . sprintf('\'name\' => \'%s\',', $name) . "\n";
+	$out       .= "\t" . sprintf('\'phpVersion\' => \'%s\',', phpversion()) . "\n";
+	$out       .= "\t" . sprintf('\'gdVersion\' => \'%s\',', $gdVersion) . "\n";
+	$out       .= "\t" . sprintf('\'gdBundled\' => %s,', $isGdBundled) . "\n";
 	$imageTypes = 0;
 
 	if (function_exists('imageTypes')) {
@@ -187,7 +186,6 @@ function getGdLibraryInfo() {
 	}
 
 	$out .= "\t" . '),' . "\n";
-
 	$out .= "\t" . '\'mimeTypes\' => array(' . "\n";
 
 	foreach ($mimeTypes as $mimeType) {
@@ -195,7 +193,6 @@ function getGdLibraryInfo() {
 	}
 
 	$out .= "\t" . '),' . "\n";
-
 	ob_start();
 	phpinfo(8);
 	$phpinfo = ob_get_contents();
@@ -235,7 +232,6 @@ function getGdLibraryInfo() {
 }
 
 $gdInfo = getGdLibraryInfo();
-
 ?>
 <html lang="en">
 <head>

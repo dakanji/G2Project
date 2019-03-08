@@ -142,8 +142,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		}
 
 		$this->_urlEncodePath = 'The Quick!Brown#Fox';
-
-		$this->_origEmbed = null;
+		$this->_origEmbed     = null;
 
 		if (GalleryDataCache::containsKey('G2_EMBED')) {
 			$this->_origEmbed = GalleryDataCache::get('G2_EMBED');
@@ -170,6 +169,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			GalleryDataCache::put('G2_EMBED', $this->_origEmbed, true);
 		} else {
 			GalleryDataCache::remove('G2_EMBED');
+
 			$this->assertFalse(GalleryDataCache::containsKey('G2_EMBED'), 'Could not remove a GDC var');
 		}
 
@@ -232,6 +232,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	public function _urlGeneratorInit($urlGeneratorName) {
 		$this->_urlGeneratorName = $urlGeneratorName;
 		$this->_urlGenerator     = new $urlGeneratorName();
+
 		GalleryDataCache::reset();
 
 		$ret = $this->_urlGenerator->init('phpunit_test.php');
@@ -259,6 +260,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	public function testGetCurrentUrlEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$_SERVER['REQUEST_URI'] = '/cms/index.php?mod=gallery2';
 		unset($_SERVER['QUERY_STRING']);
 		$expectedUrl         = 'http://example.com/cms/index.php?mod=gallery2';
@@ -290,6 +292,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	public function testGetCurrentUrlDirEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$_SERVER['REQUEST_URI'] = '/cms/index.php?mod=gallery2';
 		$expectedUrl            = 'http://example.com/cms/';
 		$this->_urlGenerator    = new $this->_urlGeneratorName();
@@ -307,7 +310,6 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			$this->_urlGenerator->getCurrentUrlDir(true),
 			'forceDirect'
 		);
-
 		$this->assertEquals(
 			$expectedUrl,
 			$this->_urlGenerator->getCurrentUrlDir(false),
@@ -331,19 +333,16 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			$urlGenerator->_getBaseUrl(),
 			'baseUrl default'
 		);
-
 		$this->assertEquals(
 			'http://example.com/gallery2/',
 			$urlGenerator->_getBaseUrl(true),
 			'baseUrl forceDirect'
 		);
-
 		$this->assertEquals(
 			'http://example.com/gallery2/',
 			$urlGenerator->_getBaseUrl(false),
 			'baseUrl no forceDirect'
 		);
-
 		$this->assertFalse($urlGenerator->_error);
 		$this->assertEquals('', $urlGenerator->_getBaseParamString(), 'baseParamss default');
 		$this->assertEquals('', $urlGenerator->_getBaseParamString(true), 'baseParams forceDirect');
@@ -356,6 +355,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	public function testGetBaseUrlEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$urlGenerator = new $this->_urlGeneratorName();
 
 		$ret = $urlGenerator->init('/cms/index.php', 'https://direct/gallery2/');
@@ -370,19 +370,16 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			$urlGenerator->_getBaseUrl(),
 			'baseUrl default'
 		);
-
 		$this->assertEquals(
 			'https://direct/gallery2/',
 			$urlGenerator->_getBaseUrl(true),
 			'baseUrl forceDirect'
 		);
-
 		$this->assertEquals(
 			'http://example.com/cms/',
 			$urlGenerator->_getBaseUrl(false),
 			'baseUrl no forceDirect'
 		);
-
 		$this->assertFalse($urlGenerator->_error);
 		$this->assertEquals('', $urlGenerator->_getBaseParamString(), 'baseParamss default');
 		$this->assertEquals('', $urlGenerator->_getBaseParamString(true), 'baseParams forceDirect');
@@ -398,6 +395,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		GalleryUtilities::removeRequestVariable('itemId');
 		GalleryUtilities::putRequestVariable('view', 'core.ShowItem');
 		GalleryUtilities::putRequestVariable('path', $this->_testAlbumPath);
+
 		$urlGenerator = new $this->_urlGeneratorName();
 
 		// Execute init and initNavigation, they should call _onLoad()
@@ -760,8 +758,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	 *  8. useAuthToken => boolean; to force auth token to be in/not in the URL
 	 */
 	public function testGenerateUrl() {
-		$params = $this->_getTestUrlParams();
-
+		$params         = $this->_getTestUrlParams();
 		$expectedUrl[0] = '/gallery2/' . GALLERY_MAIN_PHP
 		. '?g2_view=rand164.NonShort&amp;g2_foo=bar';
 		$expectedUrl[1] = sprintf(
@@ -803,8 +800,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
-		$params = $this->_getTestUrlParams();
+		$params  = $this->_getTestUrlParams();
 
 		// forceServerRelativeUrl should have no effect, fullUrl has precedence
 		$options = array(
@@ -857,14 +853,12 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
 		$params  = $this->_getTestUrlParams();
 		$options = array(
 			'forceSessionId' => true,
 		);
 
-		$sessionString = sprintf('g2_%s=%s', $session->getKey(), $session->getId());
-
+		$sessionString  = sprintf('g2_%s=%s', $session->getKey(), $session->getId());
 		$expectedUrl[0] = '/gallery2/' . GALLERY_MAIN_PHP
 		. '?g2_view=rand164.NonShort&amp;g2_foo=bar&amp;' . $sessionString;
 		$expectedUrl[1] = sprintf(
@@ -1000,10 +994,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'isNotUsingCookies'  => true,
 		);
 
-		$params = $this->_getTestUrlParams();
-
-		$sessionString = 'cmssid=12345';
-
+		$params         = $this->_getTestUrlParams();
+		$sessionString  = 'cmssid=12345';
 		$expectedUrl[0] = '/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort'
 		. '&amp;g2_foo=bar&amp;' . $sessionString;
 		$expectedUrl[1] = sprintf(
@@ -1057,8 +1049,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'embedSessionString' => 'cmssid=12345',
 		);
 
-		$params = $this->_getTestUrlParams();
-
+		$params         = $this->_getTestUrlParams();
 		$expectedUrl[0] = '/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort&amp;g2_foo=bar';
 		$expectedUrl[1] = sprintf(
 			'/gallery2/d/%d-%d/%s',
@@ -1098,8 +1089,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'galleryBaseUrl' => 'codebase/rep/',
 		);
 
-		$params = $this->_getTestUrlParams();
-
+		$params         = $this->_getTestUrlParams();
 		$expectedUrl[0] = '/gallery2/main.php?g2_view=rand164.NonShort&amp;g2_foo=bar';
 		$expectedUrl[1] = sprintf(
 			'/gallery2/d/%d-%d/%s',
@@ -1145,8 +1135,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'galleryBaseUrl' => 'codebase/rep/',
 		);
 
-		$params = $this->_getTestUrlParams();
-
+		$params         = $this->_getTestUrlParams();
 		$expectedUrl[0] = '/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort&amp;g2_foo=bar';
 		$expectedUrl[1] = sprintf(
 			'/gallery2/d/%d-%d/%s',
@@ -1185,8 +1174,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
-		$env = array(
+		$env     = array(
 			'REQUEST_URI' => '/cms/otherpage/?foo=bar',
 			'G2_EMBED'    => true,
 			'baseUri'     => '/cms/index.php?mod=gallery2',
@@ -1194,8 +1182,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'cookiePath'  => '',
 		);
 
-		$params = $this->_getTestUrlParams();
-
+		$params         = $this->_getTestUrlParams();
 		$expectedUrl[0] = '/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort'
 		. '&amp;g2_foo=bar';
 		$expectedUrl[1] = sprintf(
@@ -1342,8 +1329,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'REQUEST_URI' => '/gallery2/index.php?page=photos',
 		);
 
-		$params = $this->_getTestUrlParams();
-
+		$params         = $this->_getTestUrlParams();
 		$expectedUrl[0] = '/gallery2/index.php?page=photos&amp;g2_view=rand164.NonShort'
 		. '&amp;g2_foo=bar';
 		$expectedUrl[1] = sprintf(

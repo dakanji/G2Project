@@ -44,7 +44,6 @@
  * in our SQL, as well as reading/writing the config.php
  */
 @ini_set('magic_quotes_runtime', 0);
-
 $g2Base = dirname(__DIR__) . '/';
 
 require_once $g2Base . 'install/GalleryStub.class';

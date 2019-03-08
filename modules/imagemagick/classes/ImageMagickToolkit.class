@@ -238,8 +238,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 					$pixelY = round($parameters[1] / 100 * $height);
 					$width  = round($parameters[2] / 100 * $width);
 					$height = round($parameters[3] / 100 * $height);
-
-					$cmd = 'convert';
+					$cmd    = 'convert';
 
 					if (is_int($i = array_search('-size', $transform))) {
 						array_splice($transform, $i, 2);
@@ -367,9 +366,8 @@ class ImageMagickToolkit extends GalleryToolkit {
 					$compositeAlignX = max(0, $compositeAlignX);
 					$compositeAlignY = min($compositeAlignY, $height - $compositeHeight);
 					$compositeAlignY = max(0, $compositeAlignY);
-
-					$dataDir   = $gallery->getConfig('data.gallery.base');
-					$transform = array(
+					$dataDir         = $gallery->getConfig('data.gallery.base');
+					$transform       = array(
 						'-geometry',
 						'+' . $compositeAlignX . '+' . $compositeAlignY,
 						$dataDir . $compositeOverlayPath,
@@ -802,8 +800,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 		}
 
 		$command[] = sprintf('%s:%s', $extensions[0], $tmpFilename);
-
-		$oldCwd = $platform->getcwd();
+		$oldCwd    = $platform->getcwd();
 		$platform->chdir($gallery->getConfig('data.gallery.tmp'));
 
 		list($success, $output) = $platform->exec(array($command));
@@ -816,7 +813,6 @@ class ImageMagickToolkit extends GalleryToolkit {
 		}
 
 		$platform->chdir($oldCwd);
-
 		$success = $platform->rename($tmpFilename, $destFilename);
 
 		if (!$success) {

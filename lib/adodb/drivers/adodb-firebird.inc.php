@@ -8,7 +8,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
 Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
 */
 
@@ -22,7 +21,6 @@ require_once ADODB_DIR . '/drivers/adodb-ibase.inc.php';
 class ADODB_firebird extends ADODB_ibase {
 	public $databaseType = 'firebird';
 	public $dialect      = 3;
-
 	public $sysTimeStamp = 'CURRENT_TIMESTAMP'; //"cast('NOW' as timestamp)";
 
 	public function ServerInfo() {
@@ -66,8 +64,7 @@ class ADODB_firebird extends ADODB_ibase {
 		}
 
 		$str .= ($offset >= 0) ? "SKIP $offset " : '';
-
-		$sql = preg_replace('/^[ \t]*select/i', $str, $sql);
+		$sql  = preg_replace('/^[ \t]*select/i', $str, $sql);
 
 		if ($secs) {
 			$rs = $this->CacheExecute($secs, $sql, $inputarr);

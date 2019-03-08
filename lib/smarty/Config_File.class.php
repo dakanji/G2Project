@@ -251,7 +251,6 @@ class Config_File {
 
 		$contents = ($size = filesize($config_file)) ? fread($fp, $size) : '';
 		fclose($fp);
-
 		$this->_config_data[$config_file] = $this->parse_contents($contents);
 
 		return true;

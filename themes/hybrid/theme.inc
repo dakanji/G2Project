@@ -41,7 +41,6 @@ class HybridTheme extends GalleryTheme {
 		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
-
 		$this->setStandardSettings(
 			array(
 				'rows'             => 30,
@@ -167,8 +166,7 @@ class HybridTheme extends GalleryTheme {
 		global $gallery;
 
 		$urlGenerator =& $gallery->getUrlGenerator();
-
-		$data = array(
+		$data         = array(
 			'parents',
 			'systemLinks',
 			'itemLinks',

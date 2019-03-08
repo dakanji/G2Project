@@ -41,12 +41,10 @@ foreach (array('mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite') as $db) 
 	sort($xmlFiles);
 
 	foreach ($xmlFiles as $xmlFile) {
-		$p    = new XmlParser();
-		$root = $p->parse($xmlFile);
-
-		$generatorClass = "${db}Generator";
-		$generator      = new $generatorClass();
-
+		$p               = new XmlParser();
+		$root            = $p->parse($xmlFile);
+		$generatorClass  = "${db}Generator";
+		$generator       = new $generatorClass();
 		$base            = basename($xmlFile);
 		$base            = preg_replace('/\.[^\.]*$/', '', $base);
 		$output         .= '# ' . $base . "\n";
@@ -58,12 +56,10 @@ foreach (array('mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite') as $db) 
 $fd = fopen('schema.tpl', 'w');
 fwrite($fd, $output);
 fclose($fd);
-
 class BaseGenerator {
 	public function createSql($node, $index, $lastPeerIndex, $parent) {
 		$output = '';
-
-		$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
+		$child  = $node['child']  = isset($node['child']) ? $node['child'] : array();
 
 		switch ($node['name']) {
 			case 'SCHEMA':
@@ -239,8 +235,7 @@ class MySqlGenerator extends BaseGenerator {
 
 	public function createSql($node, $index, $lastPeerIndex, $parent) {
 		$output = '';
-
-		$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
+		$child  = $node['child']  = isset($node['child']) ? $node['child'] : array();
 
 		switch ($node['name']) {
 			case 'TABLE':
@@ -494,8 +489,7 @@ class PostgresGenerator extends BaseGenerator {
 
 	public function createSql($node, $index, $lastPeerIndex, $parent) {
 		$output = '';
-
-		$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
+		$child  = $node['child']  = isset($node['child']) ? $node['child'] : array();
 
 		switch ($node['name']) {
 			case 'CHANGE':
@@ -580,18 +574,16 @@ class PostgresGenerator extends BaseGenerator {
 							 *    value for existing rows.
 							 * 3. Add the not-null constraint
 							 */
-							$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'];
-							$output .= ' ADD COLUMN DB_COLUMN_PREFIX' . $c['child'][0]['content'];
-							$output .= ' ' . $this->columnDefinition($c['child'], false, false);
-							$output .= ";\n\n";
-
+							$output      .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'];
+							$output      .= ' ADD COLUMN DB_COLUMN_PREFIX' . $c['child'][0]['content'];
+							$output      .= ' ' . $this->columnDefinition($c['child'], false, false);
+							$output      .= ";\n\n";
 							$defaultValue = $this->getDefaultElement($c['child']);
 
 							if (isset($defaultValue)) {
 								$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'];
 								$output .= ' ALTER COLUMN DB_COLUMN_PREFIX' . $c['child'][0]['content'];
 								$output .= " SET DEFAULT '$defaultValue';\n\n";
-
 								$output .= 'UPDATE DB_TABLE_PREFIX' . $parent['child'][0]['content'];
 								$output .= ' SET DB_COLUMN_PREFIX' . $c['child'][0]['content'];
 								$output .= " = '$defaultValue';\n\n";
@@ -800,8 +792,7 @@ class OracleGenerator extends BaseGenerator {
 
 	public function createSql($node, $index, $lastPeerIndex, $parent) {
 		$output = '';
-
-		$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
+		$child  = $node['child']  = isset($node['child']) ? $node['child'] : array();
 
 		switch ($node['name']) {
 			case 'CHANGE':
@@ -966,8 +957,7 @@ class OracleGenerator extends BaseGenerator {
 					$firstNonColumn = $i + 1;
 				}
 
-				$output .= ");\n\n";
-
+				$output    .= ");\n\n";
 				$keyColumns = array();
 
 				for ($i = $firstNonColumn; $i < count($child); $i++) {
@@ -1140,8 +1130,7 @@ class Db2Generator extends BaseGenerator {
 
 	public function createSql($node, $index, $lastPeerIndex, $parent) {
 		$output = '';
-
-		$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
+		$child  = $node['child']  = isset($node['child']) ? $node['child'] : array();
 
 		switch ($node['name']) {
 			case 'CHANGE':
@@ -1465,8 +1454,7 @@ class MSSqlGenerator extends BaseGenerator {
 
 	public function createSql($node, $index, $lastPeerIndex, $parent) {
 		$output = '';
-
-		$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
+		$child  = $node['child']  = isset($node['child']) ? $node['child'] : array();
 
 		switch ($node['name']) {
 			case 'CHANGE':
@@ -1770,8 +1758,7 @@ class SQLiteGenerator extends BaseGenerator {
 
 	public function createSql($node, $index, $lastPeerIndex, $parent) {
 		$output = '';
-
-		$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
+		$child  = $node['child']  = isset($node['child']) ? $node['child'] : array();
 
 		switch ($node['name']) {
 			case 'TABLE':

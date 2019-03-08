@@ -93,7 +93,6 @@ class PermissionTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_user);
-
 		$session                 =& $gallery->getSession();
 		$this->_saveSessionPerms = $session->get(GALLERY_PERMISSION_SESSION_KEY);
 	}
@@ -160,6 +159,7 @@ class PermissionTest extends GalleryTestCase {
 		 * events
 		 */
 		$listener = new PermissionTestEventListener($this);
+
 		GalleryCoreApi::registerEventListener('Gallery::ViewableTreeChange', $listener);
 		GalleryCoreApi::registerEventListener('Gallery::RemovePermission', $listener);
 
@@ -508,13 +508,11 @@ class PermissionTest extends GalleryTestCase {
 
 			usort($compressedPerms, array('PermissionTest', '_sortPermissions'));
 			usort($uncompressedPerms, array('PermissionTest', '_sortPermissions'));
-
 			$this->assertEquals(
 				$expectedCompressed,
 				$compressedPerms,
 				"Album $i [$id] (compressed)"
 			);
-
 			$this->assertEquals(
 				$expectedUncompressed,
 				$uncompressedPerms,
@@ -554,6 +552,7 @@ class PermissionTest extends GalleryTestCase {
 		);
 
 		$this->assertEquals($event, $listener->getEvent(), 'removeUserPermission, not recursive');
+
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
 		$event->setData(
 			array(
@@ -599,6 +598,7 @@ class PermissionTest extends GalleryTestCase {
 		);
 
 		$this->assertEquals($event, $listener->getEvent(), 'removeGroupPermission, not recursive');
+
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
 		$event->setData(
 			array(
@@ -680,6 +680,7 @@ class PermissionTest extends GalleryTestCase {
 		);
 
 		$this->assertEquals($event, $listener->getEvent(), 'removeUserPermission, recursive 1');
+
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
 		$event->setData(
 			array(
@@ -731,6 +732,7 @@ class PermissionTest extends GalleryTestCase {
 		);
 
 		$this->assertEquals($event, $listener->getEvent(), 'removeGroupPermission, recursive');
+
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
 		$event->setData(
 			array(
@@ -784,10 +786,8 @@ class PermissionTest extends GalleryTestCase {
 			);
 
 			$expectedCompressed = $expectedUncompressed;
-
 			usort($compressedPerms, array('PermissionTest', '_sortPermissions'));
 			usort($uncompressedPerms, array('PermissionTest', '_sortPermissions'));
-
 			$albumCount = count($this->_albums);
 
 			if ($i < $albumCount) {
@@ -801,7 +801,6 @@ class PermissionTest extends GalleryTestCase {
 				$compressedPerms,
 				"$type [$id] (compressed) (after removing)"
 			);
-
 			$this->assertEquals(
 				$expectedUncompressed,
 				$uncompressedPerms,
@@ -838,6 +837,7 @@ class PermissionTest extends GalleryTestCase {
 		 * events
 		 */
 		$listener = new PermissionTestEventListener($this);
+
 		GalleryCoreApi::registerEventListener('Gallery::ViewableTreeChange', $listener);
 		GalleryCoreApi::registerEventListener('Gallery::RemovePermission', $listener);
 
@@ -1547,6 +1547,7 @@ class PermissionTest extends GalleryTestCase {
 		global $gallery;
 
 		GalleryDataCache::clearPermissionCache();
+
 		$this->assertTrue(
 			!GalleryDataCache::hasPermission($this->_getRootId(), 'core.view'),
 			'Nothing should be cached in the beginning'
@@ -1620,7 +1621,6 @@ class PermissionTest extends GalleryTestCase {
 			isset($permissionsTable[$this->_getRootId()]['core.view']),
 			'root id should have item permissions'
 		);
-
 		$this->assertTrue(
 			!isset($permissionsTable[$this->_albums[2]->getId()]),
 			'sub sub sub album should have no item permissions'
@@ -1677,7 +1677,6 @@ class PermissionTest extends GalleryTestCase {
 			!isset($permissionsTable[$this->_albums[2]->getId()]),
 			'sub sub sub album permissions should be gone again'
 		);
-
 		$this->assertTrue(
 			!isset($permissionsTable[$this->_albums[1]->getId()]),
 			'sub sub album permissions should be gone'
@@ -1763,7 +1762,6 @@ class PermissionTest extends GalleryTestCase {
 			in_array($unusedAclId, $aclIds),
 			"Missing unused acl id (pre compact): $unusedAclId"
 		);
-
 		$this->assertTrue(
 			count(array_intersect($duplicateAclId, $aclIds)) == 2,
 			"Missing dupe acl id (pre compact): $duplicateAclId[0] or $duplicateAclId[1]"
@@ -1789,7 +1787,6 @@ class PermissionTest extends GalleryTestCase {
 			!in_array($unusedAclId, $aclIds),
 			"Extra unused acl id (post compact): $unusedAclId"
 		);
-
 		$this->assertTrue(
 			count(array_intersect($duplicateAclId, $aclIds)) == 1,
 			"Extra dupe acl id (post compact): $duplicateAclId[0] or $duplicateAclId[1]"
@@ -1824,8 +1821,10 @@ class PermissionTest extends GalleryTestCase {
 		$userId  = 99;
 		$userId2 = $gallery->getActiveUserId();
 		$itemId  = $this->_albums[0]->getId();
+
 		GalleryDataCache::reset();
 		GalleryDataCache::clearPermissionCache();
+
 		$true     = true;
 		$cacheKey = "GalleryPermissionHelper::getPermissions($itemId,$userId,$true)";
 		GalleryDataCache::put(
@@ -2200,19 +2199,20 @@ class PermissionTest extends GalleryTestCase {
 	public function testAddPermissionToSession() {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
+		$session          =& $gallery->getSession();
 		$saveSessionPerms = $session->get(GALLERY_PERMISSION_SESSION_KEY);
 		$session->remove(GALLERY_PERMISSION_SESSION_KEY);
 
 		GalleryCoreApi::addPermissionToSession(12345);
 
 		$results = $session->get(GALLERY_PERMISSION_SESSION_KEY);
+
 		$this->assertEquals(array(12345), $results);
 
 		GalleryCoreApi::addPermissionToSession(67890);
 
 		$results = $session->get(GALLERY_PERMISSION_SESSION_KEY);
+
 		$this->assertEquals(array(12345, 67890), $results);
 
 		$session->put(GALLERY_PERMISSION_SESSION_KEY, $saveSessionPerms);

@@ -39,11 +39,10 @@ class SecureStep extends InstallStep {
 				$templateData['errors']['missingConfigFile'] = 1;
 			} else {
 				// Grab the last 3 characters of the mode for file and parent dir
-				$stat     = stat($configFilePath);
-				$fileMode = substr(sprintf('%o', $stat['mode']), -3);
-				$stat     = stat($_SESSION['configPath']);
-				$dirMode  = substr(sprintf('%o', $stat['mode']), -3);
-
+				$stat                           = stat($configFilePath);
+				$fileMode                       = substr(sprintf('%o', $stat['mode']), -3);
+				$stat                           = stat($_SESSION['configPath']);
+				$dirMode                        = substr(sprintf('%o', $stat['mode']), -3);
 				$templateData['configFilePath'] = realpath($configFilePath);
 				$templateData['file']['mode']   = $fileMode;
 				$templateData['file']['secure'] = !((int)$fileMode[1] & 2 || (int)$fileMode[2] & 2);
@@ -54,8 +53,7 @@ class SecureStep extends InstallStep {
 		}
 
 		$templateData['showFileSystemPermissionWarnings'] = $doFilesystemPermissionCheck;
-
-		$templateData['bodyFile'] = 'Secure.html';
+		$templateData['bodyFile']                         = 'Secure.html';
 		$this->setComplete(true);
 	}
 }

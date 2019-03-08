@@ -51,7 +51,6 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($this->_user);
-
 		$this->_saveUser = $gallery->getActiveUser();
 		$gallery->setActiveUser($this->_user);
 
@@ -415,6 +414,7 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 		}
 
 		$sourceFile = dirname(__DIR__) . '/data/UserWatermarkControllerTestFile.' . $ext;
+
 		GalleryUtilities::putRequestVariable('watermarkId', $this->_watermark->getId());
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[watermarkName]', $this->_watermark->getName());
@@ -464,6 +464,7 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 		}
 
 		$expected = ($postMimeType == 'test/file') ? array('50', '50', $platform->filesize($sourceFile), false) : array('100', '100', $platform->filesize(__FILE__), true);
+
 		$this->assertEquals($expected[0], $this->_watermark->getXPercentage(), 'x');
 		$this->assertEquals($expected[1], $this->_watermark->getYPercentage(), 'y');
 		$this->assertEquals($expected[2], $this->_watermark->getSize(), 'size');

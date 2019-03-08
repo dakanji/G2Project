@@ -44,7 +44,6 @@ class CustomFieldModule extends GalleryModule {
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
-
 		$this->setGroup('data', $gallery->i18n('Extra Data'));
 		$this->setCallbacks('getSiteAdminViews|getItemSummaries');
 	}
@@ -102,6 +101,7 @@ class CustomFieldModule extends GalleryModule {
 	public function getItemSummaries($items, $permissions, &$template) {
 		GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
 		GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.markup.php');
+
 		$summaries = array();
 
 		list($ret, $data) = CustomFieldHelper::getMe()->fetchFieldValues($items, 'summary');

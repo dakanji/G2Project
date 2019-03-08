@@ -38,8 +38,7 @@ class AdminEditUserQuotaController extends GalleryController {
 		}
 
 		$results = $status = $error = array();
-
-		$userId = GalleryUtilities::getRequestVariables('userId');
+		$userId  = GalleryUtilities::getRequestVariables('userId');
 
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 

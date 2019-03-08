@@ -102,6 +102,7 @@ class AdminPluginsView extends GalleryView {
 
 			$platform =& $gallery->getPlatform();
 			$g2Dir    = dirname(dirname(__DIR__)) . '/';
+
 			GalleryCoreApi::requireOnce('modules/core/PluginCallback.inc');
 
 			foreach ($pluginStatus[$type] as $pluginId => $status) {
@@ -111,9 +112,8 @@ class AdminPluginsView extends GalleryView {
 					return array($ret, null);
 				}
 
-				$test1 = $platform->is_writeable("$g2Dir{$type}s/$pluginId");
-				$test2 = $platform->is_writeable("$g2Dir{$type}s/$pluginId/$type.inc");
-
+				$test1                     = $platform->is_writeable("$g2Dir{$type}s/$pluginId");
+				$test2                     = $platform->is_writeable("$g2Dir{$type}s/$pluginId/$type.inc");
 				$entry                     = array();
 				$entry['type']             = $type;
 				$entry['name']             = $plugin->translate($plugin->getName());
@@ -155,7 +155,6 @@ class AdminPluginsView extends GalleryView {
 		}
 
 		usort($plugins, array($this, 'pluginSort'));
-
 		$AdminPlugins            = array();
 		$AdminPlugins['plugins'] = $plugins;
 
@@ -191,7 +190,6 @@ class AdminPluginsView extends GalleryView {
 
 		// Only the codebase install can delete plugins, not multisites
 		$AdminPlugins['canDeletePlugins'] = GALLERY_CONFIG_DIR == dirname(dirname(__DIR__));
-
 		$template->setVariable('AdminPlugins', $AdminPlugins);
 		$template->setVariable('controller', 'core.AdminPlugins');
 		$template->javascript('lib/yui/utilities.js');

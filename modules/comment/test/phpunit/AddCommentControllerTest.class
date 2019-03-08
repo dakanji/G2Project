@@ -191,6 +191,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 
 		// Use valid inputs
 		$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
 		GalleryUtilities::putRequestVariable('form[subject]', 'this is a subject');
@@ -447,12 +448,10 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 			'form[subject]',
 			'this is a subject with <script>evilness</script> in it.'
 		);
-
 		GalleryUtilities::putRequestVariable(
 			'form[comment]',
 			'this is a comment with <div onmouseover="alert(1)">evilness</div> in it.'
 		);
-
 		GalleryUtilities::putRequestVariable(
 			'form[author]',
 			'this is an author with <script>evilness</script> in it.'
@@ -536,7 +535,6 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 			$comments[1]->getSubject(),
 			'html subject'
 		);
-
 		$this->assertEquals(
 			'this is a comment with &lt;div&gt;evilness&lt;/div&gt; in it.',
 			$comments[1]->getComment(),
@@ -582,12 +580,10 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 			'form[subject]',
 			'this is a subject with <script>evilness</script> in it.'
 		);
-
 		GalleryUtilities::putRequestVariable(
 			'form[comment]',
 			'this is a comment with <div onmouseover="alert(1)">evilness</div> in it.'
 		);
-
 		GalleryUtilities::putRequestVariable(
 			'form[author]',
 			'this is an author with <script>evilness</script> in it.'
@@ -647,7 +643,6 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 				$comments[0]->getCommenterId(),
 				'user 1'
 			);
-
 			$this->assertEquals($_SERVER['REMOTE_ADDR'], $comments[0]->getHost(), 'host 1');
 			$this->assertTrue(
 				$comments[0]->getDate() >= $this->_startTime
@@ -686,7 +681,6 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_controller->_pluginInstances = array(new AddCommentTestValidation());
-
 		global $gallery;
 
 		$this->_becomeGuestUser();
@@ -728,7 +722,6 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_controller->_pluginInstances = array(new AddCommentTestValidation());
-
 		global $gallery;
 
 		$gallery->setConfig('anonymousUserId', $gallery->getActiveUserId());
@@ -754,7 +747,6 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 
 	public function testValidationPluginOff() {
 		$this->_controller->_pluginInstances = array(new AddCommentTestValidation());
-
 		global $gallery;
 
 		$this->_becomeGuestUser();
@@ -818,6 +810,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 
 		// Use valid inputs
 		$itemId = $this->_item->getId();
+
 		GalleryUtilities::putRequestVariable('itemId', $itemId);
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
 		GalleryUtilities::putRequestVariable('form[subject]', 'this is a subject');
@@ -837,6 +830,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we fail
 		$results = $this->handleRequest(ERROR_MISSING_OBJECT);
+
 		$this->assertEquals(null, $results, 'controller results');
 
 		list($ret, $comments) = GalleryCommentHelper::getMe()->fetchComments($this->_item->getId());
@@ -869,6 +863,7 @@ class CommentTestPhpVm {
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryValidationPlugin.class');
+
 class AddCommentTestValidation extends GalleryValidationPlugin {
 	public function performValidation(&$form, $options = array()) {
 		return array(

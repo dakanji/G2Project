@@ -153,7 +153,6 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
-
 		$this->assertEquals(
 			'zzz\\z&amp;zz&quot;zz',
 			$data['titles'][$this->_album->getId()],
@@ -227,7 +226,6 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
-
 		$this->assertEquals(
 			'zzz\\z&amp;zz&quot;zz',
 			$data['titles'][$this->_album->getId()],
@@ -329,7 +327,6 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
-
 		$this->assertEquals(
 			'zzz\\z&amp;zz&quot;zz',
 			$data['titles'][$this->_album->getId()],
@@ -355,6 +352,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($i < count($tree), 'test album not found');
+
 		$albumNode = $tree[$i]['nodeId'];
 		$this->assertEquals(
 			array(
@@ -393,6 +391,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		$smarty    = new GallerySmarty();
 		$callbacks = new AlbumSelectCallbacks();
+
 		GalleryDataCache::setFileCachingEnabled(true);
 
 		$ret = $this->_registerEventListener('GalleryEntity::save', 'AlbumSelectModule');
@@ -585,9 +584,8 @@ class AlbumSelectTest extends GalleryTestCase {
 		$baseUrl                = $urlGenerator->getCurrentUrlDir();
 		$serverUrl              = $urlGenerator->makeUrl('/');
 		$_SERVER['REQUEST_URI'] = substr($baseUrl, strlen($serverUrl) - 1) . GALLERY_MAIN_PHP;
-
-		$smarty    = new GallerySmarty();
-		$callbacks = new AlbumSelectCallbacks();
+		$smarty                 = new GallerySmarty();
+		$callbacks              = new AlbumSelectCallbacks();
 
 		$ret = $callbacks->callback(
 			array(
@@ -619,6 +617,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		$session =& $gallery->getSession();
 
 		GalleryDataCache::setFileCachingEnabled(true);
+
 		$smarty    = new GallerySmarty();
 		$callbacks = new AlbumSelectCallbacks();
 
@@ -707,6 +706,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 	public function _assertAlbumTreeData($smarty, $message, $withSubAlbum2 = true) {
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
+
 		$this->assertFalse(empty($data['tree']), 'tree');
 
 		// Test album and its subalbums should be last 3 (2) tree items: subalbums 1,(2,)3

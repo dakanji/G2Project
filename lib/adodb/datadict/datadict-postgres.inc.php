@@ -398,7 +398,6 @@ class ADODB2_postgres extends ADODB_DataDict {
 		}
 
 		$copyflds = implode(', ', $copyflds);
-
 		$tempname = $tabname . '_tmp';
 		$aSql[]   = 'BEGIN';      // we use a transaction, to make sure not to loose the content of the table
 		$aSql[]   = "SELECT * INTO TEMPORARY TABLE $tempname FROM $tabname";
@@ -434,8 +433,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 	}
 
 	public function DropTableSQL($tabname) {
-		$sql = ADODB_DataDict::DropTableSQL($tabname);
-
+		$sql      = ADODB_DataDict::DropTableSQL($tabname);
 		$drop_seq = $this->_DropAutoIncrement($tabname);
 
 		if ($drop_seq) {
@@ -475,8 +473,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 	// this is still necessary if postgres < 7.3 or the SERIAL was created on an earlier version!!!
 	public function _DropAutoIncrement($tabname) {
 		$tabname = $this->connection->quote('%' . $tabname . '%');
-
-		$seq = $this->connection->GetOne("SELECT relname FROM pg_class WHERE NOT relname ~ 'pg_.*' AND relname LIKE $tabname AND relkind='S'");
+		$seq     = $this->connection->GetOne("SELECT relname FROM pg_class WHERE NOT relname ~ 'pg_.*' AND relname LIKE $tabname AND relkind='S'");
 
 		// check if a tables depends on the sequenz and it therefor cant and dont need to be droped separatly
 		if (!$seq || $this->connection->GetOne("SELECT relname FROM pg_class JOIN pg_depend ON pg_class.relfilenode=pg_depend.objid WHERE relname='$seq' AND relkind='S' AND deptype='i'")) {
@@ -548,8 +545,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 		}
 
 		$unique = isset($idxoptions['UNIQUE']) ? ' UNIQUE' : '';
-
-		$s = 'CREATE' . $unique . ' INDEX ' . $idxname . ' ON ' . $tabname . ' ';
+		$s      = 'CREATE' . $unique . ' INDEX ' . $idxname . ' ON ' . $tabname . ' ';
 
 		if (isset($idxoptions['HASH'])) {
 			$s .= 'USING HASH ';

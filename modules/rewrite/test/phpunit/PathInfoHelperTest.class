@@ -28,6 +28,7 @@
  * @version $Revision: 20940 $
  */
 GalleryCoreApi::requireOnce('modules/rewrite/classes/parsers/pathinfo/PathInfoHelper.class');
+
 class PathInfoHelperTest extends GalleryTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName);

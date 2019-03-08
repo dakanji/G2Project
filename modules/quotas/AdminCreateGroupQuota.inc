@@ -38,7 +38,6 @@ class AdminCreateGroupQuotaController extends GalleryController {
 		}
 
 		$results = $status = $error = array();
-
 		$groupId = GalleryUtilities::getRequestVariables('groupId');
 
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
@@ -167,9 +166,8 @@ class AdminCreateGroupQuotaView extends GalleryView {
 			$form['formName']  = 'AdminCreateGroupQuota';
 		}
 
-		$form['groupName'] = $group->getGroupName();
-		$form['groupId']   = $group->getId();
-
+		$form['groupName']                = $group->getGroupName();
+		$form['groupId']                  = $group->getId();
 		$AdminCreateGroupQuota            = array();
 		$AdminCreateGroupQuota['groupId'] = $group->getId();
 

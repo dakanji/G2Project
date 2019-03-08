@@ -114,6 +114,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[linkedAlbumId]', $this->_album->getId());
 
 		$results = $this->handleRequest($this->_album);
+
 		$this->assertEquals(array(), $results[0], 'no error');
 		$this->assertEquals(array('addedFiles'), array_keys($results[1]), 'addedFiles');
 		$this->assertEquals(1, count($results[1]['addedFiles']), '1 file');
@@ -122,7 +123,6 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 			array_keys($results[1]['addedFiles'][0]),
 			'key'
 		);
-
 		$this->assertEquals(
 			$this->_album->getTitle(),
 			$results[1]['addedFiles'][0]['fileName'],
@@ -153,7 +153,9 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		}
 
 		$this->assertEquals(array($childIds[0]), array_keys($thumbnailTable), 'thumbnail table');
+
 		$thumbnail = $thumbnailTable[$childIds[0]];
+
 		$this->assertEquals($highlight->getId(), $thumbnail->getDerivativeSourceId(), 'src');
 		$this->assertEquals('thumbnail|123', $thumbnail->getDerivativeOperations(), 'op');
 
@@ -171,6 +173,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[linkedAlbumId]', $this->_album->getId());
 
 		$results = $this->handleRequest($this->_album);
+
 		$this->assertEquals(array(), $results[0], 'no error');
 		$this->assertEquals(1, count($results[1]['addedFiles']), '1 file');
 
@@ -192,6 +195,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 
 		if (!empty($thumbnailTable[$childIds[0]])) {
 			$thumbnail = $thumbnailTable[$childIds[0]];
+
 			$this->assertEquals($childIds[0], $thumbnail->getDerivativeSourceId(), 'src');
 			$this->assertEquals(
 				'convert-to-image/jpeg;thumbnail|123',
@@ -209,6 +213,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[linkedAlbumId]', -123);
 
 		$results = $this->handleRequest($this->_album);
+
 		$this->assertEquals(array('form[error][linkedAlbumId][invalid]'), $results[0], 'error');
 		$this->assertEquals(array(), $results[1], 'status');
 	}
@@ -224,6 +229,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[linkType]', 'url');
 		GalleryUtilities::putRequestVariable('form[linkUrl]', 'http://test.com/test.html');
 		$results = $this->handleRequest($this->_album);
+
 		$this->assertEquals(array(), $results[0], 'no error');
 		$this->assertEquals(array('addedFiles'), array_keys($results[1]), 'addedFiles');
 		$this->assertEquals(1, count($results[1]['addedFiles']), '1 file');
@@ -232,7 +238,6 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 			array_keys($results[1]['addedFiles'][0]),
 			'key'
 		);
-
 		$this->assertEquals('test.html', $results[1]['addedFiles'][0]['fileName'], 'fileName');
 
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
@@ -261,6 +266,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 
 		if (!empty($thumbnailTable[$childIds[0]])) {
 			$thumbnail = $thumbnailTable[$childIds[0]];
+
 			$this->assertEquals($childIds[0], $thumbnail->getDerivativeSourceId(), 'src');
 			$this->assertEquals(
 				'convert-to-image/jpeg;thumbnail|123',
@@ -285,6 +291,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[linkUrl]', '');
 
 		$results = $this->handleRequest($this->_album);
+
 		$this->assertEquals(array('form[error][linkUrl][missing]'), $results[0], 'error');
 		$this->assertEquals(array(), $results[1], 'status');
 	}

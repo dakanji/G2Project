@@ -36,8 +36,7 @@ require_once $g2Base . 'modules/core/classes/GalleryUtilities.class';
 require_once $g2Base . 'lib/support/SupportStatusTemplate.class';
 
 $templateData = array();
-
-$template = new SupportStatusTemplate('Database Import');
+$template     = new SupportStatusTemplate('Database Import');
 
 if (defined('GALLERY_CONFIG_DIR')) {
 	$configFilePath = GALLERY_CONFIG_DIR . '/config.php';
@@ -60,9 +59,8 @@ $ret = GalleryEmbed::init(
 if ($ret) {
 	$templateData['errors'][] = $ret->getAsHtml();
 } else {
-	$platform =& $gallery->getPlatform();
-	$storage  =& $gallery->getStorage();
-
+	$platform                 =& $gallery->getPlatform();
+	$storage                  =& $gallery->getStorage();
 	$templateData['warnings'] = array();
 
 	if (isset($_REQUEST['importDatabase'])) {
@@ -158,8 +156,7 @@ function verifyVersions(&$templateData, $importFile) {
 	global $gallery;
 	global $template;
 
-	$storage =& $gallery->getStorage();
-
+	$storage  =& $gallery->getStorage();
 	$importer = $storage->getDatabaseImporter();
 	$errors   = $importer->verifyVersions($importFile);
 
@@ -195,18 +192,15 @@ function verifyVersions(&$templateData, $importFile) {
 function getBackupFiles(&$templateData) {
 	global $gallery;
 
-	$platform =& $gallery->getPlatform();
-
+	$platform    =& $gallery->getPlatform();
 	$backupFiles = $gallery->getConfig('data.gallery.backup') . '*.xml';
-
-	$files = array();
+	$files       = array();
 
 	foreach ($platform->glob($backupFiles) as $fileName) {
 		$files[filectime($fileName) . $fileName] = $fileName;
 	}
 
 	krsort($files);
-
 	$templateData['backupFiles'] = $files;
 
 	if (count($files) == 0) {

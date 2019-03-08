@@ -274,8 +274,7 @@ class DownloadItemView extends GalleryView {
 	public function _assertPermissions($item, $derivativeType) {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
+		$session             =& $gallery->getSession();
 		$itemIdForPermission = $item->getId();
 
 		if (!empty($derivativeType)) {

@@ -313,7 +313,6 @@ class GalleryTranslator {
 			// Some systems only require LANG, some (like Mandrake) seem to require LANGUAGE also
 			putenv("LANG=${languageCode}");
 			putenv("LANGUAGE=${languageCode}");
-
 			$this->_setlocale(LC_ALL, $languageCode);
 		}
 

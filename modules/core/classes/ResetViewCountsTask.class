@@ -66,8 +66,7 @@ class ResetViewCountsTask extends FlushDatabaseCacheTask {
 	public function run() {
 		global $gallery;
 
-		$storage =& $gallery->getStorage();
-
+		$storage    =& $gallery->getStorage();
 		$resetCount = '
 	UPDATE [GalleryItemAttributesMap] SET [::viewCount] = 0
 	';

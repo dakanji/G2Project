@@ -288,7 +288,6 @@ class dbTable extends dbObject {
 				$fieldType = $attributes['TYPE'];
 				$fieldSize = isset($attributes['SIZE']) ? $attributes['SIZE'] : null;
 				$fieldOpts = isset($attributes['OPTS']) ? $attributes['OPTS'] : null;
-
 				$this->addField($fieldName, $fieldType, $fieldSize, $fieldOpts);
 
 				break;
@@ -675,8 +674,7 @@ class dbIndex extends dbObject {
 	 */
 	public function __construct(&$parent, $attributes = null) {
 		$this->parent = $parent;
-
-		$this->name = $this->prefix($attributes['NAME']);
+		$this->name   = $this->prefix($attributes['NAME']);
 	}
 
 	/**
@@ -811,7 +809,6 @@ class dbIndex extends dbObject {
  */
 class dbData extends dbObject {
 	public $data = array();
-
 	public $row;
 
 	/**
@@ -1174,7 +1171,6 @@ class dbQuerySet extends dbObject {
 		}
 
 		$this->queries[] = $return = trim($this->query);
-
 		unset($this->query);
 
 		return $return;
@@ -1517,8 +1513,7 @@ class adoSchema {
 		}
 
 		$this->success = 2;
-
-		$xmlParser = $this->create_parser();
+		$xmlParser     = $this->create_parser();
 
 		// Process the file
 		while ($data = fread($fp, 4096)) {
@@ -1564,8 +1559,7 @@ class adoSchema {
 		}
 
 		$this->success = 2;
-
-		$xmlParser = $this->create_parser();
+		$xmlParser     = $this->create_parser();
 
 		if (!xml_parse($xmlParser, $xmlstring, true)) {
 			die(
@@ -1886,7 +1880,6 @@ class adoSchema {
 
 		// process the schema
 		$result = xslt_process($xh, 'arg:/_xml', 'arg:/_xsl', null, $arguments);
-
 		xslt_free($xh);
 
 		return $result;
@@ -1945,7 +1938,6 @@ class adoSchema {
 		}
 
 		$error_details .= '</table>';
-
 		trigger_error($error_details, E_USER_ERROR);
 	}
 
@@ -2008,8 +2000,7 @@ class adoSchema {
 	 */
 	public function ExtractSchema($data = false) {
 		$old_mode = $this->db->SetFetchMode(ADODB_FETCH_NUM);
-
-		$schema = '<?xml version="1.0"?>' . "\n"
+		$schema   = '<?xml version="1.0"?>' . "\n"
 				. '<schema version="' . $this->schemaVersion . '">' . "\n";
 
 		if (is_array($tables = $this->db->MetaTables('TABLES'))) {
@@ -2048,8 +2039,7 @@ class adoSchema {
 						// AUTOINCREMENT is used to create auto columns
 						$details->primary_key = 0;
 						$type                 = $rs->MetaType($details);
-
-						$schema .= '		<field name="' . $details->name . '" type="' . $type . '"' . $extra . '>';
+						$schema              .= '		<field name="' . $details->name . '" type="' . $type . '"' . $extra . '>';
 
 						if (!empty($content)) {
 							$schema .= "\n			" . implode("\n			", $content) . "\n		";
@@ -2098,7 +2088,6 @@ class adoSchema {
 		}
 
 		$this->db->SetFetchMode($old_mode);
-
 		$schema .= '</schema>';
 
 		return $schema;
@@ -2296,7 +2285,6 @@ function logMsg($msg, $title = null, $force = false) {
 		}
 
 		print_r($msg);
-
 		echo '</pre>';
 	}
 }

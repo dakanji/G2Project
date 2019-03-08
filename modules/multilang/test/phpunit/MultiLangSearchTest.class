@@ -248,7 +248,6 @@ class MultiLangSearchTest extends GalleryTestCase {
 		$title       = $this->_module->translate('Title');
 		$summary     = $this->_module->translate('Summary');
 		$description = $this->_module->translate('Description');
-
 		$this->assertEquals(
 			array(
 				'start'   => 1,
@@ -316,7 +315,6 @@ class MultiLangSearchTest extends GalleryTestCase {
 		$title       = $this->_module->translate('Title');
 		$summary     = $this->_module->translate('Summary');
 		$description = $this->_module->translate('Description');
-
 		$this->assertEquals(
 			array(
 				'start'   => 2,

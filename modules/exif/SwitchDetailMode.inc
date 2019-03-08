@@ -43,7 +43,6 @@ class SwitchDetailModeController extends GalleryController {
 		// Store the new mode in the session
 		$session =& $gallery->getSession();
 		$session->put('exif.module.LoadExifInfo.mode', $mode);
-
 		$results['return']           = 1;
 		$results['redirect']['view'] = 'core.ShowItem';
 		$results['status']           = array();
@@ -100,6 +99,7 @@ class SwitchDetailModeView extends GalleryView {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$template = new GalleryTemplate(dirname(dirname(__DIR__)));
 		$template->setVariable('l10Domain', 'modules_exif');
 		$template->setVariable('ajax', true);

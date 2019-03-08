@@ -55,12 +55,12 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 		if (!$ret) {
 			if (isset($moduleStatus['captcha']) && !empty($moduleStatus['captcha']['active'])) {
 				$sql = '
-				UPDATE
-				[PluginMap]
-				SET
-				[::active] = ?,
-				WHERE
-				[::pluginId] = ?
+					UPDATE
+						[PluginMap]
+					SET
+						[::active] = ?,
+					WHERE
+						[::pluginId] = ?
 				';
 
 				$ret = $storage->execute($sql, array(0, 'captcha'));
@@ -82,12 +82,12 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 			} else {
 				// Build and execute the query
 				$sql = '
-				UPDATE
-				[GalleryUser]
-				SET
-				[GalleryUser::userName] = ?,
-				WHERE
-				[GalleryUser::id] = ?
+					UPDATE
+						[GalleryUser]
+					SET
+						[GalleryUser::userName] = ?,
+					WHERE
+						[GalleryUser::id] = ?
 				';
 
 				$ret = $storage->execute($sql, array($process_user_name, 6));
@@ -111,6 +111,7 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 				list($ret, $user) = $user->refresh();
 
 				GalleryUtilities::unsanitizeInputValues($process_password_string, false);
+
 				$user->changePassword($process_password_string);
 
 				$ret = $user->save();
@@ -301,8 +302,8 @@ if (!isset($output)) {
 
 // Deactivate G2 API Framework
 GalleryEmbed::done();
-?>
 
+?>
 <html lang="en">
 <head>
 	<title>Gallery Support | Password Reset</title>

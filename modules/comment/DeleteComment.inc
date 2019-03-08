@@ -39,8 +39,7 @@ class DeleteCommentController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$itemId = $item->getId();
-
+		$itemId    = $item->getId();
 		$commentId = (int)GalleryUtilities::getRequestVariables('commentId');
 
 		// Make sure we have permission to delete a comment

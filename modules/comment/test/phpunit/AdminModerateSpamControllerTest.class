@@ -105,6 +105,7 @@ class AdminModerateSpamControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('form[action][deleteAllSpam]', 1);
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

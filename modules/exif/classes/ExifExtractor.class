@@ -69,6 +69,7 @@ class ExifExtractor extends ExifInterface_1_0 {
 
 			$data[$itemId] = array();
 			$rawExifData   = read_exif_data_raw($path, false);
+
 			GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 
 			list($ret, $iptcObj) = ExifHelper::getIptcObject($path);
@@ -96,8 +97,7 @@ class ExifExtractor extends ExifInterface_1_0 {
 					}
 
 					if (isset($value)) {
-						$value = ExifHelper::postProcessValue($property, $value);
-
+						$value                    = ExifHelper::postProcessValue($property, $value);
 						$data[$itemId][$property] = array(
 							'title' => $keyData[0],
 							'value' => $value,

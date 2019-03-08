@@ -120,8 +120,7 @@ function PivotTableSQL(
 
 	// Strip aliases
 	$rowfields = preg_replace('/ AS (\w+)/i', '', $rowfields);
-
-	$sql = "SELECT $sel \nFROM $tables $where \nGROUP BY $rowfields";
+	$sql       = "SELECT $sel \nFROM $tables $where \nGROUP BY $rowfields";
 
 	return $sql;
 }

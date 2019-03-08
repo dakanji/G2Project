@@ -80,7 +80,6 @@ class GalleryPluginHelper_simple {
 
 				$pluginBaseDir = GalleryCoreApi::getCodeBasePath();
 				$pluginFile    = sprintf('%ss/%s/%s.inc', $pluginType, $pluginId, $pluginType);
-
 				GalleryCoreApi::requireOnce(
 					sprintf('modules/core/classes/%s.class', $pluginSuperClass)
 				);
@@ -96,7 +95,6 @@ class GalleryPluginHelper_simple {
 						GalleryDataCache::remove(
 							"GalleryPluginHelper::fetchPluginStatus($pluginType)"
 						);
-
 						GalleryDataCache::removeFromDisk(
 							array(
 								'type'   => $pluginType,
@@ -393,6 +391,7 @@ class GalleryPluginHelper_simple {
 
 				if (isset($cacheData)) {
 					$data[$itemId] = $cacheData;
+
 					GalleryDataCache::put($cacheKey, $cacheData);
 
 					continue;
@@ -446,7 +445,6 @@ class GalleryPluginHelper_simple {
 				),
 				$data[$itemId]
 			);
-
 			GalleryDataCache::put($cacheBase . $itemId . ')', $data[$itemId]);
 		}
 
@@ -479,8 +477,7 @@ class GalleryPluginHelper_simple {
 					return array($ret, null);
 				}
 
-				$platform =& $gallery->getPlatform();
-
+				$platform            =& $gallery->getPlatform();
 				$pluginBaseIndexFile = sprintf(
 					'%sindex.%ss',
 					$gallery->getConfig('data.gallery.plugins'),
@@ -518,8 +515,7 @@ class GalleryPluginHelper_simple {
 
 				$frameworkParams   = array('version', 'callbacks', 'requiredCoreApi');
 				$frameworkParams[] = ($pluginType == 'module') ? 'requiredModuleApi' : 'requiredThemeApi';
-
-				$pluginBasePath = GalleryCoreApi::getCodeBasePath($pluginsDir);
+				$pluginBasePath    = GalleryCoreApi::getCodeBasePath($pluginsDir);
 
 				if ($dir = $platform->opendir($pluginBasePath)) {
 					while ($pluginId = $platform->readdir($dir)) {

@@ -448,8 +448,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 	public function save($postEvent = true, $x1 = null) {
 		global $gallery;
 
-		$isNew = $this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
-
+		$isNew         = $this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
 		$changedParent = $this->isModified('parentId');
 
 		if ($changedParent) {

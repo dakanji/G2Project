@@ -303,6 +303,7 @@ class RewriteApiTest extends GalleryTestCase {
 
 		// Verify the results
 		$this->assertTrue($success, 'should have succeeded');
+
 		$expectedRules[$moduleId]['rule2'] = array(
 			'pattern' => '123',
 		);
@@ -425,9 +426,8 @@ class RewriteApiTest extends GalleryTestCase {
 		$hasActiveRulesForModule = false,
 		$hasHistory = false
 	) {
-		$module   = new RewriteApiMockModule();
-		$moduleId = $module->getId();
-
+		$module      = new RewriteApiMockModule();
+		$moduleId    = $module->getId();
 		$activeRules = array(
 			'a' => array(
 				'r1' => array(
@@ -493,6 +493,7 @@ class RewriteApiTest extends GalleryTestCase {
  * Mock rewrite parser for this test
  */
 GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteParser.class');
+
 class RewriteApiMockParser extends RewriteParser {
 	public function __construct() {
 		$this->_setParserId('rewriteapimock');
@@ -533,7 +534,6 @@ class RewriteApiMockParser extends RewriteParser {
 		}
 
 		$returnCode = $activeRules['returnCode'];
-
 		unset($activeRules['returnCode']);
 		$_SERVER['saveActiveRules'] = $activeRules;
 

@@ -41,6 +41,7 @@ class RepositoryControllerAndView {
 	 */
 	public function init() {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$this->_template = new GalleryTemplate(__DIR__ . '/../../../..');
 
 		// Set the translation domain
@@ -67,8 +68,7 @@ class RepositoryControllerAndView {
 		// Calculate template file name and verify that it exists.
 		$viewFileRelative = $gallery->getConfig('repository.templates') . $view . '.tpl';
 		$viewFile         = __DIR__ . '/../../../../' . $viewFileRelative;
-
-		$platform =& $gallery->getPlatform();
+		$platform         =& $gallery->getPlatform();
 
 		if (!$platform->file_exists($viewFile)) {
 			return GalleryCoreApi::error(

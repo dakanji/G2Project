@@ -189,6 +189,7 @@ class MimeTest extends GalleryTestCase {
 		}
 
 		sort($exts);
+
 		$this->assertEquals(array('xxx', 'yyy'), $exts);
 
 		list($ret, $exts) = GalleryCoreApi::convertMimeToExtensions('test/Test');
@@ -198,6 +199,7 @@ class MimeTest extends GalleryTestCase {
 		}
 
 		sort($exts);
+
 		$this->assertEquals(array('xxx', 'yyy'), $exts);
 
 		// empty list (previously returned wrap(success),null if no mapping found)

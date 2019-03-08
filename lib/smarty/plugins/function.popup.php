@@ -117,15 +117,12 @@ function smarty_function_popup($params, &$smarty) {
 		$trigger = 'onmouseover';
 	}
 
-	$retval = $trigger . '="return overlib(\'' . preg_replace(array("!'!", "![\r\n]!"), array("\'", '\r'), $text) . '\'';
-
+	$retval  = $trigger . '="return overlib(\'' . preg_replace(array("!'!", "![\r\n]!"), array("\'", '\r'), $text) . '\'';
 	$retval .= $append . ');
-
 "';
 
 	if ($trigger == 'onmouseover') {
 		$retval .= ' onmouseout="nd();
-
 "';
 	}
 

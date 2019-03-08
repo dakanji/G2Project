@@ -43,7 +43,6 @@ class CoreModule extends GalleryModule {
 		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
 		$this->setGalleryVersion('2.4.0');
-
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks(
 			'getItemLinks|getSystemLinks|getItemAdminViews|getSiteAdminViews|getUserAdminViews'
@@ -587,7 +586,6 @@ class CoreModule extends GalleryModule {
 		}
 
 		$hasThumb = !empty($thumbTable[$item->getId()]);
-
 		$parentId = $item->getParentId();
 
 		list($ret, $parentPermissions) = GalleryCoreApi::getPermissions($parentId);
@@ -796,6 +794,7 @@ class CoreModule extends GalleryModule {
 				if (count($versionArray) >= 2) {
 					$versions['core']    = rtrim($versionArray[0]);
 					$versions['gallery'] = rtrim($versionArray[1]);
+
 					GalleryDataCache::put('CoreModule::installedVersions', $versions, true);
 
 					if (isset($versionArray[2])) {

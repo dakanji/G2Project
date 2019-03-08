@@ -68,6 +68,7 @@ class AdminFfmpegController extends GalleryController {
 						} else {
 							// Got a match
 							$form['path'] = $path;
+
 							GalleryUtilities::putRequestVariable('form.path', $path);
 						}
 					}
@@ -262,7 +263,8 @@ class AdminFfmpegController extends GalleryController {
 	}
 
 	public function _addWatermark(&$thumbnail) {
-		static $op  = 'composite|plugins_data/modules/ffmpeg/filmreel.png,image/png,12,399';
+		static $op = 'composite|plugins_data/modules/ffmpeg/filmreel.png,image/png,12,399';
+
 		$operations = $thumbnail->getDerivativeOperations();
 
 		if (strpos($operations, 'filmreel.png') === false) {

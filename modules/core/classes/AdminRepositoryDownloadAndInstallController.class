@@ -85,15 +85,13 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 		list($ret, $sourcedFiles) = $this->_createDownloadFileList($installPackages, $repositories);
 
 		$totalActions = $this->_countInstallActions($sourcedFiles);
-
-		$status = array(
+		$status       = array(
 			'error' => array(),
 		);
 
 		// Download files.
 		$currentAction = 0;
-
-		$callback = array(
+		$callback      = array(
 			'method'  => array($templateAdapter, 'updateProgressBar'),
 			'title'   => $titleText,
 			'current' => 0,
@@ -105,9 +103,8 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 
 			foreach ($files as $pluginType => $plugins) {
 				foreach ($plugins as $pluginId => $pluginDownloadData) {
-					$packageUrls = $pluginDownloadData['files'];
-					$pluginName  = $pluginDownloadData['name'];
-
+					$packageUrls    = $pluginDownloadData['files'];
+					$pluginName     = $pluginDownloadData['name'];
 					$downloadStatus = array();
 
 					list($ret, $reactivatePlugin, $downloadStatus) = $repository->downloadPackagesForPlugin(
@@ -149,7 +146,6 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 					);
 
 					$repository->removeObsoleteFiles($pluginType, $pluginId);
-
 					$templateAdapter->updateProgressBar(
 						$titleText,
 						sprintf($module->translate('Activating %s'), $pluginName),
@@ -231,7 +227,6 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 		// Show link to return to the previously selected tab.
 		$redirect['view']    = 'core.SiteAdmin';
 		$redirect['subView'] = 'core.AdminRepository';
-
 		$session->putStatus($status);
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect), true);
@@ -364,8 +359,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$platform        =& $gallery->getPlatform();
-
-		$status = array();
+		$status          = array();
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
@@ -426,7 +420,6 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 		foreach (array('module', 'theme') as $pluginType) {
 			foreach (array_keys($pluginStatus[$pluginType]) as $pluginId) {
 				$gallery->guaranteeTimeLimit(30);
-
 				$templateAdapter->updateProgressBar(
 					$heading,
 					$pluginType . $sSlash . $pluginId,
@@ -462,7 +455,6 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 
 		$session =& $gallery->getSession();
 		$session->putStatus($status);
-
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect), true);
 

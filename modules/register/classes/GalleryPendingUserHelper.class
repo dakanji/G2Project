@@ -191,7 +191,9 @@ class GalleryPendingUserHelper {
 		}
 
 		$decodedUserName = $pendingUser->getUserName();
+
 		GalleryUtilities::unsanitizeInputValues($decodedUserName, false);
+
 		$generator       =& $gallery->getUrlGenerator();
 		$confirmationUrl = $generator->generateUrl(
 			array(
@@ -333,8 +335,8 @@ class GalleryPendingUserHelper {
 
 			$currentLanguageCode = $defaultLanguageCode;
 			$translator          =& $gallery->getTranslator();
+			$decodedUserName     = $pendingUser->getUserName();
 
-			$decodedUserName = $pendingUser->getUserName();
 			GalleryUtilities::unsanitizeInputValues($decodedUserName, false);
 
 			foreach ($toList as $index => $to) {

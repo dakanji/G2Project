@@ -187,9 +187,8 @@ class GalleryPlatform {
 			$gallery->debug("tempnam($dir, $prefix)");
 		}
 
-		$slash = $this->getDirectorySeparator();
-		$dir   = $dir[strlen($dir) - 1] == $slash ? substr($dir, 0, strlen($dir) - 1) : $dir;
-
+		$slash    = $this->getDirectorySeparator();
+		$dir      = $dir[strlen($dir) - 1] == $slash ? substr($dir, 0, strlen($dir) - 1) : $dir;
 		$tempfile = tempnam($dir, $prefix);
 
 		if ($tempfile !== false) {
@@ -730,14 +729,14 @@ class GalleryPlatform {
 			 * uploading files like 'foo.php.jpg' which will be treated like a JPEG by Gallery, but
 			 * could be treated like a .php file by Apache opening a security hole.
 			 */
-			$fileBase = str_replace('.', '_', $fileBase);
-
+			$fileBase     = str_replace('.', '_', $fileBase);
 			$blacklistKey = 'GalleryPlatform::blacklistedFileExtensions';
 
 			if (GalleryDataCache::containsKey($blacklistKey)) {
 				$blacklistedExtensions = GalleryDataCache::get($blacklistKey);
 			} else {
 				$blacklistedExtensions = array_flip($this->_blacklistedFileExtensions);
+
 				GalleryDataCache::put($blacklistKey, $blacklistedExtensions);
 			}
 
@@ -1252,7 +1251,8 @@ class GalleryPlatform {
 	 * @access private
 	 */
 	public function _loadPermissionPreferences() {
-		static $cacheKey  = 'GalleryPlatform::_loadPermissionPreferences';
+		static $cacheKey = 'GalleryPlatform::_loadPermissionPreferences';
+
 		$this->_filePerms = 0644;
 		$this->_dirPerms  = 0755;
 

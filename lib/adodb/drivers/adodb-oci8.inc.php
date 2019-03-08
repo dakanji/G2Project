@@ -1,18 +1,14 @@
 <?php
 
 /*
-
   @version   v5.20.12  30-Mar-2018
   @copyright (c) 2000-2013 John Lim. All rights reserved.
   @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
-
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
-
   Latest version is available at http://adodb.sourceforge.net
   Code contributed by George Fourlanos <fou@infomap.gr>
-
   13 Nov 2000 jlim - removed all ora_* references.
 */
 
@@ -29,16 +25,13 @@ tests the string to see if it matches the formats of Oracle, SQL-92, or the valu
 specified for this parameter in the POLITE.INI file. Setting this parameter also
 defines the default format used in the TO_CHAR or TO_DATE functions when no
 other format string is supplied.
-
 For Oracle the default is dd-mon-yy or dd-mon-yyyy, and for SQL-92 the default is
 yy-mm-dd or yyyy-mm-dd.
-
 Using 'RR' in the format forces two-digit years less than or equal to 49 to be
 interpreted as years in the 21st century (2000-2049), and years over 50 as years in
 the 20th century (1950-1999). Setting the RR format as the default for all two-digit
 year entries allows you to become year-2000 compliant. For example:
 NLS_DATE_FORMAT='RR-MM-DD'
-
 You can also modify the date format using the ALTER SESSION command.
 */
 
@@ -128,7 +121,6 @@ END;
 
 		$schema = '';
 		$this->_findschema($table, $schema);
-
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
@@ -438,8 +430,7 @@ END;
 
 		// get Primary index
 		$primary_key = '';
-
-		$rs = $this->Execute(sprintf("SELECT * FROM ALL_CONSTRAINTS WHERE UPPER(TABLE_NAME)='%s' AND CONSTRAINT_TYPE='P'", $table));
+		$rs          = $this->Execute(sprintf("SELECT * FROM ALL_CONSTRAINTS WHERE UPPER(TABLE_NAME)='%s' AND CONSTRAINT_TYPE='P'", $table));
 
 		if (!is_object($rs)) {
 			if (isset($savem)) {
@@ -630,8 +621,7 @@ END;
 			$col = $this->sysTimeStamp;
 		}
 
-		$s = 'TO_CHAR(' . $col . ",'";
-
+		$s   = 'TO_CHAR(' . $col . ",'";
 		$len = strlen($fmt);
 
 		for ($i = 0; $i < $len; $i++) {
@@ -851,7 +841,6 @@ END;
 		}
 
 		$result = false;
-
 		oci_free_statement($stmt);
 		$fields = implode(',', $cols);
 
@@ -986,7 +975,6 @@ END;
 
 		$desc        = oci_new_descriptor($this->_connectionID, OCI_D_LOB);
 		$arr['blob'] = array($desc, -1, $type);
-
 		$this->BeginTrans();
 		$rs = self::Execute($sql, $arr);
 
@@ -1129,8 +1117,7 @@ END;
 		}
 
 		$BINDNUM += 1;
-
-		$sttype = @oci_statement_type($stmt);
+		$sttype   = @oci_statement_type($stmt);
 
 		if ($sttype == 'BEGIN' || $sttype == 'DECLARE') {
 			return array($sql, $stmt, 0, $BINDNUM, ($cursor) ? oci_new_cursor($this->_connectionID) : false);
@@ -1142,16 +1129,13 @@ END;
 	/*
 		Call an oracle stored procedure and returns a cursor variable as a recordset.
 		Concept by Robert Tuttle robert@ud.com
-
 		Example:
 			Note: we return a cursor variable in :RS2
 			$rs = $db->ExecuteCursor("BEGIN adodb.open_tab(:RS2); END;",'RS2');
-
 			$rs = $db->ExecuteCursor(
 				"BEGIN :RS2 = adodb.getdata(:VAR1); END;",
 				'RS2',
 				array('VAR1' => 'Mr Bean'));
-
 	*/
 	public function ExecuteCursor($sql, $cursorName = 'rs', $params = false) {
 		if (is_array($sql)) {
@@ -1242,9 +1226,8 @@ END;
 			$numlob                          = count($this->_refLOBs);
 			$this->_refLOBs[$numlob]['LOB']  = oci_new_descriptor($this->_connectionID, oci_lob_desc($type));
 			$this->_refLOBs[$numlob]['TYPE'] = $isOutput;
-
-			$tmp = $this->_refLOBs[$numlob]['LOB'];
-			$rez = oci_bind_by_name($stmt[1], ':' . $name, $tmp, -1, $type);
+			$tmp                             = $this->_refLOBs[$numlob]['LOB'];
+			$rez                             = oci_bind_by_name($stmt[1], ':' . $name, $tmp, -1, $type);
 
 			if ($this->debug) {
 				ADOConnection::outp('<b>Bind</b>: descriptor has been allocated, var (' . $name . ') binded');
@@ -1501,7 +1484,6 @@ END;
 		}
 
 		oci_close($this->_connectionID);
-
 		$this->_stmt         = false;
 		$this->_connectionID = false;
 	}
@@ -1530,8 +1512,7 @@ SELECT /*+ RULE */ distinct b.column_name
 	AND (UPPER(a.table_name) = ('$table') and a.constraint_type = 'P')
 	$owner_clause
 	AND (a.constraint_name = b.constraint_name)";
-
-		$rs = $this->Execute($sql);
+		$rs  = $this->Execute($sql);
 
 		if ($rs && !$rs->EOF) {
 			$arr = $rs->GetArray();
@@ -1571,12 +1552,10 @@ SELECT /*+ RULE */ distinct b.column_name
 			$tabp = 'all_';
 		}
 
-		$owner = ' and owner=' . $this->qstr(strtoupper($owner));
-
-		$sql = "select constraint_name,r_owner,r_constraint_name
+		$owner       = ' and owner=' . $this->qstr(strtoupper($owner));
+		$sql         = "select constraint_name,r_owner,r_constraint_name
 	from {$tabp}constraints
 	where constraint_type = 'R' and table_name = $table $owner";
-
 		$constraints = $this->GetArray($sql);
 		$arr         = false;
 

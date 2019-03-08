@@ -41,6 +41,7 @@ class ModuleTest extends GalleryTestCase {
 
 		// Register a new module
 		GalleryDataCache::reset(true);
+
 		$_REQUEST['testCase'] = $this;
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'moduletest');
@@ -733,13 +734,11 @@ class ModuleTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(array(), $redirect, 'deactivate redirect');
-
 		$this->assertEquals(
 			1,
 			count($testEventListener->isOnLoadHandlerRegistered),
 			'number of deactivation events'
 		);
-
 		$this->assertEquals(
 			false,
 			$testEventListener->isOnLoadHandlerRegistered[0],
@@ -760,8 +759,7 @@ class ModuleTest extends GalleryTestCase {
 
 		$groupIds             = array_keys($groupIds);
 		$userOrGroupIdMarkers = GalleryUtilities::makeMarkers(count($groupIds) + 1);
-
-		$storage =& $gallery->getStorage();
+		$storage              =& $gallery->getStorage();
 
 		list($ret, $bitOr) = $storage->getFunctionSql(
 			'BIT_OR',

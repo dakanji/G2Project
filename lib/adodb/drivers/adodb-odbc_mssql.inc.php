@@ -8,7 +8,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
 Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   MSSQL support via ODBC. Requires ODBC. Works on Windows and Unix.
   For Unix configuration, see http://phpbuilder.com/columns/alberto20000919.php3
@@ -93,20 +92,16 @@ class ADODB_odbc_mssql extends ADODB_odbc {
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		$table            = $this->qstr(strtoupper($table));
-
-		$sql = "select object_name(constid) as constraint_name,
+		$sql              = "select object_name(constid) as constraint_name,
 	col_name(fkeyid, fkey) as column_name,
 	object_name(rkeyid) as referenced_table_name,
    	col_name(rkeyid, rkey) as referenced_column_name
 from sysforeignkeys
 where upper(object_name(fkeyid)) = $table
 order by constraint_name, referenced_table_name, keyno";
-
-		$constraints = $this->GetArray($sql);
-
+		$constraints      = $this->GetArray($sql);
 		$ADODB_FETCH_MODE = $save;
-
-		$arr = false;
+		$arr              = false;
 
 		foreach ($constraints as $constr) {
 			//print_r($constr);
@@ -186,10 +181,9 @@ order by constraint_name, referenced_table_name, keyno";
 		$retarr = array();
 
 		while (!$rs->EOF) {
-			$fld       = new ADOFieldObject();
-			$fld->name = $rs->fields[0];
-			$fld->type = $rs->fields[1];
-
+			$fld           = new ADOFieldObject();
+			$fld->name     = $rs->fields[0];
+			$fld->type     = $rs->fields[1];
 			$fld->not_null = (!$rs->fields[3]);
 
 			// sys.syscolumns status field. 0x80 = 128 ref: http://msdn.microsoft.com/en-us/library/ms186816.aspx
@@ -225,8 +219,7 @@ order by constraint_name, referenced_table_name, keyno";
 
 	public function MetaIndexes($table, $primary = false, $owner = false) {
 		$table = $this->qstr($table);
-
-		$sql = "SELECT i.name AS ind_name, C.name AS col_name, USER_NAME(O.uid) AS Owner, c.colid, k.Keyno,
+		$sql   = "SELECT i.name AS ind_name, C.name AS col_name, USER_NAME(O.uid) AS Owner, c.colid, k.Keyno,
 			CASE WHEN I.indid BETWEEN 1 AND 254 AND (I.status & 2048 = 2048 OR I.Status = 16402 AND O.XType = 'V') THEN 1 ELSE 0 END AS IsPK,
 			CASE WHEN I.status & 2 = 2 THEN 1 ELSE 0 END AS IsUnique
 			FROM dbo.sysobjects o INNER JOIN dbo.sysindexes I ON o.id = i.id
@@ -234,7 +227,6 @@ order by constraint_name, referenced_table_name, keyno";
 			INNER JOIN dbo.syscolumns c ON K.id = C.id AND K.colid = C.Colid
 			WHERE LEFT(i.name, 8) <> '_WA_Sys_' AND o.status >= 0 AND O.Name LIKE $table
 			ORDER BY O.name, I.Name, K.keyno";
-
 		global $ADODB_FETCH_MODE;
 
 		$save             = $ADODB_FETCH_MODE;
@@ -307,10 +299,9 @@ order by constraint_name, referenced_table_name, keyno";
 			$schema = "and k.table_catalog like '$schema%'";
 		}
 
-		$sql = "select distinct k.column_name,ordinal_position from information_schema.key_column_usage k,
+		$sql              = "select distinct k.column_name,ordinal_position from information_schema.key_column_usage k,
 		information_schema.table_constraints tc
 		where tc.constraint_name = k.constraint_name and tc.constraint_type = 'PRIMARY KEY' and k.table_name = '$table' $schema order by ordinal_position ";
-
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		$a                = $this->GetCol($sql);
@@ -350,8 +341,7 @@ order by constraint_name, referenced_table_name, keyno";
 			$col = $this->sysTimeStamp;
 		}
 
-		$s = '';
-
+		$s   = '';
 		$len = strlen($fmt);
 
 		for ($i = 0; $i < $len; $i++) {

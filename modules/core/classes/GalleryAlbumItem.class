@@ -307,8 +307,7 @@ class GalleryAlbumItem extends GalleryItem {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
-		$isNew = $this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
+		$isNew   = $this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
 
 		$ret = parent::save($postEvent);
 

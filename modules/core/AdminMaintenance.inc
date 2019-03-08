@@ -62,8 +62,7 @@ class AdminMaintenanceController extends GalleryController {
 				return array($ret, null);
 			}
 
-			$mode = $gallery->getConfig('mode.maintenance');
-
+			$mode   = $gallery->getConfig('mode.maintenance');
 			$taskId = GalleryUtilities::getRequestVariables('taskId');
 
 			list($ret, $tasks) = MaintenanceHelper_simple::fetchTasks();
@@ -106,12 +105,10 @@ class AdminMaintenanceController extends GalleryController {
 				}
 			}
 		} elseif (isset($form['action']['setMode'])) {
-			$platform =& $gallery->getPlatform();
-
+			$platform       =& $gallery->getPlatform();
 			$newMode        = !empty($form['setMode']['mode']);
 			$maintenanceUrl = $form['setMode']['url'];
-
-			$statusMsg = $newMode ? 'setOn' : 'setOff';
+			$statusMsg      = $newMode ? 'setOn' : 'setOff';
 
 			if ($newMode && !empty($maintenanceUrl)) {
 				$urlGenerator =& $gallery->getUrlGenerator();
@@ -176,7 +173,6 @@ class AdminMaintenanceController extends GalleryController {
 		$status['run']['taskId']  = $taskId;
 		$session                  =& $gallery->getSession();
 		$session->putStatus($status);
-
 		$redirect['view']    = 'core.SiteAdmin';
 		$redirect['subView'] = 'core.AdminMaintenance';
 
@@ -274,10 +270,8 @@ class AdminMaintenanceView extends GalleryView {
 
 		$AdminMaintenance['setMode']['mode'] = $maintenanceMode;
 		$AdminMaintenance['setMode']['url']  = $maintenanceModeUrl;
-
 		$template->setVariable('AdminMaintenance', $AdminMaintenance);
 		$template->setVariable('controller', 'core.AdminMaintenance');
-
 		$template->javascript('lib/javascript/BlockToggle.js');
 
 		return array(

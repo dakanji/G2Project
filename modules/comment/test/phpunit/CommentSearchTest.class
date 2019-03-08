@@ -70,8 +70,7 @@ class CommentSearchTest extends GalleryTestCase {
 		}
 
 		$this->_randomKey = 'a' . mt_rand(1, 100000) . 'z';
-
-		$this->_item = array();
+		$this->_item      = array();
 
 		for ($j = 0; $j < 4; $j++) {
 			list($ret, $this->_item[$j]) = $this->_createRandomDataItem($this->_getRootId());
@@ -91,6 +90,7 @@ class CommentSearchTest extends GalleryTestCase {
 				}
 
 				$this->assertTrue(isset($this->_comment[$j][$i]), 'Missing comment instance');
+
 				$this->_comment[$j][$i]->create($this->_item[$j]->getId());
 				$this->_comment[$j][$i]->setCommenterId($gallery->getActiveUserId());
 				$this->_comment[$j][$i]->setHost('127.0.0.1');
@@ -230,7 +230,6 @@ class CommentSearchTest extends GalleryTestCase {
 			isset($info['options']['comments']['description']),
 			'options:comments description missing'
 		);
-
 		$this->assertTrue(
 			!empty($info['options']['comments']['enabled']),
 			'options:comments not enabled'
@@ -254,8 +253,7 @@ class CommentSearchTest extends GalleryTestCase {
 		$commenter        = $this->_module->translate('Commenter');
 		$text['guest']    = $this->_module->translate('guest');
 		$authorCheckValue = $this->_comment[3][1]->getAuthor() . '(' . $text['guest'] . ')';
-
-		$userName = $this->_user->getFullName();
+		$userName         = $this->_user->getFullName();
 
 		if (empty($userName)) {
 			$userName = $this->_user->getUserName();
@@ -358,8 +356,7 @@ class CommentSearchTest extends GalleryTestCase {
 		$subject   = $this->_module->translate('Subject');
 		$comment   = $this->_module->translate('Comment');
 		$commenter = $this->_module->translate('Commenter');
-
-		$userName = $this->_user->getFullName();
+		$userName  = $this->_user->getFullName();
 
 		if (empty($userName)) {
 			$userName = $this->_user->getUserName();

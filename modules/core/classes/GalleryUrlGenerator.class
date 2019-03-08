@@ -570,8 +570,7 @@ class GalleryUrlGenerator {
 				}
 			}
 
-			$url .= substr($url, -1) != '/' ? '/' : '';
-
+			$url                                   .= substr($url, -1) != '/' ? '/' : '';
 			$this->_currentUrlBaseDir[$forceDirect] = $url;
 		}
 

@@ -101,8 +101,7 @@ class ADODB2_firebird extends ADODB_DataDict {
 	public function CreateDatabase($dbname, $options = false) {
 		$options = $this->_Options($options);
 		$sql     = array();
-
-		$sql[] = "DECLARE EXTERNAL FUNCTION LOWER CSTRING(80) RETURNS CSTRING(80) FREE_IT ENTRY_POINT 'IB_UDF_lower' MODULE_NAME 'ib_udf'";
+		$sql[]   = "DECLARE EXTERNAL FUNCTION LOWER CSTRING(80) RETURNS CSTRING(80) FREE_IT ENTRY_POINT 'IB_UDF_lower' MODULE_NAME 'ib_udf'";
 
 		return $sql;
 	}

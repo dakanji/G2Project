@@ -123,7 +123,6 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			$results['operations'],
 			'operations'
 		);
-
 		$this->assertEquals(
 			array(
 				'dimensions' => array(
@@ -200,7 +199,6 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		'qcif cif 4cif';
 		$output[] = 'Motion estimation methods: zero(fastest) full(slowest) log phods ' .
 		'epzs(default) x1';
-
 		$this->assertEquals(
 			array(
 				array(
@@ -211,9 +209,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			),
 			$results
 		);
-
 		$this->assertTrue($supportsOffset, 'offset');
-
 		$this->assertEquals($expectedMimeTypes, $mimeTypes);
 	}
 
@@ -238,7 +234,6 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		);
 
 		sort($expectedMimeTypes);
-
 		$output[] = 'File formats:';
 		$output[] = '  E 3gp';
 		$output[] = ' D  4xm';
@@ -418,7 +413,6 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		$output[] = 'even though both encoding and decoding are supported for example, the h263';
 		$output[] = 'decoder corresponds to the h263 and h263p encoders, for file formats its even';
 		$output[] = 'worse';
-
 		$this->assertEquals(
 			array(
 				array(
@@ -431,6 +425,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		);
 
 		sort($mimeTypes);
+
 		$this->assertEquals($expectedMimeTypes, $mimeTypes);
 	}
 
@@ -475,7 +470,6 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		$output[] = 'Frame size abbreviations: sqcif qcif cif 4cif';
 		$output[] = 'Motion estimation methods: zero(fastest) full(slowest) log phods ' .
 		'epzs(default) x1';
-
 		$this->assertEquals(
 			array(
 				array(
@@ -486,10 +480,10 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			),
 			$results
 		);
-
 		$this->assertFalse($supportsOffset, 'offset');
 
 		sort($mimeTypes);
+
 		$this->assertEquals($expectedMimeTypes, $mimeTypes);
 	}
 

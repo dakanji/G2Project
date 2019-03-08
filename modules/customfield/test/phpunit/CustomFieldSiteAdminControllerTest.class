@@ -56,6 +56,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function testCustomFieldSiteAdminController() {
 		// Reset..
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -73,6 +74,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::removeFormVariables('form');
 		GalleryUtilities::putRequestVariable('form[common][newField]', 'Common Field');
 		GalleryUtilities::putRequestVariable('form[action][add][common]', '1');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -92,6 +94,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::removeFormVariables('form');
 		GalleryUtilities::putRequestVariable('form[common][newField]', 'Another|Common');
 		GalleryUtilities::putRequestVariable('form[action][add][common]', '1');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -111,6 +114,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::removeFormVariables('form');
 		GalleryUtilities::putRequestVariable('form[album][newField]', 'Album Field');
 		GalleryUtilities::putRequestVariable('form[action][add][album]', '1');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -130,6 +134,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::removeFormVariables('form');
 		GalleryUtilities::putRequestVariable('form[photo][newField]', 'Photo Field');
 		GalleryUtilities::putRequestVariable('form[action][add][photo]', '1');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -150,6 +155,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::removeFormVariables('form');
 		GalleryUtilities::putRequestVariable('form[common][newField]', 'Photo Field');
 		GalleryUtilities::putRequestVariable('form[action][add][common]', '1');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -173,6 +179,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[pickField]', 'Album Field');
 		GalleryUtilities::putRequestVariable('form[picklist]', "One\nTwo\nThree  \n  ");
 		GalleryUtilities::putRequestVariable('form[action][picklist]', '1');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -194,6 +201,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[pickField]', 'Album Field');
 		GalleryUtilities::putRequestVariable('form[picklist]', "\n Three\nTwo\nOne  \n  ");
 		GalleryUtilities::putRequestVariable('form[action][picklist]', '1');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -245,6 +253,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[photo][index][0]', '0');
 		GalleryUtilities::putRequestVariable('form[photo][detail][0]', 'on');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -290,6 +299,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[common][goField]', 'Common Field');
 		GalleryUtilities::putRequestVariable('form[common][goAction]', 'photo');
 		GalleryUtilities::putRequestVariable('form[action][go][common]', '1');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -310,6 +320,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[album][goField]', 'Album Field');
 		GalleryUtilities::putRequestVariable('form[album][goAction]', 'common');
 		GalleryUtilities::putRequestVariable('form[action][go][album]', '1');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -331,6 +342,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[common][goField]', 'Another:Common');
 		GalleryUtilities::putRequestVariable('form[common][goAction]', 'remove');
 		GalleryUtilities::putRequestVariable('form[action][go][common]', '1');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -376,6 +388,7 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[pickField]', 'Album Field');
 		GalleryUtilities::putRequestVariable('form[picklist]', '');
 		GalleryUtilities::putRequestVariable('form[action][picklist]', '1');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

@@ -94,6 +94,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$this->_template = new GalleryTemplate(dirname(dirname(dirname(dirname(__DIR__)))));
 	}
 
@@ -172,7 +173,6 @@ class KeywordAlbumTest extends GalleryTestCase {
 			$theme['pageUrl'],
 			'page url'
 		);
-
 		$this->assertTrue(in_array($this->_album->getId(), $theme['allChildIds']), 'album id');
 		$this->assertTrue(in_array($this->_item->getId(), $theme['allChildIds']), 'item id');
 	}
@@ -202,7 +202,6 @@ class KeywordAlbumTest extends GalleryTestCase {
 			$theme['pageUrl'],
 			'page url'
 		);
-
 		$this->assertFalse(in_array($this->_album->getId(), $theme['allChildIds']), 'album id');
 		$this->assertTrue(in_array($this->_item->getId(), $theme['allChildIds']), 'item id');
 	}

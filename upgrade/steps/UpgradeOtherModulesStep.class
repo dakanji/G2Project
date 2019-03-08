@@ -38,7 +38,6 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 		// We want to log all debug output in our upgrade log
 		$this->_startDebugLog('Upgrade Plugins');
 		$gallery->startRecordingDebugSnippet();
-
 		$totalPlugins               = $currentModule               = $currentTheme               = 0;
 		$templateData['stackTrace'] = '';
 		$template                   = new StatusTemplate();
@@ -80,7 +79,6 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				$module->setDescription($module->translate($module->getDescription()));
 				$this->resetL10Domain();
 				$gallery->guaranteeTimeLimit(120);
-
 				$template->renderStatusMessage(
 					_('Upgrading modules'),
 					$module->getName(),
@@ -143,7 +141,6 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				$theme->setName($theme->translate($theme->getName()));
 				$theme->setDescription($theme->translate($theme->getDescription()));
 				$this->resetL10Domain();
-
 				$template->renderStatusMessage(
 					_('Upgrading themes'),
 					$theme->getName(),
@@ -332,8 +329,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				&& $moduleList[$moduleId]['version'] != $module->getVersion()
 				&& $pluginIsCompatible['module'][$moduleId];
 				$currentVersion[$moduleId]                = $moduleList[$moduleId]['version'];
-
-				$group = $module->getGroup();
+				$group                                    = $module->getGroup();
 
 				if (empty($group)) {
 					$group = array(
@@ -401,8 +397,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				&& $themeList[$themeId]['version'] != $theme->getVersion()
 				&& $pluginIsCompatible['theme'][$themeId];
 				$currentVersion[$themeId]               = $themeList[$themeId]['version'];
-
-				$groupedModules['themes'][$themeId] =& $theme;
+				$groupedModules['themes'][$themeId]     =& $theme;
 			}
 
 			ksort($groupedModules);
@@ -470,8 +465,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 		$templateData['bodyFile']            = 'UpgradeOtherModulesRequest.html';
 		$templateData['anyUpgradeable']      = false;
 		$templateData['deactivatedPlugins']  = $deactivatedPlugins;
-
-		$templateData['pluginIsCompatible'] = $pluginIsCompatible;
+		$templateData['pluginIsCompatible']  = $pluginIsCompatible;
 
 		if (!empty($templateData['errors'])) {
 			$templateData['debug'] = $gallery->getDebugBuffer();

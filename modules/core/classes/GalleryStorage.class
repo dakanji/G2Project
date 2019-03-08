@@ -192,10 +192,9 @@ class GalleryStorage {
 		// We use persistent connections if the value is left out, or if it's non empty.
 		$this->_usePersistentConnections = !isset($config['usePersistentConnections'])
 		|| !empty($config['usePersistentConnections']);
-
-		$this->_schema       = isset($config['schema']) ? $config['schema'] : '';
-		$this->_tablePrefix  = isset($config['tablePrefix']) ? $config['tablePrefix'] : DATABASE_TABLE_PREFIX;
-		$this->_columnPrefix = isset($config['columnPrefix']) ? $config['columnPrefix'] : DATABASE_COLUMN_PREFIX;
+		$this->_schema                   = isset($config['schema']) ? $config['schema'] : '';
+		$this->_tablePrefix              = isset($config['tablePrefix']) ? $config['tablePrefix'] : DATABASE_TABLE_PREFIX;
+		$this->_columnPrefix             = isset($config['columnPrefix']) ? $config['columnPrefix'] : DATABASE_COLUMN_PREFIX;
 	}
 
 	/**
@@ -514,7 +513,6 @@ class GalleryStorage {
 		if (!empty($optional['limit'])) {
 			$count  = empty($optional['limit']['count']) ? -1 : $optional['limit']['count'];
 			$offset = empty($optional['limit']['offset']) ? -1 : $optional['limit']['offset'];
-
 			$this->_traceStart();
 			$recordSet = $this->_db->SelectLimit($query, $count, $offset, $data);
 			$this->_traceStop();
@@ -684,7 +682,6 @@ class GalleryStorage {
 		if (!empty($optional['limit'])) {
 			$count  = empty($optional['limit']['count']) ? -1 : $optional['limit']['count'];
 			$offset = empty($optional['limit']['offset']) ? -1 : $optional['limit']['offset'];
-
 			$this->_traceStart();
 			$recordSet = $this->_db->SelectLimit($query, $count, $offset, $data);
 			$this->_traceStop();
@@ -791,7 +788,6 @@ class GalleryStorage {
 
 		$query .= 'WHERE ' . implode(' AND ', $where);
 		$data   = array_merge($data, $wheredata);
-
 		$this->_traceStart();
 		$recordSet = $db->Execute($query, $data);
 		$this->_traceStop();
@@ -1403,8 +1399,7 @@ class GalleryStorage {
 	public function _getEntityOrMapInfo($type, $tryAllModules) {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
+		$session            =& $gallery->getSession();
 		$isInstallOrUpgrade = empty($session) ? false : $session->exists('isInstall') || $session->exists('isUpgrade');
 
 		// @todo Remove the type constraint from selects and have describeXXX use the same map

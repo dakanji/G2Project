@@ -156,8 +156,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		$gallery->_templateAdapter =& $mockAdapter;
 		$mockUrlGenerator          = new AdminMaintenanceControllerTestUrlGenerator();
 		$gallery->_urlGenerator    =& $mockUrlGenerator;
-
-		$results = $this->handleRequest();
+		$results                   = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -216,15 +215,13 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 			'taskId',
 			'AdminMaintenanceControllerTestTaskProgressBar'
 		);
-
 		GalleryUtilities::putRequestVariable('forceTaskToFail', 1);
 
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$mockUrlGenerator          = new AdminMaintenanceControllerTestUrlGenerator();
 		$gallery->_urlGenerator    =& $mockUrlGenerator;
-
-		$results = $this->handleRequest();
+		$results                   = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -285,15 +282,13 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 			'taskId',
 			'AdminMaintenanceControllerTestTaskProgressBar'
 		);
-
 		GalleryUtilities::putRequestVariable('forceTaskToError', 1);
 
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$mockUrlGenerator          = new AdminMaintenanceControllerTestUrlGenerator();
 		$gallery->_urlGenerator    =& $mockUrlGenerator;
-
-		$results = $this->handleRequest();
+		$results                   = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -406,9 +401,7 @@ class AdminMaintenanceControllerTestTaskProgressBar extends MaintenanceTask {
 		global $gallery;
 
 		$templateAdapter =& $gallery->getTemplateAdapter();
-
-		$success = !GalleryUtilities::getRequestVariables('forceTaskToFail');
-
+		$success         = !GalleryUtilities::getRequestVariables('forceTaskToFail');
 		$templateAdapter->updateProgressBar('ignored', 'ignored', 0);
 		$templateAdapter->updateProgressBar('ignored', 'ignored', 50);
 

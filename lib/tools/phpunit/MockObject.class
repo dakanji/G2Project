@@ -85,7 +85,6 @@ class MockObject {
 		$ret = GalleryCoreApi::error(ERROR_UNKNOWN, null, null, 'Unhandled reply in MockObject');
 
 		echo '<br/><br/>' . $ret->getAsHtml();
-
 		printf(
 			'<br/><b>Mismatch At</b>: %s<br/>',
 			htmlspecialchars(

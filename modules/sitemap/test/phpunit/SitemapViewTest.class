@@ -60,7 +60,6 @@ class SitemapViewTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_root);
-
 		$serials = array(
 			365 * 24, // change every hour
 			365,      // change every day
@@ -86,7 +85,6 @@ class SitemapViewTest extends GalleryTestCase {
 		}
 
 		$gallery->_phpVm->setTime($this->_start_of_2006);
-
 		$this->_view            = new SiteMapView();
 		$gallery->_urlGenerator = new SitemapViewTestUrlGenerator();
 	}
@@ -104,7 +102,6 @@ class SitemapViewTest extends GalleryTestCase {
 
 		$results = ob_get_contents();
 		ob_end_clean();
-
 		$ids = array($this->_root->getId());
 
 		foreach ($this->_item as $item) {
@@ -130,7 +127,6 @@ class SitemapViewTest extends GalleryTestCase {
 		("<url><loc>url:$ids[5]</loc><lastmod>2006-01-01T08:00:05+00:00</lastmod>" .
 		 "<changefreq>yearly</changefreq></url>\n") .
 		'</urlset>';
-
 		$this->assertEquals(
 			explode("\n", $expected),
 			explode("\n", $results)
@@ -156,7 +152,6 @@ class SitemapViewTest extends GalleryTestCase {
 		}
 
 		$gallery->_storage = new SitemapViewTestStorage($storage);
-
 		ob_start();
 
 		$ret = $this->_view->renderImmediate(array(), array());
@@ -176,7 +171,6 @@ class SitemapViewTest extends GalleryTestCase {
 			substr($results, 0, 43),
 			'header'
 		);
-
 		$this->assertTrue(strpos($results, '<?xml'), 'xml');
 		$this->assertTrue(strpos($results, '</urlset>'), 'end');
 	}

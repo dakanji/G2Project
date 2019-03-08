@@ -135,7 +135,6 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 		}
 
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
-
 		$countQuery = sprintf(
 			'
 	SELECT
@@ -218,8 +217,7 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 		$text['summary']     = $module->translate('Summary');
 		$text['title']       = $module->translate('Title');
 		$text['owner']       = $module->translate('Owner');
-
-		$searchResults = array();
+		$searchResults       = array();
 
 		while ($result = $results->nextResult()) {
 			$fields = array();

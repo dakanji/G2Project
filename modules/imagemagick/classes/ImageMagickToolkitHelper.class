@@ -440,7 +440,6 @@ class ImageMagickToolkitHelper {
 
 		$oldPwd = $platform->getcwd();
 		$platform->chdir($gallery->getConfig('data.gallery.tmp'));
-
 		$successCount = 0;
 		$mimeTypes    = array();
 

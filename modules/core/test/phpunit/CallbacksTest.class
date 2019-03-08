@@ -52,12 +52,10 @@ class CallbacksTest extends GalleryTestCase {
 		}
 
 		$LanguageSelector = $this->_smarty->_tpl_vars['block']['core']['LanguageSelector'];
-
-		$language    = array_keys($supportedLanguages)[0];
-		$countryList = array_values($supportedLanguages)[0];
-		$country     = array_keys($countryList)[0];
-		$countryData = array_values($countryList)[0];
-
+		$language         = array_keys($supportedLanguages)[0];
+		$countryList      = array_values($supportedLanguages)[0];
+		$country          = array_keys($countryList)[0];
+		$countryData      = array_values($countryList)[0];
 		$this->assertEquals(
 			$countryData['description'],
 			$LanguageSelector['list'][$language . '_' . $country]
@@ -226,13 +224,11 @@ class CallbacksTest extends GalleryTestCase {
 			array_keys($data),
 			$msg . ': data keys'
 		);
-
 		$this->assertEquals(
 			$returnCount,
 			count($data['peers']),
 			$msg . ': number of peers returned'
 		);
-
 		$this->assertEquals($allCount, $data['peerCount'], $msg . ': peer count');
 		$this->assertEquals($thisIndex, $data['thisPeerIndex'], $msg . ': peer index');
 		$this->assertEquals($this->_album->getId(), $data['parent']['id'], $msg . ': parent');
@@ -243,7 +239,6 @@ class CallbacksTest extends GalleryTestCase {
 				$data['peers'][$i]['peerIndex'],
 				$msg . ": peerIndex $i"
 			);
-
 			$this->assertEquals(
 				$this->_items[$peerIndex - 1]->getId(),
 				$data['peers'][$i]['id'],
@@ -285,7 +280,6 @@ class CallbacksTest extends GalleryTestCase {
 		}
 
 		$this->_assertPeers(7, 11, 6, array(1, 4, 5, 6, 7, 8, 11), 'simple');
-
 		$this->_smarty->_tpl_vars = array();
 
 		$ret = $this->_callback->callback(
@@ -303,7 +297,6 @@ class CallbacksTest extends GalleryTestCase {
 		}
 
 		$this->_assertPeers(7, 11, 5, array(2, 3, 4, 5, 6, 7, 8), 'no ends');
-
 		$this->_smarty->_tpl_vars = array();
 
 		$ret = $this->_callback->callback(
@@ -320,7 +313,6 @@ class CallbacksTest extends GalleryTestCase {
 		}
 
 		$this->_assertPeers(8, 11, 3, array(1, 2, 3, 4, 5, 6, 7, 11), 'front');
-
 		$this->_smarty->_tpl_vars = array();
 
 		$ret = $this->_callback->callback(
@@ -338,7 +330,6 @@ class CallbacksTest extends GalleryTestCase {
 		}
 
 		$this->_assertPeers(5, 11, 10, array(7, 8, 9, 10, 11), 'end');
-
 		$this->_smarty->_tpl_vars = array();
 
 		$ret = $this->_callback->callback(
@@ -355,7 +346,6 @@ class CallbacksTest extends GalleryTestCase {
 		}
 
 		$this->_assertPeers(11, 11, 8, array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), 'both ends');
-
 		$this->_smarty->_tpl_vars = array();
 
 		$ret = $this->_callback->callback(
@@ -373,7 +363,6 @@ class CallbacksTest extends GalleryTestCase {
 		}
 
 		$this->_assertPeers(6, 11, 7, array(5, 6, 7, 8, 9, 10), 'unbalanced');
-
 		$this->_smarty->_tpl_vars = array();
 
 		$ret = $this->_callback->callback(
@@ -391,7 +380,6 @@ class CallbacksTest extends GalleryTestCase {
 		}
 
 		$this->_assertPeers(4, 11, 1, array(1, 2, 3, 4), 'unbalanced front');
-
 		$this->_smarty->_tpl_vars = array();
 
 		$ret = $this->_callback->callback(

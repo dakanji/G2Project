@@ -50,9 +50,8 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 			return array($ret, null, null, null);
 		}
 
-		$status = null;
-		$error  = array();
-
+		$status    = null;
+		$error     = array();
 		$operation = null;
 
 		// Figure out which command we're taking

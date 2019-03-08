@@ -76,7 +76,6 @@ class SizeLimitOption extends ItemEditOption {
 		}
 
 		$SizeLimitOption['keepOriginal'] = (isset($params['keepOriginal']) && $params['keepOriginal'] == 1);
-
 		$template->setVariable('SizeLimitOption', $SizeLimitOption);
 
 		return array(

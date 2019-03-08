@@ -68,6 +68,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -91,6 +92,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		}
 
 		$userName = 'user-selfreg' . mt_rand();
+
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('form[userName]', $userName);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
@@ -102,7 +104,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		$savePlatform  =& $gallery->getPlatform();
 		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
 		$gallery->setPlatform($DummyPlatform);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -127,6 +128,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(GalleryUtilities::isA($user, 'GalleryUser'), 'type is GalleryUser');
+
 		$this->_markForCleanup($user);
 
 		// Make sure welcome email was "sent"
@@ -134,7 +136,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 			empty($this->_emailBody),
 			'test platform mail() should have been called'
 		);
-
 		$this->assertEquals(
 			'WelcomeEmail',
 			$this->_emailSubject,
@@ -152,6 +153,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		}
 
 		$userName = 'user-' . mt_rand();
+
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('form[userName]', $userName);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
@@ -163,7 +165,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		$savePlatform  =& $gallery->getPlatform();
 		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
 		$gallery->setPlatform($DummyPlatform);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -198,7 +199,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 			),
 			'test platform mail() should have been called'
 		);
-
 		$this->assertEquals(
 			'ConfEmail',
 			$this->_emailSubject,
@@ -218,8 +218,8 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		}
 
 		$userName = $entitizedName = 'test < & > ' . mt_rand();
-		GalleryUtilities::sanitizeInputValues($entitizedName);
 
+		GalleryUtilities::sanitizeInputValues($entitizedName);
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('form[userName]', $userName);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
@@ -231,7 +231,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		$savePlatform  =& $gallery->getPlatform();
 		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
 		$gallery->setPlatform($DummyPlatform);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -273,7 +272,9 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertFalse(empty($userEntity), 'factory error');
+
 		$userEntity->setHashedPassword($user->getHashedPassword());
+
 		$this->assertTrue($userEntity->isCorrectPassword('pass&word>'), 'password check');
 	}
 
@@ -335,7 +336,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password2]', 'passwordWrong');
 
 		$results = $this->handleRequest();
-
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -430,7 +430,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		$savePlatform  =& $gallery->getPlatform();
 		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
 		$gallery->setPlatform($DummyPlatform);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -479,6 +478,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	 */
 	public function testPlugins1() {
 		$userName = 'user-selfreg' . mt_rand();
+
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('form[userName]', $userName);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
@@ -493,7 +493,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		);
 
 		$plugin1->setContinue(false);
-
 		$plugin2 = new UserSelfRegistrationControllerTestPlugin();
 		$plugin2->setErrors(
 			array('form[error][UserSelfRegistrationControllerTestPlugin2][anError]')
@@ -501,7 +500,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 		$plugin2->setContinue(true);
 		$this->_controller->setPluginInstances(array($plugin1, $plugin2));
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -521,6 +519,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	 */
 	public function testPlugins2() {
 		$userName = 'user-selfreg' . mt_rand();
+
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('form[userName]', $userName);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
@@ -535,7 +534,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		);
 
 		$plugin1->setContinue(true);
-
 		$plugin2 = new UserSelfRegistrationControllerTestPlugin();
 		$plugin2->setErrors(
 			array('form[error][UserSelfRegistrationControllerTestPlugin2][anError]')
@@ -543,7 +541,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 		$plugin2->setContinue(false);
 		$this->_controller->setPluginInstances(array($plugin1, $plugin2));
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -574,6 +571,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		}
 
 		$userName = 'user-selfreg' . mt_rand();
+
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('form[userName]', $userName);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
@@ -585,13 +583,10 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		$plugin = new UserSelfRegistrationControllerTestPlugin();
 		$plugin->setErrors(array());
 		$plugin->setContinue(true);
-
 		$this->_controller->setPluginInstances(array($plugin));
-
 		$savePlatform  =& $gallery->getPlatform();
 		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
 		$gallery->setPlatform($DummyPlatform);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -633,6 +628,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		}
 
 		$userName = 'user-selfreg' . mt_rand();
+
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('form[userName]', $userName);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
@@ -648,11 +644,9 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 		$plugin->setContinue(false);
 		$this->_controller->setPluginInstances(array($plugin));
-
 		$savePlatform  =& $gallery->getPlatform();
 		$DummyPlatform = new RegisterDummyPlatform($savePlatform, $this);
 		$gallery->setPlatform($DummyPlatform);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

@@ -223,6 +223,7 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 
 			// Verify the results
 			$data = $smarty->_tpl_vars['block']['exif']['LoadExifInfo'];
+
 			$this->assertEquals($expModeSet, isset($data['mode']), "mode not set for mode $mode");
 
 			if (isset($data['mode'])) {

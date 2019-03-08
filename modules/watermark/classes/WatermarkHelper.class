@@ -54,8 +54,7 @@ class WatermarkHelper {
 		}
 
 		$aclMarkers = GalleryUtilities::makeMarkers($aclIds);
-
-		$data = array();
+		$data       = array();
 
 		$query = sprintf(
 			'
@@ -837,8 +836,7 @@ class WatermarkHelper {
 		}
 
 		if ($form['formName'] != $formName) {
-			$form['formName'] = $formName;
-
+			$form['formName']                     = $formName;
 			$form['watermarkName']                = $watermark->getName();
 			$form['xPercentage']                  = $watermark->getXPercentage();
 			$form['yPercentage']                  = $watermark->getYPercentage();
@@ -849,10 +847,8 @@ class WatermarkHelper {
 
 		$page            =& $template->getVariableByReference($pageName);
 		$page['enctype'] = 'multipart/form-data';
-
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('modules/watermark/watermark.js');
-
 		$template->setVariable(
 			$formName,
 			array(

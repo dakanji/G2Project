@@ -175,6 +175,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(array(array(), null), $results);
 	}
 
@@ -578,7 +579,6 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 			$thumbnails[$child[0]->getId()]->getDerivativeOperations(),
 			'child 0'
 		);
-
 		$this->assertEquals(
 			'crop|0,0,50,50;thumbnail|123',
 			$thumbnails[$child[1]->getId()]->getDerivativeOperations(),
@@ -627,13 +627,11 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 				$resizes[$childId][0]->getDerivativeOperations(),
 				"$i 0"
 			);
-
 			$this->assertEquals(
 				$i ? 'scale|234,234' : 'scale|345,543',
 				$resizes[$childId][1]->getDerivativeOperations(),
 				"$i 1"
 			);
-
 			$this->assertEquals(
 				'scale|456,456',
 				$resizes[$childId][2]->getDerivativeOperations(),
@@ -805,7 +803,6 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 				sizeof($resizes),
 				'There should only be one resize'
 			);
-
 			$this->assertEquals(
 				'scale|50,50',
 				$resizes[0]->getDerivativeOperations(),
@@ -946,8 +943,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
-
-		$results = $this->handleRequest($this->_album, $this->_preferred);
+		$results                   = $this->handleRequest($this->_album, $this->_preferred);
 		$this->assertEquals(
 			array(array(), $this->_translate('Settings saved successfully.')),
 			$results
@@ -1023,7 +1019,6 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 			'form[serialNumber]',
 			$this->_album->getSerialNumber()
 		);
-
 		GalleryUtilities::putRequestVariable('form[changeInDescendents][sort]', 1);
 		GalleryUtilities::putRequestVariable('form[changeInDescendents][thumbnail]', 1);
 		GalleryUtilities::putRequestVariable('form[changeInDescendents][resizes]', 1);
@@ -1178,7 +1173,6 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 			'form[serialNumber]',
 			$this->_album->getSerialNumber()
 		);
-
 		GalleryUtilities::putRequestVariable('form[changeInDescendents][sort]', 1);
 		GalleryUtilities::putRequestVariable('form[changeInDescendents][thumbnail]', 1);
 		GalleryUtilities::putRequestVariable('form[changeInDescendents][resizes]', 1);

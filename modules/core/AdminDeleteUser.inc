@@ -71,8 +71,7 @@ class AdminDeleteUserController extends GalleryController {
 		$results = array();
 		$status  = array();
 		$error   = array();
-
-		$userId = GalleryUtilities::getRequestVariables('userId');
+		$userId  = GalleryUtilities::getRequestVariables('userId');
 
 		if (isset($form['action']['cancel'])) {
 			// Go back to the AdminUsers view
@@ -241,7 +240,6 @@ class AdminDeleteUserView extends GalleryView {
 		}
 
 		$AdminDeleteUser['numberOfItems'] = count($itemIds);
-
 		$template->setVariable('AdminDeleteUser', $AdminDeleteUser);
 		$template->setVariable('controller', 'core.AdminDeleteUser');
 

@@ -1,5 +1,4 @@
 <?php
-
 $ADODB_LANG_ARRAY = array(
 	'LANG'                         => 'en',
 	DB_ERROR                       => 'unknown error',

@@ -8,12 +8,10 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
   Set tabs to 8.
-
   Revision 1: (02/25/2005) Updated codebase to include the _inject_bind_options function. This allows
   users to access the options in the ldap_set_option function appropriately. Most importantly
   LDAP Version 3 is now supported. See the examples for more information. Also fixed some minor
   bugs that surfaced when PHP error levels were set high.
-
   Joshua Eldridge (joshuae74#hotmail.com)
 */
 
@@ -123,11 +121,8 @@ class ADODB_ldap extends ADOConnection {
 	LDAP_OPT_MATCHED_DN (string)
 	LDAP_OPT_SERVER_CONTROLS (array)
 	LDAP_OPT_CLIENT_CONTROLS (array)
-
 	Make sure to set this BEFORE calling Connect()
-
 	Example:
-
 	$LDAP_CONNECT_OPTIONS = Array(
 		Array (
 			"OPTION_NAME"=>LDAP_OPT_DEREF,

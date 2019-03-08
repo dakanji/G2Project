@@ -8,7 +8,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
 Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
 	Microsoft ADO data driver. Requires ADO. Works only on MS Windows. PHP5 compat version.
 */
@@ -136,9 +135,7 @@ class ADODB_ado extends ADOConnection {
 
 			// @ added below for php 4.0.1 and earlier
 			@$dbc->Open((string)$argHostname);
-
 			$this->_connectionID = $dbc;
-
 			$dbc->CursorLocation = $this->_cursor_location;
 
 			return $dbc->State > 0;
@@ -195,12 +192,10 @@ class ADODB_ado extends ADOConnection {
 	adSchemaMeasures = 36,
 	adSchemaProperties = 37,
 	adSchemaMembers = 38
-
 	*/
 	public function MetaTables($ttype = false, $showSchema = false, $mask = false) {
-		$arr = array();
-		$dbc = $this->_connectionID;
-
+		$arr   = array();
+		$dbc   = $this->_connectionID;
 		$adors = @$dbc->OpenSchema(20);//tables
 		if ($adors) {
 			$f = $adors->Fields(2);//table/view name
@@ -226,7 +221,6 @@ class ADODB_ado extends ADOConnection {
 		$table = strtoupper($table);
 		$arr   = array();
 		$dbc   = $this->_connectionID;
-
 		$adors = @$dbc->OpenSchema(4);//tables
 		if ($adors) {
 			$t = $adors->Fields(2);//table/view name
@@ -288,7 +282,6 @@ class ADODB_ado extends ADOConnection {
 
 					// name, type, direction 1 = input, len,
 					$p = $oCmd->CreateParameter('name', $this->adoParameterType, 1, $len, $val);
-
 					$oCmd->Parameters->Append($p);
 				}
 
@@ -524,7 +517,6 @@ class ADORecordSet_ado extends ADORecordSet {
 
 	/*
 	OLEDB types
-
 	 enum DBTYPEENUM
 	{	DBTYPE_EMPTY = 0,
 	DBTYPE_NULL = 1,
@@ -560,9 +552,7 @@ class ADORecordSet_ado extends ADORecordSet {
 	DBTYPE_DBDATE = 133,
 	DBTYPE_DBTIME = 134,
 	DBTYPE_DBTIMESTAMP = 135
-
 	ADO Types
-
 	   adEmpty = 0,
 	adTinyInt = 16,
 	adSmallInt = 2,
@@ -819,8 +809,7 @@ class ADORecordSet_ado extends ADORecordSet {
 		$this->fields       = false;
 		$this->_flds        = false;
 		$this->_tarr        = false;
-
-		$this->_inited = false;
+		$this->_inited      = false;
 		$this->Init();
 
 		return true;
@@ -832,7 +821,6 @@ class ADORecordSet_ado extends ADORecordSet {
 		try {
 			@$this->_queryID->Close();// by Pete Dishman (peterd@telephonetics.co.uk)
 		} catch (Exception $e) {}
-
 		$this->_queryID = false;
 	}
 }

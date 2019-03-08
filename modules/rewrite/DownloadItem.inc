@@ -124,6 +124,7 @@ class DownloadItemView extends GalleryView {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$template = new GalleryTemplate(dirname(dirname(__DIR__)));
 		$template->setVariable('l10Domain', 'modules_rewrite');
 		$template->setVariable('item', (array)$item);
@@ -148,8 +149,7 @@ class DownloadItemView extends GalleryView {
 	public function _assertPermissions($item, $derivativeType) {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
+		$session             =& $gallery->getSession();
 		$itemIdForPermission = $item->getId();
 
 		if (!empty($derivativeType)) {

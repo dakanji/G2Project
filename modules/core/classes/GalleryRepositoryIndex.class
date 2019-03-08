@@ -78,12 +78,10 @@ class GalleryRepositoryIndex {
 	public function update() {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform     =& $gallery->getPlatform();
 		$indexUrl     = $gallery->getConfig('repository.url') . $this->_source . '/index';
 		$indexHashUrl = $indexUrl . '.hash';
-
-		$path = $this->getRepositoryCacheDir();
+		$path         = $this->getRepositoryCacheDir();
 
 		list($success1, $ignored) = GalleryUtilities::guaranteeDirExists($path . 'modules');
 
@@ -234,8 +232,7 @@ class GalleryRepositoryIndex {
 	public function load() {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform  =& $gallery->getPlatform();
 		$indexPath = $this->getRepositoryCacheDir() . 'index.repository';
 
 		if (false === ($index = $platform->file_get_contents($indexPath))) {
@@ -681,8 +678,7 @@ class GalleryRepositoryIndex {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
-
-		$files = array();
+		$files    = array();
 
 		if (!is_array($locales)) {
 			$locales = array($locales);

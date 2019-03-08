@@ -103,6 +103,7 @@ class GalleryPendingUserTest extends GalleryTestCase {
 		);
 
 		$user->setHashedPassword($pendingUser->getHashedPassword());
+
 		$this->assertTrue($user->isCorrectPassword($password), 'check password');
 	}
 

@@ -60,13 +60,12 @@ function generateEntityDbXml() {
 	}
 
 	foreach ($entityXmlFiles as $xmlFile) {
-		$p        = new XmlParser();
-		$root     = $p->parse($xmlFile);
-		$base     = basename($xmlFile);
-		$base     = preg_replace('/\.[^\.]*$/', '', $base);
-		$tmpFile  = "tmp/dbxml/$base.xml";
-		$origFile = "$base.xml";
-
+		$p           = new XmlParser();
+		$root        = $p->parse($xmlFile);
+		$base        = basename($xmlFile);
+		$base        = preg_replace('/\.[^\.]*$/', '', $base);
+		$tmpFile     = "tmp/dbxml/$base.xml";
+		$origFile    = "$base.xml";
 		$membersBase = $root[0]['child'];
 		$schema      = array(
 			'name'  => $root[0]['child'][2]['child'][0]['content'],
@@ -183,8 +182,7 @@ function generateEntityDbXml() {
 					}
 
 					$index['primary'] = isset($child['attrs']['PRIMARY']) && $child['attrs']['PRIMARY'] == 'true';
-
-					$indexes[] = $index;
+					$indexes[]        = $index;
 
 					break;
 
@@ -207,8 +205,7 @@ function generateEntityDbXml() {
 		$smarty->assign('requiresId', $requiresId);
 		$smarty->assign('isMap', false);
 		$new = $smarty->fetch('dbxml.tpl');
-
-		$fd = fopen($tmpFile, 'w');
+		$fd  = fopen($tmpFile, 'w');
 		fwrite($fd, $new);
 		fclose($fd);
 	}
@@ -243,15 +240,13 @@ function generateMapDbXml() {
 		$mapName = str_replace('Preferences', 'Prefs', $mapName);
 		$mapName = str_replace('Toolkit', 'Tk', $mapName);
 		$mapName = str_replace('TkOperation', 'TkOperatn', $mapName);
-
-		$schema = array(
+		$schema  = array(
 			'name'  => $mapName,
 			'major' => $map['child'][1]['child'][0]['content'],
 			'minor' => $map['child'][1]['child'][1]['content'],
 		);
 
-		$tmpFile = "tmp/dbxml/$origMapName.xml";
-
+		$tmpFile    = "tmp/dbxml/$origMapName.xml";
 		$members    = array();
 		$keys       = array();
 		$indexes    = array();
@@ -357,8 +352,7 @@ function generateMapDbXml() {
 					}
 
 					$index['primary'] = isset($child['attrs']['PRIMARY']) && $child['attrs']['PRIMARY'] == 'true';
-
-					$indexes[] = $index;
+					$indexes[]        = $index;
 
 					break;
 			}
@@ -371,8 +365,7 @@ function generateMapDbXml() {
 			$smarty->assign('requiresId', $requiresId);
 			$smarty->assign('isMap', true);
 			$new = $smarty->fetch('dbxml.tpl');
-
-			$fd = fopen($tmpFile, 'w');
+			$fd  = fopen($tmpFile, 'w');
 			fwrite($fd, $new);
 			fclose($fd);
 		}

@@ -18,7 +18,7 @@
  */
 
 /**
- * Bootstrap code that we're going to need no matter what we do
+ * Bootstrap code that is always needed
  *
  * @package Gallery
  */

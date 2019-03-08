@@ -8,11 +8,9 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
 	  Set tabs to 4 for best viewing.
-
   Latest version of ADODB is available at http://php.weblogs.com/adodb ======================================================================
  This file provides PHP4 session management using the ADODB database
  wrapper library, using Oracle CLOB's to store data. Contributed by achim.gosse@ddd.de.
-
  Example =======
 
 	include('adodb.inc.php');
@@ -23,7 +21,6 @@
 	$_SESSION['AVAR'] += 1;
 	print "
 -- \$_SESSION['AVAR']={$_SESSION['AVAR']}</p>";
-
 To force non-persistent connections, call adodb_session_open first before session_start():
 	include('adodb.inc.php');
 	include('adodb-session.php');
@@ -34,7 +31,6 @@ To force non-persistent connections, call adodb_session_open first before sessio
 	$_SESSION['AVAR'] += 1;
 	print "
 -- \$_SESSION['AVAR']={$_SESSION['AVAR']}</p>";
-
  Installation ============
  1. Create this table in your database (syntax might vary depending on your db):
   create table sessions (
@@ -53,30 +49,23 @@ To force non-persistent connections, call adodb_session_open first before sessio
 	$ADODB_SESSION_DB ='database';
 	$ADODB_SESSION_TBL = 'sessions'
 	$ADODB_SESSION_USE_LOBS = false; (or, if you wanna use CLOBS (= 'CLOB') or ( = 'BLOB')
-
   3. Recommended is PHP 4.1.0 or later. There are documented
 	 session bugs in earlier versions of PHP.
-
   4. If you want to receive notifications when a session expires, then
 	   you can tag a session with an EXPIREREF, and before the session
 	 record is deleted, we can call a function that will pass the EXPIREREF
 	 as the first parameter, and the session key as the second parameter.
-
 	 To do this, define a notification function, say NotifyFn:
 		 function NotifyFn($expireref, $sesskey)
 		 {}
-
 	 Then you need to define a global variable $ADODB_SESSION_EXPIRE_NOTIFY.
 	 This is an array with 2 elements, the first being the name of the variable
 	 you would like to store in the EXPIREREF field, and the 2nd is the
 	 notification function's name.
-
 	 In this example, we want to be notified when a user's session
 	 has expired, so we store the user id in the global variable $USERID,
 	 store this value in the EXPIREREF field:
-
 		 $ADODB_SESSION_EXPIRE_NOTIFY = array('USERID','NotifyFn');
-
 	Then when the NotifyFn is called, we are passed the $USERID as the first
 	parameter, eg. NotifyFn($userid, $sesskey).
 */
@@ -154,7 +143,6 @@ if (!defined('ADODB_SESSION')) {
 	$ADODB_SESS['db'] = $ADODB_SESSION_DB;
 	$ADODB_SESS['life'] = $ADODB_SESS_LIFE;
 	$ADODB_SESS['debug'] = $ADODB_SESS_DEBUG;
-
 	$ADODB_SESS['debug'] = $ADODB_SESS_DEBUG;
 	$ADODB_SESS['table'] = $ADODB_SESS_TBL;
 	*/
@@ -280,7 +268,6 @@ if (!defined('ADODB_SESSION')) {
 		}
 
 		$val = rawurlencode($val);
-
 		$arr = array(
 			'sesskey' => $key,
 			'expiry'  => $expiry,

@@ -8,12 +8,9 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
   Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   Sybase driver contributed by Toni (toni.tunkkari@finebyte.com)
-
   - MSSQL date patch applied.
-
   Date patch by Toni 15 Feb 2002
 */
 
@@ -45,7 +42,6 @@ class ADODB_sybase extends ADOConnection {
 	public $sysDate         = 'GetDate()';
 	public $leftOuter       = '*=';
 	public $rightOuter      = '=*';
-
 	public $port;
 
 	public function __construct() {}
@@ -66,7 +62,6 @@ class ADODB_sybase extends ADOConnection {
 		}
 
 		$this->transCnt += 1;
-
 		$this->Execute('BEGIN TRAN');
 
 		return true;
@@ -212,8 +207,7 @@ class ADODB_sybase extends ADOConnection {
 
 		$nrows  = (int)$nrows;
 		$offset = (int)$offset;
-
-		$cnt = ($nrows >= 0) ? $nrows : 999999999;
+		$cnt    = ($nrows >= 0) ? $nrows : 999999999;
 
 		if ($offset > 0 && $cnt) {
 			$cnt += $offset;
@@ -248,8 +242,7 @@ class ADODB_sybase extends ADOConnection {
 			$col = $this->sysTimeStamp;
 		}
 
-		$s = '';
-
+		$s   = '';
 		$len = strlen($fmt);
 
 		for ($i = 0; $i < $len; $i++) {
@@ -339,8 +332,7 @@ class ADODB_sybase extends ADOConnection {
 			   "AND t.table_type='BASE' " .
 			   "AND c.pkey = 'Y' " .
 			   'ORDER BY c.column_id';
-
-		$a = $this->GetCol($sql);
+		$a   = $this->GetCol($sql);
 
 		if ($a && sizeof($a) > 0) {
 			return $a;

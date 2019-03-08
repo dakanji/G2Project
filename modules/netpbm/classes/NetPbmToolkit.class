@@ -88,9 +88,8 @@ class NetPbmToolkit extends GalleryToolkit {
 		}
 
 		// Use context look-ahead to see if we can queue up parameters to use later..
-		$queueIt = isset($context['next.toolkit']) && $context['next.toolkit'] == $this
-																																						       && $operationName != 'compress'       && $context['next.operation'] != 'compress';
-
+		$queueIt    = isset($context['next.toolkit']) && $context['next.toolkit'] == $this
+																																							      && $operationName != 'compress'    && $context['next.operation'] != 'compress';
 		$usePercent = in_array($operationName, array('thumbnail', 'scale', 'resize'))
 		&& (substr($parameters[0], -1) == '%'
 			|| (isset($parameters[1]) && substr($parameters[1], -1) == '%'));
@@ -262,8 +261,7 @@ class NetPbmToolkit extends GalleryToolkit {
 				}
 
 				$context['netpbm.tmp'][] = $tmpOverlay;
-
-				$tmpAlpha = $platform->tempnam($tmpDir, 'npbm_');
+				$tmpAlpha                = $platform->tempnam($tmpDir, 'npbm_');
 
 				if (empty($tmpAlpha)) {
 					// This can happen if the $tmpDir path is bad
@@ -471,9 +469,8 @@ class NetPbmToolkit extends GalleryToolkit {
 						$compositeAlignX = max(0, $compositeAlignX);
 						$compositeAlignY = min($compositeAlignY, $height - $compositeHeight);
 						$compositeAlignY = max(0, $compositeAlignY);
-
-						$pnmcomp[] = '-xoff=' . $compositeAlignX;
-						$pnmcomp[] = '-yoff=' . $compositeAlignY;
+						$pnmcomp[]       = '-xoff=' . $compositeAlignX;
+						$pnmcomp[]       = '-yoff=' . $compositeAlignY;
 
 						break;
 

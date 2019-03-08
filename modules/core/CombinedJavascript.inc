@@ -54,9 +54,8 @@ class CombinedJavascriptView extends GalleryView {
 	public function renderImmediate($status = null, $error = null) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-		$phpVm    = $gallery->getPhpVm();
-
+		$platform        =& $gallery->getPlatform();
+		$phpVm           = $gallery->getPhpVm();
 		$ifModifiedSince = GalleryUtilities::getServerVar('HTTP_IF_MODIFIED_SINCE');
 
 		if (isset($ifModifiedSince)
@@ -126,7 +125,6 @@ class CombinedJavascriptView extends GalleryView {
 			$phpVm->header('Content-type: text/javascript; charset=UTF-8');
 			$phpVm->header('Last-Modified: ' . $gallery->getHttpDate(1));
 			$phpVm->header('Expires: ' . $gallery->getHttpDate(2147483647));
-
 			echo $cacheData;
 		} else {
 			return GalleryCoreApi::addEventLogEntry(

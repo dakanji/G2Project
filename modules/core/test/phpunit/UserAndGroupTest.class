@@ -200,7 +200,6 @@ class UserAndGroupTest extends GalleryTestCase {
 					'userId' => $user->getId,
 				)
 			);
-
 			GalleryCoreApi::removeMapEntry(
 				'GalleryAccessMap',
 				array(
@@ -223,13 +222,13 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		if ($ret) {
 			$this->assertFalse(true, 'The user could not be deleted.');
+
 			GalleryCoreApi::removeMapEntry(
 				'GalleryUserGroupMap',
 				array(
 					'userId' => $userId,
 				)
 			);
-
 			GalleryCoreApi::removeMapEntry(
 				'GalleryAccessMap',
 				array(
@@ -262,7 +261,6 @@ class UserAndGroupTest extends GalleryTestCase {
 						'userId' => $userId,
 					)
 				);
-
 				GalleryCoreApi::removeMapEntry(
 					'GalleryAccessMap',
 					array(
@@ -284,7 +282,6 @@ class UserAndGroupTest extends GalleryTestCase {
 					'userId' => $userId,
 				)
 			);
-
 			GalleryCoreApi::removeMapEntry(
 				'GalleryAccessMap',
 				array(
@@ -310,7 +307,6 @@ class UserAndGroupTest extends GalleryTestCase {
 					'userId' => $userId,
 				)
 			);
-
 			GalleryCoreApi::removeMapEntry(
 				'GalleryAccessMap',
 				array(
@@ -602,6 +598,7 @@ class UserAndGroupTest extends GalleryTestCase {
 			}
 
 			$groupName = $entity->getGroupName();
+
 			$this->assertFalse(empty($groupName), "$paramName: group name should not be empty");
 		}
 	}
@@ -1872,10 +1869,13 @@ class UserAndGroupTest extends GalleryTestCase {
 		$this->assertFalse(empty($user), 'factory error');
 
 		$user->changePassword('password');
+
 		$this->assertTrue($user->isCorrectPassword('password'), 'password');
+
 		$user->changePassword('Ab1#+$_ ;]\?.,');
 		$this->assertTrue($user->isCorrectPassword('Ab1#+$_ ;]\?.,'), 'Ab1#+$_ ;]\?.,');
 		$user->changePassword('pass&word>');
+
 		$this->assertTrue($user->isCorrectPassword('pass&word>'), 'pass&word>');
 	}
 
@@ -1890,6 +1890,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		// We still support old style simple md5 (G1 thru 1.4.0, G2 thru alpha-4)
 		$user->setHashedPassword(md5('password'));
+
 		$this->assertTrue($user->isCorrectPassword('password'), 'password');
 	}
 
@@ -1911,8 +1912,11 @@ class UserAndGroupTest extends GalleryTestCase {
 		 * If this is ever changed, ensure all these interfaces set the password correctly.
 		 */
 		$password = $entityPassword = 'pass<word"';
+
 		GalleryUtilities::sanitizeInputValues($entityPassword, false);
+
 		$user->changePassword($entityPassword);
+
 		$this->assertTrue($user->isCorrectPassword($entityPassword), 'check password entitized');
 		$this->assertTrue($user->isCorrectPassword($password), 'check password original');
 	}
@@ -1930,6 +1934,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		// First test with a precomputed hash (12 iterations, also checks file includes)
 		$user->setHashedPassword('$P$FFfHBaR3tCn6NGNEMqrhZZ/1Bi6JQ81');
+
 		$this->assertFalse($user->isCorrectPassword('wrong password'), 'wrong password');
 		$this->assertTrue($user->isCorrectPassword('password'), 'password');
 
@@ -1940,6 +1945,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		if (class_exists('PasswordHash')) {
 			$hashGenerator1 = new PasswordHash(8, true);
 			$user->setHashedPassword($hashGenerator1->HashPassword('password'));
+
 			$this->assertTrue($user->isCorrectPassword('password'), 'password, 8 iterations');
 			$this->assertTrue(
 				!$user->isCorrectPassword('wrong password'),
@@ -1948,6 +1954,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 			$hashGenerator1 = new PasswordHash(13, true);
 			$user->setHashedPassword($hashGenerator1->HashPassword('password'));
+
 			$this->assertTrue($user->isCorrectPassword('password'), 'password, 13 iterations');
 		} else {
 			$this->fail('class PasswordHash should be defined at this point');

@@ -110,7 +110,6 @@ class DataItemTest extends GalleryTestCase {
 					$entityPath,
 					'full path mismatch'
 				);
-
 				$this->assertTrue($platform->file_exists($entityPath), "$entityPath does not exist");
 				$this->assertTrue($platform->is_file($entityPath), "$entityPath is not a directory");
 			}
@@ -203,6 +202,7 @@ class DataItemTest extends GalleryTestCase {
 		$this->assertEquals($basePath . 'valid_path_001.txt', $newPath, 'full path mismatch');
 
 		$platform =& $gallery->getPlatform();
+
 		$this->assertTrue($platform->file_exists($newPath), "$newPath does not exist");
 		$this->assertTrue($platform->is_file($newPath), "$newPath is not a file");
 
@@ -233,8 +233,7 @@ class DataItemTest extends GalleryTestCase {
 
 		$platform   =& $gallery->getPlatform();
 		$canSymlink = $platform->isSymlinkSupported();
-
-		$entity = new GalleryDataItem();
+		$entity     = new GalleryDataItem();
 
 		$ret = $entity->create(
 			$this->_album->getId(),
@@ -321,6 +320,7 @@ class DataItemTest extends GalleryTestCase {
 
 		// Verify setup
 		$this->assertEquals(123, $item->getSize(), 'size');
+
 		$path = GalleryDataCache::getCachePath(
 			array(
 				'type'   => 'fast-download',

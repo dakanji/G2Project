@@ -82,7 +82,6 @@ class SitemapView extends GalleryView {
 		echo 'xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 ';
 		echo 'http://www.google.com/schemas/sitemap/0.84/sitemap.xsd">';
 		echo "\n";
-
 		$gallery->guaranteeTimeLimit(120);
 
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds(

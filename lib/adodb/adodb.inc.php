@@ -40,9 +40,8 @@ if (!defined('_ADODB_LAYER')) {
 	// The ADOdb extension is no longer maintained and effectively unsupported
 	// since v5.04. The library will not function properly if it is present.
 	if (defined('ADODB_EXTENSION')) {
-		$msg = 'Unsupported ADOdb Extension (v' . ADODB_EXTENSION . ') detected! '
+		$msg     = 'Unsupported ADOdb Extension (v' . ADODB_EXTENSION . ') detected! '
 			. 'Disable it to use ADOdb';
-
 		$errorfn = defined('ADODB_ERROR_HANDLER') ? ADODB_ERROR_HANDLER : false;
 
 		if ($errorfn) {
@@ -501,14 +500,12 @@ if (!defined('_ADODB_LAYER')) {
 		public $fnCacheExecute       = false;
 		public $blobEncodeType       = false; // false=not required, 'I'=encode to integer, 'C'=encode to char
 		public $rsPrefix             = 'ADORecordSet_';
-
-		public $autoCommit = true;     /// do not modify this yourself - actually private
-		public $transOff   = 0;          /// temporarily disable transactions
-		public $transCnt   = 0;          /// count of nested transactions
-		public $fetchMode  = false;
-
-		public $null2null = 'null'; // in autoexecute/getinsertsql/getupdatesql, this value will be converted to a null
-		public $bulkBind  = false; // enable 2D Execute array
+		public $autoCommit           = true;     /// do not modify this yourself - actually private
+		public $transOff             = 0;          /// temporarily disable transactions
+		public $transCnt             = 0;          /// count of nested transactions
+		public $fetchMode            = false;
+		public $null2null            = 'null'; // in autoexecute/getinsertsql/getupdatesql, this value will be converted to a null
+		public $bulkBind             = false; // enable 2D Execute array
 		// PRIVATE VARS
 		public $_oldRaiseFn = false;
 		public $_transOK;
@@ -1004,14 +1001,12 @@ if (!defined('_ADODB_LAYER')) {
 		$db->Parameter($stmt,$id,'myid');
 		$db->Parameter($stmt,$group,'group',64);
 		$db->Execute();
-
 		@param $stmt Statement returned by Prepare() or PrepareSP().
 		@param $var PHP variable to bind to
 		@param $name Name of stored procedure variable name to bind to.
 		@param [$isOutput] Indicates direction of parameter 0/false=IN  1=OUT  2= IN/OUT. This is ignored in oci8.
 		@param [$maxLen] Holds an maximum length of the variable.
 		@param [$type] The data type of $var. Legal values depend on driver.
-
 		*/
 		public function Parameter(&$stmt, &$var, $name, $isOutput = false, $maxLen = 4000, $type = false) {
 			return false;
@@ -1075,8 +1070,7 @@ if (!defined('_ADODB_LAYER')) {
 			}
 
 			$this->raiseErrorFn = $this->_oldRaiseFn;
-
-			$this->transOff = 0;
+			$this->transOff     = 0;
 
 			if ($this->_transOK && $autoComplete) {
 				if (!$this->CommitTrans()) {
@@ -1381,10 +1375,8 @@ if (!defined('_ADODB_LAYER')) {
 				return 0; // formerly returns false pre 1.60
 			}
 
-			$getnext = sprintf($this->_genIDSQL, $seqname);
-
-			$holdtransOK = $this->_transOK;
-
+			$getnext            = sprintf($this->_genIDSQL, $seqname);
+			$holdtransOK        = $this->_transOK;
 			$save_handler       = $this->raiseErrorFn;
 			$this->raiseErrorFn = '';
 			@($rs               = $this->Execute($getnext));
@@ -1707,8 +1699,7 @@ if (!defined('_ADODB_LAYER')) {
 				$rs->Close();
 			}
 
-			$arrayClass = $this->arrayClass;
-
+			$arrayClass        = $this->arrayClass;
 			$rs2               = new $arrayClass();
 			$rs2->connection   = $this;
 			$rs2->sql          = $rs->sql;
@@ -1893,7 +1884,6 @@ if (!defined('_ADODB_LAYER')) {
 		Calculate the offset of a date for a particular database and generate
 			appropriate SQL. Useful for calculating future/past dates and storing
 			in a database.
-
 		If dayFraction=1.5 means 1.5 days from now, 1.0/24 for 1 hour.
 		*/
 		public function OffsetDate($dayFraction, $date = false) {
@@ -1982,9 +1972,7 @@ if (!defined('_ADODB_LAYER')) {
 
 			$crecs           = $ADODB_COUNTRECS;
 			$ADODB_COUNTRECS = false;
-
-			$rs = $this->Execute($sql, $inputarr);
-
+			$rs              = $this->Execute($sql, $inputarr);
 			$ADODB_COUNTRECS = $crecs;
 
 			if ($rs) {
@@ -2279,7 +2267,6 @@ if (!defined('_ADODB_LAYER')) {
 		Similar to PEAR DB's autoExecute(), except that
 		$mode can be 'INSERT' or 'UPDATE' or DB_AUTOQUERY_INSERT or DB_AUTOQUERY_UPDATE
 		If $mode == 'UPDATE', then $where is compulsory as a safety measure.
-
 		$forceUpdate means that even if the data has not changed, perform update.
 		*/
 		public function AutoExecute($table, $fields_values, $mode = 'INSERT', $where = false, $forceUpdate = true, $magicq = false) {
@@ -2813,7 +2800,6 @@ if (!defined('_ADODB_LAYER')) {
 			if (!empty($this->metaColumnsSQL)) {
 				$schema = false;
 				$this->_findschema($table, $schema);
-
 				$save             = $ADODB_FETCH_MODE;
 				$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
@@ -3763,7 +3749,6 @@ if (!defined('_ADODB_LAYER')) {
 			}
 
 			$this->Move($offset);
-
 			$results = array();
 			$cnt     = 0;
 
@@ -3820,8 +3805,7 @@ if (!defined('_ADODB_LAYER')) {
 
 			// Determine whether the array is associative or 0-based numeric
 			$numIndex = array_keys($this->fields) == range(0, count($this->fields) - 1);
-
-			$results = array();
+			$results  = array();
 
 			if (!$first2cols && ($cols > 2 || $force_array)) {
 				if ($ADODB_EXTENSION) {
@@ -4533,18 +4517,15 @@ if (!defined('_ADODB_LAYER')) {
 				'CLOB'                        => 'X',
 				'NCLOB'                       => 'X',
 				'LVARCHAR'                    => 'X',
-
 				'BLOB'                        => 'B',
 				'IMAGE'                       => 'B',
 				'BINARY'                      => 'B',
 				'VARBINARY'                   => 'B',
 				'LONGBINARY'                  => 'B',
 				'B'                           => 'B',
-
 				'YEAR'                        => 'D', // mysql
 				'DATE'                        => 'D',
 				'D'                           => 'D',
-
 				'UNIQUEIDENTIFIER'            => 'C', // MS SQL Server
 				'SMALLDATETIME'               => 'T',
 				'TIME'                        => 'T',
@@ -4558,12 +4539,10 @@ if (!defined('_ADODB_LAYER')) {
 				'BOOLEAN'                     => 'L',
 				'BIT'                         => 'L',
 				'L'                           => 'L',
-
 				'COUNTER'                     => 'R',
 				'R'                           => 'R',
 				'SERIAL'                      => 'R', // ifx
 				'INT IDENTITY'                => 'R',
-
 				'INT'                         => 'I',
 				'INT2'                        => 'I',
 				'INT4'                        => 'I',
@@ -4574,7 +4553,6 @@ if (!defined('_ADODB_LAYER')) {
 				'TINYINT'                     => 'I',
 				'SMALLINT'                    => 'I',
 				'I'                           => 'I',
-
 				'LONG'                        => 'N', // interbase is numeric, oci8 is blob
 				'BIGINT'                      => 'N', // this is bigger than PHP 32-bit integers
 				'DECIMAL'                     => 'N',
@@ -4749,7 +4727,6 @@ if (!defined('_ADODB_LAYER')) {
 	 */
 	class ADORecordSet_array extends ADORecordSet {
 		public $databaseType = 'array';
-
 		public $_array;    // holds the 2-dimensional data array
 		public $_types;    // the array of types of each column (C B I L M)
 		public $_colnames; // names of each column in array
@@ -4780,8 +4757,7 @@ if (!defined('_ADODB_LAYER')) {
 				include ADODB_DIR . '/adodb-lib.inc.php';
 			}
 
-			$hdr = true;
-
+			$hdr   = true;
 			$fobjs = $addfieldnames ? $this->_fieldobjects : false;
 			adodb_transpose($this->_array, $newarr, $hdr, $fobjs);
 
@@ -4789,9 +4765,7 @@ if (!defined('_ADODB_LAYER')) {
 			$this->_skiprow1 = false;
 			$this->_array    = $newarr;
 			$this->_colnames = $hdr;
-
 			adodb_probetypes($newarr, $this->_types);
-
 			$this->_fieldobjects = array();
 
 			foreach ($hdr as $k => $name) {
@@ -4803,7 +4777,6 @@ if (!defined('_ADODB_LAYER')) {
 			}
 
 			$this->fields = reset($this->_array);
-
 			$this->_initrs();
 		}
 
@@ -4924,7 +4897,6 @@ if (!defined('_ADODB_LAYER')) {
 		public function MoveNext() {
 			if (!$this->EOF) {
 				$this->_currentRow++;
-
 				$pos = $this->_currentRow;
 
 				if ($this->_numOfRows <= $pos) {
@@ -5488,7 +5460,6 @@ if (!defined('_ADODB_LAYER')) {
 
 	/*
 		Perform a stack-crawl and pretty print it.
-
 		@param printOrArr  Pass in a boolean to indicate print, or an $exception->trace array (assumes that print is true then).
 		@param levels Number of levels to display
 	*/

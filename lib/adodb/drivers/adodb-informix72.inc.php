@@ -8,12 +8,9 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
   Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   Informix port by Mitchell T. Young (mitch@youngfamily.org)
-
   Further mods by "Samuel CARRIERE" <samuel_carriere@hotmail.com>
-
 */
 
 // security - hide paths
@@ -26,35 +23,31 @@ if (!defined('IFX_SCROLL')) {
 }
 
 class ADODB_informix72 extends ADOConnection {
-	public $databaseType    = 'informix72';
-	public $dataProvider    = 'informix';
-	public $replaceQuote    = "''"; // string to use to replace quotes
-	public $fmtDate         = "'Y-m-d'";
-	public $fmtTimeStamp    = "'Y-m-d H:i:s'";
-	public $hasInsertID     = true;
-	public $hasAffectedRows = true;
-	public $substr          = 'substr';
-	public $metaTablesSQL   = "select tabname,tabtype from systables where tabtype in ('T','V') and owner!='informix'"; //Don't get informix tables and pseudo-tables
-	public $metaColumnsSQL  = "select c.colname, c.coltype, c.collength, d.default,c.colno
+	public $databaseType      = 'informix72';
+	public $dataProvider      = 'informix';
+	public $replaceQuote      = "''"; // string to use to replace quotes
+	public $fmtDate           = "'Y-m-d'";
+	public $fmtTimeStamp      = "'Y-m-d H:i:s'";
+	public $hasInsertID       = true;
+	public $hasAffectedRows   = true;
+	public $substr            = 'substr';
+	public $metaTablesSQL     = "select tabname,tabtype from systables where tabtype in ('T','V') and owner!='informix'"; //Don't get informix tables and pseudo-tables
+	public $metaColumnsSQL    = "select c.colname, c.coltype, c.collength, d.default,c.colno
 		from syscolumns c, systables t,outer sysdefaults d
 		where c.tabid=t.tabid and d.tabid=t.tabid and d.colno=c.colno
 		and tabname='%s' order by c.colno";
-
 	public $metaPrimaryKeySQL = "select part1,part2,part3,part4,part5,part6,part7,part8 from
 		systables t,sysconstraints s,sysindexes i where t.tabname='%s'
 		and s.tabid=t.tabid and s.constrtype='P'
 		and i.idxname=s.idxname";
-
-	public $concat_operator = '||';
-
-	public $lastQuery    = false;
-	public $has_insertid = true;
-
-	public $_autocommit     = true;
-	public $_bindInputArray = true;  // set to true if ADOConnection.Execute() permits binding of array parameters.
-	public $sysDate         = 'TODAY';
-	public $sysTimeStamp    = 'CURRENT';
-	public $cursorType      = IFX_SCROLL; // IFX_SCROLL or IFX_HOLD or 0
+	public $concat_operator   = '||';
+	public $lastQuery         = false;
+	public $has_insertid      = true;
+	public $_autocommit       = true;
+	public $_bindInputArray   = true;  // set to true if ADOConnection.Execute() permits binding of array parameters.
+	public $sysDate           = 'TODAY';
+	public $sysTimeStamp      = 'CURRENT';
+	public $cursorType        = IFX_SCROLL; // IFX_SCROLL or IFX_HOLD or 0
 
 	public function __construct() {
 		// alternatively, use older method:
@@ -251,7 +244,6 @@ class ADODB_informix72 extends ADOConnection {
 				/*  //!eos.
 						$rs->fields[1] is not the correct adodb type
 						$rs->fields[2] is not correct max_length, because can include not-null bit
-
 				$fld->type = $rs->fields[1];
 				$fld->primary_key=$rspkey->fields && array_search($rs->fields[4],$rspkey->fields); //Added to set primary key flag
 				$fld->max_length = $rs->fields[2];*/
@@ -269,7 +261,6 @@ class ADODB_informix72 extends ADOConnection {
 				}
 
 				$retarr[strtolower($fld->name)] = $fld;
-
 				$rs->MoveNext();
 			}
 
@@ -297,8 +288,7 @@ class ADODB_informix72 extends ADOConnection {
 			and s.tabid=t.tabid and s.constrtype='R' and r.constrid=s.constrid
 			and i.idxname=s.idxname and tr.tabid=r.ptabid
 			and s2.constrid=r.primary and i2.idxname=s2.idxname";
-
-		$rs = $this->Execute($sql);
+		$rs  = $this->Execute($sql);
 
 		if (!$rs || $rs->EOF) {
 			return false;

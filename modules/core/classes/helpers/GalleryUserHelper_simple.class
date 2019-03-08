@@ -68,8 +68,7 @@ class GalleryUserHelper_simple {
 		}
 
 		$sessionPermissions = (int)$sessionPermissions;
-
-		$cacheKey = "GalleryPermissionHelper::getPermissions($itemId,$userId,$sessionPermissions)";
+		$cacheKey           = "GalleryPermissionHelper::getPermissions($itemId,$userId,$sessionPermissions)";
 
 		if (GalleryDataCache::containsKey($cacheKey)) {
 			$permissions = GalleryDataCache::get($cacheKey);

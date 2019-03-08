@@ -8,7 +8,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
 Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   Oracle support via ODBC. Requires ODBC. Works on Windows.
 */
@@ -92,7 +91,6 @@ class ADODB_odbc_oracle extends ADODB_odbc {
 		$last_php_error      = $this->resetLastError();
 		$this->_connectionID = odbc_connect($argDSN, $argUsername, $argPassword, SQL_CUR_USE_ODBC);
 		$this->_errorMsg     = $this->getChangedErrorMsg($last_php_error);
-
 		$this->Execute("ALTER SESSION SET NLS_DATE_FORMAT='YYYY-MM-DD HH24:MI:SS'");
 
 		//if ($this->_connectionID) odbc_autocommit($this->_connectionID,true);
@@ -104,7 +102,6 @@ class ADODB_odbc_oracle extends ADODB_odbc {
 		$last_php_error      = $this->resetLastError();
 		$this->_connectionID = odbc_pconnect($argDSN, $argUsername, $argPassword, SQL_CUR_USE_ODBC);
 		$this->_errorMsg     = $this->getChangedErrorMsg($last_php_error);
-
 		$this->Execute("ALTER SESSION SET NLS_DATE_FORMAT='YYYY-MM-DD HH24:MI:SS'");
 
 		//if ($this->_connectionID) odbc_autocommit($this->_connectionID,true);

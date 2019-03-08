@@ -45,8 +45,7 @@ class MimeEditController extends GalleryController {
 			}
 
 			$form['mimeType'] = strtolower($form['mimeType']);
-
-			$allEmpty = true;
+			$allEmpty         = true;
 
 			foreach ($form['extensions'] as $ext) {
 				if (!empty($ext)) {

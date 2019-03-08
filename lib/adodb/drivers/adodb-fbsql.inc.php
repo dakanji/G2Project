@@ -18,7 +18,6 @@ if (!defined('ADODB_DIR')) {
 
 if (!defined('_ADODB_FBSQL_LAYER')) {
 	define('_ADODB_FBSQL_LAYER', 1);
-
 	class ADODB_fbsql extends ADOConnection {
 		public $databaseType    = 'fbsql';
 		public $hasInsertID     = true;
@@ -57,8 +56,7 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 			$s     = '';
 			$arr   = func_get_args();
 			$first = true;
-
-			$s = implode(',', $arr);
+			$s     = implode(',', $arr);
 
 			if (sizeof($arr) > 0) {
 				return "CONCAT($s)";
@@ -120,13 +118,11 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 						$fld->max_length = -1;
 					}
 
-					$fld->not_null       = ($rs->fields[2] != 'YES');
-					$fld->primary_key    = ($rs->fields[3] == 'PRI');
-					$fld->auto_increment = (strpos($rs->fields[5], 'auto_increment') !== false);
-					$fld->binary         = (strpos($fld->type, 'blob') !== false);
-
+					$fld->not_null                  = ($rs->fields[2] != 'YES');
+					$fld->primary_key               = ($rs->fields[3] == 'PRI');
+					$fld->auto_increment            = (strpos($rs->fields[5], 'auto_increment') !== false);
+					$fld->binary                    = (strpos($fld->type, 'blob') !== false);
 					$retarr[strtoupper($fld->name)] = $fld;
-
 					$rs->MoveNext();
 				}
 

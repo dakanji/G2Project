@@ -374,7 +374,6 @@ class NetPbmToolkitTest extends GalleryTestCase {
 
 		$context['next.toolkit']   = null;
 		$context['next.operation'] = null;
-
 		$this->assertEquals(
 			array(
 				'next.toolkit'     => null,
@@ -983,7 +982,6 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			),
 			$results
 		);
-
 		$this->assertEquals(
 			array(
 				'image/jpeg',
@@ -1094,7 +1092,6 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			),
 			$results
 		);
-
 		$this->assertEquals(
 			array(
 				'image/jpeg',

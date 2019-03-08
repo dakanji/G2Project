@@ -48,7 +48,6 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 		}
 
 		$this->_module->translate('Binary output:');
-
 		$this->_platform = new UnitTestPlatform();
 		$gallery->setPlatform($this->_platform);
 	}
@@ -87,7 +86,6 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 			),
 			$testArray
 		);
-
 		$this->assertEquals('5.62', $version);
 	}
 
@@ -115,7 +113,6 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 			),
 			$testArray
 		);
-
 		$this->assertEquals('6.35', $version);
 	}
 
@@ -143,7 +140,6 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 			),
 			$testArray
 		);
-
 		$this->assertEquals('7.17', $version);
 	}
 
@@ -171,7 +167,6 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 			),
 			$testArray
 		);
-
 		$this->assertEquals('7.73', $version);
 	}
 
@@ -201,7 +196,6 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 			),
 			$testArray
 		);
-
 		$this->assertEquals('8.53', $version);
 	}
 

@@ -50,7 +50,6 @@ class HiddenModule extends GalleryModule {
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
-
 		$this->setGroup('display', $this->translate('Display'));
 	}
 
@@ -251,7 +250,6 @@ class HiddenModule extends GalleryModule {
 	 */
 	public function handleEvent($event) {
 		global $gallery;
-
 		GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenHelper.class');
 
 		switch ($event->getEventName()) {

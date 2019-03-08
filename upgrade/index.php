@@ -44,7 +44,6 @@
  * in our SQL, as well as reading/writing the config.php
  */
 @ini_set('magic_quotes_runtime', 0);
-
 $g2Base = dirname(__DIR__) . '/';
 
 require_once $g2Base . 'upgrade/UpgradeStep.class';
@@ -254,7 +253,9 @@ function selectAdminUser($fallback = false) {
 		if ($fallback) {
 			// Initialize a GalleryUser with the id of a real admin
 			$gallery->debug('Unable to load admin user. Using in-memory user object as fallback');
+
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryUser.class');
+
 			$adminUser = new GalleryUser();
 			$adminUser->setId((int)$userId);
 			$adminUser->setUserName($userName);

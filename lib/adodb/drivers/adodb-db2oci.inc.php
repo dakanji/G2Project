@@ -8,7 +8,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
 Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   Microsoft Visual FoxPro data driver. Requires ODBC. Works only on MS Windows.
 */
@@ -43,11 +42,8 @@ if (!defined('ADODB_DB2OCI')) {
 
 	$_COLONARR = array();
 	$_COLONSZ = sizeof($arr);
-
 	$sql2 = preg_replace("/(:[0-9]+)/e","_colontrack('\\1')",$sql);
-
 	if (empty($_COLONARR)) return array($sql,$arr);
-
 	foreach($_COLONARR as $k => $v) {
 		$arr2[] = $arr[$v];
 	}
@@ -59,7 +55,6 @@ if (!defined('ADODB_DB2OCI')) {
 
 	/*
 	Smart remapping of :0, :1 bind vars to ? ?
-
 	Handles colons in comments -- and / * * / and in quoted strings.
 	*/
 	function _colonparser($sql, $arr) {
@@ -78,10 +73,9 @@ if (!defined('ADODB_DB2OCI')) {
 				case '/':
 					if ($state == 'NORM' && $ch2 == '*') {
 						$state = 'COMMENT';
-
-						$at += 1;
-						$ch  = $ch2;
-						$ch2 = $at < $lensql ? $sql[$at] : '';
+						$at   += 1;
+						$ch    = $ch2;
+						$ch2   = $at < $lensql ? $sql[$at] : '';
 					}
 
 					break;
@@ -89,10 +83,9 @@ if (!defined('ADODB_DB2OCI')) {
 				case '*':
 					if ($state == 'COMMENT' && $ch2 == '/') {
 						$state = 'NORM';
-
-						$at += 1;
-						$ch  = $ch2;
-						$ch2 = $at < $lensql ? $sql[$at] : '';
+						$at   += 1;
+						$ch    = $ch2;
+						$ch2   = $at < $lensql ? $sql[$at] : '';
 					}
 
 					break;
@@ -187,9 +180,7 @@ if (!defined('ADODB_DB2OCI')) {
 			$savem            = $ADODB_FETCH_MODE;
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 			$qid              = db2_tables($this->_connectionID);
-
-			$rs = new ADORecordSet_db2($qid);
-
+			$rs               = new ADORecordSet_db2($qid);
 			$ADODB_FETCH_MODE = $savem;
 
 			if (!$rs) {

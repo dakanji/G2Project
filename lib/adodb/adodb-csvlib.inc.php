@@ -10,7 +10,6 @@ global $ADODB_INCLUDED_CSV;
 $ADODB_INCLUDED_CSV = 1;
 
 /*
-
   @version   v5.20.12  30-Mar-2018
   @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
   @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
@@ -18,7 +17,6 @@ $ADODB_INCLUDED_CSV = 1;
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
   Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   Library for CSV serialization. This is used by the csv/proxy driver and is the
   CacheExecute() serialization format. ==== NOTE ====
@@ -213,8 +211,7 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 			if ($meta[0] === '====1') {
 				// slurp in the data
 				$MAXSIZE = 128000;
-
-				$text = fread($fp, $MAXSIZE);
+				$text    = fread($fp, $MAXSIZE);
 
 				if (strlen($text)) {
 					while ($txt = fread($fp, $MAXSIZE)) {
@@ -275,8 +272,7 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 
 	// slurp in the data
 	$MAXSIZE = 128000;
-
-	$text = '';
+	$text    = '';
 
 	while ($txt = fread($fp, $MAXSIZE)) {
 		$text .= $txt;

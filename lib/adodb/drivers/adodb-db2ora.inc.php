@@ -8,7 +8,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
 Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   Microsoft Visual FoxPro data driver. Requires ODBC. Works only on MS Windows.
 */
@@ -53,8 +52,7 @@ if (!defined('ADODB_DB2OCI')) {
 
 		$_COLONARR = array();
 		$_COLONSZ  = sizeof($arr);
-
-		$sql2 = preg_replace_callback('/(:[0-9]+)/', '_colontrack', $sql);
+		$sql2      = preg_replace_callback('/(:[0-9]+)/', '_colontrack', $sql);
 
 		if (empty($_COLONARR)) {
 			return array($sql, $arr);

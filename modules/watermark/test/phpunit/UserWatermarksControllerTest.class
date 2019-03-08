@@ -90,12 +90,12 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 	public function testAddWatermark() {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform     =& $gallery->getPlatform();
 		$dataFile     = GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.gif');
 		$rand         = mt_rand();
 		$targetName   = sprintf('phpunit_%s.gif', $rand);
 		$expectedName = sprintf('phpunit_%s_gif', $rand);
+
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
 		GalleryUtilities::putRequestVariable('form[name][1]', $targetName);
 		GalleryUtilities::putRequestVariable('form[type][1]', 'image/gif');
@@ -272,12 +272,12 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 	public function testAddMaliciousFile() {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform     =& $gallery->getPlatform();
 		$dataFile     = GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.gif');
 		$rand         = mt_rand();
 		$targetName   = sprintf('phpunit_%s.php', $rand);
 		$expectedName = sprintf('phpunit_%s_php', $rand);
+
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
 		GalleryUtilities::putRequestVariable('form[name][1]', $targetName);
 		GalleryUtilities::putRequestVariable('form[type][1]', 'image/gif');
@@ -329,11 +329,11 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 
 		// Start with admin user..
 		$gallery->setActiveUser($this->_saveUser);
-
 		$dataFile     = GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.gif');
 		$rand         = mt_rand();
 		$targetName   = sprintf('phpunit_%s.gif', $rand);
 		$expectedName = sprintf('phpunit_%s_gif', $rand);
+
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
 		GalleryUtilities::putRequestVariable('form[name][1]', $targetName);
 		GalleryUtilities::putRequestVariable('form[type][1]', 'image/gif');
@@ -370,9 +370,8 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		// Now change active user and add watermark with same filename..
 		$gallery->setActiveUser($this->_user);
 		$expectedName = '_' . $expectedName;
-
-		$results    = $this->handleRequest();
-		$expectedId = $counter->getRecentEntityId('WatermarkImage');
+		$results      = $this->handleRequest();
+		$expectedId   = $counter->getRecentEntityId('WatermarkImage');
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -417,7 +416,6 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_becomeGuestUser();
-
 		$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
 
 		list($ret, $this->_user2) = $this->_createUser(
@@ -432,7 +430,6 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 
 		$this->_markForCleanup($this->_user2);
 		$gallery->setActiveUser($this->_user2);
-
 		$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
 	}
 

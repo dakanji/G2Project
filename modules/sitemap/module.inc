@@ -41,7 +41,6 @@ class SitemapModule extends GalleryModule {
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
-
 		$this->setGroup('export', $gallery->i18n('Export'));
 		$this->setCallbacks('getSiteAdminViews');
 	}
@@ -77,8 +76,7 @@ class SitemapModule extends GalleryModule {
 	 * @see GalleryModule::getRewriteRules
 	 */
 	public function getRewriteRules() {
-		$rules = array();
-
+		$rules         = array();
 		$rule          = array();
 		$rule['match'] = array(
 			'view' => 'sitemap.Sitemap',

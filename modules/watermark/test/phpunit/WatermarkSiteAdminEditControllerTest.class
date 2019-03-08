@@ -301,6 +301,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		}
 
 		$sourceFile = dirname(__DIR__) . '/data/UserWatermarkControllerTestFile.' . $ext;
+
 		GalleryUtilities::putRequestVariable('watermarkId', $this->_watermark->getId());
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[watermarkName]', $this->_watermark->getName());
@@ -350,6 +351,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		}
 
 		$expected = ($postMimeType == 'test/file') ? array('50', '80', $platform->filesize($sourceFile), false) : array('100', '100', $platform->filesize(__FILE__), true);
+
 		$this->assertEquals($expected[0], $this->_watermark->getXPercentage(), 'x');
 		$this->assertEquals($expected[1], $this->_watermark->getYPercentage(), 'y');
 		$this->assertEquals($expected[2], $this->_watermark->getSize(), 'size');

@@ -148,12 +148,13 @@ class RepositoryPackageTest extends GalleryTestCase {
 
 		// Get data from template.
 		$templateVariables = $this->_package->_template->getVariables();
+
 		$this->assertEquals($this->_expectedPackageData['package1'], $templateVariables, '');
 
 		// Verify that the package was named appropriately.
 		$packagePath = $this->_package->getOutputDir() . $this->_package->getOutputFile();
-		$this->assertEquals($expectedPackagePath, $packagePath, 'Package written to wrong path []');
 
+		$this->assertEquals($expectedPackagePath, $packagePath, 'Package written to wrong path []');
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
@@ -161,8 +162,7 @@ class RepositoryPackageTest extends GalleryTestCase {
 		global $gallery;
 
 		$this->_package->_descriptor = new RepositoryPackageTestDescriptor();
-
-		$platform = new UnitTestPlatform();
+		$platform                    = new UnitTestPlatform();
 		$platform->setReply(
 			'file_get_contents',
 			array('pluginDirectory/file1'),
@@ -233,25 +233,21 @@ class RepositoryPackageTest extends GalleryTestCase {
 		$templateVariables = $this->_package->_template->getVariables();
 
 		$this->assertEquals($this->_expectedPackageData['package1'] + $this->_expectedPackageData['package2'], $templateVariables, 'package data');
-
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
 	public function testGetPackageFileName() {
 		$this->_package->_descriptor = new RepositoryPackageTestDescriptor();
-
 		$this->assertEquals(
 			'testplugin-1.0.0-19700411131300-base.package',
 			$this->_package->getPackageFileName('base'),
 			'Unexpected package file name generated.'
 		);
-
 		$this->assertEquals(
 			'testplugin-1.0.0-19700411131300-test.package',
 			$this->_package->getPackageFileName('test'),
 			'Unexpected package file name generated.'
 		);
-
 		$this->assertEquals(
 			'testplugin-lang-en_EN-2.2-2.2.package',
 			$this->_package->getPackageFileName('lang-en_EN'),
@@ -267,12 +263,10 @@ class RepositoryPackageTest extends GalleryTestCase {
 
 		$gallery->_phpVm = new RepositoryPackageTestPhpVm();
 		$testPackage     = new RepositoryPackageTestPackage();
-
 		$this->assertEquals(
 			'mock-filename',
 			$testPackage->getPackageHash('package-type', 20)
 		);
-
 		$this->assertEquals(
 			'moc',
 			$testPackage->getPackageHash('package-type', 3)
@@ -298,15 +292,13 @@ class RepositoryPackageTestDescriptor {
 	public $_packages;
 	public $_directories;
 	public $_files;
-
 	public $_pluginId;
 	public $_pluginType;
 	public $_pluginDir;
 	public $_pluginVersion;
 
 	public function __construct() {
-		$this->_packages = array('package1', 'package2');
-
+		$this->_packages    = array('package1', 'package2');
 		$this->_directories = array(
 			'package1' => array('dir1', 'dir2'),
 			'package2' => array('dir2', 'dir3'),

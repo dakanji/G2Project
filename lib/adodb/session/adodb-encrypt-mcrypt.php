@@ -9,7 +9,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
 	  Set tabs to 4 for best viewing.
-
 */
 if (!function_exists('mcrypt_encrypt')) {
 	trigger_error('Mcrypt functions are not available', E_USER_ERROR);
@@ -19,9 +18,7 @@ if (!function_exists('mcrypt_encrypt')) {
 
 class ADODB_Encrypt_MCrypt {
 	public $_cipher;
-
 	public $_mode;
-
 	public $_source;
 
 	public function getCipher() {

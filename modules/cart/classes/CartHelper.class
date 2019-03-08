@@ -37,8 +37,7 @@ class CartHelper {
 	public static function fetchCartItemCounts() {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
+		$session     =& $gallery->getSession();
 		$cartItemIds = $session->get('cart.itemIds');
 
 		if (empty($cartItemIds) || !is_array($cartItemIds)) {

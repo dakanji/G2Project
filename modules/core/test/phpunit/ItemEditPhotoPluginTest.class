@@ -237,6 +237,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 			$this->assertFalse(true, 'no resizes!');
 		} else {
 			$resizeTable = $resizeTable[$this->_item->getId()];
+
 			$this->assertEquals(3, count($resizeTable), 'resize count');
 
 			for ($i = 0; $i < 3; $i++) {
@@ -254,6 +255,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 
 				$expectedOperations  = ($i < 2) ? ('scale|' . ($i ? 250 : 500) . ',' . ($i ? 250 : 500)) : 'scale|50%,600';
 				$expectedOperations .= ';convert-to-image/jpeg';
+
 				$this->assertEquals($expectedOperations, $resize->getDerivativeOperations(), $i);
 
 				// check that postfilteroperations are maintained and added to new resizes..
@@ -437,6 +439,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->assertTrue($resizeTable[$itemId], 'no derivative');
+
 		$preferredId = $resizeTable[$itemId][0]->getId();
 
 		// check that the derivatives are from the preferred source, not from the original
@@ -449,7 +452,6 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 				getDerivativeSourceId(),
 				'Derivative Source id'
 			);
-
 			$this->assertEquals(
 				'scale|' . 100 * $i . ',' . 100 * $i . ';convert-to-image/jpeg',
 				$resizeTable[$itemId][$i]->

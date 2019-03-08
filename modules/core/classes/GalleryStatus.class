@@ -197,7 +197,6 @@ class GalleryStatus {
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		$isAdmin = !$ret && $isAdmin;
-
 		$session->put('core.error.code', $this->getErrorCode());
 		$session->put('core.error.trace', $this->getAsHtml($isAdmin));
 	}

@@ -92,8 +92,7 @@ class FfmpegToolkit extends GalleryToolkit {
 	) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform    =& $gallery->getPlatform();
 		$tmpDir      = $gallery->getConfig('data.gallery.tmp');
 		$tmpFilename = $platform->tempnam($tmpDir, 'fmpg_');
 
@@ -171,9 +170,8 @@ class FfmpegToolkit extends GalleryToolkit {
 				if (isset($context['audioChannels'])) {
 					if ($context['audioChannels'] > 0) {
 						$audioChannelIndex = count($args);
-
-						$args[] = '-ac';
-						$args[] = $context['audioChannels'];
+						$args[]            = '-ac';
+						$args[]            = $context['audioChannels'];
 					} else {
 						$args[] = '-an';
 						$muted  = true;
@@ -188,9 +186,8 @@ class FfmpegToolkit extends GalleryToolkit {
 				if (isset($context['sampleRate'])) {
 					if (!$muted) {
 						$audioRateIndex = count($args);
-
-						$args[] = '-ar';
-						$args[] = $context['sampleRate'];
+						$args[]         = '-ar';
+						$args[]         = $context['sampleRate'];
 					}
 
 					unset($context['sampleRate']);

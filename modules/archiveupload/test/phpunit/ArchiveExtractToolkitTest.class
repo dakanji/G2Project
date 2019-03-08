@@ -79,7 +79,6 @@ class ArchiveExtractToolkitTest extends GalleryTestCase {
 		$platform->setReply('chdir', array('testCwd'), true);
 		$platform->setReply('recursiveChmod', array('testDir', null, null), true);
 		$gallery->setPlatform($platform);
-
 		$platform->setReply('opendir', array('testDir'), 'testHand');
 		$platform->setReply('readdir', array('testHand'), '.');
 		$platform->setReply('readdir', array('testHand'), '..');

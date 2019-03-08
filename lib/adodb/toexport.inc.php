@@ -92,9 +92,8 @@ function _adodb_export(&$rs, $sep, $sepreplace, $fp = false, $addtitles = true, 
 	}
 
 	$hasNumIndex = isset($rs->fields[0]);
-
-	$line = 0;
-	$max  = $rs->FieldCount();
+	$line        = 0;
+	$max         = $rs->FieldCount();
 
 	while (!$rs->EOF) {
 		$elements = array();

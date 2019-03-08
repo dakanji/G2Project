@@ -8,7 +8,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
   Set tabs to 8.
-
 */
 class ADODB_pdo_mysql extends ADODB_pdo {
 	public $metaTablesSQL  = "SELECT

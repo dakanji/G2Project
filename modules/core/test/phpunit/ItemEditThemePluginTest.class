@@ -72,11 +72,9 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
-
 		$Platform                  = $gallery->getPlatform();
 		$ItemEditThemeTestPlatform = new ItemEditThemeTestPlatform($Platform);
 		$gallery->setPlatform($ItemEditThemeTestPlatform);
-
 		$this->_preferred = null;
 
 		// Reset test theme
@@ -111,6 +109,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(array(array(), null), $results);
 	}
 
@@ -152,6 +151,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		$this->assertTrue(GalleryUtilities::hasRequestVariable('form[errorMessage]'));
 
 		$errorMessage = GalleryUtilities::getRequestVariables('form[errorMessage]');
+
 		$this->assertEquals('You must enter a number greater than 0', $errorMessage['rows']);
 	}
 
@@ -225,7 +225,6 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 			array(array(), $this->_translate('Successfully saved theme settings')),
 			$results
 		);
-
 		$this->assertEquals(
 			array(
 				'setParameter(rows, 3)',
@@ -284,6 +283,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		}
 
 		$themeId = $this->_album->getTheme();
+
 		$this->assertTrue(empty($themeId));
 	}
 

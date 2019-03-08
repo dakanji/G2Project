@@ -1,7 +1,6 @@
 <?php
 
 /*
-
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
@@ -9,11 +8,8 @@
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
-
   Active Record implementation. Superset of Zend Framework's.
-
   Version 0.92
-
   See http://www-128.ibm.com/developerworks/java/library/j-cb03076/?ca=dgr-lnxw01ActiveRecord
 	  for info on Ruby on Rails Active Record implementation
 */
@@ -26,7 +22,6 @@ $_ADODB_ACTIVE_DBS      = array();
 $ACTIVE_RECORD_SAFETY   = true;
 $ADODB_ACTIVE_DEFVALS   = false;
 $ADODB_ACTIVE_CACHESECS = 0;
-
 class ADODB_Active_DB {
 	public $db; // ADOConnection
 	public $tables; // assoc array of ADODB_Active_Table objects, indexed by tablename
@@ -289,8 +284,7 @@ class ADODB_Active_Record {
 		$ar->foreignName = $foreignRef;
 		$ar->parentKey   = $parentKey;
 		$ar->UpdateActiveTable();
-		$ar->foreignKey = ($foreignKey) ? $foreignKey : $foreignRef . self::$_foreignSuffix;
-
+		$ar->foreignKey                 = ($foreignKey) ? $foreignKey : $foreignRef . self::$_foreignSuffix;
 		$table                          =& $this->TableInfo();
 		$table->_belongsTo[$foreignRef] = $ar;
 
@@ -424,10 +418,9 @@ class ADODB_Active_Record {
 		global $ADODB_ACTIVE_DEFVALS,$ADODB_FETCH_MODE;
 
 		$activedb = $_ADODB_ACTIVE_DBS[$this->_dbat];
-
-		$table   = $this->_table;
-		$tables  = $activedb->tables;
-		$tableat = $this->_tableat;
+		$table    = $this->_table;
+		$tables   = $activedb->tables;
+		$tableat  = $this->_tableat;
 
 		if (!$forceUpdate && !empty($tables[$tableat])) {
 			$acttab = $tables[$tableat];
@@ -474,9 +467,8 @@ class ADODB_Active_Record {
 			}
 		}
 
-		$activetab       = new ADODB_Active_Table();
-		$activetab->name = $table;
-
+		$activetab        = new ADODB_Active_Table();
+		$activetab->name  = $table;
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
@@ -722,8 +714,7 @@ class ADODB_Active_Record {
 		}
 
 		$this->_saved = true;
-
-		$table = $this->TableInfo();
+		$table        = $this->TableInfo();
 
 		if ($ACTIVE_RECORD_SAFETY && sizeof($table->flds) != sizeof($row)) {
 			// <AP>
@@ -862,8 +853,7 @@ class ADODB_Active_Record {
 			return false;
 		}
 
-		$this->_where = $where;
-
+		$this->_where     = $where;
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
@@ -935,9 +925,8 @@ class ADODB_Active_Record {
 			return false;
 		}
 
-		$cnt   = 0;
-		$table = $this->TableInfo();
-
+		$cnt    = 0;
+		$table  = $this->TableInfo();
 		$valarr = array();
 		$names  = array();
 		$valstr = array();
@@ -996,7 +985,6 @@ class ADODB_Active_Record {
 		}
 
 		$table = $this->TableInfo();
-
 		$where = $this->GenWhere($db, $table);
 		$sql   = 'DELETE FROM ' . $this->_table . ' WHERE ' . $where;
 		$ok    = $db->Execute($sql);
@@ -1028,8 +1016,7 @@ class ADODB_Active_Record {
 		}
 
 		$table = $this->TableInfo();
-
-		$pkey = $table->keys;
+		$pkey  = $table->keys;
 
 		foreach ($table->flds as $name => $fld) {
 			$val = $this->$name;
@@ -1110,7 +1097,6 @@ class ADODB_Active_Record {
 		}
 
 		$table = $this->TableInfo();
-
 		$where = $this->GenWhere($db, $table);
 
 		if (!$where) {
@@ -1224,7 +1210,6 @@ function adodb_GetActiveRecordsClass(
 	}
 
 	$db->SetFetchMode($save);
-
 	$false = false;
 
 	if ($rows === false) {

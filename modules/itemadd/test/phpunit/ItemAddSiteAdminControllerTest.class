@@ -120,7 +120,6 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		// Add should save other settings on the page too
 		GalleryUtilities::putRequestVariable('form[fromweb]', 'on');
 		GalleryUtilities::putRequestVariable('form[fromserver]', 'admin');
-
 		GalleryUtilities::putRequestVariable('form[uploadLocalServer][newDir]', __DIR__);
 		GalleryUtilities::putRequestVariable('form[action][addUploadLocalServerDir]', 1);
 
@@ -216,12 +215,10 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new ItemAddSiteAdminControllerTestPhpVm('');
-
 		GalleryUtilities::putRequestVariable(
 			'form[uploadLocalServer][newDir]',
 			'/this/fake/gallery2/path/wont/exist'
 		);
-
 		GalleryUtilities::putRequestVariable('form[action][addUploadLocalServerDir]', 1);
 
 		// Perform the request and verify that we failed
@@ -368,6 +365,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		$platform->chdir(__DIR__);
+
 		GalleryUtilities::putRequestVariable('form[action][addUploadLocalServerDir]', 1);
 		GalleryUtilities::putRequestVariable('form[uploadLocalServer][newDir]', '.');
 		GalleryUtilities::putRequestVariable('form[fromweb]', 'off');
@@ -457,6 +455,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		// German umlaut '�' in ISO-8859-1
 		$umlautUtf8 = GalleryCoreApi::convertToUtf8(chr(228), 'ISO-8859-1');
 		$dir        = '/php' . $umlautUtf8 . 'unit';
+
 		GalleryUtilities::putRequestVariable('form[action][addUploadLocalServerDir]', 1);
 		GalleryUtilities::putRequestVariable('form[uploadLocalServer][newDir]', $dir);
 		GalleryUtilities::putRequestVariable('form[fromweb]', 'admin');

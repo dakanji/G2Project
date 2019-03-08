@@ -71,6 +71,7 @@ class AuthenticateStep extends UpgradeStep {
 						$templateData['error']['password'] = _('<b>Error:</b> missing password.');
 					} elseif ($_POST['password'] != $gallery->getConfig('setup.password')) {
 						$templateData['error']['password'] = _('<b>Error:</b> invalid password.');
+
 						GallerySetupUtilities::setLoginAttempts(++$attempts);
 
 						if ($attempts > G2_SUPPORT_MAX_LOGIN_ATTEMPTS) {

@@ -34,8 +34,7 @@ class ColorPackImpl extends ColorPackInterface_1_0 {
 	public function getColorPacks() {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform   =& $gallery->getPlatform();
 		$colorpacks = array();
 		$dir        = dirname(__DIR__) . '/packs';
 

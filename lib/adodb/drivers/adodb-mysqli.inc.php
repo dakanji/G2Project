@@ -8,14 +8,11 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
   Set tabs to 8.
-
   This is the preferred driver for MySQL connections, and supports both transactional
   and non-transactional table types. You can use this as a drop-in replacement for both
   the mysql and mysqlt drivers. As of ADOdb Version 5.20.0, all other native MySQL drivers
   are deprecated
-
   Requires mysql client. Works on Windows and Unix.
-
 21 October 2003: MySQLi extension implementation by Arjen de Rijke (a.de.rijke@xs4all.nl)
 Based on adodb 3.40
 */
@@ -41,7 +38,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 	global $ADODB_EXTENSION;
 
 	$ADODB_EXTENSION = false;
-
 	class ADODB_mysqli extends ADOConnection {
 		public $databaseType     = 'mysqli';
 		public $dataProvider     = 'mysql';
@@ -350,8 +346,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				return false;
 			}
 
-			$u = strtoupper($seqname);
-
+			$u  = strtoupper($seqname);
 			$ok = $this->Execute(sprintf($this->_genSeqSQL, $seqname));
 
 			if (!$ok) {
@@ -1245,7 +1240,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		}
 
 		/*
-
 		0 = MYSQLI_TYPE_DECIMAL
 		1 = MYSQLI_TYPE_CHAR
 		1 = MYSQLI_TYPE_TINY

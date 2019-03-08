@@ -63,7 +63,6 @@ class DataCacheTest extends GalleryTestCase {
 
 		$session =& $gallery->getSession();
 		$session->remove('theme.guestPreviewMode');
-
 		unset($_SERVER['HTTP_PRAGMA'], $_SERVER['HTTP_CACHE_CONTROL']);
 	}
 
@@ -84,32 +83,42 @@ class DataCacheTest extends GalleryTestCase {
 	public function testPutAndGet() {
 		$key   = 'test-key';
 		$value = 'test-value';
+
 		GalleryDataCache::put($key, $value);
+
 		$this->assertEquals($value, GalleryDataCache::get($key));
 	}
 
 	public function testContainsKey() {
 		$key   = 'test-key';
 		$value = 'test-value';
+
 		GalleryDataCache::put($key, $value);
+
 		$this->assertTrue(GalleryDataCache::containsKey($key));
 	}
 
 	public function testReset() {
 		$key   = 'test-key';
 		$value = 'test-value';
+
 		GalleryDataCache::put($key, $value);
+
 		$this->assertTrue(GalleryDataCache::containsKey($key), 'Could not put a var to GDC');
 
 		// Add a protected var
 		$pKey   = 'prot-test-key';
 		$pValue = 'prot-test-value';
+
 		GalleryDataCache::put($pKey, $pValue, true);
+
 		$this->assertTrue(GalleryDataCache::containsKey($pKey), 'Could not put a protected var to GDC');
 		GalleryDataCache::reset();
+
 		$this->assertFalse(GalleryDataCache::containsKey($key), 'Could not reset GDC');
 		$this->assertTrue(GalleryDataCache::containsKey($pKey), 'Reset GDC deleted a protected var');
 		GalleryDataCache::reset(true);
+
 		$this->assertTrue(
 			!GalleryDataCache::containsKey($pKey),
 			'Reset(true) did not delete protected vars'
@@ -121,7 +130,6 @@ class DataCacheTest extends GalleryTestCase {
 		GalleryDataCache::put('foo(2, 3, 4)', 'baz');
 		GalleryDataCache::put('bar(3, 4)', 'baz');
 		GalleryDataCache::put('bar(4)', 'baz');
-
 		GalleryDataCache::removeByPattern('foo\(2, ');
 		GalleryDataCache::removeByPattern('bar');
 
@@ -145,7 +153,6 @@ class DataCacheTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->setConfig('data.gallery.cache', '/data/cache/');
-
 		$cases                                      = array();
 		$cases['/data/cache/module/core/0/0/1.inc'] = array(
 			'type'   => 'module',
@@ -277,7 +284,6 @@ class DataCacheTest extends GalleryTestCase {
 		$gallery->setConfig('data.gallery.cache', '/data/cache/');
 		$DataCacheTestPlatform = DataCacheTestPlatform::getMe();
 		$gallery->setPlatform($DataCacheTestPlatform);
-
 		$testdata = "testdata c:\foo\bar";
 		GalleryDataCache::putToDisk(
 			array(
@@ -293,7 +299,6 @@ class DataCacheTest extends GalleryTestCase {
 		);
 
 		DataCacheTestPlatform::getMe()->reset();
-
 		GalleryDataCache::putToDisk(
 			array(
 				'type'   => 'entity',
@@ -309,7 +314,6 @@ class DataCacheTest extends GalleryTestCase {
 		);
 
 		DataCacheTestPlatform::getMe()->reset();
-
 		GalleryDataCache::putToDisk(
 			array(
 				'type'   => 'entity',
@@ -325,7 +329,6 @@ class DataCacheTest extends GalleryTestCase {
 		);
 
 		DataCacheTestPlatform::getMe()->reset();
-
 		GalleryDataCache::putToDisk(
 			array(
 				'type'   => 'entity',
@@ -377,7 +380,6 @@ class DataCacheTest extends GalleryTestCase {
 		$gallery->setConfig('data.gallery.cache', '/data/cache/');
 		$DataCacheTestPlatform = new DataCacheTestPlatform();
 		$gallery->setPlatform($DataCacheTestPlatform);
-
 		GalleryDataCache::removeFromDisk(
 			array(
 				'type'   => 'entity',
@@ -391,7 +393,6 @@ class DataCacheTest extends GalleryTestCase {
 		);
 
 		DataCacheTestPlatform::getMe()->reset();
-
 		GalleryDataCache::removeFromDisk(
 			array(
 				'type'   => 'module',
@@ -406,7 +407,6 @@ class DataCacheTest extends GalleryTestCase {
 		);
 
 		DataCacheTestPlatform::getMe()->reset();
-
 		GalleryDataCache::removeFromDisk(
 			array(
 				'type' => 'module',
@@ -420,7 +420,6 @@ class DataCacheTest extends GalleryTestCase {
 		);
 
 		DataCacheTestPlatform::getMe()->reset();
-
 		GalleryDataCache::removeFromDisk(
 			array(
 				'type'   => 'module',
@@ -437,7 +436,6 @@ class DataCacheTest extends GalleryTestCase {
 		}
 
 		DataCacheTestPlatform::getMe()->reset();
-
 		GalleryDataCache::removeFromDisk(
 			array(
 				'type'   => 'theme',
@@ -479,7 +477,6 @@ class DataCacheTest extends GalleryTestCase {
 				'itemId' => 1,
 			)
 		);
-
 		GalleryDataCache::getFromDisk(
 			array(
 				'type'   => 'module',
@@ -505,8 +502,11 @@ class DataCacheTest extends GalleryTestCase {
 		);
 
 		GalleryDataCache::putToDisk($cacheParams, $data);
+
 		$readBack =& GalleryDataCache::getFromDisk($cacheParams);
+
 		$this->assertEquals($data, $readBack, 'no classes');
+
 		GalleryDataCache::removeFromDisk($cacheParams);
 
 		// Put content with multiple required classes and make sure all are read
@@ -527,8 +527,11 @@ class DataCacheTest extends GalleryTestCase {
 		);
 
 		$readBack =& GalleryDataCache::getFromDisk($cacheParams);
+
 		$this->assertEquals($data, $readBack, 'two required classes');
+
 		GalleryDataCache::removeFromDisk($cacheParams);
+
 		$this->assertTrue(class_exists('DataCacheTest_class1'), 'class1 should exist');
 		$this->assertTrue(class_exists('DataCacheTest_class2'), 'class2 should exist');
 	}
@@ -537,44 +540,38 @@ class DataCacheTest extends GalleryTestCase {
 		global $gallery;
 
 		GalleryDataCache::remove('GalleryDataCache::cachePermissions::newEntries');
-
 		GalleryDataCache::cachePermissions(array('1', '2'), 'test.TestPermission');
+
 		$this->assertTrue(
 			GalleryDataCache::hasPermission('1', 'test.TestPermission'),
 			'1 should have permission test.TestPermission'
 		);
-
 		$this->assertTrue(
 			GalleryDataCache::hasPermission('2', 'test.TestPermission'),
 			'2 should have permission test.TestPermission'
 		);
-
 		$this->assertTrue(
 			!GalleryDataCache::hasPermission('3', 'test.TestPermission'),
 			'3 shouldn\'t have permission test.TestPermission'
 		);
-
 		$this->assertTrue(
 			!GalleryDataCache::hasPermission('1', 'test.OtherPermission'),
 			'1 shouldn\'t have permission test.OtherPermission'
 		);
-
 		GalleryDataCache::cachePermissions(array('3'), 'test.OtherPermission');
+
 		$this->assertTrue(
 			GalleryDataCache::hasPermission('1', 'test.TestPermission'),
 			'1 should still have permission test.TestPermission'
 		);
-
 		$this->assertTrue(
 			!GalleryDataCache::hasPermission('1', 'test.OtherPermission'),
 			'1 still shouldn\'t have permission test.OtherPermission'
 		);
-
 		$this->assertTrue(
 			GalleryDataCache::hasPermission('3', 'test.OtherPermission'),
 			'3 should now have permission test.OtherPermission'
 		);
-
 		$this->assertTrue(
 			!GalleryDataCache::hasPermission('3', 'test.TestPermission'),
 			'3 shouldn\'t have permission test.TestPermission'
@@ -633,7 +630,6 @@ class DataCacheTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new DataCacheTestMockVm();
-
 		$gallery->_phpVm->setTime(100);
 
 		$ret = GalleryDataCache::putPageData('test', 0, array('key'), 'test');
@@ -891,9 +887,7 @@ class DataCacheTest extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
 		$session->put('theme.guestPreviewMode', 1);
-
 		$acceleration['user']['type'] = 'full';
 
 		$ret = GalleryCoreApi::setPluginParameter(
@@ -925,8 +919,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		// We don't care about rand.
 		$gallery->_phpVm->setRand(1);
-		$activeUser = $gallery->getActiveUser();
-
+		$activeUser   = $gallery->getActiveUser();
 		$acceleration = array(
 			'user' => array(
 				'type'       => 'full',
@@ -1129,7 +1122,6 @@ class DataCacheTest extends GalleryTestCase {
 		$DataCacheTestPlatform = new DataCacheTestPlatform();
 		$gallery->setPlatform($DataCacheTestPlatform);
 		$platform =& $gallery->getPlatform();
-
 		$testdata = array(
 			'themes/test/theme.css'      => 'theme/test/theme.css',
 			'modules/testmodule/test.js' => 'modules/testmodule/local/test.js',

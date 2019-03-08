@@ -303,7 +303,6 @@ class PluginParameterTest extends GalleryTestCase {
 				'none' => '',
 			)
 		);
-
 		GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', '99', 2);
 	}
 
@@ -329,7 +328,6 @@ class PluginParameterTest extends GalleryTestCase {
 				'bar' => 'old value',
 			)
 		);
-
 		GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', '55', 3);
 	}
 }

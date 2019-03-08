@@ -29,10 +29,8 @@ class PasswordHash {
 		}
 
 		$this->iteration_count_log2 = $iteration_count_log2;
-
-		$this->portable_hashes = $portable_hashes;
-
-		$this->random_state = microtime() . getmypid();
+		$this->portable_hashes      = $portable_hashes;
+		$this->random_state         = microtime() . getmypid();
 	}
 
 	public function get_random_bytes($count) {
@@ -117,8 +115,7 @@ class PasswordHash {
 		}
 
 		$count = 1 << $count_log2;
-
-		$salt = substr($setting, 4, 8);
+		$salt  = substr($setting, 4, 8);
 
 		if (strlen($salt) != 8) {
 			return $output;
@@ -155,14 +152,12 @@ class PasswordHash {
 
 		// This should be odd to not reveal weak DES keys, and the
 		// maximum valid value is (2**24 - 1) which is odd anyway.
-		$count = (1 << $count_log2) - 1;
-
+		$count   = (1 << $count_log2) - 1;
 		$output  = '_';
 		$output .= $this->itoa64[$count & 0x3f];
 		$output .= $this->itoa64[($count >> 6) & 0x3f];
 		$output .= $this->itoa64[($count >> 12) & 0x3f];
 		$output .= $this->itoa64[($count >> 18) & 0x3f];
-
 		$output .= $this->encode64($input, 3);
 
 		return $output;
@@ -177,14 +172,12 @@ class PasswordHash {
 		// has the 4 unused bits set to non-zero, we do not want to take
 		// chances and we also do not want to waste an additional byte
 		// of entropy.
-		$itoa64 = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
+		$itoa64  = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 		$output  = '$2a$';
 		$output .= chr(ord('0') + $this->iteration_count_log2 / 10);
 		$output .= chr(ord('0') + $this->iteration_count_log2 % 10);
 		$output .= '$';
-
-		$i = 0;
+		$i       = 0;
 
 		do {
 			$c1      = ord($input[$i++]);
@@ -201,7 +194,6 @@ class PasswordHash {
 			$c1     |= $c2 >> 4;
 			$output .= $itoa64[$c1];
 			$c1      = ($c2 & 0x0f) << 2;
-
 			$c2      = ord($input[$i++]);
 			$c1     |= $c2 >> 6;
 			$output .= $itoa64[$c1];

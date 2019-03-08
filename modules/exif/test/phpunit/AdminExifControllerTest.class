@@ -320,6 +320,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('form[action][resetSummary]', 1);
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -357,7 +358,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			'form[available][2]',
 			'IPTC/OriginalTransmissionReference'
 		);
-
 		GalleryUtilities::putRequestVariable('form[action][availableToDetailed]', 1);
 
 		$results = $this->handleRequest();
@@ -484,7 +484,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			$properties[12],
 			'IPTC/CopyrightNotice did not move up???'
 		);
-
 		$this->assertEquals(
 			'SubjectDistance',
 			$properties[28],
@@ -552,7 +551,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			$properties[14],
 			'IPTC/CopyrightNotice should have been moved down???'
 		);
-
 		$this->assertEquals(
 			'SubjectDistance',
 			$properties[29],
@@ -586,6 +584,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('form[action][resetDetailed]', 1);
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -616,7 +615,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			sizeof($properties),
 			'Reset did not return the right number of entries???'
 		);
-
 		$this->assertEquals('Make', $properties[0]);
 		$this->assertEquals('ISO', $properties[8]);
 		$this->assertEquals('IPTC/CopyrightNotice', $properties[13]);

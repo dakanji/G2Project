@@ -159,8 +159,7 @@ class ModifyCartControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$dataItemId = $dataItem->getId();
-
+		$dataItemId     = $dataItem->getId();
 		$cartItemCounts = array($dataItemId => 2,
 				$photoItemId                => 1, );
 

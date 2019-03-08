@@ -30,6 +30,7 @@
 GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 GalleryCoreApi::requireOnce('modules/rewrite/classes/parsers/pathinfo/parser.inc');
 GalleryCoreApi::requireOnce('modules/rewrite/test/phpunit/RewriteParserTestCase.class');
+
 class PathInfoParserTest extends RewriteParserTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName, null);
@@ -48,8 +49,7 @@ class PathInfoParserTest extends RewriteParserTestCase {
 	}
 
 	public function testHandleTestResultsRequest1() {
-		$form = array();
-
+		$form                  = array();
 		$form['force']['test'] = 1;
 
 		list($ret, $error, $status) = $this->_parser->handleTestResultsRequest($form);
@@ -75,7 +75,6 @@ class PathInfoParserTest extends RewriteParserTestCase {
 			),
 			$status
 		);
-
 		$this->assertEquals(array(), $error);
 	}
 
@@ -105,7 +104,6 @@ class PathInfoParserTest extends RewriteParserTestCase {
 			),
 			$status
 		);
-
 		$this->assertEquals(array(), $error);
 	}
 

@@ -38,7 +38,6 @@ class AdminEditGroupQuotaController extends GalleryController {
 		}
 
 		$results = $status = $error = array();
-
 		$groupId = GalleryUtilities::getRequestVariables('groupId');
 
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');

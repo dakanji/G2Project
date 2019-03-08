@@ -403,9 +403,9 @@ class FileSystemTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-
 		$string  = '1234567890123456789012345678901234567890123456789012345678901234567890';
 		$string .= '1234567890123456789012345678901234567890123456789012345678901234567890';
+
 		$this->assertEquals(140, strlen($string), 'precondition: length of test string');
 
 		list($ret, $entityInfo) = GalleryCoreApi::describeEntity('GalleryFileSystemEntity');
@@ -415,7 +415,6 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		$size = $entityInfo['GalleryFileSystemEntity']['members']['pathComponent']['size'];
-
 		$this->assertEquals(
 			128,
 			strlen($storage->_truncateString($string, $size)),
@@ -463,6 +462,7 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		$expectedPathComponent = substr($component, 0, 124) . '.jpg';
+
 		$this->assertEquals($expectedPathComponent, $path);
 	}
 
@@ -516,6 +516,7 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		$expectedPathComponent = substr($component, 0, 120) . '_001.jpg';
+
 		$this->assertEquals($expectedPathComponent, $path);
 	}
 

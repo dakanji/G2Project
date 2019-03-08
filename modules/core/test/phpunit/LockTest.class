@@ -68,13 +68,11 @@ class LockTest extends GalleryTestCase {
 	public function _tryAllLockSystems($testFunction) {
 		global $gallery;
 
-		$testFunction = '_' . $testFunction;
-
+		$testFunction         = '_' . $testFunction;
 		$gallery->_lockSystem = new DatabaseLockSystem();
 		$this->$testFunction('dblock');
 		$gallery->_lockSystem->releaseAllLocks();
 		$gallery->_lockSystem->releaseQueue();
-
 		$gallery->_lockSystem = new FlockLockSystem();
 		$this->$testFunction('flock');
 		$gallery->_lockSystem->releaseAllLocks();
@@ -95,7 +93,6 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($lockId), "$lockSystem: lock id is not an integer");
-
 		$this->assertTrue(GalleryCoreApi::isWriteLocked($targetId), $lockSystem);
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
@@ -147,7 +144,6 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($lockId), "$lockSystem: lock id is not an integer");
-
 		$this->assertTrue(GalleryCoreApi::isReadLocked($targetId), $lockSystem);
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
@@ -220,17 +216,14 @@ class LockTest extends GalleryTestCase {
 			!GalleryCoreApi::isReadLocked($this->_subAlbums[2]->getId()),
 			"$lockSystem: a2"
 		);
-
 		$this->assertTrue(
 			GalleryCoreApi::isReadLocked($this->_subAlbums[1]->getId()),
 			"$lockSystem: a1"
 		);
-
 		$this->assertTrue(
 			GalleryCoreApi::isReadLocked($this->_subAlbums[0]->getId()),
 			"$lockSystem: a0"
 		);
-
 		$this->assertTrue(GalleryCoreApi::isReadLocked($this->_album->getId()), "$lockSystem: p");
 		$this->assertTrue(GalleryCoreApi::isReadLocked($this->_getRootId()), "$lockSystem: r");
 
@@ -302,12 +295,10 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($writeLockId), "$lockSystem: lock id is not an integer");
-
 		$this->assertTrue(
 			GalleryCoreApi::isWriteLocked($this->_album->getId()),
 			"$lockSystem: write lock"
 		);
-
 		$this->assertTrue(GalleryCoreApi::isReadLocked($this->_getRootId()), "$lockSystem: read lock");
 
 		// Release locks
@@ -834,8 +825,7 @@ class LockTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-
-		$itemId = $this->_item->getId();
+		$itemId  = $this->_item->getId();
 
 		list($ret, $lockId) = GalleryCoreApi::acquireReadLock($itemId);
 

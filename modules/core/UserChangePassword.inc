@@ -77,8 +77,7 @@ class UserChangePasswordController extends GalleryController {
 
 				if (!$user->isCorrectPassword($form['currentPassword'])) {
 					$error[] = 'form[error][currentPassword][incorrect]';
-
-					$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
+					$event   = GalleryCoreApi::newEvent('Gallery::FailedLogin');
 					$event->setData(
 						array(
 							'userName' => $user->getUserName(),
@@ -132,6 +131,7 @@ class UserChangePasswordController extends GalleryController {
 				}
 
 				GalleryUtilities::unsanitizeInputValues($form['password1'], false);
+
 				$user->changePassword($form['password1']);
 
 				$ret = $user->save();

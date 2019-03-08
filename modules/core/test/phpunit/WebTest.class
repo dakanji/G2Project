@@ -58,8 +58,7 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
 		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num']                = '1';
-
-		$expectedBody[] = 'test';
+		$expectedBody[]                                        = 'test';
 
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
@@ -81,8 +80,7 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
 		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num']                = '1';
-
-		$expectedBody[] = 'not found!';
+		$expectedBody[]                                        = 'not found!';
 
 		$this->assertFalse($success);
 		$this->assertEquals($response, 'HTTP/1.1 404 NOT FOUND');
@@ -104,8 +102,7 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
 		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num']                = '1';
-
-		$expectedBody[] = 'config error!';
+		$expectedBody[]                                        = 'config error!';
 
 		$this->assertFalse($success);
 		$this->assertTrue($response, 'HTTP/1.1 500 INTERNAL SERVER ERROR');
@@ -127,9 +124,8 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
 		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num']                = '1';
-
-		$expectedBody[] = 'test';
-		$expectedBody[] = '';             // newline at the end of the file
+		$expectedBody[]                                        = 'test';
+		$expectedBody[]                                        = '';             // newline at the end of the file
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -156,9 +152,8 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Date']         = 'Mon, 24 Nov 2003 05:40:03 GMT';
 		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num'] = '1';
-
-		$expectedBody[] = 'test';
-		$expectedBody[] = '';             // newline at the end of the file
+		$expectedBody[]                         = 'test';
+		$expectedBody[]                         = '';             // newline at the end of the file
 		$this->assertTrue($success, 'fetch failed!');
 		$this->assertEquals('HTTP/1.1 200 OK', $response, 'http response status');
 		$this->assertEquals($expectedHeaders, $headers, 'http response headers');
@@ -179,9 +174,8 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
 		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num']                = '1';
-
-		$expectedBody[] = 'test';
-		$expectedBody[] = '';             // newline at the end of the file
+		$expectedBody[]                                        = 'test';
+		$expectedBody[]                                        = '';             // newline at the end of the file
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -205,9 +199,8 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Date']         = 'Mon, 24 Nov 2003 05:40:03 GMT';
 		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num'] = '1';
-
-		$expectedBody[] = 'test';
-		$expectedBody[] = '';             // newline at the end of the file
+		$expectedBody[]                         = 'test';
+		$expectedBody[]                         = '';             // newline at the end of the file
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -232,9 +225,8 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
 		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num']                = '1';
-
-		$expectedBody[] = 'test';
-		$expectedBody[] = '';             // newline at the end of the file
+		$expectedBody[]                                        = 'test';
+		$expectedBody[]                                        = '';             // newline at the end of the file
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -256,9 +248,8 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
 		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num']                = '1';
-
-		$expectedBody[] = 'test';
-		$expectedBody[] = '';             // newline at the end of the file
+		$expectedBody[]                                        = 'test';
+		$expectedBody[]                                        = '';             // newline at the end of the file
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -296,9 +287,8 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
 		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num']                = '1';
-
-		$expectedBody[] = 'test';
-		$expectedBody[] = '';             // newline at the end of the file
+		$expectedBody[]                                        = 'test';
+		$expectedBody[]                                        = '';             // newline at the end of the file
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -320,9 +310,8 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Date']                        = 'Mon, 24 Nov 2003 05:40:03 GMT';
 		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num']                = '1';
-
-		$expectedBody[] = 'test';
-		$expectedBody[] = '';             // newline at the end of the file
+		$expectedBody[]                                        = 'test';
+		$expectedBody[]                                        = '';             // newline at the end of the file
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -351,9 +340,8 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Date']         = 'Mon, 24 Nov 2003 05:40:03 GMT';
 		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num'] = '1';
-
-		$expectedBody[] = 'post successful';
-		$expectedBody[] = '';             // newline at the end of the file
+		$expectedBody[]                         = 'post successful';
+		$expectedBody[]                         = '';             // newline at the end of the file
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
 		$this->assertEquals(join("\n", $expectedBody), $body);
@@ -381,9 +369,8 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Date']         = 'Mon, 24 Nov 2003 05:40:03 GMT';
 		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num'] = '1';
-
-		$expectedBody[] = 'post successful';
-		$expectedBody[] = '';             // newline at the end of the file
+		$expectedBody[]                         = 'post successful';
+		$expectedBody[]                         = '';             // newline at the end of the file
 		$this->assertTrue($return);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals(
@@ -468,9 +455,8 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Date']         = 'Mon, 24 Nov 2003 05:40:03 GMT';
 		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num'] = '1';
-
-		$expectedBody[] = 'options successful';
-		$expectedBody[] = '';             // newline at the end of the file
+		$expectedBody[]                         = 'options successful';
+		$expectedBody[]                         = '';             // newline at the end of the file
 		$this->assertEquals('HTTP/1.1 200 OK', $status);
 		$this->assertEquals($expectedHeaders, $headers);
 		$this->assertEquals(join("\n", $expectedBody), $body);

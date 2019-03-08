@@ -35,7 +35,6 @@ class ViewCartView extends GalleryView {
 		global $gallery;
 
 		$returnItemId = GalleryUtilities::getRequestVariables('itemId');
-
 		$template->setVariable('itemId', $returnItemId);
 
 		list($ret, $itemList) = CartHelper::loadCartItems();

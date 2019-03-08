@@ -98,7 +98,6 @@ while (empty($moduleId)) {
 
 $moduleId   = preg_replace('/\W/', '', $moduleId);
 $ucModuleId = ucfirst($moduleId);
-
 $smarty->assign('moduleId', $moduleId);
 $smarty->assign('ucModuleId', $ucModuleId);
 $smarty->assign('moduleName', $moduleName);
@@ -126,7 +125,6 @@ fclose($fd);
 $fd = safe_fopen("$modulePath/$ucModuleId.inc");
 fwrite($fd, $smarty->fetch(__DIR__ . '/MyPage.inc.tpl'));
 fclose($fd);
-
 mkdir("$modulePath/templates");
 $fd = safe_fopen("$modulePath/templates/$ucModuleId.tpl");
 fwrite($fd, $smarty->fetch(__DIR__ . '/MyPage.tpl.tpl'));
@@ -135,25 +133,20 @@ fclose($fd);
 // Create our map
 mkdir($modulePath . '/classes');
 mkdir($modulePath . '/classes/GalleryStorage');
-
 $smarty->assign('makefileType', 'classes');
 $fd = safe_fopen("$modulePath/classes/GNUmakefile");
 fwrite($fd, $smarty->fetch(__DIR__ . '/GNUmakefile.tpl'));
 fclose($fd);
-
 $smarty->assign('makefileType', 'GalleryStorage');
 $fd = safe_fopen("$modulePath/classes/GalleryStorage/GNUmakefile");
 fwrite($fd, $smarty->fetch(__DIR__ . '/GNUmakefile.tpl'));
 fclose($fd);
-
 $fd = safe_fopen("$modulePath/classes/Maps.xml");
 fwrite($fd, $smarty->fetch(__DIR__ . '/map.tpl'));
 fclose($fd);
-
 $fd = safe_fopen($modulePath . '/classes/' . $ucModuleId . 'Helper.class');
 fwrite($fd, $smarty->fetch(__DIR__ . '/MyPageHelper.class.tpl'));
 fclose($fd);
-
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * *\n";
 echo "Your module is ready!  You must build it by doing: \n";
 echo "\n";

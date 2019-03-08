@@ -44,8 +44,7 @@ class RedirectToInstallerStep extends UpgradeStep {
 		$this->setComplete(false);
 
 		// Fix progress bar / hack
-		$stepNumber = 1;
-
+		$stepNumber                   = 1;
 		$templateData['installerUrl'] = $url;
 		$templateData['bodyFile']     = 'RedirectToInstaller.html';
 	}

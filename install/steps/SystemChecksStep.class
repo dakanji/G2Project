@@ -82,8 +82,7 @@ class SystemChecksStep extends InstallStep {
 		$failCount             = 0;
 		$suggestedHtaccess     = array();
 		$setTimeLimitAvailable = false;
-
-		$template = new StatusTemplate();
+		$template              = new StatusTemplate();
 		$template->renderHeader(true);
 		$template->renderStatusMessage('Performing system checks', '', 0);
 
@@ -459,7 +458,6 @@ class SystemChecksStep extends InstallStep {
 
 				$notice = ob_get_contents();
 				ob_end_clean();
-
 				$templateData['check'][] = array(
 					'title'   => $title,
 					'warning' => true,
@@ -484,7 +482,6 @@ class SystemChecksStep extends InstallStep {
 
 		$template->renderStatusMessage(_('Performing system checks'), '', 1);
 		$template->hideStatusBlock();
-
 		$templateData['suggestedHtaccess'] = join("\n", $suggestedHtaccess);
 		$templateData['bodyFile']          = 'SystemChecks.html';
 		$this->setComplete($failCount == 0);

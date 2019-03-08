@@ -19,10 +19,8 @@
 		MS SQL Server
 		Postgres
 		SAP
-
 	If you do, then execute:
 		ADODB_Session::dataFieldName('session_data');
-
 */
 if (!defined('_ADODB_LAYER')) {
 	include realpath(__DIR__ . '/../adodb.inc.php');
@@ -40,7 +38,6 @@ define('ADODB_SESSION', __DIR__);
 	1. Pull the session data from the db and loop through it.
 	2. Inside the loop, you will need to urldecode the data column.
 	3. After urldecode, run the serialized string through this function:
-
 */
 function adodb_unserialize($serialized_string) {
 	$variables = array();
@@ -129,7 +126,6 @@ class ADODB_Session {
 	// getter/setter methods
 	/////////////////////
 	/*
-
 	function Lock($lock=null)
 	{
 	static $_lock = false;
@@ -276,8 +272,7 @@ class ADODB_Session {
 
 		if (null !== $debug) {
 			$_debug = (bool)$debug;
-
-			$conn = self::_conn();
+			$conn   = self::_conn();
 
 			if ($conn) {
 				$conn->debug = $_debug;
@@ -518,7 +513,6 @@ class ADODB_Session {
 
 	/*!
 		Create the connection to the database.
-
 		If $conn already exists, reuse that connection
 	*/
 	public function open($save_path, $session_name, $persist = null) {
@@ -638,7 +632,6 @@ class ADODB_Session {
 			}
 
 			$rs->Close();
-
 			self::_crc(strlen($v) . crc32($v));
 
 			return $v;
@@ -649,7 +642,6 @@ class ADODB_Session {
 
 	/*!
 		Write the serialized data to a database.
-
 		If the data has not been modified since the last read(), we do not write.
 	*/
 	public function write($key, $val) {
@@ -678,7 +670,6 @@ class ADODB_Session {
 
 		//assert('$table');
 		$expiry = time() + $lifetime;
-
 		$binary = $conn->dataProvider === 'mysql' ? '/*! BINARY */' : '';
 
 		// crc32 optimization since adodb 2.1
@@ -893,7 +884,6 @@ class ADODB_Session {
 				}
 
 				$rs->Close();
-
 				$conn->CompleteTrans();
 			}
 		} else {
@@ -947,8 +937,7 @@ class ADODB_Session {
 			}
 
 			$sql .= " FROM $table";
-
-			$rs = $conn->SelectLimit($sql, 1);
+			$rs   = $conn->SelectLimit($sql, 1);
 
 			if ($rs && !$rs->EOF) {
 				$dbts = reset($rs->fields);

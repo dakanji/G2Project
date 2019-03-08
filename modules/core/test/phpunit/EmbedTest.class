@@ -67,7 +67,6 @@ class EmbedTest extends GalleryTestCase {
 
 		$session             =& $gallery->getSession();
 		$session->_sessionId = md5(mt_rand());
-
 		$this->_registerEventListener(array('Gallery::Login', 'Gallery::Logout'));
 	}
 
@@ -78,6 +77,7 @@ class EmbedTest extends GalleryTestCase {
 		$GLOBALS['gallery'] = $this->_origGallery;
 		$gallery            =& $GLOBALS['gallery'];
 		$gallery->_session  = $this->_savedSession;
+
 		GalleryDataCache::reset();
 
 		$ret = parent::tearDown();
@@ -142,9 +142,7 @@ class EmbedTest extends GalleryTestCase {
 <!-- A css import style -->
    ' . $refCss[1] . '
 	    ' . $refCss[2] . $refCss[3] . '
-
   ' . $refJs[0] . '
-
 <!-- Some javascript code -->
 ' . $refJs[1] . '
  <!-- A javascript src link -->
@@ -231,7 +229,6 @@ class EmbedTest extends GalleryTestCase {
 			GalleryDataCache::containsKey($firstCacheKey),
 			'GalleryInitFirstPass has not been called in first init.'
 		);
-
 		$this->assertTrue(
 			!GalleryDataCache::containsKey($secondCacheKey),
 			'GallerySecondPass has been called in first init.'
@@ -268,7 +265,6 @@ class EmbedTest extends GalleryTestCase {
 			GalleryDataCache::containsKey($firstCacheKey),
 			'GalleryInitFirstPass has not been called in second init.'
 		);
-
 		$this->assertTrue(
 			!GalleryDataCache::containsKey($secondCacheKey),
 			'GallerySecondPass has been called in second init.'
@@ -301,7 +297,6 @@ class EmbedTest extends GalleryTestCase {
 			GalleryDataCache::containsKey($firstCacheKey),
 			'GalleryInitFirstPass has not been called in first call.'
 		);
-
 		$this->assertTrue(
 			GalleryDataCache::containsKey($secondCacheKey),
 			'GallerySecondPass has not been called in first call.'
@@ -309,11 +304,11 @@ class EmbedTest extends GalleryTestCase {
 
 		// Reset for next try
 		GalleryDataCache::reset();
+
 		$this->assertTrue(
 			!GalleryDataCache::containsKey($firstCacheKey),
 			'GDC reset did not delete GalleryEmbed:initFirstPass key.'
 		);
-
 		$this->assertTrue(
 			!GalleryDataCache::containsKey($secondCacheKey),
 			'GDC reset did not delete GalleryEmbed:initSecondPass key.'
@@ -335,7 +330,6 @@ class EmbedTest extends GalleryTestCase {
 			GalleryDataCache::containsKey($firstCacheKey),
 			'GalleryInitFirstPass has not been called in second call.'
 		);
-
 		$this->assertTrue(
 			!GalleryDataCache::containsKey($secondCacheKey),
 			'GallerySecondPass has been called in second call.'
@@ -343,11 +337,11 @@ class EmbedTest extends GalleryTestCase {
 
 		// Reset for next try
 		GalleryDataCache::reset();
+
 		$this->assertTrue(
 			!GalleryDataCache::containsKey($firstCacheKey),
 			'GDC reset did not delete GalleryEmbed:initFirstPass key.'
 		);
-
 		$this->assertTrue(
 			!GalleryDataCache::containsKey($secondCacheKey),
 			'GDC reset did not delete GalleryEmbed:initSecondPass key.'
@@ -369,7 +363,6 @@ class EmbedTest extends GalleryTestCase {
 			GalleryDataCache::containsKey($firstCacheKey),
 			'GalleryInitFirstPass has not been called in third call.'
 		);
-
 		$this->assertTrue(
 			GalleryDataCache::containsKey($secondCacheKey),
 			'GallerySecondPass has not been called in third call.'
@@ -378,17 +371,26 @@ class EmbedTest extends GalleryTestCase {
 
 	public function testIsCompatibleWithEmbedApi() {
 		$apiVersion = GalleryEmbed::getApiVersion();
+
 		$this->assertEquals(2, count($apiVersion));
 		$this->assertTrue(is_int($apiVersion[0]), 'major');
 		$this->assertTrue(is_int($apiVersion[1]), 'minor');
 		$this->assertTrue(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), 'same version');
+
 		$apiVersion[1] += 7;
+
 		$this->assertFalse(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), 'API too old');
+
 		$apiVersion[1] -= 9;
+
 		$this->assertTrue(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), 'API is newer');
+
 		$apiVersion[0] += 1;
+
 		$this->assertFalse(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), '(major) API too old');
+
 		$apiVersion[0] -= 2;
+
 		$this->assertFalse(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), '(major) API too new');
 	}
 
@@ -424,25 +426,21 @@ class EmbedTest extends GalleryTestCase {
 			$session->getUserId(),
 			'session user id has changed'
 		);
-
 		$this->assertEquals(
 			$activeUserIds[0],
 			$session->get('embed.id.externalUser'),
 			'embed.id.externalUser has changed'
 		);
-
 		$this->assertEquals(
 			$activeLanguageCode[0],
 			$session->get('core.language'),
 			'core.language has changed'
 		);
-
 		$this->assertEquals(
 			$sessionId,
 			$session->getId(),
 			'session id should not have changed'
 		);
-
 		$this->assertEventNotFired('Gallery::Login');
 		$this->assertEventNotFired('Gallery::Logout');
 	}
@@ -479,24 +477,20 @@ class EmbedTest extends GalleryTestCase {
 			$session->getUserId(),
 			'session user id has not changed'
 		);
-
 		$this->assertEquals(
 			$activeUserIds[1],
 			$session->get('embed.id.externalUser'),
 			'embed.id.externalUser has not changed'
 		);
-
 		$this->assertEquals(
 			$activeLanguageCode[0],
 			$session->get('core.language'),
 			'core.language should not have changed'
 		);
-
 		$this->assertTrue(
 			$sessionId != $session->getId(),
 			'session id did not change with new user'
 		);
-
 		$this->assertEventFired('Gallery::Login', $users[1]);
 		$this->assertEventFired('Gallery::Logout', $users[0]);
 	}
@@ -518,7 +512,6 @@ class EmbedTest extends GalleryTestCase {
 		$session->put('embed.id.externalUser', $activeUserIds[0]);
 		$activeLanguageCode[0] = 'some language code';
 		$session->put('core.language', $activeLanguageCode[0]);
-
 		$sessionId = $session->getId();
 
 		$ret = GalleryEmbed::checkActiveUser('');
@@ -532,19 +525,16 @@ class EmbedTest extends GalleryTestCase {
 			$session->getUserId(),
 			'session user id should be null after logout'
 		);
-
 		$this->assertEquals(
 			'',
 			$session->get('embed.id.externalUser'),
 			'embed.id.externalUser should be \'\' after logout'
 		);
-
 		$this->assertEquals(
 			$activeLanguageCode[0],
 			$session->get('core.language'),
 			'core.language should not have changed (guest)'
 		);
-
 		$this->assertTrue($sessionId != $session->getId(), 'session id should have changed');
 		$this->assertEventFired('Gallery::Logout', $users[0]);
 		$this->assertEventNotFired('Gallery::Login');
@@ -562,7 +552,6 @@ class EmbedTest extends GalleryTestCase {
 		}
 
 		$this->_becomeGuestUser();
-
 		$session->put('embed.id.externalUser', '');
 		$activeLanguageCode = 'some language code';
 		$session->put('core.language', $activeLanguageCode);
@@ -581,25 +570,21 @@ class EmbedTest extends GalleryTestCase {
 			$session->getUserId(),
 			'session user id should be the guest id after logout'
 		);
-
 		$this->assertEquals(
 			'',
 			$session->get('embed.id.externalUser'),
 			'embed.id.externalUser should still be empty'
 		);
-
 		$this->assertEquals(
 			$activeLanguageCode,
 			$session->get('core.language'),
 			'core.language should not have changed (guest)'
 		);
-
 		$this->assertEquals(
 			$sessionId,
 			$session->getId(),
 			'session id should not have changed'
 		);
-
 		$this->assertEventNotFired('Gallery::Login');
 		$this->assertEventNotFired('Gallery::Logout');
 	}
@@ -617,7 +602,6 @@ class EmbedTest extends GalleryTestCase {
 		}
 
 		$this->_becomeGuestUser();
-
 		$session->put('embed.id.externalUser', '');
 		$activeLanguageCode = 'some language code';
 		$session->put('core.language', $activeLanguageCode);
@@ -636,13 +620,11 @@ class EmbedTest extends GalleryTestCase {
 			$session->getUserId(),
 			'session user id after login'
 		);
-
 		$this->assertEquals(
 			$activeUserIds[0],
 			$session->get('embed.id.externalUser'),
 			'embed.id.externalUser should be \'\' after logout'
 		);
-
 		$this->assertEquals(
 			$activeLanguageCode,
 			$session->get('core.language'),
@@ -692,6 +674,7 @@ class EmbedTest extends GalleryTestCase {
 		}
 
 		$lastActivityTimestamp = $session->get('session.siteAdminActivityTimestamp');
+
 		$this->assertTrue($phpVm->time() - $lastActivityTimestamp < 1000, 'time out reset');
 	}
 
@@ -809,8 +792,7 @@ class EmbedTest extends GalleryTestCase {
 
 		$save                        = $GLOBALS['ADODB_FETCH_MODE'];
 		$GLOBALS['ADODB_FETCH_MODE'] = ADODB_FETCH_ASSOC;
-
-		$storage =& $gallery->getStorage();
+		$storage                     =& $gallery->getStorage();
 
 		/*
 		 * Break encapsulation and verify internals here.  This will probably be a little bit
@@ -885,9 +867,9 @@ class EmbedTest extends GalleryTestCase {
 		$gallery->_phpVm = new UnitTestPhpVm();
 
 		GalleryUtilities::putRequestVariable('getEmbedPath', '1', false);
+
 		$_SERVER['REMOTE_ADDR'] = '192.168.1.25';
 		$_SERVER['SERVER_ADDR'] = '192.168.1.25';
-
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('gethostbyname', array('192.168.1.25'), '192.168.1.25');
 		$gallery->_phpVm->setReply('defined', array('GALLERY_CONFIG_DIR'), true);
@@ -905,9 +887,9 @@ class EmbedTest extends GalleryTestCase {
 		$gallery->_phpVm = new UnitTestPhpVm();
 
 		GalleryUtilities::putRequestVariable('getEmbedPath', '1', false);
+
 		$_SERVER['REMOTE_ADDR'] = '192.168.1.26';
 		$_SERVER['SERVER_ADDR'] = '192.168.1.25';
-
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('gethostbyname', array('192.168.1.26'), '192.168.1.26');
 
@@ -920,12 +902,11 @@ class EmbedTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new UnitTestPhpVm();
-
 		$gallery->setConfig('baseUri', 'http://192.168.1.25');
 		GalleryUtilities::putRequestVariable('getEmbedPath', '1', false);
+
 		$_SERVER['REMOTE_ADDR'] = '192.168.1.25';
 		unset($_SERVER['SERVER_ADDR'], $_SERVER['SERVER_NAME']);
-
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('gethostbyname', array('192.168.1.25'), '192.168.1.25');
 		$gallery->_phpVm->setReply('gethostbyname', array('192.168.1.25'), '192.168.1.25');
@@ -942,17 +923,15 @@ class EmbedTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new UnitTestPhpVm();
-
 		$gallery->setConfig('baseUri', 'http://192.168.1.25');
 		GalleryUtilities::putRequestVariable('getEmbedPath', '1', false);
+
 		$_SERVER['REMOTE_ADDR'] = '192.168.1.25';
 		unset($_SERVER['SERVER_ADDR'], $_SERVER['SERVER_NAME']);
-
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('gethostbyname', array('192.168.1.25'), '192.168.1.25');
 		$gallery->_phpVm->setReply('gethostbyname', array('192.168.1.25'), '192.168.1.25');
 		$gallery->_phpVm->setReply('defined', array('GALLERY_CONFIG_DIR'), false);
-
 		$path = 'X-G2-EMBED-PATH: ' . GalleryCoreApi::getCodeBasePath('embed.php');
 		$gallery->_phpVm->setReply('header', array($path, null), null);
 
@@ -999,7 +978,6 @@ class EmbedTest extends GalleryTestCase {
 		}
 
 		$gallery->setActiveUser($users[0]);
-
 		$session->put('embed.id.externalUser', $activeUserIds[0]);
 		$sessionId = $_COOKIE[SESSION_ID_PARAMETER] = $session->getId();
 
@@ -1039,6 +1017,7 @@ class EmbedTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($user);
+
 		$this->assertTrue($user->isCorrectPassword('secret'), 'correct password');
 		$this->assertFalse($user->isCorrectPassword('123456'), 'incorrect password');
 	}

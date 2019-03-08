@@ -51,7 +51,6 @@ class ChildTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_root);
-
 		$rootId = $this->_root->getId();
 
 		list($ret, $this->_rootHighlight) = $this->_createDerivative(
@@ -728,6 +727,7 @@ class ChildTest extends GalleryTestCase {
 		}
 
 		sort($childIds);
+
 		$this->assertEquals($itemIds, $childIds, 'descendents');
 	}
 
@@ -881,6 +881,7 @@ class ChildTest extends GalleryTestCase {
 		}
 
 		sort($childIds);
+
 		$this->assertEquals($itemIds, $childIds, 'descendents');
 	}
 }

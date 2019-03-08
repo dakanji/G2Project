@@ -46,7 +46,6 @@ class DynamicAlbumTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
-
 		$time = array(
 			1 => time() - 100,
 			2 => time(),
@@ -127,6 +126,7 @@ class DynamicAlbumTest extends GalleryTestCase {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$this->_template = new GalleryTemplate(dirname(dirname(dirname(dirname(__DIR__)))));
 		$this->_class    = array(
 			'date'   => 'UpdatesAlbum',
@@ -162,22 +162,18 @@ class DynamicAlbumTest extends GalleryTestCase {
 				GalleryUtilities::isA($theme, 'GalleryTheme'),
 				$key . ': theme'
 			);
-
 			$this->assertTrue(
 				is_array($params),
 				$key . ': theme settings'
 			);
-
 			$this->assertTrue(
 				GalleryUtilities::isA($item, 'GalleryDynamicAlbum'),
 				$key . ': item'
 			);
-
 			$this->assertFalse(
 				isset($item->parent),
 				$key . ': item parent'
 			);
-
 			$this->assertEquals(
 				'desc ' . $key,
 				$item->getDescription(),
@@ -215,12 +211,10 @@ class DynamicAlbumTest extends GalleryTestCase {
 				GalleryUtilities::isA($theme, 'GalleryTheme'),
 				$key . ': theme'
 			);
-
 			$this->assertTrue(
 				is_array($params),
 				$key . ': theme settings'
 			);
-
 			$this->assertTrue(
 				GalleryUtilities::isA(
 					$item,
@@ -228,23 +222,19 @@ class DynamicAlbumTest extends GalleryTestCase {
 				),
 				$key . ': item'
 			);
-
 			$this->assertTrue(
 				isset($item->parent),
 				$key . ': item parent'
 			);
-
 			$this->assertTrue(
 				GalleryUtilities::isA($item->parent, 'GalleryDynamicAlbum'),
 				$key . ': parent type'
 			);
-
 			$this->assertEquals(
 				'hi',
 				$item->parent->getDescription(),
 				$key . ': parent description'
 			);
-
 			$this->assertEquals(
 				array(get_class($view), 'getChildIds'),
 				$item->parent->getChildrenFunction,
@@ -275,8 +265,7 @@ class DynamicAlbumTest extends GalleryTestCase {
 			$template              = new GalleryTemplate(dirname(dirname(dirname(dirname(__DIR__)))));
 			$theme                 =& $template->getVariableByReference('theme');
 			$theme['actingUserId'] = $gallery->getActiveUserId();
-
-			$form = array();
+			$form                  = array();
 
 			list($ret, $result) = $view->loadTemplate($template, $form);
 
@@ -291,7 +280,6 @@ class DynamicAlbumTest extends GalleryTestCase {
 				$theme['pageUrl'],
 				$key . ': page url'
 			);
-
 			$this->assertEquals(4, count($theme['allChildIds']), $key . ': item count');
 		}
 	}
@@ -300,6 +288,7 @@ class DynamicAlbumTest extends GalleryTestCase {
 		global $gallery;
 
 		GalleryUtilities::putRequestVariable('albumId', $this->_album->getId());
+
 		$type = array(
 			'date'   => 'all',
 			'views'  => 'data',
@@ -319,8 +308,7 @@ class DynamicAlbumTest extends GalleryTestCase {
 
 			$theme                 =& $template->getVariableByReference('theme');
 			$theme['actingUserId'] = $gallery->getActiveUserId();
-
-			$form = array();
+			$form                  = array();
 
 			list($ret, $result) = $view->loadTemplate($template, $form);
 
@@ -337,7 +325,6 @@ class DynamicAlbumTest extends GalleryTestCase {
 				$theme['pageUrl'],
 				$key . ': page url'
 			);
-
 			$this->assertEquals(
 				$key == 'random' ? 0 : 3,
 				count($theme['allChildIds']),

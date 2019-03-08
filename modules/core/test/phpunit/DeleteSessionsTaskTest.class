@@ -132,7 +132,6 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 			),
 			$details
 		);
-
 		$this->assertEquals(2, $session->callCount, 'call count of _expireSessions()');
 	}
 }

@@ -8,7 +8,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
   Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
 	Original Authors: Martin Jansen <mj#php.net>
 	Richard Tango-Lowy <richtl#arscognita.com>
@@ -232,10 +231,9 @@ class Auth_Container_ADOdb extends Auth_Container {
 			$sql_from = $this->options['usernamecol'] . ', ' . $this->options['passwordcol'] . $this->options['db_fields'];
 		}
 
-		$query = 'SELECT ' . $sql_from .
+		$query            = 'SELECT ' . $sql_from .
 				' FROM ' . $this->options['table'] .
 				' WHERE ' . $this->options['usernamecol'] . ' = ' . $this->db->Quote($username);
-
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		$rset             = $this->db->Execute($query);
 		$res              = $rset->fetchRow();

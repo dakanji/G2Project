@@ -79,7 +79,6 @@ class DatabaseBackupTask extends MaintenanceTask {
 		$this->_progressBarTitle = $coreModule->translate('Backing up Gallery Database');
 		$this->_statusText       = $coreModule->translate('Exporting...');
 		$this->_templateAdapter->updateProgressBar($this->_progressBarTitle, '', 0);
-
 		$exporter = $storage->getDatabaseExporter();
 
 		list($ret, $backupFile, $result) = $exporter->exportToXmlFile(
@@ -91,7 +90,6 @@ class DatabaseBackupTask extends MaintenanceTask {
 		}
 
 		$this->_templateAdapter->updateProgressBar($this->_progressBarTitle, '', 100);
-
 		$msg1 = $coreModule->translate(
 			array(
 				'text' => 'Database backup completed and the backup file is located at: %s',

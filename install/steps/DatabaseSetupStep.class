@@ -348,8 +348,7 @@ class DatabaseSetupStep extends InstallStep {
 					$confirmRequired                         = 1;
 					$templateData['showConfirmCleanInstall'] = 1;
 					$templateData['showConfirmReuseTables']  = 1;
-
-					$templateData['warnings'][] = _(
+					$templateData['warnings'][]              = _(
 						'Gallery tables already exist in the database and the Gallery storage '
 							. 'directory seems to be intact. '
 							. 'Either choose to reuse the existing database tables and storage '
@@ -453,8 +452,7 @@ class DatabaseSetupStep extends InstallStep {
 			}
 
 			$templateData['dbSelected'][$this->_config['type']] = 1;
-
-			$templateData['bodyFile'] = 'DatabaseSetupRequest.html';
+			$templateData['bodyFile']                           = 'DatabaseSetupRequest.html';
 		}
 
 		unset($this->_db);
@@ -622,8 +620,7 @@ class DatabaseSetupStep extends InstallStep {
 				$query = str_replace('DB_COLUMN_PREFIX', $this->_config['columnPrefix'], $query);
 
 				// For mysql, another replacement is required
-				$query = str_replace('DB_TABLE_TYPE', '', $query);
-
+				$query  = str_replace('DB_TABLE_TYPE', '', $query);
 				$result = $this->_db->Execute($query);
 
 				if (empty($result)) {
@@ -671,7 +668,6 @@ class DatabaseSetupStep extends InstallStep {
 
 		// Get the codebase version for the CreateConfigFileStep
 		$versions['codebase'] = $coreModule->getVersion();
-
 		$this->resetL10Domain();
 
 		return $versions;
@@ -732,6 +728,7 @@ class DatabaseSetupStep extends InstallStep {
 		 * firstPass includes platform level
 		 */
 		static $initiated;
+
 		$platformLevel  = 2;
 		$firstPassLevel = 3;
 		$success        = true;

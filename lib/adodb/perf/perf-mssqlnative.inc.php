@@ -8,10 +8,8 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
   Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   Library for basic performance monitoring and tuning
-
 */
 
 // security - hide paths
@@ -30,8 +28,7 @@ class perf_mssqlnative extends adodb_perf {
 		  tracer varchar(500) NOT NULL,
 		  timer decimal(16,6) NOT NULL
 		)';
-
-	public $settings = array(
+	public $settings       = array(
 		'Ratios',
 		'data cache hit ratio'   => array(
 			'RATIO',
@@ -57,7 +54,6 @@ class perf_mssqlnative extends adodb_perf {
 			'IO',
 			"select cntr_value from master.dbo.sysperfinfo where counter_name = 'Page writes/sec'",
 		),
-
 		'Data Cache',
 		'data cache size'        => array(
 			'DATAC',
@@ -80,7 +76,6 @@ class perf_mssqlnative extends adodb_perf {
 			'SELECT @@MAX_CONNECTIONS',
 			'',
 		),
-
 		false,
 	);
 
@@ -134,7 +129,6 @@ class perf_mssqlnative extends adodb_perf {
 			}
 
 			$s .= '</table>';
-
 			$rs->NextRecordSet();
 		}
 

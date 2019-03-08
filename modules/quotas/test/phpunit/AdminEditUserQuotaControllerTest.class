@@ -125,8 +125,8 @@ class AdminEditUserQuotaControllerTest extends GalleryControllerTestCase {
 	public function testEditUserQuotaMissingValues() {
 		// No Values
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
-		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 
+		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 		$this->_createUserQuota($this->_user->getId(), 1024);
 
 		// quota size
@@ -175,7 +175,6 @@ class AdminEditUserQuotaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[quotaUnit]', 'MB');
 
 		$results = $this->handleRequest();
-
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -191,6 +190,7 @@ class AdminEditUserQuotaControllerTest extends GalleryControllerTestCase {
 
 	public function testEditUserQuotaUserIdMissing() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
 

@@ -47,6 +47,7 @@ class ThumbnailToolkit extends GalleryToolkit {
 		$context = array()
 	) {
 		GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
+
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();

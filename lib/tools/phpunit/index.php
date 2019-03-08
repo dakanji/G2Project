@@ -36,9 +36,8 @@ if (function_exists('date_default_timezone_set')) {
 }
 
 $testReportDir = $gallery->getConfig('data.gallery.base') . 'test/';
-
-$priorRuns = array();
-$glob      = glob("${testReportDir}*");
+$priorRuns     = array();
+$glob          = glob("${testReportDir}*");
 
 if ($glob) {
 	foreach ($glob as $filename) {
@@ -287,8 +286,7 @@ function loadTests($moduleId, $testDir, $filter) {
 	global $gallery;
 
 	$moduleArray = array();
-
-	$platform =& $gallery->getPlatform();
+	$platform    =& $gallery->getPlatform();
 
 	if ($platform->file_exists($testDir)
 		&& $platform->is_dir($testDir)
@@ -340,7 +338,6 @@ class GalleryTestResult extends TestResult {
 
 		$nRun      = $this->countTests();
 		$nFailures = $this->failureCount();
-
 		echo '<script text="text/javascript">completeStatus();</script>';
 
 		if ($nFailures) {
@@ -428,19 +425,17 @@ class GalleryTestResult extends TestResult {
 
 		$ourUName      = php_uname();
 		$explodedUName = explode(' ', $ourUName);
-
-		$webserver = GalleryUtilities::getServerVar('SERVER_SOFTWARE');
-		$php       = 'PHP ' . phpversion();
-		$database  = $storage->getAdoDbType() . ' ' . $storage->getVersion();
-		$OS        = array_shift($explodedUName);
-		$locking   = $params['lock.system'];
-		$language  = $translator->_languageCode;
-		$owner     = 'NAME_PLACEHOLDER';
-		$count     = $this->countTests();
-		$failed    = $this->_testsFailed;
-		$date      = date('Y-m-d', time());
-
-		$buf = sprintf(
+		$webserver     = GalleryUtilities::getServerVar('SERVER_SOFTWARE');
+		$php           = 'PHP ' . phpversion();
+		$database      = $storage->getAdoDbType() . ' ' . $storage->getVersion();
+		$OS            = array_shift($explodedUName);
+		$locking       = $params['lock.system'];
+		$language      = $translator->_languageCode;
+		$owner         = 'NAME_PLACEHOLDER';
+		$count         = $this->countTests();
+		$failed        = $this->_testsFailed;
+		$date          = date('Y-m-d', time());
+		$buf           = sprintf(
 			'|%s||%s||%s||%s||%s||%s||%s||%d||%d||%s||%s',
 			$webserver,
 			$php,

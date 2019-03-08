@@ -8,20 +8,15 @@
 	  Whenever there is any discrepancy between the two licenses,
 	  the BSD license will take precedence.
 	  Set tabs to 4 for best viewing.
-
 	  This class provides recordset pagination with
 	First/Prev/Next/Last links.
-
 	Feel free to modify this class for your own use as
 	it is very basic. To learn how to use it, see the
 	example in adodb/tests/testpaging.php.
-
 	"Pablo Costa" <pablo@cbsp.com.br> implemented Render_PageLinks().
-
 	Please note, this class is entirely unsupported,
 	and no free support requests except for bug reports
 	will be entertained by the author.
-
 */
 class ADODB_Pager {
 	public $id;    // unique id for pager (defaults to 'adodb')
@@ -32,7 +27,6 @@ class ADODB_Pager {
 	public $rows;      // number of rows per page
 	public $linksPerPage = 10; // number of links per page in navigation bar
 	public $showPageLinks;
-
 	public $gridAttributes = 'width=100% border=1 bgcolor=white';
 
 	// Localize text strings here
@@ -69,8 +63,7 @@ class ADODB_Pager {
 		$this->id            = $id;
 		$this->db            = $db;
 		$this->showPageLinks = $showPageLinks;
-
-		$next_page = $id . '_next_page';
+		$next_page           = $id . '_next_page';
 
 		if (isset($_GET[$next_page])) {
 			$_SESSION[$curr_page] = (int)$_GET[$next_page];
@@ -280,8 +273,7 @@ class ADODB_Pager {
 		}
 
 		$ADODB_COUNTRECS = $savec;
-
-		$this->rs = $rs;
+		$this->rs        = $rs;
 
 		if (!$rs) {
 			echo "<h3>Query failed: $this->sql</h3>";
@@ -297,9 +289,7 @@ class ADODB_Pager {
 
 		$grid   = $this->RenderGrid();
 		$footer = $this->RenderPageCount();
-
 		$this->RenderLayout($header, $grid, $footer);
-
 		$rs->Close();
 		$this->rs = false;
 	}

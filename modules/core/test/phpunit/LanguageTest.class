@@ -134,10 +134,8 @@ class LanguageTest extends GalleryControllerTestCase {
 		list($languageData) = GalleryTranslator::getMe()->getLanguageData();
 
 		$expected['en']['US'] = $languageData['en']['US'];
-
 		$gallery->setConfig('data.gallery.locale', '/g2data/');
 		$platform->setReply('glob', array('/g2data/*', null), array('.', '..'));
-
 		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
 
 		$this->assertEquals($expected, $supportedLanguages);
@@ -156,12 +154,10 @@ class LanguageTest extends GalleryControllerTestCase {
 		$expected['en']['US'] = $languageData['en']['US'];
 		$expected['en']['GB'] = $languageData['en']['GB'];
 		$expected['pt']['BR'] = $languageData['pt']['BR'];
-
 		$gallery->setConfig('data.gallery.locale', '/g2data/');
 		$platform->setReply('glob', array('/g2data/*', null), array('.', '..', 'en_GB', 'pt_BR'));
 		$platform->setReply('is_dir', array('en_GB'), true);
 		$platform->setReply('is_dir', array('pt_BR'), true);
-
 		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
 
 		$this->assertEquals($expected, $supportedLanguages);
@@ -182,7 +178,6 @@ class LanguageTest extends GalleryControllerTestCase {
 		$expected['pt']['PT'] = $languageData['pt']['PT'];
 		$expected['zh']['CN'] = $languageData['zh']['CN'];
 		$expected['zh']['TW'] = $languageData['zh']['TW'];
-
 		$gallery->setConfig('data.gallery.locale', '/g2data/');
 		$platform->setReply(
 			'glob',
@@ -194,7 +189,6 @@ class LanguageTest extends GalleryControllerTestCase {
 		$platform->setReply('is_dir', array('pt'), true);
 		$platform->setReply('is_dir', array('zh_CN'), true);
 		$platform->setReply('is_dir', array('zh_TW'), true);
-
 		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
 
 		$this->assertEquals($expected, $supportedLanguages);

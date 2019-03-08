@@ -21,7 +21,6 @@
 GalleryCoreApi::requireOnce(
 	'modules/rewrite/classes/parsers/modrewrite/ModRewriteUrlGenerator.class'
 );
-
 GalleryCoreApi::requireOnce('modules/rewrite/test/phpunit/RewriteUrlGeneratorTestCase.class');
 
 /**
@@ -100,7 +99,6 @@ class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$this->_expectedUrl[14] = 'phpunit/';
 		$this->_expectedUrl[15] = $this->_signUrl('phpunit2/');
 		$this->_expectedUrl[16] = 'phpunit/' . urlencode($this->_urlEncodePath);
-
 		parent::testGenerateUrlOverrideBaseUri();
 	}
 

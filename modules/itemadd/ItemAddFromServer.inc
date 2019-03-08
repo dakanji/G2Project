@@ -60,9 +60,8 @@ class ItemAddFromServer extends ItemAddPlugin {
 		$this->_dirSep          = $this->_platform->getDirectorySeparator();
 		$this->_templateAdapter =& $gallery->getTemplateAdapter();
 		$this->_storage         =& $gallery->getStorage();
-
-		$status               = $error               = array();
-		$this->_addController =& $addController;
+		$status                 = $error                 = array();
+		$this->_addController   =& $addController;
 
 		list($ret, $hasPermission) = $this->isAppropriate();
 
@@ -178,7 +177,6 @@ class ItemAddFromServer extends ItemAddPlugin {
 					}
 
 					$requiresAddAlbumPermission = true;
-
 					$this->_totalItems++;
 					$this->_totalItems += $this->_getFileCountForDirectory($dir . urldecode($directory), $i);
 				}
@@ -412,6 +410,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 		$safeFilename = GalleryCoreApi::convertToUtf8($fileName);
 		GalleryUtilities::sanitizeInputValues($safeFilename);
+
 		$status['addedFiles'][] = array(
 			'fileName' => $safeFilename,
 			'id'       => $newItem->getId(),
@@ -444,6 +443,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 		$dirName     = basename($path);
 		$dirNameUtf8 = GalleryCoreApi::convertToUtf8($dirName);
 		GalleryUtilities::sanitizeInputValues($dirNameUtf8);
+
 		$dirTitle       = $textFields['title'] ? $dirNameUtf8 : null;
 		$dirSummary     = $textFields['summary'] ? $dirNameUtf8 : null;
 		$dirDescription = $textFields['description'] ? $dirNameUtf8 : null;
@@ -760,6 +760,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 			 */
 			$localServerPath = GalleryCoreApi::convertFromUtf8($localServerPath);
 			GalleryUtilities::unsanitizeInputValues($localServerPath, false);
+
 			$localServerPath         = $platform->realpath($localServerPath);
 			$form['localServerPath'] = GalleryCoreApi::convertToUtf8($localServerPath);
 
@@ -963,7 +964,6 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 		// Do we want to allow symlinks?
 		$ItemAddFromServer['showSymlink'] = $platform->isSymlinkSupported();
-
 		$template->setVariable('ItemAddFromServer', $ItemAddFromServer);
 
 		return array(

@@ -47,8 +47,7 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$_SERVER['REQUEST_URI'] = '/gallery2/phpunit.php';
-
-		$urlGenerator = new GalleryUrlGenerator();
+		$urlGenerator           = new GalleryUrlGenerator();
 
 		$ret = $urlGenerator->init('phpunit.php');
 
@@ -144,8 +143,8 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 
 		$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
 		$this->assertFalse(empty($this->_fileContent), 'success fileContent');
-		unset($this->_fileContent);
 
+		unset($this->_fileContent);
 		$this->_platform->_isReadable = false;
 
 		list($ret, $code) = IsapiRewriteHelper::writeFile(array());

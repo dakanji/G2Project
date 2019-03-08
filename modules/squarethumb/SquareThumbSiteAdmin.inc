@@ -144,7 +144,6 @@ class SquareThumbSiteAdminView extends GalleryView {
 
 		$form['allowFitToSquareMode'] = isset($toolkit);
 		$form['mode']                 = $form['allowFitToSquareMode'] ? $form['mode'] : 'crop';
-
 		$template->setVariable('controller', 'squarethumb.SquareThumbSiteAdmin');
 
 		return array(

@@ -169,7 +169,6 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 
 		$this->_platform->setReply('strftime', array('FAKE_FMT', 1234), 'DATE1');
 		$this->_platform->setReply('strftime', array('FAKE_FMT', 5678), 'DATE2');
-
 		ob_start();
 
 		$ret = $this->_callback->renderImmediate(array(), array());
@@ -232,7 +231,6 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 
 		$this->_platform->setReply('strftime', array('FAKE_FMT', 1234), 'DATE1');
 		$this->_platform->setReply('strftime', array('FAKE_FMT', 5678), 'DATE2');
-
 		ob_start();
 
 		$ret = $this->_callback->renderImmediate(array(), array());
@@ -298,7 +296,6 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		);
 
 		$this->_platform->setReply('strftime', array('FAKE_FMT', 'DATE_FROM_DB'), 'DATE');
-
 		ob_start();
 
 		$ret = $this->_callback->renderImmediate(array(), array());

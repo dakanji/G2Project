@@ -8,12 +8,10 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
   Set tabs to 8.
-
   This driver only supports the original MySQL driver in transactional mode. It
   is deprected in PHP version 5.5 and removed in PHP version 7. It is deprecated
   as of ADOdb version 5.20.0. Use the mysqli driver instead, which supports both
   transactional and non-transactional updates
-
   Requires mysql client. Works on Windows and Unix.
 */
 
@@ -39,10 +37,8 @@ class ADODB_mysqlt extends ADODB_mysql {
 	}
 
 	/* set transaction mode
-
 	SET [GLOBAL | SESSION] TRANSACTION ISOLATION LEVEL
 	{ READ UNCOMMITTED | READ COMMITTED | REPEATABLE READ | SERIALIZABLE }
-
 	*/
 	public function SetTransactionMode($transaction_mode) {
 		$this->_transmode = $transaction_mode;

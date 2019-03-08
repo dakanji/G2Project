@@ -130,12 +130,14 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+
 		$this->assertEquals(array(array(), null), $results);
 	}
 
 	public function testEditItem() {
 		// Use valid inputs
 		$newPathComponent = $this->_item[0]->getPathComponent() . mt_rand();
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[pathComponent]', $newPathComponent);
 		GalleryUtilities::putRequestVariable('form[title]', ' new title ');
@@ -146,7 +148,6 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 			'form[serialNumber]',
 			$this->_item[0]->getSerialNumber()
 		);
-
 		GalleryUtilities::putRequestVariable('form[thumbnail][size]', '400');
 
 		// Perform the request and verify that we succeeded
@@ -186,18 +187,17 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 	public function testMaliciousMarkup() {
 		$item = $this->_item[0];
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[pathComponent]', $item->getPathComponent());
 		GalleryUtilities::putRequestVariable(
 			'form[title]',
 			'new[color="><script>alert(\'hi\')</script><"green]foo[/color] title'
 		);
-
 		GalleryUtilities::putRequestVariable(
 			'form[summary]',
 			' summary <a href="" onclick="alert(1)">hi</a>foo'
 		);
-
 		GalleryUtilities::putRequestVariable('form[keywords]', '');
 		GalleryUtilities::putRequestVariable('form[description]', 'description<object>.</object>');
 		GalleryUtilities::putRequestVariable('form[thumbnail][size]', '400');
@@ -226,16 +226,22 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 			$value = $markup == 'html' ? 'new[color=&quot;&gt;&amp;lt;&quot;green]foo[/color] title' : 'new[color=&quot;&gt;&lt;script&gt;alert(\'hi\')&lt;/script&gt;'
 			. '&lt;&quot;green]foo[/color] title';
+
 			$this->assertEquals($value, $item->getTitle(), "title $markup");
+
 			$value = $markup == 'html' ? 'summary &lt;a href=&quot;&quot;&gt;hi&lt;/a&gt;foo' : 'summary &lt;a href=&quot;&quot; onclick=&quot;alert(1)&quot;&gt;hi&lt;/a&gt;foo';
+
 			$this->assertEquals($value, $item->getSummary(), "summary $markup");
+
 			$value = $markup == 'html' ? 'description.' : 'description&lt;object&gt;.&lt;/object&gt;';
+
 			$this->assertEquals($value, $item->getDescription(), "description $markup");
 		}
 	}
 
 	public function testInvalidPathComponent() {
 		$newPathComponent = $this->_item[0]->getPathComponent() . mt_rand();
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[pathComponent]', '#$%W$%W?$%W%/');
 
@@ -261,6 +267,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 	public function testMissingPathComponent() {
 		$newPathComponent = $this->_item[0]->getPathComponent() . mt_rand();
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::removeRequestVariable('form[pathComponent]');
 
@@ -281,7 +288,6 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 			'form[pathComponent]',
 			$this->_item[1]->getPathComponent()
 		);
-
 		GalleryUtilities::putRequestVariable('form[title]', 'new title');
 		GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
 		GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
@@ -321,6 +327,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Make sure that the file was moved
 		$platform =& $gallery->getPlatform();
+
 		$this->assertTrue($platform->file_exists($newPath));
 	}
 
@@ -435,7 +442,6 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 			'form[pathComponent]',
 			$this->_album[1]->getPathComponent()
 		);
-
 		GalleryUtilities::putRequestVariable('form[title]', 'new title');
 		GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
 		GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
@@ -492,7 +498,6 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 			'form[pathComponent]',
 			$this->_item[0]->getPathComponent()
 		);
-
 		GalleryUtilities::putRequestVariable('form[title]', 'new title');
 		GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
 		GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
@@ -589,6 +594,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 	public function testEditOriginationTimestamp() {
 		// Use valid inputs
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$this->_putItemRequestVariables($this->_item[0]);
 
 		GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Date_Month]', '08');
@@ -604,13 +610,13 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results
 		);
-
 		$this->assertEquals(mktime(22, 50, 59, 8, 9, 2003), $this->_item[0]->getOriginationTimestamp());
 	}
 
 	public function testCreateThumbnail() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[thumbnail][size]', 200);
+
 		$this->_putItemRequestVariables($this->_item[1]);
 
 		// Perform the request and verify that we succeeded
@@ -656,6 +662,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[thumbnail][size]', 200);
+
 		$this->_putItemRequestVariables($this->_album[0]);
 
 		// Perform the request and verify that we succeeded
@@ -695,6 +702,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Use valid inputs
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[thumbnail][size]', '');
+
 		$this->_putItemRequestVariables($this->_item[0]);
 
 		// Perform the request and verify that we succeeded
@@ -730,6 +738,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		// Use valid inputs
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[thumbnail][size]', '0');
+
 		$this->_putItemRequestVariables($this->_item[0]);
 
 		// Perform the request and verify that we succeeded
@@ -755,26 +764,31 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 	public function testInvalidThumbnailSize() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[thumbnail][size]', 'xyz');
+
 		$this->_putItemRequestVariables($this->_item[0]);
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+
 		$this->assertEquals(array(array('form[error][thumbnail][size][invalid]'), null), $results);
 	}
 
 	public function testNegativeThumbnailSize() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[thumbnail][size]', '-100');
+
 		$this->_putItemRequestVariables($this->_item[0]);
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+
 		$this->assertEquals(array(array('form[error][thumbnail][size][invalid]'), null), $results);
 	}
 
 	public function testThumbnailForEmptyAlbum() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[thumbnail][size]', '120');
+
 		$this->_putItemRequestVariables($this->_album[0]);
 
 		// Perform the request and verify that we failed

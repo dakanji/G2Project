@@ -88,11 +88,9 @@ class GalleryDatabaseExport {
 	public function exportToXmlFile($progressCallback, $fileName = null) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-		$storage  =& $gallery->getStorage();
-
-		$warnings = array();
-
+		$platform        =& $gallery->getPlatform();
+		$storage         =& $gallery->getStorage();
+		$warnings        = array();
 		$this->_callBack = array(
 			'callback' => $progressCallback,
 			'progress' => 0,
@@ -131,9 +129,8 @@ class GalleryDatabaseExport {
 		}
 
 		$versions = $coreModule->getInstalledVersions();
-
-		$string  = '<?xml version="1.0"?>' . "\n";
-		$written = $platform->fwrite($fileHandle, $string);
+		$string   = '<?xml version="1.0"?>' . "\n";
+		$written  = $platform->fwrite($fileHandle, $string);
 
 		if (!$written) {
 			return array(
@@ -233,7 +230,6 @@ class GalleryDatabaseExport {
 
 		unset($plugins['core']);
 		$this->updateStatus();
-
 		$this->_callBack['total'] = $this->_callBack['progress'] + count($plugins);
 
 		foreach ($plugins as $pluginId => $plugin) {
@@ -329,12 +325,9 @@ class GalleryDatabaseExport {
 
 			$coreApi = $plugin['requiredCoreApi'];
 			$coreApi = $coreApi[0] . '.' . $coreApi[1];
-
-			$api = ($pluginType == 'module') ? $plugin['requiredModuleApi'] : $plugin['requiredThemeApi'];
-			$api = $api[0] . '.' . $api[1];
-
-			$active = isset($plugin['active']) ? $plugin['active'] : 0;
-
+			$api     = ($pluginType == 'module') ? $plugin['requiredModuleApi'] : $plugin['requiredThemeApi'];
+			$api     = $api[0] . '.' . $api[1];
+			$active  = isset($plugin['active']) ? $plugin['active'] : 0;
 			$line    = '    <plugin-status id="' . $pluginId . '" required-core-api="' . $coreApi
 			. '" required-api="' . $api . '" version="' . $plugin['version']
 			. '" active="' . $active . '" type="' . $pluginType . '"/>' . "\n";
@@ -378,9 +371,8 @@ class GalleryDatabaseExport {
 	public function _exportModule($handle, $pluginId, &$warnings) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-		$storage  =& $gallery->getStorage();
-
+		$platform      =& $gallery->getPlatform();
+		$storage       =& $gallery->getStorage();
 		$storageExtras =& $storage->_getExtras();
 		$sql           = $storageExtras->getModuleSql($pluginId);
 
@@ -774,9 +766,8 @@ class GalleryDatabaseExport {
 			}
 
 			// Create Query Statement.  Just use all the fields to create an order
-			$query = 'SELECT ' . implode(', ', $fieldNames) . ' FROM ' . $tableName
+			$query   = 'SELECT ' . implode(', ', $fieldNames) . ' FROM ' . $tableName
 			. ' ORDER BY ' . implode(' ASC, ', $fieldNames) . ' ASC';
-
 			$offset  = 0;
 			$options = array(
 				'limit' => array(
@@ -865,7 +856,6 @@ class GalleryDatabaseExport {
 		$this->_callBack['progress']++;
 		$complete = $this->_callBack['progress'] / $this->_callBack['total'];
 		call_user_func_array($this->_callBack['callback'], array($complete));
-
 		$gallery->guaranteeTimeLimit(60);
 	}
 

@@ -43,19 +43,16 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
+		$session                       =& $gallery->getSession();
 		$this->_galleryTemplateAdapter =& $gallery->getTemplateAdapter();
-
-		$gallery->_phpVm = new AdminRepositoryDownloadControllerTestPhpVm();
+		$gallery->_phpVm               = new AdminRepositoryDownloadControllerTestPhpVm();
 
 		// Use our own wrapped controller so that we can override _fetchPluginStatus
 		$this->_controller           = new AdminRepositoryDownloadControllerTestWrapper();
 		$this->_controller->_version = '0.1';
 		$this->_controller->_active  = true;
-
-		$cacheKey           = 'GalleryTranslator::SupportedLanguages';
-		$supportedLanguages = array(
+		$cacheKey                    = 'GalleryTranslator::SupportedLanguages';
+		$supportedLanguages          = array(
 			'en' => array(
 				'US' => array('US English'),
 			),
@@ -101,8 +98,8 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[pluginType]', 'module');
 		GalleryUtilities::putRequestVariable('form[pluginId]', 'testModule');
-
 		GalleryUtilities::putRequestVariable('form[action][cancel]', '1');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -142,7 +139,6 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 
 		$gallery->_storage = new UnitTestStorage();
 		$storage           =& $gallery->getStorage();
-
 		$storage->setReply(
 			'getMapEntry',
 			array(
@@ -183,16 +179,14 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 			$results,
 			'Expected only core.ProgressBar delegation.'
 		);
-
 		$this->assertEquals(1, $mockAdapter->getCallbackCount());
-		$callback = $mockAdapter->getCallback(0);
 
+		$callback = $mockAdapter->getCallback(0);
 		$this->assertEquals(
 			array($this->_controller, 'performDownloadAndInstallation'),
 			$callback[0],
 			'Incorrect callback method'
 		);
-
 		$this->assertEquals(
 			array(
 				'test' => array(
@@ -211,7 +205,6 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 			$callback[1][0],
 			'installPackages mismatch'
 		);
-
 		$this->assertTrue($storage->isComplete(), $storage->getRemaining());
 	}
 }

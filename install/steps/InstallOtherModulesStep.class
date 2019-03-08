@@ -79,7 +79,6 @@ class InstallOtherModulesStep extends InstallStep {
 				$module->setDescription($module->translate($module->getDescription()));
 				$this->resetL10Domain();
 				$gallery->guaranteeTimeLimit(120);
-
 				$template->renderStatusMessage(
 					_('Installing modules'),
 					$module->getName(),
@@ -100,8 +99,7 @@ class InstallOtherModulesStep extends InstallStep {
 					continue;
 				}
 
-				$moduleInstalled[$moduleId] = true;
-
+				$moduleInstalled[$moduleId]                 = true;
 				$templateData['installedModule'][$moduleId] = $module->getName();
 
 				$ret = $storage->checkPoint();
@@ -231,8 +229,7 @@ class InstallOtherModulesStep extends InstallStep {
 				$moduleInstalled[$moduleId] = !empty($moduleList[$moduleId]['version']);
 				$module                     =& $modules[$moduleId];
 				$moduleInvalid[$moduleId]   = !GalleryCoreApi::isPluginCompatibleWithApis($module);
-
-				$group = $module->getGroup();
+				$group                      = $module->getGroup();
 
 				if (empty($group)) {
 					$group = array(
@@ -251,8 +248,7 @@ class InstallOtherModulesStep extends InstallStep {
 		$templateData['moduleInstalled'] = $moduleInstalled;
 		$templateData['moduleInvalid']   = $moduleInvalid;
 		$templateData['bodyFile']        = 'InstallOtherModulesRequest.html';
-
-		$templateData['anyInstallable'] = false;
+		$templateData['anyInstallable']  = false;
 
 		foreach ($moduleInstalled as $moduleId => $tmp) {
 			if (!$tmp) {

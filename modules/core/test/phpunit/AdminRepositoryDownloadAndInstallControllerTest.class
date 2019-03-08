@@ -59,15 +59,13 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 		$this->_originalSession        = $gallery->_session;
 		$this->_galleryTemplateAdapter =& $gallery->getTemplateAdapter();
-
-		$gallery->_phpVm = new AdminRepositoryDownloadAndInstallControllerTestPhpVm();
+		$gallery->_phpVm               = new AdminRepositoryDownloadAndInstallControllerTestPhpVm();
 
 		// Use our own wrapped controller so that we can override _fetchPluginStatus
 		$this->_controller           = new AdminRepositoryDownloadAndInstallControllerTestWrapper();
 		$this->_controller->_version = '0.1';
 		$this->_controller->_active  = true;
-
-		$gallery->_storage = new UnitTestStorage();
+		$gallery->_storage           = new UnitTestStorage();
 	}
 
 	public function tearDown() {
@@ -92,11 +90,9 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 		// Test regular download.
 		$gallery->_templateAdapter = new MockTemplateAdapter();
-
-		$mockUrlGenerator       = new AdminRepositoryDownloadAndInstallControllerTestUrlGenerator();
-		$gallery->_urlGenerator =& $mockUrlGenerator;
-
-		$expectedPluginData = array(
+		$mockUrlGenerator          = new AdminRepositoryDownloadAndInstallControllerTestUrlGenerator();
+		$gallery->_urlGenerator    =& $mockUrlGenerator;
+		$expectedPluginData        = array(
 			'module' => array(
 				$testModule => array(
 					'base'       => 1,
@@ -183,13 +179,10 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 		$testModule                 = 'AdminRepositoryDownloadAndInstallControllerTest';
 		$this->_controller->_active = 0;
-
-		$gallery->_templateAdapter = new MockTemplateAdapter();
-
-		$mockUrlGenerator       = new AdminRepositoryDownloadAndInstallControllerTestUrlGenerator();
-		$gallery->_urlGenerator =& $mockUrlGenerator;
-
-		$expectedPluginData = array(
+		$gallery->_templateAdapter  = new MockTemplateAdapter();
+		$mockUrlGenerator           = new AdminRepositoryDownloadAndInstallControllerTestUrlGenerator();
+		$gallery->_urlGenerator     =& $mockUrlGenerator;
+		$expectedPluginData         = array(
 			'module' => array(
 				$testModule => array(
 					'base' => 1,
@@ -271,13 +264,10 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$testModule                  = 'AdminRepositoryDownloadAndInstallControllerTest';
 		$this->_controller->_active  = 0;
 		$this->_controller->_version = 0;
-
-		$gallery->_templateAdapter = new MockTemplateAdapter();
-
-		$mockUrlGenerator       = new AdminRepositoryDownloadAndInstallControllerTestUrlGenerator();
-		$gallery->_urlGenerator =& $mockUrlGenerator;
-
-		$expectedPluginData = array(
+		$gallery->_templateAdapter   = new MockTemplateAdapter();
+		$mockUrlGenerator            = new AdminRepositoryDownloadAndInstallControllerTestUrlGenerator();
+		$gallery->_urlGenerator      =& $mockUrlGenerator;
+		$expectedPluginData          = array(
 			'module' => array(
 				$testModule => array(
 					'base' => 1,
@@ -360,13 +350,10 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$testModule                     = 'AdminRepositoryDownloadAndInstallControllerTest';
 		$this->_controller->_active     = 0;
 		$gallery->_phpVm->_class_exists = true;
-
-		$gallery->_templateAdapter = new MockTemplateAdapter();
-
-		$mockUrlGenerator       = new AdminRepositoryDownloadAndInstallControllerTestUrlGenerator();
-		$gallery->_urlGenerator =& $mockUrlGenerator;
-
-		$expectedPluginData = array(
+		$gallery->_templateAdapter      = new MockTemplateAdapter();
+		$mockUrlGenerator               = new AdminRepositoryDownloadAndInstallControllerTestUrlGenerator();
+		$gallery->_urlGenerator         =& $mockUrlGenerator;
+		$expectedPluginData             = array(
 			'module' => array(
 				$testModule => array(
 					'base' => 1,
@@ -450,16 +437,12 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 	public function testPerformDownloadAndInstallationFailedBaseDownload() {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
-		$testModule = 'AdminRepositoryDownloadAndInstallControllerTest';
-
+		$session                   =& $gallery->getSession();
+		$testModule                = 'AdminRepositoryDownloadAndInstallControllerTest';
 		$gallery->_templateAdapter = new MockTemplateAdapter();
-
-		$mockUrlGenerator       = new AdminRepositoryDownloadAndInstallControllerTestUrlGenerator();
-		$gallery->_urlGenerator =& $mockUrlGenerator;
-
-		$expectedPluginData = array(
+		$mockUrlGenerator          = new AdminRepositoryDownloadAndInstallControllerTestUrlGenerator();
+		$gallery->_urlGenerator    =& $mockUrlGenerator;
+		$expectedPluginData        = array(
 			'module' => array(
 				$testModule => array(
 					'base'       => 1,
@@ -542,8 +525,10 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		}
 
 		$status = $session->getStatus();
+
 		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
 		$this->assertTrue(empty($_REQUEST['called']), 'Nothing should have gotten called');
+
 		$expected = array(
 			'error' => array(
 				'failedToDownload' => array(
@@ -560,16 +545,12 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 	public function testPerformDownloadAndInstallationFailedLanguageDownload() {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
-		$testModule = 'AdminRepositoryDownloadAndInstallControllerTest';
-
+		$session                   =& $gallery->getSession();
+		$testModule                = 'AdminRepositoryDownloadAndInstallControllerTest';
 		$gallery->_templateAdapter = new MockTemplateAdapter();
-
-		$mockUrlGenerator       = new AdminRepositoryDownloadAndInstallControllerTestUrlGenerator();
-		$gallery->_urlGenerator =& $mockUrlGenerator;
-
-		$expectedPluginData = array(
+		$mockUrlGenerator          = new AdminRepositoryDownloadAndInstallControllerTestUrlGenerator();
+		$gallery->_urlGenerator    =& $mockUrlGenerator;
+		$expectedPluginData        = array(
 			'module' => array(
 				$testModule => array(
 					'base'       => 1,
@@ -680,19 +661,15 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 	public function testUpdatePluginStatus() {
 		global $gallery;
 
-		$storage =& $gallery->getStorage();
-
+		$storage                   =& $gallery->getStorage();
 		$gallery->_templateAdapter = new MockTemplateAdapter();
-
 		$storage->setReply('removeAllMapEntries', array('GalleryPluginPackageMap', null), null);
-
 		$repository = new UnitTestRepository();
 		$repository->setReply('downloadIndex', array(), null);
 		$repository->setReply('scanPlugin', array('module', 'module1'), null);
 		$repository->setReply('scanPlugin', array('module', 'module2'), null);
 		$repository->setReply('scanPlugin', array('theme', 'theme1'), null);
 		$repository->setReply('scanPlugin', array('theme', 'theme2'), null);
-
 		$mockUrlGenerator       = new AdminRepositoryControllerTestUrlGenerator();
 		$gallery->_urlGenerator =& $mockUrlGenerator;
 
@@ -746,7 +723,6 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 			),
 			$gallery->_templateAdapter->getProgressBarDump()
 		);
-
 		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
 	}
 
@@ -756,7 +732,6 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$gallery->_templateAdapter = new MockTemplateAdapter();
 		$gallery->_session         = new AdminRepositoryControllerTestSession();
 		$gallery->_storage         = new UnitTestStorage();
-
 		$gallery->_storage->setReply(
 			'removeAllMapEntries',
 			array('GalleryPluginPackageMap', false),
@@ -774,7 +749,6 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 		$repository->setReply('scanPlugin', array('theme', 'theme1'), null);
 		$repository->setReply('scanPlugin', array('theme', 'theme2'), null);
-
 		$mockUrlGenerator       = new AdminRepositoryControllerTestUrlGenerator();
 		$gallery->_urlGenerator =& $mockUrlGenerator;
 
@@ -828,7 +802,6 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 			),
 			$gallery->_templateAdapter->getProgressBarDump()
 		);
-
 		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
 		$this->assertTrue($gallery->_storage->isComplete(), $gallery->_storage->getRemaining());
 
@@ -844,13 +817,10 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 	public function testUpdatePluginStatusFailsHardOnStorageError() {
 		global $gallery;
 
-		$storage =& $gallery->getStorage();
-
+		$storage                   =& $gallery->getStorage();
 		$gallery->_templateAdapter = new MockTemplateAdapter();
 		$gallery->_session         = new AdminRepositoryControllerTestSession();
-
 		$storage->setReply('removeAllMapEntries', array('GalleryPluginPackageMap', null), null);
-
 		$repository = new UnitTestRepository();
 		$repository->setReply('downloadIndex', array(), null);
 		$repository->setReply('scanPlugin', array('module', 'module1'), null);
@@ -862,7 +832,6 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 		$repository->setReply('scanPlugin', array('theme', 'theme1'), null);
 		$repository->setReply('scanPlugin', array('theme', 'theme2'), null);
-
 		$mockUrlGenerator       = new AdminRepositoryControllerTestUrlGenerator();
 		$gallery->_urlGenerator =& $mockUrlGenerator;
 
@@ -935,6 +904,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		);
 
 		$count = $this->_controller->_countInstallActions($sourceFiles);
+
 		$this->assertEquals(14, $count, 'Unexpected count fromcountInstallActions');
 	}
 }

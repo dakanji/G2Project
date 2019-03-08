@@ -42,8 +42,7 @@ function ADODB_Error_Handler($dbms, $fn, $errno, $errmsg, $p1, $p2, &$thisConnec
 		case 'EXECUTE':
 			$sql         = $p1;
 			$inputparams = $p2;
-
-			$s = "$dbms error: [$errno: $errmsg] in $fn(\"$sql\")\n";
+			$s           = "$dbms error: [$errno: $errmsg] in $fn(\"$sql\")\n";
 
 			break;
 
@@ -51,8 +50,7 @@ function ADODB_Error_Handler($dbms, $fn, $errno, $errmsg, $p1, $p2, &$thisConnec
 		case 'CONNECT':
 			$host     = $p1;
 			$database = $p2;
-
-			$s = "$dbms error: [$errno: $errmsg] in $fn($host, '****', '****', $database)\n";
+			$s        = "$dbms error: [$errno: $errmsg] in $fn($host, '****', '****', $database)\n";
 
 			break;
 

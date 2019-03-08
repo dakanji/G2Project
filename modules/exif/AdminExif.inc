@@ -454,7 +454,6 @@ class AdminExifView extends GalleryView {
 		$AdminExif['summaryList']   = $summaryList;
 		$AdminExif['detailedList']  = $detailedList;
 		$AdminExif['canRotate']     = isset($toolkit);
-
 		$template->setVariable('AdminExif', $AdminExif);
 		$template->setVariable('controller', 'exif.AdminExif');
 

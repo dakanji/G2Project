@@ -29,16 +29,13 @@ function smarty_core_display_debug_console($params, &$smarty) {
 		$smarty->debug_tpl = 'file:' . SMARTY_DIR . 'debug.tpl';
 	}
 
-	$_ldelim_orig = $smarty->left_delimiter;
-	$_rdelim_orig = $smarty->right_delimiter;
-
+	$_ldelim_orig            = $smarty->left_delimiter;
+	$_rdelim_orig            = $smarty->right_delimiter;
 	$smarty->left_delimiter  = '{';
 	$smarty->right_delimiter = '}';
-
-	$_compile_id_orig    = $smarty->_compile_id;
-	$smarty->_compile_id = null;
-
-	$_compile_path = $smarty->_get_compile_path($smarty->debug_tpl);
+	$_compile_id_orig        = $smarty->_compile_id;
+	$smarty->_compile_id     = null;
+	$_compile_path           = $smarty->_get_compile_path($smarty->debug_tpl);
 
 	if ($smarty->_compile_resource($smarty->debug_tpl, $_compile_path)) {
 		ob_start();
@@ -49,8 +46,7 @@ function smarty_core_display_debug_console($params, &$smarty) {
 		$_results = '';
 	}
 
-	$smarty->_compile_id = $_compile_id_orig;
-
+	$smarty->_compile_id     = $_compile_id_orig;
 	$smarty->left_delimiter  = $_ldelim_orig;
 	$smarty->right_delimiter = $_rdelim_orig;
 

@@ -108,6 +108,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		list($ret, $item) = $this->_items[0]->refresh();
@@ -151,6 +152,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		for ($j = 0; $j < $totalTestItems; $j++) {
@@ -173,6 +175,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		list($ret, $item) = $this->_items[1]->refresh();
@@ -217,6 +220,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		for ($j = 0; $j < $totalTestItems; $j++) {
@@ -231,7 +235,6 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 				$item->getDescription(),
 				"description $j"
 			);
-
 			$this->assertEquals("original summary $j", $item->getSummary(), "summary $j");
 		}
 	}
@@ -249,6 +252,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		list($ret, $item) = $this->_items[1]->refresh();
@@ -350,6 +354,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		// Verify that we do *not* have a preferred
@@ -388,6 +393,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 	}
 
@@ -431,6 +437,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		// Verify that we don't have a preferred
@@ -500,6 +507,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		// Verify that we have a preferred
@@ -522,6 +530,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 
 		// Verify that the item was rotated
 		$this->_preferred = array_shift($preferredIds);
+
 		$this->assertEquals('rotate|90', $this->_preferred->getDerivativeOperations());
 	}
 
@@ -555,6 +564,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		// Verify that we don't have a preferred

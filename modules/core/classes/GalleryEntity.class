@@ -339,7 +339,6 @@ class GalleryEntity extends GalleryPersistent {
 				GalleryDataCache::remove(
 					sprintf('GalleryEntityHelper::loadEntitiesById(%s)', $this->getId())
 				);
-
 				GalleryDataCache::removeFromDisk(
 					array(
 						'type'   => 'entity',
@@ -451,7 +450,6 @@ class GalleryEntity extends GalleryPersistent {
 		GalleryDataCache::remove(
 			sprintf('GalleryEntityHelper::loadEntitiesById(%s)', $this->getId())
 		);
-
 		GalleryDataCache::removeFromDisk(
 			array(
 				'type'   => 'entity',

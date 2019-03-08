@@ -366,7 +366,6 @@ class CoreModuleExtras {
 				}
 
 				$gallery->guaranteeTimeLimit(180);
-
 				$gallery->debug('InstallOrUpgrade default theme');
 
 				$ret = $theme->installOrUpgrade();
@@ -391,7 +390,6 @@ class CoreModuleExtras {
 				}
 
 				$gallery->guaranteeTimeLimit(180);
-
 				$gallery->debug('Activate default theme');
 
 				list($ret, $ignored) = $theme->activate(false);
@@ -558,7 +556,6 @@ class CoreModuleExtras {
 				}
 
 				$gallery->guaranteeTimeLimit(180);
-
 				$gallery->debug('Initialize MIME types');
 				GalleryCoreApi::requireOnce(
 					'modules/core/classes/helpers/GalleryMimeTypeHelper_advanced.class'
@@ -883,8 +880,7 @@ class CoreModuleExtras {
 
 				$result               = $results->nextResult();
 				$totalPermissionItems = $result[0];
-
-				$itemsProcessed = 0;
+				$itemsProcessed       = 0;
 
 				if ($totalPermissionItems > 0) {
 					$ret = $statusMonitor->renderStatusMessage(
@@ -978,8 +974,7 @@ class CoreModuleExtras {
 						);
 
 						$possibleDupeIds = array();
-
-						$dupeIds = array();
+						$dupeIds         = array();
 
 						while ($result = $results->nextResult()) {
 							$dupeIds[] = (int)$result[0];
@@ -2319,8 +2314,7 @@ class CoreModuleExtras {
 						'Rename unnamed pre-beta-3 index to named index (ignore errors)'
 					);
 
-					$indexChanges = array();
-
+					$indexChanges   = array();
 					$indexChanges[] = array(
 						'AccessMap',
 						'permission',
@@ -3724,8 +3718,7 @@ class CoreModuleExtras {
 				list($usec, $sec) = explode(' ', microtime());
 
 				$cookieId = substr(md5(mt_rand()), 0, 6);
-
-				$add[] = '
+				$add[]    = '
 
 				/*
 				* Set the name for Gallery session cookies.  The name of the session cookie is
@@ -3947,7 +3940,6 @@ class CoreModuleExtras {
 			* warnings and notices that are not covered in unit tests (e.g. template issues).
 			*/
 			@ini_set(\'display_errors\', 0);
-
 			';
 
 				$configChanges[] = array(
@@ -4052,8 +4044,7 @@ class CoreModuleExtras {
 	public function performConfigUpgrade($currentVersion) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform       =& $gallery->getPlatform();
 		$configFilePath = GALLERY_CONFIG_DIR . '/config.php';
 		$configContents = implode('', $platform->file($configFilePath));
 
@@ -4144,8 +4135,8 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryGroup.class');
-		$group = new GalleryGroup();
 
+		$group     = new GalleryGroup();
 		$groupName = $module->translate('Registered Users');
 
 		$ret = $group->create($groupName, GROUP_ALL_USERS);
@@ -4189,8 +4180,8 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryGroup.class');
-		$group = new GalleryGroup();
 
+		$group     = new GalleryGroup();
 		$groupName = $module->translate('Site Admins');
 
 		$ret = $group->create($groupName, GROUP_SITE_ADMINS);
@@ -4234,8 +4225,8 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryGroup.class');
-		$group = new GalleryGroup();
 
+		$group     = new GalleryGroup();
 		$groupName = $module->translate('Everybody');
 
 		$ret = $group->create($groupName, GROUP_EVERYBODY);
@@ -4279,8 +4270,8 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryUser.class');
-		$user = new GalleryUser();
 
+		$user     = new GalleryUser();
 		$userName = 'guest';
 		$fullName = $module->translate('Guest');
 
@@ -4348,6 +4339,7 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryUser.class');
+
 		$user = new GalleryUser();
 
 		/*
@@ -4408,6 +4400,7 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryAlbumItem.class');
+
 		$album = new GalleryAlbumItem();
 
 		$ret = $album->createRoot();
@@ -4479,6 +4472,7 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
+
 		$lock = new GalleryEntity();
 		$lock->create();
 
@@ -4591,7 +4585,6 @@ class CoreModuleExtras {
 			'GalleryPhotoItem',
 			'class',
 			array('image/*', 'application/photoshop'),
-
 		);
 
 		$regs[] = array(
@@ -4606,7 +4599,6 @@ class CoreModuleExtras {
 			'GalleryAnimationItem',
 			'class',
 			array('application/x-director', 'application/x-shockwave-flash'),
-
 		);
 
 		$regs[] = array(

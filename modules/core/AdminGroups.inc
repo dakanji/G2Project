@@ -51,8 +51,7 @@ class AdminGroupsController extends GalleryController {
 		}
 
 		$results = $status = $error = array();
-
-		$group = null;
+		$group   = null;
 
 		if (!empty($form['text']['groupName'])) {
 			list($ret, $group) = GalleryCoreApi::fetchGroupByGroupName($form['text']['groupName']);
@@ -263,7 +262,6 @@ class AdminGroupsView extends GalleryView {
 
 		$AdminGroups                    = array();
 		$AdminGroups['totalGroupCount'] = $totalGroupCount;
-
 		$template->setVariable('AdminGroups', $AdminGroups);
 		$template->setVariable('controller', 'core.AdminGroups');
 

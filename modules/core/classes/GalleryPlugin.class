@@ -168,8 +168,7 @@ class GalleryPlugin {
 	public function activate($postActivationEvent = true) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform   =& $gallery->getPlatform();
 		$pluginType = $this->getPluginType();
 		$pluginId   = $this->getId();
 
@@ -453,7 +452,6 @@ class GalleryPlugin {
 		}
 
 		$this->_flushPluginCache();
-
 		$event = GalleryCoreApi::newEvent('Gallery::UninstallPlugin');
 		$event->setData(
 			array(
@@ -586,6 +584,7 @@ class GalleryPlugin {
 	public function _flushPluginCache() {
 		// Flush the cache
 		$pluginType = $this->getPluginType();
+
 		GalleryDataCache::remove("GalleryPluginHelper::fetchPluginStatus($pluginType)");
 		GalleryDataCache::removeFromDisk(
 			array(
@@ -594,7 +593,6 @@ class GalleryPlugin {
 				'id'     => '_all',
 			)
 		);
-
 		GalleryDataCache::remove("GalleryPluginHelper::fetchPluginList($pluginType)");
 	}
 

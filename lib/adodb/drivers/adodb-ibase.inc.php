@@ -7,13 +7,10 @@
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
-
   Latest version is available at http://adodb.sourceforge.net
   Interbase data driver. Requires interbase client. Works on Windows and Unix.
-
   3 Jan 2002 -- suggestions by Hans-Peter Oeri <kampfcaspar75@oeri.ch>
 	  changed transaction handling and added experimental blob stuff
-
   Docs to interbase at the website
    http://www.synectics.co.za/php3/tutorial/IB_PHP3_API.html
   To use gen_id(), see
@@ -138,13 +135,11 @@ class ADODB_ibase extends ADOConnection {
 		}
 
 		$table = strtoupper($table);
-
-		$sql = 'SELECT S.RDB$FIELD_NAME AFIELDNAME
+		$sql   = 'SELECT S.RDB$FIELD_NAME AFIELDNAME
 	FROM RDB$INDICES I JOIN RDB$INDEX_SEGMENTS S ON I.RDB$INDEX_NAME=S.RDB$INDEX_NAME
 	WHERE I.RDB$RELATION_NAME=\'' . $table . '\' and I.RDB$INDEX_NAME like \'RDB$PRIMARY%\'
 	ORDER BY I.RDB$INDEX_NAME,S.RDB$FIELD_POSITION';
-
-		$a = $this->GetCol($sql, false, true);
+		$a     = $this->GetCol($sql, false, true);
 
 		if ($a && sizeof($a) > 0) {
 			return $a;
@@ -697,9 +692,7 @@ class ADODB_ibase extends ADOConnection {
 
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-
-		$rs = $this->Execute(sprintf($this->metaColumnsSQL, strtoupper($table)));
-
+		$rs               = $this->Execute(sprintf($this->metaColumnsSQL, strtoupper($table)));
 		$ADODB_FETCH_MODE = $save;
 		$false            = false;
 
@@ -850,7 +843,6 @@ class ADODB_ibase extends ADOConnection {
 
 		// close and get $blob_id_str for inserting into table
 		$blob_id_str = ibase_blob_close($blob_id);
-
 		fclose($fd);
 
 		return $this->Execute("UPDATE $table SET $column=(?) WHERE $where", array($blob_id_str)) != false;
@@ -859,9 +851,7 @@ class ADODB_ibase extends ADOConnection {
 	/*
 		Insert a null into the blob field of the table first.
 		Then use UpdateBlob to store the blob.
-
 		Usage:
-
 		$conn->Execute('INSERT INTO blobtable (id, blobcol) VALUES (1, null)');
 		$conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
 	*/
@@ -911,8 +901,7 @@ class ADODB_ibase extends ADOConnection {
 			$col = $this->sysDate;
 		}
 
-		$s = '';
-
+		$s   = '';
 		$len = strlen($fmt);
 
 		for ($i = 0; $i < $len; $i++) {
@@ -1001,9 +990,8 @@ class ADORecordset_ibase extends ADORecordSet {
 			fields in a certain query result. If the field offset isn't specified, the next field that wasn't yet retrieved by
 			fetchField() is retrieved.		*/
 	public function FetchField($fieldOffset = -1) {
-		$fld = new ADOFieldObject();
-		$ibf = ibase_field_info($this->_queryID, $fieldOffset);
-
+		$fld  = new ADOFieldObject();
+		$ibf  = ibase_field_info($this->_queryID, $fieldOffset);
 		$name = empty($ibf['alias']) ? $ibf['name'] : $ibf['alias'];
 
 		switch (ADODB_ASSOC_CASE) {

@@ -238,8 +238,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 		}
 
 		$derivatives = $derivativeTable[$itemId];
-
-		$ids = array();
+		$ids         = array();
 
 		foreach ($derivatives as $derivative) {
 			$ids[] = $derivative->getId();
@@ -422,7 +421,6 @@ class ItemEditWatermark extends ItemEditPlugin {
 
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('modules/watermark/watermark.js');
-
 		$template->setVariable('ItemEditWatermark', $ItemEditWatermark);
 
 		return array(

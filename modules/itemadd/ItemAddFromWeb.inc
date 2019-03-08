@@ -58,8 +58,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$storage         =& $gallery->getStorage();
-
-		$status = $error = array();
+		$status          = $error          = array();
 
 		list($ret, $hasPermission) = $this->isAppropriate();
 
@@ -96,10 +95,10 @@ class ItemAddFromWeb extends ItemAddPlugin {
 
 			foreach (array_keys($form['webPageUrls']) as $url) {
 				// Copy the file locally
-				$tmpDir  = $gallery->getConfig('data.gallery.tmp');
-				$tmpFile = $platform->tempnam($tmpDir, 'add');
-
+				$tmpDir             = $gallery->getConfig('data.gallery.tmp');
+				$tmpFile            = $platform->tempnam($tmpDir, 'add');
 				$successfullyCopied = false;
+
 				GalleryUtilities::unsanitizeInputValues($url, false);
 
 				if (empty($extraHeaders)) {
@@ -119,8 +118,8 @@ class ItemAddFromWeb extends ItemAddPlugin {
 					}
 
 					list($base) = GalleryUtilities::getFileNameComponents($fileName);
-
 					GalleryUtilities::sanitizeInputValues($base);
+
 					$title       = (isset($form['set']['title']) && $form['set']['title']) ? $base : '';
 					$summary     = (isset($form['set']['summary'])
 					&& $form['set']['summary']) ? $base : '';
@@ -142,7 +141,9 @@ class ItemAddFromWeb extends ItemAddPlugin {
 					}
 
 					$sanitizedUrl = $url;
+
 					GalleryUtilities::sanitizeInputValues($url);
+
 					$status['addedFiles'][] = array(
 						'fileName' => $url,
 						'id'       => $newItem->getId(),
@@ -233,7 +234,6 @@ class ItemAddFromWeb extends ItemAddPlugin {
 				$recentUrls                   = $session->get('itemadd.view.ItemAddFromWeb.recentUrls');
 				$recentUrls[$form['webPage']] = 1;
 				$session->put('itemadd.view.ItemAddFromWeb.recentUrls', $recentUrls);
-
 				$form['webPageUrls'] = array();
 
 				if (isset($headers['Content-Type'])) {
@@ -416,7 +416,6 @@ class ItemAddFromWeb extends ItemAddPlugin {
 		}
 
 		$ItemAddFromWeb['recentUrls'] = array_keys($recentUrls);
-
 		$template->setVariable('ItemAddFromWeb', $ItemAddFromWeb);
 
 		return array(
@@ -443,8 +442,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 	 */
 	public function _getMimeType($url, $headers = null, $getFileName = false) {
 		$urlComponents = parse_url($url);
-
-		$fileName = null;
+		$fileName      = null;
 
 		if ($getFileName) {
 			if (!empty($headers['Content-Disposition'])

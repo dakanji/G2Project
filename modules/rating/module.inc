@@ -41,7 +41,6 @@ class RatingModule extends GalleryModule {
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
-
 		$this->setCallbacks('getSiteAdminViews|getItemSummaries');
 		$this->setGroup('data', $gallery->i18n('Extra Data'));
 	}
@@ -117,8 +116,7 @@ class RatingModule extends GalleryModule {
 
 		foreach ($items as $item) {
 			$itemIds[] = $item->getId();
-
-			$parentId = $item->getParentId();
+			$parentId  = $item->getParentId();
 
 			if (isset($enabledAlbums[$parentId])) {
 				continue;
@@ -152,7 +150,6 @@ class RatingModule extends GalleryModule {
 		$template->style('modules/rating/rating.css');
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('modules/rating/rating.js');
-
 		$template->setVariable('l10Domain', $this->getL10Domain());
 		$session =& $gallery->getSession();
 

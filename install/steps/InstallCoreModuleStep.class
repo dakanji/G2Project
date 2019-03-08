@@ -39,7 +39,6 @@ class InstallCoreModuleStep extends InstallStep {
 		$template = new StatusTemplate();
 		$template->renderHeader(true);
 		$template->renderStatusMessage(_('Installing the core module'), null, 0);
-
 		$templateData = array();
 
 		// GalleryInitFirstPass does this, but need it earlier to avoid warnings in code below
@@ -54,12 +53,10 @@ class InstallCoreModuleStep extends InstallStep {
 		$tag            = substr(md5(microtime() . mt_rand(1, 32767)), 0, 10);
 		$dataBase       = $gallery->getConfig('data.gallery.base');
 		$installLogPath = sprintf('%s/install_%s.log', $dataBase, $tag);
-
 		$gallery->setDebugLogFile($installLogPath);
 		$templateData['installLogPath'] = $installLogPath;
 		$this->_createDebugLogHeader();
 		$gallery->guaranteeTimeLimit(120);
-
 		$gallery->debug('Init first pass');
 
 		$ret = GalleryInitFirstPass(
@@ -157,7 +154,6 @@ class InstallCoreModuleStep extends InstallStep {
 
 		$template->renderStatusMessage(_('Installing the core module'), null, 0.1);
 		$gallery->guaranteeTimeLimit(180);
-
 		$freshInstall = $galleryStub->getConfig('freshInstall');
 
 		if ($freshInstall) {
@@ -207,7 +203,6 @@ class InstallCoreModuleStep extends InstallStep {
 
 				$template->renderStatusMessage(_('Installing the core module'), '', 0.8);
 				$gallery->guaranteeTimeLimit(180);
-
 				$gallery->debug('Activate core module');
 
 				list($ret, $ignored) = $core->activate(false);
@@ -231,7 +226,6 @@ class InstallCoreModuleStep extends InstallStep {
 
 				$template->renderStatusMessage(_('Installing the core module'), '', 0.9);
 				$gallery->guaranteeTimeLimit(180);
-
 				$gallery->debug('Commit transaction');
 
 				$ret = $storage->commitTransaction();
@@ -271,7 +265,6 @@ class InstallCoreModuleStep extends InstallStep {
 		$this->resetL10Domain();
 		$template->renderStatusMessage(_('Installing the core module'), '', 1.0);
 		$gallery->guaranteeTimeLimit(120);
-
 		$gallery->debug('Finish install core module step');
 
 		if (empty($templateData['errors'])) {
@@ -309,7 +302,6 @@ class InstallCoreModuleStep extends InstallStep {
 		$storage      =& $gallery->getStorage();
 		$isSvnInstall = $galleryStub->getConfig('systemchecks.issvninstall');
 		$isSvnInstall = empty($isSvnInstall) ? 'No' : 'Yes';
-
 		$gallery->debug(
 			"\n
 --------------------------------------------------------

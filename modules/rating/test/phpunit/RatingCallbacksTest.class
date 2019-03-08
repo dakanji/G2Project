@@ -123,7 +123,6 @@ class RatingCallbacksTest extends GalleryTestCase {
 			$summary,
 			'Rating summary array does not match.'
 		);
-
 		$this->assertTrue(isset($data['rating']), 'Missing rating');
 		$this->assertTrue(isset($data['userRating']), 'Missing userRating');
 		$this->assertTrue(isset($data['stars']), 'Missing stars');
@@ -163,7 +162,6 @@ class RatingCallbacksTest extends GalleryTestCase {
 			$summary,
 			'Rating summary array does not match.'
 		);
-
 		$this->assertTrue(isset($data['rating']), 'Missing rating');
 		$this->assertTrue(isset($data['userRating']), 'Missing userRating');
 		$this->assertTrue(isset($data['stars']), 'Missing stars');
@@ -310,7 +308,6 @@ class RatingCallbacksTest extends GalleryTestCase {
 			$summary,
 			'Rating summary array does not match.'
 		);
-
 		$this->assertTrue(isset($data['rating']), 'Missing rating');
 		$this->assertTrue(isset($data['userRating']), 'Missing userRating');
 		$this->assertTrue(isset($data['stars']), 'Missing stars');
@@ -381,7 +378,6 @@ class RatingCallbacksTest extends GalleryTestCase {
 			$summary,
 			'Rating summary array does not match.'
 		);
-
 		$this->assertTrue(isset($data['rating']), 'Missing rating');
 		$this->assertTrue(isset($data['userRating']), 'Missing userRating');
 		$this->assertTrue(isset($data['stars']), 'Missing stars');

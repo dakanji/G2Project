@@ -62,9 +62,8 @@ class ItemPermissionsController extends GalleryController {
 		}
 
 		$applyToChildren = isset($form['applyToSubItems']);
-
-		$status = array();
-		$error  = array();
+		$status          = array();
+		$error           = array();
 
 		if (isset($form['action']['deleteGroupPermission'])) {
 			// Figure out which one we're working with
@@ -653,16 +652,14 @@ class ItemPermissionsView extends GalleryView {
 		}
 
 		// Figure out what we can display on the form
-		$can['changePermissions'] = $canChange;
-		$can['changeOwner']       = $isAdmin;
-		$can['applyToSubItems']   = $item->getCanContainChildren();
-
+		$can['changePermissions']            = $canChange;
+		$can['changeOwner']                  = $isAdmin;
+		$can['applyToSubItems']              = $item->getCanContainChildren();
 		$ItemPermissions['owner']            = (array)$owner;
 		$ItemPermissions['can']              = $can;
 		$ItemPermissions['userPermissions']  = $userPermissions;
 		$ItemPermissions['groupPermissions'] = $groupPermissions;
 		$ItemPermissions['allPermissions']   = $allPermissions;
-
 		$template->setVariable('ItemPermissions', $ItemPermissions);
 		$template->setVariable('controller', 'core.ItemPermissions');
 

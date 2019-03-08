@@ -118,6 +118,7 @@ class PhpVmTest extends GalleryTestCase {
 
 		// For guests, we don't send cookies, thus prepare an existing session
 		GalleryCoreApi::requireOnce('modules/core/classes/GallerySession.class');
+
 		$session = new GallerySession();
 
 		$ret = $session->initEmpty(true);
@@ -127,6 +128,7 @@ class PhpVmTest extends GalleryTestCase {
 		}
 
 		$this->assertFalse(empty($session->_sessionId), 'persistent session preparation failed');
+
 		$url = GalleryUrlGenerator::getMe()->appendParamsToUrl(
 			$url,
 			array(
@@ -210,6 +212,7 @@ class PhpVmTest extends GalleryTestCase {
 
 		for ($i = 0; $i < 50; $i++) {
 			$rand = mt_rand(1000, 1010);
+
 			$this->assertTrue($rand >= 1000 && $rand <= 1010, 'with minimum and maximum');
 		}
 	}

@@ -8,14 +8,11 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
   Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   Library for basic performance monitoring and tuning.
-
   My apologies if you see code mixed with presentation. The presentation suits
   my needs. If you want to separate code from presentation, be my guest. Patches
   are welcome.
-
 */
 if (!defined('ADODB_DIR')) {
 	include_once __DIR__ . '/adodb.inc.php';
@@ -25,7 +22,6 @@ require_once ADODB_DIR . '/tohtml.inc.php';
 
 define('ADODB_OPT_HIGH', 2);
 define('ADODB_OPT_LOW', 1);
-
 global $ADODB_PERF_MIN;
 
 $ADODB_PERF_MIN = 0.05; // log only if >= minimum number of secs to run
@@ -39,7 +35,6 @@ function adodb_getmem() {
 
 	if (strncmp(strtoupper(PHP_OS), 'WIN', 3) == 0) {
 		$output = array();
-
 		exec('tasklist /FI "PID eq ' . $pid . '" /FO LIST', $output);
 
 		return substr($output[5], strpos($output[5], ':') + 1);
@@ -97,8 +92,7 @@ function adodb_log_sql(&$connx, $sql, $inputarr) {
 
 		$conn->_logsql = false; // disable logsql error simulation
 		$dbT           = $conn->databaseType;
-
-		$time = $a1 - $a0;
+		$time          = $a1 - $a0;
 
 		if (!$rs) {
 			$errM            = $connx->ErrorMsg();
@@ -176,8 +170,7 @@ function adodb_log_sql(&$connx, $sql, $inputarr) {
 		//var_dump($arr);
 		$saved       = $conn->debug;
 		$conn->debug = 0;
-
-		$d = $conn->sysTimeStamp;
+		$d           = $conn->sysTimeStamp;
 
 		if (empty($d)) {
 			$d = date("'Y-m-d H:i:s'");
@@ -196,8 +189,7 @@ function adodb_log_sql(&$connx, $sql, $inputarr) {
 			$sql2   = $conn->qstr($arr['c']);
 			$params = $conn->qstr($arr['d']);
 			$tracer = $conn->qstr($arr['e']);
-
-			$isql = "insert into $perf_table (created,sql0,sql1,params,tracer,timer) values($d,$sql1,$sql2,$params,$tracer,$timer)";
+			$isql   = "insert into $perf_table (created,sql0,sql1,params,tracer,timer) values($d,$sql1,$sql2,$params,$tracer,$timer)";
 
 			if ($dbT == 'informix') {
 				$isql = str_replace(chr(10), ' ', $isql);
@@ -263,7 +255,6 @@ function adodb_log_sql(&$connx, $sql, $inputarr) {
 
 /*
 The settings data structure is an associative array that database parameter per element.
-
 Each database parameter element in the array is itself an array consisting of:
 0: category code, used to group related db parameters
 1: either
@@ -305,7 +296,6 @@ class adodb_perf {
 	// returns array with info to calculate CPU Load
 	public function _CPULoad() {
 		/*
-
 		cpu  524152 2662 2515228 336057010
 		cpu0 264339 1408 1257951 168025827
 		cpu1 259813 1254 1257277 168031181
@@ -316,7 +306,6 @@ class adodb_perf {
 		ctxt 66155838
 		btime 1062315585
 		processes 69293
-
 		*/
 
 		// Algorithm is taken from
@@ -413,7 +402,6 @@ class adodb_perf {
 	// NOT IMPLEMENTED
 	public function MemInfo() {
 		/*
-
 		total:    used:    free:  shared: buffers:  cached:
 		Mem:  1055289344 917299200 137990144        0 165437440 599773184
 		Swap: 2146775040 11055104 2135719936
@@ -459,11 +447,10 @@ class adodb_perf {
 
 		$last            = $this->_lastLoad;
 		$this->_lastLoad = $info;
-
-		$d_user   = $info[0] - $last[0];
-		$d_nice   = $info[1] - $last[1];
-		$d_system = $info[2] - $last[2];
-		$d_idle   = $info[3] - $last[3];
+		$d_user          = $info[0] - $last[0];
+		$d_nice          = $info[1] - $last[1];
+		$d_system        = $info[2] - $last[2];
+		$d_idle          = $info[3] - $last[3];
 
 		//printf("Delta - User: %f  Nice: %f  System: %f  Idle: %f<br>",$d_user,$d_nice,$d_system,$d_idle);
 		$total = $d_user + $d_nice + $d_system + $d_idle;
@@ -479,7 +466,6 @@ class adodb_perf {
 		$perf_table            = self::table();
 		$saveE                 = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
-
 		global $ADODB_FETCH_MODE;
 
 		$save             = $ADODB_FETCH_MODE;
@@ -564,8 +550,7 @@ class adodb_perf {
 			return;
 		}
 
-		$sql1 = $this->sql1;
-
+		$sql1             = $this->sql1;
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
@@ -838,8 +823,7 @@ class adodb_perf {
 
 		$perf_table = self::table();
 		$conn       = $this->conn;
-
-		$app = $conn->host;
+		$app        = $conn->host;
 
 		if ($conn->host && $conn->database) {
 			$app .= ', db=';
@@ -987,14 +971,12 @@ class adodb_perf {
 		sleep($secs);
 
 		while (1) {
-			$arr = $this->PollParameters();
-
+			$arr    = $this->PollParameters();
 			$hits   = sprintf('%2.2f', $arr[0]);
 			$reads  = sprintf('%12.4f', ($arr[1] - $arro[1]) / $secs);
 			$writes = sprintf('%12.4f', ($arr[2] - $arro[2]) / $secs);
 			$sess   = sprintf('%5d', $arr[3]);
-
-			$load = $this->CPULoad();
+			$load   = $this->CPULoad();
 
 			if ($load !== false) {
 				$oslabel = 'WS-CPU%';
@@ -1177,7 +1159,6 @@ class adodb_perf {
 			$rows                       *= 2;
 			$_SESSION['phplens_sqlrows'] = $rows;
 		} ?>
-
 <form method="POST" action="<?php echo $PHP_SELF; ?>">
 <table><tr>
 <td> Form size: <input type="submit" value=" &lt; " name="SMALLER"><input type="submit" value=" &gt; &gt; " name="BIGGER">
@@ -1191,7 +1172,6 @@ class adodb_perf {
   </tr>
  </table>
 </form>
-
 		<?php
 		if (!isset($_REQUEST['sql'])) {
 			return;

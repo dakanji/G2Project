@@ -357,16 +357,14 @@ class ItemEditItem extends ItemEditPlugin {
 
 		if ($form['formName'] != 'ItemEditItem') {
 			// First time around, load the form with item data
-			$form['formName'] = 'ItemEditItem';
-
+			$form['formName']             = 'ItemEditItem';
 			$form['title']                = $item->getTitle();
 			$form['summary']              = $item->getSummary();
 			$form['keywords']             = $item->getKeywords();
 			$form['description']          = $item->getDescription();
 			$form['pathComponent']        = $item->getPathComponent();
 			$form['originationTimestamp'] = $item->getOriginationTimestamp();
-
-			$form['thumbnail']['size'] = null;
+			$form['thumbnail']['size']    = null;
 
 			if (!empty($thumbnail) && preg_match(
 				'/thumbnail\|(\d+)/',

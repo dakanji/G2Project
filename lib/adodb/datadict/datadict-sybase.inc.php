@@ -19,8 +19,7 @@ if (!defined('ADODB_DIR')) {
 
 class ADODB2_sybase extends ADODB_DataDict {
 	public $databaseType = 'sybase';
-
-	public $dropIndex = 'DROP INDEX %2$s.%1$s';
+	public $dropIndex    = 'DROP INDEX %2$s.%1$s';
 
 	public function MetaType($t, $len = -1, $fieldobj = false) {
 		if (is_object($t)) {
@@ -190,13 +189,10 @@ class ADODB2_sybase extends ADODB_DataDict {
 	( { < column_definition >
 		| column_name AS computed_column_expression
 		| < table_constraint > ::= [ CONSTRAINT constraint_name ] }
-
 			| [ { PRIMARY KEY | UNIQUE } [ ,...n ]
 	)
-
 	[ ON { filegroup | DEFAULT } ]
 	[ TEXTIMAGE_ON { filegroup | DEFAULT } ]
-
 	< column_definition > ::= { column_name data_type }
 	[ COLLATE < collation_name > ]
 	[ [ DEFAULT constant_expression ]
@@ -204,7 +200,6 @@ class ADODB2_sybase extends ADODB_DataDict {
 	]
 	[ ROWGUIDCOL]
 	[ < column_constraint > ] [ ...n ]
-
 	< column_constraint > ::= [ CONSTRAINT constraint_name ]
 	{ [ NULL | NOT NULL ]
 		| [ { PRIMARY KEY | UNIQUE }

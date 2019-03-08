@@ -137,8 +137,7 @@ class RepositoryObject {
 		global $gallery;
 
 		$outputFilePath = $this->_outputDir . $this->_fileName;
-
-		$platform =& $gallery->getPlatform();
+		$platform       =& $gallery->getPlatform();
 
 		if (!($platform->file_exists($outputFilePath) && !$overwriteFile)) {
 			if ($this->_template->hasVariable('contents')) {

@@ -45,9 +45,8 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 
 		$this->_galleryTemplateAdapter = $gallery->getTemplateAdapter();
 		$gallery->_templateAdapter     = new MockTemplateAdapter();
-
-		$cacheKey              = 'GalleryRepository::getRepositories(,GalleryRepository)';
-		$this->_testRepository = new UnitTestRepository();
+		$cacheKey                      = 'GalleryRepository::getRepositories(,GalleryRepository)';
+		$this->_testRepository         = new UnitTestRepository();
 		GalleryDataCache::put(
 			$cacheKey,
 			array(
@@ -89,8 +88,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		$gallery->setPlatform($UnitTestPlatform);
 		$gallery->_storage = new UnitTestStorage();
 		$storage           =& $gallery->getStorage();
-
-		$this->_callback = array(
+		$this->_callback   = array(
 			'method'  => array(&$gallery->_templateAdapter, 'updateProgressBar'),
 			'title'   => $module->translate('Updating Language Settings'),
 			'current' => 0,
@@ -119,8 +117,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 	public function testUpdateBrowserPreference() {
 		global $gallery;
 
-		$storage =& $gallery->getStorage();
-
+		$storage  =& $gallery->getStorage();
 		$newValue = ($this->_useBrowserPref) ? 0 : 1;
 		GalleryUtilities::putRequestVariable(
 			'form',
@@ -159,7 +156,6 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
-
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -180,7 +176,6 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
-
 		$newValue = ($this->_defaultLanguage == 'en_GB') ? 'en_US' : 'en_GB';
 		GalleryUtilities::putRequestVariable(
 			'form',
@@ -223,7 +218,6 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
-
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -281,9 +275,11 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		}
 
 		$expected = array('ar', 'ca', 'da', 'es', 'es_MX', 'es_AR');
+
 		$this->assertEquals($expected, $installedPackages, 'Unexpected installed packages list');
 
 		$expected = array('af', 'cs');
+
 		$this->assertEquals($expected, $deletePackages, 'Unexpected delete package list');
 	}
 
@@ -291,11 +287,8 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
-
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale');
-
 		$packages = array('af', 'cs');
-
 		$platform->setReply('file_exists', array('/g2data/locale/af'), true);
 		$platform->setReply(
 			'glob',
@@ -441,7 +434,6 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
-
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -459,8 +451,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
-
-		$form = array(
+		$form     = array(
 			'formName'       => 'adminLanguages',
 			'default'        => array(
 				'language' => $this->_defaultLanguage,
@@ -475,9 +466,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		);
 
 		$this->_callback['total'] = 11;
-
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale/');
-
 		$this->_testRepository->setReply(
 			'getLanguagePackageFiles',
 			array(array('af')),

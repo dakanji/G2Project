@@ -44,7 +44,6 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[text][groupName]', $group->getGroupName());
 
 		$results = $this->handleRequest();
-
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -72,7 +71,6 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[text][userName]', $user->getUserName());
 
 		$results = $this->handleRequest();
-
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -96,7 +94,6 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($group);
-
 		$this->_createUserOrGroupQuota($group->getId(), 1024);
 
 		GalleryUtilities::putRequestVariable('form[action][group][editFromText]', 1);
@@ -165,7 +162,6 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($user);
-
 		$this->_createUserOrGroupQuota($user->getId(), 1024);
 
 		GalleryUtilities::putRequestVariable('form[action][user][editFromText]', 1);
@@ -234,7 +230,6 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($group);
-
 		$this->_createUserOrGroupQuota($group->getId(), 2048);
 
 		GalleryUtilities::putRequestVariable('form[action][group][deleteFromText]', 1);
@@ -303,7 +298,6 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($user);
-
 		$this->_createUserOrGroupQuota($user->getId(), 2048);
 
 		GalleryUtilities::putRequestVariable('form[action][user][deleteFromText]', 1);

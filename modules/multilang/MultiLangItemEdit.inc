@@ -83,8 +83,7 @@ class MultiLangItemEdit extends ItemEditPlugin {
 					return array($ret, null, null, null);
 				}
 
-				$status = $module->translate('Changes saved successfully');
-
+				$status  = $module->translate('Changes saved successfully');
 				$session =& $gallery->getSession();
 				$session->put('multilang.language', $form['language']);
 			}
@@ -178,7 +177,6 @@ class MultiLangItemEdit extends ItemEditPlugin {
 
 		$form['selectedLanguage'] = $selectedLanguage;
 		$form['selectedIndex']    = $selectedLanguageIndex;
-
 		$template->setVariable('controller', 'multilang.MultiLangItemEdit');
 
 		return array(

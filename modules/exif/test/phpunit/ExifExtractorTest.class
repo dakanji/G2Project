@@ -230,12 +230,10 @@ class ExifExtractorTest extends GalleryTestCase {
 			'1/60 sec',
 			$data[$this->_photoIds[0]]['ShutterSpeedValue']['value']
 		);
-
 		$this->assertEquals(
 			sprintf('%.2f mm', 21.31),
 			$data[$this->_photoIds[2]]['FocalLength']['value']
 		);
-
 		$this->assertEquals(
 			'Caption: IPTC/Caption',
 			$data[$this->_photoIds[3]]['IPTC/Caption']['value']
@@ -251,12 +249,10 @@ class ExifExtractorTest extends GalleryTestCase {
 			'1/60 sec',
 			$data[$this->_photoIds[0]]['ShutterSpeedValue']['value']
 		);
-
 		$this->assertEquals(
 			sprintf('%.2f mm', 21.31),
 			$data[$this->_photoIds[2]]['FocalLength']['value']
 		);
-
 		$this->assertEquals(
 			'Caption: IPTC/Caption',
 			$data[$this->_photoIds[3]]['IPTC/Caption']['value']
@@ -275,14 +271,12 @@ class ExifExtractorTest extends GalleryTestCase {
 			'1/60 sec',
 			$data[$this->_photoIds[0]]['ShutterSpeedValue']['value']
 		);
-
 		$this->assertFalse(isset($data[$this->_photoIds[2]]['FocalLength']));
 		$this->assertFalse(isset($data[$this->_photoIds[2]]['IPTC/Byline']));
 		$this->assertEquals(
 			'Byline: IPTC/Byline',
 			$data[$this->_photoIds[3]]['IPTC/Byline']['value']
 		);
-
 		$this->assertFalse(isset($data[$this->_photoIds[3]]['FocalLength']));
 	}
 }

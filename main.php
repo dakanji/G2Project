@@ -380,6 +380,7 @@ function _GalleryMain($embedded = false, $template = null) {
 	// Load and run the appropriate view
 	if (empty($viewName)) {
 		$viewName = GALLERY_DEFAULT_VIEW;
+
 		GalleryUtilities::putRequestVariable('view', $viewName);
 	}
 
@@ -470,13 +471,11 @@ function _GalleryMain($embedded = false, $template = null) {
 			echo $session->replaceTempSessionIdIfNecessary($html);
 			$data['isDone'] = true;
 		} else {
-			$html      = unserialize($html);
-			$themeData = unserialize($themeData);
-
+			$html              = unserialize($html);
+			$themeData         = unserialize($themeData);
 			$data              = $session->replaceSessionIdInData($html);
 			$data['themeData'] = $session->replaceSessionIdInData($themeData);
-
-			$data['isDone'] = false;
+			$data['isDone']    = false;
 		}
 	} else {
 		// Initialize our container for template data
@@ -549,6 +548,7 @@ function _GalleryMain($embedded = false, $template = null) {
 		} else {
 			if (!isset($template)) {
 				GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 				$template = new GalleryTemplate(__DIR__);
 			}
 
@@ -667,8 +667,7 @@ function _GalleryMain($embedded = false, $template = null) {
 				}
 
 				if ($embedded) {
-					$data = $session->replaceSessionIdInData($html);
-
+					$data              = $session->replaceSessionIdInData($html);
 					$data['themeData'] =& $template->getVariableByReference('theme');
 					$data['themeData'] = $session->replaceSessionIdInData($data['themeData']);
 					$data['isDone']    = false;
@@ -679,7 +678,6 @@ function _GalleryMain($embedded = false, $template = null) {
 					}
 
 					echo $session->replaceTempSessionIdIfNecessary($html);
-
 					$data['isDone'] = true;
 				}
 
@@ -787,7 +785,6 @@ function _GalleryMain_doRedirect(
 		 */
 		$redirectUrl = str_replace('&amp;', '&', $redirectUrl);
 		$redirectUrl = rtrim($redirectUrl, '&? ');
-
 		$redirectUrl = $urlGenerator->makeAbsoluteUrl($redirectUrl);
 
 		/*
@@ -851,6 +848,7 @@ function _GalleryMain_errorHandler($error, $g2Data = null) {
 	global $gallery;
 
 	GalleryCoreApi::requireOnce('modules/core/ErrorPage.inc');
+
 	$handledError = ErrorPageView::getMe()->errorHandler($error, $g2Data);
 
 	if (!$handledError) {

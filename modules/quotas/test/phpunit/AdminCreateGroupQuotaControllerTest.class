@@ -157,6 +157,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 
 	public function testCreateGroupQuotaGroupIdMissing() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
 

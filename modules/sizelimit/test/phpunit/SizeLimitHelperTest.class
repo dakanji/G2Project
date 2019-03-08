@@ -263,6 +263,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
 class SizeLimitHelperTestPlatform extends GalleryPlatform {
 	public function __construct($originalPlatform) {
 		$this->_savedPlatform = $originalPlatform;
+
 		GalleryUtilities::putRequestVariable('resizePerformed', false);
 		GalleryUtilities::putRequestVariable('compressPerformed', false);
 	}

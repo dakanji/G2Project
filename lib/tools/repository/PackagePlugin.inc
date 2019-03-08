@@ -176,7 +176,6 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 		}
 
 		$outputDir .= sprintf('%ss', $pluginType);
-
 		$descriptor = new RepositoryDescriptor();
 
 		$ret = $descriptor->init($outputDir);
@@ -191,8 +190,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 			return array($ret, null);
 		}
 
-		$overwrite = GalleryUtilities::getRequestVariables('overwrite');
-
+		$overwrite       = GalleryUtilities::getRequestVariables('overwrite');
 		$integrityErrors = $descriptor->checkIntegrity();
 		$pluginInfo      = array(
 			'pluginId'  => $descriptor->getPluginId(),
@@ -261,8 +259,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 				$data[$pluginId]['type']      = $pluginType;
 				$data[$pluginId]['active']    = isset($plugin['active']) ? 'active' : 'inactive';
 				$data[$pluginId]['available'] = isset($plugin['available']) ? 'available' : 'unavailable';
-
-				$pluginUrlParameters = array(
+				$pluginUrlParameters          = array(
 					'pluginId'   => $pluginId,
 					'pluginType' => $pluginType,
 				);

@@ -171,8 +171,7 @@ class GalleryTemplateAdapter {
 
 		// Add the auth token to all controller requests
 		$vars['authToken'] = $session->getAuthToken();
-
-		$out = '';
+		$out               = '';
 
 		foreach ($vars as $key => $value) {
 			$out .= sprintf(
@@ -197,6 +196,7 @@ class GalleryTemplateAdapter {
 		global $gallery;
 
 		static $defaultFormat;
+
 		$platform =& $gallery->getPlatform();
 
 		if (empty($params['format'])) {
@@ -502,9 +502,8 @@ class GalleryTemplateAdapter {
 	public function _combineJavascriptFiles($files, &$output) {
 		global $gallery;
 
-		$platform     =& $gallery->getPlatform();
-		$urlGenerator =& $gallery->getUrlGenerator();
-
+		$platform      =& $gallery->getPlatform();
+		$urlGenerator  =& $gallery->getUrlGenerator();
 		$filteredFiles = array();
 		$key           = '';
 		$codeBase      = GalleryCoreApi::getCodeBasePath();
@@ -586,11 +585,9 @@ class GalleryTemplateAdapter {
 		$platform     =& $gallery->getPlatform();
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$phpVm        = $gallery->getPhpVm();
-
-		$codeBase = GalleryCoreApi::getCodeBasePath();
-
-		$key       = $phpVm->md5($key);
-		$cacheFile = GalleryDataCache::getCachePath(
+		$codeBase     = GalleryCoreApi::getCodeBasePath();
+		$key          = $phpVm->md5($key);
+		$cacheFile    = GalleryDataCache::getCachePath(
 			array(
 				'type'   => 'module',
 				'itemId' => 'CombinedJavascript_' . $key,
@@ -819,7 +816,6 @@ class GalleryTemplateAdapter {
 		$lowercase = !empty($params['lowercase']);
 		$text      = isset($params['text']) ? $params['text'] : $link['text'];
 		unset($params['link'], $params['type'], $params['lowercase'], $params['text']);
-
 		$linkURL = $urlGenerator->generateUrl($link['params'], $link['options']);
 
 		// Hack for TemplateAdapterTest.testItemLink Unit Test
@@ -951,11 +947,9 @@ class GalleryTemplateAdapter {
 			return;
 		}
 
-		$linkTarget = empty($params['target']) ? '' : (' target="' . $params['target'] . '"');
-
-		$isAdminOrShowAll = $isAdmin || (isset($params['showToAll']) && $params['showToAll']);
-
-		$useLink = !isset($params['link']) || $params['link'];
+		$linkTarget       = empty($params['target']) ? '' : (' target="' . $params['target'] . '"');
+		$isAdminOrShowAll = $isAdmin                || (isset($params['showToAll']) && $params['showToAll']);
+		$useLink          = !isset($params['link']) || $params['link'];
 
 		switch ($params['type']) {
 			case 'gallery2':
@@ -1106,8 +1100,7 @@ class GalleryTemplateAdapter {
 
 		$debug     = $gallery->getDebug();
 		$profiling = $gallery->isProfiling('sql');
-
-		$buf = '';
+		$buf       = '';
 
 		if ($debug == 'buffered' || $profiling) {
 			// don't worry about localizing this -- it's only debug output
@@ -1503,8 +1496,7 @@ class GalleryTemplateAdapter {
 
 		$title       = smarty_modifier_escape($title, 'javascript');
 		$description = smarty_modifier_escape($description, 'javascript', 'UTF-8');
-
-		$memoryInfo = $coreModule->translate(
+		$memoryInfo  = $coreModule->translate(
 			array(
 				'text' => 'Memory used: %s, total: %s',
 				'arg1' => $memoryUsed,

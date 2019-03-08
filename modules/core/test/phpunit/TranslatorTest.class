@@ -146,6 +146,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		// Invalid accept language/country, fall back to default
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'xx_YY';
+
 		$this->assertEquals(null, $translator->getLanguageCodeFromRequest(), 'invalid locale');
 
 		// Invalid,valid accept language
@@ -250,7 +251,9 @@ class TranslatorTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('fr_FR', $langCode, 'from $gallery');
+
 		$translator =& $gallery->getTranslator();
+
 		$this->assertEquals('fr_FR', $translator->getActiveLanguageCode(), 'from $translator');
 	}
 
@@ -261,8 +264,7 @@ class TranslatorTest extends GalleryTestCase {
 		$session =& $gallery->getSession();
 		$session->remove('core.language');
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de';
-
-		$gallery->_translator = null;
+		$gallery->_translator            = null;
 
 		$ret = $gallery->initTranslator(true);
 
@@ -425,8 +427,7 @@ class TranslatorTest extends GalleryTestCase {
 	public function testTranslateCharset() {
 		global $gallery;
 
-		$domain = 'modules_core';
-
+		$domain     = 'modules_core';
 		$translator = GalleryTranslator::getMe();
 		$translator->init('pt_BR');
 
@@ -500,7 +501,6 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$platform = new UnitTestPlatform();
-
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale/');
 		$modulePath = GalleryCoreApi::getCodeBasePath('modules/TranslatorTest/');
 		$poPath     = "${modulePath}po/";
@@ -528,7 +528,6 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$platform = new UnitTestPlatform();
-
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale/');
 		$modulePath = GalleryCoreApi::getCodeBasePath('modules/TranslatorTest/');
 		$poPath     = "${modulePath}po/";
@@ -563,7 +562,6 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$platform = new UnitTestPlatform();
-
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale/');
 		$modulePath = GalleryCoreApi::getCodeBasePath('modules/TranslatorTest/');
 		$poPath     = "${modulePath}po/";
@@ -579,7 +577,6 @@ class TranslatorTest extends GalleryTestCase {
 		$platform->setReply('mkdir', array('/g2data/locale', 755), true);
 		$platform->setReply('mkdir', array('/g2data/locale/aa', 755), true);
 		$platform->setReply('mkdir', array('/g2data/locale/aa/LC_MESSAGES/', 755), true);
-
 		$platform->setReply(
 			'copy',
 			array($poPath . 'aa.mo', '/g2data/locale/aa/LC_MESSAGES/modules_TranslatorTest.mo'),
@@ -601,7 +598,6 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$platform = new UnitTestPlatform();
-
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale/');
 		$base = GalleryCoreApi::getCodeBasePath();
 		$platform->setReply(
@@ -631,7 +627,6 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$platform = new UnitTestPlatform();
-
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale/');
 		$codeBase = GalleryCoreApi::getCodeBasePath();
 		$platform->setReply(
@@ -672,7 +667,6 @@ class TranslatorTest extends GalleryTestCase {
 		$platform->setReply('is_dir', array('/g2data/locale'), true);
 		$platform->setReply('mkdir', array('/g2data/locale/wx', 755), true);
 		$platform->setReply('mkdir', array('/g2data/locale/wx/LC_MESSAGES/', 755), true);
-
 		$platform->setReply(
 			'copy',
 			array("${codeBase}modules/test/po/wx.mo",
@@ -720,7 +714,6 @@ class TranslatorTest extends GalleryTestCase {
 
 		$platform   = new UnitTestPlatform();
 		$translator =& $gallery->getTranslator();
-
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale/');
 		$codeBase = GalleryCoreApi::getCodeBasePath();
 		$locale   = $translator->getActiveLanguageCode();
@@ -778,13 +771,11 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$translator =& $gallery->getTranslator();
-
 		$this->assertEquals(
 			array(null, 'en'),
 			$translator->getLanguageCodeFromLocale('en_US'),
 			'en_US'
 	);
-
 		$this->assertEquals(
 			array(null, 'en_GB'),
 			$translator->getLanguageCodeFromLocale('en_GB'),
@@ -796,13 +787,11 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$translator =& $gallery->getTranslator();
-
 		$this->assertEquals(
 			array(null, 'zh_CN'),
 			$translator->getLanguageCodeFromLocale('zh_CN'),
 			'zh_CN'
 	);
-
 		$this->assertEquals(
 			array(null, 'zh_TW'),
 			$translator->getLanguageCodeFromLocale('zh_TW'),
@@ -814,13 +803,11 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$translator =& $gallery->getTranslator();
-
 		$this->assertEquals(
 			array(null, 'en', 'US'),
 			$translator->getLanguageAndCountryFromLanguageCode('en'),
 			'en_US'
 	);
-
 		$this->assertEquals(
 			array(null, 'en', 'GB'),
 			$translator->getLanguageAndCountryFromLanguageCode('en_GB'),

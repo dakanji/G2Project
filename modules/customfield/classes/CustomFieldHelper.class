@@ -460,7 +460,6 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 			$status['saved'] = 1;
 		} elseif (isset($form['action']['add'])) {
 			foreach ($form['action']['add'] as $set => $tmp) {}
-
 			$newField = str_replace('|', ':', str_replace('`', '&#039;', $form[$set]['newField']));
 
 			if (empty($newField)) {

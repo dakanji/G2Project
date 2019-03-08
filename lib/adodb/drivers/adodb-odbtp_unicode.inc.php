@@ -21,9 +21,7 @@ if (!defined('ADODB_DIR')) {
 	Because the ODBTP server sends and reads UNICODE text data using UTF-8
 	encoding, the following HTML meta tag must be included within the HTML
 	head section of every HTML form and script page:
-
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
 	Also, all SQL query strings must be submitted as UTF-8 encoded text.
 */
 if (!defined('_ADODB_ODBTP_LAYER')) {

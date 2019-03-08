@@ -167,6 +167,7 @@ class SquareThumbSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryDataCache::put($cacheKey, array(null, null));
 
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
+
 		$this->assertEquals(null, $results);
 	}
 }

@@ -48,7 +48,6 @@ class PasswordModule extends GalleryModule {
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
-
 		$this->setGroup('display', $this->translate('Display'));
 	}
 
@@ -175,7 +174,6 @@ class PasswordModule extends GalleryModule {
 	 */
 	public function uninstall() {
 		global $gallery;
-
 		GalleryCoreApi::requireOnce('modules/password/classes/PasswordHelper.class');
 
 		$query = "

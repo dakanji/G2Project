@@ -177,8 +177,7 @@ class GalleryController {
 		if (!class_exists($controllerClassName)) {
 			$moduleBaseDir = GalleryCoreApi::getCodeBasePath();
 			$fileName      = 'modules/' . $module . '/' . $class . '.inc';
-
-			$platform =& $gallery->getPlatform();
+			$platform      =& $gallery->getPlatform();
 
 			if (!$platform->file_exists($moduleBaseDir . $fileName)) {
 				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
@@ -319,6 +318,7 @@ class GalleryController {
 	 */
 	public function permissionCheck($ret) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
+
 		$view = new GalleryView();
 
 		list($ret, $results) = $view->_permissionCheck($ret);

@@ -9,15 +9,11 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
 	  Set tabs to 4 for best viewing.
-
 */
 
 /*
-
 CREATE Table SCripts
-
 Oracle ======
-
 CREATE TABLE SESSIONS2
 (
   SESSKEY    VARCHAR2(48 BYTE)                  NOT NULL,
@@ -32,9 +28,7 @@ CREATE TABLE SESSIONS2
 CREATE INDEX SESS2_EXPIRY ON SESSIONS2(EXPIRY);
 CREATE UNIQUE INDEX SESS2_PK ON SESSIONS2(SESSKEY);
 CREATE INDEX SESS2_EXP_REF ON SESSIONS2(EXPIREREF);
-
  MySQL =====
-
 CREATE TABLE sessions2(
 	sesskey VARCHAR( 64 ) NOT NULL DEFAULT '',
 	expiry TIMESTAMP NOT NULL ,
@@ -46,7 +40,6 @@ CREATE TABLE sessions2(
 	INDEX sess2_expiry( expiry ),
 	INDEX sess2_expireref( expireref )
 )
-
 */
 if (!defined('_ADODB_LAYER')) {
 	include realpath(__DIR__ . '/../adodb.inc.php');
@@ -65,7 +58,6 @@ define('ADODB_SESSION2', ADODB_SESSION);
 	1. Pull the session data from the db and loop through it.
 	2. Inside the loop, you will need to urldecode the data column.
 	3. After urldecode, run the serialized string through this function:
-
 */
 function adodb_unserialize($serialized_string) {
 	$variables = array();
@@ -154,7 +146,6 @@ class ADODB_Session {
 	// getter/setter methods
 	/////////////////////
 	/*
-
 	function Lock($lock=null)
 	{
 	static $_lock = false;
@@ -301,8 +292,7 @@ class ADODB_Session {
 
 		if (null !== $debug) {
 			$_debug = (bool)$debug;
-
-			$conn = self::_conn();
+			$conn   = self::_conn();
 
 			if ($conn) {
 				// $conn->debug = $_debug;
@@ -529,7 +519,6 @@ class ADODB_Session {
 
 	/*!
 		Create the connection to the database.
-
 		If $conn already exists, reuse that connection
 	*/
 	public static function open($save_path, $session_name, $persist = null) {
@@ -656,7 +645,6 @@ class ADODB_Session {
 			}
 
 			$rs->Close();
-
 			self::_crc(strlen($v) . crc32($v));
 
 			return $v;
@@ -667,7 +655,6 @@ class ADODB_Session {
 
 	/*!
 		Write the serialized data to a database.
-
 		If the data has not been modified since the last read(), we do not write.
 	*/
 	public static function write($key, $oval) {
@@ -699,7 +686,6 @@ class ADODB_Session {
 
 		//assert('$table');
 		$expiry = $conn->OffsetDate($lifetime / (24 * 3600), $sysTimeStamp);
-
 		$binary = $conn->dataProvider === 'mysql' ? '/*! BINARY */' : '';
 
 		// crc32 optimization since adodb 2.1
@@ -769,7 +755,6 @@ class ADODB_Session {
 			}
 
 			$conn->StartTrans();
-
 			$rs = $conn->Execute("SELECT COUNT(*) AS cnt FROM $table WHERE $binary sesskey = " . $conn->Param(0), array($key));
 
 			if ($rs && reset($rs->fields) > 0) {
@@ -779,8 +764,7 @@ class ADODB_Session {
 					VALUES ($expiry,$lob_value, " . $conn->Param('0') . ', ' . $conn->Param('1') . ", $sysTimeStamp, $sysTimeStamp)";
 			}
 
-			$rs = $conn->Execute($sql, array($expireref, $key));
-
+			$rs   = $conn->Execute($sql, array($expireref, $key));
 			$qkey = $conn->qstr($key);
 			$rs2  = $conn->UpdateBlob($table, 'sessdata', $val, " sesskey=$qkey", strtoupper($clob));
 

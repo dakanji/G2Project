@@ -107,6 +107,7 @@ class AdminDeleteUserQuotaView extends GalleryView {
 		}
 
 		GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
+
 		$userId = GalleryUtilities::getRequestVariables('userId');
 
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
@@ -136,7 +137,6 @@ class AdminDeleteUserQuotaView extends GalleryView {
 		}
 
 		$AdminDeleteUserQuota['user'] = (array)$user;
-
 		$template->setVariable('AdminDeleteUserQuota', $AdminDeleteUserQuota);
 		$template->setVariable('controller', 'quotas.AdminDeleteUserQuota');
 

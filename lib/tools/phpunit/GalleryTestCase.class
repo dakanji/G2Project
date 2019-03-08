@@ -174,13 +174,11 @@ class GalleryTestCase extends TestCase {
 		$this->_saveVars[] = $gallery->_config;
 		$this->_saveVars[] = $gallery->_phpVm;
 		$this->_saveVars[] = isset($gallery->_lockSystem) ? $gallery->_lockSystem : null;
-
-		$_GET     = array();
-		$_POST    = array();
-		$_REQUEST = array();
-		$_FILES   = array();
-
-		$session =& $gallery->getSession();
+		$_GET              = array();
+		$_POST             = array();
+		$_REQUEST          = array();
+		$_FILES            = array();
+		$session           =& $gallery->getSession();
 
 		if (!$session->isUsingCookies()) {
 			$_GET[GALLERY_FORM_VARIABLE_PREFIX . $session->getKey()] = $session->getId();
@@ -188,7 +186,6 @@ class GalleryTestCase extends TestCase {
 
 		$this->_saveSID    = $session->getId();
 		$this->_saveVars[] = $session->get('core.language');
-
 		$this->_markFactoryForCleanup();
 
 		$ret = $this->_initEventListenersForTest();
@@ -255,6 +252,7 @@ class GalleryTestCase extends TestCase {
 
 		if (!empty($lockIds)) {
 			GalleryCoreApi::releaseAllLocks();
+
 			$this->assertTrue(0, 'There are unreleased locks!');
 		}
 
@@ -1049,16 +1047,11 @@ class GalleryTestCase extends TestCase {
 				$contextString = 'Array[' . trim($context) . '] :: ';
 			}
 
-			$retval = $contextString;
-
+			$retval  = $contextString;
 			$retval .= ' Expected Type (';
-
 			$retval .= $obj1Type;
-
 			$retval .= ') !== Actual Type (';
-
 			$retval .= $obj2Type;
-
 			$retval .= ')';
 
 			return $retval;

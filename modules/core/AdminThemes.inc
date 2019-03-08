@@ -53,9 +53,8 @@ class AdminThemesController extends GalleryController {
 		$status       = array();
 		$error        = array();
 		$errorMessage = array();
-
-		$theme   = null;
-		$themeId = GalleryUtilities::getRequestVariables('themeId');
+		$theme        = null;
+		$themeId      = GalleryUtilities::getRequestVariables('themeId');
 
 		if (isset($form['action']['saveDefaults'])) {
 			// Do some basic input validation (by whitelisting)
@@ -611,8 +610,7 @@ class AdminThemesView extends GalleryView {
 
 		if ($form['formName'] != 'AdminThemes') {
 			$form['formName'] = 'AdminThemes';
-
-			$settingTypes = array();
+			$settingTypes     = array();
 
 			if ($theme && isset($AdminThemes['settings'])) {
 				foreach ($AdminThemes['settings'] as $setting) {
@@ -645,7 +643,6 @@ class AdminThemesView extends GalleryView {
 
 		$AdminThemes['themes']  = $themes;
 		$AdminThemes['themeId'] = $themeId;
-
 		$template->setVariable('AdminThemes', $AdminThemes);
 		$template->setVariable('controller', 'core.AdminThemes');
 

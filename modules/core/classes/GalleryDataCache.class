@@ -382,6 +382,7 @@ class GalleryDataCache {
 
 		$cacheFile = GalleryDataCache::getCachePath($pathInfo);
 		$platform  =& $gallery->getPlatform();
+
 		GalleryUtilities::guaranteeDirExists(dirname($cacheFile));
 
 		// This will either succeed, or leave no trace of its attempt.
@@ -617,6 +618,7 @@ class GalleryDataCache {
 		}
 
 		GalleryDataCache::put($cacheKey, $newEntries);
+
 		$session->put('permissionCache', $permissions);
 	}
 
@@ -899,6 +901,7 @@ class GalleryDataCache {
 
 		if ($action == 'read') {
 			$noCache = (GalleryUtilities::getServerVar('HTTP_PRAGMA') == 'no-cache' ||
+
 			GalleryUtilities::getServerVar('HTTP_CACHE_CONTROL') == 'no-cache');
 
 			if ($noCache) {
@@ -955,8 +958,7 @@ class GalleryDataCache {
 
 		$isEmbedded = (int)$gallery->isEmbedded();
 		$extraKey   = (int)($session->isUsingCookies()) . '-' . $languageCode . '-' . $isEmbedded;
-
-		$mode = $session->get('exif.module.LoadExifInfo.mode');
+		$mode       = $session->get('exif.module.LoadExifInfo.mode');
 
 		if (!empty($mode) && $mode != 'summary') {
 			$extraKey .= '-exif' . $mode;

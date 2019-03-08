@@ -167,7 +167,6 @@ class RatingHelper {
 
 		// Use this to get new IDs and check affected rows for updates
 		$storage = $gallery->getStorage();
-
 		$session =& $gallery->getSession();
 
 		if (!$session->isPersistent()) {

@@ -321,8 +321,7 @@ class GalleryPermissionHelper_advanced {
 
 		$itemId   = (int)$itemId;
 		$entityId = (int)$entityId;
-
-		$storage =& $gallery->getStorage();
+		$storage  =& $gallery->getStorage();
 
 		list($ret, $lockId) = self::_getAccessListCompacterLock('read');
 
@@ -580,6 +579,7 @@ class GalleryPermissionHelper_advanced {
 				// Clear the in-memory permission cache for this item (all groups, users).
 				$cacheKey = 'GalleryPermissionHelper::getPermissions\(' . $targetItemId . ',\d+,\d\)';
 				GalleryDataCache::removeByPattern($cacheKey);
+
 				$cacheKey = 'GalleryPermissionHelper::fetchAccessListIds\(.*\)';
 				GalleryDataCache::removeByPattern($cacheKey);
 			}
@@ -809,8 +809,7 @@ class GalleryPermissionHelper_advanced {
 			return array($ret, null);
 		}
 
-		$storage =& $gallery->getStorage();
-
+		$storage    =& $gallery->getStorage();
 		$permission = null;
 
 		if ($result = $searchResults->nextResult()) {
@@ -1280,6 +1279,7 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		$permissions[$data['permission']] = $data;
+
 		GalleryDataCache::put($cacheKey, $permissions);
 
 		$ret = GalleryCoreApi::addMapEntry(

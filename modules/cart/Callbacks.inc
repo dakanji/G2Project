@@ -49,8 +49,7 @@ class CartCallbacks {
 				$block                               =& $smarty->_tpl_vars['block'];
 				$block['cart']['ShowCart']['unique'] = $unique;
 				$block['cart']['ShowCart']['total']  = $total;
-
-				$urlParams = array(
+				$urlParams                           = array(
 					'view' => 'cart.ViewCart',
 				);
 

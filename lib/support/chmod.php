@@ -35,8 +35,7 @@ require_once __DIR__ . '/../../modules/core/classes/GalleryUtilities.class';
 
 $DEFAULT_FOLDER_PERMISSIONS = PermissionBits::getMe()->fromString('555');
 $DEFAULT_FILE_PERMISSIONS   = PermissionBits::getMe()->fromString('444');
-
-$status = array();
+$status                     = array();
 
 $ret = null;
 
@@ -235,7 +234,6 @@ if (empty($status['error'])) {
 }
 
 printStatus($status);
-
 printFooter();
 
 // Functions and Classes
@@ -329,8 +327,7 @@ function chmodRecursively($filename, $folderPermissions, $filePermissions, $star
  * @return array(array(string folder permission) )
  */
 function getPermissionSets() {
-	$permissionSets = array();
-
+	$permissionSets   = array();
 	$permissionSets[] = array(
 		PermissionBits::getMe()->fromString('777'),
 		PermissionBits::getMe()->fromString('666'),
@@ -652,7 +649,6 @@ function printPageWithoutFooter(
 			echo "plugins['$pluginId'] = $isOpenForEdit;
 				";
 		} ?>
-
 			function setEditOrSecure(pluginId, formObj) {
 				if (pluginId == -1) {
 					formObj.mode.value='';
@@ -686,7 +682,6 @@ function printPageWithoutFooter(
 
 			</script>
 		</head>
-
 		<body>
 			<div class="container">
 				<div id="title">
@@ -706,18 +701,14 @@ function printPageWithoutFooter(
 					also owned by the webserver. For more information, see the <b><a
 						href="http://codex.gallery2.org/Gallery2:Security">Gallery Security Guide</a>.</b>
 					</p>
-
 					<!-- Identifyable placeholders such that we can insert our messages during runtime via JS. -->
 					<div id="error" class="error" style="display: none;">
 						&nbsp;
 					</div>
-
 					<div id="status" class="success" style="display: none;">
 						&nbsp;
 					</div>
-
 					<hr class="faint">
-
 				<?php
 				if (!isModulesOrThemesDirWriteable()) {
 					?>
@@ -758,9 +749,7 @@ function printPageWithoutFooter(
 						</p>
 						<?php
 				} ?>
-
 					<hr class="faint">
-
 					<?php startForm('index.php?chmod&amp;command=' . CMD_CHMOD_PLUGIN_DIR, 'pluginForm'); ?>
 					<h2 id="themeOrModule">
 						Make a specific theme or module editable
@@ -787,9 +776,7 @@ function printPageWithoutFooter(
 					<input type="submit" disabled="disabled" name="secure" value="Make it secure (read-only)" class="btn btn-default">
 				</p>
 			</form>
-
 			<hr class="faint">
-
 			<h2><a href="
 			<?php
 			generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_STORAGE_DIR)
@@ -801,9 +788,7 @@ function printPageWithoutFooter(
 				problem might be solved by the above action. If the problem persists, you will have to talk
 				to your webhost to get data folder writeable again.
 			</p>
-
 			<hr class="faint">
-
 			<h2><a href="
 			<?php
 			generateUrl('index.php?chmod&amp;command=' . CMD_CHMOD_LOCALE_DIR)
@@ -814,9 +799,7 @@ function printPageWithoutFooter(
 				since you may not have permissions to copy the the new localized version into your
 				g2data/locale folder.  Making the locale folder read/write should solve this problem.
 			</p>
-
 			<hr class="faint">
-
 			<?php
 			if (isGalleryDirWriteable()) {
 				?>
@@ -844,9 +827,7 @@ function printPageWithoutFooter(
 				</p>
 				<?php
 			} ?>
-
 			<hr class="faint">
-
 			<h2>Advanced: Choose the path and the permissions manually</h2>
 			<?php startForm('index.php?chmod&amp;command=' . CMD_ADVANCED); ?>
 			<p class="description">
@@ -872,7 +853,6 @@ function printPageWithoutFooter(
 					<?php
 				} ?>
 			<br><br>
-
 			<input type="submit" value="Change the Permissions now!"  class="btn btn-default">
 		</p>
 	</form>

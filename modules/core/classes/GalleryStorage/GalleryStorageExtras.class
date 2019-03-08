@@ -295,10 +295,8 @@ class GalleryStorageExtras {
 
 				// If the member is modified, record the new value in our table
 				if ($entity->isModified($memberName)) {
-					$value = $entity->$memberName;
-
-					$entity->$memberName = $value = $this->_gs->_normalizeValue($value, $memberData);
-
+					$value                              = $entity->$memberName;
+					$entity->$memberName                = $value                = $this->_gs->_normalizeValue($value, $memberData);
 					$columnName                         = $this->_gs->_translateColumnName($memberName);
 					$dataTable[$tableName][$columnName] = $value;
 				} else {
@@ -314,8 +312,7 @@ class GalleryStorageExtras {
 				}
 
 				if ($type & STORAGE_TYPE_ID) {
-					$value = $entity->$memberName;
-
+					$value        = $entity->$memberName;
 					$id['column'] = $this->_gs->_translateColumnName($memberName);
 					$id['value']  = $value;
 				}
@@ -344,7 +341,6 @@ class GalleryStorageExtras {
 				$query .= implode(', ', $columns);
 
 				$query .= ') VALUES (' . $markers . ')';
-
 				$this->_gs->_traceStart();
 				$recordSet = $this->_gs->_db->Execute($query, $data);
 				$this->_gs->_traceStop();
@@ -470,8 +466,7 @@ class GalleryStorageExtras {
 			return $ret;
 		}
 
-		$idCol = $this->_gs->_translateColumnName('id');
-
+		$idCol  = $this->_gs->_translateColumnName('id');
 		$tables = array();
 		$target = $entity->entityType;
 
@@ -492,7 +487,6 @@ class GalleryStorageExtras {
 		foreach ($tables as $tableName => $junk) {
 			$query = 'DELETE FROM ' . $tableName . ' WHERE ' . $idCol . '=?';
 			$data  = array((int)$entity->getId());
-
 			$this->_gs->_traceStart();
 			$recordSet = $this->_gs->_db->Execute($query, $data);
 			$this->_gs->_traceStop();
@@ -664,7 +658,6 @@ class GalleryStorageExtras {
 			$query = 'SELECT COUNT(*) FROM ' . $lockTable
 			. ' WHERE ' . $writeEntityIdCol . ' IN (' . $markers . ')';
 			$data  = $entityIds;
-
 			$this->_gs->_traceStart();
 			$recordSet = $db->Execute($query, $data);
 			$this->_gs->_traceStop();
@@ -720,7 +713,6 @@ class GalleryStorageExtras {
 			);
 
 			$data = array($lockId, $entityId, $freshUntil);
-
 			$this->_gs->_traceStart();
 			$recordSet = $db->Execute($query, $data);
 			$this->_gs->_traceStop();
@@ -740,7 +732,6 @@ class GalleryStorageExtras {
 		$query = 'DELETE FROM ' . $lockTable
 		. ' WHERE ' . $lockIdCol . '=? AND ' . $requestCol . '=1';
 		$data  = array($lockId);
-
 		$this->_gs->_traceStart();
 		$recordSet = $db->Execute($query, $data);
 		$this->_gs->_traceStop();
@@ -813,7 +804,6 @@ class GalleryStorageExtras {
 			'OR ' . $writeEntityIdCol . ' IN (' . $markers . ')';
 			$data  = $entityIds;
 			$data  = array_merge($data, $entityIds);
-
 			$this->_gs->_traceStart();
 			$recordSet = $db->Execute($query, $data);
 			$this->_gs->_traceStop();
@@ -869,7 +859,6 @@ class GalleryStorageExtras {
 			);
 
 			$data = array($lockId, $entityId, $freshUntil);
-
 			$this->_gs->_traceStart();
 			$recordSet = $db->Execute($query, $data);
 			$this->_gs->_traceStop();
@@ -889,7 +878,6 @@ class GalleryStorageExtras {
 		$query = 'DELETE FROM ' . $lockTable
 		. ' WHERE ' . $lockIdCol . '=? AND ' . $requestCol . '=1';
 		$data  = array($lockId);
-
 		$this->_gs->_traceStart();
 		$recordSet = $db->Execute($query, $data);
 		$this->_gs->_traceStop();
@@ -1013,7 +1001,6 @@ class GalleryStorageExtras {
 		$markers   = GalleryUtilities::makeMarkers(count($lockIds));
 
 		$query = 'DELETE FROM ' . $lockTable . ' WHERE ' . $lockIdCol . ' IN (' . $markers . ')';
-
 		$this->_gs->_traceStart();
 		$recordSet = $db->Execute($query, $lockIds);
 		$this->_gs->_traceStop();
@@ -1042,7 +1029,6 @@ class GalleryStorageExtras {
 		. GalleryUtilities::makeMarkers(count($ids)) . ')';
 
 		$query = $this->_gs->_translateQuery($query);
-
 		$this->_gs->_traceStart();
 		$recordSet = $db->Execute($query, array_merge(array($lock['lockId']), $ids));
 		$this->_gs->_traceStop();
@@ -1127,7 +1113,6 @@ class GalleryStorageExtras {
 		}
 
 		$statement = $this->_gs->_translateQuery($statement);
-
 		$this->_gs->_traceStart();
 		$recordSet = $this->_gs->_db->Execute($statement, $data);
 		$this->_gs->_traceStop();
@@ -1194,7 +1179,6 @@ class GalleryStorageExtras {
 		$query .= implode(', ', $columns);
 
 		$query .= ') VALUES (' . $markers . ')';
-
 		$this->_gs->_traceStart();
 		$recordSet = $db->Execute($query, $data);
 		$this->_gs->_traceStop();
@@ -1317,7 +1301,6 @@ class GalleryStorageExtras {
 		}
 
 		$query = 'DELETE FROM ' . $tableName . ' WHERE ' . implode(' AND ', $where);
-
 		$this->_gs->_traceStart();
 		$recordSet = $this->_gs->_db->Execute($query, $data);
 		$this->_gs->_traceStop();
@@ -1483,7 +1466,6 @@ class GalleryStorageExtras {
 		global $gallery;
 
 		$gallery->guaranteeTimeLimit(20);
-
 		$this->_clearEntityAndMapCache();
 
 		$ret = $this->_dbInit(true);
@@ -1716,8 +1698,7 @@ class GalleryStorageExtras {
 	public function _getTableInfo($moduleId, $type) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform      =& $gallery->getPlatform();
 		$fileBase      = $type == 'map' ? 'Maps' : 'Entities';
 		$tableInfoFile = GalleryCoreApi::getCodeBasePath("modules/$moduleId/classes/$fileBase.inc");
 		$mapInfo       = array();
@@ -2015,7 +1996,6 @@ class GalleryStorageExtras {
 		$query = 'SELECT ' . $this->_gs->_translateColumnName('name') . ', '
 		. $this->_gs->_translateColumnName('major') . ', '
 		. $this->_gs->_translateColumnName('minor') . ' FROM ' . $schemaTableName;
-
 		$this->_gs->_traceStart();
 		$recordSet = $this->_gs->_db->Execute($query);
 		$this->_gs->_traceStop();
@@ -2065,7 +2045,6 @@ class GalleryStorageExtras {
 
 				// Perform database specific replacements
 				$query = strtr($query, $this->_gs->_getSqlReplacements());
-
 				$this->_gs->_traceStart();
 				$recordSet = $this->_gs->_db->Execute($query);
 				$this->_gs->_traceStop();
@@ -2160,7 +2139,6 @@ class GalleryStorageExtras {
 				list($tableName, $unused) = $this->_gs->_translateTableName($rawTableName);
 
 				$query = sprintf('DROP TABLE %s', $tableName);
-
 				$this->_gs->_traceStart();
 				$recordSet = $this->_gs->_db->Execute($query);
 				$this->_gs->_traceStop();
@@ -2362,7 +2340,6 @@ class GalleryStorageExtras {
 		);
 
 		$data = array($lockId, time() + 30);
-
 		$this->_gs->_traceStart();
 		$recordSet = $db->Execute($query, $data);
 		$this->_gs->_traceStop();
@@ -2377,7 +2354,6 @@ class GalleryStorageExtras {
 		while (true) {
 			$query = 'SELECT ' . $lockIdCol . ' FROM ' . $lockTable
 			. ' WHERE ' . $requestCol . '=1 ORDER BY ' . $lockIdCol . ' ASC';
-
 			$this->_gs->_traceStart();
 			$recordSet = $db->SelectLimit($query, 1);
 			$this->_gs->_traceStop();
@@ -2453,7 +2429,6 @@ class GalleryStorageExtras {
 
 			$query = 'SELECT ' . $idCol . ', ' . $entityTypeCol
 			. ' FROM ' . $table . ' WHERE ' . $idCol . ' IN (' . $markers . ')';
-
 			$this->_gs->_traceStart();
 			$recordSet = $this->_gs->_db->Execute($query, $checkIds);
 			$this->_gs->_traceStop();

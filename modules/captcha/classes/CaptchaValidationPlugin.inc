@@ -116,6 +116,7 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
 
 		if ($useCaptcha) {
 			GalleryCoreApi::requireOnce('modules/captcha/classes/CaptchaHelper.class');
+
 			CaptchaHelper::generateCaptchaSessionKey();
 
 			return array(

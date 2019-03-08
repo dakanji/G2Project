@@ -51,7 +51,6 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($this->_user);
-
 		$this->_saveUser = $gallery->getActiveUser();
 		$gallery->setActiveUser($this->_user);
 

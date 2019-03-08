@@ -131,6 +131,7 @@ class MimeAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testDelete() {
 		GalleryUtilities::putRequestVariable('form[action][delete]', 'test/test');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

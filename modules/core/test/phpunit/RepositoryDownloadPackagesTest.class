@@ -48,14 +48,12 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		$this->_repository->_index            = new GalleryRepositoryIndex('test');
 		$this->_repository->_index->_index    = $sampleIndex;
 		$this->_repository->_index->_isLoaded = true;
-
-		$this->_repository->_source = 'test';
+		$this->_repository->_source           = 'test';
 
 		// Prepare sample descriptor
 		include __DIR__
 		. '/../../../../lib/tools/repository/test/data/SampleDescriptors.inc';
-		$this->_descriptor = $sampleModuleDescriptor;
-
+		$this->_descriptor      = $sampleModuleDescriptor;
 		$this->_templateAdapter = new MockTemplateAdapter();
 		$this->_callback        = array(
 			'method'  => array(&$this->_templateAdapter, 'updateProgressBar'),
@@ -92,8 +90,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 	public function _setRepositoryResponses($params = array()) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform      =& $gallery->getPlatform();
 		$cachePath     = $gallery->getConfig('repository.cache') . 'test/';
 		$repositoryUrl = $gallery->getConfig('repository.url') . 'test/';
 		$outputDir     = GalleryCoreApi::getCodeBasePath('modules/testModule/');
@@ -174,7 +171,6 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			}
 
 			$otherFailure = !empty($params['downloadPackageOtherFailure'][$package]);
-
 			$platform->setReply('file_exists', array($outputDir), !$otherFailure);
 
 			if ($otherFailure) {
@@ -190,7 +186,6 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			);
 
 			$retCode = !empty($responses[$package]) ? $responses[$package] : false;
-
 			$this->_repository->_utilities->setReply(
 				'unpackPackage',
 				array($cachePath . $relativeFile, $outputDir),
@@ -221,7 +216,6 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 	public function testDownloadPackages() {
 		// Set up repository responses
 		$this->_setRepositoryResponses();
-
 		$downloadData = array(
 			'name'  => 'Test Module',
 			'files' => array(
@@ -252,7 +246,6 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			$this->_templateAdapter->_progress,
 			'Reported progress didn\'t match'
 		);
-
 		$this->assertEquals(array(), $status, 'Unexpected returned status');
 	}
 

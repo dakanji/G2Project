@@ -35,8 +35,7 @@ function smarty_function_html_options($params, &$smarty) {
 	$options  = null;
 	$selected = array();
 	$output   = null;
-
-	$extra = '';
+	$extra    = '';
 
 	foreach ($params as $_key => $_val) {
 		switch ($_key) {

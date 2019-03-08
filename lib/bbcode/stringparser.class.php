@@ -301,9 +301,7 @@ class StringParser {
 		unset($this->_root);
 		$this->_root     = new StringParser_Node_Root();
 		$this->_stack[0] =& $this->_root;
-
 		$this->_parserInit();
-
 		$finished = false;
 
 		while (!$finished) {
@@ -405,8 +403,7 @@ class StringParser {
 			unset($this->_stack[count($this->_stack) - 1]);
 		}
 
-		$this->_stack = array();
-
+		$this->_stack   = array();
 		$this->_parsing = false;
 
 		return $this->_output;
@@ -486,8 +483,7 @@ class StringParser {
 			return false;
 		}
 
-		$topelem =& $this->_stack[$stack_count - 1];
-
+		$topelem     =& $this->_stack[$stack_count - 1];
 		$node_parent =& $topelem->_parent;
 
 		// remove the child from the tree
@@ -687,7 +683,6 @@ class StringParser {
 		/*
 		while ($this->_cpos < $this->_length) {
 			$needle = $this->_strDetect ($this->_charactersSearch, $this->_cpos);
-
 			if ($needle === false) {
 				// not found => see if character is allowed
 				if (!in_array ($this->_text{$this->_cpos}, $this->_charactersAllowed)) {

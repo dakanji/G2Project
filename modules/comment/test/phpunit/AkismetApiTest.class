@@ -45,8 +45,7 @@ class AkismetApiTest extends GalleryTestCase {
 
 		$this->_comment = new GalleryComment();
 		$this->_comment->setPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
-		$this->_akismet = new AkismetApiTest_AkismetApiWithMockRequest();
-
+		$this->_akismet  = new AkismetApiTest_AkismetApiWithMockRequest();
 		$this->_platform = new UnitTestPlatform();
 		$gallery->setPlatform($this->_platform);
 		$AkismetApiTest_MockUrlGenerator = new AkismetApiTest_MockUrlGenerator();
@@ -148,7 +147,6 @@ class AkismetApiTest extends GalleryTestCase {
 		}
 
 		$request .= join('&', $tmp);
-
 		$platform->setReply('fsockopen', array($host, $port, null, null, 5), 'HANDLE');
 		$platform->setReply('fwrite', array('HANDLE', $request, null), true);
 		$platform->setReply('fflush', array('HANDLE'), true);

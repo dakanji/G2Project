@@ -39,8 +39,7 @@ class RepositoryObjectTest extends GalleryTestCase {
 	public function testOutputDir() {
 		global $gallery;
 
-		$object = new RepositoryObject();
-
+		$object   = new RepositoryObject();
 		$platform = new UnitTestPlatform();
 
 		// Test an invalid directory.
@@ -64,7 +63,6 @@ class RepositoryObjectTest extends GalleryTestCase {
 			preg_match('/\/$/', $object->getOutputDir()),
 			'Directory separator not appended to output directory path.'
 		);
-
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
@@ -74,14 +72,11 @@ class RepositoryObjectTest extends GalleryTestCase {
 		$outputPath                = 'outputDirectory/output.file';
 		$processedTemplateContents = 'Some contents used for testing.';
 		$templateVariableContents  = 'Some template variable contents.';
-
-		$object = new RepositoryObject();
+		$object                    = new RepositoryObject();
 		$object->setOutputFile('output.file');
 		$object->_outputDir = 'outputDirectory/';
-
-		$platform = new UnitTestPlatform();
+		$platform           = new UnitTestPlatform();
 		$platform->setReply('file_exists', array($outputPath), true);
-
 		$platform->setReply('file_exists', array($outputPath), false);
 		$platform->setReply(
 			'file_put_contents',
@@ -129,7 +124,6 @@ class RepositoryObjectTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($object->wasFileWritten(), 'Existing file not overwritten.');
-
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
@@ -155,7 +149,6 @@ class RepositoryObjectTest extends GalleryTestCase {
 
 		$descriptor  = new RepositoryDescriptor();
 		$newManifest = $descriptor->filterManifestForBasePackage($manifest);
-
 		$this->assertEquals(
 			array(
 				'# $' . 'Revision: 15342 $',

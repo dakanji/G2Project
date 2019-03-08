@@ -41,11 +41,10 @@ class AdminUserSetupStep extends InstallStep {
 			$this->_fullName            = _('Gallery Administrator');
 		}
 
-		$templateData['passwordA'] = $templateData['passwordB'] = strlen($this->_password) ? '******' : '';
-		$templateData['adminName'] = $this->_adminName;
-		$templateData['email']     = $this->_email;
-		$templateData['fullName']  = $this->_fullName;
-
+		$templateData['passwordA']    = $templateData['passwordB']    = strlen($this->_password) ? '******' : '';
+		$templateData['adminName']    = $this->_adminName;
+		$templateData['email']        = $this->_email;
+		$templateData['fullName']     = $this->_fullName;
 		$templateData['freshInstall'] = $galleryStub->getConfig('freshInstall');
 
 		if (isset($_POST['action']) && $_POST['action'] == 'create') {
@@ -82,8 +81,7 @@ class AdminUserSetupStep extends InstallStep {
 				$templateData['email']     = $this->sanitize($_POST['email']);
 				$this->_fullName           = $this->sanitize($_POST['fullName']);
 				$templateData['fullName']  = $this->sanitize($_POST['fullName']);
-
-				$adminNameOk = false;
+				$adminNameOk               = false;
 
 				if (empty($this->_adminName) || strlen($this->_adminName) < 1
 					|| strlen($this->_adminName) > 32

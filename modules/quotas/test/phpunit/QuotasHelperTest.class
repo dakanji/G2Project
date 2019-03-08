@@ -378,7 +378,6 @@ class QuotasHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($groupQuotaExists == true, 'Quota existance failure');
-
 		$this->assertTrue($groupQuotaInfo['quota'] == 4, 'The group quota should be 4 KB');
 
 		$this->_removeMapEntry(
@@ -482,6 +481,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($postGroupCount = $preGroupCount + 1, 'Group Counts do not match up');
+
 		$this->_removeMapEntry(
 			array(
 				'userOrGroupId' => $this->_group->getId(),
@@ -560,6 +560,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($postUserCount = $preUserCount + 1, 'User Counts do not match up');
+
 		$this->_removeMapEntry(
 			array(
 				'userOrGroupId' => $this->_user->getId(),
@@ -656,8 +657,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
-		$smarty = new GallerySmarty();
+		$smarty  = new GallerySmarty();
 
 		// Execute the method under test
 		$callback = new QuotasCallbacks();
@@ -670,6 +670,7 @@ class QuotasHelperTest extends GalleryTestCase {
 
 		// Verify the results
 		$data = $smarty->_tpl_vars['block']['quotas']['LoadQuotas'];
+
 		$this->assertEquals('0', $data['quotaValue'], 'No quota value should exist for this user');
 		$this->assertFalse($data['quotaExists'], 'No quota should exist for this user');
 		$this->assertEquals($this->_KB, $data['quotaValueUnit'], 'No quota (lowest unit is KB)');
@@ -683,8 +684,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
-		$smarty = new GallerySmarty();
+		$smarty  = new GallerySmarty();
 
 		// Create 3 dummy items
 		$this->_item = array();
@@ -715,6 +715,7 @@ class QuotasHelperTest extends GalleryTestCase {
 
 		// Verify the results
 		$data = $smarty->_tpl_vars['block']['quotas']['LoadQuotas'];
+
 		$this->assertEquals('0', $data['quotaValue'], 'No quota value should exist for this user');
 		$this->assertFalse($data['quotaExists'], 'No quota should exist for this user');
 		$this->assertEquals($this->_KB, $data['quotaValueUnit'], 'No quota (lowest unit is KB)');
@@ -723,13 +724,11 @@ class QuotasHelperTest extends GalleryTestCase {
 			$data['currentUsage'],
 			'User should be using 303 KB'
 		);
-
 		$this->assertEquals(
 			$this->_KB,
 			$data['currentUsageUnit'],
 			'is using less than 1MB (should be KB)'
 		);
-
 		$this->assertFalse(isset($data['currentUsagePercent']), 'Usage percent should not be set');
 		$this->assertFalse(isset($data['currentUnusedPerfcent']), 'Unused percent should not be set');
 	}
@@ -738,8 +737,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
-		$smarty = new GallerySmarty();
+		$smarty  = new GallerySmarty();
 
 		// Create 3 dummy items
 		$this->_item = array();
@@ -787,6 +785,7 @@ class QuotasHelperTest extends GalleryTestCase {
 
 		// Verify the results
 		$data = $smarty->_tpl_vars['block']['quotas']['LoadQuotas'];
+
 		$this->assertEquals('501', $data['quotaValue'], 'Quota value should exist for this user');
 		$this->assertTrue($data['quotaExists'], 'Quota should exist for this user');
 		$this->assertEquals(
@@ -794,13 +793,11 @@ class QuotasHelperTest extends GalleryTestCase {
 			$data['quotaValueUnit'],
 			'has quota < 1MB (lowest unit is KB)'
 		);
-
 		$this->assertEquals(
 			(string)303,
 			$data['currentUsage'],
 			'User should be using 303 KB'
 		);
-
 		$this->assertEquals($this->_KB, $data['currentUsageUnit'], 'No quota (lowest unit is KB)');
 		$this->assertEquals(60, $data['currentUsagePercent'], 'Incorrect Usage percent');
 		$this->assertEquals(40, $data['currentUnusedPercent'], 'Incorrect Unused percent');
@@ -810,8 +807,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
-		$smarty = new GallerySmarty();
+		$smarty  = new GallerySmarty();
 
 		// Create 3 dummy items
 		$this->_item = array();
@@ -850,6 +846,7 @@ class QuotasHelperTest extends GalleryTestCase {
 
 		// Verify the results
 		$data = $smarty->_tpl_vars['block']['quotas']['LoadQuotas'];
+
 		$this->assertEquals('401', $data['quotaValue'], 'Quota value should exist for this user');
 		$this->assertTrue($data['quotaExists'], 'Quota should exist for this user');
 		$this->assertEquals(
@@ -857,13 +854,11 @@ class QuotasHelperTest extends GalleryTestCase {
 			$data['quotaValueUnit'],
 			'has quota < 1MB (lowest unit is KB)'
 		);
-
 		$this->assertEquals(
 			(string)303,
 			$data['currentUsage'],
 			'User should be using 303 KB'
 		);
-
 		$this->assertEquals($this->_KB, $data['currentUsageUnit'], 'No quota (lowest unit is KB)');
 		$this->assertEquals(76, $data['currentUsagePercent'], 'Incorrect Usage percent');
 		$this->assertEquals(24, $data['currentUnusedPercent'], 'Incorrect Unused percent');

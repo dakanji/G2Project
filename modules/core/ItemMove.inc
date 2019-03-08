@@ -55,7 +55,6 @@ class ItemMoveController extends GalleryController {
 		}
 
 		$itemId = $item->getId();
-
 		$status = $error = array();
 
 		if (isset($form['action']['move'])) {
@@ -203,6 +202,7 @@ class ItemMoveController extends GalleryController {
 
 						if ($ret) {
 							$lockIds[] = $currentLockId;
+
 							GalleryCoreApi::releaseLocks($lockIds);
 
 							return array($ret, null);
@@ -214,6 +214,7 @@ class ItemMoveController extends GalleryController {
 
 						if ($ret) {
 							$lockIds[] = $currentLockId;
+
 							GalleryCoreApi::releaseLocks($lockIds);
 
 							return array($ret, null);
@@ -228,6 +229,7 @@ class ItemMoveController extends GalleryController {
 
 							if ($ret) {
 								$lockIds[] = $currentLockId;
+
 								GalleryCoreApi::releaseLocks($lockIds);
 
 								return array($ret, null);
@@ -289,8 +291,7 @@ class ItemMoveController extends GalleryController {
 				return array($ret, null);
 			}
 
-			$numPages = ceil(sizeof($peerIds) / $form['numPerPage']);
-
+			$numPages                      = ceil(sizeof($peerIds) / $form['numPerPage']);
 			$results['delegate']['itemId'] = $itemId;
 			$results['delegate']['page']   = min($page + 1, $numPages);
 		} elseif (isset($form['action']['previous'])) {
@@ -375,8 +376,7 @@ class ItemMoveView extends GalleryView {
 		$selectedIds          = array();
 		$peers                = array();
 		$peerDescendentCounts = array();
-
-		$peerTypes = array(
+		$peerTypes            = array(
 			'album' => array(),
 			'data'  => array(),
 		);
@@ -516,8 +516,7 @@ class ItemMoveView extends GalleryView {
 			$albumTree = GalleryUtilities::createAlbumTree($albums);
 		}
 
-		$urlGenerator =& $gallery->getUrlGenerator();
-
+		$urlGenerator                     =& $gallery->getUrlGenerator();
 		$ItemMove                         = array();
 		$ItemMove['canCancel']            = (bool)GalleryUtilities::getRequestVariables('return');
 		$ItemMove['albumIds']             = $albumIds;
@@ -530,7 +529,6 @@ class ItemMoveView extends GalleryView {
 		$ItemMove['numPerPage']           = $form['numPerPage'];
 		$ItemMove['selectedIds']          = array_keys($selectedIds);
 		$ItemMove['selectedIdCount']      = count($selectedIds);
-
 		$template->setVariable('ItemMove', $ItemMove);
 		$template->setVariable('controller', 'core.ItemMove');
 		$template->javascript('lib/yui/yahoo-dom-event.js');

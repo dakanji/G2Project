@@ -77,8 +77,7 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 			return $ret;
 		}
 
-		$session =& $gallery->getSession();
-
+		$session             =& $gallery->getSession();
 		$this->_saveLanguage = $session->get('core.language');
 	}
 
@@ -102,7 +101,9 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+
 		$results = $this->handleRequest($this->album, $this->_album);
+
 		$this->assertEquals(array(array(), null), $results);
 	}
 
@@ -160,13 +161,11 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 			$album->getTitle(),
 			'cn title'
 		);
-
 		$this->assertEquals(
 			'cn summary',
 			$album->getSummary(),
 			'cn summary'
 		);
-
 		$this->assertEquals(
 			'',
 			$album->getDescription(),
@@ -248,7 +247,6 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 
 		$results = $this->handleRequest($this->_album, $this->_album);
-
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results

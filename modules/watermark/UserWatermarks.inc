@@ -32,7 +32,6 @@ class UserWatermarksController extends GalleryController {
 	 */
 	public function handleRequest($form) {
 		global $gallery;
-
 		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
@@ -110,7 +109,6 @@ class UserWatermarksView extends GalleryView {
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
-
 		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();

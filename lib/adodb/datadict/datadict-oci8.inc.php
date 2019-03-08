@@ -298,9 +298,8 @@ class ADODB2_oci8 extends ADODB_DataDict {
 			$seqIncr = ' START WITH ' . $tableoptions['SEQUENCE_START'];
 		}
 
-		$sql[] = "CREATE SEQUENCE $seqname $seqStart $seqIncr $seqCache";
-		$sql[] = "CREATE OR REPLACE TRIGGER $trigname BEFORE insert ON $tabname FOR EACH ROW WHEN (NEW.$this->seqField IS NULL OR NEW.$this->seqField = 0) BEGIN select $seqname.nextval into :new.$this->seqField from dual; END;";
-
+		$sql[]          = "CREATE SEQUENCE $seqname $seqStart $seqIncr $seqCache";
+		$sql[]          = "CREATE OR REPLACE TRIGGER $trigname BEFORE insert ON $tabname FOR EACH ROW WHEN (NEW.$this->seqField IS NULL OR NEW.$this->seqField = 0) BEGIN select $seqname.nextval into :new.$this->seqField from dual; END;";
 		$this->seqField = false;
 
 		return $sql;

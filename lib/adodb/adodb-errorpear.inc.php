@@ -52,8 +52,7 @@ function ADODB_Error_PEAR($dbms, $fn, $errno, $errmsg, $p1 = false, $p2 = false)
 		case 'EXECUTE':
 			$sql         = $p1;
 			$inputparams = $p2;
-
-			$s = "$dbms error: [$errno: $errmsg] in $fn(\"$sql\")";
+			$s           = "$dbms error: [$errno: $errmsg] in $fn(\"$sql\")";
 
 			break;
 
@@ -61,8 +60,7 @@ function ADODB_Error_PEAR($dbms, $fn, $errno, $errmsg, $p1 = false, $p2 = false)
 		case 'CONNECT':
 			$host     = $p1;
 			$database = $p2;
-
-			$s = "$dbms error: [$errno: $errmsg] in $fn('$host', ?, ?, '$database')";
+			$s        = "$dbms error: [$errno: $errmsg] in $fn('$host', ?, ?, '$database')";
 
 			break;
 

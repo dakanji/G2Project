@@ -8,11 +8,9 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
 Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   Microsoft SQL Server ADO data driver. Requires ADO and MSSQL client.
   Works only on MS Windows.
-
   Warning: Some versions of PHP (esp PHP4) leak memory when ADO/COM is used.
   Please check http://bugs.php.net/ for more info.
 */
@@ -75,17 +73,15 @@ class ADODB_ado_mssql extends ADODB_ado {
 	}
 
 	public function MetaColumns($table, $normalize = true) {
-		$table = strtoupper($table);
-		$arr   = array();
-		$dbc   = $this->_connectionID;
-
+		$table        = strtoupper($table);
+		$arr          = array();
+		$dbc          = $this->_connectionID;
 		$osoptions    = array();
 		$osoptions[0] = null;
 		$osoptions[1] = null;
 		$osoptions[2] = $table;
 		$osoptions[3] = null;
-
-		$adors = @$dbc->OpenSchema(4, $osoptions);//tables
+		$adors        = @$dbc->OpenSchema(4, $osoptions);//tables
 		if ($adors) {
 			while (!$adors->EOF) {
 				$fld                         = new ADOFieldObject();
@@ -94,7 +90,6 @@ class ADODB_ado_mssql extends ADODB_ado {
 				$fld->type                   = 'CHAR'; // cannot discover type in ADO!
 				$fld->max_length             = -1;
 				$arr[strtoupper($fld->name)] = $fld;
-
 				$adors->MoveNext();
 			}
 

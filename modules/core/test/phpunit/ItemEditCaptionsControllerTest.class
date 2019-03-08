@@ -67,6 +67,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		foreach ($this->_items as $item) {
 			$id = $item->getId();
+
 			GalleryUtilities::putRequestVariable("form[items][$id][title]", "title $id");
 			GalleryUtilities::putRequestVariable("form[items][$id][summary]", "summary $id");
 			GalleryUtilities::putRequestVariable("form[items][$id][keywords]", "keywords $id");
@@ -74,7 +75,6 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 				"form[items][$id][description]",
 				"description $id"
 			);
-
 			GalleryUtilities::putRequestVariable(
 				"form[items][$id][serialNumber]",
 				$item->getSerialNumber()
@@ -135,6 +135,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		foreach ($this->_items as $item) {
 			$id = $item->getId();
+
 			GalleryUtilities::putRequestVariable("form[items][$id][title]", "title $id");
 			GalleryUtilities::putRequestVariable("form[items][$id][summary]", "summary $id");
 			GalleryUtilities::putRequestVariable("form[items][$id][keywords]", "keywords $id");
@@ -142,7 +143,6 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 				"form[items][$id][description]",
 				"description $id"
 			);
-
 			GalleryUtilities::putRequestVariable(
 				"form[items][$id][serialNumber]",
 				$item->getSerialNumber()
@@ -202,6 +202,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		foreach ($this->_items as $item) {
 			$id = $item->getId();
+
 			GalleryUtilities::putRequestVariable("form[items][$id][title]", "title $id");
 			GalleryUtilities::putRequestVariable("form[items][$id][summary]", "summary $id");
 			GalleryUtilities::putRequestVariable("form[items][$id][keywords]", "keywords $id");
@@ -209,7 +210,6 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 				"form[items][$id][description]",
 				"description $id"
 			);
-
 			GalleryUtilities::putRequestVariable(
 				"form[items][$id][serialNumber]",
 				$item->getSerialNumber()
@@ -306,6 +306,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		foreach ($this->_items as $item) {
 			$id = $item->getId();
+
 			GalleryUtilities::putRequestVariable("form[items][$id][title]", "title $id");
 			GalleryUtilities::putRequestVariable("form[items][$id][summary]", "summary $id");
 			GalleryUtilities::putRequestVariable("form[items][$id][keywords]", "keywords $id");
@@ -313,7 +314,6 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 				"form[items][$id][description]",
 				"description $id"
 			);
-
 			GalleryUtilities::putRequestVariable(
 				"form[items][$id][serialNumber]",
 				$item->getSerialNumber()
@@ -387,6 +387,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 			if ($i == 1) {
 				// Success
 				$id = $item->getId();
+
 				$this->assertEquals("title $id", $newItem->getTitle());
 				$this->assertEquals("summary $id", $newItem->getSummary());
 				$this->assertEquals("keywords $id", $newItem->getKeywords());
@@ -417,18 +418,15 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 				"form[items][$id][title]",
 				'title <applet>here</applet>'
 			);
-
 			GalleryUtilities::putRequestVariable(
 				"form[items][$id][summary]",
 				'summary <p onmouseout="alert()">yy</p>'
 			);
-
 			GalleryUtilities::putRequestVariable("form[items][$id][keywords]", '');
 			GalleryUtilities::putRequestVariable(
 				"form[items][$id][description]",
 				'description <script>foo</script>'
 			);
-
 			GalleryUtilities::putRequestVariable(
 				"form[items][$id][serialNumber]",
 				$item->getSerialNumber()
@@ -476,6 +474,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 			$this->assertEquals('title here', $item->getTitle());
 			$this->assertEquals('summary &lt;p&gt;yy&lt;/p&gt;', $item->getSummary());
+
 			$this->assertEquals('', $item->getKeywords(), 'keywords');
 			$this->assertEquals('description ', $item->getDescription());
 		}

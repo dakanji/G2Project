@@ -8,7 +8,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
   Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   Thanks Diogo Toscano (diogo#scriptcase.net) for the code.
 	And also Sid Dunayer [sdunayer#interserv.com] for extensive fixes.
@@ -39,8 +38,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 	public function ServerInfo() {
 		$parent = $this->pdoDriver;
 		@($ver  = array_pop($parent->GetCol('SELECT sqlite_version()')));
-		@($enc = array_pop($parent->GetCol('PRAGMA encoding')));
-
+		@($enc              = array_pop($parent->GetCol('PRAGMA encoding')));
 		$arr['version']     = $ver;
 		$arr['description'] = 'SQLite ';
 		$arr['encoding']    = $enc;

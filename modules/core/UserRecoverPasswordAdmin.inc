@@ -49,8 +49,7 @@ class UserRecoverPasswordAdminController extends GalleryController {
 
 		$platform =& $gallery->getPlatform();
 		$session  =& $gallery->getSession();
-
-		$status = $error = $results = array();
+		$status   = $error   = $results   = array();
 
 		if (isset($form['action']['recover'])) {
 			$authFile = GALLERY_CONFIG_DIR . '/authFile.txt';
@@ -132,7 +131,6 @@ class UserRecoverPasswordAdminController extends GalleryController {
 					 */
 					$results['return'] = 0;
 					$subView           = 'core.UserLogin';
-
 					$session->remove('core.UserRecoverPasswordAdminAuthKey');
 				} else {
 					$error[] = 'form[error][userName][incorrect]';
@@ -186,7 +184,6 @@ class UserRecoverPasswordAdminView extends GalleryView {
 
 		$platform =& $gallery->getPlatform();
 		$session  =& $gallery->getSession();
-
 		$status   = array();
 		$error    = array();
 		$authFile = GALLERY_CONFIG_DIR . '/authFile.txt';
@@ -217,8 +214,7 @@ class UserRecoverPasswordAdminView extends GalleryView {
 			}
 		}
 
-		$status['userName'] = GalleryUtilities::getRequestVariables('userName');
-
+		$status['userName']                     = GalleryUtilities::getRequestVariables('userName');
 		$UserRecoverPasswordAdmin['authString'] = $authString;
 		$UserRecoverPasswordAdmin['error']      = $error;
 		$UserRecoverPasswordAdmin['status']     = $status;
@@ -243,6 +239,7 @@ class UserRecoverPasswordAdminView extends GalleryView {
 		$session =& $gallery->getSession();
 
 		GalleryCoreApi::requireOnce('lib/joomla/crypt.php');
+
 		$j    = new JCrypt();
 		$rand = $j->genRandomBytes(32);
 		$session->put('core.UserRecoverPasswordAdminAuthKey', md5($rand));

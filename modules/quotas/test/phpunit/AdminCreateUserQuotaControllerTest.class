@@ -148,6 +148,7 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 
 	public function testCreateUserQuotaUserIdMissing() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
 

@@ -100,8 +100,11 @@ class SimpleCallbackView extends GalleryView {
 
 				if (!$ret && $isSiteAdmin) {
 					GalleryUtilities::unsanitizeInputValues($prefix, false);
+
 					$dirs = implode("\n", $this->_getDirectoryListing($prefix, false));
+
 					GalleryUtilities::sanitizeInputValues($dirs, false);
+
 					echo $dirs;
 				}
 
@@ -112,8 +115,11 @@ class SimpleCallbackView extends GalleryView {
 
 				if (!$ret && $isSiteAdmin) {
 					GalleryUtilities::unsanitizeInputValues($prefix, false);
+
 					$files = implode("\n", $this->_getDirectoryListing($prefix));
+
 					GalleryUtilities::sanitizeInputValues($files, false);
+
 					echo $files;
 				}
 

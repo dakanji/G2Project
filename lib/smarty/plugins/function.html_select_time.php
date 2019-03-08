@@ -81,8 +81,7 @@ function smarty_function_html_select_time($params, &$smarty) {
 		}
 	}
 
-	$time = smarty_make_timestamp($time);
-
+	$time        = smarty_make_timestamp($time);
 	$html_result = '';
 
 	if ($display_hours) {
@@ -148,7 +147,6 @@ function smarty_function_html_select_time($params, &$smarty) {
 		}
 
 		$html_result .= '>' . "\n";
-
 		$html_result .= smarty_function_html_options(
 			array(
 				'output'       => $minutes,
@@ -187,7 +185,6 @@ function smarty_function_html_select_time($params, &$smarty) {
 		}
 
 		$html_result .= '>' . "\n";
-
 		$html_result .= smarty_function_html_options(
 			array(
 				'output'       => $seconds,
@@ -219,7 +216,6 @@ function smarty_function_html_select_time($params, &$smarty) {
 		}
 
 		$html_result .= '>' . "\n";
-
 		$html_result .= smarty_function_html_options(
 			array(
 				'output'       => array('AM', 'PM'),

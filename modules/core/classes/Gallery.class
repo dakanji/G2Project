@@ -180,7 +180,6 @@ class Gallery {
 				'subView' => 'core.UserLogin',
 				'return'  => true,
 			),
-
 			'link'              => true,      // @deprecated - Allow item linking
 			// (now unused, there is a separate replica module
 			'showSidebarBlocks' => true, // Can we allow themes to show the sidebar?
@@ -327,6 +326,7 @@ class Gallery {
 	 */
 	public function initEmptySession() {
 		GalleryCoreApi::requireOnce('modules/core/classes/GallerySession.class');
+
 		$this->_session = new GallerySession();
 	}
 
@@ -385,12 +385,14 @@ class Gallery {
 			switch ($which) {
 				case 'flock':
 					GalleryCoreApi::requireOnce('modules/core/classes/FlockLockSystem.class');
+
 					$this->_lockSystem = new FlockLockSystem();
 
 					break;
 
 				case 'database':
 					GalleryCoreApi::requireOnce('modules/core/classes/DatabaseLockSystem.class');
+
 					$this->_lockSystem = new DatabaseLockSystem();
 
 					break;
@@ -454,6 +456,7 @@ class Gallery {
 				case 'mysqlt':
 				case 'mysqli':
 					GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
+
 					$this->_storage = new MySqlStorage($config);
 
 					break;
@@ -470,6 +473,7 @@ class Gallery {
 
 				case 'db2':
 					GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage/Db2Storage.class');
+
 					$this->_storage = new Db2Storage($config);
 
 					break;
@@ -507,7 +511,9 @@ class Gallery {
 				default:
 					$this->debug('Unknown storage type');
 					$this->debug_r($config);
+
 					GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class', true);
+
 					$this->_storage = new GalleryStorage($config);
 			}
 		}
@@ -862,6 +868,7 @@ class Gallery {
 	public function &getTemplateAdapter() {
 		if (!isset($this->_templateAdapter)) {
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplateAdapter.class');
+
 			$this->_templateAdapter = new GalleryTemplateAdapter();
 		}
 
@@ -1071,6 +1078,7 @@ class Gallery {
 	public function getPhpVm() {
 		if (!isset($this->_phpVm)) {
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryPhpVm.class');
+
 			$this->_phpVm = new GalleryPhpVm();
 		}
 

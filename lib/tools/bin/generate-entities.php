@@ -83,9 +83,8 @@ if (empty($classXml)) {
 	cleanExit(0);
 }
 
-$xml .= $classXml;
-$xml .= "</classes>\n";
-
+$xml        .= $classXml;
+$xml        .= "</classes>\n";
 $entitiesXml = "$tmpdir/Entities.xml";
 
 if (!$fp = fopen($entitiesXml, 'wb')) {
@@ -101,16 +100,14 @@ if (system("xmllint --valid --noout $entitiesXml", $retval)) {
 	cleanExit();
 }
 
-$p    = new XmlParser();
-$root = $p->parse($entitiesXml);
-
+$p        = new XmlParser();
+$root     = $p->parse($entitiesXml);
 $entities = array();
 
 foreach ($root[0]['child'] as $entity) {
 	$entityName       = $entity['child'][0]['content'];
 	$parentEntityName = $entity['child'][1]['content'];
-
-	$j = 3;
+	$j                = 3;
 
 	if ($entity['child'][$j]['name'] == 'REQUIRES-ID') {
 		$j++;
@@ -120,9 +117,8 @@ foreach ($root[0]['child'] as $entity) {
 	$entities[$entityName]['linked']  = array();
 
 	for (; $j < count($entity['child']); $j++) {
-		$member = $entity['child'][$j];
-		$name   = $member['child'][0]['content'];
-
+		$member                                          = $entity['child'][$j];
+		$name                                            = $member['child'][0]['content'];
 		$entities[$entityName]['members'][$name]['type'] = 'STORAGE_TYPE_' . $member['child'][1]['content'];
 		$entities[$entityName]['members'][$name]['type'] = 'STORAGE_TYPE_' . $member['child'][1]['content'];
 
@@ -197,8 +193,7 @@ $new = $smarty->fetch('entities.tpl');
 
 // Windows leaves a CR at the end of the file
 $new = rtrim($new, "\r");
-
-$fd = fopen('Entities.inc', 'w');
+$fd  = fopen('Entities.inc', 'w');
 fwrite($fd, $new);
 fclose($fd);
 

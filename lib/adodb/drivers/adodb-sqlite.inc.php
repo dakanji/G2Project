@@ -7,7 +7,6 @@
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
-
   Latest version is available at http://adodb.sourceforge.net
   SQLite info: http://www.hwaci.com/sw/sqlite/
   Install Instructions: ====================
@@ -260,7 +259,6 @@ class ADODB_sqlite extends ADOConnection {
 	/*
 		This algorithm is not very efficient, but works even if table locking
 		is not available.
-
 		Will return false if unable to generate an ID after $MAXLOOPS attempts.
 	*/
 	public $_genSeqSQL = 'create table %s (id integer)';
@@ -426,11 +424,9 @@ class ADORecordset_sqlite extends ADORecordSet {
 		}
 
 		$this->adodbFetchMode = $mode;
-
-		$this->_queryID = $queryID;
-
-		$this->_inited = true;
-		$this->fields  = array();
+		$this->_queryID       = $queryID;
+		$this->_inited        = true;
+		$this->fields         = array();
 
 		if ($queryID) {
 			$this->_currentRow = 0;

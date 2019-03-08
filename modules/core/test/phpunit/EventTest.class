@@ -97,8 +97,8 @@ class EventTest extends GalleryTestCase {
 
 	public function testPostEvent() {
 		$eventName = 'EventTest::test';
+		$listener  = new EventTestEventListener($this);
 
-		$listener = new EventTestEventListener($this);
 		GalleryCoreApi::registerEventListener($eventName, $listener);
 
 		$event = GalleryCoreApi::newEvent($eventName);
@@ -118,8 +118,8 @@ class EventTest extends GalleryTestCase {
 
 	public function testPostEventReturnData() {
 		$eventName = 'EventTest::test2';
+		$listener  = new EventTestEventListener($this);
 
-		$listener = new EventTestEventListener($this);
 		GalleryCoreApi::registerEventListener($eventName, $listener);
 
 		$event = GalleryCoreApi::newEvent($eventName);
@@ -151,8 +151,8 @@ class EventTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($item);
-
 		$event = $listener->getEvent();
+
 		$this->assertEquals('GalleryEntity::save', $event ? $event->getEventName() : 'unset');
 
 		list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($item->getId());
@@ -209,11 +209,13 @@ class EventTest extends GalleryTestCase {
 		// Embedded entity has the new value, even if we don't get it by reference
 		$entity->setId(1000);
 		$embeddedEntity = $event->getEntity();
+
 		$this->assertEquals(1000, $embeddedEntity->getId());
 
 		// Get embedded entity by reference and change it, then see that it affects the original
 		$embeddedEntity =& $event->getEntity();
 		$embeddedEntity->setId(2000);
+
 		$this->assertEquals(2000, $entity->getId());
 	}
 }
@@ -305,6 +307,7 @@ class EventTestPlatform extends GalleryPlatform {
 		global $gallery;
 
 		static $ignorePath;
+
 		$ignorePath = $gallery->getConfig('data.gallery.plugins_data') . 'modules/eventtest';
 
 		if (substr($path, -17) == 'modules/eventtest'

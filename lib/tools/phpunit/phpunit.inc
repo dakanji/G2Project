@@ -828,8 +828,7 @@ class TestCase extends Assert {
 	public function runTest() {
 		// Saved ref to current TestCase, so that the error handler can access it.
 		$GLOBALS['PHPUnit_testRunning'] =& $this;
-
-		$old_handler = set_error_handler('PHPUnit_error_handler');
+		$old_handler                    = set_error_handler('PHPUnit_error_handler');
 
 		// errors will now be handled by our error handler
 		$name = $this->name();
@@ -1243,7 +1242,6 @@ class TextTestResult extends TestResult {
 			foreach ($failures as $i => $failure) {
 				$failedTestName = $failure->getTestName();
 				printf("<li>%s</li>\n", $failedTestName);
-
 				$exceptions = $failure->getExceptions();
 				echo "\n<ul>";
 
@@ -1265,7 +1263,6 @@ class TextTestResult extends TestResult {
 			foreach ($this->fErrors as $i => $error) {
 				$erroredTestName = $error->getTestName();
 				printf("<li>%s</li>\n", $failedTestName);
-
 				$exception = $error->getException();
 				echo "\n<ul>";
 				printf("<li>%s</li>\n", $exception->getMessage());
@@ -1302,7 +1299,6 @@ class PrettyTestResult extends TestResult {
 	public function __construct() {
 		parent::__construct();  // call superclass constructor
 		echo '<h2>Test Results</h2>';
-
 		echo '<TABLE CELLSPACING="1" CELLPADDING="1" BORDER="0" WIDTH="90%" ALIGN="CENTER" class="details">';
 		echo '<TR><TH>#</TH><TH>Module</TH><TH>Class</TH><TH>Function</TH><TH>Success?</TH><TH>Time</TH></TR>';
 	}
@@ -1314,7 +1310,6 @@ class PrettyTestResult extends TestResult {
 		$nRun      = $this->countTests();
 		$nFailures = $this->countFailures();
 		echo '<h2>Summary</h2>';
-
 		printf('<p>%2.4f seconds elapsed</p>', $this->_totalElapsed);
 		printf('<p>%s test%s run</p>', $nRun, ($nRun == 1) ? '' : 's');
 		printf("<p>%s failure%s.</p>\n", $nFailures, ($nFailures == 1) ? '' : 's');
@@ -1342,7 +1337,6 @@ class PrettyTestResult extends TestResult {
 		foreach ($failures as $i => $failure) {
 			$failedTestName = $failure->getTestName();
 			printf("\n<li>%s</li>\n", $failedTestName);
-
 			$exceptions = $failure->getExceptions();
 			echo '<ul>';
 

@@ -33,6 +33,7 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -132,6 +133,7 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
+
 		$this->assertEquals(null, $results);
 	}
 
@@ -147,6 +149,7 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
+
 		$this->assertEquals(null, $results);
 	}
 
@@ -162,6 +165,7 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
+
 		$this->assertEquals(null, $results);
 	}
 

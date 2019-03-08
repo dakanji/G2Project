@@ -106,7 +106,6 @@ class GalleryFactoryHelper_simple {
 					$registry['implementations'][$result[0]][$result[1]] = $result[3];
 					$registry['ids'][$result[0]][$result[2]]             = $result[1];
 					$registry['pluginIds'][$result[0]][$result[1]]       = $result[5];
-
 					$hints = unserialize($result[4]);
 
 					if (isset($hints)) {
@@ -202,8 +201,7 @@ class GalleryFactoryHelper_simple {
 
 		if (!class_exists($className)) {
 			$relativePath = $registry['implementations'][$classType][$className];
-
-			$platform =& $gallery->getPlatform();
+			$platform     =& $gallery->getPlatform();
 
 			if (!$platform->file_exists(
 				GalleryCoreApi::getCodeBasePath($relativePath)

@@ -271,18 +271,15 @@ class ADODB_DataDict {
 			'CLOB'                        => 'X',
 			'NCLOB'                       => 'X',
 			'LVARCHAR'                    => 'X',
-
 			'BLOB'                        => 'B',
 			'IMAGE'                       => 'B',
 			'BINARY'                      => 'B',
 			'VARBINARY'                   => 'B',
 			'LONGBINARY'                  => 'B',
 			'B'                           => 'B',
-
 			'YEAR'                        => 'D', // mysql
 			'DATE'                        => 'D',
 			'D'                           => 'D',
-
 			'UNIQUEIDENTIFIER'            => 'C', // MS SQL Server
 			'TIME'                        => 'T',
 			'TIMESTAMP'                   => 'T',
@@ -295,12 +292,10 @@ class ADODB_DataDict {
 			'BOOLEAN'                     => 'L',
 			'BIT'                         => 'L',
 			'L'                           => 'L',
-
 			'COUNTER'                     => 'R',
 			'R'                           => 'R',
 			'SERIAL'                      => 'R', // ifx
 			'INT IDENTITY'                => 'R',
-
 			'INT'                         => 'I',
 			'INT2'                        => 'I',
 			'INT4'                        => 'I',
@@ -311,7 +306,6 @@ class ADODB_DataDict {
 			'TINYINT'                     => 'I',
 			'SMALLINT'                    => 'I',
 			'I'                           => 'I',
-
 			'LONG'                        => 'N', // interbase is numeric, oci8 is blob
 			'BIGINT'                      => 'N', // this is bigger than PHP 32-bit integers
 			'DECIMAL'                     => 'N',
@@ -454,8 +448,7 @@ class ADODB_DataDict {
 	public function CreateDatabase($dbname, $options = false) {
 		$options = $this->_Options($options);
 		$sql     = array();
-
-		$s = 'CREATE DATABASE ' . $this->NameQuote($dbname);
+		$s       = 'CREATE DATABASE ' . $this->NameQuote($dbname);
 
 		if (isset($options[$this->upperName])) {
 			$s .= ' ' . $options[$this->upperName];
@@ -705,8 +698,7 @@ class ADODB_DataDict {
 
 				// reset it, so we don't get next field 1st token as INDEX...
 				$hasparam = false;
-
-				$flds[] = $f1;
+				$flds[]   = $f1;
 			}
 		}
 
@@ -716,8 +708,7 @@ class ADODB_DataDict {
 		$idxs                = array();
 
 		foreach ($flds as $fld) {
-			$fld = _array_change_key_case($fld);
-
+			$fld          = _array_change_key_case($fld);
 			$fname        = false;
 			$fdefault     = false;
 			$fautoinc     = false;
@@ -859,7 +850,6 @@ class ADODB_DataDict {
 			}
 
 			$ftype = strtoupper($ftype);
-
 			$ftype = $this->_GetSize($ftype, $ty, $fsize, $fprec);
 
 			if ($ty == 'X' || $ty == 'X2' || $ty == 'B') {
@@ -1009,8 +999,7 @@ class ADODB_DataDict {
 		}
 
 		$unique = isset($idxoptions['UNIQUE']) ? ' UNIQUE' : '';
-
-		$s = 'CREATE' . $unique . ' INDEX ' . $idxname . ' ON ' . $tabname . ' ';
+		$s      = 'CREATE' . $unique . ' INDEX ' . $idxname . ' ON ' . $tabname . ' ';
 
 		if (isset($idxoptions[$this->upperName])) {
 			$s .= $idxoptions[$this->upperName];

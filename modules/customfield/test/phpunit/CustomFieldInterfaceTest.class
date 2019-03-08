@@ -219,7 +219,6 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 			$data[$this->_item->getId()],
 			'Field values'
 		);
-
 		$this->assertEquals(true, $isContainer[$this->_item->getId()], 'Album-specific settings');
 	}
 }

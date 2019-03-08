@@ -155,10 +155,8 @@ class GalleryDatabaseImport extends GalleryImportElement {
 
 		$parseString = '#<plugin-status\s+id="(.*?)"\s+required-core-api="(.*?)"\s+required-api="'
 			. '(.*?)"\s+version="(.*?)"\s+active="(1|0)"\s+type="(module|theme)"#';
-
-		$platform =& $gallery->getPlatform();
-
-		$errors = array(
+		$platform    =& $gallery->getPlatform();
+		$errors      = array(
 			'errors'   => array(),
 			'warnings' => array(),
 		);
@@ -375,7 +373,6 @@ class GalleryDatabaseImport extends GalleryImportElement {
 
 		// Preallocate at least 1 minutes for the database import.
 		$gallery->guaranteeTimeLimit(60);
-
 		$this->_callBack = array(
 			'progress' => 0,
 			'total'    => 0,
@@ -418,7 +415,6 @@ class GalleryDatabaseImport extends GalleryImportElement {
 			}
 
 			$xmlParser->release();
-
 			call_user_func_array($progressCallback, array(1.0));
 		} else {
 			return array(
@@ -476,10 +472,8 @@ class _GalleryExportTag extends GalleryImportElement {
 	public function writeVersions($coreVersion, $galleryVersion) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
-		$versionFile = $gallery->getConfig('data.gallery.version');
-
+		$platform     =& $gallery->getPlatform();
+		$versionFile  = $gallery->getConfig('data.gallery.version');
 		$versionsData = implode("\n", array($coreVersion, $galleryVersion, 'maintenance-mode'));
 
 		if (!$platform->atomicWrite($versionFile, $versionsData)) {
@@ -979,8 +973,7 @@ class GalleryXmlProcessor {
 
 	public function __construct($rootElement) {
 		$this->_elementStack[] = $rootElement;
-
-		$this->_xmlParser = xml_parser_create('UTF-8');
+		$this->_xmlParser      = xml_parser_create('UTF-8');
 		xml_parser_set_option($this->_xmlParser, XML_OPTION_CASE_FOLDING, 0);
 		xml_set_object($this->_xmlParser, $this);
 

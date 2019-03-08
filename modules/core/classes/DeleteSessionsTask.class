@@ -98,7 +98,6 @@ class DeleteSessionsTask extends MaintenanceTask {
 		}
 
 		$templateAdapter->updateProgressBar($module->translate('Delete user sessions'), '', 0);
-
 		$data = array(
 			$phpVm->time() - $inactivityTimeout,
 			$phpVm->time() - $lifetime,
@@ -155,7 +154,6 @@ class DeleteSessionsTask extends MaintenanceTask {
 		}
 
 		$templateAdapter->updateProgressBar($module->translate('Delete user sessions'), '', 1);
-
 		$result = array(
 			$module->translate(
 				array(

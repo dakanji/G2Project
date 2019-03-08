@@ -33,8 +33,7 @@ class ADODB2_mysql extends ADODB_DataDict {
 		}
 
 		$is_serial = is_object($fieldobj) && $fieldobj->primary_key && $fieldobj->auto_increment;
-
-		$len = -1; // mysql max_length is not accurate
+		$len       = -1; // mysql max_length is not accurate
 		switch (strtoupper($t)) {
 			case 'STRING':
 			case 'CHAR':

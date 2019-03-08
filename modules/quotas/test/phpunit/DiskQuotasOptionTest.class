@@ -60,7 +60,6 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$this->_markForCleanup($this->_user);
-
 		$gallery->setActiveUser($this->_user);
 
 		// Create dummy groups
@@ -135,10 +134,9 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 			'Warning: You have reached your disk quota (%s %s), this item will not be added.'
 		);
 
-		$this->_KB = $this->_module->translate('KB');
-		$this->_MB = $this->_module->translate('MB');
-		$this->_GB = $this->_module->translate('GB');
-
+		$this->_KB       = $this->_module->translate('KB');
+		$this->_MB       = $this->_module->translate('MB');
+		$this->_GB       = $this->_module->translate('GB');
 		$this->_platform =& $gallery->getPlatform();
 
 		/*

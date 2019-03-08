@@ -158,6 +158,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	public function testWatermarkItem() {
 		$form['WatermarkOption']['watermarkId'] = $this->_watermark->getId();
 		$result                                 = $this->_handleRequestAfterAdd($form, $this->_images);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		$expected = sprintf(
@@ -232,6 +233,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 
 		$form['WatermarkOption']['watermarkId'] = $this->_watermark->getId();
 		$result                                 = $this->_handleRequestAfterAdd($form, $this->_images);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		$expected = sprintf(
@@ -256,6 +258,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	public function testWatermarkItemWithNoWatermark() {
 		$form['WatermarkOption']['watermarkId'] = '';
 		$result                                 = $this->_handleRequestAfterAdd($form, $this->_images);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		foreach (array($this->_thumbnails[0], $this->_resizes[0]) as $derivative) {
@@ -270,7 +273,6 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 				in_array($derivative->getPostFilterOperations(), array(null, '')),
 				'postFilterOperations not empty'
 			);
-
 			$this->assertEquals(1, $derivative->getSerialNumber());
 		}
 	}
@@ -310,6 +312,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 
 		$form['WatermarkOption']['watermarkId'] = '';
 		$result                                 = $this->_handleRequestAfterAdd($form, $this->_images);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		for ($j = 0; $j < $totalTestItems; $j++) {
@@ -325,7 +328,6 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 					in_array($derivative->getPostFilterOperations(), array(null, '')),
 					"postFilterOperations not empty for test item $j"
 				);
-
 				$this->assertEquals(1, $derivative->getSerialNumber());
 			}
 		}
@@ -334,6 +336,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	public function testWatermarkNonImage() {
 		$form['WatermarkOption']['watermarkId'] = $this->_watermark->getId();
 		$result                                 = $this->_handleRequestAfterAdd($form, $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		list($ret, $derivative) = $this->_itemThumbnails[0]->refresh();
@@ -347,7 +350,6 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 			in_array($derivative->getPostFilterOperations(), array(null, '')),
 			'postFilterOperations not empty'
 		);
-
 		$this->assertEquals(1, $derivative->getSerialNumber());
 	}
 
@@ -378,6 +380,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 
 		$form['WatermarkOption']['watermarkId'] = $this->_watermark->getId();
 		$result                                 = $this->_handleRequestAfterAdd($form, $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		for ($j = 0; $j < $totalTestItems; $j++) {
@@ -392,7 +395,6 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 				in_array($derivative->getPostFilterOperations(), array(null, '')),
 				"postFilterOperations not empty for test item $j"
 			);
-
 			$this->assertEquals(1, $derivative->getSerialNumber());
 		}
 	}
@@ -421,6 +423,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_images);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		$expected = sprintf(
@@ -449,8 +452,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 
 		$form['WatermarkOption']['watermarkId'] = -1;
 		$result                                 = $this->_handleRequestAfterAdd($form, $this->_items);
-
-		$message = $module->translate(
+		$message                                = $module->translate(
 			'Error: Missing watermark. Please see the Event Logs page in '
 			. 'the Site Admin.'
 		);
@@ -468,7 +470,6 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 			in_array($derivative->getPostFilterOperations(), array(null, '')),
 			'postFilterOperations not empty'
 		);
-
 		$this->assertEquals(1, $derivative->getSerialNumber());
 	}
 }

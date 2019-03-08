@@ -92,7 +92,9 @@ class AdminCreateUserController extends GalleryController {
 					$user->setEmail($form['email']);
 					$user->setFullName($form['fullName']);
 					$user->setLanguage($form['language']);
+
 					GalleryUtilities::unsanitizeInputValues($form['password1'], false);
+
 					$user->changePassword($form['password1']);
 
 					$ret = $user->save();
@@ -180,9 +182,8 @@ class AdminCreateUserView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$languageList     = array();
-		$languageList[''] = $module->translate('&lt;none&gt;');
-
+		$languageList       = array();
+		$languageList['']   = $module->translate('&lt;none&gt;');
 		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
 
 		foreach ($supportedLanguages as $language => $countryList) {
@@ -193,7 +194,6 @@ class AdminCreateUserView extends GalleryView {
 
 		$AdminCreateUser                 = array();
 		$AdminCreateUser['languageList'] = $languageList;
-
 		$template->setVariable('AdminCreateUser', $AdminCreateUser);
 		$template->setVariable('controller', 'core.AdminCreateUser');
 

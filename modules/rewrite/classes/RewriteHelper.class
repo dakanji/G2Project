@@ -45,8 +45,8 @@ class RewriteHelper {
 	 */
 	public static function getRewriteParser($new = false) {
 		global $gallery;
-
 		static $rewriteParser;
+
 		$platform =& $gallery->getPlatform();
 
 		if (!isset($rewriteParser) || $new) {

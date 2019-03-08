@@ -154,6 +154,7 @@ class AdminEditUserController extends GalleryController {
 
 					if (!empty($form['password1'])) {
 						GalleryUtilities::unsanitizeInputValues($form['password1'], false);
+
 						$user->changePassword($form['password1']);
 					}
 				}

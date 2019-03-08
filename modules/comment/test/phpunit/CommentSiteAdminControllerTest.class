@@ -227,8 +227,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Ensure that the API key gets doesn't get rejected because of a remote server
 		$this->_controller->_akismet = new CommentSiteAdminControllerTest_FakeAkismetApi(true);
-
-		$results = $this->handleRequest();
+		$results                     = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -353,8 +352,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function _getStatusFromProgressBar() {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
+		$session  =& $gallery->getSession();
 		$progress = $gallery->_templateAdapter->getProgressBarDump();
 		preg_match('/statusId=([^,]*)/', $progress[count($progress) - 1], $matches);
 

@@ -200,7 +200,6 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[quotaUnit]', 'MB');
 
 		$results = $this->handleRequest();
-
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -218,6 +217,7 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
 
 	public function testEditGroupQuotaGroupIdMissing() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
 

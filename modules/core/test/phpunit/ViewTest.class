@@ -135,6 +135,7 @@ class ViewTest extends GalleryTestCase {
 
 		// Override default album
 		$gallery->setConfig('defaultAlbumId', $album->getId());
+
 		GalleryUtilities::removeRequestVariable('itemId');
 
 		list($ret, $item) = $view->getItem();
@@ -563,7 +564,6 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($album);
-
 		$itemId = $album->getId();
 
 		if ($forDataItem) {
@@ -626,7 +626,6 @@ class ViewTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new UnitTestPhpVm();
-
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('header', array('Cache-Control: no-cache', ''), true);
@@ -672,7 +671,6 @@ class ViewTest extends GalleryTestCase {
 			),
 			$head['meta']
 		);
-
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
@@ -680,7 +678,6 @@ class ViewTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new UnitTestPhpVm();
-
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('header', array('Cache-Control: no-cache', ''), true);
@@ -729,7 +726,6 @@ class ViewTest extends GalleryTestCase {
 			),
 			$head['meta']
 		);
-
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
@@ -789,6 +785,7 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		$head = $template->getVariable('head');
+
 		$this->assertEquals(array(), $head['meta']);
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
@@ -878,7 +875,6 @@ class ViewTest extends GalleryTestCase {
 			),
 			$head['meta']
 		);
-
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
@@ -939,6 +935,7 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		$head = $template->getVariable('head');
+
 		$this->assertEquals(array(), $head['meta']);
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
@@ -1101,7 +1098,6 @@ class ViewTestModule {
 }
 
 class ViewTestConfigView extends GalleryView {}
-
 class ViewTestAdminView extends GalleryView {
 	public function getViewType() {
 		return VIEW_TYPE_ADMIN;

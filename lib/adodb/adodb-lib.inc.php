@@ -17,7 +17,6 @@ $ADODB_INCLUDED_LIB = 1;
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
   Set tabs to 4 for best viewing.
-
   Less commonly used functions are placed here to reduce size of adodb.inc.php.
 */
 function adodb_strip_order_by($sql) {
@@ -209,8 +208,7 @@ function _adodb_replace(&$zthis, $table, $fieldArray, $keyCol, $autoQuote, $has_
 
 	if ($uSet && $where) {
 		$update = "UPDATE $table SET $uSet WHERE $where";
-
-		$rs = $zthis->Execute($update);
+		$rs     = $zthis->Execute($update);
 
 		if ($rs) {
 			if ($zthis->poorAffectedRows) {
@@ -337,8 +335,7 @@ function _adodb_getmenu(
 		}
 
 		$selected = ($compareFields0) ? $zval : $zval2;
-
-		$group = '';
+		$group    = '';
 
 		if ($fieldsize > 2) {
 			$group = rtrim($zthis->fields[2]);
@@ -459,8 +456,7 @@ function _adodb_getmenu_gp(
 		}
 
 		$selected = ($compareFields0) ? $zval : $zval2;
-
-		$group = '';
+		$group    = '';
 
 		if (isset($zthis->fields[2])) {
 			$group = rtrim($zthis->fields[2]);
@@ -509,14 +505,10 @@ function _adodb_getmenu_gp(
 /*
 	Count the number of records this sql statement will return by using
 	query rewriting heuristics...
-
 	Does not work with UNIONs, except with postgresql and oracle.
-
 	Usage:
-
 	$conn->Connect(...);
 	$cnt = _adodb_getcount($conn, $sql);
-
 */
 function _adodb_getcount(&$zthis, $sql, $inputarr = false, $secs2cache = 0) {
 	$qryRecs = 0;
@@ -635,9 +627,7 @@ function _adodb_getcount(&$zthis, $sql, $inputarr = false, $secs2cache = 0) {
 
 /*
 	 Code originally from "Cornel G" <conyg@fx.ro>
-
 	This code might not work with SQL that has UNION in it
-
 	Also if you are using CachePageExecute(), there is a strong possibility that
 	data will get out of synch. use CachePageExecute() only with tables that
 	rarely change.
@@ -743,8 +733,7 @@ function _adodb_pageexecute_no_last_page(&$zthis, $sql, $nrows, $page, $inputarr
 		// until we find some data...
 		$pagecounter       = $page + 1;
 		$pagecounteroffset = ($pagecounter * $nrows) - $nrows;
-
-		$rstest = $rsreturn;
+		$rstest            = $rsreturn;
 
 		if ($rstest) {
 			while ($rstest && $rstest->EOF && $pagecounter > 0) {
@@ -811,9 +800,8 @@ function _adodb_getupdatesql(&$zthis, &$rs, $arrFields, $forceUpdate = false, $m
 
 	$fieldUpdatedCount = 0;
 	$arrFields         = _array_change_key_case($arrFields);
-
-	$hasnumeric = isset($rs->fields[0]);
-	$setFields  = '';
+	$hasnumeric        = isset($rs->fields[0]);
+	$setFields         = '';
 
 	// Loop through all of the fields in the recordset
 	for ($i = 0, $max = $rs->FieldCount(); $i < $max; $i++) {
@@ -942,7 +930,6 @@ function _adodb_getupdatesql(&$zthis, &$rs, $arrFields, $forceUpdate = false, $m
 		// Get the full where clause excluding the word "WHERE" from
 		// the existing query.
 		preg_match('/\sWHERE\s(.*)/is', $rs->sql, $whereClause);
-
 		$discard = false;
 
 		// not a good hack, improvements?
@@ -1000,6 +987,7 @@ function _adodb_getinsertsql(&$zthis, &$rs, $arrFields, $magicq = false, $force 
 	static $cacheRS  = false;
 	static $cacheSig = 0;
 	static $cacheCols;
+
 	global $ADODB_QUOTE_FIELDNAMES;
 
 	$tableName          = '';
@@ -1345,8 +1333,7 @@ function _adodb_debug_execute(&$zthis, $sql, $inputarr) {
 
 	// check if running from browser or command-line
 	$inBrowser = isset($_SERVER['HTTP_USER_AGENT']);
-
-	$dbt = $zthis->databaseType;
+	$dbt       = $zthis->databaseType;
 
 	if (isset($zthis->dsnType)) {
 		$dbt .= '-' . $zthis->dsnType;
@@ -1418,11 +1405,9 @@ function _adodb_backtrace($printOrArr = true, $levels = 9999, $skippy = 0, $isht
 		$html = $ishtml;
 	}
 
-	$fmt = ($html) ? '</font><font color=#808080 size=-1> %% line %4d, file: <a href="file:/%s">%s</a></font>' : '%% line %4d, file: %s';
-
+	$fmt       = ($html) ? '</font><font color=#808080 size=-1> %% line %4d, file: <a href="file:/%s">%s</a></font>' : '%% line %4d, file: %s';
 	$MAXSTRLEN = 128;
-
-	$s = ($html) ? '<pre align=left>' : '';
+	$s         = ($html) ? '<pre align=left>' : '';
 
 	if (is_array($printOrArr)) {
 		$traceArr = $printOrArr;
@@ -1488,9 +1473,7 @@ function _adodb_backtrace($printOrArr = true, $levels = 9999, $skippy = 0, $isht
 		}
 
 		$s .= $arr['function'] . '(' . implode(', ', $args) . ')';
-
 		$s .= @sprintf($fmt, $arr['line'], $arr['file'], basename($arr['file']));
-
 		$s .= "\n";
 	}
 
@@ -1510,18 +1493,15 @@ function _adodb_find_from($sql)
 {
 	$sql = str_replace(array("\n","\r"), ' ', $sql);
 	$charCount = strlen($sql);
-
 	$inString = false;
 	$quote = '';
 	$parentheseCount = 0;
 	$prevChars = '';
 	$nextChars = '';
-
 	for($i = 0; $i < $charCount; $i++) {
 		$char = substr($sql,$i,1);
 		$prevChars = substr($sql,0,$i);
 		$nextChars = substr($sql,$i+1);
-
 		if((($char == "'" || $char == '"' || $char == '`') && substr($prevChars,-1,1) != '\\') && $inString === false) {
 			$quote = $char;
 			$inString = true;
@@ -1534,10 +1514,8 @@ function _adodb_find_from($sql)
 
 		elseif($char == "(" && $inString === false)
 			$parentheseCount++;
-
 		elseif($char == ")" && $inString === false && $parentheseCount > 0)
 			$parentheseCount--;
-
 		elseif($parentheseCount <= 0 && $inString === false && $char == " " && strtoupper(substr($prevChars,-5,5)) == " FROM")
 			return $i;
 	}

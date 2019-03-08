@@ -39,8 +39,7 @@ class EditCommentController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$itemId = $item->getId();
-
+		$itemId    = $item->getId();
 		$commentId = (int)GalleryUtilities::getRequestVariables('commentId');
 
 		// Make sure we have permission to edit a comment
@@ -284,7 +283,6 @@ class EditCommentView extends GalleryView {
 		$EditComment['comment']        = (array)$comment;
 		$EditComment['itemId']         = $item->getId();
 		$EditComment['isGuestComment'] = $isAnonymousUser;
-
 		$template->setVariable('EditComment', $EditComment);
 		$template->setVariable('controller', 'comment.EditComment');
 

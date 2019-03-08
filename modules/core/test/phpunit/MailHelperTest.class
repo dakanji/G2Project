@@ -45,13 +45,11 @@ class MailHelperTest extends GalleryTestCase {
 		}
 
 		$this->templateFile = 'modules/core/test/data/MailHelperTest.tpl';
-
 		global $gallery;
 
 		$this->_originalPlatform =& $gallery->getPlatform();
 		$this->_dummyPlatform    = new MailHelperDummyPlatform($this->_originalPlatform);
 		$gallery->setPlatform($this->_dummyPlatform);
-
 		$this->_emailData = array(
 			'to'      => 'mailhelpertest@test.com',
 			'subject' => 'MailHelperTest subject',
@@ -122,6 +120,7 @@ class MailHelperTest extends GalleryTestCase {
 		}
 
 		$response = $this->_dummyPlatform->getMailData();
+
 		$this->assertEquals('From: mailhelpertest1@test.com', $response['headers'][1]);
 	}
 
@@ -155,6 +154,7 @@ class MailHelperTest extends GalleryTestCase {
 		}
 
 		$response = $this->_dummyPlatform->getMailData();
+
 		$this->assertEquals('From: mailhelpertest2@test.com', $response['headers'][1]);
 	}
 
@@ -248,6 +248,7 @@ class MailHelperTest extends GalleryTestCase {
 		}
 
 		$response = $this->_dummyPlatform->getMailData();
+
 		$this->assertEquals('=?utf-8?q?s=c3=a5 utrolig?=', $response['subject']);
 	}
 
@@ -261,8 +262,7 @@ class MailHelperTest extends GalleryTestCase {
 			'headers' => '',
 		);
 
-		$multiTo = 'test1@example.com,test2@example.com,test3@example.com,test4@example.com';
-
+		$multiTo  = 'test1@example.com,test2@example.com,test3@example.com,test4@example.com';
 		$platform = $gallery->getPlatform();
 
 		$ret = $platform->sendEmail(
@@ -295,8 +295,7 @@ class MailHelperDummyPlatform {
 
 	public function mail($to, $subject, $body, $headers = null) {
 		// Normalize the date field in the headers to avoid having to worry about exact seconds
-		$headers = preg_replace("/Date:.*?\r\n/", "Date: ELIDED\r\n", $headers);
-
+		$headers              = preg_replace("/Date:.*?\r\n/", "Date: ELIDED\r\n", $headers);
 		$_REQUEST['maildata'] = array(
 			'to'      => $to,
 			'subject' => $subject,

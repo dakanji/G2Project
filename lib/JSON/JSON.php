@@ -426,8 +426,7 @@ class Services_JSON {
 				return '[' . join(',', $elements) . ']';
 
 			case 'object':
-				$vars = get_object_vars($var);
-
+				$vars       = get_object_vars($var);
 				$properties = array_map(
 					array($this, 'name_value'),
 					array_keys($vars),

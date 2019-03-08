@@ -16,26 +16,18 @@
 In ADOdb, named quotes for MS SQL Server use ". From the MSSQL Docs:
 	Note Delimiters are for identifiers only. Delimiters cannot be used for keywords,
 	whether or not they are marked as reserved in SQL Server.
-
 	Quoted identifiers are delimited by double quotation marks ("):
 	SELECT * FROM "Blanks in Table Name"
-
 	Bracketed identifiers are delimited by brackets ([ ]):
 	SELECT * FROM [Blanks In Table Name]
-
 	Quoted identifiers are valid only when the QUOTED_IDENTIFIER option is set to ON. By default,
 	the Microsoft OLE DB Provider for SQL Server and SQL Server ODBC driver set QUOTED_IDENTIFIER ON
 	when they connect.
-
 	In Transact-SQL, the option can be set at various levels using SET QUOTED_IDENTIFIER,
 	the quoted identifier option of sp_dboption, or the user options option of sp_configure.
-
 	When SET ANSI_DEFAULTS is ON, SET QUOTED_IDENTIFIER is enabled.
-
 	Syntax
-
 		SET QUOTED_IDENTIFIER { ON | OFF }
-
 */
 
 // security - hide paths
@@ -48,9 +40,8 @@ class ADODB2_mssql extends ADODB_DataDict {
 	public $dropIndex    = 'DROP INDEX %2$s.%1$s';
 	public $renameTable  = "EXEC sp_rename '%s','%s'";
 	public $renameColumn = "EXEC sp_rename '%s.%s','%s'";
-
-	public $typeX  = 'TEXT';  // Alternatively, set it to VARCHAR(4000)
-	public $typeXL = 'TEXT';
+	public $typeX        = 'TEXT';  // Alternatively, set it to VARCHAR(4000)
+	public $typeXL       = 'TEXT';
 
 	//var $alterCol = ' ALTER COLUMN ';
 	public function MetaType($t, $len = -1, $fieldobj = false) {
@@ -230,13 +221,10 @@ class ADODB2_mssql extends ADODB_DataDict {
 	( { < column_definition >
 		| column_name AS computed_column_expression
 		| < table_constraint > ::= [ CONSTRAINT constraint_name ] }
-
 			| [ { PRIMARY KEY | UNIQUE } [ ,...n ]
 	)
-
 	[ ON { filegroup | DEFAULT } ]
 	[ TEXTIMAGE_ON { filegroup | DEFAULT } ]
-
 	< column_definition > ::= { column_name data_type }
 	[ COLLATE < collation_name > ]
 	[ [ DEFAULT constant_expression ]
@@ -244,7 +232,6 @@ class ADODB2_mssql extends ADODB_DataDict {
 	]
 	[ ROWGUIDCOL]
 	[ < column_constraint > ] [ ...n ]
-
 	< column_constraint > ::= [ CONSTRAINT constraint_name ]
 	{ [ NULL | NOT NULL ]
 		| [ { PRIMARY KEY | UNIQUE }

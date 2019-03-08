@@ -92,12 +92,14 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testSaveWithMissingThreshold() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
 
 	public function testSaveWithNonNumericThreshold() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[failedAttemptThreshold]', 'two');
+
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
 
@@ -257,7 +259,6 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[level][testOptionId]', 'MEDIUM');
 
 		$this->handleRequest(ERROR_BAD_PARAMETER);
-
 		CaptchaAdminOption::getMe()->delTestOptions();
 	}
 }

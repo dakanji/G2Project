@@ -44,7 +44,6 @@ $sampleIndex = array(
 			),
 		),
 	),
-
 	'themes' => array(
 		'testTheme' => array(
 			'header' => array(

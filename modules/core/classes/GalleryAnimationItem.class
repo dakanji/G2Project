@@ -321,7 +321,6 @@ class GalleryAnimationItem extends GalleryDataItem {
 							'/pub/shockwave/cabs/director/sw.cab#version=8,0,0,0"\');
 			document.write(\'        ' .
 							'classid="clsid:166B1BCA-3F9C-11CF-8075-444553540000">\');
-
 			document.write(\'  <param name="src" value="%s" />\');
 			document.write(\'  <param name="swRemote" value="swTarget=false ' .
 							'swVolume=false swRestart=false swPausePlay=false ' .

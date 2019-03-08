@@ -60,8 +60,7 @@ class UserRecoverPasswordDownloadView extends GalleryView {
 	public function renderImmediate($status = null, $error = null) {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
+		$session    =& $gallery->getSession();
 		$authString = $session->get('core.UserRecoverPasswordAdminAuthKey');
 
 		if (empty($authString)) {

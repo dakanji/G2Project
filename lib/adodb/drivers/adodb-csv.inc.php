@@ -8,13 +8,10 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
   Set tabs to 4.
-
   Currently unsupported: MetaDatabases, MetaTables and MetaColumns, and also inputarr in Execute.
   Native types have been converted to MetaTypes.
   Transactions not supported yet.
-
   Limitation of url length. For IIS, see MaxClientRequestBuffer registry value.
-
 	  http://support.microsoft.com/default.aspx?scid=kb;en-us;260694
 */
 
@@ -157,8 +154,7 @@ if (!defined('_ADODB_CSV_LAYER')) {
 			$url = $this->_url . '?sql=' . urlencode($sql) . '&fetch=' .
 			(($this->fetchMode !== false) ? $this->fetchMode : $ADODB_FETCH_MODE);
 			$err = false;
-
-			$rs = csv2rs($url, $err, false);
+			$rs  = csv2rs($url, $err, false);
 
 			if ($this->debug) {
 				echo urldecode($url) . "<br><i>$err</i><br>";
@@ -181,8 +177,7 @@ if (!defined('_ADODB_CSV_LAYER')) {
 			}
 
 			if (is_object($rs)) {
-				$rs->fetchMode = ($this->fetchMode !== false) ? $this->fetchMode : $ADODB_FETCH_MODE;
-
+				$rs->fetchMode       = ($this->fetchMode !== false) ? $this->fetchMode : $ADODB_FETCH_MODE;
 				$this->_affectedrows = $rs->affectedrows;
 				$this->_insertid     = $rs->insertid;
 				$rs->databaseType    = 'csv';

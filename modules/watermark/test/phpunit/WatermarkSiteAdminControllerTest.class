@@ -266,7 +266,6 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 			'defaultWatermarkId',
 			$idToDelete
 		);
-
 		GalleryCoreApi::setPluginParameter('module', 'watermark', 'forceDefaultWatermark', false);
 
 		$results = $this->handleRequest();

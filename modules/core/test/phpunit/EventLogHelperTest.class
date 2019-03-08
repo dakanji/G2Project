@@ -40,13 +40,11 @@ class EventLogHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$gallery->_storage = new UnitTestStorage();
-		$this->_storage    =& $gallery->getStorage();
-		$gallery->_phpVm   = new EventLogHelperTestPhpVm();
-
-		$urlGenerator    =& $gallery->getUrlGenerator();
-		$this->_location = $urlGenerator->getCurrentUrl();
-
+		$gallery->_storage       = new UnitTestStorage();
+		$this->_storage          =& $gallery->getStorage();
+		$gallery->_phpVm         = new EventLogHelperTestPhpVm();
+		$urlGenerator            =& $gallery->getUrlGenerator();
+		$this->_location         = $urlGenerator->getCurrentUrl();
 		$_SERVER['HTTP_REFERER'] = 'REFERER';
 	}
 

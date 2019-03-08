@@ -154,7 +154,6 @@ class AdminDcrawView extends GalleryView {
 		}
 
 		$form['path'] = trim($form['path']);
-
 		$tests        = array();
 		$debugSnippet = '';
 		$failCount    = 0;
@@ -166,8 +165,7 @@ class AdminDcrawView extends GalleryView {
 				list($ret, $testResults) = DcrawToolkitHelper::testBinary($form['path']);
 
 				$debugSnippet = $gallery->stopRecordingDebugSnippet();
-
-				$success = true;
+				$success      = true;
 
 				if ($ret) {
 					if ($ret->getErrorCode() & ERROR_BAD_PATH) {

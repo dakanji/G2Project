@@ -30,8 +30,7 @@ class SvnAuditTest extends CodeAuditTestCase {
 	public function __construct($methodName) {
 		global $gallery;
 
-		$this->_platform =& $gallery->getPlatform();
-
+		$this->_platform   =& $gallery->getPlatform();
 		$this->_exceptions = array(
 			'lib/pear/mime.php' => array(
 				'svn:eol-style' => 'native',
@@ -160,6 +159,7 @@ class SvnAuditTest extends CodeAuditTestCase {
 			foreach ($expected as $key => $valueMatch) {
 				if (!isset($props[$key])) {
 					$this->assertFalse(true, "svn property $key missing for $fileName");
+
 					$this->_errorCount++;
 				} elseif (!preg_match('{^' . $valueMatch . '$}', $props[$key])) {
 					$this->assertFalse(

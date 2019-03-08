@@ -29,6 +29,7 @@
  */
 GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteSimpleHelper.class');
 GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteUrlGenerator.class');
+
 class RewriteSimpleHelperTest extends GalleryTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName);
@@ -76,10 +77,9 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		}
 
 		$testItemPath = str_replace('%2F', '/', urlencode($testItemPath));
-
-		$url    = 'v/%path%';
-		$entity = null;
-		$params = array(
+		$url          = 'v/%path%';
+		$entity       = null;
+		$params       = array(
 			'view'   => 'core.ShowItem',
 			'itemId' => $testItem->getId(),
 		);
@@ -125,10 +125,9 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		}
 
 		$testItemName = urlencode($testItem->getPathComponent());
-
-		$url    = 'd/%fileName%';
-		$entity = null;
-		$params = array(
+		$url          = 'd/%fileName%';
+		$entity       = null;
+		$params       = array(
 			'view'   => 'core.DownloadItem',
 			'itemId' => $derivative->getId(),
 		);
@@ -175,10 +174,9 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		}
 
 		$testSerialNumber = $testItem->getSerialNumber();
-
-		$url    = 'd/%serialNumber%';
-		$entity = null;
-		$params = array(
+		$url              = 'd/%serialNumber%';
+		$entity           = null;
+		$params           = array(
 			'view'   => 'core.DownloadItem',
 			'itemId' => $derivative->getId(),
 		);
@@ -219,10 +217,9 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		}
 
 		$language = join('_', $language);
-
-		$url    = 'v/%language%';
-		$entity = null;
-		$params = array(
+		$url      = 'v/%language%';
+		$entity   = null;
+		$params   = array(
 			'view' => 'core.ShowItem',
 		);
 
@@ -264,6 +261,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		}
 
 		$itemId = (int)GalleryUtilities::getRequestVariables('itemId');
+
 		$this->assertEquals($testAlbum->getId(), $itemId);
 	}
 }

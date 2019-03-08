@@ -35,7 +35,6 @@ class GalleryItemAttributesHelper_simple {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
 		$elapsed = time() - $session->getCreationTime();
 
 		if (!$session->exists('core.lastViewed')) {
@@ -68,7 +67,6 @@ class GalleryItemAttributesHelper_simple {
 						'Last-Modified: '
 						. GalleryUtilities::getHttpDate($phpVm->time())
 					);
-
 					GalleryUtilities::setResponseHeader(
 						'Expires: '
 						. GalleryUtilities::getHttpDate(time() - 3600 * 24 * 7)

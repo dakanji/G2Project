@@ -8,14 +8,11 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
   Set tabs to 8.
-
   This driver only supports the original non-transactional MySQL driver. It
   is deprected in PHP version 5.5 and removed in PHP version 7. It is deprecated
   as of ADOdb version 5.20.0. Use the mysqli driver instead, which supports both
   transactional and non-transactional updates
-
   Requires mysql client. Works on Windows and Unix.
-
  28 Feb 2001: MetaColumns bug fix - suggested by  Freek Dijkstra (phpeverywhere@macfreek.com)
 */
 
@@ -26,7 +23,6 @@ if (!defined('ADODB_DIR')) {
 
 if (!defined('_ADODB_MYSQL_LAYER')) {
 	define('_ADODB_MYSQL_LAYER', 1);
-
 	class ADODB_mysql extends ADOConnection {
 		public $databaseType     = 'mysql';
 		public $dataProvider     = 'mysql';
@@ -310,8 +306,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				return false;
 			}
 
-			$u = strtoupper($seqname);
-
+			$u  = strtoupper($seqname);
 			$ok = $this->Execute(sprintf($this->_genSeqSQL, $seqname));
 
 			if (!$ok) {
@@ -763,7 +758,6 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 		// returns true or false
 		public function _close() {
 			@mysql_close($this->_connectionID);
-
 			$this->charSet       = '';
 			$this->_connectionID = false;
 		}

@@ -88,7 +88,6 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 			array(null, '/validPath/'),
 			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'path')
 		);
-
 		$this->assertEquals(
 			array(null, '12'),
 			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jpegQuality')
@@ -122,12 +121,10 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 			array(null, '/validPath/'),
 			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'path')
 		);
-
 		$this->assertEquals(
 			array(null, '/validPath/'),
 			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jheadPath')
 		);
-
 		$this->assertEquals(
 			array(null, '12'),
 			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jpegQuality')

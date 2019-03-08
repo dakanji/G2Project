@@ -64,7 +64,6 @@ class PluginCallbackView extends GalleryView {
 
 		$session =& $gallery->getSession();
 		$storage =& $gallery->getStorage();
-
 		$command = GalleryUtilities::getRequestVariables('command');
 
 		if (!headers_sent()) {
@@ -126,6 +125,7 @@ class PluginCallbackView extends GalleryView {
 		}
 
 		GalleryCoreApi::requireOnce('lib/JSON/JSON.php');
+
 		$json = new Services_JSON();
 		echo $json->encode($result);
 

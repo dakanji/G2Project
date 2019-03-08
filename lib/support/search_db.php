@@ -181,7 +181,6 @@ function process($search_string, $advance, $deep) {
 }
 
 ?>
-
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -233,7 +232,6 @@ function process($search_string, $advance, $deep) {
 				<input type="submit" value="Reset" class="btn btn-default">
 			</form>
 		</div>
-
 		<?php
 		if ($output) {
 			?>

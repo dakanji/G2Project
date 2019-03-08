@@ -9,7 +9,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
 	  Set tabs to 4 for best viewing.
-
 */
 if (!function_exists('bzcompress')) {
 	trigger_error('bzip2 functions are not available', E_USER_ERROR);
@@ -19,9 +18,7 @@ if (!function_exists('bzcompress')) {
 
 class ADODB_Compress_Bzip2 {
 	public $_block_size;
-
 	public $_work_level;
-
 	public $_min_length = 1;
 
 	public function getBlockSize() {

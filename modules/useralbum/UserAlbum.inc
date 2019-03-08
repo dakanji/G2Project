@@ -34,8 +34,7 @@ class UserAlbumController extends GalleryController {
 		global $gallery;
 
 		$activeUserId = $gallery->getActiveUserId();
-
-		$userId = GalleryUtilities::getRequestVariables('userId');
+		$userId       = GalleryUtilities::getRequestVariables('userId');
 
 		if (empty($userId)) {
 			$userId = $activeUserId;

@@ -119,11 +119,9 @@ function checkStringForHtml($string, $type, $path) {
 
 	if (empty($ltRegExpPattern)) {
 		$allowedHtmlTags = array('b', 'i', 'strong', 'tt');
-
 		$openTags        = implode('>|', $allowedHtmlTags) . '>';
 		$closeTags       = '/' . implode('>|/', $allowedHtmlTags) . '>';
 		$ltRegExpPattern = '#<(?!' . $openTags . '|' . $closeTags . ')#';
-
 		$openTags        = '<' . implode('|<', $allowedHtmlTags);
 		$closeTags       = '</' . implode('|</', $allowedHtmlTags);
 		$gtRegExpPattern = '#(?<!' . $openTags . '|' . $closeTags . ')>#';

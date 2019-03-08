@@ -88,8 +88,8 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 	public function testChangeValues() {
 		$valueMap = $this->_valueMap;
-
 		$this->_setFormFromValues($valueMap);
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 
 		// Perform the request and verify that we succeeded
@@ -211,8 +211,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testSaveEmailPasswordWithHtmlEntity() {
-		$valueMap = $this->_valueMap;
-
+		$valueMap                  = $this->_valueMap;
 		$valueMap['smtp.password'] = 'pass&word';
 		$this->_setFormFromValues($valueMap);
 
@@ -616,13 +615,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			$results['redirect'],
 			'redirect'
 		);
-
 		$this->assertEquals(
 			array('saved', 'emailTestError', 'emailTestDebug'),
 			array_keys($results['status']),
 			'status keys'
 		);
-
 		$this->assertEquals(1, $results['status']['saved'], 'saved');
 		$this->assertTrue(
 			strpos(
@@ -631,12 +628,10 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			) !== false,
 			'emailTestError: ' . $results['status']['emailTestError']
 		);
-
 		$this->assertTrue(
 			strpos($results['status']['emailTestDebug'], 'file_exists') !== false,
 			'emailTestDebug: ' . $results['status']['emailTestDebug']
 		);
-
 		$this->assertEquals(array(), $results['error'], 'error');
 	}
 
@@ -670,6 +665,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/UnixPlatform.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
+
 class AdminCoreControllerTestUnixPlatform extends UnixPlatform {
 	public function __construct($succeed) {
 		$this->_succeed = $succeed;

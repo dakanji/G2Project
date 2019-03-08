@@ -190,7 +190,6 @@ function render($renderType, $options = array()) {
 					</div>
 					<?php
 		} ?>
-
 				<div class="alert alert-danger">
 					<p>
 						Please enter the Gallery2 setup password created during installation.
@@ -208,7 +207,6 @@ function render($renderType, $options = array()) {
 						<script>document.forms[0]['password'].focus();</script>
 					</p>
 			</div>
-
 				<?php
 				if (isset($options['missingPassword'])) {
 					?>
@@ -220,7 +218,6 @@ function render($renderType, $options = array()) {
 			</form>
 						<?php
 	} ?>
-
 		<?php
 		if ($renderType == 'loginTxtForm') {
 			?>

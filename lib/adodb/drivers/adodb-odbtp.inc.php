@@ -18,7 +18,6 @@ if (!defined('ADODB_DIR')) {
 }
 
 define('_ADODB_ODBTP_LAYER', 2);
-
 class ADODB_odbtp extends ADOConnection {
 	public $databaseType    = 'odbtp';
 	public $dataProvider    = 'odbtp';
@@ -30,7 +29,6 @@ class ADODB_odbtp extends ADOConnection {
 	public $hasInsertID     = false;
 	public $hasGenID        = true;
 	public $hasMoveFirst    = true;
-
 	public $_genSeqSQL      = 'create table %s (seq_name char(30) not null unique , seq_value integer not null)';
 	public $_dropSeqSQL     = "delete from adodb_seq where seq_name = '%s'";
 	public $_bindInputArray = false;
@@ -76,7 +74,6 @@ class ADODB_odbtp extends ADOConnection {
 	{
 		if (empty($d) && $d !== 0) return 'null';
 		if ($isfld) return "convert(date, $d, 120)";
-
 		if (is_string($d)) $d = ADORecordSet::UnixDate($d);
 		$d = adodb_date($this->fmtDate,$d);
 		return "convert(date, $d, 120)";
@@ -86,7 +83,6 @@ class ADODB_odbtp extends ADOConnection {
 	{
 		if (empty($d) && $d !== 0) return 'null';
 		if ($isfld) return "convert(datetime, $d, 120)";
-
 		if (is_string($d)) $d = ADORecordSet::UnixDate($d);
 		$d = adodb_date($this->fmtDate,$d);
 		return "convert(datetime, $d, 120)";
@@ -375,8 +371,7 @@ class ADODB_odbtp extends ADOConnection {
 		}
 
 		$ADODB_FETCH_MODE = $savem;
-
-		$arr2 = array();
+		$arr2             = array();
 
 		for ($i = 0; $i < sizeof($arr); $i++) {
 			if ($arr[$i][3] == 'SYSTEM TABLE') {
@@ -481,8 +476,7 @@ class ADODB_odbtp extends ADOConnection {
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		$constraints      = $this->GetArray("||SQLForeignKeys|||||$owner|$table");
 		$ADODB_FETCH_MODE = $savem;
-
-		$arr = false;
+		$arr              = false;
 
 		foreach ($constraints as $constr) {
 			//print_r($constr);
@@ -601,8 +595,7 @@ class ADODB_odbtp extends ADOConnection {
 
 		$this->_errorMsg  = false;
 		$this->_errorCode = false;
-
-		$stmt = @odbtp_prepare($sql, $this->_connectionID);
+		$stmt             = @odbtp_prepare($sql, $this->_connectionID);
 
 		if (!$stmt) {
 			//	print "Prepare Error for ($sql) ".$this->ErrorMsg()."<br>";
@@ -619,8 +612,7 @@ class ADODB_odbtp extends ADOConnection {
 
 		$this->_errorMsg  = false;
 		$this->_errorCode = false;
-
-		$stmt = @odbtp_prepare_proc($sql, $this->_connectionID);
+		$stmt             = @odbtp_prepare_proc($sql, $this->_connectionID);
 
 		if (!$stmt) {
 			return false;
@@ -632,20 +624,17 @@ class ADODB_odbtp extends ADOConnection {
 	/*
 	Usage:
 		$stmt = $db->PrepareSP('SP_RUNSOMETHING'); -- takes 2 params, @myid and @group
-
 		# note that the parameter does not have @ in front!
 		$db->Parameter($stmt,$id,'myid');
 		$db->Parameter($stmt,$group,'group',false,64);
 		$db->Parameter($stmt,$group,'photo',false,100000,ODB_BINARY);
 		$db->Execute($stmt);
-
 		@param $stmt Statement returned by Prepare() or PrepareSP().
 		@param $var PHP variable to bind to. Can set to null (for isNull support).
 		@param $name Name of stored procedure variable name to bind to.
 		@param [$isOutput] Indicates direction of parameter 0/false=IN  1=OUT  2= IN/OUT. This is ignored in odbtp.
 		@param [$maxLen] Holds an maximum length of the variable.
 		@param [$type] The data type of $var. Legal values depend on driver.
-
 		See odbtp_attach_param documentation at http://odbtp.sourceforge.net.
 	*/
 	public function Parameter(&$stmt, &$var, $name, $isOutput = false, $maxLen = 0, $type = 0) {
@@ -667,9 +656,7 @@ class ADODB_odbtp extends ADOConnection {
 	/*
 		Insert a null into the blob field of the table first.
 		Then use UpdateBlob to store the blob.
-
 		Usage:
-
 		$conn->Execute('INSERT INTO blobtable (id, blobcol) VALUES (1, null)');
 		$conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
 	*/
@@ -703,8 +690,7 @@ class ADODB_odbtp extends ADOConnection {
 
 	public function MetaIndexes_mssql($table, $primary = false, $owner = false) {
 		$table = strtolower($this->qstr($table));
-
-		$sql = "SELECT i.name AS ind_name, C.name AS col_name, USER_NAME(O.uid) AS Owner, c.colid, k.Keyno,
+		$sql   = "SELECT i.name AS ind_name, C.name AS col_name, USER_NAME(O.uid) AS Owner, c.colid, k.Keyno,
 			CASE WHEN I.indid BETWEEN 1 AND 254 AND (I.status & 2048 = 2048 OR I.Status = 16402 AND O.XType = 'V') THEN 1 ELSE 0 END AS IsPK,
 			CASE WHEN I.status & 2 = 2 THEN 1 ELSE 0 END AS IsUnique
 			FROM dbo.sysobjects o INNER JOIN dbo.sysindexes I ON o.id = i.id
@@ -712,7 +698,6 @@ class ADODB_odbtp extends ADOConnection {
 			INNER JOIN dbo.syscolumns c ON K.id = C.id AND K.colid = C.Colid
 			WHERE LEFT(i.name, 8) <> '_WA_Sys_' AND o.status >= 0 AND lower(O.Name) = $table
 			ORDER BY O.name, I.Name, K.keyno";
-
 		global $ADODB_FETCH_MODE;
 
 		$save             = $ADODB_FETCH_MODE;

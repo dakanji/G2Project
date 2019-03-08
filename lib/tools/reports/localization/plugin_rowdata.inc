@@ -5,7 +5,6 @@
 		<td style="background-color:#<?php echo percentColor($pluginData['percentDone']); ?>">
 			<?php echo $pluginData['percentDone']; ?>%
 		</td>
-
 		<?php
 		if (isset($pluginData['missing'])) {
 			?>

@@ -236,7 +236,6 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			$this->_files[$dst]['operation'],
 			$this->_currentEnvironment['path'] . " $operation " . implode(' ', $params)
 		);
-
 		$this->assertTrue($this->_chmodWasCalled, 'chmod not called');
 
 		return null;
@@ -575,6 +574,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			}
 
 			$this->assertEquals(array(), $this->_files, 'no exec yet ' . $this->_envName());
+
 			$context['next.toolkit']   = null;
 			$context['next.operation'] = null;
 			$this->assertEquals(
@@ -621,7 +621,6 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$this->_files['output.png']['operation']['convert'],
 				'output ' . $this->_envName()
 			);
-
 			$this->assertEquals(
 				array(
 					'next.toolkit'   => null,
@@ -674,7 +673,6 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				'output ' .
 				$this->_envName()
 			);
-
 			$this->assertEquals(
 				array(
 					'next.toolkit'   => $this->_toolkit,
@@ -711,7 +709,6 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$this->_files['output.png']['operation']['convert'],
 				'output ' . $this->_envName()
 			);
-
 			$this->assertEquals(
 				array(
 					'next.toolkit'   => null,
@@ -792,6 +789,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
 			$context['next.toolkit']   = null;
 			$context['next.operation'] = null;
+
 			$this->assertEquals(array(), $this->_files, 'still no exec ' . $this->_envName());
 			$this->assertEquals(
 				array(
@@ -837,7 +835,6 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$this->_files['output.png']['operation']['convert'],
 				'output ' . $this->_envName()
 			);
-
 			$this->assertEquals(
 				array(
 					'next.toolkit'   => null,
@@ -879,6 +876,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
 			$context['next.toolkit']   = null;
 			$context['next.operation'] = null;
+
 			$this->assertEquals(array(), $this->_files, 'no exec yet ' . $this->_envName());
 			$this->assertEquals(
 				array(
@@ -892,7 +890,6 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$context,
 				'context after convert ' . $this->_envName()
 			);
-
 			$this->assertEquals('image/jpeg', $outputMimeType, 'jpeg ' . $this->_envName());
 
 			list($ret, $outputMimeType, $context) = $this->_toolkit->performOperation(
@@ -917,7 +914,6 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$this->_files['output.jpg']['operation']['convert'],
 				'output ' . $this->_envName()
 			);
-
 			$this->assertEquals(
 				array(
 					'next.toolkit'   => null,
@@ -1418,7 +1414,6 @@ class ImageMagickToolkitTestPlatform {
 
 		$output = array();
 		$status = false;
-
 		$binary = array_shift($firstCmd);
 		$binary = basename($binary);
 

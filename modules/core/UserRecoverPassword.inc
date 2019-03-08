@@ -70,8 +70,7 @@ class UserRecoverPasswordController extends GalleryController {
 		global $gallery;
 
 		$status = $error = $results = array();
-
-		$phpVm = $gallery->getPhpVm();
+		$phpVm  = $gallery->getPhpVm();
 
 		if (isset($form['action']['recover'])) {
 			$form['userName'] = is_string($form['userName']) ? $form['userName'] : null;
@@ -267,8 +266,7 @@ class UserRecoverPasswordController extends GalleryController {
 							);
 
 							$mailData = serialize($mailData);
-
-							$session =& $gallery->getSession();
+							$session  =& $gallery->getSession();
 							$session->put(
 								'RecoverDummyPlatform.mail',
 								$mailData
@@ -327,6 +325,7 @@ class UserRecoverPasswordController extends GalleryController {
 	 */
 	public function _generateAuthString() {
 		GalleryCoreApi::requireOnce('lib/joomla/crypt.php');
+
 		$j = new JCrypt();
 
 		return md5($j->genRandomBytes(32));

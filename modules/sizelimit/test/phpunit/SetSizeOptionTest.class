@@ -123,7 +123,6 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
-
 		$this->_items = array();
 
 		// Sample photo image file that can be resized/compressed
@@ -163,9 +162,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$this->_noWarnings = array(array());
-		$this->_noErrors   = array();
-
+		$this->_noWarnings     = array(array());
+		$this->_noErrors       = array();
 		$this->_expectWarnings = array(
 			array(
 				$module->translate(array(
@@ -230,9 +228,12 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 
 		$this->assertEquals(768, $this->_items[0]->getWidth(), 'Width');
 		$this->assertEquals(1024, $this->_items[0]->getHeight(), 'Height');
+
 		$operation = GalleryUtilities::getRequestVariables('operation');
+
 		$this->assertEquals($this->_expectResize, $operation, 'operation');
 		$this->assertEquals(2, $this->_items[0]->getSerialNumber(), 'Serial Number');
+
 		$platform->clearstatcache();
 
 		$ret = $this->_items[0]->rescan();
@@ -301,6 +302,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			$this->assertEquals(768, $this->_items[$j]->getWidth(), "Width $j");
 			$this->assertEquals(1024, $this->_items[$j]->getHeight(), "Height $j");
 			$this->assertEquals(2, $this->_items[$j]->getSerialNumber(), "Serial Number $j");
+
 			$platform->clearstatcache();
 
 			$ret = $this->_items[$j]->rescan();
@@ -311,6 +313,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$operation = GalleryUtilities::getRequestVariables('operation');
+
 		$this->assertEquals($this->_expectResize, $operation, 'operation');
 	}
 
@@ -360,7 +363,9 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 
 		$this->assertEquals(768, $resized->getWidth(), 'Width');
 		$this->assertEquals(1024, $resized->getHeight(), 'Height');
+
 		$operation = GalleryUtilities::getRequestVariables('operation');
+
 		$this->assertEquals($this->_expectResize, $operation, 'operation');
 	}
 
@@ -434,6 +439,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$operation = GalleryUtilities::getRequestVariables('operation');
+
 		$this->assertEquals($this->_expectResize, $operation, 'operation');
 	}
 
@@ -464,6 +470,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 
 		$this->assertEquals($this->_noErrors, $errors);
 		$this->assertEquals($this->_noWarnings, $warnings);
+
 		$platform->clearstatcache();
 
 		list($ret, $this->_items[0]) = $this->_items[0]->refresh();
@@ -474,7 +481,9 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 
 		// check item size (in KB)
 		$this->assertEquals(1000, $this->_items[0]->getSize(), 'Size');
+
 		$operation = GalleryUtilities::getRequestVariables('operation');
+
 		$this->assertEquals($this->_expectCompress, $operation, 'operation');
 
 		list($ret, $preferred) = GalleryCoreApi::fetchPreferredSource($this->_items[0]);
@@ -556,6 +565,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$operation = GalleryUtilities::getRequestVariables('operation');
+
 		$this->assertEquals($this->_expectCompress, $operation, 'operation');
 	}
 
@@ -602,7 +612,9 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 
 		// check derivative size
 		$this->assertEquals(1000, $resized->getDerivativeSize(), 'Size');
+
 		$operation = GalleryUtilities::getRequestVariables('operation');
+
 		$this->assertEquals($this->_expectCompress, $operation, 'operation');
 	}
 
@@ -673,6 +685,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$operation = GalleryUtilities::getRequestVariables('operation');
+
 		$this->assertEquals($this->_expectCompress, $operation, 'operation');
 	}
 
@@ -734,7 +747,9 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		$this->assertEquals(768, $resized->getWidth(), 'Width');
 		$this->assertEquals(1024, $resized->getHeight(), 'Height');
 		$this->assertEquals(1000, $resized->getDerivativeSize(), 'Size');
+
 		$operation = GalleryUtilities::getRequestVariables('operation');
+
 		$this->assertEquals($this->_expectResizeCompress, $operation, 'operation');
 	}
 
@@ -818,6 +833,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$operation = GalleryUtilities::getRequestVariables('operation');
+
 		$this->assertEquals($this->_expectResizeCompress, $operation, 'operation');
 	}
 
@@ -861,8 +877,11 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 
 		$this->assertEquals(768, $this->_items[0]->getWidth(), 'Width');
 		$this->assertEquals(1024, $this->_items[0]->getHeight(), 'Height');
+
 		$operation = GalleryUtilities::getRequestVariables('operation');
+
 		$this->assertEquals($this->_expectResizeCompress, $operation, 'operation');
+
 		$platform->clearstatcache();
 
 		$ret = $this->_items[0]->rescan();
@@ -936,6 +955,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 
 			$this->assertEquals(768, $item->getWidth(), 'Width');
 			$this->assertEquals(1024, $item->getHeight(), 'Height');
+
 			$platform->clearstatcache();
 
 			$ret = $item->rescan();
@@ -948,6 +968,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$operation = GalleryUtilities::getRequestVariables('operation');
+
 		$this->assertEquals($this->_expectResizeCompress, $operation, 'operation');
 	}
 
@@ -1002,8 +1023,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$singleExpectedWarning = $this->_expectWarnings[0];
-
-		$totalTestItems = 3;
+		$totalTestItems        = 3;
 
 		for ($j = 1; $j < $totalTestItems; $j++) {
 			list($ret, $this->_itemsUnknown[$j]) = $this->_createRandomDataItem(
@@ -1063,7 +1083,9 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 
 		$this->assertEquals(1728, $this->_items[0]->getWidth(), 'Width');
 		$this->assertEquals(2304, $this->_items[0]->getHeight(), 'Height');
+
 		$operation = GalleryUtilities::getRequestVariables('operation');
+
 		$this->assertEquals('', $operation, 'no operation');
 		$this->assertEquals(1, $this->_items[0]->getSerialNumber(), 'Serial Number');
 	}
@@ -1158,9 +1180,12 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 
 		$this->assertEquals(768, $item->getWidth(), 'Width');
 		$this->assertEquals(1024, $item->getHeight(), 'Height');
+
 		$operation = GalleryUtilities::getRequestVariables('operation');
+
 		$this->assertEquals($this->_expectResize, $operation, 'operation');
 		$this->assertEquals(2, $item->getSerialNumber(), 'Serial Number');
+
 		$platform->clearstatcache();
 
 		// We should have a new thumb and one resize should be deleted
@@ -1203,6 +1228,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 class SetSizeOptionTestPlatform extends GalleryPlatform {
 	public function __construct($originalPlatform) {
 		$this->_savedPlatform = $originalPlatform;
+
 		GalleryUtilities::putRequestVariable('resizePerformed', false);
 		GalleryUtilities::putRequestVariable('compressPerformed', false);
 	}
@@ -1294,6 +1320,7 @@ class SetSizeOptionTestToolkit extends GalleryToolkit {
 		}
 
 		$operations[] = $operationName;
+
 		GalleryUtilities::putRequestVariable('operation', $operations);
 
 		return array(null, $mimeType, $context);

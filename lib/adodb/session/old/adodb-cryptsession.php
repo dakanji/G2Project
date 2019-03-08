@@ -9,13 +9,10 @@
   the BSD license will take precedence.
 	Made table name configurable - by David Johnson djohnson@inpro.net
 	Encryption by Ari Kuorikoski <ari.kuorikoski@finebyte.com>
-
   Set tabs to 4 for best viewing.
-
   Latest version of ADODB is available at http://php.weblogs.com/adodb ======================================================================
  This file provides PHP4 session management using the ADODB database
 wrapper library.
-
  Example =======
 
 	include('adodb.inc.php');
@@ -30,7 +27,6 @@ wrapper library.
 	$_SESSION['AVAR'] += 1;
 	print "
 -- \$_SESSION['AVAR']={$_SESSION['AVAR']}</p>";
-
  Installation ============
  1. Create a new database in MySQL or Access "sessions" like
 so:
@@ -44,17 +40,14 @@ so:
 
   2. Then define the following parameters. You can either modify
 	 this file, or define them before this file is included:
-
 	  $ADODB_SESSION_DRIVER='database driver, eg. mysql or ibase';
 	$ADODB_SESSION_CONNECT='server to connect to';
 	$ADODB_SESSION_USER ='user';
 	$ADODB_SESSION_PWD ='password';
 	$ADODB_SESSION_DB ='database';
 	$ADODB_SESSION_TBL = 'sessions'
-
   3. Recommended is PHP 4.0.2 or later. There are documented
 session bugs in earlier versions of PHP.
-
 */
 require_once 'crypt.inc.php';
 
@@ -67,7 +60,6 @@ if (!defined('_ADODB_LAYER')) {
 
 if (!defined('ADODB_SESSION')) {
 	define('ADODB_SESSION', 1);
-
 	global  $ADODB_SESSION_CONNECT,
 	$ADODB_SESSION_DRIVER,
 	$ADODB_SESSION_USER,
@@ -122,7 +114,6 @@ if (!defined('ADODB_SESSION')) {
 		$ADODB_SESSION_DB,
 		$ADODB_SESS_CONN,
 		$ADODB_SESS_DEBUG;
-
 		$ADODB_SESS_INSERT = false;
 
 		if (isset($ADODB_SESS_CONN)) {
@@ -187,7 +178,6 @@ if (!defined('ADODB_SESSION')) {
 
 		// encrypt session data..
 		$val = $Crypt->Encrypt(rawurlencode($val), ADODB_Session_Key());
-
 		$arr = array(
 			'sesskey' => $key,
 			'expiry'  => $expiry,
@@ -280,7 +270,6 @@ if (!defined('ADODB_SESSION')) {
 				}
 
 				$rs->Close();
-
 				$ADODB_SESS_CONN->Execute("DELETE FROM $ADODB_SESSION_TBL WHERE expiry < $t");
 				$ADODB_SESS_CONN->CommitTrans();
 			}

@@ -31,17 +31,14 @@ class ADODB_db2 extends ADOConnection {
 	public $databaseType    = 'db2';
 	public $fmtDate         = "'Y-m-d'";
 	public $concat_operator = '||';
-
-	public $sysTime      = 'CURRENT TIME';
-	public $sysDate      = 'CURRENT DATE';
-	public $sysTimeStamp = 'CURRENT TIMESTAMP';
-
+	public $sysTime         = 'CURRENT TIME';
+	public $sysDate         = 'CURRENT DATE';
+	public $sysTimeStamp    = 'CURRENT TIMESTAMP';
 	public $fmtTimeStamp    = "'Y-m-d H:i:s'";
 	public $replaceQuote    = "''"; // string to use to replace quotes
 	public $dataProvider    = 'db2';
 	public $hasAffectedRows = true;
-
-	public $binmode = DB2_BINARY;
+	public $binmode         = DB2_BINARY;
 
 	// setting this to true will make array elements in FETCH_ASSOC mode case-sensitive
 	public $useFetchArray = false;
@@ -119,7 +116,6 @@ class ADODB_db2 extends ADOConnection {
 		// This needs to be set before the connect().
 		// Replaces the odbc_binmode() call that was in Execute()
 		ini_set('ibm_db2.binmode', $this->binmode);
-
 		$this->_errorMsg = '';
 
 		if ($argDatabasename && empty($argDSN)) {
@@ -182,8 +178,7 @@ class ADODB_db2 extends ADOConnection {
 			return 'TO_CHAR(' . $col . ", 'YYYY-MM-DD HH24:MI:SS')";
 		}
 
-		$s = '';
-
+		$s   = '';
 		$len = strlen($fmt);
 
 		for ($i = 0; $i < $len; $i++) {
@@ -469,7 +464,6 @@ class ADODB_db2 extends ADOConnection {
 
 		$schema = '';
 		$this->_findschema($table, $schema);
-
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		$qid              = @db2_primarykeys($this->_connectionID, '', $schema, $table);
@@ -509,7 +503,6 @@ class ADODB_db2 extends ADOConnection {
 
 		$schema = '';
 		$this->_findschema($table, $schema);
-
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		$qid              = @db2_foreign_keys($this->_connectionID, '', $schema, $table);
@@ -520,8 +513,7 @@ class ADODB_db2 extends ADOConnection {
 			return false;
 		}
 
-		$rs = new ADORecordSet_db2($qid);
-
+		$rs               = new ADORecordSet_db2($qid);
 		$ADODB_FETCH_MODE = $savem;
 
 		/*
@@ -566,9 +558,7 @@ class ADODB_db2 extends ADOConnection {
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		$qid              = db2_tables($this->_connectionID);
-
-		$rs = new ADORecordSet_db2($qid);
-
+		$rs               = new ADORecordSet_db2($qid);
 		$ADODB_FETCH_MODE = $savem;
 
 		if (!$rs) {
@@ -626,13 +616,11 @@ class ADODB_db2 extends ADOConnection {
 	#define SQL_DATETIME        9
 	#endif
 	#define SQL_VARCHAR     12
-
 	/ One-parameter shortcuts for date/time data types /
 	#if (DB2VER >= 0x0300)
 	#define SQL_TYPE_DATE     91
 	#define SQL_TYPE_TIME     92
 	#define SQL_TYPE_TIMESTAMP 93
-
 	#define SQL_UNICODE                             (-95)
 	#define SQL_UNICODE_VARCHAR                     (-96)
 	#define SQL_UNICODE_LONGVARCHAR                 (-97)
@@ -690,12 +678,10 @@ class ADODB_db2 extends ADOConnection {
 
 		$schema = '';
 		$this->_findschema($table, $schema);
-
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-
-		$colname = '%';
-		$qid     = db2_columns($this->_connectionID, '', $schema, $table, $colname);
+		$colname          = '%';
+		$qid              = db2_columns($this->_connectionID, '', $schema, $table, $colname);
 
 		if (empty($qid)) {
 			return $false;
@@ -709,7 +695,6 @@ class ADODB_db2 extends ADOConnection {
 		}
 
 		$rs->_fetch();
-
 		$retarr = array();
 
 		/*
@@ -896,9 +881,7 @@ class ADODB_db2 extends ADOConnection {
 	/*
 		Insert a null into the blob field of the table first.
 		Then use UpdateBlob to store the blob.
-
 		Usage:
-
 		$conn->Execute('INSERT INTO blobtable (id, blobcol) VALUES (1, null)');
 		$conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
 	*/
@@ -937,8 +920,7 @@ class ADORecordSet_db2 extends ADORecordSet {
 		}
 
 		$this->fetchMode = $mode;
-
-		$this->_queryID = $id;
+		$this->_queryID  = $id;
 	}
 
 	// returns the field object
@@ -1022,7 +1004,6 @@ class ADORecordSet_db2 extends ADORecordSet {
 	public function MoveNext() {
 		if ($this->_numOfRows != 0 && !$this->EOF) {
 			$this->_currentRow++;
-
 			$this->fields = @db2_fetch_array($this->_queryID);
 
 			if ($this->fields) {

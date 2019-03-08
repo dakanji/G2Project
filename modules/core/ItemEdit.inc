@@ -195,8 +195,7 @@ class ItemEditController extends GalleryController {
 		global $gallery;
 
 		$templateAdapter =& $gallery->getTemplateAdapter();
-
-		$error = array();
+		$error           = array();
 
 		foreach ($options as $option) {
 			$gallery->guaranteeTimeLimit(60);
@@ -217,14 +216,12 @@ class ItemEditController extends GalleryController {
 
 		$session =& $gallery->getSession();
 		$session->putStatus($status);
-
 		$redirect               = array();
 		$redirect['view']       = 'core.ItemAdmin';
 		$redirect['subView']    = 'core.ItemEdit';
 		$redirect['itemId']     = $item->getId();
 		$redirect['editPlugin'] = $editPlugin;
-
-		$urlGenerator =& $gallery->getUrlGenerator();
+		$urlGenerator           =& $gallery->getUrlGenerator();
 		$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect));
 
 		return null;
@@ -385,8 +382,7 @@ class ItemEditView extends GalleryView {
 		}
 
 		// Record our item serial number in the form so that all plugins can use it
-		$form['serialNumber'] = $item->getSerialNumber();
-
+		$form['serialNumber']          = $item->getSerialNumber();
 		$ItemEdit                      = array();
 		$ItemEdit['editPlugin']        = $editPlugin;
 		$ItemEdit['plugins']           = $plugins;
@@ -440,7 +436,6 @@ class ItemEditView extends GalleryView {
 
 		$ItemEdit['fieldLengths']          = array();
 		$ItemEdit['fieldLengths']['title'] = $this->_getSizesForMaxLength($entityInfo['GalleryItem']['members']['title']['size']);
-
 		$template->setVariable('ItemEdit', $ItemEdit);
 		$template->setVariable('controller', 'core.ItemEdit');
 

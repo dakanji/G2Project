@@ -137,8 +137,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 		$i      = 0;
 		$broken = 0;
 		$built  = 0;
-
-		$total = $derivatives->resultCount() + $items->resultCount();
+		$total  = $derivatives->resultCount() + $items->resultCount();
 		$gallery->guaranteeTimeLimit(120);
 
 		while ($result = $derivatives->nextResult()) {
@@ -283,8 +282,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 
 		$storage         =& $gallery->getStorage();
 		$templateAdapter =& $gallery->getTemplateAdapter();
-
-		$message = $module->translate(
+		$message         = $module->translate(
 			array(
 				'text' => 'Processing image %d of %d',
 				'arg1' => $i,

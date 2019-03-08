@@ -344,9 +344,8 @@ class RewriteModuleExtras {
 						continue;
 					}
 
-					$history  = unserialize($value);
-					$moduleId = substr($key, 8);
-
+					$history         = unserialize($value);
+					$moduleId        = substr($key, 8);
 					$moduleAvailable = true;
 
 					if (!isset($modules[$moduleId]) || empty($modules[$moduleId]['available'])) {
@@ -527,8 +526,7 @@ class RewriteModuleExtras {
 
 			$activeRules  = unserialize($activeRules);
 			$originalSize = count($activeRules);
-
-			$seen = array();
+			$seen         = array();
 
 			foreach (array_keys($activeRules) as $moduleId) {
 				foreach ($activeRules[$moduleId] as $ruleId => $rule) {

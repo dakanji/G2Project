@@ -59,6 +59,7 @@ class ShowItemTest extends GalleryTestCase {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$this->_template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
 	}
 
@@ -202,8 +203,8 @@ class ShowItemTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($album);
-
 		$gallery->setConfig('defaultAlbumId', $album->getId());
+
 		GalleryUtilities::removeRequestVariable('itemId');
 
 		// Assign our test theme

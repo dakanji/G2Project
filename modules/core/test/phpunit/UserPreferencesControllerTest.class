@@ -58,7 +58,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($this->_user);
-
 		$gallery->setActiveUser($this->_user);
 	}
 
@@ -114,6 +113,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.me');
@@ -155,7 +155,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			'form[email]',
 			'  email_with-leading@space.test-o.com'
 		);
-
 		GalleryUtilities::putRequestVariable('form[currentPassword]', 'TestPassword');
 
 		$results = $this->handleRequest();
@@ -319,6 +318,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'test@email.com');
@@ -364,6 +364,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'test@email.com');
@@ -415,6 +416,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'new@email.com');
@@ -466,6 +468,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'new@email.com');
@@ -528,7 +531,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($this->_user2);
-
 		$gallery->setActiveUser($this->_user2);
 
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);

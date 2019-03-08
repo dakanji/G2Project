@@ -223,7 +223,6 @@ if (isset($_REQUEST['clear'], $_REQUEST['target'])) {
 			Occasionally these caches get out of date and need to be deleted.
 			Anything in the cache can be deleted safely!  Gallery will rebuild anything it needs.
 		</h2>
-
 <?php
 if (!empty($status)) {
 	?>
@@ -232,7 +231,6 @@ if (!empty($status)) {
 	foreach ($status as $line) {
 		?>
 			<pre class="<?php echo $line[0]; ?>"><?php echo $line[1]; ?></pre>
-
 		<?php
 	} ?>
 		</div>
@@ -240,7 +238,6 @@ if (!empty($status)) {
 }
 
 ?>
-
 		<?php startForm(); ?>
 		<p>
 		<?php $caches = getCaches(); ?>

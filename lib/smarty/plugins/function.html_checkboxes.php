@@ -48,8 +48,7 @@ function smarty_function_html_checkboxes($params, &$smarty) {
 	$separator = '';
 	$labels    = true;
 	$output    = null;
-
-	$extra = '';
+	$extra     = '';
 
 	foreach ($params as $_key => $_val) {
 		switch ($_key) {

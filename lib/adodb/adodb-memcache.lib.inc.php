@@ -8,7 +8,6 @@ if (!defined('ADODB_DIR')) {
 global $ADODB_INCLUDED_MEMCACHE;
 
 $ADODB_INCLUDED_MEMCACHE = 1;
-
 global $ADODB_INCLUDED_CSV;
 
 if (empty($ADODB_INCLUDED_CSV)) {
@@ -16,7 +15,6 @@ if (empty($ADODB_INCLUDED_CSV)) {
 }
 
 /*
-
   @version   v5.20.12  30-Mar-2018
   @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
   @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
@@ -24,10 +22,8 @@ if (empty($ADODB_INCLUDED_CSV)) {
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
   Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
 Usage:
-
 $db = NewADOConnection($driver);
 $db->memCache = true; /// should we use memCache instead of caching in files
 $db->memCacheHost = array($ip1, $ip2, $ip3);
@@ -35,9 +31,7 @@ $db->memCachePort = 11211; /// this is default memCache port
 $db->memCacheCompress = false; /// Use 'true' to store the item compressed (uses zlib)
 $db->Connect(...);
 $db->CacheExecute($sql);
-
   Note the memcache class is shared by all connections, is created during the first call to Connect/PConnect.
-
   Class instance is stored in $ADODB_CACHE
 */
 class ADODB_Cache_MemCache {

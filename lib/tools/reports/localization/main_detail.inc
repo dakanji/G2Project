@@ -9,7 +9,6 @@
 	  <h3> Generated: <?php echo strftime('%x %X'); ?> <br/>
 	   Most Recent PO: <?php echo strftime('%x %X', $mostRecentPoDate); ?> <br/>
 	   Total Translated Strings: <?php echo $totalTranslated; ?> </h3>
-
 	  <center>
 	View: <a href="?type=summary"> summary </a> | <b> detail </b>
 	<table class="report">
@@ -35,7 +34,6 @@
 			<?php $pluginData = $localeData['plugins'][$plugin]; ?>
 			<?php include __DIR__ . '/plugin_rowdata.inc'; ?>
 		</tr>
-
 			<?php
 			for ($i = 1; $i < sizeof($localeData['plugins']); $i++) {
 				?>

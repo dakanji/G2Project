@@ -104,7 +104,6 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->setActiveUser($this->_userWithAlbum);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -145,7 +144,6 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(empty($albumId), 'Album should not have been created');
-
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -179,7 +177,6 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(isset($albumId), 'Album was not created');
-
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -226,7 +223,6 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		}
 
 		$gallery->setActiveUser($anonymousUser);
-
 		$this->handleRequest(ERROR_PERMISSION_DENIED);
 	}
 
@@ -234,6 +230,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->setConfig('anonymousUserId', $this->_userWithAlbum->getId());
+
 		GalleryUtilities::putRequestVariable('userId', $this->_userWithAlbum->getId());
 
 		$this->handleRequest(ERROR_PERMISSION_DENIED);
@@ -462,6 +459,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(isset($albumId), 'Album was not created');
+
 		$secArray = array(
 			'core.view'        => 1,
 			'core.viewAll'     => 1,
@@ -596,6 +594,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(isset($albumId), 'Album was not created');
+
 		$secArray = array(
 			'core.view'        => 1,
 			'core.viewAll'     => 1,
@@ -753,6 +752,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(isset($albumId), 'Album was not created');
+
 		$secArray = array(
 			'core.view'        => 1,
 			'core.viewAll'     => 1,

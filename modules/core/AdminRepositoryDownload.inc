@@ -21,11 +21,9 @@
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/GalleryRepository.class'
 );
-
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/GalleryRepositoryUtilities.class'
 );
-
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/AdminRepositoryDownloadAndInstallController.class'
 );
@@ -101,8 +99,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 		} elseif (isset($form['action']['download'])) {
 			// Create package list.
 			$installPackages = array();
-
-			$utils = new GalleryRepositoryUtilities();
+			$utils           = new GalleryRepositoryUtilities();
 
 			list($ret, $pluginPackages) = $utils->getPluginPackages($pluginType, $pluginId);
 

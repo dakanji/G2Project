@@ -45,7 +45,6 @@ class RatingCallbackView extends GalleryView {
 	 */
 	public function renderImmediate($status = null, $error = null) {
 		global $gallery;
-
 		GalleryCoreApi::requireOnce('modules/rating/classes/RatingHelper.class');
 
 		list($command, $rating) = GalleryUtilities::getRequestVariables('command', 'rating');

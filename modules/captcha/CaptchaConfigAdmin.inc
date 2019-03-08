@@ -68,8 +68,8 @@ class CaptchaConfigAdminView extends GalleryView {
 		}
 
 		GalleryCoreApi::requireOnce('modules/captcha/classes/CaptchaHelper.class');
-		$gdReport = CaptchaHelper::testRequiredGdFunctions();
 
+		$gdReport = CaptchaHelper::testRequiredGdFunctions();
 		$template->setVariable(
 			'CaptchaConfigAdmin',
 			array(

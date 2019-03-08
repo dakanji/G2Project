@@ -9,7 +9,6 @@
 	  <h3> Generated: <?php echo strftime('%x %X'); ?> <br/>
 	   Most Recent PO: <?php echo strftime('%x %X', $mostRecentPoDate); ?> <br/>
 	   Total Translated Strings: <?php echo $totalTranslated; ?> </h3>
-
 	  <center>
 	View: <b> summary </b> | <a href="?type=detail"> detail </a>
 	<table class="report">

@@ -58,8 +58,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
-
-		$path = substr($fileName, strlen(dirname(dirname(dirname(dirname($fileName))))) + 1);
+		$path     = substr($fileName, strlen(dirname(dirname(dirname(dirname($fileName))))) + 1);
 
 		// Grab Project-Id-Version, which we'll check against this file's peers in finishScan()
 		preg_match('/Project-Id-Version:(.*).."/', $buffer, $matches);
@@ -84,12 +83,14 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 
 		if ($fuzzyPos !== false && $msgIdPos !== false && $fuzzyPos < $msgIdPos) {
 			$this->assertFalse(true, $path . ': first msgid is marked fuzzy!');
+
 			$this->_errorCount++;
 		}
 
 		// Make sure charset header specifies UTF-8
 		if (strpos($buffer, 'Content-Type: text/plain; charset=UTF-8') === false) {
 			$this->assertFalse(true, $path . ': does not specify UTF-8 charset');
+
 			$this->_errorCount++;
 		}
 

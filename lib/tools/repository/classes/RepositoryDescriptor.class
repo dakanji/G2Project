@@ -241,15 +241,14 @@ class RepositoryDescriptor extends RepositoryObject {
 	public function getFileMetaData($pluginDir, &$data) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform     =& $gallery->getPlatform();
 		$manifest     = array();
 		$manifestFile = $pluginDir . 'MANIFEST';
+
 		GalleryUtilities::readIndividualManifest($manifestFile, $manifest);
 
-		$g2Base       = GalleryCoreApi::getCodeBasePath();
-		$ignoreOffset = strlen(substr($pluginDir, strlen($g2Base)));
-
+		$g2Base           = GalleryCoreApi::getCodeBasePath();
+		$ignoreOffset     = strlen(substr($pluginDir, strlen($g2Base)));
 		$manifestContents = $this->filterManifestForBasePackage(
 			$platform->file_get_contents($manifestFile)
 		);
@@ -390,9 +389,8 @@ class RepositoryDescriptor extends RepositoryObject {
 	public function checkIntegrity() {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-		$phpVm    = $gallery->getPhpVm();
-
+		$platform     =& $gallery->getPlatform();
+		$phpVm        = $gallery->getPhpVm();
 		$errors       = array();
 		$manifestPath = $this->_pluginDir . 'MANIFEST';
 

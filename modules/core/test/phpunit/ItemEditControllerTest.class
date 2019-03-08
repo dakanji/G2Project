@@ -55,7 +55,6 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 		$this->_markFactoryForCleanup();
 		$this->_unregisterFactoryImplementationForTest('ItemEditPlugin');
 		$this->_unregisterFactoryImplementationForTest('ItemEditOption');
-
 		$path = 'modules/core/test/phpunit/ItemEditControllerTest.class';
 		$this->_registerFactoryImplementationForTest(
 			'ItemEditPlugin',
@@ -169,7 +168,6 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 			'editPlugin',
 			'ItemEditControllerTestPluginFailAndWarn'
 		);
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 
 		$results = $this->handleRequest();
@@ -214,8 +212,7 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 
 		$gallery->_templateAdapter = new MockTemplateAdapter();
 		$templateAdapter           =& $gallery->getTemplateAdapter();
-
-		$results = $this->handleRequest();
+		$results                   = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -239,6 +236,7 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 		} else {
 			$callback       = $templateAdapter->getCallback(0);
 			$callbackMethod = $callback[0][1];
+
 			$this->assertEquals('runProgressBarOptions', $callbackMethod);
 		}
 	}
@@ -252,13 +250,11 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 			'editPlugin',
 			'ItemEditControllerTestPluginRequiresProgressBar'
 		);
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 
 		$gallery->_templateAdapter = new MockTemplateAdapter();
 		$templateAdapter           =& $gallery->getTemplateAdapter();
-
-		$results = $this->handleRequest();
+		$results                   = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -282,6 +278,7 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 		} else {
 			$callback       = $templateAdapter->getCallback(0);
 			$callbackMethod = $callback[0][1];
+
 			$this->assertEquals('runProgressBarOptions', $callbackMethod);
 		}
 	}

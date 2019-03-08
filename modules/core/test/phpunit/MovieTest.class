@@ -101,7 +101,6 @@ class MovieTest extends GalleryTestCase {
 		$this->_movie->setWidth(1);
 		$this->_movie->setHeight(2);
 		$this->_movie->setDuration(3);
-
 		$_REQUEST['toolkitError'] = ERROR_TOOLKIT_FAILURE;
 
 		$ret = $this->_movie->rescan();
@@ -119,7 +118,6 @@ class MovieTest extends GalleryTestCase {
 		$this->_movie->setWidth(1);
 		$this->_movie->setHeight(2);
 		$this->_movie->setDuration(3);
-
 		$_REQUEST['toolkitError'] = ERROR_STORAGE_FAILURE;
 
 		$ret = $this->_movie->rescan();

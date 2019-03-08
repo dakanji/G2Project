@@ -8,10 +8,8 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
   Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   Library for basic performance monitoring and tuning
-
 */
 
 // security - hide paths
@@ -30,8 +28,7 @@ class perf_db2 extends adodb_perf {
 		  tracer varchar(500) NOT NULL,
 		  timer decimal(16,6) NOT NULL
 		)';
-
-	public $settings = array(
+	public $settings       = array(
 		'Ratios',
 		'data cache hit ratio' => array(
 			'RATIO',
@@ -41,7 +38,6 @@ class perf_db2 extends adodb_perf {
 				FROM TABLE(SNAPSHOT_APPL('',-2)) as t",
 			'=WarnCacheRatio',
 		),
-
 		'Data Cache',
 		'data cache buffers'   => array(
 			'DATAC',
@@ -64,7 +60,6 @@ class perf_db2 extends adodb_perf {
 			"SELECT count(*) FROM TABLE(SNAPSHOT_APPL_INFO('',-2)) as t",
 			'',
 		),
-
 		false,
 	);
 
@@ -107,7 +102,6 @@ class perf_db2 extends adodb_perf {
 		$s = ob_get_contents();
 		ob_end_clean();
 		$this->conn->LogSQL($save);
-
 		$s .= $this->Tracer($sql);
 
 		return $s;

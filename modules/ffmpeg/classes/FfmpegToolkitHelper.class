@@ -64,14 +64,12 @@ class FfmpegToolkitHelper {
 
 		// -------------------- Operations --------------------
 		// extract
-		$operations['convert-to-image/jpeg']['params'] = array();
-
+		$operations['convert-to-image/jpeg']['params']      = array();
 		$operations['convert-to-image/jpeg']['description'] = $gallery->i18n(
 			'Convert to a JPEG'
 		);
 
-		$operations['convert-to-image/jpeg']['mimeTypes'] = $mimeTypes;
-
+		$operations['convert-to-image/jpeg']['mimeTypes']      = $mimeTypes;
 		$operations['convert-to-image/jpeg']['outputMimeType'] = 'image/jpeg';
 
 		if ($supportsOffset) {
@@ -90,14 +88,12 @@ class FfmpegToolkitHelper {
 
 		// Convert to Flash Video
 		if (in_array('video/x-flv', $mimeTypesEncoder)) {
-			$operations['convert-to-video/x-flv']['params'] = array();
-
+			$operations['convert-to-video/x-flv']['params']      = array();
 			$operations['convert-to-video/x-flv']['description'] = $gallery->i18n(
 				'Convert to Flash Video'
 			);
 
-			$operations['convert-to-video/x-flv']['mimeTypes'] = $mimeTypes;
-
+			$operations['convert-to-video/x-flv']['mimeTypes']      = $mimeTypes;
 			$operations['convert-to-video/x-flv']['outputMimeType'] = 'video/x-flv';
 
 			// set-video-dimensions
@@ -116,8 +112,7 @@ class FfmpegToolkitHelper {
 				'Set video dimensions'
 			);
 
-			$operations['set-video-dimensions']['mimeTypes'] = $mimeTypes;
-
+			$operations['set-video-dimensions']['mimeTypes']      = $mimeTypes;
 			$operations['set-video-dimensions']['outputMimeType'] = null;
 
 			// set-video-framerate
@@ -134,18 +129,14 @@ class FfmpegToolkitHelper {
 				'Set video frames per second property'
 			);
 
-			$operations['set-video-framerate']['mimeTypes'] = $mimeTypes;
-
+			$operations['set-video-framerate']['mimeTypes']      = $mimeTypes;
 			$operations['set-video-framerate']['outputMimeType'] = null;
-
-			$operations['set-video-sameq']['params'] = array();
-
-			$operations['set-video-sameq']['description'] = $gallery->i18n(
+			$operations['set-video-sameq']['params']             = array();
+			$operations['set-video-sameq']['description']        = $gallery->i18n(
 				'Set same video quality'
 			);
 
-			$operations['set-video-sameq']['mimeTypes'] = $mimeTypes;
-
+			$operations['set-video-sameq']['mimeTypes']      = $mimeTypes;
 			$operations['set-video-sameq']['outputMimeType'] = null;
 
 			// If mp3 audio supported
@@ -164,8 +155,7 @@ class FfmpegToolkitHelper {
 					'Set audio channels property'
 				);
 
-				$operations['set-audio-channels']['mimeTypes'] = $mimeTypes;
-
+				$operations['set-audio-channels']['mimeTypes']      = $mimeTypes;
 				$operations['set-audio-channels']['outputMimeType'] = null;
 
 				// set-audio-samplerate
@@ -182,48 +172,38 @@ class FfmpegToolkitHelper {
 					'Set audio rate property'
 				);
 
-				$operations['set-audio-samplerate']['mimeTypes'] = $mimeTypes;
-
+				$operations['set-audio-samplerate']['mimeTypes']      = $mimeTypes;
 				$operations['set-audio-samplerate']['outputMimeType'] = null;
 			}
 		}
 
 		// -------------------- Properties --------------------
 		// Dimensions
-		$properties['dimensions']['type'] = 'int,int';
-
+		$properties['dimensions']['type']        = 'int,int';
 		$properties['dimensions']['description'] = $gallery->i18n(
 			'Get the width and height of the movie'
 		);
 
-		$properties['dimensions']['mimeTypes'] = $mimeTypes;
-
-		$properties['dimensions-and-duration']['type'] = 'int,int,float';
-
+		$properties['dimensions']['mimeTypes']                = $mimeTypes;
+		$properties['dimensions-and-duration']['type']        = 'int,int,float';
 		$properties['dimensions-and-duration']['description'] = $gallery->i18n(
 			'Get the width, height and duration of the movie'
 		);
 
 		$properties['dimensions-and-duration']['mimeTypes'] = $mimeTypes;
-
-		$properties['video-framerate']['type'] = 'float';
-
-		$properties['video-framerate']['description'] = $gallery->i18n(
+		$properties['video-framerate']['type']              = 'float';
+		$properties['video-framerate']['description']       = $gallery->i18n(
 			'Get video frames per second of the movie'
 		);
 
-		$properties['video-framerate']['mimeTypes'] = $mimeTypes;
-
-		$properties['audio-samplerate']['type'] = 'int';
-
+		$properties['video-framerate']['mimeTypes']    = $mimeTypes;
+		$properties['audio-samplerate']['type']        = 'int';
 		$properties['audio-samplerate']['description'] = $gallery->i18n(
 			'Get audio samples per second of the movie'
 		);
 
 		$properties['audio-samplerate']['mimeTypes'] = $mimeTypes;
-
-		$properties['audio-channels']['type'] = 'int';
-
+		$properties['audio-channels']['type']        = 'int';
 		$properties['audio-channels']['description'] = $gallery->i18n(
 			'Get number of audio channels in movie'
 		);
@@ -330,9 +310,8 @@ class FfmpegToolkitHelper {
 		$mimeTypes          = array();
 		$mimeTypesEncoder   = array();
 		$encoderAudioCodecs = array();
-
-		$success = false;
-		$i       = 0;
+		$success            = false;
+		$i                  = 0;
 
 		while ($i < sizeof($results)) {
 			$resultLine = $results[$i++];

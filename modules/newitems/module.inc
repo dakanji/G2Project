@@ -44,7 +44,6 @@ class NewItemsModule extends GalleryModule {
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
-
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getSiteAdminViews|getItemSummaries');
 	}
@@ -127,14 +126,12 @@ class NewItemsModule extends GalleryModule {
 			return array($ret, null);
 		}
 
-		$time        = time();
-		$newTime     = $time - $param['days.new']     * 86400;
-		$updatedTime = $time - $param['days.updated'] * 86400;
-
+		$time          = time();
+		$newTime       = $time - $param['days.new']     * 86400;
+		$updatedTime   = $time - $param['days.updated'] * 86400;
 		$newString     = $this->translate('New');
 		$updatedString = $this->translate('Updated');
-
-		$summaries = array();
+		$summaries     = array();
 
 		foreach ($items as $item) {
 			if ($param['days.new'] > 0 && $item->getCreationTimestamp() > $newTime) {

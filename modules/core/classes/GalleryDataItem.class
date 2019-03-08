@@ -158,7 +158,6 @@ class GalleryDataItem extends GalleryItem {
 
 		// Set the mime type before we call the parent so that it can use this info if necessary
 		$this->setMimeType($mimeType);
-
 		$baseName = !empty($targetName) ? $targetName : basename($inputFileName);
 
 		$ret = parent::create($parentId, $baseName);
@@ -313,6 +312,7 @@ class GalleryDataItem extends GalleryItem {
 		}
 
 		$this->setSize($platform->filesize($path));
+
 		GalleryCoreApi::deleteFastDownloadFileById($this->getId());
 
 		return null;

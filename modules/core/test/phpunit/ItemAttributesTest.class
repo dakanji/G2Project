@@ -232,8 +232,7 @@ class ItemAttributesTest extends GalleryTestCase {
 
 		$gallery->_phpVm   = new ItemAttributesTestPhpVm();
 		$gallery->_session = new ItemAttributesTestSession();
-
-		$session =& $gallery->_session;
+		$session           =& $gallery->_session;
 
 		$ret = GalleryCoreApi::setItemViewCount($this->_items[0]->getId(), 0);
 
@@ -291,7 +290,6 @@ class ItemAttributesTest extends GalleryTestCase {
 
 		$gallery->_phpVm   = new ItemAttributesTestPhpVm(false, array(), time());
 		$gallery->_session = new ItemAttributesTestSession(false, true);
-
 		$this->_becomeGuestUser();
 		unset($_SERVER['HTTP_IF_MODIFIED_SINCE']);
 
@@ -325,7 +323,6 @@ class ItemAttributesTest extends GalleryTestCase {
 		$now               = time();
 		$gallery->_phpVm   = new ItemAttributesTestPhpVm(false, array(), $now);
 		$gallery->_session = new ItemAttributesTestSession(false, false);
-
 		$this->_becomeGuestUser();
 		unset($_SERVER['HTTP_IF_MODIFIED_SINCE']);
 
@@ -362,7 +359,6 @@ class ItemAttributesTest extends GalleryTestCase {
 
 		$gallery->_phpVm   = new ItemAttributesTestPhpVm();
 		$gallery->_session = new ItemAttributesTestSession(false);
-
 		$this->_becomeGuestUser();
 		$_SERVER['HTTP_IF_MODIFIED_SINCE'] = 'something';
 
@@ -398,7 +394,6 @@ class ItemAttributesTest extends GalleryTestCase {
 		);
 
 		$gallery->_session = new ItemAttributesTestSession(false);
-
 		$this->_becomeGuestUser();
 		unset($_SERVER['HTTP_IF_MODIFIED_SINCE']);
 
@@ -433,8 +428,7 @@ class ItemAttributesTest extends GalleryTestCase {
 			)
 		);
 
-		$gallery->_session = new ItemAttributesTestSession();
-
+		$gallery->_session                 = new ItemAttributesTestSession();
 		$asdminUserId                      = $gallery->getActiveUserId();
 		$_SERVER['HTTP_IF_MODIFIED_SINCE'] = 'foobar';
 
@@ -794,8 +788,7 @@ class ItemAttributesTest extends GalleryTestCase {
 
 		$session                 =& $gallery->getSession();
 		$this->_saveSessionPerms = $session->get(GALLERY_PERMISSION_SESSION_KEY);
-
-		$itemId = $this->_items[1]->getId();
+		$itemId                  = $this->_items[1]->getId();
 
 		$ret = GalleryCoreApi::removeItemPermissions($itemId);
 

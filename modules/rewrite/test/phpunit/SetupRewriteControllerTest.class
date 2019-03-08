@@ -337,6 +337,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
  * @subpackage PHPUnit
  */
 GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteParser.class');
+
 class SetupRewriteMockParser extends RewriteParser {
 	public function __construct() {
 		$this->_setParserId('setuprewritemock');

@@ -800,9 +800,8 @@ class GalleryRepository {
 			return array($ret, null, null);
 		}
 
-		$packageUrls = $pluginDownloadData['files'];
-		$pluginName  = $pluginDownloadData['name'];
-
+		$packageUrls   = $pluginDownloadData['files'];
+		$pluginName    = $pluginDownloadData['name'];
 		$preparingText = $module->translate(
 			array(
 				'text' => 'Preparing %s',
@@ -1200,9 +1199,8 @@ class GalleryRepository {
 	public function downloadAndUnpackPackages($filesToDownload, &$callback) {
 		global $gallery;
 
-		$phpVm    = $gallery->getPhpVm();
-		$platform =& $gallery->getPlatform();
-
+		$phpVm     = $gallery->getPhpVm();
+		$platform  =& $gallery->getPlatform();
 		$utilities = $this->_utilities;
 
 		list($ret, $aggregateFile) = $utilities->downloadAggregatePackages(
@@ -1257,8 +1255,7 @@ class GalleryRepository {
 				}
 
 				$pluginOutputDir = GalleryCoreApi::getCodeBasePath("{$pluginType}s/$pluginId/");
-
-				$descriptor = $data['descriptor'];
+				$descriptor      = $data['descriptor'];
 
 				foreach ($data['files'] as $packageFile) {
 					$gallery->guaranteeTimeLimit(30);
@@ -1397,11 +1394,10 @@ class GalleryRepository {
 	public function removeObsoleteFiles($pluginType, $pluginId) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform     =& $gallery->getPlatform();
 		$manifestPath = GalleryCoreApi::getCodeBasePath("{$pluginType}s/$pluginId/MANIFEST");
+		$manifest     = array();
 
-		$manifest = array();
 		GalleryUtilities::readIndividualManifest($manifestPath, $manifest);
 
 		foreach ($manifest as $file => $detail) {

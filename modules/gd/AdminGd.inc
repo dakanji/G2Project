@@ -145,8 +145,7 @@ class AdminGdView extends GalleryView {
 		}
 
 		$minGdVersion = GdToolkitHelper::minGdVersion();
-
-		$mimeTypes = array();
+		$mimeTypes    = array();
 
 		if ($isGdVersionSupported) {
 			list($ret, $mimeTypes) = GdToolkitHelper::discoverMimeTypes();
@@ -176,7 +175,6 @@ class AdminGdView extends GalleryView {
 		$AdminGd['gdVersion']       = $gdVersion;
 		$AdminGd['isGdBundled']     = $isGdBundled;
 		$AdminGd['isConfigure']     = !$isActive;
-
 		$template->setVariable('AdminGd', $AdminGd);
 		$template->setVariable('controller', 'gd.AdminGd');
 

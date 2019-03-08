@@ -40,7 +40,6 @@ class ItemCreateReplicaSingleController extends GalleryController {
 		}
 
 		$itemId = $item->getId();
-
 		$status = $error = array();
 
 		if (isset($form['action']['link'])) {
@@ -213,7 +212,6 @@ class ItemCreateReplicaSingleView extends GalleryView {
 		$ItemCreateReplicaSingle                  = array();
 		$ItemCreateReplicaSingle['albumTree']     = GalleryUtilities::createAlbumTree($albums);
 		$ItemCreateReplicaSingle['itemTypeNames'] = $item->itemTypeName();
-
 		$template->setVariable('ItemCreateReplicaSingle', $ItemCreateReplicaSingle);
 		$template->setVariable('controller', 'replica.ItemCreateReplicaSingle');
 		$template->javascript('lib/yui/yahoo-dom-event.js');

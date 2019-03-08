@@ -36,6 +36,7 @@ if (php_sapi_name() == 'cli') {
 
 	for ($i = 1; $i < count($argv); $i++) {
 		$arg = explode('=', $argv[$i]);
+
 		GalleryUtilities::putRequestVariable($arg[0], $arg[1], false);
 	}
 }
@@ -125,7 +126,6 @@ function RepositoryToolsMain() {
 	}
 
 	$gallery->setUrlGenerator($urlGenerator);
-
 	$platform =& $gallery->getPlatform();
 
 	if (!$isSiteAdmin || !$platform->file_exists($controllerPath)) {

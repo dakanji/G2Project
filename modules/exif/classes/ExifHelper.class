@@ -216,7 +216,6 @@ class ExifHelper {
 
 		if ($gallery->getDebug()) {
 			$buf = print_r($rawExifData, true);
-
 			$gallery->debug(str_replace("\0", '', $buf));
 		}
 	}
@@ -257,13 +256,9 @@ class ExifHelper {
 		if ($gallery->getDebug()) {
 			// Capture old-school print_r() to support older PHP
 			ob_start();
-
 			print_r($result->getRawInfo());
-
 			$buf = ob_get_contents();
-
 			ob_end_clean();
-
 			$gallery->debug(str_replace("\0", '', $buf));
 		}
 
@@ -282,7 +277,6 @@ class ExifHelper {
 	 */
 	public static function getExifData($path, $viewMode) {
 		$rawExifData = array();
-
 		self::_fetchRawExifData($path, $rawExifData);
 
 		list($ret, $iptcObj) = self::getIptcObject($path);
@@ -292,8 +286,7 @@ class ExifHelper {
 		}
 
 		$exifKeys = self::getExifKeys();
-
-		$results = array();
+		$results  = array();
 
 		list($ret, $properties) = self::getProperties($viewMode);
 
@@ -306,8 +299,7 @@ class ExifHelper {
 
 			for ($i = 1; $i < sizeof($exifKeys[$property]); $i++) {
 				$keyPath = explode('.', $exifKeys[$property][$i]);
-
-				$value = self::getExifValue($rawExifData, $keyPath);
+				$value   = self::getExifValue($rawExifData, $keyPath);
 
 				if (!isset($value)) {
 					$value = self::getIptcValue($iptcObj, $keyPath);
@@ -367,8 +359,7 @@ class ExifHelper {
 					}
 
 					$platform =& $gallery->getPlatform();
-
-					$value = $platform->strftime($format, $value);
+					$value    = $platform->strftime($format, $value);
 				}
 
 				break;
@@ -410,7 +401,6 @@ class ExifHelper {
 	 */
 	public static function getOriginationTimestamp($path) {
 		$rawExifData = array();
-
 		self::_fetchRawExifData($path, $rawExifData);
 
 		/*
@@ -644,7 +634,6 @@ class ExifHelper {
 	 */
 	public static function getExifKeys() {
 		global $gallery;
-
 		static $data;
 
 		if (!empty($data)) {

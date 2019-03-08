@@ -146,9 +146,8 @@ class GalleryRepositoryUtilities {
 			return 'equal';
 		}
 
-		$revision1 = explode('.', $revision1);
-		$revision2 = explode('.', $revision2);
-
+		$revision1    = explode('.', $revision1);
+		$revision2    = explode('.', $revision2);
 		$subRevisions = max(count($revision1), count($revision2));
 
 		for ($i = 0; $i < $subRevisions; $i ++) {
@@ -326,6 +325,7 @@ class GalleryRepositoryUtilities {
 			 * is typically called from controller code.
 			 */
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
+
 			$providedPluginApi = $pluginType == 'module' ? GalleryModule::getMe()->getApiVersion() : GalleryTheme::getMe()->getApiVersion();
 		} else {
 			$providedCoreApi[0]   = (int)$providedApis['core'][0];
@@ -547,10 +547,8 @@ class GalleryRepositoryUtilities {
 	public function preVerifyPackage($pluginType, $pluginId, $packageName, $descriptor) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
-		$errorMessages = array();
-
+		$platform        =& $gallery->getPlatform();
+		$errorMessages   = array();
 		$pluginOutputDir = sprintf(
 			'%s%ss/%s/',
 			GalleryCoreApi::getCodeBasePath(),
@@ -614,8 +612,7 @@ class GalleryRepositoryUtilities {
 	public function verifyPackageIntegrity($pluginType, $pluginId, $packageName, $descriptor) {
 		global $gallery;
 
-		$errorMessages = array();
-
+		$errorMessages   = array();
 		$pluginOutputDir = sprintf(
 			'%s%ss/%s/',
 			GalleryCoreApi::getCodeBasePath(),
@@ -701,7 +698,6 @@ class GalleryRepositoryUtilities {
 
 		$platform =& $gallery->getPlatform();
 		$phpVm    = $gallery->getPhpVm();
-
 		$packages = array(
 			'module' => array(),
 			'theme'  => array(),
@@ -718,8 +714,7 @@ class GalleryRepositoryUtilities {
 		// Sample: file: modules/albumselect-1.0.10-12345.descriptor.gz 12345
 		$descriptorPattern = '#^file:\s+((module|theme)s/([a-zA-Z0-9]+)-(?:\.?\d+){2,}-\d+'
 		. '\.descriptor)(\.gz)?\s+(\d+)$#';
-
-		$handle = $platform->fopen($outputFile, 'r');
+		$handle            = $platform->fopen($outputFile, 'r');
 
 		if (empty($handle)) {
 			return array(
@@ -737,7 +732,6 @@ class GalleryRepositoryUtilities {
 
 		while (($line = $platform->fgets($handle, 4096)) !== false) {
 			$gallery->guaranteeTimeLimit(30);
-
 			$line = trim($line);
 
 			if (preg_match($languagePackPattern, $line, $matches)) {
@@ -852,6 +846,7 @@ class GalleryRepositoryUtilities {
 
 		if (empty($apiQueryParams)) {
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
+
 			$apiQueryParams = sprintf(
 				'coreApi=%s&moduleApi=%s&themeApi=%s',
 				join('.', GalleryCoreApi::getApiVersion()),
@@ -902,7 +897,6 @@ class GalleryRepositoryUtilities {
 
 		$url  = $gallery->getConfig('repository.url') . $source . '/multipart/';
 		$url .= '?' . $this->_getApiQueryParams();
-
 		$gallery->guaranteeTimeLimit(60);
 
 		list($success, $response, $headers, $location) = GalleryCoreApi::fetchWebFile($url, $outputFile, array(), $postDataArray);

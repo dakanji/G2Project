@@ -4,13 +4,10 @@
   (c) 2000-2014 John Lim (jlim#natsoft.com.my). All rights reserved.
   Portions Copyright (c) 2007-2009, iAnywhere Solutions, Inc.
   All rights reserved. All unpublished rights reserved.
-
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
-
 Set tabs to 4 for best viewing.
-
 NOTE: This driver requires the Advantage PHP client libraries, which
 	  can be downloaded for free via:
 	  http://devzone.advantagedatabase.com/dz/content.aspx?key=20
@@ -32,7 +29,6 @@ DELPHI FOR PHP USERS:
 		5 - (optional) - Modify the Delphi for PHP\X.X\vcl\packages\database.packages.php
 			file and add ads to the list of strings returned when registering the
 			Database object's DriverName property.
-
 */
 
 // security - hide paths
@@ -139,8 +135,7 @@ class ADODB_ads extends ADOConnection {
 			if (!$res) {
 				echo $this->ErrorMsg();
 			} else {
-				$ret['version'] = $res->fields[3];
-
+				$ret['version']     = $res->fields[3];
 				$ret['description'] = 'Advantage Database Server';
 
 				return $ret;
@@ -389,13 +384,11 @@ class ADODB_ads extends ADOConnection {
 	#define SQL_DATETIME    9
 	#endif
 	#define SQL_VARCHAR   12
-
 	/ One-parameter shortcuts for date/time data types /
 	#if (ODBCVER >= 0x0300)
 	#define SQL_TYPE_DATE   91
 	#define SQL_TYPE_TIME   92
 	#define SQL_TYPE_TIMESTAMP 93
-
 	#define SQL_UNICODE                             (-95)
 	#define SQL_UNICODE_VARCHAR                     (-96)
 	#define SQL_UNICODE_LONGVARCHAR                 (-97)
@@ -453,7 +446,6 @@ class ADODB_ads extends ADOConnection {
 
 		$schema = '';
 		$this->_findschema($table, $schema);
-
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
@@ -464,7 +456,6 @@ class ADODB_ads extends ADOConnection {
 		if (!$rs) return false;
 		$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
 		$rs->_fetch();
-
 		while (!$rs->EOF) {
 		if ($table == strtoupper($rs->fields[2])) {
 		  $q = $rs->fields[0];
@@ -476,7 +467,6 @@ class ADODB_ads extends ADOConnection {
 		}
 
 		$rs->Close();
-
 		$qid = ads_columns($this->_connectionID,$q,$o,strtoupper($table),'%');
 		} */
 		switch ($this->databaseType) {
@@ -514,7 +504,6 @@ class ADODB_ads extends ADOConnection {
 
 		$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
 		$rs->_fetch();
-
 		$retarr = array();
 
 		/*
@@ -683,9 +672,7 @@ class ADODB_ads extends ADOConnection {
 	/*
 	Insert a null into the blob field of the table first.
 	Then use UpdateBlob to store the blob.
-
 	Usage:
-
 	$conn->Execute('INSERT INTO blobtable (id, blobcol) VALUES (1, null)');
 	$conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
 	*/
@@ -744,8 +731,7 @@ class ADORecordSet_ads extends ADORecordSet {
 		}
 
 		$this->fetchMode = $mode;
-
-		$this->_queryID = $id;
+		$this->_queryID  = $id;
 
 		// the following is required for mysql odbc driver in 4.3.1 -- why?
 		$this->EOF         = false;

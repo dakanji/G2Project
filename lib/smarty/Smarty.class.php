@@ -1543,8 +1543,7 @@ class Smarty {
 			include_once $this->compiler_file;
 		}
 
-		$smarty_compiler = new $this->compiler_class();
-
+		$smarty_compiler                           = new $this->compiler_class();
 		$smarty_compiler->template_dir             = $this->template_dir;
 		$smarty_compiler->compile_dir              = $this->compile_dir;
 		$smarty_compiler->plugins_dir              = $this->plugins_dir;
@@ -1573,8 +1572,7 @@ class Smarty {
 		}
 
 		$smarty_compiler->_cache_include = $cache_include_path;
-
-		$_results = $smarty_compiler->_compile_file($resource_name, $source_content, $compiled_content);
+		$_results                        = $smarty_compiler->_compile_file($resource_name, $source_content, $compiled_content);
 
 		if ($smarty_compiler->_cache_serial) {
 			$this->_cache_include_info = array(
@@ -1979,7 +1977,6 @@ class Smarty {
 		// config vars are treated as local, so push a copy of the
 		// current ones onto the front of the stack
 		array_unshift($this->_config, $this->_config[0]);
-
 		$_smarty_compile_path = $this->_get_compile_path($params['smarty_include_tpl_file']);
 
 		if ($this->_is_compiled($params['smarty_include_tpl_file'], $_smarty_compile_path)
@@ -1990,7 +1987,6 @@ class Smarty {
 
 		// pop the local vars off the front of the stack
 		array_shift($this->_config);
-
 		$this->_inclusion_depth--;
 
 		if ($this->debugging) {

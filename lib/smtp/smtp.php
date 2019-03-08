@@ -47,8 +47,7 @@ function server_parse(&$socket, $response) {
 function smtpmail($config, $to, $subject, $body, $headers = null) {
 	// Fix any bare linefeeds in the message to make it RFC821 Compliant.
 	$body = preg_replace("#(?<!\r)\n#si", "\r\n", $body);
-
-	$cc = $bcc = array();
+	$cc   = $bcc   = array();
 
 	if (isset($headers)) {
 		$headers = rtrim($headers);

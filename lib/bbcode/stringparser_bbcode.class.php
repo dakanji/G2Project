@@ -38,11 +38,9 @@ define('BBCODE_CLOSETAG_OPTIONAL', 0);
 define('BBCODE_CLOSETAG_IMPLICIT', 1);
 define('BBCODE_CLOSETAG_IMPLICIT_ON_CLOSE_ONLY', 2);
 define('BBCODE_CLOSETAG_MUSTEXIST', 3);
-
 define('BBCODE_NEWLINE_PARSE', 0);
 define('BBCODE_NEWLINE_IGNORE', 1);
 define('BBCODE_NEWLINE_DROP', 2);
-
 define('BBCODE_PARAGRAPH_ALLOW_BREAKUP', 0);
 define('BBCODE_PARAGRAPH_ALLOW_INSIDE', 1);
 define('BBCODE_PARAGRAPH_BLOCK_ELEMENT', 2);
@@ -1055,12 +1053,10 @@ class StringParser_BBCode extends StringParser {
 			return false;
 		}
 
-		$closecount = 0;
-
+		$closecount         = 0;
 		$allowed_within     = $this->_codes[$name]['allowed_within'];
 		$not_allowed_within = $this->_codes[$name]['not_allowed_within'];
-
-		$scount = count($this->_stack);
+		$scount             = count($this->_stack);
 
 		if ($scount == 2) { // top level element
 			if (!in_array($this->_rootContentType, $allowed_within)) {
@@ -2050,7 +2046,6 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 			// ELSE WE WILL ERASE THE NODE ITSELF! EVIL!
 			if ($ret->_type != STRINGPARSER_NODE_TEXT && !$ret->hadCloseTag()) {
 				$ret2 =& $ret->_findPrevAdjentTextNodeHelper();
-
 				unset($ret);
 
 				$ret =& $ret2;

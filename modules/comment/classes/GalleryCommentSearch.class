@@ -192,8 +192,7 @@ class GalleryCommentSearch extends GallerySearchInterface_1_0 {
 		$text['comment']   = $module->translate('Comment');
 		$text['commenter'] = $module->translate('Commenter');
 		$text['guest']     = $module->translate('guest');
-
-		$searchResults = array();
+		$searchResults     = array();
 
 		while ($result = $results->nextResult()) {
 			$fields   = array();

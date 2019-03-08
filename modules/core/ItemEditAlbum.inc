@@ -408,7 +408,6 @@ class ItemEditAlbum extends ItemEditPlugin {
 		$ItemEditAlbum['orderByList']        = $orderByList;
 		$ItemEditAlbum['presortList']        = $presortList;
 		$ItemEditAlbum['orderDirectionList'] = $orderDirectionList;
-
 		$template->setVariable('ItemEditAlbum', $ItemEditAlbum);
 		$template->setVariable('controller', 'core.ItemEditAlbum');
 
@@ -532,9 +531,8 @@ class ItemEditAlbum extends ItemEditPlugin {
 								$matches
 							)
 						) {
-							$width  = $matches[1];
-							$height = empty($matches[2]) ? $width : $matches[2];
-
+							$width                   = $matches[1];
+							$height                  = empty($matches[2]) ? $width : $matches[2];
 							$resizePrefs[$albumId][] = array(
 								'operations' => $preference['derivativeOperations'],
 								'width'      => $width,

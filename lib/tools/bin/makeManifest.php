@@ -88,10 +88,8 @@ function makeManifest($filterPath = '') {
 	// Just so we are consistent lets standardize on Unix path sepearators
 	$baseDir = str_replace('\\', '/', $baseDir);
 	$baseDir .= substr($baseDir, -1) == '/' ? '' : '/';
-
 	quiet_print('Finding all files...');
 	$entries = listSvn($filterPath);
-
 	quiet_print('Sorting...');
 	sort($entries);
 
@@ -129,7 +127,6 @@ function makeManifest($filterPath = '') {
 
 		$newContent = '# $Revi' . "sion: $oldRevision\$$nl";
 		$newContent .= "# File crc32 crc32(crlf) size size(crlf)  or  R File$nl";
-
 		$deleted = $seen = array();
 
 		foreach ($entries as $entry) {
@@ -146,7 +143,6 @@ function makeManifest($filterPath = '') {
 				$fileSize                = filesize($file);
 				$data                    = fread($fileHandle, $fileSize);
 				fclose($fileHandle);
-
 				$data_crlf = $data;
 
 				if ($isBinary) {
@@ -219,8 +215,7 @@ function makeManifest($filterPath = '') {
  * @return array List of SVN entries
  */
 function listSvn($filterpath) {
-	$entries = array();
-
+	$entries    = array();
 	$binaryList = array();
 	exec("svn propget --non-interactive -R svn:mime-type $filterpath", $output);
 
@@ -258,8 +253,7 @@ function listSvn($filterpath) {
 			die("Check {$matches[1]} status for {$matches[2]}");
 		}
 
-		$status = $matches[1] === 'D' ? 'deleted:' : '';
-
+		$status    = $matches[1] === 'D' ? 'deleted:' : '';
 		$file      = str_replace('\\', '/', $matches[2]);
 		$entries[] = sprintf('%s%s@@%d', $status, $file, isset($binaryList[$file]));
 	}

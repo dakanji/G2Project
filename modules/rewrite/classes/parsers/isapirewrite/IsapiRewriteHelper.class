@@ -260,8 +260,7 @@ class IsapiRewriteHelper {
 	public static function getHttpdiniContent($regexRules, $embedded = false) {
 		global $gallery;
 
-		$urlGenerator =& $gallery->getUrlGenerator();
-
+		$urlGenerator          =& $gallery->getUrlGenerator();
 		$Httpdini              = array();
 		$Httpdini['galleryId'] = GALLERY_CONFIG_DIR;
 
@@ -490,6 +489,7 @@ class IsapiRewriteHelper {
 
 		// Render template
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$template = new GalleryTemplate(__DIR__ . '/../../../templates', true, false);
 		$template->setVariable('Httpdini', $Httpdini);
 		$template->setVariable('l10Domain', 'modules_rewrite');
@@ -773,7 +773,6 @@ class IsapiRewriteHelper {
 
 		$AdminParser['action']   = 1;
 		$AdminParser['template'] = 'modules/rewrite/templates/IsapiRewriteAdminParser.tpl';
-
 		$template->setVariable('AdminParser', $AdminParser);
 
 		return null;

@@ -119,7 +119,6 @@ class WatermarkTest extends GalleryTestCase {
 			isset($watermarks[$this->_watermark->getId()]),
 			'Watermark doesn\'t appear when it should'
 		);
-
 		$this->assertEquals($this->_watermark, $watermarks[$this->_watermark->getId()]);
 	}
 
@@ -346,6 +345,7 @@ class WatermarkTest extends GalleryTestCase {
 
 		if (!empty($table[$item->getId()])) {
 			$preferred = $table[$item->getId()];
+
 			$this->assertEquals($filter, $preferred->getPostFilterOperations());
 
 			// Verify that the thumb/resizes are remapped to the preferred

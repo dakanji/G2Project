@@ -180,7 +180,6 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 	 */
 	public function _parseShortUrl(&$url, &$params, $options, $functions) {
 		$entity = null;
-
 		preg_match_all('/%([a-zA-Z]+)%/', $url, $regs);
 
 		foreach ($regs[1] as $arg) {

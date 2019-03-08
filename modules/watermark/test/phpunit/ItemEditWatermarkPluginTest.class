@@ -389,6 +389,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 
 	public function testBulkWatermark() {
 		$this->_registerTestToolkit('test/file');
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[whichDerivative][thumbnail]', 1);
 		GalleryUtilities::putRequestVariable('form[whichDerivative][resize]', 1);
@@ -402,6 +403,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 
 	public function testBulkWatermarkRecursive() {
 		$this->_registerTestToolkit('test/file');
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[whichDerivative][resize]', 1);
 		GalleryUtilities::putRequestVariable('form[whichDerivative][preferred]', 1);
@@ -416,6 +418,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 	public function _runBulkTest($message, $recursive, $applyToThumbnail, $location, $isApply = true) {
 		$preferred = null;
 		$results   = $this->handleRequest($this->_album, $preferred);
+
 		$this->assertEquals(array(array(), $this->_translate($message)), $results);
 		$this->assertEquals(1, $this->_templateAdapter->getCallbackCount(), 'Callback count');
 
@@ -556,6 +559,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->_registerTestToolkit('test/file');
+
 		$this->assertTrue($this->_plugin->isSupported($this->_item, $this->_thumbnail), 'admin');
 
 		$this->_becomeGuestUser();
@@ -573,6 +577,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		$this->assertTrue(!$this->_plugin->isSupported($this->_item, $this->_thumbnail), 'non admin');
 
 		GalleryUtilities::putRequestVariable('form[action][remove]', 1);
+
 		$results = $this->handleRequest($this->_item, $this->_preferred, ERROR_PERMISSION_DENIED);
 	}
 

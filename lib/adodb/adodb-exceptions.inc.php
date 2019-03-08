@@ -19,7 +19,6 @@ if (!defined('ADODB_ERROR_HANDLER_TYPE')) {
 }
 
 define('ADODB_ERROR_HANDLER', 'adodb_throw');
-
 class ADODB_Exception extends Exception {
 	public $dbms;
 	public $fn;

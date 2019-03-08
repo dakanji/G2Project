@@ -66,8 +66,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
-
-		$results = $this->handleRequest();
+		$results                   = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -83,6 +82,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(1, $mockAdapter->getCallbackCount());
 
 		$callback = $mockAdapter->getCallback(0);
+
 		$this->assertEquals(array($this->_controller, 'updatePluginStatus'), $callback[0]);
 	}
 
@@ -94,7 +94,6 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 			'form[repositories][experimental]',
 			'<script>something malicious</script>'
 		);
-
 		GalleryUtilities::putRequestVariable('form[repositories][experimental]', 'experimental');
 		GalleryUtilities::putRequestVariable('form[repositories][community]', 'checked');
 		GalleryUtilities::putRequestVariable('form[repositories][something_else]', 1);
@@ -115,8 +114,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
-
-		$results = $this->handleRequest();
+		$results                   = $this->handleRequest();
 		$this->assertEquals(
 			array(
 				'delegate' => array(

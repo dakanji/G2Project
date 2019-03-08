@@ -8,7 +8,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
 Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   Requires ODBC. Works on Windows and Unix.
 */
@@ -186,7 +185,6 @@ class ADODB_odbc extends ADOConnection {
 	/*
 		This algorithm is not very efficient, but works even if table locking
 		is not available.
-
 		Will return false if unable to generate an ID after $MAXLOOPS attempts.
 	*/
 	public function GenID($seq = 'adodbseq', $start = 1) {
@@ -340,7 +338,6 @@ class ADODB_odbc extends ADOConnection {
 
 		$schema = '';
 		$this->_findschema($table, $schema);
-
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		$qid              = @odbc_primarykeys($this->_connectionID, '', $schema, $table);
@@ -359,8 +356,7 @@ class ADODB_odbc extends ADOConnection {
 		}
 
 		$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
-
-		$arr = $rs->GetArray();
+		$arr                                   = $rs->GetArray();
 		$rs->Close();
 
 		//print_r($arr);
@@ -381,9 +377,7 @@ class ADODB_odbc extends ADOConnection {
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		$qid              = odbc_tables($this->_connectionID);
-
-		$rs = new ADORecordSet_odbc($qid);
-
+		$rs               = new ADORecordSet_odbc($qid);
 		$ADODB_FETCH_MODE = $savem;
 
 		if (!$rs) {
@@ -393,8 +387,7 @@ class ADODB_odbc extends ADOConnection {
 		}
 
 		$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
-
-		$arr = $rs->GetArray();
+		$arr                                   = $rs->GetArray();
 
 		//print_r($arr);
 		$rs->Close();
@@ -443,13 +436,11 @@ class ADODB_odbc extends ADOConnection {
 	#define SQL_DATETIME        9
 	#endif
 	#define SQL_VARCHAR     12
-
 	/ One-parameter shortcuts for date/time data types /
 	#if (ODBCVER >= 0x0300)
 	#define SQL_TYPE_DATE     91
 	#define SQL_TYPE_TIME     92
 	#define SQL_TYPE_TIMESTAMP 93
-
 	#define SQL_UNICODE                             (-95)
 	#define SQL_UNICODE_VARCHAR                     (-96)
 	#define SQL_UNICODE_LONGVARCHAR                 (-97)
@@ -507,7 +498,6 @@ class ADODB_odbc extends ADOConnection {
 
 		$schema = '';
 		$this->_findschema($table, $schema);
-
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
@@ -518,7 +508,6 @@ class ADODB_odbc extends ADOConnection {
 			if (!$rs) return false;
 			$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
 			$rs->_fetch();
-
 			while (!$rs->EOF) {
 				if ($table == strtoupper($rs->fields[2])) {
 					$q = $rs->fields[0];
@@ -530,7 +519,6 @@ class ADODB_odbc extends ADOConnection {
 			}
 
 			$rs->Close();
-
 			$qid = odbc_columns($this->_connectionID,$q,$o,strtoupper($table),'%');
 		} */
 		switch ($this->databaseType) {
@@ -568,7 +556,6 @@ class ADODB_odbc extends ADOConnection {
 
 		$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
 		$rs->_fetch();
-
 		$retarr = array();
 
 		/*
@@ -716,9 +703,7 @@ class ADODB_odbc extends ADOConnection {
 	/*
 		Insert a null into the blob field of the table first.
 		Then use UpdateBlob to store the blob.
-
 		Usage:
-
 		$conn->Execute('INSERT INTO blobtable (id, blobcol) VALUES (1, null)');
 		$conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
 	*/
@@ -758,8 +743,7 @@ class ADORecordSet_odbc extends ADORecordSet {
 		}
 
 		$this->fetchMode = $mode;
-
-		$this->_queryID = $id;
+		$this->_queryID  = $id;
 
 		// the following is required for mysql odbc driver in 4.3.1 -- why?
 		$this->EOF         = false;

@@ -365,7 +365,6 @@ class GallerySetupUtilities {
 		}
 
 		session_name(G2_SETUP_SESSION_NAME);
-
 		$sessionName = session_name();
 		$sessionId   = GalleryUtilities::getRequestVariablesNoPrefix($sessionName);
 
@@ -429,6 +428,7 @@ class GallerySetupUtilities {
 			 * id, delete all data from this session and bless the new session.
 			 */
 			GallerySetupUtilities::regenerateSession();
+
 			session_unset();
 			$sessionId = null;
 		}

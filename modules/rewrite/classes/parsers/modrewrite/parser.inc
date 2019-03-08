@@ -232,7 +232,6 @@ class ModRewriteParser extends RewriteParser {
 	 */
 	public function handleAdminParserRequest($form) {
 		$error = $status = array();
-
 		GalleryCoreApi::requireOnce(
 			'modules/rewrite/classes/parsers/modrewrite/ModRewriteHelper.class'
 		);

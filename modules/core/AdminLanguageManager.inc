@@ -21,11 +21,9 @@
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/GalleryRepository.class'
 );
-
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/GalleryRepositoryUtilities.class'
 );
-
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/AdminRepositoryDownloadAndInstallController.class'
 );
@@ -120,8 +118,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 
 		$platform        =& $gallery->getPlatform();
 		$templateAdapter =& $gallery->getTemplateAdapter();
-
-		$status = array(
+		$status          = array(
 			'error' => array(),
 		);
 
@@ -150,8 +147,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 		}
 
 		if ($repositoryInitErrorCount) {
-			$status =& $template->getVariableByReference('status');
-
+			$status                                      =& $template->getVariableByReference('status');
 			$status['error']['repositoryInitErrorCount'] = $repositoryInitErrorCount;
 		}
 
@@ -184,7 +180,6 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 		// If actions > 0, then we have some language packages to work with
 		if ($totalActions > 0) {
 			$templateAdapter->updateProgressBar($heading, '', 0);
-
 			$callback = array(
 				'method'  => array($templateAdapter, 'updateProgressBar'),
 				'title'   => $heading,
@@ -243,13 +238,10 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 		}
 
 		$templateAdapter->updateProgressBar($heading, $message, 1);
-
 		$redirect['view']    = 'core.SiteAdmin';
 		$redirect['subView'] = 'core.AdminLanguageManager';
-
-		$session =& $gallery->getSession();
+		$session             =& $gallery->getSession();
 		$session->putStatus($status);
-
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect), true);
 
@@ -366,13 +358,11 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 			return array($ret, null, null);
 		}
 
-		$deleteText = $module->translate('Deleting Language Packs');
-		$localeDir  = $gallery->getConfig('data.gallery.locale');
-
+		$deleteText           = $module->translate('Deleting Language Packs');
+		$localeDir            = $gallery->getConfig('data.gallery.locale');
 		$languagesToDelete    = array();
 		$languagePacksDeleted = 0;
-
-		$status = array();
+		$status               = array();
 
 		foreach ($deleteLanguages as $language) {
 			$dir = "$localeDir/$language";
@@ -529,12 +519,10 @@ class AdminLanguageManagerView extends GalleryView {
 
 		// Set up check boxes.
 		$form['language']['useBrowserPref'] = (int)!empty($form['language']['useBrowserPref']);
-
-		$AdminLanguages = $languageList = array();
-
-		$AdminLanguages['OS']        = strncasecmp(PHP_OS, 'win', 3) ? 'unix' : 'winnt';
-		$AdminLanguages['basePath']  = GalleryCoreApi::getCodeBasePath();
-		$AdminLanguages['writeable'] = array(
+		$AdminLanguages                     = $languageList                     = array();
+		$AdminLanguages['OS']               = strncasecmp(PHP_OS, 'win', 3) ? 'unix' : 'winnt';
+		$AdminLanguages['basePath']         = GalleryCoreApi::getCodeBasePath();
+		$AdminLanguages['writeable']        = array(
 			'modules' => $platform->is_writeable($AdminLanguages['basePath'] . '/modules'),
 			'themes'  => $platform->is_writeable($AdminLanguages['basePath'] . '/themes'),
 		);

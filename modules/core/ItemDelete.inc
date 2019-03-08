@@ -156,8 +156,7 @@ class ItemDeleteController extends GalleryController {
 				return array($ret, null);
 			}
 
-			$numPages = ceil(sizeof($peerIds) / $form['numPerPage']);
-
+			$numPages                      = ceil(sizeof($peerIds) / $form['numPerPage']);
 			$results['delegate']['itemId'] = $itemId;
 			$results['delegate']['page']   = min($page + 1, $numPages);
 		} elseif (isset($form['action']['previous'])) {
@@ -209,8 +208,7 @@ class ItemDeleteView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$itemId = $item->getId();
-
+		$itemId    = $item->getId();
 		$variables = GalleryUtilities::getRequestVariables('selectedId', 'anchorId', 'page');
 
 		foreach ($variables as $key => $value) {
@@ -325,8 +323,7 @@ class ItemDeleteView extends GalleryView {
 			}
 		}
 
-		$urlGenerator =& $gallery->getUrlGenerator();
-
+		$urlGenerator                       =& $gallery->getUrlGenerator();
 		$ItemDelete                         = array();
 		$ItemDelete['canCancel']            = (bool)GalleryUtilities::getRequestVariables('return');
 		$ItemDelete['peers']                = $peers;
@@ -337,7 +334,6 @@ class ItemDeleteView extends GalleryView {
 		$ItemDelete['numPerPage']           = $form['numPerPage'];
 		$ItemDelete['selectedIds']          = array_keys($selectedIds);
 		$ItemDelete['selectedIdCount']      = count($selectedIds);
-
 		$template->setVariable('ItemDelete', $ItemDelete);
 		$template->setVariable('controller', 'core.ItemDelete');
 		$template->javascript('lib/yui/yahoo-dom-event.js');

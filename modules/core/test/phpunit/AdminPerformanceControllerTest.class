@@ -106,7 +106,6 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		}
 
 		$acceleration = unserialize($acceleration);
-
 		$this->assertEquals(
 			array(
 				'user' => array(
@@ -147,6 +146,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('form[action][clear]', 1);
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -178,6 +178,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		}
 
 		$result = $results->nextResult();
+
 		$this->assertEquals(0, (int)$result[0]);
 	}
 }

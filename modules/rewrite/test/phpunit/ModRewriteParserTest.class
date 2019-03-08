@@ -30,6 +30,7 @@
 GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 GalleryCoreApi::requireOnce('modules/rewrite/classes/parsers/modrewrite/parser.inc');
 GalleryCoreApi::requireOnce('modules/rewrite/test/phpunit/RewriteParserTestCase.class');
+
 class ModRewriteParserTest extends RewriteParserTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName, null);
@@ -67,6 +68,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveActiveRulesEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$testRules['rewriteparsermock'][0] = 'bogus1';
 
 		list($ret, $code, $errno) = $this->_parser->saveActiveRules(
@@ -90,6 +92,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		}
 
 		$expected['rewriteparsermock'][0] = 'bogus1';
+
 		$this->assertTrue(true, REWRITE_STATUS_OK == $code, 'OK Status');
 		$this->assertTrue(true, null == $errno, 'Null Err No');
 		$this->assertTrue(true, $expected == unserialize($activeRules), 'activeRules');
@@ -101,6 +104,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveBadActiveRulesEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$testRules['rewriteparsermock'][0] = array(
 			'pattern' => 'p/%bogus%',
 		);
@@ -176,6 +180,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveAccessListEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$accessList = array('phpunit.test1', 'phpunit.test2');
 		$ourParser  = $this->_parser;
 
@@ -255,7 +260,9 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveAccessListEmbeddedCantWrite() {
 		$this->_platform->_isWriteable = false;
+
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$accessList = array('phpunit.test1', 'phpunit.test2');
 
 		list($ret, $code) = $this->_parser->saveAccessList($accessList, true);
@@ -295,7 +302,6 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testNeedsConfigurationEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
-
 		GalleryUtilities::putRequestVariable('modRewriteTest', 'pass');
 
 		list($ret, $status) = $this->_parser->needsConfiguration();
@@ -310,8 +316,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 	}
 
 	public function testHandleTestResultsRequest1() {
-		$form = $error = $status = array();
-
+		$form                   = $error                   = $status                   = array();
 		$form['force']['test1'] = 1;
 
 		list($ret, $error, $status) = $this->_parser->handleTestResultsRequest($form);
@@ -337,20 +342,17 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 			),
 			unserialize($forced)
 		);
-
 		$this->assertEquals(
 			array(
 				'saved' => 1,
 			),
 			$status
 		);
-
 		$this->assertEquals(array(), $error);
 	}
 
 	public function testHandleTestResultsRequest2() {
-		$form = array();
-
+		$form                   = array();
 		$form['force']['test2'] = 1;
 
 		list($ret, $error, $status) = $this->_parser->handleTestResultsRequest($form);
@@ -376,14 +378,12 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 			),
 			unserialize($forced)
 		);
-
 		$this->assertEquals(
 			array(
 				'saved' => 1,
 			),
 			$status
 		);
-
 		$this->assertEquals(array(), $error);
 	}
 
@@ -412,19 +412,18 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 			),
 			unserialize($forced)
 		);
-
 		$this->assertEquals(
 			array(
 				'saved' => 1,
 			),
 			$status
 		);
-
 		$this->assertEquals(array(), $error);
 	}
 
 	public function testHandleAdminParserRequest1() {
 		$form = array();
+
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
 		$form['embeddedLocation'] = 'test';
@@ -464,7 +463,6 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 			),
 			$status
 		);
-
 		$this->assertEquals(array(), $error);
 		$this->assertFalse(empty($this->_fileContent), 'file');
 
@@ -473,6 +471,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testHandleAdminParserRequest2() {
 		$form = array();
+
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
 		$form['embeddedLocation'] = '/';
@@ -512,7 +511,6 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 			),
 			$status
 		);
-
 		$this->assertEquals(array(), $error);
 		$this->assertFalse(empty($this->_fileContent), 'file');
 
@@ -521,11 +519,12 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testHandleAdminParserRequest3() {
 		$form = array();
-		GalleryDataCache::put('G2_EMBED', 1, true);
-		$this->_platform->_isWriteable = false;
 
-		$form['embeddedLocation'] = '/test/';
-		$form['embeddedHtaccess'] = '/phpunit/test';
+		GalleryDataCache::put('G2_EMBED', 1, true);
+
+		$this->_platform->_isWriteable = false;
+		$form['embeddedLocation']      = '/test/';
+		$form['embeddedHtaccess']      = '/phpunit/test';
 
 		list($ret, $error, $status) = $this->_parser->handleAdminParserRequest($form);
 
@@ -560,11 +559,13 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		$this->assertFalse(isset($this->_fileContent), 'file');
 
 		GalleryDataCache::remove('G2_EMBED');
+
 		$this->_platform->_isWriteable = true;
 	}
 
 	public function testHandleAdminParserRequest4() {
 		$form = array();
+
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
 		list($ret, $error, $status) = $this->_parser->handleAdminParserRequest($form);
@@ -680,6 +681,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 		$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_WRITE, $code);
 		$this->assertFalse(empty($errstr), 'errstr');
+
 		$this->_platform->_isWriteable = true;
 	}
 
@@ -695,6 +697,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 		$this->assertEquals(REWRITE_STATUS_EMPTY_VALUE, $code);
 		$this->assertFalse(empty($errstr), 'errstr');
+
 		$this->_platform->_isWriteable = true;
 	}
 }

@@ -44,8 +44,7 @@ class StorageSetupStep extends InstallStep {
 		 * of the storage folder can't be guessed too easily.
 		 */
 		$templateData['suggested_obfuscated_g2data_name'] = 'g2data_' . substr(md5(mt_rand()), 0, 10);
-
-		$templateData['isMultisite'] = $galleryStub->getConfig('isMultisite');
+		$templateData['isMultisite']                      = $galleryStub->getConfig('isMultisite');
 
 		if (!empty($_POST['action']) && $_POST['action'] == 'save') {
 			if (empty($_POST['dir'])) {
@@ -236,8 +235,7 @@ class StorageSetupStep extends InstallStep {
 			}
 
 			// After, e.g. /g2data/ (common part removed).
-			$relativeStoragePath = implode('/', $storagePathElements);
-
+			$relativeStoragePath    = implode('/', $storagePathElements);
 			$storageUrlCandidates[] = getBaseUrl() . '/' . $relativeStoragePath . '/';
 
 			if (preg_match('!^.*?://.*?/[^/]+!', $galleryUrl, $matches)) {

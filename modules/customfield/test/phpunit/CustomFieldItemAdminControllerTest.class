@@ -145,11 +145,11 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 			$data[$this->_item->getId()],
 			'Field values'
 		);
-
 		$this->assertEquals(true, $isContainer[$this->_item->getId()], 'Album-specific settings');
 
 		// Check adminMode in session..
 		$adminMode = $session->get(CUSTOM_FIELD_SESSION_KEY);
+
 		$this->assertEquals($this->_album->getId(), $adminMode, 'Session admin mode');
 
 		// Change admin mode..
@@ -168,6 +168,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 		);
 
 		$adminMode = $session->get(CUSTOM_FIELD_SESSION_KEY);
+
 		$this->assertEquals(null, $adminMode, 'Session admin mode');
 
 		GalleryUtilities::removeFormVariables('form');
@@ -185,6 +186,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 		);
 
 		$adminMode = $session->get(CUSTOM_FIELD_SESSION_KEY);
+
 		$this->assertEquals($this->_album->getId(), $adminMode, 'Session admin mode');
 
 		// Set values..
@@ -231,7 +233,6 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 			$data[$this->_item->getId()],
 			'Field values'
 		);
-
 		$this->assertEquals(false, $isContainer[$this->_item->getId()], 'Global settings');
 	}
 }

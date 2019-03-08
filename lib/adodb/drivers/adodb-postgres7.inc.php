@@ -8,7 +8,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
   Set tabs to 4.
-
   Postgres7 support.
   28 Feb 2001: Currently indicate that we support LIMIT
   01 Dec 2001: dannym added support for default values
@@ -216,8 +215,7 @@ class ADODB_postgres7 extends ADODB_postgres64 {
 		c.relname = \'' . strtolower($table) . '\'
 		ORDER BY
 			t.tgrelid';
-
-		$rs = $this->Execute($sql);
+		$rs  = $this->Execute($sql);
 
 		if (!$rs || $rs->EOF) {
 			return false;

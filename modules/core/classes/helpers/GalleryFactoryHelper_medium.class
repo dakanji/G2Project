@@ -159,8 +159,7 @@ class GalleryFactoryHelper_medium {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
-
-		$baseDir = GalleryCoreApi::getCodeBasePath();
+		$baseDir  = GalleryCoreApi::getCodeBasePath();
 
 		if (!$platform->file_exists($baseDir . $implPath)) {
 			return GalleryCoreApi::error(
@@ -232,13 +231,11 @@ class GalleryFactoryHelper_medium {
 			$className,
 			$implPath
 		);
-
 		GalleryFactoryHelper_medium::_array_unshift_key_value(
 			$registry['ids'][$classType],
 			$implId,
 			$className
 		);
-
 		GalleryFactoryHelper_medium::_array_unshift_key_value(
 			$registry['pluginIds'][$classType],
 			$className,

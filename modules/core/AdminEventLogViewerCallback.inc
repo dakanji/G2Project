@@ -71,8 +71,7 @@ class AdminEventLogViewerCallbackView extends GalleryView {
 		$session  =& $gallery->getSession();
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
-
-		$command = GalleryUtilities::getRequestVariables('command');
+		$command  = GalleryUtilities::getRequestVariables('command');
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
@@ -217,6 +216,7 @@ class AdminEventLogViewerCallbackView extends GalleryView {
 		}
 
 		GalleryCoreApi::requireOnce('lib/JSON/JSON.php');
+
 		$json = new Services_JSON();
 		echo $json->encode($data);
 

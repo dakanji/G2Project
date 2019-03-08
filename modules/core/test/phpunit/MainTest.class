@@ -43,7 +43,9 @@ class MainTest extends GalleryTestCase {
 		$_SERVER['HTTP_HOST']   = 'example.com';
 		$_SERVER['SERVER_PORT'] = 80;
 		$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php';
+
 		GalleryUtilities::putRequestVariable('view', 'core.Foo');
+
 		$this->_urlGenerator = new GalleryUrlGenerator();
 
 		$ret = $this->_urlGenerator->init('phpunit_test.php');
@@ -53,9 +55,8 @@ class MainTest extends GalleryTestCase {
 		}
 
 		$this->_saveSession = $gallery->_session;
-
-		$gallery->_phpVm   = new MainTestPhpVm();
-		$gallery->_session = new GallerySession();
+		$gallery->_phpVm    = new MainTestPhpVm();
+		$gallery->_session  = new GallerySession();
 		$gallery->setUrlGenerator($this->_urlGenerator);
 
 		// Clear response headers
@@ -185,8 +186,7 @@ class MainTest extends GalleryTestCase {
 		global $gallery;
 
 		$urlGenerator =& $gallery->getUrlGenerator();
-
-		$expectedUrl = $urlGenerator->makeUrl('/maintenance.html');
+		$expectedUrl  = $urlGenerator->makeUrl('/maintenance.html');
 		$gallery->setConfig('mode.maintenance', $expectedUrl);
 
 		list($ret, $g2Data) = _GalleryMain();
@@ -237,9 +237,8 @@ class MainTest extends GalleryTestCase {
 
 		// Controllers that should trigger the fix
 		$needFixControllers = array('core.Logout', 'core.UserLogin', 'publishxp.Login');
-
-		$base    = 'http://www.example.com/';
-		$session =& $gallery->getSession();
+		$base               = 'http://www.example.com/';
+		$session            =& $gallery->getSession();
 
 		$ret = $session->init();
 
@@ -328,8 +327,8 @@ class MainTest extends GalleryTestCase {
 		GalleryDataCache::reset(); // Ensure getCurrentRequestUri result isn't cached
 		// Make sure the redirect has no sessionId in it
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
-		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 
+		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 		$session = new GallerySession();
 
 		$ret = $session->init();
@@ -366,8 +365,8 @@ class MainTest extends GalleryTestCase {
 	public function testDoRedirectRemoveTrailingQMark() {
 		// Make sure the redirect has no sessionId in it
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
-		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 
+		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 		$session = new GallerySession();
 
 		$ret = $session->init();
@@ -528,7 +527,6 @@ class MainTest extends GalleryTestCase {
 			$g2Data,
 			'returned data'
 		);
-
 		$this->assertEquals(
 			array(
 				'location' => "Location: $expectedUrl",
@@ -568,7 +566,6 @@ class MainTest extends GalleryTestCase {
 		}
 
 		$session->doNotUseTempId();
-
 		$expectedUrl = $urlGenerator->generateUrl(
 			$gallery->getConfig('loginRedirect'),
 			array(
@@ -593,7 +590,6 @@ class MainTest extends GalleryTestCase {
 			$g2Data,
 			'returned data'
 		);
-
 		$this->assertEquals(
 			array(
 				'location' => "Location: $expectedUrl",
@@ -649,7 +645,6 @@ class MainTest extends GalleryTestCase {
 				$ret->getErrorCode() & ERROR_PERMISSION_DENIED,
 				'expect ERROR_PERMISSION_DENIED'
 			);
-
 			$this->assertTrue(
 				$ret->getErrorCode() & ERROR_MISSING_OBJECT,
 				'expect ERROR_MISSING_OBJECT'
@@ -682,7 +677,6 @@ class MainTest extends GalleryTestCase {
 				$ret->getErrorCode() & ERROR_PERMISSION_DENIED,
 				'expect ERROR_PERMISSION_DENIED'
 			);
-
 			$this->assertTrue(
 				$ret->getErrorCode() & ERROR_MISSING_OBJECT,
 				'expect ERROR_MISSING_OBJECT'
@@ -722,6 +716,7 @@ class MainTest extends GalleryTestCase {
 		}
 
 		$receivedEvent = $_GET['testEvent'];
+
 		$this->assertEquals('Gallery::BeforeDisplay', $receivedEvent->getEventName());
 
 		$receivedData = $receivedEvent->getData();
@@ -730,12 +725,10 @@ class MainTest extends GalleryTestCase {
 			substr($receivedData['templatePath'], 0, 14),
 			"Expected $receivedData[templatePath] to be a theme tpl path"
 		);
-
 		$this->assertEquals(
 			'maintest_faketemplate',
 			strtolower(get_class($receivedEvent->getEntity()))
 		);
-
 		$this->assertEquals('maintest_fakeview', strtolower(get_class($receivedData['view'])));
 	}
 
@@ -755,7 +748,6 @@ class MainTest extends GalleryTestCase {
 			$g2Data,
 			'returned data'
 		);
-
 		$this->assertTrue(
 			$this->_hasCacheControlNoCacheHeader($_REQUEST['header']),
 			'wrong Cache-Control header: ' . implode(', ', $_REQUEST['header'])
@@ -774,6 +766,7 @@ class MainTest extends GalleryTestCase {
 
 	public function testImmediateViewRequestWithoutAutoCacheControl() {
 		GalleryUtilities::putRequestVariable('view', 'core.MainTestImmediateItemNoAutoCache');
+
 		$_REQUEST['header'] = array();
 
 		list($ret, $g2Data) = _GalleryMain();
@@ -789,7 +782,6 @@ class MainTest extends GalleryTestCase {
 			$g2Data,
 			'returned data'
 		);
-
 		$this->assertTrue(
 			!$this->_hasCacheControlNoCacheHeader($_REQUEST['header']),
 			'wrong Cache-Control header: ' . implode(', ', $_REQUEST['header'])
@@ -809,6 +801,7 @@ class MainTestPhpVm extends GalleryPhpVm {
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
+
 class FooView extends GalleryView {}
 
 /**
@@ -857,6 +850,7 @@ class MainTestImmediateView extends GalleryView {
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
+
 class FooControllerController extends GalleryController {
 	public function omitAuthTokenCheck() {
 		return true;

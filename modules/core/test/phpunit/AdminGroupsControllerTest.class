@@ -44,7 +44,6 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 
 		$results = $this->handleRequest();
-
 		$this->assertEquals(
 			array(
 				'redirect' => array(

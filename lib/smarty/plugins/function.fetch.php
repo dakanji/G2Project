@@ -228,8 +228,7 @@ function smarty_function_fetch($params, &$smarty) {
 				}
 
 				fclose($fp);
-				$csplit = preg_split("!\r\n\r\n!", $content, 2);
-
+				$csplit  = preg_split("!\r\n\r\n!", $content, 2);
 				$content = $csplit[1];
 
 				if (!empty($params['assign_headers'])) {

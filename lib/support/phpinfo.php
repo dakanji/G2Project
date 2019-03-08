@@ -86,10 +86,9 @@ $phpinfo = ob_get_contents();
 ob_clean();
 
 //<link rel="stylesheet" type="text/css" href="support.css">
-$phpinfo = str_replace('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">', '', $phpinfo);
-$phpinfo = str_replace('<html xmlns="http://www.w3.org/1999/xhtml">', '<html lang="en">', $phpinfo);
-$phpinfo = str_replace('<title>phpinfo()</title>', '<title> Gallery Support | PHP Info</title>', $phpinfo);
-
+$phpinfo  = str_replace('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">', '', $phpinfo);
+$phpinfo  = str_replace('<html xmlns="http://www.w3.org/1999/xhtml">', '<html lang="en">', $phpinfo);
+$phpinfo  = str_replace('<title>phpinfo()</title>', '<title> Gallery Support | PHP Info</title>', $phpinfo);
 $styleStr = '
 
 /*!
@@ -229,15 +228,12 @@ a:focus {
 
 ';
 
-$phpinfo = str_replace('</style>', $styleStr . '</style>', $phpinfo);
-
+$phpinfo   = str_replace('</style>', $styleStr . '</style>', $phpinfo);
 $htmlData  = "<div id='title'>";
 $htmlData .= "<a href='../../'>Gallery</a> &raquo; ";
 $htmlData .= "<a href='../support/index.php'>Support</a> &raquo; PHP Info";
 $htmlData .= '</div>';
-
-$phpinfo = str_replace('<div class="center">', '<div class="container">' . $htmlData . '<div class="center">', $phpinfo);
-
+$phpinfo   = str_replace('<div class="center">', '<div class="container">' . $htmlData . '<div class="center">', $phpinfo);
 $htmlData  = "<h2><a name='additional_data'>Gallery 2 User Data</a></h2>";
 $htmlData .= "<table border='0' cellpadding='3' width='600'>";
 $htmlData .= "<tr class='h'><th>Item</th><th>G2Data Folder</th><th>PHP User</th></tr>";
@@ -254,13 +250,11 @@ $htmlData .= "<tr><td class='e'>Architecture</td><td class='v'>" . @php_uname(m)
 $htmlData .= "<tr><td class='e'>PHP Handler</td><td class='v'>" . $php_handler . '</td></tr>';
 $htmlData .= '</table>';
 $htmlData .= '<br>';
-
-$phpinfo = str_replace('<div class="center">', '<div class="center">' . $htmlData, $phpinfo);
-
-$phpinfo = str_replace('</body>', '</div></body>', $phpinfo);
-$phpinfo = str_replace('body {background-color: #fff; color: #222; font-family: sans-serif;}', '', $phpinfo);
-$phpinfo = str_replace('a:link {color: #009; text-decoration: none; background-color: #fff;}', '', $phpinfo);
-$phpinfo = str_replace('a:hover {text-decoration: underline;}', '', $phpinfo);
+$phpinfo   = str_replace('<div class="center">', '<div class="center">' . $htmlData, $phpinfo);
+$phpinfo   = str_replace('</body>', '</div></body>', $phpinfo);
+$phpinfo   = str_replace('body {background-color: #fff; color: #222; font-family: sans-serif;}', '', $phpinfo);
+$phpinfo   = str_replace('a:link {color: #009; text-decoration: none; background-color: #fff;}', '', $phpinfo);
+$phpinfo   = str_replace('a:hover {text-decoration: underline;}', '', $phpinfo);
 
 //output
 echo $phpinfo;

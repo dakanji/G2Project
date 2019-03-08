@@ -228,7 +228,6 @@ class IsapiRewriteParser extends RewriteParser {
 	 */
 	public function handleAdminParserRequest($form) {
 		$error = $status = array();
-
 		GalleryCoreApi::requireOnce(
 			'modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteHelper.class'
 		);

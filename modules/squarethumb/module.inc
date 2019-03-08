@@ -47,7 +47,6 @@ class SquareThumbModule extends GalleryModule {
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
-
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getSiteAdminViews');
 	}
@@ -250,7 +249,7 @@ class SquareThumbModule extends GalleryModule {
 		foreach (array_intersect(
 			array_keys(array_merge($crop, $composite)),
 			array_keys($thumbnail)
-			) as $mimeType) {
+		) as $mimeType) {
 			list($ret, $properties) = GalleryCoreApi::getToolkitProperties($mimeType);
 
 			if ($ret) {
@@ -284,7 +283,8 @@ class SquareThumbModule extends GalleryModule {
 
 		if ($event->getEventName() == 'Gallery::DeactivatePlugin'
 			&& $data['pluginId'] != 'squarethumb'
-			&& $data['pluginType'] == 'module') {
+			&& $data['pluginType'] == 'module'
+		) {
 			list($ret, $isActive) = $this->isActive();
 
 			if ($ret) {

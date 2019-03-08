@@ -130,8 +130,7 @@ class PluginTest extends GalleryTestCase {
 
 			// Mock platform
 			$platform = new UnitTestPlatform();
-
-			$path = GalleryCoreApi::getCodeBasePath($type . 's/');
+			$path     = GalleryCoreApi::getCodeBasePath($type . 's/');
 			$platform->setReply('opendir', array($path), 'fh');
 			$platform->setReply('readdir', array('fh'), '.');
 			$platform->setReply('readdir', array('fh'), '..');
@@ -144,9 +143,7 @@ class PluginTest extends GalleryTestCase {
 			$platform->setReply('is_file', array($path . 'bar/' . $type . '.inc'), true);
 			$platform->setReply('readdir', array('fh'), false);
 			$platform->setReply('closedir', array('fh'), true);
-
 			$expectedIds += array_merge($expectedIds, array('moo', 'bar'));
-
 			$gallery->setPlatform($platform);
 
 			list($ret, $pluginIds) = GalleryCoreApi::getAllPluginIds($type);
@@ -169,7 +166,6 @@ class PluginTest extends GalleryTestCase {
 		$plugin->setVersion('1.0.0');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$plugin->setRequiredThemeApi(GalleryTheme::getMe()->getApiVersion());
-
 		$themeStatus = array(
 			$plugin->getId() => array(
 				'available' => true,
@@ -182,7 +178,6 @@ class PluginTest extends GalleryTestCase {
 		$templateDir = '/templates';
 		$gallery->setConfig('data.smarty.templates_c', $templateDir);
 		$gallery->setConfig('data.gallery.cache', '/cache/');
-
 		$platform = new UnitTestPlatform();
 		$platform->setReply(
 			'file_exists',
@@ -196,7 +191,6 @@ class PluginTest extends GalleryTestCase {
 		$platform->setReply('file_exists', array($templateDir), true);
 		$platform->setReply('recursiveRmdir', array($templateDir), false);
 		$gallery->setPlatform($platform);
-
 		$gallery->_storage = new UnitTestStorage();
 		$gallery->_storage->setReply(
 			'addMapEntry',
@@ -235,9 +229,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin->setVersion('1.0.0');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$plugin->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
-
-		$cacheKey = 'GalleryRepository::getRepositories(,GalleryRepository)';
-
+		$cacheKey       = 'GalleryRepository::getRepositories(,GalleryRepository)';
 		$testRepository = new UnitTestRepository();
 		$testRepository->setReply(
 			'scanPlugin',
@@ -246,7 +238,6 @@ class PluginTest extends GalleryTestCase {
 				ERROR_PLATFORM_FAILURE | ERROR_BAD_PLUGIN | ERROR_BAD_PARAMETER
 			)
 		);
-
 		GalleryDataCache::put(
 			$cacheKey,
 			array(
@@ -277,16 +268,13 @@ class PluginTest extends GalleryTestCase {
 		$plugin->setVersion('1.0.0');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$plugin->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
-
-		$cacheKey = 'GalleryRepository::getRepositories(,GalleryRepository)';
-
+		$cacheKey       = 'GalleryRepository::getRepositories(,GalleryRepository)';
 		$testRepository = new UnitTestRepository();
 		$testRepository->setReply(
 			'scanPlugin',
 			array('module', 'plugintest'),
 			GalleryCoreApi::error(ERROR_STORAGE_FAILURE)
 		);
-
 		GalleryDataCache::put(
 			$cacheKey,
 			array(
@@ -312,7 +300,6 @@ class PluginTest extends GalleryTestCase {
 }
 
 class PluginTestCompatibleModule extends GalleryModule {}
-
 class PluginTestPlugin extends GalleryPlugin {
 	public function setPluginType($type) {
 		$this->_type = $type;

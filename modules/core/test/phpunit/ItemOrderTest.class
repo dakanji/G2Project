@@ -206,6 +206,7 @@ class ItemOrderTest extends GalleryTestCase {
 		}
 
 		sort($results);
+
 		$this->assertEquals($correctResults, $results);
 	}
 }

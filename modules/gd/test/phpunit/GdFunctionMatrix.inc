@@ -1,5 +1,4 @@
 <?php
-
 $gdEnvironments[] = array(
 	'name'       => '4.1.0|1.6.2-external|Linux',
 	'phpVersion' => '4.1.0',

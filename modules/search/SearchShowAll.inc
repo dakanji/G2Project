@@ -58,8 +58,7 @@ class SearchShowAllView extends GalleryView {
 		global $gallery;
 
 		// TODO: Parameterize this
-		$pageSize = 20;
-
+		$pageSize               = 20;
 		$items                  = array();
 		$thumbnails             = array();
 		$results                = array();

@@ -34,8 +34,7 @@ class CaptchaHelper {
 	public static function testRequiredGdFunctions() {
 		global $gallery;
 
-		$phpVm = $gallery->getPhpVm();
-
+		$phpVm         = $gallery->getPhpVm();
 		$gdFunctions   = array();
 		$gdFunctions[] = 'ImageCreateFromJPEG';
 		$gdFunctions[] = 'ImageColorAllocate';
@@ -43,8 +42,7 @@ class CaptchaHelper {
 		$gdFunctions[] = 'ImageJPEG';
 		$gdFunctions[] = 'ImageDestroy';
 		$gdFunctions[] = 'imagesx';
-
-		$gdReport = array(
+		$gdReport      = array(
 			'success' => array(),
 			'fail'    => array(),
 		);

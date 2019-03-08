@@ -532,6 +532,7 @@ class GallerySession {
 
 		// Unset the cookie and any request variables so that we'll regenerate a new id in init()
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
+
 		unset($_COOKIE[SESSION_ID_PARAMETER]);
 
 		// Reset 'cached' variables
@@ -1010,8 +1011,7 @@ class GallerySession {
 					$this->_modificationTime  = (int)$pSession[3];
 					$this->_sessionData       = unserialize($pSession[4]);
 					$this->_loadedSessionData = $this->_getSerializedSession();
-
-					$this->_isPersistent = true;
+					$this->_isPersistent      = true;
 				} else {
 					// The session has timed out, remove it
 					$ret = GalleryCoreApi::removeMapEntry(
@@ -1661,8 +1661,7 @@ class SessionAuthPlugin {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
-		$userId = $session->getUserId();
+		$userId  = $session->getUserId();
 
 		if (!empty($userId)) {
 			list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');

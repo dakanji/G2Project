@@ -81,12 +81,10 @@ class ADODB_pdo extends ADOConnection {
 	public $_autocommit        = true;
 	public $_haserrorfunctions = true;
 	public $_lastAffectedRows  = 0;
-
-	public $_errormsg = false;
-	public $_errorno  = false;
-
-	public $dsnType = '';
-	public $stmt    = false;
+	public $_errormsg          = false;
+	public $_errorno           = false;
+	public $dsnType            = '';
+	public $stmt               = false;
 	public $_driver;
 
 	public function __construct() {}
@@ -101,12 +99,10 @@ class ADODB_pdo extends ADOConnection {
 		$this->random          = $d->random;
 		$this->concat_operator = $d->concat_operator;
 		$this->nameQuote       = $d->nameQuote;
-
-		$this->hasGenID    = $d->hasGenID;
-		$this->_genIDSQL   = $d->_genIDSQL;
-		$this->_genSeqSQL  = $d->_genSeqSQL;
-		$this->_dropSeqSQL = $d->_dropSeqSQL;
-
+		$this->hasGenID        = $d->hasGenID;
+		$this->_genIDSQL       = $d->_genIDSQL;
+		$this->_genSeqSQL      = $d->_genSeqSQL;
+		$this->_dropSeqSQL     = $d->_dropSeqSQL;
 		$d->_init($this);
 	}
 
@@ -181,7 +177,6 @@ class ADODB_pdo extends ADOConnection {
 
 			//$this->_connectionID->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_SILENT );
 			$this->_connectionID->setAttribute(PDO::ATTR_CASE, $m);
-
 			$class = 'ADODB_pdo_' . $this->dsnType;
 
 			//$this->_connectionID->setAttribute(PDO::ATTR_AUTOCOMMIT,true);
@@ -686,8 +681,7 @@ class ADORecordSet_pdo extends ADORecordSet {
 		}
 
 		$this->fetchMode = $mode;
-
-		$this->_queryID = $id;
+		$this->_queryID  = $id;
 		parent::__construct($id);
 	}
 

@@ -96,6 +96,7 @@ class DerivativeTest extends GalleryTestCase {
 		}
 
 		DerivativeTestToolkit::clearPerformedOperations();
+
 		GalleryDataCache::reset();
 	}
 
@@ -525,12 +526,10 @@ class DerivativeTest extends GalleryTestCase {
 			isset($ret) && (ERROR_PLATFORM_FAILURE & $ret->getErrorCode()),
 			'we expect a platform failure'
 		);
-
 		$this->assertTrue(
 			!isset($$derivativeRet),
 			'GalleryDerivativeHelper_advanced::rebuildCache() did not return null'
 		);
-
 		$this->assertFalse($rebuilt, 'it should have failed and not rebuilt the derivative cache');
 
 		// Refresh the derivative to get the state from the db
@@ -1153,7 +1152,9 @@ B|1,2',
 		}
 
 		$this->assertTrue($rebuilt, 'thumb was rebuilt');
+
 		$ops =& DerivativeTestToolkit::getPerformedOperations();
+
 		$this->assertEquals(array(), $ops, 'no operations');
 
 		list($ret, $sourcePath) = $item->fetchPath();
@@ -1169,6 +1170,7 @@ B|1,2',
 		}
 
 		$expectedSize = $platform->filesize($sourcePath);
+
 		$this->assertEquals($expectedSize, $derivative->getDerivativeSize(), 'derivative size');
 
 		if ($platform->file_exists($destPath)) {

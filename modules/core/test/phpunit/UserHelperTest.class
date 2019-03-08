@@ -61,8 +61,7 @@ class UserHelperTest extends GalleryTestCase {
 	public function testGalleryLoginEvent() {
 		global $gallery;
 
-		$gallery->_session = new UserHelperTestSession();
-
+		$gallery->_session      = new UserHelperTestSession();
 		$UserHelperTestMockUser = new UserHelperTestMockUser();
 		$event                  = GalleryCoreApi::newEvent('Gallery::Login');
 		$event->setEntity($UserHelperTestMockUser);
@@ -85,7 +84,6 @@ class UserHelperTest extends GalleryTestCase {
 			),
 			$this->_storage->_operations
 		);
-
 		$this->assertTrue(
 			$gallery->_session->regenerateWasCalled(),
 			'Regenerate session was not called!'
@@ -250,7 +248,6 @@ class UserHelperTest extends GalleryTestCase {
 			),
 			$this->_storage->_operations
 		);
-
 		$this->assertFalse($disabled, 'Disable username no rows');
 	}
 
@@ -277,7 +274,6 @@ class UserHelperTest extends GalleryTestCase {
 			),
 			$this->_storage->_operations
 		);
-
 		$this->assertFalse($disabled, 'should not be disabled');
 	}
 
@@ -305,7 +301,6 @@ class UserHelperTest extends GalleryTestCase {
 			),
 			$this->_storage->_operations
 		);
-
 		$this->assertTrue($disabled, 'should be disabled');
 	}
 
@@ -332,7 +327,6 @@ class UserHelperTest extends GalleryTestCase {
 			),
 			$this->_storage->_operations
 		);
-
 		$this->assertTrue($disabled, 'should be disabled');
 	}
 
@@ -359,7 +353,6 @@ class UserHelperTest extends GalleryTestCase {
 			),
 			$this->_storage->_operations
 		);
-
 		$this->assertFalse($disabled, 'should not be disabled');
 	}
 
@@ -378,7 +371,6 @@ class UserHelperTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($testUser);
-
 		$testUserId = $testUser->getId();
 
 		// Check the default language

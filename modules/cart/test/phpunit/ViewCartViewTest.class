@@ -144,7 +144,6 @@ class ViewCartViewTest extends GalleryViewTestCase {
 		);
 
 		$results = $this->loadTemplate();
-
 		$this->assertEquals(
 			array(
 				'body' => 'modules/cart/templates/ViewCart.tpl',
@@ -160,7 +159,6 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			array_keys($templateData['items']),
 			'item ids'
 		);
-
 		$this->assertEquals(
 			array(
 				'ViewCartTestCartPlugin1_0' => array(
@@ -216,7 +214,6 @@ class ViewCartViewTest extends GalleryViewTestCase {
 		}
 
 		$results = $this->loadTemplate();
-
 		$this->assertEquals(
 			array(
 				'body' => 'modules/cart/templates/ViewCart.tpl',
@@ -225,13 +222,11 @@ class ViewCartViewTest extends GalleryViewTestCase {
 		);
 
 		$templateData = $this->_template->getVariable('ViewCart');
-
 		$this->assertEquals(
 			array($this->_photoItem->getId(), $this->_movieItem->getId()),
 			array_keys($templateData['items']),
 			'item ids'
 		);
-
 		$this->assertEquals(
 			array(
 				'ViewCartTestCartPlugin1_0' => array(
@@ -288,7 +283,6 @@ class ViewCartViewTest extends GalleryViewTestCase {
 		}
 
 		$results = $this->loadTemplate();
-
 		$this->assertEquals(
 			array(
 				'body' => 'modules/cart/templates/ViewCart.tpl',
@@ -297,13 +291,11 @@ class ViewCartViewTest extends GalleryViewTestCase {
 		);
 
 		$templateData = $this->_template->getVariable('ViewCart');
-
 		$this->assertEquals(
 			array($this->_photoItem->getId()),
 			array_keys($templateData['items']),
 			'item ids'
 		);
-
 		$this->assertEquals(
 			array(
 				'ViewCartTestCartPlugin1_0' => array(
@@ -337,6 +329,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 }
 
 GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_1.class');
+
 class ViewCartTestCartPlugin extends CartPluginInterface_1_1 {
 	public function getSupportedItemTypes() {
 		return array('*');
@@ -352,6 +345,7 @@ class ViewCartTestCartPlugin extends CartPluginInterface_1_1 {
 }
 
 GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
+
 class ViewCartTestCartPlugin1_0 extends CartPluginInterface_1_0 {
 	public function getSupportedItemTypes() {
 		return array('GalleryMovieItem');

@@ -291,6 +291,7 @@ class AlbumSelectCallbacks {
 					}
 
 					$dataToCache = array($treeList, $titles, $titlesForJs, $links);
+
 					GalleryDataCache::putToDisk($cachePathInfo, $dataToCache);
 				}
 
@@ -315,9 +316,8 @@ class AlbumSelectCallbacks {
 					}
 				}
 
-				$block =& $smarty->_tpl_vars['block'];
-				$type  = isset($callbackParams['albumTree']) ? 'albumTree' : 'albumSelect';
-
+				$block                                        =& $smarty->_tpl_vars['block'];
+				$type                                         = isset($callbackParams['albumTree']) ? 'albumTree' : 'albumSelect';
 				$block['albumselect']['LoadAlbumData'][$type] = array(
 					'tree'        => $treeList,
 					'titles'      => $titles,

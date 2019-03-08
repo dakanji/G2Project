@@ -47,8 +47,7 @@ $smarty->error_reporting = error_reporting();
 $smarty->debugging       = true;
 $smarty->use_sub_dirs    = false;
 $smarty->template_dir    = __DIR__;
-
-$xmlFile = 'Maps.xml';
+$xmlFile                 = 'Maps.xml';
 
 if (!file_exists($xmlFile)) {
 	echo "Missing Maps.xml, can't continue.\n";
@@ -57,7 +56,6 @@ if (!file_exists($xmlFile)) {
 
 $p    = new XmlParser();
 $root = $p->parse($xmlFile);
-
 $maps = array();
 
 foreach ($root[0]['child'] as $map) {
@@ -109,8 +107,7 @@ $new = $smarty->fetch('maps.tpl');
 
 // Windows leaves a CR at the end of the file
 $new = rtrim($new, "\r");
-
-$fd = fopen('Maps.inc', 'w');
+$fd  = fopen('Maps.inc', 'w');
 fwrite($fd, $new);
 fclose($fd);
 

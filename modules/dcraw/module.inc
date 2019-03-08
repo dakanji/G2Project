@@ -44,7 +44,6 @@ class DcrawModule extends GalleryModule {
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
-
 		$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
 		$this->setCallbacks('getSiteAdminViews');
 	}
@@ -88,7 +87,6 @@ class DcrawModule extends GalleryModule {
 	 */
 	public function activate($postActivationEvent = true) {
 		global $gallery;
-
 		GalleryCoreApi::requireOnce('modules/dcraw/classes/DcrawToolkitHelper.class');
 
 		list($ret, $path) = $this->getParameter('path');

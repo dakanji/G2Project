@@ -303,10 +303,8 @@ class ThemeTest extends GalleryTestCase {
 			$data .= $data_pattern;
 		}
 
-		$data = '[' . $data . ']';
-
+		$data   = '[' . $data . ']';
 		$actual = $this->_theme->packSetting('block-list', $data);
-
 		$this->assertEquals(
 			array(true, $expected),
 			array($actual[0], unserialize($actual[1]))
@@ -532,6 +530,7 @@ class ThemeTest extends GalleryTestCase {
 
 		$theme['foo'] = 'bar';
 		$theme        =& $template->getVariableByReference('theme');
+
 		$this->assertEquals('bar', $theme['foo']);
 	}
 
@@ -624,17 +623,13 @@ class ThemeTest extends GalleryTestCase {
 		$html       = '
 	    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" ...>
 	    <html lang="de-DE" xmlns="...">
-
 	    <head>
 	    ' . $randomHtml . 'for head
 	    </head>
-
 	    <body some="foo">
 	    ' . $randomHtml . 'for body
 	    </body>
-
 	    </html>
-
     	';
 
 		$extraHtml = array(

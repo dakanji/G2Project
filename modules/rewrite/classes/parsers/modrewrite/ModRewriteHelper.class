@@ -283,8 +283,7 @@ class ModRewriteHelper {
 		global $gallery;
 
 		$urlGenerator =& $gallery->getUrlGenerator();
-
-		$Htaccess = array();
+		$Htaccess     = array();
 
 		list($ret, $Htaccess['galleryDirectory']) = GalleryCoreApi::getPluginParameter(
 			'module',
@@ -308,7 +307,6 @@ class ModRewriteHelper {
 
 		$status                  = unserialize($status);
 		$Htaccess['needOptions'] = $status['needOptions'];
-
 		$Htaccess['directory']   = $Htaccess['galleryDirectory'];
 		$Htaccess['rewriteBase'] = $Htaccess['galleryDirectory'];
 		$Htaccess['baseFile']    = GALLERY_MAIN_PHP;
@@ -400,6 +398,7 @@ class ModRewriteHelper {
 
 		// Render template
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$template = new GalleryTemplate(__DIR__ . '/../../../templates', true, false);
 		$template->setVariable('Htaccess', $Htaccess);
 		$template->setVariable('l10Domain', 'modules_rewrite');

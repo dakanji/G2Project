@@ -60,6 +60,7 @@ class GdToolkit extends GalleryToolkit {
 	public function &_getGdFunctionality() {
 		if (!isset($this->_gdFunctionality)) {
 			GalleryCoreApi::requireOnce('modules/gd/classes/GdFunctionality.class');
+
 			$gd = new GdFunctionality();
 			$this->setGdFunctionality($gd);
 		}
@@ -135,7 +136,6 @@ class GdToolkit extends GalleryToolkit {
 		$context = array()
 	) {
 		$gd =& $this->_getGdFunctionality();
-
 		global $gallery;
 
 		if ($gallery->getDebug()) {
@@ -442,8 +442,7 @@ class GdToolkit extends GalleryToolkit {
 				$compositeAlignX = max(0, $compositeAlignX);
 				$compositeAlignY = min($compositeAlignY, $sourceHeight - $compositeHeight);
 				$compositeAlignY = max(0, $compositeAlignY);
-
-				$dataDir = $gallery->getConfig('data.gallery.base');
+				$dataDir         = $gallery->getConfig('data.gallery.base');
 
 				list($ret, $overlayRes) = $this->_getImageResource(
 					$compositeOverlayMimeType,
@@ -593,8 +592,7 @@ class GdToolkit extends GalleryToolkit {
 	 * @access private
 	 */
 	public function _getImageResource($mimeType, $filename) {
-		$gd =& $this->_getGdFunctionality();
-
+		$gd  =& $this->_getGdFunctionality();
 		$res = null;
 
 		switch ($mimeType) {

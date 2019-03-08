@@ -112,8 +112,7 @@ class UserPreferencesController extends GalleryController {
 
 				if (!$user->isCorrectPassword($form['currentPassword'])) {
 					$error[] = 'form[error][currentPassword][incorrect]';
-
-					$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
+					$event   = GalleryCoreApi::newEvent('Gallery::FailedLogin');
 					$event->setData(
 						array(
 							'userName' => $user->getUserName(),
@@ -269,7 +268,6 @@ class UserPreferencesView extends GalleryView {
 
 		$UserPreferences['translationsSupported'] = $translator->canTranslate();
 		$UserPreferences['languageList']          = $languageList;
-
 		$template->setVariable('UserPreferences', $UserPreferences);
 		$template->setVariable('controller', 'core.UserPreferences');
 

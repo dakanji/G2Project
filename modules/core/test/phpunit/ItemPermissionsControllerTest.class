@@ -265,7 +265,6 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			'form[group][groupName]',
 			$this->_group->getGroupName()
 		);
-
 		GalleryUtilities::putRequestVariable('form[applyToSubItems]', 1);
 
 		// Perform the request and verify that we succeeded
@@ -474,7 +473,6 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			'form[group][delete][0]',
 			$this->_group->getId() . ',core.edit'
 		);
-
 		GalleryUtilities::putRequestVariable('form[applyToSubItems]', 1);
 
 		// Perform the request and verify that we succeeded
@@ -793,7 +791,6 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			'form[user][delete][0]',
 			$this->_user->getId() . ',core.edit'
 		);
-
 		GalleryUtilities::putRequestVariable('form[applyToSubItems]', 1);
 
 		// Perform the request and verify that we succeeded

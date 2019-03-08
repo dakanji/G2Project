@@ -55,8 +55,7 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 		$templateAdapter =& $gallery->getTemplateAdapter();
 		$urlGenerator    =& $gallery->getUrlGenerator();
 		$platform        =& $gallery->getPlatform();
-
-		$baseDir = rtrim(GalleryCoreApi::getCodeBasePath(), DIRECTORY_SEPARATOR);
+		$baseDir         = rtrim(GalleryCoreApi::getCodeBasePath(), DIRECTORY_SEPARATOR);
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rewrite');
 

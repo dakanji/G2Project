@@ -312,16 +312,14 @@ class CommentSiteAdminView extends GalleryView {
 
 		if ($form['formName'] != 'CommentSiteAdmin') {
 			$form['formName'] = 'CommentSiteAdmin';
-
 			$form['latest']   = isset($params['comments.latest']) ? $params['comments.latest'] : '';
 			$form['show']     = $params['comments.show'];
 			$form['moderate'] = !empty($params['comments.moderate']);
 			$form['apiKey']   = isset($params['akismet.apiKey']) ? $params['akismet.apiKey'] : '';
 		}
 
-		$form['latest']   = !empty($form['latest']);
-		$form['moderate'] = !empty($form['moderate']);
-
+		$form['latest']                    = !empty($form['latest']);
+		$form['moderate']                  = !empty($form['moderate']);
 		$CommentSiteAdmin                  = array();
 		$CommentSiteAdmin['akismetActive'] = !empty($params['akismet.active']);
 		$template->setVariable('CommentSiteAdmin', $CommentSiteAdmin);

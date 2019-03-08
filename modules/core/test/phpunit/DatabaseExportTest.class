@@ -63,8 +63,7 @@ class DatabaseExportTest extends GalleryTestCase {
 		$storage               =& $gallery->getStorage();
 		$storage->_tablePrefix = 'g2_';
 		$gallery->_phpVm       = new UnitTestPhpVm();
-
-		$this->_export = new GalleryDatabaseExport();
+		$this->_export         = new GalleryDatabaseExport();
 	}
 
 	public function tearDown() {
@@ -90,9 +89,8 @@ class DatabaseExportTest extends GalleryTestCase {
 	public function testExportPluginStatus() {
 		global $gallery;
 
-		$storage  =& $gallery->getStorage();
-		$platform =& $gallery->getPlatform();
-
+		$storage                  =& $gallery->getStorage();
+		$platform                 =& $gallery->getPlatform();
 		$this->_export->_callBack = array(
 			'callback' => array($this, 'progressCallback'),
 			'progress' => 0,
@@ -131,15 +129,12 @@ class DatabaseExportTest extends GalleryTestCase {
 		$line = '    <plugin-status id="captcha" required-core-api="7.20" required-api="3.6" '
 		. 'version="1.1.5" active="1" type="module"/>' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $line, null), strlen($line) + 1);
-
 		$line = '    <plugin-status id="cart" required-core-api="7.27" required-api="3.6" '
 		. 'version="1.0.8" active="0" type="module"/>' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $line, null), strlen($line) + 1);
-
 		$line = '    <plugin-status id="core" required-core-api="7.27" required-api="3.6" '
 		. 'version="1.2.12" active="1" type="module"/>' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $line, null), strlen($line) + 1);
-
 		$warnings = array();
 
 		$ret = $this->_export->_exportPluginStatus('testHandle', 'module', $modules, $warnings);
@@ -169,7 +164,6 @@ class DatabaseExportTest extends GalleryTestCase {
 		$line = '    <plugin-status id="matrix" required-core-api="7.20" required-api="2.4" '
 		. 'version="1.1.5" active="1" type="theme"/>' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $line, null), strlen($line) + 1);
-
 		$line = '    <plugin-status id="carbon" required-core-api="7.20" required-api="2.5" '
 		. 'version="1.2.5" active="0" type="theme"/>' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $line, null), strlen($line) + 1);
@@ -186,12 +180,9 @@ class DatabaseExportTest extends GalleryTestCase {
 
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
-
 		$storage->setReply('getUniqueId', array('sequenceid'), array(null, 57));
-
 		$expected = '    <sequence name="sequenceid" start-value="57" />' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
-
 		$this->_export->_callBack = array(
 			'callback' => array($this, 'progressCallback'),
 			'progress' => 0,
@@ -210,10 +201,8 @@ class DatabaseExportTest extends GalleryTestCase {
 
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
-
 		$expected = '    <table name="TestTable">' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
-
 		$storage->setReply(
 			'_translateTableName',
 			array('TestTable'),
@@ -241,19 +230,14 @@ class DatabaseExportTest extends GalleryTestCase {
 
 		$expected = '      <definition module-id="testModule" >' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
-
 		$expected = '        <create-sql><![CDATA[Create Sql Statement]]></create-sql>' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
-
 		$expected = '        <table-info type="map"><![CDATA[test data]]></table-info>' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
-
 		$expected = '      </definition>' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
-
 		$expected = '    </table>' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
-
 		$this->_export->_ignoreTables['testtable'] = 1;
 		$this->_export->_callBack                  = array(
 			'callback' => array($this, 'progressCallback'),
@@ -277,7 +261,6 @@ class DatabaseExportTest extends GalleryTestCase {
 
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
-
 		$storage->setReply(
 			'_translateTableName',
 			array('TestTable2'),
@@ -326,7 +309,6 @@ class DatabaseExportTest extends GalleryTestCase {
 
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
-
 		$storage->setReply(
 			'_translateTableName',
 			array('TestTableMap'),
@@ -366,23 +348,18 @@ class DatabaseExportTest extends GalleryTestCase {
 
 		$expected = '        <data>' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
-
 		$expected = '          <field name="name" type="' . STORAGE_TYPE_STRING . '" size="'
 			  . STORAGE_SIZE_MEDIUM . '" not-null="1" />' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
-
 		$expected = '          <field name="major" type="' . STORAGE_TYPE_INTEGER . '" size="'
 			  . STORAGE_SIZE_MEDIUM . '" not-null="1" not-null-empty-allowed="1" />' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
-
 		$expected = '          <field name="minor" type="' . STORAGE_TYPE_INTEGER . '" size="'
 			  . STORAGE_SIZE_MEDIUM . '" />' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
-
 		$storage->setReply('_translateColumnName', array('name'), 'g_name');
 		$storage->setReply('_translateColumnName', array('major'), 'g_major');
 		$storage->setReply('_translateColumnName', array('minor'), 'g_minor');
-
 		$storage->setReply(
 			'search',
 			array(
@@ -480,13 +457,10 @@ class DatabaseExportTest extends GalleryTestCase {
 
 		$expected = '          <row><f>nameValue1</f><f>1</f><f>1</f></row>' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
-
 		$expected = '          <row><f>nameValue2</f><f>1</f><f null="1" /></row>' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
-
 		$expected = '        </data>' . "\n";
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
-
 		$this->_export->_callBack = array(
 			'callback' => array($this, 'progressCallback'),
 			'progress' => 0,
@@ -511,7 +485,6 @@ class DatabaseExportTest extends GalleryTestCase {
 
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
-
 		$storage->setReply(
 			'_translateTableName',
 			array('TestTable'),

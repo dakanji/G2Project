@@ -77,8 +77,7 @@ class MultiLangSearch extends GallerySearchInterface_1_0 {
 			);
 		}
 
-		$languageName = $supportedLanguages[$language][$country]['description'];
-
+		$languageName    = $supportedLanguages[$language][$country]['description'];
 		$info['options'] = array(
 			'title' => array(
 				'description' => $module->translate(
@@ -153,8 +152,7 @@ class MultiLangSearch extends GallerySearchInterface_1_0 {
 			);
 		}
 
-		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
-
+		$aclMarkers   = GalleryUtilities::makeMarkers(count($aclIds));
 		$searchClause = array();
 
 		if (isset($options['title'])) {
@@ -170,8 +168,7 @@ class MultiLangSearch extends GallerySearchInterface_1_0 {
 		}
 
 		$searchString = implode(' OR ', $searchClause);
-
-		$countQuery = sprintf(
+		$countQuery   = sprintf(
 			'
 	SELECT
 	  COUNT([MultiLangItemMap::itemId])

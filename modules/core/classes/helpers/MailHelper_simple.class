@@ -33,8 +33,8 @@ class MailHelper_simple {
 	 */
 	public static function sendTemplatedEmail($file, $data, $from, $to, $subject, $headers = '') {
 		global $gallery;
-
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$template = new GalleryTemplate(__DIR__ . '/../../../..', true, false);
 
 		// Set the smarty variables from the data array
@@ -87,8 +87,7 @@ class MailHelper_simple {
 		}
 
 		// Add the date; not all mailers will do this for us
-		$headers = 'Date: ' . date('r') . "\r\n" . $headers;
-
+		$headers  = 'Date: ' . date('r') . "\r\n" . $headers;
 		$platform =& $gallery->getPlatform();
 
 		foreach (explode(',', $to) as $mailTo) {

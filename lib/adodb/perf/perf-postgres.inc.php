@@ -8,10 +8,8 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
   Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   Library for basic performance monitoring and tuning
-
 */
 
 // security - hide paths
@@ -21,11 +19,10 @@ if (!defined('ADODB_DIR')) {
 
 // Notice that PostgreSQL has no sql query cache
 class perf_postgres extends adodb_perf {
-	public $tablesSQL = "select a.relname as tablename,(a.relpages+CASE WHEN b.relpages is null THEN 0 ELSE b.relpages END+CASE WHEN c.relpages is null THEN 0 ELSE c.relpages END)*8 as size_in_K,a.relfilenode as \"OID\"  from pg_class a left join pg_class b
+	public $tablesSQL      = "select a.relname as tablename,(a.relpages+CASE WHEN b.relpages is null THEN 0 ELSE b.relpages END+CASE WHEN c.relpages is null THEN 0 ELSE c.relpages END)*8 as size_in_K,a.relfilenode as \"OID\"  from pg_class a left join pg_class b
 		on b.relname = 'pg_toast_'||trim(a.relfilenode)
 		left join pg_class c on c.relname = 'pg_toast_'||trim(a.relfilenode)||'_index'
 		where a.relname in (select tablename from pg_tables where tablename not like 'pg_%')";
-
 	public $createTableSQL = 'CREATE TABLE adodb_logsql (
 		  created timestamp NOT NULL,
 		  sql0 varchar(250) NOT NULL,
@@ -34,8 +31,7 @@ class perf_postgres extends adodb_perf {
 		  tracer text NOT NULL,
 		  timer decimal(16,6) NOT NULL
 		)';
-
-	public $settings = array(
+	public $settings       = array(
 		'Ratios',
 		'statistics collector'        => array(
 			'RATIO',
@@ -57,7 +53,6 @@ class perf_postgres extends adodb_perf {
 			'select round((sum(n_tup_ins/4.0+n_tup_upd/8.0+n_tup_del/4.0)/16)::numeric,2) from pg_stat_user_tables',
 			'Count of inserts/updates/deletes * coef',
 		),
-
 		'Data Cache',
 		'data cache buffers'          => array(
 			'DATAC',

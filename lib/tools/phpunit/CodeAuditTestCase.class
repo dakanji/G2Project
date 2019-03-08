@@ -88,7 +88,6 @@ class CodeAuditTestCase extends GalleryTestCase {
 		}
 
 		$platform->fclose($handle);
-
 		$dirPaths = array($dirPath);
 
 		while (($dirPath = array_shift($dirPaths)) !== null) {
@@ -105,7 +104,6 @@ class CodeAuditTestCase extends GalleryTestCase {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
-
 		static $KIND;
 
 		if (!isset($KIND)) {

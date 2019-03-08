@@ -24,7 +24,6 @@
 // +----------------------------------------------------------------------+
 // PEAR  Id: HTMLSax3.php,v 1.2 2007/10/29 21:41:34 hfuecks
 //   G2 $Id: HTMLSax3.php 20957 2009-12-16 04:57:07Z mindless $
-
 /**
  * Main parser components
  * @package XML_HTMLSax3
@@ -179,8 +178,7 @@ class XML_HTMLSax3_StateParser {
 	 * @access protected
 	 */
 	public function __construct(& $htmlsax) {
-		$this->htmlsax =& $htmlsax;
-
+		$this->htmlsax                               =& $htmlsax;
 		$this->State[XML_HTMLSAX3_STATE_START]       = new XML_HTMLSax3_StartingState();
 		$this->State[XML_HTMLSAX3_STATE_CLOSING_TAG] = new XML_HTMLSax3_ClosingTagState();
 		$this->State[XML_HTMLSAX3_STATE_TAG]         = new XML_HTMLSax3_TagState();
@@ -463,7 +461,6 @@ class XML_HTMLSax3 {
 	public function __construct() {
 		$this->state_parser = new XML_HTMLSax3_StateParser_Gtet430($this);
 		$nullhandler        = new XML_HTMLSax3_NullHandler();
-
 		$this->set_object($nullhandler);
 		$this->set_element_handler('DoNothing', 'DoNothing');
 		$this->set_data_handler('DoNothing');
@@ -821,7 +818,6 @@ class XML_HTMLSax3_OpeningTagState {
 	 */
 	public function parseAttributes(&$context) {
 		$Attributes = array();
-
 		$context->ignoreWhitespace();
 		$attributename = $context->scanUntilCharacters("=/> \n\r\t");
 
@@ -850,7 +846,6 @@ class XML_HTMLSax3_OpeningTagState {
 			}
 
 			$Attributes[$attributename] = $attributevalue;
-
 			$context->ignoreWhitespace();
 			$attributename = $context->scanUntilCharacters("=/> \n\r\t");
 		}

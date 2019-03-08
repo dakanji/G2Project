@@ -275,8 +275,7 @@ class WebHelper_simple {
 		$platform =& $gallery->getPlatform();
 
 		// Convert illegal characters
-		$url = str_replace(' ', '%20', $url);
-
+		$url           = str_replace(' ', '%20', $url);
 		$urlComponents = WebHelper_simple::_parseUrlForFsockopen($url);
 		$handle        = @$platform->fsockopen(
 			$urlComponents['fsockhost'],

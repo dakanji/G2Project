@@ -775,7 +775,6 @@ class GalleryToolkitHelper_medium {
 					GalleryCoreApi::requireOnce(
 						'modules/core/classes/GalleryToolkit.class'
 					);
-
 					GalleryToolkit::getMe()->estimateDimensions($derivative, $source);
 				}
 			}

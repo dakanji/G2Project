@@ -49,7 +49,6 @@ class CommentModule extends GalleryModule {
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
-
 		$this->setGroup('data', $gallery->i18n('Extra Data'));
 		$this->setCallbacks(
 			'getItemLinks|getItemSummaries|' .
@@ -480,8 +479,7 @@ class CommentModule extends GalleryModule {
 	 * @see GalleryModule::getRewriteRules
 	 */
 	public function getRewriteRules() {
-		$rules = array();
-
+		$rules         = array();
 		$rule          = array();
 		$rule['match'] = array(
 			'view' => 'comment.AddComment',
@@ -490,9 +488,8 @@ class CommentModule extends GalleryModule {
 		$rule['pattern'] = 'c/add/%itemId%.html';
 		$rule['comment'] = $this->translate('Add Comment');
 		$rules[]         = $rule;
-
-		$rule          = array();
-		$rule['match'] = array(
+		$rule            = array();
+		$rule['match']   = array(
 			'view' => 'comment.ShowAllComments',
 		);
 

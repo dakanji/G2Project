@@ -8,7 +8,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
 Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   Native mssql driver. Requires mssql client. Works on Windows.
   To configure for Unix, see
@@ -284,8 +283,7 @@ class ADODB_mssql extends ADOConnection {
 			$col = $this->sysTimeStamp;
 		}
 
-		$s = '';
-
+		$s   = '';
 		$len = strlen($fmt);
 
 		for ($i = 0; $i < $len; $i++) {
@@ -426,14 +424,10 @@ class ADODB_mssql extends ADOConnection {
 
 	/*
 		Usage:
-
 		$this->BeginTrans();
 		$this->RowLock('table1,table2','table1.id=33 and table2.id=table1.id'); # lock row 33 for both tables
-
 		# some operation on both tables table1 and table2
-
 		$this->CommitTrans();
-
 		See http://www.swynk.com/friends/achigrik/SQL70Locks.asp
 	*/
 	public function RowLock($tables, $where, $col = '1 as adodbignore') {
@@ -488,10 +482,9 @@ class ADODB_mssql extends ADOConnection {
 		$retarr = array();
 
 		while (!$rs->EOF) {
-			$fld       = new ADOFieldObject();
-			$fld->name = $rs->fields[0];
-			$fld->type = $rs->fields[1];
-
+			$fld                 = new ADOFieldObject();
+			$fld->name           = $rs->fields[0];
+			$fld->type           = $rs->fields[1];
 			$fld->not_null       = (!$rs->fields[3]);
 			$fld->auto_increment = ($rs->fields[4] == 128);     // sys.syscolumns status field. 0x80 = 128 ref: http://msdn.microsoft.com/en-us/library/ms186816.aspx
 			if (isset($rs->fields[5]) && $rs->fields[5]) {
@@ -524,8 +517,7 @@ class ADODB_mssql extends ADOConnection {
 
 	public function MetaIndexes($table, $primary = false, $owner = false) {
 		$table = $this->qstr($table);
-
-		$sql = "SELECT i.name AS ind_name, C.name AS col_name, USER_NAME(O.uid) AS Owner, c.colid, k.Keyno,
+		$sql   = "SELECT i.name AS ind_name, C.name AS col_name, USER_NAME(O.uid) AS Owner, c.colid, k.Keyno,
 			CASE WHEN I.indid BETWEEN 1 AND 254 AND (I.status & 2048 = 2048 OR I.Status = 16402 AND O.XType = 'V') THEN 1 ELSE 0 END AS IsPK,
 			CASE WHEN I.status & 2 = 2 THEN 1 ELSE 0 END AS IsUnique
 			FROM dbo.sysobjects o INNER JOIN dbo.sysindexes I ON o.id = i.id
@@ -533,7 +525,6 @@ class ADODB_mssql extends ADOConnection {
 			INNER JOIN dbo.syscolumns c ON K.id = C.id AND K.colid = C.Colid
 			WHERE LEFT(i.name, 8) <> '_WA_Sys_' AND o.status >= 0 AND O.Name LIKE $table
 			ORDER BY O.name, I.Name, K.keyno";
-
 		global $ADODB_FETCH_MODE;
 
 		$save             = $ADODB_FETCH_MODE;
@@ -575,20 +566,16 @@ class ADODB_mssql extends ADOConnection {
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		$table            = $this->qstr(strtoupper($table));
-
-		$sql = "select object_name(constid) as constraint_name,
+		$sql              = "select object_name(constid) as constraint_name,
 	col_name(fkeyid, fkey) as column_name,
 	object_name(rkeyid) as referenced_table_name,
    	col_name(rkeyid, rkey) as referenced_column_name
 from sysforeignkeys
 where upper(object_name(fkeyid)) = $table
 order by constraint_name, referenced_table_name, keyno";
-
-		$constraints = $this->GetArray($sql);
-
+		$constraints      = $this->GetArray($sql);
 		$ADODB_FETCH_MODE = $save;
-
-		$arr = false;
+		$arr              = false;
 
 		foreach ($constraints as $constr) {
 			//print_r($constr);
@@ -659,10 +646,9 @@ order by constraint_name, referenced_table_name, keyno";
 			$schema = "and k.table_catalog like '$schema%'";
 		}
 
-		$sql = "select distinct k.column_name,ordinal_position from information_schema.key_column_usage k,
+		$sql              = "select distinct k.column_name,ordinal_position from information_schema.key_column_usage k,
 		information_schema.table_constraints tc
 		where tc.constraint_name = k.constraint_name and tc.constraint_type = 'PRIMARY KEY' and k.table_name = '$table' $schema order by ordinal_position ";
-
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		$a                = $this->GetCol($sql);
@@ -855,19 +841,16 @@ order by constraint_name, referenced_table_name, keyno";
 	/*
 	Usage:
 		$stmt = $db->PrepareSP('SP_RUNSOMETHING'); -- takes 2 params, @myid and @group
-
 		# note that the parameter does not have @ in front!
 		$db->Parameter($stmt,$id,'myid');
 		$db->Parameter($stmt,$group,'group',false,64);
 		$db->Execute($stmt);
-
 		@param $stmt Statement returned by Prepare() or PrepareSP().
 		@param $var PHP variable to bind to. Can set to null (for isNull support).
 		@param $name Name of stored procedure variable name to bind to.
 		@param [$isOutput] Indicates direction of parameter 0/false=IN  1=OUT  2= IN/OUT. This is ignored in oci8.
 		@param [$maxLen] Holds an maximum length of the variable.
 		@param [$type] The data type of $var. Legal values depend on driver.
-
 		See mssql_bind documentation at php.net.
 	*/
 	public function Parameter(&$stmt, &$var, $name, $isOutput = false, $maxLen = 4000, $type = false) {
@@ -927,12 +910,9 @@ order by constraint_name, referenced_table_name, keyno";
 	/*
 		Unfortunately, it appears that mssql cannot handle varbinary > 255 chars
 		So all your blobs must be of type "image".
-
 		Remember to set in php.ini the following...
-
 		; Valid range 0 - 2147483647. Default = 4096.
 		mssql.textlimit = 0 ; zero to pass through
-
 		; Valid range 0 - 2147483647. Default = 4096.
 		mssql.textsize = 0 ; zero to pass through
 	*/
@@ -1415,7 +1395,6 @@ select 	object_name(constid) as constraint_name,
 from sysforeignkeys
 where object_name(fkeyid) = x
 order by constraint_name, table_name, referenced_table_name,  keyno
-
 Code Example 2:
 select 	constraint_name,
 	column_name,
@@ -1424,6 +1403,5 @@ from information_schema.key_column_usage
 where constraint_catalog = db_name()
 and table_name = x
 order by constraint_name, ordinal_position
-
 http://www.databasejournal.com/scripts/article.php/1440551
 */

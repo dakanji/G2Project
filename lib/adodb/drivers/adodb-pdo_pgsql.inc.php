@@ -8,7 +8,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
   Set tabs to 8.
-
 */
 class ADODB_pdo_pgsql extends ADODB_pdo {
 	public $metaDatabasesSQL = "select datname from pg_database where datname not in ('template0','template1') order by 1";
@@ -37,9 +36,8 @@ WHERE relkind in ('r','v') AND (c.relname='%s' or c.relname = lower('%s'))
 	AND a.atttypid = t.oid AND a.attrelid = c.oid ORDER BY a.attnum";
 
 	// get primary key etc -- from Freek Dijkstra
-	public $metaKeySQL = "SELECT ic.relname AS index_name, a.attname AS column_name,i.indisunique AS unique_key, i.indisprimary AS primary_key
+	public $metaKeySQL      = "SELECT ic.relname AS index_name, a.attname AS column_name,i.indisunique AS unique_key, i.indisprimary AS primary_key
 	FROM pg_class bc, pg_class ic, pg_index i, pg_attribute a WHERE bc.oid = i.indrelid AND ic.oid = i.indexrelid AND (i.indkey[0] = a.attnum OR i.indkey[1] = a.attnum OR i.indkey[2] = a.attnum OR i.indkey[3] = a.attnum OR i.indkey[4] = a.attnum OR i.indkey[5] = a.attnum OR i.indkey[6] = a.attnum OR i.indkey[7] = a.attnum) AND a.attrelid = bc.oid AND bc.relname = '%s'";
-
 	public $hasAffectedRows = true;
 	public $hasLimit        = false;  // set to true for pgsql 7 only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
 	// below suggested by Freek Dijkstra
@@ -161,8 +159,7 @@ select viewname,'V' from pg_views where viewname like $mask";
 			// LEFT JOIN would have been much more elegant, but postgres does
 			// not support OUTER JOINS. So here is the clumsy way.
 			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-
-			$rskey = $this->Execute(sprintf($this->metaKeySQL, ($table)));
+			$rskey            = $this->Execute(sprintf($this->metaKeySQL, ($table)));
 
 			// fetch all result in once for performance.
 			$keys = $rskey->GetArray();
@@ -172,7 +169,6 @@ select viewname,'V' from pg_views where viewname like $mask";
 			}
 
 			$ADODB_FETCH_MODE = $save;
-
 			$rskey->Close();
 			unset($rskey);
 		}

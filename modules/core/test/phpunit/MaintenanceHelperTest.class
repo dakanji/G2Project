@@ -112,6 +112,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		$this->assertEquals($time, $info['timestamp'], 'timestamp 1');
 		$this->assertTrue($info['success'], 'success 1');
 		$this->assertEquals(array('some details'), $info['details'], 'details 1');
+
 		$lastRunId = $info['runId'];
 
 		// Add a second task entry
@@ -152,9 +153,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 
 		$writeString = $module->getVersion() . "\n" . $module->getGalleryVersion() . "\n"
 		. 'maintenance-mode';
-
 		$versionFile = $gallery->getConfig('data.gallery.version');
-
 		$platform->setReply('file_exists', array($versionFile), true, true);
 		$platform->setReply(
 			'file',
@@ -179,7 +178,6 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			$gallery->getConfig('mode.maintenance'),
 			'Configuration not modified'
 		);
-
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
@@ -189,7 +187,6 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		$UnitTestPlatform = new UnitTestPlatform();
 		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
-
 		$gallery->setConfig('mode.maintenance', true);
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -199,9 +196,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		}
 
 		$writeString = $module->getVersion() . "\n" . $module->getGalleryVersion();
-
 		$versionFile = $gallery->getConfig('data.gallery.version');
-
 		$platform->setReply('file_exists', array($versionFile), true, true);
 		$platform->setReply(
 			'file',
@@ -226,7 +221,6 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			$gallery->getConfig('mode.maintenance'),
 			'Configuration not modified'
 		);
-
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
@@ -248,7 +242,6 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		$writeString = $module->getVersion() . "\n" . $module->getGalleryVersion() . "\n"
 		. 'maintenance-mode:http://test.gallery.com/maintenance.html';
 		$versionFile = $gallery->getConfig('data.gallery.version');
-
 		$platform->setReply('file_exists', array($versionFile), true);
 		$platform->setReply(
 			'file',
@@ -272,7 +265,6 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			$gallery->getConfig('mode.maintenance'),
 			'Configuration not modified'
 		);
-
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
@@ -281,7 +273,6 @@ class MaintenanceHelperTest extends GalleryTestCase {
 
 		$UnitTestPlatform = new UnitTestPlatform();
 		$gallery->setPlatform($UnitTestPlatform);
-
 		$current = $gallery->getConfig('mode.maintenance');
 
 		$ret = GalleryCoreApi::setMaintenanceMode($current);

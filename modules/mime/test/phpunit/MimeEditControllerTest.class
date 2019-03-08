@@ -52,6 +52,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][apply]', 1);
 		GalleryUtilities::putRequestVariable('form[mimeType]', 'test/test');
 		GalleryUtilities::putRequestVariable('form[extensions]', array('xxx'));
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -87,6 +88,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[mimeType]', 'test/test');
 		GalleryUtilities::putRequestVariable('form[extensions]', array('xxx'));
 		GalleryUtilities::putRequestVariable('form[viewable]', 'on');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -121,6 +123,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[mimeType]', 'test/test');
 		GalleryUtilities::putRequestVariable('form[extensions]', array('xxx'));
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -158,6 +161,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[mimeType]', '');
 		GalleryUtilities::putRequestVariable('form[extensions]', array('xxx'));
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -177,6 +181,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[mimeType]', 'test/test');
 		GalleryUtilities::putRequestVariable('form[extensions]', array(''));
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -196,6 +201,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[mimeType]', '');
 		GalleryUtilities::putRequestVariable('form[extensions]', array(''));
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -226,6 +232,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[mimeType]', 'test/test');
 		GalleryUtilities::putRequestVariable('form[extensions]', array($extension));
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -247,6 +254,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[mimeType]', 'Test/Test');
 		GalleryUtilities::putRequestVariable('form[extensions]', array('xXx'));
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

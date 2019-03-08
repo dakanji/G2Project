@@ -28,11 +28,10 @@ class KeyAlbumCallbacks {
 	public function callback($params, &$smarty, $callback, $userId) {
 		switch ($callback) {
 			case 'LoadKeywords':
-				$onlyPublic = (bool)$params['onlyPublic'];
-				$sizeLimit  = (int)$params['sizeLimit'];
-				$param      = 'allKeywords' . ($onlyPublic ? '.public' : '')
+				$onlyPublic       = (bool)$params['onlyPublic'];
+				$sizeLimit        = (int)$params['sizeLimit'];
+				$param            = 'allKeywords' . ($onlyPublic ? '.public' : '')
 				. ($sizeLimit ? '.' . $sizeLimit : '');
-
 				$includeFrequency = (bool)$params['includeFrequency'];
 
 				list($ret, $lastUpdated) = GalleryCoreApi::getPluginParameter(
@@ -93,8 +92,7 @@ class KeyAlbumCallbacks {
 					return $ret;
 				}
 
-				$block =& $smarty->_tpl_vars['block'];
-
+				$block                         =& $smarty->_tpl_vars['block'];
 				$block['keyalbum']['keywords'] = $module->splitKeywords(
 					$params['keywords'],
 					$split

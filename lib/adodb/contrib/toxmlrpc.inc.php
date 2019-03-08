@@ -88,8 +88,7 @@ function rs2xmlrpcval_header($adodbrs) {
 	$recordcount = new xmlrpcval($numrecords, 'int');
 	$sql         = new xmlrpcval($adodbrs->sql);
 	$fieldinfo   = new xmlrpcval($fieldstruct, 'array');
-
-	$header = new xmlrpcval(
+	$header      = new xmlrpcval(
 		array(
 			'fieldcount'  => $fieldcount,
 			'recordcount' => $recordcount,
@@ -136,7 +135,6 @@ function rs2xmlrpcval_body($adodbrs) {
 		}
 
 		$rows[] = new xmlrpcval($columns, 'array');
-
 		$adodbrs->MoveNext();
 	}
 
@@ -168,16 +166,14 @@ function xmlrpcval2rs(&$xmlrpcval) {
 	$data_array   = array();
 
 	// rebuild column information
-	$header = $xmlrpcval->structmem('header');
-
+	$header     = $xmlrpcval->structmem('header');
 	$numfields  = $header->structmem('fieldcount');
 	$numfields  = $numfields->scalarval();
 	$numrecords = $header->structmem('recordcount');
 	$numrecords = $numrecords->scalarval();
 	$sqlstring  = $header->structmem('sql');
 	$sqlstring  = $sqlstring->scalarval();
-
-	$fieldinfo = $header->structmem('fieldinfo');
+	$fieldinfo  = $header->structmem('fieldinfo');
 
 	for ($i = 0; $i < $numfields; $i++) {
 		$temp = $fieldinfo->arraymem($i);

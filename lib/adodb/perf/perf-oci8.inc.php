@@ -8,10 +8,8 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
   Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   Library for basic performance monitoring and tuning
-
 */
 
 // security - hide paths
@@ -23,9 +21,7 @@ class perf_oci8 extends ADODB_perf {
 	public $noShowIxora = 15; // if the sql for suspicious sql is taking too long, then disable ixora
 	public $tablesSQL   = 'select segment_name as "tablename", sum(bytes)/1024 as "size_in_k",tablespace_name as "tablespace",count(*) "extents" from sys.user_extents
 	   group by segment_name,tablespace_name';
-
 	public $version;
-
 	public $createTableSQL = 'CREATE TABLE adodb_logsql (
 		  created date NOT NULL,
 		  sql0 varchar(250) NOT NULL,
@@ -34,8 +30,7 @@ class perf_oci8 extends ADODB_perf {
 		  tracer varchar(4000),
 		  timer decimal(16,6) NOT NULL
 		)';
-
-	public $settings = array(
+	public $settings       = array(
 		'Ratios',
 		'data cache hit ratio'          => array(
 			'RATIOH',
@@ -46,13 +41,11 @@ class perf_oci8 extends ADODB_perf {
 			      phy.name = 'physical reads'",
 			'=WarnCacheRatio',
 		),
-
 		'sql cache hit ratio'           => array(
 			'RATIOH',
 			'select round(100*(sum(pins)-sum(reloads))/sum(pins),2)  from v$librarycache',
 			'increase <i>shared_pool_size</i> if too ratio low',
 		),
-
 		'datadict cache hit ratio'      => array(
 			'RATIOH',
 			'select
@@ -61,7 +54,6 @@ class perf_oci8 extends ADODB_perf {
 		from  v$rowcache',
 			'increase <i>shared_pool_size</i> if too ratio low',
 		),
-
 		'memory sort ratio'             => array(
 			'RATIOH',
 			"SELECT ROUND((100 * b.VALUE) /DECODE ((a.VALUE + b.VALUE),
@@ -72,20 +64,16 @@ WHERE  a.name = 'sorts (disk)'
 AND    b.name = 'sorts (memory)'",
 			'% of memory sorts compared to disk sorts - should be over 95%',
 		),
-
 		'IO',
 		'data reads'                    => array(
 			'IO',
 			"select value from v\$sysstat where name='physical reads'",
 		),
-
 		'data writes'                   => array(
 			'IO',
 			"select value from v\$sysstat where name='physical writes'",
 		),
-
 		'Data Cache',
-
 		'data cache buffers'            => array(
 			'DATAC',
 			"select a.value/b.value  from v\$parameter a, v\$parameter b
@@ -97,7 +85,6 @@ AND    b.name = 'sorts (memory)'",
 			"select value from v\$parameter where name='db_block_size'",
 			'',
 		),
-
 		'Memory Pools',
 		'Mem Max Target (11g+)'         => array(
 			'DATAC',
@@ -144,9 +131,7 @@ AND    b.name = 'sorts (memory)'",
 			"select value from v\$parameter where name='large_pool_size'",
 			'this pool is for large mem allocations (not because it is larger than shared pool), for MTS sessions, parallel queries, io buffers (large_pool_size) ',
 		),
-
 		'dynamic memory usage'          => array('CACHE', "select '-' from dual", '=DynMemoryUsage'),
-
 		'Connections',
 		'current connections'           => array(
 			'SESS',
@@ -158,7 +143,6 @@ AND    b.name = 'sorts (memory)'",
 			"select value from v\$parameter where name='sessions'",
 			'',
 		),
-
 		'Memory Utilization',
 		'data cache utilization ratio'  => array(
 			'RATIOU',
@@ -167,7 +151,6 @@ AND    b.name = 'sorts (memory)'",
 			where name = 'free memory' and pool = 'shared pool'",
 			'Percentage of data cache actually in use - should be over 85%',
 		),
-
 		'shared pool utilization ratio' => array(
 			'RATIOU',
 			'select round((sga.bytes/case when p.value=0 then sga.bytes else to_number(p.value) end)*100,2)
@@ -176,7 +159,6 @@ AND    b.name = 'sorts (memory)'",
 		and p.name = \'shared_pool_size\'',
 			'Percentage of shared pool actually used - too low is bad, too high is worse',
 		),
-
 		'large pool utilization ratio'  => array(
 			'RATIOU',
 			"select round((1-bytes/sgasize)*100, 2)
@@ -198,7 +180,6 @@ AND    b.name = 'sorts (memory)'",
 			'select count(*) from sys.v_$rollstat',
 			'',
 		),
-
 		'peak transactions'             => array(
 			'ROLLBACK',
 			"select max_utilization  tx_hwm
@@ -240,7 +221,6 @@ AND    b.name = 'sorts (memory)'",
 		//      'Historical wait SQL' => array('WAITS','select \'Last 2 days\' from dual','=TopHistoricalWaits'), -- requires AWR license
 				'Backup',
 		'Achivelog Mode'                => array('BACKUP', 'select log_mode from v$database', '=LogMode'),
-
 		'DBID'                          => array('BACKUP', 'select dbid from v$database', 'Primary key of database, used for recovery with an RMAN Recovery Catalog'),
 		'Archive Log Dest'              => array(
 			'BACKUP',
@@ -248,11 +228,8 @@ AND    b.name = 'sorts (memory)'",
 FROM v\$parameter v1, v\$parameter v2 WHERE v1.name='log_archive_dest' AND v2.name='log_archive_dest_10'",
 			'',
 		),
-
 		'Flashback Area'                => array('BACKUP', "select nvl(value,'Flashback Area not used') from v\$parameter where name=lower('DB_RECOVERY_FILE_DEST')", 'Flashback area is a folder where all backup data and logs can be stored and managed by Oracle. If Error: message displayed, then it is not in use.'),
-
 		'Flashback Usage'               => array('BACKUP', "select nvl('-','Flashback Area not used') from v\$parameter where name=lower('DB_RECOVERY_FILE_DEST')", '=FlashUsage', 'Flashback area usage.'),
-
 		'Control File Keep Time'        => array('BACKUP', "select value from v\$parameter where name='control_file_record_keep_time'", 'No of days to keep RMAN info in control file.  Recommended set to x2 or x3 times the frequency of your full backup.'),
 		'Recent RMAN Jobs'              => array('BACKUP', "select '-' from dual", '=RMAN'),
 
@@ -260,7 +237,6 @@ FROM v\$parameter v1, v\$parameter v2 WHERE v1.name='log_archive_dest' AND v2.na
 		'Storage',
 		'Tablespaces'                   => array('TABLESPACE', "select '-' from dual", '=TableSpace'),
 		false,
-
 	);
 
 	public function __construct(&$conn) {
@@ -281,7 +257,6 @@ FROM v\$parameter v1, v\$parameter v2 WHERE v1.name='log_archive_dest' AND v2.na
 	<pre><font size=-2>
         SQLPLUS> connect sys as sysdba;
         SQLPLUS> shutdown immediate;
-
         SQLPLUS> startup mount exclusive;
         SQLPLUS> alter database noarchivelog;
         SQLPLUS> alter database open;
@@ -292,7 +267,6 @@ FROM v\$parameter v1, v\$parameter v2 WHERE v1.name='log_archive_dest' AND v2.na
 	<pre><font size=-2>
         SQLPLUS> connect sys as sysdba;
         SQLPLUS> shutdown immediate;
-
         SQLPLUS> startup mount exclusive;
         SQLPLUS> alter database archivelog;
         SQLPLUS> archive log start;
@@ -315,8 +289,7 @@ FROM v\$parameter v1, v\$parameter v2 WHERE v1.name='log_archive_dest' AND v2.na
 
 	public function TopHistoricalWaits() {
 		$days = 2;
-
-		$rs = $this->conn->Execute(
+		$rs   = $this->conn->Execute(
 			"select * from (   SELECT
          b.wait_class,B.NAME,
         round(sum(wait_time+TIME_WAITED)/1000000) waitsecs,
@@ -503,10 +476,8 @@ CREATE TABLE PLAN_TABLE (
 		}
 
 		$s = '<p><b>Explain</b>: ' . htmlspecialchars($sql) . '</p>';
-
 		$this->conn->BeginTrans();
 		$id = 'ADODB ' . microtime();
-
 		$rs = $this->conn->Execute("EXPLAIN PLAN SET STATEMENT_ID='$id' FOR $sql");
 		$m  = $this->conn->ErrorMsg();
 
@@ -617,7 +588,6 @@ select  a.name Buffer_Pool, b.size_for_estimate as cache_mb_estimate,
 		}
 
 		$rs->Close();
-
 		$carr   = explode('::', $check);
 		$prefix = '<a target=' . mt_rand() . " href=\"?&hidem=1&$type=1&sql=" . rawurlencode($sql) . '&x#explain">';
 		$suffix = '</a>';
@@ -670,7 +640,6 @@ where
   p.address = s.address
 order by
   1 desc, s.address, p.piece";
-
 		global $ADODB_CACHE_MODE;
 
 		if (isset($_GET['expsixora'], $_GET['sql'])) {
@@ -691,8 +660,7 @@ order by
 			return $s;
 		}
 
-		$s .= '<p>';
-
+		$s               .= '<p>';
 		$save             = $ADODB_CACHE_MODE;
 		$ADODB_CACHE_MODE = ADODB_FETCH_NUM;
 
@@ -825,7 +793,6 @@ BEGIN
 	END LOOP;
 	commit;
 END;";
-
-		$ok = $this->conn->Execute($sql);
+		$ok  = $this->conn->Execute($sql);
 	}
 }

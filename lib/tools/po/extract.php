@@ -54,7 +54,6 @@ foreach ($_SERVER['argv'] as $moduleDir) {
 
 	chdir($moduleDir);
 	find('.');
-
 	$oldStringsRaw = "$moduleDir/po/strings.raw";
 
 	if (file_exists($oldStringsRaw)) {

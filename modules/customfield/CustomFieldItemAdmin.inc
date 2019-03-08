@@ -38,8 +38,7 @@ class CustomFieldItemAdminController extends GalleryController {
 	public function handleRequest($form) {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
+		$session   =& $gallery->getSession();
 		$adminMode = GalleryUtilities::getRequestVariables('cfAdmin');
 
 		list($ret, $item) = $this->getItem();

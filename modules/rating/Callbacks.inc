@@ -100,10 +100,9 @@ class RatingCallbacks {
 				}
 
 				$RatingData[$itemId]['canRate'] = ($permission ? true : false);
-
-				$session       =& $gallery->getSession();
-				$authToken     = $session->isPersistent() ? $session->getAuthToken() : '';
-				$RatingSummary = array(
+				$session                        =& $gallery->getSession();
+				$authToken                      = $session->isPersistent() ? $session->getAuthToken() : '';
+				$RatingSummary                  = array(
 					'ratingValues' => array(1, 2, 3, 4, 5),
 					'firstCall'    => true,
 					'authToken'    => $authToken,

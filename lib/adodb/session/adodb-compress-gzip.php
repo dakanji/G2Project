@@ -9,7 +9,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
 	  Set tabs to 4 for best viewing.
-
 */
 if (!function_exists('gzcompress')) {
 	trigger_error('gzip functions are not available', E_USER_ERROR);
@@ -19,7 +18,6 @@ if (!function_exists('gzcompress')) {
 
 class ADODB_Compress_Gzip {
 	public $_level;
-
 	public $_min_length = 1;
 
 	public function getLevel() {

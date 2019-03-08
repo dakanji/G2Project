@@ -388,12 +388,10 @@ class GalleryEntityHelper_medium {
 				return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 			}
 
-			$relativePath = str_replace($gallery->getConfig('data.gallery.base'), '', $fullPath);
-
-			$stats         = $platform->stat($fullPath);
-			$contentLength = $stats[7];
-			$lastModified  = GalleryUtilities::getHttpDate($stats[9]);
-
+			$relativePath         = str_replace($gallery->getConfig('data.gallery.base'), '', $fullPath);
+			$stats                = $platform->stat($fullPath);
+			$contentLength        = $stats[7];
+			$lastModified         = GalleryUtilities::getHttpDate($stats[9]);
 			$fastDownloadFilePath = GalleryDataCache::getCachePath(
 				array(
 					'type'   => 'fast-download',

@@ -83,7 +83,6 @@ class FactoryTest extends GalleryTestCase {
 		}
 
 		$this->_markFactoryModuleForCleanup('factoryTest2');
-
 		$FactoryTestModule = new FactoryTestModule();
 		GalleryPluginHelper_medium::setPluginInstance(
 			'module',
@@ -479,12 +478,15 @@ class FactoryTest extends GalleryTestCase {
 		}
 
 		$result = empty($registry['implementations']['GalleryEventListener']['TestErrorHandler']);
+
 		$this->assertTrue($result, 'TestErrorHandler implementation is set');
 
 		$result = empty($registry['ids']['GalleryEventListener']['TestErrorHandler']);
+
 		$this->assertTrue($result, 'TestErrorHandler id is set');
 
 		$result = empty($registry['pluginIds']['GalleryEventListener']['TestErrorHandler']);
+
 		$this->assertTrue($result, 'TestErrorHandler implementation is still set');
 
 		$result = empty(
@@ -502,7 +504,6 @@ class FactoryTest extends GalleryTestCase {
  * @subpackage PHPUnit
  */
 class FactoryTestDummy {}
-
 class FactoryTestDummy2 {}
 
 /**

@@ -277,7 +277,6 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 
 		$gallery->_platform = new UnitTestPlatform();
 		$gallery->_platform->setReply('file_exists', array('/MANIFEST'), false);
-
 		$descriptor = $this->_getDescriptorWithFakeFileMetadata();
 
 		$ret = $descriptor->generate(new RepositoryDescriptorTestPlugin());
@@ -302,12 +301,9 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		$utils       = new RepositoryDescriptorTestUtilities();
 		$utils->setGetFileRevision($testDataDir . 'po/strings.raw', '22222');
 		$descriptor->setUtilities($utils);
-
-		$platform = new UnitTestPlatform();
-
+		$platform      = new UnitTestPlatform();
 		$manifestLines = file($testDataDir . 'MANIFEST');
 		$platform->setReply('file', array($testDataDir . 'MANIFEST', null), $manifestLines);
-
 		$platform->setReply(
 			'file_get_contents',
 			array($testDataDir . 'MANIFEST'),
@@ -315,7 +311,6 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		);
 
 		$gallery->setPlatform($platform);
-
 		$descriptor->getFileMetaData(dirname(__DIR__) . '/data/', $data);
 
 		$this->assertEquals($this->_canonicalFileMetaData, $data);
@@ -358,7 +353,6 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 			array('MANIFEST', 'file.1', 'file.2', 'po/strings.raw'),
 			$descriptor->getFilesInPackage('base')
 		);
-
 		$this->assertEquals(
 			array('locale/aa/LC_MESSAGES/test.mo', 'po/aa.mo', 'po/aa.po'),
 			$descriptor->getFilesInPackage('lang-aa')
@@ -394,12 +388,10 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 		$platform->setReply('is_readable', array($descriptor->getPluginDir() . 'MANIFEST'), false);
 		$gallery->setPlatform($platform);
-
 		$this->assertEquals(
 			array('Missing MANIFEST'),
 			$descriptor->checkIntegrity()
 		);
-
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
@@ -428,9 +420,8 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		$phpVm->setCrc32('test.mo', 12345); // correct checksum
 		$phpVm->setCrc32('file.test', 12345); // correct checksum
 		$gallery->_phpVm = $phpVm;
-
-		$platform = new UnitTestPlatform();
-		$base     = $descriptor->getPluginDir();
+		$platform        = new UnitTestPlatform();
+		$base            = $descriptor->getPluginDir();
 		$platform->setReply('is_readable', array($base . 'MANIFEST'), true);
 		$platform->setReply(
 			'stat',
@@ -515,7 +506,6 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		);
 
 		$gallery->setPlatform($platform);
-
 		$this->assertEquals(
 			array(
 				'file.1: bad crc (12345 != 1)',
@@ -525,7 +515,6 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 			),
 			$descriptor->checkIntegrity()
 		);
-
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 }

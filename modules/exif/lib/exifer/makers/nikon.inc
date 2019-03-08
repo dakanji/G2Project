@@ -6,19 +6,14 @@
 /*
 	Exifer
 	Extracts EXIF information from digital photos.
-
 	Copyright (c) 2003 Jake Olefsky
 	http://www.offsky.com/software/exif/index.php
 	jake@olefsky.com
-
 	Please see exif.php for the complete information about this software.
-
 	------------
-
 	This program is free software; you can redistribute it and/or modify it under the terms of
 	the GNU General Public License as published by the Free Software Foundation; either version 2
 	of the License, or (at your option) any later version.
-
 	This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 	without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 	See the GNU General Public License for more details. http://www.gnu.org/copyleft/gpl.html
@@ -507,9 +502,8 @@ function parseNikon($block, &$result) {
 			}
 		}
 	} else {
-		$place = 0;//current place
-		$model = 1;
-
+		$place  = 0;//current place
+		$model  = 1;
 		$nikon  = substr($block, $place, 8);
 		$place += 8;
 		$endien = substr($block, $place, 4);

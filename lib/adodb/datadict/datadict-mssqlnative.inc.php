@@ -16,26 +16,18 @@
 In ADOdb, named quotes for MS SQL Server use ". From the MSSQL Docs:
 	Note Delimiters are for identifiers only. Delimiters cannot be used for keywords,
 	whether or not they are marked as reserved in SQL Server.
-
 	Quoted identifiers are delimited by double quotation marks ("):
 	SELECT * FROM "Blanks in Table Name"
-
 	Bracketed identifiers are delimited by brackets ([ ]):
 	SELECT * FROM [Blanks In Table Name]
-
 	Quoted identifiers are valid only when the QUOTED_IDENTIFIER option is set to ON. By default,
 	the Microsoft OLE DB Provider for SQL Server and SQL Server ODBC driver set QUOTED_IDENTIFIER ON
 	when they connect.
-
 	In Transact-SQL, the option can be set at various levels using SET QUOTED_IDENTIFIER,
 	the quoted identifier option of sp_dboption, or the user options option of sp_configure.
-
 	When SET ANSI_DEFAULTS is ON, SET QUOTED_IDENTIFIER is enabled.
-
 	Syntax
-
 		SET QUOTED_IDENTIFIER { ON | OFF }
-
 */
 
 // security - hide paths
@@ -65,27 +57,22 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 			-154 => 'D',
 			-2   => 'D',
 			91   => 'D',
-
 			12   => 'C',
 			1    => 'C',
 			-9   => 'C',
 			-8   => 'C',
-
 			-7   => 'L',
 			-6   => 'I2',
 			-5   => 'I8',
 			-11  => 'I',
 			4    => 'I',
 			5    => 'I4',
-
 			-1   => 'X',
 			-10  => 'X',
-
 			2    => 'N',
 			3    => 'N',
 			6    => 'N',
 			7    => 'N',
-
 			-152 => 'X',
 			-151 => 'X',
 			-4   => 'X',
@@ -312,13 +299,10 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 	( { < column_definition >
 		| column_name AS computed_column_expression
 		| < table_constraint > ::= [ CONSTRAINT constraint_name ] }
-
 			| [ { PRIMARY KEY | UNIQUE } [ ,...n ]
 	)
-
 	[ ON { filegroup | DEFAULT } ]
 	[ TEXTIMAGE_ON { filegroup | DEFAULT } ]
-
 	< column_definition > ::= { column_name data_type }
 	[ COLLATE < collation_name > ]
 	[ [ DEFAULT constant_expression ]
@@ -326,7 +310,6 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 	]
 	[ ROWGUIDCOL]
 	[ < column_constraint > ] [ ...n ]
-
 	< column_constraint > ::= [ CONSTRAINT constraint_name ]
 	{ [ NULL | NOT NULL ]
 		| [ { PRIMARY KEY | UNIQUE }

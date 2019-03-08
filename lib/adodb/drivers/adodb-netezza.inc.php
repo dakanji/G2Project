@@ -4,7 +4,6 @@
   @version   v5.20.12  30-Mar-2018
   @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
   @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
-
   First cut at the Netezza Driver by Josh Eldridge joshuae74#hotmail.com
  Based on the previous postgres drivers.
  http://www.netezza.com/
@@ -62,8 +61,7 @@ class ADODB_netezza extends ADODB_postgres64 {
 		// could posisbly work on other things from the system table later.
 		global $ADODB_FETCH_MODE;
 
-		$table = strtolower($table);
-
+		$table            = strtolower($table);
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 

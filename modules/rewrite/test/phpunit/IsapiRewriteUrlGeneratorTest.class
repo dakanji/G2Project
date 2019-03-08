@@ -21,7 +21,6 @@
 GalleryCoreApi::requireOnce(
 	'modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteUrlGenerator.class'
 );
-
 GalleryCoreApi::requireOnce('modules/rewrite/test/phpunit/RewriteUrlGeneratorTestCase.class');
 
 /**

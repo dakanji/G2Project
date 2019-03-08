@@ -53,6 +53,7 @@ class CaptchaImageView extends GalleryView {
 
 		if (empty($code)) {
 			GalleryCoreApi::requireOnce('modules/captcha/classes/CaptchaHelper.class');
+
 			CaptchaHelper::generateCaptchaSessionKey();
 			$code = $session->get('captcha.key');
 

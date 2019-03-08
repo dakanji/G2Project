@@ -106,6 +106,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 
 		// Force system charset to ISO-8859-1 so convertToUtf8 will work on test data
 		$gallery->_phpVm = new ItemAddFromServerTestPhpVm();
+
 		GalleryDataCache::remove('GalleryCharsetHelper_simple::detectSystemCharset');
 	}
 
@@ -191,6 +192,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		}
 
 		$results = $this->handleRequest($this->_album, ERROR_PERMISSION_DENIED);
+
 		$this->assertEquals(array(null, null), $results);
 	}
 
@@ -316,7 +318,6 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 			);
 
 			rsort($files);
-
 			$escapedBasenames = array('test1', 'test1', 'test2', 'test[3]', 'apo\'strophe', "t\xebst");
 			rsort($escapedBasenames);
 
@@ -339,10 +340,8 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		if ($addDirectories) {
 			$files = array('test1.gif', 'test1.jpg', 'test2.gif', 'test[3].gif', 'test4.gif');
 			rsort($files);
-
 			$escapedBasenames = array('test1', 'test1', 'test2', 'test[3]', 'test4');
 			rsort($escapedBasenames);
-
 			$dirs = array('localUploadDir', "subD\xeer", '..');
 
 			foreach ($dirs as $dirName) {
@@ -385,7 +384,9 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 
 		// We don't know the ids, but we can verify everything else
 		$i = 0;
+
 		$this->assertEquals(count($files), count($results[1]['addedFiles']), 'added count');
+
 		usort($results[1]['addedFiles'], $sortAddedFilesFunc);
 
 		foreach ($files as $file) {
@@ -394,8 +395,8 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 				$results[1]['addedFiles'][$i]['fileName'],
 				'added #' . $i
 			);
-
 			$this->assertTrue(isset($results[1]['addedFiles'][$i]['id']));
+
 			$i++;
 		}
 
@@ -426,7 +427,9 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 
 				if ($subalbum) {
 					$this->assertTrue(GalleryUtilities::isA($subalbum, 'GalleryAlbumItem'), 'subalbum');
+
 					$dirName = $platform->legalizePathComponent($dirName);
+
 					$this->assertEquals($dirName, $subalbum->getPathComponent(), 'subalbum path');
 				} else {
 					$this->fail("Missing sub-album for expected $dirName");
@@ -435,6 +438,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		}
 
 		$addDirectoriesString = $addDirectories ? ' addDirectories' : ' !addDirectories';
+
 		$this->assertEquals(count($files), count($ids), 'child count' . $addDirectoriesString);
 
 		list($ret, $items) = GalleryCoreApi::loadEntitiesById($ids, 'GalleryItem');
@@ -450,8 +454,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 			$newItems[$item->getId()] = $item;
 		}
 
-		$items = $newItems;
-
+		$items       = $newItems;
 		$seenWeights = array();
 		$i           = 0;
 
@@ -465,19 +468,18 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 			}
 
 			$expectedName = GalleryCoreApi::convertToUtf8($base);
+
 			$this->assertEquals($setTitle ? $expectedName : '', $item->getTitle(), 'title');
 			$this->assertEquals(
 				$setSummary ? $expectedName : '',
 				$item->getSummary(),
 				'summary'
 			);
-
 			$this->assertEquals(
 				$setDescription ? $expectedName : '',
 				$item->getDescription(),
 				'description'
 			);
-
 			$this->assertEquals(
 				$platform->legalizePathComponent($files[$i]),
 				$item->getPathComponent(),
@@ -540,13 +542,13 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 			'form[localServerFiles][' . urlencode('December - <#952>.jpg') . '][selected]',
 			1
 		);
-
 		GalleryUtilities::putRequestVariable(
 			'form[localServerDirectories][' . urlencode('Black&White') . '][selected]',
 			1
 		);
 
 		$results = $this->handleRequest($this->_rootAlbum);
+
 		$this->assertEquals(array(), $results[0]);
 		$this->assertEquals(1, count($results[1]));
 		$this->assertEquals(1, count($results[1]['addedFiles']));
@@ -561,6 +563,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		$this->assertEquals('December - _#952_.jpg', $item->getPathComponent(), 'pathComponent');
 		$this->assertEquals('December - &lt;#952&gt;', $item->getTitle(), 'title');
 		$this->assertEquals('December - &lt;#952&gt;', $item->getSummary(), 'summary');
+
 		$this->assertEquals('', $item->getDescription(), 'description');
 
 		// Verify added album
@@ -581,6 +584,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 
 			$this->assertEquals('Black&amp;White', $album->getTitle(), 'album title');
 			$this->assertEquals('Black&amp;White', $album->getSummary(), 'album summary');
+
 			$this->assertEquals('', (string)$album->getDescription(), 'album description');
 		}
 	}
@@ -607,6 +611,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		);
 
 		$results = $this->handleRequest($this->_rootAlbum);
+
 		$this->assertEquals(array(array(), array()), $results);
 	}
 
@@ -625,6 +630,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[set][title]', 1);
 
 		$results = $this->handleRequest($this->_rootAlbum);
+
 		$this->assertEquals(array(array(), array()), $results);
 	}
 
@@ -690,6 +696,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		}
 
 		$this->assertEquals('good&lt;script&gt;evil.jpg', $status['addedFiles'][0]['fileName']);
+
 		$this->assertEquals(array(), $status['addedFiles'][0]['warnings']);
 		$this->assertEquals(null, $error);
 
@@ -704,6 +711,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		$this->assertEquals('good&lt;script&gt;evil', $item->getTitle());
 		$this->assertEquals('good&lt;script&gt;evil', $item->getSummary());
 		$this->assertEquals('good&lt;script&gt;evil', $item->getDescription());
+
 		$this->assertEquals('good_script_evil.jpg', $item->getPathComponent());
 	}
 
@@ -747,6 +755,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		$this->assertEquals('good&lt;script&gt;evil_dir', $album->getTitle());
 		$this->assertEquals('good&lt;script&gt;evil_dir', $album->getSummary());
 		$this->assertEquals('good&lt;script&gt;evil_dir', $album->getDescription());
+
 		$this->assertEquals('good_script_evil_dir', $album->getPathComponent());
 	}
 }

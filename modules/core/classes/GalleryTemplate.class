@@ -186,9 +186,8 @@ class GalleryTemplate {
 		global $gallery;
 
 		$urlGenerator =& $gallery->getUrlGenerator();
-
-		$head     =& $this->getVariableByReference('head');
-		$linkHtml = '<link';
+		$head         =& $this->getVariableByReference('head');
+		$linkHtml     = '<link';
 
 		foreach ($attributes as $key => $value) {
 			if ($key == 'href') {
@@ -380,6 +379,7 @@ class GalleryTemplate {
 		global $gallery;
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GallerySmarty.class');
+
 		$smarty = new GallerySmarty();
 
 		// Compiled templates go here
@@ -395,11 +395,9 @@ class GalleryTemplate {
 			$smarty->debugging = true;
 		}
 
-		$smarty->use_sub_dirs = false;
-
+		$smarty->use_sub_dirs  = false;
 		$smarty->compile_check = GalleryTemplate::shouldDoCompileCheck();
-
-		$templateAdapter =& $gallery->getTemplateAdapter();
+		$templateAdapter       =& $gallery->getTemplateAdapter();
 		$smarty->register_object(
 			'g',
 			$templateAdapter,
@@ -461,6 +459,7 @@ class GalleryTemplate {
 			}
 
 			$compileCheck = (bool)$compileCheck;
+
 			GalleryDataCache::put($cacheKey, $compileCheck);
 		} else {
 			$compileCheck = GalleryDataCache::get($cacheKey);
@@ -513,8 +512,7 @@ class GalleryTemplate {
 	 */
 	public static function resourceGetTemplate($templateName, &$templateSource, &$smarty) {
 		$templatePath = GalleryTemplate::_getActualTemplatePath($templateName, $smarty);
-
-		$success = false;
+		$success      = false;
 
 		if (isset($templatePath)) {
 			$templateSource = $smarty->_read_file($templatePath);
@@ -544,8 +542,7 @@ class GalleryTemplate {
 	public static function resourceGetTimestamp($templateName, &$templateTimestamp, &$smarty) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform     =& $gallery->getPlatform();
 		$success      = false;
 		$templatePath = GalleryTemplate::_getActualTemplatePath($templateName, $smarty);
 
@@ -631,8 +628,7 @@ class GalleryTemplate {
 			$tplFile               = basename($templateName);
 			$qualifiedTemplateName = $smarty->template_dir . '/' . $templateName;
 			$base                  = dirname($qualifiedTemplateName);
-
-			$file = "$base/local/$tplFile";
+			$file                  = "$base/local/$tplFile";
 
 			if ($platform->is_readable($file)) {
 				$qualifiedTemplatePath = $file;

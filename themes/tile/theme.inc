@@ -41,7 +41,6 @@ class TileTheme extends GalleryTheme {
 		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
-
 		$this->setStandardSettings(
 			array(
 				'colorpack'     => '',
@@ -418,8 +417,7 @@ class TileTheme extends GalleryTheme {
 				} else {
 					// Item must render itself
 					$children[$i]['renderItem'] = 1;
-
-					$imageWidths[] = $imageHeights[] = -1;
+					$imageWidths[]              = $imageHeights[]              = -1;
 				}
 			}
 		}
@@ -479,7 +477,6 @@ class TileTheme extends GalleryTheme {
 		}
 
 		$this->_setDefaultParameters($params);
-
 		$theme                 =& $template->getVariableByReference('theme');
 		$theme['param']        = $params;
 		$theme['actingUserId'] = $gallery->getActiveUserId();

@@ -296,8 +296,7 @@ class GalleryChildEntityHelper_simple {
 			return array($ret, null, null);
 		}
 
-		$join = array_flip($join);
-
+		$join    = array_flip($join);
 		$idJoins = $class ? array(
 			$class => 'id',
 		) : array();

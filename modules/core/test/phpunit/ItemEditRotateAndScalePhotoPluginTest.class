@@ -330,6 +330,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$newSize = $this->_item->getSize();
+
 		$this->assertTrue($originalSize != $newSize, "Item size should have changed ($newSize)");
 
 		// Verify that the thumbnail's crop is the same

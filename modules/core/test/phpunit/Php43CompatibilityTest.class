@@ -33,9 +33,8 @@ class Php43CompatibilityTest extends CodeAuditTestCase {
 
 		include __DIR__ . '/Php43IllegalFunctions.inc';
 
-		$this->_illegalRegexp = $illegalFunctionsRegexp . 'i';
-
-		$this->_exceptions['file_put_contents']['GalleryPlatform.class']           = 1;
+		$this->_illegalRegexp                                            = $illegalFunctionsRegexp . 'i';
+		$this->_exceptions['file_put_contents']['GalleryPlatform.class'] = 1;
 		$this->_exceptions['memory_get_usage']['GalleryTemplateAdapter.class']     = 1;
 		$this->_exceptions['mysqli_get_server_info']['GalleryStorage.class']       = 1;
 		$this->_exceptions['mysqli_get_client_info']['GalleryStorage.class']       = 1;

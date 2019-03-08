@@ -8,10 +8,8 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
 Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   SAPDB data driver. Requires ODBC.
-
 */
 
 // security - hide paths
@@ -25,7 +23,6 @@ if (!defined('_ADODB_ODBC_LAYER')) {
 
 if (!defined('ADODB_SAPDB')) {
 	define('ADODB_SAPDB', 1);
-
 	class ADODB_SAPDB extends ADODB_odbc {
 		public $databaseType    = 'sapdb';
 		public $concat_operator = '||';
@@ -63,11 +60,9 @@ if (!defined('ADODB_SAPDB')) {
 
 		public function MetaIndexes($table, $primary = false, $owner = false) {
 			$table = $this->Quote(strtoupper($table));
-
-			$sql = 'SELECT INDEXNAME,TYPE,COLUMNNAME FROM INDEXCOLUMNS ' .
+			$sql   = 'SELECT INDEXNAME,TYPE,COLUMNNAME FROM INDEXCOLUMNS ' .
 			" WHERE TABLENAME=$table" .
 			' ORDER BY INDEXNAME,COLUMNNO';
-
 			global $ADODB_FETCH_MODE;
 
 			$save             = $ADODB_FETCH_MODE;
@@ -116,8 +111,7 @@ if (!defined('ADODB_SAPDB')) {
 				$savem = $this->SetFetchMode(false);
 			}
 
-			$table = $this->Quote(strtoupper($table));
-
+			$table  = $this->Quote(strtoupper($table));
 			$retarr = array();
 
 			foreach ($this->GetAll("SELECT COLUMNNAME,DATATYPE,LEN,DEC,NULLABLE,MODE,\"DEFAULT\",CASE WHEN \"DEFAULT\" IS NULL THEN 0 ELSE 1 END AS HAS_DEFAULT FROM COLUMNS WHERE tablename=$table ORDER BY pos") as $column) {

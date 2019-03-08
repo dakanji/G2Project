@@ -53,8 +53,7 @@ class GalleryEventLogHelper_medium {
 			return $ret;
 		}
 
-		$id = $sequenceId % $logSize;
-
+		$id               = $sequenceId % $logSize;
 		$requestVariables = GalleryUtilities::getAllRequestVariables();
 
 		if (!empty($requestVariables)) {

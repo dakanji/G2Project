@@ -42,7 +42,6 @@ class RearrangeModule extends GalleryModule {
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
-
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks('getItemLinks|getItemAdminViews');
 	}
@@ -64,8 +63,7 @@ class RearrangeModule extends GalleryModule {
 	 * @see GalleryModule::getItemLinks
 	 */
 	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {
-		$links = array();
-
+		$links   = array();
 		$itemIds = array();
 
 		foreach ($items as $item) {

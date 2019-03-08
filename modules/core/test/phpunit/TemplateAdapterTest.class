@@ -43,10 +43,8 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 		$this->_mockUrlGenerator = new TemplateAdapterMockUrlGenerator();
 		$gallery->setUrlGenerator($this->_mockUrlGenerator);
-
-		$this->_mockSmarty      = new TemplateAdapterMockSmarty();
-		$this->_templateAdapter = new GalleryTemplateAdapter();
-
+		$this->_mockSmarty              = new TemplateAdapterMockSmarty();
+		$this->_templateAdapter         = new GalleryTemplateAdapter();
 		$this->_templateAdapter->_theme = new TemplateAdapterMockTheme();
 	}
 
@@ -56,6 +54,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$result = GalleryTemplateAdapter::getMe()->linkId($test);
+
 		$this->assertEquals('gbAdminLink gbLink', $result);
 	}
 
@@ -67,6 +66,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$result = GalleryTemplateAdapter::getMe()->linkId($test);
+
 		$this->assertEquals('gbAdminLink gbLink-core_ItemAdmin', $result);
 	}
 
@@ -78,6 +78,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$result = GalleryTemplateAdapter::getMe()->linkId($test);
+
 		$this->assertEquals('gbAdminLink gbLink-monkey', $result);
 	}
 
@@ -91,6 +92,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$result = GalleryTemplateAdapter::getMe()->linkId($test);
+
 		$this->assertEquals('gbAdminLink gbLink-core_Monkey-core_Pirate-core_Ninja', $result);
 	}
 
@@ -100,6 +102,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$result = GalleryTemplateAdapter::getMe()->linkId($test);
+
 		$this->assertEquals('gbAdminLink gbLink-core_Pirate', $result);
 	}
 
@@ -114,24 +117,28 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$result = GalleryTemplateAdapter::getMe()->linkId($test);
+
 		$this->assertEquals('gbAdminLink gbLink-core_Monkey-core_Pirate-core_Ninja', $result);
 	}
 
 	public function testSafeCssName1() {
 		$string = 'core.ItemAdmin';
 		$result = GalleryTemplateAdapter::getMe()->_safeCssName($string);
+
 		$this->assertEquals('core_ItemAdmin', $result);
 	}
 
 	public function testSafeCssName2() {
 		$string = 'core..ItemAdmin';
 		$result = GalleryTemplateAdapter::getMe()->_safeCssName($string);
+
 		$this->assertEquals('core_ItemAdmin', $result);
 	}
 
 	public function testSafeCssName3() {
 		$string = '.;-_monkey';
 		$result = GalleryTemplateAdapter::getMe()->_safeCssName($string);
+
 		$this->assertEquals('-monkey', $result);
 	}
 
@@ -316,8 +323,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$gallery->_translator = new TemplateAdapterMockTranslator();
 		$this->_setupAdapterWithMocks();
 		$this->_mockSmarty->_tpl_vars['l10Domain'] = 'modules_foo';
-
-		$translated = $this->_templateAdapter->text(
+		$translated                                = $this->_templateAdapter->text(
 			array(
 				'text'            => 'Test %s',
 				'arg1'            => 'FOO',
@@ -365,14 +371,12 @@ class TemplateAdapterTest extends GalleryTestCase {
 		global $gallery;
 
 		$this->_setupAdapterWithMocks();
-
 		$base         = dirname(dirname(__DIR__)) . '/../../';
 		$mockPlatform = new UnitTestPlatform();
 		$mockPlatform->setReply('file_exists', array($base . 'themes/mock/local/foo.css'), 1);
 		$mockPlatform->setReply('is_readable', array($base . 'themes/mock/local/foo.css'), 1);
 		$gallery->_platform =& $mockPlatform;
-
-		$results = $this->_templateAdapter->theme(
+		$results            = $this->_templateAdapter->theme(
 			array(
 				'url' => 'foo.css',
 			),
@@ -395,7 +399,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 		global $gallery;
 
 		$this->_setupAdapterWithMocks();
-
 		$base         = dirname(dirname(__DIR__)) . '/../../';
 		$mockPlatform = new UnitTestPlatform();
 		$mockPlatform->setReply(
@@ -411,8 +414,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$gallery->_platform =& $mockPlatform;
-
-		$results = $this->_templateAdapter->theme(
+		$results            = $this->_templateAdapter->theme(
 			array(
 				'url' => 'templates/foo.css',
 			),
@@ -436,7 +438,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 		$session =& $gallery->getSession();
 		$this->_setupAdapterWithMocks();
-
 		$url                          = 'http://example.com/main.php?foo=bar';
 		$this->_mockSmarty->_tpl_vars = 1;
 		$this->_templateAdapter->autoComplete(
@@ -467,9 +468,10 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$gallery->_phpVm        = new UnitTestPhpVm();
 		$gallery->_platform     = new UnitTestPlatform();
 		$gallery->_urlGenerator = new UnitTestUrlGenerator();
-		GalleryDataCache::setFileCachingEnabled(true);
-		$gallery->setConfig('data.gallery.cache', '/cache/');
 
+		GalleryDataCache::setFileCachingEnabled(true);
+
+		$gallery->setConfig('data.gallery.cache', '/cache/');
 		$base = GalleryCoreApi::getCodeBasePath();
 		$gallery->_platform->setReply('file_exists', array($base . 'path/file1.js'), true);
 		$gallery->_platform->setReply(
@@ -537,7 +539,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 			),
 			$output
 		);
-
 		$this->assertTrue($gallery->_phpVm->isComplete());
 		$this->assertTrue($gallery->_platform->isComplete());
 	}
@@ -548,12 +549,12 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$gallery->_phpVm        = new UnitTestPhpVm();
 		$gallery->_platform     = new UnitTestPlatform();
 		$gallery->_urlGenerator = new UnitTestUrlGenerator();
-		GalleryDataCache::setFileCachingEnabled(true);
-		$gallery->setConfig('data.gallery.cache', '/cache/');
 
+		GalleryDataCache::setFileCachingEnabled(true);
+
+		$gallery->setConfig('data.gallery.cache', '/cache/');
 		$this->_buildPlatformResponses('path/file1.js', 'MD5KEY', 'ONE');
 		$this->_buildPlatformResponses('path/file2.txt', 'MD5KEY2', 'FOUR');
-
 		$templateAdapter = new GalleryTemplateAdapter();
 		$templateAdapter->_combineJavascriptFiles(
 			array('path/file1.js', 'main.php?foo=bar', 'path/file2.txt'),
@@ -574,7 +575,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 			),
 			$output
 		);
-
 		$this->assertTrue($gallery->_phpVm->isComplete());
 		$this->assertTrue($gallery->_platform->isComplete());
 	}
@@ -585,11 +585,11 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$gallery->_phpVm        = new UnitTestPhpVm();
 		$gallery->_platform     = new UnitTestPlatform();
 		$gallery->_urlGenerator = new UnitTestUrlGenerator();
+
 		GalleryDataCache::setFileCachingEnabled(true);
+
 		$gallery->setConfig('data.gallery.cache', '/cache/');
-
 		$this->_buildPlatformResponses('lib/yui/utilities.js', 'MD5KEY', 'THREE');
-
 		$templateAdapter = new GalleryTemplateAdapter();
 		$templateAdapter->_combineJavascriptFiles(
 			array('lib/yui/yahoo-dom-event.js', 'lib/yui/utilities.js'),
@@ -605,7 +605,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 			),
 			$output
 		);
-
 		$this->assertTrue($gallery->_phpVm->isComplete());
 		$this->assertTrue($gallery->_platform->isComplete());
 	}
@@ -614,8 +613,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
-
-		$base = GalleryCoreApi::getCodeBasePath();
+		$base     = GalleryCoreApi::getCodeBasePath();
 		$platform->setReply('file_exists', array($base . $filename), true);
 		$platform->setReply(
 			'stat',
@@ -651,6 +649,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 	public function testItemLink() {
 		$this->_setupAdapterWithMocks();
+
 		$this->assertEquals('[missing link]', $this->_templateAdapter->itemLink(array()));
 
 		$link = array(
@@ -673,7 +672,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 			$expected . ' == ' . $actual,
 			'Item Link'
 		);
-
 		$this->assertEquals(
 			array($link['params'], $link['options']),
 			$this->_mockUrlGenerator->_calls
@@ -682,7 +680,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 	public function testItemLinkWithScript() {
 		$this->_setupAdapterWithMocks();
-
 		$link = array(
 			'params'  => array(
 				'view' => 'test.View',
@@ -711,7 +708,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 			$expected . ' == ' . $actual,
 			'Item Link with Script'
 		);
-
 		$this->assertEquals(
 			array($link['params'], $link['options']),
 			$this->_mockUrlGenerator->_calls
@@ -720,7 +716,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 	public function testItemLinkAsSelectOption() {
 		$this->_setupAdapterWithMocks();
-
 		$link = array(
 			'params'  => array(
 				'view' => 'test.View',
@@ -738,7 +733,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 				)
 			)
 		);
-
 		$this->assertEquals(
 			array($link['params'], $link['options']),
 			$this->_mockUrlGenerator->_calls
@@ -747,7 +741,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 	public function testItemLinkOverrideTextClassAndAddAttribute() {
 		$this->_setupAdapterWithMocks();
-
 		$link = array(
 			'params'  => array(
 				'view' => 'test.View',
@@ -771,7 +764,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 			$expected . ' == ' . $actual,
 			'Override Class and Add Attrib'
 		);
-
 		$this->assertEquals(
 			array($link['params'], $link['options']),
 			$this->_mockUrlGenerator->_calls
@@ -906,6 +898,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 	public function testHeadContentFromTemplate() {
 		// Use a real GalleryTemplate / smarty instance to test the whole loop
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
 		$template->title('My Test Page');
 		$template->meta('test1', 'value 1');
@@ -946,6 +939,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 	public function testHeadContentFromTemplateNoCombinedJavascript() {
 		// Use a real GalleryTemplate / smarty instance to test the whole loop
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
 		$template->title('My Test Page');
 		$template->meta('test1', 'value 1');

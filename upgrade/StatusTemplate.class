@@ -73,9 +73,8 @@ class StatusTemplate {
 		global $currentStep;
 		global $stepNumber;
 
-		$stepsComplete                   = $stepNumber - ($currentStep->isComplete() ? 0 : 1);
-		$templateData['percentComplete'] = (int)((100 * ($stepsComplete / (sizeof($steps) - 1))) / 5) * 5;
-
+		$stepsComplete                                 = $stepNumber - ($currentStep->isComplete() ? 0 : 1);
+		$templateData['percentComplete']               = (int)((100 * ($stepsComplete / (sizeof($steps) - 1))) / 5) * 5;
 		$templateData['MainPage']['showBodyAndFooter'] = 1;
 
 		include __DIR__ . '/templates/MainPage.html';

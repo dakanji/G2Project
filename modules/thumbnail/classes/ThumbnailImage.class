@@ -143,6 +143,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 		$parentId = null
 	) {
 		GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
+
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
@@ -217,7 +218,6 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 		$this->setMimeType($mimeType);
 		$this->setWidth(0);
 		$this->setHeight(0);
-
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $path) = $this->fetchPath();

@@ -129,7 +129,6 @@ class GalleryTheme extends GalleryPlugin {
 		 */
 		$standard = $this->getStandardSettings();
 		$params   = array_merge($standard, $params);
-
 		$settings = array();
 
 		if (isset($params['rows'], $standard['rows'])) {
@@ -461,11 +460,11 @@ class GalleryTheme extends GalleryPlugin {
 					// success
 				} else {
 					GalleryCoreApi::requireOnce('lib/JSON/JSON.php');
+
 					$json = new Services_JSON(SERVICES_JSON_LOOSE_TYPE);
 
 					// The sanitizer will escape quotes, so unescape them
-					$value = str_replace('&quot;', '"', $value);
-
+					$value   = str_replace('&quot;', '"', $value);
 					$results = $json->decode($value);
 
 					if (empty($results) || !isset($results[0])) {
@@ -518,6 +517,7 @@ class GalleryTheme extends GalleryPlugin {
 					$value   = '[]';
 				} else {
 					GalleryCoreApi::requireOnce('lib/JSON/JSON.php');
+
 					$json = new Services_JSON();
 
 					for ($i = 0; $i < count($input); $i++) {
@@ -875,8 +875,7 @@ class GalleryTheme extends GalleryPlugin {
 	public function loadTemplate($view, &$template, $item, $params, $viewResults) {
 		global $gallery;
 
-		$theme =& $template->getVariableByReference('theme');
-
+		$theme             =& $template->getVariableByReference('theme');
 		$urlGenerator      =& $gallery->getUrlGenerator();
 		$theme['themeId']  = $this->getId();
 		$theme['themeUrl'] = $urlGenerator->generateUrl(
@@ -1310,6 +1309,7 @@ class GalleryTheme extends GalleryPlugin {
 
 		if ($platform->file_exists(GalleryCoreApi::getCodeBasePath($path))) {
 			GalleryCoreApi::requireOnce($path);
+
 			$className = $module . 'Preloads';
 			$instance  = new $className();
 
@@ -1854,8 +1854,7 @@ class GalleryTheme extends GalleryPlugin {
 				}
 
 				$callbacks = array_flip(explode('|', $status['callbacks']));
-
-				$required = false;
+				$required  = false;
 
 				foreach (array(
 					'systemLinks'   => 'getSystemLinks',

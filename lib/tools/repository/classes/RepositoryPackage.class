@@ -55,7 +55,6 @@ class RepositoryPackage extends RepositoryObject {
 		}
 
 		$this->_descriptor = $descriptor;
-
 		$this->setTemplateFile('package.tpl');
 
 		if ($ret) {
@@ -183,7 +182,6 @@ class RepositoryPackage extends RepositoryObject {
 		if (preg_match('/^lang-(.*)$/', $package, $languageCode)) {
 			$stringsRevision = $this->_descriptor->getStringsRevision();
 			$languageCode    = $languageCode[1];
-
 			$packageFileName = sprintf(
 				'%s-%s-%s-%s.package',
 				$this->_descriptor->getPluginId(),
@@ -216,6 +214,7 @@ class RepositoryPackage extends RepositoryObject {
 
 		$phpVm = $gallery->getPhpVm();
 		$key   = $this->getPackageFileName($packageType) .
+
 		  GalleryUtilities::getRequestVariables('repositoryName');
 
 		return substr($phpVm->md5($key), 0, $length);

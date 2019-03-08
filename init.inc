@@ -32,11 +32,8 @@ function GalleryInitFirstPass($params = array()) {
 
 	ini_set('magic_quotes_runtime', 0);
 	ini_set('magic_quotes_sybase', 0);
-
-	if (function_exists('date_default_timezone_set')) {
-		// PHP 5.3 requires a default be set before using any date/time functions
-		@date_default_timezone_set(date_default_timezone_get());
-	}
+	$script_tz = date_default_timezone_get();
+	@date_default_timezone_set($script_tz);
 
 	// Specify that when an assertion fails, we terminate right away
 	assert_options(ASSERT_WARNING, 1);
@@ -67,9 +64,11 @@ function GalleryInitFirstPass($params = array()) {
 
 	if (!strncasecmp(PHP_OS, 'win', 3)) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
+
 		$platform = new WinNtPlatform();
 	} else {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/UnixPlatform.class');
+
 		$platform = new UnixPlatform();
 	}
 
@@ -130,6 +129,7 @@ function GalleryInitFirstPass($params = array()) {
 
 	if (!isset($urlGenerator)) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryUrlGenerator.class');
+
 		$urlGenerator = new GalleryUrlGenerator();
 	}
 

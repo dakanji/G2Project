@@ -33,7 +33,6 @@ class GdToolkitTest extends GalleryTestCase {
 	// The possible environments to simulate
 	public $_gdEnvironments;
 	public $_toolkit;
-
 	public $_oldBase;
 
 	public function __construct($methodName) {
@@ -140,7 +139,6 @@ class GdToolkitTest extends GalleryTestCase {
 						),
 						$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext')
 					);
-
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -169,7 +167,6 @@ class GdToolkitTest extends GalleryTestCase {
 						),
 						$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext')
 					);
-
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -198,7 +195,6 @@ class GdToolkitTest extends GalleryTestCase {
 						),
 						$this->_gdFunctionality->getOutputFileData('/valid/thumbnail.ext')
 					);
-
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -229,7 +225,6 @@ class GdToolkitTest extends GalleryTestCase {
 						$this->_gdFunctionality->getOutputFileData('/valid/cropped.ext'),
 						'crop dimensions mismatch'
 					);
-
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -265,7 +260,6 @@ class GdToolkitTest extends GalleryTestCase {
 						$this->_gdFunctionality->getOutputFileData('/valid/rotated.ext'),
 						'rotate'
 					);
-
 					$this->assertEquals(
 						array(
 							'width'  => 200,
@@ -274,7 +268,6 @@ class GdToolkitTest extends GalleryTestCase {
 						$context,
 						'rotate-context'
 					);
-
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -311,7 +304,6 @@ class GdToolkitTest extends GalleryTestCase {
 						$this->_gdFunctionality->getOutputFileData('/valid/converted.jpeg'),
 						"convert-to-image/jpeg from $mimeType"
 					);
-
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -360,7 +352,6 @@ class GdToolkitTest extends GalleryTestCase {
 						$this->_gdFunctionality->getOutputFileData('/valid/composited.ext'),
 						'composite #1 ' . $mimeType
 					);
-
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -420,7 +411,6 @@ class GdToolkitTest extends GalleryTestCase {
 						$this->_gdFunctionality->getOutputFileData('/valid/compressed.jpg'),
 						"compress a $mimeType"
 					);
-
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -603,7 +593,6 @@ class GdToolkitTest extends GalleryTestCase {
 					$results['operations'],
 					'Environment ' . $environment['name']
 				);
-
 				$this->assertEquals(
 					array(),
 					$results['properties'],
@@ -803,11 +792,13 @@ class GdToolkitTest extends GalleryTestCase {
 		}
 
 		$hasTransparency = $this->_toolkit->_canHaveTransparency('image/gif', $res);
+
 		$this->assertTrue($hasTransparency, 'has transparency');
 
 		// After some operation, the resource has no transparent color index anymore...
 		$gd->imagecolortransparent($res, -1);
 		$hasTransparency = $this->_toolkit->_canHaveTransparency('image/gif', $res);
+
 		$this->assertFalse($hasTransparency, 'has transparency 2');
 
 		// Call the method under test through the save wrapper

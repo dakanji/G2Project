@@ -29,13 +29,11 @@
 	quote
 	nextID
 	disconnect
-
 	getOne
 	getAssoc
 	getRow
 	getCol
 	getAll
-
  DB_Result
  ---------
 	 numRows - returns -1 if not supported

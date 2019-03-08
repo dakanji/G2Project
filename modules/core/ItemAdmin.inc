@@ -107,7 +107,6 @@ class ItemAdminView extends GalleryView {
 		}
 
 		usort($subViewChoiceData, array($this, 'sortByName'));
-
 		$subViewName = GalleryUtilities::getRequestVariables('subView');
 
 		if ($subViewName == 'core.ItemAdmin') {

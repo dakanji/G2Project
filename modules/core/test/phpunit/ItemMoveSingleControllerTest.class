@@ -339,7 +339,9 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 
 		// Move back
 		clearstatcache();
+
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_rootAlbum->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

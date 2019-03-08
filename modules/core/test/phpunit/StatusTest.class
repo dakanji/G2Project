@@ -34,6 +34,7 @@ class StatusTest extends GalleryTestCase {
 
 	public function testGetErrorCodeConstantsNoSpecificError() {
 		$codes = GalleryStatus::getMe()->getErrorCodeConstants(GALLERY_ERROR);
+
 		$this->assertEquals(array('GALLERY_ERROR'), $codes);
 	}
 
@@ -43,6 +44,7 @@ class StatusTest extends GalleryTestCase {
 		);
 
 		$expected = array('ERROR_COLLISION', 'ERROR_LOCK_IN_USE');
+
 		$this->assertEquals(sort($expected), sort($codes));
 	}
 }

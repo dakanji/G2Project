@@ -50,6 +50,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 	public function testAddAlbum() {
 		// Use valid inputs
 		$name = 'testalbum-' . mt_rand();
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('form[pathComponent]', $name);
@@ -93,6 +94,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 		// Use valid inputs
 		$name = 'testalbum-' . mt_rand();
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('form[title]', 'title');
@@ -191,8 +193,8 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
+		$name     = ' testalbum-' . mt_rand() . ' ';
 
-		$name = ' testalbum-' . mt_rand() . ' ';
 		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('form[pathComponent]', $name);
@@ -252,8 +254,8 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
+		$name     = ' testalbum-' . mt_rand() . '.foobarbaz';
 
-		$name = ' testalbum-' . mt_rand() . '.foobarbaz';
 		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('form[pathComponent]', $name);
@@ -334,6 +336,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		}
 
 		$name = 'testalbum-' . mt_rand();
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('form[pathComponent]', $name);
@@ -374,6 +377,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals(' title', $newAlbum->getTitle(), 'title');
 		$this->assertEquals('summary &lt;div&gt;.&lt;/div&gt;', $newAlbum->getSummary(), 'summary');
+
 		$this->assertEquals('description .', $newAlbum->getDescription(), 'description');
 	}
 }

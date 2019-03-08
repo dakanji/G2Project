@@ -21,7 +21,6 @@
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/GalleryRepository.class'
 );
-
 GalleryCoreApi::requireOnce(
 	'modules/core/classes/AdminRepositoryDownloadAndInstallController.class'
 );
@@ -126,7 +125,6 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 			}
 
 			$templateAdapter =& $gallery->getTemplateAdapter();
-
 			$templateAdapter->registerTrailerCallback(
 				array($this, 'updatePluginStatus'),
 				array(
@@ -165,6 +163,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 			} else {
 				// Start upgrade process and show progress bar.
 				GalleryCoreApi::requireOnce('modules/core/AdminRepositoryDownload.inc');
+
 				$templateAdapter =& $gallery->getTemplateAdapter();
 				$templateAdapter->registerTrailerCallback(
 					array($this, 'performDownloadAndInstallation'),
@@ -284,15 +283,13 @@ class AdminRepositoryView extends GalleryView {
 				);
 			}
 
-			$coreApis['core']   = explode('.', $coreApiVersion);
-			$coreApis['module'] = explode('.', $moduleApiVersion);
-			$coreApis['theme']  = explode('.', $themeApiVersion);
-
+			$coreApis['core']                    = explode('.', $coreApiVersion);
+			$coreApis['module']                  = explode('.', $moduleApiVersion);
+			$coreApis['theme']                   = explode('.', $themeApiVersion);
 			$AdminRepository['showIncompatible'] = 1;
 		}
 
-		$AdminRepository['OS'] = strncasecmp(PHP_OS, 'win', 3) ? 'unix' : 'winnt';
-
+		$AdminRepository['OS']                     = strncasecmp(PHP_OS, 'win', 3) ? 'unix' : 'winnt';
 		$AdminRepository['isCoreUpgradeAvailable'] = false;
 		$AdminRepository['upgradesAvailable']      = false;
 
@@ -387,6 +384,7 @@ class AdminRepositoryView extends GalleryView {
 
 		if (!empty($AdminRepository['browseData'])) {
 			GalleryCoreApi::requireOnce('modules/core/AdminPlugins.inc');
+
 			uasort($AdminRepository['browseData'], array($this, 'pluginSort'));
 		}
 
@@ -403,8 +401,7 @@ class AdminRepositoryView extends GalleryView {
 		$template->setVariable('controller', 'core.AdminRepository');
 
 		if ($repositoryInitErrorCount) {
-			$status =& $template->getVariableByReference('status');
-
+			$status                                      =& $template->getVariableByReference('status');
 			$status['error']['repositoryInitErrorCount'] = $repositoryInitErrorCount;
 		}
 

@@ -105,13 +105,11 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 			$urlGenerator->_getBaseUrl(),
 			'baseUrl'
 		);
-
 		$this->assertEquals(
 			'http://example.com/gallery2/phpunit_test.php/',
 			$urlGenerator->_getBaseUrl(true),
 			'baseUrl forceDirect'
 		);
-
 		$this->assertEquals('?foo=bar&bar=foo', $urlGenerator->_getBaseParamString(), 'baseParam');
 		$this->assertEquals(
 			'?foo=bar&bar=foo',
@@ -138,7 +136,6 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 			$urlGenerator->_getBaseUrl(),
 			'baseUrl'
 		);
-
 		$this->assertEquals('http://example.com/gallery2/main.php/', $urlGenerator->_getBaseUrl(true), 'baseUrl forceDirect');
 		$this->assertEquals('?foo=bar&bar=foo', $urlGenerator->_getBaseParamString(), 'baseParam');
 		$this->assertEquals('', $urlGenerator->_getBaseParamString(true), 'baseParam forceDirect');
@@ -182,7 +179,9 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 
 				$_SERVER['REQUEST_URI'] = $path . '/phpunit_test.php' . $pathInfo;
 				$_SERVER['PATH_INFO']   = $path . '/phpunit_test.php' . $pathInfo;
+
 				GalleryDataCache::reset();
+
 				$urlGenerator = new PathInfoUrlGenerator();
 
 				$ret = $urlGenerator->init($path . '/phpunit_test.php');
@@ -193,7 +192,9 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 
 				foreach ($expectedParams as $param => $value) {
 					$actualValue = GalleryUtilities::getRequestVariables($param);
+
 					$this->assertEquals($value, $actualValue, $path . $pathInfo);
+
 					GalleryUtilities::removeRequestVariable($param);
 				}
 			}
@@ -247,7 +248,6 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$this->_expectedUrl[15] = $this->_signUrl('/gallery2/' . GALLERY_MAIN_PHP . '/phpunit2/');
 		$this->_expectedUrl[16] = '/gallery2/' . GALLERY_MAIN_PHP . '/phpunit/'
 		. urlencode($this->_urlEncodePath);
-
 		parent::testGenerateUrl();
 	}
 
@@ -293,17 +293,14 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 
 		$this->_expectedUrl[16] = 'http://example.com/gallery2/' . GALLERY_MAIN_PHP . '/phpunit/'
 		. urlencode($this->_urlEncodePath);
-
 		parent::testGenerateUrlForceFullUrl();
 	}
 
 	public function testGenerateUrlForceSessionId() {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
-		$sessionString = sprintf('g2_%s=%s', $session->getKey(), $session->getId());
-
+		$session               =& $gallery->getSession();
+		$sessionString         = sprintf('g2_%s=%s', $session->getKey(), $session->getId());
 		$this->_expectedUrl[0] = '/gallery2/' . GALLERY_MAIN_PHP
 		. '?g2_view=rand164.NonShort&amp;g2_foo=bar&amp;' . $sessionString;
 		$this->_expectedUrl[1] = sprintf(
@@ -342,7 +339,6 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		. '&amp;' . $sessionString;
 		$this->_expectedUrl[16] = '/gallery2/' . GALLERY_MAIN_PHP . '/phpunit/'
 		. urlencode($this->_urlEncodePath) . '?' . $sessionString;
-
 		parent::testGenerateUrlForceSessionId();
 	}
 
@@ -387,7 +383,6 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 
 		$this->_expectedUrl[16] = '/gallery2/' . GALLERY_MAIN_PHP . '/phpunit/'
 		. urlencode($this->_urlEncodePath);
-
 		parent::testGenerateUrlNoHtmlEntities();
 	}
 
@@ -427,13 +422,11 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$this->_expectedUrl[15] = $this->_signUrl('/gallery2/' . GALLERY_MAIN_PHP . '/phpunit2/');
 		$this->_expectedUrl[16] = '/gallery2/' . GALLERY_MAIN_PHP . '/phpunit/'
 		. $this->_urlEncodePath;
-
 		parent::testGenerateUrlNoUrlEncode();
 	}
 
 	public function testGenerateUrlEmbeddedCookieless() {
-		$sessionString = 'cmssid=12345';
-
+		$sessionString         = 'cmssid=12345';
 		$this->_expectedUrl[0] = '/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort'
 		. '&amp;g2_foo=bar&amp;' . $sessionString;
 		$this->_expectedUrl[1] = sprintf(
@@ -473,7 +466,6 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		. '&amp;' . $sessionString;
 		$this->_expectedUrl[16] = '/cms/index.php/phpunit/'
 		. urlencode($this->_urlEncodePath) . '?mod=gallery2&amp;' . $sessionString;
-
 		parent::testGenerateUrlEmbeddedCookieless();
 	}
 
@@ -511,7 +503,6 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$this->_expectedUrl[15] = $this->_signUrl('/cms/index.php/phpunit2/?mod=gallery2');
 		$this->_expectedUrl[16] = '/cms/index.php/phpunit/'
 		. urlencode($this->_urlEncodePath) . '?mod=gallery2';
-
 		parent::testGenerateUrlEmbedded();
 	}
 
@@ -549,7 +540,6 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$this->_expectedUrl[15] = $this->_signUrl('/gallery2/' . GALLERY_MAIN_PHP . '/phpunit2/');
 		$this->_expectedUrl[16] = '/gallery2/' . GALLERY_MAIN_PHP . '/phpunit/'
 		. urlencode($this->_urlEncodePath);
-
 		parent::testGenerateUrlMultisite();
 	}
 
@@ -587,15 +577,13 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$this->_expectedUrl[15] = $this->_signUrl('/cms/index.php/phpunit2/?mod=gallery2');
 		$this->_expectedUrl[16] = '/cms/index.php/phpunit/'
 		. urlencode($this->_urlEncodePath) . '?mod=gallery2';
-
 		parent::testGenerateUrlEmbeddedMultisite();
 	}
 
 	public function testGenerateUrlEmbeddedCookiePathNotSet() {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
+		$session               =& $gallery->getSession();
 		$this->_expectedUrl[0] = '/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort'
 		. '&amp;g2_foo=bar';
 		$this->_expectedUrl[1] = sprintf(
@@ -631,7 +619,6 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$this->_expectedUrl[15] = $this->_signUrl('/cms/index.php/phpunit2/?mod=gallery2');
 		$this->_expectedUrl[16] = '/cms/index.php/phpunit/'
 		. urlencode($this->_urlEncodePath) . '?mod=gallery2';
-
 		parent::testGenerateUrlEmbeddedCookiePathNotSet();
 	}
 
@@ -675,7 +662,6 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 
 		$this->_expectedUrl[16] = 'https://cms.com/cms/index.php/phpunit/'
 		. urlencode($this->_urlEncodePath) . '?mod=gallery2';
-
 		parent::testGenerateUrlEmbeddedForceFullUrl();
 	}
 
@@ -719,7 +705,6 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 
 		$this->_expectedUrl[16] = 'https://cms.com/cms/index.php/phpunit/'
 		. urlencode($this->_urlEncodePath) . '?mod=gallery2';
-
 		parent::testGenerateUrlEmbeddedForceSessionIdToFalse();
 	}
 
@@ -759,7 +744,6 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$this->_expectedUrl[15] = $this->_signUrl('/gallery2/index.php/phpunit2/?page=photos');
 		$this->_expectedUrl[16] = '/gallery2/index.php/phpunit/'
 		. urlencode($this->_urlEncodePath) . '?page=photos';
-
 		parent::testGenerateUrlOverrideBaseUri();
 	}
 

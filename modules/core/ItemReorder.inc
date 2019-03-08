@@ -290,7 +290,6 @@ class ItemReorderView extends GalleryView {
 		}
 
 		$ItemReorder['show'] = $show;
-
 		$template->setVariable('ItemReorder', $ItemReorder);
 		$template->setVariable('controller', 'core.ItemReorder');
 

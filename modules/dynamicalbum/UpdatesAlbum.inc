@@ -79,7 +79,6 @@ class UpdatesAlbumView extends GalleryView {
 		}
 
 		$item->setDescription($moduleParams['description.' . $this->_param]);
-
 		$itemId = GalleryUtilities::getRequestVariables('itemId');
 
 		if (!empty($itemId)) {

@@ -81,7 +81,6 @@ class GalleryDynamicAlbum extends GalleryItem {
 		$this->setLinkId(null);
 		$this->setLinkedEntity(null);
 		$this->setOnLoadHandlers(null);
-
 		$this->setTitle($title);
 		$this->setSummary(null);
 		$this->setDescription(null);

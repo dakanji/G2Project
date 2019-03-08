@@ -192,6 +192,7 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', 'Reset');
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

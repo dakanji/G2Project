@@ -62,11 +62,10 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 			$versions['gallery'] = '2.0-alpha-3';
 		}
 
-		$templateData['installed']      = $versions;
-		$templateData['coreVersion']    = $core->getVersion();
-		$templateData['galleryVersion'] = $core->getGalleryVersion();
-		$templateData['storeConfig']    = $gallery->getConfig('storage.config');
-
+		$templateData['installed']               = $versions;
+		$templateData['coreVersion']             = $core->getVersion();
+		$templateData['galleryVersion']          = $core->getGalleryVersion();
+		$templateData['storeConfig']             = $gallery->getConfig('storage.config');
 		$templateData['isConfigUpgradeRequired'] = CoreModuleExtras::getMe()->isConfigUpgradeRequired(
 			$versions['core']
 		);
@@ -75,14 +74,12 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 		$configFilePath                    = GALLERY_CONFIG_DIR . '/config.php';
 		$templateData['isConfigWriteable'] = $platform->is_writeable($configFilePath);
 		$templateData['canChmod']          = strncasecmp(PHP_OS, 'win', 3);
-
-		$template = new StatusTemplate();
+		$template                          = new StatusTemplate();
 
 		if (isset($_POST['confirm'])) {
 			// We want to log all debug output in our upgrade log
 			$this->_startDebugLog('Upgrade Core Module');
 			$this->_addSystemInformationToDebugLog($versions);
-
 			$template->renderHeader(true);
 
 			$ret = selectAdminUser(true);
@@ -167,7 +164,6 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 		$storage       =& $gallery->getStorage();
 		$isSvnInstall  = file_exists(dirname(dirname(__DIR__)) . '/.svn');
 		$fileIntegrity = isset($_SESSION['fileintegrity']) ? $_SESSION['fileintegrity'] : 'Unknown';
-
 		$gallery->debug(
 			"\n
 --------------------------------------------------------

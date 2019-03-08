@@ -201,8 +201,7 @@ class SearchScanView extends GalleryView {
 				}
 			}
 
-			$itemIds = array_keys($itemIds);
-
+			$itemIds    = array_keys($itemIds);
 			$thumbnails = array();
 
 			if (!empty($itemIds)) {

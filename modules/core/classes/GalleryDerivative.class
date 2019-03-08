@@ -529,7 +529,6 @@ class GalleryDerivative extends GalleryChildEntity {
 		// Update our info
 		$this->setMimeType($mimeType);
 		$this->setDerivativeSize($size);
-
 		$data = array(
 			'derivativePath' => $destPath,
 			'derivativeType' => $this->getDerivativeType(),

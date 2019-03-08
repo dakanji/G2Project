@@ -47,8 +47,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
-
-		$status = $error = array();
+		$status   = $error   = array();
 
 		if (!empty($form['tmp_name']['reupload']) && !empty($form['size']['reupload'])) {
 			$inputFileName = $form['tmp_name']['reupload'];
@@ -117,6 +116,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 
 			if (!$platform->copy($path, $tmpfname)) {
 				$platform->unlink($tmpfname);
+
 				GalleryCoreApi::releaseLocks($lockIds);
 
 				return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null);
@@ -124,6 +124,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 
 			if (!$platform->copy($inputFileName, $path)) {
 				$platform->unlink($tmpfname);
+
 				GalleryCoreApi::releaseLocks($lockIds);
 
 				return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null);
@@ -141,7 +142,9 @@ class ReuploadPhotoOption extends ItemEditOption {
 
 				$platform->copy($tmpfname, $path);
 				$platform->unlink($tmpfname);
+
 				GalleryCoreApi::releaseLocks($lockIds);
+
 				$error[] = 'form[error][reupload][toolkit]';
 
 				return array(null, $error, $status);
@@ -152,6 +155,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 			if ($ret) {
 				$platform->copy($tmpfname, $path);
 				$platform->unlink($tmpfname);
+
 				GalleryCoreApi::releaseLocks($lockIds);
 
 				return array($ret, null, null);
@@ -210,8 +214,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 		}
 
 		$fileUploadsBool = GalleryUtilities::getPhpIniBool('file_uploads');
-
-		$maxFileSize = ini_get('upload_max_filesize');
+		$maxFileSize     = ini_get('upload_max_filesize');
 
 		if (preg_match('/(\d+)M/', $maxFileSize, $matches)) {
 			$maxFileSize = $matches[1] * 1024 * 1024;

@@ -85,8 +85,9 @@ class PasswordEntryController extends GalleryController {
 			}
 
 			GalleryUtilities::unsanitizeInputValues($form['password'], false);
+
 			$isCorrect = $canSee && $hashedPassword
-																			     && GalleryUtilities::isCorrectPassword($form['password'], $hashedPassword);
+																				    && GalleryUtilities::isCorrectPassword($form['password'], $hashedPassword);
 
 			// Prepare for validation
 			$options = array(

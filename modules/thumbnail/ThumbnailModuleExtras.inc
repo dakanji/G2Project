@@ -153,6 +153,7 @@ class ThumbnailModuleExtras {
 				// Use a new childEntity as the container for all custom thumbnails.
 				$gallery->guaranteeTimeLimit(60);
 				$storage =& $gallery->getStorage();
+
 				GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailImage.class');
 
 				$ret = ThumbnailModuleExtras::_createThumbnailContainer($module);
@@ -485,6 +486,7 @@ class ThumbnailModuleExtras {
 		}
 
 		$itemId = array();
+
 		GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailImage.class');
 
 		foreach (array(

@@ -7,10 +7,8 @@
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
-
   Latest version is available at http://adodb.sourceforge.net
   Oracle data driver. Requires Oracle client. Works on Windows and Unix and Oracle 7.
-
   If you are using Oracle 8 or later, use the oci8 driver which is much better and more reliable.
 */
 
@@ -218,8 +216,7 @@ class ADODB_oracle extends ADOConnection {
 		// <G. Giunta 2003/03/03/> Reset error messages before executing
 		$this->_errorMsg  = false;
 		$this->_errorCode = false;
-
-		$curs = ora_open($this->_connectionID);
+		$curs             = ora_open($this->_connectionID);
 
 		if ($curs === false) {
 			return false;
@@ -267,11 +264,9 @@ class ADORecordset_oracle extends ADORecordSet {
 		}
 
 		$this->fetchMode = $mode;
-
-		$this->_queryID = $queryID;
-
-		$this->_inited = true;
-		$this->fields  = array();
+		$this->_queryID  = $queryID;
+		$this->_inited   = true;
+		$this->fields    = array();
 
 		if ($queryID) {
 			$this->_currentRow = 0;

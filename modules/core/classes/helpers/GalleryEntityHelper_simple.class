@@ -44,8 +44,7 @@ class GalleryEntityHelper_simple {
 			$returnArray = true;
 		} else {
 			$returnArray = false;
-
-			$ids = array($ids);
+			$ids         = array($ids);
 		}
 
 		// Grab what we can from the cache and make up a list of what's missing

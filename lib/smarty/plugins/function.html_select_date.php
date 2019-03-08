@@ -193,10 +193,8 @@ function smarty_function_html_select_date($params, &$smarty) {
 		}
 	}
 
-	$field_order = strtoupper($field_order);
-
-	$html_result = $month_result = $day_result = $year_result = '';
-
+	$field_order           = strtoupper($field_order);
+	$html_result           = $month_result           = $day_result           = $year_result           = '';
 	$field_separator_count = -1;
 
 	if ($display_months) {
@@ -235,7 +233,6 @@ function smarty_function_html_select_date($params, &$smarty) {
 		}
 
 		$month_result .= $extra_attrs . '>' . "\n";
-
 		$month_result .= smarty_function_html_options(
 			array(
 				'output'       => $month_names,

@@ -89,7 +89,6 @@ class PasswordOption extends ItemEditOption {
 					$form['PasswordOption']['password1'],
 					false
 				);
-
 				GalleryCoreApi::requireOnce('modules/password/classes/PasswordHelper.class');
 
 				$ret = PasswordHelper::setPassword(

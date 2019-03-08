@@ -41,7 +41,6 @@ class RandomHighlightModule extends GalleryModule {
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 		$this->_templateVersion = 1;
-
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getSiteAdminViews');
 	}
@@ -453,7 +452,9 @@ class RandomHighlightModule extends GalleryModule {
 			);
 
 			$thumbnail->setDerivativeSourceId($highlight->getId());
+
 			GalleryCoreApi::estimateDerivativeDimensions($thumbnail, $highlight);
+
 			$thumbnail->save();
 
 			if ($ret) {

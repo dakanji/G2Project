@@ -140,7 +140,6 @@ class FastDownloadTest extends GalleryTestCase {
 
 		// Use here another method to assemble the relative path to get a better test coverage
 		$relativePath = 'cache' . $platform->getDirectorySeparator() . $cachePath;
-
 		$this->assertEquals(
 			sprintf(
 				'<?php function GalleryFastDownload() { ' .
@@ -197,7 +196,6 @@ class FastDownloadTest extends GalleryTestCase {
 		}
 
 		$relativePath = str_replace($gallery->getConfig('data.gallery.base'), '', $path);
-
 		$this->assertEquals(
 			sprintf(
 				'<?php function GalleryFastDownload() { ' .

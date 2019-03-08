@@ -1,7 +1,6 @@
 <?php
 
 /*
-
 @version   v5.20.12  30-Mar-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
@@ -9,13 +8,9 @@
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
-
   Active Record implementation. Superset of Zend Framework's.
-
   This is "Active Record eXtended" to support JOIN, WORK and LAZY mode by Chris Ravenscroft  chris#voilaweb.com
-
   Version 0.9
-
   See http://www-128.ibm.com/developerworks/java/library/j-cb03076/?ca=dgr-lnxw01ActiveRecord
 	  for info on Ruby on Rails Active Record implementation
 */
@@ -24,7 +19,6 @@
 define('ADODB_JOIN_AR', 0x01);
 define('ADODB_WORK_AR', 0x02);
 define('ADODB_LAZY_AR', 0x03);
-
 global $_ADODB_ACTIVE_DBS;
 global $ADODB_ACTIVE_CACHESECS; // set to true to enable caching of metadata such as field info
 global $ACTIVE_RECORD_SAFETY; // set to false to disable safety checks
@@ -33,7 +27,6 @@ global $ADODB_ACTIVE_DEFVALS; // use default values of table definition when cre
 $_ADODB_ACTIVE_DBS    = array();
 $ACTIVE_RECORD_SAFETY = true; // CFR: disabled while playing with relations
 $ADODB_ACTIVE_DEFVALS = false;
-
 class ADODB_Active_DB {
 	public $db; // ADOConnection
 	public $tables; // assoc array of ADODB_Active_Table objects, indexed by tablename
@@ -77,10 +70,9 @@ function ADODB_SetDatabaseAdapter(&$db) {
 		}
 	}
 
-	$obj         = new ADODB_Active_DB();
-	$obj->db     = $db;
-	$obj->tables = array();
-
+	$obj                 = new ADODB_Active_DB();
+	$obj->db             = $db;
+	$obj->tables         = array();
 	$_ADODB_ACTIVE_DBS[] = $obj;
 
 	return sizeof($_ADODB_ACTIVE_DBS) - 1;
@@ -149,8 +141,7 @@ class ADODB_Active_Record {
 			$this->_pTable = $this->_pluralize($this->_sTable);
 		}
 
-		$this->_table =& $this->_pTable;
-
+		$this->_table      =& $this->_pTable;
 		$this->foreignName = $this->_sTable; // CFR: default foreign name (singular)
 		if ($db) {
 			$this->_dbat = self::SetDatabaseAdapter($db);
@@ -174,7 +165,6 @@ class ADODB_Active_Record {
 		if (isset($options['new']) && true === $options['new']) {
 			$table =& $this->TableInfo();
 			unset($table->_hasMany, $table->_belongsTo);
-
 			$table->_hasMany   = array();
 			$table->_belongsTo = array();
 		}
@@ -312,8 +302,7 @@ class ADODB_Active_Record {
 		$ar->foreignName = $foreignRef;
 		$ar->UpdateActiveTable();
 		$ar->foreignKey = ($foreignKey) ? $foreignKey : strtolower(get_class($this)) . self::$_foreignSuffix;
-
-		$table =& $this->TableInfo();
+		$table          =& $this->TableInfo();
 
 		if (!isset($table->_hasMany[$foreignRef])) {
 			$table->_hasMany[$foreignRef] = $ar;
@@ -338,8 +327,7 @@ class ADODB_Active_Record {
 		$ar->foreignName = $foreignRef;
 		$ar->UpdateActiveTable();
 		$ar->foreignKey = ($foreignKey) ? $foreignKey : $ar->foreignName . self::$_foreignSuffix;
-
-		$table =& $this->TableInfo();
+		$table          =& $this->TableInfo();
 
 		if (!isset($table->_belongsTo[$foreignRef])) {
 			$table->_belongsTo[$foreignRef] = $ar;
@@ -433,10 +421,9 @@ class ADODB_Active_Record {
 		global $ADODB_ACTIVE_DEFVALS, $ADODB_FETCH_MODE;
 
 		$activedb = $_ADODB_ACTIVE_DBS[$this->_dbat];
-
-		$table   = $this->_table;
-		$tables  = $activedb->tables;
-		$tableat = $this->_tableat;
+		$table    = $this->_table;
+		$tables   = $activedb->tables;
+		$tableat  = $this->_tableat;
 
 		if (!$forceUpdate && !empty($tables[$tableat])) {
 			$tobj = $tables[$tableat];
@@ -475,9 +462,8 @@ class ADODB_Active_Record {
 			}
 		}
 
-		$activetab       = new ADODB_Active_Table();
-		$activetab->name = $table;
-
+		$activetab        = new ADODB_Active_Table();
+		$activetab->name  = $table;
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
@@ -724,10 +710,9 @@ class ADODB_Active_Record {
 		}
 
 		$this->_saved = true;
-
-		$table      = $this->TableInfo();
-		$sizeofFlds = sizeof($table->flds);
-		$sizeofRow  = sizeof($row);
+		$table        = $this->TableInfo();
+		$sizeofFlds   = sizeof($table->flds);
+		$sizeofRow    = sizeof($row);
 
 		if ($ACTIVE_RECORD_SAFETY && $table->_colsCount != $sizeofRow && $sizeofFlds != $sizeofRow) {
 			// <AP>
@@ -875,10 +860,9 @@ class ADODB_Active_Record {
 		}
 
 		$this->_where = $where;
-
-		$save  = $db->SetFetchMode(ADODB_FETCH_NUM);
-		$qry   = 'select * from ' . $this->_table;
-		$table =& $this->TableInfo();
+		$save         = $db->SetFetchMode(ADODB_FETCH_NUM);
+		$qry          = 'select * from ' . $this->_table;
+		$table        =& $this->TableInfo();
 
 		if (($k = reset($table->keys))) {
 			$hasManyId = $k;
@@ -1041,9 +1025,8 @@ class ADODB_Active_Record {
 			return false;
 		}
 
-		$cnt   = 0;
-		$table = $this->TableInfo();
-
+		$cnt    = 0;
+		$table  = $this->TableInfo();
 		$valarr = array();
 		$names  = array();
 		$valstr = array();
@@ -1102,7 +1085,6 @@ class ADODB_Active_Record {
 		}
 
 		$table = $this->TableInfo();
-
 		$where = $this->GenWhere($db, $table);
 		$sql   = 'DELETE FROM ' . $this->_table . ' WHERE ' . $where;
 		$ok    = $db->Execute($sql);
@@ -1176,8 +1158,7 @@ class ADODB_Active_Record {
 		}
 
 		$table = $this->TableInfo();
-
-		$pkey = $table->keys;
+		$pkey  = $table->keys;
 
 		foreach ($table->flds as $name => $fld) {
 			$val = $this->$name;
@@ -1260,7 +1241,6 @@ class ADODB_Active_Record {
 		}
 
 		$table = $this->TableInfo();
-
 		$where = $this->GenWhere($db, $table);
 
 		if (!$where) {
@@ -1438,7 +1418,6 @@ function adodb_GetActiveRecordsClass(
 	}
 
 	$db->SetFetchMode($save);
-
 	$false = false;
 
 	if ($rows === false) {

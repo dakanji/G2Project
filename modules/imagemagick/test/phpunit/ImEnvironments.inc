@@ -152,9 +152,7 @@ $imEnvironment[] = array(
 	'identify'             => array(
 		''                    => 'Version: @(#)ImageMagick 4.2.9 99/09/01 cristy@mystic.es.dupont.com
 Copyright: Copyright 1999 E. I. du Pont de Nemours and Company
-
 Usage: identify [ options ... ] file [ file ... ]
-
 Where options include:
   -ping           efficiently determine image characteristics
   -size geometry  width and height of image
@@ -228,9 +226,7 @@ $imEnvironment[] = array(
 	'identify'             => array(
 		''                    => 'Version: @(#)ImageMagick 5.4.2 01/01/02 Q:16 http://www.imagemagick.org
 Copyright: Copyright (C) 2002 ImageMagick Studio LLC
-
 Usage: identify [ -option value ... ] file [ file ... ]
-
 Where options include:
   -cache threshold   megabytes of memory available to the pixel cache
   -debug             display copious debugging information
@@ -327,7 +323,6 @@ $imEnvironment[] = array(
 		''                    => 'Version: ImageMagick 6.0.7 09/11/04 Q16 http://www.imagemagick.org
 Copyright: Copyright (C) 1999-2004 ImageMagick Studio LLC
 Usage: identify [options ...] file [ [options ...] file ... ]
-
 Where options include:
   -authenticate value  decrypt image with this password
   -channel type        Red, Green, Blue, Opacity, Index, Cyan, Yellow,
@@ -447,9 +442,7 @@ $imEnvironment[] = array(
 	'identify'             => array(
 		''                    => 'Version: ImageMagick 6.1.3 11/01/04 Q16 http://www.imagemagick.org
 Copyright: Copyright (C) 1999-2004 ImageMagick Studio LLC
-
 Usage: identify [options ...] file [ [options ...] file ... ]
-
 Where options include:
   -authenticate value  decrypt image with this password
   -channel type        Red, Green, Blue, Opacity, Index, Cyan, Yellow,
@@ -553,9 +546,7 @@ $imEnvironment[] = array(
 		''                    => 'identify: Improper arguments supplied, please see manual.
 Version: GraphicsMagick 1.0.5 November 26, 2004 Q8 http://www.GraphicsMagick.org/
 Copyright: Copyright (C) 2002, 2003, 2004 GraphicsMagick Group
-
 Usage: identify [options ...] file [ [options ...] file ... ]
-
 Where options include:
   -authenticate value  decrypt image with this password
   -debug events        display copious debugging information

@@ -35,7 +35,6 @@ class GalleryControllerTestCase extends GalleryTestCase {
 
 	public function __construct($methodName, $controllerName) {
 		parent::__construct($methodName);
-
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
 
 		list($ret, $this->_controller) = GalleryController::getMe()->loadController($controllerName);
@@ -109,12 +108,10 @@ class GalleryControllerTestCase extends GalleryTestCase {
 				isset($results['status']),
 				'controller results missing status'
 			);
-
 			$this->assertTrue(
 				isset($results['error']),
 				'controller results missing error'
 			);
-
 			$this->assertTrue(
 				isset($results['redirect']) || isset($results['delegate']) || isset($results['return']),
 				'controller results needs one of (redirect, delegate)'

@@ -58,7 +58,6 @@ class CommentCallbackViewTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_user);
-
 		$this->_comment = new GalleryComment();
 
 		$ret = $this->_comment->create($this->_item->getId());

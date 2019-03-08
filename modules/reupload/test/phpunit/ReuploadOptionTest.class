@@ -105,7 +105,6 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 			$warnings,
 			'Warnings'
 		);
-
 		$this->assertEquals(800, $this->_item->getSize(), 'Item size');
 	}
 
@@ -133,6 +132,7 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 		$form['tmp_name']['reupload'] = 'bogus.mpeg';
 		$form['size']['reupload']     = 1500;
 		$form['serialNumber']         = $this->_item->getSerialNumber();
+
 		GalleryUtilities::putRequestVariable('dimensions', 'bad_data');
 
 		// Perform the request and verify that we failed and filesize didn't change

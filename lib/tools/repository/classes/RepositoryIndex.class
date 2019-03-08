@@ -81,8 +81,7 @@ class RepositoryIndex extends RepositoryObject {
 
 		$index            = array();
 		$buildLookupTable = array();
-
-		$platform =& $gallery->getPlatform();
+		$platform         =& $gallery->getPlatform();
 
 		foreach ($pluginTypes as $pluginType) {
 			if (false !== ($dir = $platform->opendir($this->_outputDir . $pluginType))) {

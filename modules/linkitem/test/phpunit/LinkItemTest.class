@@ -219,8 +219,8 @@ class LinkItemTest extends GalleryTestCase {
 
 		// Make sure the redirect has no sessionId in it
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
-		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 
+		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 		$session = new GallerySession();
 
 		$ret = $session->init();
@@ -235,7 +235,6 @@ class LinkItemTest extends GalleryTestCase {
 		$gallery->_phpVm            = $phpVm            = new LinkItemTestMockPhpVm();
 		$_REQUEST['phpVmHeaders']   = array();
 		$_REQUEST['phpVmExitCalls'] = 0;
-
 		$this->_link->setLink($this->_targetAlbum->getId());
 		$this->_markForCleanup($this->_targetAlbum);
 		$this->_lockId = array($this->_lockId);
@@ -274,6 +273,7 @@ class LinkItemTest extends GalleryTestCase {
 
 		// Verify results
 		$this->assertEquals(1, $_REQUEST['phpVmExitCalls'], 'nr of exit calls');
+
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$baseUrl      = $urlGenerator->getCurrentUrlDir();
 
@@ -354,7 +354,6 @@ class LinkItemTest extends GalleryTestCase {
 			),
 			$context
 		);
-
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 
 		$ret = GalleryCoreApi::setPluginParameter('module', 'linkitem', 'urlSnapshot', '1');
@@ -434,8 +433,8 @@ class LinkItemTest extends GalleryTestCase {
 			),
 			$context
 		);
-
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
+
 		$gallery->setPlatform($savePlatform);
 	}
 }

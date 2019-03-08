@@ -53,7 +53,6 @@ class ItemMoveSingleController extends GalleryController {
 		}
 
 		$itemId = $item->getId();
-
 		$status = $error = array();
 
 		if (isset($form['action']['move'])) {
@@ -310,12 +309,10 @@ class ItemMoveSingleView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$albumTree = GalleryUtilities::createAlbumTree($albums);
-
+		$albumTree                       = GalleryUtilities::createAlbumTree($albums);
 		$ItemMoveSingle                  = array();
 		$ItemMoveSingle['albumTree']     = $albumTree;
 		$ItemMoveSingle['itemTypeNames'] = $item->itemTypeName();
-
 		$template->setVariable('ItemMoveSingle', $ItemMoveSingle);
 		$template->setVariable('controller', 'core.ItemMoveSingle');
 		$template->javascript('lib/yui/yahoo-dom-event.js');

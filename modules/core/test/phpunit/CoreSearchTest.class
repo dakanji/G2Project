@@ -69,7 +69,6 @@ class CoreSearchTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_parentAlbum);
-
 		$this->_item = array();
 
 		for ($i = 0; $i < 4; $i++) {
@@ -155,7 +154,6 @@ class CoreSearchTest extends GalleryTestCase {
 				isset($info['options'][$option]['description']),
 				"options:$option description missing"
 			);
-
 			$this->assertTrue(
 				!empty($info['options'][$option]['enabled']),
 				"options:$option not enabled"
@@ -190,8 +188,7 @@ class CoreSearchTest extends GalleryTestCase {
 		$title       = $this->_module->translate('Title');
 		$description = $this->_module->translate('Description');
 		$owner       = $this->_module->translate('Owner');
-
-		$userName = $this->_user->getFullName();
+		$userName    = $this->_user->getFullName();
 
 		if (empty($userName)) {
 			$userName = $this->_user->getUserName();
@@ -308,7 +305,6 @@ class CoreSearchTest extends GalleryTestCase {
 		$summary  = $this->_module->translate('Summary');
 		$keywords = $this->_module->translate('Keywords');
 		$owner    = $this->_module->translate('Owner');
-
 		$userName = $this->_user->getFullName();
 
 		if (empty($userName)) {
@@ -419,8 +415,7 @@ class CoreSearchTest extends GalleryTestCase {
 		$title       = $this->_module->translate('Title');
 		$description = $this->_module->translate('Description');
 		$owner       = $this->_module->translate('Owner');
-
-		$userName = $this->_user->getFullName();
+		$userName    = $this->_user->getFullName();
 
 		if (empty($userName)) {
 			$userName = $this->_user->getUserName();
@@ -546,8 +541,7 @@ class CoreSearchTest extends GalleryTestCase {
 		$title       = $this->_module->translate('Title');
 		$description = $this->_module->translate('Description');
 		$owner       = $this->_module->translate('Owner');
-
-		$userName = $this->_user->getFullName();
+		$userName    = $this->_user->getFullName();
 
 		if (empty($userName)) {
 			$userName = $this->_user->getUserName();

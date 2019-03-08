@@ -8,10 +8,8 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
   Set tabs to 4 for best viewing.
-
   Latest version is available at http://adodb.sourceforge.net
   Library for basic performance monitoring and tuning
-
 */
 
 // security - hide paths
@@ -20,8 +18,7 @@ if (!defined('ADODB_DIR')) {
 }
 
 class perf_mysql extends adodb_perf {
-	public $tablesSQL = 'show table status';
-
+	public $tablesSQL      = 'show table status';
 	public $createTableSQL = 'CREATE TABLE adodb_logsql (
 		  created datetime NOT NULL,
 		  sql0 varchar(250) NOT NULL,
@@ -30,8 +27,7 @@ class perf_mysql extends adodb_perf {
 		  tracer text NOT NULL,
 		  timer decimal(16,6) NOT NULL
 		)';
-
-	public $settings = array(
+	public $settings       = array(
 		'Ratios',
 		'MyISAM cache hit ratio' => array(
 			'RATIO',
@@ -64,7 +60,6 @@ class perf_mysql extends adodb_perf {
 			'=GetWrites',
 			'Number of inserts/updates/deletes * coef (Key_writes is not accurate)',
 		),
-
 		'Data Cache',
 		'MyISAM data cache size' => array(
 			'DATAC',
@@ -108,7 +103,6 @@ class perf_mysql extends adodb_perf {
 			array('show variables', 'max_connections'),
 			'',
 		),
-
 		false,
 	);
 
@@ -307,7 +301,6 @@ class perf_mysql extends adodb_perf {
 		$hits   = $this->_DBParameter(array('show status', 'Qcache_hits'));
 		$total  = $this->_DBParameter(array('show status', 'Qcache_inserts'));
 		$total += $this->_DBParameter(array('show status', 'Qcache_not_cached'));
-
 		$total += $hits;
 
 		if ($total) {
@@ -320,11 +313,9 @@ class perf_mysql extends adodb_perf {
 	/*
 		Use session variable to store Hit percentage, because MySQL
 		does not remember last value of SHOW INNODB STATUS hit ratio
-
 		# 1st query to SHOW INNODB STATUS
 		0.00 reads/s, 0.00 creates/s, 0.00 writes/s
 		Buffer pool hit rate 1000 / 1000
-
 		# 2nd query to SHOW INNODB STATUS
 		0.00 reads/s, 0.00 creates/s, 0.00 writes/s
 		No buffer pool activity since the last printout

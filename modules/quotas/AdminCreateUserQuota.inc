@@ -38,8 +38,7 @@ class AdminCreateUserQuotaController extends GalleryController {
 		}
 
 		$results = $status = $error = array();
-
-		$userId = GalleryUtilities::getRequestVariables('userId');
+		$userId  = GalleryUtilities::getRequestVariables('userId');
 
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
@@ -164,9 +163,8 @@ class AdminCreateUserQuotaView extends GalleryView {
 			$form['formName']  = 'AdminCreateUserQuota';
 		}
 
-		$form['userName'] = $user->getUserName();
-		$form['userId']   = $user->getId();
-
+		$form['userName']               = $user->getUserName();
+		$form['userId']                 = $user->getId();
 		$AdminCreateUserQuota           = array();
 		$AdminCreateUserQuota['userId'] = $user->getId();
 

@@ -98,7 +98,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-
 		$this->assertEquals('/path/to/dcraw', $this->_getParam('path'));
 		$this->assertEquals('5.62', $this->_getParam('version'));
 	}
@@ -129,7 +128,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-
 		$this->assertEquals('/path/to/dcraw', $this->_getParam('path'));
 		$this->assertEquals('6.35', $this->_getParam('version'));
 	}
@@ -160,7 +158,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-
 		$this->assertEquals('/path/to/dcraw', $this->_getParam('path'));
 		$this->assertEquals('7.17', $this->_getParam('version'));
 	}
@@ -191,7 +188,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-
 		$this->assertEquals('/path/to/dcraw', $this->_getParam('path'));
 		$this->assertEquals('7.73', $this->_getParam('version'));
 	}
@@ -219,7 +215,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 
 		$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/bad/path'), 0);
 		$this->_platform->setReply('is_file', array('/bad/path'), 0);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

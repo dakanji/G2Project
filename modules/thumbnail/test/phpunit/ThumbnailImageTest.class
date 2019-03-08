@@ -111,7 +111,6 @@ class ThumbnailImageTest extends GalleryTestCase {
 		}
 
 		$id = (string)$this->_customThumbnail->getid();
-
 		$this->assertEquals(
 			sprintf(
 				'%s/%s',

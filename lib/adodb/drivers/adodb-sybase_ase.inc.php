@@ -7,16 +7,13 @@
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
-
   Set tabs to 4.
-
   Contributed by Interakt Online. Thx Cristian MARIN cristic#interaktonline.com
 */
 require_once ADODB_DIR . '/drivers/adodb-sybase.inc.php';
 
 class ADODB_sybase_ase extends ADODB_sybase {
-	public $databaseType = 'sybase_ase';
-
+	public $databaseType     = 'sybase_ase';
 	public $metaTablesSQL    = "SELECT sysobjects.name FROM sysobjects, sysusers WHERE sysobjects.type='U' AND sysobjects.uid = sysusers.uid";
 	public $metaColumnsSQL   = "SELECT syscolumns.name AS field_name, systypes.name AS type, systypes.length AS width FROM sysobjects, syscolumns, systypes WHERE sysobjects.name='%s' AND syscolumns.id = sysobjects.id AND systypes.type=syscolumns.type";
 	public $metaDatabasesSQL = "SELECT a.name FROM master.dbo.sysdatabases a, master.dbo.syslogins b WHERE a.suid = b.suid and a.name like '%' and a.name != 'tempdb' and a.status3 != 256  order by 1";
@@ -43,8 +40,7 @@ class ADODB_sybase_ase extends ADODB_sybase {
 				return $false;
 			}
 
-			$arr = $rs->GetArray();
-
+			$arr  = $rs->GetArray();
 			$arr2 = array();
 
 			foreach ($arr as $key => $value) {
@@ -95,7 +91,6 @@ class ADODB_sybase_ase extends ADODB_sybase {
 				$fld->type                      = $rs->Fields('type');
 				$fld->max_length                = $rs->Fields('width');
 				$retarr[strtoupper($fld->name)] = $fld;
-
 				$rs->MoveNext();
 			}
 

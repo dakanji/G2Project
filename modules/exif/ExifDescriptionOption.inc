@@ -50,6 +50,7 @@ class ExifDescriptionOption extends ItemAddOption {
 	public function handleRequestAfterAdd($form, $items) {
 		GalleryCoreApi::requireOnce('modules/exif/classes/ExifExtractor.class');
 		GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
+
 		$errors = $warnings = $needed = array();
 
 		list($ret, $addOption) = GalleryCoreApi::getPluginParameter('module', 'exif', 'addOption');
@@ -88,8 +89,7 @@ class ExifDescriptionOption extends ItemAddOption {
 			$batchSize = 100;
 
 			do {
-				$currentItems = array_splice($itemsInBatches, 0, $batchSize);
-
+				$currentItems   = array_splice($itemsInBatches, 0, $batchSize);
 				$currentItemIds = array();
 
 				foreach ($currentItems as $item) {
@@ -212,8 +212,7 @@ class ExifDescriptionOption extends ItemAddOption {
 							$args = array(90);
 						}
 
-						$operation = 'rotate';
-
+						$operation        = 'rotate';
 						$preserveOriginal = ($addOption & EXIF_ITEM_ROTATE_PRESERVE) ? 1 : 0;
 
 						if (!empty($args)) {

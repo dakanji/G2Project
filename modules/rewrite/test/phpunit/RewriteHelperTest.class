@@ -690,7 +690,6 @@ class RewriteHelperTest extends GalleryTestCase {
 		);
 
 		$expectedActiveRules = $activeRules;
-
 		$expectedShortUrls   = array();
 		$expectedShortUrls[] = array(
 			'match'     => array(
@@ -923,8 +922,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	}
 
 	public function testParseQuoteMetaChars() {
-		$activeRules = array();
-
+		$activeRules                         = array();
 		$activeRules['rewritehelpermock'][1] = array(
 			'pattern' => 'php.-/%unit%',
 		);

@@ -26,7 +26,6 @@ require_once __DIR__ . '/../../support/security.inc';
 
 ini_set('magic_quotes_runtime', false);
 set_time_limit(0);
-
 $type = 'summary';
 
 if (!empty($_REQUEST['type']) && $_REQUEST['type'] == 'detail') {
@@ -37,8 +36,7 @@ if (!empty($_REQUEST['type']) && $_REQUEST['type'] == 'detail') {
 
 $precision = isset($_GET['precision']) ? (int)$_GET['precision'] : ($type == 'detail' ? 2 : 1);
 $pow       = 10 ** $precision;
-
-$poFiles = findPoFiles('../../..');
+$poFiles   = findPoFiles('../../..');
 
 list($reportData, $mostRecentPoDate, $totalTranslated) = parsePoFiles($poFiles);
 

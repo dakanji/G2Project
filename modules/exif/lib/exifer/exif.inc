@@ -6,15 +6,12 @@
 /*
 	Exifer 1.5
 	Extracts EXIF information from digital photos.
-
 	Copyright � 2005 Jake Olefsky
 	http://www.offsky.com/software/exif/index.php
 	jake@olefsky.com
-
 	This program is free software; you can redistribute it and/or modify it under the terms of
 	the GNU General Public License as published by the Free Software Foundation; either version 2
 	of the License, or (at your option) any later version.
-
 	This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 	without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 	See the GNU General Public License for more details. http://www.gnu.org/copyleft/gpl.html
@@ -24,10 +21,8 @@
 				fields as well as parsing some of the MakerNote fields that vary depending on
 				camera make and model.  This script parses more tags than the internal PHP exif
 				implementation and it will correctly identify and decode what all the values mean.
-
 				This version will correctly parse the MakerNote field for Nikon, Olympus, and Canon
 				digital cameras.  Others will follow.
-
 	TESTED WITH:
 				Nikon CoolPix 700
 				Nikon CoolPix 4500
@@ -58,17 +53,12 @@
 				Sanyo VPC-G250
 				Sanyo VPC-SX550
 				Epson 3100z
-
 	If you improve this script or test it with a camera not on my list, please email me a copy of
 	the improvement so everyone can benefit from it.  Thanks!
-
 	VERSION HISTORY:
 	1.0 	Sept 23, 2002
-
 			First Public Release
-
 	1.1		Jan 25, 2003
-
 			+Gracefully handled the error case where you pass an empty string to this library
 			+Fixed an inconsistency in the Olympus Camera parsing module
 			+Added support for parsing the MakerNote of Canon images.
@@ -77,12 +67,9 @@
 			+Negative rational numbers are properly displayed
 			+Strange old cameras that use Motorola endineness are now properly supported
 			+Tested with several more cameras
-
 			Potential Problem: Negative Shorts and Negative Longs may not be correctly displayed, but I
 				have not yet found an example of negative shorts or longs being used.
-
 	1.2		Mar 30, 2003
-
 			+Fixed an error that was displayed if you edited your image with WinXP's image viewer
 			+Fixed a bug that caused some images saved from 3rd party software to not parse correctly
 			+Changed the ExposureTime tag to display in fractional seconds rather than decimal
@@ -91,9 +78,7 @@
 			+Added support for parsing the MakeNote of Sanyo images
 			+Fixed a bug with parsing some Olympus MakerNote tags
 			+Tested with several more cameras
-
 	1.3		Jun 15, 2003
-
 			+Fixed Canon MakerNote support for some models
 				(Canon has very difficult and inconsistent MakerNote syntax)
 			+Negative signed shorts and negative signed longs are properly displayed
@@ -101,17 +86,13 @@
 			+More information in my comments about what each tag is
 			+Parses and Displays GPS information if available
 			+Tested with several more cameras
-
 	1.4		Sept 14, 2003
-
 			+This software is now licensed under the GNU General Public License
 			+Exposure time is now correctly displayed when the numerator is 10
 			+Fixed the calculation and display of ShutterSpeedValue, ApertureValue and MaxApertureValue
 			+Fixed a bug with the GPS code
 			+Tested with several more cameras
-
 	1.5		Feb 18, 2005
-
 			+It now gracefully deals with a passed in file that cannot be found.
 			+Fixed a GPS bug for the parsing of Altitude and other signed rational numbers
 			+Defined more values for Canon cameras.
@@ -1275,8 +1256,7 @@ function read_entry(&$result, $in, $seek, $intel, $ifd_name, $globalOffset) {
 		parseGPS($data, $result, $formated_data, $seek, $globalOffset);
 	} else {
 		//Format the data depending on the type and tag
-		$formated_data = formatData($type, $tag, $intel, $data);
-
+		$formated_data                = formatData($type, $tag, $intel, $data);
 		$result[$ifd_name][$tag_name] = $formated_data;
 
 		if ($result['VerboseOutput'] == 1) {
@@ -1371,8 +1351,7 @@ function read_exif_data_raw($path, $verbose) {
 
 			$result['JFIF']['Identifier']    = substr($data, 0, 5);
 			$result['JFIF']['ExtensionCode'] = bin2hex(substr($data, 6, 1));
-
-			$globalOffset += hexdec($size) + 2;
+			$globalOffset                   += hexdec($size) + 2;
 		} elseif ($data == 'ffed') {  //IPTC Marker
 			$result['ValidIPTCData'] = 1;
 			$result['IPTC']['Size']  = hexdec($size);

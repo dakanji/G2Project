@@ -57,9 +57,8 @@ class GalleryUserGroupHelper_simple {
 	 * @see GalleryCoreApi::isUserInGroup
 	 */
 	public static function isUserInGroup($userId, $groupId) {
-		$userId  = (int)$userId;
-		$groupId = (int)$groupId;
-
+		$userId   = (int)$userId;
+		$groupId  = (int)$groupId;
 		$cacheKey = "GalleryUserGroupHelper::isUserInGroup($userId,$groupId)";
 
 		if (GalleryDataCache::containsKey($cacheKey)) {
@@ -85,6 +84,7 @@ class GalleryUserGroupHelper_simple {
 		}
 
 		$result = $searchResults->resultCount() ? true : false;
+
 		GalleryDataCache::put($cacheKey, $result);
 
 		return array(null, $result);

@@ -90,10 +90,8 @@ class SystemChecksStep extends UpgradeStep {
 
 			// Reverse sort it by key so that directories are last
 			krsort($removeList);
-
 			$isWindows = !strncasecmp(PHP_OS, 'win', 3);
 			$fileName  = $isWindows ? 'cleanup.bat' : 'cleanup.sh';
-
 			header('Content-Type: application/data');
 			header('Content-Disposition: attachment; filename=' . $fileName);
 
@@ -108,8 +106,7 @@ class SystemChecksStep extends UpgradeStep {
 		$failCount             = 0;
 		$suggestedHtaccess     = array();
 		$setTimeLimitAvailable = false;
-
-		$template = new StatusTemplate();
+		$template              = new StatusTemplate();
 		$template->renderHeader(true);
 		$template->renderStatusMessage('Performing system checks', '', 0);
 
@@ -457,9 +454,8 @@ class SystemChecksStep extends UpgradeStep {
 					$gallery->getConfig('data.gallery.base')
 				);
 
-				$heading = sprintf('Inaccessible or missing  files (%d)', count($storageFiles));
-				$message = $this->renderFileList($storageFiles, 'storagefiles', $heading, $notice);
-
+				$heading                 = sprintf('Inaccessible or missing  files (%d)', count($storageFiles));
+				$message                 = $this->renderFileList($storageFiles, 'storagefiles', $heading, $notice);
 				$templateData['check'][] = array(
 					'title'  => $title,
 					'error'  => true,
@@ -622,7 +618,6 @@ class SystemChecksStep extends UpgradeStep {
 
 		$template->renderStatusMessage('Performing system checks', '', 1);
 		$template->hideStatusBlock();
-
 		$templateData['suggestedHtaccess'] = join("\n", $suggestedHtaccess);
 		$templateData['bodyFile']          = 'SystemChecks.html';
 		$this->setComplete($failCount == 0);
@@ -692,8 +687,7 @@ class SystemChecksStep extends UpgradeStep {
 	public function _checkStorageSubDirectory($dirname, &$tested, $max) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform     =& $gallery->getPlatform();
 		$storageFiles = array();
 
 		if (!($fd = $platform->opendir($dirname))) {
@@ -1006,7 +1000,6 @@ class SystemChecksStep extends UpgradeStep {
 
 				// For mysql, another replacement is required
 				$query = str_replace('DB_TABLE_TYPE', '', $query);
-
 				$gallery->startRecordingDebugSnippet();
 
 				$ret = $storage->execute($query, array());

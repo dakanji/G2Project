@@ -83,20 +83,17 @@ function g2Connect() {
 function process($renderType, $args = array()) {
 	global $gallery, $adv, $hide, $show, $reset;
 
-	$storage =& $gallery->getStorage();
-
+	$storage    =& $gallery->getStorage();
 	$tables     = array();
 	$ids        = array();
 	$missingIds = array();
-
-	$gID     = '';
-	$display = '';
-	$status  = '';
-
-	$headData = null;
-	$bodyForm = null;
-	$bodyMain = null;
-	$err      = null;
+	$gID        = '';
+	$display    = '';
+	$status     = '';
+	$headData   = null;
+	$bodyForm   = null;
+	$bodyMain   = null;
+	$err        = null;
 
 	if (!empty($args['adv'])) {
 		$adv = true;
@@ -569,7 +566,6 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 				}
 
 				?>
-
 					var selectStr = selectStr.replace(oldStr, newStr);
 				}
 
@@ -583,7 +579,6 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 		}
 
 		?>
-
 	</head>
 	<body>
 		<div class="container">
@@ -618,7 +613,6 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 		}
 
 		?>
-
 		</div>
 		<?php
 		if ($show) {
@@ -645,7 +639,6 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 		}
 
 		?>
-
 		<script type="text/javascript">
 			if (typeof(jsess.missingObjectFix_tgtHTML) !== "undefined") {
 				changeContent('tPara', jsess.missingObjectFix_tgtHTML);

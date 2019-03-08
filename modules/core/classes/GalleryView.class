@@ -203,8 +203,7 @@ class GalleryView {
 			$moduleBaseDir = GalleryCoreApi::getCodeBasePath();
 			$moduleDir     = 'modules/' . $module . '/';
 			$fileName      = $moduleDir . $class . '.inc';
-
-			$platform =& $gallery->getPlatform();
+			$platform      =& $gallery->getPlatform();
 
 			if (!$platform->file_exists($moduleBaseDir . $fileName)) {
 				return array(
@@ -790,8 +789,7 @@ class GalleryView {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
-		$user = (array)$gallery->getActiveUser();
+		$user    = (array)$gallery->getActiveUser();
 
 		list($ret, $user['isGuest']) = GalleryCoreApi::isAnonymousUser($user['id']);
 
@@ -841,8 +839,7 @@ class GalleryView {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
-		$result = null;
+		$result  = null;
 
 		if ($ret) {
 			list($ret2, $inGroup) = GalleryCoreApi::isUserInSiteAdminGroup();

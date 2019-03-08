@@ -355,7 +355,6 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			$ItemEditPhotoThumbnail['editThumbnail']['cropWidth']           = $crop['width'];
 			$ItemEditPhotoThumbnail['editThumbnail']['cropHeight']          = $crop['height'];
 			$ItemEditPhotoThumbnail['editThumbnail']['targetThumbnailSize'] = $targetThumbnailSize;
-
 			$aspectlist = array();
 
 			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -429,8 +428,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			 * settings so that we can start out with those values selected in the dropdowns.
 			 */
 			$currentAspect = round($crop['width'] / $crop['height'], 2);
-
-			$i = 0;
+			$i             = 0;
 
 			// Set defaults
 			$selectedAspect                                             = 0;

@@ -201,7 +201,6 @@ class MSSqlStorage extends GalleryStorage {
 		$this->_traceStart();
 		$arr =& $tmpDb->GetArray($sql);
 		$this->_traceStop();
-
 		$tmpDb->Close();
 
 		if (!empty($arr[0][0])) {

@@ -40,7 +40,6 @@ class RepositoryCallbackTest extends GalleryTestCase {
 			'form[repositories][experimental]',
 			'<script>something malicious</script>'
 		);
-
 		GalleryUtilities::putRequestVariable('form[repositories][experimental]', 'experimental');
 		GalleryUtilities::putRequestVariable('form[repositories][community]', 'checked');
 		GalleryUtilities::putRequestVariable('form[repositories][something_else]', 1);

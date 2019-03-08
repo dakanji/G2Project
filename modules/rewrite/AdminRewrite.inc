@@ -140,8 +140,7 @@ class AdminRewriteController extends GalleryController {
 				}
 			}
 		} elseif (isset($form['action']['accessList'])) {
-			$mode = 'setup';
-
+			$mode       = 'setup';
 			$accessList = array();
 
 			foreach ($form['accessList'] as $host) {
@@ -244,8 +243,7 @@ class AdminRewriteView extends GalleryView {
 
 		$AdminRewrite['parserType'] = $rewriteParser->getParserType();
 		$AdminRewrite['parserId']   = $rewriteParser->getParserId();
-
-		$AdminRewrite['mode'] = GalleryUtilities::getRequestVariables('mode');
+		$AdminRewrite['mode']       = GalleryUtilities::getRequestVariables('mode');
 
 		if (empty($AdminRewrite['mode'])) {
 			$AdminRewrite['mode'] = 'rules';

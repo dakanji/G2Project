@@ -19,12 +19,10 @@
 	Filter all fields and all rows in a recordset and returns the
 	processed recordset. We scroll to the beginning of the new recordset
 	after processing.
-
 	We pass a recordset and function name to RSFilter($rs,'rowfunc');
 	and the function will be called multiple times, once
 	for each row in the recordset. The function will be passed
 	an array containing one row repeatedly.
-
 	Example:
 	// ucwords() every element in the recordset
 	function do_ucwords(&$arr,$rs)

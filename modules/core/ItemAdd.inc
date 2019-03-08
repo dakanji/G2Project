@@ -66,8 +66,7 @@ class ItemAddController extends GalleryController {
 		global $gallery;
 
 		$templateAdapter =& $gallery->getTemplateAdapter();
-
-		$addPluginId = GalleryUtilities::getRequestVariables('addPlugin');
+		$addPluginId     = GalleryUtilities::getRequestVariables('addPlugin');
 
 		list($ret, $item) = $this->getItem();
 
@@ -160,8 +159,7 @@ class ItemAddController extends GalleryController {
 		$urlGenerator    =& $gallery->getUrlGenerator();
 		$phpVm           = $gallery->getPhpVm();
 		$session         =& $gallery->getSession();
-
-		$startTime = $phpVm->time();
+		$startTime       = $phpVm->time();
 
 		// Auto-redirect if we complete the request within this period. Else show the continueURL
 		$autoRedirectSeconds = 15;
@@ -173,7 +171,6 @@ class ItemAddController extends GalleryController {
 		}
 
 		$templateAdapter->updateProgressBar($this->_coreModule->translate('Adding items'), '', 0);
-
 		$error       = array();
 		$addPluginId = GalleryUtilities::getRequestVariables('addPlugin');
 
@@ -215,7 +212,6 @@ class ItemAddController extends GalleryController {
 			}
 
 			$session->put('itemAdd.error', $error);
-
 			$doRedirect  = true;
 			$continueUrl = $urlGenerator->generateUrl(
 				array(
@@ -400,7 +396,6 @@ class ItemAddController extends GalleryController {
 				 */
 				unset($status['addedFiles'][$i--]);
 				$status['addedFiles'] = array_merge($status['addedFiles'], $extractedItems);
-
 				$gallery->guaranteeTimeLimit(30);
 
 				$ret = $this->_storage->checkPoint();
@@ -469,7 +464,6 @@ class ItemAddController extends GalleryController {
 				$this->_templateAdapter->updateProgressBar($this->_processingItemsMessage, '', 1);
 			}
 		} while (isset($status['addedFiles'][++$i]));
-
 		$this->_templateAdapter->updateProgressBar($this->_processingItemsMessage, '', 1);
 
 		return array(null, $errors);
@@ -486,12 +480,10 @@ class ItemAddController extends GalleryController {
 	public function _extractAndAddFiles($archiveItem, $toolkit) {
 		global $gallery;
 
-		$this->_platform =& $gallery->getPlatform();
-
+		$this->_platform                 =& $gallery->getPlatform();
 		$this->_extractingArchiveMessage = $this->_coreModule->translate('Extracting archive');
 		$this->_templateAdapter->updateProgressBar($this->_extractingArchiveMessage, '', 0);
 		$gallery->guaranteeTimeLimit(120);
-
 		$parentId = $archiveItem->getParentId();
 
 		list($ret, $hasAddAlbumPermission) = GalleryCoreApi::hasItemPermission($parentId, 'core.addAlbumItem');
@@ -547,7 +539,6 @@ class ItemAddController extends GalleryController {
 
 		$this->_templateAdapter->updateProgressBar($this->_extractingArchiveMessage, '', 0.1);
 		$gallery->guaranteeTimeLimit(30);
-
 		$addedFiles = array();
 
 		$ret = $this->_recursiveAddDir(
@@ -603,6 +594,7 @@ class ItemAddController extends GalleryController {
 			if ($this->_platform->is_dir($path)) {
 				if ($canAddAlbums) {
 					$title = $filename;
+
 					GalleryUtilities::sanitizeInputValues($title);
 
 					list($ret, $album) = GalleryCoreApi::createAlbum(
@@ -675,10 +667,10 @@ class ItemAddController extends GalleryController {
 
 				if ($titleMode == 'file') {
 					$title = $filename;
+
 					GalleryUtilities::sanitizeInputValues($title);
 				} elseif ($titleMode == 'base') {
 					list($title) = GalleryUtilities::getFileNameComponents($filename);
-
 					GalleryUtilities::sanitizeInputValues($title);
 				} else {
 					$title = $archiveItem->getTitle();
@@ -701,7 +693,9 @@ class ItemAddController extends GalleryController {
 
 			if ($newItem) {
 				$sanitizedFilename = $filename;
+
 				GalleryUtilities::sanitizeInputValues($sanitizedFilename);
+
 				$addedFiles[] = array(
 					'fileName' => $sanitizedFilename,
 					'id'       => $newItem->getId(),
@@ -754,8 +748,7 @@ class ItemAddView extends GalleryView {
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
+		$session   =& $gallery->getSession();
 		$addPlugin = GalleryUtilities::getRequestVariables('addPlugin');
 
 		list($ret, $item) = $this->getItem();
@@ -835,7 +828,6 @@ class ItemAddView extends GalleryView {
 		}
 
 		$session->put($addPluginSessionKey, $addPlugin);
-
 		$errors = $session->get('itemAdd.error');
 
 		if (!empty($errors)) {

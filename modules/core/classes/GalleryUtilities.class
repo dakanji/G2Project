@@ -332,6 +332,7 @@ class GalleryUtilities {
 		GalleryUtilities::unsanitizeInputValues($value);
 
 		$keyPath = preg_split('/[\[\]]/', $key, -1, PREG_SPLIT_NO_EMPTY);
+
 		GalleryUtilities::_internalPutRequestVariable($keyPath, $value, $_GET);
 	}
 
@@ -381,6 +382,7 @@ class GalleryUtilities {
 		}
 
 		$keyPath = preg_split('/[\[\]]/', $key, -1, PREG_SPLIT_NO_EMPTY);
+
 		GalleryUtilities::_internalRemoveRequestVariable($keyPath, $_GET);
 		GalleryUtilities::_internalRemoveRequestVariable($keyPath, $_POST);
 	}
@@ -677,17 +679,16 @@ class GalleryUtilities {
 		$decrement[1] = 0;
 
 		// Number of bits to shift each charNum by
-		$shift[1][0] = 0;
-		$shift[2][0] = 6;
-		$shift[2][1] = 0;
-		$shift[3][0] = 12;
-		$shift[3][1] = 6;
-		$shift[3][2] = 0;
-		$shift[4][0] = 18;
-		$shift[4][1] = 12;
-		$shift[4][2] = 6;
-		$shift[4][3] = 0;
-
+		$shift[1][0]   = 0;
+		$shift[2][0]   = 6;
+		$shift[2][1]   = 0;
+		$shift[3][0]   = 12;
+		$shift[3][1]   = 6;
+		$shift[3][2]   = 0;
+		$shift[4][0]   = 18;
+		$shift[4][1]   = 12;
+		$shift[4][2]   = 6;
+		$shift[4][3]   = 0;
 		$pos           = 0;
 		$len           = strlen($source);
 		$encodedString = '';
@@ -758,6 +759,7 @@ class GalleryUtilities {
 		if (is_array($value)) {
 			foreach (array_keys($value) as $key) {
 				$newKey = $key;
+
 				GalleryUtilities::sanitizeInputValues($newKey);
 
 				if ($key != $newKey) {
@@ -982,8 +984,7 @@ class GalleryUtilities {
 		// Use our PHP VM for testability
 		global $gallery;
 
-		$phpVm = $gallery->getPhpVm();
-
+		$phpVm           = $gallery->getPhpVm();
 		$responseHeaders =& GalleryUtilities::_getResponseHeaders();
 
 		// Special case for HTTP status codes.  See http://php.net/header
@@ -1554,6 +1555,7 @@ class GalleryUtilities {
 		}
 
 		$value = $_SERVER[$key];
+
 		GalleryUtilities::sanitizeInputValues($value);
 
 		return $value;
@@ -1573,6 +1575,7 @@ class GalleryUtilities {
 		GalleryUtilities::fixCookieVars();
 
 		$value = $_COOKIE[$key];
+
 		GalleryUtilities::sanitizeInputValues($value);
 
 		return $value;
@@ -1646,6 +1649,7 @@ class GalleryUtilities {
 
 					while ($tok) {
 						GalleryUtilities::_registerCookieAttr($tok, $fixedCookies);
+
 						$tok = strtok(',;');
 					}
 				} else {
@@ -1863,10 +1867,8 @@ class GalleryUtilities {
 	public static function doEval($code) {
 		// Temp override
 		return eval($code);
-
 		$tempfile = tempnam(sys_get_temp_dir(), 'EVL');
 		file_put_contents($tempfile, "<?php\n" . $code);
-
 		ob_start();
 
 		include $tempfile;

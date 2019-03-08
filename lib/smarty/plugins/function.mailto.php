@@ -57,8 +57,7 @@ function smarty_function_mailto($params, &$smarty) {
 	}
 
 	$address = $params['address'];
-
-	$text = $address;
+	$text    = $address;
 
 	// netscape and mozilla do not decode %40 (@) in BCC field (bug?)
 	// so, don't encode it.
@@ -100,8 +99,7 @@ function smarty_function_mailto($params, &$smarty) {
 	}
 
 	$address .= $mail_parm_vals;
-
-	$encode = (empty($params['encode'])) ? 'none' : $params['encode'];
+	$encode   = (empty($params['encode'])) ? 'none' : $params['encode'];
 
 	if (!in_array($encode, array('javascript', 'javascript_charcode', 'hex', 'none'))) {
 		$smarty->trigger_error("mailto: 'encode' parameter must be none, javascript or hex");
@@ -110,8 +108,7 @@ function smarty_function_mailto($params, &$smarty) {
 	}
 
 	if ($encode == 'javascript') {
-		$string = 'document.write(\'<a href="mailto:' . $address . '" ' . $extra . '>' . $text . '</a>\');';
-
+		$string    = 'document.write(\'<a href="mailto:' . $address . '" ' . $extra . '>' . $text . '</a>\');';
 		$js_encode = '';
 
 		for ($x = 0; $x < strlen($string); $x++) {

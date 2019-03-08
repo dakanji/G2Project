@@ -130,7 +130,6 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 			'form[commenterName]',
 			$this->_anonymousUser->getUserName()
 		);
-
 		GalleryUtilities::putRequestVariable(
 			'form[publishStatus]',
 			COMMENT_PUBLISH_STATUS_PUBLISHED
@@ -345,22 +344,18 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 			'form[subject]',
 			'<a href="javascript:alert(1)">a</a>'
 		);
-
 		GalleryUtilities::putRequestVariable(
 			'form[comment]',
 			'comment <applet code="bad.class"> test'
 		);
-
 		GalleryUtilities::putRequestVariable(
 			'form[author]',
 			'this is a author with <script>evilness</script> in it.'
 		);
-
 		GalleryUtilities::putRequestVariable(
 			'form[commenterName]',
 			$this->_anonymousUser->getUserName()
 		);
-
 		GalleryUtilities::putRequestVariable(
 			'form[publishStatus]',
 			COMMENT_PUBLISH_STATUS_PUBLISHED
@@ -389,6 +384,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertEquals('&lt;a&gt;a&lt;/a&gt;', $comment->getSubject());
+
 		$this->assertEquals('comment  test', $comment->getComment());
 		$this->assertEquals(
 			'this is a author with &lt;script&gt;evilness&lt;/script&gt; in it.',
@@ -435,7 +431,6 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 			'form[commenterName]',
 			$this->_anonymousUser->getUserName()
 		);
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable(
 			'form[publishStatus]',
@@ -477,7 +472,6 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 			'form[commenterName]',
 			$this->_anonymousUser->getUserName()
 		);
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable(
 			'form[publishStatus]',
@@ -519,7 +513,6 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 			'form[commenterName]',
 			$this->_anonymousUser->getUserName()
 		);
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable(
 			'form[publishStatus]',

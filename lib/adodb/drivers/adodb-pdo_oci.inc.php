@@ -8,7 +8,6 @@
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
   Set tabs to 8.
-
 */
 class ADODB_pdo_oci extends ADODB_pdo_base {
 	public $concat_operator = '||';
@@ -18,9 +17,8 @@ class ADODB_pdo_oci extends ADODB_pdo_base {
 	public $random          = 'abs(mod(DBMS_RANDOM.RANDOM,10000001)/10000000)';
 	public $metaTablesSQL   = "select table_name,table_type from cat where table_type in ('TABLE','VIEW')";
 	public $metaColumnsSQL  = "select cname,coltype,width, SCALE, PRECISION, NULLS, DEFAULTVAL from col where tname='%s' order by colno";
-
-	public $_initdate = true;
-	public $_hasdual  = true;
+	public $_initdate       = true;
+	public $_hasdual        = true;
 
 	public function _init($parentDriver) {
 		$parentDriver->_bindInputArray = true;

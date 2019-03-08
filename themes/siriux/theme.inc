@@ -41,7 +41,6 @@ class SiriuxTheme extends GalleryTheme {
 		$this->setVersion('7.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
-
 		$this->setStandardSettings(
 			array(
 				'perPage'        => 9,

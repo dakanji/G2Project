@@ -166,7 +166,6 @@ class DownloadItemView extends GalleryView {
 		}
 
 		$requestMethod = strtolower(GalleryUtilities::getServerVar('REQUEST_METHOD'));
-
 		$phpVm->header('Content-type: ' . $data['mimeType']);
 		$phpVm->header('Content-Disposition: inline; filename="' . $data['pseudoFileName'] . '"');
 		$stats = $platform->stat($data['derivativePath']);
@@ -225,8 +224,7 @@ class DownloadItemView extends GalleryView {
 	public function _assertPermissions($item, $derivativeType) {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
+		$session             =& $gallery->getSession();
 		$itemIdForPermission = $item->getId();
 
 		if (!empty($derivativeType)) {

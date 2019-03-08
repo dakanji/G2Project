@@ -249,7 +249,6 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 			$error,
 			'Invalid file size'
 		);
-
 		$this->assertEquals(array(), $warning);
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
@@ -283,6 +282,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 		$form['SizeLimitOption']['filesize']           = 2000;
 		$form['SizeLimitOption']['applyToDescendents'] = 'on';
 		$results                                       = $this->_handleRequestAfterEdit($form, $this->_album);
+
 		$this->assertEquals(array(array(), array()), $results, 'Results');
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
@@ -470,6 +470,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 class SizeLimitOptionTestPlatform extends GalleryPlatform {
 	public function __construct($originalPlatform) {
 		$this->_savedPlatform = $originalPlatform;
+
 		GalleryUtilities::putRequestVariable('resizePerformed', false);
 		GalleryUtilities::putRequestVariable('compressPerformed', false);
 	}
@@ -565,6 +566,7 @@ class SizeLimitOptionTestToolkit extends GalleryToolkit {
 		}
 
 		$operations[] = $operationName;
+
 		GalleryUtilities::putRequestVariable('operation', $operations);
 
 		return array(null, $mimeType, $context);

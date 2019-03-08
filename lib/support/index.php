@@ -54,28 +54,23 @@ function generateUrl($uri, $print = true) {
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>Gallery Support</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>support.css">
 </head>
-
 <body>
 	<div class="container">
 		<div id="title">
 			<a href="../../">Gallery</a> &raquo; Support
 		</div>
-
 		<h1>
 			Gallery2 Support Tools
 		</h1>
-
 		<h2>
 			A Collection of Tools for Troubleshooting Gallery 2
 		</h2>
-
 		<div class="panel panel-info">
 			<div class="panel-heading">
 				<h3 class="panel-title">

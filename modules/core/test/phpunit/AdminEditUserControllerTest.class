@@ -126,6 +126,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 
 	public function testEditUserNewUsername() {
 		$newUserName = 'newname-' . mt_rand();
+
 		GalleryUtilities::putRequestVariable('userId', $this->_user[0]->getId());
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[userName]', $newUserName);
@@ -154,6 +155,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 
 	public function testEditUserDuplicateUsername() {
 		$newUserName = $this->_user[1]->getUserName();
+
 		GalleryUtilities::putRequestVariable('userId', $this->_user[0]->getId());
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[userName]', $newUserName);
@@ -232,6 +234,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 
 	public function testChangePassword() {
 		$password = '<test"pass &word;>' . mt_rand(1, 999) . "'";
+
 		GalleryUtilities::putRequestVariable('userId', $this->_user[0]->getId());
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[userName]', $this->_user[0]->getUserName());
@@ -270,8 +273,10 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		// Trailing space on full/username with no other changes used to give db error on mysql
 		GalleryUtilities::putRequestVariable('userId', $this->_user[0]->getId());
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$userName = $this->_user[0]->getUserName();
 		$fullName = $this->_user[0]->getFullName();
+
 		GalleryUtilities::putRequestVariable('form[userName]', "$userName  ");
 		GalleryUtilities::putRequestVariable('form[fullName]', "$fullName   ");
 		GalleryUtilities::putRequestVariable('form[email]', $this->_user[0]->getEmail());

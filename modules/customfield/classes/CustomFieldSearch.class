@@ -79,7 +79,6 @@ class CustomFieldSearch extends GallerySearchInterface_1_0 {
 		}
 
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
-
 		$countQuery = sprintf(
 			'
 	SELECT

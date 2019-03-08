@@ -42,7 +42,6 @@ class ClassicTheme extends GalleryTheme {
 		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
-
 		$this->setStandardSettings(
 			array(
 				'rows'            => 10,
@@ -397,8 +396,7 @@ class ClassicTheme extends GalleryTheme {
 			}
 
 			foreach ($subAlbums as $subAlbum) {
-				$id = $subAlbum->getId();
-
+				$id                    = $subAlbum->getId();
 				$treeList[$branchId][] = array(
 					'id'    => $id,
 					'depth' => $depth - 1,

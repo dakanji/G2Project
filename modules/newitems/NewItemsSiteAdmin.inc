@@ -151,7 +151,6 @@ class NewItemsSiteAdminView extends GalleryView {
 		}
 
 		$form['isDefault'] = strpos($default, 'NewItems') !== false;
-
 		$template->setVariable('controller', 'newitems.NewItemsSiteAdmin');
 
 		return array(

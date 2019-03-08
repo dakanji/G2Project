@@ -40,7 +40,6 @@ class ItemCreateReplicaController extends GalleryController {
 		}
 
 		$itemId = $item->getId();
-
 		$status = $error = array();
 
 		if (isset($form['action']['link'])) {
@@ -205,8 +204,7 @@ class ItemCreateReplicaController extends GalleryController {
 				return array($ret, null);
 			}
 
-			$numPages = (int)ceil(sizeof($peerIds) / $form['numPerPage']);
-
+			$numPages                      = (int)ceil(sizeof($peerIds) / $form['numPerPage']);
 			$results['delegate']['itemId'] = $itemId;
 			$results['delegate']['page']   = min($page + 1, $numPages);
 		} elseif (isset($form['action']['previous'])) {
@@ -350,8 +348,7 @@ class ItemCreateReplicaView extends GalleryView {
 			}
 		}
 
-		$urlGenerator =& $gallery->getUrlGenerator();
-
+		$urlGenerator                     =& $gallery->getUrlGenerator();
 		$ItemCreateReplica                = array();
 		$ItemCreateReplica['canCancel']   = (bool)GalleryUtilities::getRequestVariables('return');
 		$ItemCreateReplica['peers']       = $peers;
@@ -360,7 +357,6 @@ class ItemCreateReplicaView extends GalleryView {
 		$ItemCreateReplica['numPages']    = $numPages;
 		$ItemCreateReplica['numPerPage']  = $form['numPerPage'];
 		$ItemCreateReplica['selectedIds'] = array_keys($selectedIds);
-
 		$template->setVariable('ItemCreateReplica', $ItemCreateReplica);
 		$template->setVariable('controller', 'replica.ItemCreateReplica');
 		$template->javascript('lib/yui/yahoo-dom-event.js');
