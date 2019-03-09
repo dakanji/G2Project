@@ -47,8 +47,7 @@ class ADODB_sqlite3 extends ADOConnection {
 			return true;
 		}
 
-		$ret = $this->Execute('BEGIN TRANSACTION');
-
+		$ret             = $this->Execute('BEGIN TRANSACTION');
 		$this->transCnt += 1;
 
 		return true;
@@ -120,8 +119,9 @@ class ADODB_sqlite3 extends ADOConnection {
 				$size = trim($type[1], ')');
 			}
 
-			$fn                 = strtoupper($r['name']);
-			$fld                = new ADOFieldObject();
+			$fn  = strtoupper($r['name']);
+			$fld = new ADOFieldObject();
+
 			$fld->name          = $r['name'];
 			$fld->type          = $type[0];
 			$fld->max_length    = $size;
@@ -211,6 +211,7 @@ class ADODB_sqlite3 extends ADOConnection {
 		// If no data was returned, we don't need to create a real recordset
 		elseif ($rez->numColumns() == 0) {
 			$rez->finalize();
+
 			$rez = true;
 		}
 
@@ -250,6 +251,7 @@ class ADODB_sqlite3 extends ADOConnection {
 
 			if ($num === false) {
 				$this->Execute(sprintf($this->_genSeqSQL, $seq));
+
 				$start -= 1;
 				$num    = '0';
 				$ok     = $this->Execute("insert into $seq values($start)");
@@ -361,6 +363,7 @@ class ADODB_sqlite3 extends ADOConnection {
 
 		if (isset($savem)) {
 			$this->SetFetchMode($savem);
+
 			$ADODB_FETCH_MODE = $save;
 		}
 
@@ -407,6 +410,7 @@ class ADORecordset_sqlite3 extends ADORecordSet {
 		if ($queryID) {
 			$this->_currentRow = 0;
 			$this->EOF         = !$this->_fetch();
+
 			@$this->_initrs();
 		} else {
 			$this->_numOfRows   = 0;
@@ -418,7 +422,8 @@ class ADORecordset_sqlite3 extends ADORecordSet {
 	}
 
 	public function FetchField($fieldOffset = -1) {
-		$fld             = new ADOFieldObject();
+		$fld = new ADOFieldObject();
+
 		$fld->name       = $this->_queryID->columnName($fieldOffset);
 		$fld->type       = 'VARCHAR';
 		$fld->max_length = -1;

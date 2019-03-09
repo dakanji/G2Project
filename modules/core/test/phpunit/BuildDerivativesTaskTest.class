@@ -125,9 +125,7 @@ class BuildDerivativesTaskTest extends GalleryTestCase {
 			),
 			$details
 		);
-
 		$searches = $mockStorage->getSearches();
-
 		$this->assertEquals(2, count($searches), 'query count');
 		$this->assertTrue($searches[0] > 0, 'query 1 should have at least one result');
 		$this->assertTrue($searches[1] > 0, 'query 2 should have at least one result');
@@ -151,6 +149,7 @@ class BuildDerivativesTaskTestStorage {
 
 		// Return no results so task doesn't actually act on any derivatives
 		$rs = new ADORecordSet(0);
+
 		$rs->Init();
 
 		return array(null, new GallerySearchResults($rs));

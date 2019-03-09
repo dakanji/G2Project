@@ -116,7 +116,6 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
-
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 
@@ -140,7 +139,6 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		$form = array();
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
-
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 
@@ -181,7 +179,6 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
-
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 
@@ -201,7 +198,6 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
-
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 	}
@@ -224,7 +220,6 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
-
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 	}

@@ -381,6 +381,7 @@ class GalleryPermissionHelper_simple {
 		}
 
 		$bitsTable = array();
+
 		$gallery->guaranteeTimeLimit(30);
 
 		while ($result = $searchResults->nextResult()) {

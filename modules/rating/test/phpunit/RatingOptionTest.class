@@ -45,7 +45,6 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
-
 		$ret = $this->_markPluginParametersForCleanup('module', 'rating');
 
 		if ($ret) {
@@ -69,7 +68,6 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 		$form['action']['save']    = 'Save';
 		$form['rating']['enabled'] = 'on';
 		$result                    = $this->_handleRequestAfterEdit($form, $this->_album);
-
 		$this->assertEquals(array(array(), array()), $result, 'Save failed.');
 
 		list($ret, $enabled) = GalleryCoreApi::getPluginParameter(
@@ -101,7 +99,6 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 
 		$form['action']['save'] = 'Save';
 		$result                 = $this->_handleRequestAfterEdit($form, $this->_album);
-
 		$this->assertEquals(array(array(), array()), $result, 'Save failed.');
 
 		list($ret, $enabled) = GalleryCoreApi::getPluginParameter(
@@ -153,7 +150,6 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 		}
 
 		list($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_album);
-
 		$this->assertEquals(array(), $error);
 		$this->assertEquals(array(), $warning);
 

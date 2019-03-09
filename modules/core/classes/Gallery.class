@@ -286,6 +286,7 @@ class Gallery {
 	 */
 	public function setConfig($key, $value) {
 		assert(!empty($key));
+
 		$this->_config[$key] = $value;
 	}
 
@@ -310,8 +311,7 @@ class Gallery {
 
 		if (empty($this->_session)) {
 			$this->_session = new GallerySession();
-
-			$ret = $this->_session->init();
+			$ret            = $this->_session->init();
 
 			if ($ret) {
 				return $ret;
@@ -667,6 +667,7 @@ class Gallery {
 
 			// Make sure that we extend at least a minimum of 30 seconds
 			$this->_timeLimit = $now + max($limit, 30);
+
 			set_time_limit($this->_timeLimit - $now);
 
 			/*
@@ -868,7 +869,6 @@ class Gallery {
 	public function &getTemplateAdapter() {
 		if (!isset($this->_templateAdapter)) {
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplateAdapter.class');
-
 			$this->_templateAdapter = new GalleryTemplateAdapter();
 		}
 
@@ -1078,7 +1078,6 @@ class Gallery {
 	public function getPhpVm() {
 		if (!isset($this->_phpVm)) {
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryPhpVm.class');
-
 			$this->_phpVm = new GalleryPhpVm();
 		}
 

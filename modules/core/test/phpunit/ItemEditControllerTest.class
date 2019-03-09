@@ -63,7 +63,6 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 			$path,
 			'coreTest'
 		);
-
 		$this->_registerFactoryImplementationForTest(
 			'ItemEditPlugin',
 			'ItemEditControllerTestPluginFailAndWarn',
@@ -71,7 +70,6 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 			$path,
 			'coreTest'
 		);
-
 		$this->_registerFactoryImplementationForTest(
 			'ItemEditOption',
 			'ItemEditControllerTestOption',
@@ -83,7 +81,6 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 				'ItemEditControllerTestPluginRequiresProgressBar',
 			)
 		);
-
 		$this->_registerFactoryImplementationForTest(
 			'ItemEditPlugin',
 			'ItemEditControllerTestPluginRequiresProgressBar',
@@ -91,7 +88,6 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 			$path,
 			'coreTest'
 		);
-
 		$this->_registerFactoryImplementationForTest(
 			'ItemEditOption',
 			'ItemEditControllerTestOptionWithProgressBar',

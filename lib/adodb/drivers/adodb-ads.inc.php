@@ -196,7 +196,6 @@ class ADODB_ads extends ADOConnection {
 		}
 
 		$gen = $this->Execute('SELECT LastAutoInc( STATEMENT ) FROM system.iota');
-
 		$ret = $gen->fields[0];
 
 		return $ret;
@@ -272,8 +271,7 @@ class ADODB_ads extends ADOConnection {
 		}
 
 		$this->_autocommit = true;
-
-		$ret = ads_commit($this->_connectionID);
+		$ret               = ads_commit($this->_connectionID);
 
 		ads_autocommit($this->_connectionID, true);
 
@@ -290,8 +288,7 @@ class ADODB_ads extends ADOConnection {
 		}
 
 		$this->_autocommit = true;
-
-		$ret = ads_rollback($this->_connectionID);
+		$ret               = ads_rollback($this->_connectionID);
 
 		ads_autocommit($this->_connectionID, true);
 
@@ -362,6 +359,7 @@ class ADODB_ads extends ADOConnection {
 		while (!$recordSet->EOF) {
 			$arr["$i"] = $recordSet->fields[0];
 			$recordSet->MoveNext();
+
 			$i = $i + 1;
 		}
 
@@ -445,6 +443,7 @@ class ADODB_ads extends ADOConnection {
 		}
 
 		$schema = '';
+
 		$this->_findschema($table, $schema);
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
@@ -454,8 +453,10 @@ class ADODB_ads extends ADOConnection {
 		$rs = new ADORecordSet_ads($qid2);
 		$ADODB_FETCH_MODE = $savem;
 		if (!$rs) return false;
+
 		$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
 		$rs->_fetch();
+
 		while (!$rs->EOF) {
 		if ($table == strtoupper($rs->fields[2])) {
 		  $q = $rs->fields[0];
@@ -647,6 +648,7 @@ class ADODB_ads extends ADOConnection {
 				$stmtid                  = true;
 			} else {
 				$this->_lastAffectedRows = 0;
+
 				ads_binmode($stmtid, $this->binmode);
 				ads_longreadlen($stmtid, $this->maxblobsize);
 			}
@@ -673,8 +675,10 @@ class ADODB_ads extends ADOConnection {
 	Insert a null into the blob field of the table first.
 	Then use UpdateBlob to store the blob.
 	Usage:
+
 	$conn->Execute('INSERT INTO blobtable (id, blobcol) VALUES (1, null)');
 	$conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
+
 	*/
 	public function UpdateBlob($table, $column, $val, $where, $blobtype = 'BLOB') {
 		$last_php_error = $this->resetLastError();
@@ -701,8 +705,7 @@ class ADODB_ads extends ADOConnection {
 
 	// returns true or false
 	public function _close() {
-		$ret = @ads_close($this->_connectionID);
-
+		$ret                 = @ads_close($this->_connectionID);
 		$this->_connectionID = false;
 
 		return $ret;
@@ -742,8 +745,9 @@ class ADORecordSet_ads extends ADORecordSet {
 
 	// returns the field object
 	public function &FetchField($fieldOffset = -1) {
-		$off           = $fieldOffset + 1; // offsets begin at 1
-		$o             = new ADOFieldObject();
+		$off = $fieldOffset + 1; // offsets begin at 1
+		$o   = new ADOFieldObject();
+
 		$o->name       = @ads_field_name($this->_queryID, $off);
 		$o->type       = @ads_field_type($this->_queryID, $off);
 		$o->max_length = @ads_field_len($this->_queryID, $off);

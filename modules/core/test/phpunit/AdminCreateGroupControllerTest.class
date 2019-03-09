@@ -68,7 +68,6 @@ class AdminCreateGroupControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-
 		$this->_deleteGroup($groupName);
 	}
 
@@ -125,7 +124,6 @@ class AdminCreateGroupControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-
 		$this->_deleteGroup($groupName);
 	}
 

@@ -281,6 +281,7 @@ class AdminPerformanceView extends GalleryView {
 		$AdminPerformance                       = array();
 		$AdminPerformance['expirationTimeList'] = $expirationTimeList;
 		$AdminPerformance['typeList']           = $typeList;
+
 		$template->setVariable('AdminPerformance', $AdminPerformance);
 		$template->setVariable('controller', 'core.AdminPerformance');
 

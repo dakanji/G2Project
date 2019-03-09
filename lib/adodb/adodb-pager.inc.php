@@ -273,7 +273,8 @@ class ADODB_Pager {
 		}
 
 		$ADODB_COUNTRECS = $savec;
-		$this->rs        = $rs;
+
+		$this->rs = $rs;
 
 		if (!$rs) {
 			echo "<h3>Query failed: $this->sql</h3>";

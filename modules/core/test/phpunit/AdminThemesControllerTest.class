@@ -41,7 +41,6 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		$this->_testTheme = AdminThemesControllerTestTheme::getMe();
 		$this->_testTheme->resetCalls();
-
 		$ret = $this->_markPluginParametersForCleanup('module', 'core');
 
 		if ($ret) {
@@ -71,7 +70,6 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-
 		$map =& TestThemeId2Theme::getMe()->getMap();
 
 		$this->assertEquals(2, (int)$map['rows']);
@@ -187,7 +185,6 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we get an error
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
-
 		$this->assertEquals(null, $results);
 
 		// Verify that the default theme has not changed
@@ -225,7 +222,6 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we get an error
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
-
 		$this->assertEquals(null, $results);
 
 		// Verify that the value has not changed
@@ -263,7 +259,6 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we get an error
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
-
 		$this->assertEquals(null, $results);
 
 		// Verify that the value has not changed
@@ -301,7 +296,6 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we get an error
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
-
 		$this->assertEquals(null, $results);
 
 		// Verify that the value has not changed
@@ -339,7 +333,6 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we get an error
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
-
 		$this->assertEquals(null, $results);
 
 		// Verify that the value has not changed

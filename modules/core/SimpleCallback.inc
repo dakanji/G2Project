@@ -176,6 +176,7 @@ class SimpleCallbackView extends GalleryView {
 			}
 
 			$platform->closedir($dir);
+
 			sort($dirList);
 			sort($fileList);
 		}

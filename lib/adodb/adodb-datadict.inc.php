@@ -703,9 +703,10 @@ class ADODB_DataDict {
 		}
 
 		$this->autoIncrement = false;
-		$lines               = array();
-		$pkey                = array();
-		$idxs                = array();
+
+		$lines = array();
+		$pkey  = array();
+		$idxs  = array();
 
 		foreach ($flds as $fld) {
 			$fld          = _array_change_key_case($fld);

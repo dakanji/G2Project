@@ -143,7 +143,6 @@ class UserAlbumSiteAdminView extends GalleryView {
 			),
 			'targetLocation' => $g2AlbumTree,
 		);
-
 		$template->setVariable('UserAlbumSiteAdmin', $UserAlbumSiteAdmin);
 		$template->setVariable('controller', 'useralbum.UserAlbumSiteAdmin');
 

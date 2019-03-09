@@ -56,8 +56,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 		global $gallery;
 
 		$templateAdapter =& $gallery->getTemplateAdapter();
-
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+		$ret             = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
 			return array($ret, null);
@@ -84,7 +83,6 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 					array($this, 'updateLanguageSettings'),
 					array($form)
 				);
-
 				$delegate['view'] = 'core.ProgressBar';
 			} else {
 				list($ret, $status['languageSettingsSaved']) = $this->_updateGeneralSettings($form);
@@ -308,8 +306,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 		$translator =& $gallery->getTranslator();
 
 		list($languageData) = $translator->getLanguageData();
-
-		$locales = array(
+		$locales            = array(
 			'install' => array(),
 			'delete'  => array(),
 		);
@@ -489,8 +486,7 @@ class AdminLanguageManagerView extends GalleryView {
 		$platform   =& $gallery->getPlatform();
 		$translator =& $gallery->getTranslator();
 		$session    =& $gallery->getSession();
-
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+		$ret        = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
 			return array($ret, null);
@@ -575,6 +571,7 @@ class AdminLanguageManagerView extends GalleryView {
 		$AdminLanguages['languageUpgradeInfo'] = $languagePackages;
 		$AdminLanguages['languageList']        = $languageList;
 		$AdminLanguages['enableSelectAll']     = $enableAllFlags;
+
 		$template->setVariable('AdminLanguages', $AdminLanguages);
 
 		if ($repositoryInitErrorCount) {
@@ -610,9 +607,8 @@ class AdminLanguageManagerView extends GalleryView {
 		$translator =& $gallery->getTranslator();
 
 		list($languageData, $defaultCountry) = $translator->getLanguageData();
-
-		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
-		$packages           = array();
+		$supportedLanguages                  = GalleryCoreApi::getSupportedLanguages();
+		$packages                            = array();
 
 		foreach (array('module', 'theme') as $pluginType) {
 			list($ret, $plugins) = GalleryCoreApi::getAllPluginIds($pluginType);

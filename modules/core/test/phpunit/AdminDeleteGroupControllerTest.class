@@ -69,7 +69,6 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($album);
-
 		$ret = GalleryCoreApi::addGroupPermission($album->getId(), $groupId, 'core.view');
 
 		if ($ret) {
@@ -133,7 +132,6 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
-
 		$this->assertEquals(null, $results);
 	}
 
@@ -149,7 +147,6 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
-
 		$this->assertEquals(null, $results);
 	}
 
@@ -165,7 +162,6 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
-
 		$this->assertEquals(null, $results);
 	}
 

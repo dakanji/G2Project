@@ -122,6 +122,7 @@ select viewname,'V' from pg_views where viewname like $mask";
 		global $ADODB_FETCH_MODE;
 
 		$schema = false;
+
 		$this->_findschema($table, $schema);
 
 		if ($normalize) {
@@ -169,7 +170,9 @@ select viewname,'V' from pg_views where viewname like $mask";
 			}
 
 			$ADODB_FETCH_MODE = $save;
+
 			$rskey->Close();
+
 			unset($rskey);
 		}
 
@@ -197,6 +200,7 @@ select viewname,'V' from pg_views where viewname like $mask";
 					}
 
 					$rsdefa[$num] = $s;
+
 					$rsdef->MoveNext();
 				}
 			} else {

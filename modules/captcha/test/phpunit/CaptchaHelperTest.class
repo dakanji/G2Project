@@ -36,6 +36,7 @@ class CaptchaHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$phpVm = new CaptchaHelperTestPhpVm();
+
 		$phpVm->setFunctionExists('ImageCreateFromJPEG', true);
 		$phpVm->setFunctionExists('ImageColorAllocate', true);
 		$phpVm->setFunctionExists('ImageString', true);
@@ -64,6 +65,7 @@ class CaptchaHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$phpVm = new CaptchaHelperTestPhpVm();
+
 		$phpVm->setFunctionExists('ImageCreateFromJPEG', true);
 		$phpVm->setFunctionExists('ImageColorAllocate', true);
 		$phpVm->setFunctionExists('ImageString', false);
@@ -93,6 +95,7 @@ class CaptchaHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$phpVm = new CaptchaHelperTestPhpVm();
+
 		$phpVm->setFunctionExists('ImageCreateFromJPEG', false);
 		$phpVm->setFunctionExists('ImageColorAllocate', false);
 		$phpVm->setFunctionExists('ImageString', false);

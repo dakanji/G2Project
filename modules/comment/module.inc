@@ -44,7 +44,6 @@ class CommentModule extends GalleryModule {
 				'User commenting system'
 			)
 		);
-
 		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
@@ -89,15 +88,14 @@ class CommentModule extends GalleryModule {
 		switch ($currentVersion) {
 			case '0':
 				// Initial install.  Register our permissions
-				$permissions[] = array('add', $gallery->i18n('[comment] Add comments'), 0, array());
-				$permissions[] = array('edit', $gallery->i18n('[comment] Edit comments'), 0, array());
-				$permissions[] = array(
+				$permissions[]  = array('add', $gallery->i18n('[comment] Add comments'), 0, array());
+				$permissions[]  = array('edit', $gallery->i18n('[comment] Edit comments'), 0, array());
+				$permissions[]  = array(
 					'delete',
 					$gallery->i18n('[comment] Delete comments'),
 					0,
 					array(),
 				);
-
 				 $permissions[] = array('view', $gallery->i18n('[comment] View comments'), 0, array());
 				 $permissions[] = array(
 					 'all',

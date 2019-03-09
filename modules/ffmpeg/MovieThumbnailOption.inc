@@ -97,8 +97,8 @@ class MovieThumbnailOption extends ItemAddOption {
 			 */
 			$operations  = $thumbnail->getDerivativeOperations();
 			$operations .= (empty($operations) ? '' : ';') . "$op,top-left,0,0;$op,top-right,0,0";
-			$thumbnail->setDerivativeOperations($operations);
 
+			$thumbnail->setDerivativeOperations($operations);
 			$ret = $thumbnail->save();
 
 			if ($ret) {

@@ -34,6 +34,7 @@ class FinishedStep extends InstallStep {
 		$templateData['baseUri']    = $_SESSION['baseUri'];
 		$templateData['galleryDir'] = basename($_SESSION['configPath']);
 		$templateData['bodyFile']   = 'Finished.html';
+
 		$this->setComplete(true);
 	}
 }

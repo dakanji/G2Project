@@ -402,8 +402,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 	public function handleEvent($event) {
 		if ($event->getEventName() == 'GalleryEntity::delete') {
 			$item = $event->getEntity();
-
-			$ret = GalleryCoreApi::removeMapEntry(
+			$ret  = GalleryCoreApi::removeMapEntry(
 				'CustomFieldMap',
 				array(
 					'itemId' => $item->getId(),
@@ -641,12 +640,10 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 			'key'  => 'common',
 			'name' => $module->translate('Common Fields'),
 		);
-
 		$form['set'][] = array(
 			'key'  => 'album',
 			'name' => $module->translate('Album Fields'),
 		);
-
 		$form['set'][] = array(
 			'key'  => 'photo',
 			'name' => $module->translate('Photo Fields'),

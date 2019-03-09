@@ -79,7 +79,6 @@ class ItemEditTheme extends ItemEditPlugin {
 
 			$item->setSerialNumber($form['serialNumber']);
 			$item->setTheme($themeId);
-
 			$ret = $item->save();
 
 			if ($ret) {
@@ -234,6 +233,7 @@ class ItemEditTheme extends ItemEditPlugin {
 
 		$ItemEditTheme['themeList'] = $themeList;
 		$ItemEditTheme['theme']     = $themeId;
+
 		$template->setVariable('controller', 'core.ItemEditTheme');
 		$template->setVariable('ItemEditTheme', $ItemEditTheme);
 

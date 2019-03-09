@@ -438,7 +438,6 @@ class ToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(GalleryUtilities::isA($source, 'GalleryPhotoItem'));
-
 		$source->setWidth(1024);
 		$source->setHeight(768);
 
@@ -449,11 +448,9 @@ class ToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(GalleryUtilities::isA($derivative, 'GalleryDerivativeImage'));
-
 		$derivative->setDerivativeOperations('thumbnail|200');
 		$derivative->setWidth(0);
 		$derivative->setHeight(0);
-
 		$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
 
 		if ($ret) {
@@ -472,7 +469,6 @@ class ToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(GalleryUtilities::isA($source, 'GalleryPhotoItem'));
-
 		$source->setWidth(1024);
 		$source->setHeight(768);
 
@@ -483,11 +479,9 @@ class ToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(GalleryUtilities::isA($derivative, 'GalleryDerivativeImage'));
-
 		$derivative->setDerivativeOperations('scale|150');
 		$derivative->setWidth(0);
 		$derivative->setHeight(0);
-
 		$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
 
 		if ($ret) {
@@ -506,7 +500,6 @@ class ToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(GalleryUtilities::isA($source, 'GalleryPhotoItem'));
-
 		$source->setWidth(1024);
 		$source->setHeight(768);
 
@@ -517,11 +510,10 @@ class ToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(GalleryUtilities::isA($derivative, 'GalleryDerivativeImage'));
-
 		$derivative->setDerivativeOperations('crop|1,2,3,4;scale|150');
+
 		$derivative->setWidth(0);
 		$derivative->setHeight(0);
-
 		$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
 
 		if ($ret) {
@@ -546,7 +538,6 @@ class ToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(GalleryUtilities::isA($orig, 'GalleryPhotoItem'), 'photo item');
-
 		$orig->setWidth(400);
 		$orig->setHeight(300);
 
@@ -557,7 +548,6 @@ class ToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(GalleryUtilities::isA($source, 'GalleryDerivativeImage'), 'source deriv');
-
 		$source->setDerivativeOperations('thumbnail|100');
 		$source->setWidth(100);
 		$source->setHeight(75);
@@ -569,11 +559,9 @@ class ToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(GalleryUtilities::isA($derivative, 'GalleryDerivativeImage'), 'target deriv');
-
 		$derivative->setDerivativeOperations('thumbnail|200');
 		$derivative->setWidth(0);
 		$derivative->setHeight(0);
-
 		$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
 
 		if ($ret) {
@@ -589,7 +577,6 @@ class ToolkitTest extends GalleryTestCase {
 		 */
 		$orig->setWidth(123);
 		$orig->setHeight(66);
-
 		$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $orig);
 
 		if ($ret) {
@@ -615,7 +602,6 @@ crop|15,15,40,50'
 
 		// Rotate transform of nothing returns nothing
 		list($success, $result) = $toolkit->applyTransform('rotate|90', '');
-
 		$this->assertTrue($success);
 		$this->assertEquals('', $result, 'test 2');
 

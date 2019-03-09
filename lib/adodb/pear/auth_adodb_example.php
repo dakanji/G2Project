@@ -24,6 +24,7 @@ $params = array(
 );
 
 $a = new Auth('ADOdb', $params, 'loginFunction');
+
 $a->start();
 
 if ($a->getAuth()) {

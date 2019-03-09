@@ -81,7 +81,6 @@ class MockObject {
 		}
 
 		$_GET[$this->_className]['errorCount']++;
-
 		$ret = GalleryCoreApi::error(ERROR_UNKNOWN, null, null, 'Unhandled reply in MockObject');
 
 		echo '<br/><br/>' . $ret->getAsHtml();

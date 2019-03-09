@@ -52,7 +52,6 @@ class AdminDeleteUserQuotaControllerTest extends GalleryControllerTestCase {
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

@@ -336,6 +336,7 @@ class AdminQuotasView extends GalleryView {
 		$AdminQuotas                    = array();
 		$AdminQuotas['totalGroupCount'] = $totalGroupCount;
 		$AdminQuotas['totalUserCount']  = $totalUserCount;
+
 		$template->setVariable('AdminQuotas', $AdminQuotas);
 		$template->setVariable('controller', 'quotas.AdminQuotas');
 

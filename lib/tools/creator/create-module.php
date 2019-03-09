@@ -71,7 +71,8 @@ if (!mkdir($tmpdir)) {
 	exit(1);
 }
 
-$smarty                  = new Smarty();
+$smarty = new Smarty();
+
 $smarty->compile_dir     = $tmpdir;
 $smarty->error_reporting = error_reporting();
 $smarty->debugging       = true;
@@ -98,6 +99,7 @@ while (empty($moduleId)) {
 
 $moduleId   = preg_replace('/\W/', '', $moduleId);
 $ucModuleId = ucfirst($moduleId);
+
 $smarty->assign('moduleId', $moduleId);
 $smarty->assign('ucModuleId', $ucModuleId);
 $smarty->assign('moduleName', $moduleName);
@@ -133,10 +135,12 @@ fclose($fd);
 // Create our map
 mkdir($modulePath . '/classes');
 mkdir($modulePath . '/classes/GalleryStorage');
+
 $smarty->assign('makefileType', 'classes');
 $fd = safe_fopen("$modulePath/classes/GNUmakefile");
 fwrite($fd, $smarty->fetch(__DIR__ . '/GNUmakefile.tpl'));
 fclose($fd);
+
 $smarty->assign('makefileType', 'GalleryStorage');
 $fd = safe_fopen("$modulePath/classes/GalleryStorage/GNUmakefile");
 fwrite($fd, $smarty->fetch(__DIR__ . '/GNUmakefile.tpl'));

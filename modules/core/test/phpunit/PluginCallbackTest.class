@@ -45,8 +45,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$gallery->setPlatform($this->_platform);
 		$this->_testPlugin = new PluginCallbackControllerTestPlugin();
 		$this->_callback   = new PluginCallbackView();
-
-		$ret = $this->_markPluginParametersForCleanup('module', 'core');
+		$ret               = $this->_markPluginParametersForCleanup('module', 'core');
 
 		if ($ret) {
 			return $ret;
@@ -55,9 +54,7 @@ class PluginCallbackTest extends GalleryTestCase {
 
 	public function tearDown() {
 		$this->_testPlugin->reset();
-
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
-
 		$ret = GalleryCoreApi::removeMapEntry(
 			'GalleryPluginPackageMap',
 			array(
@@ -66,7 +63,6 @@ class PluginCallbackTest extends GalleryTestCase {
 		);
 
 		$this->assertFalse($ret);
-
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -179,7 +175,6 @@ class PluginCallbackTest extends GalleryTestCase {
 			'activate',
 			array(GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED), array())
 		);
-
 		$result = $this->_handleCallback('install');
 		$this->assertEquals(
 			array(
@@ -311,7 +306,6 @@ class PluginCallbackTest extends GalleryTestCase {
 				),
 			)
 		);
-
 		$result = $this->_handleCallback('activate');
 		$this->assertEquals(
 			array(
@@ -342,7 +336,6 @@ class PluginCallbackTest extends GalleryTestCase {
 				),
 			)
 		);
-
 		$result = $this->_handleCallback('activate');
 		$this->assertEquals(
 			array(
@@ -556,7 +549,6 @@ class PluginCallbackTest extends GalleryTestCase {
 			array(GalleryCoreApi::getCodeBasePath('modules/PluginCallbackControllerTest')),
 			true
 		);
-
 		$this->_testPlugin->setResult('isActive', array(null, true));
 		$this->_testPlugin->setResult('deactivate', array(null, array()));
 		$this->_testPlugin->setResult('uninstall', null);
@@ -594,7 +586,6 @@ class PluginCallbackTest extends GalleryTestCase {
 			array(GalleryCoreApi::getCodeBasePath('modules/PluginCallbackControllerTest')),
 			false
 		);
-
 		$this->_testPlugin->setResult('isActive', array(null, false));
 		$this->_testPlugin->setResult('uninstall', null);
 		$result = $this->_handleCallback('delete');
@@ -620,7 +611,6 @@ class PluginCallbackTest extends GalleryTestCase {
 	// Core module is always active
 	public function testGetPluginStateCore() {
 		$this->_testPlugin->setResult('getId', 'core');
-
 		$this->assertEquals('active', $this->_getPluginState('module', array()));
 	}
 
@@ -629,17 +619,14 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getId',
 			'anything'
 		);
-
 		$this->_testPlugin->setResult(
 			'getRequiredCoreApi',
 			GalleryCoreApi::getApiVersion()
 		);
-
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
-
 		$this->assertEquals(
 			'active',
 			$this->_getPluginState(
@@ -656,17 +643,14 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getId',
 			'anything'
 		);
-
 		$this->_testPlugin->setResult(
 			'getRequiredCoreApi',
 			array(0, 0)
 		);
-
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
-
 		$this->assertEquals(
 			'incompatible',
 			$this->_getPluginState(
@@ -683,17 +667,14 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getId',
 			'anything'
 		);
-
 		$this->_testPlugin->setResult(
 			'getRequiredCoreApi',
 			GalleryCoreApi::getApiVersion()
 		);
-
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
 			array(0, 0)
 		);
-
 		$this->assertEquals(
 			'incompatible',
 			$this->_getPluginState(
@@ -710,22 +691,18 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getId',
 			'anything'
 		);
-
 		$this->_testPlugin->setResult(
 			'getVersion',
 			'1.0'
 		);
-
 		$this->_testPlugin->setResult(
 			'getRequiredCoreApi',
 			GalleryCoreApi::getApiVersion()
 		);
-
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
-
 		$this->assertEquals(
 			'uninstalled',
 			$this->_getPluginState(
@@ -743,22 +720,18 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getId',
 			'anything'
 		);
-
 		$this->_testPlugin->setResult(
 			'getVersion',
 			'2.0'
 		);
-
 		$this->_testPlugin->setResult(
 			'getRequiredCoreApi',
 			GalleryCoreApi::getApiVersion()
 		);
-
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
-
 		$this->assertEquals(
 			'unupgraded',
 			$this->_getPluginState(
@@ -776,27 +749,22 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getId',
 			'anything'
 		);
-
 		$this->_testPlugin->setResult(
 			'getVersion',
 			'1.0'
 		);
-
 		$this->_testPlugin->setResult(
 			'needsConfiguration',
 			array(null, true)
 		);
-
 		$this->_testPlugin->setResult(
 			'getRequiredCoreApi',
 			GalleryCoreApi::getApiVersion()
 		);
-
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
-
 		$this->assertEquals(
 			'unconfigured',
 			$this->_getPluginState(
@@ -814,27 +782,22 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getId',
 			'anything'
 		);
-
 		$this->_testPlugin->setResult(
 			'getVersion',
 			'1.0'
 		);
-
 		$this->_testPlugin->setResult(
 			'needsConfiguration',
 			array(null, false)
 		);
-
 		$this->_testPlugin->setResult(
 			'getRequiredCoreApi',
 			GalleryCoreApi::getApiVersion()
 		);
-
 		$this->_testPlugin->setResult(
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
-
 		$this->assertEquals(
 			'inactive',
 			$this->_getPluginState(
@@ -980,7 +943,9 @@ class PluginCallbackTest extends GalleryTestCase {
 		$gallery->_storage = new PluginCallbackMockStorage();
 		$mockStorage       =& $gallery->_storage;
 		$callback          = new PluginCallbackWithFakeHandler();
+
 		$callback->setReply('getPluginStates', array(new MockGalleryStatus(), null));
+
 		ob_start();
 
 		$ret = $callback->renderImmediate(array(), array());
@@ -1004,7 +969,6 @@ class PluginCallbackTest extends GalleryTestCase {
 			MockGalleryStatus::getMe()->wasPutInSession(),
 			'Error not put into the session'
 		);
-
 		$gallery->_storage = $saveStorage;
 	}
 
@@ -1017,8 +981,10 @@ class PluginCallbackTest extends GalleryTestCase {
 		$gallery->_storage = new PluginCallbackMockStorage();
 		$mockStorage       =& $gallery->_storage;
 		$callback          = new PluginCallbackWithFakeHandler();
+
 		$callback->setReply('getPluginStates', array(null, null));
 		$callback->setReply('handleCallback', new MockGalleryStatus());
+
 		ob_start();
 
 		$ret = $callback->renderImmediate(array(), array());
@@ -1033,7 +999,6 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertEquals('{"status":"error"}', $results);
 		$this->assertFalse(empty($mockStorage->rolledBack), 'Rollback did not occur');
 		$this->assertTrue(MockGalleryStatus::getMe()->wasPutInSession(), 'Error not put into the session');
-
 		$gallery->_storage = $saveStorage;
 	}
 
@@ -1046,9 +1011,11 @@ class PluginCallbackTest extends GalleryTestCase {
 		$gallery->_storage = new PluginCallbackMockStorage();
 		$mockStorage       =& $gallery->_storage;
 		$callback          = new PluginCallbackWithFakeHandler();
+
 		$callback->setReply('getPluginStates', array(null, array()));
 		$callback->setReply('handleCallback', null);
 		$callback->setReply('getPluginStates', array(new MockGalleryStatus(), null));
+
 		ob_start();
 
 		$ret = $callback->renderImmediate(array(), array());
@@ -1064,7 +1031,6 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->assertFalse(empty($mockStorage->checkPointed), 'Checkpoint did not occur');
 		$this->assertFalse(empty($mockStorage->rolledBack), 'Rollback did not occur');
 		$this->assertTrue(MockGalleryStatus::getMe()->wasPutInSession(), 'Error not put into the session');
-
 		$gallery->_storage = $saveStorage;
 	}
 }

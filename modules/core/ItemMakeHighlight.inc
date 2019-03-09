@@ -154,7 +154,6 @@ class ItemMakeHighlightView extends GalleryView {
 				'parentList' => $parentList,
 			)
 		);
-
 		$template->setVariable('controller', 'core.ItemMakeHighlight');
 
 		return array(

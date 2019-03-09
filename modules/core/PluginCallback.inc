@@ -93,6 +93,7 @@ class PluginCallbackView extends GalleryView {
 
 				if ($ret) {
 					$result['status'] = 'error';
+
 					$ret->putInSession();
 				}
 			}
@@ -172,8 +173,7 @@ class PluginCallbackView extends GalleryView {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
-
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+		$ret      = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
 			return $ret;

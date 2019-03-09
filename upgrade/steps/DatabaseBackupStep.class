@@ -68,6 +68,7 @@ class DatabaseBackupStep extends UpgradeStep {
 			if ($ret) {
 				$templateData['stackTrace'] = $ret->getAsHtml();
 				$templateData['errors'][]   = _('Error attempting to enable maintenance mode.');
+
 				$this->_template->renderHeaderBodyAndFooter($templateData);
 
 				return false;

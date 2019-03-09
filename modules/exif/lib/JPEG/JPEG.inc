@@ -80,6 +80,7 @@ class JPEG // extends PEAR
 		$this->_fileName = $fileName;
 		$this->_fp       = null;
 		$this->_type     = 'unknown';
+
 		unset($this->_info, $this->_markers);
 	}
 
@@ -704,6 +705,7 @@ class JPEG // extends PEAR
 		$this->_fileName = null;
 		$this->_fp       = null;
 		$this->_type     = 'unknown';
+
 		unset($this->_markers, $this->_info);
 	}
 
@@ -889,7 +891,8 @@ class JPEG // extends PEAR
 		$this->_parseAll();
 		$wroteEXIF  = false;
 		$wroteAdobe = false;
-		$this->_fp  = @fopen($this->_fileName, 'r');
+
+		$this->_fp = @fopen($this->_fileName, 'r');
 
 		if ($this->_fp) {
 			if (file_exists($this->_fileName)) {
@@ -907,6 +910,7 @@ class JPEG // extends PEAR
 
 		if ($this->_fpout) {} else {
 			$this->_fpout = null;
+
 			fclose($this->_fp);
 			$this->_fp = null;
 
@@ -985,6 +989,7 @@ class JPEG // extends PEAR
 				if (isset($this->_info['exif']) && is_array($this->_info['exif'])) {
 					$exif =& $this->_createMarkerEXIF();
 					$this->_writeJPEGMarker(0xE1, strlen($exif), $exif, 0);
+
 					unset($exif);
 				}
 
@@ -996,6 +1001,7 @@ class JPEG // extends PEAR
 				|| (isset($this->_info['iptc']) && is_array($this->_info['iptc']))) {
 					$adobe =& $this->_createMarkerAdobe();
 					$this->_writeJPEGMarker(0xED, strlen($adobe), $adobe, 0);
+
 					unset($adobe);
 				}
 
@@ -1133,7 +1139,8 @@ class JPEG // extends PEAR
 			return false;
 		}
 
-		$pos                            = 0;
+		$pos = 0;
+
 		$this->_info['jfif']            = array();
 		$vmaj                           = $this->_getByte($data, 5);
 		$vmin                           = $this->_getByte($data, 6);
@@ -1142,21 +1149,25 @@ class JPEG // extends PEAR
 
 		switch ($units) {
 		case 0:
+
 			$this->_info['jfif']['Units'] = 'pixels';
 
 			break;
 
 		case 1:
+
 			$this->_info['jfif']['Units'] = 'dpi';
 
 			break;
 
 		case 2:
+
 			$this->_info['jfif']['Units'] = 'dpcm';
 
 			break;
 
 		default:
+
 			$this->_info['jfif']['Units'] = 'unknown';
 
 			break;
@@ -1210,7 +1221,8 @@ class JPEG // extends PEAR
 			return false;
 		}
 
-		$pos                = 0;
+		$pos = 0;
+
 		$this->_info['sof'] = array();
 
 		switch ($marker) {
@@ -1277,7 +1289,8 @@ class JPEG // extends PEAR
 			return false;
 		}
 
-		$pos                 = 6;
+		$pos = 6;
+
 		$this->_info['exif'] = array();
 
 		// We don't increment $pos after this because Exif uses offsets relative to this point
@@ -1777,6 +1790,7 @@ class JPEG // extends PEAR
 					}
 
 					$count = strlen($v);
+
 					$this->_putString($value, 0, $v);
 
 					break;
@@ -1881,6 +1895,7 @@ class JPEG // extends PEAR
 					}
 
 					$count = strlen($v);
+
 					$this->_putString($value, 0, $v);
 
 					break;
@@ -2062,7 +2077,8 @@ class JPEG // extends PEAR
 			return false;
 		}
 
-		$pos                         = 14;
+		$pos = 14;
+
 		$this->_info['adobe']        = array();
 		$this->_info['adobe']['raw'] = array();
 		$this->_info['iptc']         = array();
@@ -2119,13 +2135,15 @@ class JPEG // extends PEAR
 				$pos += 4;
 
 				if ($aux == 1) {
-					$this->_info['adobe']['ThumbnailWidth']  = $this->_getLong($data, $pos);
-					$pos                                    += 4;
+					$this->_info['adobe']['ThumbnailWidth'] = $this->_getLong($data, $pos);
+					$pos                                   += 4;
+
 					$this->_info['adobe']['ThumbnailHeight'] = $this->_getLong($data, $pos);
 					$pos                                    += 4;
 					$pos                                    += 16; // Skip some data
 					$this->_info['adobe']['ThumbnailData']   = $this->_getFixedString($data, $pos, $length - 28);
-					$pos                                    += $length - 28;
+
+					$pos += $length - 28;
 				}
 
 				break;
@@ -2135,7 +2153,8 @@ class JPEG // extends PEAR
 			}
 
 			// We save all blocks, even those we recognized
-			$label                                         = sprintf('8BIM_0x%04x', $type);
+			$label = sprintf('8BIM_0x%04x', $type);
+
 			$this->_info['adobe']['raw'][$label]           = array();
 			$this->_info['adobe']['raw'][$label]['type']   = $type;
 			$this->_info['adobe']['raw'][$label]['header'] = $header;
@@ -2760,8 +2779,7 @@ class JPEG // extends PEAR
 	 */
 	public function & _iptcNameTags() {
 		$tags = $this->_iptcTagNames();
-
-		$ret = $this->_names2Tags($tags);
+		$ret  = $this->_names2Tags($tags);
 
 		return $ret;
 	}

@@ -69,7 +69,8 @@ class RatingHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$numUsers     = mt_rand(3, 10);
+		$numUsers = mt_rand(3, 10);
+
 		$this->_users = array();
 
 		for ($i = 0; $i < $numUsers; $i++) {
@@ -102,6 +103,7 @@ class RatingHelperTest extends GalleryTestCase {
 		} else {
 			// Init a new translator so that we reset our locale
 			$translator = GalleryTranslator::getMe();
+
 			$translator->init($languageCode);
 		}
 
@@ -116,10 +118,8 @@ class RatingHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
 		$this->assertTrue($session->isPersistent(), 'is persistent');
 		$this->assertFalse(empty($session->_sessionId), 'session id');
-
 		$testRating = mt_rand(1, 5);
 
 		list($ret, $RatingData) = RatingHelper::rateItem(
@@ -146,10 +146,8 @@ class RatingHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
 		$this->assertTrue($session->isPersistent(), 'is persistent');
 		$this->assertFalse(empty($session->_sessionId), 'session id');
-
 		$testRating                 = mt_rand(1, 5);
 		$_SERVER['HTTP_USER_AGENT'] = 'Googlebot/2.1 (+http://www.googlebot.com/bot.html)';
 		list($ret, $RatingData)     = RatingHelper::rateItem($this->_item->getId(), $testRating, $this->_users[0]->getId());
@@ -172,8 +170,7 @@ class RatingHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_session = null;
-
-		$ret = $gallery->initSession();
+		$ret               = $gallery->initSession();
 
 		if ($ret) {
 			return $ret;
@@ -181,7 +178,6 @@ class RatingHelperTest extends GalleryTestCase {
 
 		// It should create a new persistent session
 		$this->_becomeGuestUser();
-
 		$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
 
 		list($ret, $guestId) = GalleryCoreApi::getPluginParameter(
@@ -312,7 +308,6 @@ class RatingHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
 		$this->assertTrue($session->isPersistent(), 'is persistent');
 		$this->assertFalse(empty($session->_sessionId), 'session id');
 
@@ -342,8 +337,7 @@ class RatingHelperTest extends GalleryTestCase {
 		foreach ($testUserIds as $userId) {
 			if ($userId == $anonymousUserId) {
 				$gallery->_session = null;
-
-				$ret = $gallery->initSession();
+				$ret               = $gallery->initSession();
 
 				if ($ret) {
 					return $ret;
@@ -351,7 +345,6 @@ class RatingHelperTest extends GalleryTestCase {
 
 				// It should create a new persistent session
 				$this->_becomeGuestUser();
-
 				$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
 			}
 
@@ -410,8 +403,7 @@ class RatingHelperTest extends GalleryTestCase {
 
 		// Fetch ratings as guest without a persistent session
 		$gallery->_session = null;
-
-		$ret = $gallery->initSession();
+		$ret               = $gallery->initSession();
 
 		if ($ret) {
 			return $ret;
@@ -419,7 +411,6 @@ class RatingHelperTest extends GalleryTestCase {
 
 		// It should create a new persistent session
 		$this->_becomeGuestUser();
-
 		$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
 
 		list($ret, $RatingData) = RatingHelper::fetchRatings(
@@ -449,7 +440,6 @@ class RatingHelperTest extends GalleryTestCase {
 		}
 
 		$gallery->_session = $session;
-
 		$this->assertTrue($gallery->_session->isPersistent(), 'persistent');
 
 		list($ret, $RatingData) = RatingHelper::fetchRatings(

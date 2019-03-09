@@ -182,7 +182,6 @@ class AdminCreateGroupQuotaView extends GalleryView {
 			'MB' => $module->translate('MB'),
 			'GB' => $module->translate('GB'),
 		);
-
 		$template->setVariable('AdminCreateGroupQuota', $AdminCreateGroupQuota);
 		$template->setVariable('controller', 'quotas.AdminCreateGroupQuota');
 

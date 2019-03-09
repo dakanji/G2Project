@@ -1067,7 +1067,8 @@ class GalleryTheme extends GalleryPlugin {
 
 					if (isset($theme['allChildIds'])) {
 						// Dynamic album has already loaded child ids
-						$isDynamicAlbum       = true;
+						$isDynamicAlbum = true;
+
 						$this->_cacheablePage = false;
 					}
 
@@ -1309,7 +1310,6 @@ class GalleryTheme extends GalleryPlugin {
 
 		if ($platform->file_exists(GalleryCoreApi::getCodeBasePath($path))) {
 			GalleryCoreApi::requireOnce($path);
-
 			$className = $module . 'Preloads';
 			$instance  = new $className();
 
@@ -1803,7 +1803,6 @@ class GalleryTheme extends GalleryPlugin {
 							'forceFullUrl' => true,
 						)
 					);
-
 					$template->javascript($url);
 
 					break;

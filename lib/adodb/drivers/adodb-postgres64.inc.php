@@ -134,7 +134,8 @@ class ADODB_postgres64 extends ADOConnection {
 
 		$arr['description'] = $this->GetOne('select version()');
 		$arr['version']     = ADOConnection::_findvers($arr['description']);
-		$this->version      = $arr;
+
+		$this->version = $arr;
 
 		return $arr;
 	}
@@ -565,6 +566,7 @@ class ADODB_postgres64 extends ADOConnection {
 
 		$schema = false;
 		$false  = false;
+
 		$this->_findschema($table, $schema);
 
 		if ($normalize) {
@@ -606,7 +608,9 @@ class ADODB_postgres64 extends ADOConnection {
 			}
 
 			$ADODB_FETCH_MODE = $save;
+
 			$rskey->Close();
+
 			unset($rskey);
 		}
 
@@ -634,6 +638,7 @@ class ADODB_postgres64 extends ADOConnection {
 					}
 
 					$rsdefa[$num] = $s;
+
 					$rsdef->MoveNext();
 				}
 			} else {
@@ -722,6 +727,7 @@ class ADODB_postgres64 extends ADOConnection {
 		global $ADODB_FETCH_MODE;
 
 		$schema = false;
+
 		$this->_findschema($table, $schema);
 
 		if ($schema) { // requires pgsql 7.3+ - pg_namespace used.
@@ -1158,7 +1164,8 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 
 	public function FetchField($off = 0) {
 		// offsets begin at 0
-		$o             = new ADOFieldObject();
+		$o = new ADOFieldObject();
+
 		$o->name       = @pg_field_name($this->_queryID, $off);
 		$o->type       = @pg_field_type($this->_queryID, $off);
 		$o->max_length = @pg_fieldsize($this->_queryID, $off);

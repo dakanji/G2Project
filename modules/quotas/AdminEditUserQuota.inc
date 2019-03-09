@@ -201,7 +201,6 @@ class AdminEditUserQuotaView extends GalleryView {
 			'MB' => $module->translate('MB'),
 			'GB' => $module->translate('GB'),
 		);
-
 		$template->setVariable('AdminEditUserQuota', $AdminEditUserQuota);
 		$template->setVariable('controller', 'quotas.AdminEditUserQuota');
 

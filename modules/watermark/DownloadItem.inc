@@ -256,6 +256,7 @@ class DownloadItemView extends GalleryView {
 				}
 
 				echo $bits;
+
 				$gallery->guaranteeTimeLimit(30);
 			}
 

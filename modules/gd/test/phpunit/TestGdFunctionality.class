@@ -114,8 +114,7 @@ class TestGdFunctionality {
 			'y'        => $this->getResourceData($res, 'y'),
 			'mimeType' => $mimeType,
 		);
-
-		$other = $this->getResourceData($res, 'other');
+		$other                         = $this->getResourceData($res, 'other');
 
 		if (is_array($other)) {
 			$this->_outputFiles[$filename] = array_merge($this->_outputFiles[$filename], $other);

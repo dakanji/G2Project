@@ -166,6 +166,7 @@ class DownloadItemView extends GalleryView {
 		}
 
 		$requestMethod = strtolower(GalleryUtilities::getServerVar('REQUEST_METHOD'));
+
 		$phpVm->header('Content-type: ' . $data['mimeType']);
 		$phpVm->header('Content-Disposition: inline; filename="' . $data['pseudoFileName'] . '"');
 		$stats = $platform->stat($data['derivativePath']);
@@ -205,6 +206,7 @@ class DownloadItemView extends GalleryView {
 					}
 
 					echo $bits;
+
 					$gallery->guaranteeTimeLimit(30);
 				}
 

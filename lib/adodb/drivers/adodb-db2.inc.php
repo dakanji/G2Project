@@ -429,8 +429,7 @@ class ADODB_db2 extends ADOConnection {
 		}
 
 		$this->_autocommit = true;
-
-		$ret = db2_commit($this->_connectionID);
+		$ret               = db2_commit($this->_connectionID);
 
 		db2_autocommit($this->_connectionID, true);
 
@@ -447,8 +446,7 @@ class ADODB_db2 extends ADOConnection {
 		}
 
 		$this->_autocommit = true;
-
-		$ret = db2_rollback($this->_connectionID);
+		$ret               = db2_rollback($this->_connectionID);
 
 		db2_autocommit($this->_connectionID, true);
 
@@ -463,6 +461,7 @@ class ADODB_db2 extends ADOConnection {
 		}
 
 		$schema = '';
+
 		$this->_findschema($table, $schema);
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
@@ -502,6 +501,7 @@ class ADODB_db2 extends ADOConnection {
 		}
 
 		$schema = '';
+
 		$this->_findschema($table, $schema);
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
@@ -569,6 +569,7 @@ class ADODB_db2 extends ADOConnection {
 
 		$arr = $rs->GetArray();
 		$rs->Close();
+
 		$arr2 = array();
 
 		if ($ttype) {
@@ -677,6 +678,7 @@ class ADODB_db2 extends ADOConnection {
 		}
 
 		$schema = '';
+
 		$this->_findschema($table, $schema);
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
@@ -882,8 +884,10 @@ class ADODB_db2 extends ADOConnection {
 		Insert a null into the blob field of the table first.
 		Then use UpdateBlob to store the blob.
 		Usage:
+
 		$conn->Execute('INSERT INTO blobtable (id, blobcol) VALUES (1, null)');
 		$conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
+
 	*/
 	public function UpdateBlob($table, $column, $val, $where, $blobtype = 'BLOB') {
 		return $this->Execute("UPDATE $table SET $column=? WHERE $where", array($val)) != false;
@@ -891,8 +895,7 @@ class ADODB_db2 extends ADOConnection {
 
 	// returns true or false
 	public function _close() {
-		$ret = @db2_close($this->_connectionID);
-
+		$ret                 = @db2_close($this->_connectionID);
 		$this->_connectionID = false;
 
 		return $ret;
@@ -925,7 +928,8 @@ class ADORecordSet_db2 extends ADORecordSet {
 
 	// returns the field object
 	public function FetchField($offset = -1) {
-		$o             = new ADOFieldObject();
+		$o = new ADOFieldObject();
+
 		$o->name       = @db2_field_name($this->_queryID, $offset);
 		$o->type       = @db2_field_type($this->_queryID, $offset);
 		$o->max_length = db2_field_width($this->_queryID, $offset);

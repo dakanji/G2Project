@@ -203,6 +203,7 @@ class GalleryUrlGenerator {
 
 		$args       = array();
 		$flatParams = array();
+
 		$this->_flattenParamsArray($params, $flatParams);
 
 		foreach ($flatParams as $key => $value) {
@@ -570,7 +571,8 @@ class GalleryUrlGenerator {
 				}
 			}
 
-			$url                                   .= substr($url, -1) != '/' ? '/' : '';
+			$url .= substr($url, -1) != '/' ? '/' : '';
+
 			$this->_currentUrlBaseDir[$forceDirect] = $url;
 		}
 
@@ -712,8 +714,7 @@ class GalleryUrlGenerator {
 			&& $session && !$session->isUsingCookies())
 		) {
 			if (!empty($this->_embedSessionString) && !empty($appSession)) {
-				list($sessionKey, $sessionId) = explode('=', $this->_embedSessionString, 2);
-
+				list($sessionKey, $sessionId)    = explode('=', $this->_embedSessionString, 2);
 				$embedSessionParams              = array();
 				$embedSessionParams[$sessionKey] = $sessionId;
 			} elseif (!empty($sessionId)) {
@@ -1060,7 +1061,6 @@ class GalleryUrlGenerator {
 				),
 				$urlGenerator->_localUrlMap
 			);
-
 			$urlGenerator->_localUrlMapDirty = false;
 		}
 	}

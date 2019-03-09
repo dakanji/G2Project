@@ -45,6 +45,7 @@ class RepositoryManagerControllerAndView extends RepositoryControllerAndView {
 
 		// Get repository plugin meta data.
 		$index = new RepositoryIndex();
+
 		$index->init($gallery->getConfig('repository.path'));
 
 		list($ret, $pluginInfo) = $index->getPluginInfo();

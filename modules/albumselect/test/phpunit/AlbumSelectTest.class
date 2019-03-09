@@ -158,13 +158,11 @@ class AlbumSelectTest extends GalleryTestCase {
 			$data['titles'][$this->_album->getId()],
 			'title'
 		);
-
 		$this->assertEquals(
 			'zzz\\\\z&amp;zz&quot;zz',
 			$data['titlesForJs'][$this->_album->getId()],
 			'title for javascript'
 		);
-
 		$this->assertFalse(empty($data['params']), 'params');
 		$this->assertFalse(empty($data['tree']), 'tree');
 
@@ -231,13 +229,11 @@ class AlbumSelectTest extends GalleryTestCase {
 			$data['titles'][$this->_album->getId()],
 			'title'
 		);
-
 		$this->assertEquals(
 			'zzz\\\\z&amp;zz&quot;zz',
 			$data['titlesForJs'][$this->_album->getId()],
 			'title for javascript'
 		);
-
 		$this->assertFalse(empty($data['params']), 'params');
 		$this->assertFalse(empty($data['tree']), 'tree');
 
@@ -332,13 +328,11 @@ class AlbumSelectTest extends GalleryTestCase {
 			$data['titles'][$this->_album->getId()],
 			'title'
 		);
-
 		$this->assertEquals(
 			'zzz\\\\z&amp;zz&quot;zz',
 			$data['titlesForJs'][$this->_album->getId()],
 			'title for javascript'
 		);
-
 		$this->assertFalse(empty($data['params']), 'params');
 		$this->assertFalse(empty($data['tree']), 'tree');
 
@@ -352,7 +346,6 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($i < count($tree), 'test album not found');
-
 		$albumNode = $tree[$i]['nodeId'];
 		$this->assertEquals(
 			array(
@@ -462,7 +455,6 @@ class AlbumSelectTest extends GalleryTestCase {
 			$data['titles'][$this->_album->getId()],
 			'title'
 		);
-
 		$this->assertEquals(
 			'zzz\\\\z&amp;zz&quot;zz',
 			$data['titlesForJs'][$this->_album->getId()],
@@ -476,7 +468,6 @@ class AlbumSelectTest extends GalleryTestCase {
 			$titles[$this->_album->getId()],
 			'cached title'
 		);
-
 		$this->assertEquals(
 			'zzz\\\\z&amp;zz&quot;zz',
 			$titlesForJs[$this->_album->getId()],
@@ -541,7 +532,6 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumTree'];
-
 		$this->assertFalse(empty($data['albumTreeName']), 'albumTreeName');
 
 		// And now with an alternative root
@@ -563,7 +553,6 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumTree'];
-
 		$this->assertFalse(empty($data['albumTreeName']), 'albumTreeName');
 		$this->assertEquals(3, count($data['tree']), 'default album: count');
 		$this->assertEquals($this->_subalbum[1]->getId(), $data['tree'][0]['id'], 'default: 1');
@@ -601,7 +590,6 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumTree'];
-
 		$this->assertFalse(empty($data['albumTreeName']), 'albumTreeName');
 		$this->assertFalse(empty($data['links']), 'URL prefix not defined');
 		$this->assertTrue(
@@ -623,8 +611,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		// Make subalbum only visible through session permission
 		$itemId = $this->_subalbum[2]->getId();
-
-		$ret = GalleryCoreApi::removeItemPermissions($itemId);
+		$ret    = GalleryCoreApi::removeItemPermissions($itemId);
 
 		if ($ret) {
 			return $ret;
@@ -706,7 +693,6 @@ class AlbumSelectTest extends GalleryTestCase {
 
 	public function _assertAlbumTreeData($smarty, $message, $withSubAlbum2 = true) {
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
-
 		$this->assertFalse(empty($data['tree']), 'tree');
 
 		// Test album and its subalbums should be last 3 (2) tree items: subalbums 1,(2,)3
@@ -718,7 +704,6 @@ class AlbumSelectTest extends GalleryTestCase {
 			'parentNode' => 0,
 			'depth'      => 0,
 		);
-
 		$expected[] = array(
 			'id'         => $this->_subalbum[1]->getId(),
 			'nodeId'     => $albumNode + 1,
@@ -741,7 +726,6 @@ class AlbumSelectTest extends GalleryTestCase {
 			'parentNode' => $albumNode,
 			'depth'      => 1,
 		);
-
 		$this->assertEquals(
 			$expected,
 			array_slice($data['tree'], ($withSubAlbum2 ? -4 : -3)),

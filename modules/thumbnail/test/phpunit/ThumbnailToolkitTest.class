@@ -66,7 +66,6 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		}
 
 		$this->_markToolkitForCleanup('ThumbnailTestToolkit');
-
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ThumbnailTestToolkit',
 			array('image/jpeg'),
@@ -176,6 +175,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 
 		$platform      =& $gallery->getPlatform();
 		$dummyPlatform = new ThumbnailToolkitTestDummyPlatform();
+
 		$gallery->setPlatform($dummyPlatform);
 
 		list($ret, $outputMimeType) = $this->_toolkit->performOperation(
@@ -246,7 +246,6 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($jpegImage);
-
 		$ret = GalleryCoreApi::updateMapEntry(
 			'GalleryToolkitOperationMimeTypeMap',
 			array(

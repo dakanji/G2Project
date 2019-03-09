@@ -210,6 +210,7 @@ class GalleryPlugin {
 
 		// Flush the cache
 		$this->_flushPluginCache();
+
 		GalleryDataCache::removeFromDisk(
 			array(
 				'type' => 'local-url-map',
@@ -271,8 +272,7 @@ class GalleryPlugin {
 	public function deactivate($postDeactivationEvent = true) {
 		$pluginType = $this->getPluginType();
 		$pluginId   = $this->getId();
-
-		$ret = GalleryCoreApi::updateMapEntry(
+		$ret        = GalleryCoreApi::updateMapEntry(
 			'GalleryPluginMap',
 			array(
 				'pluginType' => $pluginType,
@@ -555,6 +555,7 @@ class GalleryPlugin {
 			$repository = array_pop($repositories);
 		} else {
 			$repository = new GalleryRepository();
+
 			$repository->init('bogus');
 		}
 

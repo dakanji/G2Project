@@ -100,6 +100,7 @@ function smarty_core_read_cache_file(&$params, &$smarty) {
 	}
 
 	$content_cache[$params['tpl_file'] . ',' . $params['cache_id'] . ',' . $params['compile_id']] = array($params['results'], $_cache_info);
+
 	$smarty->_cache_info = $_cache_info;
 
 	return true;

@@ -150,15 +150,13 @@ function GalleryMain($embedded = false) {
 
 		// Write out our session data
 		$session =& $gallery->getSession();
-
-		$ret = $session->save();
+		$ret     = $session->save();
 	}
 
 	// Complete our transaction
 	if (!$ret && $gallery->isStorageInitialized()) {
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->commitTransaction();
+		$ret     = $storage->commitTransaction();
 	}
 
 	if ($ret) {
@@ -192,6 +190,7 @@ function _GalleryMain($embedded = false, $template = null) {
 
 	$controllerName = is_string($controllerName) ? $controllerName : null;
 	$viewName       = is_string($viewName) ? $viewName : null;
+
 	$gallery->debug("controller $controllerName, view $viewName");
 
 	// Check if core module needs upgrading
@@ -498,8 +497,7 @@ function _GalleryMain($embedded = false, $template = null) {
 			 * session)
 			 */
 			$session =& $gallery->getSession();
-
-			$ret = $session->start();
+			$ret     = $session->start();
 
 			if ($ret) {
 				return array($ret, null);
@@ -520,8 +518,7 @@ function _GalleryMain($embedded = false, $template = null) {
 			if ($view->autoCacheControl()) {
 				// r17660 removed the default on the $template parameter
 				$null = null;
-
-				$ret = $view->setCacheControl($null);
+				$ret  = $view->setCacheControl($null);
 
 				if ($ret) {
 					return array($ret, null);
@@ -590,6 +587,7 @@ function _GalleryMain($embedded = false, $template = null) {
 			}
 
 			$templatePath = 'gallery:' . $results['body'];
+
 			$template->setVariable('l10Domain', $theme->getL10Domain());
 			$template->setVariable('isEmbedded', $embedded);
 
@@ -616,6 +614,7 @@ function _GalleryMain($embedded = false, $template = null) {
 				$data['isDone'] = true;
 			} else {
 				$event = GalleryCoreApi::newEvent('Gallery::BeforeDisplay');
+
 				$event->setEntity($template);
 				$event->setData(
 					array(
@@ -641,8 +640,7 @@ function _GalleryMain($embedded = false, $template = null) {
 				 * (only if we do not have one yet)
 				 */
 				$session =& $gallery->getSession();
-
-				$ret = $session->start();
+				$ret     = $session->start();
 
 				if ($ret) {
 					return array($ret, null);

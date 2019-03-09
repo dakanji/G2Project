@@ -54,6 +54,7 @@ class SecureStep extends InstallStep {
 
 		$templateData['showFileSystemPermissionWarnings'] = $doFilesystemPermissionCheck;
 		$templateData['bodyFile']                         = 'Secure.html';
+
 		$this->setComplete(true);
 	}
 }

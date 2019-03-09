@@ -54,6 +54,7 @@ class WelcomeStep extends UpgradeStep {
 		$templateData['mode.maintenance'] = @$gallery->getConfig('mode.maintenance');
 		$templateData['totalSteps']       = count($GLOBALS['steps']) - 1;
 		$templateData['bodyFile']         = 'Welcome.html';
+
 		$this->setComplete(true);
 
 		if (isset($translator)) {

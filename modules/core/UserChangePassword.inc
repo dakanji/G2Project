@@ -133,7 +133,6 @@ class UserChangePasswordController extends GalleryController {
 				GalleryUtilities::unsanitizeInputValues($form['password1'], false);
 
 				$user->changePassword($form['password1']);
-
 				$ret = $user->save();
 
 				if ($ret) {

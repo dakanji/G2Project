@@ -236,7 +236,6 @@ class ItemEditItem extends ItemEditPlugin {
 					$thumbnail->setMimeType($outputMimeType);
 					$thumbnail->setDerivativeSourceId($source->getId());
 					$thumbnail->setDerivativeOperations($operations);
-
 					$ret = $thumbnail->save();
 
 					if ($ret) {

@@ -63,6 +63,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		$session =& $gallery->getSession();
 		$session->remove('theme.guestPreviewMode');
+
 		unset($_SERVER['HTTP_PRAGMA'], $_SERVER['HTTP_CACHE_CONTROL']);
 	}
 
@@ -153,6 +154,7 @@ class DataCacheTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->setConfig('data.gallery.cache', '/data/cache/');
+
 		$cases                                      = array();
 		$cases['/data/cache/module/core/0/0/1.inc'] = array(
 			'type'   => 'module',
@@ -283,6 +285,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		$gallery->setConfig('data.gallery.cache', '/data/cache/');
 		$DataCacheTestPlatform = DataCacheTestPlatform::getMe();
+
 		$gallery->setPlatform($DataCacheTestPlatform);
 		$testdata = "testdata c:\foo\bar";
 		GalleryDataCache::putToDisk(
@@ -379,7 +382,9 @@ class DataCacheTest extends GalleryTestCase {
 
 		$gallery->setConfig('data.gallery.cache', '/data/cache/');
 		$DataCacheTestPlatform = new DataCacheTestPlatform();
+
 		$gallery->setPlatform($DataCacheTestPlatform);
+
 		GalleryDataCache::removeFromDisk(
 			array(
 				'type'   => 'entity',
@@ -461,6 +466,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		$gallery->setConfig('data.gallery.cache', '/data/cache/');
 		$DataCacheTestPlatform_testGetFromDisk = new DataCacheTestPlatform_testGetFromDisk();
+
 		$gallery->setPlatform($DataCacheTestPlatform_testGetFromDisk);
 
 		/*
@@ -610,7 +616,6 @@ class DataCacheTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('test', $result);
-
 		$ret = GalleryDataCache::removePageData(0);
 
 		if ($ret) {
@@ -631,7 +636,6 @@ class DataCacheTest extends GalleryTestCase {
 
 		$gallery->_phpVm = new DataCacheTestMockVm();
 		$gallery->_phpVm->setTime(100);
-
 		$ret = GalleryDataCache::putPageData('test', 0, array('key'), 'test');
 
 		if ($ret) {
@@ -908,7 +912,6 @@ class DataCacheTest extends GalleryTestCase {
 		}
 
 		$this->assertFalse($shouldCache, 'Should Cache');
-
 		$session->remove('theme.guestPreviewMode');
 	}
 
@@ -967,7 +970,6 @@ class DataCacheTest extends GalleryTestCase {
 
 		// Setup some cache entries.
 		$gallery->_phpVm->setTime(100);
-
 		$ret = GalleryDataCache::putPageData('first', 1, array('key'), 'test');
 
 		if ($ret) {
@@ -984,7 +986,6 @@ class DataCacheTest extends GalleryTestCase {
 
 		// Clean on, 25 seconds after start, no rows should be cleaned.
 		$gallery->_phpVm->setTime(125);
-
 		$ret = GalleryDataCache::putPageData('second', 2, array('key'), 'test');
 
 		if ($ret) {
@@ -1002,7 +1003,6 @@ class DataCacheTest extends GalleryTestCase {
 		// Guest user cache, clean on, 35 seconds after start, no rows should be cleaned.
 		$gallery->setActiveUser($anonymousUser);
 		$gallery->_phpVm->setTime(135);
-
 		$ret = GalleryDataCache::putPageData('guest', 2, array('key'), 'test');
 
 		if ($ret) {
@@ -1024,7 +1024,6 @@ class DataCacheTest extends GalleryTestCase {
 		// Check if dice is set to 6 we don't clean.
 		$gallery->_phpVm->setRand(6);
 		$gallery->_phpVm->setTime(135);
-
 		$ret = GalleryDataCache::putPageData('third', 3, array('key'), 'test');
 
 		if ($ret) {
@@ -1044,7 +1043,6 @@ class DataCacheTest extends GalleryTestCase {
 		// Expire all user rows with this last call, guest untouched and this one.
 		$gallery->_phpVm->setTime(200);
 		$gallery->_phpVm->setRand(1);
-
 		$ret = GalleryDataCache::putPageData('fourth', 4, array('key'), 'test');
 
 		if ($ret) {
@@ -1120,6 +1118,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		$gallery->setConfig('data.gallery.cache', '/data/cache/');
 		$DataCacheTestPlatform = new DataCacheTestPlatform();
+
 		$gallery->setPlatform($DataCacheTestPlatform);
 		$platform =& $gallery->getPlatform();
 		$testdata = array(

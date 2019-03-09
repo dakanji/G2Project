@@ -93,7 +93,6 @@ class NewItemsHelper {
 
 			$item->setOrderBy('');
 			$item->setOrderDirection('');
-
 			$ret = $item->save();
 
 			if ($ret) {

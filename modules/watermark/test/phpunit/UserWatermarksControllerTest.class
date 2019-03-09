@@ -44,6 +44,7 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		}
 
 		$watermark_module = new WatermarkModule();
+
 		$this->_registerTestEventListener('GalleryEntity::delete', $watermark_module);
 
 		list($ret, $this->_user) = $this->_createUser();
@@ -53,7 +54,6 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($this->_user);
-
 		$ret = $this->_markPluginParametersForCleanup('module', 'watermark');
 
 		if ($ret) {
@@ -164,7 +164,6 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[delete][watermarkId]', $watermark->getId());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -179,7 +178,6 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-
 		$ret = $this->_verifyMissing($watermark->getId());
 
 		if ($ret) {
@@ -231,7 +229,6 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		// Try to delete it
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[delete][watermarkId]', $watermark->getId());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -341,8 +338,9 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[size][1]', $platform->filesize($dataFile));
 		GalleryUtilities::putRequestVariable('form[error][1]', 0);
 
-		$results           = $this->handleRequest();
-		$counter           =& GalleryTestCase::getEntityCounter();
+		$results = $this->handleRequest();
+		$counter =& GalleryTestCase::getEntityCounter();
+
 		$this->_idToDelete = $expectedId = $counter->getRecentEntityId('WatermarkImage');
 		$this->assertEquals(
 			array(
@@ -408,8 +406,7 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		}
 
 		$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
-
-		$ret = GalleryCoreApi::setPluginParameter('module', 'watermark', 'allowUserWatermarks', 1);
+		$ret     = GalleryCoreApi::setPluginParameter('module', 'watermark', 'allowUserWatermarks', 1);
 
 		if ($ret) {
 			return $ret;

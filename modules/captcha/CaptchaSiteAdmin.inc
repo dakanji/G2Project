@@ -196,7 +196,6 @@ class CaptchaSiteAdminView extends GalleryView {
 				'options'                    => $optionData,
 			)
 		);
-
 		$template->setVariable('controller', 'captcha.CaptchaSiteAdmin');
 
 		return array(

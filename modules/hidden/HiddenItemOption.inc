@@ -81,8 +81,7 @@ class HiddenItemOption extends ItemEditOption {
 		$error          = array();
 		$warning        = array();
 		$useProgressBar = $item->getCanContainChildren();
-
-		$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'core.changePermissions');
+		$ret            = GalleryCoreApi::assertHasItemPermission($item->getId(), 'core.changePermissions');
 
 		if ($ret) {
 			return array($ret, null, null);

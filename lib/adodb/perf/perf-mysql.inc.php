@@ -142,6 +142,7 @@ class perf_mysql extends adodb_perf {
 		$s  = '<p><b>Explain</b>: ' . htmlspecialchars($sql) . '</p>';
 		$rs = $this->conn->Execute('EXPLAIN ' . $sql);
 		$s .= rs2html($rs, false, false, false, false);
+
 		$this->conn->LogSQL($save);
 		$s .= $this->Tracer($sql);
 
@@ -344,6 +345,7 @@ class perf_mysql extends adodb_perf {
 
 		$stat = $rs->fields[0];
 		$rs->Close();
+
 		$at   = strpos($stat, 'Buffer pool hit rate');
 		$stat = substr($stat, $at, 200);
 

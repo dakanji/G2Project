@@ -86,8 +86,7 @@ class QuotasHelperTest extends GalleryTestCase {
 
 			if ($hasQuota) {
 				$this->_saveQuota[$groupId] = $quota;
-
-				$ret = GalleryCoreApi::removeMapEntry(
+				$ret                        = GalleryCoreApi::removeMapEntry(
 					'QuotasMap',
 					array(
 						'userOrGroupId' => $groupId,
@@ -379,7 +378,6 @@ class QuotasHelperTest extends GalleryTestCase {
 
 		$this->assertTrue($groupQuotaExists == true, 'Quota existance failure');
 		$this->assertTrue($groupQuotaInfo['quota'] == 4, 'The group quota should be 4 KB');
-
 		$this->_removeMapEntry(
 			array(
 				'userOrGroupId' => $this->_group->getId(),
@@ -451,7 +449,6 @@ class QuotasHelperTest extends GalleryTestCase {
 			$groupIdList[$this->_group->getId()],
 			'New group quota doesn\'t match up'
 		);
-
 		$this->_removeMapEntry(
 			array(
 				'userOrGroupId' => $this->_group->getId(),
@@ -481,7 +478,6 @@ class QuotasHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($postGroupCount = $preGroupCount + 1, 'Group Counts do not match up');
-
 		$this->_removeMapEntry(
 			array(
 				'userOrGroupId' => $this->_group->getId(),
@@ -530,7 +526,6 @@ class QuotasHelperTest extends GalleryTestCase {
 			$userIdList[$this->_user->getId()],
 			'New User quota doesn\'t match up'
 		);
-
 		$this->_removeMapEntry(
 			array(
 				'userOrGroupId' => $this->_user->getId(),
@@ -560,7 +555,6 @@ class QuotasHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($postUserCount = $preUserCount + 1, 'User Counts do not match up');
-
 		$this->_removeMapEntry(
 			array(
 				'userOrGroupId' => $this->_user->getId(),
@@ -602,7 +596,6 @@ class QuotasHelperTest extends GalleryTestCase {
 			$groupQuotaInfo,
 			'Group should have quota information'
 		);
-
 		$this->_removeMapEntry(
 			array(
 				'userOrGroupId' => $this->_group->getId(),
@@ -644,7 +637,6 @@ class QuotasHelperTest extends GalleryTestCase {
 			$userQuotaInfo,
 			'User should have quota information'
 		);
-
 		$this->_removeMapEntry(
 			array(
 				'userOrGroupId' => $this->_user->getId(),
@@ -670,7 +662,6 @@ class QuotasHelperTest extends GalleryTestCase {
 
 		// Verify the results
 		$data = $smarty->_tpl_vars['block']['quotas']['LoadQuotas'];
-
 		$this->assertEquals('0', $data['quotaValue'], 'No quota value should exist for this user');
 		$this->assertFalse($data['quotaExists'], 'No quota should exist for this user');
 		$this->assertEquals($this->_KB, $data['quotaValueUnit'], 'No quota (lowest unit is KB)');
@@ -715,7 +706,6 @@ class QuotasHelperTest extends GalleryTestCase {
 
 		// Verify the results
 		$data = $smarty->_tpl_vars['block']['quotas']['LoadQuotas'];
-
 		$this->assertEquals('0', $data['quotaValue'], 'No quota value should exist for this user');
 		$this->assertFalse($data['quotaExists'], 'No quota should exist for this user');
 		$this->assertEquals($this->_KB, $data['quotaValueUnit'], 'No quota (lowest unit is KB)');
@@ -785,7 +775,6 @@ class QuotasHelperTest extends GalleryTestCase {
 
 		// Verify the results
 		$data = $smarty->_tpl_vars['block']['quotas']['LoadQuotas'];
-
 		$this->assertEquals('501', $data['quotaValue'], 'Quota value should exist for this user');
 		$this->assertTrue($data['quotaExists'], 'Quota should exist for this user');
 		$this->assertEquals(
@@ -846,7 +835,6 @@ class QuotasHelperTest extends GalleryTestCase {
 
 		// Verify the results
 		$data = $smarty->_tpl_vars['block']['quotas']['LoadQuotas'];
-
 		$this->assertEquals('401', $data['quotaValue'], 'Quota value should exist for this user');
 		$this->assertTrue($data['quotaExists'], 'Quota should exist for this user');
 		$this->assertEquals(

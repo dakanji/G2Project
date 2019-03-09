@@ -129,10 +129,12 @@ class perf_mssql extends adodb_perf {
 			}
 
 			$s .= '</table>';
+
 			$rs->NextRecordSet();
 		}
 
 		$this->conn->Execute('SET SHOWPLAN_ALL OFF;');
+
 		$this->conn->LogSQL($save);
 		$s .= $this->Tracer($sql);
 
@@ -180,6 +182,7 @@ class perf_mssql extends adodb_perf {
 	public function HealthCheck($cli = false) {
 		$this->conn->Execute('dbcc traceon(3604)');
 		$html = adodb_perf::HealthCheck($cli);
+
 		$this->conn->Execute('dbcc traceoff(3604)');
 
 		return $html;

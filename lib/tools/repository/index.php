@@ -140,6 +140,7 @@ function RepositoryToolsMain() {
 	include_once $controllerPath;
 
 	$controller = new $controllerClassName();
+
 	$controller->init();
 
 	// Call a controller method.

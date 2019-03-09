@@ -427,7 +427,6 @@ class GalleryItemHelper_advanced {
 
 			// Update the ownerId of the item and save it (1 db query)
 			$item->setownerId($newOwner->getid());
-
 			$ret = $item->save();
 
 			if ($ret) {
@@ -500,7 +499,6 @@ class GalleryItemHelper_advanced {
 
 			foreach ($albums as $album) {
 				$album->setOrderBy('');
-
 				$ret = $album->save();
 
 				if ($ret) {
@@ -587,7 +585,6 @@ class GalleryItemHelper_advanced {
 
 			foreach ($items as $item) {
 				$item->setRenderer(null);
-
 				$ret = $item->save();
 
 				if ($ret) {

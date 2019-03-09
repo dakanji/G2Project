@@ -135,6 +135,7 @@ function rs2xmlrpcval_body($adodbrs) {
 		}
 
 		$rows[] = new xmlrpcval($columns, 'array');
+
 		$adodbrs->MoveNext();
 	}
 
@@ -220,6 +221,7 @@ function xmlrpcval2rs(&$xmlrpcval) {
 	} // for i
 	// finally build in-memory recordset object and return it
 	$rs = new ADORecordSet_array();
+
 	$rs->InitArrayFields($data_array, $fields_array);
 
 	return $rs;

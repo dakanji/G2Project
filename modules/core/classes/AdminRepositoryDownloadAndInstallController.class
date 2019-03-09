@@ -83,9 +83,8 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 
 		// Create download file list.
 		list($ret, $sourcedFiles) = $this->_createDownloadFileList($installPackages, $repositories);
-
-		$totalActions = $this->_countInstallActions($sourcedFiles);
-		$status       = array(
+		$totalActions             = $this->_countInstallActions($sourcedFiles);
+		$status                   = array(
 			'error' => array(),
 		);
 
@@ -144,7 +143,6 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 						sprintf($module->translate('Cleaning up obsolete files %s'), $pluginName),
 						$currentAction++ / $totalActions
 					);
-
 					$repository->removeObsoleteFiles($pluginType, $pluginId);
 					$templateAdapter->updateProgressBar(
 						$titleText,
@@ -227,6 +225,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 		// Show link to return to the previously selected tab.
 		$redirect['view']    = 'core.SiteAdmin';
 		$redirect['subView'] = 'core.AdminRepository';
+
 		$session->putStatus($status);
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect), true);
@@ -393,7 +392,6 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 			}
 
 			$templateAdapter->updateProgressBar($heading, $message, $currentProgress);
-
 			$ret = $repository->downloadIndex();
 
 			if ($ret) {
@@ -414,6 +412,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 			 * the purpose of calling GalleryRepository::scanPlugin().
 			 */
 			$repository = new GalleryRepository();
+
 			$repository->init('bogus');
 		}
 
@@ -425,7 +424,6 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 					$pluginType . $sSlash . $pluginId,
 					$currentProgress
 				);
-
 				$ret = $repository->scanPlugin($pluginType, $pluginId);
 
 				if ($ret && !($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
@@ -452,7 +450,6 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 			$module->translate('Done.'),
 			1
 		);
-
 		$session =& $gallery->getSession();
 		$session->putStatus($status);
 		$urlGenerator =& $gallery->getUrlGenerator();

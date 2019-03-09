@@ -82,7 +82,6 @@ class ItemEditMovie extends ItemEditPlugin {
 				$item->setWidth($form['width']);
 				$item->setHeight($form['height']);
 				$item->setSerialNumber($form['serialNumber']);
-
 				$ret = $item->save();
 
 				if ($ret) {
@@ -125,6 +124,7 @@ class ItemEditMovie extends ItemEditPlugin {
 		}
 
 		$ItemEditMovie = array();
+
 		$template->setVariable('ItemEditMovie', $ItemEditMovie);
 		$template->setVariable('controller', 'core.ItemEditMovie');
 

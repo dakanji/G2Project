@@ -45,6 +45,7 @@ class UtilitiesTest extends GalleryTestCase {
 		$this->_mkdir                = array();
 		$this->_savePlatform         =& $gallery->getPlatform();
 		$UtilitiesTestPlatform       = new UtilitiesTestPlatform($this);
+
 		$gallery->setPlatform($UtilitiesTestPlatform);
 
 		foreach (array('HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR') as $key) {
@@ -59,8 +60,7 @@ class UtilitiesTest extends GalleryTestCase {
 	public function tearDown() {
 		$_COOKIE                = $this->_saveCookie;
 		$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
-
-		$ret = parent::tearDown();
+		$ret                    = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -334,7 +334,6 @@ class UtilitiesTest extends GalleryTestCase {
 		$expectedHeaders['status'] = 'HTTP/1.0 123 Foo';
 
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
-
 		$expectedCalls   = array();
 		$expectedCalls[] = array('HTTP/1.0 123 Foo', null);
 
@@ -355,7 +354,6 @@ class UtilitiesTest extends GalleryTestCase {
 		$expectedHeaders['status'] = 'HTTP/1.0 321 Bar';
 
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
-
 		$expectedCalls   = array();
 		$expectedCalls[] = array('HTTP/1.0 123 Foo', null);
 		$expectedCalls[] = array('HTTP/1.0 321 Bar', null);
@@ -377,7 +375,6 @@ class UtilitiesTest extends GalleryTestCase {
 		$expectedHeaders['status'] = 'HTTP/1.0 123 Foo';
 
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
-
 		$expectedCalls   = array();
 		$expectedCalls[] = array('HTTP/1.0 123 Foo', null);
 
@@ -396,7 +393,6 @@ class UtilitiesTest extends GalleryTestCase {
 		$expectedHeaders['status']   = 'HTTP/1.0 302 Found';
 		$expectedHeaders['location'] = 'Location: http://example.com/';
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
-
 		$expectedCalls   = array();
 		$expectedCalls[] = array('Location: http://example.com/', null);
 		$this->assertEquals($expectedCalls, $phpVm->getHeaderCalls(), 'Header calls');
@@ -415,7 +411,6 @@ class UtilitiesTest extends GalleryTestCase {
 		$expectedHeaders['status']   = 'HTTP/1.0 302 Found';
 		$expectedHeaders['location'] = 'Location: http://example.com/';
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
-
 		$expectedCalls   = array();
 		$expectedCalls[] = array('HTTP/1.0 123 Foo', null);
 		$expectedCalls[] = array('Location: http://example.com/', null);
@@ -435,7 +430,6 @@ class UtilitiesTest extends GalleryTestCase {
 		$expectedHeaders['status'] = 'HTTP/1.0 123 Foo';
 
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
-
 		$expectedCalls   = array();
 		$expectedCalls[] = array('HTTP/1.0 123 Foo', null);
 
@@ -455,7 +449,6 @@ class UtilitiesTest extends GalleryTestCase {
 		$expectedHeaders['status']   = 'HTTP/1.0 321 Bar';
 		$expectedHeaders['location'] = 'Location: http://example.com/';
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
-
 		$expectedCalls   = array();
 		$expectedCalls[] = array('HTTP/1.0 321 Bar', null);
 		$expectedCalls[] = array('Location: http://example.com/', null);
@@ -624,11 +617,9 @@ class UtilitiesTest extends GalleryTestCase {
 		$results = GalleryUtilities::shrinkDimensionsToFit(1024, 768, 341);
 
 		$this->assertEquals(array(341, 256), $results);
-
 		$results = GalleryUtilities::shrinkDimensionsToFit(1024, 768, 5000);
 
 		$this->assertEquals(array(1024, 768), $results);
-
 		$results = GalleryUtilities::shrinkDimensionsToFit(800, 600, 1600, 300);
 
 		$this->assertEquals(array(400, 300), $results);
@@ -644,7 +635,6 @@ class UtilitiesTest extends GalleryTestCase {
 		$results = GalleryUtilities::scaleDimensionsToFit(1024, 768, 921);
 
 		$this->assertEquals(array(921, 691), $results);
-
 		$results = GalleryUtilities::scaleDimensionsToFit(800, 600, 1200, 800);
 
 		$this->assertEquals(array(1067, 800), $results);
@@ -961,8 +951,8 @@ class UtilitiesTest extends GalleryTestCase {
 			),
 			'symlink path'
 		);
-
 		$UtilitiesTestWinPlatform = new UtilitiesTestWinPlatform();
+
 		$gallery->setPlatform($UtilitiesTestWinPlatform);
 		$this->assertTrue(
 			GalleryUtilities::isPathInList(
@@ -1134,7 +1124,6 @@ class UtilitiesTest extends GalleryTestCase {
 			'error'    => 0,
 			'size'     => $platform->filesize(__FILE__),
 		);
-
 		$file = GalleryUtilities::getFile('userfile');
 		$file = GalleryUtilities::strArrToIntArr($file);
 		$this->assertEquals(
@@ -1148,7 +1137,6 @@ class UtilitiesTest extends GalleryTestCase {
 			$file,
 			'userfile'
 		);
-
 		$_FILES['testfile'] = array(
 			'name'     => 'testfile.txt',
 			'type'     => 'text/plain',
@@ -1156,9 +1144,8 @@ class UtilitiesTest extends GalleryTestCase {
 			'error'    => 0,
 			'size'     => $platform->filesize(__FILE__),
 		);
-
-		$file = GalleryUtilities::getFile('testfile', false);
-		$file = GalleryUtilities::strArrToIntArr($file);
+		$file               = GalleryUtilities::getFile('testfile', false);
+		$file               = GalleryUtilities::strArrToIntArr($file);
 		$this->assertEquals(
 			array(
 				'name'     => 'testfile.txt',
@@ -1310,21 +1297,18 @@ class UtilitiesTest extends GalleryTestCase {
 			$testData,
 			'decimal'
 		);
-
 		$testData = GalleryUtilities::unicodeValueToUtf8Value('x0B13');
 		$this->assertEquals(
 			"\xe0\xac\x93",
 			$testData,
 			'hex'
 		);
-
 		$testData = GalleryUtilities::unicodeValueToUtf8Value('241');
 		$this->assertEquals(
 			"\xc3\xb1",
 			$testData,
 			'decimal'
 		);
-
 		$testData = GalleryUtilities::unicodeValueToUtf8Value('xF1');
 		$this->assertEquals(
 			"\xc3\xb1",
@@ -1339,7 +1323,6 @@ class UtilitiesTest extends GalleryTestCase {
 			$testData,
 			'2^15 - 1'
 		);
-
 		$testData = GalleryUtilities::unicodeValueToUtf8Value('x8000');
 		$this->assertEquals(
 			"\xe8\x80\x80",
@@ -1357,7 +1340,6 @@ class UtilitiesTest extends GalleryTestCase {
 			"foo \xe0\xac\x93 bar",
 			$testData
 		);
-
 		$testData = GalleryUtilities::unicodeEntitiesToUtf8(
 			'accentu&#233;s. &#231;&#224; donne'
 		);
@@ -1570,7 +1552,6 @@ class UtilitiesTest extends GalleryTestCase {
 		GalleryUtilities::fixCookieVars(true);
 
 		$this->assertEquals(0, count($_COOKIE), 'COOKIE was not emptied by fixCookieVars!');
-
 		$_SERVER['HTTP_COOKIE'] = 'foo=bar';
 
 		GalleryUtilities::fixCookieVars();
@@ -2098,7 +2079,6 @@ class UtilitiesTest extends GalleryTestCase {
 	public function testRoundToString() {
 		$this->assertEquals('12', GalleryUtilities::roundToString(12.34), 'no decimal');
 		$this->assertEquals('12.34', GalleryUtilities::roundToString(12.3432, 2), 'decimal');
-
 		$currentLocale = setlocale(LC_ALL, '0');
 
 		foreach (array('de_DE', 'german') as $locale) {
@@ -2122,7 +2102,6 @@ class UtilitiesTest extends GalleryTestCase {
 	public function testCastToFloat() {
 		$this->assertEquals(12.34, GalleryUtilities::castToFloat(12.34), 'no cast');
 		$this->assertEquals(12.34, GalleryUtilities::castToFloat('12.34'), 'string');
-
 		$currentLocale = setlocale(LC_ALL, '0');
 
 		foreach (array('de_DE', 'german') as $locale) {
@@ -2155,7 +2134,6 @@ class UtilitiesTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($album);
-
 		$ret = GalleryCoreApi::addMimeType('phpunit_movie', 'test/movie', false);
 
 		if ($ret) {

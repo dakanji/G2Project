@@ -57,29 +57,25 @@ class MainPageControllerAndView extends RepositoryControllerAndView {
 				'action'     => 'showAvailablePlugins',
 			)
 		);
-
 		$data['packageAllPlugins'] = $urlGenerator->generateUrl(
 			array(
 				'controller' => 'PackagePlugin',
 				'action'     => 'packagePlugins',
 			)
 		);
-
-		$data['generateIndex'] = $urlGenerator->generateUrl(
+		$data['generateIndex']     = $urlGenerator->generateUrl(
 			array(
 				'controller' => 'IndexGenerator',
 				'action'     => 'generate',
 			)
 		);
-
-		$data['browseRepository'] = $urlGenerator->generateUrl(
+		$data['browseRepository']  = $urlGenerator->generateUrl(
 			array(
 				'controller' => 'RepositoryManager',
 				'action'     => 'browse',
 			)
 		);
-
-		$ret = $this->showView('MainPage', $data);
+		$ret                       = $this->showView('MainPage', $data);
 
 		if ($ret) {
 			return $ret;

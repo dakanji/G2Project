@@ -88,15 +88,14 @@ class GalleryDatabaseExport {
 	public function exportToXmlFile($progressCallback, $fileName = null) {
 		global $gallery;
 
-		$platform        =& $gallery->getPlatform();
-		$storage         =& $gallery->getStorage();
-		$warnings        = array();
-		$this->_callBack = array(
+		$platform                 =& $gallery->getPlatform();
+		$storage                  =& $gallery->getStorage();
+		$warnings                 = array();
+		$this->_callBack          = array(
 			'callback' => $progressCallback,
 			'progress' => 0,
 			'total'    => 100,
 		);
-
 		$storageConfig            = $gallery->getConfig('storage.config');
 		$this->_fieldPrefixLength = strlen($storageConfig['columnPrefix']);
 
@@ -189,8 +188,7 @@ class GalleryDatabaseExport {
 			}
 
 			$this->_callBack['total'] = $this->_callBack['progress'] + count($plugins);
-
-			$ret = $this->_exportPluginStatus($fileHandle, $pluginType, $plugins, $warnings);
+			$ret                      = $this->_exportPluginStatus($fileHandle, $pluginType, $plugins, $warnings);
 
 			if ($ret) {
 				return array($ret, null, null);
@@ -229,6 +227,7 @@ class GalleryDatabaseExport {
 		}
 
 		unset($plugins['core']);
+
 		$this->updateStatus();
 		$this->_callBack['total'] = $this->_callBack['progress'] + count($plugins);
 
@@ -400,16 +399,15 @@ class GalleryDatabaseExport {
 		// If the core module then export schema and sequence tables first
 		if ($pluginId == 'core') {
 			$this->_callBack['total'] += 3;
-
-			$ret = $this->_exportTable($handle, 'Schema', $warnings);
+			$ret                       = $this->_exportTable($handle, 'Schema', $warnings);
 
 			if ($ret) {
 				return $ret;
 			}
 
 			unset($sql['table']['Schema']);
-			$this->updateStatus();
 
+			$this->updateStatus();
 			$ret = $storage->checkPoint();
 
 			if ($ret) {
@@ -513,8 +511,7 @@ class GalleryDatabaseExport {
 		}
 
 		list($name1, $name2, $nameInSchema) = $storage->_translateTableName($table);
-
-		$query = 'SELECT [::createSql], [::pluginId], [::type], [::info]
+		$query                              = 'SELECT [::createSql], [::pluginId], [::type], [::info]
 		    FROM [GallerySchema]
 		   WHERE [::name] = ?';
 
@@ -766,15 +763,14 @@ class GalleryDatabaseExport {
 			}
 
 			// Create Query Statement.  Just use all the fields to create an order
-			$query   = 'SELECT ' . implode(', ', $fieldNames) . ' FROM ' . $tableName
+			$query    = 'SELECT ' . implode(', ', $fieldNames) . ' FROM ' . $tableName
 			. ' ORDER BY ' . implode(' ASC, ', $fieldNames) . ' ASC';
-			$offset  = 0;
-			$options = array(
+			$offset   = 0;
+			$options  = array(
 				'limit' => array(
 					'count' => $this->_rowChunkSize,
 				),
 			);
-
 			$rowsRead = 0;
 
 			while ($rowsRead < $rowCount) {
@@ -799,12 +795,11 @@ class GalleryDatabaseExport {
 						if (null === $val) {
 							$line .= '<f null="1" />';
 						} else {
-							$val = $storage->_normalizeValue(
+							$val   = $storage->_normalizeValue(
 								$val,
 								$fieldDescriptor[$fieldNames[$key]],
 								true
 							);
-
 							$line .= '<f>' . $this->_encodeHtmlSpecialChars($val) . '</f>';
 						}
 					}

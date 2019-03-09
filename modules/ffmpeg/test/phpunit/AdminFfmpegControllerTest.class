@@ -70,6 +70,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 		$this->_savePlatform               =& $gallery->getPlatform();
 		$AdminFfmpegControllerTestPlatform = new AdminFfmpegControllerTestPlatform();
+
 		$gallery->setPlatform($AdminFfmpegControllerTestPlatform);
 	}
 
@@ -286,7 +287,6 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->setPlatform($this->_savePlatform);
-
 		$ret = $this->_saveThumbnailOps();
 
 		if ($ret) {
@@ -363,7 +363,6 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 			$thumbnail->getDerivativeOperations(),
 			'remove watermark'
 		);
-
 		$ret = $this->_restoreThumbnailOps();
 
 		if ($ret) {
@@ -428,7 +427,6 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 		foreach ($thumbnails as $thumbnail) {
 			$thumbnail->setDerivativeOperations($this->_thumbnailOps[$thumbnail->getId()]);
-
 			$ret = $thumbnail->save();
 
 			if ($ret) {

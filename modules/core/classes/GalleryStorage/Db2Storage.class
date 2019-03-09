@@ -32,6 +32,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
 class Db2Storage extends GalleryStorage {
 	public function __construct($config) {
 		parent::__construct($config);
+
 		$this->_isTransactional = true;
 	}
 
@@ -117,6 +118,7 @@ class Db2Storage extends GalleryStorage {
 			 */
 			$sql = "{CALL SQLJ.INSTALL_JAR('file:" . __DIR__ . $slash .
 			"g2_db2.jar',  'g2_db2_jar')}";
+
 			$this->_traceStart();
 			$recordSet = $tmpDb->Execute($sql);
 			$this->_traceStop();

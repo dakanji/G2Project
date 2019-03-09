@@ -620,6 +620,7 @@ class GalleryPermissionHelper_advanced {
 			// user/groupId 0 has a special meaning in the RemovePermission event
 			$removeEventIds['itemIdsAndBits'] = $removeEventData;
 			$event                            = GalleryCoreApi::newEvent('Gallery::RemovePermission');
+
 			$event->setData($removeEventIds);
 
 			list($ret) = GalleryCoreApi::postEvent($event);
@@ -1470,6 +1471,7 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		$aclIdToKey = array();
+
 		$gallery->guaranteeTimeLimit(60);
 
 		while ($result = $searchResults->nextResult()) {

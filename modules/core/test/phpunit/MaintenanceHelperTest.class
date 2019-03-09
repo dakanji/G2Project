@@ -112,7 +112,6 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		$this->assertEquals($time, $info['timestamp'], 'timestamp 1');
 		$this->assertTrue($info['success'], 'success 1');
 		$this->assertEquals(array('some details'), $info['details'], 'details 1');
-
 		$lastRunId = $info['runId'];
 
 		// Add a second task entry
@@ -140,6 +139,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$UnitTestPlatform = new UnitTestPlatform();
+
 		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
@@ -164,9 +164,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			),
 			true
 		);
-
 		$platform->setReply('atomicWrite', array($versionFile, $writeString), true);
-
 		$ret = GalleryCoreApi::setMaintenanceMode(true);
 
 		if ($ret) {
@@ -185,6 +183,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$UnitTestPlatform = new UnitTestPlatform();
+
 		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 		$gallery->setConfig('mode.maintenance', true);
@@ -207,9 +206,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			),
 			true
 		);
-
 		$platform->setReply('atomicWrite', array($versionFile, $writeString), true);
-
 		$ret = GalleryCoreApi::setMaintenanceMode(false);
 
 		if ($ret) {
@@ -228,6 +225,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$UnitTestPlatform = new UnitTestPlatform();
+
 		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
@@ -251,9 +249,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 				$module->getGalleryVersion() . "\n",
 			)
 		);
-
 		$platform->setReply('atomicWrite', array($versionFile, $writeString), true);
-
 		$ret = GalleryCoreApi::setMaintenanceMode('http://test.gallery.com/maintenance.html');
 
 		if ($ret) {
@@ -272,10 +268,10 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$UnitTestPlatform = new UnitTestPlatform();
+
 		$gallery->setPlatform($UnitTestPlatform);
 		$current = $gallery->getConfig('mode.maintenance');
-
-		$ret = GalleryCoreApi::setMaintenanceMode($current);
+		$ret     = GalleryCoreApi::setMaintenanceMode($current);
 
 		if ($ret) {
 			return $ret;

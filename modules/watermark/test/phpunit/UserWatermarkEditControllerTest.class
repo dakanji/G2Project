@@ -42,6 +42,7 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 		}
 
 		$watermark_module = new WatermarkModule();
+
 		$this->_registerTestEventListener('GalleryEntity::delete', $watermark_module);
 
 		list($ret, $this->_user) = $this->_createUser();
@@ -445,7 +446,6 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 		);
 
 		$this->assertEquals($expected, $results);
-
 		$ret = GalleryCoreApi::removeMimeType(
 			array(
 				'extension' => 'yyy',
@@ -464,7 +464,6 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 		}
 
 		$expected = ($postMimeType == 'test/file') ? array('50', '50', $platform->filesize($sourceFile), false) : array('100', '100', $platform->filesize(__FILE__), true);
-
 		$this->assertEquals($expected[0], $this->_watermark->getXPercentage(), 'x');
 		$this->assertEquals($expected[1], $this->_watermark->getYPercentage(), 'y');
 		$this->assertEquals($expected[2], $this->_watermark->getSize(), 'size');

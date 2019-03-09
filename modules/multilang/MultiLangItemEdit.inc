@@ -177,6 +177,7 @@ class MultiLangItemEdit extends ItemEditPlugin {
 
 		$form['selectedLanguage'] = $selectedLanguage;
 		$form['selectedIndex']    = $selectedLanguageIndex;
+
 		$template->setVariable('controller', 'multilang.MultiLangItemEdit');
 
 		return array(

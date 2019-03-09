@@ -54,7 +54,6 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 
 	public function tearDown() {
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
-
 		$ret = parent::tearDown();
 
 		if ($ret) {

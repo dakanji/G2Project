@@ -529,6 +529,7 @@ class ItemMoveView extends GalleryView {
 		$ItemMove['numPerPage']           = $form['numPerPage'];
 		$ItemMove['selectedIds']          = array_keys($selectedIds);
 		$ItemMove['selectedIdCount']      = count($selectedIds);
+
 		$template->setVariable('ItemMove', $ItemMove);
 		$template->setVariable('controller', 'core.ItemMove');
 		$template->javascript('lib/yui/yahoo-dom-event.js');

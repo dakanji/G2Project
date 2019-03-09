@@ -394,7 +394,6 @@ class AdminThemesView extends GalleryView {
 				$theme->getRequiredCoreApi(),
 				GalleryCoreApi::getApiVersion()
 			);
-
 			$themeApiCompatible = GalleryUtilities::isCompatibleWithApi(
 				$theme->getRequiredThemeApi(),
 				GalleryTheme::getMe()->getApiVersion()
@@ -418,8 +417,7 @@ class AdminThemesView extends GalleryView {
 									'form[action][install]' => 1,
 								),
 							);
-
-							$entry['state'] = 'install';
+							$entry['state']    = 'install';
 						} else {
 							$entry['action'][] = array(
 								'text'   => $module->translate('upgrade'),
@@ -429,8 +427,7 @@ class AdminThemesView extends GalleryView {
 									'form[action][upgrade]' => 1,
 								),
 							);
-
-							$entry['state'] = 'upgrade';
+							$entry['state']    = 'upgrade';
 						}
 					} else {
 						$entry['action'][] = array(
@@ -441,7 +438,6 @@ class AdminThemesView extends GalleryView {
 								'form[action][activate]' => 1,
 							),
 						);
-
 						$entry['action'][] = array(
 							'text'   => $module->translate('uninstall'),
 							'params' => array(
@@ -474,8 +470,7 @@ class AdminThemesView extends GalleryView {
 								'form[action][upgrade]' => 1,
 							),
 						);
-
-						$entry['state'] = 'upgrade';
+						$entry['state']    = 'upgrade';
 					}
 				}
 			} else {
@@ -484,12 +479,10 @@ class AdminThemesView extends GalleryView {
 					'.',
 					$theme->getRequiredThemeApi()
 				);
-
-				$entry['api']['required']['core'] = join(
+				$entry['api']['required']['core']  = join(
 					'.',
 					$theme->getRequiredCoreApi()
 				);
-
 				$entry['api']['provided']['theme'] = join(
 					'.',
 					GalleryTheme::getMe()->getApiVersion()
@@ -643,6 +636,7 @@ class AdminThemesView extends GalleryView {
 
 		$AdminThemes['themes']  = $themes;
 		$AdminThemes['themeId'] = $themeId;
+
 		$template->setVariable('AdminThemes', $AdminThemes);
 		$template->setVariable('controller', 'core.AdminThemes');
 

@@ -75,8 +75,7 @@ class ThumbnailModuleExtras {
 				}
 
 				$storage =& $gallery->getStorage();
-
-				$ret = $storage->configureStore($module->getId(), array('ThumbnailImage:1.0'));
+				$ret     = $storage->configureStore($module->getId(), array('ThumbnailImage:1.0'));
 
 				if ($ret) {
 					return $ret;
@@ -381,7 +380,6 @@ class ThumbnailModuleExtras {
 									dirname(__DIR__) . '/core/data/broken-image.gif',
 									$path
 								);
-
 								$gallery->debug($message . ' Using image placeholder instead.');
 							} else {
 								$gallery->debug($message . " And file $path already exists, skipping.");

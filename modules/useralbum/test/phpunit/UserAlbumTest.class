@@ -41,10 +41,10 @@ class UserAlbumTest extends GalleryTestCase {
 
 		// Enable event listener (normally disabled for unit tests)
 		$UserAlbumModule = new UserAlbumModule();
+
 		$this->_registerTestEventListener('GalleryEntity::save', $UserAlbumModule);
 		$this->_registerTestEventListener('GalleryEntity::delete', $UserAlbumModule);
 		$this->_registerTestEventListener('Gallery::Login', $UserAlbumModule);
-
 		$ret = $this->_markPluginParametersForCleanup('module', 'useralbum');
 
 		if ($ret) {
@@ -76,7 +76,6 @@ class UserAlbumTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_parentAlbum);
-
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'useralbum',
@@ -187,6 +186,7 @@ class UserAlbumTest extends GalleryTestCase {
 
 		// Verify login redirect..
 		$event = GalleryCoreApi::newEvent('Gallery::Login');
+
 		$event->setEntity($user);
 
 		list($ret, $result) = GalleryCoreApi::postEvent($event);
@@ -200,7 +200,6 @@ class UserAlbumTest extends GalleryTestCase {
 			$result,
 			'login redirect'
 	);
-
 		$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', 'loginRedirect', '0');
 
 		if ($ret) {
@@ -209,6 +208,7 @@ class UserAlbumTest extends GalleryTestCase {
 
 		// Verify no login redirect..
 		$event = GalleryCoreApi::newEvent('Gallery::Login');
+
 		$event->setEntity($user);
 
 		list($ret, $result) = GalleryCoreApi::postEvent($event);
@@ -240,7 +240,6 @@ class UserAlbumTest extends GalleryTestCase {
 			$links,
 			'system link'
 	);
-
 		$ret = GalleryCoreApi::setPluginParameter('module', 'useralbum', 'homeLink', '0');
 
 		if ($ret) {
@@ -324,7 +323,6 @@ class UserAlbumTest extends GalleryTestCase {
 		}
 
 		$this->assertFalse(empty($userAlbum), 'User should have valid album');
-
 		$ret = GalleryCoreApi::deleteEntityById($userAlbum, 'GalleryAlbumItem');
 
 		if ($ret) {

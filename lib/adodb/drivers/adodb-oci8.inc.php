@@ -120,6 +120,7 @@ END;
 		global $ADODB_FETCH_MODE;
 
 		$schema = '';
+
 		$this->_findschema($table, $schema);
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
@@ -241,7 +242,8 @@ END;
 				}
 
 				if (strncasecmp($argDatabasename, 'SID=', 4) == 0) {
-					$argDatabasename  = substr($argDatabasename, 4);
+					$argDatabasename = substr($argDatabasename, 4);
+
 					$this->connectSID = true;
 				}
 
@@ -530,8 +532,7 @@ END;
 			$this->transCnt -= 1;
 		}
 
-		$ret = oci_commit($this->_connectionID);
-
+		$ret              = oci_commit($this->_connectionID);
 		$this->_commit    = OCI_COMMIT_ON_SUCCESS;
 		$this->autoCommit = true;
 
@@ -547,8 +548,7 @@ END;
 			$this->transCnt -= 1;
 		}
 
-		$ret = oci_rollback($this->_connectionID);
-
+		$ret              = oci_rollback($this->_connectionID);
 		$this->_commit    = OCI_COMMIT_ON_SUCCESS;
 		$this->autoCommit = true;
 
@@ -975,6 +975,7 @@ END;
 
 		$desc        = oci_new_descriptor($this->_connectionID, OCI_D_LOB);
 		$arr['blob'] = array($desc, -1, $type);
+
 		$this->BeginTrans();
 		$rs = self::Execute($sql, $arr);
 
@@ -1001,8 +1002,7 @@ END;
 	 */
 	public function Execute($sql, $inputarr = false) {
 		if ($this->fnExecute) {
-			$fn = $this->fnExecute;
-
+			$fn  = $this->fnExecute;
 			$ret = $fn($this, $sql, $inputarr);
 
 			if (isset($ret)) {
@@ -1147,6 +1147,7 @@ END;
 		if (is_array($stmt) && sizeof($stmt) >= 5) {
 			$hasref    = true;
 			$ignoreCur = false;
+
 			$this->Parameter($stmt, $ignoreCur, $cursorName, false, -1, OCI_B_CURSOR);
 
 			if ($params) {
@@ -1395,6 +1396,7 @@ END;
 					} else {
 						$this->_refLOBs[$key]['LOB']->save($this->_refLOBs[$key]['VAR']);
 						$this -> _refLOBs[$key]['LOB']->free();
+
 						unset($this -> _refLOBs[$key]);
 
 						if ($this->debug) {
@@ -1479,6 +1481,7 @@ END;
 		if (count($this->_refLOBs) > 0) {
 			foreach ($this ->_refLOBs as $key => $value) {
 				$this->_refLOBs[$key]['LOB']->free();
+
 				unset($this->_refLOBs[$key]);
 			}
 		}
@@ -1670,6 +1673,7 @@ class ADORecordset_oci8 extends ADORecordSet {
 
 		if ($this->_queryID) {
 			$this->_currentRow = 0;
+
 			@$this->_initrs();
 
 			if ($this->_numOfFields) {
@@ -1726,7 +1730,8 @@ class ADORecordset_oci8 extends ADORecordSet {
 	public function _FetchField($fieldOffset = -1) {
 		$fld          = new ADOFieldObject();
 		$fieldOffset += 1;
-		$fld->name    = oci_field_name($this->_queryID, $fieldOffset);
+
+		$fld->name = oci_field_name($this->_queryID, $fieldOffset);
 
 		if (ADODB_ASSOC_CASE == ADODB_ASSOC_CASE_LOWER) {
 			$fld->name = strtolower($fld->name);

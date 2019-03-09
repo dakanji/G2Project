@@ -89,8 +89,7 @@ class LinkItemSiteAdminView extends GalleryView {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
-
-		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+		$ret      = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
 			return array($ret, null);
@@ -118,7 +117,6 @@ class LinkItemSiteAdminView extends GalleryView {
 						. $platform->getDirectorySeparator() . 'params.txt',
 			)
 		);
-
 		$template->setVariable('controller', 'linkitem.LinkItemSiteAdmin');
 
 		return array(

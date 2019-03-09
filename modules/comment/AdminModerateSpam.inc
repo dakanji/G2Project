@@ -292,7 +292,6 @@ class AdminModerateSpamView extends GalleryView {
 				'total'      => $count,
 			)
 		);
-
 		$template->style('modules/comment/comment.css');
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('lib/yui/container-min.js');

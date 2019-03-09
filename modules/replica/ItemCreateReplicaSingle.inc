@@ -112,8 +112,7 @@ class ItemCreateReplicaSingleController extends GalleryController {
 				 */
 				if ($item->isLinked()) {
 					$linkedEntity = $item->getLinkedEntity();
-
-					$ret = $linkedItem->createLink($linkedEntity, $destinationId);
+					$ret          = $linkedItem->createLink($linkedEntity, $destinationId);
 				} else {
 					$ret = $linkedItem->createLink($item, $destinationId);
 				}

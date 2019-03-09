@@ -89,7 +89,6 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 			sprintf('form[userIds][%s]', $this->_user->getId()),
 			1
 		);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -136,7 +135,6 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 			1
 		);
 		GalleryUtilities::putRequestVariable(sprintf('form[userIds][%s]', $newUser->getId()), 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -187,7 +185,6 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 			sprintf('form[userIds][%s]', $this->_user->getId()),
 			1
 		);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -214,7 +211,6 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
 		GalleryUtilities::putRequestVariable('form[text][userName]', $this->_user->getUserName());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -281,7 +277,6 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
 		GalleryUtilities::putRequestVariable('form[text][userName]', $this->_user->getUserName());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

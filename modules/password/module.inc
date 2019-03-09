@@ -43,7 +43,6 @@ class PasswordModule extends GalleryModule {
 				'Assign passwords for viewing particular albums'
 			)
 		);
-
 		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
@@ -268,8 +267,7 @@ class PasswordModule extends GalleryModule {
 					global $gallery;
 
 					$session =& $gallery->getSession();
-
-					$ret = $session->start();
+					$ret     = $session->start();
 
 					if ($ret) {
 						return $ret;
@@ -290,7 +288,6 @@ class PasswordModule extends GalleryModule {
 							)
 						)
 					);
-
 					$phpVm->exit_();
 				}
 			}
@@ -311,7 +308,6 @@ class PasswordModule extends GalleryModule {
 			&& $item->isModified('parentId')
 		) {
 			GalleryCoreApi::requireOnce('modules/password/classes/PasswordHelper.class');
-
 			$ret = PasswordHelper::handleMoveItem($item);
 
 			if ($ret) {

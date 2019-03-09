@@ -71,7 +71,6 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		}
 
 		$this->_markToolkitForCleanup('SquareThumbTestToolkit');
-
 		$ret = GalleryCoreApi::registerToolkitProperty(
 			'SquareThumbTestToolkit',
 			array('test/dim', 'test/crop', 'test/composite', 'test/thumbnail', 'test/image'),
@@ -187,7 +186,6 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 			'wrongOpDest',
 			array()
 		);
-
 		$this->assertEquals(
 			GALLERY_ERROR | ERROR_UNSUPPORTED_OPERATION,
 			$ret->getErrorCode(),
@@ -203,7 +201,6 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 			'noDimDest',
 			array(150)
 		);
-
 		$this->assertEquals(
 			GALLERY_ERROR | ERROR_UNSUPPORTED_OPERATION,
 			$ret->getErrorCode(),
@@ -219,13 +216,11 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 			'noCCDest',
 			array(150)
 		);
-
 		$this->assertEquals(
 			GALLERY_ERROR | ERROR_UNSUPPORTED_OPERATION,
 			$ret->getErrorCode(),
 			'Error expected due to missing crop toolkit'
 		);
-
 		$ret = GalleryCoreApi::setPluginParameter('module', 'squarethumb', 'mode', 'fit');
 
 		if ($ret) {
@@ -239,7 +234,6 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 			'noCCDest',
 			array(150)
 		);
-
 		$this->assertEquals(
 			GALLERY_ERROR | ERROR_UNSUPPORTED_OPERATION,
 			$ret->getErrorCode(),
@@ -255,13 +249,11 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 			'noThumbnailDest',
 			array(150)
 		);
-
 		$this->assertEquals(
 			GALLERY_ERROR | ERROR_UNSUPPORTED_OPERATION,
 			$ret->getErrorCode(),
 			'Error expected due to missing thumbnail toolkit'
 		);
-
 		$ret = GalleryCoreApi::setPluginParameter('module', 'squarethumb', 'mode', 'fit');
 
 		if ($ret) {
@@ -275,7 +267,6 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 			'noThumbnailDest',
 			array(150)
 		);
-
 		$this->assertEquals(
 			GALLERY_ERROR | ERROR_UNSUPPORTED_OPERATION,
 			$ret->getErrorCode(),
@@ -355,7 +346,6 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 		$platform = GalleryUtilities::isA($gallery->getPlatform(), 'WinNtPlatform') ? new SquareThumbTestWinNtPlatform() : new SquareThumbTestUnixPlatform();
 		$gallery->setPlatform($platform);
-
 		$ret = GalleryCoreApi::setPluginParameter('module', 'squarethumb', 'mode', 'fit');
 
 		if ($ret) {
@@ -468,64 +458,68 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 	public function testEstimateDimensions1() {
 		$item = new GalleryPhotoItem();
+
 		$item->setWidth(100);
 		$item->setHeight(300);
 		$derivative = new GalleryDerivativeImage();
+
 		$derivative->setWidth(0);
 		$derivative->setHeight(0);
 
 		// Operation is smaller than the smallest side
 		$derivative->setDerivativeOperations('thumbnail|50');
 		$this->_toolkit->estimateDimensions($derivative, $item);
-
 		$this->assertEquals(50, $derivative->getWidth());
 		$this->assertEquals(50, $derivative->getHeight());
 	}
 
 	public function testEstimateDimensions2() {
 		$item = new GalleryPhotoItem();
+
 		$item->setWidth(100);
 		$item->setHeight(300);
 		$derivative = new GalleryDerivativeImage();
+
 		$derivative->setWidth(0);
 		$derivative->setHeight(0);
 
 		// Operation is bigger than the smallest side
 		$derivative->setDerivativeOperations('thumbnail|200');
 		$this->_toolkit->estimateDimensions($derivative, $item);
-
 		$this->assertEquals(100, $derivative->getWidth());
 		$this->assertEquals(100, $derivative->getHeight());
 	}
 
 	public function testEstimateDimensions3() {
 		$item = new GalleryPhotoItem();
+
 		$item->setWidth(100);
 		$item->setHeight(300);
 		$derivative = new GalleryDerivativeImage();
+
 		$derivative->setWidth(0);
 		$derivative->setHeight(0);
 
 		// Operation is bigger than the biggest side
 		$derivative->setDerivativeOperations('thumbnail|400');
 		$this->_toolkit->estimateDimensions($derivative, $item);
-
 		$this->assertEquals(100, $derivative->getWidth());
 		$this->assertEquals(100, $derivative->getHeight());
 	}
 
 	public function testEstimateDimensions4() {
 		$source = new GalleryDerivativeImage();
+
 		$source->setWidth(100);
 		$source->setHeight(150);
 		$derivative = new GalleryDerivativeImage();
+
 		$derivative->setWidth(0);
 		$derivative->setHeight(0);
 
 		// Operation is bigger than the biggest side, but source is a derivative
 		$derivative->setDerivativeOperations('thumbnail|400');
 		$this->_toolkit->estimateDimensions($derivative, $source);
-
 		$this->assertEquals(400, $derivative->getWidth());
 		$this->assertEquals(400, $derivative->getHeight());
 	}

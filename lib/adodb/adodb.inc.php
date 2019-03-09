@@ -770,7 +770,6 @@ if (!defined('_ADODB_LAYER')) {
 				$ret = false;
 			} else {
 				$err = 'Missing extension for ' . $this->dataProvider;
-
 				$ret = 0;
 			}
 
@@ -1001,6 +1000,7 @@ if (!defined('_ADODB_LAYER')) {
 		$db->Parameter($stmt,$id,'myid');
 		$db->Parameter($stmt,$group,'group',64);
 		$db->Execute();
+
 		@param $stmt Statement returned by Prepare() or PrepareSP().
 		@param $var PHP variable to bind to
 		@param $name Name of stored procedure variable name to bind to.
@@ -1130,8 +1130,7 @@ if (!defined('_ADODB_LAYER')) {
 		 */
 		public function Execute($sql, $inputarr = false) {
 			if ($this->fnExecute) {
-				$fn = $this->fnExecute;
-
+				$fn  = $this->fnExecute;
 				$ret = $fn($this, $sql, $inputarr);
 
 				if (isset($ret)) {
@@ -1379,6 +1378,7 @@ if (!defined('_ADODB_LAYER')) {
 			$holdtransOK        = $this->_transOK;
 			$save_handler       = $this->raiseErrorFn;
 			$this->raiseErrorFn = '';
+
 			@($rs               = $this->Execute($getnext));
 			$this->raiseErrorFn = $save_handler;
 
@@ -1651,8 +1651,9 @@ if (!defined('_ADODB_LAYER')) {
 		 * @param rs         the recordset to serialize
 		 */
 		public function SerializableRS(&$rs) {
-			$rs2             = $this->_rs2rs($rs);
-			$ignore          = false;
+			$rs2    = $this->_rs2rs($rs);
+			$ignore = false;
+
 			$rs2->connection = $ignore;
 
 			return $rs2;
@@ -1682,6 +1683,7 @@ if (!defined('_ADODB_LAYER')) {
 
 			if (($dbtype == 'array' || $dbtype == 'csv') && $nrows == -1 && $offset == -1) {
 				$rs->MoveFirst();
+
 				$rs = $rs; // required to prevent crashing in 4.2.1, but does not happen in 4.3.1-- why ?
 				return $rs;
 			}
@@ -1699,8 +1701,9 @@ if (!defined('_ADODB_LAYER')) {
 				$rs->Close();
 			}
 
-			$arrayClass        = $this->arrayClass;
-			$rs2               = new $arrayClass();
+			$arrayClass = $this->arrayClass;
+			$rs2        = new $arrayClass();
+
 			$rs2->connection   = $this;
 			$rs2->sql          = $rs->sql;
 			$rs2->dataProvider = $this->dataProvider;
@@ -2120,7 +2123,6 @@ if (!defined('_ADODB_LAYER')) {
 
 			if ($this->fetchMode === false) {
 				global $ADODB_FETCH_MODE;
-
 				$mode = $ADODB_FETCH_MODE;
 			} else {
 				$mode = $this->fetchMode;
@@ -2177,8 +2179,9 @@ if (!defined('_ADODB_LAYER')) {
 				$rs                  = $ADODB_CACHE->readcache($md5file, $err, $secs2cache, $this->arrayClass);
 				$this->numCacheHits += 1;
 			} else {
-				$err                   = 'Timeout 1';
-				$rs                    = false;
+				$err = 'Timeout 1';
+				$rs  = false;
+
 				$this->numCacheMisses += 1;
 			}
 
@@ -2822,7 +2825,8 @@ if (!defined('_ADODB_LAYER')) {
 				$retarr = array();
 
 				while (!$rs->EOF) { //print_r($rs->fields);
-					$fld       = new ADOFieldObject();
+					$fld = new ADOFieldObject();
+
 					$fld->name = $rs->fields[0];
 					$fld->type = $rs->fields[1];
 
@@ -3712,6 +3716,7 @@ if (!defined('_ADODB_LAYER')) {
 			while (!$this->EOF && $nRows != $cnt) {
 				$results[] = $this->fields;
 				$this->MoveNext();
+
 				$cnt++;
 			}
 
@@ -3812,6 +3817,7 @@ if (!defined('_ADODB_LAYER')) {
 					if ($numIndex) {
 						while (!$this->EOF) {
 							$results[trim($this->fields[0])] = array_slice($this->fields, 1);
+
 							adodb_movenext($this);
 						}
 					} else {
@@ -3825,6 +3831,7 @@ if (!defined('_ADODB_LAYER')) {
 							}
 
 							$results[trim(reset($this->fields))] = $sliced_array;
+
 							adodb_movenext($this);
 						}
 					}
@@ -3856,6 +3863,7 @@ if (!defined('_ADODB_LAYER')) {
 						while (!$this->EOF) {
 							// some bug in mssql PHP 4.02 -- doesn't handle references properly so we FORCE creating a new string
 							$results[trim(($this->fields[0]))] = $this->fields[1];
+
 							adodb_movenext($this);
 						}
 					} else {
@@ -3880,6 +3888,7 @@ if (!defined('_ADODB_LAYER')) {
 							$v1           = trim(reset($this->fields));
 							$v2           = '' . next($this->fields);
 							$results[$v1] = $v2;
+
 							$this->MoveNext();
 						}
 					}
@@ -4227,6 +4236,7 @@ if (!defined('_ADODB_LAYER')) {
 		 */
 		public function GetRowAssoc($upper = ADODB_ASSOC_CASE) {
 			$record = array();
+
 			$this->GetAssocKeys($upper);
 
 			foreach ($this->bind as $k => $v) {
@@ -4746,6 +4756,7 @@ if (!defined('_ADODB_LAYER')) {
 
 			// fetch() on EOF does not delete $this->fields
 			$this->compat = !empty($ADODB_COMPAT_FETCH);
+
 			parent::__construct($fakeid); // fake queryID
 			$this->fetchMode = $ADODB_FETCH_MODE;
 		}
@@ -4765,11 +4776,13 @@ if (!defined('_ADODB_LAYER')) {
 			$this->_skiprow1 = false;
 			$this->_array    = $newarr;
 			$this->_colnames = $hdr;
+
 			adodb_probetypes($newarr, $this->_types);
 			$this->_fieldobjects = array();
 
 			foreach ($hdr as $k => $name) {
-				$f                     = new ADOFieldObject();
+				$f = new ADOFieldObject();
+
 				$f->name               = $name;
 				$f->type               = $this->_types[$k];
 				$f->max_length         = -1;
@@ -4871,7 +4884,8 @@ if (!defined('_ADODB_LAYER')) {
 				return $this->_fieldobjects[$fieldOffset];
 			}
 
-			$o             = new ADOFieldObject();
+			$o = new ADOFieldObject();
+
 			$o->name       = $this->_colnames[$fieldOffset];
 			$o->type       = $this->_types[$fieldOffset];
 			$o->max_length = -1; // length not known
@@ -5422,8 +5436,9 @@ if (!defined('_ADODB_LAYER')) {
 
 		include_once $path;
 
-		$class              = "ADODB2_$drivername";
-		$dict               = new $class();
+		$class = "ADODB2_$drivername";
+		$dict  = new $class();
+
 		$dict->dataProvider = $conn->dataProvider;
 		$dict->connection   = $conn;
 		$dict->upperName    = strtoupper($drivername);

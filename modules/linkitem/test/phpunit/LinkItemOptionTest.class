@@ -90,7 +90,6 @@ class LinkItemOptionTest extends ItemEditOptionTestCase {
 		);
 
 		list($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_link);
-
 		$this->assertEquals(array(), $error);
 		$this->assertEquals(array(), $warning);
 
@@ -111,7 +110,6 @@ class LinkItemOptionTest extends ItemEditOptionTestCase {
 		);
 
 		list($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_link);
-
 		$this->assertEquals(array('form[LinkItemOption][error][link][missing]'), $error);
 		$this->assertEquals(array(), $warning);
 	}

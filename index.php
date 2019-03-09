@@ -41,8 +41,13 @@ if (preg_match('|^(/(?:[^?#/]+/)*)(.*)|', $path, $matches)) {
 	}
 }
 
-$configBaseUri = @$gallery->getConfig('baseUri');
 $urlGenerator  = new GalleryUrlGenerator();
-$urlGenerator->init(!empty($configBaseUri) ? $configBaseUri : null);
+$configBaseUri = @$gallery->getConfig('baseUri');
+
+if (empty($configBaseUri)) {
+	$configBaseUri = null;
+}
+
+$urlGenerator->init($configBaseUri);
 $phpVm = $gallery->getPhpVm();
 $phpVm->header('Location: ' . $urlGenerator->makeUrl($path));

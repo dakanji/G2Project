@@ -49,13 +49,9 @@ class RepositoryObjectTest extends GalleryTestCase {
 		$platform->setReply('is_dir', array('validDirectory'), true);
 		$platform->setReply('realpath', array('validDirectory'), 'validDirectory');
 		$gallery->setPlatform($platform);
-
 		$ret = $object->setOutputDir('invalidDirectory');
-
 		$this->assertTrue($ret, 'Output directory set to non-existent directory.');
-
 		$ret = $object->setOutputDir('validDirectory');
-
 		$this->assertFalse($ret, 'Error returned on a valid directory.');
 
 		// Output directory should always end with a directory separator.
@@ -73,9 +69,11 @@ class RepositoryObjectTest extends GalleryTestCase {
 		$processedTemplateContents = 'Some contents used for testing.';
 		$templateVariableContents  = 'Some template variable contents.';
 		$object                    = new RepositoryObject();
+
 		$object->setOutputFile('output.file');
 		$object->_outputDir = 'outputDirectory/';
 		$platform           = new UnitTestPlatform();
+
 		$platform->setReply('file_exists', array($outputPath), true);
 		$platform->setReply('file_exists', array($outputPath), false);
 		$platform->setReply(
@@ -83,14 +81,12 @@ class RepositoryObjectTest extends GalleryTestCase {
 			array($outputPath, $templateVariableContents),
 			true
 		);
-
 		$platform->setReply('file_exists', array($outputPath), false);
 		$platform->setReply(
 			'file_put_contents',
 			array($outputPath, $processedTemplateContents),
 			true
 		);
-
 		$gallery->setPlatform($platform);
 
 		// Test that an existing file is not overwritten by default.
@@ -104,7 +100,6 @@ class RepositoryObjectTest extends GalleryTestCase {
 
 		// Test overwriting an existing file with a template variable contents.
 		$object->setTemplate(new RepositoryTestTemplate('', $templateVariableContents));
-
 		$ret = $object->writeToDisk(true);
 
 		if ($ret) {
@@ -116,7 +111,6 @@ class RepositoryObjectTest extends GalleryTestCase {
 		// Test overwriting an existing file with a processed template.
 		$object->setTemplate(new RepositoryTestTemplate($processedTemplateContents));
 		$object->setTemplateFile('test.tpl');
-
 		$ret = $object->writeToDisk(true);
 
 		if ($ret) {

@@ -81,7 +81,6 @@ class AdminMaintenanceController extends GalleryController {
 							array($this, 'runTask'),
 							array($taskId, $task, true)
 						);
-
 						$results['delegate']['view'] = 'core.ProgressBar';
 					} else {
 						list($ret, $success) = $this->runTask($taskId, $task, false);
@@ -270,6 +269,7 @@ class AdminMaintenanceView extends GalleryView {
 
 		$AdminMaintenance['setMode']['mode'] = $maintenanceMode;
 		$AdminMaintenance['setMode']['url']  = $maintenanceModeUrl;
+
 		$template->setVariable('AdminMaintenance', $AdminMaintenance);
 		$template->setVariable('controller', 'core.AdminMaintenance');
 		$template->javascript('lib/javascript/BlockToggle.js');

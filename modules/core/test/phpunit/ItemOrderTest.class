@@ -50,8 +50,7 @@ class ItemOrderTest extends GalleryTestCase {
 
 		// Give us full perms
 		$userId = $gallery->getActiveUserId();
-
-		$ret = GalleryCoreApi::addUserPermission(
+		$ret    = GalleryCoreApi::addUserPermission(
 			$this->_parentItem->getId(),
 			$userId,
 			'core.all',

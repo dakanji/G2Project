@@ -24,6 +24,7 @@ function smarty_function_assign_debug_info($params, &$smarty) {
 	if (@is_array($smarty->_config[0])) {
 		$config_vars = $smarty->_config[0];
 		ksort($config_vars);
+
 		$smarty->assign('_debug_config_keys', array_keys($config_vars));
 		$smarty->assign('_debug_config_vals', array_values($config_vars));
 	}

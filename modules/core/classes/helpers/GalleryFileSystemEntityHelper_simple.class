@@ -77,8 +77,7 @@ class GalleryFileSystemEntityHelper_simple {
 		}
 
 		$storage =& $gallery->getStorage();
-
-		$query = '
+		$query   = '
 	SELECT
 	  [GalleryFileSystemEntity::id]
 	FROM

@@ -240,6 +240,7 @@ class AdminDeleteUserView extends GalleryView {
 		}
 
 		$AdminDeleteUser['numberOfItems'] = count($itemIds);
+
 		$template->setVariable('AdminDeleteUser', $AdminDeleteUser);
 		$template->setVariable('controller', 'core.AdminDeleteUser');
 

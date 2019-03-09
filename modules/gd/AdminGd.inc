@@ -175,6 +175,7 @@ class AdminGdView extends GalleryView {
 		$AdminGd['gdVersion']       = $gdVersion;
 		$AdminGd['isGdBundled']     = $isGdBundled;
 		$AdminGd['isConfigure']     = !$isActive;
+
 		$template->setVariable('AdminGd', $AdminGd);
 		$template->setVariable('controller', 'gd.AdminGd');
 

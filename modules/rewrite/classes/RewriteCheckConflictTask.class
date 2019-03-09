@@ -85,8 +85,7 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 				'view'   => 'core.ShowItem',
 				'itemId' => (int)$result[0],
 			);
-
-			$path = substr(
+			$path   = substr(
 				$urlGenerator->generateUrl(
 					$params,
 					array(
@@ -131,7 +130,6 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 						'arg2' => $total,
 					)
 				);
-
 				$templateAdapter->updateProgressBar($message, '', $i / $total);
 			}
 		}

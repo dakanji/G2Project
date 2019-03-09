@@ -57,7 +57,6 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
-
 		$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
 
 		if ($ret) {
@@ -160,7 +159,6 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->setConfig('anonymousUserId', $this->_originalGuestUserId);
-
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -315,7 +313,6 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		}
 
 		$data = $this->_smarty->_tpl_vars['block']['keyalbum']['keywords'];
-
 		$this->assertEquals(array(), $data, 'cached data');
 	}
 
@@ -464,7 +461,8 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$aclCacheKey                                   = "GalleryPermissionHelper::fetchAccessListIds(core.view, $guestId, 1)";
+		$aclCacheKey = "GalleryPermissionHelper::fetchAccessListIds(core.view, $guestId, 1)";
+
 		$this->_smarty->_tpl_vars['block']['keyalbum'] = array();
 		$block                                         =& $this->_smarty->_tpl_vars['block']['keyalbum'];
 		$queries                                       = array(
@@ -514,8 +512,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			$gallery->_storage,
 			$queries
 		);
-
-		$expected = array(
+		$expected          = array(
 			array(
 				array(
 					'name'   => 'four&amp;five',

@@ -720,6 +720,7 @@ function adodb_get_gmt_diff($y, $m, $d) {
 
 	if ($ADODB_DATETIME_CLASS && $y !== false) {
 		$dt = new DateTime();
+
 		$dt->setISODate($y, $m, $d);
 
 		if (empty($tzo)) {
@@ -1151,6 +1152,7 @@ function adodb_date($fmt, $d = false, $is_gmt = false) {
 			case 'T':
 				if ($ADODB_DATETIME_CLASS) {
 					$dt = new DateTime();
+
 					$dt->SetDate($year, $month, $day);
 					$dates .= $dt->Format('T');
 				} else {

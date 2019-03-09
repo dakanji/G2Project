@@ -63,8 +63,7 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 						[::pluginId] = ?
 				';
 
-				$ret = $storage->execute($sql, array(0, 'captcha'));
-
+				$ret     = $storage->execute($sql, array(0, 'captcha'));
 				$captcha = 'off';
 			}
 		}
@@ -113,9 +112,7 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 				GalleryUtilities::unsanitizeInputValues($process_password_string, false);
 
 				$user->changePassword($process_password_string);
-
 				$ret = $user->save();
-
 				$ret = GalleryCoreApi::releaseLocks($lockId);
 
 				if (!isset($ret)) {

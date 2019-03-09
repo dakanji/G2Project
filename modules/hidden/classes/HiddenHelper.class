@@ -81,6 +81,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 
 		if (!isset($hideId)) {
 			$hideId = $itemId;
+
 			$gallery->guaranteeTimeLimit(60);
 		}
 
@@ -124,13 +125,12 @@ class HiddenHelper extends HiddenInterface_1_0 {
 				return $ret;
 			}
 
-			$progressBar = array(
+			$progressBar         = array(
 				'title' => $module->translate('Hide'),
 				'text'  => $module->translate('Update permissions'),
 				'count' => 0,
 				'total' => $count[$item->getId()] + 1,
 			);
-
 			$progressBar['step'] = min(ceil($progressBar['total'] / 20), 50);
 			$templateAdapter     =& $gallery->getTemplateAdapter();
 			$templateAdapter->updateProgressBar($progressBar['title'], $progressBar['text'], 0);
@@ -233,7 +233,6 @@ class HiddenHelper extends HiddenInterface_1_0 {
 				}
 
 				$item->addOnLoadHandler('Hidden');
-
 				$ret = $item->save();
 
 				if ($ret) {
@@ -305,7 +304,6 @@ class HiddenHelper extends HiddenInterface_1_0 {
 					$progressBar['text'],
 					1
 				);
-
 				$progressBar = false;
 			}
 		}
@@ -343,6 +341,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 
 		if (!isset($hideId)) {
 			$hideId = $itemId;
+
 			$gallery->guaranteeTimeLimit(60);
 		}
 
@@ -378,13 +377,12 @@ class HiddenHelper extends HiddenInterface_1_0 {
 				return $ret;
 			}
 
-			$progressBar = array(
+			$progressBar         = array(
 				'title' => $module->translate('Hide'),
 				'text'  => $module->translate('Update permissions'),
 				'count' => 0,
 				'total' => $count[$item->getId()] + 1,
 			);
-
 			$progressBar['step'] = min(ceil($progressBar['total'] / 20), 50);
 			$templateAdapter     =& $gallery->getTemplateAdapter();
 			$templateAdapter->updateProgressBar($progressBar['title'], $progressBar['text'], 0);
@@ -445,7 +443,6 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			}
 
 			$item->removeOnLoadHandler('Hidden');
-
 			$ret = $item->save();
 
 			if ($ret) {
@@ -611,7 +608,6 @@ class HiddenHelper extends HiddenInterface_1_0 {
 					$progressBar['text'],
 					1
 				);
-
 				$progressBar = false;
 			}
 		}
@@ -702,7 +698,6 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		if ($hiddenAncestors[1]) {
 			// New location is hidden
 			$gallery->guaranteeTimeLimit(60);
-
 			$ret = $this->hideItem($item, false, $hiddenAncestors[1], $hiddenAncestors[0]);
 
 			if ($ret) {
@@ -711,7 +706,6 @@ class HiddenHelper extends HiddenInterface_1_0 {
 		} elseif ($hiddenAncestors[0]) {
 			// Old location was hidden, new location is not
 			$gallery->guaranteeTimeLimit(60);
-
 			$ret = $this->unHideItem($item, false, $hiddenAncestors[0], false);
 
 			if ($ret) {

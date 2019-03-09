@@ -55,7 +55,6 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$gallery->setUrlGenerator($urlGenerator);
-
 		$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
 
 		if ($ret) {
@@ -83,6 +82,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		// Set up our mock platform
 		$this->_platform = new ModRewriteHelperMockPlatform();
 		$this->_platform->init($this);
+
 		unset($this->_fileContent, $this->_embeddedFileContent);
 		$gallery->setPlatform($this->_platform);
 	}
@@ -113,7 +113,6 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
-
 		$this->_platform->_isWriteable = false;
 
 		list($ret, $code) = ModRewriteHelper::checkFile();
@@ -123,7 +122,6 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_WRITE, $code, 'writeable');
-
 		$this->_platform->_isReadable = false;
 
 		list($ret, $code) = ModRewriteHelper::checkFile();
@@ -133,7 +131,6 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_READ, $code, 'readable');
-
 		$this->_platform->_fileExists = false;
 
 		list($ret, $code) = ModRewriteHelper::checkFile();
@@ -153,7 +150,6 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
-
 		$this->_platform->_isWriteableEmbed = false;
 
 		list($ret, $code) = ModRewriteHelper::checkFile(true);
@@ -163,7 +159,6 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_EMBED_HTACCESS_CANT_WRITE, $code, 'writeable');
-
 		$this->_platform->_isReadableEmbed = false;
 
 		list($ret, $code) = ModRewriteHelper::checkFile(true);
@@ -173,7 +168,6 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_EMBED_HTACCESS_CANT_READ, $code, 'readable');
-
 		$this->_platform->_fileExistsEmbed = false;
 
 		list($ret, $code) = ModRewriteHelper::checkFile(true);
@@ -206,7 +200,6 @@ class ModRewriteHelperTest extends GalleryTestCase {
 
 		$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_READ, $code, 'readable');
 		$this->assertFalse(isset($this->_fileContent), 'readable fileContent');
-
 		$this->_platform->_isReadable  = true;
 		$this->_platform->_isWriteable = false;
 
@@ -241,7 +234,6 @@ class ModRewriteHelperTest extends GalleryTestCase {
 
 		$this->assertEquals(REWRITE_STATUS_EMBED_HTACCESS_CANT_READ, $code, 'readable');
 		$this->assertFalse(isset($this->_embeddedFileContent), 'readable fileContent');
-
 		$this->_platform->_isReadableEmbed  = true;
 		$this->_platform->_isWriteableEmbed = false;
 
@@ -456,7 +448,8 @@ class ModRewriteHelperMockPlatform extends GalleryPlatform {
 		);
 
 		if ($handle == 'phpunit') {
-			$respons           = GalleryUtilities::getRequestVariables('modRewriteTest');
+			$respons = GalleryUtilities::getRequestVariables('modRewriteTest');
+
 			$this->_readBuffer = $buffer[$respons];
 
 			return strlen($string);
@@ -510,8 +503,9 @@ class ModRewriteHelperMockPlatform extends GalleryPlatform {
 				return $tmp;
 			}
 
-			$buf               = join("\n", $this->_readBuffer);
-			$tmp               = substr($buf, 0, $length);
+			$buf = join("\n", $this->_readBuffer);
+			$tmp = substr($buf, 0, $length);
+
 			$this->_readBuffer = explode("\n", substr($buf, $length + 1));
 
 			return $tmp;

@@ -254,7 +254,6 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals('0', $allowEmptyReferer);
 		$this->assertFalse(isset($this->_fileContent), 'fileContent');
 		$this->assertFalse(isset($this->_embeddedFileContent), 'embeddedFileContent');
-
 		$this->_platform->_isWriteable = true;
 	}
 
@@ -681,7 +680,6 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 		$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_WRITE, $code);
 		$this->assertFalse(empty($errstr), 'errstr');
-
 		$this->_platform->_isWriteable = true;
 	}
 
@@ -697,7 +695,6 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 		$this->assertEquals(REWRITE_STATUS_EMPTY_VALUE, $code);
 		$this->assertFalse(empty($errstr), 'errstr');
-
 		$this->_platform->_isWriteable = true;
 	}
 }

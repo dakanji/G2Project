@@ -107,6 +107,7 @@ class UserAdminView extends GalleryView {
 			$UserAdmin =& $template->getVariableByReference('UserAdmin');
 		} else {
 			$UserAdmin = array();
+
 			$template->setVariableByReference('UserAdmin', $UserAdmin);
 		}
 

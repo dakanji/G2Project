@@ -30,6 +30,7 @@
 class CodeAuditTestCase extends GalleryTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName);
+
 		$this->_shouldHalt = false;
 		$this->_baseDir    = realpath(__DIR__ . '/../../..');
 		$this->_checkTime  = time();
@@ -197,12 +198,11 @@ class CodeAuditTestCase extends GalleryTestCase {
 		 * $matches[2][$i] is the kind field.
 		 * $matches[5][$i] is the deleted field, if present.
 		 */
-		$count = preg_match_all(
+		$count    = preg_match_all(
 			'/\f\n([^\f\n]*)\n([^\f\n]*)\n(([^\f\n]*\n){20}([^\f\n]*)\n)?/',
 			$platform->file_get_contents($dirPath . '/.svn/entries'),
 			$matches
 		);
-
 		$dirPaths = array();
 
 		for ($i = 0; $i < $count; $i++) {

@@ -187,6 +187,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 				case 'scale':
 					$cmd          = 'convert';
 					$targetHeight = empty($parameters[1]) ? $parameters[0] : $parameters[1];
+
 					$this->_addResizeParam($transform, $parameters[0], $targetHeight);
 
 					if (isset($width)) {
@@ -202,6 +203,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 				case 'resize':
 					$cmd = 'convert';
+
 					$this->_addResizeParam($transform, $parameters[0], $parameters[1]);
 
 					if (isset($width)) {

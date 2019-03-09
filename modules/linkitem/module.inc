@@ -37,7 +37,6 @@ class LinkItemModule extends GalleryModule {
 				'Create links to other albums or external urls'
 			)
 		);
-
 		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
@@ -95,8 +94,7 @@ class LinkItemModule extends GalleryModule {
 
 		if (!empty($currentVersion) && version_compare($currentVersion, '1.0.4', '<=')) {
 			$storage =& $gallery->getStorage();
-
-			$ret = $storage->configureStore($this->getId(), array('GalleryLinkItem:1.0'));
+			$ret     = $storage->configureStore($this->getId(), array('GalleryLinkItem:1.0'));
 
 			if ($ret) {
 				return $ret;

@@ -182,7 +182,6 @@ class ViewTest extends GalleryTestCase {
 		$this->_markForCleanup($album);
 
 		GalleryUtilities::putRequestVariable('itemId', $album->getId());
-
 		$ret = GalleryCoreApi::removeItemPermissions($album->getId());
 
 		if ($ret) {
@@ -386,6 +385,7 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		$listener = new ViewTestEventListener($this, 'viewtestthemeid1', null, $itemId);
+
 		$this->_registerTestEventListener('Gallery::LoadThemeAndParameters', $listener);
 
 		list($ret, $theme, $params, $item) = $view->loadThemeAndParameters();
@@ -428,6 +428,7 @@ class ViewTest extends GalleryTestCase {
 		);
 
 		$listener = new ViewTestEventListener($this, 'viewtestthemeid1', $themeParams, $itemId);
+
 		$this->_registerTestEventListener('Gallery::LoadThemeAndParameters', $listener);
 
 		list($ret, $theme, $params, $item) = $view->loadThemeAndParameters();
@@ -464,6 +465,7 @@ class ViewTest extends GalleryTestCase {
 		);
 
 		$listener = new ViewTestEventListener($this, 'viewtestthemeid2', $themeParams, $itemId);
+
 		$this->_registerTestEventListener('Gallery::LoadThemeAndParameters', $listener);
 
 		list($ret, $theme, $params, $item) = $view->loadThemeAndParameters();
@@ -506,6 +508,7 @@ class ViewTest extends GalleryTestCase {
 		);
 
 		$listener = new ViewTestEventListener($this, 'bogustesttheme', $themeParams, $itemId);
+
 		$this->_registerTestEventListener('Gallery::LoadThemeAndParameters', $listener);
 
 		list($ret, $theme, $params, $item) = $view->loadThemeAndParameters();

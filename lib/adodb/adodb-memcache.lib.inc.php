@@ -31,6 +31,7 @@ $db->memCachePort = 11211; /// this is default memCache port
 $db->memCacheCompress = false; /// Use 'true' to store the item compressed (uses zlib)
 $db->Connect(...);
 $db->CacheExecute($sql);
+
   Note the memcache class is shared by all connections, is created during the first call to Connect/PConnect.
   Class instance is stored in $ADODB_CACHE
 */

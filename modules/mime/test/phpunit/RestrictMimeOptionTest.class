@@ -48,7 +48,6 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
-
 		$ret = $this->_markPluginParametersForCleanup('module', 'mime');
 
 		if ($ret) {
@@ -69,8 +68,7 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		 * clear the list before we start our tests.
 		 */
 		$gallery->_shutdownActions = null;
-
-		$ret = GalleryCoreApi::addMimeType('xxx', 'test/file', false);
+		$ret                       = GalleryCoreApi::addMimeType('xxx', 'test/file', false);
 
 		if ($ret) {
 			return $ret;
@@ -145,17 +143,13 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
-
 		$this->assertEquals(array(), $errors, 'no errors');
 		$this->assertEquals(array(array()), $warnings, 'no warnings');
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($badItem));
-
 		$this->assertEquals(array(), $errors, 'errors');
 		$this->assertEquals(array(array($this->_rejectMessage)), $warnings, 'warnings');
-
 		$gallery->performShutdownActions();
-
 		$ret = $this->_verifyMissing($badItem->getId());
 
 		if ($ret) {
@@ -191,17 +185,13 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
-
 		$this->assertEquals(array(), $errors, 'no errors');
 		$this->assertEquals(array(array()), $warnings, 'no warnings');
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($badItem));
-
 		$this->assertEquals(array(), $errors, 'errors');
 		$this->assertEquals(array(array($this->_rejectMessage)), $warnings, 'warnings');
-
 		$gallery->performShutdownActions();
-
 		$ret = $this->_verifyMissing($badItem->getId());
 
 		if ($ret) {
@@ -254,17 +244,13 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		);
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
-
 		$this->assertEquals(array(), $errors, 'no errors');
 		$this->assertEquals(array(array()), $warnings, 'no warnings');
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($badItem));
-
 		$this->assertEquals(array(), $errors, 'errors');
 		$this->assertEquals(array(array($this->_rejectMessage)), $warnings, 'warnings');
-
 		$gallery->performShutdownActions();
-
 		$ret = $this->_verifyMissing($badItem->getId());
 
 		if ($ret) {
@@ -317,17 +303,13 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		);
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
-
 		$this->assertEquals(array(), $errors, 'no errors');
 		$this->assertEquals(array(array()), $warnings, 'no warnings');
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($badItem));
-
 		$this->assertEquals(array(), $errors, 'errors');
 		$this->assertEquals(array(array($this->_rejectMessage)), $warnings, 'warnings');
-
 		$gallery->performShutdownActions();
-
 		$ret = $this->_verifyMissing($badItem->getId());
 
 		if ($ret) {

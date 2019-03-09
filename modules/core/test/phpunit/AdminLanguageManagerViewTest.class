@@ -50,9 +50,11 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(theme)';
 		GalleryDataCache::put($cacheKey, array('testTheme'));
 
-		$gallery->_translator  = AdminLanguagesViewTestTranslator::getMe();
-		$cacheKey              = 'GalleryRepository::getRepositories(,GalleryRepository)';
+		$gallery->_translator = AdminLanguagesViewTestTranslator::getMe();
+		$cacheKey             = 'GalleryRepository::getRepositories(,GalleryRepository)';
+
 		$this->_testRepository = new UnitTestRepository();
+
 		GalleryDataCache::put(
 			$cacheKey,
 			array(
@@ -62,7 +64,6 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 				0,
 			)
 		);
-
 		$cacheKey           = 'GalleryTranslator::SupportedLanguages';
 		$supportedLanguages = array(
 			'en' => array(
@@ -76,6 +77,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 		GalleryDataCache::put($cacheKey, $supportedLanguages);
 
 		$UnitTestPlatform = new UnitTestPlatform();
+
 		$gallery->setPlatform($UnitTestPlatform);
 		$gallery->_storage = new UnitTestStorage();
 		$storage           =& $gallery->getStorage();
@@ -86,11 +88,9 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 
 		$platform =& $gallery->getPlatform();
 		$storage  =& $gallery->getStorage();
-
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 		$this->assertTrue($storage->isComplete(), $storage->getRemaining());
 		$this->assertTrue($this->_testRepository->isComplete(), $this->_testRepository->getRemaining());
-
 		$ret = parent::tearDown();
 
 		if ($ret) {

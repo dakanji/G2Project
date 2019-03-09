@@ -275,7 +275,6 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 			'caption'  => $module->translate('Caption'),
 			''         => $module->translate('Blank'),
 		);
-
 		$template->setVariable(
 			'ItemAddFromBrowser',
 			array(
@@ -293,6 +292,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 			$ItemAdmin['enctype'] = 'multipart/form-data';
 		} else {
 			$ItemAdmin['enctype'] = 'multipart/form-data';
+
 			$template->setVariable('ItemAdmin', $ItemAdmin);
 		}
 

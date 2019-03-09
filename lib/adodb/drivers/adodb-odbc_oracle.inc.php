@@ -67,7 +67,8 @@ class ADODB_odbc_oracle extends ADODB_odbc {
 		$retarr = array();
 
 		while (!$rs->EOF) { //print_r($rs->fields);
-			$fld             = new ADOFieldObject();
+			$fld = new ADOFieldObject();
+
 			$fld->name       = $rs->fields[0];
 			$fld->type       = $rs->fields[1];
 			$fld->max_length = $rs->fields[2];

@@ -60,6 +60,7 @@ class SitemapViewTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_root);
+
 		$serials = array(
 			365 * 24, // change every hour
 			365,      // change every day
@@ -152,6 +153,7 @@ class SitemapViewTest extends GalleryTestCase {
 		}
 
 		$gallery->_storage = new SitemapViewTestStorage($storage);
+
 		ob_start();
 
 		$ret = $this->_view->renderImmediate(array(), array());

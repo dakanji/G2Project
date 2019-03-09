@@ -36,7 +36,8 @@ function smarty_core_assign_smarty_interface($params, &$smarty) {
 		}
 	}
 
-	$_smarty_vars_request            = @array_merge($_smarty_vars_request, $GLOBALS['HTTP_SESSION_VARS']);
+	$_smarty_vars_request = @array_merge($_smarty_vars_request, $GLOBALS['HTTP_SESSION_VARS']);
+
 	$smarty->_smarty_vars['request'] = $_smarty_vars_request;
 }
 

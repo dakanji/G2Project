@@ -94,6 +94,7 @@ class GalleryPendingUserTest extends GalleryTestCase {
 		}
 
 		$password = 'testpass' . mt_rand(1, 999);
+
 		$user->changePassword($password);
 		$pendingUser->changePassword($password);
 		$this->assertEquals(
@@ -101,9 +102,7 @@ class GalleryPendingUserTest extends GalleryTestCase {
 			strlen($pendingUser->getHashedPassword()),
 			'hash length'
 		);
-
 		$user->setHashedPassword($pendingUser->getHashedPassword());
-
 		$this->assertTrue($user->isCorrectPassword($password), 'check password');
 	}
 

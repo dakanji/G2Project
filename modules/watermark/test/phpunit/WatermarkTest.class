@@ -43,6 +43,7 @@ class WatermarkTest extends GalleryTestCase {
 		}
 
 		$watermark_module = new WatermarkModule();
+
 		$this->_registerTestEventListener('GalleryEntity::delete', $watermark_module);
 
 		list($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
@@ -345,7 +346,6 @@ class WatermarkTest extends GalleryTestCase {
 
 		if (!empty($table[$item->getId()])) {
 			$preferred = $table[$item->getId()];
-
 			$this->assertEquals($filter, $preferred->getPostFilterOperations());
 
 			// Verify that the thumb/resizes are remapped to the preferred

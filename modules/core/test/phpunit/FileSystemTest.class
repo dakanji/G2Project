@@ -133,6 +133,7 @@ class FileSystemTest extends GalleryTestCase {
 
 		$originalPlatform       =& $gallery->getPlatform();
 		$FileSystemTestPlatform = new FileSystemTestPlatform('/');
+
 		$gallery->setPlatform($FileSystemTestPlatform);
 		$originalAlbumsDir = $gallery->getConfig('data.gallery.albums');
 		$gallery->setConfig('data.gallery.albums', '');
@@ -151,8 +152,8 @@ class FileSystemTest extends GalleryTestCase {
 			),
 			$path
 		);
-
 		$FileSystemTestPlatform = new FileSystemTestPlatform('\\');
+
 		$gallery->setPlatform($FileSystemTestPlatform);
 
 		list($ret, $path) = $this->_albums[1]->fetchPath();
@@ -169,7 +170,6 @@ class FileSystemTest extends GalleryTestCase {
 			),
 			$path
 		);
-
 		$gallery->setPlatform($originalPlatform);
 		$gallery->setConfig('data.gallery.albums', $originalAlbumsDir);
 	}
@@ -179,7 +179,6 @@ class FileSystemTest extends GalleryTestCase {
 			$this->_albums[1]->getId(),
 			$this->_albums[2]->getPathComponent()
 		);
-
 		$this->assertEquals($this->_albums[2]->getId(), $id);
 	}
 
@@ -246,7 +245,6 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		$ret = $this->_albums[1]->save();
-
 		$ret = $this->_albums[1]->move($this->_albums[0]->getId());
 
 		if ($ret) {
@@ -266,7 +264,6 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('foo_001', $this->_albums[2]->getPathComponent());
-
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -302,6 +299,7 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		$FileSystemTestPlatformForRename = new FileSystemTestPlatformForRename('\\');
+
 		$gallery->setPlatform($FileSystemTestPlatformForRename);
 
 		// Execute the move command, success expected
@@ -315,6 +313,7 @@ class FileSystemTest extends GalleryTestCase {
 
 		// Now change the mock platform to a unix like system
 		$FileSystemTestPlatformForRename = new FileSystemTestPlatformForRename('/');
+
 		$gallery->setPlatform($FileSystemTestPlatformForRename);
 
 		// And move again album 1 (back, but all virtual move command), success expected
@@ -327,7 +326,6 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		$gallery->setPlatform($originalPlatform);
-
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -436,7 +434,6 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		$this->_albums[0]->setPathComponent($component);
-
 		$ret = $this->_albums[0]->save();
 
 		if ($ret) {
@@ -536,7 +533,6 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		$this->_albums[0]->setPathComponent($component);
-
 		$ret = $this->_albums[0]->save();
 
 		if ($ret) {
@@ -666,7 +662,6 @@ class FileSystemTestPlatformForRename extends GalleryPlatform {
 			$oldname,
 			strlen($gallery->getConfig('data.gallery.albums'))
 		);
-
 		$newname = substr(
 			$newname,
 			strlen($gallery->getConfig('data.gallery.albums'))

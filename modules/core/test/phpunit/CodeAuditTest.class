@@ -34,11 +34,12 @@ class CodeAuditTest extends CodeAuditTestCase {
 
 		$platform =& $gallery->getPlatform();
 		parent::__construct($methodName);
-		$this->_exception['endphp']       = array();
-		$this->_exception['preamble']     = '{(?:/TestCase/|templates/blocks/blocks.inc|(?:install|upgrade)/index.php|' .
+
+		$this->_exception['endphp']        = array();
+		$this->_exception['preamble']      = '{(?:/TestCase/|templates/blocks/blocks.inc|(?:install|upgrade)/index.php|' .
 		'data/Sample(?:Descriptors|Index).inc|DataCacheTest_\d+.class|getid3/lib/getid3|' .
 		'Php43IllegalFunctions.inc|GdFunctionMatrix.inc|frame.inc|iconpack.inc)}';
-		$this->_exception['superglobals'] = array(
+		$this->_exception['superglobals']  = array(
 			'FILES' => array(
 				'modules/core/classes/GalleryUtilities.class' => 1,
 			),
@@ -61,8 +62,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 				'main.php'                                    => 1,
 			),
 		);
-
-		$this->_exception['returns'] = array(
+		$this->_exception['returns']       = array(
 			'install/steps/SystemChecksStep.class' => array(
 				'SystemChecksStep::CheckManifest' => 1,
 			),
@@ -85,21 +85,18 @@ class CodeAuditTest extends CodeAuditTestCase {
 				'::_GalleryMain_doRedirect' => 1,
 			),
 		);
-
-		$this->_exception['errorHandler'] = array(
+		$this->_exception['errorHandler']  = array(
 			'init.inc'                                => 1,
 			'main.php'                                => 1,
 			'modules/core/classes/GalleryEmbed.class' => 1,
 		);
-
 		$this->_exception['longLineCount'] = array(
 			'modules/core/test/phpunit/Php43IllegalFunctions.inc' => 1,
 			'modules/gd/test/phpunit/GdFunctionMatrix.inc'        => 600,
 		);
-
-		$this->_longLineFiles = array();
-		$this->_errorCount    = 0;
-		$this->_lineEnding    = $platform->getLineEnding();
+		$this->_longLineFiles              = array();
+		$this->_errorCount                 = 0;
+		$this->_lineEnding                 = $platform->getLineEnding();
 
 		/* Windows CVS appends a CRLF after ?>, so allow for it */
 		$this->_phpEndFile = '/\?>(' . $this->_lineEnding . ')?$/';
@@ -108,12 +105,13 @@ class CodeAuditTest extends CodeAuditTestCase {
 		$this->_preamble = $this->getPreamble(file(__FILE__));
 
 		// Turn the preamble into a pattern that we can use to match
-		$pattern                = implode('NEWLINE PLACEHOLDER', $this->_preamble);
-		$pattern                = str_replace('?', '\?', $pattern);
-		$pattern                = str_replace('*', '\*', $pattern);
-		$pattern                = str_replace('(', '\(', $pattern);
-		$pattern                = str_replace(')', '\)', $pattern);
-		$pattern                = str_replace('/', '\/', $pattern);
+		$pattern = implode('NEWLINE PLACEHOLDER', $this->_preamble);
+		$pattern = str_replace('?', '\?', $pattern);
+		$pattern = str_replace('*', '\*', $pattern);
+		$pattern = str_replace('(', '\(', $pattern);
+		$pattern = str_replace(')', '\)', $pattern);
+		$pattern = str_replace('/', '\/', $pattern);
+
 		$this->_preamblePattern = str_replace('NEWLINE PLACEHOLDER', '(:?\r\n|\n|\r)', $pattern);
 	}
 
@@ -183,7 +181,6 @@ class CodeAuditTest extends CodeAuditTestCase {
 
 		if ($this->_lineEnding == "\n" && strpos($buffer, "\r\n") !== false) {
 			$this->_errorCount++;
-
 			$this->assertFalse(true, sprintf('%s has Windows line endings', $fileName));
 		}
 
@@ -469,7 +466,6 @@ class CodeAuditTest extends CodeAuditTestCase {
 					. "Expected: [$expected]<br/>"
 					. "Received: [$lines[$i]]<br/>"
 				);
-
 				$errorReported = true;
 			}
 		}
@@ -511,7 +507,6 @@ class CodeAuditTest extends CodeAuditTestCase {
 
 				foreach ($this->_longLineFiles as $entry) {
 					list($fileName, $lineNr) = $entry;
-
 					$this->assertFalse(
 						true,
 						'File: ' . $fileName . ', line number: ' . $lineNr

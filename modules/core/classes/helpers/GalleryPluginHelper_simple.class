@@ -193,7 +193,6 @@ class GalleryPluginHelper_simple {
 								"Unable to deactivate $pluginId,
 								jumping to upgrader."
 							);
-
 							$gallery->debug_r($redirectInfo);
 						}
 

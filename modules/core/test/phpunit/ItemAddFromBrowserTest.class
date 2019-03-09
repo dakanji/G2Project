@@ -115,7 +115,6 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_rootAlbum);
-
 		$this->assertEquals(array(), $results[0]);
 
 		// We don't know the ids, but we can verify everything else
@@ -124,7 +123,6 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 		foreach ($files as $file) {
 			$this->assertEquals($file, $results[1]['addedFiles'][$i]['fileName']);
 			$this->assertTrue(isset($results[1]['addedFiles'][$i]['id']));
-
 			$ids[] = $results[1]['addedFiles'][$i]['id'];
 			$i++;
 		}
@@ -137,7 +135,6 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 		}
 
 		$this->assertEquals(4, count($itemIds), 'child count');
-
 		$seenWeights = array();
 
 		foreach ($ids as $id) {
@@ -156,7 +153,6 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 			}
 
 			$this->assertFalse(isset($seenWeights[$orderWeight]), 'Seen this weight before');
-
 			$seenWeights[$orderWeight] = 1;
 		}
 
@@ -209,7 +205,6 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_rootAlbum);
-
 		$this->assertEquals(array(), $results[0]);
 
 		// We don't know the ids, but we can verify everything else
@@ -263,7 +258,6 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_rootAlbum);
-
 		$this->assertEquals(array(), $results[0]);
 
 		// We don't know the ids, but we can verify everything else
@@ -307,7 +301,6 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[set][title]', 'caption');
 
 		$results = $this->handleRequest($this->_rootAlbum);
-
 		$this->assertEquals(array(), $results[0]);
 
 		// We don't know the ids, but we can verify everything else
@@ -424,7 +417,6 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[set][description]', 1);
 
 		$results = $this->handleRequest($this->_rootAlbum);
-
 		$this->assertEquals(array(), $results[0], 'Errors');
 		$this->assertEquals($files[1], $results[1]['addedFiles'][0]['fileName'], 'Filename');
 		$this->assertEquals(
@@ -447,8 +439,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
-
-		$ret = $this->_setMarkupType('html', true);
+		$ret      = $this->_setMarkupType('html', true);
 
 		if ($ret) {
 			return $ret;
@@ -471,7 +462,6 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[set][description]', 1);
 
 		$results = $this->handleRequest($this->_rootAlbum);
-
 		$this->assertEquals(array(), $results[0]);
 
 		if (!isset($results[1]['addedFiles'][0]['id'])) {

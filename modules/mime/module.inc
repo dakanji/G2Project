@@ -39,7 +39,6 @@ class MimeModule extends GalleryModule {
 				'Maintain MIME types and file extensions'
 			)
 		);
-
 		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));

@@ -217,7 +217,6 @@ class KeywordAlbumTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('keyword', 'testkey');
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
-
 		$form = array();
 
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
@@ -260,7 +259,6 @@ class KeywordAlbumTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('keyword', 'testkey');
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
-
 		$form = array();
 
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
@@ -300,7 +298,6 @@ class KeywordAlbumTest extends GalleryTestCase {
 		$this->assertEquals($idList, array_keys($summaries), 'all');
 		$this->assertEquals(3, substr_count($summaries[$idList[0]], '<a href'), '3 album keywords');
 		$this->assertEquals(4, substr_count($summaries[$idList[1]], '<a href'), '4 item keywords');
-
 		$ret = $this->_module->setParameter('summaryLinks', 'none');
 
 		if ($ret) {
@@ -316,7 +313,6 @@ class KeywordAlbumTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(array(), $summaries, 'none');
-
 		$ret = $this->_module->setParameter('split', ',');
 
 		if ($ret) {
@@ -348,7 +344,6 @@ class KeywordAlbumTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(array(), $summaries, 'key not');
-
 		$ret = $this->_module->setParameter(
 			'split',
 			';

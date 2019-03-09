@@ -53,7 +53,8 @@ class StorageTest extends GalleryTestCase {
 		$storage->_db                          = new StorageTestDB($this, '_results');
 		$this->_nonTransactionalDb             = $storage->_nonTransactionalDb;
 		$storage->_nonTransactionalDb          = new StorageTestDB($this, '_resultsNonTransactional');
-		$map                                   = array(
+
+		$map = array(
 			'GalleryTestMap' => array(
 				'field1' => array(
 					'type'    => STORAGE_TYPE_INTEGER,
@@ -161,8 +162,7 @@ class StorageTest extends GalleryTestCase {
 		$storage->_nonTransactionalDb             = $this->_nonTransactionalDb;
 		$storage->_serverInfo                     = $this->_serverInfo;
 		$storage->_isEmptyAllowedForNotNullColumn = $this->_isEmptyAllowedForNotNullColumn;
-
-		$ret = parent::tearDown();
+		$ret                                      = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -223,8 +223,7 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->addMapEntry(
+		$ret     = $storage->addMapEntry(
 			'GalleryTestMap',
 			array(
 				'field1' => 0,
@@ -257,8 +256,7 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->addMapEntry(
+		$ret     = $storage->addMapEntry(
 			'GalleryTestMap',
 			array(
 				'field1' => 0,
@@ -291,8 +289,7 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->addMapEntry(
+		$ret     = $storage->addMapEntry(
 			'GalleryTest2Map',
 			array(
 				'field3' => str_repeat('x', 200),
@@ -325,8 +322,7 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->updateMapEntry(
+		$ret     = $storage->updateMapEntry(
 			'GalleryTest2Map',
 			array(
 				'field3' => str_repeat('y', 200),
@@ -359,8 +355,7 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->updateMapEntry(
+		$ret     = $storage->updateMapEntry(
 			'GalleryTest2Map',
 			array(
 				'field3' => array(str_repeat('y', 200), str_repeat('z', 200)),
@@ -468,8 +463,7 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->addMapEntry(
+		$ret     = $storage->addMapEntry(
 			'GalleryTestMap',
 			array(
 				'field1' => array(1, 2, 3),
@@ -504,8 +498,7 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->addMapEntry(
+		$ret     = $storage->addMapEntry(
 			'GalleryTestMap',
 			array(
 				'field1' => array(1, 2, 3),
@@ -544,8 +537,7 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->addMapEntry(
+		$ret     = $storage->addMapEntry(
 			'GalleryTest2Map',
 			array(
 				'field3' => array(str_repeat('x', 200), str_repeat('y', 200)),
@@ -609,6 +601,7 @@ class StorageTest extends GalleryTestCase {
 
 		// Prepare mocked record set
 		$recordSet = new StorageTestRecordSet(array(array(1, 6, '15')));
+
 		$storage->_db->setResults(array($recordSet));
 
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry($mapName, $select, $match);
@@ -636,7 +629,6 @@ class StorageTest extends GalleryTestCase {
 
 		// Verify that the fetched values have been normalized
 		$row = $searchResults->nextResult();
-
 		$this->assertEquals(array('1', '6', 15), $row, 'normalized values from record set');
 	}
 
@@ -919,8 +911,7 @@ class StorageTest extends GalleryTestCase {
 
 		// onLoadHandlers is a medium string, which is 128 chars
 		$entity->onLoadHandlers = str_repeat('x', 200);
-
-		$ret = $storage->saveEntity($entity);
+		$ret                    = $storage->saveEntity($entity);
 
 		if ($ret) {
 			return $ret;
@@ -1127,7 +1118,6 @@ class StorageTest extends GalleryTestCase {
 			$storage->_normalizeValue('', $memberData, true),
 			'from string 2'
 		);
-
 		$value              = str_repeat('x', 135);
 		$memberData['size'] = STORAGE_SIZE_MEDIUM;
 		$this->assertEquals(
@@ -1172,7 +1162,6 @@ class StorageTest extends GalleryTestCase {
 		$storage            =& $gallery->getStorage();
 		$memberData['type'] = STORAGE_TYPE_BIT;
 		$expected           = $storage->convertIntToBits(5);
-
 		$this->assertEquals($expected, $storage->_normalizeValue(5, $memberData), 'to DB');
 		$this->assertEquals(5, $storage->_normalizeValue($expected, $memberData, true), 'from DB');
 		$this->assertEquals(null, $storage->_normalizeValue(null, $memberData, true), 'null');
@@ -1451,6 +1440,7 @@ class StorageTest extends GalleryTestCase {
 		}
 
 		array_unshift($mockedResults, $tablesRecordSet);
+
 		$storage->_db->setResults($mockedResults);
 
 		// Execute the test
@@ -1462,7 +1452,6 @@ class StorageTest extends GalleryTestCase {
 
 		// Ignore the loadTableVersions query
 		array_shift($this->_results);
-
 		$this->assertEquals($expectedQueries, $this->_results);
 	}
 
@@ -1496,6 +1485,7 @@ class StorageTest extends GalleryTestCase {
 		}
 
 		array_unshift($mockedResults, $tablesRecordSet);
+
 		$storage->_db->setResults($mockedResults);
 
 		// Execute the test
@@ -1507,7 +1497,6 @@ class StorageTest extends GalleryTestCase {
 
 		// Ignore the loadTableVersions query
 		array_shift($this->_results);
-
 		$this->assertEquals($expectedQueries, $this->_results);
 	}
 
@@ -1540,6 +1529,7 @@ class StorageTest extends GalleryTestCase {
 		);
 
 		$recordSet = new StorageTestRecordSet(array(array(serialize($map))));
+
 		$storage->_db->setResults(array($recordSet, $recordSet));
 
 		list($ret, $externalMapInfo) = GalleryCoreApi::describeMap('GalleryTest2Map');
@@ -1644,6 +1634,7 @@ class StorageTest extends GalleryTestCase {
 		);
 
 		$recordSet = new StorageTestRecordSet(array(array(serialize($entityEntry))));
+
 		$storage->_db->setResults(array($recordSet));
 
 		list($ret, $entityInfo) = GalleryCoreApi::describeEntity('GalleryEntity');
@@ -1668,8 +1659,7 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->removeAllMapEntries('GalleryTest2Map');
+		$ret     = $storage->removeAllMapEntries('GalleryTest2Map');
 
 		if ($ret) {
 			return $ret;
@@ -1694,8 +1684,7 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->removeAllMapEntries('GalleryTest2Map', true);
+		$ret     = $storage->removeAllMapEntries('GalleryTest2Map', true);
 
 		if ($ret) {
 			return $ret;
@@ -1739,7 +1728,6 @@ class StorageTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(2, count($randomValues), 'result count');
-
 		$rand1 = $randomValues[0];
 		$rand2 = $randomValues[1];
 

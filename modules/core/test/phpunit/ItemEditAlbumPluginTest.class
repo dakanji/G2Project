@@ -175,7 +175,6 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
-
 		$this->assertEquals(array(array(), null), $results);
 	}
 
@@ -513,8 +512,8 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 			'form[serialNumber]',
 			$this->_album->getSerialNumber()
 		);
+		$mockAdapter = new MockTemplateAdapter();
 
-		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
 		// Perform the request and verify that we succeeded
@@ -584,7 +583,6 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 			$thumbnails[$child[1]->getId()]->getDerivativeOperations(),
 			'child 1'
 		);
-
 		$this->assertEquals(
 			'crop|0,0,80,80;thumbnail|246',
 			$thumbnails[$child[2]->getId()]->getDerivativeOperations(),
@@ -752,8 +750,8 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[recreateResizes]', 1);
 		GalleryUtilities::putRequestVariable('form[changeInDescendents][recreateResizes]', 1);
 		GalleryUtilities::putRequestVariable('form[serialNumber]', $album->getSerialNumber());
+		$mockAdapter = new MockTemplateAdapter();
 
-		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
 		// Perform the request and verify that we succeeded
@@ -940,8 +938,8 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 			'form[serialNumber]',
 			$this->_album->getSerialNumber()
 		);
+		$mockAdapter = new MockTemplateAdapter();
 
-		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$results                   = $this->handleRequest($this->_album, $this->_preferred);
 		$this->assertEquals(
@@ -951,7 +949,6 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
 		// Run the recreate-resizes task
 		$this->assertEquals(1, $mockAdapter->getCallbackCount());
-
 		$ret = $mockAdapter->runCallbacks();
 
 		if ($ret) {
@@ -966,7 +963,6 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->assertEquals(array(), $resizes, 'no resizes');
-
 		$ret = $this->_verifyMissing($resize->getId());
 
 		if ($ret) {

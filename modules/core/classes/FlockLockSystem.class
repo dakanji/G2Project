@@ -153,13 +153,13 @@ class FlockLockSystem extends GalleryLockSystem {
 
 				// Wait a second and try any unacquired locks again
 				$gallery->debug('Waiting for a lock');
+
 				sleep(1);
 			}
 		}
 
 		list($ignored, $lockId) = $this->_newLockId();
-
-		$this->_locks[$lockId] = array(
+		$this->_locks[$lockId]  = array(
 			'lockId' => $lockId,
 			'type'   => $lockType,
 			'ids'    => $locked,
@@ -198,8 +198,7 @@ class FlockLockSystem extends GalleryLockSystem {
 		foreach ($this->_locks as $lockId => $lock) {
 			foreach ($lock['ids'] as $lockInfo) {
 				list($fd, $lockFile) = $lockInfo;
-
-				$count = $platform->fwrite($fd, '.');
+				$count               = $platform->fwrite($fd, '.');
 
 				if ($count == 0) {
 					return GalleryCoreApi::error(
@@ -258,6 +257,7 @@ class FlockLockSystem extends GalleryLockSystem {
 	public function _removeObjectsFromLock(&$lock, $ids) {
 		foreach ($ids as $id) {
 			$this->_closeLockFile($lock['ids'][$id]);
+
 			unset($lock['ids'][$id]);
 		}
 

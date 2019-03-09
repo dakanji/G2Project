@@ -69,7 +69,6 @@ class DatabaseStorageTest extends GalleryTestCase {
 			$this->_data,
 			'database_with_everything'
 		);
-
 		$this->assertEquals(
 			array(
 				'table' => array(

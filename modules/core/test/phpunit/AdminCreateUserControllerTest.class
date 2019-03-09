@@ -82,7 +82,6 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($user);
-
 		$this->assertTrue($user->isCorrectPassword('password'), 'check password');
 	}
 
@@ -120,7 +119,6 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($user);
-
 		$this->assertTrue($user->isCorrectPassword('pass&word'), 'check password');
 	}
 

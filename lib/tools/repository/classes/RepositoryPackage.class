@@ -154,7 +154,6 @@ class RepositoryPackage extends RepositoryObject {
 
 		// Set file name and write it to disk.
 		$this->setOutputFile($this->getPackageFileName($packageType));
-
 		$ret = $this->writeToDisk($overwritePackage, $compressToo);
 
 		if ($ret) {

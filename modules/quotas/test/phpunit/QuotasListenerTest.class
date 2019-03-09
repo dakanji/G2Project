@@ -85,8 +85,7 @@ class QuotasListenerTest extends GalleryTestCase {
 
 			if ($hasQuota) {
 				$this->_saveQuota[$groupId] = $quota;
-
-				$ret = GalleryCoreApi::removeMapEntry(
+				$ret                        = GalleryCoreApi::removeMapEntry(
 					'QuotasMap',
 					array(
 						'userOrGroupId' => $groupId,
@@ -152,7 +151,6 @@ class QuotasListenerTest extends GalleryTestCase {
 			'GalleryEntity::delete',
 			$QuotasModule
 		);
-
 		$userId = $this->_user->getId();
 
 		list($ret, $quotaExists, $userQuotaInfo) = GalleryQuotasHelper::fetchUserQuota(
@@ -192,7 +190,6 @@ class QuotasListenerTest extends GalleryTestCase {
 			$userQuotaInfo,
 			'User should have quota information'
 		);
-
 		$this->_deleteEntity($this->_user);
 
 		list($ret, $quotaExists, $userQuotaInfo) = GalleryQuotasHelper::fetchUserQuota($userId);
@@ -203,7 +200,6 @@ class QuotasListenerTest extends GalleryTestCase {
 
 		$this->assertTrue($quotaExists == false, 'Quota should not exist for this user');
 		$this->assertTrue(empty($userQuotaInfo), 'User should have no quota information');
-
 		$groupId = $this->_group->getId();
 
 		list($ret, $quotaExists, $groupQuotaInfo) = GalleryQuotasHelper::fetchGroupQuota(
@@ -243,7 +239,6 @@ class QuotasListenerTest extends GalleryTestCase {
 			$groupQuotaInfo,
 			'Group should have quota information'
 		);
-
 		$this->_deleteEntity($this->_group);
 
 		list($ret, $quotaExists, $groupQuotaInfo) = GalleryQuotasHelper::fetchGroupQuota(

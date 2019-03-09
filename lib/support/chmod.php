@@ -71,6 +71,7 @@ $permissions = (string)getRequestVariable('permissions');
 
 if (empty($permissions)) {
 	$permissions = $DEFAULT_FOLDER_PERMISSIONS->getAsString() .
+
 	$DEFAULT_FILE_PERMISSIONS->getAsString();
 }
 

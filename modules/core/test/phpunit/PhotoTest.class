@@ -56,7 +56,6 @@ class PhotoTest extends GalleryTestCase {
 		}
 
 		$this->_markToolkitForCleanup('PhotoTestToolkit');
-
 		$ret = GalleryCoreApi::registerToolkitProperty(
 			'PhotoTestToolkit',
 			array('image/test'),
@@ -154,7 +153,6 @@ class PhotoTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($photo);
-
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -195,7 +193,6 @@ class PhotoTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($photo);
-
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {

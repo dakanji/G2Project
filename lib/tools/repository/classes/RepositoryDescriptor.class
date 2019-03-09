@@ -247,12 +247,11 @@ class RepositoryDescriptor extends RepositoryObject {
 
 		GalleryUtilities::readIndividualManifest($manifestFile, $manifest);
 
-		$g2Base           = GalleryCoreApi::getCodeBasePath();
-		$ignoreOffset     = strlen(substr($pluginDir, strlen($g2Base)));
-		$manifestContents = $this->filterManifestForBasePackage(
+		$g2Base                    = GalleryCoreApi::getCodeBasePath();
+		$ignoreOffset              = strlen(substr($pluginDir, strlen($g2Base)));
+		$manifestContents          = $this->filterManifestForBasePackage(
 			$platform->file_get_contents($manifestFile)
 		);
-
 		$data['files']['MANIFEST'] = array(
 			'bytes'    => (string)strlen($manifestContents),
 			'hash'     => sprintf('%u', crc32($manifestContents)),

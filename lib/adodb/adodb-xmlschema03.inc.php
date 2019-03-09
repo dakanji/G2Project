@@ -315,6 +315,7 @@ class dbTable extends dbObject {
 				$fieldType = $attributes['TYPE'];
 				$fieldSize = isset($attributes['SIZE']) ? $attributes['SIZE'] : null;
 				$fieldOpts = !empty($attributes['OPTS']) ? $attributes['OPTS'] : null;
+
 				$this->addField($fieldName, $fieldType, $fieldSize, $fieldOpts);
 
 				break;
@@ -395,6 +396,7 @@ class dbTable extends dbObject {
 		switch (strtoupper($tag)) {
 			case 'TABLE':
 				$this->parent->addSQL($this->create($this->parent));
+
 				xml_set_object($parser, $this->parent);
 				$this->destroy();
 
@@ -422,7 +424,8 @@ class dbTable extends dbObject {
 	 * @return object dbIndex object
 	 */
 	public function addIndex($attributes) {
-		$name                 = strtoupper($attributes['NAME']);
+		$name = strtoupper($attributes['NAME']);
+
 		$this->indexes[$name] = new dbIndex($this, $attributes);
 
 		return $this->indexes[$name];
@@ -1228,6 +1231,7 @@ class dbQuerySet extends dbObject {
 
 			case 'SQL':
 				$this->parent->addSQL($this->create($this->parent));
+
 				xml_set_object($parser, $this->parent);
 				$this->destroy();
 
@@ -1285,6 +1289,7 @@ class dbQuerySet extends dbObject {
 		}
 
 		$this->queries[] = $return = trim($this->query);
+
 		unset($this->query);
 
 		return $return;
@@ -1304,9 +1309,7 @@ class dbQuerySet extends dbObject {
 					// Process object prefix.
 					// Evaluate SQL statements to prepend prefix to objects
 					$query = $this->prefixQuery('/^\s*((?is)INSERT\s+(INTO\s+)?)((\w+\s*,?\s*)+)(\s.*$)/', $query, $xmls->objectPrefix);
-
 					$query = $this->prefixQuery('/^\s*((?is)UPDATE\s+(FROM\s+)?)((\w+\s*,?\s*)+)(\s.*$)/', $query, $xmls->objectPrefix);
-
 					$query = $this->prefixQuery('/^\s*((?is)DELETE\s+(FROM\s+)?)((\w+\s*,?\s*)+)(\s.*$)/', $query, $xmls->objectPrefix);
 
 					// SELECT statements aren't working yet
@@ -1898,6 +1901,7 @@ class adoSchema {
 			case 'TABLE':
 				if (!isset($attributes['PLATFORM']) or $this->supportedPlatform($attributes['PLATFORM'])) {
 					$this->obj = new dbTable($this, $attributes);
+
 					xml_set_object($parser, $this->obj);
 				}
 
@@ -1906,6 +1910,7 @@ class adoSchema {
 			case 'SQL':
 				if (!isset($attributes['PLATFORM']) or $this->supportedPlatform($attributes['PLATFORM'])) {
 					$this->obj = new dbQuerySet($this, $attributes);
+
 					xml_set_object($parser, $this->obj);
 				}
 
@@ -2310,6 +2315,7 @@ class adoSchema {
 			// clear prefix
 			case empty($prefix):
 				logMsg('Cleared prefix');
+
 				$this->objectPrefix = '';
 
 				return true;
@@ -2329,6 +2335,7 @@ class adoSchema {
 
 		// prefix valid
 		logMsg('Set prefix: ' . $prefix);
+
 		$this->objectPrefix = $prefix;
 
 		return true;

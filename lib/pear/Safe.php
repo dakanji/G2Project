@@ -379,7 +379,8 @@ class HTML_Safe {
 				$preg .= $proto[$i] . "[\s\x01-\x1F]*";
 			}
 
-			$preg                 .= ':/i';
+			$preg .= ':/i';
+
 			$this->_protoRegexps[] = $preg;
 		}
 
@@ -495,7 +496,8 @@ class HTML_Safe {
 					}
 				}
 
-				$value         = str_replace('"', '&quot;', $value);
+				$value = str_replace('"', '&quot;', $value);
+
 				$this->_xhtml .= ' ' . $name . '="' . $value . '"';
 			}
 		}
@@ -575,6 +577,7 @@ class HTML_Safe {
 		$this->_xhtml .= '<' . $name;
 		$this->_writeAttrs($attrs);
 		$this->_xhtml .= '>';
+
 		array_push($this->_stack, $name);
 		$this->_counter[$name] = isset($this->_counter[$name]) ? $this->_counter[$name] + 1 : 1;
 

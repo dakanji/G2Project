@@ -70,9 +70,11 @@ function ADODB_SetDatabaseAdapter(&$db) {
 		}
 	}
 
-	$obj                 = new ADODB_Active_DB();
-	$obj->db             = $db;
-	$obj->tables         = array();
+	$obj = new ADODB_Active_DB();
+
+	$obj->db     = $db;
+	$obj->tables = array();
+
 	$_ADODB_ACTIVE_DBS[] = $obj;
 
 	return sizeof($_ADODB_ACTIVE_DBS) - 1;
@@ -108,7 +110,8 @@ class ADODB_Active_Record {
 	}
 
 	public function __set($name, $value) {
-		$name        = str_replace(' ', '_', $name);
+		$name = str_replace(' ', '_', $name);
+
 		$this->$name = $value;
 	}
 
@@ -160,6 +163,7 @@ class ADODB_Active_Record {
 		// CFR: Just added this option because UpdateActiveTable() can refresh its information
 		// but there was no way to ask it to do that.
 		$forceUpdate = (isset($options['refresh']) && true === $options['refresh']);
+
 		$this->UpdateActiveTable($pkeyarr, $forceUpdate);
 
 		if (isset($options['new']) && true === $options['new']) {
@@ -298,7 +302,8 @@ class ADODB_Active_Record {
 	 * = other-table-#2.this-table_id
 	 */
 	public function hasMany($foreignRef, $foreignKey = false) {
-		$ar              = new self($foreignRef);
+		$ar = new self($foreignRef);
+
 		$ar->foreignName = $foreignRef;
 		$ar->UpdateActiveTable();
 		$ar->foreignKey = ($foreignKey) ? $foreignKey : strtolower(get_class($this)) . self::$_foreignSuffix;
@@ -322,7 +327,6 @@ class ADODB_Active_Record {
 	 */
 	public function belongsTo($foreignRef, $foreignKey = false) {
 		global $inflector;
-
 		$ar              = new self($this->_pluralize($foreignRef));
 		$ar->foreignName = $foreignRef;
 		$ar->UpdateActiveTable();
@@ -381,13 +385,12 @@ class ADODB_Active_Record {
 					$belongsToId = 'id';
 				}
 
-				$arrayOfOne = $obj->Find(
+				$arrayOfOne  = $obj->Find(
 					$belongsToId . '=' . $this->$columnName . ' ' . $whereOrderBy,
 					false,
 					false,
 					$extras
 				);
-
 				$this->$name = $arrayOfOne[0];
 			}
 
@@ -462,7 +465,8 @@ class ADODB_Active_Record {
 			}
 		}
 
-		$activetab        = new ADODB_Active_Table();
+		$activetab = new ADODB_Active_Table();
+
 		$activetab->name  = $table;
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
@@ -575,7 +579,8 @@ class ADODB_Active_Record {
 
 		if ($ADODB_ACTIVE_CACHESECS && $ADODB_CACHE_DIR) {
 			$activetab->_created = time();
-			$s                   = serialize($activetab);
+
+			$s = serialize($activetab);
 
 			if (!function_exists('adodb_write_file')) {
 				include ADODB_DIR . '/adodb-csvlib.inc.php';
@@ -604,7 +609,8 @@ class ADODB_Active_Record {
 	public function Error($err, $fn) {
 		global $_ADODB_ACTIVE_DBS;
 
-		$fn             = get_class($this) . '::' . $fn;
+		$fn = get_class($this) . '::' . $fn;
+
 		$this->_lasterr = $fn . ': ' . $err;
 
 		if ($this->_dbat < 0) {
@@ -740,6 +746,7 @@ class ADODB_Active_Record {
 
 		// <AP>
 		reset($keys);
+
 		$this->_original = array();
 
 		foreach ($table->flds as $name => $fld) {
@@ -879,12 +886,14 @@ class ADODB_Active_Record {
 
 			$qry .= ' LEFT JOIN ' . $foreignTable->_table . ' ON ' .
 				$this->_table . '.' . $foreignTable->foreignKey . '=' .
+
 				$foreignTable->_table . '.' . $belongsToId;
 		}
 
 		foreach ($table->_hasMany as $foreignTable) {
 			$qry .= ' LEFT JOIN ' . $foreignTable->_table . ' ON ' .
 				$this->_table . '.' . $hasManyId . '=' .
+
 				$foreignTable->_table . '.' . $foreignTable->foreignKey;
 		}
 
@@ -960,6 +969,7 @@ class ADODB_Active_Record {
 				}
 
 				$obj = new $class($table, false, $db);
+
 				$obj->Set($row);
 
 				// TODO Copy/paste code below: bad!
@@ -1172,6 +1182,7 @@ class ADODB_Active_Record {
 
 					else {
 						$this->Error("Cannot update null into $name","Replace");
+
 						return false;
 					}
 				}
@@ -1371,6 +1382,7 @@ function adodb_GetActiveRecordsClass(
 
 				$qry .= ' LEFT JOIN ' . $foreignTable->_table . ' ON ' .
 					$table . '.' . $foreignTable->foreignKey . '=' .
+
 					$foreignTable->_table . '.' . $belongsToId;
 			}
 		}
@@ -1389,6 +1401,7 @@ function adodb_GetActiveRecordsClass(
 			foreach ($relations['hasMany'] as $foreignTable) {
 				$qry .= ' LEFT JOIN ' . $foreignTable->_table . ' ON ' .
 					$table . '.' . $hasManyId . '=' .
+
 					$foreignTable->_table . '.' . $foreignTable->foreignKey;
 			}
 		}
@@ -1418,6 +1431,7 @@ function adodb_GetActiveRecordsClass(
 	}
 
 	$db->SetFetchMode($save);
+
 	$false = false;
 
 	if ($rows === false) {

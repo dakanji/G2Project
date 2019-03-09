@@ -181,7 +181,6 @@ class AddCommentController extends GalleryController {
 				$comment->setComment($form['comment']);
 				$comment->setAuthor($form['author']);
 				$comment->setDate($currentTime);
-
 				$ret = $comment->save();
 
 				if ($ret) {

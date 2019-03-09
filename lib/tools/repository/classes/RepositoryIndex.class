@@ -189,13 +189,13 @@ class RepositoryIndex extends RepositoryObject {
 			}
 		}
 
-		$serializedIndex  = serialize($index);
+		$serializedIndex = serialize($index);
+
 		$this->_index     = $index;
 		$this->_indexHash = md5($serializedIndex);
 
 		// Write index to disk.
 		$this->_template->setVariable('contents', $serializedIndex);
-
 		$ret = $this->writeToDisk(true, true);
 
 		if ($ret) {
@@ -206,7 +206,6 @@ class RepositoryIndex extends RepositoryObject {
 		$indexFile = $this->_fileName;
 		$this->setOutputFile($indexFile . '.hash');
 		$this->_template->setVariable('contents', $this->_indexHash);
-
 		$ret = $this->writeToDisk(true);
 
 		if ($ret) {

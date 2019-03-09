@@ -90,7 +90,6 @@ class CommentSearchTest extends GalleryTestCase {
 				}
 
 				$this->assertTrue(isset($this->_comment[$j][$i]), 'Missing comment instance');
-
 				$this->_comment[$j][$i]->create($this->_item[$j]->getId());
 				$this->_comment[$j][$i]->setCommenterId($gallery->getActiveUserId());
 				$this->_comment[$j][$i]->setHost('127.0.0.1');

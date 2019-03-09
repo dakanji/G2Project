@@ -305,7 +305,6 @@ class ItemPermissionsController extends GalleryController {
 				$userId = $user->getId();
 				$item->setOwnerId($userId);
 				$item->setSerialNumber($form['serialNumber']);
-
 				$ret = $item->save();
 
 				if ($ret) {
@@ -347,6 +346,7 @@ class ItemPermissionsController extends GalleryController {
 
 					while (!empty($descendentIds)) {
 						$chunk = array_splice($descendentIds, 0, $chunkSize);
+
 						$gallery->guaranteeTimeLimit(60);
 
 						list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($chunk);
@@ -363,7 +363,6 @@ class ItemPermissionsController extends GalleryController {
 
 						foreach ($descendents as $item) {
 							$item->setOwnerId($userId);
-
 							$ret = $item->save();
 
 							if ($ret) {
@@ -660,6 +659,7 @@ class ItemPermissionsView extends GalleryView {
 		$ItemPermissions['userPermissions']  = $userPermissions;
 		$ItemPermissions['groupPermissions'] = $groupPermissions;
 		$ItemPermissions['allPermissions']   = $allPermissions;
+
 		$template->setVariable('ItemPermissions', $ItemPermissions);
 		$template->setVariable('controller', 'core.ItemPermissions');
 

@@ -219,7 +219,6 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 					'permission'    => 'core.edit', ),
 					$permission
 				);
-
 				$count++;
 			}
 		}
@@ -300,7 +299,6 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 						'permission'    => 'core.edit', ),
 						$permission
 					);
-
 					$count++;
 				}
 			}
@@ -548,7 +546,6 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 					'permission'   => 'core.edit', ),
 					$permission
 				);
-
 				$count++;
 			}
 		}
@@ -626,7 +623,6 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 						'permission'   => 'core.edit', ),
 						$permission
 					);
-
 					$count++;
 				}
 			}
@@ -846,7 +842,6 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->setActiveUser($this->_user);
-
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_albumParent->getId(),
 			$this->_user->getId(),
@@ -871,7 +866,6 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->setActiveUser($this->_user);
-
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_albumParent->getId(),
 			$this->_user->getId(),
@@ -931,7 +925,6 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->setActiveUser($this->_user);
-
 		$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $this->_group->getId());
 
 		if ($ret) {

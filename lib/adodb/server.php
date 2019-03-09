@@ -95,6 +95,7 @@ if (isset($_REQUEST['nrows'])) {
 if ($rs) {
 	//$rs->timeToLive = 1;
 	echo _rs2serialize($rs, $conn, $sql);
+
 	$rs->Close();
 } else {
 	err($conn->ErrorNo() . $sep . $conn->ErrorMsg());

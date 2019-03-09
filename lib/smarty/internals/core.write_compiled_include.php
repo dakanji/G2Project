@@ -27,15 +27,16 @@ function smarty_core_write_compiled_include($params, &$smarty) {
 	}
 
 	// convert the matched php-code to functions
-	$_include_compiled                      = '<?php /* Smarty version ' . $smarty->_version . ', created on ' . strftime('%Y-%m-%d %H:%M:%S') . "\n";
-	$_include_compiled                     .= '         compiled from ' . strtr(
+	$_include_compiled  = '<?php /* Smarty version ' . $smarty->_version . ', created on ' . strftime('%Y-%m-%d %H:%M:%S') . "\n";
+	$_include_compiled .= '         compiled from ' . strtr(
 		urlencode($params['resource_name']),
 		array(
 			'%2F' => '/',
 			'%3A' => ':',
 		)
 	) . " */\n\n";
-	$_compile_path                          = $params['include_file_path'];
+	$_compile_path      = $params['include_file_path'];
+
 	$smarty->_cache_serials[$_compile_path] = $params['cache_serial'];
 	$_include_compiled                     .= "\$this->_cache_serials['" . $_compile_path . "'] = '" . $params['cache_serial'] . "';\n\n?>";
 	$_include_compiled                     .= $params['plugins_code'];

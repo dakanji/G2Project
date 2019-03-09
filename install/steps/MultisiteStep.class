@@ -54,6 +54,7 @@ class MultisiteStep extends InstallStep {
 				$this->_isMultisite     = false;
 				$_SESSION['configPath'] = $baseDir;
 				$_SESSION['baseUri']    = getGalleryDirUrl() . GALLERY_MAIN_PHP;
+
 				$this->setComplete(true);
 				$this->readConfigFile();
 
@@ -81,8 +82,7 @@ class MultisiteStep extends InstallStep {
 				$this->sanitize($_POST['configPath']),
 				' ' . DIRECTORY_SEPARATOR
 			);
-
-			$this->_baseUri = isset($_POST['baseUri']) ? $_POST['baseUri'] : '';
+			$this->_baseUri    = isset($_POST['baseUri']) ? $_POST['baseUri'] : '';
 
 			if (substr($this->_baseUri, -4) != '.php'
 				&& substr($this->_baseUri, -1) != '/'
@@ -252,7 +252,6 @@ class MultisiteStep extends InstallStep {
 			'systemchecks.fileintegrity',
 			$galleryStub->getConfig('systemchecks.fileintegrity')
 		);
-
 		$gallery->setConfig(
 			'systemchecks.issvninstall',
 			$galleryStub->getConfig('systemchecks.issvninstall')

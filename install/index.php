@@ -99,7 +99,9 @@ if (empty($_SESSION['language'])) {
 if (function_exists('dgettext')) {
 	$gallery    = new GalleryStub();
 	$translator = GalleryTranslator::getMe();
+
 	$translator->init($_SESSION['language'], true);
+
 	unset($gallery);
 	bindtextdomain('gallery2_install', dirname(__DIR__) . '/locale');
 	textdomain('gallery2_install');
@@ -141,6 +143,7 @@ if (empty($steps) || !is_array($steps)) {
 			$step->setStepNumber($i);
 			$step->setInError(false);
 			$step->setComplete(false);
+
 			$steps[] = $step;
 		}
 	}
@@ -180,10 +183,12 @@ if ($currentStep->processRequest()) {
 
 	// Round percentage to the nearest 5
 	$templateData['errors'] = array();
+
 	$currentStep->loadTemplateData($templateData);
 
 	// Render the output
 	$template = new StatusTemplate();
+
 	$template->renderHeaderBodyAndFooter($templateData);
 }
 

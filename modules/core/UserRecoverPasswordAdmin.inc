@@ -99,7 +99,6 @@ class UserRecoverPasswordAdminController extends GalleryController {
 					}
 
 					$user->changePassword($form['password1']);
-
 					$ret = $user->save();
 
 					if ($ret) {
@@ -131,6 +130,7 @@ class UserRecoverPasswordAdminController extends GalleryController {
 					 */
 					$results['return'] = 0;
 					$subView           = 'core.UserLogin';
+
 					$session->remove('core.UserRecoverPasswordAdminAuthKey');
 				} else {
 					$error[] = 'form[error][userName][incorrect]';
@@ -218,6 +218,7 @@ class UserRecoverPasswordAdminView extends GalleryView {
 		$UserRecoverPasswordAdmin['authString'] = $authString;
 		$UserRecoverPasswordAdmin['error']      = $error;
 		$UserRecoverPasswordAdmin['status']     = $status;
+
 		$template->setVariable('UserRecoverPasswordAdmin', $UserRecoverPasswordAdmin);
 		$template->setVariable('controller', 'core.UserRecoverPasswordAdmin');
 

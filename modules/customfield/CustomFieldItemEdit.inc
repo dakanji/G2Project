@@ -80,6 +80,7 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 
 					case 'error':
 						$status = '<div class="giError">' .
+
 						$module->translate('Field name already in use') . '</div>';
 
 						break;

@@ -112,7 +112,6 @@ class GalleryEntityHelper_medium {
 			for ($i = 1; $i < sizeof($linkedEntities); $i++) {
 				$linkedEntities[$i]->setLinkId($linkedEntities[0]->getId());
 				$linkedEntities[$i]->setLinkedEntity($linkedEntities[0]);
-
 				$ret = $linkedEntities[$i]->save();
 
 				if ($ret) {
@@ -222,7 +221,6 @@ class GalleryEntityHelper_medium {
 				}
 
 				$entity->removeOnLoadHandler($handlerId);
-
 				$ret = $entity->save();
 
 				if ($ret) {
@@ -261,7 +259,6 @@ class GalleryEntityHelper_medium {
 		}
 
 		$entity->setModificationTimestamp(time());
-
 		$ret = $entity->save();
 
 		if ($ret) {
@@ -398,8 +395,7 @@ class GalleryEntityHelper_medium {
 					'itemId' => $entity->getId(),
 				)
 			);
-
-			$buf = sprintf(
+			$buf                  = sprintf(
 				'<?php function GalleryFastDownload() { ' .
 				'return $GLOBALS[\'gallery\']->fastDownload(\'%s\', \'%s\', ' .
 				'\'%s\', \'%s\', %d);} ?>',
@@ -409,7 +405,6 @@ class GalleryEntityHelper_medium {
 				$entity->getMimeType(),
 				$contentLength
 			);
-
 			$platform->atomicWrite($fastDownloadFilePath, $buf);
 		}
 

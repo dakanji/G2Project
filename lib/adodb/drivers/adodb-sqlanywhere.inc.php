@@ -16,9 +16,13 @@ Set tabs to 4 for best viewing.
 	  primary key column using autoincrement function.
    2) Added blob support.  Usage:
 		 a) create blob variable on db server:
+
 		$dbconn->create_blobvar($blobVarName);
+
 	  b) load blob var from file.  $filename must be complete path
+
 	  $dbcon->load_blobvar_from_file($blobVarName, $filename);
+
 	  c) Use the $blobVarName in SQL insert or update statement in the values
 	  clause:
 		$recordSet = $dbconn->Execute('INSERT INTO tabname (idcol, blobcol) '
@@ -26,9 +30,13 @@ Set tabs to 4 for best viewing.
 	   'VALUES (\'test\', ' . $blobVarName . ')');
 	 instead of loading blob from a file, you can also load from
 	  an unformatted (raw) blob variable:
+
 	  $dbcon->load_blobvar_from_var($blobVarName, $varName);
+
 	  d) drop blob variable on db server to free up resources:
+
 	  $dbconn->drop_blobvar($blobVarName);
+
   Sybase_SQLAnywhere data driver. Requires ODBC.
 */
 
@@ -112,11 +120,14 @@ if (!defined('ADODB_SYBASE_SQLANYWHERE')) {
 		Insert a null into the blob field of the table first.
 		Then use UpdateBlob to store the blob.
 		Usage:
+
 		$conn->Execute('INSERT INTO blobtable (id, blobcol) VALUES (1, null)');
 		$conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
+
 		*/
 		public function UpdateBlob($table, $column, &$val, $where, $blobtype = 'BLOB') {
 			$blobVarName = 'hold_blob';
+
 			$this->create_blobvar($blobVarName);
 			$this->load_blobvar_from_var($blobVarName, $val);
 			$this->Execute("UPDATE $table SET $column=$blobVarName WHERE $where");

@@ -259,6 +259,7 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[level][testOptionId]', 'MEDIUM');
 
 		$this->handleRequest(ERROR_BAD_PARAMETER);
+
 		CaptchaAdminOption::getMe()->delTestOptions();
 	}
 }

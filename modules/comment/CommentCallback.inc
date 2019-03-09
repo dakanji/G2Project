@@ -171,7 +171,6 @@ class CommentCallbackView extends GalleryView {
 		}
 
 		$comment->setPublishStatus($newPublishStatus);
-
 		$ret = $comment->save();
 
 		if ($ret) {

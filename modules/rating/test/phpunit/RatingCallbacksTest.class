@@ -40,8 +40,7 @@ class RatingCallbacksTest extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
-		$ret = parent::setUp();
+		$ret     = parent::setUp();
 
 		if ($ret) {
 			return $ret;

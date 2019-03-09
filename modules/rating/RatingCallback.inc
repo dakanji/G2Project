@@ -93,8 +93,7 @@ class RatingCallbackView extends GalleryView {
 						'arg1'  => $results['votes'],
 					)
 				);
-
-				$session =& $gallery->getSession();
+				$session                =& $gallery->getSession();
 				echo $results['itemId'] . "\n"
 				. $results['rating'] . "\n"
 				. $results['votesString'] . "\n"

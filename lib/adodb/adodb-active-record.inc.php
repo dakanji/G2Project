@@ -55,7 +55,8 @@ function ADODB_SetDatabaseAdapter(&$db, $index = false) {
 		}
 	}
 
-	$obj         = new ADODB_Active_DB();
+	$obj = new ADODB_Active_DB();
+
 	$obj->db     = $db;
 	$obj->tables = array();
 
@@ -117,7 +118,8 @@ class ADODB_Active_Record {
 	}
 
 	public function __set($name, $value) {
-		$name        = str_replace(' ', '_', $name);
+		$name = str_replace(' ', '_', $name);
+
 		$this->$name = $value;
 	}
 
@@ -150,6 +152,7 @@ class ADODB_Active_Record {
 			}
 
 			end($_ADODB_ACTIVE_DBS);
+
 			$this->_dbat = key($_ADODB_ACTIVE_DBS);
 		}
 
@@ -234,7 +237,8 @@ class ADODB_Active_Record {
 	}
 
 	public function hasMany($foreignRef, $foreignKey = false, $foreignClass = 'ADODB_Active_Record') {
-		$ar              = new $foreignClass($foreignRef);
+		$ar = new $foreignClass($foreignRef);
+
 		$ar->foreignName = $foreignRef;
 		$ar->UpdateActiveTable();
 		$ar->foreignKey               = ($foreignKey) ? $foreignKey : $foreignRef . self::$_foreignSuffix;
@@ -247,6 +251,7 @@ class ADODB_Active_Record {
 	// use when you don't want ADOdb to auto-pluralize tablename
 	public static function TableHasMany($table, $foreignRef, $foreignKey = false, $foreignClass = 'ADODB_Active_Record') {
 		$ar = new self($table);
+
 		$ar->hasMany($foreignRef, $foreignKey, $foreignClass);
 	}
 
@@ -257,6 +262,7 @@ class ADODB_Active_Record {
 		}
 
 		$ar = new self($table, $tablePKey);
+
 		$ar->hasMany($foreignRef, $foreignKey, $foreignClass);
 	}
 
@@ -269,6 +275,7 @@ class ADODB_Active_Record {
 		$foreignClass = 'ADODB_Active_Record'
 	) {
 		$ar = new $parentclass();
+
 		$ar->hasMany($foreignRef, $foreignKey, $foreignClass);
 	}
 
@@ -299,6 +306,7 @@ class ADODB_Active_Record {
 		$parentClass = 'ADODB_Active_Record'
 	) {
 		$ar = new $class();
+
 		$ar->belongsTo($foreignRef, $foreignKey, $parentKey, $parentClass);
 	}
 
@@ -310,6 +318,7 @@ class ADODB_Active_Record {
 		$parentClass = 'ADODB_Active_Record'
 	) {
 		$ar = new self($table);
+
 		$ar->belongsTo($foreignRef, $foreignKey, $parentKey, $parentClass);
 	}
 
@@ -326,6 +335,7 @@ class ADODB_Active_Record {
 		}
 
 		$ar = new self($table, $tablePKey);
+
 		$ar->belongsTo($foreignRef, $foreignKey, $parentKey, $parentClass);
 	}
 
@@ -467,7 +477,8 @@ class ADODB_Active_Record {
 			}
 		}
 
-		$activetab        = new ADODB_Active_Table();
+		$activetab = new ADODB_Active_Table();
+
 		$activetab->name  = $table;
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
@@ -579,7 +590,8 @@ class ADODB_Active_Record {
 
 		if ($ADODB_ACTIVE_CACHESECS && $ADODB_CACHE_DIR) {
 			$activetab->_created = time();
-			$s                   = serialize($activetab);
+
+			$s = serialize($activetab);
 
 			if (!function_exists('adodb_write_file')) {
 				include ADODB_DIR . '/adodb-csvlib.inc.php';
@@ -608,7 +620,8 @@ class ADODB_Active_Record {
 	public function Error($err, $fn) {
 		global $_ADODB_ACTIVE_DBS;
 
-		$fn             = get_class($this) . '::' . $fn;
+		$fn = get_class($this) . '::' . $fn;
+
 		$this->_lasterr = $fn . ': ' . $err;
 
 		if ($this->_dbat < 0) {
@@ -742,12 +755,14 @@ class ADODB_Active_Record {
 
 		// <AP>
 		reset($keys);
+
 		$this->_original = array();
 
 		foreach ($table->flds as $name => $fld) {
 			$value             = $row[current($keys)];
 			$this->$name       = $value;
 			$this->_original[] = $value;
+
 			next($keys);
 		}
 
@@ -1030,6 +1045,7 @@ class ADODB_Active_Record {
 
 					else {
 						$this->Error("Cannot update null into $name","Replace");
+
 						return false;
 					}
 				}
@@ -1240,6 +1256,7 @@ function adodb_GetActiveRecordsClass(
 		}
 
 		$obj->Set($row);
+
 		$arr[] = $obj;
 	} // foreach($rows as $row)
 	return $arr;

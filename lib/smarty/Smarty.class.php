@@ -730,6 +730,7 @@ class Smarty {
 	public function register_object($object, &$object_impl, $allowed = array(), $smarty_args = true, $block_methods = array()) {
 		settype($allowed, 'array');
 		settype($smarty_args, 'boolean');
+
 		$this->_reg_objects[$object] = array(&$object_impl, $allowed, $smarty_args, $block_methods);
 	}
 
@@ -1157,8 +1158,7 @@ class Smarty {
 				'filename' => $resource_name,
 				'depth'    => 0,
 			);
-
-			$_included_tpls_idx = count($this->_smarty_debug_info) - 1;
+			$_included_tpls_idx         = count($this->_smarty_debug_info) - 1;
 		}
 
 		if (!isset($compile_id)) {
@@ -1661,8 +1661,7 @@ class Smarty {
 							$this->_plugins['resource'][$_resource_type][0][1],
 							array($_resource_name, &$params['resource_timestamp'], &$this)
 						);
-
-					$_return = $_source_return && $_timestamp_return;
+					$_return           = $_source_return && $_timestamp_return;
 
 					break;
 			}
@@ -1968,8 +1967,7 @@ class Smarty {
 				'filename' => $params['smarty_include_tpl_file'],
 				'depth'    => ++$this->_inclusion_depth,
 			);
-
-			$included_tpls_idx = count($this->_smarty_debug_info) - 1;
+			$included_tpls_idx          = count($this->_smarty_debug_info) - 1;
 		}
 
 		$this->_tpl_vars = array_merge($this->_tpl_vars, $params['smarty_include_vars']);

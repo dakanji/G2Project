@@ -75,6 +75,7 @@ class SitemapView extends GalleryView {
 		 * way too much data
 		 */
 		$phpVm->header('Content-type: application/xhtml+xml');
+
 		echo '<?xml version=\'1.0\' encoding=\'UTF-8\'?>';
 		echo "\n";
 		echo '<urlset xmlns="http://www.google.com/schemas/sitemap/0.84" ';
@@ -82,6 +83,7 @@ class SitemapView extends GalleryView {
 		echo 'xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 ';
 		echo 'http://www.google.com/schemas/sitemap/0.84/sitemap.xsd">';
 		echo "\n";
+
 		$gallery->guaranteeTimeLimit(120);
 
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds(
@@ -142,7 +144,6 @@ class SitemapView extends GalleryView {
 				$matchFrag,
 				GalleryUtilities::makeMarkers(count($aclIds))
 			);
-
 			$gallery->guaranteeTimeLimit(120);
 
 			list($ret, $searchResults) = $gallery->search($query, array_merge($data, $aclIds));

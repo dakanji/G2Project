@@ -43,8 +43,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 
 		// Create a watermark
 		$this->_watermark = new WatermarkImage();
-
-		$ret = $this->_watermark->create(
+		$ret              = $this->_watermark->create(
 			GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.gif'),
 			'image/gif',
 			'phpunit_' . mt_rand() . '.gif'
@@ -93,6 +92,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 			array($subalbumId, 'test/file', false, 0, true),
 		) as $info) {
 			list($ret,
+
 			$this->_items[], $this->_preferreds[], $this->_resizes[], $this->_thumbnails[]) = call_user_func_array(array($this, '_createItem'), $info);
 
 			if ($ret) {
@@ -106,7 +106,6 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 			$this->_resizes[0][0],
 			$this->_thumbnails[0],
 		);
-
 		$this->_templateAdapter    = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $this->_templateAdapter;
 	}
@@ -337,7 +336,6 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 			'composite|plugins_data/modules/watermark/' . $this->_watermark->getFileName()
 			. ',image/gif,62,75,manual,25.000,50.000'
 		);
-
 		$ret = $this->_preferred->save();
 
 		if ($ret) {
@@ -418,10 +416,8 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 	public function _runBulkTest($message, $recursive, $applyToThumbnail, $location, $isApply = true) {
 		$preferred = null;
 		$results   = $this->handleRequest($this->_album, $preferred);
-
 		$this->assertEquals(array(array(), $this->_translate($message)), $results);
 		$this->assertEquals(1, $this->_templateAdapter->getCallbackCount(), 'Callback count');
-
 		$ret = $this->_templateAdapter->runCallbacks();
 
 		if ($ret) {
@@ -559,11 +555,8 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->_registerTestToolkit('test/file');
-
 		$this->assertTrue($this->_plugin->isSupported($this->_item, $this->_thumbnail), 'admin');
-
 		$this->_becomeGuestUser();
-
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$gallery->getActiveUserId(),

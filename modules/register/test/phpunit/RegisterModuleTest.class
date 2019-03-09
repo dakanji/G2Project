@@ -58,7 +58,6 @@ class RegisterModuleTest extends GalleryTestCase {
 
 		// None for non-guest
 		$this->assertEquals(array(), $links, 'admin');
-
 		$gallery->setConfig('anonymousUserId', $gallery->getActiveUserId());
 
 		list($ret, $links) = $this->_module->getSystemLinks();
@@ -81,7 +80,6 @@ class RegisterModuleTest extends GalleryTestCase {
 			$links,
 			'alternate guest'
 		);
-
 		$gallery->setConfig('anonymousUserId', null);
 		$this->_becomeGuestUser();
 

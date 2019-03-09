@@ -302,8 +302,7 @@ class Auth_Container_ADOdb extends Auth_Container {
 			$sql_from,
 			$this->options['table']
 		);
-
-		$res = $this->db->getAll($query, null, DB_FETCHMODE_ASSOC);
+		$res   = $this->db->getAll($query, null, DB_FETCHMODE_ASSOC);
 
 		if (DB::isError($res)) {
 			return PEAR::raiseError($res->getMessage(), $res->getCode());
@@ -357,8 +356,7 @@ class Auth_Container_ADOdb extends Auth_Container {
 			$cryptFunction($password),
 			$additional_value
 		);
-
-		$res = $this->query($query);
+		$res   = $this->query($query);
 
 		if (DB::isError($res)) {
 			return PEAR::raiseError($res->getMessage(), $res->getCode());
@@ -385,8 +383,7 @@ class Auth_Container_ADOdb extends Auth_Container {
 			$this->options['usernamecol'],
 			$username
 		);
-
-		$res = $this->query($query);
+		$res   = $this->query($query);
 
 		if (DB::isError($res)) {
 			return PEAR::raiseError($res->getMessage(), $res->getCode());

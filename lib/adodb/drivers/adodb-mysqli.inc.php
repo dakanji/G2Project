@@ -372,6 +372,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				}
 
 				$u = strtoupper($seqname);
+
 				$this->Execute(sprintf($this->_genSeqSQL, $seqname));
 				$cnt = $this->GetOne(sprintf($this->_genSeqCountSQL, $seqname));
 
@@ -796,9 +797,11 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 					$fld->type       = $query_array[1];
 					$fld->max_length = is_numeric($query_array[2]) ? $query_array[2] : -1;
 				} elseif (preg_match('/^(enum)\((.*)\)$/i', $type, $query_array)) {
-					$fld->type       = $query_array[1];
-					$arr             = explode(',', $query_array[2]);
-					$fld->enums      = $arr;
+					$fld->type = $query_array[1];
+					$arr       = explode(',', $query_array[2]);
+
+					$fld->enums = $arr;
+
 					$zlen            = max(array_map('strlen', $arr)) - 2; // PHP >= 4.0.6
 					$fld->max_length = ($zlen > 0) ? $zlen : 1;
 				} else {
@@ -1067,6 +1070,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			}
 
 			$this->adodbFetchMode = $mode;
+
 			parent::__construct($queryID);
 		}
 

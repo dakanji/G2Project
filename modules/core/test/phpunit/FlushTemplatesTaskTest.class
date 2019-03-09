@@ -43,6 +43,7 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 
 		$gallery->setConfig('data.smarty.templates_c', '/templates_c');
 		$mockPlatform = new FlushTemplatesTaskTestPlatform(array());
+
 		$gallery->setPlatform($mockPlatform);
 		$task = new FlushTemplatesTask();
 
@@ -77,6 +78,7 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 
 		$gallery->setConfig('data.smarty.templates_c', '/templates_c');
 		$mockPlatform = new FlushTemplatesTaskTestPlatform(array('recursiveRmdir(/templates_c)'));
+
 		$gallery->setPlatform($mockPlatform);
 		$task = new FlushTemplatesTask();
 
@@ -98,7 +100,6 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 				'arg1' => '/templates_c',
 			)
 		);
-
 		$this->assertFalse($success, 'should have failed');
 		$this->assertEquals(array($expected), $details);
 		$this->assertEquals(

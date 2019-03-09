@@ -151,8 +151,7 @@ class GalleryTestCase extends TestCase {
 		}
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->beginTransaction();
+		$ret     = $storage->beginTransaction();
 
 		if ($ret) {
 			return $ret;
@@ -187,7 +186,6 @@ class GalleryTestCase extends TestCase {
 		$this->_saveSID    = $session->getId();
 		$this->_saveVars[] = $session->get('core.language');
 		$this->_markFactoryForCleanup();
-
 		$ret = $this->_initEventListenersForTest();
 
 		if ($ret) {
@@ -195,6 +193,7 @@ class GalleryTestCase extends TestCase {
 		}
 
 		$counter =& GalleryTestCase::getEntityCounter();
+
 		$counter->setCount(0);
 
 		/*
@@ -305,7 +304,6 @@ class GalleryTestCase extends TestCase {
 			GalleryCoreApi::requireOnce(
 				'modules/core/classes/helpers/GalleryFactoryHelper_simple.class'
 			);
-
 			$registryData    =& GalleryFactoryHelper_simple::_getFactoryData();
 			$registryData[1] = $this->_cleanup['factoryRegistry'];
 		}
@@ -335,8 +333,7 @@ class GalleryTestCase extends TestCase {
 		}
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->commitTransaction();
+		$ret     = $storage->commitTransaction();
 
 		if ($ret) {
 			$this->fail($ret->getAsText());
@@ -534,6 +531,7 @@ class GalleryTestCase extends TestCase {
 			// Change some settings
 			foreach ($fields as $field => $value) {
 				$func = "set$field";
+
 				$album->$func($value);
 			}
 
@@ -616,7 +614,6 @@ class GalleryTestCase extends TestCase {
 		$item->setSummary('This is a summary');
 		$item->setKeywords('These are some keywords');
 		$item->setDescription('This is a description');
-
 		$ret = $this->_verifyFields($item, array_keys($fields));
 
 		if ($ret) {
@@ -625,6 +622,7 @@ class GalleryTestCase extends TestCase {
 
 		foreach ($fields as $field => $value) {
 			$func = "set$field";
+
 			$item->$func($value);
 		}
 
@@ -740,7 +738,6 @@ class GalleryTestCase extends TestCase {
 		$user->changePassword($password);
 		$user->setEmail('user-' . $userTag . '@example.com');
 		$user->setLocked(false);
-
 		$ret = $user->save();
 
 		if ($ret) {
@@ -825,7 +822,6 @@ class GalleryTestCase extends TestCase {
 		$derivative->setMimeType($mimeType);
 		$derivative->setDerivativeSourceId($sourceId);
 		$derivative->setDerivativeOperations($operations);
-
 		$ret = $this->_verifyFields($derivative, array_keys($fields));
 
 		if ($ret) {
@@ -834,6 +830,7 @@ class GalleryTestCase extends TestCase {
 
 		foreach ($fields as $field => $value) {
 			$func = "set$field";
+
 			$derivative->$func($value);
 		}
 
@@ -940,6 +937,7 @@ class GalleryTestCase extends TestCase {
 
 		foreach ($fields as $field => $value) {
 			$func = "set$field";
+
 			$user->$func($value);
 		}
 
@@ -1169,14 +1167,11 @@ class GalleryTestCase extends TestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
 		$this->assertTrue($session->isPersistent(), 'test for authToken assumes persistent session');
-
 		$authToken = array(
 			'authToken' => $session->getAuthToken(),
 		);
-
-		$url = GalleryUrlGenerator::getMe()->appendParamsToUrl($url, $authToken);
+		$url       = GalleryUrlGenerator::getMe()->appendParamsToUrl($url, $authToken);
 
 		if (!$htmlEntities) {
 			$url = str_replace('&amp;', '&', $url);
@@ -1239,7 +1234,8 @@ class GalleryTestCase extends TestCase {
 		}
 
 		// Don't use references here
-		$eventListeners                   = GalleryEventHelper_simple::_getEventListeners();
+		$eventListeners = GalleryEventHelper_simple::_getEventListeners();
+
 		$this->_cleanup['eventListeners'] = $eventListeners;
 
 		return null;
@@ -1277,8 +1273,8 @@ class GalleryTestCase extends TestCase {
 			),
 			4
 		);
-
 		$counter =& GalleryTestCase::getEntityCounter();
+
 		$this->_registerTestEventListener('GalleryEntity::save', $counter);
 		$this->_registerTestEventListener('GalleryEntity::delete', $counter);
 
@@ -1455,7 +1451,6 @@ class GalleryTestCase extends TestCase {
 				count($_SERVER['NullEventListener'][$eventName]),
 				"Event '$eventName' fired more than once"
 			);
-
 			$event = $_SERVER['NullEventListener'][$eventName][0];
 
 			if (!empty($eventEntity)) {

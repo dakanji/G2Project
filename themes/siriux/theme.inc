@@ -37,7 +37,6 @@ class SiriuxTheme extends GalleryTheme {
 				'Siriux.net Gallery theme'
 			)
 		);
-
 		$this->setVersion('7.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
@@ -259,7 +258,6 @@ class SiriuxTheme extends GalleryTheme {
 			),
 			'value'      => $params['contentWidth'],
 		);
-
 		$settings[] = array(
 			'key'   => 'groupByYear',
 			'name'  => $this->translate(
@@ -268,7 +266,6 @@ class SiriuxTheme extends GalleryTheme {
 			'type'  => 'checkbox',
 			'value' => $params['groupByYear'],
 		);
-
 		$settings[] = array(
 			'key'   => 'enableImageMap',
 			'name'  => $this->translate(

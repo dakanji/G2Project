@@ -205,8 +205,7 @@ class IsapiRewriteHelper {
 				$urlGenerator->getCurrentUrlDir(true)
 			)
 		);
-
-		$ret = GalleryCoreApi::setPluginParameter(
+		$ret               = GalleryCoreApi::setPluginParameter(
 			'module',
 			'rewrite',
 			'isapirewrite.galleryLocation',
@@ -491,6 +490,7 @@ class IsapiRewriteHelper {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 
 		$template = new GalleryTemplate(__DIR__ . '/../../../templates', true, false);
+
 		$template->setVariable('Httpdini', $Httpdini);
 		$template->setVariable('l10Domain', 'modules_rewrite');
 
@@ -730,6 +730,7 @@ class IsapiRewriteHelper {
 		}
 
 		$TestResults['template'] = 'modules/rewrite/templates/IsapiRewriteTestResults.tpl';
+
 		$template->setVariable('TestResults', $TestResults);
 
 		return null;
@@ -773,6 +774,7 @@ class IsapiRewriteHelper {
 
 		$AdminParser['action']   = 1;
 		$AdminParser['template'] = 'modules/rewrite/templates/IsapiRewriteAdminParser.tpl';
+
 		$template->setVariable('AdminParser', $AdminParser);
 
 		return null;

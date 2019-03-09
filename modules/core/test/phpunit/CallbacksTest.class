@@ -76,8 +76,7 @@ class CallbacksTest extends GalleryTestCase {
 			'albumBlocks'   => array(),
 			'photoBlocks'   => array(),
 		);
-
-		$ret = $this->_callback->callback(
+		$ret                                         = $this->_callback->callback(
 			array(
 				'checkBlocks' => 'sidebar',
 				'permissions' => array(
@@ -105,8 +104,7 @@ class CallbacksTest extends GalleryTestCase {
 			'albumBlocks'   => array(),
 			'photoBlocks'   => array(),
 		);
-
-		$ret = $this->_callback->callback(
+		$ret                                         = $this->_callback->callback(
 			array(
 				'checkBlocks' => 'sidebar',
 				'permissions' => array(
@@ -134,8 +132,7 @@ class CallbacksTest extends GalleryTestCase {
 			'albumBlocks'   => array(array('core.ItemLinks', array())),
 			'photoBlocks'   => array(array('core.ItemLinks', array())),
 		);
-
-		$ret = $this->_callback->callback(
+		$ret                                         = $this->_callback->callback(
 			array(
 				'checkBlocks' => 'sidebar,album',
 				'permissions' => array(
@@ -163,8 +160,7 @@ class CallbacksTest extends GalleryTestCase {
 			'albumBlocks'   => array(array('core.ItemLinks', array())),
 			'photoBlocks'   => array(array('core.ItemLinks', array())),
 		);
-
-		$ret = $this->_callback->callback(
+		$ret                                         = $this->_callback->callback(
 			array(
 				'checkBlocks' => 'sidebar',
 				'permissions' => array(
@@ -191,8 +187,7 @@ class CallbacksTest extends GalleryTestCase {
 			'myBlocks'    => array(),
 			'photoBlocks' => array(),
 		);
-
-		$ret = $this->_callback->callback(
+		$ret                                         = $this->_callback->callback(
 			array(
 				'checkBlocks' => 'my',
 				'permissions' => array(),
@@ -217,7 +212,6 @@ class CallbacksTest extends GalleryTestCase {
 			isset($this->_smarty->_tpl_vars['block']['core']['LoadPeers']),
 			$msg . ': set'
 		);
-
 		$data =& $this->_smarty->_tpl_vars['block']['core']['LoadPeers'];
 		$this->assertEquals(
 			array('peers', 'peerCount', 'thisPeerIndex', 'parent'),
@@ -265,8 +259,7 @@ class CallbacksTest extends GalleryTestCase {
 		}
 
 		$this->_smarty->_tpl_vars = array();
-
-		$ret = $this->_callback->callback(
+		$ret                      = $this->_callback->callback(
 			array(
 				'item'       => (array)$this->_items[5],
 				'windowSize' => 5,
@@ -281,8 +274,7 @@ class CallbacksTest extends GalleryTestCase {
 
 		$this->_assertPeers(7, 11, 6, array(1, 4, 5, 6, 7, 8, 11), 'simple');
 		$this->_smarty->_tpl_vars = array();
-
-		$ret = $this->_callback->callback(
+		$ret                      = $this->_callback->callback(
 			array(
 				'item'       => (array)$this->_items[4],
 				'windowSize' => 7,
@@ -298,8 +290,7 @@ class CallbacksTest extends GalleryTestCase {
 
 		$this->_assertPeers(7, 11, 5, array(2, 3, 4, 5, 6, 7, 8), 'no ends');
 		$this->_smarty->_tpl_vars = array();
-
-		$ret = $this->_callback->callback(
+		$ret                      = $this->_callback->callback(
 			array(
 				'item'       => (array)$this->_items[2],
 				'windowSize' => 7,
@@ -314,8 +305,7 @@ class CallbacksTest extends GalleryTestCase {
 
 		$this->_assertPeers(8, 11, 3, array(1, 2, 3, 4, 5, 6, 7, 11), 'front');
 		$this->_smarty->_tpl_vars = array();
-
-		$ret = $this->_callback->callback(
+		$ret                      = $this->_callback->callback(
 			array(
 				'item'       => (array)$this->_items[9],
 				'windowSize' => 5,
@@ -331,8 +321,7 @@ class CallbacksTest extends GalleryTestCase {
 
 		$this->_assertPeers(5, 11, 10, array(7, 8, 9, 10, 11), 'end');
 		$this->_smarty->_tpl_vars = array();
-
-		$ret = $this->_callback->callback(
+		$ret                      = $this->_callback->callback(
 			array(
 				'item'       => (array)$this->_items[7],
 				'windowSize' => 21,
@@ -347,8 +336,7 @@ class CallbacksTest extends GalleryTestCase {
 
 		$this->_assertPeers(11, 11, 8, array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), 'both ends');
 		$this->_smarty->_tpl_vars = array();
-
-		$ret = $this->_callback->callback(
+		$ret                      = $this->_callback->callback(
 			array(
 				'item'       => (array)$this->_items[6],
 				'windowSize' => 6,
@@ -364,8 +352,7 @@ class CallbacksTest extends GalleryTestCase {
 
 		$this->_assertPeers(6, 11, 7, array(5, 6, 7, 8, 9, 10), 'unbalanced');
 		$this->_smarty->_tpl_vars = array();
-
-		$ret = $this->_callback->callback(
+		$ret                      = $this->_callback->callback(
 			array(
 				'item'       => (array)$this->_items[0],
 				'windowSize' => 4,
@@ -381,8 +368,7 @@ class CallbacksTest extends GalleryTestCase {
 
 		$this->_assertPeers(4, 11, 1, array(1, 2, 3, 4), 'unbalanced front');
 		$this->_smarty->_tpl_vars = array();
-
-		$ret = $this->_callback->callback(
+		$ret                      = $this->_callback->callback(
 			array(
 				'item'       => (array)$this->_items[8],
 				'windowSize' => 8,

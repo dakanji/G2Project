@@ -79,7 +79,6 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 			}
 
 			$thumb->setDerivativeOperations($operations);
-
 			$ret = $thumb->save();
 
 			if ($ret) {
@@ -122,6 +121,7 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 		}
 
 		$form['duration'] = sprintf('%.3f', $duration);
+
 		$template->setVariable('controller', 'thumbpage.ItemEditThumbOffset');
 
 		return array(

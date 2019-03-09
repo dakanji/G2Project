@@ -46,6 +46,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
 		// create custom platform to return dummy filesize, imagesize, etc.
 		$galleryPlatform             = $gallery->getPlatform();
 		$SizeLimitHelperTestPlatform = new SizeLimitHelperTestPlatform($galleryPlatform);
+
 		$gallery->setPlatform($SizeLimitHelperTestPlatform);
 
 		// Register dummy toolkit and operations
@@ -168,7 +169,6 @@ class SizeLimitHelperTest extends GalleryTestCase {
 			GalleryUtilities::isExactlyA($resized, 'GalleryDerivativeImage'),
 			'not a derivative image'
 		);
-
 		$ret = $resized->rebuildCache();
 
 		if ($ret) {
@@ -187,7 +187,6 @@ class SizeLimitHelperTest extends GalleryTestCase {
 			'unsupported',
 			array('anything')
 		);
-
 		$this->assertTrue($ret->getErrorCode() & ERROR_UNSUPPORTED_FILE_TYPE);
 	}
 
@@ -206,7 +205,6 @@ class SizeLimitHelperTest extends GalleryTestCase {
 		}
 
 		$ret = SizeLimitHelper::applyLimits($this->_item, 'test', array(26));
-
 		$this->assertFalse($ret, 'applyLimits');
 
 		list($ret, $this->_item) = $this->_item->refresh();
@@ -245,7 +243,6 @@ class SizeLimitHelperTest extends GalleryTestCase {
 		}
 
 		$ret = SizeLimitHelper::applyLimits($this->_itemUnknown, 'test', array(26));
-
 		$this->assertEquals(
 			GALLERY_ERROR | ERROR_UNSUPPORTED_FILE_TYPE,
 			$ret->getErrorCode(),

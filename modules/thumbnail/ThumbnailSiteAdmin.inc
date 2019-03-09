@@ -106,8 +106,7 @@ class ThumbnailSiteAdminController extends GalleryController {
 				}
 
 				$itemMimeTypesList = $item->getItemMimeTypesList();
-
-				$ret = GalleryCoreApi::deleteEntityById($form['delete']['itemId'], 'ThumbnailImage');
+				$ret               = GalleryCoreApi::deleteEntityById($form['delete']['itemId'], 'ThumbnailImage');
 
 				if ($ret) {
 					return array($ret, null);
@@ -207,6 +206,7 @@ class ThumbnailSiteAdminView extends GalleryView {
 			$SiteAdmin['enctype'] = 'multipart/form-data';
 		} else {
 			$SiteAdmin['enctype'] = 'multipart/form-data';
+
 			$template->setVariable('SiteAdmin', $SiteAdmin);
 		}
 

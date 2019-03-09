@@ -42,6 +42,7 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$MultiLangModule = new MultiLangModule();
+
 		$this->_registerTestEventListener('GalleryEntity::delete', $MultiLangModule);
 
 		list($ret, $this->_album) = $this->_createRandomAlbum(
@@ -59,7 +60,6 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
-
 		$ret = $this->_markPluginParametersForCleanup('module', 'multilang');
 
 		if ($ret) {
@@ -103,7 +103,6 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
 
 		$results = $this->handleRequest($this->album, $this->_album);
-
 		$this->assertEquals(array(array(), null), $results);
 	}
 
@@ -135,7 +134,6 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results
 		);
-
 		$gallery->setActiveLanguageCode('en_US');
 
 		list($ret, $album) = $this->_subAlbum->refresh();
@@ -147,7 +145,6 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 		$this->assertEquals('title', $album->getTitle());
 		$this->assertEquals('summary', $album->getSummary());
 		$this->assertEquals('description', $album->getDescription());
-
 		$gallery->setActiveLanguageCode('zh_CN');
 
 		list($ret, $album) = $this->_subAlbum->refresh();
@@ -171,7 +168,6 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 			$album->getDescription(),
 			'cn description'
 		);
-
 		$ret = GalleryCoreApi::deleteEntityById(
 			$this->_subAlbum->getId(),
 			'GalleryAlbumItem'
@@ -198,8 +194,7 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 
 	public function testMissingRootTitle() {
 		$rootAlbumId = $this->_getRootId();
-
-		$ret = GalleryCoreApi::setPluginParameter(
+		$ret         = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'id.rootAlbum',
@@ -218,7 +213,6 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 			array(array('form[error][title][missingRootTitle]'), null),
 			$results
 		);
-
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
@@ -251,7 +245,6 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results
 		);
-
 		$gallery->setActiveLanguageCode('de_DE');
 
 		list($ret, $album) = $this->_album->refresh();

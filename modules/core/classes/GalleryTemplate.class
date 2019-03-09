@@ -405,7 +405,6 @@ class GalleryTemplate {
 			true,
 			array('addToTrailer', 'autoComplete', 'container')
 		);
-
 		$smarty->register_resource(
 			'gallery',
 			array(

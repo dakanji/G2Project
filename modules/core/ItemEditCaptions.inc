@@ -105,11 +105,10 @@ class ItemEditCaptionsController extends GalleryController {
 					if ($item->getSerialNumber() == $form['items'][$id]['serialNumber']) {
 						if ($markup == 'html') {
 							// Strip malicious content if html markup allowed
-							$form['items'][$id]['title'] = GalleryUtilities::htmlSafe(
+							$form['items'][$id]['title']   = GalleryUtilities::htmlSafe(
 								$form['items'][$id]['title'],
 								true
 							);
-
 							$form['items'][$id]['summary'] = GalleryUtilities::htmlSafe(
 								$form['items'][$id]['summary'],
 								true
@@ -125,7 +124,6 @@ class ItemEditCaptionsController extends GalleryController {
 						$item->setSummary($form['items'][$id]['summary']);
 						$item->setKeywords($form['items'][$id]['keywords']);
 						$item->setDescription($form['items'][$id]['description']);
-
 						$ret = $item->save();
 
 						if ($ret) {
@@ -352,7 +350,6 @@ class ItemEditCaptionsView extends GalleryView {
 		$ItemEditCaptions['fieldLengths']['title'] = $this->_getSizesForMaxLength(
 			$entityInfo['GalleryItem']['members']['title']['size']
 		);
-
 		$template->setVariable('ItemEditCaptions', $ItemEditCaptions);
 		$template->setVariable('controller', 'core.ItemEditCaptions');
 		$template->javascript('lib/yui/yahoo-dom-event.js');

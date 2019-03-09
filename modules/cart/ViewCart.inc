@@ -35,6 +35,7 @@ class ViewCartView extends GalleryView {
 		global $gallery;
 
 		$returnItemId = GalleryUtilities::getRequestVariables('itemId');
+
 		$template->setVariable('itemId', $returnItemId);
 
 		list($ret, $itemList) = CartHelper::loadCartItems();
@@ -137,6 +138,7 @@ class ViewCartView extends GalleryView {
 		$ViewCart['thumbnails']    = $thumbnails;
 		$ViewCart['plugins']       = $plugins;
 		$ViewCart['controller']    = 'cart.ModifyCart';
+
 		$template->setVariable('ViewCart', $ViewCart);
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'cart');

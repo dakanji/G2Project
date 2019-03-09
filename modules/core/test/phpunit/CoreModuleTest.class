@@ -55,7 +55,6 @@ class CoreModuleTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_parentAlbum);
-
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_parentAlbum->getId(),
 			$gallery->getActiveUserId(),
@@ -101,7 +100,6 @@ class CoreModuleTest extends GalleryTestCase {
 				'pageId'     => $albumId,
 			)
 		);
-
 		$this->assertEquals(
 			array(
 				array(
@@ -227,7 +225,6 @@ class CoreModuleTest extends GalleryTestCase {
 
 	public function testGetConfigurationView() {
 		$content = $this->_module->getConfigurationView();
-
 		$this->assertEquals(null, $content);
 	}
 
@@ -401,6 +398,7 @@ class CoreModuleTest extends GalleryTestCase {
 		global $gallery;
 
 		$UnitTestPlatform = new UnitTestPlatform();
+
 		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
@@ -432,7 +430,6 @@ class CoreModuleTest extends GalleryTestCase {
 		$expected['core']    = rtrim($versionArray[0]);
 		$expected['gallery'] = rtrim($versionArray[1]);
 		$versions            = $this->_module->getInstalledVersions();
-
 		$this->assertEquals($expected, $versions, 'Unexpected value from getInstalled Versions');
 	}
 
@@ -440,6 +437,7 @@ class CoreModuleTest extends GalleryTestCase {
 		global $gallery;
 
 		$UnitTestPlatform = new UnitTestPlatform();
+
 		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
@@ -456,7 +454,6 @@ class CoreModuleTest extends GalleryTestCase {
 				$this->_module->getGalleryVersion(),
 			)
 		);
-
 		$unused = $this->_module->getInstalledVersions();
 		$this->assertEquals(
 			'TEST-VALUE',
@@ -469,6 +466,7 @@ class CoreModuleTest extends GalleryTestCase {
 		global $gallery;
 
 		$UnitTestPlatform = new UnitTestPlatform();
+
 		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
@@ -486,7 +484,6 @@ class CoreModuleTest extends GalleryTestCase {
 				'maintenance-mode',
 			)
 		);
-
 		$unused = $this->_module->getInstalledVersions();
 		$this->assertEquals(
 			true,
@@ -499,6 +496,7 @@ class CoreModuleTest extends GalleryTestCase {
 		global $gallery;
 
 		$UnitTestPlatform = new UnitTestPlatform();
+
 		$gallery->setPlatform($UnitTestPlatform);
 		$platform =& $gallery->getPlatform();
 
@@ -516,7 +514,6 @@ class CoreModuleTest extends GalleryTestCase {
 				'maintenance-mode:http://g2.com/maintenance.html',
 			)
 		);
-
 		$unused = $this->_module->getInstalledVersions();
 		$this->assertEquals(
 			'http://g2.com/maintenance.html',

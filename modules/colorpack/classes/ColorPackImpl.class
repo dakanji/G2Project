@@ -57,7 +57,9 @@ class ColorPackImpl extends ColorPackInterface_1_0 {
 			}
 
 			ob_end_clean();
+
 			$platform->closedir($fd);
+
 			asort($colorpacks);
 		}
 

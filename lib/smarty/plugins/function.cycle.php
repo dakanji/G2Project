@@ -84,6 +84,7 @@ function smarty_function_cycle($params, &$smarty) {
 
 	if (isset($params['assign'])) {
 		$print = false;
+
 		$smarty->assign($params['assign'], $cycle_array[$cycle_vars[$name]['index']]);
 	}
 

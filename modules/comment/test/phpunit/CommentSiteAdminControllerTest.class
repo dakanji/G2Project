@@ -260,7 +260,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function testCheckAllWithAkismetCallback() {
 		global $gallery;
 
-		$mockTemplateAdapter       = new MockTemplateAdapter();
+		$mockTemplateAdapter = new MockTemplateAdapter();
+
 		$gallery->_templateAdapter =& $mockTemplateAdapter;
 
 		list($ret, $rootId) = GalleryCoreApi::getDefaultAlbumId();
@@ -276,7 +277,6 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($album);
-
 		$ret = $this->_markPluginParametersForCleanup('module', 'core');
 
 		if ($ret) {
@@ -308,7 +308,6 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 			$comment[$i]->setSubject('this is a test subject');
 			$comment[$i]->setComment('this is a test comment');
 			$comment[$i]->setHost('127.0.0.1');
-
 			$ret = $comment[$i]->save();
 
 			if ($ret) {

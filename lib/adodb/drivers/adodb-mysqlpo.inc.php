@@ -129,6 +129,7 @@ class ADORecordSet_mysqlt extends ADORecordSet_mysql {
 		}
 
 		$this->adodbFetchMode = $mode;
+
 		parent::__construct($queryID);
 	}
 

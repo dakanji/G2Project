@@ -387,7 +387,6 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 			if ($i == 1) {
 				// Success
 				$id = $item->getId();
-
 				$this->assertEquals("title $id", $newItem->getTitle());
 				$this->assertEquals("summary $id", $newItem->getSummary());
 				$this->assertEquals("keywords $id", $newItem->getKeywords());
@@ -474,7 +473,6 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 			$this->assertEquals('title here', $item->getTitle());
 			$this->assertEquals('summary &lt;p&gt;yy&lt;/p&gt;', $item->getSummary());
-
 			$this->assertEquals('', $item->getKeywords(), 'keywords');
 			$this->assertEquals('description ', $item->getDescription());
 		}

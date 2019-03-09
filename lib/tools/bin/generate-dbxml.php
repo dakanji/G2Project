@@ -43,7 +43,8 @@ if (!mkdir($tmpdir)) {
 	exit(1);
 }
 
-$smarty                  = new Smarty();
+$smarty = new Smarty();
+
 $smarty->compile_dir     = $tmpdir;
 $smarty->error_reporting = error_reporting();
 $smarty->debugging       = true;

@@ -157,7 +157,6 @@ class ItemEditController extends GalleryController {
 					array($this, 'runProgressBarOptions'),
 					array($progressBarOptions, $form, $item, $preferred, $status, $editPlugin)
 				);
-
 				$results['delegate']['view'] = 'core.ProgressBar';
 			}
 		}

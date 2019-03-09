@@ -77,8 +77,7 @@ class DatabaseLockSystem extends GalleryLockSystem {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->releaseLocks(array_keys($locks));
+		$ret     = $storage->releaseLocks(array_keys($locks));
 
 		if ($ret) {
 			return $ret;
@@ -94,8 +93,7 @@ class DatabaseLockSystem extends GalleryLockSystem {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->removeIdsFromLock($lock, $ids);
+		$ret     = $storage->removeIdsFromLock($lock, $ids);
 
 		if ($ret) {
 			return $ret;
@@ -115,8 +113,7 @@ class DatabaseLockSystem extends GalleryLockSystem {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->moveIdsBetweenLocks(
+		$ret     = $storage->moveIdsBetweenLocks(
 			$relock,
 			$newLockId,
 			$this->_locks[$newLockId]['type']
@@ -160,8 +157,7 @@ class DatabaseLockSystem extends GalleryLockSystem {
 
 		if (!empty($this->_locks)) {
 			$storage =& $gallery->getStorage();
-
-			$ret = $storage->refreshLocks(array_keys($this->_locks), $freshUntil);
+			$ret     = $storage->refreshLocks(array_keys($this->_locks), $freshUntil);
 
 			if ($ret) {
 				return $ret;

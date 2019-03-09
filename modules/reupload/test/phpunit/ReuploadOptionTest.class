@@ -64,7 +64,6 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 		}
 
 		$this->_markToolkitForCleanup('ReuploadOptionTestToolkit');
-
 		$ret = GalleryCoreApi::registerToolkitProperty(
 			'ReuploadOptionTestToolkit',
 			array('image/known'),
@@ -88,6 +87,7 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 		// create custom platform to return dummy filesize, imagesize, etc.
 		$galleryPlatform            = $gallery->getPlatform();
 		$ReuploadOptionTestPlatform = new ReuploadOptionTestPlatform($galleryPlatform);
+
 		$gallery->setPlatform($ReuploadOptionTestPlatform);
 	}
 
@@ -98,7 +98,6 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 
 		// Perform the request and verify that we succeeded
 		list($errors, $warnings) = $this->_handleRequestAfterEdit($form, $this->_item);
-
 		$this->assertEquals(array(), $errors, 'Errors');
 		$this->assertEquals(
 			array($this->_translate('Reuploaded file successfully.')),
@@ -121,7 +120,6 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 
 		// Perform the request and verify that we failed and filesize didn't change
 		list($errors, $warnings) = $this->_handleRequestAfterEdit($form, $this->_item);
-
 		$this->assertEquals(array('form[error][reupload][failure]'), $errors, 'Errors');
 		$this->assertEquals(array(), $warnings, 'Warnings');
 		$this->assertEquals($this->_itemSize, $this->_item->getSize(), 'Item size');
@@ -137,7 +135,6 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 
 		// Perform the request and verify that we failed and filesize didn't change
 		list($errors, $warnings) = $this->_handleRequestAfterEdit($form, $this->_item);
-
 		$this->assertEquals(array('form[error][reupload][toolkit]'), $errors, 'Errors');
 		$this->assertEquals(array(), $warnings, 'Warnings');
 
@@ -163,7 +160,6 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 
 		// Perform the request and verify that we failed and filesize didn't change
 		list($errors, $warnings) = $this->_handleRequestAfterEdit($form, $this->_item);
-
 		$this->assertEquals(array(), $errors, 'Errors');
 		$this->assertEquals(array(), $warnings, 'Warnings');
 	}

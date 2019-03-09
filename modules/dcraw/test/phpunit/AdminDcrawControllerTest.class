@@ -52,7 +52,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 
 	public function tearDown() {
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
-
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -83,7 +82,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 			array(array(array('/path/to/dcraw'))),
 			array(1, array(), array('Raw Photo Decoder v5.62'))
 		);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -113,7 +111,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 			array(array(array('/path/to/dcraw'))),
 			array(1, array(), array('Raw Photo Decoder "dcraw" v6.35'))
 		);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -143,7 +140,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 			array(array(array('/path/to/dcraw'))),
 			array(1, array(), array('Raw Photo Decoder "dcraw" v7.17'))
 		);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -173,7 +169,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 			array(array(array('/path/to/dcraw'))),
 			array(1, array(), array('Raw Photo Decoder "dcraw" v7.73'))
 		);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -240,7 +235,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 			array(array(array('/path/to/dcraw'))),
 			array(1, array(), array('Wrong version of dcraw'))
 		);
-
 		$this->_platform->setReply(
 			'realpath',
 			array(
@@ -250,7 +244,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 			realpath(dirname(dirname(dirname(dirname(__DIR__))))),
 			true // optional
 		);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

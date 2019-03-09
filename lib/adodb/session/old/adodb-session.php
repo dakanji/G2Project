@@ -207,6 +207,7 @@ if (!defined('ADODB_SESSION')) {
 
 		if (!empty($ADODB_SESS_DEBUG)) {
 			$ADODB_SESS_CONN->debug = true;
+
 			ADOConnection::outp(" conn=$ADODB_SESSION_CONNECT user=$ADODB_SESSION_USER pwd=$ADODB_SESSION_PWD db=$ADODB_SESSION_DB ");
 		}
 
@@ -398,6 +399,7 @@ if (!defined('ADODB_SESSION')) {
 			}
 		} else {
 			$qry = "DELETE FROM $ADODB_SESSION_TBL WHERE expiry < " . time();
+
 			$ADODB_SESS_CONN->Execute($qry);
 
 			if ($ADODB_SESS_DEBUG) {

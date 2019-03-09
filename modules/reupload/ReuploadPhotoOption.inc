@@ -162,7 +162,6 @@ class ReuploadPhotoOption extends ItemEditOption {
 			}
 
 			$platform->unlink($tmpfname);
-
 			$ret = GalleryCoreApi::releaseLocks($lockIds);
 
 			if ($ret) {

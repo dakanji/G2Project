@@ -36,7 +36,6 @@ class RatingModule extends GalleryModule {
 				'Let Users Rate Gallery2 Items'
 			)
 		);
-
 		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
@@ -207,6 +206,7 @@ class RatingModule extends GalleryModule {
 			}
 
 			$RatingData[$itemId]['canRate'] = isset($permissions[$itemId]['rating.add']);
+
 			$template->setVariable('RatingData', $RatingData[$itemId]);
 			$template->setVariable('RatingSummary', $RatingSummary);
 
@@ -253,14 +253,12 @@ class RatingModule extends GalleryModule {
 					0,
 					array(),
 				);
-
 				$permissions[] = array(
 					'view',
 					$gallery->i18n('[rating] View ratings'),
 					0,
 					array(),
 				);
-
 				$permissions[] = array(
 					'all',
 					$gallery->i18n('[rating] All access'),
@@ -284,7 +282,6 @@ class RatingModule extends GalleryModule {
 
 				// Give everybody rating permission by default
 				$gallery->guaranteeTimeLimit(300);
-
 				$ret = GalleryCoreApi::addGroupPermission(
 					$coreParams['id.rootAlbum'],
 					$coreParams['id.everybodyGroup'],

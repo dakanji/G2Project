@@ -104,7 +104,6 @@ class RewriteApiTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($isCompatible, 'same version');
-
 		$compatibleVersion = array($currentVersion[0], 0);
 
 		list($ret, $isCompatible) = $this->_rewriteApi->isCompatibleWithApi($compatibleVersion);
@@ -275,7 +274,6 @@ class RewriteApiTest extends GalleryTestCase {
 
 		// Verify the results
 		$this->assertTrue($success, 'should have succeeded');
-
 		$expectedRules[$moduleId]['rule1'] = array(
 			'pattern' => 'abc',
 		);
@@ -303,7 +301,6 @@ class RewriteApiTest extends GalleryTestCase {
 
 		// Verify the results
 		$this->assertTrue($success, 'should have succeeded');
-
 		$expectedRules[$moduleId]['rule2'] = array(
 			'pattern' => '123',
 		);
@@ -345,7 +342,6 @@ class RewriteApiTest extends GalleryTestCase {
 
 		// Verify the results
 		$this->assertTrue($success, 'should have succeeded');
-
 		$expectedRules[$moduleId]['rule1'] = array(
 			'pattern' => 'existing pattern for r1',
 		);
@@ -393,7 +389,6 @@ class RewriteApiTest extends GalleryTestCase {
 
 		// Verify the results
 		$this->assertTrue($success, 'should have succeeded');
-
 		$expectedRules[$moduleId]['rule1'] = array(
 			'pattern' => 'abc',
 		);

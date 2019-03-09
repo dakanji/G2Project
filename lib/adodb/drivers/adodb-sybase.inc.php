@@ -215,6 +215,7 @@ class ADODB_sybase extends ADOConnection {
 
 		$this->Execute("set rowcount $cnt");
 		$rs = ADOConnection::SelectLimit($sql, $nrows, $offset, $inputarr, 0);
+
 		$this->Execute('set rowcount 0');
 
 		return $rs;

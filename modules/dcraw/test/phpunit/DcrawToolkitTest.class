@@ -30,6 +30,7 @@ GalleryCoreApi::requireOnce('modules/dcraw/classes/DcrawToolkit.class');
 class DcrawToolkitTest extends GalleryTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName);
+
 		$this->_toolkit = new DcrawToolkit();
 	}
 
@@ -70,7 +71,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 
 	public function tearDown() {
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
-
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -96,7 +96,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array($gallery->getConfig('data.gallery.tmp'), 'dcraw_'),
 			'TEMPFILE'
 		);
-
 		$this->_platform->setReply(
 			'exec',
 			array(
@@ -106,7 +105,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			),
 			array(1, '')
 		);
-
 		$this->_platform->setReply('rename', array('TEMPFILE', 'OUTPUTFILE'), 1);
 		$this->_platform->setReply('chmod', array('OUTPUTFILE', null), 1);
 
@@ -132,7 +130,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array($gallery->getConfig('data.gallery.tmp'), 'dcraw_'),
 			'TEMPFILE'
 		);
-
 		$this->_platform->setReply(
 			'exec',
 			array(
@@ -142,7 +139,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			),
 			array(1, '')
 		);
-
 		$this->_platform->setReply('rename', array('TEMPFILE', 'OUTPUTFILE'), 1);
 		$this->_platform->setReply('chmod', array('OUTPUTFILE', null), 1);
 
@@ -168,7 +164,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array($gallery->getConfig('data.gallery.tmp'), 'dcraw_'),
 			'TEMPFILE'
 		);
-
 		$this->_platform->setReply(
 			'exec',
 			array(
@@ -178,7 +173,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			),
 			array(1, '')
 		);
-
 		$this->_platform->setReply('rename', array('TEMPFILE', 'OUTPUTFILE'), 1);
 		$this->_platform->setReply('chmod', array('OUTPUTFILE', null), 1);
 
@@ -204,7 +198,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array($gallery->getConfig('data.gallery.tmp'), 'dcraw_'),
 			'TEMPFILE'
 		);
-
 		$this->_platform->setReply(
 			'exec',
 			array(
@@ -214,7 +207,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			),
 			array(0, '', 'INPUTFILE: unsupported file format.')
 		);
-
 		$this->_platform->setReply('unlink', array('TEMPFILE'), 1);
 
 		list($ret, $outputMimeType, $context) = $this->_toolkit->performOperation(
@@ -225,7 +217,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array(),
 			array()
 		);
-
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_TOOLKIT_FAILURE);
 	}
 
@@ -238,7 +229,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array(),
 			array()
 		);
-
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION);
 	}
 
@@ -259,7 +249,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array(),
 			array()
 		);
-
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_BAD_PATH);
 	}
 
@@ -271,7 +260,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array($gallery->getConfig('data.gallery.tmp'), 'dcraw_'),
 			'TEMPFILE'
 		);
-
 		$this->_platform->setReply(
 			'exec',
 			array(
@@ -281,7 +269,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			),
 			array(0, '')
 		);
-
 		$this->_platform->setReply('unlink', array('TEMPFILE'), 1);
 
 		list($ret, $outputMimeType, $context) = $this->_toolkit->performOperation(
@@ -292,7 +279,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array(),
 			array()
 		);
-
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_TOOLKIT_FAILURE);
 	}
 
@@ -304,7 +290,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array($gallery->getConfig('data.gallery.tmp'), 'dcraw_'),
 			'TEMPFILE'
 		);
-
 		$this->_platform->setReply(
 			'exec',
 			array(
@@ -314,7 +299,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			),
 			array(1, '')
 		);
-
 		$this->_platform->setReply('rename', array('TEMPFILE', 'OUTPUTFILE'), 0);
 		$this->_platform->setReply('unlink', array('TEMPFILE'), 1);
 
@@ -326,7 +310,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array(),
 			array()
 		);
-
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_PLATFORM_FAILURE);
 	}
 
@@ -339,7 +322,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			array(),
 			array()
 		);
-
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION);
 	}
 
@@ -384,7 +366,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			'dimensions',
 			'INPUTFILE'
 		);
-
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION);
 	}
 
@@ -394,7 +375,6 @@ class DcrawToolkitTest extends GalleryTestCase {
 			'BAD PROPERTY',
 			'INPUTFILE'
 		);
-
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION);
 	}
 }

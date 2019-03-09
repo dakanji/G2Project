@@ -107,6 +107,7 @@ class GalleryImportElement extends GalleryXmlHandler {
 			$complete                     = $this->_callBack['progress'] / $this->_callBack['total'];
 			$callback                     = $this->_callBack['callBack'];
 			call_user_func_array($callback, array($complete));
+
 			$gallery->guaranteeTimeLimit(120);
 		}
 	}
@@ -415,6 +416,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 			}
 
 			$xmlParser->release();
+
 			call_user_func_array($progressCallback, array(1.0));
 		} else {
 			return array(
@@ -458,6 +460,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 class _GalleryExportTag extends GalleryImportElement {
 	public function __construct($parent, $attributes) {
 		parent::__construct($parent);
+
 		$this->writeVersions($attributes['core-version'], $attributes['gallery-version']);
 		$this->updateStatus(0, $attributes['tables']);
 	}
@@ -516,6 +519,7 @@ class _GalleryPluginTag extends GalleryImportElement {
 
 	public function __construct($parent, $attributes) {
 		parent::__construct($parent);
+
 		$this->_id = $attributes['id'];
 	}
 
@@ -549,6 +553,7 @@ class _GallerySequenceTag extends GalleryImportElement {
 
 	public function __construct($parent, $attributes) {
 		parent::__construct($parent);
+
 		$this->_sequenceName = $attributes['name'];
 		$this->_startValue   = $attributes['start-value'];
 	}
@@ -566,8 +571,7 @@ class _GallerySequenceTag extends GalleryImportElement {
 	 */
 	public function importSequence() {
 		$storageExtras =& $this->_storage->_getExtras();
-
-		$ret = $storageExtras->dropSequence($this->_sequenceName);
+		$ret           = $storageExtras->dropSequence($this->_sequenceName);
 
 		// Ignore any errors and assume that if we get an error, then the sequence doesn't exist
 		$ret = $storageExtras->createSequence($this->_sequenceName, $this->_startValue);
@@ -587,6 +591,7 @@ class _GalleryTableTag extends GalleryImportElement {
 
 	public function __construct($parent, $attributes) {
 		parent::__construct($parent);
+
 		$this->_name = $attributes['name'];
 	}
 
@@ -633,6 +638,7 @@ class _GalleryTableDefinitionTag extends GalleryImportElement {
 
 	public function __construct($parent, $tableName, $attributes) {
 		parent::__construct($parent);
+
 		$this->_name     = $tableName;
 		$this->_moduleId = $attributes['module-id'];
 	}
@@ -661,13 +667,11 @@ class _GalleryTableDefinitionTag extends GalleryImportElement {
 	 */
 	public function _processEndElement($tag) {
 		list($table, $unused, $nameInSchema) = $this->_storage->_translateTableName($this->_name);
-
-		$ret = $this->_storage->execute('DROP TABLE ' . $table);
+		$ret                                 = $this->_storage->execute('DROP TABLE ' . $table);
 
 		// Don't check the return code. Assume the table doesn't exist and create it.
 		$storageExtras =& $this->_storage->_getExtras();
-
-		$ret = $storageExtras->_executeSql($this->_currentSql);
+		$ret           = $storageExtras->_executeSql($this->_currentSql);
 
 		if ($ret) {
 			$this->setError($ret);
@@ -678,8 +682,7 @@ class _GalleryTableDefinitionTag extends GalleryImportElement {
 		// Only need to decode if the data is in a CDATA section, which these fields are
 		$sql  = $this->_decodeHtmlSpecialChars($this->_currentSql);
 		$info = $this->_decodeHtmlSpecialChars($this->_tableInfo);
-
-		$ret = $storageExtras->_updateSchemaTableInfo(
+		$ret  = $storageExtras->_updateSchemaTableInfo(
 			$nameInSchema,
 			$sql,
 			$this->_moduleId,
@@ -724,6 +727,7 @@ class _GalleryCreateSqlTag extends GalleryImportElement {
 
 	public function GalleryTableImport($parent, $attributes) {
 		parent::__construct($parent);
+
 		$this->_currentSql = '';
 	}
 
@@ -748,6 +752,7 @@ class _GalleryTableInfoTag extends GalleryImportElement {
 
 	public function __construct($parent, $attributes) {
 		parent::__construct($parent);
+
 		$this->_tableInfo = '';
 		$this->_tableType = $attributes['type'];
 	}
@@ -778,8 +783,7 @@ class _GalleryDataTag extends GalleryImportElement {
 		parent::__construct($parent);
 
 		list($this->_tableName) = $this->_storage->_translateTableName($tableName);
-
-		$this->_rowCounter = 0;
+		$this->_rowCounter      = 0;
 	}
 
 	/**
@@ -833,7 +837,8 @@ class _GalleryFieldDefinitionTag extends GalleryImportElement {
 
 	public function __construct($parent, $attributes) {
 		parent::__construct($parent);
-		$colName                        = GalleryUtilities::strToLower($attributes['name']);
+		$colName = GalleryUtilities::strToLower($attributes['name']);
+
 		$this->_translatedName          = $this->_storage->_translateColumnName($colName);
 		$this->_fieldDefinition['type'] = $attributes['type'];
 
@@ -866,6 +871,7 @@ class _GalleryRowTag extends GalleryImportElement {
 
 	public function __construct($parent, $tableName, $fields, $attributes) {
 		parent::__construct($parent);
+
 		$this->_fields     = $fields;
 		$this->_fieldNames = array_keys($fields);
 		$this->_currentSql = 'INSERT INTO ' . $tableName . ' (' . implode(', ', $this->_fieldNames)
@@ -928,6 +934,7 @@ class _GalleryFieldValueTag extends GalleryImportElement {
 
 	public function __construct($parent, $memberData, $attributes) {
 		parent::__construct($parent);
+
 		$this->_fieldData   = '';
 		$this->_isFieldNull = !empty($attributes['null']);
 		$this->_memberData  = $memberData;
@@ -974,6 +981,7 @@ class GalleryXmlProcessor {
 	public function __construct($rootElement) {
 		$this->_elementStack[] = $rootElement;
 		$this->_xmlParser      = xml_parser_create('UTF-8');
+
 		xml_parser_set_option($this->_xmlParser, XML_OPTION_CASE_FOLDING, 0);
 		xml_set_object($this->_xmlParser, $this);
 

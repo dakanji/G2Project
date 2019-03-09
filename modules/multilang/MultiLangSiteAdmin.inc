@@ -121,7 +121,6 @@ class MultiLangSiteAdminView extends GalleryView {
 				'selectedList'  => $selectedList,
 			)
 		);
-
 		$template->setVariable('controller', 'multilang.MultiLangSiteAdmin');
 
 		return array(

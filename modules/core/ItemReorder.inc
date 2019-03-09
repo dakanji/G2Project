@@ -170,6 +170,7 @@ class ItemReorderController extends GalleryController {
 				}
 
 				$event = GalleryCoreApi::newEvent('Gallery::ItemOrder');
+
 				$event->setData($itemId);
 
 				list($ret) = GalleryCoreApi::postEvent($event);
@@ -290,6 +291,7 @@ class ItemReorderView extends GalleryView {
 		}
 
 		$ItemReorder['show'] = $show;
+
 		$template->setVariable('ItemReorder', $ItemReorder);
 		$template->setVariable('controller', 'core.ItemReorder');
 

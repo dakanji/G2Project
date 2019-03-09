@@ -96,7 +96,6 @@ class AdminCreateUserController extends GalleryController {
 					GalleryUtilities::unsanitizeInputValues($form['password1'], false);
 
 					$user->changePassword($form['password1']);
-
 					$ret = $user->save();
 
 					if ($ret) {
@@ -194,6 +193,7 @@ class AdminCreateUserView extends GalleryView {
 
 		$AdminCreateUser                 = array();
 		$AdminCreateUser['languageList'] = $languageList;
+
 		$template->setVariable('AdminCreateUser', $AdminCreateUser);
 		$template->setVariable('controller', 'core.AdminCreateUser');
 

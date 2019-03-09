@@ -30,6 +30,7 @@ class FinishedStep extends UpgradeStep {
 
 	public function loadTemplateData(&$templateData) {
 		$templateData['bodyFile'] = 'Finished.html';
+
 		$this->setComplete(true);
 	}
 }

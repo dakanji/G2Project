@@ -765,7 +765,6 @@ class Assert_X {
 			$this->_formatValue($expected, 'expected'),
 			$this->_formatValue($actual, 'actual')
 		);
-
 		$this->fail($str);
 	}
 }
@@ -973,8 +972,7 @@ class TestCase extends Assert {
 		global $gallery;
 
 		$this->fTiming['start'] = microtime();
-
-		$ret = $this->setUp();
+		$ret                    = $this->setUp();
 
 		if ($ret) {
 			$this->fail($ret->getAsHtml() . $gallery->getDebugBuffer());
@@ -999,7 +997,6 @@ class TestCase extends Assert {
 			!empty($this->fLifeCycle['tearDown']),
 			'TestSuite tearDown() method did not call parent::tearDown()'
 		);
-
 		$this->fTiming['stop'] = microtime();
 	}
 }
@@ -1381,6 +1378,7 @@ class TestRunner {
 	// Run a suite of tests and report results.
 	public function run(&$suite, $ranges) {
 		$result = new TextTestResult();
+
 		$suite->run($result, $ranges);
 		$result->report();
 	}

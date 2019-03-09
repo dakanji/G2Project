@@ -47,6 +47,7 @@ class CoreApiTest extends GalleryTestCase {
 		global $gallery;
 
 		$expectedId = mt_rand();
+
 		$gallery->setConfig('defaultAlbumId', $expectedId);
 
 		list($ret, $defaultId) = GalleryCoreApi::getDefaultAlbumId();

@@ -177,7 +177,6 @@ class ItemAddFromWeb extends ItemAddPlugin {
 					'',
 					$i++ / $totalUrls
 				);
-
 				$ret = $storage->checkPoint();
 
 				if ($ret) {
@@ -233,7 +232,9 @@ class ItemAddFromWeb extends ItemAddPlugin {
 				$session                      =& $gallery->getSession();
 				$recentUrls                   = $session->get('itemadd.view.ItemAddFromWeb.recentUrls');
 				$recentUrls[$form['webPage']] = 1;
+
 				$session->put('itemadd.view.ItemAddFromWeb.recentUrls', $recentUrls);
+
 				$form['webPageUrls'] = array();
 
 				if (isset($headers['Content-Type'])) {
@@ -416,6 +417,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 		}
 
 		$ItemAddFromWeb['recentUrls'] = array_keys($recentUrls);
+
 		$template->setVariable('ItemAddFromWeb', $ItemAddFromWeb);
 
 		return array(

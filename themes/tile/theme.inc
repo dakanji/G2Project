@@ -37,7 +37,6 @@ class TileTheme extends GalleryTheme {
 				'Tile view of background image and image thumbnails'
 			)
 		);
-
 		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
@@ -79,7 +78,6 @@ class TileTheme extends GalleryTheme {
 	 */
 	public function showAlbumPage(&$template, $item, $params, $childIds, $showHead = true) {
 		$this->_setDefaultParameters($params);
-
 		$ret = $this->loadCommonTemplateData(
 			$template,
 			$item,

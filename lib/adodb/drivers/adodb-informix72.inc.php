@@ -238,12 +238,14 @@ class ADODB_informix72 extends ADOConnection {
 			$retarr = array();
 
 			while (!$rs->EOF) { //print_r($rs->fields);
-				$fld       = new ADOFieldObject();
+				$fld = new ADOFieldObject();
+
 				$fld->name = $rs->fields[0];
 
 				/*  //!eos.
 						$rs->fields[1] is not the correct adodb type
 						$rs->fields[2] is not correct max_length, because can include not-null bit
+
 				$fld->type = $rs->fields[1];
 				$fld->primary_key=$rspkey->fields && array_search($rs->fields[4],$rspkey->fields); //Added to set primary key flag
 				$fld->max_length = $rs->fields[2];*/
@@ -340,6 +342,7 @@ class ADODB_informix72 extends ADOConnection {
 		}
 
 		putenv('INFORMIXSERVER=' . trim($argHostname));
+
 		$this->_connectionID = ifx_connect($dbs, $argUsername, $argPassword);
 
 		if ($this->_connectionID === false) {
@@ -358,6 +361,7 @@ class ADODB_informix72 extends ADOConnection {
 
 		$dbs = $argDatabasename . '@' . $argHostname;
 		putenv('INFORMIXSERVER=' . trim($argHostname));
+
 		$this->_connectionID = ifx_pconnect($dbs, $argUsername, $argPassword);
 
 		if ($this->_connectionID === false) {
@@ -458,7 +462,8 @@ class ADORecordset_informix72 extends ADORecordSet {
 			$fp = ifx_fieldproperties($this->_queryID);
 
 			foreach ($fp as $k => $v) {
-				$o                   = new ADOFieldObject();
+				$o = new ADOFieldObject();
+
 				$o->name             = $k;
 				$arr                 = explode(';', $v); //"SQLTYPE;length;precision;scale;ISNULLABLE"
 				$o->type             = $arr[0];

@@ -63,13 +63,12 @@ class IndexDotPhpTest extends GalleryTestCase {
 				return $ret;
 			}
 
-			$url = GalleryUrlGenerator::getMe()->appendParamsToUrl(
+			$url  = GalleryUrlGenerator::getMe()->appendParamsToUrl(
 				$url,
 				array(
 					$session->getKey() => $session->getId(),
 				)
 			);
-
 			$url .= ($i++ == 3) ? '#foo' : '';
 
 			// Make the HTTP request

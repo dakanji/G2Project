@@ -356,7 +356,6 @@ class ModuleTest extends GalleryTestCase {
 
 		// Upgrade the module
 		$module->setVersion('1.0.1');
-
 		$ret = $module->installOrUpgrade();
 
 		if ($ret) {
@@ -401,7 +400,6 @@ class ModuleTest extends GalleryTestCase {
 			$gallery->getActiveUserId(),
 			null
 		);
-
 		$this->assertEquals($originalBits, $newBits, 'Permission bits not restored');
 
 		// Verify that the permission itself is gone
@@ -441,7 +439,6 @@ class ModuleTest extends GalleryTestCase {
 
 		// Verify our entity was deleted
 		list($ret) = $entity->refresh();
-
 		$this->assertEquals(GALLERY_ERROR | ERROR_MISSING_OBJECT, $ret->getErrorCode(), 'entity');
 
 		// Remove all references to the bogus theme from the database.
@@ -469,9 +466,7 @@ class ModuleTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $module->getRequiredModuleApi();
-
 		$module->setRequiredModuleApi(array($major - 1, $minor));
-
 		$ret = $module->installOrUpgrade();
 
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
@@ -497,7 +492,6 @@ class ModuleTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $module->getRequiredModuleApi();
-
 		$module->setRequiredModuleApi(array($major - 1, $minor));
 
 		list($ret, $redirect) = $module->activate();
@@ -527,9 +521,7 @@ class ModuleTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $module->getRequiredCoreApi();
-
 		$module->setRequiredCoreApi(array($major - 1, $minor));
-
 		$ret = $module->installOrUpgrade();
 
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
@@ -555,7 +547,6 @@ class ModuleTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $module->getRequiredCoreApi();
-
 		$module->setRequiredCoreApi(array($major - 1, $minor));
 
 		list($ret, $redirect) = $module->activate();
@@ -724,6 +715,7 @@ class ModuleTest extends GalleryTestCase {
 
 		// Register our event listener to observe the test
 		$testEventListener = new ModuleTestEventListener();
+
 		$this->_registerTestEventListener('Gallery::DeactivatePlugin', $testEventListener);
 
 		// Execute the method under test

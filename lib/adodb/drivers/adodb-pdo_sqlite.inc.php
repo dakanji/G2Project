@@ -151,8 +151,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 		}
 
 		$parent->_autocommit = true;
-
-		$ret = $parent->Execute('COMMIT');
+		$ret                 = $parent->Execute('COMMIT');
 
 		return $ret;
 	}
@@ -169,8 +168,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 		}
 
 		$parent->_autocommit = true;
-
-		$ret = $parent->Execute('ROLLBACK');
+		$ret                 = $parent->Execute('ROLLBACK');
 
 		return $ret;
 	}
@@ -210,8 +208,9 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 				$size = trim($type[1], ')');
 			}
 
-			$fn                 = strtoupper($r['name']);
-			$fld                = new ADOFieldObject();
+			$fn  = strtoupper($r['name']);
+			$fld = new ADOFieldObject();
+
 			$fld->name          = $r['name'];
 			$fld->type          = $type[0];
 			$fld->max_length    = $size;

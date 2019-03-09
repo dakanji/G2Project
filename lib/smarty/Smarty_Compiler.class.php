@@ -257,6 +257,7 @@ class Smarty_Compiler extends Smarty {
 		// fetch all special blocks
 		$search = "~{$ldq}\*(.*?)\*{$rdq}|{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}|{$ldq}\s*php\s*{$rdq}(.*?){$ldq}\s*/php\s*{$rdq}~s";
 		preg_match_all($search, $source_content, $match, PREG_SET_ORDER);
+
 		$this->_folded_blocks = $match;
 
 		// replace special blocks by "{php}"
@@ -312,7 +313,6 @@ class Smarty_Compiler extends Smarty {
 
 		if (count($this->_tag_stack) > 0) {
 			list($_open_tag, $_line_no) = end($this->_tag_stack);
-
 			$this->_syntax_error("unclosed tag \{$_open_tag} (opened line $_line_no).", E_USER_ERROR, __FILE__, __LINE__);
 
 			return;
@@ -445,15 +445,17 @@ class Smarty_Compiler extends Smarty {
 				}
 			}
 
-			$_plugins_params    .= '))';
-			$plugins_code        = "<?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');\nsmarty_core_load_plugins($_plugins_params, \$this); ?>\n";
-			$template_header    .= $plugins_code;
+			$_plugins_params .= '))';
+			$plugins_code     = "<?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');\nsmarty_core_load_plugins($_plugins_params, \$this); ?>\n";
+			$template_header .= $plugins_code;
+
 			$this->_plugin_info  = array();
 			$this->_plugins_code = $plugins_code;
 		}
 
 		if ($this->_init_smarty_vars) {
-			$template_header        .= "<?php require_once(SMARTY_CORE_DIR . 'core.assign_smarty_interface.php');\nsmarty_core_assign_smarty_interface(null, \$this); ?>\n";
+			$template_header .= "<?php require_once(SMARTY_CORE_DIR . 'core.assign_smarty_interface.php');\nsmarty_core_assign_smarty_interface(null, \$this); ?>\n";
+
 			$this->_init_smarty_vars = false;
 		}
 
@@ -1344,15 +1346,15 @@ class Smarty_Compiler extends Smarty {
 		$attrs = $this->_parse_attrs($tag_args);
 
 		if ($start) {
-			$buffer                 = isset($attrs['name']) ? $attrs['name'] : "'default'";
-			$assign                 = isset($attrs['assign']) ? $attrs['assign'] : null;
-			$append                 = isset($attrs['append']) ? $attrs['append'] : null;
-			$output                 = '<?php ob_start(); ?>';
+			$buffer = isset($attrs['name']) ? $attrs['name'] : "'default'";
+			$assign = isset($attrs['assign']) ? $attrs['assign'] : null;
+			$append = isset($attrs['append']) ? $attrs['append'] : null;
+			$output = '<?php ob_start(); ?>';
+
 			$this->_capture_stack[] = array($buffer, $assign, $append);
 		} else {
 			list($buffer, $assign, $append) = array_pop($this->_capture_stack);
-
-			$output = "<?php \$this->_smarty_vars['capture'][$buffer] = ob_get_contents(); ";
+			$output                         = "<?php \$this->_smarty_vars['capture'][$buffer] = ob_get_contents(); ";
 
 			if (isset($assign)) {
 				$output .= " \$this->assign($assign, ob_get_contents());";
@@ -1388,12 +1390,12 @@ class Smarty_Compiler extends Smarty {
 			$tag_args,
 			$match
 		);
-
 		$tokens = $match[0];
 
 		if (empty($tokens)) {
 			$_error_msg  = $elseif ? "'elseif'" : "'if'";
 			$_error_msg .= ' statement requires arguments';
+
 			$this->_syntax_error($_error_msg, E_USER_ERROR, __FILE__, __LINE__);
 		}
 
@@ -2025,7 +2027,9 @@ class Smarty_Compiler extends Smarty {
 	public function _parse_parenth_args($parenth_args) {
 		preg_match_all('~' . $this->_param_regexp . '~', $parenth_args, $match);
 		$orig_vals = $match = $match[0];
+
 		$this->_parse_vars_props($match);
+
 		$replace = array();
 
 		for ($i = 0, $count = count($match); $i < $count; $i++) {

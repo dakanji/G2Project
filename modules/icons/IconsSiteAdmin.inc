@@ -163,6 +163,7 @@ class IconsSiteAdminView extends GalleryView {
 		$IconsSiteAdmin['packs']     = $packs;
 		$IconsSiteAdmin['classes']   = $classes;
 		$IconsSiteAdmin['iconpacks'] = $list;
+
 		$template->setVariable('IconsSiteAdmin', $IconsSiteAdmin);
 		$template->setVariable('controller', 'icons.IconsSiteAdmin');
 

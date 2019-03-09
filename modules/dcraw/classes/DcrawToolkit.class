@@ -73,7 +73,6 @@ class DcrawToolkit extends GalleryToolkit {
 
 					// We now have a PPM file, get its dimensions
 					list($ret, $results) = $toolkit->getProperty('image/x-portable-pixmap', 'dimensions', $tempfile);
-
 					$platform->unlink($tempfile);
 
 					if ($ret) {

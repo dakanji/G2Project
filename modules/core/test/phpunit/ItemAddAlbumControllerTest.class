@@ -313,7 +313,6 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	public function _getChildId() {
 		list($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
-
 		$this->assertEquals(1, count($ids));
 
 		return $ids[0];
@@ -321,7 +320,6 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	public function _getSecondChildId() {
 		list($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
-
 		$this->assertEquals(2, sizeof($ids));
 
 		// We want the larger id, since it's the newer one
@@ -377,7 +375,6 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals(' title', $newAlbum->getTitle(), 'title');
 		$this->assertEquals('summary &lt;div&gt;.&lt;/div&gt;', $newAlbum->getSummary(), 'summary');
-
 		$this->assertEquals('description .', $newAlbum->getDescription(), 'description');
 	}
 }

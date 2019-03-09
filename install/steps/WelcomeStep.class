@@ -34,7 +34,9 @@ class WelcomeStep extends InstallStep {
 			global $translator, $gallery;
 
 			$gallery = new GalleryStub();
+
 			$translator->init($_POST['language'], true);
+
 			unset($gallery);
 			$_SESSION['language'] = $_POST['language'];
 		}

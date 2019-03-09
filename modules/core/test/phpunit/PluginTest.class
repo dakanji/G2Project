@@ -30,8 +30,10 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
 class PluginTest extends GalleryTestCase {
 	public function testCoreApiTooNew() {
 		$plugin = new PluginTestPlugin();
+
 		$plugin->setPluginType('theme');
 		$version = GalleryCoreApi::getApiVersion();
+
 		$plugin->setRequiredCoreApi(array($version[0], $version[1] + 1));
 		$plugin->setRequiredThemeApi(GalleryTheme::getMe()->getApiVersion());
 		$this->assertTrue(
@@ -42,8 +44,10 @@ class PluginTest extends GalleryTestCase {
 
 	public function testCoreApiOldMinorButOkMajor() {
 		$plugin = new PluginTestPlugin();
+
 		$plugin->setPluginType('theme');
 		$version = GalleryCoreApi::getApiVersion();
+
 		$plugin->setRequiredCoreApi(array($version[0], 0));
 		$plugin->setRequiredThemeApi(GalleryTheme::getMe()->getApiVersion());
 		$this->assertTrue(
@@ -54,6 +58,7 @@ class PluginTest extends GalleryTestCase {
 
 	public function testCompatibleTheme() {
 		$plugin = new PluginTestPlugin();
+
 		$plugin->setPluginType('theme');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$plugin->setRequiredThemeApi(GalleryTheme::getMe()->getApiVersion());
@@ -65,9 +70,11 @@ class PluginTest extends GalleryTestCase {
 
 	public function testThemeTooNew() {
 		$plugin = new PluginTestPlugin();
+
 		$plugin->setPluginType('theme');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$version = GalleryTheme::getMe()->getApiVersion();
+
 		$plugin->setRequiredThemeApi(array($version[0], $version[1] + 1));
 		$this->assertTrue(
 			!GalleryCoreApi::isPluginCompatibleWithApis($plugin),
@@ -77,6 +84,7 @@ class PluginTest extends GalleryTestCase {
 
 	public function testCompatibleModule() {
 		$plugin = new PluginTestPlugin();
+
 		$plugin->setPluginType('module');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$plugin->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
@@ -88,9 +96,11 @@ class PluginTest extends GalleryTestCase {
 
 	public function testModuleTooNew() {
 		$plugin = new PluginTestPlugin();
+
 		$plugin->setPluginType('module');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$version = GalleryModule::getMe()->getApiVersion();
+
 		$plugin->setRequiredModuleApi(array($version[0], $version[1] + 1));
 		$this->assertTrue(
 			!GalleryCoreApi::isPluginCompatibleWithApis($plugin),
@@ -131,6 +141,7 @@ class PluginTest extends GalleryTestCase {
 			// Mock platform
 			$platform = new UnitTestPlatform();
 			$path     = GalleryCoreApi::getCodeBasePath($type . 's/');
+
 			$platform->setReply('opendir', array($path), 'fh');
 			$platform->setReply('readdir', array('fh'), '.');
 			$platform->setReply('readdir', array('fh'), '..');
@@ -144,6 +155,7 @@ class PluginTest extends GalleryTestCase {
 			$platform->setReply('readdir', array('fh'), false);
 			$platform->setReply('closedir', array('fh'), true);
 			$expectedIds += array_merge($expectedIds, array('moo', 'bar'));
+
 			$gallery->setPlatform($platform);
 
 			list($ret, $pluginIds) = GalleryCoreApi::getAllPluginIds($type);
@@ -161,6 +173,7 @@ class PluginTest extends GalleryTestCase {
 
 		// Test preparation
 		$plugin = new PluginTestPlugin();
+
 		$plugin->setPluginType('theme');
 		$plugin->setId('plugintest');
 		$plugin->setVersion('1.0.0');
@@ -176,6 +189,7 @@ class PluginTest extends GalleryTestCase {
 		GalleryDataCache::setFileCachingEnabled(true);
 
 		$templateDir = '/templates';
+
 		$gallery->setConfig('data.smarty.templates_c', $templateDir);
 		$gallery->setConfig('data.gallery.cache', '/cache/');
 		$platform = new UnitTestPlatform();
@@ -184,7 +198,6 @@ class PluginTest extends GalleryTestCase {
 			array('/cache/theme/_all/0/0/GalleryPluginHelper_fetchPluginStatus.inc'),
 			false
 		);
-
 		$platform->setReply('file_exists', array('/cache/theme/_all/localUrlMap.txt'), true);
 		$platform->setReply('is_dir', array('/cache/theme/_all/localUrlMap.txt'), false);
 		$platform->setReply('unlink', array('/cache/theme/_all/localUrlMap.txt'), true);
@@ -224,6 +237,7 @@ class PluginTest extends GalleryTestCase {
 		GalleryDataCache::reset(true);
 
 		$plugin = new PluginTestPlugin();
+
 		$plugin->setPluginType('module');
 		$plugin->setId('plugintest');
 		$plugin->setVersion('1.0.0');
@@ -263,6 +277,7 @@ class PluginTest extends GalleryTestCase {
 		GalleryDataCache::reset(true);
 
 		$plugin = new PluginTestPlugin();
+
 		$plugin->setPluginType('module');
 		$plugin->setId('plugintest');
 		$plugin->setVersion('1.0.0');

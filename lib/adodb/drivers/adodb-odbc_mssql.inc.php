@@ -292,6 +292,7 @@ order by constraint_name, referenced_table_name, keyno";
 		global $ADODB_FETCH_MODE;
 
 		$schema = '';
+
 		$this->_findschema($table, $schema);
 
 		//if (!$schema) $schema = $this->database;
@@ -326,8 +327,7 @@ order by constraint_name, referenced_table_name, keyno";
 				'\\1 ' . $this->hasTop . " $nrows ",
 				$sql
 			);
-
-			$rs = $this->Execute($sql, $inputarr);
+			$rs  = $this->Execute($sql, $inputarr);
 		} else {
 			$rs = ADOConnection::SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
 		}

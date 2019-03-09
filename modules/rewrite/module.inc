@@ -39,7 +39,6 @@ class RewriteModule extends GalleryModule {
 				'Enables short URLs using Apache mod_rewrite, ISAPI Rewrite, or PathInfo'
 			)
 		);
-
 		$this->setVersion('2.0.0'); // Update upgrade() & RewriteModuleExtras::upgrade as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
@@ -282,8 +281,7 @@ class RewriteModule extends GalleryModule {
 		}
 
 		$rewriteUrlGenerator = $rewriteParser->getUrlGeneratorId();
-
-		$ret = GalleryCoreApi::registerFactoryImplementation(
+		$ret                 = GalleryCoreApi::registerFactoryImplementation(
 			'GalleryUrlGenerator',
 			$rewriteUrlGenerator,
 			$rewriteUrlGenerator,

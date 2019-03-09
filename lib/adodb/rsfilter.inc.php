@@ -49,6 +49,7 @@ function RSFilter($rs, $fn) {
 		if (is_array($fn)) {
 			$obj    = $fn[0];
 			$method = $fn[1];
+
 			$obj->$method($rs->_array[$i], $rs);
 		} else {
 			$fn($rs->_array[$i], $rs);

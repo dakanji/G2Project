@@ -387,7 +387,6 @@ class WatermarkHelper {
 
 			$preferred->setDerivativeSourceId($item->getId());
 			$preferred->setMimeType($item->getMimeType());
-
 			$ret = GalleryCoreApi::remapSourceIds($item->getId(), $preferred->getId());
 
 			if ($ret) {
@@ -729,7 +728,6 @@ class WatermarkHelper {
 					}
 
 					$platform->clearstatcache();
-
 					$ret = $item->rescan();
 
 					if ($ret) {
@@ -847,6 +845,7 @@ class WatermarkHelper {
 
 		$page            =& $template->getVariableByReference($pageName);
 		$page['enctype'] = 'multipart/form-data';
+
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('modules/watermark/watermark.js');
 		$template->setVariable(
@@ -855,7 +854,6 @@ class WatermarkHelper {
 				'watermark' => (array)$watermark,
 			)
 		);
-
 		$template->setVariable('controller', "watermark.$formName");
 
 		return null;

@@ -76,7 +76,6 @@ class CaptchaConfigAdminView extends GalleryView {
 				'gdReport' => $gdReport,
 			)
 		);
-
 		$template->setVariable('controller', 'captcha.CaptchaConfigAdmin');
 
 		return array(

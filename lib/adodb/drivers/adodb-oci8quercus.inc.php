@@ -62,7 +62,8 @@ class ADORecordset_oci8quercus extends ADORecordset_oci8 {
 					break;
 			}
 		} else {
-			$fieldOffset    += 1;
+			$fieldOffset += 1;
+
 			$fld->name       = oci_field_name($this->_queryID, $fieldOffset);
 			$fld->type       = oci_field_type($this->_queryID, $fieldOffset);
 			$fld->max_length = oci_field_size($this->_queryID, $fieldOffset);

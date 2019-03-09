@@ -168,7 +168,8 @@ class PathInfoHelperMockPlatform extends GalleryPlatform {
 		);
 
 		if ($handle == 'phpunit') {
-			$respons           = GalleryUtilities::getRequestVariables('pathInfoTest');
+			$respons = GalleryUtilities::getRequestVariables('pathInfoTest');
+
 			$this->_readBuffer = $buffer[$respons];
 
 			return strlen($string);
@@ -210,8 +211,9 @@ class PathInfoHelperMockPlatform extends GalleryPlatform {
 				return $tmp;
 			}
 
-			$buf               = join("\n", $this->_readBuffer);
-			$tmp               = substr($buf, 0, $length);
+			$buf = join("\n", $this->_readBuffer);
+			$tmp = substr($buf, 0, $length);
+
 			$this->_readBuffer = explode("\n", substr($buf, $length + 1));
 
 			return $tmp;

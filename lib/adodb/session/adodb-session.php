@@ -113,6 +113,7 @@ function adodb_session_create_table($schemaFile = null, $conn = null) {
 	}
 
 	$schema = new adoSchema($conn);
+
 	$schema->ParseSchema($schemaFile);
 
 	return $schema->ExecuteSchema();
@@ -632,6 +633,7 @@ class ADODB_Session {
 			}
 
 			$rs->Close();
+
 			self::_crc(strlen($v) . crc32($v));
 
 			return $v;
@@ -772,6 +774,7 @@ class ADODB_Session {
 			}
 
 			$rs = ($rs && $rs2) ? true : false;
+
 			$conn->CompleteTrans();
 		}
 
@@ -821,6 +824,7 @@ class ADODB_Session {
 			$sql   = "SELECT expireref, sesskey FROM $table WHERE $binary sesskey = $qkey";
 			$rs    = $conn->Execute($sql);
 			self::_dumprs($rs);
+
 			$conn->SetFetchMode($savem);
 
 			if (!$rs) {
@@ -869,6 +873,7 @@ class ADODB_Session {
 			$sql   = "SELECT expireref, sesskey FROM $table WHERE expiry < $time";
 			$rs    = $conn->Execute($sql);
 			self::_dumprs($rs);
+
 			$conn->SetFetchMode($savem);
 
 			if ($rs) {

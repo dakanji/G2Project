@@ -133,6 +133,7 @@ function adodb_session_create_table($schemaFile = null, $conn = null) {
 	}
 
 	$schema = new adoSchema($conn);
+
 	$schema->ParseSchema($schemaFile);
 
 	return $schema->ExecuteSchema();
@@ -487,6 +488,7 @@ class ADODB_Session {
 		include_once ADODB_SESSION . '/../tohtml.inc.php';
 
 		rs2html($rs);
+
 		$rs->MoveFirst();
 	}
 
@@ -549,6 +551,7 @@ class ADODB_Session {
 
 		if ($debug) {
 			$conn->debug = true;
+
 			ADOConnection::outp(" driver=$driver user=$user db=$database ");
 		}
 
@@ -645,6 +648,7 @@ class ADODB_Session {
 			}
 
 			$rs->Close();
+
 			self::_crc(strlen($v) . crc32($v));
 
 			return $v;
@@ -827,6 +831,7 @@ class ADODB_Session {
 			$sql   = "SELECT expireref, sesskey FROM $table WHERE $binary sesskey = $qkey";
 			$rs    = $conn->Execute($sql);
 			self::_dumprs($rs);
+
 			$conn->SetFetchMode($savem);
 
 			if (!$rs) {

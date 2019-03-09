@@ -453,8 +453,7 @@ class ImageMagickToolkitHelper {
 			$command = array_merge($command, array($dataPath . $test['file']));
 
 			list($success, $results) = $platform->exec(array($command));
-
-			$successCount += $success;
+			$successCount           += $success;
 
 			if ($success || $test['file'] == 'truncated.pcd') {
 				// Ignore error status for truncated.pcd.. it should still identify the file ok
@@ -566,7 +565,6 @@ class ImageMagickToolkitHelper {
 								$results
 							),
 						);
-
 						$testArray[] = array(
 							'name'    => 'identify',
 							'success' => false,
@@ -955,8 +953,7 @@ class ImageMagickToolkitHelper {
 			$originalSize = $platform->filesize($dataPath . 'testProfile.jpg');
 
 			list($success, $results) = $platform->exec(array($command));
-
-			$size = $platform->filesize($tmpFilename);
+			$size                    = $platform->filesize($tmpFilename);
 			@$platform->unlink($tmpFilename);
 
 			if ($success) {

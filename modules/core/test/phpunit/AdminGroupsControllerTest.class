@@ -36,7 +36,6 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[list][filter]', 'foo');
 
 		$results = $this->handleRequest();
-
 		$this->assertEquals('', GalleryUtilities::getRequestVariables('form[list][filter]'));
 	}
 
@@ -67,7 +66,6 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][editFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][groupName]', $group->getGroupName());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -81,7 +79,6 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-
 		$this->_deleteGroup($group);
 
 		// Missing group name
@@ -132,7 +129,6 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][deleteFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][groupName]', $group->getGroupName());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -146,7 +142,6 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-
 		$this->_deleteGroup($group);
 
 		// Missing group name
@@ -204,7 +199,6 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][deleteFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][groupName]', $group->getGroupName());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -236,7 +230,6 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][deleteFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][groupName]', $group->getGroupName());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -268,7 +261,6 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][addRemoveUsersFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][groupName]', $group->getGroupName());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -304,7 +296,6 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][deleteFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][groupName]', $group->getGroupName());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -329,7 +320,6 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][addRemoveUsersFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][groupName]', $group->getGroupName());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -343,7 +333,6 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-
 		$this->_deleteGroup($group);
 
 		// Missing group name

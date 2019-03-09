@@ -110,6 +110,7 @@ class SliderTheme extends GalleryTheme {
 		$theme['imageWidths']  = implode(',', $imageWidths);
 		$theme['imageHeights'] = implode(',', $imageHeights);
 		$theme['imageCount']   = count($imageWidths);
+
 		$template->head('themes/slider/templates/header.tpl');
 
 		return array(null, 'theme.tpl');

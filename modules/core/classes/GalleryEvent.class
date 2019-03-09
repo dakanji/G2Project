@@ -50,6 +50,7 @@ class GalleryEvent {
 
 	public function __construct() {
 		$null = null;
+
 		$this->setEventName($null);
 		$this->setEntity($null);
 		$this->setData($null);

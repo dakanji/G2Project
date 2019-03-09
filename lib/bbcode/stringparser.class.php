@@ -291,6 +291,7 @@ class StringParser {
 		$this->_output  = null;
 		$this->_length  = strlen($this->_text);
 		$this->_cpos    = 0;
+
 		unset($this->_stack);
 		$this->_stack = array();
 
@@ -1080,6 +1081,7 @@ class StringParser_Node {
 
 			// put object to new position
 			$this->_children[$index + 1] =& $object;
+
 			$index--;
 		}
 
@@ -1200,6 +1202,7 @@ class StringParser_Node {
 
 			// put object to new position
 			$this->_children[$index + 1] =& $object;
+
 			$index--;
 		}
 
@@ -1259,6 +1262,7 @@ class StringParser_Node {
 
 			// put object to new position
 			$this->_children[$index + 1] =& $object;
+
 			$index--;
 		}
 
@@ -1653,6 +1657,7 @@ class StringParser_Node_Text extends StringParser_Node {
 	 */
 	public function __construct($content, $occurredAt = -1) {
 		parent::__construct($occurredAt);
+
 		$this->content = $content;
 	}
 

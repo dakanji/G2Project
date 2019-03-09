@@ -62,8 +62,7 @@ class LogoutControllerTest extends GalleryControllerTestCase {
 
 		// Restore the session
 		$gallery->_session = $this->_saveSession;
-
-		$ret = parent::tearDown();
+		$ret               = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);

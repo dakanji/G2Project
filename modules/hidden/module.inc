@@ -45,7 +45,6 @@ class HiddenModule extends GalleryModule {
 				'accessed with the right URL'
 			)
 		);
-
 		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
@@ -86,7 +85,6 @@ class HiddenModule extends GalleryModule {
 			}
 
 			$gallery->guaranteeTimeLimit(60);
-
 			$ret = $storage->execute('DELETE FROM [ItemHiddenMap]');
 
 			if ($ret) {
@@ -94,7 +92,6 @@ class HiddenModule extends GalleryModule {
 			}
 
 			$gallery->guaranteeTimeLimit(60);
-
 			$ret = $storage->execute(
 				'INSERT INTO [ItemHiddenMap] ([::itemId])
 				   SELECT [GalleryEntity::id]

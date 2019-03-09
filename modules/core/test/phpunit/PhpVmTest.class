@@ -128,7 +128,6 @@ class PhpVmTest extends GalleryTestCase {
 		}
 
 		$this->assertFalse(empty($session->_sessionId), 'persistent session preparation failed');
-
 		$url = GalleryUrlGenerator::getMe()->appendParamsToUrl(
 			$url,
 			array(
@@ -178,7 +177,6 @@ class PhpVmTest extends GalleryTestCase {
 
 	public function testHeaderDetectsHeaderInjection() {
 		global $gallery;
-
 		$phpVm = $gallery->getPhpVm();
 
 		/*
@@ -186,6 +184,7 @@ class PhpVmTest extends GalleryTestCase {
 		 * been sent.
 		 */
 		$crLf = chr(13) . chr(10);
+
 		$phpVm->header('X-Foo: foo' . urlencode($crLf) . 'bar');
 	}
 

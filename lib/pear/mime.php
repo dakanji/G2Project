@@ -585,20 +585,19 @@ class Mail_mime {
 
 		if (!empty($this->_html_images) and isset($this->_htmlbody)) {
 			foreach ($this->_html_images as $key => $value) {
-				$regex           = array();
-				$regex[]         = '#(\s)((?i)src|background|href(?-i))\s*=\s*(["\']?)' .
+				$regex                            = array();
+				$regex[]                          = '#(\s)((?i)src|background|href(?-i))\s*=\s*(["\']?)' .
 							preg_quote($value['name'], '#') . '\3#';
-				$regex[]         = '#(?i)url(?-i)\(\s*(["\']?)' .
+				$regex[]                          = '#(?i)url(?-i)\(\s*(["\']?)' .
 							preg_quote($value['name'], '#') . '\1\s*\)#';
-				$rep             = array();
-				$rep[]           = '\1\2=\3cid:' . $value['cid'] . '\3';
-				$rep[]           = 'url(\1cid:' . $value['cid'] . '\2)';
-				$this->_htmlbody = preg_replace(
+				$rep                              = array();
+				$rep[]                            = '\1\2=\3cid:' . $value['cid'] . '\3';
+				$rep[]                            = 'url(\1cid:' . $value['cid'] . '\2)';
+				$this->_htmlbody                  = preg_replace(
 					$regex,
 					$rep,
 					$this->_htmlbody
 				);
-
 				$this->_html_images[$key]['name'] = basename($this->_html_images[$key]['name']);
 			}
 		}
@@ -764,8 +763,7 @@ class Mail_mime {
 	 */
 	public function txtHeaders($xtra_headers = null, $overwrite = false) {
 		$headers = $this->headers($xtra_headers, $overwrite);
-
-		$ret = '';
+		$ret     = '';
 
 		foreach ($headers as $key => $val) {
 			$ret .= "$key: $val" . MAIL_MIME_CRLF;

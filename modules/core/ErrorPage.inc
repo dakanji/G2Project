@@ -141,6 +141,7 @@ class ErrorPageView extends GalleryView {
 		 * bypass this and call this view directly, so we will set it now.
 		 */
 		$theme['pageType'] = 'error';
+
 		$template->javascript('lib/javascript/BlockToggle.js');
 		$template->setVariable('ErrorPage', $ErrorPage);
 
@@ -275,6 +276,7 @@ class ErrorPageView extends GalleryView {
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 
 			$template = new GalleryTemplate(dirname(dirname(__DIR__)));
+
 			$view->setError($error);
 
 			list($ret, $results) = $view->loadTemplate($template, $dummyForm);
@@ -287,6 +289,7 @@ class ErrorPageView extends GalleryView {
 		if (!$failsafe) {
 			$t                  =& $template->getVariableByReference('theme');
 			$t['errorTemplate'] = $results['body'];
+
 			$template->setVariable('l10Domain', 'modules_core');
 
 			list($ret, $templatePath) = $theme->showErrorPage($template);
@@ -298,7 +301,6 @@ class ErrorPageView extends GalleryView {
 
 		if (!$failsafe) {
 			$template->setVariable('l10Domain', 'themes_' . $themeId);
-
 			$ret = $template->display("themes/$themeId/templates/$templatePath");
 
 			if ($ret) {

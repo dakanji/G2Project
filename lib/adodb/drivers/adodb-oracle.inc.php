@@ -83,6 +83,7 @@ class ADODB_oracle extends ADOConnection {
 
 	public function BeginTrans() {
 		$this->autoCommit = false;
+
 		ora_commitoff($this->_connectionID);
 
 		return true;
@@ -271,6 +272,7 @@ class ADORecordset_oracle extends ADORecordSet {
 		if ($queryID) {
 			$this->_currentRow = 0;
 			$this->EOF         = !$this->_fetch();
+
 			@$this->_initrs();
 		} else {
 			$this->_numOfRows   = 0;
@@ -286,7 +288,8 @@ class ADORecordset_oracle extends ADORecordSet {
 			   fields in a certain query result. If the field offset isn't specified, the next field that wasn't yet retrieved by
 			   fetchField() is retrieved.		*/
 	public function FetchField($fieldOffset = -1) {
-		$fld             = new ADOFieldObject();
+		$fld = new ADOFieldObject();
+
 		$fld->name       = ora_columnname($this->_queryID, $fieldOffset);
 		$fld->type       = ora_columntype($this->_queryID, $fieldOffset);
 		$fld->max_length = ora_columnsize($this->_queryID, $fieldOffset);

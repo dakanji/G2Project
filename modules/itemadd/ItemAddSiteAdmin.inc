@@ -206,7 +206,6 @@ class ItemAddSiteAdminView extends GalleryView {
 			),
 			'localServerDirList' => $localServerDirList,
 		);
-
 		$template->setVariable('ItemAddSiteAdmin', $ItemAddSiteAdmin);
 		$template->setVariable('controller', 'itemadd.ItemAddSiteAdmin');
 

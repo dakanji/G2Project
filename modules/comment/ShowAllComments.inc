@@ -215,8 +215,7 @@ class ShowAllCommentsView extends GalleryView {
 					'page'   => 1,
 				),
 			);
-
-			$navigator['back'] = array(
+			$navigator['back']  = array(
 				'urlParams' => array(
 					'view'   => 'comment.ShowAllComments',
 					'itemId' => $item->getId(),
@@ -233,7 +232,6 @@ class ShowAllCommentsView extends GalleryView {
 					'page'   => $page + 1,
 				),
 			);
-
 			$navigator['last'] = array(
 				'urlParams' => array(
 					'view'   => 'comment.ShowAllComments',
@@ -254,7 +252,6 @@ class ShowAllCommentsView extends GalleryView {
 				'navigator'  => $navigator,
 			)
 		);
-
 		$template->style('modules/comment/comment.css');
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('lib/yui/container-min.js');

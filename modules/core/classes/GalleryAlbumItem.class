@@ -308,8 +308,7 @@ class GalleryAlbumItem extends GalleryItem {
 
 		$session =& $gallery->getSession();
 		$isNew   = $this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
-
-		$ret = parent::save($postEvent);
+		$ret     = parent::save($postEvent);
 
 		if ($ret) {
 			return $ret;
@@ -382,8 +381,7 @@ class GalleryAlbumItem extends GalleryItem {
 		}
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->checkPoint();
+		$ret     = $storage->checkPoint();
 
 		if ($ret) {
 			return $ret;

@@ -925,6 +925,7 @@ class StringParser_BBCode extends StringParser {
 		}
 
 		$closecount = 0;
+
 		$this->_topNode('setCodeInfo', $this->_codes[$name]);
 
 		if (!$this->_isOpenable($name, $closecount)) {
@@ -1203,6 +1204,7 @@ class StringParser_BBCode extends StringParser {
 
 		if (is_string($output)) {
 			$this->_output = $this->_applyPostfilters($output);
+
 			unset($output);
 
 			return true;
@@ -2022,7 +2024,6 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 			// DON'T DO $ret = null WITHOUT unset BEFORE!
 			// ELSE WE WILL ERASE THE NODE ITSELF! EVIL!
 			unset($ret);
-
 			$ret = null;
 		}
 

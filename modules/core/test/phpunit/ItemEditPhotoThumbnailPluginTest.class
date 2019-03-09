@@ -309,7 +309,6 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->_derivative[2]->setDerivativeOperations($operations);
-
 		$ret = $this->_derivative[2]->save();
 
 		if ($ret) {

@@ -140,6 +140,7 @@ class StorageSetupStep extends InstallStep {
 
 		if ($this->isComplete()) {
 			$galleryStub->setConfig('data.gallery.base', $this->_dir);
+
 			$templateData['bodyFile'] = 'StorageSetupSuccess.html';
 		} else {
 			$templateData['bodyFile'] = 'StorageSetupRequest.html';

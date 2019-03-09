@@ -144,7 +144,6 @@ class CoreModuleExtras {
 				}
 
 				$gallery->guaranteeTimeLimit(30);
-
 				$ret = $statusMonitor->renderStatusMessage($statusText, '', $count++ / $total);
 
 				if ($ret) {
@@ -315,7 +314,6 @@ class CoreModuleExtras {
 							$defaultThemeId
 						)
 					);
-
 					$defaultThemeId = null;
 
 					foreach ($themeList as $themeId => $themeInfo) {
@@ -367,7 +365,6 @@ class CoreModuleExtras {
 
 				$gallery->guaranteeTimeLimit(180);
 				$gallery->debug('InstallOrUpgrade default theme');
-
 				$ret = $theme->installOrUpgrade();
 
 				if ($ret) {
@@ -428,63 +425,54 @@ class CoreModuleExtras {
 					GALLERY_PERMISSION_ALL_ACCESS,
 					array(),
 				);
-
 				$permissions[] = array(
 					'view',
 					$gallery->i18n('[core] View item'),
 					0,
 					array(),
 				);
-
 				$permissions[] = array(
 					'viewResizes',
 					$gallery->i18n('[core] View resized version(s)'),
 					0,
 					array(),
 				);
-
 				$permissions[] = array(
 					'viewSource',
 					$gallery->i18n('[core] View original version'),
 					0,
 					array(),
 				);
-
 				$permissions[] = array(
 					'viewAll',
 					$gallery->i18n('[core] View all versions'),
 					GALLERY_PERMISSION_COMPOSITE,
 					array('core.view', 'core.viewResizes', 'core.viewSource'),
 				);
-
 				$permissions[] = array(
 					'addAlbumItem',
 					$gallery->i18n('[core] Add sub-album'),
 					0,
 					array(),
 				);
-
 				$permissions[] = array(
 					'addDataItem',
 					$gallery->i18n('[core] Add sub-item'),
 					0,
 					array(),
 				);
-
 				$permissions[] = array(
 					'edit',
 					$gallery->i18n('[core] Edit item'),
 					0,
 					array(),
 				);
-
 				$permissions[] = array(
 					'changePermissions',
 					$gallery->i18n('[core] Change item permissions'),
 					0,
 					array(),
 				);
-
 				$permissions[] = array(
 					'delete',
 					$gallery->i18n('[core] Delete item'),
@@ -532,7 +520,6 @@ class CoreModuleExtras {
 					'_createRootAlbumItem',
 				) as $func) {
 					$gallery->debug(sprintf('Call user func %s', $func));
-
 					$ret = call_user_func(array('CoreModuleExtras', $func), $module);
 
 					if ($ret) {
@@ -557,6 +544,7 @@ class CoreModuleExtras {
 
 				$gallery->guaranteeTimeLimit(180);
 				$gallery->debug('Initialize MIME types');
+
 				GalleryCoreApi::requireOnce(
 					'modules/core/classes/helpers/GalleryMimeTypeHelper_advanced.class'
 				);
@@ -576,7 +564,6 @@ class CoreModuleExtras {
 				}
 
 				$gallery->debug('CoreModulesExtra::upgrade: successfully installed core');
-
 				$ret = $statusMonitor->renderStatusMessage($progressText, '', 0.7);
 
 				if ($ret) {
@@ -744,6 +731,7 @@ class CoreModuleExtras {
 				// CSS refactor across entire app
 			case '0.9.4':
 				$gallery->guaranteeTimeLimit(30);
+
 				GalleryCoreApi::requireOnce(
 					'modules/core/classes/helpers/GalleryMimeTypeHelper_advanced.class'
 				);
@@ -757,7 +745,6 @@ class CoreModuleExtras {
 				// Fall Through
 			case '0.9.5':
 				$gallery->guaranteeTimeLimit(30);
-
 				$ret = $this->_createAccessListCompacterLock($module);
 
 				if ($ret) {
@@ -972,9 +959,8 @@ class CoreModuleExtras {
 							$query,
 							array_merge($chunk, array($permissionRowCount))
 						);
-
-						$possibleDupeIds = array();
-						$dupeIds         = array();
+						$possibleDupeIds     = array();
+						$dupeIds             = array();
 
 						while ($result = $results->nextResult()) {
 							$dupeIds[] = (int)$result[0];
@@ -1049,7 +1035,6 @@ class CoreModuleExtras {
 				 * Added FlushTemplatesTask, FlushDatabaseCacheTask.
 				 */
 				$gallery->guaranteeTimeLimit(30);
-
 				$ret = GalleryCoreApi::removeAllMapEntries('GalleryMaintenanceMap');
 
 				if ($ret) {
@@ -1170,7 +1155,6 @@ class CoreModuleExtras {
 
 						if (!strcmp($allUserGroupName, $originalGroupName)) {
 							$group->setGroupName($module->translate('Registered Users'));
-
 							$ret = $group->save();
 
 							if ($ret) {
@@ -1316,7 +1300,6 @@ class CoreModuleExtras {
 				 *         so restrict this query to only GalleryDerivativeImage
 				 */
 				$gallery->guaranteeTimeLimit(60);
-
 				$query = "
 					SELECT
 						[GalleryDerivative::id]
@@ -1427,6 +1410,7 @@ class CoreModuleExtras {
 						// Detect if the derivative is broken
 						if (!empty($derivatives)) {
 							$itemsProcessed++;
+
 							$gallery->guaranteeTimeLimit(30);
 							$derivative = array_pop($derivatives);
 
@@ -1565,7 +1549,6 @@ class CoreModuleExtras {
 								}
 
 								$brokenDerivative->setIsBroken(true);
-
 								$ret = $brokenDerivative->save(true, false);
 
 								if ($ret) {
@@ -1794,7 +1777,6 @@ class CoreModuleExtras {
 
 				for ($i = 0; $i < 10; $i++) {
 					$gallery->guaranteeTimeLimit(60);
-
 					$ret = $statusMonitor->renderStatusMessage(
 						$module->translate('Clearing fast-download cache'),
 						'',
@@ -1901,7 +1883,6 @@ class CoreModuleExtras {
 					$gallery->debug(
 						'Rename unnamed pre-beta-3 index to named index (ignore errors)'
 					);
-
 					$query = sprintf(
 						'
 						ALTER TABLE %sAccessMap
@@ -2055,7 +2036,6 @@ class CoreModuleExtras {
 				 * cache/entity/.  Delete the old files in cache/derivative/.
 				 */
 				$gallery->guaranteeTimeLimit(60);
-
 				$query = '
 					SELECT
 						[GalleryDerivativeImage::id]
@@ -2121,7 +2101,6 @@ class CoreModuleExtras {
 						// Update the progress bar / prevent timouts
 						if ($i % $stepSize == 0 || $i == ($totalDerivatives - 1)) {
 							$gallery->guaranteeTimeLimit(60);
-
 							$ret = $statusMonitor->renderStatusMessage(
 								$module->translate('Deleting old fast-download cache'),
 								'',
@@ -2257,12 +2236,12 @@ class CoreModuleExtras {
 						}
 
 						$count++;
+
 						$platform->unlink($sessionsDir . $filename);
 
 						// Update the progress bar / prevent timouts
 						if ($count % $stepSize == 0) {
 							$gallery->guaranteeTimeLimit(60);
-
 							$ret = $statusMonitor->renderStatusMessage(
 								$module->translate(
 									array(
@@ -2287,7 +2266,6 @@ class CoreModuleExtras {
 
 					$platform->closedir($dir);
 					$platform->rmdir($sessionsDir);
-
 					$ret = $statusMonitor->renderStatusMessage(
 						$module->translate(
 							array(
@@ -2313,7 +2291,6 @@ class CoreModuleExtras {
 					$gallery->debug(
 						'Rename unnamed pre-beta-3 index to named index (ignore errors)'
 					);
-
 					$indexChanges   = array();
 					$indexChanges[] = array(
 						'AccessMap',
@@ -2514,8 +2491,7 @@ class CoreModuleExtras {
 					foreach ($indexChanges as $change) {
 						$indexColumns = implode('`, `' . $storage->_columnPrefix, $change[3]);
 						$indexColumns = $storage->_columnPrefix . $indexColumns;
-
-						$query = sprintf(
+						$query        = sprintf(
 							'
 							ALTER TABLE `%s%s`
 							DROP INDEX `%s%s`,
@@ -2577,8 +2553,7 @@ class CoreModuleExtras {
 					$storage->_columnPrefix,
 					$storage->_columnPrefix
 				);
-
-				$ret = $storage->execute($query);
+				$ret   = $storage->execute($query);
 
 				if ($ret) {
 					return $ret;
@@ -2628,7 +2603,6 @@ class CoreModuleExtras {
 
 				// Clear the cache data since we changed the blob encoding
 				$gallery->guaranteeTimeLimit(60);
-
 				$ret = GalleryCoreApi::removeAllMapEntries('GalleryCacheMap', true);
 
 				if ($ret) {
@@ -2727,7 +2701,6 @@ class CoreModuleExtras {
 				 * classes and set the items to use the PanoramaRenderer instead
 				 */
 				$gallery->guaranteeTimeLimit(60);
-
 				$query = '
 				SELECT
 				[GalleryEntity::id], [GalleryEntity::entityType]
@@ -2758,7 +2731,6 @@ class CoreModuleExtras {
 				// Switch PanoramaPhotoItems back to GalleryPhotoItems
 				for ($i = 0; $photos; $i += count($ids)) {
 					$gallery->guaranteeTimeLimit(30);
-
 					$ret = $statusMonitor->renderStatusMessage(
 						$module->translate('Updating panorama items'),
 						'',
@@ -2806,7 +2778,6 @@ class CoreModuleExtras {
 				// Switch PanoramaDerivativeImage back to GalleryDerivativeImage
 				while ($derivatives) {
 					$gallery->guaranteeTimeLimit(30);
-
 					$ret = $statusMonitor->renderStatusMessage(
 						$module->translate('Updating panorama items'),
 						'',
@@ -2870,7 +2841,6 @@ class CoreModuleExtras {
 			case '1.1.6':
 				// Remove useless rows in AccessSubscriberMap
 				$gallery->guaranteeTimeLimit(60);
-
 				$query = '
 					SELECT
 						[GalleryAccessSubscriberMap::itemId]
@@ -2905,7 +2875,6 @@ class CoreModuleExtras {
 
 				for ($i = 0; $itemIds; $i += count($ids)) {
 					$gallery->guaranteeTimeLimit(30);
-
 					$ret = $statusMonitor->renderStatusMessage(
 						$module->translate('Optimizing AccessSubscriberMap table'),
 						'',
@@ -3101,7 +3070,6 @@ class CoreModuleExtras {
 				foreach (array('module', 'theme') as $pluginType) {
 					foreach ($pluginList[$pluginType] as $pluginId => $ignored) {
 						$gallery->guaranteeTimeLimit(30);
-
 						$ret = $statusMonitor->renderStatusMessage(
 							$upgradingMessageText,
 							$pluginId,
@@ -3341,7 +3309,6 @@ class CoreModuleExtras {
 						}
 
 						$gallery->guaranteeTimeLimit(60);
-
 						$ret = $statusMonitor->renderStatusMessage($statusText, '', $count / $total);
 
 						if ($ret) {
@@ -3407,7 +3374,6 @@ class CoreModuleExtras {
 							foreach ($fileList as $file) {
 								if (++$count % 100 == 0) {
 									$gallery->guaranteeTimeLimit(120);
-
 									$ret = $statusMonitor->renderStatusMessage(
 										$statusText,
 										'',
@@ -3490,13 +3456,13 @@ class CoreModuleExtras {
 					$repository = array_pop($repositories);
 				} else {
 					$repository = new GalleryRepository();
+
 					$repository->init('bogus');
 				}
 
 				foreach (array('module', 'theme') as $pluginType) {
 					foreach (array_keys($pluginList[$pluginType]) as $pluginId) {
 						$gallery->guaranteeTimeLimit(30);
-
 						$ret = $statusMonitor->renderStatusMessage(
 							$upgradingMessageText,
 							$pluginId,
@@ -3692,6 +3658,7 @@ class CoreModuleExtras {
 					 * at the bottom of the page.
 					 */
 					$gallery->setConfig(\'allowSessionAccess\', false);
+
 					';
 				}
 
@@ -3701,6 +3668,7 @@ class CoreModuleExtras {
 				 * URL of Gallery codebase; required only for multisite install.
 				 */
 				$gallery->setConfig(\'galleryBaseUrl\', \'\');
+
 				';
 
 				$configChanges[] = array(
@@ -3731,6 +3699,7 @@ class CoreModuleExtras {
 				*    such that it is different for all Gallery installs on the same domain.
 				*/
 				$gallery->setConfig(\'cookieId\', \'' . $cookieId . '\');
+
 				';
 
 				$configChanges[] = array(
@@ -3787,6 +3756,7 @@ class CoreModuleExtras {
 				*    either case described above.  Example: \'/maintenance.html\'
 				*/
 				$gallery->setConfig(\'mode.maintenance\', false);
+
 				',
 					),
 				);
@@ -3832,15 +3802,14 @@ class CoreModuleExtras {
 				 * Normalize the config path 'data.gallery.base' (add a trailing slash if necessary).
 				 * Escape the backslashes and quotes two times since we feed preg_replace with it.
 				 */
-				$edit = array();
-				$tmp  = strtr(
+				$edit                = array();
+				$tmp                 = strtr(
 					$gallery->getConfig('data.gallery.base'),
 					array(
 						'\\' => '\\\\\\\\',
 						"'"  => "\\\\'",
 					)
 				);
-
 				$edit['regexp']      = '{\$gallery->setConfig\(\'data\.gallery\.base\',.*?;}s';
 				$edit['replacement'] = '$gallery->setConfig(\'data.gallery.base\', \''
 				. $tmp . '\');';
@@ -4086,7 +4055,6 @@ class CoreModuleExtras {
 					$gallery->debug(
 						'Warning: config.php add pattern not matched, appending to file instead'
 					);
-
 					$configContents .= "\n" . $content . "\n?>\n";
 				}
 			}
@@ -4138,8 +4106,7 @@ class CoreModuleExtras {
 
 		$group     = new GalleryGroup();
 		$groupName = $module->translate('Registered Users');
-
-		$ret = $group->create($groupName, GROUP_ALL_USERS);
+		$ret       = $group->create($groupName, GROUP_ALL_USERS);
 
 		if ($ret) {
 			return $ret;
@@ -4183,8 +4150,7 @@ class CoreModuleExtras {
 
 		$group     = new GalleryGroup();
 		$groupName = $module->translate('Site Admins');
-
-		$ret = $group->create($groupName, GROUP_SITE_ADMINS);
+		$ret       = $group->create($groupName, GROUP_SITE_ADMINS);
 
 		if ($ret) {
 			return $ret;
@@ -4228,8 +4194,7 @@ class CoreModuleExtras {
 
 		$group     = new GalleryGroup();
 		$groupName = $module->translate('Everybody');
-
-		$ret = $group->create($groupName, GROUP_EVERYBODY);
+		$ret       = $group->create($groupName, GROUP_EVERYBODY);
 
 		if ($ret) {
 			return $ret;
@@ -4274,8 +4239,7 @@ class CoreModuleExtras {
 		$user     = new GalleryUser();
 		$userName = 'guest';
 		$fullName = $module->translate('Guest');
-
-		$ret = $user->create($userName);
+		$ret      = $user->create($userName);
 
 		if ($ret) {
 			return $ret;
@@ -4283,7 +4247,6 @@ class CoreModuleExtras {
 
 		$user->setFullName($fullName);
 		$user->changePassword('');
-
 		$ret = $user->save();
 
 		if ($ret) {
@@ -4350,8 +4313,7 @@ class CoreModuleExtras {
 		$userName = !strlen($userName) ? 'admin' : $userName;
 		$email    = $gallery->getConfig('setup.admin.email');
 		$fullName = $gallery->getConfig('setup.admin.fullName');
-
-		$ret = $user->create($userName);
+		$ret      = $user->create($userName);
 
 		if ($ret) {
 			return $ret;
@@ -4360,7 +4322,6 @@ class CoreModuleExtras {
 		$user->changePassword($gallery->getConfig('setup.password'));
 		$user->setFullName($fullName);
 		$user->setEmail($email);
-
 		$ret = $user->save();
 
 		if ($ret) {
@@ -4413,7 +4374,6 @@ class CoreModuleExtras {
 		$description = $module->translate('This is the main page of your Gallery');
 		$album->setTitle($title);
 		$album->setDescription($description);
-
 		$ret = $album->save();
 
 		if ($ret) {
@@ -4474,8 +4434,8 @@ class CoreModuleExtras {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
 
 		$lock = new GalleryEntity();
-		$lock->create();
 
+		$lock->create();
 		$ret = $lock->save(false);
 
 		if ($ret) {

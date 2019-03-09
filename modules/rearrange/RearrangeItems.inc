@@ -85,6 +85,7 @@ class RearrangeItemsController extends GalleryController {
 			}
 
 			$event = GalleryCoreApi::newEvent('Gallery::ItemOrder');
+
 			$event->setData($itemId);
 
 			list($ret) = GalleryCoreApi::postEvent($event);
@@ -192,9 +193,8 @@ class RearrangeItemsView extends GalleryView {
 						$thumb->getHeight(),
 						100
 					);
-
-					$maxWidth  = max($w, $maxWidth);
-					$maxHeight = max($h, $maxHeight);
+					$maxWidth    = max($w, $maxWidth);
+					$maxHeight   = max($h, $maxHeight);
 				}
 
 				$children[] = $child;

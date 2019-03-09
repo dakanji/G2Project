@@ -124,11 +124,10 @@ class ADODB_odbc extends ADOConnection {
 			}
 
 			while (true) {
-				$rez = @odbc_data_source(
+				$rez   = @odbc_data_source(
 					$this->_connectionID,
 					$first ? SQL_FETCH_FIRST : SQL_FETCH_NEXT
 				);
-
 				$first = false;
 
 				if (!is_array($rez)) {
@@ -198,6 +197,7 @@ class ADODB_odbc extends ADOConnection {
 
 			if ($num === false) {
 				$this->Execute(sprintf($this->_genSeqSQL, $seq));
+
 				$start -= 1;
 				$num    = '0';
 				$ok     = $this->Execute("insert into $seq values($start)");
@@ -303,8 +303,7 @@ class ADODB_odbc extends ADOConnection {
 		}
 
 		$this->_autocommit = true;
-
-		$ret = odbc_commit($this->_connectionID);
+		$ret               = odbc_commit($this->_connectionID);
 
 		odbc_autocommit($this->_connectionID, true);
 
@@ -321,8 +320,7 @@ class ADODB_odbc extends ADOConnection {
 		}
 
 		$this->_autocommit = true;
-
-		$ret = odbc_rollback($this->_connectionID);
+		$ret               = odbc_rollback($this->_connectionID);
 
 		odbc_autocommit($this->_connectionID, true);
 
@@ -337,6 +335,7 @@ class ADODB_odbc extends ADOConnection {
 		}
 
 		$schema = '';
+
 		$this->_findschema($table, $schema);
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
@@ -391,6 +390,7 @@ class ADODB_odbc extends ADOConnection {
 
 		//print_r($arr);
 		$rs->Close();
+
 		$arr2 = array();
 
 		if ($ttype) {
@@ -497,6 +497,7 @@ class ADODB_odbc extends ADOConnection {
 		}
 
 		$schema = '';
+
 		$this->_findschema($table, $schema);
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
@@ -506,8 +507,10 @@ class ADODB_odbc extends ADOConnection {
 			$rs = new ADORecordSet_odbc($qid2);
 			$ADODB_FETCH_MODE = $savem;
 			if (!$rs) return false;
+
 			$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
 			$rs->_fetch();
+
 			while (!$rs->EOF) {
 				if ($table == strtoupper($rs->fields[2])) {
 					$q = $rs->fields[0];
@@ -678,6 +681,7 @@ class ADODB_odbc extends ADOConnection {
 				$stmtid                  = true;
 			} else {
 				$this->_lastAffectedRows = 0;
+
 				odbc_binmode($stmtid, $this->binmode);
 				odbc_longreadlen($stmtid, $this->maxblobsize);
 			}
@@ -704,8 +708,10 @@ class ADODB_odbc extends ADOConnection {
 		Insert a null into the blob field of the table first.
 		Then use UpdateBlob to store the blob.
 		Usage:
+
 		$conn->Execute('INSERT INTO blobtable (id, blobcol) VALUES (1, null)');
 		$conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
+
 	*/
 	public function UpdateBlob($table, $column, $val, $where, $blobtype = 'BLOB') {
 		return $this->Execute("UPDATE $table SET $column=? WHERE $where", array($val)) != false;
@@ -713,8 +719,7 @@ class ADODB_odbc extends ADOConnection {
 
 	// returns true or false
 	public function _close() {
-		$ret = @odbc_close($this->_connectionID);
-
+		$ret                 = @odbc_close($this->_connectionID);
 		$this->_connectionID = false;
 
 		return $ret;
@@ -754,8 +759,9 @@ class ADORecordSet_odbc extends ADORecordSet {
 
 	// returns the field object
 	public function FetchField($fieldOffset = -1) {
-		$off           = $fieldOffset + 1; // offsets begin at 1
-		$o             = new ADOFieldObject();
+		$off = $fieldOffset + 1; // offsets begin at 1
+		$o   = new ADOFieldObject();
+
 		$o->name       = @odbc_field_name($this->_queryID, $off);
 		$o->type       = @odbc_field_type($this->_queryID, $off);
 		$o->max_length = @odbc_field_len($this->_queryID, $off);

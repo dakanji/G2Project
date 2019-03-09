@@ -163,7 +163,6 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals(__DIR__, $params['uploadLocalServer.dir.3'], 'new dir');
 		$this->assertFalse(isset($params['uploadLocalServer.dir.4']), 'end of list');
-
 		$valueMap['uploadLocalServer.dir.1'] = 'a';
 		$valueMap['uploadLocalServer.dir.2'] = 'b';
 		$valueMap['uploadLocalServer.dir.3'] = __DIR__;
@@ -215,6 +214,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new ItemAddSiteAdminControllerTestPhpVm('');
+
 		GalleryUtilities::putRequestVariable(
 			'form[uploadLocalServer][newDir]',
 			'/this/fake/gallery2/path/wont/exist'
@@ -260,6 +260,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$platform = new UnitTestPlatform();
+
 		$platform->setReply('splitPath', array('/test/path'), array('/', 'test', 'path'));
 		$platform->setReply('isRestrictedByOpenBaseDir', array('/test/path'), false);
 		$platform->setReply('is_readable', array('/test/path'), false);
@@ -287,6 +288,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$platform = new UnitTestPlatform();
+
 		$platform->setReply('splitPath', array('/test/path'), array('/', 'test', 'path'));
 		$platform->setReply('isRestrictedByOpenBaseDir', array('/test/path'), true);
 		$gallery->setPlatform($platform);
@@ -316,6 +318,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$platform = new UnitTestPlatform();
+
 		$platform->setReply('splitPath', array('/test/../path'), array('/', 'test', '..', 'path'));
 		$platform->setReply('realpath', array('/test/../path'), '/path');
 		$platform->setReply('isRestrictedByOpenBaseDir', array('/path'), false);
@@ -352,8 +355,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		$platform =& $gallery->getPlatform();
 		$saveDir  = $platform->getcwd();
-
-		$ret = $this->_setUploadDirs(
+		$ret      = $this->_setUploadDirs(
 			array(
 				1 => 'a',
 				2 => null,
@@ -387,7 +389,6 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-
 		$platform->chdir($saveDir);
 
 		list($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'itemadd');
@@ -408,6 +409,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$platform = new UnitTestPlatform();
+
 		$platform->setReply('splitPath', array('/php&unit'), array('/', 'php&unit'));
 		$platform->setReply('isRestrictedByOpenBaseDir', array('/php&unit'), false);
 		$platform->setReply('is_readable', array('/php&unit'), true);
@@ -446,6 +448,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		$gallery->_phpVm = new ItemAddSiteAdminControllerTestPhpVm('');
 		$platform        = new UnitTestPlatform();
 		$iso88591String  = '/php' . chr(228) . 'unit';
+
 		$platform->setReply('splitPath', array($iso88591String), array($iso88591String));
 		$platform->setReply('isRestrictedByOpenBaseDir', array($iso88591String), false);
 		$platform->setReply('is_readable', array($iso88591String), true);
@@ -496,6 +499,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// realpath of /link/dir is /other/fun/dir
 		$platform = new UnitTestPlatform();
+
 		$platform->setReply('splitPath', array('/link/dir'), array('/', 'link', 'dir'));
 		$platform->setReply('isRestrictedByOpenBaseDir', array('/link/dir'), false);
 		$platform->setReply('is_readable', array('/link/dir'), true);

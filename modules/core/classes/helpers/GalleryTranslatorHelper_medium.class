@@ -92,7 +92,6 @@ class GalleryTranslatorHelper_medium {
 			$gallery->getConfig('data.gallery.locale')
 			. "*/LC_MESSAGES/${pluginType}s_$pluginId.mo"
 		);
-
 		$success = true;
 
 		if (!empty($moFiles)) {

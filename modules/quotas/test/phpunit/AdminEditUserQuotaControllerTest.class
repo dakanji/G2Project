@@ -118,7 +118,6 @@ class AdminEditUserQuotaControllerTest extends GalleryControllerTestCase {
 		$this->assertTrue($quotaExists, 'Quota does not exist');
 		$this->assertEquals($this->_user->getId(), $userQuota['id'], 'User Ids do not match');
 		$this->assertEquals(6144, $userQuota['quota'], 'User quota does not match');
-
 		$this->_deleteUserQuota($this->_user->getId());
 	}
 

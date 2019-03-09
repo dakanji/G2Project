@@ -107,6 +107,7 @@ class SystemChecksStep extends UpgradeStep {
 		$suggestedHtaccess     = array();
 		$setTimeLimitAvailable = false;
 		$template              = new StatusTemplate();
+
 		$template->renderHeader(true);
 		$template->renderStatusMessage('Performing system checks', '', 0);
 
@@ -446,14 +447,13 @@ class SystemChecksStep extends UpgradeStep {
 			$storageFiles = $this->CheckStorageDirectory();
 
 			if (!empty($storageFiles)) {
-				$notice = sprintf(
+				$notice                  = sprintf(
 					'Error: Some files and or directories in your storage directory are ' .
 					'not writeable by the webserver user. Run chown -R webserverUser ' .
 					'%s OR run chmod -R 777 %s.',
 					$gallery->getConfig('data.gallery.base'),
 					$gallery->getConfig('data.gallery.base')
 				);
-
 				$heading                 = sprintf('Inaccessible or missing  files (%d)', count($storageFiles));
 				$message                 = $this->renderFileList($storageFiles, 'storagefiles', $heading, $notice);
 				$templateData['check'][] = array(
@@ -620,6 +620,7 @@ class SystemChecksStep extends UpgradeStep {
 		$template->hideStatusBlock();
 		$templateData['suggestedHtaccess'] = join("\n", $suggestedHtaccess);
 		$templateData['bodyFile']          = 'SystemChecks.html';
+
 		$this->setComplete($failCount == 0);
 		$this->setInError($failCount > 0);
 		$template->renderBodyAndFooter($templateData);
@@ -857,8 +858,7 @@ class SystemChecksStep extends UpgradeStep {
 		$gallery->startRecordingDebugSnippet();
 
 		list($ret, $metatables) = $storageExtras->_metaTables();
-
-		$snippet = $gallery->stopRecordingDebugSnippet();
+		$snippet                = $gallery->stopRecordingDebugSnippet();
 
 		if ($ret) {
 			$gallery->debug($ret->getAsHtml());
@@ -928,7 +928,6 @@ class SystemChecksStep extends UpgradeStep {
 		$sequenceId = 'g2privtestseq';
 
 		$ret = $storage->_db->CreateSequence($tablePrefix . $sequenceId);
-
 		$storage->_traceStop();
 		$snippet = $gallery->stopRecordingDebugSnippet();
 
@@ -943,9 +942,7 @@ class SystemChecksStep extends UpgradeStep {
 
 		$gallery->startRecordingDebugSnippet();
 		$storage->_traceStart();
-
 		$ret = $storage->_db->DropSequence($tablePrefix . $sequenceId);
-
 		$storage->_traceStop();
 		$snippet = $gallery->stopRecordingDebugSnippet();
 
@@ -1000,10 +997,9 @@ class SystemChecksStep extends UpgradeStep {
 
 				// For mysql, another replacement is required
 				$query = str_replace('DB_TABLE_TYPE', '', $query);
+
 				$gallery->startRecordingDebugSnippet();
-
-				$ret = $storage->execute($query, array());
-
+				$ret     = $storage->execute($query, array());
 				$snippet = $gallery->stopRecordingDebugSnippet();
 
 				if ($ret) {

@@ -46,7 +46,6 @@ class RepositoryCallbackTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('command', 'saveRepositoryList');
 
 		$this->_markPluginParametersForCleanup('module', 'core');
-
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',

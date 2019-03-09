@@ -165,6 +165,7 @@ class UserWatermarksView extends GalleryView {
 			$UserAdmin['enctype'] = 'multipart/form-data';
 		} else {
 			$UserAdmin['enctype'] = 'multipart/form-data';
+
 			$template->setVariable('UserAdmin', $UserAdmin);
 		}
 
@@ -174,7 +175,6 @@ class UserWatermarksView extends GalleryView {
 				'watermarks' => $watermarks,
 			)
 		);
-
 		$template->setVariable('controller', 'watermark.UserWatermarks');
 
 		return array(

@@ -99,8 +99,7 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 
 		$gallery->_storage = new UnitTestStorage();
 		$storage           =& $gallery->getStorage();
-
-		$query = '
+		$query             = '
 	SELECT COUNT([GallerySessionMap::id])
 	FROM [GallerySessionMap]
 	WHERE [GallerySessionMap::modificationTimestamp] < ? OR

@@ -197,6 +197,7 @@ class WatermarkSiteAdminView extends GalleryView {
 			$SiteAdmin['enctype'] = 'multipart/form-data';
 		} else {
 			$SiteAdmin['enctype'] = 'multipart/form-data';
+
 			$template->setVariable('SiteAdmin', $SiteAdmin);
 		}
 

@@ -137,7 +137,8 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 	public function _FetchField($fieldOffset = -1) {
 		$fld          = new ADOFieldObject();
 		$fieldOffset += 1;
-		$fld->name    = OCIcolumnname($this->_queryID, $fieldOffset);
+
+		$fld->name = OCIcolumnname($this->_queryID, $fieldOffset);
 
 		if (ADODB_ASSOC_CASE == ADODB_ASSOC_CASE_LOWER) {
 			$fld->name = strtolower($fld->name);

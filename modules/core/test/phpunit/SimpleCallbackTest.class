@@ -77,8 +77,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	public function _runCallback() {
 		ob_start();
 
-		$ret = $this->_view->renderImmediate(array(), array());
-
+		$ret     = $this->_view->renderImmediate(array(), array());
 		$results = ob_get_contents();
 		ob_end_clean();
 
@@ -96,10 +95,8 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('command', 'lookupUsername');
 		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
-
 		$results = $this->_runCallback();
 		sort($this->_userNames);
-
 		$this->assertEquals(join("\n", $this->_userNames), $results);
 	}
 
@@ -111,7 +108,6 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('command', 'lookupUsername');
 		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
-
 		$results = $this->_runCallback();
 
 		// Guest can't see results
@@ -127,9 +123,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('command', 'lookupUsername');
 		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
-
 		$results = $this->_runCallback();
-
 		$this->assertEquals('', $results);
 	}
 
@@ -137,6 +131,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		// We expect user/group names in db to be entitized.. search for < should match &lt;
 		$search      = $this->_tag . '<t';
 		$this->_tag .= '&lt;t';
+
 		$this->_createUser();
 		$this->_createUser();
 
@@ -145,7 +140,6 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		$results = $this->_runCallback();
 		sort($this->_userNames);
-
 		$this->assertEquals(join("\n", $this->_userNames), $results);
 	}
 
@@ -156,10 +150,8 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('command', 'lookupGroupname');
 		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
-
 		$results = $this->_runCallback();
 		sort($this->_groupNames);
-
 		$this->assertEquals(join("\n", $this->_groupNames), $results);
 	}
 
@@ -171,7 +163,6 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('command', 'lookupGroupname');
 		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
-
 		$results = $this->_runCallback();
 
 		// Guest can't see results
@@ -182,6 +173,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		// We expect user/group names in db to be entitized.. search for " should match &quot;
 		$search      = $this->_tag . '"test';
 		$this->_tag .= '&quot;test';
+
 		$this->_createGroup();
 		$this->_createGroup();
 
@@ -190,7 +182,6 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		$results = $this->_runCallback();
 		sort($this->_groupNames);
-
 		$this->assertEquals(join("\n", $this->_groupNames), $results);
 	}
 
@@ -199,7 +190,6 @@ class SimpleCallbackTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('prefix', dirname(__DIR__));
 
 		$results = $this->_runCallback();
-
 		$this->assertTrue(strstr($results, __DIR__), 'Missing result');
 	}
 
@@ -208,7 +198,6 @@ class SimpleCallbackTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('prefix', dirname(dirname(__DIR__)) . '/c');
 
 		$results = $this->_runCallback();
-
 		$this->assertTrue(strstr($results, 'classes'), 'Missing classes in: ' . $results);
 		$this->assertFalse(strstr($results, 'templates'), 'Should not have templates in: ' . $results);
 	}
@@ -218,6 +207,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		global $gallery;
 
 		$platform = new SimpleCallbackTestPlatform();
+
 		$platform->setReply('is_dir', array('/php<unit'), true);
 		$platform->setReply('opendir', array('/php<unit'), 'dh');
 		$platform->setReply('getDirectorySeparator', array(), '/');
@@ -242,6 +232,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		$gallery->_phpVm = new SimpleCallbackTestPhpVm();
 		$platform        = new SimpleCallbackTestPlatform();
+
 		$platform->setReply('is_dir', array('/php' . chr(228) . 'unit'), true);
 		$platform->setReply('opendir', array('/php' . chr(228) . 'unit'), 'dh');
 		$platform->setReply('getDirectorySeparator', array(), '/');
@@ -302,7 +293,6 @@ class SimpleCallbackTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('prefix', __DIR__);
 
 		$results = $this->_runCallback();
-
 		$this->assertTrue(strstr($results, __FILE__), 'Missing result');
 	}
 
@@ -311,7 +301,6 @@ class SimpleCallbackTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('prefix', __DIR__ . '/Si');
 
 		$results = $this->_runCallback();
-
 		$this->assertTrue(strstr($results, __FILE__), 'Missing result in: ' . $results);
 		$this->assertTrue(
 			!strstr($results, 'CoreModuleTest'),
@@ -324,6 +313,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		global $gallery;
 
 		$platform = new SimpleCallbackTestPlatform();
+
 		$platform->setReply('is_dir', array('/php&unit'), true);
 		$platform->setReply('opendir', array('/php&unit'), 'dh');
 		$platform->setReply('getDirectorySeparator', array(), '/');
@@ -353,6 +343,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		$gallery->_phpVm = new SimpleCallbackTestPhpVm();
 		$platform        = new SimpleCallbackTestPlatform();
+
 		$platform->setReply('is_dir', array('/php' . chr(228) . 'unit'), true);
 		$platform->setReply('opendir', array('/php' . chr(228) . 'unit'), 'dh');
 		$platform->setReply('getDirectorySeparator', array(), '/');
@@ -442,6 +433,7 @@ class SimpleCallbackTestPlatform extends UnitTestPlatform {
 		global $gallery;
 
 		$this->_originalPlatform =& $gallery->getPlatform();
+
 		parent::__construct();
 	}
 

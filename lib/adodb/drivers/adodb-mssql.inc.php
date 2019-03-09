@@ -133,6 +133,7 @@ class ADODB_mssql extends ADOConnection {
 		if (0) {
 			$stmt = $this->PrepareSP('sp_server_info');
 			$val  = 2;
+
 			$this->Parameter($stmt, $val, 'attribute_id');
 			$row = $this->GetRow($stmt);
 		}
@@ -210,7 +211,9 @@ class ADODB_mssql extends ADOConnection {
 
 	public function CreateSequence($seq = 'adodbseq', $start = 1) {
 		$this->Execute('BEGIN TRANSACTION adodbseq');
+
 		$start -= 1;
+
 		$this->Execute("create table $seq (id float(53))");
 		$ok = $this->Execute("insert into $seq with (tablock,holdlock) values($start)");
 
@@ -424,10 +427,13 @@ class ADODB_mssql extends ADOConnection {
 
 	/*
 		Usage:
+
 		$this->BeginTrans();
 		$this->RowLock('table1,table2','table1.id=33 and table2.id=table1.id'); # lock row 33 for both tables
 		# some operation on both tables table1 and table2
+
 		$this->CommitTrans();
+
 		See http://www.swynk.com/friends/achigrik/SQL70Locks.asp
 	*/
 	public function RowLock($tables, $where, $col = '1 as adodbignore') {
@@ -636,6 +642,7 @@ order by constraint_name, referenced_table_name, keyno";
 		global $ADODB_FETCH_MODE;
 
 		$schema = '';
+
 		$this->_findschema($table, $schema);
 
 		if (!$schema) {
@@ -842,9 +849,11 @@ order by constraint_name, referenced_table_name, keyno";
 	Usage:
 		$stmt = $db->PrepareSP('SP_RUNSOMETHING'); -- takes 2 params, @myid and @group
 		# note that the parameter does not have @ in front!
+
 		$db->Parameter($stmt,$id,'myid');
 		$db->Parameter($stmt,$group,'group',false,64);
 		$db->Execute($stmt);
+
 		@param $stmt Statement returned by Prepare() or PrepareSP().
 		@param $var PHP variable to bind to. Can set to null (for isNull support).
 		@param $name Name of stored procedure variable name to bind to.
@@ -998,13 +1007,16 @@ order by constraint_name, referenced_table_name, keyno";
 			$rez = mssql_query("sp_executesql N{$sql[1]},N$decl,$params", $this->_connectionID);
 
 			if ($getIdentity) {
-				$arr             = @mssql_fetch_row($rez);
+				$arr = @mssql_fetch_row($rez);
+
 				$this->lastInsID = isset($arr[0]) ? $arr[0] : false;
+
 				@mssql_data_seek($rez, 0);
 			}
 		} elseif (is_array($sql)) {
 			// PrepareSP()
-			$rez             = mssql_execute($sql[1]);
+			$rez = mssql_execute($sql[1]);
+
 			$this->lastInsID = false;
 		} else {
 			$rez             = mssql_query($sql, $this->_connectionID);

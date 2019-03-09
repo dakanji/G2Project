@@ -221,8 +221,7 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 	 * transaction for every test.
 	 */
 	$storage =& $gallery->getStorage();
-
-	$ret = $storage->commitTransaction();
+	$ret     = $storage->commitTransaction();
 
 	if ($ret) {
 		return $ret;
@@ -251,6 +250,7 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 		}
 
 		$suiteArray = array();
+
 		$gallery->guaranteeTimeLimit(120);
 
 		foreach ($moduleStatusList as $moduleId => $moduleStatus) {
@@ -498,6 +498,7 @@ class GalleryTestResult extends TestResult {
 					$test->name() . '$'
 				) .
 				'" name="fail' . $this->fRunTests . '">' . $test->classname() . '.' .
+
 				$test->name() . "</a></li><ul>\n";
 
 				foreach ($test->getExceptions() as $exception) {
@@ -676,8 +677,7 @@ if ($testSuite->countTestCases() > 0) {
 }
 
 $storage =& $gallery->getStorage();
-
-$ret = $storage->commitTransaction();
+$ret     = $storage->commitTransaction();
 
 if ($ret) {
 	echo $ret->getAsHtml();

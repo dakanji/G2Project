@@ -571,7 +571,6 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 			$derivative->setDerivativeOperations($operations);
 			$derivative->setWidth(0);
 			$derivative->setHeight(0);
-
 			$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
 
 			if ($ret) {
@@ -849,6 +848,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 
 				if ($isSupported) {
 					$success = true;
+
 					$derivative->setDerivativeOperations($derivativeOperations);
 					$derivative->setMimeType($outputMimeType);
 				}

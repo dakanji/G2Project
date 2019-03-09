@@ -60,8 +60,8 @@ class GdToolkit extends GalleryToolkit {
 	public function &_getGdFunctionality() {
 		if (!isset($this->_gdFunctionality)) {
 			GalleryCoreApi::requireOnce('modules/gd/classes/GdFunctionality.class');
-
 			$gd = new GdFunctionality();
+
 			$this->setGdFunctionality($gd);
 		}
 
@@ -76,6 +76,7 @@ class GdToolkit extends GalleryToolkit {
 	 */
 	public function setGdFunctionality(&$obj) {
 		$this->_gdFunctionality =& $obj;
+
 		unset($this->_hasImageCreateTrueColor);
 	}
 
@@ -208,7 +209,6 @@ class GdToolkit extends GalleryToolkit {
 				);
 
 				list($ret, $destRes) = $this->_resizeImageResource($sourceRes, $destWidth, $destHeight, $hasTransparency);
-
 				$this->_free($sourceRes);
 
 				if ($ret) {
@@ -233,7 +233,6 @@ class GdToolkit extends GalleryToolkit {
 					$parameters[1],
 					$hasTransparency
 				);
-
 				$this->_free($sourceRes);
 
 				if ($ret) {
@@ -255,7 +254,6 @@ class GdToolkit extends GalleryToolkit {
 				$degrees = 0 - $parameters[0];
 
 				list($ret, $destRes) = $gd->imageRotate($sourceRes, $degrees, 0);
-
 				$this->_free($sourceRes);
 
 				if ($ret) {
@@ -310,7 +308,6 @@ class GdToolkit extends GalleryToolkit {
 					$pixelWidth,
 					$pixelHeight
 				);
-
 				$this->_free($sourceRes);
 
 				if ($ret) {
@@ -468,7 +465,6 @@ class GdToolkit extends GalleryToolkit {
 					$compositeWidth,
 					$compositeHeight
 				);
-
 				$this->_free($overlayRes);
 
 				if ($ret) {
@@ -536,6 +532,7 @@ class GdToolkit extends GalleryToolkit {
 					$quality = round(($minQuality + $maxQuality) / 2);
 				} while ($maxQuality - $minQuality > 2
 				   && abs(($fileSize - $targetSize) / $targetSize) > 0.02);
+
 				$this->_free($sourceRes);
 
 				return array(null, $outputMimeType, $context);
@@ -562,7 +559,6 @@ class GdToolkit extends GalleryToolkit {
 				$outputMimeType,
 				$hasTransparency
 			);
-
 			$this->_free($destRes);
 
 			if ($ret) {
@@ -867,7 +863,6 @@ class GdToolkit extends GalleryToolkit {
 		}
 
 		list($ret, $width, $height) = $this->_getImageDimensionsForResource($res);
-
 		$this->_free($res);
 
 		if ($ret) {
@@ -1132,9 +1127,7 @@ class GdToolkit extends GalleryToolkit {
 				$this->_transparencyReplacementColor[1],
 				$this->_transparencyReplacementColor[2]
 			);
-
 			$gd->imagefilledrectangle($tempImage, 0, 0, $width, $height, $backgroundColor);
-
 			$ret = $gd->imageCopy($tempImage, $res, 0, 0, 0, 0, $width, $height);
 
 			if ($ret) {
@@ -1148,9 +1141,7 @@ class GdToolkit extends GalleryToolkit {
 
 			// Ignore errors
 			$gd->imagecolortransparent($res, -1);
-
 			$ret = $gd->imageCopy($res, $tempImage, 0, 0, 0, 0, $width, $height);
-
 			$this->_free($tempImage);
 
 			if ($ret) {

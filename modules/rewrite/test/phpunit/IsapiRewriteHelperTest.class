@@ -56,7 +56,6 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$gallery->setUrlGenerator($urlGenerator);
-
 		$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
 
 		if ($ret) {
@@ -80,6 +79,7 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		// Set up our mock platform
 		$this->_platform = new IsapiRewriteHelperMockPlatform();
 		$this->_platform->init($this);
+
 		unset($this->_fileContent);
 		$gallery->setPlatform($this->_platform);
 	}
@@ -102,7 +102,6 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
-
 		$this->_platform->_isWriteable = false;
 
 		list($ret, $code) = IsapiRewriteHelper::checkFile();
@@ -112,7 +111,6 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_WRITE, $code, 'writeable');
-
 		$this->_platform->_isReadable = false;
 
 		list($ret, $code) = IsapiRewriteHelper::checkFile();
@@ -122,7 +120,6 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_READ, $code, 'readable');
-
 		$this->_platform->_fileExists = false;
 
 		list($ret, $code) = IsapiRewriteHelper::checkFile();
@@ -155,7 +152,6 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 
 		$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_READ, $code, 'readable');
 		$this->assertFalse(isset($this->_fileContent), 'readable fileContent');
-
 		$this->_platform->_isReadable  = true;
 		$this->_platform->_isWriteable = false;
 
@@ -294,7 +290,8 @@ class IsapiRewriteHelperMockPlatform extends GalleryPlatform {
 		);
 
 		if ($handle == 'phpunit') {
-			$respons           = GalleryUtilities::getRequestVariables('isapiRewriteTest');
+			$respons = GalleryUtilities::getRequestVariables('isapiRewriteTest');
+
 			$this->_readBuffer = $buffer[$respons];
 
 			return strlen($string);
@@ -342,8 +339,9 @@ class IsapiRewriteHelperMockPlatform extends GalleryPlatform {
 				return $tmp;
 			}
 
-			$buf               = join("\n", $this->_readBuffer);
-			$tmp               = substr($buf, 0, $length);
+			$buf = join("\n", $this->_readBuffer);
+			$tmp = substr($buf, 0, $length);
+
 			$this->_readBuffer = explode("\n", substr($buf, $length + 1));
 
 			return $tmp;

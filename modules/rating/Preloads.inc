@@ -33,6 +33,7 @@ class RatingPreloads {
 		}
 
 		$loaded[$preload] = 1;
+
 		$template->style('modules/rating/rating.css');
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('modules/rating/rating.js');

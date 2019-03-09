@@ -37,6 +37,7 @@ class FlushDatabaseCacheTaskTest extends GalleryTestCase {
 
 		$gallery->setConfig('data.gallery.cache', '/cache/');
 		$mockPlatform = new FlushDatabaseCacheTaskTestPlatform(array());
+
 		$gallery->setPlatform($mockPlatform);
 		$task = new FlushDatabaseCacheTask();
 
@@ -111,14 +112,12 @@ class FlushDatabaseCacheTaskTest extends GalleryTestCase {
 				'arg1' => '/cache/theme',
 			)
 		);
-
 		$expected[] = $module->translate(
 			array(
 				'text' => 'Successfully deleted directory: %s',
 				'arg1' => '/cache/module',
 			)
 		);
-
 		$this->assertFalse($success, 'should have failed');
 		$this->assertEquals($expected, $details);
 		$this->assertEquals(

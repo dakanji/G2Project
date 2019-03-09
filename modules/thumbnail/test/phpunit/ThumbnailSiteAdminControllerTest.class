@@ -184,7 +184,6 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(isset($mimeMap['test/fakemime']), 'Map entry not found after add');
-
 		$itemId = $mimeMap['test/fakemime'];
 
 		GalleryUtilities::removeFormVariables('form');
@@ -216,7 +215,6 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(GalleryUtilities::isA($toolkit, 'ThumbnailToolkit'), 'Toolkit');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

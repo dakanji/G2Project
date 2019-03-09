@@ -434,8 +434,7 @@ class CoreModule extends GalleryModule {
 						'return'  => 1,
 					),
 				);
-
-				$links['Logout'] = array(
+				$links['Logout']      = array(
 					'text'   => $this->translate('Logout'),
 					'params' => array(
 						'controller' => 'core.Logout',
@@ -530,7 +529,6 @@ class CoreModule extends GalleryModule {
 						'name' => $this->translate('Account Settings'),
 						'view' => 'core.UserPreferences',
 					);
-
 					$views[] = array(
 						'name' => $this->translate('Change Password'),
 						'view' => 'core.UserChangePassword',

@@ -162,6 +162,7 @@ if (empty($steps) || !is_array($steps)) {
 			$step->setStepNumber($i);
 			$step->setInError(false);
 			$step->setComplete(false);
+
 			$steps[] = $step;
 		}
 	}
@@ -211,10 +212,12 @@ if ($currentStep->processRequest()) {
 
 	// Round percentage to the nearest 5
 	$templateData['errors'] = array();
+
 	$currentStep->loadTemplateData($templateData);
 
 	// Render the output
 	$template = new StatusTemplate();
+
 	$template->renderHeaderBodyAndFooter($templateData);
 }
 
@@ -257,6 +260,7 @@ function selectAdminUser($fallback = false) {
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryUser.class');
 
 			$adminUser = new GalleryUser();
+
 			$adminUser->setId((int)$userId);
 			$adminUser->setUserName($userName);
 		} else {

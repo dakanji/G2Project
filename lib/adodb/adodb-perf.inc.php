@@ -68,7 +68,8 @@ function adodb_microtime() {
 
 // sql code timing
 function adodb_log_sql(&$connx, $sql, $inputarr) {
-	$perf_table       = adodb_perf::table();
+	$perf_table = adodb_perf::table();
+
 	$connx->fnExecute = false;
 	$a0               = microtime(true);
 	$rs               = $connx->Execute($sql, $inputarr);
@@ -240,6 +241,7 @@ function adodb_log_sql(&$connx, $sql, $inputarr) {
 
 			if (!$ok) {
 				ADOConnection::outp("<p><b>LOGSQL Insert Failed</b>: $isql<br>$err2</p>");
+
 				$conn->_logsql = false;
 			}
 		}
@@ -447,10 +449,11 @@ class adodb_perf {
 
 		$last            = $this->_lastLoad;
 		$this->_lastLoad = $info;
-		$d_user          = $info[0] - $last[0];
-		$d_nice          = $info[1] - $last[1];
-		$d_system        = $info[2] - $last[2];
-		$d_idle          = $info[3] - $last[3];
+
+		$d_user   = $info[0] - $last[0];
+		$d_nice   = $info[1] - $last[1];
+		$d_system = $info[2] - $last[2];
+		$d_idle   = $info[3] - $last[3];
 
 		//printf("Delta - User: %f  Nice: %f  System: %f  Idle: %f<br>",$d_user,$d_nice,$d_system,$d_idle);
 		$total = $d_user + $d_nice + $d_system + $d_idle;
@@ -466,6 +469,7 @@ class adodb_perf {
 		$perf_table            = self::table();
 		$saveE                 = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
+
 		global $ADODB_FETCH_MODE;
 
 		$save             = $ADODB_FETCH_MODE;
@@ -482,8 +486,7 @@ class adodb_perf {
 	group by tracer
 	order by 1 desc"
 		);
-
-		$s = '';
+		$s    = '';
 
 		if ($arr) {
 			$s .= '<h3>Scripts Affected</h3>';
@@ -497,7 +500,8 @@ class adodb_perf {
 			$this->conn->SetFetchMode($savem);
 		}
 
-		$ADODB_CACHE_MODE      = $save;
+		$ADODB_CACHE_MODE = $save;
+
 		$this->conn->fnExecute = $saveE;
 
 		return $s;
@@ -573,7 +577,8 @@ class adodb_perf {
 			$this->conn->SetFetchMode($savem);
 		}
 
-		$ADODB_FETCH_MODE      = $save;
+		$ADODB_FETCH_MODE = $save;
+
 		$this->conn->fnExecute = $saveE;
 
 		if (!$rs) {
@@ -795,9 +800,7 @@ class adodb_perf {
 		}
 
 		$sql = str_replace('$DATABASE', $this->conn->database, $sql);
-
 		$ret = $this->conn->GetOne($sql);
-
 		$this->conn->LogSQL($savelog);
 
 		return $ret;
@@ -814,6 +817,7 @@ class adodb_perf {
 
 	public function clearsql() {
 		$perf_table = self::table();
+
 		$this->conn->Execute("delete from $perf_table where created<" . $this->conn->sysTimeStamp);
 	}
 
@@ -919,6 +923,7 @@ class adodb_perf {
 
 			case 'poll2':
 				echo '<pre>';
+
 				$this->Poll($pollsecs);
 
 				break;

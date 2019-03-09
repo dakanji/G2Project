@@ -295,6 +295,7 @@ class DatabaseSetupStep extends InstallStep {
 				$versions        = $this->_getVersions();
 				$datVersion      = $versions['installed'];
 				$codebaseVersion = $versions['codebase'];
+
 				$galleryStub->setConfig('codebase.version', $codebaseVersion);
 			}
 
@@ -380,7 +381,6 @@ class DatabaseSetupStep extends InstallStep {
 
 				// Drop all Gallery database tables listed in the schema table
 				$this->_captureStart();
-
 				$ret = $this->_cleanDatabase();
 
 				if ($ret) {
@@ -468,6 +468,7 @@ class DatabaseSetupStep extends InstallStep {
 		}
 
 		$this->_debugContents .= ob_get_contents();
+
 		ob_end_clean();
 	}
 
@@ -741,6 +742,7 @@ class DatabaseSetupStep extends InstallStep {
 			include_once __DIR__ . '/../../modules/core/classes/GalleryDataCache.class';
 
 			$GLOBALS['gallery'] = new Gallery();
+
 			$GLOBALS['gallery']->init();
 
 			/*
@@ -758,7 +760,6 @@ class DatabaseSetupStep extends InstallStep {
 				'plugins.dirname',
 				$galleryStub->getConfig('plugins.dirname')
 			);
-
 			$GLOBALS['gallery']->setConfig('data.gallery.version', $configPath . 'versions.dat');
 			$GLOBALS['gallery']->setConfig(
 				'data.gallery.locale',
@@ -779,6 +780,7 @@ class DatabaseSetupStep extends InstallStep {
 			include_once __DIR__ . '/../../modules/core/classes/GalleryPlatform.class';
 
 			$GalleryPlatform = new GalleryPlatform();
+
 			$gallery->setPlatform($GalleryPlatform);
 
 			// Configure G2 such that getInstalledVersions() can be called
@@ -879,7 +881,6 @@ class DatabaseSetupStep extends InstallStep {
 
 		$storage =& $gallery->getStorage();
 		$gallery->setDebug('immediate');
-
 		$ret = $storage->cleanStore();
 
 		if ($ret) {

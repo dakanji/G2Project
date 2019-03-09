@@ -210,16 +210,16 @@ class AdminCoreController extends GalleryController {
 		if (isset($form['action']['emailTest']) && empty($error)) {
 			$platform = $gallery->getPlatform();
 			$gallery->startRecordingDebugSnippet();
+
 			ob_start();
 
-			$ret = $platform->sendEmail(
+			$ret    = $platform->sendEmail(
 				'modules/core/templates/EmailTest.tpl',
 				array(),
 				null,
 				$form['emailTest']['to'],
 				$module->translate('Gallery Email Test')
 			);
-
 			$output = ob_get_contents();
 			ob_end_clean();
 			$debugSnippet = $gallery->stopRecordingDebugSnippet();
@@ -406,21 +406,20 @@ class AdminCoreView extends GalleryView {
 		}
 
 		// Miscellaneous lists
-		$embeddedMarkupList = array(
+		$embeddedMarkupList              = array(
 			'none'   => $module->translate('No Markup'),
 			'bbcode' => $module->translate('BBCode'),
 			'html'   => $module->translate('Raw HTML'),
 		);
-
-		$lockSystemList = array(
+		$lockSystemList                  = array(
 			'database' => $module->translate('Database'),
 			'flock'    => $module->translate('File'),
 		);
-
 		$AdminCore['can']                = $can;
 		$AdminCore['sessionTimeList']    = $sessionTimeList;
 		$AdminCore['embeddedMarkupList'] = $embeddedMarkupList;
 		$AdminCore['lockSystemList']     = $lockSystemList;
+
 		$template->setVariable('controller', 'core.AdminCore');
 		$template->setVariable('AdminCore', $AdminCore);
 		$template->javascript('lib/javascript/BlockToggle.js');

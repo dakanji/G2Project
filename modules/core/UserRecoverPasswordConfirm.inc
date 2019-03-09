@@ -110,7 +110,6 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 						}
 
 						$user->changePassword($form['password1']);
-
 						$ret = $user->save();
 
 						if ($ret) {
@@ -227,6 +226,7 @@ class UserRecoverPasswordConfirmView extends GalleryView {
 		}
 
 		$UserRecoverPasswordConfirm = array();
+
 		$template->setVariable('UserRecoverPasswordConfirm', $UserRecoverPasswordConfirm);
 		$template->setVariable('controller', 'core.UserRecoverPasswordConfirm');
 

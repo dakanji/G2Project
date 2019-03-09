@@ -72,8 +72,7 @@ class LogoutController extends GalleryController {
 		}
 
 		$session =& $gallery->getSession();
-
-		$ret = $session->reset();
+		$ret     = $session->reset();
 
 		if ($ret) {
 			return array($ret, null);

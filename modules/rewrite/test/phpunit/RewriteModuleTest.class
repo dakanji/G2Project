@@ -46,12 +46,12 @@ class RewriteModuleTest extends GalleryTestCase {
 
 		// Enable event listener (normally disabled for unit tests)
 		$listener = new RewriteModule();
+
 		$this->_registerTestEventListener('Gallery::DeactivatePlugin', $listener);
 		$this->_registerTestEventListener('Gallery::ActivatePlugin', $listener);
 		$this->_registerTestEventListener('Gallery::UninstallPlugin', $listener);
 		$this->_platform = new RewriteModuleMockPlatform();
 		$gallery->setPlatform($this->_platform);
-
 		$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
 
 		if ($ret) {

@@ -50,8 +50,7 @@ class UserHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_session = $this->_saveSession;
-
-		$ret = parent::tearDown();
+		$ret               = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -64,6 +63,7 @@ class UserHelperTest extends GalleryTestCase {
 		$gallery->_session      = new UserHelperTestSession();
 		$UserHelperTestMockUser = new UserHelperTestMockUser();
 		$event                  = GalleryCoreApi::newEvent('Gallery::Login');
+
 		$event->setEntity($UserHelperTestMockUser);
 
 		list($ret, $ignored) = GalleryUserHelper_medium::handleEvent($event);
@@ -97,7 +97,6 @@ class UserHelperTest extends GalleryTestCase {
 				'userName' => 'MockUser',
 			)
 		);
-
 		$this->_phpVm->_time = 'NOW';
 
 		list($ret, $ignored) = GalleryUserHelper_medium::handleEvent($event);
@@ -151,7 +150,6 @@ class UserHelperTest extends GalleryTestCase {
 				'userName' => 'MockUser',
 			)
 		);
-
 		$this->_storage->_count       = 1;
 		$this->_storage->_lastAttempt = 1;  // way in the past
 		$this->_phpVm->_time          = 'NOW';
@@ -202,7 +200,6 @@ class UserHelperTest extends GalleryTestCase {
 				'userName' => 'MockUser',
 			)
 		);
-
 		$this->_storage->_count       = 100;
 		$this->_storage->_lastAttempt = time();
 		$this->_phpVm->_time          = time();

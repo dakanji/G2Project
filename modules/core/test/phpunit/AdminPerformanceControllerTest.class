@@ -178,7 +178,6 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		}
 
 		$result = $results->nextResult();
-
 		$this->assertEquals(0, (int)$result[0]);
 	}
 }

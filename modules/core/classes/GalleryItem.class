@@ -401,8 +401,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 	 */
 	public function move($newParentId) {
 		$parentId = $this->getParentId();
-
-		$ret = parent::move($newParentId);
+		$ret      = parent::move($newParentId);
 
 		if ($ret) {
 			return $ret;
@@ -430,8 +429,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 		}
 
 		$newParentSequence[] = $this->getParentId();
-
-		$ret = GalleryCoreApi::setParentSequence($this->getId(), $newParentSequence);
+		$ret                 = GalleryCoreApi::setParentSequence($this->getId(), $newParentSequence);
 
 		if ($ret) {
 			return $ret;

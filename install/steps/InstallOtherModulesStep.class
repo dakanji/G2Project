@@ -30,6 +30,7 @@ class InstallOtherModulesStep extends InstallStep {
 
 	public function processRequest() {
 		$templateData = array();
+
 		$this->_init($templateData);
 
 		if (!isset($_REQUEST['activate'])) {
@@ -55,6 +56,7 @@ class InstallOtherModulesStep extends InstallStep {
 
 		if (!empty($_REQUEST['module']) && is_array($_REQUEST['module'])) {
 			uksort($_REQUEST['module'], array($this, '_sortModules'));
+
 			$template->renderHeader(true);
 			$totalModules = count($_REQUEST['module']);
 
@@ -84,16 +86,14 @@ class InstallOtherModulesStep extends InstallStep {
 					$module->getName(),
 					$currentModule / $totalModules
 				);
-
 				$ret = $module->installOrUpgrade();
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$templateData['errors'][] = sprintf(
+					$templateData['errors'][]     = sprintf(
 						_('Unable to install the %s module'),
 						$module->getName()
 					);
-
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 
 					continue;
@@ -101,8 +101,7 @@ class InstallOtherModulesStep extends InstallStep {
 
 				$moduleInstalled[$moduleId]                 = true;
 				$templateData['installedModule'][$moduleId] = $module->getName();
-
-				$ret = $storage->checkPoint();
+				$ret                                        = $storage->checkPoint();
 
 				if ($ret) {
 					$this->resetL10Domain();
@@ -114,11 +113,10 @@ class InstallOtherModulesStep extends InstallStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
-					$templateData['errors'][] = sprintf(
+					$templateData['errors'][]     = sprintf(
 						_('Unable to activate the %s module'),
 						$module->getName()
 					);
-
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 
 					continue;
@@ -133,15 +131,13 @@ class InstallOtherModulesStep extends InstallStep {
 				}
 
 				list($ret, $redirect) = $module->activate();
-
 				$this->resetL10Domain();
 
 				if ($ret) {
-					$templateData['errors'][] = sprintf(
+					$templateData['errors'][]     = sprintf(
 						_('Unable to activate the %s module'),
 						$module->getName()
 					);
-
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 
 					continue;
@@ -217,8 +213,8 @@ class InstallOtherModulesStep extends InstallStep {
 					$modulePlugin->setDescription(
 						$modulePlugin->translate($modulePlugin->getDescription())
 					);
-
 					$modules[$moduleId] = $modulePlugin;
+
 					$this->resetL10Domain();
 				}
 			}

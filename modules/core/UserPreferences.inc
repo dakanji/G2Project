@@ -268,6 +268,7 @@ class UserPreferencesView extends GalleryView {
 
 		$UserPreferences['translationsSupported'] = $translator->canTranslate();
 		$UserPreferences['languageList']          = $languageList;
+
 		$template->setVariable('UserPreferences', $UserPreferences);
 		$template->setVariable('controller', 'core.UserPreferences');
 

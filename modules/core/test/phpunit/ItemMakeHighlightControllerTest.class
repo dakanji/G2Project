@@ -113,7 +113,6 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

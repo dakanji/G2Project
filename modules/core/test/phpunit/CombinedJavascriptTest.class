@@ -44,6 +44,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		$gallery->_platform = new UnitTestPlatform();
 		$gallery->_storage  = new UnitTestStorage();
 		$this->_view        = new CombinedJavascriptView();
+
 		unset($_SERVER['HTTP_IF_MODIFIED_SINCE']);
 	}
 
@@ -61,6 +62,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		global $gallery;
 
 		$_SERVER['HTTP_IF_MODIFIED_SINCE'] = 'Anything';
+
 		$gallery->_phpVm->setReply('header', array('HTTP/1.0 304 Not Modified', null), null);
 
 		list($ret, $results) = $this->_renderImmediate();
@@ -83,7 +85,6 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 				'If-Modified-Since' => 'Anything',
 			)
 		);
-
 		$gallery->_phpVm->setReply('header', array('HTTP/1.0 304 Not Modified', null), null);
 
 		list($ret, $results) = $this->_renderImmediate();
@@ -106,7 +107,6 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 				'If-modified-since' => 'Anything',
 			)
 		);
-
 		$gallery->_phpVm->setReply('header', array('HTTP/1.0 304 Not Modified', null), null);
 
 		list($ret, $results) = $this->_renderImmediate();
@@ -177,7 +177,6 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 			array('Cache-Control: private, x-gzip-ok="public"', null),
 			null
 		);
-
 		$gallery->_phpVm->setReply(
 			'header',
 			array('Content-type: text/javascript; charset=UTF-8', null),
@@ -189,13 +188,11 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 			array('Last-Modified: Thu, 01 Jan 1970 00:00:01 GMT', null),
 			null
 		);
-
 		$gallery->_phpVm->setReply(
 			'header',
 			array('Expires: Tue, 19 Jan 2038 03:14:07 GMT', null),
 			null
 		);
-
 		$this->_prepareToReadFromDiskCache(
 			'module/_all/0/0/CombinedJavascript_gzip_123.inc',
 			'|' . serialize('gzipped data')
@@ -230,13 +227,11 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 			array('Last-Modified: Thu, 01 Jan 1970 00:00:01 GMT', null),
 			null
 		);
-
 		$gallery->_phpVm->setReply(
 			'header',
 			array('Expires: Tue, 19 Jan 2038 03:14:07 GMT', null),
 			null
 		);
-
 		$this->_prepareToReadFromDiskCache(
 			'module/_all/0/0/CombinedJavascript_123.inc',
 			'|' . serialize('regular data')
@@ -312,13 +307,11 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 			array('Last-Modified: Thu, 01 Jan 1970 00:00:01 GMT', null),
 			null
 		);
-
 		$gallery->_phpVm->setReply(
 			'header',
 			array('Expires: Tue, 19 Jan 2038 03:14:07 GMT', null),
 			null
 		);
-
 		$this->_prepareToReadFromDiskCache(
 			'module/_all/0/0/CombinedJavascript_123.inc',
 			'|' . serialize('regular data')

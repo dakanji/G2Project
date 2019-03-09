@@ -219,8 +219,7 @@ class GalleryDataItem extends GalleryItem {
 
 		// Stash the linked entity because the super class is going to get rid of it
 		$linkedEntity = $this->getLinkedEntity();
-
-		$ret = parent::detachLink();
+		$ret          = parent::detachLink();
 
 		if ($ret) {
 			return $ret;

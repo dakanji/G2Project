@@ -471,7 +471,6 @@ class GalleryTemplateAdapter {
 					),
 				)
 			);
-
 			$smarty->_tpl_vars = $save;
 		}
 
@@ -542,11 +541,10 @@ class GalleryTemplateAdapter {
 			} else {
 				if ($filteredFiles) {
 					// Create a combined javascript file for what we have now
-					$output[] = sprintf(
+					$output[]      = sprintf(
 						$pattern,
 						$this->_buildCombinedJavascriptFileAndGenerateUrl($filteredFiles, $key)
 					);
-
 					$filteredFiles = array();
 					$key           = '';
 				}
@@ -666,7 +664,6 @@ class GalleryTemplateAdapter {
 					'authToken' => $session->getAuthToken(),
 				)
 			);
-
 			$url = str_replace('&amp;', '&', $url);
 		}
 
@@ -682,7 +679,6 @@ class GalleryTemplateAdapter {
 				),
 			)
 		);
-
 		$smarty->_tpl_vars = $save;
 	}
 
@@ -711,7 +707,6 @@ class GalleryTemplateAdapter {
 				),
 			)
 		);
-
 		$smarty->_tpl_vars = $save;
 	}
 
@@ -739,7 +734,6 @@ class GalleryTemplateAdapter {
 				),
 			)
 		);
-
 		$smarty->_tpl_vars = $save;
 	}
 
@@ -1150,7 +1144,6 @@ class GalleryTemplateAdapter {
 					'smarty_include_vars'     => $params,
 				)
 			);
-
 			$smarty->_tpl_vars = $save;
 		} elseif (isset($params['url'])) {
 			/*
@@ -1242,7 +1235,6 @@ class GalleryTemplateAdapter {
 				'smarty_include_vars'     => $params,
 			)
 		);
-
 		$smarty->_tpl_vars = $save;
 	}
 
@@ -1288,7 +1280,6 @@ class GalleryTemplateAdapter {
 				),
 			)
 		);
-
 		$smarty->_tpl_vars = $save;
 	}
 

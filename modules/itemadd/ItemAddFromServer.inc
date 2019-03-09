@@ -61,7 +61,8 @@ class ItemAddFromServer extends ItemAddPlugin {
 		$this->_templateAdapter =& $gallery->getTemplateAdapter();
 		$this->_storage         =& $gallery->getStorage();
 		$status                 = $error                 = array();
-		$this->_addController   =& $addController;
+
+		$this->_addController =& $addController;
 
 		list($ret, $hasPermission) = $this->isAppropriate();
 
@@ -177,6 +178,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 					}
 
 					$requiresAddAlbumPermission = true;
+
 					$this->_totalItems++;
 					$this->_totalItems += $this->_getFileCountForDirectory($dir . urldecode($directory), $i);
 				}
@@ -252,7 +254,6 @@ class ItemAddFromServer extends ItemAddPlugin {
 							'',
 							$this->_addedItems / $this->_totalItems
 						);
-
 						$ret = $this->_storage->checkPoint();
 
 						if ($ret) {
@@ -326,7 +327,6 @@ class ItemAddFromServer extends ItemAddPlugin {
 							'',
 							$this->_addedItems / $this->_totalItems
 						);
-
 						$ret = $this->_storage->checkPoint();
 
 						if ($ret) {
@@ -518,6 +518,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 		}
 
 		$this->_platform->closedir($handle);
+
 		sort($dirList);
 
 		foreach ($dirList as $fileName) {
@@ -567,7 +568,6 @@ class ItemAddFromServer extends ItemAddPlugin {
 						'',
 						$this->_addedItems / $this->_totalItems
 					);
-
 					$ret = $this->_storage->checkPoint();
 
 					if ($ret) {
@@ -874,11 +874,10 @@ class ItemAddFromServer extends ItemAddPlugin {
 					}
 
 					$mimeTypeItem->setMimeType($mimeType);
-					$mimeTypeItemName = array_merge(
+					$mimeTypeItemName           = array_merge(
 						$mimeTypeItem->itemTypeName(),
 						$mimeTypeItem->itemTypeName(false)
 					);
-
 					$fileName                   = basename($path);
 					$form['localServerFiles'][] = array(
 						'type'     => 'file',
@@ -951,6 +950,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 			$ItemAdmin['enctype'] = 'multipart/form-data';
 		} else {
 			$ItemAdmin['enctype'] = 'multipart/form-data';
+
 			$template->setVariable('ItemAdmin', $ItemAdmin);
 		}
 

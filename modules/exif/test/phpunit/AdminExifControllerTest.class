@@ -647,7 +647,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertEquals(EXIF_ITEM_DESCRIPTION, (int)$addOption);
-
 		$ret = GalleryCoreApi::setPluginParameter('module', 'exif', 'addOption', 0);
 
 		if ($ret) {

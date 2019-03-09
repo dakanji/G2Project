@@ -36,8 +36,7 @@ class OptimizeDatabaseTaskTest extends GalleryTestCase {
 		global $gallery;
 
 		$this->_task = new OptimizeDatabaseTask();
-
-		$ret = parent::setUp();
+		$ret         = parent::setUp();
 
 		if ($ret) {
 			return $ret;

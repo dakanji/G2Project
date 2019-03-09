@@ -46,8 +46,10 @@ odbc driver.
 Setting SQL_CUR_USE_ODBC ========================
 To set SQL_CUR_USE_ODBC for drivers that require it, do this:
 $db = NewADOConnection('odbc_db2');
+
 $db->curMode = SQL_CUR_USE_ODBC;
 $db->Connect($dsn, $userid, $pwd);
+
 USING CLI INTERFACE ===================
 I have had reports that the $host and $database params have to be reversed in
 Connect() when using the CLI interface. From Halmai Csongor csongor.halmai#nexum.hu:
@@ -218,11 +220,10 @@ if (!defined('ADODB_ODBC_DB2')) {
 
 			// parse index data into array
 			while ($row = $rs->FetchRow()) {
-				$indexes[$row[0]] = array(
+				$indexes[$row[0]]            = array(
 					'unique'  => ($row[1] == 'U' || $row[1] == 'P'),
 					'columns' => array(),
 				);
-
 				$cols                        = ltrim($row[2], '+');
 				$indexes[$row[0]]['columns'] = explode('+', $cols);
 			}

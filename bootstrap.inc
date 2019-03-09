@@ -41,7 +41,9 @@ require_once __DIR__ . '/lib/composer/vendor/autoload.php';
  * (especially important when we're embedded inside another application).
  */
 $gallery = new Gallery();
+
 $gallery->init();
+
 $GLOBALS['gallery'] =& $gallery;
 
 if (!defined('GALLERY_CONFIG_DIR')) {

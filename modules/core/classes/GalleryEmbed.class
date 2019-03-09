@@ -166,8 +166,7 @@ class GalleryEmbed {
 		global $gallerySetErrorHandler;
 
 		$session =& $gallery->getSession();
-
-		$ret = $session->save();
+		$ret     = $session->save();
 
 		if ($ret) {
 			return $ret;
@@ -175,8 +174,7 @@ class GalleryEmbed {
 
 		if ($gallery->isStorageInitialized()) {
 			$storage =& $gallery->getStorage();
-
-			$ret = $storage->commitTransaction();
+			$ret     = $storage->commitTransaction();
 
 			if ($ret) {
 				return $ret;
@@ -234,7 +232,6 @@ class GalleryEmbed {
 	 */
 	public static function checkActiveUser($activeUserId) {
 		global $gallery;
-
 		$session =& $gallery->getSession();
 		$phpVm   = $gallery->getPhpVm();
 
@@ -298,6 +295,7 @@ class GalleryEmbed {
 				}
 
 				$event = GalleryCoreApi::newEvent('Gallery::Logout');
+
 				$event->setEntity($activeUser);
 
 				list($ret, $ignored) = GalleryCoreApi::postEvent($event);
@@ -414,8 +412,7 @@ class GalleryEmbed {
 			}
 
 			$session =& $gallery->getSession();
-
-			$ret = $session->reset();
+			$ret     = $session->reset();
 
 			if ($ret) {
 				return $ret;
@@ -852,8 +849,7 @@ class GalleryEmbed {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
-		$ret = $session->start();
+		$ret     = $session->start();
 
 		if ($ret) {
 			return array($ret, null);
@@ -926,8 +922,7 @@ class GalleryEmbed {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
-		$ret = $session->start();
+		$ret     = $session->start();
 
 		if ($ret) {
 			return array($ret, null);
@@ -1262,6 +1257,7 @@ class GalleryEmbed {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 
 		$template = new GalleryTemplate(__DIR__ . '/../../..');
+
 		$template->setVariable('l10Domain', 'modules_' . $moduleId);
 
 		// Invoke the preload, if available
@@ -1325,8 +1321,7 @@ class GalleryEmbed {
 							'forceFullUrl' => true,
 						)
 					);
-
-					$css[] = '<link rel="stylesheet" type="text/css" href="' . $cssUrl . '"/>';
+					$css[]  = '<link rel="stylesheet" type="text/css" href="' . $cssUrl . '"/>';
 				}
 			}
 

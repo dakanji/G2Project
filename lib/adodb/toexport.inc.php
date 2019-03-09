@@ -138,7 +138,9 @@ function _adodb_export(&$rs, $sep, $sepreplace, $fp = false, $addtitles = true, 
 		}
 
 		$s .= implode($sep, $elements) . $NEWLINE;
+
 		$rs->MoveNext();
+
 		$line += 1;
 
 		if ($fp && ($line % $BUFLINES) == 0) {

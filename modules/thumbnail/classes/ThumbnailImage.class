@@ -444,7 +444,6 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 				$derivative->setMimeType($outputMimeType);
 				$derivative->setDerivativeOperations($operations);
 				$derivative->setDerivativeSourceId($source->getId());
-
 				$ret = $derivative->save();
 
 				if ($ret) {

@@ -237,7 +237,6 @@ class DynamicAlbumSiteAdminView extends GalleryView {
 				'defaultList' => $defaultList,
 			)
 		);
-
 		$template->setVariable('controller', 'dynamicalbum.DynamicAlbumSiteAdmin');
 
 		return array(

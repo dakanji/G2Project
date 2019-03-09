@@ -115,7 +115,6 @@ class RatingCallbackViewTest extends GalleryTestCase {
 				'arg1'  => 1,
 			)
 		);
-
 		$this->assertEquals($votesString, $results[2]);
 	}
 
@@ -157,7 +156,6 @@ class RatingCallbackViewTest extends GalleryTestCase {
 				'arg1'  => 1,
 			)
 		);
-
 		$this->assertEquals($votesString, $results[2], 'Seed vote count is incorrect.');
 
 		// Remove all permissions
@@ -251,7 +249,6 @@ class RatingCallbackViewTest extends GalleryTestCase {
 				'arg1'  => 1,
 			)
 		);
-
 		$this->assertEquals($votesString, $results[2], 'Seed vote count is incorrect.');
 
 		// Remove all permissions
@@ -328,7 +325,6 @@ class RatingCallbackViewTest extends GalleryTestCase {
 				'arg1'  => 1,
 			)
 		);
-
 		$this->assertEquals($votesString, $results[2], 'Vote count is incorrect.');
 	}
 }

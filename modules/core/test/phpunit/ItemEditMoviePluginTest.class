@@ -45,6 +45,7 @@ class ItemEditMoviePluginTest extends ItemEditPluginTestCase {
 
 		$Platform                        = $gallery->getPlatform();
 		$ItemEditMoviePluginTestPlatform = new ItemEditMoviePluginTestPlatform($Platform);
+
 		$gallery->setPlatform($ItemEditMoviePluginTestPlatform);
 
 		list($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());

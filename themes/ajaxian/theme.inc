@@ -37,7 +37,6 @@ class AjaxianTheme extends GalleryTheme {
 				'DHTML-enabled Slideshow theme'
 			)
 		);
-
 		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));

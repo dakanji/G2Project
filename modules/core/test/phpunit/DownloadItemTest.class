@@ -68,8 +68,7 @@ class DownloadItemTest extends GalleryTestCase {
 		set_error_handler('DownloadItemTest_error_handler');
 		ob_start();
 
-		$ret = $this->_view->renderImmediate(array(), array());
-
+		$ret    = $this->_view->renderImmediate(array(), array());
 		$output = ob_get_contents();
 		ob_end_clean();
 
@@ -78,7 +77,6 @@ class DownloadItemTest extends GalleryTestCase {
 
 	public function testNoItemId() {
 		list($ret, $output) = $this->_download();
-
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_BAD_PARAMETER, 'expected error');
 	}
 
@@ -157,9 +155,7 @@ class DownloadItemTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 
 		list($ret, $output) = $this->_download();
-
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED, 'expected error');
-
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$this->_userId,
@@ -171,7 +167,6 @@ class DownloadItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $output) = $this->_download();
-
 		$this->assertFalse($ret, 'expected success');
 	}
 
@@ -210,9 +205,7 @@ class DownloadItemTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $derivative->getId());
 
 		list($ret, $output) = $this->_download();
-
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED, 'expected error');
-
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$this->_userId,
@@ -224,7 +217,6 @@ class DownloadItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $output) = $this->_download();
-
 		$this->assertFalse($ret, 'expected success');
 	}
 
@@ -263,9 +255,7 @@ class DownloadItemTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $derivative->getId());
 
 		list($ret, $output) = $this->_download();
-
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED, 'expected error');
-
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$this->_userId,
@@ -277,7 +267,6 @@ class DownloadItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $output) = $this->_download();
-
 		$this->assertFalse($ret, 'expected success');
 	}
 
@@ -316,9 +305,7 @@ class DownloadItemTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $derivative->getId());
 
 		list($ret, $output) = $this->_download();
-
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_MISSING_OBJECT, 'expected error');
-
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$this->_userId,
@@ -330,7 +317,6 @@ class DownloadItemTest extends GalleryTestCase {
 		}
 
 		list($ret, $output) = $this->_download();
-
 		$this->assertFalse($ret, 'expected success');
 	}
 
@@ -345,9 +331,7 @@ class DownloadItemTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 
 		list($ret, $output) = $this->_download();
-
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_MISSING_OBJECT, 'expected error 1');
-
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$this->_userId,
@@ -361,13 +345,10 @@ class DownloadItemTest extends GalleryTestCase {
 		$session->put('core.isPrintService', array(2, 5));
 
 		list($ret, $output) = $this->_download();
-
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED, 'expected error 2');
-
 		$session->put('core.isPrintService', array(2, $this->_item->getId(), 5));
 
 		list($ret, $output) = $this->_download();
-
 		$this->assertFalse($ret, 'expected success');
 	}
 
@@ -393,18 +374,17 @@ class DownloadItemTest extends GalleryTestCase {
 		 * Create a GalleryEntity that has permissions associated with it directly instead of
 		 * through an association with an item (like WatermarkImage or ThumbnailImage).
 		 */
-		$entity            = new DownloadItemTestEntity();
-		$entity->className = 'DownloadItemTestEntity';
+		$entity = new DownloadItemTestEntity();
 
-		$ret = $entity->create();
+		$entity->className = 'DownloadItemTestEntity';
+		$ret               = $entity->create();
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$entity->className = 'GalleryEntity';
-
-		$ret = $entity->save();
+		$ret               = $entity->save();
 
 		if ($ret) {
 			return $ret;

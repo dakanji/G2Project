@@ -149,7 +149,6 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		}
 
 		$session->put('core.authToken', '123456ABCDEF');
-
 		$ret = $session->save();
 
 		if ($ret) {
@@ -246,8 +245,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	public function testGetCurrentUrl() {
 		$this->_urlGenerator = new $this->_urlGeneratorName();
-
-		$ret = $this->_urlGenerator->init();
+		$ret                 = $this->_urlGenerator->init();
 
 		if ($ret) {
 			return $ret;
@@ -265,8 +263,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		unset($_SERVER['QUERY_STRING']);
 		$expectedUrl         = 'http://example.com/cms/index.php?mod=gallery2';
 		$this->_urlGenerator = new $this->_urlGeneratorName();
-
-		$ret = $this->_urlGenerator->init('/cms/index.php?mod=gallery2', '/gallery2/');
+		$ret                 = $this->_urlGenerator->init('/cms/index.php?mod=gallery2', '/gallery2/');
 
 		if ($ret) {
 			return $ret;
@@ -278,8 +275,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	public function testGetCurrentUrlDir() {
 		$this->_urlGenerator = new $this->_urlGeneratorName();
-
-		$ret = $this->_urlGenerator->init();
+		$ret                 = $this->_urlGenerator->init();
 
 		if ($ret) {
 			return $ret;
@@ -296,8 +292,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$_SERVER['REQUEST_URI'] = '/cms/index.php?mod=gallery2';
 		$expectedUrl            = 'http://example.com/cms/';
 		$this->_urlGenerator    = new $this->_urlGeneratorName();
-
-		$ret = $this->_urlGenerator->init('/cms/index.php?mod=gallery2', '/gallery2/');
+		$ret                    = $this->_urlGenerator->init('/cms/index.php?mod=gallery2', '/gallery2/');
 
 		if ($ret) {
 			return $ret;
@@ -320,8 +315,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	public function testGetBaseUrl() {
 		$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php?foo=1&bar=2';
 		$urlGenerator           = new $this->_urlGeneratorName();
-
-		$ret = $urlGenerator->init('phpunit_test.php');
+		$ret                    = $urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;
@@ -357,8 +351,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
 		$urlGenerator = new $this->_urlGeneratorName();
-
-		$ret = $urlGenerator->init('/cms/index.php', 'https://direct/gallery2/');
+		$ret          = $urlGenerator->init('/cms/index.php', 'https://direct/gallery2/');
 
 		if ($ret) {
 			return $ret;
@@ -395,7 +388,6 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		GalleryUtilities::removeRequestVariable('itemId');
 		GalleryUtilities::putRequestVariable('view', 'core.ShowItem');
 		GalleryUtilities::putRequestVariable('path', $this->_testAlbumPath);
-
 		$urlGenerator = new $this->_urlGeneratorName();
 
 		// Execute init and initNavigation, they should call _onLoad()
@@ -493,12 +485,12 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		}
 
 		// Let the URL generator know of the new cookie.path value
-		$baseUri             = isset($env['baseUri']) ? $env['baseUri'] : null;
-		$g2Uri               = isset($env['g2Uri']) ? $env['g2Uri'] : null;
-		$embedSessionString  = isset($env['embedSessionString']) ? $env['embedSessionString'] : null;
-		$this->_urlGenerator = new $this->_urlGeneratorName();
+		$baseUri            = isset($env['baseUri']) ? $env['baseUri'] : null;
+		$g2Uri              = isset($env['g2Uri']) ? $env['g2Uri'] : null;
+		$embedSessionString = isset($env['embedSessionString']) ? $env['embedSessionString'] : null;
 
-		$ret = $this->_urlGenerator->init($baseUri, $g2Uri, $embedSessionString);
+		$this->_urlGenerator = new $this->_urlGeneratorName();
+		$ret                 = $this->_urlGenerator->init($baseUri, $g2Uri, $embedSessionString);
 
 		if ($ret) {
 			return $ret;
@@ -595,7 +587,6 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'itemId'       => $this->_testItem->getId(),
 			'serialNumber' => $this->_testItem->getSerialNumber(),
 		);
-
 		$params[2] = array(
 			'href' => 'http://href_website.com/foo',
 		);
@@ -604,7 +595,6 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'controller' => 'core.ShowItem',
 			'itemId'     => $this->_testItem->getId(),
 		);
-
 		$params[4] = array(
 			'href' => 'themes/foo/images/bar.jpg',
 		);
@@ -617,7 +607,6 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'view'   => 'core.ShowItem',
 			'itemId' => $this->_testAlbum->getId(),
 		);
-
 		$params[7] = array(
 			'view'   => 'core.ShowItem',
 			'itemId' => $this->_testItem->getId(),
@@ -628,35 +617,30 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'itemId' => -5759,
 		);
 
-		$params[9] = array(
+		$params[9]  = array(
 			'view'   => 'core.ShowItem',
 			'itemId' => $this->_derivative->getId(),
 		);
-
 		$params[10] = array(
 			'view'    => 'php.Unit',
 			'subView' => 'test.suffixPath',
 			'itemId'  => $this->_testAlbum->getId(),
 		);
-
 		$params[11] = array(
 			'view'    => 'php.Unit',
 			'subView' => 'test.suffixPath',
 			'itemId'  => $this->_testItem->getId(),
 		);
-
 		$params[12] = array(
 			'view'    => 'php.Unit',
 			'subView' => 'test.suffixExt',
 			'itemId'  => $this->_testAlbum->getId(),
 		);
-
 		$params[13] = array(
 			'view'    => 'php.Unit',
 			'subView' => 'test.suffixExt',
 			'itemId'  => $this->_testItem->getId(),
 		);
-
 		$params[14] = array(
 			'view' => 'php.Unit',
 		);
@@ -689,11 +673,10 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		);
 
 		// core.ShowItem on albums have the logical path, should go through the emApp
-		$params[0] = array(
+		$params[0]       = array(
 			'view'   => 'core.ShowItem',
 			'itemId' => $this->_testAlbum->getId(),
 		);
-
 		$expectedUrls[0] = '/cms/v' . $this->_testAlbumPath;
 
 		// core.DownloadItem should go to Gallery directly
@@ -708,8 +691,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			$this->_testItem->getSerialNumber(),
 			urlencode($this->_testItem->getPathComponent())
 		);
-
-		$ret = $this->_runGenerateUrlTest($env, $expectedUrls, $params);
+		$ret             = $this->_runGenerateUrlTest($env, $expectedUrls, $params);
 
 		if ($ret) {
 			return $ret;
@@ -758,22 +740,20 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	 *  8. useAuthToken => boolean; to force auth token to be in/not in the URL
 	 */
 	public function testGenerateUrl() {
-		$params         = $this->_getTestUrlParams();
-		$expectedUrl[0] = '/gallery2/' . GALLERY_MAIN_PHP
+		$params          = $this->_getTestUrlParams();
+		$expectedUrl[0]  = '/gallery2/' . GALLERY_MAIN_PHP
 		. '?g2_view=rand164.NonShort&amp;g2_foo=bar';
-		$expectedUrl[1] = sprintf(
+		$expectedUrl[1]  = sprintf(
 			'/gallery2/d/%d-%d/%s',
 			$this->_testItem->getId(),
 			$this->_testItem->getSerialNumber(),
 			urlencode($this->_testItem->getPathComponent())
 		);
-
-		$expectedUrl[2] = 'http://href_website.com/foo';
-		$expectedUrl[3] = $this->_signUrl(
+		$expectedUrl[2]  = 'http://href_website.com/foo';
+		$expectedUrl[3]  = $this->_signUrl(
 			'/gallery2/' . GALLERY_MAIN_PHP
 			. '?g2_controller=core.ShowItem&amp;g2_itemId=' . $this->_testItem->getId()
 		);
-
 		$expectedUrl[4]  = '/gallery2/themes/foo/images/bar.jpg';
 		$expectedUrl[5]  = '/gallery2/' . GALLERY_MAIN_PHP;
 		$expectedUrl[6]  = '/gallery2/v' . $this->_testAlbumPath;
@@ -788,8 +768,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$expectedUrl[14] = '/gallery2/phpunit/';
 		$expectedUrl[15] = $this->_signUrl('/gallery2/phpunit2/');
 		$expectedUrl[16] = '/gallery2/phpunit/' . urlencode($this->_urlEncodePath);
-
-		$ret = $this->_runGenerateUrlTest(array(), $expectedUrl, $params);
+		$ret             = $this->_runGenerateUrlTest(array(), $expectedUrl, $params);
 
 		if ($ret) {
 			return $ret;
@@ -808,21 +787,19 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'forceServerRelativeUrl' => true,
 		);
 
-		$expectedUrl[0] = 'http://example.com/gallery2/' . GALLERY_MAIN_PHP
+		$expectedUrl[0]  = 'http://example.com/gallery2/' . GALLERY_MAIN_PHP
 		. '?g2_view=rand164.NonShort&amp;g2_foo=bar';
-		$expectedUrl[1] = sprintf(
+		$expectedUrl[1]  = sprintf(
 			'http://example.com/gallery2/d/%d-%d/%s',
 			$this->_testItem->getId(),
 			$this->_testItem->getSerialNumber(),
 			urlencode($this->_testItem->getPathComponent())
 		);
-
-		$expectedUrl[2] = 'http://href_website.com/foo';
-		$expectedUrl[3] = $this->_signUrl(
+		$expectedUrl[2]  = 'http://href_website.com/foo';
+		$expectedUrl[3]  = $this->_signUrl(
 			'http://example.com/gallery2/' . GALLERY_MAIN_PHP
 			. '?g2_controller=core.ShowItem&amp;g2_itemId=' . $this->_testItem->getId()
 		);
-
 		$expectedUrl[4]  = 'http://example.com/gallery2/themes/foo/images/bar.jpg';
 		$expectedUrl[5]  = 'http://example.com/gallery2/' . GALLERY_MAIN_PHP;
 		$expectedUrl[6]  = 'http://example.com/gallery2/v' . $this->_testAlbumPath;
@@ -841,8 +818,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$expectedUrl[15] = $this->_signUrl('http://example.com/gallery2/phpunit2/');
 		$expectedUrl[16] = 'http://example.com/gallery2/phpunit/'
 		. urlencode($this->_urlEncodePath);
-
-		$ret = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
+		$ret             = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
 
 		if ($ret) {
 			return $ret;
@@ -858,17 +834,16 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'forceSessionId' => true,
 		);
 
-		$sessionString  = sprintf('g2_%s=%s', $session->getKey(), $session->getId());
-		$expectedUrl[0] = '/gallery2/' . GALLERY_MAIN_PHP
+		$sessionString   = sprintf('g2_%s=%s', $session->getKey(), $session->getId());
+		$expectedUrl[0]  = '/gallery2/' . GALLERY_MAIN_PHP
 		. '?g2_view=rand164.NonShort&amp;g2_foo=bar&amp;' . $sessionString;
-		$expectedUrl[1] = sprintf(
+		$expectedUrl[1]  = sprintf(
 			'/gallery2/d/%d-%d/%s?%s',
 			$this->_testItem->getId(),
 			$this->_testItem->getSerialNumber(),
 			urlencode($this->_testItem->getPathComponent()),
 			$sessionString
 		);
-
 		$expectedUrl[2]  = 'http://href_website.com/foo?' . $sessionString;
 		$expectedUrl[3]  = $this->_signUrl(
 			'/gallery2/' . GALLERY_MAIN_PHP
@@ -894,8 +869,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$expectedUrl[15] = $this->_signUrl('/gallery2/phpunit2/') . '&amp;' . $sessionString;
 		$expectedUrl[16] = '/gallery2/phpunit/' . urlencode($this->_urlEncodePath) . '?'
 		. $sessionString;
-
-		$ret = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
+		$ret             = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
 
 		if ($ret) {
 			return $ret;
@@ -908,14 +882,13 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'htmlEntities' => false,
 		);
 
-		$expectedUrl[0] = '/gallery2/' . GALLERY_MAIN_PHP . '?g2_view=rand164.NonShort&g2_foo=bar';
-		$expectedUrl[1] = sprintf(
+		$expectedUrl[0]  = '/gallery2/' . GALLERY_MAIN_PHP . '?g2_view=rand164.NonShort&g2_foo=bar';
+		$expectedUrl[1]  = sprintf(
 			'/gallery2/d/%d-%d/%s',
 			$this->_testItem->getId(),
 			$this->_testItem->getSerialNumber(),
 			urlencode($this->_testItem->getPathComponent())
 		);
-
 		$expectedUrl[2]  = 'http://href_website.com/foo';
 		$expectedUrl[3]  = '/gallery2/' . GALLERY_MAIN_PHP
 		. '?g2_controller=core.ShowItem&g2_itemId=' . $this->_testItem->getId();
@@ -934,8 +907,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$expectedUrl[14] = '/gallery2/phpunit/';
 		$expectedUrl[15] = $this->_signUrl('/gallery2/phpunit2/', false);
 		$expectedUrl[16] = '/gallery2/phpunit/' . urlencode($this->_urlEncodePath);
-
-		$ret = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
+		$ret             = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
 
 		if ($ret) {
 			return $ret;
@@ -948,15 +920,14 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'urlEncode' => false,
 		);
 
-		$expectedUrl[0] = '/gallery2/' . GALLERY_MAIN_PHP
+		$expectedUrl[0]  = '/gallery2/' . GALLERY_MAIN_PHP
 		. '?g2_view=rand164.NonShort&amp;g2_foo=bar';
-		$expectedUrl[1] = sprintf(
+		$expectedUrl[1]  = sprintf(
 			'/gallery2/d/%d-%d/%s',
 			$this->_testItem->getId(),
 			$this->_testItem->getSerialNumber(),
 			urlencode($this->_testItem->getPathComponent())
 		);
-
 		$expectedUrl[2]  = 'http://href_website.com/foo';
 		$expectedUrl[3]  = '/gallery2/' . GALLERY_MAIN_PHP
 		. '?g2_controller=core.ShowItem&amp;g2_itemId=' . $this->_testItem->getId();
@@ -975,8 +946,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$expectedUrl[14] = '/gallery2/phpunit/';
 		$expectedUrl[15] = $this->_signUrl('/gallery2/phpunit2/');
 		$expectedUrl[16] = '/gallery2/phpunit/' . $this->_urlEncodePath;
-
-		$ret = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
+		$ret             = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
 
 		if ($ret) {
 			return $ret;
@@ -994,18 +964,17 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'isNotUsingCookies'  => true,
 		);
 
-		$params         = $this->_getTestUrlParams();
-		$sessionString  = 'cmssid=12345';
-		$expectedUrl[0] = '/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort'
+		$params          = $this->_getTestUrlParams();
+		$sessionString   = 'cmssid=12345';
+		$expectedUrl[0]  = '/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort'
 		. '&amp;g2_foo=bar&amp;' . $sessionString;
-		$expectedUrl[1] = sprintf(
+		$expectedUrl[1]  = sprintf(
 			'/gallery2/d/%d-%d/%s?%s',
 			$this->_testItem->getId(),
 			$this->_testItem->getSerialNumber(),
 			urlencode($this->_testItem->getPathComponent()),
 			$sessionString
 		);
-
 		$expectedUrl[2]  = 'http://href_website.com/foo';
 		$expectedUrl[3]  = $this->_signUrl(
 			'/cms/index.php?mod=gallery2&amp;'
@@ -1031,8 +1000,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$expectedUrl[15] = $this->_signUrl('/cms/phpunit2/') . '&amp;' . $sessionString;
 		$expectedUrl[16] = '/cms/phpunit/' . urlencode($this->_urlEncodePath) . '?'
 		. $sessionString;
-
-		$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
+		$ret             = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
 
 		if ($ret) {
 			return $ret;
@@ -1049,15 +1017,14 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'embedSessionString' => 'cmssid=12345',
 		);
 
-		$params         = $this->_getTestUrlParams();
-		$expectedUrl[0] = '/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort&amp;g2_foo=bar';
-		$expectedUrl[1] = sprintf(
+		$params          = $this->_getTestUrlParams();
+		$expectedUrl[0]  = '/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort&amp;g2_foo=bar';
+		$expectedUrl[1]  = sprintf(
 			'/gallery2/d/%d-%d/%s',
 			$this->_testItem->getId(),
 			$this->_testItem->getSerialNumber(),
 			urlencode($this->_testItem->getPathComponent())
 		);
-
 		$expectedUrl[2]  = 'http://href_website.com/foo';
 		$expectedUrl[3]  = '/cms/index.php?mod=gallery2&amp;g2_controller=core.ShowItem'
 		. '&amp;g2_itemId=' . $this->_testItem->getId();
@@ -1076,8 +1043,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$expectedUrl[14] = '/cms/phpunit/';
 		$expectedUrl[15] = $this->_signUrl('/cms/phpunit2/');
 		$expectedUrl[16] = '/cms/phpunit/' . urlencode($this->_urlEncodePath);
-
-		$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
+		$ret             = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
 
 		if ($ret) {
 			return $ret;
@@ -1089,21 +1055,19 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'galleryBaseUrl' => 'codebase/rep/',
 		);
 
-		$params         = $this->_getTestUrlParams();
-		$expectedUrl[0] = '/gallery2/main.php?g2_view=rand164.NonShort&amp;g2_foo=bar';
-		$expectedUrl[1] = sprintf(
+		$params          = $this->_getTestUrlParams();
+		$expectedUrl[0]  = '/gallery2/main.php?g2_view=rand164.NonShort&amp;g2_foo=bar';
+		$expectedUrl[1]  = sprintf(
 			'/gallery2/d/%d-%d/%s',
 			$this->_testItem->getId(),
 			$this->_testItem->getSerialNumber(),
 			urlencode($this->_testItem->getPathComponent())
 		);
-
-		$expectedUrl[2] = 'http://href_website.com/foo';
-		$expectedUrl[3] = $this->_signUrl(
+		$expectedUrl[2]  = 'http://href_website.com/foo';
+		$expectedUrl[3]  = $this->_signUrl(
 			'/gallery2/main.php?g2_controller=core.ShowItem'
 			. '&amp;g2_itemId=' . $this->_testItem->getId()
 		);
-
 		$expectedUrl[4]  = 'codebase/rep/themes/foo/images/bar.jpg';
 		$expectedUrl[5]  = '/gallery2/main.php';
 		$expectedUrl[6]  = '/gallery2/v' . $this->_testAlbumPath;
@@ -1117,8 +1081,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$expectedUrl[14] = '/gallery2/phpunit/';
 		$expectedUrl[15] = $this->_signUrl('/gallery2/phpunit2/');
 		$expectedUrl[16] = '/gallery2/phpunit/' . urlencode($this->_urlEncodePath);
-
-		$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
+		$ret             = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
 
 		if ($ret) {
 			return $ret;
@@ -1135,15 +1098,14 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'galleryBaseUrl' => 'codebase/rep/',
 		);
 
-		$params         = $this->_getTestUrlParams();
-		$expectedUrl[0] = '/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort&amp;g2_foo=bar';
-		$expectedUrl[1] = sprintf(
+		$params          = $this->_getTestUrlParams();
+		$expectedUrl[0]  = '/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort&amp;g2_foo=bar';
+		$expectedUrl[1]  = sprintf(
 			'/gallery2/d/%d-%d/%s',
 			$this->_testItem->getId(),
 			$this->_testItem->getSerialNumber(),
 			urlencode($this->_testItem->getPathComponent())
 		);
-
 		$expectedUrl[2]  = 'http://href_website.com/foo';
 		$expectedUrl[3]  = '/cms/index.php?mod=gallery2&amp;g2_controller=core.ShowItem'
 		. '&amp;g2_itemId=' . $this->_testItem->getId();
@@ -1162,8 +1124,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$expectedUrl[14] = '/cms/phpunit/';
 		$expectedUrl[15] = $this->_signUrl('/cms/phpunit2/');
 		$expectedUrl[16] = '/cms/phpunit/' . urlencode($this->_urlEncodePath);
-
-		$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
+		$ret             = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
 
 		if ($ret) {
 			return $ret;
@@ -1182,10 +1143,10 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'cookiePath'  => '',
 		);
 
-		$params         = $this->_getTestUrlParams();
-		$expectedUrl[0] = '/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort'
+		$params          = $this->_getTestUrlParams();
+		$expectedUrl[0]  = '/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort'
 		. '&amp;g2_foo=bar';
-		$expectedUrl[1] = sprintf(
+		$expectedUrl[1]  = sprintf(
 			'/gallery2/d/%d-%d/%s?g2_%s=%s',
 			$this->_testItem->getId(),
 			$this->_testItem->getSerialNumber(),
@@ -1193,7 +1154,6 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			$session->getKey(),
 			$session->getId()
 		);
-
 		$expectedUrl[2]  = 'http://href_website.com/foo';
 		$expectedUrl[3]  = '/cms/index.php?mod=gallery2&amp;g2_controller=core.ShowItem'
 		. '&amp;g2_itemId=' . $this->_testItem->getId();
@@ -1212,8 +1172,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$expectedUrl[14] = '/cms/phpunit/';
 		$expectedUrl[15] = $this->_signUrl('/cms/phpunit2/');
 		$expectedUrl[16] = '/cms/phpunit/' . urlencode($this->_urlEncodePath);
-
-		$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
+		$ret             = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
 
 		if ($ret) {
 			return $ret;
@@ -1235,21 +1194,19 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'forceFullUrl' => true,
 		);
 
-		$expectedUrl[0] = 'https://cms.com/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort'
+		$expectedUrl[0]  = 'https://cms.com/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort'
 		. '&amp;g2_foo=bar';
-		$expectedUrl[1] = sprintf(
+		$expectedUrl[1]  = sprintf(
 			'http://photos.com:81/gallery2/d/%d-%d/%s',
 			$this->_testItem->getId(),
 			$this->_testItem->getSerialNumber(),
 			urlencode($this->_testItem->getPathComponent())
 		);
-
-		$expectedUrl[2] = 'http://href_website.com/foo';
-		$expectedUrl[3] = $this->_signUrl(
+		$expectedUrl[2]  = 'http://href_website.com/foo';
+		$expectedUrl[3]  = $this->_signUrl(
 			'https://cms.com/cms/index.php?mod=gallery2'
 			. '&amp;g2_controller=core.ShowItem&amp;g2_itemId=' . $this->_testItem->getId()
 		);
-
 		$expectedUrl[4]  = 'http://photos.com:81/gallery2/themes/foo/images/bar.jpg';
 		$expectedUrl[5]  = 'https://cms.com/cms/index.php?mod=gallery2';
 		$expectedUrl[6]  = 'https://cms.com/cms/v' . $this->_testAlbumPath;
@@ -1287,21 +1244,19 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'forceFullUrl'   => true,
 		);
 
-		$expectedUrl[0] = 'https://cms.com/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort'
+		$expectedUrl[0]  = 'https://cms.com/cms/index.php?mod=gallery2&amp;g2_view=rand164.NonShort'
 		. '&amp;g2_foo=bar';
-		$expectedUrl[1] = sprintf(
+		$expectedUrl[1]  = sprintf(
 			'http://photos.com:81/gallery2/d/%d-%d/%s',
 			$this->_testItem->getId(),
 			$this->_testItem->getSerialNumber(),
 			urlencode($this->_testItem->getPathComponent())
 		);
-
-		$expectedUrl[2] = 'http://href_website.com/foo';
-		$expectedUrl[3] = $this->_signUrl(
+		$expectedUrl[2]  = 'http://href_website.com/foo';
+		$expectedUrl[3]  = $this->_signUrl(
 			'https://cms.com/cms/index.php?mod=gallery2'
 			. '&amp;g2_controller=core.ShowItem&amp;g2_itemId=' . $this->_testItem->getId()
 		);
-
 		$expectedUrl[4]  = 'http://photos.com:81/gallery2/themes/foo/images/bar.jpg';
 		$expectedUrl[5]  = 'https://cms.com/cms/index.php?mod=gallery2';
 		$expectedUrl[6]  = 'https://cms.com/cms/v' . $this->_testAlbumPath;
@@ -1329,16 +1284,15 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'REQUEST_URI' => '/gallery2/index.php?page=photos',
 		);
 
-		$params         = $this->_getTestUrlParams();
-		$expectedUrl[0] = '/gallery2/index.php?page=photos&amp;g2_view=rand164.NonShort'
+		$params          = $this->_getTestUrlParams();
+		$expectedUrl[0]  = '/gallery2/index.php?page=photos&amp;g2_view=rand164.NonShort'
 		. '&amp;g2_foo=bar';
-		$expectedUrl[1] = sprintf(
+		$expectedUrl[1]  = sprintf(
 			'/gallery2/d/%d-%d/%s',
 			$this->_testItem->getId(),
 			$this->_testItem->getSerialNumber(),
 			urlencode($this->_testItem->getPathComponent())
 		);
-
 		$expectedUrl[2]  = 'http://href_website.com/foo';
 		$expectedUrl[3]  = '/gallery2/index.php?page=photos&amp;g2_controller=core.ShowItem'
 		. '&amp;g2_itemId=' . $this->_testItem->getId();
@@ -1357,8 +1311,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$expectedUrl[14] = '/gallery2/phpunit/';
 		$expectedUrl[15] = $this->_signUrl('/gallery2/phpunit2/');
 		$expectedUrl[16] = '/gallery2/phpunit/' . urlencode($this->_urlEncodePath);
-
-		$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
+		$ret             = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
 
 		if ($ret) {
 			return $ret;
@@ -1377,20 +1330,18 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'REQUEST_URI' => '/gallery2/main.php?foo=bar',
 		);
 
-		$expectedUrl[0] = GALLERY_MAIN_PHP . '?g2_view=rand164.NonShort&amp;g2_foo=bar';
-		$expectedUrl[1] = sprintf(
+		$expectedUrl[0]  = GALLERY_MAIN_PHP . '?g2_view=rand164.NonShort&amp;g2_foo=bar';
+		$expectedUrl[1]  = sprintf(
 			GALLERY_MAIN_PHP . '?g2_view=core.DownloadItem' .
 				  '&amp;g2_itemId=%s&amp;g2_serialNumber=%s',
 			$this->_testItem->getId(),
 			$this->_testItem->getSerialNumber()
 		);
-
-		$expectedUrl[2] = 'http://href_website.com/foo';
-		$expectedUrl[3] = $this->_signUrl(
+		$expectedUrl[2]  = 'http://href_website.com/foo';
+		$expectedUrl[3]  = $this->_signUrl(
 			GALLERY_MAIN_PHP . '?g2_controller=core.ShowItem'
 			. '&amp;g2_itemId=' . $this->_testItem->getId()
 		);
-
 		$expectedUrl[4]  = 'themes/foo/images/bar.jpg';
 		$expectedUrl[5]  = GALLERY_MAIN_PHP;
 		$expectedUrl[6]  = GALLERY_MAIN_PHP . '?g2_itemId=' . $this->_testAlbum->getId();
@@ -1409,8 +1360,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$expectedUrl[15] = $this->_signUrl(GALLERY_MAIN_PHP . '?g2_controller=php.Unit');
 		$expectedUrl[16] = GALLERY_MAIN_PHP . '?g2_view=php.Unit&amp;g2_subView'
 		. '=test.urlEncode&amp;g2_path=' . urlencode($this->_urlEncodePath);
-
-		$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
+		$ret             = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
 
 		if ($ret) {
 			return $ret;
@@ -1428,7 +1378,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			. '?g2_view=rand164.NonShort&amp;g2_foo=bar'
 		);
 
-		$expectedUrl[1] = $this->_signUrl(
+		$expectedUrl[1]  = $this->_signUrl(
 			sprintf(
 				'/gallery2/d/%d-%d/%s',
 				$this->_testItem->getId(),
@@ -1436,44 +1386,37 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 				urlencode($this->_testItem->getPathComponent())
 			)
 		);
-
-		$expectedUrl[2] = $this->_signUrl('http://href_website.com/foo');
-		$expectedUrl[3] = $this->_signUrl(
+		$expectedUrl[2]  = $this->_signUrl('http://href_website.com/foo');
+		$expectedUrl[3]  = $this->_signUrl(
 			'/gallery2/' . GALLERY_MAIN_PHP
 			. '?g2_controller=core.ShowItem&amp;g2_itemId=' . $this->_testItem->getId()
 		);
-
-		$expectedUrl[4] = $this->_signUrl('/gallery2/themes/foo/images/bar.jpg');
-		$expectedUrl[5] = $this->_signUrl('/gallery2/' . GALLERY_MAIN_PHP);
-		$expectedUrl[6] = $this->_signUrl('/gallery2/v' . $this->_testAlbumPath);
-		$expectedUrl[7] = $this->_signUrl('/gallery2/v' . $this->_testItemPath . '.html');
-		$expectedUrl[8] = $this->_signUrl('/gallery2/' . GALLERY_MAIN_PHP . '?g2_itemId=-5759');
-		$expectedUrl[9] = $this->_signUrl(
+		$expectedUrl[4]  = $this->_signUrl('/gallery2/themes/foo/images/bar.jpg');
+		$expectedUrl[5]  = $this->_signUrl('/gallery2/' . GALLERY_MAIN_PHP);
+		$expectedUrl[6]  = $this->_signUrl('/gallery2/v' . $this->_testAlbumPath);
+		$expectedUrl[7]  = $this->_signUrl('/gallery2/v' . $this->_testItemPath . '.html');
+		$expectedUrl[8]  = $this->_signUrl('/gallery2/' . GALLERY_MAIN_PHP . '?g2_itemId=-5759');
+		$expectedUrl[9]  = $this->_signUrl(
 			'/gallery2/' . GALLERY_MAIN_PHP
 			. '?g2_itemId=' . $this->_derivative->getId()
 		);
-
 		$expectedUrl[10] = $this->_signUrl(
 			'/gallery2/' . ltrim($this->_testAlbumPath, '/')
 			. 'test.html'
 		);
-
 		$expectedUrl[11] = $this->_signUrl(
 			'/gallery2/' . ltrim($this->_testItemPath, '/')
 			. '/test.html'
 		);
-
 		$expectedUrl[12] = $this->_signUrl(
 			'/gallery2/t' . rtrim($this->_testAlbumPath, '/')
 			. '.test'
 		);
-
 		$expectedUrl[13] = $this->_signUrl('/gallery2/t' . $this->_testItemPath . '.test');
 		$expectedUrl[14] = $this->_signUrl('/gallery2/phpunit/');
 		$expectedUrl[15] = $this->_signUrl('/gallery2/phpunit2/');
 		$expectedUrl[16] = $this->_signUrl('/gallery2/phpunit/' . urlencode($this->_urlEncodePath));
-
-		$ret = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
+		$ret             = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
 
 		if ($ret) {
 			return $ret;
@@ -1486,15 +1429,14 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			'useAuthToken' => false,
 		);
 
-		$expectedUrl[0] = '/gallery2/' . GALLERY_MAIN_PHP
+		$expectedUrl[0]  = '/gallery2/' . GALLERY_MAIN_PHP
 		. '?g2_view=rand164.NonShort&amp;g2_foo=bar';
-		$expectedUrl[1] = sprintf(
+		$expectedUrl[1]  = sprintf(
 			'/gallery2/d/%d-%d/%s',
 			$this->_testItem->getId(),
 			$this->_testItem->getSerialNumber(),
 			urlencode($this->_testItem->getPathComponent())
 		);
-
 		$expectedUrl[2]  = 'http://href_website.com/foo';
 		$expectedUrl[3]  = '/gallery2/' . GALLERY_MAIN_PHP
 		. '?g2_controller=core.ShowItem&amp;g2_itemId=' . $this->_testItem->getId();
@@ -1512,8 +1454,7 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		$expectedUrl[14] = '/gallery2/phpunit/';
 		$expectedUrl[15] = '/gallery2/phpunit2/';
 		$expectedUrl[16] = '/gallery2/phpunit/' . urlencode($this->_urlEncodePath);
-
-		$ret = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
+		$ret             = $this->_runGenerateUrlTest(array(), $expectedUrl, $params, $options);
 
 		if ($ret) {
 			return $ret;

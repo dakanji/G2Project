@@ -63,25 +63,21 @@ class MarkupTest extends GalleryTestCase {
 
 	public function testItalic() {
 		$results = $this->_bbcode->parse('[i]italic[/i]');
-
 		$this->assertEquals('<i>italic</i>', $results);
 	}
 
 	public function testMalformedCode() {
 		$results = $this->_bbcode->parse('[b][i]foo[/b][/i]');
-
 		$this->assertEquals('<b><i>foo</i></b>[/i]', $results);
 	}
 
 	public function testList() {
 		$results = $this->_bbcode->parse('[list][*]one[*]two[*]three[/list]');
-
 		$this->assertEquals("<ul><li>one</li>\n<li>two</li>\n<li>three</li>\n</ul>", $results);
 	}
 
 	public function testLineBreaks() {
 		$results = $this->_bbcode->parse("foo\r\nbar\rbaz\n");
-
 		$this->assertEquals("foo<br />\nbar<br />\nbaz<br />\n", $results);
 	}
 
@@ -99,7 +95,6 @@ class MarkupTest extends GalleryTestCase {
 
 	public function testLineEndings() {
 		$results = $this->_bbcode->parse("foo\nbar\nbaz\n");
-
 		$this->assertEquals("foo<br />\nbar<br />\nbaz<br />\n", $results);
 	}
 
@@ -119,7 +114,6 @@ class MarkupTest extends GalleryTestCase {
 
 	public function testImagePath() {
 		$results = $this->_bbcode->parse('[img]/path/foo.gif[/img]');
-
 		$this->assertEquals('<img src="/path/foo.gif" alt=""/>', $results);
 	}
 
@@ -134,13 +128,11 @@ class MarkupTest extends GalleryTestCase {
 
 	public function testImageSize() {
 		$results = $this->_bbcode->parse('[img width=50 height=15]/images/foo.png[/img]');
-
 		$this->assertEquals('<img src="/images/foo.png" alt="" width="50" height="15"/>', $results);
 	}
 
 	public function testJavascriptInImage() {
 		$results = $this->_bbcode->parse('[img]javascript:alert()[/img]');
-
 		$this->assertEquals('[img]javascript:alert()[/img]', $results);
 	}
 
@@ -192,29 +184,23 @@ class MarkupTest extends GalleryTestCase {
 
 	public function testUrl7() {
 		$results = $this->_bbcode->parse('[url=/path/file.php]content[/url]');
-
 		$this->assertEquals('<a href="/path/file.php" rel="nofollow">content</a>', $results);
 	}
 
 	public function testUrl8() {
 		$results = $this->_bbcode->parse('[url=javascript:alert()]content[/url]');
-
 		$this->assertEquals('[url=javascript:alert()]content[/url]', $results);
-
 		$results = $this->_bbcode->parse('[url]javascript:alert()[/url]');
-
 		$this->assertEquals('[url]javascript:alert()[/url]', $results);
 	}
 
 	public function testColor1() {
 		$results = $this->_bbcode->parse('[color=#123456]content[/color]');
-
 		$this->assertEquals('<font color="#123456">content</font>', $results);
 	}
 
 	public function testColor2() {
 		$results = $this->_bbcode->parse('[color=green]content[/color]');
-
 		$this->assertEquals('<font color="green">content</font>', $results);
 	}
 
@@ -227,7 +213,6 @@ class MarkupTest extends GalleryTestCase {
 			'[url=http://a.cc/blah.jpg\[url]\]\[[\]' .
 			'[/url][/url][url=[[[[]\]\][\[][[[[]\]\][\[[/url]'
 		);
-
 		$this->assertEquals(
 			'<a href="http://a.cc/blah.jpg\[url" rel="nofollow">\]\[[\]</a>' .
 			'[/url][url=[[[[]\]\][\[][[[[]\]\][\[[/url]',
@@ -237,7 +222,6 @@ class MarkupTest extends GalleryTestCase {
 
 	public function testJavascript() {
 		$results = $this->_bbcode->parse('[url=javascript:alert(\'hi\')]content[/url]');
-
 		$this->assertEquals('[url=javascript:alert(\'hi\')]content[/url]', $results);
 	}
 
@@ -246,7 +230,6 @@ class MarkupTest extends GalleryTestCase {
 			'[url=https://example.com/secure.html]' .
 			"Elemente hinzuf\xfcgen[/url] Seitenverh\xe4ltnis"
 		);
-
 		$this->assertEquals(
 			'<a href="https://example.com/secure.html" rel="nofollow">' .
 			"Elemente hinzuf\xfcgen</a> Seitenverh\xe4ltnis",

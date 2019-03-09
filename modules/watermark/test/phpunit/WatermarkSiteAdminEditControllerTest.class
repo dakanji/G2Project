@@ -42,6 +42,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		}
 
 		$watermark_module = new WatermarkModule();
+
 		$this->_registerTestEventListener('GalleryEntity::delete', $watermark_module);
 
 		// Create a watermark
@@ -60,7 +61,6 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($watermark);
-
 		$ret = GalleryCoreApi::addUserPermission(
 			$watermark->getId(),
 			$gallery->getActiveUserId(),
@@ -332,7 +332,6 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		);
 
 		$this->assertEquals($expected, $results);
-
 		$ret = GalleryCoreApi::removeMimeType(
 			array(
 				'extension' => 'yyy',
@@ -351,7 +350,6 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		}
 
 		$expected = ($postMimeType == 'test/file') ? array('50', '80', $platform->filesize($sourceFile), false) : array('100', '100', $platform->filesize(__FILE__), true);
-
 		$this->assertEquals($expected[0], $this->_watermark->getXPercentage(), 'x');
 		$this->assertEquals($expected[1], $this->_watermark->getYPercentage(), 'y');
 		$this->assertEquals($expected[2], $this->_watermark->getSize(), 'size');

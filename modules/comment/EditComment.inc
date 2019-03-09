@@ -140,7 +140,6 @@ class EditCommentController extends GalleryController {
 				$comment->setComment($form['comment']);
 				$comment->setAuthor($form['author']);
 				$comment->setPublishStatus($form['publishStatus']);
-
 				$ret = $comment->save();
 
 				if ($ret) {
@@ -279,10 +278,10 @@ class EditCommentView extends GalleryView {
 			COMMENT_PUBLISH_STATUS_UNPUBLISHED => $module->translate('Unpublished'),
 			COMMENT_PUBLISH_STATUS_SPAM        => $module->translate('Spam'),
 		);
+		$EditComment['comment']           = (array)$comment;
+		$EditComment['itemId']            = $item->getId();
+		$EditComment['isGuestComment']    = $isAnonymousUser;
 
-		$EditComment['comment']        = (array)$comment;
-		$EditComment['itemId']         = $item->getId();
-		$EditComment['isGuestComment'] = $isAnonymousUser;
 		$template->setVariable('EditComment', $EditComment);
 		$template->setVariable('controller', 'comment.EditComment');
 

@@ -44,15 +44,16 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		$watermark_module = new WatermarkModule();
-		$this->_registerTestEventListener('GalleryEntity::delete', $watermark_module);
 
+		$this->_registerTestEventListener('GalleryEntity::delete', $watermark_module);
 		$ret = $this->_markPluginParametersForCleanup('module', 'watermark');
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$rand                = mt_rand();
+		$rand = mt_rand();
+
 		$this->_randomName   = 'phpunit_' . $rand . '.jpg';
 		$this->_expectedName = 'phpunit_' . $rand . '_jpg';
 

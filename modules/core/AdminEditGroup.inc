@@ -102,7 +102,6 @@ class AdminEditGroupController extends GalleryController {
 
 				// Enact the change
 				$group->setGroupName($form['groupName']);
-
 				$ret = $group->save();
 
 				if ($ret) {
@@ -179,6 +178,7 @@ class AdminEditGroupView extends GalleryView {
 
 		$AdminEditGroup          = array();
 		$AdminEditGroup['group'] = (array)$group;
+
 		$template->setVariable('AdminEditGroup', $AdminEditGroup);
 		$template->setVariable('controller', 'core.AdminEditGroup');
 

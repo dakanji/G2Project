@@ -740,6 +740,7 @@ class ADODB_mssqlnative extends ADOConnection {
 			// retrieve the last insert ID (where applicable)
 			while (sqlsrv_next_result($rez)) {
 				sqlsrv_fetch($rez);
+
 				$this->lastInsertID = sqlsrv_get_field($rez, 0);
 			}
 		}
@@ -859,8 +860,7 @@ class ADODB_mssqlnative extends ADOConnection {
 		$this->SelectDB('master');
 		$rs   =& $this->Execute($this->metaDatabasesSQL);
 		$rows = $rs->GetRows();
-
-		$ret = array();
+		$ret  = array();
 
 		for ($i = 0; $i < count($rows); $i++) {
 			$ret[] = $rows[$i][0];
@@ -881,6 +881,7 @@ class ADODB_mssqlnative extends ADOConnection {
 		global $ADODB_FETCH_MODE;
 
 		$schema = '';
+
 		$this->_findschema($table, $schema);
 
 		if (!$schema) {

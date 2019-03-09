@@ -216,8 +216,8 @@ class UserRecoverPasswordController extends GalleryController {
 
 					if ($unitTest || (empty($error) && $shouldSendEmail)) {
 						// Generate baseUrl and recoverUrl for the email template
-						$generator =& $gallery->getUrlGenerator();
-						$baseUrl   = $generator->generateUrl(
+						$generator  =& $gallery->getUrlGenerator();
+						$baseUrl    = $generator->generateUrl(
 							array(),
 							array(
 								'forceFullUrl'   => true,
@@ -225,7 +225,6 @@ class UserRecoverPasswordController extends GalleryController {
 								'forceSessionId' => false,
 							)
 						);
-
 						$recoverUrl = $generator->generateUrl(
 							array(
 								'view'       => 'core.UserAdmin',
@@ -264,7 +263,6 @@ class UserRecoverPasswordController extends GalleryController {
 								'body'    => $tplData,
 								'headers' => null,
 							);
-
 							$mailData = serialize($mailData);
 							$session  =& $gallery->getSession();
 							$session->put(
@@ -274,8 +272,7 @@ class UserRecoverPasswordController extends GalleryController {
 						} else {
 							// Send the user email based on our confirmation template
 							$platform = $gallery->getPlatform();
-
-							$ret = $platform->sendEmail(
+							$ret      = $platform->sendEmail(
 								'modules/core/templates/UserRecoverPasswordEmail.tpl',
 								$tplData,
 								'',

@@ -247,12 +247,11 @@ class MultiLangSearch extends GallerySearchInterface_1_0 {
 			return array($ret, null);
 		}
 
-		$label = array(
+		$label         = array(
 			$module->translate('Title'),
 			$module->translate('Summary'),
 			$module->translate('Description'),
 		);
-
 		$searchResults = array();
 
 		while ($result = $results->nextResult()) {

@@ -96,7 +96,6 @@ class ThumbPageItemEditPluginTest extends ItemEditPluginTestCase {
 
 		$preferred = null;
 		$results   = $this->handleRequest($this->_item, $preferred);
-
 		$this->assertEquals(array(array(), null), $results);
 	}
 

@@ -96,7 +96,6 @@ class ThumbOffsetItemEditPluginTest extends ItemEditPluginTestCase {
 
 		$preferred = null;
 		$results   = $this->handleRequest($this->_item, $preferred);
-
 		$this->assertEquals(array(array(), null), $results);
 	}
 
@@ -153,7 +152,6 @@ class ThumbOffsetItemEditPluginTest extends ItemEditPluginTestCase {
 
 		$preferred = null;
 		$results   = $this->handleRequest($this->_item, $preferred);
-
 		$this->assertEquals(array(array('form[error][offset][invalid]'), null), $results);
 	}
 }

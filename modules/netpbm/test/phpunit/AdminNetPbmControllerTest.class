@@ -59,6 +59,7 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 
 		$mainPlatform = $gallery->getPlatform();
 		$testPlatform = new AdminNetPbmControllerTestPlatform($mainPlatform);
+
 		$gallery->setPlatform($testPlatform);
 	}
 

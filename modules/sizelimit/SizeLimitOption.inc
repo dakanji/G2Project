@@ -76,6 +76,7 @@ class SizeLimitOption extends ItemEditOption {
 		}
 
 		$SizeLimitOption['keepOriginal'] = (isset($params['keepOriginal']) && $params['keepOriginal'] == 1);
+
 		$template->setVariable('SizeLimitOption', $SizeLimitOption);
 
 		return array(
@@ -345,6 +346,7 @@ class SizeLimitOption extends ItemEditOption {
 
 		while (!empty($descendentIds)) {
 			$chunk = array_splice($descendentIds, 0, $chunkSize);
+
 			$gallery->guaranteeTimeLimit(60);
 
 			list($ret, $descendents) = GalleryCoreApi::loadEntitiesById($chunk, 'GalleryItem');

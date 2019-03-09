@@ -821,6 +821,7 @@ class ADORecordSet_ado extends ADORecordSet {
 		try {
 			@$this->_queryID->Close();// by Pete Dishman (peterd@telephonetics.co.uk)
 		} catch (Exception $e) {}
+
 		$this->_queryID = false;
 	}
 }

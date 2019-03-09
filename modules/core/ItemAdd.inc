@@ -246,7 +246,6 @@ class ItemAddController extends GalleryController {
 						'forceFullUrl' => true,
 					)
 				);
-
 				$templateAdapter->updateProgressBar(
 					$this->_coreModule->translate('Adding items'),
 					'',
@@ -335,7 +334,6 @@ class ItemAddController extends GalleryController {
 		}
 
 		$this->_templateAdapter->updateProgressBar($this->_processingItemsMessage, '', 0);
-
 		$ret = $this->_storage->checkPoint();
 
 		if ($ret) {
@@ -396,8 +394,8 @@ class ItemAddController extends GalleryController {
 				 */
 				unset($status['addedFiles'][$i--]);
 				$status['addedFiles'] = array_merge($status['addedFiles'], $extractedItems);
-				$gallery->guaranteeTimeLimit(30);
 
+				$gallery->guaranteeTimeLimit(30);
 				$ret = $this->_storage->checkPoint();
 
 				if ($ret) {
@@ -426,7 +424,6 @@ class ItemAddController extends GalleryController {
 						'',
 						$optionNumber++ / count($this->_optionInstances)
 					);
-
 					$gallery->guaranteeTimeLimit(60);
 
 					list($ret, $optionErrors, $optionWarnings) = $option->handleRequestAfterAdd($form, $itemsToProcess);
@@ -460,10 +457,12 @@ class ItemAddController extends GalleryController {
 				}
 
 				$itemsToProcess = $itemsToProcessKeyMap = array();
+
 				$gallery->guaranteeTimeLimit(60);
 				$this->_templateAdapter->updateProgressBar($this->_processingItemsMessage, '', 1);
 			}
 		} while (isset($status['addedFiles'][++$i]));
+
 		$this->_templateAdapter->updateProgressBar($this->_processingItemsMessage, '', 1);
 
 		return array(null, $errors);
@@ -710,9 +709,7 @@ class ItemAddController extends GalleryController {
 					'',
 					0.1 + 0.9 * count($addedFiles) / (count($list) + count($addedFiles))
 				);
-
 				$gallery->guaranteeTimeLimit(30);
-
 				$ret = $this->_storage->checkPoint();
 
 				if ($ret) {

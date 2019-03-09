@@ -72,7 +72,6 @@ class LinkItemOption extends ItemEditOption {
 			}
 
 			$item->setLink($form['LinkItemOption']['link']);
-
 			$ret = $item->save();
 
 			if ($ret) {

@@ -300,7 +300,6 @@ class GalleryDerivative extends GalleryChildEntity {
 				'Unable to build image',
 				$ret->getAsText()
 			);
-
 			$this->setIsBroken(true);
 
 			if ($gallery->getDebug()) {
@@ -543,7 +542,6 @@ class GalleryDerivative extends GalleryChildEntity {
 		}
 
 		GalleryCoreApi::deleteFastDownloadFileById($this->getId());
-
 		$ret = GalleryCoreApi::createFastDownloadFile($this);
 
 		if ($ret) {

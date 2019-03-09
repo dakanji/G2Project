@@ -131,7 +131,6 @@ class ShowCommentsView extends GalleryView {
 				'item'       => (array)$item,
 			)
 		);
-
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('lib/yui/container-min.js');
 

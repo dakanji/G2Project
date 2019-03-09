@@ -50,7 +50,6 @@ class EventLogHelperTest extends GalleryTestCase {
 
 	public function tearDown() {
 		$this->assertTrue($this->_storage->isComplete(), $this->_storage->getRemaining());
-
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -67,7 +66,6 @@ class EventLogHelperTest extends GalleryTestCase {
 			array(DATABASE_SEQUENCE_EVENT_LOG),
 			array(null, 3007)
 		);
-
 		$this->_storage->setReply(
 			'updateMapEntry',
 			array(
@@ -89,13 +87,11 @@ class EventLogHelperTest extends GalleryTestCase {
 			),
 			null
 		);
-
 		$this->_storage->setReply(
 			'getAffectedRows',
 			array(true),
 			array(null, 1)
 		);
-
 		$ret = GalleryCoreApi::addEventLogEntry('TYPE', 'SUMMARY', 'DETAILS');
 
 		if ($ret) {
@@ -114,7 +110,6 @@ class EventLogHelperTest extends GalleryTestCase {
 			array(DATABASE_SEQUENCE_EVENT_LOG),
 			array(null, 3007)
 		);
-
 		$this->_storage->setReply(
 			'updateMapEntry',
 			array(
@@ -136,13 +131,11 @@ class EventLogHelperTest extends GalleryTestCase {
 			),
 			null
 		);
-
 		$this->_storage->setReply(
 			'getAffectedRows',
 			array(true),
 			array(null, 0)
 		);
-
 		$this->_storage->setReply(
 			'addMapEntry',
 			array(

@@ -72,7 +72,6 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
 		GalleryUtilities::putRequestVariable('form[quotaUnit]', 'KB');
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -87,7 +86,6 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-
 		$this->_deleteUserQuota($this->_user->getId());
 	}
 
@@ -95,7 +93,6 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 		// No Values
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -158,7 +155,6 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
 		GalleryUtilities::putRequestVariable('form[quotaUnit]', 'KB');
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -187,7 +183,6 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-
 		$this->_deleteUserQuota($this->_user->getId());
 	}
 

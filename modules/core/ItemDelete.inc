@@ -334,6 +334,7 @@ class ItemDeleteView extends GalleryView {
 		$ItemDelete['numPerPage']           = $form['numPerPage'];
 		$ItemDelete['selectedIds']          = array_keys($selectedIds);
 		$ItemDelete['selectedIdCount']      = count($selectedIds);
+
 		$template->setVariable('ItemDelete', $ItemDelete);
 		$template->setVariable('controller', 'core.ItemDelete');
 		$template->javascript('lib/yui/yahoo-dom-event.js');

@@ -132,9 +132,8 @@ class ADODB2_db2 extends ADODB_DataDict {
 
 		// already exists, alter table instead
 		list($lines, $pkey) = $this->_GenFields($flds);
-
-		$alter = 'ALTER TABLE ' . $this->TableName($tablename);
-		$sql   = array();
+		$alter              = 'ALTER TABLE ' . $this->TableName($tablename);
+		$sql                = array();
 
 		foreach ($lines as $id => $v) {
 			if (isset($cols[$id]) && is_object($cols[$id])) {

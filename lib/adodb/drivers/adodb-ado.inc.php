@@ -765,6 +765,7 @@ class ADORecordSet_ado extends ADORecordSet {
 
 	public function _close() {
 		$this->_flds = false;
+
 		@$this->_queryID->Close(); // by Pete Dishman (peterd@telephonetics.co.uk)
 		$this->_queryID = false;
 	}

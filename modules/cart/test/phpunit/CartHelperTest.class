@@ -84,7 +84,6 @@ class CartHelperTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($album);
-
 		$ret = GalleryCoreApi::removeItemPermissions($album->getId());
 
 		if ($ret) {
@@ -235,7 +234,6 @@ class CartHelperTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($item2);
-
 		$ret = GalleryCoreApi::removeItemPermissions($item2->getId());
 
 		if ($ret) {

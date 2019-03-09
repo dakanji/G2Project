@@ -36,6 +36,7 @@ class SelfRegistrationSuccessView extends GalleryView {
 		$SelfRegistrationSuccess                          = array();
 		$SelfRegistrationSuccess['pending']               = $pending;
 		$SelfRegistrationSuccess['sentConfirmationEmail'] = $sentConfirmationEmail;
+
 		$template->setVariable('controller', 'register.UserSelfRegistration');
 		$template->setVariable('SelfRegistrationSuccess', $SelfRegistrationSuccess);
 

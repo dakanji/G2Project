@@ -91,7 +91,6 @@ class ItemEditWatermark extends ItemEditPlugin {
 							$gallery->i18n('Apply watermark'),
 						)
 					);
-
 					$requiresProgressBar = true;
 				} else {
 					$ret = WatermarkHelper::watermarkItem(
@@ -122,7 +121,6 @@ class ItemEditWatermark extends ItemEditPlugin {
 						$gallery->i18n('Remove watermarks'),
 					)
 				);
-
 				$requiresProgressBar = true;
 			} else {
 				$ret = $this->removeWatermark($item->getId());
@@ -201,8 +199,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 						}
 					} elseif ($this->isSupported($item, null)) {
 						$params[1] = $item;
-
-						$ret = call_user_func_array(
+						$ret       = call_user_func_array(
 							array('WatermarkHelper', 'watermarkItem'),
 							$params
 						);
@@ -264,7 +261,6 @@ class ItemEditWatermark extends ItemEditPlugin {
 				'composite',
 				$derivative->getPostFilterOperations()
 			);
-
 			$derivative->setPostFilterOperations($newPostFilters);
 
 			if ($derivative->getDerivativeType() == DERIVATIVE_TYPE_IMAGE_PREFERRED) {

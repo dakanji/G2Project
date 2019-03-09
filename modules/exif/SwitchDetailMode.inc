@@ -101,6 +101,7 @@ class SwitchDetailModeView extends GalleryView {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 
 		$template = new GalleryTemplate(dirname(dirname(__DIR__)));
+
 		$template->setVariable('l10Domain', 'modules_exif');
 		$template->setVariable('ajax', true);
 		$template->setVariable('item', (array)$item);
@@ -110,7 +111,6 @@ class SwitchDetailModeView extends GalleryView {
 				'actingUserId' => $gallery->getActiveUserId(),
 			)
 		);
-
 		$ret = $template->display('gallery:modules/exif/templates/blocks/ExifInfo.tpl');
 
 		if ($ret) {

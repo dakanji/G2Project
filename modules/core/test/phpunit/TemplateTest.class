@@ -75,14 +75,12 @@ class TemplateTest extends GalleryTestCase {
 			'/legal/path/local/templateThatHasNoLocal.tpl',
 			false
 		);
-
 		$this->_mockPlatform->set('is_readable', '/legal/path/templateThatHasNoLocal.tpl', true);
 		$success = $this->_template->resourceGetTemplate(
 			'templateThatHasNoLocal.tpl',
 			$templateSource,
 			$this->_mockSmarty
 		);
-
 		$this->assertTrue($success, "Didn't return success");
 		$this->assertEquals(
 			'/legal/path/templateThatHasNoLocal.tpl',
@@ -98,26 +96,22 @@ class TemplateTest extends GalleryTestCase {
 			$this->_baseDirOverride . '/local/template.tpl',
 			false
 		);
-
 		$this->_mockPlatform->set('is_readable', $this->_baseDirOverride . '/template.tpl', false);
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/local/template.tpl',
 			false
 		);
-
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/template.tpl',
 			true
 		);
-
 		$success = $this->_template->resourceGetTemplate(
 			'modules/core/templates/template.tpl',
 			$templateSource,
 			$this->_mockSmarty
 		);
-
 		$this->assertTrue($success, "Didn't return success");
 		$this->assertEquals(
 			'/legal/path/modules/core/templates/template.tpl',
@@ -133,26 +127,22 @@ class TemplateTest extends GalleryTestCase {
 			$this->_baseDirOverride . '/local/template.tpl',
 			false
 		);
-
 		$this->_mockPlatform->set('is_readable', $this->_baseDirOverride . '/template.tpl', false);
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/local/template.tpl',
 			true
 		);
-
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/template.tpl',
 			true
 		);
-
 		$success = $this->_template->resourceGetTemplate(
 			'modules/core/templates/template.tpl',
 			$templateSource,
 			$this->_mockSmarty
 		);
-
 		$this->assertTrue($success, "Didn't return success");
 		$this->assertEquals(
 			'/legal/path/modules/core/templates/local/template.tpl',
@@ -168,31 +158,26 @@ class TemplateTest extends GalleryTestCase {
 			$this->_baseDirOverride . '/block/local/template.tpl',
 			true
 		);
-
 		$this->_mockPlatform->set(
 			'is_readable',
 			$this->_baseDirOverride . '/block/template.tpl',
 			true
 		);
-
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/block/local/template.tpl',
 			true
 		);
-
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/block/template.tpl',
 			true
 		);
-
 		$success = $this->_template->resourceGetTemplate(
 			'modules/core/templates/block/template.tpl',
 			$templateSource,
 			$this->_mockSmarty
 		);
-
 		$this->assertTrue($success, "Didn't return success");
 		$this->assertEquals(
 			$this->_baseDirOverride . '/block/local/template.tpl',
@@ -208,7 +193,6 @@ class TemplateTest extends GalleryTestCase {
 			'/legal/path/local/templateThatHasNoLocal.tpl',
 			false
 		);
-
 		$this->_mockPlatform->set('is_readable', '/legal/path/templateThatHasNoLocal.tpl', true);
 		$this->_mockPlatform->set('file_exists', '/legal/path/templateThatHasNoLocal.tpl', true);
 		$this->_mockPlatform->set(
@@ -216,13 +200,11 @@ class TemplateTest extends GalleryTestCase {
 			'/legal/path/templateThatHasNoLocal.tpl',
 			array(0, 0, 0, 0, 0, 0, 0, 0, 0, 98765)
 		);
-
 		$success = $this->_template->resourceGetTimestamp(
 			'templateThatHasNoLocal.tpl',
 			$templateTimestamp,
 			$this->_mockSmarty
 		);
-
 		$this->assertTrue($success, "Didn't return success");
 		$this->assertEquals(98765, $templateTimestamp, 'no override');
 
@@ -240,38 +222,32 @@ class TemplateTest extends GalleryTestCase {
 			$this->_baseDirOverride . '/local/template.tpl',
 			false
 		);
-
 		$this->_mockPlatform->set('is_readable', $this->_baseDirOverride . '/template.tpl', false);
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/local/template.tpl',
 			true
 		);
-
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/template.tpl',
 			true
 		);
-
 		$this->_mockPlatform->set(
 			'file_exists',
 			'/legal/path/modules/core/templates/local/template.tpl',
 			true
 		);
-
 		$this->_mockPlatform->set(
 			'stat',
 			'/legal/path/modules/core/templates/local/template.tpl',
 			array(0, 0, 0, 0, 0, 0, 0, 0, 0, 12345)
 		);
-
 		$success = $this->_template->resourceGetTimestamp(
 			'modules/core/templates/template.tpl',
 			$templateTimestamp,
 			$this->_mockSmarty
 		);
-
 		$this->assertTrue($success, "Didn't return success");
 		$this->assertEquals(12345, $templateTimestamp, 'override');
 	}
@@ -283,38 +259,32 @@ class TemplateTest extends GalleryTestCase {
 			$this->_baseDirOverride . '/local/template.tpl',
 			false
 		);
-
 		$this->_mockPlatform->set('is_readable', $this->_baseDirOverride . '/template.tpl', false);
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/local/template.tpl',
 			true
 		);
-
 		$this->_mockPlatform->set(
 			'is_readable',
 			'/legal/path/modules/core/templates/template.tpl',
 			true
 		);
-
 		$this->_mockPlatform->set(
 			'file_exists',
 			'/legal/path/modules/core/templates/local/template.tpl',
 			true
 		);
-
 		$this->_mockPlatform->set(
 			'stat',
 			'/legal/path/modules/core/templates/local/template.tpl',
 			array(0, 0, 0, 0, 0, 0, 0, 0, 0, 12345)
 		);
-
 		$success = GalleryTemplate::resourceGetTimestamp(
 			'modules/core/templates/template.tpl',
 			$templateTimestamp,
 			$this->_mockSmarty
 		);
-
 		$this->assertTrue($success, "Didn't return success");
 		$this->assertEquals(12345, $templateTimestamp, 'static');
 	}
@@ -370,6 +340,7 @@ class TemplateTest extends GalleryTestCase {
 
 	public function testStyle() {
 		$template = new GalleryTemplate('');
+
 		$template->style('/path/to/foo.css');
 		$head = $template->getVariable('head');
 		$this->assertEquals(
@@ -388,7 +359,6 @@ class TemplateTest extends GalleryTestCase {
 				'attr2' => 'value2',
 			)
 		);
-
 		$head = $template->getVariable('head');
 		$this->assertEquals(
 			array(

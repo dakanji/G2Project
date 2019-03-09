@@ -74,6 +74,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 		// The AdminCore controller uses the url generator to check the cookie path
 		$AdminCoreControllerTestUrlGenerator = new AdminCoreControllerTestUrlGenerator();
+
 		$gallery->setUrlGenerator($AdminCoreControllerTestUrlGenerator);
 	}
 
@@ -107,7 +108,6 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
-
 		$valueMap['smtp.password'] = base64_encode($valueMap['smtp.password']);
 
 		foreach ($valueMap as $key => $expectedValue) {
@@ -132,6 +132,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		}
 
 		$valueMap['smtp.password'] = '***';
+
 		$this->_setFormFromValues($valueMap);
 
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -177,6 +178,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 		// But oops, the user entered 4 stars
 		$valueMap['smtp.password'] = '****';
+
 		$this->_setFormFromValues($valueMap);
 
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -213,6 +215,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	public function testSaveEmailPasswordWithHtmlEntity() {
 		$valueMap                  = $this->_valueMap;
 		$valueMap['smtp.password'] = 'pass&word';
+
 		$this->_setFormFromValues($valueMap);
 
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -557,9 +560,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 		if (GalleryUtilities::isA($platform, 'WinNtPlatform')) {
 			$WinPlatform = new AdminCoreControllerTestWinNtPlatform(true);
+
 			$gallery->setPlatform($WinPlatform);
 		} else {
 			$UnixPlatform = new AdminCoreControllerTestUnixPlatform(true);
+
 			$gallery->setPlatform($UnixPlatform);
 		}
 
@@ -597,9 +602,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 		if (GalleryUtilities::isA($platform, 'WinNtPlatform')) {
 			$WinPlatform = new AdminCoreControllerTestWinNtPlatform(false);
+
 			$gallery->setPlatform($WinPlatform);
 		} else {
 			$UnixPlatform = new AdminCoreControllerTestUnixPlatform(false);
+
 			$gallery->setPlatform($UnixPlatform);
 		}
 

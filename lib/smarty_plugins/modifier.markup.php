@@ -145,7 +145,6 @@ class GalleryBbcodeMarkupParser {
 			array('listitem', 'block', 'inline', 'link'),
 			array()
 		);
-
 		$this->_bbcode->addCode(
 			'i',
 			'simple_replace',
@@ -209,7 +208,6 @@ class GalleryBbcodeMarkupParser {
 			array('block', 'listitem'),
 			array()
 		);
-
 		$this->_bbcode->addCode(
 			'*',
 			'simple_replace',
@@ -222,7 +220,6 @@ class GalleryBbcodeMarkupParser {
 			array('list'),
 			array()
 		);
-
 		$this->_bbcode->setCodeFlag('*', 'closetag', BBCODE_CLOSETAG_OPTIONAL);
 	}
 

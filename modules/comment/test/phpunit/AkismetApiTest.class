@@ -49,6 +49,7 @@ class AkismetApiTest extends GalleryTestCase {
 		$this->_platform = new UnitTestPlatform();
 		$gallery->setPlatform($this->_platform);
 		$AkismetApiTest_MockUrlGenerator = new AkismetApiTest_MockUrlGenerator();
+
 		$gallery->setUrlGenerator($AkismetApiTest_MockUrlGenerator);
 	}
 
@@ -64,7 +65,6 @@ class AkismetApiTest extends GalleryTestCase {
 			array('comment-check', $this->_comment, true),
 			array(null, 'false', 'HTTP/1.0 200 OK', 'headers')
 		);
-
 		$this->assertEquals(
 			array(null, false),
 			$this->_akismet->checkComment($this->_comment)
@@ -77,7 +77,6 @@ class AkismetApiTest extends GalleryTestCase {
 			array('comment-check', $this->_comment, true),
 			array(null, 'true', 'HTTP/1.0 200 OK', 'headers')
 		);
-
 		$this->assertEquals(
 			array(null, true),
 			$this->_akismet->checkComment($this->_comment)
@@ -90,7 +89,6 @@ class AkismetApiTest extends GalleryTestCase {
 			array('comment-check', $this->_comment, true),
 			array(null, 'false', 'HTTP/1.0 404 Not Found', 'headers')
 		);
-
 		$this->assertEquals(
 			array(null, false),
 			$this->_akismet->checkComment($this->_comment)
@@ -104,7 +102,6 @@ class AkismetApiTest extends GalleryTestCase {
 			array('comment-check', $this->_comment, false),
 			array(null, 'false', 'HTTP/1.0 200 OK', 'headers')
 		);
-
 		$this->assertEquals(
 			array(null, false),
 			$this->_akismet->checkComment($this->_comment)
@@ -117,7 +114,6 @@ class AkismetApiTest extends GalleryTestCase {
 			array('submit-spam', $this->_comment, false),
 			array(null, 'body', 'HTTP/1.0 200 OK', 'headers')
 		);
-
 		$this->assertEquals(null, $this->_akismet->submitSpam($this->_comment));
 	}
 
@@ -127,7 +123,6 @@ class AkismetApiTest extends GalleryTestCase {
 			array('submit-ham', $this->_comment, false),
 			array(null, 'body', 'HTTP/1.0 200 OK', 'headers')
 		);
-
 		$this->assertEquals(null, $this->_akismet->submitHam($this->_comment));
 	}
 
@@ -147,6 +142,7 @@ class AkismetApiTest extends GalleryTestCase {
 		}
 
 		$request .= join('&', $tmp);
+
 		$platform->setReply('fsockopen', array($host, $port, null, null, 5), 'HANDLE');
 		$platform->setReply('fwrite', array('HANDLE', $request, null), true);
 		$platform->setReply('fflush', array('HANDLE'), true);
@@ -184,7 +180,6 @@ class AkismetApiTest extends GalleryTestCase {
 				'valid',
 			)
 		);
-
 		$this->assertEquals(
 			array(null, true),
 			$this->_akismet->verifyApiKey('GOOD_key')
@@ -214,7 +209,6 @@ class AkismetApiTest extends GalleryTestCase {
 				'invalid',
 			)
 		);
-
 		$this->assertEquals(
 			array(null, false),
 			$this->_akismet->verifyApiKey('BAD_key')
@@ -223,7 +217,6 @@ class AkismetApiTest extends GalleryTestCase {
 
 	public function testRequest() {
 		$this->_markPluginParametersForCleanup('module', 'comment');
-
 		$ret = GalleryCoreApi::setPluginParameter('module', 'comment', 'akismet.apiKey', 'API_KEY');
 
 		if ($ret) {
@@ -297,7 +290,6 @@ class AkismetApiTest extends GalleryTestCase {
 				'body',
 			)
 		);
-
 		$akismet = new AkismetApiTest_AkismetApiWithMockUserAgent();
 		$this->assertEquals(
 			array(
@@ -314,7 +306,6 @@ class AkismetApiTest extends GalleryTestCase {
 
 	public function testRequest_WithoutRequestSpecificDetails() {
 		$this->_markPluginParametersForCleanup('module', 'comment');
-
 		$ret = GalleryCoreApi::setPluginParameter('module', 'comment', 'akismet.apiKey', 'API_KEY');
 
 		if ($ret) {
@@ -374,7 +365,6 @@ class AkismetApiTest extends GalleryTestCase {
 				'body',
 			)
 		);
-
 		$akismet = new AkismetApiTest_AkismetApiWithMockUserAgent();
 		$this->assertEquals(
 			array(
@@ -396,7 +386,6 @@ class AkismetApiTest extends GalleryTestCase {
 			// The HTTP status 200 message should processed independently of the HTTP version
 			array(null, 'body', 'HTTP/1.0 200 OK', 'headers')
 		);
-
 		$this->assertEquals(null, $this->_akismet->submitHam($this->_comment));
 	}
 }

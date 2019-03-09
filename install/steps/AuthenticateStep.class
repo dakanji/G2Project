@@ -81,7 +81,6 @@ class AuthenticateStep extends InstallStep {
 				if ($fileAuthKey == $this->_uniqueKey) {
 					// Authenticate, but do not reset the login attempts as we have no db
 					GallerySetupUtilities::authenticateThisSession(false);
-
 					$this->setComplete(true);
 				} else {
 					$templateData['errors'][] = _(

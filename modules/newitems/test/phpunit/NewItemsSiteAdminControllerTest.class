@@ -194,7 +194,6 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertEquals(0, $count, 'Should be no NewItems sorts in db after reset');
-
 		$ret = $this->_restoreNewItemSorts();
 
 		if ($ret) {
@@ -256,7 +255,6 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 		foreach ($items as $item) {
 			$item->setOrderBy('NewItems');
 			$item->setOrderDirection($this->_newItemSortIds[$item->getId()]);
-
 			$ret = $item->save();
 
 			if ($ret) {

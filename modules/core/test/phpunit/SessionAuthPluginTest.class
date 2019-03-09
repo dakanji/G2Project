@@ -60,8 +60,7 @@ class SessionAuthPluginTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_session = $this->_saveSession;
-
-		$ret = parent::tearDown();
+		$ret               = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);

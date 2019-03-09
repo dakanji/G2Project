@@ -137,6 +137,7 @@ class AdminDeleteUserQuotaView extends GalleryView {
 		}
 
 		$AdminDeleteUserQuota['user'] = (array)$user;
+
 		$template->setVariable('AdminDeleteUserQuota', $AdminDeleteUserQuota);
 		$template->setVariable('controller', 'quotas.AdminDeleteUserQuota');
 

@@ -32,6 +32,7 @@ function smarty_core_smarty_include_php($params, &$smarty) {
 		}
 
 		$smarty->assign($params['smarty_assign'], ob_get_contents());
+
 		ob_end_clean();
 	} else {
 		if ($_smarty_resource_type == 'file') {

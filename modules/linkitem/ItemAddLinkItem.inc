@@ -218,7 +218,6 @@ class ItemAddLinkItem extends ItemAddPlugin {
 						$derivative->setDerivativeSourceId($source->getId());
 						$derivative->setWidth(0);
 						$derivative->setHeight(0);
-
 						$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
 
 						if ($ret) {
@@ -305,7 +304,6 @@ class ItemAddLinkItem extends ItemAddPlugin {
 				'albumTree' => GalleryUtilities::createAlbumTree($albums),
 			)
 		);
-
 		$template->javascript('lib/yui/yahoo-dom-event.js');
 		$template->javascript('lib/yui/container-min.js');
 		$template->javascript('lib/yui/treeview-min.js');

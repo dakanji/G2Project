@@ -46,6 +46,7 @@ class DynamicAlbumTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
+
 		$time = array(
 			1 => time() - 100,
 			2 => time(),
@@ -288,7 +289,6 @@ class DynamicAlbumTest extends GalleryTestCase {
 		global $gallery;
 
 		GalleryUtilities::putRequestVariable('albumId', $this->_album->getId());
-
 		$type = array(
 			'date'   => 'all',
 			'views'  => 'data',
@@ -301,7 +301,6 @@ class DynamicAlbumTest extends GalleryTestCase {
 			'random' => $this->_randomView,
 		) as $key => $view) {
 			GalleryUtilities::putRequestVariable('show', $type[$key]);
-
 			$template = new GalleryTemplate(
 				dirname(dirname(dirname(dirname(__DIR__))))
 			);
@@ -365,7 +364,6 @@ class DynamicAlbumTest extends GalleryTestCase {
 		$this->assertEquals(0, $count, 'count before');
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_items[2]->getId());
-
 		$form = array();
 
 		list($ret, $result) = $this->_updatesView->loadTemplate(
@@ -400,8 +398,7 @@ class DynamicAlbumTest extends GalleryTestCase {
 
 		$theme                 =& $this->_template->getVariableByReference('theme');
 		$theme['actingUserId'] = $gallery->getActiveUserId();
-
-		$ret = GalleryCoreApi::setPluginParameter(
+		$ret                   = GalleryCoreApi::setPluginParameter(
 			'module',
 			'dynamicalbum',
 			'size.views',
@@ -443,7 +440,6 @@ class DynamicAlbumTest extends GalleryTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_items[3]->getId());
-
 		$form = array();
 
 		list($ret, $result) = $this->_randomView->loadTemplate(
@@ -523,7 +519,6 @@ class DynamicAlbumTest extends GalleryTestCase {
 			$links,
 			'all'
 		);
-
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'dynamicalbum',

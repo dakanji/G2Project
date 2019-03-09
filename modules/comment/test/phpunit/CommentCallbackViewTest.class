@@ -59,8 +59,7 @@ class CommentCallbackViewTest extends GalleryTestCase {
 
 		$this->_markForCleanup($this->_user);
 		$this->_comment = new GalleryComment();
-
-		$ret = $this->_comment->create($this->_item->getId());
+		$ret            = $this->_comment->create($this->_item->getId());
 
 		if ($ret) {
 			return $ret;
@@ -70,7 +69,6 @@ class CommentCallbackViewTest extends GalleryTestCase {
 		$this->_comment->setHost('127.0.0.1');
 		$this->_comment->setDate(time());
 		$this->_comment->setPublishStatus(COMMENT_PUBLISH_STATUS_UNPUBLISHED);
-
 		$ret = $this->_comment->save();
 
 		if ($ret) {
@@ -83,8 +81,7 @@ class CommentCallbackViewTest extends GalleryTestCase {
 	public function _renderImmediate() {
 		ob_start();
 
-		$ret = $this->_view->renderImmediate(array(), array());
-
+		$ret     = $this->_view->renderImmediate(array(), array());
 		$results = ob_get_contents();
 		ob_end_clean();
 
@@ -134,7 +131,6 @@ class CommentCallbackViewTest extends GalleryTestCase {
 	public function testDeleteCommentNoPermissions() {
 		GalleryUtilities::putRequestVariable('command', 'delete');
 		GalleryUtilities::putRequestVariable('commentId', $this->_comment->getId());
-
 		$ret = GalleryCoreApi::removeItemPermissions($this->_item->getId());
 
 		if ($ret) {
@@ -188,7 +184,6 @@ class CommentCallbackViewTest extends GalleryTestCase {
 	public function testMarkCommentAsSpamNoPermissions() {
 		GalleryUtilities::putRequestVariable('command', 'spam');
 		GalleryUtilities::putRequestVariable('commentId', $this->_comment->getId());
-
 		$ret = GalleryCoreApi::removeItemPermissions($this->_item->getId());
 
 		if ($ret) {
@@ -239,7 +234,6 @@ class CommentCallbackViewTest extends GalleryTestCase {
 	public function testMarkCommentAsNotSpamNoPermissions() {
 		GalleryUtilities::putRequestVariable('command', 'despam');
 		GalleryUtilities::putRequestVariable('commentId', $this->_comment->getId());
-
 		$ret = GalleryCoreApi::removeItemPermissions($this->_item->getId());
 
 		if ($ret) {

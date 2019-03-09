@@ -189,7 +189,8 @@ class ADODB_odbtp extends ADOConnection {
 			$ok = $this->Execute("update adodb_seq set seq_value=seq_value+1 where seq_name='$seq'");
 
 			if ($ok) {
-				$num        += 1;
+				$num += 1;
+
 				$this->genID = $num;
 
 				return $num;
@@ -390,6 +391,7 @@ class ADODB_odbtp extends ADOConnection {
 		global $ADODB_FETCH_MODE;
 
 		$schema = false;
+
 		$this->_findschema($table, $schema);
 
 		if ($upper) {
@@ -625,10 +627,12 @@ class ADODB_odbtp extends ADOConnection {
 	Usage:
 		$stmt = $db->PrepareSP('SP_RUNSOMETHING'); -- takes 2 params, @myid and @group
 		# note that the parameter does not have @ in front!
+
 		$db->Parameter($stmt,$id,'myid');
 		$db->Parameter($stmt,$group,'group',false,64);
 		$db->Parameter($stmt,$group,'photo',false,100000,ODB_BINARY);
 		$db->Execute($stmt);
+
 		@param $stmt Statement returned by Prepare() or PrepareSP().
 		@param $var PHP variable to bind to. Can set to null (for isNull support).
 		@param $name Name of stored procedure variable name to bind to.
@@ -657,8 +661,10 @@ class ADODB_odbtp extends ADOConnection {
 		Insert a null into the blob field of the table first.
 		Then use UpdateBlob to store the blob.
 		Usage:
+
 		$conn->Execute('INSERT INTO blobtable (id, blobcol) VALUES (1, null)');
 		$conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
+
 	*/
 	public function UpdateBlob($table, $column, $val, $where, $blobtype = 'image') {
 		$sql = "UPDATE $table SET $column = ? WHERE $where";
@@ -805,8 +811,7 @@ class ADODB_odbtp extends ADOConnection {
 	}
 
 	public function _close() {
-		$ret = @odbtp_close($this->_connectionID);
-
+		$ret                 = @odbtp_close($this->_connectionID);
 		$this->_connectionID = false;
 
 		return $ret;
@@ -825,6 +830,7 @@ class ADORecordSet_odbtp extends ADORecordSet {
 		}
 
 		$this->fetchMode = $mode;
+
 		parent::__construct($queryID);
 	}
 
@@ -855,8 +861,9 @@ class ADORecordSet_odbtp extends ADORecordSet {
 	}
 
 	public function FetchField($fieldOffset = 0) {
-		$off           = $fieldOffset; // offsets begin at 0
-		$o             = new ADOFieldObject();
+		$off = $fieldOffset; // offsets begin at 0
+		$o   = new ADOFieldObject();
+
 		$o->name       = @odbtp_field_name($this->_queryID, $off);
 		$o->type       = @odbtp_field_type($this->_queryID, $off);
 		$o->max_length = @odbtp_field_length($this->_queryID, $off);

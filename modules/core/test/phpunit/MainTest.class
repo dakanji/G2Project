@@ -47,8 +47,7 @@ class MainTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('view', 'core.Foo');
 
 		$this->_urlGenerator = new GalleryUrlGenerator();
-
-		$ret = $this->_urlGenerator->init('phpunit_test.php');
+		$ret                 = $this->_urlGenerator->init('phpunit_test.php');
 
 		if ($ret) {
 			return $ret;
@@ -76,6 +75,7 @@ class MainTest extends GalleryTestCase {
 		} else {
 			// Init a new translator so that we reset our locale
 			$translator = GalleryTranslator::getMe();
+
 			$translator->init($languageCode);
 		}
 
@@ -169,7 +169,6 @@ class MainTest extends GalleryTestCase {
 				'forceFullUrl' => true,
 			)
 		);
-
 		$this->assertEquals(
 			array(
 				'location' => "Location: $expectedUrl",
@@ -239,8 +238,7 @@ class MainTest extends GalleryTestCase {
 		$needFixControllers = array('core.Logout', 'core.UserLogin', 'publishxp.Login');
 		$base               = 'http://www.example.com/';
 		$session            =& $gallery->getSession();
-
-		$ret = $session->init();
+		$ret                = $session->init();
 
 		if ($ret) {
 			return $ret;
@@ -258,7 +256,6 @@ class MainTest extends GalleryTestCase {
 			!empty($sessionId) && !empty($sessionKey),
 			'Initial session assertion failed'
 		);
-
 		$sessionParamString = GalleryUtilities::prefixFormVariable(urlencode($session->getKey())) . '=' .
 		urlencode($session->getId());
 
@@ -482,7 +479,6 @@ class MainTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($item);
-
 		$ret = GalleryCoreApi::removeItemPermissions($item->getId());
 
 		if ($ret) {
@@ -549,7 +545,6 @@ class MainTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($item);
-
 		$ret = GalleryCoreApi::removeItemPermissions($item->getId());
 
 		if ($ret) {
@@ -574,7 +569,6 @@ class MainTest extends GalleryTestCase {
 				'forceSessionId' => false,
 			)
 		);
-
 		$this->_becomeGuestUser();
 
 		list($ret, $g2Data) = _GalleryMain();
@@ -718,7 +712,6 @@ class MainTest extends GalleryTestCase {
 		$receivedEvent = $_GET['testEvent'];
 
 		$this->assertEquals('Gallery::BeforeDisplay', $receivedEvent->getEventName());
-
 		$receivedData = $receivedEvent->getData();
 		$this->assertEquals(
 			'gallery:themes',

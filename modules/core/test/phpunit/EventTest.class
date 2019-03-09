@@ -41,6 +41,7 @@ class EventTest extends GalleryTestCase {
 		}
 
 		$EventTestPlatform = new EventTestPlatform();
+
 		$gallery->setPlatform($EventTestPlatform);
 		$this->_platform =& $gallery->getPlatform();
 
@@ -103,6 +104,7 @@ class EventTest extends GalleryTestCase {
 
 		$event = GalleryCoreApi::newEvent($eventName);
 		$bogus = 'bogus entity';
+
 		$event->setEntity($bogus);
 		$event->setData('some data');
 
@@ -124,6 +126,7 @@ class EventTest extends GalleryTestCase {
 
 		$event = GalleryCoreApi::newEvent($eventName);
 		$bogus = 'bogus entity';
+
 		$event->setEntity($bogus);
 		$event->setData('send result');
 
@@ -142,6 +145,7 @@ class EventTest extends GalleryTestCase {
 		global $gallery;
 
 		$listener = new EventTestEventListener($this);
+
 		$this->_registerTestEventListener('GalleryEntity::save', $listener);
 
 		list($ret, $item) = $this->_createRandomDataItem($this->_getRootId());
@@ -152,7 +156,6 @@ class EventTest extends GalleryTestCase {
 
 		$this->_markForCleanup($item);
 		$event = $listener->getEvent();
-
 		$this->assertEquals('GalleryEntity::save', $event ? $event->getEventName() : 'unset');
 
 		list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($item->getId());
@@ -178,6 +181,7 @@ class EventTest extends GalleryTestCase {
 		 * factory implementations
 		 */
 		$listener = new EventTestEventListener();
+
 		$this->_registerTestEventListener('Gallery::ActivatePlugin', $listener);
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'EventTest');
@@ -204,18 +208,17 @@ class EventTest extends GalleryTestCase {
 	public function testEmbeddedEntityIsAReference() {
 		$event  = new GalleryEvent();
 		$entity = new GalleryEntity();
+
 		$event->setEntity($entity);
 
 		// Embedded entity has the new value, even if we don't get it by reference
 		$entity->setId(1000);
 		$embeddedEntity = $event->getEntity();
-
 		$this->assertEquals(1000, $embeddedEntity->getId());
 
 		// Get embedded entity by reference and change it, then see that it affects the original
 		$embeddedEntity =& $event->getEntity();
 		$embeddedEntity->setId(2000);
-
 		$this->assertEquals(2000, $entity->getId());
 	}
 }
@@ -238,10 +241,8 @@ class EventTestEventListener // extends GalleryEventListener
 		switch ($event->getEventName()) {
 			case 'GalleryEntity::save':
 				global $gallery;
-
 				$item = $event->getEntity();
-
-				$ret = GalleryCoreApi::removeItemPermissions($item->getId());
+				$ret  = GalleryCoreApi::removeItemPermissions($item->getId());
 
 				if ($ret) {
 					return array($ret, null);

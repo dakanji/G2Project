@@ -37,7 +37,6 @@ class DynamicAlbumModule extends GalleryModule {
 				'Dynamic albums for newest, most viewed or random items'
 			)
 		);
-
 		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));

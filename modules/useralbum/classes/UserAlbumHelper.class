@@ -87,7 +87,6 @@ class UserAlbumHelper {
 
 		// Set owner..
 		$album->setOwnerId($user->getId());
-
 		$ret = $album->save();
 
 		if ($ret) {

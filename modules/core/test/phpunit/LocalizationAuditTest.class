@@ -31,6 +31,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 
 	public function __construct($methodName) {
 		parent::__construct($methodName);
+
 		$this->_errorCount = 0;
 	}
 
@@ -62,6 +63,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 
 		// Grab Project-Id-Version, which we'll check against this file's peers in finishScan()
 		preg_match('/Project-Id-Version:(.*).."/', $buffer, $matches);
+
 		$this->_idMap[dirname($fileName)][basename($fileName)] = trim($matches[1]);
 
 		// First line must be "# <dollar-sign>Id<dollar-sign>
@@ -73,7 +75,6 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 				true,
 				$path . ': first line should be "# $" ."Id$" but was: ' . $line
 			);
-
 			$this->_errorCount++;
 		}
 
@@ -83,14 +84,12 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 
 		if ($fuzzyPos !== false && $msgIdPos !== false && $fuzzyPos < $msgIdPos) {
 			$this->assertFalse(true, $path . ': first msgid is marked fuzzy!');
-
 			$this->_errorCount++;
 		}
 
 		// Make sure charset header specifies UTF-8
 		if (strpos($buffer, 'Content-Type: text/plain; charset=UTF-8') === false) {
 			$this->assertFalse(true, $path . ': does not specify UTF-8 charset');
-
 			$this->_errorCount++;
 		}
 
@@ -123,7 +122,6 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 						true,
 						$path . ': improper translation of ' . $token . ' token'
 					);
-
 					$this->_errorCount++;
 				}
 			}

@@ -86,6 +86,7 @@ class ItemAddConfirmationView extends GalleryView {
 		$ItemAddConfirmation           = array();
 		$ItemAddConfirmation['count']  = $uploaded;
 		$ItemAddConfirmation['status'] = $status;
+
 		$template->setVariable('ItemAddConfirmation', $ItemAddConfirmation);
 		$template->setVariable('controller', '');
 

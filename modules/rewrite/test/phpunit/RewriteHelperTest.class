@@ -148,7 +148,6 @@ class RewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue('rewritehelpermock' == $parser->getParserId(), 'parserId');
-
 		$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'parserId', '');
 
 		if ($ret) {
@@ -193,8 +192,7 @@ class RewriteHelperTest extends GalleryTestCase {
 			'options'     => $this->_defaultOptions,
 			'flags'       => array(),
 		);
-
-		$tests[] = array(
+		$tests[]              = array(
 			$activeRules,
 			REWRITE_STATUS_OK,
 			$expectedRegexRules,
@@ -220,8 +218,7 @@ class RewriteHelperTest extends GalleryTestCase {
 			'options'     => $this->_defaultOptions,
 			'flags'       => array(),
 		);
-
-		$tests[] = array(
+		$tests[]              = array(
 			$activeRules,
 			REWRITE_STATUS_OK,
 			$expectedRegexRules,
@@ -260,8 +257,7 @@ class RewriteHelperTest extends GalleryTestCase {
 			'options'     => $this->_defaultOptions,
 			'flags'       => array(),
 		);
-
-		$tests[] = array(
+		$tests[]              = array(
 			$activeRules,
 			REWRITE_STATUS_OK,
 			$expectedRegexRules,
@@ -287,8 +283,7 @@ class RewriteHelperTest extends GalleryTestCase {
 			'options'     => $this->_defaultOptions,
 			'flags'       => array(),
 		);
-
-		$tests[] = array(
+		$tests[]              = array(
 			$activeRules,
 			REWRITE_STATUS_OK,
 			$expectedRegexRules,
@@ -326,8 +321,7 @@ class RewriteHelperTest extends GalleryTestCase {
 			'options'     => $this->_defaultOptions,
 			'flags'       => array(),
 		);
-
-		$tests[] = array(
+		$tests[]              = array(
 			$activeRules,
 			REWRITE_STATUS_OK,
 			$expectedRegexRules,
@@ -353,8 +347,7 @@ class RewriteHelperTest extends GalleryTestCase {
 			'options'     => $this->_defaultOptions,
 			'flags'       => array('F1', 'F2'),
 		);
-
-		$tests[] = array(
+		$tests[]              = array(
 			$activeRules,
 			REWRITE_STATUS_OK,
 			$expectedRegexRules,
@@ -382,8 +375,7 @@ class RewriteHelperTest extends GalleryTestCase {
 			'options'     => $this->_defaultOptions,
 			'flags'       => array('C1', 'C2', 'F1'),
 		);
-
-		$tests[] = array(
+		$tests[]              = array(
 			$activeRules,
 			REWRITE_STATUS_OK,
 			$expectedRegexRules,
@@ -412,8 +404,7 @@ class RewriteHelperTest extends GalleryTestCase {
 			'options'     => $this->_defaultOptions,
 			'flags'       => array('C1', 'C2'),
 		);
-
-		$tests[] = array(
+		$tests[]              = array(
 			$activeRules,
 			REWRITE_STATUS_OK,
 			$expectedRegexRules,
@@ -501,8 +492,7 @@ class RewriteHelperTest extends GalleryTestCase {
 			'options'     => $this->_defaultOptions,
 			'flags'       => array('L'),
 		);
-
-		$tests[] = array(
+		$tests[]                             = array(
 			$activeRules,
 			REWRITE_STATUS_OK,
 			$expectedRegexRules,
@@ -526,8 +516,7 @@ class RewriteHelperTest extends GalleryTestCase {
 			'options'     => $this->_defaultOptions,
 			'flags'       => array(),
 		);
-
-		$tests[] = array(
+		$tests[]                              = array(
 			$activeRules,
 			REWRITE_STATUS_OK,
 			$expectedRegexRules,
@@ -553,8 +542,7 @@ class RewriteHelperTest extends GalleryTestCase {
 			'options'     => $this->_defaultOptions,
 			'flags'       => array(),
 		);
-
-		$tests[] = array(
+		$tests[]              = array(
 			$activeRules,
 			REWRITE_STATUS_OK,
 			$expectedRegexRules,
@@ -719,7 +707,6 @@ class RewriteHelperTest extends GalleryTestCase {
 			'options'     => $this->_defaultOptions,
 			'flags'       => array(),
 		);
-
 		$expectedRegexRules[] = array(
 			'pattern'     => 'phpunit2',
 			'keywords'    => array(null),
@@ -975,7 +962,6 @@ class RewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals($expected, $history, 'history after setting');
-
 		$ret = RewriteHelper::setHistoryForModule($moduleId, array());
 
 		if ($ret) {

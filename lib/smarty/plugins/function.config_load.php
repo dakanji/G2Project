@@ -62,7 +62,6 @@ function smarty_function_config_load($params, &$smarty) {
 		'resource_base_path' => $smarty->config_dir,
 		'get_source'         => false,
 	);
-
 	$smarty->_parse_resource_name($_params);
 	$_file_path = $_params['resource_type'] . ':' . $_params['resource_name'];
 
@@ -75,12 +74,11 @@ function smarty_function_config_load($params, &$smarty) {
 	if ($smarty->force_compile || !file_exists($_compile_file)) {
 		$_compile = true;
 	} elseif ($smarty->compile_check) {
-		$_params = array(
+		$_params  = array(
 			'resource_name'      => $_file,
 			'resource_base_path' => $smarty->config_dir,
 			'get_source'         => false,
 		);
-
 		$_compile = $smarty->_fetch_resource_info($_params) &&
 			$_params['resource_timestamp'] > filemtime($_compile_file);
 	} else {
@@ -91,7 +89,6 @@ function smarty_function_config_load($params, &$smarty) {
 		// compile config file
 		if (!is_object($smarty->_conf_obj)) {
 			include_once SMARTY_DIR . $smarty->config_class . '.class.php';
-
 			$smarty->_conf_obj               = new $smarty->config_class();
 			$smarty->_conf_obj->overwrite    = $smarty->config_overwrite;
 			$smarty->_conf_obj->booleanize   = $smarty->config_booleanize;

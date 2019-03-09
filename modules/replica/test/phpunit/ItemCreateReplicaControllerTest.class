@@ -77,7 +77,6 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 		);
 		GalleryUtilities::putRequestVariable('form[action][link]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album->getId());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -124,7 +123,6 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 		);
 		GalleryUtilities::putRequestVariable('form[action][link]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album->getId());
-
 		$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
 	}
 
@@ -155,7 +153,6 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 		);
 		GalleryUtilities::putRequestVariable('form[action][link]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album->getId());
-
 		$results = $this->handleRequest(ERROR_MISSING_OBJECT);
 	}
 
@@ -244,7 +241,6 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 		);
 		GalleryUtilities::putRequestVariable('form[action][link]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album->getId());
-
 		$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
 	}
 
@@ -383,7 +379,6 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $childAlbum->getId());
 		GalleryUtilities::putRequestVariable('form[action][link]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album->getId());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

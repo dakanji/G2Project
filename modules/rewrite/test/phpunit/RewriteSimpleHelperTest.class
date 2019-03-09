@@ -45,6 +45,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 		}
 
 		$urlGenerator = new RewriteUrlGenerator();
+
 		$urlGenerator->init('phpunit');
 		$gallery->setUrlGenerator($urlGenerator);
 	}
@@ -83,8 +84,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 			'view'   => 'core.ShowItem',
 			'itemId' => $testItem->getId(),
 		);
-
-		$ret = RewriteSimpleHelper::parsePath($url, $params, $entity);
+		$ret          = RewriteSimpleHelper::parsePath($url, $params, $entity);
 
 		$this->assertTrue($ret, 'status');
 		$this->assertEquals('v' . $testItemPath . '.html', $url, 'url');
@@ -131,8 +131,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 			'view'   => 'core.DownloadItem',
 			'itemId' => $derivative->getId(),
 		);
-
-		$ret = RewriteSimpleHelper::parseFileName($url, $params, $entity);
+		$ret          = RewriteSimpleHelper::parseFileName($url, $params, $entity);
 
 		$this->assertTrue($ret, 'status');
 		$this->assertEquals('d/' . $testItemName, $url, 'url');
@@ -180,8 +179,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 			'view'   => 'core.DownloadItem',
 			'itemId' => $derivative->getId(),
 		);
-
-		$ret = RewriteSimpleHelper::parseSerialNumber($url, $params, $entity);
+		$ret              = RewriteSimpleHelper::parseSerialNumber($url, $params, $entity);
 
 		$this->assertTrue($ret, 'status');
 		$this->assertEquals('d/' . $testSerialNumber, $url, 'url');

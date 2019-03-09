@@ -45,8 +45,7 @@ class PermalinksTest extends GalleryTestCase {
 		}
 
 		$this->_aliasNamesToDelete = array();
-
-		$ret = $this->_markPluginParametersForCleanup('module', 'permalinks');
+		$ret                       = $this->_markPluginParametersForCleanup('module', 'permalinks');
 
 		if ($ret) {
 			return $ret;
@@ -73,7 +72,6 @@ class PermalinksTest extends GalleryTestCase {
 		}
 
 		$this->_item->setMimeType('image/gif');
-
 		$ret = PermalinksMapHelper::createAlias('testAlias', $this->_item->getId());
 
 		if ($ret) {
@@ -81,8 +79,7 @@ class PermalinksTest extends GalleryTestCase {
 		}
 
 		$this->_aliasNamesToDelete[] = 'testAlias';
-
-		$ret = PermalinksMapHelper::createAlias('testAlias1', $this->_album->getId());
+		$ret                         = PermalinksMapHelper::createAlias('testAlias1', $this->_album->getId());
 
 		if ($ret) {
 			return $ret;
@@ -234,7 +231,6 @@ class PermalinksTest extends GalleryTestCase {
 		}
 
 		$item->setMimeType('image/gif');
-
 		$ret = PermalinksMapHelper::createAlias('testAlias2', $item->getId());
 
 		if ($ret) {

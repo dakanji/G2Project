@@ -36,7 +36,6 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[list][filter]', 'foo');
 
 		$results = $this->handleRequest();
-
 		$this->assertEquals('', GalleryUtilities::getRequestVariables('form[list][filter]'));
 	}
 
@@ -69,7 +68,6 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][editFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][userName]', $user->getUserName());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -134,7 +132,6 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][deleteFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][userName]', $user->getUserName());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -204,7 +201,6 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][deleteFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][userName]', $anonymousUser->getUserName());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -226,7 +222,6 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][deleteFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][userName]', $self->getUserName());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

@@ -33,6 +33,7 @@ class QuotasPreloads {
 		}
 
 		$loaded[$preload] = 1;
+
 		$template->style('modules/quotas/quotas.css');
 
 		return null;

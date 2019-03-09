@@ -176,8 +176,7 @@ class GalleryEntity extends GalleryPersistent {
 
 		// Create a new instance of this entity in the persistent store
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->newEntity($this);
+		$ret     = $storage->newEntity($this);
 
 		if ($ret) {
 			return $ret;
@@ -217,7 +216,6 @@ class GalleryEntity extends GalleryPersistent {
 		$this->setLinkId(null);
 		$this->setLinkedEntity(null);
 		$this->setOnLoadHandlers(null);
-
 		$ret = $this->resetOriginalValues(true);
 
 		if ($ret) {
@@ -243,8 +241,7 @@ class GalleryEntity extends GalleryPersistent {
 
 		// Follow our usual creation process (same as create() above)
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->newEntity($this);
+		$ret     = $storage->newEntity($this);
 
 		if ($ret) {
 			return $ret;
@@ -260,7 +257,6 @@ class GalleryEntity extends GalleryPersistent {
 		$this->setIsLinkable(true);
 		$this->setLinkId($entity->getId());
 		$this->setLinkedEntity($entity);
-
 		$ret = $this->resetOriginalValues(true);
 
 		if ($ret) {
@@ -311,6 +307,7 @@ class GalleryEntity extends GalleryPersistent {
 
 			if ($postEvent) {
 				$event = GalleryCoreApi::newEvent('GalleryEntity::save');
+
 				$event->setEntity($this);
 
 				list($ret) = GalleryCoreApi::postEvent($event);
@@ -322,8 +319,7 @@ class GalleryEntity extends GalleryPersistent {
 
 			$storage           =& $gallery->getStorage();
 			$changedEntityType = $this->isModified('entityType');
-
-			$ret = $storage->saveEntity($this);
+			$ret               = $storage->saveEntity($this);
 
 			if ($ret) {
 				return $ret;
@@ -414,6 +410,7 @@ class GalleryEntity extends GalleryPersistent {
 		}
 
 		$event = GalleryCoreApi::newEvent('GalleryEntity::delete');
+
 		$event->setEntity($this);
 
 		list($ret) = GalleryCoreApi::postEvent($event);
@@ -440,8 +437,7 @@ class GalleryEntity extends GalleryPersistent {
 		}
 
 		$storage =& $gallery->getStorage();
-
-		$ret = $storage->deleteEntity($this);
+		$ret     = $storage->deleteEntity($this);
 
 		if ($ret) {
 			return $ret;
@@ -490,6 +486,7 @@ class GalleryEntity extends GalleryPersistent {
 				foreach ($data[$target]['linked'] as $memberName) {
 					$setFunc = "set$memberName";
 					$getFunc = "get$memberName";
+
 					$this->$setFunc($this->linkedEntity->$getFunc());
 				}
 
@@ -654,6 +651,7 @@ class GalleryEntity extends GalleryPersistent {
 		foreach ($data[$this->entityType]['linked'] as $memberName) {
 			$setFunc = "set$memberName";
 			$getFunc = "get$memberName";
+
 			$this->$setFunc($this->linkedEntity->$getFunc());
 		}
 
