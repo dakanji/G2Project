@@ -72,46 +72,41 @@ else
 			RET=$(perl -i -pe 's/^\s*$//' $FILE)
 			# 02. Add blank line after "global or static $XYZ" calls
 			RET=$(perl -i -pe 's/^(\s*)(global|static)(\s+)([^;]+;)(.*)$/$1$2 $4\n\n/' $FILE)
-			# 03. Add blank line before "$query" calls
-			RET=$(perl -i -pe 's/^(\s*)\$query\s*(\.?=)/\n\n$1\$query $2/' $FILE)
-			# 04. Add blank line before "$ret" and "list" calls
-			RET=$(perl -i -pe 's/^(\s*)(\$ret\s*=|list\()/\n\n$1$2/' $FILE)
-			# 05. Add blank line after single line "$ret" and "list" calls
-			RET=$(perl -i -pe 's/^(\s*)(\$ret\s*=|list\()([^;]+;)(.*)/$1$2$3$4\n\n/' $FILE)
-			# 06. Add blank line after closing braces
+			# 03. Add blank line before "$query", "$ret" and "list" calls
+			RET=$(perl -i -pe 's/^(\s*)(\$query\s+\.?=|\$ret\s*=|list\()/\n\n$1$2/' $FILE)
+			# 04. Add blank line after single line "$query", "$ret" and "list" calls
+			RET=$(perl -i -pe 's/^(\s*)(\$query\s+\.?=|\$ret\s+=|list\()([^;]+;)(.*)/$1$2$3$4\n\n/' $FILE)
+			# 05. Add blank line after closing braces
 			RET=$(perl -i -pe 's/^(\s*)\}(\s*)$/$1\}$2\n\n/' $FILE)
-			# 07. Add blank lines before and after "require" and "include" calls
+			# 06. Add blank lines before and after "require" and "include" calls
 			RET=$(perl -i -pe 's/^(\s*)(require|include)([^;]+;)(.*)$/\n\n$1$2$3$4\n\n/' $FILE)
-			# 08. Add blank line after closing multiline statements and strings
+			# 07. Add blank line after closing multiline statements and strings
 			RET=$(perl -i -pe 's/^(\s*)(\)|\x27|");(\s*)$/$1$2;$3\n\n/' $FILE)
-			# 09. Add blank line before single line comments
+			# 08. Add blank line before single line comments
 			RET=$(perl -i -pe 's/^(\s*)(\/\/.+?)/\n\n$1$2/' $FILE)
-			# 10.  Add blank line before multi line comments
+			# 09.  Add blank line before multi line comments
 			RET=$(perl -i -pe 's/^(\s*)\/\*/\n\n$1\/\*/' $FILE)
-			# 11. Remove blank single line comments
+			# 10. Remove blank single line comments
 			RET=$(perl -i -pe 's/^(\s*)(\/\/)(\s*)$//' $FILE)
-			# 12. Remove blank lines after opening braces
+			# 11. Remove blank lines after opening braces
 			RET=$(perl -i -0pe 's/\{(\s*\n\s*){1,}(\n\s*)/\{$2/gs' $FILE)
-			# 13. Remove blank lines after multiline comments
+			# 12. Remove blank lines after multiline comments
 			RET=$(perl -i -0pe 's/(\s*)(\*\/[^\n]*\n)(\s*\n)/$1$2/gs' $FILE)
-			# 14. Add blank line between multi and single line comments
+			# 13. Add blank line between multi and single line comments
 			RET=$(perl -i -0pe 's/(\s*)(\*\/[^\n]*\n)(\s*)(\/\/)/$1$2\n$3$4/gs' $FILE)
-			# 15. Add blank line between single and multi line comments
+			# 14. Add blank line between single and multi line comments
 			RET=$(perl -i -0pe 's/(\s*)(\/\/[^\n]+\n)(\s*)(\/\*[^\n]*\n)/$1$2\n\n$3$4/gs' $FILE)
-			# 16. Remove blank lines after single line comments
+			# 15. Remove blank lines after single line comments
 			RET=$(perl -i -0pe 's/([^\w]+)(\/\/[^\n]+\n)(\s*\n){1,}/$1$2/gs' $FILE)
 			RET=$(perl -i -0pe 's/([^\w]+)(\/\/[^\n]+\n)(\s*\n){1,}/$1$2/gs' $FILE)
-			# 17. Remove blank lines before closing braces
-			RET=$(perl -i -0pe 's/(\s*\n\s*){1,}(\n\s*)\}/$2\}/gs' $FILE)
-			RET=$(perl -i -0pe 's/(\s*\n\s*){1,}(\n\s*)\}/$2\}/gs' $FILE)
-			# 18. Separate multiline comment blocks
+			# 16. Separate multiline comment blocks
 			RET=$(perl -i -pe 's/(\s*)\*\/\/\*/$1\*\/\n\n\/\*/' $FILE)
 			RET=$(perl -i -0pe 's/(\s*)\*\/(\n\s*)\/\*/$1\*\/\n\n$2\/\*/gs' $FILE)
 			RET=$(perl -i -0pe 's/(\s*)\*\/(\n\s*)\/\*/$1\*\/\n\n$2\/\*/gs' $FILE)
-			# 19. Remove blank lines after switch case
+			# 17. Remove blank lines after switch case
 			RET=$(perl -i -0pe 's/([^:]+:)(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gs' $FILE)
 			RET=$(perl -i -0pe 's/([^:]+:)(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gs' $FILE)
-			# 20. Remove excess blank lines
+			# 18. Remove excess blank lines
 			RET=$(perl -i -0pe 's/(\n\s*){2,}(\n\s*)/\n$2/gs' $FILE)
 			RET=$(perl -i -0pe 's/(\n\s*){2,}(\n\s*)/\n$2/gs' $FILE)
 
@@ -125,7 +120,7 @@ else
 			# Catch misc items in target file not covered by PHPCBF or PHP-CS-FIXER
 			# 01. Standardise Assignment by Reference
 			RET=$(perl -i -pe 's/=& \s*/=& /' $FILE)
-			# 02. Close empty braces on opening line
+			# 02. Close empty braces on same line
 			RET=$(perl -i -0pe 's/\{\n(\s*)\}([^\w]*)/{}$2/gs' $FILE)
 			# 03. Remove blank lines between consecutive "require" and/or "include" calls
 			RET=$(perl -i -0pe 's/(\s*)(require|include)([^;]+;.*)(\s*\n\s*){1,}(\n\s*)(require|include)([^\n]+\n)/$1$2$3$5$6$7/gs' $FILE)
