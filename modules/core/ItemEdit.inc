@@ -157,6 +157,7 @@ class ItemEditController extends GalleryController {
 					array($this, 'runProgressBarOptions'),
 					array($progressBarOptions, $form, $item, $preferred, $status, $editPlugin)
 				);
+
 				$results['delegate']['view'] = 'core.ProgressBar';
 			}
 		}
@@ -214,13 +215,16 @@ class ItemEditController extends GalleryController {
 		}
 
 		$session =& $gallery->getSession();
+
 		$session->putStatus($status);
+
 		$redirect               = array();
 		$redirect['view']       = 'core.ItemAdmin';
 		$redirect['subView']    = 'core.ItemEdit';
 		$redirect['itemId']     = $item->getId();
 		$redirect['editPlugin'] = $editPlugin;
 		$urlGenerator           =& $gallery->getUrlGenerator();
+
 		$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect));
 
 		return null;
@@ -435,6 +439,7 @@ class ItemEditView extends GalleryView {
 
 		$ItemEdit['fieldLengths']          = array();
 		$ItemEdit['fieldLengths']['title'] = $this->_getSizesForMaxLength($entityInfo['GalleryItem']['members']['title']['size']);
+
 		$template->setVariable('ItemEdit', $ItemEdit);
 		$template->setVariable('controller', 'core.ItemEdit');
 

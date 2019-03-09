@@ -152,7 +152,8 @@ class ADODB2_oci8 extends ADODB_DataDict {
 		$f       = array();
 
 		list($lines, $pkey) = $this->_GenFields($flds);
-		$s                  = "ALTER TABLE $tabname ADD (";
+
+		$s = "ALTER TABLE $tabname ADD (";
 
 		foreach ($lines as $v) {
 			$f[] = "\n $v";
@@ -169,7 +170,8 @@ class ADODB2_oci8 extends ADODB_DataDict {
 		$f       = array();
 
 		list($lines, $pkey) = $this->_GenFields($flds);
-		$s                  = "ALTER TABLE $tabname MODIFY(";
+
+		$s = "ALTER TABLE $tabname MODIFY(";
 
 		foreach ($lines as $v) {
 			$f[] = "\n $v";
@@ -296,9 +298,8 @@ class ADODB2_oci8 extends ADODB_DataDict {
 			$seqIncr = ' START WITH ' . $tableoptions['SEQUENCE_START'];
 		}
 
-		$sql[] = "CREATE SEQUENCE $seqname $seqStart $seqIncr $seqCache";
-		$sql[] = "CREATE OR REPLACE TRIGGER $trigname BEFORE insert ON $tabname FOR EACH ROW WHEN (NEW.$this->seqField IS NULL OR NEW.$this->seqField = 0) BEGIN select $seqname.nextval into :new.$this->seqField from dual; END;";
-
+		$sql[]          = "CREATE SEQUENCE $seqname $seqStart $seqIncr $seqCache";
+		$sql[]          = "CREATE OR REPLACE TRIGGER $trigname BEFORE insert ON $tabname FOR EACH ROW WHEN (NEW.$this->seqField IS NULL OR NEW.$this->seqField = 0) BEGIN select $seqname.nextval into :new.$this->seqField from dual; END;";
 		$this->seqField = false;
 
 		return $sql;

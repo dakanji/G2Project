@@ -91,7 +91,7 @@ class GdToolkitHelper {
 
 		if (self::isOperationSupported('scale', $gd)) {
 			// Scale
-			$operations['scale']['params'][]    = array(
+			$operations['scale']['params'][] = array(
 				'type'        => 'int',
 				'description' => $gallery->i18n(
 					array(
@@ -100,16 +100,19 @@ class GdToolkitHelper {
 					)
 				),
 			);
-			$operations['scale']['params'][]    = array(
+
+			$operations['scale']['params'][] = array(
 				'type'        => 'int',
 				'description' => $gallery->i18n(
 					'(optional) target height, defaults to same as width'
 				),
 			);
+
 			$operations['scale']['description'] = $gallery->i18n(
 				'Scale the image to the target size, maintain aspect ratio'
 			);
-			$operations['scale']['mimeTypes']   = $mimeTypes;
+
+			$operations['scale']['mimeTypes'] = $mimeTypes;
 		}
 
 		if (self::isOperationSupported('thumbnail', $gd)
@@ -121,7 +124,7 @@ class GdToolkitHelper {
 
 		if (self::isOperationSupported('resize', $gd)) {
 			// Resize
-			$operations['resize']['params'][]    = array(
+			$operations['resize']['params'][] = array(
 				'type'        => 'int',
 				'description' => $gallery->i18n(
 					array(
@@ -130,7 +133,8 @@ class GdToolkitHelper {
 					)
 				),
 			);
-			$operations['resize']['params'][]    = array(
+
+			$operations['resize']['params'][] = array(
 				'type'        => 'int',
 				'description' => $gallery->i18n(
 					array(
@@ -139,78 +143,93 @@ class GdToolkitHelper {
 					)
 				),
 			);
+
 			$operations['resize']['description'] = $gallery->i18n(
 				'Resize the image to the target dimensions'
 			);
-			$operations['resize']['mimeTypes']   = $mimeTypes;
+
+			$operations['resize']['mimeTypes'] = $mimeTypes;
 		}
 
 		if (self::isOperationSupported('rotate', $gd)) {
 			// Rotate
-			$operations['rotate']['params'][]    = array(
+			$operations['rotate']['params'][] = array(
 				'type'        => 'int',
 				'description' => $gallery->i18n('rotation degrees'),
 			);
+
 			$operations['rotate']['description'] = $gallery->i18n('Rotate the image');
 			$operations['rotate']['mimeTypes']   = $mimeTypes;
 		}
 
 		if (self::isOperationSupported('crop', $gd)) {
 			// Crop
-			$operations['crop']['params'][]    = array(
+			$operations['crop']['params'][] = array(
 				'type'        => 'float',
 				'description' => $gallery->i18n('left edge %'),
 			);
-			$operations['crop']['params'][]    = array(
+
+			$operations['crop']['params'][] = array(
 				'type'        => 'float',
 				'description' => $gallery->i18n('top edge %'),
 			);
-			$operations['crop']['params'][]    = array(
+
+			$operations['crop']['params'][] = array(
 				'type'        => 'float',
 				'description' => $gallery->i18n('width %'),
 			);
-			$operations['crop']['params'][]    = array(
+
+			$operations['crop']['params'][] = array(
 				'type'        => 'float',
 				'description' => $gallery->i18n('height %'),
 			);
+
 			$operations['crop']['description'] = $gallery->i18n('Crop the image');
 			$operations['crop']['mimeTypes']   = $mimeTypes;
 		}
 
 		if (self::isOperationSupported('composite', $gd)) {
 			// Composite
-			$operations['composite']['params'][]    = array(
+			$operations['composite']['params'][] = array(
 				'type'        => 'string',
 				'description' => $gallery->i18n('overlay path'),
 			);
-			$operations['composite']['params'][]    = array(
+
+			$operations['composite']['params'][] = array(
 				'type'        => 'string',
 				'description' => $gallery->i18n('overlay mime type'),
 			);
-			$operations['composite']['params'][]    = array(
+
+			$operations['composite']['params'][] = array(
 				'type'        => 'int',
 				'description' => $gallery->i18n('overlay width'),
 			);
-			$operations['composite']['params'][]    = array(
+
+			$operations['composite']['params'][] = array(
 				'type'        => 'int',
 				'description' => $gallery->i18n('overlay height'),
 			);
-			$operations['composite']['params'][]    = array(
+
+			$operations['composite']['params'][] = array(
 				'type'        => 'string',
 				'description' => $gallery->i18n('alignment type'),
 			);
-			$operations['composite']['params'][]    = array(
+
+			$operations['composite']['params'][] = array(
 				'type'        => 'int',
 				'description' => $gallery->i18n('alignment x %'),
 			);
-			$operations['composite']['params'][]    = array(
+
+			$operations['composite']['params'][] = array(
 				'type'        => 'int',
 				'description' => $gallery->i18n('alignment y %'),
 			);
+
 			$operations['composite']['description'] = $gallery->i18n(
 				'Overlay source image with a second one'
 			);
-			$operations['composite']['mimeTypes']   = $mimeTypes;
+
+			$operations['composite']['mimeTypes'] = $mimeTypes;
 		}
 
 		// Compress

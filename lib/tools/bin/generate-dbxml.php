@@ -43,8 +43,7 @@ if (!mkdir($tmpdir)) {
 	exit(1);
 }
 
-$smarty = new Smarty();
-
+$smarty                  = new Smarty();
 $smarty->compile_dir     = $tmpdir;
 $smarty->error_reporting = error_reporting();
 $smarty->debugging       = true;
@@ -199,12 +198,15 @@ function generateEntityDbXml() {
 		}
 
 		$smarty->assign('root', $root);
+
 		$smarty->assign('schema', $schema);
+
 		$smarty->assign('members', $members);
 		$smarty->assign('keys', $keys);
 		$smarty->assign('indexes', $indexes);
 		$smarty->assign('requiresId', $requiresId);
 		$smarty->assign('isMap', false);
+
 		$new = $smarty->fetch('dbxml.tpl');
 		$fd  = fopen($tmpFile, 'w');
 		fwrite($fd, $new);
@@ -359,12 +361,15 @@ function generateMapDbXml() {
 			}
 
 			$smarty->assign('root', $root);
+
 			$smarty->assign('schema', $schema);
+
 			$smarty->assign('members', $members);
 			$smarty->assign('keys', $keys);
 			$smarty->assign('indexes', $indexes);
 			$smarty->assign('requiresId', $requiresId);
 			$smarty->assign('isMap', true);
+
 			$new = $smarty->fetch('dbxml.tpl');
 			$fd  = fopen($tmpFile, 'w');
 			fwrite($fd, $new);

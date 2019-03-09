@@ -75,6 +75,7 @@ class CommentCallbackView extends GalleryView {
 		if ($ret) {
 			$result['status'] = 'error';
 			$storage          =& $gallery->getStorage();
+
 			$ret->putInSession();
 		} else {
 			$result['status'] = 'success';
@@ -83,6 +84,7 @@ class CommentCallbackView extends GalleryView {
 		GalleryCoreApi::requireOnce('lib/JSON/JSON.php');
 
 		$json = new Services_JSON();
+
 		echo $json->encode($result);
 
 		return null;
@@ -171,6 +173,7 @@ class CommentCallbackView extends GalleryView {
 		}
 
 		$comment->setPublishStatus($newPublishStatus);
+
 		$ret = $comment->save();
 
 		if ($ret) {

@@ -71,8 +71,7 @@ if (!mkdir($tmpdir)) {
 	exit(1);
 }
 
-$smarty = new Smarty();
-
+$smarty                  = new Smarty();
 $smarty->compile_dir     = $tmpdir;
 $smarty->error_reporting = error_reporting();
 $smarty->debugging       = true;
@@ -101,7 +100,9 @@ $moduleId   = preg_replace('/\W/', '', $moduleId);
 $ucModuleId = ucfirst($moduleId);
 
 $smarty->assign('moduleId', $moduleId);
+
 $smarty->assign('ucModuleId', $ucModuleId);
+
 $smarty->assign('moduleName', $moduleName);
 $smarty->assign('author', $author);
 $smarty->assign('authorFullName', $authorFullName);
@@ -120,15 +121,20 @@ if (file_exists($modulePath)) {
 
 // Create module.inc
 $fd = safe_fopen("$modulePath/module.inc");
+
 fwrite($fd, $smarty->fetch(__DIR__ . '/module.inc.tpl'));
+
 fclose($fd);
 
 // Create our sample view and template
 $fd = safe_fopen("$modulePath/$ucModuleId.inc");
+
 fwrite($fd, $smarty->fetch(__DIR__ . '/MyPage.inc.tpl'));
+
 fclose($fd);
 mkdir("$modulePath/templates");
 $fd = safe_fopen("$modulePath/templates/$ucModuleId.tpl");
+
 fwrite($fd, $smarty->fetch(__DIR__ . '/MyPage.tpl.tpl'));
 fclose($fd);
 
@@ -137,18 +143,26 @@ mkdir($modulePath . '/classes');
 mkdir($modulePath . '/classes/GalleryStorage');
 
 $smarty->assign('makefileType', 'classes');
+
 $fd = safe_fopen("$modulePath/classes/GNUmakefile");
+
 fwrite($fd, $smarty->fetch(__DIR__ . '/GNUmakefile.tpl'));
 fclose($fd);
 
 $smarty->assign('makefileType', 'GalleryStorage');
+
 $fd = safe_fopen("$modulePath/classes/GalleryStorage/GNUmakefile");
+
 fwrite($fd, $smarty->fetch(__DIR__ . '/GNUmakefile.tpl'));
+
 fclose($fd);
 $fd = safe_fopen("$modulePath/classes/Maps.xml");
+
 fwrite($fd, $smarty->fetch(__DIR__ . '/map.tpl'));
+
 fclose($fd);
 $fd = safe_fopen($modulePath . '/classes/' . $ucModuleId . 'Helper.class');
+
 fwrite($fd, $smarty->fetch(__DIR__ . '/MyPageHelper.class.tpl'));
 fclose($fd);
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * *\n";
@@ -158,6 +172,7 @@ echo "  cd modules/$moduleId/classes \n";
 echo "  make && make clean\n";
 echo "\n";
 echo "Then you can go to the Site Admin -> Modules \n";
+
 echo "page and install and activate your module!\n";
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * *\n";
 

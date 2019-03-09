@@ -55,6 +55,7 @@ class RepositoryPackage extends RepositoryObject {
 		}
 
 		$this->_descriptor = $descriptor;
+
 		$this->setTemplateFile('package.tpl');
 
 		if ($ret) {
@@ -111,6 +112,7 @@ class RepositoryPackage extends RepositoryObject {
 		global $gallery;
 
 		$randomString = $this->getPackageHash($packageType, 10);
+
 		$this->_template->setVariable('random', $randomString);
 
 		// Directory structure creation code.
@@ -151,9 +153,9 @@ class RepositoryPackage extends RepositoryObject {
 
 		$this->_template->setVariable('directories', $packageDirectories);
 		$this->_template->setVariable('files', $packageFiles);
-
 		// Set file name and write it to disk.
 		$this->setOutputFile($this->getPackageFileName($packageType));
+
 		$ret = $this->writeToDisk($overwritePackage, $compressToo);
 
 		if ($ret) {

@@ -81,6 +81,7 @@ class ItemEditAnimation extends ItemEditPlugin {
 				$item->setWidth($form['width']);
 				$item->setHeight($form['height']);
 				$item->setSerialNumber($form['serialNumber']);
+
 				$ret = $item->save();
 
 				if ($ret) {

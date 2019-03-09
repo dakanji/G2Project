@@ -34,7 +34,8 @@ class ADODB2_postgres extends ADODB_DataDict {
 		}
 
 		$is_serial = is_object($fieldobj) && !empty($fieldobj->primary_key) && !empty($fieldobj->unique) &&
-			!empty($fieldobj->has_default)   && substr($fieldobj->default_value, 0, 8) == 'nextval(';
+
+			!empty($fieldobj->has_default) && substr($fieldobj->default_value, 0, 8) == 'nextval(';
 
 		switch (strtoupper($t)) {
 			case 'INTERVAL':
@@ -169,7 +170,8 @@ class ADODB2_postgres extends ADODB_DataDict {
 		$not_null = false;
 
 		list($lines, $pkey) = $this->_GenFields($flds);
-		$alter              = 'ALTER TABLE ' . $tabname . $this->addCol . ' ';
+
+		$alter = 'ALTER TABLE ' . $tabname . $this->addCol . ' ';
 
 		foreach ($lines as $v) {
 			if (($not_null = preg_match('/NOT NULL/i', $v))) {
@@ -231,7 +233,8 @@ class ADODB2_postgres extends ADODB_DataDict {
 			$sql     = array();
 
 			list($lines, $pkey) = $this->_GenFields($flds);
-			$set_null           = false;
+
+			$set_null = false;
 
 			foreach ($lines as $v) {
 				$alter = 'ALTER TABLE ' . $tabname . $this->alterCol . ' ';

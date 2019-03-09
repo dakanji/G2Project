@@ -53,6 +53,7 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteGroup($group);
 	}
 
@@ -80,6 +81,7 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
 			$results,
 			'Undo Edit Group'
 		);
+
 		$this->_deleteGroup($group);
 	}
 
@@ -110,6 +112,7 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteGroup($group);
 	}
 
@@ -136,6 +139,7 @@ class AdminEditGroupControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteGroup($group);
 	}
 

@@ -242,6 +242,7 @@ class AdminFfmpegController extends GalleryController {
 
 			foreach ($thumbnails as $thumbnail) {
 				$this->$operation($thumbnail);
+
 				$ret = $thumbnail->save();
 
 				if ($ret) {

@@ -90,6 +90,7 @@ class CommentSearchTest extends GalleryTestCase {
 				}
 
 				$this->assertTrue(isset($this->_comment[$j][$i]), 'Missing comment instance');
+
 				$this->_comment[$j][$i]->create($this->_item[$j]->getId());
 				$this->_comment[$j][$i]->setCommenterId($gallery->getActiveUserId());
 				$this->_comment[$j][$i]->setHost('127.0.0.1');
@@ -222,6 +223,7 @@ class CommentSearchTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(isset($info['name']), 'name missing');
+
 		$this->assertTrue(isset($info['description']), 'description missing');
 		$this->assertTrue(isset($info['options']), 'options missing');
 		$this->assertTrue(is_array($info['options']), 'options not an array');

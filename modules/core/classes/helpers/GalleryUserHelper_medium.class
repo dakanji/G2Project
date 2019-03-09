@@ -316,7 +316,8 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 			// Do not delete albums
 			if ($item->getCanContainChildren()) {
 				$albums[$item->getId()] = $item;
-				$albumIds[]             = $item->getId();
+
+				$albumIds[] = $item->getId();
 
 				continue;
 			}
@@ -405,7 +406,8 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 
 		if ($event->getEventName() == 'Gallery::Login') {
 			$user = $event->getEntity();
-			$ret  = GalleryCoreApi::removeMapEntry(
+
+			$ret = GalleryCoreApi::removeMapEntry(
 				'FailedLoginsMap',
 				array('userName' => $user->getUserName())
 		);
@@ -415,7 +417,8 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 			}
 
 			$session =& $gallery->getSession();
-			$ret     = $session->regenerate();
+
+			$ret = $session->regenerate();
 
 			if ($ret) {
 				return array($ret, null);
@@ -462,7 +465,8 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 					}
 
 					$phpVm = $gallery->getPhpVm();
-					$ret   = GalleryCoreApi::addMapEntry(
+
+					$ret = GalleryCoreApi::addMapEntry(
 						'FailedLoginsMap',
 						array('userName' => $data['userName'],
 				  'count'                => $count,

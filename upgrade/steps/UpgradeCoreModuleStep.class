@@ -81,6 +81,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 			$this->_startDebugLog('Upgrade Core Module');
 			$this->_addSystemInformationToDebugLog($versions);
 			$template->renderHeader(true);
+
 			$ret = selectAdminUser(true);
 
 			if (!$ret) {
@@ -95,7 +96,8 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 
 					if (!$ret) {
 						$storage =& $gallery->getStorage();
-						$ret     = $storage->commitTransaction();
+
+						$ret = $storage->commitTransaction();
 
 						if (!$ret && $templateData['isConfigUpgradeRequired']) {
 							$ret = CoreModuleExtras::getMe()->performConfigUpgrade(
@@ -118,6 +120,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 				$templateData['bodyFile'] = 'UpgradeCoreModuleSuccess.html';
 
 				$this->setComplete(true);
+
 				$this->_performedUpgrade = true;
 			}
 
@@ -127,6 +130,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 
 			if (($cmp = version_compare($versions['core'], $core->getVersion())) == 0) {
 				$templateData['bodyFile'] = isset($this->_performedUpgrade) ? 'UpgradeCoreModuleSuccess.html' : 'UpgradeCoreModuleUpToDate.html';
+
 				$this->setComplete(true);
 			} else {
 				// The core module requires an upgrade

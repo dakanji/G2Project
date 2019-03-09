@@ -124,10 +124,11 @@ class ADODB_odbc extends ADOConnection {
 			}
 
 			while (true) {
-				$rez   = @odbc_data_source(
+				$rez = @odbc_data_source(
 					$this->_connectionID,
 					$first ? SQL_FETCH_FIRST : SQL_FETCH_NEXT
 				);
+
 				$first = false;
 
 				if (!is_array($rez)) {
@@ -303,7 +304,8 @@ class ADODB_odbc extends ADOConnection {
 		}
 
 		$this->_autocommit = true;
-		$ret               = odbc_commit($this->_connectionID);
+
+		$ret = odbc_commit($this->_connectionID);
 
 		odbc_autocommit($this->_connectionID, true);
 
@@ -320,7 +322,8 @@ class ADODB_odbc extends ADOConnection {
 		}
 
 		$this->_autocommit = true;
-		$ret               = odbc_rollback($this->_connectionID);
+
+		$ret = odbc_rollback($this->_connectionID);
 
 		odbc_autocommit($this->_connectionID, true);
 
@@ -337,6 +340,7 @@ class ADODB_odbc extends ADOConnection {
 		$schema = '';
 
 		$this->_findschema($table, $schema);
+
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		$qid              = @odbc_primarykeys($this->_connectionID, '', $schema, $table);
@@ -356,6 +360,7 @@ class ADODB_odbc extends ADOConnection {
 
 		$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
 		$arr                                   = $rs->GetArray();
+
 		$rs->Close();
 
 		//print_r($arr);
@@ -499,6 +504,7 @@ class ADODB_odbc extends ADOConnection {
 		$schema = '';
 
 		$this->_findschema($table, $schema);
+
 		$savem            = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
@@ -507,11 +513,11 @@ class ADODB_odbc extends ADOConnection {
 			$rs = new ADORecordSet_odbc($qid2);
 			$ADODB_FETCH_MODE = $savem;
 			if (!$rs) return false;
-
 			$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
-			$rs->_fetch();
 
+			$rs->_fetch();
 			while (!$rs->EOF) {
+
 				if ($table == strtoupper($rs->fields[2])) {
 					$q = $rs->fields[0];
 					$o = $rs->fields[1];
@@ -522,6 +528,7 @@ class ADODB_odbc extends ADOConnection {
 			}
 
 			$rs->Close();
+
 			$qid = odbc_columns($this->_connectionID,$q,$o,strtoupper($table),'%');
 		} */
 		switch ($this->databaseType) {
@@ -558,7 +565,9 @@ class ADODB_odbc extends ADOConnection {
 		}
 
 		$rs->_has_stupid_odbc_fetch_api_change = $this->_has_stupid_odbc_fetch_api_change;
+
 		$rs->_fetch();
+
 		$retarr = array();
 
 		/*
@@ -597,8 +606,9 @@ class ADODB_odbc extends ADOConnection {
 					$fld->max_length = $rs->fields[7];
 				}
 
-				$fld->not_null                  = !empty($rs->fields[10]);
-				$fld->scale                     = $rs->fields[8];
+				$fld->not_null = !empty($rs->fields[10]);
+				$fld->scale    = $rs->fields[8];
+
 				$retarr[strtoupper($fld->name)] = $fld;
 			} elseif (sizeof($retarr) > 0) {
 				break;
@@ -608,6 +618,7 @@ class ADODB_odbc extends ADOConnection {
 		}
 
 		$rs->Close(); //-- crashes 4.03pl1 -- why?
+
 		if (empty($retarr)) {
 			$retarr = false;
 		}
@@ -708,10 +719,9 @@ class ADODB_odbc extends ADOConnection {
 		Insert a null into the blob field of the table first.
 		Then use UpdateBlob to store the blob.
 		Usage:
-
 		$conn->Execute('INSERT INTO blobtable (id, blobcol) VALUES (1, null)');
-		$conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
 
+		$conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
 	*/
 	public function UpdateBlob($table, $column, $val, $where, $blobtype = 'BLOB') {
 		return $this->Execute("UPDATE $table SET $column=? WHERE $where", array($val)) != false;
@@ -719,7 +729,8 @@ class ADODB_odbc extends ADOConnection {
 
 	// returns true or false
 	public function _close() {
-		$ret                 = @odbc_close($this->_connectionID);
+		$ret = @odbc_close($this->_connectionID);
+
 		$this->_connectionID = false;
 
 		return $ret;
@@ -759,9 +770,8 @@ class ADORecordSet_odbc extends ADORecordSet {
 
 	// returns the field object
 	public function FetchField($fieldOffset = -1) {
-		$off = $fieldOffset + 1; // offsets begin at 1
-		$o   = new ADOFieldObject();
-
+		$off           = $fieldOffset + 1; // offsets begin at 1
+		$o             = new ADOFieldObject();
 		$o->name       = @odbc_field_name($this->_queryID, $off);
 		$o->type       = @odbc_field_type($this->_queryID, $off);
 		$o->max_length = @odbc_field_len($this->_queryID, $off);
@@ -785,7 +795,8 @@ class ADORecordSet_odbc extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
+
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}
@@ -822,7 +833,9 @@ class ADORecordSet_odbc extends ADORecordSet {
 
 		$savem           = $this->fetchMode;
 		$this->fetchMode = ADODB_FETCH_NUM;
+
 		$this->Move($offset);
+
 		$this->fetchMode = $savem;
 
 		if ($this->fetchMode & ADODB_FETCH_ASSOC) {
@@ -834,6 +847,7 @@ class ADORecordSet_odbc extends ADORecordSet {
 
 		while (!$this->EOF && $nrows != $cnt) {
 			$results[$cnt++] = $this->fields;
+
 			$this->MoveNext();
 		}
 

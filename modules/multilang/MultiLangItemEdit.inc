@@ -85,6 +85,7 @@ class MultiLangItemEdit extends ItemEditPlugin {
 
 				$status  = $module->translate('Changes saved successfully');
 				$session =& $gallery->getSession();
+
 				$session->put('multilang.language', $form['language']);
 			}
 		}

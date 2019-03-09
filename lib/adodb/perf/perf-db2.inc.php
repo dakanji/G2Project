@@ -103,6 +103,7 @@ class perf_db2 extends adodb_perf {
 		ob_end_clean();
 
 		$this->conn->LogSQL($save);
+
 		$s .= $this->Tracer($sql);
 
 		return $s;

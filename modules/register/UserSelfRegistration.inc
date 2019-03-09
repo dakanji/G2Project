@@ -124,10 +124,10 @@ class UserSelfRegistrationController extends GalleryController {
 				} else {
 					$user->setEmail($form['email']);
 					$user->setFullName($form['fullName']);
-
 					GalleryUtilities::unsanitizeInputValues($form['password1'], false);
 
 					$user->changePassword($form['password1']);
+
 					$ret = $user->save();
 
 					if ($ret) {

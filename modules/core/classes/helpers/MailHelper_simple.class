@@ -33,6 +33,7 @@ class MailHelper_simple {
 	 */
 	public static function sendTemplatedEmail($file, $data, $from, $to, $subject, $headers = '') {
 		global $gallery;
+
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 
 		$template = new GalleryTemplate(__DIR__ . '/../../../..', true, false);

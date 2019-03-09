@@ -37,6 +37,7 @@ class ModuleTest extends GalleryTestCase {
 		}
 
 		$this->_platform = new ModuleTestPlatform($this);
+
 		$gallery->setPlatform($this->_platform);
 
 		// Register a new module
@@ -353,9 +354,9 @@ class ModuleTest extends GalleryTestCase {
 			empty($plugins[$module->getId()]['active']),
 			'wrong PluginMap value for active (3)'
 		);
-
 		// Upgrade the module
 		$module->setVersion('1.0.1');
+
 		$ret = $module->installOrUpgrade();
 
 		if ($ret) {
@@ -439,6 +440,7 @@ class ModuleTest extends GalleryTestCase {
 
 		// Verify our entity was deleted
 		list($ret) = $entity->refresh();
+
 		$this->assertEquals(GALLERY_ERROR | ERROR_MISSING_OBJECT, $ret->getErrorCode(), 'entity');
 
 		// Remove all references to the bogus theme from the database.
@@ -466,7 +468,9 @@ class ModuleTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $module->getRequiredModuleApi();
+
 		$module->setRequiredModuleApi(array($major - 1, $minor));
+
 		$ret = $module->installOrUpgrade();
 
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
@@ -492,6 +496,7 @@ class ModuleTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $module->getRequiredModuleApi();
+
 		$module->setRequiredModuleApi(array($major - 1, $minor));
 
 		list($ret, $redirect) = $module->activate();
@@ -521,7 +526,9 @@ class ModuleTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $module->getRequiredCoreApi();
+
 		$module->setRequiredCoreApi(array($major - 1, $minor));
+
 		$ret = $module->installOrUpgrade();
 
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
@@ -547,6 +554,7 @@ class ModuleTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $module->getRequiredCoreApi();
+
 		$module->setRequiredCoreApi(array($major - 1, $minor));
 
 		list($ret, $redirect) = $module->activate();
@@ -814,13 +822,17 @@ class ModuleTestModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('moduletest');
+
 		$this->setName('ModuleTest Module');
+
 		$this->setDescription('Unit test module');
+
 		$this->setVersion('1.0.0');
 		$this->setGroup('data', 'Gallery');
 		$this->setCallbacks('');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$this->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
+
 		$this->_activate = true;
 	}
 

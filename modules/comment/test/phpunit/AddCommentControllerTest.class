@@ -133,6 +133,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 
 		if (count($comments) == 1) {
 			$this->assertTrue(GalleryUtilities::isA($comments[0], 'GalleryComment'));
+
 			$this->assertEquals('this is a comment', $comments[0]->getComment());
 			$this->assertEquals('this is a subject', $comments[0]->getSubject());
 			$this->assertEquals($gallery->getActiveUserId(), $comments[0]->getCommenterId());
@@ -253,7 +254,6 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_becomeGuestUser();
-
 		// Use valid inputs
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
@@ -288,7 +288,9 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 
 		if (count($comments) == 1) {
 			$this->assertTrue(GalleryUtilities::isA($comments[0], 'GalleryComment'));
+
 			$this->assertEquals('this is a comment', $comments[0]->getComment());
+
 			$this->assertEquals('this is a subject', $comments[0]->getSubject());
 			$this->assertEquals('this is an author', $comments[0]->getAuthor());
 			$this->assertEquals($gallery->getActiveUserId(), $comments[0]->getCommenterId());
@@ -344,7 +346,6 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_becomeGuestUser();
-
 		// Use valid inputs
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 		GalleryUtilities::putRequestVariable('form[action][preview]', 1);
@@ -434,7 +435,8 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new CommentTestPhpVm();
-		$ret             = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', 'bbcode');
+
+		$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', 'bbcode');
 
 		if ($ret) {
 			return $ret;
@@ -519,8 +521,11 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 			$comments[0]->getComment(),
 			'comment'
 		);
+
 		$this->assertEquals('', $comments[0]->getAuthor(), 'author');
+
 		$this->assertEquals($gallery->getActiveUserId(), $comments[0]->getCommenterId(), 'user 1');
+
 		$this->assertEquals($_SERVER['REMOTE_ADDR'], $comments[0]->getHost(), 'host 1');
 
 		if (!$comments[1]) {
@@ -562,6 +567,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_becomeGuestUser();
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', 'bbcode');
 
 		if ($ret) {
@@ -673,10 +679,10 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_controller->_pluginInstances = array(new AddCommentTestValidation());
-
 		global $gallery;
 
 		$this->_becomeGuestUser();
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$gallery->getActiveUserId(),
@@ -714,11 +720,9 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_controller->_pluginInstances = array(new AddCommentTestValidation());
-
 		global $gallery;
 
 		$gallery->setConfig('anonymousUserId', $gallery->getActiveUserId());
-
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
 		GalleryUtilities::putRequestVariable('form[subject]', 'test');
@@ -740,10 +744,10 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 
 	public function testValidationPluginOff() {
 		$this->_controller->_pluginInstances = array(new AddCommentTestValidation());
-
 		global $gallery;
 
 		$this->_becomeGuestUser();
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$gallery->getActiveUserId(),
@@ -786,6 +790,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 
 		if (count($comments) == 1) {
 			$this->assertTrue(GalleryUtilities::isA($comments[0], 'GalleryComment'));
+
 			$this->assertEquals('test', $comments[0]->getComment());
 			$this->assertEquals('test', $comments[0]->getSubject());
 			$this->assertEquals($gallery->getActiveUserId(), $comments[0]->getCommenterId());
@@ -823,6 +828,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we fail
 		$results = $this->handleRequest(ERROR_MISSING_OBJECT);
+
 		$this->assertEquals(null, $results, 'controller results');
 
 		list($ret, $comments) = GalleryCommentHelper::getMe()->fetchComments($this->_item->getId());

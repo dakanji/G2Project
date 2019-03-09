@@ -67,6 +67,7 @@ class ItemEditThumbPage extends ItemEditPlugin {
 			}
 
 			$thumb->setDerivativeOperations($operations);
+
 			$ret = $thumb->save();
 
 			if ($ret) {

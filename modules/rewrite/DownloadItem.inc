@@ -131,6 +131,7 @@ class DownloadItemView extends GalleryView {
 		$template->setVariable('item', (array)$item);
 		$template->setVariable('image', (array)$image);
 		$template->setVariable('galleryTitle', $galleryTitle);
+
 		$ret = $template->display('gallery:modules/rewrite/templates/DownloadItem.tpl');
 
 		if ($ret) {

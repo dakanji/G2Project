@@ -106,6 +106,7 @@ class GalleryBbcodeMarkupParser {
 		}
 
 		$this->_bbcode = new StringParser_BBCode();
+
 		$this->_bbcode->setGlobalCaseSensitive(false);
 
 		// Convert line breaks everywhere
@@ -113,7 +114,6 @@ class GalleryBbcodeMarkupParser {
 			array('block', 'inline', 'link', 'listitem', 'list'),
 			array($this, 'convertLineBreaks')
 		);
-
 		/*
 		 * Escape all characters everywhere
 		 * We do not need this as G2 does not allow raw entities into the database
@@ -125,13 +125,10 @@ class GalleryBbcodeMarkupParser {
 
 		// Convert line endings
 		$this->_bbcode->addParser(array('block', 'inline', 'link', 'listitem'), 'nl2br');
-
 		// Strip last line break in list items
 		$this->_bbcode->addParser(array('listitem'), array($this, 'stripLastLineBreak'));
-
 		// Strip contents in list elements
 		$this->_bbcode->addParser(array('list'), array($this, 'stripContents'));
-
 		// [b], [i]
 		$this->_bbcode->addCode(
 			'b',
@@ -145,6 +142,7 @@ class GalleryBbcodeMarkupParser {
 			array('listitem', 'block', 'inline', 'link'),
 			array()
 		);
+
 		$this->_bbcode->addCode(
 			'i',
 			'simple_replace',
@@ -194,7 +192,6 @@ class GalleryBbcodeMarkupParser {
 			array('listitem', 'block', 'inline', 'link'),
 			array()
 		);
-
 		// [list] [*]Element [/list]
 		$this->_bbcode->addCode(
 			'list',
@@ -208,6 +205,7 @@ class GalleryBbcodeMarkupParser {
 			array('block', 'listitem'),
 			array()
 		);
+
 		$this->_bbcode->addCode(
 			'*',
 			'simple_replace',
@@ -220,6 +218,7 @@ class GalleryBbcodeMarkupParser {
 			array('list'),
 			array()
 		);
+
 		$this->_bbcode->setCodeFlag('*', 'closetag', BBCODE_CLOSETAG_OPTIONAL);
 	}
 

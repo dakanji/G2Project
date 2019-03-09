@@ -48,7 +48,6 @@ class XmlParser {
 					xml_get_current_line_number($this->_xmlObject)
 				)
 			);
-
 			xml_parser_free($this->_xmlObject);
 		}
 

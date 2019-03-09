@@ -36,6 +36,7 @@ class GalleryTranslatorHelper_medium {
 
 		$platform =& $gallery->getPlatform();
 		$codeBase = GalleryCoreApi::getCodeBasePath();
+
 		$gallery->guaranteeTimeLimit(30);  // the glob may take a long time
 		$pluginPath     = "$codeBase${pluginType}s/$pluginId/";
 		$moFilesInPoDir = $platform->glob("${pluginPath}po/*.mo");
@@ -87,16 +88,19 @@ class GalleryTranslatorHelper_medium {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
+
 		$gallery->guaranteeTimeLimit(30);  // the glob may take a long time
 		$moFiles = $platform->glob(
 			$gallery->getConfig('data.gallery.locale')
 			. "*/LC_MESSAGES/${pluginType}s_$pluginId.mo"
 		);
+
 		$success = true;
 
 		if (!empty($moFiles)) {
 			foreach ($moFiles as $moPath) {
 				$gallery->guaranteeTimeLimit(30);
+
 				$success &= $platform->unlink($moPath);
 			}
 		}
@@ -128,6 +132,7 @@ class GalleryTranslatorHelper_medium {
 
 		foreach (array('modules', 'themes') as $pluginType) {
 			$gallery->guaranteeTimeLimit(30);
+
 			$poDirs = $platform->glob("$codeBase$pluginType/*/po");
 			$gallery->guaranteeTimeLimit(60);
 

@@ -58,7 +58,9 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('mb_convert_encoding', false);
 		$phpVm->setFunctionExists('recode_string', false);
 		$phpVm->setReturn('iconv', array('ISO-8859-1', 'UTF-8', 'foo'), 'success');
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('success', GalleryCoreApi::convertToUtf8('foo', 'ISO-8859-1'));
 	}
 
@@ -71,7 +73,9 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('mb_convert_encoding', false);
 		$phpVm->setFunctionExists('recode_string', false);
 		$phpVm->setReturn('iconv', array('UTF-8', 'ISO-8859-1//IGNORE', 'foo'), 'success');
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('success', GalleryCoreApi::convertFromUtf8('foo', 'ISO-8859-1'));
 	}
 
@@ -84,7 +88,9 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('mb_convert_encoding', true);
 		$phpVm->setFunctionExists('recode_string', false);
 		$phpVm->setReturn('mb_convert_encoding', array('foo', 'UTF-8', 'ISO-8859-1'), 'success');
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('success', GalleryCoreApi::convertToUtf8('foo', 'ISO-8859-1'));
 	}
 
@@ -97,7 +103,9 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('mb_convert_encoding', true);
 		$phpVm->setFunctionExists('recode_string', false);
 		$phpVm->setReturn('mb_convert_encoding', array('foo', 'ISO-8859-1', 'UTF-8'), 'success');
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('success', GalleryCoreApi::convertFromUtf8('foo', 'ISO-8859-1'));
 	}
 
@@ -110,7 +118,9 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('mb_convert_encoding', false);
 		$phpVm->setFunctionExists('recode_string', true);
 		$phpVm->setReturn('recode_string', array('ISO-8859-1..UTF-8', 'foo'), 'success');
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('success', GalleryCoreApi::convertToUtf8('foo', 'ISO-8859-1'));
 	}
 
@@ -123,7 +133,9 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('mb_convert_encoding', false);
 		$phpVm->setFunctionExists('recode_string', true);
 		$phpVm->setReturn('recode_string', array('UTF-8..ISO-8859-1', 'foo'), 'success');
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('success', GalleryCoreApi::convertFromUtf8('foo', 'ISO-8859-1'));
 	}
 
@@ -135,6 +147,7 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('iconv', false);
 		$phpVm->setFunctionExists('mb_convert_encoding', false);
 		$phpVm->setFunctionExists('recode_string', false);
+
 		$gallery->_phpVm = $phpVm;
 		$this->assertEquals(
 			chr(195) . chr(181),
@@ -150,6 +163,7 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('iconv', false);
 		$phpVm->setFunctionExists('mb_convert_encoding', false);
 		$phpVm->setFunctionExists('recode_string', false);
+
 		$gallery->_phpVm = $phpVm;
 		$this->assertEquals(
 			chr(245),
@@ -166,6 +180,7 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('iconv', false);
 		$phpVm->setFunctionExists('mb_convert_encoding', false);
 		$phpVm->setFunctionExists('recode_string', false);
+
 		$gallery->_phpVm = $phpVm;
 		$this->assertEquals(
 			"\xe2\x80\xa0",
@@ -190,7 +205,9 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('recode_string', false);
 		$phpVm->setReturn('iconv', array('ISO-8859-1', 'UTF-8', 'foo'), false);
 		$phpVm->setReturn('mb_convert_encoding', array('foo', 'UTF-8', 'ISO-8859-1'), 'success');
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('success', GalleryCoreApi::convertToUtf8('foo', 'ISO-8859-1'));
 	}
 
@@ -205,7 +222,9 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('recode_string', false);
 		$phpVm->setReturn('iconv', array('UTF-8', 'ISO-8859-1//IGNORE', 'foo'), false);
 		$phpVm->setReturn('mb_convert_encoding', array('foo', 'ISO-8859-1', 'UTF-8'), 'success');
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('success', GalleryCoreApi::convertFromUtf8('foo', 'ISO-8859-1'));
 	}
 
@@ -220,7 +239,9 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('recode_string', true);
 		$phpVm->setReturn('iconv', array('ISO-8859-1', 'UTF-8', 'foo'), false);
 		$phpVm->setReturn('recode_string', array('ISO-8859-1..UTF-8', 'foo'), 'success');
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('success', GalleryCoreApi::convertToUtf8('foo', 'ISO-8859-1'));
 	}
 
@@ -235,7 +256,9 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('recode_string', true);
 		$phpVm->setReturn('iconv', array('UTF-8', 'ISO-8859-1//IGNORE', 'foo'), false);
 		$phpVm->setReturn('recode_string', array('UTF-8..ISO-8859-1', 'foo'), 'success');
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('success', GalleryCoreApi::convertFromUtf8('foo', 'ISO-8859-1'));
 	}
 
@@ -249,6 +272,7 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('mb_convert_encoding', false);
 		$phpVm->setFunctionExists('recode_string', false);
 		$phpVm->setReturn('iconv', array('ISO-8859-1', 'UTF-8', 'foo'), false);
+
 		$gallery->_phpVm = $phpVm;
 		$this->assertEquals(
 			chr(195) . chr(181),
@@ -266,6 +290,7 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('mb_convert_encoding', false);
 		$phpVm->setFunctionExists('recode_string', false);
 		$phpVm->setReturn('iconv', array('UTF-8', 'ISO-8859-1//IGNORE', 'foo'), false);
+
 		$gallery->_phpVm = $phpVm;
 		$this->assertEquals(
 			chr(245),
@@ -282,7 +307,9 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('iconv', false);
 		$phpVm->setFunctionExists('mb_convert_encoding', false);
 		$phpVm->setFunctionExists('recode_string', false);
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals(chr(245), GalleryCoreApi::convertToUtf8(chr(245), 'ISO-BOGO-9000'));
 	}
 
@@ -295,7 +322,9 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('iconv', false);
 		$phpVm->setFunctionExists('mb_convert_encoding', false);
 		$phpVm->setFunctionExists('recode_string', false);
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals(chr(245), GalleryCoreApi::convertFromUtf8(chr(245), 'ISO-BOGO-9000'));
 	}
 
@@ -311,36 +340,41 @@ class CharsetTest extends GalleryTestCase {
 
 		$phpVm->setFunctionExists('nl_langinfo', true);
 		$phpVm->setReturn('nl_langinfo', array(CODESET), 'UTF-8');
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('UTF-8', GalleryCharsetHelper_simple::detectSystemCharset());
 		GalleryDataCache::reset();
 
 		$phpVm->setReturn('nl_langinfo', array(CODESET), 'Windows-1252');
-		$gallery->_phpVm = $phpVm;
-		$this->assertEquals('Windows-1252', GalleryCharsetHelper_simple::detectSystemCharset());
 
+		$gallery->_phpVm = $phpVm;
+
+		$this->assertEquals('Windows-1252', GalleryCharsetHelper_simple::detectSystemCharset());
 		// Verify value is cached
 		$phpVm->setReturn('nl_langinfo', array(CODESET), 'abc123');
-		$gallery->_phpVm = $phpVm;
-		$this->assertEquals('Windows-1252', GalleryCharsetHelper_simple::detectSystemCharset());
 
+		$gallery->_phpVm = $phpVm;
+
+		$this->assertEquals('Windows-1252', GalleryCharsetHelper_simple::detectSystemCharset());
 		// FreeBSD may return charset with missing hyphen; verify we remap this
 		GalleryDataCache::reset();
 
 		$phpVm->setReturn('nl_langinfo', array(CODESET), 'ISO8859-1');
-		$gallery->_phpVm = $phpVm;
-		$this->assertEquals('ISO-8859-1', GalleryCharsetHelper_simple::detectSystemCharset());
 
+		$gallery->_phpVm = $phpVm;
+
+		$this->assertEquals('ISO-8859-1', GalleryCharsetHelper_simple::detectSystemCharset());
 		// Gentoo may return ANSI_X3.4-1968 which is just ASCII
 		GalleryDataCache::reset();
 
 		$phpVm->setReturn('nl_langinfo', array(CODESET), 'ANSI_X3.4-1968');
-		$gallery->_phpVm = $phpVm;
-		$this->assertEquals('ASCII', GalleryCharsetHelper_simple::detectSystemCharset());
 
+		$gallery->_phpVm = $phpVm;
+
+		$this->assertEquals('ASCII', GalleryCharsetHelper_simple::detectSystemCharset());
 		// We can override what the system tells us using $gallery->setConfig
 		$gallery->setConfig('systemCharset', 'xyz123');
-
 		GalleryDataCache::reset();
 
 		$this->assertEquals('xyz123', GalleryCharsetHelper_simple::detectSystemCharset());
@@ -360,8 +394,8 @@ class CharsetTest extends GalleryTestCase {
 		);
 
 		$gallery->_phpVm = $phpVm;
-		$this->assertEquals('UTF-8', GalleryCharsetHelper_simple::detectSystemCharset());
 
+		$this->assertEquals('UTF-8', GalleryCharsetHelper_simple::detectSystemCharset());
 		// Verify we map 1252 from setlocale to full charset name
 		GalleryDataCache::reset();
 
@@ -372,12 +406,14 @@ class CharsetTest extends GalleryTestCase {
 		);
 
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('Windows-1252', GalleryCharsetHelper_simple::detectSystemCharset());
 
 		// Sometimes we just get French_France.1252 instead of LC_CTYPE=...
 		GalleryDataCache::reset();
 
 		$phpVm->setReturn('setlocale', array(LC_ALL, '0'), 'German_Switzerland.1252');
+
 		$gallery->_phpVm = $phpVm;
 		$this->assertEquals(
 			'Windows-1252',
@@ -389,13 +425,13 @@ class CharsetTest extends GalleryTestCase {
 		GalleryDataCache::reset();
 
 		$phpVm->setReturn('setlocale', array(LC_ALL, '0'), 'German_Switzerland.1252');
+
 		$gallery->_phpVm = $phpVm;
 		$this->assertEquals(
 			'Windows-1252',
 			GalleryCharsetHelper_simple::detectSystemCharset(),
 			'short format'
 		);
-
 		// All .125x charsets should get converted to CP125x
 		GalleryDataCache::reset();
 
@@ -406,8 +442,8 @@ class CharsetTest extends GalleryTestCase {
 		);
 
 		$gallery->_phpVm = $phpVm;
-		$this->assertEquals('CP1251', GalleryCharsetHelper_simple::detectSystemCharset());
 
+		$this->assertEquals('CP1251', GalleryCharsetHelper_simple::detectSystemCharset());
 		// All .125x charsets should get converted to CP125x
 		GalleryDataCache::reset();
 
@@ -418,8 +454,8 @@ class CharsetTest extends GalleryTestCase {
 		);
 
 		$gallery->_phpVm = $phpVm;
-		$this->assertEquals('CP1258', GalleryCharsetHelper_simple::detectSystemCharset());
 
+		$this->assertEquals('CP1258', GalleryCharsetHelper_simple::detectSystemCharset());
 		// On windows boxes, we don't have the CODESET constant, so fake it
 		if (!defined('CODESET')) {
 			define('CODESET', 'CODESET');
@@ -446,10 +482,8 @@ class CharsetTest extends GalleryTestCase {
 			GalleryCharsetHelper_simple::detectSystemCharset(),
 			'Wrong system charset'
 		);
-
 		// We can override what the system tells us using $gallery->setConfig
 		$gallery->setConfig('systemCharset', 'xyz123');
-
 		GalleryDataCache::reset();
 
 		$this->assertEquals('xyz123', GalleryCharsetHelper_simple::detectSystemCharset());
@@ -481,6 +515,7 @@ class CharsetTest extends GalleryTestCase {
 		);
 
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('UTF-8', GalleryCharsetHelper_simple::detectSystemCharset());
 	}
 
@@ -498,7 +533,9 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setReturn('nl_langinfo', array(CODESET), 'ISO-8859-2');
 		$phpVm->setFunctionExists('iconv', true);
 		$phpVm->setReturn('iconv', array('ISO-8859-2', 'UTF-8', 'foo'), 'bar');
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('bar', GalleryCoreApi::convertToUtf8('foo'));
 	}
 
@@ -516,7 +553,9 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setReturn('nl_langinfo', array(CODESET), 'ISO-8859-2');
 		$phpVm->setFunctionExists('iconv', true);
 		$phpVm->setReturn('iconv', array('UTF-8', 'ISO-8859-2//IGNORE', 'foo'), 'bar');
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('bar', GalleryCoreApi::convertFromUtf8('foo'));
 	}
 
@@ -529,7 +568,9 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setReturn('setlocale', array(LC_ALL, '0'), 'no_CLUE');
 		$phpVm->setFunctionExists('iconv', true);
 		$phpVm->setReturn('iconv', array(null, 'UTF-8', 'foo'), 'iconv should not be called');
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('foo', GalleryCoreApi::convertToUtf8('foo'));
 	}
 
@@ -542,7 +583,9 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setReturn('setlocale', array(LC_ALL, '0'), 'no_CLUE');
 		$phpVm->setFunctionExists('iconv', true);
 		$phpVm->setReturn('iconv', array('UTF-8', null, 'foo'), 'iconv should not be called');
+
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals('foo', GalleryCoreApi::convertFromUtf8('foo'));
 	}
 
@@ -610,6 +653,7 @@ class CharsetTest extends GalleryTestCase {
 			GalleryCharsetHelper_medium::phpUtf8Substring($utf8, 0, 24),
 			'special chars, php version'
 		);
+
 		$utf8 = 'e&amp;f';
 
 		$this->assertEquals('e', GalleryCoreApi::utf8Substring($utf8, 0, 4), 'std');
@@ -653,7 +697,9 @@ class CharsetTest extends GalleryTestCase {
 			$result = GalleryCoreApi::utf8Strcut($utf8, 0, 10),
 			'standard version'
 		);
+
 		$this->assertEquals(10, strlen($result), 'length with standard version');
+
 		$this->assertEquals(
 			"\xd0\xa0\xd1\x83\xd1\x81\xd1\x81\xd0\xba",
 			GalleryCharsetHelper_medium::phpUtf8Strcut($utf8, 0, 10),
@@ -666,12 +712,12 @@ class CharsetTest extends GalleryTestCase {
 			GalleryCoreApi::utf8Strcut($utf8, 24, 7),
 			'standard version with offset'
 		);
+
 		$this->assertEquals(
 			"\xd1\x81\xd1\x82\xd0\xb2",
 			GalleryCharsetHelper_medium::phpUtf8Strcut($utf8, 24, 7),
 			'PHP version with offset'
 		);
-
 		// With byte offset and length matching total length
 		$this->assertEquals(
 			"\xd1\x81\xd1\x82\xd0\xb2\xd1\x83",
@@ -683,7 +729,6 @@ class CharsetTest extends GalleryTestCase {
 			GalleryCharsetHelper_medium::phpUtf8Strcut($utf8, 24, 8),
 			'PHP version with offset up to end'
 		);
-
 		// Start position larger than string
 		$this->assertEquals(
 			'',
@@ -708,6 +753,7 @@ class CharsetTest extends GalleryTestCase {
 			GalleryCharsetHelper_medium::phpUtf8Strcut($utf8, 0, 22),
 			'php version special characters'
 		);
+
 		$utf8 = 'e&amp;f';
 
 		$this->assertEquals('e', GalleryCoreApi::utf8Strcut($utf8, 0, 4), 'std');

@@ -163,6 +163,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals(__DIR__, $params['uploadLocalServer.dir.3'], 'new dir');
 		$this->assertFalse(isset($params['uploadLocalServer.dir.4']), 'end of list');
+
 		$valueMap['uploadLocalServer.dir.1'] = 'a';
 		$valueMap['uploadLocalServer.dir.2'] = 'b';
 		$valueMap['uploadLocalServer.dir.3'] = __DIR__;
@@ -214,7 +215,6 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new ItemAddSiteAdminControllerTestPhpVm('');
-
 		GalleryUtilities::putRequestVariable(
 			'form[uploadLocalServer][newDir]',
 			'/this/fake/gallery2/path/wont/exist'
@@ -320,6 +320,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		$platform = new UnitTestPlatform();
 
 		$platform->setReply('splitPath', array('/test/../path'), array('/', 'test', '..', 'path'));
+
 		$platform->setReply('realpath', array('/test/../path'), '/path');
 		$platform->setReply('isRestrictedByOpenBaseDir', array('/path'), false);
 		$platform->setReply('is_readable', array('/path'), true);
@@ -355,7 +356,8 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		$platform =& $gallery->getPlatform();
 		$saveDir  = $platform->getcwd();
-		$ret      = $this->_setUploadDirs(
+
+		$ret = $this->_setUploadDirs(
 			array(
 				1 => 'a',
 				2 => null,
@@ -389,6 +391,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$platform->chdir($saveDir);
 
 		list($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'itemadd');

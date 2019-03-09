@@ -49,5 +49,7 @@ if (empty($configBaseUri)) {
 }
 
 $urlGenerator->init($configBaseUri);
+
 $phpVm = $gallery->getPhpVm();
+
 $phpVm->header('Location: ' . $urlGenerator->makeUrl($path));

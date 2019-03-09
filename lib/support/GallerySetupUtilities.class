@@ -203,7 +203,8 @@ class GallerySetupUtilities {
 			}
 		} else {
 			$storage =& $gallery->getStorage();
-			$ret     = $storage->checkPoint();
+
+			$ret = $storage->checkPoint();
 
 			if ($ret) {
 				return false;

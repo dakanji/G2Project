@@ -45,7 +45,8 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		}
 
 		$this->_platform = new NetPbmToolkitTestPlatform($gallery->getPlatform(), $this);
-		$ret             = $this->_platform->init();
+
+		$ret = $this->_platform->init();
 
 		if ($ret) {
 			return $ret;
@@ -247,6 +248,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			'BOGUS',
 			array('BOGUS')
 		);
+
 		$this->assertTrue($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION, 'bad op');
 
 		// Make sure that we actually convert the file, and don't just copy it over
@@ -564,9 +566,10 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			),
 		);
 
-		$context  = array(
+		$context = array(
 			'next.toolkit' => $this->_toolkit,
 		);
+
 		$mimeType = 'image/png';
 
 		for ($i = $j = 0; $i < count($operations); $i += 2) {
@@ -626,66 +629,79 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		$this->assertEquals(array(50, 60), $results);
 
 		list($ret, $results) = $this->_toolkit->getProperty('image/gif', 'BOGUS', 'BOGUS');
+
 		$this->assertTrue($ret->getErrorCode() & ERROR_UNIMPLEMENTED);
 	}
 
 	public function testMergeOperations() {
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('crop', array(1, 2, 3, 4), 'crop', array(3, 4, 5, 6));
+
 		$this->assertTrue($success);
 		$this->assertEquals('crop', $operation);
 		$this->assertEquals(array(3, 4, 5, 6), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('resize', array(1, 2), 'resize', array(3, 4));
+
 		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(90));
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(180), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(-90));
+
 		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('thumbnail', array(1, 2), 'resize', array(3, 4));
+
 		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('thumbnail', array(1, 2), 'thumbnail', array(3, 4));
+
 		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('scale', array(1, 2), 'thumbnail', array(3, 4));
+
 		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(270), 'rotate', array(180));
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(90), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(-180));
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(180));
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(270), 'rotate', array(90));
+
 		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('crop', array(1, 2, 3, 4), 'thumbnail', array(3, 4));
+
 		$this->assertFalse($success);
 	}
 
@@ -966,6 +982,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			),
 			$results
 		);
+
 		$this->assertEquals(
 			array(
 				'image/jpeg',
@@ -1076,6 +1093,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			),
 			$results
 		);
+
 		$this->assertEquals(
 			array(
 				'image/jpeg',
@@ -1125,6 +1143,7 @@ class NetPbmToolkitTestPlatform extends WinNtPlatform {
 		global $gallery;
 
 		$toolkitCallCount = (int)GalleryUtilities::getRequestVariables('toolkitCallCount');
+
 		GalleryUtilities::putRequestVariable('toolkitCallCount', $toolkitCallCount + 1);
 
 		if (serialize($cmd) == serialize(

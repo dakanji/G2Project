@@ -32,6 +32,7 @@ class SliderTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('slider');
+
 		$this->setName($gallery->i18n('Slider'));
 		$this->setDescription(
 			$gallery->i18n(

@@ -466,7 +466,8 @@ class GalleryToolkitHelper_medium {
 						'outputMimeType' => empty($result[1]) ? $mimeType : $result[1],
 						'description'    => $result[2],
 					);
-					$data[]               =& $pointers[$result[0]];
+
+					$data[] =& $pointers[$result[0]];
 				}
 
 				$pointers[$result[0]]['parameters'][] = array(

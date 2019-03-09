@@ -39,9 +39,9 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($group);
-
 		GalleryUtilities::putRequestVariable('form[action][group][createFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][groupName]', $group->getGroupName());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -65,9 +65,9 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($user);
-
 		GalleryUtilities::putRequestVariable('form[action][user][createFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][userName]', $user->getUserName());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -93,9 +93,9 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 
 		$this->_markForCleanup($group);
 		$this->_createUserOrGroupQuota($group->getId(), 1024);
-
 		GalleryUtilities::putRequestVariable('form[action][group][editFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][groupName]', $group->getGroupName());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -109,6 +109,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteUserOrGroupQuota($group->getId());
 
 		// Missing group name
@@ -159,9 +160,9 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 
 		$this->_markForCleanup($user);
 		$this->_createUserOrGroupQuota($user->getId(), 1024);
-
 		GalleryUtilities::putRequestVariable('form[action][user][editFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][userName]', $user->getUserName());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -175,6 +176,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteUserOrGroupQuota($user->getId());
 
 		// Missing user name
@@ -225,9 +227,9 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 
 		$this->_markForCleanup($group);
 		$this->_createUserOrGroupQuota($group->getId(), 2048);
-
 		GalleryUtilities::putRequestVariable('form[action][group][deleteFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][groupName]', $group->getGroupName());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -241,6 +243,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteUserOrGroupQuota($group->getId());
 
 		// Missing group name
@@ -291,9 +294,9 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 
 		$this->_markForCleanup($user);
 		$this->_createUserOrGroupQuota($user->getId(), 2048);
-
 		GalleryUtilities::putRequestVariable('form[action][user][deleteFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][userName]', $user->getUserName());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -307,6 +310,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteUserOrGroupQuota($user->getId());
 
 		// Missing user name

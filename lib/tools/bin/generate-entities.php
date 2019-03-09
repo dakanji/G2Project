@@ -41,8 +41,7 @@ if (!mkdir($tmpdir)) {
 	exit(1);
 }
 
-$smarty = new Smarty();
-
+$smarty                  = new Smarty();
 $smarty->compile_dir     = $tmpdir;
 $smarty->error_reporting = error_reporting();
 $smarty->debugging       = true;
@@ -190,6 +189,7 @@ foreach ($root[0]['child'] as $entity) {
 }
 
 $smarty->assign('entities', $entities);
+
 $new = $smarty->fetch('entities.tpl');
 
 // Windows leaves a CR at the end of the file

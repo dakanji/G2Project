@@ -17,6 +17,7 @@
    http://www.volny.cz/iprenosil/interbase/ip_ib_code.htm#_code_creategen
    $rs = $conn->Execute('select gen_id(adodb,1) from rdb$database');
    $id = $rs->fields[0];
+
    $conn->Execute("insert into table (id, col1,...) values ($id, $val1,...)");
 
 */
@@ -346,7 +347,6 @@ class ADODB_ibase extends ADOConnection {
 
 	public function DropSequence($seqname = 'adodbseq') {
 		$seqname = strtoupper($seqname);
-
 		$this->Execute("delete from RDB\$GENERATORS where RDB\$GENERATOR_NAME='$seqname'");
 	}
 
@@ -357,6 +357,7 @@ class ADODB_ibase extends ADOConnection {
 		if (!$rs) {
 			$this->Execute(("INSERT INTO RDB\$GENERATORS (RDB\$GENERATOR_NAME) VALUES (UPPER('$seqname'))"));
 			$this->Execute("SET GENERATOR $seqname TO " . ($startID - 1) . ';');
+
 			$rs = $this->Execute($getnext);
 		}
 
@@ -561,8 +562,7 @@ class ADODB_ibase extends ADOConnection {
 
 	//OPN STUFF start
 	public function _ConvertFieldType(&$fld, $ftype, $flen, $fscale, $fsubtype, $fprecision, $dialect3) {
-		$fscale = abs($fscale);
-
+		$fscale          = abs($fscale);
 		$fld->max_length = $flen;
 		$fld->scale      = null;
 
@@ -710,8 +710,7 @@ class ADODB_ibase extends ADOConnection {
 
 		//OPN STUFF end
 		while (!$rs->EOF) { //print_r($rs->fields);
-			$fld = new ADOFieldObject();
-
+			$fld       = new ADOFieldObject();
 			$fld->name = trim($rs->fields[0]);
 
 			//OPN STUFF start
@@ -856,10 +855,9 @@ class ADODB_ibase extends ADOConnection {
 		Insert a null into the blob field of the table first.
 		Then use UpdateBlob to store the blob.
 		Usage:
-
 		$conn->Execute('INSERT INTO blobtable (id, blobcol) VALUES (1, null)');
-		$conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
 
+		$conn->UpdateBlob('blobtable','blobcol',$blob,'id=1');
 	*/
 	public function UpdateBlob($table, $column, $val, $where, $blobtype = 'BLOB') {
 		$blob_id = ibase_blob_create($this->_connectionID);
@@ -988,7 +986,6 @@ class ADORecordset_ibase extends ADORecordSet {
 		global $ADODB_FETCH_MODE;
 
 		$this->fetchMode = ($mode === false) ? $ADODB_FETCH_MODE : $mode;
-
 		parent::__construct($id);
 	}
 
@@ -1099,7 +1096,8 @@ class ADORecordset_ibase extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
+
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

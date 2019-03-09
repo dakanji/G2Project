@@ -50,6 +50,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
+
 		$this->_userIds = array();
 
 		// Save activeUser, we're gonna change it during the tests
@@ -69,6 +70,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 					'userId' => $userId,
 				)
 			);
+
 			$ret[] = GalleryCoreApi::removeMapEntry(
 				'GalleryAccessMap',
 				array(
@@ -119,7 +121,6 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markUserForCleanup($user);
-
 		GalleryUtilities::putRequestVariable('userId', $user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 
@@ -293,7 +294,6 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		$this->_markForCleanup($user);
 		$this->_markUserForCleanup($user);
-
 		GalleryUtilities::putRequestVariable('userId', $user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[text][newOwner]', $user->getuserName());
@@ -443,7 +443,6 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		// Now execute the request
 		$gallery->setActiveUser($this->_activeUserBackup);
-
 		GalleryUtilities::putRequestVariable('userId', $user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[deletionVariant]', 'deleteItems');
@@ -522,7 +521,6 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		// Now execute the request
 		$gallery->setActiveUser($this->_activeUserBackup);
-
 		GalleryUtilities::putRequestVariable('userId', $user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[deletionVariant]', 'deleteItems');
@@ -631,7 +629,6 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		// Now execute the request
 		$gallery->setActiveUser($this->_activeUserBackup);
-
 		GalleryUtilities::putRequestVariable('userId', $user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[text][newOwner]', $newOwner->getuserName());
@@ -731,7 +728,9 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertEquals(1, (int)$searchResults->resultCount());
+
 		$result = $searchResults->nextResult();
+
 		$this->assertEquals(0, (int)$result[0], 'Not all permissions were removed');
 
 		// Verify the user is gone

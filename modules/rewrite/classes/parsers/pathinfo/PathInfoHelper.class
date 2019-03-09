@@ -221,8 +221,9 @@ class PathInfoHelper {
 					'href' => 'modules/rewrite/data/path_info/index.php/test/path/info',
 				)
 			);
-			$TestResults['action']   = 1;
-			$TestResults['refresh']  = 1;
+
+			$TestResults['action']  = 1;
+			$TestResults['refresh'] = 1;
 		}
 
 		$TestResults['template'] = 'modules/rewrite/templates/PathInfoTestResults.tpl';

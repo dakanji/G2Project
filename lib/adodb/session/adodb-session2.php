@@ -551,7 +551,6 @@ class ADODB_Session {
 
 		if ($debug) {
 			$conn->debug = true;
-
 			ADOConnection::outp(" driver=$driver user=$user db=$database ");
 		}
 
@@ -596,7 +595,9 @@ class ADODB_Session {
 	public static function close() {
 		/*
 		$conn = ADODB_Session::_conn();
+
 		if ($conn) $conn->Close();
+
 		*/
 		return true;
 	}
@@ -746,6 +747,7 @@ class ADODB_Session {
 				$sql = "UPDATE $table SET expiry=$expiry, sessdata=" . $conn->Param(0) . ', expireref= ' . $conn->Param(1) . ",modified=$sysTimeStamp WHERE sesskey = " . $conn->Param(2);
 			} else {
 				$sql = "INSERT INTO $table (expiry, sessdata, expireref, sesskey, created, modified)
+
 					VALUES ($expiry," . $conn->Param('0') . ', ' . $conn->Param('1') . ', ' . $conn->Param('2') . ", $sysTimeStamp, $sysTimeStamp)";
 			}
 
@@ -759,12 +761,14 @@ class ADODB_Session {
 			}
 
 			$conn->StartTrans();
+
 			$rs = $conn->Execute("SELECT COUNT(*) AS cnt FROM $table WHERE $binary sesskey = " . $conn->Param(0), array($key));
 
 			if ($rs && reset($rs->fields) > 0) {
 				$sql = "UPDATE $table SET expiry=$expiry, sessdata=$lob_value, expireref= " . $conn->Param(0) . ",modified=$sysTimeStamp WHERE sesskey = " . $conn->Param('1');
 			} else {
 				$sql = "INSERT INTO $table (expiry, sessdata, expireref, sesskey, created, modified)
+
 					VALUES ($expiry,$lob_value, " . $conn->Param('0') . ', ' . $conn->Param('1') . ", $sysTimeStamp, $sysTimeStamp)";
 			}
 
@@ -921,7 +925,9 @@ class ADODB_Session {
 				}
 
 				$del = $conn->Execute("DELETE FROM $table WHERE sesskey=" . $conn->Param('0'), array($key));
+
 				$rs->MoveNext();
+
 				$ccnt += 1;
 
 				if ($tr && $ccnt % $COMMITNUM == 0) {

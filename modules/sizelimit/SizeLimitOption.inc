@@ -282,6 +282,7 @@ class SizeLimitOption extends ItemEditOption {
 			}
 
 			$templateAdapter =& $gallery->getTemplateAdapter();
+
 			$templateAdapter->updateProgressBar($module->translate('Resize complete'), '', 1);
 		}
 
@@ -335,6 +336,7 @@ class SizeLimitOption extends ItemEditOption {
 		}
 
 		$templateAdapter->updateProgressBar($module->translate('Resize Status'), '', 0);
+
 		$totalItems = count($descendentIds);
 
 		/*

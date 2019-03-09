@@ -32,7 +32,6 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
 class Db2Storage extends GalleryStorage {
 	public function __construct($config) {
 		parent::__construct($config);
-
 		$this->_isTransactional = true;
 	}
 
@@ -75,7 +74,9 @@ class Db2Storage extends GalleryStorage {
 
 		foreach ($statements as $sql) {
 			$this->_traceStart();
+
 			$recordSet = $tmpDb->Execute($sql);
+
 			$this->_traceStop();
 
 			if (empty($recordSet)) {
@@ -120,7 +121,9 @@ class Db2Storage extends GalleryStorage {
 			"g2_db2.jar',  'g2_db2_jar')}";
 
 			$this->_traceStart();
+
 			$recordSet = $tmpDb->Execute($sql);
+
 			$this->_traceStop();
 
 			if (empty($recordSet)) {

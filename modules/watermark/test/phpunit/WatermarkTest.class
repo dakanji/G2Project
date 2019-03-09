@@ -61,6 +61,7 @@ class WatermarkTest extends GalleryTestCase {
 		}
 
 		$this->_saveUser = $gallery->getActiveUser();
+
 		$gallery->setActiveUser($this->_user);
 
 		// Create a watermark
@@ -79,6 +80,7 @@ class WatermarkTest extends GalleryTestCase {
 		}
 
 		$this->_watermark = $watermark;
+
 		$this->_markForCleanup($this->_user);
 	}
 
@@ -346,6 +348,7 @@ class WatermarkTest extends GalleryTestCase {
 
 		if (!empty($table[$item->getId()])) {
 			$preferred = $table[$item->getId()];
+
 			$this->assertEquals($filter, $preferred->getPostFilterOperations());
 
 			// Verify that the thumb/resizes are remapped to the preferred

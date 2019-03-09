@@ -52,6 +52,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($this->_targetAlbum);
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'useralbum',
@@ -103,6 +104,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->setActiveUser($this->_userWithAlbum);
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -191,6 +193,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 
 	public function testUserIdParameter() {
 		GalleryUtilities::putRequestVariable('userId', $this->_userWithAlbum->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -228,7 +231,6 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->setConfig('anonymousUserId', $this->_userWithAlbum->getId());
-
 		GalleryUtilities::putRequestVariable('userId', $this->_userWithAlbum->getId());
 		$this->handleRequest(ERROR_PERMISSION_DENIED);
 	}
@@ -266,6 +268,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals(array(), $links, 'anonymous should not get link');
 		$gallery->setActiveUser($this->_userWithAlbum);
+
 		$albumLink['YourAlbum'] = array(
 			'text'   => $module->translate('Your Album'),
 			'params' => array(
@@ -282,6 +285,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals($albumLink, $links, 'Link not displayed "on access" with album');
 		$gallery->setActiveUser($this->_userWithoutAlbum);
+
 		$createLink['YourAlbum'] = array(
 			'text'   => $module->translate('Your Album'),
 			'params' => array(
@@ -453,6 +457,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(isset($albumId), 'Album was not created');
+
 		$secArray = array(
 			'core.view'        => 1,
 			'core.viewAll'     => 1,
@@ -587,6 +592,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(isset($albumId), 'Album was not created');
+
 		$secArray = array(
 			'core.view'        => 1,
 			'core.viewAll'     => 1,
@@ -744,6 +750,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(isset($albumId), 'Album was not created');
+
 		$secArray = array(
 			'core.view'        => 1,
 			'core.viewAll'     => 1,

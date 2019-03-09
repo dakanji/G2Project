@@ -75,7 +75,8 @@ class ThumbnailModuleExtras {
 				}
 
 				$storage =& $gallery->getStorage();
-				$ret     = $storage->configureStore($module->getId(), array('ThumbnailImage:1.0'));
+
+				$ret = $storage->configureStore($module->getId(), array('ThumbnailImage:1.0'));
 
 				if ($ret) {
 					return $ret;
@@ -151,6 +152,7 @@ class ThumbnailModuleExtras {
 			case '1.0.7':
 				// Use a new childEntity as the container for all custom thumbnails.
 				$gallery->guaranteeTimeLimit(60);
+
 				$storage =& $gallery->getStorage();
 
 				GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailImage.class');

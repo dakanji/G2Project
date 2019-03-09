@@ -40,6 +40,7 @@
  */
 function smarty_function_html_checkboxes($params, &$smarty) {
 	include_once $smarty->_get_plugin_filepath('shared', 'escape_special_chars');
+
 	$name      = 'checkbox';
 	$values    = null;
 	$options   = null;
@@ -81,6 +82,7 @@ function smarty_function_html_checkboxes($params, &$smarty) {
 
 			case 'checkboxes':
 				$smarty->trigger_error('html_checkboxes: the use of the "checkboxes" attribute is deprecated, use "options" instead', E_USER_WARNING);
+
 				$options = (array)$_val;
 
 				break;

@@ -75,8 +75,10 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 		}
 
 		$item1->setMimeType('image/gif');
+
 		$this->_item  = $item;
 		$this->_item1 = $item1;
+
 		$this->_markForCleanup($this->_item);
 		$this->_markForCleanup($this->_item1);
 	}

@@ -236,6 +236,7 @@ class ItemEditItem extends ItemEditPlugin {
 					$thumbnail->setMimeType($outputMimeType);
 					$thumbnail->setDerivativeSourceId($source->getId());
 					$thumbnail->setDerivativeOperations($operations);
+
 					$ret = $thumbnail->save();
 
 					if ($ret) {
@@ -297,11 +298,11 @@ class ItemEditItem extends ItemEditPlugin {
 					}
 
 					$item->setTitle($form['title']);
+
 					$item->setSummary($form['summary']);
 					$item->setKeywords($form['keywords']);
 					$item->setDescription($form['description']);
 					$item->setSerialNumber($form['serialNumber']);
-
 					// Change the originationTimestamp
 					if (!empty($newOriginationTimestamp)) {
 						$item->setOriginationTimestamp($newOriginationTimestamp);

@@ -32,7 +32,6 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
 class PostgreSqlStorage extends GalleryStorage {
 	public function __construct($config) {
 		parent::__construct($config);
-
 		$this->_isTransactional = true;
 	}
 
@@ -66,7 +65,9 @@ class PostgreSqlStorage extends GalleryStorage {
 
 		// Ignore errors when trying to drop the bit_or function
 		$this->_traceStart();
+
 		$recordSet = $tmpDb->Execute('DROP AGGREGATE BIT_OR(bit)');
+
 		$tmpDb->Close();
 		$this->_traceStop();
 
@@ -94,7 +95,9 @@ class PostgreSqlStorage extends GalleryStorage {
 			}
 
 			$this->_traceStart();
+
 			$recordSet = $tmpDb->Execute($query);
+
 			$tmpDb->Close();
 			$this->_traceStop();
 

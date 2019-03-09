@@ -131,6 +131,7 @@ class ArchiveExtractToolkit extends GalleryToolkit {
 		}
 
 		$platform->closedir($dh);
+
 		$dir .= $platform->getDirectorySeparator();
 
 		foreach ($list as $file) {

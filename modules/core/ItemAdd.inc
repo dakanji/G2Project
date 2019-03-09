@@ -171,6 +171,7 @@ class ItemAddController extends GalleryController {
 		}
 
 		$templateAdapter->updateProgressBar($this->_coreModule->translate('Adding items'), '', 0);
+
 		$error       = array();
 		$addPluginId = GalleryUtilities::getRequestVariables('addPlugin');
 
@@ -212,6 +213,7 @@ class ItemAddController extends GalleryController {
 			}
 
 			$session->put('itemAdd.error', $error);
+
 			$doRedirect  = true;
 			$continueUrl = $urlGenerator->generateUrl(
 				array(
@@ -226,6 +228,7 @@ class ItemAddController extends GalleryController {
 			);
 		} else {
 			$session->putStatus($status);
+
 			$doRedirect = ($phpVm->time() - $startTime) <= $autoRedirectSeconds;
 
 			if (empty($status['addedFiles'])) {
@@ -246,6 +249,7 @@ class ItemAddController extends GalleryController {
 						'forceFullUrl' => true,
 					)
 				);
+
 				$templateAdapter->updateProgressBar(
 					$this->_coreModule->translate('Adding items'),
 					'',
@@ -334,6 +338,7 @@ class ItemAddController extends GalleryController {
 		}
 
 		$this->_templateAdapter->updateProgressBar($this->_processingItemsMessage, '', 0);
+
 		$ret = $this->_storage->checkPoint();
 
 		if ($ret) {
@@ -396,6 +401,7 @@ class ItemAddController extends GalleryController {
 				$status['addedFiles'] = array_merge($status['addedFiles'], $extractedItems);
 
 				$gallery->guaranteeTimeLimit(30);
+
 				$ret = $this->_storage->checkPoint();
 
 				if ($ret) {
@@ -481,8 +487,10 @@ class ItemAddController extends GalleryController {
 
 		$this->_platform                 =& $gallery->getPlatform();
 		$this->_extractingArchiveMessage = $this->_coreModule->translate('Extracting archive');
+
 		$this->_templateAdapter->updateProgressBar($this->_extractingArchiveMessage, '', 0);
 		$gallery->guaranteeTimeLimit(120);
+
 		$parentId = $archiveItem->getParentId();
 
 		list($ret, $hasAddAlbumPermission) = GalleryCoreApi::hasItemPermission($parentId, 'core.addAlbumItem');
@@ -538,6 +546,7 @@ class ItemAddController extends GalleryController {
 
 		$this->_templateAdapter->updateProgressBar($this->_extractingArchiveMessage, '', 0.1);
 		$gallery->guaranteeTimeLimit(30);
+
 		$addedFiles = array();
 
 		$ret = $this->_recursiveAddDir(
@@ -670,6 +679,7 @@ class ItemAddController extends GalleryController {
 					GalleryUtilities::sanitizeInputValues($title);
 				} elseif ($titleMode == 'base') {
 					list($title) = GalleryUtilities::getFileNameComponents($filename);
+
 					GalleryUtilities::sanitizeInputValues($title);
 				} else {
 					$title = $archiveItem->getTitle();
@@ -710,6 +720,7 @@ class ItemAddController extends GalleryController {
 					0.1 + 0.9 * count($addedFiles) / (count($list) + count($addedFiles))
 				);
 				$gallery->guaranteeTimeLimit(30);
+
 				$ret = $this->_storage->checkPoint();
 
 				if ($ret) {
@@ -825,6 +836,7 @@ class ItemAddView extends GalleryView {
 		}
 
 		$session->put($addPluginSessionKey, $addPlugin);
+
 		$errors = $session->get('itemAdd.error');
 
 		if (!empty($errors)) {

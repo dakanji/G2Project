@@ -30,7 +30,6 @@
 class CodeAuditTestCase extends GalleryTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName);
-
 		$this->_shouldHalt = false;
 		$this->_baseDir    = realpath(__DIR__ . '/../../..');
 		$this->_checkTime  = time();
@@ -89,10 +88,12 @@ class CodeAuditTestCase extends GalleryTestCase {
 		}
 
 		$platform->fclose($handle);
+
 		$dirPaths = array($dirPath);
 
 		while (($dirPath = array_shift($dirPaths)) !== null) {
 			$this->_timeCheck();
+
 			$dirPaths = array_merge($dirPaths, $this->$functionName($dirPath));
 
 			if ($this->_shouldHalt) {
@@ -118,7 +119,6 @@ class CodeAuditTestCase extends GalleryTestCase {
 			$xmlValues,
 			$xmlIndex
 		);
-
 		xml_parser_free($parser);
 
 		if (empty($xmlIndex['ENTRY'])) {
@@ -198,11 +198,12 @@ class CodeAuditTestCase extends GalleryTestCase {
 		 * $matches[2][$i] is the kind field.
 		 * $matches[5][$i] is the deleted field, if present.
 		 */
-		$count    = preg_match_all(
+		$count = preg_match_all(
 			'/\f\n([^\f\n]*)\n([^\f\n]*)\n(([^\f\n]*\n){20}([^\f\n]*)\n)?/',
 			$platform->file_get_contents($dirPath . '/.svn/entries'),
 			$matches
 		);
+
 		$dirPaths = array();
 
 		for ($i = 0; $i < $count; $i++) {
@@ -302,7 +303,9 @@ class CodeAuditTestCase extends GalleryTestCase {
 
 	/**
 	 * Extract function calls from a php snippet.
+	 *
 	 * @param string $phpCode e.g. '<?php print "meow"; $foo->bar("hello world"); ?>'
+	 *
 	 * @param mixed $function Function to be searched for, e.g.
 	 *              - 'foo' for a global function called foo,
 	 *              - array('GalleryCoreApi', 'foo') for static function calls of function foo,
@@ -331,6 +334,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 			if ($fileName) {
 				// Only cache the most recently used file (memory usage)
 				unset($this->_tokens);
+
 				$this->_tokens[$fileName] = $tokens;
 			}
 		} else {

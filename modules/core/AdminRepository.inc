@@ -136,6 +136,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 					),
 				)
 			);
+
 			$delegate['view'] = 'core.ProgressBar';
 		} elseif (isset($form['action']['upgradeAll'])) {
 			list($ret, $repositories) = $this->_getRepositories();
@@ -216,7 +217,8 @@ class AdminRepositoryView extends GalleryView {
 
 		$platform =& $gallery->getPlatform();
 		$session  =& $gallery->getSession();
-		$ret      = GalleryCoreApi::assertUserIsSiteAdministrator();
+
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
 			return array($ret, null);
@@ -391,6 +393,7 @@ class AdminRepositoryView extends GalleryView {
 			'modules' => $platform->is_writeable($AdminRepository['basePath'] . '/modules'),
 			'themes'  => $platform->is_writeable($AdminRepository['basePath'] . '/themes'),
 		);
+
 		$AdminRepository['authToken'] = $session->getAuthToken();
 
 		// Render the HTML body

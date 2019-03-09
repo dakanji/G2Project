@@ -144,6 +144,7 @@ class perf_mysql extends adodb_perf {
 		$s .= rs2html($rs, false, false, false, false);
 
 		$this->conn->LogSQL($save);
+
 		$s .= $this->Tracer($sql);
 
 		return $s;
@@ -193,6 +194,7 @@ class perf_mysql extends adodb_perf {
 			switch ($rs->fields[0]) {
 				case 'Com_select':
 					$val = $rs->fields[1];
+
 					$rs->Close();
 
 					return $val;
@@ -244,6 +246,7 @@ class perf_mysql extends adodb_perf {
 
 				case 'Com_update':
 					$val += $rs->fields[1] / 2;
+
 					$rs->Close();
 
 					return $val;
@@ -282,6 +285,7 @@ class perf_mysql extends adodb_perf {
 		}
 
 		$type = strtoupper($rs->fields[1]);
+
 		$rs->Close();
 
 		switch ($type) {
@@ -344,6 +348,7 @@ class perf_mysql extends adodb_perf {
 		}
 
 		$stat = $rs->fields[0];
+
 		$rs->Close();
 
 		$at   = strpos($stat, 'Buffer pool hit rate');

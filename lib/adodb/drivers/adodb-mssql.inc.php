@@ -135,6 +135,7 @@ class ADODB_mssql extends ADOConnection {
 			$val  = 2;
 
 			$this->Parameter($stmt, $val, 'attribute_id');
+
 			$row = $this->GetRow($stmt);
 		}
 
@@ -172,7 +173,9 @@ class ADODB_mssql extends ADOConnection {
 	/**
 	 * Correctly quotes a string so that all strings are escaped. We prefix and append
 	 * to the string single-quotes.
+	 *
 	 * An example is  $db->qstr("Don't bother",magic_quotes_runtime());
+	 *
 	 *
 	 * @param s         the string to quote
 	 * @param [magic_quotes]    if $s is GET/POST var, set to get_magic_quotes_gpc().
@@ -215,6 +218,7 @@ class ADODB_mssql extends ADOConnection {
 		$start -= 1;
 
 		$this->Execute("create table $seq (id float(53))");
+
 		$ok = $this->Execute("insert into $seq with (tablock,holdlock) values($start)");
 
 		if (!$ok) {
@@ -231,10 +235,12 @@ class ADODB_mssql extends ADOConnection {
 	public function GenID($seq = 'adodbseq', $start = 1) {
 		//$this->debug=1;
 		$this->Execute('BEGIN TRANSACTION adodbseq');
+
 		$ok = $this->Execute("update $seq with (tablock,holdlock) set id = id + 1");
 
 		if (!$ok) {
 			$this->Execute("create table $seq (id float(53))");
+
 			$ok = $this->Execute("insert into $seq with (tablock,holdlock) values($start)");
 
 			if (!$ok) {
@@ -249,6 +255,7 @@ class ADODB_mssql extends ADOConnection {
 		}
 
 		$num = $this->GetOne("select id from $seq");
+
 		$this->Execute('COMMIT TRANSACTION adodbseq');
 
 		return $num;
@@ -427,8 +434,8 @@ class ADODB_mssql extends ADOConnection {
 
 	/*
 		Usage:
-
 		$this->BeginTrans();
+
 		$this->RowLock('table1,table2','table1.id=33 and table2.id=table1.id'); # lock row 33 for both tables
 		# some operation on both tables table1 and table2
 
@@ -455,6 +462,7 @@ class ADODB_mssql extends ADOConnection {
 
 		if ($schema) {
 			$dbName = $this->database;
+
 			$this->SelectDB($schema);
 		}
 
@@ -1007,16 +1015,13 @@ order by constraint_name, referenced_table_name, keyno";
 			$rez = mssql_query("sp_executesql N{$sql[1]},N$decl,$params", $this->_connectionID);
 
 			if ($getIdentity) {
-				$arr = @mssql_fetch_row($rez);
-
+				$arr             = @mssql_fetch_row($rez);
 				$this->lastInsID = isset($arr[0]) ? $arr[0] : false;
-
 				@mssql_data_seek($rez, 0);
 			}
 		} elseif (is_array($sql)) {
 			// PrepareSP()
-			$rez = mssql_execute($sql[1]);
-
+			$rez             = mssql_execute($sql[1]);
 			$this->lastInsID = false;
 		} else {
 			$rez             = mssql_query($sql, $this->_connectionID);
@@ -1090,6 +1095,7 @@ class ADORecordset_mssql extends ADORecordSet {
 		$this->_inited     = false;
 		$this->bind        = false;
 		$this->_currentRow = -1;
+
 		$this->Init();
 
 		return true;
@@ -1105,7 +1111,8 @@ class ADORecordset_mssql extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
+
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}
@@ -1180,6 +1187,7 @@ class ADORecordset_mssql extends ADORecordSet {
 
 						if ($kn != $k) {
 							unset($this->fields[$k]);
+
 							$this->fields[$kn] = $v;
 						}
 					}
@@ -1189,6 +1197,7 @@ class ADORecordset_mssql extends ADORecordSet {
 
 						if ($kn != $k) {
 							unset($this->fields[$k]);
+
 							$this->fields[$kn] = $v;
 						}
 					}
@@ -1242,6 +1251,7 @@ class ADORecordset_mssql extends ADORecordSet {
 
 					if ($kn != $k) {
 						unset($this->fields[$k]);
+
 						$this->fields[$kn] = $v;
 					}
 				}
@@ -1251,6 +1261,7 @@ class ADORecordset_mssql extends ADORecordSet {
 
 					if ($kn != $k) {
 						unset($this->fields[$k]);
+
 						$this->fields[$kn] = $v;
 					}
 				}

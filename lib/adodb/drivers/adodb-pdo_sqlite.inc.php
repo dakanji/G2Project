@@ -74,6 +74,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 
 			if ($num === false || !is_numeric($num)) {
 				@$parent->Execute(sprintf($this->_genSeqSQL, $seq));
+
 				$start -= 1;
 				$num    = '0';
 				$cnt    = $parent->GetOne(sprintf($this->_genSeqCountSQL, $seq));
@@ -151,7 +152,8 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 		}
 
 		$parent->_autocommit = true;
-		$ret                 = $parent->Execute('COMMIT');
+
+		$ret = $parent->Execute('COMMIT');
 
 		return $ret;
 	}
@@ -168,7 +170,8 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 		}
 
 		$parent->_autocommit = true;
-		$ret                 = $parent->Execute('ROLLBACK');
+
+		$ret = $parent->Execute('ROLLBACK');
 
 		return $ret;
 	}
@@ -208,9 +211,8 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 				$size = trim($type[1], ')');
 			}
 
-			$fn  = strtoupper($r['name']);
-			$fld = new ADOFieldObject();
-
+			$fn                 = strtoupper($r['name']);
+			$fld                = new ADOFieldObject();
 			$fld->name          = $r['name'];
 			$fld->type          = $type[0];
 			$fld->max_length    = $size;
@@ -227,6 +229,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 		}
 
 		$rs->Close();
+
 		$ADODB_FETCH_MODE = $save;
 
 		return $arr;

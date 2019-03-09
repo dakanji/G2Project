@@ -15,6 +15,7 @@
 */
 global $_ADODB_ACTIVE_DBS;
 global $ADODB_ACTIVE_CACHESECS; // set to true to enable caching of metadata such as field info
+
 global $ACTIVE_RECORD_SAFETY; // set to false to disable safety checks
 global $ADODB_ACTIVE_DEFVALS; // use default values of table definition when creating new active record.
 // array of ADODB_Active_DB's, indexed by ADODB_Active_Record->_dbat
@@ -55,8 +56,7 @@ function ADODB_SetDatabaseAdapter(&$db, $index = false) {
 		}
 	}
 
-	$obj = new ADODB_Active_DB();
-
+	$obj         = new ADODB_Active_DB();
 	$obj->db     = $db;
 	$obj->tables = array();
 
@@ -118,8 +118,7 @@ class ADODB_Active_Record {
 	}
 
 	public function __set($name, $value) {
-		$name = str_replace(' ', '_', $name);
-
+		$name        = str_replace(' ', '_', $name);
 		$this->$name = $value;
 	}
 
@@ -152,7 +151,6 @@ class ADODB_Active_Record {
 			}
 
 			end($_ADODB_ACTIVE_DBS);
-
 			$this->_dbat = key($_ADODB_ACTIVE_DBS);
 		}
 
@@ -160,6 +158,7 @@ class ADODB_Active_Record {
 
 		// reserved for setting the assoc value to a non-table name, eg. the sql string in future
 		$this->_tableat = $table;
+
 		$this->UpdateActiveTable($pkeyarr);
 	}
 
@@ -237,10 +236,11 @@ class ADODB_Active_Record {
 	}
 
 	public function hasMany($foreignRef, $foreignKey = false, $foreignClass = 'ADODB_Active_Record') {
-		$ar = new $foreignClass($foreignRef);
-
+		$ar              = new $foreignClass($foreignRef);
 		$ar->foreignName = $foreignRef;
+
 		$ar->UpdateActiveTable();
+
 		$ar->foreignKey               = ($foreignKey) ? $foreignKey : $foreignRef . self::$_foreignSuffix;
 		$table                        =& $this->TableInfo();
 		$table->_hasMany[$foreignRef] = $ar;
@@ -290,7 +290,9 @@ class ADODB_Active_Record {
 		$ar              = new $parentClass($this->_pluralize($foreignRef));
 		$ar->foreignName = $foreignRef;
 		$ar->parentKey   = $parentKey;
+
 		$ar->UpdateActiveTable();
+
 		$ar->foreignKey                 = ($foreignKey) ? $foreignKey : $foreignRef . self::$_foreignSuffix;
 		$table                          =& $this->TableInfo();
 		$table->_belongsTo[$foreignRef] = $ar;
@@ -477,8 +479,7 @@ class ADODB_Active_Record {
 			}
 		}
 
-		$activetab = new ADODB_Active_Table();
-
+		$activetab        = new ADODB_Active_Table();
 		$activetab->name  = $table;
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
@@ -590,8 +591,7 @@ class ADODB_Active_Record {
 
 		if ($ADODB_ACTIVE_CACHESECS && $ADODB_CACHE_DIR) {
 			$activetab->_created = time();
-
-			$s = serialize($activetab);
+			$s                   = serialize($activetab);
 
 			if (!function_exists('adodb_write_file')) {
 				include ADODB_DIR . '/adodb-csvlib.inc.php';
@@ -620,8 +620,7 @@ class ADODB_Active_Record {
 	public function Error($err, $fn) {
 		global $_ADODB_ACTIVE_DBS;
 
-		$fn = get_class($this) . '::' . $fn;
-
+		$fn             = get_class($this) . '::' . $fn;
 		$this->_lasterr = $fn . ': ' . $err;
 
 		if ($this->_dbat < 0) {
@@ -678,6 +677,7 @@ class ADODB_Active_Record {
 
 		if ($this->_dbat < 0) {
 			$false = false;
+
 			$this->Error('No database connection set: use ADOdb_Active_Record::SetDatabaseAdaptor($db)', 'DB');
 
 			return $false;
@@ -755,14 +755,12 @@ class ADODB_Active_Record {
 
 		// <AP>
 		reset($keys);
-
 		$this->_original = array();
 
 		foreach ($table->flds as $name => $fld) {
 			$value             = $row[current($keys)];
 			$this->$name       = $value;
 			$this->_original[] = $value;
-
 			next($keys);
 		}
 
@@ -1218,6 +1216,7 @@ function adodb_GetActiveRecordsClass(
 		if ($rs) {
 			while (!$rs->EOF) {
 				$rows[] = $rs->fields;
+
 				$rs->MoveNext();
 			}
 		}
@@ -1226,6 +1225,7 @@ function adodb_GetActiveRecordsClass(
 	}
 
 	$db->SetFetchMode($save);
+
 	$false = false;
 
 	if ($rows === false) {

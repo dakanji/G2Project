@@ -252,10 +252,8 @@ class GalleryItem extends GalleryFileSystemEntity {
 
 		// Record the owner
 		$this->setOwnerId($gallery->getActiveUserId());
-
 		// Initialize the viewedSince timestamp
 		$this->setViewedSinceTimestamp(time());
-
 		// Origination timestamp defaults to now
 		$this->setOriginationTimestamp(time());
 
@@ -295,6 +293,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 
 		// Copy over anything else from the target entity
 		$this->setDescription($entity->getDescription());
+
 		$this->setKeywords($entity->getKeywords());
 		$this->setSummary($entity->getSummary());
 		$this->setTitle($entity->getTitle());
@@ -401,7 +400,8 @@ class GalleryItem extends GalleryFileSystemEntity {
 	 */
 	public function move($newParentId) {
 		$parentId = $this->getParentId();
-		$ret      = parent::move($newParentId);
+
+		$ret = parent::move($newParentId);
 
 		if ($ret) {
 			return $ret;
@@ -429,7 +429,8 @@ class GalleryItem extends GalleryFileSystemEntity {
 		}
 
 		$newParentSequence[] = $this->getParentId();
-		$ret                 = GalleryCoreApi::setParentSequence($this->getId(), $newParentSequence);
+
+		$ret = GalleryCoreApi::setParentSequence($this->getId(), $newParentSequence);
 
 		if ($ret) {
 			return $ret;

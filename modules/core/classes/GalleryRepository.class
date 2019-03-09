@@ -136,6 +136,7 @@ class GalleryRepository {
 	) {
 		$cacheKey = 'GalleryRepository::getRepositories(' . join('|', $sources) .
 		",$repositoryClassName)";
+
 		GalleryDataCache::remove($cacheKey);
 	}
 
@@ -328,10 +329,11 @@ class GalleryRepository {
 					$locked       = 0;
 				}
 
-				$relation                            = $this->_utilities->compareRevisions(
+				$relation = $this->_utilities->compareRevisions(
 					$currentBuild,
 					$revision
 				);
+
 				$upgradeInfo['languages'][$language] = array(
 					'name'         => $languageDescription,
 					'currentBuild' => $currentBuild,
@@ -444,7 +446,8 @@ class GalleryRepository {
 			$isDowngraded = version_compare($localVersion, $plugin['header']['version'], '>');
 
 			list($providedCoreApiVersion, $providedPluginApiVersion) = $this->_utilities->getProvidedApis($pluginType, $coreApis);
-			$pluginList[$pluginId]                                   = array(
+
+			$pluginList[$pluginId] = array(
 				'type'              => $pluginType,
 				'name'              => $plugin['descriptions'][$language]['name'],
 				'description'       => $plugin['descriptions'][$language]['description'],
@@ -798,21 +801,23 @@ class GalleryRepository {
 			return array($ret, null, null);
 		}
 
-		$packageUrls     = $pluginDownloadData['files'];
-		$pluginName      = $pluginDownloadData['name'];
-		$preparingText   = $module->translate(
+		$packageUrls   = $pluginDownloadData['files'];
+		$pluginName    = $pluginDownloadData['name'];
+		$preparingText = $module->translate(
 			array(
 				'text' => 'Preparing %s',
 				'arg1' => $pluginName,
 			)
 		);
+
 		$downloadingText = $module->translate(
 			array(
 				'text' => 'Downloading %s',
 				'arg1' => $pluginName,
 			)
 		);
-		$percentage      = ++$callback['current'] / $callback['total'];
+
+		$percentage = ++$callback['current'] / $callback['total'];
 		call_user_func($callback['method'], $callback['title'], $preparingText, $percentage);
 
 		/*
@@ -1046,7 +1051,8 @@ class GalleryRepository {
 		}
 
 		$locked = $platform->is_writeable($manifestPath) ? 0 : 1;
-		$ret    = GalleryCoreApi::addMapEntry(
+
+		$ret = GalleryCoreApi::addMapEntry(
 			'GalleryPluginPackageMap',
 			array(
 				'pluginType'     => $pluginType,
@@ -1253,9 +1259,9 @@ class GalleryRepository {
 
 				foreach ($data['files'] as $packageFile) {
 					$gallery->guaranteeTimeLimit(30);
-
 					// Unpack files from package.
 					$utilities->unpackPackage($cacheDir . $packageFile[1], $pluginOutputDir);
+
 					$installedPackageCount++;
 
 					$ret = $utilities->verifyPackageIntegrity(

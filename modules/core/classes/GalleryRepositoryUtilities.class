@@ -189,6 +189,7 @@ class GalleryRepositoryUtilities {
 
 		if ($file = $platform->fopen($path, 'r')) {
 			$data = $platform->fread($file, $bytes);
+
 			$platform->fclose($file);
 		} else {
 			return array(
@@ -732,6 +733,7 @@ class GalleryRepositoryUtilities {
 
 		while (($line = $platform->fgets($handle, 4096)) !== false) {
 			$gallery->guaranteeTimeLimit(30);
+
 			$line = trim($line);
 
 			if (preg_match($languagePackPattern, $line, $matches)) {
@@ -897,6 +899,7 @@ class GalleryRepositoryUtilities {
 
 		$url  = $gallery->getConfig('repository.url') . $source . '/multipart/';
 		$url .= '?' . $this->_getApiQueryParams();
+
 		$gallery->guaranteeTimeLimit(60);
 
 		list($success, $response, $headers, $location) = GalleryCoreApi::fetchWebFile($url, $outputFile, array(), $postDataArray);

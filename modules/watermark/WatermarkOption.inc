@@ -143,7 +143,8 @@ class WatermarkOption extends ItemAddOption {
 						DERIVATIVE_TYPE_IMAGE_RESIZE    => $watermark->getApplyToResizes(),
 						DERIVATIVE_TYPE_IMAGE_PREFERRED => $watermark->getApplyToPreferred(),
 					);
-					$ret            = WatermarkHelper::watermarkItem(
+
+					$ret = WatermarkHelper::watermarkItem(
 						$watermark,
 						$item,
 						$watermark->getXPercentage(),

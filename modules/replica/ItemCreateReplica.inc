@@ -149,7 +149,8 @@ class ItemCreateReplicaController extends GalleryController {
 					 */
 					if ($selectedItem->isLinked()) {
 						$linkedEntity = $selectedItem->getLinkedEntity();
-						$ret          = $linkedItem->createLink($linkedEntity, $destinationId);
+
+						$ret = $linkedItem->createLink($linkedEntity, $destinationId);
 					} else {
 						$ret = $linkedItem->createLink($selectedItem, $destinationId);
 					}
@@ -319,14 +320,16 @@ class ItemCreateReplicaView extends GalleryView {
 			$peers = array();
 
 			foreach ($peerItems as $peerItem) {
-				$peers[$peerItem->getId()]             = (array)$peerItem;
+				$peers[$peerItem->getId()] = (array)$peerItem;
+
 				$peers[$peerItem->getId()]['selected'] = isset($form['selectedIds'][$peerItem->getId()]);
 
 				// While we're at it, attach the thumbnails
 				if (isset($thumbnails[$peerItem->getId()])) {
 					$thumbnail = $thumbnails[$peerItem->getId()];
 
-					list($ret, $thumbnail)                  = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($thumbnail->getId());
+					list($ret, $thumbnail) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($thumbnail->getId());
+
 					$peers[$peerItem->getId()]['thumbnail'] = (array)$thumbnail;
 				}
 			}
@@ -357,6 +360,7 @@ class ItemCreateReplicaView extends GalleryView {
 		$ItemCreateReplica['selectedIds'] = array_keys($selectedIds);
 
 		$template->setVariable('ItemCreateReplica', $ItemCreateReplica);
+
 		$template->setVariable('controller', 'replica.ItemCreateReplica');
 		$template->javascript('lib/yui/yahoo-dom-event.js');
 		$template->javascript('lib/yui/container-min.js');

@@ -66,6 +66,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		}
 
 		$this->_markToolkitForCleanup('ThumbnailTestToolkit');
+
 		$ret = GalleryCoreApi::registerToolkitOperation(
 			'ThumbnailTestToolkit',
 			array('image/jpeg'),
@@ -246,6 +247,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($jpegImage);
+
 		$ret = GalleryCoreApi::updateMapEntry(
 			'GalleryToolkitOperationMimeTypeMap',
 			array(

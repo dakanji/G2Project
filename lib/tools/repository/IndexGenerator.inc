@@ -44,7 +44,8 @@ class IndexGeneratorControllerAndView extends RepositoryControllerAndView {
 		$index         = new RepositoryIndex();
 		$urlGenerator  =& $gallery->getUrlGenerator();
 		$repositoryDir = $gallery->getConfig('repository.path');
-		$ret           = $index->init($repositoryDir);
+
+		$ret = $index->init($repositoryDir);
 
 		if ($ret) {
 			return $ret;
@@ -67,7 +68,8 @@ class IndexGeneratorControllerAndView extends RepositoryControllerAndView {
 				)
 			),
 		);
-		$ret      = $this->showView('IndexGenerationResults', $viewData);
+
+		$ret = $this->showView('IndexGenerationResults', $viewData);
 
 		if ($ret) {
 			return $ret;

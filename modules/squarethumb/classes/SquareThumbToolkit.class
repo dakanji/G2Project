@@ -322,7 +322,6 @@ class SquareThumbToolkit extends GalleryToolkit {
 				),
 				$newContext
 			);
-
 			@$platform->unlink($tmpFilename);
 
 			if ($ret) {
@@ -382,6 +381,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 
 						$derivative->setWidth($targetSize);
 						$derivative->setHeight($targetSize);
+
 						$handled = true;
 					}
 				}

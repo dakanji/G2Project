@@ -45,6 +45,7 @@ class RewriteHelper {
 	 */
 	public static function getRewriteParser($new = false) {
 		global $gallery;
+
 		static $rewriteParser;
 
 		$platform =& $gallery->getPlatform();
@@ -118,9 +119,11 @@ class RewriteHelper {
 
 		$accessList = unserialize($accessList);
 
-		$ourHostNames[$urlGenerator->getHostName()]     = true;
+		$ourHostNames[$urlGenerator->getHostName()] = true;
+
 		$ourHostNames[$urlGenerator->getHostName(true)] = true;
-		$accessList                                     = array_merge($accessList, array_keys($ourHostNames));
+
+		$accessList = array_merge($accessList, array_keys($ourHostNames));
 
 		// Get allow empty referer
 		list($ret, $allowEmptyReferer) = GalleryCoreApi::getPluginParameter(

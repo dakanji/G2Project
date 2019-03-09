@@ -79,12 +79,14 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 		}
 
 		$titleText = $module->translate('Updating Packages');
+
 		$templateAdapter->updateProgressBar($titleText, '', 0);
 
 		// Create download file list.
 		list($ret, $sourcedFiles) = $this->_createDownloadFileList($installPackages, $repositories);
-		$totalActions             = $this->_countInstallActions($sourcedFiles);
-		$status                   = array(
+
+		$totalActions = $this->_countInstallActions($sourcedFiles);
+		$status       = array(
 			'error' => array(),
 		);
 
@@ -227,7 +229,9 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 		$redirect['subView'] = 'core.AdminRepository';
 
 		$session->putStatus($status);
+
 		$urlGenerator =& $gallery->getUrlGenerator();
+
 		$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect), true);
 
 		return null;
@@ -367,6 +371,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 		}
 
 		$heading = $module->translate('Updating Repository Index');
+
 		$templateAdapter->updateProgressBar($heading, '', 0);
 
 		// Erase all plugin data, so that a full scan drops old entries
@@ -392,6 +397,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 			}
 
 			$templateAdapter->updateProgressBar($heading, $message, $currentProgress);
+
 			$ret = $repository->downloadIndex();
 
 			if ($ret) {
@@ -424,6 +430,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 					$pluginType . $sSlash . $pluginId,
 					$currentProgress
 				);
+
 				$ret = $repository->scanPlugin($pluginType, $pluginId);
 
 				if ($ret && !($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
@@ -450,9 +457,13 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 			$module->translate('Done.'),
 			1
 		);
+
 		$session =& $gallery->getSession();
+
 		$session->putStatus($status);
+
 		$urlGenerator =& $gallery->getUrlGenerator();
+
 		$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect), true);
 
 		return null;

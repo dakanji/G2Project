@@ -31,7 +31,9 @@ class TileTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('tile');
+
 		$this->setName($gallery->i18n('Tile'));
+
 		$this->setDescription(
 			$gallery->i18n(
 				'Tile view of background image and image thumbnails'
@@ -78,6 +80,7 @@ class TileTheme extends GalleryTheme {
 	 */
 	public function showAlbumPage(&$template, $item, $params, $childIds, $showHead = true) {
 		$this->_setDefaultParameters($params);
+
 		$ret = $this->loadCommonTemplateData(
 			$template,
 			$item,
@@ -475,6 +478,7 @@ class TileTheme extends GalleryTheme {
 		}
 
 		$this->_setDefaultParameters($params);
+
 		$theme                 =& $template->getVariableByReference('theme');
 		$theme['param']        = $params;
 		$theme['actingUserId'] = $gallery->getActiveUserId();

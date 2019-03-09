@@ -276,7 +276,9 @@ class ADODB_mssqlnative extends ADOConnection {
 		}
 
 		sqlsrv_begin_transaction($this->_connectionID);
+
 		$start -= 1;
+
 		$this->Execute("create table $seq (id int)");//was float(53)
 		$ok = $this->Execute("insert into $seq with (tablock,holdlock) values($start)");
 
@@ -322,10 +324,12 @@ class ADODB_mssqlnative extends ADOConnection {
 		}
 
 		sqlsrv_begin_transaction($this->_connectionID);
+
 		$ok = $this->Execute("update $seq with (tablock,holdlock) set id = id + 1");
 
 		if (!$ok) {
 			$start -= 1;
+
 			$this->Execute("create table $seq (id int)");//was float(53)
 			$ok = $this->Execute("insert into $seq with (tablock,holdlock) values($start)");
 
@@ -341,6 +345,7 @@ class ADODB_mssqlnative extends ADOConnection {
 		}
 
 		$num = $this->GetOne("select id from $seq");
+
 		sqlsrv_commit($this->_connectionID);
 
 		return $num;
@@ -537,13 +542,17 @@ class ADODB_mssqlnative extends ADOConnection {
 	/*
 	 * Usage:
 	 *
+
 	 * $this->BeginTrans();
+
 	 * $this->RowLock('table1,table2','table1.id=33 and table2.id=table1.id');
 	 * # lock row 33 for both tables
 	 *
 	 * # some operation on both tables table1 and table2
 	 *
+
 	 * $this->CommitTrans();
+
 	 *
 	 * See http://www.swynk.com/friends/achigrik/SQL70Locks.asp
 	 */
@@ -740,7 +749,6 @@ class ADODB_mssqlnative extends ADOConnection {
 			// retrieve the last insert ID (where applicable)
 			while (sqlsrv_next_result($rez)) {
 				sqlsrv_fetch($rez);
-
 				$this->lastInsertID = sqlsrv_get_field($rez, 0);
 			}
 		}
@@ -858,9 +866,11 @@ class ADODB_mssqlnative extends ADOConnection {
 	//From: Fernando Moreira <FMoreira@imediata.pt>
 	public function MetaDatabases() {
 		$this->SelectDB('master');
+
 		$rs   =& $this->Execute($this->metaDatabasesSQL);
 		$rows = $rs->GetRows();
-		$ret  = array();
+
+		$ret = array();
 
 		for ($i = 0; $i < count($rows); $i++) {
 			$ret[] = $rows[$i][0];
@@ -946,6 +956,7 @@ class ADODB_mssqlnative extends ADOConnection {
 
 		if ($schema) {
 			$dbName = $this->database;
+
 			$this->SelectDB($schema);
 		}
 
@@ -1085,6 +1096,7 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 		$this->_inited     = false;
 		$this->bind        = false;
 		$this->_currentRow = -1;
+
 		$this->Init();
 
 		return true;
@@ -1100,7 +1112,8 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
+
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}
@@ -1212,7 +1225,6 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 		}
 
 		$this->_currentRow++;
-
 		// # KMN # if ($this->connection->debug) ADOConnection::outp("_currentRow: ".$this->_currentRow);
 		if ($this->_fetch()) {
 			return true;

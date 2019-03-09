@@ -471,6 +471,7 @@ class GalleryTemplateAdapter {
 					),
 				)
 			);
+
 			$smarty->_tpl_vars = $save;
 		}
 
@@ -541,10 +542,11 @@ class GalleryTemplateAdapter {
 			} else {
 				if ($filteredFiles) {
 					// Create a combined javascript file for what we have now
-					$output[]      = sprintf(
+					$output[] = sprintf(
 						$pattern,
 						$this->_buildCombinedJavascriptFileAndGenerateUrl($filteredFiles, $key)
 					);
+
 					$filteredFiles = array();
 					$key           = '';
 				}
@@ -664,6 +666,7 @@ class GalleryTemplateAdapter {
 					'authToken' => $session->getAuthToken(),
 				)
 			);
+
 			$url = str_replace('&amp;', '&', $url);
 		}
 
@@ -679,6 +682,7 @@ class GalleryTemplateAdapter {
 				),
 			)
 		);
+
 		$smarty->_tpl_vars = $save;
 	}
 
@@ -707,6 +711,7 @@ class GalleryTemplateAdapter {
 				),
 			)
 		);
+
 		$smarty->_tpl_vars = $save;
 	}
 
@@ -734,6 +739,7 @@ class GalleryTemplateAdapter {
 				),
 			)
 		);
+
 		$smarty->_tpl_vars = $save;
 	}
 
@@ -1144,6 +1150,7 @@ class GalleryTemplateAdapter {
 					'smarty_include_vars'     => $params,
 				)
 			);
+
 			$smarty->_tpl_vars = $save;
 		} elseif (isset($params['url'])) {
 			/*
@@ -1235,6 +1242,7 @@ class GalleryTemplateAdapter {
 				'smarty_include_vars'     => $params,
 			)
 		);
+
 		$smarty->_tpl_vars = $save;
 	}
 
@@ -1280,6 +1288,7 @@ class GalleryTemplateAdapter {
 				),
 			)
 		);
+
 		$smarty->_tpl_vars = $save;
 	}
 
@@ -1538,12 +1547,12 @@ class GalleryTemplateAdapter {
 		}
 
 		GalleryCoreApi::addEventLogEntry('Gallery Error', $summary, $status->getAsText());
-
 		// Display an error message
 		if ($gallery->getDebug() || $isAdmin) {
 			$status = $status->getAsHtml($isAdmin);
 		} else {
 			$status = 'Error ('
+
 			. implode(', ', $status->getErrorCodeConstants($status->getErrorCode())) . ')';
 		}
 
@@ -1577,7 +1586,9 @@ class GalleryTemplateAdapter {
 			// Don't automatically redirect when in debug mode
 			echo '<hr/>';
 			echo '<pre>';
+
 			echo $gallery->getDebugBuffer();
+
 			echo '</pre>';
 		} elseif ($doRedirect) {
 			/*

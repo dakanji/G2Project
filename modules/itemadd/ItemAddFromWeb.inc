@@ -118,6 +118,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 					}
 
 					list($base) = GalleryUtilities::getFileNameComponents($fileName);
+
 					GalleryUtilities::sanitizeInputValues($base);
 
 					$title       = (isset($form['set']['title']) && $form['set']['title']) ? $base : '';
@@ -177,6 +178,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 					'',
 					$i++ / $totalUrls
 				);
+
 				$ret = $storage->checkPoint();
 
 				if ($ret) {
@@ -555,6 +557,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 			}
 
 			$mimeTypeItem->setMimeType($mimeType);
+
 			$mimeTypeNameMap[$mimeType] = $mimeTypeItem->itemTypeName();
 		}
 

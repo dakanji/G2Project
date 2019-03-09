@@ -79,7 +79,8 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		if ($top) {
 			// Setup permissions
 			$albumId = $album->getId();
-			$ret     = GalleryCoreApi::removeItemPermissions($albumId);
+
+			$ret = GalleryCoreApi::removeItemPermissions($albumId);
 
 			if ($ret) {
 				return array($ret, null, null);
@@ -154,6 +155,7 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 			),
 			0
 		);
+
 		$event = GalleryCoreApi::newEvent('GalleryEntity::delete');
 
 		$event->setEntity($this->_subItems[2]);
@@ -171,7 +173,8 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-		$ret     = HiddenHelper::getMe()->hideItem($this->_topAlbum);
+
+		$ret = HiddenHelper::getMe()->hideItem($this->_topAlbum);
 
 		if ($ret) {
 			return $ret;
@@ -207,6 +210,7 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		}
 
 		$this->_becomeGuestUser();
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_topAlbum->getId(),
 			$gallery->getActiveUserId(),
@@ -255,7 +259,8 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-		$ret     = HiddenHelper::getMe()->hideItem($this->_topAlbum);
+
+		$ret = HiddenHelper::getMe()->hideItem($this->_topAlbum);
 
 		if ($ret) {
 			return $ret;
@@ -291,6 +296,7 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		}
 
 		$this->_becomeGuestUser();
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_topAlbum->getId(),
 			$gallery->getActiveUserId(),
@@ -339,7 +345,8 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-		$ret     = HiddenHelper::getMe()->hideItem($this->_topAlbum);
+
+		$ret = HiddenHelper::getMe()->hideItem($this->_topAlbum);
 
 		if ($ret) {
 			return $ret;
@@ -375,6 +382,7 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		}
 
 		$this->_becomeGuestUser();
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_topAlbum->getId(),
 			$gallery->getActiveUserId(),
@@ -423,7 +431,8 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-		$ret     = HiddenHelper::getMe()->hideItem($this->_subItems[0]);
+
+		$ret = HiddenHelper::getMe()->hideItem($this->_subItems[0]);
 
 		if ($ret) {
 			return $ret;
@@ -463,6 +472,7 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		}
 
 		$this->_becomeGuestUser();
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_subAlbum->getId(),
 			$gallery->getActiveUserId(),

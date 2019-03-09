@@ -116,6 +116,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
+
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 
@@ -127,7 +128,6 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 
 		$this->assertTrue($isCurrent, 'Thumbnail was not created!');
 		$this->assertFalse($this->_itemThumbnail[0]->getIsBroken(), 'Thumbnail is broken!');
-
 		// Check if the derivative was saved by checking
 		$this->assertTrue(
 			!$this->_itemThumbnail[0]->isModified(),
@@ -139,6 +139,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		$form = array();
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
+
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 
@@ -179,6 +180,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
+
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 
@@ -198,6 +200,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
+
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 	}
@@ -220,6 +223,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd($form, $this->_items);
+
 		$this->assertEquals($warnings, $this->_noWarnings);
 		$this->assertEquals($errors, $this->_noErrors);
 	}
@@ -247,6 +251,7 @@ class CreateThumbnailOptionTestToolkit extends GalleryToolkit {
 
 		if ($sourceFilename != $destFilename) {
 			$platform =& $gallery->getPlatform();
+
 			$platform->copy($sourceFilename, $destFilename);
 		}
 

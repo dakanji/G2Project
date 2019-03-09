@@ -263,6 +263,7 @@ class AdminUsersView extends GalleryView {
 				'totalUserCount' => $totalUserCount,
 			)
 		);
+
 		$template->setVariable('controller', 'core.AdminUsers');
 
 		return array(

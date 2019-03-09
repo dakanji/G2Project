@@ -43,6 +43,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 		$UnitTestPlatform = new UnitTestPlatform();
 
 		$gallery->setPlatform($UnitTestPlatform);
+
 		$this->_platform =& $gallery->getPlatform();
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -55,6 +56,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			$module->getVersion() . "\n",
 			$module->getGalleryVersion() . "\n",
 		);
+
 		$this->_versionFile         = $gallery->getConfig('data.gallery.version');
 		$this->_versionContentsBase = $module->getVersion() . "\n" . $module->getGalleryVersion();
 
@@ -65,7 +67,9 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->setConfig('mode.maintenance', false);
+
 		$versionStr = "{$this->_versionContentsBase}\nmaintenance-mode";
+
 		$this->_platform->setReply('file_exists', array($this->_versionFile), true);
 		$this->_platform->setReply(
 			'file',
@@ -94,6 +98,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 	}
 
@@ -103,6 +108,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$url          = $urlGenerator->makeAbsoluteUrl('/maintenance.html');
 		$versionStr   = "{$this->_versionContentsBase}\nmaintenance-mode:$url";
+
 		$this->_platform->setReply('file_exists', array($this->_versionFile), true);
 		$this->_platform->setReply(
 			'file',
@@ -132,6 +138,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			$results,
 			'The url was not properly'
 		);
+
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 	}
 
@@ -139,7 +146,9 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->setConfig('mode.maintenance', true);
+
 		$this->_versionFileContents[] = 'nmaintenance-mode';
+
 		$this->_platform->setReply('file_exists', array($this->_versionFile), true);
 		$this->_platform->setReply(
 			'file',
@@ -171,6 +180,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 	}
 
@@ -199,6 +209,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 			$results,
 			'The maintenance  mode was set'
 		);
+
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 	}
 }

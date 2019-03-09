@@ -123,7 +123,6 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 						$mimeType,
 						$item->getId()
 					);
-
 					// Get rid of the tmp file if necessary
 					if ($needToDeleteTmpFile) {
 						@$platform->unlink($tmpFile);
@@ -275,6 +274,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 			'caption'  => $module->translate('Caption'),
 			''         => $module->translate('Blank'),
 		);
+
 		$template->setVariable(
 			'ItemAddFromBrowser',
 			array(

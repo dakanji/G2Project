@@ -157,6 +157,7 @@ class GalleryDerivativeHelper_advanced {
 					if ($success) {
 						// It might not have changed, but setting it here won't hurt
 						$derivative->setDerivativeOperations($newOperations);
+
 						$ret = $derivative->save();
 
 						if ($ret) {
@@ -334,6 +335,7 @@ class GalleryDerivativeHelper_advanced {
 
 				$preferred->setDerivativeSourceId($item->getId());
 				$preferred->setMimeType($item->getMimeType());
+
 				$ret = GalleryCoreApi::remapSourceIds($item->getId(), $preferred->getId());
 
 				if ($ret) {
@@ -490,6 +492,7 @@ class GalleryDerivativeHelper_advanced {
 			// Remap each derivative
 			foreach ($derivatives as $derivative) {
 				$derivative->setDerivativeSourceId($newSourceId);
+
 				$ret = $derivative->expireCache();
 
 				if ($ret) {
@@ -913,6 +916,7 @@ class GalleryDerivativeHelper_advanced {
 			foreach ($derivatives as $derivative) {
 				$derivative->setWidth(0);
 				$derivative->setHeight(0);
+
 				$ret = $derivative->save();
 
 				if ($ret) {

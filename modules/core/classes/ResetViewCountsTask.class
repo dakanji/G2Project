@@ -54,7 +54,8 @@ class ResetViewCountsTask extends FlushDatabaseCacheTask {
 			'Reset number of views to zero for all albums and items.  This task flushes the ' .
 			'database cache as well.'
 		);
-		$info['confirmRun']  = true;
+
+		$info['confirmRun'] = true;
 
 		return $info;
 	}

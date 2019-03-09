@@ -31,7 +31,9 @@ class FloatrixTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('floatrix');
+
 		$this->setName($gallery->i18n('Floatrix'));
+
 		$this->setDescription(
 			$gallery->i18n(
 				'Variable column theme based on Matrix'

@@ -57,6 +57,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
+
 		$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
 
 		if ($ret) {
@@ -159,6 +160,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->setConfig('anonymousUserId', $this->_originalGuestUserId);
+
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -313,6 +315,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		}
 
 		$data = $this->_smarty->_tpl_vars['block']['keyalbum']['keywords'];
+
 		$this->assertEquals(array(), $data, 'cached data');
 	}
 
@@ -371,6 +374,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(isset($found['testkeyword12345']), 'album keyword');
+
 		$this->assertTrue(isset($found['testkeyword54321']), 'item keyword 1');
 		$this->assertTrue(isset($found['testkeyword99999']), 'item keyword 2');
 		$this->assertEquals(
@@ -445,6 +449,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(isset($found['testkeyword12345']), 'album keyword');
+
 		$this->assertTrue(isset($found['testkeyword54321']), 'item keyword 1');
 		$this->assertTrue(isset($found['testkeyword99999']), 'item keyword 2');
 		$this->assertEquals('1', $weight['testkeyword12345'], 'weight of singular keyword');
@@ -461,8 +466,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$aclCacheKey = "GalleryPermissionHelper::fetchAccessListIds(core.view, $guestId, 1)";
-
+		$aclCacheKey                                   = "GalleryPermissionHelper::fetchAccessListIds(core.view, $guestId, 1)";
 		$this->_smarty->_tpl_vars['block']['keyalbum'] = array();
 		$block                                         =& $this->_smarty->_tpl_vars['block']['keyalbum'];
 		$queries                                       = array(
@@ -512,7 +516,8 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			$gallery->_storage,
 			$queries
 		);
-		$expected          = array(
+
+		$expected = array(
 			array(
 				array(
 					'name'   => 'four&amp;five',
@@ -837,6 +842,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 class KeywordAlbumCallbacksTestStorage {
 	public function __construct($storage, $queries) {
 		// Avoid pointing _extras->_gs to mock storage
+
 		$storage->_extras = null;
 		$this->_storage   = $storage;
 		$this->_queries   = $queries;

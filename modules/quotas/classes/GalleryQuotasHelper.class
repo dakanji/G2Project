@@ -39,7 +39,8 @@ class GalleryQuotasHelper {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-		$query   = '
+
+		$query = '
 		SELECT
 		SUM([GalleryDataItem::size]/1024)
 		FROM
@@ -228,7 +229,8 @@ class GalleryQuotasHelper {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-		$query   = '
+
+		$query = '
 		SELECT
 		[GalleryQuotasMap::userOrGroupId], [GalleryQuotasMap::quotaSize],
 		[GalleryGroup::groupName]
@@ -276,7 +278,8 @@ class GalleryQuotasHelper {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-		$query   = '
+
+		$query = '
 		SELECT
 		COUNT([GalleryQuotasMap::userOrGroupId])
 		FROM
@@ -309,7 +312,8 @@ class GalleryQuotasHelper {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-		$query   = '
+
+		$query = '
 		SELECT
 		[GalleryQuotasMap::userOrGroupId], [GalleryQuotasMap::quotaSize], [GalleryUser::userName]
 		FROM
@@ -355,7 +359,8 @@ class GalleryQuotasHelper {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-		$query   = '
+
+		$query = '
 		SELECT
 		COUNT([GalleryQuotasMap::userOrGroupId])
 		FROM
@@ -390,7 +395,8 @@ class GalleryQuotasHelper {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-		$query   = '
+
+		$query = '
 		SELECT
 		[GalleryQuotasMap::userOrGroupId], [GalleryQuotasMap::quotaSize],
 		[GalleryGroup::groupName]
@@ -441,7 +447,8 @@ class GalleryQuotasHelper {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-		$query   = '
+
+		$query = '
 		SELECT
 		[GalleryQuotasMap::userOrGroupId], [GalleryQuotasMap::quotaSize], [GalleryUser::userName]
 		FROM

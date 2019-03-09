@@ -48,12 +48,15 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 		}
 
 		$this->_module->translate('Binary output:');
+
 		$this->_platform = new UnitTestPlatform();
+
 		$gallery->setPlatform($this->_platform);
 	}
 
 	public function tearDown() {
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
+
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -85,6 +88,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 			),
 			$testArray
 		);
+
 		$this->assertEquals('5.62', $version);
 	}
 
@@ -112,6 +116,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 			),
 			$testArray
 		);
+
 		$this->assertEquals('6.35', $version);
 	}
 
@@ -139,6 +144,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 			),
 			$testArray
 		);
+
 		$this->assertEquals('7.17', $version);
 	}
 
@@ -166,13 +172,13 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 			),
 			$testArray
 		);
+
 		$this->assertEquals('7.73', $version);
 	}
 
 	public function testBinaryV853() {
 		$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to/dcraw'), 0);
 		$this->_platform->setReply('is_file', array('/path/to/dcraw'), 1);
-
 		// Newer versions of dcraw return the help screen to stdout and not in title case.
 		$this->_platform->setReply(
 			'exec',
@@ -195,6 +201,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 			),
 			$testArray
 		);
+
 		$this->assertEquals('8.53', $version);
 	}
 

@@ -52,6 +52,7 @@ class FileNotFoundView extends GalleryView {
 		// Don't use getCurrentUrl, it migh be staged by the url generator
 		$path = GalleryUtilities::getServerVar('REQUEST_URI');
 		$path = $urlGenerator->makeUrl($path);
+
 		$phpVm->header('HTTP/1.0 404 Not Found');
 		$template->setVariable('FileNotFound', $path);
 

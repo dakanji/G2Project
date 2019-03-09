@@ -216,6 +216,7 @@ class ShowItemTest extends GalleryTestCase {
 
 		// Use a dummy theme.
 		$album->setTheme('showItemTest');
+
 		$ret = $album->save();
 
 		if ($ret) {

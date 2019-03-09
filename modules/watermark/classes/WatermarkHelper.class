@@ -387,6 +387,7 @@ class WatermarkHelper {
 
 			$preferred->setDerivativeSourceId($item->getId());
 			$preferred->setMimeType($item->getMimeType());
+
 			$ret = GalleryCoreApi::remapSourceIds($item->getId(), $preferred->getId());
 
 			if ($ret) {
@@ -707,6 +708,7 @@ class WatermarkHelper {
 				}
 
 				$item->setApplyToPreferred(isset($form['whichDerivative']['preferred']));
+
 				$item->setApplyToResizes(isset($form['whichDerivative']['resizes']));
 				$item->setApplyToThumbnail(isset($form['whichDerivative']['thumbnail']));
 				$item->setName($form['watermarkName']);
@@ -728,6 +730,7 @@ class WatermarkHelper {
 					}
 
 					$platform->clearstatcache();
+
 					$ret = $item->rescan();
 
 					if ($ret) {
@@ -854,6 +857,7 @@ class WatermarkHelper {
 				'watermark' => (array)$watermark,
 			)
 		);
+
 		$template->setVariable('controller', "watermark.$formName");
 
 		return null;

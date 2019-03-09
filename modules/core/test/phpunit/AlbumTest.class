@@ -305,6 +305,7 @@ class AlbumTest extends GalleryTestCase {
 				$this->_parentAlbum->getId(),
 				$album[0]->getId(),
 				$album[1]->getId(),
+
 			),
 			$parentSequence[2],
 			'(before) sequence 2'
@@ -414,6 +415,7 @@ class AlbumTest extends GalleryTestCase {
 				$this->_getRootId(),
 				$this->_parentAlbum->getId(),
 				$album[1]->getId(),
+
 			),
 			$parentSequence[2],
 			'(after) sequence 2'
@@ -718,6 +720,7 @@ class AlbumTest extends GalleryTestCase {
 		$derivative->setMimeType('test/file');
 		$derivative->setDerivativeSourceId($this->_parentAlbum->getId());
 		$derivative->setDerivativeOperations('thumbnail|150');
+
 		$ret = $derivative->save();
 
 		if ($ret) {
@@ -753,6 +756,7 @@ class AlbumTest extends GalleryTestCase {
 
 		if (!empty($thumbTable)) {
 			$thumb = $thumbTable[$subAlbum->getId()];
+
 			$this->assertEquals($derivative->getId(), $thumb->getId());
 			$this->assertEquals($child->getId(), $thumb->getDerivativeSourceId());
 		}
@@ -899,9 +903,11 @@ class AlbumTest extends GalleryTestCase {
 
 		$platform =& $gallery->getPlatform();
 		$slash    = $platform->getDirectorySeparator();
+
 		$this->assertEquals($basePath . 'test_001' . $slash, $newPath, 'full path mismatch');
 		$this->assertTrue($platform->file_exists($newPath), "$newPath does not exist");
 		$this->assertTrue($platform->is_dir($newPath), "$newPath is not a file");
+
 		$ret = GalleryCoreApi::releaseLocks($lockIds);
 
 		if ($ret) {
@@ -1130,7 +1136,7 @@ class AlbumTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$fullTree  = array(
+		$fullTree = array(
 			$album[0]->getId() => array(
 				$album[2]->getId() => array(
 					$album[4]->getId() => array(),
@@ -1143,7 +1149,8 @@ class AlbumTest extends GalleryTestCase {
 				$album[3]->getId() => array(),
 			),
 		);
-		$subTree   = array(
+
+		$subTree = array(
 			$album[2]->getId() => array(
 				$album[4]->getId() => array(),
 				$album[6]->getId() => array(
@@ -1151,6 +1158,7 @@ class AlbumTest extends GalleryTestCase {
 				),
 			),
 		);
+
 		$depthTree = array(
 			$album[0]->getId() => array(
 				$album[2]->getId() => array(),
@@ -1159,7 +1167,8 @@ class AlbumTest extends GalleryTestCase {
 				$album[3]->getId() => array(),
 			),
 		);
-		$allIds    = array(
+
+		$allIds = array(
 			$album[0]->getId(),
 			$album[2]->getId(),
 			$album[4]->getId(),
@@ -1176,6 +1185,7 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals($fullTree, $tree, 'full tree');
+
 		$ids = GalleryUtilities::arrayKeysRecursive($tree);
 
 		$this->assertEquals($allIds, $ids, 'all ids');
@@ -1208,10 +1218,10 @@ class AlbumTest extends GalleryTestCase {
 			GalleryUtilities::arrayKeysRecursive($tree),
 			'depth one'
 		);
-
 		// Test multiroot
 		$gallery->setConfig('defaultAlbumId', $album[0]->getId()); // Used when no itemId given
 		$gallery->setConfig('breadcrumbRootId', $album[2]->getId()); // Should have no effect
+
 		list($ret, $tree) = GalleryCoreApi::fetchAlbumTree();
 
 		if ($ret) {
@@ -1282,6 +1292,7 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($group);
+
 		$ret = GalleryCoreApi::addUserToGroup($user->getId(), $group->getId());
 
 		if ($ret) {
@@ -1338,6 +1349,7 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		$this->_becomeGuestUser();
+
 		$albumName = sprintf(' album %d test ', mt_rand());
 
 		list($ret, $album) = GalleryCoreApi::createAlbum(
@@ -1354,6 +1366,7 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		$ret = GalleryCoreApi::assertHasItemPermission($album->getId(), 'core.all');
+
 		$this->assertErrorEquals(ERROR_PERMISSION_DENIED, $ret);
 		$gallery->setActiveUser($savedUser);
 	}
@@ -1370,6 +1383,7 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($user);
+
 		$albumName = sprintf(' album %d test ', mt_rand());
 
 		list($ret, $publicAlbum) = GalleryCoreApi::createAlbum(
@@ -1404,6 +1418,7 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		$gallery->setActiveUser($user);
+
 		$albumName = sprintf(' album %d test ', mt_rand());
 
 		list($ret, $album) = GalleryCoreApi::createAlbum(
@@ -1426,7 +1441,9 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($guestId != $user->getId(), 'Default guest userid was used');
+
 		$ret = GalleryCoreApi::assertHasItemPermission($album->getId(), 'core.all');
+
 		$this->assertErrorEquals(ERROR_PERMISSION_DENIED, $ret);
 		$gallery->setActiveUser($savedUser);
 	}
@@ -1444,6 +1461,7 @@ class AlbumTest extends GalleryTestCase {
 
 		$this->_markForCleanup($user);
 		$gallery->setActiveUser($user);
+
 		$albumName = sprintf(' album %d test ', mt_rand());
 
 		list($ret, $album) = GalleryCoreApi::createAlbum(
@@ -1501,6 +1519,7 @@ class AlbumTest extends GalleryTestCase {
 		 * that the whitespace will get trimmed on both sides.
 		 */
 		$platform =& $gallery->getPlatform();
+
 		$this->assertTrue($platform->file_exists($path), 'Path doesn\'t exist');
 	}
 
@@ -1577,6 +1596,7 @@ class AlbumTest extends GalleryTestCase {
 		 * that the whitespace will get trimmed on both sides.
 		 */
 		$platform =& $gallery->getPlatform();
+
 		$this->assertTrue($platform->file_exists($path), 'Path doesn\'t exist');
 		$this->assertEquals(trim($newAlbumName), basename($path));
 		$this->assertEquals(trim($newAlbumName), $album->getPathComponent());
@@ -1605,6 +1625,7 @@ class AlbumTestToolkit extends GalleryToolkit {
 
 		if ($sourceFilename != $destFilename) {
 			$platform =& $gallery->getPlatform();
+
 			$platform->copy($sourceFilename, $destFilename);
 		}
 

@@ -110,6 +110,7 @@ function rs2xmlrpcval_body($adodbrs) {
 
 	// build structure containing recordset data
 	$adodbrs->MoveFirst();
+
 	$rows = array();
 
 	while (!$adodbrs->EOF) {

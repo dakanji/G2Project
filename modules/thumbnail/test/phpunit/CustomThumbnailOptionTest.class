@@ -184,6 +184,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		list($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_item);
+
 		$this->assertEquals(array('form[CustomThumbnailOption][error][imageMime]'), $error);
 		$this->assertEquals(array(), $warning);
 	}
@@ -203,6 +204,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		$result = $this->_handleRequestAfterEdit($form, $this->_item);
+
 		$this->assertEquals(array(array(), array()), $result);
 
 		list($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($this->_item->getId());
@@ -220,6 +222,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		}
 
 		$this->assertEquals(array($this->_item->getId()), array_keys($thumbnails), 'derivative');
+
 		$thumbnail = array_shift($thumbnails);
 		$this->assertEquals(
 			$thumbnailImage->getId(),
@@ -235,6 +238,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		$result = $this->_handleRequestAfterEdit($form, $this->_item);
+
 		$this->assertEquals(array(array(), array()), $result);
 
 		list($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($this->_item->getId());
@@ -269,6 +273,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		$result = $this->_handleRequestAfterEdit($form, $this->_item);
+
 		$this->assertEquals(array(array(), array()), $result);
 
 		list($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($this->_item->getId());
@@ -290,6 +295,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		}
 
 		$this->assertEquals(array($this->_item->getId()), array_keys($thumbnails), 'derivative');
+
 		$thumbnail = array_shift($thumbnails);
 		$this->assertEquals(
 			$thumbnailImage->getId(),
@@ -347,6 +353,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		$result = $this->_handleRequestAfterEdit($form, $this->_image);
+
 		$this->assertEquals(array(array(), array()), $result);
 
 		list($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($this->_image->getId());
@@ -366,6 +373,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		}
 
 		$this->assertEquals(array($this->_image->getId()), array_keys($thumbnails), 'derivative');
+
 		$thumbnail = array_shift($thumbnails);
 		$this->assertEquals(
 			$thumbnailImage->getId(),
@@ -386,6 +394,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		$result = $this->_handleRequestAfterEdit($form, $this->_image);
+
 		$this->assertEquals(array(array(), array()), $result);
 
 		list($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($this->_image->getId());
@@ -440,6 +449,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		$result = $this->_handleRequestAfterEdit($form, $this->_album);
+
 		$this->assertEquals(array(array(), array()), $result);
 
 		list($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($this->_album->getId());
@@ -463,6 +473,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		}
 
 		$this->assertEquals(array($this->_album->getId()), array_keys($thumbnails), 'highlight');
+
 		$thumbnail = array_shift($thumbnails);
 		$this->assertEquals(
 			$thumbnailImage->getId(),
@@ -478,6 +489,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		$result = $this->_handleRequestAfterEdit($form, $this->_album);
+
 		$this->assertEquals(array(array(), array()), $result);
 
 		list($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($this->_album->getId());
@@ -501,6 +513,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 			array_keys($thumbnails),
 			'got highlight'
 		);
+
 		$thumbnail = array_shift($thumbnails);
 		$this->assertEquals(
 			$this->_derivative->getId(),
@@ -530,6 +543,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		$result = $this->_handleRequestAfterEdit($form, $album);
+
 		$this->assertEquals(array(array(), array()), $result);
 
 		list($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($album->getId());
@@ -549,6 +563,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		}
 
 		$this->assertEquals(array($album->getId()), array_keys($thumbnails), 'highlight');
+
 		$thumbnail = array_shift($thumbnails);
 		$this->assertEquals(
 			$thumbnailImage->getId(),
@@ -564,6 +579,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		$result = $this->_handleRequestAfterEdit($form, $album);
+
 		$this->assertEquals(array(array(), array()), $result);
 
 		list($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($album->getId());
@@ -601,6 +617,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		$result = $this->_handleRequestAfterEdit($form, $this->_album);
+
 		$this->assertEquals(array(array(), array()), $result);
 
 		// Call GalleryCoreApi::guaranteeAlbumHasThumbnail
@@ -631,6 +648,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		}
 
 		$this->assertEquals(array($this->_album->getId()), array_keys($thumbnails), 'highlight');
+
 		$thumbnail = array_shift($thumbnails);
 		$this->assertEquals(
 			$thumbnailImage->getId(),
@@ -682,6 +700,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		$result = $this->_handleRequestAfterEdit($form, $this->_item);
+
 		$this->assertEquals(array(array(), array()), $result);
 
 		list($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($this->_item->getId());
@@ -706,6 +725,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		$result = $this->_handleRequestAfterEdit($form, $this->_image);
+
 		$this->assertEquals(array(array(), array()), $result);
 
 		list($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($this->_item->getId());

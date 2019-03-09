@@ -261,67 +261,74 @@ class XML_HTMLSax3_StateParser {
 	 */
 	public function parse($data) {
 		if ($this->parser_options['XML_OPTION_TRIM_DATA_NODES'] == 1) {
-			$decorator                 = new XML_HTMLSax3_Trim(
+			$decorator = new XML_HTMLSax3_Trim(
 				$this->handler_object_data,
 				$this->handler_method_data
 			);
+
 			$this->handler_object_data =& $decorator;
 			$this->handler_method_data = 'trimData';
 		}
 
 		if ($this->parser_options['XML_OPTION_CASE_FOLDING'] == 1) {
-			$open_decor                   = new XML_HTMLSax3_CaseFolding(
+			$open_decor = new XML_HTMLSax3_CaseFolding(
 				$this->handler_object_element,
 				$this->handler_method_opening,
 				$this->handler_method_closing
 			);
+
 			$this->handler_object_element =& $open_decor;
 			$this->handler_method_opening = 'foldOpen';
 			$this->handler_method_closing = 'foldClose';
 		}
 
 		if ($this->parser_options['XML_OPTION_LINEFEED_BREAK'] == 1) {
-			$decorator                 = new XML_HTMLSax3_Linefeed(
+			$decorator = new XML_HTMLSax3_Linefeed(
 				$this->handler_object_data,
 				$this->handler_method_data
 			);
+
 			$this->handler_object_data =& $decorator;
 			$this->handler_method_data = 'breakData';
 		}
 
 		if ($this->parser_options['XML_OPTION_TAB_BREAK'] == 1) {
-			$decorator                 = new XML_HTMLSax3_Tab(
+			$decorator = new XML_HTMLSax3_Tab(
 				$this->handler_object_data,
 				$this->handler_method_data
 			);
+
 			$this->handler_object_data =& $decorator;
 			$this->handler_method_data = 'breakData';
 		}
 
 		if ($this->parser_options['XML_OPTION_ENTITIES_UNPARSED'] == 1) {
-			$decorator                 = new XML_HTMLSax3_Entities_Unparsed(
+			$decorator = new XML_HTMLSax3_Entities_Unparsed(
 				$this->handler_object_data,
 				$this->handler_method_data
 			);
+
 			$this->handler_object_data =& $decorator;
 			$this->handler_method_data = 'breakData';
 		}
 
 		if ($this->parser_options['XML_OPTION_ENTITIES_PARSED'] == 1) {
-			$decorator                 = new XML_HTMLSax3_Entities_Parsed(
+			$decorator = new XML_HTMLSax3_Entities_Parsed(
 				$this->handler_object_data,
 				$this->handler_method_data
 			);
+
 			$this->handler_object_data =& $decorator;
 			$this->handler_method_data = 'breakData';
 		}
 
 		// Note switched on by default
 		if ($this->parser_options['XML_OPTION_STRIP_ESCAPES'] == 1) {
-			$decorator                   = new XML_HTMLSax3_Escape_Stripper(
+			$decorator = new XML_HTMLSax3_Escape_Stripper(
 				$this->handler_object_escape,
 				$this->handler_method_escape
 			);
+
 			$this->handler_object_escape =& $decorator;
 			$this->handler_method_escape = 'strip';
 		}
@@ -329,6 +336,7 @@ class XML_HTMLSax3_StateParser {
 		$this->rawtext  = $data;
 		$this->length   = strlen($data);
 		$this->position = 0;
+
 		$this->_parse();
 	}
 
@@ -342,9 +350,7 @@ class XML_HTMLSax3_StateParser {
 	public function _parse($state = XML_HTMLSAX3_STATE_START) {
 		do {
 			$state = $this->State[$state]->parse($this);
-		} while ($state != XML_HTMLSAX3_STATE_STOP &&
-
-					$this->position < $this->length);
+		} while ($state != XML_HTMLSAX3_STATE_STOP && $this->position < $this->length);
 	}
 }
 
@@ -363,7 +369,6 @@ class XML_HTMLSax3_StateParser_Gtet430 extends XML_HTMLSax3_StateParser {
 	 */
 	public function __construct(& $htmlsax) {
 		parent::__construct($htmlsax);
-
 		$this->parser_options['XML_OPTION_TRIM_DATA_NODES']   = 0;
 		$this->parser_options['XML_OPTION_CASE_FOLDING']      = 0;
 		$this->parser_options['XML_OPTION_LINEFEED_BREAK']    = 0;
@@ -445,11 +450,13 @@ class XML_HTMLSax3 {
 	 * <pre>
 	 * $myHandler =& new MyHandler();
 	 * $parser = new XML_HTMLSax3();
+	 *
 	 * $parser->set_object($myHandler);
 	 * $parser->set_option('XML_OPTION_CASE_FOLDING');
 	 * $parser->set_element_handler('myOpenHandler','myCloseHandler');
 	 * $parser->set_data_handler('myDataHandler');
 	 * $parser->parser($xml);
+	 *
 	 * </pre>
 	 * @access public
 	 */
@@ -458,6 +465,7 @@ class XML_HTMLSax3 {
 		$nullhandler        = new XML_HTMLSax3_NullHandler();
 
 		$this->set_object($nullhandler);
+
 		$this->set_element_handler('DoNothing', 'DoNothing');
 		$this->set_data_handler('DoNothing');
 		$this->set_pi_handler('DoNothing');
@@ -715,6 +723,7 @@ class XML_HTMLSax3_StartingState {
 
 		if ($data != '') {
 			$context->handler_object_data
+
 				->{$context->handler_method_data}($context->htmlsax, $data);
 		}
 
@@ -791,6 +800,7 @@ class XML_HTMLSax3_ClosingTagState {
 			}
 
 			$context->handler_object_element
+
 				->{$context->handler_method_closing}($context->htmlsax, $tag, false);
 		}
 
@@ -816,26 +826,32 @@ class XML_HTMLSax3_OpeningTagState {
 		$Attributes = array();
 
 		$context->ignoreWhitespace();
+
 		$attributename = $context->scanUntilCharacters("=/> \n\r\t");
 
 		while ($attributename != '') {
 			$attributevalue = null;
 
 			$context->ignoreWhitespace();
+
 			$char = $context->scanCharacter();
 
 			if ($char == '=') {
 				$context->ignoreWhitespace();
+
 				$char = $context->ScanCharacter();
 
 				if ($char == '"') {
 					$attributevalue = $context->scanUntilString('"');
+
 					$context->IgnoreCharacter();
 				} elseif ($char == "'") {
 					$attributevalue = $context->scanUntilString("'");
+
 					$context->IgnoreCharacter();
 				} else {
 					$context->unscanCharacter();
+
 					$attributevalue = $context->scanUntilCharacters("> \n\r\t");
 				}
 			} elseif ($char !== null) {
@@ -847,6 +863,7 @@ class XML_HTMLSax3_OpeningTagState {
 			$Attributes[$attributename] = $attributevalue;
 
 			$context->ignoreWhitespace();
+
 			$attributename = $context->scanUntilCharacters("=/> \n\r\t");
 		}
 
@@ -921,19 +938,23 @@ class XML_HTMLSax3_EscapeState {
 			if ($char == '-') {
 				$context->unscanCharacter();
 				$context->unscanCharacter();
+
 				$text  = $context->scanUntilString('-->');
 				$text .= $context->scanCharacter();
 				$text .= $context->scanCharacter();
 			} else {
 				$context->unscanCharacter();
+
 				$text = $context->scanUntilString('>');
 			}
 		} elseif ($char == '[') {
 			$context->unscanCharacter();
+
 			$text  = $context->scanUntilString(']>');
 			$text .= $context->scanCharacter();
 		} else {
 			$context->unscanCharacter();
+
 			$text = $context->scanUntilString('>');
 		}
 

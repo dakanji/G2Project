@@ -60,6 +60,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
+
 		$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
 
 		if ($ret) {
@@ -109,6 +110,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 			}
 
 			$this->assertTrue(isset($this->_comment[$i]), 'Missing comment instance');
+
 			$this->_comment[$i]->create($itemId);
 			$this->_comment[$i]->setCommenterId($gallery->getActiveUserId());
 			$this->_comment[$i]->setHost('127.0.0.1');
@@ -139,6 +141,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 
 	public function testShowAllComments() {
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+
 		$results = $this->loadTemplate();
 
 		if (empty($results)) {
@@ -153,7 +156,9 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 			),
 			$results
 		);
+
 		$data = $this->_template->getVariable('ShowAllComments');
+
 		$this->assertEquals(3, count($data['comments']), 'comment count');
 		$this->assertEquals((array)$this->_album, $data['item'], 'item');
 
@@ -164,7 +169,9 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		}
 
 		$can[$this->_comment[2]->getId()]['delete'] = false;
+
 		$can[$this->_comment[3]->getId()]['delete'] = false;
+
 		$this->assertEquals(sort($can), sort($data['can']), 'permissions');
 	}
 
@@ -172,6 +179,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		global $gallery;
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+
 		$ret = GalleryCoreApi::removeUserPermission(
 			$this->_album->getId(),
 			$gallery->getActiveUserId(),
@@ -189,6 +197,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		global $gallery;
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+
 		$ret = GalleryCoreApi::removeUserPermission(
 			$this->_item->getId(),
 			$gallery->getActiveUserId(),
@@ -213,7 +222,9 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 			),
 			$results
 		);
+
 		$data = $this->_template->getVariable('ShowAllComments');
+
 		$this->assertEquals(1, count($data['comments']), 'comment count');
 		$this->assertEquals($this->_comment[2]->getId(), $data['comments'][0]['id'], 'comment id');
 		$this->assertEquals((array)$this->_album, $data['item'], 'item');
@@ -223,7 +234,9 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new UnitTestPhpVm();
+
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
+
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('header', array('Cache-Control: no-cache', ''), true);
 		$gallery->_phpVm->setReply('header', array('Pragma: no-cache', ''), true);
@@ -232,8 +245,8 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 			array('Expires: Sun, 09 Mar 2008 21:00:00 GMT', ''),
 			true
 		);
-
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+
 		$template = new UnitTestTemplate();
 		$template->setVariable(
 			'head',
@@ -241,6 +254,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 				'meta' => array(),
 			)
 		);
+
 		$this->_template =& $template;
 		$results         = $this->loadTemplate();
 
@@ -271,6 +285,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 			),
 			$head['meta']
 		);
+
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
@@ -278,7 +293,9 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new UnitTestPhpVm();
+
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
+
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('header', array('Cache-Control: no-cache', ''), true);
 		$gallery->_phpVm->setReply('header', array('Pragma: no-cache', ''), true);
@@ -287,7 +304,6 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 			array('Expires: Sun, 09 Mar 2008 21:00:00 GMT', ''),
 			true
 		);
-
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
 
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
@@ -314,6 +330,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 				'meta' => array(),
 			)
 		);
+
 		$this->_template =& $template;
 		$results         = $this->loadTemplate();
 
@@ -344,6 +361,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 			),
 			$head['meta']
 		);
+
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
@@ -389,6 +407,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 				'meta' => array(),
 			)
 		);
+
 		$this->_template =& $template;
 		$results         = $this->loadTemplate();
 
@@ -399,6 +418,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		}
 
 		$head = $template->getVariable('head');
+
 		$this->assertEquals(array(), $head['meta']);
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}

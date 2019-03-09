@@ -31,9 +31,11 @@
  * In setUp() call:
  *
  *  $this->_platform = new UnitTestPlatform();
+ *
  *  $gallery->setPlatform($this->_platform);
  *
  * In tearDown() call:
+ *
  *
  *  $this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
  *

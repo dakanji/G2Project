@@ -40,11 +40,14 @@
  *
  * $jpeg = new JPEG('images/photos001.jpg');
  *
+
  * echo $jpeg->getExifField("ApertureValue");
  * echo $jpeg->getIPTCField("Caption");
  *
+
  * $jpeg->setIPTCField("Byline", "Sebastian Delmont");
  * $jpeg->save("images/photos001-bis.jpg");
+
  *
  * $info = $jpeg->getBasicInfo();
  * echo $info['Width'] . "x" . $info['Height'];
@@ -106,6 +109,7 @@ class JPEG // extends PEAR
 	 */
 	public function & getBasicInfo() {
 		$this->_parseAll();
+
 		$info = array();
 
 		if ($this->_markers == null) {
@@ -725,6 +729,7 @@ class JPEG // extends PEAR
 	 */
 	public function _readJPEG() {
 		unset($this->_markers, $this->_info);
+
 		$this->_markers = array();
 		$this->_info    = array();
 		$this->_fp      = @fopen($this->_fileName, 'rb');
@@ -841,6 +846,7 @@ class JPEG // extends PEAR
 
 		if ($this->_fp) {
 			fclose($this->_fp);
+
 			$this->_fp = null;
 		}
 
@@ -889,10 +895,10 @@ class JPEG // extends PEAR
 	 */
 	public function _writeJPEG($outputName) {
 		$this->_parseAll();
+
 		$wroteEXIF  = false;
 		$wroteAdobe = false;
-
-		$this->_fp = @fopen($this->_fileName, 'r');
+		$this->_fp  = @fopen($this->_fileName, 'r');
 
 		if ($this->_fp) {
 			if (file_exists($this->_fileName)) {
@@ -912,6 +918,7 @@ class JPEG // extends PEAR
 			$this->_fpout = null;
 
 			fclose($this->_fp);
+
 			$this->_fp = null;
 
 			return false;  // ERROR: Can't open output file
@@ -927,6 +934,7 @@ class JPEG // extends PEAR
 
 		fputs($this->_fpout, chr(0xFF), 1);
 		fputs($this->_fpout, chr(0xD8), 1); // (0xFF + SOI)
+
 		$count = 0;
 		$done  = false;
 		$ok    = true;
@@ -988,6 +996,7 @@ class JPEG // extends PEAR
 			if (!$wroteEXIF && (($marker < 0xE0) || ($marker > 0xEF))) {
 				if (isset($this->_info['exif']) && is_array($this->_info['exif'])) {
 					$exif =& $this->_createMarkerEXIF();
+
 					$this->_writeJPEGMarker(0xE1, strlen($exif), $exif, 0);
 
 					unset($exif);
@@ -1000,6 +1009,7 @@ class JPEG // extends PEAR
 				if ((isset($this->_info['adobe']) && is_array($this->_info['adobe']))
 				|| (isset($this->_info['iptc']) && is_array($this->_info['iptc']))) {
 					$adobe =& $this->_createMarkerAdobe();
+
 					$this->_writeJPEGMarker(0xED, strlen($adobe), $adobe, 0);
 
 					unset($adobe);
@@ -1021,11 +1031,13 @@ class JPEG // extends PEAR
 
 		if ($this->_fp) {
 			fclose($this->_fp);
+
 			$this->_fp = null;
 		}
 
 		if ($this->_fpout) {
 			fclose($this->_fpout);
+
 			$this->_fpout = null;
 		}
 
@@ -1063,10 +1075,12 @@ class JPEG // extends PEAR
 			if ($marker == 0xDA) {  // Copy until EOF
 				while (!feof($this->_fp)) {
 					$data =& fread($this->_fp, 1024 * 16);
+
 					fputs($this->_fpout, $data, strlen($data));
 				}
 			} else { // Copy only $length bytes
 				$data =& fread($this->_fp, $length);
+
 				fputs($this->_fpout, $data, $length);
 			}
 		}
@@ -1139,8 +1153,7 @@ class JPEG // extends PEAR
 			return false;
 		}
 
-		$pos = 0;
-
+		$pos                            = 0;
 		$this->_info['jfif']            = array();
 		$vmaj                           = $this->_getByte($data, 5);
 		$vmin                           = $this->_getByte($data, 6);
@@ -1149,25 +1162,21 @@ class JPEG // extends PEAR
 
 		switch ($units) {
 		case 0:
-
 			$this->_info['jfif']['Units'] = 'pixels';
 
 			break;
 
 		case 1:
-
 			$this->_info['jfif']['Units'] = 'dpi';
 
 			break;
 
 		case 2:
-
 			$this->_info['jfif']['Units'] = 'dpcm';
 
 			break;
 
 		default:
-
 			$this->_info['jfif']['Units'] = 'unknown';
 
 			break;
@@ -1221,8 +1230,7 @@ class JPEG // extends PEAR
 			return false;
 		}
 
-		$pos = 0;
-
+		$pos                = 0;
 		$this->_info['sof'] = array();
 
 		switch ($marker) {
@@ -1289,8 +1297,7 @@ class JPEG // extends PEAR
 			return false;
 		}
 
-		$pos = 6;
-
+		$pos                 = 6;
 		$this->_info['exif'] = array();
 
 		// We don't increment $pos after this because Exif uses offsets relative to this point
@@ -1671,6 +1678,7 @@ class JPEG // extends PEAR
 
 		if ($tiffData != null) {
 			$this->_putLong($data, $tiffDataOffsetPos, $dataPos - $offsetBase, $isBigEndian);
+
 			$dataPos = $this->_putString($data, $dataPos, $tiffData);
 		}
 
@@ -1775,6 +1783,7 @@ class JPEG // extends PEAR
 
 					while ($j < $count) {
 						$this->_putByte($value, $j, 0);
+
 						$j++;
 					}
 
@@ -1809,6 +1818,7 @@ class JPEG // extends PEAR
 
 					while ($j < $count) {
 						$this->_putShort($value, $j * 2, 0, $isBigEndian);
+
 						$j++;
 					}
 
@@ -1828,6 +1838,7 @@ class JPEG // extends PEAR
 
 					while ($j < $count) {
 						$this->_putLong($value, $j * 4, 0, $isBigEndian);
+
 						$j++;
 					}
 
@@ -1861,6 +1872,7 @@ class JPEG // extends PEAR
 					while ($j < $count) {
 						$this->_putLong($value, $j * 8, 0, $isBigEndian);
 						$this->_putLong($value, ($j * 8) + 4, 0, $isBigEndian);
+
 						$j++;
 					}
 
@@ -1880,6 +1892,7 @@ class JPEG // extends PEAR
 
 					while ($j < $count) {
 						$this->_putByte($value, $j, 0);
+
 						$j++;
 					}
 
@@ -1914,6 +1927,7 @@ class JPEG // extends PEAR
 
 					while ($j < $count) {
 						$this->_putShort($value, $j * 2, 0, $isBigEndian);
+
 						$j++;
 					}
 
@@ -1933,6 +1947,7 @@ class JPEG // extends PEAR
 
 					while ($j < $count) {
 						$this->_putLong($value, $j * 4, 0, $isBigEndian);
+
 						$j++;
 					}
 
@@ -1966,6 +1981,7 @@ class JPEG // extends PEAR
 					while ($j < $count) {
 						$this->_putLong($value, $j * 8, 0, $isBigEndian);
 						$this->_putLong($value, ($j * 8) + 4, 0, $isBigEndian);
+
 						$j++;
 					}
 
@@ -1993,6 +2009,7 @@ class JPEG // extends PEAR
 
 					while ($j < $count) {
 						$this->_putString($value, $j * 4, "\0\0\0\0");
+
 						$j++;
 					}
 
@@ -2020,6 +2037,7 @@ class JPEG // extends PEAR
 
 					while ($j < $count) {
 						$this->_putString($value, $j * 8, "\0\0\0\0\0\0\0\0");
+
 						$j++;
 					}
 
@@ -2077,8 +2095,7 @@ class JPEG // extends PEAR
 			return false;
 		}
 
-		$pos = 14;
-
+		$pos                         = 14;
 		$this->_info['adobe']        = array();
 		$this->_info['adobe']['raw'] = array();
 		$this->_info['iptc']         = array();
@@ -2135,15 +2152,13 @@ class JPEG // extends PEAR
 				$pos += 4;
 
 				if ($aux == 1) {
-					$this->_info['adobe']['ThumbnailWidth'] = $this->_getLong($data, $pos);
-					$pos                                   += 4;
-
+					$this->_info['adobe']['ThumbnailWidth']  = $this->_getLong($data, $pos);
+					$pos                                    += 4;
 					$this->_info['adobe']['ThumbnailHeight'] = $this->_getLong($data, $pos);
 					$pos                                    += 4;
 					$pos                                    += 16; // Skip some data
 					$this->_info['adobe']['ThumbnailData']   = $this->_getFixedString($data, $pos, $length - 28);
-
-					$pos += $length - 28;
+					$pos                                    += $length - 28;
 				}
 
 				break;
@@ -2153,8 +2168,7 @@ class JPEG // extends PEAR
 			}
 
 			// We save all blocks, even those we recognized
-			$label = sprintf('8BIM_0x%04x', $type);
-
+			$label                                         = sprintf('8BIM_0x%04x', $type);
 			$this->_info['adobe']['raw'][$label]           = array();
 			$this->_info['adobe']['raw'][$label]['type']   = $type;
 			$this->_info['adobe']['raw'][$label]['header'] = $header;
@@ -2218,6 +2232,7 @@ class JPEG // extends PEAR
 				case 3:
 					$length = ($this->_getByte($data, $pos) << 16)
 							+ ($this->_getByte($data, $pos + 1) << 8)
+
 							+ $this->_getByte($data, $pos + 2);
 
 							// Fall Through
@@ -2301,6 +2316,7 @@ class JPEG // extends PEAR
 		if (isset($this->_info['adobe']['raw']) && (count($this->_info['adobe']['raw']) > 0)) {
 			$data = "Photoshop 3.0\0";
 			$pos  = 14;
+
 			reset($this->_info['adobe']['raw']);
 
 			foreach ($this->_info['adobe']['raw'] as $key => $vNil) {
@@ -2344,6 +2360,7 @@ class JPEG // extends PEAR
 		$data      = " ";
 		$pos       = 0;
 		$IPTCNames =& $this->_iptcNameTags();
+
 		reset($this->_info['iptc']);
 
 		foreach ($this->_info['iptc'] as $label => $vNil) {
@@ -2779,7 +2796,8 @@ class JPEG // extends PEAR
 	 */
 	public function & _iptcNameTags() {
 		$tags = $this->_iptcTagNames();
-		$ret  = $this->_names2Tags($tags);
+
+		$ret = $this->_names2Tags($tags);
 
 		return $ret;
 	}

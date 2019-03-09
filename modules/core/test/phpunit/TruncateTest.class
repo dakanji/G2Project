@@ -63,12 +63,14 @@ class TruncateTest extends GalleryTestCase {
 	public function testTruncate5() {
 		$string = '&amp; respect html entities entities';
 		$result = smarty_modifier_entitytruncate($string, 5, '', true);
+
 		$this->assertEquals('&amp; res', $result);
 	}
 
 	public function testTruncate6() {
 		$string = 'respect &amp; &amp;';
 		$result = smarty_modifier_entitytruncate($string, 9, '', true);
+
 		$this->assertEquals('respect &amp;', $result);
 	}
 
@@ -79,6 +81,7 @@ class TruncateTest extends GalleryTestCase {
 		// &#1234; actually gets converted to a UTF-8 character in the process
 		$string = 'monk&eacute;y&amp;&foo;&#1234; &foo bar';
 		$result = smarty_modifier_entitytruncate($string, 9, '', true);
+
 		$this->assertEquals("monk&eacute;y&amp;&foo;\xd3\x92", $result);
 	}
 
@@ -86,6 +89,7 @@ class TruncateTest extends GalleryTestCase {
 		// Demonstrate that both &amp; and \xd0\xba are counted as single characters
 		$string = "monkey&amp;foo\xd0\xbabar";
 		$result = smarty_modifier_entitytruncate($string, 11, '', true);
+
 		$this->assertEquals("monkey&amp;foo\xd0\xba", $result);
 	}
 

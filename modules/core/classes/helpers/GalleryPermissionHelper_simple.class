@@ -415,6 +415,7 @@ class GalleryPermissionHelper_simple {
 
 			// Cache the permissions in memory.
 			$cacheKey = "GalleryPermissionHelper::getPermissions($itemId,$userId,$sessionPermissions)";
+
 			GalleryDataCache::put($cacheKey, $permTable[$itemId]);
 		}
 

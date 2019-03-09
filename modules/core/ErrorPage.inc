@@ -261,6 +261,7 @@ class ErrorPageView extends GalleryView {
 
 		if (!$failsafe) {
 			$templateAdapter =& $gallery->getTemplateAdapter();
+
 			$templateAdapter->setTheme($theme);
 
 			list($ret, $view) = GalleryView::getMe()->loadView('core.ErrorPage');
@@ -301,6 +302,7 @@ class ErrorPageView extends GalleryView {
 
 		if (!$failsafe) {
 			$template->setVariable('l10Domain', 'themes_' . $themeId);
+
 			$ret = $template->display("themes/$themeId/templates/$templatePath");
 
 			if ($ret) {

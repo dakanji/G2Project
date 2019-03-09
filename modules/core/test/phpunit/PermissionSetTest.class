@@ -336,7 +336,6 @@ class PermissionSetTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(2, sizeof($ids));
-
 		// Unordered comparison
 		$this->assertEquals(
 			array(

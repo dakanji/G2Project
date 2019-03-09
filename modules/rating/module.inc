@@ -39,7 +39,9 @@ class RatingModule extends GalleryModule {
 		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
+
 		$this->_templateVersion = 1;
+
 		$this->setCallbacks('getSiteAdminViews|getItemSummaries');
 		$this->setGroup('data', $gallery->i18n('Extra Data'));
 	}
@@ -150,6 +152,7 @@ class RatingModule extends GalleryModule {
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('modules/rating/rating.js');
 		$template->setVariable('l10Domain', $this->getL10Domain());
+
 		$session =& $gallery->getSession();
 
 		if ($session->isPersistent()) {
@@ -253,12 +256,14 @@ class RatingModule extends GalleryModule {
 					0,
 					array(),
 				);
+
 				$permissions[] = array(
 					'view',
 					$gallery->i18n('[rating] View ratings'),
 					0,
 					array(),
 				);
+
 				$permissions[] = array(
 					'all',
 					$gallery->i18n('[rating] All access'),
@@ -282,6 +287,7 @@ class RatingModule extends GalleryModule {
 
 				// Give everybody rating permission by default
 				$gallery->guaranteeTimeLimit(300);
+
 				$ret = GalleryCoreApi::addGroupPermission(
 					$coreParams['id.rootAlbum'],
 					$coreParams['id.everybodyGroup'],

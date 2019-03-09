@@ -169,6 +169,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
 
 		$results = $this->handleRequest($this->itemG, $this->_itemG);
+
 		$this->assertEquals(array(array(), null), $results, 'Reset');
 
 		// Set field values (global settings)
@@ -295,6 +296,7 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
 
 		$results = $this->handleRequest($this->_albumS, $this->_albumS);
+
 		$this->assertEquals(array(array(), null), $results, 'Reset 2');
 
 		// Add field
@@ -383,10 +385,12 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[common][index][0]', '0');
 		GalleryUtilities::putRequestVariable('form[common][summary][0]', 'on');
 		GalleryUtilities::putRequestVariable('form[common][detail][0]', 'on');
+
 		GalleryUtilities::putRequestVariable('form[album][index][0]', '1');
 		GalleryUtilities::putRequestVariable('form[album][index][1]', '0');
 		GalleryUtilities::putRequestVariable('form[album][detail][0]', 'on');
 		GalleryUtilities::putRequestVariable('form[photo][index][0]', '0');
+
 		GalleryUtilities::putRequestVariable('form[photo][index][1]', '1');
 		GalleryUtilities::putRequestVariable('form[photo][summary][0]', 'on');
 		GalleryUtilities::putRequestVariable('form[photo][detail][0]', 'on');

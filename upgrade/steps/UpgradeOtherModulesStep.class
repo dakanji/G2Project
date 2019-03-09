@@ -38,11 +38,13 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 		// We want to log all debug output in our upgrade log
 		$this->_startDebugLog('Upgrade Plugins');
 		$gallery->startRecordingDebugSnippet();
+
 		$totalPlugins               = $currentModule               = $currentTheme               = 0;
 		$templateData['stackTrace'] = '';
 		$template                   = new StatusTemplate();
 
 		$template->renderHeader(true);
+
 		$ret = selectAdminUser(true);
 
 		if ($ret) {
@@ -65,6 +67,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
+
 					$templateData['errors'][] = sprintf(
 						_('Unable to load the %s module'),
 						$moduleId
@@ -84,7 +87,9 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 					$module->getName(),
 					$currentModule / $totalModules
 				);
+
 				$ret = $module->installOrUpgrade();
+
 				$this->resetL10Domain();
 
 				if ($ret) {
@@ -94,10 +99,11 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 							$module->getName()
 						);
 					} else {
-						$templateData['errors'][]    = sprintf(
+						$templateData['errors'][] = sprintf(
 							_('Unable to upgrade the %s module'),
 							$module->getName()
 						);
+
 						$templateData['stackTrace'] .= $ret->getAsHtml();
 					}
 
@@ -105,7 +111,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				}
 
 				$templateData['upgradedModule'][$moduleId] = $module->getName();
-				$ret                                       = $storage->checkPoint();
+
+				$ret = $storage->checkPoint();
 
 				if ($ret) {
 					$templateData['errors'][]    = _('Unable to commit database transaction');
@@ -124,6 +131,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
+
 					$templateData['errors'][] = sprintf(
 						_('Unable to load the %s theme'),
 						$themeId
@@ -143,21 +151,25 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 					$currentTheme / $totalThemes
 				);
 				$gallery->guaranteeTimeLimit(120);
+
 				$ret = $theme->installOrUpgrade();
+
 				$this->resetL10Domain();
 
 				if ($ret) {
-					$templateData['errors'][]    = sprintf(
+					$templateData['errors'][] = sprintf(
 						_('Unable to upgrade the %s theme'),
 						$theme->getName()
 					);
+
 					$templateData['stackTrace'] .= $ret->getAsHtml();
 
 					continue;
 				}
 
 				$templateData['upgradedTheme'][$themeId] = $theme->getName();
-				$ret                                     = $storage->checkPoint();
+
+				$ret = $storage->checkPoint();
 
 				if ($ret) {
 					$templateData['errors'][]    = _('Unable to commit database transaction');
@@ -271,6 +283,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
+
 					$templateData['errors'][] = sprintf(
 						_('Unable to load the %s module'),
 						$moduleId
@@ -287,6 +300,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 						if ($ret) {
 							$this->resetL10Domain();
+
 							$templateData['errors'][] = sprintf(
 								_('Unable to query the %s module'),
 								$moduleId
@@ -306,6 +320,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 					$modulePlugin->setDescription(
 						$modulePlugin->translate($modulePlugin->getDescription())
 					);
+
 					$modules[$moduleId] = $modulePlugin;
 
 					$this->resetL10Domain();
@@ -339,6 +354,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 				if ($ret) {
 					$this->resetL10Domain();
+
 					$templateData['errors'][] = sprintf(
 						_('Unable to load the %s theme'),
 						$themeId
@@ -353,6 +369,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 						if ($ret) {
 							$this->resetL10Domain();
+
 							$templateData['errors'][] = sprintf(
 								'Unable to query the %s theme',
 								$themeId
@@ -372,6 +389,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 					$themePlugin->setDescription(
 						$themePlugin->translate($themePlugin->getDescription())
 					);
+
 					$themes[$themeId] = $themePlugin;
 
 					$this->resetL10Domain();

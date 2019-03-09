@@ -48,6 +48,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
+
 		$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
 
 		if ($ret) {
@@ -99,7 +100,8 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			$this->_photoItem->getId() => 3,
 			$this->_movieItem->getId() => 2,
 		);
-		$ret            = CartHelper::setCartItemCounts($cartItemCounts);
+
+		$ret = CartHelper::setCartItemCounts($cartItemCounts);
 
 		if ($ret) {
 			return $ret;
@@ -139,6 +141,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			__FILE__,
 			'cart'
 		);
+
 		$results = $this->loadTemplate();
 		$this->assertEquals(
 			array(
@@ -146,7 +149,9 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			),
 			$results
 		);
+
 		$templateData = $this->_template->getVariable('ViewCart');
+
 		$this->assertEquals('cart.ModifyCart', $templateData['controller'], 'controller');
 		$this->assertEquals(
 			array($this->_photoItem->getId(), $this->_movieItem->getId()),
@@ -193,6 +198,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			__FILE__,
 			'cart'
 		);
+
 		$ret = GalleryCoreApi::removeUserPermission(
 			$this->_album->getId(),
 			$gallery->getActiveUserId(),
@@ -211,6 +217,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			),
 			$results
 		);
+
 		$templateData = $this->_template->getVariable('ViewCart');
 		$this->assertEquals(
 			array($this->_photoItem->getId(), $this->_movieItem->getId()),
@@ -277,6 +284,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			),
 			$results
 		);
+
 		$templateData = $this->_template->getVariable('ViewCart');
 		$this->assertEquals(
 			array($this->_photoItem->getId()),

@@ -59,9 +59,11 @@ class CreateConfigFileStep extends InstallStep {
 			if (file_get_contents($configFilePath) == $this->_getConfigContents()) {
 				// The proper contents are in the file, we can advance to the next step
 				$this->setComplete(true);
+
 				$templateData['bodyFile'] = 'CreateConfigFileSuccess.html';
 			} else {
 				$this->setInError(true);
+
 				$templateData['error']['configWriteError'] = 1;
 				$templateData['bodyFile']                  = 'CreateConfigFileInstructions.html';
 				$templateData['galleryDir']                = basename($configDir);
@@ -126,6 +128,7 @@ class CreateConfigFileStep extends InstallStep {
 			} else {
 				if (!$freshInstall && !$versionStatus) {
 					$this->setComplete(false);
+
 					$templateData['recommendUpgrade']  = $upgradeRecommended;
 					$templateData['versions']          = $versions;
 					$templateData['isMultisite']       = $galleryStub->getConfig('isMultisite');
@@ -135,12 +138,14 @@ class CreateConfigFileStep extends InstallStep {
 				} else {
 					// It is a fresh install or the installed version matches the codebase version
 					$this->setComplete(true);
+
 					$templateData['bodyFile'] = 'CreateConfigFileSuccess.html';
 				}
 
 				// Finally write the config file
 				if ($writeConfigFile) {
 					fwrite($out, $this->_getConfigContents());
+
 					fclose($out);
 				}
 			}

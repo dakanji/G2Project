@@ -73,6 +73,7 @@ class CaptchaHelper {
 		}
 
 		$session =& $gallery->getSession();
+
 		$session->put('captcha.key', $code);
 	}
 }

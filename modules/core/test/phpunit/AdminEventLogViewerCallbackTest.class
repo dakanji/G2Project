@@ -104,6 +104,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 			),
 			array(null, new UnitTestStorageSearchResults(array(array($gallery->getActiveUserId()))))
 		);
+
 		$this->_platform    = new UnitTestPlatform();
 		$gallery->_platform =& $this->_platform;
 	}
@@ -120,6 +121,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($this->_storage->isComplete(), $this->_storage->getRemaining());
+
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -163,12 +165,14 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 				),
 			)
 		);
+
 		$this->_platform->setReply('strftime', array('FAKE_FMT', 1234), 'DATE1');
 		$this->_platform->setReply('strftime', array('FAKE_FMT', 5678), 'DATE2');
 
 		ob_start();
 
-		$ret     = $this->_callback->renderImmediate(array(), array());
+		$ret = $this->_callback->renderImmediate(array(), array());
+
 		$results = ob_get_contents();
 		ob_end_clean();
 
@@ -223,12 +227,14 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 				),
 			)
 		);
+
 		$this->_platform->setReply('strftime', array('FAKE_FMT', 1234), 'DATE1');
 		$this->_platform->setReply('strftime', array('FAKE_FMT', 5678), 'DATE2');
 
 		ob_start();
 
-		$ret     = $this->_callback->renderImmediate(array(), array());
+		$ret = $this->_callback->renderImmediate(array(), array());
+
 		$results = ob_get_contents();
 		ob_end_clean();
 
@@ -288,11 +294,13 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 				),
 			)
 		);
+
 		$this->_platform->setReply('strftime', array('FAKE_FMT', 'DATE_FROM_DB'), 'DATE');
 
 		ob_start();
 
-		$ret     = $this->_callback->renderImmediate(array(), array());
+		$ret = $this->_callback->renderImmediate(array(), array());
+
 		$results = ob_get_contents();
 		ob_end_clean();
 
@@ -315,7 +323,8 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 
 		ob_start();
 
-		$ret     = $this->_callback->renderImmediate(array(), array());
+		$ret = $this->_callback->renderImmediate(array(), array());
+
 		$results = ob_get_contents();
 		ob_end_clean();
 
@@ -360,7 +369,8 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 
 		ob_start();
 
-		$ret     = $this->_callback->renderImmediate(array(), array());
+		$ret = $this->_callback->renderImmediate(array(), array());
+
 		$results = ob_get_contents();
 		ob_end_clean();
 

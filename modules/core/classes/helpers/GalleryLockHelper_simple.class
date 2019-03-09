@@ -37,7 +37,8 @@ class GalleryLockHelper_simple {
 		global $gallery;
 
 		$result =& $gallery->getLockSystem();
-		$ret    = $result[0];
+
+		$ret = $result[0];
 
 		if ($ret) {
 			// Swallow this error; the API does not allow us to return one here
@@ -59,7 +60,8 @@ class GalleryLockHelper_simple {
 		global $gallery;
 
 		$result =& $gallery->getLockSystem();
-		$ret    = $result[0];
+
+		$ret = $result[0];
 
 		if ($ret) {
 			return array($ret, null);
@@ -90,7 +92,8 @@ class GalleryLockHelper_simple {
 		 */
 		$storage =& $gallery->getStorage();
 		$result  =& $gallery->getLockSystem();
-		$ret     = $result[0];
+
+		$ret = $result[0];
 
 		if ($ret) {
 			return array($ret, null);
@@ -164,7 +167,8 @@ class GalleryLockHelper_simple {
 		global $gallery;
 
 		$result =& $gallery->getLockSystem();
-		$ret    = $result[0];
+
+		$ret = $result[0];
 
 		if ($ret) {
 			// This method doesn't return a status code.  What should we do?
@@ -188,7 +192,8 @@ class GalleryLockHelper_simple {
 		global $gallery;
 
 		$result =& $gallery->getLockSystem();
-		$ret    = $result[0];
+
+		$ret = $result[0];
 
 		if ($ret) {
 			return array($ret, null);
@@ -213,7 +218,8 @@ class GalleryLockHelper_simple {
 		global $gallery;
 
 		$result =& $gallery->getLockSystem();
-		$ret    = $result[0];
+
+		$ret = $result[0];
 
 		if ($ret) {
 			// This method doesn't return a status code.  What should we do?
@@ -237,7 +243,8 @@ class GalleryLockHelper_simple {
 		global $gallery;
 
 		$result =& $gallery->getLockSystem();
-		$ret    = $result[0];
+
+		$ret = $result[0];
 
 		if ($ret) {
 			return $ret;
@@ -262,7 +269,8 @@ class GalleryLockHelper_simple {
 		global $gallery;
 
 		$result =& $gallery->getLockSystem();
-		$ret    = $result[0];
+
+		$ret = $result[0];
 
 		if ($ret) {
 			return $ret;
@@ -287,7 +295,8 @@ class GalleryLockHelper_simple {
 		global $gallery;
 
 		$result =& $gallery->getLockSystem();
-		$ret    = $result[0];
+
+		$ret = $result[0];
 
 		if ($ret) {
 			return $ret;

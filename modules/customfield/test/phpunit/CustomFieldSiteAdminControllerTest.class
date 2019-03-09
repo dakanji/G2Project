@@ -248,10 +248,12 @@ class CustomFieldSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[common][index][1]', '0');
 		GalleryUtilities::putRequestVariable('form[common][summary][1]', 'on');
 		GalleryUtilities::putRequestVariable('form[album][index][0]', '0');
+
 		GalleryUtilities::putRequestVariable('form[album][summary][0]', 'on');
 		GalleryUtilities::putRequestVariable('form[album][detail][0]', 'on');
 		GalleryUtilities::putRequestVariable('form[photo][index][0]', '0');
 		GalleryUtilities::putRequestVariable('form[photo][detail][0]', 'on');
+
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
 		$results = $this->handleRequest();

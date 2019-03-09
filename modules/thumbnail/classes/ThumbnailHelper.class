@@ -537,6 +537,7 @@ class ThumbnailHelper {
 
 		$derivative->setDerivativeSourceId($thumbnailId);
 		$derivative->setMimeType('image/jpeg');
+
 		$ret = $derivative->save();
 
 		if ($ret) {

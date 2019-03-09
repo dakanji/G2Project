@@ -7,17 +7,42 @@ if (!defined('G2_SUPPORT')) {
 
 function getCaches() {
 	$dirs = array(
-		'cached_pages' => array(true, 'clearPageCache', array(), 'Cached HTML pages'),
-		'entity'       => array(true, 'clearG2dataDir', array('cache/entity'), 'Albums and photo data'),
-		'module'       => array(true, 'clearG2dataDir', array('cache/module'), 'Module settings'),
-		'theme'        => array(true, 'clearG2dataDir', array('cache/theme'), 'Theme settings'),
+		'cached_pages' => array(
+			true,
+			'clearPageCache',
+			array(),
+			'Cached HTML pages',
+		),
+		'entity'       => array(
+			true,
+			'clearG2dataDir',
+			array('cache/entity'),
+			'Albums and photo data',
+		),
+		'module'       => array(
+			true,
+			'clearG2dataDir',
+			array('cache/module'),
+			'Module settings',
+		),
+		'theme'        => array(
+			true,
+			'clearG2dataDir',
+			array('cache/theme'),
+			'Theme settings',
+		),
 		'template'     => array(
 			true,
 			'clearG2dataDir',
 			array('smarty/templates_c'),
 			'Smarty templates',
 		),
-		'tmp'          => array(true, 'clearG2dataDir', array('tmp'), 'Temporary directory'),
+		'tmp'          => array(
+			true,
+			'clearG2dataDir',
+			array('tmp'),
+			'Temporary directory',
+		),
 		'repository'   => array(
 			true,
 			'clearG2dataDir',
@@ -98,7 +123,8 @@ function clearPageCache() {
 	global $gallery;
 
 	$storage =& $gallery->getStorage();
-	$ret     = GalleryCoreApi::removeAllMapEntries('GalleryCacheMap', true);
+
+	$ret = GalleryCoreApi::removeAllMapEntries('GalleryCacheMap', true);
 
 	if ($ret) {
 		$status = array(array('error', 'Error deleting page cache!'));
@@ -247,7 +273,7 @@ if (!empty($status)) {
 			<?php
 			if ($info[0]) {
 				?>
-				 checked="checked" 
+				 checked="checked"
 				<?php
 			} ?>
 			>

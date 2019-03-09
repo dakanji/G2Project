@@ -175,6 +175,7 @@ class GalleryItemHelper_advanced {
 				) {
 					// The highlight is no longer in this album
 					$gallery->debug('Thumbnail is no longer in the album');
+
 					$highlightHasLeftTheAlbum = true;
 				}
 			}
@@ -427,6 +428,7 @@ class GalleryItemHelper_advanced {
 
 			// Update the ownerId of the item and save it (1 db query)
 			$item->setownerId($newOwner->getid());
+
 			$ret = $item->save();
 
 			if ($ret) {
@@ -483,6 +485,7 @@ class GalleryItemHelper_advanced {
 
 		while (!empty($ids)) {
 			$gallery->guaranteeTimeLimit(30);
+
 			$currentIds = array_splice($ids, 0, $batchSize);
 
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($currentIds);
@@ -499,6 +502,7 @@ class GalleryItemHelper_advanced {
 
 			foreach ($albums as $album) {
 				$album->setOrderBy('');
+
 				$ret = $album->save();
 
 				if ($ret) {
@@ -569,6 +573,7 @@ class GalleryItemHelper_advanced {
 
 		while (!empty($ids)) {
 			$gallery->guaranteeTimeLimit(30);
+
 			$currentIds = array_splice($ids, 0, $batchSize);
 
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($currentIds);
@@ -585,6 +590,7 @@ class GalleryItemHelper_advanced {
 
 			foreach ($items as $item) {
 				$item->setRenderer(null);
+
 				$ret = $item->save();
 
 				if ($ret) {

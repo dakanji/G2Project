@@ -394,6 +394,7 @@ class RewriteModuleExtras {
 				 * @todo: Revisit when we have per module .tpl versioning.
 				 */
 				$gallery->guaranteeTimeLimit(60);
+
 				$dir = $gallery->getConfig('data.smarty.templates_c');
 
 				if ($platform->file_exists($dir)) {

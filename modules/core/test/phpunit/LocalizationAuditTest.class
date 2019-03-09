@@ -31,7 +31,6 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 
 	public function __construct($methodName) {
 		parent::__construct($methodName);
-
 		$this->_errorCount = 0;
 	}
 

@@ -245,7 +245,9 @@ FROM v\$parameter v1, v\$parameter v2 WHERE v1.name='log_archive_dest' AND v2.na
 		$gSQLBlockRows = 1000;
 		$savelog       = $conn->LogSQL(false);
 		$this->version = $conn->ServerInfo();
+
 		$conn->LogSQL($savelog);
+
 		$this->conn = $conn;
 	}
 
@@ -275,12 +277,13 @@ FROM v\$parameter v1, v\$parameter v2 WHERE v1.name='log_archive_dest' AND v2.na
 	}
 
 	public function TopRecentWaits() {
-		$rs  = $this->conn->Execute(
+		$rs = $this->conn->Execute(
 			"select * from (
 		select event, round(100*time_waited/(select sum(time_waited) from v\$system_event where wait_class <> 'Idle'),1) \"% Wait\",
     total_waits,time_waited, average_wait,wait_class from v\$system_event where wait_class <> 'Idle' order by 2 desc
 	) where rownum <=5"
 		);
+
 		$ret = rs2html($rs, false, false, false, false);
 
 		return '&nbsp;<p>' . $ret . '&nbsp;</p>';
@@ -302,17 +305,19 @@ WHERE   A.SAMPLE_TIME BETWEEN sysdate-$days and sysdate
 GROUP BY b.wait_class,parsing_schema_name,C.SQL_TEXT, B.NAME,A.sql_id
 order by 3 desc) where rownum <=10"
 		);
-		$ret  = rs2html($rs, false, false, false, false);
+
+		$ret = rs2html($rs, false, false, false, false);
 
 		return '&nbsp;<p>' . $ret . '&nbsp;</p>';
 	}
 
 	public function TableSpace() {
-		$rs  = $this->conn->Execute(
+		$rs = $this->conn->Execute(
 			'select tablespace_name,round(sum(bytes)/1024/1024) as Used_MB,round(sum(maxbytes)/1024/1024) as Max_MB, round(sum(bytes)/sum(maxbytes),4) * 100 as PCT
 	from dba_data_files
    group by tablespace_name order by 2 desc'
 		);
+
 		$ret = '<p><b>Tablespace</b>' . rs2html($rs, false, false, false, false);
 
 		$rs   = $this->conn->Execute('select * from dba_data_files order by tablespace_name, 1');
@@ -322,10 +327,11 @@ order by 3 desc) where rownum <=10"
 	}
 
 	public function RMAN() {
-		$rs  = $this->conn->Execute(
+		$rs = $this->conn->Execute(
 			'select * from (select start_time, end_time, operation, status, mbytes_processed, output_device_type
 			from V$RMAN_STATUS order by start_time desc) where rownum <=10'
 		);
+
 		$ret = rs2html($rs, false, false, false, false);
 
 		return '&nbsp;<p>' . $ret . '&nbsp;</p>';
@@ -344,7 +350,8 @@ order by 3 desc) where rownum <=10"
 	}
 
 	public function FlashUsage() {
-		$rs  = $this->conn->Execute('select * from  V$FLASH_RECOVERY_AREA_USAGE');
+		$rs = $this->conn->Execute('select * from  V$FLASH_RECOVERY_AREA_USAGE');
+
 		$ret = rs2html($rs, false, false, false, false);
 
 		return '&nbsp;<p>' . $ret . '&nbsp;</p>';
@@ -473,6 +480,7 @@ CREATE TABLE PLAN_TABLE (
 		$s = '<p><b>Explain</b>: ' . htmlspecialchars($sql) . '</p>';
 
 		$this->conn->BeginTrans();
+
 		$id = 'ADODB ' . microtime();
 		$rs = $this->conn->Execute("EXPLAIN PLAN SET STATEMENT_ID='$id' FOR $sql");
 		$m  = $this->conn->ErrorMsg();
@@ -480,6 +488,7 @@ CREATE TABLE PLAN_TABLE (
 		if ($m) {
 			$this->conn->RollbackTrans();
 			$this->conn->LogSQL($savelog);
+
 			$s .= "<p>$m</p>";
 
 			return $s;
@@ -494,10 +503,12 @@ CREATE TABLE PLAN_TABLE (
 START WITH id = 0  and STATEMENT_ID='$id'
 CONNECT BY prior id=parent_id and statement_id='$id'"
 		);
+
 		$s .= rs2html($rs, false, false, false, false);
 
 		$this->conn->RollbackTrans();
 		$this->conn->LogSQL($savelog);
+
 		$s .= $this->Tracer($sql, $partial);
 
 		return $s;
@@ -584,6 +595,7 @@ select  a.name Buffer_Pool, b.size_for_estimate as cache_mb_estimate,
 		}
 
 		$rs->Close();
+
 		$carr   = explode('::', $check);
 		$prefix = '<a target=' . mt_rand() . " href=\"?&hidem=1&$type=1&sql=" . rawurlencode($sql) . '&x#explain">';
 		$suffix = '</a>';
@@ -666,6 +678,7 @@ order by
 
 		$savelog = $this->conn->LogSQL(false);
 		$rs      = $this->conn->SelectLimit($sql);
+
 		$this->conn->LogSQL($savelog);
 
 		if (isset($savem)) {
@@ -754,6 +767,7 @@ order by
 
 		$savelog = $this->conn->LogSQL(false);
 		$rs      = $this->conn->Execute($sql);
+
 		$this->conn->LogSQL($savelog);
 
 		if (isset($savem)) {

@@ -32,6 +32,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin = new PluginTestPlugin();
 
 		$plugin->setPluginType('theme');
+
 		$version = GalleryCoreApi::getApiVersion();
 
 		$plugin->setRequiredCoreApi(array($version[0], $version[1] + 1));
@@ -46,6 +47,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin = new PluginTestPlugin();
 
 		$plugin->setPluginType('theme');
+
 		$version = GalleryCoreApi::getApiVersion();
 
 		$plugin->setRequiredCoreApi(array($version[0], 0));
@@ -73,6 +75,7 @@ class PluginTest extends GalleryTestCase {
 
 		$plugin->setPluginType('theme');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
+
 		$version = GalleryTheme::getMe()->getApiVersion();
 
 		$plugin->setRequiredThemeApi(array($version[0], $version[1] + 1));
@@ -99,6 +102,7 @@ class PluginTest extends GalleryTestCase {
 
 		$plugin->setPluginType('module');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
+
 		$version = GalleryModule::getMe()->getApiVersion();
 
 		$plugin->setRequiredModuleApi(array($version[0], $version[1] + 1));
@@ -143,17 +147,25 @@ class PluginTest extends GalleryTestCase {
 			$path     = GalleryCoreApi::getCodeBasePath($type . 's/');
 
 			$platform->setReply('opendir', array($path), 'fh');
+
 			$platform->setReply('readdir', array('fh'), '.');
+
 			$platform->setReply('readdir', array('fh'), '..');
+
 			$platform->setReply('readdir', array('fh'), 'CVS');
+
 			$platform->setReply('readdir', array('fh'), 'moo');
+
 			$platform->setReply('is_file', array($path . 'moo/' . $type . '.inc'), true);
+
 			$platform->setReply('readdir', array('fh'), 'foo');
+
 			$platform->setReply('is_file', array($path . 'foo/' . $type . '.inc'), false);
 			$platform->setReply('readdir', array('fh'), 'bar');
 			$platform->setReply('is_file', array($path . 'bar/' . $type . '.inc'), true);
 			$platform->setReply('readdir', array('fh'), false);
 			$platform->setReply('closedir', array('fh'), true);
+
 			$expectedIds += array_merge($expectedIds, array('moo', 'bar'));
 
 			$gallery->setPlatform($platform);
@@ -179,6 +191,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin->setVersion('1.0.0');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$plugin->setRequiredThemeApi(GalleryTheme::getMe()->getApiVersion());
+
 		$themeStatus = array(
 			$plugin->getId() => array(
 				'available' => true,
@@ -192,18 +205,22 @@ class PluginTest extends GalleryTestCase {
 
 		$gallery->setConfig('data.smarty.templates_c', $templateDir);
 		$gallery->setConfig('data.gallery.cache', '/cache/');
+
 		$platform = new UnitTestPlatform();
 		$platform->setReply(
 			'file_exists',
 			array('/cache/theme/_all/0/0/GalleryPluginHelper_fetchPluginStatus.inc'),
 			false
 		);
+
 		$platform->setReply('file_exists', array('/cache/theme/_all/localUrlMap.txt'), true);
+
 		$platform->setReply('is_dir', array('/cache/theme/_all/localUrlMap.txt'), false);
 		$platform->setReply('unlink', array('/cache/theme/_all/localUrlMap.txt'), true);
 		$platform->setReply('file_exists', array($templateDir), true);
 		$platform->setReply('recursiveRmdir', array($templateDir), false);
 		$gallery->setPlatform($platform);
+
 		$gallery->_storage = new UnitTestStorage();
 		$gallery->_storage->setReply(
 			'addMapEntry',
@@ -243,6 +260,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin->setVersion('1.0.0');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$plugin->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
+
 		$cacheKey       = 'GalleryRepository::getRepositories(,GalleryRepository)';
 		$testRepository = new UnitTestRepository();
 		$testRepository->setReply(
@@ -283,6 +301,7 @@ class PluginTest extends GalleryTestCase {
 		$plugin->setVersion('1.0.0');
 		$plugin->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$plugin->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
+
 		$cacheKey       = 'GalleryRepository::getRepositories(,GalleryRepository)';
 		$testRepository = new UnitTestRepository();
 		$testRepository->setReply(

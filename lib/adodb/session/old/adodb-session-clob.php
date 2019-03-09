@@ -170,7 +170,6 @@ if (!defined('ADODB_SESSION')) {
 
 		if (!empty($ADODB_SESS_DEBUG)) {
 			$ADODB_SESS_CONN->debug = true;
-
 			ADOConnection::outp(" conn=$ADODB_SESSION_CONNECT user=$ADODB_SESSION_USER pwd=$ADODB_SESSION_PWD db=$ADODB_SESSION_DB ");
 		}
 
@@ -358,6 +357,7 @@ if (!defined('ADODB_SESSION')) {
 			$fn    = next($ADODB_SESSION_EXPIRE_NOTIFY);
 			$savem = $ADODB_SESS_CONN->SetFetchMode(ADODB_FETCH_NUM);
 			$rs    = $ADODB_SESS_CONN->Execute("SELECT expireref,sesskey FROM $ADODB_SESSION_TBL WHERE sesskey='$key'");
+
 			$ADODB_SESS_CONN->SetFetchMode($savem);
 
 			if ($rs) {
@@ -368,6 +368,7 @@ if (!defined('ADODB_SESSION')) {
 					$key = $rs->fields[1];
 					$fn($ref, $key);
 					$del = $ADODB_SESS_CONN->Execute("DELETE FROM $ADODB_SESSION_TBL WHERE sesskey='$key'");
+
 					$rs->MoveNext();
 				}
 
@@ -390,6 +391,7 @@ if (!defined('ADODB_SESSION')) {
 			$savem = $ADODB_SESS_CONN->SetFetchMode(ADODB_FETCH_NUM);
 			$t     = time();
 			$rs    = $ADODB_SESS_CONN->Execute("SELECT expireref,sesskey FROM $ADODB_SESSION_TBL WHERE expiry < $t");
+
 			$ADODB_SESS_CONN->SetFetchMode($savem);
 
 			if ($rs) {
@@ -400,11 +402,11 @@ if (!defined('ADODB_SESSION')) {
 					$key = $rs->fields[1];
 					$fn($ref, $key);
 					$del = $ADODB_SESS_CONN->Execute("DELETE FROM $ADODB_SESSION_TBL WHERE sesskey='$key'");
+
 					$rs->MoveNext();
 				}
 
 				$rs->Close();
-
 				//$ADODB_SESS_CONN->Execute("DELETE FROM $ADODB_SESSION_TBL WHERE expiry < $t");
 				$ADODB_SESS_CONN->CommitTrans();
 			}
@@ -452,7 +454,9 @@ if (!defined('ADODB_SESSION')) {
 
 		if ($rs && !$rs->EOF) {
 			$dbts = reset($rs->fields);
+
 			$rs->Close();
+
 			$dbt = $ADODB_SESS_CONN->UnixTimeStamp($dbts);
 			$t   = time();
 

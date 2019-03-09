@@ -54,6 +54,7 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteEntity($group);
 	}
 
@@ -80,6 +81,7 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteEntity($group);
 	}
 
@@ -91,7 +93,6 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_createGroupQuota($group->getId(), 4096);
-
 		GalleryUtilities::putRequestVariable('groupId', $group->getId());
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[groupName]', $group->getGroupName());
@@ -140,7 +141,6 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_createGroupQuota($group->getId(), 1024);
-
 		// quota size
 		GalleryUtilities::putRequestVariable('groupId', $group->getId());
 		GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
@@ -174,6 +174,7 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteGroupQuota($group->getId());
 		$this->_deleteEntity($group);
 	}
@@ -207,6 +208,7 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteEntity($group);
 	}
 

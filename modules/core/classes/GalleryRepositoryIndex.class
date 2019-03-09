@@ -253,6 +253,7 @@ class GalleryRepositoryIndex {
 			if ($ret->getErrorCode() & ERROR_BAD_PARAMETER) {
 				// Remove the broken index so that a subsequent download will fix it
 				$platform->unlink($indexPath);
+
 				$ret = GalleryCoreApi::error(
 					ERROR_BAD_PARAMETER,
 					__FILE__,
@@ -322,6 +323,7 @@ class GalleryRepositoryIndex {
 		return array(
 			null,
 			$this->_index[$pluginType . 's'][$pluginId]['header'],
+
 		);
 	}
 

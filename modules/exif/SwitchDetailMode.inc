@@ -42,7 +42,9 @@ class SwitchDetailModeController extends GalleryController {
 
 		// Store the new mode in the session
 		$session =& $gallery->getSession();
+
 		$session->put('exif.module.LoadExifInfo.mode', $mode);
+
 		$results['return']           = 1;
 		$results['redirect']['view'] = 'core.ShowItem';
 		$results['status']           = array();
@@ -111,6 +113,7 @@ class SwitchDetailModeView extends GalleryView {
 				'actingUserId' => $gallery->getActiveUserId(),
 			)
 		);
+
 		$ret = $template->display('gallery:modules/exif/templates/blocks/ExifInfo.tpl');
 
 		if ($ret) {

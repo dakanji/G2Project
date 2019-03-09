@@ -84,12 +84,14 @@ class ADODB_ado_mssql extends ADODB_ado {
 		$adors        = @$dbc->OpenSchema(4, $osoptions);//tables
 		if ($adors) {
 			while (!$adors->EOF) {
-				$fld                         = new ADOFieldObject();
-				$c                           = $adors->Fields(3);
-				$fld->name                   = $c->Value;
-				$fld->type                   = 'CHAR'; // cannot discover type in ADO!
-				$fld->max_length             = -1;
+				$fld             = new ADOFieldObject();
+				$c               = $adors->Fields(3);
+				$fld->name       = $c->Value;
+				$fld->type       = 'CHAR'; // cannot discover type in ADO!
+				$fld->max_length = -1;
+
 				$arr[strtoupper($fld->name)] = $fld;
+
 				$adors->MoveNext();
 			}
 
@@ -107,6 +109,7 @@ class ADODB_ado_mssql extends ADODB_ado {
 		$start -= 1;
 
 		$this->Execute("create table $seq (id float(53))");
+
 		$ok = $this->Execute("insert into $seq with (tablock,holdlock) values($start)");
 
 		if (!$ok) {
@@ -123,10 +126,12 @@ class ADODB_ado_mssql extends ADODB_ado {
 	public function GenID($seq = 'adodbseq', $start = 1) {
 		//$this->debug=1;
 		$this->Execute('BEGIN TRANSACTION adodbseq');
+
 		$ok = $this->Execute("update $seq with (tablock,holdlock) set id = id + 1");
 
 		if (!$ok) {
 			$this->Execute("create table $seq (id float(53))");
+
 			$ok = $this->Execute("insert into $seq with (tablock,holdlock) values($start)");
 
 			if (!$ok) {
@@ -141,6 +146,7 @@ class ADODB_ado_mssql extends ADODB_ado {
 		}
 
 		$num = $this->GetOne("select id from $seq");
+
 		$this->Execute('COMMIT TRANSACTION adodbseq');
 
 		return $num;

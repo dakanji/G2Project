@@ -277,6 +277,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 			'form[destination]',
 			$this->_destinationAlbum->getId()
 		);
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -340,6 +341,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		clearstatcache();
 
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_rootAlbum->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -422,6 +424,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_rootAlbum->getId());
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_rootAlbum->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -449,6 +452,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_rootAlbum->getId());
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_childAlbum->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -475,6 +479,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 			'form[destination]',
 			$this->_destinationAlbum->getId()
 		);
+
 		$ret = GalleryCoreApi::removeItemPermissions($this->_destinationAlbum->getId());
 
 		if ($ret) {
@@ -507,6 +512,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 			'form[destination]',
 			$this->_destinationAlbum->getId()
 		);
+
 		$ret = GalleryCoreApi::removeItemPermissions($this->_item->getId());
 
 		if ($ret) {
@@ -558,6 +564,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		}
 
 		$thumb->setDerivativeOperations('crop|0,0,50,50;' . $thumb->getDerivativeOperations());
+
 		$ret = $thumb->save();
 
 		if ($ret) {
@@ -597,6 +604,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 			'form[destination]',
 			$this->_destinationAlbum->getId()
 		);
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

@@ -75,6 +75,7 @@ function RepositoryToolsMain() {
 
 	if (empty($repositoryPath)) {
 		$repositoryPath = $gallery->getConfig('data.gallery.base') . '/repository/';
+
 		$gallery->setConfig('repository.path', $repositoryPath);
 	}
 
@@ -126,6 +127,7 @@ function RepositoryToolsMain() {
 	}
 
 	$gallery->setUrlGenerator($urlGenerator);
+
 	$platform =& $gallery->getPlatform();
 
 	if (!$isSiteAdmin || !$platform->file_exists($controllerPath)) {

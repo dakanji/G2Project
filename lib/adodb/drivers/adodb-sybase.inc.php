@@ -62,6 +62,7 @@ class ADODB_sybase extends ADOConnection {
 		}
 
 		$this->transCnt += 1;
+
 		$this->Execute('BEGIN TRAN');
 
 		return true;
@@ -77,6 +78,7 @@ class ADODB_sybase extends ADOConnection {
 		}
 
 		$this->transCnt -= 1;
+
 		$this->Execute('COMMIT TRAN');
 
 		return true;
@@ -88,6 +90,7 @@ class ADODB_sybase extends ADOConnection {
 		}
 
 		$this->transCnt -= 1;
+
 		$this->Execute('ROLLBACK TRAN');
 
 		return true;
@@ -214,6 +217,7 @@ class ADODB_sybase extends ADOConnection {
 		}
 
 		$this->Execute("set rowcount $cnt");
+
 		$rs = ADOConnection::SelectLimit($sql, $nrows, $offset, $inputarr, 0);
 
 		$this->Execute('set rowcount 0');

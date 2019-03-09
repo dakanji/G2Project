@@ -221,7 +221,9 @@ class GalleryStorage {
 		global $gallery;
 
 		$this->_traceStart();
+
 		$db = ADONewConnection($this->getAdoDbType());
+
 		$this->_traceStop();
 
 		if (empty($db)) {
@@ -239,8 +241,10 @@ class GalleryStorage {
 		}
 
 		$this->_traceStart();
+
 		$connectMethod = ($forceNew || !$this->_usePersistentConnections) ? 'NConnect' : 'PConnect';
-		$ret           = $db->$connectMethod(
+
+		$ret = $db->$connectMethod(
 			$this->_hostname,
 			$this->_username,
 			$this->_password,
@@ -303,8 +307,8 @@ class GalleryStorage {
 				'modules/core/classes/GalleryStorage/GalleryStorageExtras.class',
 				true
 			);
-			$tmp = new GalleryStorageExtras($this);
 
+			$tmp           = new GalleryStorageExtras($this);
 			$this->_extras =& $tmp;
 		}
 
@@ -513,11 +517,15 @@ class GalleryStorage {
 			$offset = empty($optional['limit']['offset']) ? -1 : $optional['limit']['offset'];
 
 			$this->_traceStart();
+
 			$recordSet = $this->_db->SelectLimit($query, $count, $offset, $data);
+
 			$this->_traceStop();
 		} else {
 			$this->_traceStart();
+
 			$recordSet = $this->_db->Execute($query, $data);
+
 			$this->_traceStop();
 		}
 
@@ -613,11 +621,12 @@ class GalleryStorage {
 		}
 
 		list($tableName, $unused) = $this->_translateTableName($mapName);
-		$data                     = array();
-		$selectColumns            = array();
-		$where                    = array();
-		$wheredata                = array();
-		$orderBy                  = array();
+
+		$data          = array();
+		$selectColumns = array();
+		$where         = array();
+		$wheredata     = array();
+		$orderBy       = array();
 
 		// SELECT
 		foreach ($select as $columnName) {
@@ -682,11 +691,15 @@ class GalleryStorage {
 			$offset = empty($optional['limit']['offset']) ? -1 : $optional['limit']['offset'];
 
 			$this->_traceStart();
+
 			$recordSet = $this->_db->SelectLimit($query, $count, $offset, $data);
+
 			$this->_traceStop();
 		} else {
 			$this->_traceStart();
+
 			$recordSet = $this->_db->Execute($query, $data);
+
 			$this->_traceStop();
 		}
 
@@ -730,7 +743,8 @@ class GalleryStorage {
 				}
 			}
 
-			$db  = $this->_db;
+			$db = $this->_db;
+
 			$ret = $this->_guaranteeTransaction();
 
 			if ($ret) {
@@ -745,10 +759,11 @@ class GalleryStorage {
 		}
 
 		list($tableName, $unused) = $this->_translateTableName($mapName);
-		$data                     = array();
-		$set                      = array();
-		$where                    = array();
-		$wheredata                = array();
+
+		$data      = array();
+		$set       = array();
+		$where     = array();
+		$wheredata = array();
 
 		foreach ($mapInfo as $memberName => $memberData) {
 			if (array_key_exists($memberName, $match)) {
@@ -788,7 +803,9 @@ class GalleryStorage {
 		$data   = array_merge($data, $wheredata);
 
 		$this->_traceStart();
+
 		$recordSet = $db->Execute($query, $data);
+
 		$this->_traceStop();
 
 		if (!$recordSet) {
@@ -901,7 +918,9 @@ class GalleryStorage {
 
 		if ($this->_isTransactional) {
 			$this->_traceStart();
+
 			$ok = $this->_db->BeginTrans();
+
 			$this->_traceStop();
 
 			if (!$ok) {
@@ -920,7 +939,9 @@ class GalleryStorage {
 	public function commitTransaction() {
 		if ($this->_isTransactional && isset($this->_db) && $this->_db->transCnt > 0) {
 			$this->_traceStart();
+
 			$ok = $this->_db->CommitTrans();
+
 			$this->_traceStop();
 
 			if (!$ok) {
@@ -931,8 +952,10 @@ class GalleryStorage {
 		if ($this->_isTransactional) {
 			// Release any queued locks
 			global $gallery;
+
 			$result =& $gallery->getLockSystem(false);
-			$ret    = $result[0];
+
+			$ret = $result[0];
 
 			if ($ret) {
 				return $ret;
@@ -980,7 +1003,9 @@ class GalleryStorage {
 	public function rollbackTransaction() {
 		if ($this->_isTransactional && isset($this->_db) && $this->_db->transCnt > 0) {
 			$this->_traceStart();
+
 			$ok = $this->_db->RollbackTrans();
+
 			$this->_traceStop();
 
 			if (!$ok) {
@@ -991,8 +1016,10 @@ class GalleryStorage {
 		if ($this->_isTransactional) {
 			// Release any queued locks
 			global $gallery;
+
 			$result =& $gallery->getLockSystem(false);
-			$ret    = $result[0];
+
+			$ret = $result[0];
 
 			if ($ret) {
 				return $ret;
@@ -1227,7 +1254,8 @@ class GalleryStorage {
 			$member = $regs[2];
 
 			list($table, $alias) = $this->_translateTableName($class);
-			$column              = $this->_translateColumnName($member);
+
+			$column = $this->_translateColumnName($member);
 
 			if ($alias) {
 				$query = str_replace("[${class}::${member}]", "$alias.$column", $query);
@@ -1503,6 +1531,7 @@ class GalleryStorage {
 	 */
 	public function _normalizeValue($value, $memberData, $fromDb = false) {
 		$notNull = !empty($memberData['notNull']) ||
+
 		(!empty($memberData['notNullEmptyAllowed']) && $this->_isEmptyAllowedForNotNullColumn);
 
 		if (null === $value && !$notNull) {
@@ -1695,6 +1724,7 @@ class GallerySearchResults {
 		if (!empty($row) && !empty($this->_fieldNames) && !empty($this->_mapInfo)) {
 			// Normalize fetched values
 			global $gallery;
+
 			$storage =& $gallery->getStorage();
 
 			for ($i = 0; $i < count($row) && $i < count($this->_fieldNames); $i++) {
@@ -1852,7 +1882,9 @@ class MySqlStorage extends GalleryStorage {
 
 		if ($this->_serverInfo && version_compare($this->_serverInfo, '4.1.0', '>=')) {
 			$this->_traceStart();
+
 			$recordSet = $db->execute('SET NAMES "utf8"');
+
 			$this->_traceStop();
 
 			if (!$recordSet) {

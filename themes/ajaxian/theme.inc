@@ -31,7 +31,9 @@ class AjaxianTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('ajaxian');
+
 		$this->setName($gallery->i18n('Ajaxian'));
+
 		$this->setDescription(
 			$gallery->i18n(
 				'DHTML-enabled Slideshow theme'

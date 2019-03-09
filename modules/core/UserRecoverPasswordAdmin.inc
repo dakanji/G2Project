@@ -99,6 +99,7 @@ class UserRecoverPasswordAdminController extends GalleryController {
 					}
 
 					$user->changePassword($form['password1']);
+
 					$ret = $user->save();
 
 					if ($ret) {
@@ -243,6 +244,7 @@ class UserRecoverPasswordAdminView extends GalleryView {
 
 		$j    = new JCrypt();
 		$rand = $j->genRandomBytes(32);
+
 		$session->put('core.UserRecoverPasswordAdminAuthKey', md5($rand));
 	}
 }

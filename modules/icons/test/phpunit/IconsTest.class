@@ -57,7 +57,8 @@ class IconsTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_translator->_isRightToLeft = $this->_saveRtl;
-		$ret                                  = parent::tearDown();
+
+		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -131,7 +132,8 @@ class IconsTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_translator->_isRightToLeft = true;
-		$ret                                  = GalleryCoreApi::setPluginParameter('module', 'icons', 'iconpack', '_phpunitfoo');
+
+		$ret = GalleryCoreApi::setPluginParameter('module', 'icons', 'iconpack', '_phpunitfoo');
 
 		if ($ret) {
 			return $ret;

@@ -182,6 +182,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 						array($this, 'runRecreateThumbnails'),
 						array($form, $item, $preferred)
 					);
+
 					$requiresProgressBar = true;
 				}
 
@@ -192,6 +193,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 						array($this, 'runRecreateResizes'),
 						array($form, $item, $preferred)
 					);
+
 					$requiresProgressBar = true;
 				}
 
@@ -430,6 +432,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		}
 
 		$heading = $module->translate('Apply resized image settings');
+
 		$templateAdapter->updateProgressBar($heading, $module->translate('Preparing...'), 0);
 
 		// Get the items to process
@@ -499,6 +502,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 							'arg2' => $total,
 						)
 					);
+
 					$templateAdapter->updateProgressBar($heading, $message, $ind / $total);
 				}
 
@@ -640,6 +644,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 					$derivative->setDerivativeSourceId($source->getId());
 					$derivative->setDerivativeOperations($resize[$mimeType]['operations']);
 					$derivative->setMimeType($resize[$mimeType]['outputMimeType']);
+
 					$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
 
 					if ($ret) {
@@ -697,12 +702,15 @@ class ItemEditAlbum extends ItemEditPlugin {
 		}
 
 		$templateAdapter->updateProgressBar($heading, '', 1);
-		$redirect     = array(
+
+		$redirect = array(
 			'view'    => 'core.ItemAdmin',
 			'subView' => 'core.ItemEdit',
 			'itemId'  => $item->getId(),
 		);
+
 		$urlGenerator =& $gallery->getUrlGenerator();
+
 		$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect));
 
 		return null;
@@ -721,6 +729,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		}
 
 		$heading = $module->translate('Apply thumbnail settings');
+
 		$templateAdapter->updateProgressBar($heading, $module->translate('Preparing...'), 0);
 
 		// Get the items to process
@@ -785,6 +794,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 							'arg2' => $total,
 						)
 					);
+
 					$templateAdapter->updateProgressBar($heading, $message, $ind / $total);
 				}
 
@@ -961,7 +971,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 		// Build thumbnails if requested
 		if (!empty($thumbnailBuild)) {
 			$message = $module->translate('Rebuilding thumbnails...');
+
 			$templateAdapter->updateProgressBar($heading, $message, 0);
+
 			$total = count($thumbnailBuild);
 			$ind   = 0;
 			$step  = min(500, (int)($total / 20) + 1);
@@ -989,12 +1001,14 @@ class ItemEditAlbum extends ItemEditPlugin {
 
 		if (!isset($form['recreateResizes'])) {
 			// Don't show "Complete" yet if there is another task
-			$redirect     = array(
+			$redirect = array(
 				'view'    => 'core.ItemAdmin',
 				'subView' => 'core.ItemEdit',
 				'itemId'  => $item->getId(),
 			);
+
 			$urlGenerator =& $gallery->getUrlGenerator();
+
 			$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect));
 		}
 

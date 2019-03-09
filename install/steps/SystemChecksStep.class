@@ -483,10 +483,11 @@ class SystemChecksStep extends InstallStep {
 
 		$template->renderStatusMessage(_('Performing system checks'), '', 1);
 		$template->hideStatusBlock();
+
 		$templateData['suggestedHtaccess'] = join("\n", $suggestedHtaccess);
 		$templateData['bodyFile']          = 'SystemChecks.html';
-
 		$this->setComplete($failCount == 0);
+
 		$this->setInError($failCount > 0);
 		$template->renderBodyAndFooter($templateData);
 

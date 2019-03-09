@@ -166,6 +166,7 @@ class GalleryComment extends GalleryChildEntity {
 		}
 
 		$this->setCommenterId(null);
+
 		$this->setHost(null);
 		$this->setSubject(null);
 		$this->setComment(null);

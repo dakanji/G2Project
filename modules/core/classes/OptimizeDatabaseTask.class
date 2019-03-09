@@ -66,7 +66,8 @@ class OptimizeDatabaseTask extends MaintenanceTask {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->optimize();
+
+		$ret = $storage->optimize();
 
 		if ($ret) {
 			return array($ret, null, null);

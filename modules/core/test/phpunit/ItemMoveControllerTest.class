@@ -320,6 +320,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		);
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[0]->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -372,6 +373,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		);
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $peer->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -574,6 +576,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		);
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[1]->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -607,6 +610,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		);
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[3]->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -640,6 +644,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		);
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[2]->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -669,6 +674,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		);
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[0]->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -702,6 +708,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		);
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[1]->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -735,6 +742,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		);
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[0]->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -800,6 +808,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		);
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[1]->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

@@ -70,7 +70,8 @@ class GalleryEventLogHelper_medium {
 			'timestamp' => $phpVm->time(),
 			'referer'   => GalleryUtilities::getServerVar('HTTP_REFERER'),
 		);
-		$ret     = GalleryCoreApi::updateMapEntry(
+
+		$ret = GalleryCoreApi::updateMapEntry(
 			'EventLogMap',
 			array(
 				'id' => $id,

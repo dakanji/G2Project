@@ -451,6 +451,7 @@ class ToolkitTest extends GalleryTestCase {
 		$derivative->setDerivativeOperations('thumbnail|200');
 		$derivative->setWidth(0);
 		$derivative->setHeight(0);
+
 		$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
 
 		if ($ret) {
@@ -482,6 +483,7 @@ class ToolkitTest extends GalleryTestCase {
 		$derivative->setDerivativeOperations('scale|150');
 		$derivative->setWidth(0);
 		$derivative->setHeight(0);
+
 		$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
 
 		if ($ret) {
@@ -514,6 +516,7 @@ class ToolkitTest extends GalleryTestCase {
 
 		$derivative->setWidth(0);
 		$derivative->setHeight(0);
+
 		$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
 
 		if ($ret) {
@@ -562,6 +565,7 @@ class ToolkitTest extends GalleryTestCase {
 		$derivative->setDerivativeOperations('thumbnail|200');
 		$derivative->setWidth(0);
 		$derivative->setHeight(0);
+
 		$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
 
 		if ($ret) {
@@ -570,13 +574,13 @@ class ToolkitTest extends GalleryTestCase {
 
 		$this->assertEquals(200, $derivative->getWidth(), 'width 1');
 		$this->assertEquals(150, $derivative->getHeight(), 'height 1');
-
 		/*
 		 * Now verify if the direct source is not a derivative and is smaller than the
 		 * desired size that we don't upsample.
 		 */
 		$orig->setWidth(123);
 		$orig->setHeight(66);
+
 		$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $orig);
 
 		if ($ret) {
@@ -602,6 +606,7 @@ crop|15,15,40,50'
 
 		// Rotate transform of nothing returns nothing
 		list($success, $result) = $toolkit->applyTransform('rotate|90', '');
+
 		$this->assertTrue($success);
 		$this->assertEquals('', $result, 'test 2');
 
@@ -657,6 +662,7 @@ crop|15,20.5,40.62,50'
 
 		$this->assertTrue($success);
 		$this->assertEquals('rotate|90;crop|29.5,15,50,40.62', $result, 'test 1');
+
 		setlocale(LC_ALL, $currentLocale);
 	}
 
@@ -720,6 +726,7 @@ crop|15,20.5,40.62,50'
 		}
 
 		$this->assertTrue(count($list) >= 2, 'count');
+
 		$this->assertEquals(30, $list['TestToolkit'], 'TestToolkit');
 		$this->assertEquals(27, $list['TestToolkit2'], 'TestToolkit2');
 	}
@@ -765,36 +772,43 @@ crop|15,20.5,40.62,50'
 			$toolkit->mergeOperations('thumbnail', array(100), 'thumbnail', array(150)),
 			'thumbnail'
 		);
+
 		$this->assertEquals(
 			array(true, 'scale', array(800)),
 			$toolkit->mergeOperations('scale', array(600, 500), 'scale', array(800)),
 			'scale'
 		);
+
 		$this->assertEquals(
 			array(true, 'resize', array(640, 480)),
 			$toolkit->mergeOperations('resize', array(800, 600), 'resize', array(640, 480)),
 			'resize'
 		);
+
 		$this->assertEquals(
 			array(true, 'scale', array(800, 600)),
 			$toolkit->mergeOperations('thumbnail', array(200), 'scale', array(800, 600)),
 			'thumbnail scale'
 		);
+
 		$this->assertEquals(
 			array(true, 'resize', array(640, 480)),
 			$toolkit->mergeOperations('scale', array(800, 600), 'resize', array(640, 480)),
 			'scale resize'
 		);
+
 		$this->assertEquals(
 			array(true, 'thumbnail', array(150)),
 			$toolkit->mergeOperations('resize', array(900, 700), 'thumbnail', array(150)),
 			'resize thumbnail'
 		);
+
 		$this->assertEquals(
 			array(true, 'crop', array(20, 20, 60, 60)),
 			$toolkit->mergeOperations('crop', array(40, 40, 20, 20), 'crop', array(20, 20, 60, 60)),
 			'crop'
 		);
+
 		$this->assertEquals(
 			array(false, null, null),
 			$toolkit->mergeOperations(

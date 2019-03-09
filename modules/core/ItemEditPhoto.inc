@@ -83,7 +83,8 @@ class ItemEditPhoto extends ItemEditPlugin {
 				$resizesTable = array();
 
 				foreach ($resizes as $resize) {
-					$postFilter                                       = $resize->getPostFilterOperations();
+					$postFilter = $resize->getPostFilterOperations();
+
 					$resizesTable[$resize->getDerivativeOperations()] = $resize;
 				}
 

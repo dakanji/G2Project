@@ -578,9 +578,11 @@ class GalleryPermissionHelper_advanced {
 
 				// Clear the in-memory permission cache for this item (all groups, users).
 				$cacheKey = 'GalleryPermissionHelper::getPermissions\(' . $targetItemId . ',\d+,\d\)';
+
 				GalleryDataCache::removeByPattern($cacheKey);
 
 				$cacheKey = 'GalleryPermissionHelper::fetchAccessListIds\(.*\)';
+
 				GalleryDataCache::removeByPattern($cacheKey);
 			}
 		}

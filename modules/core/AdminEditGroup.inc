@@ -102,6 +102,7 @@ class AdminEditGroupController extends GalleryController {
 
 				// Enact the change
 				$group->setGroupName($form['groupName']);
+
 				$ret = $group->save();
 
 				if ($ret) {

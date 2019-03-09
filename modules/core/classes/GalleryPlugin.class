@@ -96,13 +96,16 @@ class GalleryPlugin {
 	 *   print 'TEST to be displayed in different languages';
 	 * use (in any subclass of GalleryPlugin):
 	 *   print $this->translate('TEST to be displayed in different languages');
+	 *
 	 * and you are all set for pure literals. The translation teams will receive that literal
 	 * string as a job to translate and will translate it (when the message is clear enough).
 	 * At runtime the message is then localized when printed.
 	 *
 	 * But consider this case:
 	 *   $message_to_be_localized = 'TEST to be displayed in different languages';
+	 *
 	 *   print $this->translate($message_to_be_localized);
+	 *
 	 *
 	 * The translate() method is called in the right place for runtime handling, but there
 	 * is no message at gettext preprocessing time to be given to the translation teams,
@@ -113,7 +116,9 @@ class GalleryPlugin {
 	 * The (noop) method Gallery::i18n() is there to resolve all such cases (including storing
 	 * the original string in, say, the database). Simply mark the candidates:
 	 *   $message_to_be_localized = $gallery->i18n('TEST to be displayed in different languages');
+	 *
 	 *   print $this->translate($message_to_be_localized);
+	 *
 	 *
 	 * The i18n() method does nothing, but feeding translators with that new string.
 	 * This method does the runtime job, thanks to GNU gettext.
@@ -272,7 +277,8 @@ class GalleryPlugin {
 	public function deactivate($postDeactivationEvent = true) {
 		$pluginType = $this->getPluginType();
 		$pluginId   = $this->getId();
-		$ret        = GalleryCoreApi::updateMapEntry(
+
+		$ret = GalleryCoreApi::updateMapEntry(
 			'GalleryPluginMap',
 			array(
 				'pluginType' => $pluginType,
@@ -432,6 +438,7 @@ class GalleryPlugin {
 		// Remove data directory for this plugin
 		$platform =& $gallery->getPlatform();
 		$dataDir  = $gallery->getConfig('data.gallery.plugins_data') . $this->getPluginType() .
+
 		   's' . $platform->getDirectorySeparator() . $this->getId();
 
 		if ($platform->is_dir($dataDir)) {
@@ -452,6 +459,7 @@ class GalleryPlugin {
 		}
 
 		$this->_flushPluginCache();
+
 		$event = GalleryCoreApi::newEvent('Gallery::UninstallPlugin');
 		$event->setData(
 			array(
@@ -627,6 +635,7 @@ class GalleryPlugin {
 		return array(
 			null,
 			empty($pluginStatus[$this->getId()]['active']) ? false : true,
+
 		);
 	}
 

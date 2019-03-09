@@ -73,6 +73,7 @@ function GalleryInitFirstPass($params = array()) {
 	}
 
 	$gallery->setPlatform($platform);
+
 	$slash = $platform->getDirectorySeparator();
 
 	if (isset($params['debug'])) {
@@ -99,14 +100,20 @@ function GalleryInitFirstPass($params = array()) {
 
 	// Set our various data paths
 	$gallery->setConfig('data.gallery.cache', $dataBase . 'cache' . $slash);
+
 	$gallery->setConfig('data.gallery.albums', $dataBase . 'albums' . $slash);
+
 	$gallery->setConfig('data.gallery.locks', $dataBase . 'locks' . $slash);
+
 	$gallery->setConfig('data.gallery.tmp', $dataBase . 'tmp' . $slash);
+
 	$gallery->setConfig('data.smarty.base', $dataBase . 'smarty' . $slash);
+
 	$gallery->setConfig(
 		'data.smarty.templates_c',
 		$dataBase . 'smarty' . $slash . 'templates_c' . $slash
 	);
+
 	$gallery->setConfig('data.gallery.plugins', $galleryBase . 'plugins' . $slash);
 	$gallery->setConfig('data.gallery.plugins_data', $dataBase . 'plugins_data' . $slash);
 	$gallery->setConfig('data.gallery.version', $dataBase . 'versions.dat');
@@ -135,7 +142,8 @@ function GalleryInitFirstPass($params = array()) {
 
 	// Allow for overrides from GalleryEmbed ($param) or from config.php
 	$configBaseUri = @$gallery->getConfig('baseUri');
-	$ret           = $urlGenerator->init(
+
+	$ret = $urlGenerator->init(
 		isset($params['baseUri']) ? $params['baseUri'] : (!empty($configBaseUri) ? $configBaseUri : null),
 		isset($params['g2Uri']) ? $params['g2Uri'] : null,
 		isset($params['embedSessionString']) ? $params['embedSessionString'] : null
@@ -203,7 +211,8 @@ function GalleryInitSecondPass() {
 
 	$session      =& $gallery->getSession();
 	$urlGenerator =& $gallery->getUrlGenerator();
-	$ret          = $urlGenerator->initNavigation();
+
+	$ret = $urlGenerator->initNavigation();
 
 	if ($ret) {
 		return $ret;

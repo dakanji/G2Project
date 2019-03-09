@@ -218,7 +218,6 @@ class Assert {
 			 */
 			if ($serializedActual !== $serializedExpected) {
 				return $this->failNotEquals($expected, $actual, $message);
-
 				//return $this->fail($message);
 			}
 		} elseif (is_numeric($actual) && is_numeric($expected)) {
@@ -285,7 +284,6 @@ class Assert {
 			 */
 			if ($serializedActual == $serializedExpected) {
 				return $this->failNotEquals($expected, $actual, $message);
-
 				//return $this->fail($message);
 			}
 		} elseif (is_numeric($actual) && is_numeric($expected)) {
@@ -806,7 +804,9 @@ class TestCase extends Assert {
 		Note that if a TestResult object was passed in, it must be by
 		reference. */
 		$this->fResult = $testResult;
+
 		$testResult->run($this, $ranges);
+
 		$this->fResult = 0;
 
 		return $testResult;
@@ -917,6 +917,7 @@ class TestCase extends Assert {
 		/* report error that requires correction in the test script
 		itself, or (heaven forbid) in this testing infrastructure */
 		$this->fExceptions[] = new PHPUnitException($message, 'ERROR');
+
 		$this->fResult->stop(); // [does not work]
 	}
 
@@ -972,7 +973,8 @@ class TestCase extends Assert {
 		global $gallery;
 
 		$this->fTiming['start'] = microtime();
-		$ret                    = $this->setUp();
+
+		$ret = $this->setUp();
 
 		if ($ret) {
 			$this->fail($ret->getAsHtml() . $gallery->getDebugBuffer());
@@ -997,6 +999,7 @@ class TestCase extends Assert {
 			!empty($this->fLifeCycle['tearDown']),
 			'TestSuite tearDown() method did not call parent::tearDown()'
 		);
+
 		$this->fTiming['stop'] = microtime();
 	}
 }
@@ -1076,6 +1079,7 @@ class TestSuite {
 		/* Number of TestCases comprising this TestSuite (including those
 		in any constituent TestSuites) */
 		$count = 0;
+
 		reset($this->fTests);
 
 		foreach ($this->fTests as $na => $test_case) {
@@ -1255,6 +1259,7 @@ class TextTestResult extends TestResult {
 		if ($nErrors > 0) {
 			echo '<h2>Errors</h2>';
 			echo "\n<ol>\n";
+
 			reset($this->fErrors);
 
 			foreach ($this->fErrors as $i => $error) {
@@ -1262,6 +1267,7 @@ class TextTestResult extends TestResult {
 				printf("<li>%s</li>\n", $failedTestName);
 				$exception = $error->getException();
 				echo "\n<ul>";
+
 				printf("<li>%s</li>\n", $exception->getMessage());
 				echo '</ul>';
 			}
@@ -1307,7 +1313,9 @@ class PrettyTestResult extends TestResult {
 		$nRun      = $this->countTests();
 		$nFailures = $this->countFailures();
 		echo '<h2>Summary</h2>';
+
 		printf('<p>%2.4f seconds elapsed</p>', $this->_totalElapsed);
+
 		printf('<p>%s test%s run</p>', $nRun, ($nRun == 1) ? '' : 's');
 		printf("<p>%s failure%s.</p>\n", $nFailures, ($nFailures == 1) ? '' : 's');
 
@@ -1355,6 +1363,7 @@ class PrettyTestResult extends TestResult {
 		}
 
 		printf("<TR><TD$style>%d</TD><TD$style>%s </TD><TD$style>%s </TD><TD$style>%s </TD>", $this->fRunTests, $test->getModuleId(), $test->classname(), $test->name());
+
 		flush();
 	}
 

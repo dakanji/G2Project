@@ -38,11 +38,13 @@ class CaptchaHelperTest extends GalleryTestCase {
 		$phpVm = new CaptchaHelperTestPhpVm();
 
 		$phpVm->setFunctionExists('ImageCreateFromJPEG', true);
+
 		$phpVm->setFunctionExists('ImageColorAllocate', true);
 		$phpVm->setFunctionExists('ImageString', true);
 		$phpVm->setFunctionExists('ImageJPEG', true);
 		$phpVm->setFunctionExists('ImageDestroy', true);
 		$phpVm->setFunctionExists('imagesx', true);
+
 		$gallery->_phpVm = $phpVm;
 		$report          = CaptchaHelper::testRequiredGdFunctions();
 		$this->assertEquals(
@@ -67,11 +69,13 @@ class CaptchaHelperTest extends GalleryTestCase {
 		$phpVm = new CaptchaHelperTestPhpVm();
 
 		$phpVm->setFunctionExists('ImageCreateFromJPEG', true);
+
 		$phpVm->setFunctionExists('ImageColorAllocate', true);
 		$phpVm->setFunctionExists('ImageString', false);
 		$phpVm->setFunctionExists('ImageJPEG', true);
 		$phpVm->setFunctionExists('ImageDestroy', true);
 		$phpVm->setFunctionExists('imagesx', false);
+
 		$gallery->_phpVm = $phpVm;
 		$report          = CaptchaHelper::testRequiredGdFunctions();
 		$this->assertEquals(
@@ -97,11 +101,13 @@ class CaptchaHelperTest extends GalleryTestCase {
 		$phpVm = new CaptchaHelperTestPhpVm();
 
 		$phpVm->setFunctionExists('ImageCreateFromJPEG', false);
+
 		$phpVm->setFunctionExists('ImageColorAllocate', false);
 		$phpVm->setFunctionExists('ImageString', false);
 		$phpVm->setFunctionExists('ImageJPEG', false);
 		$phpVm->setFunctionExists('ImageDestroy', false);
 		$phpVm->setFunctionExists('imagesx', false);
+
 		$gallery->_phpVm = $phpVm;
 		$report          = CaptchaHelper::testRequiredGdFunctions();
 		$this->assertEquals(

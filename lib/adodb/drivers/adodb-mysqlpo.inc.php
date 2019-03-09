@@ -45,6 +45,7 @@ class ADODB_mysqlt extends ADODB_mysql {
 
 		$this->transCnt += 1;
 		$this->Execute('SET AUTOCOMMIT=0');
+
 		$this->Execute('BEGIN');
 
 		return true;
@@ -64,6 +65,7 @@ class ADODB_mysqlt extends ADODB_mysql {
 		}
 
 		$this->Execute('COMMIT');
+
 		$this->Execute('SET AUTOCOMMIT=1');
 
 		return true;
@@ -79,6 +81,7 @@ class ADODB_mysqlt extends ADODB_mysql {
 		}
 
 		$this->Execute('ROLLBACK');
+
 		$this->Execute('SET AUTOCOMMIT=1');
 
 		return true;
@@ -129,7 +132,6 @@ class ADORecordSet_mysqlt extends ADORecordSet_mysql {
 		}
 
 		$this->adodbFetchMode = $mode;
-
 		parent::__construct($queryID);
 	}
 

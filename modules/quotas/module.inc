@@ -40,7 +40,9 @@ class QuotasModule extends GalleryModule {
 		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
+
 		$this->_templateVersion = 1;
+
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks('getSiteAdminViews');
 	}
@@ -66,7 +68,8 @@ class QuotasModule extends GalleryModule {
 
 		if (!empty($currentVersion) && version_compare($currentVersion, '1.0.1', '<')) {
 			$storage =& $gallery->getStorage();
-			$ret     = $storage->configureStore($this->getId(), array('QuotasMap:1.0'));
+
+			$ret = $storage->configureStore($this->getId(), array('QuotasMap:1.0'));
 
 			if ($ret) {
 				return $ret;

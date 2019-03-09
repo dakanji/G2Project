@@ -32,7 +32,9 @@ class ClassicTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('classic');
+
 		$this->setName($gallery->i18n('Classic'));
+
 		$this->setDescription(
 			$gallery->i18n(
 				'Classic Gallery2 root album look and feel'
@@ -103,6 +105,7 @@ class ClassicTheme extends GalleryTheme {
 			'type'  => 'checkbox',
 			'value' => $params['showSubalbums'],
 		);
+
 		$settings[] = array(
 			'key'        => 'subalbumDepth',
 			'name'       => $this->translate('Depth of subalbums links (0=no limit)'),
@@ -112,6 +115,7 @@ class ClassicTheme extends GalleryTheme {
 			),
 			'value'      => $params['subalbumDepth'],
 		);
+
 		$settings[] = array(
 			'key'   => 'subalbumSort',
 			'name'  => $this->translate(

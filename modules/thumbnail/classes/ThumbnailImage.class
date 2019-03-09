@@ -218,6 +218,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 		$this->setMimeType($mimeType);
 		$this->setWidth(0);
 		$this->setHeight(0);
+
 		$platform =& $gallery->getPlatform();
 
 		list($ret, $path) = $this->fetchPath();
@@ -444,6 +445,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 				$derivative->setMimeType($outputMimeType);
 				$derivative->setDerivativeOperations($operations);
 				$derivative->setDerivativeSourceId($source->getId());
+
 				$ret = $derivative->save();
 
 				if ($ret) {

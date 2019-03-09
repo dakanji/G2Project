@@ -128,7 +128,8 @@ class ItemAttributesTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_session = $this->_saveSession;
-		$ret               = parent::tearDown();
+
+		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -162,7 +163,8 @@ class ItemAttributesTest extends GalleryTestCase {
 
 		$gallery->_phpVm   = new ItemAttributesTestPhpVm();
 		$gallery->_session = new ItemAttributesTestSession();
-		$ret               = GalleryCoreApi::setItemViewCount($this->_items[0]->getId(), 0);
+
+		$ret = GalleryCoreApi::setItemViewCount($this->_items[0]->getId(), 0);
 
 		if ($ret) {
 			return $ret;
@@ -197,7 +199,8 @@ class ItemAttributesTest extends GalleryTestCase {
 
 		$gallery->_phpVm   = new ItemAttributesTestPhpVm();
 		$gallery->_session = new ItemAttributesTestSession();
-		$ret               = GalleryCoreApi::setItemViewCount($this->_items[0]->getId(), 0);
+
+		$ret = GalleryCoreApi::setItemViewCount($this->_items[0]->getId(), 0);
 
 		if ($ret) {
 			return $ret;
@@ -230,7 +233,8 @@ class ItemAttributesTest extends GalleryTestCase {
 		$gallery->_phpVm   = new ItemAttributesTestPhpVm();
 		$gallery->_session = new ItemAttributesTestSession();
 		$session           =& $gallery->_session;
-		$ret               = GalleryCoreApi::setItemViewCount($this->_items[0]->getId(), 0);
+
+		$ret = GalleryCoreApi::setItemViewCount($this->_items[0]->getId(), 0);
 
 		if ($ret) {
 			return $ret;
@@ -243,9 +247,11 @@ class ItemAttributesTest extends GalleryTestCase {
 		}
 
 		// Backdate our last viewed time by *almost* one day
-		$lastViewed                             =& $session->get('core.lastViewed');
+		$lastViewed =& $session->get('core.lastViewed');
+
 		$lastViewed[$this->_items[0]->getId()] -= 86398;
-		$ret                                    = GalleryCoreApi::incrementItemViewCount($this->_items[0]->getId(), 1);
+
+		$ret = GalleryCoreApi::incrementItemViewCount($this->_items[0]->getId(), 1);
 
 		if ($ret) {
 			return $ret;
@@ -261,9 +267,11 @@ class ItemAttributesTest extends GalleryTestCase {
 		$this->assertEquals(1, $viewCount);
 
 		// Backdate it further over the day line
-		$lastViewed                             =& $session->get('core.lastViewed');
+		$lastViewed =& $session->get('core.lastViewed');
+
 		$lastViewed[$this->_items[0]->getId()] -= 4;
-		$ret                                    = GalleryCoreApi::incrementItemViewCount($this->_items[0]->getId(), 1);
+
+		$ret = GalleryCoreApi::incrementItemViewCount($this->_items[0]->getId(), 1);
 
 		if ($ret) {
 			return $ret;
@@ -284,6 +292,7 @@ class ItemAttributesTest extends GalleryTestCase {
 
 		$gallery->_phpVm   = new ItemAttributesTestPhpVm(false, array(), time());
 		$gallery->_session = new ItemAttributesTestSession(false, true);
+
 		$this->_becomeGuestUser();
 
 		unset($_SERVER['HTTP_IF_MODIFIED_SINCE']);
@@ -307,7 +316,6 @@ class ItemAttributesTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(0, $viewCount, 'first attempt, search engine -> do not increment');
-
 		// It only sets the header if it actually increments
 		$this->assertEquals(array(), GalleryUtilities::_getResponseHeaders());
 	}
@@ -315,10 +323,10 @@ class ItemAttributesTest extends GalleryTestCase {
 	public function testIncrementItemViewCountGuestNoSessionIfModifiedNotSetIsNotSearchEngine() {
 		global $gallery;
 
-		$now = time();
-
+		$now               = time();
 		$gallery->_phpVm   = new ItemAttributesTestPhpVm(false, array(), $now);
 		$gallery->_session = new ItemAttributesTestSession(false, false);
+
 		$this->_becomeGuestUser();
 
 		unset($_SERVER['HTTP_IF_MODIFIED_SINCE']);
@@ -356,7 +364,9 @@ class ItemAttributesTest extends GalleryTestCase {
 
 		$gallery->_phpVm   = new ItemAttributesTestPhpVm();
 		$gallery->_session = new ItemAttributesTestSession(false);
+
 		$this->_becomeGuestUser();
+
 		$_SERVER['HTTP_IF_MODIFIED_SINCE'] = 'something';
 
 		$ret = GalleryCoreApi::setItemViewCount($this->_items[0]->getId(), 0);
@@ -383,13 +393,15 @@ class ItemAttributesTest extends GalleryTestCase {
 	public function testIncrementItemViewCountGuestIfModifiedIsSet2() {
 		global $gallery;
 
-		$gallery->_phpVm   = new ItemAttributesTestPhpVm(
+		$gallery->_phpVm = new ItemAttributesTestPhpVm(
 			true,
 			array(
 				'If-Modified-Since' => 'something',
 			)
 		);
+
 		$gallery->_session = new ItemAttributesTestSession(false);
+
 		$this->_becomeGuestUser();
 
 		unset($_SERVER['HTTP_IF_MODIFIED_SINCE']);
@@ -418,12 +430,13 @@ class ItemAttributesTest extends GalleryTestCase {
 	public function testIncrementItemViewCountGuestIfModifiedIsSetNotGuest() {
 		global $gallery;
 
-		$gallery->_phpVm                   = new ItemAttributesTestPhpVm(
+		$gallery->_phpVm = new ItemAttributesTestPhpVm(
 			true,
 			array(
 				'If-Modified-Since' => 'something',
 			)
 		);
+
 		$gallery->_session                 = new ItemAttributesTestSession();
 		$asdminUserId                      = $gallery->getActiveUserId();
 		$_SERVER['HTTP_IF_MODIFIED_SINCE'] = 'foobar';
@@ -435,6 +448,7 @@ class ItemAttributesTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals($asdminUserId, $gallery->getActiveUserId(), 'admin user id');
+
 		$ret = GalleryCoreApi::incrementItemViewCount($this->_items[0]->getId());
 
 		if ($ret) {
@@ -580,6 +594,7 @@ class ItemAttributesTest extends GalleryTestCase {
 		}
 
 		list($ret, $parentSequence) = GalleryCoreApi::fetchParentSequence($album->getId());
+
 		$this->assertEquals(
 			array(
 				$this->_getRootId(),
@@ -612,7 +627,6 @@ class ItemAttributesTest extends GalleryTestCase {
 			$parentSequence,
 			'item parent sequence'
 		);
-
 		// Set virtual root
 		$gallery->setConfig('breadcrumbRootId', $this->_items[1]->getId());
 
@@ -783,7 +797,8 @@ class ItemAttributesTest extends GalleryTestCase {
 		$session                 =& $gallery->getSession();
 		$this->_saveSessionPerms = $session->get(GALLERY_PERMISSION_SESSION_KEY);
 		$itemId                  = $this->_items[1]->getId();
-		$ret                     = GalleryCoreApi::removeItemPermissions($itemId);
+
+		$ret = GalleryCoreApi::removeItemPermissions($itemId);
 
 		if ($ret) {
 			return $ret;

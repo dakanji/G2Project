@@ -55,6 +55,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$this->_index            = new GalleryRepositoryIndex('test');
 		$this->_index->_index    = $this->_sampleIndex;
 		$this->_index->_isLoaded = true;
+
 		$gallery->setConfig('repository.url', 'http://example.com/repository/');
 	}
 
@@ -225,9 +226,8 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$this->_index->_isLoaded = false;
 
 		// Prepare mock objects.
-		$serializedSampleIndex = serialize($this->_sampleIndex);
-		$utilities             = new UnitTestRepositoryUtilities();
-
+		$serializedSampleIndex    = serialize($this->_sampleIndex);
+		$utilities                = new UnitTestRepositoryUtilities();
 		$this->_index->_utilities =& $utilities;
 		$utilities->setReply(
 			'downloadFile',
@@ -239,12 +239,14 @@ class RepositoryIndexTest extends GalleryTestCase {
 			array('http://example.com/repository/test/index.hash', 1),
 			array(true, md5($serializedSampleIndex))
 		);
+
 		$platform = new UnitTestPlatform();
 		$platform->setReply(
 			'file_exists',
 			array($this->_index->getRepositoryCacheDir() . 'modules'),
 			true
 		);
+
 		$platform->setReply(
 			'is_dir',
 			array($this->_index->getRepositoryCacheDir() . 'modules'),
@@ -341,6 +343,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			false
 		);
 		$gallery->setPlatform($platform);
+
 		$this->assertTrue(false === $this->_index->existsInCache());
 	}
 
@@ -356,6 +359,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			serialize($this->_sampleIndex)
 		);
 		$gallery->setPlatform($platform);
+
 		$ret = $this->_index->load();
 
 		if ($ret) {
@@ -369,8 +373,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	public function testLoadMalformedIndex() {
 		global $gallery;
 
-		$index = new GalleryRepositoryIndex('test');
-
+		$index            = new GalleryRepositoryIndex('test');
 		$index->_index    = '';
 		$index->_isLoaded = false;
 		$indexPath        = $this->_index->getRepositoryCacheDir() . 'index.repository';
@@ -382,6 +385,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		);
 		$platform->setReply('unlink', array($indexPath), true);
 		$gallery->setPlatform($platform);
+
 		$ret = $index->load();
 
 		if (!$ret) {
@@ -407,7 +411,8 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$this->_index->_index    = '';
 		$this->_index->_isLoaded = false;
 		$serializedIndex         = serialize($this->_sampleIndex);
-		$ret                     = $this->_index->unserializeIndex($serializedIndex);
+
+		$ret = $this->_index->unserializeIndex($serializedIndex);
 
 		if ($ret) {
 			return $ret;
@@ -490,9 +495,11 @@ class RepositoryIndexTest extends GalleryTestCase {
 		GalleryDataCache::put($cacheKey, $supportedLanguages);
 
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(module)';
+
 		GalleryDataCache::put($cacheKey, array('testModule'));
 
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(theme)';
+
 		GalleryDataCache::put($cacheKey, array('testTheme'));
 
 		$testCases = array(
@@ -535,9 +542,11 @@ class RepositoryIndexTest extends GalleryTestCase {
 		);
 
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(module)';
+
 		GalleryDataCache::put($cacheKey, array('testModule'));
 
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(theme)';
+
 		GalleryDataCache::put($cacheKey, array('testTheme'));
 
 		$testCases = array(
@@ -680,15 +689,15 @@ class RepositoryIndexTest extends GalleryTestCase {
 				'expectedVersion' => false,
 			),
 		);
-		$coreApi   = GalleryCoreApi::getApiVersion();
-		$i         = 0;
+
+		$coreApi = GalleryCoreApi::getApiVersion();
+		$i       = 0;
 
 		foreach ($testCases as $case) {
 			$i++;
-			$pluginType = $case['pluginType'];
-			$pluginId   = 'test' . ucfirst($pluginType);
-			$utilities  = new UnitTestRepositoryUtilities();
-
+			$pluginType               = $case['pluginType'];
+			$pluginId                 = 'test' . ucfirst($pluginType);
+			$utilities                = new UnitTestRepositoryUtilities();
 			$this->_index->_utilities =& $utilities;
 			$pluginApi                = $pluginType == 'module' ? GalleryModule::getMe()->getApiVersion() : GalleryTheme::getMe()->getApiVersion();
 			$utilities->setReply(
@@ -752,6 +761,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 		$testTheme = new RepositoryIndexTestTheme();
 		$themeApi  = GalleryTheme::getMe()->getApiVersion();
+
 		GalleryDataCache::put('GalleryPluginHelper::loadPlugin(theme, testTheme)', $testTheme);
 		GalleryDataCache::put(
 			'GalleryPluginHelper::fetchPluginStatus(theme)',
@@ -766,8 +776,10 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$utilities = new UnitTestRepositoryUtilities();
 
 		$this->_setUpRepositoryUtilitiesResponses($utilities);
+
 		$this->_index->_utilities =& $utilities;
-		$ret                      = $gallery->setActiveLanguageCode('en_GB');
+
+		$ret = $gallery->setActiveLanguageCode('en_GB');
 
 		if ($ret) {
 			return $ret;
@@ -839,8 +851,10 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$utilities = new UnitTestRepositoryUtilities();
 
 		$this->_setUpRepositoryUtilitiesResponses($utilities);
+
 		$this->_index->_utilities =& $utilities;
-		$ret                      = $gallery->setActiveLanguageCode('en_GB');
+
+		$ret = $gallery->setActiveLanguageCode('en_GB');
 
 		if ($ret) {
 			return $ret;
@@ -901,7 +915,6 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$testTheme = new RepositoryIndexTestTheme();
 		$themeApi  = GalleryTheme::getMe()->getApiVersion();
 		$themeApi[1]--;
-
 		$testTheme->_themeApi = $themeApi;
 
 		GalleryDataCache::put('GalleryPluginHelper::loadPlugin(theme, testTheme)', $testTheme);
@@ -922,8 +935,10 @@ class RepositoryIndexTest extends GalleryTestCase {
 				'noTheme' => 1,
 			)
 		);
+
 		$this->_index->_utilities =& $utilities;
-		$ret                      = $gallery->setActiveLanguageCode('en_GB');
+
+		$ret = $gallery->setActiveLanguageCode('en_GB');
 
 		if ($ret) {
 			return $ret;
@@ -973,6 +988,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 		$testTheme = new RepositoryIndexTestTheme();
 		$themeApi  = GalleryTheme::getMe()->getApiVersion();
+
 		GalleryDataCache::put('GalleryPluginHelper::loadPlugin(theme, testTheme)', $testTheme);
 		GalleryDataCache::put(
 			'GalleryPluginHelper::fetchPluginStatus(theme)',
@@ -987,8 +1003,10 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$utilities = new UnitTestRepositoryUtilities();
 
 		$this->_setUpRepositoryUtilitiesResponses($utilities);
+
 		$this->_index->_utilities =& $utilities;
-		$ret                      = $gallery->setActiveLanguageCode('en_GB');
+
+		$ret = $gallery->setActiveLanguageCode('en_GB');
 
 		if ($ret) {
 			return $ret;

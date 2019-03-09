@@ -94,7 +94,6 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($album);
-
 		GalleryUtilities::putRequestVariable('itemId', $album->getId());
 
 		list($ret, $item, $wasSpecified) = $view->getItem();
@@ -132,7 +131,6 @@ class ViewTest extends GalleryTestCase {
 
 		$this->assertTrue($wasSpecified, 'ShowItem specified');
 		$this->assertEquals($this->_getRootId(), $item->getId(), 'ShowItem root album by default');
-
 		// Override default album
 		$gallery->setConfig('defaultAlbumId', $album->getId());
 
@@ -180,8 +178,8 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($album);
-
 		GalleryUtilities::putRequestVariable('itemId', $album->getId());
+
 		$ret = GalleryCoreApi::removeItemPermissions($album->getId());
 
 		if ($ret) {
@@ -567,6 +565,7 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($album);
+
 		$itemId = $album->getId();
 
 		if ($forDataItem) {
@@ -629,6 +628,7 @@ class ViewTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new UnitTestPhpVm();
+
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('header', array('Cache-Control: no-cache', ''), true);
@@ -674,6 +674,7 @@ class ViewTest extends GalleryTestCase {
 			),
 			$head['meta']
 		);
+
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
@@ -681,6 +682,7 @@ class ViewTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new UnitTestPhpVm();
+
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('header', array('Cache-Control: no-cache', ''), true);
@@ -729,6 +731,7 @@ class ViewTest extends GalleryTestCase {
 			),
 			$head['meta']
 		);
+
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
@@ -736,8 +739,8 @@ class ViewTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new UnitTestPhpVm();
-		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 
+		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 		// Optional md5 call if authToken needs to be created and placed in session
 		$gallery->_phpVm->setReply(
 			'md5',
@@ -755,6 +758,7 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($item);
+
 		$itemId = $item->getId();
 
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
@@ -797,8 +801,11 @@ class ViewTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new UnitTestPhpVm();
+
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
+
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
+
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('header', array('Cache-Control: no-cache', ''), true);
 		$gallery->_phpVm->setReply('header', array('Pragma: no-cache', ''), true);
@@ -807,7 +814,6 @@ class ViewTest extends GalleryTestCase {
 			array('Expires: Sun, 09 Mar 2008 21:00:00 GMT', ''),
 			true
 		);
-
 		// Optional md5 call if authToken needs to be created and placed in session
 		$gallery->_phpVm->setReply(
 			'md5',
@@ -825,6 +831,7 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($item);
+
 		$itemId = $item->getId();
 
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
@@ -878,6 +885,7 @@ class ViewTest extends GalleryTestCase {
 			),
 			$head['meta']
 		);
+
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
 	}
 
@@ -885,8 +893,8 @@ class ViewTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new UnitTestPhpVm();
-		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 
+		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
 		// Optional md5 call if authToken needs to be created and placed in session
 		$gallery->_phpVm->setReply(
 			'md5',
@@ -904,6 +912,7 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($item);
+
 		$itemId = $item->getId();
 
 		list($ret, $everybodyGroupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');

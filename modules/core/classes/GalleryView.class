@@ -285,6 +285,7 @@ class GalleryView {
 		// --------------------------------------------------
 		// Get our status
 		$status = $session->getStatus();
+
 		$template->setVariable('status', $status);
 
 		// --------------------------------------------------
@@ -325,7 +326,9 @@ class GalleryView {
 			 */
 			if ($this->getViewType() == VIEW_TYPE_ADMIN) {
 				$theme = new GalleryTheme();
+
 				$theme->setId('fallbackTheme');
+
 				$isFallbackTheme = true;
 			} else {
 				$redirect = array(
@@ -350,8 +353,8 @@ class GalleryView {
 		}
 
 		$templateAdapter =& $gallery->getTemplateAdapter();
-		$templateAdapter->setTheme($theme);
 
+		$templateAdapter->setTheme($theme);
 		// --------------------------------------------------
 		// Specify our base css style before the view's, so that the view can override it
 		$template->style('modules/core/data/gallery.css');
@@ -632,6 +635,7 @@ class GalleryView {
 							'Gallery::LoadThemeAndParameters'
 						)
 					);
+
 					$theme = $params = null;
 				} else {
 					return array($ret, null, null);
@@ -764,6 +768,7 @@ class GalleryView {
 
 			if (!($phpVm->headers_sent())) {
 				$phpVm->header('Cache-Control: ' . $access);
+
 				$phpVm->header('Pragma: ' . $access);
 				$phpVm->header('Expires: ' . $expires);
 			}
@@ -805,6 +810,7 @@ class GalleryView {
 		}
 
 		$template->setVariable('user', $user);
+
 		$themeVars = array(
 			'guestPreviewMode' => $session->get('theme.guestPreviewMode') ? 1 : 0,
 		);

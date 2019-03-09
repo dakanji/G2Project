@@ -61,14 +61,16 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 
 		$this->_symlinkAllowedPlatform    = new ItemAddFromServerTestPlatform($gallery->getPlatform(), true);
 		$this->_symlinkDisallowedPlatform = new ItemAddFromServerTestPlatform($gallery->getPlatform(), false);
-		$ret                              = $this->_markPluginParametersForCleanup('module', 'itemadd');
+
+		$ret = $this->_markPluginParametersForCleanup('module', 'itemadd');
 
 		if ($ret) {
 			return $ret;
 		}
 
 		$this->_baseDir = dirname(__DIR__);
-		$ret            = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'itemadd',
 			'uploadLocalServer.dir.1',
@@ -136,6 +138,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		}
 
 		$this->assertEquals(false, $isAppropriate, 'off');
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'itemadd', 'fromserver', 'admin');
 
 		if ($ret) {
@@ -158,6 +161,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		}
 
 		$this->assertEquals(false, $isAppropriate, 'admin for guest');
+
 		$ret = GalleryCoreApi::setPluginParameter('module', 'itemadd', 'fromserver', 'on');
 
 		if ($ret) {
@@ -187,6 +191,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		}
 
 		$results = $this->handleRequest($this->_album, ERROR_PERMISSION_DENIED);
+
 		$this->assertEquals(array(null, null), $results);
 	}
 
@@ -380,7 +385,6 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		$i = 0;
 
 		$this->assertEquals(count($files), count($results[1]['addedFiles']), 'added count');
-
 		usort($results[1]['addedFiles'], $sortAddedFilesFunc);
 
 		foreach ($files as $file) {
@@ -390,6 +394,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 				'added #' . $i
 			);
 			$this->assertTrue(isset($results[1]['addedFiles'][$i]['id']));
+
 			$i++;
 		}
 
@@ -420,7 +425,9 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 
 				if ($subalbum) {
 					$this->assertTrue(GalleryUtilities::isA($subalbum, 'GalleryAlbumItem'), 'subalbum');
+
 					$dirName = $platform->legalizePathComponent($dirName);
+
 					$this->assertEquals($dirName, $subalbum->getPathComponent(), 'subalbum path');
 				} else {
 					$this->fail("Missing sub-album for expected $dirName");
@@ -495,7 +502,9 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 				!isset($seenWeights[$item->getParentId()][$orderWeight]),
 				'Seen this weight before: ' . $orderWeight
 			);
+
 			$seenWeights[$item->getParentId()][$orderWeight] = 1;
+
 			$i++;
 		}
 	}
@@ -538,6 +547,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		);
 
 		$results = $this->handleRequest($this->_rootAlbum);
+
 		$this->assertEquals(array(), $results[0]);
 		$this->assertEquals(1, count($results[1]));
 		$this->assertEquals(1, count($results[1]['addedFiles']));
@@ -598,6 +608,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		);
 
 		$results = $this->handleRequest($this->_rootAlbum);
+
 		$this->assertEquals(array(array(), array()), $results);
 	}
 
@@ -616,6 +627,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[set][title]', 1);
 
 		$results = $this->handleRequest($this->_rootAlbum);
+
 		$this->assertEquals(array(array(), array()), $results);
 	}
 
@@ -662,7 +674,8 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		$platform =& $gallery->getPlatform();
 		$dirSep   = $platform->getDirectorySeparator();
 		$baseDir  = $this->_baseDir . $dirSep . 'data' . $dirSep;
-		$ret      = $this->_plugin->addItem(
+
+		$ret = $this->_plugin->addItem(
 			$this->_rootAlbum->getId(),
 			$baseDir . 'good<script>evil.jpg',
 			false,
@@ -683,6 +696,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 
 		$this->assertEquals(array(), $status['addedFiles'][0]['warnings']);
 		$this->assertEquals(null, $error);
+
 		$id = $status['addedFiles'][0]['id'];
 
 		list($ret, $item) = GalleryCoreApi::loadEntitiesById($id, 'GalleryItem');

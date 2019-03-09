@@ -60,6 +60,7 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
+
 		$ret = $this->_markPluginParametersForCleanup('module', 'multilang');
 
 		if ($ret) {
@@ -103,6 +104,7 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
 
 		$results = $this->handleRequest($this->album, $this->_album);
+
 		$this->assertEquals(array(array(), null), $results);
 	}
 
@@ -168,6 +170,7 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 			$album->getDescription(),
 			'cn description'
 		);
+
 		$ret = GalleryCoreApi::deleteEntityById(
 			$this->_subAlbum->getId(),
 			'GalleryAlbumItem'
@@ -194,7 +197,8 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 
 	public function testMissingRootTitle() {
 		$rootAlbumId = $this->_getRootId();
-		$ret         = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
 			'id.rootAlbum',
@@ -213,6 +217,7 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 			array(array('form[error][title][missingRootTitle]'), null),
 			$results
 		);
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',

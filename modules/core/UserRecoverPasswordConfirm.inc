@@ -110,6 +110,7 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 						}
 
 						$user->changePassword($form['password1']);
+
 						$ret = $user->save();
 
 						if ($ret) {

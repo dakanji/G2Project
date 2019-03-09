@@ -1154,6 +1154,7 @@ function adodb_date($fmt, $d = false, $is_gmt = false) {
 					$dt = new DateTime();
 
 					$dt->SetDate($year, $month, $day);
+
 					$dates .= $dt->Format('T');
 				} else {
 					$dates .= date('T');

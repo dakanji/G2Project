@@ -50,6 +50,7 @@ class GalleryItemAttributesHelper_advanced {
 
 		foreach ($ids as $id) {
 			$gallery->guaranteeTimeLimit(5);
+
 			$ret = GalleryItemAttributesHelper_advanced::setOrderWeight($id, $current);
 
 			if ($ret) {

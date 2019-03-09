@@ -116,7 +116,8 @@ class ItemAddAlbumController extends GalleryController {
 
 				// Figure out where to redirect upon success
 				$redirect['itemId'] = $instance->getId();
-				$ret                = GalleryCoreApi::assertHasItemPermission($instance->getId(), 'core.edit');
+
+				$ret = GalleryCoreApi::assertHasItemPermission($instance->getId(), 'core.edit');
 
 				if (empty($ret)) {
 					$redirect['view']       = 'core.ItemAdmin';

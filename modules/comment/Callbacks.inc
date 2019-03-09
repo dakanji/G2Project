@@ -90,6 +90,7 @@ class CommentCallbacks {
 
 					if (!$anonymousViewable) {
 						$expires = $gallery->getHttpDate($phpVm->time() - 7 * 24 * 3600);
+
 						$phpVm->header('Cache-Control: no-cache');
 						$phpVm->header('Pragma: no-cache');
 						$phpVm->header('Expires: ' . $expires);

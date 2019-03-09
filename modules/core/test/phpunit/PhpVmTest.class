@@ -104,6 +104,7 @@ class PhpVmTest extends GalleryTestCase {
 		/*
 		 * This test also depends on the G2 Session code as we do an actual HTTP request and
 		 * verify that we received a cookie header. GallerySession uses the $phpVm->header()
+
 		 * function, thus this covers what we'd like to test (and a little more)
 		 */
 		$urlGenerator =& $gallery->getUrlGenerator();
@@ -128,6 +129,7 @@ class PhpVmTest extends GalleryTestCase {
 		}
 
 		$this->assertFalse(empty($session->_sessionId), 'persistent session preparation failed');
+
 		$url = GalleryUrlGenerator::getMe()->appendParamsToUrl(
 			$url,
 			array(
@@ -177,6 +179,7 @@ class PhpVmTest extends GalleryTestCase {
 
 	public function testHeaderDetectsHeaderInjection() {
 		global $gallery;
+
 		$phpVm = $gallery->getPhpVm();
 
 		/*
@@ -211,7 +214,6 @@ class PhpVmTest extends GalleryTestCase {
 
 		for ($i = 0; $i < 50; $i++) {
 			$rand = mt_rand(1000, 1010);
-
 			$this->assertTrue($rand >= 1000 && $rand <= 1010, 'with minimum and maximum');
 		}
 	}

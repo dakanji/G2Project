@@ -56,7 +56,8 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 		global $gallery;
 
 		$templateAdapter =& $gallery->getTemplateAdapter();
-		$ret             = GalleryCoreApi::assertUserIsSiteAdministrator();
+
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
 			return array($ret, null);
@@ -83,6 +84,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 					array($this, 'updateLanguageSettings'),
 					array($form)
 				);
+
 				$delegate['view'] = 'core.ProgressBar';
 			} else {
 				list($ret, $status['languageSettingsSaved']) = $this->_updateGeneralSettings($form);
@@ -178,6 +180,7 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 		// If actions > 0, then we have some language packages to work with
 		if ($totalActions > 0) {
 			$templateAdapter->updateProgressBar($heading, '', 0);
+
 			$callback = array(
 				'method'  => array($templateAdapter, 'updateProgressBar'),
 				'title'   => $heading,
@@ -236,11 +239,15 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 		}
 
 		$templateAdapter->updateProgressBar($heading, $message, 1);
+
 		$redirect['view']    = 'core.SiteAdmin';
 		$redirect['subView'] = 'core.AdminLanguageManager';
 		$session             =& $gallery->getSession();
+
 		$session->putStatus($status);
+
 		$urlGenerator =& $gallery->getUrlGenerator();
+
 		$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect), true);
 
 		return $ret;
@@ -306,7 +313,8 @@ class AdminLanguageManagerController extends AdminRepositoryDownloadAndInstallCo
 		$translator =& $gallery->getTranslator();
 
 		list($languageData) = $translator->getLanguageData();
-		$locales            = array(
+
+		$locales = array(
 			'install' => array(),
 			'delete'  => array(),
 		);
@@ -486,7 +494,8 @@ class AdminLanguageManagerView extends GalleryView {
 		$platform   =& $gallery->getPlatform();
 		$translator =& $gallery->getTranslator();
 		$session    =& $gallery->getSession();
-		$ret        = GalleryCoreApi::assertUserIsSiteAdministrator();
+
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
 			return array($ret, null);
@@ -607,8 +616,9 @@ class AdminLanguageManagerView extends GalleryView {
 		$translator =& $gallery->getTranslator();
 
 		list($languageData, $defaultCountry) = $translator->getLanguageData();
-		$supportedLanguages                  = GalleryCoreApi::getSupportedLanguages();
-		$packages                            = array();
+
+		$supportedLanguages = GalleryCoreApi::getSupportedLanguages();
+		$packages           = array();
 
 		foreach (array('module', 'theme') as $pluginType) {
 			list($ret, $plugins) = GalleryCoreApi::getAllPluginIds($pluginType);

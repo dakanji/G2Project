@@ -150,8 +150,7 @@ class Mail_mimePart {
 					break;
 
 				case 'encoding':
-					$this->_encoding = $value;
-
+					$this->_encoding                      = $value;
 					$headers['Content-Transfer-Encoding'] = $value;
 
 					break;

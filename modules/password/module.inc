@@ -46,7 +46,9 @@ class PasswordModule extends GalleryModule {
 		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
+
 		$this->_templateVersion = 1;
+
 		$this->setGroup('display', $this->translate('Display'));
 	}
 
@@ -173,6 +175,7 @@ class PasswordModule extends GalleryModule {
 	 */
 	public function uninstall() {
 		global $gallery;
+
 		GalleryCoreApi::requireOnce('modules/password/classes/PasswordHelper.class');
 
 		$query = "
@@ -267,13 +270,15 @@ class PasswordModule extends GalleryModule {
 					global $gallery;
 
 					$session =& $gallery->getSession();
-					$ret     = $session->start();
+
+					$ret = $session->start();
 
 					if ($ret) {
 						return $ret;
 					}
 
 					$session->doNotUseTempId();
+
 					$urlGenerator =& $gallery->getUrlGenerator();
 					$phpVm        = $gallery->getPhpVm();
 					$phpVm->header(
@@ -288,6 +293,7 @@ class PasswordModule extends GalleryModule {
 							)
 						)
 					);
+
 					$phpVm->exit_();
 				}
 			}
@@ -308,6 +314,7 @@ class PasswordModule extends GalleryModule {
 			&& $item->isModified('parentId')
 		) {
 			GalleryCoreApi::requireOnce('modules/password/classes/PasswordHelper.class');
+
 			$ret = PasswordHelper::handleMoveItem($item);
 
 			if ($ret) {

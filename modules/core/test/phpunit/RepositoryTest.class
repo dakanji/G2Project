@@ -81,6 +81,7 @@ class RepositoryTest extends GalleryTestCase {
 			array($pluginType, $header['requiredCoreApi'], $header['requiredPluginApi'], null),
 			$pluginApi == $header['requiredPluginApi'] && $header['requiredCoreApi'] == $coreApi
 		);
+
 		$base = $installed['packages']['base'];
 		$utilities->setReply(
 			'compareVersions',
@@ -1267,9 +1268,8 @@ class RepositoryTest extends GalleryTestCase {
 		$moduleApi = GalleryModule::getMe()->getApiVersion();
 
 		for ($caseNumber = 1; $caseNumber < 9; $caseNumber++) {
-			$utilities  = new UnitTestRepositoryUtilities();
-			$repository = new GalleryRepository();
-
+			$utilities              = new UnitTestRepositoryUtilities();
+			$repository             = new GalleryRepository();
 			$repository->_utilities =& $utilities;
 			$repository->_index     = $this->_index;
 			$case                   = $this->_getUpgradeTestCase($caseNumber);
@@ -1294,7 +1294,9 @@ class RepositoryTest extends GalleryTestCase {
 			// Restore $repository->_index->_index
 			$repository->_index->_index['modules']['testModule']['header'] = $rHeaderM;
 			$repository->_index->_index['themes']['testTheme']['header']   = $rHeaderT;
+
 			$this->_setupUpdateUtilitiesResponses($utilities, $repository->_index->_index, $case);
+
 			$repository->_index->_utilities =& $utilities;
 
 			list($ret, $upgradeInfo) = $repository->getPluginUpgradeInfo('module', 'testModule');
@@ -1327,6 +1329,7 @@ class RepositoryTest extends GalleryTestCase {
 					$firstBaseDirectory = false;
 
 					$platform->setReply('readdir', array('fh'), $pluginId);
+
 					$platform->setReply(
 						'is_file',
 						array(
@@ -1440,8 +1443,8 @@ class RepositoryTest extends GalleryTestCase {
 				array($case['repositoryCoreVersion'], $installedCoreVersion, null, null),
 				array(null, $case['expectedRelation'])
 			);
-			$repository = new GalleryRepository();
 
+			$repository                     = new GalleryRepository();
 			$repository->_utilities         = $utilities;
 			$repository->_index             = $this->_index;
 			$repository->_index->_utilities = $utilities;
@@ -1457,6 +1460,7 @@ class RepositoryTest extends GalleryTestCase {
 				$isAvailable,
 				"Expected relation: {$case['expectedRelation']}, $isAvailable"
 			);
+
 			$this->assertEquals(
 				$case['expectedApiVersions'],
 				$apiVersions,
@@ -1509,6 +1513,7 @@ class RepositoryTest extends GalleryTestCase {
 					),
 				)
 			);
+
 			$utilities->setReply(
 				'isPluginCompatible',
 				array('module', $coreApis['core'], $coreApis['module'], null),
@@ -1794,11 +1799,10 @@ class RepositoryTest extends GalleryTestCase {
 		$testModuleWithVersion['localVersion'] = 'someVersion';
 
 		for ($i = 0; $i < 4; $i++) {
-			$caseNumber = $i + 1;
-			$case       = $this->_getRepositoryPluginListTestCase($i);
-			$utilities  = new UnitTestRepositoryUtilities();
-			$repository = new GalleryRepository();
-
+			$caseNumber             = $i + 1;
+			$case                   = $this->_getRepositoryPluginListTestCase($i);
+			$utilities              = new UnitTestRepositoryUtilities();
+			$repository             = new GalleryRepository();
 			$repository->_utilities = $utilities;
 			$case['pluginData']['plugins']['module']['testModule']['isCompatible'] = $case['isCompatible'];
 
@@ -1811,6 +1815,7 @@ class RepositoryTest extends GalleryTestCase {
 			}
 
 			$repository->_index = new RepositoryTestIndex($this->_sampleIndex, $case['pluginData']);
+
 			$this->_setupRepositoryPluginListResponses($utilities, $case);
 
 			list($ret, $pluginList) = $repository->getRepositoryPluginList(
@@ -1850,8 +1855,7 @@ class RepositoryTest extends GalleryTestCase {
 		$testTheme                 = $this->_sampleIndex['themes']['testTheme'];
 		$testTheme['isCompatible'] = true;
 		unset($testTheme['descriptions']['en_US']['groupLabel']);
-		$repository = new GalleryRepository();
-
+		$repository             = new GalleryRepository();
 		$repository->_utilities = new UnitTestRepositoryUtilities();
 		$pluginData             = array(
 			'showAll'    => 'showAll',
@@ -1873,6 +1877,7 @@ class RepositoryTest extends GalleryTestCase {
 			array('theme', $pluginData['coreApis']),
 			array($pluginData['coreApis']['core'], $pluginData['coreApis']['theme'])
 		);
+
 		$repository->_index = new RepositoryTestIndex($this->_sampleIndex, $pluginData);
 
 		list($ret, $pluginList) = $repository->getRepositoryPluginList('theme', true, $pluginData['coreApis']);
@@ -1968,6 +1973,7 @@ class RepositoryTest extends GalleryTestCase {
 		$gallery->setPlatform($platform);
 
 		list($isSetUp, $message) = $repository->createPluginsDirectory();
+
 		$this->assertTrue($isSetUp, $message);
 
 		// guaranteeDirExists($dir) depends on the cache.
@@ -1978,7 +1984,6 @@ class RepositoryTest extends GalleryTestCase {
 		// Test recursive repository cache directory creation.
 		$platform->setReply('file_exists', array('/cache/'), false);
 		$platform->setReply('file_exists', array('/cache/'), false);
-
 		// dirname('/cache/') returns \ on Windows.
 		$platform->setReply('file_exists', array($slash), true);
 		$platform->setReply('is_dir', array($slash), true);
@@ -1990,6 +1995,7 @@ class RepositoryTest extends GalleryTestCase {
 			),
 			true
 		);
+
 		$platform->setReply('is_dir', array('/cache/modules'), false);
 		$platform->setReply(
 			'mkdir',
@@ -1999,6 +2005,7 @@ class RepositoryTest extends GalleryTestCase {
 			),
 			true
 		);
+
 		$platform->setReply('is_dir', array('/cache/themes'), false);
 		$platform->setReply(
 			'mkdir',
@@ -2010,6 +2017,7 @@ class RepositoryTest extends GalleryTestCase {
 		);
 
 		list($isSetUp, $message) = $repository->createPluginsDirectory();
+
 		$this->assertTrue($isSetUp, $message);
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
@@ -2026,8 +2034,7 @@ class RepositoryTest extends GalleryTestCase {
 			),
 		);
 
-		$repository = new GalleryRepository();
-
+		$repository         = new GalleryRepository();
 		$repository->_index = new RepositoryTestIndex($this->_sampleIndex, $indexData);
 		$pluginData         = array(
 			'module' => array(
@@ -2074,6 +2081,7 @@ class RepositoryTest extends GalleryTestCase {
 		$gallery->setConfig('repository.cache', $testCachePath);
 		$gallery->setConfig('repository.url', 'repositoryUrl/');
 		$gallery->setConfig('data.gallery.plugins', 'plugins/');
+
 		$platform = new UnitTestPlatform();
 
 		// Package download.
@@ -2085,7 +2093,6 @@ class RepositoryTest extends GalleryTestCase {
 			array($testPackagePath, serialize(array($testPackageUrl))),
 			true
 		);
-
 		// Descriptor download.
 		$platform->setReply('file_exists', array("$modules/testModule/"), true);
 		$platform->setReply(
@@ -2094,8 +2101,8 @@ class RepositoryTest extends GalleryTestCase {
 			true
 		);
 		$gallery->setPlatform($platform);
-		$repository = new GalleryRepository();
 
+		$repository             = new GalleryRepository();
 		$repository->_utilities = new UnitTestRepositoryUtilities();
 		$repository->_index     = $this->_index;
 		$repository->_source    = 'test';
@@ -2150,6 +2157,7 @@ class RepositoryTest extends GalleryTestCase {
 			$descriptor,
 			'Invalid descriptor returned.'
 		);
+
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 		$this->assertTrue(
 			$repository->_utilities->isComplete(),
@@ -2160,9 +2168,8 @@ class RepositoryTest extends GalleryTestCase {
 	public function testScanPlugin() {
 		global $gallery;
 
-		$repository = new GalleryRepository();
-		$utilities  = new UnitTestRepositoryUtilities();
-
+		$repository             = new GalleryRepository();
+		$utilities              = new UnitTestRepositoryUtilities();
 		$repository->_utilities =& $utilities;
 		$utilities->setReply(
 			'getFileRevision',
@@ -2176,11 +2183,14 @@ class RepositoryTest extends GalleryTestCase {
 		);
 		$utilities->setReply('getFileRevision', array('po/aa.po'), array(null, '33333'));
 		$utilities->setReply('getFileRevision', array('po/bb_BB.po'), array(null, '44444'));
+
 		$modules  = GalleryCoreApi::getCodeBasePath('modules');
 		$platform = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array($modules . '/RepositoryTest/MANIFEST'), true);
+
 		$platform->setReply('is_writeable', array($modules . '/RepositoryTest/MANIFEST'), true);
+
 		$platform->setReply(
 			'file_exists',
 			array($modules . '/RepositoryTest/po/strings.raw'),
@@ -2194,6 +2204,7 @@ class RepositoryTest extends GalleryTestCase {
 		$platform->setReply('is_writeable', array('po/aa.po'), true);
 		$platform->setReply('is_writeable', array('po/bb_BB.po'), true);
 		$gallery->setPlatform($platform);
+
 		$ret = $repository->scanPlugin('module', 'RepositoryTest');
 
 		if ($ret) {
@@ -2251,15 +2262,15 @@ class RepositoryTest extends GalleryTestCase {
 	public function testScanPluginWithNoPoDir() {
 		global $gallery;
 
-		$repository = new GalleryRepository();
-		$utilities  = new UnitTestRepositoryUtilities();
-
+		$repository             = new GalleryRepository();
+		$utilities              = new UnitTestRepositoryUtilities();
 		$repository->_utilities =& $utilities;
 		$utilities->setReply(
 			'getFileRevision',
 			array(GalleryCoreApi::getCodeBasePath('modules/RepositoryTest/MANIFEST')),
 			array(null, '11111')
 		);
+
 		$modules  = GalleryCoreApi::getCodeBasePath('modules');
 		$platform = new UnitTestPlatform();
 
@@ -2271,6 +2282,7 @@ class RepositoryTest extends GalleryTestCase {
 			false
 		);
 		$gallery->setPlatform($platform);
+
 		$ret = $repository->scanPlugin('module', 'RepositoryTest');
 
 		if ($ret) {
@@ -2312,9 +2324,8 @@ class RepositoryTest extends GalleryTestCase {
 	public function testScanLockedPlugin() {
 		global $gallery;
 
-		$repository = new GalleryRepository();
-		$utilities  = new UnitTestRepositoryUtilities();
-
+		$repository             = new GalleryRepository();
+		$utilities              = new UnitTestRepositoryUtilities();
 		$repository->_utilities =& $utilities;
 		$utilities->setReply(
 			'getFileRevision',
@@ -2328,11 +2339,14 @@ class RepositoryTest extends GalleryTestCase {
 		);
 		$utilities->setReply('getFileRevision', array('po/aa.po'), array(null, '33333'));
 		$utilities->setReply('getFileRevision', array('po/bb_BB.po'), array(null, '44444'));
+
 		$modules  = GalleryCoreApi::getCodeBasePath('modules');
 		$platform = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array($modules . '/RepositoryTest/MANIFEST'), true);
+
 		$platform->setReply('is_writeable', array($modules . '/RepositoryTest/MANIFEST'), false);
+
 		$platform->setReply(
 			'file_exists',
 			array($modules . '/RepositoryTest/po/strings.raw'),
@@ -2346,6 +2360,7 @@ class RepositoryTest extends GalleryTestCase {
 		$platform->setReply('is_writeable', array('po/aa.po'), false);
 		$platform->setReply('is_writeable', array('po/bb_BB.po'), true);
 		$gallery->setPlatform($platform);
+
 		$ret = $repository->scanPlugin('module', 'RepositoryTest');
 
 		if ($ret) {
@@ -2413,6 +2428,7 @@ class RepositoryTest extends GalleryTestCase {
 			false
 		);
 		$gallery->setPlatform($platform);
+
 		$ret = $repository->scanPlugin('module', 'RepositoryTest');
 
 		if ($ret) {
@@ -2461,7 +2477,9 @@ class RepositoryTest extends GalleryTestCase {
 			$repositories,
 			'Returned repositories did not match'
 		);
+
 		$this->assertEquals(1, $repositoryErrors, 'Returned error count did not match');
+
 		$cacheTag = 'GalleryRepository::getRepositories';
 		$cacheKey = $cacheTag . '(works|broken,RepositoryTest_GalleryRepository)';
 
@@ -2474,12 +2492,12 @@ class RepositoryTest extends GalleryTestCase {
 			$cachedRepositories,
 			'Cached repositories did not match'
 		);
+
 		$this->assertEquals(
 			1,
 			$cachedErrorCount,
 			'Cached error count did not match'
 		);
-
 		GalleryRepository::getMe()->clearRepositoryCache(
 			array('works', 'broken'),
 			'RepositoryTest_GalleryRepository'
@@ -2488,12 +2506,10 @@ class RepositoryTest extends GalleryTestCase {
 	}
 
 	public function _prepareForGetPluginUpgradeInfo($isNewer = false) {
-		$repository = new GalleryRepository();
-
+		$repository         = new GalleryRepository();
 		$repository->_index = $this->_index;
-
-		$utilities         = new UnitTestRepositoryUtilities();
-		$installedPackages = array(
+		$utilities          = new UnitTestRepositoryUtilities();
+		$installedPackages  = array(
 			'base' => array(
 				'locked'  => false,
 				'version' => '1.1',
@@ -2526,6 +2542,7 @@ class RepositoryTest extends GalleryTestCase {
 			array('1.1', '1.0.0', 1, '44444'),
 			array(null, 'newer')
 		);
+
 		$languages = array();
 
 		foreach (array('en_US', 'en_GB', 'pt_PT', 'pt_BR') as $lang) {
@@ -2630,10 +2647,11 @@ class RepositoryTest extends GalleryTestCase {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
-		$platform->setReply('unlink', array('tempFile'), null);
-		$utilities  = new UnitTestRepositoryUtilities();
-		$repository = new GalleryRepository();
 
+		$platform->setReply('unlink', array('tempFile'), null);
+
+		$utilities              = new UnitTestRepositoryUtilities();
+		$repository             = new GalleryRepository();
 		$repository->_source    = 'test';
 		$repository->_utilities =& $utilities;
 		$repository->_index     = $this->_index;
@@ -2836,6 +2854,7 @@ class RepositoryTest extends GalleryTestCase {
 		$UnitTestPlatform = new UnitTestPlatform();
 
 		$gallery->setPlatform($UnitTestPlatform);
+
 		$platform =& $gallery->getPlatform();
 		$testData = array(
 			'module' => array(
@@ -2883,11 +2902,14 @@ class RepositoryTest extends GalleryTestCase {
 				),
 			),
 		);
+
 		$gallery->setConfig('repository.url', 'http://example.com/');
 		$gallery->setConfig('repository.cache', '/cache/');
+
 		$expectedMockAdapter = new MockTemplateAdapter();
 
 		$expectedMockAdapter->updateProgressBar(null, null, 0.1);
+
 		$expectedCallback = array(
 			'method'  => array($expectedMockAdapter, 'updateProgressBar'),
 			'title'   => 'Test',
@@ -2899,8 +2921,9 @@ class RepositoryTest extends GalleryTestCase {
 			$testData,
 			$expectedCallback
 		);
-		$mockAdapter              = new MockTemplateAdapter();
-		$callback                 = array(
+
+		$mockAdapter = new MockTemplateAdapter();
+		$callback    = array(
 			'method'  => array(&$mockAdapter, 'updateProgressBar'),
 			'title'   => 'Test',
 			'current' => 0,
@@ -2917,6 +2940,7 @@ class RepositoryTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(2, $count, 'Unexpected number of files');
+
 		$this->assertEquals(array(), $status, 'Unexpected status messages');
 		$this->assertEquals(3, $callback['current'], 'Callback did not match');
 		$this->assertEquals(
@@ -2937,6 +2961,7 @@ class RepositoryTest extends GalleryTestCase {
 		$UnitTestPlatform = new UnitTestPlatform();
 
 		$gallery->setPlatform($UnitTestPlatform);
+
 		$platform =& $gallery->getPlatform();
 		$testData = array(
 			'module' => array(
@@ -2985,11 +3010,14 @@ class RepositoryTest extends GalleryTestCase {
 				),
 			),
 		);
+
 		$gallery->setConfig('repository.url', 'http://example.com/');
 		$gallery->setConfig('repository.cache', '/cache/');
+
 		$expectedMockAdapter = new MockTemplateAdapter();
 
 		$expectedMockAdapter->updateProgressBar(null, null, 0.1);
+
 		$expectedCallback = array(
 			'method'  => array($expectedMockAdapter, 'updateProgressBar'),
 			'title'   => 'Test',
@@ -2998,8 +3026,9 @@ class RepositoryTest extends GalleryTestCase {
 		);
 
 		list($repository, $files) = $this->_setDownloadAndUnpackPackagesResponses($testData, $expectedCallback);
-		$mockAdapter              = new MockTemplateAdapter();
-		$callback                 = array(
+
+		$mockAdapter = new MockTemplateAdapter();
+		$callback    = array(
 			'method'  => array(&$mockAdapter, 'updateProgressBar'),
 			'title'   => 'Test',
 			'current' => 0,
@@ -3043,6 +3072,7 @@ class RepositoryTest extends GalleryTestCase {
 		$UnitTestPlatform = new UnitTestPlatform();
 
 		$gallery->setPlatform($UnitTestPlatform);
+
 		$platform =& $gallery->getPlatform();
 		$testData = array(
 			'module' => array(
@@ -3077,11 +3107,14 @@ class RepositoryTest extends GalleryTestCase {
 				),
 			),
 		);
+
 		$gallery->setConfig('repository.url', 'http://example.com/');
 		$gallery->setConfig('repository.cache', '/cache/');
+
 		$expectedMockAdapter = new MockTemplateAdapter();
 
 		$expectedMockAdapter->updateProgressBar(null, null, 0.1);
+
 		$expectedCallback = array(
 			'method'  => array(&$expectedMockAdapter, 'updateProgressBar'),
 			'title'   => 'Test',
@@ -3090,8 +3123,9 @@ class RepositoryTest extends GalleryTestCase {
 		);
 
 		list($repository, $files) = $this->_setDownloadAndUnpackPackagesResponses($testData, $expectedCallback);
-		$mockAdapter              = new MockTemplateAdapter();
-		$callback                 = array(
+
+		$mockAdapter = new MockTemplateAdapter();
+		$callback    = array(
 			'method'  => array(&$mockAdapter, 'updateProgressBar'),
 			'title'   => 'Test',
 			'current' => 0,
@@ -3114,6 +3148,7 @@ class RepositoryTest extends GalleryTestCase {
 		);
 
 		$this->assertEquals(1, $count, 'Unexpected number of files');
+
 		$this->assertEquals($expected, $status, 'Unexpected status messages');
 		$this->assertEquals(4, $callback['current'], 'Callback did not match');
 		$this->assertEquals(
@@ -3134,14 +3169,14 @@ class RepositoryTest extends GalleryTestCase {
 		$UnitTestPlatform = new UnitTestPlatform();
 
 		$gallery->setPlatform($UnitTestPlatform);
+
 		$platform =& $gallery->getPlatform();
 		$files    = array(
 			'modules/testModule-11111-22222.descriptor' => 'Module Base Data',
 			'themes/testTheme-11111-22222.descriptor'   => 'Theme Base Data',
 		);
 
-		$repository = new GalleryRepository();
-
+		$repository             = new GalleryRepository();
 		$repository->_source    = 'test';
 		$repository->_utilities = new UnitTestRepositoryUtilities();
 		$repository->_index     = $this->_index;
@@ -3153,6 +3188,7 @@ class RepositoryTest extends GalleryTestCase {
 			),
 			array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null)
 		);
+
 		$mockAdapter = new MockTemplateAdapter();
 		$callback    = array(
 			'method'  => array($mockAdapter, 'updateProgressBar'),
@@ -3165,6 +3201,7 @@ class RepositoryTest extends GalleryTestCase {
 			array_keys($files),
 			$callback
 		);
+
 		$this->assertErrorEquals(ERROR_PLATFORM_FAILURE, $ret);
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 		$this->assertTrue(
@@ -3179,9 +3216,9 @@ class RepositoryTest extends GalleryTestCase {
 		$UnitTestPlatform = new UnitTestPlatform();
 
 		$gallery->setPlatform($UnitTestPlatform);
-		$platform   =& $gallery->getPlatform();
-		$repository = new GalleryRepository();
 
+		$platform               =& $gallery->getPlatform();
+		$repository             = new GalleryRepository();
 		$repository->_source    = 'test';
 		$repository->_utilities = new UnitTestRepositoryUtilities();
 		$repository->_index     = $this->_index;
@@ -3200,6 +3237,7 @@ class RepositoryTest extends GalleryTestCase {
 				'R	modules/RepositoryTest/deleteFile2.tpl',
 			)
 		);
+
 		$platform->setReply(
 			'is_writeable',
 			array($modules . '/RepositoryTest/deleteFile1.class'),

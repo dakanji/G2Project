@@ -52,6 +52,7 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($this->_parentAlbum);
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_parentAlbum->getId(),
 			$gallery->getActiveUserId(),

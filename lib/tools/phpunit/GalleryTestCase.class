@@ -151,7 +151,8 @@ class GalleryTestCase extends TestCase {
 		}
 
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->beginTransaction();
+
+		$ret = $storage->beginTransaction();
 
 		if ($ret) {
 			return $ret;
@@ -185,7 +186,9 @@ class GalleryTestCase extends TestCase {
 
 		$this->_saveSID    = $session->getId();
 		$this->_saveVars[] = $session->get('core.language');
+
 		$this->_markFactoryForCleanup();
+
 		$ret = $this->_initEventListenersForTest();
 
 		if ($ret) {
@@ -195,7 +198,6 @@ class GalleryTestCase extends TestCase {
 		$counter =& GalleryTestCase::getEntityCounter();
 
 		$counter->setCount(0);
-
 		/*
 		 * Try to ensure enough time for this test to complete.  If a test
 		 * needs more time, then it should extend the limit itself.
@@ -233,10 +235,14 @@ class GalleryTestCase extends TestCase {
 		$_ENV              = array_shift($this->_saveVars);
 		$gallery->_storage = array_shift($this->_saveVars);
 		$platform          = array_shift($this->_saveVars);
+
 		$gallery->setPlatform($platform);
 		$gallery->setActiveUser(array_shift($this->_saveVars));
+
 		$urlGenerator = array_shift($this->_saveVars);
+
 		$gallery->setUrlGenerator($urlGenerator);
+
 		$gallery->_translator = array_shift($this->_saveVars);
 		$gallery->_config     = array_shift($this->_saveVars);
 		$gallery->_phpVm      = array_shift($this->_saveVars);
@@ -304,6 +310,7 @@ class GalleryTestCase extends TestCase {
 			GalleryCoreApi::requireOnce(
 				'modules/core/classes/helpers/GalleryFactoryHelper_simple.class'
 			);
+
 			$registryData    =& GalleryFactoryHelper_simple::_getFactoryData();
 			$registryData[1] = $this->_cleanup['factoryRegistry'];
 		}
@@ -333,7 +340,8 @@ class GalleryTestCase extends TestCase {
 		}
 
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->commitTransaction();
+
+		$ret = $storage->commitTransaction();
 
 		if ($ret) {
 			$this->fail($ret->getAsText());
@@ -614,6 +622,7 @@ class GalleryTestCase extends TestCase {
 		$item->setSummary('This is a summary');
 		$item->setKeywords('These are some keywords');
 		$item->setDescription('This is a description');
+
 		$ret = $this->_verifyFields($item, array_keys($fields));
 
 		if ($ret) {
@@ -738,6 +747,7 @@ class GalleryTestCase extends TestCase {
 		$user->changePassword($password);
 		$user->setEmail('user-' . $userTag . '@example.com');
 		$user->setLocked(false);
+
 		$ret = $user->save();
 
 		if ($ret) {
@@ -822,6 +832,7 @@ class GalleryTestCase extends TestCase {
 		$derivative->setMimeType($mimeType);
 		$derivative->setDerivativeSourceId($sourceId);
 		$derivative->setDerivativeOperations($operations);
+
 		$ret = $this->_verifyFields($derivative, array_keys($fields));
 
 		if ($ret) {
@@ -1167,11 +1178,14 @@ class GalleryTestCase extends TestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		$this->assertTrue($session->isPersistent(), 'test for authToken assumes persistent session');
+
 		$authToken = array(
 			'authToken' => $session->getAuthToken(),
 		);
-		$url       = GalleryUrlGenerator::getMe()->appendParamsToUrl($url, $authToken);
+
+		$url = GalleryUrlGenerator::getMe()->appendParamsToUrl($url, $authToken);
 
 		if (!$htmlEntities) {
 			$url = str_replace('&amp;', '&', $url);
@@ -1234,8 +1248,7 @@ class GalleryTestCase extends TestCase {
 		}
 
 		// Don't use references here
-		$eventListeners = GalleryEventHelper_simple::_getEventListeners();
-
+		$eventListeners                   = GalleryEventHelper_simple::_getEventListeners();
 		$this->_cleanup['eventListeners'] = $eventListeners;
 
 		return null;
@@ -1257,7 +1270,6 @@ class GalleryTestCase extends TestCase {
 
 		// Unregister all event listeners (in-memory only)
 		$this->_unregisterFactoryImplementationForTest('GalleryEventListener');
-
 		// Register a few core event listeners by default
 		$this->_registerFactoryImplementationForTest(
 			'GalleryEventListener',
@@ -1273,6 +1285,7 @@ class GalleryTestCase extends TestCase {
 			),
 			4
 		);
+
 		$counter =& GalleryTestCase::getEntityCounter();
 
 		$this->_registerTestEventListener('GalleryEntity::save', $counter);
@@ -1451,6 +1464,7 @@ class GalleryTestCase extends TestCase {
 				count($_SERVER['NullEventListener'][$eventName]),
 				"Event '$eventName' fired more than once"
 			);
+
 			$event = $_SERVER['NullEventListener'][$eventName][0];
 
 			if (!empty($eventEntity)) {
@@ -1508,6 +1522,7 @@ class EntityCounterEventListener {
 
 				if ($entity->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
 					$this->_count++;
+
 					$this->_ids[$entity->getClassName()][] = $entity->getId();
 				}
 

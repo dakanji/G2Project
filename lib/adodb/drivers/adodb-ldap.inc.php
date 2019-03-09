@@ -181,6 +181,7 @@ class ADODB_ldap extends ADOConnection {
 	// closes the LDAP connection
 	public function _close() {
 		@ldap_close($this->_connectionID);
+
 		$this->_connectionID = false;
 	}
 
@@ -444,6 +445,7 @@ class ADORecordSet_ldap extends ADORecordSet {
 
 	public function _close() {
 		@ldap_free_result($this->_queryID);
+
 		$this->_queryID = false;
 	}
 }

@@ -123,6 +123,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 			}
 
 			$this->assertEquals("title $id", $item->getTitle());
+
 			$this->assertEquals("summary $id", $item->getSummary());
 			$this->assertEquals("keywords $id", $item->getKeywords());
 			$this->assertEquals("description $id", $item->getDescription());
@@ -190,6 +191,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 			}
 
 			$this->assertEquals("title $id", $item->getTitle());
+
 			$this->assertEquals("summary $id", $item->getSummary());
 			$this->assertEquals("keywords $id", $item->getKeywords());
 			$this->assertEquals("description $id", $item->getDescription());
@@ -292,6 +294,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 			}
 
 			$this->assertEquals($item->getTitle(), $newItem->getTitle());
+
 			$this->assertEquals($item->getSummary(), $newItem->getSummary());
 			$this->assertEquals($item->getKeywords(), $newItem->getKeywords());
 			$this->assertEquals($item->getDescription(), $newItem->getDescription());
@@ -387,9 +390,13 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 			if ($i == 1) {
 				// Success
 				$id = $item->getId();
+
 				$this->assertEquals("title $id", $newItem->getTitle());
+
 				$this->assertEquals("summary $id", $newItem->getSummary());
+
 				$this->assertEquals("keywords $id", $newItem->getKeywords());
+
 				$this->assertEquals("description $id", $newItem->getDescription());
 			} else {
 				// Error, should be unchanged

@@ -269,7 +269,9 @@ function selectAdminUser($fallback = false) {
 	}
 
 	$gallery->setActiveUser($adminUser);
+
 	$session =& $gallery->getSession();
+
 	$session->put('isUpgrade', true);
 
 	return null;

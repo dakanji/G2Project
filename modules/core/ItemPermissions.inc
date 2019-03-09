@@ -303,8 +303,10 @@ class ItemPermissionsController extends GalleryController {
 				}
 
 				$userId = $user->getId();
+
 				$item->setOwnerId($userId);
 				$item->setSerialNumber($form['serialNumber']);
+
 				$ret = $item->save();
 
 				if ($ret) {
@@ -363,6 +365,7 @@ class ItemPermissionsController extends GalleryController {
 
 						foreach ($descendents as $item) {
 							$item->setOwnerId($userId);
+
 							$ret = $item->save();
 
 							if ($ret) {

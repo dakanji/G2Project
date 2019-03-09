@@ -45,12 +45,13 @@ class MailHelperTest extends GalleryTestCase {
 		}
 
 		$this->templateFile = 'modules/core/test/data/MailHelperTest.tpl';
-
 		global $gallery;
 
 		$this->_originalPlatform =& $gallery->getPlatform();
 		$this->_dummyPlatform    = new MailHelperDummyPlatform($this->_originalPlatform);
+
 		$gallery->setPlatform($this->_dummyPlatform);
+
 		$this->_emailData = array(
 			'to'      => 'mailhelpertest@test.com',
 			'subject' => 'MailHelperTest subject',
@@ -79,7 +80,8 @@ class MailHelperTest extends GalleryTestCase {
 
 		// Test that the from header is empty
 		$platform = $gallery->getPlatform();
-		$ret      = $platform->sendEmail(
+
+		$ret = $platform->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			null,
@@ -106,7 +108,8 @@ class MailHelperTest extends GalleryTestCase {
 
 		// Test that the from header is retrieved from function input
 		$platform = $gallery->getPlatform();
-		$ret      = $platform->sendEmail(
+
+		$ret = $platform->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			'mailhelpertest1@test.com',
@@ -119,6 +122,7 @@ class MailHelperTest extends GalleryTestCase {
 		}
 
 		$response = $this->_dummyPlatform->getMailData();
+
 		$this->assertEquals('From: mailhelpertest1@test.com', $response['headers'][1]);
 	}
 
@@ -138,7 +142,8 @@ class MailHelperTest extends GalleryTestCase {
 		}
 
 		$platform = $gallery->getPlatform();
-		$ret      = $platform->sendEmail(
+
+		$ret = $platform->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			null,
@@ -151,6 +156,7 @@ class MailHelperTest extends GalleryTestCase {
 		}
 
 		$response = $this->_dummyPlatform->getMailData();
+
 		$this->assertEquals('From: mailhelpertest2@test.com', $response['headers'][1]);
 	}
 
@@ -173,7 +179,8 @@ class MailHelperTest extends GalleryTestCase {
 
 		// Test that the from header is preferred from the function over the core.smtp.from field
 		$platform = $gallery->getPlatform();
-		$ret      = $platform->sendEmail(
+
+		$ret = $platform->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			'mailhelpertest3_function_input@test.com',
@@ -202,7 +209,8 @@ class MailHelperTest extends GalleryTestCase {
 		}
 
 		$platform = $gallery->getPlatform();
-		$ret      = $platform->sendEmail(
+
+		$ret = $platform->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			null,
@@ -227,7 +235,8 @@ class MailHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$platform = $gallery->getPlatform();
-		$ret      = $platform->sendEmail(
+
+		$ret = $platform->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			null,
@@ -253,9 +262,11 @@ class MailHelperTest extends GalleryTestCase {
 			'body'    => 'MailHelperTest test string',
 			'headers' => '',
 		);
-		$multiTo          = 'test1@example.com,test2@example.com,test3@example.com,test4@example.com';
-		$platform         = $gallery->getPlatform();
-		$ret              = $platform->sendEmail(
+
+		$multiTo  = 'test1@example.com,test2@example.com,test3@example.com,test4@example.com';
+		$platform = $gallery->getPlatform();
+
+		$ret = $platform->sendEmail(
 			$this->templateFile,
 			$this->_emailData,
 			null,

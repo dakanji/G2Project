@@ -507,8 +507,8 @@ function _adodb_getmenu_gp(
 	query rewriting heuristics...
 	Does not work with UNIONs, except with postgresql and oracle.
 	Usage:
-
 	$conn->Connect(...);
+
 	$cnt = _adodb_getcount($conn, $sql);
 */
 function _adodb_getcount(&$zthis, $sql, $inputarr = false, $secs2cache = 0) {
@@ -651,10 +651,9 @@ function _adodb_pageexecute_all_rows(
 		$nrows = 10;
 	}
 
-	$qryRecs    = false; //count records for no offset
-	$qryRecs    = _adodb_getcount($zthis, $sql, $inputarr, $secs2cache);
-	$lastpageno = (int)ceil($qryRecs / $nrows);
-
+	$qryRecs                = false; //count records for no offset
+	$qryRecs                = _adodb_getcount($zthis, $sql, $inputarr, $secs2cache);
+	$lastpageno             = (int)ceil($qryRecs / $nrows);
 	$zthis->_maxRecordCount = $qryRecs;
 
 	// ***** Here we check whether $page is the last page or
@@ -684,6 +683,7 @@ function _adodb_pageexecute_all_rows(
 	if ($rsreturn) {
 		$rsreturn->_maxRecordCount = $qryRecs;
 		$rsreturn->rowsPerPage     = $nrows;
+
 		$rsreturn->AbsolutePage($page);
 		$rsreturn->AtFirstPage($atfirstpage);
 		$rsreturn->AtLastPage($atlastpage);
@@ -784,6 +784,7 @@ function _adodb_pageexecute_no_last_page(&$zthis, $sql, $nrows, $page, $inputarr
 	// Before returning the RecordSet, we set the pagination properties we need
 	if ($rsreturn) {
 		$rsreturn->rowsPerPage = $nrows;
+
 		$rsreturn->AbsolutePage($page);
 		$rsreturn->AtFirstPage($atfirstpage);
 		$rsreturn->AtLastPage($atlastpage);
@@ -927,12 +928,14 @@ function _adodb_getupdatesql(&$zthis, &$rs, $arrFields, $forceUpdate = false, $m
 			$tableName = $rs->tableName;
 		} else {
 			preg_match('/FROM\s+' . ADODB_TABLE_REGEX . '/is', $rs->sql, $tableName);
+
 			$tableName = $tableName[1];
 		}
 
 		// Get the full where clause excluding the word "WHERE" from
 		// the existing query.
 		preg_match('/\sWHERE\s(.*)/is', $rs->sql, $whereClause);
+
 		$discard = false;
 
 		// not a good hack, improvements?
@@ -1027,9 +1030,8 @@ function _adodb_getinsertsql(&$zthis, &$rs, $arrFields, $magicq = false, $force 
 				$columns[] = $rs->FetchField($i);
 			}
 
-			$cacheRS   = $cacheSig;
-			$cacheCols = $columns;
-
+			$cacheRS       = $cacheSig;
+			$cacheCols     = $columns;
 			$rs->insertSig = $cacheSig++;
 		}
 

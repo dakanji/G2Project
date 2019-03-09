@@ -56,6 +56,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[pathComponent]', $name);
 		GalleryUtilities::putRequestVariable('form[title]', 'title');
 		GalleryUtilities::putRequestVariable('form[summary]', 'summary');
+
 		GalleryUtilities::putRequestVariable('form[keywords]', 'keywords');
 		GalleryUtilities::putRequestVariable('form[description]', 'description');
 
@@ -146,6 +147,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[pathComponent]', '');
 		GalleryUtilities::putRequestVariable('form[title]', 'title');
 		GalleryUtilities::putRequestVariable('form[summary]', 'summary');
+
 		GalleryUtilities::putRequestVariable('form[keywords]', 'keywords');
 		GalleryUtilities::putRequestVariable('form[description]', 'description');
 
@@ -171,6 +173,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[pathComponent]', 'Invalid!/\Chars');
 		GalleryUtilities::putRequestVariable('form[title]', 'title');
 		GalleryUtilities::putRequestVariable('form[summary]', 'summary');
+
 		GalleryUtilities::putRequestVariable('form[keywords]', 'keywords');
 		GalleryUtilities::putRequestVariable('form[description]', 'description');
 
@@ -200,6 +203,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[pathComponent]', $name);
 		GalleryUtilities::putRequestVariable('form[title]', 'title');
 		GalleryUtilities::putRequestVariable('form[summary]', 'summary');
+
 		GalleryUtilities::putRequestVariable('form[keywords]', 'keywords');
 		GalleryUtilities::putRequestVariable('form[description]', 'description');
 
@@ -261,6 +265,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[pathComponent]', $name);
 		GalleryUtilities::putRequestVariable('form[title]', 'title');
 		GalleryUtilities::putRequestVariable('form[summary]', 'summary');
+
 		GalleryUtilities::putRequestVariable('form[keywords]', 'keywords');
 		GalleryUtilities::putRequestVariable('form[description]', 'description');
 
@@ -313,6 +318,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	public function _getChildId() {
 		list($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
+
 		$this->assertEquals(1, count($ids));
 
 		return $ids[0];
@@ -320,6 +326,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	public function _getSecondChildId() {
 		list($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_parentAlbum);
+
 		$this->assertEquals(2, sizeof($ids));
 
 		// We want the larger id, since it's the newer one
@@ -340,6 +347,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[pathComponent]', $name);
 		GalleryUtilities::putRequestVariable('form[title]', '<script>bad</script> title');
 		GalleryUtilities::putRequestVariable('form[summary]', 'summary <div onclick="die">.</div>');
+
 		GalleryUtilities::putRequestVariable('form[keywords]', 'keywords');
 		GalleryUtilities::putRequestVariable('form[description]', 'description <object>.</object>');
 

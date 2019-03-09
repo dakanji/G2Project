@@ -43,9 +43,11 @@ class RepositoryCallbackTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('form[repositories][experimental]', 'experimental');
 		GalleryUtilities::putRequestVariable('form[repositories][community]', 'checked');
 		GalleryUtilities::putRequestVariable('form[repositories][something_else]', 1);
+
 		GalleryUtilities::putRequestVariable('command', 'saveRepositoryList');
 
 		$this->_markPluginParametersForCleanup('module', 'core');
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',

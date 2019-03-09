@@ -75,6 +75,7 @@ class DeleteSessionsTask extends MaintenanceTask {
 
 		// Touch this admin session to ensure that we don't delete it
 		$session->put('touch', $phpVm->time());
+
 		$ret = $session->save();
 
 		if ($ret) {
@@ -97,12 +98,14 @@ class DeleteSessionsTask extends MaintenanceTask {
 		}
 
 		$templateAdapter->updateProgressBar($module->translate('Delete user sessions'), '', 0);
-		$data  = array(
+
+		$data = array(
 			$phpVm->time() - $inactivityTimeout,
 			$phpVm->time() - $lifetime,
 			$anonymousUserId,
 			$phpVm->time() - (7 * 86400),
 		);
+
 		$query = '
 			SELECT
 				COUNT([GallerySessionMap::id])
@@ -129,14 +132,14 @@ class DeleteSessionsTask extends MaintenanceTask {
 
 		if ($total) {
 			// This limit controls the query text length, 1000 sessionIds => query size = 32kbyte
-			$stepSize = 1000;
-
+			$stepSize                  = 1000;
 			$session->_expirationLimit = 1000;
 			$iterations                = ceil($total / $stepSize);
 			$option['limit']['count']  = $stepSize;
 
 			for ($i = 1; $i <= $iterations; $i++) {
 				$gallery->guaranteeTimeLimit(120);
+
 				$ret = $session->_expireSessions();
 
 				if ($ret) {
@@ -152,6 +155,7 @@ class DeleteSessionsTask extends MaintenanceTask {
 		}
 
 		$templateAdapter->updateProgressBar($module->translate('Delete user sessions'), '', 1);
+
 		$result = array(
 			$module->translate(
 				array(

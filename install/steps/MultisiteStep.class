@@ -57,9 +57,9 @@ class MultisiteStep extends InstallStep {
 
 				$this->setComplete(true);
 				$this->readConfigFile();
-
 				// Remember the value also for the storage and database setup steps
 				$galleryStub->setConfig('isMultisite', false);
+
 				$uri = preg_replace(
 					'{\?.*}',
 					'',
@@ -82,7 +82,8 @@ class MultisiteStep extends InstallStep {
 				$this->sanitize($_POST['configPath']),
 				' ' . DIRECTORY_SEPARATOR
 			);
-			$this->_baseUri    = isset($_POST['baseUri']) ? $_POST['baseUri'] : '';
+
+			$this->_baseUri = isset($_POST['baseUri']) ? $_POST['baseUri'] : '';
 
 			if (substr($this->_baseUri, -4) != '.php'
 				&& substr($this->_baseUri, -1) != '/'
@@ -129,6 +130,7 @@ class MultisiteStep extends InstallStep {
 			if (empty($templateData['error'])) {
 				$_SESSION['configPath'] = $this->_configPath;
 				$_SESSION['baseUri']    = $this->_baseUri;
+
 				$this->setComplete(true);
 				$this->readConfigFile();
 				$galleryStub->setConfig('isMultisite', true);

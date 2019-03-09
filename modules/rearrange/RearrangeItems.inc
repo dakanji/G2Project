@@ -193,8 +193,9 @@ class RearrangeItemsView extends GalleryView {
 						$thumb->getHeight(),
 						100
 					);
-					$maxWidth    = max($w, $maxWidth);
-					$maxHeight   = max($h, $maxHeight);
+
+					$maxWidth  = max($w, $maxWidth);
+					$maxHeight = max($h, $maxHeight);
 				}
 
 				$children[] = $child;

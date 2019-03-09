@@ -42,7 +42,9 @@ class ThumbnailModule extends GalleryModule {
 		$this->setVersion('2.0.0'); // Update upgrade() & ThumbnailModuleExtras::upgrade as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
+
 		$this->_templateVersion = 1;
+
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getSiteAdminViews');
 	}
@@ -242,11 +244,14 @@ class ThumbnailModule extends GalleryModule {
 			if (GalleryUtilities::isA($source, 'ThumbnailImage')) {
 				// Prevent that we try to restore the thumbnail during the deletion.
 				$key = 'ThumbnailImage::delete';
+
 				GalleryDataCache::put($key, $entity->getId());
+
 				$ret = GalleryCoreApi::deleteEntityById(
 					$source->getId(),
 					'ThumbnailImage'
 				);
+
 				GalleryDataCache::remove($key);
 
 				if ($ret) {

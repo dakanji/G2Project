@@ -152,7 +152,6 @@ class GalleryMovieItem extends GalleryDataItem {
 		$this->setWidth(0);
 		$this->setHeight(0);
 		$this->setDuration(0);
-
 		// We're linkable
 		$this->setIsLinkable(true);
 

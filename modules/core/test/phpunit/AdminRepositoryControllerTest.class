@@ -51,7 +51,8 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 
 		$gallery->_templateAdapter =& $this->_galleryTemplateAdapter;
 		$gallery->_session         = $this->_originalSession;
-		$ret                       = parent::tearDown();
+
+		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -63,8 +64,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][update]', 1);
 
-		$mockAdapter = new MockTemplateAdapter();
-
+		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$results                   = $this->handleRequest();
 		$this->assertEquals(
@@ -80,7 +80,9 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 
 		// Assert that we have 1 callback in the queue
 		$this->assertEquals(1, $mockAdapter->getCallbackCount());
+
 		$callback = $mockAdapter->getCallback(0);
+
 		$this->assertEquals(array($this->_controller, 'updatePluginStatus'), $callback[0]);
 	}
 
@@ -95,9 +97,11 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[repositories][experimental]', 'experimental');
 		GalleryUtilities::putRequestVariable('form[repositories][community]', 'checked');
 		GalleryUtilities::putRequestVariable('form[repositories][something_else]', 1);
+
 		GalleryUtilities::putRequestVariable('form[action][update]', 1);
 
 		$this->_markPluginParametersForCleanup('module', 'core');
+
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'core',
@@ -109,8 +113,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$mockAdapter = new MockTemplateAdapter();
-
+		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$results                   = $this->handleRequest();
 		$this->assertEquals(
@@ -146,6 +149,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		$repository = new UnitTestRepository();
 
 		$repository->setReply('getAllUpgradeablePackages', array(), array(null, array()));
+
 		$this->_controller->_repositories['test'] = $repository;
 
 		// Test case when no upgradeable packages exist.
@@ -180,6 +184,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		$repository = new UnitTestRepository();
 
 		$repository->setReply('getAllUpgradeablePackages', array(), array(null, $packages));
+
 		$this->_controller->_repositories['test'] = $repository;
 
 		// Test case when some packages are upgradeable.

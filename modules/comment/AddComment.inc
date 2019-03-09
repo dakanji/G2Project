@@ -176,11 +176,13 @@ class AddCommentController extends GalleryController {
 				}
 
 				$comment->setCommenterId($gallery->getActiveUserId());
+
 				$comment->setHost(GalleryUtilities::getRemoteHostAddress());
 				$comment->setSubject($form['subject']);
 				$comment->setComment($form['comment']);
 				$comment->setAuthor($form['author']);
 				$comment->setDate($currentTime);
+
 				$ret = $comment->save();
 
 				if ($ret) {

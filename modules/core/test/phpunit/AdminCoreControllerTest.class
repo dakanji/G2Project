@@ -89,6 +89,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 	public function testChangeValues() {
 		$valueMap = $this->_valueMap;
+
 		$this->_setFormFromValues($valueMap);
 
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -108,6 +109,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$valueMap['smtp.password'] = base64_encode($valueMap['smtp.password']);
 
 		foreach ($valueMap as $key => $expectedValue) {
@@ -622,6 +624,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			$results['redirect'],
 			'redirect'
 		);
+
 		$this->assertEquals(
 			array('saved', 'emailTestError', 'emailTestDebug'),
 			array_keys($results['status']),
@@ -635,10 +638,12 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			) !== false,
 			'emailTestError: ' . $results['status']['emailTestError']
 		);
+
 		$this->assertTrue(
 			strpos($results['status']['emailTestDebug'], 'file_exists') !== false,
 			'emailTestDebug: ' . $results['status']['emailTestDebug']
 		);
+
 		$this->assertEquals(array(), $results['error'], 'error');
 	}
 

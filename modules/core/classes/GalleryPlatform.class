@@ -454,6 +454,7 @@ class GalleryPlatform {
 			}
 
 			chmod($tempFile, $this->_filePerms);
+
 			$bytesWritten = fwrite($fd, $data);
 
 			if ($bytesWritten == strlen($data)) {

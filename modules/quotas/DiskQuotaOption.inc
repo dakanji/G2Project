@@ -99,6 +99,7 @@ class DiskQuotaOption extends ItemAddOption {
 							'arg2' => $userDiskQuotaHumanReadableUnit,
 						)
 					);
+
 					$gallery->addShutdownAction(
 						array('GalleryCoreApi', 'deleteEntityById'),
 						array($item->getId())

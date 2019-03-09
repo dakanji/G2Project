@@ -83,7 +83,8 @@ class AdminSelfRegistrationController extends GalleryController {
 				}
 			} else {
 				$userName = $pendingUser->getUserName();
-				$ret      = GalleryPendingUserHelper::createGalleryUser($pendingUser);
+
+				$ret = GalleryPendingUserHelper::createGalleryUser($pendingUser);
 
 				if ($ret) {
 					return array($ret, null);
@@ -226,10 +227,12 @@ class AdminSelfRegistrationView extends GalleryView {
 			'email' => $module->translate('Use confirmation emails'),
 			'auto'  => $module->translate('Accept without confirmation'),
 		);
-		$selfregistration['reallySendList']        = array(
+
+		$selfregistration['reallySendList'] = array(
 			'true'  => $module->translate('Yes'),
 			'false' => $module->translate('No'),
 		);
+
 		$template->setVariable('SelfRegistration', $selfregistration);
 		$template->setVariable('controller', 'register.AdminSelfRegistration');
 

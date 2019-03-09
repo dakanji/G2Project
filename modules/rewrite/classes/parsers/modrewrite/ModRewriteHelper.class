@@ -225,7 +225,8 @@ class ModRewriteHelper {
 				$urlGenerator->getCurrentUrlDir(true)
 			)
 		);
-		$ret               = GalleryCoreApi::setPluginParameter(
+
+		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
 			'rewrite',
 			'modrewrite.galleryLocation',
@@ -389,7 +390,8 @@ class ModRewriteHelper {
 				$params,
 				$regexRule['options']
 			);
-			$regexRules[$ruleId]       = $regexRule;
+
+			$regexRules[$ruleId] = $regexRule;
 		}
 
 		$Htaccess['rules'] = $regexRules;
@@ -584,11 +586,12 @@ class ModRewriteHelper {
 			);
 		}
 
-		$baseUrl    = preg_replace(
+		$baseUrl = preg_replace(
 			'{(install|upgrade)/index\.php.*}',
 			'',
 			$urlGenerator->getCurrentUrlDir(true)
 		);
+
 		$components = parse_url($baseUrl);
 		$path       = $components['path'];
 		$baseUrl   .= 'modules/rewrite/data/';
@@ -747,6 +750,7 @@ class ModRewriteHelper {
 					'href' => 'modules/rewrite/data/mod_rewrite/' . $target . '/Rewrite.txt',
 				)
 			);
+
 			$TestResults['href']['test2'] = $urlGenerator->generateUrl(
 				array(
 					'href' => 'modules/rewrite/data/mod_rewrite_no_options/' .

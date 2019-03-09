@@ -136,6 +136,7 @@ class ExifExtractorTest extends GalleryTestCase {
 		$photo->setTitle("Item #$index");
 		$photo->setSummary("Summary $index");
 		$photo->setDescription("Description $index");
+
 		$ret = $photo->save();
 
 		if ($ret) {
@@ -163,13 +164,19 @@ class ExifExtractorTest extends GalleryTestCase {
 		$derivativeType,
 		$derivativeOperation
 	) {
-		list($ret, $toolkit, $outputMimeType) = GalleryCoreApi::getToolkitByOperation($photo->getMimeType(), $toolkitType);
+		list($ret, $toolkit, $outputMimeType) = GalleryCoreApi::getToolkitByOperation(
+			$photo->getMimeType(),
+			$toolkitType
+		);
 
 		if ($ret || !isset($toolkit)) {
 			return array($ret, null);
 		}
 
-		list($ret, $derivative) = GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative', $photo->getEntityType());
+		list($ret, $derivative) = GalleryCoreApi::newFactoryInstanceByHint(
+			'GalleryDerivative',
+			$photo->getEntityType()
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -188,6 +195,7 @@ class ExifExtractorTest extends GalleryTestCase {
 		$derivative->setDerivativeSourceId($photo->getId());
 		$derivative->setDerivativeOperations($derivativeOperation);
 		$derivative->setMimeType($outputMimeType);
+
 		$ret = $derivative->save();
 
 		if ($ret) {
@@ -199,7 +207,10 @@ class ExifExtractorTest extends GalleryTestCase {
 
 	public function testOneItemAllDataExif() {
 		list($ret, $data) = $this->_exif->getMetaData($this->_photoIds[0]);
-		$this->assertFalse($ret && isset($data[$this->_photoIds[0]]));
+
+		$this->assertFalse(
+			$ret && isset($data[$this->_photoIds[0]])
+		);
 		$this->assertEquals(
 			'1/60 sec',
 			$data[$this->_photoIds[0]]['ShutterSpeedValue']['value']
@@ -208,7 +219,10 @@ class ExifExtractorTest extends GalleryTestCase {
 
 	public function testOneItemAllDataIptc() {
 		list($ret, $data) = $this->_exif->getMetaData($this->_photoIds[3]);
-		$this->assertFalse($ret && isset($data[$this->_photoIds[3]]));
+
+		$this->assertFalse(
+			$ret && isset($data[$this->_photoIds[3]])
+		);
 		$this->assertEquals(
 			'Caption: IPTC/Caption',
 			$data[$this->_photoIds[3]]['IPTC/Caption']['value']
@@ -219,8 +233,15 @@ class ExifExtractorTest extends GalleryTestCase {
 		list($ret, $data) = $this->_exif->getMetaData(
 			array($this->_photoIds[0], $this->_photoIds[2], $this->_photoIds[3])
 		);
-		$this->assertFalse($ret && isset($data));
-		$this->assertEquals(3, count($data), 'Data size');
+
+		$this->assertFalse(
+			$ret && isset($data)
+		);
+		$this->assertEquals(
+			3,
+			count($data),
+			'Data size'
+		);
 		$this->assertEquals(
 			'1/60 sec',
 			$data[$this->_photoIds[0]]['ShutterSpeedValue']['value']
@@ -237,8 +258,15 @@ class ExifExtractorTest extends GalleryTestCase {
 
 	public function testMultiItemMixedTypeAllData() {
 		list($ret, $data) = $this->_exif->getMetaData($this->_photoIds);
-		$this->assertFalse($ret && isset($data));
-		$this->assertEquals(4, count($data), 'Data size');
+
+		$this->assertFalse(
+			$ret && isset($data)
+		);
+		$this->assertEquals(
+			4,
+			count($data),
+			'Data size'
+		);
 		$this->assertEquals(
 			'1/60 sec',
 			$data[$this->_photoIds[0]]['ShutterSpeedValue']['value']
@@ -258,18 +286,31 @@ class ExifExtractorTest extends GalleryTestCase {
 			$this->_photoIds,
 			array('DateTime', 'ShutterSpeedValue', 'IPTC/Byline')
 		);
-		$this->assertFalse($ret && isset($data));
-		$this->assertEquals(4, count($data), 'Data size');
+
+		$this->assertFalse(
+			$ret && isset($data)
+		);
+		$this->assertEquals(
+			4,
+			count($data),
+			'Data size'
+		);
 		$this->assertEquals(
 			'1/60 sec',
 			$data[$this->_photoIds[0]]['ShutterSpeedValue']['value']
 		);
-		$this->assertFalse(isset($data[$this->_photoIds[2]]['FocalLength']));
-		$this->assertFalse(isset($data[$this->_photoIds[2]]['IPTC/Byline']));
+		$this->assertFalse(
+			isset($data[$this->_photoIds[2]]['FocalLength'])
+		);
+		$this->assertFalse(
+			isset($data[$this->_photoIds[2]]['IPTC/Byline'])
+		);
 		$this->assertEquals(
 			'Byline: IPTC/Byline',
 			$data[$this->_photoIds[3]]['IPTC/Byline']['value']
 		);
-		$this->assertFalse(isset($data[$this->_photoIds[3]]['FocalLength']));
+		$this->assertFalse(
+			isset($data[$this->_photoIds[3]]['FocalLength'])
+		);
 	}
 }

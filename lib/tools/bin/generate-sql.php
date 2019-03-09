@@ -323,6 +323,7 @@ class MySqlGenerator extends BaseGenerator {
 								$output .= $c['attrs'][$nameKey];
 							} else {
 								$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
+
 								'_' . $this->getIndexCrc($columns);
 							}
 
@@ -397,6 +398,7 @@ class MySqlGenerator extends BaseGenerator {
 									$output .= $child[0]['attrs'][$nameKey];
 								} else {
 									$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
+
 									'_' . $this->getIndexCrc($c['child']);
 								}
 
@@ -546,6 +548,7 @@ class PostgresGenerator extends BaseGenerator {
 									$output .= $c['attrs'][$nameKey];
 								} else {
 									$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
+
 									'_' . $this->getIndexCrc($c['child']);
 								}
 
@@ -631,6 +634,7 @@ class PostgresGenerator extends BaseGenerator {
 								$output .= $c['attrs'][$nameKey];
 							} else {
 								$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
+
 								'_' . $this->getIndexCrc($columns);
 							}
 
@@ -739,7 +743,9 @@ class PostgresGenerator extends BaseGenerator {
 					$output .= 'UPDATE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' SET DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . 'Temp' .
 					' = CAST(DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . ' AS ' .
+
 					$this->columnDefinition($child[$i]['child'], false) . ");\n\n";
+
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' DROP DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . ";\n\n";
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
@@ -850,6 +856,7 @@ class OracleGenerator extends BaseGenerator {
 									$output .= $child[0]['attrs'][$nameKey];
 								} else {
 									$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
+
 									'_' . $this->getIndexCrc($c['child']);
 								}
 
@@ -912,6 +919,7 @@ class OracleGenerator extends BaseGenerator {
 								$output .= $c['attrs'][$nameKey];
 							} else {
 								$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
+
 								'_' . $this->getIndexCrc($columns);
 							}
 
@@ -1189,6 +1197,7 @@ class Db2Generator extends BaseGenerator {
 									$output .= 'DB_TABLE_PREFIX' .
 									substr($parent['child'][0]['content'], 0, 5) .
 									substr(md5($parent['child'][0]['content']), -2) .
+
 									'_' . $this->getIndexCrc($c['child']);
 								}
 
@@ -1253,6 +1262,7 @@ class Db2Generator extends BaseGenerator {
 								$output .= 'DB_TABLE_PREFIX' .
 								substr($parent['child'][0]['content'], 0, 5) .
 								substr(md5($parent['child'][0]['content']), -2) .
+
 								'_' . $this->getIndexCrc($c['child']);
 							}
 
@@ -1512,6 +1522,7 @@ class MSSqlGenerator extends BaseGenerator {
 								} else {
 									$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 									'.DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
+
 									'_' . $this->getIndexCrc($c['child']);
 								}
 
@@ -1574,6 +1585,7 @@ class MSSqlGenerator extends BaseGenerator {
 								$output .= $c['attrs'][$nameKey];
 							} else {
 								$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
+
 								'_' . $this->getIndexCrc($columns);
 							}
 
@@ -1683,7 +1695,9 @@ class MSSqlGenerator extends BaseGenerator {
 					$output .= 'UPDATE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' SET DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . 'Temp' .
 					' = CAST(DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . ' AS ' .
+
 					$this->columnDefinition($child[$i]['child'], false) . ");\n\n";
+
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' DROP COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . ";\n\n";
 
@@ -1701,6 +1715,7 @@ class MSSqlGenerator extends BaseGenerator {
 					if ($this->getNotNullElement($child[$i]['child'])) {
 						$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 						' ALTER COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] .
+
 						' ' . $this->columnDefinition($child[$i]['child'], true, false) . ";\n\n";
 					}
 				}
@@ -1793,6 +1808,7 @@ class SQLiteGenerator extends BaseGenerator {
 							$output .= $child[$i]['attrs'][$nameKey];
 						} else {
 							$output .= 'DB_TABLE_PREFIX' . $child[0]['content']
+
 							. '_' . $this->getIndexCrc($columns);
 						}
 
@@ -1899,6 +1915,7 @@ class SQLiteGenerator extends BaseGenerator {
 								$output .= $c['attrs'][$nameKey];
 							} else {
 								$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content']
+
 								. '_' . $this->getIndexCrc($columns);
 							}
 
@@ -1972,6 +1989,7 @@ class SQLiteGenerator extends BaseGenerator {
 									$output .= $c['attrs'][$nameKey];
 								} else {
 									$output .= 'DB_TABLE_PREFIX' . $parent['child'][0]['content']
+
 									. '_' . $this->getIndexCrc($c['child']);
 								}
 

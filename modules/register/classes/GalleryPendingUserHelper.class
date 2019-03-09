@@ -209,7 +209,8 @@ class GalleryPendingUserHelper {
 				'htmlEntities'   => false,
 			)
 		);
-		$baseUrl         = $generator->generateUrl(
+
+		$baseUrl = $generator->generateUrl(
 			array(),
 			array(
 				'forceFullUrl'   => true,
@@ -425,6 +426,7 @@ class GalleryPendingUserHelper {
 		$user->setFullName($pendingUser->getFullName());
 		$user->setLanguage($pendingUser->getLanguage());
 		$user->setHashedPassword($pendingUser->getHashedPassword());
+
 		$ret = $user->save();
 
 		if ($ret) {

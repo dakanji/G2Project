@@ -61,8 +61,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 		$this->_templateAdapter =& $gallery->getTemplateAdapter();
 		$this->_storage         =& $gallery->getStorage();
 		$status                 = $error                 = array();
-
-		$this->_addController =& $addController;
+		$this->_addController   =& $addController;
 
 		list($ret, $hasPermission) = $this->isAppropriate();
 
@@ -89,6 +88,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 			 * the filesystem needs the path in the system charset
 			 */
 			$dir = GalleryCoreApi::convertFromUtf8($form['localServerPath']);
+
 			GalleryUtilities::unsanitizeInputValues($dir, false);
 
 			// We need the localServerDirList only in the system charset
@@ -127,6 +127,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 			// In a first pass, recurse to count the total number of items scheduled to be added
 			$gallery->guaranteeTimeLimit(60);
+
 			$this->_totalItems = $i = 0;
 
 			if (!empty($form['localServerFiles'])) {
@@ -137,7 +138,6 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 					if (++$i % 200 == 0) {
 						$gallery->guaranteeTimeLimit(30);
-
 						// Inaccurate, but giving the impression of progress
 						$this->_templateAdapter->updateProgressBar(
 							$this->_fileCountMessage,
@@ -161,7 +161,6 @@ class ItemAddFromServer extends ItemAddPlugin {
 				foreach ($form['localServerDirectories'] as $directory => $data) {
 					if (++$i % 200 == 0) {
 						$gallery->guaranteeTimeLimit(30);
-
 						// Inaccurate, but giving the impression of progress
 						$this->_templateAdapter->updateProgressBar(
 							$this->_fileCountMessage,
@@ -178,7 +177,6 @@ class ItemAddFromServer extends ItemAddPlugin {
 					}
 
 					$requiresAddAlbumPermission = true;
-
 					$this->_totalItems++;
 					$this->_totalItems += $this->_getFileCountForDirectory($dir . urldecode($directory), $i);
 				}
@@ -254,6 +252,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 							'',
 							$this->_addedItems / $this->_totalItems
 						);
+
 						$ret = $this->_storage->checkPoint();
 
 						if ($ret) {
@@ -265,6 +264,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 					if ($this->_addedItems - $this->_lastPostProcessed >= $this->_processBatch) {
 						$this->_lastPostProcessed = $this->_addedItems;
+
 						$gallery->guaranteeTimeLimit(30);
 
 						list($ret, $optionErrors) = $addController->postprocessItems($form, $status);
@@ -320,6 +320,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 					}
 
 					$this->_addedItems++; // Increment either way
+
 					if ($this->_addedItems % $this->_progressBatch == 0) {
 						$gallery->guaranteeTimeLimit(30);
 						$this->_templateAdapter->updateProgressBar(
@@ -327,6 +328,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 							'',
 							$this->_addedItems / $this->_totalItems
 						);
+
 						$ret = $this->_storage->checkPoint();
 
 						if ($ret) {
@@ -387,6 +389,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 		}
 
 		$base = GalleryCoreApi::convertToUtf8($base);
+
 		GalleryUtilities::sanitizeInputValues($base);
 
 		$title       = ($textFields['title']) ? $base : '';
@@ -409,6 +412,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 		}
 
 		$safeFilename = GalleryCoreApi::convertToUtf8($fileName);
+
 		GalleryUtilities::sanitizeInputValues($safeFilename);
 
 		$status['addedFiles'][] = array(
@@ -442,6 +446,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 		// Create new Album
 		$dirName     = basename($path);
 		$dirNameUtf8 = GalleryCoreApi::convertToUtf8($dirName);
+
 		GalleryUtilities::sanitizeInputValues($dirNameUtf8);
 
 		$dirTitle       = $textFields['title'] ? $dirNameUtf8 : null;
@@ -568,6 +573,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 						'',
 						$this->_addedItems / $this->_totalItems
 					);
+
 					$ret = $this->_storage->checkPoint();
 
 					if ($ret) {
@@ -602,6 +608,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 		// Call post-process after releasing the lock to prevent locking conflicts
 		if ($this->_addedItems - $this->_lastPostProcessed >= $this->_processBatch) {
 			$this->_lastPostProcessed = $this->_addedItems;
+
 			$gallery->guaranteeTimeLimit(30);
 
 			list($ret, $optionErrors) = $this->_addController->postprocessItems($form, $status);
@@ -659,7 +666,6 @@ class ItemAddFromServer extends ItemAddPlugin {
 		while (($fileName = $this->_platform->readdir($handle)) !== false) {
 			if (++$progressCount % 200 == 0) {
 				$gallery->guaranteeTimeLimit(30);
-
 				// Inaccurate, but giving the impression of progress
 				$this->_templateAdapter->updateProgressBar(
 					$this->_fileCountMessage,
@@ -759,6 +765,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 			 * $form['localServerPath'] is UTF-8, $localServerPath is in the system charset
 			 */
 			$localServerPath = GalleryCoreApi::convertFromUtf8($localServerPath);
+
 			GalleryUtilities::unsanitizeInputValues($localServerPath, false);
 
 			$localServerPath         = $platform->realpath($localServerPath);
@@ -781,6 +788,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 				$form['error']['localServerPath']['illegal'] = 1;
 			} else {
 				$gallery->guaranteeTimeLimit(30);
+
 				$path = $localServerPath;
 
 				if ($platform->is_dir($path)) {
@@ -841,6 +849,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 									// Get localized and english names:
 									$mimeTypeItem->setMimeType($mimeType);
+
 									$mimeTypeItemMap[$mimeType] = array_merge(
 										$mimeTypeItem->itemTypeName(),
 										$mimeTypeItem->itemTypeName(false)
@@ -874,10 +883,12 @@ class ItemAddFromServer extends ItemAddPlugin {
 					}
 
 					$mimeTypeItem->setMimeType($mimeType);
-					$mimeTypeItemName           = array_merge(
+
+					$mimeTypeItemName = array_merge(
 						$mimeTypeItem->itemTypeName(),
 						$mimeTypeItem->itemTypeName(false)
 					);
+
 					$fileName                   = basename($path);
 					$form['localServerFiles'][] = array(
 						'type'     => 'file',
@@ -964,6 +975,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 		// Do we want to allow symlinks?
 		$ItemAddFromServer['showSymlink'] = $platform->isSymlinkSupported();
+
 		$template->setVariable('ItemAddFromServer', $ItemAddFromServer);
 
 		return array(

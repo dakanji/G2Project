@@ -48,7 +48,9 @@ class HiddenModule extends GalleryModule {
 		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
+
 		$this->_templateVersion = 1;
+
 		$this->setGroup('display', $this->translate('Display'));
 	}
 
@@ -85,6 +87,7 @@ class HiddenModule extends GalleryModule {
 			}
 
 			$gallery->guaranteeTimeLimit(60);
+
 			$ret = $storage->execute('DELETE FROM [ItemHiddenMap]');
 
 			if ($ret) {
@@ -92,6 +95,7 @@ class HiddenModule extends GalleryModule {
 			}
 
 			$gallery->guaranteeTimeLimit(60);
+
 			$ret = $storage->execute(
 				'INSERT INTO [ItemHiddenMap] ([::itemId])
 				   SELECT [GalleryEntity::id]
@@ -247,6 +251,7 @@ class HiddenModule extends GalleryModule {
 	 */
 	public function handleEvent($event) {
 		global $gallery;
+
 		GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenHelper.class');
 
 		switch ($event->getEventName()) {

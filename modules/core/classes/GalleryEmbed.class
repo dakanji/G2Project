@@ -166,7 +166,8 @@ class GalleryEmbed {
 		global $gallerySetErrorHandler;
 
 		$session =& $gallery->getSession();
-		$ret     = $session->save();
+
+		$ret = $session->save();
 
 		if ($ret) {
 			return $ret;
@@ -174,7 +175,8 @@ class GalleryEmbed {
 
 		if ($gallery->isStorageInitialized()) {
 			$storage =& $gallery->getStorage();
-			$ret     = $storage->commitTransaction();
+
+			$ret = $storage->commitTransaction();
 
 			if ($ret) {
 				return $ret;
@@ -232,6 +234,7 @@ class GalleryEmbed {
 	 */
 	public static function checkActiveUser($activeUserId) {
 		global $gallery;
+
 		$session =& $gallery->getSession();
 		$phpVm   = $gallery->getPhpVm();
 
@@ -349,7 +352,9 @@ class GalleryEmbed {
 		}
 
 		$gallery->setActiveUser($user);
+
 		$session =& $gallery->getSession();
+
 		$session->put('embed.id.externalUser', $extUserId);
 
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
@@ -360,6 +365,7 @@ class GalleryEmbed {
 
 		if ($anonymousUserId != $user->getId()) {
 			$event = GalleryCoreApi::newEvent('Gallery::Login');
+
 			$event->setEntity($user);
 
 			list($ret, $ignored) = GalleryCoreApi::postEvent($event);
@@ -403,6 +409,7 @@ class GalleryEmbed {
 
 			$event      = GalleryCoreApi::newEvent('Gallery::Logout');
 			$activeUser = $gallery->getActiveUser();
+
 			$event->setEntity($activeUser);
 
 			list($ret, $ignored) = GalleryCoreApi::postEvent($event);
@@ -412,7 +419,8 @@ class GalleryEmbed {
 			}
 
 			$session =& $gallery->getSession();
-			$ret     = $session->reset();
+
+			$ret = $session->reset();
 
 			if ($ret) {
 				return $ret;
@@ -849,7 +857,8 @@ class GalleryEmbed {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-		$ret     = $session->start();
+
+		$ret = $session->start();
 
 		if ($ret) {
 			return array($ret, null);
@@ -922,7 +931,8 @@ class GalleryEmbed {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-		$ret     = $session->start();
+
+		$ret = $session->start();
 
 		if ($ret) {
 			return array($ret, null);
@@ -1059,6 +1069,7 @@ class GalleryEmbed {
 	 * Add an externalId<->entityId map entry for existing G2/emApp users/groups
 	 * Example:
 	 *   <code>GalleryEmbed::addExternalIdMapEntry($uid, $g2user->getId(), 'GalleryUser');</code>
+	 *
 	 *
 	 * @param string $externalId the user/group id in the embedded application
 	 * @param int $entityId the entityId of the user/group in G2
@@ -1321,7 +1332,8 @@ class GalleryEmbed {
 							'forceFullUrl' => true,
 						)
 					);
-					$css[]  = '<link rel="stylesheet" type="text/css" href="' . $cssUrl . '"/>';
+
+					$css[] = '<link rel="stylesheet" type="text/css" href="' . $cssUrl . '"/>';
 				}
 			}
 

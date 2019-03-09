@@ -71,7 +71,8 @@ class CleanCacheStep extends UpgradeStep {
 		}
 
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->checkPoint();
+
+		$ret = $storage->checkPoint();
 
 		if ($ret) {
 			$templateData['errors'][]    = _('Unable to commit database transaction');

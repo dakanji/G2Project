@@ -75,6 +75,7 @@ class PathInfoParserTest extends RewriteParserTestCase {
 			),
 			$status
 		);
+
 		$this->assertEquals(array(), $error);
 	}
 
@@ -104,6 +105,7 @@ class PathInfoParserTest extends RewriteParserTestCase {
 			),
 			$status
 		);
+
 		$this->assertEquals(array(), $error);
 	}
 

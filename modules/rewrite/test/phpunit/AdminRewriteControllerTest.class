@@ -74,6 +74,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 
 		// Set up our mock platform
 		$this->_platform = new AdminRewriteMockPlatform();
+
 		$gallery->setPlatform($this->_platform);
 
 		// Register a new module
@@ -940,6 +941,7 @@ class AdminRewriteMockModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('adminrewritemock');
+
 		$this->setName('AdminRewrite Test Module');
 		$this->setDescription('Unit test module');
 		$this->setVersion('7.0.0'); // Update upgrade() as required

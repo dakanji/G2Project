@@ -81,6 +81,7 @@ class AdminMaintenanceController extends GalleryController {
 							array($this, 'runTask'),
 							array($taskId, $task, true)
 						);
+
 						$results['delegate']['view'] = 'core.ProgressBar';
 					} else {
 						list($ret, $success) = $this->runTask($taskId, $task, false);
@@ -171,12 +172,15 @@ class AdminMaintenanceController extends GalleryController {
 		$status['run']['success'] = $success;
 		$status['run']['taskId']  = $taskId;
 		$session                  =& $gallery->getSession();
+
 		$session->putStatus($status);
+
 		$redirect['view']    = 'core.SiteAdmin';
 		$redirect['subView'] = 'core.AdminMaintenance';
 
 		if ($useProgressBar) {
 			$templateAdapter =& $gallery->getTemplateAdapter();
+
 			$templateAdapter->completeProgressBar($urlGenerator->generateUrl($redirect));
 		}
 

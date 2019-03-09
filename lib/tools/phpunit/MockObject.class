@@ -29,6 +29,7 @@
  *
  *  function describeMap($mapName, $tryAllModules=false) {
  *      return $this->_makeReply('describeMap', array($mapName, $tryAllModules));
+ *
  *  }
  *
  * @package Gallery
@@ -64,6 +65,7 @@ class MockObject {
 	public function getRemaining() {
 		return 'Error count: ' . $_GET[$this->_className]['errorCount']
 		. "\nRemaining requests: "
+
 		. print_r($_GET[$this->_className]['replies'], true);
 	}
 
@@ -81,6 +83,7 @@ class MockObject {
 		}
 
 		$_GET[$this->_className]['errorCount']++;
+
 		$ret = GalleryCoreApi::error(ERROR_UNKNOWN, null, null, 'Unhandled reply in MockObject');
 
 		echo '<br/><br/>' . $ret->getAsHtml();

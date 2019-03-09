@@ -55,6 +55,7 @@ class CoreModuleTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_parentAlbum);
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_parentAlbum->getId(),
 			$gallery->getActiveUserId(),
@@ -100,6 +101,7 @@ class CoreModuleTest extends GalleryTestCase {
 				'pageId'     => $albumId,
 			)
 		);
+
 		$this->assertEquals(
 			array(
 				array(
@@ -225,6 +227,7 @@ class CoreModuleTest extends GalleryTestCase {
 
 	public function testGetConfigurationView() {
 		$content = $this->_module->getConfigurationView();
+
 		$this->assertEquals(null, $content);
 	}
 
@@ -400,12 +403,15 @@ class CoreModuleTest extends GalleryTestCase {
 		$UnitTestPlatform = new UnitTestPlatform();
 
 		$gallery->setPlatform($UnitTestPlatform);
+
 		$platform =& $gallery->getPlatform();
 
 		GalleryDataCache::remove('CoreModule::installedVersions');
 
 		$versionFile = $gallery->getConfig('data.gallery.version');
+
 		$platform->setReply('file_exists', array($versionFile), false);
+
 		$versions = $this->_module->getInstalledVersions();
 		$this->assertEquals(
 			array(
@@ -415,6 +421,7 @@ class CoreModuleTest extends GalleryTestCase {
 			$versions,
 			'Returned non zero versions'
 		);
+
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 
@@ -430,6 +437,7 @@ class CoreModuleTest extends GalleryTestCase {
 		$expected['core']    = rtrim($versionArray[0]);
 		$expected['gallery'] = rtrim($versionArray[1]);
 		$versions            = $this->_module->getInstalledVersions();
+
 		$this->assertEquals($expected, $versions, 'Unexpected value from getInstalled Versions');
 	}
 
@@ -439,12 +447,15 @@ class CoreModuleTest extends GalleryTestCase {
 		$UnitTestPlatform = new UnitTestPlatform();
 
 		$gallery->setPlatform($UnitTestPlatform);
+
 		$platform =& $gallery->getPlatform();
 
 		GalleryDataCache::remove('CoreModule::installedVersions');
 
 		$gallery->setConfig('mode.maintenance', 'TEST-VALUE');
+
 		$versionFile = $gallery->getConfig('data.gallery.version');
+
 		$platform->setReply('file_exists', array($versionFile), true);
 		$platform->setReply(
 			'file',
@@ -452,8 +463,10 @@ class CoreModuleTest extends GalleryTestCase {
 			array(
 				$this->_module->getVersion() . "\n",
 				$this->_module->getGalleryVersion(),
+
 			)
 		);
+
 		$unused = $this->_module->getInstalledVersions();
 		$this->assertEquals(
 			'TEST-VALUE',
@@ -468,12 +481,15 @@ class CoreModuleTest extends GalleryTestCase {
 		$UnitTestPlatform = new UnitTestPlatform();
 
 		$gallery->setPlatform($UnitTestPlatform);
+
 		$platform =& $gallery->getPlatform();
 
 		GalleryDataCache::remove('CoreModule::installedVersions');
 
 		$gallery->setConfig('mode.maintenance', 'TEST-VALUE');
+
 		$versionFile = $gallery->getConfig('data.gallery.version');
+
 		$platform->setReply('file_exists', array($versionFile), true);
 		$platform->setReply(
 			'file',
@@ -481,9 +497,11 @@ class CoreModuleTest extends GalleryTestCase {
 			array(
 				$this->_module->getVersion() . "\n",
 				$this->_module->getGalleryVersion() . "\n",
+
 				'maintenance-mode',
 			)
 		);
+
 		$unused = $this->_module->getInstalledVersions();
 		$this->assertEquals(
 			true,
@@ -498,12 +516,15 @@ class CoreModuleTest extends GalleryTestCase {
 		$UnitTestPlatform = new UnitTestPlatform();
 
 		$gallery->setPlatform($UnitTestPlatform);
+
 		$platform =& $gallery->getPlatform();
 
 		GalleryDataCache::remove('CoreModule::installedVersions');
 
 		$gallery->setConfig('mode.maintenance', 'TEST-VALUE');
+
 		$versionFile = $gallery->getConfig('data.gallery.version');
+
 		$platform->setReply('file_exists', array($versionFile), true);
 		$platform->setReply(
 			'file',
@@ -511,9 +532,11 @@ class CoreModuleTest extends GalleryTestCase {
 			array(
 				$this->_module->getVersion() . "\n",
 				$this->_module->getGalleryVersion() . "\n",
+
 				'maintenance-mode:http://g2.com/maintenance.html',
 			)
 		);
+
 		$unused = $this->_module->getInstalledVersions();
 		$this->assertEquals(
 			'http://g2.com/maintenance.html',

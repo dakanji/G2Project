@@ -164,6 +164,7 @@ class UserLoginController extends GalleryController {
 			if (empty($error)) {
 				if ($isCorrect) {
 					$gallery->setActiveUser($user);
+
 					$event = GalleryCoreApi::newEvent('Gallery::Login');
 
 					$event->setEntity($user);
@@ -266,6 +267,7 @@ class UserLoginView extends GalleryView {
 						'forceFullUrl'   => true,
 					)
 				);
+
 				$redirectUrl = rtrim(str_replace('&amp;', '&', $redirectUrl), '&? ');
 
 				$phpVm->header("Location: $redirectUrl");

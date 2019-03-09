@@ -109,7 +109,9 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		}
 
 		$this->_currentEnvironment = $environment;
+
 		$this->_platform->setEnvironment($environment);
+
 		$ret = ImageMagickToolkitHelper::savePlatformParameters();
 
 		if ($ret) {
@@ -244,6 +246,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
 		foreach ($this->_environments as $environment) {
 			$this->_setEnvironment($environment);
+
 			$ret = $this->_testOperation(
 				'image/gif',
 				'thumbnail',
@@ -352,7 +355,8 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
 			// Test a basic composite operation (top right corner)
 			$dataDir = $gallery->getConfig('data.gallery.base');
-			$ret     = $this->_testOperation(
+
+			$ret = $this->_testOperation(
 				'image/png',
 				'composite',
 				'test.png',   // composite
@@ -410,7 +414,8 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			// Test compress
 			$this->_files['compressMe.jpg']['size'] = 250 << 10;
 			$this->_platform->_counter              = 2;
-			$ret                                    = $this->_testOperation(
+
+			$ret = $this->_testOperation(
 				'image/jpeg',
 				'compress',
 				'compressMe.jpg',
@@ -446,6 +451,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				'BOGUS',
 				array('BOGUS')
 			);
+
 			$this->assertTrue($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION, 'bad op');
 		}
 	}
@@ -453,6 +459,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 	public function testPercentParameters() {
 		foreach ($this->_environments as $environment) {
 			$this->_setEnvironment($environment);
+
 			$ret = $this->_testOperation(
 				'image/gif',
 				'thumbnail',
@@ -548,6 +555,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
 		foreach ($this->_environments as $environment) {
 			$this->_setEnvironment($environment);
+
 			$context = array(
 				'next.toolkit'   => $this->_toolkit,
 				'next.operation' => 'crop',
@@ -567,6 +575,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			}
 
 			$this->assertEquals(array(), $this->_files, 'no exec yet ' . $this->_envName());
+
 			$context['next.toolkit']   = null;
 			$context['next.operation'] = null;
 			$this->assertEquals(
@@ -623,7 +632,6 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$context,
 				'context at end ' . $this->_envName()
 			);
-
 			unset($this->_files['output.png']);
 		}
 	}
@@ -638,6 +646,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
 		foreach ($this->_environments as $environment) {
 			$this->_setEnvironment($environment);
+
 			$context = array(
 				'next.toolkit'   => $this->_toolkit,
 				'next.operation' => 'thumbnail',
@@ -675,6 +684,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$context,
 				'context after crop ' . $this->_envName()
 			);
+
 			$context['next.toolkit']   = null;
 			$context['next.operation'] = null;
 
@@ -710,7 +720,6 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$context,
 				'context at end ' . $this->_envName()
 			);
-
 			unset($this->_files['output1.png'], $this->_files['output.png']);
 		}
 	}
@@ -724,6 +733,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
 		foreach ($this->_environments as $environment) {
 			$this->_setEnvironment($environment);
+
 			$context = array(
 				'next.toolkit'   => $this->_toolkit,
 				'next.operation' => 'rotate',
@@ -762,6 +772,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$context,
 				'context after scale ' . $this->_envName()
 			);
+
 			$context['next.operation'] = 'thumbnail';
 
 			list($ret, $outputMimeType, $context) = $this->_toolkit->performOperation(
@@ -835,7 +846,6 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$context,
 				'context at end ' . $this->_envName()
 			);
-
 			unset($this->_files['output.png']);
 		}
 	}
@@ -846,6 +856,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
 		foreach ($this->_environments as $environment) {
 			$this->_setEnvironment($environment);
+
 			$context = array(
 				'next.toolkit'   => $this->_toolkit,
 				'next.operation' => 'thumbnail',
@@ -914,7 +925,6 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$context,
 				'context at end ' . $this->_envName()
 			);
-
 			unset($this->_files['output.jpg']);
 		}
 	}
@@ -962,6 +972,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				'BOGUS',
 				'BOGUS'
 			);
+
 			$this->assertTrue(
 				$ret->getErrorCode() & ERROR_UNIMPLEMENTED,
 				'bad op ' . $this->_envName()
@@ -976,6 +987,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'crop',
 			array(3, 4, 5, 6)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('crop', $operation);
 		$this->assertEquals(array(3, 4, 5, 6), $args);
@@ -986,6 +998,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'resize',
 			array(3, 4)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
@@ -996,6 +1009,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'resize',
 			array(3, 4)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
@@ -1006,6 +1020,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'thumbnail',
 			array(3, 4)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
@@ -1016,6 +1031,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'thumbnail',
 			array(3, 4)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
@@ -1026,6 +1042,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(90)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(180), $args);
@@ -1036,6 +1053,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(-90)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
@@ -1046,6 +1064,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(180)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(90), $args);
@@ -1056,6 +1075,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(-180)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
@@ -1066,6 +1086,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(180)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
@@ -1076,6 +1097,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'rotate',
 			array(90)
 		);
+
 		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
@@ -1086,6 +1108,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			'thumbnail',
 			array(3, 4)
 		);
+
 		$this->assertFalse($success);
 	}
 
@@ -1478,8 +1501,9 @@ class ImageMagickToolkitTestPlatform {
 							$binary => $params,
 						),
 					);
-					$output             = array();
-					$status             = true;
+
+					$output = array();
+					$status = true;
 				}
 			}
 		}
@@ -1489,6 +1513,7 @@ class ImageMagickToolkitTestPlatform {
 		}
 
 		echo $this->_environment['path'] . ': ERROR exec()ing:<pre>';
+
 		print_r($cmd);
 		echo "</pre>\n";
 
@@ -1530,6 +1555,7 @@ class ImageMagickToolkitTestPlatform {
 
 	public function isRestrictedByOpenBaseDir($path) {
 		// echo $this->_environment['path'] . ": isRestrictedByOpenBaseDir($path)<br>\n";
+
 		return false;
 	}
 

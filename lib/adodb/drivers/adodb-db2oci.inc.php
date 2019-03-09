@@ -190,6 +190,7 @@ if (!defined('ADODB_DB2OCI')) {
 			}
 
 			$arr = $rs->GetArray();
+
 			$rs->Close();
 
 			$arr2 = array();

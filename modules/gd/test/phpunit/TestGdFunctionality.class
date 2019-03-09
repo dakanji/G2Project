@@ -114,7 +114,8 @@ class TestGdFunctionality {
 			'y'        => $this->getResourceData($res, 'y'),
 			'mimeType' => $mimeType,
 		);
-		$other                         = $this->getResourceData($res, 'other');
+
+		$other = $this->getResourceData($res, 'other');
 
 		if (is_array($other)) {
 			$this->_outputFiles[$filename] = array_merge($this->_outputFiles[$filename], $other);
@@ -274,6 +275,7 @@ class TestGdFunctionality {
 		}
 
 		$res = $this->getNewResource();
+
 		$this->setResourceData($res, 'x', $width);
 		$this->setResourceData($res, 'y', $height);
 		$this->setResourceData($res, 'trueColor', false);
@@ -295,6 +297,7 @@ class TestGdFunctionality {
 		}
 
 		$res = $this->getNewResource();
+
 		$this->setResourceData($res, 'x', $width);
 		$this->setResourceData($res, 'y', $height);
 		$this->setResourceData($res, 'trueColor', true);
@@ -730,6 +733,7 @@ class TestGdFunctionality {
 		}
 
 		$res = $this->copyResource($srcRes);
+
 		$this->setResourceData($res, 'x', $newX);
 		$this->setResourceData($res, 'y', $newY);
 
@@ -738,6 +742,7 @@ class TestGdFunctionality {
 
 	public function imagedestroy($res) {
 		$this->_undestroyedResourceCounter--;
+
 		$this->_resources[$res]['destroyed'] = true;
 	}
 

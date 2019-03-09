@@ -184,6 +184,7 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 					'arg2' => $total,
 				)
 			);
+
 			$templateAdapter->updateProgressBar($message, '', $i / $total);
 		}
 

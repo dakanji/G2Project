@@ -43,7 +43,8 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		}
 
 		$gallery->_platform = new FfmpegToolkitTestPlatform();
-		$ret                = $gallery->_platform->init($this);
+
+		$ret = $gallery->_platform->init($this);
 
 		if ($ret) {
 			return $ret;
@@ -79,6 +80,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		$this->assertEquals(array(200, 240, 3.1), $results, 'dimensions-and-duration mismatch');
 
 		list($ret, $results) = $this->_toolkit->getProperty('video/x-msvideo', 'BOGUS', 'BOGUS');
+
 		$this->assertTrue($ret->getErrorCode() & ERROR_UNIMPLEMENTED);
 	}
 
@@ -121,6 +123,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			$results['operations'],
 			'operations'
 		);
+
 		$this->assertEquals(
 			array(
 				'dimensions' => array(
@@ -207,6 +210,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			),
 			$results
 		);
+
 		$this->assertTrue($supportsOffset, 'offset');
 		$this->assertEquals($expectedMimeTypes, $mimeTypes);
 	}
@@ -478,8 +482,8 @@ class FfmpegToolkitTest extends GalleryTestCase {
 			),
 			$results
 		);
-		$this->assertFalse($supportsOffset, 'offset');
 
+		$this->assertFalse($supportsOffset, 'offset');
 		sort($mimeTypes);
 
 		$this->assertEquals($expectedMimeTypes, $mimeTypes);

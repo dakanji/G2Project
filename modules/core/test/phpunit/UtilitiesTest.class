@@ -60,7 +60,8 @@ class UtilitiesTest extends GalleryTestCase {
 	public function tearDown() {
 		$_COOKIE                = $this->_saveCookie;
 		$_SERVER['HTTP_COOKIE'] = $this->_saveServerHttpCookie;
-		$ret                    = parent::tearDown();
+
+		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -132,6 +133,7 @@ class UtilitiesTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('utilitiestest[outer1][inner\'2][b]', '3\'3');
 		GalleryUtilities::putRequestVariable('utilitiestest[outer1][inner3][a]', '4');
 		GalleryUtilities::putRequestVariable('utilitiestest[outer1][inner3][b]', '5\'5');
+
 		GalleryUtilities::putRequestVariable('utilitiestest[outer2]', '6');
 
 		$this->assertEquals(
@@ -234,6 +236,7 @@ class UtilitiesTest extends GalleryTestCase {
 	 */
 	public function testGetFormVariables3() {
 		$_POST[GalleryUtilities::prefixFormVariable('utilitiestest')]['list']['filter'] = 'x';
+
 		GalleryUtilities::putRequestVariable('utilitiestest[list][filter]', 'y');
 
 		$this->assertEquals(
@@ -262,6 +265,7 @@ class UtilitiesTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('utilitiestest[outer1][inner\'2][b]', '3\'3', false);
 		GalleryUtilities::putRequestVariable('utilitiestest[outer1][inner3][a]', '4', false);
 		GalleryUtilities::putRequestVariable('utilitiestest[outer1][inner3][b]', '5\'5', false);
+
 		GalleryUtilities::putRequestVariable('utilitiestest[outer2]', '6', false);
 
 		$this->assertEquals(
@@ -334,6 +338,7 @@ class UtilitiesTest extends GalleryTestCase {
 		$expectedHeaders['status'] = 'HTTP/1.0 123 Foo';
 
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
+
 		$expectedCalls   = array();
 		$expectedCalls[] = array('HTTP/1.0 123 Foo', null);
 
@@ -354,6 +359,7 @@ class UtilitiesTest extends GalleryTestCase {
 		$expectedHeaders['status'] = 'HTTP/1.0 321 Bar';
 
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
+
 		$expectedCalls   = array();
 		$expectedCalls[] = array('HTTP/1.0 123 Foo', null);
 		$expectedCalls[] = array('HTTP/1.0 321 Bar', null);
@@ -375,6 +381,7 @@ class UtilitiesTest extends GalleryTestCase {
 		$expectedHeaders['status'] = 'HTTP/1.0 123 Foo';
 
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
+
 		$expectedCalls   = array();
 		$expectedCalls[] = array('HTTP/1.0 123 Foo', null);
 
@@ -393,6 +400,7 @@ class UtilitiesTest extends GalleryTestCase {
 		$expectedHeaders['status']   = 'HTTP/1.0 302 Found';
 		$expectedHeaders['location'] = 'Location: http://example.com/';
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
+
 		$expectedCalls   = array();
 		$expectedCalls[] = array('Location: http://example.com/', null);
 		$this->assertEquals($expectedCalls, $phpVm->getHeaderCalls(), 'Header calls');
@@ -407,10 +415,12 @@ class UtilitiesTest extends GalleryTestCase {
 
 		GalleryUtilities::setResponseHeader('HTTP/1.0 123 Foo');
 		GalleryUtilities::setResponseHeader('Location: http://example.com/');
+
 		$expectedHeaders             = array();
 		$expectedHeaders['status']   = 'HTTP/1.0 302 Found';
 		$expectedHeaders['location'] = 'Location: http://example.com/';
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
+
 		$expectedCalls   = array();
 		$expectedCalls[] = array('HTTP/1.0 123 Foo', null);
 		$expectedCalls[] = array('Location: http://example.com/', null);
@@ -426,10 +436,12 @@ class UtilitiesTest extends GalleryTestCase {
 
 		GalleryUtilities::setResponseHeader('HTTP/1.0 123 Foo', false);
 		GalleryUtilities::setResponseHeader('Location: http://example.com/', false);
+
 		$expectedHeaders           = array();
 		$expectedHeaders['status'] = 'HTTP/1.0 123 Foo';
 
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
+
 		$expectedCalls   = array();
 		$expectedCalls[] = array('HTTP/1.0 123 Foo', null);
 
@@ -445,10 +457,12 @@ class UtilitiesTest extends GalleryTestCase {
 
 		GalleryUtilities::setResponseHeader('HTTP/1.0 321 Bar', false);
 		GalleryUtilities::setResponseHeader('Location: http://example.com/', false);
+
 		$expectedHeaders             = array();
 		$expectedHeaders['status']   = 'HTTP/1.0 321 Bar';
 		$expectedHeaders['location'] = 'Location: http://example.com/';
 		$this->assertEquals($expectedHeaders, $this->_responseHeaders, 'Response headers');
+
 		$expectedCalls   = array();
 		$expectedCalls[] = array('HTTP/1.0 321 Bar', null);
 		$expectedCalls[] = array('Location: http://example.com/', null);
@@ -494,7 +508,6 @@ class UtilitiesTest extends GalleryTestCase {
 			GalleryUtilities::sanitizeInputValues($value);
 
 			$this->assertEquals($cooked, $value, 'cooked mismatch');
-
 			GalleryUtilities::unsanitizeInputValues($value);
 
 			$this->assertEquals($raw, $value, 'raw mismatch');
@@ -514,14 +527,17 @@ class UtilitiesTest extends GalleryTestCase {
 			'?,?,?,?,?',
 			GalleryUtilities::makeMarkers(5)
 		);
+
 		$this->assertEquals(
 			'?,?,?,?,?',
 			GalleryUtilities::makeMarkers(array(1, 2, 'foo', 4, 'baz'))
 		);
+
 		$this->assertEquals(
 			'(?,?),(?,?),(?,?)',
 			GalleryUtilities::makeMarkers(3, '(?,?)')
 		);
+
 		$this->assertEquals(
 			'(?,?),(?,?),(?,?)',
 			GalleryUtilities::makeMarkers(array('x', 'y', 'z'), '(?,?)')
@@ -587,6 +603,7 @@ class UtilitiesTest extends GalleryTestCase {
 		}
 
 		$gallery->setUrlGenerator($urlGenerator);
+
 		$_SERVER['REQUEST_URI'] = '/testcms/phpunit_test.php?test=on&foo=bar';
 		$this->assertEquals(
 			'/gallery2/modules/core/test/phpunit/UtilitiesTest.class',
@@ -617,9 +634,11 @@ class UtilitiesTest extends GalleryTestCase {
 		$results = GalleryUtilities::shrinkDimensionsToFit(1024, 768, 341);
 
 		$this->assertEquals(array(341, 256), $results);
+
 		$results = GalleryUtilities::shrinkDimensionsToFit(1024, 768, 5000);
 
 		$this->assertEquals(array(1024, 768), $results);
+
 		$results = GalleryUtilities::shrinkDimensionsToFit(800, 600, 1600, 300);
 
 		$this->assertEquals(array(400, 300), $results);
@@ -635,6 +654,7 @@ class UtilitiesTest extends GalleryTestCase {
 		$results = GalleryUtilities::scaleDimensionsToFit(1024, 768, 921);
 
 		$this->assertEquals(array(921, 691), $results);
+
 		$results = GalleryUtilities::scaleDimensionsToFit(800, 600, 1200, 800);
 
 		$this->assertEquals(array(1067, 800), $results);
@@ -642,6 +662,7 @@ class UtilitiesTest extends GalleryTestCase {
 
 	public function testIsA() {
 		$this->assertTrue(GalleryUtilities::isA(new UtilitiesTest('x'), 'GalleryTestCase'));
+
 		$this->assertTrue(GalleryUtilities::isA(new UtilitiesTest('x'), 'UtilitiesTest'));
 		$this->assertFalse(GalleryUtilities::isA(new UtilitiesTest('x'), 'GalleryEntity'));
 	}
@@ -879,9 +900,13 @@ class UtilitiesTest extends GalleryTestCase {
 
 		// Sanity check some known RFC1918 addresses
 		$this->assertTrue(GalleryUtilities::isTrustedProxy('10.1.2.3'), '10/8 failed');
+
 		$this->assertTrue(GalleryUtilities::isTrustedProxy('172.16.254.253'), '172.16/12 failed 1');
+
 		$this->assertTrue(GalleryUtilities::isTrustedProxy('172.31.254.253'), '172.16/12 failed 2');
+
 		$this->assertFalse(GalleryUtilities::isTrustedProxy('172.32.254.253'), '172.16/12 failed 3');
+
 		$this->assertTrue(GalleryUtilities::isTrustedProxy('192.168.1.2'), '192.168/16 failed');
 	}
 
@@ -895,6 +920,7 @@ class UtilitiesTest extends GalleryTestCase {
 			),
 			'test 1'
 		);
+
 		$this->assertTrue(
 			GalleryUtilities::isPathInList(
 				'/foo/',
@@ -902,6 +928,7 @@ class UtilitiesTest extends GalleryTestCase {
 			),
 			'test 2'
 		);
+
 		$this->assertTrue(
 			GalleryUtilities::isPathInList(
 				'/foo',
@@ -909,6 +936,7 @@ class UtilitiesTest extends GalleryTestCase {
 			),
 			'test 3'
 		);
+
 		$this->assertTrue(
 			GalleryUtilities::isPathInList(
 				'/foo/bar',
@@ -916,6 +944,7 @@ class UtilitiesTest extends GalleryTestCase {
 			),
 			'test 4'
 		);
+
 		$this->assertTrue(
 			!GalleryUtilities::isPathInList(
 				'/foobar',
@@ -951,9 +980,11 @@ class UtilitiesTest extends GalleryTestCase {
 			),
 			'symlink path'
 		);
+
 		$UtilitiesTestWinPlatform = new UtilitiesTestWinPlatform();
 
 		$gallery->setPlatform($UtilitiesTestWinPlatform);
+
 		$this->assertTrue(
 			GalleryUtilities::isPathInList(
 				'c:\foo\bar',
@@ -975,56 +1006,67 @@ class UtilitiesTest extends GalleryTestCase {
 			GalleryUtilities::entitySubstr('abcdef', 0),
 			1
 		);
+
 		$this->assertEquals(
 			array(3, 'def'),
 			GalleryUtilities::entitySubstr('abcdef', 3),
 			2
 		);
+
 		$this->assertEquals(
 			array(0, ''),
 			GalleryUtilities::entitySubstr('abcdef', 6),
 			3
 		);
+
 		$this->assertEquals(
 			array(0, false),
 			GalleryUtilities::entitySubstr('abcdef', 7),
 			4
 		);
+
 		$this->assertEquals(
 			array(6, 'abcdef'),
 			GalleryUtilities::entitySubstr('abcdef', -6),
 			5
 		);
+
 		$this->assertEquals(
 			array(2, 'ef'),
 			GalleryUtilities::entitySubstr('abcdef', -2),
 			6
 		);
+
 		$this->assertEquals(
 			array(0, ''),
 			GalleryUtilities::entitySubstr('abcdef', 0, -6),
 			7
 		);
+
 		$this->assertEquals(
 			array(1, 'a'),
 			GalleryUtilities::entitySubstr('abcdef', 0, -5),
 			8
 		);
+
 		$this->assertEquals(
 			array(5, 'abcde'),
 			GalleryUtilities::entitySubstr('abcdef', 0, -1),
 			9
 		);
+
 		$this->assertEquals(
 			array(0, ''),
 			GalleryUtilities::entitySubstr('abcdef', 0, 0),
 			10
 		);
+
 		$this->assertEquals(
 			array(4, 'bcde'),
 			GalleryUtilities::entitySubstr('abcdef', -5, -1),
 			11
 		);
+
 		$this->assertEquals(
 			array(3, 'cde'),
 			GalleryUtilities::entitySubstr('abcdef', -4, -1),
@@ -1089,14 +1131,16 @@ class UtilitiesTest extends GalleryTestCase {
 		}
 
 		$albums[0]->setParentId(null);
+
 		$albums[1]->setParentId(0);
+
 		$albums[2]->setParentId(0);
 		$albums[3]->setParentId(1);
 		$albums[4]->setParentId(1);
 		$albums[5]->setParentId(1);
 		$albums[6]->setParentId(4);
-		$tree = GalleryUtilities::createAlbumTree($albums);
 
+		$tree = GalleryUtilities::createAlbumTree($albums);
 		$this->assertTrue($tree[0]['depth'] == 0);
 		$this->assertTrue($tree[0]['data']['id'] == 0);
 		$this->assertTrue($tree[1]['depth'] == 0);
@@ -1124,6 +1168,7 @@ class UtilitiesTest extends GalleryTestCase {
 			'error'    => 0,
 			'size'     => $platform->filesize(__FILE__),
 		);
+
 		$file = GalleryUtilities::getFile('userfile');
 		$file = GalleryUtilities::strArrToIntArr($file);
 		$this->assertEquals(
@@ -1137,6 +1182,7 @@ class UtilitiesTest extends GalleryTestCase {
 			$file,
 			'userfile'
 		);
+
 		$_FILES['testfile'] = array(
 			'name'     => 'testfile.txt',
 			'type'     => 'text/plain',
@@ -1144,8 +1190,9 @@ class UtilitiesTest extends GalleryTestCase {
 			'error'    => 0,
 			'size'     => $platform->filesize(__FILE__),
 		);
-		$file               = GalleryUtilities::getFile('testfile', false);
-		$file               = GalleryUtilities::strArrToIntArr($file);
+
+		$file = GalleryUtilities::getFile('testfile', false);
+		$file = GalleryUtilities::strArrToIntArr($file);
 		$this->assertEquals(
 			array(
 				'name'     => 'testfile.txt',
@@ -1181,26 +1228,32 @@ class UtilitiesTest extends GalleryTestCase {
 			GalleryUtilities::isCompatibleWithApi(array(0, 8), array(0, 8)),
 			'same'
 		);
+
 		$this->assertTrue(
 			GalleryUtilities::isCompatibleWithApi(array(0, 8), array(0, 9)),
 			'minor bigger'
 		);
+
 		$this->assertFalse(
 			GalleryUtilities::isCompatibleWithApi(array(1, 8), array(0, 8)),
 			'major bigger'
 		);
+
 		$this->assertFalse(
 			GalleryUtilities::isCompatibleWithApi(array(0, 8), array(0, 7)),
 			'minor smaller'
 		);
+
 		$this->assertFalse(
 			GalleryUtilities::isCompatibleWithApi(array(2, 0), array(1, 0)),
 			'major smaller'
 		);
+
 		$this->assertFalse(
 			GalleryUtilities::isCompatibleWithApi(array(2, 3), array(1, 2)),
 			'both smaller'
 		);
+
 		$this->assertFalse(
 			GalleryUtilities::isCompatibleWithApi(array(1, 2), array(2, 3)),
 			'both bigger'
@@ -1297,18 +1350,21 @@ class UtilitiesTest extends GalleryTestCase {
 			$testData,
 			'decimal'
 		);
+
 		$testData = GalleryUtilities::unicodeValueToUtf8Value('x0B13');
 		$this->assertEquals(
 			"\xe0\xac\x93",
 			$testData,
 			'hex'
 		);
+
 		$testData = GalleryUtilities::unicodeValueToUtf8Value('241');
 		$this->assertEquals(
 			"\xc3\xb1",
 			$testData,
 			'decimal'
 		);
+
 		$testData = GalleryUtilities::unicodeValueToUtf8Value('xF1');
 		$this->assertEquals(
 			"\xc3\xb1",
@@ -1323,6 +1379,7 @@ class UtilitiesTest extends GalleryTestCase {
 			$testData,
 			'2^15 - 1'
 		);
+
 		$testData = GalleryUtilities::unicodeValueToUtf8Value('x8000');
 		$this->assertEquals(
 			"\xe8\x80\x80",
@@ -1340,6 +1397,7 @@ class UtilitiesTest extends GalleryTestCase {
 			"foo \xe0\xac\x93 bar",
 			$testData
 		);
+
 		$testData = GalleryUtilities::unicodeEntitiesToUtf8(
 			'accentu&#233;s. &#231;&#224; donne'
 		);
@@ -1414,7 +1472,6 @@ class UtilitiesTest extends GalleryTestCase {
 			GalleryUtilities::isEmbedded(),
 			'Should be embedded now'
 		);
-
 		// Restore
 		if ($backupValue) {
 			GalleryDataCache::put($key, $backupValue, true);
@@ -1433,7 +1490,6 @@ class UtilitiesTest extends GalleryTestCase {
 		$_SERVER['foo'] = 'foo';
 
 		$this->assertEquals('foo', GalleryUtilities::getServerVar('foo'));
-
 		// Missing
 		unset($_SERVER['foo']);
 
@@ -1552,6 +1608,7 @@ class UtilitiesTest extends GalleryTestCase {
 		GalleryUtilities::fixCookieVars(true);
 
 		$this->assertEquals(0, count($_COOKIE), 'COOKIE was not emptied by fixCookieVars!');
+
 		$_SERVER['HTTP_COOKIE'] = 'foo=bar';
 
 		GalleryUtilities::fixCookieVars();
@@ -1575,7 +1632,6 @@ class UtilitiesTest extends GalleryTestCase {
 			$this->_saveCookie,
 			'HTTP_COOKIE unset test: $_COOKIE was modified!'
 		);
-
 		/*
 		 * Check if $_SERVER['HTTP_COOKIE'] is set (more as a feedback once we know that there are
 		 * still login/auth problems)
@@ -1665,6 +1721,7 @@ class UtilitiesTest extends GalleryTestCase {
 					isset($_COOKIE[$key5]),
 					$kind . ' illegal name cookie 5  was set for delimiter "' . $sep . '"'
 				);
+
 				$this->assertTrue(
 					isset($_COOKIE[$key4]),
 					$kind . ' token cookie 4 not set for delimiter "' . $sep . '"'
@@ -1686,7 +1743,6 @@ class UtilitiesTest extends GalleryTestCase {
 					isset($_COOKIE[$key2]),
 					$kind . ' $Version cookie was set for delimiter "' . $sep . '"'
 				);
-
 				// Check if the array-cookie is still there
 				$this->assertTrue(
 					isset($_COOKIE['foobar']),
@@ -2021,9 +2077,11 @@ class UtilitiesTest extends GalleryTestCase {
 		$this->assertEquals(array('/test/one', '/test/one/two'), $created);
 		$this->assertTrue(
 			isset($this->_mkdir['/test/one']) &&
+
 			$this->_mkdir['/test/one'] != '',
 			'mkdir with perms'
 		);
+
 		$this->assertTrue(
 			isset($this->_mkdir['/testcache/module/core/0/0']) &&
 				$this->_mkdir['/testcache/module/core/0/0'] == '',
@@ -2079,6 +2137,7 @@ class UtilitiesTest extends GalleryTestCase {
 	public function testRoundToString() {
 		$this->assertEquals('12', GalleryUtilities::roundToString(12.34), 'no decimal');
 		$this->assertEquals('12.34', GalleryUtilities::roundToString(12.3432, 2), 'decimal');
+
 		$currentLocale = setlocale(LC_ALL, '0');
 
 		foreach (array('de_DE', 'german') as $locale) {
@@ -2095,13 +2154,13 @@ class UtilitiesTest extends GalleryTestCase {
 
 		$this->assertEquals('12', GalleryUtilities::roundToString(12.34), 'no decimal german');
 		$this->assertEquals('12.34', GalleryUtilities::roundToString(12.3432, 2), 'decimal german');
-
 		setlocale(LC_ALL, $currentLocale);
 	}
 
 	public function testCastToFloat() {
 		$this->assertEquals(12.34, GalleryUtilities::castToFloat(12.34), 'no cast');
 		$this->assertEquals(12.34, GalleryUtilities::castToFloat('12.34'), 'string');
+
 		$currentLocale = setlocale(LC_ALL, '0');
 
 		foreach (array('de_DE', 'german') as $locale) {
@@ -2118,7 +2177,6 @@ class UtilitiesTest extends GalleryTestCase {
 
 		$this->assertEquals(12.34, GalleryUtilities::castToFloat(12.34), 'no cast german');
 		$this->assertEquals(12.34, GalleryUtilities::castToFloat('12.34'), 'string german');
-
 		setlocale(LC_ALL, $currentLocale);
 	}
 
@@ -2134,6 +2192,7 @@ class UtilitiesTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($album);
+
 		$ret = GalleryCoreApi::addMimeType('phpunit_movie', 'test/movie', false);
 
 		if ($ret) {
@@ -2288,6 +2347,7 @@ class UtilitiesTest extends GalleryTestCase {
 				'script src <script src="http://evil.com/bad.js">'
 			)
 		);
+
 		$this->assertEquals(
 			'script type ',
 			GalleryUtilities::htmlSafe(
@@ -2301,24 +2361,28 @@ class UtilitiesTest extends GalleryTestCase {
 				'applet <applet code="http://evil.com/bad.class"></applet>'
 			)
 		);
+
 		$this->assertEquals(
 			'object ',
 			GalleryUtilities::htmlSafe(
 				'object <object codetype="application/java" classid="java:bad.class"></object>'
 			)
 		);
+
 		$this->assertEquals(
 			'embed ',
 			GalleryUtilities::htmlSafe(
 				'embed <embed src="http://evil.com/bad.mov" width=400 height=300>'
 			)
 		);
+
 		$this->assertEquals(
 			'base ',
 			GalleryUtilities::htmlSafe(
 				'base <base href="http://evil.com/bad.html">'
 			)
 		);
+
 		$this->assertEquals(
 			'title ',
 			GalleryUtilities::htmlSafe(
@@ -2331,6 +2395,7 @@ class UtilitiesTest extends GalleryTestCase {
 				'link <link rel="Next" href="http://evil.com/bad.php">'
 			)
 		);
+
 		$this->assertEquals(
 			'meta ',
 			GalleryUtilities::htmlSafe(
@@ -2351,12 +2416,14 @@ class UtilitiesTest extends GalleryTestCase {
 				'<a href="test" onmouseover="alert(1)">12</a>8 <br />'
 			)
 		);
+
 		$this->assertEquals(
 			'<a>12</a>b<br />',
 			GalleryUtilities::htmlSafe(
 				'<a href="javascript:alert(1)">12</a>b<br/>'
 			)
 		);
+
 		$this->assertEquals(
 			'test ',
 			GalleryUtilities::htmlSafe(
@@ -2434,6 +2501,7 @@ class UtilitiesTest extends GalleryTestCase {
 	 * } else {
 	 * $expected = unserialize(file_get_contents($cmpFile));
 	 * }
+	 *
 	 *
 	 * $this->assertEquals(serialize($expected), serialize($actual));
 	 * }

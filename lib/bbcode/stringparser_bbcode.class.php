@@ -569,6 +569,7 @@ class StringParser_BBCode extends StringParser {
 			$this->_cpos     -= strlen($this->_savedName);
 			$this->_savedName = '';
 			$this->_status    = 0;
+
 			$this->_appendText('[/');
 
 			return true;
@@ -642,12 +643,14 @@ class StringParser_BBCode extends StringParser {
 
 				if (trim($needle) == ':' || trim($needle) == '=') {
 					$this->_quoting = null;
+
 					$this->_setStatus(3); // default value parser
 					break;
 				}
 
 				if (trim($needle) == '="' || trim($needle) == '= "' || trim($needle) == '=\'' || trim($needle) == '= \'') {
 					$this->_quoting = substr(trim($needle), -1);
+
 					$this->_setStatus(3); // default value parser with quotation
 					break;
 				}
@@ -759,6 +762,7 @@ class StringParser_BBCode extends StringParser {
 
 					// just ignore and continue in same mode
 					$this->_setStatus(4); // reset parameters
+
 					return true;
 				}
 
@@ -772,6 +776,7 @@ class StringParser_BBCode extends StringParser {
 
 				if ($needle == '=') {
 					$this->_quoting = null;
+
 					$this->_setStatus(5);
 
 					return true;
@@ -779,6 +784,7 @@ class StringParser_BBCode extends StringParser {
 
 				if ($needle == '="') {
 					$this->_quoting = '"';
+
 					$this->_setStatus(5);
 
 					return true;
@@ -786,6 +792,7 @@ class StringParser_BBCode extends StringParser {
 
 				if ($needle == '=\'') {
 					$this->_quoting = '\'';
+
 					$this->_setStatus(5);
 
 					return true;
@@ -958,6 +965,7 @@ class StringParser_BBCode extends StringParser {
 
 		if ($cond) {
 			$this->_savedCloseCount = $closecount;
+
 			$this->_setStatus(7);
 
 			return true;
@@ -1204,7 +1212,6 @@ class StringParser_BBCode extends StringParser {
 
 		if (is_string($output)) {
 			$this->_output = $this->_applyPostfilters($output);
-
 			unset($output);
 
 			return true;
@@ -1413,6 +1420,7 @@ class StringParser_BBCode extends StringParser {
 
 			unset($parent);
 			$parent =& $nodes[$i]->_parent;
+
 			$parent->removeChild($nodes[$i], true);
 		}
 
@@ -1439,7 +1447,9 @@ class StringParser_BBCode extends StringParser {
 
 		while (count($node->_children)) {
 			$mynode =& $node->_children[0];
+
 			$node->removeChild($mynode);
+
 			$subprevtype = $prevtype;
 			$sub_nodes   =& $this->_breakupNodeByParagraphs($mynode);
 
@@ -1453,6 +1463,7 @@ class StringParser_BBCode extends StringParser {
 
 				if ($sub_nodes[$i]->_type != STRINGPARSER_BBCODE_NODE_ELEMENT || $sub_nodes[$i]->getFlag('paragraph_type', 'integer', BBCODE_PARAGRAPH_ALLOW_BREAKUP) != BBCODE_PARAGRAPH_BLOCK_ELEMENT) {
 					$paragraph->appendChild($sub_nodes[$i]);
+
 					$dest_nodes[]            =& $paragraph;
 					$last_node_was_paragraph = true;
 				} else {
@@ -1571,7 +1582,9 @@ class StringParser_BBCode extends StringParser {
 		// now this node allows breakup - do it
 		for ($i = 0; $i < $nodecount; $i++) {
 			$firstnode =& $node->_children[0];
+
 			$node->removeChild($firstnode);
+
 			$sub_nodes =& $this->_breakupNodeByParagraphs($firstnode);
 
 			for ($j = 0; $j < count($sub_nodes); $j++) {
@@ -2024,6 +2037,7 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 			// DON'T DO $ret = null WITHOUT unset BEFORE!
 			// ELSE WE WILL ERASE THE NODE ITSELF! EVIL!
 			unset($ret);
+
 			$ret = null;
 		}
 

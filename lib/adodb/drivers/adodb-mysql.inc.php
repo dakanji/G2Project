@@ -336,6 +336,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				$u = strtoupper($seqname);
 
 				$this->Execute(sprintf($this->_genSeqSQL, $seqname));
+
 				$cnt = $this->GetOne(sprintf($this->_genSeqCountSQL, $seqname));
 
 				if (!$cnt) {
@@ -347,6 +348,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 
 			if ($rs) {
 				$this->genID = mysql_insert_id($this->_connectionID);
+
 				$rs->Close();
 			} else {
 				$this->genID = 0;
@@ -593,6 +595,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 
 			if ($schema) {
 				$dbName = $this->database;
+
 				$this->SelectDB($schema);
 			}
 
@@ -641,11 +644,9 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 					$fld->type       = $query_array[1];
 					$fld->max_length = is_numeric($query_array[2]) ? $query_array[2] : -1;
 				} elseif (preg_match('/^(enum)\((.*)\)$/i', $type, $query_array)) {
-					$fld->type = $query_array[1];
-					$arr       = explode(',', $query_array[2]);
-
-					$fld->enums = $arr;
-
+					$fld->type       = $query_array[1];
+					$arr             = explode(',', $query_array[2]);
+					$fld->enums      = $arr;
 					$zlen            = max(array_map('strlen', $arr)) - 2; // PHP >= 4.0.6
 					$fld->max_length = ($zlen > 0) ? $zlen : 1;
 				} else {
@@ -719,13 +720,15 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 		// returns queryID or false
 		public function _query($sql, $inputarr = false) {
 			return mysql_query($sql, $this->_connectionID);
-
 			/*
 			global $ADODB_COUNTRECS;
 
 			if($ADODB_COUNTRECS)
+
 			return mysql_query($sql,$this->_connectionID);
+
 			else
+
 			return @mysql_unbuffered_query($sql,$this->_connectionID); // requires PHP >= 4.0.6
 			*/
 		}
@@ -761,6 +764,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 		// returns true or false
 		public function _close() {
 			@mysql_close($this->_connectionID);
+
 			$this->charSet       = '';
 			$this->_connectionID = false;
 		}
@@ -867,7 +871,6 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 			}
 
 			$this->adodbFetchMode = $mode;
-
 			parent::__construct($queryID);
 		}
 
@@ -922,7 +925,8 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				$this->bind = array();
 
 				for ($i = 0; $i < $this->_numOfFields; $i++) {
-					$o                                = $this->FetchField($i);
+					$o = $this->FetchField($i);
+
 					$this->bind[strtoupper($o->name)] = $i;
 				}
 			}
@@ -943,6 +947,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 			//if (defined('ADODB_EXTENSION')) return adodb_movenext($this);
 			if (@$this->fields = mysql_fetch_array($this->_queryID, $this->fetchMode)) {
 				$this->_updatefields();
+
 				$this->_currentRow += 1;
 
 				return true;
@@ -958,6 +963,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 
 		public function _fetch() {
 			$this->fields = @mysql_fetch_array($this->_queryID, $this->fetchMode);
+
 			$this->_updatefields();
 
 			return is_array($this->fields);
@@ -965,6 +971,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 
 		public function _close() {
 			@mysql_free_result($this->_queryID);
+
 			$this->_queryID = false;
 		}
 

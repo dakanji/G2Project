@@ -31,7 +31,9 @@ class HybridTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('hybrid');
+
 		$this->setName($gallery->i18n('Hybrid'));
+
 		$this->setDescription(
 			$gallery->i18n(
 				'Combined album/image/slideshow dynamic view'
@@ -104,36 +106,42 @@ class HybridTheme extends GalleryTheme {
 			'type'  => 'checkbox',
 			'value' => $params['showText'],
 		);
+
 		$settings[] = array(
 			'key'   => 'showAlbumDate',
 			'name'  => $this->translate('Show dates for albums'),
 			'type'  => 'checkbox',
 			'value' => $params['showAlbumDate'],
 		);
+
 		$settings[] = array(
 			'key'   => 'showImageDate',
 			'name'  => $this->translate('Show dates with thumbnails'),
 			'type'  => 'checkbox',
 			'value' => $params['showImageDate'],
 		);
+
 		$settings[] = array(
 			'key'   => 'showDateInViewer',
 			'name'  => $this->translate('Show dates in image view'),
 			'type'  => 'checkbox',
 			'value' => $params['showDateInViewer'],
 		);
+
 		$settings[] = array(
 			'key'   => 'showSize',
 			'name'  => $this->translate('Show album sizes'),
 			'type'  => 'checkbox',
 			'value' => $params['showSize'],
 		);
+
 		$settings[] = array(
 			'key'   => 'showViewCount',
 			'name'  => $this->translate('Show view counts'),
 			'type'  => 'checkbox',
 			'value' => $params['showViewCount'],
 		);
+
 		$settings[] = array(
 			'key'     => 'thumbTitle',
 			'name'    => $this->translate('Mouseover on thumbnails'),

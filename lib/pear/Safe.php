@@ -379,8 +379,7 @@ class HTML_Safe {
 				$preg .= $proto[$i] . "[\s\x01-\x1F]*";
 			}
 
-			$preg .= ':/i';
-
+			$preg                 .= ':/i';
 			$this->_protoRegexps[] = $preg;
 		}
 
@@ -496,8 +495,7 @@ class HTML_Safe {
 					}
 				}
 
-				$value = str_replace('"', '&quot;', $value);
-
+				$value         = str_replace('"', '&quot;', $value);
 				$this->_xhtml .= ' ' . $name . '="' . $value . '"';
 			}
 		}
@@ -519,6 +517,7 @@ class HTML_Safe {
 
 		if (in_array($name, $this->deleteTagsContent)) {
 			array_push($this->_dcStack, $name);
+
 			$this->_dcCounter[$name] = isset($this->_dcCounter[$name]) ? $this->_dcCounter[$name] + 1 : 1;
 		}
 
@@ -540,7 +539,9 @@ class HTML_Safe {
 
 		if (in_array($name, $this->singleTags)) {
 			$this->_xhtml .= '<' . $name;
+
 			$this->_writeAttrs($attrs);
+
 			$this->_xhtml .= ' />';
 
 			return true;
@@ -575,10 +576,13 @@ class HTML_Safe {
 		}
 
 		$this->_xhtml .= '<' . $name;
+
 		$this->_writeAttrs($attrs);
+
 		$this->_xhtml .= '>';
 
 		array_push($this->_stack, $name);
+
 		$this->_counter[$name] = isset($this->_counter[$name]) ? $this->_counter[$name] + 1 : 1;
 
 		return true;
@@ -723,6 +727,7 @@ class HTML_Safe {
 
 		// Set up the parser
 		$parser->set_object($this);
+
 		$parser->set_element_handler('_openHandler', '_closeHandler');
 		$parser->set_data_handler('_dataHandler');
 		$parser->set_escape_handler('_escapeHandler');

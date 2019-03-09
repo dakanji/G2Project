@@ -34,6 +34,7 @@ class WelcomeStep extends UpgradeStep {
 			global $translator;
 
 			$translator->init($_POST['language'], true);
+
 			$_SESSION['language'] = $_POST['language'];
 		}
 

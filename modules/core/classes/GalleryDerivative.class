@@ -232,8 +232,11 @@ class GalleryDerivative extends GalleryChildEntity {
 		}
 
 		$this->setDerivativeOrder(0);
+
 		$this->setIsBroken(false);
+
 		$this->setMimeType(null);
+
 		$this->setDerivativeType(null);
 		$this->setDerivativeSourceId(null);
 		$this->setDerivativeSize(null);
@@ -325,7 +328,9 @@ class GalleryDerivative extends GalleryChildEntity {
 
 						if ($platform->file_exists($destPath)) {
 							$size = $platform->filesize($destPath);
+
 							$this->setDerivativeSize($size);
+
 							$status = null;
 						} else {
 							$status = GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
@@ -528,6 +533,7 @@ class GalleryDerivative extends GalleryChildEntity {
 		// Update our info
 		$this->setMimeType($mimeType);
 		$this->setDerivativeSize($size);
+
 		$data = array(
 			'derivativePath' => $destPath,
 			'derivativeType' => $this->getDerivativeType(),
@@ -542,6 +548,7 @@ class GalleryDerivative extends GalleryChildEntity {
 		}
 
 		GalleryCoreApi::deleteFastDownloadFileById($this->getId());
+
 		$ret = GalleryCoreApi::createFastDownloadFile($this);
 
 		if ($ret) {

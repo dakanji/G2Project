@@ -97,6 +97,7 @@ class CustomFieldHelperTest extends GalleryTestCase {
 			$data,
 			'Multi-item no value retrieve failed'
 		);
+
 		$ret = $this->_markPluginParametersForCleanup('module', 'customfield');
 
 		if ($ret) {

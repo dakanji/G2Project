@@ -138,6 +138,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 		$broken = 0;
 		$built  = 0;
 		$total  = $derivatives->resultCount() + $items->resultCount();
+
 		$gallery->guaranteeTimeLimit(120);
 
 		while ($result = $derivatives->nextResult()) {
@@ -187,7 +188,8 @@ class BuildDerivativesTask extends MaintenanceTask {
 				}
 			}
 
-			$ret   = GalleryCoreApi::applyDerivativePreferences($item, $item->getParentId(), true);
+			$ret = GalleryCoreApi::applyDerivativePreferences($item, $item->getParentId(), true);
+
 			$debug = $gallery->stopRecordingDebugSnippet();
 
 			if ($ret) {
@@ -289,6 +291,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 				'arg2' => $total,
 			)
 		);
+
 		$templateAdapter->updateProgressBar($message, '', $i / $total);
 
 		// Release locks (avoid too many open files for flock based locking)

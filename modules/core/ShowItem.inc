@@ -55,6 +55,7 @@ class ShowItemController extends GalleryController {
 
 		if ($guestPreviewMode != null) {
 			$session =& $gallery->getSession();
+
 			$session->put('theme.guestPreviewMode', $guestPreviewMode ? 1 : 0);
 		}
 

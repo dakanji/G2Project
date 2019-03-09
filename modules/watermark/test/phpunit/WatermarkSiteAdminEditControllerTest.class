@@ -61,6 +61,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($watermark);
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$watermark->getId(),
 			$gallery->getActiveUserId(),
@@ -80,6 +81,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[watermarkName]', 'foo bar');
 		GalleryUtilities::putRequestVariable('form[xPercentage]', '25.51');
 		GalleryUtilities::putRequestVariable('form[yPercentage]', '50.12');
+
 		GalleryUtilities::putRequestVariable('form[whichDerivative][preferred]', 'on');
 		GalleryUtilities::putRequestVariable('form[whichDerivative][resizes]', 'on');
 		GalleryUtilities::putRequestVariable('form[whichDerivative][thumbnail]', 'on');
@@ -107,7 +109,9 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertEquals('foo bar', $this->_watermark->getName());
+
 		$this->assertEquals('25.51', $this->_watermark->getXPercentage());
+
 		$this->assertEquals('50.12', $this->_watermark->getYPercentage());
 		$this->assertTrue($this->_watermark->getApplyToPreferred(), 'missing preferred');
 		$this->assertTrue($this->_watermark->getApplyToResizes(), 'missing resizes');
@@ -120,6 +124,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[watermarkName]', 'foo bar');
 		GalleryUtilities::putRequestVariable('form[xPercentage]', '25.51');
 		GalleryUtilities::putRequestVariable('form[yPercentage]', '50.12');
+
 		GalleryUtilities::putRequestVariable('form[whichDerivative][thumbnail]', 'on');
 
 		$results = $this->handleRequest();
@@ -145,7 +150,9 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertEquals('foo bar', $this->_watermark->getName());
+
 		$this->assertEquals('25.51', $this->_watermark->getXPercentage());
+
 		$this->assertEquals('50.12', $this->_watermark->getYPercentage());
 		$this->assertTrue(!$this->_watermark->getApplyToPreferred(), 'shouldn\'t have preferred');
 		$this->assertTrue(!$this->_watermark->getApplyToResizes(), 'shouldn\'t have resizes');
@@ -215,6 +222,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[watermarkName]', 'foo bar');
 		GalleryUtilities::putRequestVariable('form[xPercentage]', '101.51');
 		GalleryUtilities::putRequestVariable('form[yPercentage]', '-5.12');
+
 		GalleryUtilities::putRequestVariable('form[whichDerivative][thumbnail]', 'on');
 
 		$results = $this->handleRequest();
@@ -308,6 +316,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[xPercentage]', '50.00');
 		GalleryUtilities::putRequestVariable('form[yPercentage]', '80.00');
 		GalleryUtilities::putRequestVariable('form[whichDerivative][thumbnail]', 'on');
+
 		GalleryUtilities::putRequestVariable('form[tmp_name][1]', $sourceFile);
 		GalleryUtilities::putRequestVariable('form[type][1]', $postMimeType);
 		GalleryUtilities::putRequestVariable('form[name][1]', 'file.class');
@@ -332,6 +341,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		);
 
 		$this->assertEquals($expected, $results);
+
 		$ret = GalleryCoreApi::removeMimeType(
 			array(
 				'extension' => 'yyy',
@@ -350,6 +360,7 @@ class WatermarkSiteAdminEditControllerTest extends GalleryControllerTestCase {
 		}
 
 		$expected = ($postMimeType == 'test/file') ? array('50', '80', $platform->filesize($sourceFile), false) : array('100', '100', $platform->filesize(__FILE__), true);
+
 		$this->assertEquals($expected[0], $this->_watermark->getXPercentage(), 'x');
 		$this->assertEquals($expected[1], $this->_watermark->getYPercentage(), 'y');
 		$this->assertEquals($expected[2], $this->_watermark->getSize(), 'size');

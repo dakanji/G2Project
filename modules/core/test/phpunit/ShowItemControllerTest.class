@@ -43,7 +43,8 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 		// Bend the rules
 		$this->_saveSession = $gallery->_session;
 		$gallery->_session  = new GallerySession();
-		$ret                = $gallery->_session->initEmpty();
+
+		$ret = $gallery->_session->initEmpty();
 
 		if ($ret) {
 			return $ret;
@@ -55,7 +56,8 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 
 		// Restore our session
 		$gallery->_session = $this->_saveSession;
-		$ret               = parent::tearDown();
+
+		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -66,6 +68,7 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		$session->put('theme.guestPreviewMode', 0);
 
 		GalleryUtilities::putRequestVariable('guestPreviewMode', '1');
@@ -79,6 +82,7 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->assertEquals(1, $session->get('theme.guestPreviewMode'));
 	}
 
@@ -86,6 +90,7 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		$session->put('theme.guestPreviewMode', 1);
 
 		GalleryUtilities::putRequestVariable('guestPreviewMode', '0');
@@ -99,6 +104,7 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->assertEquals(0, $session->get('theme.guestPreviewMode'));
 	}
 
@@ -106,7 +112,9 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		$session->put('theme.guestPreviewMode', 1);
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -116,6 +124,7 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->assertEquals(1, $session->get('theme.guestPreviewMode'));
 	}
 }

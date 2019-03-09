@@ -167,6 +167,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 		// When is this used? Close old connection first?
 		// In _connect(), check $this->forceNewConnect?
+
 		public function _nconnect($argHostname, $argUsername, $argPassword, $argDatabasename) {
 			$this->forceNewConnect = true;
 
@@ -374,6 +375,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				$u = strtoupper($seqname);
 
 				$this->Execute(sprintf($this->_genSeqSQL, $seqname));
+
 				$cnt = $this->GetOne(sprintf($this->_genSeqCountSQL, $seqname));
 
 				if (!$cnt) {
@@ -385,6 +387,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 			if ($rs) {
 				$this->genID = mysqli_insert_id($this->_connectionID);
+
 				$rs->Close();
 			} else {
 				$this->genID = 0;
@@ -797,11 +800,9 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 					$fld->type       = $query_array[1];
 					$fld->max_length = is_numeric($query_array[2]) ? $query_array[2] : -1;
 				} elseif (preg_match('/^(enum)\((.*)\)$/i', $type, $query_array)) {
-					$fld->type = $query_array[1];
-					$arr       = explode(',', $query_array[2]);
-
-					$fld->enums = $arr;
-
+					$fld->type       = $query_array[1];
+					$arr             = explode(',', $query_array[2]);
+					$fld->enums      = $arr;
 					$zlen            = max(array_map('strlen', $arr)) - 2; // PHP >= 4.0.6
 					$fld->max_length = ($zlen > 0) ? $zlen : 1;
 				} else {
@@ -907,6 +908,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			// return value of the stored proc (ie the number of rows affected).
 			// Commented out for reasons of performance. You should retrieve every recordset yourself.
 			//	if (!mysqli_next_result($this->connection->_connectionID))	return false;
+
 			if (is_array($sql)) {
 				// Prepare() not supported because mysqli_stmt_execute does not return a recordset, but
 				// returns as bound variables.
@@ -986,6 +988,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		// returns true or false
 		public function _close() {
 			@mysqli_close($this->_connectionID);
+
 			$this->_connectionID = false;
 		}
 
@@ -1070,7 +1073,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			}
 
 			$this->adodbFetchMode = $mode;
-
 			parent::__construct($queryID);
 		}
 
@@ -1150,7 +1152,8 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				$this->bind = array();
 
 				for ($i = 0; $i < $this->_numOfFields; $i++) {
-					$o                                = $this->FetchField($i);
+					$o = $this->FetchField($i);
+
 					$this->bind[strtoupper($o->name)] = $i;
 				}
 			}
@@ -1164,6 +1167,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			}
 
 			mysqli_data_seek($this->_queryID, $row);
+
 			$this->EOF = false;
 
 			return true;
@@ -1173,6 +1177,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			global $ADODB_COUNTRECS;
 
 			mysqli_free_result($this->_queryID);
+
 			$this->_queryID = -1;
 
 			// Move to the next recordset, or return false if there is none. In a stored proc
@@ -1193,6 +1198,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			$this->_inited     = false;
 			$this->bind        = false;
 			$this->_currentRow = -1;
+
 			$this->Init();
 
 			return true;
@@ -1207,6 +1213,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			}
 
 			$this->_currentRow++;
+
 			$this->fields = @mysqli_fetch_array($this->_queryID, $this->fetchMode);
 
 			if (is_array($this->fields)) {
@@ -1222,6 +1229,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 		public function _fetch() {
 			$this->fields = mysqli_fetch_array($this->_queryID, $this->fetchMode);
+
 			$this->_updatefields();
 
 			return is_array($this->fields);

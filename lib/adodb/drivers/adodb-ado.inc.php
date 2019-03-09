@@ -111,6 +111,7 @@ class ADODB_ado extends ADOConnection {
 
 		// @ added below for php 4.0.1 and earlier
 		@$dbc->Open((string)$argHostname);
+
 		$this->_connectionID = $dbc;
 		$dbc->CursorLocation = $this->_cursor_location;
 
@@ -195,11 +196,12 @@ class ADODB_ado extends ADOConnection {
 			$t = $adors->Fields(2); //table/view name
 			while (!$adors->EOF) {
 				if (strtoupper($t->Value) == $table) {
-					$fld                         = new ADOFieldObject();
-					$c                           = $adors->Fields(3);
-					$fld->name                   = $c->Value;
-					$fld->type                   = 'CHAR'; // cannot discover type in ADO!
-					$fld->max_length             = -1;
+					$fld             = new ADOFieldObject();
+					$c               = $adors->Fields(3);
+					$fld->name       = $c->Value;
+					$fld->type       = 'CHAR'; // cannot discover type in ADO!
+					$fld->max_length = -1;
+
 					$arr[strtoupper($fld->name)] = $fld;
 				}
 
@@ -253,6 +255,7 @@ class ADODB_ado extends ADOConnection {
 
 				// name, type, direction 1 = input, len,
 				$p = $oCmd->CreateParameter('name', $this->adoParameterType, 1, $len, $val);
+
 				$oCmd->Parameters->Append($p);
 			}
 
@@ -305,6 +308,7 @@ class ADODB_ado extends ADOConnection {
 		}
 
 		@$this->_connectionID->BeginTrans();
+
 		$this->transCnt += 1;
 
 		return true;
@@ -437,7 +441,8 @@ class ADORecordSet_ado extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
+
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}
@@ -697,6 +702,7 @@ class ADORecordSet_ado extends ADORecordSet {
 
 				case 6: // currency is not supported properly;
 					ADOConnection::outp('<b>' . $f->Name . ': currency type not supported by PHP</b>');
+
 					$this->fields[] = (float)$f->value;
 
 					break;
@@ -758,6 +764,7 @@ class ADORecordSet_ado extends ADORecordSet {
 		$this->_flds        = false;
 		$this->_tarr        = false;
 		$this->_inited      = false;
+
 		$this->Init();
 
 		return true;

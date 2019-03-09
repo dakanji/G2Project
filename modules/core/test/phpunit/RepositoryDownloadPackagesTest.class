@@ -40,6 +40,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		$UnitTestPlatform = new UnitTestPlatform();
 
 		$gallery->setPlatform($UnitTestPlatform);
+
 		$this->_repository             = new GalleryRepository();
 		$this->_repository->_utilities = new UnitTestRepositoryUtilities();
 
@@ -54,7 +55,6 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		// Prepare sample descriptor
 		include __DIR__
 		. '/../../../../lib/tools/repository/test/data/SampleDescriptors.inc';
-
 		$this->_descriptor      = $sampleModuleDescriptor;
 		$this->_templateAdapter = new MockTemplateAdapter();
 		$this->_callback        = array(
@@ -63,7 +63,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			'current' => 0,
 			'total'   => 0,
 		);
-		$this->_versions        = array(
+
+		$this->_versions = array(
 			'base'       => array('1.0.0', '44444'),
 			'lang-en_GB' => array('22222', '33333'),
 			'lang-pt_PT' => array('22222', '33333'),
@@ -74,11 +75,13 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
+
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 		$this->assertTrue(
 			$this->_repository->_utilities->isComplete(),
 			$this->_repository->_utilities->getRemaining()
 		);
+
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -184,6 +187,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 				array($cachePath . $relativeFile, $packageFile),
 				true
 			);
+
 			$retCode = !empty($responses[$package]) ? $responses[$package] : false;
 			$this->_repository->_utilities->setReply(
 				'unpackPackage',

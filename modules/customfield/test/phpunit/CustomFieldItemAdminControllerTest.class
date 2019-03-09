@@ -118,6 +118,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 		// Activate album-specific settings..
 		GalleryUtilities::putRequestVariable('cfAdmin', '2');
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -148,6 +149,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 
 		// Check adminMode in session..
 		$adminMode = $session->get(CUSTOM_FIELD_SESSION_KEY);
+
 		$this->assertEquals($this->_album->getId(), $adminMode, 'Session admin mode');
 
 		// Change admin mode..
@@ -164,7 +166,9 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 			$results,
 			'Switch to edit-values'
 		);
+
 		$adminMode = $session->get(CUSTOM_FIELD_SESSION_KEY);
+
 		$this->assertEquals(null, $adminMode, 'Session admin mode');
 
 		GalleryUtilities::removeFormVariables('form');
@@ -180,7 +184,9 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 			$results,
 			'Switch to edit-settings'
 		);
+
 		$adminMode = $session->get(CUSTOM_FIELD_SESSION_KEY);
+
 		$this->assertEquals($this->_album->getId(), $adminMode, 'Session admin mode');
 
 		// Set values..

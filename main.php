@@ -126,6 +126,7 @@ function GalleryMain($embedded = false) {
 		if ($gallery->isStorageInitialized()) {
 			// Nuke our transaction, too
 			$storage =& $gallery->getStorage();
+
 			$storage->rollbackTransaction();
 
 			if ($ret->getErrorCode() & ERROR_REQUEST_FORGED) {
@@ -150,13 +151,15 @@ function GalleryMain($embedded = false) {
 
 		// Write out our session data
 		$session =& $gallery->getSession();
-		$ret     = $session->save();
+
+		$ret = $session->save();
 	}
 
 	// Complete our transaction
 	if (!$ret && $gallery->isStorageInitialized()) {
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->commitTransaction();
+
+		$ret = $storage->commitTransaction();
 	}
 
 	if ($ret) {
@@ -168,7 +171,9 @@ function GalleryMain($embedded = false) {
 		printf('<a href="%s">Continue to the next page</a>', $g2Data['redirectUrl']);
 		echo '<hr/>';
 		echo '<pre>';
+
 		echo $gallery->getDebugBuffer();
+
 		echo '</pre>';
 	}
 
@@ -207,12 +212,14 @@ function _GalleryMain($embedded = false, $template = null) {
 			// Maintenance mode - redirect if given URL, else simple message
 			if ($redirectUrl === true) {
 				header('Content-Type: text/html; charset=UTF-8');
+
 				echo $core->translate('Site is temporarily down for maintenance.');
 
 				exit;
 			}
 		} else {
 			$gallery->debug('Redirect to the upgrade wizard, core module version is out of date');
+
 			$redirectUrl = $urlGenerator->getCurrentUrlDir(true) . 'upgrade/index.php';
 		}
 
@@ -333,6 +340,7 @@ function _GalleryMain($embedded = false, $template = null) {
 			// If we have a status, store its data in the session
 			if (!empty($results['status'])) {
 				$session =& $gallery->getSession();
+
 				$session->putStatus($results['status']);
 			}
 
@@ -468,6 +476,7 @@ function _GalleryMain($embedded = false, $template = null) {
 			}
 
 			echo $session->replaceTempSessionIdIfNecessary($html);
+
 			$data['isDone'] = true;
 		} else {
 			$html              = unserialize($html);
@@ -497,7 +506,8 @@ function _GalleryMain($embedded = false, $template = null) {
 			 * session)
 			 */
 			$session =& $gallery->getSession();
-			$ret     = $session->start();
+
+			$ret = $session->start();
 
 			if ($ret) {
 				return array($ret, null);
@@ -518,7 +528,8 @@ function _GalleryMain($embedded = false, $template = null) {
 			if ($view->autoCacheControl()) {
 				// r17660 removed the default on the $template parameter
 				$null = null;
-				$ret  = $view->setCacheControl($null);
+
+				$ret = $view->setCacheControl($null);
 
 				if ($ret) {
 					return array($ret, null);
@@ -640,7 +651,8 @@ function _GalleryMain($embedded = false, $template = null) {
 				 * (only if we do not have one yet)
 				 */
 				$session =& $gallery->getSession();
-				$ret     = $session->start();
+
+				$ret = $session->start();
 
 				if ($ret) {
 					return array($ret, null);
@@ -676,6 +688,7 @@ function _GalleryMain($embedded = false, $template = null) {
 					}
 
 					echo $session->replaceTempSessionIdIfNecessary($html);
+
 					$data['isDone'] = true;
 				}
 
@@ -759,8 +772,8 @@ function _GalleryMain_doRedirect(
 	}
 
 	$redirectUrl = $session->replaceTempSessionIdIfNecessary($redirectUrl);
-	$session->doNotUseTempId();
 
+	$session->doNotUseTempId();
 	/*
 	 * UserLogin returnUrls do not have a sessionId in the URL to replace, make sure there is a
 	 * sessionId in the redirectUrl for users that do not use cookies
@@ -807,6 +820,7 @@ function _GalleryMain_doRedirect(
 				 */
 				$session            =& $gallery->getSession();
 				$sessionParamString = GalleryUtilities::prefixFormVariable(urlencode($session->getKey())) . '='
+
 				. urlencode($session->getId());
 
 				if ($session->isPersistent() && !strstr($redirectUrl, $sessionParamString)) {

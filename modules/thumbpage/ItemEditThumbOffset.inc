@@ -79,6 +79,7 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 			}
 
 			$thumb->setDerivativeOperations($operations);
+
 			$ret = $thumb->save();
 
 			if ($ret) {

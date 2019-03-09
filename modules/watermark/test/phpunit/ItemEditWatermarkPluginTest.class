@@ -43,7 +43,8 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 
 		// Create a watermark
 		$this->_watermark = new WatermarkImage();
-		$ret              = $this->_watermark->create(
+
+		$ret = $this->_watermark->create(
 			GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.gif'),
 			'image/gif',
 			'phpunit_' . mt_rand() . '.gif'
@@ -72,6 +73,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
+
 		$albumId = $this->_album->getId();
 
 		list($ret, $this->_subalbum) = $this->_createRandomAlbum($albumId);
@@ -106,6 +108,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 			$this->_resizes[0][0],
 			$this->_thumbnails[0],
 		);
+
 		$this->_templateAdapter    = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $this->_templateAdapter;
 	}
@@ -183,6 +186,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[whichDerivative][resize]', 1);
 		GalleryUtilities::putRequestVariable('form[whichDerivative][preferred]', 1);
 		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
+
 		GalleryUtilities::putRequestVariable('form[xPercent]', 25);
 		GalleryUtilities::putRequestVariable('form[yPercent]', 50);
 
@@ -194,7 +198,6 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 			),
 			$results
 		);
-
 		// Verify the postfilters were applied successfully
 		foreach (array($this->_preferred, $this->_resize, $this->_thumbnail) as $derivative) {
 			list($ret, $derivative) = $derivative->refresh();
@@ -236,7 +239,6 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 			array(array(), $this->_translate('Watermark removed successfully')),
 			$results
 		);
-
 		// And verify that they're all gone
 		foreach (array($this->_preferred, $this->_resize, $this->_thumbnail) as $derivative) {
 			list($ret, $derivative) = $derivative->refresh();
@@ -272,6 +274,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[whichDerivative][resize]', 1);
 		GalleryUtilities::putRequestVariable('form[whichDerivative][preferred]', 1);
 		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
+
 		GalleryUtilities::putRequestVariable('form[xPercent]', 25);
 		GalleryUtilities::putRequestVariable('form[yPercent]', 50);
 
@@ -305,7 +308,6 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 				$preferred->getPostFilterOperations(),
 				'Post filter mismatch'
 			);
-
 			// Verify that the thumbnail and resize point to the preferred now
 			foreach (array($this->_resize, $this->_thumbnail) as $derivative) {
 				list($ret, $derivative) = $derivative->refresh();
@@ -334,8 +336,10 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		$this->_preferred->setDerivativeOperations(null);
 		$this->_preferred->setPostFilterOperations(
 			'composite|plugins_data/modules/watermark/' . $this->_watermark->getFileName()
+
 			. ',image/gif,62,75,manual,25.000,50.000'
 		);
+
 		$ret = $this->_preferred->save();
 
 		if ($ret) {
@@ -368,7 +372,6 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->assertTrue(empty($preferredTable), 'Preferred should be gone, but isn\'t');
-
 		// Verify that the thumbnail and resize point to the item now
 		foreach (array($this->_resize, $this->_thumbnail) as $derivative) {
 			list($ret, $derivative) = $derivative->refresh();
@@ -393,6 +396,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[whichDerivative][resize]', 1);
 		GalleryUtilities::putRequestVariable('form[whichDerivative][preferred]', 1);
 		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
+
 		GalleryUtilities::putRequestVariable('form[xPercent]', 75);
 		GalleryUtilities::putRequestVariable('form[yPercent]', 25);
 
@@ -401,12 +405,12 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 
 	public function testBulkWatermarkRecursive() {
 		$this->_registerTestToolkit('test/file');
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[whichDerivative][resize]', 1);
 		GalleryUtilities::putRequestVariable('form[whichDerivative][preferred]', 1);
 		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
 		GalleryUtilities::putRequestVariable('form[xPercent]', 100);
+
 		GalleryUtilities::putRequestVariable('form[yPercent]', 0);
 		GalleryUtilities::putRequestVariable('form[recursive]', 1);
 
@@ -416,8 +420,10 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 	public function _runBulkTest($message, $recursive, $applyToThumbnail, $location, $isApply = true) {
 		$preferred = null;
 		$results   = $this->handleRequest($this->_album, $preferred);
+
 		$this->assertEquals(array(array(), $this->_translate($message)), $results);
 		$this->assertEquals(1, $this->_templateAdapter->getCallbackCount(), 'Callback count');
+
 		$ret = $this->_templateAdapter->runCallbacks();
 
 		if ($ret) {
@@ -468,7 +474,9 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 
 				$expected = $getsWatermark && ($applyToThumbnail
 				|| $derivative->getDerivativeType() != DERIVATIVE_TYPE_IMAGE_THUMBNAIL) ? 'composite|plugins_data/modules/watermark/'
+
 				. $this->_watermark->getFileName() . ',image/gif,62,75,manual,' . $location : '';
+
 				$this->assertEquals(
 					$expected,
 					(string)$derivative->getPostFilterOperations(),
@@ -557,6 +565,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		$this->_registerTestToolkit('test/file');
 		$this->assertTrue($this->_plugin->isSupported($this->_item, $this->_thumbnail), 'admin');
 		$this->_becomeGuestUser();
+
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_item->getId(),
 			$gallery->getActiveUserId(),

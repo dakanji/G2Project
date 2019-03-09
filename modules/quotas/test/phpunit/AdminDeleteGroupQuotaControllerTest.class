@@ -52,6 +52,7 @@ class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
 		GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -71,7 +72,6 @@ class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
 	 */
 	public function testDeleteGroupQuota() {
 		$this->_createUserOrGroupQuota($this->_group->getId(), 2048);
-
 		GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 

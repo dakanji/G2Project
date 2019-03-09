@@ -45,6 +45,7 @@ class RatingCallbackView extends GalleryView {
 	 */
 	public function renderImmediate($status = null, $error = null) {
 		global $gallery;
+
 		GalleryCoreApi::requireOnce('modules/rating/classes/RatingHelper.class');
 
 		list($command, $rating) = GalleryUtilities::getRequestVariables('command', 'rating');
@@ -93,11 +94,13 @@ class RatingCallbackView extends GalleryView {
 						'arg1'  => $results['votes'],
 					)
 				);
-				$session                =& $gallery->getSession();
+
+				$session =& $gallery->getSession();
 				echo $results['itemId'] . "\n"
 				. $results['rating'] . "\n"
 				. $results['votesString'] . "\n"
 				. $results['userRating'] . "\n"
+
 				. $session->getAuthToken();
 
 				/*

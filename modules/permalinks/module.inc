@@ -45,7 +45,9 @@ class PermalinksModule extends GalleryModule {
 		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
+
 		$this->_templateVersion = 1;
+
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks('getSiteAdminViews');
 	}
@@ -249,6 +251,7 @@ class PermalinksModule extends GalleryModule {
 					GalleryCoreApi::requireOnce(
 						'modules/permalinks/classes/PermalinksMapHelper.class'
 					);
+
 					$ret = PermalinksMapHelper::createAlias(
 						$album->getPathComponent(),
 						$album->getId()

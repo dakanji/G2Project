@@ -47,7 +47,8 @@ class ADODB_sqlite3 extends ADOConnection {
 			return true;
 		}
 
-		$ret             = $this->Execute('BEGIN TRANSACTION');
+		$ret = $this->Execute('BEGIN TRANSACTION');
+
 		$this->transCnt += 1;
 
 		return true;
@@ -119,9 +120,8 @@ class ADODB_sqlite3 extends ADOConnection {
 				$size = trim($type[1], ')');
 			}
 
-			$fn  = strtoupper($r['name']);
-			$fld = new ADOFieldObject();
-
+			$fn                 = strtoupper($r['name']);
+			$fld                = new ADOFieldObject();
 			$fld->name          = $r['name'];
 			$fld->type          = $type[0];
 			$fld->max_length    = $size;
@@ -141,6 +141,7 @@ class ADODB_sqlite3 extends ADOConnection {
 		}
 
 		$rs->Close();
+
 		$ADODB_FETCH_MODE = $save;
 
 		return $arr;
@@ -189,6 +190,7 @@ class ADODB_sqlite3 extends ADOConnection {
 		}
 
 		$this->_connectionID = new SQLite3($argHostname);
+
 		$this->_createFunctions();
 
 		return true;
@@ -422,8 +424,7 @@ class ADORecordset_sqlite3 extends ADORecordSet {
 	}
 
 	public function FetchField($fieldOffset = -1) {
-		$fld = new ADOFieldObject();
-
+		$fld             = new ADOFieldObject();
 		$fld->name       = $this->_queryID->columnName($fieldOffset);
 		$fld->type       = 'VARCHAR';
 		$fld->max_length = -1;
@@ -444,7 +445,8 @@ class ADORecordset_sqlite3 extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
+
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

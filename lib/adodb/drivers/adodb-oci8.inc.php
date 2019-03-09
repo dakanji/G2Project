@@ -122,6 +122,7 @@ END;
 		$schema = '';
 
 		$this->_findschema($table, $schema);
+
 		$save             = $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
@@ -198,18 +199,24 @@ END;
 	 * Multiple modes of connection are supported:
 	 *
 	 * a. Local Database
+	 *
 	 *    $conn->Connect(false,'scott','tiger');
 	 *
 	 * b. From tnsnames.ora
+	 *
 	 *    $conn->Connect($tnsname,'scott','tiger');
 	 *    $conn->Connect(false,'scott','tiger',$tnsname);
 	 *
 	 * c. Server + service name
+	 *
 	 *    $conn->Connect($serveraddress,'scott,'tiger',$service_name);
+	 *
 	 *
 	 * d. Server + SID
 	 *    $conn->connectSID = true;
+	 *
 	 *    $conn->Connect($serveraddress,'scott,'tiger',$SID);
+	 *
 	 *
 	 * @param string|false $argHostname DB server hostname or TNS name
 	 * @param string $argUsername
@@ -242,8 +249,7 @@ END;
 				}
 
 				if (strncasecmp($argDatabasename, 'SID=', 4) == 0) {
-					$argDatabasename = substr($argDatabasename, 4);
-
+					$argDatabasename  = substr($argDatabasename, 4);
 					$this->connectSID = true;
 				}
 
@@ -495,6 +501,7 @@ END;
 
 		if (isset($savem)) {
 			$this->SetFetchMode($savem);
+
 			$ADODB_FETCH_MODE = $save;
 		}
 
@@ -532,7 +539,8 @@ END;
 			$this->transCnt -= 1;
 		}
 
-		$ret              = oci_commit($this->_connectionID);
+		$ret = oci_commit($this->_connectionID);
+
 		$this->_commit    = OCI_COMMIT_ON_SUCCESS;
 		$this->autoCommit = true;
 
@@ -548,7 +556,8 @@ END;
 			$this->transCnt -= 1;
 		}
 
-		$ret              = oci_rollback($this->_connectionID);
+		$ret = oci_rollback($this->_connectionID);
+
 		$this->_commit    = OCI_COMMIT_ON_SUCCESS;
 		$this->autoCommit = true;
 
@@ -872,7 +881,9 @@ END;
 	 * Store BLOBs and CLOBs
 	 *
 	 * Example: to store $var in a blob
+	 *
 	 *    $conn->Execute('insert into TABLE (id,ablob) values(12,empty_blob())');
+	 *
 	 *    $conn->UpdateBlob('TABLE', 'ablob', $varHoldingBlob, 'ID=12', 'BLOB');
 	 *
 	 * $blobtype supports 'BLOB' and 'CLOB', but you need to change to 'empty_clob()'.
@@ -977,6 +988,7 @@ END;
 		$arr['blob'] = array($desc, -1, $type);
 
 		$this->BeginTrans();
+
 		$rs = self::Execute($sql, $arr);
 
 		if ($rez = !empty($rs)) {
@@ -1002,7 +1014,8 @@ END;
 	 */
 	public function Execute($sql, $inputarr = false) {
 		if ($this->fnExecute) {
-			$fn  = $this->fnExecute;
+			$fn = $this->fnExecute;
+
 			$ret = $fn($this, $sql, $inputarr);
 
 			if (isset($ret)) {
@@ -1178,17 +1191,23 @@ END;
 	 * Better than using
 	 *    for ($i = 0; $i < $max; $i++) {
 	 *        $p1 = ?; $p2 = ?; $p3 = ?;
+	 *
 	 *        $this->Execute("insert into table (col0, col1, col2) values (:0, :1, :2)", array($p1,$p2,$p3));
+	 *
 	 *    }
 	 *
 	 * Usage:
 	 *    $stmt = $DB->Prepare("insert into table (col0, col1, col2) values (:0, :1, :2)");
+	 *
 	 *    $DB->Bind($stmt, $p1);
 	 *    $DB->Bind($stmt, $p2);
 	 *    $DB->Bind($stmt, $p3);
+	 *
 	 *    for ($i = 0; $i < $max; $i++) {
 	 *        $p1 = ?; $p2 = ?; $p3 = ?;
+	 *
 	 *        $DB->Execute($stmt);
+	 *
 	 *    }
 	 *
 	 * Some timings to insert 1000 records, test table has 3 cols, and 1 index.
@@ -1237,7 +1256,9 @@ END;
 			// if type is input then write data to lob now
 			if ($isOutput == false) {
 				$var = $this->BlobEncode($var);
+
 				$tmp->WriteTemporary($var);
+
 				$this->_refLOBs[$numlob]['VAR'] =& $var;
 
 				if ($this->debug) {
@@ -1270,9 +1291,11 @@ END;
 	/**
 	 * Usage:
 	 *    $stmt = $db->Prepare('select * from table where id =:myid and group=:group');
+	 *
 	 *    $db->Parameter($stmt,$id,'myid');
 	 *    $db->Parameter($stmt,$group,'group');
 	 *    $db->Execute($stmt);
+	 *
 	 *
 	 * @param $stmt Statement returned by Prepare() or PrepareSP().
 	 * @param $var PHP variable to bind to
@@ -1296,16 +1319,23 @@ END;
 	 * returns query ID if successful, otherwise false
 	 * this version supports:
 	 *
+	 *
 	 * 1. $db->execute('select * from table');
+	 *
 	 *
 	 * 2. $db->prepare('insert into table (a,b,c) values (:0,:1,:2)');
 	 *    $db->execute($prepared_statement, array(1,2,3));
 	 *
+	 *
+	 *
 	 * 3. $db->execute('insert into table (a,b,c) values (:a,:b,:c)',array('a'=>1,'b'=>2,'c'=>3));
+	 *
+	 *
 	 *
 	 * 4. $db->prepare('insert into table (a,b,c) values (:0,:1,:2)');
 	 *    $db->bind($stmt,1); $db->bind($stmt,2); $db->bind($stmt,3);
 	 *    $db->execute($stmt);
+	 *
 	 */
 	public function _query($sql, $inputarr = false) {
 		if (is_array($sql)) { // is prepared sql
@@ -1396,7 +1426,6 @@ END;
 					} else {
 						$this->_refLOBs[$key]['LOB']->save($this->_refLOBs[$key]['VAR']);
 						$this -> _refLOBs[$key]['LOB']->free();
-
 						unset($this -> _refLOBs[$key]);
 
 						if ($this->debug) {
@@ -1481,12 +1510,12 @@ END;
 		if (count($this->_refLOBs) > 0) {
 			foreach ($this ->_refLOBs as $key => $value) {
 				$this->_refLOBs[$key]['LOB']->free();
-
 				unset($this->_refLOBs[$key]);
 			}
 		}
 
 		oci_close($this->_connectionID);
+
 		$this->_stmt         = false;
 		$this->_connectionID = false;
 	}
@@ -1591,7 +1620,9 @@ SELECT /*+ RULE */ distinct b.column_name
 
 	/**
 	 * Quotes a string.
+	 *
 	 * An example is  $db->qstr("Don't bother",magic_quotes_runtime());
+	 *
 	 *
 	 * @param string $s the string to quote
 	 * @param bool $magic_quotes if $s is GET/POST var, set to get_magic_quotes_gpc().
@@ -1730,8 +1761,7 @@ class ADORecordset_oci8 extends ADORecordSet {
 	public function _FetchField($fieldOffset = -1) {
 		$fld          = new ADOFieldObject();
 		$fieldOffset += 1;
-
-		$fld->name = oci_field_name($this->_queryID, $fieldOffset);
+		$fld->name    = oci_field_name($this->_queryID, $fieldOffset);
 
 		if (ADODB_ASSOC_CASE == ADODB_ASSOC_CASE_LOWER) {
 			$fld->name = strtolower($fld->name);
@@ -1772,6 +1802,7 @@ class ADORecordset_oci8 extends ADORecordSet {
 	public function MoveNext() {
 		if ($this->fields = @oci_fetch_array($this->_queryID, $this->fetchMode)) {
 			$this->_currentRow += 1;
+
 			$this->_updatefields();
 
 			return true;
@@ -1806,11 +1837,13 @@ class ADORecordset_oci8 extends ADORecordSet {
 		}
 
 		$this->_updatefields();
+
 		$results = array();
 		$cnt     = 0;
 
 		while (!$this->EOF && $nrows != $cnt) {
 			$results[$cnt++] = $this->fields;
+
 			$this->MoveNext();
 		}
 
@@ -1823,7 +1856,8 @@ class ADORecordset_oci8 extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
+
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}
@@ -1837,6 +1871,7 @@ class ADORecordset_oci8 extends ADORecordSet {
 
 	public function _fetch() {
 		$this->fields = @oci_fetch_array($this->_queryID, $this->fetchMode);
+
 		$this->_updatefields();
 
 		return $this->fields;
@@ -1854,10 +1889,12 @@ class ADORecordset_oci8 extends ADORecordSet {
 
 		if (!empty($this->_refcursor)) {
 			oci_free_cursor($this->_refcursor);
+
 			$this->_refcursor = false;
 		}
 
 		@oci_free_statement($this->_queryID);
+
 		$this->_queryID = false;
 	}
 

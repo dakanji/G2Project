@@ -40,7 +40,6 @@ class MSSqlStorage extends GalleryStorage {
 
 	public function __construct($config) {
 		parent::__construct($config);
-
 		$this->_isTransactional                = true;
 		$this->_isEmptyAllowedForNotNullColumn = true;
 
@@ -201,7 +200,9 @@ class MSSqlStorage extends GalleryStorage {
 		$sql = 'SELECT @@VERSION';
 
 		$this->_traceStart();
+
 		$arr =& $tmpDb->GetArray($sql);
+
 		$this->_traceStop();
 		$tmpDb->Close();
 

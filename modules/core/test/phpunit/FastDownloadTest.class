@@ -91,7 +91,8 @@ class FastDownloadTest extends GalleryTestCase {
 		}
 
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->checkPoint();
+
+		$ret = $storage->checkPoint();
 
 		if ($ret) {
 			return $ret;
@@ -103,6 +104,7 @@ class FastDownloadTest extends GalleryTestCase {
 
 		$bytesWritten = '';
 		$platform     = new FastDownloadTestCreateFastDownloadPlatform($bytesWritten);
+
 		$platform->setStat(7, 50);    // content length
 		$platform->setStat(9, 1);     // last mod date
 		$gallery->setPlatform($platform);
@@ -161,6 +163,7 @@ class FastDownloadTest extends GalleryTestCase {
 
 		$bytesWritten = '';
 		$platform     = new FastDownloadTestCreateFastDownloadPlatform($bytesWritten);
+
 		$platform->setStat(7, 50);    // content length
 		$platform->setStat(9, 1);     // last mod date
 		$gallery->setPlatform($platform);
@@ -224,6 +227,7 @@ class FastDownloadTest extends GalleryTestCase {
 			'image/jpeg',
 			50
 		);
+
 		$this->assertFalse($ret, 'status');
 	}
 
@@ -255,6 +259,7 @@ class FastDownloadTest extends GalleryTestCase {
 				),
 			)
 		);
+
 		$buf      = array();
 		$platform = new FastDownloadTestRemovePermissionPlatform($buf);
 
@@ -357,6 +362,7 @@ class FastDownloadTest extends GalleryTestCase {
 				'format'         => $format,
 			)
 		);
+
 		$buf      = array();
 		$platform = new FastDownloadTestRemovePermissionPlatform($buf);
 
@@ -369,6 +375,7 @@ class FastDownloadTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(6, count($buf['unlink']), '5 files should be deleted');
+
 		$ids = array();
 
 		for ($i = 0; $i < 2; $i++) {

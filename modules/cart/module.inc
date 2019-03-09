@@ -40,7 +40,9 @@ class CartModule extends GalleryModule {
 		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
+
 		$this->_templateVersion = 1;
+
 		$this->setGroup('commerce', $gallery->i18n('Commerce'));
 		$this->setCallbacks('getItemLinks');
 	}
@@ -89,6 +91,7 @@ class CartModule extends GalleryModule {
 
 				// Give everybody cart permission by default
 				$gallery->guaranteeTimeLimit(300);
+
 				$ret = GalleryCoreApi::addGroupPermission(
 					$coreParams['id.rootAlbum'],
 					$coreParams['id.everybodyGroup'],
@@ -112,7 +115,8 @@ class CartModule extends GalleryModule {
 			case '0.8.7':
 			case '0.8.8':
 				$storage =& $gallery->getStorage();
-				$query   = 'DROP TABLE [CartMap]';
+
+				$query = 'DROP TABLE [CartMap]';
 
 				$ret = $storage->execute($query);
 

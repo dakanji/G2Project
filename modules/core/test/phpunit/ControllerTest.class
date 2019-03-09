@@ -54,6 +54,7 @@ class ControllerTest extends GalleryTestCase {
 		);
 
 		$session->remove('core.authToken');
+
 		$this->_originalIsPersistentSession = $session->isPersistent();
 
 		GalleryUtilities::removeRequestVariable('authToken');
@@ -63,9 +64,12 @@ class ControllerTest extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		$session->remove('core.authToken');
+
 		$session->_isPersistent = $this->_originalIsPersistentSession;
-		$ret                    = parent::tearDown();
+
+		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -179,7 +183,8 @@ class ControllerTest extends GalleryTestCase {
 
 		$session                =& $gallery->getSession();
 		$session->_isPersistent = false;
-		$ret                    = GalleryController::getMe()->assertIsGenuineRequest();
+
+		$ret = GalleryController::getMe()->assertIsGenuineRequest();
 
 		if ($ret) {
 			$this->fail('check should be omitted for non-persistent sessions');
@@ -209,10 +214,10 @@ class ControllerTest extends GalleryTestCase {
 		$validAuthToken = 'ABCDEF123456';
 
 		$session->put('core.authToken', $validAuthToken);
-
 		GalleryUtilities::putRequestVariable('authToken', '098765432109');
 
 		$gallery->setConfig('mode.maintenance', true);
+
 		$ret = GalleryController::getMe()->assertIsGenuineRequest();
 
 		if ($ret) {
@@ -236,6 +241,7 @@ class ControllerTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $gallery->getActiveUserId());
 
 		list($ret, $item) = $controller->getItem();
+
 		$this->assertTrue($ret, 'getItem() should return an error if the itemId is the id of a user.');
 
 		if ($ret) {
@@ -255,8 +261,8 @@ class ControllerTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($album);
-
 		GalleryUtilities::putRequestVariable('itemId', $album->getId());
+
 		$ret = GalleryCoreApi::removeItemPermissions($album->getId());
 
 		if ($ret) {
@@ -310,6 +316,7 @@ class ControllerTest extends GalleryTestCase {
 		GalleryUtilities::removeRequestVariable('itemId');
 
 		list($ret, $item) = $controller->getItem();
+
 		$this->assertTrue($ret, 'getItem() should return an error if the itemId is the id of a user.');
 
 		if ($ret) {
@@ -323,6 +330,7 @@ class ControllerTest extends GalleryTestCase {
 		$this->_becomeGuestUser();
 
 		list($ret, $results) = $galleryController->permissionCheck(GalleryCoreApi::error(ERROR_PERMISSION_DENIED));
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -342,6 +350,7 @@ class ControllerTest extends GalleryTestCase {
 		$galleryController = new GalleryController();
 
 		list($ret, $results) = $galleryController->permissionCheck(GalleryCoreApi::error(ERROR_PERMISSION_DENIED));
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(

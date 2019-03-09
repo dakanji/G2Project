@@ -76,7 +76,6 @@ class FlockLockSystem extends GalleryLockSystem {
 					list($fd, $lockFile) = $lockInfo;
 
 					$platform->fclose($fd);
-
 					/*
 					 * Delete the lock files even if others are locking it too (releaseLock calls
 					 * are too often forgotten in error handling)
@@ -99,6 +98,7 @@ class FlockLockSystem extends GalleryLockSystem {
 		}
 
 		// Move them from notLocked -> locked as we acquire the lock
+
 		$locked     = array();
 		$wouldBlock = null;
 		$flockType  = ($lockType == LOCK_READ) ? LOCK_SH : LOCK_EX;
@@ -159,7 +159,8 @@ class FlockLockSystem extends GalleryLockSystem {
 		}
 
 		list($ignored, $lockId) = $this->_newLockId();
-		$this->_locks[$lockId]  = array(
+
+		$this->_locks[$lockId] = array(
 			'lockId' => $lockId,
 			'type'   => $lockType,
 			'ids'    => $locked,
@@ -175,7 +176,6 @@ class FlockLockSystem extends GalleryLockSystem {
 		global $gallery;
 
 		$gallery->guaranteeTimeLimit(count($locks) + 5);
-
 		// Release all locks by closing the files
 		foreach ($locks as $lock) {
 			foreach ($lock['ids'] as $lockInfo) {
@@ -198,7 +198,8 @@ class FlockLockSystem extends GalleryLockSystem {
 		foreach ($this->_locks as $lockId => $lock) {
 			foreach ($lock['ids'] as $lockInfo) {
 				list($fd, $lockFile) = $lockInfo;
-				$count               = $platform->fwrite($fd, '.');
+
+				$count = $platform->fwrite($fd, '.');
 
 				if ($count == 0) {
 					return GalleryCoreApi::error(

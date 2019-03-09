@@ -148,6 +148,7 @@ order by constraint_name, referenced_table_name, keyno";
 
 		if ($schema) {
 			$dbName = $this->database;
+
 			$this->SelectDB($schema);
 		}
 
@@ -327,7 +328,8 @@ order by constraint_name, referenced_table_name, keyno";
 				'\\1 ' . $this->hasTop . " $nrows ",
 				$sql
 			);
-			$rs  = $this->Execute($sql, $inputarr);
+
+			$rs = $this->Execute($sql, $inputarr);
 		} else {
 			$rs = ADOConnection::SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
 		}

@@ -60,6 +60,7 @@ class GdToolkit extends GalleryToolkit {
 	public function &_getGdFunctionality() {
 		if (!isset($this->_gdFunctionality)) {
 			GalleryCoreApi::requireOnce('modules/gd/classes/GdFunctionality.class');
+
 			$gd = new GdFunctionality();
 
 			$this->setGdFunctionality($gd);
@@ -209,6 +210,7 @@ class GdToolkit extends GalleryToolkit {
 				);
 
 				list($ret, $destRes) = $this->_resizeImageResource($sourceRes, $destWidth, $destHeight, $hasTransparency);
+
 				$this->_free($sourceRes);
 
 				if ($ret) {
@@ -233,6 +235,7 @@ class GdToolkit extends GalleryToolkit {
 					$parameters[1],
 					$hasTransparency
 				);
+
 				$this->_free($sourceRes);
 
 				if ($ret) {
@@ -254,6 +257,7 @@ class GdToolkit extends GalleryToolkit {
 				$degrees = 0 - $parameters[0];
 
 				list($ret, $destRes) = $gd->imageRotate($sourceRes, $degrees, 0);
+
 				$this->_free($sourceRes);
 
 				if ($ret) {
@@ -308,6 +312,7 @@ class GdToolkit extends GalleryToolkit {
 					$pixelWidth,
 					$pixelHeight
 				);
+
 				$this->_free($sourceRes);
 
 				if ($ret) {
@@ -465,6 +470,7 @@ class GdToolkit extends GalleryToolkit {
 					$compositeWidth,
 					$compositeHeight
 				);
+
 				$this->_free($overlayRes);
 
 				if ($ret) {
@@ -559,6 +565,7 @@ class GdToolkit extends GalleryToolkit {
 				$outputMimeType,
 				$hasTransparency
 			);
+
 			$this->_free($destRes);
 
 			if ($ret) {
@@ -863,6 +870,7 @@ class GdToolkit extends GalleryToolkit {
 		}
 
 		list($ret, $width, $height) = $this->_getImageDimensionsForResource($res);
+
 		$this->_free($res);
 
 		if ($ret) {
@@ -1077,7 +1085,6 @@ class GdToolkit extends GalleryToolkit {
 
 				// Dither alpha channel grayscale version down to 2 colors
 				$gd->imagetruecolortopalette($alphaMixdownDitherImage, true, 2);
-
 				/*
 				 * Reduce color palette to 256-1 colors (leave one palette position for transparent
 				 * color).
@@ -1086,6 +1093,7 @@ class GdToolkit extends GalleryToolkit {
 
 				// Allocate a new (random, hopefully unused) color for transparent color index.
 				$transparentColor = $gd->imagecolorallocate($res, 1, 254, 253);
+
 				$gd->imagecolortransparent($res, $transparentColor);
 
 				/*
@@ -1128,6 +1136,7 @@ class GdToolkit extends GalleryToolkit {
 				$this->_transparencyReplacementColor[2]
 			);
 			$gd->imagefilledrectangle($tempImage, 0, 0, $width, $height, $backgroundColor);
+
 			$ret = $gd->imageCopy($tempImage, $res, 0, 0, 0, 0, $width, $height);
 
 			if ($ret) {
@@ -1138,10 +1147,11 @@ class GdToolkit extends GalleryToolkit {
 
 			$gd->imagealphablending($res, true);
 			$gd->imagesavealpha($res, false);
-
 			// Ignore errors
 			$gd->imagecolortransparent($res, -1);
+
 			$ret = $gd->imageCopy($res, $tempImage, 0, 0, 0, 0, $width, $height);
+
 			$this->_free($tempImage);
 
 			if ($ret) {
@@ -1158,6 +1168,7 @@ class GdToolkit extends GalleryToolkit {
 	public function _free($resource) {
 		if ($resource) {
 			$gd =& $this->_getGdFunctionality();
+
 			$gd->imagedestroy($resource);
 		}
 	}

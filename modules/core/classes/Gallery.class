@@ -244,6 +244,7 @@ class Gallery {
 
 			if ($activeUserId != $user->getId()) {
 				$session->setUserId($user->getId());
+
 				$language = $user->getLanguage();
 
 				if (!empty($language)) {
@@ -286,7 +287,6 @@ class Gallery {
 	 */
 	public function setConfig($key, $value) {
 		assert(!empty($key));
-
 		$this->_config[$key] = $value;
 	}
 
@@ -311,7 +311,8 @@ class Gallery {
 
 		if (empty($this->_session)) {
 			$this->_session = new GallerySession();
-			$ret            = $this->_session->init();
+
+			$ret = $this->_session->init();
 
 			if ($ret) {
 				return $ret;
@@ -348,6 +349,7 @@ class Gallery {
 	 */
 	public function setPlatform(&$platform) {
 		unset($this->_platform);
+
 		$this->_platform = $platform;
 	}
 
@@ -537,6 +539,7 @@ class Gallery {
 	 */
 	public function setUrlGenerator(&$urlGenerator) {
 		unset($this->_urlGenerator);
+
 		$this->_urlGenerator =& $urlGenerator;
 	}
 
@@ -669,7 +672,6 @@ class Gallery {
 			$this->_timeLimit = $now + max($limit, 30);
 
 			set_time_limit($this->_timeLimit - $now);
-
 			/*
 			 * Then make sure our locks stick around.  Even though this returns a status code, we
 			 * really don't want to make guaranteeTimeLimit() return a status code since we want to
@@ -869,6 +871,7 @@ class Gallery {
 	public function &getTemplateAdapter() {
 		if (!isset($this->_templateAdapter)) {
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplateAdapter.class');
+
 			$this->_templateAdapter = new GalleryTemplateAdapter();
 		}
 
@@ -882,7 +885,9 @@ class Gallery {
 	 *
 	 * Consider this case:
 	 *   $message_to_be_localized = 'TEST to be displayed in different languages';
+	 *
 	 *   print $this->translate($message_to_be_localized);
+	 *
 	 *
 	 * The translate() method is called in the right place for runtime handling, but there is no
 	 * message at gettext preprocessing time to be given to the translation teams, just a variable
@@ -892,7 +897,9 @@ class Gallery {
 	 *
 	 * This method resolves all such cases. Simply mark the candidates:
 	 *   $message_to_be_localized = $gallery->i18n('TEST to be displayed in different languages');
+	 *
 	 *   print $this->translate($message_to_be_localized);
+	 *
 	 *
 	 * @param mixed $value string or array (array must have 'text' key; hint/cFormat keys optional)
 	 * @return string the text value
@@ -942,7 +949,9 @@ class Gallery {
 			header('Last-Modified: ' . $lastModified);
 			header('Content-type: ' . $mimeType);
 			header('Content-length: ' . $contentLength);
+
 			header('Expires: ' . $this->getHttpDate(2147483647));
+
 			header('Cache-Control: public');
 
 			if (get_magic_quotes_runtime()) {
@@ -1078,6 +1087,7 @@ class Gallery {
 	public function getPhpVm() {
 		if (!isset($this->_phpVm)) {
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryPhpVm.class');
+
 			$this->_phpVm = new GalleryPhpVm();
 		}
 

@@ -48,6 +48,7 @@ class AddToCartControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
+
 		$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
 
 		if ($ret) {
@@ -204,6 +205,7 @@ class AddToCartControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		GalleryUtilities::putRequestVariable('itemId', $item->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -336,6 +338,7 @@ class AddToCartControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('itemId', $item->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -386,6 +389,7 @@ class AddToCartControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -437,6 +441,7 @@ class AddToCartControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

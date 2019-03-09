@@ -585,7 +585,9 @@ class ADODB_Session {
 	public function close() {
 		/*
 		$conn = ADODB_Session::_conn();
+
 		if ($conn) $conn->Close();
+
 		*/
 		return true;
 	}
@@ -745,6 +747,7 @@ class ADODB_Session {
 			}
 
 			$conn->StartTrans();
+
 			$expiryref = $conn->qstr($arr['expireref']);
 
 			// do we insert or update? => as for sesskey
@@ -878,6 +881,7 @@ class ADODB_Session {
 
 			if ($rs) {
 				$conn->StartTrans();
+
 				$keys = array();
 
 				while (!$rs->EOF) {
@@ -885,6 +889,7 @@ class ADODB_Session {
 					$key = $rs->fields[1];
 					$fn($ref, $key);
 					$del = $conn->Execute("DELETE FROM $table WHERE sesskey=" . $conn->Param('0'), array($key));
+
 					$rs->MoveNext();
 				}
 
@@ -898,6 +903,7 @@ class ADODB_Session {
 
 				foreach ($arr as $row) {
 					$sql2 = "DELETE FROM $table WHERE sesskey=" . $conn->Param('0');
+
 					$conn->Execute($sql2, array(reset($row)));
 				}
 			} else {
@@ -946,7 +952,9 @@ class ADODB_Session {
 
 			if ($rs && !$rs->EOF) {
 				$dbts = reset($rs->fields);
+
 				$rs->Close();
+
 				$dbt = $conn->UnixTimeStamp($dbts);
 				$t   = time();
 

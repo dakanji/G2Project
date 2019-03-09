@@ -127,6 +127,7 @@ class StorageSetupStep extends InstallStep {
 							$templateData['error']['creation_error'] = 1;
 						} else {
 							$this->_dir = $dir;
+
 							$this->setComplete(true);
 						}
 					}

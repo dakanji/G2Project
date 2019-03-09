@@ -80,6 +80,7 @@ class RegisterModuleTest extends GalleryTestCase {
 			$links,
 			'alternate guest'
 		);
+
 		$gallery->setConfig('anonymousUserId', null);
 		$this->_becomeGuestUser();
 

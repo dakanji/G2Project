@@ -130,7 +130,6 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 			array(null, '12'),
 			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jpegQuality')
 		);
-
 		// Verify we detected which binaries to use:
 		$this->assertEquals(
 			array(null, 'pnmcomp'),

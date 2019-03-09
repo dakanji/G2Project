@@ -911,6 +911,7 @@ class GalleryUtilities {
 	 */
 	public static function htmlSafe($html, $decode = false) {
 		GalleryCoreApi::requireOnce('lib/pear/Safe.php');
+
 		static $parser;
 
 		if (!isset($parser)) {

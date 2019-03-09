@@ -112,7 +112,8 @@ class ItemCreateReplicaSingleController extends GalleryController {
 				 */
 				if ($item->isLinked()) {
 					$linkedEntity = $item->getLinkedEntity();
-					$ret          = $linkedItem->createLink($linkedEntity, $destinationId);
+
+					$ret = $linkedItem->createLink($linkedEntity, $destinationId);
 				} else {
 					$ret = $linkedItem->createLink($item, $destinationId);
 				}
@@ -211,7 +212,9 @@ class ItemCreateReplicaSingleView extends GalleryView {
 		$ItemCreateReplicaSingle                  = array();
 		$ItemCreateReplicaSingle['albumTree']     = GalleryUtilities::createAlbumTree($albums);
 		$ItemCreateReplicaSingle['itemTypeNames'] = $item->itemTypeName();
+
 		$template->setVariable('ItemCreateReplicaSingle', $ItemCreateReplicaSingle);
+
 		$template->setVariable('controller', 'replica.ItemCreateReplicaSingle');
 		$template->javascript('lib/yui/yahoo-dom-event.js');
 		$template->javascript('lib/yui/container-min.js');

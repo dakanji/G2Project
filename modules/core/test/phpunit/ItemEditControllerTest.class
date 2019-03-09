@@ -55,6 +55,7 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 		$this->_markFactoryForCleanup();
 		$this->_unregisterFactoryImplementationForTest('ItemEditPlugin');
 		$this->_unregisterFactoryImplementationForTest('ItemEditOption');
+
 		$path = 'modules/core/test/phpunit/ItemEditControllerTest.class';
 		$this->_registerFactoryImplementationForTest(
 			'ItemEditPlugin',

@@ -59,6 +59,7 @@ function smarty_core_process_cached_inserts($params, &$smarty) {
 			$replace = $function_name($args, $smarty);
 		} else {
 			$smarty->assign($args['assign'], $function_name($args, $smarty));
+
 			$replace = '';
 		}
 

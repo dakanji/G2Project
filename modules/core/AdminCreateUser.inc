@@ -92,10 +92,10 @@ class AdminCreateUserController extends GalleryController {
 					$user->setEmail($form['email']);
 					$user->setFullName($form['fullName']);
 					$user->setLanguage($form['language']);
-
 					GalleryUtilities::unsanitizeInputValues($form['password1'], false);
 
 					$user->changePassword($form['password1']);
+
 					$ret = $user->save();
 
 					if ($ret) {

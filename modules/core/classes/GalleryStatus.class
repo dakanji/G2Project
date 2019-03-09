@@ -120,8 +120,9 @@ class GalleryStatus {
 	 */
 	public function getAsHtml($showMessage = true) {
 		list($codes, $trace) = $this->_getAsArray();
-		$message             = $showMessage ? $this->_errorMessage : '';
-		$buf                 = 'Error  (' . join(', ', $codes) . ')';
+
+		$message = $showMessage ? $this->_errorMessage : '';
+		$buf     = 'Error  (' . join(', ', $codes) . ')';
 
 		if (null !== $message) {
 			$buf .= ' : ' . htmlentities($message) . ' ';
@@ -158,8 +159,9 @@ class GalleryStatus {
 	 */
 	public function getAsText($showMessage = true) {
 		list($codes, $trace) = $this->_getAsArray();
-		$message             = $showMessage ? $this->_errorMessage : '';
-		$buf                 = 'Error (' . join(', ', $codes) . ')';
+
+		$message = $showMessage ? $this->_errorMessage : '';
+		$buf     = 'Error (' . join(', ', $codes) . ')';
 
 		if (null !== $message) {
 			$buf .= ' : ' . htmlentities($message) . ' ';

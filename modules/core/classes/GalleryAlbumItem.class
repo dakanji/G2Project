@@ -145,6 +145,7 @@ class GalleryAlbumItem extends GalleryItem {
 		if ($useDefaults != 'true') {
 			// Use parent's settings
 			$this->setTheme($theme = $parent->getTheme());
+
 			$this->setOrderBy($parent->getOrderBy());
 			$this->setOrderDirection($parent->getOrderDirection());
 
@@ -308,7 +309,8 @@ class GalleryAlbumItem extends GalleryItem {
 
 		$session =& $gallery->getSession();
 		$isNew   = $this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
-		$ret     = parent::save($postEvent);
+
+		$ret = parent::save($postEvent);
 
 		if ($ret) {
 			return $ret;
@@ -381,7 +383,8 @@ class GalleryAlbumItem extends GalleryItem {
 		}
 
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->checkPoint();
+
+		$ret = $storage->checkPoint();
 
 		if ($ret) {
 			return $ret;

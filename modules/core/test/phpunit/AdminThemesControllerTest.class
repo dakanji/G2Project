@@ -40,7 +40,9 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_testTheme = AdminThemesControllerTestTheme::getMe();
+
 		$this->_testTheme->resetCalls();
+
 		$ret = $this->_markPluginParametersForCleanup('module', 'core');
 
 		if ($ret) {
@@ -70,6 +72,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$map =& TestThemeId2Theme::getMe()->getMap();
 
 		$this->assertEquals(2, (int)$map['rows']);
@@ -130,6 +133,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[default][presort]', 'albumsFirst');
 		GalleryUtilities::putRequestVariable('form[default][theme]', 'AdminThemesControllerTest');
 		GalleryUtilities::putRequestVariable('form[default][newAlbumsUseDefaults]', 'true');
+
 		GalleryUtilities::putRequestVariable('form[default][doesNotExist]', 'anything');
 		GalleryUtilities::putRequestVariable('form[action][saveDefaults]', 1);
 		GalleryUtilities::putRequestVariable('themeId', 'currentThemeId');
@@ -174,6 +178,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[default][presort]', 'albumsFirst');
 		GalleryUtilities::putRequestVariable('form[default][theme]', 'doesNotExist');
 		GalleryUtilities::putRequestVariable('form[default][newAlbumsUseDefaults]', 'true');
+
 		GalleryUtilities::putRequestVariable('form[action][saveDefaults]', 1);
 		GalleryUtilities::putRequestVariable('themeId', 'anything');
 
@@ -185,6 +190,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we get an error
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
+
 		$this->assertEquals(null, $results);
 
 		// Verify that the default theme has not changed
@@ -203,6 +209,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[default][presort]', 'viewedFirst');
 		GalleryUtilities::putRequestVariable('form[default][theme]', 'matrix');
 		GalleryUtilities::putRequestVariable('form[default][newAlbumsUseDefaults]', 'true');
+
 		GalleryUtilities::putRequestVariable('form[action][saveDefaults]', 1);
 		GalleryUtilities::putRequestVariable('themeId', 'anything');
 
@@ -222,6 +229,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we get an error
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
+
 		$this->assertEquals(null, $results);
 
 		// Verify that the value has not changed
@@ -240,6 +248,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[default][presort]', 'doesNotExist');
 		GalleryUtilities::putRequestVariable('form[default][theme]', 'matrix');
 		GalleryUtilities::putRequestVariable('form[default][newAlbumsUseDefaults]', 'true');
+
 		GalleryUtilities::putRequestVariable('form[action][saveDefaults]', 1);
 		GalleryUtilities::putRequestVariable('themeId', 'anything');
 
@@ -259,6 +268,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we get an error
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
+
 		$this->assertEquals(null, $results);
 
 		// Verify that the value has not changed
@@ -277,6 +287,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[default][presort]', 'albumsFirst');
 		GalleryUtilities::putRequestVariable('form[default][theme]', 'matrix');
 		GalleryUtilities::putRequestVariable('form[default][newAlbumsUseDefaults]', 'true');
+
 		GalleryUtilities::putRequestVariable('form[action][saveDefaults]', 1);
 		GalleryUtilities::putRequestVariable('themeId', 'anything');
 
@@ -296,6 +307,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we get an error
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
+
 		$this->assertEquals(null, $results);
 
 		// Verify that the value has not changed
@@ -314,6 +326,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[default][presort]', 'albumsFirst');
 		GalleryUtilities::putRequestVariable('form[default][theme]', 'matrix');
 		GalleryUtilities::putRequestVariable('form[default][newAlbumsUseDefaults]', 'doesNotExist');
+
 		GalleryUtilities::putRequestVariable('form[action][saveDefaults]', 1);
 		GalleryUtilities::putRequestVariable('themeId', 'anything');
 
@@ -333,6 +346,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we get an error
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
+
 		$this->assertEquals(null, $results);
 
 		// Verify that the value has not changed

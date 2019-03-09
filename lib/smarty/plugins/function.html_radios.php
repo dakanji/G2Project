@@ -40,6 +40,7 @@
  */
 function smarty_function_html_radios($params, &$smarty) {
 	include_once $smarty->_get_plugin_filepath('shared', 'escape_special_chars');
+
 	$name      = 'radio';
 	$values    = null;
 	$options   = null;
@@ -87,6 +88,7 @@ function smarty_function_html_radios($params, &$smarty) {
 
 			case 'radios':
 				$smarty->trigger_error('html_radios: the use of the "radios" attribute is deprecated, use "options" instead', E_USER_WARNING);
+
 				$options = (array)$_val;
 
 				break;

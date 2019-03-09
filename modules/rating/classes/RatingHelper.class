@@ -175,6 +175,7 @@ class RatingHelper {
 			 * Add some session data to force the creation of a persistent session (sends a cookie)
 			 */
 			$session->put('rating', 1);
+
 			$ret = $session->start();
 
 			if ($ret) {

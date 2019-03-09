@@ -127,6 +127,7 @@ class LinkItemToolkit extends GalleryToolkit {
 		}
 
 		$success = $platform->copy($tmpFile, $destFilename);
+
 		@$platform->unlink($tmpFile);
 
 		if (!$success) {

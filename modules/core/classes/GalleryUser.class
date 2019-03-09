@@ -248,7 +248,8 @@ class GalleryUser extends GalleryEntity {
 	 */
 	public function save($postEvent = true, $x1 = null) {
 		$isNew = $this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
-		$ret   = parent::save($postEvent);
+
+		$ret = parent::save($postEvent);
 
 		if ($ret) {
 			return $ret;

@@ -3687,7 +3687,8 @@ class GalleryCoreApi {
 		}
 
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->updateMapEntry($mapName, $match, $change, $useNonTransactionalConnection);
+
+		$ret = $storage->updateMapEntry($mapName, $match, $change, $useNonTransactionalConnection);
 
 		if ($ret) {
 			return $ret;
@@ -3741,7 +3742,8 @@ class GalleryCoreApi {
 		}
 
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->removeMapEntry($mapName, $data);
+
+		$ret = $storage->removeMapEntry($mapName, $data);
 
 		if ($ret) {
 			return $ret;
@@ -3763,7 +3765,8 @@ class GalleryCoreApi {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->addMapEntry($mapName, $data, $useNonTransactionalConnection);
+
+		$ret = $storage->addMapEntry($mapName, $data, $useNonTransactionalConnection);
 
 		if ($ret) {
 			return $ret;
@@ -3785,7 +3788,8 @@ class GalleryCoreApi {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->removeAllMapEntries($mapName, $useNonTransactionalConnection);
+
+		$ret = $storage->removeAllMapEntries($mapName, $useNonTransactionalConnection);
 
 		if ($ret) {
 			return $ret;

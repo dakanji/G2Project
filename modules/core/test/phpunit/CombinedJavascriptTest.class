@@ -44,7 +44,6 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		$gallery->_platform = new UnitTestPlatform();
 		$gallery->_storage  = new UnitTestStorage();
 		$this->_view        = new CombinedJavascriptView();
-
 		unset($_SERVER['HTTP_IF_MODIFIED_SINCE']);
 	}
 
@@ -85,6 +84,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 				'If-Modified-Since' => 'Anything',
 			)
 		);
+
 		$gallery->_phpVm->setReply('header', array('HTTP/1.0 304 Not Modified', null), null);
 
 		list($ret, $results) = $this->_renderImmediate();
@@ -107,6 +107,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 				'If-modified-since' => 'Anything',
 			)
 		);
+
 		$gallery->_phpVm->setReply('header', array('HTTP/1.0 304 Not Modified', null), null);
 
 		list($ret, $results) = $this->_renderImmediate();
@@ -158,6 +159,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		GalleryDataCache::setFileCachingEnabled(true);
 
 		$path = $gallery->getConfig('data.gallery.cache') . $file;
+
 		$gallery->_platform->setReply('file_exists', array($path), true);
 		$gallery->_platform->setReply('file_get_contents', array($path), $contents);
 	}
@@ -177,6 +179,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 			array('Cache-Control: private, x-gzip-ok="public"', null),
 			null
 		);
+
 		$gallery->_phpVm->setReply(
 			'header',
 			array('Content-type: text/javascript; charset=UTF-8', null),
@@ -254,10 +257,11 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		GalleryUtilities::putRequestVariable('key', '123');
 
 		$gallery->_phpVm->setReply('function_exists', array('getallheaders'), false);
+
 		$gallery->_phpVm->setReply('time', array(), 12345);
+
 		$this->_prepareToReadFromDiskCache('module/_all/0/0/CombinedJavascript_gzip_123.inc', null);
 		$this->_prepareToReadFromDiskCache('module/_all/0/0/CombinedJavascript_123.inc', null);
-
 		// Adding a log entry
 		$gallery->_storage->setReply('getUniqueId', array('SequenceEventLog'), array(null, 1));
 		$gallery->_storage->setReply('updateMapEntry', '*', null);

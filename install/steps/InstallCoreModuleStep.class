@@ -40,6 +40,7 @@ class InstallCoreModuleStep extends InstallStep {
 
 		$template->renderHeader(true);
 		$template->renderStatusMessage(_('Installing the core module'), null, 0);
+
 		$templateData = array();
 
 		// GalleryInitFirstPass does this, but need it earlier to avoid warnings in code below
@@ -51,16 +52,19 @@ class InstallCoreModuleStep extends InstallStep {
 		global $gallery;
 
 		$gallery->setDebug('logged');
+
 		$tag            = substr(md5(microtime() . mt_rand(1, 32767)), 0, 10);
 		$dataBase       = $gallery->getConfig('data.gallery.base');
 		$installLogPath = sprintf('%s/install_%s.log', $dataBase, $tag);
 
 		$gallery->setDebugLogFile($installLogPath);
+
 		$templateData['installLogPath'] = $installLogPath;
 
 		$this->_createDebugLogHeader();
 		$gallery->guaranteeTimeLimit(120);
 		$gallery->debug('Init first pass');
+
 		$ret = GalleryInitFirstPass(
 			array(
 				'noDatabase'     => true,
@@ -76,6 +80,7 @@ class InstallCoreModuleStep extends InstallStep {
 					$ret->getAsText()
 				)
 			);
+
 			$templateData['errors'][]     = _('Unable to initialize our Gallery data');
 			$templateData['stackTrace'][] = $ret->getAsHtml();
 		}
@@ -90,7 +95,9 @@ class InstallCoreModuleStep extends InstallStep {
 		 * older install
 		 */
 		$platform =& $gallery->getPlatform();
+
 		$gallery->debug('Clear the cache directory');
+
 		$cacheDirs = array('entity', 'theme', 'module', 'derivative');
 
 		foreach ($cacheDirs as $dir) {
@@ -126,6 +133,7 @@ class InstallCoreModuleStep extends InstallStep {
 						$ret->getAsText()
 					)
 				);
+
 				$templateData['errors'][]     = _('Unable to communicate with the database');
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
@@ -146,6 +154,7 @@ class InstallCoreModuleStep extends InstallStep {
 						$ret->getAsText()
 					)
 				);
+
 				$templateData['errors'][]     = _('Unable to load the core module');
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
@@ -153,11 +162,11 @@ class InstallCoreModuleStep extends InstallStep {
 
 		$template->renderStatusMessage(_('Installing the core module'), null, 0.1);
 		$gallery->guaranteeTimeLimit(180);
+
 		$freshInstall = $galleryStub->getConfig('freshInstall');
 
 		if ($freshInstall) {
 			$gallery->debug('Hand over admin user parameters');
-
 			// It is a fresh install.  Hand over install config parameters.
 			$gallery->setConfig(
 				'setup.admin.userName',
@@ -179,6 +188,7 @@ class InstallCoreModuleStep extends InstallStep {
 				GalleryCoreApi::installTranslationsForLocale();
 
 				$gallery->debug('Install core module now!');
+
 				$ret = $core->installOrUpgrade(true, $template);
 
 				if ($ret) {
@@ -190,6 +200,7 @@ class InstallCoreModuleStep extends InstallStep {
 							$ret->getAsText()
 						)
 					);
+
 					$templateData['errors'][]     = _('Unable to install the core module');
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				} else {
@@ -201,6 +212,7 @@ class InstallCoreModuleStep extends InstallStep {
 				$gallery->debug('Activate core module');
 
 				list($ret, $ignored) = $core->activate(false);
+
 				$this->resetL10Domain();
 
 				if ($ret) {
@@ -211,6 +223,7 @@ class InstallCoreModuleStep extends InstallStep {
 							$ret->getAsText()
 						)
 					);
+
 					$templateData['errors'][]     = _('Unable to activate the core module');
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				} else {
@@ -220,6 +233,7 @@ class InstallCoreModuleStep extends InstallStep {
 				$template->renderStatusMessage(_('Installing the core module'), '', 0.9);
 				$gallery->guaranteeTimeLimit(180);
 				$gallery->debug('Commit transaction');
+
 				$ret = $storage->commitTransaction();
 
 				if ($ret) {
@@ -230,6 +244,7 @@ class InstallCoreModuleStep extends InstallStep {
 							$ret->getAsText()
 						)
 					);
+
 					$templateData['errors'][]     = _('Unable to commit database transaction');
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				} else {
@@ -238,6 +253,7 @@ class InstallCoreModuleStep extends InstallStep {
 			} else {
 				$gallery->debug('NOT installing, rollback!');
 				$storage->rollbackTransaction(); // Ignore any errors from this
+
 				/*
 				 * Don't allow this step to complete when only partially installed.  Verify that
 				 * versions.dat is up to date.
@@ -246,6 +262,7 @@ class InstallCoreModuleStep extends InstallStep {
 
 				if (empty($versions['core']) || $versions['core'] != $core->getVersion()) {
 					$gallery->debug('Error: Core module is only partially installed');
+
 					$templateData['errors'][] = _('Core module is only partially installed.');
 				} else {
 					$gallery->debug('Core module version is ok');
@@ -254,6 +271,7 @@ class InstallCoreModuleStep extends InstallStep {
 		}
 
 		$this->resetL10Domain();
+
 		$template->renderStatusMessage(_('Installing the core module'), '', 1.0);
 		$gallery->guaranteeTimeLimit(120);
 		$gallery->debug('Finish install core module step');
@@ -261,9 +279,11 @@ class InstallCoreModuleStep extends InstallStep {
 		if (empty($templateData['errors'])) {
 			$gallery->debug('Install core module step completed successfully');
 			$this->setComplete(true);
+
 			$templateData['bodyFile'] = 'InstallCoreModuleSuccess.html';
 		} else {
 			$gallery->debug('Error: Failure during install core module step');
+
 			$templateData['bodyFile'] = 'InstallCoreModuleError.html';
 		}
 

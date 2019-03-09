@@ -86,6 +86,7 @@ class CustomFieldSearchTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
+
 		$ret = GalleryCoreApi::addGroupPermission($this->_album->getId(), $groupId, 'core.view');
 
 		if ($ret) {

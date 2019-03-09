@@ -94,6 +94,7 @@ class GalleryItemAttributesHelper_simple {
 
 		// Ensure GallerySqlFragment class is loaded by initializing storage
 		$gallery->getStorage();
+
 		$func = '= [GalleryItemAttributesMap::viewCount] + ?';
 
 		$ret = GalleryCoreApi::updateMapEntry(

@@ -57,7 +57,8 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->checkPoint();
+
+		$ret = $storage->checkPoint();
 
 		if ($ret) {
 			return $ret;
@@ -67,13 +68,15 @@ class LockTest extends GalleryTestCase {
 	public function _tryAllLockSystems($testFunction) {
 		global $gallery;
 
-		$testFunction = '_' . $testFunction;
-
+		$testFunction         = '_' . $testFunction;
 		$gallery->_lockSystem = new DatabaseLockSystem();
+
 		$this->$testFunction('dblock');
 		$gallery->_lockSystem->releaseAllLocks();
 		$gallery->_lockSystem->releaseQueue();
+
 		$gallery->_lockSystem = new FlockLockSystem();
+
 		$this->$testFunction('flock');
 		$gallery->_lockSystem->releaseAllLocks();
 		$gallery->_lockSystem->releaseQueue();
@@ -94,6 +97,7 @@ class LockTest extends GalleryTestCase {
 
 		$this->assertTrue(is_int($lockId), "$lockSystem: lock id is not an integer");
 		$this->assertTrue(GalleryCoreApi::isWriteLocked($targetId), $lockSystem);
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -144,6 +148,7 @@ class LockTest extends GalleryTestCase {
 
 		$this->assertTrue(is_int($lockId), "$lockSystem: lock id is not an integer");
 		$this->assertTrue(GalleryCoreApi::isReadLocked($targetId), $lockSystem);
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -327,6 +332,7 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(GalleryCoreApi::isWriteLocked($targetId), $lockSystem);
+
 		$lockIds[] = null;
 
 		$ret = GalleryCoreApi::releaseLocks($lockIds);
@@ -371,6 +377,7 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->_item->setTitle($this->_item->getTitle() . 'changed');
+
 		$ret = $this->_item->save();
 
 		if ($ret) {
@@ -407,6 +414,7 @@ class LockTest extends GalleryTestCase {
 		} else {
 			// Lock successfully acquired, this should only happen on nontransactional databases
 			$this->assertFalse($storage->isTransactional(), 'Lock acquired on transactional database.');
+
 			$ret = GalleryCoreApi::releaseLocks($secondLockId);
 
 			if ($ret) {
@@ -417,7 +425,8 @@ class LockTest extends GalleryTestCase {
 		// Restore lock information and force their release.
 		$gallery->_lockSystem->_releaseQueue = $queuedLocks;
 		$gallery->_lockSystem->_locks        = $locks;
-		$ret                                 = $gallery->_lockSystem->releaseQueue();
+
+		$ret = $gallery->_lockSystem->releaseQueue();
 
 		if ($ret) {
 			return $ret;
@@ -455,13 +464,13 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($lockId), 'lock id is not an integer');
-
 		// Release queue unaffected
 		$this->assertTrue(
 			count($gallery->_lockSystem->_releaseQueue) == 1
 			|| !$storage->isTransactional(),
 			'get second lock'
 		);
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -507,9 +516,9 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($lockId), 'lock id is not an integer');
-
 		// Had to release that write lock in order to get new read lock
 		$this->assertTrue(empty($gallery->_lockSystem->_releaseQueue), 'release queue should be empty');
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -554,7 +563,6 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($newLockId), 'lock id is not an integer');
-
 		// Removed single entity from pending write lock in order to get new read lock
 		$this->assertTrue(
 			(count($gallery->_lockSystem->_releaseQueue) == 1
@@ -562,6 +570,7 @@ class LockTest extends GalleryTestCase {
 			|| !$storage->isTransactional(),
 			'pending write lock should have one entity'
 		);
+
 		$ret = GalleryCoreApi::releaseLocks($newLockId);
 
 		if ($ret) {
@@ -600,9 +609,9 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($lockId), 'lock id is not an integer');
-
 		// Real lock moved to new lockId which clears out queued lock
 		$this->assertTrue(empty($gallery->_lockSystem->_releaseQueue), 'release queue should be empty');
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -647,7 +656,6 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($newLockId), 'lock id is not an integer');
-
 		// One id moved to new lockId
 		$this->assertTrue(
 			(count($gallery->_lockSystem->_releaseQueue) == 1
@@ -655,6 +663,7 @@ class LockTest extends GalleryTestCase {
 			|| !$storage->isTransactional(),
 			'acquire new lock'
 		);
+
 		$ret = GalleryCoreApi::releaseLocks($newLockId);
 
 		if ($ret) {
@@ -699,9 +708,9 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($lockId), 'lock id is not an integer');
-
 		// Real lock moved to new lockId which clears out queued lock
 		$this->assertTrue(empty($gallery->_lockSystem->_releaseQueue), 'release queue should be empty');
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -740,9 +749,9 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($lockId), 'lock id is not an integer');
-
 		// Had to release that read lock in order to get new write lock
 		$this->assertTrue(empty($gallery->_lockSystem->_releaseQueue), 'release queue should be empty');
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -787,7 +796,6 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($newLockId), 'lock id is not an integer');
-
 		// Removed single entity from pending read lock in order to get new write lock
 		$this->assertTrue(
 			(count($gallery->_lockSystem->_releaseQueue) == 1
@@ -795,6 +803,7 @@ class LockTest extends GalleryTestCase {
 			|| !$storage->isTransactional(),
 			'pending read lock should have one entity'
 		);
+
 		$ret = GalleryCoreApi::releaseLocks($newLockId);
 
 		if ($ret) {
@@ -850,7 +859,6 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($lockId), "$lockSystem: lock id is not an integer");
-
 		// Had to release that read locks in order to get new write lock
 		$this->assertTrue(
 			empty($gallery->_lockSystem->_releaseQueue),

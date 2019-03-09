@@ -204,7 +204,9 @@ class DatabaseSetupStep extends InstallStep {
 				include_once __DIR__ . '/../../lib/adodb/adodb.inc.php';
 
 				$this->_captureStart();
+
 				$this->_db = ADONewConnection($this->_config['type']);
+
 				$this->_captureEnd();
 
 				if (empty($this->_db)) {
@@ -216,6 +218,7 @@ class DatabaseSetupStep extends InstallStep {
 
 				if (empty($templateData['errors'])) {
 					$this->_captureStart();
+
 					$this->_db->debug = true;
 
 					if ($dbPlatformType != 'mssql') {
@@ -253,6 +256,7 @@ class DatabaseSetupStep extends InstallStep {
 
 			if (empty($templateData['errors']) && empty($templateData['error'])) {
 				$this->_captureStart();
+
 				$result = $this->_db->MetaTables();
 
 				if ($result === false) {
@@ -381,6 +385,7 @@ class DatabaseSetupStep extends InstallStep {
 
 				// Drop all Gallery database tables listed in the schema table
 				$this->_captureStart();
+
 				$ret = $this->_cleanDatabase();
 
 				if ($ret) {
@@ -395,12 +400,14 @@ class DatabaseSetupStep extends InstallStep {
 
 					$templateData['databaseErrors'] = $gallery->getDebugBuffer();
 					$templateData['stackTrace'][]   = $ret->getAsHtml();
+
 					$gallery->clearDebugBuffer();
 				} else {
 					$dbCleaned = true;
 				}
 
 				$this->_captureEnd();
+
 				$templateData['databaseErrors'] = $this->_getCaptured();
 
 				if ($storageCleaned && $dbCleaned) {
@@ -424,7 +431,6 @@ class DatabaseSetupStep extends InstallStep {
 				$galleryStub->setConfig('freshInstall', true);
 			} else {
 				$galleryStub->setConfig('freshInstall', false);
-
 				// Remember the installed version to compare it later to the codebase version
 				$galleryStub->setConfig('installed.version', $datVersion);
 			}
@@ -435,6 +441,7 @@ class DatabaseSetupStep extends InstallStep {
 			&& !empty($_POST['confirmCleanInstall'])
 		) {
 			$galleryStub->setConfig('storage.config', $this->_config);
+
 			$templateData['bodyFile'] = 'CleanInstallRequest.html';
 		} else {
 			$templateData['config'] = $this->_config;
@@ -468,7 +475,6 @@ class DatabaseSetupStep extends InstallStep {
 		}
 
 		$this->_debugContents .= ob_get_contents();
-
 		ob_end_clean();
 	}
 
@@ -478,6 +484,7 @@ class DatabaseSetupStep extends InstallStep {
 		}
 
 		$contents = $this->_debugContents;
+
 		unset($this->_debugContents);
 
 		return $contents;
@@ -669,6 +676,7 @@ class DatabaseSetupStep extends InstallStep {
 
 		// Get the codebase version for the CreateConfigFileStep
 		$versions['codebase'] = $coreModule->getVersion();
+
 		$this->resetL10Domain();
 
 		return $versions;
@@ -782,7 +790,6 @@ class DatabaseSetupStep extends InstallStep {
 			$GalleryPlatform = new GalleryPlatform();
 
 			$gallery->setPlatform($GalleryPlatform);
-
 			// Configure G2 such that getInstalledVersions() can be called
 			$gallery->initTranslator(true);
 
@@ -794,6 +801,7 @@ class DatabaseSetupStep extends InstallStep {
 
 			// Configure the G2 db abstraction layer
 			$this->_config['usePersistentConnections'] = false;
+
 			$gallery->setConfig('storage.config', $this->_config);
 			$gallery->setDebug(false);
 			$gallery->setProfile(false);
@@ -820,6 +828,7 @@ class DatabaseSetupStep extends InstallStep {
 		if ($level >= $platformLevel) {
 			// Gallery init selects language from browser; reset to language currently in use
 			$translator =& $gallery->getTranslator();
+
 			$translator->init($_SESSION['language'], true);
 		}
 
@@ -880,7 +889,9 @@ class DatabaseSetupStep extends InstallStep {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
+
 		$gallery->setDebug('immediate');
+
 		$ret = $storage->cleanStore();
 
 		if ($ret) {

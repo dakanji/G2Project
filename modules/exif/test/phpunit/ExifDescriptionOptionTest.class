@@ -52,6 +52,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
+
 		$ret = $this->_markPluginParametersForCleanup('module', 'exif');
 
 		if ($ret) {
@@ -107,6 +108,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		list($ret, $item) = $this->_items[0]->refresh();
@@ -150,6 +152,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		for ($j = 0; $j < $totalTestItems; $j++) {
@@ -172,6 +175,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		list($ret, $item) = $this->_items[1]->refresh();
@@ -216,6 +220,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		for ($j = 0; $j < $totalTestItems; $j++) {
@@ -247,6 +252,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		list($ret, $item) = $this->_items[1]->refresh();
@@ -348,6 +354,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		// Verify that we do *not* have a preferred
@@ -386,6 +393,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 	}
 
@@ -429,6 +437,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		// Verify that we don't have a preferred
@@ -458,6 +467,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		// and that the new dimensions are correct, set by our toolkit
 		$newWidth  = $this->_items[0]->getWidth();
 		$newHeight = $this->_items[0]->getHeight();
+
 		$this->assertEquals(10, $newWidth, 'width should be 10');
 		$this->assertEquals(10, $newHeight, 'height should be 10');
 	}
@@ -497,6 +507,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		// Verify that we have a preferred
@@ -519,6 +530,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 
 		// Verify that the item was rotated
 		$this->_preferred = array_shift($preferredIds);
+
 		$this->assertEquals('rotate|90', $this->_preferred->getDerivativeOperations());
 	}
 
@@ -552,6 +564,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 		}
 
 		$result = $this->_handleRequestAfterAdd(array(), $this->_items);
+
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 		// Verify that we don't have a preferred
@@ -606,12 +619,11 @@ class ExifDescriptionOptionTestToolkit extends GalleryToolkit {
 		}
 
 		$fd = $platform->fopen($destFilename, 'a');
+
 		$platform->fwrite($fd, $operationName);
 		$platform->fclose($fd);
-
 		// Clear cache to ensure new filesize will be seen
 		$platform->clearstatcache();
-
 		// Turn On the Flag
 		$gallery->setConfig('rotated', 1);
 

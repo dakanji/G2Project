@@ -80,7 +80,8 @@ class ShowAllCommentsView extends GalleryView {
 		for ($i = 0; $i < count($comments); $i++) {
 			// Get the commenter ids
 			$commenters[$comments[$i]->getCommenterId()] = 1;
-			$itemIds[$comments[$i]->getParentId()]       = 1;
+
+			$itemIds[$comments[$i]->getParentId()] = 1;
 
 			// Extract the member data
 			$comments[$i]             = (array)$comments[$i];
@@ -179,6 +180,7 @@ class ShowAllCommentsView extends GalleryView {
 
 				if (!$anonymousViewable) {
 					$this->setCacheControl($template, 'no-cache');
+
 					$cacheControl = true;
 				}
 			}
@@ -215,7 +217,8 @@ class ShowAllCommentsView extends GalleryView {
 					'page'   => 1,
 				),
 			);
-			$navigator['back']  = array(
+
+			$navigator['back'] = array(
 				'urlParams' => array(
 					'view'   => 'comment.ShowAllComments',
 					'itemId' => $item->getId(),
@@ -232,6 +235,7 @@ class ShowAllCommentsView extends GalleryView {
 					'page'   => $page + 1,
 				),
 			);
+
 			$navigator['last'] = array(
 				'urlParams' => array(
 					'view'   => 'comment.ShowAllComments',
@@ -252,6 +256,7 @@ class ShowAllCommentsView extends GalleryView {
 				'navigator'  => $navigator,
 			)
 		);
+
 		$template->style('modules/comment/comment.css');
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('lib/yui/container-min.js');

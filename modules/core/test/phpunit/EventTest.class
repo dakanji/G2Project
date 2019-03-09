@@ -43,6 +43,7 @@ class EventTest extends GalleryTestCase {
 		$EventTestPlatform = new EventTestPlatform();
 
 		$gallery->setPlatform($EventTestPlatform);
+
 		$this->_platform =& $gallery->getPlatform();
 
 		// Register a new module
@@ -155,7 +156,9 @@ class EventTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($item);
+
 		$event = $listener->getEvent();
+
 		$this->assertEquals('GalleryEntity::save', $event ? $event->getEventName() : 'unset');
 
 		list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($item->getId());
@@ -210,14 +213,16 @@ class EventTest extends GalleryTestCase {
 		$entity = new GalleryEntity();
 
 		$event->setEntity($entity);
-
 		// Embedded entity has the new value, even if we don't get it by reference
 		$entity->setId(1000);
+
 		$embeddedEntity = $event->getEntity();
+
 		$this->assertEquals(1000, $embeddedEntity->getId());
 
 		// Get embedded entity by reference and change it, then see that it affects the original
 		$embeddedEntity =& $event->getEntity();
+
 		$embeddedEntity->setId(2000);
 		$this->assertEquals(2000, $entity->getId());
 	}
@@ -241,8 +246,10 @@ class EventTestEventListener // extends GalleryEventListener
 		switch ($event->getEventName()) {
 			case 'GalleryEntity::save':
 				global $gallery;
+
 				$item = $event->getEntity();
-				$ret  = GalleryCoreApi::removeItemPermissions($item->getId());
+
+				$ret = GalleryCoreApi::removeItemPermissions($item->getId());
 
 				if ($ret) {
 					return array($ret, null);
@@ -359,7 +366,9 @@ class EventTestModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('eventtest');
+
 		$this->setName('Event Test Module');
+
 		$this->setDescription('Mock module');
 		$this->setVersion('1.0.0');
 		$this->setGroup('mock', 'Mock');

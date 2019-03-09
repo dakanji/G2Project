@@ -31,7 +31,9 @@ class CarbonTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('carbon');
+
 		$this->setName($gallery->i18n('Carbon'));
+
 		$this->setDescription(
 			$gallery->i18n(
 				'Gallery2 theme by mincel.com'
@@ -115,30 +117,35 @@ class CarbonTheme extends GalleryTheme {
 			'type'  => 'checkbox',
 			'value' => $params['navigatorPhotoTop'],
 		);
+
 		$settings[] = array(
 			'key'   => 'navigatorPhotoBottom',
 			'name'  => $this->translate('Show bottom photo navigator'),
 			'type'  => 'checkbox',
 			'value' => $params['navigatorPhotoBottom'],
 		);
+
 		$settings[] = array(
 			'key'   => 'photoProperties',
 			'name'  => $this->translate('Show \'Photo Properties\' icon'),
 			'type'  => 'checkbox',
 			'value' => $params['photoProperties'],
 		);
+
 		$settings[] = array(
 			'key'   => 'fullSize',
 			'name'  => $this->translate('Show \'Full Size\' icon'),
 			'type'  => 'checkbox',
 			'value' => $params['fullSize'],
 		);
+
 		$settings[] = array(
 			'key'   => 'itemDetails',
 			'name'  => $this->translate('Show item details on album pages'),
 			'type'  => 'checkbox',
 			'value' => $params['itemDetails'],
 		);
+
 		$settings[] = array(
 			'key'        => 'albumUpperBlocks',
 			'name'       => $this->translate(
@@ -150,6 +157,7 @@ class CarbonTheme extends GalleryTheme {
 			),
 			'value'      => $params['albumUpperBlocks'],
 		);
+
 		$settings[] = array(
 			'key'        => 'photoUpperBlocks',
 			'name'       => $this->translate(
@@ -161,6 +169,7 @@ class CarbonTheme extends GalleryTheme {
 			),
 			'value'      => $params['photoUpperBlocks'],
 		);
+
 		$settings[] = array(
 			'key'        => 'sidebarTop',
 			'name'       => $this->translate('Sidebar top position'),
@@ -170,6 +179,7 @@ class CarbonTheme extends GalleryTheme {
 			),
 			'value'      => $params['sidebarTop'],
 		);
+
 		$settings[] = array(
 			'key'        => 'maxMicroThumbs',
 			'name'       => $this->translate(
@@ -181,6 +191,7 @@ class CarbonTheme extends GalleryTheme {
 			),
 			'value'      => $params['maxMicroThumbs'],
 		);
+
 		$settings[] = array(
 			'key'        => 'logoImageLocation',
 			'name'       => $this->translate('URL or path to alternate logo image'),
@@ -190,6 +201,7 @@ class CarbonTheme extends GalleryTheme {
 			),
 			'value'      => $params['logoImageLocation'],
 		);
+
 		$settings[] = array(
 			'key'        => 'extraLink',
 			'name'       => $this->translate('Extra link for top navigation bar'),
@@ -199,6 +211,7 @@ class CarbonTheme extends GalleryTheme {
 			),
 			'value'      => $params['extraLink'],
 		);
+
 		$settings[] = array(
 			'key'        => 'extraLinkUrl',
 			'name'       => $this->translate('URL for the extra link'),
@@ -208,6 +221,7 @@ class CarbonTheme extends GalleryTheme {
 			),
 			'value'      => $params['extraLinkUrl'],
 		);
+
 		$settings[] = array(
 			'key'        => 'copyright',
 			'name'       => $this->translate('Copyright message to display on footer'),

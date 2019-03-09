@@ -62,8 +62,8 @@ class RewriteParserTestCase extends GalleryTestCase {
 
 		// Set up our mock platform
 		$this->_platform = new RewriteParserMockPlatform();
-		$this->_platform->init($this);
 
+		$this->_platform->init($this);
 		unset($this->_fileContent, $this->_embeddedFileContent);
 		$gallery->setPlatform($this->_platform);
 
@@ -263,6 +263,7 @@ class RewriteParserTestCase extends GalleryTestCase {
 
 		if ($this->_parser->getParserType() != 'preGallery') {
 			$expected['rewriteparsermock'][0] = array('pattern' => 'bogus');
+
 			$this->assertEquals(REWRITE_STATUS_INVALID_PATTERN, $code);
 			$this->assertEquals(array('rewriteparsermock', 3), $errno);
 			$this->assertEquals($expected, unserialize($activeRules));
@@ -296,6 +297,7 @@ class RewriteParserTestCase extends GalleryTestCase {
 
 		if ($this->_parser->getParserType() != 'preGallery') {
 			$expected['rewriteparsermock'][0] = array('pattern' => 'bogus');
+
 			$this->assertEquals(REWRITE_STATUS_INVALID_PATTERN, $code);
 			$this->assertEquals(array('rewriteparsermock', 5), $errno);
 			$this->assertEquals($expected, unserialize($activeRules));
@@ -516,6 +518,7 @@ class RewriteParserMockModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('rewriteparsermock');
+
 		$this->setName('RewriteParser Test Module');
 		$this->setDescription('Unit test module');
 		$this->setVersion('7.0.0'); // Update upgrade() as required
@@ -662,8 +665,7 @@ class RewriteParserMockPlatform extends GalleryPlatform {
 				'Not Found', ), );
 
 		if ($handle == 'phpunit') {
-			$response = GalleryUtilities::getRequestVariables('rewriteTest');
-
+			$response          = GalleryUtilities::getRequestVariables('rewriteTest');
 			$this->_readBuffer = $buffer[$response];
 
 			return strlen($string);
@@ -717,9 +719,8 @@ class RewriteParserMockPlatform extends GalleryPlatform {
 				return $tmp;
 			}
 
-			$buf = join("\n", $this->_readBuffer);
-			$tmp = substr($buf, 0, $length);
-
+			$buf               = join("\n", $this->_readBuffer);
+			$tmp               = substr($buf, 0, $length);
 			$this->_readBuffer = explode("\n", substr($buf, $length + 1));
 
 			return $tmp;

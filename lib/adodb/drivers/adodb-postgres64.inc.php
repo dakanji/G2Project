@@ -134,8 +134,7 @@ class ADODB_postgres64 extends ADOConnection {
 
 		$arr['description'] = $this->GetOne('select version()');
 		$arr['version']     = ADOConnection::_findvers($arr['description']);
-
-		$this->version = $arr;
+		$this->version      = $arr;
 
 		return $arr;
 	}
@@ -406,6 +405,7 @@ class ADODB_postgres64 extends ADOConnection {
 	 */
 	public function UpdateBlobFile($table, $column, $path, $where, $blobtype = 'BLOB') {
 		pg_query($this->_connectionID, 'begin');
+
 		$fd       = fopen($path, 'r');
 		$contents = fread($fd, filesize($path));
 		fclose($fd);
@@ -416,6 +416,7 @@ class ADODB_postgres64 extends ADOConnection {
 
 		// $oid = pg_lo_import ($path);
 		pg_query($this->_connectionID, 'commit');
+
 		$rs  = ADOConnection::UpdateBlob($table, $column, $oid, $where, $blobtype);
 		$rez = !empty($rs);
 
@@ -432,7 +433,9 @@ class ADODB_postgres64 extends ADOConnection {
 	 */
 	public function BlobDelete($blob) {
 		pg_query($this->_connectionID, 'begin');
+
 		$result = @pg_lo_unlink($blob);
+
 		pg_query($this->_connectionID, 'commit');
 
 		return $result;
@@ -458,6 +461,7 @@ class ADODB_postgres64 extends ADOConnection {
 	 *
 	 * Since adodb 4.54, this returns the blob, instead of sending it to stdout. Also
 	 * added maxsize parameter, which defaults to $db->maxblobsize if not defined.
+
 	 */
 	public function BlobDecode($blob, $maxsize = false, $hastrans = true) {
 		if (!$this->GuessOID($blob)) {
@@ -1056,10 +1060,12 @@ class ADODB_postgres64 extends ADOConnection {
 
 		if ($this->_resultid) {
 			@pg_free_result($this->_resultid);
+
 			$this->_resultid = false;
 		}
 
 		@pg_close($this->_connectionID);
+
 		$this->_connectionID = false;
 
 		return true;
@@ -1154,7 +1160,8 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
+
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}
@@ -1164,8 +1171,7 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 
 	public function FetchField($off = 0) {
 		// offsets begin at 0
-		$o = new ADOFieldObject();
-
+		$o             = new ADOFieldObject();
 		$o->name       = @pg_field_name($this->_queryID, $off);
 		$o->type       = @pg_field_type($this->_queryID, $off);
 		$o->max_length = @pg_fieldsize($this->_queryID, $off);

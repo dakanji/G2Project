@@ -130,6 +130,7 @@ class CommentSiteAdminController extends GalleryController {
 				array($this, 'checkAllWithAkismet'),
 				array(new AkismetApi())
 			);
+
 			$delegate['view'] = 'core.ProgressBar';
 		}
 
@@ -180,6 +181,7 @@ class CommentSiteAdminController extends GalleryController {
 		 * as spam and we change its publish status, we don't report it back to Akismet.
 		 */
 		GalleryCommentHelper::getMe()->setAkismetSaveListenerSwitch(false);
+
 		$checkingCommentMessage = $module->translate('Checking all comments with Akismet');
 		$checkedCount           = 0;
 		$spamCount              = 0;
@@ -233,6 +235,7 @@ class CommentSiteAdminController extends GalleryController {
 					}
 
 					$comment->setPublishStatus(COMMENT_PUBLISH_STATUS_SPAM);
+
 					$ret = $comment->save();
 
 					if ($ret) {
@@ -280,6 +283,7 @@ class CommentSiteAdminController extends GalleryController {
 				'forceFullUrl' => true,
 			)
 		);
+
 		$templateAdapter->completeProgressBar($continueUrl, false);
 
 		return null;

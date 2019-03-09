@@ -279,16 +279,23 @@ class WatermarkImage extends GalleryEntity {
 		}
 
 		$this->setName($targetName);
+
 		$this->setFileName($targetFilename);
+
 		$this->setMimeType($mimeType);
+
 		$this->setWidth(0);
+
 		$this->setHeight(0);
+
 		$this->setXPercentage(100);
+
 		$this->setYPercentage(100);
 		$this->setApplyToPreferred(false);
 		$this->setApplyToResizes(true);
 		$this->setApplyToThumbnail(true);
 		$this->setOwnerId($gallery->getActiveUserId());
+
 		$newFileName = $dir . $targetFilename;
 
 		if (!$platform->copy($inputFileName, $newFileName)) {
@@ -313,6 +320,7 @@ class WatermarkImage extends GalleryEntity {
 
 		$platform =& $gallery->getPlatform();
 		$path     = $this->getWatermarkDir() . $this->getFileName();
+
 		$this->setSize($platform->filesize($path));
 
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($this->getMimeType(), 'dimensions');

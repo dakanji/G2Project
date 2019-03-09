@@ -125,7 +125,8 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
+
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}
@@ -137,8 +138,7 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 	public function _FetchField($fieldOffset = -1) {
 		$fld          = new ADOFieldObject();
 		$fieldOffset += 1;
-
-		$fld->name = OCIcolumnname($this->_queryID, $fieldOffset);
+		$fld->name    = OCIcolumnname($this->_queryID, $fieldOffset);
 
 		if (ADODB_ASSOC_CASE == ADODB_ASSOC_CASE_LOWER) {
 			$fld->name = strtolower($fld->name);
@@ -213,12 +213,15 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 		}
 
 		$this->fields = $ret;
+
 		$this->_updatefields();
+
 		$results = array();
 		$cnt     = 0;
 
 		while (!$this->EOF && $nrows != $cnt) {
 			$results[$cnt++] = $this->fields;
+
 			$this->MoveNext();
 		}
 
@@ -232,6 +235,7 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 
 		if ($ret) {
 			$this->fields = $ret;
+
 			$this->_updatefields();
 
 			if (!empty($ADODB_ANSI_PADDING_OFF)) {

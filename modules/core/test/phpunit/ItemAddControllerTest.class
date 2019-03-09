@@ -35,7 +35,8 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-		$ret     = parent::setUp();
+
+		$ret = parent::setUp();
 
 		if ($ret) {
 			return $ret;
@@ -56,6 +57,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		$this->_markFactoryForCleanup();
 		$this->_unregisterFactoryImplementationForTest('ItemAddPlugin');
 		$this->_unregisterFactoryImplementationForTest('ItemAddOption');
+
 		$path = 'modules/core/test/phpunit/ItemAddControllerTest.class';
 		$this->_registerFactoryImplementationForTest(
 			'ItemAddPlugin',
@@ -100,8 +102,10 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_controller->setOptionInstances(array());
+
 		$gallery->_templateAdapter = new MockTemplateAdapter();
 		$this->_templateAdapter    =& $gallery->getTemplateAdapter();
+
 		$session->remove('itemAdd.error');
 	}
 
@@ -118,6 +122,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 
 		$session =& $gallery->getSession();
 		$error   = $session->get('itemAdd.error');
+
 		$this->assertEquals($expectedError, $error, 'item add error');
 	}
 
@@ -145,6 +150,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			strpos($completeProgressBarDump[0], $expectedUrl) !== false,
 			'incorrect continueUrl: ' . $completeProgressBarDump[0]
 		);
+
 		$this->assertEquals(
 			$expectedDoRedirect,
 			$completeProgressBarDump[1],
@@ -183,6 +189,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
+
 		$this->assertEquals(null, $results);
 	}
 
@@ -198,6 +205,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginContinue');
 
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
+
 		$this->assertEquals(null, $results);
 	}
 
@@ -289,6 +297,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			),
 			true
 		);
+
 		$this->assertEquals(array(), $this->_getStatusFromProgressBar(), 'status');
 	}
 
@@ -320,6 +329,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			),
 			true
 		);
+
 		$this->assertEquals(
 			array(
 				'addedFiles' => array(
@@ -349,6 +359,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 				'ItemAddTestOption' => new ItemAddTestOption(true),
 			)
 		);
+
 		$ret = $this->handleRequestWithProgressBar(
 			array(),
 			$this->_album,
@@ -390,6 +401,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 				'ItemAddTestOption' => new ItemAddTestOption(false),
 			)
 		);
+
 		$ret = $this->handleRequestWithProgressBar(
 			array(),
 			$this->_album,
@@ -409,6 +421,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			),
 			true
 		);
+
 		$this->assertEquals(
 			array(
 				'addedFiles' => array(
@@ -452,6 +465,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 				'ItemAddTestOption' => new ItemAddTestOption(false),
 			)
 		);
+
 		$ret = $this->handleRequestWithProgressBar(
 			array(),
 			$this->_album,
@@ -471,6 +485,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			),
 			true
 		);
+
 		$isUnix     = strncasecmp(PHP_OS, 'win', 3);
 		$status     = $this->_getStatusFromProgressBar();
 		$addedItems = $status['addedFiles'];
@@ -532,6 +547,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals('blah', $item->getTitle(), 'title set with base filename');
 		$this->assertEquals('hoho', $item->getSummary(), 'summary set from archive');
+
 		$this->assertTrue($item->getParentId() != $this->_album->getId(), 'should be in subalbum');
 	}
 
@@ -584,6 +600,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 				'ItemAddTestOption' => new ItemAddTestOption(false),
 			)
 		);
+
 		$ret = $this->handleRequestWithProgressBar(
 			array(),
 			$this->_album,
@@ -603,6 +620,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			),
 			true
 		);
+
 		$isUnix     = strncasecmp(PHP_OS, 'win', 3);
 		$status     = $this->_getStatusFromProgressBar();
 		$addedItems = $status['addedFiles'];
@@ -705,6 +723,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 				'ItemAddTestOption' => new ItemAddTestOption(false),
 			)
 		);
+
 		$ret = $this->handleRequestWithProgressBar(
 			array(),
 			$this->_album,
@@ -782,6 +801,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			),
 			true
 		);
+
 		$this->assertEquals(null, $this->_getStatusFromProgressBar(), 'status');
 	}
 
@@ -818,6 +838,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			),
 			true
 		);
+
 		$this->assertEquals(
 			array(
 				'addedFiles' => array(
@@ -866,6 +887,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			),
 			false
 		);
+
 		$this->assertEquals(
 			array(
 				'addedFiles' => array(
@@ -896,10 +918,12 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 				'ItemAddTestOption' => $addOption,
 			)
 		);
+
 		$status['addedFiles'][0] = array(
 			'fileName' => 'file 1',
 			'id'       => $items[0]->getId(),
 		);
+
 		$status['addedFiles'][1] = array(
 			'fileName' => 'file 2',
 			'id'       => $items[1]->getId(),
@@ -1006,6 +1030,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->assertEquals(
 			0,
 			$this->_templateAdapter->getCallbackCount(),

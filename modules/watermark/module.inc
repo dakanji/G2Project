@@ -42,7 +42,9 @@ class WatermarkModule extends GalleryModule {
 		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
+
 		$this->_templateVersion = 1;
+
 		$this->setGroup('display', $gallery->i18n('Display'));
 		$this->setCallbacks('getSiteAdminViews|getUserAdminViews');
 	}
@@ -94,7 +96,8 @@ class WatermarkModule extends GalleryModule {
 
 			case '0.3':
 				$storage =& $gallery->getStorage();
-				$ret     = $storage->configureStore(
+
+				$ret = $storage->configureStore(
 					$this->getId(),
 					array('WatermarkImage:1.0')
 				);
@@ -205,6 +208,7 @@ class WatermarkModule extends GalleryModule {
 								$derivative->getPostFilterOperations()
 							)
 						);
+
 						$ret = $derivative->save();
 
 						if ($ret) {
@@ -304,6 +308,7 @@ class WatermarkModule extends GalleryModule {
 	 */
 	public function uninstall() {
 		global $gallery;
+
 		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 		// Delete all watermarks and remove uses of them

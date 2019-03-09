@@ -63,6 +63,7 @@ function _rs2serialize(&$rs, $conn = false, $sql = '') {
 
 		while (!$rs->EOF) {
 			$rows[] = $rs->fields;
+
 			$rs->MoveNext();
 		}
 	}
@@ -78,7 +79,9 @@ function _rs2serialize(&$rs, $conn = false, $sql = '') {
 	$rs2->timeCreated = $rs->timeCreated; // memcache fix
 	$rs2->sql         = $rs->sql;
 	$rs2->oldProvider = $rs->dataProvider;
+
 	$rs2->InitArrayFields($rows, $flds);
+
 	$rs2->fetchMode = $savefetch;
 
 	return $line . serialize($rs2);
@@ -139,8 +142,7 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 					return $false;
 				}
 
-				$rs = new $rsclass($val = true);
-
+				$rs               = new $rsclass($val = true);
 				$rs->fields       = array();
 				$rs->timeCreated  = $meta[1];
 				$rs->EOF          = true;
@@ -258,8 +260,7 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 				break;
 			}
 
-			$fld = new ADOFieldObject();
-
+			$fld             = new ADOFieldObject();
 			$fld->name       = urldecode($o2[0]);
 			$fld->type       = $o2[1];
 			$fld->max_length = $o2[2];
@@ -294,9 +295,9 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 		return $false;
 	}
 
-	$rs = new $rsclass();
-
+	$rs              = new $rsclass();
 	$rs->timeCreated = $ttl;
+
 	$rs->InitArrayFields($arr, $flds);
 
 	return $rs;

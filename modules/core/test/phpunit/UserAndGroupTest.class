@@ -114,6 +114,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($group);
+
 		$groupId = $group->getId();
 
 		// Create a new user
@@ -186,7 +187,9 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($hasPermission, 'failed to add a permission to the user');
+
 		$this->_activeUserBackup = $gallery->getActiveUser();
+
 		$gallery->setActiveUser($user);
 
 		// Add an item to the user, this item should be remapped to a new owner automatically
@@ -205,13 +208,13 @@ class UserAndGroupTest extends GalleryTestCase {
 					'userOrGroupId' => $user->getId,
 				)
 			);
+
 			$this->_markForCleanup($user);
 
 			return $ret;
 		}
 
 		$this->_markForCleanup($item);
-
 		// Restore the activeUser, should be a Site Admin
 		$gallery->setActiveUser($this->_activeUserBackup);
 
@@ -372,7 +375,9 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		$this->_markForCleanup($user);
 		$gallery->setActiveUser($user);
+
 		$ret = GalleryCoreApi::deleteEntityById($user->getId(), 'GalleryUser');
+
 		$this->assertEquals(
 			ERROR_BAD_PARAMETER | GALLERY_ERROR,
 			$ret->getErrorCode(),
@@ -409,6 +414,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($user);
+
 		$userId = $user->getId();
 
 		list($ret, $group) = $this->_createRandomGroup();
@@ -418,8 +424,10 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($group);
+
 		$groupId = $group->getId();
-		$ret     = GalleryCoreApi::addUserToGroup($userId, $groupId);
+
+		$ret = GalleryCoreApi::addUserToGroup($userId, $groupId);
 
 		if ($ret) {
 			return $ret;
@@ -463,6 +471,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($otherUser);
+
 		$otherUserId = $otherUser->getId();
 
 		list($ret, $group) = $this->_createRandomGroup();
@@ -474,8 +483,10 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($group);
+
 		$groupId = $group->getId();
-		$ret     = GalleryCoreApi::addUserToGroup($userId, $groupId);
+
+		$ret = GalleryCoreApi::addUserToGroup($userId, $groupId);
 
 		if ($ret) {
 			$this->_markForCleanup($user);
@@ -592,6 +603,7 @@ class UserAndGroupTest extends GalleryTestCase {
 			}
 
 			$groupName = $entity->getGroupName();
+
 			$this->assertFalse(empty($groupName), "$paramName: group name should not be empty");
 		}
 	}
@@ -738,6 +750,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
+
 		$remainingItems[] = $this->_album;
 
 		// Give User1 enough permission such that he can add items.
@@ -754,6 +767,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		// Change the active user to our test user1.
 		$this->_activeUserBackup = $gallery->getActiveUser();
+
 		$gallery->setActiveUser($user1);
 
 		// Add a test album with user1
@@ -1425,6 +1439,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		// Create it again
 		list($ret, $duplicateGroup) = $this->_createRandomGroup($groupTag);
+
 		$this->assertTrue($ret->getErrorCode() & ERROR_COLLISION, 'There should have been a collision');
 		$this->assertFalse(isset($duplicateGroup));
 
@@ -1463,6 +1478,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		// Create it again
 		list($ret, $duplicateUser) = $this->_createRandomUser($userTag);
+
 		$this->assertTrue($ret->getErrorCode() & ERROR_COLLISION, 'There should have been a collision');
 		$this->assertFalse(isset($duplicateUser));
 
@@ -1704,6 +1720,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		// Ensure admin session isn't timed out (can happen during long unit test run)
 		$session->put('session.siteAdminActivityTimestamp', $phpVm->time() - 2);
+
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
@@ -1731,6 +1748,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($hasPermission, 'activeUser should have core.view on root');
+
 		$userId = $gallery->getActiveUserId();
 
 		// Get id of anonymous id
@@ -1800,6 +1818,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($group);
+
 		$groupId = $group->getId();
 
 		// Create a new user
@@ -1811,6 +1830,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($user);
+
 		$userId = $user->getId();
 
 		// Put the user into the group
@@ -1859,6 +1879,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		$user->changePassword('password');
 		$this->assertTrue($user->isCorrectPassword('password'), 'password');
 		$user->changePassword('Ab1#+$_ ;]\?.,');
+
 		$this->assertTrue($user->isCorrectPassword('Ab1#+$_ ;]\?.,'), 'Ab1#+$_ ;]\?.,');
 
 		$user->changePassword('pass&word>');
@@ -1873,7 +1894,6 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->assertFalse(empty($user), 'factory error');
-
 		// We still support old style simple md5 (G1 thru 1.4.0, G2 thru alpha-4)
 		$user->setHashedPassword(md5('password'));
 		$this->assertTrue($user->isCorrectPassword('password'), 'password');
@@ -1913,7 +1933,6 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->assertFalse(empty($user), 'factory error');
-
 		set_error_handler('UserAndGroupTest_error_handler');
 
 		// First test with a precomputed hash (12 iterations, also checks file includes)
@@ -1934,6 +1953,7 @@ class UserAndGroupTest extends GalleryTestCase {
 				!$user->isCorrectPassword('wrong password'),
 				'wrong password, 8 iterations'
 			);
+
 			$hashGenerator1 = new PasswordHash(13, true);
 
 			$user->setHashedPassword($hashGenerator1->HashPassword('password'));

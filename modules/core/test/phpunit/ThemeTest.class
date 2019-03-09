@@ -43,6 +43,7 @@ class ThemeTest extends GalleryTestCase {
 		}
 
 		$this->_platform = new ThemeTestPlatform();
+
 		$gallery->setPlatform($this->_platform);
 
 		GalleryDataCache::reset();
@@ -55,6 +56,7 @@ class ThemeTest extends GalleryTestCase {
 
 		$this->_theme->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$this->_theme->setRequiredThemeApi(GalleryTheme::getMe()->getApiVersion());
+
 		$ret = $this->_markPluginParametersForCleanup('module', 'core');
 
 		if ($ret) {
@@ -399,7 +401,9 @@ class ThemeTest extends GalleryTestCase {
 
 	public function testInstallBadThemeApi() {
 		list($major, $minor) = $this->_theme->getRequiredThemeApi();
+
 		$this->_theme->setRequiredThemeApi(array($major - 1, $minor));
+
 		$ret = $this->_theme->installOrUpgrade();
 
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
@@ -420,6 +424,7 @@ class ThemeTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $this->_theme->getRequiredThemeApi();
+
 		$this->_theme->setRequiredThemeApi(array($major - 1, $minor));
 
 		list($ret, $redirect) = $this->_theme->activate();
@@ -441,7 +446,9 @@ class ThemeTest extends GalleryTestCase {
 
 	public function testInstallBadCoreApi() {
 		list($major, $minor) = $this->_theme->getRequiredCoreApi();
+
 		$this->_theme->setRequiredCoreApi(array($major - 1, $minor));
+
 		$ret = $this->_theme->installOrUpgrade();
 
 		if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
@@ -459,6 +466,7 @@ class ThemeTest extends GalleryTestCase {
 		}
 
 		list($major, $minor) = $this->_theme->getRequiredCoreApi();
+
 		$this->_theme->setRequiredCoreApi(array($major - 1, $minor));
 
 		list($ret, $redirect) = $this->_theme->activate();
@@ -507,7 +515,8 @@ class ThemeTest extends GalleryTestCase {
 	public function testVariableReferenceAcrossLoadCommonTemplateData() {
 		$template = new GalleryTemplate('/path/to/fake/templatedir');
 		$theme    =& $template->getVariableByReference('theme');
-		$ret      = $this->_theme->loadCommonTemplateData(
+
+		$ret = $this->_theme->loadCommonTemplateData(
 			$template,
 			$this->_item,
 			array(),
@@ -522,6 +531,7 @@ class ThemeTest extends GalleryTestCase {
 
 		$theme['foo'] = 'bar';
 		$theme        =& $template->getVariableByReference('theme');
+
 		$this->assertEquals('bar', $theme['foo']);
 	}
 
@@ -654,11 +664,13 @@ class ThemeTestTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('themetest');
+
 		$this->setName('ThemeTest Theme');
 		$this->setDescription('Unit test theme');
 		$this->setVersion('0.9.0');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$this->setRequiredThemeApi(GalleryTheme::getMe()->getApiVersion());
+
 		$this->_preloadedBlocks = array();
 	}
 

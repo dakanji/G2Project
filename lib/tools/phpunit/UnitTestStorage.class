@@ -35,7 +35,9 @@
  *
  * In tearDown() call:
  *
+ *
  *  $this->assertTrue($this->_storage->isComplete(), $this->_storage->getRemaining());
+ *
  *
  * The check in tearDown() verifies that all expected calls were received.
  *
@@ -78,11 +80,13 @@ class UnitTestStorage extends MockObject {
 
 	public function isComplete() {
 		return parent::isComplete()
+
 		&& !empty($this->_extras) ? $this->_extras->isComplete() : true;
 	}
 
 	public function getRemaining() {
 		return parent::getRemaining()
+
 		. (!empty($this->_extras) ? $this->_extras->getRemaining() : '');
 	}
 

@@ -50,8 +50,7 @@ class ItemTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$groupIds = array_keys($groupIds);
-
+		$groupIds       = array_keys($groupIds);
 		$this->_groupId = $groupIds[0];
 
 		list($ret, $this->_album) = $this->_createRandomAlbum(
@@ -291,13 +290,14 @@ class ItemTest extends GalleryTestCase {
 			}
 
 			// We need to be able to render what we can view inline
-			$html     = $instance->render(
+			$html = $instance->render(
 				'HTML',
 				array(
 					'fallback' => 'ERROR',
 					'class'    => 'test',
 				)
 			);
+
 			$inlineOk = ($html != 'ERROR' && $html != null);
 			$this->assertEquals(
 				$inlineOk,
@@ -540,12 +540,14 @@ class ItemTest extends GalleryTestCase {
 						'core.view',
 						false
 					);
+
 					$ret[1] = GalleryCoreApi::addUserPermission(
 						$child[$i]->getId(),
 						$this->_userId,
 						'core.addDataItem',
 						false
 					);
+
 					$ret[2] = GalleryCoreApi::addUserPermission(
 						$child[$i]->getId(),
 						$this->_userId,
@@ -562,6 +564,7 @@ class ItemTest extends GalleryTestCase {
 						'core.view',
 						false
 					);
+
 					$ret[1] = GalleryCoreApi::addGroupPermission(
 						$child[$i]->getId(),
 						$this->_groupId,
@@ -664,7 +667,6 @@ class ItemTest extends GalleryTestCase {
 		$this->assertTrue(in_array($child[0]->getId(), $ids), 'child 0');
 		$this->assertFalse(in_array($child[1]->getId(), $ids), 'child 1');
 		$this->assertTrue(in_array($child[2]->getId(), $ids), 'child 2');
-
 		// Make sure there's no duplication
 		$this->assertEquals(sizeof($ids), sizeof(array_flip(array_flip($ids))));
 	}
@@ -710,7 +712,6 @@ class ItemTest extends GalleryTestCase {
 		$this->assertTrue(in_array($child[0]->getId(), $ids), 'child 0');
 		$this->assertTrue(in_array($child[1]->getId(), $ids), 'child 1');
 		$this->assertTrue(in_array($child[2]->getId(), $ids), 'child 2');
-
 		// Make sure there's no duplication
 		$this->assertEquals(sizeof($ids), sizeof(array_flip(array_flip($ids))));
 	}
@@ -770,7 +771,6 @@ class ItemTest extends GalleryTestCase {
 		$this->assertTrue(in_array($child[0]->getId(), $ids), 'child 0');
 		$this->assertFalse(in_array($child[1]->getId(), $ids), 'child 1');
 		$this->assertTrue(in_array($child[2]->getId(), $ids), 'child 2');
-
 		// Make sure there's no duplication
 		$this->assertEquals(
 			sizeof($ids),
@@ -808,6 +808,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$this->_activeUserBackup = $gallery->getActiveUser();
+
 		$gallery->setActiveUser($user);
 
 		list($ret, $album) = $this->_createRandomAlbum($this->_album->getId());
@@ -849,6 +850,7 @@ class ItemTest extends GalleryTestCase {
 			in_array($album->getId(), $ids),
 			'parent album not returned'
 		);
+
 		$itemCount = 1;
 
 		foreach ($items as $item) {
@@ -902,6 +904,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($group1);
+
 		$ret = GalleryCoreApi::addUserToGroup($oldUser->getId(), $group1->getId());
 
 		if ($ret) {
@@ -916,6 +919,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($group2);
+
 		$ret = GalleryCoreApi::addUserToGroup($newUser->getId(), $group2->getId());
 
 		if ($ret) {
@@ -935,6 +939,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$this->_activeUserBackup = $gallery->getActiveUser();
+
 		$gallery->setActiveUser($oldUser);
 
 		// Add a test item with the old user as the owner
@@ -1203,10 +1208,10 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($success, 'should be able to set thumbnail');
-
 		/*
 		 * At this point, $album[1]'s thumbnail should match $album[0]'s preference,
 		 * and $album[0]'s thumbnail should match $this->_album's preference
+
 		 */
 		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(
 			array(
@@ -1286,6 +1291,7 @@ class ItemTest extends GalleryTestCase {
 		// Make sure that the derivatives are linked together properly
 		$thumb0 = $thumbTable[$album[0]->getId()];
 		$thumb1 = $thumbTable[$album[1]->getId()];
+
 		$this->assertEquals($thumb0->getDerivativeSourceId(), $thumb1->getId());
 	}
 
@@ -1436,7 +1442,9 @@ class ItemTest extends GalleryTestCase {
 			GalleryUtilities::isA($newItem, 'GalleryDataItem'),
 			'newItem is not a GalleryDataItem'
 		);
+
 		$this->assertEquals('itemName', $newItem->getPathComponent());
+
 		$this->assertEquals('title', $newItem->getTitle());
 		$this->assertEquals('caption', $newItem->getSummary());
 		$this->assertEquals('description', $newItem->getDescription());
@@ -1452,7 +1460,6 @@ class ItemTest extends GalleryTestCase {
 
 		$this->assertTrue(isset($weights[$newItem->getId()]));
 		$this->assertTrue($weights[$newItem->getId()] > $maxWeight);
-
 		// Test that shutdown actions will update parent album's modification timestamp
 		sleep(1); // Make sure new timestamp won't equal old one even after update
 		$gallery->performShutdownActions();
@@ -1767,7 +1774,8 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$gallery->_shutdownActions = null;
-		$ret                       = GalleryCoreApi::deleteEntityById($album->getId(), 'GalleryAlbumItem');
+
+		$ret = GalleryCoreApi::deleteEntityById($album->getId(), 'GalleryAlbumItem');
 
 		if ($ret) {
 			return $ret;
@@ -1780,7 +1788,6 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(array(), $ids, 'child item ids');
-
 		/*
 		 * Test that shutdown actions will update parent album's modification timestamp
 		 * Also ensure invalid id in shutdown action is ignored (delete of $item will
@@ -1831,6 +1838,7 @@ class ItemTest extends GalleryTestCase {
 			array(
 				$this->_getRootId(),
 				$this->_album->getId(),
+
 			),
 			$parentSequence,
 			'Wrong original parent sequence'
@@ -1885,10 +1893,12 @@ class ItemTest extends GalleryTestCase {
 				$this->_getRootId(),
 				$this->_album->getId(),
 				$album->getId(),
+
 			),
 			$parentSequence,
 			'Wrong parent sequence'
 		);
+
 		$ret = GalleryCoreApi::releaseLocks($locks);
 
 		if ($ret) {
@@ -2033,6 +2043,7 @@ class ItemTest extends GalleryTestCase {
 
 		if (isset($resizes[$photo->getId()])) {
 			$resizes = $resizes[$photo->getId()];
+
 			$this->assertEquals(1, sizeof($resizes), 'There should only be one resize');
 			$this->assertEquals(
 				'scale|50',
@@ -2508,6 +2519,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$this->assertFalse(empty($thumbTable[$newItem->getId()]), 'missing thumbnail');
+
 		$operation = $thumbTable[$newItem->getId()]->getDerivativeOperations();
 		$this->assertTrue(
 			($operation == 'thumbnail|[0]' ||

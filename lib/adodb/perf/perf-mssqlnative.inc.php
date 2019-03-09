@@ -108,7 +108,9 @@ class perf_mssqlnative extends adodb_perf {
 		}
 
 		$s = '<p><b>Explain</b>: ' . htmlspecialchars($sql) . '</p>';
+
 		$this->conn->Execute('SET SHOWPLAN_ALL ON;');
+
 		$sql = str_replace('?', "''", $sql);
 		global $ADODB_FETCH_MODE;
 
@@ -121,6 +123,7 @@ class perf_mssqlnative extends adodb_perf {
 
 		if ($rs) {
 			$rs->MoveNext();
+
 			$s .= '<table bgcolor=white border=0 cellpadding="1" callspacing=0><tr><td nowrap align=center> Rows<td nowrap align=center> IO<td nowrap align=center> CPU<td align=left> &nbsp; &nbsp; Plan</tr>';
 
 			while (!$rs->EOF) {
@@ -136,6 +139,7 @@ class perf_mssqlnative extends adodb_perf {
 		$this->conn->Execute('SET SHOWPLAN_ALL OFF;');
 
 		$this->conn->LogSQL($save);
+
 		$s .= $this->Tracer($sql);
 
 		return $s;
@@ -159,6 +163,7 @@ class perf_mssqlnative extends adodb_perf {
 
 				if ($rs2) {
 					$s .= '<tr><td>' . $tab . '</td><td align=right>' . $rs2->fields[3] . '</td><td align=right>' . $rs2->fields[4] . '</td><td align=right>' . $rs2->fields[2] . '</td></tr>';
+
 					$rs2->Close();
 				}
 
@@ -181,6 +186,7 @@ class perf_mssqlnative extends adodb_perf {
 
 	public function HealthCheck($cli = false) {
 		$this->conn->Execute('dbcc traceon(3604)');
+
 		$html = adodb_perf::HealthCheck($cli);
 
 		$this->conn->Execute('dbcc traceoff(3604)');

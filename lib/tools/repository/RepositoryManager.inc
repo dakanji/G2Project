@@ -121,6 +121,7 @@ class RepositoryManagerControllerAndView extends RepositoryControllerAndView {
 			while (false !== ($file = readdir($dir))) {
 				if (preg_match(sprintf('/^%s/', $pluginId), $file)) {
 					$platform->unlink($repositoryPluginDir . $file);
+
 					$removedFiles[] = $file;
 				}
 			}

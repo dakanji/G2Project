@@ -65,7 +65,9 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		$session->put('core.language', $this->_currentLanguage);
+
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -200,6 +202,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_addUserToAdminGroup($this->_user);
 
 		// Now it lets us submit with a missing email
@@ -328,6 +331,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			!isset($form['currentPassword']),
 			'precondition failed, password was specified'
 		);
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -398,7 +402,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals('Test User', $this->_user->getFullName());
 		$this->assertEquals('test@email.com', $this->_user->getEmail());
 		$this->assertEquals('te', $this->_user->getLanguage());
-
 		// Verify our event got posted
 		$this->assertEventFired(
 			'Gallery::FailedLogin',
@@ -450,7 +453,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals('Test User', $this->_user->getFullName());
 		$this->assertEquals('test@email.com', $this->_user->getEmail());
 		$this->assertEquals('te', $this->_user->getLanguage());
-
 		// Verify our event got posted
 		$this->assertEventFired(
 			'Gallery::FailedLogin',
@@ -501,7 +503,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->setConfig('anonymousUserId', $this->_user->getId());
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.me');
@@ -529,7 +530,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 		$this->_markForCleanup($this->_user2);
 		$gallery->setActiveUser($this->_user2);
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.me');

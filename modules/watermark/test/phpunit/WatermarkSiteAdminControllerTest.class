@@ -46,14 +46,14 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		$watermark_module = new WatermarkModule();
 
 		$this->_registerTestEventListener('GalleryEntity::delete', $watermark_module);
+
 		$ret = $this->_markPluginParametersForCleanup('module', 'watermark');
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$rand = mt_rand();
-
+		$rand                = mt_rand();
 		$this->_randomName   = 'phpunit_' . $rand . '.jpg';
 		$this->_expectedName = 'phpunit_' . $rand . '_jpg';
 
@@ -376,7 +376,6 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(!empty($defaultWatermarkId), 'Expected new default watermark');
-
 		// If there are several watermarks, we can't be sure which one will be selected
 		$this->assertTrue(
 			(int)$defaultWatermarkId != (int)$idToDelete,

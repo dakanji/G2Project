@@ -270,6 +270,7 @@ class SiteAdminView extends GalleryView {
 		$SiteAdmin['subViewName']   = $subViewName;
 		$SiteAdmin['viewBodyFile']  = $results['body'];
 		$SiteAdmin['viewL10Domain'] = $subView->getL10Domain();
+
 		$template->setVariable('SiteAdmin', $SiteAdmin);
 		$template->title($module->translate('Gallery Site Administration'));
 

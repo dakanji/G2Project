@@ -41,7 +41,8 @@ class EntityTest extends GalleryTestCase {
 		global $gallery;
 
 		$this->_entity = new EntityTestEntity();
-		$ret           = $this->_entity->create();
+
+		$ret = $this->_entity->create();
 
 		if ($ret) {
 			return $ret;
@@ -54,6 +55,7 @@ class EntityTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($this->_entity);
+
 		$ret = GalleryCoreApi::registerFactoryImplementation(
 			'GalleryOnLoadHandler',
 			'EntityTestOnLoadHandler',
@@ -68,9 +70,11 @@ class EntityTest extends GalleryTestCase {
 		}
 
 		$this->_markFactoryModuleForCleanup('coreTest');
+
 		$this->_savedSession = $gallery->_session;
 		$gallery->_session   = null;
-		$ret                 = $gallery->initSession();
+
+		$ret = $gallery->initSession();
 
 		if ($ret) {
 			return $ret;
@@ -87,7 +91,8 @@ class EntityTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_session = $this->_savedSession;
-		$ret               = parent::tearDown();
+
+		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -130,6 +135,7 @@ class EntityTest extends GalleryTestCase {
 					'itemId' => $this->_entity->getId(),
 				)
 			);
+
 			$this->assertFalse(empty($data), 'Entity data should be in disk cache');
 
 			list($ret, $newEntity) = GalleryCoreApi::loadEntitiesById($this->_entity->getId());
@@ -179,23 +185,37 @@ class EntityTest extends GalleryTestCase {
 		}
 
 		$entity->removeOnLoadHandler('NotThere');
+
 		$this->assertEquals(null, $entity->getOnLoadHandlers(), 1);
+
 		$this->assertFalse($entity->hasOnLoadHandler('NotThere'), 2);
+
 		$entity->addOnLoadHandler('EntityTestOnLoadHandler');
+
 		$this->assertEquals('|EntityTestOnLoadHandler|', $entity->getOnLoadHandlers(), 3);
+
 		$this->assertTrue($entity->hasOnLoadHandler('EntityTestOnLoadHandler'), 4);
+
 		$entity->removeOnLoadHandler('EntityTestOnLoadHandler');
+
 		$this->assertEquals(null, $entity->getOnLoadHandlers(), 5);
+
 		$this->assertFalse($entity->hasOnLoadHandler('EntityTestOnLoadHandler'), 6);
+
 		$entity->addOnLoadHandler('OneTest');
+
 		$entity->addOnLoadHandler('EntityTestOnLoadHandler');
+
 		$this->assertEquals('|OneTest|EntityTestOnLoadHandler|', $entity->getOnLoadHandlers(), 7);
+
 		$this->assertTrue($entity->hasOnLoadHandler('OneTest'), 8);
+
 		$this->assertFalse($entity->hasOnLoadHandler('OneTesto'), 9);
 		$this->assertFalse($entity->hasOnLoadHandler('aOneTest'), 10);
 		$this->assertTrue($entity->hasOnLoadHandler('EntityTestOnLoadHandler'), 11);
 		$entity->removeOnLoadHandler('OneTest');
 		$this->assertEquals('|EntityTestOnLoadHandler|', $entity->getOnLoadHandlers(), 12);
+
 		$ret = $entity->save();
 
 		if ($ret) {
@@ -212,6 +232,7 @@ class EntityTest extends GalleryTestCase {
 		}
 
 		$session =& $gallery->getSession();
+
 		$this->assertTrue(isset($session), 'session is not set');
 		$this->assertEquals('entitytestentity', strtolower(get_class($newEntity)), 'Entity class');
 		$this->assertTrue($newEntity->_wasOnLoadCalled(), 'onLoad for database load');
@@ -220,7 +241,6 @@ class EntityTest extends GalleryTestCase {
 			$newEntity->getLinkedEntity(),
 			'handler not called'
 		);
-
 		// During upgrades the session has 'isUpgrade' key
 		GalleryDataCache::reset();
 
@@ -261,6 +281,7 @@ class EntityTest extends GalleryTestCase {
 		 * change it back to its original value..
 		 */
 		$oldValue = $this->_entity->getModificationTimestamp();
+
 		$this->_entity->setModificationTimestamp(10);
 		$this->assertTrue($this->_entity->isModified(), 'is modified');
 		$this->_entity->setModificationTimestamp($oldValue);
@@ -285,6 +306,7 @@ class EntityTest extends GalleryTestCase {
 		 * different
 		 */
 		$entity->resetOriginalValues();
+
 		$this->assertFalse($entity->isModified(), 'not yet modified');
 		$entity->setIsLinkable(true);
 		$entity->setIsLinkable(false);
@@ -319,6 +341,7 @@ class EntityTest extends GalleryTestCase {
 		}
 
 		$entity->setOnLoadHandlers('');
+
 		$ret = $entity->save();
 
 		if ($ret) {
@@ -380,6 +403,7 @@ class EntityTest extends GalleryTestCase {
 
 		$event     = $listener->getEvent();
 		$newEntity = $event->getEntity();
+
 		$this->assertEquals($entity->getId(), $newEntity->getId());
 	}
 
@@ -453,6 +477,7 @@ class EntityTest extends GalleryTestCase {
 
 		$photo2->setWidth(900);
 		$this->assertEquals(900, $photo2->getWidth(), 'width was changed after loading entity');
+
 		$ret = $photo2->detachLink();
 
 		if ($ret) {
@@ -623,6 +648,7 @@ class EntityTest extends GalleryTestCase {
 
 	public function deleteEntityByIdAssertsTheRequestedEntityTypeSubclassMatch() {
 		list($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
+
 		$this->_markForCleanup($album);
 
 		if ($ret) {
@@ -644,6 +670,7 @@ class EntityTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($album);
+
 		$ret = GalleryCoreApi::deleteEntityById($album->getId(), 'GalleryDerivative');
 
 		if ($ret) {
@@ -679,6 +706,7 @@ class EntityTestEntity extends GalleryEntity {
 
 	public function onLoad() {
 		$this->_wasOnLoadCalled(true);
+
 		$ret = parent::onLoad();
 
 		if ($ret) {

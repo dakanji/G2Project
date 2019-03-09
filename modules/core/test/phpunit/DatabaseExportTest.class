@@ -60,6 +60,7 @@ class DatabaseExportTest extends GalleryTestCase {
 		$UnitTestPlatform = new UnitTestPlatform();
 
 		$gallery->setPlatform($UnitTestPlatform);
+
 		$gallery->_storage     = new UnitTestStorage();
 		$storage               =& $gallery->getStorage();
 		$storage->_tablePrefix = 'g2_';
@@ -73,9 +74,11 @@ class DatabaseExportTest extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 		$storage  =& $gallery->getStorage();
 		$phpVm    = $gallery->getPhpVm();
+
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 		$this->assertTrue($storage->isComplete(), $storage->getRemaining());
 		$this->assertTrue($phpVm->isComplete(), $phpVm->getRemaining());
+
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -139,6 +142,7 @@ class DatabaseExportTest extends GalleryTestCase {
 		. 'version="1.2.12" active="1" type="module"/>' . "\n";
 
 		$platform->setReply('fwrite', array('testHandle', $line, null), strlen($line) + 1);
+
 		$warnings = array();
 
 		$ret = $this->_export->_exportPluginStatus('testHandle', 'module', $modules, $warnings);
@@ -174,6 +178,7 @@ class DatabaseExportTest extends GalleryTestCase {
 		. 'version="1.2.5" active="0" type="theme"/>' . "\n";
 
 		$platform->setReply('fwrite', array('testHandle', $line, null), strlen($line) + 1);
+
 		$ret = $this->_export->_exportPluginStatus('testHandle', 'theme', $themes, $warnings);
 
 		if ($ret) {
@@ -186,17 +191,20 @@ class DatabaseExportTest extends GalleryTestCase {
 
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
+
 		$storage->setReply('getUniqueId', array('sequenceid'), array(null, 57));
 
 		$expected = '    <sequence name="sequenceid" start-value="57" />' . "\n";
 
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
+
 		$this->_export->_callBack = array(
 			'callback' => array($this, 'progressCallback'),
 			'progress' => 0,
 			'total'    => 100,
 		);
-		$ret                      = $this->_export->_exportSequence('testHandle', 'sequenceid');
+
+		$ret = $this->_export->_exportSequence('testHandle', 'sequenceid');
 
 		if ($ret) {
 			return $ret;
@@ -246,19 +254,23 @@ class DatabaseExportTest extends GalleryTestCase {
 		$expected = '        <table-info type="map"><![CDATA[test data]]></table-info>' . "\n";
 
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
+
 		$expected = '      </definition>' . "\n";
 
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
+
 		$expected = '    </table>' . "\n";
 
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
+
 		$this->_export->_ignoreTables['testtable'] = 1;
 		$this->_export->_callBack                  = array(
 			'callback' => array($this, 'progressCallback'),
 			'progress' => 0,
 			'total'    => 100,
 		);
-		$warnings                                  = array();
+
+		$warnings = array();
 
 		$ret = $this->_export->_exportTable('testHandle', 'TestTable', $warnings);
 
@@ -290,6 +302,7 @@ class DatabaseExportTest extends GalleryTestCase {
 			),
 			array(null, new UnitTestStorageSearchResults(array(null)))
 		);
+
 		$warnings = array();
 
 		$ret = $this->_export->_exportTable('testHandle', 'TestTable2', $warnings);
@@ -310,6 +323,7 @@ class DatabaseExportTest extends GalleryTestCase {
 				'arg1' => 'TestTable2',
 			)
 		);
+
 		$this->assertTrue(count($warnings) > 0, 'Warnings were not issued');
 		$this->assertEquals($expected, $warnings[0], 'The message was not equal');
 	}
@@ -353,6 +367,7 @@ class DatabaseExportTest extends GalleryTestCase {
 				),
 			)
 		);
+
 		$expected = '        <data>' . "\n";
 
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
@@ -366,6 +381,7 @@ class DatabaseExportTest extends GalleryTestCase {
 			  . STORAGE_SIZE_MEDIUM . '" not-null="1" not-null-empty-allowed="1" />' . "\n";
 
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
+
 		$expected = '          <field name="minor" type="' . STORAGE_TYPE_INTEGER . '" size="'
 			  . STORAGE_SIZE_MEDIUM . '" />' . "\n";
 
@@ -396,6 +412,7 @@ class DatabaseExportTest extends GalleryTestCase {
 				),
 			)
 		);
+
 		$storage->setReply(
 			'_normalizeValue',
 			array(
@@ -409,6 +426,7 @@ class DatabaseExportTest extends GalleryTestCase {
 			),
 			'nameValue1'
 		);
+
 		$storage->setReply(
 			'_normalizeValue',
 			array(
@@ -423,6 +441,7 @@ class DatabaseExportTest extends GalleryTestCase {
 			),
 			1
 		);
+
 		$storage->setReply(
 			'_normalizeValue',
 			array(
@@ -435,6 +454,7 @@ class DatabaseExportTest extends GalleryTestCase {
 			),
 			1
 		);
+
 		$storage->setReply(
 			'_normalizeValue',
 			array(
@@ -448,6 +468,7 @@ class DatabaseExportTest extends GalleryTestCase {
 			),
 			'nameValue2'
 		);
+
 		$storage->setReply(
 			'_normalizeValue',
 			array(
@@ -462,21 +483,26 @@ class DatabaseExportTest extends GalleryTestCase {
 			),
 			1
 		);
+
 		$expected = '          <row><f>nameValue1</f><f>1</f><f>1</f></row>' . "\n";
 
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
+
 		$expected = '          <row><f>nameValue2</f><f>1</f><f null="1" /></row>' . "\n";
 
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
+
 		$expected = '        </data>' . "\n";
 
 		$platform->setReply('fwrite', array('testHandle', $expected, null), strlen($expected));
+
 		$this->_export->_callBack = array(
 			'callback' => array($this, 'progressCallback'),
 			'progress' => 0,
 			'total'    => 100,
 		);
-		$warnings                 = array();
+
+		$warnings = array();
 
 		$ret = $this->_export->_exportData('testHandle', 'TestTableMap', $warnings);
 
@@ -530,12 +556,14 @@ class DatabaseExportTest extends GalleryTestCase {
 				null,
 			)
 		);
+
 		$this->_export->_callBack = array(
 			'callback' => array($this, 'progressCallback'),
 			'progress' => 0,
 			'total'    => 100,
 		);
-		$warnings                 = array();
+
+		$warnings = array();
 
 		$ret = $this->_export->_exportData('testHandle', 'TestTable', $warnings);
 
@@ -556,6 +584,7 @@ class DatabaseExportTest extends GalleryTestCase {
 				'arg1' => 'TestTable',
 			)
 		);
+
 		$this->assertTrue(count($warnings) > 0, 'Warnings were not issued');
 		$this->assertEquals($expectedMsg, $warnings[0], 'The message was not equal');
 
@@ -572,8 +601,11 @@ class DatabaseExportTest extends GalleryTestCase {
 				'database' => 'TEST-DB',
 			)
 		);
+
 		$gallery->_platform->setReply('file_exists', array('/path/'), true);
+
 		$gallery->_platform->setReply('is_dir', array('/path/'), true);
+
 		$gallery->_phpVm->setReply('rand', array(null, null), 'RAW-RND');
 		$gallery->_phpVm->setReply('md5', array('RAW-RND'), 'MD5MD5MD5MD5MD5');
 		$gallery->_phpVm->setReply('date', array('Y_m_d_Hi', null), 'DATE');
@@ -604,8 +636,11 @@ class DatabaseExportTest extends GalleryTestCase {
 				'database' => '/full/sqlite/path/to/TEST-DB',
 			)
 		);
+
 		$gallery->_platform->setReply('file_exists', array('/path/'), true);
+
 		$gallery->_platform->setReply('is_dir', array('/path/'), true);
+
 		$gallery->_phpVm->setReply('rand', array(null, null), 'RAW-RND');
 		$gallery->_phpVm->setReply('md5', array('RAW-RND'), 'MD5MD5MD5MD5MD5');
 		$gallery->_phpVm->setReply('date', array('Y_m_d_Hi', null), 'DATE');

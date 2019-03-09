@@ -30,18 +30,20 @@ class CoreModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('core');
+
 		$this->setName($gallery->i18n('Core'));
 		$this->setDescription(
 			$gallery->i18n(
 				'Gallery 2 Core Module'
 			)
 		);
-
 		// Update CoreModuleExtras::upgrade and CoreModuleExtras::_prepareConfigUpgrade too!
 		$this->setVersion('1.4.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
+
 		$this->_templateVersion = 1;
+
 		$this->setGalleryVersion('2.4.0');
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks(
@@ -434,7 +436,8 @@ class CoreModule extends GalleryModule {
 						'return'  => 1,
 					),
 				);
-				$links['Logout']      = array(
+
+				$links['Logout'] = array(
 					'text'   => $this->translate('Logout'),
 					'params' => array(
 						'controller' => 'core.Logout',
@@ -529,6 +532,7 @@ class CoreModule extends GalleryModule {
 						'name' => $this->translate('Account Settings'),
 						'view' => 'core.UserPreferences',
 					);
+
 					$views[] = array(
 						'name' => $this->translate('Change Password'),
 						'view' => 'core.UserChangePassword',

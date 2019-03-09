@@ -56,7 +56,8 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 		global $gallery;
 
 		$translator =& $gallery->getTranslator();
-		$ret        = GalleryCoreApi::assertUserIsSiteAdministrator();
+
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
 			return array($ret, null);
@@ -201,7 +202,8 @@ class AdminRepositoryDownloadView extends GalleryView {
 		global $gallery;
 
 		$translator =& $gallery->getTranslator();
-		$ret        = GalleryCoreApi::assertUserIsSiteAdministrator();
+
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
 			return array($ret, null);

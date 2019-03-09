@@ -190,7 +190,9 @@ class ADODB_Pager {
 
 		ob_start();
 		$gSQLBlockRows = $this->rows;
+
 		rs2html($this->rs, $this->gridAttributes, $this->gridHeader, $this->htmlSpecialChars);
+
 		$s = ob_get_contents();
 		ob_end_clean();
 
@@ -205,9 +207,11 @@ class ADODB_Pager {
 
 		if (!$this->rs->AtFirstPage()) {
 			$this->Render_First();
+
 			$this->Render_Prev();
 		} else {
 			$this->Render_First(false);
+
 			$this->Render_Prev(false);
 		}
 
@@ -273,8 +277,7 @@ class ADODB_Pager {
 		}
 
 		$ADODB_COUNTRECS = $savec;
-
-		$this->rs = $rs;
+		$this->rs        = $rs;
 
 		if (!$rs) {
 			echo "<h3>Query failed: $this->sql</h3>";
@@ -290,8 +293,10 @@ class ADODB_Pager {
 
 		$grid   = $this->RenderGrid();
 		$footer = $this->RenderPageCount();
+
 		$this->RenderLayout($header, $grid, $footer);
 		$rs->Close();
+
 		$this->rs = false;
 	}
 

@@ -86,7 +86,8 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		// Only test a single URL
 		$params      = $params[6];
 		$expectedUrl = '/gallery2/v' . $this->_testAlbumPath;
-		$ret         = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
+
+		$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
 
 		if ($ret) {
 			return $ret;

@@ -396,7 +396,6 @@ class dbTable extends dbObject {
 		switch (strtoupper($tag)) {
 			case 'TABLE':
 				$this->parent->addSQL($this->create($this->parent));
-
 				xml_set_object($parser, $this->parent);
 				$this->destroy();
 
@@ -424,8 +423,7 @@ class dbTable extends dbObject {
 	 * @return object dbIndex object
 	 */
 	public function addIndex($attributes) {
-		$name = strtoupper($attributes['NAME']);
-
+		$name                 = strtoupper($attributes['NAME']);
 		$this->indexes[$name] = new dbIndex($this, $attributes);
 
 		return $this->indexes[$name];
@@ -893,7 +891,6 @@ class dbData extends dbObject {
 
 			case 'F':
 				$this->addField($attributes);
-
 				// Fall Through
 			default:
 				// print_r( array( $tag, $attributes ) );
@@ -1231,7 +1228,6 @@ class dbQuerySet extends dbObject {
 
 			case 'SQL':
 				$this->parent->addSQL($this->create($this->parent));
-
 				xml_set_object($parser, $this->parent);
 				$this->destroy();
 
@@ -1309,7 +1305,9 @@ class dbQuerySet extends dbObject {
 					// Process object prefix.
 					// Evaluate SQL statements to prepend prefix to objects
 					$query = $this->prefixQuery('/^\s*((?is)INSERT\s+(INTO\s+)?)((\w+\s*,?\s*)+)(\s.*$)/', $query, $xmls->objectPrefix);
+
 					$query = $this->prefixQuery('/^\s*((?is)UPDATE\s+(FROM\s+)?)((\w+\s*,?\s*)+)(\s.*$)/', $query, $xmls->objectPrefix);
+
 					$query = $this->prefixQuery('/^\s*((?is)DELETE\s+(FROM\s+)?)((\w+\s*,?\s*)+)(\s.*$)/', $query, $xmls->objectPrefix);
 
 					// SELECT statements aren't working yet
@@ -1486,6 +1484,7 @@ class adoSchema {
 		$this->dict          = NewDataDictionary($this->db);
 		$this->sqlArray      = array();
 		$this->schemaVersion = XMLS_SCHEMA_VERSION;
+
 		$this->executeInline(XMLS_EXECUTE_INLINE);
 		$this->continueOnError(XMLS_CONTINUE_ON_ERROR);
 		$this->existingData(XMLS_EXISTING_DATA);
@@ -2295,6 +2294,7 @@ class adoSchema {
 		}
 
 		$this->db->SetFetchMode($old_mode);
+
 		$schema .= '</schema>';
 
 		return $schema;
@@ -2315,7 +2315,6 @@ class adoSchema {
 			// clear prefix
 			case empty($prefix):
 				logMsg('Cleared prefix');
-
 				$this->objectPrefix = '';
 
 				return true;
@@ -2335,7 +2334,6 @@ class adoSchema {
 
 		// prefix valid
 		logMsg('Set prefix: ' . $prefix);
-
 		$this->objectPrefix = $prefix;
 
 		return true;

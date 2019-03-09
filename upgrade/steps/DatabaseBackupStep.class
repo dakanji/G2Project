@@ -79,8 +79,11 @@ class DatabaseBackupStep extends UpgradeStep {
 
 		// Set up the progress bar.
 		$this->_template->renderHeader(true);
+
 		$this->_progressTitle = _('Backing up the Gallery database');
+
 		$this->_template->renderStatusMessage($this->_progressTitle, '', 0);
+
 		$exporter = $storage->getDatabaseExporter();
 
 		list($ret, $backupFile, $warnings) = $exporter->exportToXmlFile(array($this, 'backupCallback'));
@@ -98,6 +101,7 @@ class DatabaseBackupStep extends UpgradeStep {
 
 		$this->_template->renderStatusMessage($this->_progressTitle, '', 1);
 		$this->_template->hideStatusBlock();
+
 		$templateData['storeConfig'] = $gallery->getConfig('storage.config');
 
 		if ($this->isComplete()) {

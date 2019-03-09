@@ -54,6 +54,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteEntity($group);
 	}
 
@@ -70,6 +71,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
 		GalleryUtilities::putRequestVariable('form[quotaUnit]', 'KB');
 		GalleryUtilities::putRequestVariable('groupId', $group->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -84,6 +86,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteGroupQuota($group->getId());
 		$this->_deleteEntity($group);
 	}
@@ -99,6 +102,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 		// No Values
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('groupId', $group->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -147,6 +151,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteEntity($group);
 	}
 
@@ -169,6 +174,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
 		GalleryUtilities::putRequestVariable('form[quotaUnit]', 'KB');
 		GalleryUtilities::putRequestVariable('groupId', $group->getId());
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -197,6 +203,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 			),
 			$results
 		);
+
 		$this->_deleteGroupQuota($group->getId());
 		$this->_deleteEntity($group);
 	}

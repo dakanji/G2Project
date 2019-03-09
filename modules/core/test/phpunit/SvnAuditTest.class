@@ -89,7 +89,6 @@ class SvnAuditTest extends CodeAuditTestCase {
 		);
 
 		parent::__construct($methodName);
-
 		$this->_errorCount = 0;
 	}
 
@@ -167,6 +166,7 @@ class SvnAuditTest extends CodeAuditTestCase {
 						"svn property $key = " . $props[$key]
 						. " for $fileName expected to match $valueMatch"
 					);
+
 					$this->_errorCount++;
 				}
 			}

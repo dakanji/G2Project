@@ -85,7 +85,8 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->_templateAdapter =& $this->_galleryTemplateAdapter;
-		$ret                       = parent::tearDown();
+
+		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -127,10 +128,10 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[base]', 'test:22222');
 		GalleryUtilities::putRequestVariable('form[action][download]', '1');
 
-		$mockAdapter = new MockTemplateAdapter();
-
+		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
-		$ret                       = GalleryCoreApi::assertUserIsSiteAdministrator();
+
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
 			return $ret;
@@ -165,6 +166,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 				),
 			)
 		);
+
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -177,7 +179,9 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 			$results,
 			'Expected only core.ProgressBar delegation.'
 		);
+
 		$this->assertEquals(1, $mockAdapter->getCallbackCount());
+
 		$callback = $mockAdapter->getCallback(0);
 		$this->assertEquals(
 			array($this->_controller, 'performDownloadAndInstallation'),
@@ -202,6 +206,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 			$callback[1][0],
 			'installPackages mismatch'
 		);
+
 		$this->assertTrue($storage->isComplete(), $storage->getRemaining());
 	}
 }

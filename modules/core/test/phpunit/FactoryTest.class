@@ -68,6 +68,7 @@ class FactoryTest extends GalleryTestCase {
 		}
 
 		$this->_markFactoryModuleForCleanup('factoryTest');
+
 		$ret = GalleryCoreApi::registerFactoryImplementation(
 			'FactoryTest',
 			'FactoryTestDummy2',
@@ -82,6 +83,7 @@ class FactoryTest extends GalleryTestCase {
 		}
 
 		$this->_markFactoryModuleForCleanup('factoryTest2');
+
 		$FactoryTestModule = new FactoryTestModule();
 		GalleryPluginHelper_medium::setPluginInstance(
 			'module',
@@ -479,12 +481,15 @@ class FactoryTest extends GalleryTestCase {
 		$result = empty($registry['implementations']['GalleryEventListener']['TestErrorHandler']);
 
 		$this->assertTrue($result, 'TestErrorHandler implementation is set');
+
 		$result = empty($registry['ids']['GalleryEventListener']['TestErrorHandler']);
 
 		$this->assertTrue($result, 'TestErrorHandler id is set');
+
 		$result = empty($registry['pluginIds']['GalleryEventListener']['TestErrorHandler']);
 
 		$this->assertTrue($result, 'TestErrorHandler implementation is still set');
+
 		$result = empty(
 			$registry['hints']['GalleryEventListener']['gallery::error']['TestErrorHandler']
 		);
@@ -511,6 +516,7 @@ class FactoryTestDummy2 {}
 class FactoryTestModule extends GalleryModule {
 	public function __construct() {
 		$this->setId('factoryTest');
+
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$this->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 	}

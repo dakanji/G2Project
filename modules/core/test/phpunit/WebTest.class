@@ -597,23 +597,22 @@ class WebTestPlatform {
 				case "GET /testFetchHttpsWebFile HTTP/1.0\r\n" .
 				"Host: secure.nice.server\r\n" .
 				"\r\n":
-					$buffer   = array();
-					$buffer[] = 'HTTP/1.1 200 OK';
-					$buffer[] = 'Connection: close';
-					$buffer[] = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
-					$buffer[] = 'Accept-Ranges: bytes';
-					$buffer[] = 'ETag: "122ae4-5-3fc199b0"';
-					$buffer[] = 'Server: Apache/1.3.28 (Unix)';
-					$buffer[] = 'Content-Length: 5';
-					$buffer[] = 'Content-Type: text/html';
-					$buffer[] = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
-					$buffer[] = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
-					$buffer[] = 'Client-Peer: 209.237.226.157:80';
-					$buffer[] = 'Client-Response-Num: 1';
-					$buffer[] = '';
-					$buffer[] = 'test';
-					$buffer[] = '';
-
+					$buffer                     = array();
+					$buffer[]                   = 'HTTP/1.1 200 OK';
+					$buffer[]                   = 'Connection: close';
+					$buffer[]                   = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
+					$buffer[]                   = 'Accept-Ranges: bytes';
+					$buffer[]                   = 'ETag: "122ae4-5-3fc199b0"';
+					$buffer[]                   = 'Server: Apache/1.3.28 (Unix)';
+					$buffer[]                   = 'Content-Length: 5';
+					$buffer[]                   = 'Content-Type: text/html';
+					$buffer[]                   = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
+					$buffer[]                   = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
+					$buffer[]                   = 'Client-Peer: 209.237.226.157:80';
+					$buffer[]                   = 'Client-Response-Num: 1';
+					$buffer[]                   = '';
+					$buffer[]                   = 'test';
+					$buffer[]                   = '';
 					$this->_readBuffer[$handle] = $buffer;
 
 					return strlen($string);
@@ -621,23 +620,22 @@ class WebTestPlatform {
 				case "GET /testFetchWebPageNotExists HTTP/1.0\r\n" .
 				"Host: www.test.server\r\n" .
 				"\r\n":
-					$buffer   = array();
-					$buffer[] = 'HTTP/1.1 404 NOT FOUND';
-					$buffer[] = 'Connection: close';
-					$buffer[] = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
-					$buffer[] = 'Accept-Ranges: bytes';
-					$buffer[] = 'ETag: "122ae4-5-3fc199b0"';
-					$buffer[] = 'Server: Apache/1.3.28 (Unix)';
-					$buffer[] = 'Content-Length: 11';
-					$buffer[] = 'Content-Type: text/html';
-					$buffer[] = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
-					$buffer[] = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
-					$buffer[] = 'Client-Peer: 209.237.226.157:80';
-					$buffer[] = 'Client-Response-Num: 1';
-					$buffer[] = '';
-					$buffer[] = 'not found!';
-					$buffer[] = '';
-
+					$buffer                     = array();
+					$buffer[]                   = 'HTTP/1.1 404 NOT FOUND';
+					$buffer[]                   = 'Connection: close';
+					$buffer[]                   = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
+					$buffer[]                   = 'Accept-Ranges: bytes';
+					$buffer[]                   = 'ETag: "122ae4-5-3fc199b0"';
+					$buffer[]                   = 'Server: Apache/1.3.28 (Unix)';
+					$buffer[]                   = 'Content-Length: 11';
+					$buffer[]                   = 'Content-Type: text/html';
+					$buffer[]                   = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
+					$buffer[]                   = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
+					$buffer[]                   = 'Client-Peer: 209.237.226.157:80';
+					$buffer[]                   = 'Client-Response-Num: 1';
+					$buffer[]                   = '';
+					$buffer[]                   = 'not found!';
+					$buffer[]                   = '';
 					$this->_readBuffer[$handle] = $buffer;
 
 					return strlen($string);
@@ -645,23 +643,22 @@ class WebTestPlatform {
 				case "GET /testFetchWebPageBadConfiguration HTTP/1.0\r\n" .
 				"Host: www.test.server\r\n" .
 				"\r\n":
-					$buffer   = array();
-					$buffer[] = 'HTTP/1.1 500 INTERNAL SERVER ERROR';
-					$buffer[] = 'Connection: close';
-					$buffer[] = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
-					$buffer[] = 'Accept-Ranges: bytes';
-					$buffer[] = 'ETag: "122ae4-5-3fc199b0"';
-					$buffer[] = 'Server: Apache/1.3.28 (Unix)';
-					$buffer[] = 'Content-Length: 14';
-					$buffer[] = 'Content-Type: text/html';
-					$buffer[] = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
-					$buffer[] = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
-					$buffer[] = 'Client-Peer: 209.237.226.157:80';
-					$buffer[] = 'Client-Response-Num: 1';
-					$buffer[] = '';
-					$buffer[] = 'config error!';
-					$buffer[] = '';
-
+					$buffer                     = array();
+					$buffer[]                   = 'HTTP/1.1 500 INTERNAL SERVER ERROR';
+					$buffer[]                   = 'Connection: close';
+					$buffer[]                   = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
+					$buffer[]                   = 'Accept-Ranges: bytes';
+					$buffer[]                   = 'ETag: "122ae4-5-3fc199b0"';
+					$buffer[]                   = 'Server: Apache/1.3.28 (Unix)';
+					$buffer[]                   = 'Content-Length: 14';
+					$buffer[]                   = 'Content-Type: text/html';
+					$buffer[]                   = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
+					$buffer[]                   = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
+					$buffer[]                   = 'Client-Peer: 209.237.226.157:80';
+					$buffer[]                   = 'Client-Response-Num: 1';
+					$buffer[]                   = '';
+					$buffer[]                   = 'config error!';
+					$buffer[]                   = '';
 					$this->_readBuffer[$handle] = $buffer;
 
 					return strlen($string);
@@ -669,25 +666,24 @@ class WebTestPlatform {
 				case "GET /testFetchRedirectedWebPage HTTP/1.0\r\n" .
 				"Host: www.test.server\r\n" .
 				"\r\n":
-					$buffer   = array();
-					$buffer[] = 'HTTP/1.1 302 Found';
-					$buffer[] = 'Date: Mon, 24 Nov 2003 06:35:01 GMT';
-					$buffer[] = 'Server: Apache/1.3.26 (Unix) PHP/4.1.2';
-					$buffer[] = 'Location: http://www.test.server/testFetchWebPage';
-					$buffer[] = 'Connection: close';
-					$buffer[] = 'Content-Type: text/html; charset=iso-8859-1';
-					$buffer[] = '';
-					$buffer[] = '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">';
-					$buffer[] = '<HTML><HEAD>';
-					$buffer[] = '<TITLE>302 Found</TITLE>';
-					$buffer[] = '</HEAD><BODY>';
-					$buffer[] = '<H1>Found</H1>';
-					$buffer[] = 'The document has moved <A HREF="http://www.test.server' .
+					$buffer                     = array();
+					$buffer[]                   = 'HTTP/1.1 302 Found';
+					$buffer[]                   = 'Date: Mon, 24 Nov 2003 06:35:01 GMT';
+					$buffer[]                   = 'Server: Apache/1.3.26 (Unix) PHP/4.1.2';
+					$buffer[]                   = 'Location: http://www.test.server/testFetchWebPage';
+					$buffer[]                   = 'Connection: close';
+					$buffer[]                   = 'Content-Type: text/html; charset=iso-8859-1';
+					$buffer[]                   = '';
+					$buffer[]                   = '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">';
+					$buffer[]                   = '<HTML><HEAD>';
+					$buffer[]                   = '<TITLE>302 Found</TITLE>';
+					$buffer[]                   = '</HEAD><BODY>';
+					$buffer[]                   = '<H1>Found</H1>';
+					$buffer[]                   = 'The document has moved <A HREF="http://www.test.server' .
 					'/testFetchWebPage">here</A>.<P>';
-					$buffer[] = '<HR>';
-					$buffer[] = '<ADDRESS>Apache/1.3.26 Server at www.test.server Port 80</ADDRESS>';
-					$buffer[] = '</BODY></HTML>';
-
+					$buffer[]                   = '<HR>';
+					$buffer[]                   = '<ADDRESS>Apache/1.3.26 Server at www.test.server Port 80</ADDRESS>';
+					$buffer[]                   = '</BODY></HTML>';
 					$this->_readBuffer[$handle] = $buffer;
 
 					return strlen($string);
@@ -695,24 +691,23 @@ class WebTestPlatform {
 				case "GET /testFetchRelativeRedirect HTTP/1.0\r\n" .
 				"Host: my.test.server\r\n" .
 				"\r\n":
-					$buffer   = array();
-					$buffer[] = 'HTTP/1.1 302 Found';
-					$buffer[] = 'Date: Mon, 24 Nov 2003 06:35:01 GMT';
-					$buffer[] = 'Server: Apache/1.3.26 (Unix) PHP/4.1.2';
-					$buffer[] = 'Location: /testFetchRelativeRedirect2?query';
-					$buffer[] = 'Connection: close';
-					$buffer[] = 'Content-Type: text/html; charset=iso-8859-1';
-					$buffer[] = '';
-					$buffer[] = '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">';
-					$buffer[] = '<HTML><HEAD>';
-					$buffer[] = '<TITLE>302 Found</TITLE>';
-					$buffer[] = '</HEAD><BODY>';
-					$buffer[] = '<H1>Found</H1>';
-					$buffer[] = 'The document has moved.';
-					$buffer[] = '<HR>';
-					$buffer[] = '<ADDRESS>Apache/1.3.26 Server at my.test.server Port 81</ADDRESS>';
-					$buffer[] = '</BODY></HTML>';
-
+					$buffer                     = array();
+					$buffer[]                   = 'HTTP/1.1 302 Found';
+					$buffer[]                   = 'Date: Mon, 24 Nov 2003 06:35:01 GMT';
+					$buffer[]                   = 'Server: Apache/1.3.26 (Unix) PHP/4.1.2';
+					$buffer[]                   = 'Location: /testFetchRelativeRedirect2?query';
+					$buffer[]                   = 'Connection: close';
+					$buffer[]                   = 'Content-Type: text/html; charset=iso-8859-1';
+					$buffer[]                   = '';
+					$buffer[]                   = '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">';
+					$buffer[]                   = '<HTML><HEAD>';
+					$buffer[]                   = '<TITLE>302 Found</TITLE>';
+					$buffer[]                   = '</HEAD><BODY>';
+					$buffer[]                   = '<H1>Found</H1>';
+					$buffer[]                   = 'The document has moved.';
+					$buffer[]                   = '<HR>';
+					$buffer[]                   = '<ADDRESS>Apache/1.3.26 Server at my.test.server Port 81</ADDRESS>';
+					$buffer[]                   = '</BODY></HTML>';
 					$this->_readBuffer[$handle] = $buffer;
 
 					return strlen($string);
@@ -723,17 +718,16 @@ class WebTestPlatform {
 				case "GET /testFetchRedirectedWebPage2 HTTP/1.0\r\n" .
 				"Host: www.test.server\r\n" .
 				"\r\n":
-					$buffer   = array();
-					$buffer[] = 'HTTP/1.1 302 Found';
-					$buffer[] = 'Date: Mon, 24 Nov 2004 06:35:02 GMT';
-					$buffer[] = 'Server: Apache/1.3.33 (Unix) PHP/4.3.4';
-					$buffer[] = 'Location: http://www.test.server/testFetchWebPage';
-					$buffer[] = 'Connection: close';
-					$buffer[] = 'Content-Type: text/html; charset=iso-8859-1';
-					$buffer[] = 'Location: http://www.test.server/testFetchNOTUsed';
-					$buffer[] = '';
-					$buffer[] = 'Moved.';
-
+					$buffer                     = array();
+					$buffer[]                   = 'HTTP/1.1 302 Found';
+					$buffer[]                   = 'Date: Mon, 24 Nov 2004 06:35:02 GMT';
+					$buffer[]                   = 'Server: Apache/1.3.33 (Unix) PHP/4.3.4';
+					$buffer[]                   = 'Location: http://www.test.server/testFetchWebPage';
+					$buffer[]                   = 'Connection: close';
+					$buffer[]                   = 'Content-Type: text/html; charset=iso-8859-1';
+					$buffer[]                   = 'Location: http://www.test.server/testFetchNOTUsed';
+					$buffer[]                   = '';
+					$buffer[]                   = 'Moved.';
 					$this->_readBuffer[$handle] = $buffer;
 
 					return strlen($string);
@@ -741,25 +735,24 @@ class WebTestPlatform {
 				case "GET /testFetchCookieWebPage HTTP/1.0\r\n" .
 				"Host: www.test.server\r\n" .
 				"\r\n":
-					$buffer   = array();
-					$buffer[] = 'HTTP/1.1 200 OK';
-					$buffer[] = 'Connection: close';
-					$buffer[] = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
-					$buffer[] = 'Accept-Ranges: bytes';
-					$buffer[] = 'ETag: "122ae4-5-3fc199b0"';
-					$buffer[] = 'Server: Apache/1.3.28 (Unix)';
-					$buffer[] = 'Set-Cookie: sessionid=12345; Path=/';
-					$buffer[] = 'Set-Cookie: mycookie=foo; Path=/';
-					$buffer[] = 'Content-Length: 5';
-					$buffer[] = 'Content-Type: text/html';
-					$buffer[] = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
-					$buffer[] = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
-					$buffer[] = 'Client-Peer: 209.237.226.157:80';
-					$buffer[] = 'Client-Response-Num: 1';
-					$buffer[] = '';
-					$buffer[] = 'test';
-					$buffer[] = '';
-
+					$buffer                     = array();
+					$buffer[]                   = 'HTTP/1.1 200 OK';
+					$buffer[]                   = 'Connection: close';
+					$buffer[]                   = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
+					$buffer[]                   = 'Accept-Ranges: bytes';
+					$buffer[]                   = 'ETag: "122ae4-5-3fc199b0"';
+					$buffer[]                   = 'Server: Apache/1.3.28 (Unix)';
+					$buffer[]                   = 'Set-Cookie: sessionid=12345; Path=/';
+					$buffer[]                   = 'Set-Cookie: mycookie=foo; Path=/';
+					$buffer[]                   = 'Content-Length: 5';
+					$buffer[]                   = 'Content-Type: text/html';
+					$buffer[]                   = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
+					$buffer[]                   = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
+					$buffer[]                   = 'Client-Peer: 209.237.226.157:80';
+					$buffer[]                   = 'Client-Response-Num: 1';
+					$buffer[]                   = '';
+					$buffer[]                   = 'test';
+					$buffer[]                   = '';
 					$this->_readBuffer[$handle] = $buffer;
 
 					return strlen($string);
@@ -770,23 +763,22 @@ class WebTestPlatform {
 				"Content-Length: 56\r\n" .
 				"\r\n" .
 				'key1=value1&key2=value+2&key+3=http%3A%2F%2Fvalue%3A3%2F':
-					$buffer   = array();
-					$buffer[] = 'HTTP/1.1 200 OK';
-					$buffer[] = 'Connection: close';
-					$buffer[] = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
-					$buffer[] = 'Accept-Ranges: bytes';
-					$buffer[] = 'ETag: "122ae4-5-3fc199b0"';
-					$buffer[] = 'Server: Apache/1.3.28 (Unix)';
-					$buffer[] = 'Content-Length: 15';
-					$buffer[] = 'Content-Type: text/html';
-					$buffer[] = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
-					$buffer[] = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
-					$buffer[] = 'Client-Peer: 209.237.226.157:80';
-					$buffer[] = 'Client-Response-Num: 1';
-					$buffer[] = '';
-					$buffer[] = 'post successful';
-					$buffer[] = '';
-
+					$buffer                     = array();
+					$buffer[]                   = 'HTTP/1.1 200 OK';
+					$buffer[]                   = 'Connection: close';
+					$buffer[]                   = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
+					$buffer[]                   = 'Accept-Ranges: bytes';
+					$buffer[]                   = 'ETag: "122ae4-5-3fc199b0"';
+					$buffer[]                   = 'Server: Apache/1.3.28 (Unix)';
+					$buffer[]                   = 'Content-Length: 15';
+					$buffer[]                   = 'Content-Type: text/html';
+					$buffer[]                   = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
+					$buffer[]                   = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
+					$buffer[]                   = 'Client-Peer: 209.237.226.157:80';
+					$buffer[]                   = 'Client-Response-Num: 1';
+					$buffer[]                   = '';
+					$buffer[]                   = 'post successful';
+					$buffer[]                   = '';
 					$this->_readBuffer[$handle] = $buffer;
 
 					return strlen($string);
@@ -796,23 +788,22 @@ class WebTestPlatform {
 				"ExtraHeader: ExtraValue\r\n" .
 				"\r\n" .
 				'request body':
-					$buffer   = array();
-					$buffer[] = 'HTTP/1.1 200 OK';
-					$buffer[] = 'Connection: close';
-					$buffer[] = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
-					$buffer[] = 'Accept-Ranges: bytes';
-					$buffer[] = 'ETag: "122ae4-5-3fc199b0"';
-					$buffer[] = 'Server: Apache/1.3.28 (Unix)';
-					$buffer[] = 'Content-Length: 15';
-					$buffer[] = 'Content-Type: text/html';
-					$buffer[] = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
-					$buffer[] = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
-					$buffer[] = 'Client-Peer: 209.237.226.157:80';
-					$buffer[] = 'Client-Response-Num: 1';
-					$buffer[] = '';
-					$buffer[] = 'options successful';
-					$buffer[] = '';
-
+					$buffer                     = array();
+					$buffer[]                   = 'HTTP/1.1 200 OK';
+					$buffer[]                   = 'Connection: close';
+					$buffer[]                   = 'Date: Mon, 24 Nov 2003 05:40:03 GMT';
+					$buffer[]                   = 'Accept-Ranges: bytes';
+					$buffer[]                   = 'ETag: "122ae4-5-3fc199b0"';
+					$buffer[]                   = 'Server: Apache/1.3.28 (Unix)';
+					$buffer[]                   = 'Content-Length: 15';
+					$buffer[]                   = 'Content-Type: text/html';
+					$buffer[]                   = 'Last-Modified: Mon, 24 Nov 2003 05:40:00 GMT';
+					$buffer[]                   = 'Client-Date: Mon, 24 Nov 2003 05:40:03 GMT';
+					$buffer[]                   = 'Client-Peer: 209.237.226.157:80';
+					$buffer[]                   = 'Client-Response-Num: 1';
+					$buffer[]                   = '';
+					$buffer[]                   = 'options successful';
+					$buffer[]                   = '';
 					$this->_readBuffer[$handle] = $buffer;
 
 					return strlen($string);
@@ -860,14 +851,14 @@ class WebTestPlatform {
 		 */
 		if ($length >= strlen(join("\n", $this->_readBuffer[$handle]))) {
 			$tmp = join("\n", $this->_readBuffer[$handle]);
+
 			unset($this->_readBuffer[$handle]);
 
 			return $tmp;
 		}
 
-		$buf = join("\n", $this->_readBuffer[$handle]);
-		$tmp = substr($buf, 0, $length);
-
+		$buf                        = join("\n", $this->_readBuffer[$handle]);
+		$tmp                        = substr($buf, 0, $length);
 		$this->_readBuffer[$handle] = explode("\n", substr($buf, $length + 1));
 
 		return $tmp;

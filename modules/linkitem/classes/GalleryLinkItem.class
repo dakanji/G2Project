@@ -91,6 +91,7 @@ class GalleryLinkItem extends GalleryItem {
 
 		if (isset($linkedAlbum)) {
 			$this->setTitle($linkedAlbum->getTitle());
+
 			$this->setSummary($linkedAlbum->getSummary());
 			$this->setDescription($linkedAlbum->getDescription());
 			$this->setKeywords($linkedAlbum->getKeywords());
@@ -110,6 +111,7 @@ class GalleryLinkItem extends GalleryItem {
 		 * Pretend to be a linked entity during the move to avoid platform rename.
 		 */
 		$this->setLinkedEntity('fake');
+
 		$ret = parent::move($newParentId);
 
 		$this->setLinkedEntity(null);
@@ -151,17 +153,20 @@ class GalleryLinkItem extends GalleryItem {
 
 		if ($view == 'core.ShowItem' && $itemId == $this->getId()) {
 			global $gallery;
+
 			$link = $this->getLink();
 
 			if (is_numeric($link)) {
 				$session =& $gallery->getSession();
-				$ret     = $session->start();
+
+				$ret = $session->start();
 
 				if ($ret) {
 					return $ret;
 				}
 
 				$session->doNotUseTempId();
+
 				$urlGenerator =& $gallery->getUrlGenerator();
 				$link         = $urlGenerator->generateUrl(
 					array(
@@ -175,6 +180,7 @@ class GalleryLinkItem extends GalleryItem {
 			}
 
 			$phpVm = $gallery->getPhpVm();
+
 			$phpVm->header('Location: ' . str_replace('&amp;', '&', $link));
 
 			$phpVm->exit_();

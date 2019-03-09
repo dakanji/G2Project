@@ -430,12 +430,13 @@ class AlbumSelectCallbacks {
 			}
 
 			foreach ($subAlbums as $subAlbum) {
-				$treeList[]    = array(
+				$treeList[] = array(
 					'id'         => $subAlbum->getId(),
 					'nodeId'     => ++$nodeId,
 					'parentNode' => $parentNode,
 					'depth'      => $depth,
 				);
+
 				$subAlbumTitle = $subAlbum->getTitle();
 
 				if ($subAlbumTitle) {
@@ -462,7 +463,8 @@ class AlbumSelectCallbacks {
 				}
 
 				$titles[$subAlbum->getId()] = $title;
-				$ret                        = $this->_buildTree(
+
+				$ret = $this->_buildTree(
 					$subAlbum,
 					$treeList,
 					$titles,

@@ -222,7 +222,8 @@ class AdminImageMagickView extends GalleryView {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
-		$ret      = GalleryCoreApi::assertUserIsSiteAdministrator();
+
+		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 
 		if ($ret) {
 			return array($ret, null);

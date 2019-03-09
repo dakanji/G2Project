@@ -103,6 +103,7 @@ class ADODB_pdo extends ADOConnection {
 		$this->_genIDSQL       = $d->_genIDSQL;
 		$this->_genSeqSQL      = $d->_genSeqSQL;
 		$this->_dropSeqSQL     = $d->_dropSeqSQL;
+
 		$d->_init($this);
 	}
 
@@ -124,8 +125,7 @@ class ADODB_pdo extends ADOConnection {
 
 	// returns true or false
 	public function _connect($argDSN, $argUsername, $argPassword, $argDatabasename, $persist = false) {
-		$at = strpos($argDSN, ':');
-
+		$at            = strpos($argDSN, ':');
 		$this->dsnType = substr($argDSN, 0, $at);
 
 		if ($argDatabasename) {
@@ -178,6 +178,7 @@ class ADODB_pdo extends ADOConnection {
 
 			//$this->_connectionID->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_SILENT );
 			$this->_connectionID->setAttribute(PDO::ATTR_CASE, $m);
+
 			$class = 'ADODB_pdo_' . $this->dsnType;
 
 			//$this->_connectionID->setAttribute(PDO::ATTR_AUTOCOMMIT,true);
@@ -200,7 +201,9 @@ class ADODB_pdo extends ADOConnection {
 			}
 
 			$this->_driver->_connectionID = $this->_connectionID;
+
 			$this->_UpdatePDO();
+
 			$this->_driver->database = $this->database;
 
 			return true;
@@ -235,7 +238,9 @@ class ADODB_pdo extends ADOConnection {
 		$save                     = $this->_driver->fetchMode;
 		$this->_driver->fetchMode = $this->fetchMode;
 		$this->_driver->debug     = $this->debug;
-		$ret                      = $this->_driver->SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
+
+		$ret = $this->_driver->SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
+
 		$this->_driver->fetchMode = $save;
 
 		return $ret;
@@ -362,6 +367,7 @@ class ADODB_pdo extends ADOConnection {
 
 		$this->transCnt   += 1;
 		$this->_autocommit = false;
+
 		$this->SetAutoCommit(false);
 
 		return $this->_connectionID->beginTransaction();
@@ -389,7 +395,9 @@ class ADODB_pdo extends ADOConnection {
 		}
 
 		$this->_autocommit = true;
-		$ret               = $this->_connectionID->commit();
+
+		$ret = $this->_connectionID->commit();
+
 		$this->SetAutoCommit(true);
 
 		return $ret;
@@ -413,7 +421,9 @@ class ADODB_pdo extends ADOConnection {
 		}
 
 		$this->_autocommit = true;
-		$ret               = $this->_connectionID->rollback();
+
+		$ret = $this->_connectionID->rollback();
+
 		$this->SetAutoCommit(true);
 
 		return $ret;
@@ -677,7 +687,6 @@ class ADORecordSet_pdo extends ADORecordSet {
 
 		$this->fetchMode = $mode;
 		$this->_queryID  = $id;
-
 		parent::__construct($id);
 	}
 
@@ -791,7 +800,8 @@ class ADORecordSet_pdo extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o                                = $this->FetchField($i);
+				$o = $this->FetchField($i);
+
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

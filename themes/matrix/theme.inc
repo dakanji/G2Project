@@ -31,7 +31,9 @@ class MatrixTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('matrix');
+
 		$this->setName($gallery->i18n('Matrix'));
+
 		$this->setDescription(
 			$gallery->i18n(
 				'Standard Gallery2 look and feel'

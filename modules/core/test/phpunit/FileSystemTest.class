@@ -135,7 +135,9 @@ class FileSystemTest extends GalleryTestCase {
 		$FileSystemTestPlatform = new FileSystemTestPlatform('/');
 
 		$gallery->setPlatform($FileSystemTestPlatform);
+
 		$originalAlbumsDir = $gallery->getConfig('data.gallery.albums');
+
 		$gallery->setConfig('data.gallery.albums', '');
 
 		list($ret, $path) = $this->_albums[1]->fetchPath();
@@ -152,6 +154,7 @@ class FileSystemTest extends GalleryTestCase {
 			),
 			$path
 		);
+
 		$FileSystemTestPlatform = new FileSystemTestPlatform('\\');
 
 		$gallery->setPlatform($FileSystemTestPlatform);
@@ -245,6 +248,7 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		$ret = $this->_albums[1]->save();
+
 		$ret = $this->_albums[1]->move($this->_albums[0]->getId());
 
 		if ($ret) {
@@ -264,6 +268,7 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('foo_001', $this->_albums[2]->getPathComponent());
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -326,6 +331,7 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		$gallery->setPlatform($originalPlatform);
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -434,6 +440,7 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		$this->_albums[0]->setPathComponent($component);
+
 		$ret = $this->_albums[0]->save();
 
 		if ($ret) {
@@ -533,6 +540,7 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		$this->_albums[0]->setPathComponent($component);
+
 		$ret = $this->_albums[0]->save();
 
 		if ($ret) {
@@ -662,6 +670,7 @@ class FileSystemTestPlatformForRename extends GalleryPlatform {
 			$oldname,
 			strlen($gallery->getConfig('data.gallery.albums'))
 		);
+
 		$newname = substr(
 			$newname,
 			strlen($gallery->getConfig('data.gallery.albums'))

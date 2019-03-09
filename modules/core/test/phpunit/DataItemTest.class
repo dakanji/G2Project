@@ -72,7 +72,8 @@ class DataItemTest extends GalleryTestCase {
 		for ($i = 0; $i < 3; $i++) {
 			$entity[$i]    = new GalleryDataItem();
 			$entityAlbumID = $this->_album->getId();
-			$ret           = $entity[$i]->create(
+
+			$ret = $entity[$i]->create(
 				$entityAlbumID,
 				__FILE__,
 				'text/plain',
@@ -199,9 +200,12 @@ class DataItemTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals($basePath . 'valid_path_001.txt', $newPath, 'full path mismatch');
+
 		$platform =& $gallery->getPlatform();
+
 		$this->assertTrue($platform->file_exists($newPath), "$newPath does not exist");
 		$this->assertTrue($platform->is_file($newPath), "$newPath is not a file");
+
 		$ret = GalleryCoreApi::releaseLocks($lockIds);
 
 		if ($ret) {
@@ -269,6 +273,7 @@ class DataItemTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_link($entityPath));
+
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
@@ -322,6 +327,7 @@ class DataItemTest extends GalleryTestCase {
 				'itemId' => $item->getId(),
 			)
 		);
+
 		$this->assertTrue($platform->file_exists($path), 'fast-download file should exist');
 
 		// Rescan

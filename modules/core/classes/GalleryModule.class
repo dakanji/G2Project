@@ -174,7 +174,8 @@ class GalleryModule extends GalleryPlugin {
 
 			// The store requires configuration.
 			$storage =& $gallery->getStorage();
-			$ret     = $storage->configureStore($this->getId());
+
+			$ret = $storage->configureStore($this->getId());
 
 			if ($ret) {
 				if ($gallery->getDebug()) {
@@ -378,7 +379,8 @@ class GalleryModule extends GalleryPlugin {
 
 		// Remove all tables
 		$storage =& $gallery->getStorage();
-		$ret     = $storage->unconfigureStore($this->getId());
+
+		$ret = $storage->unconfigureStore($this->getId());
 
 		if ($ret) {
 			return $ret;
@@ -433,6 +435,7 @@ class GalleryModule extends GalleryPlugin {
 
 			if (!(++$i % 20)) {
 				$gallery->guaranteeTimeLimit(120);
+
 				$ret = $storage->checkPoint();
 
 				if ($ret) {

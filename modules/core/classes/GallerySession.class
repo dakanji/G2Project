@@ -230,7 +230,9 @@ class GallerySession {
 
 			if (empty($this->_sessionId) && isset($searchEngineId)) {
 				$this->_isUsingCookies = true;
+
 				$this->doNotUseTempId();
+
 				$this->_isSearchEngineSession = true;
 			}
 		}
@@ -287,7 +289,8 @@ class GallerySession {
 					 * prevent hijacking
 					 */
 					$this->_sessionId = '';
-					$ret              = $this->_emptySessionData();
+
+					$ret = $this->_emptySessionData();
 
 					if ($ret) {
 						return $ret;
@@ -403,7 +406,8 @@ class GallerySession {
 					$ret = $this->_acquireNewPersistentSession();
 				} else {
 					$this->_modificationTime = $phpVm->time();
-					$ret                     = GalleryCoreApi::updateMapEntry(
+
+					$ret = GalleryCoreApi::updateMapEntry(
 						'GallerySessionMap',
 						array(
 							'id' => $this->_sessionId,
@@ -428,7 +432,8 @@ class GallerySession {
 				// Update the session modification timestamp 5% of the time to avoid expiration.
 				if ($dieRoll <= 5) {
 					$this->_modificationTime = $phpVm->time();
-					$ret                     = GalleryCoreApi::updateMapEntry(
+
+					$ret = GalleryCoreApi::updateMapEntry(
 						'GallerySessionMap',
 						array(
 							'id' => $this->_sessionId,
@@ -471,6 +476,7 @@ class GallerySession {
 	 */
 	public function initEmpty($emptyRemoteId = false, $userId = null) {
 		$this->_emptySessionData();
+
 		$this->_sessionId = '';
 
 		if ($emptyRemoteId) {
@@ -511,7 +517,8 @@ class GallerySession {
 
 		if (!empty($this->_sessionId)) {
 			$this->_sessionId = GalleryUtilities::strToLower($this->_sessionId);
-			$ret              = GalleryCoreApi::removeMapEntry(
+
+			$ret = GalleryCoreApi::removeMapEntry(
 				'GallerySessionMap',
 				array(
 					'id' => $this->_sessionId,
@@ -570,6 +577,7 @@ class GallerySession {
 		// Restore the stored session data
 		$this->_sessionData       = $localSessionData;
 		$this->_loadedSessionData = $localLoadedSessionData;
+
 		$this->setUserId($userId);
 
 		// Start the session again (create a session in the DB, ...)
@@ -772,7 +780,8 @@ class GallerySession {
 			}
 
 			$this->_sessionId = $data['id'] = GalleryUtilities::strToLower($this->_sessionId);
-			$ret              = @GalleryCoreApi::addMapEntry('GallerySessionMap', $data, true);
+
+			$ret = @GalleryCoreApi::addMapEntry('GallerySessionMap', $data, true);
 
 			if ($ret) {
 				if (!($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
@@ -1035,6 +1044,7 @@ class GallerySession {
 				 */
 				if (isset($_COOKIE[SESSION_ID_PARAMETER])) {
 					unset($_COOKIE[SESSION_ID_PARAMETER]);
+
 					$ret = $this->_setCookie(true);
 
 					if ($ret) {
@@ -1588,6 +1598,7 @@ class GallerySession {
 
 			$phpVm     = $gallery->getPhpVm();
 			$authToken = substr($phpVm->md5(uniqid(microtime() . mt_rand())), 0, 12);
+
 			$this->put('core.authToken', $authToken);
 		}
 

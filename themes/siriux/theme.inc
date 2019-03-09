@@ -31,7 +31,9 @@ class SiriuxTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('siriux');
+
 		$this->setName($gallery->i18n('Siriux'));
+
 		$this->setDescription(
 			$gallery->i18n(
 				'Siriux.net Gallery theme'
@@ -258,6 +260,7 @@ class SiriuxTheme extends GalleryTheme {
 			),
 			'value'      => $params['contentWidth'],
 		);
+
 		$settings[] = array(
 			'key'   => 'groupByYear',
 			'name'  => $this->translate(
@@ -266,6 +269,7 @@ class SiriuxTheme extends GalleryTheme {
 			'type'  => 'checkbox',
 			'value' => $params['groupByYear'],
 		);
+
 		$settings[] = array(
 			'key'   => 'enableImageMap',
 			'name'  => $this->translate(

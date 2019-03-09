@@ -72,10 +72,12 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->_markForCleanup($this->_album);
+
 		$Platform                  = $gallery->getPlatform();
 		$ItemEditThemeTestPlatform = new ItemEditThemeTestPlatform($Platform);
 
 		$gallery->setPlatform($ItemEditThemeTestPlatform);
+
 		$this->_preferred = null;
 
 		// Reset test theme
@@ -90,6 +92,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		}
 
 		$item->setTheme($themeId);
+
 		$ret = $item->save();
 
 		if ($ret) {
@@ -109,6 +112,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(array(array(), null), $results);
 	}
 
@@ -123,7 +127,6 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 			array(array(), $this->_translate('Successfully saved theme settings')),
 			$results
 		);
-
 		// Verify
 		$this->assertEquals(
 			array(
@@ -145,9 +148,9 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 			array(array('form[error][key][rows][invalid]'), null),
 			$results
 		);
-
 		// Verify that we have a detailed error message
 		$this->assertTrue(GalleryUtilities::hasRequestVariable('form[errorMessage]'));
+
 		$errorMessage = GalleryUtilities::getRequestVariables('form[errorMessage]');
 
 		$this->assertEquals('You must enter a number greater than 0', $errorMessage['rows']);
@@ -165,12 +168,12 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 			array(array(), $this->_translate('Successfully saved theme settings')),
 			$results
 		);
-
 		// Verify
 		$this->assertEquals(
 			array(
 				'setParameter(rows, 3)',
 				sprintf('removeParameter(columns, %d)', $this->_album->getId()),
+
 			),
 			ItemEditThemeControllerTestTheme::getMe()->getMap()
 		);
@@ -191,7 +194,6 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 			array(array(), $this->_translate('Successfully saved theme settings')),
 			$results
 		);
-
 		// Verify - 3 albums should be set
 		$this->assertEquals(
 			array(
@@ -234,7 +236,6 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 	public function testChooseTheme() {
 		$this->_setTheme($this->_album, null);
-
 		GalleryUtilities::putRequestVariable('form[theme]', 'ItemEditThemeControllerTest');
 		GalleryUtilities::putRequestVariable('form[action][chooseTheme]', 1);
 		GalleryUtilities::putRequestVariable(
@@ -260,7 +261,6 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 	public function testChooseDefaultTheme() {
 		$this->_setTheme($this->_album, 'ItemEditThemeControllerTest');
-
 		GalleryUtilities::putRequestVariable('form[action][chooseTheme]', 1);
 		GalleryUtilities::putRequestVariable(
 			'form[serialNumber]',
@@ -281,6 +281,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		}
 
 		$themeId = $this->_album->getTheme();
+
 		$this->assertTrue(empty($themeId));
 	}
 
@@ -303,7 +304,6 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		$this->_setTheme($this->_album, null);
 		$this->_setTheme($this->_childAlbum, null);
 		$this->_setTheme($this->_grandchildAlbum, null);
-
 		GalleryUtilities::putRequestVariable('form[theme]', 'ItemEditThemeControllerTest');
 		GalleryUtilities::putRequestVariable('form[changeInDescendents][theme]', 1);
 		GalleryUtilities::putRequestVariable('form[action][chooseTheme]', 1);

@@ -321,6 +321,7 @@ class Smarty {
 	 * $smarty->display('file:index.tpl');
 	 * $smarty->display('db:index.tpl');
 	 * $smarty->display('index.tpl'); // will use default resource type
+	 *
 	 * {include file="file:index.tpl"}
 	 * {include file="db:index.tpl"}
 	 * {include file="index.tpl"} {* will use default resource type *}
@@ -730,7 +731,6 @@ class Smarty {
 	public function register_object($object, &$object_impl, $allowed = array(), $smarty_args = true, $block_methods = array()) {
 		settype($allowed, 'array');
 		settype($smarty_args, 'boolean');
-
 		$this->_reg_objects[$object] = array(&$object_impl, $allowed, $smarty_args, $block_methods);
 	}
 
@@ -1158,7 +1158,8 @@ class Smarty {
 				'filename' => $resource_name,
 				'depth'    => 0,
 			);
-			$_included_tpls_idx         = count($this->_smarty_debug_info) - 1;
+
+			$_included_tpls_idx = count($this->_smarty_debug_info) - 1;
 		}
 
 		if (!isset($compile_id)) {
@@ -1171,6 +1172,7 @@ class Smarty {
 		if ($this->caching) {
 			// save old cache_info, initialize cache_info
 			array_push($_cache_info, $this->_cache_info);
+
 			$this->_cache_info = array();
 			$_params           = array(
 				'tpl_file'   => $resource_name,
@@ -1499,7 +1501,6 @@ class Smarty {
 			// if a _cache_serial was set, we also have to write an include-file:
 			if ($this->_cache_include_info) {
 				include_once SMARTY_CORE_DIR . 'core.write_compiled_include.php';
-
 				smarty_core_write_compiled_include(
 					array_merge(
 						$this->_cache_include_info,
@@ -1661,7 +1662,8 @@ class Smarty {
 							$this->_plugins['resource'][$_resource_type][0][1],
 							array($_resource_name, &$params['resource_timestamp'], &$this)
 						);
-					$_return           = $_source_return && $_timestamp_return;
+
+					$_return = $_source_return && $_timestamp_return;
 
 					break;
 			}
@@ -1967,7 +1969,8 @@ class Smarty {
 				'filename' => $params['smarty_include_tpl_file'],
 				'depth'    => ++$this->_inclusion_depth,
 			);
-			$included_tpls_idx          = count($this->_smarty_debug_info) - 1;
+
+			$included_tpls_idx = count($this->_smarty_debug_info) - 1;
 		}
 
 		$this->_tpl_vars = array_merge($this->_tpl_vars, $params['smarty_include_vars']);
@@ -1975,6 +1978,7 @@ class Smarty {
 		// config vars are treated as local, so push a copy of the
 		// current ones onto the front of the stack
 		array_unshift($this->_config, $this->_config[0]);
+
 		$_smarty_compile_path = $this->_get_compile_path($params['smarty_include_tpl_file']);
 
 		if ($this->_is_compiled($params['smarty_include_tpl_file'], $_smarty_compile_path)

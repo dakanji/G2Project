@@ -53,6 +53,7 @@ class CoreModuleExtras {
 
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
+
 		$gallery->debug('Entering CoreModuleExtras::upgrade');
 
 		/*
@@ -129,6 +130,7 @@ class CoreModuleExtras {
 			$count      = 1;
 			$total      = count($modules);
 			$statusText = $module->translate('Converting Schema Table');
+
 			$gallery->guaranteeTimeLimit(30);
 
 			foreach ($modules as $moduleId => $moduleStatus) {
@@ -144,6 +146,7 @@ class CoreModuleExtras {
 				}
 
 				$gallery->guaranteeTimeLimit(30);
+
 				$ret = $statusMonitor->renderStatusMessage($statusText, '', $count++ / $total);
 
 				if ($ret) {
@@ -176,6 +179,7 @@ class CoreModuleExtras {
 		 * then your code.  Do *not* put in a break statement.  (Update _prepareConfigUpgrade too).
 		 */
 		$gallery->debug(sprintf('The current version is %s', $currentVersion));
+
 		$progressText = $module->translate('Installing the core module');
 
 		switch ($currentVersion) {
@@ -219,7 +223,6 @@ class CoreModuleExtras {
 				}
 
 				$gallery->debug(sprintf('Locktype %s selected', $flockType));
-
 				// Initial install.  Make sure all our module parameters are set.
 				$gallery->debug('Set core module parameters');
 
@@ -294,7 +297,6 @@ class CoreModuleExtras {
 				}
 
 				$gallery->guaranteeTimeLimit(180);
-
 				// Activate the default theme
 				$gallery->debug('Load default theme');
 
@@ -314,6 +316,7 @@ class CoreModuleExtras {
 							$defaultThemeId
 						)
 					);
+
 					$defaultThemeId = null;
 
 					foreach ($themeList as $themeId => $themeInfo) {
@@ -365,6 +368,7 @@ class CoreModuleExtras {
 
 				$gallery->guaranteeTimeLimit(180);
 				$gallery->debug('InstallOrUpgrade default theme');
+
 				$ret = $theme->installOrUpgrade();
 
 				if ($ret) {
@@ -411,7 +415,6 @@ class CoreModuleExtras {
 				}
 
 				$gallery->guaranteeTimeLimit(180);
-
 				/*
 				 * Register our permissions.  Since we're storing internationalized strings in the
 				 * database, we have to give our internationalized string extractor a clue that these
@@ -419,60 +422,70 @@ class CoreModuleExtras {
 				 * description so that our extractor can find it.
 				 */
 				$gallery->debug('Register core module permissions');
+
 				$permissions[] = array(
 					'all',
 					$gallery->i18n('All access'),
 					GALLERY_PERMISSION_ALL_ACCESS,
 					array(),
 				);
+
 				$permissions[] = array(
 					'view',
 					$gallery->i18n('[core] View item'),
 					0,
 					array(),
 				);
+
 				$permissions[] = array(
 					'viewResizes',
 					$gallery->i18n('[core] View resized version(s)'),
 					0,
 					array(),
 				);
+
 				$permissions[] = array(
 					'viewSource',
 					$gallery->i18n('[core] View original version'),
 					0,
 					array(),
 				);
+
 				$permissions[] = array(
 					'viewAll',
 					$gallery->i18n('[core] View all versions'),
 					GALLERY_PERMISSION_COMPOSITE,
 					array('core.view', 'core.viewResizes', 'core.viewSource'),
 				);
+
 				$permissions[] = array(
 					'addAlbumItem',
 					$gallery->i18n('[core] Add sub-album'),
 					0,
 					array(),
 				);
+
 				$permissions[] = array(
 					'addDataItem',
 					$gallery->i18n('[core] Add sub-item'),
 					0,
 					array(),
 				);
+
 				$permissions[] = array(
 					'edit',
 					$gallery->i18n('[core] Edit item'),
 					0,
 					array(),
 				);
+
 				$permissions[] = array(
 					'changePermissions',
 					$gallery->i18n('[core] Change item permissions'),
 					0,
 					array(),
 				);
+
 				$permissions[] = array(
 					'delete',
 					$gallery->i18n('[core] Delete item'),
@@ -520,6 +533,7 @@ class CoreModuleExtras {
 					'_createRootAlbumItem',
 				) as $func) {
 					$gallery->debug(sprintf('Call user func %s', $func));
+
 					$ret = call_user_func(array('CoreModuleExtras', $func), $module);
 
 					if ($ret) {
@@ -564,6 +578,7 @@ class CoreModuleExtras {
 				}
 
 				$gallery->debug('CoreModulesExtra::upgrade: successfully installed core');
+
 				$ret = $statusMonitor->renderStatusMessage($progressText, '', 0.7);
 
 				if ($ret) {
@@ -745,6 +760,7 @@ class CoreModuleExtras {
 				// Fall Through
 			case '0.9.5':
 				$gallery->guaranteeTimeLimit(30);
+
 				$ret = $this->_createAccessListCompacterLock($module);
 
 				if ($ret) {
@@ -959,8 +975,9 @@ class CoreModuleExtras {
 							$query,
 							array_merge($chunk, array($permissionRowCount))
 						);
-						$possibleDupeIds     = array();
-						$dupeIds             = array();
+
+						$possibleDupeIds = array();
+						$dupeIds         = array();
 
 						while ($result = $results->nextResult()) {
 							$dupeIds[] = (int)$result[0];
@@ -1035,6 +1052,7 @@ class CoreModuleExtras {
 				 * Added FlushTemplatesTask, FlushDatabaseCacheTask.
 				 */
 				$gallery->guaranteeTimeLimit(30);
+
 				$ret = GalleryCoreApi::removeAllMapEntries('GalleryMaintenanceMap');
 
 				if ($ret) {
@@ -1155,6 +1173,7 @@ class CoreModuleExtras {
 
 						if (!strcmp($allUserGroupName, $originalGroupName)) {
 							$group->setGroupName($module->translate('Registered Users'));
+
 							$ret = $group->save();
 
 							if ($ret) {
@@ -1300,6 +1319,7 @@ class CoreModuleExtras {
 				 *         so restrict this query to only GalleryDerivativeImage
 				 */
 				$gallery->guaranteeTimeLimit(60);
+
 				$query = "
 					SELECT
 						[GalleryDerivative::id]
@@ -1412,6 +1432,7 @@ class CoreModuleExtras {
 							$itemsProcessed++;
 
 							$gallery->guaranteeTimeLimit(30);
+
 							$derivative = array_pop($derivatives);
 
 							/*
@@ -1491,6 +1512,7 @@ class CoreModuleExtras {
 							|| (!empty($brokenDerivatives) && empty($derivativeIds))
 						) {
 							$gallery->guaranteeTimeLimit(30);
+
 							$saveProgressStepSize = min(200, (int)(sizeof($brokenDerivatives) / 10));
 
 							$ret = $statusMonitor->renderStatusMessage(
@@ -1549,6 +1571,7 @@ class CoreModuleExtras {
 								}
 
 								$brokenDerivative->setIsBroken(true);
+
 								$ret = $brokenDerivative->save(true, false);
 
 								if ($ret) {
@@ -1777,6 +1800,7 @@ class CoreModuleExtras {
 
 				for ($i = 0; $i < 10; $i++) {
 					$gallery->guaranteeTimeLimit(60);
+
 					$ret = $statusMonitor->renderStatusMessage(
 						$module->translate('Clearing fast-download cache'),
 						'',
@@ -1883,6 +1907,7 @@ class CoreModuleExtras {
 					$gallery->debug(
 						'Rename unnamed pre-beta-3 index to named index (ignore errors)'
 					);
+
 					$query = sprintf(
 						'
 						ALTER TABLE %sAccessMap
@@ -1893,7 +1918,6 @@ class CoreModuleExtras {
 						$storage->_tablePrefix,
 						$storage->_columnPrefix
 					);
-
 					// Ignore error, since there's nothing to do for most installations
 					$storage->execute($query);
 				}
@@ -2036,6 +2060,7 @@ class CoreModuleExtras {
 				 * cache/entity/.  Delete the old files in cache/derivative/.
 				 */
 				$gallery->guaranteeTimeLimit(60);
+
 				$query = '
 					SELECT
 						[GalleryDerivativeImage::id]
@@ -2065,6 +2090,7 @@ class CoreModuleExtras {
 
 					$totalDerivatives = count($derivativeIds);
 					$base             = $gallery->getConfig('data.gallery.cache');
+
 					$gallery->guaranteeTimeLimit(60);
 
 					// Show a progress bar
@@ -2101,6 +2127,7 @@ class CoreModuleExtras {
 						// Update the progress bar / prevent timouts
 						if ($i % $stepSize == 0 || $i == ($totalDerivatives - 1)) {
 							$gallery->guaranteeTimeLimit(60);
+
 							$ret = $statusMonitor->renderStatusMessage(
 								$module->translate('Deleting old fast-download cache'),
 								'',
@@ -2125,6 +2152,7 @@ class CoreModuleExtras {
 			case '1.0.16':
 				// Added 'not-null' to Entities.inc and Map.inc
 				$storageExtras =& $storage->_getExtras();
+
 				$storageExtras->_clearEntityAndMapCache();
 
 				// Fall Through
@@ -2193,6 +2221,7 @@ class CoreModuleExtras {
 				// GallerySession change: Store sessions in the database and no longer on disk
 				$sessionsDir = $gallery->getConfig('data.gallery.base')
 				. 'sessions'
+
 				. $platform->getDirectorySeparator();
 
 				if ($platform->file_exists($sessionsDir)) {
@@ -2242,6 +2271,7 @@ class CoreModuleExtras {
 						// Update the progress bar / prevent timouts
 						if ($count % $stepSize == 0) {
 							$gallery->guaranteeTimeLimit(60);
+
 							$ret = $statusMonitor->renderStatusMessage(
 								$module->translate(
 									array(
@@ -2266,6 +2296,7 @@ class CoreModuleExtras {
 
 					$platform->closedir($dir);
 					$platform->rmdir($sessionsDir);
+
 					$ret = $statusMonitor->renderStatusMessage(
 						$module->translate(
 							array(
@@ -2291,6 +2322,7 @@ class CoreModuleExtras {
 					$gallery->debug(
 						'Rename unnamed pre-beta-3 index to named index (ignore errors)'
 					);
+
 					$indexChanges   = array();
 					$indexChanges[] = array(
 						'AccessMap',
@@ -2491,7 +2523,8 @@ class CoreModuleExtras {
 					foreach ($indexChanges as $change) {
 						$indexColumns = implode('`, `' . $storage->_columnPrefix, $change[3]);
 						$indexColumns = $storage->_columnPrefix . $indexColumns;
-						$query        = sprintf(
+
+						$query = sprintf(
 							'
 							ALTER TABLE `%s%s`
 							DROP INDEX `%s%s`,
@@ -2504,7 +2537,6 @@ class CoreModuleExtras {
 							$change[2],
 							$indexColumns
 						);
-
 						// Ignore error, since there's nothing to do for most installations
 						$storage->execute($query);
 					}
@@ -2553,7 +2585,8 @@ class CoreModuleExtras {
 					$storage->_columnPrefix,
 					$storage->_columnPrefix
 				);
-				$ret   = $storage->execute($query);
+
+				$ret = $storage->execute($query);
 
 				if ($ret) {
 					return $ret;
@@ -2603,6 +2636,7 @@ class CoreModuleExtras {
 
 				// Clear the cache data since we changed the blob encoding
 				$gallery->guaranteeTimeLimit(60);
+
 				$ret = GalleryCoreApi::removeAllMapEntries('GalleryCacheMap', true);
 
 				if ($ret) {
@@ -2701,6 +2735,7 @@ class CoreModuleExtras {
 				 * classes and set the items to use the PanoramaRenderer instead
 				 */
 				$gallery->guaranteeTimeLimit(60);
+
 				$query = '
 				SELECT
 				[GalleryEntity::id], [GalleryEntity::entityType]
@@ -2731,6 +2766,7 @@ class CoreModuleExtras {
 				// Switch PanoramaPhotoItems back to GalleryPhotoItems
 				for ($i = 0; $photos; $i += count($ids)) {
 					$gallery->guaranteeTimeLimit(30);
+
 					$ret = $statusMonitor->renderStatusMessage(
 						$module->translate('Updating panorama items'),
 						'',
@@ -2778,6 +2814,7 @@ class CoreModuleExtras {
 				// Switch PanoramaDerivativeImage back to GalleryDerivativeImage
 				while ($derivatives) {
 					$gallery->guaranteeTimeLimit(30);
+
 					$ret = $statusMonitor->renderStatusMessage(
 						$module->translate('Updating panorama items'),
 						'',
@@ -2841,6 +2878,7 @@ class CoreModuleExtras {
 			case '1.1.6':
 				// Remove useless rows in AccessSubscriberMap
 				$gallery->guaranteeTimeLimit(60);
+
 				$query = '
 					SELECT
 						[GalleryAccessSubscriberMap::itemId]
@@ -2875,6 +2913,7 @@ class CoreModuleExtras {
 
 				for ($i = 0; $itemIds; $i += count($ids)) {
 					$gallery->guaranteeTimeLimit(30);
+
 					$ret = $statusMonitor->renderStatusMessage(
 						$module->translate('Optimizing AccessSubscriberMap table'),
 						'',
@@ -3070,6 +3109,7 @@ class CoreModuleExtras {
 				foreach (array('module', 'theme') as $pluginType) {
 					foreach ($pluginList[$pluginType] as $pluginId => $ignored) {
 						$gallery->guaranteeTimeLimit(30);
+
 						$ret = $statusMonitor->renderStatusMessage(
 							$upgradingMessageText,
 							$pluginId,
@@ -3309,6 +3349,7 @@ class CoreModuleExtras {
 						}
 
 						$gallery->guaranteeTimeLimit(60);
+
 						$ret = $statusMonitor->renderStatusMessage($statusText, '', $count / $total);
 
 						if ($ret) {
@@ -3365,15 +3406,18 @@ class CoreModuleExtras {
 
 					for ($j = 0; $j <= 9; $j++) {
 						$gallery->guaranteeTimeLimit(120);
+
 						$fileList = @$platform->glob("$basePath/$i/$j/*-meta.inc");
 
 						if ($fileList) {
 							$gallery->guaranteeTimeLimit(120);
+
 							$count = 0;
 
 							foreach ($fileList as $file) {
 								if (++$count % 100 == 0) {
 									$gallery->guaranteeTimeLimit(120);
+
 									$ret = $statusMonitor->renderStatusMessage(
 										$statusText,
 										'',
@@ -3463,6 +3507,7 @@ class CoreModuleExtras {
 				foreach (array('module', 'theme') as $pluginType) {
 					foreach (array_keys($pluginList[$pluginType]) as $pluginId) {
 						$gallery->guaranteeTimeLimit(30);
+
 						$ret = $statusMonitor->renderStatusMessage(
 							$upgradingMessageText,
 							$pluginId,
@@ -3548,6 +3593,7 @@ class CoreModuleExtras {
 		}
 
 		$gallery->debug('Write new version to versions file');
+
 		$versionFile     = $gallery->getConfig('data.gallery.version');
 		$versionDatError = 0;
 
@@ -3792,6 +3838,7 @@ class CoreModuleExtras {
 				*           $gallery->setConfig(\'baseUri\', \'https://example.com:8080/gallery2/index.php\');
 				*/
 				$gallery->setConfig(\'baseUri\', \'\');',
+
 					),
 				);
 
@@ -3802,14 +3849,15 @@ class CoreModuleExtras {
 				 * Normalize the config path 'data.gallery.base' (add a trailing slash if necessary).
 				 * Escape the backslashes and quotes two times since we feed preg_replace with it.
 				 */
-				$edit                = array();
-				$tmp                 = strtr(
+				$edit = array();
+				$tmp  = strtr(
 					$gallery->getConfig('data.gallery.base'),
 					array(
 						'\\' => '\\\\\\\\',
 						"'"  => "\\\\'",
 					)
 				);
+
 				$edit['regexp']      = '{\$gallery->setConfig\(\'data\.gallery\.base\',.*?;}s';
 				$edit['replacement'] = '$gallery->setConfig(\'data.gallery.base\', \''
 				. $tmp . '\');';
@@ -4055,6 +4103,7 @@ class CoreModuleExtras {
 					$gallery->debug(
 						'Warning: config.php add pattern not matched, appending to file instead'
 					);
+
 					$configContents .= "\n" . $content . "\n?>\n";
 				}
 			}
@@ -4106,7 +4155,8 @@ class CoreModuleExtras {
 
 		$group     = new GalleryGroup();
 		$groupName = $module->translate('Registered Users');
-		$ret       = $group->create($groupName, GROUP_ALL_USERS);
+
+		$ret = $group->create($groupName, GROUP_ALL_USERS);
 
 		if ($ret) {
 			return $ret;
@@ -4150,7 +4200,8 @@ class CoreModuleExtras {
 
 		$group     = new GalleryGroup();
 		$groupName = $module->translate('Site Admins');
-		$ret       = $group->create($groupName, GROUP_SITE_ADMINS);
+
+		$ret = $group->create($groupName, GROUP_SITE_ADMINS);
 
 		if ($ret) {
 			return $ret;
@@ -4194,7 +4245,8 @@ class CoreModuleExtras {
 
 		$group     = new GalleryGroup();
 		$groupName = $module->translate('Everybody');
-		$ret       = $group->create($groupName, GROUP_EVERYBODY);
+
+		$ret = $group->create($groupName, GROUP_EVERYBODY);
 
 		if ($ret) {
 			return $ret;
@@ -4239,7 +4291,8 @@ class CoreModuleExtras {
 		$user     = new GalleryUser();
 		$userName = 'guest';
 		$fullName = $module->translate('Guest');
-		$ret      = $user->create($userName);
+
+		$ret = $user->create($userName);
 
 		if ($ret) {
 			return $ret;
@@ -4247,6 +4300,7 @@ class CoreModuleExtras {
 
 		$user->setFullName($fullName);
 		$user->changePassword('');
+
 		$ret = $user->save();
 
 		if ($ret) {
@@ -4313,7 +4367,8 @@ class CoreModuleExtras {
 		$userName = !strlen($userName) ? 'admin' : $userName;
 		$email    = $gallery->getConfig('setup.admin.email');
 		$fullName = $gallery->getConfig('setup.admin.fullName');
-		$ret      = $user->create($userName);
+
+		$ret = $user->create($userName);
 
 		if ($ret) {
 			return $ret;
@@ -4322,6 +4377,7 @@ class CoreModuleExtras {
 		$user->changePassword($gallery->getConfig('setup.password'));
 		$user->setFullName($fullName);
 		$user->setEmail($email);
+
 		$ret = $user->save();
 
 		if ($ret) {
@@ -4372,8 +4428,10 @@ class CoreModuleExtras {
 
 		$title       = $module->translate('Gallery');
 		$description = $module->translate('This is the main page of your Gallery');
+
 		$album->setTitle($title);
 		$album->setDescription($description);
+
 		$ret = $album->save();
 
 		if ($ret) {
@@ -4436,6 +4494,7 @@ class CoreModuleExtras {
 		$lock = new GalleryEntity();
 
 		$lock->create();
+
 		$ret = $lock->save(false);
 
 		if ($ret) {
@@ -4866,6 +4925,7 @@ class CoreModuleExtras {
 					}
 
 					$gallery->guaranteeTimeLimit(120);
+
 					$storageExtras =& $storage->_getExtras();
 
 					list($ret, $tableVersions) = $storageExtras->_loadTableVersions();
@@ -4921,6 +4981,7 @@ class CoreModuleExtras {
 						}
 
 						$storage->_db->SetFetchMode($originalFetchMode);
+
 						$changeToBinary = $changeToUtf8 = array();
 
 						while ($column = $results->nextResult()) {

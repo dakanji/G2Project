@@ -138,7 +138,6 @@ class GalleryPhotoItem extends GalleryDataItem {
 
 		// We're linkable
 		$this->setIsLinkable(true);
-
 		// Default to empty dimensions
 		$this->setWidth(0);
 		$this->setHeight(0);

@@ -37,6 +37,7 @@ class AuthenticateStep extends UpgradeStep {
 
 			if (empty($templateData['authKey'])) {
 				$templateData['authKey'] = GallerySetupUtilities::generateAuthenticationKey();
+
 				GallerySetupUtilities::setAuthenticationKey($templateData['authKey']);
 			}
 

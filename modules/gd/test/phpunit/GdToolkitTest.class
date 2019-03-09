@@ -71,6 +71,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 		// Watermarks are relative to data.gallery.base
 		$this->_oldBase = $gallery->getConfig('data.gallery.base');
+
 		$gallery->setConfig('data.gallery.base', '/valid/');
 
 		// Get a toolkit to work with
@@ -82,6 +83,7 @@ class GdToolkitTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->setConfig('data.gallery.base', $this->_oldBase);
+
 		$ret = parent::tearDown();
 
 		if ($ret) {
@@ -94,6 +96,7 @@ class GdToolkitTest extends GalleryTestCase {
 			// Test each PHP environment we know
 			$this->_gdFunctionality->setEnvironment($environment);
 			$this->_toolkit->setGdFunctionality($this->_gdFunctionality);
+
 			$gd =& $this->_gdFunctionality;
 
 			list($ret, $isSupported) = GdToolkitHelper::isGdVersionSupported(null, $gd);
@@ -267,6 +270,7 @@ class GdToolkitTest extends GalleryTestCase {
 						$context,
 						'rotate-context'
 					);
+
 					$this->assertEquals(
 						0,
 						$gd->_undestroyedResourceCounter,
@@ -427,6 +431,7 @@ class GdToolkitTest extends GalleryTestCase {
 			'BOGUS',
 			array('BOGUS')
 		);
+
 		$this->assertTrue($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION, 'bad op');
 		$this->assertEquals(
 			0,
@@ -466,6 +471,7 @@ class GdToolkitTest extends GalleryTestCase {
 
 			// Test a property that doesn't exist
 			list($ret, $results) = $this->_toolkit->getProperty('image/gif', 'BOGUS', 'BOGUS');
+
 			$this->assertTrue($ret->getErrorCode() & ERROR_UNIMPLEMENTED);
 			$this->assertEquals(
 				0,
@@ -477,61 +483,73 @@ class GdToolkitTest extends GalleryTestCase {
 
 	public function testMergeOperations() {
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('crop', array(1, 2, 3, 4), 'crop', array(3, 4, 5, 6));
+
 		$this->assertTrue($success);
 		$this->assertEquals('crop', $operation);
 		$this->assertEquals(array(3, 4, 5, 6), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('resize', array(1, 2), 'resize', array(3, 4));
+
 		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('thumbnail', array(1, 2), 'resize', array(3, 4));
+
 		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('thumbnail', array(1, 2), 'thumbnail', array(3, 4));
+
 		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('scale', array(1, 2), 'thumbnail', array(3, 4));
+
 		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(90));
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(180), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(-90));
+
 		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(270), 'rotate', array(180));
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(90), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(-180));
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(180));
+
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(270), 'rotate', array(90));
+
 		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
 
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('crop', array(1, 2), 'thumbnail', array(3, 4));
+
 		$this->assertFalse($success);
 	}
 
@@ -768,6 +786,7 @@ class GdToolkitTest extends GalleryTestCase {
 		// We use the other case (has transparent color index) in other tests for simplicity
 		$this->_gdFunctionality->setEnvironment(array_pop($this->_gdEnvironments));
 		$this->_toolkit->setGdFunctionality($this->_gdFunctionality);
+
 		$gd =& $this->_gdFunctionality;
 
 		list($ret, $res) = $this->_toolkit->_getTrueColorImageRes(200, 300, true);
@@ -777,11 +796,13 @@ class GdToolkitTest extends GalleryTestCase {
 		}
 
 		$hasTransparency = $this->_toolkit->_canHaveTransparency('image/gif', $res);
-		$this->assertTrue($hasTransparency, 'has transparency');
 
+		$this->assertTrue($hasTransparency, 'has transparency');
 		// After some operation, the resource has no transparent color index anymore...
 		$gd->imagecolortransparent($res, -1);
+
 		$hasTransparency = $this->_toolkit->_canHaveTransparency('image/gif', $res);
+
 		$this->assertFalse($hasTransparency, 'has transparency 2');
 
 		// Call the method under test through the save wrapper

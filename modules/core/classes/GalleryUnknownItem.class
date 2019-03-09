@@ -89,6 +89,7 @@ class GalleryUnknownItem extends GalleryDataItem {
 	 */
 	public function itemTypeName($localized = true) {
 		global $gallery;
+
 		static $mimeMap;
 
 		if (!isset($mimeMap)) {
