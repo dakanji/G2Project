@@ -71,7 +71,7 @@ else
 			# 01. Remove all blank lines
 			RET=$(perl -i -pe 's/^\s*$//' $FILE)
 			# 02. Add blank line after "global or static $XYZ" calls
-			RET=$(perl -i -pe 's/^(\s*)(global|static)([^;]+;)(.*)$/$1$2 $3$4\n\n/' $FILE)
+			RET=$(perl -i -pe 's/^(\s*)(global|static)(\s+)([^;]+;)(.*)$/$1$2 $4\n\n/' $FILE)
 			# 03. Add blank line before "$query" calls
 			RET=$(perl -i -pe 's/^(\s*)\$query\s*(\.?=)/\n\n$1\$query $2/' $FILE)
 			# 04. Add blank line before "$ret" and "list" calls
