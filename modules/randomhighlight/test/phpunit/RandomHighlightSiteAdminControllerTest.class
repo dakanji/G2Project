@@ -44,7 +44,8 @@ class RandomHighlightSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testRandomHighlightSiteAdminControllerUndo() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
@@ -154,4 +155,5 @@ class RandomHighlightSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals('7404', $duration, 'duration');
 	}
+
 }

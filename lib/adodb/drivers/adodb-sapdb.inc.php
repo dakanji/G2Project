@@ -63,6 +63,7 @@ if (!defined('ADODB_SAPDB')) {
 			$sql   = 'SELECT INDEXNAME,TYPE,COLUMNNAME FROM INDEXCOLUMNS ' .
 			" WHERE TABLENAME=$table" .
 			' ORDER BY INDEXNAME,COLUMNNO';
+
 			global $ADODB_FETCH_MODE;
 
 			$save             = $ADODB_FETCH_MODE;
@@ -143,7 +144,8 @@ if (!defined('ADODB_SAPDB')) {
 
 								break;
 						}
-					}
+
+}
 				}
 
 				$retarr[$fld->name] = $fld;
@@ -182,7 +184,8 @@ if (!defined('ADODB_SAPDB')) {
 		 *
 		 * See http://listserv.sap.com/pipermail/sapdb.general/2002-January/010405.html
 		 */
-	}
+
+}
 
 	class ADORecordSet_sapdb extends ADORecordSet_odbc {
 		public $databaseType = 'sapdb';
@@ -190,5 +193,6 @@ if (!defined('ADODB_SAPDB')) {
 		public function __construct($id, $mode = false) {
 			parent::__construct($id, $mode);
 		}
-	}
+
+}
 } //define

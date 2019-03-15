@@ -43,13 +43,13 @@ class RegisterModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testSystemLinks() {
 		global $gallery;
 
-		$label = $this->_module->translate('Register');
-
+		$label             = $this->_module->translate('Register');
 		list($ret, $links) = $this->_module->getSystemLinks();
 
 		if ($ret) {
@@ -105,4 +105,5 @@ class RegisterModuleTest extends GalleryTestCase {
 			'guest'
 		);
 	}
+
 }

@@ -328,6 +328,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 			'handleRequest'
 		);
 	}
+
 }
 
 /**
@@ -374,4 +375,5 @@ class SetupRewriteMockParser extends RewriteParser {
 
 		return array(null, $error, $status);
 	}
+
 }

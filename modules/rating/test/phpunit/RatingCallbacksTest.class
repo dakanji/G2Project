@@ -125,7 +125,6 @@ class RatingCallbacksTest extends GalleryTestCase {
 		);
 
 		$this->assertTrue(isset($data['rating']), 'Missing rating');
-
 		$this->assertTrue(isset($data['userRating']), 'Missing userRating');
 		$this->assertTrue(isset($data['stars']), 'Missing stars');
 		$this->assertTrue(isset($data['userStars']), 'Missing userStars');
@@ -166,7 +165,6 @@ class RatingCallbacksTest extends GalleryTestCase {
 		);
 
 		$this->assertTrue(isset($data['rating']), 'Missing rating');
-
 		$this->assertTrue(isset($data['userRating']), 'Missing userRating');
 		$this->assertTrue(isset($data['stars']), 'Missing stars');
 		$this->assertTrue(isset($data['userStars']), 'Missing userStars');
@@ -221,10 +219,12 @@ class RatingCallbacksTest extends GalleryTestCase {
 					'Wrong error code, expected ERROR_MISSING_OBJECT'
 				);
 			}
-		} else {
+
+} else {
 			$this->fail('Expected ERROR_MISSING_OBJECT');
 		}
-	}
+
+}
 
 	public function testRatingNoRatingPermission() {
 		global $gallery;
@@ -314,9 +314,7 @@ class RatingCallbacksTest extends GalleryTestCase {
 		);
 
 		$this->assertTrue(isset($data['rating']), 'Missing rating');
-
 		$this->assertTrue(isset($data['userRating']), 'Missing userRating');
-
 		$this->assertTrue(isset($data['stars']), 'Missing stars');
 		$this->assertTrue(isset($data['userStars']), 'Missing userStars');
 		$this->assertTrue(isset($data['votes']), 'Missing votes');
@@ -387,9 +385,7 @@ class RatingCallbacksTest extends GalleryTestCase {
 		);
 
 		$this->assertTrue(isset($data['rating']), 'Missing rating');
-
 		$this->assertTrue(isset($data['userRating']), 'Missing userRating');
-
 		$this->assertTrue(isset($data['stars']), 'Missing stars');
 		$this->assertTrue(isset($data['userStars']), 'Missing userStars');
 		$this->assertTrue(isset($data['votes']), 'Missing votes');
@@ -448,4 +444,5 @@ class RatingCallbacksTest extends GalleryTestCase {
 
 		$this->assertFalse(isset($this->_smarty->_tpl_vars['block']), 'Received rating block.');
 	}
+
 }

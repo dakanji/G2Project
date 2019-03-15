@@ -76,7 +76,8 @@ function PivotTableSQL(
 			if ($aggfield) {
 				$sel .= $iif ? "\n\t$aggfn(IIF($v,$aggfield,0)) AS \"$sumlabel$k\", " : "\n\t$aggfn(CASE WHEN $v THEN $aggfield ELSE 0 END) AS \"$sumlabel$k\", ";
 			}
-		}
+
+}
 	} else {
 		foreach ($colarr as $v) {
 			if (!is_numeric($v)) {
@@ -104,7 +105,8 @@ function PivotTableSQL(
 
 				$sel .= $iif ? "\n\t$aggfn(IIF($colfield=$vq,$aggfield,0)) AS \"$label\", " : "\n\t$aggfn(CASE WHEN $colfield=$vq THEN $aggfield ELSE 0 END) AS \"$label\", ";
 			}
-		}
+
+}
 	}
 
 	if ($aggfield && $aggfield != '1') {
@@ -202,4 +204,5 @@ if (0) {
 	FROM products p ,categories c ,suppliers s  WHERE  p.CategoryID = c.CategoryID and s.SupplierID= p.SupplierID
 	GROUP BY CompanyName,QuantityPerUnit
 	*/
+
 }

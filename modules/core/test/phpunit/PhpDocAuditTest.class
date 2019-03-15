@@ -60,9 +60,11 @@ class PhpDocAuditTest extends CodeAuditTestCase {
 				foreach ($matches[1] as $package) {
 					$this->_packageMap[$plugin][$package][] = $fileName;
 				}
-			}
+
+}
 		}
-	}
+
+}
 
 	/**
 	 * @see CodeAuditTestCase::finishScan
@@ -80,7 +82,8 @@ class PhpDocAuditTest extends CodeAuditTestCase {
 							$probablyCorrect = $package;
 							$max             = count($files);
 						}
-					}
+
+}
 
 					$mismatches = join(', ', array_keys($packages));
 					$this->assertFalse(
@@ -94,7 +97,9 @@ class PhpDocAuditTest extends CodeAuditTestCase {
 						)
 					);
 				}
-			}
+
+}
 		}
-	}
+
+}
 }

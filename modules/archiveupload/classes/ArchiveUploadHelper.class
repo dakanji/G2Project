@@ -56,7 +56,8 @@ class ArchiveUploadHelper {
 			if (!$platform->is_executable($unzipPath)) {
 				return array(false, 'notExecutable', null);
 			}
-		} else {
+
+} else {
 			return array(false, 'badPath', null);
 		}
 
@@ -74,7 +75,8 @@ class ArchiveUploadHelper {
 
 				break;
 			}
-		}
+
+}
 
 		return array(
 			$valid,
@@ -146,8 +148,10 @@ class ArchiveUploadHelper {
 
 				break;
 			}
-		}
+
+}
 
 		return $validPath;
 	}
+
 }

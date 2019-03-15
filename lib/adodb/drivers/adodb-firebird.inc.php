@@ -21,7 +21,9 @@ require_once ADODB_DIR . '/drivers/adodb-ibase.inc.php';
 class ADODB_firebird extends ADODB_ibase {
 	public $databaseType = 'firebird';
 	public $dialect      = 3;
-	public $sysTimeStamp = 'CURRENT_TIMESTAMP'; //"cast('NOW' as timestamp)";
+
+	//"cast('NOW' as timestamp)";
+	public $sysTimeStamp = 'CURRENT_TIMESTAMP';
 
 	public function ServerInfo() {
 		$arr['dialect'] = $this->dialect;
@@ -74,6 +76,7 @@ class ADODB_firebird extends ADODB_ibase {
 
 		return $rs;
 	}
+
 }
 
 class ADORecordSet_firebird extends ADORecordSet_ibase {
@@ -82,4 +85,5 @@ class ADORecordSet_firebird extends ADORecordSet_ibase {
 	public function __construct($id, $mode = false) {
 		parent::__construct($id, $mode);
 	}
+
 }

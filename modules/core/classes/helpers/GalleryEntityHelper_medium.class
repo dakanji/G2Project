@@ -45,7 +45,8 @@ class GalleryEntityHelper_medium {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($ret, $entity) = GalleryEntityHelper_simple::loadEntitiesById($id, $requiredEntityType);
 
@@ -63,7 +64,8 @@ class GalleryEntityHelper_medium {
 
 				return $ret;
 			}
-		}
+
+}
 
 		// If this item has links to it, make one of those links the master
 		list($ret, $linkedIds) = GalleryEntityHelper_medium::fetchEntitiesLinkedTo($id);
@@ -120,7 +122,8 @@ class GalleryEntityHelper_medium {
 
 					return $ret;
 				}
-			}
+
+}
 
 			// Remap any derivatives sourced from old-master to new-master
 			$ret = GalleryCoreApi::remapSourceIds($id, $linkedEntities[0]->getId());
@@ -130,7 +133,8 @@ class GalleryEntityHelper_medium {
 
 				return $ret;
 			}
-		}
+
+}
 
 		$ret = $entity->delete();
 
@@ -166,8 +170,7 @@ class GalleryEntityHelper_medium {
 	  [GalleryEntity::id] ASC
 	';
 
-		$storage =& $gallery->getStorage();
-
+		$storage                   =& $gallery->getStorage();
 		list($ret, $searchResults) = $gallery->search($query, array((int)$targetId));
 
 		if ($ret) {
@@ -205,8 +208,7 @@ class GalleryEntityHelper_medium {
 					$gallery->guaranteeTimeLimit(5);
 				}
 
-				$id = (int)$result[0];
-
+				$id                 = (int)$result[0];
 				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($id);
 
 				if ($ret) {
@@ -236,7 +238,8 @@ class GalleryEntityHelper_medium {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -297,7 +300,8 @@ class GalleryEntityHelper_medium {
 		if ($platform->file_exists($fastDownloadFilePath)) {
 			$platform->unlink($fastDownloadFilePath);
 		}
-	}
+
+}
 
 	/**
 	 * @see GalleryCoreApi::createFastDownloadFile
@@ -354,7 +358,8 @@ class GalleryEntityHelper_medium {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		if ($hasPermission) {
 			// Write the fast download file
@@ -384,7 +389,8 @@ class GalleryEntityHelper_medium {
 				if ($ret) {
 					return $ret;
 				}
-			} else {
+
+} else {
 				return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 			}
 
@@ -441,4 +447,5 @@ class GalleryEntityHelper_medium {
 
 		return array(null, $memberAccessInfo);
 	}
+
 }

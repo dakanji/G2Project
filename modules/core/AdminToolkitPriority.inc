@@ -74,7 +74,8 @@ class AdminToolkitPriorityController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 			}
 
 			GalleryDataCache::removeByPattern('GalleryToolkitHelper::');
@@ -89,6 +90,7 @@ class AdminToolkitPriorityController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -152,4 +154,5 @@ class AdminToolkitPriorityView extends GalleryView {
 			),
 		);
 	}
+
 }

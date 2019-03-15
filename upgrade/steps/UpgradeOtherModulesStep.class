@@ -62,7 +62,6 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 			foreach (array_keys($_REQUEST['module']) as $moduleId) {
 				$currentModule++;
-
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId, true);
 
 				if ($ret) {
@@ -118,7 +117,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 					$templateData['errors'][]    = _('Unable to commit database transaction');
 					$templateData['stackTrace'] .= $ret->getAsHtml();
 				}
-			}
+
+}
 		}
 
 		if (isset($_REQUEST['theme']) && is_array($_REQUEST['theme'])) {
@@ -126,7 +126,6 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 			foreach (array_keys($_REQUEST['theme']) as $themeId) {
 				$currentTheme++;
-
 				list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId, true);
 
 				if ($ret) {
@@ -175,7 +174,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 					$templateData['errors'][]    = _('Unable to commit database transaction');
 					$templateData['stackTrace'] .= $ret->getAsHtml();
 				}
-			}
+
+}
 		}
 
 		if (isset($_REQUEST['module']) || isset($_REQUEST['theme'])) {
@@ -185,7 +185,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				$templateData['errors'][]    = _('Unable to commit database transaction');
 				$templateData['stackTrace'] .= $ret->getAsHtml();
 			}
-		}
+
+}
 
 		$templateData['bodyFile']       = _('UpgradeOtherModulesSuccess.html');
 		$templateData['anyUpgradeable'] = false;
@@ -198,7 +199,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			} else {
 				$this->setComplete(true);
 			}
-		}
+
+}
 
 		$template->hideStatusBlock();
 		$template->renderBodyAndFooter($templateData);
@@ -227,7 +229,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			if ($ret) {
 				return;
 			}
-		}
+
+}
 
 		$groupedModules             = $groupLabel             = array();
 		$moduleInstalledStatus      = $pluginIsUpgradeable      = $pluginIsCompatible      = $installedVersion      = $deactivatedPlugins      = array();
@@ -252,7 +255,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				if ($data['active'] && !isset($moduleList[$moduleId])) {
 					$deactivatedPlugins['module'][] = $moduleId;
 				}
-			}
+
+}
 		}
 
 		if (empty($templateData['errors'])) {
@@ -274,7 +278,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 				if ($data['active'] && !isset($themeList[$themeId])) {
 					$deactivatedPlugins['theme'][] = $themeId;
 				}
-			}
+
+}
 		}
 
 		if (empty($templateData['errors'])) {
@@ -314,7 +319,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 						if ($isActive) {
 							$deactivatedPlugins['module'][] = $moduleId;
 						}
-					}
+
+}
 
 					$modulePlugin->setName($modulePlugin->translate($modulePlugin->getName()));
 					$modulePlugin->setDescription(
@@ -325,7 +331,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 					$this->resetL10Domain();
 				}
-			}
+
+}
 
 			uksort($modules, array($this, '_sortModules'));
 
@@ -383,7 +390,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 						if ($isActive) {
 							$deactivatedPlugins['theme'][] = $themeId;
 						}
-					}
+
+}
 
 					$themePlugin->setName($themePlugin->translate($themePlugin->getName()));
 					$themePlugin->setDescription(
@@ -394,7 +402,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 					$this->resetL10Domain();
 				}
-			}
+
+}
 
 			ksort($themes);
 			$groupLabel['themes'] = 'Themes';
@@ -424,7 +433,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			function getId() {
 				return $this->_pluginId;
 			}
-		}
+
+}
 
 		class MockModule extends GalleryModule {
 			function __construct($pluginId) {
@@ -434,7 +444,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			function getId() {
 				return $this->_pluginId;
 			}
-		}
+
+}
 
 		'
 		);
@@ -448,8 +459,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 			}
 
 			foreach ($deactivatedPlugins[$type] as $pluginId) {
-				$plugin = new $className($pluginId);
-
+				$plugin              = new $className($pluginId);
 				list($ret, $ignored) = $plugin->deactivate(false);
 
 				if ($ret) {
@@ -463,7 +473,8 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 					$templateData['stackTrace'] .= $ret->getAsHtml();
 				}
-			}
+
+}
 		}
 
 		$templateData['groupedModules']      =& $groupedModules;
@@ -486,13 +497,15 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 						break;
 					}
-				}
+
+}
 			}
 
 			if (!$templateData['anyUpgradeable']) {
 				$this->setComplete(true);
 			}
-		}
+
+}
 	}
 
 	public function isRedoable() {
@@ -524,4 +537,5 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 
 		return strcmp($a, $b);
 	}
+
 }

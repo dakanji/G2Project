@@ -122,7 +122,8 @@ class WatermarkHelper {
 			foreach ($entities as $entity) {
 				$watermarks[$entity->getId()] = $entity;
 			}
-		}
+
+}
 
 		return array(null, $watermarks);
 	}
@@ -265,7 +266,8 @@ class WatermarkHelper {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 		}
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'watermark');
@@ -301,7 +303,8 @@ class WatermarkHelper {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 			}
 
 			$ret = GalleryCoreApi::setPluginParameter(
@@ -314,7 +317,8 @@ class WatermarkHelper {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		$ret = GalleryCoreApi::deleteEntityById($itemId, 'WatermarkImage');
 
@@ -361,7 +365,8 @@ class WatermarkHelper {
 				if ($derivative->getDerivativeType() == DERIVATIVE_TYPE_IMAGE_PREFERRED) {
 					$hasPreferred = true;
 				}
-			}
+
+}
 		}
 
 		// If they want to modify the original, and we don't have one -- create a preferred
@@ -462,7 +467,8 @@ class WatermarkHelper {
 					} else {
 						$newPostFilters = $filter;
 					}
-				} elseif (in_array($derivative->getId(), $remove)) {
+
+} elseif (in_array($derivative->getId(), $remove)) {
 					$newPostFilters = GalleryCoreApi::removeDerivativeOperation(
 						'composite',
 						$derivative->getPostFilterOperations()
@@ -480,14 +486,16 @@ class WatermarkHelper {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		if (isset($preferred)) {
 			list($ret, $preferred) = $preferred->refresh();
@@ -511,7 +519,8 @@ class WatermarkHelper {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -591,7 +600,8 @@ class WatermarkHelper {
 			if ($ret) {
 				return array($ret, null);
 			}
-		} else {
+
+} else {
 			$ret = GalleryCoreApi::addUserPermission(
 				$itemId,
 				$gallery->getActiveUserId(),
@@ -601,7 +611,8 @@ class WatermarkHelper {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		return array(null, $item);
 	}
@@ -668,7 +679,8 @@ class WatermarkHelper {
 				if ($item->getMimeType() != $mimeType) {
 					$error[] = 'form[error][mimeType][mismatch]';
 				}
-			}
+
+}
 
 			if (empty($error)) {
 				list($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
@@ -683,7 +695,8 @@ class WatermarkHelper {
 					) {
 						$error[] = 'form[error][watermarkName][duplicate]';
 					}
-				}
+
+}
 			}
 
 			if (empty($error)) {
@@ -694,8 +707,7 @@ class WatermarkHelper {
 				$form['yPercentage'] = max(0, $form['yPercentage']);
 				$form['xPercentage'] = min(100, $form['xPercentage']);
 				$form['yPercentage'] = min(100, $form['yPercentage']);
-
-				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
+				list($ret, $lockId)  = GalleryCoreApi::acquireWriteLock($itemId);
 
 				if ($ret) {
 					return array($ret, null);
@@ -708,7 +720,6 @@ class WatermarkHelper {
 				}
 
 				$item->setApplyToPreferred(isset($form['whichDerivative']['preferred']));
-
 				$item->setApplyToResizes(isset($form['whichDerivative']['resizes']));
 				$item->setApplyToThumbnail(isset($form['whichDerivative']['thumbnail']));
 				$item->setName($form['watermarkName']);
@@ -768,7 +779,8 @@ class WatermarkHelper {
 						if ($ret) {
 							return array($ret, null);
 						}
-					}
+
+}
 				}
 
 				$ret = $item->save();
@@ -790,7 +802,9 @@ class WatermarkHelper {
 				$results['delegate']['view']    = $view;
 				$results['delegate']['subView'] = $subViewError;
 			}
-		} else { // $form['action']['cancel']
+
+} else {
+			// $form['action']['cancel']
 			$results['redirect']['view']    = $view;
 			$results['redirect']['subView'] = $subViewSuccess;
 		}
@@ -811,8 +825,7 @@ class WatermarkHelper {
 	 * @return GalleryStatus a status code
 	 */
 	public static function loadEditTemplate(&$template, &$form, $formName, $pageName) {
-		$itemId = GalleryUtilities::getRequestVariables('watermarkId');
-
+		$itemId              = GalleryUtilities::getRequestVariables('watermarkId');
 		list($ret, $canView) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
 
 		if ($ret) {
@@ -851,6 +864,7 @@ class WatermarkHelper {
 
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('modules/watermark/watermark.js');
+
 		$template->setVariable(
 			$formName,
 			array(
@@ -862,4 +876,5 @@ class WatermarkHelper {
 
 		return null;
 	}
+
 }

@@ -58,7 +58,8 @@ class GalleryStatus {
 			$this->_errorCode    = $errorCode;
 			$this->_errorMessage = $errorMessage;
 		}
-	}
+
+}
 
 	/**
 	 * Class Loader
@@ -192,8 +193,7 @@ class GalleryStatus {
 	public function putInSession() {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
+		$session             =& $gallery->getSession();
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		$isAdmin = !$ret && $isAdmin;
@@ -217,14 +217,16 @@ class GalleryStatus {
 					if ($errorCode & $constantValue) {
 						$codes[] = $constantName;
 					}
-				}
+
+}
 			}
 
 			if (empty($codes)) {
 				// No specific error specified
 				$codes = array('GALLERY_ERROR');
 			}
-		}
+
+}
 
 		return $codes;
 	}
@@ -261,7 +263,8 @@ class GalleryStatus {
 					'function' => null,
 				);
 			}
-		} else {
+
+} else {
 			foreach ($this->_stackTrace as $traceEntry) {
 				if (empty($traceEntry['file'])) {
 					$traceEntry['file'] = '???';
@@ -278,8 +281,10 @@ class GalleryStatus {
 					'function' => empty($traceEntry['function']) ? null : $traceEntry['function'],
 				);
 			}
-		}
+
+}
 
 		return array($codes, $trace);
 	}
+
 }

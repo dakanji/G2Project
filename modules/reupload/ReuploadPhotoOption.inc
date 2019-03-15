@@ -50,8 +50,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 		$status   = $error   = array();
 
 		if (!empty($form['tmp_name']['reupload']) && !empty($form['size']['reupload'])) {
-			$inputFileName = $form['tmp_name']['reupload'];
-
+			$inputFileName      = $form['tmp_name']['reupload'];
 			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'reupload');
 
 			if ($ret) {
@@ -116,6 +115,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 
 			if (!$platform->copy($path, $tmpfname)) {
 				$platform->unlink($tmpfname);
+
 				GalleryCoreApi::releaseLocks($lockIds);
 
 				return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null);
@@ -154,6 +154,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 			if ($ret) {
 				$platform->copy($tmpfname, $path);
 				$platform->unlink($tmpfname);
+
 				GalleryCoreApi::releaseLocks($lockIds);
 
 				return array($ret, null, null);
@@ -185,7 +186,8 @@ class ReuploadPhotoOption extends ItemEditOption {
 				// if we tried and failed to upload the file
 				$error[] = 'form[error][reupload][failure]';
 			}
-		}
+
+}
 
 		return array(null, $error, $status);
 	}
@@ -289,4 +291,5 @@ class ReuploadPhotoOption extends ItemEditOption {
 
 		return array(null, $hasLink);
 	}
+
 }

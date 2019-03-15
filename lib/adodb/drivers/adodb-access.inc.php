@@ -57,7 +57,8 @@ if (!defined('_ADODB_ACCESS')) {
 			// if Access
 			return " IIF(IsNull($field), $ifNull, $field) ";
 		}
-	}
+
+}
 
 	class ADORecordSet_access extends ADORecordSet_odbc {
 		public $databaseType = 'access';
@@ -65,5 +66,6 @@ if (!defined('_ADODB_ACCESS')) {
 		public function __construct($id, $mode = false) {
 			return parent::__construct($id, $mode);
 		}
-	}
+
+}
 }

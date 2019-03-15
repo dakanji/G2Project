@@ -100,6 +100,7 @@ if (empty($status['error'])) {
 			. 'Aborting action and resetting permissions.';
 		$filePermissions   = $DEFAULT_FILE_PERMISSIONS;
 	}
+
 } else {
 	$folderPermissions = $DEFAULT_FOLDER_PERMISSIONS;
 	$filePermissions   = $DEFAULT_FILE_PERMISSIONS;
@@ -151,7 +152,8 @@ if (empty($status['error'])) {
 					$status['message'] = 'Successfully changed the filesystem permissions '
 						. 'of the modules/ and the themes/ folder.';
 				}
-			}
+
+}
 
 			break;
 
@@ -176,7 +178,8 @@ if (empty($status['error'])) {
 					$status['message'] = 'Successfully changed the filesystem permissions '
 						. "of the '$pluginPath' folder.";
 				}
-			}
+
+}
 
 			break;
 
@@ -196,7 +199,8 @@ if (empty($status['error'])) {
 					$status['message'] = 'Successfully changed the filesystem permissions '
 						. 'of the Gallery folder.';
 				}
-			}
+
+}
 
 			break;
 
@@ -232,6 +236,7 @@ if (empty($status['error'])) {
 			// Just redisplay the page.
 			break;
 	}
+
 }
 
 printStatus($status);
@@ -282,7 +287,8 @@ function chmodRecursively($filename, $folderPermissions, $filePermissions, $star
 			} else {
 				status('[OK]', $filename);
 			}
-		}
+
+}
 
 		/*
 		 * Recurse into subdirectories: Open all files / sub-dirs and change the
@@ -312,7 +318,8 @@ function chmodRecursively($filename, $folderPermissions, $filePermissions, $star
 
 			return 1;
 		}
-	}
+
+}
 
 	if ($error) {
 		return 1;
@@ -370,7 +377,8 @@ class PermissionBits {
 		if (null !== $bits) {
 			$this->_bits = decoct($bits);
 		}
-	}
+
+}
 
 	/**
 	 * Class Loader
@@ -434,7 +442,8 @@ class PermissionBits {
 				// No description available
 				return null;
 		}
-	}
+
+}
 
 	public function getAsDescriptiveString() {
 		return $this->getAsString() . ' (' . $this->getDescription() . ' )';
@@ -449,6 +458,7 @@ class PermissionBits {
 
 		return !empty($description);
 	}
+
 }
 
 // Functions which control the HTML output of the page.
@@ -489,7 +499,8 @@ function chmodModulesAndThemesDir($makeItWriteable) {
 
 				$ret = 1;
 			}
-		}
+
+}
 	}
 
 	return $ret;
@@ -577,7 +588,8 @@ function getPluginList() {
 					GallerySetupUtilities::getConfigDir() . $base . $folderName
 				);
 			}
-		}
+
+}
 
 		closedir($fh);
 	}
@@ -592,15 +604,16 @@ function getRequestVariable($varName) {
 		if (isset($requestVars[$varName])) {
 			return $requestVars[$varName];
 		}
-	}
+
+}
 
 	return null;
 }
 
-	/*
-	 * Uses JavaScript to print the status / error message at the top of the page
-	 * even if the page has already been printed.
-	 */
+/*
+ * Uses JavaScript to print the status / error message at the top of the page
+ * even if the page has already been printed.
+ */
 function printStatus($status) {
 	if (!empty($status['error'])) {
 		printf(
@@ -619,6 +632,7 @@ function printStatus($status) {
 			str_replace(array('\\', "'"), array('\\\\', "\\'"), $status['message'])
 		);
 	}
+
 }
 
 	// HTML - The Page layout / GUI
@@ -636,6 +650,7 @@ function printPageWithoutFooter(
 	$permissionBitSets
 ) {
 	global $baseUrl; ?>
+
 	<!DOCTYPE html>
 		<html lang="en">
 		<head>
@@ -664,7 +679,8 @@ function printPageWithoutFooter(
 					formObj.open.disabled = false;
 					formObj.secure.disabled = true;
 				}
-			}
+
+}
 
 			function printStatusMessage(message) {
 				var statusElement = document.getElementById('status');

@@ -51,7 +51,8 @@ class ModRewriteHelper {
 			if ($code != REWRITE_STATUS_OK) {
 				return array(null, $code, null);
 			}
-		}
+
+}
 
 		// By default we use the rules we've already got
 		if (null === $activeRules) {
@@ -90,7 +91,8 @@ class ModRewriteHelper {
 			if ($code != REWRITE_STATUS_OK) {
 				return array(null, $code, $errorId);
 			}
-		}
+
+}
 
 		// Write the standalone .htaccess
 		list($ret, $code) = self::writeFile($regexRules);
@@ -114,7 +116,8 @@ class ModRewriteHelper {
 			if ($code != REWRITE_STATUS_OK) {
 				return array(null, $code, null);
 			}
-		}
+
+}
 
 		// Finally, save the new rules
 		$ret = GalleryCoreApi::setPluginParameter(
@@ -166,7 +169,8 @@ class ModRewriteHelper {
 			if ($code != REWRITE_STATUS_OK) {
 				return array(null, $code);
 			}
-		}
+
+}
 
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
@@ -267,7 +271,8 @@ class ModRewriteHelper {
 			if ($code != REWRITE_STATUS_OK) {
 				return array(null, true);
 			}
-		}
+
+}
 
 		return array(null, false);
 	}
@@ -282,9 +287,8 @@ class ModRewriteHelper {
 	public static function getHtaccessContent($regexRules, $embedded = false) {
 		global $gallery;
 
-		$urlGenerator =& $gallery->getUrlGenerator();
-		$Htaccess     = array();
-
+		$urlGenerator                             =& $gallery->getUrlGenerator();
+		$Htaccess                                 = array();
 		list($ret, $Htaccess['galleryDirectory']) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'rewrite',
@@ -312,8 +316,7 @@ class ModRewriteHelper {
 		$Htaccess['baseFile']    = GALLERY_MAIN_PHP;
 
 		if ($embedded) {
-			$Htaccess['baseFile'] = $urlGenerator->_file[false];
-
+			$Htaccess['baseFile']              = $urlGenerator->_file[false];
 			list($ret, $Htaccess['directory']) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'rewrite',
@@ -330,7 +333,8 @@ class ModRewriteHelper {
 			if (isset($components['host'])) {
 				$Htaccess['directory'] = '';
 			}
-		}
+
+}
 
 		$Htaccess['matchBaseFile'] = $Htaccess['directory']
 		. preg_quote(preg_replace('/\?.*/', '', $Htaccess['baseFile']));
@@ -359,7 +363,8 @@ class ModRewriteHelper {
 
 					$regexRule['conditions'][$conditionId] = $condition;
 				}
-			}
+
+}
 
 			// Pattern
 			if (!empty($regexRule['pattern'])) {
@@ -446,8 +451,7 @@ class ModRewriteHelper {
 	public static function checkFile($embedded = false) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform         =& $gallery->getPlatform();
 		list($ret, $file) = self::getHtaccessPath($embedded);
 
 		if ($ret) {
@@ -470,7 +474,8 @@ class ModRewriteHelper {
 					$embedded ? REWRITE_STATUS_EMBED_HTACCESS_CANT_WRITE : REWRITE_STATUS_HTACCESS_CANT_WRITE,
 				);
 			}
-		} else {
+
+} else {
 			// If we have write access to the directory we can create the file
 			if (!$platform->is_writeable(dirname($file))) {
 				return array(
@@ -478,7 +483,8 @@ class ModRewriteHelper {
 					$embedded ? REWRITE_STATUS_EMBED_HTACCESS_MISSING : REWRITE_STATUS_HTACCESS_MISSING,
 				);
 			}
-		}
+
+}
 
 		return array(null, REWRITE_STATUS_OK);
 	}
@@ -493,8 +499,7 @@ class ModRewriteHelper {
 	public static function writeFile($regexRules, $embedded = false) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform         =& $gallery->getPlatform();
 		list($ret, $file) = self::getHtaccessPath($embedded);
 
 		if ($ret) {
@@ -509,7 +514,8 @@ class ModRewriteHelper {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		if ($platform->file_exists($file)) {
 			if (!$platform->is_readable($file)) {
@@ -531,7 +537,8 @@ class ModRewriteHelper {
 			} else {
 				$newHtaccess = $htaccess . "\n" . $oldHtaccess;
 			}
-		} else {
+
+} else {
 			$newHtaccess = $htaccess;
 		}
 
@@ -563,8 +570,7 @@ class ModRewriteHelper {
 	public static function checkModRewrite() {
 		global $gallery;
 
-		$urlGenerator =& $gallery->getUrlGenerator();
-
+		$urlGenerator       =& $gallery->getUrlGenerator();
 		list($ret, $status) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'rewrite',
@@ -609,8 +615,7 @@ class ModRewriteHelper {
 			$target = 'custom';
 		}
 
-		$fetch = $baseUrl . "mod_rewrite_no_options/$target/Rewrite.txt";
-
+		$fetch                = $baseUrl . "mod_rewrite_no_options/$target/Rewrite.txt";
 		list($success, $body) = GalleryCoreAPI::fetchWebPage($fetch);
 
 		if ($success && !strncmp('PASS_REWRITE', $body, 12)) {
@@ -636,8 +641,7 @@ class ModRewriteHelper {
 		 * mod_rewrite needs Options +FollowSymlinks and we might need to explicitly require it in
 		 * the .htaccess file.
 		 */
-		$fetch = $baseUrl . "mod_rewrite/$target/Rewrite.txt";
-
+		$fetch                = $baseUrl . "mod_rewrite/$target/Rewrite.txt";
 		list($success, $body) = GalleryCoreAPI::fetchWebPage($fetch);
 
 		if ($success && !strncmp('PASS_REWRITE', $body, 12)) {
@@ -705,14 +709,14 @@ class ModRewriteHelper {
 
 		// Check embedded .htaccess
 		if (GalleryUtilities::isEmbedded()) {
-			$TestResults['embedded'] = array();
-
+			$TestResults['embedded']                         = array();
 			list($ret, $TestResults['embedded']['htaccess']) = self::checkFile(true);
 
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// Get extra information if the .htaccess test fails
 		if ($TestResults['gallery']['htaccess'] != REWRITE_STATUS_OK) {
@@ -721,7 +725,8 @@ class ModRewriteHelper {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		if (isset($TestResults['embedded']['htaccess'])
 			&& $TestResults['embedded']['htaccess'] != REWRITE_STATUS_OK
@@ -731,7 +736,8 @@ class ModRewriteHelper {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// Create test URLs for manually testing mod_rewrite
 		if ($TestResults['gallery']['modRewrite'] != REWRITE_STATUS_OK
@@ -818,7 +824,8 @@ class ModRewriteHelper {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 
 			$AdminParser['host']     = substr($urlGenerator->makeUrl('/'), 0, -1);
 			$AdminParser['action']   = 1;
@@ -887,8 +894,10 @@ class ModRewriteHelper {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		return array(null, $code);
 	}
+
 }

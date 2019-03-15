@@ -64,9 +64,8 @@ class FlushDatabaseCacheTask extends MaintenanceTask {
 	public function run() {
 		global $gallery;
 
-		$platform     =& $gallery->getPlatform();
-		$cacheBaseDir = $gallery->getConfig('data.gallery.cache');
-
+		$platform           =& $gallery->getPlatform();
+		$cacheBaseDir       = $gallery->getConfig('data.gallery.cache');
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -96,9 +95,11 @@ class FlushDatabaseCacheTask extends MaintenanceTask {
 						)
 					);
 				}
-			}
+
+}
 		}
 
 		return array(null, $success, $details);
 	}
+
 }

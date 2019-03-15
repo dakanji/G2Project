@@ -88,7 +88,8 @@ class GalleryImportElement extends GalleryXmlHandler {
 		} else {
 			$this->_errors[] = $status;
 		}
-	}
+
+}
 
 	/**
 	 * Walks the tag chain to find the parent that has the callback information and then does the
@@ -110,7 +111,8 @@ class GalleryImportElement extends GalleryXmlHandler {
 
 			$gallery->guaranteeTimeLimit(120);
 		}
-	}
+
+}
 
 	/**
 	 * Undo the effects of calling GalleryDatabaseExport::_encodeHtmlspecialchars($value). If the
@@ -125,6 +127,7 @@ class GalleryImportElement extends GalleryXmlHandler {
 			$valueToConvert
 		);
 	}
+
 }
 
 /**
@@ -165,8 +168,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 		$this->_installedModuleVersion = GalleryModule::getMe()->getApiVersion();
 		$this->_installedCoreVersion   = GalleryCoreApi::getApiVersion();
 		$this->_installedThemeVersion  = GalleryTheme::getMe()->getApiVersion();
-
-		list($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core', true);
+		list($ret, $coreModule)        = GalleryCoreApi::loadPlugin('module', 'core', true);
 
 		if ($ret) {
 			$errors['errors'][] = $ret->getAsHtml();
@@ -211,7 +213,8 @@ class GalleryDatabaseImport extends GalleryImportElement {
 						if (preg_match($parseString, $line, $versions)) {
 							$this->_doStatusCheck($versions, $errors);
 						}
-					}
+
+}
 
 					if (!$platform->fclose($handle)) {
 						$errors['errors'][] = $coreModule->translate(
@@ -222,7 +225,8 @@ class GalleryDatabaseImport extends GalleryImportElement {
 							)
 						);
 					}
-				} else {
+
+} else {
 					$errors['errors'][] = $coreModule->translate(
 						array(
 							'text' => 'Unable to open import file: %s',
@@ -230,7 +234,8 @@ class GalleryDatabaseImport extends GalleryImportElement {
 						)
 					);
 				}
-			} else {
+
+} else {
 				$errors['errors'][] = $coreModule->translate(
 					array(
 						'text' => 'Import file doesn\'t exist: %s',
@@ -238,7 +243,8 @@ class GalleryDatabaseImport extends GalleryImportElement {
 					)
 				);
 			}
-		}
+
+}
 
 		return $errors;
 	}
@@ -255,8 +261,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 	 * @param array A keyed array for errors and warnings. Keys are 'errors' and 'warnings'.
 	 */
 	public function _doStatusCheck($versions, &$errors) {
-		$pluginType = $versions[6];
-
+		$pluginType               = $versions[6];
 		list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pluginType);
 
 		if ($ret) {
@@ -340,7 +345,8 @@ class GalleryDatabaseImport extends GalleryImportElement {
 					)
 				);
 			}
-		} else {
+
+} else {
 			if (!GalleryUtilities::isCompatibleWithApi(
 				$importVersion,
 				$this->_installedThemeVersion
@@ -354,7 +360,8 @@ class GalleryDatabaseImport extends GalleryImportElement {
 					)
 				);
 			}
-		}
+
+}
 	}
 
 	/**
@@ -440,7 +447,8 @@ class GalleryDatabaseImport extends GalleryImportElement {
 				// A failure is as good as a success. Assume removed and carry on.
 				$platform->recursiveRmDir($dir);
 			}
-		}
+
+}
 
 		return array(null, empty($this->_errors) ? null : $this->_errors);
 	}
@@ -452,6 +460,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 	public function _processStartElement($tag, $attributes) {
 		return ($tag === 'export') ? new _GalleryExportTag($this, $attributes) : null;
 	}
+
 }
 
 /**
@@ -509,6 +518,7 @@ class _GalleryExportTag extends GalleryImportElement {
 
 		return null;
 	}
+
 }
 
 /**
@@ -538,6 +548,7 @@ class _GalleryPluginTag extends GalleryImportElement {
 
 		return null;
 	}
+
 }
 
 /**
@@ -579,7 +590,8 @@ class _GallerySequenceTag extends GalleryImportElement {
 		if ($ret) {
 			$this->setError($ret);
 		}
-	}
+
+}
 }
 
 /**
@@ -614,6 +626,7 @@ class _GalleryTableTag extends GalleryImportElement {
 
 		return null;
 	}
+
 }
 
 /**
@@ -703,7 +716,8 @@ class _GalleryTableDefinitionTag extends GalleryImportElement {
 		if ($ret) {
 			$this->setError($ret);
 		}
-	}
+
+}
 
 	/**
 	 * @see GalleryXmlHandler::_processChildElement
@@ -716,7 +730,8 @@ class _GalleryTableDefinitionTag extends GalleryImportElement {
 			$this->_tableInfo = $childElement->_tableInfo;
 			$this->_tableType = $childElement->_tableType;
 		}
-	}
+
+}
 }
 
 /**
@@ -738,6 +753,7 @@ class _GalleryCreateSqlTag extends GalleryImportElement {
 	public function _processCData($cdata) {
 		$this->_currentSql .= $cdata;
 	}
+
 }
 
 /**
@@ -763,6 +779,7 @@ class _GalleryTableInfoTag extends GalleryImportElement {
 	public function _processCData($cdata) {
 		$this->_tableInfo .= $cdata;
 	}
+
 }
 
 /**
@@ -822,8 +839,10 @@ class _GalleryDataTag extends GalleryImportElement {
 
 				$this->_rowCounter = 0;
 			}
-		}
+
+}
 	}
+
 }
 
 /**
@@ -853,7 +872,8 @@ class _GalleryFieldDefinitionTag extends GalleryImportElement {
 		if (!empty($attributes['not-null-empty-allowed'])) {
 			$this->$this->_fieldDefinition['notNullEmptyAllowed'] = $attributes['not-null-empty-allowed'];
 		}
-	}
+
+}
 }
 
 /**
@@ -907,7 +927,8 @@ class _GalleryRowTag extends GalleryImportElement {
 
 			return null;
 		}
-	}
+
+}
 
 	/**
 	 * @see GalleryXmlHandler::_processChildElement
@@ -917,7 +938,8 @@ class _GalleryRowTag extends GalleryImportElement {
 		if (GalleryUtilities::isA($childElement, '_GalleryFieldValueTag')) {
 			$this->_rowData[] = $childElement->_fieldData;
 		}
-	}
+
+}
 }
 
 /**
@@ -957,6 +979,7 @@ class _GalleryFieldValueTag extends GalleryImportElement {
 	public function _processEndElement($tag) {
 		$this->_fieldData = $this->_isFieldNull ? null : $this->_storage->_normalizeValue($this->_fieldData, $this->_memberData);
 	}
+
 }
 
 /**
@@ -988,6 +1011,7 @@ class GalleryXmlProcessor {
 
 		// Initialize the XML callback functions
 		xml_set_element_handler($this->_xmlParser, '_processStartElement', '_processEndElement');
+
 		xml_set_character_data_handler($this->_xmlParser, '_processCData');
 	}
 
@@ -1038,7 +1062,8 @@ class GalleryXmlProcessor {
 			// Put a dummy entry on the stack
 			$this->_elementStack[] = new GalleryXmlHandler();
 		}
-	}
+
+}
 
 	/**
 	 * XML Callback to process CDATA elements.  Called by the PHP Xml parser
@@ -1067,6 +1092,7 @@ class GalleryXmlProcessor {
 
 		$newTopItem->_processChildElement($topItem);
 	}
+
 }
 
 /**
@@ -1103,4 +1129,5 @@ class GalleryXmlHandler {
 	 * @access protected
 	 */
 	public function _processChildElement($childElement) {}
+
 }

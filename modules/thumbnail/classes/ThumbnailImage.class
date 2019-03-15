@@ -162,8 +162,7 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 			);
 		}
 
-		$baseName = !empty($targetName) ? $targetName : basename($inputFileName);
-
+		$baseName                         = !empty($targetName) ? $targetName : basename($inputFileName);
 		list($ret, $thumbnailContainerId) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'thumbnail',
@@ -195,7 +194,8 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$ret = parent::create($parentId, $baseName);
 
@@ -213,22 +213,21 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$this->setMimeType($mimeType);
 		$this->setWidth(0);
 		$this->setHeight(0);
 
-		$platform =& $gallery->getPlatform();
-
+		$platform         =& $gallery->getPlatform();
 		list($ret, $path) = $this->fetchPath();
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$dir = dirname($path);
-
+		$dir           = dirname($path);
 		list($success) = GalleryUtilities::guaranteeDirExists($dir);
 
 		if (!$success) {
@@ -295,7 +294,8 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// Delete myself
 		$ret = parent::delete();
@@ -330,7 +330,8 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// Restore thumbnails of affected items.
 		list($ret, $thumbnailContainerId) = GalleryCoreApi::getPluginParameter('module', 'thumbnail', 'id.container');
@@ -435,7 +436,8 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 				if ($ret) {
 					return $ret;
 				}
-			} else {
+
+} else {
 				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($derivative->getId());
 
 				if ($ret) {
@@ -457,7 +459,8 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -574,18 +577,21 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 					if (isset($value)) {
 						$html .= " $attr=\"$value\"";
 					}
-				}
+
+}
 
 				return $html . '/>';
 
 			default:
 				return null;
 		}
-	}
+
+}
 
 	/**
 	 * So ThumbnailImage is displayable with {g->image}
-	 */
+
+*/
 	public function getRenderer() {
 		return null;
 	}
@@ -636,4 +642,5 @@ class ThumbnailImage extends GalleryFileSystemEntity {
 	public function setItemMimeTypes($itemMimeTypes) {
 		$this->itemMimeTypes = $itemMimeTypes;
 	}
+
 }

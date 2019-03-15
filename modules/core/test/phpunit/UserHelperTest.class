@@ -56,7 +56,8 @@ class UserHelperTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testGalleryLoginEvent() {
 		global $gallery;
@@ -100,7 +101,6 @@ class UserHelperTest extends GalleryTestCase {
 		);
 
 		$this->_phpVm->_time = 'NOW';
-
 		list($ret, $ignored) = GalleryUserHelper_medium::handleEvent($event);
 
 		if ($ret) {
@@ -132,8 +132,7 @@ class UserHelperTest extends GalleryTestCase {
 	}
 
 	public function testGalleryFailedLoginEventMissingUsername() {
-		$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
-
+		$event               = GalleryCoreApi::newEvent('Gallery::FailedLogin');
 		list($ret, $ignored) = GalleryUserHelper_medium::handleEvent($event);
 
 		if ($ret) {
@@ -153,11 +152,12 @@ class UserHelperTest extends GalleryTestCase {
 			)
 		);
 
-		$this->_storage->_count       = 1;
-		$this->_storage->_lastAttempt = 1;  // way in the past
-		$this->_phpVm->_time          = 'NOW';
+		$this->_storage->_count = 1;
 
-		list($ret, $ignored) = GalleryUserHelper_medium::handleEvent($event);
+		// way in the past
+		$this->_storage->_lastAttempt = 1;
+		$this->_phpVm->_time          = 'NOW';
+		list($ret, $ignored)          = GalleryUserHelper_medium::handleEvent($event);
 
 		if ($ret) {
 			return $ret;
@@ -207,8 +207,7 @@ class UserHelperTest extends GalleryTestCase {
 		$this->_storage->_count       = 100;
 		$this->_storage->_lastAttempt = time();
 		$this->_phpVm->_time          = time();
-
-		list($ret, $ignored) = GalleryUserHelper_medium::handleEvent($event);
+		list($ret, $ignored)          = GalleryUserHelper_medium::handleEvent($event);
 
 		if ($ret) {
 			return $ret;
@@ -255,8 +254,7 @@ class UserHelperTest extends GalleryTestCase {
 	public function testIsDisabledUsernameBelowCutoff() {
 		$this->_storage->_count       = 9;
 		$this->_storage->_lastAttempt = 10000;
-
-		list($ret, $disabled) = GalleryUserHelper_medium::isDisabledUsername('MockUser');
+		list($ret, $disabled)         = GalleryUserHelper_medium::isDisabledUsername('MockUser');
 
 		if ($ret) {
 			return $ret;
@@ -279,11 +277,11 @@ class UserHelperTest extends GalleryTestCase {
 	}
 
 	public function testIsDisabledUsernameAboveCutoffAndRecent() {
-		$this->_storage->_count       = 10;  // disabled for an hour
+		// disabled for an hour
+		$this->_storage->_count       = 10;
 		$this->_storage->_lastAttempt = 10000;
 		$this->_phpVm->_time          = 10001;
-
-		list($ret, $disabled) = GalleryUserHelper_medium::isDisabledUsername('MockUser');
+		list($ret, $disabled)         = GalleryUserHelper_medium::isDisabledUsername('MockUser');
 
 		if ($ret) {
 			return $ret;
@@ -306,10 +304,13 @@ class UserHelperTest extends GalleryTestCase {
 	}
 
 	public function testIsDisabledUsernameWayAboveCutoffAndTooRecent() {
-		$this->_storage->_count       = 100; // disabled for 10 hours
+		// disabled for 10 hours
+		$this->_storage->_count       = 100;
 		$this->_storage->_lastAttempt = 10000;
-		$this->_phpVm->_time          = 10000 + 9 * 3600; // 9 hours since last attempt
-		list($ret, $disabled)         = GalleryUserHelper_medium::isDisabledUsername('MockUser');
+
+		// 9 hours since last attempt
+		$this->_phpVm->_time  = 10000 + 9 * 3600;
+		list($ret, $disabled) = GalleryUserHelper_medium::isDisabledUsername('MockUser');
 
 		if ($ret) {
 			return $ret;
@@ -332,10 +333,13 @@ class UserHelperTest extends GalleryTestCase {
 	}
 
 	public function testIsDisabledUsernameAboveCutoffButNotRecent() {
-		$this->_storage->_count       = 100; // disabled for 10 hours
+		// disabled for 10 hours
+		$this->_storage->_count       = 100;
 		$this->_storage->_lastAttempt = 10000;
-		$this->_phpVm->_time          = 1000000; // last attempt is in the distant past
-		list($ret, $disabled)         = GalleryUserHelper_medium::isDisabledUsername('MockUser');
+
+		// last attempt is in the distant past
+		$this->_phpVm->_time  = 1000000;
+		list($ret, $disabled) = GalleryUserHelper_medium::isDisabledUsername('MockUser');
 
 		if ($ret) {
 			return $ret;
@@ -429,6 +433,7 @@ class UserHelperTest extends GalleryTestCase {
 
 		$this->assertEquals($preSetLanguageCode, $languageCode, 'should be same as preferred');
 	}
+
 }
 
 /**
@@ -466,6 +471,7 @@ class UserHelperTestMockStorage {
 	public function removeMapEntry($mapName, $data) {
 		$this->_operations[] = array('remove', $mapName, $data);
 	}
+
 }
 
 /**
@@ -494,6 +500,7 @@ class UserHelperTestMockStorageFakeResults {
 
 		return $results;
 	}
+
 }
 
 /**
@@ -503,6 +510,7 @@ class UserHelperTestMockUser {
 	public function getUserName() {
 		return 'MockUser';
 	}
+
 }
 
 /**
@@ -514,6 +522,7 @@ class UserHelperTestPhpVm {
 	public function time() {
 		return $this->_time;
 	}
+
 }
 
 /**
@@ -535,4 +544,5 @@ class UserHelperTestSession {
 	public function put($key, $value) {
 		$this->_sessionData[$key] = $value;
 	}
+
 }

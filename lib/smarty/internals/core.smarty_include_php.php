@@ -16,6 +16,7 @@ function smarty_core_smarty_include_php($params, &$smarty) {
 	$_params = array(
 		'resource_name' => $params['smarty_file'],
 	);
+
 	include_once SMARTY_CORE_DIR . 'core.get_php_resource.php';
 
 	smarty_core_get_php_resource($_params, $smarty);
@@ -40,7 +41,8 @@ function smarty_core_smarty_include_php($params, &$smarty) {
 		} else {
 			$smarty->_eval($_smarty_php_resource, $params['smarty_include_vars']);
 		}
-	}
+
+}
 }
 
 // vim: set expandtab:

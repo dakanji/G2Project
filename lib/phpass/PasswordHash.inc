@@ -213,7 +213,8 @@ class PasswordHash {
 			if (strlen($hash) == 60) {
 				return $hash;
 			}
-		}
+
+}
 
 		if (CRYPT_EXT_DES == 1 && !$this->portable_hashes) {
 			if (strlen($random) < 3) {
@@ -225,7 +226,8 @@ class PasswordHash {
 			if (strlen($hash) == 20) {
 				return $hash;
 			}
-		}
+
+}
 
 		if (strlen($random) < 6) {
 			$random = $this->get_random_bytes(6);
@@ -255,4 +257,5 @@ class PasswordHash {
 
 		return $hash == $stored_hash;
 	}
+
 }

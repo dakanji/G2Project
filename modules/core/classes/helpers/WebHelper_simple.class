@@ -128,8 +128,7 @@ class WebHelper_simple {
 			}
 
 			// Normalize the line endings
-			$line = str_replace("\r", '', $line);
-
+			$line              = str_replace("\r", '', $line);
 			list($key, $value) = explode(':', $line, 2);
 
 			if (isset($headers[$key])) {
@@ -141,7 +140,8 @@ class WebHelper_simple {
 			} else {
 				$headers[$key] = trim($value);
 			}
-		}
+
+}
 
 		if (isset($headers['Location'])) {
 			$redirectUrl = WebHelper_simple::_parseLocation($headers['Location'], $urlComponents);
@@ -173,14 +173,16 @@ class WebHelper_simple {
 
 					break;
 				}
-			}
+
+}
 
 			$platform->fclose($ofd);
 
 			if (!$failed) {
 				$success = true;
 			}
-		}
+
+}
 
 		$platform->fclose($fd);
 
@@ -342,8 +344,7 @@ class WebHelper_simple {
 			}
 
 			// Normalize the line endings
-			$line = str_replace("\r", '', $line);
-
+			$line              = str_replace("\r", '', $line);
 			list($key, $value) = explode(':', $line, 2);
 
 			if (isset($responseHeaders[$key])) {
@@ -355,7 +356,8 @@ class WebHelper_simple {
 			} else {
 				$responseHeaders[$key] = trim($value);
 			}
-		}
+
+}
 
 		// Read the body
 		$responseBody = '';
@@ -427,7 +429,8 @@ class WebHelper_simple {
 				) {
 					$components['port'] = $fromComponents['port'];
 				}
-			}
+
+}
 		}
 
 		$port = empty($components['port']) ? '' : ':' . $components['port'];
@@ -443,4 +446,5 @@ class WebHelper_simple {
 			$query
 		);
 	}
+
 }

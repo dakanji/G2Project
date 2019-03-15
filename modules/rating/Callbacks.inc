@@ -30,8 +30,7 @@ class RatingCallbacks {
 
 		switch ($callback) {
 			case 'LoadRating':
-				$itemId = $params['itemId'];
-
+				$itemId           = $params['itemId'];
 				list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
 
 				if ($ret) {
@@ -50,8 +49,7 @@ class RatingCallbacks {
 				}
 
 				if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
-					$albumId = $itemId;
-
+					$albumId                      = $itemId;
 					list($ret, $allowAlbumRating) = GalleryCoreApi::getPluginParameter('module', 'rating', 'allowAlbumRating');
 
 					if ($ret) {
@@ -61,7 +59,8 @@ class RatingCallbacks {
 					if (!$allowAlbumRating) {
 						return null;
 					}
-				} else {
+
+} else {
 					$albumId = $item->getParentId();
 				}
 
@@ -117,4 +116,5 @@ class RatingCallbacks {
 
 		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
+
 }

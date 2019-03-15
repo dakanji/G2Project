@@ -93,8 +93,7 @@ class RatingHelperTest extends GalleryTestCase {
 	public function tearDown() {
 		global $gallery;
 
-		$gallery->_session = $this->_origSession;
-
+		$gallery->_session        = $this->_origSession;
 		list($ret, $languageCode) = $gallery->getActiveLanguageCode();
 
 		if ($ret) {
@@ -111,7 +110,8 @@ class RatingHelperTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testRateItem() {
 		global $gallery;
@@ -121,8 +121,7 @@ class RatingHelperTest extends GalleryTestCase {
 		$this->assertTrue($session->isPersistent(), 'is persistent');
 		$this->assertFalse(empty($session->_sessionId), 'session id');
 
-		$testRating = mt_rand(1, 5);
-
+		$testRating             = mt_rand(1, 5);
 		list($ret, $RatingData) = RatingHelper::rateItem(
 			$this->_item->getId(),
 			$testRating,
@@ -135,8 +134,10 @@ class RatingHelperTest extends GalleryTestCase {
 
 		// Check our own rating
 		$this->assertEquals($testRating, (int)$RatingData['userRating']);
+
 		// Check our one and only vote
 		$this->assertEquals(1, (int)$RatingData['votes']);
+
 		// After only one vote, our rating should be the average
 		$this->assertEquals($testRating, (int)$RatingData['rating']);
 	}
@@ -159,8 +160,10 @@ class RatingHelperTest extends GalleryTestCase {
 
 		// There should be no rating
 		$this->assertEquals(0, (int)$RatingData['userRating'], 'GoogleBot vote was counted.');
+
 		// Vote should note have counted
 		$this->assertEquals(0, (int)$RatingData['votes'], 'GoogleBot vote was counted.');
+
 		// There should be no average
 		$this->assertEquals(0, (int)$RatingData['rating'], 'GoogleBot vote was counted.');
 	}
@@ -193,8 +196,7 @@ class RatingHelperTest extends GalleryTestCase {
 		$anonymousUserId = (int)$guestId;
 
 		// Rate!
-		$testRating = mt_rand(1, 5);
-
+		$testRating             = mt_rand(1, 5);
 		list($ret, $RatingData) = RatingHelper::rateItem(
 			$this->_item->getId(),
 			3,
@@ -223,28 +225,28 @@ class RatingHelperTest extends GalleryTestCase {
 	}
 
 	public function testRateBogusItem() {
-		$testRating = mt_rand(1, 5);
-
+		$testRating             = mt_rand(1, 5);
 		list($ret, $RatingData) = RatingHelper::rateItem(
 			-1,
 			$testRating,
 			$this->_users[0]->getId()
 		);
+
 		// This *should* fail.
 		$this->assertTrue($ret, 'expected error');
 
 		if ($ret) {
 			$this->assertTrue($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'Wrong error status');
 		}
-	}
+
+}
 
 	public function testMultiUserRateItem() {
 		$totalRating = 0;
 		$votes       = 0;
 
 		foreach ($this->_users as $user) {
-			$testRating = mt_rand(1, 5);
-
+			$testRating             = mt_rand(1, 5);
 			list($ret, $RatingData) = RatingHelper::rateItem(
 				$this->_item->getId(),
 				$testRating,
@@ -264,6 +266,7 @@ class RatingHelperTest extends GalleryTestCase {
 				(int)$RatingData['userRating'],
 				'User rating test failed.'
 			);
+
 			// Check our one and only vote
 			$this->assertEquals(
 				$votes,
@@ -273,8 +276,7 @@ class RatingHelperTest extends GalleryTestCase {
 		}
 
 		// Test average
-		$average = round($totalRating / $votes, 3);
-
+		$average                = round($totalRating / $votes, 3);
 		list($ret, $RatingData) = RatingHelper::fetchRatings(
 			array($this->_item->getId()),
 			$this->_users[0]->getId()
@@ -289,6 +291,7 @@ class RatingHelperTest extends GalleryTestCase {
 			(float)$RatingData[$this->_item->getId()]['rating'],
 			'Average rating test failed.'
 		);
+
 		// Test substitution of commas as decimal separator
 		$this->assertTrue(
 			!strpos($RatingData[$this->_item->getId()]['rating'], ','),
@@ -347,8 +350,7 @@ class RatingHelperTest extends GalleryTestCase {
 				$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
 			}
 
-			$testRating = mt_rand(1, 5);
-
+			$testRating             = mt_rand(1, 5);
 			list($ret, $RatingData) = RatingHelper::rateItem(
 				$this->_item->getId(),
 				$testRating,
@@ -368,6 +370,7 @@ class RatingHelperTest extends GalleryTestCase {
 				(int)$RatingData['userRating'],
 				'User rating test failed.'
 			);
+
 			// Check our one and only vote
 			$this->assertEquals(
 				$votes,
@@ -377,8 +380,7 @@ class RatingHelperTest extends GalleryTestCase {
 		}
 
 		// Test fetch as guest with a persistent session that already has rated
-		$average = round($totalRating / $votes, 3);
-
+		$average                = round($totalRating / $votes, 3);
 		list($ret, $RatingData) = RatingHelper::fetchRatings(
 			array($this->_item->getId()),
 			$anonymousUserId
@@ -508,8 +510,7 @@ class RatingHelperTest extends GalleryTestCase {
 		// Verify we get a non empty item summary for the item
 		$permissions[$itemId]['rating.view'] = 1;
 		$template                            = new GalleryTemplate(__DIR__ . '/../../../..');
-
-		list($ret, $content) = $module->getItemSummaries(
+		list($ret, $content)                 = $module->getItemSummaries(
 			array($this->_item),
 			$permissions,
 			$template
@@ -526,8 +527,7 @@ class RatingHelperTest extends GalleryTestCase {
 
 		// Get the item summary again, but without having the permissions
 		unset($content, $template);
-		$template = new GalleryTemplate(__DIR__ . '/../../../..');
-
+		$template            = new GalleryTemplate(__DIR__ . '/../../../..');
 		list($ret, $content) = $module->getItemSummaries(
 			array($this->_item),
 			array(
@@ -558,7 +558,8 @@ class RatingHelperTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// Four items: *, *****, * + random votes, ***** x3; order = 4 2 3 1
 		foreach ($items as $i => $item) {
@@ -571,7 +572,8 @@ class RatingHelperTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		for ($i = 1; $i <= 2; $i++) {
 			list($ret) = RatingHelper::rateItem($items[3]->getId(), 5, $this->_users[$i]->getId());
@@ -579,12 +581,12 @@ class RatingHelperTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		for ($i = 1; $i < count($this->_users); $i++) {
 			$testRating = mt_rand(1, 5);
-
-			list($ret) = RatingHelper::rateItem(
+			list($ret)  = RatingHelper::rateItem(
 				$items[2]->getId(),
 				$testRating,
 				$this->_users[$i]->getId()
@@ -593,7 +595,8 @@ class RatingHelperTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
 
@@ -612,4 +615,5 @@ class RatingHelperTest extends GalleryTestCase {
 			'order of child ids'
 		);
 	}
+
 }

@@ -122,7 +122,8 @@ class AddCommentController extends GalleryController {
 						if ($ret) {
 							return array($ret, null);
 						}
-					}
+
+}
 				}
 
 				// Let each plugin do its verification
@@ -138,7 +139,8 @@ class AddCommentController extends GalleryController {
 					if (!$continue) {
 						break;
 					}
-				}
+
+}
 			}
 
 			if (empty($error)) {
@@ -176,7 +178,6 @@ class AddCommentController extends GalleryController {
 				}
 
 				$comment->setCommenterId($gallery->getActiveUserId());
-
 				$comment->setHost(GalleryUtilities::getRemoteHostAddress());
 				$comment->setSubject($form['subject']);
 				$comment->setComment($form['comment']);
@@ -194,7 +195,8 @@ class AddCommentController extends GalleryController {
 				$redirect['itemId'] = (int)$itemId;
 				$status['added']    = 1;
 			}
-		} elseif (isset($form['action']['preview'])) {
+
+} elseif (isset($form['action']['preview'])) {
 			if (empty($form['subject'])) {
 				$form['subject'] = '';
 			}
@@ -226,6 +228,7 @@ class AddCommentController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -282,4 +285,5 @@ class AddCommentView extends GalleryView {
 
 		return array(null, $module->translate('add comment'));
 	}
+
 }

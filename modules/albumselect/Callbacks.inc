@@ -27,7 +27,6 @@
 class AlbumSelectCallbacks {
 	public function callback($callbackParams, &$smarty, $callback, $userId) {
 		global $gallery;
-
 		static $idCount = '';
 
 		switch ($callback) {
@@ -159,7 +158,8 @@ class AlbumSelectCallbacks {
 							} else {
 								return $ret;
 							}
-						}
+
+}
 
 						if (empty($tree)) {
 							return null;
@@ -236,12 +236,14 @@ class AlbumSelectCallbacks {
 							if ($ret) {
 								return $ret;
 							}
-						}
+
+}
 
 						if (empty($treeList)) {
 							return null;
 						}
-					}
+
+}
 
 					// Need to double escape for javascript (double-quote delimiter, backslash, ..)
 					if (!function_exists('smarty_modifier_escape')) {
@@ -279,7 +281,8 @@ class AlbumSelectCallbacks {
 								$links['prefix'] = substr($links['prefix'], 0, -1);
 								$prefixLength--;
 							}
-						}
+
+}
 					}
 
 					if (!empty($prefixLength)) {
@@ -287,7 +290,8 @@ class AlbumSelectCallbacks {
 							if ($id != 'prefix') {
 								$links[$id] = substr($link, $prefixLength);
 							}
-						}
+
+}
 					}
 
 					$dataToCache = array($treeList, $titles, $titlesForJs, $links);
@@ -313,7 +317,8 @@ class AlbumSelectCallbacks {
 								false
 							);
 						}
-					}
+
+}
 				}
 
 				$block                                        =& $smarty->_tpl_vars['block'];
@@ -390,7 +395,8 @@ class AlbumSelectCallbacks {
 					$titles
 				);
 			}
-		}
+
+}
 	}
 
 	/**
@@ -478,11 +484,13 @@ class AlbumSelectCallbacks {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		return null;
 	}
+
 }
 
 /**
@@ -498,4 +506,5 @@ class AlbumSelectTreeSorter {
 	public function sort($a, $b) {
 		return strcasecmp($this->_titles[$a], $this->_titles[$b]);
 	}
+
 }

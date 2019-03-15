@@ -92,7 +92,6 @@ class MovieTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(100, $this->_movie->getWidth(), 'width');
-
 		$this->assertEquals(200, $this->_movie->getHeight(), 'height');
 		$this->assertEquals(10.0, $this->_movie->getDuration(), 'duration');
 	}
@@ -111,7 +110,6 @@ class MovieTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(0, $this->_movie->getWidth(), 'width');
-
 		$this->assertEquals(0, $this->_movie->getHeight(), 'height');
 		$this->assertEquals(0.0, $this->_movie->getDuration(), 'duration');
 	}
@@ -129,7 +127,8 @@ class MovieTest extends GalleryTestCase {
 			if ($ret->getErrorCode() != (GALLERY_ERROR | ERROR_STORAGE_FAILURE)) {
 				return $ret;
 			}
-		} else {
+
+} else {
 			$this->assertTrue(false, 'Storage failure');
 		}
 
@@ -138,6 +137,7 @@ class MovieTest extends GalleryTestCase {
 		$this->assertEquals(2, $this->_movie->getHeight(), 'height');
 		$this->assertEquals(3, $this->_movie->getDuration(), 'duration');
 	}
+
 }
 
 class MovieTestToolkit {
@@ -148,4 +148,5 @@ class MovieTestToolkit {
 
 		return array(GalleryCoreApi::error($_REQUEST['toolkitError']), null);
 	}
+
 }

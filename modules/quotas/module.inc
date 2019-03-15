@@ -37,7 +37,9 @@ class QuotasModule extends GalleryModule {
 				'User/Group Disk Quotas'
 			)
 		);
-		$this->setVersion('2.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -74,7 +76,8 @@ class QuotasModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		if (!empty($currentVersion) && version_compare($currentVersion, '1.0.7', '<')) {
 			// Cleanup any factory data from way back in v0.9.3 that had wrong module id
@@ -83,7 +86,8 @@ class QuotasModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -165,7 +169,8 @@ class QuotasModule extends GalleryModule {
 					if ($ret) {
 						return array($ret, null);
 					}
-				} elseif (GalleryUtilities::isA($entity, 'GalleryUser')) {
+
+} elseif (GalleryUtilities::isA($entity, 'GalleryUser')) {
 					// Delete user quota if exists and entity is a user
 					list($ret, $quotaExists, $userQuota) = GalleryQuotasHelper::fetchUserQuota(
 						$entity->getId()
@@ -174,7 +179,8 @@ class QuotasModule extends GalleryModule {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 
 				if ($quotaExists) {
 					$ret = GalleryCoreApi::removeMapEntry(
@@ -187,10 +193,13 @@ class QuotasModule extends GalleryModule {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		return array(null, $result);
 	}
+
 }

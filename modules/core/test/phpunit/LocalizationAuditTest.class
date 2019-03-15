@@ -110,7 +110,8 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 
 		foreach ($matches as $match) {
 			if (strlen($match[2]) < 5) {
-				continue; // No translation for this string
+				// No translation for this string
+				continue;
 			}
 
 			preg_match_all('/__[A-Z]+__/', $match[1], $tokens);
@@ -123,13 +124,15 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 					);
 					$this->_errorCount++;
 				}
-			}
+
+}
 		}
 
 		if ($this->_errorCount > 10) {
 			$this->halt();
 		}
-	}
+
+}
 
 	/**
 	 * @see CodeAuditTestCase::finishScan
@@ -153,7 +156,8 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 							$probablyCorrect = $projectIdVersion;
 							$max             = count($hash[$projectIdVersion]);
 						}
-					}
+
+}
 				}
 
 				$matchCount = count(array_keys($flavors));
@@ -180,7 +184,8 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 						$poDir
 					);
 				}
-			}
+
+}
 		}
 
 		if (isset($script)) {
@@ -192,5 +197,6 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 				)
 			);
 		}
-	}
+
+}
 }

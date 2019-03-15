@@ -54,7 +54,8 @@ class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$_SERVER['HTTP_HOST']    = 'example.com';
 		$_SERVER['REQUEST_URI']  = '/gallery2/foo/bar.jpg.html';
@@ -66,7 +67,8 @@ class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlOverrideBaseUri() {
 		// Override the expected URLs, not server-relative, but with relative ones
@@ -185,4 +187,5 @@ class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 
 		$this->assertFalse($this->_urlGenerator->_error, 'init error when embedded');
 	}
+
 }

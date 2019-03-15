@@ -62,9 +62,8 @@ class AdminMaintenanceController extends GalleryController {
 				return array($ret, null);
 			}
 
-			$mode   = $gallery->getConfig('mode.maintenance');
-			$taskId = GalleryUtilities::getRequestVariables('taskId');
-
+			$mode              = $gallery->getConfig('mode.maintenance');
+			$taskId            = GalleryUtilities::getRequestVariables('taskId');
 			list($ret, $tasks) = MaintenanceHelper_simple::fetchTasks();
 
 			if ($ret) {
@@ -98,12 +97,14 @@ class AdminMaintenanceController extends GalleryController {
 						$redirect['view']    = 'core.SiteAdmin';
 						$redirect['subView'] = 'core.AdminMaintenance';
 					}
-				} else {
+
+} else {
 					$results['delegate']['view']    = 'core.SiteAdmin';
 					$results['delegate']['subView'] = 'core.AdminMaintenance';
 					$error[]                        = 'form[error][maintenanceModeRequired]';
 				}
-			}
+
+}
 		} elseif (isset($form['action']['setMode'])) {
 			$platform       =& $gallery->getPlatform();
 			$newMode        = !empty($form['setMode']['mode']);
@@ -153,8 +154,7 @@ class AdminMaintenanceController extends GalleryController {
 	public function runTask($taskId, $task, $useProgressBar) {
 		global $gallery;
 
-		$urlGenerator =& $gallery->getUrlGenerator();
-
+		$urlGenerator                   =& $gallery->getUrlGenerator();
 		list($ret1, $success, $details) = $task->run();
 
 		if ($ret1) {
@@ -186,6 +186,7 @@ class AdminMaintenanceController extends GalleryController {
 
 		return array(null, $success);
 	}
+
 }
 
 /**
@@ -250,10 +251,10 @@ class AdminMaintenanceView extends GalleryView {
 				$AdminMaintenance['tasks'][$taskId]['success']   = null;
 				$AdminMaintenance['tasks'][$taskId]['details']   = null;
 			}
-		}
 
-		$maintenanceMode = $gallery->getConfig('mode.maintenance');
+}
 
+		$maintenanceMode                = $gallery->getConfig('mode.maintenance');
 		list($ret, $maintenanceModeUrl) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',
@@ -269,7 +270,8 @@ class AdminMaintenanceView extends GalleryView {
 				$maintenanceModeUrl = $maintenanceMode;
 				$maintenanceMode    = true;
 			}
-		}
+
+}
 
 		$AdminMaintenance['setMode']['mode'] = $maintenanceMode;
 		$AdminMaintenance['setMode']['url']  = $maintenanceModeUrl;
@@ -285,6 +287,7 @@ class AdminMaintenanceView extends GalleryView {
 			),
 		);
 	}
+
 }
 
 /**
@@ -338,4 +341,5 @@ class MaintenanceTask {
 	public function requiresMaintenanceMode() {
 		return false;
 	}
+
 }

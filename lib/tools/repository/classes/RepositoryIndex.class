@@ -136,7 +136,6 @@ class RepositoryIndex extends RepositoryObject {
 					$currentPluginBuild   = $descriptor['header']['buildTimestamp'];
 					$indexPluginVersion   = is_array($indexPluginData) ? $indexPluginData['header']['version'] : '0.0';
 					$indexPluginBuild     = is_array($indexPluginData) ? $indexPluginData['header']['buildTimestamp'] : 0;
-
 					list($ret, $relation) = $this->_utilities->compareVersions(
 						$currentPluginVersion,
 						$indexPluginVersion,
@@ -167,7 +166,8 @@ class RepositoryIndex extends RepositoryObject {
 						) {
 							$index[$pluginType][$currentPluginId]['languages'][$stringsRevision] = $descriptor['languages'][$stringsRevision];
 						}
-					}
+
+}
 
 					// Add provided API versions to the core module's header.
 					if ($pluginType == 'modules' && $currentPluginId == 'core') {
@@ -175,7 +175,8 @@ class RepositoryIndex extends RepositoryObject {
 						$index[$pluginType][$currentPluginId]['header']['moduleApiVersion'] = GalleryModule::getApiVersion();
 						$index[$pluginType][$currentPluginId]['header']['themeApiVersion']  = GalleryTheme::getMe()->getApiVersion();
 					}
-				}
+
+}
 			} else {
 				return array(
 					GalleryCoreApi::error(
@@ -187,7 +188,8 @@ class RepositoryIndex extends RepositoryObject {
 					null,
 				);
 			}
-		}
+
+}
 
 		$serializedIndex  = serialize($index);
 		$this->_index     = $index;
@@ -256,7 +258,8 @@ class RepositoryIndex extends RepositoryObject {
 					null,
 				);
 			}
-		}
+
+}
 
 		// Create a simplified pluginInfo array, without descriptions.
 		$pluginInfo = array();
@@ -271,8 +274,10 @@ class RepositoryIndex extends RepositoryObject {
 					'requiredPluginApi' => $pluginMetaData['header']['requiredPluginApi'],
 				);
 			}
-		}
+
+}
 
 		return array(null, $pluginInfo);
 	}
+
 }

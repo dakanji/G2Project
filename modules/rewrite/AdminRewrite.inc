@@ -109,9 +109,11 @@ class AdminRewriteController extends GalleryController {
 								// Save the pattern
 								$activeRules[$moduleId][$ruleId]['pattern'] = $pattern;
 							}
-						}
+
+}
 					}
-				}
+
+}
 			}
 
 			// Save the active rules
@@ -134,11 +136,13 @@ class AdminRewriteController extends GalleryController {
 						foreach ($errorId as $errno) {
 							$errorString .= '[' . $errno . ']';
 						}
-					}
+
+}
 
 					$error[] = $errorString;
 				}
-			}
+
+}
 		} elseif (isset($form['action']['accessList'])) {
 			$mode       = 'setup';
 			$accessList = array();
@@ -147,7 +151,8 @@ class AdminRewriteController extends GalleryController {
 				if (!empty($host)) {
 					$accessList[] = $host;
 				}
-			}
+
+}
 
 			$allowEmptyReferer = false;
 
@@ -169,23 +174,24 @@ class AdminRewriteController extends GalleryController {
 			} else {
 				$error[] = 'form[error][' . $code . ']';
 			}
-		} elseif (isset($form['action']['adminParser'])) {
-			$mode = 'setup';
 
+} elseif (isset($form['action']['adminParser'])) {
+			$mode                       = 'setup';
 			list($ret, $error, $status) = $rewriteParser->handleAdminParserRequest($form);
 
 			if ($ret) {
 				return array($ret, null);
 			}
-		} elseif (isset($form['action']['testParser'])) {
-			$mode = 'test';
 
+} elseif (isset($form['action']['testParser'])) {
+			$mode                       = 'test';
 			list($ret, $error, $status) = $rewriteParser->handleTestResultsRequest($form);
 
 			if ($ret) {
 				return array($ret, null);
 			}
-		} elseif (isset($form['action']['refresh'])) {
+
+} elseif (isset($form['action']['refresh'])) {
 			$mode = 'test';
 		}
 
@@ -212,6 +218,7 @@ class AdminRewriteController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -260,9 +267,11 @@ class AdminRewriteView extends GalleryView {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		if (!empty($errors)) {
 			$AdminRewrite['errors'] = $errors;
@@ -326,7 +335,8 @@ class AdminRewriteView extends GalleryView {
 									if (isset($activeRules[$moduleId][$ruleId]['pattern'])) {
 										$form['rules'][$moduleId][$ruleId]['pattern'] = $activeRules[$moduleId][$ruleId]['pattern'];
 									}
-								}
+
+}
 							}
 
 							// If a dupe rule is detected we need to know it's 'match'
@@ -357,9 +367,11 @@ class AdminRewriteView extends GalleryView {
 							if (isset($rule['help'])) {
 								$AdminRewrite['info'][$moduleId][$ruleId]['help'] = $rule['help'];
 							}
-						}
+
+}
 					}
-				}
+
+}
 
 				$template->javascript('lib/javascript/BlockToggle.js');
 
@@ -381,8 +393,7 @@ class AdminRewriteView extends GalleryView {
 						return array($ret, null);
 					}
 
-					$form['accessList'] = unserialize($form['accessList']);
-
+					$form['accessList']            = unserialize($form['accessList']);
 					list($ret, $allowEmptyReferer) = GalleryCoreApi::getPluginParameter(
 						'module',
 						'rewrite',
@@ -396,7 +407,8 @@ class AdminRewriteView extends GalleryView {
 					if ($allowEmptyReferer) {
 						$form['allowEmptyReferer'] = 1;
 					}
-				}
+
+}
 
 				$ret = $rewriteParser->loadAdminParserTemplate($template, $form);
 
@@ -431,4 +443,5 @@ class AdminRewriteView extends GalleryView {
 			),
 		);
 	}
+
 }

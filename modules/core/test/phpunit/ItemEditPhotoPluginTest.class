@@ -257,6 +257,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 				$expectedOperations .= ';convert-to-image/jpeg';
 
 				$this->assertEquals($expectedOperations, $resize->getDerivativeOperations(), $i);
+
 				// check that postfilteroperations are maintained and added to new resizes..
 				$this->assertEquals(
 					'test-operation|0',
@@ -268,7 +269,8 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 			// Verify we reuse existing derivatives when possible
 			$this->assertEquals($derivative[2]->getId(), $resizeTable[0]->getId(), 'derivative id');
 		}
-	}
+
+}
 
 	public function testEditResizesMissing() {
 		// Use valid inputs
@@ -373,7 +375,8 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 					$resizeTable[$itemId][$i]->getDerivativeOperations()
 				);
 			}
-		}
+
+}
 	}
 
 	public function testEditResizesRaw() {
@@ -458,7 +461,8 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 				'Derivative Source id'
 			);
 		}
-	}
+
+}
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
@@ -507,4 +511,5 @@ class ItemEditPhotoPluginTestToolkit extends GalleryToolkit {
 			array_merge($args1, array('+'), $args2),
 		);
 	}
+
 }

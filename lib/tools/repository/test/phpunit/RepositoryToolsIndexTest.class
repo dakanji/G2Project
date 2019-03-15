@@ -102,6 +102,7 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 		include __DIR__ . '/../data/SampleIndex.inc';
 
 		$this->assertEquals($sampleIndex, $index->_index, 'Generated index differs from expected.');
+
 		$this->assertTrue(
 			md5(serialize($sampleIndex)) == $index->_indexHash,
 			'Generated hash differs from expected.'
@@ -134,6 +135,7 @@ class RepositoryToolsIndexTest extends GalleryTestCase {
 			'Plugin information incorrect.'
 		);
 	}
+
 }
 
 class RepositoryToolsIndexTestPlatform {
@@ -196,4 +198,5 @@ class RepositoryToolsIndexTestPlatform {
 	public function file_exists($path) {
 		return false;
 	}
+
 }

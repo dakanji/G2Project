@@ -286,7 +286,6 @@ class ExifExtractorTest extends GalleryTestCase {
 			$this->_photoIds,
 			array('DateTime', 'ShutterSpeedValue', 'IPTC/Byline')
 		);
-
 		$this->assertFalse(
 			$ret && isset($data)
 		);
@@ -313,4 +312,5 @@ class ExifExtractorTest extends GalleryTestCase {
 			isset($data[$this->_photoIds[3]]['FocalLength'])
 		);
 	}
+
 }

@@ -43,7 +43,8 @@ class SiteAdminTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGuestRedirect() {
 		// Verify redirect to login view if guest access SiteAdmin view
@@ -53,8 +54,7 @@ class SiteAdminTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$template = $form           = null;
-
+		$template           = $form                     = null;
 		list($ret, $result) = $this->_view->loadTemplate($template, $form);
 
 		if ($ret) {
@@ -72,4 +72,5 @@ class SiteAdminTest extends GalleryTestCase {
 			$result
 		);
 	}
+
 }

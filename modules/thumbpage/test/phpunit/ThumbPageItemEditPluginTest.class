@@ -89,7 +89,8 @@ class ThumbPageItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
@@ -146,6 +147,7 @@ class ThumbPageItemEditPluginTest extends ItemEditPluginTestCase {
 			'page one'
 		);
 	}
+
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
@@ -171,4 +173,5 @@ class ThumbPageTestToolkit extends GalleryToolkit {
 
 		return array(null, array(5));
 	}
+
 }

@@ -52,8 +52,7 @@ class ChildTest extends GalleryTestCase {
 
 		$this->_markForCleanup($this->_root);
 
-		$rootId = $this->_root->getId();
-
+		$rootId                           = $this->_root->getId();
 		list($ret, $this->_rootHighlight) = $this->_createDerivative(
 			$this->_root,
 			$rootId,
@@ -81,13 +80,15 @@ class ChildTest extends GalleryTestCase {
 				if ($ret) {
 					return $ret;
 				}
-			} else {
+
+} else {
 				list($ret, $this->_child[$i]) = $this->_createRandomAlbum($rootId);
 
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 
 			list($ret, $this->_derivative[$i][0]) = $this->_createDerivative(
 				$this->_child[$i],
@@ -98,7 +99,8 @@ class ChildTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 	}
 
 	public function testFetchChildItemIds() {
@@ -257,7 +259,8 @@ class ChildTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testFetchChildItemIdsDifferentUser() {
 		// Create a new user and give him limited view permissions on our tree
@@ -284,7 +287,8 @@ class ChildTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_child[0]->getId(),
@@ -351,7 +355,8 @@ class ChildTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsWithPermission($this->_root->getId(), 'core.edit');
 
@@ -407,7 +412,8 @@ class ChildTest extends GalleryTestCase {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsWithPermission(
@@ -423,7 +429,6 @@ class ChildTest extends GalleryTestCase {
 			array(
 				$this->_child[1]->getId(),
 				$this->_child[0]->getId(),
-
 			),
 			$childIds
 		);
@@ -487,7 +492,8 @@ class ChildTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsIgnorePermissions($this->_root);
 
@@ -517,7 +523,8 @@ class ChildTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_root);
 
@@ -561,7 +568,8 @@ class ChildTest extends GalleryTestCase {
 				if ($ret) {
 					return $ret;
 				}
-			} else {
+
+} else {
 				list($ret, $child[$i]) = $this->_createRandomDataItem(
 					$album->getId(),
 					'test/file',
@@ -573,7 +581,8 @@ class ChildTest extends GalleryTestCase {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 
 			$timestamp += 100;
 		}
@@ -775,7 +784,8 @@ class ChildTest extends GalleryTestCase {
 		foreach ($itemIds as $itemId) {
 			$this->assertTrue(in_array($itemId, $childIds), 'descendent ' . $itemId);
 		}
-	}
+
+}
 
 	public function testDescendentItemIdsNoItem() {
 		list($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds($this->_child[0]);
@@ -886,6 +896,7 @@ class ChildTest extends GalleryTestCase {
 
 		$this->assertEquals($itemIds, $childIds, 'descendents');
 	}
+
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_2.class');
@@ -908,6 +919,7 @@ class ChildTestSortOrder extends GallerySortInterface_1_2 {
 			'LEFT JOIN [GalleryUser] ON [BASE::ID] = [GalleryUser::id]',
 		);
 	}
+
 }
 
 /**
@@ -927,4 +939,5 @@ class ChildTestSortOrder2 extends GallerySortInterface_1_2 {
 			'INNER JOIN [GalleryChildEntity] ON [BASE::ID] = [GalleryChildEntity::id]',
 		);
 	}
+
 }

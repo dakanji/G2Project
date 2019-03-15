@@ -208,7 +208,8 @@ class AkismetApi {
 			) as $key) {
 				$postDataArray[$key] = GalleryUtilities::getServerVar($key);
 			}
-		}
+
+}
 
 		// Generate a permalink to the comment using the full URL, without HTML encoding
 		$urlGenerator               =& $gallery->getUrlGenerator();
@@ -253,8 +254,7 @@ class AkismetApi {
 			return array($ret, null);
 		}
 
-		$galleryVersion = $core->getGalleryVersion();
-
+		$galleryVersion      = $core->getGalleryVersion();
 		list($ret, $comment) = GalleryCoreApi::loadPlugin('module', 'comment', true);
 
 		if ($ret) {
@@ -269,4 +269,5 @@ class AkismetApi {
 
 		return array(null, $userAgent);
 	}
+
 }

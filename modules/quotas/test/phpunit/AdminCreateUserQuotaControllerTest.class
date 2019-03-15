@@ -203,7 +203,8 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function _deleteUserQuota($userId) {
 		$ret = GalleryCoreApi::removeMapEntry(
@@ -216,5 +217,6 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 }

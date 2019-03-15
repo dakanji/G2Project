@@ -152,6 +152,7 @@ class ItemEditMoviePluginTest extends ItemEditPluginTestCase {
 
 		$results = $this->handleRequest($this->_item, $this->_preferred, ERROR_OBSOLETE_DATA);
 	}
+
 }
 
 /**
@@ -289,7 +290,8 @@ class ItemEditMoviePluginTestPlatform {
 			if ($ret == false) {
 				return false;
 			}
-		}
+
+}
 
 		closedir($fd);
 
@@ -297,7 +299,8 @@ class ItemEditMoviePluginTestPlatform {
 	}
 
 	public function unlink($path) {
-		return unlink($path); // needed to release locks
+		// needed to release locks
+		return unlink($path);
 	}
 
 	public function realpath($file) {
@@ -312,4 +315,5 @@ class ItemEditMoviePluginTestPlatform {
 	public function fclose($handle) {
 		return fclose($handle);
 	}
+
 }

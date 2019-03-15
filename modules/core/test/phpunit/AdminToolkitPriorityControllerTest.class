@@ -121,6 +121,7 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(27, $list['TestToolkitPriority'], 'TestToolkitPriority');
 		$this->assertEquals(30, $list['TestToolkitPriority2'], 'TestToolkitPriority2');
 	}
+
 }
 
 /**

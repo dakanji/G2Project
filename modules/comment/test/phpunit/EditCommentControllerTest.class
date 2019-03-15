@@ -78,7 +78,8 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($ret, $this->_anonymousUserId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 
@@ -97,7 +98,8 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function tearDown() {
 		$ret = GalleryCoreApi::setPluginParameter(
@@ -116,7 +118,8 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testEditComment() {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item[0]->getId());
@@ -126,7 +129,6 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[subject]', 'This is a new subject');
 		GalleryUtilities::putRequestVariable('form[author]', 'This is a new author');
 		GalleryUtilities::putRequestVariable('form[comment]', 'This is a new comment');
-
 		GalleryUtilities::putRequestVariable(
 			'form[commenterName]',
 			$this->_anonymousUser->getUserName()
@@ -159,9 +161,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertEquals('hosty.host.host', $comment->getHost());
-
 		$this->assertEquals((int)$this->_anonymousUserId, $comment->getCommenterId());
-
 		$this->assertEquals('This is a new comment', $comment->getComment());
 		$this->assertEquals('This is a new subject', $comment->getSubject());
 		$this->assertEquals(COMMENT_PUBLISH_STATUS_PUBLISHED, $comment->getPublishStatus());
@@ -177,7 +177,6 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[subject]', 'This is a new subject');
 		GalleryUtilities::putRequestVariable('form[author]', 'This is a new author');
 		GalleryUtilities::putRequestVariable('form[comment]', 'This is a new comment');
-
 		GalleryUtilities::putRequestVariable(
 			'form[commenterName]',
 			$this->_anonymousUser->getUserName()
@@ -204,7 +203,6 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[host]', '');
 		GalleryUtilities::putRequestVariable('form[subject]', '');
 		GalleryUtilities::putRequestVariable('form[author]', '');
-
 		GalleryUtilities::putRequestVariable('form[comment]', '');
 		GalleryUtilities::putRequestVariable('form[commenterName]', '');
 		GalleryUtilities::putRequestVariable('form[publishStatus]', '');
@@ -232,7 +230,6 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[host]', 'hosty.host.host');
 		GalleryUtilities::putRequestVariable('form[subject]', 'This is a new subject');
 		GalleryUtilities::putRequestVariable('form[comment]', 'This is a new comment');
-
 		GalleryUtilities::putRequestVariable('form[commenterName]', 'some-illegal-user-name');
 		GalleryUtilities::putRequestVariable(
 			'form[publishStatus]',
@@ -259,7 +256,6 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[host]', 'hosty.host.host');
 		GalleryUtilities::putRequestVariable('form[subject]', 'This is a new subject');
 		GalleryUtilities::putRequestVariable('form[comment]', 'This is a new comment');
-
 		GalleryUtilities::putRequestVariable('form[commenterName]', 'some-illegal-user-name');
 		GalleryUtilities::putRequestVariable(
 			'form[publishStatus]',
@@ -288,7 +284,6 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[host]', '');
 		GalleryUtilities::putRequestVariable('form[subject]', '');
 		GalleryUtilities::putRequestVariable('form[comment]', '');
-
 		GalleryUtilities::putRequestVariable('form[commenterName]', '');
 		GalleryUtilities::putRequestVariable(
 			'form[publishStatus]',
@@ -394,12 +389,10 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals('&lt;a&gt;a&lt;/a&gt;', $comment->getSubject());
 
 		$this->assertEquals('comment  test', $comment->getComment());
-
 		$this->assertEquals(
 			'this is a author with &lt;script&gt;evilness&lt;/script&gt; in it.',
 			$comment->getAuthor()
 		);
-
 		$this->assertEquals('hosty.host.host', $comment->getHost());
 		$this->assertEquals((int)$this->_anonymousUserId, $comment->getCommenterId());
 	}
@@ -552,4 +545,5 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals(COMMENT_PUBLISH_STATUS_SPAM, $comment->getPublishStatus());
 	}
+
 }

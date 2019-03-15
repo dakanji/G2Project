@@ -110,7 +110,8 @@ class GalleryLockSystem {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 		}
 
 		list($ret, $lockId) = $this->_acquireLock($ids, $timeout, LOCK_READ);
@@ -172,7 +173,8 @@ class GalleryLockSystem {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 		}
 
 		if (!empty($ids)) {
@@ -181,7 +183,8 @@ class GalleryLockSystem {
 			if ($ret) {
 				return array($ret, null);
 			}
-		} else {
+
+} else {
 			list($ret, $lockId) = $this->_newLockId();
 
 			if ($ret) {
@@ -200,7 +203,8 @@ class GalleryLockSystem {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		return array(null, $lockId);
 	}
@@ -231,7 +235,8 @@ class GalleryLockSystem {
 			if (isset($lock['ids'][$id])) {
 				return true;
 			}
-		}
+
+}
 
 		return false;
 	}
@@ -247,7 +252,8 @@ class GalleryLockSystem {
 			if ($lock['type'] == LOCK_WRITE && isset($lock['ids'][$id])) {
 				return true;
 			}
-		}
+
+}
 
 		return false;
 	}
@@ -274,7 +280,8 @@ class GalleryLockSystem {
 			if (empty($lockId) || !isset($this->_locks[$lockId])) {
 				unset($lockIds[$key]);
 			}
-		}
+
+}
 
 		// Queue locks for release
 		foreach ($lockIds as $lockId) {
@@ -289,7 +296,8 @@ class GalleryLockSystem {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -358,7 +366,8 @@ class GalleryLockSystem {
 			if (empty($this->_releaseQueue[$lockId]['ids'])) {
 				unset($this->_releaseQueue[$lockId]);
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -409,4 +418,5 @@ class GalleryLockSystem {
 	public function getLockIds() {
 		return array_keys($this->_locks);
 	}
+
 }

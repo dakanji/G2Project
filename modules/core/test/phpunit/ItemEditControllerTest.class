@@ -236,7 +236,8 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 
 			$this->assertEquals('runProgressBarOptions', $callbackMethod);
 		}
-	}
+
+}
 
 	public function testHandleRequestPluginRequiresProgressBarOptionDoesNot() {
 		global $gallery;
@@ -278,7 +279,8 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 
 			$this->assertEquals('runProgressBarOptions', $callbackMethod);
 		}
-	}
+
+}
 }
 
 /**
@@ -312,6 +314,7 @@ class ItemEditControllerTestPluginSuccess {
 
 		return array(null, array(), 'success', false);
 	}
+
 }
 
 /**
@@ -324,6 +327,7 @@ class ItemEditControllerTestPluginFailAndWarn extends ItemEditPlugin {
 	public function handleRequest($form, &$item, &$preferred) {
 		return array(null, array('failed'), null, false);
 	}
+
 }
 
 /**
@@ -336,6 +340,7 @@ class ItemEditControllerTestPluginRequiresProgressBar extends ItemEditPlugin {
 	public function handleRequest($form, &$item, &$preferred) {
 		return array(null, array(), 'success', true);
 	}
+
 }
 
 /**
@@ -356,6 +361,7 @@ class ItemEditControllerTestOption extends ItemEditOption {
 			array('a warning'),
 		);
 	}
+
 }
 
 /**
@@ -380,4 +386,5 @@ class ItemEditControllerTestOptionWithProgressBar extends ItemEditOption {
 	public function requiresProgressBar($form) {
 		return true;
 	}
+
 }

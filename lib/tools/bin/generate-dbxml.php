@@ -152,7 +152,8 @@ function generateEntityDbXml() {
 							default:
 								print 'Unknown member type: ' . $child['child'][$i]['name'] . '\n';
 						}
-					}
+
+}
 
 					if (empty($member['size'])) {
 						$member['size'] = 'MEDIUM';
@@ -195,12 +196,11 @@ function generateEntityDbXml() {
 
 					break;
 			}
-		}
+
+}
 
 		$smarty->assign('root', $root);
-
 		$smarty->assign('schema', $schema);
-
 		$smarty->assign('members', $members);
 		$smarty->assign('keys', $keys);
 		$smarty->assign('indexes', $indexes);
@@ -212,6 +212,7 @@ function generateEntityDbXml() {
 		fwrite($fd, $new);
 		fclose($fd);
 	}
+
 }
 
 function generateMapDbXml() {
@@ -325,7 +326,8 @@ function generateMapDbXml() {
 							default:
 								print 'Unknown member type: ' . $child['child'][$i]['name'] . '\n';
 						}
-					}
+
+}
 
 					if (empty($member['size'])) {
 						$member['size'] = 'MEDIUM';
@@ -361,9 +363,7 @@ function generateMapDbXml() {
 			}
 
 			$smarty->assign('root', $root);
-
 			$smarty->assign('schema', $schema);
-
 			$smarty->assign('members', $members);
 			$smarty->assign('keys', $keys);
 			$smarty->assign('indexes', $indexes);
@@ -375,7 +375,8 @@ function generateMapDbXml() {
 			fwrite($fd, $new);
 			fclose($fd);
 		}
-	}
+
+}
 }
 
 generateEntityDbXml();

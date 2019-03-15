@@ -177,7 +177,8 @@ class RewriteParser {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		switch ($code) {
 			case REWRITE_STATUS_BAD_KEYWORD:
@@ -202,7 +203,6 @@ class RewriteParser {
 				return array(
 					null,
 					$rewriteModule->translate('Empty configuration value.'),
-
 				);
 		}
 
@@ -302,4 +302,5 @@ class RewriteParser {
 	public function getParserType() {
 		return $this->_type;
 	}
+
 }

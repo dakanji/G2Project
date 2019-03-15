@@ -36,7 +36,11 @@
  * In tearDown() call:
  *
  *
+ *
+ *
  *  $this->assertTrue($this->_phpVm->isComplete(), $this->_phpVm->getRemaining());
+ *
+ *
  *
  *
  * The check in tearDown() verifies that all expected calls were received.
@@ -155,4 +159,5 @@ class UnitTestPhpVm extends MockObject {
 	public function date($format, $timestamp = null) {
 		return $this->_makeReply('date', array($format, $timestamp));
 	}
+
 }

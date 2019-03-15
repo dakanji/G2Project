@@ -89,6 +89,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 
 		$this->assertTrue($ret, 'status');
 		$this->assertEquals('v' . $testItemPath . '.html', $url, 'url');
+
 		$this->assertEquals(
 			array(
 				'view' => 'core.ShowItem',
@@ -137,6 +138,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 
 		$this->assertTrue($ret, 'status');
 		$this->assertEquals('d/' . $testItemName, $url, 'url');
+
 		$this->assertEquals(
 			array(
 				'view'   => 'core.DownloadItem',
@@ -186,6 +188,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 
 		$this->assertTrue($ret, 'status');
 		$this->assertEquals('d/' . $testSerialNumber, $url, 'url');
+
 		$this->assertEquals(
 			array(
 				'view'   => 'core.DownloadItem',
@@ -228,6 +231,7 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 
 		$this->assertTrue($ret, 'status');
 		$this->assertEquals('v/' . $language, $url, 'url');
+
 		$this->assertEquals(
 			array(
 				'view' => 'core.ShowItem',
@@ -265,4 +269,5 @@ class RewriteSimpleHelperTest extends GalleryTestCase {
 
 		$this->assertEquals($testAlbum->getId(), $itemId);
 	}
+
 }

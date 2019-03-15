@@ -63,6 +63,7 @@ if (!function_exists('_')) {
 	function _($s) {
 		return $s;
 	}
+
 }
 
 // Our install steps, in order
@@ -114,6 +115,7 @@ if (function_exists('dgettext')) {
 	if (!headers_sent()) {
 		header('Content-Type: text/html; charset=UTF-8');
 	}
+
 }
 
 /*
@@ -128,6 +130,7 @@ if (!isset($_GET['startOver']) && !empty($_SESSION['install_steps'])) {
 	if (isset($_SESSION['galleryStub'])) {
 		$galleryStub = unserialize($_SESSION['galleryStub']);
 	}
+
 }
 
 // If we don't have our steps in our session, initialize them now.
@@ -146,7 +149,8 @@ if (empty($steps) || !is_array($steps)) {
 
 			$steps[] = $step;
 		}
-	}
+
+}
 
 	// Don't do this in the loop, since not all steps are relevant
 	$steps[count($steps) - 1]->setIsLastStep(true);
@@ -161,6 +165,7 @@ for ($i = 0; $i < $stepNumber; $i++) {
 
 		break;
 	}
+
 }
 
 $currentStep =& $steps[$stepNumber];
@@ -175,6 +180,7 @@ if (!$currentStep->isComplete()) {
 		$steps[$i]->setComplete(false);
 		$steps[$i]->setInError(false);
 	}
+
 }
 
 if ($currentStep->processRequest()) {
@@ -210,7 +216,8 @@ function processAutoCompleteRequest() {
 		if (!is_dir($path)) {
 			return;
 		}
-	}
+
+}
 
 	$dirList = array();
 
@@ -229,7 +236,8 @@ function processAutoCompleteRequest() {
 			if (is_dir($file)) {
 				$dirList[] = $file;
 			}
-		}
+
+}
 
 		closedir($dir);
 		sort($dirList);
@@ -275,12 +283,14 @@ function populateDataDirectory($dataBase) {
 			if (!@mkdir($dir, 0755)) {
 				return false;
 			}
-		}
+
+}
 
 		if (!is_writeable($dir)) {
 			return false;
 		}
-	}
+
+}
 
 	return secureStorageFolder($dataBase);
 }
@@ -354,7 +364,8 @@ function generateUrl($uri, $print = true) {
 			$uri .= !strpos($uri, '?') ? '?' : '&amp;';
 			$uri .= $sid;
 		}
-	}
+
+}
 
 	if ($print) {
 		echo $uri;

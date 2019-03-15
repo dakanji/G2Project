@@ -44,9 +44,8 @@ class ItemMakeHighlightController extends GalleryController {
 	 * @see GalleryController::handleRequest
 	 */
 	public function handleRequest($form) {
-		$status = array();
-		$error  = array();
-
+		$status           = array();
+		$error            = array();
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
@@ -60,8 +59,7 @@ class ItemMakeHighlightController extends GalleryController {
 				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 			}
 
-			$parentId = (int)$form['parentId'];
-
+			$parentId            = (int)$form['parentId'];
 			list($ret, $canView) = GalleryCoreApi::hasItemPermission($parentId, 'core.view');
 
 			if ($ret) {
@@ -86,13 +84,15 @@ class ItemMakeHighlightController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
-		} // else $form['action']['cancel']
+
+} // else $form['action']['cancel']
 		$results['return'] = true;
 		$results['status'] = $status;
 		$results['error']  = $error;
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -177,4 +177,5 @@ class ItemMakeHighlightView extends GalleryView {
 
 		return array(null, $core->translate('make highlight'));
 	}
+
 }

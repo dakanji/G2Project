@@ -105,10 +105,13 @@ class ExifExtractor extends ExifInterface_1_0 {
 
 						break;
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		return array(null, $data);
 	}
+
 }

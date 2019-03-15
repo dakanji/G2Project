@@ -68,7 +68,8 @@ class GalleryFactoryHelper_medium {
 			if (!empty($hintEntry[$implId])) {
 				$hints[] = $hint;
 			}
-		}
+
+}
 
 		return array(null, $hints);
 	}
@@ -177,7 +178,8 @@ class GalleryFactoryHelper_medium {
 			foreach ($hints as $i => $hint) {
 				$hints[$i] = GalleryUtilities::strToLower($hint);
 			}
-		}
+
+}
 
 		$ret = GalleryCoreApi::addMapEntry(
 			'GalleryFactoryMap',
@@ -224,7 +226,8 @@ class GalleryFactoryHelper_medium {
 			if (!isset($registry[$key][$classType]) || !is_array($registry[$key][$classType])) {
 				$registry[$key][$classType] = array();
 			}
-		}
+
+}
 
 		GalleryFactoryHelper_medium::_array_unshift_key_value(
 			$registry['implementations'][$classType],
@@ -258,7 +261,8 @@ class GalleryFactoryHelper_medium {
 					$className
 				);
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -279,4 +283,5 @@ class GalleryFactoryHelper_medium {
 			$array
 		);
 	}
+
 }

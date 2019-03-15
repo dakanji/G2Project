@@ -87,14 +87,16 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				$this->failWithStatus($ret);
 			}
-		}
+
+}
 
 		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testAdminSelfRegistrationControllerSave() {
 		GalleryUtilities::putRequestVariable('form[confirmation]', 'email');
@@ -102,7 +104,6 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[subject]', 'Testmail');
 		GalleryUtilities::putRequestVariable('form[adminsubject]', 'Testmail');
 		GalleryUtilities::putRequestVariable('form[usersubject]', 'Testmail');
-
 		GalleryUtilities::putRequestVariable('form[emailusers]', 'on');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
@@ -146,7 +147,8 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 			$this->assertEquals($expectedValue, $realValue, "value mismatch for $key");
 		}
-	}
+
+}
 
 	public function testAdminSelfRegistrationControllerActivate() {
 		GalleryUtilities::putRequestVariable('form[userId]', $this->_pendingUser->getId());
@@ -175,8 +177,7 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 		$username           = $this->_pendingUser->getUserName();
 		$this->_pendingUser = null;
-
-		list($ret, $user) = GalleryCoreApi::fetchUserByUsername($username);
+		list($ret, $user)   = GalleryCoreApi::fetchUserByUsername($username);
 
 		if ($ret) {
 			return $ret;
@@ -288,4 +289,5 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 		$this->assertFalse(empty($data), 'User data with filter');
 	}
+
 }

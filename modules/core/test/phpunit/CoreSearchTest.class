@@ -110,7 +110,8 @@ class CoreSearchTest extends GalleryTestCase {
 
 					break;
 			}
-		}
+
+}
 
 		if (class_exists('GallerySearchInterface_1_0')) {
 			list($ret, $this->_coreSearch) = GalleryCoreApi::newFactoryInstance(
@@ -146,9 +147,7 @@ class CoreSearchTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(isset($info['name']), 'name missing');
-
 		$this->assertTrue(isset($info['description']), 'description missing');
-
 		$this->assertTrue(isset($info['options']), 'options missing');
 		$this->assertTrue(is_array($info['options']), 'options not an array');
 
@@ -162,7 +161,8 @@ class CoreSearchTest extends GalleryTestCase {
 				"options:$option not enabled"
 			);
 		}
-	}
+
+}
 
 	/**
 	 * Search for all available fields
@@ -661,4 +661,5 @@ class CoreSearchTest extends GalleryTestCase {
 			$results
 		);
 	}
+
 }

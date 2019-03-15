@@ -211,7 +211,8 @@ class GallerySession {
 			if ($sessionId) {
 				$this->_sessionId = $sessionId;
 			}
-		} else {
+
+} else {
 			$this->_sessionId = GalleryUtilities::getRequestVariables(SESSION_ID_PARAMETER);
 
 			// When logging out (resetting the session), we already know if cookies are used
@@ -235,7 +236,8 @@ class GallerySession {
 
 				$this->_isSearchEngineSession = true;
 			}
-		}
+
+}
 
 		// Sanitize the session id
 		$this->_sessionId = is_string($this->_sessionId) ? $this->_sessionId : '';
@@ -295,9 +297,11 @@ class GallerySession {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 			}
-		} // End for existing persistent sessions
+
+} // End for existing persistent sessions
 		// Initialize the secure flag if HTTPS
 		if ($this->_isPersistent) {
 			$isSecure = (bool)$this->get('secure');
@@ -315,7 +319,8 @@ class GallerySession {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -355,7 +360,8 @@ class GallerySession {
 			if ($ret) {
 				return $ret;
 			}
-		} // Else: not a new session
+
+} // Else: not a new session
 		/*
 		 * Send a cookie to the browser, if necessry ( this must be done before we start outputting
 		 * HTML because the DownloadItem requests might come in before we reach $session->save() )
@@ -371,7 +377,8 @@ class GallerySession {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -450,7 +457,8 @@ class GallerySession {
 
 					$this->_isSessionSaved = true;
 				}
-			}
+
+}
 
 			$this->_loadedSessionData = $this->_getSerializedSession();
 			$this->_isPersistent      = true;
@@ -463,7 +471,8 @@ class GallerySession {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -489,7 +498,8 @@ class GallerySession {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$this->_userId = (int)$userId;
 
@@ -528,7 +538,8 @@ class GallerySession {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$this->_sessionId = '';
 		$this->_userId    = null;
@@ -599,7 +610,8 @@ class GallerySession {
 					preg_replace($match, $replace, GalleryUtilities::getRequestVariables($key))
 				);
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -638,8 +650,7 @@ class GallerySession {
 			return $ret;
 		}
 
-		$urlGenerator =& $gallery->getUrlGenerator();
-
+		$urlGenerator           =& $gallery->getUrlGenerator();
 		list($ret, $cookiePath) = $urlGenerator->getCookiePath();
 
 		if ($ret) {
@@ -655,7 +666,8 @@ class GallerySession {
 			} else {
 				return $ret;
 			}
-		}
+
+}
 
 		if ($delete) {
 			// Expires in the past instructs the browser to delete the cookie
@@ -788,10 +800,12 @@ class GallerySession {
 					// No luck after x attempts, give up, stop hitting the server with DB queries
 					return $ret;
 				}
-			} else {
+
+} else {
 				$success = true;
 			}
-		} while (!$success && $attempt++ < 4);
+
+} while (!$success && $attempt++ < 4);
 
 		if (!$success) {
 			return GalleryCoreApi::error(ERROR_COLLISION);
@@ -841,7 +855,8 @@ class GallerySession {
 				if (empty($_COOKIE[SESSION_ID_PARAMETER])) {
 					$this->_isUsingCookies = false;
 				}
-			}
+
+}
 		}
 
 		if (!empty($this->_isSearchEngineSession) || empty($this->_userId)) {
@@ -863,7 +878,6 @@ class GallerySession {
 			 * - authToken: we only check the authToken for persistent sessions
 			 */
 			unset($sessionDataCopy['core.lastViewed'], $sessionDataCopy['permissionCache'], $sessionDataCopy['core.navigation'], $sessionDataCopy['embed.id.externalUser'], $sessionDataCopy['core.authToken'], $sessionDataCopy['secure']);
-
 			list(
 				$ret,
 				$detectedLanguageCode
@@ -906,7 +920,8 @@ class GallerySession {
 	 */
 	public function _isPersistentSessionAllowedForRequest() {
 		if (!isset($this->_isPersistentSessionAllowedForRequest)) {
-			$flag                    = true; // Default to true
+			// Default to true
+			$flag                    = true;
 			list($view, $controller) = GalleryUtilities::getRequestVariables('view', 'controller');
 
 			if (!empty($controller)) {
@@ -917,7 +932,8 @@ class GallerySession {
 				if (!$ret && !$controller->shouldSaveSession()) {
 					$flag = false;
 				}
-			} elseif (!empty($view)) {
+
+} elseif (!empty($view)) {
 				GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
 
 				list($ret, $view) = GalleryView::getMe()->loadView($view);
@@ -925,7 +941,8 @@ class GallerySession {
 				if (!$ret && !$view->shouldSaveSession()) {
 					$flag = false;
 				}
-			}
+
+}
 
 			$this->_isPersistentSessionAllowedForRequest = $flag;
 		}
@@ -962,10 +979,9 @@ class GallerySession {
 				return $ret;
 			}
 
-			$phpVm          = $gallery->getPhpVm();
-			$lifetimeCutoff = $phpVm->time() - $lifetime;
-			$inactiveCutoff = $phpVm->time() - $inactivityTimeout;
-
+			$phpVm               = $gallery->getPhpVm();
+			$lifetimeCutoff      = $phpVm->time() - $lifetime;
+			$inactiveCutoff      = $phpVm->time() - $inactivityTimeout;
 			list($ret, $results) = GalleryCoreApi::getMapEntry(
 				'GallerySessionMap',
 				array(
@@ -1032,7 +1048,8 @@ class GallerySession {
 					// Get a new sessionId + session meta data (later)
 					$this->_sessionId = '';
 				}
-			} else {
+
+} else {
 				// There's no session with this sessionId in the database
 				$this->_sessionId = '';
 			}
@@ -1050,9 +1067,11 @@ class GallerySession {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 			}
-		} // Else: no sessionId specified, thus we've no session yet
+
+} // Else: no sessionId specified, thus we've no session yet
 		if (!$this->_isPersistent) {
 			$this->_emptySessionData();
 		}
@@ -1167,7 +1186,8 @@ class GallerySession {
 				} else {
 					$subject->$key = $value;
 				}
-			}
+
+}
 		} elseif (is_string($subject)) {
 			if ($search !== null) {
 				return str_replace($search, $replace, $subject);
@@ -1190,8 +1210,7 @@ class GallerySession {
 	public function _expireSessions() {
 		global $gallery;
 
-		$storage =& $gallery->getStorage();
-
+		$storage                              =& $gallery->getStorage();
 		list($ret, $sessionInactivityTimeout) = GalleryCoreApi::getPluginParameter('module', 'core', 'session.inactivityTimeout');
 
 		if ($ret) {
@@ -1238,17 +1257,17 @@ class GallerySession {
 			 * 500 sessionIds + DELETE those sessionIds is more expensive we optimize for MySQL by
 			 * using DELETE ... LIMIT 500
 			 */
-			$query = '
+			$query               = '
 			DELETE FROM [GallerySessionMap]
 			' . $where . '
 			LIMIT ' . (int)$this->_expirationLimit;
-
 			list($ret, $results) = $storage->execute($query, $data);
 
 			if ($ret) {
 				return $ret;
 			}
-		} else {
+
+} else {
 			/*
 			 * For other DBMS first SELECT the sessionIds with a LIMIT clause then DELETE
 			 * ADOdb can't implement the LIMIT clause in subqueries DB independently!
@@ -1257,8 +1276,7 @@ class GallerySession {
 			SELECT [GallerySessionMap::id]
 			FROM [GallerySessionMap]' . $where;
 			$option['limit']['count'] = $this->_expirationLimit;
-
-			list($ret, $results) = $gallery->search($query, $data, $option);
+			list($ret, $results)      = $gallery->search($query, $data, $option);
 
 			if ($ret) {
 				return $ret;
@@ -1284,7 +1302,8 @@ class GallerySession {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -1360,7 +1379,8 @@ class GallerySession {
 			if (!isset($this->_cookieDomain)) {
 				$this->_cookieDomain = '';
 			}
-		}
+
+}
 
 		return array(null, $this->_cookieDomain);
 	}
@@ -1479,7 +1499,8 @@ class GallerySession {
 				if (sizeof($b) > $i && $a[$i] == $b[$i]) {
 					$score++;
 				}
-			}
+
+}
 		}
 
 		return $score;
@@ -1633,8 +1654,7 @@ class GallerySession {
 	public function hasSiteAdminSessionExpired() {
 		global $gallery;
 
-		$phpVm = $gallery->getPhpVm();
-
+		$phpVm                                 = $gallery->getPhpVm();
 		list($ret, $siteAdministrationTimeout) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',
@@ -1649,6 +1669,7 @@ class GallerySession {
 
 		return array(null, ($lastActivity + (int)$siteAdministrationTimeout) < $phpVm->time());
 	}
+
 }
 
 /**
@@ -1678,5 +1699,6 @@ class SessionAuthPlugin {
 
 			return array(null, $user);
 		}
-	}
+
+}
 }

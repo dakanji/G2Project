@@ -95,6 +95,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		$this->_createUser();
 		$this->_createUser();
 		$this->_createUser();
+
 		GalleryUtilities::putRequestVariable('command', 'lookupUsername');
 		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
 
@@ -110,6 +111,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		$this->_createUser();
 		$this->_createUser();
 		$this->_becomeGuestUser();
+
 		GalleryUtilities::putRequestVariable('command', 'lookupUsername');
 		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
 
@@ -125,6 +127,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		$this->_createUser();
 		$this->_createUser();
 		$gallery->setConfig('anonymousUserId', $gallery->getActiveUserId());
+
 		GalleryUtilities::putRequestVariable('command', 'lookupUsername');
 		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
 
@@ -155,6 +158,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		$this->_createGroup();
 		$this->_createGroup();
 		$this->_createGroup();
+
 		GalleryUtilities::putRequestVariable('command', 'lookupGroupname');
 		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
 
@@ -170,6 +174,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		$this->_createGroup();
 		$this->_createGroup();
 		$this->_becomeGuestUser();
+
 		GalleryUtilities::putRequestVariable('command', 'lookupGroupname');
 		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
 
@@ -193,6 +198,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		$results = $this->_runCallback();
 
 		sort($this->_groupNames);
+
 		$this->assertEquals(join("\n", $this->_groupNames), $results);
 	}
 
@@ -222,11 +228,8 @@ class SimpleCallbackTest extends GalleryTestCase {
 		$platform = new SimpleCallbackTestPlatform();
 
 		$platform->setReply('is_dir', array('/php<unit'), true);
-
 		$platform->setReply('opendir', array('/php<unit'), 'dh');
-
 		$platform->setReply('getDirectorySeparator', array(), '/');
-
 		$platform->setReply('readdir', array('dh'), 'test');
 		$platform->setReply('is_dir', array('/php<unit/test'), true);
 		$platform->setReply('readdir', array('dh'), false);
@@ -251,11 +254,8 @@ class SimpleCallbackTest extends GalleryTestCase {
 		$platform        = new SimpleCallbackTestPlatform();
 
 		$platform->setReply('is_dir', array('/php' . chr(228) . 'unit'), true);
-
 		$platform->setReply('opendir', array('/php' . chr(228) . 'unit'), 'dh');
-
 		$platform->setReply('getDirectorySeparator', array(), '/');
-
 		$platform->setReply('readdir', array('dh'), 't' . chr(228) . 'st');
 		$platform->setReply('is_dir', array('/php' . chr(228) . 'unit/t' . chr(228) . 'st'), true);
 		$platform->setReply('readdir', array('dh'), false);
@@ -337,17 +337,11 @@ class SimpleCallbackTest extends GalleryTestCase {
 		$platform = new SimpleCallbackTestPlatform();
 
 		$platform->setReply('is_dir', array('/php&unit'), true);
-
 		$platform->setReply('opendir', array('/php&unit'), 'dh');
-
 		$platform->setReply('getDirectorySeparator', array(), '/');
-
 		$platform->setReply('readdir', array('dh'), 'test');
-
 		$platform->setReply('is_dir', array('/php&unit/test'), false);
-
 		$platform->setReply('is_file', array('/php&unit/test'), true);
-
 		$platform->setReply('readdir', array('dh'), 'dir');
 		$platform->setReply('is_dir', array('/php&unit/dir'), true);
 		$platform->setReply('readdir', array('dh'), false);
@@ -373,17 +367,11 @@ class SimpleCallbackTest extends GalleryTestCase {
 		$platform        = new SimpleCallbackTestPlatform();
 
 		$platform->setReply('is_dir', array('/php' . chr(228) . 'unit'), true);
-
 		$platform->setReply('opendir', array('/php' . chr(228) . 'unit'), 'dh');
-
 		$platform->setReply('getDirectorySeparator', array(), '/');
-
 		$platform->setReply('readdir', array('dh'), 't' . chr(228) . 'st');
-
 		$platform->setReply('is_dir', array('/php' . chr(228) . 'unit/t' . chr(228) . 'st'), false);
-
 		$platform->setReply('is_file', array('/php' . chr(228) . 'unit/t' . chr(228) . 'st'), true);
-
 		$platform->setReply('readdir', array('dh'), 'dir');
 		$platform->setReply('is_dir', array('/php' . chr(228) . 'unit/dir'), true);
 		$platform->setReply('readdir', array('dh'), false);
@@ -437,6 +425,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		// Guests can't see results
 		$this->assertEquals('', $results);
 	}
+
 }
 
 /**
@@ -457,7 +446,8 @@ class SimpleCallbackTestPhpVm {
 			default:
 				return function_exists($functionName);
 		}
-	}
+
+}
 }
 
 class SimpleCallbackTestPlatform extends UnitTestPlatform {
@@ -509,4 +499,5 @@ class SimpleCallbackTestPlatform extends UnitTestPlatform {
 
 		return $this->_makeReply('file_exists', array($filename));
 	}
+
 }

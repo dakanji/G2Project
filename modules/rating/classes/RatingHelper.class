@@ -69,7 +69,8 @@ class RatingHelper {
 			if ($rating == 0) {
 				$data[(int)$result[0]]['stars'] = 1;
 			}
-		}
+
+}
 
 		// Set defaults if a requested ID isn't found
 		foreach ($itemIds as $itemId) {
@@ -84,7 +85,8 @@ class RatingHelper {
 					'averagePercent' => 0,
 				);
 			}
-		}
+
+}
 
 		// Check for existing votes from this user!
 		$session =& $gallery->getSession();
@@ -132,7 +134,8 @@ class RatingHelper {
 					$data[(int)$result[0]]['userRating'] = 'N/A';
 					$data[(int)$result[0]]['userStars']  = 0;
 				}
-			}
+
+}
 		}
 
 		return array(null, $data);
@@ -181,7 +184,8 @@ class RatingHelper {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		$sessionId = $session->getId();
 		$remoteId  = $session->getRemoteIdentifier();
@@ -296,4 +300,5 @@ class RatingHelper {
 
 		return array(null, $data);
 	}
+
 }

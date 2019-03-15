@@ -138,7 +138,8 @@ class RewriteSimpleHelper {
 				if ($defaultLanguageCode == $activeLanguage) {
 					unset($language[1]);
 				}
-			}
+
+}
 
 			$urlGenerator->_language = join('_', $language);
 		}
@@ -188,4 +189,5 @@ class RewriteSimpleHelper {
 
 		return true;
 	}
+
 }

@@ -19,11 +19,13 @@ if (!defined('ADODB_DIR')) {
 
 define('_ADODB_ODBTP_LAYER', 2);
 class ADODB_odbtp extends ADOConnection {
-	public $databaseType    = 'odbtp';
-	public $dataProvider    = 'odbtp';
-	public $fmtDate         = "'Y-m-d'";
-	public $fmtTimeStamp    = "'Y-m-d, h:i:sA'";
-	public $replaceQuote    = "''"; // string to use to replace quotes
+	public $databaseType = 'odbtp';
+	public $dataProvider = 'odbtp';
+	public $fmtDate      = "'Y-m-d'";
+	public $fmtTimeStamp = "'Y-m-d, h:i:sA'";
+
+	// string to use to replace quotes
+	public $replaceQuote    = "''";
 	public $odbc_driver     = 0;
 	public $hasAffectedRows = true;
 	public $hasInsertID     = false;
@@ -76,6 +78,7 @@ class ADODB_odbtp extends ADOConnection {
 		if ($isfld) return "convert(date, $d, 120)";
 		if (is_string($d)) $d = ADORecordSet::UnixDate($d);
 		$d = adodb_date($this->fmtDate,$d);
+
 		return "convert(date, $d, 120)";
 	}
 
@@ -85,10 +88,11 @@ class ADODB_odbtp extends ADOConnection {
 		if ($isfld) return "convert(datetime, $d, 120)";
 		if (is_string($d)) $d = ADORecordSet::UnixDate($d);
 		$d = adodb_date($this->fmtDate,$d);
+
 		return "convert(datetime, $d, 120)";
 	}
 
-	*/
+*/
 	public function _insertid() {
 		// SCOPE_IDENTITY()
 		// Returns the last IDENTITY value inserted into an IDENTITY column in
@@ -184,7 +188,8 @@ class ADODB_odbtp extends ADOConnection {
 				if (!$ok) {
 					return false;
 				}
-			}
+
+}
 
 			$ok = $this->Execute("update adodb_seq set seq_value=seq_value+1 where seq_name='$seq'");
 
@@ -194,7 +199,8 @@ class ADODB_odbtp extends ADOConnection {
 
 				return $num;
 			}
-		}
+
+}
 
 		if ($fn = $this->raiseErrorFn) {
 			$fn($this->databaseType, 'GENID', -32000, "Unable to generate unique id after $MAXLOOPS attempts", $seq, $num);
@@ -228,7 +234,8 @@ class ADODB_odbtp extends ADOConnection {
 			if (function_exists('odbtp_dont_pool_dbc')) {
 				@odbtp_dont_pool_dbc($this->_connectionID);
 			}
-		} else {
+
+} else {
 			$this->_dontPoolDBC = true;
 		}
 
@@ -275,7 +282,10 @@ class ADODB_odbtp extends ADOConnection {
 				$this->sysTimeStamp    = 'NOW';
 				$this->hasTop          = 'top';
 				$this->hasTransactions = false;
-				$this->_canPrepareSP   = true;  // For MS Access only.
+
+				// For MS Access only.
+				$this->_canPrepareSP = true;
+
 				break;
 
 			case 'visual foxpro':
@@ -327,7 +337,8 @@ class ADODB_odbtp extends ADOConnection {
 				} else {
 					$this->hasTransactions = false;
 				}
-		}
+
+}
 
 		@odbtp_set_attr(ODB_ATTR_FULLCOLINFO, true, $this->_connectionID);
 
@@ -349,8 +360,11 @@ class ADODB_odbtp extends ADOConnection {
 			return false;
 		}
 
-		$this->database     = $dbName;
-		$this->databaseName = $dbName; // obsolete, retained for compat with older adodb versions
+		$this->database = $dbName;
+
+		// obsolete, retained for compat with older adodb versions
+		$this->databaseName = $dbName;
+
 		return true;
 	}
 
@@ -381,7 +395,8 @@ class ADODB_odbtp extends ADOConnection {
 			if ($arr[$i][2]) {
 				$arr2[] = $showSchema && $arr[$i][1] ? $arr[$i][1] . '.' . $arr[$i][2] : $arr[$i][2];
 			}
-		}
+
+}
 
 		return $arr2;
 	}
@@ -430,12 +445,14 @@ class ADODB_odbtp extends ADOConnection {
 				$fld->not_null   = !empty($rs->fields[9]);
 				$fld->scale      = $rs->fields[7];
 
-				if (isset($rs->fields[12])) { // vfp does not have field 12
+				if (isset($rs->fields[12])) {
+					// vfp does not have field 12
 					if (null !== $rs->fields[12]) {
 						$fld->has_default   = true;
 						$fld->default_value = $rs->fields[12];
 					}
-				}
+
+}
 
 				$retarr[strtoupper($fld->name)] = $fld;
 			} elseif (!empty($retarr)) {
@@ -465,7 +482,8 @@ class ADODB_odbtp extends ADOConnection {
 			if ($arr[$i][3]) {
 				$arr2[] = $arr[$i][3];
 			}
-		}
+
+}
 
 		return $arr2;
 	}
@@ -500,7 +518,8 @@ class ADODB_odbtp extends ADOConnection {
 
 				$arr2[$a] = $b;
 			}
-		}
+
+}
 
 		return $arr2;
 	}
@@ -582,7 +601,8 @@ class ADODB_odbtp extends ADOConnection {
 			if (!preg_match('/ORDER[ \t\r\n]+BY/is', $sql)) {
 				$sql .= ' ORDER BY 1';
 			}
-		}
+
+}
 
 		$ret = ADOConnection::SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
 
@@ -591,7 +611,8 @@ class ADODB_odbtp extends ADOConnection {
 
 	public function Prepare($sql) {
 		if (!$this->_bindInputArray) {
-			return $sql; // no binding
+			// no binding
+			return $sql;
 		}
 
 		$this->_errorMsg  = false;
@@ -608,7 +629,8 @@ class ADODB_odbtp extends ADOConnection {
 
 	public function PrepareSP($sql, $param = true) {
 		if (!$this->_canPrepareSP) {
-			return $sql; // Can't prepare procedures
+			// Can't prepare procedures
+			return $sql;
 		}
 
 		$this->_errorMsg  = false;
@@ -649,7 +671,8 @@ class ADODB_odbtp extends ADOConnection {
 			) {
 				$type = ODB_WCHAR;
 			}
-		} else {
+
+} else {
 			$name = '@' . $name;
 		}
 
@@ -690,7 +713,8 @@ class ADODB_odbtp extends ADOConnection {
 			default:
 				return array();
 		}
-	}
+
+}
 
 	public function MetaIndexes_mssql($table, $primary = false, $owner = false) {
 		$table = strtolower($this->qstr($table));
@@ -702,6 +726,7 @@ class ADODB_odbtp extends ADOConnection {
 			INNER JOIN dbo.syscolumns c ON K.id = C.id AND K.colid = C.Colid
 			WHERE LEFT(i.name, 8) <> '_WA_Sys_' AND o.status >= 0 AND lower(O.Name) = $table
 			ORDER BY O.name, I.Name, K.keyno";
+
 		global $ADODB_FETCH_MODE;
 
 		$save             = $ADODB_FETCH_MODE;
@@ -765,7 +790,8 @@ class ADODB_odbtp extends ADOConnection {
 
 					return false;
 				}
-			}
+
+}
 
 			$num_params = @odbtp_num_params($stmtid);
 
@@ -773,7 +799,9 @@ class ADODB_odbtp extends ADOConnection {
 			for( $param = 1; $param <= $num_params; $param++ ) {
 				@odbtp_input( $stmtid, $param );
 				@odbtp_set( $stmtid, $param, $inputarr[$param-1] );
-			}*/
+			}
+
+*/
 			$param = 1;
 
 			foreach ($inputarr as $v) {
@@ -784,18 +812,21 @@ class ADODB_odbtp extends ADOConnection {
 				if ($param > $num_params) {
 					break;
 				}
-			}
+
+}
 
 			if (!@odbtp_execute($stmtid)) {
 				return false;
 			}
-		} elseif (is_array($sql)) {
+
+} elseif (is_array($sql)) {
 			$stmtid = $sql[1];
 
 			if (!@odbtp_execute($stmtid)) {
 				return false;
 			}
-		} else {
+
+} else {
 			$stmtid = odbtp_query($sql, $this->_connectionID);
 		}
 
@@ -815,6 +846,7 @@ class ADODB_odbtp extends ADOConnection {
 
 		return $ret;
 	}
+
 }
 
 class ADORecordSet_odbtp extends ADORecordSet {
@@ -853,13 +885,16 @@ class ADORecordSet_odbtp extends ADORecordSet {
 					if (@odbtp_field_bindtype($this->_queryID, $f) == ODB_CHAR) {
 						@odbtp_bind_field($this->_queryID, $f, ODB_WCHAR);
 					}
-				}
+
+}
 			}
-		}
+
+}
 	}
 
 	public function FetchField($fieldOffset = 0) {
-		$off           = $fieldOffset; // offsets begin at 0
+		// offsets begin at 0
+		$off           = $fieldOffset;
 		$o             = new ADOFieldObject();
 		$o->name       = @odbtp_field_name($this->_queryID, $off);
 		$o->type       = @odbtp_field_type($this->_queryID, $off);
@@ -891,7 +926,8 @@ class ADORecordSet_odbtp extends ADORecordSet {
 
 				$this->bind[strtoupper($name)] = $i;
 			}
-		}
+
+}
 
 		return $this->fields[$this->bind[strtoupper($colname)]];
 	}
@@ -918,9 +954,11 @@ class ADORecordSet_odbtp extends ADORecordSet {
 					if (strncmp($v, '1899-12-30', 10) == 0) {
 						$this->fields[$k] = '';
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		return is_array($this->fields);
 	}
@@ -968,6 +1006,7 @@ class ADORecordSet_odbtp extends ADORecordSet {
 	public function _close() {
 		return @odbtp_free_query($this->_queryID);
 	}
+
 }
 
 class ADORecordSet_odbtp_mssql extends ADORecordSet_odbtp {
@@ -976,6 +1015,7 @@ class ADORecordSet_odbtp_mssql extends ADORecordSet_odbtp {
 	public function __construct($id, $mode = false) {
 		return parent::__construct($id, $mode);
 	}
+
 }
 
 class ADORecordSet_odbtp_access extends ADORecordSet_odbtp {
@@ -984,6 +1024,7 @@ class ADORecordSet_odbtp_access extends ADORecordSet_odbtp {
 	public function __construct($id, $mode = false) {
 		return parent::__construct($id, $mode);
 	}
+
 }
 
 class ADORecordSet_odbtp_vfp extends ADORecordSet_odbtp {
@@ -992,6 +1033,7 @@ class ADORecordSet_odbtp_vfp extends ADORecordSet_odbtp {
 	public function __construct($id, $mode = false) {
 		return parent::__construct($id, $mode);
 	}
+
 }
 
 class ADORecordSet_odbtp_oci8 extends ADORecordSet_odbtp {
@@ -1000,6 +1042,7 @@ class ADORecordSet_odbtp_oci8 extends ADORecordSet_odbtp {
 	public function __construct($id, $mode = false) {
 		return parent::__construct($id, $mode);
 	}
+
 }
 
 class ADORecordSet_odbtp_sybase extends ADORecordSet_odbtp {
@@ -1008,4 +1051,5 @@ class ADORecordSet_odbtp_sybase extends ADORecordSet_odbtp {
 	public function __construct($id, $mode = false) {
 		return parent::__construct($id, $mode);
 	}
+
 }

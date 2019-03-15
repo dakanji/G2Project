@@ -30,6 +30,7 @@ function smarty_function_eval($params, &$smarty) {
 	}
 
 	$smarty->_compile_source('evaluated template', $params['var'], $_var_compiled);
+
 	ob_start();
 
 	$smarty->_eval('?>' . $_var_compiled);
@@ -42,6 +43,7 @@ function smarty_function_eval($params, &$smarty) {
 	} else {
 		return $_contents;
 	}
+
 }
 
 // vim: set expandtab:

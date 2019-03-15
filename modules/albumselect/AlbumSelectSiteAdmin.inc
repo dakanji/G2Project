@@ -58,7 +58,8 @@ class AlbumSelectSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			$status['saved'] = 1;
 
@@ -82,6 +83,7 @@ class AlbumSelectSiteAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -109,11 +111,11 @@ class AlbumSelectSiteAdminView extends GalleryView {
 			if (!isset($form[$key])) {
 				$form[$key] = false;
 			}
-		}
+
+}
 
 		if ($form['formName'] != 'AlbumSelectSiteAdmin') {
-			$form['formName'] = 'AlbumSelectSiteAdmin';
-
+			$form['formName']   = 'AlbumSelectSiteAdmin';
 			list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'albumselect');
 
 			if ($ret) {
@@ -123,7 +125,8 @@ class AlbumSelectSiteAdminView extends GalleryView {
 			foreach ($params as $key => $value) {
 				$form[$key] = $value;
 			}
-		}
+
+}
 
 		$template->setVariable('controller', 'albumselect.AlbumSelectSiteAdmin');
 
@@ -134,4 +137,5 @@ class AlbumSelectSiteAdminView extends GalleryView {
 			),
 		);
 	}
+
 }

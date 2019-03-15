@@ -36,7 +36,9 @@ class RandomHighlightModule extends GalleryModule {
 				'Periodically change the album highlight'
 			)
 		);
-		$this->setVersion('2.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -83,7 +85,8 @@ class RandomHighlightModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		if (!empty($currentVersion)) {
@@ -186,7 +189,8 @@ class RandomHighlightModule extends GalleryModule {
 						sprintf('Unknown module version %s', $currentVersion)
 					);
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -299,7 +303,8 @@ class RandomHighlightModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$viewName = GalleryUtilities::getRequestVariables('view');
 
@@ -329,7 +334,8 @@ class RandomHighlightModule extends GalleryModule {
 			if ($refresh->getSerialNumber() == $thumbnail->getSerialNumber()) {
 				$picknew = true;
 			}
-		}
+
+}
 
 		if ($picknew) {
 			global $gallery;
@@ -410,7 +416,8 @@ class RandomHighlightModule extends GalleryModule {
 
 					break;
 				}
-			}
+
+}
 
 			if (empty($highlightId)) {
 				GalleryCoreApi::releaseLocks($lockId);
@@ -452,6 +459,7 @@ class RandomHighlightModule extends GalleryModule {
 				)
 			);
 			$thumbnail->setDerivativeSourceId($highlight->getId());
+
 			GalleryCoreApi::estimateDerivativeDimensions($thumbnail, $highlight);
 
 			$thumbnail->save();
@@ -469,7 +477,8 @@ class RandomHighlightModule extends GalleryModule {
 
 				return $ret;
 			}
-		}
+
+}
 
 		if (isset($lockId)) {
 			$ret = GalleryCoreApi::releaseLocks($lockId);
@@ -477,8 +486,10 @@ class RandomHighlightModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
+
 }

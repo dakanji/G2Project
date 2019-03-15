@@ -104,7 +104,6 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@email.com');
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
-
 		GalleryUtilities::putRequestVariable('form[password1]', '');
 		GalleryUtilities::putRequestVariable('form[password2]', '');
 		GalleryUtilities::putRequestVariable('form[locked]', '');
@@ -133,7 +132,6 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[userName]', $newUserName);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@email.com');
-
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
 		GalleryUtilities::putRequestVariable('form[password1]', '');
 		GalleryUtilities::putRequestVariable('form[password2]', '');
@@ -163,7 +161,6 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[userName]', $newUserName);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@email.com');
-
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
 		GalleryUtilities::putRequestVariable('form[password1]', '');
 		GalleryUtilities::putRequestVariable('form[password2]', '');
@@ -189,7 +186,6 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[userName]', '');
 		GalleryUtilities::putRequestVariable('form[email]', '');
 		GalleryUtilities::putRequestVariable('form[fullName]', '');
-
 		GalleryUtilities::putRequestVariable('form[language]', '');
 		GalleryUtilities::putRequestVariable('form[password1]', 'x');
 		GalleryUtilities::putRequestVariable('form[password2]', '');
@@ -219,7 +215,6 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[email]', 'email');
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[language]', '');
-
 		GalleryUtilities::putRequestVariable('form[password1]', '');
 		GalleryUtilities::putRequestVariable('form[password2]', '');
 
@@ -246,7 +241,6 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@email.com');
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
-
 		GalleryUtilities::putRequestVariable('form[password1]', $password);
 		GalleryUtilities::putRequestVariable('form[password2]', $password);
 		GalleryUtilities::putRequestVariable('form[locked]', '');
@@ -288,7 +282,6 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[email]', $this->_user[0]->getEmail());
 		GalleryUtilities::putRequestVariable('form[language]', $this->_user[0]->getLanguage());
 		GalleryUtilities::putRequestVariable('form[password1]', '');
-
 		GalleryUtilities::putRequestVariable('form[password2]', '');
 		GalleryUtilities::putRequestVariable('form[locked]', '');
 
@@ -333,7 +326,6 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', $fullName);
 		GalleryUtilities::putRequestVariable('form[email]', $this->_user[0]->getEmail());
 		GalleryUtilities::putRequestVariable('form[language]', $this->_user[0]->getLanguage());
-
 		GalleryUtilities::putRequestVariable('form[password1]', '');
 		GalleryUtilities::putRequestVariable('form[password2]', '');
 		GalleryUtilities::putRequestVariable('form[locked]', 'on');
@@ -360,13 +352,13 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue($user->isLocked(), 'Check User  is Locked 1');
+
 		GalleryUtilities::putRequestVariable('userId', $this->_user[0]->getId());
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[userName]', $userName);
 		GalleryUtilities::putRequestVariable('form[fullName]', $fullName);
 		GalleryUtilities::putRequestVariable('form[email]', $this->_user[0]->getEmail());
 		GalleryUtilities::putRequestVariable('form[language]', $this->_user[0]->getLanguage());
-
 		GalleryUtilities::putRequestVariable('form[password1]', '');
 		GalleryUtilities::putRequestVariable('form[password2]', '');
 		GalleryUtilities::putRequestVariable('form[locked]', '');
@@ -402,7 +394,6 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', $this->_user[0]->getFullName());
 		GalleryUtilities::putRequestVariable('form[email]', $this->_user[0]->getEmail());
 		GalleryUtilities::putRequestVariable('form[language]', $this->_user[0]->getLanguage());
-
 		GalleryUtilities::putRequestVariable('form[password1]', '');
 		GalleryUtilities::putRequestVariable('form[password2]', '');
 		GalleryUtilities::putRequestVariable('form[locked]', '');
@@ -450,4 +441,5 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals(0, $searchResults->resultCount());
 	}
+
 }

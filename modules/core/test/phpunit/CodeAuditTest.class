@@ -212,7 +212,8 @@ class CodeAuditTest extends CodeAuditTestCase {
 						)
 					);
 				}
-			}
+
+}
 		}
 
 		for ($i = 0; $i < count($lines); $i++) {
@@ -234,7 +235,8 @@ class CodeAuditTest extends CodeAuditTestCase {
 				}
 
 				$return = '';
-				$j      = $i;
+
+				$j = $i;
 
 				do {
 					$return .= trim($lines[$j++]);
@@ -260,7 +262,8 @@ class CodeAuditTest extends CodeAuditTestCase {
 						)
 					);
 				}
-			}
+
+}
 
 			/*
 			 * Verify that all access to superglobal variables from the browser
@@ -293,7 +296,8 @@ class CodeAuditTest extends CodeAuditTestCase {
 						)
 					);
 				}
-			}
+
+}
 
 			// Check that we don't mess with PHP error handler (allowed in tests).
 			if (preg_match('/((?:set|restore)_error_handler)\s*\(/', $lines[$i], $matches)
@@ -307,14 +311,14 @@ class CodeAuditTest extends CodeAuditTestCase {
 			/*
 			 * Check for lines wider than 100 characters.
 			 * Do a simple tab->8spaces conversion.. good enough for this check.
-
 			 */
 			$line = str_replace("\t", '        ', $lines[$i]);
 
 			if (strlen($line) > 100) {
 				$longLineTable[] = array($fileName, $i + 1);
 			}
-		}
+
+}
 
 		// Examine the return table for discrepancies
 		$returnMismatch = array();
@@ -354,7 +358,8 @@ class CodeAuditTest extends CodeAuditTestCase {
 						if ($runaway++ > 10) {
 							break;
 						}
-					}
+
+}
 
 					$commaCount  = substr_count($tmp, ',');
 					$assignCount = substr_count($tmp, '=>');
@@ -372,7 +377,8 @@ class CodeAuditTest extends CodeAuditTestCase {
 				} else {
 					$returnCount[$function][$i] = array('scalar', $returns[$i]);
 				}
-			}
+
+}
 
 			// Find the first non-function and compare it to every other non-function
 			$compare = false;
@@ -383,7 +389,8 @@ class CodeAuditTest extends CodeAuditTestCase {
 
 					break;
 				}
-			}
+
+}
 
 			if ($compare !== false) {
 				for ($i = 0; $i < count($returnCount[$function]); $i++) {
@@ -392,9 +399,11 @@ class CodeAuditTest extends CodeAuditTestCase {
 					) {
 						$returnMismatch[$function] = 1;
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		foreach (array_keys($returnMismatch) as $function) {
 			$returns = '';
@@ -445,7 +454,8 @@ class CodeAuditTest extends CodeAuditTestCase {
 		if ($this->_errorCount > 10) {
 			$this->halt();
 		}
-	}
+
+}
 
 	public function checkPreamble($fileName, $buffer, $lines) {
 		if (preg_match($this->_exception['preamble'], $fileName)) {
@@ -457,7 +467,6 @@ class CodeAuditTest extends CodeAuditTestCase {
 		}
 
 		$this->_errorCount++;
-
 		$errorReported = false;
 
 		for ($i = 0; $i < count($this->_preamble); $i++) {
@@ -473,12 +482,14 @@ class CodeAuditTest extends CodeAuditTestCase {
 
 				$errorReported = true;
 			}
-		}
+
+}
 
 		if (!$errorReported) {
 			$this->assertFalse(true, "Unknown preamble mismatch in $fileName");
 		}
-	}
+
+}
 
 	public function getPreamble($lines) {
 		$copy = array();
@@ -489,7 +500,8 @@ class CodeAuditTest extends CodeAuditTestCase {
 			if (!strncmp($lines[$i], ' */', 3)) {
 				return $copy;
 			}
-		}
+
+}
 
 		return $copy;
 	}
@@ -518,7 +530,9 @@ class CodeAuditTest extends CodeAuditTestCase {
 						'File: ' . $fileName . ', line number: ' . $lineNr
 					);
 				}
-			}
+
+}
 		}
-	}
+
+}
 }

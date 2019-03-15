@@ -139,7 +139,8 @@ class GalleryFileSystemEntityHelper_medium {
 			if (++$retry > 100) {
 				return array(GalleryCoreApi::error(ERROR_COLLISION), null);
 			}
-		}
+
+}
 
 		return array(null, $newPathComponent);
 	}
@@ -160,4 +161,5 @@ class GalleryFileSystemEntityHelper_medium {
 
 		return $baseName . $variablePart . $extension;
 	}
+
 }

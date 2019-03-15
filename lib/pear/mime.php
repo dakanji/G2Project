@@ -168,7 +168,8 @@ class Mail_mime {
 			} else {
 				$this->_txtbody .= $data;
 			}
-		} else {
+
+} else {
 			$cont = $this->_file2str($data);
 
 			if (!isset($cont) /*PEAR::isError($cont)*/) {
@@ -180,7 +181,8 @@ class Mail_mime {
 			} else {
 				$this->_txtbody .= $cont;
 			}
-		}
+
+}
 
 		return true;
 	}
@@ -323,12 +325,16 @@ class Mail_mime {
 	 */
 	public function &_file2str($file_name) {
 		if (!is_readable($file_name)) {
-			$err = null; //PEAR::raiseError('File is not readable ' . $file_name);
+			//PEAR::raiseError('File is not readable ' . $file_name);
+			$err = null;
+
 			return $err;
 		}
 
 		if (!$fd = fopen($file_name, 'rb')) {
-			$err = null; //PEAR::raiseError('Could not open ' . $file_name);
+			//PEAR::raiseError('Could not open ' . $file_name);
+			$err = null;
+
 			return $err;
 		}
 
@@ -346,7 +352,8 @@ class Mail_mime {
 			if ($magic_quote_setting) {
 				@set_magic_quotes_runtime($magic_quote_setting);
 			}
-		}
+
+}
 
 		fclose($fd);
 
@@ -582,7 +589,8 @@ class Mail_mime {
 			foreach ($build_params as $key => $value) {
 				$this->_build_params[$key] = $value;
 			}
-		}
+
+}
 
 		if (!empty($this->_html_images) and isset($this->_htmlbody)) {
 			foreach ($this->_html_images as $key => $value) {
@@ -602,7 +610,8 @@ class Mail_mime {
 
 				$this->_html_images[$key]['name'] = basename($this->_html_images[$key]['name']);
 			}
-		}
+
+}
 
 		$null        = null;
 		$attachments = !empty($this->_parts) ? true : false;
@@ -815,7 +824,8 @@ class Mail_mime {
 		} else {
 			$this->_headers['Cc'] = $email;
 		}
-	}
+
+}
 
 	/**
 	 * Add an email to the Bcc (blank carbon copy) header
@@ -830,7 +840,8 @@ class Mail_mime {
 		} else {
 			$this->_headers['Bcc'] = $email;
 		}
-	}
+
+}
 
 	/**
 	 * Since the PHP send function requires you to specifiy
@@ -989,5 +1000,6 @@ class Mail_mime {
 		if (!defined('MAIL_MIME_CRLF')) {
 			define('MAIL_MIME_CRLF', $this->_eol, true);
 		}
-	}
+
+}
 } // End of class

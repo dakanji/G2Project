@@ -28,6 +28,7 @@ In ADOdb, named quotes for MS SQL Server use ". From the MSSQL Docs:
 	When SET ANSI_DEFAULTS is ON, SET QUOTED_IDENTIFIER is enabled.
 	Syntax
 		SET QUOTED_IDENTIFIER { ON | OFF }
+
 */
 
 // security - hide paths
@@ -40,8 +41,10 @@ class ADODB2_mssql extends ADODB_DataDict {
 	public $dropIndex    = 'DROP INDEX %2$s.%1$s';
 	public $renameTable  = "EXEC sp_rename '%s','%s'";
 	public $renameColumn = "EXEC sp_rename '%s.%s','%s'";
-	public $typeX        = 'TEXT';  // Alternatively, set it to VARCHAR(4000)
-	public $typeXL       = 'TEXT';
+
+	// Alternatively, set it to VARCHAR(4000)
+	public $typeX  = 'TEXT';
+	public $typeXL = 'TEXT';
 
 	//var $alterCol = ' ALTER COLUMN ';
 	public function MetaType($t, $len = -1, $fieldobj = false) {
@@ -51,7 +54,9 @@ class ADODB2_mssql extends ADODB_DataDict {
 			$len      = $fieldobj->max_length;
 		}
 
-		$len = -1; // mysql max_length is not accurate
+		// mysql max_length is not accurate
+		$len = -1;
+
 		switch (strtoupper($t)) {
 			case 'R':
 			case 'INT':
@@ -78,7 +83,8 @@ class ADODB2_mssql extends ADODB_DataDict {
 			default:
 				return parent::MetaType($t, $len, $fieldobj);
 		}
-	}
+
+}
 
 	public function ActualType($meta) {
 		switch (strtoupper($meta)) {
@@ -89,7 +95,9 @@ class ADODB2_mssql extends ADODB_DataDict {
 				return (isset($this)) ? $this->typeXL : 'TEXT';
 
 			case 'X':
-				return (isset($this)) ? $this->typeX : 'TEXT'; // could be varchar(8000), but we want compat with oracle
+				// could be varchar(8000), but we want compat with oracle
+				return (isset($this)) ? $this->typeX : 'TEXT';
+
 			case 'C2':
 				return 'NVARCHAR';
 
@@ -134,12 +142,12 @@ class ADODB2_mssql extends ADODB_DataDict {
 			default:
 				return $meta;
 		}
-	}
+
+}
 
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname = $this->TableName($tabname);
-		$f       = array();
-
+		$tabname            = $this->TableName($tabname);
+		$f                  = array();
 		list($lines, $pkey) = $this->_GenFields($flds);
 
 		$s = "ALTER TABLE $tabname $this->addCol";
@@ -159,7 +167,6 @@ class ADODB2_mssql extends ADODB_DataDict {
 	{
 		$tabname = $this->TableName ($tabname);
 		$sql = array();
-
 		list($lines,$pkey) = $this->_GenFields($flds);
 
 		foreach($lines as $v) {
@@ -169,7 +176,7 @@ class ADODB2_mssql extends ADODB_DataDict {
 		return $sql;
 	}
 
-	*/
+*/
 	public function DropColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
 		$tabname = $this->TableName($tabname);
 
@@ -266,7 +273,7 @@ class ADODB2_mssql extends ADODB_DataDict {
 		( search_conditions )
 	}
 
-	*/
+*/
 
 	/*
 	CREATE [ UNIQUE ] [ CLUSTERED | NONCLUSTERED ] INDEX index_name
@@ -281,7 +288,7 @@ class ADODB2_mssql extends ADODB_DataDict {
 			SORT_IN_TEMPDB
 		}
 
-	*/
+*/
 	public function _IndexSQL($idxname, $tabname, $flds, $idxoptions) {
 		$sql = array();
 
@@ -291,7 +298,8 @@ class ADODB2_mssql extends ADODB_DataDict {
 			if (isset($idxoptions['DROP'])) {
 				return $sql;
 			}
-		}
+
+}
 
 		if (empty($flds)) {
 			return $sql;
@@ -330,4 +338,5 @@ class ADODB2_mssql extends ADODB_DataDict {
 
 		return parent::_GetSize($ftype, $ty, $fsize, $fprec);
 	}
+
 }

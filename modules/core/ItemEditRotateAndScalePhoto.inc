@@ -68,7 +68,8 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 				$operation = 'scale';
 				$args      = array($form['resize']['width'], $form['resize']['height']);
 			}
-		} elseif (isset($form['action']['rotate']['clockwise'])) {
+
+} elseif (isset($form['action']['rotate']['clockwise'])) {
 			$operation = 'rotate';
 			$args      = array(90);
 		} elseif (isset($form['action']['rotate']['counterClockwise'])) {
@@ -96,10 +97,12 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 						if ($ret) {
 							return array($ret, null, null, null);
 						}
-					} else {
+
+} else {
 						$remainingOperations[] = $tmpOperation;
 					}
-				}
+
+}
 
 				list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($preferred->getId());
 
@@ -146,12 +149,14 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 					if ($ret) {
 						return array($ret, null, null, null);
 					}
-				}
+
+}
 
 				// Prepare our status message
 				$status = $module->translate('Reverted rotate and scale changes successfully');
 			}
-		}
+
+}
 
 		$preserveOriginal = isset($form['preserveOriginal']);
 
@@ -185,7 +190,8 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 
 					break;
 			}
-		}
+
+}
 
 		return array(null, $error, $status, false);
 	}
@@ -194,8 +200,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 	 * @see ItemEditPlugin::loadTemplate
 	 */
 	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
-		$ItemEditRotateAndScalePhoto = array();
-
+		$ItemEditRotateAndScalePhoto                        = array();
 		list($ret, $ItemEditRotateAndScalePhoto['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
@@ -231,8 +236,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		}
 
 		// Can we allow to delete the original?
-		$mimeType = $item->getMimeType();
-
+		$mimeType            = $item->getMimeType();
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, 'rotate');
 
 		if ($ret) {
@@ -310,4 +314,5 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 
 		return array(null, $module->translate('Modify Photo'));
 	}
+
 }

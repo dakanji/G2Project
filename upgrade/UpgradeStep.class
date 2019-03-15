@@ -67,7 +67,8 @@ class UpgradeStep {
 	}
 
 	public function processRequest() {
-		return true; // true means continue rendering the page
+		// true means continue rendering the page
+		return true;
 	}
 
 	public function loadTemplateData(&$templateData) {
@@ -109,7 +110,8 @@ class UpgradeStep {
 		if (function_exists('textdomain')) {
 			textdomain('gallery2_upgrade');
 		}
-	}
+
+}
 
 	public function _startDebugLog($header) {
 		global $gallery;
@@ -128,4 +130,5 @@ class UpgradeStep {
 			. "--------------------------------------------------------\n\n"
 		);
 	}
+
 }

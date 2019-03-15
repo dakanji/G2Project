@@ -53,4 +53,5 @@ class RatingSortOrder extends GallerySortInterface_1_2 {
 			'LEFT JOIN [RatingCacheMap] ON [BASE::ID] = [RatingCacheMap::itemId]',
 		);
 	}
+
 }

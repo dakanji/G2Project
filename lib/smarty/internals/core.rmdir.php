@@ -37,7 +37,8 @@ function smarty_core_rmdir($params, &$smarty) {
 				} else {
 					$smarty->_unlink($params['dirname'] . DIRECTORY_SEPARATOR . $_entry, $params['exp_time']);
 				}
-			}
+
+}
 		}
 
 		closedir($_handle);

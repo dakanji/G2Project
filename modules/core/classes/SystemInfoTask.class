@@ -60,9 +60,8 @@ class SystemInfoTask extends MaintenanceTask {
 	public function run() {
 		global $gallery;
 
-		$storage  =& $gallery->getStorage();
-		$platform =& $gallery->getPlatform();
-
+		$storage          =& $gallery->getStorage();
+		$platform         =& $gallery->getPlatform();
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -89,9 +88,11 @@ class SystemInfoTask extends MaintenanceTask {
 
 						break;
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		$urlGenerator =& $gallery->getUrlGenerator();
 		$baseUrl      = $urlGenerator->generateUrl(
@@ -193,4 +194,5 @@ class SystemInfoTask extends MaintenanceTask {
 
 		return array(null, true, $info);
 	}
+
 }

@@ -70,14 +70,14 @@ class PluginCallbackView extends GalleryView {
 			header('Content-type: text/plain; charset=UTF-8');
 		}
 
-		$result = array();
-
+		$result                   = array();
 		list($ret, $beforeStates) = $this->getPluginStates();
 
 		if ($ret) {
 			$result['status'] = 'error';
 
-			$storage->rollbackTransaction();  // ignore errors here
+			// ignore errors here
+			$storage->rollbackTransaction();
 			$ret->putInSession();
 		}
 
@@ -87,7 +87,8 @@ class PluginCallbackView extends GalleryView {
 			if ($ret) {
 				$result['status'] = 'error';
 
-				$storage->rollbackTransaction();  // ignore errors here
+				// ignore errors here
+				$storage->rollbackTransaction();
 				$ret->putInSession();
 			} else {
 				// Make sure this change is isolated from any potential failures we get below.
@@ -98,7 +99,8 @@ class PluginCallbackView extends GalleryView {
 
 					$ret->putInSession();
 				}
-			}
+
+}
 
 			if ($result['status'] == 'redirect') {
 				$urlGenerator       =& $gallery->getUrlGenerator();
@@ -110,7 +112,8 @@ class PluginCallbackView extends GalleryView {
 					)
 				);
 			}
-		}
+
+}
 
 		if (!$ret) {
 			list($ret, $afterStates) = $this->getPluginStates();
@@ -118,7 +121,8 @@ class PluginCallbackView extends GalleryView {
 			if ($ret) {
 				$result['status'] = 'error';
 
-				$storage->rollbackTransaction();  // ignore errors here
+				// ignore errors here
+				$storage->rollbackTransaction();
 				$ret->putInSession();
 			} else {
 				$result = array_merge(
@@ -126,7 +130,8 @@ class PluginCallbackView extends GalleryView {
 					$this->calculateStateChanges($beforeStates, $afterStates)
 				);
 			}
-		}
+
+}
 
 		GalleryCoreApi::requireOnce('lib/JSON/JSON.php');
 
@@ -156,7 +161,8 @@ class PluginCallbackView extends GalleryView {
 				} elseif ($afterStates[$type][$moduleId] != $state) {
 					$states[$type][$moduleId] = $afterStates[$type][$moduleId];
 				}
-			}
+
+}
 		}
 
 		return array(
@@ -184,8 +190,7 @@ class PluginCallbackView extends GalleryView {
 			return $ret;
 		}
 
-		$result = array();
-
+		$result                      = array();
 		list($pluginType, $pluginId) = GalleryUtilities::getRequestVariables(
 			'pluginType',
 			'pluginId'
@@ -211,7 +216,8 @@ class PluginCallbackView extends GalleryView {
 					if ($ret) {
 						return $ret;
 					}
-				} else {
+
+} else {
 					// Themes don't need configuration
 					$needsConfiguration = false;
 				}
@@ -261,7 +267,8 @@ class PluginCallbackView extends GalleryView {
 						// UI shouldn't let us come here anyway
 						$result['status'] = 'invalid';
 					}
-				}
+
+}
 
 				if (empty($result['status'])) {
 					list($ret, $redirect) = $plugin->deactivate();
@@ -276,7 +283,8 @@ class PluginCallbackView extends GalleryView {
 					} else {
 						$result['status'] = 'success';
 					}
-				}
+
+}
 
 				break;
 
@@ -294,7 +302,8 @@ class PluginCallbackView extends GalleryView {
 					if ($ret) {
 						return $ret;
 					}
-				} else {
+
+} else {
 					// Themes don't need this step
 					$autoConfigured = true;
 				}
@@ -308,10 +317,12 @@ class PluginCallbackView extends GalleryView {
 							 * Some modules don't override autoConfigure which defaults to success.
 							 * Show the "Modules needs configuration" message.
 							 */
-						} else {
+
+} else {
 							return $ret;
 						}
-					}
+
+}
 
 					if ($redirect) {
 						$result['status']   = 'redirect';
@@ -319,7 +330,8 @@ class PluginCallbackView extends GalleryView {
 					} else {
 						$result['status'] = 'success';
 					}
-				} else {
+
+} else {
 					$result['status'] = 'success';
 				}
 
@@ -332,7 +344,8 @@ class PluginCallbackView extends GalleryView {
 					if ($ret) {
 						return $ret;
 					}
-				} else {
+
+} else {
 					$redirect = false;
 				}
 
@@ -358,7 +371,8 @@ class PluginCallbackView extends GalleryView {
 					if ($ret) {
 						return $ret;
 					}
-				} else {
+
+} else {
 					$redirect = false;
 				}
 
@@ -398,7 +412,8 @@ class PluginCallbackView extends GalleryView {
 
 						$result['status'] = 'success';
 					}
-				}
+
+}
 
 				break;
 
@@ -448,7 +463,8 @@ class PluginCallbackView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 		}
 
 		return array(null, $states);
@@ -508,7 +524,8 @@ class PluginCallbackView extends GalleryView {
 					} else {
 						$state = 'unupgraded';
 					}
-				} else {
+
+} else {
 					if ($type == 'module') {
 						/*
 						 * The versions match, but the module can still demand
@@ -519,7 +536,8 @@ class PluginCallbackView extends GalleryView {
 						if ($ret) {
 							return array($ret, null);
 						}
-					} else {
+
+} else {
 						$needsConfig = false;
 					}
 
@@ -528,14 +546,17 @@ class PluginCallbackView extends GalleryView {
 					} else {
 						$state = 'inactive';
 					}
-				}
+
+}
 			} else {
 				$state = 'active';
 			}
-		} else {
+
+} else {
 			$state = 'incompatible';
 		}
 
 		return array(null, $state);
 	}
+
 }

@@ -40,4 +40,5 @@ class RatingPreloads {
 
 		return null;
 	}
+
 }

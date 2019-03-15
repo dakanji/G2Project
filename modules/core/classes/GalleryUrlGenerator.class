@@ -164,7 +164,8 @@ class GalleryUrlGenerator {
 					$path      .= empty($components['query']) ? '' : '?' . $components['query'];
 					$path      .= empty($components['fragment']) ? '' : '#' . $components['fragment'];
 				}
-			} elseif ($path = GalleryUtilities::getServerVar('SCRIPT_NAME')) {
+
+} elseif ($path = GalleryUtilities::getServerVar('SCRIPT_NAME')) {
 				if (($tmp = GalleryUtilities::getServerVar('PATH_INFO')) && $tmp != $path) {
 					$path .= $tmp;
 				}
@@ -172,7 +173,8 @@ class GalleryUrlGenerator {
 				if ($tmp = GalleryUtilities::getServerVar('QUERY_STRING')) {
 					$path .= '?' . $tmp;
 				}
-			}
+
+}
 
 			GalleryUtilities::unsanitizeInputValues($path, false);
 			GalleryDataCache::put($cacheKey, $path);
@@ -248,7 +250,8 @@ class GalleryUrlGenerator {
 			} else {
 				$flatParams[$key] = $value;
 			}
-		}
+
+}
 	}
 
 	/**
@@ -311,7 +314,8 @@ class GalleryUrlGenerator {
 				$path = $matches[1];
 				$file = $matches[2];
 			}
-		}
+
+}
 
 		return array($protocol, $host, $path, $file);
 	}
@@ -367,7 +371,8 @@ class GalleryUrlGenerator {
 			} elseif (empty($this->_file[1])) {
 				$this->_file[1] = GALLERY_MAIN_PHP;
 			}
-		} else {
+
+} else {
 			$this->_file[1]     = $this->_file[0];
 			$this->_path[1]     = $this->_path[0];
 			$this->_host[1]     = $this->_host[0];
@@ -385,7 +390,8 @@ class GalleryUrlGenerator {
 
 				$this->_host[$forceDirect] = $defaultHost;
 			}
-		}
+
+}
 
 		// Set the default value for the protocol part, if necessary
 		foreach (array(false, true) as $forceDirect) {
@@ -395,7 +401,8 @@ class GalleryUrlGenerator {
 				} else {
 					$this->_protocol[$forceDirect] = 'http';
 				}
-			}
+
+}
 		}
 
 		// Set the base host (protocol + host name)  for makeUrl() (caching/performance)
@@ -420,7 +427,8 @@ class GalleryUrlGenerator {
 			} else {
 				$this->_isCookiePathConfigured = false;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -470,7 +478,8 @@ class GalleryUrlGenerator {
 			} else {
 				$url = $this->getCurrentUrlDir($forceDirect) . $url;
 			}
-		}
+
+}
 
 		return $url;
 	}
@@ -522,7 +531,8 @@ class GalleryUrlGenerator {
 				$url  .= "$key=$value";
 				$first = false;
 			}
-		}
+
+}
 
 		$url .= !empty($parsed['fragment']) ? '#' . $parsed['fragment'] : '';
 
@@ -569,7 +579,8 @@ class GalleryUrlGenerator {
 					// We couldn't find the file name, at least remove the query string
 					$url = substr($url, 0, $i);
 				}
-			}
+
+}
 
 			$url                                   .= substr($url, -1) != '/' ? '/' : '';
 			$this->_currentUrlBaseDir[$forceDirect] = $url;
@@ -643,7 +654,8 @@ class GalleryUrlGenerator {
 			} else {
 				$url .= $href;
 			}
-		} elseif ((isset($params['view']) && $params['view'] == 'core.DownloadItem')
+
+} elseif ((isset($params['view']) && $params['view'] == 'core.DownloadItem')
 			|| !empty($options['forceDirect'])
 		) {
 			// DownloadItem requests go always directly to Gallery, even when embedded
@@ -653,7 +665,8 @@ class GalleryUrlGenerator {
 			if (!isset($options['forceSessionId']) && $this->embedForceSessionId($params)) {
 				$options['forceSessionId'] = true;
 			}
-		} else {
+
+} else {
 			$url        = $this->getCurrentUrlDir() . $this->_file[0];
 			$appSession = true;
 		}
@@ -677,7 +690,8 @@ class GalleryUrlGenerator {
 			if ($params[$key] === '%CURRENT_URL%') {
 				$params[$key] = $this->getCurrentUrl();
 			}
-		}
+
+}
 
 		// Shorten URLs by removing default values
 		if (isset($params['view']) && $params['view'] == GALLERY_DEFAULT_VIEW) {
@@ -689,12 +703,14 @@ class GalleryUrlGenerator {
 				if ($ret) {
 					$this->_rootItemId = -1;
 				}
-			}
+
+}
 
 			if (isset($params['itemId']) && $params['itemId'] == $this->_rootItemId) {
 				unset($params['itemId']);
 			}
-		}
+
+}
 
 		if ($session) {
 			$sessionId = $session->getId();
@@ -720,7 +736,8 @@ class GalleryUrlGenerator {
 			} elseif (!empty($sessionId)) {
 				$params[$session->getKey()] = $sessionId;
 			}
-		}
+
+}
 
 		// Add parameters to URL
 		$url = $this->appendParamsToUrl(
@@ -838,7 +855,8 @@ class GalleryUrlGenerator {
 					$urlComponents = parse_url($this->getCurrentUrlDir($forceDirect));
 					$path          = $urlComponents['path'];
 				}
-			}
+
+}
 
 			$this->_cookiePath[$forceDirect] = $path;
 		}
@@ -866,7 +884,8 @@ class GalleryUrlGenerator {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -911,7 +930,8 @@ class GalleryUrlGenerator {
 
 				return GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__, $message);
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -1027,7 +1047,8 @@ class GalleryUrlGenerator {
 			if (!isset($this->_localUrlMap)) {
 				$this->_localUrlMap = array();
 			}
-		}
+
+}
 
 		$check = GalleryCoreApi::shouldDoCompileCheck();
 
@@ -1044,7 +1065,8 @@ class GalleryUrlGenerator {
 
 				$gallery->addShutdownAction(array($this, '_saveLocalUrlMapXtra'), array());
 			}
-		}
+
+}
 
 		return $path;
 	}
@@ -1065,7 +1087,8 @@ class GalleryUrlGenerator {
 
 			$urlGenerator->_localUrlMapDirty = false;
 		}
-	}
+
+}
 
 	/**
 	 * Convenience function.
@@ -1073,4 +1096,5 @@ class GalleryUrlGenerator {
 	public function _saveLocalUrlMapXtra() {
 		$this->_saveLocalUrlMap($this);
 	}
+
 }

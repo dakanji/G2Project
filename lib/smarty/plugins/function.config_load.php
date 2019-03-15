@@ -28,6 +28,7 @@
 function smarty_function_config_load($params, &$smarty) {
 	if ($smarty->debugging) {
 		$_params = array();
+
 		include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
 
 		$_debug_start_time = smarty_core_get_microtime($_params, $smarty);
@@ -49,13 +50,15 @@ function smarty_function_config_load($params, &$smarty) {
 		) {
 			$smarty->trigger_error("invalid 'scope' attribute value", E_USER_ERROR, __FILE__, __LINE__);
 		}
-	} else {
+
+} else {
 		if ($_global) {
 			$_scope = 'parent';
 		} else {
 			$_scope = 'local';
 		}
-	}
+
+}
 
 	$_params = array(
 		'resource_name'      => $_file,
@@ -157,7 +160,8 @@ function smarty_function_config_load($params, &$smarty) {
 			$smarty->_config[$i]['vars']          = @array_merge($smarty->_config[$i]['vars'], $_config_vars);
 			$smarty->_config[$i]['files'][$_file] = true;
 		}
-	}
+
+}
 
 	if ($smarty->debugging) {
 		$_params = array();
@@ -171,6 +175,7 @@ function smarty_function_config_load($params, &$smarty) {
 			'exec_time' => smarty_core_get_microtime($_params, $smarty) - $_debug_start_time,
 		);
 	}
+
 }
 
 // vim: set expandtab:

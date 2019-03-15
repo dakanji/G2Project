@@ -214,7 +214,8 @@ class XML_HTMLSax3_StateParser {
 		if ($this->position < $this->length) {
 			return $this->rawtext[$this->position++];
 		}
-	}
+
+}
 
 	/**
 	 * Returns a string from the current position to the next occurance
@@ -352,6 +353,7 @@ class XML_HTMLSax3_StateParser {
 			$state = $this->State[$state]->parse($this);
 		} while ($state != XML_HTMLSAX3_STATE_STOP && $this->position < $this->length);
 	}
+
 }
 
 /**
@@ -413,6 +415,7 @@ class XML_HTMLSax3_StateParser_Gtet430 extends XML_HTMLSax3_StateParser {
 	public function parse($data) {
 		parent::parse($data);
 	}
+
 }
 
 /**
@@ -427,6 +430,7 @@ class XML_HTMLSax3_NullHandler {
 	 * @return void
 	 */
 	public function DoNothing() {}
+
 }
 
 /**
@@ -451,11 +455,31 @@ class XML_HTMLSax3 {
 	 * $myHandler =& new MyHandler();
 	 * $parser = new XML_HTMLSax3();
 	 *
+	 *
+	 *
 	 * $parser->set_object($myHandler);
+	 *
+	 *
+	 *
+	 *
 	 * $parser->set_option('XML_OPTION_CASE_FOLDING');
+	 *
+	 *
+	 *
+	 *
 	 * $parser->set_element_handler('myOpenHandler','myCloseHandler');
+	 *
+	 *
+	 *
+	 *
 	 * $parser->set_data_handler('myDataHandler');
+	 *
+	 *
+	 *
+	 *
 	 * $parser->parser($xml);
+	 *
+	 *
 	 *
 	 * </pre>
 	 * @access public
@@ -465,7 +489,6 @@ class XML_HTMLSax3 {
 		$nullhandler        = new XML_HTMLSax3_NullHandler();
 
 		$this->set_object($nullhandler);
-
 		$this->set_element_handler('DoNothing', 'DoNothing');
 		$this->set_data_handler('DoNothing');
 		$this->set_pi_handler('DoNothing');
@@ -661,6 +684,7 @@ class XML_HTMLSax3 {
 	public function parse($data) {
 		$this->state_parser->parse($data);
 	}
+
 }
 
 ?>
@@ -731,6 +755,7 @@ class XML_HTMLSax3_StartingState {
 
 		return XML_HTMLSAX3_STATE_TAG;
 	}
+
 }
 
 /**
@@ -771,7 +796,8 @@ class XML_HTMLSax3_TagState {
 
 				return XML_HTMLSAX3_STATE_OPENING_TAG;
 		}
-	}
+
+}
 }
 
 /**
@@ -797,7 +823,8 @@ class XML_HTMLSax3_ClosingTagState {
 				if ($char != '>') {
 					$context->unscanCharacter();
 				}
-			}
+
+}
 
 			$context->handler_object_element
 
@@ -806,6 +833,7 @@ class XML_HTMLSax3_ClosingTagState {
 
 		return XML_HTMLSAX3_STATE_START;
 	}
+
 }
 
 /**
@@ -854,7 +882,8 @@ class XML_HTMLSax3_OpeningTagState {
 
 					$attributevalue = $context->scanUntilCharacters("> \n\r\t");
 				}
-			} elseif ($char !== null) {
+
+} elseif ($char !== null) {
 				$attributevalue = null;
 
 				$context->unscanCharacter();
@@ -912,10 +941,12 @@ class XML_HTMLSax3_OpeningTagState {
 						false
 					);
 			}
-		}
+
+}
 
 		return XML_HTMLSAX3_STATE_START;
 	}
+
 }
 
 /**
@@ -947,7 +978,8 @@ class XML_HTMLSax3_EscapeState {
 
 				$text = $context->scanUntilString('>');
 			}
-		} elseif ($char == '[') {
+
+} elseif ($char == '[') {
 			$context->unscanCharacter();
 
 			$text  = $context->scanUntilString(']>');
@@ -966,6 +998,7 @@ class XML_HTMLSax3_EscapeState {
 
 		return XML_HTMLSAX3_STATE_START;
 	}
+
 }
 
 /**
@@ -991,6 +1024,7 @@ class XML_HTMLSax3_JaspState {
 
 		return XML_HTMLSAX3_STATE_START;
 	}
+
 }
 
 /**
@@ -1017,6 +1051,7 @@ class XML_HTMLSax3_PiState {
 
 		return XML_HTMLSAX3_STATE_START;
 	}
+
 }
 
 ?>
@@ -1095,7 +1130,8 @@ class XML_HTMLSax3_Trim {
 		if ($data != '') {
 			$this->orig_obj->{$this->orig_method}($parser, $data);
 		}
-	}
+
+}
 }
 
 /**
@@ -1158,6 +1194,7 @@ class XML_HTMLSax3_CaseFolding {
 	public function foldClose(&$parser, $tag, $empty = false) {
 		$this->orig_obj->{$this->orig_close_method}($parser, strtoupper($tag), $empty);
 	}
+
 }
 
 /**
@@ -1204,7 +1241,8 @@ class XML_HTMLSax3_Linefeed {
 		foreach ($data as $chunk) {
 			$this->orig_obj->{$this->orig_method}($parser, $chunk);
 		}
-	}
+
+}
 }
 
 /**
@@ -1251,7 +1289,8 @@ class XML_HTMLSax3_Tab {
 		foreach ($data as $chunk) {
 			$this->orig_obj->{$this->orig_method}($this, $chunk);
 		}
-	}
+
+}
 }
 
 /**
@@ -1300,7 +1339,8 @@ class XML_HTMLSax3_Entities_Parsed {
 
 			$this->orig_obj->{$this->orig_method}($this, $chunk);
 		}
-	}
+
+}
 }
 
 /**
@@ -1313,6 +1353,7 @@ if (version_compare(phpversion(), '4.3', '<') && !function_exists('html_entity_d
 			array_flip(get_html_translation_table(HTML_ENTITIES, $style))
 		);
 	}
+
 }
 
 /**
@@ -1359,7 +1400,8 @@ class XML_HTMLSax3_Entities_Unparsed {
 		foreach ($data as $chunk) {
 			$this->orig_obj->{$this->orig_method}($this, $chunk);
 		}
-	}
+
+}
 }
 
 /**
@@ -1422,4 +1464,5 @@ class XML_HTMLSax3_Escape_Stripper {
 
 		$this->orig_obj->{$this->orig_method}($this, $data);
 	}
+
 }

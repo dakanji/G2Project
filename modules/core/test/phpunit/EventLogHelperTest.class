@@ -56,7 +56,8 @@ class EventLogHelperTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testAddEventLogEntryRowExists() {
 		global $gallery;
@@ -67,6 +68,7 @@ class EventLogHelperTest extends GalleryTestCase {
 			array(DATABASE_SEQUENCE_EVENT_LOG),
 			array(null, 3007)
 		);
+
 		$this->_storage->setReply(
 			'updateMapEntry',
 			array(
@@ -113,6 +115,7 @@ class EventLogHelperTest extends GalleryTestCase {
 			array(DATABASE_SEQUENCE_EVENT_LOG),
 			array(null, 3007)
 		);
+
 		$this->_storage->setReply(
 			'updateMapEntry',
 			array(
@@ -140,6 +143,7 @@ class EventLogHelperTest extends GalleryTestCase {
 			array(true),
 			array(null, 0)
 		);
+
 		$this->_storage->setReply(
 			'addMapEntry',
 			array(
@@ -168,10 +172,12 @@ class EventLogHelperTest extends GalleryTestCase {
 
 		// tearDown will assert that the test storage is complete, meaning everything worked
 	}
+
 }
 
 class EventLogHelperTestPhpVm {
 	public function time() {
 		return 12345;
 	}
+
 }

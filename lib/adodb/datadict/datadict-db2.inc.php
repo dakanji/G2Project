@@ -33,9 +33,13 @@ class ADODB2_db2 extends ADODB_DataDict {
 				return 'VARCHAR(3600)';
 
 			case 'C2':
-				return 'VARCHAR'; // up to 32K
+				// up to 32K
+				return 'VARCHAR';
+
 			case 'X2':
-				return 'VARCHAR(3600)'; // up to 32000, but default page size too small
+				// up to 32000, but default page size too small
+				return 'VARCHAR(3600)';
+
 			case 'B':
 				return 'BLOB';
 
@@ -73,14 +77,16 @@ class ADODB2_db2 extends ADODB_DataDict {
 			default:
 				return $meta;
 		}
-	}
+
+}
 
 	// return string must begin with space
 	public function _CreateSuffix($fname, &$ftype, $fnotnull, $fdefault, $fautoinc, $fconstraint, $funsigned) {
 		$suffix = '';
 
 		if ($fautoinc) {
-			return ' GENERATED ALWAYS AS IDENTITY'; // as identity start with
+			// as identity start with
+			return ' GENERATED ALWAYS AS IDENTITY';
 		}
 
 		if (strlen($fdefault)) {
@@ -155,7 +161,8 @@ class ADODB2_db2 extends ADODB_DataDict {
 					if ($vargs[$i] != '') {
 						break;
 					}
-				}
+
+}
 
 				// if $vargs[$i] is one of the following, we are trying to change the
 				// size of the field, if not allowed, simply ignore the request.
@@ -175,7 +182,8 @@ class ADODB2_db2 extends ADODB_DataDict {
 						if ($vargs[$i] == 'NOT') {
 							break;
 						}
-					}
+
+}
 
 					array_splice($vargs, $i, 2, '');
 				}
@@ -185,8 +193,10 @@ class ADODB2_db2 extends ADODB_DataDict {
 			} else {
 				$sql[] = $alter . $this->addCol . ' ' . $v;
 			}
-		}
+
+}
 
 		return $sql;
 	}
+
 }

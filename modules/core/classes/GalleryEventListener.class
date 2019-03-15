@@ -51,4 +51,5 @@ class GalleryEventListener {
 	public function handleEvent($event) {
 		return array(null, null);
 	}
+
 }

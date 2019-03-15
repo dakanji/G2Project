@@ -75,7 +75,8 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 
 				$this->_baseParamString[$fD] = '?' . $this->_baseParamString[$fD];
 			}
-		}
+
+}
 
 		list($ret, $parser) = GalleryCoreApi::getPluginParameter(
 			'module',
@@ -111,7 +112,8 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 				foreach ($parser['static'][$pathInfo]['queryString'] as $key => $value) {
 					GalleryUtilities::putRequestVariable($key, $value);
 				}
-			} else {
+
+} else {
 				foreach ($parser['dynamic'] as $dynamic) {
 					if (!preg_match($dynamic['pattern'], $pathInfo, $matches)) {
 						continue;
@@ -131,7 +133,8 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 
 					break;
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -234,7 +237,8 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 					// $this->_piFile doesn't include query params, but a traling slash
 					$url = substr($url, 0, $i - 1);
 				}
-			}
+
+}
 
 			$url                                   .= substr($url, -1) != '/' ? '/' : '';
 			$this->_currentUrlBaseDir[$forceDirect] = $url;
@@ -242,4 +246,5 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 
 		return $this->_currentUrlBaseDir[$forceDirect];
 	}
+
 }

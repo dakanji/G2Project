@@ -114,7 +114,8 @@ class PermissionTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	/**
 	 * Add and remove some user and group permissions and test retrieving them.
@@ -131,8 +132,7 @@ class PermissionTest extends GalleryTestCase {
 	public function testAddAndRemoveUserAndGroupPermission() {
 		global $gallery;
 
-		$userId = $gallery->getActiveUserId();
-
+		$userId               = $gallery->getActiveUserId();
 		list($ret, $groupIds) = GalleryCoreApi::fetchGroupsForUser($userId);
 
 		if ($ret) {
@@ -168,8 +168,7 @@ class PermissionTest extends GalleryTestCase {
 		 * Get the userId for the group events (this is some code from
 		 * GalleryPermissionHelper_advanced::_postGroupEvent()
 		 */
-		$groupEventUserId = null;
-
+		$groupEventUserId  = null;
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -813,7 +812,8 @@ class PermissionTest extends GalleryTestCase {
 				"$type [$id] (uncompressed) (after removing)"
 			);
 		}
-	}
+
+}
 
 	// Test if removeItemPermission actually removes permissions and creates the correct event
 	public function testRemoveItemPermissions() {
@@ -958,6 +958,7 @@ class PermissionTest extends GalleryTestCase {
 			array($this->_albums[0]->getId(), $this->_albums[1]->getId()),
 			$userId
 		);
+
 		$this->assertEquals(
 			$perms[$this->_albums[0]->getId()],
 			$perms[$this->_albums[1]->getId()]
@@ -1094,8 +1095,7 @@ class PermissionTest extends GalleryTestCase {
 	public function testHasPermission() {
 		global $gallery;
 
-		$userId = $gallery->getActiveUserId();
-
+		$userId               = $gallery->getActiveUserId();
 		list($ret, $groupIds) = GalleryCoreApi::fetchGroupsForUser($userId);
 
 		if ($ret) {
@@ -1212,7 +1212,8 @@ class PermissionTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits('core.view');
 
@@ -1319,7 +1320,8 @@ class PermissionTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testFetchAccessListIdsForArrayWithSinglePermission() {
 		global $gallery;
@@ -1418,7 +1420,8 @@ class PermissionTest extends GalleryTestCase {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		list($ret, $viewBits) = GalleryCoreApi::convertPermissionIdsToBits('core.view');
 
@@ -1735,8 +1738,7 @@ class PermissionTest extends GalleryTestCase {
 		$duplicateAclId[1] = $aclIds[0];
 
 		// Create an unused ACL
-		$storage =& $gallery->getStorage();
-
+		$storage                 =& $gallery->getStorage();
 		list($ret, $unusedAclId) = $storage->getUniqueId();
 
 		if ($ret) {
@@ -1769,6 +1771,7 @@ class PermissionTest extends GalleryTestCase {
 			in_array($unusedAclId, $aclIds),
 			"Missing unused acl id (pre compact): $unusedAclId"
 		);
+
 		$this->assertTrue(
 			count(array_intersect($duplicateAclId, $aclIds)) == 2,
 			"Missing dupe acl id (pre compact): $duplicateAclId[0] or $duplicateAclId[1]"
@@ -1794,6 +1797,7 @@ class PermissionTest extends GalleryTestCase {
 			!in_array($unusedAclId, $aclIds),
 			"Extra unused acl id (post compact): $unusedAclId"
 		);
+
 		$this->assertTrue(
 			count(array_intersect($duplicateAclId, $aclIds)) == 1,
 			"Extra dupe acl id (post compact): $duplicateAclId[0] or $duplicateAclId[1]"
@@ -2224,6 +2228,7 @@ class PermissionTest extends GalleryTestCase {
 		$this->assertEquals(array(12345, 67890), $results);
 		$session->put(GALLERY_PERMISSION_SESSION_KEY, $saveSessionPerms);
 	}
+
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryEventListener.class');
@@ -2259,4 +2264,5 @@ class PermissionTestEventListener extends GalleryEventListener {
 
 		return $allRead;
 	}
+
 }

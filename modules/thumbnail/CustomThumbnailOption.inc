@@ -61,7 +61,8 @@ class CustomThumbnailOption extends ItemEditOption {
 
 				$template->setVariable('ItemAdmin', $ItemAdmin);
 			}
-		}
+
+}
 
 		// Check toolkit support for jpeg thumbnails
 		list($ret, $mimeList) = GalleryCoreApi::getToolkitOperationMimeTypes('thumbnail');
@@ -124,14 +125,16 @@ class CustomThumbnailOption extends ItemEditOption {
 
 					return array($ret, null, null);
 				}
-			}
+
+}
 
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		} elseif (isset($form['CustomThumbnailOption']['delete'])) {
+
+} elseif (isset($form['CustomThumbnailOption']['delete'])) {
 			list($ret, $thumbnailImage) = ThumbnailHelper::fetchThumbnail($item->getId());
 
 			if ($ret) {
@@ -151,8 +154,10 @@ class CustomThumbnailOption extends ItemEditOption {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		}
+
+}
 
 		return array(null, $error, $warning);
 	}
+
 }

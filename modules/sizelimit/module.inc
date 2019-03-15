@@ -37,7 +37,9 @@ class SizeLimitModule extends GalleryModule {
 				'Define picture size limit'
 			)
 		);
-		$this->setVersion('2.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -119,8 +121,7 @@ class SizeLimitModule extends GalleryModule {
 			if (GalleryUtilities::isA($album, 'GalleryAlbumItem')
 				&& $album->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)
 			) {
-				$parentId = (int)$album->getParentId();
-
+				$parentId           = (int)$album->getParentId();
 				list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 					'module',
 					'sizelimit',
@@ -143,10 +144,13 @@ class SizeLimitModule extends GalleryModule {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		return array(null, null);
 	}
+
 }

@@ -55,7 +55,8 @@ class AdminNetPbmController extends GalleryController {
 					if ($form['path'][strlen($form['path']) - 1] != $slash) {
 						$form['path'] .= $slash;
 					}
-				}
+
+}
 
 				list($ret, $testResults, $mimeTypes) = NetPbmToolkitHelper::testBinaries($form['path']);
 
@@ -65,11 +66,13 @@ class AdminNetPbmController extends GalleryController {
 					} else {
 						return array($ret, null);
 					}
-				} elseif (empty($mimeTypes)) {
+
+} elseif (empty($mimeTypes)) {
 					// At least one mime type must be supported, else this path is invalid
 					$error[] = 'form[error][path][testError]';
 				}
-			}
+
+}
 
 			if (!empty($form['jheadPath'])) {
 				list($ret, $jheadTests, $jheadMimeTypes) = NetPbmToolkitHelper::testJhead($form['jheadPath']);
@@ -80,7 +83,8 @@ class AdminNetPbmController extends GalleryController {
 					} else {
 						return array($ret, null);
 					}
-				} else {
+
+} else {
 					$successCount = 0;
 
 					foreach ($jheadTests as $test) {
@@ -90,7 +94,8 @@ class AdminNetPbmController extends GalleryController {
 					if ($successCount != count($jheadTests)) {
 						$error[] = 'form[error][jheadPath][badPath]';
 					}
-				}
+
+}
 			}
 
 			if (empty($error)) {
@@ -159,7 +164,8 @@ class AdminNetPbmController extends GalleryController {
 					$redirect['subView']  = 'core.AdminPlugins';
 					$status['configured'] = 'netpbm';
 				}
-			}
+
+}
 		} elseif (isset($form['action']['reset'])) {
 			$redirect['view']    = 'core.SiteAdmin';
 			$redirect['subView'] = 'netpbm.AdminNetPbm';
@@ -180,6 +186,7 @@ class AdminNetPbmController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -208,7 +215,8 @@ class AdminNetPbmView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			$form['formName'] = 'AdminNetPbm';
 		}
@@ -223,7 +231,8 @@ class AdminNetPbmView extends GalleryView {
 				if ($form[$key][strlen($form[$key]) - 1] != $slash) {
 					$form[$key] .= $slash;
 				}
-			}
+
+}
 		}
 
 		// Set up our jpeg quality selection list
@@ -251,11 +260,13 @@ class AdminNetPbmView extends GalleryView {
 					} else {
 						return array($ret, null);
 					}
-				} else {
+
+} else {
 					foreach ($tests as $test) {
 						$failCount += $test['success'] ? 0 : 1;
 					}
-				}
+
+}
 			}
 
 			if (empty($form['jheadPath'])) {
@@ -273,14 +284,17 @@ class AdminNetPbmView extends GalleryView {
 					} else {
 						return array($ret, null);
 					}
-				} else {
+
+} else {
 					foreach ($jheadTests as $test) {
 						$tests[]    = $test;
 						$failCount += $test['success'] ? 0 : 1;
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'netpbm');
 
@@ -317,4 +331,5 @@ class AdminNetPbmView extends GalleryView {
 			),
 		);
 	}
+
 }

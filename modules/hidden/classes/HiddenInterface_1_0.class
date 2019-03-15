@@ -75,4 +75,5 @@ class HiddenInterface_1_0 {
 	public function isHidden($item) {
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
+
 }

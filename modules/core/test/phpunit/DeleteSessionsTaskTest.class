@@ -69,16 +69,14 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 		$session                   =& $gallery->getSession();
 		$gallery->_phpVm           = new UnitTestPhpVm();
 		$phpVm                     = $gallery->getPhpVm();
-
-		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
+		list($ret, $params)        = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$inactivityTimeout = (int)$params['session.inactivityTimeout'];
-		$lifetime          = (int)$params['session.lifetime'];
-
+		$inactivityTimeout           = (int)$params['session.inactivityTimeout'];
+		$lifetime                    = (int)$params['session.lifetime'];
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
@@ -121,6 +119,7 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($success);
+
 		$this->assertEquals(
 			array(
 				$this->_core->translate(
@@ -135,6 +134,7 @@ class DeleteSessionsTaskTest extends GalleryTestCase {
 
 		$this->assertEquals(2, $session->callCount, 'call count of _expireSessions()');
 	}
+
 }
 
 class DeleteSessionsTaskTestSession extends GallerySession {
@@ -149,4 +149,5 @@ class DeleteSessionsTaskTestSession extends GallerySession {
 	public function save($useNonTransactionalConnection = false) {
 		return null;
 	}
+
 }

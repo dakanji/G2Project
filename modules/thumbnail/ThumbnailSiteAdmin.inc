@@ -55,7 +55,8 @@ class ThumbnailSiteAdminController extends GalleryController {
 			if (isset($mimeMap[$form['mimeType']])) {
 				return array(null, $this->_exitStatus('mime_duplicate'));
 			}
-		}
+
+}
 
 		if (isset($form['action']['add']) && $form['image'] == 'new') {
 			if (empty($form['tmp_name'][1])) {
@@ -77,7 +78,9 @@ class ThumbnailSiteAdminController extends GalleryController {
 			} else {
 				$status = 'add';
 			}
-		} elseif (isset($form['action']['add'])) { // $form['image']=='old'
+
+} elseif (isset($form['action']['add'])) {
+			// $form['image']=='old'
 			$ret = ThumbnailHelper::updateItem($form['oldimage'], $form['mimeType'], true);
 
 			if ($ret) {
@@ -125,7 +128,8 @@ class ThumbnailSiteAdminController extends GalleryController {
 
 				$status = 'delete';
 			}
-		}
+
+}
 
 		return array(null, $this->_exitStatus($status));
 	}
@@ -141,6 +145,7 @@ class ThumbnailSiteAdminController extends GalleryController {
 
 		return $results;
 	}
+
 }
 
 /**
@@ -190,7 +195,8 @@ class ThumbnailSiteAdminView extends GalleryView {
 				$data['fileName']          = $thumb->getPathComponent();
 				$form['list'][]            = $data;
 			}
-		}
+
+}
 
 		list($ret, $toolkitMime, $form['badMime']) = ThumbnailHelper::fetchToolkitSupport(false);
 
@@ -220,4 +226,5 @@ class ThumbnailSiteAdminView extends GalleryView {
 			),
 		);
 	}
+
 }

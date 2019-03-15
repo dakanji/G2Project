@@ -55,7 +55,8 @@ function smarty_function_fetch($params, &$smarty) {
 
 			return;
 		}
-	} else {
+
+} else {
 		// not a local file
 		if (preg_match('!^http://!i', $params['file'])) {
 			// http fetch
@@ -174,7 +175,8 @@ function smarty_function_fetch($params, &$smarty) {
 
 							return;
 					}
-				}
+
+}
 
 				if (!empty($proxy_host) && !empty($proxy_port)) {
 					$_is_proxy = true;
@@ -215,7 +217,8 @@ function smarty_function_fetch($params, &$smarty) {
 					foreach ($extra_headers as $curr_header) {
 						fputs($fp, $curr_header . "\r\n");
 					}
-				}
+
+}
 
 				if (!empty($user) && !empty($pass)) {
 					fputs($fp, 'Authorization: BASIC ' . base64_encode("$user:$pass") . "\r\n");
@@ -234,12 +237,14 @@ function smarty_function_fetch($params, &$smarty) {
 				if (!empty($params['assign_headers'])) {
 					$smarty->assign($params['assign_headers'], preg_split("!\r\n!", $csplit[0]));
 				}
-			} else {
+
+} else {
 				$smarty->_trigger_fatal_error('[plugin] unable to parse URL, check syntax');
 
 				return;
 			}
-		} else {
+
+} else {
 			// ftp fetch
 			if ($fp = @fopen($params['file'], 'r')) {
 				while (!feof($fp)) {
@@ -252,7 +257,8 @@ function smarty_function_fetch($params, &$smarty) {
 
 				return;
 			}
-		}
+
+}
 	}
 
 	if (!empty($params['assign'])) {
@@ -260,6 +266,7 @@ function smarty_function_fetch($params, &$smarty) {
 	} else {
 		return $content;
 	}
+
 }
 
 // vim: set expandtab:

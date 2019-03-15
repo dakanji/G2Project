@@ -95,7 +95,8 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testDeleteNextPageOutOfRange() {
 		global $gallery;
@@ -113,7 +114,8 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$selectedIds = array();
 
@@ -162,7 +164,8 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$selectedIds = array();
 
@@ -211,7 +214,8 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$selectedIds = array();
 
@@ -248,7 +252,8 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 	}
 
 	/**
@@ -289,7 +294,8 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		$selectedIds = array();
@@ -346,4 +352,5 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest(ERROR_MISSING_OBJECT);
 	}
+
 }

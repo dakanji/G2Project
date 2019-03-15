@@ -89,7 +89,6 @@ class GalleryUnknownItem extends GalleryDataItem {
 	 */
 	public function itemTypeName($localized = true) {
 		global $gallery;
-
 		static $mimeMap;
 
 		if (!isset($mimeMap)) {
@@ -109,13 +108,15 @@ class GalleryUnknownItem extends GalleryDataItem {
 			if ($ret) {
 				$core = null;
 			}
-		}
+
+}
 
 		foreach ($mimeMap as $pattern => $result) {
 			if (preg_match($pattern, $this->mimeType)) {
 				return isset($core) ? array($core->translate($result[0]), $core->translate($result[1])) : $result;
 			}
-		}
+
+}
 
 		return isset($core) ? array($core->translate('File'), $core->translate('file')) : array('File', 'file');
 	}
@@ -126,4 +127,5 @@ class GalleryUnknownItem extends GalleryDataItem {
 	public function getClassName() {
 		return 'GalleryUnknownItem';
 	}
+
 }

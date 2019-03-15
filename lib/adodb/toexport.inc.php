@@ -57,6 +57,7 @@ function rs2tabout(&$rs, $addtitles = true) {
 	if ($fp) {
 		fclose($fp);
 	}
+
 }
 
 function _adodb_export(&$rs, $sep, $sepreplace, $fp = false, $addtitles = true, $quote = '"', $escquote = '"', $replaceNewLine = ' ') {
@@ -120,8 +121,10 @@ function _adodb_export(&$rs, $sep, $sepreplace, $fp = false, $addtitles = true, 
 				} else {
 					$elements[] = $v;
 				}
-			}
-		} else { // ASSOCIATIVE ARRAY
+
+}
+		} else {
+			// ASSOCIATIVE ARRAY
 			foreach ($rs->fields as $v) {
 				if ($escquote) {
 					$v = str_replace($quote, $escquotequote, trim($v));
@@ -134,7 +137,8 @@ function _adodb_export(&$rs, $sep, $sepreplace, $fp = false, $addtitles = true, 
 				} else {
 					$elements[] = $v;
 				}
-			}
+
+}
 		}
 
 		$s .= implode($sep, $elements) . $NEWLINE;
@@ -152,7 +156,8 @@ function _adodb_export(&$rs, $sep, $sepreplace, $fp = false, $addtitles = true, 
 
 			$s = '';
 		}
-	}
+
+}
 
 	if ($fp) {
 		if ($fp === true) {

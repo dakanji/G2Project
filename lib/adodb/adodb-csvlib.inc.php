@@ -23,13 +23,13 @@ $ADODB_INCLUDED_CSV = 1;
   Format documented at http://php.weblogs.com/ADODB_CSV ==============
 */
 
-	/**
-	 * convert a recordset into special format
-	 *
-	 * @param rs    the recordset
-	 *
-	 * @return  the CSV formated data
-	 */
+/**
+ * convert a recordset into special format
+ *
+ * @param rs    the recordset
+ *
+ * @return  the CSV formated data
+ */
 function _rs2serialize(&$rs, $conn = false, $sql = '') {
 	$max = ($rs) ? $rs->FieldCount() : 0;
 
@@ -38,7 +38,8 @@ function _rs2serialize(&$rs, $conn = false, $sql = '') {
 	}
 
 	// metadata setup
-	if ($max <= 0 || $rs->dataProvider == 'empty') { // is insert/update/delete
+	if ($max <= 0 || $rs->dataProvider == 'empty') {
+		// is insert/update/delete
 		if (is_object($conn)) {
 			$sql .= ',' . $conn->Affected_Rows();
 			$sql .= ',' . $conn->Insert_ID();
@@ -66,17 +67,20 @@ function _rs2serialize(&$rs, $conn = false, $sql = '') {
 
 			$rs->MoveNext();
 		}
-	}
+
+}
 
 	for ($i = 0; $i < $max; $i++) {
 		$o      = $rs->FetchField($i);
 		$flds[] = $o;
 	}
 
-	$savefetch        = isset($rs->adodbFetchMode) ? $rs->adodbFetchMode : $rs->fetchMode;
-	$class            = $rs->connection->arrayClass;
-	$rs2              = new $class();
-	$rs2->timeCreated = $rs->timeCreated; // memcache fix
+	$savefetch = isset($rs->adodbFetchMode) ? $rs->adodbFetchMode : $rs->fetchMode;
+	$class     = $rs->connection->arrayClass;
+	$rs2       = new $class();
+
+	// memcache fix
+	$rs2->timeCreated = $rs->timeCreated;
 	$rs2->sql         = $rs->sql;
 	$rs2->oldProvider = $rs->dataProvider;
 
@@ -220,7 +224,8 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 					while ($txt = fread($fp, $MAXSIZE)) {
 						$text .= $txt;
 					}
-				}
+
+}
 
 				fclose($fp);
 				$rs = unserialize($text);
@@ -245,7 +250,8 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 
 				return $false;
 			}
-		}
+
+}
 
 		// Get Column definitions
 		$flds = array();
@@ -266,7 +272,8 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 			$fld->max_length = $o2[2];
 			$flds[]          = $fld;
 		}
-	} else {
+
+} else {
 		fclose($fp);
 		$err = 'Recordset had unexpected EOF 2';
 
@@ -303,10 +310,10 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 	return $rs;
 }
 
-	/**
-	 * Save a file $filename and its $contents (normally for caching) with file locking
-	 * Returns true if ok, false if fopen/fwrite error, 0 if rename error (eg. file is locked)
-	 */
+/**
+ * Save a file $filename and its $contents (normally for caching) with file locking
+ * Returns true if ok, false if fopen/fwrite error, 0 if rename error (eg. file is locked)
+ */
 function adodb_write_file($filename, $contents, $debug = false) {
 	// http://www.php.net/bugs.php?id=9203 Bug that flock fails on Windows
 	// So to simulate locking, we assume that rename is an atomic operation.
@@ -353,7 +360,8 @@ function adodb_write_file($filename, $contents, $debug = false) {
 				if ($debug) {
 					ADOConnection::outp(" Rename $tmpname " . ($ok ? 'ok' : 'failed'));
 				}
-			}
+
+}
 		}
 
 		return $ok;

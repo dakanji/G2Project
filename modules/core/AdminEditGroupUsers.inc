@@ -55,8 +55,7 @@ class AdminEditGroupUsersController extends GalleryController {
 		$results = $error = $status = array();
 
 		// Load the group
-		$groupId = GalleryUtilities::getRequestVariables('groupId');
-
+		$groupId           = GalleryUtilities::getRequestVariables('groupId');
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -87,7 +86,8 @@ class AdminEditGroupUsersController extends GalleryController {
 
 							break;
 						}
-					}
+
+}
 				}
 
 				if (empty($error)) {
@@ -114,7 +114,8 @@ class AdminEditGroupUsersController extends GalleryController {
 					$status['removedUsers'] = $removedUsers;
 					$status['removedUser']  = $removedUsers == 1 ? $user->getUsername() : $removedUsers;
 				}
-			} elseif (isset($form['action']['add'])) {
+
+} elseif (isset($form['action']['add'])) {
 				// Add the user to the group
 				if (empty($form['text']['userName'])) {
 					$error[] = 'form[error][text][userName][missing]';
@@ -136,7 +137,8 @@ class AdminEditGroupUsersController extends GalleryController {
 						if ($inGroup) {
 							$error[] = 'form[error][text][userName][alreadyInGroup]';
 						}
-					}
+
+}
 				}
 
 				if (empty($error)) {
@@ -152,7 +154,8 @@ class AdminEditGroupUsersController extends GalleryController {
 					$redirect['groupId'] = $group->getId();
 					$status['addedUser'] = $user->getUsername();
 				}
-			}
+
+}
 		}
 
 		if (!empty($redirect)) {
@@ -167,6 +170,7 @@ class AdminEditGroupUsersController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -208,8 +212,7 @@ class AdminEditGroupUsersView extends GalleryView {
 		}
 
 		// Load the group
-		$groupId = GalleryUtilities::getRequestVariables('groupId');
-
+		$groupId           = GalleryUtilities::getRequestVariables('groupId');
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -249,8 +252,7 @@ class AdminEditGroupUsersView extends GalleryView {
 		// Calculate the next/back pages
 		$form['list']['nextPage'] = min($form['list']['page'] + 1, $form['list']['maxPages']);
 		$form['list']['backPage'] = max(1, $form['list']['page'] - 1);
-
-		list($ret, $users) = GalleryCoreApi::fetchUsersForGroup(
+		list($ret, $users)        = GalleryCoreApi::fetchUsersForGroup(
 			$group->getId(),
 			$form['list']['pageSize'],
 			(($form['list']['page'] - 1) * $form['list']['pageSize']),
@@ -275,7 +277,8 @@ class AdminEditGroupUsersView extends GalleryView {
 				$form['list']['userNames'][$userId]['can']['remove'] = true;
 				$canRemove                                           = true;
 			}
-		}
+
+}
 
 		$AdminEditGroupUsers                   = array();
 		$AdminEditGroupUsers['totalUserCount'] = $totalUserCount;
@@ -292,4 +295,5 @@ class AdminEditGroupUsersView extends GalleryView {
 			),
 		);
 	}
+
 }

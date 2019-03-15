@@ -44,7 +44,8 @@ class GalleryLockHelper_simple {
 			// Swallow this error; the API does not allow us to return one here
 			$result = array();
 
-			return $result;  // Doing it this way keeps the Code Audit happy
+			// Doing it this way keeps the Code Audit happy
+			return $result;
 		}
 
 		$lockSystem =& $result[1];
@@ -67,8 +68,7 @@ class GalleryLockHelper_simple {
 			return array($ret, null);
 		}
 
-		$lockSystem =& $result[1];
-
+		$lockSystem         =& $result[1];
 		list($ret, $lockId) = $lockSystem->acquireReadLock($ids, $timeout);
 
 		if ($ret) {
@@ -140,7 +140,8 @@ class GalleryLockHelper_simple {
 			if (!$lockSystem->isReadLocked($id) && !$lockSystem->isWriteLocked($id)) {
 				$tmp[] = $id;
 			}
-		}
+
+}
 
 		$parentIds = $tmp;
 
@@ -199,8 +200,7 @@ class GalleryLockHelper_simple {
 			return array($ret, null);
 		}
 
-		$lockSystem =& $result[1];
-
+		$lockSystem         =& $result[1];
 		list($ret, $lockId) = $lockSystem->acquireWriteLock($ids, $timeout);
 
 		if ($ret) {
@@ -312,4 +312,5 @@ class GalleryLockHelper_simple {
 
 		return null;
 	}
+
 }

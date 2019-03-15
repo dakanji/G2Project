@@ -46,8 +46,7 @@ class ItemEditController extends GalleryController {
 	public function handleRequest($form) {
 		global $gallery;
 
-		$editPlugin = GalleryUtilities::getRequestVariables('editPlugin');
-
+		$editPlugin       = GalleryUtilities::getRequestVariables('editPlugin');
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
@@ -109,7 +108,6 @@ class ItemEditController extends GalleryController {
 		}
 
 		$status = array();
-
 		list($ret, $error, $status['editMessage'], $requiresProgressBar) = $plugin->handleRequest(
 			$form,
 			$item,
@@ -149,7 +147,8 @@ class ItemEditController extends GalleryController {
 					$error             = array_merge($error, $optionErrors);
 					$status['warning'] = array_merge($status['warning'], $optionWarnings);
 				}
-			}
+
+}
 
 			if (empty($error) && $progressBarOptions) {
 				$templateAdapter =& $gallery->getTemplateAdapter();
@@ -160,7 +159,8 @@ class ItemEditController extends GalleryController {
 
 				$results['delegate']['view'] = 'core.ProgressBar';
 			}
-		}
+
+}
 
 		if (empty($results['delegate'])) {
 			// It's not a progress bar view
@@ -176,7 +176,8 @@ class ItemEditController extends GalleryController {
 				$results['delegate']['subView']    = 'core.ItemEdit';
 				$results['delegate']['editPlugin'] = $editPlugin;
 			}
-		}
+
+}
 
 		$results['status'] = $status;
 		$results['error']  = $error;
@@ -229,6 +230,7 @@ class ItemEditController extends GalleryController {
 
 		return null;
 	}
+
 }
 
 /**
@@ -283,8 +285,7 @@ class ItemEditView extends GalleryView {
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
 
-		$editPlugin = GalleryUtilities::getRequestVariables('editPlugin');
-
+		$editPlugin                      = GalleryUtilities::getRequestVariables('editPlugin');
 		list($ret, $item, $wasSpecified) = $this->getItem();
 
 		if ($ret) {
@@ -313,7 +314,8 @@ class ItemEditView extends GalleryView {
 			if ($ret) {
 				// Ignore thumbnail errors so we can edit items with broken thumbnail
 			}
-		} else {
+
+} else {
 			$thumbnail = null;
 		}
 
@@ -339,7 +341,8 @@ class ItemEditView extends GalleryView {
 			if ($plugin->isSupported($item, $thumbnail)) {
 				$pluginInstances[$pluginId] = $plugin;
 			}
-		}
+
+}
 
 		// Define the first edit plugin as the default in case we need to fall back.
 		$editPluginIds     = array_keys($pluginInstances);
@@ -358,7 +361,8 @@ class ItemEditView extends GalleryView {
 			if (empty($editPlugin) || !in_array($editPlugin, array_keys($pluginInstances))) {
 				$editPlugin = $defaultEditPlugin;
 			}
-		}
+
+}
 
 		// Input validation of the given editPlugin id.
 		if (!isset($pluginInstances[$editPlugin])) {
@@ -385,13 +389,12 @@ class ItemEditView extends GalleryView {
 		}
 
 		// Record our item serial number in the form so that all plugins can use it
-		$form['serialNumber']          = $item->getSerialNumber();
-		$ItemEdit                      = array();
-		$ItemEdit['editPlugin']        = $editPlugin;
-		$ItemEdit['plugins']           = $plugins;
-		$ItemEdit['itemTypeNames']     = $item->itemTypeName();
-		$ItemEdit['showEditThumbnail'] = $thumbnail != null;
-
+		$form['serialNumber']            = $item->getSerialNumber();
+		$ItemEdit                        = array();
+		$ItemEdit['editPlugin']          = $editPlugin;
+		$ItemEdit['plugins']             = $plugins;
+		$ItemEdit['itemTypeNames']       = $item->itemTypeName();
+		$ItemEdit['showEditThumbnail']   = $thumbnail != null;
 		list($ret, $ItemEdit['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
@@ -429,7 +432,8 @@ class ItemEditView extends GalleryView {
 			if (!empty($entry['file'])) {
 				$ItemEdit['options'][] = $entry;
 			}
-		}
+
+}
 
 		list($ret, $entityInfo) = GalleryCoreApi::describeEntity('GalleryItem');
 
@@ -481,6 +485,7 @@ class ItemEditView extends GalleryView {
 			),
 		);
 	}
+
 }
 
 /**
@@ -579,10 +584,12 @@ class ItemEditPlugin {
 			if (isset($toolkit)) {
 				break;
 			}
-		}
+
+}
 
 		return array(null, isset($toolkit));
 	}
+
 }
 
 /**
@@ -646,7 +653,8 @@ class ItemEditOption {
 			if ($isAppropriate) {
 				$optionInstances[$optionId] = $option;
 			}
-		}
+
+}
 
 		return array(null, $optionInstances);
 	}
@@ -702,4 +710,5 @@ class ItemEditOption {
 	public function requiresProgressBar($form) {
 		return false;
 	}
+
 }

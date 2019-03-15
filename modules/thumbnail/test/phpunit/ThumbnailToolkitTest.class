@@ -101,7 +101,8 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		if ($ret || !isset($this->_itemId)) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function tearDown() {
 		global $gallery;
@@ -133,7 +134,8 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testToolkit() {
 		global $gallery;
@@ -210,7 +212,8 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testRecursiveToolkitOperationIsBlocked() {
 		global $gallery;
@@ -222,8 +225,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$fileName = realpath(__DIR__ . '/../../images/G2video.jpg');
-
+		$fileName                = realpath(__DIR__ . '/../../images/G2video.jpg');
 		list($ret, $jpegImageId) = ThumbnailHelper::addItem(
 			'image/jpeg',
 			null,
@@ -300,7 +302,8 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 		} else {
 			$this->assertTrue(false, 'Error expected for bad operation');
 		}
-	}
+
+}
 }
 
 /**
@@ -315,6 +318,7 @@ class ThumbnailToolkitTestDummyPlatform {
 	public function getDirectorySeparator() {
 		return DIRECTORY_SEPARATOR;
 	}
+
 }
 
 /**
@@ -332,4 +336,5 @@ class ThumbnailTestToolkit {
 		// Do nothing
 		return array(null, $mimeType, $context);
 	}
+
 }

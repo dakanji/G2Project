@@ -43,7 +43,8 @@ class LanguageTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGetActiveLanguageCode() {
 		global $gallery;
@@ -123,7 +124,8 @@ class LanguageTest extends GalleryControllerTestCase {
 
 			$this->assertEquals($expected, $description, "Testcase: $case");
 		}
-	}
+
+}
 
 	public function testGetSupportedLanguageEnglishOnly() {
 		global $gallery;
@@ -132,8 +134,7 @@ class LanguageTest extends GalleryControllerTestCase {
 
 		$gallery->setPlatform($UnitTestPlatform);
 
-		$platform =& $gallery->getPlatform();
-
+		$platform           =& $gallery->getPlatform();
 		list($languageData) = GalleryTranslator::getMe()->getLanguageData();
 
 		$expected['en']['US'] = $languageData['en']['US'];
@@ -154,8 +155,7 @@ class LanguageTest extends GalleryControllerTestCase {
 
 		$gallery->setPlatform($UnitTestPlatform);
 
-		$platform =& $gallery->getPlatform();
-
+		$platform           =& $gallery->getPlatform();
 		list($languageData) = GalleryTranslator::getMe()->getLanguageData();
 
 		$expected['en']['US'] = $languageData['en']['US'];
@@ -180,8 +180,7 @@ class LanguageTest extends GalleryControllerTestCase {
 
 		$gallery->setPlatform($UnitTestPlatform);
 
-		$platform =& $gallery->getPlatform();
-
+		$platform           =& $gallery->getPlatform();
 		list($languageData) = GalleryTranslator::getMe()->getLanguageData();
 
 		$expected['en']['US'] = $languageData['en']['US'];
@@ -191,7 +190,6 @@ class LanguageTest extends GalleryControllerTestCase {
 		$expected['zh']['TW'] = $languageData['zh']['TW'];
 
 		$gallery->setConfig('data.gallery.locale', '/g2data/');
-
 		$platform->setReply(
 			'glob',
 			array('/g2data/*', null),
@@ -207,4 +205,5 @@ class LanguageTest extends GalleryControllerTestCase {
 		$this->assertEquals($expected, $supportedLanguages);
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
+
 }

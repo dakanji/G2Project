@@ -34,7 +34,9 @@ if (!defined('_ADODB_CSV_LAYER')) {
 		public $_affectedrows    = 0;
 		public $_insertid        = 0;
 		public $_url;
-		public $replaceQuote    = "''"; // string to use to replace quotes
+
+		// string to use to replace quotes
+		public $replaceQuote    = "''";
 		public $hasTransactions = false;
 		public $_errorNo        = false;
 
@@ -108,7 +110,8 @@ if (!defined('_ADODB_CSV_LAYER')) {
 				if ($fn = $this->raiseErrorFn) {
 					$fn($this->databaseType, 'EXECUTE', $this->ErrorNo(), $this->ErrorMsg(), $sql, '');
 				}
-			}
+
+}
 
 			if (is_object($rs)) {
 				$rs->databaseType = 'csv';
@@ -174,7 +177,8 @@ if (!defined('_ADODB_CSV_LAYER')) {
 				if ($fn = $this->raiseErrorFn) {
 					$fn($this->databaseType, 'EXECUTE', $this->ErrorNo(), $this->ErrorMsg(), $sql, $inputarr);
 				}
-			}
+
+}
 
 			if (is_object($rs)) {
 				$rs->fetchMode       = ($this->fetchMode !== false) ? $this->fetchMode : $ADODB_FETCH_MODE;
@@ -201,7 +205,8 @@ if (!defined('_ADODB_CSV_LAYER')) {
 		public function _close() {
 			return true;
 		}
-	} // class
+
+} // class
 	class ADORecordset_csv extends ADORecordset {
 		public function __construct($id, $mode = false) {
 			parent::__construct($id, $mode);
@@ -210,5 +215,6 @@ if (!defined('_ADODB_CSV_LAYER')) {
 		public function _close() {
 			return true;
 		}
-	}
+
+}
 } // define

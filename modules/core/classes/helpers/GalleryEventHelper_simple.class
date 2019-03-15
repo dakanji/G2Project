@@ -75,7 +75,8 @@ class GalleryEventHelper_simple {
 			if (isset($data)) {
 				$eventResults[] = $data;
 			}
-		}
+
+}
 
 		/** @todo Remove from here to comment with "--END--" on next major API bump */
 		static $allListenersRegistered;
@@ -138,7 +139,8 @@ class GalleryEventHelper_simple {
 				if (isset($data)) {
 					$eventResults[] = $data;
 				}
-			}
+
+}
 		}
 
 		// --END-- of section to remove on next major API bump
@@ -169,4 +171,5 @@ class GalleryEventHelper_simple {
 		$allListeners               =& GalleryEventHelper_simple::_getEventListeners();
 		$allListeners[$eventName][] =& $eventListener;
 	}
+
 }

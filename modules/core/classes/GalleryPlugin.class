@@ -247,7 +247,8 @@ class GalleryPlugin {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		if ($gallery->getDebug()) {
 			$gallery->debug(
@@ -301,7 +302,8 @@ class GalleryPlugin {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		return array(null, array());
 	}
@@ -548,7 +550,8 @@ class GalleryPlugin {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		/** @todo Change scanPlugin to be called as a static function or helper function */
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
@@ -578,7 +581,8 @@ class GalleryPlugin {
 			if ($gallery->getDebug()) {
 				$gallery->debug_r($ret);
 			}
-		} elseif ($ret) {
+
+} elseif ($ret) {
 			return $ret;
 		}
 
@@ -635,7 +639,6 @@ class GalleryPlugin {
 		return array(
 			null,
 			empty($pluginStatus[$this->getId()]['active']) ? false : true,
-
 		);
 	}
 
@@ -813,4 +816,5 @@ class GalleryPlugin {
 	public function getPluginType() {
 		return null;
 	}
+
 }

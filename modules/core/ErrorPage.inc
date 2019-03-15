@@ -57,8 +57,7 @@ class ErrorPageView extends GalleryView {
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
 
-		$theme =& $template->getVariableByReference('theme');
-
+		$theme               =& $template->getVariableByReference('theme');
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		$ErrorPage = array(
@@ -116,8 +115,7 @@ class ErrorPageView extends GalleryView {
 				$storage                =& $gallery->getStorage();
 				$ErrorPage['dbType']    = $storage->getAdoDbType();
 				$ErrorPage['dbVersion'] = @$storage->getVersion();
-
-				list($ret, $list) = GalleryCoreApi::getToolkitOperationMimeTypes('thumbnail');
+				list($ret, $list)       = GalleryCoreApi::getToolkitOperationMimeTypes('thumbnail');
 
 				if (!$ret) {
 					$toolkitList = array();
@@ -128,7 +126,8 @@ class ErrorPageView extends GalleryView {
 
 					$ErrorPage['toolkits'] = implode(', ', array_unique($toolkitList));
 				}
-			}
+
+}
 
 			GalleryCoreApi::requireOnce('modules/core/module.inc');
 
@@ -214,7 +213,8 @@ class ErrorPageView extends GalleryView {
 				if ($ret) {
 					$failsafe = true;
 				}
-			}
+
+}
 		}
 
 		if (!$failsafe) {
@@ -223,7 +223,8 @@ class ErrorPageView extends GalleryView {
 			if (!isset($session)) {
 				$gallery->initEmptySession();
 			}
-		}
+
+}
 
 		if (!$failsafe) {
 			$urlGenerator =& $gallery->getUrlGenerator();
@@ -240,7 +241,8 @@ class ErrorPageView extends GalleryView {
 				} else {
 					$gallery->setUrlGenerator($urlGenerator);
 				}
-			}
+
+}
 		}
 
 		if (!$failsafe) {
@@ -249,7 +251,8 @@ class ErrorPageView extends GalleryView {
 			if ($ret) {
 				$failsafe = true;
 			}
-		}
+
+}
 
 		if (!$failsafe) {
 			list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
@@ -257,7 +260,8 @@ class ErrorPageView extends GalleryView {
 			if ($ret) {
 				$failsafe = true;
 			}
-		}
+
+}
 
 		if (!$failsafe) {
 			$templateAdapter =& $gallery->getTemplateAdapter();
@@ -269,7 +273,8 @@ class ErrorPageView extends GalleryView {
 			if ($ret) {
 				$failsafe = true;
 			}
-		}
+
+}
 
 		if (!$failsafe) {
 			$dummyForm = array();
@@ -285,7 +290,8 @@ class ErrorPageView extends GalleryView {
 			if ($ret) {
 				$failsafe = true;
 			}
-		}
+
+}
 
 		if (!$failsafe) {
 			$t                  =& $template->getVariableByReference('theme');
@@ -298,7 +304,8 @@ class ErrorPageView extends GalleryView {
 			if ($ret) {
 				$failsafe = true;
 			}
-		}
+
+}
 
 		if (!$failsafe) {
 			$template->setVariable('l10Domain', 'themes_' . $themeId);
@@ -308,12 +315,12 @@ class ErrorPageView extends GalleryView {
 			if ($ret) {
 				$failsafe = true;
 			}
-		}
+
+}
 
 		if ($failsafe) {
 			// A catastrophic failure has occurred so just dump the error out to the browser
 			echo '<h2>Error</h2>';
-
 			list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 			if ($gallery->getDebug() || (!$ret && $isAdmin)) {
@@ -323,8 +330,10 @@ class ErrorPageView extends GalleryView {
 			if ($gallery->getDebug() == 'buffered') {
 				echo '<h3>Debug Output</h3><pre>' . $gallery->getDebugBuffer() . '</pre>';
 			}
-		}
+
+}
 
 		return $errorHandled;
 	}
+
 }

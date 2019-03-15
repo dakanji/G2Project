@@ -574,6 +574,7 @@ class ToolkitTest extends GalleryTestCase {
 
 		$this->assertEquals(200, $derivative->getWidth(), 'width 1');
 		$this->assertEquals(150, $derivative->getHeight(), 'height 1');
+
 		/*
 		 * Now verify if the direct source is not a derivative and is smaller than the
 		 * desired size that we don't upsample.
@@ -645,7 +646,8 @@ crop|15,15,40,50',
 			if ($nTest !== false) {
 				break;
 			}
-		}
+
+}
 
 		if (empty($newLocale)) {
 			return $this->assertFalse(true, 'Unable to select German locale');
@@ -772,43 +774,36 @@ crop|15,20.5,40.62,50'
 			$toolkit->mergeOperations('thumbnail', array(100), 'thumbnail', array(150)),
 			'thumbnail'
 		);
-
 		$this->assertEquals(
 			array(true, 'scale', array(800)),
 			$toolkit->mergeOperations('scale', array(600, 500), 'scale', array(800)),
 			'scale'
 		);
-
 		$this->assertEquals(
 			array(true, 'resize', array(640, 480)),
 			$toolkit->mergeOperations('resize', array(800, 600), 'resize', array(640, 480)),
 			'resize'
 		);
-
 		$this->assertEquals(
 			array(true, 'scale', array(800, 600)),
 			$toolkit->mergeOperations('thumbnail', array(200), 'scale', array(800, 600)),
 			'thumbnail scale'
 		);
-
 		$this->assertEquals(
 			array(true, 'resize', array(640, 480)),
 			$toolkit->mergeOperations('scale', array(800, 600), 'resize', array(640, 480)),
 			'scale resize'
 		);
-
 		$this->assertEquals(
 			array(true, 'thumbnail', array(150)),
 			$toolkit->mergeOperations('resize', array(900, 700), 'thumbnail', array(150)),
 			'resize thumbnail'
 		);
-
 		$this->assertEquals(
 			array(true, 'crop', array(20, 20, 60, 60)),
 			$toolkit->mergeOperations('crop', array(40, 40, 20, 20), 'crop', array(20, 20, 60, 60)),
 			'crop'
 		);
-
 		$this->assertEquals(
 			array(false, null, null),
 			$toolkit->mergeOperations(
@@ -897,6 +892,7 @@ crop|15,20.5,40.62,50'
 
 		$this->assertEquals(0, sizeof($properties), 'all properties should be gone');
 	}
+
 }
 
 /**

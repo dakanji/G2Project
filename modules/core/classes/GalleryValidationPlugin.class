@@ -74,4 +74,5 @@ class GalleryValidationPlugin {
 	public function loadTemplate(&$form, $options = array()) {
 		return array(null, null, null);
 	}
+
 }

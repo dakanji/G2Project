@@ -128,7 +128,8 @@ class ArchiveExtractToolkit extends GalleryToolkit {
 			if ($file != '.' && $file != '..') {
 				$list[] = $file;
 			}
-		}
+
+}
 
 		$platform->closedir($dh);
 
@@ -141,21 +142,26 @@ class ArchiveExtractToolkit extends GalleryToolkit {
 				if (!$platform->unlink($path)) {
 					return false;
 				}
-			} elseif ($platform->is_dir($path)) {
+
+} elseif ($platform->is_dir($path)) {
 				if ($removeMeta && in_array($file, $prune['dir'])) {
 					if (!$platform->recursiveRmdir($path)) {
 						return false;
 					}
-				} elseif (!$this->_pruneDirectory($path, $prune, $removeMeta)) {
+
+} elseif (!$this->_pruneDirectory($path, $prune, $removeMeta)) {
 					return false;
 				}
-			} elseif ($removeMeta && in_array($file, $prune['file'])
+
+} elseif ($removeMeta && in_array($file, $prune['file'])
 				&& !$platform->unlink($path)
 			) {
 				return false;
 			}
-		}
+
+}
 
 		return true;
 	}
+
 }

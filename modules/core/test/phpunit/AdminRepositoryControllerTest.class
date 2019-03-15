@@ -57,7 +57,8 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testUpdateIndex() {
 		global $gallery;
@@ -97,7 +98,6 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[repositories][experimental]', 'experimental');
 		GalleryUtilities::putRequestVariable('form[repositories][community]', 'checked');
 		GalleryUtilities::putRequestVariable('form[repositories][something_else]', 1);
-
 		GalleryUtilities::putRequestVariable('form[action][update]', 1);
 
 		$this->_markPluginParametersForCleanup('module', 'core');
@@ -204,7 +204,8 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		 * We don't test the download process itself here, because it shares
 		 * the general download code path that is tested in testDownload.
 		 */
-	}
+
+}
 }
 
 class AdminRepositoryControllerTestUrlGenerator {
@@ -217,6 +218,7 @@ class AdminRepositoryControllerTestUrlGenerator {
 
 		return implode(',', $buf);
 	}
+
 }
 
 class AdminRepositoryControllerTestSession extends GallerySession {
@@ -229,4 +231,5 @@ class AdminRepositoryControllerTestSession extends GallerySession {
 	public function getStatus($remove = true) {
 		return empty($this->_testStatus) ? false : array_pop($this->_testStatus);
 	}
+
 }

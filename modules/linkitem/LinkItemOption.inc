@@ -86,8 +86,10 @@ class LinkItemOption extends ItemEditOption {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		}
+
+}
 
 		return array(null, $error, $warning);
 	}
+
 }

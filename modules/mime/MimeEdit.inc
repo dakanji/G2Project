@@ -68,7 +68,8 @@ class MimeEditController extends GalleryController {
 					) {
 						$error[] = 'form[error][extensions][inuse][' . $ext . ']';
 					}
-				}
+
+}
 			}
 
 			if ($allEmpty) {
@@ -96,11 +97,13 @@ class MimeEditController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 
 				$status['mimeSaved'] = true;
 			}
-		}
+
+}
 
 		if (empty($error)) {
 			if (isset($form['action']['apply'])) {
@@ -115,7 +118,8 @@ class MimeEditController extends GalleryController {
 					'subView' => 'mime.MimeAdmin',
 				);
 			}
-		} else {
+
+} else {
 			$results['delegate'] = array(
 				'view'    => 'core.SiteAdmin',
 				'subView' => 'mime.MimeEdit',
@@ -127,6 +131,7 @@ class MimeEditController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -161,11 +166,13 @@ class MimeEditView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-			} else {
+
+} else {
 				$form['viewable']   = false;
 				$form['extensions'] = array();
 			}
-		} else {
+
+} else {
 			/*
 			 * Force our checkbox to be false on empty (since browsers don't send a value
 			 * if the checkbox is not checked.
@@ -181,7 +188,8 @@ class MimeEditView extends GalleryView {
 				if (!empty($extension)) {
 					$tmp[] = $extension;
 				}
-			}
+
+}
 
 			$form['extensions'] = $tmp;
 		}
@@ -195,4 +203,5 @@ class MimeEditView extends GalleryView {
 			),
 		);
 	}
+
 }

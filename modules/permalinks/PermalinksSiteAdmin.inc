@@ -38,8 +38,7 @@ class PermalinksSiteAdminController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$results = $status = $error = array();
-
+		$results            = $status            = $error            = array();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'permalinks');
 
 		if ($ret) {
@@ -53,7 +52,8 @@ class PermalinksSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			$status['PermalinksSiteAdmin']['success'] = $module->translate('Permalink(s) deleted successfully');
 		}
@@ -78,7 +78,8 @@ class PermalinksSiteAdminController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		// Figure out where to redirect upon success
 		$method                      = empty($error) ? 'redirect' : 'delegate';
@@ -89,6 +90,7 @@ class PermalinksSiteAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -105,8 +107,7 @@ class PermalinksSiteAdminView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$PermalinksSiteAdmin = array();
-
+		$PermalinksSiteAdmin                        = array();
 		list($ret, $PermalinksSiteAdmin['aliases']) = PermalinksMapHelper::fetchAliasesForItem();
 
 		if ($ret) {
@@ -129,4 +130,5 @@ class PermalinksSiteAdminView extends GalleryView {
 			),
 		);
 	}
+
 }

@@ -175,7 +175,8 @@ class FfmpegToolkitHelper {
 				$operations['set-audio-samplerate']['mimeTypes']      = $mimeTypes;
 				$operations['set-audio-samplerate']['outputMimeType'] = null;
 			}
-		}
+
+}
 
 		// -------------------- Properties --------------------
 		// Dimensions
@@ -257,7 +258,8 @@ class FfmpegToolkitHelper {
 					null,
 				);
 			}
-		} else {
+
+} else {
 			return array(
 				GalleryCoreApi::error(
 					ERROR_BAD_PATH,
@@ -303,8 +305,7 @@ class FfmpegToolkitHelper {
 
 		list($ignored, $results) = $platform->exec(array(array($ffmpegPath, '-formats')));
 
-		$version = array();
-
+		$version                           = array();
 		list($ignored, $ignored, $version) = $platform->exec(array(array($ffmpegPath, '-version')));
 
 		$mimeTypes          = array();
@@ -367,7 +368,8 @@ class FfmpegToolkitHelper {
 
 						$mimeTypes[$mime] = 1;
 					}
-				}
+
+}
 
 				$success = true;
 			} elseif (preg_match('/  Decod(?:ing|ers): (.*)$/', $resultLine, $regs)) {
@@ -386,7 +388,8 @@ class FfmpegToolkitHelper {
 
 							$mimeTypes[$mime] = 1;
 						}
-					}
+
+}
 
 					$our_key = $i++;
 
@@ -395,7 +398,8 @@ class FfmpegToolkitHelper {
 					} else {
 						$resultLine = '';
 					}
-				} while ($i < sizeof($results) && !preg_match('|Codecs:|', $resultLine));
+
+} while ($i < sizeof($results) && !preg_match('|Codecs:|', $resultLine));
 				$success = true;
 			} elseif (preg_match('/(File formats|Codecs):/', $resultLine, $regs)) {
 				$resultLine = $results[$i++];
@@ -437,9 +441,11 @@ class FfmpegToolkitHelper {
 										) {
 											$mimeTypesEncoder[$mime] = 1;
 										}
-									}
+
+}
 								}
-							}
+
+}
 						}
 
 						$our_key = $i++;
@@ -449,7 +455,8 @@ class FfmpegToolkitHelper {
 						} else {
 							$resultLine = null;
 						}
-					} while (null !== $resultLine);
+
+} while (null !== $resultLine);
 					$success = true;
 				} else {
 					// Parse codecs
@@ -480,7 +487,8 @@ class FfmpegToolkitHelper {
 						$resultLine = $results[$i++];
 					} while (!empty($resultLine));
 				}
-			}
+
+}
 		}
 
 		$tests[] = array(
@@ -490,8 +498,7 @@ class FfmpegToolkitHelper {
 		);
 
 		// Test if this ffmpeg supports -ss flag..
-		$supportsOffset = false;
-
+		$supportsOffset   = false;
 		list($ok, $flags) = $platform->exec(array(array($ffmpegPath, '-h')));
 
 		foreach ($flags as $line) {
@@ -500,7 +507,8 @@ class FfmpegToolkitHelper {
 
 				break;
 			}
-		}
+
+}
 
 		return array(
 			null,
@@ -512,4 +520,5 @@ class FfmpegToolkitHelper {
 			$version,
 		);
 	}
+
 }

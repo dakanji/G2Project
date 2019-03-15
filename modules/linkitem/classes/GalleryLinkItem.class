@@ -79,7 +79,8 @@ class GalleryLinkItem extends GalleryItem {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$ret = parent::create($parentId, 'linkitem' . mt_rand(1000, 9999));
 
@@ -91,7 +92,6 @@ class GalleryLinkItem extends GalleryItem {
 
 		if (isset($linkedAlbum)) {
 			$this->setTitle($linkedAlbum->getTitle());
-
 			$this->setSummary($linkedAlbum->getSummary());
 			$this->setDescription($linkedAlbum->getDescription());
 			$this->setKeywords($linkedAlbum->getKeywords());
@@ -133,7 +133,8 @@ class GalleryLinkItem extends GalleryItem {
 			if (!$ret) {
 				return array($module->translate('Link'), $module->translate('link'));
 			}
-		}
+
+}
 
 		return array('Link', 'link');
 	}
@@ -220,4 +221,5 @@ class GalleryLinkItem extends GalleryItem {
 	public function setLink($link) {
 		$this->link = $link;
 	}
+
 }

@@ -31,9 +31,11 @@ function smarty_core_is_trusted($params, &$smarty) {
 
 						break;
 					}
-				}
+
+}
 			}
-		}
+
+}
 	} else {
 		// resource is not on local file system
 		$_smarty_trusted = call_user_func_array(

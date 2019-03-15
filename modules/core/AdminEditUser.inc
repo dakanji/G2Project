@@ -50,9 +50,8 @@ class AdminEditUserController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$results = $status = $error = array();
-		$userId  = (int)GalleryUtilities::getRequestVariables('userId');
-
+		$results          = $status          = $error          = array();
+		$userId           = (int)GalleryUtilities::getRequestVariables('userId');
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {
@@ -98,7 +97,8 @@ class AdminEditUserController extends GalleryController {
 				if (!empty($tmpUser) && $tmpUser->getId() != $userId) {
 					$error[] = 'form[error][userName][duplicate]';
 				}
-			}
+
+}
 
 			// full name is optional for everybody
 			// language is optional for everybody
@@ -109,13 +109,15 @@ class AdminEditUserController extends GalleryController {
 				if (!GalleryUtilities::isValidEmailString($form['email'])) {
 					$error[] = 'form[error][email][invalid]';
 				}
-			}
+
+}
 
 			if (!$isAnonymous) {
 				if ($form['password1'] != $form['password2']) {
 					$error[] = 'form[error][password2][mismatch]';
 				}
-			}
+
+}
 
 			if (isset($form['action']['resetFailedLogins'])) {
 				$ret = GalleryCoreApi::removeMapEntry(
@@ -128,7 +130,8 @@ class AdminEditUserController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			// If all the right fields are in place then go ahead and modify the user.
 			if (empty($error)) {
@@ -145,7 +148,6 @@ class AdminEditUserController extends GalleryController {
 				}
 
 				$user->setUserName(trim($form['userName']));
-
 				$user->setFullname(trim($form['fullName']));
 				$user->setLocked(!empty($form['locked']) ? 1 : 0);
 
@@ -158,7 +160,8 @@ class AdminEditUserController extends GalleryController {
 
 						$user->changePassword($form['password1']);
 					}
-				}
+
+}
 
 				$ret = $user->save();
 
@@ -177,7 +180,8 @@ class AdminEditUserController extends GalleryController {
 				$redirect['subView']    = 'core.AdminUsers';
 				$status['modifiedUser'] = $user->getUserName();
 			}
-		}
+
+}
 
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
@@ -191,6 +195,7 @@ class AdminEditUserController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -222,8 +227,7 @@ class AdminEditUserView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$userId = GalleryUtilities::getRequestVariables('userId');
-
+		$userId           = GalleryUtilities::getRequestVariables('userId');
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {
@@ -276,7 +280,8 @@ class AdminEditUserView extends GalleryView {
 				foreach ($countryList as $country => $languageData) {
 					$languageList[$language . '_' . $country] = $languageData['description'];
 				}
-			}
+
+}
 		}
 
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
@@ -317,4 +322,5 @@ class AdminEditUserView extends GalleryView {
 			),
 		);
 	}
+
 }

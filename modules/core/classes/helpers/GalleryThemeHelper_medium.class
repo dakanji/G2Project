@@ -41,7 +41,8 @@ class GalleryThemeHelper_medium {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 
@@ -60,7 +61,8 @@ class GalleryThemeHelper_medium {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// Get the per-item settings (global + item)
 		list($ret, $settings) = $theme->getSettings($itemId);
@@ -78,14 +80,14 @@ class GalleryThemeHelper_medium {
 
 		for ($i = 0; $i < count($settings); $i++) {
 			if (!empty($settings[$i]['typeParams']['packType'])) {
-				$packType = $settings[$i]['typeParams']['packType'];
-				$key      = $settings[$i]['key'];
-
+				$packType                              = $settings[$i]['typeParams']['packType'];
+				$key                                   = $settings[$i]['key'];
 				list($success, $settings[$i]['value']) = $theme->unpackSetting($packType, $settings[$i]['value']);
 
 				list($success, $globalParams[$key]) = $theme->unpackSetting($packType, $globalParams[$key]);
 			}
-		}
+
+}
 
 		// Fetch the item-only params
 		list($ret, $itemParams) = GalleryCoreApi::fetchAllPluginParameters('theme', $themeId, $itemId);
@@ -103,11 +105,11 @@ class GalleryThemeHelper_medium {
 			} elseif (!isset($form['useGlobal'][$key])) {
 				$form['useGlobal'][$key] = 0;
 			}
-		}
 
-		$data['settings']     = $settings;
-		$data['globalParams'] = $globalParams;
+}
 
+		$data['settings']                    = $settings;
+		$data['globalParams']                = $globalParams;
 		list($ret, $data['availableBlocks']) = GalleryThemeHelper_medium::loadAvailableBlocks();
 
 		if ($ret) {
@@ -127,8 +129,7 @@ class GalleryThemeHelper_medium {
 	public static function loadAvailableBlocks($getInactive = false) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform                 =& $gallery->getPlatform();
 		list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
 
 		if ($ret) {
@@ -156,7 +157,8 @@ class GalleryThemeHelper_medium {
 			if (!empty($blocks)) {
 				$data[$pluginId] = $blocks;
 			}
-		}
+
+}
 
 		return array(null, $data);
 	}
@@ -171,7 +173,8 @@ class GalleryThemeHelper_medium {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		}
+
+}
 
 		list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 
@@ -189,7 +192,8 @@ class GalleryThemeHelper_medium {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		}
+
+}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
@@ -244,7 +248,8 @@ class GalleryThemeHelper_medium {
 						if ($ret) {
 							return array($ret, null, null);
 						}
-					} else {
+
+} else {
 						if ($setting['type'] == 'checkbox') {
 							$value = isset($themeForm[$key]) ? 1 : 0;
 						} else {
@@ -263,7 +268,8 @@ class GalleryThemeHelper_medium {
 						if ($ret) {
 							return array($ret, null, null);
 						}
-					}
+
+}
 				}
 
 				$status = $module->translate('Successfully saved theme settings');
@@ -275,8 +281,10 @@ class GalleryThemeHelper_medium {
 
 				GalleryUtilities::putRequestVariable('form[errorMessage]', $errorMessage);
 			}
-		}
+
+}
 
 		return array(null, $error, $status);
 	}
+
 }

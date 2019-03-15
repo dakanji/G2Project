@@ -146,14 +146,14 @@ class RepositoryObject {
 				$contents = $this->_template->getVariable('contents');
 			} else {
 				// Process template with Smarty.
-				$templatePath = 'lib/tools/repository/templates/' . $this->_templateFile;
-
+				$templatePath         = 'lib/tools/repository/templates/' . $this->_templateFile;
 				list($ret, $contents) = $this->_template->fetch('gallery:' . $templatePath);
 
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 
 			// Write contents to disk.
 			if (false === $platform->file_put_contents($outputFilePath, $contents)) {
@@ -178,7 +178,8 @@ class RepositoryObject {
 						"Error writing to $outputFilePath.gz"
 					);
 				}
-			}
+
+}
 
 			$fileWritten = true;
 		}
@@ -269,4 +270,5 @@ class RepositoryObject {
 	public function wasFileWritten() {
 		return $this->_wasFileWritten;
 	}
+
 }

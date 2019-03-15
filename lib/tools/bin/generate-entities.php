@@ -64,6 +64,7 @@ while (($file = readdir($dh)) !== false) {
 	if (preg_match('/\.class$/', $file)) {
 		$files[] = $file;
 	}
+
 }
 
 closedir($dh);
@@ -76,6 +77,7 @@ foreach ($files as $file) {
 	if ($snippet) {
 		$classXml .= "<class>\n" . join("\n", $snippet) . "\n</class>\n";
 	}
+
 }
 
 if (empty($classXml)) {
@@ -180,9 +182,11 @@ foreach ($root[0]['child'] as $entity) {
 
 						break;
 				}
-			}
+
+}
 		}
-	}
+
+}
 
 	$entities[$entityName]['parent'] = $parentEntityName;
 	$entities[$entityName]['module'] = basename(dirname(realpath('.')));
@@ -239,7 +243,8 @@ function getXml($filename) {
 				if (preg_match('{<schema>}', $line)) {
 					$results[] = "   <schema-name>$schemaName</schema-name>";
 				}
-			}
+
+}
 		}
 
 		fclose($fp);

@@ -63,7 +63,8 @@ foreach ($_SERVER['argv'] as $moduleDir) {
 			echo $lines[0];
 			$idEmitted = true;
 		}
-	}
+
+}
 }
 
 if (!$idEmitted) {
@@ -97,6 +98,7 @@ function find($dir) {
 
 		closedir($dh);
 		sort($listing);
+
 		global $exts;
 
 		$dir = ($dir == '.') ? '' : ($dir . '/');
@@ -109,15 +111,18 @@ function find($dir) {
 				if ($file != 'test') {
 					$subdirs[] = $filename;
 				}
-			} elseif (preg_match('/\.' . $exts . '$/', $file)) {
+
+} elseif (preg_match('/\.' . $exts . '$/', $file)) {
 				extractStrings($filename);
 			}
-		}
+
+}
 
 		foreach ($subdirs as $dir) {
 			find($dir);
 		}
-	}
+
+}
 }
 
 /**
@@ -193,7 +198,8 @@ function extractStrings($filename) {
 						$buf   .= 'null';
 						$ignore = $parenCount;
 					}
-				}
+
+}
 
 				$param = GalleryUtilities::doEval('return ' . $buf . ';');
 
@@ -230,7 +236,8 @@ function extractStrings($filename) {
 								)
 							);
 						}
-					}
+
+}
 
 					if (isset($param['one'])) {
 						$string = 'ngettext("' . $param['one'] . '", "' . $param['many'] . '")';
@@ -256,9 +263,11 @@ function extractStrings($filename) {
 
 					$localStrings[$string] = true;
 				}
-			}
+
+}
 		}
-	} elseif (preg_match_all(
+
+} elseif (preg_match_all(
 		'/{\s*g->(?:text|changeInDescendents)\s+.*?[^\\\\]}/s',
 		$data,
 		$matches
@@ -282,21 +291,24 @@ function extractStrings($filename) {
 			if (preg_match('/\stext="(.*?[^\\\\])"/s', $string, $matches)) {
 				$text = $matches[1];
 			} elseif (preg_match("/text='(.*?)'/s", $string, $matches)) {
-				$text = str_replace('"', '\"', $matches[1]);    // Escape double quotes
+				// Escape double quotes
+				$text = str_replace('"', '\"', $matches[1]);
 			}
 
 			// one=.....
 			if (preg_match('/\sone="(.*?[^\\\\])"/s', $string, $matches)) {
 				$one = $matches[1];
 			} elseif (preg_match("/\sone='(.*?)'/s", $string, $matches)) {
-				$one = str_replace('"', '\"', $matches[1]);    // Escape double quotes
+				// Escape double quotes
+				$one = str_replace('"', '\"', $matches[1]);
 			}
 
 			// many=.....
 			if (preg_match('/\smany="(.*?[^\\\\])"/s', $string, $matches)) {
 				$many = $matches[1];
 			} elseif (preg_match("/\smany='(.*?)'/s", $string, $matches)) {
-				$many = str_replace('"', '\"', $matches[1]);    // Escape double quotes
+				// Escape double quotes
+				$many = str_replace('"', '\"', $matches[1]);
 			}
 
 			// Hint for translators
@@ -351,11 +363,13 @@ function extractStrings($filename) {
 
 			$localStrings[$string] = true;
 		}
-	}
+
+}
 
 	if (count($strings) == $startSize) {
 		unset($strings["\n/* $filename */"]);
 	}
+
 }
 
 function errorExit($message) {

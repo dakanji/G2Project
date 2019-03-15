@@ -67,4 +67,5 @@ class CartCallbacks {
 
 		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
+
 }

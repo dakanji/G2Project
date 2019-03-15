@@ -374,7 +374,8 @@ class Services_JSON {
 
 							break;
 					}
-				}
+
+}
 
 				return '"' . $ascii . '"';
 
@@ -409,7 +410,8 @@ class Services_JSON {
 						if (Services_JSON::isError($property)) {
 							return $property;
 						}
-					}
+
+}
 
 					return '{' . join(',', $properties) . '}';
 				}
@@ -421,7 +423,8 @@ class Services_JSON {
 					if (Services_JSON::isError($element)) {
 						return $element;
 					}
-				}
+
+}
 
 				return '[' . join(',', $elements) . ']';
 
@@ -437,14 +440,16 @@ class Services_JSON {
 					if (Services_JSON::isError($property)) {
 						return $property;
 					}
-				}
+
+}
 
 				return '{' . join(',', $properties) . '}';
 
 			default:
 				return ($this->use & SERVICES_JSON_SUPPRESS_ERRORS) ? 'null' : new Services_JSON_Error(gettype($var) . ' can not be encoded as JSON string');
 		}
-	}
+
+}
 
 	/**
 	 * array-walking function for use in generating JSON-formatted name-value pairs
@@ -638,7 +643,8 @@ class Services_JSON {
 
 								break;
 						}
-					}
+
+}
 
 					return $utf8;
 				}
@@ -656,7 +662,8 @@ class Services_JSON {
 							$stk = array(SERVICES_JSON_IN_OBJ);
 							$obj = new stdClass();
 						}
-					}
+
+}
 
 					array_push(
 						$stk,
@@ -719,7 +726,8 @@ class Services_JSON {
 									} else {
 										$obj->$key = $val;
 									}
-								} elseif (preg_match('/^\s*(\w+)\s*:\s*(\S.*),?$/Uis', $slice, $parts)) {
+
+} elseif (preg_match('/^\s*(\w+)\s*:\s*(\S.*),?$/Uis', $slice, $parts)) {
 									// name:value pair, where name is unquoted
 									$key = $parts[1];
 									$val = $this->decode($parts[2]);
@@ -729,9 +737,11 @@ class Services_JSON {
 									} else {
 										$obj->$key = $val;
 									}
-								}
+
+}
 							}
-						} elseif ((($chrs[$c] == '"') || ($chrs[$c] == "'")) && ($top['what'] != SERVICES_JSON_IN_STR)) {
+
+} elseif ((($chrs[$c] == '"') || ($chrs[$c] == "'")) && ($top['what'] != SERVICES_JSON_IN_STR)) {
 							// found a quote, and we are not inside a string
 							array_push(
 								$stk,
@@ -817,7 +827,8 @@ class Services_JSON {
 
 							//print("Found end of comment at {$c}: ".substr($chrs, $top['where'], (1 + $c - $top['where']))."\n");
 						}
-					}
+
+}
 
 					if (reset($stk) == SERVICES_JSON_IN_ARR) {
 						return $arr;
@@ -826,9 +837,11 @@ class Services_JSON {
 					if (reset($stk) == SERVICES_JSON_IN_OBJ) {
 						return $obj;
 					}
-				}
+
+}
 		}
-	}
+
+}
 
 	/**
 	 * @todo Ultimately, this should just call PEAR::isError()
@@ -846,6 +859,7 @@ class Services_JSON {
 
 		return false;
 	}
+
 }
 
 if (class_exists('PEAR_Error')) {
@@ -859,7 +873,8 @@ if (class_exists('PEAR_Error')) {
 		) {
 			parent::__construct($message, $code, $mode, $options, $userinfo);
 		}
-	}
+
+}
 } else {
 	/**
 	 * @todo Ultimately, this class shall be descended from PEAR_Error
@@ -872,5 +887,6 @@ if (class_exists('PEAR_Error')) {
 			$options = null,
 			$userinfo = null
 		) {}
-	}
+
+}
 }

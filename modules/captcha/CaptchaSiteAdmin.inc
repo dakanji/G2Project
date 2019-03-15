@@ -102,7 +102,8 @@ class CaptchaSiteAdminController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 			}
 
 			$redirect['view']    = 'core.SiteAdmin';
@@ -125,6 +126,7 @@ class CaptchaSiteAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -143,8 +145,7 @@ class CaptchaSiteAdminView extends GalleryView {
 
 		// Load our default values if we didn't just come from this form.
 		if ($form['formName'] != 'CaptchaSiteAdmin') {
-			$form['formName'] = 'CaptchaSiteAdmin';
-
+			$form['formName']                           = 'CaptchaSiteAdmin';
 			list($ret, $form['failedAttemptThreshold']) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'captcha',
@@ -154,7 +155,8 @@ class CaptchaSiteAdminView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		// Load admin options
 		list($ret, $optionInstances) = CaptchaAdminOption::getMe()->getAllOptions();
@@ -206,7 +208,10 @@ class CaptchaSiteAdminView extends GalleryView {
 			),
 		);
 	}
-}/**
+
+}
+
+/**
  * Interface for other modules to add captcha configuration into captcha site admin.
  *
  * @package Captcha
@@ -258,7 +263,8 @@ class CaptchaAdminOption {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		return array(null, $optionInstances);
 	}
@@ -298,4 +304,5 @@ class CaptchaAdminOption {
 			null,
 		);
 	}
+
 }

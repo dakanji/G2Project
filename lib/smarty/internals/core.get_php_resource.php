@@ -28,13 +28,15 @@ function smarty_core_get_php_resource(&$params, &$smarty) {
 			$_params = array(
 				'file_path' => $params['resource_name'],
 			);
+
 			include_once SMARTY_CORE_DIR . 'core.get_include_path.php';
 
 			if (smarty_core_get_include_path($_params, $smarty)) {
 				$_include_path = $_params['new_file_path'];
 				$_readable     = true;
 			}
-		}
+
+}
 	} elseif ($params['resource_type'] != 'file') {
 		$_template_source = null;
 		$_readable        = is_callable($smarty->_plugins['resource'][$params['resource_type']][0][0])
@@ -60,7 +62,8 @@ function smarty_core_get_php_resource(&$params, &$smarty) {
 
 				return false;
 			}
-		}
+
+}
 	} else {
 		$smarty->$_error_funcc($params['resource_type'] . ':' . $params['resource_name'] . ' is not readable');
 

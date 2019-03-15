@@ -147,6 +147,7 @@ if (!defined('ADODB_SESSION')) {
 
 	function adodb_sess_read($key) {
 		$Crypt = new MD5Crypt();
+
 		global $ADODB_SESS_CONN,$ADODB_SESS_INSERT,$ADODB_SESSION_TBL;
 
 		$rs = $ADODB_SESS_CONN->Execute("SELECT data FROM $ADODB_SESSION_TBL WHERE sesskey = '$key' AND expiry >= " . time());
@@ -172,6 +173,7 @@ if (!defined('ADODB_SESSION')) {
 
 	function adodb_sess_write($key, $val) {
 		$Crypt = new MD5Crypt();
+
 		global $ADODB_SESS_INSERT,$ADODB_SESS_CONN, $ADODB_SESS_LIFE, $ADODB_SESSION_TBL,$ADODB_SESSION_EXPIRE_NOTIFY;
 
 		$expiry = time() + $ADODB_SESS_LIFE;
@@ -186,6 +188,7 @@ if (!defined('ADODB_SESSION')) {
 
 		if ($ADODB_SESSION_EXPIRE_NOTIFY) {
 			$var = reset($ADODB_SESSION_EXPIRE_NOTIFY);
+
 			global $$var;
 
 			$arr['expireref'] = $$var;
@@ -210,7 +213,8 @@ if (!defined('ADODB_SESSION')) {
 			if ($ADODB_SESS_CONN->databaseType == 'access') {
 				$rs = $ADODB_SESS_CONN->Execute("select sesskey from $ADODB_SESSION_TBL WHERE sesskey='$key'");
 			}
-		}
+
+}
 
 		return isset($rs);
 	}
@@ -240,7 +244,8 @@ if (!defined('ADODB_SESSION')) {
 
 				$ADODB_SESS_CONN->CommitTrans();
 			}
-		} else {
+
+} else {
 			$qry = "DELETE FROM $ADODB_SESSION_TBL WHERE sesskey = '$key'";
 			$rs  = $ADODB_SESS_CONN->Execute($qry);
 		}
@@ -276,7 +281,8 @@ if (!defined('ADODB_SESSION')) {
 				$ADODB_SESS_CONN->Execute("DELETE FROM $ADODB_SESSION_TBL WHERE expiry < $t");
 				$ADODB_SESS_CONN->CommitTrans();
 			}
-		} else {
+
+} else {
 			$qry = "DELETE FROM $ADODB_SESSION_TBL WHERE expiry < " . time();
 
 			$ADODB_SESS_CONN->Execute($qry);
@@ -299,7 +305,8 @@ if (!defined('ADODB_SESSION')) {
 
 					break;
 			}
-		}
+
+}
 
 		if ($ADODB_SESS_CONN->dataProvider === 'oci8') {
 			$sql = 'select  TO_CHAR(' . ($ADODB_SESS_CONN->sysTimeStamp) . ', \'RRRR-MM-DD HH24:MI:SS\') from ' . $ADODB_SESSION_TBL;
@@ -327,7 +334,8 @@ if (!defined('ADODB_SESSION')) {
 -- $msg</p>"
 					);
 				}
-			}
+
+}
 		}
 
 		return true;

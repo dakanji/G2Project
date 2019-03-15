@@ -67,7 +67,8 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 
 				$captcha = 'off';
 			}
-		}
+
+}
 
 		if (isset($process_admin_change)) {
 			// Set target username to change admin username to
@@ -92,7 +93,8 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 
 				$ret = $storage->execute($sql, array($process_user_name, 6));
 			}
-		}
+
+}
 
 		if (GalleryUtilities::strToLower($process_user_name) == 'guest') {
 			// Bail out if trying to change Guest password
@@ -125,7 +127,8 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 					// Prevent the G2 setup password from being displayed in the form
 					$process_password_string = null;
 				}
-			}
+
+}
 		}
 
 		if ($success == true) {
@@ -151,7 +154,8 @@ function process(&$process_password_string, &$process_user_name, $process_admin_
 
 				$_COOKIE['g2pwdcache'] = join(',', $remember);
 			}
-		}
+
+}
 	} elseif (isset($process_advance) && !isset($process_auth)) {
 		// html error message for empty search string if not first page load
 		$html .= '<div class="error center">Empty Password String</div>';
@@ -181,7 +185,8 @@ function getCacheDirs() {
 		foreach ($dirs as $key => $ignored) {
 			$dirs[$key][0] = isset($set[$key]);
 		}
-	}
+
+}
 
 	return $dirs;
 }
@@ -203,13 +208,15 @@ function recDelDir($dirname, &$status) {
 		} elseif (!@unlink($path)) {
 			$status[] = array('error', "Unable to remove cache file: $path");
 		}
-	}
+
+}
 
 	closedir($fd);
 
 	if (!@rmdir($dirname)) {
 		$status[] = array('error', "Unable to remove cache directory: $dirname");
 	}
+
 }
 
 function refreshCache($dir, $mark) {
@@ -253,7 +260,8 @@ function validate() {
 		if ($authStringFromFile != $authString) {
 			$authError = 'Invalid Authentication String';
 		}
-	}
+
+}
 
 	return array($authError, $authString);
 }
@@ -299,6 +307,7 @@ if (!isset($output)) {
 		$caches = getCacheDirs();
 		$output = process($new_password_string, $user_name, $admin_change, $advance, $auth);
 	}
+
 }
 
 // Deactivate G2 API Framework

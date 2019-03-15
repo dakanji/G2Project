@@ -135,7 +135,8 @@ class GalleryCommentHelper {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		return array(null, $comments);
 	}
@@ -194,8 +195,7 @@ class GalleryCommentHelper {
 			$sequence .= '/';
 		}
 
-		$sequence .= $itemId . '/%';
-
+		$sequence          .= $itemId . '/%';
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds(
 			array('comment.view', 'core.view'),
 			$gallery->getActiveUserId()
@@ -263,10 +263,10 @@ class GalleryCommentHelper {
 			} else {
 				$data = array_merge($data, $publishStatus);
 			}
-		}
 
-		$data = array_merge($data, $aclIds);
+}
 
+		$data                      = array_merge($data, $aclIds);
 		list($ret, $searchResults) = $gallery->search(
 			$query,
 			$data,
@@ -298,16 +298,16 @@ class GalleryCommentHelper {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		}
+
+}
 
 		// Get total count of comments
 		if (!$count && !$offset) {
 			$totalCount = count($allIds);
 		} else {
-			$query = '
+			$query                     = '
 			SELECT
 			COUNT([GalleryComment::id]) ' . $queryBase;
-
 			list($ret, $searchResults) = $gallery->search($query, $data);
 
 			if ($ret) {
@@ -319,7 +319,8 @@ class GalleryCommentHelper {
 			} else {
 				$totalCount = count($allIds);
 			}
-		}
+
+}
 
 		return array(null, $comments, $totalCount);
 	}
@@ -352,9 +353,8 @@ class GalleryCommentHelper {
 			[GalleryChildEntity::parentId]
 		';
 
-		$data   = $itemIds;
-		$data[] = COMMENT_PUBLISH_STATUS_PUBLISHED;
-
+		$data                      = $itemIds;
+		$data[]                    = COMMENT_PUBLISH_STATUS_PUBLISHED;
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
@@ -453,12 +453,12 @@ class GalleryCommentHelper {
 				if (empty($form[$key])) {
 					$form[$key] = '';
 				}
-			}
+
+}
 		}
 
 		// Check if we should use validation plugins for new comments
-		$plugins = array();
-
+		$plugins                          = array();
 		list($ret, $useValidationPlugins) = $this->useValidationPlugins();
 
 		if ($ret) {
@@ -494,7 +494,8 @@ class GalleryCommentHelper {
 				if (isset($data['file'])) {
 					$plugins[] = $data;
 				}
-			}
+
+}
 		}
 
 		$AddComment = array(
@@ -576,7 +577,8 @@ class GalleryCommentHelper {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 
 				break;
 
@@ -608,7 +610,8 @@ class GalleryCommentHelper {
 						if ($ret) {
 							return array($ret, null);
 						}
-					}
+
+}
 				}
 
 				break;
@@ -664,12 +667,14 @@ class GalleryCommentHelper {
 				if ($comment->getPublishStatus() == COMMENT_PUBLISH_STATUS_PUBLISHED) {
 					$comment->setPublishStatus(COMMENT_PUBLISH_STATUS_UNPUBLISHED);
 				}
-			} elseif ($ret) {
+
+} elseif ($ret) {
 				return $ret;
 			} elseif ($isSpam) {
 				$comment->setPublishStatus(COMMENT_PUBLISH_STATUS_SPAM);
 			}
-		} else {
+
+} else {
 			$oldStatus = $comment->getOriginalValue('publishStatus');
 
 			if ($comment->isModified('publishStatus')) {
@@ -682,7 +687,8 @@ class GalleryCommentHelper {
 					} elseif ($ret) {
 						return $ret;
 					}
-				} elseif ($comment->getPublishStatus() == COMMENT_PUBLISH_STATUS_SPAM) {
+
+} elseif ($comment->getPublishStatus() == COMMENT_PUBLISH_STATUS_SPAM) {
 					$ret = $akismet->submitSpam($comment);
 
 					if ($ret && $ret->getErrorCode() & ERROR_UNKNOWN) {
@@ -691,9 +697,11 @@ class GalleryCommentHelper {
 					} elseif ($ret) {
 						return $ret;
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		if ($logError) {
 			$ret = GalleryCoreApi::addEventLogEntry(
@@ -706,6 +714,8 @@ class GalleryCommentHelper {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 	}
+
 }

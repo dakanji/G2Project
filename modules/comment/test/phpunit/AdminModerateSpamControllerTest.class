@@ -62,7 +62,8 @@ class AdminModerateSpamControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testSiteAdminsOnly() {
 		$ret = $this->_becomeGuestUser();
@@ -102,7 +103,8 @@ class AdminModerateSpamControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		GalleryUtilities::putRequestVariable('form[action][deleteAllSpam]', 1);
 
@@ -137,6 +139,8 @@ class AdminModerateSpamControllerTest extends GalleryControllerTestCase {
 
 					break;
 			}
-		}
+
+}
 	}
+
 }

@@ -31,7 +31,8 @@ function smarty_core_load_resource_plugin($params, &$smarty) {
 
 					break;
 				}
-			}
+
+}
 		}
 
 		if (!$_plugin[1]) {
@@ -68,6 +69,7 @@ function smarty_core_load_resource_plugin($params, &$smarty) {
 
 		$smarty->_plugins['resource'][$params['type']] = array($_resource_funcs, true);
 	}
+
 }
 
 // vim: set expandtab:

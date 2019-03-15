@@ -53,6 +53,7 @@ class CustomFieldSiteAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -77,7 +78,8 @@ class CustomFieldSiteAdminView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		$template->setVariable('controller', 'customfield.CustomFieldSiteAdmin');
 
@@ -88,4 +90,5 @@ class CustomFieldSiteAdminView extends GalleryView {
 			),
 		);
 	}
+
 }

@@ -139,7 +139,8 @@ class RewriteHelperTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testGetRewriteParser() {
 		list($ret, $parser) = RewriteHelper::getRewriteParser();
@@ -164,7 +165,6 @@ class RewriteHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue('rewritehelpermock' == $parser->getParserId(), 'static');
-
 		list($ret, $parser) = RewriteHelper::getRewriteParser(true);
 
 		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_VALUE)) {
@@ -629,7 +629,8 @@ class RewriteHelperTest extends GalleryTestCase {
 			$this->assertTrue($test[4] == $errno, 'errno ' . $key);
 			$this->assertTrue($test[5] == $test[0], 'active rules ' . $key);
 		}
-	}
+
+}
 
 	public function testParseBadKeyword() {
 		$activeRules                         = array();
@@ -637,8 +638,7 @@ class RewriteHelperTest extends GalleryTestCase {
 			'pattern' => 'p/%badKeyword%',
 		);
 
-		$expectedActiveRules = $activeRules;
-
+		$expectedActiveRules                               = $activeRules;
 		list($ret, $code, $regexRules, $shortUrls, $errno) = RewriteHelper::parseActiveRules(
 			$activeRules,
 			$this->_parser
@@ -663,8 +663,7 @@ class RewriteHelperTest extends GalleryTestCase {
 			'pattern' => 'phpunit',
 		);
 
-		$expectedActiveRules = $activeRules;
-
+		$expectedActiveRules                               = $activeRules;
 		list($ret, $code, $regexRules, $shortUrls, $errno) = RewriteHelper::parseActiveRules(
 			$activeRules,
 			$this->_parser
@@ -931,10 +930,12 @@ class RewriteHelperTest extends GalleryTestCase {
 			'pattern' => 'php.-/%unit%',
 		);
 
-		$expectedActiveRules  = $activeRules;
-		$expectedShortUrls    = array();
-		$expectedRegexRules   = array();
-		$dash                 = preg_quote('-');  // only PHP 5.3+ escapes dash
+		$expectedActiveRules = $activeRules;
+		$expectedShortUrls   = array();
+		$expectedRegexRules  = array();
+
+		// only PHP 5.3+ escapes dash
+		$dash                 = preg_quote('-');
 		$expectedRegexRules[] = array(
 			'pattern'     => 'php\\.' . $dash . '/(.*)',
 			'keywords'    => array(null, 'unit'),
@@ -994,6 +995,7 @@ class RewriteHelperTest extends GalleryTestCase {
 
 		$this->assertEquals(array(), $history, 'history removed');
 	}
+
 }
 
 GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteParser.class');
@@ -1001,9 +1003,9 @@ GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteParser.class');
 class RewriteHelperMockParser extends RewriteParser {
 	public function __construct() {
 		$this->_setParserId('rewritehelpermock');
-
 		$this->_setParserType('preGallery');
 	}
+
 }
 
 class RewriteHelperMockModule extends GalleryModule {
@@ -1011,10 +1013,11 @@ class RewriteHelperMockModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('rewritehelpermock');
-
 		$this->setName('RewriteHelper Test Module');
 		$this->setDescription('Unit test module');
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('7.0.0');
 		$this->setGroup('data', 'Gallery');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$this->setRequiredModuleApi(GalleryModule::getApiVersion());
@@ -1163,6 +1166,7 @@ class RewriteHelperMockModule extends GalleryModule {
 
 		return $rules;
 	}
+
 }
 
 class RewriteHelperMockPlatform extends GalleryPlatform {
@@ -1182,7 +1186,8 @@ class RewriteHelperMockPlatform extends GalleryPlatform {
 				while (false !== ($file = parent::readdir($dir))) {
 					array_push($this->_list, $file);
 				}
-			}
+
+}
 
 			array_push($this->_list, 'rewritehelpermock');
 
@@ -1221,4 +1226,5 @@ class RewriteHelperMockPlatform extends GalleryPlatform {
 	public function recursiveRmdir($path) {
 		return true;
 	}
+
 }

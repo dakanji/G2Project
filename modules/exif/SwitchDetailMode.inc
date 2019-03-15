@@ -52,6 +52,7 @@ class SwitchDetailModeController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -79,8 +80,7 @@ class SwitchDetailModeView extends GalleryView {
 	public function renderImmediate($status = null, $error = null) {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
+		$session          =& $gallery->getSession();
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
@@ -107,6 +107,7 @@ class SwitchDetailModeView extends GalleryView {
 		$template->setVariable('l10Domain', 'modules_exif');
 		$template->setVariable('ajax', true);
 		$template->setVariable('item', (array)$item);
+
 		$template->setVariable(
 			'theme',
 			array(
@@ -122,4 +123,5 @@ class SwitchDetailModeView extends GalleryView {
 
 		return null;
 	}
+
 }

@@ -38,10 +38,12 @@ function smarty_core_rm_auto($params, &$smarty) {
 				foreach ((array)$params['extensions'] as $_extension) {
 					$_res |= $smarty->_unlink($_tname . $_extension, $params['exp_time']);
 				}
-			} else {
+
+} else {
 				$_res = $smarty->_unlink($_tname, $params['exp_time']);
 			}
-		} elseif ($smarty->use_sub_dirs) {
+
+} elseif ($smarty->use_sub_dirs) {
 			$_params = array(
 				'dirname'  => $_tname,
 				'level'    => 1,
@@ -64,9 +66,11 @@ function smarty_core_rm_auto($params, &$smarty) {
 				if (substr($params['auto_base'] . DIRECTORY_SEPARATOR . $_filename, 0, strlen($_tname)) == $_tname) {
 					$_res &= (bool)$smarty->_unlink($params['auto_base'] . DIRECTORY_SEPARATOR . $_filename, $params['exp_time']);
 				}
-			}
+
+}
 		}
-	}
+
+}
 
 	return $_res;
 }

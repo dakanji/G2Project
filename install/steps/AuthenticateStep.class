@@ -70,7 +70,8 @@ class AuthenticateStep extends InstallStep {
 						basename($authenticationDir)
 					);
 				}
-			} elseif (!is_readable($authFile)) {
+
+} elseif (!is_readable($authFile)) {
 				$templateData['errors'][] = _(
 					'<b>Error:</b> your <b>authFile.txt</b> file is not readable. '
 					. 'Please give Gallery read permissions on the file.'
@@ -89,7 +90,8 @@ class AuthenticateStep extends InstallStep {
 						. 'Please download a new authentication string from below and try again.'
 					);
 				}
-			}
+
+}
 		}
 
 		$this->_firstTime                  = false;
@@ -100,9 +102,11 @@ class AuthenticateStep extends InstallStep {
 		} else {
 			$templateData['bodyFile'] = 'AuthenticateRequest.html';
 		}
-	}
+
+}
 
 	public function getUniqueKey() {
 		return $this->_uniqueKey;
 	}
+
 }

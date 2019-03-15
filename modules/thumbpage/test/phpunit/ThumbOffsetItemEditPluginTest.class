@@ -89,7 +89,8 @@ class ThumbOffsetItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
@@ -156,6 +157,7 @@ class ThumbOffsetItemEditPluginTest extends ItemEditPluginTestCase {
 
 		$this->assertEquals(array(array('form[error][offset][invalid]'), null), $results);
 	}
+
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
@@ -181,4 +183,5 @@ class ThumbOffsetTestToolkit extends GalleryToolkit {
 
 		return array(null, array(320, 240, 32));
 	}
+
 }

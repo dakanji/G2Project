@@ -47,6 +47,7 @@ if (function_exists('posix_getlogin')) {
 	if (!empty($tmp['gecos'])) {
 		$authorFullName = $tmp['gecos'];
 	}
+
 }
 
 require_once __DIR__ . '/../../../lib/smarty/Smarty.class.php';
@@ -100,9 +101,7 @@ $moduleId   = preg_replace('/\W/', '', $moduleId);
 $ucModuleId = ucfirst($moduleId);
 
 $smarty->assign('moduleId', $moduleId);
-
 $smarty->assign('ucModuleId', $ucModuleId);
-
 $smarty->assign('moduleName', $moduleName);
 $smarty->assign('author', $author);
 $smarty->assign('authorFullName', $authorFullName);
@@ -136,6 +135,7 @@ mkdir("$modulePath/templates");
 $fd = safe_fopen("$modulePath/templates/$ucModuleId.tpl");
 
 fwrite($fd, $smarty->fetch(__DIR__ . '/MyPage.tpl.tpl'));
+
 fclose($fd);
 
 // Create our map
@@ -147,6 +147,7 @@ $smarty->assign('makefileType', 'classes');
 $fd = safe_fopen("$modulePath/classes/GNUmakefile");
 
 fwrite($fd, $smarty->fetch(__DIR__ . '/GNUmakefile.tpl'));
+
 fclose($fd);
 
 $smarty->assign('makefileType', 'GalleryStorage');
@@ -164,6 +165,7 @@ fclose($fd);
 $fd = safe_fopen($modulePath . '/classes/' . $ucModuleId . 'Helper.class');
 
 fwrite($fd, $smarty->fetch(__DIR__ . '/MyPageHelper.class.tpl'));
+
 fclose($fd);
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * *\n";
 echo "Your module is ready!  You must build it by doing: \n";
@@ -172,7 +174,6 @@ echo "  cd modules/$moduleId/classes \n";
 echo "  make && make clean\n";
 echo "\n";
 echo "Then you can go to the Site Admin -> Modules \n";
-
 echo "page and install and activate your module!\n";
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * *\n";
 
@@ -207,6 +208,7 @@ function cleanup() {
 	if (file_exists($tmpdir)) {
 		system("rm -rf $tmpdir");
 	}
+
 }
 
 function safe_fopen($path) {

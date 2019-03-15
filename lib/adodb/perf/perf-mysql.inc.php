@@ -128,9 +128,11 @@ class perf_mysql extends adodb_perf {
 					if (crc32($sql) == $partial) {
 						break;
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		$sql = str_replace('?', "''", $sql);
 
@@ -299,7 +301,8 @@ class perf_mysql extends adodb_perf {
 			default:
 				return $type . ' not supported';
 		}
-	}
+
+}
 
 	public function GetQHitRatio() {
 		//Total number of queries = Qcache_inserts + Qcache_hits + Qcache_not_cached

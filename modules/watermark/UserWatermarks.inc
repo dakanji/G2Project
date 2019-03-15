@@ -92,13 +92,15 @@ class UserWatermarksController extends GalleryController {
 				$results['redirect']['subView']     = 'watermark.ConfirmDelete';
 				$results['redirect']['watermarkId'] = $form['delete']['watermarkId'];
 			}
-		}
+
+}
 
 		$results['status'] = $status;
 		$results['error']  = $error;
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -159,7 +161,8 @@ class UserWatermarksView extends GalleryView {
 				$ids                 = array_keys($watermarks);
 				$form['watermarkId'] = array_shift($ids);
 			}
-		}
+
+}
 
 		// Set the form's encoding type since we're uploading binary files
 		if ($template->hasVariable('UserAdmin')) {
@@ -200,4 +203,5 @@ class UserWatermarksView extends GalleryView {
 
 		return array(null, $core->translate('user watermarks'));
 	}
+
 }

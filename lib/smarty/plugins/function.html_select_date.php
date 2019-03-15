@@ -145,7 +145,8 @@ function smarty_function_html_select_date($params, &$smarty) {
 
 				break;
 		}
-	}
+
+}
 
 	if (preg_match('!^-\d+$!', $time)) {
 		// negative timestamp, use date()
@@ -171,7 +172,8 @@ function smarty_function_html_select_date($params, &$smarty) {
 		} else {
 			$end_year = strftime('%Y') - $match[2];
 		}
-	}
+
+}
 
 	if (preg_match('!^(\+|\-)\s*(\d+)$!', $start_year, $match)) {
 		if ($match[1] == '+') {
@@ -179,7 +181,8 @@ function smarty_function_html_select_date($params, &$smarty) {
 		} else {
 			$start_year = strftime('%Y') - $match[2];
 		}
-	}
+
+}
 
 	if (strlen($time[0]) > 0) {
 		if ($start_year > $time[0] && !isset($params['start_year'])) {
@@ -191,7 +194,8 @@ function smarty_function_html_select_date($params, &$smarty) {
 			// force end year to include given date if not explicitly set
 			$end_year = $time[0];
 		}
-	}
+
+}
 
 	$field_order           = strtoupper($field_order);
 	$html_result           = $month_result           = $day_result           = $year_result           = '';
@@ -358,7 +362,8 @@ function smarty_function_html_select_date($params, &$smarty) {
 
 			$year_result .= '</select>';
 		}
-	}
+
+}
 
 	// Loop thru the field_order field
 	for ($i = 0; $i <= 2; $i++) {
@@ -385,7 +390,8 @@ function smarty_function_html_select_date($params, &$smarty) {
 		if ($i < $field_separator_count) {
 			$html_result .= $field_separator;
 		}
-	}
+
+}
 
 	return $html_result;
 }

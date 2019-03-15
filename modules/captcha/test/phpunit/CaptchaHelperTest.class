@@ -38,7 +38,6 @@ class CaptchaHelperTest extends GalleryTestCase {
 		$phpVm = new CaptchaHelperTestPhpVm();
 
 		$phpVm->setFunctionExists('ImageCreateFromJPEG', true);
-
 		$phpVm->setFunctionExists('ImageColorAllocate', true);
 		$phpVm->setFunctionExists('ImageString', true);
 		$phpVm->setFunctionExists('ImageJPEG', true);
@@ -69,7 +68,6 @@ class CaptchaHelperTest extends GalleryTestCase {
 		$phpVm = new CaptchaHelperTestPhpVm();
 
 		$phpVm->setFunctionExists('ImageCreateFromJPEG', true);
-
 		$phpVm->setFunctionExists('ImageColorAllocate', true);
 		$phpVm->setFunctionExists('ImageString', false);
 		$phpVm->setFunctionExists('ImageJPEG', true);
@@ -101,7 +99,6 @@ class CaptchaHelperTest extends GalleryTestCase {
 		$phpVm = new CaptchaHelperTestPhpVm();
 
 		$phpVm->setFunctionExists('ImageCreateFromJPEG', false);
-
 		$phpVm->setFunctionExists('ImageColorAllocate', false);
 		$phpVm->setFunctionExists('ImageString', false);
 		$phpVm->setFunctionExists('ImageJPEG', false);
@@ -125,6 +122,7 @@ class CaptchaHelperTest extends GalleryTestCase {
 			$report
 		);
 	}
+
 }
 
 class CaptchaHelperTestPhpVm {
@@ -135,4 +133,5 @@ class CaptchaHelperTestPhpVm {
 	public function function_exists($functionName) {
 		return $this->_function_exists[$functionName];
 	}
+
 }

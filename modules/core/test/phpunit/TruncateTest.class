@@ -172,4 +172,5 @@ class TruncateTest extends GalleryTestCase {
 			smarty_modifier_entitytruncate('foo bar baz bletch', 14)
 		);
 	}
+
 }

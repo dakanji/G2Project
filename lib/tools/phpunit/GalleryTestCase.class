@@ -198,6 +198,7 @@ class GalleryTestCase extends TestCase {
 		$counter =& GalleryTestCase::getEntityCounter();
 
 		$counter->setCount(0);
+
 		/*
 		 * Try to ensure enough time for this test to complete.  If a test
 		 * needs more time, then it should extend the limit itself.
@@ -287,7 +288,8 @@ class GalleryTestCase extends TestCase {
 						// Print the error, but continue to remove the parameters
 						echo $ret->getAsHtml();
 					}
-				}
+
+}
 			}
 
 			// Restore each key from the saved list
@@ -303,7 +305,8 @@ class GalleryTestCase extends TestCase {
 					// Print the error, but continue to set the variables
 					echo $ret->getAsHtml();
 				}
-			}
+
+}
 		}
 
 		if (isset($this->_cleanup['factoryRegistry'])) {
@@ -321,7 +324,8 @@ class GalleryTestCase extends TestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		foreach ($this->_cleanup['toolkitId'] as $toolkitId) {
 			$ret = GalleryCoreApi::unregisterToolkit($toolkitId);
@@ -329,7 +333,8 @@ class GalleryTestCase extends TestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		foreach ($this->_cleanup['factoryModuleId'] as $moduleId) {
 			$ret = GalleryCoreApi::unregisterFactoryImplementationsByModuleId($moduleId);
@@ -337,7 +342,8 @@ class GalleryTestCase extends TestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$storage =& $gallery->getStorage();
 
@@ -442,7 +448,8 @@ class GalleryTestCase extends TestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'misc.markup', $markup);
 
@@ -483,7 +490,8 @@ class GalleryTestCase extends TestCase {
 			$message .= sprintf('&nbsp;<br/><b>Mismatch At</b>: %s', htmlspecialchars($err));
 			parent::assertEquals($expected, $actual, $message);
 		}
-	}
+
+}
 
 	/**
 	 * Create a random album
@@ -517,7 +525,8 @@ class GalleryTestCase extends TestCase {
 			if ($ret && !($ret->getErrorCode() & ERROR_COLLISION)) {
 				break;
 			}
-		} while ($ret && --$retries > 0);
+
+} while ($ret && --$retries > 0);
 
 		if ($ret) {
 			return array($ret, null);
@@ -557,7 +566,8 @@ class GalleryTestCase extends TestCase {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 		}
 
 		return array(null, $album);
@@ -598,8 +608,7 @@ class GalleryTestCase extends TestCase {
 			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 		}
 
-		$lockIds = array();
-
+		$lockIds               = array();
 		list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock($parentId);
 
 		if ($ret) {
@@ -649,7 +658,8 @@ class GalleryTestCase extends TestCase {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		return array(null, $item);
 	}
@@ -699,7 +709,8 @@ class GalleryTestCase extends TestCase {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		return array(null, $linkedItem);
 	}
@@ -734,7 +745,8 @@ class GalleryTestCase extends TestCase {
 				if ($ret && !($ret->getErrorCode() & ERROR_COLLISION)) {
 					break;
 				}
-			} while ($ret && --$retries > 0);
+
+} while ($ret && --$retries > 0);
 		} else {
 			$ret = $user->create('testuser-' . $userTag);
 		}
@@ -786,7 +798,8 @@ class GalleryTestCase extends TestCase {
 				if ($ret && !($ret->getErrorCode() & ERROR_COLLISION)) {
 					break;
 				}
-			} while ($ret && --$retries > 0);
+
+} while ($ret && --$retries > 0);
 		} else {
 			$ret = $group->create('Test Group ' . $groupTag);
 		}
@@ -814,8 +827,7 @@ class GalleryTestCase extends TestCase {
 	) {
 		global $gallery;
 
-		$parentId = $parent->getId();
-
+		$parentId               = $parent->getId();
 		list($ret, $derivative) = GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative', $parent->getEntityType());
 
 		if ($ret) {
@@ -883,7 +895,8 @@ class GalleryTestCase extends TestCase {
 			if (!$ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 				return $ret;
 			}
-		} else {
+
+} else {
 			// We failed to delete!
 			return GalleryCoreApi::error(ERROR_UNKNOWN);
 		}
@@ -934,7 +947,8 @@ class GalleryTestCase extends TestCase {
 			if ($ret && !($ret->getErrorCode() & ERROR_COLLISION)) {
 				break;
 			}
-		} while ($ret && --$retries > 0);
+
+} while ($ret && --$retries > 0);
 
 		if ($ret) {
 			return array($ret, null);
@@ -966,18 +980,17 @@ class GalleryTestCase extends TestCase {
 	 */
 	public function _getUnusedId() {
 		global $gallery;
-
 		static $unusedId;
 
 		if (!isset($unusedId)) {
-			$storage =& $gallery->getStorage();
-
+			$storage              =& $gallery->getStorage();
 			list($ret, $unusedId) = $storage->getUniqueId();
 
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		return array(null, $unusedId);
 	}
@@ -1013,7 +1026,8 @@ class GalleryTestCase extends TestCase {
 			if ($obj2 === '') {
 				return null;
 			}
-		}
+
+}
 
 		// DA Note:
 		// Map integers to boolean equivalents and assume pass if match
@@ -1024,7 +1038,8 @@ class GalleryTestCase extends TestCase {
 			) {
 				return null;
 			}
-		}
+
+}
 
 		if ($obj2Type === 'boolean') {
 			if ((($obj2 === 'true' || $obj2 == 1) && $obj1 == 1)
@@ -1032,7 +1047,8 @@ class GalleryTestCase extends TestCase {
 			) {
 				return null;
 			}
-		}
+
+}
 
 		// DA Note:
 		// Assume 'integer' strings are equivalent to 'real' integers
@@ -1041,13 +1057,15 @@ class GalleryTestCase extends TestCase {
 			if (ctype_digit($obj1)) {
 				return null;
 			}
-		}
+
+}
 
 		if ($obj2Type === 'string' && is_int($obj1)) {
 			if (ctype_digit($obj2)) {
 				return null;
 			}
-		}
+
+}
 
 		if ($obj1Type !== $obj2Type) {
 			$contextString = $context;
@@ -1056,11 +1074,16 @@ class GalleryTestCase extends TestCase {
 				$contextString = 'Array[' . trim($context) . '] :: ';
 			}
 
-			$retval  = $contextString;
+			$retval = $contextString;
+
 			$retval .= ' Expected Type (';
+
 			$retval .= $obj1Type;
+
 			$retval .= ') !== Actual Type (';
+
 			$retval .= $obj2Type;
+
 			$retval .= ')';
 
 			return $retval;
@@ -1106,7 +1129,8 @@ class GalleryTestCase extends TestCase {
 				if (isset($err)) {
 					return $err;
 				}
-			}
+
+}
 		} else {
 			if ($obj1 !== $obj2) {
 				$result = sprintf('[%s ', trim($context));
@@ -1139,14 +1163,16 @@ class GalleryTestCase extends TestCase {
 
 							break;
 						}
-					}
+
+}
 				}
 
 				$result .= "] $obj1 !== $obj2";
 
 				return $result;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -1163,7 +1189,8 @@ class GalleryTestCase extends TestCase {
 					"Bad param $field"
 				);
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -1236,8 +1263,7 @@ class GalleryTestCase extends TestCase {
 			);
 
 			// Trigger all modules to register their event listeners
-			$event = GalleryCoreApi::newEvent('GalleryTest:PseudoEvent');
-
+			$event               = GalleryCoreApi::newEvent('GalleryTest:PseudoEvent');
 			list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 			if ($ret) {
@@ -1270,6 +1296,7 @@ class GalleryTestCase extends TestCase {
 
 		// Unregister all event listeners (in-memory only)
 		$this->_unregisterFactoryImplementationForTest('GalleryEventListener');
+
 		// Register a few core event listeners by default
 		$this->_registerFactoryImplementationForTest(
 			'GalleryEventListener',
@@ -1320,7 +1347,8 @@ class GalleryTestCase extends TestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	/**
 	 * Utility method to array_unshift a single key => value pair.
@@ -1365,7 +1393,8 @@ class GalleryTestCase extends TestCase {
 			if (empty($registry['ids'][$classType])) {
 				unset($registry['ids'][$classType]);
 			}
-		} else {
+
+} else {
 			unset($registry['ids'][$classType]);
 		}
 
@@ -1381,7 +1410,8 @@ class GalleryTestCase extends TestCase {
 			if (empty($registry['pluginIds'][$classType])) {
 				unset($registry['pluginIds'][$classType]);
 			}
-		} else {
+
+} else {
 			unset($registry['implementations'][$classType], $registry['pluginIds'][$classType]);
 		}
 
@@ -1398,12 +1428,14 @@ class GalleryTestCase extends TestCase {
 				if (empty($registry['hints'][$classType][$hint])) {
 					unset($registry['hints'][$classType][$hint]);
 				}
-			}
+
+}
 
 			if (empty($registry['hints'][$classType]) || !isset($implId)) {
 				unset($registry['hints'][$classType]);
 			}
-		}
+
+}
 	}
 
 	/**
@@ -1444,7 +1476,8 @@ class GalleryTestCase extends TestCase {
 
 			return;
 		}
-	}
+
+}
 
 	/**
 	 * Fail if the provided event name was not fired.
@@ -1482,7 +1515,8 @@ class GalleryTestCase extends TestCase {
 					'unexpected data in event: ' . $eventName
 				);
 			}
-		}
+
+}
 	}
 
 	/**
@@ -1495,6 +1529,7 @@ class GalleryTestCase extends TestCase {
 			$eventName . ' was fired unexpectedly'
 		);
 	}
+
 }
 
 /**
@@ -1543,6 +1578,7 @@ class EntityCounterEventListener {
 	public function getCount() {
 		return $this->_count;
 	}
+
 }
 
 /**
@@ -1561,4 +1597,5 @@ class NullEventListener {
 
 		return array(null, null);
 	}
+
 }

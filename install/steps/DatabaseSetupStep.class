@@ -53,7 +53,8 @@ class DatabaseSetupStep extends InstallStep {
 			if (!isset($this->_config['schema'])) {
 				$this->_config['schema'] = '';
 			}
-		}
+
+}
 
 		$templateData['password'] = strlen($this->_config['password']) ? '******' : '';
 
@@ -73,7 +74,8 @@ class DatabaseSetupStep extends InstallStep {
 			if (!preg_match('/^\*+$/', trim($_POST['password']))) {
 				$this->_config['password'] = $this->sanitize($_POST['password']);
 			}
-		}
+
+}
 
 		$dbPlatformType = null;
 
@@ -252,7 +254,8 @@ class DatabaseSetupStep extends InstallStep {
 
 					$this->_captureEnd();
 				}
-			}
+
+}
 
 			if (empty($templateData['errors']) && empty($templateData['error'])) {
 				$this->_captureStart();
@@ -280,7 +283,8 @@ class DatabaseSetupStep extends InstallStep {
 						if (!empty($error)) {
 							$templateData['errors'][] = $error;
 						}
-					}
+
+}
 
 					// Check the status and get the version of the Gallery database
 					$dbVersion = $this->_getDbVersion($result);
@@ -291,7 +295,8 @@ class DatabaseSetupStep extends InstallStep {
 					} else {
 						$templateData['password'] = '';
 					}
-				}
+
+}
 
 				$this->_captureEnd();
 
@@ -361,14 +366,16 @@ class DatabaseSetupStep extends InstallStep {
 							. 'existing data in the database and the storage directory.'
 					);
 				}
-			}
+
+}
 
 			if (empty($templateData['errors']) && empty($templateData['error'])
 				&& (empty($confirmRequired) || !empty($_POST['confirmReuseTables']))
 			) {
 				$this->setComplete(true);
 			}
-		} elseif (!empty($_GET['action']) && $_GET['action'] == 'clean') {
+
+} elseif (!empty($_GET['action']) && $_GET['action'] == 'clean') {
 			// Do a clean install, erase the data, initiate the G2 API on db level
 			if ($this->_loadG2Api(3)) {
 				$storageCleaned = $dbCleaned = false;
@@ -413,13 +420,15 @@ class DatabaseSetupStep extends InstallStep {
 				if ($storageCleaned && $dbCleaned) {
 					$this->setComplete(true);
 				}
-			} else {
+
+} else {
 				$templateData['errors'][] = _(
 					'Could not load the Gallery2 API. '
 						. 'Please erase the database tables and the storage directory manually.'
 				);
 			}
-		}
+
+}
 
 		$templateData['isMultisite'] = $galleryStub->getConfig('isMultisite');
 
@@ -431,6 +440,7 @@ class DatabaseSetupStep extends InstallStep {
 				$galleryStub->setConfig('freshInstall', true);
 			} else {
 				$galleryStub->setConfig('freshInstall', false);
+
 				// Remember the installed version to compare it later to the codebase version
 				$galleryStub->setConfig('installed.version', $datVersion);
 			}
@@ -532,7 +542,8 @@ class DatabaseSetupStep extends InstallStep {
 
 				break;
 			}
-		}
+
+}
 
 		if (!$ok) {
 			return array(
@@ -563,7 +574,8 @@ class DatabaseSetupStep extends InstallStep {
 			if (!$success) {
 				return array(false, $errorMessage);
 			}
-		}
+
+}
 
 		// Check CREATE and DROP SEQUENCE privileges
 		$sequenceId = 'g2privtestseq';
@@ -640,7 +652,8 @@ class DatabaseSetupStep extends InstallStep {
 						),
 					);
 				}
-			}
+
+}
 		}
 
 		return array(true, null);
@@ -709,14 +722,16 @@ class DatabaseSetupStep extends InstallStep {
 					if (!$ret && !empty($version)) {
 						$dbVersion = $version;
 					}
-				}
+
+}
 			}
 
 			/*
 			 * Not all db tables are present, a clean install is definitely
 			 * required
 			 */
-		}
+
+}
 
 		return $dbVersion;
 	}
@@ -790,6 +805,7 @@ class DatabaseSetupStep extends InstallStep {
 			$GalleryPlatform = new GalleryPlatform();
 
 			$gallery->setPlatform($GalleryPlatform);
+
 			// Configure G2 such that getInstalledVersions() can be called
 			$gallery->initTranslator(true);
 
@@ -871,7 +887,8 @@ class DatabaseSetupStep extends InstallStep {
 			if ($ret == false) {
 				return false;
 			}
-		}
+
+}
 
 		$platform->closedir($dir);
 
@@ -929,8 +946,10 @@ class DatabaseSetupStep extends InstallStep {
 			if ($strItem == GalleryUtilities::strToUpper($strValue)) {
 				return true;
 			}
-		}
+
+}
 
 		return false;
 	}
+
 }

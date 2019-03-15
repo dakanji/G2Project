@@ -158,7 +158,8 @@ class GalleryModule extends GalleryPlugin {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		if ($installedVersion != $this->getVersion()) {
 			if ($gallery->getDebug()) {
@@ -256,7 +257,8 @@ class GalleryModule extends GalleryPlugin {
 
 					return $ret;
 				}
-			}
+
+}
 
 			if ($gallery->getDebug()) {
 				$gallery->debug(sprintf('ConfigureStoreCleanup for %s module', $this->getId()));
@@ -328,7 +330,8 @@ class GalleryModule extends GalleryPlugin {
 
 				GalleryDataCache::remove($cacheKey);
 			}
-		}
+
+}
 
 		$ret = parent::installOrUpgrade();
 
@@ -441,7 +444,8 @@ class GalleryModule extends GalleryPlugin {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -731,8 +735,7 @@ class GalleryModule extends GalleryPlugin {
 
 	public function getGroup() {
 		if (empty($this->_group)) {
-			$groupLabel = 'Other';
-
+			$groupLabel       = 'Other';
 			list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if (!$ret) {
@@ -875,10 +878,13 @@ class GalleryModule extends GalleryPlugin {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		return null;
 	}
+
 }

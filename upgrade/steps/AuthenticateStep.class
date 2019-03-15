@@ -63,7 +63,8 @@ class AuthenticateStep extends UpgradeStep {
 					} else {
 						$templateData['authFileErrors']['mismatch'] = 1;
 					}
-				}
+
+}
 
 				$templateData['renderType'] = 'loginTxtForm';
 			} else {
@@ -78,10 +79,12 @@ class AuthenticateStep extends UpgradeStep {
 						if ($attempts > G2_SUPPORT_MAX_LOGIN_ATTEMPTS) {
 							GallerySetupUtilities::notifySiteAdministrator();
 						}
-					} else {
+
+} else {
 						GallerySetupUtilities::authenticateThisSession();
 					}
-				}
+
+}
 
 				$templateData['renderType'] = 'password';
 			}
@@ -89,12 +92,14 @@ class AuthenticateStep extends UpgradeStep {
 			if (GallerySetupUtilities::isSessionAuthenticated()) {
 				$this->setComplete(true);
 			}
-		}
+
+}
 
 		if ($this->isComplete()) {
 			$templateData['bodyFile'] = 'AuthenticateSuccessful.html';
 		} else {
 			$templateData['bodyFile'] = 'AuthenticateRequest.html';
 		}
-	}
+
+}
 }

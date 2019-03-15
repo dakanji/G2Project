@@ -73,8 +73,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	public function testNone() {
 		$form['SizeLimitOption']['dimensionChoice'] = 'unlimited';
 		$form['SizeLimitOption']['sizeChoice']      = 'unlimited';
-
-		list($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_album);
+		list($error, $warning)                      = $this->_handleRequestAfterEdit($form, $this->_album);
 
 		$this->assertEquals(array(), $error);
 		$this->assertEquals(array(), $warning);
@@ -97,8 +96,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 		$form['SizeLimitOption']['dimensions']['width']  = 1024;
 		$form['SizeLimitOption']['dimensions']['height'] = '';
 		$form['SizeLimitOption']['sizeChoice']           = 'unlimited';
-
-		list($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_album);
+		list($error, $warning)                           = $this->_handleRequestAfterEdit($form, $this->_album);
 
 		$this->assertEquals(array(), $error);
 		$this->assertEquals(array(), $warning);
@@ -129,8 +127,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 		$form['SizeLimitOption']['dimensions']['height'] = 768;
 		$form['SizeLimitOption']['sizeChoice']           = 'unlimited';
 		$form['SizeLimitOption']['keepOriginal']         = 'checked';
-
-		list($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_album);
+		list($error, $warning)                           = $this->_handleRequestAfterEdit($form, $this->_album);
 
 		$this->assertEquals(array(), $error);
 		$this->assertEquals(array(), $warning);
@@ -160,8 +157,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 		$form['SizeLimitOption']['dimensions']['width']  = 1024;
 		$form['SizeLimitOption']['dimensions']['height'] = 768;
 		$form['SizeLimitOption']['sizeChoice']           = 'unlimited';
-
-		list($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_album);
+		list($error, $warning)                           = $this->_handleRequestAfterEdit($form, $this->_album);
 
 		$this->assertEquals(array(), $error);
 		$this->assertEquals(array(), $warning);
@@ -190,8 +186,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 		$form['SizeLimitOption']['dimensionChoice'] = 'unlimited';
 		$form['SizeLimitOption']['sizeChoice']      = 'explicit';
 		$form['SizeLimitOption']['filesize']        = 2000;
-
-		list($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_album);
+		list($error, $warning)                      = $this->_handleRequestAfterEdit($form, $this->_album);
 
 		$this->assertEquals(array(), $error);
 		$this->assertEquals(array(), $warning);
@@ -219,8 +214,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 		$form['SizeLimitOption']['dimensionChoice'] = 'unlimited';
 		$form['SizeLimitOption']['sizeChoice']      = 'explicit';
 		$form['SizeLimitOption']['filesize']        = 'bad';
-
-		list($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_album);
+		list($error, $warning)                      = $this->_handleRequestAfterEdit($form, $this->_album);
 
 		$this->assertEquals(array('form[error][SizeLimitOption][filesize][invalid]'), $error);
 		$this->assertEquals(array(), $warning);
@@ -242,8 +236,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 		$form['SizeLimitOption']['dimensionChoice'] = 'unlimited';
 		$form['SizeLimitOption']['sizeChoice']      = 'explicit';
 		$form['SizeLimitOption']['filesize']        = '0';
-
-		list($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_album);
+		list($error, $warning)                      = $this->_handleRequestAfterEdit($form, $this->_album);
 
 		$this->assertEquals(
 			array('form[error][SizeLimitOption][filesize][invalid]'),
@@ -460,6 +453,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 
 		return null;
 	}
+
 }
 
 /**
@@ -517,6 +511,7 @@ class SizeLimitOptionTestPlatform extends GalleryPlatform {
 
 		return true;
 	}
+
 }
 
 /**
@@ -593,4 +588,5 @@ class SizeLimitOptionTestToolkit extends GalleryToolkit {
 
 		return array(null, $results);
 	}
+
 }

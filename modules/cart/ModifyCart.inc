@@ -53,7 +53,8 @@ class ModifyCartController extends GalleryController {
 							} else {
 								$cartItemIds[$itemId] = (int)$count;
 							}
-						}
+
+}
 					}
 
 					// Delete whatever needs deleting
@@ -61,7 +62,8 @@ class ModifyCartController extends GalleryController {
 						foreach ($form['delete'] as $itemId => $junk) {
 							unset($cartItemIds[$itemId]);
 						}
-					}
+
+}
 
 					// Update the cart values
 					$ret = CartHelper::setCartItemCounts($cartItemIds);
@@ -106,7 +108,8 @@ class ModifyCartController extends GalleryController {
 						if (isset($cartPlugin)) {
 							break;
 						}
-					}
+
+}
 
 					if (!isset($cartPlugin)) {
 						break;
@@ -129,7 +132,8 @@ class ModifyCartController extends GalleryController {
 
 								break;
 							}
-						}
+
+}
 					}
 
 					list($ret, $redirect) = $cartPlugin->fulfillCart($fulfillmentCart);
@@ -160,7 +164,8 @@ class ModifyCartController extends GalleryController {
 
 					break;
 			}
-		}
+
+}
 
 		// Prepare our results
 		if (!isset($results['redirect'])) {
@@ -178,4 +183,5 @@ class ModifyCartController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }

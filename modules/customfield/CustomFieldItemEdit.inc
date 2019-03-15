@@ -32,9 +32,8 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 	 * @see ItemEditPlugin::handleRequest
 	 */
 	public function handleRequest($form, &$item, &$preferred) {
-		$status = null;
-		$error  = array();
-
+		$status             = null;
+		$error              = array();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'customfield');
 
 		if ($ret) {
@@ -88,7 +87,8 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 					default:
 						$status = $key;
 				}
-			}
+
+}
 		} elseif (isset($form['action']['save'])) {
 			list($ret, $markup) = GalleryCoreApi::getPluginParameter(
 				'module',
@@ -105,7 +105,8 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 				foreach ($form['fields'] as $key => $value) {
 					$form['fields'][$key] = GalleryUtilities::htmlSafe($value, true);
 				}
-			}
+
+}
 
 			$ret = CustomFieldHelper::getMe()->saveFieldValues($item, $form['fields']);
 
@@ -186,7 +187,8 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 						if (!empty($it['choices'])) {
 							$form['choices'][$it['field']] = $it['choices'];
 						}
-					}
+
+}
 				}
 
 				if ($type == 'album') {
@@ -236,4 +238,5 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 
 		return array(null, $module->translate('Custom Fields'));
 	}
+
 }

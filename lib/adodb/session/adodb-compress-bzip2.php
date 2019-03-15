@@ -62,7 +62,8 @@ class ADODB_Compress_Bzip2 {
 		if (null !== $min_length) {
 			$this->setMinLength($min_length);
 		}
-	}
+
+}
 
 	public function write($data, $key) {
 		if (strlen($data) < $this->_min_length) {
@@ -83,6 +84,7 @@ class ADODB_Compress_Bzip2 {
 	public function read($data, $key) {
 		return $data ? bzdecompress($data) : $data;
 	}
+
 }
 
 return 1;

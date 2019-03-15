@@ -48,7 +48,8 @@ class MimeAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function tearDown() {
 		$ret = GalleryCoreApi::removeMimeType(
@@ -66,7 +67,8 @@ class MimeAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testSaveAllowAll() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 'Save');
@@ -156,4 +158,5 @@ class MimeAdminControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals(array(), $extensions, 'Delete results');
 	}
+
 }

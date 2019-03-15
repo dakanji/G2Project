@@ -50,11 +50,10 @@ class AdminEditGroupController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$results = array();
-		$status  = array();
-		$error   = array();
-		$groupId = (int)GalleryUtilities::getRequestVariables('groupId');
-
+		$results           = array();
+		$status            = array();
+		$error             = array();
+		$groupId           = (int)GalleryUtilities::getRequestVariables('groupId');
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -83,7 +82,8 @@ class AdminEditGroupController extends GalleryController {
 				if (!empty($tmpGroup) && $tmpGroup->getId() != $groupId) {
 					$error[] = 'form[error][groupName][exists]';
 				}
-			}
+
+}
 
 			if (empty($error)) {
 				// Save our changes
@@ -120,7 +120,8 @@ class AdminEditGroupController extends GalleryController {
 				$redirect['subView']     = 'core.AdminGroups';
 				$status['modifiedGroup'] = $group->getGroupName();
 			}
-		}
+
+}
 
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
@@ -134,6 +135,7 @@ class AdminEditGroupController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -163,8 +165,7 @@ class AdminEditGroupView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$groupId = GalleryUtilities::getRequestVariables('groupId');
-
+		$groupId           = GalleryUtilities::getRequestVariables('groupId');
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -190,4 +191,5 @@ class AdminEditGroupView extends GalleryView {
 			),
 		);
 	}
+
 }

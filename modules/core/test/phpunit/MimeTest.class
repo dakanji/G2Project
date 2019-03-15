@@ -55,7 +55,8 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function tearDown() {
 		$ret = GalleryCoreApi::removeMimeType(
@@ -93,7 +94,8 @@ class MimeTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testGetMimeType() {
 		list($ret, $mimeType) = GalleryCoreApi::getMimeType('file.xxx');
@@ -268,4 +270,5 @@ class MimeTest extends GalleryTestCase {
 
 		$this->assertEquals($mimeType, $mime);
 	}
+
 }

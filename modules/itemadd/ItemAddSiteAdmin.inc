@@ -74,7 +74,8 @@ class ItemAddSiteAdminController extends GalleryController {
 				} elseif (!$platform->is_dir($realPath)) {
 					$error[] = 'form[error][uploadLocalServer][newDir][notADirectory]';
 				}
-			}
+
+}
 
 			// Store the path in UTF-8 in the database
 			if (empty($error)) {
@@ -95,7 +96,8 @@ class ItemAddSiteAdminController extends GalleryController {
 
 					$status['addedDir'] = 1;
 				}
-			}
+
+}
 		} elseif (isset($form['action']['removeUploadLocalServerDir'])) {
 			if (!empty($form['uploadLocalServer']['selectedDir'])) {
 				for ($i = $form['uploadLocalServer']['selectedDir'] + 1;
@@ -110,7 +112,8 @@ class ItemAddSiteAdminController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 
 				$ret = GalleryCoreApi::removePluginParameter(
 					'module',
@@ -126,7 +129,8 @@ class ItemAddSiteAdminController extends GalleryController {
 			} else {
 				$error[] = 'form[error][uploadLocalServer][selectedDir][missing]';
 			}
-		}
+
+}
 
 		if (isset($form['action']['save']) || isset($status['addedDir'])) {
 			foreach (array('fromweb', 'fromserver') as $key) {
@@ -135,7 +139,8 @@ class ItemAddSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			$status['saved'] = 1;
 		} // else $form['action']['reset']
@@ -151,6 +156,7 @@ class ItemAddSiteAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -183,7 +189,8 @@ class ItemAddSiteAdminView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 		}
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'itemadd');
@@ -217,4 +224,5 @@ class ItemAddSiteAdminView extends GalleryView {
 			),
 		);
 	}
+
 }

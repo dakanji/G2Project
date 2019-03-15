@@ -143,9 +143,8 @@ class GalleryGroupHelper_simple {
 			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 		}
 
-		$result = $searchResults->nextResult();
-		$id     = $result[0];
-
+		$result            = $searchResults->nextResult();
+		$id                = $result[0];
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($id, 'GalleryGroup');
 
 		if ($ret) {
@@ -154,4 +153,5 @@ class GalleryGroupHelper_simple {
 
 		return array(null, $group);
 	}
+
 }

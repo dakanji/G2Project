@@ -65,9 +65,8 @@ class ItemAddController extends GalleryController {
 	public function handleRequest($form) {
 		global $gallery;
 
-		$templateAdapter =& $gallery->getTemplateAdapter();
-		$addPluginId     = GalleryUtilities::getRequestVariables('addPlugin');
-
+		$templateAdapter  =& $gallery->getTemplateAdapter();
+		$addPluginId      = GalleryUtilities::getRequestVariables('addPlugin');
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
@@ -172,9 +171,8 @@ class ItemAddController extends GalleryController {
 
 		$templateAdapter->updateProgressBar($this->_coreModule->translate('Adding items'), '', 0);
 
-		$error       = array();
-		$addPluginId = GalleryUtilities::getRequestVariables('addPlugin');
-
+		$error              = array();
+		$addPluginId        = GalleryUtilities::getRequestVariables('addPlugin');
 		list($ret, $lockId) = GalleryCoreApi::acquireReadLock($item->getId());
 
 		if ($ret) {
@@ -198,7 +196,8 @@ class ItemAddController extends GalleryController {
 
 				return $ret;
 			}
-		}
+
+}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
@@ -267,7 +266,8 @@ class ItemAddController extends GalleryController {
 					)
 				);
 			}
-		}
+
+}
 
 		$templateAdapter->completeProgressBar($continueUrl, $doRedirect);
 
@@ -298,7 +298,8 @@ class ItemAddController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		$this->_processingItemsMessage = $this->_coreModule->translate('Processing items');
 
@@ -308,7 +309,8 @@ class ItemAddController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		if (!isset($this->_extractionToolkitMap)) {
 			list($ret, $extractToolkits) = GalleryCoreApi::getToolkitOperationMimeTypes('extract');
@@ -326,9 +328,11 @@ class ItemAddController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		if (empty($status['addedFiles'])
 			|| empty($this->_extractionToolkitMap) && empty($this->_optionInstances)
@@ -407,7 +411,8 @@ class ItemAddController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-			} else {
+
+} else {
 				// This is not an archive, add it to our array of item objects
 				$itemsToProcess[] = $addedItem;
 
@@ -456,7 +461,8 @@ class ItemAddController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 
 				foreach ($itemsToProcessKeyMap as $j) {
 					$this->_processedItems[$j] = 1;
@@ -467,7 +473,8 @@ class ItemAddController extends GalleryController {
 				$gallery->guaranteeTimeLimit(60);
 				$this->_templateAdapter->updateProgressBar($this->_processingItemsMessage, '', 1);
 			}
-		} while (isset($status['addedFiles'][++$i]));
+
+} while (isset($status['addedFiles'][++$i]));
 
 		$this->_templateAdapter->updateProgressBar($this->_processingItemsMessage, '', 1);
 
@@ -491,8 +498,7 @@ class ItemAddController extends GalleryController {
 		$this->_templateAdapter->updateProgressBar($this->_extractingArchiveMessage, '', 0);
 		$gallery->guaranteeTimeLimit(120);
 
-		$parentId = $archiveItem->getParentId();
-
+		$parentId                          = $archiveItem->getParentId();
 		list($ret, $hasAddAlbumPermission) = GalleryCoreApi::hasItemPermission($parentId, 'core.addAlbumItem');
 
 		if ($ret) {
@@ -522,6 +528,7 @@ class ItemAddController extends GalleryController {
 
 		if ($ret) {
 			@$this->_platform->recursiveRmdir($tmpDir);
+
 			@$this->_platform->unlink($base);
 
 			return array($ret, null);
@@ -531,9 +538,8 @@ class ItemAddController extends GalleryController {
 		 * If archive title matches the filename or base filename then name new items
 		 * with the same strategy; otherwise just use the archive title.
 		 */
-		$archiveTitle = $archiveItem->getTitle();
-		$archiveName  = $archiveItem->getPathComponent();
-
+		$archiveTitle      = $archiveItem->getTitle();
+		$archiveName       = $archiveItem->getPathComponent();
 		list($archiveBase) = GalleryUtilities::getFileNameComponents($archiveName);
 
 		if ($archiveTitle == $archiveName) {
@@ -559,6 +565,7 @@ class ItemAddController extends GalleryController {
 		);
 
 		@$this->_platform->recursiveRmdir($tmpDir);
+
 		@$this->_platform->unlink($base);
 
 		if ($ret) {
@@ -592,7 +599,8 @@ class ItemAddController extends GalleryController {
 			if ($file != '.' && $file != '..') {
 				$list[] = $file;
 			}
-		}
+
+}
 
 		$this->_platform->closedir($dh);
 
@@ -666,7 +674,8 @@ class ItemAddController extends GalleryController {
 
 					$newItem = null;
 				}
-			} else {
+
+} else {
 				list($ret, $mimeType) = GalleryCoreApi::getMimeType($filename);
 
 				if ($ret) {
@@ -698,7 +707,8 @@ class ItemAddController extends GalleryController {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 
 			if ($newItem) {
 				$sanitizedFilename = $filename;
@@ -726,11 +736,13 @@ class ItemAddController extends GalleryController {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		return null;
 	}
+
 }
 
 /**
@@ -756,9 +768,8 @@ class ItemAddView extends GalleryView {
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
 
-		$session   =& $gallery->getSession();
-		$addPlugin = GalleryUtilities::getRequestVariables('addPlugin');
-
+		$session          =& $gallery->getSession();
+		$addPlugin        = GalleryUtilities::getRequestVariables('addPlugin');
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
@@ -810,7 +821,8 @@ class ItemAddView extends GalleryView {
 			if ($isAppropriate) {
 				$pluginInstances[$pluginId] = $plugin;
 			}
-		}
+
+}
 
 		// Get all the add options
 		list($ret, $optionInstances) = ItemAddOption::getMe()->getAllAddOptions();
@@ -833,7 +845,8 @@ class ItemAddView extends GalleryView {
 				$ids       = array_keys($pluginInstances);
 				$addPlugin = $ids[0];
 			}
-		}
+
+}
 
 		$session->put($addPluginSessionKey, $addPlugin);
 
@@ -846,7 +859,8 @@ class ItemAddView extends GalleryView {
 			foreach ($errors as $error) {
 				GalleryUtilities::putRequestVariable($error, 1);
 			}
-		}
+
+}
 
 		// Get display data for all plugins
 		$plugins = array();
@@ -894,7 +908,8 @@ class ItemAddView extends GalleryView {
 			if (!empty($entry['file'])) {
 				$ItemAdd['options'][] = $entry;
 			}
-		}
+
+}
 
 		// Make sure that we've got some toolkits
 		list($ret, $operations) = GalleryCoreApi::getToolkitOperations('image/jpeg');
@@ -911,7 +926,8 @@ class ItemAddView extends GalleryView {
 
 				break;
 			}
-		}
+
+}
 
 		$template->setVariable('ItemAdd', $ItemAdd);
 		$template->setVariable('controller', 'core.ItemAdd');
@@ -936,6 +952,7 @@ class ItemAddView extends GalleryView {
 
 		return array(null, $core->translate('add items'));
 	}
+
 }
 
 /**
@@ -1009,6 +1026,7 @@ class ItemAddPlugin {
 	public function isAppropriate() {
 		return array(null, true);
 	}
+
 }
 
 /**
@@ -1069,7 +1087,8 @@ class ItemAddOption {
 			if ($isAppropriate) {
 				$optionInstances[$optionId] = $option;
 			}
-		}
+
+}
 
 		return array(null, $optionInstances);
 	}
@@ -1113,4 +1132,5 @@ class ItemAddOption {
 	public function isAppropriate() {
 		return array(null, false);
 	}
+
 }

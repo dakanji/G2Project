@@ -43,7 +43,8 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 			if (empty($form['split'])) {
 				$error[] = 'form[error][split]';
 			}
-		}
+
+}
 
 		if (isset($form['action']['save']) && empty($error)) {
 			list($ret, $themeSettingsId) = GalleryCoreApi::getPluginParameter(
@@ -83,7 +84,8 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 				if (isset($map[$key])) {
 					$split .= $map[$key];
 				}
-			}
+
+}
 
 			foreach (array(
 				'themeId'        => $form['themeId'],
@@ -93,13 +95,14 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 				'description'    => $form['description'],
 				'split'          => $split,
 			)
-			as $key => $value) {
+ as $key => $value) {
 				$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum', $key, $value);
 
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			$status['saved'] = 1;
 		}
@@ -116,6 +119,7 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -150,7 +154,8 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			$tmp = explode('|', $form['orderBy'], 2);
 
@@ -174,7 +179,8 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 				if (isset($map[$split[$i]])) {
 					$form['split'][$map[$split[$i]]] = 1;
 				}
-			}
+
+}
 		} else {
 			// Reset theme selection on validation error for theme settings
 			$form['themeId'] = $form['currentThemeId'];
@@ -228,7 +234,8 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 
 				$themeList[$id] = $theme->translate($theme->getName());
 			}
-		}
+
+}
 
 		$KeywordAlbumSiteAdmin = array(
 			'summaryList'        => $summaryList,
@@ -274,4 +281,5 @@ class KeywordAlbumSiteAdminView extends GalleryView {
 			),
 		);
 	}
+
 }

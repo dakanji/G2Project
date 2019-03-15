@@ -32,5 +32,6 @@ if (!defined('_ADODB_PROXY_LAYER')) {
 		public function __construct($id, $mode = false) {
 			parent::__construct($id, $mode);
 		}
-	}
+
+}
 } // define

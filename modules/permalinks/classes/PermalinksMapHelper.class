@@ -36,10 +36,9 @@ class PermalinksMapHelper {
 	 *         array of aliase names
 	 */
 	public static function fetchAliasesForItem($itemId = null) {
-		$match = isset($itemId) ? array(
+		$match                     = isset($itemId) ? array(
 			'destId' => (int)$itemId,
 		) : array();
-
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'PermalinksMap',
 			array('aliasName'),
@@ -145,4 +144,5 @@ class PermalinksMapHelper {
 
 		return null;
 	}
+
 }

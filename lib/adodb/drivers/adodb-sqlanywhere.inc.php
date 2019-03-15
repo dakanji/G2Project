@@ -17,6 +17,7 @@ Set tabs to 4 for best viewing.
    2) Added blob support.  Usage:
 		 a) create blob variable on db server:
 		$dbconn->create_blobvar($blobVarName);
+
 	  b) load blob var from file.  $filename must be complete path
 
 	  $dbcon->load_blobvar_from_file($blobVarName, $filename);
@@ -29,6 +30,7 @@ Set tabs to 4 for best viewing.
 	 instead of loading blob from a file, you can also load from
 	  an unformatted (raw) blob variable:
 	  $dbcon->load_blobvar_from_var($blobVarName, $varName);
+
 	  d) drop blob variable on db server to free up resources:
 	  $dbconn->drop_blobvar($blobVarName);
 
@@ -109,7 +111,8 @@ if (!defined('ADODB_SYBASE_SQLANYWHERE')) {
 				$hexstring = $this->qstr($hexstring);
 				$this->Execute("set $blobVarName = $blobVarName || " . $hexstring);
 			}
-		}
+
+}
 
 		/*
 		Insert a null into the blob field of the table first.
@@ -131,12 +134,14 @@ if (!defined('ADODB_SYBASE_SQLANYWHERE')) {
 
 			return true;
 		}
-	} //class
+
+} //class
 	class ADORecordSet_sqlanywhere extends ADORecordSet_odbc {
 		public $databaseType = 'sqlanywhere';
 
 		public function __construct($id, $mode = false) {
 			parent::__construct($id, $mode);
 		}
-	} //class
+
+} //class
 } //define

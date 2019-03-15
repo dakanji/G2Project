@@ -57,13 +57,15 @@ class DatabaseLockSystem extends GalleryLockSystem {
 			if ($ret) {
 				return array($ret, null);
 			}
-		} else {
+
+} else {
 			list($ret, $lock) = $storage->acquireReadLock($ids, $timeout);
 
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		$this->_locks[$lock['lockId']] = $lock;
 
@@ -141,8 +143,7 @@ class DatabaseLockSystem extends GalleryLockSystem {
 	public function _newLockId() {
 		global $gallery;
 
-		$storage =& $gallery->getStorage();
-
+		$storage            =& $gallery->getStorage();
 		list($ret, $lockId) = $storage->newLockId();
 
 		if ($ret) {
@@ -166,8 +167,10 @@ class DatabaseLockSystem extends GalleryLockSystem {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
+
 }

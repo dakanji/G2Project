@@ -48,4 +48,5 @@ class RedirectToInstallerStep extends UpgradeStep {
 		$templateData['installerUrl'] = $url;
 		$templateData['bodyFile']     = 'RedirectToInstaller.html';
 	}
+
 }

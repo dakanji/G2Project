@@ -84,7 +84,8 @@ class GalleryViewTestCase extends GalleryTestCase {
 						)
 					);
 				}
-			} else {
+
+} else {
 				$this->fail(
 					sprintf(
 						'Expected error code (%s) but test was successful',
@@ -95,7 +96,8 @@ class GalleryViewTestCase extends GalleryTestCase {
 					)
 				);
 			}
-		} elseif ($ret) {
+
+} elseif ($ret) {
 			$this->fail($ret->getAsHtml());
 
 			return array();
@@ -109,4 +111,5 @@ class GalleryViewTestCase extends GalleryTestCase {
 
 		return $results;
 	}
+
 }

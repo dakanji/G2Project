@@ -77,7 +77,8 @@ class DcrawToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function _setParam($key, $value) {
 		return GalleryCoreApi::setPluginParameter('module', 'dcraw', $key, $value);
@@ -121,7 +122,8 @@ class DcrawToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testConvertDcrawToPpm() {
 		global $gallery;
@@ -155,7 +157,8 @@ class DcrawToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testConvertAdobeDngToPpm() {
 		global $gallery;
@@ -189,7 +192,8 @@ class DcrawToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testConvertDcrawToPpmBadInputFile() {
 		global $gallery;
@@ -366,7 +370,7 @@ class DcrawToolkitTest extends GalleryTestCase {
 	$this->assertEquals(array(1, 2), $results);
 	}
 
-	*/
+*/
 	public function testGetDimensionsBadMimeType() {
 		list($ret, $outputMimeType) = $this->_toolkit->getProperty(
 			'BAD/MIMETYPE',
@@ -386,4 +390,5 @@ class DcrawToolkitTest extends GalleryTestCase {
 
 		$this->assertTrue($ret && $ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION);
 	}
+
 }

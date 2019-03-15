@@ -121,20 +121,23 @@ function getGdLibraryInfo() {
 			if (!function_exists($fct)) {
 				$ok = false;
 			}
-		}
+
+}
 
 		if ($ok && $check['value']) {
 			if (!($check['value'] & imagetypes())) {
 				$ok = false;
 			}
-		} else {
+
+} else {
 			$ok = false;
 		}
 
 		if ($ok) {
 			$mimeTypes[] = $check['mimeType'];
 		}
-	}
+
+}
 
 	$out  = '';
 	$out .= '$gdEnvironments[] = array(' . "\n";

@@ -245,7 +245,8 @@ class CallbacksTest extends GalleryTestCase {
 				$msg . ": id $i"
 			);
 		}
-	}
+
+}
 
 	public function testLoadPeers() {
 		list($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
@@ -262,7 +263,8 @@ class CallbacksTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$this->_smarty->_tpl_vars = array();
 
@@ -414,4 +416,5 @@ class CallbacksTest extends GalleryTestCase {
 
 		$this->assertTrue(is_array($this->_smarty->_tpl_vars['block']['core']['ValidationPlugins']));
 	}
+
 }

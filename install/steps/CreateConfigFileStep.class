@@ -68,7 +68,8 @@ class CreateConfigFileStep extends InstallStep {
 				$templateData['bodyFile']                  = 'CreateConfigFileInstructions.html';
 				$templateData['galleryDir']                = basename($configDir);
 			}
-		} else {
+
+} else {
 			// Don't (overwrite) the config file, if we recommend an upgrade
 			$writeConfigFile    = false;
 			$freshInstall       = $galleryStub->getConfig('freshInstall');
@@ -94,11 +95,13 @@ class CreateConfigFileStep extends InstallStep {
 						if (empty($configContents) || strlen($configContents) < 100) {
 							$writeConfigFile = true;
 						}
-					}
+
+}
 				} else {
 					$writeConfigFile = true;
 				}
-			} else {
+
+} else {
 				$writeConfigFile = true;
 			}
 
@@ -124,7 +127,8 @@ class CreateConfigFileStep extends InstallStep {
 							$configDir
 						);
 					}
-				}
+
+}
 			} else {
 				if (!$freshInstall && !$versionStatus) {
 					$this->setComplete(false);
@@ -148,7 +152,8 @@ class CreateConfigFileStep extends InstallStep {
 
 					fclose($out);
 				}
-			}
+
+}
 		}
 
 		$this->_firstTime = false;
@@ -202,7 +207,8 @@ class CreateConfigFileStep extends InstallStep {
 					$newStoreConfig[$key] = strtr($newStoreConfig[$key], $addslashes);
 					$line                 = "\$storeConfig['$key'] = '$newStoreConfig[$key]';\n";
 				}
-			}
+
+}
 
 			if (trim($line) == '$gallery->setConfig(\'galleryBaseUrl\', \'\');'
 				&& $configDir != $baseDir
@@ -272,8 +278,10 @@ class CreateConfigFileStep extends InstallStep {
 			 * And no upgrade is recommended because the codebase version is not newer than
 			 * the installed version. Something's wrong.
 			 */
-		}
+
+}
 
 		return array($versionsOk, $recommendUpgrade, $versions);
 	}
+
 }

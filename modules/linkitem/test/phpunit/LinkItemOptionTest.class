@@ -80,7 +80,8 @@ class LinkItemOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testSetUrl() {
 		$form = array(
@@ -115,4 +116,5 @@ class LinkItemOptionTest extends ItemEditOptionTestCase {
 		$this->assertEquals(array('form[LinkItemOption][error][link][missing]'), $error);
 		$this->assertEquals(array(), $warning);
 	}
+
 }

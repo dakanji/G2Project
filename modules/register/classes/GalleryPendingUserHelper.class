@@ -53,9 +53,8 @@ class GalleryPendingUserHelper {
 			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 		}
 
-		$result = $searchResults->nextResult();
-		$id     = (int)$result[0];
-
+		$result           = $searchResults->nextResult();
+		$id               = (int)$result[0];
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($id, 'GalleryPendingUser');
 
 		if ($ret) {
@@ -127,8 +126,7 @@ class GalleryPendingUserHelper {
 			$data[] = "%$substring%";
 		}
 
-		$query .= ' ORDER BY [GalleryPendingUser::userName] ASC';
-
+		$query                    .= ' ORDER BY [GalleryPendingUser::userName] ASC';
 		list($ret, $searchResults) = $gallery->search(
 			$query,
 			$data,
@@ -220,9 +218,8 @@ class GalleryPendingUserHelper {
 		);
 
 		if (isset($userIdForLocale)) {
-			$translator          =& $gallery->getTranslator();
-			$currentLanguageCode = $translator->getActiveLanguageCode();
-
+			$translator           =& $gallery->getTranslator();
+			$currentLanguageCode  = $translator->getActiveLanguageCode();
 			list($ret, $language) = GalleryCoreApi::fetchLanguageCodeForUser($userIdForLocale);
 
 			if ($ret) {
@@ -235,7 +232,8 @@ class GalleryPendingUserHelper {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		$ret = GalleryCoreApi::sendTemplatedEmail(
@@ -264,7 +262,8 @@ class GalleryPendingUserHelper {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -314,8 +313,7 @@ class GalleryPendingUserHelper {
 			$email = $admin->getEmail();
 
 			if (!empty($email)) {
-				$toList[] = $email;
-
+				$toList[]             = $email;
 				list($ret, $language) = GalleryCoreApi::fetchLanguageCodeForUser($admin->getId());
 
 				if ($ret) {
@@ -324,7 +322,8 @@ class GalleryPendingUserHelper {
 
 				$languageCodeList[] = $language;
 			}
-		}
+
+}
 
 		if (!empty($toList)) {
 			list($ret, $defaultLanguageCode) = $gallery->getActiveLanguageCode();
@@ -351,11 +350,13 @@ class GalleryPendingUserHelper {
 							if ($ret2) {
 								return $ret2;
 							}
-						}
+
+}
 
 						return $ret;
 					}
-				}
+
+}
 
 				$ret = GalleryCoreApi::sendTemplatedEmail(
 					'modules/register/templates/AdminEmail.tpl',
@@ -379,11 +380,13 @@ class GalleryPendingUserHelper {
 						if ($ret2) {
 							return $ret2;
 						}
-					}
+
+}
 
 					return $ret;
 				}
-			}
+
+}
 
 			if ($defaultLanguageCode != $currentLanguageCode) {
 				list($ret, $currentLanguageCode) = $translator->init($defaultLanguageCode);
@@ -391,7 +394,8 @@ class GalleryPendingUserHelper {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -451,7 +455,8 @@ class GalleryPendingUserHelper {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// Notify gallery event system
 		$event = GalleryCoreApi::newEvent('GalleryPendingUser::createGalleryUser');
@@ -482,8 +487,10 @@ class GalleryPendingUserHelper {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
+
 }

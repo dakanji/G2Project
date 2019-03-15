@@ -83,7 +83,8 @@ if ($gallery->isEmbedded()) {
 			if (GalleryFastDownload()) {
 				return;
 			}
-		}
+
+}
 	}
 
 	// Otherwise, proceed with our regular process
@@ -144,9 +145,11 @@ function GalleryMain($embedded = false) {
 						$ret2->getAsText()
 					);
 				}
-			}
+
+}
 		}
-	} else {
+
+} else {
 		$gallery->performShutdownActions();
 
 		// Write out our session data
@@ -217,7 +220,8 @@ function _GalleryMain($embedded = false, $template = null) {
 
 				exit;
 			}
-		} else {
+
+} else {
 			$gallery->debug('Redirect to the upgrade wizard, core module version is out of date');
 
 			$redirectUrl = $urlGenerator->getCurrentUrlDir(true) . 'upgrade/index.php';
@@ -283,7 +287,8 @@ function _GalleryMain($embedded = false, $template = null) {
 
 				return array(null, $results);
 			}
-		}
+
+}
 
 		// Get our form and return variables
 		$form = GalleryUtilities::getFormVariables('form');
@@ -295,7 +300,8 @@ function _GalleryMain($embedded = false, $template = null) {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		// Let the controller handle the input
 		list($ret, $results) = $controller->handleRequest($form);
@@ -306,7 +312,8 @@ function _GalleryMain($embedded = false, $template = null) {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		// Check to make sure we got back everything we want
 		if (!isset($results['status'])
@@ -333,7 +340,8 @@ function _GalleryMain($embedded = false, $template = null) {
 			if (empty($redirectUrl)) {
 				$redirectUrl = GalleryUtilities::getRequestVariables('formUrl');
 			}
-		}
+
+}
 
 		// Failing that, redirect if so instructed
 		if (empty($redirectUrl) && !empty($results['redirect'])) {
@@ -365,7 +373,8 @@ function _GalleryMain($embedded = false, $template = null) {
 				foreach ($results['error'] as $error) {
 					GalleryUtilities::putRequestVariable($error, 1);
 				}
-			}
+
+}
 
 			// Save the view name, put the rest into the request so the view can get it
 			foreach ($results['delegate'] as $key => $value) {
@@ -380,9 +389,11 @@ function _GalleryMain($embedded = false, $template = null) {
 
 						break;
 				}
-			}
+
+}
 		}
-	}
+
+}
 
 	// Load and run the appropriate view
 	if (empty($viewName)) {
@@ -412,14 +423,14 @@ function _GalleryMain($embedded = false, $template = null) {
 				return array(null, $results);
 			}
 
-			$viewName = 'core.MaintenanceMode';
-
+			$viewName         = 'core.MaintenanceMode';
 			list($ret, $view) = GalleryView::getMe()->loadView($viewName);
 
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 	}
 
 	if (!$embedded && $gallery->getConfig('mode.embed.only') && !$view->isAllowedInEmbedOnly()) {
@@ -441,8 +452,7 @@ function _GalleryMain($embedded = false, $template = null) {
 	$html = '';
 
 	if ($shouldCache) {
-		$session =& $gallery->getSession();
-
+		$session          =& $gallery->getSession();
 		list($ret, $html) = GalleryDataCache::getPageData(
 			'page',
 			$urlGenerator->getCacheableUrl()
@@ -462,7 +472,8 @@ function _GalleryMain($embedded = false, $template = null) {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 	}
 
 	if (!empty($html) && (!$embedded || !empty($themeData))) {
@@ -485,7 +496,8 @@ function _GalleryMain($embedded = false, $template = null) {
 			$data['themeData'] = $session->replaceSessionIdInData($themeData);
 			$data['isDone']    = false;
 		}
-	} else {
+
+} else {
 		// Initialize our container for template data
 		$gallery->setCurrentView($viewName);
 
@@ -496,7 +508,8 @@ function _GalleryMain($embedded = false, $template = null) {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		// If we render directly to the browser, we need a session before, or no session at all
 		if ($view->isImmediate() || $viewName == 'core.ProgressBar') {
@@ -534,7 +547,8 @@ function _GalleryMain($embedded = false, $template = null) {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			$status = isset($results['status']) ? $results['status'] : array();
 			$error  = isset($results['error']) ? $results['error'] : array();
@@ -568,7 +582,8 @@ function _GalleryMain($embedded = false, $template = null) {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			if (isset($results['redirect']) || isset($results['redirectUrl'])) {
 				if (isset($results['redirectUrl'])) {
@@ -627,6 +642,7 @@ function _GalleryMain($embedded = false, $template = null) {
 				$event = GalleryCoreApi::newEvent('Gallery::BeforeDisplay');
 
 				$event->setEntity($template);
+
 				$event->setData(
 					array(
 						'templatePath' => $templatePath,
@@ -674,7 +690,8 @@ function _GalleryMain($embedded = false, $template = null) {
 					if ($embedded) {
 						$themeDataForCache = $template->getVariable('theme');
 					}
-				}
+
+}
 
 				if ($embedded) {
 					$data              = $session->replaceSessionIdInData($html);
@@ -711,7 +728,8 @@ function _GalleryMain($embedded = false, $template = null) {
 								SESSION_TEMP_ID
 							);
 						}
-					}
+
+}
 
 					if ($embedded) {
 						$htmlForCache = serialize($htmlForCache);
@@ -726,7 +744,8 @@ function _GalleryMain($embedded = false, $template = null) {
 						if ($ret) {
 							return array($ret, null);
 						}
-					}
+
+}
 
 					$ret = GalleryDataCache::putPageData(
 						'page',
@@ -738,9 +757,11 @@ function _GalleryMain($embedded = false, $template = null) {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 			}
-		}
+
+}
 	}
 
 	return array(null, $data);
@@ -769,11 +790,13 @@ function _GalleryMain_doRedirect(
 		} else {
 			return array($ret, null);
 		}
-	}
+
+}
 
 	$redirectUrl = $session->replaceTempSessionIdIfNecessary($redirectUrl);
 
 	$session->doNotUseTempId();
+
 	/*
 	 * UserLogin returnUrls do not have a sessionId in the URL to replace, make sure there is a
 	 * sessionId in the redirectUrl for users that do not use cookies
@@ -827,7 +850,8 @@ function _GalleryMain_doRedirect(
 					$redirectUrl .= (strpos($redirectUrl, '?') === false) ? '?' : '&';
 					$redirectUrl .= $sessionParamString;
 				}
-			}
+
+}
 		}
 
 		GalleryUtilities::setResponseHeader("Location: $redirectUrl");
@@ -872,4 +896,5 @@ function _GalleryMain_errorHandler($error, $g2Data = null) {
 
 		GalleryCoreApi::addEventLogEntry('Gallery Error', $summary, $error->getAsText());
 	}
+
 }

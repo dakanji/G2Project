@@ -136,7 +136,8 @@ class ItemAddAlbumController extends GalleryController {
 
 				$status['editMessage'] = $module->translate('Album created successfully.');
 			}
-		}
+
+}
 
 		$ret = GalleryCoreApi::releaseLocks($lockIds);
 
@@ -156,6 +157,7 @@ class ItemAddAlbumController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -231,4 +233,5 @@ class ItemAddAlbumView extends GalleryView {
 
 		return array(null, $core->translate('add sub-album'));
 	}
+
 }

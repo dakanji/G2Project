@@ -162,7 +162,8 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testCustomFieldPlugin() {
 		// Reset
@@ -385,12 +386,10 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[common][index][0]', '0');
 		GalleryUtilities::putRequestVariable('form[common][summary][0]', 'on');
 		GalleryUtilities::putRequestVariable('form[common][detail][0]', 'on');
-
 		GalleryUtilities::putRequestVariable('form[album][index][0]', '1');
 		GalleryUtilities::putRequestVariable('form[album][index][1]', '0');
 		GalleryUtilities::putRequestVariable('form[album][detail][0]', 'on');
 		GalleryUtilities::putRequestVariable('form[photo][index][0]', '0');
-
 		GalleryUtilities::putRequestVariable('form[photo][index][1]', '1');
 		GalleryUtilities::putRequestVariable('form[photo][summary][0]', 'on');
 		GalleryUtilities::putRequestVariable('form[photo][detail][0]', 'on');
@@ -610,4 +609,5 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 			'Summary data'
 		);
 	}
+
 }

@@ -62,11 +62,13 @@ class NewItemsSiteAdminController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 
 				$status['saved'] = 1;
 			}
-		} elseif (isset($form['action']['reset'])) {
+
+} elseif (isset($form['action']['reset'])) {
 			list($ret, $default) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.orderBy');
 
 			if ($ret) {
@@ -84,7 +86,8 @@ class NewItemsSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			GalleryCoreApi::requireOnce('modules/newitems/classes/NewItemsHelper.class');
 
@@ -105,6 +108,7 @@ class NewItemsSiteAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -136,7 +140,8 @@ class NewItemsSiteAdminView extends GalleryView {
 				$key                    = explode('.', $key);
 				$form[$key[0]][$key[1]] = $value;
 			}
-		}
+
+}
 
 		list($ret, $form['count']) = NewItemsHelper::fetchAlbumCount();
 
@@ -161,4 +166,5 @@ class NewItemsSiteAdminView extends GalleryView {
 			),
 		);
 	}
+
 }

@@ -60,7 +60,8 @@ class CaptchaImageView extends GalleryView {
 			if (!$session->getId()) {
 				$session->start();
 			}
-		}
+
+}
 
 		// Load the default background, black&white static
 		$image  = @imagecreatefromjpeg(__DIR__ . '/data/code_bg.jpg');
@@ -120,4 +121,5 @@ class CaptchaImageView extends GalleryView {
 
 		return null;
 	}
+
 }

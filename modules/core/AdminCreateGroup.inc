@@ -96,11 +96,13 @@ class AdminCreateGroupController extends GalleryController {
 					$redirect['subView']    = 'core.AdminGroups';
 					$status['createdGroup'] = $group->getGroupName();
 				}
-			} else {
+
+} else {
 				// Set our error status and fall back to the view.
 				$error[] = 'form[error][groupName][missing]';
 			}
-		}
+
+}
 
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
@@ -114,6 +116,7 @@ class AdminCreateGroupController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -158,4 +161,5 @@ class AdminCreateGroupView extends GalleryView {
 			),
 		);
 	}
+
 }

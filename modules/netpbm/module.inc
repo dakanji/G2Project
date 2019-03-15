@@ -37,7 +37,9 @@ class NetPbmModule extends GalleryModule {
 				'NetPBM Graphics Toolkit'
 			)
 		);
-		$this->setVersion('2.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -83,7 +85,8 @@ class NetPbmModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -225,7 +228,8 @@ class NetPbmModule extends GalleryModule {
 
 				break;
 			}
-		}
+
+}
 
 		// Now try each path in turn to see which ones work for jhead
 		foreach ($paths as $path) {
@@ -249,7 +253,8 @@ class NetPbmModule extends GalleryModule {
 
 					break 2;
 				}
-			}
+
+}
 		}
 
 		return array(null, $success);
@@ -305,7 +310,8 @@ class NetPbmModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		foreach ($results['properties'] as $property => $info) {
 			$ret = GalleryCoreApi::registerToolkitProperty(
@@ -319,7 +325,8 @@ class NetPbmModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		list($ret, $redirect) = parent::activate($postActivationEvent);
 
@@ -350,7 +357,8 @@ class NetPbmModule extends GalleryModule {
 			if (empty($value)) {
 				return array(null, true);
 			}
-		}
+
+}
 
 		return array(null, false);
 	}
@@ -376,4 +384,5 @@ class NetPbmModule extends GalleryModule {
 	public function getConfigurationView() {
 		return 'netpbm.AdminNetPbm';
 	}
+
 }

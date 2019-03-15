@@ -87,4 +87,5 @@ class MainPageControllerAndView extends RepositoryControllerAndView {
 
 		return null;
 	}
+
 }

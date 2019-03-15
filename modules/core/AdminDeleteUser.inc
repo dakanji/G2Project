@@ -104,14 +104,18 @@ class AdminDeleteUserController extends GalleryController {
 				} elseif ($newOwner->getId() == $anonymousUserId) {
 					$error[] = 'form[error][text][newOwnerIsGuest]';
 				}
-			} else { // new owner field is empty, set the default new owner: 'admin'
-				$activeUserId         = $gallery->getActiveUserId(); // activeUser = site admin
+
+} else {
+				// new owner field is empty, set the default new owner: 'admin'
+				// activeUser = site admin
+				$activeUserId         = $gallery->getActiveUserId();
 				list($ret, $newOwner) = GalleryCoreApi::loadEntitiesById($activeUserId, 'GalleryUser');
 
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			// Verify the user exists
 			list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
@@ -152,7 +156,8 @@ class AdminDeleteUserController extends GalleryController {
 						if ($ret) {
 							return array($ret, null);
 						}
-					}
+
+}
 
 					// Assign a new owner for the (remaining) items
 					$ret = GalleryCoreApi::remapOwnerId($user->getId(), $newOwner->getId());
@@ -160,7 +165,8 @@ class AdminDeleteUserController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-				} // /if !empty($itemIds)
+
+} // /if !empty($itemIds)
 				// Delete the user
 				$ret = GalleryCoreApi::deleteEntityById($user->getId(), 'GalleryUser');
 
@@ -186,6 +192,7 @@ class AdminDeleteUserController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -215,8 +222,7 @@ class AdminDeleteUserView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$userId = GalleryUtilities::getRequestVariables('userId');
-
+		$userId           = GalleryUtilities::getRequestVariables('userId');
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {
@@ -251,4 +257,5 @@ class AdminDeleteUserView extends GalleryView {
 			),
 		);
 	}
+
 }

@@ -30,7 +30,8 @@
 		foreach($arr as $k => $v) {
 			$arr[$k] = ucwords($v);
 		}
-	}
+
+}
 
 	$rs = RSFilter($rs,'do_ucwords');
  */
@@ -54,7 +55,8 @@ function RSFilter($rs, $fn) {
 		} else {
 			$fn($rs->_array[$i], $rs);
 		}
-	}
+
+}
 
 	if (!$rs->EOF) {
 		$rs->_currentRow = 0;

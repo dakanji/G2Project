@@ -113,4 +113,5 @@ class RatingCallbackView extends GalleryView {
 
 		return null;
 	}
+
 }

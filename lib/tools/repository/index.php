@@ -19,9 +19,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
- /**
-  * @package RepositoryTools
-  */
+/**
+ * @package RepositoryTools
+ */
 define('G2_SUPPORT_URL_FRAGMENT', '../../support/');
 
 require '../../support/security.inc';
@@ -39,6 +39,7 @@ if (php_sapi_name() == 'cli') {
 
 		GalleryUtilities::putRequestVariable($arg[0], $arg[1], false);
 	}
+
 }
 
 function RepositoryToolsMain() {
@@ -64,7 +65,8 @@ function RepositoryToolsMain() {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	GalleryCoreApi::requireOnce(
 		'lib/tools/repository/classes/RepositoryControllerAndView.class'
@@ -99,7 +101,8 @@ function RepositoryToolsMain() {
 					"Unable to create directory: $path"
 				);
 			}
-		}
+
+}
 
 		// Load controller.
 		$controllerName = (string)GalleryUtilities::getRequestVariables('controller');
@@ -168,6 +171,7 @@ $ret = RepositoryToolsMain();
 
 if ($ret) {
 	echo $ret->getAsHtml();
+
 	echo $gallery->getDebugBuffer();
 
 	return;

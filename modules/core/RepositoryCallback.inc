@@ -81,7 +81,8 @@ class RepositoryCallbackView extends GalleryView {
 				if ($form['repositories'][$key]) {
 					$data[$key] = 1;
 				}
-			}
+
+}
 
 			if (empty($data)) {
 				$data['released'] = 1;
@@ -104,4 +105,5 @@ class RepositoryCallbackView extends GalleryView {
 
 		return null;
 	}
+
 }

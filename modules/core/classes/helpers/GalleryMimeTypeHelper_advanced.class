@@ -231,7 +231,8 @@ class GalleryMimeTypeHelper_advanced {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		GalleryMimeTypeHelper_simple::_deleteCache();
 
@@ -305,4 +306,5 @@ class GalleryMimeTypeHelper_advanced {
 
 		return null;
 	}
+
 }

@@ -75,13 +75,16 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// Set up our mock platform
 		$this->_platform = new IsapiRewriteHelperMockPlatform();
 
 		$this->_platform->init($this);
+
 		unset($this->_fileContent);
+
 		$gallery->setPlatform($this->_platform);
 	}
 
@@ -105,8 +108,7 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
 
 		$this->_platform->_isWriteable = false;
-
-		list($ret, $code) = IsapiRewriteHelper::checkFile();
+		list($ret, $code)              = IsapiRewriteHelper::checkFile();
 
 		if ($ret) {
 			return $ret;
@@ -115,8 +117,7 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_WRITE, $code, 'writeable');
 
 		$this->_platform->_isReadable = false;
-
-		list($ret, $code) = IsapiRewriteHelper::checkFile();
+		list($ret, $code)             = IsapiRewriteHelper::checkFile();
 
 		if ($ret) {
 			return $ret;
@@ -125,8 +126,7 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		$this->assertEquals(REWRITE_STATUS_HTTPDINI_CANT_READ, $code, 'readable');
 
 		$this->_platform->_fileExists = false;
-
-		list($ret, $code) = IsapiRewriteHelper::checkFile();
+		list($ret, $code)             = IsapiRewriteHelper::checkFile();
 
 		if ($ret) {
 			return $ret;
@@ -144,11 +144,11 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 
 		$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
 		$this->assertFalse(empty($this->_fileContent), 'success fileContent');
+
 		unset($this->_fileContent);
 
 		$this->_platform->_isReadable = false;
-
-		list($ret, $code) = IsapiRewriteHelper::writeFile(array());
+		list($ret, $code)             = IsapiRewriteHelper::writeFile(array());
 
 		if ($ret) {
 			return $ret;
@@ -159,8 +159,7 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 
 		$this->_platform->_isReadable  = true;
 		$this->_platform->_isWriteable = false;
-
-		list($ret, $code) = IsapiRewriteHelper::writeFile(array());
+		list($ret, $code)              = IsapiRewriteHelper::writeFile(array());
 
 		if ($ret) {
 			return $ret;
@@ -223,6 +222,7 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		$this->assertEquals(REWRITE_STATUS_OK, $status);
 		$this->assertEquals(REWRITE_STATUS_NO_ISAPI_REWRITE, $trueStatus);
 	}
+
 }
 
 /**
@@ -416,4 +416,5 @@ class IsapiRewriteHelperMockPlatform extends GalleryPlatform {
 
 		return fclose($handle);
 	}
+
 }

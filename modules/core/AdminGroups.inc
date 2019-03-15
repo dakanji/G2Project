@@ -60,7 +60,8 @@ class AdminGroupsController extends GalleryController {
 				if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 					return array($ret, null);
 				}
-			}
+
+}
 		}
 
 		if (isset($form['action']['filterClear'])) {
@@ -81,7 +82,8 @@ class AdminGroupsController extends GalleryController {
 				$redirect['subView'] = 'core.AdminEditGroup';
 				$redirect['groupId'] = $group->getId();
 			}
-		} elseif (isset($form['action']['deleteFromText'])) {
+
+} elseif (isset($form['action']['deleteFromText'])) {
 			if (empty($form['text']['groupName'])) {
 				$error[] = 'form[error][text][noGroupSpecified]';
 			} elseif ($group == null) {
@@ -94,7 +96,8 @@ class AdminGroupsController extends GalleryController {
 				if ($group->getGroupType() != GROUP_NORMAL) {
 					$error[] = 'form[error][text][cantDeleteGroup]';
 				}
-			}
+
+}
 
 			if (empty($error)) {
 				// Show the "delete group" view
@@ -102,7 +105,8 @@ class AdminGroupsController extends GalleryController {
 				$redirect['subView'] = 'core.AdminDeleteGroup';
 				$redirect['groupId'] = $group->getId();
 			}
-		} elseif (isset($form['action']['addRemoveUsersFromText'])) {
+
+} elseif (isset($form['action']['addRemoveUsersFromText'])) {
 			if (empty($form['text']['groupName'])) {
 				$error[] = 'form[error][text][noGroupSpecified]';
 			} elseif ($group == null) {
@@ -117,7 +121,8 @@ class AdminGroupsController extends GalleryController {
 				) {
 					$error[] = 'form[error][text][cantEditGroupUsers]';
 				}
-			}
+
+}
 
 			if (empty($error)) {
 				// Show the "edit group's users" view
@@ -125,7 +130,8 @@ class AdminGroupsController extends GalleryController {
 				$redirect['subView'] = 'core.AdminEditGroupUsers';
 				$redirect['groupId'] = $group->getId();
 			}
-		}
+
+}
 
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
@@ -139,6 +145,7 @@ class AdminGroupsController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -199,7 +206,8 @@ class AdminGroupsView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		// Figure out our max pages, make sure our current page fits in it
 		$form['list']['maxPages'] = ceil($form['list']['count'] / $form['list']['pageSize']);
@@ -211,8 +219,7 @@ class AdminGroupsView extends GalleryView {
 		// Calculate the next/back pages
 		$form['list']['nextPage'] = min($form['list']['page'] + 1, $form['list']['maxPages']);
 		$form['list']['backPage'] = max(1, $form['list']['page'] - 1);
-
-		list($ret, $groupNames) = GalleryCoreApi::fetchGroupNames(
+		list($ret, $groupNames)   = GalleryCoreApi::fetchGroupNames(
 			$form['list']['pageSize'],
 			(($form['list']['page'] - 1) * $form['list']['pageSize']),
 			$form['list']['filter']
@@ -258,7 +265,8 @@ class AdminGroupsView extends GalleryView {
 				$form['list']['groupNames'][$groupId]['can']['delete']    = true;
 				$form['list']['groupNames'][$groupId]['can']['editUsers'] = true;
 			}
-		}
+
+}
 
 		$AdminGroups                    = array();
 		$AdminGroups['totalGroupCount'] = $totalGroupCount;
@@ -273,4 +281,5 @@ class AdminGroupsView extends GalleryView {
 			),
 		);
 	}
+
 }

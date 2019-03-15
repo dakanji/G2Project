@@ -61,7 +61,8 @@ class RandomHighlightSiteAdminController extends GalleryController {
 
 				$status['saved'] = 1;
 			}
-		}
+
+}
 
 		// Figure out where to redirect upon success
 		$method                      = empty($error) ? 'redirect' : 'delegate';
@@ -72,6 +73,7 @@ class RandomHighlightSiteAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -89,8 +91,7 @@ class RandomHighlightSiteAdminView extends GalleryView {
 		}
 
 		if ($form['formName'] != 'RandomHighlightSiteAdmin') {
-			$form['formName'] = 'RandomHighlightSiteAdmin';
-
+			$form['formName']     = 'RandomHighlightSiteAdmin';
 			list($ret, $duration) = GalleryCoreApi::getPluginParameter('module', 'randomhighlight', 'duration');
 
 			if ($ret) {
@@ -110,4 +111,5 @@ class RandomHighlightSiteAdminView extends GalleryView {
 			),
 		);
 	}
+
 }

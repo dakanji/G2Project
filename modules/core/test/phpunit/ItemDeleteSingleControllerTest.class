@@ -88,7 +88,8 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Create a random item and verify that we can delete it and move to the parent page
@@ -125,7 +126,8 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Create a random album and verify that we can delete it.
@@ -164,7 +166,8 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Verify that we can't delete items without the right permissions
@@ -205,7 +208,8 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Test deleting the root album. We should get a bad parameter error
@@ -232,4 +236,5 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest(ERROR_MISSING_OBJECT);
 	}
+
 }

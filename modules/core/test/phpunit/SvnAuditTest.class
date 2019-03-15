@@ -154,7 +154,8 @@ class SvnAuditTest extends CodeAuditTestCase {
 				} else {
 					$key = rtrim($lines[$i]);
 				}
-			}
+
+}
 
 			foreach ($expected as $key => $valueMatch) {
 				if (!isset($props[$key])) {
@@ -169,11 +170,13 @@ class SvnAuditTest extends CodeAuditTestCase {
 
 					$this->_errorCount++;
 				}
-			}
+
+}
 		}
 
 		if ($this->_errorCount > 10) {
 			$this->halt();
 		}
-	}
+
+}
 }

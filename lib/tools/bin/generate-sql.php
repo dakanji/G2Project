@@ -51,6 +51,7 @@ foreach (array('mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite') as $db) 
 		$root[0]['base'] = $base;
 		$output         .= $generator->createSql($root[0], 0, 0, null);
 	}
+
 }
 
 $fd = fopen('schema.tpl', 'w');
@@ -120,7 +121,8 @@ class BaseGenerator {
 			if ($child[$i]['name'] == 'NOT-NULL') {
 				return $child[$i];
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -130,7 +132,8 @@ class BaseGenerator {
 			if ($child[$i]['name'] == 'DEFAULT') {
 				return $child[$i]['content'];
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -156,13 +159,15 @@ class BaseGenerator {
 			if (isset($defaultValue)) {
 				$output .= " DEFAULT '$defaultValue'";
 			}
-		}
+
+}
 
 		if ($includeNotNull) {
 			if ($this->getNotNullElement($child)) {
 				$output .= ' NOT NULL';
 			}
-		}
+
+}
 
 		return $output;
 	}
@@ -193,6 +198,7 @@ class BaseGenerator {
 	public function isIndex($child) {
 		return $child['name'] == 'INDEX';
 	}
+
 }
 
 class MySqlGenerator extends BaseGenerator {
@@ -228,7 +234,8 @@ class MySqlGenerator extends BaseGenerator {
 			if (isset($defaultValue)) {
 				$output .= " DEFAULT '$defaultValue'";
 			}
-		}
+
+}
 
 		return $output;
 	}
@@ -271,7 +278,8 @@ class MySqlGenerator extends BaseGenerator {
 					if ($i < count($child) - 1) {
 						$output .= ",\n";
 					}
-				}
+
+}
 
 				break;
 
@@ -335,7 +343,8 @@ class MySqlGenerator extends BaseGenerator {
 								if ($i < count($columns) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ')';
 
@@ -348,7 +357,8 @@ class MySqlGenerator extends BaseGenerator {
 					if ($i < count($child) - 1) {
 						$output .= ",\n";
 					}
-				}
+
+}
 
 				break;
 
@@ -360,7 +370,8 @@ class MySqlGenerator extends BaseGenerator {
 						$output .= "DELETE FROM DB_TABLE_PREFIXSchema WHERE DB_COLUMN_PREFIXname='" .
 						$node['child'][0]['content'] . "';\n\n";
 					}
-				} elseif ($parent['name'] == 'CHANGE') {
+
+} elseif ($parent['name'] == 'CHANGE') {
 					// (column-name, key, index)+
 					$i = 0;
 
@@ -407,7 +418,8 @@ class MySqlGenerator extends BaseGenerator {
 							default:
 								$output .= "4. UNIMPLEMENTED: REMOVE $c[name]\n";
 						}
-					}
+
+}
 				}
 
 				break;
@@ -431,7 +443,8 @@ class MySqlGenerator extends BaseGenerator {
 					if ($i < count($child) - 1) {
 						$output .= ', ';
 					}
-				}
+
+}
 
 				$output .= ')';
 
@@ -448,7 +461,8 @@ class MySqlGenerator extends BaseGenerator {
 					if ($i < count($child) - 1) {
 						$output .= ', ';
 					}
-				}
+
+}
 
 				$output .= ')';
 
@@ -464,6 +478,7 @@ class MySqlGenerator extends BaseGenerator {
 	public function getDbType() {
 		return 'mysql';
 	}
+
 }
 
 class PostgresGenerator extends BaseGenerator {
@@ -512,7 +527,8 @@ class PostgresGenerator extends BaseGenerator {
 						$output .= "DELETE FROM DB_TABLE_PREFIXSchema WHERE DB_COLUMN_PREFIXname='" .
 						$node['child'][0]['content'] . "';\n\n";
 					}
-				} elseif ($parent['name'] == 'CHANGE') {
+
+} elseif ($parent['name'] == 'CHANGE') {
 					// (column-name, key, index)+
 					for ($i = 0; $i < count($child); $i++) {
 						$c = $child[$i];
@@ -559,7 +575,8 @@ class PostgresGenerator extends BaseGenerator {
 							default:
 								$output .= "5. UNIMPLEMENTED: REMOVE $c[name]\n";
 						}
-					}
+
+}
 				}
 
 				break;
@@ -617,7 +634,8 @@ class PostgresGenerator extends BaseGenerator {
 								if ($i < count($c['child']) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ')';
 							$output .= ";\n\n";
@@ -646,7 +664,8 @@ class PostgresGenerator extends BaseGenerator {
 								if ($i < count($columns) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ')';
 							$output .= ";\n\n";
@@ -656,7 +675,8 @@ class PostgresGenerator extends BaseGenerator {
 						default:
 							$output .= "6. UNIMPLEMLENTED: ADD $c[name]\n";
 					}
-				}
+
+}
 
 				break;
 
@@ -693,7 +713,8 @@ class PostgresGenerator extends BaseGenerator {
 							if ($j < count($child[$i]['child']) - 1) {
 								$output .= ', ';
 							}
-						}
+
+}
 
 						$output .= ");\n\n";
 					} else /* key */ {
@@ -708,7 +729,8 @@ class PostgresGenerator extends BaseGenerator {
 								if ($j < count($columns) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ");\n\n";
 						} else {
@@ -722,11 +744,13 @@ class PostgresGenerator extends BaseGenerator {
 								if ($j < count($child[$i]['child']) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ");\n\n";
 						}
-					}
+
+}
 				}
 
 				// Schema info
@@ -757,7 +781,8 @@ class PostgresGenerator extends BaseGenerator {
 						' ALTER DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] .
 						" SET NOT NULL;\n\n";
 					}
-				}
+
+}
 
 				break;
 
@@ -771,6 +796,7 @@ class PostgresGenerator extends BaseGenerator {
 	public function getDbType() {
 		return 'postgres';
 	}
+
 }
 
 class OracleGenerator extends BaseGenerator {
@@ -819,7 +845,8 @@ class OracleGenerator extends BaseGenerator {
 						$output .= "DELETE FROM DB_TABLE_PREFIXSchema WHERE DB_COLUMN_PREFIXname='" .
 						$node['child'][0]['content'] . "';\n\n";
 					}
-				} elseif ($parent['name'] == 'CHANGE') {
+
+} elseif ($parent['name'] == 'CHANGE') {
 					// (column-name, key, index)+
 					foreach ($child as $c) {
 						switch ($c['name']) {
@@ -868,7 +895,8 @@ class OracleGenerator extends BaseGenerator {
 
 						$output .= ";\n\n";
 					}
-				}
+
+}
 
 				break;
 
@@ -903,7 +931,8 @@ class OracleGenerator extends BaseGenerator {
 								if ($i < count($c['child']) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ')';
 
@@ -931,7 +960,8 @@ class OracleGenerator extends BaseGenerator {
 								if ($i < count($columns) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ')';
 
@@ -980,13 +1010,15 @@ class OracleGenerator extends BaseGenerator {
 							if ($j < count($child[$i]['child']) - 1) {
 								$output .= ', ';
 							}
-						}
+
+}
 
 						$output .= ");\n\n";
 					} else {
 						$keys[] = $child[$i];
 					}
-				}
+
+}
 
 				if (!empty($keys)) {
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $child[0]['content'] . "\n";
@@ -1004,7 +1036,8 @@ class OracleGenerator extends BaseGenerator {
 							if ($i < count($key['child']) - 1) {
 								$output .= ', ';
 							}
-						}
+
+}
 
 						$output .= ")\n";
 					}
@@ -1053,7 +1086,8 @@ class OracleGenerator extends BaseGenerator {
 						' MODIFY (DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] .
 						" NOT NULL);\n\n";
 					}
-				}
+
+}
 
 				break;
 
@@ -1067,6 +1101,7 @@ class OracleGenerator extends BaseGenerator {
 	public function getDbType() {
 		return 'oracle';
 	}
+
 }
 
 /**
@@ -1131,7 +1166,8 @@ class Db2Generator extends BaseGenerator {
 
 				$output .= " DEFAULT $defaultValue";
 			}
-		}
+
+}
 
 		return $output;
 	}
@@ -1159,7 +1195,8 @@ class Db2Generator extends BaseGenerator {
 						$output .= "DELETE FROM DB_TABLE_PREFIXSchema WHERE DB_COLUMN_PREFIXname='" .
 						$node['child'][0]['content'] . "';\n\n";
 					}
-				} elseif ($parent['name'] == 'CHANGE') {
+
+} elseif ($parent['name'] == 'CHANGE') {
 					// (column-name, key, index)+
 					for ($i = 0; $i < count($child); $i++) {
 						$c = $child[$i];
@@ -1208,7 +1245,8 @@ class Db2Generator extends BaseGenerator {
 							default:
 								$output .= "5. UNIMPLEMENTED: REMOVE $c[name]\n";
 						}
-					}
+
+}
 				}
 
 				break;
@@ -1243,7 +1281,8 @@ class Db2Generator extends BaseGenerator {
 								if ($i < count($c['child']) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ')';
 							$output .= ";\n\n";
@@ -1274,7 +1313,8 @@ class Db2Generator extends BaseGenerator {
 								if ($i < count($columns) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ')';
 							$output .= ";\n\n";
@@ -1284,7 +1324,8 @@ class Db2Generator extends BaseGenerator {
 						default:
 							$output .= "6. UNIMPLEMLENTED: ADD $c[name]\n";
 					}
-				}
+
+}
 
 				break;
 
@@ -1323,7 +1364,8 @@ class Db2Generator extends BaseGenerator {
 							if ($j < count($child[$i]['child']) - 1) {
 								$output .= ', ';
 							}
-						}
+
+}
 
 						$output .= ");\n\n";
 					} else /* key */ {
@@ -1338,7 +1380,8 @@ class Db2Generator extends BaseGenerator {
 								if ($j < count($columns) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ");\n\n";
 						} else {
@@ -1354,11 +1397,13 @@ class Db2Generator extends BaseGenerator {
 								if ($j < count($child[$i]['child']) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ");\n\n";
 						}
-					}
+
+}
 				}
 
 				// Schema info
@@ -1413,7 +1458,8 @@ class Db2Generator extends BaseGenerator {
 						' ALTER DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] .
 						" SET NOT NULL;\n\n";
 					}
-				}
+
+}
 
 				break;
 
@@ -1427,6 +1473,7 @@ class Db2Generator extends BaseGenerator {
 	public function getDbType() {
 		return 'db2';
 	}
+
 }
 
 class MSSqlGenerator extends BaseGenerator {
@@ -1485,7 +1532,8 @@ class MSSqlGenerator extends BaseGenerator {
 						$output .= "DELETE FROM DB_TABLE_PREFIXSchema WHERE DB_COLUMN_PREFIXname='" .
 						$node['child'][0]['content'] . "';\n\n";
 					}
-				} elseif ($parent['name'] == 'CHANGE') {
+
+} elseif ($parent['name'] == 'CHANGE') {
 					// (column-name, key, index)+
 					for ($i = 0; $i < count($child); $i++) {
 						$c = $child[$i];
@@ -1533,7 +1581,8 @@ class MSSqlGenerator extends BaseGenerator {
 							default:
 								$output .= "5. UNIMPLEMENTED: REMOVE $c[name]\n";
 						}
-					}
+
+}
 				}
 
 				break;
@@ -1568,7 +1617,8 @@ class MSSqlGenerator extends BaseGenerator {
 								if ($i < count($c['child']) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ')';
 							$output .= ";\n\n";
@@ -1597,7 +1647,8 @@ class MSSqlGenerator extends BaseGenerator {
 								if ($i < count($columns) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ')';
 							$output .= ";\n\n";
@@ -1607,7 +1658,8 @@ class MSSqlGenerator extends BaseGenerator {
 						default:
 							$output .= "6. UNIMPLEMLENTED: ADD $c[name]\n";
 					}
-				}
+
+}
 
 				break;
 
@@ -1644,7 +1696,8 @@ class MSSqlGenerator extends BaseGenerator {
 							if ($j < count($child[$i]['child']) - 1) {
 								$output .= ', ';
 							}
-						}
+
+}
 
 						$output .= ");\n\n";
 					} else /* key */ {
@@ -1659,7 +1712,8 @@ class MSSqlGenerator extends BaseGenerator {
 								if ($j < count($columns) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ");\n\n";
 						} else {
@@ -1673,11 +1727,13 @@ class MSSqlGenerator extends BaseGenerator {
 								if ($j < count($child[$i]['child']) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ");\n\n";
 						}
-					}
+
+}
 				}
 
 				// Schema info
@@ -1718,7 +1774,8 @@ class MSSqlGenerator extends BaseGenerator {
 
 						' ' . $this->columnDefinition($child[$i]['child'], true, false) . ";\n\n";
 					}
-				}
+
+}
 
 				break;
 
@@ -1732,6 +1789,7 @@ class MSSqlGenerator extends BaseGenerator {
 	public function getDbType() {
 		return 'mssql';
 	}
+
 }
 
 class SQLiteGenerator extends BaseGenerator {
@@ -1766,7 +1824,8 @@ class SQLiteGenerator extends BaseGenerator {
 			if (isset($defaultValue)) {
 				$output .= " DEFAULT '$defaultValue'";
 			}
-		}
+
+}
 
 		return $output;
 	}
@@ -1820,7 +1879,8 @@ class SQLiteGenerator extends BaseGenerator {
 							if ($j < count($columns) - 1) {
 								$output .= ', ';
 							}
-						}
+
+}
 
 						$output .= ')';
 						$output .= ";\n\n";
@@ -1844,7 +1904,8 @@ class SQLiteGenerator extends BaseGenerator {
 						if ($j < count($child[$i]['child']) - 1) {
 							$output .= ', ';
 						}
-					}
+
+}
 
 					$output .= ");\n\n";
 				}
@@ -1898,7 +1959,8 @@ class SQLiteGenerator extends BaseGenerator {
 								if ($i < count($columns) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ')';
 							$output .= ";\n\n";
@@ -1927,7 +1989,8 @@ class SQLiteGenerator extends BaseGenerator {
 								if ($i < count($columns) - 1) {
 									$output .= ', ';
 								}
-							}
+
+}
 
 							$output .= ')';
 							$output .= ";\n\n";
@@ -1937,7 +2000,8 @@ class SQLiteGenerator extends BaseGenerator {
 						default:
 							$output .= "6. UNIMPLEMLENTED: ADD $c[name]\n";
 					}
-				}
+
+}
 
 				break;
 
@@ -1949,7 +2013,8 @@ class SQLiteGenerator extends BaseGenerator {
 						$output .= "DELETE FROM DB_TABLE_PREFIXSchema WHERE DB_COLUMN_PREFIXname='"
 						. $node['child'][0]['content'] . "';\n\n";
 					}
-				} elseif ($parent['name'] == 'CHANGE') {
+
+} elseif ($parent['name'] == 'CHANGE') {
 					// (column-name, key, index)+
 					for ($i = 0; $i < count($child); $i++) {
 						$c = $child[$i];
@@ -2000,7 +2065,8 @@ class SQLiteGenerator extends BaseGenerator {
 							default:
 								$output .= "5. UNIMPLEMENTED: REMOVE $c[name]\n";
 						}
-					}
+
+}
 				}
 
 				break;
@@ -2062,4 +2128,5 @@ class SQLiteGenerator extends BaseGenerator {
 	public function getDbType() {
 		return 'sqlite';
 	}
+
 }

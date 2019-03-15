@@ -83,7 +83,8 @@ class UserAdminView extends GalleryView {
 
 				$subViewChoices = array_merge($subViewChoices, $moduleViews);
 			}
-		}
+
+}
 
 		// If we have a specific sub view, load it now
 		$subViewName = GalleryUtilities::getRequestVariables('subView');
@@ -195,4 +196,5 @@ class UserAdminView extends GalleryView {
 	public function getViewType() {
 		return VIEW_TYPE_ADMIN;
 	}
+
 }

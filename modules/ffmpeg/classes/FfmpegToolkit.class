@@ -222,7 +222,8 @@ class FfmpegToolkit extends GalleryToolkit {
 						) {
 							$audioError = true;
 						}
-					}
+
+}
 
 					// Return if already muted or known error not found
 					if ($muted || !$audioError || $audioRateIndex == -1) {
@@ -247,7 +248,8 @@ class FfmpegToolkit extends GalleryToolkit {
 					if ($ret) {
 						return array($ret, null, null);
 					}
-				}
+
+}
 
 				/** @todo: Refactor: Extract common code from both convert operations */
 				$success = $platform->rename($tmpFilename, $destFilename);
@@ -344,7 +346,8 @@ class FfmpegToolkit extends GalleryToolkit {
 						null,
 					);
 				}
-			}
+
+}
 
 			$outputMimeType = $mimeType;
 		}
@@ -403,8 +406,7 @@ class FfmpegToolkit extends GalleryToolkit {
 				$regs
 			)
 			) {
-				$successfulRun = true;
-
+				$successfulRun                     = true;
 				list($width, $height, $vframerate) = array($regs[1], $regs[2], $regs[3]);
 			}
 
@@ -429,7 +431,8 @@ class FfmpegToolkit extends GalleryToolkit {
 				} elseif (preg_match('/5:1/', $audioInfo)) {
 					$achannels = 6;
 				}
-			}
+
+}
 		}
 
 		if ($successfulRun) {
@@ -456,8 +459,7 @@ class FfmpegToolkit extends GalleryToolkit {
 	public function _ffmpeg($sourceFilename, $args) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform               =& $gallery->getPlatform();
 		list($ret, $ffmpegPath) = GalleryCoreApi::getPluginParameter('module', 'ffmpeg', 'path');
 
 		if ($ret) {
@@ -474,4 +476,5 @@ class FfmpegToolkit extends GalleryToolkit {
 
 		return array(null, $results, $error);
 	}
+
 }

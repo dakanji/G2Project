@@ -56,7 +56,8 @@ class IconsSiteAdminController extends GalleryController {
 
 				$status['saved'] = 1;
 			}
-		}
+
+}
 
 		// Figure out where to redirect upon success
 		$method                      = empty($error) ? 'redirect' : 'delegate';
@@ -67,6 +68,7 @@ class IconsSiteAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -86,14 +88,14 @@ class IconsSiteAdminView extends GalleryView {
 		}
 
 		if ($form['formName'] != 'IconsSiteAdmin') {
-			$form['formName'] = 'IconsSiteAdmin';
-
+			$form['formName']             = 'IconsSiteAdmin';
 			list($ret, $form['iconpack']) = GalleryCoreApi::getPluginParameter('module', 'icons', 'iconpack');
 
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		list($ret, $icons) = GalleryCoreApi::newFactoryInstance('IconsInterface_1_0');
 
@@ -144,19 +146,22 @@ class IconsSiteAdminView extends GalleryView {
 								$map[$class]     = $image;
 								$classes[$class] = 1;
 							}
-						}
+
+}
 
 						$active = array();
 						$image  = null;
 					}
-				}
+
+}
 
 				$packs[$dir] = array(
 					'name' => $name,
 					'map'  => $map,
 				);
 			}
-		}
+
+}
 
 		ksort($classes);
 		$IconsSiteAdmin              = array();
@@ -174,4 +179,5 @@ class IconsSiteAdminView extends GalleryView {
 			),
 		);
 	}
+
 }

@@ -63,7 +63,8 @@ class IconsTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testGetIconPacks() {
 		list($ret, $list) = $this->_icons->getIconPacks();
@@ -149,6 +150,7 @@ class IconsTest extends GalleryTestCase {
 
 		$this->assertEquals('modules/icons/iconpacks/_phpunitfoo/icons-rtl.css', $template->style);
 	}
+
 }
 
 /**
@@ -168,4 +170,5 @@ class IconsDummyGalleryTemplate {
 	}
 
 	public function javascript($path) {}
+
 }

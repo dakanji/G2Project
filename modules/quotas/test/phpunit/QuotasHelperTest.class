@@ -97,7 +97,8 @@ class QuotasHelperTest extends GalleryTestCase {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		list($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'quotas');
@@ -124,14 +125,16 @@ class QuotasHelperTest extends GalleryTestCase {
 			if ($ret) {
 				$this->failWithStatus($ret);
 			}
-		}
+
+}
 
 		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testGetUserDiskUsage() {
 		// check the user's usage, it should be zero
@@ -159,7 +162,8 @@ class QuotasHelperTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// check the user's usage after adding 3 items, loop as itemaddoption would require
 		$expectedUsage = 0;
@@ -186,7 +190,8 @@ class QuotasHelperTest extends GalleryTestCase {
 				'User\'s disk usage is incorrect! Item ' . $j
 			);
 		}
-	}
+
+}
 
 	public function testGetUserLargeDiskUsage() {
 		// check the user's usage, it should be zero
@@ -214,7 +219,8 @@ class QuotasHelperTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// check the user's usage after adding 3 items, loop as itemaddoption would require
 		$expectedUsage = 0;
@@ -242,7 +248,8 @@ class QuotasHelperTest extends GalleryTestCase {
 				'User\'s disk usage is incorrect! Item ' . $j
 			);
 		}
-	}
+
+}
 
 	public function testGetUserDiskQuota() {
 		// user doesn't have a quota yet
@@ -407,7 +414,8 @@ class QuotasHelperTest extends GalleryTestCase {
 			$this->assertEquals((string)$value[0], $humanReadable, 'Incorrect value');
 			$this->assertEquals($value[1], $units, 'Incorrect units');
 		}
-	}
+
+}
 
 	public function testFetchQuotaGroupIdList() {
 		// get the actual number of group quotas there is
@@ -442,6 +450,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals($groupCount + 1, count($groupIdList), 'New group count is incorrect');
+
 		$this->assertEquals(
 			array(
 				'quota' => 105,
@@ -450,6 +459,7 @@ class QuotasHelperTest extends GalleryTestCase {
 			$groupIdList[$this->_group->getId()],
 			'New group quota doesn\'t match up'
 		);
+
 		$this->_removeMapEntry(
 			array(
 				'userOrGroupId' => $this->_group->getId(),
@@ -519,6 +529,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals($userCount + 1, count($userIdList), 'New User count is incorrect');
+
 		$this->assertEquals(
 			array(
 				'quota' => 467,
@@ -527,6 +538,7 @@ class QuotasHelperTest extends GalleryTestCase {
 			$userIdList[$this->_user->getId()],
 			'New User quota doesn\'t match up'
 		);
+
 		$this->_removeMapEntry(
 			array(
 				'userOrGroupId' => $this->_user->getId(),
@@ -573,6 +585,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		$this->assertTrue($quotaExists == false, 'Quota should not exist for this group');
 
 		$this->assertTrue(empty($groupQuotaInfo), 'Group should have no quota information');
+
 		// add a quota of 47KB for this group
 		$this->_addMapEntry(
 			array(
@@ -615,6 +628,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		$this->assertTrue($quotaExists == false, 'Quota should not exist for this user');
 
 		$this->assertTrue(empty($userQuotaInfo), 'User should have no quota information');
+
 		// add a quota of 86 KB to this user
 		$this->_addMapEntry(
 			array(
@@ -667,9 +681,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		$data = $smarty->_tpl_vars['block']['quotas']['LoadQuotas'];
 
 		$this->assertEquals('0', $data['quotaValue'], 'No quota value should exist for this user');
-
 		$this->assertFalse($data['quotaExists'], 'No quota should exist for this user');
-
 		$this->assertEquals($this->_KB, $data['quotaValueUnit'], 'No quota (lowest unit is KB)');
 		$this->assertEquals('0', $data['currentUsage'], 'User should have no usage yet');
 		$this->assertEquals($this->_KB, $data['currentUsageUnit'], 'No usage (lowest unit is KB)');
@@ -699,7 +711,8 @@ class QuotasHelperTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// Check users quota Callback, he has 3 items
 		$callback = new QuotasCallbacks();
@@ -714,9 +727,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		$data = $smarty->_tpl_vars['block']['quotas']['LoadQuotas'];
 
 		$this->assertEquals('0', $data['quotaValue'], 'No quota value should exist for this user');
-
 		$this->assertFalse($data['quotaExists'], 'No quota should exist for this user');
-
 		$this->assertEquals($this->_KB, $data['quotaValueUnit'], 'No quota (lowest unit is KB)');
 		$this->assertEquals(
 			(string)303,
@@ -754,7 +765,8 @@ class QuotasHelperTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// Add our dummy user to our dummy group, dummy
 		$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $this->_group->getId());
@@ -786,9 +798,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		$data = $smarty->_tpl_vars['block']['quotas']['LoadQuotas'];
 
 		$this->assertEquals('501', $data['quotaValue'], 'Quota value should exist for this user');
-
 		$this->assertTrue($data['quotaExists'], 'Quota should exist for this user');
-
 		$this->assertEquals(
 			$this->_KB,
 			$data['quotaValueUnit'],
@@ -826,7 +836,8 @@ class QuotasHelperTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// add a quota of 401KB for this user
 		$this->_addMapEntry(
@@ -849,9 +860,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		$data = $smarty->_tpl_vars['block']['quotas']['LoadQuotas'];
 
 		$this->assertEquals('401', $data['quotaValue'], 'Quota value should exist for this user');
-
 		$this->assertTrue($data['quotaExists'], 'Quota should exist for this user');
-
 		$this->assertEquals(
 			$this->_KB,
 			$data['quotaValueUnit'],
@@ -873,7 +882,8 @@ class QuotasHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function _addMapEntry($add) {
 		$ret = GalleryCoreApi::addMapEntry('QuotasMap', $add);
@@ -881,5 +891,6 @@ class QuotasHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 }

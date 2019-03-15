@@ -62,7 +62,8 @@ class DynamicAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($ret, $this->_defaultThemeId) = GalleryCoreApi::getPluginParameter(
 			'module',
@@ -73,7 +74,8 @@ class DynamicAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testDynamicAlbumSiteAdminControllerReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
@@ -99,12 +101,10 @@ class DynamicAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[size_views]', 'abc');
 		GalleryUtilities::putRequestVariable('form[size_random]', '12x');
 		GalleryUtilities::putRequestVariable('form[type_date]', 'all');
-
 		GalleryUtilities::putRequestVariable('form[type_views]', 'all');
 		GalleryUtilities::putRequestVariable('form[type_random]', 'all');
 		GalleryUtilities::putRequestVariable('form[description_date]', '');
 		GalleryUtilities::putRequestVariable('form[description_views]', '');
-
 		GalleryUtilities::putRequestVariable('form[description_random]', '');
 		GalleryUtilities::putRequestVariable('form[themeId]', 'dynamicalbumTest');
 		GalleryUtilities::putRequestVariable('form[currentThemeId]', 'dynamicalbumTest');
@@ -148,12 +148,10 @@ class DynamicAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[size_views]', '30');
 		GalleryUtilities::putRequestVariable('form[size_random]', '0');
 		GalleryUtilities::putRequestVariable('form[type_date]', 'all');
-
 		GalleryUtilities::putRequestVariable('form[type_views]', 'data');
 		GalleryUtilities::putRequestVariable('form[type_random]', 'album');
 		GalleryUtilities::putRequestVariable('form[description_date]', '');
 		GalleryUtilities::putRequestVariable('form[description_views]', 'most viewed stuff');
-
 		GalleryUtilities::putRequestVariable('form[description_random]', 'random stuff');
 		GalleryUtilities::putRequestVariable('form[themeId]', $this->_defaultThemeId);
 		GalleryUtilities::putRequestVariable('form[currentThemeId]', 'dynamicalbumTest');
@@ -193,7 +191,8 @@ class DynamicAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 			if ($key[0] == '_') {
 				unset($params[$key]);
 			}
-		}
+
+}
 
 		ksort($params);
 		$this->assertEquals(
@@ -230,6 +229,7 @@ class DynamicAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals('6', $themeParam, 'Theme param');
 	}
+
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
@@ -240,10 +240,12 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
 class DynamicAlbumTestTheme extends GalleryTheme {
 	public function __construct() {
 		$this->setId('dynamicalbumTest');
+
 		$this->setStandardSettings(
 			array(
 				'perPage' => 9,
 			)
 		);
 	}
+
 }

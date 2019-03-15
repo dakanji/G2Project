@@ -87,7 +87,6 @@ class ImageMagickToolkit extends GalleryToolkit {
 		$context = array()
 	) {
 		global $gallery;
-
 		static $convertOps = array(
 			'thumbnail',
 			'scale',
@@ -143,7 +142,8 @@ class ImageMagickToolkit extends GalleryToolkit {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		}
+
+}
 
 		if ($usePercent) {
 			// Convert percentages to real image dimensions
@@ -154,7 +154,8 @@ class ImageMagickToolkit extends GalleryToolkit {
 			if (isset($parameters[1]) && substr($parameters[1], -1) == '%') {
 				$parameters[1] = (int)round($height * rtrim($parameters[1], '%') / 100);
 			}
-		}
+
+}
 
 		if (preg_match('{^convert-to-(image/.*)$}', $operationName, $matches)) {
 			$cmd            = 'convert';
@@ -380,7 +381,10 @@ class ImageMagickToolkit extends GalleryToolkit {
 				case 'compress':
 					$targetSize = $parameters[0];
 					$platform   =& $gallery->getPlatform();
-					$fileSize   = $platform->filesize($sourceFilename) >> 10; // Size in KB
+
+					// Size in KB
+					$fileSize = $platform->filesize($sourceFilename) >> 10;
+
 					if ($fileSize <= $targetSize) {
 						break;
 					}
@@ -439,7 +443,8 @@ class ImageMagickToolkit extends GalleryToolkit {
 						null,
 					);
 			}
-		}
+
+}
 
 		if (isset($width)) {
 			$context['width']  = $width;
@@ -456,7 +461,8 @@ class ImageMagickToolkit extends GalleryToolkit {
 				if (!$platform->copy($sourceFilename, $destFilename)) {
 					return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null);
 				}
-			}
+
+}
 
 			return array(null, $outputMimeType, $context);
 		}
@@ -469,7 +475,8 @@ class ImageMagickToolkit extends GalleryToolkit {
 				if (!$platform->copy($sourceFilename, $destFilename)) {
 					return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null);
 				}
-			}
+
+}
 		} else {
 			$ret = $this->_transformImage(
 				$mimeType,
@@ -483,7 +490,8 @@ class ImageMagickToolkit extends GalleryToolkit {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		}
+
+}
 
 		return array(null, $outputMimeType, $context);
 	}
@@ -531,7 +539,8 @@ class ImageMagickToolkit extends GalleryToolkit {
 			if (preg_match('/([0-9]+)x([0-9]+)/', $line, $regs)) {
 				return array(null, $regs[1], $regs[2]);
 			}
-		}
+
+}
 
 		return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null);
 	}
@@ -543,8 +552,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 	public function _getPageCount($filename, $mimeType) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform        =& $gallery->getPlatform();
 		list($ret, $cmd) = ImageMagickToolkitHelper::getCommand('identify');
 
 		if ($ret) {
@@ -577,7 +585,8 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 					break;
 				}
-			}
+
+}
 		} else {
 			$match = '/' . preg_quote(basename($filename)) . '[[ =]/';
 
@@ -585,7 +594,8 @@ class ImageMagickToolkit extends GalleryToolkit {
 				if (preg_match($match, $line)) {
 					$count++;
 				}
-			}
+
+}
 		}
 
 		return array(null, $count);
@@ -598,8 +608,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 	public function _getColorspace($filename) {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform        =& $gallery->getPlatform();
 		list($ret, $cmd) = ImageMagickToolkitHelper::getCommand('identify');
 
 		if ($ret) {
@@ -616,7 +625,8 @@ class ImageMagickToolkit extends GalleryToolkit {
 			if (strpos($output[0], $colorspace) !== false) {
 				return array(null, $colorspace);
 			}
-		}
+
+}
 
 		return array(null, 'unknown');
 	}
@@ -671,7 +681,8 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 				return $ret;
 			}
-		}
+
+}
 
 		$jpegQuality = (int)$jpegQuality;
 
@@ -717,21 +728,28 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 					if ($useNewCoalesceOptions) {
 						$command[] = '%s';
-						$command[] = '-coalesce'; // Needs to be _after_ the filename
-						$command[] = '-layers'; // Better than -deconstruct
+
+						// Needs to be _after_ the filename
+						$command[] = '-coalesce';
+
+						// Better than -deconstruct
+						$command[] = '-layers';
 						$command[] = 'optimize';
 					} else {
-						$command[] = '-coalesce'; // Needs to be _before_ the filename
+						// Needs to be _before_ the filename
+						$command[] = '-coalesce';
 						$command[] = '%s';
 						$args[]    = '-deconstruct';
 					}
-				}
+
+}
 
 				if ($outputMimeType == 'image/gif') {
 					break;
 				}
 
 				// If the output format isn't gif, pick a frame assuming it's an animated GIF.
+
 				// Fall Through
 			case 'image/tiff':
 			case 'application/pdf':
@@ -778,7 +796,8 @@ class ImageMagickToolkit extends GalleryToolkit {
 				$command[$i] = $sourceFilename;
 				$replaced    = true;
 			}
-		}
+
+}
 
 		if (!$replaced) {
 			$command[] = $sourceFilename;
@@ -812,6 +831,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 		if (!$success) {
 			@$platform->unlink($tmpFilename);
+
 			$platform->chdir($oldCwd);
 
 			return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE);
@@ -868,4 +888,5 @@ class ImageMagickToolkit extends GalleryToolkit {
 		$size      = isset($h) ? ($w . 'x' . $h) : ($w . 'x' . $w);
 		$transform = array_merge($transform, empty($transform) ? array('-size', $size, '-geometry', $size) : array('-geometry', $size));
 	}
+
 }

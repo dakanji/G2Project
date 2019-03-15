@@ -57,6 +57,7 @@ class MultisiteStep extends InstallStep {
 
 				$this->setComplete(true);
 				$this->readConfigFile();
+
 				// Remember the value also for the storage and database setup steps
 				$galleryStub->setConfig('isMultisite', false);
 
@@ -90,7 +91,8 @@ class MultisiteStep extends InstallStep {
 			) {
 				$this->_baseUri .= '/' . GALLERY_MAIN_PHP;
 			}
-		}
+
+}
 
 		return true;
 	}
@@ -135,7 +137,8 @@ class MultisiteStep extends InstallStep {
 				$this->readConfigFile();
 				$galleryStub->setConfig('isMultisite', true);
 			}
-		} else {
+
+} else {
 			$_SESSION['baseUri'] = getGalleryDirUrl() . GALLERY_MAIN_PHP;
 		}
 
@@ -160,7 +163,8 @@ class MultisiteStep extends InstallStep {
 		} else {
 			$templateData['bodyFile'] = 'Multisite.html';
 		}
-	}
+
+}
 
 	public function populateMultisiteDirectory($dir) {
 		umask(0022);
@@ -262,4 +266,5 @@ class MultisiteStep extends InstallStep {
 		// Replace galleryStub
 		$galleryStub = $gallery;
 	}
+
 }

@@ -32,12 +32,20 @@
  *
  *  $this->_platform = new UnitTestPlatform();
  *
+ *
+ *
  *  $gallery->setPlatform($this->_platform);
+ *
+ *
  *
  * In tearDown() call:
  *
  *
+ *
+ *
  *  $this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
+ *
+ *
  *
  * The check in tearDown() verifies that all expected calls were received.
  *
@@ -286,4 +294,5 @@ class UnitTestPlatform extends MockObject {
 	public function glob($pattern, $flags = null) {
 		return $this->_makeReply('glob', array($pattern, $flags));
 	}
+
 }

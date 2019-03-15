@@ -104,7 +104,8 @@ class ItemAdminView extends GalleryView {
 
 				$subViewChoiceData = array_merge($subViewChoiceData, $moduleViews);
 			}
-		}
+
+}
 
 		usort($subViewChoiceData, array($this, 'sortByName'));
 		$subViewName = GalleryUtilities::getRequestVariables('subView');
@@ -129,7 +130,8 @@ class ItemAdminView extends GalleryView {
 				if ($subViewName == $params['subView']) {
 					$params['active'] = true;
 				}
-			}
+
+}
 
 			// Set the item id if necessary
 			if (!isset($params['itemId'])) {
@@ -255,4 +257,5 @@ class ItemAdminView extends GalleryView {
 	public function getViewType() {
 		return VIEW_TYPE_ADMIN;
 	}
+
 }

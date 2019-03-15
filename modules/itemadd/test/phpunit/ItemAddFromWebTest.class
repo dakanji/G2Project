@@ -119,7 +119,8 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testIsAppropriate() {
 		$ret = $this->_markPluginParametersForCleanup('module', 'itemadd');
@@ -232,9 +233,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		$results = $this->handleRequest($this->_album);
 
 		$this->assertEquals(array(), $results[0], 'errors');
-
 		$this->assertEquals(5, sizeof($results[1]['addedFiles']), 'number of added files');
-
 		$this->assertEquals(
 			'http://www.test.com/test1.gif',
 			$results[1]['addedFiles'][0]['fileName'],
@@ -247,6 +246,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			'filename 2'
 		);
 		$this->assertTrue(isset($results[1]['addedFiles'][1]['id']), 'id 2');
+
 		$this->assertEquals(
 			'http://www.test.com/test3.jpg?foo=bar',
 			$results[1]['addedFiles'][2]['fileName'],
@@ -254,6 +254,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		);
 
 		$this->assertTrue(isset($results[1]['addedFiles'][2]['id']), 'id 3');
+
 		$this->assertEquals(
 			'http://www.test.com/main.php?g2_itemId=123',
 			$results[1]['addedFiles'][3]['fileName'],
@@ -291,7 +292,8 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 
 			$i++;
 		}
-	}
+
+}
 
 	public function testAddMaliciousFilename() {
 		global $gallery;
@@ -338,8 +340,11 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		}
 
 		$this->assertEquals('evil&lt;script&gt;', $item->getTitle(), 'title');
+
 		$this->assertEquals('evil&lt;script&gt;', $item->getSummary(), 'summary');
+
 		$this->assertEquals('evil&lt;script&gt;', $item->getDescription(), 'description');
+
 		$this->assertEquals('evil_script_.jpg', $item->getPathComponent(), 'path component');
 	}
 
@@ -387,6 +392,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$template->_data,
 			'template'
 		);
+
 		$this->assertEquals(
 			array(
 				'http://www.test.com/t/index.php?foo=bar' => 1,
@@ -394,6 +400,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$this->_session->get('itemadd.view.ItemAddFromWeb.recentUrls'),
 			'session urls'
 		);
+
 		$this->assertEquals(
 			array(
 				'formName'    => 'ItemAddFromWeb',
@@ -487,6 +494,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$template->_data,
 			'template'
 		);
+
 		$this->assertEquals(
 			array(
 				'http://www.test.com/page.php' => 1,
@@ -495,6 +503,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$this->_session->get('itemadd.view.ItemAddFromWeb.recentUrls'),
 			'session urls'
 		);
+
 		$this->assertEquals(
 			array(
 				'formName'    => 'ItemAddFromWeb',
@@ -546,6 +555,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			),
 			$template->_data
 		);
+
 		$this->assertEquals(
 			array(
 				'formName'    => 'ItemAddFromWeb',
@@ -596,6 +606,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			),
 			$template->_data
 		);
+
 		$this->assertEquals(
 			array(
 				'formName'    => 'ItemAddFromWeb',
@@ -655,6 +666,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$template->_data,
 			'template'
 		);
+
 		$this->assertEquals(
 			array(
 				'http://blah.com/other.html'                  => 1,
@@ -663,6 +675,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$this->_session->get('itemadd.view.ItemAddFromWeb.recentUrls'),
 			'session urls'
 		);
+
 		$this->assertEquals(
 			array(
 				'formName'    => 'ItemAddFromWeb',
@@ -825,6 +838,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$template->_data,
 			'template'
 		);
+
 		$this->assertEquals(
 			array(
 				'http://www.test.com/t/index.php?base=abs' => 1,
@@ -832,6 +846,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$this->_session->get('itemadd.view.ItemAddFromWeb.recentUrls'),
 			'session urls'
 		);
+
 		$this->assertEquals(
 			array(
 				'formName'    => 'ItemAddFromWeb',
@@ -867,6 +882,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			'form data'
 		);
 	}
+
 }
 
 /**
@@ -1078,7 +1094,8 @@ class ItemAddFromWebTestPlatform {
 				default:
 					print "Unexpected write: $string";
 			}
-		}
+
+}
 
 		if ($handle == '/test/add') {
 			if (!isset($this->_testCase->_outputFile[$handle])) {
@@ -1116,7 +1133,8 @@ class ItemAddFromWebTestPlatform {
 
 				return 'UNEXPECTED';
 		}
-	}
+
+}
 
 	public function copy($fromFile, $toFile) {
 		if ($fromFile == '/test/add') {
@@ -1129,7 +1147,8 @@ class ItemAddFromWebTestPlatform {
 				case 'apo_strophe.jpg':
 					return true;
 			}
-		}
+
+}
 
 		echo "unexpected copy($fromFile, $toFile)";
 
@@ -1207,7 +1226,8 @@ class ItemAddFromWebTestPlatform {
 			default:
 				return false;
 		}
-	}
+
+}
 
 	public function fgets($handle, $length) {
 		if (empty($this->_readBuffer[$handle])) {
@@ -1292,4 +1312,5 @@ class ItemAddFromWebTestPlatform {
 		// In case add of jpeg tries to get 'colorspace' property
 		return array(true, array(''), array());
 	}
+
 }

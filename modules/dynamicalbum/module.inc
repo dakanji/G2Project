@@ -37,7 +37,9 @@ class DynamicAlbumModule extends GalleryModule {
 				'Dynamic albums for newest, most viewed or random items'
 			)
 		);
-		$this->setVersion('2.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -94,7 +96,8 @@ class DynamicAlbumModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		if (!isset($params['themeSettingsId'])) {
@@ -133,7 +136,8 @@ class DynamicAlbumModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -157,8 +161,7 @@ class DynamicAlbumModule extends GalleryModule {
 	 * @see GalleryModule::getItemLinks
 	 */
 	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {
-		$links = array();
-
+		$links              = array();
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'dynamicalbum');
 
 		if ($ret) {
@@ -204,7 +207,8 @@ class DynamicAlbumModule extends GalleryModule {
 						),
 					);
 				}
-			}
+
+}
 		}
 
 		return array(null, $links);
@@ -241,4 +245,5 @@ class DynamicAlbumModule extends GalleryModule {
 			),
 		);
 	}
+
 }

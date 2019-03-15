@@ -44,7 +44,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$testUrls   = array();
 		$testUrls[] = array(
@@ -178,7 +179,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	// Prepare a test album / item / derivative which is needed for real short URLs
 	public function _prepareTestItems() {
@@ -328,19 +330,16 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		}
 
 		$this->assertFalse($urlGenerator->_error);
-
 		$this->assertEquals(
 			'http://example.com/gallery2/',
 			$urlGenerator->_getBaseUrl(),
 			'baseUrl default'
 		);
-
 		$this->assertEquals(
 			'http://example.com/gallery2/',
 			$urlGenerator->_getBaseUrl(true),
 			'baseUrl forceDirect'
 		);
-
 		$this->assertEquals(
 			'http://example.com/gallery2/',
 			$urlGenerator->_getBaseUrl(false),
@@ -368,25 +367,21 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		}
 
 		$this->assertFalse($urlGenerator->_error);
-
 		$this->assertEquals(
 			'http://example.com/cms/',
 			$urlGenerator->_getBaseUrl(),
 			'baseUrl default'
 		);
-
 		$this->assertEquals(
 			'https://direct/gallery2/',
 			$urlGenerator->_getBaseUrl(true),
 			'baseUrl forceDirect'
 		);
-
 		$this->assertEquals(
 			'http://example.com/cms/',
 			$urlGenerator->_getBaseUrl(false),
 			'baseUrl no forceDirect'
 		);
-
 		$this->assertFalse($urlGenerator->_error);
 		$this->assertEquals('', $urlGenerator->_getBaseParamString(), 'baseParamss default');
 		$this->assertEquals('', $urlGenerator->_getBaseParamString(true), 'baseParams forceDirect');
@@ -497,7 +492,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			if (isset($env[$var])) {
 				$_SERVER[$var] = $env[$var];
 			}
-		}
+
+}
 
 		// Let the URL generator know of the new cookie.path value
 		$baseUri             = isset($env['baseUri']) ? $env['baseUri'] : null;
@@ -551,7 +547,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 				unset($this->_expectedUrl);
 			}
-		}
+
+}
 
 		foreach ($expectedUrl as $key => $expectedUrl) {
 			// Give the URL generator implementation a chance to override the expected result
@@ -722,7 +719,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlNonShortUrl() {
 		// A normal long URL
@@ -737,7 +735,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/*
 	 * Try to cover the following cases:
@@ -802,7 +801,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlForceFullUrl() {
 		global $gallery;
@@ -855,7 +855,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlForceSessionId() {
 		global $gallery;
@@ -908,7 +909,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlNoHtmlEntities() {
 		$params  = $this->_getTestUrlParams();
@@ -948,7 +950,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlNoUrlEncode() {
 		$params  = $this->_getTestUrlParams();
@@ -989,7 +992,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlEmbeddedCookieless() {
 		$env = array(
@@ -1047,7 +1051,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlEmbedded() {
 		$env = array(
@@ -1094,7 +1099,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlMultisite() {
 		$env = array(
@@ -1135,7 +1141,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlEmbeddedMultisite() {
 		$env = array(
@@ -1182,7 +1189,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlEmbeddedCookiePathNotSet() {
 		global $gallery;
@@ -1234,7 +1242,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlEmbeddedForceFullUrl() {
 		$env = array(
@@ -1286,7 +1295,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlEmbeddedForceSessionIdToFalse() {
 		// Verify that all URLs are free of session ids when forceSessionId is set to false
@@ -1339,7 +1349,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlOverrideBaseUri() {
 		$env = array(
@@ -1383,7 +1394,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlRewriteErrorFallback() {
 		$params = $this->_getTestUrlParams();
@@ -1435,7 +1447,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlUseAuthTokenTrue() {
 		$params  = $this->_getTestUrlParams();
@@ -1498,7 +1511,8 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGenerateUrlUseAuthTokenFalse() {
 		$params  = $this->_getTestUrlParams();
@@ -1540,5 +1554,6 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 }

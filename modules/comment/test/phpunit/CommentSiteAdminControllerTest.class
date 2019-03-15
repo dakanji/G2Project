@@ -55,7 +55,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 	}
 
 	public function testCommentSiteAdminControllerReset() {
@@ -113,7 +114,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 
 			$this->assertEquals($expectedValue, $value, $key);
 		}
-	}
+
+}
 
 	public function testCommentSiteAdminControllerSaveNoShow() {
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
@@ -184,7 +186,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 
 			$this->assertEquals($expectedValue, $value, $key);
 		}
-	}
+
+}
 
 	public function testMalformedAkismetApiKeyCausesError() {
 		GalleryUtilities::putRequestVariable('form[latest]', 1);
@@ -218,7 +221,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 
 			$this->assertEquals($expectedValue, $value, $key);
 		}
-	}
+
+}
 
 	public function testCommentSiteAdminControllerSaveAksimetKeyValidatedLocallyToo() {
 		GalleryUtilities::putRequestVariable('form[show]', '12');
@@ -262,8 +266,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		$mockTemplateAdapter       = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockTemplateAdapter;
-
-		list($ret, $rootId) = GalleryCoreApi::getDefaultAlbumId();
+		list($ret, $rootId)        = GalleryCoreApi::getDefaultAlbumId();
 
 		if ($ret) {
 			return $ret;
@@ -314,7 +317,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$ret = $this->_controller->checkAllWithAkismet(
 			new CommentSiteAdminControllerTest_FakeAkismetApi()
@@ -344,7 +348,8 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 
 			$this->assertEquals(COMMENT_PUBLISH_STATUS_SPAM, $comment[$i]->getPublishStatus());
 		}
-	}
+
+}
 
 	/**
 	 * This should probably get moved into GalleryTestCase
@@ -358,6 +363,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		return $session->getStatus($matches[1]);
 	}
+
 }
 
 class CommentSiteAdminControllerTest_FakeAkismetApi {
@@ -372,4 +378,5 @@ class CommentSiteAdminControllerTest_FakeAkismetApi {
 	public function checkComment(&$comment) {
 		return array(null, true);
 	}
+
 }

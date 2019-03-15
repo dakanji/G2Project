@@ -93,7 +93,8 @@ class ItemMoveSingleController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-				} elseif (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
+
+} elseif (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 					$ret = GalleryCoreApi::assertHasItemPermission(
 						$newParentId,
 						'core.addAlbumItem'
@@ -102,14 +103,16 @@ class ItemMoveSingleController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-				} else {
+
+} else {
 					// The view should never let this happen
 					return array(
 						GalleryCoreApi::error(ERROR_BAD_DATA_TYPE),
 						null,
 					);
 				}
-			}
+
+}
 
 			// Make sure the destination is the right type of item
 			if (empty($error)) {
@@ -118,7 +121,8 @@ class ItemMoveSingleController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			// Make sure we don't have recursive moves
 			if (empty($error)) {
@@ -131,7 +135,8 @@ class ItemMoveSingleController extends GalleryController {
 				if ($itemId == $newParentId || in_array($itemId, $newParentAncestorIds)) {
 					$error[] = 'form[error][destination][selfMove]';
 				}
-			}
+
+}
 
 			if (empty($error)) {
 				/*
@@ -144,8 +149,7 @@ class ItemMoveSingleController extends GalleryController {
 					return array($ret, null);
 				}
 
-				$oldParentId = $item->getParentId();
-
+				$oldParentId           = $item->getParentId();
 				list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLockParents($oldParentId);
 
 				if ($ret) {
@@ -206,7 +210,8 @@ class ItemMoveSingleController extends GalleryController {
 
 						return array($ret, null);
 					}
-				}
+
+}
 
 				// Release all locks
 				$ret = GalleryCoreApi::releaseLocks($lockIds);
@@ -229,7 +234,8 @@ class ItemMoveSingleController extends GalleryController {
 				$redirect['subView'] = 'core.ItemMoveSingle';
 				$redirect['itemId']  = $itemId;
 			}
-		}
+
+}
 
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
@@ -243,6 +249,7 @@ class ItemMoveSingleController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -315,7 +322,6 @@ class ItemMoveSingleView extends GalleryView {
 		$ItemMoveSingle['itemTypeNames'] = $item->itemTypeName();
 
 		$template->setVariable('ItemMoveSingle', $ItemMoveSingle);
-
 		$template->setVariable('controller', 'core.ItemMoveSingle');
 		$template->javascript('lib/yui/yahoo-dom-event.js');
 		$template->javascript('lib/yui/container-min.js');
@@ -358,4 +364,5 @@ class ItemMoveSingleView extends GalleryView {
 			),
 		);
 	}
+
 }

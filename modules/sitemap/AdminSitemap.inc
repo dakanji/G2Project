@@ -57,4 +57,5 @@ class AdminSitemapView extends GalleryView {
 			),
 		);
 	}
+
 }

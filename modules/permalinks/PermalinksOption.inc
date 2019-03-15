@@ -32,8 +32,7 @@ class PermalinksOption extends ItemEditOption {
 	 * @see ItemEditOption::handleRequestAfterEdit
 	 */
 	public function handleRequestAfterEdit($form, &$item, &$preferred) {
-		$warning = $error = array();
-
+		$warning            = $error            = array();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'permalinks');
 
 		if ($ret) {
@@ -114,4 +113,5 @@ class PermalinksOption extends ItemEditOption {
 			GalleryUtilities::isA($item, 'GalleryItem') && $item->getId() != $rootId,
 		);
 	}
+
 }

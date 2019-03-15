@@ -77,6 +77,7 @@ function smarty_core_run_insert_handler($params, &$smarty) {
 	} else {
 		return $_content;
 	}
+
 }
 
 // vim: set expandtab:

@@ -92,6 +92,7 @@ class ConvertDatabaseToUtf8Task extends MaintenanceTask {
 
 		return array(null, true, $details);
 	}
+
 }
 
 /**
@@ -114,4 +115,5 @@ class MockStatusMonitor {
 	}
 
 	public function renderStatusMessage() {}
+
 }

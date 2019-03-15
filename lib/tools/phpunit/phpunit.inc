@@ -34,9 +34,11 @@ if (version_compare(phpversion(), '5.3', '>=')) {
  *    function run(&$aTestResult);
  *    function countTestCases();
  * }
- */
+
+*/
 function trace($msg) {
 	return;
+
 	echo $msg;
 	flush();
 }
@@ -57,7 +59,8 @@ function PHPUnit_error_handler($errno, $errstr, $errfile, $errline) {
 			if (strpos($errstr, 'unlink(' . $templateDir) !== false) {
 				return;
 			}
-		}
+
+}
 	}
 
 	$message = '<B>PHP ERROR:</B> ' . $errstr;
@@ -104,6 +107,7 @@ class PHPUnitException {
 	public function getType() {
 		return $this->type;
 	}
+
 }
 
 /**
@@ -135,7 +139,8 @@ class Assert {
 		if (!$boolean) {
 			$this->fail($message);
 		}
-	}
+
+}
 
 	/**
 	 * Asserts that a haystack contains a needle.
@@ -154,7 +159,8 @@ class Assert {
 		} else {
 			$this->fail('Unsupported parameter passed to assertContains().');
 		}
-	}
+
+}
 
 	/**
 	 * Asserts that a haystack does not contain a needle.
@@ -173,7 +179,8 @@ class Assert {
 		} else {
 			$this->fail('Unsupported parameter passed to assertNotContains().');
 		}
-	}
+
+}
 
 	/**
 	 * Asserts that two variables are equal.
@@ -218,9 +225,11 @@ class Assert {
 			 */
 			if ($serializedActual !== $serializedExpected) {
 				return $this->failNotEquals($expected, $actual, $message);
+
 				//return $this->fail($message);
 			}
-		} elseif (is_numeric($actual) && is_numeric($expected)) {
+
+} elseif (is_numeric($actual) && is_numeric($expected)) {
 			$message = sprintf(
 				'%sexpected %s%s, <br>ACTUAL: %s',
 				!empty($message) ? $message . ' <br>' : '<br>',
@@ -232,7 +241,8 @@ class Assert {
 			if (!($actual >= ($expected - $delta) && $actual <= ($expected + $delta))) {
 				return $this->fail($message);
 			}
-		} else {
+
+} else {
 			$message = sprintf(
 				'%sEXPECTED: %s <br>ACTUAL: %s',
 				!empty($message) ? $message . ' <br>' : '<br>',
@@ -243,7 +253,8 @@ class Assert {
 			if ($actual !== $expected) {
 				return $this->fail($message);
 			}
-		}
+
+}
 	}
 
 	/**
@@ -284,9 +295,11 @@ class Assert {
 			 */
 			if ($serializedActual == $serializedExpected) {
 				return $this->failNotEquals($expected, $actual, $message);
+
 				//return $this->fail($message);
 			}
-		} elseif (is_numeric($actual) && is_numeric($expected)) {
+
+} elseif (is_numeric($actual) && is_numeric($expected)) {
 			$message = sprintf(
 				'%sexpected %s %s <br>ACTUAL: %s',
 				!empty($message) ? $message . ' <br>' : '<br>',
@@ -298,7 +311,8 @@ class Assert {
 			if (($actual >= ($expected - $delta) && $actual <= ($expected + $delta))) {
 				return $this->fail($message);
 			}
-		} else {
+
+} else {
 			$message = sprintf(
 				'%sEXPECTED: %s <br>ACTUAL: %s',
 				!empty($message) ? $message . ' <br>' : '<br>',
@@ -309,7 +323,8 @@ class Assert {
 			if ($actual == $expected) {
 				return $this->fail($message);
 			}
-		}
+
+}
 	}
 
 	/**
@@ -328,7 +343,8 @@ class Assert {
 		if (null === $actual) {
 			return $this->fail($message);
 		}
-	}
+
+}
 
 	/**
 	 * Asserts that a variable is NULL.
@@ -346,7 +362,8 @@ class Assert {
 		if (null !== $actual) {
 			return $this->fail($message);
 		}
-	}
+
+}
 
 	/**
 	 * Asserts that a condition is true.
@@ -364,7 +381,8 @@ class Assert {
 		if (!$condition) {
 			return $this->fail($message);
 		}
-	}
+
+}
 
 	/**
 	 * Asserts that a condition is false.
@@ -382,7 +400,8 @@ class Assert {
 		if ($condition) {
 			return $this->fail($message);
 		}
-	}
+
+}
 
 	/**
 	 * Asserts that a string matches a given regular expression.
@@ -403,7 +422,8 @@ class Assert {
 		if (!preg_match($pattern, $string)) {
 			return $this->fail($message);
 		}
-	}
+
+}
 
 	/**
 	 * Asserts that a string does not match a given regular expression.
@@ -425,7 +445,8 @@ class Assert {
 		if (preg_match($pattern, $string)) {
 			return $this->fail($message);
 		}
-	}
+
+}
 
 	/**
 	 * Asserts that a variable is of a given type.
@@ -454,7 +475,8 @@ class Assert {
 			} else {
 				settype($value[$k], 'string');
 			}
-		}
+
+}
 
 		return $value;
 	}
@@ -467,7 +489,8 @@ class Assert {
 		if (is_bool($looselyTyped)) {
 			$this->_looselyTyped = $looselyTyped;
 		}
-	}
+
+}
 
 	/**
 	 * Recursively 'ksorts' an array.
@@ -484,7 +507,8 @@ class Assert {
 				$targetArray       = $sortedArray[$key];
 				$sortedArray[$key] = $this->recursive_ksort($targetArray);
 			}
-		}
+
+}
 
 		return $sortedArray;
 	}
@@ -513,7 +537,8 @@ class Assert {
 				'line ' . ($i + 1) . ' of multiline strings differ. ' . $message
 			);
 		}
-	}
+
+}
 
 	public function _formatValue($value, $class = '') {
 		if (is_object($value)) {
@@ -522,7 +547,8 @@ class Assert {
 			} else {
 				$translateValue = htmlspecialchars(serialize($value));
 			}
-		} elseif (is_array($value)) {
+
+} elseif (is_array($value)) {
 			$translateValue = '<pre>' . htmlspecialchars(var_export($value, 1)) . '</pre>';
 		} else {
 			$translateValue = htmlspecialchars($value);
@@ -557,6 +583,7 @@ class Assert {
 
 		return $this->fail($str);
 	}
+
 }
 
 class Assert_X {
@@ -564,7 +591,8 @@ class Assert_X {
 		if (!$boolean) {
 			$this->fail($message);
 		}
-	}
+
+}
 
 	/**
 	 * Asserts that a condition is true or false.
@@ -593,7 +621,8 @@ class Assert_X {
 		if ($ret != 'null') {
 			$this->fail($ret);
 		}
-	}
+
+}
 
 	/**
 	 * Helps assert that a condition is true.
@@ -644,7 +673,8 @@ class Assert_X {
 				$targetArray       = $sortedArray[$key];
 				$sortedArray[$key] = $this->recursive_ksort($targetArray);
 			}
-		}
+
+}
 
 		return $sortedArray;
 	}
@@ -673,9 +703,11 @@ class Assert_X {
 					$this->failNotEquals($expected, $actual, 'expected', $message);
 				}
 
-				return;     // no further tests after equals()
+				// no further tests after equals()
+				return;
 			}
-		}
+
+}
 
 		if ((null === $expected) != (null === $actual)) {
 			$this->failNotEquals($expected, $actual, 'expected', $message);
@@ -696,7 +728,8 @@ class Assert_X {
 		if (!preg_match($regexp, $actual)) {
 			$this->failNotEquals($regexp, $actual, 'pattern', $message);
 		}
-	}
+
+}
 
 	public function assertEqualsMultilineStrings(
 		$string0,
@@ -722,7 +755,8 @@ class Assert_X {
 				'line ' . ($i + 1) . ' of multiline strings differ. ' . $message
 			);
 		}
-	}
+
+}
 
 	public function _formatValue($value, $class = '') {
 		if (is_object($value)) {
@@ -731,7 +765,8 @@ class Assert_X {
 			} else {
 				$translateValue = htmlspecialchars(serialize($value));
 			}
-		} elseif (is_array($value)) {
+
+} elseif (is_array($value)) {
 			$translateValue = '<pre>' . htmlspecialchars(var_export($value, 1)) . '</pre>';
 		} else {
 			$translateValue = htmlspecialchars($value);
@@ -765,6 +800,7 @@ class Assert_X {
 		);
 		$this->fail($str);
 	}
+
 }
 
 // implements Test
@@ -851,10 +887,12 @@ class TestCase extends Assert {
 					if (!empty(trim($ret))) {
 						$this->fail('failed: ' . $ret . '<br>' . $gallery->getDebugBuffer());
 					}
-				} else {
+
+} else {
 					$this->fail($ret->getAsHtml() . $gallery->getDebugBuffer());
 				}
-			}
+
+}
 		}
 
 		// Remove PHPUnit_error_handler AND any handlers added by test
@@ -872,11 +910,13 @@ class TestCase extends Assert {
 			if ($old_handler == 'PHPUnit_error_handler' || empty($old_handler)) {
 				break;
 			}
-		}
+
+}
 
 		// Original code:
 		//if (isset($old_handler)) {
-		//    set_error_handler($old_handler); // revert to prior error handler
+		// revert to prior error handler
+		//    set_error_handler($old_handler);
 		//} else {
 		//    restore_error_handler();
 		//}
@@ -918,7 +958,8 @@ class TestCase extends Assert {
 		itself, or (heaven forbid) in this testing infrastructure */
 		$this->fExceptions[] = new PHPUnitException($message, 'ERROR');
 
-		$this->fResult->stop(); // [does not work]
+		// [does not work]
+		$this->fResult->stop();
 	}
 
 	public function failed() {
@@ -928,7 +969,8 @@ class TestCase extends Assert {
 			if ($exception->type == 'FAILURE') {
 				return true;
 			}
-		}
+
+}
 
 		return false;
 	}
@@ -940,7 +982,8 @@ class TestCase extends Assert {
 			if ($exception->type == 'ERROR') {
 				return true;
 			}
-		}
+
+}
 
 		return false;
 	}
@@ -1002,6 +1045,7 @@ class TestCase extends Assert {
 
 		$this->fTiming['stop'] = microtime();
 	}
+
 }
 
 // implements Test
@@ -1043,18 +1087,22 @@ class TestSuite {
 							$test->setModuleId($this->fModuleId);
 							$this->addTest($test);
 						}
-					} else {
+
+} else {
 						if (!isset($this->fFilter)
 							|| preg_match("/{$this->fFilter}/i", "$moduleid.$classname.$method")
 						) {
 							$test->setModuleId($this->fModuleId);
 							$this->addTest($test);
 						}
-					}
+
+}
 				}
-			}
+
+}
 		}
-	}
+
+}
 
 	public function addTest($test) {
 		// Add TestCase or TestSuite to this TestSuite
@@ -1073,7 +1121,8 @@ class TestSuite {
 
 			$test->run($testResult, $ranges);
 		}
-	}
+
+}
 
 	public function countTestCases() {
 		/* Number of TestCases comprising this TestSuite (including those
@@ -1088,6 +1137,7 @@ class TestSuite {
 
 		return $count;
 	}
+
 }
 
 class TestFailure {
@@ -1119,6 +1169,7 @@ class TestFailure {
 	public function getClassName() {
 		return $this->fFailedClassName;
 	}
+
 }
 
 class TestResult {
@@ -1135,7 +1186,8 @@ class TestResult {
 		// protected
 		/* specialize this for end-of-test action, such as progress
 		reports  */
-	}
+
+}
 
 	public function addError($test, $exception) {
 		$this->fErrors[] = new TestFailure($test, $exception);
@@ -1158,7 +1210,8 @@ class TestResult {
 			if ($count >= $tempRange[0] && $count <= $tempRange[1]) {
 				$skipFlag = false;
 			}
-		}
+
+}
 
 		if ($skipFlag) {
 			$test->skip();
@@ -1181,7 +1234,8 @@ class TestResult {
 			} elseif ($exception->type == 'FAILURE') {
 				$this->addFailure($test, $exception);
 			}
-		}
+
+}
 
 		//    if ($exceptions)
 		//      $this->fFailures[] = new TestFailure(&$test, &$exceptions);
@@ -1218,12 +1272,14 @@ class TestResult {
 		// deprecated
 		return $this->failureCount();
 	}
+
 }
 
 class TextTestResult extends TestResult {
 	// Specialize TestResult to produce text/html report
 	public function __construct() {
-		parent::__construct();  // call superclass constructor
+		// call superclass constructor
+		parent::__construct();
 	}
 
 	public function report() {
@@ -1269,12 +1325,14 @@ class TextTestResult extends TestResult {
 				echo "\n<ul>";
 
 				printf("<li>%s</li>\n", $exception->getMessage());
+
 				echo '</ul>';
 			}
 
 			echo "</ol>\n";
 		}
-	}
+
+}
 
 	public function _startTest($test) {
 		if (phpversion() > '4') {
@@ -1291,6 +1349,7 @@ class TextTestResult extends TestResult {
 		printf("$outcome<br>\n");
 		flush();
 	}
+
 }
 
 // PrettyTestResult created by BJG 17/11/01
@@ -1300,7 +1359,8 @@ class PrettyTestResult extends TestResult {
 
 	// Specialize TestResult to produce text/html report
 	public function __construct() {
-		parent::__construct();  // call superclass constructor
+		// call superclass constructor
+		parent::__construct();
 		echo '<h2>Test Results</h2>';
 		echo '<TABLE CELLSPACING="1" CELLPADDING="1" BORDER="0" WIDTH="90%" ALIGN="CENTER" class="details">';
 		echo '<TR><TH>#</TH><TH>Module</TH><TH>Class</TH><TH>Function</TH><TH>Success?</TH><TH>Time</TH></TR>';
@@ -1381,6 +1441,7 @@ class PrettyTestResult extends TestResult {
 		printf("<TD$outcome</TD><TD>$elapsed</TD></TR>");
 		flush();
 	}
+
 }
 
 class TestRunner {
@@ -1391,4 +1452,5 @@ class TestRunner {
 		$suite->run($result, $ranges);
 		$result->report();
 	}
+
 }

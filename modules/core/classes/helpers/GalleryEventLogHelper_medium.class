@@ -98,8 +98,10 @@ class GalleryEventLogHelper_medium {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
+
 }

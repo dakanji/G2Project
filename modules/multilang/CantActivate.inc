@@ -45,6 +45,7 @@ class CantActivateController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -74,4 +75,5 @@ class CantActivateView extends GalleryView {
 			),
 		);
 	}
+
 }

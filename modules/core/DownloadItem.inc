@@ -131,7 +131,8 @@ class DownloadItemView extends GalleryView {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$ret = $this->_sendFile(
 			array(
@@ -168,12 +169,12 @@ class DownloadItemView extends GalleryView {
 		$requestMethod = strtolower(GalleryUtilities::getServerVar('REQUEST_METHOD'));
 
 		$phpVm->header('Content-type: ' . $data['mimeType']);
-
 		$phpVm->header('Content-Disposition: inline; filename="' . $data['pseudoFileName'] . '"');
 		$stats = $platform->stat($data['derivativePath']);
 
 		$phpVm->header('Last-Modified: ' . GalleryUtilities::getHttpDate($stats[9]));
 		$phpVm->header('Expires: ' . GalleryUtilities::getHttpDate(2147483647));
+
 		/**
 		 * If the file is publicly visible we could set this cache control to public (as we
 		 * do for fast download) but that would require us to do some extra calculations here that
@@ -213,7 +214,8 @@ class DownloadItemView extends GalleryView {
 
 				$platform->fclose($fd);
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -254,7 +256,8 @@ class DownloadItemView extends GalleryView {
 
 				// DERIVATIVE_TYPE_IMAGE_PREFERRED uses core.viewSource
 			}
-		}
+
+}
 
 		$ret = GalleryCoreApi::assertHasItemPermission($itemIdForPermission, $permission);
 
@@ -267,18 +270,21 @@ class DownloadItemView extends GalleryView {
 					if ($ret2) {
 						return $ret2;
 					}
-				}
+
+}
 
 				if ($permission == 'core.view' || empty($hasPermission)) {
 					$ret->addErrorCode(ERROR_MISSING_OBJECT);
 
 					return $ret;
 				}
-			}
+
+}
 
 			return $ret;
 		}
 
 		return null;
 	}
+
 }

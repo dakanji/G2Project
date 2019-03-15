@@ -205,4 +205,5 @@ class SQLiteStorage extends GalleryStorage {
 	public function _getOptimizeStatements() {
 		return array('VACUUM `%s`;', 'ANALYZE `%s`;');
 	}
+
 }

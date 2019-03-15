@@ -58,7 +58,8 @@ class GalleryFileSystemEntityHelper_simple {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		return array(null, $currentId);
 	}
@@ -91,10 +92,9 @@ class GalleryFileSystemEntityHelper_simple {
 	  [GalleryFileSystemEntity::pathComponent] = ?
 	';
 
-		$data   = array();
-		$data[] = (int)$parentId;
-		$data[] = $pathComponent;
-
+		$data                      = array();
+		$data[]                    = (int)$parentId;
+		$data[]                    = $pathComponent;
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
@@ -123,4 +123,5 @@ class GalleryFileSystemEntityHelper_simple {
 
 		return array(null, $targetId);
 	}
+
 }

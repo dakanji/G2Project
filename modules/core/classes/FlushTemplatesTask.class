@@ -65,10 +65,9 @@ class FlushTemplatesTask extends MaintenanceTask {
 	public function run() {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-		$dir      = $gallery->getConfig('data.smarty.templates_c');
-		$success  = true;
-
+		$platform           =& $gallery->getPlatform();
+		$dir                = $gallery->getConfig('data.smarty.templates_c');
+		$success            = true;
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -101,4 +100,5 @@ class FlushTemplatesTask extends MaintenanceTask {
 
 		return array(null, $success, $details);
 	}
+
 }

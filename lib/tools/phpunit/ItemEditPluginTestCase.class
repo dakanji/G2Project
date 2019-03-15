@@ -50,12 +50,12 @@ class ItemEditPluginTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function handleRequest(&$item, &$preferred, $errorCode = null) {
 		// Get our form variables
-		$form = GalleryUtilities::getFormVariables('form');
-
+		$form                                          = GalleryUtilities::getFormVariables('form');
 		list($ret, $error, $status, $needsProgressBar) = $this->_plugin->handleRequest(
 			$form,
 			$item,
@@ -102,4 +102,5 @@ class ItemEditPluginTestCase extends GalleryTestCase {
 	public function _translate($message) {
 		return $this->_module->translate($message);
 	}
+
 }

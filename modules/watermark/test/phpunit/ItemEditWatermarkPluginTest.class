@@ -100,7 +100,8 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($this->_item, $this->_preferred, $this->_resize, $this->_thumbnail) = array(
 			$this->_items[0],
@@ -160,7 +161,8 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 			if ($ret) {
 				return array($ret, null, null, null, null);
 			}
-		}
+
+}
 
 		if ($useThumbnail) {
 			list($ret, $thumbnail) = $this->_createDerivative(
@@ -175,7 +177,8 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 			if ($ret) {
 				return array($ret, null, null, null, null);
 			}
-		}
+
+}
 
 		return array(null, $item, $preferred, $resizes, $thumbnail);
 	}
@@ -186,7 +189,6 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[whichDerivative][resize]', 1);
 		GalleryUtilities::putRequestVariable('form[whichDerivative][preferred]', 1);
 		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
-
 		GalleryUtilities::putRequestVariable('form[xPercent]', 25);
 		GalleryUtilities::putRequestVariable('form[yPercent]', 50);
 
@@ -198,6 +200,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 			),
 			$results
 		);
+
 		// Verify the postfilters were applied successfully
 		foreach (array($this->_preferred, $this->_resize, $this->_thumbnail) as $derivative) {
 			list($ret, $derivative) = $derivative->refresh();
@@ -216,7 +219,8 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 				'Post filter mismatch'
 			);
 		}
-	}
+
+}
 
 	public function testWatermarkNothingSelected() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -239,6 +243,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 			array(array(), $this->_translate('Watermark removed successfully')),
 			$results
 		);
+
 		// And verify that they're all gone
 		foreach (array($this->_preferred, $this->_resize, $this->_thumbnail) as $derivative) {
 			list($ret, $derivative) = $derivative->refresh();
@@ -253,7 +258,8 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 				'Post filter mismatch'
 			);
 		}
-	}
+
+}
 
 	public function testWatermarkCreatePreferred() {
 		// Remap and get rid of the preferred to start
@@ -274,7 +280,6 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[whichDerivative][resize]', 1);
 		GalleryUtilities::putRequestVariable('form[whichDerivative][preferred]', 1);
 		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
-
 		GalleryUtilities::putRequestVariable('form[xPercent]', 25);
 		GalleryUtilities::putRequestVariable('form[yPercent]', 50);
 
@@ -308,6 +313,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 				$preferred->getPostFilterOperations(),
 				'Post filter mismatch'
 			);
+
 			// Verify that the thumbnail and resize point to the preferred now
 			foreach (array($this->_resize, $this->_thumbnail) as $derivative) {
 				list($ret, $derivative) = $derivative->refresh();
@@ -322,7 +328,8 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 					'Derivative not remapped to point to item'
 				);
 			}
-		}
+
+}
 	}
 
 	public function testRemoveWatermarkDeletePreferred() {
@@ -336,7 +343,6 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		$this->_preferred->setDerivativeOperations(null);
 		$this->_preferred->setPostFilterOperations(
 			'composite|plugins_data/modules/watermark/' . $this->_watermark->getFileName()
-
 			. ',image/gif,62,75,manual,25.000,50.000'
 		);
 
@@ -372,6 +378,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->assertTrue(empty($preferredTable), 'Preferred should be gone, but isn\'t');
+
 		// Verify that the thumbnail and resize point to the item now
 		foreach (array($this->_resize, $this->_thumbnail) as $derivative) {
 			list($ret, $derivative) = $derivative->refresh();
@@ -386,7 +393,8 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 				'Derivative not remapped to point to item'
 			);
 		}
-	}
+
+}
 
 	public function testBulkWatermark() {
 		$this->_registerTestToolkit('test/file');
@@ -396,7 +404,6 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[whichDerivative][resize]', 1);
 		GalleryUtilities::putRequestVariable('form[whichDerivative][preferred]', 1);
 		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
-
 		GalleryUtilities::putRequestVariable('form[xPercent]', 75);
 		GalleryUtilities::putRequestVariable('form[yPercent]', 25);
 
@@ -405,12 +412,12 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 
 	public function testBulkWatermarkRecursive() {
 		$this->_registerTestToolkit('test/file');
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[whichDerivative][resize]', 1);
 		GalleryUtilities::putRequestVariable('form[whichDerivative][preferred]', 1);
 		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
 		GalleryUtilities::putRequestVariable('form[xPercent]', 100);
-
 		GalleryUtilities::putRequestVariable('form[yPercent]', 0);
 		GalleryUtilities::putRequestVariable('form[recursive]', 1);
 
@@ -456,7 +463,8 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 				} elseif ($isApply && $getsWatermark) {
 					$this->assertTrue(false, 'Missing newly created preferred ' . $i);
 				}
-			}
+
+}
 
 			foreach (array_merge(
 				$this->_resizes[$i],
@@ -483,7 +491,8 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 					'Post filter mismatch ' . $i
 				);
 			}
-		}
+
+}
 	}
 
 	public function testBulkRemoveWatermark() {
@@ -640,7 +649,8 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 }
 
 class ItemEditWatermarkPluginTestToolkit {}

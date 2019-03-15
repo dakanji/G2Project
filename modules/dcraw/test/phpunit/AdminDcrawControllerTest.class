@@ -59,7 +59,8 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function _getParam($param) {
 		list($ret, $path) = GalleryCoreApi::getPluginParameter('module', 'dcraw', $param);
@@ -303,4 +304,5 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 	}
+
 }

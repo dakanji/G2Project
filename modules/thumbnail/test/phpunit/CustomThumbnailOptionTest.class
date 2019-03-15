@@ -325,7 +325,8 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(
 			array($this->_item->getId())
@@ -432,7 +433,8 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 				'operations should keep thumbnail,composite and drop others'
 			);
 		}
-	}
+
+}
 
 	public function testAlbumHighlight() {
 		// Add custom thumbnail to album (also test browser not sending mime type in form data)
@@ -659,10 +661,9 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 
 	public function testLongFilename() {
 		// Verify filename is truncated to fit in db column; don't want db/filesystem mismatch
-		$filename = '1234567891123456789212345678931234567894123456789512345678961234567897'
+		$filename                = '1234567891123456789212345678931234567894123456789512345678961234567897'
 		. '123456789812345678991234567890123456789112345678921234567893.jpg';
-		$testfile = GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.jpg');
-
+		$testfile                = GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.jpg');
 		list($ret, $thumbnailId) = ThumbnailHelper::addItem(
 			null,
 			$this->_item->getId(),
@@ -736,6 +737,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 
 		$this->assertTrue(isset($thumbnailImage), 'thumbnailImage');
 	}
+
 }
 
 /**

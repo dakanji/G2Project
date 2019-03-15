@@ -68,7 +68,8 @@ class SetupRewriteController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
-		} elseif (isset($form['action']['adminParser'])) {
+
+} elseif (isset($form['action']['adminParser'])) {
 			list($ret, $rewriteParser) = RewriteHelper::getRewriteParser();
 
 			if ($ret) {
@@ -80,7 +81,8 @@ class SetupRewriteController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
-		} elseif (isset($form['action']['save'], $form['parser'])) {
+
+} elseif (isset($form['action']['save'], $form['parser'])) {
 			if (!in_array($form['parser'], $this->_parserIds)) {
 				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 			}
@@ -121,7 +123,8 @@ class SetupRewriteController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		if (!empty($error)) {
 			unset($results['redirect']);
@@ -136,6 +139,7 @@ class SetupRewriteController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -199,7 +203,8 @@ class SetupRewriteView extends GalleryView {
 					if (is_numeric($errno)) {
 						list($ret, $errors[]) = $rewriteParser->getErrorMessage($errno);
 					}
-				}
+
+}
 			}
 
 			if (!empty($errors)) {
@@ -223,7 +228,8 @@ class SetupRewriteView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-		} else {
+
+} else {
 			$SetupRewrite['bootstrap'] = 1;
 			$SetupRewrite['server']    = 'UNKNOWN';
 			$serverTag                 = GalleryUtilities::getServerVar('SERVER_SOFTWARE');
@@ -233,7 +239,8 @@ class SetupRewriteView extends GalleryView {
 			} elseif (stristr($serverTag, 'iis') !== false) {
 				$SetupRewrite['server'] = 'IIS';
 			}
-		}
+
+}
 
 		if ($form['formName'] != 'SetupRewrite') {
 			$form['formName'] = 'SetupRewrite';
@@ -249,4 +256,5 @@ class SetupRewriteView extends GalleryView {
 			),
 		);
 	}
+
 }

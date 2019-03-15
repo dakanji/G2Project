@@ -102,6 +102,7 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 			// This is correct -- we expect it to be gone
 		} else {
 			$this->assertFalse(true, 'The group was deleted');
+
 			// Clean up
 			$this->_deleteGroup($group);
 		}
@@ -117,7 +118,8 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 			if (isset($perm['groupId']) && $perm['groupId'] == $groupId) {
 				$this->assertFalse(true, 'Album still has permission for deleted group');
 			}
-		}
+
+}
 	}
 
 	// Try to delete the all users group (this will fail)
@@ -203,5 +205,6 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 }

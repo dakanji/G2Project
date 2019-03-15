@@ -104,4 +104,5 @@ class ResetViewCountsTask extends FlushDatabaseCacheTask {
 
 		return array(null, $success, array_merge($details, $subDetails));
 	}
+
 }

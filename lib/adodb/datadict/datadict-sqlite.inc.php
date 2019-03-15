@@ -30,41 +30,72 @@ class ADODB2_sqlite extends ADODB_DataDict {
 	public function ActualType($meta) {
 		switch (strtoupper($meta)) {
 			case 'C':
-				return 'VARCHAR'; //  TEXT , TEXT affinity
+				//  TEXT , TEXT affinity
+				return 'VARCHAR';
+
 			case 'XL':
-				return 'LONGTEXT'; //  TEXT , TEXT affinity
+				//  TEXT , TEXT affinity
+				return 'LONGTEXT';
+
 			case 'X':
-				return 'TEXT'; //  TEXT , TEXT affinity
+				//  TEXT , TEXT affinity
+				return 'TEXT';
+
 			case 'C2':
-				return 'VARCHAR'; //  TEXT , TEXT affinity
+				//  TEXT , TEXT affinity
+				return 'VARCHAR';
+
 			case 'X2':
-				return 'LONGTEXT'; //  TEXT , TEXT affinity
+				//  TEXT , TEXT affinity
+				return 'LONGTEXT';
+
 			case 'B':
-				return 'LONGBLOB'; //  TEXT , NONE affinity , BLOB
+				//  TEXT , NONE affinity , BLOB
+				return 'LONGBLOB';
+
 			case 'D':
-				return 'DATE'; // NUMERIC , NUMERIC affinity
+				// NUMERIC , NUMERIC affinity
+				return 'DATE';
+
 			case 'T':
-				return 'DATETIME'; // NUMERIC , NUMERIC affinity
+				// NUMERIC , NUMERIC affinity
+				return 'DATETIME';
+
 			case 'L':
-				return 'TINYINT'; // NUMERIC , INTEGER affinity
+				// NUMERIC , INTEGER affinity
+				return 'TINYINT';
+
 			case 'R':
 			case 'I4':
 			case 'I':
-				return 'INTEGER'; // NUMERIC , INTEGER affinity
+				// NUMERIC , INTEGER affinity
+				return 'INTEGER';
+
 			case 'I1':
-				return 'TINYINT'; // NUMERIC , INTEGER affinity
+				// NUMERIC , INTEGER affinity
+				return 'TINYINT';
+
 			case 'I2':
-				return 'SMALLINT'; // NUMERIC , INTEGER affinity
+				// NUMERIC , INTEGER affinity
+				return 'SMALLINT';
+
 			case 'I8':
-				return 'BIGINT'; // NUMERIC , INTEGER affinity
+				// NUMERIC , INTEGER affinity
+				return 'BIGINT';
+
 			case 'F':
-				return 'DOUBLE'; // NUMERIC , REAL affinity
+				// NUMERIC , REAL affinity
+				return 'DOUBLE';
+
 			case 'N':
-				return 'NUMERIC'; // NUMERIC , NUMERIC affinity
+				// NUMERIC , NUMERIC affinity
+				return 'NUMERIC';
+
 			default:
 				return $meta;
 		}
-	}
+
+}
 
 	// return string must begin with space
 	public function _CreateSuffix($fname, $ftype, $fnotnull, $fdefault, $fautoinc, $fconstraint, $funsigned) {
@@ -116,4 +147,5 @@ class ADODB2_sqlite extends ADODB_DataDict {
 
 		return array();
 	}
+
 }

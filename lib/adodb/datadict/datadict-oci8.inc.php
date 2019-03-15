@@ -78,7 +78,8 @@ class ADODB2_oci8 extends ADODB_DataDict {
 			default:
 				return 'N';
 		}
-	}
+
+}
 
 	public function ActualType($meta) {
 		switch ($meta) {
@@ -135,7 +136,8 @@ class ADODB2_oci8 extends ADODB_DataDict {
 			default:
 				return $meta;
 		}
-	}
+
+}
 
 	public function CreateDatabase($dbname, $options = false) {
 		$options    = $this->_Options($options);
@@ -148,9 +150,8 @@ class ADODB2_oci8 extends ADODB_DataDict {
 	}
 
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname = $this->TableName($tabname);
-		$f       = array();
-
+		$tabname            = $this->TableName($tabname);
+		$f                  = array();
 		list($lines, $pkey) = $this->_GenFields($flds);
 
 		$s = "ALTER TABLE $tabname ADD (";
@@ -166,9 +167,8 @@ class ADODB2_oci8 extends ADODB_DataDict {
 	}
 
 	public function AlterColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
-		$tabname = $this->TableName($tabname);
-		$f       = array();
-
+		$tabname            = $this->TableName($tabname);
+		$f                  = array();
 		list($lines, $pkey) = $this->_GenFields($flds);
 
 		$s = "ALTER TABLE $tabname MODIFY(";
@@ -214,13 +214,15 @@ class ADODB2_oci8 extends ADODB_DataDict {
 	public function _CreateSuffix($fname, &$ftype, $fnotnull, $fdefault, $fautoinc, $fconstraint, $funsigned) {
 		$suffix = '';
 
-		if ($fdefault == "''" && $fnotnull) {// this is null in oracle
+		if ($fdefault == "''" && $fnotnull) {
+			// this is null in oracle
 			$fnotnull = false;
 
 			if ($this->debug) {
 				ADOConnection::outp("NOT NULL and DEFAULT='' illegal in Oracle");
 			}
-		}
+
+}
 
 		if (strlen($fdefault)) {
 			$suffix .= " DEFAULT $fdefault";
@@ -329,7 +331,8 @@ class ADODB2_oci8 extends ADODB_DataDict {
 			if (isset($idxoptions['DROP'])) {
 				return $sql;
 			}
-		}
+
+}
 
 		if (empty($flds)) {
 			return $sql;
@@ -374,4 +377,5 @@ class ADODB2_oci8 extends ADODB_DataDict {
 
 		return "COMMENT ON COLUMN $table.$col IS $cmt";
 	}
+
 }

@@ -53,7 +53,8 @@ class DatabaseExportTest extends GalleryTestCase {
 
 				return $ret;
 			}
-		}
+
+}
 
 		global $gallery;
 
@@ -84,7 +85,8 @@ class DatabaseExportTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function progressCallback($percentage) {}
 
@@ -184,7 +186,8 @@ class DatabaseExportTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testExportSequences() {
 		global $gallery;
@@ -209,7 +212,8 @@ class DatabaseExportTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testExportTableIgnoreData() {
 		global $gallery;
@@ -224,6 +228,7 @@ class DatabaseExportTest extends GalleryTestCase {
 			array('TestTable'),
 			array(null, null, 'TestTable')
 		);
+
 		$storage->setReply(
 			'search',
 			array(
@@ -291,6 +296,7 @@ class DatabaseExportTest extends GalleryTestCase {
 			array('TestTable2'),
 			array(null, null, 'TestTable2')
 		);
+
 		$storage->setReply(
 			'search',
 			array(
@@ -343,6 +349,7 @@ class DatabaseExportTest extends GalleryTestCase {
 			array('SELECT COUNT(*) FROM g2_TestTableMap', null, array()),
 			array(null, new UnitTestStorageSearchResults(array(array('2'))))
 		);
+
 		$storage->setReply(
 			'describeMap',
 			array('TestTableMap', null),
@@ -389,6 +396,7 @@ class DatabaseExportTest extends GalleryTestCase {
 		$storage->setReply('_translateColumnName', array('name'), 'g_name');
 		$storage->setReply('_translateColumnName', array('major'), 'g_major');
 		$storage->setReply('_translateColumnName', array('minor'), 'g_minor');
+
 		$storage->setReply(
 			'search',
 			array(
@@ -595,6 +603,7 @@ class DatabaseExportTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->setConfig('data.gallery.backup', '/path/');
+
 		$gallery->setConfig(
 			'storage.config',
 			array(
@@ -603,9 +612,7 @@ class DatabaseExportTest extends GalleryTestCase {
 		);
 
 		$gallery->_platform->setReply('file_exists', array('/path/'), true);
-
 		$gallery->_platform->setReply('is_dir', array('/path/'), true);
-
 		$gallery->_phpVm->setReply('rand', array(null, null), 'RAW-RND');
 		$gallery->_phpVm->setReply('md5', array('RAW-RND'), 'MD5MD5MD5MD5MD5');
 		$gallery->_phpVm->setReply('date', array('Y_m_d_Hi', null), 'DATE');
@@ -630,6 +637,7 @@ class DatabaseExportTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->setConfig('data.gallery.backup', '/path/');
+
 		$gallery->setConfig(
 			'storage.config',
 			array(
@@ -638,9 +646,7 @@ class DatabaseExportTest extends GalleryTestCase {
 		);
 
 		$gallery->_platform->setReply('file_exists', array('/path/'), true);
-
 		$gallery->_platform->setReply('is_dir', array('/path/'), true);
-
 		$gallery->_phpVm->setReply('rand', array(null, null), 'RAW-RND');
 		$gallery->_phpVm->setReply('md5', array('RAW-RND'), 'MD5MD5MD5MD5MD5');
 		$gallery->_phpVm->setReply('date', array('Y_m_d_Hi', null), 'DATE');
@@ -676,4 +682,5 @@ class DatabaseExportTest extends GalleryTestCase {
 		$this->assertEquals('TEST-HANDLE', $handle);
 		$this->assertEquals('/path/FILE', $fileName);
 	}
+
 }

@@ -68,7 +68,8 @@ class CartHelper {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		foreach ($ids as $id) {
 			list($ret, $canAdd) = GalleryCoreApi::hasItemPermission($id, 'cart.add');
@@ -83,7 +84,8 @@ class CartHelper {
 				} else {
 					$cartItemIds[$id] = 1;
 				}
-			}
+
+}
 		}
 
 		$ret = CartHelper::setCartItemCounts($cartItemIds);
@@ -137,7 +139,8 @@ class CartHelper {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		$changed = false;
 		$items   = array();
@@ -169,7 +172,8 @@ class CartHelper {
 				unset($cartItemIds[$itemId]);
 				$changed = true;
 			}
-		}
+
+}
 
 		if ($changed) {
 			$ret = CartHelper::setCartItemCounts($cartItemIds);
@@ -177,8 +181,10 @@ class CartHelper {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		return array(null, $items);
 	}
+
 }

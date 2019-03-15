@@ -63,10 +63,9 @@ class DeleteSessionsTask extends MaintenanceTask {
 	public function run() {
 		global $gallery;
 
-		$templateAdapter =& $gallery->getTemplateAdapter();
-		$session         =& $gallery->getSession();
-		$phpVm           = $gallery->getPhpVm();
-
+		$templateAdapter    =& $gallery->getTemplateAdapter();
+		$session            =& $gallery->getSession();
+		$phpVm              = $gallery->getPhpVm();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -88,9 +87,8 @@ class DeleteSessionsTask extends MaintenanceTask {
 			return array($ret, null, null);
 		}
 
-		$inactivityTimeout = (int)$params['session.inactivityTimeout'];
-		$lifetime          = (int)$params['session.lifetime'];
-
+		$inactivityTimeout           = (int)$params['session.inactivityTimeout'];
+		$lifetime                    = (int)$params['session.lifetime'];
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
@@ -152,7 +150,8 @@ class DeleteSessionsTask extends MaintenanceTask {
 					$i / $iterations
 				);
 			}
-		}
+
+}
 
 		$templateAdapter->updateProgressBar($module->translate('Delete user sessions'), '', 1);
 
@@ -174,4 +173,5 @@ class DeleteSessionsTask extends MaintenanceTask {
 	public function requiresProgressBar() {
 		return true;
 	}
+
 }

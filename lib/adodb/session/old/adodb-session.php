@@ -128,8 +128,8 @@ if (!defined('ADODB_SESSION')) {
 	}
 
 	/****************************************************************************************\
-		Global definitions
-	****************************************************************************************/
+			Global definitions
+		****************************************************************************************/
 	global  $ADODB_SESSION_CONNECT,
 	$ADODB_SESSION_DRIVER,
 	$ADODB_SESSION_USER,
@@ -185,9 +185,9 @@ if (!defined('ADODB_SESSION')) {
 	*/
 
 	/****************************************************************************************\
-		Create the connection to the database.
-			If $ADODB_SESS_CONN already exists, reuse that connection
-	****************************************************************************************/
+			Create the connection to the database.
+				If $ADODB_SESS_CONN already exists, reuse that connection
+		****************************************************************************************/
 	function adodb_sess_open($save_path, $session_name, $persist = true) {
 		global $ADODB_SESS_CONN;
 
@@ -233,11 +233,12 @@ if (!defined('ADODB_SESSION')) {
 				false
 			);
 		}
-	}
+
+}
 
 	/****************************************************************************************\
-		Close the connection
-	****************************************************************************************/
+			Close the connection
+		****************************************************************************************/
 	function adodb_sess_close() {
 		global $ADODB_SESS_CONN;
 
@@ -249,8 +250,8 @@ if (!defined('ADODB_SESSION')) {
 	}
 
 	/****************************************************************************************\
-		Slurp in the session variables and return the serialized string
-	****************************************************************************************/
+			Slurp in the session variables and return the serialized string
+		****************************************************************************************/
 	function adodb_sess_read($key) {
 		global $ADODB_SESS_CONN,$ADODB_SESSION_TBL,$ADODB_SESSION_CRC;
 
@@ -271,13 +272,14 @@ if (!defined('ADODB_SESSION')) {
 			return $v;
 		}
 
-		return ''; // thx to Jorma Tuomainen, webmaster#wizactive.com
+		// thx to Jorma Tuomainen, webmaster#wizactive.com
+		return '';
 	}
 
 	/****************************************************************************************\
-		Write the serialized data to a database.
-			If the data has not been modified since adodb_sess_read(), we do not write.
-	****************************************************************************************/
+			Write the serialized data to a database.
+				If the data has not been modified since adodb_sess_read(), we do not write.
+		****************************************************************************************/
 	function adodb_sess_write($key, $val) {
 		global
 		$ADODB_SESS_CONN,
@@ -311,6 +313,7 @@ if (!defined('ADODB_SESSION')) {
 
 		if ($ADODB_SESSION_EXPIRE_NOTIFY) {
 			$var = reset($ADODB_SESSION_EXPIRE_NOTIFY);
+
 			global $$var;
 
 			$arr['expireref'] = $$var;
@@ -335,7 +338,8 @@ if (!defined('ADODB_SESSION')) {
 			if ($ADODB_SESS_CONN->databaseType == 'access') {
 				$rs = $ADODB_SESS_CONN->Execute("select sesskey from $ADODB_SESSION_TBL WHERE sesskey='$key'");
 			}
-		}
+
+}
 
 		return !empty($rs);
 	}
@@ -365,7 +369,8 @@ if (!defined('ADODB_SESSION')) {
 
 				$ADODB_SESS_CONN->CommitTrans();
 			}
-		} else {
+
+} else {
 			$qry = "DELETE FROM $ADODB_SESSION_TBL WHERE sesskey = '$key'";
 			$rs  = $ADODB_SESS_CONN->Execute($qry);
 		}
@@ -400,7 +405,8 @@ if (!defined('ADODB_SESSION')) {
 				$rs->Close();
 				$ADODB_SESS_CONN->CommitTrans();
 			}
-		} else {
+
+} else {
 			$qry = "DELETE FROM $ADODB_SESSION_TBL WHERE expiry < " . time();
 
 			$ADODB_SESS_CONN->Execute($qry);
@@ -411,7 +417,8 @@ if (!defined('ADODB_SESSION')) {
 -- <b>Garbage Collection</b>: $qry</p>"
 				);
 			}
-		}
+
+}
 
 		// suggested by Cameron, "GaM3R" <gamr@outworld.cx>
 		if (defined('ADODB_SESSION_OPTIMIZE')) {
@@ -434,7 +441,8 @@ if (!defined('ADODB_SESSION')) {
 			if (!empty($opt_qry)) {
 				$ADODB_SESS_CONN->Execute($opt_qry);
 			}
-		}
+
+}
 
 		if ($ADODB_SESS_CONN->dataProvider === 'oci8') {
 			$sql = 'select  TO_CHAR(' . ($ADODB_SESS_CONN->sysTimeStamp) . ', \'RRRR-MM-DD HH24:MI:SS\') from ' . $ADODB_SESSION_TBL;
@@ -462,7 +470,8 @@ if (!defined('ADODB_SESSION')) {
 -- $msg</p>"
 					);
 				}
-			}
+
+}
 		}
 
 		return true;

@@ -81,7 +81,8 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testPerformDownloadAndInstallation() {
 		global $gallery;
@@ -125,6 +126,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$startingAdapter = new MockTemplateAdapter();
 
 		$startingAdapter->updateProgressBar(null, null, 0);
+
 		$repository->setReply(
 			'downloadPackagesForPlugin',
 			array(
@@ -165,6 +167,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		}
 
 		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
+
 		$this->assertEquals(
 			array(
 				'installOrUpgrade' => 1,
@@ -213,6 +216,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$startingAdapter = new MockTemplateAdapter();
 
 		$startingAdapter->updateProgressBar(null, null, 0);
+
 		$repository->setReply(
 			'downloadPackagesForPlugin',
 			array(
@@ -251,6 +255,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		}
 
 		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
+
 		$this->assertEquals(
 			array(
 				'installOrUpgrade' => 1,
@@ -299,6 +304,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$startingAdapter = new MockTemplateAdapter();
 
 		$startingAdapter->updateProgressBar(null, null, 0);
+
 		$repository->setReply(
 			'downloadPackagesForPlugin',
 			array(
@@ -337,6 +343,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		}
 
 		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
+
 		$this->assertEquals(
 			array(
 				'installOrUpgrade' => 1,
@@ -386,6 +393,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$startingAdapter = new MockTemplateAdapter();
 
 		$startingAdapter->updateProgressBar(null, null, 0);
+
 		$repository->setReply(
 			'downloadPackagesForPlugin',
 			array(
@@ -480,6 +488,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$startingAdapter = new MockTemplateAdapter();
 
 		$startingAdapter->updateProgressBar(null, null, 0);
+
 		$repository->setReply(
 			'downloadPackagesForPlugin',
 			array(
@@ -589,6 +598,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$startingAdapter = new MockTemplateAdapter();
 
 		$startingAdapter->updateProgressBar(null, null, 0);
+
 		$repository->setReply(
 			'downloadPackagesForPlugin',
 			array(
@@ -640,6 +650,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 		// Even though one language failed, the base got updated so we should reactivate it
 		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
+
 		$this->assertEquals(
 			array(
 				'installOrUpgrade' => 1,
@@ -889,7 +900,8 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		} else {
 			$this->fail('ERROR_STORAGE_FAILURE should not be ignored');
 		}
-	}
+
+}
 
 	public function testCountInstallActions() {
 		$sourceFiles = array(
@@ -921,6 +933,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 		$this->assertEquals(14, $count, 'Unexpected count fromcountInstallActions');
 	}
+
 }
 
 class AdminRepositoryDownloadAndInstallControllerTestUrlGenerator {
@@ -933,6 +946,7 @@ class AdminRepositoryDownloadAndInstallControllerTestUrlGenerator {
 
 		return implode(',', $buf);
 	}
+
 }
 
 class AdminRepositoryDownloadAndInstallControllerTestModule {
@@ -953,6 +967,7 @@ class AdminRepositoryDownloadAndInstallControllerTestModule {
 
 		return array(null, array());
 	}
+
 }
 
 class AdminRepositoryDownloadAndInstallControllerTestWrapper extends AdminRepositoryDownloadAndInstallController {
@@ -972,6 +987,7 @@ class AdminRepositoryDownloadAndInstallControllerTestWrapper extends AdminReposi
 
 		return array(null, $pluginStatus);
 	}
+
 }
 
 class AdminRepositoryDownloadAndInstallControllerTestPhpVm {
@@ -982,4 +998,5 @@ class AdminRepositoryDownloadAndInstallControllerTestPhpVm {
 	public function class_exists($class_name) {
 		return $this->_class_exists;
 	}
+
 }

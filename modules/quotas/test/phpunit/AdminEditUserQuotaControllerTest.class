@@ -87,6 +87,7 @@ class AdminEditUserQuotaControllerTest extends GalleryControllerTestCase {
 
 	public function testEditUserQuota() {
 		$this->_createUserQuota($this->_user->getId(), 4096);
+
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[userName]', $this->_user->getUserName());
@@ -127,6 +128,7 @@ class AdminEditUserQuotaControllerTest extends GalleryControllerTestCase {
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 
 		$this->_createUserQuota($this->_user->getId(), 1024);
+
 		// quota size
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
 		GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
@@ -204,7 +206,8 @@ class AdminEditUserQuotaControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function _deleteUserQuota($userId) {
 		$ret = GalleryCoreApi::removeMapEntry(
@@ -217,5 +220,6 @@ class AdminEditUserQuotaControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 }

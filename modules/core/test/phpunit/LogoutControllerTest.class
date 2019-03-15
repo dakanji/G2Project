@@ -68,7 +68,8 @@ class LogoutControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testLogout() {
 		$results = $this->handleRequest();
@@ -134,6 +135,7 @@ class LogoutControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(1, $this->_session->_resetCallCount);
 		$this->assertEquals((int)$this->_anonymousId, $this->_session->getUserId(), 'userId');
 	}
+
 }
 
 class LogoutControllerTestSession {
@@ -163,10 +165,11 @@ class LogoutControllerTestSession {
 	public function exists($key) {
 		return false;
 	}
+
 }
 
-class LogoutControllerTestEventListener // extends GalleryEventListener
-{
+// extends GalleryEventListener
+class LogoutControllerTestEventListener {
 	public function handleEvent($event) {
 		return array(
 			null,
@@ -177,4 +180,5 @@ class LogoutControllerTestEventListener // extends GalleryEventListener
 			),
 		);
 	}
+
 }

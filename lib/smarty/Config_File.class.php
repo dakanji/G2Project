@@ -78,7 +78,8 @@ class Config_File {
 		if (isset($config_path)) {
 			$this->set_path($config_path);
 		}
-	}
+
+}
 
 	/**
 	 * Set the path where configuration files can be found.
@@ -99,7 +100,8 @@ class Config_File {
 
 			$this->_config_path = $config_path;
 		}
-	}
+
+}
 
 	/**
 	 * Retrieves config info based on the file, section, and variable name.
@@ -224,7 +226,8 @@ class Config_File {
 		} elseif (isset($this->_config_data[$file_name])) {
 			$this->_config_data[$file_name] = array();
 		}
-	}
+
+}
 
 	/**
 	 * Load a configuration file manually.
@@ -310,7 +313,8 @@ class Config_File {
 
 						continue;
 					}
-				} else {
+
+} else {
 					$section_name = $match[1];
 				}
 
@@ -343,7 +347,8 @@ class Config_File {
 
 							break;
 						}
-					}
+
+}
 
 					$booleanize = false;
 				} else {
@@ -390,7 +395,8 @@ class Config_File {
 			} elseif (preg_match('/^(off|false|no)$/i', $var_value)) {
 				$var_value = false;
 			}
-		}
+
+}
 
 		if (!isset($container[$var_name]) || $this->overwrite) {
 			$container[$var_name] = $var_value;
@@ -398,7 +404,8 @@ class Config_File {
 			settype($container[$var_name], 'array');
 			$container[$var_name][] = $var_value;
 		}
-	}
+
+}
 
 	/**
 	 * @uses trigger_error() creates a PHP warning/error

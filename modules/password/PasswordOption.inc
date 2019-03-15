@@ -81,7 +81,8 @@ class PasswordOption extends ItemEditOption {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		} elseif (!empty($form['PasswordOption']['password1'])
+
+} elseif (!empty($form['PasswordOption']['password1'])
 			|| !empty($form['PasswordOption']['password2'])
 		) {
 			if ($form['PasswordOption']['password1'] == $form['PasswordOption']['password2']) {
@@ -100,11 +101,13 @@ class PasswordOption extends ItemEditOption {
 				if ($ret) {
 					return array($ret, null, null);
 				}
-			} else {
+
+} else {
 				// Throw an error because both passwords do not match
 				$error[] = 'form[error][PasswordOption][mismatch]';
 			}
-		}
+
+}
 
 		return array(null, $error, $warning);
 	}
@@ -124,4 +127,5 @@ class PasswordOption extends ItemEditOption {
 		 && !empty($form['PasswordOption']['remove']))
 		);
 	}
+
 }

@@ -60,6 +60,7 @@ if (!function_exists('_')) {
 	function _($s) {
 		return $s;
 	}
+
 }
 
 $error = false;
@@ -128,19 +129,20 @@ if (!empty($storageConfig)) {
 		if (!headers_sent()) {
 			header('Content-Type: text/html; charset=UTF-8');
 		}
-	}
+
+}
 
 	// Preallocate at least 5 minutes for the upgrade
 	$gallery->guaranteeTimeLimit(300);
 
 	// Check to see if we have a database.  If we don't, then go to the installer
-	$storage =& $gallery->getStorage();
-
+	$storage                 =& $gallery->getStorage();
 	list($ret, $isInstalled) = $storage->isInstalled();
 
 	if ($ret || !$isInstalled) {
 		$error = true;
 	}
+
 } else {
 	$error = true;
 }
@@ -165,7 +167,8 @@ if (empty($steps) || !is_array($steps)) {
 
 			$steps[] = $step;
 		}
-	}
+
+}
 
 	// Don't do this in the loop, since not all steps are relevant
 	$steps[sizeof($steps) - 1]->setIsLastStep(true);
@@ -184,6 +187,7 @@ for ($i = 0; $i < $stepNumber; $i++) {
 
 		break;
 	}
+
 }
 
 if (!$error) {
@@ -204,6 +208,7 @@ if (!$currentStep->isComplete()) {
 		$steps[$i]->setComplete(false);
 		$steps[$i]->setInError(false);
 	}
+
 }
 
 if ($currentStep->processRequest()) {
@@ -247,9 +252,8 @@ function selectAdminUser($fallback = false) {
 	}
 
 	// Fetch the first admin from list
-	$userId   = key($adminUserInfo);
-	$userName = current($adminUserInfo);
-
+	$userId                = key($adminUserInfo);
+	$userName              = current($adminUserInfo);
 	list($ret, $adminUser) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 	if ($ret) {
@@ -266,7 +270,8 @@ function selectAdminUser($fallback = false) {
 		} else {
 			return $ret;
 		}
-	}
+
+}
 
 	$gallery->setActiveUser($adminUser);
 
@@ -291,7 +296,8 @@ function generateUrl($uri, $print = true) {
 		if (!empty($baseUrl)) {
 			$uri = $baseUrl . 'upgrade/' . $uri;
 		}
-	} elseif (!strncmp($uri, 'index.php', 9)) {
+
+} elseif (!strncmp($uri, 'index.php', 9)) {
 		// If session.use_trans_sid is on then it will add the session id.
 		if (!GallerySetupUtilities::areCookiesSupported() && !ini_get('session.use_trans_sid')) {
 			/*
@@ -302,7 +308,8 @@ function generateUrl($uri, $print = true) {
 			$uri .= !strpos($uri, '?') ? '?' : '&amp;';
 			$uri .= $sid;
 		}
-	}
+
+}
 
 	if ($print) {
 		echo $uri;

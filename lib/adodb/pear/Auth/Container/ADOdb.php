@@ -68,13 +68,17 @@ class Auth_Container_ADOdb extends Auth_Container {
 			if (empty($this->options['dsn'])) {
 				PEAR::raiseError('No connection parameters specified!');
 			}
-		} else {
+
+} else {
 			// Extract db_type from dsn string.
 			$this->options['dsn'] = $dsn;
 		}
-	}
 
-	// }}}
+}
+
+	// }
+
+}}
 	// {{{ _connect()
 
 	/**
@@ -92,7 +96,8 @@ class Auth_Container_ADOdb extends Auth_Container {
 				if ($err = ADODB_Pear_error()) {
 					return PEAR::raiseError($err);
 				}
-			}
+
+}
 		} else {
 			return PEAR::raiseError(
 				'The given dsn was not valid in file ' . __FILE__ . ' at line ' . __LINE__,
@@ -110,7 +115,9 @@ class Auth_Container_ADOdb extends Auth_Container {
 		return true;
 	}
 
-	// }}}
+	// }
+
+}}
 	// {{{ _prepare()
 
 	/**
@@ -130,7 +137,9 @@ class Auth_Container_ADOdb extends Auth_Container {
 		return true;
 	}
 
-	// }}}
+	// }
+
+}}
 	// {{{ query()
 
 	/**
@@ -155,7 +164,9 @@ class Auth_Container_ADOdb extends Auth_Container {
 		return $this->db->query($query);
 	}
 
-	// }}}
+	// }
+
+}}
 	// {{{ _setDefaults()
 
 	/**
@@ -174,7 +185,9 @@ class Auth_Container_ADOdb extends Auth_Container {
 		$this->options['cryptType']   = 'md5';
 	}
 
-	// }}}
+	// }
+
+}}
 	// {{{ _parseOptions()
 
 	/**
@@ -188,7 +201,8 @@ class Auth_Container_ADOdb extends Auth_Container {
 			if (isset($this->options[$key])) {
 				$this->options[$key] = $value;
 			}
-		}
+
+}
 
 		// Include additional fields if they exist
 		if (!empty($this->options['db_fields'])) {
@@ -198,9 +212,12 @@ class Auth_Container_ADOdb extends Auth_Container {
 
 			$this->options['db_fields'] = ', ' . $this->options['db_fields'];
 		}
-	}
 
-	// }}}
+}
+
+	// }
+
+}}
 	// {{{ fetchData()
 
 	/**
@@ -269,7 +286,8 @@ class Auth_Container_ADOdb extends Auth_Container {
 				} else {
 					Auth::setAuthData($key, $value);
 				}
-			}
+
+}
 
 			return true;
 		}
@@ -279,7 +297,9 @@ class Auth_Container_ADOdb extends Auth_Container {
 		return false;
 	}
 
-	// }}}
+	// }
+
+}}
 	// {{{ listUsers()
 	public function listUsers() {
 		$err = $this->_prepare();
@@ -317,7 +337,9 @@ class Auth_Container_ADOdb extends Auth_Container {
 		return $retVal;
 	}
 
-	// }}}
+	// }
+
+}}
 	// {{{ addUser()
 
 	/**
@@ -345,7 +367,8 @@ class Auth_Container_ADOdb extends Auth_Container {
 				$additional_key   .= ', ' . $key;
 				$additional_value .= ", '" . $value . "'";
 			}
-		}
+
+}
 
 		$query = sprintf(
 			"INSERT INTO %s (%s, %s%s) VALUES ('%s', '%s'%s)",
@@ -367,7 +390,9 @@ class Auth_Container_ADOdb extends Auth_Container {
 		return true;
 	}
 
-	// }}}
+	// }
+
+}}
 	// {{{ removeUser()
 
 	/**
@@ -395,10 +420,11 @@ class Auth_Container_ADOdb extends Auth_Container {
 		return true;
 	}
 
-	// }}}
-}
+	// }
 
-function showDbg($string) {
+}}
+
+}function showDbg($string) {
 	echo "
 -- $string</P>";
 }

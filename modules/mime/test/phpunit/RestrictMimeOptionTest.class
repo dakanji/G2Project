@@ -81,7 +81,8 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function tearDown() {
 		$ret = GalleryCoreApi::removeMimeType(
@@ -99,7 +100,8 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testAllowAll() {
 		$ret = $this->_module->setParameter('allowMime', 'all');
@@ -160,7 +162,8 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testBlock() {
 		global $gallery;
@@ -205,7 +208,8 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testBlockByFileExtension() {
 		global $gallery;
@@ -267,7 +271,8 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testAllowWithDisallowedFileExtension() {
 		global $gallery;
@@ -329,5 +334,6 @@ class RestrictMimeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 }

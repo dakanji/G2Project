@@ -79,7 +79,8 @@ class CoreModuleExtras {
 			} else {
 				$currentVersion = '0';
 			}
-		}
+
+}
 
 		$gallery->debug(
 			'Old version: ' . $currentVersion . '   New version: ' . $module->getVersion()
@@ -104,7 +105,8 @@ class CoreModuleExtras {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		/*
 		 * Store Entities.inc and Maps.inc definitions in the Schema table. Do this upgrade before
@@ -152,14 +154,16 @@ class CoreModuleExtras {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 
 			$ret = $storage->checkPoint();
 
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		if (version_compare($currentVersion, '1.2.5', '<')) {
 			$ret = $storage->configureStore($module->getId(), array('GalleryMimeTypeMap:1.0'));
@@ -167,7 +171,8 @@ class CoreModuleExtras {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		/**
 		 * README: How to update the block below
@@ -223,6 +228,7 @@ class CoreModuleExtras {
 				}
 
 				$gallery->debug(sprintf('Locktype %s selected', $flockType));
+
 				// Initial install.  Make sure all our module parameters are set.
 				$gallery->debug('Set core module parameters');
 
@@ -287,7 +293,8 @@ class CoreModuleExtras {
 
 							return $ret;
 						}
-					}
+
+}
 				}
 
 				$ret = $statusMonitor->renderStatusMessage($progressText, '', 0.2);
@@ -297,6 +304,7 @@ class CoreModuleExtras {
 				}
 
 				$gallery->guaranteeTimeLimit(180);
+
 				// Activate the default theme
 				$gallery->debug('Load default theme');
 
@@ -325,7 +333,8 @@ class CoreModuleExtras {
 
 							break;
 						}
-					}
+
+}
 
 					if (empty($defaultThemeId)) {
 						return GalleryCoreApi::error(
@@ -341,7 +350,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				$gallery->debug(sprintf('Using %s as default theme', $defaultThemeId));
 
@@ -415,6 +425,7 @@ class CoreModuleExtras {
 				}
 
 				$gallery->guaranteeTimeLimit(180);
+
 				/*
 				 * Register our permissions.  Since we're storing internationalized strings in the
 				 * database, we have to give our internationalized string extractor a clue that these
@@ -513,7 +524,8 @@ class CoreModuleExtras {
 
 						return $ret;
 					}
-				}
+
+}
 
 				$ret = $statusMonitor->renderStatusMessage($progressText, '', 0.5);
 
@@ -548,7 +560,8 @@ class CoreModuleExtras {
 
 						return $ret;
 					}
-				}
+
+}
 
 				$ret = $statusMonitor->renderStatusMessage($progressText, '', 0.6);
 
@@ -895,7 +908,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				while ($totalPermissionItems > 0 && true) {
 					$gallery->guaranteeTimeLimit(60);
@@ -911,8 +925,7 @@ class CoreModuleExtras {
 						break;
 					}
 
-					$result = $results->nextResult();
-
+					$result                                  = $results->nextResult();
 					list($targetItemId, $permissionRowCount) = array((int)$result[0], (int)$result[1]);
 
 					// Create a new ACL
@@ -969,8 +982,7 @@ class CoreModuleExtras {
 						 */
 						$markers = GalleryUtilities::makeMarkers($count);
 
-						$query = sprintf($refineDupesQuery, $markers);
-
+						$query               = sprintf($refineDupesQuery, $markers);
 						list($ret, $results) = $gallery->search(
 							$query,
 							array_merge($chunk, array($permissionRowCount))
@@ -1026,7 +1038,8 @@ class CoreModuleExtras {
 						if ($ret) {
 							return $ret;
 						}
-					}
+
+}
 				}
 
 				if ($totalPermissionItems > 0) {
@@ -1039,9 +1052,11 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Removed GalleryPermissionMap
+
 				// Fall Through
 			case '0.9.6':
 				// Added GalleryMaintenance table
@@ -1086,7 +1101,8 @@ class CoreModuleExtras {
 							 * No need to do anything.
 							 * Except maybe we could check permissions here.
 							 */
-						} else {
+
+} else {
 							// There's a file there.  There shouldn't be.  Move it out of the way.
 							if (!@$platform->rename($newDir, "$newDir.old")
 								|| !@$platform->mkdir($dir)
@@ -1098,7 +1114,8 @@ class CoreModuleExtras {
 									"$dir already exists; unable to replace it"
 								);
 							}
-						}
+
+}
 					} else {
 						if (!@$platform->mkdir($dir) && $isRequired) {
 							return GalleryCoreApi::error(
@@ -1108,7 +1125,8 @@ class CoreModuleExtras {
 								"Unable to create $dir"
 							);
 						}
-					}
+
+}
 				}
 
 				// Fall Through
@@ -1185,11 +1203,14 @@ class CoreModuleExtras {
 							if ($ret) {
 								return $ret;
 							}
-						}
+
+}
 					} else {
 						return $ret;
 					}
-				} // Else a group with that name already exists, nothing to do
+
+} // Else a group with that name already exists, nothing to do
+
 				// Fall Through
 			case '0.9.16':
 				// Beta 3 release!
@@ -1213,7 +1234,8 @@ class CoreModuleExtras {
 						if ($ret) {
 							return $ret;
 						}
-					}
+
+}
 				}
 
 				$ret = $module->removeParameter('uploadLocalServer.dirs');
@@ -1233,7 +1255,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Fall Through
 			case '0.9.19':
@@ -1252,7 +1275,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Fall Through
 			case '0.9.24':
@@ -1265,7 +1289,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Fall Through
 			case '0.9.25':
@@ -1278,7 +1303,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Fall Through
 			case '0.9.26':
@@ -1425,7 +1451,8 @@ class CoreModuleExtras {
 							if ($ret) {
 								return $ret;
 							}
-						}
+
+}
 
 						// Detect if the derivative is broken
 						if (!empty($derivatives)) {
@@ -1505,7 +1532,8 @@ class CoreModuleExtras {
 								// Add the derivative to the list of broken ones
 								$brokenDerivatives[$derivative->getId()] = $derivative;
 							}
-						}
+
+}
 
 						// 6. Mark the detected broken derivative as such and save it in the DB
 						if (sizeof($brokenDerivatives) == $saveBatchSize
@@ -1579,7 +1607,8 @@ class CoreModuleExtras {
 
 									return $ret;
 								}
-							}
+
+}
 
 							$brokenDerivatives = array();
 
@@ -1588,13 +1617,15 @@ class CoreModuleExtras {
 							if ($ret) {
 								return $ret;
 							}
-						}
+
+}
 
 						/*
 						 * Continue if there are either unloaded ids, unchecked derivatives or unsaved
 						 * derivatives
 						 */
-					} while (!empty($derivativeIds) || !empty($brokenDerivatives) ||
+
+} while (!empty($derivativeIds) || !empty($brokenDerivatives) ||
 					!empty($derivatives));
 				}
 
@@ -1668,13 +1699,15 @@ class CoreModuleExtras {
 						if ($platform->file_exists("$base/layouts")) {
 							$platform->recursiveRmDir("$base/layouts");
 						}
-					} elseif (file_exists($base)) {
+
+} elseif (file_exists($base)) {
 						if ($platform->file_exists("$base/layouts")) {
 							$platform->rename("$base/layouts", "$base/themes");
 						} else {
 							$platform->mkdir("$base/themes");
 						}
-					}
+
+}
 				}
 
 				// Removed parameters
@@ -1684,7 +1717,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				/*
 				 * If we are coming from 0.8.13 or earlier,
@@ -1728,9 +1762,11 @@ class CoreModuleExtras {
 								 */
 								return $ret;
 							}
-						}
+
+}
 					}
-				}
+
+}
 
 				// Fall Through
 			case '0.9.30':
@@ -1785,7 +1821,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Fall Through
 			case '0.9.35':
@@ -1819,11 +1856,13 @@ class CoreModuleExtras {
 								if (substr($file, -9) == '-fast.inc') {
 									@$platform->unlink($dir . $file);
 								}
-							}
+
+}
 
 							$platform->closedir($dh);
 						}
-					}
+
+}
 				}
 
 				$ret = $statusMonitor->renderStatusMessage(
@@ -1862,7 +1901,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Fall Through
 			case '1.0.2':
@@ -1885,7 +1925,8 @@ class CoreModuleExtras {
 						// We're not interested in whether it succeeded or not
 						@$platform->recursiveRmDir($pluginDirectory);
 					}
-				}
+
+}
 
 				// Fall Through
 			case '1.0.6':
@@ -1918,6 +1959,7 @@ class CoreModuleExtras {
 						$storage->_tablePrefix,
 						$storage->_columnPrefix
 					);
+
 					// Ignore error, since there's nothing to do for most installations
 					$storage->execute($query);
 				}
@@ -1950,7 +1992,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				$ret = $storage->configureStore($module->getId(), array('GalleryAccessMap:1.1'));
 
@@ -1993,7 +2036,8 @@ class CoreModuleExtras {
 						if ($ret) {
 							return $ret;
 						}
-					}
+
+}
 				}
 
 				foreach (array(
@@ -2008,7 +2052,8 @@ class CoreModuleExtras {
 						if ($ret) {
 							return $ret;
 						}
-					}
+
+}
 				}
 
 				$ret = GalleryCoreApi::removeMapEntry(
@@ -2041,7 +2086,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				$ret = $module->setParameter('language.useBrowserPref', $useBrowserPref);
 
@@ -2137,9 +2183,11 @@ class CoreModuleExtras {
 							if ($ret) {
 								return $ret;
 							}
-						}
+
+}
 					}
-				}
+
+}
 
 				// We might have lost our database connection so check and reconnect
 				$ret = $storage->validateConnection();
@@ -2166,7 +2214,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Fall Through
 			case '1.0.18':
@@ -2286,13 +2335,15 @@ class CoreModuleExtras {
 							if ($ret) {
 								return $ret;
 							}
-						}
+
+}
 
 						if ($count > $iterationSize) {
 							$iteration++;
 							$count = 0;
 						}
-					}
+
+}
 
 					$platform->closedir($dir);
 					$platform->rmdir($sessionsDir);
@@ -2311,7 +2362,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Fall Through
 			case '1.0.22':
@@ -2537,6 +2589,7 @@ class CoreModuleExtras {
 							$change[2],
 							$indexColumns
 						);
+
 						// Ignore error, since there's nothing to do for most installations
 						$storage->execute($query);
 					}
@@ -2679,7 +2732,8 @@ class CoreModuleExtras {
 						if ($ret) {
 							return $ret;
 						}
-					}
+
+}
 				}
 
 				// Fall Through
@@ -2703,7 +2757,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				list($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime('asx');
 
@@ -2713,7 +2768,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Fall Through
 			case '1.1.3':
@@ -2759,7 +2815,8 @@ class CoreModuleExtras {
 					} else {
 						$derivatives[] = $result[0];
 					}
-				}
+
+}
 
 				$total = count($photos) + count($derivatives);
 
@@ -2809,7 +2866,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Switch PanoramaDerivativeImage back to GalleryDerivativeImage
 				while ($derivatives) {
@@ -2858,7 +2916,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Fall Through
 			case '1.1.4':
@@ -2871,7 +2930,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Fall Through
 			case '1.1.5':
@@ -2932,7 +2992,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				if ($total) {
 					$ret = $statusMonitor->renderStatusMessage(
@@ -2944,7 +3005,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Fall Through
 			case '1.1.7':
@@ -2970,7 +3032,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Fall Through
 			case '1.1.8':
@@ -3100,7 +3163,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				$totalOperations      = count($pluginList['module']) + count($pluginList['theme']);
 				$currentOperation     = 0;
@@ -3128,7 +3192,8 @@ class CoreModuleExtras {
 						if ($ret) {
 							return $ret;
 						}
-					}
+
+}
 				}
 
 				$ret = $statusMonitor->renderStatusMessage($upgradingMessageText, '', 1);
@@ -3267,7 +3332,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Fall Through
 			case '1.2.14':
@@ -3298,7 +3364,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				$count      = 1;
 				$total      = count($modules);
@@ -3355,14 +3422,16 @@ class CoreModuleExtras {
 						if ($ret) {
 							return $ret;
 						}
-					}
+
+}
 
 					$ret = $statusMonitor->renderStatusMessage($statusText, '', $count++ / $total);
 
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				// Fall Through
 			case '1.2.15':
@@ -3391,6 +3460,7 @@ class CoreModuleExtras {
 				}
 
 				// This upgrade is done before the general upgrade code
+
 				// Fall Through
 			case '1.2.18':
 				// Remove unused derivative-meta cache files
@@ -3427,13 +3497,16 @@ class CoreModuleExtras {
 									if ($ret) {
 										return $ret;
 									}
-								}
+
+}
 
 								@$platform->unlink($file);
 							}
-						}
+
+}
 					}
-				}
+
+}
 
 				$ret = $statusMonitor->renderStatusMessage($statusText, '', 1);
 
@@ -3487,7 +3560,8 @@ class CoreModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 
 				$supportedLanguages   = GalleryCoreApi::getSupportedLanguages();
 				$totalOperations      = count($pluginList['module']) + count($pluginList['theme']);
@@ -3524,10 +3598,12 @@ class CoreModuleExtras {
 							if ($gallery->getDebug()) {
 								$gallery->debug_r($ret);
 							}
-						} elseif ($ret) {
+
+} elseif ($ret) {
 							return $ret;
 						}
-					}
+
+}
 				}
 
 				$ret = $statusMonitor->renderStatusMessage($upgradingMessageText, '', 1);
@@ -3832,8 +3908,10 @@ class CoreModuleExtras {
 				* setups, this setting can be quite handy.
 				* Examples (the positions of the slashes (\'/\') are important):
 				*   override the path: $gallery->setConfig(\'baseUri\', \'/another/path/\');
+
 				*   override the host + path:
 				* $gallery->setConfig(\'baseUri\', \'example.com/gallery2/\');
+
 				*   override the protocol + host + path + file:
 				*           $gallery->setConfig(\'baseUri\', \'https://example.com:8080/gallery2/index.php\');
 				*/
@@ -4084,7 +4162,8 @@ class CoreModuleExtras {
 				if ($configContents == $old) {
 					$gallery->debug('Warning: config.php remove pattern not matched: ' . $regexp);
 				}
-			}
+
+}
 
 			foreach ($change['edit'] as $edit) {
 				$configContents = preg_replace($edit['regexp'], $edit['replacement'], $old = $configContents);
@@ -4094,7 +4173,8 @@ class CoreModuleExtras {
 						'Warning: config.php edit pattern not matched: ' . $edit['regexp']
 					);
 				}
-			}
+
+}
 
 			foreach ($change['add'] as $content) {
 				$configContents = preg_replace('{\?>\s*\z}', $content . "\n?>\n", $old = $configContents);
@@ -4106,7 +4186,8 @@ class CoreModuleExtras {
 
 					$configContents .= "\n" . $content . "\n?>\n";
 				}
-			}
+
+}
 		}
 
 		if (!$out = $platform->fopen($configFilePath, 'w')) {
@@ -4824,7 +4905,8 @@ class CoreModuleExtras {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// Special cases
 		$ret = GalleryCoreApi::registerFactoryImplementation(
@@ -4926,8 +5008,7 @@ class CoreModuleExtras {
 
 					$gallery->guaranteeTimeLimit(120);
 
-					$storageExtras =& $storage->_getExtras();
-
+					$storageExtras             =& $storage->_getExtras();
 					list($ret, $tableVersions) = $storageExtras->_loadTableVersions();
 
 					if ($ret) {
@@ -4971,9 +5052,8 @@ class CoreModuleExtras {
 						 * 2. Convert text column to binary column
 						 * 3. Convert them to character/text columns with UTF8 charset
 						 */
-						$query             = "SHOW FULL COLUMNS FROM `$tableName`";
-						$originalFetchMode = $storage->_db->SetFetchMode(ADODB_FETCH_ASSOC);
-
+						$query               = "SHOW FULL COLUMNS FROM `$tableName`";
+						$originalFetchMode   = $storage->_db->SetFetchMode(ADODB_FETCH_ASSOC);
 						list($ret, $results) = $storage->search($query);
 
 						if ($ret) {
@@ -5059,7 +5139,8 @@ class CoreModuleExtras {
 						if ($ret) {
 							return array($ret, null);
 						}
-					}
+
+}
 				} // End if database character set not UTF-8
 			} // End if MySql version > 4.1.0
 		} // End if MySQL
@@ -5081,4 +5162,5 @@ class CoreModuleExtras {
 
 		return strcmp($a, $b);
 	}
+
 }

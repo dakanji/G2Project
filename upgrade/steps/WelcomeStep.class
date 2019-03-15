@@ -42,8 +42,7 @@ class WelcomeStep extends UpgradeStep {
 	}
 
 	public function loadTemplateData(&$templateData) {
-		global $gallery;
-		global $translator;
+		global $gallery, $translator;
 
 		if (@$gallery->getConfig('multisite')) {
 			// Prevent upgrade if old style multisite config.php is found
@@ -68,7 +67,9 @@ class WelcomeStep extends UpgradeStep {
 					$code                             = $lang . '_' . $country;
 					$templateData['languages'][$code] = $data['description'];
 				}
-			}
+
+}
 		}
-	}
+
+}
 }

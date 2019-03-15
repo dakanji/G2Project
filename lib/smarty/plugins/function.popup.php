@@ -105,7 +105,8 @@ function smarty_function_popup($params, &$smarty) {
 			default:
 				$smarty->trigger_error("[popup] unknown parameter $_key", E_USER_WARNING);
 		}
-	}
+
+}
 
 	if (empty($text) && !isset($inarray) && empty($function)) {
 		$smarty->trigger_error("overlib: attribute 'text' or 'inarray' or 'function' required");
@@ -117,12 +118,15 @@ function smarty_function_popup($params, &$smarty) {
 		$trigger = 'onmouseover';
 	}
 
-	$retval  = $trigger . '="return overlib(\'' . preg_replace(array("!'!", "![\r\n]!"), array("\'", '\r'), $text) . '\'';
+	$retval = $trigger . '="return overlib(\'' . preg_replace(array("!'!", "![\r\n]!"), array("\'", '\r'), $text) . '\'';
+
 	$retval .= $append . ');
+
 "';
 
 	if ($trigger == 'onmouseover') {
 		$retval .= ' onmouseout="nd();
+
 "';
 	}
 

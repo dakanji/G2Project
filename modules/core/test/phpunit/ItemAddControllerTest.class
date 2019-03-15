@@ -237,7 +237,8 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 
 			$this->assertEquals('handleRequestWithProgressBar', $callbackMethod);
 		}
-	}
+
+}
 
 	public function testHandleRequestWithProgressBarWithFailure() {
 		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginFail');
@@ -253,6 +254,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(array('failed'));
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'      => 'core.ItemAdmin',
@@ -287,6 +289,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(null);
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'      => 'core.ItemAdmin',
@@ -321,6 +324,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(null);
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'    => 'core.ItemAdmin',
@@ -373,6 +377,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		$this->_assertErrorFromProgressBar(
 			array('an error', 'form[error][itemsAddedDespiteFormErrors]')
 		);
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'      => 'core.ItemAdmin',
@@ -413,6 +418,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(null);
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'    => 'core.ItemAdmin',
@@ -477,6 +483,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(null);
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'    => 'core.ItemAdmin',
@@ -591,7 +598,8 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
 
@@ -612,6 +620,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(null);
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'    => 'core.ItemAdmin',
@@ -771,7 +780,8 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 				$items[1]->getTitle()
 			);
 		}
-	}
+
+}
 
 	public function testHandleRequestWithProgressBarAutoRedirectOnError() {
 		global $gallery;
@@ -792,6 +802,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(array('failed'));
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'      => 'core.ItemAdmin',
@@ -809,8 +820,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		// Time progresses very slowly
-		$gallery->_phpVm = new ItemAddPhpVm(0, 1);
-
+		$gallery->_phpVm  = new ItemAddPhpVm(0, 1);
 		list($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
 
 		if ($ret) {
@@ -830,6 +840,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(null);
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'    => 'core.ItemAdmin',
@@ -858,8 +869,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		// Make the time progress in large steps
-		$gallery->_phpVm = new ItemAddPhpVm(0, 16);
-
+		$gallery->_phpVm  = new ItemAddPhpVm(0, 16);
 		list($ret, $item) = GalleryTestCase::_createRandomDataItem($this->_album->getId());
 
 		if ($ret) {
@@ -879,6 +889,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(null);
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'    => 'core.ItemAdmin',
@@ -910,7 +921,8 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$addOption = new ItemAddTestOption(false);
 		$this->_controller->setOptionInstances(
@@ -1038,6 +1050,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		);
 		$this->assertEquals('', $output, 'HTML output');
 	}
+
 }
 
 /**
@@ -1051,6 +1064,7 @@ class ItemAddControllerTestPluginContinue {
 
 		return array(null, array(), array());
 	}
+
 }
 
 /**
@@ -1087,6 +1101,7 @@ class ItemAddControllerTestPluginSuccess {
 			),
 		);
 	}
+
 }
 
 /**
@@ -1119,6 +1134,7 @@ class ItemAddControllerTestAddPluginWebDav {
 			),
 		);
 	}
+
 }
 
 /**
@@ -1132,6 +1148,7 @@ class ItemAddControllerTestPluginFail {
 
 		return array(null, array('failed'), array());
 	}
+
 }
 
 /**
@@ -1166,6 +1183,7 @@ class ItemAddTestOption extends ItemAddOption {
 	public function isAppropriate() {
 		return array(null, true);
 	}
+
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
@@ -1216,6 +1234,7 @@ class ItemAddControllerTestToolkit extends GalleryToolkit {
 
 		return array(null, $mimeType, $context);
 	}
+
 }
 
 /**
@@ -1234,4 +1253,5 @@ class ItemAddPhpVm extends GalleryPhpVm {
 	public function time() {
 		return $_SERVER['phpVm.time'] += $_SERVER['phpVm.timeIncrement'];
 	}
+
 }

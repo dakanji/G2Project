@@ -98,7 +98,8 @@ class ShowAllCommentsView extends GalleryView {
 			foreach ($commentersList as $commenter) {
 				$commenters[$commenter->getId()] = (array)$commenter;
 			}
-		}
+
+}
 
 		if (!empty($itemIds)) {
 			$itemIds = array_keys($itemIds);
@@ -125,7 +126,8 @@ class ShowAllCommentsView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		$cacheControl = false;
 
@@ -176,14 +178,16 @@ class ShowAllCommentsView extends GalleryView {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 
 				if (!$anonymousViewable) {
 					$this->setCacheControl($template, 'no-cache');
 
 					$cacheControl = true;
 				}
-			}
+
+}
 
 			if (!isset($itemData[$comment['parentId']])) {
 				$it = $items[$comment['parentId']];
@@ -197,12 +201,14 @@ class ShowAllCommentsView extends GalleryView {
 						} elseif ($type == DERIVATIVE_TYPE_IMAGE_THUMBNAIL) {
 							$it['thumb'] = (array)$derivative;
 						}
-					}
+
+}
 				}
 
 				$itemData[$comment['parentId']] = $it;
 			}
-		}
+
+}
 
 		$navigator = array(
 			'page'      => $page,
@@ -281,4 +287,5 @@ class ShowAllCommentsView extends GalleryView {
 
 		return array(null, $module->translate('show comments'));
 	}
+
 }

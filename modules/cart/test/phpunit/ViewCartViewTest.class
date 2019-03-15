@@ -124,7 +124,8 @@ class ViewCartViewTest extends GalleryViewTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testLoadTemplate() {
 		$this->_registerFactoryImplementationForTest(
@@ -158,6 +159,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			array_keys($templateData['items']),
 			'item ids'
 		);
+
 		$this->assertEquals(
 			array(
 				'ViewCartTestCartPlugin1_0' => array(
@@ -224,6 +226,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			array_keys($templateData['items']),
 			'item ids'
 		);
+
 		$this->assertEquals(
 			array(
 				'ViewCartTestCartPlugin1_0' => array(
@@ -291,6 +294,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			array_keys($templateData['items']),
 			'item ids'
 		);
+
 		$this->assertEquals(
 			array(
 				'ViewCartTestCartPlugin1_0' => array(
@@ -316,11 +320,13 @@ class ViewCartViewTest extends GalleryViewTestCase {
 				if (isset($data[$key])) {
 					unset($plugins[$id][$key]);
 				}
-			}
+
+}
 		}
 
 		return $plugins;
 	}
+
 }
 
 GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_1.class');
@@ -337,6 +343,7 @@ class ViewCartTestCartPlugin extends CartPluginInterface_1_1 {
 	public function fulfillCart($cartItemIds) {
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
+
 }
 
 GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
@@ -353,6 +360,7 @@ class ViewCartTestCartPlugin1_0 extends CartPluginInterface_1_0 {
 	public function fulfillCart($cartItemIds) {
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
+
 }
 
 class ViewCartTestCartPlugin1_1 extends CartPluginInterface_1_1 {
@@ -371,4 +379,5 @@ class ViewCartTestCartPlugin1_1 extends CartPluginInterface_1_1 {
 	public function fulfillCart($cartItemIds) {
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
+
 }

@@ -44,7 +44,8 @@ class GalleryEntityHelper_simple {
 			$returnArray = true;
 		} else {
 			$returnArray = false;
-			$ids         = array($ids);
+
+			$ids = array($ids);
 		}
 
 		// Grab what we can from the cache and make up a list of what's missing
@@ -71,7 +72,8 @@ class GalleryEntityHelper_simple {
 
 				$onLoad[] = $id;
 			}
-		}
+
+}
 
 		if (!empty($missing)) {
 			// Get our storage object
@@ -83,12 +85,12 @@ class GalleryEntityHelper_simple {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		// Move the new entities into the cache
 		foreach ($missing as $entity) {
-			$id = $entity->getId();
-
+			$id                    = $entity->getId();
 			list($ret, $classFile) = $entity->getClassFile();
 
 			if ($ret) {
@@ -145,7 +147,8 @@ class GalleryEntityHelper_simple {
 
 						break;
 					}
-				}
+
+}
 
 				if (!$match) {
 					$errorMessage = sprintf(
@@ -166,7 +169,8 @@ class GalleryEntityHelper_simple {
 						null,
 					);
 				}
-			}
+
+}
 		}
 
 		if (!$returnArray) {
@@ -215,4 +219,5 @@ class GalleryEntityHelper_simple {
 
 		return array(null, $entity);
 	}
+
 }

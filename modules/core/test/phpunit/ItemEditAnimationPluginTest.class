@@ -142,4 +142,5 @@ class ItemEditAnimationPluginTest extends ItemEditPluginTestCase {
 
 		$results = $this->handleRequest($this->_item, $this->_preferred, ERROR_OBSOLETE_DATA);
 	}
+
 }

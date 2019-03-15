@@ -137,7 +137,8 @@ class GallerySortInterface_1_2 {
 			} else {
 				$orderByList[$sortId] = $sortName;
 			}
-		}
+
+}
 
 		$orderDirectionList = array(
 			ORDER_ASCENDING  => $module->translate('Ascending'),
@@ -146,4 +147,5 @@ class GallerySortInterface_1_2 {
 
 		return array(null, $orderByList, $presortList, $orderDirectionList);
 	}
+
 }

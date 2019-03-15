@@ -246,6 +246,7 @@ class ShowItemTest extends GalleryTestCase {
 		$this->assertEquals($album->getId(), $item->getId(), 'itemId');
 		$this->assertEquals('showItemTest', $theme->getId(), 'theme');
 	}
+
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
@@ -261,4 +262,5 @@ class ShowItemTestTheme extends GalleryTheme {
 	public function isActive() {
 		return array(null, true);
 	}
+
 }

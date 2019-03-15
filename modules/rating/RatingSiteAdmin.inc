@@ -62,7 +62,8 @@ class RatingSiteAdminController extends GalleryController {
 			|| !is_numeric($form['minLimit'] = str_replace(',', '.', $form['minLimit']))) {
 				$error[] = 'form[error][minLimit]';
 			}
-		}
+
+}
 
 		if (isset($form['action']['save']) && empty($error)) {
 			foreach (array('allowAlbumRating' => empty($form['allowAlbumRating']) ? 0 : 1,
@@ -78,7 +79,8 @@ class RatingSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			$status['saved'] = 1;
 		}
@@ -91,6 +93,7 @@ class RatingSiteAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -117,7 +120,8 @@ class RatingSiteAdminView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			// Localize by casting to string
 			$form['minLimit'] = (string)GalleryUtilities::castToFloat($form['minLimit']);
@@ -129,7 +133,8 @@ class RatingSiteAdminView extends GalleryView {
 				$form['orderBy'] = $tmp[1];
 				$form['presort'] = $tmp[0];
 			}
-		} else {
+
+} else {
 			// Reset theme selection on validation error for theme settings
 			$form['themeId'] = $form['currentThemeId'];
 		}
@@ -155,8 +160,7 @@ class RatingSiteAdminView extends GalleryView {
 		}
 
 		// Set up theme selection list
-		$themeList = array('' => $module->translate('&laquo; default theme &raquo;'));
-
+		$themeList               = array('' => $module->translate('&laquo; default theme &raquo;'));
 		list($ret, $themeStatus) = GalleryCoreApi::fetchPluginStatus('theme');
 
 		if ($ret) {
@@ -173,7 +177,8 @@ class RatingSiteAdminView extends GalleryView {
 
 				$themeList[$id] = $theme->translate($theme->getName());
 			}
-		}
+
+}
 
 		$RatingSiteAdmin = array(
 		'orderByList'        => $orderByList,
@@ -208,4 +213,5 @@ class RatingSiteAdminView extends GalleryView {
 
 		return array(null, array('body' => 'modules/rating/templates/RatingSiteAdmin.tpl'));
 	}
+
 }

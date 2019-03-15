@@ -105,7 +105,8 @@ class ItemEditAnimation extends ItemEditPlugin {
 
 				$status = $module->translate('Changes saved successfully');
 			}
-		}
+
+}
 
 		return array(null, $error, $status, false);
 	}
@@ -154,4 +155,5 @@ class ItemEditAnimation extends ItemEditPlugin {
 
 		return array(null, $module->translate('Animation Size'));
 	}
+
 }

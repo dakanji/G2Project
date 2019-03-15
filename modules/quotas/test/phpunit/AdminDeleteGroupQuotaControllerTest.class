@@ -72,6 +72,7 @@ class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
 	 */
 	public function testDeleteGroupQuota() {
 		$this->_createUserOrGroupQuota($this->_group->getId(), 2048);
+
 		GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 
@@ -99,7 +100,8 @@ class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
 		} else {
 			$this->_deleteUserOrGroupQuota($this->_group->getId());
 		}
-	}
+
+}
 
 	public function testDeleteGroupQuotaGroupIdMissing() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -140,7 +142,8 @@ class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function _deleteUserOrGroupQuota($userOrGroupId) {
 		$ret = GalleryCoreApi::removeMapEntry(
@@ -153,5 +156,6 @@ class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 }

@@ -92,6 +92,7 @@ class AdminCreateUserController extends GalleryController {
 					$user->setEmail($form['email']);
 					$user->setFullName($form['fullName']);
 					$user->setLanguage($form['language']);
+
 					GalleryUtilities::unsanitizeInputValues($form['password1'], false);
 
 					$user->changePassword($form['password1']);
@@ -107,19 +108,22 @@ class AdminCreateUserController extends GalleryController {
 					$redirect['subView']   = 'core.AdminUsers';
 					$status['createdUser'] = $form['userName'];
 				}
-			} else {
+
+} else {
 				foreach (array('userName', 'email', 'password1', 'password2') as $key) {
 					if (empty($form[$key])) {
 						$error[] = 'form[error][' . $key . '][missing]';
 					}
-				}
+
+}
 
 				if (!empty($form['password1']) && !empty($form['password2'])
 					&& $form['password1'] != $form['password2']
 				) {
 					$error[] = 'form[error][password2][mismatch]';
 				}
-			}
+
+}
 		}
 
 		if (!empty($redirect)) {
@@ -134,6 +138,7 @@ class AdminCreateUserController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -189,7 +194,8 @@ class AdminCreateUserView extends GalleryView {
 			foreach ($countryList as $country => $languageData) {
 				$languageList[$language . '_' . $country] = $languageData['description'];
 			}
-		}
+
+}
 
 		$AdminCreateUser                 = array();
 		$AdminCreateUser['languageList'] = $languageList;
@@ -204,4 +210,5 @@ class AdminCreateUserView extends GalleryView {
 			),
 		);
 	}
+
 }

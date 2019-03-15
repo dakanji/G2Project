@@ -258,7 +258,8 @@ class SystemChecksStep extends UpgradeStep {
 			if (!function_exists($function)) {
 				$missingFilesystemFunctions[] = $function;
 			}
-		}
+
+}
 
 		if (!empty($missingFilesystemFunctions)) {
 			$templateData['check'][] = array(
@@ -412,7 +413,8 @@ class SystemChecksStep extends UpgradeStep {
 			if (GalleryUtilities::getPhpIniBool($outputFunction) || (int)ini_get($outputFunction) > 0) {
 				$outputBuffers[] = $outputFunction;
 			}
-		}
+
+}
 
 		foreach (array(
 			'output_handler',
@@ -421,7 +423,8 @@ class SystemChecksStep extends UpgradeStep {
 			if (($value = ini_get($outputHandler)) && !empty($value)) {
 				$outputBuffers[] = $outputHandler;
 			}
-		}
+
+}
 
 		if (!empty($outputBuffers)) {
 			$templateData['check'][] = array(
@@ -470,7 +473,8 @@ class SystemChecksStep extends UpgradeStep {
 					'success' => true,
 				);
 			}
-		}
+
+}
 
 		$template->renderStatusMessage('Performing system checks', '', 0.07);
 
@@ -505,7 +509,9 @@ class SystemChecksStep extends UpgradeStep {
 
 				$_SESSION['fileintegrity'] = 'Ok';
 			} else {
-				global $currentStep; // needed for ManifestSystemCheck.html
+				// needed for ManifestSystemCheck.html
+				global $currentStep;
+
 				$message = $notice = '';
 
 				if (!empty($manifest['missing'])) {
@@ -585,7 +591,8 @@ class SystemChecksStep extends UpgradeStep {
 
 				$_SESSION['fileintegrity'] = (empty($manifest['missing']) && empty($manifest['modified'])) ? 'There are some old files' : 'There are missing/modified files!';
 			}
-		}
+
+}
 
 		// Check if the db user has (all?) required db privileges to finish the upgrader
 		$title = 'Database permissions';
@@ -615,7 +622,8 @@ class SystemChecksStep extends UpgradeStep {
 					'success' => true,
 				);
 			}
-		}
+
+}
 
 		$template->renderStatusMessage('Performing system checks', '', 1);
 		$template->hideStatusBlock();
@@ -669,7 +677,8 @@ class SystemChecksStep extends UpgradeStep {
 			) {
 				return array($path);
 			}
-		}
+
+}
 
 		// Check up to 400 other files
 		$tested      = 0;
@@ -720,7 +729,8 @@ class SystemChecksStep extends UpgradeStep {
 					$this->_checkStorageSubDirectory($path, $tested, $max)
 				);
 			}
-		}
+
+}
 
 		$platform->closedir($fd);
 
@@ -773,13 +783,15 @@ class SystemChecksStep extends UpgradeStep {
 				if ($useSetTimeLimit) {
 					set_time_limit(180);
 				}
-			}
+
+}
 
 			if (!empty($info['removed'])) {
 				if (file_exists($path)) {
 					$shouldRemove[] = $file;
 				}
-			} elseif (!file_exists($path)) {
+
+} elseif (!file_exists($path)) {
 				$missing[] = $file;
 			} else {
 				/*
@@ -802,7 +814,8 @@ class SystemChecksStep extends UpgradeStep {
 
 					$modified[] = $file;
 				}
-			}
+
+}
 		}
 
 		return array(
@@ -893,7 +906,8 @@ class SystemChecksStep extends UpgradeStep {
 
 				break;
 			}
-		}
+
+}
 
 		if (!$ok) {
 			return array(
@@ -923,7 +937,8 @@ class SystemChecksStep extends UpgradeStep {
 					'Failed to create, alter or drop a database test table. ' . $error,
 				);
 			}
-		}
+
+}
 
 		// Check CREATE and DROP SEQUENCE privileges
 		$gallery->startRecordingDebugSnippet();
@@ -1020,9 +1035,11 @@ class SystemChecksStep extends UpgradeStep {
 						. 'for missing privileges and clean up the database.' . "\n" . $snippet,
 					);
 				}
-			}
+
+}
 		}
 
 		return array(true, null);
 	}
+
 }

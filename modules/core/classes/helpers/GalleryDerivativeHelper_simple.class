@@ -54,7 +54,8 @@ class GalleryDerivativeHelper_simple {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		}
+
+}
 
 		return array(
 			null,
@@ -198,8 +199,10 @@ class GalleryDerivativeHelper_simple {
 			foreach ($derivativeEntities as $derivative) {
 				$derivativeTable[$derivative->getParentId()][] = $derivative;
 			}
-		}
+
+}
 
 		return array(null, $derivativeTable);
 	}
+
 }

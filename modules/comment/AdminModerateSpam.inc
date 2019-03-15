@@ -70,12 +70,14 @@ class AdminModerateSpamController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 
 				if ($count <= $batchSize) {
 					break;
 				}
-			}
+
+}
 
 			$status['allSpamDeleted'] = 1;
 		}
@@ -89,6 +91,7 @@ class AdminModerateSpamController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -164,7 +167,8 @@ class AdminModerateSpamView extends GalleryView {
 			foreach ($commentersList as $commenter) {
 				$commenters[$commenter->getId()] = (array)$commenter;
 			}
-		}
+
+}
 
 		if (!empty($itemIds)) {
 			$itemIds = array_keys($itemIds);
@@ -191,7 +195,8 @@ class AdminModerateSpamView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		foreach ($comments as $comment) {
 			list($ret, $permissions) = GalleryCoreApi::getPermissions($comment['parentId']);
@@ -220,12 +225,14 @@ class AdminModerateSpamView extends GalleryView {
 						} elseif ($type == DERIVATIVE_TYPE_IMAGE_THUMBNAIL) {
 							$it['thumb'] = (array)$derivative;
 						}
-					}
+
+}
 				}
 
 				$itemData[$comment['parentId']] = $it;
 			}
-		}
+
+}
 
 		$navigator = array(
 			'page'      => $page,
@@ -282,6 +289,7 @@ class AdminModerateSpamView extends GalleryView {
 		}
 
 		$template->setVariable('controller', 'comment.AdminModerateSpam');
+
 		$template->setVariable(
 			'AdminModerateSpam',
 			array(
@@ -318,4 +326,5 @@ class AdminModerateSpamView extends GalleryView {
 
 		return array(null, $module->translate('moderate spam'));
 	}
+
 }

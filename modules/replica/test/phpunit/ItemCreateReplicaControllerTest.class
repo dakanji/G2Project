@@ -260,7 +260,8 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$selectedIds = array();
 
@@ -303,7 +304,8 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$selectedIds = array();
 
@@ -397,4 +399,5 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 	}
+
 }

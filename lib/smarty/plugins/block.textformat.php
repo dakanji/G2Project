@@ -68,7 +68,8 @@ function smarty_block_textformat($params, $content, &$smarty) {
 			default:
 				$smarty->trigger_error("textformat: unknown attribute '$_key'");
 		}
-	}
+
+}
 
 	if ($style == 'email') {
 		$wrap = 72;
@@ -98,7 +99,8 @@ function smarty_block_textformat($params, $content, &$smarty) {
 		if ($indent > 0) {
 			$_paragraphs[$_x] = preg_replace('!^!m', str_repeat($indent_char, $indent), $_paragraphs[$_x]);
 		}
-	}
+
+}
 
 	$_output = implode($wrap_char . $wrap_char, $_paragraphs);
 

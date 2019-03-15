@@ -30,6 +30,7 @@ class ADODB_Encrypt_MD5 {
 
 		return $md5crypt->decrypt($data, $key);
 	}
+
 }
 
 return 1;

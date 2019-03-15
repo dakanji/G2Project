@@ -39,9 +39,8 @@ class SetSizeOption extends ItemAddOption {
 	 * @see ItemAddOption::handleRequestAfterAdd
 	 */
 	public function handleRequestAfterAdd($form, $items) {
-		$errors   = array();
-		$warnings = array();
-
+		$errors             = array();
+		$warnings           = array();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'sizelimit');
 
 		if ($ret) {
@@ -99,7 +98,8 @@ class SetSizeOption extends ItemAddOption {
 					} else {
 						return array($ret, null, null);
 					}
-				}
+
+}
 			}
 
 			if (isset($param['size']) && $param['size'] > 0
@@ -128,10 +128,13 @@ class SetSizeOption extends ItemAddOption {
 					} else {
 						return array($ret, null, null);
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		return array(null, $errors, $warnings);
 	}
+
 }

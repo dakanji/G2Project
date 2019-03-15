@@ -58,6 +58,7 @@ class ADODB_mssqlpo extends ADODB_mssql {
 
 		return ADODB_mssql::_query($sql, $inputarr);
 	}
+
 }
 
 class ADORecordset_mssqlpo extends ADORecordset_mssql {
@@ -66,4 +67,5 @@ class ADORecordset_mssqlpo extends ADORecordset_mssql {
 	public function __construct($id, $mode = false) {
 		parent::__construct($id, $mode);
 	}
+
 }

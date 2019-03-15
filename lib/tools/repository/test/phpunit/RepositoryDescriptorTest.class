@@ -337,6 +337,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 			array('locale', 'po'),
 			$descriptor->getDirectoriesInPackage('base')
 		);
+
 		/*
 		 * It's important that parent dirs show up before child dirs because we'll be calling
 		 * mkdir on them in this order.
@@ -421,18 +422,33 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 
 		$phpVm = new RepositoryDescriptorTestPhpVm();
 
-		$phpVm->setCrc32('file.1', 1);     // wrong checksum
-		$phpVm->setCrc32('file.2', 12345); // correct checksum
-		$phpVm->setCrc32('strings.raw', 12345); // correct checksum
-		$phpVm->setCrc32('aa.po', 12345); // correct checksum
-		$phpVm->setCrc32('aa.mo', 12345); // correct checksum
-		$phpVm->setCrc32('test.mo', 12345); // correct checksum
-		$phpVm->setCrc32('file.test', 12345); // correct checksum
+		// wrong checksum
+		$phpVm->setCrc32('file.1', 1);
+
+		// correct checksum
+		$phpVm->setCrc32('file.2', 12345);
+
+		// correct checksum
+		$phpVm->setCrc32('strings.raw', 12345);
+
+		// correct checksum
+		$phpVm->setCrc32('aa.po', 12345);
+
+		// correct checksum
+		$phpVm->setCrc32('aa.mo', 12345);
+
+		// correct checksum
+		$phpVm->setCrc32('test.mo', 12345);
+
+		// correct checksum
+		$phpVm->setCrc32('file.test', 12345);
+
 		$gallery->_phpVm = $phpVm;
 		$platform        = new UnitTestPlatform();
 		$base            = $descriptor->getPluginDir();
 
 		$platform->setReply('is_readable', array($base . 'MANIFEST'), true);
+
 		$platform->setReply(
 			'stat',
 			array($base . 'MANIFEST'),
@@ -444,9 +460,11 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		// file.1 has a bad crc
 		$platform->setReply('file_exists', array($base . 'file.1'), true);
 		$platform->setReply('file_get_contents', array($base . 'file.1'), 'file.1');
+
 		// file.2 is newer than the MANIFEST, and has the wrong size
 		$platform->setReply('file_exists', array($base . 'file.2'), true);
 		$platform->setReply('file_get_contents', array($base . 'file.2'), 'file.2');
+
 		$platform->setReply(
 			'stat',
 			array($base . 'file.2'),
@@ -458,9 +476,11 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 
 		// strings.raw is missing
 		$platform->setReply('file_exists', array($base . 'po/strings.raw'), false);
+
 		// the rest of the files are older than the MANIFEST and have the right file size
 		$platform->setReply('file_exists', array($base . 'po/aa.po'), true);
 		$platform->setReply('file_get_contents', array($base . 'po/aa.po'), 'aa.po');
+
 		$platform->setReply(
 			'stat',
 			array($base . 'po/aa.po'),
@@ -472,6 +492,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 
 		$platform->setReply('file_exists', array($base . 'po/aa.mo'), true);
 		$platform->setReply('file_get_contents', array($base . 'po/aa.mo'), 'aa.mo');
+
 		$platform->setReply(
 			'stat',
 			array($base . 'po/aa.mo'),
@@ -487,6 +508,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 			array($base . 'locale/aa/LC_MESSAGES/test.mo'),
 			'test.mo'
 		);
+
 		$platform->setReply(
 			'stat',
 			array($base . 'locale/aa/LC_MESSAGES/test.mo'),
@@ -502,6 +524,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 			array($base . 'test/phpunit/file.test'),
 			'file.test'
 		);
+
 		$platform->setReply(
 			'stat',
 			array($base . 'test/phpunit/file.test'),
@@ -512,6 +535,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		);
 
 		$gallery->setPlatform($platform);
+
 		$this->assertEquals(
 			array(
 				'file.1: bad crc (12345 != 1)',
@@ -523,6 +547,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		);
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
+
 }
 
 class RepositoryDescriptorTestPhpVm extends GalleryPhpVm {
@@ -533,6 +558,7 @@ class RepositoryDescriptorTestPhpVm extends GalleryPhpVm {
 	public function crc32($contents) {
 		return $this->_crc32[$contents];
 	}
+
 }
 
 class RepositoryDescriptor_FakeFileMetaDataTest extends RepositoryDescriptor {
@@ -545,6 +571,7 @@ class RepositoryDescriptor_FakeFileMetaDataTest extends RepositoryDescriptor {
 
 		return null;
 	}
+
 }
 
 class RepositoryDescriptorTestPlugin {
@@ -582,6 +609,7 @@ class RepositoryDescriptorTestPlugin {
 			'groupLabel' => 'Test Group',
 		);
 	}
+
 }
 
 class RepositoryDescriptorTestTranslator {
@@ -614,6 +642,7 @@ class RepositoryDescriptorTestTranslator {
 			),
 		);
 	}
+
 }
 
 class RepositoryDescriptorTestUtilities {
@@ -624,4 +653,5 @@ class RepositoryDescriptorTestUtilities {
 	public function getFileRevision($file) {
 		return array(null, $this->_matches[$file]);
 	}
+
 }

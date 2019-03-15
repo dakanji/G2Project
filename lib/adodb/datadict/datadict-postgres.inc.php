@@ -23,8 +23,10 @@ class ADODB2_postgres extends ADODB_DataDict {
 	public $seqPrefix    = 'SEQ_';
 	public $addCol       = ' ADD COLUMN';
 	public $quote        = '"';
-	public $renameTable  = 'ALTER TABLE %s RENAME TO %s'; // at least since 7.1
-	public $dropTable    = 'DROP TABLE %s CASCADE';
+
+	// at least since 7.1
+	public $renameTable = 'ALTER TABLE %s RENAME TO %s';
+	public $dropTable   = 'DROP TABLE %s CASCADE';
 
 	public function MetaType($t, $len = -1, $fieldobj = false) {
 		if (is_object($t)) {
@@ -99,7 +101,8 @@ class ADODB2_postgres extends ADODB_DataDict {
 			default:
 				return 'N';
 		}
-	}
+
+}
 
 	public function ActualType($meta) {
 		switch ($meta) {
@@ -153,7 +156,8 @@ class ADODB2_postgres extends ADODB_DataDict {
 			default:
 				return $meta;
 		}
-	}
+
+}
 
 	/**
 	 * Adding a new Column
@@ -165,10 +169,9 @@ class ADODB2_postgres extends ADODB_DataDict {
 	 * @return array with SQL strings
 	 */
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname  = $this->TableName($tabname);
-		$sql      = array();
-		$not_null = false;
-
+		$tabname            = $this->TableName($tabname);
+		$sql                = array();
+		$not_null           = false;
 		list($lines, $pkey) = $this->_GenFields($flds);
 
 		$alter = 'ALTER TABLE ' . $tabname . $this->addCol . ' ';
@@ -193,7 +196,8 @@ class ADODB2_postgres extends ADODB_DataDict {
 
 				$sql[] = 'ALTER TABLE ' . $tabname . ' ALTER COLUMN ' . $colname . ' SET NOT NULL';
 			}
-		}
+
+}
 
 		return $sql;
 	}
@@ -219,19 +223,21 @@ class ADODB2_postgres extends ADODB_DataDict {
 	{
 		if (!$tableflds) {
 			if ($this->debug) ADOConnection::outp("AlterColumnSQL needs a complete table-definiton for PostgreSQL");
+
 			return array();
 		}
 
 		return $this->_recreate_copy_table($tabname,False,$tableflds,$tableoptions);
-	}*/
+	}
+
+*/
 	public function AlterColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
 		// Check if alter single column datatype available - works with 8.0+
 		$has_alter_column = 8.0 <= (float)@$this->serverInfo['version'];
 
 		if ($has_alter_column) {
-			$tabname = $this->TableName($tabname);
-			$sql     = array();
-
+			$tabname            = $this->TableName($tabname);
+			$sql                = array();
 			list($lines, $pkey) = $this->_GenFields($flds);
 
 			$set_null = false;
@@ -254,8 +260,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 				}
 
 				if (preg_match('/^([^ ]+) .*DEFAULT (\'[^\']+\'|\"[^\"]+\"|[^ ]+)/', $v, $matches)) {
-					$existing = $this->MetaColumns($tabname);
-
+					$existing                  = $this->MetaColumns($tabname);
 					list(, $colname, $default) = $matches;
 
 					$alter .= $colname;
@@ -292,10 +297,10 @@ class ADODB2_postgres extends ADODB_DataDict {
 						$sql[] = $alter . " TYPE $t";
 						$sql[] = $alter . " SET DEFAULT $default";
 					}
-				} else {
+
+} else {
 					// drop default?
 					preg_match('/^\s*(\S+)\s+(.*)$/', $v, $matches);
-
 					list(, $colname, $rest) = $matches;
 
 					$alter .= $colname;
@@ -312,7 +317,8 @@ class ADODB2_postgres extends ADODB_DataDict {
 					// this does not error out if the column is already null
 					$sql[] = $alter . ' DROP NOT NULL';
 				}
-			}
+
+}
 
 			return $sql;
 		}
@@ -395,19 +401,24 @@ class ADODB2_postgres extends ADODB_DataDict {
 					$seq_name = $matches[1];
 					$seq_fld  = $fld->name;
 				}
-			}
+
+}
 		}
 
 		$copyflds = implode(', ', $copyflds);
 		$tempname = $tabname . '_tmp';
-		$aSql[]   = 'BEGIN';      // we use a transaction, to make sure not to loose the content of the table
-		$aSql[]   = "SELECT * INTO TEMPORARY TABLE $tempname FROM $tabname";
-		$aSql     = array_merge($aSql, $this->DropTableSQL($tabname));
-		$aSql     = array_merge($aSql, $this->CreateTableSQL($tabname, $tableflds, $tableoptions));
-		$aSql[]   = "INSERT INTO $tabname SELECT $copyflds FROM $tempname";
 
-		if ($seq_name && $seq_fld) {    // if we have a sequence we need to set it again
-			$seq_name = $tabname . '_' . $seq_fld . '_seq';   // has to be the name of the new implicit sequence
+		// we use a transaction, to make sure not to loose the content of the table
+		$aSql[] = 'BEGIN';
+		$aSql[] = "SELECT * INTO TEMPORARY TABLE $tempname FROM $tabname";
+		$aSql   = array_merge($aSql, $this->DropTableSQL($tabname));
+		$aSql   = array_merge($aSql, $this->CreateTableSQL($tabname, $tableflds, $tableoptions));
+		$aSql[] = "INSERT INTO $tabname SELECT $copyflds FROM $tempname";
+
+		if ($seq_name && $seq_fld) {
+			// if we have a sequence we need to set it again
+			// has to be the name of the new implicit sequence
+			$seq_name = $tabname . '_' . $seq_fld . '_seq';
 			$aSql[]   = "SELECT setval('$seq_name',MAX($seq_fld)) FROM $tabname";
 		}
 
@@ -426,7 +437,8 @@ class ADODB2_postgres extends ADODB_DataDict {
 					)
 				);
 			}
-		}
+
+}
 
 		$aSql[] = 'COMMIT';
 
@@ -539,7 +551,8 @@ class ADODB2_postgres extends ADODB_DataDict {
 			if (isset($idxoptions['DROP'])) {
 				return $sql;
 			}
-		}
+
+}
 
 		if (empty($flds)) {
 			return $sql;
@@ -579,4 +592,5 @@ class ADODB2_postgres extends ADODB_DataDict {
 
 		return $ftype;
 	}
+
 }

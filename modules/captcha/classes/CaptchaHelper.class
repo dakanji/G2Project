@@ -53,7 +53,8 @@ class CaptchaHelper {
 			} else {
 				$gdReport['fail'][] = $gdFunction;
 			}
-		}
+
+}
 
 		return $gdReport;
 	}
@@ -76,4 +77,5 @@ class CaptchaHelper {
 
 		$session->put('captcha.key', $code);
 	}
+
 }

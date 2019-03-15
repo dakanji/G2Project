@@ -124,7 +124,8 @@ class GalleryRepositoryUtilities {
 			if ($build1 != $build2) {
 				$relation = $build1 > $build2 ? 'newer' : 'older';
 			}
-		}
+
+}
 
 		// If no differences have been found, versions/builds are equal.
 		if (empty($relation)) {
@@ -168,7 +169,8 @@ class GalleryRepositoryUtilities {
 
 				break;
 			}
-		}
+
+}
 
 		return $relation;
 	}
@@ -440,7 +442,6 @@ class GalleryRepositoryUtilities {
 		}
 
 		$url .= '?' . $this->_getApiQueryParams();
-
 		list($successful, $contents, $response, $headers, $actualUrl) = GalleryCoreApi::fetchWebPage($url);
 
 		if (empty($contents) || !$successful) {
@@ -563,7 +564,8 @@ class GalleryRepositoryUtilities {
 			) {
 				return array($pluginOutputDir);
 			}
-		} else {
+
+} else {
 			return array();
 		}
 
@@ -578,7 +580,8 @@ class GalleryRepositoryUtilities {
 						if (!$platform->is_writeable($filePath)) {
 							$errorMessages[$filePath] = 1;
 						}
-					} else {
+
+} else {
 						$checkPath = dirname($filePath) . '/';
 
 						while ($checkPath != $pluginOutputDir && $checkPath != '.') {
@@ -593,9 +596,11 @@ class GalleryRepositoryUtilities {
 
 							$checkPath = dirname($checkPath) . '/';
 						}
-					}
+
+}
 				}
-			}
+
+}
 		}
 
 		return array_keys($errorMessages);
@@ -672,9 +677,11 @@ class GalleryRepositoryUtilities {
 							$errorMessage
 						);
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -782,7 +789,8 @@ class GalleryRepositoryUtilities {
 						null,
 					);
 				}
-			}
+
+}
 
 			if (empty($packages[$pluginType][$pluginId])) {
 				$packages[$pluginType][$pluginId] = array(
@@ -920,4 +928,5 @@ class GalleryRepositoryUtilities {
 
 		return array(null, $outputFile);
 	}
+
 }

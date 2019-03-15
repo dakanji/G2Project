@@ -190,6 +190,7 @@ class dbObject {
 	public function FieldID($field) {
 		return strtoupper(preg_replace('/^`(.+)`$/', '$1', $field));
 	}
+
 }
 
 /**
@@ -322,7 +323,8 @@ class dbTable extends dbObject {
 			default:
 				// print_r( array( $tag, $attributes ) );
 		}
-	}
+
+}
 
 	/**
 	 * XML Callback to process CDATA elements
@@ -349,7 +351,8 @@ class dbTable extends dbObject {
 
 			default:
 		}
-	}
+
+}
 
 	/**
 	 * XML Callback to process end elements
@@ -362,7 +365,9 @@ class dbTable extends dbObject {
 		switch (strtoupper($tag)) {
 			case 'TABLE':
 				$this->parent->addSQL($this->create($this->parent));
+
 				xml_set_object($parser, $this->parent);
+
 				$this->destroy();
 
 				break;
@@ -372,7 +377,8 @@ class dbTable extends dbObject {
 
 				break;
 		}
-	}
+
+}
 
 	/**
 	 * Adds an index to a table object
@@ -451,7 +457,8 @@ class dbTable extends dbObject {
 		if (isset($opts)) {
 			$this->fields[$field_id]['OPTS'][] = $opts;
 		}
-	}
+
+}
 
 	/**
 	 * Adds a field option to the current field specifier
@@ -474,7 +481,8 @@ class dbTable extends dbObject {
 				$opt => $value,
 			);
 		}
-	}
+
+}
 
 	/**
 	 * Adds an option to the table
@@ -507,7 +515,8 @@ class dbTable extends dbObject {
 			foreach ($legacy_indexes as $index => $index_details) {
 				$sql[] = $xmls->dict->DropIndexSQL($index, $this->name);
 			}
-		}
+
+}
 
 		// remove fields to be dropped from table object
 		foreach ($this->drop_field as $field) {
@@ -528,7 +537,8 @@ class dbTable extends dbObject {
 				if (!isset($this->fields[$field_id])) {
 					$sql[] = $xmls->dict->DropColumnSQL($this->name, '`' . $field->name . '`');
 				}
-			}
+
+}
 
 			// if table doesn't exist
 		} else {
@@ -568,9 +578,11 @@ class dbTable extends dbObject {
 					} else {
 						$fldarray[$field_id][$opt] = $opt;
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		if (empty($legacy_fields)) {
 			// Create the new table
@@ -599,7 +611,8 @@ class dbTable extends dbObject {
 				default:
 					return array();
 			}
-		}
+
+}
 
 		foreach ($this->indexes as $index) {
 			$sql[] = $index->create($xmls);
@@ -629,7 +642,8 @@ class dbTable extends dbObject {
 			// $this->drop_table = $xmls->dict->DropTableSQL( $this->name );
 			$this->drop_table = true;
 		}
-	}
+
+}
 }
 
 /**
@@ -708,7 +722,8 @@ class dbIndex extends dbObject {
 			default:
 				// print_r( array( $tag, $attributes ) );
 		}
-	}
+
+}
 
 	/**
 	 * XML Callback to process CDATA elements
@@ -727,7 +742,8 @@ class dbIndex extends dbObject {
 
 			default:
 		}
-	}
+
+}
 
 	/**
 	 * XML Callback to process end elements
@@ -743,7 +759,8 @@ class dbIndex extends dbObject {
 
 				break;
 		}
-	}
+
+}
 
 	/**
 	 * Adds a field to the index
@@ -787,7 +804,8 @@ class dbIndex extends dbObject {
 			if (!isset($this->parent->fields[$id])) {
 				unset($this->columns[$id]);
 			}
-		}
+
+}
 
 		return $xmls->dict->CreateIndexSQL($this->name, $this->parent->name, $this->columns, $this->opts);
 	}
@@ -798,6 +816,7 @@ class dbIndex extends dbObject {
 	public function drop() {
 		$this->drop = true;
 	}
+
 }
 
 /**
@@ -844,11 +863,13 @@ class dbData extends dbObject {
 
 			case 'F':
 				$this->addField($attributes);
+
 				// Fall Through
 			default:
 				// print_r( array( $tag, $attributes ) );
 		}
-	}
+
+}
 
 	/**
 	 * XML Callback to process CDATA elements
@@ -867,7 +888,8 @@ class dbData extends dbObject {
 
 			default:
 		}
-	}
+
+}
 
 	/**
 	 * XML Callback to process end elements
@@ -883,7 +905,8 @@ class dbData extends dbObject {
 
 				break;
 		}
-	}
+
+}
 
 	/**
 	 * Adds a field to the index
@@ -941,7 +964,8 @@ class dbData extends dbObject {
 					} else {
 						continue;
 					}
-				}
+
+}
 
 				$name = $table_fields[$field_id]['NAME'];
 
@@ -982,15 +1006,18 @@ class dbData extends dbObject {
 						if ((in_array('NOTNULL', $field['OPTS']) || in_array('KEY', $field['OPTS'])) && !in_array('AUTOINCREMENT', $field['OPTS'])) {
 							continue 2;
 						}
-					}
+
+}
 				}
-			}
+
+}
 
 			$sql[] = 'INSERT INTO ' . $table . ' (' . implode(',', array_keys($fields)) . ') VALUES (' . implode(',', $fields) . ')';
 		}
 
 		return $sql;
 	}
+
 }
 
 /**
@@ -1053,7 +1080,8 @@ class dbQuerySet extends dbObject {
 
 				break;
 		}
-	}
+
+}
 
 	/**
 	 * XML Callback to process start elements. Elements currently
@@ -1080,7 +1108,8 @@ class dbQuerySet extends dbObject {
 			default:
 				// print_r( array( $tag, $attributes ) );
 		}
-	}
+
+}
 
 	/**
 	 * XML Callback to process CDATA elements
@@ -1095,7 +1124,8 @@ class dbQuerySet extends dbObject {
 
 			default:
 		}
-	}
+
+}
 
 	/**
 	 * XML Callback to process end elements
@@ -1114,14 +1144,17 @@ class dbQuerySet extends dbObject {
 
 			case 'SQL':
 				$this->parent->addSQL($this->create($this->parent));
+
 				xml_set_object($parser, $this->parent);
+
 				$this->destroy();
 
 				break;
 
 			default:
 		}
-	}
+
+}
 
 	/**
 	 * Re-initializes the query.
@@ -1198,6 +1231,7 @@ class dbQuerySet extends dbObject {
 
 					// SELECT statements aren't working yet
 					// $data = preg_replace( '/(?ias)(^\s*SELECT\s+.*\s+FROM)\s+(\W\s*,?\s*)+((?i)\s+WHERE.*$)/', "\1 $prefix\2 \3", $data );
+
 					// Fall Through
 				case 'MANUAL':
 					// If prefixKey is set and has a value then we use it to override the default constant XMLS_PREFIX.
@@ -1209,7 +1243,8 @@ class dbQuerySet extends dbObject {
 						// Use default replacement
 						$query = str_replace(XMLS_PREFIX, $xmls->objectPrefix, $query);
 					}
-			}
+
+}
 
 			$this->queries[$id] = trim($query);
 		}
@@ -1252,6 +1287,7 @@ class dbQuerySet extends dbObject {
 
 		return $query;
 	}
+
 }
 
 /**
@@ -1528,7 +1564,8 @@ class adoSchema {
 					)
 				);
 			}
-		}
+
+}
 
 		xml_parser_free($xmlParser);
 
@@ -1730,7 +1767,8 @@ class adoSchema {
 			default:
 				// print_r( array( $tag, $attributes ) );
 		}
-	}
+
+}
 
 	/**
 	 * XML Callback to process CDATA elements
@@ -1829,7 +1867,8 @@ class adoSchema {
 			if (substr($result, 0, 3) == sprintf('%c%c%c', 239, 187, 191)) {
 				$result = substr($result, 3);
 			}
-		} else {
+
+} else {
 			$result = $this->TransformSchema($filename, 'convert-' . $version . '-' . $newVersion, 'file');
 		}
 
@@ -1869,7 +1908,8 @@ class adoSchema {
 				if (!is_string($schema)) {
 					return false;
 				}
-		}
+
+}
 
 		$arguments = array(
 			'/_xml' => $schema,
@@ -1966,7 +2006,8 @@ class adoSchema {
 			if (preg_match($this->versionRegex, $data, $matches)) {
 				return !empty($matches[2]) ? $matches[2] : XMLS_DEFAULT_SCHEMA_VERSION;
 			}
-		}
+
+}
 
 		return false;
 	}
@@ -2051,7 +2092,8 @@ class adoSchema {
 
 						$schema .= '</field>' . "\n";
 					}
-				}
+
+}
 
 				if (is_array($indexes)) {
 					foreach ($indexes as $index => $details) {
@@ -2067,7 +2109,8 @@ class adoSchema {
 
 						$schema .= '		</index>' . "\n";
 					}
-				}
+
+}
 
 				if ($data) {
 					$rs = $this->db->Execute('SELECT * FROM ' . $table);
@@ -2085,11 +2128,13 @@ class adoSchema {
 
 						$schema .= '		</data>' . "\n";
 					}
-				}
+
+}
 
 				$schema .= '	</table>' . "\n";
 			}
-		}
+
+}
 
 		$this->db->SetFetchMode($old_mode);
 
@@ -2222,7 +2267,8 @@ class adoSchema {
 
 					$this->success = 1;
 				}
-			}
+
+}
 
 			return true;
 		}
@@ -2269,7 +2315,8 @@ class adoSchema {
 		if ($this->mgq !== false) {
 			ini_set('magic_quotes_runtime', $this->mgq);
 		}
-	}
+
+}
 }
 
 /**
@@ -2292,4 +2339,5 @@ function logMsg($msg, $title = null, $force = false) {
 		print_r($msg);
 		echo '</pre>';
 	}
+
 }

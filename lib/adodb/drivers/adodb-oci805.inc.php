@@ -44,9 +44,10 @@ class ADODB_oci805 extends ADODB_oci8 {
 			$nrows = -1;
 		}
 
-		*/
+*/
 		return ADOConnection::SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
 	}
+
 }
 
 class ADORecordset_oci805 extends ADORecordset_oci8 {
@@ -55,4 +56,5 @@ class ADORecordset_oci805 extends ADORecordset_oci8 {
 	public function __construct($id, $mode = false) {
 		parent::__construct($id, $mode);
 	}
+
 }

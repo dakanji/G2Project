@@ -51,7 +51,8 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testEnableRatingForAlbum() {
 		$ret = GalleryCoreApi::setPluginParameter(
@@ -183,4 +184,5 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 
 		$this->assertEquals(1, (int)$enabled, 'Child album');
 	}
+
 }

@@ -90,7 +90,8 @@ class DownloadItemView extends GalleryView {
 			if ($ret) {
 				return $ret;
 			}
-		} else {
+
+} else {
 			$item = $image;
 		}
 
@@ -98,7 +99,6 @@ class DownloadItemView extends GalleryView {
 		header('Expires: ' . GalleryUtilities::getHttpDate(time() - 100));
 		header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 		header('Pragma: no-cache');
-
 		list($ret, $albumId) = GalleryCoreApi::getDefaultAlbumId();
 
 		if ($ret) {
@@ -177,7 +177,8 @@ class DownloadItemView extends GalleryView {
 
 				// DERIVATIVE_TYPE_IMAGE_PREFERRED uses core.viewSource
 			}
-		}
+
+}
 
 		$ret = GalleryCoreApi::assertHasItemPermission($itemIdForPermission, $permission);
 
@@ -190,18 +191,21 @@ class DownloadItemView extends GalleryView {
 					if ($ret2) {
 						return $ret2;
 					}
-				}
+
+}
 
 				if ($permission == 'core.view' || empty($hasPermission)) {
 					$ret->addErrorCode(ERROR_MISSING_OBJECT);
 
 					return $ret;
 				}
-			}
+
+}
 
 			return $ret;
 		}
 
 		return null;
 	}
+
 }

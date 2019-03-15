@@ -77,6 +77,7 @@ class ADODB_Encrypt_MCrypt {
 
 		return rtrim($rv, "\0");
 	}
+
 }
 
 return 1;

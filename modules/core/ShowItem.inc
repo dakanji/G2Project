@@ -68,6 +68,7 @@ class ShowItemController extends GalleryController {
 			),
 		);
 	}
+
 }
 
 /**
@@ -130,7 +131,8 @@ class ShowItemView extends GalleryView {
 				if ($highlightId || ($page && $page != 1)) {
 					return array(null, null);
 				}
-			}
+
+}
 		}
 
 		$ret = GalleryCoreApi::incrementItemViewCount($item->getId());
@@ -188,4 +190,5 @@ class ShowItemView extends GalleryView {
 	public function getViewType() {
 		return VIEW_TYPE_SHOW_ITEM;
 	}
+
 }

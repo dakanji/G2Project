@@ -46,8 +46,7 @@ class CommentCallbackView extends GalleryView {
 	public function renderImmediate($status = null, $error = null) {
 		global $gallery;
 
-		$result = array();
-
+		$result                    = array();
 		list($command, $commentId) = GalleryUtilities::getRequestVariables('command', 'commentId');
 
 		$commentId = (int)$commentId;
@@ -125,7 +124,8 @@ class CommentCallbackView extends GalleryView {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Set the publish status for the comment with the given id to given value
@@ -190,4 +190,5 @@ class CommentCallbackView extends GalleryView {
 
 		return null;
 	}
+
 }

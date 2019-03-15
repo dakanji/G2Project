@@ -43,7 +43,8 @@ class AdminGdControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testSaveGoodPath() {
 		global $gallery;
@@ -111,4 +112,5 @@ class AdminGdControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 	}
+
 }

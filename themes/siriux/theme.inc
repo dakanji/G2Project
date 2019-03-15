@@ -31,9 +31,7 @@ class SiriuxTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('siriux');
-
 		$this->setName($gallery->i18n('Siriux'));
-
 		$this->setDescription(
 			$gallery->i18n(
 				'Siriux.net Gallery theme'
@@ -42,6 +40,7 @@ class SiriuxTheme extends GalleryTheme {
 		$this->setVersion('7.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
+
 		$this->setStandardSettings(
 			array(
 				'perPage'        => 9,
@@ -106,8 +105,7 @@ class SiriuxTheme extends GalleryTheme {
 
 		// Find the thumbnail size for this album
 		$theme['params']['thumbnailSize'] = 150;
-
-		list($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem(
+		list($ret, $preferences)          = GalleryCoreApi::fetchDerivativePreferencesForItem(
 			$item->getId()
 		);
 
@@ -127,7 +125,8 @@ class SiriuxTheme extends GalleryTheme {
 
 				break;
 			}
-		}
+
+}
 
 		return array(null, 'theme.tpl');
 	}
@@ -294,4 +293,5 @@ class SiriuxTheme extends GalleryTheme {
 
 		return $error;
 	}
+
 }

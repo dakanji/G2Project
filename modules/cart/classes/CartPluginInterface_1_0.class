@@ -60,4 +60,5 @@ class CartPluginInterface_1_0 {
 	public function fulfillCart($cartItemIds) {
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
+
 }

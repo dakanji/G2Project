@@ -15,18 +15,18 @@
 	 *       - null values
 	 */
 
-	/**
-	 * Include the main libraries
-	 */
+/**
+ * Include the main libraries
+ */
 	require_once 'xmlrpc.inc';
 
 if (!defined('ADODB_DIR')) {
 	include_once 'adodb.inc.php';
 }
 
-	/**
-	 * Builds an xmlrpc struct value out of an AdoDB recordset
-	 */
+/**
+ * Builds an xmlrpc struct value out of an AdoDB recordset
+ */
 function rs2xmlrpcval(&$adodbrs) {
 	$header = rs2xmlrpcval_header($adodbrs);
 	$body   = rs2xmlrpcval_body($adodbrs);
@@ -43,9 +43,9 @@ function rs2xmlrpcval(&$adodbrs) {
 	return $xmlrpcrs;
 }
 
-	/**
-	 * Builds an xmlrpc struct value describing an AdoDB recordset
-	 */
+/**
+ * Builds an xmlrpc struct value describing an AdoDB recordset
+ */
 function rs2xmlrpcval_header($adodbrs) {
 	$numfields  = $adodbrs->FieldCount();
 	$numrecords = $adodbrs->RecordCount();
@@ -101,10 +101,10 @@ function rs2xmlrpcval_header($adodbrs) {
 	return $header;
 }
 
-	/**
-	 * Builds an xmlrpc struct value out of an AdoDB recordset
-	 * (data values only, no data definition)
-	 */
+/**
+ * Builds an xmlrpc struct value out of an AdoDB recordset
+ * (data values only, no data definition)
+ */
 function rs2xmlrpcval_body($adodbrs) {
 	$numfields = $adodbrs->FieldCount();
 
@@ -124,7 +124,8 @@ function rs2xmlrpcval_body($adodbrs) {
 				} else {
 					$columns[$i] = xmlrpc_encode($adodbrs->fields[$i]);
 				}
-			}
+
+}
 		} else {
 			foreach ($adodbrs->fields as $val) {
 				if ($val === null) {
@@ -132,7 +133,8 @@ function rs2xmlrpcval_body($adodbrs) {
 				} else {
 					$columns[] = xmlrpc_encode($val);
 				}
-			}
+
+}
 		}
 
 		$rows[] = new xmlrpcval($columns, 'array');
@@ -145,9 +147,9 @@ function rs2xmlrpcval_body($adodbrs) {
 	return $body;
 }
 
-	/**
-	 * Returns an xmlrpc struct value as string out of an AdoDB recordset
-	 */
+/**
+ * Returns an xmlrpc struct value as string out of an AdoDB recordset
+ */
 function rs2xmlrpcstring(&$adodbrs) {
 	$xmlrpc = rs2xmlrpcval($adodbrs);
 
@@ -158,11 +160,11 @@ function rs2xmlrpcstring(&$adodbrs) {
 	return null;
 }
 
-	/**
-	 * Given a well-formed xmlrpc struct object returns an AdoDB object
-	 *
-	 * @todo add some error checking on the input value
-	 */
+/**
+ * Given a well-formed xmlrpc struct object returns an AdoDB object
+ *
+ * @todo add some error checking on the input value
+ */
 function xmlrpcval2rs(&$xmlrpcval) {
 	$fields_array = array();
 	$data_array   = array();
@@ -205,7 +207,8 @@ function xmlrpcval2rs(&$xmlrpcval) {
 			if ($key == 'default_value') {
 				$fld->default_value = $value->scalarval();
 			}
-		} // while
+
+} // while
 		$fields_array[] = $fld;
 	} // for
 	// fetch recordset information into php array

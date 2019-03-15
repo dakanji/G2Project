@@ -37,7 +37,9 @@ class KeyAlbumModule extends GalleryModule {
 				'Dynamic albums based on keyword search'
 			)
 		);
-		$this->setVersion('2.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -84,7 +86,8 @@ class KeyAlbumModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		if (!isset($params['themeSettingsId'])) {
@@ -120,7 +123,8 @@ class KeyAlbumModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		if (!empty($currentVersion) && version_compare($currentVersion, '1.0.3', '<')) {
 			// Format for keyword data changed; force refresh
@@ -131,9 +135,11 @@ class KeyAlbumModule extends GalleryModule {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -159,8 +165,7 @@ class KeyAlbumModule extends GalleryModule {
 	public function getItemSummaries($items, $permissions, &$template) {
 		global $gallery;
 
-		$urlGenerator =& $gallery->getUrlGenerator();
-
+		$urlGenerator       =& $gallery->getUrlGenerator();
 		list($ret, $params) = $this->fetchParameters();
 
 		if ($ret) {
@@ -177,7 +182,8 @@ class KeyAlbumModule extends GalleryModule {
 			) {
 				return array(null, array());
 			}
-		}
+
+}
 
 		$summaries = array();
 		$label     = $this->translate('Keywords:');
@@ -199,7 +205,8 @@ class KeyAlbumModule extends GalleryModule {
 
 				$summaries[$itemId] = $label . implode(',', $links);
 			}
-		}
+
+}
 
 		return array(null, $summaries);
 	}
@@ -225,7 +232,8 @@ class KeyAlbumModule extends GalleryModule {
 
 				$result[$rawKeyword] = $keyword;
 			}
-		}
+
+}
 
 		return $result;
 	}
@@ -255,4 +263,5 @@ class KeyAlbumModule extends GalleryModule {
 			),
 		);
 	}
+
 }

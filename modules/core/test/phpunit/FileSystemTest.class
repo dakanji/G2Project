@@ -219,14 +219,16 @@ class FileSystemTest extends GalleryTestCase {
 					$entity[$i]->getPathComponent()
 				);
 			}
-		}
+
+}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testMoveCollision() {
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(
@@ -274,7 +276,8 @@ class FileSystemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/*
 	 * Test the platform->rename($old,$newpath) call of FileSystemEntity::move.
@@ -337,7 +340,8 @@ class FileSystemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testGetLegalPathComponent() {
 		// Simple case, no collision
@@ -430,9 +434,8 @@ class FileSystemTest extends GalleryTestCase {
 	// Verify that too long path components get truncated and that the extension gets preserved.
 	public function testGetLegalPathComponentForTruncatedName() {
 		// Prepare by setting the name of an existing album to a string with max length.
-		$component = '1234567890123456789012345678901234567890123456789012345678901234567890' .
+		$component          = '1234567890123456789012345678901234567890123456789012345678901234567890' .
 		'1234567890123456789012345678901234567890123456789012345678';
-
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($this->_albums[0]->getId());
 
 		if ($ret) {
@@ -454,8 +457,7 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		// Execute the test: Get the legal path component for a too long colliding name.
-		$newComponent = $component . 'abcdefghi.jpg';
-
+		$newComponent     = $component . 'abcdefghi.jpg';
 		list($ret, $path) = GalleryCoreApi::getLegalPathComponent(
 			$newComponent,
 			$this->_getRootId()
@@ -472,9 +474,8 @@ class FileSystemTest extends GalleryTestCase {
 
 	public function testGetLegalPathComponentForTruncatedNameWithCollision() {
 		// Prepare the 2nd case, where we try to fix a collision.
-		$component = '1234567890123456789012345678901234567890123456789012345678901234567890' .
+		$component        = '1234567890123456789012345678901234567890123456789012345678901234567890' .
 		'123456789012345678901234567890123456789012345678901234.jpg';
-
 		list($ret, $item) = $this->_createRandomDataItem($this->_albums[0]->getId());
 
 		if ($ret) {
@@ -508,8 +509,7 @@ class FileSystemTest extends GalleryTestCase {
 		$this->assertEquals($component, $item->getPathComponent(), 'precondition');
 
 		// Execute the test: path component with truncation and collision.
-		$newComponent = $component . 'abcdefghi.jpg';
-
+		$newComponent     = $component . 'abcdefghi.jpg';
 		list($ret, $path) = GalleryCoreApi::getLegalPathComponent(
 			$newComponent,
 			$this->_albums[0]->getId()
@@ -530,9 +530,8 @@ class FileSystemTest extends GalleryTestCase {
 	 */
 	public function testCheckPathCollisionTruncation() {
 		// Prepare by setting the name of an existing album to a string with max length.
-		$component = '1234567890123456789012345678901234567890123456789012345678901234567890' .
+		$component          = '1234567890123456789012345678901234567890123456789012345678901234567890' .
 		'1234567890123456789012345678901234567890123456789012345678';
-
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($this->_albums[0]->getId());
 
 		if ($ret) {
@@ -554,8 +553,7 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		// Execute the test: Try to use a path component that collides once it's truncated.
-		$newComponent = $component . 'abcdefghi';
-
+		$newComponent            = $component . 'abcdefghi';
 		list($ret, $isCollision) = GalleryCoreApi::checkPathCollision($newComponent, $this->_getRootId());
 
 		if ($ret) {
@@ -566,9 +564,8 @@ class FileSystemTest extends GalleryTestCase {
 	}
 
 	public function testCheckPathCollisionCaseSensitivity() {
-		$pathComponentA = 'test';
-		$pathComponentB = 'TEST';
-
+		$pathComponentA   = 'test';
+		$pathComponentB   = 'TEST';
 		list($ret, $item) = $this->_createRandomAlbum($this->_albums[0]->getId());
 
 		if ($ret) {
@@ -608,6 +605,7 @@ class FileSystemTest extends GalleryTestCase {
 
 		$this->assertTrue($isCollision);
 	}
+
 }
 
 /**
@@ -624,6 +622,7 @@ class FileSystemTestPlatform {
 	public function getDirectorySeparator() {
 		return $this->_separator;
 	}
+
 }
 
 /**
@@ -690,15 +689,18 @@ class FileSystemTestPlatformForRename extends GalleryPlatform {
 			) {
 				return false;
 			}
-		} elseif ($this->_separator == '/') {
+
+} elseif ($this->_separator == '/') {
 			if (strrchr($oldname, '\\') || strrchr($newname, '\\')
 				|| strpos($oldname, '//') || strpos($newname, '//')
 			) {
 				return false;
 			}
-		}
+
+}
 
 		// Now pretend the rename command was successful
 		return true;
 	}
+
 }

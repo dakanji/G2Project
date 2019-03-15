@@ -222,7 +222,8 @@ class GalleryUserGroupHelper_medium {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -286,4 +287,5 @@ class GalleryUserGroupHelper_medium {
 
 		return array(null, $data);
 	}
+
 }

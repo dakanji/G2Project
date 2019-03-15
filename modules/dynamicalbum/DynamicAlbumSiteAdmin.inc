@@ -44,7 +44,8 @@ class DynamicAlbumSiteAdminController extends GalleryController {
 				if (!isset($form[$key]) || !is_numeric($form[$key])) {
 					$error[] = 'form[error][' . $key . ']';
 				}
-			}
+
+}
 		}
 
 		if (isset($form['action']['save']) && empty($error)) {
@@ -96,7 +97,8 @@ class DynamicAlbumSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			foreach (array('itemlink.date', 'itemlink.views', 'itemlink.random') as $key) {
 				$ret = GalleryCoreApi::setPluginParameter(
@@ -109,7 +111,8 @@ class DynamicAlbumSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			$status['saved'] = 1;
 		}
@@ -126,6 +129,7 @@ class DynamicAlbumSiteAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -163,7 +167,8 @@ class DynamicAlbumSiteAdminView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 		} else {
 			// Reset theme selection on validation error for theme settings
 			$form['themeId'] = $form['currentThemeId'];
@@ -202,7 +207,8 @@ class DynamicAlbumSiteAdminView extends GalleryView {
 
 				$themeList[$id] = $theme->translate($theme->getName());
 			}
-		}
+
+}
 
 		// Set up theme settings
 		list($ret, $themeSettingsId) = GalleryCoreApi::getPluginParameter(
@@ -247,4 +253,5 @@ class DynamicAlbumSiteAdminView extends GalleryView {
 			),
 		);
 	}
+
 }

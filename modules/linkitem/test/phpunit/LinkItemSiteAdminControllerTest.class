@@ -44,7 +44,8 @@ class LinkItemSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
@@ -96,5 +97,6 @@ class LinkItemSiteAdminControllerTest extends GalleryControllerTestCase {
 
 			$this->assertEquals($expectedValue, $value, $key);
 		}
-	}
+
+}
 }

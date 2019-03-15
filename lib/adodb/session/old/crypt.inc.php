@@ -67,4 +67,5 @@ class MD5Crypt {
 
 		return $randomPassword;
 	}
+
 }

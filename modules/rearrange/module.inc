@@ -37,7 +37,9 @@ class RearrangeModule extends GalleryModule {
 				'Rearrange the order of album items all at once'
 			)
 		);
-		$this->setVersion('2.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -71,7 +73,8 @@ class RearrangeModule extends GalleryModule {
 			if ($item->getCanContainChildren()) {
 				$itemIds[] = $item->getId();
 			}
-		}
+
+}
 
 		if (!empty($itemIds)) {
 			/*
@@ -100,9 +103,11 @@ class RearrangeModule extends GalleryModule {
 							),
 						);
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		return array(null, $links);
 	}
@@ -140,4 +145,5 @@ class RearrangeModule extends GalleryModule {
 
 		return array(null, $views);
 	}
+
 }

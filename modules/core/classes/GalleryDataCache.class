@@ -101,7 +101,8 @@ class GalleryDataCache {
 		} else {
 			$cache['positions'][$key] = $cache['latestPosition']++;
 		}
-	}
+
+}
 
 	/**
 	 * Remove data from the cache
@@ -131,7 +132,8 @@ class GalleryDataCache {
 		foreach (preg_grep("/$pattern/", array_keys($cache['keys'])) as $key) {
 			unset($cache['positions'][$key], $cache['keys'][$key], $cache['protected'][$key]);
 		}
-	}
+
+}
 
 	/**
 	 * Store a reference to the data in the cache
@@ -160,7 +162,8 @@ class GalleryDataCache {
 		} else {
 			$cache['positions'][$key] = $cache['latestPosition']++;
 		}
-	}
+
+}
 
 	/**
 	 * Perform some pruning of our cache to prevent it from growing too large when we're doing
@@ -179,7 +182,8 @@ class GalleryDataCache {
 			if ($numToExpire-- == 0) {
 				break;
 			}
-		}
+
+}
 	}
 
 	/**
@@ -249,9 +253,11 @@ class GalleryDataCache {
 				if (!isset($cache['protected'][$key])) {
 					unset($cache['positions'][$key], $cache['keys'][$key]);
 				}
-			}
+
+}
 		}
-	}
+
+}
 
 	/**
 	 * Is caching to disk enabled?
@@ -302,7 +308,8 @@ class GalleryDataCache {
 				if ($classFile) {
 					GalleryCoreApi::requireOnce($classFile);
 				}
-			}
+
+}
 
 			$data = unserialize(substr($buf, $marker + 1));
 
@@ -342,7 +349,8 @@ class GalleryDataCache {
 				} else {
 					$platform->unlink($cacheFile);
 				}
-			}
+
+}
 		} elseif ($pathInfo['type'] == 'module' || $pathInfo['type'] == 'theme') {
 			list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pathInfo['type']);
 
@@ -359,7 +367,8 @@ class GalleryDataCache {
 					)
 				);
 			}
-		}
+
+}
 	}
 
 	/**
@@ -517,7 +526,8 @@ class GalleryDataCache {
 					} else {
 						$cacheFile = sprintf('%s%s/%s', $base, $pathInfo['type'], $pathInfo['id']);
 					}
-				}
+
+}
 
 				break;
 
@@ -652,7 +662,8 @@ class GalleryDataCache {
 				if (isset($permissions[$i][$permission][$id])) {
 					return true;
 				}
-			}
+
+}
 		}
 
 		return false;
@@ -669,7 +680,8 @@ class GalleryDataCache {
 		if (isset($session)) {
 			$session->remove('permissionCache');
 		}
-	}
+
+}
 
 	/**
 	 * Get page data from the cache.
@@ -688,18 +700,16 @@ class GalleryDataCache {
 			return array($ret, null);
 		}
 
-		$acceleration = unserialize($acceleration);
-
+		$acceleration            = unserialize($acceleration);
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
 		if ($ret) {
 			return array($ret, null);
 		}
 
-		$expiration = $acceleration[$isAnonymous ? 'guest' : 'user']['expiration'];
-		$phpVm      = $gallery->getPhpVm();
-		$cutoff     = $phpVm->time() - $expiration;
-
+		$expiration         = $acceleration[$isAnonymous ? 'guest' : 'user']['expiration'];
+		$phpVm              = $gallery->getPhpVm();
+		$cutoff             = $phpVm->time() - $expiration;
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $gallery->getActiveUserId());
 
 		if ($ret) {
@@ -746,7 +756,8 @@ class GalleryDataCache {
 				$value   = $storage->decodeBlob($value);
 				$value   = gzinflate($value);
 			}
-		} else {
+
+} else {
 			$value = null;
 		}
 
@@ -765,8 +776,7 @@ class GalleryDataCache {
 	public static function putPageData($type, $itemId, $keyData, $value) {
 		global $gallery;
 
-		$userId = $gallery->getActiveUserId();
-
+		$userId             = $gallery->getActiveUserId();
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
 
 		if ($ret) {
@@ -806,8 +816,7 @@ class GalleryDataCache {
 				)
 			);
 
-			$storage =& $gallery->getStorage();
-
+			$storage                  =& $gallery->getStorage();
 			list($ret, $affectedRows) = $storage->getAffectedRows();
 
 			if ($ret) {
@@ -841,7 +850,8 @@ class GalleryDataCache {
 
 					return $ret;
 				}
-			}
+
+}
 
 			break;
 		}
@@ -855,7 +865,8 @@ class GalleryDataCache {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -907,7 +918,8 @@ class GalleryDataCache {
 			if ($noCache) {
 				return array(null, false);
 			}
-		}
+
+}
 
 		/*
 		 * Don't cache guest preview pages since we want a realtime preview
@@ -925,8 +937,7 @@ class GalleryDataCache {
 			return array($ret, null);
 		}
 
-		$acceleration = unserialize($acceleration);
-
+		$acceleration            = unserialize($acceleration);
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
 		if ($ret) {
@@ -987,8 +998,7 @@ class GalleryDataCache {
 			return $ret;
 		}
 
-		$acceleration = unserialize($acceleration);
-
+		$acceleration            = unserialize($acceleration);
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
 		if ($ret) {
@@ -1027,4 +1037,5 @@ class GalleryDataCache {
 
 		return null;
 	}
+
 }

@@ -187,7 +187,8 @@ class SitemapView extends GalleryView {
 
 						break;
 					}
-				}
+
+}
 
 				printf(
 					'<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq></url>',
@@ -198,10 +199,12 @@ class SitemapView extends GalleryView {
 
 				echo "\n";
 			}
-		}
+
+}
 
 		echo '</urlset>';
 
 		return null;
 	}
+
 }

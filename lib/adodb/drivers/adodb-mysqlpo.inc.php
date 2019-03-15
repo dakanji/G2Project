@@ -25,10 +25,14 @@ if (!defined('ADODB_DIR')) {
 require_once ADODB_DIR . '/drivers/adodb-mysql.inc.php';
 
 class ADODB_mysqlt extends ADODB_mysql {
-	public $databaseType    = 'mysqlt';
-	public $ansiOuter       = true; // for Version 3.23.17 or later
+	public $databaseType = 'mysqlt';
+
+	// for Version 3.23.17 or later
+	public $ansiOuter       = true;
 	public $hasTransactions = true;
-	public $autoRollback    = true; // apparently mysql does not autorollback properly
+
+	// apparently mysql does not autorollback properly
+	public $autoRollback = true;
 
 	public function __construct() {
 		global $ADODB_EXTENSION;
@@ -36,7 +40,8 @@ class ADODB_mysqlt extends ADODB_mysql {
 		if ($ADODB_EXTENSION) {
 			$this->rsPrefix .= 'ext_';
 		}
-	}
+
+}
 
 	public function BeginTrans() {
 		if ($this->transOff) {
@@ -100,6 +105,7 @@ class ADODB_mysqlt extends ADODB_mysql {
 
 		return !empty($rs);
 	}
+
 }
 
 class ADORecordSet_mysqlt extends ADORecordSet_mysql {
@@ -149,6 +155,7 @@ class ADORecordSet_mysqlt extends ADORecordSet_mysql {
 
 		return false;
 	}
+
 }class ADORecordSet_ext_mysqlt extends ADORecordSet_mysqlt {
 	public function __construct($queryID, $mode = false) {
 		parent::__construct($queryID, $mode);
@@ -157,4 +164,5 @@ class ADORecordSet_mysqlt extends ADORecordSet_mysql {
 	public function MoveNext() {
 		return adodb_movenext($this);
 	}
+
 }

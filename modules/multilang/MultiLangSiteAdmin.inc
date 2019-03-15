@@ -64,6 +64,7 @@ class MultiLangSiteAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -83,8 +84,7 @@ class MultiLangSiteAdminView extends GalleryView {
 		}
 
 		if ($form['formName'] != 'MultiLangSiteAdmin') {
-			$form['formName'] = 'MultiLangSiteAdmin';
-
+			$form['formName']      = 'MultiLangSiteAdmin';
 			list($ret, $languages) = GalleryCoreApi::getPluginParameter('module', 'multilang', 'languages');
 
 			if ($ret) {
@@ -101,7 +101,8 @@ class MultiLangSiteAdminView extends GalleryView {
 			foreach ($countryList as $country => $languageData) {
 				$languageList[$language . '_' . $country] = $languageData['description'];
 			}
-		}
+
+}
 
 		$selectedList = array();
 
@@ -112,7 +113,8 @@ class MultiLangSiteAdminView extends GalleryView {
 			} else {
 				$selectedList[$language] = $language;
 			}
-		}
+
+}
 
 		$template->setVariable(
 			'MultiLangSiteAdmin',
@@ -131,4 +133,5 @@ class MultiLangSiteAdminView extends GalleryView {
 			),
 		);
 	}
+
 }

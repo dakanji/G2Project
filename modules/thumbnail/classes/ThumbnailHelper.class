@@ -71,8 +71,7 @@ class ThumbnailHelper {
 			$query .= ' WHERE ' . implode(' AND ', $where);
 		}
 
-		$query .= ' ORDER BY [GalleryFileSystemEntity::pathComponent] ASC';
-
+		$query                    .= ' ORDER BY [GalleryFileSystemEntity::pathComponent] ASC';
 		list($ret, $searchResults) = $gallery->search(
 			$query,
 			$data,
@@ -128,7 +127,8 @@ class ThumbnailHelper {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		return array(null, $thumbnailImage);
 	}
@@ -157,7 +157,8 @@ class ThumbnailHelper {
 			foreach (explode('|', $result[1]) as $mimeType) {
 				$data[$mimeType] = (int)$result[0];
 			}
-		}
+
+}
 
 		return array(null, $data);
 	}
@@ -199,12 +200,14 @@ class ThumbnailHelper {
 				if (!isset($toolkitMime[$id]) || !in_array($mime, $toolkitMime[$id])) {
 					$toolkitMime[$id][] = $mime;
 				}
-			}
+
+}
 
 			if (in_array('Thumbnail', $toolkits) && count($toolkits) > 1) {
 				$badMime[] = $mime;
 			}
-		}
+
+}
 
 		return array(null, $toolkitMime, $badMime);
 	}
@@ -302,7 +305,8 @@ class ThumbnailHelper {
 			if (!isset($item)) {
 				return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 			}
-		}
+
+}
 
 		$ret = $item->createThumbnailImage($tmpfile, $fileMimeType, $filename, $parentId);
 
@@ -357,7 +361,8 @@ class ThumbnailHelper {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		return array(null, $item->getId());
 	}
@@ -396,7 +401,8 @@ class ThumbnailHelper {
 				if ($mime != $mimeType) {
 					$newList[] = $mime;
 				}
-			}
+
+}
 
 			$item->setItemMimeTypesList($newList);
 		}
@@ -421,7 +427,8 @@ class ThumbnailHelper {
 			if ($ret) {
 				return $ret;
 			}
-		} else {
+
+} else {
 			$ret = GalleryCoreApi::unregisterToolkitOperation(
 				'Thumbnail',
 				'thumbnail',
@@ -431,7 +438,8 @@ class ThumbnailHelper {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -451,8 +459,7 @@ class ThumbnailHelper {
 		}
 
 		if (!empty($derivative)) {
-			$derivative = array_shift($derivative);
-
+			$derivative         = array_shift($derivative);
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($derivative->getId());
 
 			if ($ret) {
@@ -507,7 +514,8 @@ class ThumbnailHelper {
 
 					break;
 				}
-			}
+
+}
 
 			$derivative->setDerivativeOperations($op);
 		}
@@ -554,7 +562,8 @@ class ThumbnailHelper {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -590,4 +599,5 @@ class ThumbnailHelper {
 
 		return array(null, $typeMap);
 	}
+
 }

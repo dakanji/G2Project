@@ -77,7 +77,8 @@ class UserAlbumHelper {
 			} else {
 				return $ret;
 			}
-		}
+
+}
 
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($album->getId());
 
@@ -110,7 +111,8 @@ class UserAlbumHelper {
 
 				return $ret;
 			}
-		}
+
+}
 
 		// Make sure the album owner has core.all permissions
 		$ret = GalleryCoreApi::addUserPermission($albumId, $user->getId(), 'core.all');
@@ -169,9 +171,11 @@ class UserAlbumHelper {
 
 						$visited[$permission['userId']] = 1;
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		$viewPermissions = $module['fullSize'] ? array('core.viewAll') : array('core.view', 'core.viewResizes');
 
@@ -196,7 +200,8 @@ class UserAlbumHelper {
 
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
@@ -220,4 +225,5 @@ class UserAlbumHelper {
 
 		return null;
 	}
+
 }

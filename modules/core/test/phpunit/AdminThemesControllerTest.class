@@ -48,7 +48,8 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testSaveTheme() {
 		GalleryUtilities::putRequestVariable('themeId', 'testThemeId2');
@@ -133,7 +134,6 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[default][presort]', 'albumsFirst');
 		GalleryUtilities::putRequestVariable('form[default][theme]', 'AdminThemesControllerTest');
 		GalleryUtilities::putRequestVariable('form[default][newAlbumsUseDefaults]', 'true');
-
 		GalleryUtilities::putRequestVariable('form[default][doesNotExist]', 'anything');
 		GalleryUtilities::putRequestVariable('form[action][saveDefaults]', 1);
 		GalleryUtilities::putRequestVariable('themeId', 'currentThemeId');
@@ -178,7 +178,6 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[default][presort]', 'albumsFirst');
 		GalleryUtilities::putRequestVariable('form[default][theme]', 'doesNotExist');
 		GalleryUtilities::putRequestVariable('form[default][newAlbumsUseDefaults]', 'true');
-
 		GalleryUtilities::putRequestVariable('form[action][saveDefaults]', 1);
 		GalleryUtilities::putRequestVariable('themeId', 'anything');
 
@@ -209,7 +208,6 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[default][presort]', 'viewedFirst');
 		GalleryUtilities::putRequestVariable('form[default][theme]', 'matrix');
 		GalleryUtilities::putRequestVariable('form[default][newAlbumsUseDefaults]', 'true');
-
 		GalleryUtilities::putRequestVariable('form[action][saveDefaults]', 1);
 		GalleryUtilities::putRequestVariable('themeId', 'anything');
 
@@ -248,7 +246,6 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[default][presort]', 'doesNotExist');
 		GalleryUtilities::putRequestVariable('form[default][theme]', 'matrix');
 		GalleryUtilities::putRequestVariable('form[default][newAlbumsUseDefaults]', 'true');
-
 		GalleryUtilities::putRequestVariable('form[action][saveDefaults]', 1);
 		GalleryUtilities::putRequestVariable('themeId', 'anything');
 
@@ -287,7 +284,6 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[default][presort]', 'albumsFirst');
 		GalleryUtilities::putRequestVariable('form[default][theme]', 'matrix');
 		GalleryUtilities::putRequestVariable('form[default][newAlbumsUseDefaults]', 'true');
-
 		GalleryUtilities::putRequestVariable('form[action][saveDefaults]', 1);
 		GalleryUtilities::putRequestVariable('themeId', 'anything');
 
@@ -326,7 +322,6 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[default][presort]', 'albumsFirst');
 		GalleryUtilities::putRequestVariable('form[default][theme]', 'matrix');
 		GalleryUtilities::putRequestVariable('form[default][newAlbumsUseDefaults]', 'doesNotExist');
-
 		GalleryUtilities::putRequestVariable('form[action][saveDefaults]', 1);
 		GalleryUtilities::putRequestVariable('themeId', 'anything');
 
@@ -358,6 +353,7 @@ class AdminThemesControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals($originalNewAlbumDefaults, $newAlbumDefaults);
 	}
+
 }
 
 /**
@@ -411,6 +407,7 @@ class TestThemeId1Theme extends GalleryTheme {
 	public function isActive() {
 		return array(null, true);
 	}
+
 }
 
 /**
@@ -490,6 +487,7 @@ class TestThemeId2Theme extends GalleryTheme {
 	public function isActive() {
 		return array(null, true);
 	}
+
 }
 
 /**
@@ -580,4 +578,5 @@ class AdminThemesControllerTestTheme {
 	public function translate($str) {
 		return $str;
 	}
+
 }

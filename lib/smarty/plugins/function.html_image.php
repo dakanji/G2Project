@@ -85,7 +85,8 @@ function smarty_function_html_image($params, &$smarty) {
 
 				break;
 		}
-	}
+
+}
 
 	if (empty($file)) {
 		$smarty->trigger_error("html_image: missing 'file' parameter", E_USER_NOTICE);
@@ -119,7 +120,6 @@ function smarty_function_html_image($params, &$smarty) {
 		}
 
 		if ($smarty->security &&
-
 			($_params = array('resource_type' => 'file', 'resource_name' => $_image_path)) &&
 			(require_once(SMARTY_CORE_DIR . 'core.is_secure.php')) &&
 			(!smarty_core_is_secure($_params, $smarty))) {
@@ -133,7 +133,8 @@ function smarty_function_html_image($params, &$smarty) {
 		if (!isset($params['height'])) {
 			$height = $_image_data[1];
 		}
-	}
+
+}
 
 	if (isset($params['dpi'])) {
 		if (strstr($server_vars['HTTP_USER_AGENT'], 'Mac')) {

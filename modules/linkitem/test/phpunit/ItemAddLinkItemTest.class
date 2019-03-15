@@ -74,7 +74,8 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function tearDown() {
 		$ret = GalleryCoreApi::releaseLocks($this->_lockId);
@@ -88,7 +89,8 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testAddAlbumLink() {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'linkitem', 'arrowWatermark', '0');
@@ -158,6 +160,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 
 		$this->assertEquals($highlight->getId(), $thumbnail->getDerivativeSourceId(), 'src');
 		$this->assertEquals('thumbnail|123', $thumbnail->getDerivativeOperations(), 'op');
+
 		// For Oracle, null is replaced with '' when loading data from the database
 		$this->assertTrue(
 			in_array($thumbnail->getPostFilterOperations(), array(null, '')),
@@ -204,7 +207,8 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		} else {
 			$this->assertTrue(false, 'Missing thumbnail!');
 		}
-	}
+
+}
 
 	public function testAddLinkItemAlbumNotFound() {
 		GalleryUtilities::putRequestVariable('form[action][addLinkItem]', 1);
@@ -227,7 +231,6 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[action][addLinkItem]', 1);
 		GalleryUtilities::putRequestVariable('form[linkType]', 'url');
 		GalleryUtilities::putRequestVariable('form[linkUrl]', 'http://test.com/test.html');
-
 		$results = $this->handleRequest($this->_album);
 
 		$this->assertEquals(array(), $results[0], 'no error');
@@ -256,7 +259,6 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 
 		$this->assertTrue(GalleryUtilities::isExactlyA($item, 'GalleryLinkItem'), 'type');
 		$this->assertEquals('http://test.com/test.html', $item->getLink(), 'link');
-
 		list($ret, $thumbnailTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($childIds[0]));
 
 		if ($ret) {
@@ -283,7 +285,8 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		} else {
 			$this->assertTrue(false, 'Missing thumbnail!');
 		}
-	}
+
+}
 
 	public function testAddLinkItemURLMissing() {
 		GalleryUtilities::putRequestVariable('form[action][addLinkItem]', 1);
@@ -295,4 +298,5 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		$this->assertEquals(array('form[error][linkUrl][missing]'), $results[0], 'error');
 		$this->assertEquals(array(), $results[1], 'status');
 	}
+
 }

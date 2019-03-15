@@ -89,7 +89,8 @@ class RepositoryPackage extends RepositoryObject {
 			} else {
 				$packagesSkipped[] = $packageType;
 			}
-		}
+
+}
 
 		return array(
 			null,
@@ -153,6 +154,7 @@ class RepositoryPackage extends RepositoryObject {
 
 		$this->_template->setVariable('directories', $packageDirectories);
 		$this->_template->setVariable('files', $packageFiles);
+
 		// Set file name and write it to disk.
 		$this->setOutputFile($this->getPackageFileName($packageType));
 
@@ -220,4 +222,5 @@ class RepositoryPackage extends RepositoryObject {
 
 		return substr($phpVm->md5($key), 0, $length);
 	}
+
 }

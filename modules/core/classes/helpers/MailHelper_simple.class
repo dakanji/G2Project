@@ -65,7 +65,8 @@ class MailHelper_simple {
 			if (!empty($smtpFrom)) {
 				$from = $smtpFrom;
 			}
-		}
+
+}
 
 		if (strpos(strtolower($headers), 'content-type:') === false) {
 			$headers = "Content-Type: text/plain; charset=\"utf-8\"\r\n" . $headers;
@@ -85,7 +86,8 @@ class MailHelper_simple {
 				// Encode subject for UTF-8 display if any extended characters are present
 				$subject = '=?utf-8?q?' . $buf . '?=';
 			}
-		}
+
+}
 
 		// Add the date; not all mailers will do this for us
 		$headers  = 'Date: ' . date('r') . "\r\n" . $headers;
@@ -102,8 +104,10 @@ class MailHelper_simple {
 					'Could not send mail to ' . $mailTo
 				);
 			}
-		}
+
+}
 
 		return null;
 	}
+
 }

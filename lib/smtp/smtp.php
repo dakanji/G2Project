@@ -30,7 +30,8 @@ function server_parse(&$socket, $response) {
 				"Couldn't get mail server response code"
 			);
 		}
-	}
+
+}
 
 	if (!(substr($server_response, 0, 3) == $response)) {
 		return GalleryCoreApi::error(
@@ -63,7 +64,8 @@ function smtpmail($config, $to, $subject, $body, $headers = null) {
 			$bcc     = preg_split('/, */', $match[1]);
 			$headers = preg_replace('#^bcc:.*$#mi', '', $headers);
 		}
-	}
+
+}
 
 	if (trim($subject) == '') {
 		return GalleryCoreApi::error(
@@ -128,13 +130,16 @@ function smtpmail($config, $to, $subject, $body, $headers = null) {
 			return $ret;
 		}
 
-		fputs($socket, $config['smtp.password'] . "\r\n"); // Already encoded
+		// Already encoded
+		fputs($socket, $config['smtp.password'] . "\r\n");
+
 		$ret = server_parse($socket, '235');
 
 		if ($ret) {
 			return $ret;
 		}
-	} else {
+
+} else {
 		fputs($socket, 'HELO ' . $config['smtp.host'] . "\r\n");
 
 		$ret = server_parse($socket, '250');
@@ -142,7 +147,8 @@ function smtpmail($config, $to, $subject, $body, $headers = null) {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	// From this point onward most server response codes should be 250
 	// Specify who the mail is from....
@@ -165,7 +171,8 @@ function smtpmail($config, $to, $subject, $body, $headers = null) {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	// Ok now do the CC and BCC fields...
 	foreach (array_merge($cc, $bcc) as $address) {
@@ -179,7 +186,8 @@ function smtpmail($config, $to, $subject, $body, $headers = null) {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 	}
 
 	// Ok now we tell the server we are ready to start sending data

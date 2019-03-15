@@ -79,7 +79,8 @@ function smarty_function_html_select_time($params, &$smarty) {
 			default:
 				$smarty->trigger_error("[html_select_time] unknown parameter $_key", E_USER_WARNING);
 		}
-	}
+
+}
 
 	$time        = smarty_make_timestamp($time);
 	$html_result = '';

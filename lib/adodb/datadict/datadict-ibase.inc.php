@@ -31,7 +31,9 @@ class ADODB2_ibase extends ADODB_DataDict {
 				return 'VARCHAR(4000)';
 
 			case 'C2':
-				return 'VARCHAR'; // up to 32K
+				// up to 32K
+				return 'VARCHAR';
+
 			case 'X2':
 				return 'VARCHAR(4000)';
 
@@ -72,7 +74,8 @@ class ADODB2_ibase extends ADODB_DataDict {
 			default:
 				return $meta;
 		}
-	}
+
+}
 
 	public function AlterColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
 		if ($this->debug) {
@@ -89,4 +92,5 @@ class ADODB2_ibase extends ADODB_DataDict {
 
 		return array();
 	}
+
 }

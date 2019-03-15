@@ -40,10 +40,13 @@ class DebugModule extends GalleryModule {
 			)
 		);
 
-		$this->setVersion('2.0.0'); // Update upgrade() as required
+		// Update upgrade() as required
+		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
+
 		$this->_templateVersion = 1;
+
 		$this->setGroup('gallery', $gallery->i18n('Gallery'));
 		$this->setCallbacks('getItemLinks');
 	}
@@ -65,8 +68,7 @@ class DebugModule extends GalleryModule {
 	 * @see GalleryModule::getItemLinks
 	 */
 	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {
-		$links = array();
-
+		$links               = array();
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup($userId);
 
 		if ($ret) {
@@ -86,9 +88,11 @@ class DebugModule extends GalleryModule {
 						),
 					);
 				}
-			}
+
+}
 		}
 
 		return array(null, $links);
 	}
+
 }

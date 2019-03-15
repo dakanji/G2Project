@@ -74,31 +74,18 @@ class GalleryDynamicAlbum extends GalleryItem {
 		}
 
 		$this->setId(null);
-
 		$this->setParentId(null);
-
 		$this->setPathComponent(null);
-
 		$this->setEntityType($this->getClassName());
-
 		$this->setIsLinkable(false);
-
 		$this->setLinkId(null);
-
 		$this->setLinkedEntity(null);
-
 		$this->setOnLoadHandlers(null);
-
 		$this->setTitle($title);
-
 		$this->setSummary(null);
-
 		$this->setDescription(null);
-
 		$this->setKeywords(null);
-
 		$this->setCreationTimestamp(time());
-
 		$this->setOriginationTimestamp(time());
 		$this->setModificationTimestamp(time());
 		$this->setViewedSinceTimestamp(time());
@@ -109,15 +96,15 @@ class GalleryDynamicAlbum extends GalleryItem {
 			$this->_itemTypeName = $itemTypeNameData;
 		} else {
 			$this->_itemTypeName = array(array('Dynamic Album', 'dynamic album'));
-
-			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
+			list($ret, $module)  = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if ($ret) {
 				$this->_itemTypeName[] = $this->_itemTypeName[0];
 			} else {
 				$this->_itemTypeName[] = array($module->translate('Dynamic Album'), $module->translate('dynamic album'));
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -163,4 +150,5 @@ class GalleryDynamicAlbum extends GalleryItem {
 	public function refresh() {
 		return array(null, $this);
 	}
+
 }

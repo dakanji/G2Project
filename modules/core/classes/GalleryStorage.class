@@ -507,7 +507,8 @@ class GalleryStorage {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		$query = $this->_translateQuery($query);
 
@@ -611,7 +612,8 @@ class GalleryStorage {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		// Get Map information to check against
 		list($ret, $mapInfo) = $this->describeMap($mapName);
@@ -662,7 +664,8 @@ class GalleryStorage {
 				$orderDirection = ($orderDirection == ORDER_DESCENDING) ? 'DESC' : 'ASC';
 				$orderBy[]      = $this->_translateColumnName($columnName) . ' ' . $orderDirection;
 			}
-		}
+
+}
 
 		// Check if all parameters are correct
 		if (empty($selectColumns) || count($selectColumns) != count($select)
@@ -727,21 +730,22 @@ class GalleryStorage {
 		$useNonTransactionalConnection = false
 	) {
 		if ($useNonTransactionalConnection && $this->isTransactional()) {
-			$extras =& $this->_getExtras();
-
+			$extras         =& $this->_getExtras();
 			list($ret, $db) = $extras->_getNonTransactionalDatabaseConnection();
 
 			if ($ret) {
 				return $ret;
 			}
-		} else {
+
+} else {
 			if (!isset($this->_db)) {
 				list($ret, $this->_db) = $this->_getConnection();
 
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 
 			$db = $this->_db;
 
@@ -750,7 +754,8 @@ class GalleryStorage {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($ret, $mapInfo) = $this->describeMap($mapName);
 
@@ -785,11 +790,13 @@ class GalleryStorage {
 					foreach ($change[$memberName]->getValues() as $value) {
 						$setdata[] = $value;
 					}
-				} else {
+
+} else {
 					$set[]     = $this->_translateColumnName($memberName) . '=?';
 					$setdata[] = $this->_normalizeValue($change[$memberName], $memberData);
 				}
-			}
+
+}
 		}
 
 		if (count($set) == 0 || count($where) == 0) {
@@ -833,7 +840,8 @@ class GalleryStorage {
 			foreach ($matchValue->getValues() as $value) {
 				$wheredata[] = $value;
 			}
-		} elseif (is_array($matchValue)) {
+
+} elseif (is_array($matchValue)) {
 			$qs = array();
 
 			foreach ($matchValue as $value) {
@@ -852,7 +860,8 @@ class GalleryStorage {
 				$where[]     = $this->_translateColumnName($memberName) . '=?';
 				$wheredata[] = $value;
 			}
-		}
+
+}
 	}
 
 	/**
@@ -914,7 +923,8 @@ class GalleryStorage {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		if ($this->_isTransactional) {
 			$this->_traceStart();
@@ -926,7 +936,8 @@ class GalleryStorage {
 			if (!$ok) {
 				return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -947,7 +958,8 @@ class GalleryStorage {
 			if (!$ok) {
 				return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
 			}
-		}
+
+}
 
 		if ($this->_isTransactional) {
 			// Release any queued locks
@@ -969,7 +981,8 @@ class GalleryStorage {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -1011,7 +1024,8 @@ class GalleryStorage {
 			if (!$ok) {
 				return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
 			}
-		}
+
+}
 
 		if ($this->_isTransactional) {
 			// Release any queued locks
@@ -1033,7 +1047,8 @@ class GalleryStorage {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -1052,7 +1067,8 @@ class GalleryStorage {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -1250,9 +1266,8 @@ class GalleryStorage {
 	public function _translateQuery($query) {
 		// Change '[Class::member]' to 'table.column' or 'alias.column'
 		while (preg_match('#\[([\w_=]*)::([\w_]*)\]#', $query, $regs)) {
-			$class  = $regs[1];
-			$member = $regs[2];
-
+			$class               = $regs[1];
+			$member              = $regs[2];
 			list($table, $alias) = $this->_translateTableName($class);
 
 			$column = $this->_translateColumnName($member);
@@ -1264,12 +1279,12 @@ class GalleryStorage {
 			} else {
 				$query = str_replace("[::${member}]", "$column", $query);
 			}
-		}
+
+}
 
 		// Change '[Class]' to 'table'
 		while (preg_match('#\[([\w_=]*)\]#', $query, $regs)) {
-			$class = $regs[1];
-
+			$class               = $regs[1];
 			list($table, $alias) = $this->_translateTableName($class);
 
 			if ($alias == null) {
@@ -1284,7 +1299,8 @@ class GalleryStorage {
 
 				$query = str_replace("[${class}]", "$table $as $alias", $query);
 			}
-		}
+
+}
 
 		return $query;
 	}
@@ -1345,7 +1361,8 @@ class GalleryStorage {
 				if ($chr >= 'A' && $chr <= 'Z') {
 					$alias .= $chr;
 				}
-			}
+
+}
 
 			$alias = GalleryUtilities::strToLower($alias) . ($number - 1);
 		} else {
@@ -1385,7 +1402,8 @@ class GalleryStorage {
 			if (!$tryAllModules) {
 				GalleryDataCache::put($cacheKey, $mapInfo);
 			}
-		}
+
+}
 
 		if (!$tryAllModules && !isset($mapInfo[$mapName])) {
 			list($ret, $mapInfo[$mapName]) = $this->describeMap($mapName, true);
@@ -1393,7 +1411,8 @@ class GalleryStorage {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		if (!isset($mapInfo[$mapName])) {
 			return array(
@@ -1485,7 +1504,8 @@ class GalleryStorage {
 		if ($gallery->getDebug()) {
 			ob_start();
 		}
-	}
+
+}
 
 	/**
 	 * Stop tracing.  If Gallery is in debug, this will method will stop tracing.
@@ -1500,7 +1520,8 @@ class GalleryStorage {
 
 			$gallery->debug($buf);
 		}
-	}
+
+}
 
 	/**
 	 * Set Adodb debug mode.
@@ -1514,7 +1535,8 @@ class GalleryStorage {
 		if (isset($this->_nonTransactionalDb)) {
 			$this->_nonTransactionalDb->debug = $debug;
 		}
-	}
+
+}
 
 	/**
 	 * Cast the value to the proper member type when interacting with the database.  Optionally also
@@ -1666,6 +1688,7 @@ class GalleryStorage {
 
 		return $extras->validateConnection();
 	}
+
 }
 
 /**
@@ -1731,10 +1754,12 @@ class GallerySearchResults {
 				$field   = $this->_fieldNames[$i];
 				$row[$i] = $storage->_normalizeValue($row[$i], $this->_mapInfo[$field], true);
 			}
-		}
+
+}
 
 		return $row;
 	}
+
 }
 
 /**
@@ -1782,6 +1807,7 @@ class GallerySqlFragment {
 	public function getValues() {
 		return $this->_values;
 	}
+
 }
 
 /**
@@ -1840,13 +1866,15 @@ function GalleryAdodbErrorHandler($dbms, $fn, $errno, $errmsg, $p1 = false, $p2 
 		} else {
 			error_log("($t) $s", ADODB_ERROR_LOG_TYPE);
 		}
-	}
+
+}
 
 	global $gallery;
 
 	if ($gallery->getDebug()) {
 		$gallery->debug($s);
 	}
+
 }
 
 /**
@@ -1863,7 +1891,8 @@ class MySqlStorage extends GalleryStorage {
 		if ($this->_type != 'mysql' /* mysqlt and mysqli are transactional */) {
 			$this->_isTransactional = true;
 		}
-	}
+
+}
 
 	/**
 	 * Return the type of this database
@@ -1890,7 +1919,8 @@ class MySqlStorage extends GalleryStorage {
 			if (!$recordSet) {
 				return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -2063,7 +2093,8 @@ class MySqlStorage extends GalleryStorage {
 			if ($ret) {
 				return ($this->_type == 'mysqli' ? mysqli_get_client_info() : mysql_get_client_info()) . ' client';
 			}
-		}
+
+}
 
 		return $this->_serverInfo;
 	}
@@ -2080,8 +2111,7 @@ class MySqlStorage extends GalleryStorage {
 	 */
 	public function getUniqueId($sequence = DATABASE_SEQUENCE_ID) {
 		// Make sure we are using a non-transactional connection to avoid duplicating sequence ids
-		$extras =& $this->_getExtras();
-
+		$extras         =& $this->_getExtras();
 		list($ret, $db) = $extras->_getNonTransactionalDatabaseConnection();
 
 		if ($ret) {
@@ -2105,4 +2135,5 @@ class MySqlStorage extends GalleryStorage {
 
 		return parent::_truncateString($value, $size, $lengthInBytes);
 	}
+
 }

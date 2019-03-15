@@ -154,7 +154,8 @@ function adodb_error_pg($errormsg) {
 		if (preg_match("/$regexp/mi", $errormsg)) {
 			return $code;
 		}
-	}
+
+}
 
 	// Fall back to DB_ERROR if there was no mapping.
 	return DB_ERROR;

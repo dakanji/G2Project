@@ -194,7 +194,6 @@ class GalleryTemplateAdapter {
 	 */
 	public function date($params, &$smarty) {
 		global $gallery;
-
 		static $defaultFormat;
 
 		$platform =& $gallery->getPlatform();
@@ -216,7 +215,8 @@ class GalleryTemplateAdapter {
 						'datetime' => $core['format.datetime'],
 					);
 				}
-			}
+
+}
 
 			$params['format'] = (!empty($params['style']) && isset($defaultFormat[$params['style']])) ? $defaultFormat[$params['style']] : $defaultFormat['date'];
 		}
@@ -249,14 +249,14 @@ class GalleryTemplateAdapter {
 			 * for particular %s values.  Currently only supports a single arg.
 			 * Fallback to normal translation of given $params.
 			 */
-			$string = sprintf($params['text'], $params['postSprintfArg1']);
-
+			$string           = sprintf($params['text'], $params['postSprintfArg1']);
 			list($ret, $text) = $translator->translateDomain($domain, $string);
 
 			if ($ret || $text == $string) {
 				list($ret, $text) = $translator->translateDomain($domain, $params);
 			}
-		} else {
+
+} else {
 			list($ret, $text) = $translator->translateDomain($domain, $params);
 		}
 
@@ -292,8 +292,7 @@ class GalleryTemplateAdapter {
 			$domain = $smarty->_tpl_vars['l10Domain'];
 		}
 
-		$translator =& $gallery->getTranslator();
-
+		$translator       =& $gallery->getTranslator();
 		list($ret, $text) = $translator->translateDomain($domain, $params);
 
 		if ($ret) {
@@ -388,7 +387,8 @@ class GalleryTemplateAdapter {
 			if ($ret) {
 				return array($ret, null);
 			}
-		} else {
+
+} else {
 			$renderer = null;
 		}
 
@@ -405,7 +405,8 @@ class GalleryTemplateAdapter {
 			} else {
 				$html = $item->render('HTML', $params);
 			}
-		}
+
+}
 
 		if (empty($html)) {
 			$html = $fallback;
@@ -456,7 +457,8 @@ class GalleryTemplateAdapter {
 						)
 					);
 				}
-			}
+
+}
 		}
 
 		// Tpl to include.
@@ -523,7 +525,8 @@ class GalleryTemplateAdapter {
 				} else {
 					unset($files[$yde]);
 				}
-			}
+
+}
 		}
 
 		foreach ($files as $file) {
@@ -560,7 +563,8 @@ class GalleryTemplateAdapter {
 					)
 				);
 			}
-		}
+
+}
 
 		if ($filteredFiles) {
 			$output[] = sprintf(
@@ -571,7 +575,8 @@ class GalleryTemplateAdapter {
 				)
 			);
 		}
-	}
+
+}
 
 	/**
 	 * Combine the specified files into a single file and store it in the disk cache with the key.
@@ -622,7 +627,8 @@ class GalleryTemplateAdapter {
 					$gzippedContents
 				);
 			}
-		}
+
+}
 
 		return $urlGenerator->generateUrl(
 			array(
@@ -780,7 +786,8 @@ class GalleryTemplateAdapter {
 					$fallbackLinkId = $linkId;
 					$linkId        .= '-' . $type[1];
 				}
-			}
+
+}
 		}
 
 		$tLinkName = GalleryTemplateAdapter::getMe()->_safeCssName($linkId);
@@ -856,7 +863,8 @@ class GalleryTemplateAdapter {
 			if (isset($value)) {
 				$tag .= " $key=\"$value\"";
 			}
-		}
+
+}
 
 		return $tag . '>' . ($lowercase ? strtolower($text) : $text) . $endTag;
 	}
@@ -933,8 +941,7 @@ class GalleryTemplateAdapter {
 	public function logoButton($params, &$smarty) {
 		global $gallery;
 
-		$urlGenerator =& $gallery->getUrlGenerator();
-
+		$urlGenerator     =& $gallery->getUrlGenerator();
 		list($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core', true);
 
 		if ($ret) {
@@ -1090,7 +1097,8 @@ class GalleryTemplateAdapter {
 					'border-style: none'
 				);
 		}
-	}
+
+}
 
 	/**
 	 * Show debug output.
@@ -1183,7 +1191,8 @@ class GalleryTemplateAdapter {
 				)
 			);
 		}
-	}
+
+}
 
 	/**
 	 * Include a module's block into the current smarty page.  The only
@@ -1198,8 +1207,7 @@ class GalleryTemplateAdapter {
 
 		list($module, $file) = explode('.', $params['type']);
 
-		$class = empty($params['class']) ? '' : ' ' . $params['class'];
-
+		$class                    = empty($params['class']) ? '' : ' ' . $params['class'];
 		list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
 
 		if ($ret) {
@@ -1302,7 +1310,6 @@ class GalleryTemplateAdapter {
 	 */
 	public function callback($params, &$smarty) {
 		global $gallery;
-
 		static $moduleStatus;
 
 		if (empty($status)) {
@@ -1313,7 +1320,8 @@ class GalleryTemplateAdapter {
 				$gallery->debug("Error performing $params[type] callback");
 				$gallery->debug($ret->getAsHtml());
 			}
-		}
+
+}
 
 		list($module, $file) = explode('.', $params['type']);
 
@@ -1331,7 +1339,8 @@ class GalleryTemplateAdapter {
 				$gallery->debug("Error performing $params[type] callback");
 				$gallery->debug($ret->getAsHtml());
 			}
-		}
+
+}
 	}
 
 	/**
@@ -1390,9 +1399,11 @@ class GalleryTemplateAdapter {
 
 					GalleryCoreApi::addEventLogEntry('Gallery Error', $summary, $ret->getAsText());
 				}
-			}
+
+}
 		}
-	}
+
+}
 
 	/**
 	 * Use GalleryUtilities::shrinkDimensionsToFit to scale template vars to new target size.
@@ -1443,12 +1454,14 @@ class GalleryTemplateAdapter {
 						function translate($x) {
 							return sprintf($x[\'text\'], $x[\'arg1\'], $x[\'arg2\']);
 						}
-					}'
+
+}'
 				);
 
 				$coreModule = new GalleryTemplateAdapterFallbackCoreModule();
 			}
-		}
+
+}
 
 		if (empty($this->_progressBarStats)) {
 			$this->_progressBarStats['startTime'] = time();
@@ -1547,6 +1560,7 @@ class GalleryTemplateAdapter {
 		}
 
 		GalleryCoreApi::addEventLogEntry('Gallery Error', $summary, $status->getAsText());
+
 		// Display an error message
 		if ($gallery->getDebug() || $isAdmin) {
 			$status = $status->getAsHtml($isAdmin);
@@ -1601,5 +1615,6 @@ class GalleryTemplateAdapter {
 				$continueUrl
 			);
 		}
-	}
+
+}
 }

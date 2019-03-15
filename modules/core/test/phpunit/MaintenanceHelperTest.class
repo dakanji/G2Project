@@ -75,7 +75,8 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testFetchTasks() {
 		list($ret, $tasks) = MaintenanceHelper_simple::fetchTasks();
@@ -94,8 +95,10 @@ class MaintenanceHelperTest extends GalleryTestCase {
 
 	public function testAddAndFetchLastRun() {
 		// Add a task entry
-		$time = time() - 5;  // Choose an arbitrary time
-		$ret  = MaintenanceHelper_simple::addRun(
+		// Choose an arbitrary time
+		$time = time() - 5;
+
+		$ret = MaintenanceHelper_simple::addRun(
 			'MaintenanceHelperTestTask',
 			$time,
 			true,
@@ -116,8 +119,10 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		$lastRunId = $info['runId'];
 
 		// Add a second task entry
-		$time = time() + 15;  // Choose an arbitrary time
-		$ret  = MaintenanceHelper_simple::addRun(
+		// Choose an arbitrary time
+		$time = time() + 15;
+
+		$ret = MaintenanceHelper_simple::addRun(
 			'MaintenanceHelperTestTask',
 			$time,
 			false,
@@ -296,6 +301,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 			'Configuration not modified'
 		);
 	}
+
 }
 
 class MaintenanceHelperTestTask extends MaintenanceTask {
@@ -310,4 +316,5 @@ class MaintenanceHelperTestTask extends MaintenanceTask {
 	public function run() {
 		return array(null, false, array('fail details'));
 	}
+
 }

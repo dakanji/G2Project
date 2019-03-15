@@ -20,13 +20,19 @@ if (!defined('ADODB_DIR')) {
 }
 
 class ADODB_sqlite3 extends ADOConnection {
-	public $databaseType    = 'sqlite3';
-	public $replaceQuote    = "''"; // string to use to replace quotes
+	public $databaseType = 'sqlite3';
+
+	// string to use to replace quotes
+	public $replaceQuote    = "''";
 	public $concat_operator = '||';
 	public $_errorNo        = 0;
 	public $hasLimit        = true;
-	public $hasInsertID     = true;        /// supports autoincrement ID?
-	public $hasAffectedRows = true;    /// supports affected rows for update/delete?
+
+	/// supports autoincrement ID?
+	public $hasInsertID = true;
+
+	/// supports affected rows for update/delete?
+	public $hasAffectedRows = true;
 	public $metaTablesSQL   = "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name";
 	public $sysDate         = "adodb_date('Y-m-d')";
 	public $sysTimeStamp    = "adodb_date('Y-m-d H:i:s')";
@@ -138,7 +144,8 @@ class ADODB_sqlite3 extends ADOConnection {
 			} else {
 				$arr[strtoupper($fld->name)] = $fld;
 			}
-		}
+
+}
 
 		$rs->Close();
 
@@ -165,11 +172,13 @@ class ADODB_sqlite3 extends ADOConnection {
 			return $this->_errorMsg;
 		}
 
-		return ($this->_errorNo) ? $this->ErrorNo() : ''; //**tochange?
+		//**tochange?
+		return ($this->_errorNo) ? $this->ErrorNo() : '';
 	}
 
 	public function ErrorNo() {
-		return $this->_connectionID->lastErrorCode(); //**tochange??
+		//**tochange??
+		return $this->_connectionID->lastErrorCode();
 	}
 
 	public function SQLDate($fmt, $col = false) {
@@ -261,7 +270,8 @@ class ADODB_sqlite3 extends ADOConnection {
 				if (!$ok) {
 					return false;
 				}
-			}
+
+}
 
 			$this->Execute("update $seq set id=id+1 where id=$num");
 
@@ -271,7 +281,8 @@ class ADODB_sqlite3 extends ADOConnection {
 
 				return $num;
 			}
-		}
+
+}
 
 		if ($fn = $this->raiseErrorFn) {
 			$fn($this->databaseType, 'GENID', -32000, "Unable to generate unique id after $MAXLOOPS attempts", $seq, $num);
@@ -371,6 +382,7 @@ class ADODB_sqlite3 extends ADOConnection {
 
 		return $indexes;
 	}
+
 }
 
 /*--------------------------------------------------------------------------------------
@@ -449,7 +461,8 @@ class ADORecordset_sqlite3 extends ADORecordSet {
 
 				$this->bind[strtoupper($o->name)] = $i;
 			}
-		}
+
+}
 
 		return $this->fields[$this->bind[strtoupper($colname)]];
 	}
@@ -470,4 +483,5 @@ class ADORecordset_sqlite3 extends ADORecordSet {
 	}
 
 	public function _close() {}
+
 }

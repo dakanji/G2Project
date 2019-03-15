@@ -20,7 +20,6 @@
 */
 
 //================================================================================================
-
 //================================================================================================
 //================================================================================================
 //=================
@@ -114,14 +113,17 @@ function formatOlympusData($type, $tag, $intel, $data) {
 			$data = $top . '/' . $bottom;
 		}
 
-		if ($tag == '0204') { //DigitalZoom
+		if ($tag == '0204') {
+			//DigitalZoom
 			$data = $data . 'x';
 		}
 
-		if ($tag == '0205') { //Unknown2
+		if ($tag == '0205') {
+			//Unknown2
 			$data = $top . '/' . $bottom;
 		}
-	} elseif ($type == 'USHORT' || $type == 'SSHORT' || $type == 'ULONG' || $type == 'SLONG' || $type == 'FLOAT' || $type == 'DOUBLE') {
+
+} elseif ($type == 'USHORT' || $type == 'SSHORT' || $type == 'ULONG' || $type == 'SLONG' || $type == 'FLOAT' || $type == 'DOUBLE') {
 		$data = bin2hex($data);
 
 		if ($intel == 1) {
@@ -130,7 +132,8 @@ function formatOlympusData($type, $tag, $intel, $data) {
 
 		$data = hexdec($data);
 
-		if ($tag == '0201') { //JPEGQuality
+		if ($tag == '0201') {
+			//JPEGQuality
 			if ($data == 1) {
 				$data = 'SQ';
 			} elseif ($data == 2) {
@@ -140,9 +143,11 @@ function formatOlympusData($type, $tag, $intel, $data) {
 			} else {
 				$data = 'Unknown: ' . $data;
 			}
-		}
 
-		if ($tag == '0202') { //Macro
+}
+
+		if ($tag == '0202') {
+			//Macro
 			if ($data == 0) {
 				$data = 'Normal';
 			} elseif ($data == 1) {
@@ -150,14 +155,16 @@ function formatOlympusData($type, $tag, $intel, $data) {
 			} else {
 				$data = 'Unknown: ' . $data;
 			}
-		}
+
+}
 	} elseif ($type == 'UNDEFINED') {} else {
 		$data = bin2hex($data);
 
 		if ($intel == 1) {
 			$data = intel2Moto($data);
 		}
-	}
+
+}
 
 	return $data;
 }
@@ -172,8 +179,10 @@ function parseOlympus($block, &$result, $seek, $globalOffset) {
 		$intel = 0;
 	}
 
-	$model  = $result['IFD0']['Model'];
-	$place  = 8; //current place
+	$model = $result['IFD0']['Model'];
+
+	//current place
+	$place  = 8;
 	$offset = 8;
 
 	//Get number of tags (2 bytes)
@@ -231,13 +240,16 @@ function parseOlympus($block, &$result, $seek, $globalOffset) {
 				$value = intel2Moto($value);
 			}
 
-			$v = fseek($seek, $globalOffset + hexdec($value));  //offsets are from TIFF header which is 12 bytes from the start of the file
+			//offsets are from TIFF header which is 12 bytes from the start of the file
+			$v = fseek($seek, $globalOffset + hexdec($value));
+
 			if ($v == 0 && $bytesofdata < $GLOBALS['exiferFileSize']) {
 				$data = fread($seek, $bytesofdata);
 			} else {
 				$result['Errors'] = $result['Errors']++;
 			}
-		}
+
+}
 
 		$formated_data = formatOlympusData($type, $tag, $intel, $data);
 
@@ -250,7 +262,8 @@ function parseOlympus($block, &$result, $seek, $globalOffset) {
 				if ($intel == 1) {
 					$data = intel2Moto($data);
 				}
-			}
+
+}
 
 			$result['SubIFD']['MakerNote'][$tag_name . '_Verbose']['RawData'] = $data;
 			$result['SubIFD']['MakerNote'][$tag_name . '_Verbose']['Type']    = $type;
@@ -258,5 +271,6 @@ function parseOlympus($block, &$result, $seek, $globalOffset) {
 		} else {
 			$result['SubIFD']['MakerNote'][$tag_name] = $formated_data;
 		}
-	}
+
+}
 }

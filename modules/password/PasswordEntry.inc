@@ -43,8 +43,7 @@ class PasswordEntryController extends GalleryController {
 
 		if (isset($form['action']['password'], $form['itemId'], $form['password'])
 		) {
-			$itemId = $form['itemId'];
-
+			$itemId             = $form['itemId'];
 			list($ret, $canSee) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
 
 			if ($ret) {
@@ -68,9 +67,11 @@ class PasswordEntryController extends GalleryController {
 						if ($ret) {
 							return array($ret, null);
 						}
-					}
+
+}
 				}
-			}
+
+}
 
 			// Check the password entered against the actual password
 			list($ret, $hashedPassword) = GalleryCoreApi::getPluginParameter(
@@ -124,7 +125,8 @@ class PasswordEntryController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-				}
+
+}
 			}
 
 			// Let each plugin do its verification
@@ -140,7 +142,8 @@ class PasswordEntryController extends GalleryController {
 				if (!$continue) {
 					break;
 				}
-			}
+
+}
 
 			if (empty($error) && $isCorrect) {
 				GalleryCoreApi::addPermissionToSession($itemId);
@@ -150,7 +153,8 @@ class PasswordEntryController extends GalleryController {
 			} elseif (empty($error)) {
 				$error[] = 'form[error][incorrectPassword]';
 			}
-		}
+
+}
 
 		if (!isset($results['redirect'])) {
 			$results['delegate']['view'] = 'password.PasswordEntry';
@@ -161,6 +165,7 @@ class PasswordEntryController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -204,4 +209,5 @@ class PasswordEntryView extends GalleryView {
 
 		return array(null, $core->translate('Password Entry'));
 	}
+
 }

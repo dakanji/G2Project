@@ -88,7 +88,8 @@ class MultiLangItemEdit extends ItemEditPlugin {
 
 				$session->put('multilang.language', $form['language']);
 			}
-		}
+
+}
 
 		return array(null, $error, $status, false);
 	}
@@ -107,10 +108,9 @@ class MultiLangItemEdit extends ItemEditPlugin {
 			$form['formName'] = 'MultiLangItemEdit';
 		}
 
-		$form['mainTitle']       = $item->getTitle();
-		$form['mainSummary']     = $item->getSummary();
-		$form['mainDescription'] = $item->getDescription();
-
+		$form['mainTitle']                = $item->getTitle();
+		$form['mainSummary']              = $item->getSummary();
+		$form['mainDescription']          = $item->getDescription();
 		list($ret, $form['languageData']) = MultiLangHelper::getItemData($item->getId());
 
 		if ($ret) {
@@ -134,7 +134,8 @@ class MultiLangItemEdit extends ItemEditPlugin {
 			foreach ($countryList as $country => $languageData) {
 				$languageList[$language . '_' . $country] = $languageData['description'];
 			}
-		}
+
+}
 
 		list($ret, $languages) = GalleryCoreApi::getPluginParameter('module', 'multilang', 'languages');
 
@@ -150,7 +151,8 @@ class MultiLangItemEdit extends ItemEditPlugin {
 			if (!in_array($language, $languages)) {
 				$languages[] = $language;
 			}
-		}
+
+}
 
 		$selectedLanguage = $session->get('multilang.language');
 
@@ -160,7 +162,8 @@ class MultiLangItemEdit extends ItemEditPlugin {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		} else {
+
+} else {
 			$session->remove('multilang.language');
 		}
 
@@ -217,4 +220,5 @@ class MultiLangItemEdit extends ItemEditPlugin {
 
 		return array(null, $module->translate('MultiLanguage'));
 	}
+
 }

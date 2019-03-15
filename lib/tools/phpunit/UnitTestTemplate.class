@@ -82,4 +82,5 @@ class UnitTestTemplate extends GalleryTemplate {
 	public function display($templateName) {
 		return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
 	}
+
 }

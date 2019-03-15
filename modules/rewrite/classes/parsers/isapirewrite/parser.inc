@@ -113,7 +113,8 @@ class IsapiRewriteParser extends RewriteParser {
 				) {
 					return false;
 				}
-			}
+
+}
 		}
 
 		if ((isset($rule['pattern']) && substr($rule['pattern'], 0, 1) == '%')
@@ -135,7 +136,8 @@ class IsapiRewriteParser extends RewriteParser {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		list($ret, $message) = parent::getErrorMessage($code, $rewriteModule);
 
@@ -166,7 +168,8 @@ class IsapiRewriteParser extends RewriteParser {
 				default:
 					return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 			}
-		}
+
+}
 
 		return array(null, $message);
 	}
@@ -205,7 +208,8 @@ class IsapiRewriteParser extends RewriteParser {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		}
+
+}
 
 		$status['saved'] = 1;
 
@@ -296,7 +300,8 @@ class IsapiRewriteParser extends RewriteParser {
 			if ($code != REWRITE_STATUS_OK) {
 				$error[] = 'form[error][' . $code . ']';
 			}
-		}
+
+}
 
 		if (empty($error)) {
 			$status['saved'] = 1;
@@ -364,4 +369,5 @@ class IsapiRewriteParser extends RewriteParser {
 			($code != REWRITE_STATUS_OK) ? $this->getErrorMessage($code) : null,
 		);
 	}
+
 }

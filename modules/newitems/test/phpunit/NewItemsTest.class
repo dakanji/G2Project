@@ -89,7 +89,8 @@ class NewItemsTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 	}
 
 	public function testGetItemSummaries() {
@@ -99,8 +100,7 @@ class NewItemsTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$unused = null;
-
+		$unused              = null;
 		list($ret, $content) = $module->getItemSummaries($this->_items, array(), $unused);
 
 		if ($ret) {
@@ -129,4 +129,5 @@ class NewItemsTest extends GalleryTestCase {
 			'order of child ids'
 		);
 	}
+
 }

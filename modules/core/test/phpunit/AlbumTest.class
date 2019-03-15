@@ -92,7 +92,8 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testLoadRootAlbum() {
 		global $gallery;
@@ -109,7 +110,8 @@ class AlbumTest extends GalleryTestCase {
 		if (!GalleryUtilities::isA($rootAlbum, 'GalleryAlbumItem')) {
 			return GalleryCoreApi::error(ERROR_DELETED_OBJECT);
 		}
-	}
+
+}
 
 	public function testCreateAndDeleteAlbum() {
 		global $gallery;
@@ -133,7 +135,8 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testCreateRenameAndDeleteAlbum() {
 		global $gallery;
@@ -198,7 +201,8 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testCreateAndDeleteNestedAlbums() {
 		global $gallery;
@@ -231,7 +235,8 @@ class AlbumTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 	}
 
 	/**
@@ -280,7 +285,8 @@ class AlbumTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$this->assertEquals(
 			array(
@@ -305,7 +311,6 @@ class AlbumTest extends GalleryTestCase {
 				$this->_parentAlbum->getId(),
 				$album[0]->getId(),
 				$album[1]->getId(),
-
 			),
 			$parentSequence[2],
 			'(before) sequence 2'
@@ -337,7 +342,8 @@ class AlbumTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// Move one of the target albums
 		$ret = $album[1]->move($this->_parentAlbum->getId());
@@ -366,7 +372,8 @@ class AlbumTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$this->assertEquals(
 			$this->_parentAlbum->getId(),
@@ -392,7 +399,8 @@ class AlbumTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$this->assertEquals(
 			array(
@@ -415,7 +423,6 @@ class AlbumTest extends GalleryTestCase {
 				$this->_getRootId(),
 				$this->_parentAlbum->getId(),
 				$album[1]->getId(),
-
 			),
 			$parentSequence[2],
 			'(after) sequence 2'
@@ -687,7 +694,8 @@ class AlbumTest extends GalleryTestCase {
 				'Derivative to Child'
 			);
 		}
-	}
+
+}
 
 	public function testGuaranteeAlbumHasThumbnail3() {
 		// Album has a thumbnail but its source isn't in the album, 1 child
@@ -760,7 +768,8 @@ class AlbumTest extends GalleryTestCase {
 			$this->assertEquals($derivative->getId(), $thumb->getId());
 			$this->assertEquals($child->getId(), $thumb->getDerivativeSourceId());
 		}
-	}
+
+}
 
 	/**
 	 * Verify that creating a second album with the same path as
@@ -821,14 +830,16 @@ class AlbumTest extends GalleryTestCase {
 				$this->assertTrue($platform->file_exists($entityPath), "$entityPath does not exist");
 				$this->assertTrue($platform->is_dir($entityPath), "$entityPath is not a directory");
 			}
-		}
+
+}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testMoveCollision() {
 		global $gallery;
@@ -913,7 +924,8 @@ class AlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testInheritDefaults() {
 		global $gallery;
@@ -956,7 +968,8 @@ class AlbumTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// Create a sub album.  It should inherit from the parent
 		list($ret, $child1) = $this->_createRandomAlbum($album->getId());
@@ -974,6 +987,7 @@ class AlbumTest extends GalleryTestCase {
 		$this->assertEquals('AlbumTestTheme', $child1->getTheme());
 		$this->assertEquals('b', $child1->getOrderBy());
 		$this->assertEquals('c', $child1->getOrderDirection());
+
 		$this->assertEquals(
 			array(
 				'testParam' => 'testValue',
@@ -1034,6 +1048,7 @@ class AlbumTest extends GalleryTestCase {
 		$this->assertEquals('', $child2->getTheme());
 		$this->assertEquals('d', $child2->getOrderBy());
 		$this->assertEquals('e', $child2->getOrderDirection());
+
 		$this->assertEquals(
 			array(
 				'testParam' => 'testValue2',
@@ -1218,9 +1233,13 @@ class AlbumTest extends GalleryTestCase {
 			GalleryUtilities::arrayKeysRecursive($tree),
 			'depth one'
 		);
+
 		// Test multiroot
-		$gallery->setConfig('defaultAlbumId', $album[0]->getId()); // Used when no itemId given
-		$gallery->setConfig('breadcrumbRootId', $album[2]->getId()); // Should have no effect
+		// Used when no itemId given
+		$gallery->setConfig('defaultAlbumId', $album[0]->getId());
+
+		// Should have no effect
+		$gallery->setConfig('breadcrumbRootId', $album[2]->getId());
 
 		list($ret, $tree) = GalleryCoreApi::fetchAlbumTree();
 
@@ -1250,8 +1269,7 @@ class AlbumTest extends GalleryTestCase {
 	public function testFetchAlbumTreeNoPermissions() {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
+		$session          =& $gallery->getSession();
 		list($ret, $user) = $this->_createRandomUser();
 
 		if ($ret) {
@@ -1316,9 +1334,8 @@ class AlbumTest extends GalleryTestCase {
 	public function testCreateAlbumByGuestUser() {
 		global $gallery;
 
-		$savedUser = $gallery->getActiveUser();
-		$albumName = sprintf(' album %d test ', mt_rand());
-
+		$savedUser               = $gallery->getActiveUser();
+		$albumName               = sprintf(' album %d test ', mt_rand());
 		list($ret, $publicAlbum) = GalleryCoreApi::createAlbum(
 			$this->_parentAlbum->getId(),
 			$albumName,
@@ -1350,8 +1367,7 @@ class AlbumTest extends GalleryTestCase {
 
 		$this->_becomeGuestUser();
 
-		$albumName = sprintf(' album %d test ', mt_rand());
-
+		$albumName         = sprintf(' album %d test ', mt_rand());
 		list($ret, $album) = GalleryCoreApi::createAlbum(
 			$publicAlbum->getId(),
 			$albumName,
@@ -1374,8 +1390,7 @@ class AlbumTest extends GalleryTestCase {
 	public function testCreateAlbumWithAlternativeGuestUser() {
 		global $gallery;
 
-		$savedUser = $gallery->getActiveUser();
-
+		$savedUser        = $gallery->getActiveUser();
 		list($ret, $user) = $this->_createRandomUser();
 
 		if ($ret) {
@@ -1384,8 +1399,7 @@ class AlbumTest extends GalleryTestCase {
 
 		$this->_markForCleanup($user);
 
-		$albumName = sprintf(' album %d test ', mt_rand());
-
+		$albumName               = sprintf(' album %d test ', mt_rand());
 		list($ret, $publicAlbum) = GalleryCoreApi::createAlbum(
 			$this->_parentAlbum->getId(),
 			$albumName,
@@ -1419,8 +1433,7 @@ class AlbumTest extends GalleryTestCase {
 
 		$gallery->setActiveUser($user);
 
-		$albumName = sprintf(' album %d test ', mt_rand());
-
+		$albumName         = sprintf(' album %d test ', mt_rand());
 		list($ret, $album) = GalleryCoreApi::createAlbum(
 			$publicAlbum->getId(),
 			$albumName,
@@ -1451,8 +1464,7 @@ class AlbumTest extends GalleryTestCase {
 	public function testCreateAlbumByRegisteredUser() {
 		global $gallery;
 
-		$savedUser = $gallery->getActiveUser();
-
+		$savedUser        = $gallery->getActiveUser();
 		list($ret, $user) = $this->_createRandomUser();
 
 		if ($ret) {
@@ -1462,8 +1474,7 @@ class AlbumTest extends GalleryTestCase {
 		$this->_markForCleanup($user);
 		$gallery->setActiveUser($user);
 
-		$albumName = sprintf(' album %d test ', mt_rand());
-
+		$albumName         = sprintf(' album %d test ', mt_rand());
 		list($ret, $album) = GalleryCoreApi::createAlbum(
 			$this->_parentAlbum->getId(),
 			$albumName,
@@ -1490,8 +1501,7 @@ class AlbumTest extends GalleryTestCase {
 	public function testCreateAlbumWithLeadingAndTrailingSpace() {
 		global $gallery;
 
-		$albumName = sprintf(' album %d test ', mt_rand());
-
+		$albumName         = sprintf(' album %d test ', mt_rand());
 		list($ret, $album) = GalleryCoreApi::createAlbum(
 			$this->_parentAlbum->getId(),
 			$albumName,
@@ -1540,7 +1550,9 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('title&lt;script&gt;evil', $album->getTitle());
+
 		$this->assertEquals('summary&lt;script&gt;evil', $album->getSummary());
+
 		$this->assertEquals('description&lt;script&gt;evil', $album->getDescription());
 	}
 
@@ -1553,8 +1565,7 @@ class AlbumTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$newAlbumName = sprintf(' album %d test ', mt_rand());
-
+		$newAlbumName        = sprintf(' album %d test ', mt_rand());
 		list($ret, $locks[]) = GalleryCoreApi::acquireWriteLock($album->getId());
 
 		if ($ret) {
@@ -1601,6 +1612,7 @@ class AlbumTest extends GalleryTestCase {
 		$this->assertEquals(trim($newAlbumName), basename($path));
 		$this->assertEquals(trim($newAlbumName), $album->getPathComponent());
 	}
+
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
@@ -1631,4 +1643,5 @@ class AlbumTestToolkit extends GalleryToolkit {
 
 		return array(null, $mimeType, $context);
 	}
+
 }

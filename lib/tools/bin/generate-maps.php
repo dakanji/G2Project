@@ -93,12 +93,14 @@ foreach ($root[0]['child'] as $map) {
 
 						break;
 					}
-				}
+
+}
 			}
 
 			$maps[$mapName][] = $member;
 		}
-	}
+
+}
 }
 
 $smarty->assign('maps', $maps);

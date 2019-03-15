@@ -43,8 +43,7 @@ class SizeLimitOption extends ItemEditOption {
 		 * Get the parameters for this album;
 		 * we are assuming that both $height and $width are either in or out...
 		 */
-		$SizeLimitOption = array();
-
+		$SizeLimitOption    = array();
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 			'module',
 			'sizelimit',
@@ -265,7 +264,8 @@ class SizeLimitOption extends ItemEditOption {
 				if ($ret) {
 					return array($ret, null, null);
 				}
-			}
+
+}
 		}
 
 		if (empty($error) && isset($form['SizeLimitOption']['applyToDescendents'])) {
@@ -393,7 +393,8 @@ class SizeLimitOption extends ItemEditOption {
 						} else {
 							return array($ret, null, null);
 						}
-					}
+
+}
 				}
 
 				if ($setFilesize && $filesize[0] > 0 && ($item->getSize() >> 10) > $filesize[0]) {
@@ -418,9 +419,11 @@ class SizeLimitOption extends ItemEditOption {
 						} else {
 							return array($ret, null, null);
 						}
-					}
+
+}
 				}
-			}
+
+}
 		}
 
 		return array(null, $errors, $warnings);
@@ -432,4 +435,5 @@ class SizeLimitOption extends ItemEditOption {
 	public function requiresProgressBar($form) {
 		return isset($form['SizeLimitOption']['applyToDescendents']);
 	}
+
 }

@@ -47,8 +47,7 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 
 		$gallery->setPlatform($mockPlatform);
 
-		$task = new FlushTemplatesTask();
-
+		$task               = new FlushTemplatesTask();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -84,8 +83,7 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 
 		$gallery->setPlatform($mockPlatform);
 
-		$task = new FlushTemplatesTask();
-
+		$task               = new FlushTemplatesTask();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -115,6 +113,7 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 			$mockPlatform->getCalls()
 		);
 	}
+
 }
 
 class FlushTemplatesTaskTestPlatform {
@@ -152,4 +151,5 @@ class FlushTemplatesTaskTestPlatform {
 	public function realpath($path) {
 		return $path;
 	}
+
 }

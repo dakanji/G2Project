@@ -74,7 +74,8 @@ class PhpVmTest extends GalleryTestCase {
 				$this->_phpVm->iconv('ISO-8859-1', 'UTF-8', 'foo bar')
 			);
 		}
-	}
+
+}
 
 	public function testMbConvertEncoding() {
 		if (function_exists('mb_convert_encoding')) {
@@ -83,7 +84,8 @@ class PhpVmTest extends GalleryTestCase {
 				$this->_phpVm->mb_convert_encoding('foo bar', 'ISO-8859-1', 'UTF8')
 			);
 		}
-	}
+
+}
 
 	public function testRecodeString() {
 		if (function_exists('recode_string')) {
@@ -92,7 +94,8 @@ class PhpVmTest extends GalleryTestCase {
 				$this->_phpVm->recode_string('ISO-8859-1..UTF8', 'foo bar')
 			);
 		}
-	}
+
+}
 
 	/*
 	 * header() can only be tested with an actual HTTP requests, that's why we added it
@@ -104,7 +107,6 @@ class PhpVmTest extends GalleryTestCase {
 		/*
 		 * This test also depends on the G2 Session code as we do an actual HTTP request and
 		 * verify that we received a cookie header. GallerySession uses the $phpVm->header()
-
 		 * function, thus this covers what we'd like to test (and a little more)
 		 */
 		$urlGenerator =& $gallery->getUrlGenerator();
@@ -160,7 +162,8 @@ class PhpVmTest extends GalleryTestCase {
 				'no cookie header found in http response for url: ' . $url
 			);
 		}
-	}
+
+}
 
 	// Check is only rudimentary, omit the optional parameters
 	public function testHeadersSent() {
@@ -216,7 +219,8 @@ class PhpVmTest extends GalleryTestCase {
 			$rand = mt_rand(1000, 1010);
 			$this->assertTrue($rand >= 1000 && $rand <= 1010, 'with minimum and maximum');
 		}
-	}
+
+}
 
 	public function testCrc32() {
 		$this->assertEquals(crc32('test'), $this->_phpVm->crc32('test'));
@@ -226,4 +230,5 @@ class PhpVmTest extends GalleryTestCase {
 		$this->assertTrue($this->_phpVm->class_exists('PhpVmTest'));
 		$this->assertFalse($this->_phpVm->class_exists('ThisIsAClassThatCanNeverExist'));
 	}
+
 }

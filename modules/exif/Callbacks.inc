@@ -27,7 +27,6 @@
 class ExifCallbacks {
 	public function callback($params, &$smarty, $callback, $userId = null) {
 		global $gallery;
-
 		static $blockNum = 0;
 
 		switch ($callback) {
@@ -74,10 +73,10 @@ class ExifCallbacks {
 					if (empty($mode)) {
 						$mode = 'summary';
 					}
-				}
 
-				$filter = ($mode == 'detailed') ? EXIF_DETAILED : EXIF_SUMMARY;
+}
 
+				$filter               = ($mode == 'detailed') ? EXIF_DETAILED : EXIF_SUMMARY;
 				list($ret, $exifData) = ExifHelper::getExifData($path, $filter);
 
 				if ($ret) {
@@ -116,4 +115,5 @@ class ExifCallbacks {
 
 		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
+
 }

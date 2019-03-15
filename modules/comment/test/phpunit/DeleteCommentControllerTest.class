@@ -58,7 +58,6 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 			}
 
 			$this->assertTrue(isset($this->_comment[$i]), 'Missing comment instance');
-
 			$this->_comment[$i]->create($this->_item[$i]->getId());
 			$this->_comment[$i]->setCommenterId($gallery->getActiveUserId());
 			$this->_comment[$i]->setHost('127.0.0.1');
@@ -70,7 +69,8 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 	}
 
 	public function testDeleteComment() {
@@ -136,4 +136,5 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 	}
+
 }

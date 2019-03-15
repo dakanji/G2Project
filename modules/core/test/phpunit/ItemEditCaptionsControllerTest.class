@@ -58,7 +58,8 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 				return $ret;
 			}
-		}
+
+}
 	}
 
 	public function testSaveAndDone() {
@@ -114,8 +115,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		// Verify that the changes happened
 		foreach ($this->_items as $item) {
-			$id = $item->getId();
-
+			$id               = $item->getId();
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {
@@ -123,12 +123,12 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 			}
 
 			$this->assertEquals("title $id", $item->getTitle());
-
 			$this->assertEquals("summary $id", $item->getSummary());
 			$this->assertEquals("keywords $id", $item->getKeywords());
 			$this->assertEquals("description $id", $item->getDescription());
 		}
-	}
+
+}
 
 	public function testSaveAndNext() {
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
@@ -182,8 +182,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		// Verify that the changes happened
 		foreach ($this->_items as $item) {
-			$id = $item->getId();
-
+			$id               = $item->getId();
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {
@@ -191,12 +190,12 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 			}
 
 			$this->assertEquals("title $id", $item->getTitle());
-
 			$this->assertEquals("summary $id", $item->getSummary());
 			$this->assertEquals("keywords $id", $item->getKeywords());
 			$this->assertEquals("description $id", $item->getDescription());
 		}
-	}
+
+}
 
 	public function testSaveAndPrevious() {
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
@@ -250,8 +249,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		// Verify that the changes happened
 		foreach ($this->_items as $item) {
-			$id = $item->getId();
-
+			$id               = $item->getId();
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {
@@ -263,7 +261,8 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 			$this->assertEquals("keywords $id", $item->getKeywords());
 			$this->assertEquals("description $id", $item->getDescription());
 		}
-	}
+
+}
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
@@ -294,12 +293,12 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 			}
 
 			$this->assertEquals($item->getTitle(), $newItem->getTitle());
-
 			$this->assertEquals($item->getSummary(), $newItem->getSummary());
 			$this->assertEquals($item->getKeywords(), $newItem->getKeywords());
 			$this->assertEquals($item->getDescription(), $newItem->getDescription());
 		}
-	}
+
+}
 
 	public function testSaveWithErrors() {
 		global $gallery;
@@ -379,8 +378,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		// Verify that the appropriate changes happened
 		for ($i = 0; $i < count($this->_items); $i++) {
-			$item = $this->_items[$i];
-
+			$item                = $this->_items[$i];
 			list($ret, $newItem) = $item->refresh();
 
 			if ($ret) {
@@ -392,11 +390,8 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 				$id = $item->getId();
 
 				$this->assertEquals("title $id", $newItem->getTitle());
-
 				$this->assertEquals("summary $id", $newItem->getSummary());
-
 				$this->assertEquals("keywords $id", $newItem->getKeywords());
-
 				$this->assertEquals("description $id", $newItem->getDescription());
 			} else {
 				// Error, should be unchanged
@@ -405,7 +400,8 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 				$this->assertEquals($item->getKeywords(), $newItem->getKeywords());
 				$this->assertEquals($item->getDescription(), $newItem->getDescription());
 			}
-		}
+
+}
 	}
 
 	public function testMaliciousMarkup() {
@@ -470,8 +466,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 		);
 
 		foreach ($this->_items as $item) {
-			$id = $item->getId();
-
+			$id               = $item->getId();
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {
@@ -480,8 +475,10 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 			$this->assertEquals('title here', $item->getTitle());
 			$this->assertEquals('summary &lt;p&gt;yy&lt;/p&gt;', $item->getSummary());
+
 			$this->assertEquals('', $item->getKeywords(), 'keywords');
 			$this->assertEquals('description ', $item->getDescription());
 		}
-	}
+
+}
 }

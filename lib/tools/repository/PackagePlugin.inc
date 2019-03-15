@@ -121,7 +121,8 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 		// Set default filter if none is provided.
 		$filter = GalleryUtilities::getRequestVariables('filter');
 
-		if (strlen($filter) < 3) { // Is there a check to see if a regexp is valid?
+		if (strlen($filter) < 3) {
+			// Is there a check to see if a regexp is valid?
 			$filter = '/.*/';
 		}
 
@@ -145,7 +146,8 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 
 				$packagedPluginList[] = $pluginInfo;
 			}
-		}
+
+}
 
 		$this->showView(
 			'PackageResults',
@@ -167,8 +169,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 	public function doPackagePlugin($pluginType, $pluginId) {
 		global $gallery;
 
-		$outputDir = $gallery->getConfig('repository.path');
-
+		$outputDir          = $gallery->getConfig('repository.path');
 		list($ret, $plugin) = GalleryCoreApi::loadPlugin($pluginType, $pluginId, true);
 
 		if ($ret) {
@@ -267,9 +268,11 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 				foreach ($links as $link => $extraUrlParameters) {
 					$data[$pluginId]['links'][$link] = $urlGenerator->generateUrl($extraUrlParameters + $pluginUrlParameters);
 				}
-			}
+
+}
 		}
 
 		return array(null, $data);
 	}
+
 }

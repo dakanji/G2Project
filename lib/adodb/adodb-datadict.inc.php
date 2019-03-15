@@ -34,6 +34,7 @@ if (!function_exists('ctype_alnum')) {
 	function ctype_alnum($text) {
 		return preg_match('/^[a-z0-9]*$/i', $text);
 	}
+
 }
 
 //Lens_ParseTest();
@@ -116,10 +117,12 @@ function Lens_ParseArgs($args, $endstmtchar = ',', $tokenchars = '_.-') {
 							$tokens[$stmtno][] = implode('', $tokarr);
 							$endquote          = '';
 						}
-					} else {
+
+} else {
 						$tokarr[] = $ch;
 					}
-				} else {
+
+} else {
 					if ($ch == '(') {
 						$endquote = ')';
 					} else {
@@ -133,7 +136,8 @@ function Lens_ParseArgs($args, $endstmtchar = ',', $tokenchars = '_.-') {
 					if ($ch == '`') {
 						$tokarr[] = '`';
 					}
-				}
+
+}
 
 				break;
 
@@ -171,7 +175,8 @@ function Lens_ParseArgs($args, $endstmtchar = ',', $tokenchars = '_.-') {
 					$tokens[$stmtno][] = $ch;
 					$intoken           = false;
 				}
-		}
+
+}
 
 		$pos += 1;
 	}
@@ -419,7 +424,8 @@ class ADODB_DataDict {
 
 				$rez = 1;
 			}
-		}
+
+}
 
 		return $rez;
 	}
@@ -482,9 +488,8 @@ class ADODB_DataDict {
 	}
 
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname = $this->TableName($tabname);
-		$sql     = array();
-
+		$tabname                   = $this->TableName($tabname);
+		$sql                       = array();
 		list($lines, $pkey, $idxs) = $this->_GenFields($flds);
 
 		// genfields can return FALSE at times
@@ -503,7 +508,8 @@ class ADODB_DataDict {
 				$sql_idxs = $this->CreateIndexSql($idx, $tabname, $idxdef['cols'], $idxdef['opts']);
 				$sql      = array_merge($sql, $sql_idxs);
 			}
-		}
+
+}
 
 		return $sql;
 	}
@@ -518,9 +524,8 @@ class ADODB_DataDict {
 	 * @return array with SQL strings
 	 */
 	public function AlterColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
-		$tabname = $this->TableName($tabname);
-		$sql     = array();
-
+		$tabname                   = $this->TableName($tabname);
+		$sql                       = array();
 		list($lines, $pkey, $idxs) = $this->_GenFields($flds);
 
 		// genfields can return FALSE at times
@@ -539,7 +544,8 @@ class ADODB_DataDict {
 				$sql_idxs = $this->CreateIndexSql($idx, $tabname, $idxdef['cols'], $idxdef['opts']);
 				$sql      = array_merge($sql, $sql_idxs);
 			}
-		}
+
+}
 
 		return $sql;
 	}
@@ -564,8 +570,7 @@ class ADODB_DataDict {
 				$lines = array();
 			}
 
-			$first = current($lines);
-
+			$first              = current($lines);
 			list(, $column_def) = preg_split("/[\t ]+/", $first, 2);
 		}
 
@@ -641,7 +646,8 @@ class ADODB_DataDict {
 				$sql_idxs = $this->CreateIndexSql($idx, $tabname, $idxdef['cols'], $idxdef['opts']);
 				$sql      = array_merge($sql, $sql_idxs);
 			}
-		}
+
+}
 
 		return $sql;
 	}
@@ -680,7 +686,8 @@ class ADODB_DataDict {
 
 							break;
 					}
-				}
+
+}
 
 				// 'index' token without a name means single column index: name it after column
 				if (array_key_exists('INDEX', $f1) && $f1['INDEX'] == '') {
@@ -694,13 +701,15 @@ class ADODB_DataDict {
 					} else {
 						$f1['INDEX'] = 'idx_' . $f1['INDEX'];
 					}
-				}
+
+}
 
 				// reset it, so we don't get next field 1st token as INDEX...
 				$hasparam = false;
 				$flds[]   = $f1;
 			}
-		}
+
+}
 
 		$this->autoIncrement = false;
 		$lines               = array();
@@ -853,7 +862,8 @@ class ADODB_DataDict {
 			$ftype = $this->_GetSize($ftype, $ty, $fsize, $fprec);
 
 			if ($ty == 'X' || $ty == 'X2' || $ty == 'B') {
-				$fnotnull = false; // some blob types do not accept nulls
+				// some blob types do not accept nulls
+				$fnotnull = false;
 			}
 
 			if ($fprimary) {
@@ -874,12 +884,14 @@ class ADODB_DataDict {
 						if ($this->debug) {
 							ADOConnection::outp("Index $findex defined once UNIQUE and once not");
 						}
-					}
+
+}
 
 					if ($funiqueindex && !in_array('UNIQUE', $idxs[$findex]['opts'])) {
 						$idxs[$findex]['opts'][] = 'UNIQUE';
 					}
-				} else {
+
+} else {
 					$idxs[$findex]         = array();
 					$idxs[$findex]['cols'] = array($fname);
 
@@ -888,7 +900,8 @@ class ADODB_DataDict {
 					} else {
 						$idxs[$findex]['opts'] = array();
 					}
-				}
+
+}
 			}
 
 			//--------------------
@@ -899,13 +912,15 @@ class ADODB_DataDict {
 				} else {
 					$fdefault = $this->connection->sysTimeStamp;
 				}
-			} elseif ($fdefdate) {
+
+} elseif ($fdefdate) {
 				if (substr($this->connection->databaseType, 0, 5) == 'mysql') {
 					$ftype = 'TIMESTAMP';
 				} else {
 					$fdefault = $this->connection->sysDate;
 				}
-			} elseif ($fdefault !== false && !$fnoquote) {
+
+} elseif ($fdefault !== false && !$fnoquote) {
 				if ($ty == 'C' or $ty == 'X'
 					or (substr($fdefault, 0, 1) != "'" && !is_numeric($fdefault))
 				) {
@@ -916,12 +931,14 @@ class ADODB_DataDict {
 						} else {
 							$fdefault = $this->connection->DBDate($fdefault);
 						}
-					} elseif (strlen($fdefault) != 1 && substr($fdefault, 0, 1) == ' ' && substr($fdefault, strlen($fdefault) - 1) == ' ') {
+
+} elseif (strlen($fdefault) != 1 && substr($fdefault, 0, 1) == ' ' && substr($fdefault, strlen($fdefault) - 1) == ' ') {
 						$fdefault = trim($fdefault);
 					} elseif (strtolower($fdefault) != 'null') {
 						$fdefault = $this->connection->qstr($fdefault);
 					}
-				}
+
+}
 			}
 
 			$suffix = $this->_CreateSuffix($fname, $ftype, $fnotnull, $fdefault, $fautoinc, $fconstraint, $funsigned);
@@ -941,7 +958,8 @@ class ADODB_DataDict {
 			if ($fautoinc) {
 				$this->autoIncrement = true;
 			}
-		} // foreach $flds
+
+} // foreach $flds
 		return array($lines, $pkey, $idxs);
 	}
 
@@ -992,7 +1010,8 @@ class ADODB_DataDict {
 			if (isset($idxoptions['DROP'])) {
 				return $sql;
 			}
-		}
+
+}
 
 		if (empty($flds)) {
 			return $sql;
@@ -1031,12 +1050,14 @@ class ADODB_DataDict {
 				if ($sInc) {
 					$sql[] = $sInc;
 				}
-			}
+
+}
 
 			if (isset($tableoptions['DROP'])) {
 				return $sql;
 			}
-		}
+
+}
 
 		$s  = "CREATE TABLE $tabname (\n";
 		$s .= implode(",\n", $lines);
@@ -1089,7 +1110,8 @@ class ADODB_DataDict {
 			} else {
 				$newopts[strtoupper($k)] = $v;
 			}
-		}
+
+}
 
 		return $newopts;
 	}
@@ -1172,7 +1194,8 @@ class ADODB_DataDict {
 					if (isset($c->scale)) {
 						$sc = $c->scale;
 					} else {
-						$sc = 99; // always force change if scale not known.
+						// always force change if scale not known.
+						$sc = 99;
 					}
 
 					if ($sc == -1) {
@@ -1192,10 +1215,12 @@ class ADODB_DataDict {
 					if (($mt != $v['TYPE']) || ($ml != $fsize || $sc != $fprec) || (isset($v['AUTOINCREMENT']) && $v['AUTOINCREMENT'] != $obj->auto_increment)) {
 						$holdflds[$k] = $v;
 					}
-				} else {
+
+} else {
 					$holdflds[$k] = $v;
 				}
-			}
+
+}
 
 			$flds = $holdflds;
 		}
@@ -1232,16 +1257,19 @@ class ADODB_DataDict {
 			} else {
 				$sql[] = $alter . $this->addCol . ' ' . $v;
 			}
-		}
+
+}
 
 		if ($dropOldFlds) {
 			foreach ($cols as $id => $v) {
 				if (!isset($lines[$id])) {
 					$sql[] = $alter . $this->dropCol . ' ' . $v->name;
 				}
-			}
+
+}
 		}
 
 		return $sql;
 	}
+
 } // class

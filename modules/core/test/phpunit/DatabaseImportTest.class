@@ -120,8 +120,7 @@ class DatabaseImportTest extends GalleryTestCase {
 		$exportedModuleApi          = implode('.', $installedModuleVersion);
 		$installedCoreVersion[1]   += 1;
 		$exportedCoreApi            = implode('.', $installedCoreVersion);
-
-		list($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core', true);
+		list($ret, $coreModule)     = GalleryCoreApi::loadPlugin('module', 'core', true);
 
 		if ($ret) {
 			return $ret;
@@ -267,7 +266,8 @@ class DatabaseImportTest extends GalleryTestCase {
 		if (!$this->_xmlParser->xmlParse($inputXml, true)) {
 			return $this->_xmlParser->getParserError();
 		}
-	}
+
+}
 
 	public function testCreateTableSql() {
 		global $gallery;
@@ -303,7 +303,8 @@ class DatabaseImportTest extends GalleryTestCase {
 		if (!$this->_xmlParser->xmlParse($inputXml, true)) {
 			return $this->_xmlParser->getParserError();
 		}
-	}
+
+}
 
 	public function testDataImport() {
 		global $gallery;
@@ -362,6 +363,7 @@ class DatabaseImportTest extends GalleryTestCase {
 		);
 
 		$storage->setReply('execute', array($query, array(19, 3, '&2147483647')), null);
+
 		$storage->setReply(
 			'_normalizeValue',
 			array(
@@ -404,6 +406,7 @@ class DatabaseImportTest extends GalleryTestCase {
 		);
 
 		$storage->setReply('execute', array($query, array(19, 4, '<1040647>')), null);
+
 		$storage->setReply(
 			'_normalizeValue',
 			array(
@@ -449,7 +452,8 @@ class DatabaseImportTest extends GalleryTestCase {
 		if (!$this->_xmlParser->xmlParse($inputXml, true)) {
 			return $this->_xmlParser->getParserError();
 		}
-	}
+
+}
 
 	/**
 	 * XML Callback to process start elements
@@ -489,80 +493,61 @@ class DatabaseImportTest extends GalleryTestCase {
 	 * @access protected
 	 */
 	public function _processChildElement($childElement) {}
+
 }
 
 class DatabaseImportTest1Module extends GalleryModule {
 	public function __construct() {
 		$this->setId('DatabaseImportTest1');
-
 		$this->setName('Database Import Test Module1 Module');
-
 		$this->setDescription('Unit test module');
-
 		$this->setVersion('1.0.0');
-
 		$this->setGroup('data', 'Gallery');
-
 		$this->setCallbacks('');
-
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-
 		$this->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 	}
+
 }
 
 class DatabaseImportTest2Module extends GalleryModule {
 	public function __construct() {
 		$this->setId('DatabaseImportTest2');
-
 		$this->setName('Database Import Test Module2 Module');
-
 		$this->setDescription('Unit test module');
-
 		$this->setVersion('1.1.5');
-
 		$this->setGroup('data', 'Gallery');
-
 		$this->setCallbacks('');
-
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-
 		$this->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 	}
+
 }
 
 class DatabaseImportTest3Module extends GalleryModule {
 	public function __construct() {
 		$this->setId('DatabaseImportTest3');
-
 		$this->setName('Database Import Test Module3 Module');
-
 		$this->setDescription('Unit test module');
-
 		$this->setVersion('1.0.8');
-
 		$this->setGroup('data', 'Gallery');
-
 		$this->setCallbacks('');
-
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
-
 		$this->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 	}
+
 }
 
 class DatabaseImportTest4Module extends GalleryModule {
 	public function __construct() {
 		$this->setId('DatabaseImportTest4');
-
 		$this->setName('Database Import Test Module4 Module');
-
 		$this->setDescription('Unit test module');
-
 		$this->setVersion('1.0.6');
 		$this->setGroup('data', 'Gallery');
 		$this->setCallbacks('');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$this->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 	}
+
 }

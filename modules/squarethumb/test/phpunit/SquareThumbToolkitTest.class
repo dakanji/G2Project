@@ -305,8 +305,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 		// Valid operation
 		$gallery->_squareQueue = array();
-
-		list($ret, $mimeType) = $this->_toolkit->performOperation(
+		list($ret, $mimeType)  = $this->_toolkit->performOperation(
 			'test/image',
 			'thumbnail',
 			'cropSrc',
@@ -331,8 +330,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 		// Already small
 		$gallery->_squareQueue = array();
-
-		list($ret, $mimeType) = $this->_toolkit->performOperation(
+		list($ret, $mimeType)  = $this->_toolkit->performOperation(
 			'test/crop',
 			'thumbnail',
 			'smallCropSrc',
@@ -346,6 +344,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 		$this->assertEquals('test/crop', $mimeType, 'Output mime type 2');
 		$this->assertEquals(array('crop'), $gallery->_squareQueue, 'operations 2');
+
 		unset($gallery->_squareQueue);
 	}
 
@@ -366,8 +365,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 		// Valid operation
 		$gallery->_squareQueue = array();
-
-		list($ret, $mimeType) = $this->_toolkit->performOperation(
+		list($ret, $mimeType)  = $this->_toolkit->performOperation(
 			'test/image',
 			'thumbnail',
 			'compositeSrc',
@@ -386,8 +384,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 		// Already small
 		$gallery->_squareQueue = array();
-
-		list($ret, $mimeType) = $this->_toolkit->performOperation(
+		list($ret, $mimeType)  = $this->_toolkit->performOperation(
 			'test/composite',
 			'thumbnail',
 			'smallCompositeSrc',
@@ -403,6 +400,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 		$this->assertEquals('image/jpeg', $mimeType, 'Output mime type 2');
 		$this->assertEquals(array('composite'), $gallery->_squareQueue, 'operations 2');
+
 		unset($gallery->_squareQueue);
 	}
 
@@ -416,8 +414,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 		$destFile              = $gallery->getConfig('data.gallery.tmp') . 'squareThumbTestFit';
 		$gallery->_squareQueue = array();
-
-		list($ret, $mimeType) = $this->_toolkit->performOperation(
+		list($ret, $mimeType)  = $this->_toolkit->performOperation(
 			'test/composite',
 			'thumbnail',
 			'smallCompositeSrc',
@@ -433,6 +430,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 		$this->assertEquals('image/jpeg', $mimeType, 'Output mime type');
 		$this->assertEquals(array('composite'), $gallery->_squareQueue, 'operations');
+
 		unset($gallery->_squareQueue);
 	}
 
@@ -447,8 +445,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		}
 
 		$gallery->_squareQueue = array();
-
-		list($ret, $mimeType) = $this->_toolkit->performOperation(
+		list($ret, $mimeType)  = $this->_toolkit->performOperation(
 			'test/crop',
 			'thumbnail',
 			'smallCropSrc',
@@ -462,6 +459,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 		$this->assertEquals('test/crop', $mimeType, 'Output mime type');
 		$this->assertEquals(array('crop'), $gallery->_squareQueue, 'operations');
+
 		unset($gallery->_squareQueue);
 	}
 
@@ -474,8 +472,8 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		$derivative = new GalleryDerivativeImage();
 
 		$derivative->setWidth(0);
-
 		$derivative->setHeight(0);
+
 		// Operation is smaller than the smallest side
 		$derivative->setDerivativeOperations('thumbnail|50');
 		$this->_toolkit->estimateDimensions($derivative, $item);
@@ -492,8 +490,8 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		$derivative = new GalleryDerivativeImage();
 
 		$derivative->setWidth(0);
-
 		$derivative->setHeight(0);
+
 		// Operation is bigger than the smallest side
 		$derivative->setDerivativeOperations('thumbnail|200');
 		$this->_toolkit->estimateDimensions($derivative, $item);
@@ -510,8 +508,8 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		$derivative = new GalleryDerivativeImage();
 
 		$derivative->setWidth(0);
-
 		$derivative->setHeight(0);
+
 		// Operation is bigger than the biggest side
 		$derivative->setDerivativeOperations('thumbnail|400');
 		$this->_toolkit->estimateDimensions($derivative, $item);
@@ -528,14 +526,15 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		$derivative = new GalleryDerivativeImage();
 
 		$derivative->setWidth(0);
-
 		$derivative->setHeight(0);
+
 		// Operation is bigger than the biggest side, but source is a derivative
 		$derivative->setDerivativeOperations('thumbnail|400');
 		$this->_toolkit->estimateDimensions($derivative, $source);
 		$this->assertEquals(400, $derivative->getWidth());
 		$this->assertEquals(400, $derivative->getHeight());
 	}
+
 }
 
 /**
@@ -571,7 +570,8 @@ class SquareThumbTestToolkit extends GalleryToolkit {
 			default:
 				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
-	}
+
+}
 
 	public function performOperation(
 		$mimeType,
@@ -630,6 +630,7 @@ class SquareThumbTestToolkit extends GalleryToolkit {
 			null,
 		);
 	}
+
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
@@ -648,6 +649,7 @@ class SquareThumbTestWinNtPlatform extends WinNtPlatform {
 
 		return parent::copy($src, $dest);
 	}
+
 }
 
 class SquareThumbTestUnixPlatform extends UnixPlatform {
@@ -658,4 +660,5 @@ class SquareThumbTestUnixPlatform extends UnixPlatform {
 
 		return parent::copy($src, $dest);
 	}
+
 }

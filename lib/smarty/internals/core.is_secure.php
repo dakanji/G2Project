@@ -29,7 +29,8 @@ function smarty_core_is_secure($params, &$smarty) {
 				) {
 					return true;
 				}
-			}
+
+}
 		}
 
 		if (!empty($smarty->secure_dir)) {
@@ -44,9 +45,11 @@ function smarty_core_is_secure($params, &$smarty) {
 					) {
 						return true;
 					}
-				}
+
+}
 			}
-		}
+
+}
 	} else {
 		// resource is not on local file system
 		return call_user_func_array(

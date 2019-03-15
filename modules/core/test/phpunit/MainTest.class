@@ -68,8 +68,7 @@ class MainTest extends GalleryTestCase {
 	public function tearDown() {
 		global $gallery;
 
-		$gallery->_session = $this->_saveSession;
-
+		$gallery->_session        = $this->_saveSession;
 		list($ret, $languageCode) = $gallery->getActiveLanguageCode();
 
 		if ($ret) {
@@ -89,7 +88,8 @@ class MainTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function _getResponseHeaders() {
 		$headers = GalleryUtilities::_getResponseHeaders();
@@ -324,14 +324,18 @@ class MainTest extends GalleryTestCase {
 						"Wrong header: $server, $url, $controller"
 					);
 				}
-			}
+
+}
 		}
-	}
+
+}
 
 	public function testDoRedirectConvertsToAbsoluteUrl() {
 		global $gallery;
 
-		GalleryDataCache::reset(); // Ensure getCurrentRequestUri result isn't cached
+		// Ensure getCurrentRequestUri result isn't cached
+		GalleryDataCache::reset();
+
 		// Make sure the redirect has no sessionId in it
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
 
@@ -346,6 +350,7 @@ class MainTest extends GalleryTestCase {
 
 		$this->assertFalse($session->isUsingCookies(), 'isUsingCookies');
 		$this->assertEquals(SESSION_TEMP_ID, $session->getId(), 'SESSION_TEMP_ID');
+
 		// Execute the function under test - also checks trailing ? & and spaces are trimmed
 		$this->assertEquals(
 			array(
@@ -383,6 +388,7 @@ class MainTest extends GalleryTestCase {
 
 		$this->assertFalse($session->isUsingCookies(), 'isUsingCookies');
 		$this->assertEquals(SESSION_TEMP_ID, $session->getId(), 'SESSION_TEMP_ID');
+
 		// Execute the function under test
 		$this->assertEquals(
 			array(
@@ -416,8 +422,7 @@ class MainTest extends GalleryTestCase {
 		GalleryUtilities::removeRequestVariable('form[authToken]');
 
 		$session->_isPersistent = true;
-
-		list($ret, $g2Data) = _GalleryMain();
+		list($ret, $g2Data)     = _GalleryMain();
 
 		if ($ret && $ret->getErrorCode() & ERROR_REQUEST_FORGED) {
 			// this is what we expect
@@ -426,7 +431,8 @@ class MainTest extends GalleryTestCase {
 		} else {
 			$this->assertFalse(true, 'auth token check not executed');
 		}
-	}
+
+}
 
 	public function testAuthTokenCheckIsEnforcedForControllerLikeViews() {
 		global $gallery;
@@ -439,8 +445,7 @@ class MainTest extends GalleryTestCase {
 		GalleryUtilities::removeRequestVariable('form[authToken]');
 
 		$session->_isPersistent = true;
-
-		list($ret, $g2Data) = _GalleryMain();
+		list($ret, $g2Data)     = _GalleryMain();
 
 		if ($ret && $ret->getErrorCode() & ERROR_REQUEST_FORGED) {
 			// this is what we expect
@@ -449,7 +454,8 @@ class MainTest extends GalleryTestCase {
 		} else {
 			$this->assertFalse(true, 'auth token check not executed');
 		}
-	}
+
+}
 
 	public function testAuthTokenCheckIsOmittedForSpecificControllers() {
 		global $gallery;
@@ -462,8 +468,7 @@ class MainTest extends GalleryTestCase {
 		GalleryUtilities::removeRequestVariable('form[authToken]');
 
 		$session->_isPersistent = true;
-
-		list($ret, $g2Data) = _GalleryMain();
+		list($ret, $g2Data)     = _GalleryMain();
 
 		if ($ret && $ret->getErrorCode() & ERROR_BAD_PARAMETER) {
 			// This is what we expect. The auth check has been omitted.
@@ -472,14 +477,14 @@ class MainTest extends GalleryTestCase {
 		} else {
 			$this->assertFalse(true, 'unexpected result');
 		}
-	}
+
+}
 
 	public function testRedirectViewForGuestWithoutPermissions() {
 		global $gallery;
 
-		$urlGenerator =& $gallery->getUrlGenerator();
-		$session      =& $gallery->getSession();
-
+		$urlGenerator     =& $gallery->getUrlGenerator();
+		$session          =& $gallery->getSession();
 		list($ret, $item) = $this->_createRandomAlbum($this->_getRootId());
 
 		if ($ret) {
@@ -546,9 +551,8 @@ class MainTest extends GalleryTestCase {
 	public function testRedirectViewForAlternateGuestWithoutPermissions() {
 		global $gallery;
 
-		$urlGenerator =& $gallery->getUrlGenerator();
-		$session      =& $gallery->getSession();
-
+		$urlGenerator     =& $gallery->getUrlGenerator();
+		$session          =& $gallery->getSession();
 		list($ret, $item) = $this->_createRandomAlbum($this->_getRootId());
 
 		if ($ret) {
@@ -611,8 +615,7 @@ class MainTest extends GalleryTestCase {
 	public function testViewForUserWithoutPermission() {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-
+		$session          =& $gallery->getSession();
 		list($ret, $item) = $this->_createRandomAlbum($this->_getRootId());
 
 		if ($ret) {
@@ -662,7 +665,8 @@ class MainTest extends GalleryTestCase {
 			if (!($ret->getErrorCode() & (ERROR_PERMISSION_DENIED | ERROR_MISSING_OBJECT))) {
 				return $ret;
 			}
-		} else {
+
+} else {
 			$this->fail('Expected an error');
 		}
 
@@ -694,7 +698,8 @@ class MainTest extends GalleryTestCase {
 			if (!($ret->getErrorCode() & (ERROR_PERMISSION_DENIED | ERROR_MISSING_OBJECT))) {
 				return $ret;
 			}
-		} else {
+
+} else {
 			$this->fail('Expected an error');
 		}
 
@@ -769,7 +774,8 @@ class MainTest extends GalleryTestCase {
 			if ($header === 'Cache-Control: no-cache') {
 				return true;
 			}
-		}
+
+}
 
 		return false;
 	}
@@ -778,7 +784,6 @@ class MainTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('view', 'core.MainTestImmediateItemNoAutoCache');
 
 		$_REQUEST['header'] = array();
-
 		list($ret, $g2Data) = _GalleryMain();
 
 		if ($ret) {
@@ -798,6 +803,7 @@ class MainTest extends GalleryTestCase {
 			'wrong Cache-Control header: ' . implode(', ', $_REQUEST['header'])
 		);
 	}
+
 }
 
 class MainTestPhpVm extends GalleryPhpVm {
@@ -809,6 +815,7 @@ class MainTestPhpVm extends GalleryPhpVm {
 	public function headers_sent() {
 		return false;
 	}
+
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
@@ -827,6 +834,7 @@ class MainTest_FakeView extends GalleryView {
 			),
 		);
 	}
+
 }
 
 class MainTest_BeforeDisplayListener {
@@ -835,6 +843,7 @@ class MainTest_BeforeDisplayListener {
 
 		return array(null, null);
 	}
+
 }
 
 /**
@@ -848,6 +857,7 @@ class MainTest_FakeTemplate extends GalleryTemplate {
 	public function fetch($templateName = null) {
 		return array(null, '');
 	}
+
 }
 
 class MainTestImmediateView extends GalleryView {
@@ -858,6 +868,7 @@ class MainTestImmediateView extends GalleryView {
 	public function isImmediate() {
 		return true;
 	}
+
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
@@ -866,6 +877,7 @@ class FooControllerController extends GalleryController {
 	public function omitAuthTokenCheck() {
 		return true;
 	}
+
 }
 
 class MainTestImmediateItemView extends GalleryView {
@@ -876,6 +888,7 @@ class MainTestImmediateItemView extends GalleryView {
 	public function isImmediate() {
 		return true;
 	}
+
 }
 
 class MainTestImmediateItemNoAutoCacheView extends GalleryView {
@@ -890,4 +903,5 @@ class MainTestImmediateItemNoAutoCacheView extends GalleryView {
 	public function autoCacheControl() {
 		return false;
 	}
+
 }

@@ -89,7 +89,8 @@ function smarty_function_math($params, &$smarty) {
 
 				return;
 			}
-		}
+
+}
 	}
 
 	// match all vars in equation, make sure all are passed
@@ -101,13 +102,15 @@ function smarty_function_math($params, &$smarty) {
 
 			return;
 		}
-	}
+
+}
 
 	foreach ($params as $key => $val) {
 		if ($key != 'equation' && $key != 'format' && $key != 'assign') {
 			$equation = preg_replace("/\b$key\b/", " \$params['$key'] ", $equation);
 		}
-	}
+
+}
 
 	$smarty_math_result = null;
 
@@ -125,5 +128,6 @@ function smarty_function_math($params, &$smarty) {
 		} else {
 			$smarty->assign($params['assign'], sprintf($params['format'], $smarty_math_result));
 		}
-	}
+
+}
 }

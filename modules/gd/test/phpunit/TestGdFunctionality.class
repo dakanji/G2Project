@@ -75,7 +75,8 @@ class TestGdFunctionality {
 				$this->_resources[$name]['x'] = (int)$matches[1];
 				$this->_resources[$name]['y'] = (int)$matches[2];
 			}
-		}
+
+}
 
 		return $name;
 	}
@@ -130,7 +131,8 @@ class TestGdFunctionality {
 
 			$this->_outputFiles[$filename] = array_merge($this->_outputFiles[$filename], $history);
 		}
-	}
+
+}
 
 	public function getOutputFileData($filename) {
 		if (!isset($this->_outputFiles[$filename])) {
@@ -216,7 +218,8 @@ class TestGdFunctionality {
 					case 0:
 						return 150 << 10;
 				}
-		}
+
+}
 
 		echo "filesize $filename<br/>\n";
 
@@ -742,7 +745,6 @@ class TestGdFunctionality {
 
 	public function imagedestroy($res) {
 		$this->_undestroyedResourceCounter--;
-
 		$this->_resources[$res]['destroyed'] = true;
 	}
 
@@ -846,4 +848,5 @@ class TestGdFunctionality {
 			'alpha' => 66,
 		);
 	}
+
 }

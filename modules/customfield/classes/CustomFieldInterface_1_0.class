@@ -64,4 +64,5 @@ class CustomFieldInterface_1_0 {
 	public function setCustomFieldValues($itemId, $data) {
 		return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
 	}
+
 }

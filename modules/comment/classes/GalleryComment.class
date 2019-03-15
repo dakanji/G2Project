@@ -166,7 +166,6 @@ class GalleryComment extends GalleryChildEntity {
 		}
 
 		$this->setCommenterId(null);
-
 		$this->setHost(null);
 		$this->setSubject(null);
 		$this->setComment(null);
@@ -184,7 +183,8 @@ class GalleryComment extends GalleryChildEntity {
 		} else {
 			$this->setPublishStatus(COMMENT_PUBLISH_STATUS_PUBLISHED);
 		}
-	}
+
+}
 
 	public function getCommenterId() {
 		return $this->commenterId;
@@ -241,4 +241,5 @@ class GalleryComment extends GalleryChildEntity {
 	public function getPublishStatus() {
 		return $this->publishStatus;
 	}
+
 }

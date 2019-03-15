@@ -30,8 +30,10 @@
 $ACCEPTIP = '127.0.0.1';
 
 // Connection parameters
-$driver   = 'mysql';
-$host     = 'localhost'; // DSN for odbc
+$driver = 'mysql';
+
+// DSN for odbc
+$host     = 'localhost';
 $uid      = 'root';
 $pwd      = 'garbase-it-is';
 $database = 'test';
@@ -41,9 +43,7 @@ $database = 'test';
 $sep = ' :::: ';
 
 require './adodb.inc.php';
-require_once ADODB_DIR . '/adodb-csvlib.inc.php';
-
-function err($s) {
+require_once ADODB_DIR . '/adodb-csvlib.inc.php';function err($s) {
 	die('**** ' . $s . ' ');
 }
 
@@ -66,6 +66,7 @@ if (!empty($ACCEPTIP)) {
 	if ($remote != '127.0.0.1' && $remote != $ACCEPTIP) {
 		err("Unauthorised client: '$remote'");
 	}
+
 }
 
 if (empty($_REQUEST['sql'])) {

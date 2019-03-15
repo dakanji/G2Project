@@ -54,7 +54,8 @@ class EventTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function tearDown() {
 		// If a test fails it might not deactivate / uninstall the mock module
@@ -76,7 +77,8 @@ class EventTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$ret = $module->uninstall();
 
@@ -95,7 +97,8 @@ class EventTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testPostEvent() {
 		$eventName = 'EventTest::test';
@@ -213,6 +216,7 @@ class EventTest extends GalleryTestCase {
 		$entity = new GalleryEntity();
 
 		$event->setEntity($entity);
+
 		// Embedded entity has the new value, even if we don't get it by reference
 		$entity->setId(1000);
 
@@ -226,6 +230,7 @@ class EventTest extends GalleryTestCase {
 		$embeddedEntity->setId(2000);
 		$this->assertEquals(2000, $entity->getId());
 	}
+
 }
 
 /**
@@ -233,8 +238,9 @@ class EventTest extends GalleryTestCase {
  * @package GalleryCore
  * @subpackage PHPUnit
  */
-class EventTestEventListener // extends GalleryEventListener
-{
+
+// extends GalleryEventListener
+class EventTestEventListener {
 	public $_event;
 	public $_factory;
 
@@ -287,6 +293,7 @@ class EventTestEventListener // extends GalleryEventListener
 	public function getEvent() {
 		return $this->_event;
 	}
+
 }
 
 /**
@@ -301,7 +308,8 @@ class EventTestPlatform extends GalleryPlatform {
 				while (($name = parent::readdir($handle)) !== false) {
 					array_push($this->_list, $name);
 				}
-			}
+
+}
 
 			array_push($this->_list, 'eventtest');
 
@@ -313,7 +321,6 @@ class EventTestPlatform extends GalleryPlatform {
 
 	public function is_dir($path) {
 		global $gallery;
-
 		static $ignorePath;
 
 		$ignorePath = $gallery->getConfig('data.gallery.plugins_data') . 'modules/eventtest';
@@ -356,6 +363,7 @@ class EventTestPlatform extends GalleryPlatform {
 	public function getDirectorySeparator() {
 		return '/';
 	}
+
 }
 
 /**
@@ -366,9 +374,7 @@ class EventTestModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('eventtest');
-
 		$this->setName('Event Test Module');
-
 		$this->setDescription('Mock module');
 		$this->setVersion('1.0.0');
 		$this->setGroup('mock', 'Mock');
@@ -392,6 +398,7 @@ class EventTestModule extends GalleryModule {
 
 		return null;
 	}
+
 }
 
 class EventTestFactory {}

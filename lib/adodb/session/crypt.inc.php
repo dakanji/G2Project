@@ -67,6 +67,7 @@ class MD5Crypt {
 
 		return $randomPassword;
 	}
+
 }
 
 class SHA1Crypt {
@@ -135,4 +136,5 @@ class SHA1Crypt {
 
 		return $randomPassword;
 	}
+
 }

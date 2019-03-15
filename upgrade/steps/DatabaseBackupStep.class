@@ -73,7 +73,8 @@ class DatabaseBackupStep extends UpgradeStep {
 
 				return false;
 			}
-		}
+
+}
 
 		$templateData['stackTrace'] = '';
 
@@ -84,8 +85,7 @@ class DatabaseBackupStep extends UpgradeStep {
 
 		$this->_template->renderStatusMessage($this->_progressTitle, '', 0);
 
-		$exporter = $storage->getDatabaseExporter();
-
+		$exporter                          = $storage->getDatabaseExporter();
 		list($ret, $backupFile, $warnings) = $exporter->exportToXmlFile(array($this, 'backupCallback'));
 
 		if (!$ret) {
@@ -94,7 +94,8 @@ class DatabaseBackupStep extends UpgradeStep {
 			if (!empty($warnings)) {
 				$templateData['backupWarnings'] = $warnings;
 			}
-		} else {
+
+} else {
 			$templateData['stackTrace'] .= $ret->getAsHtml();
 			$templateData['errors'][]    = _('Errors occurred during the database backup');
 		}
@@ -119,7 +120,8 @@ class DatabaseBackupStep extends UpgradeStep {
 				$templateData['stackTrace'] .= $ret->getAsHtml();
 				$templateData['errors'][]    = _('Error attempting to disable maintenance mode.');
 			}
-		}
+
+}
 
 		$this->_template->renderBodyAndFooter($templateData);
 
@@ -141,8 +143,7 @@ class DatabaseBackupStep extends UpgradeStep {
 		$templateData['storeConfig'] = $gallery->getConfig('storage.config');
 
 		// Load all table versions
-		$storage =& $gallery->getStorage();
-
+		$storage                   =& $gallery->getStorage();
 		list($ret, $tableVersions) = $storage->getTableVersions();
 
 		if ($ret) {
@@ -155,12 +156,11 @@ class DatabaseBackupStep extends UpgradeStep {
 
 			if ($canDoBackup) {
 				// Verify that the type / info fields are populated
-				$query = '
+				$query               = '
 					SELECT
 						[::name] FROM [GallerySchema]
 					WHERE 
 						[::type] in (\'map\',  \'entity\')';
-
 				list($ret, $results) = $storage->search(
 					$query,
 					array(),
@@ -177,9 +177,11 @@ class DatabaseBackupStep extends UpgradeStep {
 				} else {
 					$canDoBackup = $results->resultCount() > 0;
 				}
-			}
+
+}
 
 			$templateData['canDoBackup'] = $canDoBackup;
 		}
-	}
+
+}
 }

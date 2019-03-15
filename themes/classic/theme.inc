@@ -32,9 +32,7 @@ class ClassicTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('classic');
-
 		$this->setName($gallery->i18n('Classic'));
-
 		$this->setDescription(
 			$gallery->i18n(
 				'Classic Gallery2 root album look and feel'
@@ -43,6 +41,7 @@ class ClassicTheme extends GalleryTheme {
 		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
+
 		$this->setStandardSettings(
 			array(
 				'rows'            => 10,
@@ -195,7 +194,8 @@ class ClassicTheme extends GalleryTheme {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 		}
 
 		// Add our header and styles
@@ -332,9 +332,9 @@ class ClassicTheme extends GalleryTheme {
 				if ($ret) {
 					return $ret;
 				}
-			} else {
-				$id = $item->getId();
 
+} else {
+				$id               = $item->getId();
 				list($ret, $tree) = GalleryCoreApi::fetchAlbumTree($id, $maxDepth, $userId);
 
 				if ($ret) {
@@ -345,7 +345,8 @@ class ClassicTheme extends GalleryTheme {
 
 				$this->_parseTree($tree, $treeList[$id], $treeIds);
 			}
-		}
+
+}
 
 		if (!empty($treeIds)) {
 			list($ret, $items) = GalleryCoreApi::loadEntitiesById($treeIds, 'GalleryAlbumItem');
@@ -357,7 +358,8 @@ class ClassicTheme extends GalleryTheme {
 			foreach ($items as $item) {
 				$treeItems[$item->getId()] = (array)$item;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -420,9 +422,11 @@ class ClassicTheme extends GalleryTheme {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -442,6 +446,8 @@ class ClassicTheme extends GalleryTheme {
 			if (!empty($list)) {
 				$this->_parseTree($list, $treeList, $treeIds, $depth + 1);
 			}
-		}
+
+}
 	}
+
 }

@@ -93,7 +93,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	// Initiates a new url generator
 	public function _initNewUrlGenerator($baseUri = null, $g2Uri = null, $embedSessionString = null) {
@@ -355,8 +356,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
 		$_SERVER['REQUEST_URI'] = '/cms/otherpage/?foo=bar';
-
-		list($ret) = $this->_prepareGenerateUrl('', '/cms/phpunit_test.php?module=gallery2', '/gallery2/');
+		list($ret)              = $this->_prepareGenerateUrl('', '/cms/phpunit_test.php?module=gallery2', '/gallery2/');
 
 		if ($ret) {
 			return $ret;
@@ -402,8 +402,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
 		$_SERVER['REQUEST_URI'] = '/cms/otherpage/?foo=bar';
-
-		list($ret) = $this->_prepareGenerateUrl(
+		list($ret)              = $this->_prepareGenerateUrl(
 			'',
 			'/cms/phpunit_test.php?module=gallery2',
 			'/gallery2/|'
@@ -438,8 +437,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
 		$_SERVER['REQUEST_URI'] = '/cms/otherpage?foo=bar';
-
-		list($ret) = $this->_prepareGenerateUrl(
+		list($ret)              = $this->_prepareGenerateUrl(
 			'/',
 			'/cms/phpunit_test.php?module=gallery2',
 			'/gallery2/main.php'
@@ -831,8 +829,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
 		$_SERVER['REQUEST_URI'] = '/cms/otherpage?foo=bar';
-
-		list($ret) = $this->_prepareGenerateUrl(
+		list($ret)              = $this->_prepareGenerateUrl(
 			'/',
 			'/cms/phpunit_test.php?module=gallery2',
 			'/gallery2/main.php'
@@ -970,6 +967,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$_SERVER['QUERY_STRING'] = 'foo=bar';
 
 		unset($this->_urlGenerator->_currentUrl);
+
 		GalleryDataCache::reset();
 
 		$this->assertEquals($expected, $this->_urlGenerator->getCurrentUrl(), 'iis');
@@ -978,6 +976,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$_SERVER['PATH_INFO'] = $_SERVER['SCRIPT_NAME'];
 
 		unset($this->_urlGenerator->_currentUrl);
+
 		GalleryDataCache::reset();
 
 		$this->assertEquals($expected, $this->_urlGenerator->getCurrentUrl(), 'iis path_info');
@@ -1090,7 +1089,6 @@ class UrlGeneratorTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('embedded_override', $this->_urlGenerator->getHostName());
-
 		$this->assertEquals('embedded_override', $this->_urlGenerator->getHostName(false));
 		$this->assertEquals('direct_override', $this->_urlGenerator->getHostName(true));
 	}
@@ -1223,13 +1221,11 @@ class UrlGeneratorTest extends GalleryTestCase {
 			$this->_urlGenerator->makeAbsoluteUrl('/test/test.jpg'),
 			'relative URL'
 		);
-
 		$this->assertEquals(
 			'http://photos.example.com/test/test.jpg',
 			$this->_urlGenerator->makeAbsoluteUrl('/test/test.jpg', true),
 			'force direct'
 		);
-
 		$this->assertEquals(
 			'http://example.com/test/test.jpg',
 			$this->_urlGenerator->makeAbsoluteUrl('  /test/test.jpg'),
@@ -1272,7 +1268,6 @@ class UrlGeneratorTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('http', $this->_urlGenerator->_protocol[0], 'protocol');
-
 		$this->assertEquals('http', $this->_urlGenerator->_protocol[1], 'forceDirect protocol');
 		$this->assertEquals('example.com:8080', $this->_urlGenerator->_host[0], 'host');
 		$this->assertEquals('example.com:8080', $this->_urlGenerator->_host[1], 'forceDirect host');
@@ -1299,7 +1294,6 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 		foreach (array(0, 1) as $i) {
 			$this->assertEquals(GALLERY_MAIN_PHP, $uG->_file[$i], "file[$i]");
-
 			$this->assertTrue(empty($uG->_path[$i]), "path[$i]");
 			$this->assertEquals('http', $uG->_protocol[$i], "protocol[$i]");
 			$this->assertEquals('http_x_forwarded_host', $uG->_host[$i], "host[$i]");
@@ -1334,7 +1328,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 				"currentBaseHost[$i]"
 			);
 		}
-	}
+
+}
 
 	public function testInitEmbedded() {
 		$_SERVER['HTTPS']                 = 'on';
@@ -1348,13 +1343,9 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$this->assertEquals('index.php?foo=bar', $uG->_file[0], 'file[0]');
 
 		$this->assertEquals(GALLERY_MAIN_PHP, $uG->_file[1], 'file[1]');
-
 		$this->assertEquals('/cms/', $uG->_path[0], 'path[0]');
-
 		$this->assertEquals('/gallery2/', $uG->_path[1], 'path[1]');
-
 		$this->assertEquals('https', $uG->_protocol[0], 'protocol[0]');
-
 		$this->assertEquals('http', $uG->_protocol[1], 'protocol[1]');
 		$this->assertEquals('http_x_forwarded_host', $uG->_host[0], 'host[0]');
 		$this->assertEquals('direct', $uG->_host[1], 'host[1]');
@@ -1478,7 +1469,6 @@ class UrlGeneratorTest extends GalleryTestCase {
 	 * With the g2_return parameter users can add any "back to " link or direct redirect to any
 	 * URL. We try to detect those phishing attacks by comparing the returnUrl with our current
 	 * $this->getCurrentUrlDir(). If returnUrl doesn't start with getCurrentUrlDir(), it's not a
-
 	 * redirect into the same G2 installation.
 	 * initNavigation is called after GalleryInitFirstPass and init storage, thus we can use
 	 * getCurrentUrlDir(), else it might have been a problem (RewriteUrlGenerator)
@@ -1537,7 +1527,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 				return $ret;
 			}
-		}
+
+}
 	}
 
 	public function testDetectPhishingAttackThroughFormUrl() {
@@ -1562,7 +1553,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 			return $ret;
 		}
-	}
+
+}
 
 	public function testDetectHeaderInjectionAttack() {
 		$badUrls = array(
@@ -1582,7 +1574,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 				"Header injection '$url' not detected for url"
 			);
 		}
-	}
+
+}
 
 	// Regression test to check that we handle embedUri = /foo/bar/ correctly (no file part)
 	public function testInitNavigationHandlesEmbedUriWithoutFilePart() {
@@ -1609,8 +1602,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	public function testGenerateUrlSwapsInReturnUrl() {
 		global $gallery;
 
-		$currentView = 'core.SiteAdmin';
-
+		$currentView      = 'core.SiteAdmin';
 		list($ret, $view) = GalleryView::getMe()->loadView($currentView);
 
 		if ($ret) {
@@ -1641,8 +1633,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	public function testGenerateUrlCachesReturnUrlByCurrentView() {
 		global $gallery;
 
-		$currentView = 'core.MaintenanceMode';
-
+		$currentView      = 'core.MaintenanceMode';
 		list($ret, $view) = GalleryView::getMe()->loadView($currentView);
 
 		if ($ret) {
@@ -1691,8 +1682,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		);
 
 		// Change the current view and generate a 3rd URL
-		$currentView = 'core.SiteAdmin';
-
+		$currentView      = 'core.SiteAdmin';
 		list($ret, $view) = GalleryView::getMe()->loadView($currentView);
 
 		if ($ret) {
@@ -1964,7 +1954,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 			$i++;
 		}
-	}
+
+}
 
 	public function testEmbedForceSessionId() {
 		$key        = 'G2_EMBED';
@@ -2012,9 +2003,11 @@ class UrlGeneratorTest extends GalleryTestCase {
 					} else {
 						$this->assertFalse($result, "wrong result for test case: $debugInfo");
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		// Restore
 		if ($savedEmbed) {
@@ -2024,7 +2017,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 			$this->assertFalse(GalleryDataCache::containsKey($key), 'Could not remove a GDC var');
 		}
-	}
+
+}
 
 	public function testGenerateUrlWithForceSessionIdFalseOverridesEmbedForceSessionId() {
 		GalleryDataCache::put('G2_EMBED', true);
@@ -2268,6 +2262,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		);
 
 		unset($this->_urlGenerator->_hasRequestUriShortUrlPrefix);
+
 		$this->assertEquals(
 			'/gallery2/phpunit_test.php?g2_a=b',
 			$this->_urlGenerator->makeRelativeUrl(
@@ -2411,7 +2406,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 				"URI = '" . $test['uri'] . "'"
 			);
 		}
-	}
+
+}
 
 	public function testInitSetsIsCookiePathConfiguredIfEmbedded() {
 		foreach (array(true, false) as $embedded) {
@@ -2461,9 +2457,11 @@ class UrlGeneratorTest extends GalleryTestCase {
 				} else {
 					$this->assertFalse(isset($urlGenerator->_isCookiePathConfigured), $msg);
 				}
-			}
+
+}
 		}
-	}
+
+}
 
 	public function testGetCacheableUrl() {
 		$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php';
@@ -2507,6 +2505,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		'=' . $session->getId();
 
 		$this->assertEquals($expected, $actual, 'url');
+
 		// And now force to not use the temp id
 		$gallery->_session->doNotUseTempId();
 
@@ -2529,8 +2528,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	public function testOmitDefaults() {
 		global $gallery;
 
-		$view = GALLERY_DEFAULT_VIEW;
-
+		$view               = GALLERY_DEFAULT_VIEW;
 		list($ret, $rootId) = GalleryCoreApi::getDefaultAlbumId();
 
 		if ($ret) {
@@ -2563,6 +2561,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 		$this->assertEquals('phpunit_test.php', $url);
 		$gallery->setConfig('defaultAlbumId', 123);
+
 		unset($this->_urlGenerator->_rootItemId);
 
 		$url = $this->_urlGenerator->generateUrl(
@@ -2802,7 +2801,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 				false,
 				false
 			)
-		); // Makes it easier to read
+			// Makes it easier to read
+		);
 	}
 
 	public function testAppendParamsToUrlEmptyParams() {
@@ -2829,7 +2829,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 				false,
 				false
 			)
-		); // Makes it easier to read
+			// Makes it easier to read
+		);
 	}
 
 	public function testLocalUrlMapAddNew() {
@@ -2917,7 +2918,6 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$platform =& $gallery->getPlatform();
 
 		$platform->setReply('file_exists', array('/cache/theme/_all/localUrlMap.txt'), false);
-
 		$platform->setReply(
 			'file_exists',
 			array(GalleryCoreApi::getCodeBasePath('test/local/test.css')),
@@ -2930,6 +2930,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		);
 		$platform->setReply('file_exists', array('/cache/theme/_all'), true);
 		$platform->setReply('is_dir', array('/cache/theme/_all'), true);
+
 		$platform->setReply(
 			'atomicWrite',
 			array(
@@ -2997,4 +2998,5 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$this->assertFalse(isset($this->_urlGenerator->_localUrlMapDirty), 'dirty flag');
 		$this->assertTrue(empty($gallery->_shutdownActions), 'shutdown action');
 	}
+
 }

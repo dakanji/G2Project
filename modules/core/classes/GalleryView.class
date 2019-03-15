@@ -189,13 +189,15 @@ class GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-			} else {
+
+} else {
 				return array(
 					GalleryCoreApi::error(ERROR_PERMISSION_DENIED),
 					null,
 				);
 			}
-		}
+
+}
 
 		$viewClassName = $class . 'View';
 
@@ -235,7 +237,8 @@ class GalleryView {
 					null,
 				);
 			}
-		}
+
+}
 
 		$view = new $viewClassName();
 
@@ -309,7 +312,8 @@ class GalleryView {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		}
+
+}
 
 		// --------------------------------------------------
 		// Load up the theme
@@ -350,11 +354,13 @@ class GalleryView {
 					null,
 				);
 			}
-		}
+
+}
 
 		$templateAdapter =& $gallery->getTemplateAdapter();
 
 		$templateAdapter->setTheme($theme);
+
 		// --------------------------------------------------
 		// Specify our base css style before the view's, so that the view can override it
 		$template->style('modules/core/data/gallery.css');
@@ -420,14 +426,14 @@ class GalleryView {
 
 		// If we don't have an itemId, default to the root album
 		if (empty($itemId)) {
-			$wasSpecified = false;
-
+			$wasSpecified       = false;
 			list($ret, $itemId) = GalleryCoreApi::getDefaultAlbumId();
 
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		}
+
+}
 
 		// Load the item
 		list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
@@ -447,7 +453,8 @@ class GalleryView {
 				// Avoid information disclosure by treating this as if the item didn't exist.
 				return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null);
 			}
-		}
+
+}
 
 		return array(null, $item, $wasSpecified);
 	}
@@ -478,19 +485,20 @@ class GalleryView {
 		if ($ret) {
 			// Ignore missing object here to avoid revealing valid/invalid ids
 			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-				$wasSpecified = false;
-
+				$wasSpecified       = false;
 				list($ret, $itemId) = GalleryCoreApi::getDefaultAlbumId();
 
 				if (!$ret) {
 					list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
 				}
-			}
+
+}
 
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
-		}
+
+}
 
 		list($ret, $theme, $params) = $this->loadThemeForItem($wasSpecified ? $item : null);
 
@@ -512,7 +520,8 @@ class GalleryView {
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
-		}
+
+}
 
 		return array(null, $theme, $params, $item);
 	}
@@ -539,7 +548,8 @@ class GalleryView {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		}
+
+}
 
 		// Give non-core code a chance to override the theme for this request
 		list($ret, $theme, $params) = $this->_getThemeAndParametersByEvent($item);
@@ -556,7 +566,8 @@ class GalleryView {
 				if ($ret) {
 					return array($ret, null, null);
 				}
-			} else {
+
+} else {
 				list($ret, $themeId) = GalleryCoreApi::getPluginParameter(
 					'module',
 					'core',
@@ -566,14 +577,16 @@ class GalleryView {
 				if ($ret) {
 					return array($ret, null, null);
 				}
-			}
+
+}
 
 			list($ret, $theme) = $this->_loadTheme($themeId);
 
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		}
+
+}
 
 		return array(null, $theme, $params);
 	}
@@ -593,6 +606,7 @@ class GalleryView {
 		$event = GalleryCoreApi::newEvent('Gallery::LoadThemeAndParameters');
 
 		$event->setEntity($item);
+
 		$event->setData(
 			array(
 				'viewType' => $this->getViewType(),
@@ -618,7 +632,8 @@ class GalleryView {
 
 				break;
 			}
-		}
+
+}
 
 		if (!empty($themeId)) {
 			list($ret, $theme) = $this->_loadTheme($themeId);
@@ -627,6 +642,7 @@ class GalleryView {
 				// Handle bad event results gracefully by ignoring it.
 				if ($ret->getErrorCode() & (ERROR_BAD_PARAMETER | ERROR_PLUGIN_VERSION_MISMATCH)) {
 					global $gallery;
+
 					$gallery->debug(
 						sprintf(
 							'Error: The theme [%s] specified by a [%s] event '
@@ -640,7 +656,8 @@ class GalleryView {
 				} else {
 					return array($ret, null, null);
 				}
-			}
+
+}
 		}
 
 		if (!isset($theme)) {
@@ -660,8 +677,7 @@ class GalleryView {
 	 * @static
 	 */
 	public function _loadTheme($themeId) {
-		$validTheme = false;
-
+		$validTheme        = false;
 		list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId, false, true);
 
 		if ($ret) {
@@ -674,7 +690,8 @@ class GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		if (!$validTheme) {
 			$theme = null;
@@ -722,6 +739,7 @@ class GalleryView {
 					}
 
 					// If itemId is defined, handle the same way as SHOW_ITEM type
+
 					// Fall Through
 				case VIEW_TYPE_SHOW_ITEM:
 					list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
@@ -738,7 +756,8 @@ class GalleryView {
 						if ($ret) {
 							return $ret;
 						}
-					}
+
+}
 
 					list($ret, $anonymousViewable) = GalleryCoreApi::hasItemPermission(
 						$itemId,
@@ -760,7 +779,8 @@ class GalleryView {
 				default:
 					$access = '';
 			}
-		}
+
+}
 
 		// http://www.mnot.net/cache_docs
 		if ($access == 'no-cache') {
@@ -768,7 +788,6 @@ class GalleryView {
 
 			if (!($phpVm->headers_sent())) {
 				$phpVm->header('Cache-Control: ' . $access);
-
 				$phpVm->header('Pragma: ' . $access);
 				$phpVm->header('Expires: ' . $expires);
 			}
@@ -778,7 +797,8 @@ class GalleryView {
 				$template->meta('Pragma', $access, true);
 				$template->meta('Expires', $expires, true);
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -792,17 +812,15 @@ class GalleryView {
 	public function setStandardTemplateVariables(&$template) {
 		global $gallery;
 
-		$session =& $gallery->getSession();
-		$user    = (array)$gallery->getActiveUser();
-
+		$session                     =& $gallery->getSession();
+		$user                        = (array)$gallery->getActiveUser();
 		list($ret, $user['isGuest']) = GalleryCoreApi::isAnonymousUser($user['id']);
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$user['isRegisteredUser'] = !$user['isGuest'];
-
+		$user['isRegisteredUser']    = !$user['isGuest'];
 		list($ret, $user['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
@@ -823,7 +841,8 @@ class GalleryView {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$template->setVariable('theme', $themeVars);
 
@@ -876,9 +895,11 @@ class GalleryView {
 						),
 					);
 				}
-			}
+
+}
 		}
 
 		return $result;
 	}
+
 }

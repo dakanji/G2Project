@@ -63,8 +63,7 @@ class ItemMoveController extends GalleryController {
 
 			if (!empty($form['destination'])) {
 				// Check if we can add albums or items here
-				$newParentId = $form['destination'];
-
+				$newParentId             = $form['destination'];
 				list($ret, $permissions) = GalleryCoreApi::getPermissions($newParentId);
 
 				if ($ret) {
@@ -143,15 +142,15 @@ class ItemMoveController extends GalleryController {
 						$error[] = 'form[error][source][' . $selectedId .
 						'][permission][addDataItem]';
 					}
-				}
+
+}
 			}
 
 			if (empty($error) && !empty($selectedIds) && !empty($newParentId)) {
 				$storage =& $gallery->getStorage();
 
 				// Read lock old and new parent album, and all ancestor albums
-				$lockIds = array();
-
+				$lockIds                = array();
 				list($ret, $oldParents) = GalleryCoreApi::fetchParentSequence($itemId);
 
 				if ($ret) {
@@ -164,9 +163,8 @@ class ItemMoveController extends GalleryController {
 					return array($ret, null);
 				}
 
-				$oldParents[] = $itemId;
-				$newParents[] = $newParentId;
-
+				$oldParents[]          = $itemId;
+				$newParents[]          = $newParentId;
 				list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock(
 					array_unique(array_merge($oldParents, $newParents))
 				);
@@ -234,7 +232,8 @@ class ItemMoveController extends GalleryController {
 
 								return array($ret, null);
 							}
-						}
+
+}
 
 						$ret = $storage->checkPoint();
 
@@ -243,7 +242,8 @@ class ItemMoveController extends GalleryController {
 
 							return array($ret, null);
 						}
-					}
+
+}
 
 					$ret = GalleryCoreApi::releaseLocks($currentLockId);
 
@@ -260,7 +260,8 @@ class ItemMoveController extends GalleryController {
 
 						return array($ret, null);
 					}
-				} while (!empty($selectedItems));
+
+} while (!empty($selectedItems));
 
 				$ret = GalleryCoreApi::releaseLocks($lockIds);
 
@@ -279,9 +280,9 @@ class ItemMoveController extends GalleryController {
 				$redirect['subView'] = 'core.ItemMove';
 				$redirect['itemId']  = $itemId;
 			}
-		} elseif (isset($form['action']['next'])) {
-			$page = GalleryUtilities::getRequestVariables('page');
 
+} elseif (isset($form['action']['next'])) {
+			$page                = GalleryUtilities::getRequestVariables('page');
 			list($ret, $peerIds) = GalleryCoreApi::fetchChildItemIdsWithPermission(
 				$itemId,
 				'core.delete'
@@ -314,6 +315,7 @@ class ItemMoveController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -346,8 +348,7 @@ class ItemMoveView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$itemId = $item->getId();
-
+		$itemId                  = $item->getId();
 		list($selectedId, $page) = GalleryUtilities::getRequestVariables('selectedId', 'page');
 
 		if ($form['formName'] != 'ItemMove') {
@@ -394,7 +395,8 @@ class ItemMoveView extends GalleryView {
 					if ($peerIds[$i] == $selectedId) {
 						$page = ceil(($i + 1) / $form['numPerPage']);
 					}
-				}
+
+}
 			}
 
 			$start   = $form['numPerPage'] * ($page - 1);
@@ -407,7 +409,8 @@ class ItemMoveView extends GalleryView {
 					if (isset($selectedIds[$peerId])) {
 						unset($selectedIds[$peerId]);
 					}
-				}
+
+}
 			}
 
 			// Add any items with error messages that would otherwise not be shown
@@ -417,7 +420,8 @@ class ItemMoveView extends GalleryView {
 						array_unshift($peerIds, $id);
 						unset($selectedIds[$id]);
 					}
-				}
+
+}
 			}
 
 			// Load all the peers
@@ -460,9 +464,11 @@ class ItemMoveView extends GalleryView {
 						} elseif ($type == DERIVATIVE_TYPE_IMAGE_THUMBNAIL) {
 							$peers[$peerItem->getId()]['thumbnail'] = (array)$derivative;
 						}
-					}
+
+}
 				}
-			}
+
+}
 
 			// Get child counts
 			if (!empty($peerTypes['album'])) {
@@ -473,7 +479,8 @@ class ItemMoveView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			// Get ids of all albums where we can add new data items
 			list($ret, $albumIds['addDataItem']) = GalleryCoreApi::fetchAllItemIds(
@@ -531,7 +538,6 @@ class ItemMoveView extends GalleryView {
 		$ItemMove['selectedIdCount']      = count($selectedIds);
 
 		$template->setVariable('ItemMove', $ItemMove);
-
 		$template->setVariable('controller', 'core.ItemMove');
 		$template->javascript('lib/yui/yahoo-dom-event.js');
 		$template->javascript('lib/yui/container-min.js');
@@ -558,4 +564,5 @@ class ItemMoveView extends GalleryView {
 
 		return array(null, $core->translate('move item'));
 	}
+
 }

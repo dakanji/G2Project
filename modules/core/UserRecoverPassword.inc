@@ -102,7 +102,8 @@ class UserRecoverPasswordController extends GalleryController {
 						if ($ret) {
 							return array($ret, null);
 						}
-					}
+
+}
 				}
 
 				// Let each plugin do its verification
@@ -118,7 +119,8 @@ class UserRecoverPasswordController extends GalleryController {
 					if (!$continue) {
 						break;
 					}
-				}
+
+}
 			}
 
 			/*
@@ -193,7 +195,8 @@ class UserRecoverPasswordController extends GalleryController {
 
 							$shouldSendEmail = true;
 						}
-					} else {
+
+} else {
 						/*
 						 * Add the map entry before sending email to the user -
 						 * We don't want to send them mail if the data never gets into the DB
@@ -286,7 +289,8 @@ class UserRecoverPasswordController extends GalleryController {
 							if ($ret) {
 								return array($ret, null);
 							}
-						}
+
+}
 					}
 
 					// Set the recovered info flag
@@ -296,7 +300,8 @@ class UserRecoverPasswordController extends GalleryController {
 					// Set the recovered info flag
 					$status['requestSent'] = 1;
 				}
-			}
+
+}
 		} elseif (isset($form['action']['cancel'])) {
 			$results['return'] = 1;
 		}
@@ -330,6 +335,7 @@ class UserRecoverPasswordController extends GalleryController {
 
 		return md5($j->genRandomBytes(32));
 	}
+
 }
 
 /**
@@ -359,7 +365,8 @@ class UserRecoverPasswordView extends GalleryView {
 			if (empty($form['userName'])) {
 				$form['error']['userName']['missing'] = 1;
 			}
-		} else {
+
+} else {
 			$form['userName'] = '';
 			$form['formName'] = 'UserRecoverPassword';
 		}
@@ -392,7 +399,8 @@ class UserRecoverPasswordView extends GalleryView {
 			if (isset($data['file'])) {
 				$UserRecoverPassword['plugins'][] = $data;
 			}
-		}
+
+}
 
 		$template->setVariable('UserRecoverPassword', $UserRecoverPassword);
 		$template->setVariable('controller', 'core.UserRecoverPassword');
@@ -404,4 +412,5 @@ class UserRecoverPasswordView extends GalleryView {
 			),
 		);
 	}
+
 }

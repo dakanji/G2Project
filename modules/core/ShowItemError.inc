@@ -74,7 +74,8 @@ class ShowItemErrorView extends GalleryView {
 					if ($ret) {
 						return array($ret, null);
 					}
-				} else {
+
+} else {
 					list($ret, $themeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
 
 					if ($ret) {
@@ -115,7 +116,8 @@ class ShowItemErrorView extends GalleryView {
 				 */
 				return array(null, array());
 		}
-	}
+
+}
 
 	/**
 	 * @see GalleryView::getViewType
@@ -123,4 +125,5 @@ class ShowItemErrorView extends GalleryView {
 	public function getViewType() {
 		return VIEW_TYPE_ADMIN;
 	}
+
 }

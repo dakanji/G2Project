@@ -53,7 +53,8 @@ class GalleryStorageExtras {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			return array(null, $this->_gs->_nonTransactionalDb);
 		}
@@ -79,7 +80,8 @@ class GalleryStorageExtras {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		if ($transaction) {
 			$ret = $this->_gs->_guaranteeTransaction();
@@ -87,7 +89,8 @@ class GalleryStorageExtras {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -181,7 +184,8 @@ class GalleryStorageExtras {
 				} else {
 					$where[] = $tables[$i] . '.' . $idCol . '=' . $tables[0] . '.' . $idCol;
 				}
-			}
+
+}
 
 			$query = 'SELECT ';
 
@@ -251,7 +255,8 @@ class GalleryStorageExtras {
 			} else {
 				return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null);
 			}
-		}
+
+}
 
 		// Assemble the entities in the right order and return them
 		$result = array();
@@ -295,8 +300,7 @@ class GalleryStorageExtras {
 
 		while ($target) {
 			foreach ($memberInfo[$target]['members'] as $memberName => $memberData) {
-				$type = $memberData['type'];
-
+				$type                     = $memberData['type'];
 				list($tableName, $unused) = $this->_gs->_translateTableName($target);
 
 				// If the member is modified, record the new value in our table
@@ -315,14 +319,16 @@ class GalleryStorageExtras {
 					if (!isset($dataTable[$tableName])) {
 						$dataTable[$tableName] = array();
 					}
-				}
+
+}
 
 				if ($type & STORAGE_TYPE_ID) {
 					$value        = $entity->$memberName;
 					$id['column'] = $this->_gs->_translateColumnName($memberName);
 					$id['value']  = $value;
 				}
-			}
+
+}
 
 			$target = $memberInfo[$target]['parent'];
 		}
@@ -357,7 +363,8 @@ class GalleryStorageExtras {
 				if (!$recordSet) {
 					return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
 				}
-			}
+
+}
 		} else {
 			/*
 			 * Iterate through the data table and make an UPDATE statement for
@@ -395,7 +402,8 @@ class GalleryStorageExtras {
 					} else {
 						array_push($queryList, array($query, $data));
 					}
-				}
+
+}
 			}
 
 			/*
@@ -439,7 +447,8 @@ class GalleryStorageExtras {
 						"$query (" . implode('|', $data) . ") $affectedRows"
 					);
 				}
-			}
+
+}
 		}
 
 		$entity->clearPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
@@ -510,7 +519,8 @@ class GalleryStorageExtras {
 			if (!$recordSet) {
 				return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
 			}
-		}
+
+}
 
 		$entity->setPersistentFlag(STORAGE_FLAG_DELETED);
 
@@ -716,7 +726,8 @@ class GalleryStorageExtras {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		// Put in a read lock for every entity id
 		$lockIdCol       = $this->_gs->_translateColumnName('lockId');
@@ -871,7 +882,8 @@ class GalleryStorageExtras {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		// We are approved to acquire our write locks
 		$lockIdCol        = $this->_gs->_translateColumnName('lockId');
@@ -975,7 +987,8 @@ class GalleryStorageExtras {
 			if (!$recordSet) {
 				return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -1116,7 +1129,8 @@ class GalleryStorageExtras {
 			if (!$recordSet) {
 				return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -1186,7 +1200,8 @@ class GalleryStorageExtras {
 			if ($ret) {
 				return $ret;
 			}
-		} else {
+
+} else {
 			$ret = $this->_dbInit(true);
 
 			if ($ret) {
@@ -1275,7 +1290,8 @@ class GalleryStorageExtras {
 			foreach ($mapInfo as $memberName => $memberData) {
 				$data[] = $this->_gs->_normalizeValue($entry[$memberName][$ind], $memberData);
 			}
-		}
+
+}
 
 		list($ret, $query) = $this->_gs->getFunctionSql('MULTI_INSERT', array($tableName, $columns, $rows));
 
@@ -1327,7 +1343,8 @@ class GalleryStorageExtras {
 					foreach ($match[$memberName]->getValues() as $value) {
 						$data[] = $value;
 					}
-				} elseif (is_array($match[$memberName])) {
+
+} elseif (is_array($match[$memberName])) {
 					$qs = array();
 
 					foreach ($match[$memberName] as $value) {
@@ -1346,9 +1363,11 @@ class GalleryStorageExtras {
 						$where[] = $this->_gs->_translateColumnName($memberName) . '=?';
 						$data[]  = $value;
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		if (empty($where)) {
 			return GalleryCoreApi::error(
@@ -1388,7 +1407,8 @@ class GalleryStorageExtras {
 			if ($ret) {
 				return $ret;
 			}
-		} else {
+
+} else {
 			$ret = $this->_dbInit(true);
 
 			if ($ret) {
@@ -1538,8 +1558,7 @@ class GalleryStorageExtras {
 			return $ret;
 		}
 
-		$moduleSql = $this->getModuleSql($moduleId);
-
+		$moduleSql              = $this->getModuleSql($moduleId);
 		list($ret, $metatables) = $this->_metaTables();
 
 		if ($ret) {
@@ -1582,7 +1601,8 @@ class GalleryStorageExtras {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		// Load all table versions
@@ -1649,7 +1669,8 @@ class GalleryStorageExtras {
 							"No map or entity description for: $tableNameInSchema"
 						);
 					}
-				}
+
+}
 			}
 
 			if (!in_array(GalleryUtilities::strToLower($tableName), $metatables)) {
@@ -1672,7 +1693,8 @@ class GalleryStorageExtras {
 					if ($ret) {
 						return $ret;
 					}
-				}
+
+}
 			} else {
 				while (1) {
 					// The table exists -- see if we have an upgrade for it
@@ -1722,7 +1744,8 @@ class GalleryStorageExtras {
 							if ($ret) {
 								return $ret;
 							}
-						}
+
+}
 
 						// Remember altered tables for post-upgrade optimizations
 						$altered  = array($rawTableName);
@@ -1740,13 +1763,16 @@ class GalleryStorageExtras {
 						if ($ret) {
 							return $ret;
 						}
-					} else {
+
+} else {
 						// No upgrade available
 						break;
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		// Commit changes
 		return $this->_gs->checkPoint();
@@ -1892,7 +1918,8 @@ class GalleryStorageExtras {
 						"No map or entity description for: $nameInSchema"
 					);
 				}
-			}
+
+}
 
 			$query .= '[::pluginId] = ? WHERE [::name] = ?';
 			$data   = array_merge($data, array($moduleId, $nameInSchema));
@@ -1902,7 +1929,8 @@ class GalleryStorageExtras {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -1919,8 +1947,7 @@ class GalleryStorageExtras {
 			return $ret;
 		}
 
-		$moduleSql = $this->getModuleSql($moduleId);
-
+		$moduleSql              = $this->getModuleSql($moduleId);
 		list($ret, $metatables) = $this->_metaTables();
 
 		if ($ret) {
@@ -1953,7 +1980,8 @@ class GalleryStorageExtras {
 					if ($gallery->getDebug()) {
 						$gallery->debug("Table $rawTableName: missing entry in Schema table");
 					}
-				} else {
+
+} else {
 					$gallery->guaranteeTimeLimit(20);
 
 					list($major, $minor) = $tableVersions[$tableNameInSchema];
@@ -1966,9 +1994,11 @@ class GalleryStorageExtras {
 						if ($ret) {
 							return $ret;
 						}
-					}
+
+}
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -1988,8 +2018,7 @@ class GalleryStorageExtras {
 			return $ret;
 		}
 
-		$moduleSql = $this->getModuleSql($moduleId);
-
+		$moduleSql              = $this->getModuleSql($moduleId);
 		list($ret, $metatables) = $this->_metaTables();
 
 		if ($ret) {
@@ -2024,7 +2053,8 @@ class GalleryStorageExtras {
 				if (empty($recordSet)) {
 					return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
 				}
-			}
+
+}
 
 			$cleanQuery = sprintf(
 				'DELETE FROM %s where %s=?',
@@ -2061,6 +2091,7 @@ class GalleryStorageExtras {
 		. $this->_gs->_translateColumnName('major') . ', '
 
 		. $this->_gs->_translateColumnName('minor') . ' FROM ' . $schemaTableName;
+
 		$this->_gs->_traceStart();
 
 		$recordSet = $this->_gs->_db->Execute($query);
@@ -2127,7 +2158,8 @@ class GalleryStorageExtras {
 						"Error trying to run query: $query"
 					);
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -2219,7 +2251,8 @@ class GalleryStorageExtras {
 				if (empty($recordSet)) {
 					return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
 				}
-			}
+
+}
 
 			// Get rid of our sequences
 			foreach (array(
@@ -2232,7 +2265,8 @@ class GalleryStorageExtras {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -2312,7 +2346,8 @@ class GalleryStorageExtras {
 				if (isset($tableVersions[$tableNameInSchema])) {
 					$tables[] = $tableNameInSchema;
 				}
-			}
+
+}
 		}
 
 		$statements = $this->_gs->_getOptimizeStatements();
@@ -2332,9 +2367,11 @@ class GalleryStorageExtras {
 					if (!$recordSet) {
 						return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -2349,7 +2386,8 @@ class GalleryStorageExtras {
 			if ($ret) {
 				return array($ret, null);
 			}
-		} else {
+
+} else {
 			$ret = $this->_dbInit(true);
 
 			if ($ret) {
@@ -2476,7 +2514,8 @@ class GalleryStorageExtras {
 
 				return array(GalleryCoreApi::error(ERROR_LOCK_TIMEOUT), null);
 			}
-		}
+
+}
 
 		return array(null, $lockId);
 	}
@@ -2503,14 +2542,14 @@ class GalleryStorageExtras {
 			if (!GalleryDataCache::containsKey("GalleryStorage::_identifyEntities($id)")) {
 				$checkIds[] = $id;
 			}
-		}
+
+}
 
 		$local = array();
 
 		if (!empty($checkIds)) {
-			$idCol         = $this->_gs->_translateColumnName('id');
-			$entityTypeCol = $this->_gs->_translateColumnName('entityType');
-
+			$idCol                = $this->_gs->_translateColumnName('id');
+			$entityTypeCol        = $this->_gs->_translateColumnName('entityType');
 			list($table, $unused) = $this->_gs->_translateTableName('GalleryEntity');
 
 			$markers = GalleryUtilities::makeMarkers(count($checkIds));
@@ -2544,13 +2583,15 @@ class GalleryStorageExtras {
 						true
 					);
 				}
-			} else {
+
+} else {
 				return array(
 					GalleryCoreApi::error(ERROR_STORAGE_FAILURE),
 					null,
 				);
 			}
-		}
+
+}
 
 		if ($returnArray) {
 			$results = array();
@@ -2576,7 +2617,8 @@ class GalleryStorageExtras {
 						null,
 					);
 				}
-			}
+
+}
 		} else {
 			$results = GalleryDataCache::get("GalleryStorage::_identifyEntities($ids[0])");
 		}
@@ -2614,7 +2656,8 @@ class GalleryStorageExtras {
 			if (!$tryAllModules) {
 				GalleryDataCache::put($cacheKey, $entityInfo);
 			}
-		}
+
+}
 
 		// Fall back to all available modules
 		if (!$tryAllModules && !isset($entityInfo[$entityName])) {
@@ -2623,7 +2666,8 @@ class GalleryStorageExtras {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		/*
 		 * Fall back on the parent class for any entities we don't recognize.  This is mainly so
@@ -2646,7 +2690,8 @@ class GalleryStorageExtras {
 
 					break;
 				}
-			}
+
+}
 		}
 
 		if (!isset($entityInfo[$entityName])) {
@@ -2770,7 +2815,8 @@ class GalleryStorageExtras {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		if (isset($this->_gs->_db)) {
@@ -2788,9 +2834,11 @@ class GalleryStorageExtras {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		return null;
 	}
+
 }

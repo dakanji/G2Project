@@ -73,7 +73,8 @@ class ADODB2_generic extends ADODB_DataDict {
 			default:
 				return $meta;
 		}
-	}
+
+}
 
 	public function AlterColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
 		if ($this->debug) {
@@ -90,6 +91,7 @@ class ADODB2_generic extends ADODB_DataDict {
 
 		return array();
 	}
+
 }
 
 /*
@@ -100,7 +102,9 @@ class ADODB2_generic extends ADODB_DataDict {
 		switch($meta) {
 		case 'C': return 'VARCHAR';
 		case 'X': return 'VARCHAR';
-		case 'C2': return 'VARCHAR'; // up to 32K
+
+		// up to 32K
+		case 'C2': return 'VARCHAR';
 		case 'X2': return 'VARCHAR';
 		case 'B': return 'BLOB';
 		case 'D': return 'DATE';
@@ -116,13 +120,15 @@ class ADODB2_generic extends ADODB_DataDict {
 		default:
 			return $meta;
 		}
-	}
+
+}
 
 // ifx
 function ActualType($meta)
 	{
 		switch($meta) {
-		case 'C': return 'VARCHAR';// 255
+		// 255
+		case 'C': return 'VARCHAR';
 		case 'X': return 'TEXT';
 		case 'C2': return 'NVARCHAR';
 		case 'X2': return 'TEXT';
@@ -140,6 +146,7 @@ function ActualType($meta)
 		default:
 			return $meta;
 		}
-	}
+
+}
 
 */

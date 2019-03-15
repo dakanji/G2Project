@@ -60,7 +60,8 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			if (!empty($thumbnails)) {
 				$thumbnail = $thumbnails[$item->getId()];
 			}
-		}
+
+}
 
 		if (isset($form['action']['crop'], $thumbnail)) {
 			// Get our source
@@ -201,9 +202,8 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
 		global $gallery;
 
-		$ItemEditPhotoThumbnail               = array();
-		$ItemEditPhotoThumbnail['showApplet'] = $thumbnail != null;
-
+		$ItemEditPhotoThumbnail                        = array();
+		$ItemEditPhotoThumbnail['showApplet']          = $thumbnail != null;
 		list($ret, $ItemEditPhotoThumbnail['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
@@ -302,7 +302,8 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		}
+
+}
 
 		// Make sure we have toolkit support
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($source->getMimeType(), 'crop');
@@ -354,8 +355,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 			$ItemEditPhotoThumbnail['editThumbnail']['cropWidth']           = $crop['width'];
 			$ItemEditPhotoThumbnail['editThumbnail']['cropHeight']          = $crop['height'];
 			$ItemEditPhotoThumbnail['editThumbnail']['targetThumbnailSize'] = $targetThumbnailSize;
-			$aspectlist = array();
-
+			$aspectlist         = array();
 			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if ($ret) {
@@ -492,4 +492,5 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 
 		return array(null, $module->translate('Crop Thumbnail'));
 	}
+
 }

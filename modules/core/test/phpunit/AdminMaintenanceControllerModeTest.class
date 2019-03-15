@@ -44,8 +44,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 
 		$gallery->setPlatform($UnitTestPlatform);
 
-		$this->_platform =& $gallery->getPlatform();
-
+		$this->_platform    =& $gallery->getPlatform();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -212,4 +211,5 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 	}
+
 }

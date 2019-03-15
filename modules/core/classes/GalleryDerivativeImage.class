@@ -151,7 +151,8 @@ class GalleryDerivativeImage extends GalleryDerivative {
 					)
 				);
 			}
-		}
+
+}
 
 		$ret = parent::create($parentId);
 
@@ -191,8 +192,7 @@ class GalleryDerivativeImage extends GalleryDerivative {
 		}
 
 		// Update our dimensions
-		$mimeType = $this->getMimeType();
-
+		$mimeType            = $this->getMimeType();
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
 
 		if ($ret) {
@@ -259,14 +259,16 @@ class GalleryDerivativeImage extends GalleryDerivative {
 					if (isset($value)) {
 						$html .= " $attr=\"$value\"";
 					}
-				}
+
+}
 
 				return $html . '/>';
 
 			default:
 				return null;
 		}
-	}
+
+}
 
 	/**
 	 * @see GalleryEntity::getClassName
@@ -290,4 +292,5 @@ class GalleryDerivativeImage extends GalleryDerivative {
 	public function setHeight($height) {
 		$this->height = $height;
 	}
+
 }

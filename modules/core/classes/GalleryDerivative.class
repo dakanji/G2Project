@@ -202,7 +202,8 @@ class GalleryDerivative extends GalleryChildEntity {
 				if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		// Delete myself
@@ -232,11 +233,8 @@ class GalleryDerivative extends GalleryChildEntity {
 		}
 
 		$this->setDerivativeOrder(0);
-
 		$this->setIsBroken(false);
-
 		$this->setMimeType(null);
-
 		$this->setDerivativeType(null);
 		$this->setDerivativeSourceId(null);
 		$this->setDerivativeSize(null);
@@ -267,7 +265,8 @@ class GalleryDerivative extends GalleryChildEntity {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 
 			// Expire anything that depends on me
 			$ret = GalleryCoreApi::expireDerivativeTreeBySourceIds(array($this->getId()));
@@ -275,7 +274,8 @@ class GalleryDerivative extends GalleryChildEntity {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		return null;
 	}
@@ -335,13 +335,16 @@ class GalleryDerivative extends GalleryChildEntity {
 						} else {
 							$status = GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
 						}
-					} else {
+
+} else {
 						$status = $ret;
 					}
-				} else {
+
+} else {
 					$status = GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
 				}
-			} else {
+
+} else {
 				$status = $ret;
 			}
 
@@ -413,30 +416,33 @@ class GalleryDerivative extends GalleryChildEntity {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 
 			list($ret, $sourcePath) = $source->fetchPath();
 
 			if ($ret) {
 				return $ret;
 			}
-		} else {
+
+} else {
 			// Get the path of the source file
 			if ($source->isLinked()) {
-				$linkedEntity = $source->getLinkedEntity();
-
+				$linkedEntity           = $source->getLinkedEntity();
 				list($ret, $sourcePath) = $linkedEntity->fetchPath();
 
 				if ($ret) {
 					return $ret;
 				}
-			} else {
+
+} else {
 				list($ret, $sourcePath) = $source->fetchPath();
 
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		$context = array();
@@ -449,7 +455,8 @@ class GalleryDerivative extends GalleryChildEntity {
 				// Don't put unknown size into context
 				$context = array();
 			}
-		}
+
+}
 
 		// Now apply our derivative commands to create the cache file
 		$mimeType = $source->getMimeType();
@@ -521,7 +528,8 @@ class GalleryDerivative extends GalleryChildEntity {
 			if (!$platform->copy($sourcePath, $destPath)) {
 				return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
 			}
-		}
+
+}
 
 		// Get the size of the file
 		if ($platform->file_exists($destPath)) {
@@ -624,7 +632,8 @@ class GalleryDerivative extends GalleryChildEntity {
 				&& $sources[0]->getDerivativeType() == DERIVATIVE_TYPE_IMAGE_PREFERRED
 				&& strlen($sources[0]->getPostFilterOperations()) == 0
 			) {
-				$source = array_shift($sources);  // the preferred is now our source
+				// the preferred is now our source
+				$source = array_shift($sources);
 			}
 
 			/*
@@ -640,9 +649,11 @@ class GalleryDerivative extends GalleryChildEntity {
 					if ($ret) {
 						return array($ret, null, null);
 					}
-				}
+
+}
 			}
-		} else {
+
+} else {
 			$operations = $this->getDerivativeOperations();
 		}
 
@@ -658,7 +669,8 @@ class GalleryDerivative extends GalleryChildEntity {
 				if ($ret) {
 					return array($ret, null, null);
 				}
-			}
+
+}
 
 			$operations = explode(';', $operations);
 		}
@@ -676,8 +688,7 @@ class GalleryDerivative extends GalleryChildEntity {
 	public function isCacheCurrent() {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform         =& $gallery->getPlatform();
 		list($ret, $path) = $this->fetchPath();
 
 		if ($ret) {
@@ -696,8 +707,7 @@ class GalleryDerivative extends GalleryChildEntity {
 	public function expireCache() {
 		global $gallery;
 
-		$platform =& $gallery->getPlatform();
-
+		$platform         =& $gallery->getPlatform();
 		list($ret, $path) = $this->fetchPath();
 
 		if ($ret) {
@@ -839,4 +849,5 @@ class GalleryDerivative extends GalleryChildEntity {
 	public function setIsBroken($isBroken) {
 		$this->isBroken = $isBroken;
 	}
+
 }

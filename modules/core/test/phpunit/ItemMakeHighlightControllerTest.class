@@ -108,7 +108,8 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
@@ -182,6 +183,7 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals($this->_derivative->getId(), $thumbnail->getDerivativeSourceId());
 	}
+
 }
 
 /**

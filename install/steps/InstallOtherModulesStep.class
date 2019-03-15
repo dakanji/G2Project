@@ -63,7 +63,6 @@ class InstallOtherModulesStep extends InstallStep {
 
 			foreach (array_keys($_REQUEST['module']) as $moduleId) {
 				$currentModule++;
-
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
 
 				if ($ret) {
@@ -172,7 +171,8 @@ class InstallOtherModulesStep extends InstallStep {
 				$templateData['errors'][]     = _('Unable to commit database transaction');
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
-		}
+
+}
 
 		$templateData['bodyFile']       = 'InstallOtherModulesSuccess.html';
 		$templateData['anyInstallable'] = false;
@@ -185,7 +185,8 @@ class InstallOtherModulesStep extends InstallStep {
 			} else {
 				$this->setComplete(true);
 			}
-		}
+
+}
 
 		$template->renderBodyAndFooter($templateData);
 
@@ -207,7 +208,8 @@ class InstallOtherModulesStep extends InstallStep {
 				$templateData['errors'][]     = _('Unable to get the module list');
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
-		}
+
+}
 
 		if (empty($templateData['errors'])) {
 			foreach (array_keys($moduleList) as $moduleId) {
@@ -232,7 +234,8 @@ class InstallOtherModulesStep extends InstallStep {
 
 					$this->resetL10Domain();
 				}
-			}
+
+}
 
 			uksort($modules, array($this, '_sortModules'));
 
@@ -252,7 +255,8 @@ class InstallOtherModulesStep extends InstallStep {
 				$groupedModules[$group['group']][$moduleId] =& $module;
 				$groupLabel[$group['group']]                = $group['groupLabel'];
 			}
-		}
+
+}
 
 		$templateData['groupedModules']  =& $groupedModules;
 		$templateData['groupLabel']      = $groupLabel;
@@ -267,12 +271,14 @@ class InstallOtherModulesStep extends InstallStep {
 
 				break;
 			}
-		}
+
+}
 
 		if (!$templateData['anyInstallable']) {
 			$this->setComplete(true);
 		}
-	}
+
+}
 
 	public function _init(&$templateData) {
 		include_once __DIR__ . '/../../modules/core/classes/GalleryDataCache.class';
@@ -314,11 +320,13 @@ class InstallOtherModulesStep extends InstallStep {
 					$templateData['errors'][]     = _('Unable to initialize our Gallery session');
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				}
-			}
+
+}
 
 			GalleryDataCache::put($cacheKey, true);
 		}
-	}
+
+}
 
 	public function isRedoable() {
 		return false;
@@ -355,8 +363,7 @@ class InstallOtherModulesStep extends InstallStep {
 			return GalleryCoreApi::error(ERROR_MISSING_VALUE);
 		}
 
-		$adminUserInfo = array_keys($adminUserInfo);
-
+		$adminUserInfo         = array_keys($adminUserInfo);
 		list($ret, $adminUser) = GalleryCoreApi::loadEntitiesById(
 			$adminUserInfo[0],
 			'GalleryUser'
@@ -396,4 +403,5 @@ class InstallOtherModulesStep extends InstallStep {
 
 		return strcmp($a, $b);
 	}
+
 }

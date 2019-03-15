@@ -37,9 +37,8 @@ class AdminCreateGroupQuotaController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$results = $status = $error = array();
-		$groupId = GalleryUtilities::getRequestVariables('groupId');
-
+		$results           = $status           = $error           = array();
+		$groupId           = GalleryUtilities::getRequestVariables('groupId');
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -104,14 +103,17 @@ class AdminCreateGroupQuotaController extends GalleryController {
 							$redirect['subView']    = 'quotas.AdminQuotas';
 							$status['createdGroup'] = $group->getGroupName();
 						}
-					} else {
+
+} else {
 						$error[] = 'form[error][quotaSize][tooLarge]';
 						$error[] = 'form[error][quotaSize][' . $quotaSize . ']';
 					}
-				} else {
+
+} else {
 					$error[] = 'form[error][quotaSize][notNumeric]';
 				}
-			} else {
+
+} else {
 				// set our error status and fall back to the view
 				if (empty($form['quotaSize'])) {
 					$error[] = 'form[error][quotaSize][missing]';
@@ -120,7 +122,8 @@ class AdminCreateGroupQuotaController extends GalleryController {
 				if (empty($form['quotaUnit'])) {
 					$error[] = 'form[error][quotaUnit][missing]';
 				}
-			}
+
+}
 		}
 
 		if (!empty($redirect)) {
@@ -135,6 +138,7 @@ class AdminCreateGroupQuotaController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -151,8 +155,7 @@ class AdminCreateGroupQuotaView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$groupId = GalleryUtilities::getRequestVariables('groupId');
-
+		$groupId           = GalleryUtilities::getRequestVariables('groupId');
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 		if ($ret) {
@@ -170,8 +173,7 @@ class AdminCreateGroupQuotaView extends GalleryView {
 		$form['groupId']                  = $group->getId();
 		$AdminCreateGroupQuota            = array();
 		$AdminCreateGroupQuota['groupId'] = $group->getId();
-
-		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'quotas');
+		list($ret, $module)               = GalleryCoreApi::loadPlugin('module', 'quotas');
 
 		if ($ret) {
 			return array($ret, null);
@@ -193,4 +195,5 @@ class AdminCreateGroupQuotaView extends GalleryView {
 			),
 		);
 	}
+
 }

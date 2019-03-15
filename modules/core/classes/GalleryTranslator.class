@@ -108,8 +108,7 @@ class GalleryTranslator {
 	 *                     ...)
 	 */
 	public function getLanguageData() {
-		static $supportedLanguages = array();
-		static $defaultCountry     = array();
+		static $supportedLanguages = array(), $defaultCountry     = array();
 
 		if (empty($supportedLanguages)) {
 			// English
@@ -302,7 +301,8 @@ class GalleryTranslator {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		list($languageCode, $data) = $this->getSupportedLanguageCode($languageCode);
 
@@ -369,7 +369,8 @@ class GalleryTranslator {
 			if (($ret = setlocale($category, $locale . '.' . $charset)) !== false) {
 				return $ret;
 			}
-		}
+
+}
 
 		// For Norwegian try nb language code in addition to no
 		if (substr($locale, 0, 2) == 'no') {
@@ -420,7 +421,8 @@ class GalleryTranslator {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		return array(null, $languageCode);
 	}
@@ -443,8 +445,7 @@ class GalleryTranslator {
 	 *                array data about this language code (description,right-to-left?))
 	 */
 	public function getSupportedLanguageCode($languageCode, $fallback = true) {
-		static $supportedLanguages;
-		static $defaultCountry;
+		static $supportedLanguages, $defaultCountry;
 
 		if (!isset($supportedLanguages)) {
 			list($supportedLanguages, $defaultCountry) = $this->getLanguageData();
@@ -490,7 +491,8 @@ class GalleryTranslator {
 				if (isset($languageCode)) {
 					return $languageCode;
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -554,7 +556,8 @@ class GalleryTranslator {
 			} else {
 				$localized = dgettext($domain, $data['text']);
 			}
-		} else {
+
+} else {
 			if (isset($data['text'])) {
 				$localized = $data['text'];
 			} elseif ($data['count'] == 1) {
@@ -562,7 +565,8 @@ class GalleryTranslator {
 			} else {
 				$localized = $data['many'];
 			}
-		}
+
+}
 
 		$i    = 1;
 		$args = isset($data['args']) ? $data['args'] : array();
@@ -575,7 +579,8 @@ class GalleryTranslator {
 			if ($i > 100) {
 				return array(GalleryCoreApi::error(ERROR_UNKNOWN), null);
 			}
-		}
+
+}
 
 		// If we have arguments, then feed the localized string and the arguments into sprintf
 		if (count($args) > 0) {
@@ -653,4 +658,5 @@ class GalleryTranslator {
 
 		return array(null, $language, $country);
 	}
+
 }

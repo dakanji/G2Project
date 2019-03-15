@@ -60,7 +60,8 @@ class ItemCreateReplicaSingleControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Test linking an album
@@ -185,4 +186,5 @@ class ItemCreateReplicaSingleControllerTest extends GalleryControllerTestCase {
 		// The UI never displays targets that we can't add to
 		$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
 	}
+
 }

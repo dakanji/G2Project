@@ -104,14 +104,16 @@ class AdminUserSetupStep extends InstallStep {
 				if ($passwordOk && $adminNameOk && $emailOk) {
 					$this->setComplete(true);
 				}
-			} elseif ($passwordOk) {
+
+} elseif ($passwordOk) {
 				/*
 				 * If we are reusing db tables, we do not create a new admin user and just
 				 * change the setup password
 				 */
 				$this->setComplete(true);
 			}
-		}
+
+}
 
 		if ($this->isComplete()) {
 			$galleryStub->setConfig('setup.password', $this->_password);
@@ -127,9 +129,11 @@ class AdminUserSetupStep extends InstallStep {
 		} else {
 			$templateData['bodyFile'] = 'AdminUserSetupRequest.html';
 		}
-	}
+
+}
 
 	public function isRedoable() {
 		return true;
 	}
+
 }

@@ -44,7 +44,8 @@ class AlbumSelectSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testAlbumSelectSiteAdminControllerReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
@@ -100,5 +101,6 @@ class AlbumSelectSiteAdminControllerTest extends GalleryControllerTestCase {
 
 			$this->assertEquals($expectedValue, $value, $key);
 		}
-	}
+
+}
 }

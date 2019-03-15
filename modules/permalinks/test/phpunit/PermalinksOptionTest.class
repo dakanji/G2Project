@@ -91,7 +91,8 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 				if ($ret) {
 					$this->failWithStatus($ret);
 				}
-			}
+
+}
 		}
 
 		$ret = parent::tearDown();
@@ -99,14 +100,14 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testPermalinksOptionCreate() {
 		$form['PermalinksOption']['aliasName'] = 'newAlias';
 		$result                                = $this->_handleRequestAfterEdit($form, $this->_item);
 		$this->_aliasNamesToDelete[]           = 'newAlias';
-
-		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('newAlias');
+		list($ret, $destId)                    = PermalinksMapHelper::fetchItemIdForAlias('newAlias');
 
 		$this->assertEquals($this->_item->getId(), $destId);
 	}
@@ -129,8 +130,7 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 		$form['PermalinksOption']['aliasName'] = 'newAlias';
 		$result                                = $this->_handleRequestAfterEdit($form, $this->_item1);
 		$this->_aliasNamesToDelete[]           = 'newAlias';
-
-		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('newAlias');
+		list($ret, $destId)                    = PermalinksMapHelper::fetchItemIdForAlias('newAlias');
 
 		$this->assertEquals($this->_item1->getId(), $destId);
 
@@ -149,8 +149,7 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 	public function testPermalinksOptionDelete() {
 		$form['PermalinksOption']['aliasName'] = 'newAlias';
 		$result                                = $this->_handleRequestAfterEdit($form, $this->_item);
-
-		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('newAlias');
+		list($ret, $destId)                    = PermalinksMapHelper::fetchItemIdForAlias('newAlias');
 
 		$this->assertEquals($this->_item->getId(), $destId);
 
@@ -158,9 +157,9 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 		unset($form['PermalinksOption']['aliasName']);
 		$form['PermalinksOption']['delete']['newAlias'] = 'on';
 		$result                                         = $this->_handleRequestAfterEdit($form, $this->_item);
-
-		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('newAlias');
+		list($ret, $destId)                             = PermalinksMapHelper::fetchItemIdForAlias('newAlias');
 
 		$this->assertTrue(empty($destId));
 	}
+
 }

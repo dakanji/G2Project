@@ -92,11 +92,11 @@ class RewriteApiTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testIsCompatibleWithApi() {
-		$currentVersion = $this->_rewriteApi->getApiVersion();
-
+		$currentVersion           = $this->_rewriteApi->getApiVersion();
 		list($ret, $isCompatible) = $this->_rewriteApi->isCompatibleWithApi($currentVersion);
 
 		if ($ret) {
@@ -105,8 +105,7 @@ class RewriteApiTest extends GalleryTestCase {
 
 		$this->assertTrue($isCompatible, 'same version');
 
-		$compatibleVersion = array($currentVersion[0], 0);
-
+		$compatibleVersion        = array($currentVersion[0], 0);
 		list($ret, $isCompatible) = $this->_rewriteApi->isCompatibleWithApi($compatibleVersion);
 
 		if ($ret) {
@@ -115,8 +114,7 @@ class RewriteApiTest extends GalleryTestCase {
 
 		$this->assertTrue($isCompatible, 'should be compatible, requiring same or lower minor version');
 
-		$incompatibleVersion = array(--$currentVersion[0], 0);
-
+		$incompatibleVersion      = array(--$currentVersion[0], 0);
 		list($ret, $isCompatible) = $this->_rewriteApi->isCompatibleWithApi($incompatibleVersion);
 
 		if ($ret) {
@@ -483,10 +481,12 @@ class RewriteApiTest extends GalleryTestCase {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-		}
+
+}
 
 		return array(null, $expectedRules, $moduleId);
 	}
+
 }
 
 /**
@@ -534,11 +534,13 @@ class RewriteApiMockParser extends RewriteParser {
 		}
 
 		$returnCode = $activeRules['returnCode'];
+
 		unset($activeRules['returnCode']);
 		$_SERVER['saveActiveRules'] = $activeRules;
 
 		return array(null, $returnCode, null);
 	}
+
 }
 
 /**
@@ -564,4 +566,5 @@ class RewriteApiMockModule extends GalleryModule {
 			),
 		);
 	}
+
 }

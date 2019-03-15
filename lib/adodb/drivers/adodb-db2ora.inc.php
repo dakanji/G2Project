@@ -77,7 +77,8 @@ if (!defined('ADODB_DB2OCI')) {
 
 			return parent::_Execute($sql, $inputarr);
 		}
-	}
+
+}
 
 	class ADORecordSet_db2oci extends ADORecordSet_odbc {
 		public $databaseType = 'db2oci';
@@ -85,5 +86,6 @@ if (!defined('ADODB_DB2OCI')) {
 		public function __construct($id, $mode = false) {
 			return parent::__construct($id, $mode);
 		}
-	}
+
+}
 } //define

@@ -35,7 +35,8 @@ if (!defined('ADODB_ERROR_HANDLER')) {
  */
 function ADODB_Error_Handler($dbms, $fn, $errno, $errmsg, $p1, $p2, &$thisConnection) {
 	if (error_reporting() == 0) {
-		return; // obey @ protocol
+		// obey @ protocol
+		return;
 	}
 
 	switch ($fn) {
@@ -82,7 +83,8 @@ function ADODB_Error_Handler($dbms, $fn, $errno, $errmsg, $p1, $p2, &$thisConnec
 		} else {
 			error_log("($t) $s", ADODB_ERROR_LOG_TYPE);
 		}
-	}
+
+}
 
 	//print "<p>$s</p>";
 	trigger_error($s, ADODB_ERROR_HANDLER_TYPE);

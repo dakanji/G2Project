@@ -43,7 +43,9 @@ class PasswordModule extends GalleryModule {
 				'Assign passwords for viewing particular albums'
 			)
 		);
-		$this->setVersion('2.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -84,7 +86,8 @@ class PasswordModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -215,7 +218,8 @@ class PasswordModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-			}
+
+}
 		}
 
 		$ret = parent::uninstall();
@@ -262,7 +266,8 @@ class PasswordModule extends GalleryModule {
 						if ($ret) {
 							return $ret;
 						}
-					}
+
+}
 				}
 
 				if (isset($permissions['core.view']) || !empty($isHidden)) {
@@ -296,7 +301,8 @@ class PasswordModule extends GalleryModule {
 
 					$phpVm->exit_();
 				}
-			}
+
+}
 		}
 
 		return null;
@@ -320,7 +326,8 @@ class PasswordModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-		} elseif (GalleryUtilities::isA($item, 'GalleryItem')
+
+} elseif (GalleryUtilities::isA($item, 'GalleryItem')
 			&& $item->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)
 		) {
 			GalleryCoreApi::requireOnce('modules/password/classes/PasswordHelper.class');
@@ -330,8 +337,10 @@ class PasswordModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		return array(null, null);
 	}
+
 }

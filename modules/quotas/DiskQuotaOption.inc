@@ -127,9 +127,11 @@ class DiskQuotaOption extends ItemAddOption {
 						)
 					);
 				}
-			}
+
+}
 		}
 
 		return array(null, $errors, $warnings);
 	}
+
 }

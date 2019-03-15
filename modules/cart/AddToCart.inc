@@ -47,7 +47,8 @@ class AddToCartController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
-		} else {
+
+} else {
 			$ids = array($item->getId());
 		}
 
@@ -65,4 +66,5 @@ class AddToCartController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }

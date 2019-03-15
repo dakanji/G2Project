@@ -73,7 +73,8 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function tearDown() {
 		global $gallery;
@@ -95,7 +96,8 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testSaveAvailableToSummary() {
 		GalleryUtilities::putRequestVariable('form[available][0]', 'SubjectLocation');
@@ -221,8 +223,10 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 		// check for the first entry to be still the first entry.
 		$this->assertEquals('Make', $properties[0], 'first entry moved up/disappeared???');
+
 		// ISO should have been moved up.
 		$this->assertEquals('ISO', $properties[7], 'middle entry did not move up???');
+
 		// The previous next to last item shall be our last item now.
 		$this->assertEquals('IPTC/Caption', $properties[count($properties) - 1]);
 	}
@@ -281,10 +285,13 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 		// Count summary entries, must be equal to before the move, one has to adapt.
 		$this->assertEquals(14, count($properties));
+
 		// Must have been moved down.
 		$this->assertEquals('Make', $properties[1]);
+
 		// Ditto.
 		$this->assertEquals('ISO', $properties[9]);
+
 		// Last entry must be the same.
 		$this->assertEquals('IPTC/CopyrightNotice', $properties[count($properties) - 1]);
 	}
@@ -690,4 +697,5 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			(int)$addOption
 		);
 	}
+
 }

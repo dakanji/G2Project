@@ -47,7 +47,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function tearDown() {
 		$ret = GalleryCoreApi::setPluginParameter(
@@ -66,7 +67,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	/**
 	 * Create user, delete user
@@ -96,7 +98,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Create group, create user, add user to group, assign
@@ -215,6 +218,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($item);
+
 		// Restore the activeUser, should be a Site Admin
 		$gallery->setActiveUser($this->_activeUserBackup);
 
@@ -271,7 +275,8 @@ class UserAndGroupTest extends GalleryTestCase {
 
 				return $ret;
 			}
-		}
+
+}
 
 		// Verify the new owner of the item
 		list($ret, $groupIds) = GalleryCoreApi::fetchGroupsForUser($item->getOwnerId());
@@ -333,8 +338,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		// Verify all permission maps for this user are gone
-		$checkItemIds = array($item->getId(), $this->_getRootId());
-
+		$checkItemIds            = array($item->getId(), $this->_getRootId());
 		list($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(
 			$checkItemIds,
 			$userId
@@ -361,7 +365,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	// Verify we can't delete the active user
 	public function testDeleteSelf() {
@@ -415,8 +420,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		$this->_markForCleanup($user);
 
-		$userId = $user->getId();
-
+		$userId            = $user->getId();
 		list($ret, $group) = $this->_createRandomGroup();
 
 		if ($ret) {
@@ -460,8 +464,7 @@ class UserAndGroupTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$userId = $user->getId();
-
+		$userId                = $user->getId();
 		list($ret, $otherUser) = $this->_createRandomUser();
 
 		if ($ret) {
@@ -472,8 +475,7 @@ class UserAndGroupTest extends GalleryTestCase {
 
 		$this->_markForCleanup($otherUser);
 
-		$otherUserId = $otherUser->getId();
-
+		$otherUserId       = $otherUser->getId();
 		list($ret, $group) = $this->_createRandomGroup();
 
 		if ($ret) {
@@ -606,7 +608,8 @@ class UserAndGroupTest extends GalleryTestCase {
 
 			$this->assertFalse(empty($groupName), "$paramName: group name should not be empty");
 		}
-	}
+
+}
 
 	/**
 	 * Create user, modify user, delete user
@@ -664,7 +667,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Create user, fetch user names, make sure it's in there, delete user
@@ -694,7 +698,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Create user1, add some items, some with delete permission,
@@ -804,27 +809,24 @@ class UserAndGroupTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$deletedItems[]          = $subItemWithDeletePermission;
-		$deletePermissionItems[] = $subItemWithDeletePermission;
-
+		$deletedItems[]                             = $subItemWithDeletePermission;
+		$deletePermissionItems[]                    = $subItemWithDeletePermission;
 		list($ret, $subSubItemWithDeletePermission) = $this->_createRandomDataItem($subAlbumWithDeletePermission->getId());
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$deletedItems[]          = $subSubItemWithDeletePermission;
-		$deletePermissionItems[] = $subSubItemWithDeletePermission;
-
+		$deletedItems[]                              = $subSubItemWithDeletePermission;
+		$deletePermissionItems[]                     = $subSubItemWithDeletePermission;
 		list($ret, $subSubAlbumWithDeletePermission) = $this->_createRandomAlbum($subAlbumWithDeletePermission->getId());
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$deletedItems[]          = $subSubAlbumWithDeletePermission;
-		$deletePermissionItems[] = $subSubAlbumWithDeletePermission;
-
+		$deletedItems[]                                = $subSubAlbumWithDeletePermission;
+		$deletePermissionItems[]                       = $subSubAlbumWithDeletePermission;
 		list($ret, $subSubSubItemWithDeletePermission) = $this->_createRandomDataItem($subSubAlbumWithDeletePermission->getId());
 
 		if ($ret) {
@@ -927,9 +929,8 @@ class UserAndGroupTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$remainingItems[]        = $subAlbumWithDeletePermission3;
-		$deletePermissionItems[] = $subAlbumWithDeletePermission3;
-
+		$remainingItems[]                            = $subAlbumWithDeletePermission3;
+		$deletePermissionItems[]                     = $subAlbumWithDeletePermission3;
 		list($ret, $subSubItemWithDeletePermission3) = $this->_createRandomDataItem($subAlbumWithDeletePermission3->getId());
 
 		if ($ret) {
@@ -967,7 +968,8 @@ class UserAndGroupTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		/*
 		 * Verify the owner id of the items, all test items/albums but the single subitem of user2
@@ -989,7 +991,8 @@ class UserAndGroupTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// Execute the "delete user1" call
 		$ret = GalleryCoreApi::deleteUserItems($user1->getId());
@@ -1007,7 +1010,8 @@ class UserAndGroupTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		/*
 		 * Verify the correct items still exist. (sub)albums with delete permission for user1,
@@ -1015,8 +1019,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		 * that have another owner, should still exist after a "delete user1" call.
 		 */
 		foreach ($remainingItems as $item) {
-			$id = $item->getId();
-
+			$id               = $item->getId();
 			list($ret, $item) = $item->refresh();
 
 			if ($ret) {
@@ -1036,7 +1039,8 @@ class UserAndGroupTest extends GalleryTestCase {
 					'The ownerId for an item was changed'
 				);
 			}
-		}
+
+}
 	}
 
 	/**
@@ -1073,7 +1077,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Verify that we can fetch all users with a given substring in their username
@@ -1081,8 +1086,7 @@ class UserAndGroupTest extends GalleryTestCase {
 	public function testFetchUserCountBySubstring() {
 		global $gallery;
 
-		$unique = mt_rand(0, 65535);
-
+		$unique            = mt_rand(0, 65535);
 		list($ret, $count) = GalleryCoreApi::fetchUserCount($unique, null);
 
 		if ($ret) {
@@ -1115,7 +1119,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	// Verify that we can fetch a count of the users from any particular group
 	public function testFetchUserCountByGroupId() {
@@ -1173,7 +1178,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Verify that we can fetch all users from a group with a given substring in their username
@@ -1261,7 +1267,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Verify that we can fetch all users from a group with a given substring in their username
@@ -1351,7 +1358,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Create user, fetch it by name, delete user
@@ -1381,7 +1389,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Create group, delete group
@@ -1410,7 +1419,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Create duplicate group
@@ -1418,8 +1428,7 @@ class UserAndGroupTest extends GalleryTestCase {
 	public function testCreateDuplicateGroup() {
 		global $gallery;
 
-		$groupTag = mt_rand();
-
+		$groupTag          = mt_rand();
 		list($ret, $group) = $this->_createRandomGroup($groupTag);
 
 		if ($ret) {
@@ -1449,7 +1458,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Create duplicate user
@@ -1457,8 +1467,7 @@ class UserAndGroupTest extends GalleryTestCase {
 	public function testCreateDuplicateUser() {
 		global $gallery;
 
-		$userTag = mt_rand();
-
+		$userTag          = mt_rand();
 		list($ret, $user) = $this->_createRandomUser($userTag);
 
 		if ($ret) {
@@ -1488,7 +1497,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Create group, modify group, delete group
@@ -1546,7 +1556,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Create user, create group, add user to group, remove user from group,
@@ -1614,7 +1625,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Create group, fetch group names, make sure it's in there, delete group
@@ -1644,7 +1656,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Count groups, Create group, count groups again, delete group
@@ -1680,7 +1693,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	/**
 	 * Create group, fetch it by name, delete group
@@ -1710,7 +1724,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testAssertSiteAdministrator() {
 		global $gallery;
@@ -1726,7 +1741,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testAssertHasItemPermission() {
 		$ret = GalleryCoreApi::assertHasItemPermission($this->_getRootId(), 'core.view');
@@ -1734,7 +1750,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testHasItemPermission() {
 		global $gallery;
@@ -1894,6 +1911,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->assertFalse(empty($user), 'factory error');
+
 		// We still support old style simple md5 (G1 thru 1.4.0, G2 thru alpha-4)
 		$user->setHashedPassword(md5('password'));
 		$this->assertTrue($user->isCorrectPassword('password'), 'password');
@@ -1933,6 +1951,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->assertFalse(empty($user), 'factory error');
+
 		set_error_handler('UserAndGroupTest_error_handler');
 
 		// First test with a precomputed hash (12 iterations, also checks file includes)
@@ -1961,7 +1980,8 @@ class UserAndGroupTest extends GalleryTestCase {
 		} else {
 			$this->fail('class PasswordHash should be defined at this point');
 		}
-	}
+
+}
 }
 
 // Allow the suppression of expected errors.

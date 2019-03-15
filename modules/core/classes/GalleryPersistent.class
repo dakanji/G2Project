@@ -71,7 +71,8 @@ class GalleryPersistent {
 			if ($this->_persistentStatus['originalValue'][$key] != $this->$key) {
 				return true;
 			}
-		}
+
+}
 
 		return false;
 	}
@@ -111,7 +112,8 @@ class GalleryPersistent {
 				} else {
 					$this->_persistentStatus['originalValue'][$member] = isset($this->$member) ? $this->$member : null;
 				}
-			}
+
+}
 
 			$target = $data[$target]['parent'];
 		}
@@ -168,4 +170,5 @@ class GalleryPersistent {
 			"modules/{$data[$this->entityType]['module']}/classes/{$this->entityType}.class",
 		);
 	}
+
 }

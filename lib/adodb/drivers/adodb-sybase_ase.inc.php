@@ -30,7 +30,8 @@ class ADODB_sybase_ase extends ADODB_sybase {
 				$sql = str_replace('U', 'V', $this->metaTablesSQL);
 			} elseif (false === $ttype) {
 				$sql = str_replace('U', "U' OR type='V", $this->metaTablesSQL);
-			} else { // TABLES OR ANY OTHER
+			} else {
+				// TABLES OR ANY OTHER
 				$sql = $this->metaTablesSQL;
 			}
 
@@ -68,7 +69,8 @@ class ADODB_sybase_ase extends ADODB_sybase {
 
 				return $arr;
 			}
-		}
+
+}
 
 		return false;
 	}
@@ -116,6 +118,7 @@ class ADODB_sybase_ase extends ADODB_sybase {
 
 		return parent::ErrorMsg();
 	}
+
 }
 
 class adorecordset_sybase_ase extends ADORecordset_sybase {
@@ -124,4 +127,5 @@ class adorecordset_sybase_ase extends ADORecordset_sybase {
 	public function __construct($id, $mode = false) {
 		parent::__construct($id, $mode);
 	}
+
 }

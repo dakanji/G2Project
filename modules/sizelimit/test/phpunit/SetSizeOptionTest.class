@@ -215,7 +215,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
 
@@ -242,7 +243,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	// change dimensions on multiple items, don't keep originals
 	public function testMultipleChangeDimNoOriginal() {
@@ -266,7 +268,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$totalTestItems = 3;
 
@@ -310,7 +313,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$operation = GalleryUtilities::getRequestVariables('operation');
 
@@ -337,7 +341,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
 
@@ -389,7 +394,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$totalTestItems = 3;
 
@@ -464,7 +470,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
 
@@ -515,7 +522,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$totalTestItems = 3;
 
@@ -585,7 +593,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
 
@@ -634,7 +643,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$totalTestItems = 3;
 
@@ -713,7 +723,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
 
@@ -773,7 +784,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$totalTestItems = 3;
 
@@ -859,7 +871,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
 
@@ -914,7 +927,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$totalTestItems = 3;
 
@@ -987,7 +1001,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_itemsUnknown);
 
@@ -1015,7 +1030,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$singleExpectedWarning = $this->_expectWarnings[0];
 		$totalTestItems        = 3;
@@ -1063,7 +1079,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), $this->_items);
 
@@ -1159,7 +1176,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		// Execute the test
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
@@ -1210,7 +1228,8 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 		} else {
 			$this->assertTrue(false, 'no thumbnail for our item id after test');
 		}
-	}
+
+}
 }
 
 /**
@@ -1268,6 +1287,7 @@ class SetSizeOptionTestPlatform extends GalleryPlatform {
 
 		return true;
 	}
+
 }
 
 /**
@@ -1341,4 +1361,5 @@ class SetSizeOptionTestToolkit extends GalleryToolkit {
 
 		return array(null, $results);
 	}
+
 }

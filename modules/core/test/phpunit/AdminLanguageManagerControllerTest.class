@@ -114,7 +114,8 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testUpdateBrowserPreference() {
 		global $gallery;
@@ -265,8 +266,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			),
 		);
 
-		$repositories = GalleryRepository::getMe()->getRepositories();
-
+		$repositories                                   = GalleryRepository::getMe()->getRepositories();
 		list($ret, $installedPackages, $deletePackages) = $this->_controller->_getFormLanguages(
 			$form,
 			$repositories
@@ -295,7 +295,6 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		$packages = array('af', 'cs');
 
 		$platform->setReply('file_exists', array('/g2data/locale/af'), true);
-
 		$platform->setReply(
 			'glob',
 			array('/g2data/locale/af/LC_MESSAGES/*.mo', null),
@@ -349,7 +348,6 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 					'modules/anotherTest-cd.package',
 				),
 				$this->_callback,
-
 			),
 			array(null, array('STATUS REPO2'), 3)
 		);
@@ -472,6 +470,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		$this->_callback['total'] = 11;
 
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale/');
+
 		$this->_testRepository->setReply(
 			'getLanguagePackageFiles',
 			array(array('af')),
@@ -513,13 +512,11 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 			),
 			array(null, array('STATUS'), 2)
 		);
-
 		$platform->setReply(
 			'glob',
 			array(GalleryCoreApi::getCodeBasePath('modules/*/po'), null),
 			array(GalleryCoreApi::getCodeBasePath('modules/testModule/po'))
 		);
-
 		$platform->setReply(
 			'file_exists',
 			array('/g2data/locale/af/LC_MESSAGES/modules_testModule.mo'),
@@ -551,5 +548,6 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 }

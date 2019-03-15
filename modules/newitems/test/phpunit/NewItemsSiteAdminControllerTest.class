@@ -213,9 +213,8 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function _saveNewItemSorts() {
 		global $gallery;
 
-		$query = 'SELECT [GalleryAlbumItem::id], [GalleryAlbumItem::orderDirection]
+		$query               = 'SELECT [GalleryAlbumItem::id], [GalleryAlbumItem::orderDirection]
 	FROM [GalleryAlbumItem] WHERE [GalleryAlbumItem::orderBy] = \'NewItems\'';
-
 		list($ret, $results) = $gallery->search($query);
 
 		if ($ret) {
@@ -262,7 +261,8 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-		}
+
+}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
@@ -272,4 +272,5 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		return null;
 	}
+
 }

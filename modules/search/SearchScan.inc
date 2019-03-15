@@ -65,7 +65,8 @@ class SearchScanController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			$itemIds = array();
 
@@ -84,18 +85,20 @@ class SearchScanController extends GalleryController {
 						if (isset($result['itemId'])) {
 							$itemIds[$result['itemId']] = 1;
 						}
-					}
+
+}
 				}
-			}
 
-			$itemIds = array_keys($itemIds);
+}
 
+			$itemIds                         = array_keys($itemIds);
 			list($ret, $results['delegate']) = $slideshow->getLinkData($itemIds);
 
 			if ($ret) {
 				return array($ret, null);
 			}
-		} elseif (isset($form['action']['showAll'])) {
+
+} elseif (isset($form['action']['showAll'])) {
 			$results['delegate']['view'] = 'search.SearchShowAll';
 		} else {
 			$results['delegate']['view'] = 'search.SearchScan';
@@ -106,6 +109,7 @@ class SearchScanController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -138,7 +142,8 @@ class SearchScanView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		// Load the search info for each module
 		foreach ($searchInstances as $id => $instance) {
@@ -147,7 +152,8 @@ class SearchScanView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		$items                  = array();
 		$thumbnails             = array();
@@ -171,7 +177,8 @@ class SearchScanView extends GalleryView {
 					foreach ($searchInstances as $id => $instance) {
 						$form['options'][$id] = $modules[$id]['options'];
 					}
-				}
+
+}
 
 				// Execute a "scan" search
 				foreach ($searchInstances as $id => $instance) {
@@ -186,9 +193,11 @@ class SearchScanView extends GalleryView {
 						if ($ret) {
 							return array($ret, null);
 						}
-					}
+
+}
 				}
-			}
+
+}
 
 			// Pull out all the item ids and save them
 			$itemIds = array();
@@ -198,7 +207,8 @@ class SearchScanView extends GalleryView {
 					if (isset($result['itemId'])) {
 						$itemIds[$result['itemId']] = 1;
 					}
-				}
+
+}
 			}
 
 			$itemIds    = array_keys($itemIds);
@@ -226,14 +236,16 @@ class SearchScanView extends GalleryView {
 				foreach ($thumbnailList as $thumbnail) {
 					$thumbnails[$thumbnail->getParentId()] = (array)$thumbnail;
 				}
-			}
+
+}
 		} else {
 			$form['searchCriteria'] = '';
 
 			foreach ($searchInstances as $id => $instance) {
 				$form['options'][$id] = $modules[$id]['options'];
 			}
-		}
+
+}
 
 		list($ret, $ids) = GalleryCoreApi::getAllFactoryImplementationIds('SlideshowInterface_1_0');
 
@@ -272,4 +284,5 @@ class SearchScanView extends GalleryView {
 			),
 		);
 	}
+
 }

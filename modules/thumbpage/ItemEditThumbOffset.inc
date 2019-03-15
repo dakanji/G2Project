@@ -31,9 +31,8 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 	 * @see ItemEditPlugin::handleRequest
 	 */
 	public function handleRequest($form, &$item, &$preferred) {
-		$status = null;
-		$error  = array();
-
+		$status             = null;
+		$error              = array();
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
 
 		if ($ret) {
@@ -50,7 +49,8 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 			if ($form['offset'] > $duration || $form['offset'] < 0) {
 				$error[] = 'form[error][offset][invalid]';
 			}
-		}
+
+}
 
 		if (isset($form['action']['save']) && empty($error)) {
 			list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
@@ -68,7 +68,8 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 				if ($form['offset'] != $regs[4]) {
 					$operations = str_replace($regs[1], $regs[2] . $form['offset'], $operations);
 				}
-			} else {
+
+} else {
 				$operations = 'select-offset|' . $form['offset'] . ';' . $operations;
 			}
 
@@ -113,7 +114,8 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 			) {
 				$form['offset'] = $regs[2];
 			}
-		}
+
+}
 
 		list($ret, $duration) = $this->_getDuration($item);
 
@@ -144,7 +146,8 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 
 				return in_array($item->getMimeType(), $list);
 			}
-		}
+
+}
 
 		return false;
 	}
@@ -198,4 +201,5 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 
 		return array(null, $result[2]);
 	}
+
 }

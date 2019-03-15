@@ -65,7 +65,8 @@ class LinkItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function _createLinkItem($parentId, $target) {
 		list($ret, $link) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryLinkItem');
@@ -100,14 +101,16 @@ class LinkItemTest extends GalleryTestCase {
 			if ($ret) {
 				$this->failWithStatus($ret);
 			}
-		}
+
+}
 
 		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-	}
+
+}
 
 	public function testMoveLink() {
 		// We don't really have anything on the filesystem; make sure move() works ok
@@ -168,7 +171,8 @@ class LinkItemTest extends GalleryTestCase {
 		} else {
 			$this->assertTrue(false, 'expected error');
 		}
-	}
+
+}
 
 	public function testDeleteSubalbum() {
 		// Verify delete of an album also deletes links that point to its subalbums
@@ -211,7 +215,8 @@ class LinkItemTest extends GalleryTestCase {
 		} else {
 			$this->assertTrue(false, 'expected error');
 		}
-	}
+
+}
 
 	public function testShowLinkItemNoPersistentSession() {
 		global $gallery;
@@ -350,6 +355,7 @@ class LinkItemTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('image/jpeg', $mimeType);
+
 		$this->assertEquals(
 			array(
 				'width'  => 270,
@@ -388,6 +394,7 @@ class LinkItemTest extends GalleryTestCase {
 		);
 
 		$platform->setReply('getDirectorySeparator', array(), '/');
+
 		$platform->setReply(
 			'file_exists',
 			array(
@@ -429,6 +436,7 @@ class LinkItemTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('image/jpeg', $mimeType);
+
 		$this->assertEquals(
 			array(
 				'width'  => 1024,
@@ -440,6 +448,7 @@ class LinkItemTest extends GalleryTestCase {
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 		$gallery->setPlatform($savePlatform);
 	}
+
 }
 
 class LinkItemTestMockPhpVm extends GalleryPhpVm {
@@ -447,9 +456,11 @@ class LinkItemTestMockPhpVm extends GalleryPhpVm {
 		if ($pos = strpos($string, ':')) {
 			$_REQUEST['phpVmHeaders'][substr($string, 0, $pos)] = substr($string, $pos + 1);
 		}
-	}
+
+}
 
 	public function exit_($status = null) {
 		$_REQUEST['phpVmExitCalls']++;
 	}
+
 }

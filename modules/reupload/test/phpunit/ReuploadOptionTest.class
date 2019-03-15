@@ -186,6 +186,7 @@ class ReuploadOptionTest extends ItemEditOptionTestCase {
 		// Perform the request and verify that we failed
 		$this->_handleRequestAfterEdit($form, $this->_item, ERROR_BAD_PARAMETER);
 	}
+
 }
 
 /**
@@ -215,6 +216,7 @@ class ReuploadOptionTestPlatform extends GalleryPlatform {
 	public function filesize($path) {
 		return 800;
 	}
+
 }
 
 /**
@@ -237,4 +239,5 @@ class ReuploadOptionTestToolkit extends GalleryToolkit {
 
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
+
 }

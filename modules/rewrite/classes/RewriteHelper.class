@@ -23,7 +23,9 @@
 define('REWRITE_STATUS_OK', 0);
 define('REWRITE_STATUS_BAD_KEYWORD', 1);
 define('REWRITE_STATUS_MULTISITE', 2);
-define('REWRITE_STATUS_DUPE_SHORT_URL', 3); // Deprecated
+
+// Deprecated
+define('REWRITE_STATUS_DUPE_SHORT_URL', 3);
 define('REWRITE_STATUS_INVALID_PATTERN', 4);
 define('REWRITE_STATUS_EMPTY_VALUE', 5);
 
@@ -45,7 +47,6 @@ class RewriteHelper {
 	 */
 	public static function getRewriteParser($new = false) {
 		global $gallery;
-
 		static $rewriteParser;
 
 		$platform =& $gallery->getPlatform();
@@ -160,7 +161,8 @@ class RewriteHelper {
 				if ($ret) {
 					return array($ret, null, null, null, null);
 				}
-			}
+
+}
 
 			if (!isset($module) || !GalleryCoreApi::isPluginCompatibleWithApis($module)) {
 				// Remove rules for modules that are incompatible or unavailable
@@ -209,7 +211,8 @@ class RewriteHelper {
 							if (isset($value['function'])) {
 								$shortUrl['functions'][$key] = $value['function'];
 							}
-						}
+
+}
 					}
 
 					// Save the onLoad handler for this rule
@@ -240,7 +243,8 @@ class RewriteHelper {
 							'pattern' => $key . '=' . $value,
 						);
 					}
-				}
+
+}
 
 				// Exempt requests from the following hosts
 				if (!empty($rules[$ruleId]['exemptReferer'])) {
@@ -259,7 +263,8 @@ class RewriteHelper {
 							'pattern' => '!^$',
 						);
 					}
-				}
+
+}
 
 				// Build the query string to map the request on to
 				if (empty($rules[$ruleId]['queryString'])) {
@@ -326,7 +331,8 @@ class RewriteHelper {
 				if ($code != REWRITE_STATUS_OK) {
 					return array(null, $code, null, null, array($moduleId, $ruleId));
 				}
-			}
+
+}
 		}
 
 		usort($regexRules, array('RewriteHelper', '_sortRules'));
@@ -372,7 +378,8 @@ class RewriteHelper {
 
 				$regexRule['conditions'][] = $condition;
 			}
-		}
+
+}
 
 		if (!empty($activeRule['pattern'])) {
 			$regexRule['pattern'] = preg_quote($activeRule['pattern']);
@@ -385,7 +392,8 @@ class RewriteHelper {
 			if ($code != REWRITE_STATUS_OK) {
 				return array(null, $code);
 			}
-		}
+
+}
 
 		$regexRules[] = $regexRule;
 
@@ -416,7 +424,8 @@ class RewriteHelper {
 			} else {
 				$regexRule['keywords'][] = null;
 			}
-		}
+
+}
 
 		return REWRITE_STATUS_OK;
 	}
@@ -530,4 +539,5 @@ class RewriteHelper {
 
 		return null;
 	}
+
 }

@@ -38,7 +38,9 @@ class ReplicaModule extends GalleryModule {
 				'Create item copies sharing the same original data file'
 			)
 		);
-		$this->setVersion('2.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -88,7 +90,8 @@ class ReplicaModule extends GalleryModule {
 					if (!$count) {
 						break;
 					}
-				}
+
+}
 
 				$links[$itemId][] = array(
 					'text'   => $this->_translate('Create Replica'),
@@ -101,7 +104,8 @@ class ReplicaModule extends GalleryModule {
 					),
 				);
 			}
-		}
+
+}
 
 		return array(null, $links);
 	}
@@ -112,8 +116,7 @@ class ReplicaModule extends GalleryModule {
 	public function getItemAdminViews($item) {
 		global $gallery;
 
-		$views = array();
-
+		$views                   = array();
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {
@@ -150,8 +153,10 @@ class ReplicaModule extends GalleryModule {
 					'view' => 'replica.ItemCreateReplicaSingle',
 				);
 			}
-		}
+
+}
 
 		return array(null, $views);
 	}
+
 }

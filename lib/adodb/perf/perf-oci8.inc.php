@@ -18,7 +18,8 @@ if (!defined('ADODB_DIR')) {
 }
 
 class perf_oci8 extends ADODB_perf {
-	public $noShowIxora = 15; // if the sql for suspicious sql is taking too long, then disable ixora
+	// if the sql for suspicious sql is taking too long, then disable ixora
+	public $noShowIxora = 15;
 	public $tablesSQL   = 'select segment_name as "tablename", sum(bytes)/1024 as "size_in_k",tablespace_name as "tablespace",count(*) "extents" from sys.user_extents
 	   group by segment_name,tablespace_name';
 	public $version;
@@ -320,7 +321,8 @@ order by 3 desc) where rownum <=10"
 
 		$ret = '<p><b>Tablespace</b>' . rs2html($rs, false, false, false, false);
 
-		$rs   = $this->conn->Execute('select * from dba_data_files order by tablespace_name, 1');
+		$rs = $this->conn->Execute('select * from dba_data_files order by tablespace_name, 1');
+
 		$ret .= '<p><b>Datafile</b>' . rs2html($rs, false, false, false, false);
 
 		return '&nbsp;<p>' . $ret . '&nbsp;</p>';
@@ -473,9 +475,11 @@ CREATE TABLE PLAN_TABLE (
 					if (crc32($sql) == $partial) {
 						break;
 					}
-				}
+
+}
 			}
-		}
+
+}
 
 		$s = '<p><b>Explain</b>: ' . htmlspecialchars($sql) . '</p>';
 
@@ -648,6 +652,7 @@ where
   p.address = s.address
 order by
   1 desc, s.address, p.piece";
+
 		global $ADODB_CACHE_MODE;
 
 		if (isset($_GET['expsixora'], $_GET['sql'])) {
@@ -805,4 +810,5 @@ BEGIN
 END;";
 		$ok  = $this->conn->Execute($sql);
 	}
+
 }

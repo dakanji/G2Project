@@ -72,7 +72,8 @@ class GalleryItemAttributesHelper_simple {
 						. GalleryUtilities::getHttpDate(time() - 3600 * 24 * 7)
 					);
 				}
-			}
+
+}
 
 			$lastViewed = array(
 				$itemId => $elapsed,
@@ -87,7 +88,8 @@ class GalleryItemAttributesHelper_simple {
 					// They viewed it within the last day, so this doesn't count
 					return null;
 				}
-			}
+
+}
 
 			$lastViewed[$itemId] = $elapsed;
 		}
@@ -213,4 +215,5 @@ class GalleryItemAttributesHelper_simple {
 
 		return array(null, $result);
 	}
+
 }

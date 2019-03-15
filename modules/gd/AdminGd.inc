@@ -72,7 +72,8 @@ class AdminGdController extends GalleryController {
 			} else {
 				$redirect['subView'] = 'core.AdminPlugins';
 			}
-		} elseif (isset($form['action']['reset'])) {
+
+} elseif (isset($form['action']['reset'])) {
 			$redirect['view']    = 'core.SiteAdmin';
 			$redirect['subView'] = 'gd.AdminGd';
 		} elseif (isset($form['action']['cancel'])) {
@@ -92,6 +93,7 @@ class AdminGdController extends GalleryController {
 
 		return array(null, $results);
 	}
+
 }
 
 /**
@@ -116,7 +118,8 @@ class AdminGdView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 
 			$form['formName'] = 'AdminGd';
 		}
@@ -153,7 +156,8 @@ class AdminGdView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'gd');
 
@@ -186,4 +190,5 @@ class AdminGdView extends GalleryView {
 			),
 		);
 	}
+
 }

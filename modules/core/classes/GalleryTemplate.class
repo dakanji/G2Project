@@ -72,7 +72,8 @@ class GalleryTemplate {
 		if ($initSmarty) {
 			$this->_smarty = GalleryTemplate::_getSmarty($trimWhitespace);
 		}
-	}
+
+}
 
 	/**
 	 * Assign a template key/value pair
@@ -329,7 +330,8 @@ class GalleryTemplate {
 					null,
 				);
 			}
-		} else {
+
+} else {
 			if (!$platform->is_writeable($dir)) {
 				return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null);
 			}
@@ -359,7 +361,8 @@ class GalleryTemplate {
 				if ($ret) {
 					return array($ret, null);
 				}
-			}
+
+}
 		}
 
 		return array(null, $dir);
@@ -455,7 +458,8 @@ class GalleryTemplate {
 				);
 
 				/** @todo Log this error */
-			}
+
+}
 
 			$compileCheck = (bool)$compileCheck;
 
@@ -524,7 +528,8 @@ class GalleryTemplate {
 					GALLERY_ERROR
 				);
 			}
-		}
+
+}
 
 		return $success;
 	}
@@ -589,7 +594,8 @@ class GalleryTemplate {
 						. $ret->getAsHtml()
 					);
 				}
-			} else {
+
+} else {
 				$themeId = $theme['themeId'];
 			}
 
@@ -612,7 +618,8 @@ class GalleryTemplate {
 						if ($platform->is_readable($file)) {
 							$qualifiedTemplatePath = $file;
 						}
-					}
+
+}
 				} else {
 					/** @todo Log this as soon as we have an event log */
 					$gallery->debug(
@@ -620,7 +627,8 @@ class GalleryTemplate {
 						. $ret->getAsHtml()
 					);
 				}
-			}
+
+}
 		}
 
 		if (empty($qualifiedTemplatePath)) {
@@ -635,7 +643,8 @@ class GalleryTemplate {
 				// Use whatever was passed. Use the smarty default as the directory base
 				$qualifiedTemplatePath = $qualifiedTemplateName;
 			}
-		}
+
+}
 
 		return $qualifiedTemplatePath;
 	}
@@ -648,8 +657,7 @@ class GalleryTemplate {
 	 * @access private
 	 */
 	public static function _getThemeId() {
-		$view = new GalleryView();
-
+		$view               = new GalleryView();
 		list($ret, $itemId) = $view->getItem();
 
 		if ($ret) {
@@ -662,7 +670,8 @@ class GalleryTemplate {
 			} else {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		list($ret, $theme) = $view->loadThemeForItem($itemId);
 
@@ -681,10 +690,12 @@ class GalleryTemplate {
 				if ($ret) {
 					return array($ret, null);
 				}
-			} else {
+
+} else {
 				return array($ret, null);
 			}
-		}
+
+}
 
 		return array(null, $themeId);
 	}
@@ -703,4 +714,5 @@ class GalleryTemplate {
 	public function resourceGetTrusted($templateName, &$smarty) {
 		// Not used for templates
 	}
+
 }

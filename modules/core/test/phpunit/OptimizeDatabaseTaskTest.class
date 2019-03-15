@@ -42,14 +42,14 @@ class OptimizeDatabaseTaskTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-	}
+
+}
 
 	public function testRun() {
 		global $gallery;
 
-		$gallery->_storage = new OptimizeDatabaseTaskTestStorage();
-		$mockStorage       =& $gallery->_storage;
-
+		$gallery->_storage  = new OptimizeDatabaseTaskTestStorage();
+		$mockStorage        =& $gallery->_storage;
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -66,6 +66,7 @@ class OptimizeDatabaseTaskTest extends GalleryTestCase {
 		$this->assertEquals(array($module->translate('Database optimized successfully')), $details);
 		$this->assertTrue($mockStorage->optimizeWasCalled());
 	}
+
 }
 
 class OptimizeDatabaseTaskTestStorage {
@@ -82,4 +83,5 @@ class OptimizeDatabaseTaskTestStorage {
 	public function optimizeWasCalled() {
 		return $this->_optimizeWasCalled;
 	}
+
 }
