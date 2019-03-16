@@ -67,6 +67,7 @@ class EventLogHelperTest extends GalleryTestCase {
 			array(DATABASE_SEQUENCE_EVENT_LOG),
 			array(null, 3007)
 		);
+
 		$this->_storage->setReply(
 			'updateMapEntry',
 			array(
@@ -113,6 +114,7 @@ class EventLogHelperTest extends GalleryTestCase {
 			array(DATABASE_SEQUENCE_EVENT_LOG),
 			array(null, 3007)
 		);
+
 		$this->_storage->setReply(
 			'updateMapEntry',
 			array(
@@ -140,6 +142,7 @@ class EventLogHelperTest extends GalleryTestCase {
 			array(true),
 			array(null, 0)
 		);
+
 		$this->_storage->setReply(
 			'addMapEntry',
 			array(
@@ -175,3 +178,4 @@ class EventLogHelperTestPhpVm {
 		return 12345;
 	}
 }
+

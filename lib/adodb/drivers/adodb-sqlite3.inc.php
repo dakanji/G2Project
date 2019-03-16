@@ -20,13 +20,19 @@ if (!defined('ADODB_DIR')) {
 }
 
 class ADODB_sqlite3 extends ADOConnection {
-	public $databaseType    = 'sqlite3';
-	public $replaceQuote    = "''"; // string to use to replace quotes
+	public $databaseType = 'sqlite3';
+
+	// string to use to replace quotes
+	public $replaceQuote    = "''";
 	public $concat_operator = '||';
 	public $_errorNo        = 0;
 	public $hasLimit        = true;
-	public $hasInsertID     = true;        /// supports autoincrement ID?
-	public $hasAffectedRows = true;    /// supports affected rows for update/delete?
+
+	/// supports autoincrement ID?
+	public $hasInsertID = true;
+
+	/// supports affected rows for update/delete?
+	public $hasAffectedRows = true;
 	public $metaTablesSQL   = "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name";
 	public $sysDate         = "adodb_date('Y-m-d')";
 	public $sysTimeStamp    = "adodb_date('Y-m-d H:i:s')";
@@ -165,11 +171,13 @@ class ADODB_sqlite3 extends ADOConnection {
 			return $this->_errorMsg;
 		}
 
-		return ($this->_errorNo) ? $this->ErrorNo() : ''; //**tochange?
+		//**tochange?
+		return ($this->_errorNo) ? $this->ErrorNo() : '';
 	}
 
 	public function ErrorNo() {
-		return $this->_connectionID->lastErrorCode(); //**tochange??
+		//**tochange??
+		return $this->_connectionID->lastErrorCode();
 	}
 
 	public function SQLDate($fmt, $col = false) {

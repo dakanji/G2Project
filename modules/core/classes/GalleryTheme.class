@@ -87,7 +87,8 @@ class GalleryTheme extends GalleryPlugin {
 	 * @return boolean true for advanced settings, false for simple
 	 */
 	public function isAdvancedSettings() {
-		return false;  // Default to simple
+		// Default to simple
+		return false;
 	}
 
 	/**
@@ -461,7 +462,6 @@ class GalleryTheme extends GalleryPlugin {
 					// success
 				} else {
 					GalleryCoreApi::requireOnce('lib/JSON/JSON.php');
-
 					$json = new Services_JSON(SERVICES_JSON_LOOSE_TYPE);
 
 					// The sanitizer will escape quotes, so unescape them
@@ -518,7 +518,6 @@ class GalleryTheme extends GalleryPlugin {
 					$value   = '[]';
 				} else {
 					GalleryCoreApi::requireOnce('lib/JSON/JSON.php');
-
 					$json = new Services_JSON();
 
 					for ($i = 0; $i < count($input); $i++) {
@@ -1288,7 +1287,6 @@ class GalleryTheme extends GalleryPlugin {
 	 */
 	public function preloadBlock(&$template, $blockId, $blockParams = array()) {
 		global $gallery;
-
 		static $pluginStatus;
 
 		if (!isset($pluginStatus)) {
@@ -1310,7 +1308,6 @@ class GalleryTheme extends GalleryPlugin {
 
 		if ($platform->file_exists(GalleryCoreApi::getCodeBasePath($path))) {
 			GalleryCoreApi::requireOnce($path);
-
 			$className = $module . 'Preloads';
 			$instance  = new $className();
 

@@ -84,6 +84,7 @@ class LinkItemToolkit extends GalleryToolkit {
 		list ($success, $response, $headers) = GalleryCoreApi::fetchWebFile(
 			'http://webdesignbook.net/snapper.php?url=' . urlencode($url) . '&w=1024&h=768',
 			$destFilename);
+
 		if (!$success) {
 			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null);
 		}

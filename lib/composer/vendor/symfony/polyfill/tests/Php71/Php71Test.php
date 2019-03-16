@@ -8,11 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Polyfill\Tests\Php71;
-
 use PHPUnit\Framework\TestCase;
-
 class Php71Test extends TestCase
 {
     /**
@@ -34,3 +31,4 @@ class Php71Test extends TestCase
         );
     }
 }
+

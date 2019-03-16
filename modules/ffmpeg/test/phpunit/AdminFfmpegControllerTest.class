@@ -171,7 +171,6 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -188,7 +187,6 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -303,7 +301,6 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[path]', $path);
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[addWatermark]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -336,7 +333,6 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[addWatermark]', 0);
 		GalleryUtilities::putRequestVariable('form[removeWatermark]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

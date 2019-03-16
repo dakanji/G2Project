@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Polyfill\Tests\Php73;
-
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -28,7 +26,8 @@ class Php73Test extends TestCase
         $this->assertFalse(is_countable(new \stdClass()));
 
         $endianBytes = unpack('S', "\x01\x00");
-        if (1 === $endianBytes[1]) { // skip on big endian systems: the fixture is only for little endian ones
+        if (1 === $endianBytes[1]) {
+        // skip on big endian systems: the fixture is only for little endian ones
             $this->assertTrue(is_countable(\ResourceBundle::create('en', __DIR__.'/fixtures')));
         }
     }
@@ -59,7 +58,6 @@ class Php73Test extends TestCase
         $hrtime = hrtime(true);
         usleep(100000);
         $hrtime2 = hrtime(true);
-
         if (PHP_INT_SIZE === 4) {
             $this->assertGreaterThanOrEqual(90000000.0, $hrtime2 - $hrtime);
         } else {
@@ -70,6 +68,7 @@ class Php73Test extends TestCase
     public function testHardwareTimeAsArrayType()
     {
         $hrtime = hrtime();
+
         $this->assertInternalType('array', $hrtime);
         $this->assertCount(2, $hrtime);
         $this->assertInternalType('int', $hrtime[0]);
@@ -170,3 +169,4 @@ class Php73Test extends TestCase
         );
     }
 }
+

@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Bundle\Reader;
-
 use Symfony\Component\Intl\Exception\MissingResourceException;
 
 /**
@@ -35,7 +33,9 @@ interface BundleEntryReaderInterface extends BundleReaderInterface
      *
      * Then the value can be read by calling:
      *
+
      *     $reader->readEntry('...', 'en', array('TopLevel', 'NestedLevel', 'Entry'));
+
      *
      * @param string   $path     The path to the resource bundle
      * @param string   $locale   The locale to read
@@ -53,3 +53,4 @@ interface BundleEntryReaderInterface extends BundleReaderInterface
      */
     public function readEntry($path, $locale, array $indices, $fallback = true);
 }
+

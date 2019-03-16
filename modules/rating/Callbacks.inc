@@ -118,3 +118,4 @@ class RatingCallbacks {
 		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
 }
+

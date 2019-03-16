@@ -125,7 +125,10 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num']                = '1';
 		$expectedBody[]                                        = 'test';
-		$expectedBody[]                                        = '';             // newline at the end of the file
+
+		// newline at the end of the file
+		$expectedBody[]                                        = '';
+
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -153,7 +156,10 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num'] = '1';
 		$expectedBody[]                         = 'test';
-		$expectedBody[]                         = '';             // newline at the end of the file
+
+		// newline at the end of the file
+		$expectedBody[]                         = '';
+
 		$this->assertTrue($success, 'fetch failed!');
 		$this->assertEquals('HTTP/1.1 200 OK', $response, 'http response status');
 		$this->assertEquals($expectedHeaders, $headers, 'http response headers');
@@ -175,7 +181,10 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num']                = '1';
 		$expectedBody[]                                        = 'test';
-		$expectedBody[]                                        = '';             // newline at the end of the file
+
+		// newline at the end of the file
+		$expectedBody[]                                        = '';
+
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -200,11 +209,15 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num'] = '1';
 		$expectedBody[]                         = 'test';
-		$expectedBody[]                         = '';             // newline at the end of the file
+
+		// newline at the end of the file
+		$expectedBody[]                         = '';
+
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
 		$this->assertEquals(join("\n", $expectedBody), $body);
+
 		$this->assertEquals(
 			'http://www.test.server/testFetchWebPage?foo=bar&baz=blat&hoho=blah',
 			$actualUrl,
@@ -226,7 +239,10 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num']                = '1';
 		$expectedBody[]                                        = 'test';
-		$expectedBody[]                                        = '';             // newline at the end of the file
+
+		// newline at the end of the file
+		$expectedBody[]                                        = '';
+
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -249,7 +265,10 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num']                = '1';
 		$expectedBody[]                                        = 'test';
-		$expectedBody[]                                        = '';             // newline at the end of the file
+
+		// newline at the end of the file
+		$expectedBody[]                                        = '';
+
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -288,7 +307,10 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num']                = '1';
 		$expectedBody[]                                        = 'test';
-		$expectedBody[]                                        = '';             // newline at the end of the file
+
+		// newline at the end of the file
+		$expectedBody[]                                        = '';
+
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -311,7 +333,10 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Peer']                        = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num']                = '1';
 		$expectedBody[]                                        = 'test';
-		$expectedBody[]                                        = '';             // newline at the end of the file
+
+		// newline at the end of the file
+		$expectedBody[]                                        = '';
+
 		$this->assertTrue($success);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
@@ -341,7 +366,10 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num'] = '1';
 		$expectedBody[]                         = 'post successful';
-		$expectedBody[]                         = '';             // newline at the end of the file
+
+		// newline at the end of the file
+		$expectedBody[]                         = '';
+
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals($expectedHeaders, $headers);
 		$this->assertEquals(join("\n", $expectedBody), $body);
@@ -370,7 +398,10 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num'] = '1';
 		$expectedBody[]                         = 'post successful';
-		$expectedBody[]                         = '';             // newline at the end of the file
+
+		// newline at the end of the file
+		$expectedBody[]                         = '';
+
 		$this->assertTrue($return);
 		$this->assertEquals('HTTP/1.1 200 OK', $response);
 		$this->assertEquals(
@@ -456,7 +487,10 @@ class WebTest extends GalleryTestCase {
 		$expectedHeaders['Client-Peer']         = '209.237.226.157:80';
 		$expectedHeaders['Client-Response-Num'] = '1';
 		$expectedBody[]                         = 'options successful';
-		$expectedBody[]                         = '';             // newline at the end of the file
+
+		// newline at the end of the file
+		$expectedBody[]                         = '';
+
 		$this->assertEquals('HTTP/1.1 200 OK', $status);
 		$this->assertEquals($expectedHeaders, $headers);
 		$this->assertEquals(join("\n", $expectedBody), $body);
@@ -931,3 +965,4 @@ class WebTestPlatform {
 		return str_replace('\\', '/', $path);
 	}
 }
+

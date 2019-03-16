@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Collator;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Intl\Collator\Collator;
 
@@ -27,6 +25,7 @@ abstract class AbstractCollatorTest extends TestCase
     public function testAsort($array, $sortFlag, $expected)
     {
         $collator = $this->getCollator('en');
+
         $collator->asort($array, $sortFlag);
         $this->assertSame($expected, $array);
     }
@@ -34,6 +33,7 @@ abstract class AbstractCollatorTest extends TestCase
     public function asortProvider()
     {
         return array(
+
             /* array, sortFlag, expected */
             array(
                 array('a', 'b', 'c'),
@@ -60,3 +60,4 @@ abstract class AbstractCollatorTest extends TestCase
      */
     abstract protected function getCollator($locale);
 }
+

@@ -338,12 +338,14 @@ class DcrawToolkitTest extends GalleryTestCase {
 	 * toolkit properties don't have priorities.  If/when we resolve that, we can
 	 * enable this test.
 	 *
+
 	function testGetDimensions() {
 	/* Move this registration back into setup when we uncomment this test * /
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 		'GalleryToolkit', 'DcrawTestToolkit', 'DcrawTestToolkit',
 		'modules/dcraw/test/phpunit/DcrawToolkitTest.class', 'dcrawTest', null);
+
 	if ($ret) {
 		return $ret;
 	}
@@ -353,12 +355,14 @@ class DcrawToolkitTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::registerToolkitProperty(
 		'DcrawTestToolkit', array('image/x-portable-pixmap'),
 		'dimensions', 'int,int', 'test-description');
+
 	if ($ret) {
 		return $ret;
 	}
 
 	list ($ret, $results) = $this->_toolkit->getProperty(
 		'image/x-dcraw', 'dimensions', 'INPUTFILE');
+
 	if ($ret) {
 		return ($ret);
 	}

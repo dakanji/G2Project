@@ -147,6 +147,7 @@ if (!defined('ADODB_SESSION')) {
 
 	function adodb_sess_read($key) {
 		$Crypt = new MD5Crypt();
+
 		global $ADODB_SESS_CONN,$ADODB_SESS_INSERT,$ADODB_SESSION_TBL;
 
 		$rs = $ADODB_SESS_CONN->Execute("SELECT data FROM $ADODB_SESSION_TBL WHERE sesskey = '$key' AND expiry >= " . time());
@@ -172,6 +173,7 @@ if (!defined('ADODB_SESSION')) {
 
 	function adodb_sess_write($key, $val) {
 		$Crypt = new MD5Crypt();
+
 		global $ADODB_SESS_INSERT,$ADODB_SESS_CONN, $ADODB_SESS_LIFE, $ADODB_SESSION_TBL,$ADODB_SESSION_EXPIRE_NOTIFY;
 
 		$expiry = time() + $ADODB_SESS_LIFE;
@@ -186,6 +188,7 @@ if (!defined('ADODB_SESSION')) {
 
 		if ($ADODB_SESSION_EXPIRE_NOTIFY) {
 			$var = reset($ADODB_SESSION_EXPIRE_NOTIFY);
+
 			global $$var;
 
 			$arr['expireref'] = $$var;
@@ -346,6 +349,7 @@ if (!defined('ADODB_SESSION')) {
 
 // TEST SCRIPT -- UNCOMMENT
 /*
+
 if (0) {
 	session_start();
 	session_register('AVAR');

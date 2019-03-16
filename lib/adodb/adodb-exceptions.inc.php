@@ -19,6 +19,7 @@ if (!defined('ADODB_ERROR_HANDLER_TYPE')) {
 }
 
 define('ADODB_ERROR_HANDLER', 'adodb_throw');
+
 class ADODB_Exception extends Exception {
 	public $dbms;
 	public $fn;
@@ -81,7 +82,8 @@ function adodb_throw($dbms, $fn, $errno, $errmsg, $p1, $p2, $thisConnection) {
 	global $ADODB_EXCEPTION;
 
 	if (error_reporting() == 0) {
-		return; // obey @ protocol
+		// obey @ protocol
+		return;
 	}
 
 	if (is_string($ADODB_EXCEPTION)) {

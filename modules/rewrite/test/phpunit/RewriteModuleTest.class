@@ -419,11 +419,11 @@ class RewriteModuleMockModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('rewritemodulemock');
-
 		$this->setName('RewriteModule Mock Module');
-
 		$this->setDescription('Unit test module');
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('7.0.0');
 		$this->setGroup('data', 'Gallery');
 		$this->setCallbacks('');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());

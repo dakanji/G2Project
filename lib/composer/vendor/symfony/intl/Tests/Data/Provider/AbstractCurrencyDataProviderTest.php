@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Data\Provider;
-
 use Symfony\Component\Intl\Data\Provider\CurrencyDataProvider;
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\Intl\Locale;
@@ -21,7 +19,6 @@ use Symfony\Component\Intl\Locale;
 abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
 {
     // The below arrays document the state of the ICU data bundled with this package.
-
     protected static $currencies = array(
         'ADP',
         'AED',
@@ -590,11 +587,9 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
      * @var CurrencyDataProvider
      */
     protected $dataProvider;
-
     protected function setUp()
     {
         parent::setUp();
-
         $this->dataProvider = new CurrencyDataProvider(
             $this->getDataDirectory().'/'.Intl::CURRENCY_DIR,
             $this->createEntryReader()
@@ -602,7 +597,6 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
     }
 
     abstract protected function getDataDirectory();
-
     public function testGetCurrencies()
     {
         $this->assertSame(static::$currencies, $this->dataProvider->getCurrencies());
@@ -614,9 +608,7 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
     public function testGetNames($displayLocale)
     {
         $names = $this->dataProvider->getNames($displayLocale);
-
         $keys = array_keys($names);
-
         sort($keys);
 
         $this->assertEquals(static::$currencies, $keys);
@@ -624,15 +616,14 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
         // Names should be sorted
         $sortedNames = $names;
         $collator = new \Collator($displayLocale);
-        $collator->asort($names);
 
+        $collator->asort($names);
         $this->assertEquals($sortedNames, $names);
     }
 
     public function testGetNamesDefaultLocale()
     {
         Locale::setDefault('de_AT');
-
         $this->assertSame(
             $this->dataProvider->getNames('de_AT'),
             $this->dataProvider->getNames()
@@ -660,7 +651,6 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
     {
         $expected = $this->dataProvider->getNames($displayLocale);
         $actual = array();
-
         foreach ($expected as $currency => $name) {
             $actual[$currency] = $this->dataProvider->getName($currency, $displayLocale);
         }
@@ -671,10 +661,8 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
     public function testGetNameDefaultLocale()
     {
         Locale::setDefault('de_AT');
-
         $expected = $this->dataProvider->getNames('de_AT');
         $actual = array();
-
         foreach ($expected as $currency => $name) {
             $actual[$currency] = $this->dataProvider->getName($currency);
         }
@@ -688,7 +676,6 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
     public function testGetSymbol($displayLocale)
     {
         $currencies = $this->dataProvider->getCurrencies();
-
         foreach ($currencies as $currency) {
             $this->assertGreaterThan(0, mb_strlen($this->dataProvider->getSymbol($currency, $displayLocale)));
         }
@@ -754,7 +741,6 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
     public function provideValidNumericCodes()
     {
         $numericToAlpha3 = $this->getNumericToAlpha3Mapping();
-
         return array_map(
             function ($numeric, $alpha3) { return array($numeric, $alpha3); },
             array_keys($numericToAlpha3),
@@ -780,7 +766,6 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
     {
         $validNumericCodes = array_keys($this->getNumericToAlpha3Mapping());
         $invalidNumericCodes = array_diff(range(0, 1000), $validNumericCodes);
-
         return array_map(
             function ($value) { return array($value); },
             $invalidNumericCodes
@@ -799,7 +784,6 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
     private function getNumericToAlpha3Mapping()
     {
         $numericToAlpha3 = array();
-
         foreach (static::$alpha3ToNumeric as $alpha3 => $numeric) {
             if (!isset($numericToAlpha3[$numeric])) {
                 $numericToAlpha3[$numeric] = array();
@@ -811,3 +795,4 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
         return $numericToAlpha3;
     }
 }
+

@@ -305,7 +305,6 @@ class AlbumTest extends GalleryTestCase {
 				$this->_parentAlbum->getId(),
 				$album[0]->getId(),
 				$album[1]->getId(),
-
 			),
 			$parentSequence[2],
 			'(before) sequence 2'
@@ -415,7 +414,6 @@ class AlbumTest extends GalleryTestCase {
 				$this->_getRootId(),
 				$this->_parentAlbum->getId(),
 				$album[1]->getId(),
-
 			),
 			$parentSequence[2],
 			'(after) sequence 2'
@@ -974,6 +972,7 @@ class AlbumTest extends GalleryTestCase {
 		$this->assertEquals('AlbumTestTheme', $child1->getTheme());
 		$this->assertEquals('b', $child1->getOrderBy());
 		$this->assertEquals('c', $child1->getOrderDirection());
+
 		$this->assertEquals(
 			array(
 				'testParam' => 'testValue',
@@ -1034,6 +1033,7 @@ class AlbumTest extends GalleryTestCase {
 		$this->assertEquals('', $child2->getTheme());
 		$this->assertEquals('d', $child2->getOrderBy());
 		$this->assertEquals('e', $child2->getOrderDirection());
+
 		$this->assertEquals(
 			array(
 				'testParam' => 'testValue2',
@@ -1218,9 +1218,13 @@ class AlbumTest extends GalleryTestCase {
 			GalleryUtilities::arrayKeysRecursive($tree),
 			'depth one'
 		);
+
 		// Test multiroot
-		$gallery->setConfig('defaultAlbumId', $album[0]->getId()); // Used when no itemId given
-		$gallery->setConfig('breadcrumbRootId', $album[2]->getId()); // Should have no effect
+		// Used when no itemId given
+		$gallery->setConfig('defaultAlbumId', $album[0]->getId());
+
+		// Should have no effect
+		$gallery->setConfig('breadcrumbRootId', $album[2]->getId());
 
 		list($ret, $tree) = GalleryCoreApi::fetchAlbumTree();
 
@@ -1540,7 +1544,9 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('title&lt;script&gt;evil', $album->getTitle());
+
 		$this->assertEquals('summary&lt;script&gt;evil', $album->getSummary());
+
 		$this->assertEquals('description&lt;script&gt;evil', $album->getDescription());
 	}
 

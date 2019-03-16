@@ -37,7 +37,9 @@ class KeyAlbumModule extends GalleryModule {
 				'Dynamic albums based on keyword search'
 			)
 		);
-		$this->setVersion('2.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -214,7 +216,6 @@ class KeyAlbumModule extends GalleryModule {
 	 */
 	public function splitKeywords($keywords, $split) {
 		$result = array();
-
 		GalleryUtilities::unsanitizeInputValues($keywords, false);
 
 		foreach (preg_split('/[' . $split . ']+/u', $keywords) as $keyword) {
@@ -222,7 +223,6 @@ class KeyAlbumModule extends GalleryModule {
 
 			if (!empty($keyword)) {
 				GalleryUtilities::sanitizeInputValues($keyword, false);
-
 				$result[$rawKeyword] = $keyword;
 			}
 		}

@@ -69,7 +69,6 @@ if (empty($config)) {
 
 	if (empty($options['key'])) {
 		$options['key'] = GallerySetupUtilities::generateAuthenticationKey();
-
 		GallerySetupUtilities::setAuthenticationKey($options['key']);
 	}
 
@@ -145,6 +144,7 @@ function startForm($action = '', $name = null) {
 
 function render($renderType, $options = array()) {
 	global $baseUrl; ?>
+
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
@@ -164,6 +164,7 @@ function render($renderType, $options = array()) {
 				Authentication Required
 			</h2>
 			<?php
+
 			if ($renderType == 'missingConfig') {
 				?>
 				<div class="alert alert-danger">
@@ -209,6 +210,7 @@ function render($renderType, $options = array()) {
 					</p>
 			</div>
 				<?php
+
 				if (isset($options['missingPassword'])) {
 					?>
 					<div class="alert alert-warning">
@@ -220,12 +222,14 @@ function render($renderType, $options = array()) {
 						<?php
 	} ?>
 		<?php
+
 		if ($renderType == 'loginTxtForm') {
 			?>
 			<?php startForm(); ?>
 			<p class="alert alert-danger">
 				<b>
 					<?php
+
 					if (!empty($options['error'])) {
 						?>
 						There was a problem connecting to the database.
@@ -250,10 +254,12 @@ function render($renderType, $options = array()) {
 				Please upload this to your Gallery2 installation.
 			</div>
 			<?php
+
 			if (!empty($options['authFileErrors'])) {
 				?>
 				<div class="alert alert-danger">
 					<?php
+
 					if (!empty($options['authFileErrors']['missing'])) {
 						?>
 						The authFile.txt file does not exist.
@@ -273,6 +279,7 @@ function render($renderType, $options = array()) {
 			} ?>
 			<p>
 			<?php
+
 			if (!empty($options['error'])) {
 				// DA-Note
 				// TODO: Why is there a redundant if block?

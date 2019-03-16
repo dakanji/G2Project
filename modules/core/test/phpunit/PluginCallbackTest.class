@@ -108,7 +108,6 @@ class PluginCallbackTest extends GalleryTestCase {
 			$this->_testPlugin->wasCalled('installOrUpgrade'),
 			'installOrUpgrade not called'
 		);
-
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('autoConfigure'),
 			'autoConfigure not called'
@@ -165,7 +164,6 @@ class PluginCallbackTest extends GalleryTestCase {
 			$this->_testPlugin->wasCalled('installOrUpgrade'),
 			'installOrUpgrade not called'
 		);
-
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('autoConfigure'),
 			'autoConfigure not called'
@@ -179,6 +177,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('isActive', array(null, false));
 		$this->_testPlugin->setResult('installOrUpgrade', null);
 		$this->_testPlugin->setResult('autoConfigure', array(null, true));
+
 		/*
 		 * Module author forgot to override autoConfigure. Be robust and still show the configure
 		 * link instead of an error page.
@@ -200,12 +199,10 @@ class PluginCallbackTest extends GalleryTestCase {
 			$this->_testPlugin->wasCalled('installOrUpgrade'),
 			'installOrUpgrade not called'
 		);
-
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('autoConfigure'),
 			'autoConfigure not called'
 		);
-
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('activate'),
 			'activate not called'
@@ -233,7 +230,6 @@ class PluginCallbackTest extends GalleryTestCase {
 			$this->_testPlugin->wasCalled('installOrUpgrade'),
 			'installOrUpgrade not called'
 		);
-
 		$this->assertTrue(
 			$this->_testPlugin->wasCalled('autoConfigure'),
 			'autoConfigure not called'
@@ -322,6 +318,7 @@ class PluginCallbackTest extends GalleryTestCase {
 
 		$this->_testPlugin->setResult('isActive', array(null, false));
 		$this->_testPlugin->setResult('needsConfiguration', array(null, false));
+
 		$this->_testPlugin->setResult(
 			'activate',
 			array(
@@ -354,6 +351,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('pluginId', 'PluginCallbackControllerTest');
 
 		$this->_testPlugin->setResult('isActive', array(null, false));
+
 		$this->_testPlugin->setResult(
 			'activate',
 			array(
@@ -614,6 +612,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(0, $entries->resultCount());
+
 		$this->assertEquals(
 			array(
 				'status' => 'success',
@@ -628,7 +627,6 @@ class PluginCallbackTest extends GalleryTestCase {
 	public function testDeleteModuleFailsToRmdir() {
 		GalleryUtilities::putRequestVariable('pluginType', 'module');
 		GalleryUtilities::putRequestVariable('pluginId', 'PluginCallbackControllerTest');
-
 		$this->_platform->setReply(
 			'recursiveRmdir',
 			array(GalleryCoreApi::getCodeBasePath('modules/PluginCallbackControllerTest')),
@@ -661,7 +659,6 @@ class PluginCallbackTest extends GalleryTestCase {
 	// Core module is always active
 	public function testGetPluginStateCore() {
 		$this->_testPlugin->setResult('getId', 'core');
-
 		$this->assertEquals('active', $this->_getPluginState('module', array()));
 	}
 
@@ -678,6 +675,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
+
 		$this->assertEquals(
 			'active',
 			$this->_getPluginState(
@@ -702,6 +700,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
+
 		$this->assertEquals(
 			'incompatible',
 			$this->_getPluginState(
@@ -726,6 +725,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getRequiredModuleApi',
 			array(0, 0)
 		);
+
 		$this->assertEquals(
 			'incompatible',
 			$this->_getPluginState(
@@ -754,6 +754,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
+
 		$this->assertEquals(
 			'uninstalled',
 			$this->_getPluginState(
@@ -783,6 +784,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
+
 		$this->assertEquals(
 			'unupgraded',
 			$this->_getPluginState(
@@ -800,7 +802,6 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getId',
 			'anything'
 		);
-
 		$this->_testPlugin->setResult(
 			'getVersion',
 			'1.0'
@@ -817,6 +818,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
+
 		$this->assertEquals(
 			'unconfigured',
 			$this->_getPluginState(
@@ -834,7 +836,6 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getId',
 			'anything'
 		);
-
 		$this->_testPlugin->setResult(
 			'getVersion',
 			'1.0'
@@ -851,6 +852,7 @@ class PluginCallbackTest extends GalleryTestCase {
 			'getRequiredModuleApi',
 			GalleryModule::getMe()->getApiVersion()
 		);
+
 		$this->assertEquals(
 			'inactive',
 			$this->_getPluginState(
@@ -991,7 +993,6 @@ class PluginCallbackTest extends GalleryTestCase {
 		global $gallery;
 
 		GalleryUtilities::putRequestVariable('command', 'test');
-
 		$saveStorage       = $gallery->_storage;
 		$gallery->_storage = new PluginCallbackMockStorage();
 		$mockStorage       =& $gallery->_storage;
@@ -1030,7 +1031,6 @@ class PluginCallbackTest extends GalleryTestCase {
 		global $gallery;
 
 		GalleryUtilities::putRequestVariable('command', 'test');
-
 		$saveStorage       = $gallery->_storage;
 		$gallery->_storage = new PluginCallbackMockStorage();
 		$mockStorage       =& $gallery->_storage;
@@ -1061,7 +1061,6 @@ class PluginCallbackTest extends GalleryTestCase {
 		global $gallery;
 
 		GalleryUtilities::putRequestVariable('command', 'test');
-
 		$saveStorage       = $gallery->_storage;
 		$gallery->_storage = new PluginCallbackMockStorage();
 		$mockStorage       =& $gallery->_storage;

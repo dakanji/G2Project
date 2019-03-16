@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Util;
-
 use Symfony\Component\Intl\Exception\OutOfBoundsException;
 
 /**
@@ -27,13 +25,9 @@ use Symfony\Component\Intl\Exception\OutOfBoundsException;
 class RingBuffer implements \ArrayAccess
 {
     private $values = array();
-
     private $indices = array();
-
     private $cursor = 0;
-
     private $size;
-
     public function __construct($size)
     {
         $this->size = $size;
@@ -70,7 +64,6 @@ class RingBuffer implements \ArrayAccess
 
         $this->values[$this->cursor] = $value;
         $this->indices[$key] = $this->cursor;
-
         $this->cursor = ($this->cursor + 1) % $this->size;
     }
 
@@ -81,7 +74,9 @@ class RingBuffer implements \ArrayAccess
     {
         if (isset($this->indices[$key])) {
             $this->values[$this->indices[$key]] = null;
+
             unset($this->indices[$key]);
         }
     }
 }
+

@@ -1349,6 +1349,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		$saveSessionPerms = $session->get(GALLERY_PERMISSION_SESSION_KEY);
 
 		$session->put(GALLERY_PERMISSION_SESSION_KEY, array());
+
 		GalleryUtilities::putRequestVariable('view', 'core.ShowItem');
 		GalleryUtilities::putRequestVariable('itemId', $this->_topItems[1]->getId());
 
@@ -1361,6 +1362,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 
 		$this->assertEquals(array(), $session->get(GALLERY_PERMISSION_SESSION_KEY), 'admin');
 		$this->_becomeGuestUser();
+
 		GalleryDataCache::reset();
 
 		$session->put(GALLERY_PERMISSION_SESSION_KEY, array());

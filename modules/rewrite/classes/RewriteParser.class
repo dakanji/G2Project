@@ -202,7 +202,6 @@ class RewriteParser {
 				return array(
 					null,
 					$rewriteModule->translate('Empty configuration value.'),
-
 				);
 		}
 
@@ -303,3 +302,4 @@ class RewriteParser {
 		return $this->_type;
 	}
 }
+

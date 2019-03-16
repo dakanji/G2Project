@@ -27,9 +27,13 @@ if (!defined('_ADODB_ADO_LAYER')) {
 
 class ADODB_ado_access extends ADODB_ado {
 	public $databaseType = 'ado_access';
-	public $hasTop       = 'top';        // support mssql SELECT TOP 10 * FROM TABLE
-	public $fmtDate      = '#Y-m-d#';
-	public $fmtTimeStamp = '#Y-m-d h:i:sA#';// note no comma
+
+	// support mssql SELECT TOP 10 * FROM TABLE
+	public $hasTop  = 'top';
+	public $fmtDate = '#Y-m-d#';
+
+	// note no comma
+	public $fmtTimeStamp = '#Y-m-d h:i:sA#';
 	public $sysDate      = "FORMAT(NOW,'yyyy-mm-dd')";
 	public $sysTimeStamp = 'NOW';
 	public $upperCase    = 'ucase';

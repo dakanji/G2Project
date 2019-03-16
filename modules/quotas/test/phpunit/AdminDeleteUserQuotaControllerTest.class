@@ -72,9 +72,9 @@ class AdminDeleteUserQuotaControllerTest extends GalleryControllerTestCase {
 	 */
 	public function testDeleteUserQuota() {
 		$this->_createUserQuota($this->_user->getId(), 2048);
+
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -103,7 +103,6 @@ class AdminDeleteUserQuotaControllerTest extends GalleryControllerTestCase {
 
 	public function testDeleteUserQuotaUserIdMissing() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
-
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
 
@@ -113,7 +112,6 @@ class AdminDeleteUserQuotaControllerTest extends GalleryControllerTestCase {
 	public function testDeleteNonExistantUserQuota() {
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -155,3 +153,4 @@ class AdminDeleteUserQuotaControllerTest extends GalleryControllerTestCase {
 		}
 	}
 }
+

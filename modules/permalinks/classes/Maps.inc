@@ -13,3 +13,4 @@ $mapInfo['PermalinksMap'] = array(
 		'notNull' => true,
 	),
 );
+

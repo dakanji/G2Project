@@ -622,8 +622,10 @@ class ExifDescriptionOptionTestToolkit extends GalleryToolkit {
 
 		$platform->fwrite($fd, $operationName);
 		$platform->fclose($fd);
+
 		// Clear cache to ensure new filesize will be seen
 		$platform->clearstatcache();
+
 		// Turn On the Flag
 		$gallery->setConfig('rotated', 1);
 

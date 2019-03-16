@@ -77,7 +77,8 @@ class ThumbnailSiteAdminController extends GalleryController {
 			} else {
 				$status = 'add';
 			}
-		} elseif (isset($form['action']['add'])) { // $form['image']=='old'
+		} elseif (isset($form['action']['add'])) {
+			// $form['image']=='old'
 			$ret = ThumbnailHelper::updateItem($form['oldimage'], $form['mimeType'], true);
 
 			if ($ret) {

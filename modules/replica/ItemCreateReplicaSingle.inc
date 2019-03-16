@@ -214,7 +214,6 @@ class ItemCreateReplicaSingleView extends GalleryView {
 		$ItemCreateReplicaSingle['itemTypeNames'] = $item->itemTypeName();
 
 		$template->setVariable('ItemCreateReplicaSingle', $ItemCreateReplicaSingle);
-
 		$template->setVariable('controller', 'replica.ItemCreateReplicaSingle');
 		$template->javascript('lib/yui/yahoo-dom-event.js');
 		$template->javascript('lib/yui/container-min.js');

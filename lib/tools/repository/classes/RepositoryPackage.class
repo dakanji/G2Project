@@ -153,6 +153,7 @@ class RepositoryPackage extends RepositoryObject {
 
 		$this->_template->setVariable('directories', $packageDirectories);
 		$this->_template->setVariable('files', $packageFiles);
+
 		// Set file name and write it to disk.
 		$this->setOutputFile($this->getPackageFileName($packageType));
 
@@ -215,7 +216,6 @@ class RepositoryPackage extends RepositoryObject {
 
 		$phpVm = $gallery->getPhpVm();
 		$key   = $this->getPackageFileName($packageType) .
-
 		  GalleryUtilities::getRequestVariables('repositoryName');
 
 		return substr($phpVm->md5($key), 0, $length);

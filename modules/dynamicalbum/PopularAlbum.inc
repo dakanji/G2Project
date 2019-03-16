@@ -66,3 +66,4 @@ class PopularAlbumView extends UpdatesAlbumView {
 		);
 	}
 }
+

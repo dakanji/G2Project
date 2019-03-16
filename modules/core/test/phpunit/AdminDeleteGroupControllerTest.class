@@ -33,7 +33,6 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -78,7 +77,6 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('groupId', $groupId);
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -102,6 +100,7 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 			// This is correct -- we expect it to be gone
 		} else {
 			$this->assertFalse(true, 'The group was deleted');
+
 			// Clean up
 			$this->_deleteGroup($group);
 		}
@@ -130,7 +129,6 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('groupId', $groupId);
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
-
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 
 		$this->assertEquals(null, $results);
@@ -146,7 +144,6 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('groupId', $groupId);
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
-
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 
 		$this->assertEquals(null, $results);
@@ -162,7 +159,6 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('groupId', $groupId);
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
-
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 
 		$this->assertEquals(null, $results);
@@ -205,3 +201,4 @@ class AdminDeleteGroupControllerTest extends GalleryControllerTestCase {
 		}
 	}
 }
+

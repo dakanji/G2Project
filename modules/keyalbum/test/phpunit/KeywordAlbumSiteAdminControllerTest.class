@@ -95,12 +95,10 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[split][comma]', '1');
 		GalleryUtilities::putRequestVariable('form[split][space]', '1');
 		GalleryUtilities::putRequestVariable('form[orderBy]', 'originationTimestamp');
-
 		GalleryUtilities::putRequestVariable('form[orderDirection]', ORDER_DESCENDING);
 		GalleryUtilities::putRequestVariable('form[presort]', 'albumsFirst');
 		GalleryUtilities::putRequestVariable('form[description]', 'test desc');
 		GalleryUtilities::putRequestVariable('form[themeId]', $this->_defaultThemeId);
-
 		GalleryUtilities::putRequestVariable('form[currentThemeId]', 'keyalbumTest');
 		GalleryUtilities::putRequestVariable('form[key][perPage]', '5');
 
@@ -177,12 +175,10 @@ class KeywordAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[orderBy]', 'title');
 		GalleryUtilities::putRequestVariable('form[orderDirection]', ORDER_ASCENDING);
 		GalleryUtilities::putRequestVariable('form[presort]', '');
-
 		GalleryUtilities::putRequestVariable('form[description]', 'test desc');
 		GalleryUtilities::putRequestVariable('form[themeId]', 'keyalbumTest');
 		GalleryUtilities::putRequestVariable('form[currentThemeId]', 'keyalbumTest');
 		GalleryUtilities::putRequestVariable('form[key][perPage]', '5');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -206,6 +202,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
 class KeyAlbumTestTheme extends GalleryTheme {
 	public function __construct() {
 		$this->setId('keyalbumTest');
+
 		$this->setStandardSettings(
 			array(
 				'perPage' => 9,
@@ -213,3 +210,4 @@ class KeyAlbumTestTheme extends GalleryTheme {
 		);
 	}
 }
+

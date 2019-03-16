@@ -15,9 +15,9 @@
 	 *       - null values
 	 */
 
-	/**
-	 * Include the main libraries
-	 */
+/**
+ * Include the main libraries
+ */
 	require_once 'xmlrpc.inc';
 
 if (!defined('ADODB_DIR')) {

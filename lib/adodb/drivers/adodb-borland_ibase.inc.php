@@ -81,8 +81,10 @@ class ADODB_borland_ibase extends ADODB_ibase {
 			}
 		} else {
 			// ok, skip
-			$a   = $offset + 1;
-			$str = " ROWS $a TO 999999999"; // 999 million
+			$a = $offset + 1;
+
+			// 999 million
+			$str = " ROWS $a TO 999999999";
 		}
 
 		$sql .= $str;

@@ -20,7 +20,6 @@
 */
 
 //================================================================================================
-
 //================================================================================================
 //================================================================================================
 //=================
@@ -238,15 +237,18 @@ function formatNikonData($type, $tag, $intel, $model, $data) {
 			$data = $top . '/' . $bottom;
 		}
 
-		if ($tag == '0085' && $model == 1) { //ManualFocusDistance
+		if ($tag == '0085' && $model == 1) {
+			//ManualFocusDistance
 			$data = $data . ' m';
 		}
 
-		if ($tag == '0086' && $model == 1) { //DigitalZoom
+		if ($tag == '0086' && $model == 1) {
+			//DigitalZoom
 			$data = $data . 'x';
 		}
 
-		if ($tag == '000a' && $model == 0) { //DigitalZoom
+		if ($tag == '000a' && $model == 0) {
+			//DigitalZoom
 			$data = $data . 'x';
 		}
 	} elseif ($type == 'USHORT' || $type == 'SSHORT' || $type == 'ULONG' || $type == 'SLONG' || $type == 'FLOAT' || $type == 'DOUBLE') {
@@ -258,7 +260,8 @@ function formatNikonData($type, $tag, $intel, $model, $data) {
 
 		$data = hexdec($data);
 
-		if ($tag == '0003' && $model == 0) { //Quality
+		if ($tag == '0003' && $model == 0) {
+			//Quality
 			if ($data == 1) {
 				$data = 'VGA Basic';
 			} elseif ($data == 2) {
@@ -276,7 +279,8 @@ function formatNikonData($type, $tag, $intel, $model, $data) {
 			}
 		}
 
-		if ($tag == '0004' && $model == 0) { //Color
+		if ($tag == '0004' && $model == 0) {
+			//Color
 			if ($data == 1) {
 				$data = 'Color';
 			} elseif ($data == 2) {
@@ -286,7 +290,8 @@ function formatNikonData($type, $tag, $intel, $model, $data) {
 			}
 		}
 
-		if ($tag == '0005' && $model == 0) { //Image Adjustment
+		if ($tag == '0005' && $model == 0) {
+			//Image Adjustment
 			if ($data == 0) {
 				$data = 'Normal';
 			} elseif ($data == 1) {
@@ -302,7 +307,8 @@ function formatNikonData($type, $tag, $intel, $model, $data) {
 			}
 		}
 
-		if ($tag == '0006' && $model == 0) { //CCD Sensitivity
+		if ($tag == '0006' && $model == 0) {
+			//CCD Sensitivity
 			if ($data == 0) {
 				$data = 'ISO-80';
 			} elseif ($data == 2) {
@@ -316,7 +322,8 @@ function formatNikonData($type, $tag, $intel, $model, $data) {
 			}
 		}
 
-		if ($tag == '0007' && $model == 0) { //White Balance
+		if ($tag == '0007' && $model == 0) {
+			//White Balance
 			if ($data == 0) {
 				$data = 'Auto';
 			} elseif ($data == 1) {
@@ -336,7 +343,8 @@ function formatNikonData($type, $tag, $intel, $model, $data) {
 			}
 		}
 
-		if ($tag == '000b' && $model == 0) { //Converter
+		if ($tag == '000b' && $model == 0) {
+			//Converter
 			if ($data == 0) {
 				$data = 'None';
 			} elseif ($data == 1) {
@@ -346,11 +354,13 @@ function formatNikonData($type, $tag, $intel, $model, $data) {
 			}
 		}
 	} elseif ($type == 'UNDEFINED') {
-		if ($tag == '0001' && $model == 1) { //Unknown (Version?)
+		if ($tag == '0001' && $model == 1) {
+			//Unknown (Version?)
 			$data = $data / 100;
 		}
 
-		if ($tag == '0088' && $model == 1) { //AF Focus Position
+		if ($tag == '0088' && $model == 1) {
+			//AF Focus Position
 			$temp = 'Center';
 			$data = bin2hex($data);
 			$data = str_replace('01', 'Top', $data);
@@ -370,7 +380,8 @@ function formatNikonData($type, $tag, $intel, $model, $data) {
 			$data = intel2Moto($data);
 		}
 
-		if ($tag == '0083' && $model == 1) { //Lens Type
+		if ($tag == '0083' && $model == 1) {
+			//Lens Type
 			$data = hexdec(substr($data, 0, 2));
 
 			if ($data == 0) {
@@ -388,7 +399,8 @@ function formatNikonData($type, $tag, $intel, $model, $data) {
 			}
 		}
 
-		if ($tag == '0087' && $model == 1) { //Flash type
+		if ($tag == '0087' && $model == 1) {
+			//Flash type
 			$data = hexdec(substr($data, 0, 2));
 
 			if ($data == 0) {
@@ -422,7 +434,8 @@ function parseNikon($block, &$result) {
 
 	//these 6 models start with "Nikon".  Other models dont.
 	if ($model == "E700\0" || $model == "E800\0" || $model == "E900\0" || $model == "E900S\0" || $model == "E910\0" || $model == "E950\0") {
-		$place = 8; //current place
+		//current place
+		$place = 8;
 		$model = 0;
 
 		//Get number of tags (2 bytes)
@@ -501,7 +514,8 @@ function parseNikon($block, &$result) {
 			}
 		}
 	} else {
-		$place  = 0;//current place
+		//current place
+		$place  = 0;
 		$model  = 1;
 		$nikon  = substr($block, $place, 8);
 		$place += 8;

@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Polyfill\Util;
 
 /**
@@ -17,33 +16,35 @@ namespace Symfony\Polyfill\Util;
 class TestListenerTrait
 {
     public static $enabledPolyfills;
-
     public function startTestSuite($mainSuite)
     {
         if (null !== self::$enabledPolyfills) {
             return;
         }
+
         self::$enabledPolyfills = false;
         $SkippedTestError = class_exists('PHPUnit\Framework\SkippedTestError') ? 'PHPUnit\Framework\SkippedTestError' : 'PHPUnit_Framework_SkippedTestError';
         $TestListener = class_exists('Symfony\Polyfill\Util\TestListener', false) ? 'Symfony\Polyfill\Util\TestListener' : 'Symfony\Polyfill\Util\LegacyTestListener';
-
         foreach ($mainSuite->tests() as $suite) {
             $testClass = $suite->getName();
             if (!$tests = $suite->tests()) {
                 continue;
             }
+
             if (!preg_match('/^(.+)\\\\Tests(\\\\.*)Test$/', $testClass, $m)) {
                 $mainSuite->addTest($TestListener::warning('Unknown naming convention for '.$testClass));
+
                 continue;
             }
+
             if (!class_exists($m[1].$m[2])) {
                 continue;
             }
+
             $testedClass = new \ReflectionClass($m[1].$m[2]);
             $bootstrap = new \SplFileObject(\dirname($testedClass->getFileName()).'/bootstrap.php');
             $warnings = array();
             $defLine = null;
-
             foreach (new \RegexIterator($bootstrap, '/define\(\'/') as $defLine) {
                 preg_match('/define\(\'(?P<name>.+)\'/', $defLine, $matches);
                 if (\defined($matches['name'])) {
@@ -66,6 +67,7 @@ class TestListenerTrait
                     $warnings[] = $TestListener::warning('Invalid line in bootstrap.php: '.trim($defLine));
                     continue;
                 }
+
                 $testNamespace = substr($testClass, 0, strrpos($testClass, '\\'));
                 if (\function_exists($testNamespace.'\\'.$f['name'])) {
                     continue;
@@ -76,6 +78,7 @@ class TestListenerTrait
                     if ($r->isUserDefined()) {
                         throw new \ReflectionException();
                     }
+
                     if ('idn_to_ascii' === $f['name'] || 'idn_to_utf8' === $f['name']) {
                         $defLine = sprintf('return INTL_IDNA_VARIANT_2003 === $variant ? \\%s($domain, $options, $variant) : \\%1$s%s', $f['name'], $f['args']);
                     } elseif (false !== strpos($f['signature'], '&') && 'idn_to_ascii' !== $f['name'] && 'idn_to_utf8' !== $f['name']) {
@@ -89,8 +92,8 @@ class TestListenerTrait
 
                 eval(<<<EOPHP
 namespace {$testNamespace};
-
 use Symfony\Polyfill\Util\TestListenerTrait;
+
 use {$testedClass->getNamespaceName()} as p;
 
 function {$f['name']}{$f['signature']}
@@ -101,15 +104,18 @@ function {$f['name']}{$f['signature']}
 
     {$defLine};
 }
+
 EOPHP
                 );
             }
+
             if (!$warnings && null === $defLine) {
                 $warnings[] = new $SkippedTestError('No Polyfills found in bootstrap.php for '.$testClass);
             } else {
                 $mainSuite->addTest(new $TestListener($suite));
             }
         }
+
         foreach ($warnings as $w) {
             $mainSuite->addTest($w);
         }
@@ -119,8 +125,10 @@ EOPHP
     {
         if (false !== self::$enabledPolyfills) {
             $r = new \ReflectionProperty('Exception', 'message');
+
             $r->setAccessible(true);
             $r->setValue($e, 'Polyfills enabled, '.$r->getValue($e));
         }
     }
 }
+

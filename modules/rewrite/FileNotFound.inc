@@ -64,3 +64,4 @@ class FileNotFoundView extends GalleryView {
 		);
 	}
 }
+

@@ -85,7 +85,6 @@ class PasswordEntryController extends GalleryController {
 			}
 
 			GalleryUtilities::unsanitizeInputValues($form['password'], false);
-
 			$isCorrect = $canSee && $hashedPassword
 																					   && GalleryUtilities::isCorrectPassword($form['password'], $hashedPassword);
 
@@ -144,7 +143,6 @@ class PasswordEntryController extends GalleryController {
 
 			if (empty($error) && $isCorrect) {
 				GalleryCoreApi::addPermissionToSession($itemId);
-
 				$results['redirect']['view']   = 'core.ShowItem';
 				$results['redirect']['itemId'] = $itemId;
 			} elseif (empty($error)) {

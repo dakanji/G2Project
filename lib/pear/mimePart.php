@@ -329,9 +329,11 @@ class Mail_mimePart {
 				$char = substr($line, $i, 1);
 				$dec  = ord($char);
 
-				if (($dec == 32) and ($i == ($linlen - 1))) {    // convert space at eol only
+				if (($dec == 32) and ($i == ($linlen - 1))) {
+					// convert space at eol only
 					$char = '=20';
-				} elseif (($dec == 9) and ($i == ($linlen - 1))) {  // convert tab at eol only
+				} elseif (($dec == 9) and ($i == ($linlen - 1))) {
+					// convert tab at eol only
 					$char = '=09';
 				} elseif ($dec == 9) {
 					// Do nothing if a tab.
@@ -339,8 +341,10 @@ class Mail_mimePart {
 					$char = $escape . strtoupper(sprintf('%02s', dechex($dec)));
 				}
 
-				if ((strlen($newline) + strlen($char)) >= $line_max) {        // MAIL_MIMEPART_CRLF is not counted
-					$output .= $newline . $escape . $eol;                    // soft line break; " =\r\n" is okay
+				if ((strlen($newline) + strlen($char)) >= $line_max) {
+					// MAIL_MIMEPART_CRLF is not counted
+					// soft line break; " =\r\n" is okay
+					$output .= $newline . $escape . $eol;
 					$newline = '';
 				}
 
@@ -349,7 +353,9 @@ class Mail_mimePart {
 			$output .= $newline . $eol;
 		}
 
-		$output = substr($output, 0, -1 * strlen($eol)); // Don't want last crlf
+		// Don't want last crlf
+		$output = substr($output, 0, -1 * strlen($eol));
+
 		return $output;
 	}
 } // End of class

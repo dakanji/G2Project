@@ -125,3 +125,4 @@ class PasswordOption extends ItemEditOption {
 		);
 	}
 }
+

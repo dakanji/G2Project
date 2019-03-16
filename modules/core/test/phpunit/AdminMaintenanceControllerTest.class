@@ -112,7 +112,6 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 	public function testRunTaskSuccess() {
 		GalleryUtilities::putRequestVariable('form[action][runTask]', 1);
 		GalleryUtilities::putRequestVariable('taskId', 'AdminMaintenanceControllerTestTaskSuccess');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -138,7 +137,9 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue($info['runId'] > 0);
-		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
+
+		// assert that it's recent
+		$this->assertTrue($info['timestamp'] > time() - 2);
 		$this->assertTrue($info['success']);
 		$this->assertEquals(array('success details'), $info['details']);
 	}
@@ -202,7 +203,9 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue($info['runId'] > 0);
-		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
+
+		// assert that it's recent
+		$this->assertTrue($info['timestamp'] > time() - 2);
 		$this->assertTrue($info['success']);
 		$this->assertEquals(array('success details'), $info['details']);
 	}
@@ -216,7 +219,6 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 			'AdminMaintenanceControllerTestTaskProgressBar'
 		);
 		GalleryUtilities::putRequestVariable('forceTaskToFail', 1);
-
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$mockUrlGenerator          = new AdminMaintenanceControllerTestUrlGenerator();
@@ -269,7 +271,9 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue($info['runId'] > 0);
-		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
+
+		// assert that it's recent
+		$this->assertTrue($info['timestamp'] > time() - 2);
 		$this->assertFalse($info['success']);
 		$this->assertEquals(array('fail details'), $info['details']);
 	}
@@ -283,7 +287,6 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 			'AdminMaintenanceControllerTestTaskProgressBar'
 		);
 		GalleryUtilities::putRequestVariable('forceTaskToError', 1);
-
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$mockUrlGenerator          = new AdminMaintenanceControllerTestUrlGenerator();
@@ -334,7 +337,9 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue($info['runId'] > 0);
-		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
+
+		// assert that it's recent
+		$this->assertTrue($info['timestamp'] > time() - 2);
 		$this->assertFalse($info['success']);
 		$this->assertTrue(strstr($info['details'], 'ERROR_UNKNOWN'));
 	}
@@ -342,7 +347,6 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 	public function testRunTaskFail() {
 		GalleryUtilities::putRequestVariable('form[action][runTask]', 1);
 		GalleryUtilities::putRequestVariable('taskId', 'AdminMaintenanceControllerTestTaskFail');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -368,7 +372,9 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue($info['runId'] > 0);
-		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
+
+		// assert that it's recent
+		$this->assertTrue($info['timestamp'] > time() - 2);
 		$this->assertFalse($info['success']);
 		$this->assertEquals(array('fail details'), $info['details']);
 	}

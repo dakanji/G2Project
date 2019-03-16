@@ -97,6 +97,7 @@ class GalleryPlugin {
 	 * use (in any subclass of GalleryPlugin):
 	 *   print $this->translate('TEST to be displayed in different languages');
 	 *
+	 *
 	 * and you are all set for pure literals. The translation teams will receive that literal
 	 * string as a job to translate and will translate it (when the message is clear enough).
 	 * At runtime the message is then localized when printed.
@@ -104,7 +105,9 @@ class GalleryPlugin {
 	 * But consider this case:
 	 *   $message_to_be_localized = 'TEST to be displayed in different languages';
 	 *
+	 *
 	 *   print $this->translate($message_to_be_localized);
+	 *
 	 *
 	 *
 	 * The translate() method is called in the right place for runtime handling, but there
@@ -117,7 +120,9 @@ class GalleryPlugin {
 	 * the original string in, say, the database). Simply mark the candidates:
 	 *   $message_to_be_localized = $gallery->i18n('TEST to be displayed in different languages');
 	 *
+	 *
 	 *   print $this->translate($message_to_be_localized);
+	 *
 	 *
 	 *
 	 * The i18n() method does nothing, but feeding translators with that new string.
@@ -593,7 +598,6 @@ class GalleryPlugin {
 	public function _flushPluginCache() {
 		// Flush the cache
 		$pluginType = $this->getPluginType();
-
 		GalleryDataCache::remove("GalleryPluginHelper::fetchPluginStatus($pluginType)");
 		GalleryDataCache::removeFromDisk(
 			array(
@@ -635,7 +639,6 @@ class GalleryPlugin {
 		return array(
 			null,
 			empty($pluginStatus[$this->getId()]['active']) ? false : true,
-
 		);
 	}
 

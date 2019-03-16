@@ -8,14 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 use Symfony\Polyfill\Mbstring as p;
-
 if (!function_exists('mb_strlen')) {
     define('MB_CASE_UPPER', 0);
     define('MB_CASE_LOWER', 1);
     define('MB_CASE_TITLE', 2);
-
     function mb_convert_encoding($s, $to, $from = null) { return p\Mbstring::mb_convert_encoding($s, $to, $from); }
     function mb_decode_mimeheader($s) { return p\Mbstring::mb_decode_mimeheader($s); }
     function mb_encode_mimeheader($s, $charset = null, $transferEnc = null, $lf = null, $indent = null) { return p\Mbstring::mb_encode_mimeheader($s, $charset, $transferEnc, $lf, $indent); }
@@ -51,8 +48,10 @@ if (!function_exists('mb_strlen')) {
     function mb_http_input($type = '') { return p\Mbstring::mb_http_input($type); }
     function mb_convert_variables($toEncoding, $fromEncoding, &$a = null, &$b = null, &$c = null, &$d = null, &$e = null, &$f = null) { return p\Mbstring::mb_convert_variables($toEncoding, $fromEncoding, $a, $b, $c, $d, $e, $f); }
 }
+
 if (!function_exists('mb_chr')) {
     function mb_ord($s, $enc = null) { return p\Mbstring::mb_ord($s, $enc); }
     function mb_chr($code, $enc = null) { return p\Mbstring::mb_chr($code, $enc); }
     function mb_scrub($s, $enc = null) { $enc = null === $enc ? mb_internal_encoding() : $enc; return mb_convert_encoding($s, $enc, $enc); }
 }
+

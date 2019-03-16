@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Exception;
 
 /**
@@ -28,3 +27,4 @@ class NotImplementedException extends RuntimeException
         parent::__construct($message.' '.self::INTL_INSTALL_MESSAGE);
     }
 }
+

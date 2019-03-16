@@ -97,6 +97,7 @@ function find($dir) {
 
 		closedir($dh);
 		sort($listing);
+
 		global $exts;
 
 		$dir = ($dir == '.') ? '' : ($dir . '/');
@@ -282,21 +283,24 @@ function extractStrings($filename) {
 			if (preg_match('/\stext="(.*?[^\\\\])"/s', $string, $matches)) {
 				$text = $matches[1];
 			} elseif (preg_match("/text='(.*?)'/s", $string, $matches)) {
-				$text = str_replace('"', '\"', $matches[1]);    // Escape double quotes
+				// Escape double quotes
+				$text = str_replace('"', '\"', $matches[1]);
 			}
 
 			// one=.....
 			if (preg_match('/\sone="(.*?[^\\\\])"/s', $string, $matches)) {
 				$one = $matches[1];
 			} elseif (preg_match("/\sone='(.*?)'/s", $string, $matches)) {
-				$one = str_replace('"', '\"', $matches[1]);    // Escape double quotes
+				// Escape double quotes
+				$one = str_replace('"', '\"', $matches[1]);
 			}
 
 			// many=.....
 			if (preg_match('/\smany="(.*?[^\\\\])"/s', $string, $matches)) {
 				$many = $matches[1];
 			} elseif (preg_match("/\smany='(.*?)'/s", $string, $matches)) {
-				$many = str_replace('"', '\"', $matches[1]);    // Escape double quotes
+				// Escape double quotes
+				$many = str_replace('"', '\"', $matches[1]);
 			}
 
 			// Hint for translators

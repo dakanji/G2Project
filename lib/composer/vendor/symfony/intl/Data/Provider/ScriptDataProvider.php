@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Provider;
-
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleEntryReaderInterface;
 use Symfony\Component\Intl\Locale;
 
@@ -59,14 +57,15 @@ class ScriptDataProvider
         }
 
         $names = $this->reader->readEntry($this->path, $displayLocale, array('Names'));
-
         if ($names instanceof \Traversable) {
             $names = iterator_to_array($names);
         }
 
         $collator = new \Collator($displayLocale);
+
         $collator->asort($names);
 
         return $names;
     }
 }
+

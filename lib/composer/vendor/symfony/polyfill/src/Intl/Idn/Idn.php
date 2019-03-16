@@ -24,7 +24,6 @@
  * Originally forked from
  * https://github.com/true/php-punycode/blob/v2.1.1/src/Punycode.php
  */
-
 namespace Symfony\Polyfill\Intl\Idn;
 
 /**
@@ -69,18 +68,17 @@ final class Idn
         }
 
         $parts = explode('.', $domain);
-
         foreach ($parts as &$part) {
             if ('' === $part) {
                 return false;
             }
+
             if (false === $part = self::encodePart($part)) {
                 return false;
             }
         }
 
         $output = implode('.', $parts);
-
         $idna_info = array(
             'result' => \strlen($output) > 255 ? false : $output,
             'isTransitionalDifferent' => false,
@@ -97,12 +95,12 @@ final class Idn
         }
 
         $parts = explode('.', $domain);
-
         foreach ($parts as &$part) {
             $length = \strlen($part);
             if ($length < 1 || 63 < $length) {
                 continue;
             }
+
             if (0 !== strpos($part, 'xn--')) {
                 continue;
             }
@@ -112,7 +110,6 @@ final class Idn
         }
 
         $output = implode('.', $parts);
-
         $idna_info = array(
             'result' => \strlen($output) > 255 ? false : $output,
             'isTransitionalDifferent' => false,
@@ -125,37 +122,36 @@ final class Idn
     private static function encodePart($input)
     {
         $codePoints = self::listCodePoints($input);
-
         $n = 128;
         $bias = 72;
         $delta = 0;
         $h = $b = \count($codePoints['basic']);
-
         $output = '';
         foreach ($codePoints['basic'] as $code) {
             $output .= mb_chr($code, 'utf-8');
         }
+
         if ($input === $output) {
             return $output;
         }
+
         if ($b > 0) {
             $output .= '-';
         }
 
         $codePoints['nonBasic'] = array_unique($codePoints['nonBasic']);
         sort($codePoints['nonBasic']);
-
         $i = 0;
         $length = mb_strlen($input, 'utf-8');
         while ($h < $length) {
             $m = $codePoints['nonBasic'][$i++];
             $delta += ($m - $n) * ($h + 1);
             $n = $m;
-
             foreach ($codePoints['all'] as $c) {
                 if ($c < $n || $c < 128) {
                     ++$delta;
                 }
+
                 if ($c === $n) {
                     $q = $delta;
                     for ($k = 36;; $k += 36) {
@@ -166,7 +162,6 @@ final class Idn
 
                         $code = $t + (($q - $t) % (36 - $t));
                         $output .= self::$encodeTable[$code];
-
                         $q = ($q - $t) / (36 - $t);
                     }
 
@@ -213,6 +208,7 @@ final class Idn
         if ($k <= $bias + 1) {
             return 1;
         }
+
         if ($k >= $bias + 26) {
             return 26;
         }
@@ -224,7 +220,6 @@ final class Idn
     {
         $delta = (int) ($firstTime ? $delta / 700 : $delta / 2);
         $delta += (int) ($delta / $numPoints);
-
         $k = 0;
         while ($delta > 35 * 13) {
             $delta = (int) ($delta / 35);
@@ -240,7 +235,6 @@ final class Idn
         $i = 0;
         $bias = 72;
         $output = '';
-
         $pos = strrpos($input, '-');
         if (false !== $pos) {
             $output = substr($input, 0, $pos++);
@@ -250,16 +244,13 @@ final class Idn
 
         $outputLength = \strlen($output);
         $inputLength = \strlen($input);
-
         while ($pos < $inputLength) {
             $oldi = $i;
             $w = 1;
-
             for ($k = 36;; $k += 36) {
                 $digit = self::$decodeTable[$input[$pos++]];
                 $i += $digit * $w;
                 $t = self::calculateThreshold($k, $bias);
-
                 if ($digit < $t) {
                     break;
                 }
@@ -271,10 +262,10 @@ final class Idn
             $n = $n + (int) ($i / $outputLength);
             $i = $i % $outputLength;
             $output = mb_substr($output, 0, $i, 'utf-8').mb_chr($n, 'utf-8').mb_substr($output, $i, $outputLength - 1, 'utf-8');
-
             ++$i;
         }
 
         return $output;
     }
 }
+

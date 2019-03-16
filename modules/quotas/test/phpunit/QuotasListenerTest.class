@@ -166,6 +166,7 @@ class QuotasListenerTest extends GalleryTestCase {
 		$this->assertTrue($quotaExists == false, 'Quota should not exist for this user');
 
 		$this->assertTrue(empty($userQuotaInfo), 'User should have no quota information');
+
 		// add a quota of 86 KB to this user
 		$this->_addMapEntry(
 			array(
@@ -218,6 +219,7 @@ class QuotasListenerTest extends GalleryTestCase {
 		$this->assertTrue($quotaExists == false, 'Quota should not exist for this group');
 
 		$this->assertTrue(empty($groupQuotaInfo), 'Group should have no quota information');
+
 		// add a quota of 47KB for this group
 		$this->_addMapEntry(
 			array(

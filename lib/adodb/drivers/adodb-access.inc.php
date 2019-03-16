@@ -21,6 +21,7 @@ if (!defined('_ADODB_ODBC_LAYER')) {
 
 if (!defined('_ADODB_ACCESS')) {
 	define('_ADODB_ACCESS', 1);
+
 	class ADODB_access extends ADODB_odbc {
 		public $databaseType = 'access';
 

@@ -83,6 +83,7 @@ class GalleryPendingUserHelper {
 
 		if (!empty($substring)) {
 			$query .= ' WHERE [GalleryPendingUser::userName] LIKE ?';
+
 			$data[] = "%$substring%";
 		}
 
@@ -124,6 +125,7 @@ class GalleryPendingUserHelper {
 
 		if (!empty($substring)) {
 			$query .= ' AND [GalleryPendingUser::userName] LIKE ?';
+
 			$data[] = "%$substring%";
 		}
 
@@ -191,9 +193,7 @@ class GalleryPendingUserHelper {
 		}
 
 		$decodedUserName = $pendingUser->getUserName();
-
 		GalleryUtilities::unsanitizeInputValues($decodedUserName, false);
-
 		$generator       =& $gallery->getUrlGenerator();
 		$confirmationUrl = $generator->generateUrl(
 			array(
@@ -336,7 +336,6 @@ class GalleryPendingUserHelper {
 			$currentLanguageCode = $defaultLanguageCode;
 			$translator          =& $gallery->getTranslator();
 			$decodedUserName     = $pendingUser->getUserName();
-
 			GalleryUtilities::unsanitizeInputValues($decodedUserName, false);
 
 			foreach ($toList as $index => $to) {

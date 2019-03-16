@@ -30,13 +30,13 @@ class CoreModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('core');
-
 		$this->setName($gallery->i18n('Core'));
 		$this->setDescription(
 			$gallery->i18n(
 				'Gallery 2 Core Module'
 			)
 		);
+
 		// Update CoreModuleExtras::upgrade and CoreModuleExtras::_prepareConfigUpgrade too!
 		$this->setVersion('1.4.0');
 		$this->setRequiredCoreApi(array(8, 0));
@@ -796,7 +796,6 @@ class CoreModule extends GalleryModule {
 				if (count($versionArray) >= 2) {
 					$versions['core']    = rtrim($versionArray[0]);
 					$versions['gallery'] = rtrim($versionArray[1]);
-
 					GalleryDataCache::put('CoreModule::installedVersions', $versions, true);
 
 					if (isset($versionArray[2])) {

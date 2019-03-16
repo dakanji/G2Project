@@ -23,9 +23,11 @@ if (!defined('ADODB_DIR')) {
 require_once ADODB_DIR . '/drivers/adodb-oci8.inc.php';
 
 class ADODB_oci8po extends ADODB_oci8 {
-	public $databaseType   = 'oci8po';
-	public $dataProvider   = 'oci8';
-	public $metaColumnsSQL = "select lower(cname),coltype,width, SCALE, PRECISION, NULLS, DEFAULTVAL from col where tname='%s' order by colno"; //changed by smondino@users.sourceforge. net
+	public $databaseType = 'oci8po';
+	public $dataProvider = 'oci8';
+
+	//changed by smondino@users.sourceforge. net
+	public $metaColumnsSQL = "select lower(cname),coltype,width, SCALE, PRECISION, NULLS, DEFAULTVAL from col where tname='%s' order by colno";
 	public $metaTablesSQL  = "select lower(table_name),table_type from cat where table_type in ('TABLE','VIEW')";
 
 	public function __construct() {

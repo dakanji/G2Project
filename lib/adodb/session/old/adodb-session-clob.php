@@ -14,6 +14,7 @@
  Example =======
 
 	include('adodb.inc.php');
+
 	include('adodb-session.php');
 
 	session_start();
@@ -23,6 +24,7 @@
 -- \$_SESSION['AVAR']={$_SESSION['AVAR']}</p>";
 To force non-persistent connections, call adodb_session_open first before session_start():
 	include('adodb.inc.php');
+
 	include('adodb-session.php');
 
 	adodb_session_open(false,false,false);
@@ -148,9 +150,9 @@ if (!defined('ADODB_SESSION')) {
 	*/
 
 	/****************************************************************************************\
-		Create the connection to the database.
-			If $ADODB_SESS_CONN already exists, reuse that connection
-	****************************************************************************************/
+			Create the connection to the database.
+				If $ADODB_SESS_CONN already exists, reuse that connection
+		****************************************************************************************/
 	function adodb_sess_open($save_path, $session_name, $persist = true) {
 		global $ADODB_SESS_CONN;
 
@@ -234,7 +236,8 @@ if (!defined('ADODB_SESSION')) {
 			return $v;
 		}
 
-		return ''; // thx to Jorma Tuomainen, webmaster#wizactive.com
+		// thx to Jorma Tuomainen, webmaster#wizactive.com
+		return '';
 	}
 
 	/****************************************************************************************\
@@ -250,7 +253,8 @@ if (!defined('ADODB_SESSION')) {
 		$ADODB_SESSION_CRC,
 		$ADODB_SESSION_EXPIRE_NOTIFY,
 		$ADODB_SESSION_DRIVER,          // added
-		$ADODB_SESSION_USE_LOBS;        // added
+		// added
+		$ADODB_SESSION_USE_LOBS;
 		$expiry = time() + $ADODB_SESS_LIFE;
 
 		// crc32 optimization since adodb 2.1
@@ -276,12 +280,14 @@ if (!defined('ADODB_SESSION')) {
 
 		if ($ADODB_SESSION_EXPIRE_NOTIFY) {
 			$var = reset($ADODB_SESSION_EXPIRE_NOTIFY);
+
 			global $$var;
 
 			$arr['expireref'] = $$var;
 		}
 
-		if ($ADODB_SESSION_USE_LOBS === false) {    // no lobs, simply use replace()
+		if ($ADODB_SESSION_USE_LOBS === false) {
+			// no lobs, simply use replace()
 			$rs = $ADODB_SESS_CONN->Replace($ADODB_SESSION_TBL, $arr, 'sesskey', $autoQuote = true);
 
 			if (!$rs) {
@@ -407,6 +413,7 @@ if (!defined('ADODB_SESSION')) {
 				}
 
 				$rs->Close();
+
 				//$ADODB_SESS_CONN->Execute("DELETE FROM $ADODB_SESSION_TBL WHERE expiry < $t");
 				$ADODB_SESS_CONN->CommitTrans();
 			}

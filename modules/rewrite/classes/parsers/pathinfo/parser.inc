@@ -110,3 +110,4 @@ class PathInfoParser extends RewriteParser {
 		return array(null, $error, $status);
 	}
 }
+

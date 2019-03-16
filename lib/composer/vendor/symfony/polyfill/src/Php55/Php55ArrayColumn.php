@@ -21,7 +21,6 @@
  *   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  *   DEALINGS IN THE SOFTWARE.
  */
-
 namespace Symfony\Polyfill\Php55;
 
 /**
@@ -32,11 +31,9 @@ final class Php55ArrayColumn
     public static function array_column(array $input, $columnKey, $indexKey = null)
     {
         $output = array();
-
         foreach ($input as $row) {
             $key = $value = null;
             $keySet = $valueSet = false;
-
             if (null !== $indexKey && array_key_exists($indexKey, $row)) {
                 $keySet = true;
                 $key = (string) $row[$indexKey];
@@ -62,3 +59,4 @@ final class Php55ArrayColumn
         return $output;
     }
 }
+

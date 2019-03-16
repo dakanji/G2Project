@@ -104,7 +104,6 @@ class UserLoginController extends GalleryController {
 				}
 
 				GalleryUtilities::unsanitizeInputValues($form['password'], false);
-
 				$isCorrect = (isset($user) && $user->isCorrectPassword($form['password']));
 
 				// Prepare for validation

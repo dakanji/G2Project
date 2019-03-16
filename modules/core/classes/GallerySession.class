@@ -535,7 +535,6 @@ class GallerySession {
 
 		// Unset the cookie and any request variables so that we'll regenerate a new id in init()
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
-
 		unset($_COOKIE[SESSION_ID_PARAMETER]);
 
 		// Reset 'cached' variables
@@ -906,7 +905,9 @@ class GallerySession {
 	 */
 	public function _isPersistentSessionAllowedForRequest() {
 		if (!isset($this->_isPersistentSessionAllowedForRequest)) {
-			$flag                    = true; // Default to true
+			// Default to true
+			$flag = true;
+
 			list($view, $controller) = GalleryUtilities::getRequestVariables('view', 'controller');
 
 			if (!empty($controller)) {

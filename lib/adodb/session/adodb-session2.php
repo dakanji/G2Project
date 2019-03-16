@@ -152,6 +152,7 @@ class ADODB_Session {
 	static $_lock = false;
 
 		if (!is_null($lock)) $_lock = $lock;
+
 		return $lock;
 	}
 
@@ -159,8 +160,7 @@ class ADODB_Session {
 
 	// !
 	public static function driver($driver = null) {
-		static $_driver = 'mysql';
-		static $set     = false;
+		static $_driver = 'mysql',  $set     = false;
 
 		if (null !== $driver) {
 			$_driver = trim($driver);
@@ -177,8 +177,7 @@ class ADODB_Session {
 
 	// !
 	public static function host($host = null) {
-		static $_host = 'localhost';
-		static $set   = false;
+		static $_host = 'localhost',  $set   = false;
 
 		if (null !== $host) {
 			$_host = trim($host);
@@ -195,8 +194,7 @@ class ADODB_Session {
 
 	// !
 	public static function user($user = null) {
-		static $_user = 'root';
-		static $set   = false;
+		static $_user = 'root',  $set   = false;
 
 		if (null !== $user) {
 			$_user = trim($user);
@@ -213,8 +211,7 @@ class ADODB_Session {
 
 	// !
 	public static function password($password = null) {
-		static $_password = '';
-		static $set       = false;
+		static $_password = '',  $set       = false;
 
 		if (null !== $password) {
 			$_password = $password;
@@ -231,8 +228,7 @@ class ADODB_Session {
 
 	// !
 	public static function database($database = null) {
-		static $_database = '';
-		static $set       = false;
+		static $_database = '',  $set       = false;
 
 		if (null !== $database) {
 			$_database = trim($database);
@@ -260,8 +256,7 @@ class ADODB_Session {
 
 	// !
 	public static function lifetime($lifetime = null) {
-		static $_lifetime;
-		static $set = false;
+		static $_lifetime,  $set = false;
 
 		if (null !== $lifetime) {
 			$_lifetime = (int)$lifetime;
@@ -288,8 +283,7 @@ class ADODB_Session {
 
 	// !
 	public static function debug($debug = null) {
-		static $_debug = false;
-		static $set    = false;
+		static $_debug = false,  $set    = false;
 
 		if (null !== $debug) {
 			$_debug = (bool)$debug;
@@ -312,8 +306,7 @@ class ADODB_Session {
 
 	// !
 	public static function expireNotify($expire_notify = null) {
-		static $_expire_notify;
-		static $set = false;
+		static $_expire_notify,  $set = false;
 
 		if (null !== $expire_notify) {
 			$_expire_notify = $expire_notify;
@@ -330,8 +323,7 @@ class ADODB_Session {
 
 	// !
 	public static function table($table = null) {
-		static $_table = 'sessions2';
-		static $set    = false;
+		static $_table = 'sessions2',  $set    = false;
 
 		if (null !== $table) {
 			$_table = trim($table);
@@ -348,8 +340,7 @@ class ADODB_Session {
 
 	// !
 	public static function optimize($optimize = null) {
-		static $_optimize = false;
-		static $set       = false;
+		static $_optimize = false,  $set       = false;
 
 		if (null !== $optimize) {
 			$_optimize = (bool)$optimize;
@@ -372,8 +363,7 @@ class ADODB_Session {
 
 	// !
 	public static function clob($clob = null) {
-		static $_clob = false;
-		static $set   = false;
+		static $_clob = false,  $set   = false;
 
 		if (null !== $clob) {
 			$_clob = strtolower(trim($clob));
@@ -554,7 +544,8 @@ class ADODB_Session {
 			ADOConnection::outp(" driver=$driver user=$user db=$database ");
 		}
 
-		if (empty($conn->_connectionID)) { // not dsn
+		if (empty($conn->_connectionID)) {
+			// not dsn
 			if ($persist) {
 				switch ($persist) {
 					default:
@@ -577,7 +568,8 @@ class ADODB_Session {
 				$ok = $conn->Connect($host, $user, $password, $database);
 			}
 		} else {
-			$ok = true; // $conn->_connectionID is set after call to ADONewConnection
+			// $conn->_connectionID is set after call to ADONewConnection
+			$ok = true;
 		}
 
 		if ($ok) {
@@ -704,6 +696,7 @@ class ADODB_Session {
 
 			if ($expire_notify) {
 				$var = reset($expire_notify);
+
 				global $$var;
 
 				if (isset($$var)) {
@@ -729,6 +722,7 @@ class ADODB_Session {
 
 		if ($expire_notify) {
 			$var = reset($expire_notify);
+
 			global $$var;
 
 			if (isset($$var)) {
@@ -736,7 +730,8 @@ class ADODB_Session {
 			}
 		}
 
-		if (!$clob) {   // no lobs, simply use replace()
+		if (!$clob) {
+			// no lobs, simply use replace()
 			$rs = $conn->Execute("SELECT COUNT(*) AS cnt FROM $table WHERE $binary sesskey = " . $conn->Param(0), array($key));
 
 			if ($rs) {
@@ -802,6 +797,7 @@ class ADODB_Session {
 		}
 
 		/*
+
 		if (ADODB_Session::Lock()) {
 			$conn->CommitTrans();
 		}*/
@@ -897,8 +893,10 @@ class ADODB_Session {
 		}
 
 		$savem = $conn->SetFetchMode(ADODB_FETCH_NUM);
-		$sql   = "SELECT expireref, sesskey FROM $table WHERE expiry < $time ORDER BY 2"; // add order by to prevent deadlock
-		$rs    = $conn->SelectLimit($sql, 1000);
+
+		// add order by to prevent deadlock
+		$sql = "SELECT expireref, sesskey FROM $table WHERE expiry < $time ORDER BY 2";
+		$rs  = $conn->SelectLimit($sql, 1000);
 
 		if ($debug) {
 			self::_dumprs($rs);

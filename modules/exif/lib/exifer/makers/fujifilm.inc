@@ -20,7 +20,6 @@
 */
 
 //================================================================================================
-
 //================================================================================================
 //================================================================================================
 //=================
@@ -149,7 +148,8 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 			$data = $top . '/' . $bottom;
 		}
 
-		if ($tag == '1011') { //FlashStrength
+		if ($tag == '1011') {
+			//FlashStrength
 			$data = $data . ' EV';
 		}
 	} elseif ($type == 'USHORT' || $type == 'SSHORT' || $type == 'ULONG' || $type == 'SLONG' || $type == 'FLOAT' || $type == 'DOUBLE') {
@@ -161,7 +161,8 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 
 		$data = hexdec($data);
 
-		if ($tag == '1001') { //Sharpness
+		if ($tag == '1001') {
+			//Sharpness
 			if ($data == 1) {
 				$data = 'Soft';
 			} elseif ($data == 2) {
@@ -177,7 +178,8 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 			}
 		}
 
-		if ($tag == '1002') { //WhiteBalance
+		if ($tag == '1002') {
+			//WhiteBalance
 			if ($data == 0) {
 				$data = 'Auto';
 			} elseif ($data == 256) {
@@ -199,7 +201,8 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 			}
 		}
 
-		if ($tag == '1003') { //Color
+		if ($tag == '1003') {
+			//Color
 			if ($data == 0) {
 				$data = 'Chroma Saturation Normal(STD)';
 			} elseif ($data == 256) {
@@ -211,7 +214,8 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 			}
 		}
 
-		if ($tag == '1004') { //Tone
+		if ($tag == '1004') {
+			//Tone
 			if ($data == 0) {
 				$data = 'Contrast Normal(STD)';
 			} elseif ($data == 256) {
@@ -223,7 +227,8 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 			}
 		}
 
-		if ($tag == '1010') { //FlashMode
+		if ($tag == '1010') {
+			//FlashMode
 			if ($data == 0) {
 				$data = 'Auto';
 			} elseif ($data == 1) {
@@ -237,7 +242,8 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 			}
 		}
 
-		if ($tag == '1020') { //Macro
+		if ($tag == '1020') {
+			//Macro
 			if ($data == 0) {
 				$data = 'Off';
 			} elseif ($data == 1) {
@@ -247,7 +253,8 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 			}
 		}
 
-		if ($tag == '1021') { //FocusMode
+		if ($tag == '1021') {
+			//FocusMode
 			if ($data == 0) {
 				$data = 'Auto';
 			} elseif ($data == 1) {
@@ -257,7 +264,8 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 			}
 		}
 
-		if ($tag == '1030') { //SlowSync
+		if ($tag == '1030') {
+			//SlowSync
 			if ($data == 0) {
 				$data = 'Off';
 			} elseif ($data == 1) {
@@ -267,7 +275,8 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 			}
 		}
 
-		if ($tag == '1031') { //PictureMode
+		if ($tag == '1031') {
+			//PictureMode
 			if ($data == 0) {
 				$data = 'Auto';
 			} elseif ($data == 1) {
@@ -291,7 +300,8 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 			}
 		}
 
-		if ($tag == '1100') { //ContinuousTakingBracket
+		if ($tag == '1100') {
+			//ContinuousTakingBracket
 			if ($data == 0) {
 				$data = 'Off';
 			} elseif ($data == 1) {
@@ -301,7 +311,8 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 			}
 		}
 
-		if ($tag == '1300') { //BlurWarning
+		if ($tag == '1300') {
+			//BlurWarning
 			if ($data == 0) {
 				$data = 'No Warning';
 			} elseif ($data == 1) {
@@ -311,7 +322,8 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 			}
 		}
 
-		if ($tag == '1301') { //FocusWarning
+		if ($tag == '1301') {
+			//FocusWarning
 			if ($data == 0) {
 				$data = 'Auto Focus Good';
 			} elseif ($data == 1) {
@@ -321,7 +333,8 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 			}
 		}
 
-		if ($tag == '1302') { //AEWarning
+		if ($tag == '1302') {
+			//AEWarning
 			if ($data == 0) {
 				$data = 'AE Good';
 			} elseif ($data == 1) {
@@ -347,9 +360,11 @@ function formatFujifilmData($type, $tag, $intel, $data) {
 function parseFujifilm($block, &$result) {
 	//if($result['Endien']=="Intel") $intel=1;
 	//else $intel=0;
-	$intel  = 1;
-	$model  = $result['IFD0']['Model'];
-	$place  = 8; //current place
+	$intel = 1;
+	$model = $result['IFD0']['Model'];
+
+	//current place
+	$place  = 8;
 	$offset = 8;
 	$num    = bin2hex(substr($block, $place, 4));
 	$place += 4;

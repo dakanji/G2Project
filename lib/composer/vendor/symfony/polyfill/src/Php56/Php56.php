@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Polyfill\Php56;
-
 use Symfony\Polyfill\Util\Binary;
 
 /**
@@ -20,7 +18,6 @@ final class Php56
 {
     const LDAP_ESCAPE_FILTER = 1;
     const LDAP_ESCAPE_DN = 2;
-
     public static function hash_equals($knownString, $userInput)
     {
         if (!\is_string($knownString)) {
@@ -37,13 +34,11 @@ final class Php56
 
         $knownLen = Binary::strlen($knownString);
         $userLen = Binary::strlen($userInput);
-
         if ($knownLen !== $userLen) {
             return false;
         }
 
         $result = 0;
-
         for ($i = 0; $i < $knownLen; ++$i) {
             $result |= \ord($knownString[$i]) ^ \ord($userInput[$i]);
         }
@@ -78,7 +73,6 @@ final class Php56
             );
 
             $charMaps[0] = array();
-
             for ($i = 0; $i < 256; ++$i) {
                 $charMaps[0][\chr($i)] = sprintf('\\%02x', $i);
             }
@@ -99,7 +93,6 @@ final class Php56
         // Create the base char map to escape
         $flags = (int) $flags;
         $charMap = array();
-
         if ($flags & self::LDAP_ESCAPE_FILTER) {
             $charMap += $charMaps[self::LDAP_ESCAPE_FILTER];
         }
@@ -114,7 +107,6 @@ final class Php56
 
         // Remove any chars to ignore from the list
         $ignore = (string) $ignore;
-
         for ($i = 0, $l = \strlen($ignore); $i < $l; ++$i) {
             unset($charMap[$ignore[$i]]);
         }
@@ -136,3 +128,4 @@ final class Php56
         return $result;
     }
 }
+

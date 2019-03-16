@@ -727,7 +727,6 @@ class HTML_Safe {
 
 		// Set up the parser
 		$parser->set_object($this);
-
 		$parser->set_element_handler('_openHandler', '_closeHandler');
 		$parser->set_data_handler('_dataHandler');
 		$parser->set_escape_handler('_escapeHandler');

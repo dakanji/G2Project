@@ -76,6 +76,7 @@ class RepositoryTest extends GalleryTestCase {
 			array($pluginType, $pluginId),
 			array(null, $installed['packages'])
 		);
+
 		$utilities->setReply(
 			'isPluginCompatible',
 			array($pluginType, $header['requiredCoreApi'], $header['requiredPluginApi'], null),
@@ -1257,7 +1258,6 @@ class RepositoryTest extends GalleryTestCase {
 		// Portuguese
 		$supportedLanguages['pt']['BR']['description'] = 'Portugu&#234;s Brasileiro';
 		$supportedLanguages['pt']['PT']['description'] = 'Portugu&#234;s';
-
 		GalleryDataCache::put($cacheKey, $supportedLanguages);
 
 		foreach (array('en_US', 'en_GB', 'pt_PT', 'pt_BR') as $lang) {
@@ -1329,7 +1329,6 @@ class RepositoryTest extends GalleryTestCase {
 					$firstBaseDirectory = false;
 
 					$platform->setReply('readdir', array('fh'), $pluginId);
-
 					$platform->setReply(
 						'is_file',
 						array(
@@ -1984,9 +1983,11 @@ class RepositoryTest extends GalleryTestCase {
 		// Test recursive repository cache directory creation.
 		$platform->setReply('file_exists', array('/cache/'), false);
 		$platform->setReply('file_exists', array('/cache/'), false);
+
 		// dirname('/cache/') returns \ on Windows.
 		$platform->setReply('file_exists', array($slash), true);
 		$platform->setReply('is_dir', array($slash), true);
+
 		$platform->setReply(
 			'mkdir',
 			array(
@@ -1997,6 +1998,7 @@ class RepositoryTest extends GalleryTestCase {
 		);
 
 		$platform->setReply('is_dir', array('/cache/modules'), false);
+
 		$platform->setReply(
 			'mkdir',
 			array(
@@ -2007,6 +2009,7 @@ class RepositoryTest extends GalleryTestCase {
 		);
 
 		$platform->setReply('is_dir', array('/cache/themes'), false);
+
 		$platform->setReply(
 			'mkdir',
 			array(
@@ -2093,6 +2096,7 @@ class RepositoryTest extends GalleryTestCase {
 			array($testPackagePath, serialize(array($testPackageUrl))),
 			true
 		);
+
 		// Descriptor download.
 		$platform->setReply('file_exists', array("$modules/testModule/"), true);
 		$platform->setReply(
@@ -2188,9 +2192,7 @@ class RepositoryTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array($modules . '/RepositoryTest/MANIFEST'), true);
-
 		$platform->setReply('is_writeable', array($modules . '/RepositoryTest/MANIFEST'), true);
-
 		$platform->setReply(
 			'file_exists',
 			array($modules . '/RepositoryTest/po/strings.raw'),
@@ -2212,6 +2214,7 @@ class RepositoryTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($utilities->isComplete(), $utilities->getRemaining());
+
 		$this->assertEquals(
 			array(
 				'GalleryPluginPackageMap' => array(
@@ -2225,6 +2228,7 @@ class RepositoryTest extends GalleryTestCase {
 			),
 			$this->_testStorage->getRemovedMapData()
 		);
+
 		$this->assertEquals(
 			array(
 				'GalleryPluginPackageMap' => array(
@@ -2290,6 +2294,7 @@ class RepositoryTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($utilities->isComplete(), $utilities->getRemaining());
+
 		$this->assertEquals(
 			array(
 				'GalleryPluginPackageMap' => array(
@@ -2303,6 +2308,7 @@ class RepositoryTest extends GalleryTestCase {
 			),
 			$this->_testStorage->getRemovedMapData()
 		);
+
 		$this->assertEquals(
 			array(
 				'GalleryPluginPackageMap' => array(
@@ -2344,9 +2350,7 @@ class RepositoryTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array($modules . '/RepositoryTest/MANIFEST'), true);
-
 		$platform->setReply('is_writeable', array($modules . '/RepositoryTest/MANIFEST'), false);
-
 		$platform->setReply(
 			'file_exists',
 			array($modules . '/RepositoryTest/po/strings.raw'),
@@ -2368,6 +2372,7 @@ class RepositoryTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($utilities->isComplete(), $utilities->getRemaining());
+
 		$this->assertEquals(
 			array(
 				'GalleryPluginPackageMap' => array(
@@ -2381,6 +2386,7 @@ class RepositoryTest extends GalleryTestCase {
 			),
 			$this->_testStorage->getRemovedMapData()
 		);
+
 		$this->assertEquals(
 			array(
 				'GalleryPluginPackageMap' => array(
@@ -2418,8 +2424,10 @@ class RepositoryTest extends GalleryTestCase {
 	public function testScanPluginWithNoManifest() {
 		global $gallery;
 
-		$repository             = new GalleryRepository();
-		$repository->_utilities = null;  // this should fail without needing utilities
+		$repository = new GalleryRepository();
+
+		// this should fail without needing utilities
+		$repository->_utilities = null;
 		$modules                = GalleryCoreApi::getCodeBasePath('modules');
 		$platform               = new UnitTestPlatform();
 		$platform->setReply(
@@ -2498,6 +2506,7 @@ class RepositoryTest extends GalleryTestCase {
 			$cachedErrorCount,
 			'Cached error count did not match'
 		);
+
 		GalleryRepository::getMe()->clearRepositoryCache(
 			array('works', 'broken'),
 			'RepositoryTest_GalleryRepository'
@@ -2573,7 +2582,6 @@ class RepositoryTest extends GalleryTestCase {
 		// Portuguese
 		$supportedLanguages['pt']['BR']['description'] = 'Portugu&#234;s Brasileiro';
 		$supportedLanguages['pt']['PT']['description'] = 'Portugu&#234;s';
-
 		GalleryDataCache::put($cacheKey, $supportedLanguages);
 
 		return array($repository, $languages);
@@ -2592,6 +2600,7 @@ class RepositoryTest extends GalleryTestCase {
 			$repository->_utilities->isComplete(),
 			$repository->_utilities->getRemaining()
 		);
+
 		$this->assertEquals(
 			array(
 				'upgradeable' => true,
@@ -2624,6 +2633,7 @@ class RepositoryTest extends GalleryTestCase {
 			$repository->_utilities->isComplete(),
 			$repository->_utilities->getRemaining()
 		);
+
 		$this->assertEquals(
 			array(
 				'upgradeable' => false,
@@ -2940,7 +2950,6 @@ class RepositoryTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(2, $count, 'Unexpected number of files');
-
 		$this->assertEquals(array(), $status, 'Unexpected status messages');
 		$this->assertEquals(3, $callback['current'], 'Callback did not match');
 		$this->assertEquals(
@@ -3148,7 +3157,6 @@ class RepositoryTest extends GalleryTestCase {
 		);
 
 		$this->assertEquals(1, $count, 'Unexpected number of files');
-
 		$this->assertEquals($expected, $status, 'Unexpected status messages');
 		$this->assertEquals(4, $callback['current'], 'Callback did not match');
 		$this->assertEquals(
@@ -3237,7 +3245,6 @@ class RepositoryTest extends GalleryTestCase {
 				'R	modules/RepositoryTest/deleteFile2.tpl',
 			)
 		);
-
 		$platform->setReply(
 			'is_writeable',
 			array($modules . '/RepositoryTest/deleteFile1.class'),

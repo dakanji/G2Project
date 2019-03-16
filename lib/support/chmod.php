@@ -636,6 +636,7 @@ function printPageWithoutFooter(
 	$permissionBitSets
 ) {
 	global $baseUrl; ?>
+
 	<!DOCTYPE html>
 		<html lang="en">
 		<head>
@@ -646,10 +647,12 @@ function printPageWithoutFooter(
 			<script type="text/javascript">
 			var plugins = new Array();
 		<?php
+
 		foreach ($plugins as $pluginId => $isOpenForEdit) {
 			echo "plugins['$pluginId'] = $isOpenForEdit;
 				";
 		} ?>
+
 			function setEditOrSecure(pluginId, formObj) {
 				if (pluginId == -1) {
 					formObj.mode.value='';
@@ -711,6 +714,7 @@ function printPageWithoutFooter(
 					</div>
 					<hr class="faint">
 				<?php
+
 				if (!isModulesOrThemesDirWriteable()) {
 					?>
 						<h2>
@@ -765,6 +769,7 @@ function printPageWithoutFooter(
 						onchange="setEditOrSecure(this.options[this.selectedIndex].value, this.form)">
 						<option value="-1">&laquo; select a module or theme &raquo;</option>
 						<?php
+
 						foreach ($plugins as $pluginId => $writeable) {
 							?>
 							<option value="<?php echo $pluginId; ?>"> <?php echo $pluginId; ?> </option>
@@ -802,6 +807,7 @@ function printPageWithoutFooter(
 			</p>
 			<hr class="faint">
 			<?php
+
 			if (isGalleryDirWriteable()) {
 				?>
 				<h2><a href="
@@ -842,6 +848,7 @@ function printPageWithoutFooter(
 				<br>
 				<b> New permissions: </b>
 				<?php
+
 				foreach ($permissionBitSets as $permissionBitSet) {
 					$checked = $permissionBitSet[1]->equals($filePermissions) ? 'checked="checked"' : '';
 					$value   = $permissionBitSet[0]->getAsString() . $permissionBitSet[1]->getAsString(); ?>

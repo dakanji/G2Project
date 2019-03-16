@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Data\Provider;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleEntryReader;
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleReaderInterface;
@@ -25,7 +23,6 @@ abstract class AbstractDataProviderTest extends TestCase
     // from the Intl class. Otherwise tests will fail if the intl extension is
     // not loaded, because it is NOT possible to skip the execution of data
     // providers.
-
     private static $locales = array(
         'af',
         'af_NA',
@@ -676,7 +673,6 @@ abstract class AbstractDataProviderTest extends TestCase
     );
 
     private static $rootLocales;
-
     protected function setUp()
     {
         Locale::setDefault('en');
@@ -736,6 +732,7 @@ abstract class AbstractDataProviderTest extends TestCase
     protected function createEntryReader()
     {
         $entryReader = new BundleEntryReader($this->createBundleReader());
+
         $entryReader->setLocaleAliases($this->getLocaleAliases());
 
         return $entryReader;
@@ -746,3 +743,4 @@ abstract class AbstractDataProviderTest extends TestCase
      */
     abstract protected function createBundleReader();
 }
+

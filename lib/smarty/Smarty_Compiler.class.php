@@ -36,14 +36,26 @@ class Smarty_Compiler extends Smarty {
 	/**#@+
 	 * @access private
 	 */
-	public $_folded_blocks = array();    // keeps folded template blocks
-	public $_current_file;       // the current template being compiled
-	public $_current_line_no  = 1;          // line number for error messages
-	public $_capture_stack    = array();    // keeps track of nested capture buffers
-	public $_plugin_info      = array();    // keeps track of plugins to load
+
+	// keeps folded template blocks
+	public $_folded_blocks = array();
+
+	// the current template being compiled
+	public $_current_file;
+
+	// line number for error messages
+	public $_current_line_no = 1;
+
+	// keeps track of nested capture buffers
+	public $_capture_stack = array();
+
+	// keeps track of plugins to load
+	public $_plugin_info      = array();
 	public $_init_smarty_vars = false;
 	public $_permitted_tokens = array('true', 'false', 'yes', 'no', 'on', 'off', 'null');
-	public $_db_qstr_regexp;        // regexps are setup in the constructor
+
+	// regexps are setup in the constructor
+	public $_db_qstr_regexp;
 	public $_si_qstr_regexp;
 	public $_qstr_regexp;
 	public $_func_regexp;
@@ -202,21 +214,21 @@ class Smarty_Compiler extends Smarty {
 		$this->_param_regexp = '(?:\s*(?:' . $this->_obj_call_regexp . '|'
 
 		   . $this->_var_regexp . '|' . $this->_num_const_regexp . '|\w+)(?>' . $this->_mod_regexp . '*)\s*)';
+
 		// matches valid parenthesised function parameters:
 		// "text"
 		//    $foo, $bar, "text"
 		// $foo|bar, "foo"|bar, $foo->bar($foo)|bar
-
 		$this->_parenth_param_regexp = '(?:\((?:\w+|'
 				. $this->_param_regexp . '(?:\s*,\s*(?:(?:\w+|'
 
 				. $this->_param_regexp . ')))*)?\))';
+
 		// matches valid function call:
 		// foo()
 		// foo_bar($foo)
 		// _foo_bar($foo,"bar")
 		// foo123($foo,$foo->bar(),"foo")
-
 		$this->_func_call_regexp = '(?:' . $this->_func_regexp . '\s*(?:'
 
 		   . $this->_parenth_param_regexp . '))';
@@ -619,7 +631,8 @@ class Smarty_Compiler extends Smarty {
 				if (substr($tag_command, 0, 1) == '/') {
 					$this->_pop_tag('strip');
 
-					if (--$this->_strip_depth == 0) { // outermost closing {/strip}
+					if (--$this->_strip_depth == 0) {
+						// outermost closing {/strip}
 						$this->_additional_newline = "\n";
 
 						return '{' . $tag_command . '}';
@@ -627,7 +640,8 @@ class Smarty_Compiler extends Smarty {
 				} else {
 					$this->_push_tag('strip');
 
-					if ($this->_strip_depth++ == 0) { // outermost opening {strip}
+					if ($this->_strip_depth++ == 0) {
+						// outermost opening {strip}
 						$this->_additional_newline = '';
 
 						return '{' . $tag_command . '}';

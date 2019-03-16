@@ -34,9 +34,7 @@
  * Originally forked from
  * https://github.com/yiisoft/yii2/blob/2.0.15/tests/framework/i18n/FallbackMessageFormatterTest.php
  */
-
 namespace Symfony\Polyfill\Tests\Intl\MessageFormatter;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Polyfill\Intl\MessageFormatter\MessageFormatter;
 
@@ -52,6 +50,7 @@ class MessageFormatterTest extends TestCase
     {
         $formatter = new MessageFormatter('en_US', $pattern);
         $result = $formatter->format($args);
+
         $this->assertEquals($expected, $result, $formatter->getErrorMessage());
 
         if (\PHP_VERSION_ID < 50500) {
@@ -60,13 +59,13 @@ class MessageFormatterTest extends TestCase
 
         $formatter = new \MessageFormatter('en_US', $pattern);
         $result = $formatter->format($args);
+
         $this->assertEquals($expected, $result, $formatter->getErrorMessage());
     }
 
     public function patterns()
     {
         $subject = 'Answer to the Ultimate Question of Life, the Universe, and Everything';
-
         return array(
             array(
                 '{сабж} is {n}', // pattern
@@ -76,7 +75,6 @@ class MessageFormatterTest extends TestCase
                     'сабж' => $subject,
                 ),
             ),
-
             array(
                 '{сабж} is {n, number}', // pattern
                 $subject.' is 42', // expected
@@ -85,7 +83,6 @@ class MessageFormatterTest extends TestCase
                     'сабж' => $subject,
                 ),
             ),
-
             array(
                 '{сабж} is {n, number, integer}', // pattern
                 $subject.' is 42', // expected
@@ -94,7 +91,6 @@ class MessageFormatterTest extends TestCase
                     'сабж' => $subject,
                 ),
             ),
-
             array(
                 'Here is a big number: {f, number}', // pattern
                 'Here is a big number: 200,000,000', // expected
@@ -102,7 +98,6 @@ class MessageFormatterTest extends TestCase
                     'f' => 2e+8,
                 ),
             ),
-
             array(
                 'Here is a big number: {f, number, integer}', // pattern
                 'Here is a big number: 200,000,000', // expected
@@ -110,7 +105,6 @@ class MessageFormatterTest extends TestCase
                     'f' => 2e+8,
                 ),
             ),
-
             array(
                 'Here is a big number: {d, number}', // pattern
                 'Here is a big number: 200,000,000.101', // expected
@@ -118,7 +112,6 @@ class MessageFormatterTest extends TestCase
                     'd' => 200000000.101,
                 ),
             ),
-
             array(
                 'Here is a big number: {d, number, integer}', // pattern
                 'Here is a big number: 200,000,000', // expected
@@ -155,7 +148,6 @@ _MSG_
                     'guest' => 'beep',
                 ),
             ),
-
             array(
                 '{name} is {gender} and {gender, select, female{she} male{he} other{it}} loves Yii!',
                 'Alexander is male and he loves Yii!',
@@ -172,6 +164,7 @@ _MSG_
                 array(
                     'name' => 'Alexander',
                     'gender' => 'male',
+
                     // following should not be replaced
                     'he' => 'wtf',
                     'she' => 'wtf',
@@ -215,9 +208,9 @@ _MSG_
     public function testInsufficientArguments()
     {
         $pattern = '{сабж} is {n}';
-
         $formatter = new MessageFormatter('en_US', $pattern);
         $result = $formatter->format(array('n' => 42));
+
         $this->assertEquals('{сабж} is 42', $result);
 
         if (\PHP_VERSION_ID < 50500) {
@@ -226,15 +219,16 @@ _MSG_
 
         $formatter = new \MessageFormatter('en_US', $pattern);
         $result = $formatter->format(array('n' => 42));
+
         $this->assertEquals('{сабж} is 42', $result);
     }
 
     public function testNoParams()
     {
         $pattern = '{сабж} is {n}';
-
         $formatter = new MessageFormatter('en_US', $pattern);
         $result = $formatter->format(array());
+
         $this->assertEquals($pattern, $result, $formatter->getErrorMessage());
 
         if (\PHP_VERSION_ID < 50500) {
@@ -243,15 +237,16 @@ _MSG_
 
         $formatter = new \MessageFormatter('en_US', $pattern);
         $result = $formatter->format(array());
+
         $this->assertEquals($pattern, $result, $formatter->getErrorMessage());
     }
 
     public function testGridViewMessage()
     {
         $pattern = 'Showing <b>{begin, number}-{end, number}</b> of <b>{totalCount, number}</b> {totalCount, plural, one{item} other{items}}.';
-
         $formatter = new MessageFormatter('en_US', $pattern);
         $result = $formatter->format(array('begin' => 1, 'end' => 5, 'totalCount' => 10));
+
         $this->assertEquals('Showing <b>1-5</b> of <b>10</b> items.', $result);
 
         if (\PHP_VERSION_ID < 50500) {
@@ -260,6 +255,7 @@ _MSG_
 
         $formatter = new \MessageFormatter('en_US', $pattern);
         $result = $formatter->format(array('begin' => 1, 'end' => 5, 'totalCount' => 10));
+
         $this->assertEquals('Showing <b>1-5</b> of <b>10</b> items.', $result);
     }
 
@@ -277,3 +273,4 @@ _MSG_
         $this->assertFalse($formatter->format(array('n' => 42)));
     }
 }
+

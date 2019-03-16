@@ -46,7 +46,6 @@ class IndexDotPhpTest extends GalleryTestCase {
 
 		// Request http://domain.com/path/  and for http://domain.com/path/index.php
 		$i = 0;
-
 		foreach (array(
 			$baseUrl,
 			$baseUrl . 'index.php',
@@ -104,3 +103,4 @@ class IndexDotPhpTest extends GalleryTestCase {
 		}
 	}
 }
+

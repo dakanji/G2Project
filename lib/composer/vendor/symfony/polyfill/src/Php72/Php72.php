@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Polyfill\Php72;
 
 /**
@@ -20,12 +19,10 @@ namespace Symfony\Polyfill\Php72;
 final class Php72
 {
     private static $hashMask;
-
     public static function utf8_encode($s)
     {
         $s .= $s;
         $len = \strlen($s);
-
         for ($i = $len >> 1, $j = 0; $i < $len; ++$i, ++$j) {
             switch (true) {
                 case $s[$i] < "\x80": $s[$j] = $s[$i]; break;
@@ -41,22 +38,23 @@ final class Php72
     {
         $s = (string) $s;
         $len = \strlen($s);
-
         for ($i = 0, $j = 0; $i < $len; ++$i, ++$j) {
             switch ($s[$i] & "\xF0") {
                 case "\xC0":
                 case "\xD0":
                     $c = (\ord($s[$i] & "\x1F") << 6) | \ord($s[++$i] & "\x3F");
                     $s[$j] = $c < 256 ? \chr($c) : '?';
+
                     break;
 
                 case "\xF0":
                     ++$i;
-                    // no break
 
+                    // no break
                 case "\xE0":
                     $s[$j] = '?';
                     $i += 2;
+
                     break;
 
                 default:
@@ -91,6 +89,7 @@ final class Php72
         if (null === self::$hashMask) {
             self::initHashMask();
         }
+
         if (null === $hash = spl_object_hash($object)) {
             return;
         }
@@ -107,7 +106,6 @@ final class Php72
         }
 
         $meta = stream_get_meta_data($stream);
-
         if ('STDIO' !== $meta['stream_type']) {
             trigger_error('sapi_windows_vt100_support() was not able to analyze the specified stream', E_USER_WARNING);
 
@@ -122,7 +120,6 @@ final class Php72
         // The native function does not apply to stdin
         $meta = array_map('strtolower', $meta);
         $stdin = 'php://stdin' === $meta['uri'] || 'php://fd/0' === $meta['uri'];
-
         return !$stdin
             && (false !== getenv('ANSICON')
             || 'ON' === getenv('ConEmuANSI')
@@ -140,6 +137,7 @@ final class Php72
 
         if ('\\' === \DIRECTORY_SEPARATOR) {
             $stat = @fstat($stream);
+
             // Check if formatted mode is S_IFCHR
             return $stat ? 0020000 === ($stat['mode'] & 0170000) : false;
         }
@@ -157,9 +155,11 @@ final class Php72
         foreach (debug_backtrace(\PHP_VERSION_ID >= 50400 ? DEBUG_BACKTRACE_IGNORE_ARGS : false) as $frame) {
             if (isset($frame['function'][0]) && !isset($frame['class']) && 'o' === $frame['function'][0] && \in_array($frame['function'], $obFuncs)) {
                 $frame['line'] = 0;
+
                 break;
             }
         }
+
         if (!empty($frame['line'])) {
             ob_start();
             debug_zval_dump($obj);
@@ -204,9 +204,11 @@ final class Php72
         if (0xF0 <= $code) {
             return (($code - 0xF0) << 18) + (($s[2] - 0x80) << 12) + (($s[3] - 0x80) << 6) + $s[4] - 0x80;
         }
+
         if (0xE0 <= $code) {
             return (($code - 0xE0) << 12) + (($s[2] - 0x80) << 6) + $s[3] - 0x80;
         }
+
         if (0xC0 <= $code) {
             return (($code - 0xC0) << 6) + $s[2] - 0x80;
         }
@@ -214,3 +216,4 @@ final class Php72
         return $code;
     }
 }
+

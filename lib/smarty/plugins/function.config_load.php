@@ -28,6 +28,7 @@
 function smarty_function_config_load($params, &$smarty) {
 	if ($smarty->debugging) {
 		$_params = array();
+
 		include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
 
 		$_debug_start_time = smarty_core_get_microtime($_params, $smarty);

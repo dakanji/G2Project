@@ -185,7 +185,6 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 			)
 		);
 		GalleryUtilities::putRequestVariable('form[action][link]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -360,7 +359,6 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 			)
 		);
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

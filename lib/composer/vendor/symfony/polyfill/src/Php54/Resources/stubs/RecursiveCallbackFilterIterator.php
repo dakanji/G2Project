@@ -8,12 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 class RecursiveCallbackFilterIterator extends CallbackFilterIterator implements RecursiveIterator
 {
     private $iterator;
     private $callback;
-
     public function __construct(RecursiveIterator $iterator, $callback)
     {
         $this->iterator = $iterator;
@@ -31,3 +29,4 @@ class RecursiveCallbackFilterIterator extends CallbackFilterIterator implements 
         return new static($this->iterator->getChildren(), $this->callback);
     }
 }
+

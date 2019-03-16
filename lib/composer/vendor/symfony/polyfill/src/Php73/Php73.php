@@ -1,5 +1,4 @@
 <?php
-
 namespace Symfony\Polyfill\Php73;
 
 /**
@@ -22,7 +21,6 @@ final class Php73
         $ns = \microtime(false);
         $s = \substr($ns, 11) - self::$startAt;
         $ns = 1E9 * (float) $ns;
-
         if ($asNum) {
             $ns += $s * 1E9;
 
@@ -32,3 +30,4 @@ final class Php73
         return array($s, (int) $ns);
     }
 }
+

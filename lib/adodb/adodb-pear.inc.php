@@ -16,7 +16,7 @@
  * and Tomas V.V.Cox <cox@idecnet.com>. Portions (c)1997-2002 The PHP Group.
  */
 
- /*
+/*
  We support:
  DB_Common
  ---------
@@ -45,7 +45,9 @@
 define('ADODB_PEAR', __DIR__);
 
 require_once 'PEAR.php';
+
 require_once ADODB_PEAR . '/adodb-errorpear.inc.php';
+
 require_once ADODB_PEAR . '/adodb.inc.php';
 
 if (!defined('DB_OK')) {

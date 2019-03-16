@@ -52,7 +52,8 @@ function adodb_addslashes($s) {
 	}
 
 	if (strncmp($s, "'", 1) === 0 && substr($s, $len - 1) == "'") {
-		return $s; // already quoted
+		// already quoted
+		return $s;
 	}
 
 	return "'" . addslashes($s) . "'";
@@ -72,7 +73,8 @@ class ADODB_postgres64 extends ADOConnection {
 		select viewname,'V' from pg_views where viewname not like 'pg\_%'";
 
 	//"select tablename from pg_tables where tablename not like 'pg_%' order by 1";
-	public $isoDates       = true; // accepts dates in ISO format
+	// accepts dates in ISO format
+	public $isoDates       = true;
 	public $sysDate        = 'CURRENT_DATE';
 	public $sysTimeStamp   = 'CURRENT_TIMESTAMP';
 	public $blobEncodeType = 'C';
@@ -96,25 +98,44 @@ class ADODB_postgres64 extends ADOConnection {
 		AND (i.indkey[0] = a.attnum OR i.indkey[1] = a.attnum OR i.indkey[2] = a.attnum OR i.indkey[3] = a.attnum OR i.indkey[4] = a.attnum OR i.indkey[5] = a.attnum OR i.indkey[6] = a.attnum OR i.indkey[7] = a.attnum)
 		AND a.attrelid = bc.oid AND bc.relname = '%s'";
 	public $hasAffectedRows = true;
-	public $hasLimit        = false;  // set to true for pgsql 7 only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
+
+	// set to true for pgsql 7 only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
+	public $hasLimit = false;
+
 	// below suggested by Freek Dijkstra
-	public $true            = 'TRUE';     // string that represents TRUE for a database
-	public $false           = 'FALSE';       // string that represents FALSE for a database
-	public $fmtDate         = "'Y-m-d'";   // used by DBDate() as the default date format used by the database
-	public $fmtTimeStamp    = "'Y-m-d H:i:s'"; // used by DBTimeStamp as the default timestamp fmt.
+	// string that represents TRUE for a database
+	public $true = 'TRUE';
+
+	// string that represents FALSE for a database
+	public $false = 'FALSE';
+
+	// used by DBDate() as the default date format used by the database
+	public $fmtDate = "'Y-m-d'";
+
+	// used by DBTimeStamp as the default timestamp fmt.
+	public $fmtTimeStamp    = "'Y-m-d H:i:s'";
 	public $hasMoveFirst    = true;
 	public $hasGenID        = true;
 	public $_genIDSQL       = "SELECT NEXTVAL('%s')";
 	public $_genSeqSQL      = 'CREATE SEQUENCE %s START %s';
 	public $_dropSeqSQL     = 'DROP SEQUENCE %s';
 	public $metaDefaultsSQL = "SELECT d.adnum as num, d.adsrc as def from pg_attrdef d, pg_class c where d.adrelid=c.oid and c.relname='%s' order by d.adnum";
-	public $random          = 'random()';       /// random function
-	public $autoRollback    = true; // apparently pgsql does not autorollback properly before php 4.3.4
-							// http://bugs.php.net/bug.php?id=25404
-	public $uniqueIisR      = true;
-	public $_bindInputArray = false; // requires postgresql 7.3+ and ability to modify database
-	public $disableBlobs    = false; // set to true to disable blob checking, resulting in 2-5% improvement in performance.
-	public $_pnum           = 0;
+
+	/// random function
+	public $random = 'random()';
+
+	// apparently pgsql does not autorollback properly before php 4.3.4
+	public $autoRollback = true;
+
+	// http://bugs.php.net/bug.php?id=25404
+	public $uniqueIisR = true;
+
+	// requires postgresql 7.3+ and ability to modify database
+	public $_bindInputArray = false;
+
+	// set to true to disable blob checking, resulting in 2-5% improvement in performance.
+	public $disableBlobs = false;
+	public $_pnum        = 0;
 
 	// The last (fmtTimeStamp is not entirely correct:
 	// PostgreSQL also has support for time zones,
@@ -461,7 +482,6 @@ class ADODB_postgres64 extends ADOConnection {
 	 *
 	 * Since adodb 4.54, this returns the blob, instead of sending it to stdout. Also
 	 * added maxsize parameter, which defaults to $db->maxblobsize if not defined.
-
 	 */
 	public function BlobDecode($blob, $maxsize = false, $hastrans = true) {
 		if (!$this->GuessOID($blob)) {
@@ -512,7 +532,8 @@ class ADODB_postgres64 extends ADOConnection {
 		}
 
 		// 92=backslash, 0=null, 39=single-quote
-		$badch = array(chr(92), chr(0), chr(39)); // \  null  '
+		// \  null  '
+		$badch = array(chr(92), chr(0), chr(39));
 		$fixch = array('\\\\134', '\\\\000', '\\\\047');
 
 		return adodb_str_replace($badch, $fixch, $blob);
@@ -636,7 +657,8 @@ class ADODB_postgres64 extends ADOConnection {
 					$num = $rsdef->fields['num'];
 					$s   = $rsdef->fields['def'];
 
-					if (strpos($s, '::') === false && substr($s, 0, 1) == "'") { // quoted strings hack... for now... fixme
+					if (strpos($s, '::') === false && substr($s, 0, 1) == "'") {
+						// quoted strings hack... for now... fixme
 						$s = substr($s, 1);
 						$s = substr($s, 0, strlen($s) - 1);
 					}
@@ -693,7 +715,8 @@ class ADODB_postgres64 extends ADOConnection {
 					}
 
 					if ($fld->name == $key['column_name'] and $key['unique_key'] == 't') {
-						$fld->unique = true; // What name is more compatible?
+						// What name is more compatible?
+						$fld->unique = true;
 					}
 				}
 			}
@@ -734,7 +757,8 @@ class ADODB_postgres64 extends ADOConnection {
 
 		$this->_findschema($table, $schema);
 
-		if ($schema) { // requires pgsql 7.3+ - pg_namespace used.
+		if ($schema) {
+			// requires pgsql 7.3+ - pg_namespace used.
 			$sql = '
 				SELECT c.relname as "Name", i.indisunique as "Unique", i.indkey as "Columns"
 				FROM pg_catalog.pg_class c
@@ -852,10 +876,12 @@ class ADODB_postgres64 extends ADOConnection {
 		}
 
 		//if ($user) $linea = "user=$user host=$linea password=$pwd dbname=$db port=5432";
-		if ($ctype === 1) { // persistent
+		if ($ctype === 1) {
+			// persistent
 			$this->_connectionID = pg_pconnect($str);
 		} else {
-			if ($ctype === -1) { // nconnect, we trick pgsql ext by changing the connection str
+			if ($ctype === -1) {
+				// nconnect, we trick pgsql ext by changing the connection str
 				static $ncnt;
 
 				if (empty($ncnt)) {
@@ -878,7 +904,8 @@ class ADODB_postgres64 extends ADOConnection {
 		$info            = $this->ServerInfo();
 		$this->pgVersion = (float)substr($info['version'], 0, 3);
 
-		if ($this->pgVersion >= 7.1) { // good till version 999
+		if ($this->pgVersion >= 7.1) {
+			// good till version 999
 			$this->_nestedSQL = true;
 		}
 
@@ -1073,12 +1100,14 @@ class ADODB_postgres64 extends ADOConnection {
 
 	// Maximum size of C field
 	public function CharMax() {
-		return 1000000000;  // should be 1 Gb?
+		// should be 1 Gb?
+		return 1000000000;
 	}
 
 	// Maximum size of X field
 	public function TextMax() {
-		return 1000000000; // should be 1 Gb?
+		// should be 1 Gb?
+		return 1000000000;
 	}
 }
 

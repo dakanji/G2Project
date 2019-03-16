@@ -91,7 +91,6 @@ class GalleryLinkItem extends GalleryItem {
 
 		if (isset($linkedAlbum)) {
 			$this->setTitle($linkedAlbum->getTitle());
-
 			$this->setSummary($linkedAlbum->getSummary());
 			$this->setDescription($linkedAlbum->getDescription());
 			$this->setKeywords($linkedAlbum->getKeywords());

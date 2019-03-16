@@ -8,15 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 define('LINE_WIDTH', 75);
-
 define('LINE', str_repeat('-', LINE_WIDTH)."\n");
-
 function bailout($message)
 {
     echo wordwrap($message, LINE_WIDTH)." Aborting.\n";
-
     exit(1);
 }
 
@@ -44,11 +40,9 @@ function cd($dir)
 function run($command)
 {
     exec($command, $output, $status);
-
     if (0 !== $status) {
         $output = implode("\n", $output);
         echo "Error while running:\n    ".getcwd().'$ '.$command."\nOutput:\n".LINE."$output\n".LINE;
-
         bailout("\"$command\" failed.");
     }
 }
@@ -56,7 +50,6 @@ function run($command)
 function get_icu_version_from_genrb($genrb)
 {
     exec($genrb.' --version - 2>&1', $output, $status);
-
     if (0 !== $status) {
         bailout($genrb.' failed.');
     }
@@ -70,23 +63,24 @@ function get_icu_version_from_genrb($genrb)
 
 set_exception_handler(function (\Throwable $exception) {
     echo "\n";
-
     $cause = $exception;
     $root = true;
-
     while (null !== $cause) {
         if (!$root) {
             echo "Caused by\n";
         }
 
         echo get_class($cause).': '.$cause->getMessage()."\n";
+
         echo "\n";
+
         echo $cause->getFile().':'.$cause->getLine()."\n";
+
         foreach ($cause->getTrace() as $trace) {
             echo $trace['file'].':'.$trace['line']."\n";
         }
-        echo "\n";
 
+        echo "\n";
         $cause = $cause->getPrevious();
         $root = false;
     }

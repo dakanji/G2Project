@@ -89,3 +89,4 @@ class CustomFieldSiteAdminView extends GalleryView {
 		);
 	}
 }
+

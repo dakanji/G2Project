@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Data\Bundle\Writer;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Intl\Data\Bundle\Writer\TextBundleWriter;
@@ -26,14 +24,12 @@ class TextBundleWriterTest extends TestCase
      * @var TextBundleWriter
      */
     private $writer;
-
     private $directory;
 
     /**
      * @var Filesystem
      */
     private $filesystem;
-
     protected function setUp()
     {
         $this->writer = new TextBundleWriter();
@@ -104,9 +100,11 @@ class TextBundleWriterTest extends TestCase
     public function testEscapeKeysIfNecessary()
     {
         $this->writer->write($this->directory, 'escaped', array(
+
             // Keys with colons must be escaped, otherwise the part after the
             // colon is interpreted as resource type
             'EntryWith:Colon' => 'Value',
+
             // Keys with spaces must be escaped
             'Entry With Spaces' => 'Value',
         ));
@@ -114,3 +112,4 @@ class TextBundleWriterTest extends TestCase
         $this->assertFileEquals(__DIR__.'/Fixtures/escaped.txt', $this->directory.'/escaped.txt');
     }
 }
+

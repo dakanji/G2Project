@@ -56,7 +56,6 @@ class ControllerTest extends GalleryTestCase {
 		$session->remove('core.authToken');
 
 		$this->_originalIsPersistentSession = $session->isPersistent();
-
 		GalleryUtilities::removeRequestVariable('authToken');
 	}
 
@@ -214,6 +213,7 @@ class ControllerTest extends GalleryTestCase {
 		$validAuthToken = 'ABCDEF123456';
 
 		$session->put('core.authToken', $validAuthToken);
+
 		GalleryUtilities::putRequestVariable('authToken', '098765432109');
 
 		$gallery->setConfig('mode.maintenance', true);
@@ -261,6 +261,7 @@ class ControllerTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($album);
+
 		GalleryUtilities::putRequestVariable('itemId', $album->getId());
 
 		$ret = GalleryCoreApi::removeItemPermissions($album->getId());
@@ -312,7 +313,6 @@ class ControllerTest extends GalleryTestCase {
 
 	public function testGetItemMissingItemIdFails() {
 		$controller = new GalleryController();
-
 		GalleryUtilities::removeRequestVariable('itemId');
 
 		list($ret, $item) = $controller->getItem();

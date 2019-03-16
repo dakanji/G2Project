@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Collator\Verification;
-
 use Symfony\Component\Intl\Tests\Collator\AbstractCollatorTest;
 use Symfony\Component\Intl\Util\IntlTestHelper;
 
@@ -25,7 +23,6 @@ class CollatorTest extends AbstractCollatorTest
     protected function setUp()
     {
         IntlTestHelper::requireFullIntl($this, false);
-
         parent::setUp();
     }
 
@@ -34,3 +31,4 @@ class CollatorTest extends AbstractCollatorTest
         return new \Collator($locale);
     }
 }
+

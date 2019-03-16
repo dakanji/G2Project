@@ -232,7 +232,6 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	public function _urlGeneratorInit($urlGeneratorName) {
 		$this->_urlGeneratorName = $urlGeneratorName;
 		$this->_urlGenerator     = new $urlGeneratorName();
-
 		GalleryDataCache::reset();
 
 		$ret = $this->_urlGenerator->init('phpunit_test.php');
@@ -260,7 +259,6 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	public function testGetCurrentUrlEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
-
 		$_SERVER['REQUEST_URI'] = '/cms/index.php?mod=gallery2';
 		unset($_SERVER['QUERY_STRING']);
 		$expectedUrl         = 'http://example.com/cms/index.php?mod=gallery2';
@@ -292,7 +290,6 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	public function testGetCurrentUrlDirEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
-
 		$_SERVER['REQUEST_URI'] = '/cms/index.php?mod=gallery2';
 		$expectedUrl            = 'http://example.com/cms/';
 		$this->_urlGenerator    = new $this->_urlGeneratorName();
@@ -328,19 +325,16 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		}
 
 		$this->assertFalse($urlGenerator->_error);
-
 		$this->assertEquals(
 			'http://example.com/gallery2/',
 			$urlGenerator->_getBaseUrl(),
 			'baseUrl default'
 		);
-
 		$this->assertEquals(
 			'http://example.com/gallery2/',
 			$urlGenerator->_getBaseUrl(true),
 			'baseUrl forceDirect'
 		);
-
 		$this->assertEquals(
 			'http://example.com/gallery2/',
 			$urlGenerator->_getBaseUrl(false),
@@ -358,7 +352,6 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 	public function testGetBaseUrlEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
-
 		$urlGenerator = new $this->_urlGeneratorName();
 
 		$ret = $urlGenerator->init('/cms/index.php', 'https://direct/gallery2/');
@@ -368,25 +361,21 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 		}
 
 		$this->assertFalse($urlGenerator->_error);
-
 		$this->assertEquals(
 			'http://example.com/cms/',
 			$urlGenerator->_getBaseUrl(),
 			'baseUrl default'
 		);
-
 		$this->assertEquals(
 			'https://direct/gallery2/',
 			$urlGenerator->_getBaseUrl(true),
 			'baseUrl forceDirect'
 		);
-
 		$this->assertEquals(
 			'http://example.com/cms/',
 			$urlGenerator->_getBaseUrl(false),
 			'baseUrl no forceDirect'
 		);
-
 		$this->assertFalse($urlGenerator->_error);
 		$this->assertEquals('', $urlGenerator->_getBaseParamString(), 'baseParamss default');
 		$this->assertEquals('', $urlGenerator->_getBaseParamString(true), 'baseParams forceDirect');

@@ -30,3 +30,4 @@ $entityInfo['ThumbnailImage'] = array(
 	'module'  => 'thumbnail',
 	'linked'  => array(),
 );
+

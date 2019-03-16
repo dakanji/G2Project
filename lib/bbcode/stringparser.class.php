@@ -691,8 +691,10 @@ class StringParser {
 		return false;
 
 		/*
+
 		while ($this->_cpos < $this->_length) {
 			$needle = $this->_strDetect ($this->_charactersSearch, $this->_cpos);
+
 			if ($needle === false) {
 				// not found => see if character is allowed
 				if (!in_array ($this->_text{$this->_cpos}, $this->_charactersAllowed)) {
@@ -706,6 +708,7 @@ class StringParser {
 
 				// lot's of FIXMES
 				$res = $this->_appendText ($this->_text{$this->_cpos});
+
 				if (!$res) {
 					return false;
 				}
@@ -714,12 +717,14 @@ class StringParser {
 			// get subtext
 			$subtext = substr ($this->_text, $offset, $offset - $this->_cpos);
 			$res = $this->_appendText ($subtext);
+
 			if (!$res) {
 				return false;
 			}
 
 			$this->_cpos = $subtext;
 			$res = $this->_handleStatus ($this->_status, $needle);
+
 			if (!$res && $strict) {
 				return false;
 			}
@@ -737,6 +742,7 @@ class StringParser {
 
 		// break up parsing operation of current node
 		$res = $this->_reparseAfterCurrentBlock ();
+
 		if (!$res) {
 			return false;
 		}
@@ -744,6 +750,7 @@ class StringParser {
 		// this will not cause an infinite loop because
 		// _reparseAfterCurrentBlock will increase _cpos by one!
 		return $this->_loop ();
+
 		*/
 	}
 
@@ -882,7 +889,8 @@ class StringParser {
 		$args = func_get_args();
 
 		if (!count($args)) {
-			return; // oops?
+			// oops?
+			return;
 		}
 
 		$method      = array_shift($args);
@@ -890,7 +898,8 @@ class StringParser {
 		$method      = array(&$this->_stack[$stack_count - 1], $method);
 
 		if (!is_callable($method)) {
-			return; // oops?
+			// oops?
+			return;
 		}
 
 		return call_user_func_array($method, $args);

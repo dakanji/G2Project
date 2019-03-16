@@ -701,6 +701,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			'size'         => 1000,
 			'keepOriginal' => 1,
 		)
+
  as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
@@ -761,6 +762,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			'size'         => 1000,
 			'keepOriginal' => 1,
 		)
+
  as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
@@ -847,6 +849,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			'size'         => 1000,
 			'keepOriginal' => 0,
 		)
+
  as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
@@ -902,6 +905,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			'size'         => 1000,
 			'keepOriginal' => 0,
 		)
+
  as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
@@ -975,6 +979,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			'size'         => 1000,
 			'keepOriginal' => 0,
 		)
+
  as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
@@ -1003,6 +1008,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			'size'         => 1000,
 			'keepOriginal' => 0,
 		)
+
  as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
@@ -1051,6 +1057,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			'size'         => 30000,
 			'keepOriginal' => 0,
 		)
+
  as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
@@ -1222,7 +1229,6 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 class SetSizeOptionTestPlatform extends GalleryPlatform {
 	public function __construct($originalPlatform) {
 		$this->_savedPlatform = $originalPlatform;
-
 		GalleryUtilities::putRequestVariable('resizePerformed', false);
 		GalleryUtilities::putRequestVariable('compressPerformed', false);
 	}
@@ -1314,7 +1320,6 @@ class SetSizeOptionTestToolkit extends GalleryToolkit {
 		}
 
 		$operations[] = $operationName;
-
 		GalleryUtilities::putRequestVariable('operation', $operations);
 
 		return array(null, $mimeType, $context);

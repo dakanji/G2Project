@@ -30,7 +30,8 @@ class ADODB_sybase_ase extends ADODB_sybase {
 				$sql = str_replace('U', 'V', $this->metaTablesSQL);
 			} elseif (false === $ttype) {
 				$sql = str_replace('U', "U' OR type='V", $this->metaTablesSQL);
-			} else { // TABLES OR ANY OTHER
+			} else {
+				// TABLES OR ANY OTHER
 				$sql = $this->metaTablesSQL;
 			}
 

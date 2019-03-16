@@ -28,10 +28,14 @@ if (!defined('ADODB_DIR')) {
 }
 
 class ADODB_ibase extends ADOConnection {
-	public $databaseType       = 'ibase';
-	public $dataProvider       = 'ibase';
-	public $replaceQuote       = "''"; // string to use to replace quotes
-	public $ibase_datefmt      = '%Y-%m-%d'; // For hours,mins,secs change to '%Y-%m-%d %H:%M:%S';
+	public $databaseType = 'ibase';
+	public $dataProvider = 'ibase';
+
+	// string to use to replace quotes
+	public $replaceQuote = "''";
+
+	// For hours,mins,secs change to '%Y-%m-%d %H:%M:%S';
+	public $ibase_datefmt      = '%Y-%m-%d';
 	public $fmtDate            = "'Y-m-d'";
 	public $ibase_timestampfmt = '%Y-%m-%d %H:%M:%S';
 	public $ibase_timefmt      = '%H:%M:%S';
@@ -45,12 +49,14 @@ class ADODB_ibase extends ADOConnection {
 
 	//OPN STUFF end
 	public $ibasetrans;
-	public $hasGenID         = true;
-	public $_bindInputArray  = true;
-	public $buffers          = 0;
-	public $dialect          = 1;
-	public $sysDate          = "cast('TODAY' as timestamp)";
-	public $sysTimeStamp     = 'CURRENT_TIMESTAMP'; //"cast('NOW' as timestamp)";
+	public $hasGenID        = true;
+	public $_bindInputArray = true;
+	public $buffers         = 0;
+	public $dialect         = 1;
+	public $sysDate         = "cast('TODAY' as timestamp)";
+
+	//"cast('NOW' as timestamp)";
+	public $sysTimeStamp     = 'CURRENT_TIMESTAMP';
 	public $ansiOuter        = true;
 	public $hasAffectedRows  = false;
 	public $poorAffectedRows = true;
@@ -96,7 +102,8 @@ class ADODB_ibase extends ADOConnection {
 			);
 		}
 
-		if ($this->dialect != 1) { // http://www.ibphoenix.com/ibp_60_del_id_ds.html
+		if ($this->dialect != 1) {
+			// http://www.ibphoenix.com/ibp_60_del_id_ds.html
 			$this->replaceQuote = "''";
 		}
 
@@ -119,7 +126,9 @@ class ADODB_ibase extends ADOConnection {
 			ibase_timefmt($this->ibase_timefmt, IBASE_TIME);
 		} else {
 			ini_set('ibase.timestampformat', $this->ibase_timestampfmt);
+
 			ini_set('ibase.dateformat', $this->ibase_datefmt);
+
 			ini_set('ibase.timeformat', $this->ibase_timefmt);
 		}
 
@@ -183,9 +192,12 @@ class ADODB_ibase extends ADOConnection {
 			return true;
 		}
 
-		$this->transCnt      += 1;
-		$this->autoCommit     = false;
-		$this->_transactionID = $this->_connectionID;//ibase_trans($this->ibasetrans, $this->_connectionID);
+		$this->transCnt  += 1;
+		$this->autoCommit = false;
+
+		//ibase_trans($this->ibasetrans, $this->_connectionID);
+		$this->_transactionID = $this->_connectionID;
+
 		return $this->_transactionID;
 	}
 
@@ -222,9 +234,12 @@ class ADODB_ibase extends ADOConnection {
 		global $ADODB_COUNTRECS;
 
 		if ($this->_logsql) {
-			$savecrecs       = $ADODB_COUNTRECS;
-			$ADODB_COUNTRECS = true; // force countrecs
-			$ret             = ADOConnection::_Execute($sql, $inputarr);
+			$savecrecs = $ADODB_COUNTRECS;
+
+			// force countrecs
+			$ADODB_COUNTRECS = true;
+
+			$ret = ADOConnection::_Execute($sql, $inputarr);
 
 			$ADODB_COUNTRECS = $savecrecs;
 		} else {
@@ -331,7 +346,9 @@ class ADODB_ibase extends ADOConnection {
 			$this->BeginTrans();
 		}
 
-		$this->Execute("UPDATE $table SET $col=$col WHERE $where "); // is this correct - jlim?
+		// is this correct - jlim?
+		$this->Execute("UPDATE $table SET $col=$col WHERE $where ");
+
 		return 1;
 	}
 
@@ -364,7 +381,8 @@ class ADODB_ibase extends ADOConnection {
 		if ($rs && !$rs->EOF) {
 			$this->genID = (int)reset($rs->fields);
 		} else {
-			$this->genID = 0; // false
+			// false
+			$this->genID = 0;
 		}
 
 		if ($rs) {
@@ -420,9 +438,11 @@ class ADODB_ibase extends ADOConnection {
 			$sql = $sql[1];
 
 			if (is_array($iarr)) {
-				if (ADODB_PHPVER >= 0x4050) { // actually 4.0.4
+				if (ADODB_PHPVER >= 0x4050) {
+					// actually 4.0.4
 					if (!isset($iarr[0])) {
-						$iarr[0] = ''; // PHP5 compat hack
+						// PHP5 compat hack
+						$iarr[0] = '';
 					}
 
 					$fnarr = array_merge(array($sql), $iarr);
@@ -482,9 +502,11 @@ class ADODB_ibase extends ADOConnection {
 			$fn = 'ibase_query';
 
 			if (is_array($iarr)) {
-				if (ADODB_PHPVER >= 0x4050) { // actually 4.0.4
+				if (ADODB_PHPVER >= 0x4050) {
+					// actually 4.0.4
 					if (sizeof($iarr) == 0) {
-						$iarr[0] = ''; // PHP5 compat hack
+						// PHP5 compat hack
+						$iarr[0] = '';
 					}
 
 					$fnarr = array_merge(array($conn, $sql), $iarr);
@@ -709,7 +731,8 @@ class ADODB_ibase extends ADOConnection {
 		$dialect3 = ($this->dialect == 3 ? true : false);
 
 		//OPN STUFF end
-		while (!$rs->EOF) { //print_r($rs->fields);
+		while (!$rs->EOF) {
+			//print_r($rs->fields);
 			$fld       = new ADOFieldObject();
 			$fld->name = trim($rs->fields[0]);
 
@@ -795,8 +818,11 @@ class ADODB_ibase extends ADOConnection {
 	// old blobdecode function
 	// still used to auto-decode all blob's
 	public function _BlobDecode_old($blob) {
-		$blobid   = ibase_blob_open($this->_connectionID, $blob);
-		$realblob = ibase_blob_get($blobid, $this->maxblobsize); // 2nd param is max size of blob -- Kevin Boillet <kevinboillet@yahoo.fr>
+		$blobid = ibase_blob_open($this->_connectionID, $blob);
+
+		// 2nd param is max size of blob -- Kevin Boillet <kevinboillet@yahoo.fr>
+		$realblob = ibase_blob_get($blobid, $this->maxblobsize);
+
 		while ($string = ibase_blob_get($blobid, 8192)) {
 			$realblob .= $string;
 		}

@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Data\Bundle\Reader;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Intl\Data\Bundle\Reader\PhpBundleReader;
 
@@ -23,7 +21,6 @@ class PhpBundleReaderTest extends TestCase
      * @var PhpBundleReader
      */
     private $reader;
-
     protected function setUp()
     {
         $this->reader = new PhpBundleReader();
@@ -70,3 +67,4 @@ class PhpBundleReaderTest extends TestCase
         $this->reader->read(__DIR__.'/Fixtures/php', '../invalid_directory/en');
     }
 }
+

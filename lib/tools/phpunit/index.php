@@ -27,7 +27,9 @@
 define('G2_SUPPORT_URL_FRAGMENT', '../../support/');
 
 require '../../support/security.inc';
+
 require '../../../bootstrap.inc';
+
 require_once '../../../init.inc';
 
 if (function_exists('date_default_timezone_set')) {
@@ -114,8 +116,7 @@ ob_end_clean();
  * there's an actual test run in progress.
  */
 function PhpUnitOutputInterceptor($message) {
-	global $gallery;
-	global $testReportDir;
+	global $gallery,  $testReportDir;
 
 	if (isset($_GET['filter'])) {
 		if (!file_exists($testReportDir)) {
@@ -157,22 +158,39 @@ function PhpUnitOutputInterceptor($message) {
 	ob_start('PhpUnitOutputInterceptor', 256);
 
 	require_once 'phpunit.inc';
+
 	require_once 'GalleryTestCase.class';
+
 	require_once 'GalleryImmediateViewTestCase.class';
+
 	require_once 'GalleryControllerTestCase.class';
+
 	require_once 'GalleryViewTestCase.class';
+
 	require_once 'ItemAddPluginTestCase.class';
+
 	require_once 'ItemEditPluginTestCase.class';
+
 	require_once 'ItemEditOptionTestCase.class';
+
 	require_once 'CodeAuditTestCase.class';
+
 	require_once 'MockObject.class';
+
 	require_once 'UnitTestPlatform.class';
+
 	require_once 'UnitTestStorage.class';
+
 	require_once 'UnitTestPhpVm.class';
+
 	require_once 'UnitTestUrlGenerator.class';
+
 	require_once 'MockTemplateAdapter.class';
+
 	require_once 'UnitTestTemplate.class';
+
 	require_once 'UnitTestRepository.class';
+
 	require_once 'UnitTestRepositoryUtilities.class';
 
 function PhpUnitGalleryMain(&$testSuite, $filter) {
@@ -514,6 +532,7 @@ class GalleryTestResult extends TestResult {
 			} else {
 				$class = 'Pass';
 				$text  = 'r.cells[4].lastChild.nodeValue="PASSED";';
+
 				global $testOneByOne;
 
 				if (isset($testOneByOne)) {
@@ -606,6 +625,7 @@ if ($ret) {
 	$ret = $ret;
 
 	echo $ret->getAsHtml();
+
 	echo $gallery->getDebugBuffer();
 
 	return;
@@ -668,6 +688,7 @@ foreach (array(
  * print "<pre>";
 
  * print $gallery->getDebugBuffer();
+
  * print "</pre>";
  */
 require __DIR__ . '/index.tpl';

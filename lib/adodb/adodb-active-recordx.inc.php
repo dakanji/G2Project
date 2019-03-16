@@ -19,28 +19,50 @@
 define('ADODB_JOIN_AR', 0x01);
 define('ADODB_WORK_AR', 0x02);
 define('ADODB_LAZY_AR', 0x03);
-global $_ADODB_ACTIVE_DBS;
-global $ADODB_ACTIVE_CACHESECS; // set to true to enable caching of metadata such as field info
 
-global $ACTIVE_RECORD_SAFETY; // set to false to disable safety checks
-global $ADODB_ACTIVE_DEFVALS; // use default values of table definition when creating new active record.
+global $_ADODB_ACTIVE_DBS;
+
+// set to true to enable caching of metadata such as field info
+global $ADODB_ACTIVE_CACHESECS;
+
+// set to false to disable safety checks
+global $ACTIVE_RECORD_SAFETY;
+
+// use default values of table definition when creating new active record.
+global $ADODB_ACTIVE_DEFVALS;
+
 // array of ADODB_Active_DB's, indexed by ADODB_Active_Record->_dbat
-$_ADODB_ACTIVE_DBS    = array();
-$ACTIVE_RECORD_SAFETY = true; // CFR: disabled while playing with relations
+$_ADODB_ACTIVE_DBS = array();
+
+// CFR: disabled while playing with relations
+$ACTIVE_RECORD_SAFETY = true;
 $ADODB_ACTIVE_DEFVALS = false;
+
 class ADODB_Active_DB {
-	public $db; // ADOConnection
-	public $tables; // assoc array of ADODB_Active_Table objects, indexed by tablename
+	// ADOConnection
+	public $db;
+
+	// assoc array of ADODB_Active_Table objects, indexed by tablename
+	public $tables;
 }
 
 class ADODB_Active_Table {
-	public $name; // table name
-	public $flds; // assoc array of adofieldobjs, indexed by fieldname
-	public $keys; // assoc array of primary keys, indexed by fieldname
-	public $_created; // only used when stored as a cached file
+	// table name
+	public $name;
+
+	// assoc array of adofieldobjs, indexed by fieldname
+	public $flds;
+
+	// assoc array of primary keys, indexed by fieldname
+	public $keys;
+
+	// only used when stored as a cached file
+	public $_created;
 	public $_belongsTo = array();
 	public $_hasMany   = array();
-	public $_colsCount; // total columns count, including relations
+
+	// total columns count, including relations
+	public $_colsCount;
 
 	public function updateColsCount() {
 		$this->_colsCount = sizeof($this->flds);
@@ -80,18 +102,39 @@ function ADODB_SetDatabaseAdapter(&$db) {
 }
 
 class ADODB_Active_Record {
-	public static $_changeNames   = true; // dynamically pluralize table names
+	// dynamically pluralize table names
+	public static $_changeNames   = true;
 	public static $_foreignSuffix = '_id';
-	public $_dbat; // associative index pointing to ADODB_Active_DB eg. $ADODB_Active_DBS[_dbat]
-	public $_table; // tablename, if set in class definition then use it as table name
-	public $_sTable; // singularized table name
-	public $_pTable; // pluralized table name
-	public $_tableat; // associative index pointing to ADODB_Active_Table, eg $ADODB_Active_DBS[_dbat]->tables[$this->_tableat]
-	public $_where; // where clause set in Load()
-	public $_saved    = false; // indicates whether data is already inserted.
-	public $_lasterr  = false; // last error message
-	public $_original = false; // the original values loaded or inserted, refreshed on update
-	public $foreignName; // CFR: class name when in a relationship
+
+	// associative index pointing to ADODB_Active_DB eg. $ADODB_Active_DBS[_dbat]
+	public $_dbat;
+
+	// tablename, if set in class definition then use it as table name
+	public $_table;
+
+	// singularized table name
+	public $_sTable;
+
+	// pluralized table name
+	public $_pTable;
+
+	// associative index pointing to ADODB_Active_Table, eg $ADODB_Active_DBS[_dbat]->tables[$this->_tableat]
+	public $_tableat;
+
+	// where clause set in Load()
+	public $_where;
+
+	// indicates whether data is already inserted.
+	public $_saved = false;
+
+	// last error message
+	public $_lasterr = false;
+
+	// the original values loaded or inserted, refreshed on update
+	public $_original = false;
+
+	// CFR: class name when in a relationship
+	public $foreignName;
 
 	public static function UseDefaultValues($bool = null) {
 		global $ADODB_ACTIVE_DEFVALS;
@@ -142,8 +185,11 @@ class ADODB_Active_Record {
 			$this->_pTable = $this->_pluralize($this->_sTable);
 		}
 
-		$this->_table      =& $this->_pTable;
-		$this->foreignName = $this->_sTable; // CFR: default foreign name (singular)
+		$this->_table =& $this->_pTable;
+
+		// CFR: default foreign name (singular)
+		$this->foreignName = $this->_sTable;
+
 		if ($db) {
 			$this->_dbat = self::SetDatabaseAdapter($db);
 		} else {
@@ -157,7 +203,9 @@ class ADODB_Active_Record {
 			);
 		}
 
-		$this->_tableat = $this->_table; // reserved for setting the assoc value to a non-table name, eg. the sql string in future
+		// reserved for setting the assoc value to a non-table name, eg. the sql string in future
+		$this->_tableat = $this->_table;
+
 		// CFR: Just added this option because UpdateActiveTable() can refresh its information
 		// but there was no way to ask it to do that.
 		$forceUpdate = (isset($options['refresh']) && true === $options['refresh']);
@@ -267,7 +315,8 @@ class ADODB_Active_Record {
 		$len = strlen($table);
 
 		if ($ut[$len - 1] != 'S') {
-			return $table; // I know...forget oxen
+			// I know...forget oxen
+			return $table;
 		}
 
 		if ($ut[$len - 2] != 'E') {
@@ -289,7 +338,8 @@ class ADODB_Active_Record {
 
 				// Fall Through
 			default:
-				return substr($table, 0, $len - 1); // ?
+				// ?
+				return substr($table, 0, $len - 1);
 		}
 	}
 
@@ -317,7 +367,8 @@ class ADODB_Active_Record {
 		}
 
 		// @todo Can I make this guy be lazy?
-		$this->$foreignRef = $table->_hasMany[$foreignRef]; // WATCHME Removed assignment by ref. to please __get()
+		// WATCHME Removed assignment by ref. to please __get()
+		$this->$foreignRef = $table->_hasMany[$foreignRef];
 	}
 
 	/**
@@ -427,8 +478,7 @@ class ADODB_Active_Record {
 	//////////////////////////////////
 	// update metadata
 	public function UpdateActiveTable($pkeys = false, $forceUpdate = false) {
-		global $ADODB_ASSOC_CASE,$_ADODB_ACTIVE_DBS , $ADODB_CACHE_DIR, $ADODB_ACTIVE_CACHESECS;
-		global $ADODB_ACTIVE_DEFVALS, $ADODB_FETCH_MODE;
+		global $ADODB_ASSOC_CASE,$_ADODB_ACTIVE_DBS , $ADODB_CACHE_DIR, $ADODB_ACTIVE_CACHESECS,  $ADODB_ACTIVE_DEFVALS, $ADODB_FETCH_MODE;
 
 		$activedb = $_ADODB_ACTIVE_DBS[$this->_dbat];
 		$table    = $this->_table;
@@ -658,7 +708,8 @@ class ADODB_Active_Record {
 
 	public function ErrorNo() {
 		if ($this->_dbat < 0) {
-			return -9999; // no database connection...
+			// no database connection...
+			return -9999;
 		}
 
 		$db = $this->DB();
@@ -974,6 +1025,7 @@ class ADODB_Active_Record {
 				$obj = new $class($table, false, $db);
 
 				$obj->Set($row);
+
 				// TODO Copy/paste code below: bad!
 				if (count($table->_hasMany) > 0) {
 					foreach ($table->_hasMany as $foreignTable) {
@@ -1178,6 +1230,7 @@ class ADODB_Active_Record {
 			$val = $this->$name;
 
 			/*
+
 			if (is_null($val)) {
 				if (isset($fld->not_null) && $fld->not_null) {
 					if (isset($fld->default_value) && strlen($fld->default_value)) {
@@ -1223,7 +1276,9 @@ class ADODB_Active_Record {
 		$ok = $db->Replace($this->_table, $arr, $pkey);
 
 		if ($ok) {
-			$this->_saved = true; // 1= update 2=insert
+			// 1= update 2=insert
+			$this->_saved = true;
+
 			if ($ok == 2) {
 				$autoinc = false;
 
@@ -1451,7 +1506,8 @@ function adodb_GetActiveRecordsClass(
 		return $false;
 	}
 
-	$uniqArr = array(); // CFR Keep track of records for relations
+	// CFR Keep track of records for relations
+	$uniqArr = array();
 	$arr     = array();
 
 	// arrRef will be the structure that knows about our objects.
@@ -1459,7 +1515,10 @@ function adodb_GetActiveRecordsClass(
 	// We will, however, return arr, preserving regular 0.. order so that
 	// obj[0] can be used by app developpers.
 	$arrRef = array();
-	$bTos   = array(); // Will store belongTo's indices if any
+
+	// Will store belongTo's indices if any
+	$bTos = array();
+
 	foreach ($rows as $row) {
 		$obj = new $class($table, $primkeyArr, $db);
 
@@ -1571,7 +1630,8 @@ function adodb_GetActiveRecordsClass(
 				}
 
 				if (!$isNewObj) {
-					unset($obj); // We do not need this object itself anymore and do not want it re-added to the main array
+					// We do not need this object itself anymore and do not want it re-added to the main array
+					unset($obj);
 				}
 			} elseif (ADODB_LAZY_AR == $extra['loading']) {
 				// Lazy loading: we need to give AdoDb a hint that we have not really loaded

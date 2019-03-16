@@ -32,7 +32,6 @@
  * Session key for storing item admin mode
  */
 define('CUSTOM_FIELD_SESSION_KEY', 'customfield.adminMode.itemId');
-
 GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldInterface_1_0.class');
 
 /**

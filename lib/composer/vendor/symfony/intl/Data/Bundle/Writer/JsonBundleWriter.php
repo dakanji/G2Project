@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Bundle\Writer;
 
 /**
@@ -34,9 +33,8 @@ class JsonBundleWriter implements BundleWriterInterface
                 $value = iterator_to_array($value);
             }
         });
-
         $contents = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)."\n";
-
         file_put_contents($path.'/'.$locale.'.json', $contents);
     }
 }
+

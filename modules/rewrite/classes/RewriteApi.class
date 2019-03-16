@@ -229,7 +229,6 @@ class RewriteApi {
 		}
 
 		$activeRules = unserialize($activeRules);
-
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 
 		list($ret, $history) = RewriteHelper::getHistoryForModule($moduleId);

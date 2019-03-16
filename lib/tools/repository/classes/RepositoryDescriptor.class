@@ -224,6 +224,7 @@ class RepositoryDescriptor extends RepositoryObject {
 				$this->getBuildTimestamp()
 			)
 		);
+
 		// Put data into template.
 		$this->_template->setVariable('contents', serialize($this->_data));
 
@@ -243,9 +244,7 @@ class RepositoryDescriptor extends RepositoryObject {
 		$platform     =& $gallery->getPlatform();
 		$manifest     = array();
 		$manifestFile = $pluginDir . 'MANIFEST';
-
 		GalleryUtilities::readIndividualManifest($manifestFile, $manifest);
-
 		$g2Base           = GalleryCoreApi::getCodeBasePath();
 		$ignoreOffset     = strlen(substr($pluginDir, strlen($g2Base)));
 		$manifestContents = $this->filterManifestForBasePackage(

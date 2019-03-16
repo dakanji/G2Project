@@ -108,8 +108,7 @@ class GalleryTranslator {
 	 *                     ...)
 	 */
 	public function getLanguageData() {
-		static $supportedLanguages = array();
-		static $defaultCountry     = array();
+		static $supportedLanguages = array(),  $defaultCountry     = array();
 
 		if (empty($supportedLanguages)) {
 			// English
@@ -443,8 +442,7 @@ class GalleryTranslator {
 	 *                array data about this language code (description,right-to-left?))
 	 */
 	public function getSupportedLanguageCode($languageCode, $fallback = true) {
-		static $supportedLanguages;
-		static $defaultCountry;
+		static $supportedLanguages,  $defaultCountry;
 
 		if (!isset($supportedLanguages)) {
 			list($supportedLanguages, $defaultCountry) = $this->getLanguageData();

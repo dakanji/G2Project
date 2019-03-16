@@ -20,9 +20,11 @@ if (!defined('ADODB_DIR')) {
 }
 
 class ADODB_sybase extends ADOConnection {
-	public $databaseType    = 'sybase';
-	public $dataProvider    = 'sybase';
-	public $replaceQuote    = "''"; // string to use to replace quotes
+	public $databaseType = 'sybase';
+	public $dataProvider = 'sybase';
+
+	// string to use to replace quotes
+	public $replaceQuote    = "''";
 	public $fmtDate         = "'Y-m-d'";
 	public $fmtTimeStamp    = "'Y-m-d H:i:s'";
 	public $hasInsertID     = true;
@@ -108,8 +110,11 @@ class ADODB_sybase extends ADOConnection {
 	}
 
 	public function SelectDB($dbName) {
-		$this->database     = $dbName;
-		$this->databaseName = $dbName; // obsolete, retained for compat with older adodb versions
+		$this->database = $dbName;
+
+		// obsolete, retained for compat with older adodb versions
+		$this->databaseName = $dbName;
+
 		if ($this->_connectionID) {
 			return @sybase_select_db($dbName);
 		}
@@ -202,7 +207,8 @@ class ADODB_sybase extends ADOConnection {
 
 	// See http://www.isug.com/Sybase_FAQ/ASE/section6.2.html#6.2.12
 	public function SelectLimit($sql, $nrows = -1, $offset = -1, $inputarr = false, $secs2cache = 0) {
-		if ($secs2cache > 0) {// we do not cache rowcount, so we have to load entire recordset
+		if ($secs2cache > 0) {
+			// we do not cache rowcount, so we have to load entire recordset
 			$rs = ADOConnection::SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
 
 			return $rs;
@@ -410,7 +416,8 @@ class ADORecordset_sybase extends ADORecordSet {
 	public function FetchField($fieldOffset = -1) {
 		if ($fieldOffset != -1) {
 			$o = @sybase_fetch_field($this->_queryID, $fieldOffset);
-		} elseif ($fieldOffset == -1) {  // The $fieldOffset argument is not provided thus its -1
+		} elseif ($fieldOffset == -1) {
+			// The $fieldOffset argument is not provided thus its -1
 			$o = @sybase_fetch_field($this->_queryID);
 		}
 

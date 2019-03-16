@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Bundle\Reader;
-
 use Symfony\Component\Intl\Data\Util\ArrayAccessibleResourceBundle;
 use Symfony\Component\Intl\Exception\ResourceBundleNotFoundException;
 
@@ -49,3 +47,4 @@ class IntlBundleReader implements BundleReaderInterface
         return new ArrayAccessibleResourceBundle($bundle);
     }
 }
+

@@ -667,6 +667,7 @@ class ItemTest extends GalleryTestCase {
 		$this->assertTrue(in_array($child[0]->getId(), $ids), 'child 0');
 		$this->assertFalse(in_array($child[1]->getId(), $ids), 'child 1');
 		$this->assertTrue(in_array($child[2]->getId(), $ids), 'child 2');
+
 		// Make sure there's no duplication
 		$this->assertEquals(sizeof($ids), sizeof(array_flip(array_flip($ids))));
 	}
@@ -712,6 +713,7 @@ class ItemTest extends GalleryTestCase {
 		$this->assertTrue(in_array($child[0]->getId(), $ids), 'child 0');
 		$this->assertTrue(in_array($child[1]->getId(), $ids), 'child 1');
 		$this->assertTrue(in_array($child[2]->getId(), $ids), 'child 2');
+
 		// Make sure there's no duplication
 		$this->assertEquals(sizeof($ids), sizeof(array_flip(array_flip($ids))));
 	}
@@ -771,6 +773,7 @@ class ItemTest extends GalleryTestCase {
 		$this->assertTrue(in_array($child[0]->getId(), $ids), 'child 0');
 		$this->assertFalse(in_array($child[1]->getId(), $ids), 'child 1');
 		$this->assertTrue(in_array($child[2]->getId(), $ids), 'child 2');
+
 		// Make sure there's no duplication
 		$this->assertEquals(
 			sizeof($ids),
@@ -858,6 +861,7 @@ class ItemTest extends GalleryTestCase {
 				in_array($item->getId(), $ids),
 				'child ' . $item->getId() . ' not returned'
 			);
+
 			$itemCount++;
 		}
 
@@ -1208,10 +1212,10 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($success, 'should be able to set thumbnail');
+
 		/*
 		 * At this point, $album[1]'s thumbnail should match $album[0]'s preference,
 		 * and $album[0]'s thumbnail should match $this->_album's preference
-
 		 */
 		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(
 			array(
@@ -1442,9 +1446,7 @@ class ItemTest extends GalleryTestCase {
 			GalleryUtilities::isA($newItem, 'GalleryDataItem'),
 			'newItem is not a GalleryDataItem'
 		);
-
 		$this->assertEquals('itemName', $newItem->getPathComponent());
-
 		$this->assertEquals('title', $newItem->getTitle());
 		$this->assertEquals('caption', $newItem->getSummary());
 		$this->assertEquals('description', $newItem->getDescription());
@@ -1460,8 +1462,11 @@ class ItemTest extends GalleryTestCase {
 
 		$this->assertTrue(isset($weights[$newItem->getId()]));
 		$this->assertTrue($weights[$newItem->getId()] > $maxWeight);
+
 		// Test that shutdown actions will update parent album's modification timestamp
-		sleep(1); // Make sure new timestamp won't equal old one even after update
+		// Make sure new timestamp won't equal old one even after update
+		sleep(1);
+
 		$gallery->performShutdownActions();
 
 		list($ret, $album) = $this->_album->refresh();
@@ -1506,7 +1511,9 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('title&lt;script&gt;evil', $newItem->getTitle());
+
 		$this->assertEquals('caption&lt;script&gt;evil', $newItem->getSummary());
+
 		$this->assertEquals('description&lt;script&gt;evil', $newItem->getDescription());
 	}
 
@@ -1788,12 +1795,16 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(array(), $ids, 'child item ids');
+
 		/*
 		 * Test that shutdown actions will update parent album's modification timestamp
 		 * Also ensure invalid id in shutdown action is ignored (delete of $item will
 		 * trigger shutdown action for $album which was deleted too...)
 		 */
-		sleep(1); // Make sure new timestamp won't equal old one even after update
+
+		// Make sure new timestamp won't equal old one even after update
+		sleep(1);
+
 		$gallery->performShutdownActions();
 
 		list($ret, $album) = $this->_album->refresh();
@@ -1838,7 +1849,6 @@ class ItemTest extends GalleryTestCase {
 			array(
 				$this->_getRootId(),
 				$this->_album->getId(),
-
 			),
 			$parentSequence,
 			'Wrong original parent sequence'
@@ -1893,7 +1903,6 @@ class ItemTest extends GalleryTestCase {
 				$this->_getRootId(),
 				$this->_album->getId(),
 				$album->getId(),
-
 			),
 			$parentSequence,
 			'Wrong parent sequence'
@@ -1906,7 +1915,9 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		// Test that shutdown actions will update parent album's modification timestamp
-		sleep(1); // Make sure new timestamp won't equal old one even after update
+		// Make sure new timestamp won't equal old one even after update
+		sleep(1);
+
 		$gallery->performShutdownActions();
 
 		list($ret, $refreshedAlbum) = $album->refresh();

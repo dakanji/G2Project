@@ -84,7 +84,6 @@ class GalleryUserGroupHelper_simple {
 		}
 
 		$result = $searchResults->resultCount() ? true : false;
-
 		GalleryDataCache::put($cacheKey, $result);
 
 		return array(null, $result);
@@ -102,18 +101,19 @@ class GalleryUserGroupHelper_simple {
 			$data = GalleryDataCache::get($cacheKey);
 		} else {
 			$query = '
-	    SELECT
-	      [GalleryGroup::id],
-	      [GalleryGroup::groupName]
-	    FROM
-	      [GalleryUserGroupMap], [GalleryGroup]
-	    WHERE
-	      [GalleryGroup::id] = [GalleryUserGroupMap::groupId]
-	      AND
-	      [GalleryUserGroupMap::userId] = ?
-	    ORDER BY
-	      [GalleryGroup::groupName]
-	    ';
+				SELECT
+					[GalleryGroup::id],
+					[GalleryGroup::groupName]
+				FROM
+					[GalleryUserGroupMap],
+					[GalleryGroup]
+				WHERE
+					[GalleryGroup::id] = [GalleryUserGroupMap::groupId]
+				AND
+					[GalleryUserGroupMap::userId] = ?
+				ORDER BY
+					[GalleryGroup::groupName]
+			';
 
 			list($ret, $searchResults) = $gallery->search(
 				$query,

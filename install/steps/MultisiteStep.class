@@ -57,6 +57,7 @@ class MultisiteStep extends InstallStep {
 
 				$this->setComplete(true);
 				$this->readConfigFile();
+
 				// Remember the value also for the storage and database setup steps
 				$galleryStub->setConfig('isMultisite', false);
 

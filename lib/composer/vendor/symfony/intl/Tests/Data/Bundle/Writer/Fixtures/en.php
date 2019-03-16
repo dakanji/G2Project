@@ -1,5 +1,4 @@
 <?php
-
 return array(
     'Entry1' => array(
         'Array' => array(
@@ -15,3 +14,4 @@ return array(
         'Foo' => 'Bar',
     ),
 );
+

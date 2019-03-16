@@ -73,3 +73,4 @@ class CoreApiTest extends GalleryTestCase {
 		$this->assertTrue(isset($blocks['core']['PeerList']));
 	}
 }
+

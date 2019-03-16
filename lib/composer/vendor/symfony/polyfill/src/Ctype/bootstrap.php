@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 use Symfony\Polyfill\Ctype as p;
-
 if (!function_exists('ctype_alnum')) {
     function ctype_alnum($text) { return p\Ctype::ctype_alnum($text); }
     function ctype_alpha($text) { return p\Ctype::ctype_alpha($text); }
@@ -24,3 +22,4 @@ if (!function_exists('ctype_alnum')) {
     function ctype_upper($text) { return p\Ctype::ctype_upper($text); }
     function ctype_xdigit($text) { return p\Ctype::ctype_xdigit($text); }
 }
+

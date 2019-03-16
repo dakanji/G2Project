@@ -60,7 +60,6 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 	public function testDone() {
 		GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
 		GalleryUtilities::putRequestVariable('form[action][done]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -180,6 +179,7 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 
 		// Become that user
 		$gallery->setActiveUser($this->_user);
+
 		GalleryUtilities::putRequestVariable('groupId', $adminGroupId);
 		GalleryUtilities::putRequestVariable('form[action][remove]', 1);
 		GalleryUtilities::putRequestVariable(
@@ -235,7 +235,6 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
 		GalleryUtilities::putRequestVariable('form[text][userName]', 'bogus-user-' . mt_rand());
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -254,7 +253,6 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
 		GalleryUtilities::putRequestVariable('form[text][userName]', '');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -295,3 +293,4 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		);
 	}
 }
+

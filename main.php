@@ -387,7 +387,6 @@ function _GalleryMain($embedded = false, $template = null) {
 	// Load and run the appropriate view
 	if (empty($viewName)) {
 		$viewName = GALLERY_DEFAULT_VIEW;
-
 		GalleryUtilities::putRequestVariable('view', $viewName);
 	}
 
@@ -556,7 +555,6 @@ function _GalleryMain($embedded = false, $template = null) {
 		} else {
 			if (!isset($template)) {
 				GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-
 				$template = new GalleryTemplate(__DIR__);
 			}
 
@@ -627,6 +625,7 @@ function _GalleryMain($embedded = false, $template = null) {
 				$event = GalleryCoreApi::newEvent('Gallery::BeforeDisplay');
 
 				$event->setEntity($template);
+
 				$event->setData(
 					array(
 						'templatePath' => $templatePath,
@@ -774,6 +773,7 @@ function _GalleryMain_doRedirect(
 	$redirectUrl = $session->replaceTempSessionIdIfNecessary($redirectUrl);
 
 	$session->doNotUseTempId();
+
 	/*
 	 * UserLogin returnUrls do not have a sessionId in the URL to replace, make sure there is a
 	 * sessionId in the redirectUrl for users that do not use cookies
@@ -860,7 +860,6 @@ function _GalleryMain_errorHandler($error, $g2Data = null) {
 	global $gallery;
 
 	GalleryCoreApi::requireOnce('modules/core/ErrorPage.inc');
-
 	$handledError = ErrorPageView::getMe()->errorHandler($error, $g2Data);
 
 	if (!$handledError) {

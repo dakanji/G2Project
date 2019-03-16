@@ -108,7 +108,8 @@ function smarty_function_html_radios($params, &$smarty) {
 	}
 
 	if (!isset($options) && !isset($values)) {
-		return ''; // raise error here?
+		// raise error here?
+		return '';
 	}
 
 	$_html_result = array();

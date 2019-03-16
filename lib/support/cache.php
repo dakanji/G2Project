@@ -1,4 +1,5 @@
 <?php
+
 if (!defined('G2_SUPPORT')) {
 	define('G2_SUPPORT_FILE', true);
 
@@ -249,10 +250,12 @@ if (isset($_REQUEST['clear'], $_REQUEST['target'])) {
 			Anything in the cache can be deleted safely!  Gallery will rebuild anything it needs.
 		</h2>
 <?php
+
 if (!empty($status)) {
 	?>
 		<div class="success">
 	<?php
+
 	foreach ($status as $line) {
 		?>
 			<pre class="<?php echo $line[0]; ?>"><?php echo $line[1]; ?></pre>
@@ -267,10 +270,12 @@ if (!empty($status)) {
 		<p>
 		<?php $caches = getCaches(); ?>
 		<?php
+
 		foreach ($caches as $key => $info) {
 			?>
 	  <input type="checkbox" name="target[<?php echo $key; ?>]"
 			<?php
+
 			if ($info[0]) {
 				?>
 				 checked="checked"

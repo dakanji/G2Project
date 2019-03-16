@@ -402,7 +402,6 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 	public function testMoveItemIntoEmptyDestination() {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

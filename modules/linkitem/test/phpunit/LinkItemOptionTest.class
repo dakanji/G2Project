@@ -64,7 +64,6 @@ class LinkItemOptionTest extends ItemEditOptionTestCase {
 		}
 
 		$ret = $this->_link->create($this->_album->getId(), 'http://test.com/test.html');
-
 		if ($ret) {
 			return $ret;
 		}
@@ -116,3 +115,4 @@ class LinkItemOptionTest extends ItemEditOptionTestCase {
 		$this->assertEquals(array(), $warning);
 	}
 }
+

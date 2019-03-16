@@ -14,7 +14,9 @@ Set tabs to 4 for best viewing.
   To configure for Unix, see
 	   http://phpbuilder.com/columns/alberto20000919.php3
 	$stream = sqlsrv_get_field($stmt, $index, SQLSRV_SQLTYPE_STREAM(SQLSRV_ENC_BINARY));
-	stream_filter_append($stream, "convert.iconv.ucs-2/utf-8"); // Voila, UTF-8 can be read directly from $stream
+
+	// Voila, UTF-8 can be read directly from $stream
+	stream_filter_append($stream, "convert.iconv.ucs-2/utf-8");
 */
 
 // security - hide paths
@@ -180,7 +182,6 @@ class ADODB_mssqlnative extends ADOConnection {
 
 	public function ServerInfo() {
 		global $ADODB_FETCH_MODE;
-
 		static $arr = false;
 
 		if (is_array($arr)) {
@@ -279,7 +280,9 @@ class ADODB_mssqlnative extends ADOConnection {
 
 		$start -= 1;
 
-		$this->Execute("create table $seq (id int)");//was float(53)
+		//was float(53)
+		$this->Execute("create table $seq (id int)");
+
 		$ok = $this->Execute("insert into $seq with (tablock,holdlock) values($start)");
 
 		if (!$ok) {
@@ -330,7 +333,9 @@ class ADODB_mssqlnative extends ADOConnection {
 		if (!$ok) {
 			$start -= 1;
 
-			$this->Execute("create table $seq (id int)");//was float(53)
+			//was float(53)
+			$this->Execute("create table $seq (id int)");
+
 			$ok = $this->Execute("insert into $seq with (tablock,holdlock) values($start)");
 
 			if (!$ok) {
@@ -645,12 +650,15 @@ class ADODB_mssqlnative extends ADOConnection {
 
 	// returns true or false
 	public function _pconnect($argHostname, $argUsername, $argPassword, $argDatabasename) {
-		//return null;//not implemented. NOTE: Persistent connections have no effect if PHP is used as a CGI program. (FastCGI!)
+		//not implemented. NOTE: Persistent connections have no effect if PHP is used as a CGI program. (FastCGI!)
+		//return null;
 		return $this->_connect($argHostname, $argUsername, $argPassword, $argDatabasename);
 	}
 
 	public function Prepare($sql) {
-		return $sql; // prepare does not work properly with bind parameters as bind parameters are managed by sqlsrv_prepare!
+		// prepare does not work properly with bind parameters as bind parameters are managed by sqlsrv_prepare!
+		return $sql;
+
 		$stmt = sqlsrv_prepare($this->_connectionID, $sql);
 
 		if (!$stmt) {
@@ -787,6 +795,7 @@ class ADODB_mssqlnative extends ADOConnection {
 			INNER JOIN dbo.syscolumns c ON K.id = C.id AND K.colid = C.Colid
 			WHERE LEFT(i.name, 8) <> '_WA_Sys_' AND o.status >= 0 AND O.Name LIKE $table
 			ORDER BY O.name, I.Name, K.keyno";
+
 		global $ADODB_FETCH_MODE;
 
 		$save             = $ADODB_FETCH_MODE;
@@ -1069,7 +1078,9 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 		 * ADOConnection::outp("rowsaff: ".serialize($retRowsAff));
 		 * $this->_numOfRows = ($ADODB_COUNTRECS)? $retRowsAff:-1;
 		 */
-		$this->_numOfRows   = -1;//not supported
+
+		//not supported
+		$this->_numOfRows   = -1;
 		$fieldmeta          = sqlsrv_field_metadata($this->_queryID);
 		$this->_numOfFields = ($fieldmeta) ? count($fieldmeta) : -1;
 
@@ -1080,6 +1091,7 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 			$max              = $this->_numOfFields;
 
 			for ($i = 0; $i < $max;
+
 			$i++) {
 				$this->_fieldobjs[] = $this->_FetchField($i);
 			}
@@ -1170,7 +1182,8 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 		$false = false;
 
 		if (empty($fa)) {
-			$f = false;//PHP Notice: Only variable references should be returned by reference
+			//PHP Notice: Only variable references should be returned by reference
+			$f = false;
 		} else {
 			// Convert to an object
 			$fa = array_change_key_case($fa, CASE_LOWER);
@@ -1213,7 +1226,8 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 	}
 
 	public function _seek($row) {
-		return false;//There is no support for cursors in the driver at this time.  All data is returned via forward-only streams.
+		//There is no support for cursors in the driver at this time.  All data is returned via forward-only streams.
+		return false;
 	}
 
 	// speedup
@@ -1225,6 +1239,7 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 		}
 
 		$this->_currentRow++;
+
 		// # KMN # if ($this->connection->debug) ADOConnection::outp("_currentRow: ".$this->_currentRow);
 		if ($this->_fetch()) {
 			return true;
@@ -1265,7 +1280,8 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 			$this->fields = @sqlsrv_fetch_array($this->_queryID, SQLSRV_FETCH_NUMERIC);
 		}
 
-		if (is_array($this->fields) && array_key_exists(1, $this->fields) && !array_key_exists(0, $this->fields)) {//fix fetch numeric keys since they're not 0 based
+		if (is_array($this->fields) && array_key_exists(1, $this->fields) && !array_key_exists(0, $this->fields)) {
+			//fix fetch numeric keys since they're not 0 based
 			$arrFixed = array();
 
 			foreach ($this->fields as $key => $value) {
@@ -1282,7 +1298,8 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 
 		if (is_array($this->fields)) {
 			foreach ($this->fields as $key => $value) {
-				if (is_object($value) && method_exists($value, 'format')) {//is DateTime object
+				if (is_object($value) && method_exists($value, 'format')) {
+					//is DateTime object
 					$this->fields[$key] = $value->format('Y-m-d\TH:i:s\Z');
 				}
 			}

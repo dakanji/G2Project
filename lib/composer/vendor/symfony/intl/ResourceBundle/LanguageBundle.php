@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\ResourceBundle;
-
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleEntryReaderInterface;
 use Symfony\Component\Intl\Data\Provider\LanguageDataProvider;
 use Symfony\Component\Intl\Data\Provider\LocaleDataProvider;
@@ -40,7 +38,6 @@ class LanguageBundle extends LanguageDataProvider implements LanguageBundleInter
     public function __construct($path, BundleEntryReaderInterface $reader, LocaleDataProvider $localeProvider, ScriptDataProvider $scriptProvider)
     {
         parent::__construct($path, $reader);
-
         $this->localeProvider = $localeProvider;
         $this->scriptProvider = $scriptProvider;
     }
@@ -114,3 +111,4 @@ class LanguageBundle extends LanguageDataProvider implements LanguageBundleInter
         }
     }
 }
+

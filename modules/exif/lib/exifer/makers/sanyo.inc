@@ -20,7 +20,6 @@
 */
 
 //================================================================================================
-
 //================================================================================================
 //================================================================================================
 //=================
@@ -97,7 +96,8 @@ function formatSanyoData($type, $tag, $intel, $data) {
 
 		$data = hexdec($data);
 
-		if ($tag == '0200') { //SpecialMode
+		if ($tag == '0200') {
+			//SpecialMode
 			if ($data == 0) {
 				$data = 'Normal';
 			} else {
@@ -105,7 +105,8 @@ function formatSanyoData($type, $tag, $intel, $data) {
 			}
 		}
 
-		if ($tag == '0201') { //Quality
+		if ($tag == '0201') {
+			//Quality
 			if ($data == 2) {
 				$data = 'High';
 			} else {
@@ -113,7 +114,8 @@ function formatSanyoData($type, $tag, $intel, $data) {
 			}
 		}
 
-		if ($tag == '0202') { //Macro
+		if ($tag == '0202') {
+			//Macro
 			if ($data == 0) {
 				$data = 'Normal';
 			} else {
@@ -141,8 +143,10 @@ function parseSanyo($block, &$result, $seek, $globalOffset) {
 		$intel = 0;
 	}
 
-	$model  = $result['IFD0']['Model'];
-	$place  = 8; //current place
+	$model = $result['IFD0']['Model'];
+
+	//current place
+	$place  = 8;
 	$offset = 8;
 
 	//Get number of tags (2 bytes)
@@ -200,7 +204,9 @@ function parseSanyo($block, &$result, $seek, $globalOffset) {
 				$value = intel2Moto($value);
 			}
 
-			$v = fseek($seek, $globalOffset + hexdec($value));  //offsets are from TIFF header which is 12 bytes from the start of the file
+			//offsets are from TIFF header which is 12 bytes from the start of the file
+			$v = fseek($seek, $globalOffset + hexdec($value));
+
 			if ($v == 0 && $bytesofdata < $GLOBALS['exiferFileSize']) {
 				$data = fread($seek, $bytesofdata);
 			} else {

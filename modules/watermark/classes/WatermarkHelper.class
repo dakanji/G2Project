@@ -708,7 +708,6 @@ class WatermarkHelper {
 				}
 
 				$item->setApplyToPreferred(isset($form['whichDerivative']['preferred']));
-
 				$item->setApplyToResizes(isset($form['whichDerivative']['resizes']));
 				$item->setApplyToThumbnail(isset($form['whichDerivative']['thumbnail']));
 				$item->setName($form['watermarkName']);
@@ -790,7 +789,8 @@ class WatermarkHelper {
 				$results['delegate']['view']    = $view;
 				$results['delegate']['subView'] = $subViewError;
 			}
-		} else { // $form['action']['cancel']
+		} else {
+			// $form['action']['cancel']
 			$results['redirect']['view']    = $view;
 			$results['redirect']['subView'] = $subViewSuccess;
 		}
@@ -851,6 +851,7 @@ class WatermarkHelper {
 
 		$template->javascript('lib/yui/utilities.js');
 		$template->javascript('modules/watermark/watermark.js');
+
 		$template->setVariable(
 			$formName,
 			array(

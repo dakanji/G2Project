@@ -546,3 +546,4 @@ $mapInfo['EventLogMap'] = array(
 		'size' => STORAGE_SIZE_MEDIUM,
 	),
 );
+

@@ -87,7 +87,6 @@ class ImageMagickToolkit extends GalleryToolkit {
 		$context = array()
 	) {
 		global $gallery;
-
 		static $convertOps = array(
 			'thumbnail',
 			'scale',
@@ -380,7 +379,10 @@ class ImageMagickToolkit extends GalleryToolkit {
 				case 'compress':
 					$targetSize = $parameters[0];
 					$platform   =& $gallery->getPlatform();
-					$fileSize   = $platform->filesize($sourceFilename) >> 10; // Size in KB
+
+					// Size in KB
+					$fileSize = $platform->filesize($sourceFilename) >> 10;
+
 					if ($fileSize <= $targetSize) {
 						break;
 					}
@@ -717,11 +719,16 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 					if ($useNewCoalesceOptions) {
 						$command[] = '%s';
-						$command[] = '-coalesce'; // Needs to be _after_ the filename
-						$command[] = '-layers'; // Better than -deconstruct
+
+						// Needs to be _after_ the filename
+						$command[] = '-coalesce';
+
+						// Better than -deconstruct
+						$command[] = '-layers';
 						$command[] = 'optimize';
 					} else {
-						$command[] = '-coalesce'; // Needs to be _before_ the filename
+						// Needs to be _before_ the filename
+						$command[] = '-coalesce';
 						$command[] = '%s';
 						$args[]    = '-deconstruct';
 					}
@@ -812,6 +819,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 		if (!$success) {
 			@$platform->unlink($tmpFilename);
+
 			$platform->chdir($oldCwd);
 
 			return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE);

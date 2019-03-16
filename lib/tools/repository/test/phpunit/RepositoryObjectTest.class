@@ -44,6 +44,7 @@ class RepositoryObjectTest extends GalleryTestCase {
 
 		// Test an invalid directory.
 		$platform->setReply('is_dir', array('invalidDirectory'), false);
+
 		// Test setting a valid directory.
 		$platform->setReply('is_dir', array('validDirectory'), true);
 		$platform->setReply('realpath', array('validDirectory'), 'validDirectory');
@@ -56,6 +57,7 @@ class RepositoryObjectTest extends GalleryTestCase {
 		$ret = $object->setOutputDir('validDirectory');
 
 		$this->assertFalse($ret, 'Error returned on a valid directory.');
+
 		// Output directory should always end with a directory separator.
 		$this->assertTrue(
 			preg_match('/\/$/', $object->getOutputDir()),
@@ -78,7 +80,6 @@ class RepositoryObjectTest extends GalleryTestCase {
 		$platform           = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array($outputPath), true);
-
 		$platform->setReply('file_exists', array($outputPath), false);
 		$platform->setReply(
 			'file_put_contents',
@@ -101,6 +102,7 @@ class RepositoryObjectTest extends GalleryTestCase {
 		}
 
 		$this->assertFalse($object->wasFileWritten(), 'Existing file overwritten.');
+
 		// Test overwriting an existing file with a template variable contents.
 		$object->setTemplate(new RepositoryTestTemplate('', $templateVariableContents));
 
@@ -111,6 +113,7 @@ class RepositoryObjectTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($object->wasFileWritten(), 'Existing file not overwritten.');
+
 		// Test overwriting an existing file with a processed template.
 		$object->setTemplate(new RepositoryTestTemplate($processedTemplateContents));
 		$object->setTemplateFile('test.tpl');
@@ -161,3 +164,4 @@ class RepositoryObjectTest extends GalleryTestCase {
 		);
 	}
 }
+

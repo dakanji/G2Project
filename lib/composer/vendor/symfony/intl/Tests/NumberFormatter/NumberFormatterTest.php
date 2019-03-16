@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\NumberFormatter;
-
 use Symfony\Component\Intl\Globals\IntlGlobals;
 use Symfony\Component\Intl\NumberFormatter\NumberFormatter;
 
@@ -50,6 +48,7 @@ class NumberFormatterTest extends AbstractNumberFormatterTest
     public function testSetAttributeWithUnsupportedAttribute()
     {
         $formatter = $this->getNumberFormatter('en', NumberFormatter::DECIMAL);
+
         $formatter->setAttribute(NumberFormatter::LENIENT_PARSE, null);
     }
 
@@ -59,6 +58,7 @@ class NumberFormatterTest extends AbstractNumberFormatterTest
     public function testSetAttributeInvalidRoundingMode()
     {
         $formatter = $this->getNumberFormatter('en', NumberFormatter::DECIMAL);
+
         $formatter->setAttribute(NumberFormatter::ROUNDING_MODE, null);
     }
 
@@ -146,12 +146,14 @@ class NumberFormatterTest extends AbstractNumberFormatterTest
     public function testGetPattern()
     {
         $formatter = $this->getNumberFormatter('en', NumberFormatter::DECIMAL);
+
         $formatter->getPattern();
     }
 
     public function testGetErrorCode()
     {
         $formatter = $this->getNumberFormatter('en', NumberFormatter::DECIMAL);
+
         $this->assertEquals(IntlGlobals::U_ZERO_ERROR, $formatter->getErrorCode());
     }
 
@@ -161,6 +163,7 @@ class NumberFormatterTest extends AbstractNumberFormatterTest
     public function testParseCurrency()
     {
         $formatter = $this->getNumberFormatter('en', NumberFormatter::DECIMAL);
+
         $formatter->parseCurrency(null, $currency);
     }
 
@@ -170,6 +173,7 @@ class NumberFormatterTest extends AbstractNumberFormatterTest
     public function testSetPattern()
     {
         $formatter = $this->getNumberFormatter('en', NumberFormatter::DECIMAL);
+
         $formatter->setPattern(null);
     }
 
@@ -179,6 +183,7 @@ class NumberFormatterTest extends AbstractNumberFormatterTest
     public function testSetSymbol()
     {
         $formatter = $this->getNumberFormatter('en', NumberFormatter::DECIMAL);
+
         $formatter->setSymbol(null, null);
     }
 
@@ -188,6 +193,7 @@ class NumberFormatterTest extends AbstractNumberFormatterTest
     public function testSetTextAttribute()
     {
         $formatter = $this->getNumberFormatter('en', NumberFormatter::DECIMAL);
+
         $formatter->setTextAttribute(null, null);
     }
 
@@ -211,3 +217,4 @@ class NumberFormatterTest extends AbstractNumberFormatterTest
         return IntlGlobals::isFailure($errorCode);
     }
 }
+

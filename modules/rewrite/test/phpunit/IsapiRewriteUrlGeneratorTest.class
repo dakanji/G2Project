@@ -158,3 +158,4 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$this->assertFalse($this->_urlGenerator->_error, 'init error when embedded');
 	}
 }
+

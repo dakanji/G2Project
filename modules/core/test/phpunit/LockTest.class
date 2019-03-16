@@ -274,6 +274,7 @@ class LockTest extends GalleryTestCase {
 	 */
 
 	/*
+
 	function testReadLockToWriteLock() {
 	return $this->_tryAllLockSystems('testReadLockToWriteLock');
 	}
@@ -464,6 +465,7 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($lockId), 'lock id is not an integer');
+
 		// Release queue unaffected
 		$this->assertTrue(
 			count($gallery->_lockSystem->_releaseQueue) == 1
@@ -516,6 +518,7 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($lockId), 'lock id is not an integer');
+
 		// Had to release that write lock in order to get new read lock
 		$this->assertTrue(empty($gallery->_lockSystem->_releaseQueue), 'release queue should be empty');
 
@@ -563,6 +566,7 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($newLockId), 'lock id is not an integer');
+
 		// Removed single entity from pending write lock in order to get new read lock
 		$this->assertTrue(
 			(count($gallery->_lockSystem->_releaseQueue) == 1
@@ -609,6 +613,7 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($lockId), 'lock id is not an integer');
+
 		// Real lock moved to new lockId which clears out queued lock
 		$this->assertTrue(empty($gallery->_lockSystem->_releaseQueue), 'release queue should be empty');
 
@@ -656,6 +661,7 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($newLockId), 'lock id is not an integer');
+
 		// One id moved to new lockId
 		$this->assertTrue(
 			(count($gallery->_lockSystem->_releaseQueue) == 1
@@ -708,6 +714,7 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($lockId), 'lock id is not an integer');
+
 		// Real lock moved to new lockId which clears out queued lock
 		$this->assertTrue(empty($gallery->_lockSystem->_releaseQueue), 'release queue should be empty');
 
@@ -749,6 +756,7 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($lockId), 'lock id is not an integer');
+
 		// Had to release that read lock in order to get new write lock
 		$this->assertTrue(empty($gallery->_lockSystem->_releaseQueue), 'release queue should be empty');
 
@@ -796,6 +804,7 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($newLockId), 'lock id is not an integer');
+
 		// Removed single entity from pending read lock in order to get new write lock
 		$this->assertTrue(
 			(count($gallery->_lockSystem->_releaseQueue) == 1
@@ -859,6 +868,7 @@ class LockTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(is_int($lockId), "$lockSystem: lock id is not an integer");
+
 		// Had to release that read locks in order to get new write lock
 		$this->assertTrue(
 			empty($gallery->_lockSystem->_releaseQueue),

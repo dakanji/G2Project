@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Data\Bundle\Writer;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Intl\Data\Bundle\Writer\JsonBundleWriter;
@@ -24,14 +22,12 @@ class JsonBundleWriterTest extends TestCase
      * @var JsonBundleWriter
      */
     private $writer;
-
     private $directory;
 
     /**
      * @var Filesystem
      */
     private $filesystem;
-
     protected function setUp()
     {
         $this->writer = new JsonBundleWriter();
@@ -72,7 +68,7 @@ class JsonBundleWriterTest extends TestCase
         $bundle = new \ResourceBundle('rb', __DIR__.'/Fixtures', false);
 
         $this->writer->write($this->directory, 'en', $bundle);
-
         $this->assertFileEquals(__DIR__.'/Fixtures/rb.json', $this->directory.'/en.json');
     }
 }
+

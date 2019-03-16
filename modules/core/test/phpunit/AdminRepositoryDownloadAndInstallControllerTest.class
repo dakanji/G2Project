@@ -125,6 +125,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$startingAdapter = new MockTemplateAdapter();
 
 		$startingAdapter->updateProgressBar(null, null, 0);
+
 		$repository->setReply(
 			'downloadPackagesForPlugin',
 			array(
@@ -165,6 +166,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		}
 
 		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
+
 		$this->assertEquals(
 			array(
 				'installOrUpgrade' => 1,
@@ -213,6 +215,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$startingAdapter = new MockTemplateAdapter();
 
 		$startingAdapter->updateProgressBar(null, null, 0);
+
 		$repository->setReply(
 			'downloadPackagesForPlugin',
 			array(
@@ -251,6 +254,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		}
 
 		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
+
 		$this->assertEquals(
 			array(
 				'installOrUpgrade' => 1,
@@ -299,6 +303,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$startingAdapter = new MockTemplateAdapter();
 
 		$startingAdapter->updateProgressBar(null, null, 0);
+
 		$repository->setReply(
 			'downloadPackagesForPlugin',
 			array(
@@ -337,6 +342,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		}
 
 		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
+
 		$this->assertEquals(
 			array(
 				'installOrUpgrade' => 1,
@@ -386,6 +392,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$startingAdapter = new MockTemplateAdapter();
 
 		$startingAdapter->updateProgressBar(null, null, 0);
+
 		$repository->setReply(
 			'downloadPackagesForPlugin',
 			array(
@@ -480,6 +487,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$startingAdapter = new MockTemplateAdapter();
 
 		$startingAdapter->updateProgressBar(null, null, 0);
+
 		$repository->setReply(
 			'downloadPackagesForPlugin',
 			array(
@@ -589,6 +597,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$startingAdapter = new MockTemplateAdapter();
 
 		$startingAdapter->updateProgressBar(null, null, 0);
+
 		$repository->setReply(
 			'downloadPackagesForPlugin',
 			array(
@@ -640,6 +649,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 		// Even though one language failed, the base got updated so we should reactivate it
 		$this->assertTrue($repository->isComplete(), $repository->getRemaining());
+
 		$this->assertEquals(
 			array(
 				'installOrUpgrade' => 1,

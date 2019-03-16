@@ -31,7 +31,6 @@ require_once __DIR__ . '/../../../modules/core/classes/GalleryTemplate.class';
  */
 class UnitTestTemplate extends GalleryTemplate {
 	public $_data = array();
-
 	public function __construct() {}
 
 	/**
@@ -83,3 +82,4 @@ class UnitTestTemplate extends GalleryTemplate {
 		return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
 	}
 }
+

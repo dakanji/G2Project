@@ -56,6 +56,7 @@ foreach (array('mysql', 'postgres', 'oracle', 'db2', 'mssql', 'sqlite') as $db) 
 $fd = fopen('schema.tpl', 'w');
 fwrite($fd, $output);
 fclose($fd);
+
 class BaseGenerator {
 	public function createSql($node, $index, $lastPeerIndex, $parent) {
 		$output = '';

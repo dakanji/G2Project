@@ -34,7 +34,9 @@ if (!defined('_ADODB_CSV_LAYER')) {
 		public $_affectedrows    = 0;
 		public $_insertid        = 0;
 		public $_url;
-		public $replaceQuote    = "''"; // string to use to replace quotes
+
+		// string to use to replace quotes
+		public $replaceQuote    = "''";
 		public $hasTransactions = false;
 		public $_errorNo        = false;
 

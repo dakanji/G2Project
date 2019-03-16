@@ -104,7 +104,6 @@ class PhpVmTest extends GalleryTestCase {
 		/*
 		 * This test also depends on the G2 Session code as we do an actual HTTP request and
 		 * verify that we received a cookie header. GallerySession uses the $phpVm->header()
-
 		 * function, thus this covers what we'd like to test (and a little more)
 		 */
 		$urlGenerator =& $gallery->getUrlGenerator();
@@ -119,7 +118,6 @@ class PhpVmTest extends GalleryTestCase {
 
 		// For guests, we don't send cookies, thus prepare an existing session
 		GalleryCoreApi::requireOnce('modules/core/classes/GallerySession.class');
-
 		$session = new GallerySession();
 
 		$ret = $session->initEmpty(true);

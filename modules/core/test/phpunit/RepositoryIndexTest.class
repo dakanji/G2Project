@@ -246,7 +246,6 @@ class RepositoryIndexTest extends GalleryTestCase {
 			array($this->_index->getRepositoryCacheDir() . 'modules'),
 			true
 		);
-
 		$platform->setReply(
 			'is_dir',
 			array($this->_index->getRepositoryCacheDir() . 'modules'),
@@ -396,6 +395,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			$ret->getErrorCode() & ERROR_BAD_PARAMETER,
 			'Should return ERROR_BAD_PARMETER'
 		);
+
 		$this->assertEquals(
 			array(
 				'modules' => array(),
@@ -436,6 +436,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($ret->getErrorCode() & ERROR_BAD_PARAMETER);
+
 		$this->assertEquals(
 			array(
 				'modules' => array(),
@@ -491,17 +492,11 @@ class RepositoryIndexTest extends GalleryTestCase {
 		// Portuguese
 		$supportedLanguages['pt']['BR']['description'] = 'Portugu&#234;s Brasileiro';
 		$supportedLanguages['pt']['PT']['description'] = 'Portugu&#234;s';
-
 		GalleryDataCache::put($cacheKey, $supportedLanguages);
-
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(module)';
-
 		GalleryDataCache::put($cacheKey, array('testModule'));
-
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(theme)';
-
 		GalleryDataCache::put($cacheKey, array('testTheme'));
-
 		$testCases = array(
 			array(
 				'pluginType' => 'module',
@@ -542,13 +537,9 @@ class RepositoryIndexTest extends GalleryTestCase {
 		);
 
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(module)';
-
 		GalleryDataCache::put($cacheKey, array('testModule'));
-
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(theme)';
-
 		GalleryDataCache::put($cacheKey, array('testTheme'));
-
 		$testCases = array(
 			array(
 				'pluginType' => 'module',
@@ -761,7 +752,6 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 		$testTheme = new RepositoryIndexTestTheme();
 		$themeApi  = GalleryTheme::getMe()->getApiVersion();
-
 		GalleryDataCache::put('GalleryPluginHelper::loadPlugin(theme, testTheme)', $testTheme);
 		GalleryDataCache::put(
 			'GalleryPluginHelper::fetchPluginStatus(theme)',
@@ -916,7 +906,6 @@ class RepositoryIndexTest extends GalleryTestCase {
 		$themeApi  = GalleryTheme::getMe()->getApiVersion();
 		$themeApi[1]--;
 		$testTheme->_themeApi = $themeApi;
-
 		GalleryDataCache::put('GalleryPluginHelper::loadPlugin(theme, testTheme)', $testTheme);
 		GalleryDataCache::put(
 			'GalleryPluginHelper::fetchPluginStatus(theme)',
@@ -988,7 +977,6 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 		$testTheme = new RepositoryIndexTestTheme();
 		$themeApi  = GalleryTheme::getMe()->getApiVersion();
-
 		GalleryDataCache::put('GalleryPluginHelper::loadPlugin(theme, testTheme)', $testTheme);
 		GalleryDataCache::put(
 			'GalleryPluginHelper::fetchPluginStatus(theme)',

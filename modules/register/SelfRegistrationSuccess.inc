@@ -48,3 +48,4 @@ class SelfRegistrationSuccessView extends GalleryView {
 		);
 	}
 }
+

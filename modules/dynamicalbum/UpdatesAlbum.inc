@@ -274,6 +274,7 @@ class UpdatesAlbumView extends GalleryView {
 				$sequence = implode('/', $sequence) . '/' . (int)$albumId . '/%';
 
 				$query = '[GalleryItemAttributesMap::parentSequence] LIKE ?';
+
 				$table = 'GalleryItemAttributesMap';
 				$id    = 'itemId';
 			} else {

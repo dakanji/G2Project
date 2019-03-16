@@ -34,7 +34,6 @@
  * Originally forked from
  * https://github.com/yiisoft/yii2/blob/2.0.15/framework/i18n/MessageFormatter.php
  */
-
 namespace Symfony\Polyfill\Intl\MessageFormatter;
 
 /**
@@ -63,11 +62,9 @@ class MessageFormatter
     private $tokens;
     private $errorCode = 0;
     private $errorMessage = '';
-
     public function __construct($locale, $pattern)
     {
         $this->locale = (string) $locale;
-
         if (!$this->setPattern($pattern)) {
             throw new \IntlException('Message pattern is invalid.');
         }
@@ -126,7 +123,6 @@ class MessageFormatter
     {
         $this->errorCode = 0;
         $this->errorMessage = '';
-
         if (!$args) {
             return $this->pattern;
         }
@@ -168,15 +164,14 @@ class MessageFormatter
 
         $depth = 1;
         $tokens = array(substr($pattern, 0, $pos));
-
         while (true) {
             $open = strpos($pattern, '{', 1 + $pos);
             $close = strpos($pattern, '}', 1 + $pos);
-
             if (false === $open) {
                 if (false === $close) {
                     break;
                 }
+
                 $open = \strlen($pattern);
             }
 
@@ -229,14 +224,14 @@ class MessageFormatter
             case 'choice':
             case 'selectordinal':
                 throw new \DomainException(sprintf('The PHP intl extension is required to use the "%s" message format.', $type));
-
             case 'number':
                 $format = isset($token[2]) ? trim($token[2]) : null;
                 if (!is_numeric($arg) || (null !== $format && 'integer' !== $format)) {
                     throw new \DomainException('The PHP intl extension is required to use the "number" message format with non-integer values.');
                 }
 
-                $number = number_format($arg); //XXX use NumberFormatter?
+                //XXX use NumberFormatter?
+                $number = number_format($arg);
                 if (null === $format && false !== $pos = strpos($arg, '.')) {
                     // add decimals with unknown length
                     $number .= '.'.substr($arg, $pos + 1);
@@ -254,6 +249,7 @@ class MessageFormatter
                 if (!isset($token[2])) {
                     throw new \DomainException('Message pattern is invalid.');
                 }
+
                 $select = self::tokenizePattern($token[2]);
                 $c = \count($select);
                 $message = false;
@@ -261,14 +257,17 @@ class MessageFormatter
                     if (\is_array($select[$i]) || !\is_array($select[1 + $i])) {
                         throw new \DomainException('Message pattern is invalid.');
                     }
+
                     $selector = trim($select[$i++]);
                     if (false === $message && 'other' === $selector || $selector == $arg) {
                         $message = implode(',', $select[$i]);
                     }
                 }
+
                 if (false !== $message) {
                     return self::parseTokens(self::tokenizePattern($message), $args, $locale);
                 }
+
                 break;
 
             case 'plural': //TODO make it locale-dependent based on symfony/translation rules
@@ -283,6 +282,7 @@ class MessageFormatter
                 if (!isset($token[2])) {
                     throw new \DomainException('Message pattern is invalid.');
                 }
+
                 $plural = self::tokenizePattern($token[2]);
                 $c = \count($plural);
                 $message = false;
@@ -291,13 +291,14 @@ class MessageFormatter
                     if (\is_array($plural[$i]) || !\is_array($plural[1 + $i])) {
                         throw new \DomainException('Message pattern is invalid.');
                     }
-                    $selector = trim($plural[$i++]);
 
+                    $selector = trim($plural[$i++]);
                     if (1 === $i && 0 === strncmp($selector, 'offset:', 7)) {
                         $pos = strpos(str_replace(array("\n", "\r", "\t"), ' ', $selector), ' ', 7);
                         $offset = (int) trim(substr($selector, 7, $pos - 7));
                         $selector = trim(substr($selector, 1 + $pos, \strlen($selector)));
                     }
+
                     if (false === $message && 'other' === $selector ||
                         '=' === $selector[0] && (int) substr($selector, 1, \strlen($selector)) === $arg ||
                         'one' === $selector && 1 == $arg - $offset
@@ -305,12 +306,15 @@ class MessageFormatter
                         $message = implode(',', str_replace('#', $arg - $offset, $plural[$i]));
                     }
                 }
+
                 if (false !== $message) {
                     return self::parseTokens(self::tokenizePattern($message), $args, $locale);
                 }
+
                 break;
         }
 
         throw new \DomainException('Message pattern is invalid.');
     }
 }
+

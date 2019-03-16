@@ -7,3 +7,4 @@ $blocks = array(
 		'description' => $gallery->i18n('Album quick links (Dropdown)'),
 	),
 );
+

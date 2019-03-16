@@ -106,10 +106,12 @@ class CodeAuditTestCase extends GalleryTestCase {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
+
 		static $KIND;
 
 		if (!isset($KIND)) {
-			$KIND = strtoupper('kind'); // Won't be KIND in Turkish locale
+			// Won't be KIND in Turkish locale
+			$KIND = strtoupper('kind');
 		}
 
 		$parser = xml_parser_create();
@@ -119,6 +121,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 			$xmlValues,
 			$xmlIndex
 		);
+
 		xml_parser_free($parser);
 
 		if (empty($xmlIndex['ENTRY'])) {
@@ -304,7 +307,9 @@ class CodeAuditTestCase extends GalleryTestCase {
 	/**
 	 * Extract function calls from a php snippet.
 	 *
+	 *
 	 * @param string $phpCode e.g. '<?php print "meow"; $foo->bar("hello world"); ?>'
+	 *
 	 *
 	 * @param mixed $function Function to be searched for, e.g.
 	 *              - 'foo' for a global function called foo,
@@ -398,6 +403,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 			$parenCount = 1;
 
 			while (($i = $this->_getNextTokenIndex($tokens, $i)) && isset($tokens[$i])
+
 			&& $parenCount != 0) {
 				switch ($tokens[$i]) {
 					case ')':
@@ -449,6 +455,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 		$param  = '';
 
 		while (($i = $this->_getNextTokenIndex($tokens, $i)) && isset($tokens[$i])
+
 			&& $parenCount != 0) {
 			switch ($tokens[$i]) {
 				case ')':

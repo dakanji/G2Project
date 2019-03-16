@@ -39,7 +39,9 @@ class CaptchaModule extends GalleryModule {
 				'input that requires visual comprehension'
 			)
 		);
-		$this->setVersion('2.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -179,7 +181,6 @@ class CaptchaModule extends GalleryModule {
 	 */
 	public function needsConfiguration() {
 		GalleryCoreApi::requireOnce('modules/captcha/classes/CaptchaHelper.class');
-
 		$gdReport = CaptchaHelper::testRequiredGdFunctions();
 
 		return array(null, count($gdReport['fail']) > 0);
@@ -207,3 +208,4 @@ class CaptchaModule extends GalleryModule {
 		return 'captcha.CaptchaConfigAdmin';
 	}
 }
+

@@ -58,7 +58,6 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 			}
 
 			$this->assertTrue(isset($this->_comment[$i]), 'Missing comment instance');
-
 			$this->_comment[$i]->create($this->_item[$i]->getId());
 			$this->_comment[$i]->setCommenterId($gallery->getActiveUserId());
 			$this->_comment[$i]->setHost('127.0.0.1');
@@ -77,7 +76,6 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item[0]->getId());
 		GalleryUtilities::putRequestVariable('commentId', $this->_comment[0]->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -101,7 +99,6 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item[0]->getId());
 		GalleryUtilities::putRequestVariable('commentId', 123123123);
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
-
 		$results = $this->handleRequest(ERROR_MISSING_OBJECT);
 	}
 
@@ -112,7 +109,6 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item[0]->getId());
 		GalleryUtilities::putRequestVariable('commentId', $this->_comment[1]->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
-
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
 
@@ -137,3 +133,4 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 		);
 	}
 }
+

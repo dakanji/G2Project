@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\DateFormatter\DateFormat;
-
 use Symfony\Component\Intl\Exception\NotImplementedException;
 use Symfony\Component\Intl\Globals\IntlGlobals;
 
@@ -32,7 +30,6 @@ class FullTransformer
      * @var Transformer[]
      */
     private $transformers;
-
     private $pattern;
     private $timezone;
 
@@ -44,11 +41,9 @@ class FullTransformer
     {
         $this->pattern = $pattern;
         $this->timezone = $timezone;
-
         $implementedCharsMatch = $this->buildCharsMatch($this->implementedChars);
         $notImplementedCharsMatch = $this->buildCharsMatch($this->notImplementedChars);
         $this->regExp = "/($this->quoteMatch|$implementedCharsMatch|$notImplementedCharsMatch)/";
-
         $this->transformers = array(
             'M' => new MonthTransformer(),
             'L' => new MonthTransformer(),
@@ -108,7 +103,6 @@ class FullTransformer
     public function formatReplace($dateChars, $dateTime)
     {
         $length = \strlen($dateChars);
-
         if ($this->isQuoteMatch($dateChars)) {
             return $this->replaceQuoteMatch($dateChars);
         }
@@ -139,12 +133,9 @@ class FullTransformer
     {
         $reverseMatchingRegExp = $this->getReverseMatchingRegExp($this->pattern);
         $reverseMatchingRegExp = '/^'.$reverseMatchingRegExp.'$/';
-
         $options = array();
-
         if (preg_match($reverseMatchingRegExp, $value, $matches)) {
             $matches = $this->normalizeArray($matches);
-
             foreach ($this->transformers as $char => $transformer) {
                 if (isset($matches[$char])) {
                     $length = \strlen($matches[$char]['pattern']);
@@ -179,11 +170,9 @@ class FullTransformer
         // ICU 4.8 recognizes slash ("/") in a value to be parsed as a dash ("-") and vice-versa
         // when parsing a date/time value
         $escapedPattern = preg_replace('/\\\[\-|\/]/', '[\/\-]', $escapedPattern);
-
         $reverseMatchingRegExp = preg_replace_callback($this->regExp, function ($matches) {
             $length = \strlen($matches[0]);
             $transformerIndex = $matches[0][0];
-
             $dateChars = $matches[0];
             if ($this->isQuoteMatch($dateChars)) {
                 return $this->replaceQuoteMatch($dateChars);
@@ -239,7 +228,6 @@ class FullTransformer
     protected function buildCharsMatch($specialChars)
     {
         $specialCharsArray = str_split($specialChars);
-
         $specialCharsMatch = implode('|', array_map(function ($char) {
             return $char.'+';
         }, $specialCharsArray));
@@ -283,7 +271,6 @@ class FullTransformer
     protected function calculateUnixTimestamp(\DateTime $dateTime, array $options)
     {
         $options = $this->getDefaultValueForOptions($options);
-
         $year = $options['year'];
         $month = $options['month'];
         $day = $options['day'];
@@ -313,8 +300,10 @@ class FullTransformer
 
         // Normalize yy year
         preg_match_all($this->regExp, $this->pattern, $matches);
+
         if (\in_array('yy', $matches[0])) {
             $dateTime->setTimestamp(time());
+
             $year = $year > $dateTime->format('y') + 20 ? 1900 + $year : 2000 + $year;
         }
 
@@ -345,3 +334,4 @@ class FullTransformer
         );
     }
 }
+

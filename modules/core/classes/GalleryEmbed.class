@@ -89,8 +89,7 @@ class GalleryEmbed {
 	 */
 	public static function init($initParams = array()) {
 		// GDC as static var replacement for better testability
-		static $firstCacheKey  = 'GalleryEmbed::initFirstPass';
-		static $secondCacheKey = 'GalleryEmbed::initSecondPass';
+		static $firstCacheKey = 'GalleryEmbed::initFirstPass',  $secondCacheKey = 'GalleryEmbed::initSecondPass';
 
 		// Only InitFirstPass if not already done so in a prior call
 		if (!GalleryDataCache::containsKey($firstCacheKey)) {
@@ -162,8 +161,7 @@ class GalleryEmbed {
 	 * @return GalleryStatus a status object
 	 */
 	public static function done() {
-		global $gallery;
-		global $gallerySetErrorHandler;
+		global $gallery,  $gallerySetErrorHandler;
 
 		$session =& $gallery->getSession();
 
@@ -390,6 +388,7 @@ class GalleryEmbed {
 	 */
 	public static function logout($params = array()) {
 		include_once __DIR__ . '/GalleryCoreApi.class';
+
 		include_once __DIR__ . '/GallerySession.class';
 
 		$hasSession = GalleryUtilities::getCookieVar(SESSION_ID_PARAMETER);
@@ -867,7 +866,6 @@ class GalleryEmbed {
 		$session->doNotUseTempId();
 
 		GalleryCoreApi::requireOnce('modules/search/classes/SearchUtilities.class');
-
 		$searchInstances = $searchResults = array();
 
 		list($ret, $ids) = GalleryCoreApi::getAllFactoryImplementationIds('GallerySearchInterface_1_0');
@@ -1071,6 +1069,7 @@ class GalleryEmbed {
 	 *   <code>GalleryEmbed::addExternalIdMapEntry($uid, $g2user->getId(), 'GalleryUser');</code>
 	 *
 	 *
+	 *
 	 * @param string $externalId the user/group id in the embedded application
 	 * @param int $entityId the entityId of the user/group in G2
 	 * @param string $entityType 'GalleryUser' for user mapping, 'GalleryGroup' for group mapping
@@ -1266,16 +1265,13 @@ class GalleryEmbed {
 
 		// Load the G2 templating engine
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-
 		$template = new GalleryTemplate(__DIR__ . '/../../..');
 
 		$template->setVariable('l10Domain', 'modules_' . $moduleId);
 
 		// Invoke the preload, if available
 		$blockId = $moduleId . '.' . $blockName;
-
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
-
 		$theme = new GalleryTheme();
 
 		$ret = $theme->preloadBlock($template, $blockId, $params);

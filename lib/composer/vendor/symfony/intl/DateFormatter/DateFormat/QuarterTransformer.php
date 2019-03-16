@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\DateFormatter\DateFormat;
 
 /**
@@ -31,8 +30,10 @@ class QuarterTransformer extends Transformer
             case 1:
             case 2:
                 return $this->padLeft($quarter, $length);
+
             case 3:
                 return 'Q'.$quarter;
+
             default:
                 $map = array(1 => '1st quarter', 2 => '2nd quarter', 3 => '3rd quarter', 4 => '4th quarter');
 
@@ -49,8 +50,10 @@ class QuarterTransformer extends Transformer
             case 1:
             case 2:
                 return '\d{'.$length.'}';
+
             case 3:
                 return 'Q\d';
+
             default:
                 return '(?:1st|2nd|3rd|4th) quarter';
         }
@@ -64,3 +67,4 @@ class QuarterTransformer extends Transformer
         return array();
     }
 }
+

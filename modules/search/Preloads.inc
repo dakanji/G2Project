@@ -38,3 +38,4 @@ class SearchPreloads {
 		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
 }
+

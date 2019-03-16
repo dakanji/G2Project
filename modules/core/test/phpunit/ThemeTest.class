@@ -664,7 +664,6 @@ class ThemeTestTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('themetest');
-
 		$this->setName('ThemeTest Theme');
 		$this->setDescription('Unit test theme');
 		$this->setVersion('0.9.0');

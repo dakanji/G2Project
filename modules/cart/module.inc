@@ -37,7 +37,9 @@ class CartModule extends GalleryModule {
 				'A Shopping Cart for the Gallery'
 			)
 		);
-		$this->setVersion('2.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -124,7 +126,7 @@ class CartModule extends GalleryModule {
 					return $ret;
 				}
 
-				$query = "DELETE FROM [Schema] WHERE [Schema::name] = \'CartMap\'";
+				$query = "DELETE FROM [Schema] WHERE [Schema::name] = 'CartMap'";
 
 				$ret = $storage->execute($query);
 
@@ -213,7 +215,8 @@ class CartModule extends GalleryModule {
 				$itemTypeNames = array_merge($item->itemTypeName(), $item->itemTypeName(false));
 
 				if (false) {
-					/* Specific translations: */ _('Add Album To Cart');
+					// Specific translations:
+					_('Add Album To Cart');
 					_('Add Photo To Cart');
 				}
 

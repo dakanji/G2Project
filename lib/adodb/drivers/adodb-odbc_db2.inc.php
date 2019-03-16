@@ -75,6 +75,7 @@ if (!defined('_ADODB_ODBC_LAYER')) {
 
 if (!defined('ADODB_ODBC_DB2')) {
 	define('ADODB_ODBC_DB2', 1);
+
 	class ADODB_ODBC_DB2 extends ADODB_odbc {
 		public $databaseType    = 'db2';
 		public $concat_operator = '||';
@@ -100,7 +101,8 @@ if (!defined('ADODB_ODBC_DB2')) {
 		}
 
 		public function IfNull($field, $ifNull) {
-			return " COALESCE($field, $ifNull) "; // if DB2 UDB
+			// if DB2 UDB
+			return " COALESCE($field, $ifNull) ";
 		}
 
 		public function ServerInfo() {

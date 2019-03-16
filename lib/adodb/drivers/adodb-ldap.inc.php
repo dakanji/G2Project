@@ -295,8 +295,11 @@ class ADODB_ldap extends ADOConnection {
 
 		// The host name (or list of hosts) for the primary LDAP server.
 		ldap_get_option($this->_connectionID, LDAP_OPT_HOST_NAME, $version['LDAP_OPT_HOST_NAME']);
+
 		ldap_get_option($this->_connectionID, LDAP_OPT_ERROR_NUMBER, $version['LDAP_OPT_ERROR_NUMBER']);
+
 		ldap_get_option($this->_connectionID, LDAP_OPT_ERROR_STRING, $version['LDAP_OPT_ERROR_STRING']);
+
 		ldap_get_option($this->_connectionID, LDAP_OPT_MATCHED_DN, $version['LDAP_OPT_MATCHED_DN']);
 
 		return $this->version = $version;
@@ -309,7 +312,9 @@ class ADODB_ldap extends ADOConnection {
 class ADORecordSet_ldap extends ADORecordSet {
 	public $databaseType = 'ldap';
 	public $canSeek      = false;
-	public $_entryID; // keeps track of the entry resource identifier
+
+	// keeps track of the entry resource identifier
+	public $_entryID;
 
 	public function __construct($queryID, $mode = false) {
 		if ($mode === false) {

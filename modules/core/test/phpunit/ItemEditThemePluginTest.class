@@ -127,6 +127,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 			array(array(), $this->_translate('Successfully saved theme settings')),
 			$results
 		);
+
 		// Verify
 		$this->assertEquals(
 			array(
@@ -148,6 +149,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 			array(array('form[error][key][rows][invalid]'), null),
 			$results
 		);
+
 		// Verify that we have a detailed error message
 		$this->assertTrue(GalleryUtilities::hasRequestVariable('form[errorMessage]'));
 
@@ -168,12 +170,12 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 			array(array(), $this->_translate('Successfully saved theme settings')),
 			$results
 		);
+
 		// Verify
 		$this->assertEquals(
 			array(
 				'setParameter(rows, 3)',
 				sprintf('removeParameter(columns, %d)', $this->_album->getId()),
-
 			),
 			ItemEditThemeControllerTestTheme::getMe()->getMap()
 		);
@@ -194,6 +196,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 			array(array(), $this->_translate('Successfully saved theme settings')),
 			$results
 		);
+
 		// Verify - 3 albums should be set
 		$this->assertEquals(
 			array(
@@ -236,6 +239,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 	public function testChooseTheme() {
 		$this->_setTheme($this->_album, null);
+
 		GalleryUtilities::putRequestVariable('form[theme]', 'ItemEditThemeControllerTest');
 		GalleryUtilities::putRequestVariable('form[action][chooseTheme]', 1);
 		GalleryUtilities::putRequestVariable(
@@ -261,6 +265,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 	public function testChooseDefaultTheme() {
 		$this->_setTheme($this->_album, 'ItemEditThemeControllerTest');
+
 		GalleryUtilities::putRequestVariable('form[action][chooseTheme]', 1);
 		GalleryUtilities::putRequestVariable(
 			'form[serialNumber]',
@@ -288,7 +293,6 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 	public function testChooseBogusTheme() {
 		GalleryUtilities::putRequestVariable('form[theme]', 'BogusBogus!');
 		GalleryUtilities::putRequestVariable('form[action][chooseTheme]', 1);
-
 		$results = $this->handleRequest($this->_album, $this->_preferred, ERROR_BAD_PARAMETER);
 	}
 
@@ -296,7 +300,6 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[theme]', 'ItemEditThemeControllerTest');
 		GalleryUtilities::putRequestVariable('form[action][chooseTheme]', 1);
 		GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
-
 		$results = $this->handleRequest($this->_album, $this->_preferred, ERROR_OBSOLETE_DATA);
 	}
 
@@ -304,6 +307,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		$this->_setTheme($this->_album, null);
 		$this->_setTheme($this->_childAlbum, null);
 		$this->_setTheme($this->_grandchildAlbum, null);
+
 		GalleryUtilities::putRequestVariable('form[theme]', 'ItemEditThemeControllerTest');
 		GalleryUtilities::putRequestVariable('form[changeInDescendents][theme]', 1);
 		GalleryUtilities::putRequestVariable('form[action][chooseTheme]', 1);
@@ -518,7 +522,8 @@ class ItemEditThemeTestPlatform {
 	}
 
 	public function fclose($handle) {
-		return fclose($handle); // needed to release locks
+		// needed to release locks
+		return fclose($handle);
 	}
 
 	public function getDirectorySeparator() {
@@ -526,7 +531,8 @@ class ItemEditThemeTestPlatform {
 	}
 
 	public function unlink($path) {
-		return unlink($path); // needed to release locks
+		// needed to release locks
+		return unlink($path);
 	}
 
 	public function closedir($path) {}

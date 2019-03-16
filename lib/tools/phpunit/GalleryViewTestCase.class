@@ -43,7 +43,6 @@ class GalleryViewTestCase extends GalleryTestCase {
 
 	public function __construct($methodName, $viewName) {
 		parent::__construct($methodName);
-
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
 
 		list($ret, $this->_view) = GalleryView::getMe()->loadView($viewName);

@@ -29,7 +29,8 @@ class ADODB_informix extends ADODB_informix72 {
 	public $ansiOuter    = true;
 
 	public function IfNull($field, $ifNull) {
-		return " NVL($field, $ifNull) "; // if Informix 9.X or 10.X
+		// if Informix 9.X or 10.X
+		return " NVL($field, $ifNull) ";
 	}
 }
 

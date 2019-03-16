@@ -391,7 +391,6 @@ class GalleryPluginHelper_simple {
 
 				if (isset($cacheData)) {
 					$data[$itemId] = $cacheData;
-
 					GalleryDataCache::put($cacheKey, $cacheData);
 
 					continue;

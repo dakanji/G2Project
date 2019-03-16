@@ -860,10 +860,10 @@ class GalleryDatabaseExport {
 		global $gallery;
 
 		$this->_callBack['progress']++;
-
 		$complete = $this->_callBack['progress'] / $this->_callBack['total'];
 
 		call_user_func_array($this->_callBack['callback'], array($complete));
+
 		$gallery->guaranteeTimeLimit(60);
 	}
 

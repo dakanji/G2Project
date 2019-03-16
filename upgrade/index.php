@@ -47,9 +47,13 @@
 $g2Base = dirname(__DIR__) . '/';
 
 require_once $g2Base . 'upgrade/UpgradeStep.class';
+
 require_once $g2Base . 'upgrade/StatusTemplate.class';
+
 require_once $g2Base . 'bootstrap.inc';
+
 require_once $g2Base . 'modules/core/classes/GalleryUtilities.class';
+
 require_once $g2Base . 'lib/support/GallerySetupUtilities.class';
 
 /*
@@ -258,7 +262,6 @@ function selectAdminUser($fallback = false) {
 			$gallery->debug('Unable to load admin user. Using in-memory user object as fallback');
 
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryUser.class');
-
 			$adminUser = new GalleryUser();
 
 			$adminUser->setId((int)$userId);

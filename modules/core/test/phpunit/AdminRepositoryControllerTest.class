@@ -63,7 +63,6 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		GalleryUtilities::putRequestVariable('form[action][update]', 1);
-
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$results                   = $this->handleRequest();
@@ -97,7 +96,6 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[repositories][experimental]', 'experimental');
 		GalleryUtilities::putRequestVariable('form[repositories][community]', 'checked');
 		GalleryUtilities::putRequestVariable('form[repositories][something_else]', 1);
-
 		GalleryUtilities::putRequestVariable('form[action][update]', 1);
 
 		$this->_markPluginParametersForCleanup('module', 'core');
@@ -145,7 +143,6 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 
 	public function testUpgradeAllNoUpgradeAvailable() {
 		GalleryUtilities::putRequestVariable('form[action][upgradeAll]', 1);
-
 		$repository = new UnitTestRepository();
 
 		$repository->setReply('getAllUpgradeablePackages', array(), array(null, array()));
@@ -171,7 +168,6 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 
 	public function testUpgradeAll() {
 		GalleryUtilities::putRequestVariable('form[action][upgradeAll]', 1);
-
 		$packages = array(
 			'module' => array(
 				'testModule' => array(

@@ -504,7 +504,6 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[smtp][server]', 'smtp.example.com');
 		GalleryUtilities::putRequestVariable('form[smtp][from]', 'bad address@fun.com');
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -522,7 +521,6 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	public function testEmailTestMissingEmail() {
 		GalleryUtilities::putRequestVariable('form[emailTest][to]', '');
 		GalleryUtilities::putRequestVariable('form[action][emailTest]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -540,7 +538,6 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	public function testEmailTestInvalidEmail() {
 		GalleryUtilities::putRequestVariable('form[emailTest][to]', 'abc');
 		GalleryUtilities::putRequestVariable('form[action][emailTest]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -572,7 +569,6 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[emailTest][to]', 'nobody@nowhere.com');
 		GalleryUtilities::putRequestVariable('form[action][emailTest]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -614,7 +610,6 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[emailTest][to]', 'nobody@nowhere.com');
 		GalleryUtilities::putRequestVariable('form[action][emailTest]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -631,6 +626,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			'status keys'
 		);
 		$this->assertEquals(1, $results['status']['saved'], 'saved');
+
 		$this->assertTrue(
 			strpos(
 				$results['status']['emailTestError'],
@@ -659,7 +655,6 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[smtp][server]', 'smtp.example.com');
 		GalleryUtilities::putRequestVariable('form[default][language]', 'en');
 		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

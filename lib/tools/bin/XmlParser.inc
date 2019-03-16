@@ -29,7 +29,9 @@ class XmlParser {
 		$this->_xmlObject = xml_parser_create();
 
 		xml_set_object($this->_xmlObject, $this);
+
 		xml_set_character_data_handler($this->_xmlObject, 'dataHandler');
+
 		xml_set_element_handler($this->_xmlObject, 'startHandler', 'endHandler');
 	}
 
@@ -48,6 +50,7 @@ class XmlParser {
 					xml_get_current_line_number($this->_xmlObject)
 				)
 			);
+
 			xml_parser_free($this->_xmlObject);
 		}
 

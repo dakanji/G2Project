@@ -505,7 +505,9 @@ class SystemChecksStep extends UpgradeStep {
 
 				$_SESSION['fileintegrity'] = 'Ok';
 			} else {
-				global $currentStep; // needed for ManifestSystemCheck.html
+				// needed for ManifestSystemCheck.html
+				global $currentStep;
+
 				$message = $notice = '';
 
 				if (!empty($manifest['missing'])) {

@@ -35,7 +35,9 @@ class ADODB_db2 extends ADOConnection {
 	public $sysDate         = 'CURRENT DATE';
 	public $sysTimeStamp    = 'CURRENT TIMESTAMP';
 	public $fmtTimeStamp    = "'Y-m-d H:i:s'";
-	public $replaceQuote    = "''"; // string to use to replace quotes
+
+	// string to use to replace quotes
+	public $replaceQuote    = "''";
 	public $dataProvider    = 'db2';
 	public $hasAffectedRows = true;
 	public $binmode         = DB2_BINARY;
@@ -51,8 +53,10 @@ class ADODB_db2 extends ADOConnection {
 	public $_autocommit        = true;
 	public $_haserrorfunctions = true;
 	public $_lastAffectedRows  = 0;
-	public $uCaseTables        = true; // for meta* functions, uppercase table names
-	public $hasInsertID        = true;
+
+	// for meta* functions, uppercase table names
+	public $uCaseTables = true;
+	public $hasInsertID = true;
 
 	public function _insertid() {
 		return ADOConnection::GetOne('VALUES IDENTITY_VAL_LOCAL()');
@@ -735,7 +739,8 @@ class ADODB_db2 extends ADOConnection {
 				// ref: http://msdn.microsoft.com/library/default.asp?url=/archive/en-us/dnaraccgen/html/msdn_odk.asp
 				// access uses precision to store length for char/varchar
 				if ($fld->type == 'C' or $fld->type == 'X') {
-					if ($rs->fields[4] <= -95) { // UNICODE
+					if ($rs->fields[4] <= -95) {
+						// UNICODE
 						$fld->max_length = $rs->fields[7] / 2;
 					} else {
 						$fld->max_length = $rs->fields[7];
@@ -776,6 +781,7 @@ class ADODB_db2 extends ADOConnection {
 		}
 
 		$rs->_fetch();
+
 		/*
 		$rs->fields indices
 		0 TABLE_CAT
@@ -808,7 +814,8 @@ class ADODB_db2 extends ADOConnection {
 
 	public function Prepare($sql) {
 		if (!$this->_bindInputArray) {
-			return $sql; // no binding
+			// no binding
+			return $sql;
 		}
 
 		$stmt = db2_prepare($this->_connectionID, $sql);

@@ -323,12 +323,16 @@ class Mail_mime {
 	 */
 	public function &_file2str($file_name) {
 		if (!is_readable($file_name)) {
-			$err = null; //PEAR::raiseError('File is not readable ' . $file_name);
+			//PEAR::raiseError('File is not readable ' . $file_name);
+			$err = null;
+
 			return $err;
 		}
 
 		if (!$fd = fopen($file_name, 'rb')) {
-			$err = null; //PEAR::raiseError('Could not open ' . $file_name);
+			//PEAR::raiseError('Could not open ' . $file_name);
+			$err = null;
+
 			return $err;
 		}
 

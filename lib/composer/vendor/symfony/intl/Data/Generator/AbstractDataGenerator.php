@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Generator;
-
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Intl\Data\Bundle\Compiler\GenrbCompiler;
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleReaderInterface;
@@ -28,7 +26,6 @@ abstract class AbstractDataGenerator
 {
     private $compiler;
     private $dirName;
-
     public function __construct(GenrbCompiler $compiler, $dirName)
     {
         $this->compiler = $compiler;
@@ -40,7 +37,6 @@ abstract class AbstractDataGenerator
         $filesystem = new Filesystem();
         $localeScanner = new LocaleScanner();
         $reader = new IntlBundleReader();
-
         $writers = $config->getBundleWriters();
         $tempDir = sys_get_temp_dir().'/icu-data-'.$this->dirName;
 
@@ -56,12 +52,10 @@ abstract class AbstractDataGenerator
         $locales = $this->scanLocales($localeScanner, $config->getSourceDir());
 
         $this->compileTemporaryBundles($this->compiler, $config->getSourceDir(), $tempDir);
-
         $this->preGenerate();
 
         foreach ($locales as $locale) {
             $localeData = $this->generateDataForLocale($reader, $tempDir, $locale);
-
             if (null !== $localeData) {
                 foreach ($writers as $targetDir => $writer) {
                     $writer->write($targetDir.'/'.$this->dirName, $locale, $localeData);
@@ -70,7 +64,6 @@ abstract class AbstractDataGenerator
         }
 
         $rootData = $this->generateDataForRoot($reader, $tempDir);
-
         if (null !== $rootData) {
             foreach ($writers as $targetDir => $writer) {
                 $writer->write($targetDir.'/'.$this->dirName, 'root', $rootData);
@@ -78,7 +71,6 @@ abstract class AbstractDataGenerator
         }
 
         $metaData = $this->generateDataForMeta($reader, $tempDir);
-
         if (null !== $metaData) {
             foreach ($writers as $targetDir => $writer) {
                 $writer->write($targetDir.'/'.$this->dirName, 'meta', $metaData);
@@ -103,7 +95,6 @@ abstract class AbstractDataGenerator
      * @param string        $tempDir
      */
     abstract protected function compileTemporaryBundles(GenrbCompiler $compiler, $sourceDir, $tempDir);
-
     abstract protected function preGenerate();
 
     /**
@@ -131,3 +122,4 @@ abstract class AbstractDataGenerator
      */
     abstract protected function generateDataForMeta(BundleReaderInterface $reader, $tempDir);
 }
+

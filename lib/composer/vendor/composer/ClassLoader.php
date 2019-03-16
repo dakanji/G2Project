@@ -9,7 +9,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Composer\Autoload;
 
 /**
@@ -19,13 +18,17 @@ namespace Composer\Autoload;
  *
  *     // register classes with namespaces
  *     $loader->add('Symfony\Component', __DIR__.'/component');
+
  *     $loader->add('Symfony',           __DIR__.'/framework');
+
  *
  *     // activate the autoloader
  *     $loader->register();
+
  *
  *     // to enable searching the include path (eg. for PEAR packages)
  *     $loader->setUseIncludePath(true);
+
  *
  * In this example, if you try to use a class in the Symfony\Component
  * namespace or one of its children (Symfony\Component\Console for instance),
@@ -50,13 +53,11 @@ class ClassLoader
     // PSR-0
     private $prefixesPsr0 = array();
     private $fallbackDirsPsr0 = array();
-
     private $useIncludePath = false;
     private $classMap = array();
     private $classMapAuthoritative = false;
     private $missingClasses = array();
     private $apcuPrefix;
-
     public function getPrefixes()
     {
         if (!empty($this->prefixesPsr0)) {
@@ -130,6 +131,7 @@ class ClassLoader
 
             return;
         }
+
         if ($prepend) {
             $this->prefixesPsr0[$first][$prefix] = array_merge(
                 (array) $paths,
@@ -174,6 +176,7 @@ class ClassLoader
             if ('\\' !== $prefix[$length - 1]) {
                 throw new \InvalidArgumentException("A non-empty PSR-4 prefix must end with a namespace separator.");
             }
+
             $this->prefixLengthsPsr4[$prefix[0]][$prefix] = $length;
             $this->prefixDirsPsr4[$prefix] = (array) $paths;
         } elseif ($prepend) {
@@ -225,6 +228,7 @@ class ClassLoader
             if ('\\' !== $prefix[$length - 1]) {
                 throw new \InvalidArgumentException("A non-empty PSR-4 prefix must end with a namespace separator.");
             }
+
             $this->prefixLengthsPsr4[$prefix[0]][$prefix] = $length;
             $this->prefixDirsPsr4[$prefix] = (array) $paths;
         }
@@ -338,9 +342,11 @@ class ClassLoader
         if (isset($this->classMap[$class])) {
             return $this->classMap[$class];
         }
+
         if ($this->classMapAuthoritative || isset($this->missingClasses[$class])) {
             return false;
         }
+
         if (null !== $this->apcuPrefix) {
             $file = apcu_fetch($this->apcuPrefix.$class, $hit);
             if ($hit) {
@@ -371,7 +377,6 @@ class ClassLoader
     {
         // PSR-4 lookup
         $logicalPathPsr4 = strtr($class, '\\', DIRECTORY_SEPARATOR) . $ext;
-
         $first = $class[0];
         if (isset($this->prefixLengthsPsr4[$first])) {
             $subPath = $class;
@@ -443,3 +448,4 @@ function includeFile($file)
 {
     include $file;
 }
+

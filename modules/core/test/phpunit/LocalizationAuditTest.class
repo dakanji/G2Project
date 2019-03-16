@@ -110,7 +110,8 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 
 		foreach ($matches as $match) {
 			if (strlen($match[2]) < 5) {
-				continue; // No translation for this string
+				// No translation for this string
+				continue;
 			}
 
 			preg_match_all('/__[A-Z]+__/', $match[1], $tokens);

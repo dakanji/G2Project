@@ -27,12 +27,13 @@
  * @version $Revision: 17580 $
  * @static
  */
-class GalleryItemHelper_medium // extends GalleryEventListener
-{
+
+// extends GalleryEventListener
+class GalleryItemHelper_medium {
 	/**
 	 * @see GalleryCoreApi::fetchAllItemIds
 	 */
-	public static function fetchAllItemIds($itemType, $permission='core.view') {
+	public static function fetchAllItemIds($itemType, $permission = 'core.view') {
 		global $gallery;
 
 		if (empty($itemType)) {
@@ -51,7 +52,8 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-		$query  = sprintf('
+		$query  = sprintf(
+			'
 			SELECT
 				[GalleryItem::id]
 			FROM
@@ -65,7 +67,9 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 			AND
 				[GalleryAccessSubscriberMap::accessListId] IN (%s)
 			ORDER BY [GalleryItem::title]
-		', $aclMarkers);
+		',
+			$aclMarkers
+		);
 		$data   = array();
 		$data[] = $itemType;
 		$data   = array_merge($data, $aclIds);
@@ -130,7 +134,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		list($ret, $instance) = GalleryCoreApi::newFactoryInstanceByHint(
 			'GalleryItem',
 			array($mimeType, substr($mimeType, 0, strpos($mimeType, '/')) . '/*')
-	);
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -150,7 +154,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		$description,
 		$mimeType,
 		$albumId,
-		$symlink=false
+		$symlink = false
 	) {
 		global $gallery;
 
@@ -169,20 +173,25 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		if ($ret) {
 			if ($ret->getErrorCode() & ERROR_BAD_DATA_TYPE) {
 				// Well, it wasn't what we thought it was.  Make it an unknown
-				$gallery->debug(sprintf(
-					'Failed to create item type %s, falling back on unknown',
-					get_class($newItem)
-		));
+				$gallery->debug(
+					sprintf(
+						'Failed to create item type %s, falling back on unknown',
+						get_class($newItem)
+					)
+				);
 
 				list($ret, $newItem) = GalleryCoreApi::newFactoryInstanceById('GalleryEntity', 'GalleryUnknownItem');
 
 				if (!isset($newItem)) {
-					return array(GalleryCoreApi::error(
-						ERROR_MISSING_OBJECT,
-						__FILE__,
-						__LINE__,
-						'Unable to get a GalleryUnknownItem instance'
-			), null);
+					return array(
+						GalleryCoreApi::error(
+							ERROR_MISSING_OBJECT,
+							__FILE__,
+							__LINE__,
+							'Unable to get a GalleryUnknownItem instance'
+						),
+						null,
+					);
 				}
 
 				$ret = $newItem->create($albumId, $fileName, $mimeType, $itemName, $symlink);
@@ -229,7 +238,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 	 * @see GalleryCoreApi::fetchOriginationTimestamp
 	 */
 	public static function fetchOriginationTimestamp($item) {
-		if (! GalleryUtilities::isA($item, 'GalleryDataItem')) {
+		if (!GalleryUtilities::isA($item, 'GalleryDataItem')) {
 			return array(null, null);
 		}
 
@@ -267,7 +276,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 	/**
 	 * @see GalleryCoreApi::addExistingItemToAlbum
 	 */
-	public static function addExistingItemToAlbum($item, $albumId, $isNew=false) {
+	public static function addExistingItemToAlbum($item, $albumId, $isNew = false) {
 		// Set the order weight
 		list($ret, $maxWeight) = GalleryCoreApi::fetchExtremeChildWeight($albumId, HIGHER_WEIGHT);
 
@@ -292,7 +301,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 	/**
 	 * @see GalleryCoreApi::applyDerivativePreferences
 	 */
-	public static function applyDerivativePreferences($item, $albumId, $isNew=false) {
+	public static function applyDerivativePreferences($item, $albumId, $isNew = false) {
 		list($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem($albumId);
 
 		if ($ret) {
@@ -317,7 +326,8 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		if (GalleryUtilities::isA($source, 'GalleryDerivative')) {
 			$operations = $source->getDerivativeOperations();
 		} elseif (GalleryUtilities::isA($source, 'GalleryPhotoItem')
-		|| GalleryUtilities::isA($source, 'GalleryUnknownItem')) {
+			|| GalleryUtilities::isA($source, 'GalleryUnknownItem')
+		) {
 			$operations = '';
 		}
 
@@ -326,7 +336,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 				$mimeType,
 				$operations,
 				false
-		);
+			);
 
 			if ($ret) {
 				return $ret;
@@ -343,7 +353,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 					list($ret, $preferred) = GalleryCoreApi::newFactoryInstanceByHint(
 						'GalleryDerivative',
 						$item->getEntityType()
-			);
+					);
 
 					if ($ret) {
 						return $ret;
@@ -484,7 +494,8 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 					if (preg_match(
 						'/(^|;)' . preg_quote($operations) . '(;|$)/',
 						$derivative->getDerivativeOperations()
-			)) {
+					)
+					) {
 						unset($derivs[$type][$i]);
 
 						continue 2;
@@ -512,7 +523,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 							'/((^|;)' . $list[0] . ')\|.*?(;|$)/',
 							'$1|' . $list[1] . '$3',
 							$derivative->getDerivativeOperations()
-			);
+						);
 
 						if ($tmpOperations != $derivative->getDerivativeOperations()) {
 							$operations = $tmpOperations;
@@ -524,7 +535,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 				list($ret, $derivative) = GalleryCoreApi::newFactoryInstanceByHint(
 					'GalleryDerivative',
 					$source->getEntityType()
-		);
+				);
 
 				if ($ret) {
 					return $ret;
@@ -549,7 +560,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 				$mimeType,
 				$operations,
 				$type == DERIVATIVE_TYPE_IMAGE_THUMBNAIL
-		);
+			);
 
 			if ($ret) {
 				return $ret;
@@ -559,7 +570,6 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 				// Oh well -- try the next preference
 				if (isset($lockId)) {
 					GalleryCoreApi::releaseLocks(array($lockId));
-
 					unset($lockId);
 				}
 
@@ -742,7 +752,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 				list($ret, $derivative) = GalleryCoreApi::newFactoryInstanceByHint(
 					'GalleryDerivative',
 					$source->getEntityType()
-		);
+				);
 
 				if ($ret) {
 					if (!empty($lockIds)) {
@@ -759,8 +769,10 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 						GalleryCoreApi::releaseLocks($lockIds);
 					}
 
-					return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT),
-				 null, );
+					return array(
+						GalleryCoreApi::error(ERROR_MISSING_OBJECT),
+						null,
+					);
 				}
 
 				$ret = $derivative->create($itemId, DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
@@ -823,8 +835,10 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 						GalleryCoreApi::releaseLocks($lockIds);
 					}
 
-					return array(GalleryCoreApi::error(ERROR_MISSING_VALUE),
-				 null, );
+					return array(
+						GalleryCoreApi::error(ERROR_MISSING_VALUE),
+						null,
+					);
 				}
 			}
 
@@ -857,6 +871,7 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 
 			if ($success && isset($derivative)) {
 				$derivative->setDerivativeSourceId($source->getId());
+
 				// After changing sources, the derivative dimensions are no longer valid.
 				$derivative->setWidth(0);
 				$derivative->setHeight(0);
@@ -942,7 +957,9 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 		if (!empty($userId) && empty($itemId)) {
 			$ret = GalleryCoreApi::removeMapEntry(
 				'GalleryDescendentCountsMap',
-				array('userId' => $userId)
+				array(
+					'userId' => $userId,
+				)
 			);
 
 			if ($ret) {
@@ -981,7 +998,9 @@ class GalleryItemHelper_medium // extends GalleryEventListener
 			}
 
 			if (!empty($ids)) {
-				$data = array('itemId' => array_keys($ids));
+				$data = array(
+					'itemId' => array_keys($ids),
+				);
 
 				if (!empty($userId)) {
 					$data['userId'] = $userId;

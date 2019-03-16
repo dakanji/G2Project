@@ -81,7 +81,6 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -101,7 +100,6 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[placement]', 'before');
 		GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[4]->getId());
 		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -142,7 +140,6 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[placement]', 'before');
 		GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[0]->getId());
 		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -183,7 +180,6 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[placement]', 'after');
 		GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[0]->getId());
 		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -224,7 +220,6 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[placement]', 'after');
 		GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[4]->getId());
 		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -282,7 +277,6 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[3]->getId());
 		GalleryUtilities::putRequestVariable('form[afterId]', $this->_child[0]->getId());
 		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
-
 		$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
 	}
 
@@ -290,7 +284,6 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
 		GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[4]->getId());
 		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -309,7 +302,6 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
 		GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[3]->getId());
 		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -326,7 +318,6 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 
 	public function testReorderItemsWithBogusId() {
 		GalleryUtilities::putRequestVariable('itemId', 12345678);
-
 		$results = $this->handleRequest(ERROR_MISSING_OBJECT);
 	}
 
@@ -345,7 +336,6 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[placement]', 'after');
 		GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[3]->getId());
 		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -395,7 +385,6 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[placement]', 'before');
 		GalleryUtilities::putRequestVariable('form[targetId]', $this->_child[1]->getId());
 		GalleryUtilities::putRequestVariable('form[action][reorder]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -430,3 +419,4 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 		);
 	}
 }
+

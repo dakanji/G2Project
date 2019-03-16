@@ -32,3 +32,4 @@ function smarty_modifier_print_r($object) {
 	print_r($object);
 	echo '</pre>';
 }
+

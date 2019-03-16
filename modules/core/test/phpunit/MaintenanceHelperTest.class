@@ -94,7 +94,9 @@ class MaintenanceHelperTest extends GalleryTestCase {
 
 	public function testAddAndFetchLastRun() {
 		// Add a task entry
-		$time = time() - 5;  // Choose an arbitrary time
+		// Choose an arbitrary time
+		$time = time() - 5;
+
 		$ret  = MaintenanceHelper_simple::addRun(
 			'MaintenanceHelperTestTask',
 			$time,
@@ -116,7 +118,9 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		$lastRunId = $info['runId'];
 
 		// Add a second task entry
-		$time = time() + 15;  // Choose an arbitrary time
+		// Choose an arbitrary time
+		$time = time() + 15;
+
 		$ret  = MaintenanceHelper_simple::addRun(
 			'MaintenanceHelperTestTask',
 			$time,
@@ -144,7 +148,6 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		$gallery->setPlatform($UnitTestPlatform);
 
 		$platform =& $gallery->getPlatform();
-
 		GalleryDataCache::remove('CoreModule::installedVersions');
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -237,7 +240,6 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		$gallery->setPlatform($UnitTestPlatform);
 
 		$platform =& $gallery->getPlatform();
-
 		GalleryDataCache::remove('CoreModule::installedVersions');
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -262,7 +264,6 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		$platform->setReply('atomicWrite', array($versionFile, $writeString), true);
 
 		$ret = GalleryCoreApi::setMaintenanceMode('http://test.gallery.com/maintenance.html');
-
 		if ($ret) {
 			return $ret;
 		}
@@ -311,3 +312,4 @@ class MaintenanceHelperTestTask extends MaintenanceTask {
 		return array(null, false, array('fail details'));
 	}
 }
+

@@ -320,7 +320,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		$count = 0;
 
 		foreach (array($this->_albumParent, $this->_albumChild, $differentPermissionChildAlbum)
-		as $album) {
+
+ as $album) {
 			list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), false);
 
 			if ($ret) {
@@ -703,7 +704,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		$count = 0;
 
 		foreach (array($this->_albumParent, $this->_albumChild, $differentPermissionChildAlbum)
-		as $album) {
+
+ as $album) {
 			list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), false);
 
 			if ($ret) {
@@ -967,6 +969,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->setActiveUser($this->_user);
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_albumParent->getId());
 		GalleryUtilities::putRequestVariable('form[action][addUserPermission]', 1);
 		GalleryUtilities::putRequestVariable('form[user][permission]', 'core.edit');

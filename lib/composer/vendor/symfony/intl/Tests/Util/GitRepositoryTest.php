@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Util;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Intl\Exception\RuntimeException;
@@ -22,9 +20,7 @@ use Symfony\Component\Intl\Util\GitRepository;
 class GitRepositoryTest extends TestCase
 {
     private $targetDir;
-
     const REPO_URL = 'https://github.com/symfony/intl.git';
-
     /**
      * @before
      * @after
@@ -32,8 +28,8 @@ class GitRepositoryTest extends TestCase
     protected function cleanup()
     {
         $this->targetDir = sys_get_temp_dir().'/GitRepositoryTest/source';
-
         $fs = new Filesystem();
+
         $fs->remove($this->targetDir);
     }
 
@@ -62,6 +58,7 @@ class GitRepositoryTest extends TestCase
         $this->assertNotEmpty($git->getLastAuthor());
         $this->assertInstanceOf('DateTime', $git->getLastAuthoredDate());
         $this->assertStringMatchesFormat('v%s', $git->getLastTag());
+
         $this->assertStringMatchesFormat('v3%s', $git->getLastTag(function ($tag) { return 0 === strpos($tag, 'v3'); }));
     }
 
@@ -72,7 +69,7 @@ class GitRepositoryTest extends TestCase
         $lastV3Tag = $git->getLastTag(function ($tag) { return 0 === strpos($tag, 'v3'); });
 
         $git->checkout($lastV3Tag);
-
         $this->assertNotEquals($lastCommitHash, $git->getLastCommitHash());
     }
 }
+

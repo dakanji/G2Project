@@ -590,3 +590,4 @@ test.pdf[1] PDF 612x792+0+0 PseudoClass 256c 8-bit 946.8k 0.030u 0:01',
 		),
 	),
 );
+

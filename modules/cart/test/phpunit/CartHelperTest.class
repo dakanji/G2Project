@@ -306,3 +306,4 @@ class CartHelperTest extends GalleryTestCase {
 		$this->assertEquals(array(), $cartItems, 'cart items');
 	}
 }
+

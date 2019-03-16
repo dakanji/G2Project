@@ -40,8 +40,10 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 	public $dropIndex    = 'DROP INDEX %1$s ON %2$s';
 	public $renameTable  = "EXEC sp_rename '%s','%s'";
 	public $renameColumn = "EXEC sp_rename '%s.%s','%s'";
-	public $typeX        = 'TEXT';  // Alternatively, set it to VARCHAR(4000)
-	public $typeXL       = 'TEXT';
+
+	// Alternatively, set it to VARCHAR(4000)
+	public $typeX  = 'TEXT';
+	public $typeXL = 'TEXT';
 
 	//var $alterCol = ' ALTER COLUMN ';
 	public function MetaType($t, $len = -1, $fieldobj = false) {
@@ -93,7 +95,9 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 				return (isset($this)) ? $this->typeXL : 'TEXT';
 
 			case 'X':
-				return (isset($this)) ? $this->typeX : 'TEXT'; // could be varchar(8000), but we want compat with oracle
+				// could be varchar(8000), but we want compat with oracle
+				return (isset($this)) ? $this->typeX : 'TEXT';
+
 			case 'C2':
 				return 'NVARCHAR';
 

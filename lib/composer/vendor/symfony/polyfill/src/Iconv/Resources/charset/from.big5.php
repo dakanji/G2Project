@@ -1,5 +1,4 @@
 <?php
-
 static $data = array (
   '�@' => '　',
   '�A' => '，',
@@ -13717,3 +13716,4 @@ $result =& $data;
 unset($data);
 
 return $result;
+

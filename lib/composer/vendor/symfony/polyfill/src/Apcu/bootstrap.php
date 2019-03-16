@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 use Symfony\Polyfill\Apcu as p;
-
 if (!extension_loaded('apc') && !extension_loaded('apcu')) {
     return;
 }
@@ -29,6 +27,7 @@ if (!function_exists('apcu_add')) {
         function apcu_fetch($key, &$success = null) { return apc_fetch($key, $success); }
         function apcu_store($key, $var = null, $ttl = 0) { return apc_store($key, $var, $ttl); }
     }
+
     function apcu_cache_info($limited = false) { return apc_cache_info('user', $limited); }
     function apcu_cas($key, $old, $new) { return apc_cas($key, $old, $new); }
     function apcu_clear_cache() { return apc_clear_cache('user'); }
@@ -46,3 +45,4 @@ if (!class_exists('APCUIterator', false) && class_exists('APCIterator', false)) 
         }
     }
 }
+

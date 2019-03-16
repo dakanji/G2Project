@@ -42,8 +42,11 @@ class SitemapViewTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->_start_of_2005 = 1104566400; // 2005-01-01T08:00:00+00:00
-		$this->_start_of_2006 = 1136102400; // 2006-01-01T08:00:00+00:00
+		// 2005-01-01T08:00:00+00:00
+		$this->_start_of_2005 = 1104566400;
+
+		// 2006-01-01T08:00:00+00:00
+		$this->_start_of_2006 = 1136102400;
 		$gallery->_phpVm      = new SitemapViewTestVm();
 
 		$gallery->_phpVm->setTime($this->_start_of_2006);
@@ -68,7 +71,10 @@ class SitemapViewTest extends GalleryTestCase {
 			53,       // change every week  (not exactly 52 -- round up)
 			13,       // change every month (not exactly 12 -- round up)
 			1,
-		);       // change every year
+
+		// change every year
+		);
+
 		for ($i = 0; $i < count($serials); $i++) {
 			$gallery->_phpVm->setTime($this->_start_of_2006 + $i + 1);
 

@@ -43,3 +43,4 @@ $entityInfo['GalleryComment'] = array(
 	'module'  => 'comment',
 	'linked'  => array(),
 );
+

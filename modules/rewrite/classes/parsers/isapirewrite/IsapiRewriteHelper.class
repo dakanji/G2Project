@@ -489,7 +489,6 @@ class IsapiRewriteHelper {
 
 		// Render template
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-
 		$template = new GalleryTemplate(__DIR__ . '/../../../templates', true, false);
 
 		$template->setVariable('Httpdini', $Httpdini);

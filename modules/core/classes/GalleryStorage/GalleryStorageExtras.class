@@ -384,6 +384,7 @@ class GalleryStorageExtras {
 					$query .= ' ' . implode(',', $changeList);
 
 					$query .= ' WHERE ' . $id['column'] . '=?';
+
 					$data[] = $id['value'];
 
 					if (!strcmp($tableName, $serialNumberTable)) {
@@ -499,7 +500,8 @@ class GalleryStorageExtras {
 		 */
 		foreach ($tables as $tableName => $junk) {
 			$query = 'DELETE FROM ' . $tableName . ' WHERE ' . $idCol . '=?';
-			$data  = array((int)$entity->getId());
+
+			$data = array((int)$entity->getId());
 
 			$this->_gs->_traceStart();
 
@@ -1799,20 +1801,24 @@ class GalleryStorageExtras {
 
 		if ($canStoreTableInfo) {
 			$query .= ', [::pluginId] = ?';
+
 			$data[] = $moduleId;
 		}
 
 		if ($canStoreTableInfo && isset($type)) {
 			$query .= ', [::type] = ?';
+
 			$data[] = $type;
 		}
 
 		if ($canStoreTableInfo && isset($info)) {
 			$query .= ', [::info] = ?';
+
 			$data[] = $info;
 		}
 
 		$query .= ' WHERE [::name] = ?';
+
 		$data[] = $tableNameInSchema;
 
 		$ret = $this->execute($query, $data);
@@ -1866,6 +1872,7 @@ class GalleryStorageExtras {
 
 			if (isset($mapInfo[$tableName])) {
 				$query .= '[::info] = ?, [::type] = ?,';
+
 				$data[] = serialize(
 					array(
 						$tableName => $mapInfo[$tableName],
@@ -1875,6 +1882,7 @@ class GalleryStorageExtras {
 				$data[] = 'map';
 			} elseif (isset($entityInfo[$tableName])) {
 				$query .= '[::info] = ?, [::type] = ?,';
+
 				$data[] = serialize(
 					array(
 						$tableName => $entityInfo[$tableName],
@@ -1895,7 +1903,8 @@ class GalleryStorageExtras {
 			}
 
 			$query .= '[::pluginId] = ? WHERE [::name] = ?';
-			$data   = array_merge($data, array($moduleId, $nameInSchema));
+
+			$data = array_merge($data, array($moduleId, $nameInSchema));
 
 			$ret = $this->execute($query, $data);
 
@@ -2061,6 +2070,7 @@ class GalleryStorageExtras {
 		. $this->_gs->_translateColumnName('major') . ', '
 
 		. $this->_gs->_translateColumnName('minor') . ' FROM ' . $schemaTableName;
+
 		$this->_gs->_traceStart();
 
 		$recordSet = $this->_gs->_db->Execute($query);

@@ -14,3 +14,4 @@ $entityInfo['GalleryLinkItem'] = array(
 	'module'  => 'linkitem',
 	'linked'  => array(),
 );
+

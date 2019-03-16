@@ -1,4 +1,5 @@
 <?php
+
 if (!defined('ADODB_SESSION')) {
 	die();
 }

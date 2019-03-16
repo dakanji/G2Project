@@ -313,6 +313,7 @@ class GalleryDataItem extends GalleryItem {
 		}
 
 		$this->setSize($platform->filesize($path));
+
 		GalleryCoreApi::deleteFastDownloadFileById($this->getId());
 
 		return null;

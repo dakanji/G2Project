@@ -15,7 +15,8 @@ class ADODB_pdo_mssql extends ADODB_pdo {
 	public $sysTimeStamp = 'GetDate()';
 
 	public function _init($parentDriver) {
-		$parentDriver->hasTransactions = false; // <<< BUG IN PDO mssql driver
+		// <<< BUG IN PDO mssql driver
+		$parentDriver->hasTransactions = false;
 		$parentDriver->_bindInputArray = false;
 		$parentDriver->hasInsertID     = true;
 	}

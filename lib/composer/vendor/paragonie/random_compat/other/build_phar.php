@@ -3,19 +3,24 @@ $dist = dirname(__DIR__).'/dist';
 if (!is_dir($dist)) {
     mkdir($dist, 0755);
 }
+
 if (file_exists($dist.'/random_compat.phar')) {
     unlink($dist.'/random_compat.phar');
 }
+
 $phar = new Phar(
     $dist.'/random_compat.phar',
     FilesystemIterator::CURRENT_AS_FILEINFO | \FilesystemIterator::KEY_AS_FILENAME,
     'random_compat.phar'
 );
+
 rename(
     dirname(__DIR__).'/lib/random.php', 
     dirname(__DIR__).'/lib/index.php'
 );
+
 $phar->buildFromDirectory(dirname(__DIR__).'/lib');
+
 rename(
     dirname(__DIR__).'/lib/index.php', 
     dirname(__DIR__).'/lib/random.php'
@@ -32,14 +37,15 @@ if ($argc > 1) {
         echo 'Could not read the private key file:', $argv[1], "\n";
         exit(255);
     }
+
     $pkeyFile = file_get_contents($argv[1]);
-    
     $private = openssl_get_privatekey($pkeyFile);
     if ($private !== false) {
         $pkey = '';
         openssl_pkey_export($private, $pkey);
+
         $phar->setSignatureAlgorithm(Phar::OPENSSL, $pkey);
-        
+
         /**
          * Save the corresponding public key to the file
          */
@@ -55,3 +61,4 @@ if ($argc > 1) {
         exit(255);
     }
 }
+

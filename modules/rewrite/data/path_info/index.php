@@ -33,3 +33,4 @@ if (isset($_SERVER['PATH_INFO'])
 } else {
 	echo "FAIL_PATH_INFO\n";
 }
+

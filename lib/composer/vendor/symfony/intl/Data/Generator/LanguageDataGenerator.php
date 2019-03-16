@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Generator;
-
 use Symfony\Component\Intl\Data\Bundle\Compiler\GenrbCompiler;
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleReaderInterface;
 use Symfony\Component\Intl\Data\Util\ArrayAccessibleResourceBundle;
@@ -149,7 +147,6 @@ class LanguageDataGenerator extends AbstractDataGenerator
     {
         $rootBundle = $reader->read($tempDir, 'root');
         $metadataBundle = $reader->read($tempDir, 'metadata');
-
         $this->languageCodes = array_unique($this->languageCodes);
 
         sort($this->languageCodes);
@@ -166,7 +163,6 @@ class LanguageDataGenerator extends AbstractDataGenerator
     {
         $aliases = iterator_to_array($metadataBundle['alias']['language']);
         $alpha2ToAlpha3 = array();
-
         foreach ($aliases as $alias => $language) {
             $language = $language['replacement'];
             if (2 === \strlen($language) && 3 === \strlen($alias)) {
@@ -178,7 +174,6 @@ class LanguageDataGenerator extends AbstractDataGenerator
 
                     $alpha3 = self::$preferredAlpha2ToAlpha3Mapping[$language];
                     $alpha2 = $aliases[$alpha3]['replacement'];
-
                     if ($language !== $alpha2) {
                         throw new RuntimeException('The statically set three-letter mapping '.$alpha3.' for the language code '.$language.' seems to be an alias for '.$alpha2.'. Wrong mapping?');
                     }
@@ -195,3 +190,4 @@ class LanguageDataGenerator extends AbstractDataGenerator
         return $alpha2ToAlpha3;
     }
 }
+

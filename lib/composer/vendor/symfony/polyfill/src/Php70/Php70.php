@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Polyfill\Php70;
 
 /**
@@ -22,10 +21,10 @@ final class Php70
     {
         $dividend = self::intArg($dividend, __FUNCTION__, 1);
         $divisor = self::intArg($divisor, __FUNCTION__, 2);
-
         if (0 === $divisor) {
             throw new \DivisionByZeroError('Division by zero');
         }
+
         if (-1 === $divisor && ~PHP_INT_MAX === $dividend) {
             throw new \ArithmeticError('Division of PHP_INT_MIN by -1 is not an integer');
         }
@@ -52,9 +51,11 @@ final class Php70
     public static function error_clear_last()
     {
         static $handler;
+
         if (!$handler) {
             $handler = function () { return false; };
         }
+
         set_error_handler($handler);
         @trigger_error('');
         restore_error_handler();
@@ -65,6 +66,7 @@ final class Php70
         if (\is_int($value)) {
             return $value;
         }
+
         if (!\is_numeric($value) || PHP_INT_MAX <= ($value += 0) || ~PHP_INT_MAX >= $value) {
             throw new \TypeError(sprintf('%s() expects parameter %d to be integer, %s given', $caller, $pos, \gettype($value)));
         }
@@ -72,3 +74,4 @@ final class Php70
         return (int) $value;
     }
 }
+

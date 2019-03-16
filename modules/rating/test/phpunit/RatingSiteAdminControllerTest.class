@@ -71,7 +71,6 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[minLimit]', '1.5');
 		GalleryUtilities::putRequestVariable('form[description]', 'desc');
 		GalleryUtilities::putRequestVariable('form[orderBy]', 'title');
-
 		GalleryUtilities::putRequestVariable('form[orderDirection]', ORDER_ASCENDING);
 		GalleryUtilities::putRequestVariable('form[presort]', '');
 		GalleryUtilities::putRequestVariable('form[themeId]', 'ratingTest');
@@ -135,7 +134,6 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[description]', '');
 		GalleryUtilities::putRequestVariable('form[orderBy]', 'RatingSortOrder');
 		GalleryUtilities::putRequestVariable('form[orderDirection]', ORDER_DESCENDING);
-
 		GalleryUtilities::putRequestVariable('form[presort]', 'albumsFirst');
 		GalleryUtilities::putRequestVariable('form[themeId]', 'ratingTest');
 		GalleryUtilities::putRequestVariable('form[currentThemeId]', 'ratingTest');
@@ -194,7 +192,6 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', 'Reset');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -221,3 +218,4 @@ class RatingTestTheme extends GalleryTheme {
 		$this->setStandardSettings(array());
 	}
 }
+

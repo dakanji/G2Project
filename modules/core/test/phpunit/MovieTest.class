@@ -92,7 +92,6 @@ class MovieTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(100, $this->_movie->getWidth(), 'width');
-
 		$this->assertEquals(200, $this->_movie->getHeight(), 'height');
 		$this->assertEquals(10.0, $this->_movie->getDuration(), 'duration');
 	}
@@ -111,7 +110,6 @@ class MovieTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(0, $this->_movie->getWidth(), 'width');
-
 		$this->assertEquals(0, $this->_movie->getHeight(), 'height');
 		$this->assertEquals(0.0, $this->_movie->getDuration(), 'duration');
 	}
@@ -149,3 +147,4 @@ class MovieTestToolkit {
 		return array(GalleryCoreApi::error($_REQUEST['toolkitError']), null);
 	}
 }
+

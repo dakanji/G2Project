@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Data\Provider;
-
 use Symfony\Component\Intl\Data\Provider\ScriptDataProvider;
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\Intl\Locale;
@@ -22,7 +20,6 @@ use Symfony\Component\Intl\Locale;
 abstract class AbstractScriptDataProviderTest extends AbstractDataProviderTest
 {
     // The below arrays document the state of the ICU data bundled with this package.
-
     protected static $scripts = array(
         'Adlm',
         'Afak',
@@ -215,11 +212,9 @@ abstract class AbstractScriptDataProviderTest extends AbstractDataProviderTest
      * @var ScriptDataProvider
      */
     protected $dataProvider;
-
     protected function setUp()
     {
         parent::setUp();
-
         $this->dataProvider = new ScriptDataProvider(
             $this->getDataDirectory().'/'.Intl::SCRIPT_DIR,
             $this->createEntryReader()
@@ -227,7 +222,6 @@ abstract class AbstractScriptDataProviderTest extends AbstractDataProviderTest
     }
 
     abstract protected function getDataDirectory();
-
     public function testGetScripts()
     {
         $this->assertSame(static::$scripts, $this->dataProvider->getScripts());
@@ -239,7 +233,6 @@ abstract class AbstractScriptDataProviderTest extends AbstractDataProviderTest
     public function testGetNames($displayLocale)
     {
         $scripts = array_keys($this->dataProvider->getNames($displayLocale));
-
         sort($scripts);
 
         // We can't assert on exact list of scripts, as there's too many variations between locales.
@@ -251,7 +244,6 @@ abstract class AbstractScriptDataProviderTest extends AbstractDataProviderTest
     public function testGetNamesDefaultLocale()
     {
         Locale::setDefault('de_AT');
-
         $this->assertSame(
             $this->dataProvider->getNames('de_AT'),
             $this->dataProvider->getNames()
@@ -278,7 +270,6 @@ abstract class AbstractScriptDataProviderTest extends AbstractDataProviderTest
     public function testGetName($displayLocale)
     {
         $names = $this->dataProvider->getNames($displayLocale);
-
         foreach ($names as $script => $name) {
             $this->assertSame($name, $this->dataProvider->getName($script, $displayLocale));
         }
@@ -287,11 +278,10 @@ abstract class AbstractScriptDataProviderTest extends AbstractDataProviderTest
     public function testGetNameDefaultLocale()
     {
         Locale::setDefault('de_AT');
-
         $names = $this->dataProvider->getNames('de_AT');
-
         foreach ($names as $script => $name) {
             $this->assertSame($name, $this->dataProvider->getName($script));
         }
     }
 }
+

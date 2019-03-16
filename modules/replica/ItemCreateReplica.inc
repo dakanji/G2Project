@@ -360,7 +360,6 @@ class ItemCreateReplicaView extends GalleryView {
 		$ItemCreateReplica['selectedIds'] = array_keys($selectedIds);
 
 		$template->setVariable('ItemCreateReplica', $ItemCreateReplica);
-
 		$template->setVariable('controller', 'replica.ItemCreateReplica');
 		$template->javascript('lib/yui/yahoo-dom-event.js');
 		$template->javascript('lib/yui/container-min.js');

@@ -279,17 +279,11 @@ class WatermarkImage extends GalleryEntity {
 		}
 
 		$this->setName($targetName);
-
 		$this->setFileName($targetFilename);
-
 		$this->setMimeType($mimeType);
-
 		$this->setWidth(0);
-
 		$this->setHeight(0);
-
 		$this->setXPercentage(100);
-
 		$this->setYPercentage(100);
 		$this->setApplyToPreferred(false);
 		$this->setApplyToResizes(true);

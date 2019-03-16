@@ -104,8 +104,11 @@ class AdminDeleteUserController extends GalleryController {
 				} elseif ($newOwner->getId() == $anonymousUserId) {
 					$error[] = 'form[error][text][newOwnerIsGuest]';
 				}
-			} else { // new owner field is empty, set the default new owner: 'admin'
-				$activeUserId         = $gallery->getActiveUserId(); // activeUser = site admin
+			} else {
+				// new owner field is empty, set the default new owner: 'admin'
+				// activeUser = site admin
+				$activeUserId = $gallery->getActiveUserId();
+
 				list($ret, $newOwner) = GalleryCoreApi::loadEntitiesById($activeUserId, 'GalleryUser');
 
 				if ($ret) {
@@ -174,6 +177,7 @@ class AdminDeleteUserController extends GalleryController {
 				$status['deletedUser'] = $user->getUsername();
 			} // /if empty($error) && $userId != $anonymousUserId ...
 		} // /if isset($form['action']['delete'])
+
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
 		} else {

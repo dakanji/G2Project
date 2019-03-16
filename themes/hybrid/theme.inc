@@ -31,9 +31,7 @@ class HybridTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('hybrid');
-
 		$this->setName($gallery->i18n('Hybrid'));
-
 		$this->setDescription(
 			$gallery->i18n(
 				'Combined album/image/slideshow dynamic view'
@@ -42,6 +40,7 @@ class HybridTheme extends GalleryTheme {
 		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
+
 		$this->setStandardSettings(
 			array(
 				'rows'             => 30,

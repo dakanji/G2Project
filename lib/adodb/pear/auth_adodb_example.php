@@ -32,3 +32,4 @@ if ($a->getAuth()) {
 
 	// * The output of your site goes here.
 }
+

@@ -13,9 +13,15 @@
 // specific code for tohtml
 global $gSQLMaxRows,$gSQLBlockRows,$ADODB_ROUND;
 
-$ADODB_ROUND   = 4; // rounding
-$gSQLMaxRows   = 1000; // max no of rows to download
-$gSQLBlockRows = 20; // max no of rows per table block
+// rounding
+$ADODB_ROUND = 4;
+
+// max no of rows to download
+$gSQLMaxRows = 1000;
+
+// max no of rows per table block
+$gSQLBlockRows = 20;
+
 // RecordSet to HTML Table
 //------------------------------------------------------------
 // Convert a recordset to a html table. Multiple tables are generated
@@ -38,6 +44,7 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 	$s     = '';
 	$rows  = 0;
 	$docnt = false;
+
 	global $gSQLMaxRows,$gSQLBlockRows,$ADODB_ROUND;
 
 	if (!$rs) {
@@ -153,6 +160,7 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 				@ftruncate($fd,0);
 				@fwrite($fd,$v);
 				@fclose($fd);
+
 				if (!function_exists ("mime_content_type")) {
 				  function mime_content_type ($file) {
 					return exec("file -bi ".escapeshellarg($file));
@@ -162,7 +170,9 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 				$t = mime_content_type($tmpname);
 				$s .= (substr($t,0,5)=="image") ? " <td><img src='$tmpname' alt='$t'></td>\\n" : " <td><a
 				href='$tmpname'>$t</a></td>\\n";
+
 				break;
+
 				*/
 				default:
 					if ($htmlspecialchars) {
@@ -190,7 +200,8 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 
 		// additional EOF check to prevent a widow header
 		if (!$rs->EOF && $rows % $gSQLBlockRows == 0) {
-			//if (connection_aborted()) break;// not needed as PHP aborts script, unlike ASP
+			// not needed as PHP aborts script, unlike ASP
+			//if (connection_aborted()) break;
 			if ($echo) {
 				echo $s . "</TABLE>\n\n";
 			} else {
@@ -221,7 +232,9 @@ function arr2html(&$arr, $ztabhtml = '', $zheaderarray = '') {
 		$ztabhtml = 'BORDER=1';
 	}
 
-	$s = "<TABLE $ztabhtml>";//';print_r($arr);
+	//';print_r($arr);
+	$s = "<TABLE $ztabhtml>";
+
 	if ($zheaderarray) {
 		$s .= '<TR>';
 

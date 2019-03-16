@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Data\Provider;
-
 use Symfony\Component\Intl\Data\Provider\RegionDataProvider;
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\Intl\Locale;
@@ -21,7 +19,6 @@ use Symfony\Component\Intl\Locale;
 abstract class AbstractRegionDataProviderTest extends AbstractDataProviderTest
 {
     // The below arrays document the state of the ICU data bundled with this package.
-
     protected static $territories = array(
         'AC',
         'AD',
@@ -284,11 +281,9 @@ abstract class AbstractRegionDataProviderTest extends AbstractDataProviderTest
      * @var RegionDataProvider
      */
     protected $dataProvider;
-
     protected function setUp()
     {
         parent::setUp();
-
         $this->dataProvider = new RegionDataProvider(
             $this->getDataDirectory().'/'.Intl::REGION_DIR,
             $this->createEntryReader()
@@ -296,7 +291,6 @@ abstract class AbstractRegionDataProviderTest extends AbstractDataProviderTest
     }
 
     abstract protected function getDataDirectory();
-
     public function testGetRegions()
     {
         $this->assertSame(static::$territories, $this->dataProvider->getRegions());
@@ -308,7 +302,6 @@ abstract class AbstractRegionDataProviderTest extends AbstractDataProviderTest
     public function testGetNames($displayLocale)
     {
         $countries = array_keys($this->dataProvider->getNames($displayLocale));
-
         sort($countries);
 
         $this->assertSame(static::$territories, $countries);
@@ -317,7 +310,6 @@ abstract class AbstractRegionDataProviderTest extends AbstractDataProviderTest
     public function testGetNamesDefaultLocale()
     {
         Locale::setDefault('de_AT');
-
         $this->assertSame(
             $this->dataProvider->getNames('de_AT'),
             $this->dataProvider->getNames()
@@ -344,9 +336,9 @@ abstract class AbstractRegionDataProviderTest extends AbstractDataProviderTest
     public function testGetName($displayLocale)
     {
         $names = $this->dataProvider->getNames($displayLocale);
-
         foreach ($names as $country => $name) {
             $this->assertSame($name, $this->dataProvider->getName($country, $displayLocale));
         }
     }
 }
+

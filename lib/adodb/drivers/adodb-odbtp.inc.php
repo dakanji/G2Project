@@ -18,12 +18,15 @@ if (!defined('ADODB_DIR')) {
 }
 
 define('_ADODB_ODBTP_LAYER', 2);
+
 class ADODB_odbtp extends ADOConnection {
-	public $databaseType    = 'odbtp';
-	public $dataProvider    = 'odbtp';
-	public $fmtDate         = "'Y-m-d'";
-	public $fmtTimeStamp    = "'Y-m-d, h:i:sA'";
-	public $replaceQuote    = "''"; // string to use to replace quotes
+	public $databaseType = 'odbtp';
+	public $dataProvider = 'odbtp';
+	public $fmtDate      = "'Y-m-d'";
+	public $fmtTimeStamp = "'Y-m-d, h:i:sA'";
+
+	// string to use to replace quotes
+	public $replaceQuote    = "''";
 	public $odbc_driver     = 0;
 	public $hasAffectedRows = true;
 	public $hasInsertID     = false;
@@ -73,18 +76,24 @@ class ADODB_odbtp extends ADOConnection {
 	function DBDate($d,$isfld=false)
 	{
 		if (empty($d) && $d !== 0) return 'null';
+
 		if ($isfld) return "convert(date, $d, 120)";
+
 		if (is_string($d)) $d = ADORecordSet::UnixDate($d);
 		$d = adodb_date($this->fmtDate,$d);
+
 		return "convert(date, $d, 120)";
 	}
 
 	function DBTimeStamp($d,$isfld=false)
 	{
 		if (empty($d) && $d !== 0) return 'null';
+
 		if ($isfld) return "convert(datetime, $d, 120)";
+
 		if (is_string($d)) $d = ADORecordSet::UnixDate($d);
 		$d = adodb_date($this->fmtDate,$d);
+
 		return "convert(datetime, $d, 120)";
 	}
 
@@ -275,7 +284,10 @@ class ADODB_odbtp extends ADOConnection {
 				$this->sysTimeStamp    = 'NOW';
 				$this->hasTop          = 'top';
 				$this->hasTransactions = false;
-				$this->_canPrepareSP   = true;  // For MS Access only.
+
+				// For MS Access only.
+				$this->_canPrepareSP = true;
+
 				break;
 
 			case 'visual foxpro':
@@ -349,8 +361,11 @@ class ADODB_odbtp extends ADOConnection {
 			return false;
 		}
 
-		$this->database     = $dbName;
-		$this->databaseName = $dbName; // obsolete, retained for compat with older adodb versions
+		$this->database = $dbName;
+
+		// obsolete, retained for compat with older adodb versions
+		$this->databaseName = $dbName;
+
 		return true;
 	}
 
@@ -430,7 +445,8 @@ class ADODB_odbtp extends ADOConnection {
 				$fld->not_null   = !empty($rs->fields[9]);
 				$fld->scale      = $rs->fields[7];
 
-				if (isset($rs->fields[12])) { // vfp does not have field 12
+				if (isset($rs->fields[12])) {
+					// vfp does not have field 12
 					if (null !== $rs->fields[12]) {
 						$fld->has_default   = true;
 						$fld->default_value = $rs->fields[12];
@@ -591,7 +607,8 @@ class ADODB_odbtp extends ADOConnection {
 
 	public function Prepare($sql) {
 		if (!$this->_bindInputArray) {
-			return $sql; // no binding
+			// no binding
+			return $sql;
 		}
 
 		$this->_errorMsg  = false;
@@ -608,7 +625,8 @@ class ADODB_odbtp extends ADOConnection {
 
 	public function PrepareSP($sql, $param = true) {
 		if (!$this->_canPrepareSP) {
-			return $sql; // Can't prepare procedures
+			// Can't prepare procedures
+			return $sql;
 		}
 
 		$this->_errorMsg  = false;
@@ -702,6 +720,7 @@ class ADODB_odbtp extends ADOConnection {
 			INNER JOIN dbo.syscolumns c ON K.id = C.id AND K.colid = C.Colid
 			WHERE LEFT(i.name, 8) <> '_WA_Sys_' AND o.status >= 0 AND lower(O.Name) = $table
 			ORDER BY O.name, I.Name, K.keyno";
+
 		global $ADODB_FETCH_MODE;
 
 		$save             = $ADODB_FETCH_MODE;
@@ -770,6 +789,7 @@ class ADODB_odbtp extends ADOConnection {
 			$num_params = @odbtp_num_params($stmtid);
 
 			/*
+
 			for( $param = 1; $param <= $num_params; $param++ ) {
 				@odbtp_input( $stmtid, $param );
 				@odbtp_set( $stmtid, $param, $inputarr[$param-1] );
@@ -859,7 +879,8 @@ class ADORecordSet_odbtp extends ADORecordSet {
 	}
 
 	public function FetchField($fieldOffset = 0) {
-		$off           = $fieldOffset; // offsets begin at 0
+		// offsets begin at 0
+		$off           = $fieldOffset;
 		$o             = new ADOFieldObject();
 		$o->name       = @odbtp_field_name($this->_queryID, $off);
 		$o->type       = @odbtp_field_type($this->_queryID, $off);

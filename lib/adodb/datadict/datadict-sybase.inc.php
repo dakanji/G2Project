@@ -28,7 +28,9 @@ class ADODB2_sybase extends ADODB_DataDict {
 			$len      = $fieldobj->max_length;
 		}
 
-		$len = -1; // mysql max_length is not accurate
+		// mysql max_length is not accurate
+		$len = -1;
+
 		switch (strtoupper($t)) {
 			case 'INT':
 			case 'INTEGER':

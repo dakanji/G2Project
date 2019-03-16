@@ -160,7 +160,6 @@ class PermissionTest extends GalleryTestCase {
 		 * events
 		 */
 		$listener = new PermissionTestEventListener($this);
-
 		GalleryCoreApi::registerEventListener('Gallery::ViewableTreeChange', $listener);
 		GalleryCoreApi::registerEventListener('Gallery::RemovePermission', $listener);
 
@@ -843,7 +842,6 @@ class PermissionTest extends GalleryTestCase {
 		 * events
 		 */
 		$listener = new PermissionTestEventListener($this);
-
 		GalleryCoreApi::registerEventListener('Gallery::ViewableTreeChange', $listener);
 		GalleryCoreApi::registerEventListener('Gallery::RemovePermission', $listener);
 
@@ -958,6 +956,7 @@ class PermissionTest extends GalleryTestCase {
 			array($this->_albums[0]->getId(), $this->_albums[1]->getId()),
 			$userId
 		);
+
 		$this->assertEquals(
 			$perms[$this->_albums[0]->getId()],
 			$perms[$this->_albums[1]->getId()]
@@ -1554,7 +1553,6 @@ class PermissionTest extends GalleryTestCase {
 		global $gallery;
 
 		GalleryDataCache::clearPermissionCache();
-
 		$this->assertTrue(
 			!GalleryDataCache::hasPermission($this->_getRootId(), 'core.view'),
 			'Nothing should be cached in the beginning'
@@ -1769,6 +1767,7 @@ class PermissionTest extends GalleryTestCase {
 			in_array($unusedAclId, $aclIds),
 			"Missing unused acl id (pre compact): $unusedAclId"
 		);
+
 		$this->assertTrue(
 			count(array_intersect($duplicateAclId, $aclIds)) == 2,
 			"Missing dupe acl id (pre compact): $duplicateAclId[0] or $duplicateAclId[1]"
@@ -1794,6 +1793,7 @@ class PermissionTest extends GalleryTestCase {
 			!in_array($unusedAclId, $aclIds),
 			"Extra unused acl id (post compact): $unusedAclId"
 		);
+
 		$this->assertTrue(
 			count(array_intersect($duplicateAclId, $aclIds)) == 1,
 			"Extra dupe acl id (post compact): $duplicateAclId[0] or $duplicateAclId[1]"
@@ -1828,10 +1828,8 @@ class PermissionTest extends GalleryTestCase {
 		$userId  = 99;
 		$userId2 = $gallery->getActiveUserId();
 		$itemId  = $this->_albums[0]->getId();
-
 		GalleryDataCache::reset();
 		GalleryDataCache::clearPermissionCache();
-
 		$true     = true;
 		$cacheKey = "GalleryPermissionHelper::getPermissions($itemId,$userId,$true)";
 		GalleryDataCache::put(
@@ -2212,13 +2210,11 @@ class PermissionTest extends GalleryTestCase {
 		$session->remove(GALLERY_PERMISSION_SESSION_KEY);
 
 		GalleryCoreApi::addPermissionToSession(12345);
-
 		$results = $session->get(GALLERY_PERMISSION_SESSION_KEY);
 
 		$this->assertEquals(array(12345), $results);
 
 		GalleryCoreApi::addPermissionToSession(67890);
-
 		$results = $session->get(GALLERY_PERMISSION_SESSION_KEY);
 
 		$this->assertEquals(array(12345, 67890), $results);

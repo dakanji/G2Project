@@ -136,7 +136,6 @@ class GalleryRepository {
 	) {
 		$cacheKey = 'GalleryRepository::getRepositories(' . join('|', $sources) .
 		",$repositoryClassName)";
-
 		GalleryDataCache::remove($cacheKey);
 	}
 
@@ -1259,6 +1258,7 @@ class GalleryRepository {
 
 				foreach ($data['files'] as $packageFile) {
 					$gallery->guaranteeTimeLimit(30);
+
 					// Unpack files from package.
 					$utilities->unpackPackage($cacheDir . $packageFile[1], $pluginOutputDir);
 
@@ -1397,7 +1397,6 @@ class GalleryRepository {
 		$platform     =& $gallery->getPlatform();
 		$manifestPath = GalleryCoreApi::getCodeBasePath("{$pluginType}s/$pluginId/MANIFEST");
 		$manifest     = array();
-
 		GalleryUtilities::readIndividualManifest($manifestPath, $manifest);
 
 		foreach ($manifest as $file => $detail) {

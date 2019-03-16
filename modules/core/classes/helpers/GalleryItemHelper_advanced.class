@@ -328,7 +328,8 @@ class GalleryItemHelper_advanced {
 			return $ret;
 		}
 
-		if ($newUserId == $oldUserId) { // Well, why not :)
+		if ($newUserId == $oldUserId) {
+			// Well, why not :)
 			return null;
 		}
 

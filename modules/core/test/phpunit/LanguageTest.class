@@ -88,7 +88,6 @@ class LanguageTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		GalleryUtilities::putRequestVariable('language', 'test_language');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -191,7 +190,6 @@ class LanguageTest extends GalleryControllerTestCase {
 		$expected['zh']['TW'] = $languageData['zh']['TW'];
 
 		$gallery->setConfig('data.gallery.locale', '/g2data/');
-
 		$platform->setReply(
 			'glob',
 			array('/g2data/*', null),
@@ -208,3 +206,4 @@ class LanguageTest extends GalleryControllerTestCase {
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 }
+

@@ -214,7 +214,8 @@ class ADODB2_oci8 extends ADODB_DataDict {
 	public function _CreateSuffix($fname, &$ftype, $fnotnull, $fdefault, $fautoinc, $fconstraint, $funsigned) {
 		$suffix = '';
 
-		if ($fdefault == "''" && $fnotnull) {// this is null in oracle
+		if ($fdefault == "''" && $fnotnull) {
+			// this is null in oracle
 			$fnotnull = false;
 
 			if ($this->debug) {

@@ -40,3 +40,4 @@ class SearchUtilitiesTest extends GalleryTestCase {
 		$this->assertEquals('%%foo%%bar%%', SearchUtilities::sanitizeSearchCriteria('%foo%bar%'));
 	}
 }
+

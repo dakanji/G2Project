@@ -32,7 +32,6 @@ class UserSelfRegistrationController extends GalleryController {
 	 */
 	public function handleRequest($form) {
 		GalleryCoreApi::requireOnce('modules/register/classes/GalleryPendingUserHelper.class');
-
 		$results = $status = $error = array();
 
 		if (isset($form['action']['cancel'])) {
@@ -124,6 +123,7 @@ class UserSelfRegistrationController extends GalleryController {
 				} else {
 					$user->setEmail($form['email']);
 					$user->setFullName($form['fullName']);
+
 					GalleryUtilities::unsanitizeInputValues($form['password1'], false);
 
 					$user->changePassword($form['password1']);
@@ -161,7 +161,8 @@ class UserSelfRegistrationController extends GalleryController {
 						if ($ret) {
 							return array($ret, null);
 						}
-					} else { // confirmation == 'admin'
+					} else {
+						// confirmation == 'admin'
 						$redirect['pending'] = true;
 					}
 

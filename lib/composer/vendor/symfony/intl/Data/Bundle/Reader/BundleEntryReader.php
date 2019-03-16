@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Bundle\Reader;
-
 use Symfony\Component\Intl\Data\Util\RecursiveArrayAccess;
 use Symfony\Component\Intl\Exception\MissingResourceException;
 use Symfony\Component\Intl\Exception\OutOfBoundsException;
@@ -77,7 +75,6 @@ class BundleEntryReader implements BundleEntryReaderInterface
         $exception = null;
         $currentLocale = $locale;
         $testedLocales = array();
-
         while (null !== $currentLocale) {
             // Resolve any aliases to their target locales
             if (isset($this->localeAliases[$currentLocale])) {
@@ -88,7 +85,6 @@ class BundleEntryReader implements BundleEntryReaderInterface
                 $data = $this->reader->read($path, $currentLocale);
                 $currentEntry = RecursiveArrayAccess::get($data, $indices);
                 $readSucceeded = true;
-
                 $isCurrentTraversable = $currentEntry instanceof \Traversable;
                 $isCurrentMultiValued = $isCurrentTraversable || \is_array($currentEntry);
 
@@ -101,7 +97,6 @@ class BundleEntryReader implements BundleEntryReaderInterface
                 // =========================================================
                 // Fallback is enabled, entry is either multi-valued or NULL
                 // =========================================================
-
                 // If entry is multi-valued, convert to array
                 if ($isCurrentTraversable) {
                     $currentEntry = iterator_to_array($currentEntry);
@@ -165,7 +160,6 @@ class BundleEntryReader implements BundleEntryReaderInterface
         if (\count($testedLocales) > 1) {
             // Remove original locale
             array_shift($testedLocales);
-
             $errorMessage .= sprintf(
                 ' The indices also couldn\'t be found for the fallback locale(s) "%s".',
                 implode('", "', $testedLocales)
@@ -175,3 +169,4 @@ class BundleEntryReader implements BundleEntryReaderInterface
         throw new MissingResourceException($errorMessage, 0, $exception);
     }
 }
+

@@ -423,7 +423,6 @@ class ChildTest extends GalleryTestCase {
 			array(
 				$this->_child[1]->getId(),
 				$this->_child[0]->getId(),
-
 			),
 			$childIds
 		);

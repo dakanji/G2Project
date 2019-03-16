@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Generator;
-
 use Symfony\Component\Intl\Data\Bundle\Compiler\GenrbCompiler;
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleReaderInterface;
 use Symfony\Component\Intl\Data\Util\ArrayAccessibleResourceBundle;
@@ -96,7 +94,6 @@ class CurrencyDataGenerator extends AbstractDataGenerator
     protected function generateDataForLocale(BundleReaderInterface $reader, $tempDir, $displayLocale)
     {
         $localeBundle = $reader->read($tempDir, $displayLocale);
-
         if (isset($localeBundle['Currencies']) && null !== $localeBundle['Currencies']) {
             $data = array(
                 'Version' => $localeBundle['Version'],
@@ -115,7 +112,6 @@ class CurrencyDataGenerator extends AbstractDataGenerator
     protected function generateDataForRoot(BundleReaderInterface $reader, $tempDir)
     {
         $rootBundle = $reader->read($tempDir, 'root');
-
         return array(
             'Version' => $rootBundle['Version'],
             'Names' => $this->generateSymbolNamePairs($rootBundle),
@@ -130,7 +126,6 @@ class CurrencyDataGenerator extends AbstractDataGenerator
         $rootBundle = $reader->read($tempDir, 'root');
         $supplementalDataBundle = $reader->read($tempDir, 'supplementalData');
         $numericCodesBundle = $reader->read($tempDir, 'currencyNumericCodes');
-
         $this->currencyCodes = array_unique($this->currencyCodes);
 
         sort($this->currencyCodes);
@@ -170,7 +165,6 @@ class CurrencyDataGenerator extends AbstractDataGenerator
     private function generateAlpha3ToNumericMapping(ArrayAccessibleResourceBundle $numericCodesBundle, array $currencyCodes)
     {
         $alpha3ToNumericMapping = iterator_to_array($numericCodesBundle['codeMap']);
-
         asort($alpha3ToNumericMapping);
 
         // Filter unknown currencies (e.g. "AYM")
@@ -182,11 +176,9 @@ class CurrencyDataGenerator extends AbstractDataGenerator
     private function generateNumericToAlpha3Mapping(array $alpha3ToNumericMapping)
     {
         $numericToAlpha3Mapping = array();
-
         foreach ($alpha3ToNumericMapping as $alpha3 => $numeric) {
             // Make sure that the mapping is stored as table and not as array
             $numeric = (string) $numeric;
-
             if (!isset($numericToAlpha3Mapping[$numeric])) {
                 $numericToAlpha3Mapping[$numeric] = array();
             }
@@ -197,3 +189,4 @@ class CurrencyDataGenerator extends AbstractDataGenerator
         return $numericToAlpha3Mapping;
     }
 }
+

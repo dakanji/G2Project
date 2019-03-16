@@ -38,7 +38,9 @@
  */
 function smarty_function_html_select_date($params, &$smarty) {
 	include_once $smarty->_get_plugin_filepath('shared', 'escape_special_chars');
+
 	include_once $smarty->_get_plugin_filepath('shared', 'make_timestamp');
+
 	include_once $smarty->_get_plugin_filepath('function', 'html_options');
 
 	// Default values.

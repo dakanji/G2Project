@@ -40,10 +40,12 @@ function smarty_core_write_cache_file($params, &$smarty) {
 		for ($i = 0, $results_count = count($results); $i < $results_count && $j < $match_count; $i++) {
 			if ($results[$i] == $match[0][$j]) {
 				// nocache tag
-				if ($match[1][$j]) { // closing tag
+				if ($match[1][$j]) {
+					// closing tag
 					$level--;
 					unset($results[$i]);
-				} else { // opening tag
+				} else {
+					// opening tag
 					if ($level++ > 0) {
 						unset($results[$i]);
 					}

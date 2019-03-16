@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Provider;
-
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleEntryReaderInterface;
 use Symfony\Component\Intl\Exception\MissingResourceException;
 use Symfony\Component\Intl\Locale;
@@ -28,7 +26,6 @@ class CurrencyDataProvider
     const INDEX_NAME = 1;
     const INDEX_FRACTION_DIGITS = 0;
     const INDEX_ROUNDING_INCREMENT = 1;
-
     private $path;
     private $reader;
 
@@ -79,15 +76,12 @@ class CurrencyDataProvider
         // numeric code here, because some numeric codes map to multiple
         // 3-letter codes (e.g. 32 => "ARA", "ARP", "ARS")
         // ====================================================================
-
         $names = $this->reader->readEntry($this->path, $displayLocale, array('Names'));
-
         if ($names instanceof \Traversable) {
             $names = iterator_to_array($names);
         }
 
         $index = static::INDEX_NAME;
-
         array_walk($names, function (&$value) use ($index) {
             $value = $value[$index];
         });
@@ -95,6 +89,7 @@ class CurrencyDataProvider
         // Sorting by value cannot be done during bundle generation, because
         // binary bundles are always sorted by keys
         $collator = new \Collator($displayLocale);
+
         $collator->asort($names);
 
         return $names;
@@ -140,3 +135,4 @@ class CurrencyDataProvider
         return $this->reader->readEntry($this->path, 'meta', array('NumericToAlpha3', (string) $numericCode));
     }
 }
+

@@ -22,9 +22,12 @@ require_once ADODB_DIR . '/tohtml.inc.php';
 
 define('ADODB_OPT_HIGH', 2);
 define('ADODB_OPT_LOW', 1);
+
 global $ADODB_PERF_MIN;
 
-$ADODB_PERF_MIN = 0.05; // log only if >= minimum number of secs to run
+// log only if >= minimum number of secs to run
+$ADODB_PERF_MIN = 0.05;
+
 // returns in K the memory of current process, or 0 if not known
 function adodb_getmem() {
 	if (function_exists('memory_get_usage')) {
@@ -90,7 +93,8 @@ function adodb_log_sql(&$connx, $sql, $inputarr) {
 			$prefix = '';
 		}
 
-		$conn->_logsql = false; // disable logsql error simulation
+		// disable logsql error simulation
+		$conn->_logsql = false;
 		$dbT           = $conn->databaseType;
 		$time          = $a1 - $a0;
 
@@ -217,8 +221,10 @@ function adodb_log_sql(&$connx, $sql, $inputarr) {
 		if ($ok) {
 			$conn->_logsql = true;
 		} else {
-			$err2          = $conn->ErrorMsg();
-			$conn->_logsql = true; // enable logsql error simulation
+			$err2 = $conn->ErrorMsg();
+
+			// enable logsql error simulation
+			$conn->_logsql = true;
 			$perf          = NewPerfMonitor($conn);
 
 			if ($perf) {
@@ -266,13 +272,15 @@ Each database parameter element in the array is itself an array consisting of:
 */
 class adodb_perf {
 	public $conn;
-	public $color          = '#F0F0F0';
-	public $table          = '<table border=1 bgcolor=white>';
-	public $titles         = '<tr><td><b>Parameter</b></td><td><b>Value</b></td><td><b>Description</b></td></tr>';
-	public $warnRatio      = 90;
-	public $tablesSQL      = false;
-	public $cliFormat      = "%32s => %s \r\n";
-	public $sql1           = 'sql1';  // used for casting sql1 to text for mssql
+	public $color     = '#F0F0F0';
+	public $table     = '<table border=1 bgcolor=white>';
+	public $titles    = '<tr><td><b>Parameter</b></td><td><b>Value</b></td><td><b>Description</b></td></tr>';
+	public $warnRatio = 90;
+	public $tablesSQL = false;
+	public $cliFormat = "%32s => %s \r\n";
+
+	// used for casting sql1 to text for mssql
+	public $sql1           = 'sql1';
 	public $explain        = true;
 	public $helpurl        = '<a href="http://adodb.sourceforge.net/docs-adodb.htm#logsql">LogSQL help</a>';
 	public $createTableSQL = false;
@@ -328,7 +336,8 @@ class adodb_perf {
 			}
 
 			if (PHP_VERSION == '4.3.10') {
-				return false; // see http://bugs.php.net/bug.php?id=31737
+				// see http://bugs.php.net/bug.php?id=31737
+				return false;
 			}
 
 			static $FAIL = false;
@@ -388,9 +397,12 @@ class adodb_perf {
 			$info = explode(' ', $line);
 
 			if ($info[0] == 'cpu') {
-				array_shift($info);  // pop off "cpu"
+				// pop off "cpu"
+				array_shift($info);
+
 				if (!$info[0]) {
-					array_shift($info); // pop off blank space (if any)
+					// pop off blank space (if any)
+					array_shift($info);
 				}
 
 				return $info;
@@ -467,6 +479,7 @@ class adodb_perf {
 		$perf_table            = self::table();
 		$saveE                 = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
+
 		global $ADODB_FETCH_MODE;
 
 		$save             = $ADODB_FETCH_MODE;
@@ -522,7 +535,9 @@ class adodb_perf {
 		$saveE                 = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
 		$perf_table            = self::table();
-		$rs                    = $this->conn->SelectLimit("select distinct count(*),sql1,tracer as error_msg from $perf_table where tracer like 'ERROR:%' group by sql1,tracer order by 1 desc", $numsql);//,$numsql);
+
+		//,$numsql);
+		$rs                    = $this->conn->SelectLimit("select distinct count(*),sql1,tracer as error_msg from $perf_table where tracer like 'ERROR:%' group by sql1,tracer order by 1 desc", $numsql);
 		$this->conn->fnExecute = $saveE;
 
 		if ($rs) {
@@ -605,6 +620,7 @@ class adodb_perf {
 
 			$s .= '<tr><td>' . adodb_round($rs->fields[0], 6) . '<td align=right>' . $rs->fields[2] . '<td><font size=-1>' . $prefix . htmlspecialchars($sql) . $suffix . '</font>' .
 				'<td>' . $rs->fields[3] . '<td>' . $rs->fields[4] . '</tr>';
+
 			$rs->MoveNext();
 		}
 
@@ -698,6 +714,7 @@ class adodb_perf {
 
 			$s .= '<tr><td>' . adodb_round($rs->fields[0], 6) . '<td align=right>' . $rs->fields[2] . '<td><font size=-1>' . $prefix . htmlspecialchars($sql) . $suffix . '</font>' .
 				'<td>' . $rs->fields[3] . '<td>' . $rs->fields[4] . '</tr>';
+
 			$rs->MoveNext();
 		}
 
@@ -884,6 +901,7 @@ class adodb_perf {
 		}
 
 		$allowsql = !defined('ADODB_PERF_NO_RUN_SQL');
+
 		global $ADODB_PERF_MIN;
 
 		$app .= " (Min sql timing \$ADODB_PERF_MIN=$ADODB_PERF_MIN secs)";
@@ -941,7 +959,9 @@ class adodb_perf {
 				}
 
 				echo $this->SuspiciousSQL($nsql);
+
 				echo $this->ExpensiveSQL($nsql);
+
 				echo $this->InvalidSQL($nsql);
 
 				break;
@@ -1179,6 +1199,7 @@ class adodb_perf {
  </table>
 </form>
 		<?php
+
 		if (!isset($_REQUEST['sql'])) {
 			return;
 		}
@@ -1221,7 +1242,8 @@ class adodb_perf {
 
 				if (($e1) || ($e2)) {
 					if (empty($e1)) {
-						$e1 = '-1'; // postgresql fix
+						// postgresql fix
+						$e1 = '-1';
 					}
 
 					echo ' &nbsp; ' . $e1 . ': ' . $e2;

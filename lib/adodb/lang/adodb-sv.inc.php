@@ -31,3 +31,4 @@ $ADODB_LANG_ARRAY = array(
 	DB_ERROR_NOSUCHDB            => 'ingen sådan databas',
 	DB_ERROR_ACCESS_VIOLATION    => 'otillräckliga rättigheter',
 );
+

@@ -23,7 +23,9 @@
 define('REWRITE_STATUS_OK', 0);
 define('REWRITE_STATUS_BAD_KEYWORD', 1);
 define('REWRITE_STATUS_MULTISITE', 2);
-define('REWRITE_STATUS_DUPE_SHORT_URL', 3); // Deprecated
+
+// Deprecated
+define('REWRITE_STATUS_DUPE_SHORT_URL', 3);
 define('REWRITE_STATUS_INVALID_PATTERN', 4);
 define('REWRITE_STATUS_EMPTY_VALUE', 5);
 
@@ -45,7 +47,6 @@ class RewriteHelper {
 	 */
 	public static function getRewriteParser($new = false) {
 		global $gallery;
-
 		static $rewriteParser;
 
 		$platform =& $gallery->getPlatform();

@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Polyfill\Php55;
 
 /**
@@ -46,15 +45,21 @@ final class Php55
             case 'sha224':
             case 'sha256':
                 $blockSize = 64;
+
                 break;
+
             case 'sha384':
             case 'sha512':
                 $blockSize = 128;
+
                 break;
+
             default:
                 $blockSize = $hashLength;
+
                 break;
         }
+
         if ($length < 1) {
             $length = $hashLength;
             if (!$rawOutput) {
@@ -87,3 +92,4 @@ final class Php55
         return substr($digest, 0, $length);
     }
 }
+

@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Util;
 
 /**
@@ -90,7 +89,6 @@ class IcuVersion
     public static function normalize($version, $precision)
     {
         $version = preg_replace('/^(\d)\.(\d)/', '$1$2', $version);
-
         if (1 === \strlen($version)) {
             $version .= '0';
         }
@@ -105,3 +103,4 @@ class IcuVersion
     {
     }
 }
+

@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Util;
-
 use Symfony\Component\Intl\Exception\BadMethodCallException;
 
 /**
@@ -26,7 +24,6 @@ use Symfony\Component\Intl\Exception\BadMethodCallException;
 class ArrayAccessibleResourceBundle implements \ArrayAccess, \IteratorAggregate, \Countable
 {
     private $bundleImpl;
-
     public function __construct(\ResourceBundle $bundleImpl)
     {
         $this->bundleImpl = $bundleImpl;
@@ -79,3 +76,4 @@ class ArrayAccessibleResourceBundle implements \ArrayAccess, \IteratorAggregate,
         return $this->bundleImpl->getErrorMessage();
     }
 }
+

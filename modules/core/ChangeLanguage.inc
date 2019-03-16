@@ -61,3 +61,4 @@ class ChangeLanguageController extends GalleryController {
 		return array(null, $results);
 	}
 }
+

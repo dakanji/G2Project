@@ -622,6 +622,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$this->_files['output.png']['operation']['convert'],
 				'output ' . $this->_envName()
 			);
+
 			$this->assertEquals(
 				array(
 					'next.toolkit'   => null,
@@ -632,6 +633,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$context,
 				'context at end ' . $this->_envName()
 			);
+
 			unset($this->_files['output.png']);
 		}
 	}
@@ -674,6 +676,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				'output ' .
 				$this->_envName()
 			);
+
 			$this->assertEquals(
 				array(
 					'next.toolkit'   => $this->_toolkit,
@@ -710,6 +713,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$this->_files['output.png']['operation']['convert'],
 				'output ' . $this->_envName()
 			);
+
 			$this->assertEquals(
 				array(
 					'next.toolkit'   => null,
@@ -720,6 +724,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$context,
 				'context at end ' . $this->_envName()
 			);
+
 			unset($this->_files['output1.png'], $this->_files['output.png']);
 		}
 	}
@@ -755,6 +760,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			}
 
 			$this->assertEquals(array(), $this->_files, 'no exec yet ' . $this->_envName());
+
 			$this->assertEquals(
 				array(
 					'next.toolkit'          => $this->_toolkit,
@@ -792,6 +798,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			$context['next.operation'] = null;
 
 			$this->assertEquals(array(), $this->_files, 'still no exec ' . $this->_envName());
+
 			$this->assertEquals(
 				array(
 					'next.toolkit'          => null,
@@ -836,6 +843,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$this->_files['output.png']['operation']['convert'],
 				'output ' . $this->_envName()
 			);
+
 			$this->assertEquals(
 				array(
 					'next.toolkit'   => null,
@@ -846,6 +854,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$context,
 				'context at end ' . $this->_envName()
 			);
+
 			unset($this->_files['output.png']);
 		}
 	}
@@ -879,6 +888,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 			$context['next.operation'] = null;
 
 			$this->assertEquals(array(), $this->_files, 'no exec yet ' . $this->_envName());
+
 			$this->assertEquals(
 				array(
 					'next.toolkit'          => null,
@@ -915,6 +925,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$this->_files['output.jpg']['operation']['convert'],
 				'output ' . $this->_envName()
 			);
+
 			$this->assertEquals(
 				array(
 					'next.toolkit'   => null,
@@ -925,6 +936,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				$context,
 				'context at end ' . $this->_envName()
 			);
+
 			unset($this->_files['output.jpg']);
 		}
 	}
@@ -1555,7 +1567,6 @@ class ImageMagickToolkitTestPlatform {
 
 	public function isRestrictedByOpenBaseDir($path) {
 		// echo $this->_environment['path'] . ": isRestrictedByOpenBaseDir($path)<br>\n";
-
 		return false;
 	}
 

@@ -156,7 +156,8 @@ class GalleryDerivativeHelper_simple {
 			$typeMarkers = GalleryUtilities::makeMarkers(sizeof($types));
 
 			$query .= 'AND [GalleryDerivative::derivativeType] IN (' . $typeMarkers . ')';
-			$data   = array_merge($data, $types);
+
+			$data = array_merge($data, $types);
 		}
 
 		list($ret, $searchResults) = $gallery->search($query, $data);

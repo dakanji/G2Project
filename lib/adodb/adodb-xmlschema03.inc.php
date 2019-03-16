@@ -123,6 +123,7 @@ if (!defined('XMLS_DEFAULT_UPGRADE_METHOD')) {
  */
 if (!defined('_ADODB_LAYER')) {
 	include 'adodb.inc.php';
+
 	include 'adodb-datadict.inc.php';
 }
 
@@ -396,7 +397,9 @@ class dbTable extends dbObject {
 		switch (strtoupper($tag)) {
 			case 'TABLE':
 				$this->parent->addSQL($this->create($this->parent));
+
 				xml_set_object($parser, $this->parent);
+
 				$this->destroy();
 
 				break;
@@ -891,6 +894,7 @@ class dbData extends dbObject {
 
 			case 'F':
 				$this->addField($attributes);
+
 				// Fall Through
 			default:
 				// print_r( array( $tag, $attributes ) );
@@ -994,7 +998,10 @@ class dbData extends dbObject {
 		foreach ($this->data as $row) {
 			$table_fields = $this->parent->fields;
 			$fields       = array();
-			$rawfields    = array(); // Need to keep some of the unprocessed data on hand.
+
+			// Need to keep some of the unprocessed data on hand.
+			$rawfields = array();
+
 			foreach ($row as $field_id => $field_data) {
 				if (!array_key_exists($field_id, $table_fields)) {
 					if (is_numeric($field_id)) {
@@ -1228,7 +1235,9 @@ class dbQuerySet extends dbObject {
 
 			case 'SQL':
 				$this->parent->addSQL($this->create($this->parent));
+
 				xml_set_object($parser, $this->parent);
+
 				$this->destroy();
 
 				break;
@@ -1981,6 +1990,7 @@ class adoSchema {
 	function _file_get_contents($path)
 	{
 		if (function_exists('file_get_contents')) return file_get_contents($path);
+
 		return join('',file($path));
 	}*/
 

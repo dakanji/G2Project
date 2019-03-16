@@ -1,5 +1,4 @@
 <?php
-
 interface SessionUpdateTimestampHandlerInterface
 {
     /**
@@ -21,3 +20,4 @@ interface SessionUpdateTimestampHandlerInterface
      */
     public function updateTimestamp($key, $val);
 }
+

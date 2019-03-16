@@ -319,6 +319,7 @@ class CaptchaValidationPluginTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(1, (int)$count, 'failure count 2');
+
 		// Successful validation but invalid entry
 		$session->put('captcha.key', '1234');
 

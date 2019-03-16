@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Bundle\Reader;
-
 use Symfony\Component\Intl\Exception\ResourceBundleNotFoundException;
 use Symfony\Component\Intl\Exception\RuntimeException;
 
@@ -46,3 +44,4 @@ class PhpBundleReader implements BundleReaderInterface
         return include $fileName;
     }
 }
+

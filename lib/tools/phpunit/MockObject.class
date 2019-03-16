@@ -27,8 +27,10 @@
  * The body of each mimicked method should contain a call to MockObject::_makeReply, like this:
  *
  *
+ *
  *  function describeMap($mapName, $tryAllModules=false) {
  *      return $this->_makeReply('describeMap', array($mapName, $tryAllModules));
+ *
  *
  *  }
  *
@@ -52,7 +54,8 @@ class MockObject {
 
 	public function isComplete() {
 		foreach ($_GET[$this->_className]['replies'] as $reply) {
-			if (!$reply[3]) { // ignore optional replies
+			if (!$reply[3]) {
+				// ignore optional replies
 				$incomplete = true;
 
 				break;
@@ -78,7 +81,8 @@ class MockObject {
 			}
 
 			if (!$expected[3]) {
-				break; // Not optional -- error
+				// Not optional -- error
+				break;
 			}
 		}
 
@@ -87,6 +91,7 @@ class MockObject {
 		$ret = GalleryCoreApi::error(ERROR_UNKNOWN, null, null, 'Unhandled reply in MockObject');
 
 		echo '<br/><br/>' . $ret->getAsHtml();
+
 		printf(
 			'<br/><b>Mismatch At</b>: %s<br/>',
 			htmlspecialchars(

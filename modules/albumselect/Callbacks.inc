@@ -27,7 +27,6 @@
 class AlbumSelectCallbacks {
 	public function callback($callbackParams, &$smarty, $callback, $userId) {
 		global $gallery;
-
 		static $idCount = '';
 
 		switch ($callback) {
@@ -275,6 +274,7 @@ class AlbumSelectCallbacks {
 							$prefixLength    = strlen($links['prefix']);
 						} else {
 							while ($prefixLength
+
 							&& strncmp($links[$id], $links['prefix'], $prefixLength)) {
 								$links['prefix'] = substr($links['prefix'], 0, -1);
 								$prefixLength--;
@@ -291,7 +291,6 @@ class AlbumSelectCallbacks {
 					}
 
 					$dataToCache = array($treeList, $titles, $titlesForJs, $links);
-
 					GalleryDataCache::putToDisk($cachePathInfo, $dataToCache);
 				}
 

@@ -19,13 +19,26 @@
 	will be entertained by the author.
 */
 class ADODB_Pager {
-	public $id;    // unique id for pager (defaults to 'adodb')
-	public $db;    // ADODB connection object
-	public $sql;   // sql used
-	public $rs;    // recordset generated
-	public $curr_page; // current page number before Render() called, calculated in constructor
-	public $rows;      // number of rows per page
-	public $linksPerPage = 10; // number of links per page in navigation bar
+	// unique id for pager (defaults to 'adodb')
+	public $id;
+
+	// ADODB connection object
+	public $db;
+
+	// sql used
+	public $sql;
+
+	// recordset generated
+	public $rs;
+
+	// current page number before Render() called, calculated in constructor
+	public $curr_page;
+
+	// number of rows per page
+	public $rows;
+
+	// number of links per page in navigation bar
+	public $linksPerPage = 10;
 	public $showPageLinks;
 	public $gridAttributes = 'width=100% border=1 bgcolor=white';
 
@@ -56,7 +69,8 @@ class ADODB_Pager {
 		$curr_page = $id . '_curr_page';
 
 		if (!empty($PHP_SELF)) {
-			$PHP_SELF = htmlspecialchars($_SERVER['PHP_SELF']); // htmlspecialchars() to prevent XSS attacks
+			// htmlspecialchars() to prevent XSS attacks
+			$PHP_SELF = htmlspecialchars($_SERVER['PHP_SELF']);
 		}
 
 		$this->sql           = $sql;
@@ -70,7 +84,8 @@ class ADODB_Pager {
 		}
 
 		if (empty($_SESSION[$curr_page])) {
-			$_SESSION[$curr_page] = 1; // at first page
+			// at first page
+			$_SESSION[$curr_page] = 1;
 		}
 
 		$this->curr_page = $_SESSION[$curr_page];
@@ -185,7 +200,9 @@ class ADODB_Pager {
 	// better control over the format of the grid
 	// We use output buffering to keep code clean and readable.
 	public function RenderGrid() {
-		global $gSQLBlockRows; // used by rs2html to indicate how many rows to display
+		// used by rs2html to indicate how many rows to display
+		global $gSQLBlockRows;
+
 		include_once ADODB_DIR . '/tohtml.inc.php';
 
 		ob_start();
@@ -207,11 +224,9 @@ class ADODB_Pager {
 
 		if (!$this->rs->AtFirstPage()) {
 			$this->Render_First();
-
 			$this->Render_Prev();
 		} else {
 			$this->Render_First(false);
-
 			$this->Render_Prev(false);
 		}
 
@@ -243,7 +258,8 @@ class ADODB_Pager {
 		$lastPage = $this->rs->LastPageNo();
 
 		if ($lastPage == -1) {
-			$lastPage = 1; // check for empty rs.
+			// check for empty rs.
+			$lastPage = 1;
 		}
 
 		if ($this->curr_page > $lastPage) {

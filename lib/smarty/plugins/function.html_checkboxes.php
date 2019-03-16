@@ -102,7 +102,8 @@ function smarty_function_html_checkboxes($params, &$smarty) {
 	}
 
 	if (!isset($options) && !isset($values)) {
-		return ''; // raise error here?
+		// raise error here?
+		return '';
 	}
 
 	settype($selected, 'array');

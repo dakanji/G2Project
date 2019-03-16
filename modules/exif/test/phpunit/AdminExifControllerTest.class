@@ -102,7 +102,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[available][1]', 'Sharpness');
 		GalleryUtilities::putRequestVariable('form[available][2]', 'IPTC/Keywords');
 		GalleryUtilities::putRequestVariable('form[action][availableToSummary]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -137,7 +136,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[summary][1]', 'ISO');
 		GalleryUtilities::putRequestVariable('form[summary][2]', 'IPTC/CopyrightNotice');
 		GalleryUtilities::putRequestVariable('form[action][removeFromSummary]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -169,7 +167,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 	public function testRemoveFromSummaryMissing() {
 		GalleryUtilities::putRequestVariable('form[action][removeFromSummary]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -194,7 +191,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		// The last summary entry.
 		GalleryUtilities::putRequestVariable('form[summary][2]', 'IPTC/CopyrightNotice');
 		GalleryUtilities::putRequestVariable('form[action][moveUpSummary]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -221,15 +217,16 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 		// check for the first entry to be still the first entry.
 		$this->assertEquals('Make', $properties[0], 'first entry moved up/disappeared???');
+
 		// ISO should have been moved up.
 		$this->assertEquals('ISO', $properties[7], 'middle entry did not move up???');
+
 		// The previous next to last item shall be our last item now.
 		$this->assertEquals('IPTC/Caption', $properties[count($properties) - 1]);
 	}
 
 	public function testMoveUpSummaryMissing() {
 		GalleryUtilities::putRequestVariable('form[action][moveUpSummary]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -254,7 +251,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		// The last summary entry, cannot be moved down.
 		GalleryUtilities::putRequestVariable('form[summary][2]', 'IPTC/CopyrightNotice');
 		GalleryUtilities::putRequestVariable('form[action][moveDownSummary]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -281,17 +277,19 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 		// Count summary entries, must be equal to before the move, one has to adapt.
 		$this->assertEquals(14, count($properties));
+
 		// Must have been moved down.
 		$this->assertEquals('Make', $properties[1]);
+
 		// Ditto.
 		$this->assertEquals('ISO', $properties[9]);
+
 		// Last entry must be the same.
 		$this->assertEquals('IPTC/CopyrightNotice', $properties[count($properties) - 1]);
 	}
 
 	public function testMoveDownSummaryMissing() {
 		GalleryUtilities::putRequestVariable('form[action][moveDownSummary]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -315,7 +313,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('form[action][resetSummary]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -354,7 +351,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			'IPTC/OriginalTransmissionReference'
 		);
 		GalleryUtilities::putRequestVariable('form[action][availableToDetailed]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -389,7 +385,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[detailed][1]', 'ISO');
 		GalleryUtilities::putRequestVariable('form[detailed][2]', 'IPTC/CopyrightNotice');
 		GalleryUtilities::putRequestVariable('form[action][removeFromDetailed]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -421,7 +416,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 	public function testRemoveFromDetailedMissing() {
 		GalleryUtilities::putRequestVariable('form[action][removeFromDetailed]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -447,7 +441,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		// The very last entry.
 		GalleryUtilities::putRequestVariable('form[detailed][3]', 'SubjectDistance');
 		GalleryUtilities::putRequestVariable('form[action][moveUpDetailed]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -488,7 +481,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 	public function testMoveUpDetailedMissing() {
 		GalleryUtilities::putRequestVariable('form[action][moveUpDetailed]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -514,7 +506,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		// The very last entry, which can't be moved down.
 		GalleryUtilities::putRequestVariable('form[detailed][3]', 'SubjectDistance');
 		GalleryUtilities::putRequestVariable('form[action][moveDownDetailed]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -555,7 +546,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 	public function testMoveDownDetailedMissing() {
 		GalleryUtilities::putRequestVariable('form[action][moveDownDetailed]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -579,7 +569,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('form[action][resetDetailed]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -619,7 +608,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 	public function testSaveAddOptionExif() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[item][description]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -663,7 +651,6 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[item][description]', 1);
 		GalleryUtilities::putRequestVariable('form[item][keywords]', 1);
 		GalleryUtilities::putRequestVariable('form[item][exifrotate]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

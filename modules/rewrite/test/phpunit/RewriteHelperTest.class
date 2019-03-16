@@ -931,10 +931,12 @@ class RewriteHelperTest extends GalleryTestCase {
 			'pattern' => 'php.-/%unit%',
 		);
 
-		$expectedActiveRules  = $activeRules;
-		$expectedShortUrls    = array();
-		$expectedRegexRules   = array();
-		$dash                 = preg_quote('-');  // only PHP 5.3+ escapes dash
+		$expectedActiveRules = $activeRules;
+		$expectedShortUrls   = array();
+		$expectedRegexRules  = array();
+
+		// only PHP 5.3+ escapes dash
+		$dash                 = preg_quote('-');
 		$expectedRegexRules[] = array(
 			'pattern'     => 'php\\.' . $dash . '/(.*)',
 			'keywords'    => array(null, 'unit'),
@@ -1001,7 +1003,6 @@ GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteParser.class');
 class RewriteHelperMockParser extends RewriteParser {
 	public function __construct() {
 		$this->_setParserId('rewritehelpermock');
-
 		$this->_setParserType('preGallery');
 	}
 }
@@ -1011,10 +1012,11 @@ class RewriteHelperMockModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('rewritehelpermock');
-
 		$this->setName('RewriteHelper Test Module');
 		$this->setDescription('Unit test module');
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('7.0.0');
 		$this->setGroup('data', 'Gallery');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$this->setRequiredModuleApi(GalleryModule::getApiVersion());

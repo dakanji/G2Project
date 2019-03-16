@@ -227,6 +227,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 		}
 
 		$this->assertEquals('|RandomHighlight|', $highlight->getOnLoadHandlers(), 'on');
+
 		/*
 		 * Negative duration forces re-highlight; dummy toolkit sets width value.
 		 * Here we also verify that if the source thumbnail is smaller than the desired
@@ -298,7 +299,6 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 					$highlight->getDerivativeSourceId(),
 					"new source, iteration $i"
 				);
-
 				$this->assertEquals(150, $highlight->getWidth(), "highlight width, iteration $i");
 				$this->assertEquals(200, $highlight->getHeight(), "highlight height, iter. $i");
 			} else {

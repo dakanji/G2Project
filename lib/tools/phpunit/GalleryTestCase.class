@@ -198,6 +198,7 @@ class GalleryTestCase extends TestCase {
 		$counter =& GalleryTestCase::getEntityCounter();
 
 		$counter->setCount(0);
+
 		/*
 		 * Try to ensure enough time for this test to complete.  If a test
 		 * needs more time, then it should extend the limit itself.
@@ -364,7 +365,6 @@ class GalleryTestCase extends TestCase {
 
 		GalleryDataCache::setFileCachingEnabled(true);
 		GalleryDataCache::setMemoryCachingEnabled(true);
-
 		$counter =& GalleryTestCase::getEntityCounter();
 		$this->assertTrue(
 			$counter->getCount() == 0,
@@ -966,7 +966,6 @@ class GalleryTestCase extends TestCase {
 	 */
 	public function _getUnusedId() {
 		global $gallery;
-
 		static $unusedId;
 
 		if (!isset($unusedId)) {
@@ -1270,6 +1269,7 @@ class GalleryTestCase extends TestCase {
 
 		// Unregister all event listeners (in-memory only)
 		$this->_unregisterFactoryImplementationForTest('GalleryEventListener');
+
 		// Register a few core event listeners by default
 		$this->_registerFactoryImplementationForTest(
 			'GalleryEventListener',

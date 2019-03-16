@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Globals;
-
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -41,3 +39,4 @@ abstract class AbstractIntlGlobalsTest extends TestCase
 
     abstract protected function getIntlErrorName($errorCode);
 }
+

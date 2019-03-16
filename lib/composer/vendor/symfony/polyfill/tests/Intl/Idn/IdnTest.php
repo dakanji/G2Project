@@ -24,9 +24,7 @@
  * Originally forked from
  * https://github.com/true/php-punycode/blob/v2.1.1/tests/PunycodeTest.php
  */
-
 namespace Symfony\Polyfill\Tests\Intl\Idn;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Polyfill\Intl\Idn\Idn;
 
@@ -51,6 +49,7 @@ class IdnTest extends TestCase
     public function testEncode2003($decoded, $encoded)
     {
         $result = @idn_to_ascii($decoded, IDNA_DEFAULT, INTL_IDNA_VARIANT_2003);
+
         $this->assertSame($encoded, $result);
     }
 
@@ -60,6 +59,7 @@ class IdnTest extends TestCase
     public function testEncodeInvalid($decoded)
     {
         $result = idn_to_ascii($decoded, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
+
         $this->assertFalse($result);
     }
 
@@ -70,6 +70,7 @@ class IdnTest extends TestCase
     public function testDecode2003($decoded, $encoded)
     {
         $result = @idn_to_utf8($encoded, IDNA_DEFAULT, INTL_IDNA_VARIANT_2003);
+
         $this->assertSame($decoded, $result);
     }
 
@@ -80,6 +81,7 @@ class IdnTest extends TestCase
     public function testDecodeInvalid2003($encoded, $expected)
     {
         $result = @idn_to_utf8($encoded, IDNA_DEFAULT, INTL_IDNA_VARIANT_2003);
+
         $this->assertSame($expected, $result);
     }
 
@@ -90,9 +92,11 @@ class IdnTest extends TestCase
     public function testUppercase2003($decoded, $ascii, $encoded)
     {
         $result = @idn_to_ascii($decoded, IDNA_DEFAULT, INTL_IDNA_VARIANT_2003);
+
         $this->assertSame($ascii, $result);
 
         $result = @idn_to_utf8($ascii, IDNA_DEFAULT, INTL_IDNA_VARIANT_2003);
+
         $this->assertSame($encoded, $result);
     }
 
@@ -102,6 +106,7 @@ class IdnTest extends TestCase
     public function testEncodeUTS46($decoded, $encoded)
     {
         $result = idn_to_ascii($decoded, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
+
         $this->assertSame($encoded, $result);
     }
 
@@ -111,6 +116,7 @@ class IdnTest extends TestCase
     public function testDecodeUTS46($decoded, $encoded)
     {
         $result = idn_to_utf8($encoded, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
+
         $this->assertSame($decoded, $result);
     }
 
@@ -121,6 +127,7 @@ class IdnTest extends TestCase
     {
         $info = 123;
         $result = idn_to_ascii($decoded, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46, $info);
+
         $this->assertSame($ascii, $result);
 
         $expected = array(
@@ -128,10 +135,12 @@ class IdnTest extends TestCase
             'isTransitionalDifferent' => false,
             'errors' => 0,
         );
+
         $this->assertSame($expected, $info);
 
         $info = 123;
         $result = idn_to_utf8($ascii, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46, $info);
+
         $this->assertSame($encoded, $result);
 
         $expected = array(
@@ -139,6 +148,7 @@ class IdnTest extends TestCase
             'isTransitionalDifferent' => false,
             'errors' => 0,
         );
+
         $this->assertSame($expected, $info);
     }
 
@@ -149,12 +159,14 @@ class IdnTest extends TestCase
     public function testEncodePhp53($decoded, $encoded)
     {
         $result = @idn_to_ascii($decoded, IDNA_DEFAULT);
+
         $this->assertSame($encoded, $result);
     }
 
     public function domainNamesProvider()
     {
         return array(
+
             // https://en.wikipedia.org/wiki/IDN_Test_TLDs
             array(
                 'مثال.إختبار',
@@ -200,7 +212,6 @@ class IdnTest extends TestCase
                 'உதாரணம்.பரிட்சை',
                 'xn--zkc6cc5bi7f6e.xn--hlcj6aya9esc7a',
             ),
-
             array(
                 'derhausüberwacher.de',
                 'xn--derhausberwacher-pzb.de',
@@ -311,3 +322,4 @@ class IdnTest extends TestCase
         );
     }
 }
+

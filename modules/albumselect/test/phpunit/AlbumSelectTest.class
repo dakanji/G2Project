@@ -386,7 +386,6 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		$smarty    = new GallerySmarty();
 		$callbacks = new AlbumSelectCallbacks();
-
 		GalleryDataCache::setFileCachingEnabled(true);
 
 		$ret = $this->_registerEventListener('GalleryEntity::save', 'AlbumSelectModule');
@@ -475,6 +474,7 @@ class AlbumSelectTest extends GalleryTestCase {
 			$titlesForJs[$this->_album->getId()],
 			'cached title for javascript'
 		);
+
 		// Change the album title
 		$this->_album->setTitle('Changed Title');
 
@@ -535,6 +535,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumTree'];
 
 		$this->assertFalse(empty($data['albumTreeName']), 'albumTreeName');
+
 		// And now with an alternative root
 		$gallery->setConfig('defaultAlbumId', $this->_album->getId());
 		$gallery->setConfig('breadcrumbRootId', $this->_album->getId());
@@ -607,9 +608,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
 		GalleryDataCache::setFileCachingEnabled(true);
-
 		$smarty    = new GallerySmarty();
 		$callbacks = new AlbumSelectCallbacks();
 
@@ -648,6 +647,7 @@ class AlbumSelectTest extends GalleryTestCase {
 			'test albums in tree, without session permissions (1)',
 			false
 		);
+
 		// Then test with session permission
 		$session->put(GALLERY_PERMISSION_SESSION_KEY, array($itemId));
 
@@ -670,6 +670,7 @@ class AlbumSelectTest extends GalleryTestCase {
 			'test albums in tree with session permissions',
 			true
 		);
+
 		// Again without session permissions
 		$session->put(GALLERY_PERMISSION_SESSION_KEY, array());
 

@@ -106,7 +106,6 @@ class SystemInfoTask extends MaintenanceTask {
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryEmbed.class');
-
 		$api = $core->translate(
 			array(
 				'text' => 'API = Core %s, Module %s, Theme %s, Embed %s',

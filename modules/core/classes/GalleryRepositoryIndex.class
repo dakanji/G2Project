@@ -323,7 +323,6 @@ class GalleryRepositoryIndex {
 		return array(
 			null,
 			$this->_index[$pluginType . 's'][$pluginId]['header'],
-
 		);
 	}
 

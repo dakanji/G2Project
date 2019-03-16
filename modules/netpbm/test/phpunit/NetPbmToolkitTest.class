@@ -178,7 +178,9 @@ class NetPbmToolkitTest extends GalleryTestCase {
 				0,
 				0,
 			)
-		); // image alignment x, y (overridden by top-right alignment)
+			// image alignment x, y (overridden by top-right alignment)
+		);
+
 		if ($ret) {
 			return $ret;
 		}
@@ -198,7 +200,9 @@ class NetPbmToolkitTest extends GalleryTestCase {
 				99,
 				99,
 			)
-		); // image alignment x, y
+			// image alignment x, y
+		);
+
 		if ($ret) {
 			return $ret;
 		}
@@ -1143,7 +1147,6 @@ class NetPbmToolkitTestPlatform extends WinNtPlatform {
 		global $gallery;
 
 		$toolkitCallCount = (int)GalleryUtilities::getRequestVariables('toolkitCallCount');
-
 		GalleryUtilities::putRequestVariable('toolkitCallCount', $toolkitCallCount + 1);
 
 		if (serialize($cmd) == serialize(

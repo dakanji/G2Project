@@ -31,7 +31,9 @@ class ADODB2_access extends ADODB_DataDict {
 				return 'MEMO';
 
 			case 'C2':
-				return 'TEXT'; // up to 32K
+				// up to 32K
+				return 'TEXT';
+
 			case 'X2':
 				return 'MEMO';
 

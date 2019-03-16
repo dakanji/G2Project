@@ -128,7 +128,9 @@ function smtpmail($config, $to, $subject, $body, $headers = null) {
 			return $ret;
 		}
 
-		fputs($socket, $config['smtp.password'] . "\r\n"); // Already encoded
+		// Already encoded
+		fputs($socket, $config['smtp.password'] . "\r\n");
+
 		$ret = server_parse($socket, '235');
 
 		if ($ret) {

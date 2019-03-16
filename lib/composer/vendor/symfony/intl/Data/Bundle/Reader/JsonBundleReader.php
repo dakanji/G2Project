@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Bundle\Reader;
-
 use Symfony\Component\Intl\Exception\ResourceBundleNotFoundException;
 use Symfony\Component\Intl\Exception\RuntimeException;
 
@@ -44,7 +42,6 @@ class JsonBundleReader implements BundleReaderInterface
         }
 
         $data = json_decode(file_get_contents($fileName), true);
-
         if (null === $data) {
             throw new RuntimeException(sprintf('The resource bundle "%s" contains invalid JSON: %s', $fileName, json_last_error_msg()));
         }
@@ -52,3 +49,4 @@ class JsonBundleReader implements BundleReaderInterface
         return $data;
     }
 }
+

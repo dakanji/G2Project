@@ -60,7 +60,6 @@ class GdToolkit extends GalleryToolkit {
 	public function &_getGdFunctionality() {
 		if (!isset($this->_gdFunctionality)) {
 			GalleryCoreApi::requireOnce('modules/gd/classes/GdFunctionality.class');
-
 			$gd = new GdFunctionality();
 
 			$this->setGdFunctionality($gd);
@@ -138,6 +137,7 @@ class GdToolkit extends GalleryToolkit {
 		$context = array()
 	) {
 		$gd =& $this->_getGdFunctionality();
+
 		global $gallery;
 
 		if ($gallery->getDebug()) {
@@ -483,7 +483,10 @@ class GdToolkit extends GalleryToolkit {
 
 			case 'compress':
 				$targetSize = $parameters[0];
-				$fileSize   = $gd->filesize($sourceFilename) >> 10; // Size in KB
+
+				// Size in KB
+				$fileSize = $gd->filesize($sourceFilename) >> 10;
+
 				if ($fileSize <= $targetSize) {
 					break;
 				}
@@ -1085,6 +1088,7 @@ class GdToolkit extends GalleryToolkit {
 
 				// Dither alpha channel grayscale version down to 2 colors
 				$gd->imagetruecolortopalette($alphaMixdownDitherImage, true, 2);
+
 				/*
 				 * Reduce color palette to 256-1 colors (leave one palette position for transparent
 				 * color).
@@ -1147,6 +1151,7 @@ class GdToolkit extends GalleryToolkit {
 
 			$gd->imagealphablending($res, true);
 			$gd->imagesavealpha($res, false);
+
 			// Ignore errors
 			$gd->imagecolortransparent($res, -1);
 

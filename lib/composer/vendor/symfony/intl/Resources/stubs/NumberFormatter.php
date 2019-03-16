@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 use Symfony\Component\Intl\NumberFormatter\NumberFormatter as IntlNumberFormatter;
 
 /**
@@ -21,3 +20,4 @@ use Symfony\Component\Intl\NumberFormatter\NumberFormatter as IntlNumberFormatte
 class NumberFormatter extends IntlNumberFormatter
 {
 }
+

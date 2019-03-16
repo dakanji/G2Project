@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\DateFormatter;
-
 use Symfony\Component\Intl\DateFormatter\DateFormat\FullTransformer;
 use Symfony\Component\Intl\Exception\MethodArgumentNotImplementedException;
 use Symfony\Component\Intl\Exception\MethodArgumentValueNotImplementedException;
@@ -189,7 +187,6 @@ class IntlDateFormatter
         // intl allows timestamps to be passed as arrays - we don't
         if (\is_array($timestamp)) {
             $message = 'Only integer Unix timestamps and DateTime objects are supported';
-
             throw new MethodArgumentValueNotImplementedException(__METHOD__, 'timestamp', $timestamp, $message);
         }
 
@@ -430,7 +427,6 @@ class IntlDateFormatter
 
         $dateTime = $this->createDateTime(0);
         $transformer = new FullTransformer($this->getPattern(), $this->getTimeZoneId());
-
         $timestamp = $transformer->parse($dateTime, $value);
 
         // behave like the intl extension. FullTransformer::parse() set the proper error
@@ -518,7 +514,6 @@ class IntlDateFormatter
     {
         if (null === $timeZoneId) {
             $timeZoneId = date_default_timezone_get();
-
             $this->uninitializedTimeZoneId = true;
         }
 
@@ -587,6 +582,7 @@ class IntlDateFormatter
     protected function createDateTime($timestamp)
     {
         $dateTime = new \DateTime();
+
         $dateTime->setTimestamp($timestamp);
         $dateTime->setTimezone($this->dateTimeZone);
 
@@ -604,6 +600,7 @@ class IntlDateFormatter
         if (self::NONE !== $this->datetype) {
             $patternParts[] = $this->defaultDateFormats[$this->datetype];
         }
+
         if (self::NONE !== $this->timetype) {
             $patternParts[] = $this->defaultTimeFormats[$this->timetype];
         }
@@ -611,3 +608,4 @@ class IntlDateFormatter
         return implode(', ', $patternParts);
     }
 }
+

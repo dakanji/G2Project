@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\ResourceBundle;
-
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleEntryReaderInterface;
 use Symfony\Component\Intl\Data\Provider\LocaleDataProvider;
 use Symfony\Component\Intl\Data\Provider\RegionDataProvider;
@@ -37,7 +35,6 @@ class RegionBundle extends RegionDataProvider implements RegionBundleInterface
     public function __construct($path, BundleEntryReaderInterface $reader, LocaleDataProvider $localeProvider)
     {
         parent::__construct($path, $reader);
-
         $this->localeProvider = $localeProvider;
     }
 
@@ -77,3 +74,4 @@ class RegionBundle extends RegionDataProvider implements RegionBundleInterface
         }
     }
 }
+

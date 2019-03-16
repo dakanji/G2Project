@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Bundle\Writer;
-
 use Symfony\Component\Intl\Exception\UnexpectedTypeException;
 
 /**
@@ -84,12 +82,10 @@ class TextBundleWriter implements BundleWriterInterface
 
         if (\is_array($value)) {
             $intValues = \count($value) === \count(array_filter($value, 'is_int'));
-
             $keys = array_keys($value);
 
             // check that the keys are 0-indexed and ascending
             $intKeys = $keys === range(0, \count($keys) - 1);
-
             if ($intValues && $intKeys) {
                 $this->writeIntVector($file, $value, $indentation);
 
@@ -139,7 +135,6 @@ class TextBundleWriter implements BundleWriterInterface
     private function writeIntVector($file, array $value, $indentation)
     {
         fwrite($file, ":intvector{\n");
-
         foreach ($value as $int) {
             fprintf($file, "%s%d,\n", str_repeat('    ', $indentation + 1), $int);
         }
@@ -180,7 +175,6 @@ class TextBundleWriter implements BundleWriterInterface
     private function writeArray($file, array $value, $indentation)
     {
         fwrite($file, "{\n");
-
         foreach ($value as $entry) {
             fwrite($file, str_repeat('    ', $indentation + 1));
 
@@ -215,7 +209,6 @@ class TextBundleWriter implements BundleWriterInterface
         }
 
         fwrite($file, "{\n");
-
         foreach ($value as $key => $entry) {
             fwrite($file, str_repeat('    ', $indentation + 1));
 
@@ -234,3 +227,4 @@ class TextBundleWriter implements BundleWriterInterface
         fprintf($file, '%s}', str_repeat('    ', $indentation));
     }
 }
+

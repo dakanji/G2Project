@@ -116,6 +116,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 
 			if (!$platform->copy($path, $tmpfname)) {
 				$platform->unlink($tmpfname);
+
 				GalleryCoreApi::releaseLocks($lockIds);
 
 				return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE), null, null);
@@ -143,7 +144,6 @@ class ReuploadPhotoOption extends ItemEditOption {
 				$platform->unlink($tmpfname);
 
 				GalleryCoreApi::releaseLocks($lockIds);
-
 				$error[] = 'form[error][reupload][toolkit]';
 
 				return array(null, $error, $status);
@@ -154,6 +154,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 			if ($ret) {
 				$platform->copy($tmpfname, $path);
 				$platform->unlink($tmpfname);
+
 				GalleryCoreApi::releaseLocks($lockIds);
 
 				return array($ret, null, null);

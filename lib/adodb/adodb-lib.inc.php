@@ -87,7 +87,9 @@ function adodb_probetypes(&$array, &$types, $probe = 8) {
 			$v = trim($v);
 
 			if (!preg_match('/^[+-]{0,1}[0-9\.]+$/', $v)) {
-				$types[$i] = 'C'; // once C, always C
+				// once C, always C
+				$types[$i] = 'C';
+
 				continue;
 			}
 
@@ -183,7 +185,8 @@ function _adodb_replace(&$zthis, $table, $fieldArray, $keyCol, $autoQuote, $has_
 		}
 
 		if (in_array($k, $keyCol)) {
-			continue; // skip UPDATE if is key
+			// skip UPDATE if is key
+			continue;
 		}
 
 		if ($first) {
@@ -225,7 +228,8 @@ function _adodb_replace(&$zthis, $table, $fieldArray, $keyCol, $autoQuote, $has_
 				$cnt = $zthis->GetOne("select count(*) from $table where $where");
 
 				if ($cnt > 0) {
-					return 1; // record already exists
+					// record already exists
+					return 1;
 				}
 			} else {
 				if (($zthis->Affected_Rows() > 0)) {
@@ -242,7 +246,8 @@ function _adodb_replace(&$zthis, $table, $fieldArray, $keyCol, $autoQuote, $has_
 
 	foreach ($fieldArray as $k => $v) {
 		if ($has_autoinc && in_array($k, $keyCol)) {
-			continue; // skip autoinc col
+			// skip autoinc col
+			continue;
 		}
 
 		if ($first) {
@@ -342,8 +347,10 @@ function _adodb_getmenu(
 		}
 
 		/*
+
 		if ($optgroup != $group) {
 			$optgroup = $group;
+
 			if ($firstgroup) {
 				$firstgroup = false;
 				$s .="\n<optgroup label='". htmlspecialchars($group) ."'>";
@@ -651,7 +658,8 @@ function _adodb_pageexecute_all_rows(
 		$nrows = 10;
 	}
 
-	$qryRecs                = false; //count records for no offset
+	//count records for no offset
+	$qryRecs                = false;
 	$qryRecs                = _adodb_getcount($zthis, $sql, $inputarr, $secs2cache);
 	$lastpageno             = (int)ceil($qryRecs / $nrows);
 	$zthis->_maxRecordCount = $qryRecs;
@@ -942,7 +950,8 @@ function _adodb_getupdatesql(&$zthis, &$rs, $arrFields, $forceUpdate = false, $m
 		if ($whereClause) {
 			// var_dump($whereClause);
 			if (preg_match('/\s(ORDER\s.*)/is', $whereClause[1], $discard)) {} elseif (preg_match('/\s(LIMIT\s.*)/is', $whereClause[1], $discard)) {} elseif (preg_match('/\s(FOR UPDATE.*)/is', $whereClause[1], $discard)) {} else {
-				preg_match('/\s.*(\) WHERE .*)/is', $whereClause[1], $discard); // see http://sourceforge.net/tracker/index.php?func=detail&aid=1379638&group_id=42718&atid=433976
+				// see http://sourceforge.net/tracker/index.php?func=detail&aid=1379638&group_id=42718&atid=433976
+				preg_match('/\s.*(\) WHERE .*)/is', $whereClause[1], $discard);
 			}
 		} else {
 			$whereClause = array(false, false);
@@ -990,10 +999,7 @@ function adodb_key_exists($key, &$arr, $force = 2) {
  *
  */
 function _adodb_getinsertsql(&$zthis, &$rs, $arrFields, $magicq = false, $force = 2) {
-	static $cacheRS  = false;
-	static $cacheSig = 0;
-	static $cacheCols;
-
+	static $cacheRS = false,  $cacheSig = 0,  $cacheCols;
 	global $ADODB_QUOTE_FIELDNAMES;
 
 	$tableName          = '';
@@ -1296,7 +1302,9 @@ function _adodb_column_sql(&$zthis, $action, $type, $fname, $fnameq, $arrFields,
 			break;
 
 		default:
-			$val = str_replace(array("'", ' ', '('), '', $arrFields[$fname]); // basic sql injection defence
+			// basic sql injection defence
+			$val = str_replace(array("'", ' ', '('), '', $arrFields[$fname]);
+
 			if (empty($val)) {
 				$val = '0';
 			}
@@ -1441,6 +1449,7 @@ function _adodb_backtrace($printOrArr = true, $levels = 9999, $skippy = 0, $isht
 		$args = array();
 
 		for ($i = 0; $i < $tabs;
+
 		$i++) {
 			$s .= ($html) ? ' &nbsp; ' : "\t";
 		}
@@ -1504,10 +1513,12 @@ function _adodb_find_from($sql)
 	$parentheseCount = 0;
 	$prevChars = '';
 	$nextChars = '';
+
 	for($i = 0; $i < $charCount; $i++) {
 		$char = substr($sql,$i,1);
 		$prevChars = substr($sql,0,$i);
 		$nextChars = substr($sql,$i+1);
+
 		if((($char == "'" || $char == '"' || $char == '`') && substr($prevChars,-1,1) != '\\') && $inString === false) {
 			$quote = $char;
 			$inString = true;
@@ -1523,6 +1534,7 @@ function _adodb_find_from($sql)
 		elseif($char == ")" && $inString === false && $parentheseCount > 0)
 			$parentheseCount--;
 		elseif($parentheseCount <= 0 && $inString === false && $char == " " && strtoupper(substr($prevChars,-5,5)) == " FROM")
+
 			return $i;
 	}
 }

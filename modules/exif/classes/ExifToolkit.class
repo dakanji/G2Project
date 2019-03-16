@@ -35,7 +35,6 @@ class ExifToolkit extends GalleryToolkit {
 		switch ($propertyName) {
 			case 'originationTimestamp':
 				GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
-
 				$timestamp = ExifHelper::getOriginationTimestamp($sourceFilename);
 				$results   = array($timestamp);
 
@@ -48,3 +47,4 @@ class ExifToolkit extends GalleryToolkit {
 		return array(null, $results);
 	}
 }
+

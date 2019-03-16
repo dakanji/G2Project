@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Data\Provider\Json;
-
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleReaderInterface;
 use Symfony\Component\Intl\Data\Bundle\Reader\JsonBundleReader;
 use Symfony\Component\Intl\Intl;
@@ -35,3 +33,4 @@ class JsonRegionDataProviderTest extends AbstractRegionDataProviderTest
         return new JsonBundleReader();
     }
 }
+

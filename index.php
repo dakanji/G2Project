@@ -27,7 +27,9 @@
 
 // Include bootstrap.inc in case config.php overrides GALLERY_MAIN_PHP
 require_once __DIR__ . '/bootstrap.inc';
+
 require_once __DIR__ . '/modules/core/classes/GalleryUrlGenerator.class';
+
 require_once __DIR__ . '/modules/core/classes/GalleryCoreApi.class';
 
 // The REQUEST_URI can either be /path/index.php or just /path/. Get rid of index.php.

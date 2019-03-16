@@ -121,7 +121,8 @@ function _adodb_export(&$rs, $sep, $sepreplace, $fp = false, $addtitles = true, 
 					$elements[] = $v;
 				}
 			}
-		} else { // ASSOCIATIVE ARRAY
+		} else {
+			// ASSOCIATIVE ARRAY
 			foreach ($rs->fields as $v) {
 				if ($escquote) {
 					$v = str_replace($quote, $escquotequote, trim($v));

@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\ResourceBundle;
-
 use Symfony\Component\Intl\Data\Provider\LocaleDataProvider;
 use Symfony\Component\Intl\Exception\MissingResourceException;
 
@@ -59,3 +57,4 @@ class LocaleBundle extends LocaleDataProvider implements LocaleBundleInterface
         }
     }
 }
+

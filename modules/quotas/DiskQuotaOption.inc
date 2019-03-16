@@ -41,7 +41,6 @@ class DiskQuotaOption extends ItemAddOption {
 		global $gallery;
 
 		GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
-
 		$warnings = $errors = array();
 
 		// user's disk quota in KB

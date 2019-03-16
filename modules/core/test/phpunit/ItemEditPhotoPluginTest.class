@@ -257,6 +257,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 				$expectedOperations .= ';convert-to-image/jpeg';
 
 				$this->assertEquals($expectedOperations, $resize->getDerivativeOperations(), $i);
+
 				// check that postfilteroperations are maintained and added to new resizes..
 				$this->assertEquals(
 					'test-operation|0',

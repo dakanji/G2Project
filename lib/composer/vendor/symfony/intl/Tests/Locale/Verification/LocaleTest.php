@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Locale\Verification;
-
 use Symfony\Component\Intl\Tests\Locale\AbstractLocaleTest;
 use Symfony\Component\Intl\Util\IntlTestHelper;
 
@@ -25,7 +23,6 @@ class LocaleTest extends AbstractLocaleTest
     protected function setUp()
     {
         IntlTestHelper::requireFullIntl($this, false);
-
         parent::setUp();
     }
 
@@ -36,3 +33,4 @@ class LocaleTest extends AbstractLocaleTest
         return \call_user_func_array(array('Locale', $methodName), $args);
     }
 }
+

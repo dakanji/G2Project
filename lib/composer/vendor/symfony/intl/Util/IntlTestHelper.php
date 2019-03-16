@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Util;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Intl\Intl;
 
@@ -38,10 +36,8 @@ class IntlTestHelper
 
         // We only run tests if the version is *one specific version*.
         // This condition is satisfied if
-        //
         //   * the intl extension is loaded with version Intl::getIcuStubVersion()
         //   * the intl extension is not loaded
-
         if (($minimumIcuVersion || \defined('HHVM_VERSION_ID')) && IcuVersion::compare(Intl::getIcuVersion(), $minimumIcuVersion, '<', 1)) {
             $testCase->markTestSkipped('ICU version '.$minimumIcuVersion.' is required.');
         }
@@ -51,11 +47,9 @@ class IntlTestHelper
         \Locale::setDefault('en');
 
         // Consequently, tests will
-        //
         //   * run only for one ICU version (see Intl::getIcuStubVersion())
         //     there is no need to add control structures to your tests that
         //     change the test depending on the ICU version.
-        //
         // Tests should only rely on functionality that is implemented in the
         // stub classes.
     }
@@ -74,7 +68,6 @@ class IntlTestHelper
         self::requireIntl($testCase, $minimumIcuVersion);
 
         // Consequently, tests will
-        //
         //   * run only for one ICU version (see Intl::getIcuStubVersion())
         //     there is no need to add control structures to your tests that
         //     change the test depending on the ICU version.
@@ -108,3 +101,4 @@ class IntlTestHelper
     {
     }
 }
+

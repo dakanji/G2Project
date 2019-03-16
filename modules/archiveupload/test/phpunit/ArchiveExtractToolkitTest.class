@@ -69,31 +69,20 @@ class ArchiveExtractToolkitTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 
 		$platform->setReply('is_dir', array('testDir'), true);
-
 		$platform->setReply('getcwd', array(), 'testCwd');
-
 		$platform->setReply('chdir', array('testDir'), true);
-
 		$platform->setReply(
 			'exec',
 			array(array(array($this->_unzipPath, 'testZip.zip'))),
 			array(true, array(), array())
 		);
-
 		$platform->setReply('chdir', array('testCwd'), true);
-
 		$platform->setReply('recursiveChmod', array('testDir', null, null), true);
-
 		$gallery->setPlatform($platform);
-
 		$platform->setReply('opendir', array('testDir'), 'testHand');
-
 		$platform->setReply('readdir', array('testHand'), '.');
-
 		$platform->setReply('readdir', array('testHand'), '..');
-
 		$platform->setReply('readdir', array('testHand'), 'symlink.jpg');
-
 		$platform->setReply('readdir', array('testHand'), false);
 		$platform->setReply('closedir', array('testHand'), true);
 		$platform->setReply('getDirectorySeparator', array(), '/');
@@ -128,89 +117,49 @@ class ArchiveExtractToolkitTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 
 		$platform->setReply('is_dir', array('testDir'), true);
-
 		$platform->setReply('getcwd', array(), 'testCwd');
-
 		$platform->setReply('chdir', array('testDir'), true);
-
 		$platform->setReply(
 			'exec',
 			array(array(array($this->_unzipPath, 'testZip.zip'))),
 			array(true, array(), array())
 		);
-
 		$platform->setReply('chdir', array('testCwd'), true);
-
 		$platform->setReply('recursiveChmod', array('testDir', null, null), true);
-
 		$platform->setReply('opendir', array('testDir'), 'testHand');
-
 		$platform->setReply('readdir', array('testHand'), '.');
-
 		$platform->setReply('readdir', array('testHand'), '..');
-
 		$platform->setReply('readdir', array('testHand'), '.DS_Store');
-
 		$platform->setReply('readdir', array('testHand'), 'test.jpg');
-
 		$platform->setReply('readdir', array('testHand'), '__MACOSX');
-
 		$platform->setReply('readdir', array('testHand'), 'subdir');
-
 		$platform->setReply('readdir', array('testHand'), 'test.gif');
-
 		$platform->setReply('readdir', array('testHand'), false);
-
 		$platform->setReply('closedir', array('testHand'), true);
-
 		$platform->setReply('getDirectorySeparator', array(), '/');
-
 		$platform->setReply('is_link', array('testDir/.DS_Store'), false);
-
 		$platform->setReply('is_dir', array('testDir/.DS_Store'), false);
-
 		$platform->setReply('unlink', array('testDir/.DS_Store'), true);
-
 		$platform->setReply('is_link', array('testDir/test.jpg'), false);
-
 		$platform->setReply('is_dir', array('testDir/test.jpg'), false);
-
 		$platform->setReply('is_link', array('testDir/__MACOSX'), false);
-
 		$platform->setReply('is_dir', array('testDir/__MACOSX'), true);
-
 		$platform->setReply('recursiveRmdir', array('testDir/__MACOSX'), true);
-
 		$platform->setReply('is_link', array('testDir/subdir'), false);
-
 		$platform->setReply('is_dir', array('testDir/subdir'), true);
-
 		$platform->setReply('opendir', array('testDir/subdir'), 'testHand2');
-
 		$platform->setReply('readdir', array('testHand2'), 'Thumbs.db');
-
 		$platform->setReply('readdir', array('testHand2'), 'test.png');
-
 		$platform->setReply('readdir', array('testHand2'), '.Trashes');
-
 		$platform->setReply('readdir', array('testHand2'), false);
-
 		$platform->setReply('closedir', array('testHand2'), true);
-
 		$platform->setReply('getDirectorySeparator', array(), '/');
-
 		$platform->setReply('is_link', array('testDir/subdir/Thumbs.db'), false);
-
 		$platform->setReply('is_dir', array('testDir/subdir/Thumbs.db'), false);
-
 		$platform->setReply('unlink', array('testDir/subdir/Thumbs.db'), true);
-
 		$platform->setReply('is_link', array('testDir/subdir/test.png'), false);
-
 		$platform->setReply('is_dir', array('testDir/subdir/test.png'), false);
-
 		$platform->setReply('is_link', array('testDir/subdir/.Trashes'), false);
-
 		$platform->setReply('is_dir', array('testDir/subdir/.Trashes'), false);
 		$platform->setReply('unlink', array('testDir/subdir/.Trashes'), true);
 		$platform->setReply('is_link', array('testDir/test.gif'), false);
@@ -245,31 +194,20 @@ class ArchiveExtractToolkitTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 
 		$platform->setReply('is_dir', array('testDir'), true);
-
 		$platform->setReply('getcwd', array(), 'testCwd');
-
 		$platform->setReply('chdir', array('testDir'), true);
-
 		$platform->setReply(
 			'exec',
 			array(array(array($this->_unzipPath, 'testZip.zip'))),
 			array(true, array(), array())
 		);
-
 		$platform->setReply('chdir', array('testCwd'), true);
-
 		$platform->setReply('recursiveChmod', array('testDir', null, null), true);
-
 		$platform->setReply('opendir', array('testDir'), 'testHand');
-
 		$platform->setReply('readdir', array('testHand'), '.');
-
 		$platform->setReply('readdir', array('testHand'), '..');
-
 		$platform->setReply('readdir', array('testHand'), 'symlink.jpg');
-
 		$platform->setReply('readdir', array('testHand'), false);
-
 		$platform->setReply('closedir', array('testHand'), true);
 		$platform->setReply('getDirectorySeparator', array(), '/');
 		$platform->setReply('is_link', array('testDir/symlink.jpg'), true);
@@ -292,3 +230,4 @@ class ArchiveExtractToolkitTest extends GalleryTestCase {
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
 }
+

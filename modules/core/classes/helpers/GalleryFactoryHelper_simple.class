@@ -39,7 +39,6 @@ class GalleryFactoryHelper_simple {
 		);
 
 		GalleryDataCache::removeFromDisk($cacheParams);
-
 		$registry =& GalleryFactoryHelper_simple::_getSingleton();
 		$registry = array();
 	}

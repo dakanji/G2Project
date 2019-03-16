@@ -66,3 +66,4 @@ class AddToCartController extends GalleryController {
 		return array(null, $results);
 	}
 }
+

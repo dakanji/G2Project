@@ -27,6 +27,7 @@ if (!empty($_SERVER['SERVER_NAME'])) {
 }
 
 require_once __DIR__ . '/XmlParser.inc';
+
 require_once __DIR__ . '/../../smarty/Smarty.class.php';
 
 $tmpdir = __DIR__ . '/tmp_dbxml_' . mt_rand(1, 30000);
@@ -198,9 +199,7 @@ function generateEntityDbXml() {
 		}
 
 		$smarty->assign('root', $root);
-
 		$smarty->assign('schema', $schema);
-
 		$smarty->assign('members', $members);
 		$smarty->assign('keys', $keys);
 		$smarty->assign('indexes', $indexes);
@@ -361,9 +360,7 @@ function generateMapDbXml() {
 			}
 
 			$smarty->assign('root', $root);
-
 			$smarty->assign('schema', $schema);
-
 			$smarty->assign('members', $members);
 			$smarty->assign('keys', $keys);
 			$smarty->assign('indexes', $indexes);

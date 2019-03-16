@@ -75,7 +75,6 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testNewItemsSiteAdminControllerUndo() {
 		GalleryUtilities::putRequestVariable('form[action][undo]', '1');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -94,7 +93,6 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[days][new]', '13');
 		GalleryUtilities::putRequestVariable('form[days][updated]', '11');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -121,7 +119,6 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testNewItemsSiteAdminControllerSaveNoData() {
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -140,7 +137,6 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[days][new]', '30');
 		GalleryUtilities::putRequestVariable('form[days][updated]', 'abc123');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -171,7 +167,6 @@ class NewItemsSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertTrue($count > 0, 'Should be at least one NewItems sort in db');
 
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

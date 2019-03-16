@@ -346,6 +346,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 		$this->assertEquals('test/crop', $mimeType, 'Output mime type 2');
 		$this->assertEquals(array('crop'), $gallery->_squareQueue, 'operations 2');
+
 		unset($gallery->_squareQueue);
 	}
 
@@ -403,6 +404,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 		$this->assertEquals('image/jpeg', $mimeType, 'Output mime type 2');
 		$this->assertEquals(array('composite'), $gallery->_squareQueue, 'operations 2');
+
 		unset($gallery->_squareQueue);
 	}
 
@@ -433,6 +435,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 		$this->assertEquals('image/jpeg', $mimeType, 'Output mime type');
 		$this->assertEquals(array('composite'), $gallery->_squareQueue, 'operations');
+
 		unset($gallery->_squareQueue);
 	}
 
@@ -462,6 +465,7 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 
 		$this->assertEquals('test/crop', $mimeType, 'Output mime type');
 		$this->assertEquals(array('crop'), $gallery->_squareQueue, 'operations');
+
 		unset($gallery->_squareQueue);
 	}
 
@@ -474,8 +478,8 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		$derivative = new GalleryDerivativeImage();
 
 		$derivative->setWidth(0);
-
 		$derivative->setHeight(0);
+
 		// Operation is smaller than the smallest side
 		$derivative->setDerivativeOperations('thumbnail|50');
 		$this->_toolkit->estimateDimensions($derivative, $item);
@@ -492,8 +496,8 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		$derivative = new GalleryDerivativeImage();
 
 		$derivative->setWidth(0);
-
 		$derivative->setHeight(0);
+
 		// Operation is bigger than the smallest side
 		$derivative->setDerivativeOperations('thumbnail|200');
 		$this->_toolkit->estimateDimensions($derivative, $item);
@@ -510,8 +514,8 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		$derivative = new GalleryDerivativeImage();
 
 		$derivative->setWidth(0);
-
 		$derivative->setHeight(0);
+
 		// Operation is bigger than the biggest side
 		$derivative->setDerivativeOperations('thumbnail|400');
 		$this->_toolkit->estimateDimensions($derivative, $item);
@@ -528,8 +532,8 @@ class SquareThumbToolkitTest extends GalleryTestCase {
 		$derivative = new GalleryDerivativeImage();
 
 		$derivative->setWidth(0);
-
 		$derivative->setHeight(0);
+
 		// Operation is bigger than the biggest side, but source is a derivative
 		$derivative->setDerivativeOperations('thumbnail|400');
 		$this->_toolkit->estimateDimensions($derivative, $source);
@@ -659,3 +663,4 @@ class SquareThumbTestUnixPlatform extends UnixPlatform {
 		return parent::copy($src, $dest);
 	}
 }
+

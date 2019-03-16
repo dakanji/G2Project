@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Polyfill\Tests\Intl\Normalizer;
-
 use Normalizer as in;
 use PHPUnit\Framework\TestCase;
 use Symfony\Polyfill\Intl\Normalizer\Normalizer as pn;
@@ -27,10 +25,8 @@ class NormalizerTest extends TestCase
     {
         $rpn = new \ReflectionClass('Symfony\Polyfill\Intl\Normalizer\Normalizer');
         $rin = new \ReflectionClass('Normalizer');
-
         $rpn = $rpn->getConstants();
         $rin = $rin->getConstants();
-
         ksort($rpn);
         ksort($rin);
 
@@ -53,8 +49,8 @@ class NormalizerTest extends TestCase
         $this->assertFalse(normalizer_is_normalized($d, pn::NFC));
         $this->assertFalse(normalizer_is_normalized("\xFF"));
 
-        $this->assertFalse(pn::isNormalized($d, pn::NFD)); // The current implementation defensively says false
-
+        // The current implementation defensively says false
+        $this->assertFalse(pn::isNormalized($d, pn::NFD));
         $this->assertFalse(pn::isNormalized('', pn::NONE));
         $this->assertFalse(pn::isNormalized('', 6));
     }
@@ -65,6 +61,7 @@ class NormalizerTest extends TestCase
     public function testNormalize()
     {
         $c = in::normalize('déjà', pn::NFC).in::normalize('훈쇼™', pn::NFD);
+
         $this->assertSame($c, normalizer_normalize($c, pn::NONE));
 
         $c = 'déjà 훈쇼™';
@@ -78,10 +75,8 @@ class NormalizerTest extends TestCase
         $this->assertSame($d, normalizer_normalize($c, pn::NFD));
         $this->assertSame($kc, normalizer_normalize($d, pn::NFKC));
         $this->assertSame($kd, normalizer_normalize($c, pn::NFKD));
-
         $this->assertFalse(normalizer_normalize($c, -1));
         $this->assertFalse(normalizer_normalize("\xFF"));
-
         $this->assertSame("\xcc\x83\xc3\x92\xd5\x9b", normalizer_normalize("\xcc\x83\xc3\x92\xd5\x9b"));
         $this->assertSame("\xe0\xbe\xb2\xe0\xbd\xb1\xe0\xbe\x80\xe0\xbe\x80", normalizer_normalize("\xe0\xbd\xb6\xe0\xbe\x81", pn::NFD));
     }
@@ -93,11 +88,9 @@ class NormalizerTest extends TestCase
     {
         $t = file(__DIR__.'/NormalizationTest.txt');
         $c = array();
-
         foreach ($t as $s) {
             $t = explode('#', $s);
             $t = explode(';', $t[0]);
-
             if (6 === \count($t)) {
                 foreach ($t as $k => $s) {
                     $t = explode(' ', $s);
@@ -111,19 +104,16 @@ class NormalizerTest extends TestCase
                 $this->assertSame($c[1], normalizer_normalize($c[2], pn::NFC));
                 $this->assertSame($c[3], normalizer_normalize($c[3], pn::NFC));
                 $this->assertSame($c[3], normalizer_normalize($c[4], pn::NFC));
-
                 $this->assertSame($c[2], normalizer_normalize($c[0], pn::NFD));
                 $this->assertSame($c[2], normalizer_normalize($c[1], pn::NFD));
                 $this->assertSame($c[2], normalizer_normalize($c[2], pn::NFD));
                 $this->assertSame($c[4], normalizer_normalize($c[3], pn::NFD));
                 $this->assertSame($c[4], normalizer_normalize($c[4], pn::NFD));
-
                 $this->assertSame($c[3], normalizer_normalize($c[0], pn::NFKC));
                 $this->assertSame($c[3], normalizer_normalize($c[1], pn::NFKC));
                 $this->assertSame($c[3], normalizer_normalize($c[2], pn::NFKC));
                 $this->assertSame($c[3], normalizer_normalize($c[3], pn::NFKC));
                 $this->assertSame($c[3], normalizer_normalize($c[4], pn::NFKC));
-
                 $this->assertSame($c[4], normalizer_normalize($c[0], pn::NFKD));
                 $this->assertSame($c[4], normalizer_normalize($c[1], pn::NFKD));
                 $this->assertSame($c[4], normalizer_normalize($c[2], pn::NFKD));
@@ -138,9 +128,11 @@ class NormalizerTest extends TestCase
         if (0x80 > $c %= 0x200000) {
             return \chr($c);
         }
+
         if (0x800 > $c) {
             return \chr(0xC0 | $c >> 6).\chr(0x80 | $c & 0x3F);
         }
+
         if (0x10000 > $c) {
             return \chr(0xE0 | $c >> 12).\chr(0x80 | $c >> 6 & 0x3F).\chr(0x80 | $c & 0x3F);
         }
@@ -148,3 +140,4 @@ class NormalizerTest extends TestCase
         return \chr(0xF0 | $c >> 18).\chr(0x80 | $c >> 12 & 0x3F).\chr(0x80 | $c >> 6 & 0x3F).\chr(0x80 | $c & 0x3F);
     }
 }
+

@@ -31,7 +31,9 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 	public function _init($parentDriver) {
 		$this->pdoDriver               = $parentDriver;
 		$parentDriver->_bindInputArray = true;
-		$parentDriver->hasTransactions = false; // // should be set to false because of PDO SQLite driver not supporting changing autocommit mode
+
+		// // should be set to false because of PDO SQLite driver not supporting changing autocommit mode
+		$parentDriver->hasTransactions = false;
 		$parentDriver->hasInsertID     = true;
 	}
 

@@ -77,7 +77,8 @@ class PluginCallbackView extends GalleryView {
 		if ($ret) {
 			$result['status'] = 'error';
 
-			$storage->rollbackTransaction();  // ignore errors here
+			// ignore errors here
+			$storage->rollbackTransaction();
 			$ret->putInSession();
 		}
 
@@ -87,7 +88,8 @@ class PluginCallbackView extends GalleryView {
 			if ($ret) {
 				$result['status'] = 'error';
 
-				$storage->rollbackTransaction();  // ignore errors here
+				// ignore errors here
+				$storage->rollbackTransaction();
 				$ret->putInSession();
 			} else {
 				// Make sure this change is isolated from any potential failures we get below.
@@ -118,7 +120,8 @@ class PluginCallbackView extends GalleryView {
 			if ($ret) {
 				$result['status'] = 'error';
 
-				$storage->rollbackTransaction();  // ignore errors here
+				// ignore errors here
+				$storage->rollbackTransaction();
 				$ret->putInSession();
 			} else {
 				$result = array_merge(
@@ -129,7 +132,6 @@ class PluginCallbackView extends GalleryView {
 		}
 
 		GalleryCoreApi::requireOnce('lib/JSON/JSON.php');
-
 		$json = new Services_JSON();
 
 		echo $json->encode($result);

@@ -34,6 +34,7 @@ class InstallCoreModuleStep extends InstallStep {
 		define('GALLERY_CONFIG_DIR', $_SESSION['configPath']);
 
 		include __DIR__ . '/../../bootstrap.inc';
+
 		include __DIR__ . '/../../init.inc';
 
 		$template = new StatusTemplate();
@@ -167,6 +168,7 @@ class InstallCoreModuleStep extends InstallStep {
 
 		if ($freshInstall) {
 			$gallery->debug('Hand over admin user parameters');
+
 			// It is a fresh install.  Hand over install config parameters.
 			$gallery->setConfig(
 				'setup.admin.userName',
@@ -252,7 +254,9 @@ class InstallCoreModuleStep extends InstallStep {
 				}
 			} else {
 				$gallery->debug('NOT installing, rollback!');
-				$storage->rollbackTransaction(); // Ignore any errors from this
+
+				// Ignore any errors from this
+				$storage->rollbackTransaction();
 
 				/*
 				 * Don't allow this step to complete when only partially installed.  Verify that
@@ -271,7 +275,6 @@ class InstallCoreModuleStep extends InstallStep {
 		}
 
 		$this->resetL10Domain();
-
 		$template->renderStatusMessage(_('Installing the core module'), '', 1.0);
 		$gallery->guaranteeTimeLimit(120);
 		$gallery->debug('Finish install core module step');
@@ -307,8 +310,7 @@ class InstallCoreModuleStep extends InstallStep {
 
 	// Adds some system information to the log
 	public function _addSystemInformationToDebugLog() {
-		global $gallery;
-		global $galleryStub;
+		global $gallery,  $galleryStub;
 
 		$storage      =& $gallery->getStorage();
 		$isSvnInstall = $galleryStub->getConfig('systemchecks.issvninstall');

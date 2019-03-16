@@ -1,4 +1,5 @@
 <?php
+
 if (!defined('G2_SUPPORT')) {
 	define('G2_SUPPORT_FILE', true);
 
@@ -106,6 +107,7 @@ $styleStr = '
  */
 *,
 *:before,
+
 *:after {
 	box-sizing: inherit;
 	vertical-align: baseline;
@@ -130,6 +132,7 @@ a {
 }
 
 a:active,
+
 a:hover {
 	outline: 0;
 }
@@ -139,6 +142,7 @@ html input[disabled] {
 }
 
 a:hover,
+
 a:focus {
 	color: #0a6ebd;
 	text-decoration: underline;
@@ -179,6 +183,7 @@ a:focus {
 .form-horizontal .form-group:before,
 .form-horizontal .form-group:after,
 .panel-body:before,
+
 .panel-body:after {
 	content: " ";
 	display: table;
@@ -186,6 +191,7 @@ a:focus {
 
 .container:after,
 .form-horizontal .form-group:after,
+
 .panel-body:after {
 	clear: both;
 }
@@ -216,6 +222,7 @@ a {
 }
 
 a:hover,
+
 a:focus {
 	color: #0a6ebd;
 	text-decoration: underline;

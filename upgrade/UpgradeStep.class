@@ -67,7 +67,8 @@ class UpgradeStep {
 	}
 
 	public function processRequest() {
-		return true; // true means continue rendering the page
+		// true means continue rendering the page
+		return true;
 	}
 
 	public function loadTemplateData(&$templateData) {

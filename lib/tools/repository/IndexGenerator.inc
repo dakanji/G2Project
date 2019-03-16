@@ -78,3 +78,4 @@ class IndexGeneratorControllerAndView extends RepositoryControllerAndView {
 		return null;
 	}
 }
+

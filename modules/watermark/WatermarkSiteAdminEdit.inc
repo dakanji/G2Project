@@ -86,3 +86,4 @@ class WatermarkSiteAdminEditView extends GalleryView {
 		);
 	}
 }
+

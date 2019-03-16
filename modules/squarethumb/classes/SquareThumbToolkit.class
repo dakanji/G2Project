@@ -322,6 +322,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 				),
 				$newContext
 			);
+
 			@$platform->unlink($tmpFilename);
 
 			if ($ret) {

@@ -158,6 +158,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			array_keys($templateData['items']),
 			'item ids'
 		);
+
 		$this->assertEquals(
 			array(
 				'ViewCartTestCartPlugin1_0' => array(
@@ -224,6 +225,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			array_keys($templateData['items']),
 			'item ids'
 		);
+
 		$this->assertEquals(
 			array(
 				'ViewCartTestCartPlugin1_0' => array(
@@ -291,6 +293,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 			array_keys($templateData['items']),
 			'item ids'
 		);
+
 		$this->assertEquals(
 			array(
 				'ViewCartTestCartPlugin1_0' => array(

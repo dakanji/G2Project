@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Polyfill\Tests\Php72;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Polyfill\Php72\Php72 as p;
 
@@ -62,7 +60,6 @@ class Php72Test extends TestCase
         $dump = ob_get_clean();
 
         $this->assertStringStartsWith("object(stdClass)#$id ", $dump);
-
         $this->assertNull(@spl_object_id(123));
     }
 
@@ -88,6 +85,7 @@ class Php72Test extends TestCase
         }
 
         $this->setExpectedException('PHPUnit\Framework\Error\Warning', 'expects parameter 1 to be resource');
+
         sapi_windows_vt100_support('foo', true);
     }
 
@@ -101,6 +99,7 @@ class Php72Test extends TestCase
         }
 
         $this->setExpectedException('PHPUnit\Framework\Error\Warning', 'was not able to analyze the specified stream');
+
         sapi_windows_vt100_support(fopen('php://memory', 'wb'), true);
     }
 
@@ -111,6 +110,7 @@ class Php72Test extends TestCase
     {
         $fp = fopen('php://temp', 'r+b');
         $this->assertFalse(stream_isatty($fp));
+
         fclose($fp);
     }
 
@@ -120,6 +120,7 @@ class Php72Test extends TestCase
     public function testStreamIsattyWarnsOnInvalidInputType()
     {
         $this->setExpectedException('PHPUnit\Framework\Error\Warning', 'expects parameter 1 to be resource');
+
         stream_isatty('foo');
     }
 
@@ -128,6 +129,7 @@ class Php72Test extends TestCase
         if (!class_exists('PHPUnit\Framework\Error\Notice')) {
             $exception = str_replace('PHPUnit\\Framework\\Error\\', 'PHPUnit_Framework_Error_', $exception);
         }
+
         if (method_exists($this, 'expectException')) {
             $this->expectException($exception);
             $this->expectExceptionMessage($message);
@@ -158,7 +160,10 @@ class Php72Test extends TestCase
     {
         $subst = \mb_substitute_character();
         \mb_substitute_character('none');
+
         $this->assertSame('ab', mb_scrub("a\xE9b"));
+
         \mb_substitute_character($subst);
     }
 }
+

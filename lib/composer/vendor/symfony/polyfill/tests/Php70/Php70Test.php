@@ -8,11 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Polyfill\Tests\Php70;
-
 use PHPUnit\Framework\TestCase;
-
 class Php70Test extends TestCase
 {
     public function testPhpIntMin()
@@ -72,3 +69,4 @@ class Php70Test extends TestCase
         $this->assertSame(5, $count);
     }
 }
+

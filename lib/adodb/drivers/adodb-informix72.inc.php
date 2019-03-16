@@ -23,15 +23,19 @@ if (!defined('IFX_SCROLL')) {
 }
 
 class ADODB_informix72 extends ADOConnection {
-	public $databaseType      = 'informix72';
-	public $dataProvider      = 'informix';
-	public $replaceQuote      = "''"; // string to use to replace quotes
-	public $fmtDate           = "'Y-m-d'";
-	public $fmtTimeStamp      = "'Y-m-d H:i:s'";
-	public $hasInsertID       = true;
-	public $hasAffectedRows   = true;
-	public $substr            = 'substr';
-	public $metaTablesSQL     = "select tabname,tabtype from systables where tabtype in ('T','V') and owner!='informix'"; //Don't get informix tables and pseudo-tables
+	public $databaseType = 'informix72';
+	public $dataProvider = 'informix';
+
+	// string to use to replace quotes
+	public $replaceQuote    = "''";
+	public $fmtDate         = "'Y-m-d'";
+	public $fmtTimeStamp    = "'Y-m-d H:i:s'";
+	public $hasInsertID     = true;
+	public $hasAffectedRows = true;
+	public $substr          = 'substr';
+
+	//Don't get informix tables and pseudo-tables
+	public $metaTablesSQL     = "select tabname,tabtype from systables where tabtype in ('T','V') and owner!='informix'";
 	public $metaColumnsSQL    = "select c.colname, c.coltype, c.collength, d.default,c.colno
 		from syscolumns c, systables t,outer sysdefaults d
 		where c.tabid=t.tabid and d.tabid=t.tabid and d.colno=c.colno
@@ -44,10 +48,14 @@ class ADODB_informix72 extends ADOConnection {
 	public $lastQuery         = false;
 	public $has_insertid      = true;
 	public $_autocommit       = true;
-	public $_bindInputArray   = true;  // set to true if ADOConnection.Execute() permits binding of array parameters.
-	public $sysDate           = 'TODAY';
-	public $sysTimeStamp      = 'CURRENT';
-	public $cursorType        = IFX_SCROLL; // IFX_SCROLL or IFX_HOLD or 0
+
+	// set to true if ADOConnection.Execute() permits binding of array parameters.
+	public $_bindInputArray = true;
+	public $sysDate         = 'TODAY';
+	public $sysTimeStamp    = 'CURRENT';
+
+	// IFX_SCROLL or IFX_HOLD or 0
+	public $cursorType = IFX_SCROLL;
 
 	public function __construct() {
 		// alternatively, use older method:
@@ -56,9 +64,14 @@ class ADODB_informix72 extends ADOConnection {
 		putenv('GL_DATE=%Y-%m-%d');
 
 		if (function_exists('ifx_byteasvarchar')) {
-			ifx_byteasvarchar(1); // Mode "0" will return a blob id, and mode "1" will return a varchar with text content.
-			ifx_textasvarchar(1); // Mode "0" will return a blob id, and mode "1" will return a varchar with text content.
-			ifx_blobinfile_mode(0); // Mode "0" means save Byte-Blobs in memory, and mode "1" means save Byte-Blobs in a file.
+			// Mode "0" will return a blob id, and mode "1" will return a varchar with text content.
+			ifx_byteasvarchar(1);
+
+			// Mode "0" will return a blob id, and mode "1" will return a varchar with text content.
+			ifx_textasvarchar(1);
+
+			// Mode "0" means save Byte-Blobs in memory, and mode "1" means save Byte-Blobs in a file.
+			ifx_blobinfile_mode(0);
 		}
 	}
 
@@ -238,10 +251,12 @@ class ADODB_informix72 extends ADOConnection {
 				return $false;
 			}
 
-			$rspkey = $this->Execute(sprintf($this->metaPrimaryKeySQL, $table)); //Added to get primary key colno items
+			//Added to get primary key colno items
+			$rspkey = $this->Execute(sprintf($this->metaPrimaryKeySQL, $table));
 			$retarr = array();
 
-			while (!$rs->EOF) { //print_r($rs->fields);
+			while (!$rs->EOF) {
+				//print_r($rs->fields);
 				$fld       = new ADOFieldObject();
 				$fld->name = $rs->fields[0];
 
@@ -249,14 +264,27 @@ class ADODB_informix72 extends ADOConnection {
 						$rs->fields[1] is not the correct adodb type
 						$rs->fields[2] is not correct max_length, because can include not-null bit
 				$fld->type = $rs->fields[1];
-				$fld->primary_key=$rspkey->fields && array_search($rs->fields[4],$rspkey->fields); //Added to set primary key flag
+
+				//Added to set primary key flag
+				$fld->primary_key=$rspkey->fields && array_search($rs->fields[4],$rspkey->fields);
 				$fld->max_length = $rs->fields[2];*/
-				$pr               = ifx_props($rs->fields[1], $rs->fields[2]); //!eos
-				$fld->type        = $pr[0];//!eos
+
+				//!eos
+				$pr = ifx_props($rs->fields[1], $rs->fields[2]);
+
+				//!eos
+				$fld->type        = $pr[0];
 				$fld->primary_key = $rspkey->fields && array_search($rs->fields[4], $rspkey->fields);
-				$fld->max_length  = $pr[1]; //!eos
-				$fld->precision   = $pr[2];//!eos
-				$fld->not_null    = $pr[3] == 'N'; //!eos
+
+				//!eos
+				$fld->max_length = $pr[1];
+
+				//!eos
+				$fld->precision = $pr[2];
+
+				//!eos
+				$fld->not_null = $pr[3] == 'N';
+
 				if (trim($rs->fields[3]) != 'AAAAAA 0') {
 					$fld->has_default   = 1;
 					$fld->default_value = $rs->fields[3];
@@ -270,7 +298,9 @@ class ADODB_informix72 extends ADOConnection {
 			}
 
 			$rs->Close();
-			$rspkey->Close(); //!eos
+
+			//!eos
+			$rspkey->Close();
 
 			return $retarr;
 		}
@@ -380,6 +410,7 @@ class ADODB_informix72 extends ADOConnection {
 	function Prepare($sql)
 	{
 		$stmt = ifx_prepare($sql);
+
 		if (!$stmt) return $sql;
 		else return array($sql,$stmt);
 	}
@@ -480,7 +511,8 @@ class ADORecordset_informix72 extends ADORecordSet {
 	}
 
 	public function _initrs() {
-		$this->_numOfRows   = -1; // ifx_affected_rows not reliable, only returns estimate -- ($ADODB_COUNTRECS)? ifx_affected_rows($this->_queryID):-1;
+		// ifx_affected_rows not reliable, only returns estimate -- ($ADODB_COUNTRECS)? ifx_affected_rows($this->_queryID):-1;
+		$this->_numOfRows   = -1;
 		$this->_numOfFields = ifx_num_fields($this->_queryID);
 	}
 

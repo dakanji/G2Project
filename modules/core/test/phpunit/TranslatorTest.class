@@ -56,6 +56,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		// Disable browser check, set default lang != hardcoded lang, set dir perms
 		foreach (array('default.language' => 'fr_FR', 'language.useBrowserPref' => '0',
+
 			   'permissions.directory'    => '755', ) as $param => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'core', $param, $value);
 
@@ -100,6 +101,7 @@ class TranslatorTest extends GalleryTestCase {
 		$origLang = getenv('LANG');
 
 		foreach (array('language.useBrowserPref' => '1')
+
 		 as $param => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'core', $param, $value);
 
@@ -187,6 +189,7 @@ class TranslatorTest extends GalleryTestCase {
 		$session->remove('core.language');
 
 		foreach (array('language.useBrowserPref' => '1')
+
 		 as $param => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'core', $param, $value);
 
@@ -547,7 +550,6 @@ class TranslatorTest extends GalleryTestCase {
 		$poPath     = "${modulePath}po/";
 
 		$platform->setReply('glob', array("${poPath}*.mo", null), array());
-
 		$platform->setReply(
 			'glob',
 			array("${modulePath}locale/*/LC_MESSAGES/*.mo", null),
@@ -586,17 +588,11 @@ class TranslatorTest extends GalleryTestCase {
 
 		// This next block is what GalleryUtilities::guaranteeDirExists requires
 		$platform->setReply('file_exists', array('/g2data/locale/aa/LC_MESSAGES/'), false);
-
 		$platform->setReply('file_exists', array('/g2data/locale/aa/LC_MESSAGES/'), false);
-
 		$platform->setReply('file_exists', array('/g2data/locale/aa'), false);
-
 		$platform->setReply('file_exists', array('/g2data/locale'), false);
-
 		$platform->setReply('file_exists', array('/g2data'), true);
-
 		$platform->setReply('is_dir', array('/g2data'), true);
-
 		$platform->setReply('mkdir', array('/g2data/locale', 755), true);
 		$platform->setReply('mkdir', array('/g2data/locale/aa', 755), true);
 		$platform->setReply('mkdir', array('/g2data/locale/aa/LC_MESSAGES/', 755), true);
@@ -658,25 +654,21 @@ class TranslatorTest extends GalleryTestCase {
 			array("${codeBase}modules/*/po", null),
 			array("${codeBase}modules/test/po")
 	);
-
 		$platform->setReply(
 			'file_exists',
 			array('/g2data/locale/wx_YZ/LC_MESSAGES/modules_test.mo'),
 			false
 	);
-
 		$platform->setReply(
 			'file_exists',
 			array("${codeBase}modules/test/po/wx_YZ.mo"),
 			false
 	);
-
 		$platform->setReply(
 			'file_exists',
 			array('/g2data/locale/wx/LC_MESSAGES/modules_test.mo'),
 			false
 	);
-
 		$platform->setReply(
 			'file_exists',
 			array("${codeBase}modules/test/po/wx.mo"),
@@ -685,26 +677,18 @@ class TranslatorTest extends GalleryTestCase {
 
 		// This next block is what GalleryUtilities::guaranteeDirExists requires
 		$platform->setReply('file_exists', array('/g2data/locale/wx/LC_MESSAGES/'), false);
-
 		$platform->setReply('file_exists', array('/g2data/locale/wx/LC_MESSAGES/'), false);
-
 		$platform->setReply('file_exists', array('/g2data/locale/wx'), false);
-
 		$platform->setReply('file_exists', array('/g2data/locale'), true);
-
 		$platform->setReply('is_dir', array('/g2data/locale'), true);
-
 		$platform->setReply('mkdir', array('/g2data/locale/wx', 755), true);
-
 		$platform->setReply('mkdir', array('/g2data/locale/wx/LC_MESSAGES/', 755), true);
-
 		$platform->setReply(
 			'copy',
 			array("${codeBase}modules/test/po/wx.mo",
 			  '/g2data/locale/wx/LC_MESSAGES/modules_test.mo', ),
 			true
 	);
-
 		$platform->setReply(
 			'glob',
 			array("${codeBase}themes/*/po", null),

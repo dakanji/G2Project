@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Util;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Intl\Util\Version;
 
@@ -60,17 +58,14 @@ class VersionTest extends TestCase
             array(null, '1.0', '==', '1.1', false),
             array(null, '1.0.0', '==', '1.0.1', false),
             array(null, '1.0.0.0', '==', '1.0.0.1', false),
-
             array(1, '1', '==', '1', true),
             array(1, '1.0', '==', '1.1', true),
             array(1, '1.0.0', '==', '1.0.1', true),
             array(1, '1.0.0.0', '==', '1.0.0.1', true),
-
             array(2, '1', '==', '1', true),
             array(2, '1.0', '==', '1.1', false),
             array(2, '1.0.0', '==', '1.0.1', true),
             array(2, '1.0.0.0', '==', '1.0.0.1', true),
-
             array(3, '1', '==', '1', true),
             array(3, '1.0', '==', '1.1', false),
             array(3, '1.0.0', '==', '1.0.1', false),
@@ -86,3 +81,4 @@ class VersionTest extends TestCase
         $this->assertSame($result, Version::compare($version1, $version2, $operator, $precision));
     }
 }
+

@@ -117,6 +117,7 @@ class ShowTreeView extends GalleryView {
 
 		foreach ($entityObjects as $entity) {
 			$isItemTable[$entity->getId()] = GalleryUtilities::isA($entity, 'GalleryItem');
+
 			$entityTable[$entity->getId()] = (array)$entity;
 		}
 
@@ -126,6 +127,7 @@ class ShowTreeView extends GalleryView {
 		$ShowTree['entityId']    = $entityId;
 		$ShowTree['entityTable'] = $entityTable;
 		$ShowTree['isItem']      = $isItemTable;
+
 		$template->setVariable('ShowTree', $ShowTree);
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'debug');

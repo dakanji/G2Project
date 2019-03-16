@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Polyfill\Util;
 
 /**
@@ -18,14 +17,15 @@ class LegacyTestListener extends \PHPUnit_Framework_TestSuite implements \PHPUni
 {
     private $suite;
     private $trait;
-
     public function __construct(\PHPUnit_Framework_TestSuite $suite = null)
     {
         if ($suite) {
             $this->suite = $suite;
+
             $this->setName($suite->getName().' with polyfills enabled');
             $this->addTest($suite);
         }
+
         $this->trait = new TestListenerTrait();
     }
 
@@ -87,3 +87,4 @@ class LegacyTestListener extends \PHPUnit_Framework_TestSuite implements \PHPUni
         return parent::warning($message);
     }
 }
+

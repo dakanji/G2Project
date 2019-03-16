@@ -33,9 +33,13 @@ class ADODB2_db2 extends ADODB_DataDict {
 				return 'VARCHAR(3600)';
 
 			case 'C2':
-				return 'VARCHAR'; // up to 32K
+				// up to 32K
+				return 'VARCHAR';
+
 			case 'X2':
-				return 'VARCHAR(3600)'; // up to 32000, but default page size too small
+				// up to 32000, but default page size too small
+				return 'VARCHAR(3600)';
+
 			case 'B':
 				return 'BLOB';
 
@@ -80,7 +84,8 @@ class ADODB2_db2 extends ADODB_DataDict {
 		$suffix = '';
 
 		if ($fautoinc) {
-			return ' GENERATED ALWAYS AS IDENTITY'; // as identity start with
+			// as identity start with
+			return ' GENERATED ALWAYS AS IDENTITY';
 		}
 
 		if (strlen($fdefault)) {

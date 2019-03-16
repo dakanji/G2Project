@@ -53,7 +53,6 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[unzipPath]', '/validPath/unzip');
 		GalleryUtilities::putRequestVariable('form[removeMeta]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -84,7 +83,6 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[unzipPath]', '/incompletePath/');
 		GalleryUtilities::putRequestVariable('form[removeMeta]', 0);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -113,7 +111,6 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -130,7 +127,6 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -148,7 +144,6 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function testSaveTestErrorPath() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[unzipPath]', '/validPathBadBinary/unzip');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -166,7 +161,6 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function testSaveBadPath() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[unzipPath]', '/invalidPath/unzip');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -184,7 +178,6 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function testNotExecutablePath() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[unzipPath]', '/notExecutablePath/unzip');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -202,7 +195,6 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function testSaveMissingPath() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[unzipPath]', '');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -303,3 +295,4 @@ class ArchiveUploadSiteAdminControllerTestPlatform {
 		}
 	}
 }
+

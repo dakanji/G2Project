@@ -20,7 +20,6 @@
 */
 
 //================================================================================================
-
 //================================================================================================
 //================================================================================================
 //=================
@@ -36,107 +35,159 @@ function lookup_GPS_tag($tag) {
 		case '0001':
 			$tag = 'Latitude Reference';
 
-			break;          //north or south
+			//north or south
+			break;
+
 		case '0002':
 			$tag = 'Latitude';
 
-			break;                  //dd mm.mm or dd mm ss
+			//dd mm.mm or dd mm ss
+			break;
+
 		case '0003':
 			$tag = 'Longitude Reference';
 
-			break;      //east or west
+			//east or west
+			break;
+
 		case '0004':
 			$tag = 'Longitude';
 
-			break;                  //dd mm.mm or dd mm ss
+			//dd mm.mm or dd mm ss
+			break;
+
 		case '0005':
 			$tag = 'Altitude Reference';
 
-			break;          //sea level or below sea level
+			//sea level or below sea level
+			break;
+
 		case '0006':
 			$tag = 'Altitude';
 
-			break;                  //positive rational number
+			//positive rational number
+			break;
+
 		case '0007':
 			$tag = 'Time';
 
-			break;                      //three positive rational numbers
+			//three positive rational numbers
+			break;
+
 		case '0008':
 			$tag = 'Satellite';
 
-			break;                  //text string up to 999 bytes long
+			//text string up to 999 bytes long
+			break;
+
 		case '0009':
 			$tag = 'ReceiveStatus';
 
-			break;              //in progress or interop
+			//in progress or interop
+			break;
+
 		case '000a':
 			$tag = 'MeasurementMode';
 
-			break;          //2D or 3D
+			//2D or 3D
+			break;
+
 		case '000b':
 			$tag = 'MeasurementPrecision';
 
-			break;      //positive rational number
+			//positive rational number
+			break;
+
 		case '000c':
 			$tag = 'SpeedUnit';
 
-			break;                  //KPH, MPH, knots
+			//KPH, MPH, knots
+			break;
+
 		case '000d':
 			$tag = 'ReceiverSpeed';
 
-			break;              //positive rational number
+			//positive rational number
+			break;
+
 		case '000e':
 			$tag = 'MovementDirectionRef';
 
-			break;      //true or magnetic north
+			//true or magnetic north
+			break;
+
 		case '000f':
 			$tag = 'MovementDirection';
 
-			break;          //positive rational number
+			//positive rational number
+			break;
+
 		case '0010':
 			$tag = 'ImageDirectionRef';
 
-			break;          //true or magnetic north
+			//true or magnetic north
+			break;
+
 		case '0011':
 			$tag = 'ImageDirection';
 
-			break;              //positive rational number
+			//positive rational number
+			break;
+
 		case '0012':
 			$tag = 'GeodeticSurveyData';
 
-			break;          //text string up to 999 bytes long
+			//text string up to 999 bytes long
+			break;
+
 		case '0013':
 			$tag = 'DestLatitudeRef';
 
-			break;          //north or south
+			//north or south
+			break;
+
 		case '0014':
 			$tag = 'DestinationLatitude';
 
-			break;      //three positive rational numbers
+			//three positive rational numbers
+			break;
+
 		case '0015':
 			$tag = 'DestLongitudeRef';
 
-			break;          //east or west
+			//east or west
+			break;
+
 		case '0016':
 			$tag = 'DestinationLongitude';
 
-			break;      //three positive rational numbers
+			//three positive rational numbers
+			break;
+
 		case '0017':
 			$tag = 'DestBearingRef';
 
-			break;              //true or magnetic north
+			//true or magnetic north
+			break;
+
 		case '0018':
 			$tag = 'DestinationBearing';
 
-			break;          //positive rational number
+			//positive rational number
+			break;
+
 		case '0019':
 			$tag = 'DestDistanceRef';
 
-			break;          //km, miles, knots
+			//km, miles, knots
+			break;
+
 		case '001a':
 			$tag = 'DestinationDistance';
 
-			break;      //positive rational number
+			//positive rational number
+			break;
+
 		case '001b':
 			$tag = 'ProcessingMethod';
 
@@ -150,11 +201,15 @@ function lookup_GPS_tag($tag) {
 		case '001d':
 			$tag = 'Datestamp';
 
-			break;                  //text string 10 bytes long
+			//text string 10 bytes long
+			break;
+
 		case '001e':
 			$tag = 'DifferentialCorrection';
 
-			break;      //integer in range 0-65535
+			//integer in range 0-65535
+			break;
+
 		default:
 			$tag = 'unknown:' . $tag;
 
@@ -220,12 +275,14 @@ function formatGPSData($type, $tag, $intel, $data) {
 		if ($type == 'SRATIONAL' && $top > 2147483647) {
 			$top = $top - 4294967296;
 		}       //this makes the number signed instead of unsigned
-		if ($tag == '0002' || $tag == '0004') { //Latitude
+		if ($tag == '0002' || $tag == '0004') {
+			//Latitude
 			$hour    = GPSRational(substr($data, 0, 16), $intel);
 			$minutes = GPSRational(substr($data, 16, 16), $intel);
 			$seconds = GPSRational(substr($data, 32, 16), $intel);
 			$data    = $hour + $minutes / 60 + $seconds / 3600;
-		} elseif ($tag == '0007') { //Time
+		} elseif ($tag == '0007') {
+			//Time
 			$hour    = GPSRational(substr($data, 0, 16), $intel);
 			$minutes = GPSRational(substr($data, 16, 16), $intel);
 			$seconds = GPSRational(substr($data, 32, 16), $intel);
@@ -254,7 +311,8 @@ function formatGPSData($type, $tag, $intel, $data) {
 			$num = intel2Moto($data);
 		}
 
-		if ($tag == '0000') { //Latitude
+		if ($tag == '0000') {
+			//Latitude
 			$data = hexdec(substr($data, 0, 2)) . '.' . hexdec(substr($data, 2, 2)) . '.' . hexdec(substr($data, 4, 2)) . '.' . hexdec(substr($data, 6, 2));
 		}
 	} else {
@@ -281,7 +339,9 @@ function parseGPS($block, &$result, $offset, $seek, $globalOffset) {
 		$intel = 0;
 	}
 
-	$v = fseek($seek, $globalOffset + $offset);  //offsets are from TIFF header which is 12 bytes from the start of the file
+	//offsets are from TIFF header which is 12 bytes from the start of the file
+	$v = fseek($seek, $globalOffset + $offset);
+
 	if ($v == -1) {
 		$result['Errors'] = $result['Errors']++;
 	}
@@ -346,7 +406,9 @@ function parseGPS($block, &$result, $offset, $seek, $globalOffset) {
 				$value = intel2Moto($value);
 			}
 
-			$v = fseek($seek, $globalOffset + hexdec($value));  //offsets are from TIFF header which is 12 bytes from the start of the file
+			//offsets are from TIFF header which is 12 bytes from the start of the file
+			$v = fseek($seek, $globalOffset + hexdec($value));
+
 			if ($v == 0 && $bytesofdata < $GLOBALS['exiferFileSize']) {
 				$data = fread($seek, $bytesofdata);
 			} else {

@@ -114,6 +114,7 @@ class BuildDerivativesTaskTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($success);
+
 		$this->assertEquals(
 			array(
 				$module->translate(

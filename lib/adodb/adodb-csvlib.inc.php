@@ -23,13 +23,13 @@ $ADODB_INCLUDED_CSV = 1;
   Format documented at http://php.weblogs.com/ADODB_CSV ==============
 */
 
-	/**
-	 * convert a recordset into special format
-	 *
-	 * @param rs    the recordset
-	 *
-	 * @return  the CSV formated data
-	 */
+/**
+ * convert a recordset into special format
+ *
+ * @param rs    the recordset
+ *
+ * @return  the CSV formated data
+ */
 function _rs2serialize(&$rs, $conn = false, $sql = '') {
 	$max = ($rs) ? $rs->FieldCount() : 0;
 
@@ -38,7 +38,8 @@ function _rs2serialize(&$rs, $conn = false, $sql = '') {
 	}
 
 	// metadata setup
-	if ($max <= 0 || $rs->dataProvider == 'empty') { // is insert/update/delete
+	if ($max <= 0 || $rs->dataProvider == 'empty') {
+		// is insert/update/delete
 		if (is_object($conn)) {
 			$sql .= ',' . $conn->Affected_Rows();
 			$sql .= ',' . $conn->Insert_ID();
@@ -73,10 +74,12 @@ function _rs2serialize(&$rs, $conn = false, $sql = '') {
 		$flds[] = $o;
 	}
 
-	$savefetch        = isset($rs->adodbFetchMode) ? $rs->adodbFetchMode : $rs->fetchMode;
-	$class            = $rs->connection->arrayClass;
-	$rs2              = new $class();
-	$rs2->timeCreated = $rs->timeCreated; // memcache fix
+	$savefetch = isset($rs->adodbFetchMode) ? $rs->adodbFetchMode : $rs->fetchMode;
+	$class     = $rs->connection->arrayClass;
+	$rs2       = new $class();
+
+	// memcache fix
+	$rs2->timeCreated = $rs->timeCreated;
 	$rs2->sql         = $rs->sql;
 	$rs2->oldProvider = $rs->dataProvider;
 

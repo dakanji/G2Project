@@ -31,3 +31,4 @@ $ADODB_LANG_ARRAY = array(
 	DB_ERROR_NOSUCHDB            => 'ليس هنالك قاعدة بيانات بهذا الاسم',
 	DB_ERROR_ACCESS_VIOLATION    => 'سماحيات غير كافية',
 );
+

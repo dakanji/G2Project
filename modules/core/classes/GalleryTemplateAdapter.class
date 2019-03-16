@@ -194,7 +194,6 @@ class GalleryTemplateAdapter {
 	 */
 	public function date($params, &$smarty) {
 		global $gallery;
-
 		static $defaultFormat;
 
 		$platform =& $gallery->getPlatform();
@@ -1302,7 +1301,6 @@ class GalleryTemplateAdapter {
 	 */
 	public function callback($params, &$smarty) {
 		global $gallery;
-
 		static $moduleStatus;
 
 		if (empty($status)) {
@@ -1319,7 +1317,6 @@ class GalleryTemplateAdapter {
 
 		if (!empty($status[$module]['active'])) {
 			GalleryCoreApi::requireOnce("modules/$module/Callbacks.inc");
-
 			$userId    = $smarty->_tpl_vars['theme']['actingUserId'];
 			$className = "${module}Callbacks";
 			$class     = new $className();
@@ -1547,6 +1544,7 @@ class GalleryTemplateAdapter {
 		}
 
 		GalleryCoreApi::addEventLogEntry('Gallery Error', $summary, $status->getAsText());
+
 		// Display an error message
 		if ($gallery->getDebug() || $isAdmin) {
 			$status = $status->getAsHtml($isAdmin);

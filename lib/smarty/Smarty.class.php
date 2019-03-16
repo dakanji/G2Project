@@ -319,8 +319,12 @@ class Smarty {
 	 * This is the resource type to be used when not specified
 	 * at the beginning of the resource path. examples:
 	 * $smarty->display('file:index.tpl');
+	 *
 	 * $smarty->display('db:index.tpl');
-	 * $smarty->display('index.tpl'); // will use default resource type
+	 *
+	 * // will use default resource type
+	 * $smarty->display('index.tpl');
+	 *
 	 *
 	 * {include file="file:index.tpl"}
 	 * {include file="db:index.tpl"}
@@ -1221,6 +1225,7 @@ class Smarty {
 						include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
 
 						$this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = smarty_core_get_microtime($_params, $this) - $_debug_start_time;
+
 						include_once SMARTY_CORE_DIR . 'core.display_debug_console.php';
 
 						$_smarty_results .= smarty_core_display_debug_console($_params, $this);
@@ -1349,6 +1354,7 @@ class Smarty {
 				include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
 
 				$this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = (smarty_core_get_microtime($_params, $this) - $_debug_start_time);
+
 				include_once SMARTY_CORE_DIR . 'core.display_debug_console.php';
 
 				echo smarty_core_display_debug_console($_params, $this);
@@ -1501,6 +1507,7 @@ class Smarty {
 			// if a _cache_serial was set, we also have to write an include-file:
 			if ($this->_cache_include_info) {
 				include_once SMARTY_CORE_DIR . 'core.write_compiled_include.php';
+
 				smarty_core_write_compiled_include(
 					array_merge(
 						$this->_cache_include_info,
@@ -1746,6 +1753,7 @@ class Smarty {
 					$_params = array(
 						'file_path' => $_fullpath,
 					);
+
 					include_once SMARTY_CORE_DIR . 'core.get_include_path.php';
 
 					if (smarty_core_get_include_path($_params, $this)) {
@@ -1961,6 +1969,7 @@ class Smarty {
 	public function _smarty_include($params) {
 		if ($this->debugging) {
 			$_params = array();
+
 			include_once SMARTY_CORE_DIR . 'core.get_microtime.php';
 
 			$debug_start_time           = smarty_core_get_microtime($_params, $this);
@@ -1989,6 +1998,7 @@ class Smarty {
 
 		// pop the local vars off the front of the stack
 		array_shift($this->_config);
+
 		$this->_inclusion_depth--;
 
 		if ($this->debugging) {

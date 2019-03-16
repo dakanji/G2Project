@@ -23,8 +23,10 @@ class ADODB2_postgres extends ADODB_DataDict {
 	public $seqPrefix    = 'SEQ_';
 	public $addCol       = ' ADD COLUMN';
 	public $quote        = '"';
-	public $renameTable  = 'ALTER TABLE %s RENAME TO %s'; // at least since 7.1
-	public $dropTable    = 'DROP TABLE %s CASCADE';
+
+	// at least since 7.1
+	public $renameTable = 'ALTER TABLE %s RENAME TO %s';
+	public $dropTable   = 'DROP TABLE %s CASCADE';
 
 	public function MetaType($t, $len = -1, $fieldobj = false) {
 		if (is_object($t)) {
@@ -219,6 +221,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 	{
 		if (!$tableflds) {
 			if ($this->debug) ADOConnection::outp("AlterColumnSQL needs a complete table-definiton for PostgreSQL");
+
 			return array();
 		}
 
@@ -400,14 +403,18 @@ class ADODB2_postgres extends ADODB_DataDict {
 
 		$copyflds = implode(', ', $copyflds);
 		$tempname = $tabname . '_tmp';
-		$aSql[]   = 'BEGIN';      // we use a transaction, to make sure not to loose the content of the table
-		$aSql[]   = "SELECT * INTO TEMPORARY TABLE $tempname FROM $tabname";
-		$aSql     = array_merge($aSql, $this->DropTableSQL($tabname));
-		$aSql     = array_merge($aSql, $this->CreateTableSQL($tabname, $tableflds, $tableoptions));
-		$aSql[]   = "INSERT INTO $tabname SELECT $copyflds FROM $tempname";
 
-		if ($seq_name && $seq_fld) {    // if we have a sequence we need to set it again
-			$seq_name = $tabname . '_' . $seq_fld . '_seq';   // has to be the name of the new implicit sequence
+		// we use a transaction, to make sure not to loose the content of the table
+		$aSql[] = 'BEGIN';
+		$aSql[] = "SELECT * INTO TEMPORARY TABLE $tempname FROM $tabname";
+		$aSql   = array_merge($aSql, $this->DropTableSQL($tabname));
+		$aSql   = array_merge($aSql, $this->CreateTableSQL($tabname, $tableflds, $tableoptions));
+		$aSql[] = "INSERT INTO $tabname SELECT $copyflds FROM $tempname";
+
+		if ($seq_name && $seq_fld) {
+			// if we have a sequence we need to set it again
+			// has to be the name of the new implicit sequence
+			$seq_name = $tabname . '_' . $seq_fld . '_seq';
 			$aSql[]   = "SELECT setval('$seq_name',MAX($seq_fld)) FROM $tabname";
 		}
 

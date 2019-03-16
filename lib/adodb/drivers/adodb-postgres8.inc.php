@@ -43,3 +43,4 @@ class ADORecordSet_postgres8 extends ADORecordSet_postgres7 {
 class ADORecordSet_assoc_postgres8 extends ADORecordSet_assoc_postgres7 {
 	public $databaseType = 'postgres8';
 }
+

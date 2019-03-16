@@ -36,7 +36,6 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testThumbnailSiteAdminControllerAddNoMime() {
 		GalleryUtilities::putRequestVariable('form[action][add]', '1');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -57,7 +56,6 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][add]', '1');
 		GalleryUtilities::putRequestVariable('form[mimeType]', 'test/fakemime');
 		GalleryUtilities::putRequestVariable('form[image]', 'new');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -93,7 +91,6 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[image]', 'new');
 		GalleryUtilities::putRequestVariable('form[name][1]', 'test.jpg');
 		GalleryUtilities::putRequestVariable('form[type][1]', 'image/jpeg');
-
 		GalleryUtilities::putRequestVariable(
 			'form[tmp_name][1]',
 			GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.jpg')
@@ -120,7 +117,6 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[mimeType]', 'test/fakemime');
 		GalleryUtilities::putRequestVariable('form[image]', 'new');
 		GalleryUtilities::putRequestVariable('form[name][1]', 'test.gif');
-
 		GalleryUtilities::putRequestVariable('form[type][1]', 'image/gif');
 		GalleryUtilities::putRequestVariable(
 			'form[tmp_name][1]',
@@ -150,7 +146,6 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[image]', 'new');
 		GalleryUtilities::putRequestVariable('form[name][1]', 'test.jpg');
 		GalleryUtilities::putRequestVariable('form[type][1]', 'image/jpeg');
-
 		GalleryUtilities::putRequestVariable(
 			'form[tmp_name][1]',
 			GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.jpg')
@@ -189,13 +184,11 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertTrue(isset($mimeMap['test/fakemime']), 'Map entry not found after add');
 
 		$itemId = $mimeMap['test/fakemime'];
-
 		GalleryUtilities::removeFormVariables('form');
 		GalleryUtilities::putRequestVariable('form[action][add]', '1');
 		GalleryUtilities::putRequestVariable('form[mimeType]', 'test/fakemime2');
 		GalleryUtilities::putRequestVariable('form[image]', 'old');
 		GalleryUtilities::putRequestVariable('form[oldimage]', $itemId);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -240,7 +233,6 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][delete]', '1');
 		GalleryUtilities::putRequestVariable('form[delete][itemId]', $itemId);
 		GalleryUtilities::putRequestVariable('form[delete][mimeType]', 'test/fakemime');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -278,7 +270,6 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::removeFormVariables('form');
 		GalleryUtilities::putRequestVariable('form[action][delete]', '1');
 		GalleryUtilities::putRequestVariable('form[delete][itemId]', $itemId);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -313,3 +304,4 @@ class ThumbnailSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertFalse(isset($toolkit), 'Toolkit should not be found');
 	}
 }
+

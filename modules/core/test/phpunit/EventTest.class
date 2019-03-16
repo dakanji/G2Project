@@ -100,9 +100,7 @@ class EventTest extends GalleryTestCase {
 	public function testPostEvent() {
 		$eventName = 'EventTest::test';
 		$listener  = new EventTestEventListener($this);
-
 		GalleryCoreApi::registerEventListener($eventName, $listener);
-
 		$event = GalleryCoreApi::newEvent($eventName);
 		$bogus = 'bogus entity';
 
@@ -122,9 +120,7 @@ class EventTest extends GalleryTestCase {
 	public function testPostEventReturnData() {
 		$eventName = 'EventTest::test2';
 		$listener  = new EventTestEventListener($this);
-
 		GalleryCoreApi::registerEventListener($eventName, $listener);
-
 		$event = GalleryCoreApi::newEvent($eventName);
 		$bogus = 'bogus entity';
 
@@ -213,6 +209,7 @@ class EventTest extends GalleryTestCase {
 		$entity = new GalleryEntity();
 
 		$event->setEntity($entity);
+
 		// Embedded entity has the new value, even if we don't get it by reference
 		$entity->setId(1000);
 
@@ -233,8 +230,9 @@ class EventTest extends GalleryTestCase {
  * @package GalleryCore
  * @subpackage PHPUnit
  */
-class EventTestEventListener // extends GalleryEventListener
-{
+
+// extends GalleryEventListener
+class EventTestEventListener {
 	public $_event;
 	public $_factory;
 
@@ -313,7 +311,6 @@ class EventTestPlatform extends GalleryPlatform {
 
 	public function is_dir($path) {
 		global $gallery;
-
 		static $ignorePath;
 
 		$ignorePath = $gallery->getConfig('data.gallery.plugins_data') . 'modules/eventtest';
@@ -366,9 +363,7 @@ class EventTestModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('eventtest');
-
 		$this->setName('Event Test Module');
-
 		$this->setDescription('Mock module');
 		$this->setVersion('1.0.0');
 		$this->setGroup('mock', 'Mock');

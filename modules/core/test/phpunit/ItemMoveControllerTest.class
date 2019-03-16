@@ -546,7 +546,6 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 			)
 		);
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

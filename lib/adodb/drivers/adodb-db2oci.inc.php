@@ -30,8 +30,10 @@ if (!defined('ADODB_DB2OCI')) {
 	global $_COLONARR,$_COLONSZ;
 
 	$v = (integer) substr($p,1);
+
 	if ($v > $_COLONSZ) return $p;
 	$_COLONARR[] = $v;
+
 	return '?';
 	}
 
@@ -43,7 +45,9 @@ if (!defined('ADODB_DB2OCI')) {
 	$_COLONARR = array();
 	$_COLONSZ = sizeof($arr);
 	$sql2 = preg_replace("/(:[0-9]+)/e","_colontrack('\\1')",$sql);
+
 	if (empty($_COLONARR)) return array($sql,$arr);
+
 	foreach($_COLONARR as $k => $v) {
 		$arr2[] = $arr[$v];
 	}

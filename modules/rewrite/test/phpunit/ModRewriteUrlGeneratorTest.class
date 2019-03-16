@@ -186,3 +186,4 @@ class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$this->assertFalse($this->_urlGenerator->_error, 'init error when embedded');
 	}
 }
+

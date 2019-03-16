@@ -81,7 +81,9 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		$this->_platform = new IsapiRewriteHelperMockPlatform();
 
 		$this->_platform->init($this);
+
 		unset($this->_fileContent);
+
 		$gallery->setPlatform($this->_platform);
 	}
 
@@ -144,6 +146,7 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 
 		$this->assertEquals(REWRITE_STATUS_OK, $code, 'success');
 		$this->assertFalse(empty($this->_fileContent), 'success fileContent');
+
 		unset($this->_fileContent);
 
 		$this->_platform->_isReadable = false;

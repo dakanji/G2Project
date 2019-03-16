@@ -231,6 +231,7 @@ class StorageSetupStep extends InstallStep {
 
 			// Before: e.g. /foo/bar/gallery2/ and /foo/bar/g2data/.
 			while (!empty($galleryPathElements) && !empty($storagePathElements) && $max-- > 0
+
 			&& $galleryPathElements[0] == $storagePathElements[0]) {
 				array_shift($storagePathElements);
 				array_shift($galleryPathElements);

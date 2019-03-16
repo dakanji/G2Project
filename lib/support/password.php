@@ -1,4 +1,5 @@
 <?php
+
 if (!defined('G2_SUPPORT')) {
 	define('G2_SUPPORT_FILE', true);
 
@@ -235,7 +236,6 @@ function validate() {
 	if (!isset($advance)) {
 		// Generate the auth string on the first visit to this view
 		$key = GallerySetupUtilities::generateAuthenticationKey();
-
 		GallerySetupUtilities::setAuthenticationKey($key);
 	}
 
@@ -303,7 +303,6 @@ if (!isset($output)) {
 
 // Deactivate G2 API Framework
 GalleryEmbed::done();
-
 ?>
 <html lang="en">
 <head>
@@ -323,6 +322,7 @@ GalleryEmbed::done();
 		</h2>
 		<div class="center">
 			<?php
+
 			if (isset($authError)) {
 				?>
 				<p class="description">
@@ -342,6 +342,7 @@ GalleryEmbed::done();
 				</blockquote>
 			</div>
 				<?php
+
 				if (isset($advance)) {
 					?>
 				<hr class="faint">
@@ -361,6 +362,7 @@ GalleryEmbed::done();
 			</blockquote>
 		</div>
 				<?php
+
 				if (isset($advance)) {
 					?>
 			<hr class="faint">
@@ -380,9 +382,11 @@ GalleryEmbed::done();
 				<form action="<?php echo basename($_SERVER['PHP_SELF']); ?>" method="POST">
 				<?php $caches = getCacheDirs(); ?>
 				<?php
+
 				foreach ($caches as $key => $info) {
 					?>
 						<?php
+
 						if (isset($info[0])) {
 							?>
 							<input type="hidden" name="target[<?php echo $key; ?>]" value=true
@@ -393,6 +397,7 @@ GalleryEmbed::done();
 				} ?>
 					<input type="hidden" name="advance" value=true><br>
 								<?php
+
 								if (isset($user_name)) {
 									?>
 						<label for="user_name">User Name</label><br><input required type="text" name="user_name" id="user_name" value=<?php echo $user_name; ?>><br>
@@ -403,6 +408,7 @@ GalleryEmbed::done();
 									<?php
 								} ?>
 					<?php
+
 					if (isset($new_password_string)) {
 						?>
 						<label for="new_password">New Password</label><br><input required type="password" name="new_password" id="new_password" value=<?php echo $new_password_string; ?>><br>
@@ -419,9 +425,11 @@ GalleryEmbed::done();
 				<form action="<?php echo basename($_SERVER['PHP_SELF']); ?>" onSubmit="return confirm('Reset admin username and password?');" method="POST">
 								<?php $caches = getCacheDirs(); ?>
 								<?php
+
 								foreach ($caches as $key => $info) {
 									?>
 									<?php
+
 									if (isset($info[0])) {
 										?>
 							<input type="hidden" name="target[<?php echo $key; ?>]" value=true
@@ -451,16 +459,19 @@ GalleryEmbed::done();
 
 			?>
 <?php
+
 if (isset($output)) {
-				?>
+	?>
 	<hr class="faint">
 	<?php echo $output; ?>
 	<?php
+
 	if (!empty($status)) {
 		?>
 		<hr class="faint">
 		<div class="warning">
 			<?php
+
 			foreach ($status as $line) {
 				?>
 				<pre class="<?php echo $line[0]; ?>"><?php echo $line[1]; ?></pre>
@@ -468,6 +479,7 @@ if (isset($output)) {
 			} ?>
 		</div>
 		<?php
+
 		if (isset($captcha)) {
 			?>
 			<hr class="faint">
@@ -480,7 +492,7 @@ if (isset($output)) {
 		<?php
 	} ?>
 	<?php
-			}
+}
 
 ?>
 </div>

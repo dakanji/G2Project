@@ -93,7 +93,6 @@ class ThumbOffsetItemEditPluginTest extends ItemEditPluginTestCase {
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
-
 		$preferred = null;
 		$results   = $this->handleRequest($this->_item, $preferred);
 
@@ -103,7 +102,6 @@ class ThumbOffsetItemEditPluginTest extends ItemEditPluginTestCase {
 	public function testSave() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[offset]', '4.8');
-
 		$preferred = null;
 		$results   = $this->handleRequest($this->_item, $preferred);
 		$this->assertEquals(
@@ -126,7 +124,6 @@ class ThumbOffsetItemEditPluginTest extends ItemEditPluginTestCase {
 
 		// Set back to zero, which removes select-offset operation..
 		GalleryUtilities::putRequestVariable('form[offset]', '0');
-
 		$results = $this->handleRequest($this->_item, $preferred);
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
@@ -150,7 +147,6 @@ class ThumbOffsetItemEditPluginTest extends ItemEditPluginTestCase {
 	public function testSaveBadOffset() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[offset]', '40');
-
 		$preferred = null;
 		$results   = $this->handleRequest($this->_item, $preferred);
 
@@ -182,3 +178,4 @@ class ThumbOffsetTestToolkit extends GalleryToolkit {
 		return array(null, array(320, 240, 32));
 	}
 }
+

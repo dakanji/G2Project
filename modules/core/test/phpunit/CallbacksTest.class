@@ -415,3 +415,4 @@ class CallbacksTest extends GalleryTestCase {
 		$this->assertTrue(is_array($this->_smarty->_tpl_vars['block']['core']['ValidationPlugins']));
 	}
 }
+

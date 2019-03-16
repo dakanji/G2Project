@@ -19,7 +19,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 require_once __DIR__ . '/../../../modules/core/classes/GalleryView.class';
+
 require_once __DIR__ . '/../../../modules/core/classes/GalleryController.class';
+
 require_once __DIR__ . '/../../../modules/core/ItemAdd.inc';
 
 /**
@@ -76,6 +78,7 @@ class ItemAddOptionTestCase extends GalleryTestCase {
 		} else {
 			// Check to make sure we got back everything we want
 			$this->assertTrue(isset($errors) && is_array($errors), 'option error results missing');
+
 			// Check to make sure we got back everything we want
 			$this->assertTrue(
 				isset($warnings) && is_array($warnings),

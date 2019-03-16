@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Util;
-
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Intl\Exception\RuntimeException;
 
@@ -40,9 +38,7 @@ final class GitRepository
     public static function download($remote, $targetDir)
     {
         self::exec('which git', 'The command "git" is not installed.');
-
         $filesystem = new Filesystem();
-
         if (!$filesystem->exists($targetDir.'/.git')) {
             $filesystem->remove($targetDir);
             $filesystem->mkdir($targetDir);
@@ -81,7 +77,6 @@ final class GitRepository
     public function getLastTag(callable $filter = null)
     {
         $tags = $this->execInPath('git tag -l --sort=v:refname');
-
         if (null !== $filter) {
             $tags = array_filter($tags, $filter);
         }
@@ -102,7 +97,6 @@ final class GitRepository
     private static function exec($command, $customErrorMessage = null)
     {
         exec(sprintf('%s 2>&1', $command), $output, $result);
-
         if (0 !== $result) {
             throw new RuntimeException(null !== $customErrorMessage ? $customErrorMessage : sprintf('The `%s` command failed.', $command));
         }
@@ -115,3 +109,4 @@ final class GitRepository
         return array_pop($output);
     }
 }
+

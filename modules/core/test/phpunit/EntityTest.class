@@ -128,7 +128,6 @@ class EntityTest extends GalleryTestCase {
 		if (GalleryDataCache::isFileCachingEnabled()) {
 			// Load back from disk cache and verify it
 			GalleryDataCache::reset();
-
 			$data =& GalleryDataCache::getFromDisk(
 				array(
 					'type'   => 'entity',
@@ -185,31 +184,18 @@ class EntityTest extends GalleryTestCase {
 		}
 
 		$entity->removeOnLoadHandler('NotThere');
-
 		$this->assertEquals(null, $entity->getOnLoadHandlers(), 1);
-
 		$this->assertFalse($entity->hasOnLoadHandler('NotThere'), 2);
-
 		$entity->addOnLoadHandler('EntityTestOnLoadHandler');
-
 		$this->assertEquals('|EntityTestOnLoadHandler|', $entity->getOnLoadHandlers(), 3);
-
 		$this->assertTrue($entity->hasOnLoadHandler('EntityTestOnLoadHandler'), 4);
-
 		$entity->removeOnLoadHandler('EntityTestOnLoadHandler');
-
 		$this->assertEquals(null, $entity->getOnLoadHandlers(), 5);
-
 		$this->assertFalse($entity->hasOnLoadHandler('EntityTestOnLoadHandler'), 6);
-
 		$entity->addOnLoadHandler('OneTest');
-
 		$entity->addOnLoadHandler('EntityTestOnLoadHandler');
-
 		$this->assertEquals('|OneTest|EntityTestOnLoadHandler|', $entity->getOnLoadHandlers(), 7);
-
 		$this->assertTrue($entity->hasOnLoadHandler('OneTest'), 8);
-
 		$this->assertFalse($entity->hasOnLoadHandler('OneTesto'), 9);
 		$this->assertFalse($entity->hasOnLoadHandler('aOneTest'), 10);
 		$this->assertTrue($entity->hasOnLoadHandler('EntityTestOnLoadHandler'), 11);
@@ -241,9 +227,9 @@ class EntityTest extends GalleryTestCase {
 			$newEntity->getLinkedEntity(),
 			'handler not called'
 		);
+
 		// During upgrades the session has 'isUpgrade' key
 		GalleryDataCache::reset();
-
 		unset($newEntity);
 
 		$session->put('isUpgrade', true);
@@ -306,7 +292,6 @@ class EntityTest extends GalleryTestCase {
 		 * different
 		 */
 		$entity->resetOriginalValues();
-
 		$this->assertFalse($entity->isModified(), 'not yet modified');
 		$entity->setIsLinkable(true);
 		$entity->setIsLinkable(false);
@@ -331,7 +316,6 @@ class EntityTest extends GalleryTestCase {
 	public function testEmptyVsNull() {
 		// Ensure we can save and reset empty string without triggering modified flag
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
-
 		$entity = new GalleryEntity();
 
 		$ret = $entity->create();
@@ -363,10 +347,8 @@ class EntityTest extends GalleryTestCase {
 
 	public function testSaveWithoutEvent() {
 		$listener = new EntityTestEventListener($this);
-
 		GalleryCoreApi::registerEventListener('GalleryEntity::save', $listener);
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
-
 		$entity = new GalleryEntity();
 
 		$ret = $entity->create();

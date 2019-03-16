@@ -8,12 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Intl\Locale;
-
 class LocaleTest extends TestCase
 {
     public function provideGetFallbackTests()
@@ -47,3 +44,4 @@ class LocaleTest extends TestCase
         $this->assertSame($expected, Locale::getFallback($locale));
     }
 }
+

@@ -471,7 +471,6 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 class SizeLimitOptionTestPlatform extends GalleryPlatform {
 	public function __construct($originalPlatform) {
 		$this->_savedPlatform = $originalPlatform;
-
 		GalleryUtilities::putRequestVariable('resizePerformed', false);
 		GalleryUtilities::putRequestVariable('compressPerformed', false);
 	}
@@ -567,7 +566,6 @@ class SizeLimitOptionTestToolkit extends GalleryToolkit {
 		}
 
 		$operations[] = $operationName;
-
 		GalleryUtilities::putRequestVariable('operation', $operations);
 
 		return array(null, $mimeType, $context);

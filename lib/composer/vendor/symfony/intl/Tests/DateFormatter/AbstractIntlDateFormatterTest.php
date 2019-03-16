@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\DateFormatter;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Intl\DateFormatter\IntlDateFormatter;
 use Symfony\Component\Intl\Globals\IntlGlobals;
@@ -39,7 +37,6 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
         $formatter = $this->getDateFormatter('en', IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT);
 
         $this->assertEquals(date_default_timezone_get(), $formatter->getTimeZoneId());
-
         $this->assertEquals(
             $this->getDateTime(0, $formatter->getTimeZoneId())->format('M j, Y, g:i A'),
             $formatter->format(0)
@@ -67,8 +64,8 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     {
         $errorCode = IntlGlobals::U_ZERO_ERROR;
         $errorMessage = 'U_ZERO_ERROR';
-
         $formatter = $this->getDefaultDateFormatter($pattern);
+
         $this->assertSame($expected, $formatter->format($timestamp));
         $this->assertIsIntlSuccess($formatter, $errorMessage, $errorCode);
     }
@@ -76,8 +73,8 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     public function formatProvider()
     {
         $dateTime = new \DateTime('@0');
-
         $formatData = array(
+
             /* general */
             array('y-M-d', 0, '1970-1-1'),
             array("EEE, MMM d, ''yy", 0, "Thu, Jan 1, '70"),
@@ -99,7 +96,6 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
             array('MMMM', 0, 'January'),
             array('MMMMM', 0, 'J'),
             array('MMMMMM', 0, '000001'),
-
             array('L', 0, '1'),
             array('LL', 0, '01'),
             array('LLL', 0, 'Jan'),
@@ -126,7 +122,6 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
             array('QQQ', 0, 'Q1'),
             array('QQQQ', 0, '1st quarter'),
             array('QQQQQ', 0, '1st quarter'),
-
             array('q', 0, '1'),
             array('qq', 0, '01'),
             array('qqq', 0, 'Q1'),
@@ -149,17 +144,14 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
             array('h', 0, '12'),
             array('hh', 0, '12'),
             array('hhh', 0, '012'),
-
             array('h', 1, '12'),
             array('h', 3600, '1'),
             array('h', 43200, '12'), // 12 hours
-
             /* day of year */
             array('D', 0, '1'),
             array('D', 86400, '2'), // 1 day
             array('D', 31536000, '1'), // 1 year
             array('D', 31622400, '2'), // 1 year + 1 day
-
             /* day of week */
             array('E', 0, 'Thu'),
             array('EE', 0, 'Thu'),
@@ -167,10 +159,8 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
             array('EEEE', 0, 'Thursday'),
             array('EEEEE', 0, 'T'),
             array('EEEEEE', 0, 'Th'),
-
             array('E', 1296540000, 'Tue'), // 2011-02-01
             array('E', 1296950400, 'Sun'), // 2011-02-06
-
             /* am/pm marker */
             array('a', 0, 'AM'),
             array('aa', 0, 'AM'),
@@ -187,7 +177,6 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
             array('H', 0, '0'),
             array('HH', 0, '00'),
             array('HHH', 0, '000'),
-
             array('H', 1, '0'),
             array('H', 3600, '1'),
             array('H', 43200, '12'),
@@ -197,7 +186,6 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
             array('k', 0, '24'),
             array('kk', 0, '24'),
             array('kkk', 0, '024'),
-
             array('k', 1, '24'),
             array('k', 3600, '1'),
             array('k', 43200, '12'),
@@ -207,16 +195,13 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
             array('K', 0, '0'),
             array('KK', 0, '00'),
             array('KKK', 0, '000'),
-
             array('K', 1, '0'),
             array('K', 3600, '1'),
             array('K', 43200, '0'), // 12 hours
-
             /* minute */
             array('m', 0, '0'),
             array('mm', 0, '00'),
             array('mmm', 0, '000'),
-
             array('m', 1, '0'),
             array('m', 60, '1'),
             array('m', 120, '2'),
@@ -224,12 +209,10 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
             array('m', 3600, '0'),
             array('m', 3660, '1'),
             array('m', 43200, '0'), // 12 hours
-
             /* second */
             array('s', 0, '0'),
             array('ss', 0, '00'),
             array('sss', 0, '000'),
-
             array('s', 1, '1'),
             array('s', 2, '2'),
             array('s', 5, '5'),
@@ -249,7 +232,6 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
         $formatData[] = array("EEE, MMM d, ''yy", $dateTime, "Thu, Jan 1, '70");
         $formatData[] = array('h:mm a', $dateTime, '12:00 AM');
         $formatData[] = array('yyyyy.MMMM.dd hh:mm aaa', $dateTime, '01970.January.01 12:00 AM');
-
         if (IcuVersion::compare(Intl::getIcuVersion(), '59.1', '>=', 1)) {
             // Before ICU 59.1 GMT was used instead of UTC
             $formatData[] = array("yyyy.MM.dd 'at' HH:mm:ss zzz", 0, '1970.01.01 at 00:00:00 UTC');
@@ -280,8 +262,8 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     public function testFormatIllegalArgumentError($pattern, $timestamp, $errorMessage)
     {
         $errorCode = IntlGlobals::U_ILLEGAL_ARGUMENT_ERROR;
-
         $formatter = $this->getDefaultDateFormatter($pattern);
+
         $this->assertFalse($formatter->format($timestamp));
         $this->assertIsIntlFailure($formatter, $errorMessage, $errorCode);
     }
@@ -300,6 +282,7 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     {
         $pattern = 'yyyy-MM-dd HH:mm:ss';
         $formatter = $this->getDateFormatter('en', IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT, $timezone, IntlDateFormatter::GREGORIAN, $pattern);
+
         $this->assertSame($expected, $formatter->format($timestamp));
     }
 
@@ -341,8 +324,8 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     public function testFormatTimezone($pattern, $timezone, $expected)
     {
         $formatter = $this->getDefaultDateFormatter($pattern);
-        $formatter->setTimeZone(new \DateTimeZone($timezone));
 
+        $formatter->setTimeZone(new \DateTimeZone($timezone));
         $this->assertEquals($expected, $formatter->format(0));
     }
 
@@ -354,31 +337,26 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
             array('zzz', 'GMT', 'GMT'),
             array('zzzz', 'GMT', 'Greenwich Mean Time'),
             array('zzzzz', 'GMT', 'Greenwich Mean Time'),
-
             array('z', 'Etc/GMT', 'GMT'),
             array('zz', 'Etc/GMT', 'GMT'),
             array('zzz', 'Etc/GMT', 'GMT'),
             array('zzzz', 'Etc/GMT', 'Greenwich Mean Time'),
             array('zzzzz', 'Etc/GMT', 'Greenwich Mean Time'),
-
             array('z', 'Etc/GMT+3', 'GMT-3'),
             array('zz', 'Etc/GMT+3', 'GMT-3'),
             array('zzz', 'Etc/GMT+3', 'GMT-3'),
             array('zzzz', 'Etc/GMT+3', 'GMT-03:00'),
             array('zzzzz', 'Etc/GMT+3', 'GMT-03:00'),
-
             array('z', 'UTC', 'UTC'),
             array('zz', 'UTC', 'UTC'),
             array('zzz', 'UTC', 'UTC'),
             array('zzzz', 'UTC', 'Coordinated Universal Time'),
             array('zzzzz', 'UTC', 'Coordinated Universal Time'),
-
             array('z', 'Etc/UTC', 'UTC'),
             array('zz', 'Etc/UTC', 'UTC'),
             array('zzz', 'Etc/UTC', 'UTC'),
             array('zzzz', 'Etc/UTC', 'Coordinated Universal Time'),
             array('zzzzz', 'Etc/UTC', 'Coordinated Universal Time'),
-
             array('z', 'Etc/Universal', 'UTC'),
             array('z', 'Etc/Zulu', 'UTC'),
             array('z', 'Etc/UCT', 'UTC'),
@@ -408,7 +386,6 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
         $formatter = $this->getDefaultDateFormatter('zzzz');
 
         $formatter->setTimeZone('GMT+03:00');
-
         $this->assertEquals('GMT+03:00', $formatter->format(0));
     }
 
@@ -417,7 +394,6 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
         $formatter = $this->getDefaultDateFormatter('zzzz');
 
         $formatter->setTimeZone('GMT+00:30');
-
         $this->assertEquals('GMT+00:30', $formatter->format(0));
     }
 
@@ -426,15 +402,14 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
         $formatter = $this->getDefaultDateFormatter('zzzz');
 
         $formatter->setTimeZone('Pacific/Fiji');
-
         $this->assertEquals('Fiji Standard Time', $formatter->format(0));
     }
 
     public function testFormatWithConstructorTimezone()
     {
         $formatter = $this->getDateFormatter('en', IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT, 'UTC');
-        $formatter->setPattern('yyyy-MM-dd HH:mm:ss');
 
+        $formatter->setPattern('yyyy-MM-dd HH:mm:ss');
         $this->assertEquals(
             $this->getDateTime(0, 'UTC')->format('Y-m-d H:i:s'),
             $formatter->format(0)
@@ -477,15 +452,13 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     {
         $tz = date_default_timezone_get();
         date_default_timezone_set('Europe/London');
-
         $formatter = $this->getDateFormatter('en', IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT);
-        $formatter->setPattern('yyyy-MM-dd HH:mm:ss');
 
+        $formatter->setPattern('yyyy-MM-dd HH:mm:ss');
         $this->assertEquals(
             $this->getDateTime(0, 'Europe/London')->format('Y-m-d H:i:s'),
             $formatter->format(0)
         );
-
         $this->assertEquals('Europe/London', date_default_timezone_get());
 
         // Restores TZ.
@@ -498,6 +471,7 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     public function testDateAndTimeType($timestamp, $datetype, $timetype, $expected)
     {
         $formatter = $this->getDateFormatter('en', $datetype, $timetype, 'UTC');
+
         $this->assertSame($expected, $formatter->format($timestamp));
     }
 
@@ -518,30 +492,35 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     public function testGetCalendar()
     {
         $formatter = $this->getDefaultDateFormatter();
+
         $this->assertEquals(IntlDateFormatter::GREGORIAN, $formatter->getCalendar());
     }
 
     public function testGetDateType()
     {
         $formatter = $this->getDateFormatter('en', IntlDateFormatter::FULL, IntlDateFormatter::NONE);
+
         $this->assertEquals(IntlDateFormatter::FULL, $formatter->getDateType());
     }
 
     public function testGetLocale()
     {
         $formatter = $this->getDefaultDateFormatter();
+
         $this->assertEquals('en', $formatter->getLocale());
     }
 
     public function testGetPattern()
     {
         $formatter = $this->getDateFormatter('en', IntlDateFormatter::FULL, IntlDateFormatter::NONE, 'UTC', IntlDateFormatter::GREGORIAN, 'yyyy-MM-dd');
+
         $this->assertEquals('yyyy-MM-dd', $formatter->getPattern());
     }
 
     public function testGetTimeType()
     {
         $formatter = $this->getDateFormatter('en', IntlDateFormatter::NONE, IntlDateFormatter::FULL);
+
         $this->assertEquals(IntlDateFormatter::FULL, $formatter->getTimeType());
     }
 
@@ -552,8 +531,8 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     {
         $errorCode = IntlGlobals::U_ZERO_ERROR;
         $errorMessage = 'U_ZERO_ERROR';
-
         $formatter = $this->getDefaultDateFormatter($pattern);
+
         $this->assertSame($expected, $formatter->parse($value));
         $this->assertIsIntlSuccess($formatter, $errorMessage, $errorCode);
     }
@@ -599,13 +578,11 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
             array('QQQ', 'Q1', 0),
             array('QQQQ', '1st quarter', 0),
             array('QQQQQ', '1st quarter', 0),
-
             array('Q', '2', 7776000),
             array('QQ', '02', 7776000),
             array('QQQ', 'Q2', 7776000),
             array('QQQQ', '2nd quarter', 7776000),
             array('QQQQQ', '2nd quarter', 7776000),
-
             array('q', '1', 0),
             array('qq', '01', 0),
             array('qqq', 'Q1', 0),
@@ -664,6 +641,7 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     public function parseHour12ClockOneBasedProvider()
     {
         return array(
+
             // 12 hours (1-12)
             array('y-M-d h', '1970-1-1 1', 3600),
             array('y-M-d h', '1970-1-1 10', 36000),
@@ -689,6 +667,7 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     public function parseHour12ClockZeroBasedProvider()
     {
         return array(
+
             // 12 hours (0-11)
             array('y-M-d K', '1970-1-1 1', 3600),
             array('y-M-d K', '1970-1-1 10', 36000),
@@ -714,6 +693,7 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     public function parseHour24ClockOneBasedProvider()
     {
         return array(
+
             // 24 hours (1-24)
             array('y-M-d k', '1970-1-1 1', 3600),
             array('y-M-d k', '1970-1-1 10', 36000),
@@ -741,6 +721,7 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     public function parseHour24ClockZeroBasedProvider()
     {
         return array(
+
             // 24 hours (0-23)
             array('y-M-d H', '1970-1-1 0', 0),
             array('y-M-d H', '1970-1-1 1', 3600),
@@ -800,6 +781,7 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     public function parseAmPmProvider()
     {
         return array(
+
             // AM/PM (already covered by hours tests)
             array('y-M-d HH:mm:ss a', '1970-1-1 00:00:00 AM', 0),
             array('y-M-d HH:mm:ss a', '1970-1-1 00:00:00 PM', 43200),
@@ -817,6 +799,7 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     public function parseRegexMetaCharsProvider()
     {
         return array(
+
             // regexp meta chars in the pattern string
             array('y[M-d', '1970[1-1', 0),
             array('y[M/d', '1970[1/1', 0),
@@ -851,8 +834,8 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     {
         $errorCode = IntlGlobals::U_PARSE_ERROR;
         $errorMessage = 'Date parsing failed: U_PARSE_ERROR';
-
         $formatter = $this->getDefaultDateFormatter($pattern);
+
         $this->assertFalse($formatter->parse($value));
         $this->assertIsIntlFailure($formatter, $errorMessage, $errorCode);
     }
@@ -860,6 +843,7 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     public function parseErrorProvider()
     {
         return array(
+
             // 1 char month
             array('y-MMMMM-d', '1970-J-1'),
             array('y-MMMMM-d', '1970-S-1'),
@@ -883,7 +867,9 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     {
         $position = null;
         $formatter = $this->getDefaultDateFormatter('y');
+
         $this->assertSame(0, $formatter->parse('1970', $position));
+
         // Since $position is not supported by the Symfony implementation, the following won't work.
         // The intl implementation works this way since 60.2.
         // $this->assertSame(4, $position);
@@ -892,6 +878,7 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     public function testSetPattern()
     {
         $formatter = $this->getDefaultDateFormatter();
+
         $formatter->setPattern('yyyy-MM-dd');
         $this->assertEquals('yyyy-MM-dd', $formatter->getPattern());
     }
@@ -904,7 +891,6 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
         $formatter = $this->getDefaultDateFormatter();
 
         $formatter->setTimeZone($timeZoneId);
-
         $this->assertEquals($expectedTimeZoneId, $formatter->getTimeZoneId());
     }
 
@@ -931,6 +917,7 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     {
         $dateTime = new \DateTime();
         $dateTime->setTimestamp(null === $timestamp ? time() : $timestamp);
+
         $dateTime->setTimezone(new \DateTimeZone($timeZone ?: getenv('TZ') ?: 'UTC'));
 
         return $dateTime;
@@ -949,6 +936,7 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
     protected function assertIsIntlSuccess($formatter, $errorMessage, $errorCode)
     {
         /* @var IntlDateFormatter $formatter */
+
         $this->assertSame($errorMessage, $this->getIntlErrorMessage());
         $this->assertSame($errorCode, $this->getIntlErrorCode());
         $this->assertFalse($this->isIntlFailure($this->getIntlErrorCode()));
@@ -986,3 +974,4 @@ abstract class AbstractIntlDateFormatterTest extends TestCase
      */
     abstract protected function isIntlFailure($errorCode);
 }
+

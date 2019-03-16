@@ -64,11 +64,9 @@ function GalleryInitFirstPass($params = array()) {
 
 	if (!strncasecmp(PHP_OS, 'win', 3)) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
-
 		$platform = new WinNtPlatform();
 	} else {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/UnixPlatform.class');
-
 		$platform = new UnixPlatform();
 	}
 
@@ -100,20 +98,11 @@ function GalleryInitFirstPass($params = array()) {
 
 	// Set our various data paths
 	$gallery->setConfig('data.gallery.cache', $dataBase . 'cache' . $slash);
-
 	$gallery->setConfig('data.gallery.albums', $dataBase . 'albums' . $slash);
-
 	$gallery->setConfig('data.gallery.locks', $dataBase . 'locks' . $slash);
-
 	$gallery->setConfig('data.gallery.tmp', $dataBase . 'tmp' . $slash);
-
 	$gallery->setConfig('data.smarty.base', $dataBase . 'smarty' . $slash);
-
-	$gallery->setConfig(
-		'data.smarty.templates_c',
-		$dataBase . 'smarty' . $slash . 'templates_c' . $slash
-	);
-
+	$gallery->setConfig('data.smarty.templates_c', $dataBase . 'smarty' . $slash . 'templates_c' . $slash);
 	$gallery->setConfig('data.gallery.plugins', $galleryBase . 'plugins' . $slash);
 	$gallery->setConfig('data.gallery.plugins_data', $dataBase . 'plugins_data' . $slash);
 	$gallery->setConfig('data.gallery.version', $dataBase . 'versions.dat');
@@ -136,7 +125,6 @@ function GalleryInitFirstPass($params = array()) {
 
 	if (!isset($urlGenerator)) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryUrlGenerator.class');
-
 		$urlGenerator = new GalleryUrlGenerator();
 	}
 
@@ -173,12 +161,8 @@ function GalleryInitFirstPass($params = array()) {
 
 	if (version_compare(phpversion(), '5.0') < 0 && !isset($params['noDatabase'])) {
 		/*
-		 * PHP5 requires static methods to be marked static, or it generates an error.  PHP4 cannot
-		 * parse that syntax, so we cannot modify the code.  So since setting an error handler for
-		 * PHP5 results in a measurable performance hit, we only set it for PHP4.
-		 *
-		 * The error handler relies on a database connection and a session, so don't set it before
-		 * they're initialized.
+		 * The error handler relies on a database connection and a session
+		 * So do not set it before they are initialized.
 		 */
 		set_error_handler('GalleryPhpErrorHandler');
 		$GLOBALS['gallerySetErrorHandler'] = true;

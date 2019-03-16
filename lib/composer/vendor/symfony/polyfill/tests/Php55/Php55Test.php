@@ -8,12 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Polyfill\Tests\Php55;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Polyfill\Php55\Php55 as p;
-
 class Php55Test extends TestCase
 {
     /**
@@ -51,3 +48,4 @@ class Php55Test extends TestCase
         return $values;
     }
 }
+

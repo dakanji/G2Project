@@ -109,7 +109,6 @@ class ModRewriteUrlGenerator extends RewriteUrlGenerator {
 
 			if (!empty($queryString)) {
 				GalleryUtilities::unsanitizeInputValues($queryString, false);
-
 				$tmp .= ((strpos($tmp, '?') === false) ? '?' : '&') . $queryString;
 			}
 

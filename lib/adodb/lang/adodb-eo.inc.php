@@ -32,3 +32,4 @@ $ADODB_LANG_ARRAY = array(
 	DB_ERROR_NOSUCHDB            => 'datumbazo ne ekzistas',
 	DB_ERROR_ACCESS_VIOLATION    => 'ne sufiĉe da rajto por atingo',
 );
+

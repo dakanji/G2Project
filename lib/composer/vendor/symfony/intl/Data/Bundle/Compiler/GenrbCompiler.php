@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Bundle\Compiler;
-
 use Symfony\Component\Intl\Exception\RuntimeException;
 
 /**
@@ -35,7 +33,6 @@ class GenrbCompiler implements BundleCompilerInterface
     public function __construct($genrb = 'genrb', $envVars = '')
     {
         exec('which '.$genrb, $output, $status);
-
         if (0 !== $status) {
             throw new RuntimeException(sprintf('The command "%s" is not installed', $genrb));
         }
@@ -59,3 +56,4 @@ class GenrbCompiler implements BundleCompilerInterface
         }
     }
 }
+

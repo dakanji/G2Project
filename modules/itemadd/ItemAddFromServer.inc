@@ -88,7 +88,6 @@ class ItemAddFromServer extends ItemAddPlugin {
 			 * the filesystem needs the path in the system charset
 			 */
 			$dir = GalleryCoreApi::convertFromUtf8($form['localServerPath']);
-
 			GalleryUtilities::unsanitizeInputValues($dir, false);
 
 			// We need the localServerDirList only in the system charset
@@ -138,6 +137,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 					if (++$i % 200 == 0) {
 						$gallery->guaranteeTimeLimit(30);
+
 						// Inaccurate, but giving the impression of progress
 						$this->_templateAdapter->updateProgressBar(
 							$this->_fileCountMessage,
@@ -161,6 +161,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 				foreach ($form['localServerDirectories'] as $directory => $data) {
 					if (++$i % 200 == 0) {
 						$gallery->guaranteeTimeLimit(30);
+
 						// Inaccurate, but giving the impression of progress
 						$this->_templateAdapter->updateProgressBar(
 							$this->_fileCountMessage,
@@ -319,7 +320,8 @@ class ItemAddFromServer extends ItemAddPlugin {
 						return array($ret, null, null);
 					}
 
-					$this->_addedItems++; // Increment either way
+					// Increment either way
+					$this->_addedItems++;
 
 					if ($this->_addedItems % $this->_progressBatch == 0) {
 						$gallery->guaranteeTimeLimit(30);
@@ -389,9 +391,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 		}
 
 		$base = GalleryCoreApi::convertToUtf8($base);
-
 		GalleryUtilities::sanitizeInputValues($base);
-
 		$title       = ($textFields['title']) ? $base : '';
 		$summary     = ($textFields['summary']) ? $base : '';
 		$description = ($textFields['description']) ? $base : '';
@@ -412,9 +412,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 		}
 
 		$safeFilename = GalleryCoreApi::convertToUtf8($fileName);
-
 		GalleryUtilities::sanitizeInputValues($safeFilename);
-
 		$status['addedFiles'][] = array(
 			'fileName' => $safeFilename,
 			'id'       => $newItem->getId(),
@@ -446,9 +444,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 		// Create new Album
 		$dirName     = basename($path);
 		$dirNameUtf8 = GalleryCoreApi::convertToUtf8($dirName);
-
 		GalleryUtilities::sanitizeInputValues($dirNameUtf8);
-
 		$dirTitle       = $textFields['title'] ? $dirNameUtf8 : null;
 		$dirSummary     = $textFields['summary'] ? $dirNameUtf8 : null;
 		$dirDescription = $textFields['description'] ? $dirNameUtf8 : null;
@@ -666,6 +662,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 		while (($fileName = $this->_platform->readdir($handle)) !== false) {
 			if (++$progressCount % 200 == 0) {
 				$gallery->guaranteeTimeLimit(30);
+
 				// Inaccurate, but giving the impression of progress
 				$this->_templateAdapter->updateProgressBar(
 					$this->_fileCountMessage,
@@ -765,9 +762,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 			 * $form['localServerPath'] is UTF-8, $localServerPath is in the system charset
 			 */
 			$localServerPath = GalleryCoreApi::convertFromUtf8($localServerPath);
-
 			GalleryUtilities::unsanitizeInputValues($localServerPath, false);
-
 			$localServerPath         = $platform->realpath($localServerPath);
 			$form['localServerPath'] = GalleryCoreApi::convertToUtf8($localServerPath);
 

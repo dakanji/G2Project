@@ -90,7 +90,6 @@ class CustomThumbnailOption extends ItemEditOption {
 	 */
 	public function handleRequestAfterEdit($form, &$item, &$preferred) {
 		GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
-
 		$error = $warning = array();
 
 		if (!empty($form['tmp_name'][1])) {

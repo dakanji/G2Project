@@ -106,20 +106,20 @@ class GalleryItemHelper_simple {
 
 			$query = sprintf(
 				'
-	    SELECT
-	      [GalleryChildEntity::parentId],
-	      COUNT([GalleryChildEntity::id])
-	    FROM
-	      [GalleryChildEntity], [GalleryAccessSubscriberMap]
-	    WHERE
-	      [GalleryChildEntity::parentId] IN (%s)
-	      AND
-	      [GalleryAccessSubscriberMap::itemId] = [GalleryChildEntity::id]
-	      AND
-	      [GalleryAccessSubscriberMap::accessListId] IN (%s)
-	    GROUP BY
-	      [GalleryChildEntity::parentId]
-	    ',
+				SELECT
+					[GalleryChildEntity::parentId],
+					count([GalleryChildEntity::id])
+				FROM
+					GalleryChildEntity],
+					[GalleryAccessSubscriberMap]
+				WHERE
+					[GalleryChildEntity::parentId] in (%s)
+				AND
+					[GalleryAccessSubscriberMap::itemId] = [GalleryChildEntity::id]
+				AND
+					[GalleryAccessSubscriberMap::accessListId] in (%s)
+				GROUP BY 
+					[GalleryChildEntity::parentId]',
 				$parentIdMarkers,
 				$aclMarkers
 			);
@@ -286,24 +286,21 @@ class GalleryItemHelper_simple {
 
 		$query = sprintf(
 			'
-	SELECT
-	  [GalleryItemAttributesMap=1::itemId],
-	  COUNT([GalleryItemAttributesMap=2::itemId])
-	FROM
-	  [GalleryItemAttributesMap=1],
-	  [GalleryItemAttributesMap=2],
-	  [GalleryAccessSubscriberMap]
-	WHERE
-	  [GalleryItemAttributesMap=1::itemId] IN (%s)
-	  AND
-	  %s
-	  AND
-	  [GalleryItemAttributesMap=2::itemId] = [GalleryAccessSubscriberMap::itemId]
-	  AND
-	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
-	GROUP BY
-	  [GalleryItemAttributesMap=1::itemId]
-	',
+			SELECT
+				[GalleryItemAttributesMap=1::itemId],
+				count([GalleryItemAttributesMap=2::itemId])
+			FROM
+				[GalleryItemAttributesMap=1],
+				[GalleryItemAttributesMap=2],
+				[GalleryAccessSubscriberMap]
+			WHERE
+				[GalleryItemAttributesMap=1::itemId] in (%s) and %s
+			AND
+				[GalleryItemAttributesMap=2::itemId] = [GalleryAccessSubscriberMap::itemId]
+			AND
+				[GalleryAccessSubscriberMap::accessListId] in (%s)
+			GROUP BY
+				[GalleryItemAttributesMap=1::itemId]',
 			$itemMarkers,
 			$like,
 			$aclMarkers
@@ -362,19 +359,20 @@ class GalleryItemHelper_simple {
 
 				$query = sprintf(
 					'
-		SELECT
-		  COUNT([GalleryItem::id])
-		FROM
-		  [GalleryEntity], [GalleryItem], [GalleryAccessSubscriberMap]
-		WHERE
-		  [GalleryEntity::entityType] = ?
-		  AND
-		  [GalleryItem::id] = [GalleryEntity::id]
-		  AND
-		  [GalleryAccessSubscriberMap::itemId] = [GalleryEntity::id]
-		  AND
-		  [GalleryAccessSubscriberMap::accessListId] IN (%s)
-		',
+					SELECT
+						count([GalleryItem::id])
+					FROM
+						GalleryEntity],
+						[GalleryItem],
+						[GalleryAccessSubscriberMap]
+					WHERE
+						[GalleryEntity::entityType] = ?
+					AND
+						[GalleryItem::id] = [GalleryEntity::id]
+					AND
+						[GalleryAccessSubscriberMap::itemId] = [GalleryEntity::id]
+					AND
+						[GalleryAccessSubscriberMap::accessListId] in (%s)',
 					$aclMarkers
 				);
 

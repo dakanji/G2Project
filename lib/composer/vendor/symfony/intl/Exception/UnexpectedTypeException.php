@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Exception;
 
 /**
@@ -23,3 +22,4 @@ class UnexpectedTypeException extends InvalidArgumentException
         parent::__construct(sprintf('Expected argument of type "%s", "%s" given', $expectedType, \is_object($value) ? \get_class($value) : \gettype($value)));
     }
 }
+

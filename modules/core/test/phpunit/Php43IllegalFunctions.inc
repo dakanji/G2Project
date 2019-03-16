@@ -1,4 +1,5 @@
 <?php
+
 if (php_sapi_name() == 'cli') {
 	$illegalFunctions = array(
 		'apache_get_modules',     // (PHP 4 >= 4.3.2, PHP 5)

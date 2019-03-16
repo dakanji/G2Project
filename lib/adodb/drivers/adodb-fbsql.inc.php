@@ -18,6 +18,7 @@ if (!defined('ADODB_DIR')) {
 
 if (!defined('_ADODB_FBSQL_LAYER')) {
 	define('_ADODB_FBSQL_LAYER', 1);
+
 	class ADODB_fbsql extends ADOConnection {
 		public $databaseType    = 'fbsql';
 		public $hasInsertID     = true;
@@ -216,11 +217,15 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 			if ($fieldOffset != -1) {
 				$o = @fbsql_fetch_field($this->_queryID, $fieldOffset);
 
-				//$o->max_length = -1; // fbsql returns the max length less spaces -- so it is unrealiable
+				// fbsql returns the max length less spaces -- so it is unrealiable
+				//$o->max_length = -1;
 				$f         = @fbsql_field_flags($this->_queryID, $fieldOffset);
 				$o->binary = (strpos($f, 'binary') !== false);
-			} elseif ($fieldOffset == -1) {  // The $fieldOffset argument is not provided thus its -1
-				$o = @fbsql_fetch_field($this->_queryID);// fbsql returns the max length less spaces -- so it is unrealiable
+			} elseif ($fieldOffset == -1) {
+				// The $fieldOffset argument is not provided thus its -1
+				// fbsql returns the max length less spaces -- so it is unrealiable
+				$o = @fbsql_fetch_field($this->_queryID);
+
 				//$o->max_length = -1;
 			}
 
@@ -248,7 +253,9 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 				$len      = $fieldobj->max_length;
 			}
 
-			$len = -1; // fbsql max_length is not accurate
+			// fbsql max_length is not accurate
+			$len = -1;
+
 			switch (strtoupper($t)) {
 				case 'CHARACTER':
 				case 'CHARACTER VARYING':

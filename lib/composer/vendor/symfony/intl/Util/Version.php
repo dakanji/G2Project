@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Util;
 
 /**
@@ -77,7 +76,6 @@ class Version
         }
 
         $pattern = '[^\.]+';
-
         for ($i = 2; $i <= $precision; ++$i) {
             $pattern = sprintf('[^\.]+(\.%s)?', $pattern);
         }
@@ -96,3 +94,4 @@ class Version
     {
     }
 }
+

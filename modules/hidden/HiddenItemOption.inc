@@ -77,7 +77,6 @@ class HiddenItemOption extends ItemEditOption {
 	 */
 	public function handleRequestAfterEdit($form, &$item, &$preferred) {
 		GalleryCoreApi::requireOnce('modules/hidden/classes/HiddenHelper.class');
-
 		$error          = array();
 		$warning        = array();
 		$useProgressBar = $item->getCanContainChildren();
@@ -114,3 +113,4 @@ class HiddenItemOption extends ItemEditOption {
 		&& ($form['HiddenItemOption']['progressBar'] == 'hide') == !empty($form['HiddenItemOption']['setHidden']);
 	}
 }
+

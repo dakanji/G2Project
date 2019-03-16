@@ -323,3 +323,4 @@ $sampleThemeDescriptor = array(
 		),
 	),
 );
+

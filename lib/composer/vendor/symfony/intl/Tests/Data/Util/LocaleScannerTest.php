@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Data\Util;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Intl\Data\Util\LocaleScanner;
@@ -31,7 +29,6 @@ class LocaleScannerTest extends TestCase
      * @var LocaleScanner
      */
     private $scanner;
-
     protected function setUp()
     {
         $this->directory = sys_get_temp_dir().'/LocaleScannerTest/'.mt_rand(1000, 9999);
@@ -39,7 +36,6 @@ class LocaleScannerTest extends TestCase
         $this->scanner = new LocaleScanner();
 
         $this->filesystem->mkdir($this->directory);
-
         $this->filesystem->touch($this->directory.'/en.txt');
         $this->filesystem->touch($this->directory.'/en_alias.txt');
         $this->filesystem->touch($this->directory.'/de.txt');
@@ -52,7 +48,9 @@ class LocaleScannerTest extends TestCase
         $this->filesystem->touch($this->directory.'/meta.txt');
 
         file_put_contents($this->directory.'/en_alias.txt', 'en_alias{"%%ALIAS"{"en"}}');
+
         file_put_contents($this->directory.'/de_alias.txt', 'de_alias{"%%ALIAS"{"de"}}');
+
         file_put_contents($this->directory.'/fr_alias.txt', 'fr_alias{"%%ALIAS"{"fr"}}');
     }
 
@@ -75,3 +73,4 @@ class LocaleScannerTest extends TestCase
         $this->assertSame($sortedAliases, $this->scanner->scanAliases($this->directory));
     }
 }
+

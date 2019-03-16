@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Data\Util;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Intl\Data\Util\RingBuffer;
 
@@ -23,7 +21,6 @@ class RingBufferTest extends TestCase
      * @var RingBuffer
      */
     private $buffer;
-
     protected function setUp()
     {
         $this->buffer = new RingBuffer(2);
@@ -80,7 +77,6 @@ class RingBufferTest extends TestCase
         $this->buffer[0] = 'foo';
         $this->buffer['bar'] = 'baz';
         $this->buffer[2] = 'bam';
-
         $this->buffer[0];
     }
 
@@ -100,3 +96,4 @@ class RingBufferTest extends TestCase
         $this->assertArrayNotHasKey(0, $this->buffer);
     }
 }
+

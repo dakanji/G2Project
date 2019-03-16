@@ -49,7 +49,6 @@ class ItemAddSiteAdminController extends GalleryController {
 
 		if (isset($form['action']['addUploadLocalServerDir'])) {
 			$path = $form['uploadLocalServer']['newDir'];
-
 			GalleryUtilities::unsanitizeInputValues($path, false);
 
 			// $path is UTF-8, $realPath is in the system charset for filesystem interactions
@@ -99,6 +98,7 @@ class ItemAddSiteAdminController extends GalleryController {
 		} elseif (isset($form['action']['removeUploadLocalServerDir'])) {
 			if (!empty($form['uploadLocalServer']['selectedDir'])) {
 				for ($i = $form['uploadLocalServer']['selectedDir'] + 1;
+
 				!empty($params['uploadLocalServer.dir.' . $i]); $i++) {
 					$ret = GalleryCoreApi::setPluginParameter(
 						'module',

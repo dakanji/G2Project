@@ -106,7 +106,6 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 
 		// Force system charset to ISO-8859-1 so convertToUtf8 will work on test data
 		$gallery->_phpVm = new ItemAddFromServerTestPhpVm();
-
 		GalleryDataCache::remove('GalleryCharsetHelper_simple::detectSystemCharset');
 	}
 
@@ -385,6 +384,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		$i = 0;
 
 		$this->assertEquals(count($files), count($results[1]['addedFiles']), 'added count');
+
 		usort($results[1]['addedFiles'], $sortAddedFilesFunc);
 
 		foreach ($files as $file) {
@@ -530,7 +530,6 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		$platform =& $gallery->getPlatform();
 		$dirSep   = $platform->getDirectorySeparator();
 		$baseDir  = $this->_baseDir . $dirSep . 'data';
-
 		GalleryUtilities::putRequestVariable('form[action][addFromLocalServer]', 1);
 		GalleryUtilities::putRequestVariable('form[localServerPath]', $baseDir);
 		GalleryUtilities::putRequestVariable('form[set][title]', 1);
@@ -561,7 +560,9 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 
 		$this->assertEquals('December - _#952_.jpg', $item->getPathComponent(), 'pathComponent');
 		$this->assertEquals('December - &lt;#952&gt;', $item->getTitle(), 'title');
+
 		$this->assertEquals('December - &lt;#952&gt;', $item->getSummary(), 'summary');
+
 		$this->assertEquals('', $item->getDescription(), 'description');
 
 		// Verify added album
@@ -581,7 +582,9 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 			}
 
 			$this->assertEquals('Black&amp;White', $album->getTitle(), 'album title');
+
 			$this->assertEquals('Black&amp;White', $album->getSummary(), 'album summary');
+
 			$this->assertEquals('', (string)$album->getDescription(), 'album description');
 		}
 	}
@@ -619,13 +622,11 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		$platform =& $gallery->getPlatform();
 		$dirSep   = $platform->getDirectorySeparator();
 		$baseDir  = $this->_baseDir . $dirSep;
-
 		GalleryUtilities::putRequestVariable('form[action][addFromLocalServer]', 1);
 		GalleryUtilities::putRequestVariable('form[localServerPath]', $baseDir);
 		GalleryUtilities::putRequestVariable('form[localServerFiles][..%2Ffoo][selected]', 1);
 		GalleryUtilities::putRequestVariable('form[localServerDirectories][..%2Fbar][selected]', 1);
 		GalleryUtilities::putRequestVariable('form[set][title]', 1);
-
 		$results = $this->handleRequest($this->_rootAlbum);
 
 		$this->assertEquals(array(array(), array()), $results);
@@ -638,12 +639,10 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		$platform =& $gallery->getPlatform();
 		$dirSep   = $platform->getDirectorySeparator();
 		$baseDir  = $this->_baseDir . $dirSep . 'data' . $dirSep;
-
 		GalleryUtilities::putRequestVariable('form[action][addFromLocalServer]', 1);
 		GalleryUtilities::putRequestVariable('form[localServerPath]', $baseDir . '<My "Files">');
 		GalleryUtilities::putRequestVariable('form[localServerFiles][foo][selected]', 1);
 		GalleryUtilities::putRequestVariable('form[set][title]', 1);
-
 		$results = $this->handleRequest($this->_rootAlbum);
 
 		if (empty($results[1]['addedFiles'][0]['id'])) {
@@ -706,8 +705,11 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		}
 
 		$this->assertEquals('good&lt;script&gt;evil', $item->getTitle());
+
 		$this->assertEquals('good&lt;script&gt;evil', $item->getSummary());
+
 		$this->assertEquals('good&lt;script&gt;evil', $item->getDescription());
+
 		$this->assertEquals('good_script_evil.jpg', $item->getPathComponent());
 	}
 
@@ -749,8 +751,11 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		}
 
 		$this->assertEquals('good&lt;script&gt;evil_dir', $album->getTitle());
+
 		$this->assertEquals('good&lt;script&gt;evil_dir', $album->getSummary());
+
 		$this->assertEquals('good&lt;script&gt;evil_dir', $album->getDescription());
+
 		$this->assertEquals('good_script_evil_dir', $album->getPathComponent());
 	}
 }

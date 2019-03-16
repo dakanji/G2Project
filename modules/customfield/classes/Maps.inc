@@ -25,3 +25,4 @@ $mapInfo['CustomFieldMap'] = array(
 		'size' => STORAGE_SIZE_MEDIUM,
 	),
 );
+

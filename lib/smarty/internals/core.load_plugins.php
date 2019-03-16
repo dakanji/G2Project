@@ -19,26 +19,31 @@ function smarty_core_load_plugins($params, &$smarty) {
 		$_plugin =& $smarty->_plugins[$_type][$_name];
 
 		/*
-		 * We do not load plugin more than once for each instance of Smarty.
-		 * The following code checks for that. The plugin can also be
-		 * registered dynamically at runtime, in which case template file
+		 * The following code checks we do not load plugins more than once for each instance of Smarty.
+		 * The plugin can also be registered dynamically at runtime, in which case template file
 		 * and line number will be unknown, so we fill them in.
 		 *
-		 * The final element of the info array is a flag that indicates
-		 * whether the dynamically registered plugin function has been
-		 * checked for existence yet or not.
+		 * The final element of the info array is a flag that indicates whether
+		 * the dynamically registered plugin function has been checked for existence yet or not.
 		 */
 		if (isset($_plugin)) {
 			if (empty($_plugin[3])) {
 				if (!is_callable($_plugin[0])) {
-					$smarty->_trigger_fatal_error("[plugin] $_type '$_name' is not implemented", $_tpl_file, $_tpl_line, __FILE__, __LINE__);
+					$smarty->_trigger_fatal_error(
+						"[plugin] $_type '$_name' is not implemented",
+						$_tpl_file,
+						$_tpl_line,
+						__FILE__,
+						__LINE__
+					);
 				} else {
 					$_plugin[1] = $_tpl_file;
 					$_plugin[2] = $_tpl_line;
 					$_plugin[3] = true;
 
 					if (!isset($_plugin[4])) {
-						$_plugin[4] = true; // cacheable
+						// cacheable
+						$_plugin[4] = true;
 					}
 				}
 			}
@@ -77,17 +82,21 @@ function smarty_core_load_plugins($params, &$smarty) {
 			$_plugin_func = 'smarty_' . $_type . '_' . $_name;
 
 			if (!function_exists($_plugin_func)) {
-				$smarty->_trigger_fatal_error("[plugin] function $_plugin_func() not found in $_plugin_file", $_tpl_file, $_tpl_line, __FILE__, __LINE__);
+				$smarty->_trigger_fatal_error(
+					"[plugin] function $_plugin_func() not found in $_plugin_file",
+					$_tpl_file,
+					$_tpl_line,
+					__FILE__,
+					__LINE__
+				);
 
 				continue;
 			}
-		}
-
-		/*
-		 * In case of insert plugins, their code may be loaded later via
-		 * 'script' attribute.
-		 */
-		elseif ($_type == 'insert' && $_delayed_loading) {
+		} elseif ($_type == 'insert' && $_delayed_loading) {
+			/*
+			 * In case of insert plugins, their code may be loaded later via
+			 * 'script' attribute.
+			 */
 			$_plugin_func = 'smarty_' . $_type . '_' . $_name;
 			$_found       = true;
 		}

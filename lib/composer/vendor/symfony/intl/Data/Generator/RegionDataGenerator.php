@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Generator;
-
 use Symfony\Component\Intl\Data\Bundle\Compiler\GenrbCompiler;
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleReaderInterface;
 use Symfony\Component\Intl\Data\Util\ArrayAccessibleResourceBundle;
@@ -42,13 +40,16 @@ class RegionDataGenerator extends AbstractDataGenerator
      */
     private static $blacklist = array(
         self::UNKNOWN_REGION_ID => true,
+
         // Look like countries, but are sub-continents
         self::OUTLYING_OCEANIA_REGION_ID => true,
         self::EUROPEAN_UNION_ID => true,
         self::EUROZONE_ID => true,
         self::UNITED_NATIONS_ID => true,
+
         // No longer exists
         self::NETHERLANDS_ANTILLES_ID => true,
+
         // Uninhabited islands
         self::BOUVET_ISLAND_ID => true,
         self::HEARD_MCDONALD_ISLANDS_ID => true,
@@ -119,7 +120,6 @@ class RegionDataGenerator extends AbstractDataGenerator
     protected function generateDataForMeta(BundleReaderInterface $reader, $tempDir)
     {
         $rootBundle = $reader->read($tempDir, 'root');
-
         $this->regionCodes = array_unique($this->regionCodes);
 
         sort($this->regionCodes);
@@ -137,7 +137,6 @@ class RegionDataGenerator extends AbstractDataGenerator
     {
         $unfilteredRegionNames = iterator_to_array($localeBundle['Countries']);
         $regionNames = array();
-
         foreach ($unfilteredRegionNames as $region => $regionName) {
             if (isset(self::$blacklist[$region])) {
                 continue;
@@ -154,3 +153,4 @@ class RegionDataGenerator extends AbstractDataGenerator
         return $regionNames;
     }
 }
+

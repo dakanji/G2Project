@@ -80,7 +80,6 @@ class AdminGdControllerTest extends GalleryControllerTestCase {
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -97,7 +96,6 @@ class AdminGdControllerTest extends GalleryControllerTestCase {
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -112,3 +110,4 @@ class AdminGdControllerTest extends GalleryControllerTestCase {
 		);
 	}
 }
+

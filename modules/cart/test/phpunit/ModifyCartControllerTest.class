@@ -206,7 +206,8 @@ class ModifyCartControllerTest extends GalleryControllerTestCase {
 	}
 }
 
-class ModifyCartControllerTestCartPlugin // extends CartPluginInterface_1_1
+// extends CartPluginInterface_1_1
+class ModifyCartControllerTestCartPlugin 
 {
 	public function getSupportedItemTypes() {
 		return array('GalleryPhotoItem');
@@ -226,3 +227,4 @@ class ModifyCartControllerTestCartPlugin // extends CartPluginInterface_1_1
 		return array('core.view');
 	}
 }
+

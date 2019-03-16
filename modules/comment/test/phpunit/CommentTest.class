@@ -79,7 +79,6 @@ class CommentTest extends GalleryTestCase {
 			}
 
 			$this->assertTrue(isset($this->_comment[$i]), 'Missing comment instance');
-
 			$this->_comment[$i]->create($this->_item->getId());
 			$this->_comment[$i]->setCommenterId($gallery->getActiveUserId());
 			$this->_comment[$i]->setHost('127.0.0.1');
@@ -117,7 +116,6 @@ class CommentTest extends GalleryTestCase {
 			array(
 				$this->_comment[0],
 				$this->_comment[1],
-
 			),
 			$comments
 		);
@@ -190,7 +188,6 @@ class CommentTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(isset($comment), 'Missing comment instance');
-
 		$comment->create($item2->getId());
 		$comment->setCommenterId($gallery->getActiveUserId());
 		$comment->setHost('127.0.0.1');
@@ -250,7 +247,6 @@ class CommentTest extends GalleryTestCase {
 				$this->_comment[2],
 				$this->_comment[3],
 				$this->_comment[4],
-
 			),
 			$comments,
 			'all publish status types'
@@ -268,6 +264,7 @@ class CommentTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(array($this->_comment[0]), $comments, 'guest/offset');
+
 		// This multiroot setting used to break query
 		$gallery->setConfig('breadcrumbRootId', $this->_album->getId());
 
@@ -338,7 +335,6 @@ class CommentTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(isset($comment), 'Missing comment instance');
-
 		$comment->create($this->_item->getId());
 		$comment->setCommenterId($gallery->getActiveUserId());
 		$comment->setHost('127.0.0.1');
@@ -403,7 +399,6 @@ class CommentTest extends GalleryTestCase {
 			}
 
 			$this->assertTrue(isset($myComment[$i]), 'Missing comment instance');
-
 			$myComment[$i]->create($this->_item->getId());
 			$myComment[$i]->setCommenterId($user->getId());
 			$myComment[$i]->setHost('127.0.0.1');
@@ -674,7 +669,6 @@ class CommentTest extends GalleryTestCase {
 		}
 
 		GalleryCommentHelper::getMe()->setAkismetSaveListenerSwitch(false);
-
 		$helper = new CommentTest_GalleryCommentHelper_MockCheckWithAkismet();
 		$event  = new GalleryEvent();
 
@@ -891,3 +885,4 @@ class CommentTest_GalleryCommentHelper_MockCheckWithAkismet extends GalleryComme
 		return null;
 	}
 }
+

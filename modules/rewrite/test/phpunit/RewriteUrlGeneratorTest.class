@@ -101,6 +101,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 		}
 
 		$this->assertFalse($urlGenerator->_error);
+
 		$this->assertEquals(
 			array(
 				'php.Unit' => array(
@@ -145,3 +146,4 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 		$this->assertEquals(array(), $params, 'params');
 	}
 }
+

@@ -48,6 +48,7 @@ class RewriteParserTestCase extends GalleryTestCase {
 		foreach (array('activeRules' => serialize($activeRules),
 			   'allowEmptyReferer'   => '0',
 			   'accessList'          => serialize(array('phpunit.test')), )
+
 		as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', $key, $value);
 
@@ -57,14 +58,15 @@ class RewriteParserTestCase extends GalleryTestCase {
 		}
 
 		$this->_parser = new $rewriteParserName();
-
 		GalleryUtilities::putRequestVariable('rewriteTest', 'pass');
 
 		// Set up our mock platform
 		$this->_platform = new RewriteParserMockPlatform();
 
 		$this->_platform->init($this);
+
 		unset($this->_fileContent, $this->_embeddedFileContent);
+
 		$gallery->setPlatform($this->_platform);
 
 		// Register a new module
@@ -416,7 +418,6 @@ class RewriteParserTestCase extends GalleryTestCase {
 
 	public function testSaveActiveRulesEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
-
 		$testRules['rewriteparsermock'][0] = array('pattern' => 'bogus1');
 
 		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser, $testRules);
@@ -450,7 +451,6 @@ class RewriteParserTestCase extends GalleryTestCase {
 
 	public function testSaveBadActiveRulesEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
-
 		$testRules['rewriteparsermock'][0] = array('pattern' => 'p/%bogus%');
 
 		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser, $testRules);
@@ -518,10 +518,11 @@ class RewriteParserMockModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('rewriteparsermock');
-
 		$this->setName('RewriteParser Test Module');
 		$this->setDescription('Unit test module');
-		$this->setVersion('7.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('7.0.0');
 		$this->setGroup('gallery', 'Gallery');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$this->setRequiredModuleApi(GalleryModule::getApiVersion());
@@ -579,6 +580,7 @@ class RewriteParserMockPlatform extends GalleryPlatform {
 		}
 
 		if (strpos($file, '/.htaccess') !== false ||
+
 		strpos($file, '\httpd.ini') !== false) {
 			return $this->_fileExists;
 		}
@@ -749,6 +751,7 @@ class RewriteParserMockPlatform extends GalleryPlatform {
 		$pluginBaseDir = GalleryCoreApi::getCodeBasePath();
 
 		if (strpos($file, '/.htaccess') !== false ||
+
 		$file == $pluginBaseDir  || strpos($file, '\httpd.ini') !== false) {
 			return $this->_isWriteable;
 		}
@@ -776,6 +779,7 @@ class RewriteParserMockPlatform extends GalleryPlatform {
 		}
 
 		if (strpos($file, '/.htaccess') !== false ||
+
 		strpos($file, '\httpd.ini') !== false) {
 			if ($this->_isWriteable) {
 				$this->_test->_fileContent = '';

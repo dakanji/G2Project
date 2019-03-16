@@ -341,6 +341,7 @@ class DownloadItemTest extends GalleryTestCase {
 		$session =& $gallery->getSession();
 
 		$session->put('core.isPrintService', array(2, $this->_item->getId()));
+
 		// Still need core.view
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 
@@ -412,7 +413,6 @@ class DownloadItemTest extends GalleryTestCase {
 		$this->_markForCleanup($entity);
 
 		$cacheKey = 'GalleryEntityHelper::loadEntitiesById(' . $entity->getId() . ')';
-
 		GalleryDataCache::put($cacheKey, $entity);
 		GalleryUtilities::putRequestVariable('itemId', $entity->getId());
 
@@ -484,7 +484,8 @@ class DownloadItemTestEntity extends GalleryEntity {
 
 function DownloadItemTest_error_handler($errorNumber, $errorString, $file, $line, $context) {
 	if ($errorNumber == 2048) {
-		return; // E_STRICT
+		// E_STRICT
+		return;
 	}
 
 	if (error_reporting() == 0 && strpos($errorString, 'apacheSetenvBroken') !== false) {

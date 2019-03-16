@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\DateFormatter\Verification;
-
 use Symfony\Component\Intl\DateFormatter\IntlDateFormatter;
 use Symfony\Component\Intl\Tests\DateFormatter\AbstractIntlDateFormatterTest;
 use Symfony\Component\Intl\Util\IntlTestHelper;
@@ -26,7 +24,6 @@ class IntlDateFormatterTest extends AbstractIntlDateFormatterTest
     protected function setUp()
     {
         IntlTestHelper::requireFullIntl($this, false);
-
         parent::setUp();
     }
 
@@ -36,14 +33,12 @@ class IntlDateFormatterTest extends AbstractIntlDateFormatterTest
     public function testFormatTimezone($pattern, $timezone, $expected)
     {
         IntlTestHelper::requireFullIntl($this, '59.1');
-
         parent::testFormatTimezone($pattern, $timezone, $expected);
     }
 
     public function testFormatUtcAndGmtAreSplit()
     {
         IntlTestHelper::requireFullIntl($this, '59.1');
-
         parent::testFormatUtcAndGmtAreSplit();
     }
 
@@ -53,14 +48,12 @@ class IntlDateFormatterTest extends AbstractIntlDateFormatterTest
     public function testDateAndTimeType($timestamp, $datetype, $timetype, $expected)
     {
         IntlTestHelper::requireFullIntl($this, '59.1');
-
         parent::testDateAndTimeType($timestamp, $datetype, $timetype, $expected);
     }
 
     protected function getDateFormatter($locale, $datetype, $timetype, $timezone = null, $calendar = IntlDateFormatter::GREGORIAN, $pattern = null)
     {
         IntlTestHelper::requireFullIntl($this, '55.1');
-
         if (!$formatter = new \IntlDateFormatter($locale, $datetype, $timetype, $timezone, $calendar, $pattern)) {
             throw new \InvalidArgumentException(intl_get_error_message());
         }
@@ -83,3 +76,4 @@ class IntlDateFormatterTest extends AbstractIntlDateFormatterTest
         return intl_is_failure($errorCode);
     }
 }
+

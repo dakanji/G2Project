@@ -344,6 +344,7 @@ class CharsetTest extends GalleryTestCase {
 		$gallery->_phpVm = $phpVm;
 
 		$this->assertEquals('UTF-8', GalleryCharsetHelper_simple::detectSystemCharset());
+
 		GalleryDataCache::reset();
 
 		$phpVm->setReturn('nl_langinfo', array(CODESET), 'Windows-1252');
@@ -351,12 +352,14 @@ class CharsetTest extends GalleryTestCase {
 		$gallery->_phpVm = $phpVm;
 
 		$this->assertEquals('Windows-1252', GalleryCharsetHelper_simple::detectSystemCharset());
+
 		// Verify value is cached
 		$phpVm->setReturn('nl_langinfo', array(CODESET), 'abc123');
 
 		$gallery->_phpVm = $phpVm;
 
 		$this->assertEquals('Windows-1252', GalleryCharsetHelper_simple::detectSystemCharset());
+
 		// FreeBSD may return charset with missing hyphen; verify we remap this
 		GalleryDataCache::reset();
 
@@ -365,6 +368,7 @@ class CharsetTest extends GalleryTestCase {
 		$gallery->_phpVm = $phpVm;
 
 		$this->assertEquals('ISO-8859-1', GalleryCharsetHelper_simple::detectSystemCharset());
+
 		// Gentoo may return ANSI_X3.4-1968 which is just ASCII
 		GalleryDataCache::reset();
 
@@ -373,8 +377,10 @@ class CharsetTest extends GalleryTestCase {
 		$gallery->_phpVm = $phpVm;
 
 		$this->assertEquals('ASCII', GalleryCharsetHelper_simple::detectSystemCharset());
+
 		// We can override what the system tells us using $gallery->setConfig
 		$gallery->setConfig('systemCharset', 'xyz123');
+
 		GalleryDataCache::reset();
 
 		$this->assertEquals('xyz123', GalleryCharsetHelper_simple::detectSystemCharset());
@@ -387,6 +393,7 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm = new CharsetTestPhpVm();
 
 		$phpVm->setFunctionExists('nl_langinfo', false);
+
 		$phpVm->setReturn(
 			'setlocale',
 			array(LC_ALL, '0'),
@@ -396,9 +403,9 @@ class CharsetTest extends GalleryTestCase {
 		$gallery->_phpVm = $phpVm;
 
 		$this->assertEquals('UTF-8', GalleryCharsetHelper_simple::detectSystemCharset());
+
 		// Verify we map 1252 from setlocale to full charset name
 		GalleryDataCache::reset();
-
 		$phpVm->setReturn(
 			'setlocale',
 			array(LC_ALL, '0'),
@@ -432,9 +439,9 @@ class CharsetTest extends GalleryTestCase {
 			GalleryCharsetHelper_simple::detectSystemCharset(),
 			'short format'
 		);
+
 		// All .125x charsets should get converted to CP125x
 		GalleryDataCache::reset();
-
 		$phpVm->setReturn(
 			'setlocale',
 			array(LC_ALL, '0'),
@@ -444,9 +451,9 @@ class CharsetTest extends GalleryTestCase {
 		$gallery->_phpVm = $phpVm;
 
 		$this->assertEquals('CP1251', GalleryCharsetHelper_simple::detectSystemCharset());
+
 		// All .125x charsets should get converted to CP125x
 		GalleryDataCache::reset();
-
 		$phpVm->setReturn(
 			'setlocale',
 			array(LC_ALL, '0'),
@@ -456,6 +463,7 @@ class CharsetTest extends GalleryTestCase {
 		$gallery->_phpVm = $phpVm;
 
 		$this->assertEquals('CP1258', GalleryCharsetHelper_simple::detectSystemCharset());
+
 		// On windows boxes, we don't have the CODESET constant, so fake it
 		if (!defined('CODESET')) {
 			define('CODESET', 'CODESET');
@@ -470,6 +478,7 @@ class CharsetTest extends GalleryTestCase {
 
 		$phpVm->setFunctionExists('nl_langinfo', true);
 		$phpVm->setReturn('nl_langinfo', array(CODESET), false);
+
 		$phpVm->setReturn(
 			'setlocale',
 			array(LC_ALL, '0'),
@@ -482,8 +491,10 @@ class CharsetTest extends GalleryTestCase {
 			GalleryCharsetHelper_simple::detectSystemCharset(),
 			'Wrong system charset'
 		);
+
 		// We can override what the system tells us using $gallery->setConfig
 		$gallery->setConfig('systemCharset', 'xyz123');
+
 		GalleryDataCache::reset();
 
 		$this->assertEquals('xyz123', GalleryCharsetHelper_simple::detectSystemCharset());
@@ -508,6 +519,7 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('nl_langinfo', true);
 		$phpVm->setReturn('nl_langinfo', array(CODESET), '%a %b %d %H:%M:%S %Y');
 		$phpVm->setReturn('nl_langinfo', array(D_T_FMT), '%a %b %d %H:%M:%S %Y');
+
 		$phpVm->setReturn(
 			'setlocale',
 			array(LC_ALL, '0'),
@@ -699,7 +711,6 @@ class CharsetTest extends GalleryTestCase {
 		);
 
 		$this->assertEquals(10, strlen($result), 'length with standard version');
-
 		$this->assertEquals(
 			"\xd0\xa0\xd1\x83\xd1\x81\xd1\x81\xd0\xba",
 			GalleryCharsetHelper_medium::phpUtf8Strcut($utf8, 0, 10),
@@ -712,12 +723,12 @@ class CharsetTest extends GalleryTestCase {
 			GalleryCoreApi::utf8Strcut($utf8, 24, 7),
 			'standard version with offset'
 		);
-
 		$this->assertEquals(
 			"\xd1\x81\xd1\x82\xd0\xb2",
 			GalleryCharsetHelper_medium::phpUtf8Strcut($utf8, 24, 7),
 			'PHP version with offset'
 		);
+
 		// With byte offset and length matching total length
 		$this->assertEquals(
 			"\xd1\x81\xd1\x82\xd0\xb2\xd1\x83",
@@ -729,6 +740,7 @@ class CharsetTest extends GalleryTestCase {
 			GalleryCharsetHelper_medium::phpUtf8Strcut($utf8, 24, 8),
 			'PHP version with offset up to end'
 		);
+
 		// Start position larger than string
 		$this->assertEquals(
 			'',
@@ -833,3 +845,4 @@ class CharsetTestPhpVm {
 		}
 	}
 }
+

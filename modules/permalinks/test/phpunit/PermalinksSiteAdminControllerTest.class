@@ -81,7 +81,6 @@ class PermalinksSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// test toggle back
 		GalleryUtilities::putRequestVariable('form[PermalinksSiteAdmin][autoPermalink]', 'on');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -108,3 +107,4 @@ class PermalinksSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 	}
 }
+

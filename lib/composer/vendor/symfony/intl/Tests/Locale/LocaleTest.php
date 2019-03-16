@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Locale;
-
 class LocaleTest extends AbstractLocaleTest
 {
     /**
@@ -31,6 +29,7 @@ class LocaleTest extends AbstractLocaleTest
             'script' => 'Latn',
             'region' => 'BR',
         );
+
         $this->call('composeLocale', $subtags);
     }
 
@@ -131,6 +130,7 @@ class LocaleTest extends AbstractLocaleTest
             'pt-Latn-BR',
             'pt-BR',
         );
+
         $this->call('lookup', $langtag, 'pt-BR-x-priv1');
     }
 
@@ -153,7 +153,6 @@ class LocaleTest extends AbstractLocaleTest
     public function testSetDefaultAcceptsEn()
     {
         $this->call('setDefault', 'en');
-
         $this->assertSame('en', $this->call('getDefault'));
     }
 
@@ -164,3 +163,4 @@ class LocaleTest extends AbstractLocaleTest
         return \call_user_func_array(array('Symfony\Component\Intl\Locale\Locale', $methodName), $args);
     }
 }
+

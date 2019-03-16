@@ -96,7 +96,6 @@ class DerivativeTest extends GalleryTestCase {
 		}
 
 		DerivativeTestToolkit::clearPerformedOperations();
-
 		GalleryDataCache::reset();
 	}
 
@@ -394,6 +393,7 @@ class DerivativeTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($current, 'cache is not current');
+
 		// Check if the derivative is marked as broken
 		$this->assertEquals(1, $derivative->getIsBroken(), 'Cache is not marked as broken');
 
@@ -425,6 +425,7 @@ class DerivativeTest extends GalleryTestCase {
 			$derivative->getDerivativeSize(),
 			'Incorrect broken derivative size'
 		);
+
 		// Change the toolkit operation
 		$derivative->setDerivativeOperations('test-operation');
 
@@ -472,6 +473,7 @@ class DerivativeTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($current, 'cache is not current after fix');
+
 		// Check if the derivative is not marked as broken
 		$this->assertFalse($derivative->getIsBroken(), 'Derivative is still broken');
 
@@ -518,6 +520,7 @@ class DerivativeTest extends GalleryTestCase {
 			$derivative->getId(),
 			true
 		);
+
 		// Ret should be ERROR_PLATFORM_FAILURE
 		$gallery->setPlatform($platform);
 		$this->assertTrue(

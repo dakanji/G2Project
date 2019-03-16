@@ -179,6 +179,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 	public function testBinaryV853() {
 		$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to/dcraw'), 0);
 		$this->_platform->setReply('is_file', array('/path/to/dcraw'), 1);
+
 		// Newer versions of dcraw return the help screen to stdout and not in title case.
 		$this->_platform->setReply(
 			'exec',
@@ -253,3 +254,4 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 		);
 	}
 }
+

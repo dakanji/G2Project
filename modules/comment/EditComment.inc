@@ -135,7 +135,6 @@ class EditCommentController extends GalleryController {
 				}
 
 				$comment->setCommenterId($commenter->getId());
-
 				$comment->setHost($form['host']);
 				$comment->setSubject($form['subject']);
 				$comment->setComment($form['comment']);

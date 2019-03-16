@@ -315,7 +315,6 @@ class ItemMoveSingleView extends GalleryView {
 		$ItemMoveSingle['itemTypeNames'] = $item->itemTypeName();
 
 		$template->setVariable('ItemMoveSingle', $ItemMoveSingle);
-
 		$template->setVariable('controller', 'core.ItemMoveSingle');
 		$template->javascript('lib/yui/yahoo-dom-event.js');
 		$template->javascript('lib/yui/container-min.js');

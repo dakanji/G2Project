@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Data\Provider;
-
 use Symfony\Component\Intl\Data\Provider\LocaleDataProvider;
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\Intl\Locale;
@@ -24,11 +22,9 @@ abstract class AbstractLocaleDataProviderTest extends AbstractDataProviderTest
      * @var LocaleDataProvider
      */
     protected $dataProvider;
-
     protected function setUp()
     {
         parent::setUp();
-
         $this->dataProvider = new LocaleDataProvider(
             $this->getDataDirectory().'/'.Intl::LOCALE_DIR,
             $this->createEntryReader()
@@ -36,7 +32,6 @@ abstract class AbstractLocaleDataProviderTest extends AbstractDataProviderTest
     }
 
     abstract protected function getDataDirectory();
-
     public function testGetLocales()
     {
         $this->assertSame($this->getLocales(), $this->dataProvider->getLocales());
@@ -53,7 +48,6 @@ abstract class AbstractLocaleDataProviderTest extends AbstractDataProviderTest
     public function testGetNames($displayLocale)
     {
         $locales = array_keys($this->dataProvider->getNames($displayLocale));
-
         sort($locales);
 
         // We can't assert on exact list of locale, as there's too many variations.
@@ -65,7 +59,6 @@ abstract class AbstractLocaleDataProviderTest extends AbstractDataProviderTest
     public function testGetNamesDefaultLocale()
     {
         Locale::setDefault('de_AT');
-
         $this->assertSame(
             $this->dataProvider->getNames('de_AT'),
             $this->dataProvider->getNames()
@@ -92,7 +85,6 @@ abstract class AbstractLocaleDataProviderTest extends AbstractDataProviderTest
     public function testGetName($displayLocale)
     {
         $names = $this->dataProvider->getNames($displayLocale);
-
         foreach ($names as $locale => $name) {
             $this->assertSame($name, $this->dataProvider->getName($locale, $displayLocale));
         }
@@ -101,11 +93,10 @@ abstract class AbstractLocaleDataProviderTest extends AbstractDataProviderTest
     public function testGetNameDefaultLocale()
     {
         Locale::setDefault('de_AT');
-
         $names = $this->dataProvider->getNames('de_AT');
-
         foreach ($names as $locale => $name) {
             $this->assertSame($name, $this->dataProvider->getName($locale));
         }
     }
 }
+

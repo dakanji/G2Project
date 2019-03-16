@@ -30,6 +30,7 @@ if (version_compare(phpversion(), '5.3', '>=')) {
 }
 
 /*
+
  * interface Test {
  *    function run(&$aTestResult);
  *    function countTestCases();
@@ -37,6 +38,7 @@ if (version_compare(phpversion(), '5.3', '>=')) {
  */
 function trace($msg) {
 	return;
+
 	echo $msg;
 	flush();
 }
@@ -218,6 +220,7 @@ class Assert {
 			 */
 			if ($serializedActual !== $serializedExpected) {
 				return $this->failNotEquals($expected, $actual, $message);
+
 				//return $this->fail($message);
 			}
 		} elseif (is_numeric($actual) && is_numeric($expected)) {
@@ -284,6 +287,7 @@ class Assert {
 			 */
 			if ($serializedActual == $serializedExpected) {
 				return $this->failNotEquals($expected, $actual, $message);
+
 				//return $this->fail($message);
 			}
 		} elseif (is_numeric($actual) && is_numeric($expected)) {
@@ -673,7 +677,8 @@ class Assert_X {
 					$this->failNotEquals($expected, $actual, 'expected', $message);
 				}
 
-				return;     // no further tests after equals()
+				// no further tests after equals()
+				return;
 			}
 		}
 
@@ -876,7 +881,8 @@ class TestCase extends Assert {
 
 		// Original code:
 		//if (isset($old_handler)) {
-		//    set_error_handler($old_handler); // revert to prior error handler
+		// revert to prior error handler
+		//    set_error_handler($old_handler);
 		//} else {
 		//    restore_error_handler();
 		//}
@@ -918,7 +924,8 @@ class TestCase extends Assert {
 		itself, or (heaven forbid) in this testing infrastructure */
 		$this->fExceptions[] = new PHPUnitException($message, 'ERROR');
 
-		$this->fResult->stop(); // [does not work]
+		// [does not work]
+		$this->fResult->stop();
 	}
 
 	public function failed() {
@@ -1223,7 +1230,8 @@ class TestResult {
 class TextTestResult extends TestResult {
 	// Specialize TestResult to produce text/html report
 	public function __construct() {
-		parent::__construct();  // call superclass constructor
+		// call superclass constructor
+		parent::__construct();
 	}
 
 	public function report() {
@@ -1269,6 +1277,7 @@ class TextTestResult extends TestResult {
 				echo "\n<ul>";
 
 				printf("<li>%s</li>\n", $exception->getMessage());
+
 				echo '</ul>';
 			}
 
@@ -1300,7 +1309,8 @@ class PrettyTestResult extends TestResult {
 
 	// Specialize TestResult to produce text/html report
 	public function __construct() {
-		parent::__construct();  // call superclass constructor
+		// call superclass constructor
+		parent::__construct();
 		echo '<h2>Test Results</h2>';
 		echo '<TABLE CELLSPACING="1" CELLPADDING="1" BORDER="0" WIDTH="90%" ALIGN="CENTER" class="details">';
 		echo '<TR><TH>#</TH><TH>Module</TH><TH>Class</TH><TH>Function</TH><TH>Success?</TH><TH>Time</TH></TR>';

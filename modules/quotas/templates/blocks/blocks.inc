@@ -4,3 +4,4 @@ $blocks = array(
 		'description' => $gallery->i18n('User Quota Block'),
 	),
 );
+

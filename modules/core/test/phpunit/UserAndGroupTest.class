@@ -215,6 +215,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($item);
+
 		// Restore the activeUser, should be a Site Admin
 		$gallery->setActiveUser($this->_activeUserBackup);
 
@@ -1894,6 +1895,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->assertFalse(empty($user), 'factory error');
+
 		// We still support old style simple md5 (G1 thru 1.4.0, G2 thru alpha-4)
 		$user->setHashedPassword(md5('password'));
 		$this->assertTrue($user->isCorrectPassword('password'), 'password');
@@ -1917,7 +1919,6 @@ class UserAndGroupTest extends GalleryTestCase {
 		 * If this is ever changed, ensure all these interfaces set the password correctly.
 		 */
 		$password = $entityPassword = 'pass<word"';
-
 		GalleryUtilities::sanitizeInputValues($entityPassword, false);
 
 		$user->changePassword($entityPassword);
@@ -1933,6 +1934,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 
 		$this->assertFalse(empty($user), 'factory error');
+
 		set_error_handler('UserAndGroupTest_error_handler');
 
 		// First test with a precomputed hash (12 iterations, also checks file includes)

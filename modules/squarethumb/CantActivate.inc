@@ -45,3 +45,4 @@ class CantActivateView extends GalleryView {
 		);
 	}
 }
+

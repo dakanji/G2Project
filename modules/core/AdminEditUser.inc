@@ -145,7 +145,6 @@ class AdminEditUserController extends GalleryController {
 				}
 
 				$user->setUserName(trim($form['userName']));
-
 				$user->setFullname(trim($form['fullName']));
 				$user->setLocked(!empty($form['locked']) ? 1 : 0);
 

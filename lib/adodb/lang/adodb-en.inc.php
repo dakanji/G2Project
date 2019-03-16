@@ -32,3 +32,4 @@ $ADODB_LANG_ARRAY = array(
 	DB_ERROR_STATEMENT_TIMEOUT     => 'statement timeout',
 	DB_ERROR_SERIALIZATION_FAILURE => 'could not serialize access',
 );
+

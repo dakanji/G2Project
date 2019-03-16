@@ -48,7 +48,6 @@ class AlbumSelectSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testAlbumSelectSiteAdminControllerReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -68,7 +67,6 @@ class AlbumSelectSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[treeIcons]', '1');
 		GalleryUtilities::putRequestVariable('form[treeCloseSameLevel]', '1');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -102,3 +100,4 @@ class AlbumSelectSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 	}
 }
+

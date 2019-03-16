@@ -31,3 +31,4 @@ $ADODB_LANG_ARRAY = array(
 	DB_ERROR_NOSUCHDB            => 'چنین بانک اطلاعاتی وجود ندارد',
 	DB_ERROR_ACCESS_VIOLATION    => 'حق دسترسی ناکافی',
 );
+

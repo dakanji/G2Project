@@ -8,12 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Intl\Intl;
-
 class IntlTest extends TestCase
 {
     /**
@@ -71,10 +68,8 @@ class IntlTest extends TestCase
     {
         \Locale::setDefault('zh_TW');
         $countryNameZhTw = Intl::getRegionBundle()->getCountryName('AD');
-
         \Locale::setDefault('zh_Hant_TW');
         $countryNameHantZhTw = Intl::getRegionBundle()->getCountryName('AD');
-
         \Locale::setDefault('zh');
         $countryNameZh = Intl::getRegionBundle()->getCountryName('AD');
 
@@ -82,3 +77,4 @@ class IntlTest extends TestCase
         $this->assertNotSame($countryNameZh, $countryNameZhTw, 'zh_TW does not fall back to zh');
     }
 }
+

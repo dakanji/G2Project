@@ -26,6 +26,7 @@ if (!defined('ADODB_DIR')) {
 }
 
 /*
+
 enum pdo_param_type {
 PDO::PARAM_NULL, 0
 
@@ -68,11 +69,13 @@ function adodb_pdo_type($t) {
 
 // ----------------------------------------------------------------------------
 class ADODB_pdo extends ADOConnection {
-	public $databaseType    = 'pdo';
-	public $dataProvider    = 'pdo';
-	public $fmtDate         = "'Y-m-d'";
-	public $fmtTimeStamp    = "'Y-m-d, h:i:sA'";
-	public $replaceQuote    = "''"; // string to use to replace quotes
+	public $databaseType = 'pdo';
+	public $dataProvider = 'pdo';
+	public $fmtDate      = "'Y-m-d'";
+	public $fmtTimeStamp = "'Y-m-d, h:i:sA'";
+
+	// string to use to replace quotes
+	public $replaceQuote    = "''";
 	public $hasAffectedRows = true;
 	public $_bindInputArray = true;
 	public $_genIDSQL;
@@ -328,7 +331,8 @@ class ADODB_pdo extends ADOConnection {
 		}
 
 		if ($err == '00000') {
-			return 0; // allows empty check
+			// allows empty check
+			return 0;
 		}
 
 		return $err;
@@ -708,7 +712,8 @@ class ADORecordSet_pdo extends ADORecordSet {
 			$this->_currentRow = 0;
 
 			if ($this->EOF = ($this->_fetch() === false)) {
-				$this->_numOfRows = 0; // _numOfRows could be -1
+				// _numOfRows could be -1
+				$this->_numOfRows = 0;
 			}
 		} else {
 			$this->EOF = true;
@@ -729,7 +734,8 @@ class ADORecordSet_pdo extends ADORecordSet {
 
 	// returns the field object
 	public function FetchField($fieldOffset = -1) {
-		$off = $fieldOffset + 1; // offsets begin at 1
+		// offsets begin at 1
+		$off = $fieldOffset + 1;
 		$o   = new ADOFieldObject();
 		$arr = @$this->_queryID->getColumnMeta($fieldOffset);
 

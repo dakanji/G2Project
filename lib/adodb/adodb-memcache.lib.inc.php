@@ -8,6 +8,7 @@ if (!defined('ADODB_DIR')) {
 global $ADODB_INCLUDED_MEMCACHE;
 
 $ADODB_INCLUDED_MEMCACHE = 1;
+
 global $ADODB_INCLUDED_CSV;
 
 if (empty($ADODB_INCLUDED_CSV)) {
@@ -25,10 +26,17 @@ if (empty($ADODB_INCLUDED_CSV)) {
   Latest version is available at http://adodb.sourceforge.net
 Usage:
 $db = NewADOConnection($driver);
-$db->memCache = true; /// should we use memCache instead of caching in files
+
+/// should we use memCache instead of caching in files
+$db->memCache = true;
 $db->memCacheHost = array($ip1, $ip2, $ip3);
-$db->memCachePort = 11211; /// this is default memCache port
-$db->memCacheCompress = false; /// Use 'true' to store the item compressed (uses zlib)
+
+/// this is default memCache port
+$db->memCachePort = 11211;
+
+/// Use 'true' to store the item compressed (uses zlib)
+$db->memCacheCompress = false;
+
 $db->Connect(...);
 $db->CacheExecute($sql);
 
@@ -36,12 +44,17 @@ $db->CacheExecute($sql);
   Class instance is stored in $ADODB_CACHE
 */
 class ADODB_Cache_MemCache {
-	public $createdir = false; // create caching directory structure?
+	// create caching directory structure?
+	public $createdir = false;
+
 	//-----------------------------
 	// memcache specific variables
-	public $hosts; // array of hosts
-	public $port       = 11211;
-	public $compress   = false; // memcache compression with zlib
+	// array of hosts
+	public $hosts;
+	public $port = 11211;
+
+	// memcache compression with zlib
+	public $compress   = false;
 	public $_connected = false;
 	public $_memcache  = false;
 
@@ -143,7 +156,8 @@ class ADODB_Cache_MemCache {
 		}
 
 		if ($rs->timeCreated == 0) {
-			return $rs; // apparently have been reports that timeCreated was set to 0 somewhere
+			// apparently have been reports that timeCreated was set to 0 somewhere
+			return $rs;
 		}
 
 		$tdiff = (int)($rs->timeCreated + $secs2cache - time());

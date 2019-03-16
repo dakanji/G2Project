@@ -102,6 +102,7 @@ if (!defined('XMLS_DEFAULT_UPGRADE_METHOD')) {
  */
 if (!defined('_ADODB_LAYER')) {
 	include 'adodb.inc.php';
+
 	include 'adodb-datadict.inc.php';
 }
 
@@ -362,7 +363,9 @@ class dbTable extends dbObject {
 		switch (strtoupper($tag)) {
 			case 'TABLE':
 				$this->parent->addSQL($this->create($this->parent));
+
 				xml_set_object($parser, $this->parent);
+
 				$this->destroy();
 
 				break;
@@ -844,6 +847,7 @@ class dbData extends dbObject {
 
 			case 'F':
 				$this->addField($attributes);
+
 				// Fall Through
 			default:
 				// print_r( array( $tag, $attributes ) );
@@ -1114,7 +1118,9 @@ class dbQuerySet extends dbObject {
 
 			case 'SQL':
 				$this->parent->addSQL($this->create($this->parent));
+
 				xml_set_object($parser, $this->parent);
+
 				$this->destroy();
 
 				break;

@@ -191,3 +191,4 @@ class AdminEditGroupView extends GalleryView {
 		);
 	}
 }
+

@@ -6,6 +6,7 @@
 			<?php echo $pluginData['percentDone']; ?>%
 		</td>
 		<?php
+
 		if (isset($pluginData['missing'])) {
 			?>
 		<td colspan="5" class="<?php echo modifier('missing'); ?>">

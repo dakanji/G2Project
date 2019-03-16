@@ -15,3 +15,4 @@ $mapInfo['ExifPropertiesMap'] = array(
 		'size' => STORAGE_SIZE_LARGE,
 	),
 );
+

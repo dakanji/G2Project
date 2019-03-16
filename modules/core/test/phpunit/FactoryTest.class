@@ -516,7 +516,6 @@ class FactoryTestDummy2 {}
 class FactoryTestModule extends GalleryModule {
 	public function __construct() {
 		$this->setId('factoryTest');
-
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$this->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 	}

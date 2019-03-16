@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Provider;
-
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleEntryReaderInterface;
 use Symfony\Component\Intl\Locale;
 
@@ -64,12 +62,12 @@ class LanguageDataProvider
         }
 
         $languages = $this->reader->readEntry($this->path, $displayLocale, array('Names'));
-
         if ($languages instanceof \Traversable) {
             $languages = iterator_to_array($languages);
         }
 
         $collator = new \Collator($displayLocale);
+
         $collator->asort($languages);
 
         return $languages;
@@ -80,3 +78,4 @@ class LanguageDataProvider
         return $this->reader->readEntry($this->path, 'meta', array('Alpha2ToAlpha3', $language));
     }
 }
+

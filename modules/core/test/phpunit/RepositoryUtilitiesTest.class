@@ -283,7 +283,6 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			$path     = GalleryCoreApi::getCodeBasePath($case['pluginType'] . 's/');
 
 			$platform->setReply('opendir', array($path), 'fh');
-
 			$platform->setReply('readdir', array('fh'), 'testModule');
 			$platform->setReply(
 				'is_file',
@@ -590,7 +589,6 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 
 		$platform->setReply('fsockopen', array('example.com', 80, null, null, 5), 'fd');
-
 		$platform->setReply(
 			'fwrite',
 			array(
@@ -601,19 +599,12 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			),
 			true
 		);
-
 		$platform->setReply('fflush', array('fd'), null);
-
 		$platform->setReply('fgets', array('fd', 4096), "HTTP/1.1 200 OK\r\n");
-
 		$platform->setReply('feof', array('fd'), false);
-
 		$platform->setReply('fgets', array('fd', 4096), "\r\n");
-
 		$platform->setReply('feof', array('fd'), false);
-
 		$platform->setReply('fread', array('fd', 4096), 'data');
-
 		$platform->setReply('feof', array('fd'), true);
 		$platform->setReply('fclose', array('fd'), null);
 		$gallery->setPlatform($platform);
@@ -637,7 +628,6 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 
 		$platform->setReply('fsockopen', array('example.com', 80, null, null, 5), 'fd');
-
 		$platform->setReply(
 			'fwrite',
 			array(
@@ -648,19 +638,12 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			),
 			true
 		);
-
 		$platform->setReply('fflush', array('fd'), null);
-
 		$platform->setReply('fgets', array('fd', 4096), "HTTP/1.1 200 OK\r\n");
-
 		$platform->setReply('feof', array('fd'), false);
-
 		$platform->setReply('fgets', array('fd', 4096), "\r\n");
-
 		$platform->setReply('feof', array('fd'), false);
-
 		$platform->setReply('fread', array('fd', 4096), 'data');
-
 		$platform->setReply('feof', array('fd'), true);
 		$platform->setReply('fclose', array('fd'), null);
 		$gallery->setPlatform($platform);
@@ -684,7 +667,6 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 
 		$platform->setReply('fsockopen', array('example.com', 80, null, null, 5), 'fd');
-
 		$platform->setReply(
 			'fwrite',
 			array(
@@ -695,21 +677,13 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			),
 			true
 		);
-
 		$platform->setReply('fflush', array('fd'), null);
-
 		$platform->setReply('fgets', array('fd', 4096), "HTTP/1.1 200 OK\r\n");
-
 		$platform->setReply('feof', array('fd'), false);
-
 		$platform->setReply('fgets', array('fd', 4096), "\r\n");
-
 		$platform->setReply('feof', array('fd'), false);
-
 		$platform->setReply('fread', array('fd', 4096), 'data');
-
 		$platform->setReply('feof', array('fd'), true);
-
 		$platform->setReply('fclose', array('fd'), null);
 		$gallery->setPlatform($platform);
 		$this->assertEquals(
@@ -850,11 +824,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform       = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array("$modules/m1/"), true);
-
 		$platform->setReply('is_writeable', array("$modules/m1/"), true);
-
 		$platform->setReply('is_dir', array("$modules/m1/"), true);
-
 		$platform->setReply('file_exists', array("$modules/m1/f1"), true);
 		$platform->setReply('is_writeable', array("$modules/m1/f1"), true);
 		$platform->setReply('file_exists', array("$modules/m1/d2/f2"), true);
@@ -876,13 +847,16 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform       = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array("$modules/m1/"), true);
-
 		$platform->setReply('is_writeable', array("$modules/m1/"), true);
 		$platform->setReply('is_dir', array("$modules/m1/"), true);
 		$platform->setReply('file_exists', array("$modules/m1/f1"), true);
-		$platform->setReply('is_writeable', array("$modules/m1/f1"), false); // bad!
+
+		// bad!
+		$platform->setReply('is_writeable', array("$modules/m1/f1"), false);
 		$platform->setReply('file_exists', array("$modules/m1/d2/f2"), true);
-		$platform->setReply('is_writeable', array("$modules/m1/d2/f2"), false); // bad!
+
+		// bad!
+		$platform->setReply('is_writeable', array("$modules/m1/d2/f2"), false);
 		$gallery->setPlatform($platform);
 
 		$utilties = new GalleryRepositoryUtilities();
@@ -926,14 +900,14 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform       = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array("$modules/m1/"), true);
-
 		$platform->setReply('is_writeable', array("$modules/m1/"), true);
-
 		$platform->setReply('is_dir', array("$modules/m1/"), true);
 		$platform->setReply('file_exists', array("$modules/m1/f1"), true);
 		$platform->setReply('is_writeable', array("$modules/m1/f1"), true);
 		$platform->setReply('file_exists', array("$modules/m1/d2/f2"), false);
-		$platform->setReply('file_exists', array("$modules/m1/d2/"), false); // missing!
+
+		// missing!
+		$platform->setReply('file_exists', array("$modules/m1/d2/"), false);
 		$gallery->setPlatform($platform);
 
 		$utilties = new GalleryRepositoryUtilities();
@@ -951,15 +925,10 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform       = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array("$modules/m1/"), true);
-
 		$platform->setReply('is_writeable', array("$modules/m1/"), true);
-
 		$platform->setReply('is_dir', array("$modules/m1/"), true);
-
 		$platform->setReply('file_exists', array("$modules/m1/f1"), true);
-
 		$platform->setReply('is_writeable', array("$modules/m1/f1"), true);
-
 		$platform->setReply('file_exists', array("$modules/m1/d2/f2"), false);
 		$platform->setReply('file_exists', array("$modules/m1/d2/"), true);
 		$platform->setReply('is_writeable', array("$modules/m1/d2/"), true);
@@ -981,18 +950,16 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform       = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array("$modules/m1/"), true);
-
 		$platform->setReply('is_writeable', array("$modules/m1/"), true);
-
 		$platform->setReply('is_dir', array("$modules/m1/"), true);
-
 		$platform->setReply('file_exists', array("$modules/m1/f1"), true);
-
 		$platform->setReply('is_writeable', array("$modules/m1/f1"), true);
 		$platform->setReply('file_exists', array("$modules/m1/d2/f2"), false);
 		$platform->setReply('file_exists', array("$modules/m1/d2/"), true);
 		$platform->setReply('is_writeable', array("$modules/m1/d2/"), true);
-		$platform->setReply('is_dir', array("$modules/m1/d2/"), false);  // bad!
+
+		// bad!
+		$platform->setReply('is_dir', array("$modules/m1/d2/"), false);
 		$gallery->setPlatform($platform);
 
 		$utilties = new GalleryRepositoryUtilities();
@@ -1013,7 +980,9 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform       = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array("$modules/m1/"), true);
-		$platform->setReply('is_writeable', array("$modules/m1/"), false); // bad!
+
+		// bad!
+		$platform->setReply('is_writeable', array("$modules/m1/"), false);
 		$gallery->setPlatform($platform);
 
 		$utilties = new GalleryRepositoryUtilities();
@@ -1057,10 +1026,9 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			array("$modules/testModule/moduleFile1"),
 			'moduleFile1'
 		);
-
 		$platform->setReply('file_exists', array("$modules/testModule/moduleFile1"), true);
-
 		$platform->setReply('filesize', array("$modules/testModule/moduleFile1"), 1337);
+
 		// moduleFile2
 		$platform->setReply(
 			'file_get_contents',
@@ -1135,24 +1103,19 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$phpVm           = $gallery->getPhpVm();
 
 		$gallery->setConfig('repository.cache', '/cache/');
-
 		$platform->setReply('fopen', array('tempOut', 'r', null), 'handle');
-
 		$this->_setSplitPackagesResponses(
 			'modules/testModule-1.0-22222.descriptor',
 			'Module Descriptor Data'
 		);
-
 		$this->_setSplitPackagesResponses(
 			'modules/testModule-1.0-22222-base.package',
 			'Module Base Data'
 		);
-
 		$this->_setSplitPackagesResponses(
 			'modules/testModule-lang-en_GB-11111-22222.package',
 			'Module Language en_GB Data'
 		);
-
 		$this->_setSplitPackagesResponses(
 			'themes/testTheme-1.0.1-22222.descriptor.gz',
 			'Theme Descriptor Data'
@@ -1226,6 +1189,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 		$gallery->setConfig('repository.cache', '/cache/');
 		$platform->setReply('fopen', array('tempOut', 'r', null), 'handle');
+
 		$this->_setSplitPackagesResponses(
 			'themes/testTheme-11111-22222.descriptor',
 			'Descriptor Data',
@@ -1269,6 +1233,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			'modules/testModule-1.0-22222.descriptor',
 			'Module Descriptor Data'
 		);
+
 		$this->_setSplitPackagesResponses(
 			'modules/testModule-1.0-22222-base.package.gz',
 			'Module Base Data',
@@ -1307,7 +1272,6 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 				array($handle, 4096),
 				"HTTP/1.1 {$failed['download']}\r\n"
 			);
-
 			$platform->setReply('feof', array('fd'), true);
 		} else {
 			$platform->setReply('fgets', array($handle, 4096), "HTTP/1.1 200 OK\r\n");
@@ -1370,18 +1334,13 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		. "Content-Length: {$requestDataLength}\r\n\r\n" . $requestData;
 
 		$platform->setReply('fwrite', array('fd', $requestData, null), true);
-
 		$platform->setReply('fflush', array('fd'), null);
-
 		$this->_setDownloadHeaders('fd', $errors);
-
 		$platform->setReply('fopen', array($outputFile, 'wb', null), 'handle');
 
 		if (empty($errors['download'])) {
 			$platform->setReply('feof', array('fd'), false);
-
 			$platform->setReply('fread', array('fd', 4096), $responseData);
-
 			$platform->setReply(
 				'fwrite',
 				array('handle', $responseData, null),

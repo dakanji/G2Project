@@ -123,6 +123,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 						$mimeType,
 						$item->getId()
 					);
+
 					// Get rid of the tmp file if necessary
 					if ($needToDeleteTmpFile) {
 						@$platform->unlink($tmpFile);

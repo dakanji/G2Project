@@ -9,3 +9,4 @@
 $iconData = array(
 	'name' => $gallery->i18n('Silk Icons'),
 );
+

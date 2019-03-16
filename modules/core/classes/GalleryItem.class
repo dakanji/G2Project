@@ -252,8 +252,10 @@ class GalleryItem extends GalleryFileSystemEntity {
 
 		// Record the owner
 		$this->setOwnerId($gallery->getActiveUserId());
+
 		// Initialize the viewedSince timestamp
 		$this->setViewedSinceTimestamp(time());
+
 		// Origination timestamp defaults to now
 		$this->setOriginationTimestamp(time());
 
@@ -293,7 +295,6 @@ class GalleryItem extends GalleryFileSystemEntity {
 
 		// Copy over anything else from the target entity
 		$this->setDescription($entity->getDescription());
-
 		$this->setKeywords($entity->getKeywords());
 		$this->setSummary($entity->getSummary());
 		$this->setTitle($entity->getTitle());

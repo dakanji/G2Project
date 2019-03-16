@@ -115,3 +115,4 @@ class PermalinksOption extends ItemEditOption {
 		);
 	}
 }
+

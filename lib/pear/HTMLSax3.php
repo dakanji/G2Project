@@ -451,11 +451,17 @@ class XML_HTMLSax3 {
 	 * $myHandler =& new MyHandler();
 	 * $parser = new XML_HTMLSax3();
 	 *
+	 *
 	 * $parser->set_object($myHandler);
+	 *
 	 * $parser->set_option('XML_OPTION_CASE_FOLDING');
+	 *
 	 * $parser->set_element_handler('myOpenHandler','myCloseHandler');
+	 *
 	 * $parser->set_data_handler('myDataHandler');
+	 *
 	 * $parser->parser($xml);
+	 *
 	 *
 	 * </pre>
 	 * @access public
@@ -465,7 +471,6 @@ class XML_HTMLSax3 {
 		$nullhandler        = new XML_HTMLSax3_NullHandler();
 
 		$this->set_object($nullhandler);
-
 		$this->set_element_handler('DoNothing', 'DoNothing');
 		$this->set_data_handler('DoNothing');
 		$this->set_pi_handler('DoNothing');
@@ -631,8 +636,10 @@ class XML_HTMLSax3 {
 	 * <br />Intended for use from within a user defined handler called
 	 * via the $parser reference e.g.
 	 * <pre>
+	 *
 	 * function myDataHandler(& $parser,$data) {
 	 *     echo( 'Current position: '.$parser->get_current_position() );
+	 *
 	 * }
 	 * </pre>
 	 * @access public

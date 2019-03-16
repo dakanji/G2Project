@@ -22,8 +22,10 @@ if (!defined('_ADODB_ODBC_LAYER')) {
 }
 
 class ADODB_odbc_oracle extends ADODB_odbc {
-	public $databaseType    = 'odbc_oracle';
-	public $replaceQuote    = "''"; // string to use to replace quotes
+	public $databaseType = 'odbc_oracle';
+
+	// string to use to replace quotes
+	public $replaceQuote    = "''";
 	public $concat_operator = '||';
 	public $fmtDate         = "'Y-m-d 00:00:00'";
 	public $fmtTimeStamp    = "'Y-m-d h:i:sA'";
@@ -66,7 +68,8 @@ class ADODB_odbc_oracle extends ADODB_odbc {
 
 		$retarr = array();
 
-		while (!$rs->EOF) { //print_r($rs->fields);
+		while (!$rs->EOF) {
+			//print_r($rs->fields);
 			$fld             = new ADOFieldObject();
 			$fld->name       = $rs->fields[0];
 			$fld->type       = $rs->fields[1];

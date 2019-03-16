@@ -1440,3 +1440,4 @@ hr {width: 600px; background-color: #cccccc; border: 0px; height: 1px; color: #0
 		'iptcparse'               => true,
 	),
 );
+

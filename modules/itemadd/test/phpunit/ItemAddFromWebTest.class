@@ -225,16 +225,13 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		);
 		GalleryUtilities::putRequestVariable('form[set][title]', 1);
 		GalleryUtilities::putRequestVariable('form[set][summary]', 1);
-
 		$basenames = array('test1', 'test2', 'test3', 'test4', 'apo\'strophe');
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album);
 
 		$this->assertEquals(array(), $results[0], 'errors');
-
 		$this->assertEquals(5, sizeof($results[1]['addedFiles']), 'number of added files');
-
 		$this->assertEquals(
 			'http://www.test.com/test1.gif',
 			$results[1]['addedFiles'][0]['fileName'],
@@ -247,6 +244,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			'filename 2'
 		);
 		$this->assertTrue(isset($results[1]['addedFiles'][1]['id']), 'id 2');
+
 		$this->assertEquals(
 			'http://www.test.com/test3.jpg?foo=bar',
 			$results[1]['addedFiles'][2]['fileName'],
@@ -254,6 +252,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		);
 
 		$this->assertTrue(isset($results[1]['addedFiles'][2]['id']), 'id 3');
+
 		$this->assertEquals(
 			'http://www.test.com/main.php?g2_itemId=123',
 			$results[1]['addedFiles'][3]['fileName'],
@@ -309,7 +308,6 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[set][title]', 1);
 		GalleryUtilities::putRequestVariable('form[set][summary]', 1);
 		GalleryUtilities::putRequestVariable('form[set][description]', 1);
-
 		$basenames = array('test1', 'test2', 'test3', 'test4', 'apo\'strophe');
 
 		// Perform the request and verify that we succeeded
@@ -338,8 +336,11 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		}
 
 		$this->assertEquals('evil&lt;script&gt;', $item->getTitle(), 'title');
+
 		$this->assertEquals('evil&lt;script&gt;', $item->getSummary(), 'summary');
+
 		$this->assertEquals('evil&lt;script&gt;', $item->getDescription(), 'description');
+
 		$this->assertEquals('evil_script_.jpg', $item->getPathComponent(), 'path component');
 	}
 
@@ -387,6 +388,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$template->_data,
 			'template'
 		);
+
 		$this->assertEquals(
 			array(
 				'http://www.test.com/t/index.php?foo=bar' => 1,
@@ -394,6 +396,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$this->_session->get('itemadd.view.ItemAddFromWeb.recentUrls'),
 			'session urls'
 		);
+
 		$this->assertEquals(
 			array(
 				'formName'    => 'ItemAddFromWeb',
@@ -487,6 +490,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$template->_data,
 			'template'
 		);
+
 		$this->assertEquals(
 			array(
 				'http://www.test.com/page.php' => 1,
@@ -495,6 +499,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$this->_session->get('itemadd.view.ItemAddFromWeb.recentUrls'),
 			'session urls'
 		);
+
 		$this->assertEquals(
 			array(
 				'formName'    => 'ItemAddFromWeb',
@@ -546,6 +551,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			),
 			$template->_data
 		);
+
 		$this->assertEquals(
 			array(
 				'formName'    => 'ItemAddFromWeb',
@@ -596,6 +602,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			),
 			$template->_data
 		);
+
 		$this->assertEquals(
 			array(
 				'formName'    => 'ItemAddFromWeb',
@@ -655,6 +662,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$template->_data,
 			'template'
 		);
+
 		$this->assertEquals(
 			array(
 				'http://blah.com/other.html'                  => 1,
@@ -663,6 +671,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$this->_session->get('itemadd.view.ItemAddFromWeb.recentUrls'),
 			'session urls'
 		);
+
 		$this->assertEquals(
 			array(
 				'formName'    => 'ItemAddFromWeb',
@@ -825,6 +834,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$template->_data,
 			'template'
 		);
+
 		$this->assertEquals(
 			array(
 				'http://www.test.com/t/index.php?base=abs' => 1,
@@ -832,6 +842,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 			$this->_session->get('itemadd.view.ItemAddFromWeb.recentUrls'),
 			'session urls'
 		);
+
 		$this->assertEquals(
 			array(
 				'formName'    => 'ItemAddFromWeb',

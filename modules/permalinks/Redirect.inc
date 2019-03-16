@@ -67,7 +67,6 @@ class RedirectController extends GalleryController {
 		// Delegate to the ShowItem view
 		GalleryUtilities::putRequestVariable('itemId', $itemId);
 		GalleryUtilities::putRequestVariable('view', 'core.ShowItem');
-
 		$results = array(
 			'delegate' => array(
 				'view' => 'core.ShowItem',

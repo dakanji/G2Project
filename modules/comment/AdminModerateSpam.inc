@@ -282,6 +282,7 @@ class AdminModerateSpamView extends GalleryView {
 		}
 
 		$template->setVariable('controller', 'comment.AdminModerateSpam');
+
 		$template->setVariable(
 			'AdminModerateSpam',
 			array(

@@ -76,7 +76,6 @@ class RatingAlbumTest extends GalleryTestCase {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-
 		$this->_template = new GalleryTemplate(dirname(dirname(dirname(dirname(__DIR__)))));
 
 		$ret = $this->_markPluginParametersForCleanup('module', 'rating');
@@ -136,7 +135,6 @@ class RatingAlbumTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(GalleryUtilities::isA($theme, 'GalleryTheme'), 'theme');
-
 		$this->assertTrue(is_array($params), 'theme settings');
 		$this->assertTrue(GalleryUtilities::isA($item, 'GalleryDataItem'), 'item');
 		$this->assertTrue(isset($item->parent), 'item parent');
@@ -153,9 +151,7 @@ class RatingAlbumTest extends GalleryTestCase {
 
 		$theme                 =& $this->_template->getVariableByReference('theme');
 		$theme['actingUserId'] = $gallery->getActiveUserId();
-
 		GalleryUtilities::putRequestVariable('limit', '3.45');
-
 		$form = array();
 
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
@@ -186,6 +182,7 @@ class RatingAlbumTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(0, $count, 'count before');
+
 		GalleryUtilities::putRequestVariable('limit', '3');
 		GalleryUtilities::putRequestVariable('itemId', $this->_items[2]->getId());
 
@@ -244,7 +241,6 @@ class RatingAlbumTest extends GalleryTestCase {
 
 	public function testLimitTooLow() {
 		GalleryUtilities::putRequestVariable('limit', '1.5');
-
 		$form = array();
 
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
@@ -265,3 +261,4 @@ class RatingAlbumTest extends GalleryTestCase {
 		);
 	}
 }
+

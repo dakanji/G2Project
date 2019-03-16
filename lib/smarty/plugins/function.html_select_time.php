@@ -23,6 +23,7 @@
  */
 function smarty_function_html_select_time($params, &$smarty) {
 	include_once $smarty->_get_plugin_filepath('shared', 'make_timestamp');
+
 	include_once $smarty->_get_plugin_filepath('function', 'html_options');
 
 	// Default values.

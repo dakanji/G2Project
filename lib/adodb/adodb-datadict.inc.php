@@ -853,7 +853,8 @@ class ADODB_DataDict {
 			$ftype = $this->_GetSize($ftype, $ty, $fsize, $fprec);
 
 			if ($ty == 'X' || $ty == 'X2' || $ty == 'B') {
-				$fnotnull = false; // some blob types do not accept nulls
+				// some blob types do not accept nulls
+				$fnotnull = false;
 			}
 
 			if ($fprimary) {
@@ -1172,7 +1173,8 @@ class ADODB_DataDict {
 					if (isset($c->scale)) {
 						$sc = $c->scale;
 					} else {
-						$sc = 99; // always force change if scale not known.
+						// always force change if scale not known.
+						$sc = 99;
 					}
 
 					if ($sc == -1) {

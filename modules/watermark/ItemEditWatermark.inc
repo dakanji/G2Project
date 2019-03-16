@@ -451,7 +451,8 @@ class ItemEditWatermark extends ItemEditPlugin {
 		}
 
 		if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
-			$mimeType = 'image/jpeg'; // Just check common type to show tab for albums
+			// Just check common type to show tab for albums
+			$mimeType = 'image/jpeg';
 		} elseif (GalleryUtilities::isA($item, 'GalleryDataItem')) {
 			$mimeType = $item->getMimeType();
 		} else {
@@ -461,7 +462,8 @@ class ItemEditWatermark extends ItemEditPlugin {
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, 'composite');
 
 		if ($ret) {
-			return false; // Swallow the error for now
+			// Swallow the error for now
+			return false;
 		}
 
 		if (isset($toolkit)) {
@@ -474,7 +476,8 @@ class ItemEditWatermark extends ItemEditPlugin {
 		);
 
 		if ($ret) {
-			return false; // Swallow the error for now
+			// Swallow the error for now
+			return false;
 		}
 
 		if (!empty($preferredTable[$item->getId()])) {
@@ -486,7 +489,8 @@ class ItemEditWatermark extends ItemEditPlugin {
 			);
 
 			if ($ret) {
-				return false; // Swallow the error for now
+				// Swallow the error for now
+				return false;
 			}
 
 			if (isset($toolkit)) {

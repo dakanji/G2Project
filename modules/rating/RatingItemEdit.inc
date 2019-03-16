@@ -89,3 +89,4 @@ class RatingItemEdit extends ItemEditOption {
 		return array(null, true);
 	}
 }
+

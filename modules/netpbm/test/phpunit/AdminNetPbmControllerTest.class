@@ -130,6 +130,7 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 			array(null, '12'),
 			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jpegQuality')
 		);
+
 		// Verify we detected which binaries to use:
 		$this->assertEquals(
 			array(null, 'pnmcomp'),
@@ -139,7 +140,6 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -156,7 +156,6 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -338,3 +337,4 @@ class AdminNetPbmControllerTestPlatform {
 		return $this->_platform->realpath($file);
 	}
 }
+

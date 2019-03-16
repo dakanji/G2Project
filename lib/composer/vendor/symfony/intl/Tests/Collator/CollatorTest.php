@@ -8,12 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\Collator;
-
 use Symfony\Component\Intl\Collator\Collator;
 use Symfony\Component\Intl\Globals\IntlGlobals;
-
 class CollatorTest extends AbstractCollatorTest
 {
     /**
@@ -30,6 +27,7 @@ class CollatorTest extends AbstractCollatorTest
     public function testCompare()
     {
         $collator = $this->getCollator('en');
+
         $collator->compare('a', 'b');
     }
 
@@ -39,30 +37,35 @@ class CollatorTest extends AbstractCollatorTest
     public function testGetAttribute()
     {
         $collator = $this->getCollator('en');
+
         $collator->getAttribute(Collator::NUMERIC_COLLATION);
     }
 
     public function testGetErrorCode()
     {
         $collator = $this->getCollator('en');
+
         $this->assertEquals(IntlGlobals::U_ZERO_ERROR, $collator->getErrorCode());
     }
 
     public function testGetErrorMessage()
     {
         $collator = $this->getCollator('en');
+
         $this->assertEquals('U_ZERO_ERROR', $collator->getErrorMessage());
     }
 
     public function testGetLocale()
     {
         $collator = $this->getCollator('en');
+
         $this->assertEquals('en', $collator->getLocale());
     }
 
     public function testConstructWithoutLocale()
     {
         $collator = $this->getCollator(null);
+
         $this->assertInstanceOf('\Symfony\Component\Intl\Collator\Collator', $collator);
     }
 
@@ -72,6 +75,7 @@ class CollatorTest extends AbstractCollatorTest
     public function testGetSortKey()
     {
         $collator = $this->getCollator('en');
+
         $collator->getSortKey('Hello');
     }
 
@@ -81,6 +85,7 @@ class CollatorTest extends AbstractCollatorTest
     public function testGetStrength()
     {
         $collator = $this->getCollator('en');
+
         $collator->getStrength();
     }
 
@@ -90,6 +95,7 @@ class CollatorTest extends AbstractCollatorTest
     public function testSetAttribute()
     {
         $collator = $this->getCollator('en');
+
         $collator->setAttribute(Collator::NUMERIC_COLLATION, Collator::ON);
     }
 
@@ -99,12 +105,14 @@ class CollatorTest extends AbstractCollatorTest
     public function testSetStrength()
     {
         $collator = $this->getCollator('en');
+
         $collator->setStrength(Collator::PRIMARY);
     }
 
     public function testStaticCreate()
     {
         $collator = Collator::create('en');
+
         $this->assertInstanceOf('\Symfony\Component\Intl\Collator\Collator', $collator);
     }
 
@@ -113,3 +121,4 @@ class CollatorTest extends AbstractCollatorTest
         return new Collator($locale);
     }
 }
+

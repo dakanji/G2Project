@@ -327,3 +327,4 @@ $entityInfo['GalleryUser'] = array(
 	'module'  => 'core',
 	'linked'  => array(),
 );
+

@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\NumberFormatter\Verification;
-
 use Symfony\Component\Intl\Tests\NumberFormatter\AbstractNumberFormatterTest;
 use Symfony\Component\Intl\Util\IntlTestHelper;
 
@@ -23,7 +21,6 @@ class NumberFormatterTest extends AbstractNumberFormatterTest
     protected function setUp()
     {
         IntlTestHelper::requireFullIntl($this, '55.1');
-
         parent::setUp();
     }
 
@@ -35,7 +32,6 @@ class NumberFormatterTest extends AbstractNumberFormatterTest
     public function testGetTextAttribute()
     {
         IntlTestHelper::requireFullIntl($this, '57.1');
-
         parent::testGetTextAttribute();
     }
 
@@ -59,3 +55,4 @@ class NumberFormatterTest extends AbstractNumberFormatterTest
         return intl_is_failure($errorCode);
     }
 }
+

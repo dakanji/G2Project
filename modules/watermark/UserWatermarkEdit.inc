@@ -74,3 +74,4 @@ class UserWatermarkEditView extends GalleryView {
 		);
 	}
 }
+

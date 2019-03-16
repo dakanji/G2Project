@@ -13,3 +13,4 @@ $mapInfo['QuotasMap'] = array(
 		'notNull' => true,
 	),
 );
+

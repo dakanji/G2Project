@@ -742,7 +742,6 @@ class TestGdFunctionality {
 
 	public function imagedestroy($res) {
 		$this->_undestroyedResourceCounter--;
-
 		$this->_resources[$res]['destroyed'] = true;
 	}
 

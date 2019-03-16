@@ -102,7 +102,6 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
-
 		$results = $this->handleRequest($this->album, $this->_album);
 
 		$this->assertEquals(array(array(), null), $results);
@@ -211,7 +210,6 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 
 		GalleryUtilities::putRequestVariable('form[language]', 'zh_CN');
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
-
 		$results = $this->handleRequest($this->_album, $this->_album);
 		$this->assertEquals(
 			array(array('form[error][title][missingRootTitle]'), null),
@@ -244,7 +242,6 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[summary]', 'summary <blink>fun</blink>');
 		GalleryUtilities::putRequestVariable('form[description]', '<applet class="bad"/>desc');
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
-
 		$results = $this->handleRequest($this->_album, $this->_album);
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),

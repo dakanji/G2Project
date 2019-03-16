@@ -48,7 +48,6 @@ class LinkItemSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -67,7 +66,6 @@ class LinkItemSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[urlSnapshot]', '1');
 		GalleryUtilities::putRequestVariable('form[snapshotExec]', 'khtml2png %URL%');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -98,3 +96,4 @@ class LinkItemSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 	}
 }
+

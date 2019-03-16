@@ -307,7 +307,6 @@ class CodeAuditTest extends CodeAuditTestCase {
 			/*
 			 * Check for lines wider than 100 characters.
 			 * Do a simple tab->8spaces conversion.. good enough for this check.
-
 			 */
 			$line = str_replace("\t", '        ', $lines[$i]);
 
@@ -457,7 +456,6 @@ class CodeAuditTest extends CodeAuditTestCase {
 		}
 
 		$this->_errorCount++;
-
 		$errorReported = false;
 
 		for ($i = 0; $i < count($this->_preamble); $i++) {

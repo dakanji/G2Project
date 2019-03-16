@@ -31,8 +31,11 @@ if (!defined('G2_SUPPORT')) {
 $g2Base = dirname(dirname(__DIR__)) . '/';
 
 require_once $g2Base . 'modules/core/classes/GalleryCoreApi.class';
+
 require_once $g2Base . 'modules/core/classes/GalleryStorage.class';
+
 require_once $g2Base . 'modules/core/classes/GalleryUtilities.class';
+
 require_once $g2Base . 'lib/support/SupportStatusTemplate.class';
 
 $templateData = array();
@@ -82,7 +85,6 @@ if ($ret) {
 
 		// Sanitize the input
 		GalleryUtilities::sanitizeInputValues($verifiedFile);
-
 		$doImportFlag = true;
 
 		if ($verifiedFile != $importFile) {
@@ -153,8 +155,7 @@ if ($renderFullPage) {
  * @return boolean true if there are no verification messages to display.
  */
 function verifyVersions(&$templateData, $importFile) {
-	global $gallery;
-	global $template;
+	global $gallery,  $template;
 
 	$storage  =& $gallery->getStorage();
 	$importer = $storage->getDatabaseImporter();

@@ -64,7 +64,6 @@ class EmbedTest extends GalleryTestCase {
 
 		// Clean all cached variables
 		GalleryDataCache::reset();
-
 		$session             =& $gallery->getSession();
 		$session->_sessionId = md5(mt_rand());
 
@@ -78,7 +77,6 @@ class EmbedTest extends GalleryTestCase {
 		$GLOBALS['gallery'] = $this->_origGallery;
 		$gallery            =& $GLOBALS['gallery'];
 		$gallery->_session  = $this->_savedSession;
-
 		GalleryDataCache::reset();
 
 		$ret = parent::tearDown();
@@ -224,6 +222,7 @@ class EmbedTest extends GalleryTestCase {
 			$urlgenerator->getCurrentUrlDir(),
 			'First init call failed.'
 		);
+
 		// And check if init first pass has been called, but not init second pass
 		$this->assertTrue(
 			GalleryDataCache::containsKey($firstCacheKey),
@@ -259,6 +258,7 @@ class EmbedTest extends GalleryTestCase {
 			$urlgenerator->getCurrentUrlDir(true),
 			'Second init call called initFirstPass again.'
 		);
+
 		// And check if init first pass has been called, but not init second pass
 		$this->assertTrue(
 			GalleryDataCache::containsKey($firstCacheKey),
@@ -300,9 +300,9 @@ class EmbedTest extends GalleryTestCase {
 			GalleryDataCache::containsKey($secondCacheKey),
 			'GallerySecondPass has not been called in first call.'
 		);
+
 		// Reset for next try
 		GalleryDataCache::reset();
-
 		$this->assertTrue(
 			!GalleryDataCache::containsKey($firstCacheKey),
 			'GDC reset did not delete GalleryEmbed:initFirstPass key.'
@@ -332,9 +332,9 @@ class EmbedTest extends GalleryTestCase {
 			!GalleryDataCache::containsKey($secondCacheKey),
 			'GallerySecondPass has been called in second call.'
 		);
+
 		// Reset for next try
 		GalleryDataCache::reset();
-
 		$this->assertTrue(
 			!GalleryDataCache::containsKey($firstCacheKey),
 			'GDC reset did not delete GalleryEmbed:initFirstPass key.'
@@ -425,7 +425,6 @@ class EmbedTest extends GalleryTestCase {
 			$session->getUserId(),
 			'session user id has changed'
 		);
-
 		$this->assertEquals(
 			$activeUserIds[0],
 			$session->get('embed.id.externalUser'),
@@ -489,6 +488,7 @@ class EmbedTest extends GalleryTestCase {
 			$session->get('core.language'),
 			'core.language should not have changed'
 		);
+
 		$this->assertTrue(
 			$sessionId != $session->getId(),
 			'session id did not change with new user'
@@ -580,7 +580,6 @@ class EmbedTest extends GalleryTestCase {
 			$session->getUserId(),
 			'session user id should be the guest id after logout'
 		);
-
 		$this->assertEquals(
 			'',
 			$session->get('embed.id.externalUser'),
@@ -643,6 +642,7 @@ class EmbedTest extends GalleryTestCase {
 			$session->get('core.language'),
 			'core.language should not have changed (login)'
 		);
+
 		/*
 		 * The session id should change with the new login, but this is handled by the Login
 		 * event handler which is mocked up and doesn't provide this functionality.
@@ -813,6 +813,7 @@ class EmbedTest extends GalleryTestCase {
 		 * error prone when the underlying implementation changes.
 		 */
 		$storage->_getConnection(true);
+
 		// The new connection is FETCH_NUM and we didn't change the global state
 		$this->assertEquals(ADODB_FETCH_NUM, $storage->_db->fetchMode);
 		$this->assertEquals(ADODB_FETCH_ASSOC, $GLOBALS['ADODB_FETCH_MODE']);
@@ -878,9 +879,7 @@ class EmbedTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new UnitTestPhpVm();
-
 		GalleryUtilities::putRequestVariable('getEmbedPath', '1', false);
-
 		$_SERVER['REMOTE_ADDR'] = '192.168.1.25';
 		$_SERVER['SERVER_ADDR'] = '192.168.1.25';
 
@@ -891,6 +890,7 @@ class EmbedTest extends GalleryTestCase {
 		$path = 'X-G2-EMBED-PATH: ' . GALLERY_CONFIG_DIR . '/embed.php';
 
 		$gallery->_phpVm->setReply('header', array($path, null), null);
+
 		GalleryEmbed::getEmbedPathByHttpRequest();
 
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
@@ -900,14 +900,13 @@ class EmbedTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new UnitTestPhpVm();
-
 		GalleryUtilities::putRequestVariable('getEmbedPath', '1', false);
-
 		$_SERVER['REMOTE_ADDR'] = '192.168.1.26';
 		$_SERVER['SERVER_ADDR'] = '192.168.1.25';
 
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('gethostbyname', array('192.168.1.26'), '192.168.1.26');
+
 		GalleryEmbed::getEmbedPathByHttpRequest();
 
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
@@ -920,7 +919,6 @@ class EmbedTest extends GalleryTestCase {
 
 		$gallery->setConfig('baseUri', 'http://192.168.1.25');
 		GalleryUtilities::putRequestVariable('getEmbedPath', '1', false);
-
 		$_SERVER['REMOTE_ADDR'] = '192.168.1.25';
 		unset($_SERVER['SERVER_ADDR'], $_SERVER['SERVER_NAME']);
 
@@ -932,6 +930,7 @@ class EmbedTest extends GalleryTestCase {
 		$path = 'X-G2-EMBED-PATH: ' . GALLERY_CONFIG_DIR . '/embed.php';
 
 		$gallery->_phpVm->setReply('header', array($path, null), null);
+
 		GalleryEmbed::getEmbedPathByHttpRequest();
 
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());
@@ -944,7 +943,6 @@ class EmbedTest extends GalleryTestCase {
 
 		$gallery->setConfig('baseUri', 'http://192.168.1.25');
 		GalleryUtilities::putRequestVariable('getEmbedPath', '1', false);
-
 		$_SERVER['REMOTE_ADDR'] = '192.168.1.25';
 		unset($_SERVER['SERVER_ADDR'], $_SERVER['SERVER_NAME']);
 
@@ -956,6 +954,7 @@ class EmbedTest extends GalleryTestCase {
 		$path = 'X-G2-EMBED-PATH: ' . GalleryCoreApi::getCodeBasePath('embed.php');
 
 		$gallery->_phpVm->setReply('header', array($path, null), null);
+
 		GalleryEmbed::getEmbedPathByHttpRequest();
 
 		$this->assertTrue($gallery->_phpVm->isComplete(), $gallery->_phpVm->getRemaining());

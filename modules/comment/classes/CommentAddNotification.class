@@ -51,7 +51,6 @@ class CommentAddNotification extends NotificationEvent_1_0 {
 		}
 
 		$title = GalleryUtilities::markup($item->getTitle(), 'strip');
-
 		return $this->_translateText(
 			'comment',
 			array(
@@ -121,7 +120,6 @@ class CommentAddNotification extends NotificationEvent_1_0 {
 		global $gallery;
 
 		$urlGenerator =& $gallery->getUrlGenerator();
-
 		return $urlGenerator->generateUrl(
 			array(
 				'view'   => 'comment.ShowComments',
@@ -135,3 +133,4 @@ class CommentAddNotification extends NotificationEvent_1_0 {
 		);
 	}
 }
+

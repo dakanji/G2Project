@@ -78,7 +78,6 @@ class AdminToolkitPriorityController extends GalleryController {
 			}
 
 			GalleryDataCache::removeByPattern('GalleryToolkitHelper::');
-
 			$status['saved'] = 1;
 		} // else $form['action']['reset']
 		$results['return']              = 0;

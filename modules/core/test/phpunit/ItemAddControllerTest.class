@@ -203,7 +203,6 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('itemId', $item->getId());
 		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginContinue');
-
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 
 		$this->assertEquals(null, $results);
@@ -212,7 +211,6 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 	public function testHandleRequestDelegatesToProgressBarView() {
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
 		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -253,6 +251,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(array('failed'));
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'      => 'core.ItemAdmin',
@@ -270,7 +269,6 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		 * the view.
 		 */
 		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginContinue');
-
 		$form = array(
 			'someParameter'   => 'value 1',
 			'other&Parameter' => 'value two',
@@ -287,6 +285,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(null);
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'      => 'core.ItemAdmin',
@@ -321,6 +320,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(null);
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'    => 'core.ItemAdmin',
@@ -353,7 +353,6 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
-
 		$this->_controller->setOptionInstances(
 			array(
 				'ItemAddTestOption' => new ItemAddTestOption(true),
@@ -373,6 +372,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		$this->_assertErrorFromProgressBar(
 			array('an error', 'form[error][itemsAddedDespiteFormErrors]')
 		);
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'      => 'core.ItemAdmin',
@@ -395,7 +395,6 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
-
 		$this->_controller->setOptionInstances(
 			array(
 				'ItemAddTestOption' => new ItemAddTestOption(false),
@@ -413,6 +412,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(null);
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'    => 'core.ItemAdmin',
@@ -459,7 +459,6 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
-
 		$this->_controller->setOptionInstances(
 			array(
 				'ItemAddTestOption' => new ItemAddTestOption(false),
@@ -477,6 +476,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(null);
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'    => 'core.ItemAdmin',
@@ -594,7 +594,6 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
-
 		$this->_controller->setOptionInstances(
 			array(
 				'ItemAddTestOption' => new ItemAddTestOption(false),
@@ -612,6 +611,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(null);
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'    => 'core.ItemAdmin',
@@ -717,7 +717,6 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginSuccess');
-
 		$this->_controller->setOptionInstances(
 			array(
 				'ItemAddTestOption' => new ItemAddTestOption(false),
@@ -778,7 +777,6 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 
 		// Ensure that we don't redirect because of time constraints
 		$gallery->_phpVm = new ItemAddPhpVm(0, 0);
-
 		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginFail');
 
 		$ret = $this->handleRequestWithProgressBar(
@@ -792,6 +790,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(array('failed'));
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'      => 'core.ItemAdmin',
@@ -830,6 +829,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(null);
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'    => 'core.ItemAdmin',
@@ -879,6 +879,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_assertErrorFromProgressBar(null);
+
 		$this->_assertCompleteProgressBar(
 			array(
 				'view'    => 'core.ItemAdmin',
@@ -997,7 +998,6 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
 		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddWebDav');
-
 		ob_start();
 
 		// Do a static call, that's how WebDAV invokes / invoked the controller.

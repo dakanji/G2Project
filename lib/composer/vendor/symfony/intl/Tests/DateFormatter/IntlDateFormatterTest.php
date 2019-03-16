@@ -8,29 +8,29 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Tests\DateFormatter;
-
 use Symfony\Component\Intl\DateFormatter\IntlDateFormatter;
 use Symfony\Component\Intl\Globals\IntlGlobals;
-
 class IntlDateFormatterTest extends AbstractIntlDateFormatterTest
 {
     public function testConstructor()
     {
         $formatter = new IntlDateFormatter('en', IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT, 'UTC', IntlDateFormatter::GREGORIAN, 'y-M-d');
+
         $this->assertEquals('y-M-d', $formatter->getPattern());
     }
 
     public function testConstructorWithoutLocale()
     {
         $formatter = new IntlDateFormatter(null, IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT, 'UTC', IntlDateFormatter::GREGORIAN, 'y-M-d');
+
         $this->assertEquals('y-M-d', $formatter->getPattern());
     }
 
     public function testConstructorWithoutCalendar()
     {
         $formatter = new IntlDateFormatter('en', IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT, 'UTC', null, 'y-M-d');
+
         $this->assertEquals('y-M-d', $formatter->getPattern());
     }
 
@@ -45,13 +45,13 @@ class IntlDateFormatterTest extends AbstractIntlDateFormatterTest
     public function testStaticCreate()
     {
         $formatter = IntlDateFormatter::create('en', IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT);
+
         $this->assertInstanceOf('\Symfony\Component\Intl\DateFormatter\IntlDateFormatter', $formatter);
     }
 
     public function testFormatWithUnsupportedTimestampArgument()
     {
         $formatter = $this->getDefaultDateFormatter();
-
         $localtime = array(
             'tm_sec' => 59,
             'tm_min' => 3,
@@ -68,7 +68,6 @@ class IntlDateFormatterTest extends AbstractIntlDateFormatterTest
             $formatter->format($localtime);
         } catch (\Exception $e) {
             $this->assertInstanceOf('Symfony\Component\Intl\Exception\MethodArgumentValueNotImplementedException', $e);
-
             $this->assertStringEndsWith('Only integer Unix timestamps and DateTime objects are supported.  Please install the "intl" extension for full localization capabilities.', $e->getMessage());
         }
     }
@@ -80,6 +79,7 @@ class IntlDateFormatterTest extends AbstractIntlDateFormatterTest
     {
         $pattern = 'Y';
         $formatter = new IntlDateFormatter('en', IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT, 'UTC', IntlDateFormatter::GREGORIAN, $pattern);
+
         $formatter->format(0);
     }
 
@@ -89,24 +89,28 @@ class IntlDateFormatterTest extends AbstractIntlDateFormatterTest
     public function testFormatWithNonIntegerTimestamp()
     {
         $formatter = $this->getDefaultDateFormatter();
+
         $formatter->format(array());
     }
 
     public function testGetErrorCode()
     {
         $formatter = $this->getDefaultDateFormatter();
+
         $this->assertEquals(IntlGlobals::getErrorCode(), $formatter->getErrorCode());
     }
 
     public function testGetErrorMessage()
     {
         $formatter = $this->getDefaultDateFormatter();
+
         $this->assertEquals(IntlGlobals::getErrorMessage(), $formatter->getErrorMessage());
     }
 
     public function testIsLenient()
     {
         $formatter = $this->getDefaultDateFormatter();
+
         $this->assertFalse($formatter->isLenient());
     }
 
@@ -116,6 +120,7 @@ class IntlDateFormatterTest extends AbstractIntlDateFormatterTest
     public function testLocaltime()
     {
         $formatter = $this->getDefaultDateFormatter();
+
         $formatter->localtime('Wednesday, December 31, 1969 4:00:00 PM PT');
     }
 
@@ -126,6 +131,7 @@ class IntlDateFormatterTest extends AbstractIntlDateFormatterTest
     {
         $position = 0;
         $formatter = $this->getDefaultDateFormatter('y');
+
         $this->assertSame(0, $formatter->parse('1970', $position));
     }
 
@@ -135,6 +141,7 @@ class IntlDateFormatterTest extends AbstractIntlDateFormatterTest
     public function testSetCalendar()
     {
         $formatter = $this->getDefaultDateFormatter();
+
         $formatter->setCalendar(IntlDateFormatter::GREGORIAN);
     }
 
@@ -144,6 +151,7 @@ class IntlDateFormatterTest extends AbstractIntlDateFormatterTest
     public function testSetLenient()
     {
         $formatter = $this->getDefaultDateFormatter();
+
         $formatter->setLenient(true);
     }
 
@@ -224,3 +232,4 @@ class IntlDateFormatterTest extends AbstractIntlDateFormatterTest
         }, $dataSets);
     }
 }
+

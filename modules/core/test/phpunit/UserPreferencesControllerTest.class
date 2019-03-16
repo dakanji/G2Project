@@ -77,7 +77,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -95,7 +94,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 	public function testUndo() {
 		GalleryUtilities::putRequestVariable('form[action][undo]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -114,13 +112,11 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.me');
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
 		GalleryUtilities::putRequestVariable('form[currentPassword]', 'TestPassword');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -157,7 +153,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			'  email_with-leading@space.test-o.com'
 		);
 		GalleryUtilities::putRequestVariable('form[currentPassword]', 'TestPassword');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -233,7 +228,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 			GalleryUtilities::putRequestVariable('form[email]', 'no-at.test.com');
 			GalleryUtilities::putRequestVariable('form[currentPassword]', 'TestPassword');
-
 			$results = $this->handleRequest();
 			$this->assertEquals(
 				array(
@@ -249,7 +243,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			);
 
 			GalleryUtilities::putRequestVariable('form[email]', 'bad,char@test.com');
-
 			$results = $this->handleRequest();
 			$this->assertEquals(
 				array(
@@ -265,7 +258,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			);
 
 			GalleryUtilities::putRequestVariable('form[email]', 'space test@fun.com');
-
 			$results = $this->handleRequest();
 			$this->assertEquals(
 				array(
@@ -281,7 +273,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			);
 
 			GalleryUtilities::putRequestVariable('form[email]', 'bad.suffix@test.commmmm');
-
 			$results = $this->handleRequest();
 			$this->assertEquals(
 				array(
@@ -297,7 +288,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			);
 
 			GalleryUtilities::putRequestVariable('form[email]', 'no@suffix');
-
 			$results = $this->handleRequest();
 			$this->assertEquals(
 				array(
@@ -319,7 +309,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'test@email.com');
@@ -365,7 +354,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'test@email.com');
@@ -402,6 +390,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals('Test User', $this->_user->getFullName());
 		$this->assertEquals('test@email.com', $this->_user->getEmail());
 		$this->assertEquals('te', $this->_user->getLanguage());
+
 		// Verify our event got posted
 		$this->assertEventFired(
 			'Gallery::FailedLogin',
@@ -416,7 +405,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'new@email.com');
@@ -453,6 +441,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals('Test User', $this->_user->getFullName());
 		$this->assertEquals('test@email.com', $this->_user->getEmail());
 		$this->assertEquals('te', $this->_user->getLanguage());
+
 		// Verify our event got posted
 		$this->assertEventFired(
 			'Gallery::FailedLogin',
@@ -467,12 +456,10 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'new@email.com');
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -503,6 +490,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->setConfig('anonymousUserId', $this->_user->getId());
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.me');
@@ -530,6 +518,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 		$this->_markForCleanup($this->_user2);
 		$gallery->setActiveUser($this->_user2);
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.me');
@@ -554,7 +543,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'new-email@example.com');
 		GalleryUtilities::putRequestVariable('form[currentPassword]', 'pass&word');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -596,3 +584,4 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		}
 	}
 }
+

@@ -20,3 +20,4 @@ $blocks = array(
 		'description' => $gallery->i18n('Links to album/photo peers'),
 	),
 );
+

@@ -18,11 +18,15 @@ if (!defined('ADODB_DIR')) {
 }
 
 class ADODB_oracle extends ADOConnection {
-	public $databaseType    = 'oracle';
-	public $replaceQuote    = "''"; // string to use to replace quotes
+	public $databaseType = 'oracle';
+
+	// string to use to replace quotes
+	public $replaceQuote    = "''";
 	public $concat_operator = '||';
 	public $_curs;
-	public $_initdate      = true; // init date to YYYY-MM-DD
+
+	// init date to YYYY-MM-DD
+	public $_initdate      = true;
 	public $metaTablesSQL  = 'select table_name from cat';
 	public $metaColumnsSQL = "select cname,coltype,width from col where tname='%s' order by colno";
 	public $sysDate        = "TO_DATE(TO_CHAR(SYSDATE,'YYYY-MM-DD'),'YYYY-MM-DD')";
@@ -155,7 +159,8 @@ class ADODB_oracle extends ADOConnection {
 		// G. Giunta 2003/08/13 - This looks danegrously suspicious: why should we want to set
 		// the oracle home to the host name of remote DB?
 		//          if ($argHostname) putenv("ORACLE_HOME=$argHostname");
-		if ($argHostname) { // code copied from version submitted for oci8 by Jorma Tuomainen <jorma.tuomainen@ppoy.fi>
+		if ($argHostname) {
+			// code copied from version submitted for oci8 by Jorma Tuomainen <jorma.tuomainen@ppoy.fi>
 			if (empty($argDatabasename)) {
 				$argDatabasename = $argHostname;
 			} else {

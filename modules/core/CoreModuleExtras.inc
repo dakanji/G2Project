@@ -223,6 +223,7 @@ class CoreModuleExtras {
 				}
 
 				$gallery->debug(sprintf('Locktype %s selected', $flockType));
+
 				// Initial install.  Make sure all our module parameters are set.
 				$gallery->debug('Set core module parameters');
 
@@ -297,6 +298,7 @@ class CoreModuleExtras {
 				}
 
 				$gallery->guaranteeTimeLimit(180);
+
 				// Activate the default theme
 				$gallery->debug('Load default theme');
 
@@ -415,6 +417,7 @@ class CoreModuleExtras {
 				}
 
 				$gallery->guaranteeTimeLimit(180);
+
 				/*
 				 * Register our permissions.  Since we're storing internationalized strings in the
 				 * database, we have to give our internationalized string extractor a clue that these
@@ -1918,6 +1921,7 @@ class CoreModuleExtras {
 						$storage->_tablePrefix,
 						$storage->_columnPrefix
 					);
+
 					// Ignore error, since there's nothing to do for most installations
 					$storage->execute($query);
 				}
@@ -2537,6 +2541,7 @@ class CoreModuleExtras {
 							$change[2],
 							$indexColumns
 						);
+
 						// Ignore error, since there's nothing to do for most installations
 						$storage->execute($query);
 					}
@@ -3493,7 +3498,6 @@ class CoreModuleExtras {
 				$totalOperations      = count($pluginList['module']) + count($pluginList['theme']);
 				$currentOperation     = 0;
 				$upgradingMessageText = $module->translate('Creating Package Map');
-
 				GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
 
 				if (!empty($repositories)) {
@@ -3832,13 +3836,14 @@ class CoreModuleExtras {
 				* setups, this setting can be quite handy.
 				* Examples (the positions of the slashes (\'/\') are important):
 				*   override the path: $gallery->setConfig(\'baseUri\', \'/another/path/\');
+
 				*   override the host + path:
 				* $gallery->setConfig(\'baseUri\', \'example.com/gallery2/\');
+
 				*   override the protocol + host + path + file:
 				*           $gallery->setConfig(\'baseUri\', \'https://example.com:8080/gallery2/index.php\');
 				*/
 				$gallery->setConfig(\'baseUri\', \'\');',
-
 					),
 				);
 
@@ -3858,7 +3863,8 @@ class CoreModuleExtras {
 					)
 				);
 
-				$edit['regexp']      = '{\$gallery->setConfig\(\'data\.gallery\.base\',.*?;}s';
+				$edit['regexp'] = '{\$gallery->setConfig\(\'data\.gallery\.base\',.*?;}s';
+
 				$edit['replacement'] = '$gallery->setConfig(\'data.gallery.base\', \''
 				. $tmp . '\');';
 				$configChanges[]     = array(
@@ -4152,7 +4158,6 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryGroup.class');
-
 		$group     = new GalleryGroup();
 		$groupName = $module->translate('Registered Users');
 
@@ -4197,7 +4202,6 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryGroup.class');
-
 		$group     = new GalleryGroup();
 		$groupName = $module->translate('Site Admins');
 
@@ -4242,7 +4246,6 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryGroup.class');
-
 		$group     = new GalleryGroup();
 		$groupName = $module->translate('Everybody');
 
@@ -4287,7 +4290,6 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryUser.class');
-
 		$user     = new GalleryUser();
 		$userName = 'guest';
 		$fullName = $module->translate('Guest');
@@ -4356,7 +4358,6 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryUser.class');
-
 		$user = new GalleryUser();
 
 		/*
@@ -4417,7 +4418,6 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryAlbumItem.class');
-
 		$album = new GalleryAlbumItem();
 
 		$ret = $album->createRoot();
@@ -4490,7 +4490,6 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
-
 		$lock = new GalleryEntity();
 
 		$lock->create();
@@ -4971,7 +4970,8 @@ class CoreModuleExtras {
 						 * 2. Convert text column to binary column
 						 * 3. Convert them to character/text columns with UTF8 charset
 						 */
-						$query             = "SHOW FULL COLUMNS FROM `$tableName`";
+						$query = "SHOW FULL COLUMNS FROM `$tableName`";
+
 						$originalFetchMode = $storage->_db->SetFetchMode(ADODB_FETCH_ASSOC);
 
 						list($ret, $results) = $storage->search($query);

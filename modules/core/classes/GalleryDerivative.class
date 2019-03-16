@@ -232,11 +232,8 @@ class GalleryDerivative extends GalleryChildEntity {
 		}
 
 		$this->setDerivativeOrder(0);
-
 		$this->setIsBroken(false);
-
 		$this->setMimeType(null);
-
 		$this->setDerivativeType(null);
 		$this->setDerivativeSourceId(null);
 		$this->setDerivativeSize(null);
@@ -624,7 +621,8 @@ class GalleryDerivative extends GalleryChildEntity {
 				&& $sources[0]->getDerivativeType() == DERIVATIVE_TYPE_IMAGE_PREFERRED
 				&& strlen($sources[0]->getPostFilterOperations()) == 0
 			) {
-				$source = array_shift($sources);  // the preferred is now our source
+				// the preferred is now our source
+				$source = array_shift($sources);
 			}
 
 			/*

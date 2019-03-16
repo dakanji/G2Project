@@ -36,12 +36,15 @@ class ADODB_ado_mssql extends ADODB_ado {
 	public $sysTimeStamp = 'GetDate()';
 	public $leftOuter    = '*=';
 	public $rightOuter   = '=*';
-	public $ansiOuter    = true; // for mssql7 or later
-	public $substr       = 'substring';
-	public $length       = 'len';
-	public $_dropSeqSQL  = 'drop table %s';
 
-	//var $_inTransaction = 1; // always open recordsets, so no transaction problems.
+	// for mssql7 or later
+	public $ansiOuter   = true;
+	public $substr      = 'substring';
+	public $length      = 'len';
+	public $_dropSeqSQL = 'drop table %s';
+
+	// always open recordsets, so no transaction problems.
+	//var $_inTransaction = 1;
 	public function _insertid() {
 		return $this->GetOne('select SCOPE_IDENTITY()');
 	}
@@ -81,13 +84,18 @@ class ADODB_ado_mssql extends ADODB_ado {
 		$osoptions[1] = null;
 		$osoptions[2] = $table;
 		$osoptions[3] = null;
-		$adors        = @$dbc->OpenSchema(4, $osoptions);//tables
+
+		//tables
+		$adors = @$dbc->OpenSchema(4, $osoptions);
+
 		if ($adors) {
 			while (!$adors->EOF) {
-				$fld             = new ADOFieldObject();
-				$c               = $adors->Fields(3);
-				$fld->name       = $c->Value;
-				$fld->type       = 'CHAR'; // cannot discover type in ADO!
+				$fld       = new ADOFieldObject();
+				$c         = $adors->Fields(3);
+				$fld->name = $c->Value;
+
+				// cannot discover type in ADO!
+				$fld->type       = 'CHAR';
 				$fld->max_length = -1;
 
 				$arr[strtoupper($fld->name)] = $fld;

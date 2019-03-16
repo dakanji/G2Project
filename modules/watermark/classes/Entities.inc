@@ -60,3 +60,4 @@ $entityInfo['WatermarkImage'] = array(
 	'module'  => 'watermark',
 	'linked'  => array(),
 );
+

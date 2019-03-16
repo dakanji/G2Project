@@ -120,7 +120,8 @@ function process($search_string, $advance, $deep) {
 		// Loop through database tables
 		foreach ($g2_tables as $key => $g2_table) {
 			// Get all columns in current database table
-			$query  = 'SELECT * FROM ' . $g2_table;
+			$query = 'SELECT * FROM ' . $g2_table;
+
 			$result = mysql_query($query);
 
 			if ($result) {
@@ -202,6 +203,7 @@ function process($search_string, $advance, $deep) {
 			<form action="search_db.php" method="POST">
 				<input type="hidden" name="advance" value=true /><br>
 				<?php
+
 				if ($search_string) {
 					?>
 					<input type="search" name="searchstring" value=<?php echo $search_string; ?>><br>
@@ -214,6 +216,7 @@ function process($search_string, $advance, $deep) {
 
 				?>
 				<?php
+
 				if ($deep) {
 					?>
 					Match substrings: <input type="checkbox" name="deep" value=true checked="yes"/><br>
@@ -233,6 +236,7 @@ function process($search_string, $advance, $deep) {
 			</form>
 		</div>
 		<?php
+
 		if ($output) {
 			?>
 			<hr class="faint">

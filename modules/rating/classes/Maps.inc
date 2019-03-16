@@ -49,3 +49,4 @@ $mapInfo['RatingCacheMap'] = array(
 		'notNull' => true,
 	),
 );
+

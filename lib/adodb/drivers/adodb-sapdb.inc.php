@@ -23,6 +23,7 @@ if (!defined('_ADODB_ODBC_LAYER')) {
 
 if (!defined('ADODB_SAPDB')) {
 	define('ADODB_SAPDB', 1);
+
 	class ADODB_SAPDB extends ADODB_odbc {
 		public $databaseType    = 'sapdb';
 		public $concat_operator = '||';
@@ -63,6 +64,7 @@ if (!defined('ADODB_SAPDB')) {
 			$sql   = 'SELECT INDEXNAME,TYPE,COLUMNNAME FROM INDEXCOLUMNS ' .
 			" WHERE TABLENAME=$table" .
 			' ORDER BY INDEXNAME,COLUMNNO';
+
 			global $ADODB_FETCH_MODE;
 
 			$save             = $ADODB_FETCH_MODE;

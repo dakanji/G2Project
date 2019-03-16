@@ -76,3 +76,4 @@ class MimeHelperTest extends GalleryTestCase {
 		$this->assertFalse($typeMap['viewable']['test/test'], 'Viewable');
 	}
 }
+

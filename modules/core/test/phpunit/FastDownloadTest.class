@@ -105,8 +105,11 @@ class FastDownloadTest extends GalleryTestCase {
 		$bytesWritten = '';
 		$platform     = new FastDownloadTestCreateFastDownloadPlatform($bytesWritten);
 
-		$platform->setStat(7, 50);    // content length
-		$platform->setStat(9, 1);     // last mod date
+		// content length
+		$platform->setStat(7, 50);
+
+		// last mod date
+		$platform->setStat(9, 1);
 		$gallery->setPlatform($platform);
 
 		list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
@@ -164,8 +167,11 @@ class FastDownloadTest extends GalleryTestCase {
 		$bytesWritten = '';
 		$platform     = new FastDownloadTestCreateFastDownloadPlatform($bytesWritten);
 
-		$platform->setStat(7, 50);    // content length
-		$platform->setStat(9, 1);     // last mod date
+		// content length
+		$platform->setStat(7, 50);
+
+		// last mod date
+		$platform->setStat(9, 1);
 		$gallery->setPlatform($platform);
 
 		list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');

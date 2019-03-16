@@ -51,7 +51,6 @@ class AdminEditUserQuotaControllerTest extends GalleryControllerTestCase {
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -69,7 +68,6 @@ class AdminEditUserQuotaControllerTest extends GalleryControllerTestCase {
 	public function testUndo() {
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
 		GalleryUtilities::putRequestVariable('form[action][undo]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -87,12 +85,12 @@ class AdminEditUserQuotaControllerTest extends GalleryControllerTestCase {
 
 	public function testEditUserQuota() {
 		$this->_createUserQuota($this->_user->getId(), 4096);
+
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[userName]', $this->_user->getUserName());
 		GalleryUtilities::putRequestVariable('form[quotaSize]', 6);
 		GalleryUtilities::putRequestVariable('form[quotaUnit]', 'MB');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -123,14 +121,13 @@ class AdminEditUserQuotaControllerTest extends GalleryControllerTestCase {
 	public function testEditUserQuotaMissingValues() {
 		// No Values
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
-
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 
 		$this->_createUserQuota($this->_user->getId(), 1024);
+
 		// quota size
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
 		GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -147,7 +144,6 @@ class AdminEditUserQuotaControllerTest extends GalleryControllerTestCase {
 		// quota unit only
 		GalleryUtilities::removeRequestVariable('form[quotaSize]');
 		GalleryUtilities::putRequestVariable('form[quotaUnit]', 'MB');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -171,7 +167,6 @@ class AdminEditUserQuotaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[userName]', $this->_user->getUserName());
 		GalleryUtilities::putRequestVariable('form[quotaSize]', 7);
 		GalleryUtilities::putRequestVariable('form[quotaUnit]', 'MB');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -188,7 +183,6 @@ class AdminEditUserQuotaControllerTest extends GalleryControllerTestCase {
 
 	public function testEditUserQuotaUserIdMissing() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
-
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
 
@@ -219,3 +213,4 @@ class AdminEditUserQuotaControllerTest extends GalleryControllerTestCase {
 		}
 	}
 }
+

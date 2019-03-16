@@ -355,6 +355,7 @@ class GalleryView {
 		$templateAdapter =& $gallery->getTemplateAdapter();
 
 		$templateAdapter->setTheme($theme);
+
 		// --------------------------------------------------
 		// Specify our base css style before the view's, so that the view can override it
 		$template->style('modules/core/data/gallery.css');
@@ -593,6 +594,7 @@ class GalleryView {
 		$event = GalleryCoreApi::newEvent('Gallery::LoadThemeAndParameters');
 
 		$event->setEntity($item);
+
 		$event->setData(
 			array(
 				'viewType' => $this->getViewType(),
@@ -627,6 +629,7 @@ class GalleryView {
 				// Handle bad event results gracefully by ignoring it.
 				if ($ret->getErrorCode() & (ERROR_BAD_PARAMETER | ERROR_PLUGIN_VERSION_MISMATCH)) {
 					global $gallery;
+
 					$gallery->debug(
 						sprintf(
 							'Error: The theme [%s] specified by a [%s] event '
@@ -768,7 +771,6 @@ class GalleryView {
 
 			if (!($phpVm->headers_sent())) {
 				$phpVm->header('Cache-Control: ' . $access);
-
 				$phpVm->header('Pragma: ' . $access);
 				$phpVm->header('Expires: ' . $expires);
 			}

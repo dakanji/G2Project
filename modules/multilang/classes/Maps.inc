@@ -25,3 +25,4 @@ $mapInfo['MultiLangItemMap'] = array(
 		'size' => STORAGE_SIZE_SMALL,
 	),
 );
+

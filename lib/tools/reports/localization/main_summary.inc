@@ -14,9 +14,11 @@
 	<table class="report">
 		<?php $index = 0; ?>
 		<?php
+
 		foreach ($reportData as $locale => $localeData) {
 			?>
 			<?php
+
 			if (!($index % 20)) {
 				?>
 				<?php include __DIR__ . '/row_header_summary.inc'; ?>

@@ -402,6 +402,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 
 			// Process the file until complete or errors occur.
 			while (empty($this->_errors)
+
 			&& $data = $platform->fread($handle, $this->_fileReadChunkSize)) {
 				/*
 				 * When the file was exported, the data and fields were encoded to remove any
@@ -988,6 +989,7 @@ class GalleryXmlProcessor {
 
 		// Initialize the XML callback functions
 		xml_set_element_handler($this->_xmlParser, '_processStartElement', '_processEndElement');
+
 		xml_set_character_data_handler($this->_xmlParser, '_processCData');
 	}
 

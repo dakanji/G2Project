@@ -27,7 +27,6 @@
 class ExifCallbacks {
 	public function callback($params, &$smarty, $callback, $userId = null) {
 		global $gallery;
-
 		static $blockNum = 0;
 
 		switch ($callback) {

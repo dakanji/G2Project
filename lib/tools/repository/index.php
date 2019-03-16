@@ -19,13 +19,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
- /**
-  * @package RepositoryTools
-  */
+/**
+ * @package RepositoryTools
+ */
 define('G2_SUPPORT_URL_FRAGMENT', '../../support/');
 
 require '../../support/security.inc';
+
 require '../../../bootstrap.inc';
+
 require_once '../../../init.inc';
 
 define('GALLERY_MAIN_PHP', 'index.php');
@@ -36,7 +38,6 @@ if (php_sapi_name() == 'cli') {
 
 	for ($i = 1; $i < count($argv); $i++) {
 		$arg = explode('=', $argv[$i]);
-
 		GalleryUtilities::putRequestVariable($arg[0], $arg[1], false);
 	}
 }
@@ -168,6 +169,7 @@ $ret = RepositoryToolsMain();
 
 if ($ret) {
 	echo $ret->getAsHtml();
+
 	echo $gallery->getDebugBuffer();
 
 	return;

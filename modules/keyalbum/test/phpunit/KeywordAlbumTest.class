@@ -94,7 +94,6 @@ class KeywordAlbumTest extends GalleryTestCase {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-
 		$this->_template = new GalleryTemplate(dirname(dirname(dirname(dirname(__DIR__)))));
 	}
 
@@ -120,7 +119,6 @@ class KeywordAlbumTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(GalleryUtilities::isA($theme, 'GalleryTheme'), 'theme');
-
 		$this->assertTrue(is_array($params), 'theme settings');
 		$this->assertTrue(GalleryUtilities::isA($item, 'GalleryDynamicAlbum'), 'item');
 		$this->assertFalse(isset($item->parent), 'item parent');
@@ -138,7 +136,6 @@ class KeywordAlbumTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(GalleryUtilities::isA($theme, 'GalleryTheme'), 'theme');
-
 		$this->assertTrue(is_array($params), 'theme settings');
 		$this->assertTrue(GalleryUtilities::isA($item, 'GalleryDataItem'), 'item');
 		$this->assertTrue(isset($item->parent), 'item parent');
@@ -155,9 +152,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 
 		$theme                 =& $this->_template->getVariableByReference('theme');
 		$theme['actingUserId'] = $gallery->getActiveUserId();
-
 		GalleryUtilities::putRequestVariable('keyword', 'test&key');
-
 		$form = array();
 
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
@@ -188,7 +183,6 @@ class KeywordAlbumTest extends GalleryTestCase {
 
 		// Query for items with both testkey and fun keywords
 		GalleryUtilities::putRequestVariable('keyword', 'test&key,fun');
-
 		$form = array();
 
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
@@ -218,6 +212,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(0, $count, 'count before');
+
 		GalleryUtilities::putRequestVariable('keyword', 'testkey');
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 
@@ -291,7 +286,6 @@ class KeywordAlbumTest extends GalleryTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('view', 'test.TestView');
-
 		$unused = null;
 
 		list($ret, $summaries) = $this->_module->getItemSummaries($itemList, $permissions, $unused);
@@ -390,3 +384,4 @@ class KeywordAlbumTest extends GalleryTestCase {
 		$this->assertEquals(array(), $summaries, 'album not');
 	}
 }
+

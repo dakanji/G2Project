@@ -1,5 +1,4 @@
 <?php
-
 static $data = array (
   'µ' => 'μ',
   '¼' => ' 1⁄4 ',
@@ -3967,3 +3966,4 @@ $result =& $data;
 unset($data);
 
 return $result;
+

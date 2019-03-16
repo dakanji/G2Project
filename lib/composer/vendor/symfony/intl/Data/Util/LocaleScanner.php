@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Util;
 
 /**
@@ -51,7 +50,6 @@ class LocaleScanner
         $locales = array_filter($locales, function ($locale) {
             return preg_match('/^[a-z]{2}(_.+)?$/', $locale);
         });
-
         sort($locales);
 
         return $locales;
@@ -83,3 +81,4 @@ class LocaleScanner
         return $aliases;
     }
 }
+

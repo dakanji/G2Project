@@ -245,6 +245,7 @@ $gdInfo = getGdLibraryInfo();
 			<a href="<?php generateUrl('index.php'); ?>">Support</a> &raquo; GD Library Info
 		</div>
 		<?php
+
 		if ($gdInfo == '') {
 			?>
 			<h2>No GD library found.</h2>

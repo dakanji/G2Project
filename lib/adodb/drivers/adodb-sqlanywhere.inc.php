@@ -17,6 +17,7 @@ Set tabs to 4 for best viewing.
    2) Added blob support.  Usage:
 		 a) create blob variable on db server:
 		$dbconn->create_blobvar($blobVarName);
+
 	  b) load blob var from file.  $filename must be complete path
 
 	  $dbcon->load_blobvar_from_file($blobVarName, $filename);
@@ -29,6 +30,7 @@ Set tabs to 4 for best viewing.
 	 instead of loading blob from a file, you can also load from
 	  an unformatted (raw) blob variable:
 	  $dbcon->load_blobvar_from_var($blobVarName, $varName);
+
 	  d) drop blob variable on db server to free up resources:
 	  $dbconn->drop_blobvar($blobVarName);
 
@@ -46,6 +48,7 @@ if (!defined('_ADODB_ODBC_LAYER')) {
 
 if (!defined('ADODB_SYBASE_SQLANYWHERE')) {
 	define('ADODB_SYBASE_SQLANYWHERE', 1);
+
 	class ADODB_sqlanywhere extends ADODB_odbc {
 		public $databaseType = 'sqlanywhere';
 		public $hasInsertID  = true;

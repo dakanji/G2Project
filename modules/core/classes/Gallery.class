@@ -327,7 +327,6 @@ class Gallery {
 	 */
 	public function initEmptySession() {
 		GalleryCoreApi::requireOnce('modules/core/classes/GallerySession.class');
-
 		$this->_session = new GallerySession();
 	}
 
@@ -387,14 +386,12 @@ class Gallery {
 			switch ($which) {
 				case 'flock':
 					GalleryCoreApi::requireOnce('modules/core/classes/FlockLockSystem.class');
-
 					$this->_lockSystem = new FlockLockSystem();
 
 					break;
 
 				case 'database':
 					GalleryCoreApi::requireOnce('modules/core/classes/DatabaseLockSystem.class');
-
 					$this->_lockSystem = new DatabaseLockSystem();
 
 					break;
@@ -458,7 +455,6 @@ class Gallery {
 				case 'mysqlt':
 				case 'mysqli':
 					GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class');
-
 					$this->_storage = new MySqlStorage($config);
 
 					break;
@@ -475,7 +471,6 @@ class Gallery {
 
 				case 'db2':
 					GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage/Db2Storage.class');
-
 					$this->_storage = new Db2Storage($config);
 
 					break;
@@ -515,7 +510,6 @@ class Gallery {
 					$this->debug_r($config);
 
 					GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class', true);
-
 					$this->_storage = new GalleryStorage($config);
 			}
 		}
@@ -672,6 +666,7 @@ class Gallery {
 			$this->_timeLimit = $now + max($limit, 30);
 
 			set_time_limit($this->_timeLimit - $now);
+
 			/*
 			 * Then make sure our locks stick around.  Even though this returns a status code, we
 			 * really don't want to make guaranteeTimeLimit() return a status code since we want to
@@ -871,7 +866,6 @@ class Gallery {
 	public function &getTemplateAdapter() {
 		if (!isset($this->_templateAdapter)) {
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplateAdapter.class');
-
 			$this->_templateAdapter = new GalleryTemplateAdapter();
 		}
 
@@ -886,7 +880,9 @@ class Gallery {
 	 * Consider this case:
 	 *   $message_to_be_localized = 'TEST to be displayed in different languages';
 	 *
+	 *
 	 *   print $this->translate($message_to_be_localized);
+	 *
 	 *
 	 *
 	 * The translate() method is called in the right place for runtime handling, but there is no
@@ -898,7 +894,9 @@ class Gallery {
 	 * This method resolves all such cases. Simply mark the candidates:
 	 *   $message_to_be_localized = $gallery->i18n('TEST to be displayed in different languages');
 	 *
+	 *
 	 *   print $this->translate($message_to_be_localized);
+	 *
 	 *
 	 *
 	 * @param mixed $value string or array (array must have 'text' key; hint/cFormat keys optional)
@@ -906,7 +904,8 @@ class Gallery {
 	 * @see GalleryPlugin::translate
 	 */
 	public function i18n($value) {
-		return is_array($value) ? $value['text'] : $value;  // Just pass the text through
+		// Just pass the text through
+		return is_array($value) ? $value['text'] : $value;
 	}
 
 	/**
@@ -1087,7 +1086,6 @@ class Gallery {
 	public function getPhpVm() {
 		if (!isset($this->_phpVm)) {
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryPhpVm.class');
-
 			$this->_phpVm = new GalleryPhpVm();
 		}
 

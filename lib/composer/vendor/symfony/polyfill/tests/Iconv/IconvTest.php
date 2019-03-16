@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Polyfill\Tests\Iconv;
-
 use PHPUnit\Framework\TestCase;
 use Symfony\Polyfill\Iconv\Iconv as p;
 
@@ -35,7 +33,6 @@ class IconvTest extends TestCase
 
         $this->assertSame(utf8_decode('déjà'), iconv('CP1252', 'ISO-8859-1', utf8_decode('déjà')));
         $this->assertSame('deja noeud', p::iconv('UTF-8//ignore//IGNORE', 'US-ASCII//TRANSLIT//IGNORE//translit', 'déjà nœud'));
-
         $this->assertSame('4', iconv('UTF-8', 'UTF-8', 4));
         $this->assertSame('aa', p::iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', "a\xC2\x96a"));
     }
@@ -49,7 +46,6 @@ class IconvTest extends TestCase
     {
         $this->assertSame(4, iconv_strlen('déjà', 'UTF-8'));
         $this->assertSame(3, iconv_strlen('한국어', 'UTF-8'));
-
         $this->assertSame(4, p::strlen2('déjà'));
         $this->assertSame(3, p::strlen2('한국어'));
     }
@@ -112,7 +108,9 @@ class IconvTest extends TestCase
     public function testIconvMimeDecodeIllegal()
     {
         iconv_mime_decode('Legal encoded-word: =?utf-8?Q?*?= .');
+
         $this->setExpectedException('PHPUnit\Framework\Error\Notice', 'Detected an illegal character in input string');
+
         iconv_mime_decode('Illegal encoded-word: =?utf-8?Q?'.\chr(0xA1).'?= .');
     }
 
@@ -129,7 +127,6 @@ X-Bar: =?cp949?B?UkU6odk=?= Foo
 X-Bar: =?cp949?B?UkU6odk=?= =?UTF-8?Q?Bar?=
 To: <test@example.com>
 HEADERS;
-
         $result = array(
             'From' => '<foo@example.com>',
             'Subject' => '=?ks_c_5601-1987?B?UkU6odk=?= Foo',
@@ -162,7 +159,6 @@ HEADERS;
         }
 
         $this->assertSame($a, iconv_get_encoding('all'));
-
         $this->assertFalse(@iconv_set_encoding('foo', 'UTF-8'));
     }
 
@@ -171,6 +167,7 @@ HEADERS;
         if (!class_exists('PHPUnit\Framework\Error\Notice')) {
             $exception = str_replace('PHPUnit\\Framework\\Error\\', 'PHPUnit_Framework_Error_', $exception);
         }
+
         if (method_exists($this, 'expectException')) {
             $this->expectException($exception);
             $this->expectExceptionMessage($message);
@@ -179,3 +176,4 @@ HEADERS;
         }
     }
 }
+

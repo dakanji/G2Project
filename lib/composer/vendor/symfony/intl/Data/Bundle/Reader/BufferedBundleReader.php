@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Bundle\Reader;
-
 use Symfony\Component\Intl\Data\Util\RingBuffer;
 
 /**
@@ -41,7 +39,6 @@ class BufferedBundleReader implements BundleReaderInterface
     public function read($path, $locale)
     {
         $hash = $path.'//'.$locale;
-
         if (!isset($this->buffer[$hash])) {
             $this->buffer[$hash] = $this->reader->read($path, $locale);
         }
@@ -49,3 +46,4 @@ class BufferedBundleReader implements BundleReaderInterface
         return $this->buffer[$hash];
     }
 }
+

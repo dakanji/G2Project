@@ -30,3 +30,4 @@
 function smarty_modifier_split($string, $separator = ' ', $regexp = false) {
 	return empty($string) ? array() : ($regexp ? preg_split($separator, $string) : explode($separator, $string));
 }
+

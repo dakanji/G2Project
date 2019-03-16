@@ -511,6 +511,7 @@ function statusMsg($display = false) {
 	if ($display !== false) {
 		return "\n" . '
 			<script type="text/javascript">
+
 				if (typeof(jsess.missingObjectFix_tgtHTML) == "undefined") {
 					jsess.missingObjectFix_tgtHTML = \'' . $display . '\';
 				} else {
@@ -539,6 +540,7 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 		<link rel="stylesheet" type="text/css" href="support.css">
 		<script type="text/javascript" src="../javascript/jsess.min.js"></script>
 		<script type="text/javascript">
+
 			function changeContent(id,content) {
 				if (document.getElementById(id) != null) {
 					var node = document.getElementById(id);
@@ -553,6 +555,7 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 
 				if (typeof(jsess.missingObjectFix_pick) !== "undefined") {
 				<?php
+
 				if ($reset) {
 					?>
 					var oldStr = 'selected value=' + jsess.missingObjectFix_pick + '>';
@@ -574,6 +577,7 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 
 		</script>
 		<?php
+
 		if ($HTMLhead) {
 			echo $HTMLhead;
 		}
@@ -583,6 +587,7 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 	<body>
 		<div class="container">
 		<?php
+
 		if ($HTMLbody || $HTMLForm) {
 			?>
 			<div id="title">
@@ -615,10 +620,12 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 		?>
 		</div>
 		<?php
+
 		if ($show) {
 			?>
 		<script type="text/javascript">
 			var formData = '';
+
 			if (typeof(jsess.missingObjectFix_pick) !== "undefined") {
 				formData = formData + '	<input type="hidden" id="gID" name="gID" value="' + jsess.missingObjectFix_pick + '">';
 			}
@@ -640,6 +647,7 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 
 		?>
 		<script type="text/javascript">
+
 			if (typeof(jsess.missingObjectFix_tgtHTML) !== "undefined") {
 				changeContent('tPara', jsess.missingObjectFix_tgtHTML);
 			}

@@ -35,3 +35,4 @@ function smarty_modifier_ireplace($string, $search, $replace) {
 
 	return preg_replace("/($search)/i", $replace, $string);
 }
+

@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\DateFormatter\DateFormat;
 
 /**
@@ -49,14 +48,12 @@ class MonthTransformer extends Transformer
      * Flipped $shortMonths array, $name => $index.
      */
     protected static $flippedShortMonths = array();
-
     public function __construct()
     {
         if (0 === \count(self::$shortMonths)) {
             self::$shortMonths = array_map(function ($month) {
                 return substr($month, 0, 3);
             }, self::$months);
-
             self::$flippedMonths = array_flip(self::$months);
             self::$flippedShortMonths = array_flip(self::$shortMonths);
         }
@@ -93,18 +90,27 @@ class MonthTransformer extends Transformer
         switch ($length) {
             case 1:
                 $regExp = '\d{1,2}';
+
                 break;
+
             case 3:
                 $regExp = implode('|', self::$shortMonths);
+
                 break;
+
             case 4:
                 $regExp = implode('|', self::$months);
+
                 break;
+
             case 5:
                 $regExp = '[JFMASOND]';
+
                 break;
+
             default:
                 $regExp = '\d{'.$length.'}';
+
                 break;
         }
 
@@ -134,3 +140,4 @@ class MonthTransformer extends Transformer
         );
     }
 }
+

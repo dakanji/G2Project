@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\NumberFormatter;
-
 use Symfony\Component\Intl\Exception\MethodArgumentNotImplementedException;
 use Symfony\Component\Intl\Exception\MethodArgumentValueNotImplementedException;
 use Symfony\Component\Intl\Exception\MethodNotImplementedException;
@@ -229,7 +227,6 @@ class NumberFormatter
      * @var int|float
      */
     private static $int64Max = 9223372036854775807;
-
     private static $enSymbols = array(
         self::DECIMAL => array('.', ',', ';', '%', '0', '#', '-', '+', '¤', '¤¤', '.', 'E', '‰', '*', '∞', 'NaN', '@', ','),
         self::CURRENCY => array('.', ',', ';', '%', '0', '#', '-', '+', '¤', '¤¤', '.', 'E', '‰', '*', '∞', 'NaN', '@', ','),
@@ -320,9 +317,7 @@ class NumberFormatter
 
         $symbol = Intl::getCurrencyBundle()->getCurrencySymbol($currency, 'en');
         $fractionDigits = Intl::getCurrencyBundle()->getFractionDigits($currency);
-
         $value = $this->roundCurrency($value, $currency);
-
         $negative = false;
         if (0 > $value) {
             $negative = true;
@@ -370,7 +365,6 @@ class NumberFormatter
         }
 
         $fractionDigits = $this->getAttribute(self::FRACTION_DIGITS);
-
         $value = $this->round($value, $fractionDigits);
         $value = $this->formatNumber($value, $fractionDigits);
 
@@ -521,6 +515,7 @@ class NumberFormatter
         if (preg_match("/^-?(?:\.\d++{$groupingMatch}|\d++(\.\d*+)?)/", $value, $matches)) {
             $value = $matches[0];
             $position = \strlen($value);
+
             // value is not valid if grouping is used, but digits are not grouped in groups of three
             if ($error = isset($matches['grouping']) && !preg_match('/^-?(?:\d{1,3}+)?(?:(?:,\d{3})++|\d*+)(?:\.\d*+)?$/', $value)) {
                 // the position on error is 0 for positive and 1 for negative numbers
@@ -708,7 +703,6 @@ class NumberFormatter
     private function round($value, $precision)
     {
         $precision = $this->getUninitializedPrecision($value, $precision);
-
         $roundingModeAttribute = $this->getAttribute(self::ROUNDING_MODE);
         if (isset(self::$phpRoundingMap[$roundingModeAttribute])) {
             $value = round($value, $precision, self::$phpRoundingMap[$roundingModeAttribute]);
@@ -716,19 +710,25 @@ class NumberFormatter
             $roundingCoef = pow(10, $precision);
             $value *= $roundingCoef;
             $value = (float) (string) $value;
-
             switch ($roundingModeAttribute) {
                 case self::ROUND_CEILING:
                     $value = ceil($value);
+
                     break;
+
                 case self::ROUND_FLOOR:
                     $value = floor($value);
+
                     break;
+
                 case self::ROUND_UP:
                     $value = $value > 0 ? ceil($value) : floor($value);
+
                     break;
+
                 case self::ROUND_DOWN:
                     $value = $value > 0 ? floor($value) : ceil($value);
+
                     break;
             }
 
@@ -887,3 +887,4 @@ class NumberFormatter
         return (int) $value;
     }
 }
+

@@ -35,3 +35,4 @@ $entityInfo['GalleryPendingUser'] = array(
 	'module'  => 'register',
 	'linked'  => array(),
 );
+

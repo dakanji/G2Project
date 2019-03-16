@@ -160,11 +160,13 @@ class StringParser_BBCode extends StringParser {
 	 */
 	public function addCode($name, $callback_type, $callback_func, $callback_params, $content_type, $allowed_within, $not_allowed_within) {
 		if (isset($this->_codes[$name])) {
-			return false; // already exists
+			// already exists
+			return false;
 		}
 
 		if (!preg_match('/^[a-zA-Z0-9*_!+-]+$/', $name)) {
-			return false; // invalid
+			// invalid
+			return false;
 		}
 
 		$this->_codes[$name] = array(
@@ -231,7 +233,9 @@ class StringParser_BBCode extends StringParser {
 	 *
 	 * Example:
 	 *   $bbcode->setOccurrenceType ('url', 'link');
+	 *
 	 *   $bbcode->setMaxOccurrences ('link', 4);
+	 *
 	 * Would create the situation where a link may only occur four
 	 * times in the hole text.
 	 *
@@ -255,7 +259,8 @@ class StringParser_BBCode extends StringParser {
 	public function setMaxOccurrences($type, $count) {
 		settype($count, 'integer');
 
-		if ($count < 0) { // sorry, does not make any sense
+		if ($count < 0) {
+			// sorry, does not make any sense
 			return false;
 		}
 
@@ -644,19 +649,25 @@ class StringParser_BBCode extends StringParser {
 				if (trim($needle) == ':' || trim($needle) == '=') {
 					$this->_quoting = null;
 
-					$this->_setStatus(3); // default value parser
+					// default value parser
+					$this->_setStatus(3);
+
 					break;
 				}
 
 				if (trim($needle) == '="' || trim($needle) == '= "' || trim($needle) == '=\'' || trim($needle) == '= \'') {
 					$this->_quoting = substr(trim($needle), -1);
 
-					$this->_setStatus(3); // default value parser with quotation
+					// default value parser with quotation
+					$this->_setStatus(3);
+
 					break;
 				}
 
 				if ($needle == ' ') {
-					$this->_setStatus(4); // attribute parser
+					// attribute parser
+					$this->_setStatus(4);
+
 					break;
 				}
 
@@ -761,7 +772,8 @@ class StringParser_BBCode extends StringParser {
 					}
 
 					// just ignore and continue in same mode
-					$this->_setStatus(4); // reset parameters
+					// reset parameters
+					$this->_setStatus(4);
 
 					return true;
 				}
@@ -1067,7 +1079,8 @@ class StringParser_BBCode extends StringParser {
 		$not_allowed_within = $this->_codes[$name]['not_allowed_within'];
 		$scount             = count($this->_stack);
 
-		if ($scount == 2) { // top level element
+		if ($scount == 2) {
+			// top level element
 			if (!in_array($this->_rootContentType, $allowed_within)) {
 				return false;
 			}
@@ -1149,7 +1162,8 @@ class StringParser_BBCode extends StringParser {
 
 		while (count($this->_stack) > 1) {
 			if ($this->_topNode('getFlag', 'closetag', 'integer', BBCODE_CLOSETAG_IMPLICIT) == BBCODE_CLOSETAG_MUSTEXIST) {
-				return false; // sorry
+				// sorry
+				return false;
 			}
 
 			$res = $this->_popNode();
@@ -2291,7 +2305,8 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 	public function getReplacement($subcontent) {
 		if ($this->_codeInfo['callback_type'] == 'simple_replace' || $this->_codeInfo['callback_type'] == 'simple_replace_single') {
 			if ($this->_codeInfo['callback_type'] == 'simple_replace_single') {
-				if (strlen($subcontent)) { // can't be!
+				if (strlen($subcontent)) {
+					// can't be!
 					return false;
 				}
 

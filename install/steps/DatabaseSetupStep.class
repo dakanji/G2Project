@@ -431,6 +431,7 @@ class DatabaseSetupStep extends InstallStep {
 				$galleryStub->setConfig('freshInstall', true);
 			} else {
 				$galleryStub->setConfig('freshInstall', false);
+
 				// Remember the installed version to compare it later to the codebase version
 				$galleryStub->setConfig('installed.version', $datVersion);
 			}
@@ -628,7 +629,8 @@ class DatabaseSetupStep extends InstallStep {
 				$query = str_replace('DB_COLUMN_PREFIX', $this->_config['columnPrefix'], $query);
 
 				// For mysql, another replacement is required
-				$query  = str_replace('DB_TABLE_TYPE', '', $query);
+				$query = str_replace('DB_TABLE_TYPE', '', $query);
+
 				$result = $this->_db->Execute($query);
 
 				if (empty($result)) {
@@ -747,6 +749,7 @@ class DatabaseSetupStep extends InstallStep {
 
 			// Include basic G2 classes to use G2 API to get the core version etc.
 			include_once __DIR__ . '/../../modules/core/classes/Gallery.class';
+
 			include_once __DIR__ . '/../../modules/core/classes/GalleryDataCache.class';
 
 			$GLOBALS['gallery'] = new Gallery();
@@ -783,13 +786,16 @@ class DatabaseSetupStep extends InstallStep {
 			$initiated = $platformLevel;
 
 			include_once __DIR__ . '/../../modules/core/classes/GalleryCoreApi.class';
+
 			include_once __DIR__ .
 			 '/../../modules/core/classes/GalleryCapabilities.class';
+
 			include_once __DIR__ . '/../../modules/core/classes/GalleryPlatform.class';
 
 			$GalleryPlatform = new GalleryPlatform();
 
 			$gallery->setPlatform($GalleryPlatform);
+
 			// Configure G2 such that getInstalledVersions() can be called
 			$gallery->initTranslator(true);
 
@@ -820,7 +826,6 @@ class DatabaseSetupStep extends InstallStep {
 			);
 
 			$success = !$ret;
-
 			GalleryDataCache::setFileCachingEnabled(false);
 			GalleryDataCache::reset();
 		}

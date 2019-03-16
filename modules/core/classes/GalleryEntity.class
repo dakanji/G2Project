@@ -252,8 +252,10 @@ class GalleryEntity extends GalleryPersistent {
 
 		// Set the creation time on this entity
 		$this->setCreationTimestamp(time());
+
 		// Set the object type
 		$this->setEntityType($this->getClassName());
+
 		// But attach to the linked entity
 		$this->setIsLinkable(true);
 		$this->setLinkId($entity->getId());

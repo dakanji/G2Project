@@ -246,7 +246,10 @@ class ImageMagickToolkitHelper {
 					'application/x-shockwave-flash',
 				)
 			),
-		); // Supported by php getimagesize
+
+		// Supported by php getimagesize
+		);
+
 		if (!empty($multiPageMimeTypes)) {
 			$properties['page-count'] = array(
 				'type'        => 'int',

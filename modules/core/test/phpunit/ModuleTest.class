@@ -42,7 +42,6 @@ class ModuleTest extends GalleryTestCase {
 
 		// Register a new module
 		GalleryDataCache::reset(true);
-
 		$_REQUEST['testCase'] = $this;
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'moduletest');
@@ -354,6 +353,7 @@ class ModuleTest extends GalleryTestCase {
 			empty($plugins[$module->getId()]['active']),
 			'wrong PluginMap value for active (3)'
 		);
+
 		// Upgrade the module
 		$module->setVersion('1.0.1');
 
@@ -822,11 +822,8 @@ class ModuleTestModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('moduletest');
-
 		$this->setName('ModuleTest Module');
-
 		$this->setDescription('Unit test module');
-
 		$this->setVersion('1.0.0');
 		$this->setGroup('data', 'Gallery');
 		$this->setCallbacks('');

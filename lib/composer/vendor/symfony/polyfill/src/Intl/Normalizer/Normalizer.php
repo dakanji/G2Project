@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Polyfill\Intl\Normalizer;
 
 /**
@@ -32,28 +31,29 @@ class Normalizer
     const NFKD = 3;
     const NFC = 4;
     const NFKC = 5;
-
     private static $C;
     private static $D;
     private static $KD;
     private static $cC;
     private static $ulenMask = array("\xC0" => 2, "\xD0" => 2, "\xE0" => 3, "\xF0" => 4);
     private static $ASCII = "\x20\x65\x69\x61\x73\x6E\x74\x72\x6F\x6C\x75\x64\x5D\x5B\x63\x6D\x70\x27\x0A\x67\x7C\x68\x76\x2E\x66\x62\x2C\x3A\x3D\x2D\x71\x31\x30\x43\x32\x2A\x79\x78\x29\x28\x4C\x39\x41\x53\x2F\x50\x22\x45\x6A\x4D\x49\x6B\x33\x3E\x35\x54\x3C\x44\x34\x7D\x42\x7B\x38\x46\x77\x52\x36\x37\x55\x47\x4E\x3B\x4A\x7A\x56\x23\x48\x4F\x57\x5F\x26\x21\x4B\x3F\x58\x51\x25\x59\x5C\x09\x5A\x2B\x7E\x5E\x24\x40\x60\x7F\x00\x01\x02\x03\x04\x05\x06\x07\x08\x0B\x0C\x0D\x0E\x0F\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1A\x1B\x1C\x1D\x1E\x1F";
-
     public static function isNormalized($s, $form = self::NFC)
     {
         if ($form <= self::NONE || self::NFKC < $form) {
             return false;
         }
+
         $s = (string) $s;
         if (!isset($s[strspn($s, self::$ASCII)])) {
             return true;
         }
+
         if (self::NFC === $form && preg_match('//u', $s) && !preg_match('/[^\x00-\x{2FF}]/u', $s)) {
             return true;
         }
 
-        return false; // Pretend false as quick checks implementented in PHP won't be so quick
+        // Pretend false as quick checks implementented in PHP won't be so quick
+        return false;
     }
 
     public static function normalize($s, $form = self::NFC)
@@ -90,7 +90,6 @@ class Normalizer
         }
 
         $r = self::decompose($s, $K);
-
         if ($C) {
             if (null === self::$C) {
                 self::$C = self::getData('canonicalComposition');
@@ -98,6 +97,7 @@ class Normalizer
 
             $r = self::recompose($r);
         }
+
         if (null !== $mbEncoding) {
             mb_internal_encoding($mbEncoding);
         }
@@ -111,19 +111,14 @@ class Normalizer
         $compMap = self::$C;
         $combClass = self::$cC;
         $ulenMask = self::$ulenMask;
-
         $result = $tail = '';
-
         $i = $s[0] < "\x80" ? 1 : $ulenMask[$s[0] & "\xF0"];
         $len = \strlen($s);
-
         $lastUchr = substr($s, 0, $i);
         $lastUcls = isset($combClass[$lastUchr]) ? 256 : 0;
-
         while ($i < $len) {
             if ($s[$i] < "\x80") {
                 // ASCII chars
-
                 if ($tail) {
                     $lastUchr .= $tail;
                     $tail = '';
@@ -143,14 +138,11 @@ class Normalizer
 
             $ulen = $ulenMask[$s[$i] & "\xF0"];
             $uchr = substr($s, $i, $ulen);
-
             if ($lastUchr < "\xE1\x84\x80" || "\xE1\x84\x92" < $lastUchr
                 || $uchr < "\xE1\x85\xA1" || "\xE1\x85\xB5" < $uchr
                 || $lastUcls) {
                 // Table lookup and combining chars composition
-
                 $ucls = isset($combClass[$uchr]) ? $combClass[$uchr] : 0;
-
                 if (isset($compMap[$lastUchr.$uchr]) && (!$lastUcls || $lastUcls < $ucls)) {
                     $lastUchr = $compMap[$lastUchr.$uchr];
                 } elseif ($lastUcls = $ucls) {
@@ -166,13 +158,10 @@ class Normalizer
                 }
             } else {
                 // Hangul chars
-
                 $L = \ord($lastUchr[2]) - 0x80;
                 $V = \ord($uchr[2]) - 0xA1;
                 $T = 0;
-
                 $uchr = substr($s, $i + $ulen, 3);
-
                 if ("\xE1\x86\xA7" <= $uchr && $uchr <= "\xE1\x87\x82") {
                     $T = \ord($uchr[2]) - 0xA7;
                     0 > $T && $T += 0x40;
@@ -192,7 +181,6 @@ class Normalizer
     private static function decompose($s, $c)
     {
         $result = '';
-
         $ASCII = self::$ASCII;
         $decompMap = self::$D;
         $combClass = self::$cC;
@@ -204,11 +192,9 @@ class Normalizer
         $c = array();
         $i = 0;
         $len = \strlen($s);
-
         while ($i < $len) {
             if ($s[$i] < "\x80") {
                 // ASCII chars
-
                 if ($c) {
                     ksort($c);
                     $result .= implode('', $c);
@@ -224,22 +210,16 @@ class Normalizer
             $ulen = $ulenMask[$s[$i] & "\xF0"];
             $uchr = substr($s, $i, $ulen);
             $i += $ulen;
-
             if ($uchr < "\xEA\xB0\x80" || "\xED\x9E\xA3" < $uchr) {
                 // Table lookup
-
                 if ($uchr !== $j = isset($compatMap[$uchr]) ? $compatMap[$uchr] : (isset($decompMap[$uchr]) ? $decompMap[$uchr] : $uchr)) {
                     $uchr = $j;
-
                     $j = \strlen($uchr);
                     $ulen = $uchr[0] < "\x80" ? 1 : $ulenMask[$uchr[0] & "\xF0"];
-
                     if ($ulen != $j) {
                         // Put trailing chars in $s
-
                         $j -= $ulen;
                         $i -= $j;
-
                         if (0 > $i) {
                             $s = str_repeat(' ', -$i).$s;
                             $len -= $i;
@@ -253,30 +233,29 @@ class Normalizer
                         $uchr = substr($uchr, 0, $ulen);
                     }
                 }
+
                 if (isset($combClass[$uchr])) {
                     // Combining chars, for sorting
-
                     if (!isset($c[$combClass[$uchr]])) {
                         $c[$combClass[$uchr]] = '';
                     }
+
                     $c[$combClass[$uchr]] .= $uchr;
                     continue;
                 }
             } else {
                 // Hangul chars
-
                 $uchr = unpack('C*', $uchr);
                 $j = (($uchr[1] - 224) << 12) + (($uchr[2] - 128) << 6) + $uchr[3] - 0xAC80;
-
                 $uchr = "\xE1\x84".\chr(0x80 + (int) ($j / 588))
                        ."\xE1\x85".\chr(0xA1 + (int) (($j % 588) / 28));
-
                 if ($j %= 28) {
                     $uchr .= $j < 25
                         ? ("\xE1\x86".\chr(0xA7 + $j))
                         : ("\xE1\x87".\chr(0x67 + $j));
                 }
             }
+
             if ($c) {
                 ksort($c);
                 $result .= implode('', $c);
@@ -303,3 +282,4 @@ class Normalizer
         return false;
     }
 }
+

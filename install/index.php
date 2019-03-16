@@ -47,10 +47,15 @@
 $g2Base = dirname(__DIR__) . '/';
 
 require_once $g2Base . 'install/GalleryStub.class';
+
 require_once $g2Base . 'install/InstallStep.class';
+
 require_once $g2Base . 'install/StatusTemplate.class';
+
 require_once $g2Base . 'modules/core/classes/GalleryUtilities.class';
+
 require_once $g2Base . 'modules/core/classes/GalleryDataCache.class';
+
 require_once $g2Base . 'lib/support/GallerySetupUtilities.class';
 
 define('INDEX_PHP', basename(__FILE__));
@@ -89,6 +94,7 @@ foreach ($stepOrder as $stepName) {
 GallerySetupUtilities::startSession();
 
 require_once $g2Base . 'modules/core/classes/GalleryStatus.class';
+
 require_once $g2Base . 'modules/core/classes/GalleryTranslator.class';
 
 if (empty($_SESSION['language'])) {

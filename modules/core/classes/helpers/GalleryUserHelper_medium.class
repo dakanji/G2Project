@@ -27,12 +27,13 @@
  * @version $Revision: 17580 $
  * @static
  */
-class GalleryUserHelper_medium // extends GalleryEventListener
-{
+
+// extends GalleryEventListener
+class GalleryUserHelper_medium {
 	/**
 	 * @see GalleryCoreApi::fetchUsernames
 	 */
-	public static function fetchUsernames($count=null, $offset=null, $substring=null) {
+	public static function fetchUsernames($count = null, $offset = null, $substring = null) {
 		global $gallery;
 
 		$data = array();
@@ -63,12 +64,12 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 			$query,
 			$data,
 			array(
-			'limit' => array(
-				'count'  => $count,
-				'offset' => $offset,
-			),
-		)
-	);
+				'limit' => array(
+					'count'  => $count,
+					'offset' => $offset,
+				),
+			)
+		);
 
 		if ($ret) {
 			return array($ret, null);
@@ -86,7 +87,7 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 	/**
 	 * @see GalleryCoreApi::fetchUserCount
 	 */
-	public static function fetchUserCount($substring=null, $groupId=null) {
+	public static function fetchUserCount($substring = null, $groupId = null) {
 		global $gallery;
 
 		if (empty($groupId)) {
@@ -146,7 +147,7 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 	/**
 	 * @see GalleryCoreApi::fetchUserByUserName
 	 */
-	public static function fetchUserByUserName($userName=null) {
+	public static function fetchUserByUserName($userName = null) {
 		global $gallery;
 
 		$query = '
@@ -409,8 +410,10 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 
 			$ret = GalleryCoreApi::removeMapEntry(
 				'FailedLoginsMap',
-				array('userName' => $user->getUserName())
-		);
+				array(
+					'userName' => $user->getUserName(),
+				)
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -432,8 +435,10 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 				list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 					'FailedLoginsMap',
 					array('count', 'lastAttempt'),
-					array('userName' => $data['userName'])
-		);
+					array(
+						'userName' => $data['userName'],
+					)
+				);
 
 				if ($ret) {
 					return array($ret, null);
@@ -452,8 +457,10 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 					if (isset($count)) {
 						$ret = GalleryCoreApi::removeMapEntry(
 							'FailedLoginsMap',
-							array('userName' => $data['userName'])
-			);
+							array(
+								'userName' => $data['userName'],
+							)
+						);
 
 						if ($ret) {
 							return array($ret, null);
@@ -468,10 +475,12 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 
 					$ret = GalleryCoreApi::addMapEntry(
 						'FailedLoginsMap',
-						array('userName' => $data['userName'],
-				  'count'                => $count,
-				  'lastAttempt'          => $phpVm->time(), )
-			);
+						array(
+							'userName'    => $data['userName'],
+							'count'       => $count,
+							'lastAttempt' => $phpVm->time(),
+						)
+					);
 
 					if ($ret) {
 						return array($ret, null);
@@ -480,7 +489,7 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 			}
 		}
 
-		return array(null,  null);
+		return array(null, null);
 	}
 
 	/**
@@ -492,8 +501,10 @@ class GalleryUserHelper_medium // extends GalleryEventListener
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'FailedLoginsMap',
 			array('count', 'lastAttempt'),
-			array('userName' => $userName)
-	);
+			array(
+				'userName' => $userName,
+			)
+		);
 
 		if ($ret) {
 			return array($ret, null);

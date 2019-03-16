@@ -484,6 +484,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		);
 
 		$this->assertFalse($supportsOffset, 'offset');
+
 		sort($mimeTypes);
 
 		$this->assertEquals($expectedMimeTypes, $mimeTypes);
@@ -546,6 +547,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals($results, 'video/avi', 'mime after offset');
+
 		$this->assertEquals(
 			array(
 				'ffmpeg.offset' => '1.2',
@@ -588,6 +590,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals($results, 'video/avi', 'mime after audiochannels');
+
 		$this->assertEquals(
 			array(
 				'audioChannels' => '2',
@@ -613,6 +616,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals($results, 'video/avi', 'mime after audiorate');
+
 		$this->assertEquals(
 			array(
 				'sampleRate' => '11025',

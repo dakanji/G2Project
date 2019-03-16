@@ -316,6 +316,7 @@ class ItemAttributesTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(0, $viewCount, 'first attempt, search engine -> do not increment');
+
 		// It only sets the header if it actually increments
 		$this->assertEquals(array(), GalleryUtilities::_getResponseHeaders());
 	}
@@ -350,6 +351,7 @@ class ItemAttributesTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(1, $viewCount, 'First attempt, not search engine -> increment');
+
 		$this->assertEquals(
 			array(
 				'last-modified' => 'Last-Modified: ' . GalleryUtilities::getHttpDate($now),
@@ -627,6 +629,7 @@ class ItemAttributesTest extends GalleryTestCase {
 			$parentSequence,
 			'item parent sequence'
 		);
+
 		// Set virtual root
 		$gallery->setConfig('breadcrumbRootId', $this->_items[1]->getId());
 

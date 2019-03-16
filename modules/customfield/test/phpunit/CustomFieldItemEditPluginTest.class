@@ -167,7 +167,6 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 	public function testCustomFieldPlugin() {
 		// Reset
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
-
 		$results = $this->handleRequest($this->itemG, $this->_itemG);
 
 		$this->assertEquals(array(array(), null), $results, 'Reset');
@@ -178,7 +177,6 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[fields][Location]', 'There');
 		GalleryUtilities::putRequestVariable('form[fields][Category]', 'B');
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
-
 		$results = $this->handleRequest($this->_itemG, $this->_itemG);
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
@@ -237,7 +235,6 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[fields][Catalog Id]', '456');
 		GalleryUtilities::putRequestVariable('form[fields][Year]', '2004');
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
-
 		$results = $this->handleRequest($this->_albumS, $this->_albumS);
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
@@ -294,7 +291,6 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::removeFormVariables('form');
 		GalleryUtilities::putRequestVariable('form[cfAdmin]', '1');
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
-
 		$results = $this->handleRequest($this->_albumS, $this->_albumS);
 
 		$this->assertEquals(array(array(), null), $results, 'Reset 2');
@@ -304,7 +300,6 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[cfAdmin]', '1');
 		GalleryUtilities::putRequestVariable('form[photo][newField]', 'Photo Fun');
 		GalleryUtilities::putRequestVariable('form[action][add][photo]', '1');
-
 		$results = $this->handleRequest($this->_albumS, $this->_albumS);
 		$this->assertEquals(
 			array(array(), $this->_translate('New field added successfully')),
@@ -317,7 +312,6 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[cfAdmin]', '1');
 		GalleryUtilities::putRequestVariable('form[common][newField]', 'Photo Fun');
 		GalleryUtilities::putRequestVariable('form[action][add][common]', '1');
-
 		$results = $this->handleRequest($this->_albumS, $this->_albumS);
 		$this->assertEquals(
 			array(
@@ -335,7 +329,6 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[pickField]', 'Photo Fun');
 		GalleryUtilities::putRequestVariable('form[picklist]', "One\n Test\nHere  ");
 		GalleryUtilities::putRequestVariable('form[action][picklist]', '1');
-
 		$results = $this->handleRequest($this->_albumS, $this->_albumS);
 		$this->assertEquals(
 			array(array(), $this->_translate('Picklist updated successfully')),
@@ -349,7 +342,6 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[pickField]', 'Photo Fun');
 		GalleryUtilities::putRequestVariable('form[picklist]', "\nHere\n	Test\nOne");
 		GalleryUtilities::putRequestVariable('form[action][picklist]', '1');
-
 		$results = $this->handleRequest($this->_albumS, $this->_albumS);
 		$this->assertEquals(
 			array(array(), $this->_translate('Picklist updated successfully')),
@@ -385,17 +377,14 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[common][index][0]', '0');
 		GalleryUtilities::putRequestVariable('form[common][summary][0]', 'on');
 		GalleryUtilities::putRequestVariable('form[common][detail][0]', 'on');
-
 		GalleryUtilities::putRequestVariable('form[album][index][0]', '1');
 		GalleryUtilities::putRequestVariable('form[album][index][1]', '0');
 		GalleryUtilities::putRequestVariable('form[album][detail][0]', 'on');
 		GalleryUtilities::putRequestVariable('form[photo][index][0]', '0');
-
 		GalleryUtilities::putRequestVariable('form[photo][index][1]', '1');
 		GalleryUtilities::putRequestVariable('form[photo][summary][0]', 'on');
 		GalleryUtilities::putRequestVariable('form[photo][detail][0]', 'on');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
-
 		$results = $this->handleRequest($this->_albumS, $this->_albumS);
 		$this->assertEquals(
 			array(
@@ -434,7 +423,6 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[common][goField]', 'Category');
 		GalleryUtilities::putRequestVariable('form[common][goAction]', 'album');
 		GalleryUtilities::putRequestVariable('form[action][go][common]', '1');
-
 		$results = $this->handleRequest($this->_albumS, $this->_albumS);
 		$this->assertEquals(
 			array(array(), $this->_translate('Field moved successfully')),
@@ -447,7 +435,6 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[photo][goField]', 'Photo Fun');
 		GalleryUtilities::putRequestVariable('form[photo][goAction]', 'common');
 		GalleryUtilities::putRequestVariable('form[action][go][photo]', '1');
-
 		$results = $this->handleRequest($this->_albumS, $this->_albumS);
 		$this->assertEquals(
 			array(array(), $this->_translate('Field moved successfully')),
@@ -460,7 +447,6 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[album][goField]', 'Year');
 		GalleryUtilities::putRequestVariable('form[album][goAction]', 'common');
 		GalleryUtilities::putRequestVariable('form[action][go][album]', '1');
-
 		$results = $this->handleRequest($this->_albumS, $this->_albumS);
 		$this->assertEquals(
 			array(array(), $this->_translate('Field moved successfully')),
@@ -473,7 +459,6 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[common][goField]', 'Year');
 		GalleryUtilities::putRequestVariable('form[common][goAction]', 'photo');
 		GalleryUtilities::putRequestVariable('form[action][go][common]', '1');
-
 		$results = $this->handleRequest($this->_albumS, $this->_albumS);
 		$this->assertEquals(
 			array(array(), $this->_translate('Field moved successfully')),
@@ -487,7 +472,6 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[album][goField]', 'Catalog Id');
 		GalleryUtilities::putRequestVariable('form[album][goAction]', 'remove');
 		GalleryUtilities::putRequestVariable('form[action][go][album]', '1');
-
 		$results = $this->handleRequest($this->_albumS, $this->_albumS);
 		$this->assertEquals(
 			array(array(), $this->_translate('Field removed successfully')),
@@ -523,7 +507,6 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[pickField]', 'Photo Fun');
 		GalleryUtilities::putRequestVariable('form[picklist]', "   \n  ");
 		GalleryUtilities::putRequestVariable('form[action][picklist]', '1');
-
 		$results = $this->handleRequest($this->_albumS, $this->_albumS);
 		$this->assertEquals(
 			array(array(), $this->_translate('Picklist updated successfully')),
@@ -588,7 +571,6 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		);
 		GalleryUtilities::putRequestVariable('form[fields][Category]', 'A');
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
-
 		$results = $this->handleRequest($this->_itemG, $this->_itemG);
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
@@ -611,3 +593,4 @@ class CustomFieldItemEditPluginTest extends ItemEditPluginTestCase {
 		);
 	}
 }
+

@@ -36,7 +36,9 @@ class RandomHighlightModule extends GalleryModule {
 				'Periodically change the album highlight'
 			)
 		);
-		$this->setVersion('2.0.0'); // Update upgrade() as required
+
+		// Update upgrade() as required
+		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -452,6 +454,7 @@ class RandomHighlightModule extends GalleryModule {
 				)
 			);
 			$thumbnail->setDerivativeSourceId($highlight->getId());
+
 			GalleryCoreApi::estimateDerivativeDimensions($thumbnail, $highlight);
 
 			$thumbnail->save();

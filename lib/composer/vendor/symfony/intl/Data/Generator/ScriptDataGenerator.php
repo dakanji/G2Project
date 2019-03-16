@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\Data\Generator;
-
 use Symfony\Component\Intl\Data\Bundle\Compiler\GenrbCompiler;
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleReaderInterface;
 use Symfony\Component\Intl\Data\Util\LocaleScanner;
@@ -88,7 +86,6 @@ class ScriptDataGenerator extends AbstractDataGenerator
     protected function generateDataForMeta(BundleReaderInterface $reader, $tempDir)
     {
         $rootBundle = $reader->read($tempDir, 'root');
-
         $this->scriptCodes = array_unique($this->scriptCodes);
 
         sort($this->scriptCodes);
@@ -99,3 +96,4 @@ class ScriptDataGenerator extends AbstractDataGenerator
         );
     }
 }
+

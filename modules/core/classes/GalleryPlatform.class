@@ -737,7 +737,6 @@ class GalleryPlatform {
 				$blacklistedExtensions = GalleryDataCache::get($blacklistKey);
 			} else {
 				$blacklistedExtensions = array_flip($this->_blacklistedFileExtensions);
-
 				GalleryDataCache::put($blacklistKey, $blacklistedExtensions);
 			}
 
@@ -829,7 +828,10 @@ class GalleryPlatform {
 			 * out .. and . and then check against the dir list.  Here we do an ok job of doing the
 			 * same, though it isn't perfect.
 			 */
-			$s = '\\\/';  // Do this by hand because preg_quote() isn't reliable
+
+			// Do this by hand because preg_quote() isn't reliable
+			$s = '\\\/';
+
 			if (!preg_match("{^([a-zA-Z]+:)?[$s]}", $path)) {
 				$path = $this->getcwd() . $slash . $path;
 			}

@@ -9,3 +9,4 @@ $blocks['SearchBlock'] = array(
 		),
 	),
 );
+

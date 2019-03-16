@@ -32,7 +32,6 @@ class SliderTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('slider');
-
 		$this->setName($gallery->i18n('Slider'));
 		$this->setDescription(
 			$gallery->i18n(
@@ -43,6 +42,7 @@ class SliderTheme extends GalleryTheme {
 		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
+
 		$this->setStandardSettings(
 			array(
 				'colorpack'      => '',
@@ -381,7 +381,8 @@ class SliderTheme extends GalleryTheme {
 				} else {
 					// Item must render itself
 					$children[$i]['renderItem'] = 1;
-					$imageWidths[]              = $imageHeights[]              = -1;
+					$imageWidths[]              = -1;
+					$imageHeights[]             = -1;
 				}
 			}
 		}

@@ -105,3 +105,4 @@ class ConfirmRegistrationView extends GalleryView {
 		);
 	}
 }
+

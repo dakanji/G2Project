@@ -8,3 +8,4 @@ $mapInfo['ItemHiddenMap'] = array(
 		'notNull' => true,
 	),
 );
+

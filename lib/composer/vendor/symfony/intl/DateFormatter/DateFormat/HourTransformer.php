@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\DateFormatter\DateFormat;
 
 /**
@@ -30,3 +29,4 @@ abstract class HourTransformer extends Transformer
      */
     abstract public function normalizeHour($hour, $marker = null);
 }
+

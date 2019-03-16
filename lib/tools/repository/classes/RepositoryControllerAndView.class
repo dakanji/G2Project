@@ -41,7 +41,6 @@ class RepositoryControllerAndView {
 	 */
 	public function init() {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
-
 		$this->_template = new GalleryTemplate(__DIR__ . '/../../../..');
 
 		// Set the translation domain

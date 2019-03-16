@@ -67,7 +67,6 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		foreach ($this->_items as $item) {
 			$id = $item->getId();
-
 			GalleryUtilities::putRequestVariable("form[items][$id][title]", "title $id");
 			GalleryUtilities::putRequestVariable("form[items][$id][summary]", "summary $id");
 			GalleryUtilities::putRequestVariable("form[items][$id][keywords]", "keywords $id");
@@ -123,7 +122,6 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 			}
 
 			$this->assertEquals("title $id", $item->getTitle());
-
 			$this->assertEquals("summary $id", $item->getSummary());
 			$this->assertEquals("keywords $id", $item->getKeywords());
 			$this->assertEquals("description $id", $item->getDescription());
@@ -136,7 +134,6 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		foreach ($this->_items as $item) {
 			$id = $item->getId();
-
 			GalleryUtilities::putRequestVariable("form[items][$id][title]", "title $id");
 			GalleryUtilities::putRequestVariable("form[items][$id][summary]", "summary $id");
 			GalleryUtilities::putRequestVariable("form[items][$id][keywords]", "keywords $id");
@@ -191,7 +188,6 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 			}
 
 			$this->assertEquals("title $id", $item->getTitle());
-
 			$this->assertEquals("summary $id", $item->getSummary());
 			$this->assertEquals("keywords $id", $item->getKeywords());
 			$this->assertEquals("description $id", $item->getDescription());
@@ -204,7 +200,6 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		foreach ($this->_items as $item) {
 			$id = $item->getId();
-
 			GalleryUtilities::putRequestVariable("form[items][$id][title]", "title $id");
 			GalleryUtilities::putRequestVariable("form[items][$id][summary]", "summary $id");
 			GalleryUtilities::putRequestVariable("form[items][$id][keywords]", "keywords $id");
@@ -294,7 +289,6 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 			}
 
 			$this->assertEquals($item->getTitle(), $newItem->getTitle());
-
 			$this->assertEquals($item->getSummary(), $newItem->getSummary());
 			$this->assertEquals($item->getKeywords(), $newItem->getKeywords());
 			$this->assertEquals($item->getDescription(), $newItem->getDescription());
@@ -309,7 +303,6 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 		foreach ($this->_items as $item) {
 			$id = $item->getId();
-
 			GalleryUtilities::putRequestVariable("form[items][$id][title]", "title $id");
 			GalleryUtilities::putRequestVariable("form[items][$id][summary]", "summary $id");
 			GalleryUtilities::putRequestVariable("form[items][$id][keywords]", "keywords $id");
@@ -392,11 +385,8 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 				$id = $item->getId();
 
 				$this->assertEquals("title $id", $newItem->getTitle());
-
 				$this->assertEquals("summary $id", $newItem->getSummary());
-
 				$this->assertEquals("keywords $id", $newItem->getKeywords());
-
 				$this->assertEquals("description $id", $newItem->getDescription());
 			} else {
 				// Error, should be unchanged
@@ -440,7 +430,6 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('form[action][save][done]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -480,6 +469,7 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 
 			$this->assertEquals('title here', $item->getTitle());
 			$this->assertEquals('summary &lt;p&gt;yy&lt;/p&gt;', $item->getSummary());
+
 			$this->assertEquals('', $item->getKeywords(), 'keywords');
 			$this->assertEquals('description ', $item->getDescription());
 		}

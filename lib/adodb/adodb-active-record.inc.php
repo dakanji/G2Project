@@ -14,25 +14,42 @@
 	  for info on Ruby on Rails Active Record implementation
 */
 global $_ADODB_ACTIVE_DBS;
-global $ADODB_ACTIVE_CACHESECS; // set to true to enable caching of metadata such as field info
 
-global $ACTIVE_RECORD_SAFETY; // set to false to disable safety checks
-global $ADODB_ACTIVE_DEFVALS; // use default values of table definition when creating new active record.
+// set to true to enable caching of metadata such as field info
+global $ADODB_ACTIVE_CACHESECS;
+
+// set to false to disable safety checks
+global $ACTIVE_RECORD_SAFETY;
+
+// use default values of table definition when creating new active record.
+global $ADODB_ACTIVE_DEFVALS;
+
 // array of ADODB_Active_DB's, indexed by ADODB_Active_Record->_dbat
 $_ADODB_ACTIVE_DBS      = array();
 $ACTIVE_RECORD_SAFETY   = true;
 $ADODB_ACTIVE_DEFVALS   = false;
 $ADODB_ACTIVE_CACHESECS = 0;
+
 class ADODB_Active_DB {
-	public $db; // ADOConnection
-	public $tables; // assoc array of ADODB_Active_Table objects, indexed by tablename
+	// ADOConnection
+	public $db;
+
+	// assoc array of ADODB_Active_Table objects, indexed by tablename
+	public $tables;
 }
 
 class ADODB_Active_Table {
-	public $name; // table name
-	public $flds; // assoc array of adofieldobjs, indexed by fieldname
-	public $keys; // assoc array of primary keys, indexed by fieldname
-	public $_created; // only used when stored as a cached file
+	// table name
+	public $name;
+
+	// assoc array of adofieldobjs, indexed by fieldname
+	public $flds;
+
+	// assoc array of primary keys, indexed by fieldname
+	public $keys;
+
+	// only used when stored as a cached file
+	public $_created;
 	public $_belongsTo = array();
 	public $_hasMany   = array();
 }
@@ -139,7 +156,9 @@ class ADODB_Active_Record {
 			}
 		}
 
-		$this->foreignName = strtolower(get_class($this)); // CFR: default foreign name
+		// CFR: default foreign name
+		$this->foreignName = strtolower(get_class($this));
+
 		if ($db) {
 			$this->_dbat = self::SetDatabaseAdapter($db);
 		} elseif (!isset($this->_dbat)) {
@@ -209,7 +228,8 @@ class ADODB_Active_Record {
 		$len = strlen($tables);
 
 		if ($ut[$len - 1] != 'S') {
-			return $tables; // I know...forget oxen
+			// I know...forget oxen
+			return $tables;
 		}
 
 		if ($ut[$len - 2] != 'E') {
@@ -231,7 +251,8 @@ class ADODB_Active_Record {
 
 				// Fall Through
 			default:
-				return substr($tables, 0, $len - 1); // ?
+				// ?
+				return substr($tables, 0, $len - 1);
 		}
 	}
 
@@ -245,7 +266,8 @@ class ADODB_Active_Record {
 		$table                        =& $this->TableInfo();
 		$table->_hasMany[$foreignRef] = $ar;
 
-		// $this->$foreignRef = $this->_hasMany[$foreignRef]; // WATCHME Removed assignment by ref. to please __get()
+		// WATCHME Removed assignment by ref. to please __get()
+		// $this->$foreignRef = $this->_hasMany[$foreignRef];
 	}
 
 	// use when you don't want ADOdb to auto-pluralize tablename
@@ -426,8 +448,7 @@ class ADODB_Active_Record {
 	//////////////////////////////////
 	// update metadata
 	public function UpdateActiveTable($pkeys = false, $forceUpdate = false) {
-		global $ADODB_ASSOC_CASE,$_ADODB_ACTIVE_DBS , $ADODB_CACHE_DIR, $ADODB_ACTIVE_CACHESECS;
-		global $ADODB_ACTIVE_DEFVALS,$ADODB_FETCH_MODE;
+		global $ADODB_ASSOC_CASE,$_ADODB_ACTIVE_DBS , $ADODB_CACHE_DIR, $ADODB_ACTIVE_CACHESECS,  $ADODB_ACTIVE_DEFVALS,$ADODB_FETCH_MODE;
 
 		$activedb = $_ADODB_ACTIVE_DBS[$this->_dbat];
 		$table    = $this->_table;
@@ -663,7 +684,8 @@ class ADODB_Active_Record {
 
 	public function ErrorNo() {
 		if ($this->_dbat < 0) {
-			return -9999; // no database connection...
+			// no database connection...
+			return -9999;
 		}
 
 		$db = $this->DB();
@@ -1035,6 +1057,7 @@ class ADODB_Active_Record {
 			$val = $this->$name;
 
 			/*
+
 			if (is_null($val)) {
 				if (isset($fld->not_null) && $fld->not_null) {
 					if (isset($fld->default_value) && strlen($fld->default_value)) {
@@ -1078,7 +1101,9 @@ class ADODB_Active_Record {
 		$ok = $db->Replace($this->_table, $arr, $pkey);
 
 		if ($ok) {
-			$this->_saved = true; // 1= update 2=insert
+			// 1= update 2=insert
+			$this->_saved = true;
+
 			if ($ok == 2) {
 				$autoinc = false;
 
@@ -1245,7 +1270,10 @@ function adodb_GetActiveRecordsClass(
 	// We will, however, return arr, preserving regular 0.. order so that
 	// obj[0] can be used by app developpers.
 	$arrRef = array();
-	$bTos   = array(); // Will store belongTo's indices if any
+
+	// Will store belongTo's indices if any
+	$bTos = array();
+
 	foreach ($rows as $row) {
 		$obj = new $class($table, $primkeyArr, $db);
 

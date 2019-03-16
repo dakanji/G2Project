@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl;
-
 use Symfony\Component\Intl\Data\Bundle\Reader\BufferedBundleReader;
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleEntryReader;
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleEntryReaderInterface;
@@ -200,10 +198,11 @@ final class Intl
                 try {
                     $reflector = new \ReflectionExtension('intl');
                     ob_start();
+
                     $reflector->info();
+
                     $output = strip_tags(ob_get_clean());
                     preg_match('/^ICU version (?:=>)?(.*)$/m', $output, $matches);
-
                     self::$icuVersion = trim($matches[1]);
                 } catch (\ReflectionException $e) {
                     self::$icuVersion = null;
@@ -264,6 +263,7 @@ final class Intl
                 self::getDataDirectory().'/'.self::LOCALE_DIR,
                 self::$entryReader
             );
+
             self::$entryReader->setLocaleAliases($localeDataProvider->getAliases());
         }
 
@@ -277,3 +277,4 @@ final class Intl
     {
     }
 }
+

@@ -31,9 +31,7 @@ class MatrixTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('matrix');
-
 		$this->setName($gallery->i18n('Matrix'));
-
 		$this->setDescription(
 			$gallery->i18n(
 				'Standard Gallery2 look and feel'
@@ -42,6 +40,7 @@ class MatrixTheme extends GalleryTheme {
 		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
+
 		$this->setStandardSettings(
 			array(
 				'rows'            => 3,
@@ -213,3 +212,4 @@ class MatrixTheme extends GalleryTheme {
 		return array(null, 'theme.tpl');
 	}
 }
+

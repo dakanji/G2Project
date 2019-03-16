@@ -220,7 +220,6 @@ class LinkItemTest extends GalleryTestCase {
 
 		// Make sure the redirect has no sessionId in it
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
-
 		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 		$session = new GallerySession();
 
@@ -350,6 +349,7 @@ class LinkItemTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('image/jpeg', $mimeType);
+
 		$this->assertEquals(
 			array(
 				'width'  => 270,
@@ -388,6 +388,7 @@ class LinkItemTest extends GalleryTestCase {
 		);
 
 		$platform->setReply('getDirectorySeparator', array(), '/');
+
 		$platform->setReply(
 			'file_exists',
 			array(
@@ -429,6 +430,7 @@ class LinkItemTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('image/jpeg', $mimeType);
+
 		$this->assertEquals(
 			array(
 				'width'  => 1024,

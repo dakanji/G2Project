@@ -84,7 +84,6 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[parser]', 'setuprewritemock');
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -138,7 +137,6 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[parser]', 'setuprewritemock');
 		GalleryUtilities::putRequestVariable('phpunit[config]', 0);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -184,7 +182,6 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 
 	public function testBack() {
 		GalleryUtilities::putRequestVariable('form[action][back]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -214,7 +211,6 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 
 	public function testDone() {
 		GalleryUtilities::putRequestVariable('form[action][done]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -232,7 +228,6 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 
 	public function testRefresh() {
 		GalleryUtilities::putRequestVariable('form[action][refresh]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -251,7 +246,6 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 	public function testTestParser1() {
 		GalleryUtilities::putRequestVariable('form[action][testParser]', 1);
 		GalleryUtilities::putRequestVariable('form[phpunit]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -271,7 +265,6 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 
 	public function testTestParser2() {
 		GalleryUtilities::putRequestVariable('form[action][testParser]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -290,7 +283,6 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 	public function testAdminParser1() {
 		GalleryUtilities::putRequestVariable('form[action][adminParser]', 1);
 		GalleryUtilities::putRequestVariable('form[phpunit]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -313,7 +305,6 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 
 	public function testAdminParser2() {
 		GalleryUtilities::putRequestVariable('form[action][adminParser]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(

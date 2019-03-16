@@ -104,7 +104,6 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 			}
 
 			$this->assertTrue(isset($this->_comment[$i]), 'Missing comment instance');
-
 			$this->_comment[$i]->create($itemId);
 			$this->_comment[$i]->setCommenterId($gallery->getActiveUserId());
 			$this->_comment[$i]->setHost('127.0.0.1');
@@ -129,7 +128,6 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 		$gallery->_phpVm = new UnitTestPhpVm();
 
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
-
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('header', array('Cache-Control: no-cache', ''), true);
 		$gallery->_phpVm->setReply('header', array('Pragma: no-cache', ''), true);
@@ -138,6 +136,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 			array('Expires: Sun, 09 Mar 2008 21:00:00 GMT', ''),
 			true
 		);
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 
 		$template = new UnitTestTemplate();
@@ -188,7 +187,6 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 		$gallery->_phpVm = new UnitTestPhpVm();
 
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
-
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('header', array('Cache-Control: no-cache', ''), true);
 		$gallery->_phpVm->setReply('header', array('Pragma: no-cache', ''), true);
@@ -197,6 +195,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 			array('Expires: Sun, 09 Mar 2008 21:00:00 GMT', ''),
 			true
 		);
+
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 
 		$template = new UnitTestTemplate();

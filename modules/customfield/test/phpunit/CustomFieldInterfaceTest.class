@@ -222,3 +222,4 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 		$this->assertEquals(true, $isContainer[$this->_item->getId()], 'Album-specific settings');
 	}
 }
+

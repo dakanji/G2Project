@@ -600,7 +600,6 @@ class GalleryCommentHelper {
 
 					if ($akismetActive) {
 						GalleryCoreApi::requireOnce('modules/comment/classes/AkismetApi.class');
-
 						$akismet = new AkismetApi();
 
 						$ret = $this->checkWithAkismet($comment, $akismet);

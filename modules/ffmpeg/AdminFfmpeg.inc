@@ -68,7 +68,6 @@ class AdminFfmpegController extends GalleryController {
 						} else {
 							// Got a match
 							$form['path'] = $path;
-
 							GalleryUtilities::putRequestVariable('form.path', $path);
 						}
 					}

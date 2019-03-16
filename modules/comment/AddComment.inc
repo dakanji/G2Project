@@ -176,7 +176,6 @@ class AddCommentController extends GalleryController {
 				}
 
 				$comment->setCommenterId($gallery->getActiveUserId());
-
 				$comment->setHost(GalleryUtilities::getRemoteHostAddress());
 				$comment->setSubject($form['subject']);
 				$comment->setComment($form['comment']);

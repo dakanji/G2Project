@@ -78,6 +78,7 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 
 			if ($ret) {
 				echo $ret->getAsHtml();
+
 				$this->failWithStatus($ret);
 			}
 		}
@@ -97,15 +98,12 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		$rand         = mt_rand();
 		$targetName   = sprintf('phpunit_%s.gif', $rand);
 		$expectedName = sprintf('phpunit_%s_gif', $rand);
-
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
 		GalleryUtilities::putRequestVariable('form[name][1]', $targetName);
 		GalleryUtilities::putRequestVariable('form[type][1]', 'image/gif');
 		GalleryUtilities::putRequestVariable('form[tmp_name][1]', $dataFile);
 		GalleryUtilities::putRequestVariable('form[size][1]', $platform->filesize($dataFile));
-
 		GalleryUtilities::putRequestVariable('form[error][1]', 0);
-
 		$results    = $this->handleRequest();
 		$counter    =& GalleryTestCase::getEntityCounter();
 		$expectedId = $counter->getRecentEntityId('WatermarkImage');
@@ -134,7 +132,6 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 
 	public function testAddWatermarkMissing() {
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
-
 		$results = $this->handleRequest();
 		$this->assertEquals(
 			array(
@@ -262,13 +259,11 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		// valid, but illegal
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[delete][watermarkId]', 1);
-
 		$results = $this->handleRequest(ERROR_MISSING_OBJECT);
 
 		// invalid and illegal
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[delete][watermarkId]', 123456789);
-
 		$results = $this->handleRequest(ERROR_MISSING_OBJECT);
 	}
 
@@ -280,15 +275,12 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		$rand         = mt_rand();
 		$targetName   = sprintf('phpunit_%s.php', $rand);
 		$expectedName = sprintf('phpunit_%s_php', $rand);
-
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
 		GalleryUtilities::putRequestVariable('form[name][1]', $targetName);
 		GalleryUtilities::putRequestVariable('form[type][1]', 'image/gif');
 		GalleryUtilities::putRequestVariable('form[tmp_name][1]', $dataFile);
 		GalleryUtilities::putRequestVariable('form[size][1]', $platform->filesize($dataFile));
-
 		GalleryUtilities::putRequestVariable('form[error][1]', 0);
-
 		$results    = $this->handleRequest();
 		$counter    =& GalleryTestCase::getEntityCounter();
 		$expectedId = $counter->getRecentEntityId('WatermarkImage');
@@ -338,15 +330,12 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		$rand         = mt_rand();
 		$targetName   = sprintf('phpunit_%s.gif', $rand);
 		$expectedName = sprintf('phpunit_%s_gif', $rand);
-
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
 		GalleryUtilities::putRequestVariable('form[name][1]', $targetName);
 		GalleryUtilities::putRequestVariable('form[type][1]', 'image/gif');
 		GalleryUtilities::putRequestVariable('form[tmp_name][1]', $dataFile);
 		GalleryUtilities::putRequestVariable('form[size][1]', $platform->filesize($dataFile));
-
 		GalleryUtilities::putRequestVariable('form[error][1]', 0);
-
 		$results           = $this->handleRequest();
 		$counter           =& GalleryTestCase::getEntityCounter();
 		$this->_idToDelete = $expectedId = $counter->getRecentEntityId('WatermarkImage');
@@ -372,6 +361,7 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(isset($map[$expectedName]), 'First watermark not added');
+
 		// Now change active user and add watermark with same filename..
 		$gallery->setActiveUser($this->_user);
 

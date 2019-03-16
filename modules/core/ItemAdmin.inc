@@ -198,7 +198,8 @@ class ItemAdminView extends GalleryView {
 		$ItemAdmin['subViewChoices'] = $subViewChoices;
 		$ItemAdmin['viewL10Domain']  = $subView->getL10Domain();
 		$ItemAdmin['isSiteAdmin']    = $isSiteAdmin;
-		$ItemAdmin['unsetCallback']  = function ($a, $k) {
+
+		$ItemAdmin['unsetCallback'] = function ($a, $k) {
 			unset($a[$k]);
 
 			return $a;

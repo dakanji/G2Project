@@ -19,6 +19,7 @@ if (!is_dir(HORDE_BASE)) {
 }
 
 require_once HORDE_BASE . '/lib/Horde.php';
+
 require_once HORDE_BASE . '/lib/Secret.php';
 
 /**

@@ -14,6 +14,7 @@
 	<table class="report">
 		<?php $index = 0; ?>
 		<?php
+
 		foreach ($reportData as $locale => $localeData) {
 			?>
 			<?php include __DIR__ . '/row_header_detail.inc'; ?>
@@ -35,6 +36,7 @@
 			<?php include __DIR__ . '/plugin_rowdata.inc'; ?>
 		</tr>
 			<?php
+
 			for ($i = 1; $i < sizeof($localeData['plugins']); $i++) {
 				?>
 		<tr>

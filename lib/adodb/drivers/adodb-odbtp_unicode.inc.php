@@ -32,3 +32,4 @@ class ADODB_odbtp_unicode extends ADODB_odbtp {
 	public $databaseType   = 'odbtp';
 	public $_useUnicodeSQL = true;
 }
+

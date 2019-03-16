@@ -2843,7 +2843,8 @@ class GalleryCharsetHelper_medium {
 			return $result;
 		}
 
-		if (ord($string[$end]) & 0x80) { // Is it a single-byte character?
+		if (ord($string[$end]) & 0x80) {
+			// Is it a single-byte character?
 			// It's an incomplete multibyte character, go back to the last character
 			$j = 0;
 

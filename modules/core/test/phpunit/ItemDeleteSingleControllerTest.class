@@ -233,3 +233,4 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 		$results = $this->handleRequest(ERROR_MISSING_OBJECT);
 	}
 }
+

@@ -8,9 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Symfony\Component\Intl\ResourceBundle;
-
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleEntryReaderInterface;
 use Symfony\Component\Intl\Data\Provider\CurrencyDataProvider;
 use Symfony\Component\Intl\Data\Provider\LocaleDataProvider;
@@ -37,7 +35,6 @@ class CurrencyBundle extends CurrencyDataProvider implements CurrencyBundleInter
     public function __construct($path, BundleEntryReaderInterface $reader, LocaleDataProvider $localeProvider)
     {
         parent::__construct($path, $reader);
-
         $this->localeProvider = $localeProvider;
     }
 
@@ -113,3 +110,4 @@ class CurrencyBundle extends CurrencyDataProvider implements CurrencyBundleInter
         }
     }
 }
+
