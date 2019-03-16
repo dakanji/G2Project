@@ -54,8 +54,7 @@ class RewriteParserTestCase extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$this->_parser = new $rewriteParserName();
 
@@ -65,9 +64,7 @@ class RewriteParserTestCase extends GalleryTestCase {
 		$this->_platform = new RewriteParserMockPlatform();
 
 		$this->_platform->init($this);
-
 		unset($this->_fileContent, $this->_embeddedFileContent);
-
 		$gallery->setPlatform($this->_platform);
 
 		// Register a new module
@@ -92,8 +89,7 @@ class RewriteParserTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function tearDown() {
 		list($ret, $redirect) = $this->_module->deactivate();
@@ -113,8 +109,7 @@ class RewriteParserTestCase extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testRefreshActiveRules() {
 		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser);
@@ -142,7 +137,8 @@ class RewriteParserTestCase extends GalleryTestCase {
 
 	public function testSaveActiveRules() {
 		$testRules['rewriteparsermock'][0] = array('pattern' => 'bogus1');
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules($this->_parser, $testRules);
+
+		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser, $testRules);
 
 		if ($ret) {
 			return $ret;
@@ -167,7 +163,8 @@ class RewriteParserTestCase extends GalleryTestCase {
 
 	public function testSaveBadKeyword() {
 		$testRules['rewriteparsermock'][0] = array('pattern' => 'p/%bogus%');
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules($this->_parser, $testRules);
+
+		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser, $testRules);
 
 		if ($ret) {
 			return $ret;
@@ -194,7 +191,8 @@ class RewriteParserTestCase extends GalleryTestCase {
 		// It might be desirable to activate two rules for one Gallery view
 		$testRules['rewriteparsermock'][0] = array('pattern' => 'bogus1');
 		$testRules['rewriteparsermock'][1] = array('pattern' => 'bogus2');
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules($this->_parser, $testRules);
+
+		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser, $testRules);
 
 		if ($ret) {
 			return $ret;
@@ -220,7 +218,8 @@ class RewriteParserTestCase extends GalleryTestCase {
 
 	public function testSaveBadParser() {
 		$testRules['rewriteparsermock'][2] = array('pattern' => 'bogus3');
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules($this->_parser, $testRules);
+
+		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser, $testRules);
 
 		if ($ret) {
 			return $ret;
@@ -245,7 +244,8 @@ class RewriteParserTestCase extends GalleryTestCase {
 
 	public function testSaveConditions() {
 		$testRules['rewriteparsermock'][3] = array();
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules($this->_parser, $testRules);
+
+		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser, $testRules);
 
 		if ($ret) {
 			return $ret;
@@ -274,12 +274,12 @@ class RewriteParserTestCase extends GalleryTestCase {
 			$this->assertEquals(null, $errno);
 			$this->assertEquals($expected, unserialize($activeRules));
 		}
-
-}
+	}
 
 	public function testSaveRestrict() {
 		$testRules['rewriteparsermock'][5] = array();
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules($this->_parser, $testRules);
+
+		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser, $testRules);
 
 		if ($ret) {
 			return $ret;
@@ -308,12 +308,12 @@ class RewriteParserTestCase extends GalleryTestCase {
 			$this->assertEquals(null, $errno);
 			$this->assertEquals($expected, unserialize($activeRules));
 		}
-
-}
+	}
 
 	public function testSaveEmptyPattern() {
 		$testRules['rewriteparsermock'][0] = array();
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules($this->_parser, $testRules);
+
+		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser, $testRules);
 
 		if ($ret) {
 			return $ret;
@@ -338,7 +338,8 @@ class RewriteParserTestCase extends GalleryTestCase {
 
 	public function testSaveEmptyPatternRule() {
 		$testRules['rewriteparsermock'][6] = array();
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules($this->_parser, $testRules);
+
+		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser, $testRules);
 
 		if ($ret) {
 			return $ret;
@@ -363,7 +364,8 @@ class RewriteParserTestCase extends GalleryTestCase {
 
 	public function testSavePatternEmptyPatternRule() {
 		$testRules['rewriteparsermock'][6] = array('pattern' => 'bogus7');
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules($this->_parser, $testRules);
+
+		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser, $testRules);
 
 		if ($ret) {
 			return $ret;
@@ -388,7 +390,8 @@ class RewriteParserTestCase extends GalleryTestCase {
 
 	public function testSaveInvalidPattern() {
 		$testRules['rewriteparsermock'][0] = array('pattern' => '!foo');
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules($this->_parser, $testRules);
+
+		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser, $testRules);
 
 		if ($ret) {
 			return $ret;
@@ -415,7 +418,8 @@ class RewriteParserTestCase extends GalleryTestCase {
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
 		$testRules['rewriteparsermock'][0] = array('pattern' => 'bogus1');
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules($this->_parser, $testRules);
+
+		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser, $testRules);
 
 		if ($ret) {
 			return $ret;
@@ -448,7 +452,8 @@ class RewriteParserTestCase extends GalleryTestCase {
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
 		$testRules['rewriteparsermock'][0] = array('pattern' => 'p/%bogus%');
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules($this->_parser, $testRules);
+
+		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser, $testRules);
 
 		if ($ret) {
 			return $ret;
@@ -506,7 +511,6 @@ class RewriteParserTestCase extends GalleryTestCase {
 
 		$this->assertTrue($status, '404');
 	}
-
 }
 
 class RewriteParserMockModule extends GalleryModule {
@@ -514,11 +518,10 @@ class RewriteParserMockModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('rewriteparsermock');
+
 		$this->setName('RewriteParser Test Module');
 		$this->setDescription('Unit test module');
-
-		// Update upgrade() as required
-		$this->setVersion('7.0.0');
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->setGroup('gallery', 'Gallery');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$this->setRequiredModuleApi(GalleryModule::getApiVersion());
@@ -556,7 +559,6 @@ class RewriteParserMockModule extends GalleryModule {
 
 		return $rules;
 	}
-
 }
 
 class RewriteParserMockPlatform extends GalleryPlatform {
@@ -592,8 +594,7 @@ class RewriteParserMockPlatform extends GalleryPlatform {
 				while (false !== ($file = parent::readdir($dir))) {
 					array_push($this->_list, $file);
 				}
-
-}
+			}
 
 			array_push($this->_list, 'rewriteparsermock');
 
@@ -801,5 +802,4 @@ class RewriteParserMockPlatform extends GalleryPlatform {
 
 		return fclose($handle);
 	}
-
 }

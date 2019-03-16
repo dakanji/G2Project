@@ -168,8 +168,7 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 		public function _close() {
 			return @fbsql_close($this->_connectionID);
 		}
-
-}
+	}
 
 	/*--------------------------------------------------------------------------------------
 	 Class Name: Recordset
@@ -217,15 +216,11 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 			if ($fieldOffset != -1) {
 				$o = @fbsql_fetch_field($this->_queryID, $fieldOffset);
 
-				// fbsql returns the max length less spaces -- so it is unrealiable
-				//$o->max_length = -1;
+				//$o->max_length = -1; // fbsql returns the max length less spaces -- so it is unrealiable
 				$f         = @fbsql_field_flags($this->_queryID, $fieldOffset);
 				$o->binary = (strpos($f, 'binary') !== false);
-			} elseif ($fieldOffset == -1) {
-				// The $fieldOffset argument is not provided thus its -1
-				// fbsql returns the max length less spaces -- so it is unrealiable
-				$o = @fbsql_fetch_field($this->_queryID);
-
+			} elseif ($fieldOffset == -1) {  // The $fieldOffset argument is not provided thus its -1
+				$o = @fbsql_fetch_field($this->_queryID);// fbsql returns the max length less spaces -- so it is unrealiable
 				//$o->max_length = -1;
 			}
 
@@ -253,9 +248,7 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 				$len      = $fieldobj->max_length;
 			}
 
-			// fbsql max_length is not accurate
-			$len = -1;
-
+			$len = -1; // fbsql max_length is not accurate
 			switch (strtoupper($t)) {
 				case 'CHARACTER':
 				case 'CHARACTER VARYING':
@@ -268,7 +261,6 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 					}
 
 					// so we have to check whether binary...
-
 					// Fall Through
 				case 'IMAGE':
 				case 'LONGBLOB':
@@ -300,7 +292,6 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 				default:
 					return 'N';
 			}
-
-}
+		}
 	} //class
 } // defined

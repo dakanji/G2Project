@@ -61,8 +61,7 @@ class RewriteModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				break;
 
@@ -98,8 +97,7 @@ class RewriteModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				// The module needs to be reconfigured
 				list($ret) = $module->deactivate();
@@ -119,8 +117,7 @@ class RewriteModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				// Fall Through
 			case '0.9.5':
@@ -142,8 +139,7 @@ class RewriteModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				// Fall Through
 			case '0.9.11':
@@ -189,8 +185,7 @@ class RewriteModuleExtras {
 					while ($result = $searchResults->nextResult()) {
 						$activeRules[$result[0]][$result[1]] = $result[2];
 					}
-
-}
+				}
 
 				$params = array(
 					'shortUrls'                     => serialize(array()),
@@ -243,8 +238,7 @@ class RewriteModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				// Fall Through
 			case '1.1.0':
@@ -272,7 +266,8 @@ class RewriteModuleExtras {
 					return $ret;
 				}
 
-				$activeRules         = unserialize($activeRules);
+				$activeRules = unserialize($activeRules);
+
 				list($ret, $modules) = GalleryCoreApi::fetchPluginStatus('module');
 
 				if ($ret) {
@@ -321,8 +316,7 @@ class RewriteModuleExtras {
 						if (isset($rules[$ruleId]['pattern'])) {
 							$activeRules[$moduleId][$ruleId]['pattern'] = $pattern;
 						}
-
-}
+					}
 				}
 
 				/*
@@ -376,16 +370,14 @@ class RewriteModuleExtras {
 						if (!$moduleAvailable || isset($rules[$ruleId]['pattern'])) {
 							$history[$ruleId]['pattern'] = $pattern;
 						}
-
-}
+					}
 
 					$ret = $module->setParameter($key, serialize($history));
 
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				// Fall Through
 			case '1.1.8':
@@ -483,8 +475,7 @@ class RewriteModuleExtras {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -513,7 +504,8 @@ class RewriteModuleExtras {
 			return $ret;
 		}
 
-		$rules               = $plugin->getRewriteRules();
+		$rules = $plugin->getRewriteRules();
+
 		list($ret, $history) = RewriteHelper::getHistoryForModule($pluginId);
 
 		if ($ret) {
@@ -542,8 +534,7 @@ class RewriteModuleExtras {
 					if (isset($rule['pattern'])) {
 						$seen[$rule['pattern']] = true;
 					}
-
-}
+				}
 			}
 
 			foreach ($history as $ruleId => $rule) {
@@ -560,8 +551,7 @@ class RewriteModuleExtras {
 
 					$activeRules[$pluginId][$ruleId] = $rule;
 				}
-
-}
+			}
 
 			// Only update the active rules if we added something
 			if (count($activeRules) > $originalSize) {
@@ -576,11 +566,9 @@ class RewriteModuleExtras {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		return null;
 	}
-
 }

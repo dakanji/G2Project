@@ -154,8 +154,7 @@ class ItemCreateReplicaSingleController extends GalleryController {
 				$redirect['subView'] = 'replica.ItemCreateReplicaSingle';
 				$redirect['itemId']  = $itemId;
 			}
-
-}
+		}
 
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
@@ -169,7 +168,6 @@ class ItemCreateReplicaSingleController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -216,6 +214,7 @@ class ItemCreateReplicaSingleView extends GalleryView {
 		$ItemCreateReplicaSingle['itemTypeNames'] = $item->itemTypeName();
 
 		$template->setVariable('ItemCreateReplicaSingle', $ItemCreateReplicaSingle);
+
 		$template->setVariable('controller', 'replica.ItemCreateReplicaSingle');
 		$template->javascript('lib/yui/yahoo-dom-event.js');
 		$template->javascript('lib/yui/container-min.js');
@@ -242,5 +241,4 @@ class ItemCreateReplicaSingleView extends GalleryView {
 
 		return array(null, $module->translate('replicate an item'));
 	}
-
 }

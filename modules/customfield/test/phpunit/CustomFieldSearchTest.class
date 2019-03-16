@@ -66,7 +66,8 @@ class CustomFieldSearchTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->_randomKey    = 'a' . mt_rand(1, 100000) . 'z';
+		$this->_randomKey = 'a' . mt_rand(1, 100000) . 'z';
+
 		list($ret, $groupId) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',
@@ -158,8 +159,7 @@ class CustomFieldSearchTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 	}
 
 	public function testGetSearchModuleInfo() {
@@ -301,5 +301,4 @@ class CustomFieldSearchTest extends GalleryTestCase {
 			$results
 		);
 	}
-
 }

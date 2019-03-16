@@ -104,8 +104,7 @@ class SiteAdminView extends GalleryView {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-} else {
+				} else {
 					list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
 
 					if ($ret) {
@@ -115,8 +114,7 @@ class SiteAdminView extends GalleryView {
 
 						return array($ret, null);
 					}
-
-}
+				}
 
 				list($ret, $moduleViews) = $module->getSiteAdminViews();
 
@@ -173,8 +171,7 @@ class SiteAdminView extends GalleryView {
 
 								break;
 							}
-
-}
+						}
 
 						$outer['selected'] = $selected;
 					}
@@ -184,8 +181,7 @@ class SiteAdminView extends GalleryView {
 
 				$subViewChoices = array_merge($subViewChoices, $moduleViews);
 			}
-
-}
+		}
 
 		// Sort and group
 		$subViewGroups = $groupLabels = array();
@@ -202,8 +198,7 @@ class SiteAdminView extends GalleryView {
 				} else {
 					$groupLabels[$group][$label]++;
 				}
-
-}
+			}
 		}
 
 		// Set labels
@@ -219,13 +214,11 @@ class SiteAdminView extends GalleryView {
 						$tmp                   = $count;
 						$data[0]['groupLabel'] = $label;
 					}
-
-}
+				}
 			} else {
 				$data[0]['groupLabel'] = ucwords($data[0]['group']);
 			}
-
-}
+		}
 
 		usort($subViewGroups, array($this, 'groupSort'));
 
@@ -367,5 +360,4 @@ class SiteAdminView extends GalleryView {
 
 		return ($an > $bn) ? 1 : -1;
 	}
-
 }

@@ -92,7 +92,8 @@ class GalleryQuotasHelper {
 	public static function getUserDiskQuota($userId) {
 		global $gallery;
 
-		$userDiskQuota                               = null;
+		$userDiskQuota = null;
+
 		list($ret, $userQuotaExists, $userQuotaInfo) = GalleryQuotasHelper::fetchUserQuota($userId);
 
 		if ($ret) {
@@ -109,8 +110,7 @@ class GalleryQuotasHelper {
 			if ($groupQuotaExists) {
 				$userDiskQuota = $groupQuotaInfo['quota'];
 			}
-
-} else {
+		} else {
 			$userDiskQuota    = $userQuotaInfo['quota'];
 			$groupQuotaExists = false;
 		}
@@ -408,7 +408,8 @@ class GalleryQuotasHelper {
 		[GalleryQuotasMap::userOrGroupId] = [GalleryGroup::id]
 		';
 
-		$data                      = array((int)$groupId);
+		$data = array((int)$groupId);
+
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
@@ -458,7 +459,8 @@ class GalleryQuotasHelper {
 		[GalleryQuotasMap::userOrGroupId] = [GalleryUser::id]
 		';
 
-		$data                      = array((int)$userId);
+		$data = array((int)$userId);
+
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
@@ -482,5 +484,4 @@ class GalleryQuotasHelper {
 
 		return array(null, $quotaExists, $userQuotaInfo);
 	}
-
 }

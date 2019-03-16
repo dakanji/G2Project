@@ -68,8 +68,7 @@ class PhotoTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testCreateAndDeletePhoto() {
 		global $gallery;
@@ -126,8 +125,7 @@ class PhotoTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testCMYKPhoto() {
 		// Test that mime type gets -cmyk appended if toolkit says it uses CMYK colorspace
@@ -206,7 +204,6 @@ class PhotoTest extends GalleryTestCase {
 
 		$this->assertEquals('image/test', $photo->getMimeType(), 'mime type');
 	}
-
 }
 
 /**
@@ -226,5 +223,4 @@ class PhotoTestToolkit extends GalleryToolkit {
 
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
-
 }

@@ -99,20 +99,17 @@ class CodeAuditTestCase extends GalleryTestCase {
 			if ($this->_shouldHalt) {
 				return;
 			}
-
-}
+		}
 	}
 
 	public function _scanXmlDir($dirPath) {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
-
 		static $KIND;
 
 		if (!isset($KIND)) {
-			// Won't be KIND in Turkish locale
-			$KIND = strtoupper('kind');
+			$KIND = strtoupper('kind'); // Won't be KIND in Turkish locale
 		}
 
 		$parser = xml_parser_create();
@@ -122,7 +119,6 @@ class CodeAuditTestCase extends GalleryTestCase {
 			$xmlValues,
 			$xmlIndex
 		);
-
 		xml_parser_free($parser);
 
 		if (empty($xmlIndex['ENTRY'])) {
@@ -162,8 +158,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 						if ($this->_shouldHalt) {
 							return array();
 						}
-
-}
+					}
 
 					break;
 
@@ -173,8 +168,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 						'Unable to parse ' . $xmlValues[$entry]['attributes'][$KIND]
 					);
 			}
-
-}
+		}
 
 		return $dirPaths;
 	}
@@ -235,8 +229,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 						if ($this->_shouldHalt) {
 							return array();
 						}
-
-}
+					}
 
 					break;
 
@@ -246,8 +239,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 						'Unable to parse ' . $matches[2][$i]
 					);
 			}
-
-}
+		}
 
 		return $dirPaths;
 	}
@@ -266,8 +258,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 			echo '<script type="text/javascript">updateStats(0,0,0,'
 			. $usedMemory . ");</script>\n";
 		}
-
-}
+	}
 
 	/**
 	 * Subclasses can call this to stop scanning.
@@ -346,8 +337,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 
 				$this->_tokens[$fileName] = $tokens;
 			}
-
-} else {
+		} else {
 			$tokens = $this->_tokens[$fileName];
 		}
 
@@ -360,8 +350,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 			) {
 				$candidateTokens[] = $i;
 			}
-
-}
+		}
 
 		if (empty($candidateTokens)) {
 			return $calls;
@@ -394,8 +383,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 
 					$call = $tokens[$k][1] . $tokens[$j][1] . $call;
 				}
-
-} elseif ($classMethodCallsOnly) {
+			} elseif ($classMethodCallsOnly) {
 				continue;
 			}
 
@@ -428,14 +416,12 @@ class CodeAuditTestCase extends GalleryTestCase {
 				} else {
 					$call .= $tokens[$i];
 				}
-
-}
+			}
 
 			if ($parenCount == 0) {
 				$calls[] = $call;
 			}
-
-}
+		}
 
 		return $calls;
 	}
@@ -489,8 +475,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 			} else {
 				$param .= $tokens[$i];
 			}
-
-}
+		}
 
 		if (!empty($param) && $parenCount == 0) {
 			// Remove the trailing ')'
@@ -520,5 +505,4 @@ class CodeAuditTestCase extends GalleryTestCase {
 
 		return $i;
 	}
-
 }

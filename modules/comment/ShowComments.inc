@@ -78,8 +78,7 @@ class ShowCommentsView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 
 			if (!$anonymousViewable) {
 				$this->setCacheControl($template, 'no-cache');
@@ -101,14 +100,12 @@ class ShowCommentsView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 
 			foreach ($commentersList as $commenter) {
 				$commenters[$commenter->getId()] = (array)$commenter;
 			}
-
-}
+		}
 
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
@@ -158,5 +155,4 @@ class ShowCommentsView extends GalleryView {
 
 		return array(null, $module->translate('show comments'));
 	}
-
 }

@@ -87,8 +87,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 
 			if (empty($form['repositories'])) {
 				$form['repositories'] = array(
@@ -103,8 +102,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 				if (isset($form['repositories'][$key])) {
 					$data[$key] = 1;
 				}
-
-}
+			}
 
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
@@ -158,8 +156,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 				if (!empty($tmp)) {
 					$packages[$source] = $tmp;
 				}
-
-}
+			}
 
 			if (empty($packages)) {
 				$status['noUpgradeAvailable'] = 1;
@@ -175,8 +172,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 
 				$delegate['view'] = 'core.ProgressBar';
 			}
-
-}
+		}
 
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
@@ -187,15 +183,13 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 			} else {
 				$results['delegate'] = $delegate;
 			}
-
-}
+		}
 
 		$results['status'] = $status;
 		$results['error']  = $error;
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -245,7 +239,8 @@ class AdminRepositoryView extends GalleryView {
 
 		if ($form['formName'] != 'AdminRepository') {
 			// Set some defaults
-			$form['formName']    = 'AdminRepository';
+			$form['formName'] = 'AdminRepository';
+
 			list($ret, $sources) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'core',
@@ -331,8 +326,7 @@ class AdminRepositoryView extends GalleryView {
 					) {
 						$AdminRepository['browseData'][$pluginId] = $browseInfo;
 					}
-
-}
+				}
 			}
 
 			// Get local index meta data.
@@ -385,8 +379,7 @@ class AdminRepositoryView extends GalleryView {
 					$AdminRepository['latestThemeApiVersion']  = $apiVersions['theme'];
 					$AdminRepository['latestModuleApiVersion'] = $apiVersions['module'];
 				}
-
-}
+			}
 		}
 
 		if (!empty($AdminRepository['browseData'])) {
@@ -434,5 +427,4 @@ class AdminRepositoryView extends GalleryView {
 
 		return $cmp;
 	}
-
 }

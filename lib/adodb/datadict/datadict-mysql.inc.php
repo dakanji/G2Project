@@ -21,13 +21,9 @@ class ADODB2_mysql extends ADODB_DataDict {
 	public $databaseType       = 'mysql';
 	public $alterCol           = ' MODIFY COLUMN';
 	public $alterTableAddIndex = true;
-
-	// requires mysql 3.22 or later
-	public $dropTable = 'DROP TABLE IF EXISTS %s';
-	public $dropIndex = 'DROP INDEX %s ON %s';
-
-	// needs column-definition!
-	public $renameColumn = 'ALTER TABLE %s CHANGE COLUMN %s %s %s';
+	public $dropTable          = 'DROP TABLE IF EXISTS %s'; // requires mysql 3.22 or later
+	public $dropIndex          = 'DROP INDEX %s ON %s';
+	public $renameColumn       = 'ALTER TABLE %s CHANGE COLUMN %s %s %s';    // needs column-definition!
 
 	public function MetaType($t, $len = -1, $fieldobj = false) {
 		if (is_object($t)) {
@@ -37,10 +33,7 @@ class ADODB2_mysql extends ADODB_DataDict {
 		}
 
 		$is_serial = is_object($fieldobj) && $fieldobj->primary_key && $fieldobj->auto_increment;
-
-		// mysql max_length is not accurate
-		$len = -1;
-
+		$len       = -1; // mysql max_length is not accurate
 		switch (strtoupper($t)) {
 			case 'STRING':
 			case 'CHAR':
@@ -99,8 +92,7 @@ class ADODB2_mysql extends ADODB_DataDict {
 			default:
 				return 'N';
 		}
-
-}
+	}
 
 	public function ActualType($meta) {
 		switch (strtoupper($meta)) {
@@ -155,8 +147,7 @@ class ADODB2_mysql extends ADODB_DataDict {
 			default:
 				return $meta;
 		}
-
-}
+	}
 
 	// return string must begin with space
 	public function _CreateSuffix($fname, &$ftype, $fnotnull, $fdefault, $fautoinc, $fconstraint, $funsigned) {
@@ -218,8 +209,7 @@ class ADODB2_mysql extends ADODB_DataDict {
 			if (isset($idxoptions['DROP'])) {
 				return $sql;
 			}
-
-}
+		}
 
 		if (empty($flds)) {
 			return $sql;
@@ -253,5 +243,4 @@ class ADODB2_mysql extends ADODB_DataDict {
 
 		return $sql;
 	}
-
 }

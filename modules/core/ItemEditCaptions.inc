@@ -45,7 +45,8 @@ class ItemEditCaptionsController extends GalleryController {
 	 * @see GalleryController::handleRequest
 	 */
 	public function handleRequest($form) {
-		$page             = (int)GalleryUtilities::getRequestVariables('page');
+		$page = (int)GalleryUtilities::getRequestVariables('page');
+
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
@@ -57,7 +58,8 @@ class ItemEditCaptionsController extends GalleryController {
 		$error  = array();
 
 		if (isset($form['action']['save'])) {
-			$ids                = array_keys($form['items']);
+			$ids = array_keys($form['items']);
+
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($ids);
 
 			if ($ret) {
@@ -136,13 +138,11 @@ class ItemEditCaptionsController extends GalleryController {
 						$status[$id]['obsolete'] = 1;
 						$status['errorCount']++;
 					}
-
-} else {
+				} else {
 					$status[$id]['permissionDenied'] = 1;
 					$status['errorCount']++;
 				}
-
-}
+			}
 
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
@@ -168,8 +168,7 @@ class ItemEditCaptionsController extends GalleryController {
 			} else {
 				$redirect['page'] = (int)$page;
 			}
-
-} elseif (isset($form['action']['cancel'])) {
+		} elseif (isset($form['action']['cancel'])) {
 			$results['return'] = 1;
 		}
 
@@ -185,7 +184,6 @@ class ItemEditCaptionsController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -250,8 +248,9 @@ class ItemEditCaptionsView extends GalleryView {
 		$itemId = $item->getId();
 
 		if ($form['formName'] != 'ItemEditCaption') {
-			$form['formName']     = 'ItemEditCaption';
-			$form['numPerPage']   = 9;
+			$form['formName']   = 'ItemEditCaption';
+			$form['numPerPage'] = 9;
+
 			list($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsWithPermission(
 				$itemId,
 				array('core.edit', 'core.view')
@@ -271,8 +270,7 @@ class ItemEditCaptionsView extends GalleryView {
 					if ($childIds[$i] == $selectedId) {
 						$page = ceil(($i + 1) / $form['numPerPage']);
 					}
-
-}
+				}
 			}
 
 			if (empty($page) && !empty($albumPage)) {
@@ -294,15 +292,15 @@ class ItemEditCaptionsView extends GalleryView {
 				if (!empty($albumPageSize)) {
 					$page = ceil((($albumPage - 1) * $albumPageSize + 1) / $form['numPerPage']);
 				}
-
-}
+			}
 
 			if (empty($page)) {
 				$page = 1;
 			}
 
-			$start                  = $form['numPerPage'] * ($page - 1);
-			$childIds               = array_slice($childIds, $start, $form['numPerPage']);
+			$start    = $form['numPerPage'] * ($page - 1);
+			$childIds = array_slice($childIds, $start, $form['numPerPage']);
+
 			list($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds, 'GalleryItem');
 
 			if ($ret) {
@@ -333,11 +331,9 @@ class ItemEditCaptionsView extends GalleryView {
 						} elseif ($type == DERIVATIVE_TYPE_IMAGE_THUMBNAIL) {
 							$form['items'][$childId]['thumbnail'] = (array)$derivative;
 						}
-
-}
+					}
 				}
-
-}
+			}
 		}
 
 		$urlGenerator                  =& $gallery->getUrlGenerator();
@@ -345,7 +341,8 @@ class ItemEditCaptionsView extends GalleryView {
 		$ItemEditCaptions['canCancel'] = (bool)GalleryUtilities::getRequestVariables('return');
 		$ItemEditCaptions['page']      = $page;
 		$ItemEditCaptions['numPages']  = $numPages;
-		list($ret, $entityInfo)        = GalleryCoreApi::describeEntity('GalleryItem');
+
+		list($ret, $entityInfo) = GalleryCoreApi::describeEntity('GalleryItem');
 
 		if ($ret) {
 			return array($ret, null);
@@ -381,5 +378,4 @@ class ItemEditCaptionsView extends GalleryView {
 
 		return array(null, $core->translate('edit captions'));
 	}
-
 }

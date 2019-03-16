@@ -34,7 +34,6 @@ class ADODB_postgres8 extends ADODB_postgres7 {
 	public function _insertid($table, $column) {
 		return empty($table) || empty($column) ? $this->GetOne('SELECT lastval()') : $this->GetOne("SELECT currval(pg_get_serial_sequence('$table', '$column'))");
 	}
-
 }
 
 class ADORecordSet_postgres8 extends ADORecordSet_postgres7 {

@@ -18,15 +18,11 @@ if (!defined('ADODB_DIR')) {
 }
 
 class ADODB_oracle extends ADOConnection {
-	public $databaseType = 'oracle';
-
-	// string to use to replace quotes
-	public $replaceQuote    = "''";
+	public $databaseType    = 'oracle';
+	public $replaceQuote    = "''"; // string to use to replace quotes
 	public $concat_operator = '||';
 	public $_curs;
-
-	// init date to YYYY-MM-DD
-	public $_initdate      = true;
+	public $_initdate      = true; // init date to YYYY-MM-DD
 	public $metaTablesSQL  = 'select table_name from cat';
 	public $metaColumnsSQL = "select cname,coltype,width from col where tname='%s' order by colno";
 	public $sysDate        = "TO_DATE(TO_CHAR(SYSDATE,'YYYY-MM-DD'),'YYYY-MM-DD')";
@@ -159,8 +155,7 @@ class ADODB_oracle extends ADOConnection {
 		// G. Giunta 2003/08/13 - This looks danegrously suspicious: why should we want to set
 		// the oracle home to the host name of remote DB?
 		//          if ($argHostname) putenv("ORACLE_HOME=$argHostname");
-		if ($argHostname) {
-			// code copied from version submitted for oci8 by Jorma Tuomainen <jorma.tuomainen@ppoy.fi>
+		if ($argHostname) { // code copied from version submitted for oci8 by Jorma Tuomainen <jorma.tuomainen@ppoy.fi>
 			if (empty($argDatabasename)) {
 				$argDatabasename = $argHostname;
 			} else {
@@ -179,8 +174,7 @@ class ADODB_oracle extends ADOConnection {
 					$argDatabasename = '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=' . $argHostname
 					. ")(PORT=$argHostport))(CONNECT_DATA=(SERVICE_NAME=$argDatabasename)))";
 				}
-
-}
+			}
 		}
 
 		if ($argDatabasename) {
@@ -208,8 +202,7 @@ class ADODB_oracle extends ADOConnection {
 			if ($rs) {
 				ora_close($rs);
 			}
-
-}
+		}
 
 		return true;
 	}
@@ -255,7 +248,6 @@ class ADODB_oracle extends ADOConnection {
 	public function _close() {
 		return @ora_logoff($this->_connectionID);
 	}
-
 }
 
 /*--------------------------------------------------------------------------------------
@@ -291,7 +283,7 @@ class ADORecordset_oracle extends ADORecordSet {
 		return $this->_queryID;
 	}
 
-	/*      Returns: an object containing field information.
+	/*		Returns: an object containing field information.
 			   Get column information in the Recordset object. fetchField() can be used in order to obtain information about
 			   fields in a certain query result. If the field offset isn't specified, the next field that wasn't yet retrieved by
 			   fetchField() is retrieved.		*/
@@ -314,8 +306,7 @@ class ADORecordset_oracle extends ADORecordSet {
 
 				$this->bind[strtoupper($o->name)] = $i;
 			}
-
-}
+		}
 
 		return $this->fields[$this->bind[strtoupper($colname)]];
 	}
@@ -338,7 +329,7 @@ class ADORecordset_oracle extends ADORecordSet {
 		return @ora_fetch_into($this->_queryID, $this->fields, ORA_FETCHINTO_NULLS);
 	}
 
-	/*      close() only needs to be called if you are worried about using too much memory while your script
+	/*		close() only needs to be called if you are worried about using too much memory while your script
 		   is running. All associated result memory for the specified result identifier will automatically be freed.		*/
 	public function _close() {
 		return @ora_close($this->_queryID);
@@ -387,6 +378,5 @@ class ADORecordset_oracle extends ADORecordSet {
 			default:
 				return 'N';
 		}
-
-}
+	}
 }

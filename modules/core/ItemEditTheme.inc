@@ -48,14 +48,14 @@ class ItemEditTheme extends ItemEditPlugin {
 			$error = array();
 
 			if (!empty($form['theme'])) {
-				$themeId           = $form['theme'];
+				$themeId = $form['theme'];
+
 				list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 
 				if ($ret) {
 					return array($ret, null, null, null);
 				}
-
-} else {
+			} else {
 				$themeId = null;
 			}
 
@@ -126,16 +126,14 @@ class ItemEditTheme extends ItemEditPlugin {
 
 							return array($ret, null, null, null);
 						}
-
-}
+					}
 
 					$ret = GalleryCoreApi::releaseLocks($lockId);
 
 					if ($ret) {
 						return array($ret, null, null, null);
 					}
-
-}
+				}
 			}
 
 			$status = $module->translate('Successfully changed theme');
@@ -155,8 +153,7 @@ class ItemEditTheme extends ItemEditPlugin {
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
-
-}
+		}
 
 		return array(null, $error, $status, false);
 	}
@@ -173,8 +170,7 @@ class ItemEditTheme extends ItemEditPlugin {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		list($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeSettingsThemeId, false, true);
 
@@ -189,8 +185,7 @@ class ItemEditTheme extends ItemEditPlugin {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-} elseif ($ret->getErrorCode() & (ERROR_BAD_PARAMETER | ERROR_PLUGIN_VERSION_MISMATCH)) {
+		} elseif ($ret->getErrorCode() & (ERROR_BAD_PARAMETER | ERROR_PLUGIN_VERSION_MISMATCH)) {
 			// Ignore incompatible / missing themes.  Just show a warning.
 		} else {
 			return array($ret, null, null);
@@ -265,5 +260,4 @@ class ItemEditTheme extends ItemEditPlugin {
 
 		return array(null, $module->translate('Theme'));
 	}
-
 }

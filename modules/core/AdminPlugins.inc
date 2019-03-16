@@ -90,8 +90,7 @@ class AdminPluginsView extends GalleryView {
 					if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 						return array($ret, null);
 					}
-
-}
+				}
 			}
 
 			// Reload the plugin list, which may now be updated because of obsolete modules.
@@ -113,16 +112,17 @@ class AdminPluginsView extends GalleryView {
 					return array($ret, null);
 				}
 
-				$test1                      = $platform->is_writeable("$g2Dir{$type}s/$pluginId");
-				$test2                      = $platform->is_writeable("$g2Dir{$type}s/$pluginId/$type.inc");
-				$entry                      = array();
-				$entry['type']              = $type;
-				$entry['name']              = $plugin->translate($plugin->getName());
-				$entry['id']                = $plugin->getId();
-				$entry['description']       = $plugin->translate($plugin->getDescription());
-				$entry['version']           = $plugin->getVersion();
-				$entry['installedVersion']  = isset($status['version']) ? $status['version'] : null;
-				$entry['deletable']         = ($test1 && $test2) ? 1 : 0;
+				$test1                     = $platform->is_writeable("$g2Dir{$type}s/$pluginId");
+				$test2                     = $platform->is_writeable("$g2Dir{$type}s/$pluginId/$type.inc");
+				$entry                     = array();
+				$entry['type']             = $type;
+				$entry['name']             = $plugin->translate($plugin->getName());
+				$entry['id']               = $plugin->getId();
+				$entry['description']      = $plugin->translate($plugin->getDescription());
+				$entry['version']          = $plugin->getVersion();
+				$entry['installedVersion'] = isset($status['version']) ? $status['version'] : null;
+				$entry['deletable']        = ($test1 && $test2) ? 1 : 0;
+
 				list($ret, $entry['state']) = PluginCallbackView::getMe()->getPluginState(
 					$type,
 					$plugin,
@@ -151,13 +151,13 @@ class AdminPluginsView extends GalleryView {
 				} else {
 					$plugins[] = array_merge($entry, $plugin->getGroup());
 				}
-
-}
+			}
 		}
 
 		usort($plugins, array($this, 'pluginSort'));
-		$AdminPlugins                             = array();
-		$AdminPlugins['plugins']                  = $plugins;
+		$AdminPlugins            = array();
+		$AdminPlugins['plugins'] = $plugins;
+
 		list($ret, $AdminPlugins['defaultTheme']) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',
@@ -186,8 +186,7 @@ class AdminPluginsView extends GalleryView {
 
 				break;
 			}
-
-}
+		}
 
 		// Only the codebase install can delete plugins, not multisites
 		$AdminPlugins['canDeletePlugins'] = GALLERY_CONFIG_DIR == dirname(dirname(__DIR__));
@@ -269,5 +268,4 @@ class AdminPluginsView extends GalleryView {
 
 		return ($aso > $bso) ? 1 : -1;
 	}
-
 }

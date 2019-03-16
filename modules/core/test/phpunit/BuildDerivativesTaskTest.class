@@ -56,8 +56,7 @@ class BuildDerivativesTaskTest extends GalleryTestCase {
 			if ($ret) {
 				$this->failWithStatus($ret);
 			}
-
-}
+		}
 
 		return parent::tearDown();
 	}
@@ -101,7 +100,8 @@ class BuildDerivativesTaskTest extends GalleryTestCase {
 		$mockStorage               =& $gallery->_storage;
 		$gallery->_templateAdapter = new MockTemplateAdapter();
 		$mockAdapter               =& $gallery->_templateAdapter;
-		list($ret, $module)        = GalleryCoreApi::loadPlugin('module', 'core');
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
 			return $ret;
@@ -114,7 +114,6 @@ class BuildDerivativesTaskTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($success);
-
 		$this->assertEquals(
 			array(
 				$module->translate(
@@ -133,7 +132,6 @@ class BuildDerivativesTaskTest extends GalleryTestCase {
 		$this->assertTrue($searches[0] > 0, 'query 1 should have at least one result');
 		$this->assertTrue($searches[1] > 0, 'query 2 should have at least one result');
 	}
-
 }
 
 class BuildDerivativesTaskTestStorage {
@@ -162,5 +160,4 @@ class BuildDerivativesTaskTestStorage {
 	public function getSearches() {
 		return $this->_searches;
 	}
-
 }

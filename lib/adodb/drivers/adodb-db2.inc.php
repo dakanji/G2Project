@@ -35,9 +35,7 @@ class ADODB_db2 extends ADOConnection {
 	public $sysDate         = 'CURRENT DATE';
 	public $sysTimeStamp    = 'CURRENT TIMESTAMP';
 	public $fmtTimeStamp    = "'Y-m-d H:i:s'";
-
-	// string to use to replace quotes
-	public $replaceQuote    = "''";
+	public $replaceQuote    = "''"; // string to use to replace quotes
 	public $dataProvider    = 'db2';
 	public $hasAffectedRows = true;
 	public $binmode         = DB2_BINARY;
@@ -53,10 +51,8 @@ class ADODB_db2 extends ADOConnection {
 	public $_autocommit        = true;
 	public $_haserrorfunctions = true;
 	public $_lastAffectedRows  = 0;
-
-	// for meta* functions, uppercase table names
-	public $uCaseTables = true;
-	public $hasInsertID = true;
+	public $uCaseTables        = true; // for meta* functions, uppercase table names
+	public $hasInsertID        = true;
 
 	public function _insertid() {
 		return ADOConnection::GetOne('VALUES IDENTITY_VAL_LOCAL()');
@@ -84,8 +80,7 @@ class ADODB_db2 extends ADOConnection {
 			} else {
 				$this->_connectionID = db2_connect($argDatabasename, $argUsername, $argPassword);
 			}
-
-} else {
+		} else {
 			if ($argDatabasename) {
 				$schema = $argDatabasename;
 			}
@@ -95,8 +90,7 @@ class ADODB_db2 extends ADOConnection {
 			} else {
 				$this->_connectionID = db2_connect($argDSN, $argUsername, $argPassword);
 			}
-
-}
+		}
 
 		// For db2_connect(), there is an optional 4th arg.  If present, it must be
 		// an array of valid options.  So far, we don't use them.
@@ -131,8 +125,7 @@ class ADODB_db2 extends ADOConnection {
 			} else {
 				$this->_connectionID = db2_pconnect($argDatabasename, $argUsername, $argPassword);
 			}
-
-} else {
+		} else {
 			if ($argDatabasename) {
 				$schema = $argDatabasename;
 			}
@@ -142,8 +135,7 @@ class ADODB_db2 extends ADOConnection {
 			} else {
 				$this->_connectionID = db2_pconnect($argDSN, $argUsername, $argPassword);
 			}
-
-}
+		}
 
 		$this->_errorMsg = @db2_conn_errormsg();
 
@@ -286,8 +278,7 @@ class ADODB_db2 extends ADOConnection {
 
 					$s .= $this->qstr($ch);
 			}
-
-}
+		}
 
 		return $s;
 	}
@@ -503,8 +494,7 @@ class ADODB_db2 extends ADOConnection {
 			if ($arr[$i][3]) {
 				$arr2[] = $arr[$i][3];
 			}
-
-}
+		}
 
 		return $arr2;
 	}
@@ -608,16 +598,13 @@ class ADODB_db2 extends ADOConnection {
 					if (strncmp($type, 'V', 1) === 0) {
 						$arr2[] = $schemaval . $arr[$i][2];
 					}
-
-} elseif (strncmp($owner, 'SYS', 3) !== 0) {
+				} elseif (strncmp($owner, 'SYS', 3) !== 0) {
 					$arr2[] = $schemaval . $arr[$i][2];
 				}
-
-} elseif (strncmp($owner, 'SYS', 3) !== 0) {
+			} elseif (strncmp($owner, 'SYS', 3) !== 0) {
 				$arr2[] = $schemaval . $arr[$i][2];
 			}
-
-}
+		}
 
 		return $arr2;
 	}
@@ -687,8 +674,7 @@ class ADODB_db2 extends ADOConnection {
 			default:
 				return 'N';
 		}
-
-}
+	}
 
 	public function MetaColumns($table, $normalize = true) {
 		global $ADODB_FETCH_MODE;
@@ -749,14 +735,12 @@ class ADODB_db2 extends ADOConnection {
 				// ref: http://msdn.microsoft.com/library/default.asp?url=/archive/en-us/dnaraccgen/html/msdn_odk.asp
 				// access uses precision to store length for char/varchar
 				if ($fld->type == 'C' or $fld->type == 'X') {
-					if ($rs->fields[4] <= -95) {
-						// UNICODE
+					if ($rs->fields[4] <= -95) { // UNICODE
 						$fld->max_length = $rs->fields[7] / 2;
 					} else {
 						$fld->max_length = $rs->fields[7];
 					}
-
-} else {
+				} else {
 					$fld->max_length = $rs->fields[7];
 				}
 
@@ -792,7 +776,6 @@ class ADODB_db2 extends ADOConnection {
 		}
 
 		$rs->_fetch();
-
 		/*
 		$rs->fields indices
 		0 TABLE_CAT
@@ -825,8 +808,7 @@ class ADODB_db2 extends ADOConnection {
 
 	public function Prepare($sql) {
 		if (!$this->_bindInputArray) {
-			// no binding
-			return $sql;
+			return $sql; // no binding
 		}
 
 		$stmt = db2_prepare($this->_connectionID, $sql);
@@ -855,8 +837,7 @@ class ADODB_db2 extends ADOConnection {
 
 					return false;
 				}
-
-}
+			}
 
 			if (!db2_execute($stmtid, $inputarr)) {
 				if ($this->_haserrorfunctions) {
@@ -866,8 +847,7 @@ class ADODB_db2 extends ADOConnection {
 
 				return false;
 			}
-
-} elseif (is_array($sql)) {
+		} elseif (is_array($sql)) {
 			$stmtid = $sql[1];
 
 			if (!db2_execute($stmtid)) {
@@ -878,8 +858,7 @@ class ADODB_db2 extends ADOConnection {
 
 				return false;
 			}
-
-} else {
+		} else {
 			$stmtid = @db2_exec($this->_connectionID, $sql);
 		}
 
@@ -899,16 +878,14 @@ class ADODB_db2 extends ADOConnection {
 			} else {
 				$this->_errorMsg = $this->getChangedErrorMsg($last_php_error);
 			}
-
-} else {
+		} else {
 			if ($this->_haserrorfunctions) {
 				$this->_errorMsg  = db2_stmt_errormsg();
 				$this->_errorCode = db2_stmt_error();
 			} else {
 				$this->_errorMsg = $this->getChangedErrorMsg($last_php_error);
 			}
-
-}
+		}
 
 		return $stmtid;
 	}
@@ -937,7 +914,6 @@ class ADODB_db2 extends ADOConnection {
 	public function _affectedrows() {
 		return $this->_lastAffectedRows;
 	}
-
 }
 
 /*--------------------------------------------------------------------------------------
@@ -990,8 +966,7 @@ class ADORecordSet_db2 extends ADORecordSet {
 
 				$this->bind[strtoupper($o->name)] = $i;
 			}
-
-}
+		}
 
 		return $this->fields[$this->bind[strtoupper($colname)]];
 	}
@@ -1006,8 +981,7 @@ class ADORecordSet_db2 extends ADORecordSet {
 		if ($this->_numOfRows == 0) {
 			$this->_numOfRows = -1;
 		}
-
-}
+	}
 
 	public function _seek($row) {
 		return false;
@@ -1056,8 +1030,7 @@ class ADORecordSet_db2 extends ADORecordSet {
 
 				return true;
 			}
-
-}
+		}
 
 		$this->fields = false;
 		$this->EOF    = true;
@@ -1084,5 +1057,4 @@ class ADORecordSet_db2 extends ADORecordSet {
 	public function _close() {
 		return @db2_free_result($this->_queryID);
 	}
-
 }

@@ -87,8 +87,7 @@ class GdToolkitHelper {
 				$operations['convert-to-image/jpeg']['mimeTypes']      = $mimeTypes;
 				$operations['convert-to-image/jpeg']['outputMimeType'] = 'image/jpeg';
 			}
-
-}
+		}
 
 		if (self::isOperationSupported('scale', $gd)) {
 			// Scale
@@ -307,8 +306,7 @@ class GdToolkitHelper {
 
 			break;
 		}
-
-}
+	}
 
 	/**
 	 * The minimal version of GD that this module supports
@@ -393,8 +391,7 @@ class GdToolkitHelper {
 			if ($ret) {
 				return array($ret, false);
 			}
-
-}
+		}
 
 		if (preg_match('/^>?2\.[0-9]/', $gdVersion)) {
 			return array(null, true);
@@ -523,5 +520,4 @@ class GdToolkitHelper {
 
 		return $gdFunctionality;
 	}
-
 }

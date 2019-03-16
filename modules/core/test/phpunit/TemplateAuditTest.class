@@ -122,8 +122,7 @@ class TemplateAuditTest extends CodeAuditTestCase {
 
 				break;
 			}
-
-}
+		}
 
 		if (empty($revision)) {
 			$this->assertFalse(true, sprintf('[%s] Missing revision line', $truncatedFileName));
@@ -152,14 +151,12 @@ class TemplateAuditTest extends CodeAuditTestCase {
 				);
 				$this->_errorCount++;
 			}
-
-}
+		}
 
 		if ($this->_errorCount > 3) {
 			$this->halt();
 		}
-
-}
+	}
 
 	public function _checkHiddenFormVars($fileName, &$lines) {
 		$inHtmlForm = $hasHiddenFormVars = false;
@@ -183,8 +180,7 @@ class TemplateAuditTest extends CodeAuditTestCase {
 
 				$inHtmlForm = $hasHiddenFormVars = false;
 			}
-
-}
+		}
 	}
 
 	public function _checkTextInJavascript($fileName, &$lines) {
@@ -228,8 +224,7 @@ class TemplateAuditTest extends CodeAuditTestCase {
 				$inScriptTag = false;
 				$textCount   = $forJsCount   = 0;
 			}
-
-}
+		}
 	}
 
 	public function _checkTrailingIfs($fileName, &$lines) {
@@ -238,8 +233,6 @@ class TemplateAuditTest extends CodeAuditTestCase {
 				$this->fail("Warning: newline will be stripped at $fileName:$i");
 				$this->_errorCount++;
 			}
-
-}
+		}
 	}
-
 }

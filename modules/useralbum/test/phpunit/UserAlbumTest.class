@@ -106,8 +106,7 @@ class UserAlbumTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testUserAlbum() {
 		global $gallery;
@@ -161,8 +160,7 @@ class UserAlbumTest extends GalleryTestCase {
 					  'permission'             => 'core.viewSource', )) {
 				$seenViewSource = true;
 			}
-
-}
+		}
 
 		$this->assertTrue($seenViewResizes, sprintf(
 			'missing view resizes for all users: %d',
@@ -172,6 +170,7 @@ class UserAlbumTest extends GalleryTestCase {
 			'unexpected view source for all users: %d',
 			$this->_allUserGroupId
 	));
+
 		list($ret, $hasCoreAll) = GalleryCoreApi::hasItemPermission($albumId, 'core.all', $user->getId());
 
 		if ($ret) {
@@ -222,7 +221,6 @@ class UserAlbumTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(array(), $result, 'no login redirect');
-
 		// Verify system link..
 		$gallery->setActiveUser($user);
 
@@ -397,5 +395,4 @@ class UserAlbumTest extends GalleryTestCase {
 		$this->assertTrue(GalleryUtilities::isA($album, 'GalleryAlbumItem'), 'album');
 		$this->assertEquals($user->getId(), $album->getOwnerId(), 'owner');
 	}
-
 }

@@ -105,15 +105,15 @@ class ItemCreateReplicaController extends GalleryController {
 					if (!$selectedItem->getIsLinkable()) {
 						return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
 					}
-
-}
+				}
 
 				/*
 				 * Ok we've got linkable items and a legal destination album.
 				 * Lock everything up and start linkin'.  We need to read lock
 				 * the source ids, source hierarchy and destination hierarchy.
 				 */
-				$ids                 = array_merge($selectedIds, array($itemId, $destinationId));
+				$ids = array_merge($selectedIds, array($itemId, $destinationId));
+
 				list($ret, $locks[]) = GalleryCoreApi::acquireReadLock($ids);
 
 				if ($ret) {
@@ -192,9 +192,9 @@ class ItemCreateReplicaController extends GalleryController {
 				$redirect['subView'] = 'replica.ItemCreateReplica';
 				$redirect['itemId']  = $itemId;
 			}
+		} elseif (isset($form['action']['next'])) {
+			$page = (int)GalleryUtilities::getRequestVariables('page');
 
-} elseif (isset($form['action']['next'])) {
-			$page                = (int)GalleryUtilities::getRequestVariables('page');
 			list($ret, $peerIds) = GalleryCoreApi::fetchLinkableChildItemIdsWithPermission(
 				$itemId,
 				'core.view'
@@ -222,15 +222,13 @@ class ItemCreateReplicaController extends GalleryController {
 				$results['delegate']['view']    = 'core.ItemAdmin';
 				$results['delegate']['subView'] = 'replica.ItemCreateReplica';
 			}
-
-}
+		}
 
 		$results['status'] = $status;
 		$results['error']  = $error;
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -249,7 +247,8 @@ class ItemCreateReplicaView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$itemId                  = $item->getId();
+		$itemId = $item->getId();
+
 		list($selectedId, $page) = GalleryUtilities::getRequestVariables('selectedId', 'page');
 
 		if ($form['formName'] != 'ItemCreateReplica') {
@@ -287,8 +286,7 @@ class ItemCreateReplicaView extends GalleryView {
 					if ($peerIds[$i] == $selectedId) {
 						$page = ceil(($i + 1) / $form['numPerPage']);
 					}
-
-}
+				}
 			}
 
 			$start   = $form['numPerPage'] * ($page - 1);
@@ -301,8 +299,7 @@ class ItemCreateReplicaView extends GalleryView {
 					if (isset($selectedIds[$peerId])) {
 						unset($selectedIds[$peerId]);
 					}
-
-}
+				}
 			}
 
 			// Load all the peers
@@ -329,13 +326,13 @@ class ItemCreateReplicaView extends GalleryView {
 
 				// While we're at it, attach the thumbnails
 				if (isset($thumbnails[$peerItem->getId()])) {
-					$thumbnail             = $thumbnails[$peerItem->getId()];
+					$thumbnail = $thumbnails[$peerItem->getId()];
+
 					list($ret, $thumbnail) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($thumbnail->getId());
 
 					$peers[$peerItem->getId()]['thumbnail'] = (array)$thumbnail;
 				}
-
-}
+			}
 
 			// Find all the possible locations where this item can be linked.
 			list($ret, $ids) = GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addDataItem');
@@ -350,8 +347,7 @@ class ItemCreateReplicaView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		$urlGenerator                     =& $gallery->getUrlGenerator();
 		$ItemCreateReplica                = array();
@@ -364,6 +360,7 @@ class ItemCreateReplicaView extends GalleryView {
 		$ItemCreateReplica['selectedIds'] = array_keys($selectedIds);
 
 		$template->setVariable('ItemCreateReplica', $ItemCreateReplica);
+
 		$template->setVariable('controller', 'replica.ItemCreateReplica');
 		$template->javascript('lib/yui/yahoo-dom-event.js');
 		$template->javascript('lib/yui/container-min.js');
@@ -390,5 +387,4 @@ class ItemCreateReplicaView extends GalleryView {
 
 		return array(null, $module->translate('create replica'));
 	}
-
 }

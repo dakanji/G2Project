@@ -185,8 +185,7 @@ class GalleryGroup extends GalleryEntity {
 			if (!$ret) {
 				return array($core->translate('Group'), $core->translate('group'));
 			}
-
-}
+		}
 
 		return array('Group', 'group');
 	}
@@ -213,5 +212,4 @@ class GalleryGroup extends GalleryEntity {
 	public function setGroupName($groupName) {
 		$this->groupName = $groupName;
 	}
-
 }

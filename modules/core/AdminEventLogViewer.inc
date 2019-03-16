@@ -66,5 +66,4 @@ class AdminEventLogViewerView extends GalleryView {
 			),
 		);
 	}
-
 }

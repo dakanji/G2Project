@@ -98,8 +98,7 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
@@ -229,8 +228,7 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testMaliciousMarkup() {
 		global $gallery;
@@ -264,5 +262,4 @@ class MultiLangItemEditPluginTest extends ItemEditPluginTestCase {
 		$this->assertEquals('summary fun', $album->getSummary());
 		$this->assertEquals('desc', $album->getDescription());
 	}
-
 }

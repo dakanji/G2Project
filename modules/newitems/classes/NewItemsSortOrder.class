@@ -47,14 +47,16 @@ class NewItemsSortOrder extends GallerySortInterface_1_2 {
 	public function getSortOrder($direction) {
 		global $gallery;
 
-		$storage             =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
+
 		list($ret, $newTime) = GalleryCoreApi::getPluginParameter('module', 'newitems', 'days.new');
 
 		if ($ret) {
 			return array($ret, null, null, null, null);
 		}
 
-		$newTime          = time() - $newTime * 86400;
+		$newTime = time() - $newTime * 86400;
+
 		list($ret, $case) = $storage->getFunctionSql(
 			'CASE',
 			array("[GalleryEntity::creationTimestamp] > $newTime", '0', '1')
@@ -78,5 +80,4 @@ class NewItemsSortOrder extends GallerySortInterface_1_2 {
 			'INNER JOIN [GalleryEntity] ON [BASE::ID] = [GalleryEntity::id]',
 		);
 	}
-
 }

@@ -46,7 +46,6 @@ class CaptchaConfigAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -87,5 +86,4 @@ class CaptchaConfigAdminView extends GalleryView {
 			),
 		);
 	}
-
 }

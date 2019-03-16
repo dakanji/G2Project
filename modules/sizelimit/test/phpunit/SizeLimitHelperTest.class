@@ -131,8 +131,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	// change dimensions, keep original
 	public function testKeepOriginal() {
@@ -151,8 +150,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$ret = SizeLimitHelper::buildDerivativeWithLimits($this->_item, 'test', array(26));
 
@@ -238,8 +236,7 @@ class SizeLimitHelperTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'sizelimit');
 
@@ -255,7 +252,6 @@ class SizeLimitHelperTest extends GalleryTestCase {
 			'Unknown format'
 		);
 	}
-
 }
 
 /**
@@ -304,7 +300,6 @@ class SizeLimitHelperTestPlatform extends GalleryPlatform {
 
 		return true;
 	}
-
 }
 
 /**
@@ -363,5 +358,4 @@ class SizeLimitHelperTestToolkit extends GalleryToolkit {
 
 		return array(null, $results);
 	}
-
 }

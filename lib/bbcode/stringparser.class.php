@@ -431,8 +431,7 @@ class StringParser {
 				if (is_string($ntext)) {
 					$text = $ntext;
 				}
-
-}
+			}
 		}
 
 		return $text;
@@ -452,8 +451,7 @@ class StringParser {
 				if (is_string($ntext)) {
 					$text = $ntext;
 				}
-
-}
+			}
 		}
 
 		return $text;
@@ -552,8 +550,7 @@ class StringParser {
 			if (!$res) {
 				return false;
 			}
-
-}
+		}
 
 		return true;
 	}
@@ -608,7 +605,8 @@ class StringParser {
 		while (1) {
 			// make sure this is false!
 			$this->_recentlyReparsed = false;
-			list($needle, $offset)   = $this->_strpos($this->_charactersSearch, $this->_cpos);
+
+			list($needle, $offset) = $this->_strpos($this->_charactersSearch, $this->_cpos);
 
 			// parser ends here
 			if ($needle === false) {
@@ -676,8 +674,7 @@ class StringParser {
 			if (!$res) {
 				return false;
 			}
-
-}
+		}
 
 		return true;
 	}
@@ -712,8 +709,7 @@ class StringParser {
 				if (!$res) {
 					return false;
 				}
-
-}
+			}
 
 			// get subtext
 			$subtext = substr ($this->_text, $offset, $offset - $this->_cpos);
@@ -727,8 +723,7 @@ class StringParser {
 			if (!$res && $strict) {
 				return false;
 			}
-
-}
+		}
 
 		// original status 0 => no problem
 		if (!$this->_status) {
@@ -749,10 +744,8 @@ class StringParser {
 		// this will not cause an infinite loop because
 		// _reparseAfterCurrentBlock will increase _cpos by one!
 		return $this->_loop ();
-
 		*/
-
-}
+	}
 
 	/**
 	 * Abstract method Append text depending on current status
@@ -813,8 +806,7 @@ class StringParser {
 					$cur_needle = $needle;
 					$cur_offset = $n_offset;
 				}
-
-}
+			}
 		}
 
 		return array(
@@ -840,8 +832,7 @@ class StringParser {
 			if (substr($this->_text, $offset, $l) == $needle) {
 				return $needle;
 			}
-
-}
+		}
 
 		return false;
 	}
@@ -891,8 +882,7 @@ class StringParser {
 		$args = func_get_args();
 
 		if (!count($args)) {
-			// oops?
-			return;
+			return; // oops?
 		}
 
 		$method      = array_shift($args);
@@ -900,8 +890,7 @@ class StringParser {
 		$method      = array(&$this->_stack[$stack_count - 1], $method);
 
 		if (!is_callable($method)) {
-			// oops?
-			return;
+			return; // oops?
 		}
 
 		return call_user_func_array($method, $args);
@@ -917,7 +906,6 @@ class StringParser {
 
 		return $this->_stack[$stack_count - 1]->$var;
 	}
-
 }
 
 /**
@@ -1315,8 +1303,7 @@ class StringParser_Node {
 			if ($child === false) {
 				return false;
 			}
-
-} else {
+		} else {
 			// remove reference on $child
 			$save = $child;
 			unset($child);
@@ -1493,8 +1480,7 @@ class StringParser_Node {
 			if ($this->_children[$i]->_id == $child->_id) {
 				return $i;
 			}
-
-}
+		}
 
 		return false;
 	}
@@ -1550,8 +1536,7 @@ class StringParser_Node {
 					$nodes[$node_ctr++] =& $subnodes[$j];
 					unset($subnodes[$j]);
 				}
-
-}
+			}
 
 			unset($subnodes);
 		}
@@ -1618,7 +1603,6 @@ class StringParser_Node {
 
 		return (string)$this->_type;
 	}
-
 }
 
 /**
@@ -1737,5 +1721,4 @@ class StringParser_Node_Text extends StringParser_Node {
 	public function _dumpToString() {
 		return 'text "' . substr(preg_replace('/\s+/', ' ', $this->content), 0, 40) . '" [f:' . preg_replace('/\s+/', ' ', join(':', array_keys($this->_flags))) . ']';
 	}
-
 }

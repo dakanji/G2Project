@@ -52,7 +52,6 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'ISO-88
 
 			for ($x = 0; $x < strlen($string); $x++) {
 				$return .= '&#x' . bin2hex($string[$x]) . ';
-
 ';
 			}
 
@@ -63,7 +62,6 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'ISO-88
 
 			for ($x = 0; $x < strlen($string); $x++) {
 				$return .= '&#' . ord($string[$x]) . ';
-
 ';
 			}
 
@@ -100,15 +98,13 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'ISO-88
 				} else {
 					$_res .= substr($string, $_i, 1);
 				}
-
-}
+			}
 
 			return $_res;
 
 		default:
 			return $string;
 	}
-
 }
 
 // vim: set expandtab:

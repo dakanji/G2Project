@@ -31,7 +31,9 @@ class FloatrixTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('floatrix');
+
 		$this->setName($gallery->i18n('Floatrix'));
+
 		$this->setDescription(
 			$gallery->i18n(
 				'Variable column theme based on Matrix'
@@ -40,7 +42,6 @@ class FloatrixTheme extends GalleryTheme {
 		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
-
 		$this->setStandardSettings(
 			array(
 				'perPage'         => 12,
@@ -206,8 +207,7 @@ class FloatrixTheme extends GalleryTheme {
 				$theme['userLinks'][] = $link;
 				unset($theme['itemLinks'][$i]);
 			}
-
-}
+		}
 	}
 
 	/**
@@ -275,5 +275,4 @@ class FloatrixTheme extends GalleryTheme {
 
 		return array(null, 'theme.tpl');
 	}
-
 }

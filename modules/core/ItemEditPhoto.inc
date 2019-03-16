@@ -67,12 +67,12 @@ class ItemEditPhoto extends ItemEditPlugin {
 				) {
 					$error[] = sprintf('form[error][resizes][%d][size][invalid]', $i);
 				}
-
-}
+			}
 
 			if (empty($error)) {
 				// Load existing resizes
-				$itemId              = $item->getId();
+				$itemId = $item->getId();
+
 				list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array($itemId));
 
 				if ($ret) {
@@ -112,8 +112,9 @@ class ItemEditPhoto extends ItemEditPlugin {
 							continue;
 						}
 
-						$operations                                    = 'scale|' . $form['resizes'][$i]['width'] . ','
+						$operations = 'scale|' . $form['resizes'][$i]['width'] . ','
 						. $form['resizes'][$i]['height'];
+
 						list($ret, $newOperations, $newOutputMimeType) = GalleryCoreApi::makeSupportedViewableOperationSequence(
 							$outputMimeType,
 							$operations
@@ -136,20 +137,19 @@ class ItemEditPhoto extends ItemEditPlugin {
 							$form['resizes'][$i]['operations'] = $newOperations;
 							$form['resizes'][$i]['mimeType']   = $newOutputMimeType;
 						}
-
-}
+					}
 
 					// Add new resizes, using existing derivative entities until we run out
 					foreach ($form['resizes'] as $resizeData) {
 						if (!empty($resizesTable)) {
-							$derivative         = array_shift($resizesTable);
+							$derivative = array_shift($resizesTable);
+
 							list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($derivative->getId());
 
 							if ($ret) {
 								return array($ret, null, null, null);
 							}
-
-} else {
+						} else {
 							list($ret, $derivative) = GalleryCoreApi::newFactoryInstanceByHint(
 								'GalleryDerivative',
 								$source->getEntityType()
@@ -173,8 +173,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 							if ($ret) {
 								return array($ret, null, null, null);
 							}
-
-}
+						}
 
 						$derivative->setMimeType($resizeData['mimeType']);
 						$derivative->setDerivativeOperations($resizeData['operations']);
@@ -199,8 +198,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 
 							$lockId = null;
 						}
-
-}
+					}
 
 					// Remove any leftover resizes
 					foreach ($resizesTable as $resize) {
@@ -209,8 +207,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 						if ($ret) {
 							return array($ret, null, null, null);
 						}
-
-}
+					}
 				}
 
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -221,8 +218,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 
 				$status = $module->translate('Changes saved successfully');
 			}
-
-}
+		}
 
 		return array(null, $error, $status, false);
 	}
@@ -260,11 +256,9 @@ class ItemEditPhoto extends ItemEditPlugin {
 							'height' => $height,
 						);
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		// Tag on a few form blanks
 		$extraBlanks = 3;
@@ -274,8 +268,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 				if (!isset($resize['active'])) {
 					$extraBlanks--;
 				}
-
-}
+			}
 		}
 
 		while ($extraBlanks-- > 0) {
@@ -291,8 +284,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 			if (!isset($form['resizes'][$i]['active'])) {
 				$form['resizes'][$i]['active'] = false;
 			}
-
-}
+		}
 
 		$ItemEditPhoto = array();
 
@@ -351,5 +343,4 @@ class ItemEditPhoto extends ItemEditPlugin {
 
 		return array(null, $module->translate('Photo'));
 	}
-
 }

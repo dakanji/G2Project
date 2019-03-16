@@ -161,8 +161,7 @@ class GalleryChildEntity extends GalleryEntity {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-} else {
+		} else {
 			$parent = null;
 		}
 
@@ -183,5 +182,4 @@ class GalleryChildEntity extends GalleryEntity {
 	public function setParentId($parentId) {
 		$this->parentId = $parentId;
 	}
-
 }

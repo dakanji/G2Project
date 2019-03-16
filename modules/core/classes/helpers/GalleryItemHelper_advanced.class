@@ -38,8 +38,9 @@ class GalleryItemHelper_advanced {
 			$itemIds[$idx] = (int)$id;
 		}
 
-		$storage            =& $gallery->getStorage();
-		$itemIdMarkers      = GalleryUtilities::makeMarkers($itemIds);
+		$storage       =& $gallery->getStorage();
+		$itemIdMarkers = GalleryUtilities::makeMarkers($itemIds);
+
 		list($ret, $concat) = $storage->getFunctionSql(
 			'CONCAT',
 			array(
@@ -106,7 +107,8 @@ class GalleryItemHelper_advanced {
 			$accessListMarkers
 		);
 
-		$data                      = array_merge($itemIds, $aclIds);
+		$data = array_merge($itemIds, $aclIds);
+
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
@@ -144,7 +146,8 @@ class GalleryItemHelper_advanced {
 
 		if (!empty($thumbnails)) {
 			// Make sure that the thumbnail's source item is still inside the album
-			$thumbnail                   = $thumbnails[$albumId];
+			$thumbnail = $thumbnails[$albumId];
+
 			list($ret, $thumbnailSource) = GalleryCoreApi::loadEntitiesById(
 				$thumbnail->getDerivativeSourceId(),
 				array('GalleryFileSystemEntity', 'GalleryDerivative')
@@ -157,8 +160,7 @@ class GalleryItemHelper_advanced {
 				} else {
 					return array($ret, null);
 				}
-
-} else {
+			} else {
 				list($ret, $highlightItem) = GalleryCoreApi::loadEntitiesById(
 					$thumbnailSource->getParentId(),
 					'GalleryItem'
@@ -176,8 +178,7 @@ class GalleryItemHelper_advanced {
 
 					$highlightHasLeftTheAlbum = true;
 				}
-
-}
+			}
 		}
 
 		if (empty($thumbnails) || $highlightHasLeftTheAlbum) {
@@ -205,8 +206,7 @@ class GalleryItemHelper_advanced {
 				if ($success) {
 					break;
 				}
-
-}
+			}
 		} else {
 			// We didn't have to do anything, but the guarantee is met
 			$success = true;
@@ -219,8 +219,7 @@ class GalleryItemHelper_advanced {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		return array(null, $success);
 	}
@@ -329,8 +328,7 @@ class GalleryItemHelper_advanced {
 			return $ret;
 		}
 
-		if ($newUserId == $oldUserId) {
-			// Well, why not :)
+		if ($newUserId == $oldUserId) { // Well, why not :)
 			return null;
 		}
 
@@ -402,8 +400,7 @@ class GalleryItemHelper_advanced {
 					if (!isset($newUserPermissions[$item->getId()][$permission])) {
 						$newPermissions[] = $permission;
 					}
-
-}
+				}
 			}
 
 			/*
@@ -427,8 +424,7 @@ class GalleryItemHelper_advanced {
 
 					return $ret;
 				}
-
-}
+			}
 
 			// Update the ownerId of the item and save it (1 db query)
 			$item->setownerId($newOwner->getid());
@@ -440,8 +436,7 @@ class GalleryItemHelper_advanced {
 
 				return $ret;
 			}
-
-}
+		}
 
 		// Release all locks at once
 		$ret = GalleryCoreApi::releaseLocks($lockIds);
@@ -491,7 +486,8 @@ class GalleryItemHelper_advanced {
 		while (!empty($ids)) {
 			$gallery->guaranteeTimeLimit(30);
 
-			$currentIds         = array_splice($ids, 0, $batchSize);
+			$currentIds = array_splice($ids, 0, $batchSize);
+
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($currentIds);
 
 			if ($ret) {
@@ -514,8 +510,7 @@ class GalleryItemHelper_advanced {
 
 					return $ret;
 				}
-
-}
+			}
 
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
@@ -528,8 +523,7 @@ class GalleryItemHelper_advanced {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		list($ret, $orderBy) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.orderBy');
 
@@ -544,8 +538,7 @@ class GalleryItemHelper_advanced {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 	}
 
 	/**
@@ -581,7 +574,8 @@ class GalleryItemHelper_advanced {
 		while (!empty($ids)) {
 			$gallery->guaranteeTimeLimit(30);
 
-			$currentIds         = array_splice($ids, 0, $batchSize);
+			$currentIds = array_splice($ids, 0, $batchSize);
+
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($currentIds);
 
 			if ($ret) {
@@ -604,8 +598,7 @@ class GalleryItemHelper_advanced {
 
 					return $ret;
 				}
-
-}
+			}
 
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
@@ -618,8 +611,6 @@ class GalleryItemHelper_advanced {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 	}
-
 }

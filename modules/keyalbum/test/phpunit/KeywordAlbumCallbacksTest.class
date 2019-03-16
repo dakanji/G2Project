@@ -44,7 +44,8 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 
 		$this->_userId              = $gallery->getActiveUserId();
 		$this->_originalGuestUserId = $gallery->getConfig('anonymousUserId');
-		list($ret, $this->_album)   = $this->_createRandomAlbum(
+
+		list($ret, $this->_album) = $this->_createRandomAlbum(
 			$this->_getRootId(),
 			array(
 				'keywords' => 'testkeyword12345',
@@ -165,8 +166,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testLoadKeywords() {
 		$ret = $this->_callbacks->callback(
@@ -374,6 +374,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(isset($found['testkeyword12345']), 'album keyword');
+
 		$this->assertTrue(isset($found['testkeyword54321']), 'item keyword 1');
 		$this->assertTrue(isset($found['testkeyword99999']), 'item keyword 2');
 		$this->assertEquals(
@@ -448,6 +449,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(isset($found['testkeyword12345']), 'album keyword');
+
 		$this->assertTrue(isset($found['testkeyword54321']), 'item keyword 1');
 		$this->assertTrue(isset($found['testkeyword99999']), 'item keyword 2');
 		$this->assertEquals('1', $weight['testkeyword12345'], 'weight of singular keyword');
@@ -688,8 +690,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 				"output $i"
 			);
 		}
-
-}
+	}
 
 	public function testSplitKeywords() {
 		$this->_smarty->_tpl_vars['block']['keyalbum'] = array();
@@ -789,8 +790,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 				"phase 2: $keywords"
 			);
 		}
-
-}
+	}
 
 	/**
 	 * Changes the Gallery-wide anonymous user to a new multiroot guest user which has only view
@@ -821,8 +821,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		// The new "public" user can only view our subtree of test items
 		$ret = GalleryCoreApi::addUserPermission($itemId, $user->getId(), 'core.viewAll', true);
@@ -835,7 +834,6 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 
 		return null;
 	}
-
 }
 
 /**
@@ -844,6 +842,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 class KeywordAlbumCallbacksTestStorage {
 	public function __construct($storage, $queries) {
 		// Avoid pointing _extras->_gs to mock storage
+
 		$storage->_extras = null;
 		$this->_storage   = $storage;
 		$this->_queries   = $queries;
@@ -906,5 +905,4 @@ class KeywordAlbumCallbacksTestStorage {
 	public function convertIntToBits($intVal) {
 		return $this->_storage->convertIntToBits($intVal);
 	}
-
 }

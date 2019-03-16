@@ -53,8 +53,7 @@ class CoreCallbacks {
 					foreach ($countryList as $country => $languageData) {
 						$languageList[$language . '_' . $country] = $languageData['description'];
 					}
-
-}
+				}
 
 				list($ret, $language) = $gallery->getActiveLanguageCode();
 
@@ -83,8 +82,7 @@ class CoreCallbacks {
 					if (!empty($params[$oldParam])) {
 						$check .= empty($check) ? $key : ",$key";
 					}
-
-}
+				}
 
 				$block['core']['ShouldShowEmergencyEditItemLink'] = false;
 
@@ -98,11 +96,9 @@ class CoreCallbacks {
 
 								break 2;
 							}
-
-}
+						}
 					}
-
-}
+				}
 
 				return null;
 
@@ -110,14 +106,14 @@ class CoreCallbacks {
 				$item = $params['item'];
 
 				if (isset($item['parent']->getChildrenFunction)) {
-					$parent              = $item['parent'];
+					$parent = $item['parent'];
+
 					list($ret, $peerIds) = call_user_func($parent->getChildrenFunction, $userId);
 
 					if ($ret) {
 						return $ret;
 					}
-
-} elseif ($item['parentId'] > 0) {
+				} elseif ($item['parentId'] > 0) {
 					list($ret, $canViewParent) = GalleryCoreApi::hasItemPermission($item['parentId'], 'core.view', $userId);
 
 					if ($ret) {
@@ -136,8 +132,7 @@ class CoreCallbacks {
 						if ($ret) {
 							return $ret;
 						}
-
-}
+					}
 				}
 
 				if (!empty($peerIds)) {
@@ -147,8 +142,7 @@ class CoreCallbacks {
 
 							break;
 						}
-
-}
+					}
 				}
 
 				if (isset($peerItemIndex)) {
@@ -189,8 +183,7 @@ class CoreCallbacks {
 						if ($ret) {
 							return $ret;
 						}
-
-}
+					}
 
 					$j = 0;
 
@@ -233,8 +226,7 @@ class CoreCallbacks {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				if ($options['level'] == 'MEDIUM' && !empty($params['key'])) {
 					$options['key'] = $params['key'];
@@ -250,8 +242,7 @@ class CoreCallbacks {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				// Let each plugin load its template data
 				$block['core']['ValidationPlugins'] = array();
@@ -278,13 +269,11 @@ class CoreCallbacks {
 					if (isset($data['file'])) {
 						$block['core']['ValidationPlugins'][] = $data;
 					}
-
-}
+				}
 
 				return null;
 		}
 
 		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
-
 }

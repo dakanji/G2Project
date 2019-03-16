@@ -52,5 +52,4 @@ class CommentChangeConfirmationView extends GalleryView {
 			),
 		);
 	}
-
 }

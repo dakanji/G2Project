@@ -92,7 +92,8 @@ class ItemPermissionsController extends GalleryController {
 
 			// Stuff the values back into the form for easy re-adding
 			$redirect['form[group][permission]'] = $permissionId;
-			list($ret, $group)                   = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
+
+			list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
 
 			if (!$ret) {
 				$redirect['form[group][groupName]'] = $group->getGroupName();
@@ -126,7 +127,8 @@ class ItemPermissionsController extends GalleryController {
 
 			// Stuff the values back into the form for easy re-adding
 			$redirect['form[user][permission]'] = $permissionId;
-			list($ret, $user)                   = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
+
+			list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 			if (!$ret) {
 				$redirect['form[user][userName]'] = $user->getUserName();
@@ -135,8 +137,7 @@ class ItemPermissionsController extends GalleryController {
 			if ($userId == $gallery->getActiveUserId()) {
 				$verifySelfPermissions = true;
 			}
-
-} elseif (isset($form['action']['addUserPermission'])) {
+		} elseif (isset($form['action']['addUserPermission'])) {
 			// Handle add user permission actions
 			if (empty($form['user']['userName'])) {
 				$error[] = 'form[error][user][missingUser]';
@@ -150,12 +151,12 @@ class ItemPermissionsController extends GalleryController {
 					} else {
 						return array($ret, null);
 					}
-
-}
+				}
 			}
 
 			// Validate the permission
-			$permission                 = $form['user']['permission'];
+			$permission = $form['user']['permission'];
+
 			list($ret, $allPermissions) = GalleryCoreApi::getPermissionIds();
 
 			if ($ret) {
@@ -177,8 +178,7 @@ class ItemPermissionsController extends GalleryController {
 				if ($hasIt) {
 					$error[] = 'form[error][user][alreadyHadPermission]';
 				}
-
-}
+			}
 
 			if (empty($error)) {
 				$ret = GalleryCoreApi::addUserPermission(
@@ -199,8 +199,7 @@ class ItemPermissionsController extends GalleryController {
 				$redirect['form[user][userName]'] = $user->getUserName();
 				$status['addedUserPermission']    = 1;
 			}
-
-} elseif (isset($form['action']['addGroupPermission'])) {
+		} elseif (isset($form['action']['addGroupPermission'])) {
 			// Handle add group permission actions
 			if (empty($form['group']['groupName'])) {
 				$error[] = 'form[error][group][missingGroup]';
@@ -214,12 +213,12 @@ class ItemPermissionsController extends GalleryController {
 					} else {
 						return array($ret, null);
 					}
-
-}
+				}
 			}
 
 			// Validate the permission
-			$permission                 = $form['group']['permission'];
+			$permission = $form['group']['permission'];
+
 			list($ret, $allPermissions) = GalleryCoreApi::getPermissionIds();
 
 			if ($ret) {
@@ -241,8 +240,7 @@ class ItemPermissionsController extends GalleryController {
 				if ($hasIt) {
 					$error[] = 'form[error][group][alreadyHadPermission]';
 				}
-
-}
+			}
 
 			if (empty($error)) {
 				$ret = GalleryCoreApi::addGroupPermission(
@@ -263,8 +261,7 @@ class ItemPermissionsController extends GalleryController {
 				$redirect['form[group][groupName]'] = $group->getGroupName();
 				$status['addedGroupPermission']     = 1;
 			}
-
-} elseif (isset($form['action']['changeOwner'])) {
+		} elseif (isset($form['action']['changeOwner'])) {
 			if (empty($form['owner']['ownerName'])) {
 				$error[] = 'form[error][owner][missingUser]';
 			} else {
@@ -283,8 +280,7 @@ class ItemPermissionsController extends GalleryController {
 					} else {
 						return array($ret, null);
 					}
-
-}
+				}
 			}
 
 			if (empty($error)) {
@@ -338,8 +334,7 @@ class ItemPermissionsController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 
 				// change the owner recursively for the descendents
 				if ($applyOwnerToChildren) {
@@ -378,16 +373,14 @@ class ItemPermissionsController extends GalleryController {
 
 								return array($ret, null);
 							}
-
-}
+						}
 
 						$ret = GalleryCoreApi::releaseLocks($lockId);
 
 						if ($ret) {
 							return array($ret, null);
 						}
-
-}
+					}
 				}
 
 				// Figure out where to redirect upon success
@@ -396,8 +389,7 @@ class ItemPermissionsController extends GalleryController {
 				$redirect['itemId']     = $itemId;
 				$status['changedOwner'] = 1;
 			}
-
-}
+		}
 
 		if (isset($verifySelfPermissions)) {
 			/*
@@ -445,8 +437,7 @@ class ItemPermissionsController extends GalleryController {
 
 				$status['addedBackSelfPermission'] = 1;
 			}
-
-}
+		}
 
 		if (empty($error)) {
 			/*
@@ -458,8 +449,7 @@ class ItemPermissionsController extends GalleryController {
 			if ($ret && !($ret->getErrorCode() & ERROR_LOCK_TIMEOUT)) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
@@ -473,7 +463,6 @@ class ItemPermissionsController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -577,8 +566,7 @@ class ItemPermissionsView extends GalleryView {
 			if (!empty($permission['groupId'])) {
 				$userAndGroupEntityIds[$permission['groupId']] = 1;
 			}
-
-}
+		}
 
 		list($ret, $userAndGroupEntities) = GalleryCoreApi::loadEntitiesById(
 			array_keys($userAndGroupEntityIds),
@@ -637,8 +625,7 @@ class ItemPermissionsView extends GalleryView {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-} else {
+				} else {
 					$subPermissions = array();
 				}
 
@@ -651,8 +638,7 @@ class ItemPermissionsView extends GalleryView {
 					'deleteList' => $subPermissions,
 				);
 			}
-
-}
+		}
 
 		// Figure out the owner
 		list($ret, $owner) = GalleryCoreApi::loadEntitiesById($item->getOwnerId(), 'GalleryUser');
@@ -716,5 +702,4 @@ class ItemPermissionsView extends GalleryView {
 			),
 		);
 	}
-
 }

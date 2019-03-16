@@ -39,9 +39,7 @@ class UserAlbumModule extends GalleryModule {
 				'Create an album for each new user'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -121,8 +119,7 @@ class UserAlbumModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		return null;
@@ -149,7 +146,8 @@ class UserAlbumModule extends GalleryModule {
 	public function getSystemLinks() {
 		global $gallery;
 
-		$links              = array();
+		$links = array();
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 			'module',
 			'useralbum'
@@ -190,8 +188,7 @@ class UserAlbumModule extends GalleryModule {
 						),
 					);
 				}
-
-}
+			}
 		}
 
 		return array(null, $links);
@@ -232,8 +229,7 @@ class UserAlbumModule extends GalleryModule {
 						if ($ret) {
 							return array($ret, null);
 						}
-
-}
+					}
 				}
 
 				break;
@@ -268,8 +264,7 @@ class UserAlbumModule extends GalleryModule {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-} else {
+				} else {
 					/*
 					 * Delete the albumid value from the ParameterMap to avoid
 					 * MISSING_OBJECT errors when users clicks their 'Your Album' link
@@ -284,8 +279,7 @@ class UserAlbumModule extends GalleryModule {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 
 				break;
 
@@ -309,5 +303,4 @@ class UserAlbumModule extends GalleryModule {
 
 		return array(null, $result);
 	}
-
 }

@@ -146,14 +146,16 @@ class ThumbnailImageTest extends GalleryTestCase {
 	}
 
 	public function testCustomThumbForRootAlbum() {
-		$existingPathComponent   = $this->_mimeTypeThumbnail->getPathComponent();
+		$existingPathComponent = $this->_mimeTypeThumbnail->getPathComponent();
+
 		list($ret, $rootAlbumId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$filename                = __DIR__ . '/../../images/G2audio.jpg';
+		$filename = __DIR__ . '/../../images/G2audio.jpg';
+
 		list($ret, $thumbnailId) = ThumbnailHelper::addItem(
 			null,
 			$rootAlbumId,
@@ -203,5 +205,4 @@ class ThumbnailImageTest extends GalleryTestCase {
 
 		$this->assertTrue($path != $existingPath, 'path collision');
 	}
-
 }

@@ -28,7 +28,8 @@ class StatusTemplate {
 	 * Render the header (from <html> to the statusblock or the navbar)
 	 */
 	public function renderHeader($renderStatusBlock = false) {
-		global $steps, $currentStep;
+		global $steps;
+		global $currentStep;
 
 		$templateData                           = array();
 		$templateData['MainPage']['showHeader'] = 1;
@@ -68,11 +69,12 @@ class StatusTemplate {
 	 * @param array $templateData
 	 */
 	public function renderBodyAndFooter($templateData) {
-		global $steps, $currentStep, $stepNumber;
+		global $steps;
+		global $currentStep;
+		global $stepNumber;
 
 		$stepsComplete                                 = $stepNumber - ($currentStep->isComplete() ? 0 : 1);
-		$stepSize                                      = $stepsComplete / (sizeof($steps) - 1);
-		$templateData['percentComplete']               = (int)((100 * $stepSize) / 5) * 5;
+		$templateData['percentComplete']               = (int)((100 * ($stepsComplete / (sizeof($steps) - 1))) / 5) * 5;
 		$templateData['MainPage']['showBodyAndFooter'] = 1;
 
 		include __DIR__ . '/templates/MainPage.html';
@@ -101,5 +103,4 @@ class StatusTemplate {
 		$this->renderHeader();
 		$this->renderBodyAndFooter($templateData);
 	}
-
 }

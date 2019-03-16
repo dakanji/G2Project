@@ -106,8 +106,7 @@ class ItemEditMovie extends ItemEditPlugin {
 
 				$status = $module->translate('Changes saved successfully');
 			}
-
-}
+		}
 
 		return array(null, $error, $status, false);
 	}
@@ -156,5 +155,4 @@ class ItemEditMovie extends ItemEditPlugin {
 
 		return array(null, $module->translate('Movie Size'));
 	}
-
 }

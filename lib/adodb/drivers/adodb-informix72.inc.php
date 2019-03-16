@@ -23,19 +23,15 @@ if (!defined('IFX_SCROLL')) {
 }
 
 class ADODB_informix72 extends ADOConnection {
-	public $databaseType = 'informix72';
-	public $dataProvider = 'informix';
-
-	// string to use to replace quotes
-	public $replaceQuote    = "''";
-	public $fmtDate         = "'Y-m-d'";
-	public $fmtTimeStamp    = "'Y-m-d H:i:s'";
-	public $hasInsertID     = true;
-	public $hasAffectedRows = true;
-	public $substr          = 'substr';
-
-	//Don't get informix tables and pseudo-tables
-	public $metaTablesSQL     = "select tabname,tabtype from systables where tabtype in ('T','V') and owner!='informix'";
+	public $databaseType      = 'informix72';
+	public $dataProvider      = 'informix';
+	public $replaceQuote      = "''"; // string to use to replace quotes
+	public $fmtDate           = "'Y-m-d'";
+	public $fmtTimeStamp      = "'Y-m-d H:i:s'";
+	public $hasInsertID       = true;
+	public $hasAffectedRows   = true;
+	public $substr            = 'substr';
+	public $metaTablesSQL     = "select tabname,tabtype from systables where tabtype in ('T','V') and owner!='informix'"; //Don't get informix tables and pseudo-tables
 	public $metaColumnsSQL    = "select c.colname, c.coltype, c.collength, d.default,c.colno
 		from syscolumns c, systables t,outer sysdefaults d
 		where c.tabid=t.tabid and d.tabid=t.tabid and d.colno=c.colno
@@ -48,14 +44,10 @@ class ADODB_informix72 extends ADOConnection {
 	public $lastQuery         = false;
 	public $has_insertid      = true;
 	public $_autocommit       = true;
-
-	// set to true if ADOConnection.Execute() permits binding of array parameters.
-	public $_bindInputArray = true;
-	public $sysDate         = 'TODAY';
-	public $sysTimeStamp    = 'CURRENT';
-
-	// IFX_SCROLL or IFX_HOLD or 0
-	public $cursorType = IFX_SCROLL;
+	public $_bindInputArray   = true;  // set to true if ADOConnection.Execute() permits binding of array parameters.
+	public $sysDate           = 'TODAY';
+	public $sysTimeStamp      = 'CURRENT';
+	public $cursorType        = IFX_SCROLL; // IFX_SCROLL or IFX_HOLD or 0
 
 	public function __construct() {
 		// alternatively, use older method:
@@ -64,17 +56,11 @@ class ADODB_informix72 extends ADOConnection {
 		putenv('GL_DATE=%Y-%m-%d');
 
 		if (function_exists('ifx_byteasvarchar')) {
-			// Mode "0" will return a blob id, and mode "1" will return a varchar with text content.
-			ifx_byteasvarchar(1);
-
-			// Mode "0" will return a blob id, and mode "1" will return a varchar with text content.
-			ifx_textasvarchar(1);
-
-			// Mode "0" means save Byte-Blobs in memory, and mode "1" means save Byte-Blobs in a file.
-			ifx_blobinfile_mode(0);
+			ifx_byteasvarchar(1); // Mode "0" will return a blob id, and mode "1" will return a varchar with text content.
+			ifx_textasvarchar(1); // Mode "0" will return a blob id, and mode "1" will return a varchar with text content.
+			ifx_blobinfile_mode(0); // Mode "0" means save Byte-Blobs in memory, and mode "1" means save Byte-Blobs in a file.
 		}
-
-}
+	}
 
 	public function ServerInfo() {
 		if (isset($this->version)) {
@@ -160,7 +146,7 @@ class ADODB_informix72 extends ADOConnection {
 		return $this->GetOne("select $col from $tables where $where for update");
 	}
 
-	/*  Returns: the last error message from previous database operation
+	/*	Returns: the last error message from previous database operation
 		Note: This function is NOT available for Microsoft SQL Server.	*/
 	public function ErrorMsg() {
 		if (!empty($this->_logsql)) {
@@ -215,8 +201,7 @@ class ADODB_informix72 extends ADOConnection {
 					'remarks' => '',
 				);
 			}
-
-}
+		}
 
 		// restore fetchmode
 		if (isset($savem)) {
@@ -253,12 +238,10 @@ class ADODB_informix72 extends ADOConnection {
 				return $false;
 			}
 
-			//Added to get primary key colno items
-			$rspkey = $this->Execute(sprintf($this->metaPrimaryKeySQL, $table));
+			$rspkey = $this->Execute(sprintf($this->metaPrimaryKeySQL, $table)); //Added to get primary key colno items
 			$retarr = array();
 
-			while (!$rs->EOF) {
-				//print_r($rs->fields);
+			while (!$rs->EOF) { //print_r($rs->fields);
 				$fld       = new ADOFieldObject();
 				$fld->name = $rs->fields[0];
 
@@ -266,27 +249,14 @@ class ADODB_informix72 extends ADOConnection {
 						$rs->fields[1] is not the correct adodb type
 						$rs->fields[2] is not correct max_length, because can include not-null bit
 				$fld->type = $rs->fields[1];
-
-				//Added to set primary key flag
-				$fld->primary_key=$rspkey->fields && array_search($rs->fields[4],$rspkey->fields);
+				$fld->primary_key=$rspkey->fields && array_search($rs->fields[4],$rspkey->fields); //Added to set primary key flag
 				$fld->max_length = $rs->fields[2];*/
-
-				//!eos
-				$pr = ifx_props($rs->fields[1], $rs->fields[2]);
-
-				//!eos
-				$fld->type        = $pr[0];
+				$pr               = ifx_props($rs->fields[1], $rs->fields[2]); //!eos
+				$fld->type        = $pr[0];//!eos
 				$fld->primary_key = $rspkey->fields && array_search($rs->fields[4], $rspkey->fields);
-
-				//!eos
-				$fld->max_length = $pr[1];
-
-				//!eos
-				$fld->precision = $pr[2];
-
-				//!eos
-				$fld->not_null = $pr[3] == 'N';
-
+				$fld->max_length  = $pr[1]; //!eos
+				$fld->precision   = $pr[2];//!eos
+				$fld->not_null    = $pr[3] == 'N'; //!eos
 				if (trim($rs->fields[3]) != 'AAAAAA 0') {
 					$fld->has_default   = 1;
 					$fld->default_value = $rs->fields[3];
@@ -300,9 +270,7 @@ class ADODB_informix72 extends ADOConnection {
 			}
 
 			$rs->Close();
-
-			//!eos
-			$rspkey->Close();
+			$rspkey->Close(); //!eos
 
 			return $retarr;
 		}
@@ -349,8 +317,7 @@ class ADODB_informix72 extends ADOConnection {
 			} else {
 				$a[$v['tabname']] = $colnames;
 			}
-
-}
+		}
 
 		return $a;
 	}
@@ -417,7 +384,7 @@ class ADODB_informix72 extends ADOConnection {
 		else return array($sql,$stmt);
 	}
 
-*/
+	*/
 
 	// returns query ID if successful, otherwise false
 	public function _query($sql, $inputarr = false) {
@@ -431,8 +398,7 @@ class ADODB_informix72 extends ADOConnection {
 				} else {
 					$tab[] = $v;
 				}
-
-}
+			}
 		}
 
 		// In case of select statement, we use a scroll cursor in order
@@ -443,15 +409,13 @@ class ADODB_informix72 extends ADOConnection {
 			} else {
 				$this->lastQuery = ifx_query($sql, $this->_connectionID, $this->cursorType);
 			}
-
-} else {
+		} else {
 			if ($inputarr) {
 				$this->lastQuery = ifx_query($sql, $this->_connectionID, $tab);
 			} else {
 				$this->lastQuery = ifx_query($sql, $this->_connectionID);
 			}
-
-}
+		}
 
 		// Following line have been commented because autocommit mode is
 		// not supported by informix SE 7.2
@@ -469,7 +433,6 @@ class ADODB_informix72 extends ADOConnection {
 
 		return true;
 	}
-
 }
 
 /*--------------------------------------------------------------------------------------
@@ -492,7 +455,7 @@ class ADORecordset_informix72 extends ADORecordSet {
 		return parent::__construct($id);
 	}
 
-	/*  Returns: an object containing field information.
+	/*	Returns: an object containing field information.
 		Get column information in the Recordset object. fetchField() can be used in order to obtain information about
 		fields in a certain query result. If the field offset isn't specified, the next field that wasn't yet retrieved by
 		fetchField() is retrieved.	*/
@@ -509,8 +472,7 @@ class ADORecordset_informix72 extends ADORecordSet {
 				$this->_fieldprops[] = $o;
 				$o->not_null         = $arr[4] == 'N';
 			}
-
-}
+		}
 
 		$ret = $this->_fieldprops[$fieldOffset];
 
@@ -518,8 +480,7 @@ class ADORecordset_informix72 extends ADORecordSet {
 	}
 
 	public function _initrs() {
-		// ifx_affected_rows not reliable, only returns estimate -- ($ADODB_COUNTRECS)? ifx_affected_rows($this->_queryID):-1;
-		$this->_numOfRows   = -1;
+		$this->_numOfRows   = -1; // ifx_affected_rows not reliable, only returns estimate -- ($ADODB_COUNTRECS)? ifx_affected_rows($this->_queryID):-1;
 		$this->_numOfFields = ifx_num_fields($this->_queryID);
 	}
 
@@ -585,7 +546,7 @@ class ADORecordset_informix72 extends ADORecordSet {
 		return true;
 	}
 
-	/*  close() only needs to be called if you are worried about using too much memory while your script
+	/*	close() only needs to be called if you are worried about using too much memory while your script
 		is running. All associated result memory for the specified result identifier will automatically be freed.	*/
 	public function _close() {
 		if ($this->_queryID) {
@@ -594,7 +555,6 @@ class ADORecordset_informix72 extends ADORecordSet {
 
 		return true;
 	}
-
 }
 
 /** !Eos

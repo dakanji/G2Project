@@ -70,8 +70,9 @@ class GalleryToolkitHelper_simple {
 			$outputMimeType = null;
 
 			while ($result = $searchResults->nextResult()) {
-				$toolkitId           = $result[0];
-				$outputMimeType      = empty($result[1]) ? $mimeType : $result[1];
+				$toolkitId      = $result[0];
+				$outputMimeType = empty($result[1]) ? $mimeType : $result[1];
+
 				list($ret, $toolkit) = GalleryCoreApi::newFactoryInstanceById('GalleryToolkit', $toolkitId);
 
 				if ($ret) {
@@ -81,8 +82,7 @@ class GalleryToolkitHelper_simple {
 				if (isset($toolkit)) {
 					break;
 				}
-
-}
+			}
 
 			GalleryDataCache::put($cacheKey, array($toolkit, $outputMimeType));
 		} else {
@@ -170,7 +170,7 @@ class GalleryToolkitHelper_simple {
 	public static function getMaximumManagedPriority() {
 		global $gallery;
 
-		$query               = 'SELECT
+		$query = 'SELECT
 		MAX([GalleryToolkitOperationMimeTypeMap::priority])
 	     FROM
 		[GalleryToolkitOperationMimeTypeMap]
@@ -178,6 +178,7 @@ class GalleryToolkitHelper_simple {
 		[GalleryToolkitOperationMimeTypeMap::priority] >= 20
 		AND
 		[GalleryToolkitOperationMimeTypeMap::priority] <= 40';
+
 		list($ret, $results) = $gallery->search($query);
 
 		if ($ret) {
@@ -221,5 +222,4 @@ class GalleryToolkitHelper_simple {
 
 		return array(null, $priority);
 	}
-
 }

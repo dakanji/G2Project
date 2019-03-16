@@ -273,8 +273,7 @@ class GalleryUser extends GalleryEntity {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		return null;
@@ -370,8 +369,7 @@ class GalleryUser extends GalleryEntity {
 			} else {
 				$newOwnerId = $adminUsers[1];
 			}
-
-}
+		}
 
 		// Now remap the owner of all of his items
 		$ret = GalleryCoreApi::remapOwnerId($this->getId(), $newOwnerId);
@@ -419,8 +417,7 @@ class GalleryUser extends GalleryEntity {
 			if (!$ret) {
 				return array($core->translate('User'), $core->translate('user'));
 			}
-
-}
+		}
 
 		return array('User', 'user');
 	}
@@ -479,5 +476,4 @@ class GalleryUser extends GalleryEntity {
 	public function setLocked($lock) {
 		$this->locked = (bool)$lock;
 	}
-
 }

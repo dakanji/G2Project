@@ -51,7 +51,8 @@ class ExifDescriptionOption extends ItemAddOption {
 		GalleryCoreApi::requireOnce('modules/exif/classes/ExifExtractor.class');
 		GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 
-		$errors                = $warnings                = $needed                = array();
+		$errors = $warnings = $needed = array();
+
 		list($ret, $addOption) = GalleryCoreApi::getPluginParameter('module', 'exif', 'addOption');
 
 		if ($ret) {
@@ -110,7 +111,8 @@ class ExifDescriptionOption extends ItemAddOption {
 				}
 
 				for ($i = 0; $i < count($currentItems); $i++) {
-					$itemId                       = $currentItems[$i]->getId();
+					$itemId = $currentItems[$i]->getId();
+
 					list($ret, $currentItems[$i]) = $currentItems[$i]->refresh();
 
 					if ($ret) {
@@ -141,8 +143,7 @@ class ExifDescriptionOption extends ItemAddOption {
 						if ($addOption & EXIF_ITEM_DESCRIPTION) {
 							$currentItems[$i]->setDescription($itemDescription);
 						}
-
-}
+					}
 
 					if ($addOption & IPTC_ITEM_KEYWORDS
 						&& !empty($exifData[$itemId]['IPTC/Keywords']['value'])
@@ -166,8 +167,7 @@ class ExifDescriptionOption extends ItemAddOption {
 
 							return array($ret, null, null);
 						}
-
-}
+					}
 				}
 
 				$ret = GalleryCoreApi::releaseLocks($lockId);
@@ -203,8 +203,7 @@ class ExifDescriptionOption extends ItemAddOption {
 						 else if ($orientation == 'Upsidedown Mirrored') {}
 						 else if ($orientation == '90 deg CW Mirrored') {}
 						 else if ($orientation == '90 deg CCW Mirrored') {}
-
-*/
+						*/
 						if ($orientation == 'Upsidedown') {
 							$args = array(180);
 						} elseif ($orientation == '90 deg CW') {
@@ -239,15 +238,12 @@ class ExifDescriptionOption extends ItemAddOption {
 									$ret->getAsText()
 								);
 							}
-
-}
+						}
 					}
-
-}
+				}
 			} while (!empty($itemsInBatches));
 		}
 
 		return array(null, $errors, $warnings);
 	}
-
 }

@@ -2772,8 +2772,7 @@ class GalleryCharsetHelper_medium {
 				$characters[] = $string[$bytePos];
 				$bytePos     += 1;
 			}
-
-}
+		}
 
 		$strLength = count($characters);
 		$start     = $start  < 0 ? $strLength + $start : $start;
@@ -2827,8 +2826,7 @@ class GalleryCharsetHelper_medium {
 			while ($start > 0 && $j++ < 3 && (ord($string[$start]) & 0xC0) == 0x80) {
 				$start--;
 			}
-
-}
+		}
 
 		// 2. Extract the multibyte unsafe substring starting at the modified $start
 		$result = substr($string, $start, $length);
@@ -2845,8 +2843,7 @@ class GalleryCharsetHelper_medium {
 			return $result;
 		}
 
-		if (ord($string[$end]) & 0x80) {
-			// Is it a single-byte character?
+		if (ord($string[$end]) & 0x80) { // Is it a single-byte character?
 			// It's an incomplete multibyte character, go back to the last character
 			$j = 0;
 
@@ -2862,5 +2859,4 @@ class GalleryCharsetHelper_medium {
 
 		return $result;
 	}
-
 }

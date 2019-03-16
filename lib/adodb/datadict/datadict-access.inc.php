@@ -31,9 +31,7 @@ class ADODB2_access extends ADODB_DataDict {
 				return 'MEMO';
 
 			case 'C2':
-				// up to 32K
-				return 'TEXT';
-
+				return 'TEXT'; // up to 32K
 			case 'X2':
 				return 'MEMO';
 
@@ -74,8 +72,7 @@ class ADODB2_access extends ADODB_DataDict {
 			default:
 				return $meta;
 		}
-
-}
+	}
 
 	// return string must begin with space
 	public function _CreateSuffix($fname, &$ftype, $fnotnull, $fdefault, $fautoinc, $fconstraint, $funsigned) {
@@ -96,8 +93,7 @@ class ADODB2_access extends ADODB_DataDict {
 			if ($this->debug) {
 				ADOConnection::outp("Warning: Access does not supported DEFAULT values (field $fname)");
 			}
-
-}
+		}
 
 		if ($fnotnull) {
 			$suffix .= ' NOT NULL';
@@ -131,5 +127,4 @@ class ADODB2_access extends ADODB_DataDict {
 
 		return array();
 	}
-
 }

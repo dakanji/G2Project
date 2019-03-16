@@ -78,8 +78,7 @@ class ItemAddConfirmationView extends GalleryView {
 				} else {
 					return array($ret, null);
 				}
-
-}
+			}
 		} else {
 			$status['addedFiles'] = array();
 		}
@@ -111,5 +110,4 @@ class ItemAddConfirmationView extends GalleryView {
 
 		return array(null, $core->translate('add items confirmation'));
 	}
-
 }

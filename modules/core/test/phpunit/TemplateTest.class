@@ -83,7 +83,9 @@ class TemplateTest extends GalleryTestCase {
 			$templateSource,
 			$this->_mockSmarty
 		);
+
 		$this->assertTrue($success, "Didn't return success");
+
 		$this->assertEquals(
 			'/legal/path/templateThatHasNoLocal.tpl',
 			$templateSource,
@@ -115,7 +117,9 @@ class TemplateTest extends GalleryTestCase {
 			$templateSource,
 			$this->_mockSmarty
 		);
+
 		$this->assertTrue($success, "Didn't return success");
+
 		$this->assertEquals(
 			'/legal/path/modules/core/templates/template.tpl',
 			$templateSource,
@@ -147,7 +151,9 @@ class TemplateTest extends GalleryTestCase {
 			$templateSource,
 			$this->_mockSmarty
 		);
+
 		$this->assertTrue($success, "Didn't return success");
+
 		$this->assertEquals(
 			'/legal/path/modules/core/templates/local/template.tpl',
 			$templateSource,
@@ -183,7 +189,9 @@ class TemplateTest extends GalleryTestCase {
 			$templateSource,
 			$this->_mockSmarty
 		);
+
 		$this->assertTrue($success, "Didn't return success");
+
 		$this->assertEquals(
 			$this->_baseDirOverride . '/block/local/template.tpl',
 			$templateSource,
@@ -219,8 +227,7 @@ class TemplateTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	// Test retrieving an overridden template
 	public function testResourceGetTimestampOverridden() {
@@ -229,6 +236,7 @@ class TemplateTest extends GalleryTestCase {
 			$this->_baseDirOverride . '/local/template.tpl',
 			false
 		);
+
 		$this->_mockPlatform->set('is_readable', $this->_baseDirOverride . '/template.tpl', false);
 		$this->_mockPlatform->set(
 			'is_readable',
@@ -256,7 +264,9 @@ class TemplateTest extends GalleryTestCase {
 			$templateTimestamp,
 			$this->_mockSmarty
 		);
+
 		$this->assertTrue($success, "Didn't return success");
+
 		$this->assertEquals(12345, $templateTimestamp, 'override');
 	}
 
@@ -267,6 +277,7 @@ class TemplateTest extends GalleryTestCase {
 			$this->_baseDirOverride . '/local/template.tpl',
 			false
 		);
+
 		$this->_mockPlatform->set('is_readable', $this->_baseDirOverride . '/template.tpl', false);
 		$this->_mockPlatform->set(
 			'is_readable',
@@ -430,7 +441,8 @@ class TemplateTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $album->getId());
 
 		// Execute the function under test
-		$template            = new GalleryTemplate('');
+		$template = new GalleryTemplate('');
+
 		list($ret, $themeId) = $template->_getThemeId();
 
 		if ($ret) {
@@ -444,7 +456,6 @@ class TemplateTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->setPlatform($this->_origPlatform);
-
 		GalleryUtilities::putRequestVariable('itemId', $this->_getUnusedId());
 
 		list($ret, $expectedThemeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
@@ -453,7 +464,8 @@ class TemplateTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$template            = new GalleryTemplate('');
+		$template = new GalleryTemplate('');
+
 		list($ret, $themeId) = $template->_getThemeId();
 
 		if ($ret) {
@@ -488,7 +500,8 @@ class TemplateTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$template            = new GalleryTemplate('');
+		$template = new GalleryTemplate('');
+
 		list($ret, $themeId) = $template->_getThemeId();
 
 		if ($ret) {
@@ -517,7 +530,8 @@ class TemplateTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$template            = new GalleryTemplate('');
+		$template = new GalleryTemplate('');
+
 		list($ret, $themeId) = $template->_getThemeId();
 
 		if ($ret) {
@@ -546,7 +560,8 @@ class TemplateTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$template            = new GalleryTemplate('');
+		$template = new GalleryTemplate('');
+
 		list($ret, $themeId) = $template->_getThemeId();
 
 		if ($ret) {
@@ -555,7 +570,6 @@ class TemplateTest extends GalleryTestCase {
 
 		$this->assertEquals($expectedThemeId, $themeId, 'wrong themeid');
 	}
-
 }
 
 class TemplateTestMockPlatform {
@@ -574,7 +588,6 @@ class TemplateTestMockPlatform {
 	public function stat($filename) {
 		return $this->_returns['stat'][$filename];
 	}
-
 }
 
 class TemplateTestMockSmarty {
@@ -606,7 +619,6 @@ class TemplateTestMockSmarty {
 
 		return $_tmp;
 	}
-
 }
 
 class TemplateTestFakeTheme {
@@ -621,7 +633,6 @@ class TemplateTestFakeTheme {
 	public function fetchParameters($itemId = 0) {
 		return array(null, array());
 	}
-
 }
 
 class TemplateTestInactiveTheme {
@@ -636,5 +647,4 @@ class TemplateTestInactiveTheme {
 	public function fetchParameters($itemId = 0) {
 		return array(null, array());
 	}
-
 }

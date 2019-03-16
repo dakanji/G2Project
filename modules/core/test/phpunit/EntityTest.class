@@ -85,8 +85,7 @@ class EntityTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function tearDown() {
 		global $gallery;
@@ -98,8 +97,7 @@ class EntityTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testOnLoad() {
 		/*
@@ -187,18 +185,31 @@ class EntityTest extends GalleryTestCase {
 		}
 
 		$entity->removeOnLoadHandler('NotThere');
+
 		$this->assertEquals(null, $entity->getOnLoadHandlers(), 1);
+
 		$this->assertFalse($entity->hasOnLoadHandler('NotThere'), 2);
+
 		$entity->addOnLoadHandler('EntityTestOnLoadHandler');
+
 		$this->assertEquals('|EntityTestOnLoadHandler|', $entity->getOnLoadHandlers(), 3);
+
 		$this->assertTrue($entity->hasOnLoadHandler('EntityTestOnLoadHandler'), 4);
+
 		$entity->removeOnLoadHandler('EntityTestOnLoadHandler');
+
 		$this->assertEquals(null, $entity->getOnLoadHandlers(), 5);
+
 		$this->assertFalse($entity->hasOnLoadHandler('EntityTestOnLoadHandler'), 6);
+
 		$entity->addOnLoadHandler('OneTest');
+
 		$entity->addOnLoadHandler('EntityTestOnLoadHandler');
+
 		$this->assertEquals('|OneTest|EntityTestOnLoadHandler|', $entity->getOnLoadHandlers(), 7);
+
 		$this->assertTrue($entity->hasOnLoadHandler('OneTest'), 8);
+
 		$this->assertFalse($entity->hasOnLoadHandler('OneTesto'), 9);
 		$this->assertFalse($entity->hasOnLoadHandler('aOneTest'), 10);
 		$this->assertTrue($entity->hasOnLoadHandler('EntityTestOnLoadHandler'), 11);
@@ -230,7 +241,6 @@ class EntityTest extends GalleryTestCase {
 			$newEntity->getLinkedEntity(),
 			'handler not called'
 		);
-
 		// During upgrades the session has 'isUpgrade' key
 		GalleryDataCache::reset();
 
@@ -296,6 +306,7 @@ class EntityTest extends GalleryTestCase {
 		 * different
 		 */
 		$entity->resetOriginalValues();
+
 		$this->assertFalse($entity->isModified(), 'not yet modified');
 		$entity->setIsLinkable(true);
 		$entity->setIsLinkable(false);
@@ -559,8 +570,7 @@ class EntityTest extends GalleryTestCase {
 
 				return $ret;
 			}
-
-} else {
+		} else {
 			$this->fail('Requested entity-type not asserted');
 		}
 
@@ -591,8 +601,7 @@ class EntityTest extends GalleryTestCase {
 			$this->assertEquals($this->_getRootId(), $entities[0]->getId(), 'root album id');
 			$this->assertEquals($dataItem->getId(), $entities[1]->getId(), 'data item id');
 		}
-
-}
+	}
 
 	public function testLoadEntitiesByIdAssertsTheRequestedEntityTypeMismatchForMultipleEntities() {
 		list($ret, $dataItem) = $this->_createRandomDataItem($this->_getRootId());
@@ -616,8 +625,7 @@ class EntityTest extends GalleryTestCase {
 
 				return $ret;
 			}
-
-} else {
+		} else {
 			$this->fail('Requested entity-type not asserted');
 		}
 
@@ -652,8 +660,7 @@ class EntityTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function deleteEntityByIdAssertsTheRequestedEntityTypeNoMatch() {
 		list($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
@@ -674,12 +681,10 @@ class EntityTest extends GalleryTestCase {
 
 				return $ret;
 			}
-
-} else {
+		} else {
 			$this->fail('Requested entity-type not asserted');
 		}
-
-}
+	}
 }
 
 /**
@@ -738,7 +743,6 @@ class EntityTestEntity extends GalleryEntity {
 	public function getClassFile() {
 		return array(null, 'modules/core/test/phpunit/EntityTest.class');
 	}
-
 }
 
 class EntityTestOnLoadHandler {
@@ -751,7 +755,6 @@ class EntityTestOnLoadHandler {
 
 		return null;
 	}
-
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryEventListener.class');
@@ -772,5 +775,4 @@ class EntityTestEventListener extends GalleryEventListener {
 	public function getEvent() {
 		return $this->_event;
 	}
-
 }

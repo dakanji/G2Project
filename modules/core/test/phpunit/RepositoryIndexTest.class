@@ -67,8 +67,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testGetDescriptorUrl() {
 		$testcases = array(
@@ -93,8 +92,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 			$this->assertEquals($case['expectedUrl'], $url, 'Unexpected URL returned.');
 		}
-
-}
+	}
 
 	public function testGetPackageUrl() {
 		$testcases = array(
@@ -151,8 +149,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 			$this->assertEquals($case['expectedUrl'], $url, 'Unexpected URL returned.');
 		}
-
-}
+	}
 
 	public function testGetPluginName() {
 		global $gallery;
@@ -215,8 +212,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testGetRawData() {
 		$this->assertEquals($this->_sampleIndex, $this->_index->getRawData());
@@ -250,6 +246,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			array($this->_index->getRepositoryCacheDir() . 'modules'),
 			true
 		);
+
 		$platform->setReply(
 			'is_dir',
 			array($this->_index->getRepositoryCacheDir() . 'modules'),
@@ -399,7 +396,6 @@ class RepositoryIndexTest extends GalleryTestCase {
 			$ret->getErrorCode() & ERROR_BAD_PARAMETER,
 			'Should return ERROR_BAD_PARMETER'
 		);
-
 		$this->assertEquals(
 			array(
 				'modules' => array(),
@@ -440,7 +436,6 @@ class RepositoryIndexTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($ret->getErrorCode() & ERROR_BAD_PARAMETER);
-
 		$this->assertEquals(
 			array(
 				'modules' => array(),
@@ -468,8 +463,9 @@ class RepositoryIndexTest extends GalleryTestCase {
 		);
 
 		foreach ($testCases as $case) {
-			$pluginType         = $case['pluginType'];
-			$pluginId           = $case['pluginId'];
+			$pluginType = $case['pluginType'];
+			$pluginId   = $case['pluginId'];
+
 			list($ret, $header) = $this->_index->getPluginHeader($pluginType, $pluginId);
 
 			if ($ret) {
@@ -481,8 +477,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 				$header
 			);
 		}
-
-}
+	}
 
 	public function testGetAvailableLanguagesInPlugin() {
 		// Load the cache for testing
@@ -532,8 +527,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 			$this->assertEquals($case['languages'], $languages);
 		}
-
-}
+	}
 
 	public function testGetAvailableLanguagesInPluginFiltered() {
 		// Load the cache for testing
@@ -584,8 +578,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 			$this->assertEquals($case['languages'], $languages);
 		}
-
-}
+	}
 
 	public function testContainsPlugin() {
 		$testCases = array(
@@ -610,8 +603,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 				$doesContain
 			);
 		}
-
-}
+	}
 
 	public function testGetPackageVersionAndBuild() {
 		$sampleStringsRevision = $this->_sampleIndex['themes']['testTheme']['header']['stringsRevision'];
@@ -646,8 +638,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			$this->assertEquals($version, $case['expectedVersion']);
 			$this->assertEquals($build, $case['expectedBuild']);
 		}
-
-}
+	}
 
 	public function testGetPlugins() {
 		$testCases = array(
@@ -729,8 +720,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 						array(null, 'someVersion')
 					);
 				}
-
-}
+			}
 
 			list($ret, $plugins) = $this->_index->getPlugins($pluginType, $case['showAll']);
 
@@ -749,8 +739,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 			$this->assertTrue($utilities->isComplete(), "Case $i " . $utilities->getRemaining());
 			$this->assertEquals($case['expectedPlugins'], $plugins, "Case $i");
 		}
-
-}
+	}
 
 	public function testGetLanguagePackageFilesScalarInput() {
 		global $gallery;
@@ -1105,8 +1094,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 				array(null, $installedPackages)
 			);
 		}
-
-}
+	}
 }
 
 class RepositoryIndexTestModule {
@@ -1117,7 +1105,6 @@ class RepositoryIndexTestModule {
 	public function getRequiredModuleApi() {
 		return GalleryModule::getMe()->getApiVersion();
 	}
-
 }
 
 class RepositoryIndexTestTheme {
@@ -1130,5 +1117,4 @@ class RepositoryIndexTestTheme {
 	public function getRequiredThemeApi() {
 		return empty($this->_themeApi) ? GalleryTheme::getMe()->getApiVersion() : $this->_themeApi;
 	}
-
 }

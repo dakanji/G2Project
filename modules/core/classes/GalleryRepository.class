@@ -114,8 +114,7 @@ class GalleryRepository {
 					} else {
 						return array($ret, null, null);
 					}
-
-}
+				}
 			}
 
 			GalleryDataCache::put($cacheKey, array($repositories, $errorCount));
@@ -157,8 +156,7 @@ class GalleryRepository {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -350,8 +348,7 @@ class GalleryRepository {
 
 				$upgradeInfo['complete'] &= !empty($currentBuild);
 			}
-
-}
+		}
 
 		return array(null, $upgradeInfo);
 	}
@@ -446,7 +443,8 @@ class GalleryRepository {
 				$groupLabel = $core->translate('General');
 			}
 
-			$isDowngraded                                            = version_compare($localVersion, $plugin['header']['version'], '>');
+			$isDowngraded = version_compare($localVersion, $plugin['header']['version'], '>');
+
 			list($providedCoreApiVersion, $providedPluginApiVersion) = $this->_utilities->getProvidedApis($pluginType, $coreApis);
 
 			$pluginList[$pluginId] = array(
@@ -509,8 +507,7 @@ class GalleryRepository {
 			if ($group1 != $group2) {
 				return strcmp($group1, $group2);
 			}
-
-}
+		}
 
 		$name1 = $plugin1['name'];
 		$name2 = $plugin2['name'];
@@ -567,11 +564,9 @@ class GalleryRepository {
 						if ($pack['relation'] == 'older' && $pack['currentBuild']) {
 							$packages[$pluginType][$pluginId]['lang-' . $code] = 1;
 						}
-
-}
+					}
 				}
-
-}
+			}
 		}
 
 		return array(null, $packages);
@@ -610,8 +605,9 @@ class GalleryRepository {
 		global $gallery;
 
 		// Create repository cache directory if it doesn't exist.
-		$repositoryCachePath     = $gallery->getConfig('repository.cache');
-		$platform                =& $gallery->getPlatform();
+		$repositoryCachePath = $gallery->getConfig('repository.cache');
+		$platform            =& $gallery->getPlatform();
+
 		list($success, $created) = GalleryUtilities::guaranteeDirExists($repositoryCachePath);
 
 		if (!$success) {
@@ -631,8 +627,7 @@ class GalleryRepository {
 					),
 				);
 			}
-
-}
+		}
 
 		return array(true, '');
 	}
@@ -679,8 +674,7 @@ class GalleryRepository {
 
 					$files[$pluginType][$pluginId]['files'][$package] = $packageUrl;
 				}
-
-}
+			}
 		}
 
 		return array(null, $files);
@@ -712,7 +706,8 @@ class GalleryRepository {
 		$phpVm    = $gallery->getPhpVm();
 
 		// Download package from the Gallery server.
-		$packageUrl                            = $gallery->getConfig('repository.url') . $this->_source . '/' . $relativePackageUrl;
+		$packageUrl = $gallery->getConfig('repository.url') . $this->_source . '/' . $relativePackageUrl;
+
 		list($wasDownloaded, $packageContents) = $this->_utilities->downloadFile($packageUrl);
 
 		if (!$wasDownloaded) {
@@ -798,7 +793,8 @@ class GalleryRepository {
 	) {
 		global $gallery;
 
-		$status             = array();
+		$status = array();
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -830,6 +826,7 @@ class GalleryRepository {
 		 */
 		$relativeDescriptorUrl = $packageUrls['descriptor'];
 		unset($packageUrls['descriptor']);
+
 		list($ret, $descriptor) = $this->downloadAndUnpack(
 			$pluginType,
 			$pluginId,
@@ -1107,11 +1104,9 @@ class GalleryRepository {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -1143,8 +1138,7 @@ class GalleryRepository {
 			default:
 				return array(null, '');
 		}
-
-}
+	}
 
 	/**
 	 * @see GalleryRepositoryIndex::existsInCache
@@ -1206,9 +1200,10 @@ class GalleryRepository {
 	public function downloadAndUnpackPackages($filesToDownload, &$callback) {
 		global $gallery;
 
-		$phpVm                     = $gallery->getPhpVm();
-		$platform                  =& $gallery->getPlatform();
-		$utilities                 = $this->_utilities;
+		$phpVm     = $gallery->getPhpVm();
+		$platform  =& $gallery->getPlatform();
+		$utilities = $this->_utilities;
+
 		list($ret, $aggregateFile) = $utilities->downloadAggregatePackages(
 			$this->_source,
 			$filesToDownload
@@ -1264,7 +1259,6 @@ class GalleryRepository {
 
 				foreach ($data['files'] as $packageFile) {
 					$gallery->guaranteeTimeLimit(30);
-
 					// Unpack files from package.
 					$utilities->unpackPackage($cacheDir . $packageFile[1], $pluginOutputDir);
 
@@ -1312,8 +1306,7 @@ class GalleryRepository {
 						++$callback['current'] / $callback['total']
 					);
 				}
-
-}
+			}
 		}
 
 		return array(null, $status, $installedPackageCount);
@@ -1338,7 +1331,8 @@ class GalleryRepository {
 
 				// Make sure output directory exists.
 				$pluginOutputDir = GalleryCoreApi::getCodeBasePath("{$pluginType}s/$pluginId/");
-				list($success)   = GalleryUtilities::guaranteeDirExists($pluginOutputDir);
+
+				list($success) = GalleryUtilities::guaranteeDirExists($pluginOutputDir);
 
 				if (!$success) {
 					return array(
@@ -1368,8 +1362,7 @@ class GalleryRepository {
 
 							continue;
 						}
-
-}
+					}
 				} else {
 					GalleryCoreApi::addEventLogEntry(
 						'Gallery Error',
@@ -1385,8 +1378,7 @@ class GalleryRepository {
 					$percentage = $callback['current'] / $callback['total'];
 					call_user_func($callback['method'], $callback['title'], '', $percentage);
 				}
-
-}
+			}
 		}
 
 		return array(null, $status);
@@ -1415,9 +1407,7 @@ class GalleryRepository {
 				if ($platform->is_writeable($file)) {
 					$platform->unlink($file);
 				}
-
-}
+			}
 		}
-
-}
+	}
 }

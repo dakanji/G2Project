@@ -65,8 +65,7 @@ function smarty_core_write_compiled_include($params, &$smarty) {
 				if ($open_tag == '<?php ') {
 					break;
 				}
-
-}
+			}
 
 			for ($i = 0, $count = count($tokens); $i < $count; $i++) {
 				if (is_array($tokens[$i])) {
@@ -75,8 +74,7 @@ function smarty_core_write_compiled_include($params, &$smarty) {
 					} else {
 						$tokens[$i] = $tokens[$i][1];
 					}
-
-}
+				}
 			}
 
 			$source = implode('', $tokens);
@@ -98,7 +96,6 @@ $source
 		'contents'    => $_include_compiled,
 		'create_dirs' => true,
 	);
-
 	include_once SMARTY_CORE_DIR . 'core.write_file.php';
 
 	smarty_core_write_file($_params, $smarty);

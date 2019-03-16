@@ -20,6 +20,7 @@
 */
 
 //================================================================================================
+
 //================================================================================================
 //================================================================================================
 //=================
@@ -87,8 +88,7 @@ function formatSanyoData($type, $tag, $intel, $data) {
 		} else {
 			$data = $top . '/' . $bottom;
 		}
-
-} elseif ($type == 'USHORT' || $type == 'SSHORT' || $type == 'ULONG' || $type == 'SLONG' || $type == 'FLOAT' || $type == 'DOUBLE') {
+	} elseif ($type == 'USHORT' || $type == 'SSHORT' || $type == 'ULONG' || $type == 'SLONG' || $type == 'FLOAT' || $type == 'DOUBLE') {
 		$data = bin2hex($data);
 
 		if ($intel == 1) {
@@ -97,43 +97,36 @@ function formatSanyoData($type, $tag, $intel, $data) {
 
 		$data = hexdec($data);
 
-		if ($tag == '0200') {
-			//SpecialMode
+		if ($tag == '0200') { //SpecialMode
 			if ($data == 0) {
 				$data = 'Normal';
 			} else {
 				$data = 'Unknown: ' . $data;
 			}
+		}
 
-}
-
-		if ($tag == '0201') {
-			//Quality
+		if ($tag == '0201') { //Quality
 			if ($data == 2) {
 				$data = 'High';
 			} else {
 				$data = 'Unknown: ' . $data;
 			}
+		}
 
-}
-
-		if ($tag == '0202') {
-			//Macro
+		if ($tag == '0202') { //Macro
 			if ($data == 0) {
 				$data = 'Normal';
 			} else {
 				$data = 'Unknown: ' . $data;
 			}
-
-}
+		}
 	} elseif ($type == 'UNDEFINED') {} else {
 		$data = bin2hex($data);
 
 		if ($intel == 1) {
 			$data = intel2Moto($data);
 		}
-
-}
+	}
 
 	return $data;
 }
@@ -148,10 +141,8 @@ function parseSanyo($block, &$result, $seek, $globalOffset) {
 		$intel = 0;
 	}
 
-	$model = $result['IFD0']['Model'];
-
-	//current place
-	$place  = 8;
+	$model  = $result['IFD0']['Model'];
+	$place  = 8; //current place
 	$offset = 8;
 
 	//Get number of tags (2 bytes)
@@ -209,16 +200,13 @@ function parseSanyo($block, &$result, $seek, $globalOffset) {
 				$value = intel2Moto($value);
 			}
 
-			//offsets are from TIFF header which is 12 bytes from the start of the file
-			$v = fseek($seek, $globalOffset + hexdec($value));
-
+			$v = fseek($seek, $globalOffset + hexdec($value));  //offsets are from TIFF header which is 12 bytes from the start of the file
 			if ($v == 0 && $bytesofdata < $GLOBALS['exiferFileSize']) {
 				$data = fread($seek, $bytesofdata);
 			} else {
 				$result['Errors'] = $result['Errors']++;
 			}
-
-}
+		}
 
 		$formated_data = formatSanyoData($type, $tag, $intel, $data);
 
@@ -231,8 +219,7 @@ function parseSanyo($block, &$result, $seek, $globalOffset) {
 				if ($intel == 1) {
 					$data = intel2Moto($data);
 				}
-
-}
+			}
 
 			$result['SubIFD']['MakerNote'][$tag_name . '_Verbose']['RawData'] = $data;
 			$result['SubIFD']['MakerNote'][$tag_name . '_Verbose']['Type']    = $type;
@@ -240,6 +227,5 @@ function parseSanyo($block, &$result, $seek, $globalOffset) {
 		} else {
 			$result['SubIFD']['MakerNote'][$tag_name] = $formated_data;
 		}
-
-}
+	}
 }

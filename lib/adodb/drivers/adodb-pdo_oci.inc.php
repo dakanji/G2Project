@@ -13,9 +13,7 @@ class ADODB_pdo_oci extends ADODB_pdo_base {
 	public $concat_operator = '||';
 	public $sysDate         = 'TRUNC(SYSDATE)';
 	public $sysTimeStamp    = 'SYSDATE';
-
-	// To include time, use 'RRRR-MM-DD HH24:MI:SS'
-	public $NLS_DATE_FORMAT = 'YYYY-MM-DD';
+	public $NLS_DATE_FORMAT = 'YYYY-MM-DD';  // To include time, use 'RRRR-MM-DD HH24:MI:SS'
 	public $random          = 'abs(mod(DBMS_RANDOM.RANDOM,10000001)/10000000)';
 	public $metaTablesSQL   = "select table_name,table_type from cat where table_type in ('TABLE','VIEW')";
 	public $metaColumnsSQL  = "select cname,coltype,width, SCALE, PRECISION, NULLS, DEFAULTVAL from col where tname='%s' order by colno";
@@ -29,8 +27,7 @@ class ADODB_pdo_oci extends ADODB_pdo_base {
 		if ($this->_initdate) {
 			$parentDriver->Execute("ALTER SESSION SET NLS_DATE_FORMAT='" . $this->NLS_DATE_FORMAT . "'");
 		}
-
-}
+	}
 
 	public function MetaTables($ttype = false, $showSchema = false, $mask = false) {
 		if ($mask) {
@@ -73,8 +70,7 @@ class ADODB_pdo_oci extends ADODB_pdo_base {
 
 		$retarr = array();
 
-		while (!$rs->EOF) {
-			//print_r($rs->fields);
+		while (!$rs->EOF) { //print_r($rs->fields);
 			$fld             = new ADOFieldObject();
 			$fld->name       = $rs->fields[0];
 			$fld->type       = $rs->fields[1];
@@ -115,5 +111,4 @@ class ADODB_pdo_oci extends ADODB_pdo_base {
 	public function SetAutoCommit($auto_commit) {
 		$this->_connectionID->setAttribute(PDO::ATTR_AUTOCOMMIT, $auto_commit);
 	}
-
 }

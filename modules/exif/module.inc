@@ -41,9 +41,7 @@ class ExifModule extends GalleryModule {
 				'Extract EXIF/IPTC data from JPEG photos'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -94,8 +92,7 @@ class ExifModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-
-} else {
+		} else {
 			switch ($currentVersion) {
 				case '0.8.2':
 				case '0.8.3':
@@ -196,8 +193,7 @@ class ExifModule extends GalleryModule {
 						sprintf('Unknown module version %s', $currentVersion)
 					);
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -297,5 +293,4 @@ class ExifModule extends GalleryModule {
 			),
 		);
 	}
-
 }

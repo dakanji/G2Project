@@ -179,7 +179,8 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 			return null;
 		}
 
-		$parentId                     = $this->getParentId();
+		$parentId = $this->getParentId();
+
 		list($ret, $newPathComponent) = GalleryCoreApi::getLegalPathComponent($newPathComponent, $parentId, $this->getId());
 
 		if ($ret) {
@@ -275,8 +276,7 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 					"rename $currentPath to $newPath"
 				);
 			}
-
-}
+		}
 
 		// Our path component may have changed when it got "legalized"
 		$this->setPathComponent($newPathComponent);
@@ -304,8 +304,7 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 			) {
 				return GalleryCoreApi::error(ERROR_LOCK_REQUIRED);
 			}
-
-}
+		}
 
 		return parent::delete();
 	}
@@ -378,8 +377,7 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-} else {
+		} else {
 			$parentPath = '';
 		}
 
@@ -404,21 +402,20 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 		$absolutePath = $gallery->getConfig('data.gallery.albums');
 
 		if ($this->isLinked()) {
-			$linkedEntity            = $this->getLinkedEntity();
+			$linkedEntity = $this->getLinkedEntity();
+
 			list($ret, $logicalPath) = $linkedEntity->fetchLogicalPath();
 
 			if ($ret) {
 				return array($ret, null);
 			}
-
-} else {
+		} else {
 			list($ret, $logicalPath) = $this->fetchLogicalPath();
 
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		/*
 		 * The album path ends with a slash, and the logical path starts with one (because the
@@ -453,5 +450,4 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 	public function setPathComponent($pathComponent) {
 		$this->pathComponent = $pathComponent;
 	}
-
 }

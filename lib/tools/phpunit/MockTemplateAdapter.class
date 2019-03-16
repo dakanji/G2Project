@@ -52,8 +52,7 @@ class MockTemplateAdapter {
 
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -93,5 +92,4 @@ class MockTemplateAdapter {
 	public function getCompleteProgressBarDump() {
 		return $this->_completeProgressBar;
 	}
-
 }

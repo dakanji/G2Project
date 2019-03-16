@@ -37,7 +37,6 @@ class ADODB_Encrypt_Secret {
 	public function read($data, $key) {
 		return Secret::read($key, $data);
 	}
-
 }
 
 return 1;

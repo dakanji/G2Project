@@ -101,8 +101,6 @@ class IndexDotPhpTest extends GalleryTestCase {
 					'The complete cookie headers are: ' . implode(', ', $headers['Set-Cookie'])
 				);
 			}
-
-}
+		}
 	}
-
 }

@@ -39,9 +39,7 @@ class GdModule extends GalleryModule {
 				'Gd Graphics Toolkit'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -75,8 +73,7 @@ class GdModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -152,8 +149,7 @@ class GdModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		foreach ($results['properties'] as $property => $info) {
 			$ret = GalleryCoreApi::registerToolkitProperty(
@@ -167,8 +163,7 @@ class GdModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		list($ret, $redirect) = parent::activate($postActivationEvent);
 
@@ -247,5 +242,4 @@ class GdModule extends GalleryModule {
 	public function getConfigurationView() {
 		return 'gd.AdminGd';
 	}
-
 }

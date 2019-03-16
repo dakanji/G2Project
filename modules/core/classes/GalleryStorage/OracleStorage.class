@@ -181,8 +181,7 @@ class OracleStorage extends GalleryStorage {
 					// Try to fallback
 					return ociserverversion();
 				}
-
-}
+			}
 
 			return oci_server_version($this->_db->_connectionID);
 		}
@@ -226,5 +225,4 @@ class OracleStorage extends GalleryStorage {
 	public function decodeBlob($blob) {
 		return stripcslashes($blob);
 	}
-
 }

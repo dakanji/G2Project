@@ -44,8 +44,7 @@ class IconsSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testIconsSiteAdminControllerReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
@@ -108,5 +107,4 @@ class IconsSiteAdminControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 	}
-
 }

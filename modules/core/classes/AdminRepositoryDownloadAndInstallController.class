@@ -70,8 +70,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
@@ -105,9 +104,10 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 
 			foreach ($files as $pluginType => $plugins) {
 				foreach ($plugins as $pluginId => $pluginDownloadData) {
-					$packageUrls                                   = $pluginDownloadData['files'];
-					$pluginName                                    = $pluginDownloadData['name'];
-					$downloadStatus                                = array();
+					$packageUrls    = $pluginDownloadData['files'];
+					$pluginName     = $pluginDownloadData['name'];
+					$downloadStatus = array();
+
 					list($ret, $reactivatePlugin, $downloadStatus) = $repository->downloadPackagesForPlugin(
 						$pluginType,
 						$pluginId,
@@ -184,8 +184,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 								if ($ret) {
 									return $ret;
 								}
-
-} else {
+							} else {
 								// Themes don't need this step
 								$autoConfigured = true;
 							}
@@ -205,11 +204,9 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 
 							$status['updated'][] = $pluginName;
 						}
-
-}
+					}
 				}
-
-}
+			}
 		}
 
 		$ret = $this->_synchronizeLanguages($sourcedFiles, $callback);
@@ -288,8 +285,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 					// 2 extra action for each plugin (language sync, cleanup)
 					$totalActions += 2;
 				}
-
-}
+			}
 		}
 
 		return $totalActions;
@@ -332,11 +328,9 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -366,9 +360,10 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 	public function updatePluginStatus($pluginStatus, $repositories, $redirect) {
 		global $gallery;
 
-		$templateAdapter    =& $gallery->getTemplateAdapter();
-		$platform           =& $gallery->getPlatform();
-		$status             = array();
+		$templateAdapter =& $gallery->getTemplateAdapter();
+		$platform        =& $gallery->getPlatform();
+		$status          = array();
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -455,8 +450,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 
 				$currentProgress += $increment;
 			}
-
-}
+		}
 
 		$templateAdapter->updateProgressBar(
 			$module->translate('Update Plugin List'),
@@ -474,5 +468,4 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 
 		return null;
 	}
-
 }

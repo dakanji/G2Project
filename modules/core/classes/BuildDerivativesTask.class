@@ -65,7 +65,8 @@ class BuildDerivativesTask extends MaintenanceTask {
 	public function run() {
 		global $gallery;
 
-		$templateAdapter    =& $gallery->getTemplateAdapter();
+		$templateAdapter =& $gallery->getTemplateAdapter();
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -107,8 +108,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		// Also attempt to add derivatives to items without them (no toolkit when item added)
 		$query = '
@@ -164,8 +164,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 				if ($ret) {
 					return array($ret, null, null);
 				}
-
-}
+			}
 		}
 
 		while ($result = $items->nextResult()) {
@@ -187,8 +186,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 				} else {
 					$built++;
 				}
-
-}
+			}
 
 			$ret = GalleryCoreApi::applyDerivativePreferences($item, $item->getParentId(), true);
 
@@ -208,8 +206,7 @@ class BuildDerivativesTask extends MaintenanceTask {
 				if ($ret) {
 					return array($ret, null, null);
 				}
-
-}
+			}
 		}
 
 		$result = array(
@@ -323,5 +320,4 @@ class BuildDerivativesTask extends MaintenanceTask {
 	public function requiresProgressBar() {
 		return true;
 	}
-
 }

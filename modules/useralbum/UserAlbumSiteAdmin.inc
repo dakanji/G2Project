@@ -46,8 +46,7 @@ class UserAlbumSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 
 			foreach (array('loginRedirect', 'homeLink') as $key) {
 				$ret = GalleryCoreApi::setPluginParameter(
@@ -60,8 +59,7 @@ class UserAlbumSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 
 			$status['saved'] = 1;
 		} // else $form['action']['reset']
@@ -73,7 +71,6 @@ class UserAlbumSiteAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -106,8 +103,7 @@ class UserAlbumSiteAdminView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'useralbum');
@@ -158,5 +154,4 @@ class UserAlbumSiteAdminView extends GalleryView {
 			),
 		);
 	}
-
 }

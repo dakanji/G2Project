@@ -20,11 +20,9 @@ if (!defined('ADODB_DIR')) {
 }
 
 class ADODB_sybase extends ADOConnection {
-	public $databaseType = 'sybase';
-	public $dataProvider = 'sybase';
-
-	// string to use to replace quotes
-	public $replaceQuote    = "''";
+	public $databaseType    = 'sybase';
+	public $dataProvider    = 'sybase';
+	public $replaceQuote    = "''"; // string to use to replace quotes
 	public $fmtDate         = "'Y-m-d'";
 	public $fmtTimeStamp    = "'Y-m-d H:i:s'";
 	public $hasInsertID     = true;
@@ -110,11 +108,8 @@ class ADODB_sybase extends ADOConnection {
 	}
 
 	public function SelectDB($dbName) {
-		$this->database = $dbName;
-
-		// obsolete, retained for compat with older adodb versions
-		$this->databaseName = $dbName;
-
+		$this->database     = $dbName;
+		$this->databaseName = $dbName; // obsolete, retained for compat with older adodb versions
 		if ($this->_connectionID) {
 			return @sybase_select_db($dbName);
 		}
@@ -122,7 +117,7 @@ class ADODB_sybase extends ADOConnection {
 		return false;
 	}
 
-	/*  Returns: the last error message from previous database operation
+	/*	Returns: the last error message from previous database operation
 		Note: This function is NOT available for Microsoft SQL Server.	*/
 	public function ErrorMsg() {
 		if ($this->_logsql) {
@@ -207,8 +202,7 @@ class ADODB_sybase extends ADOConnection {
 
 	// See http://www.isug.com/Sybase_FAQ/ASE/section6.2.html#6.2.12
 	public function SelectLimit($sql, $nrows = -1, $offset = -1, $inputarr = false, $secs2cache = 0) {
-		if ($secs2cache > 0) {
-			// we do not cache rowcount, so we have to load entire recordset
+		if ($secs2cache > 0) {// we do not cache rowcount, so we have to load entire recordset
 			$rs = ADOConnection::SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
 
 			return $rs;
@@ -328,8 +322,7 @@ class ADODB_sybase extends ADOConnection {
 
 					break;
 			}
-
-}
+		}
 
 		return $s;
 	}
@@ -352,7 +345,6 @@ class ADODB_sybase extends ADOConnection {
 
 		return false;
 	}
-
 }
 
 /*--------------------------------------------------------------------------------------
@@ -411,15 +403,14 @@ class ADORecordset_sybase extends ADORecordSet {
 		parent::__construct($id, $mode);
 	}
 
-	/*  Returns: an object containing field information.
+	/*	Returns: an object containing field information.
 		Get column information in the Recordset object. fetchField() can be used in order to obtain information about
 		fields in a certain query result. If the field offset isn't specified, the next field that wasn't yet retrieved by
 		fetchField() is retrieved.	*/
 	public function FetchField($fieldOffset = -1) {
 		if ($fieldOffset != -1) {
 			$o = @sybase_fetch_field($this->_queryID, $fieldOffset);
-		} elseif ($fieldOffset == -1) {
-			// The $fieldOffset argument is not provided thus its -1
+		} elseif ($fieldOffset == -1) {  // The $fieldOffset argument is not provided thus its -1
 			$o = @sybase_fetch_field($this->_queryID);
 		}
 
@@ -466,7 +457,7 @@ class ADORecordset_sybase extends ADORecordSet {
 		return false;
 	}
 
-	/*  close() only needs to be called if you are worried about using too much memory while your script
+	/*	close() only needs to be called if you are worried about using too much memory while your script
 		is running. All associated result memory for the specified result identifier will automatically be freed.	*/
 	public function _close() {
 		return @sybase_free_result($this->_queryID);
@@ -480,7 +471,6 @@ class ADORecordset_sybase extends ADORecordSet {
 	public static function UnixTimeStamp($v) {
 		return ADORecordSet_array_sybase::UnixTimeStamp($v);
 	}
-
 }
 
 class ADORecordSet_array_sybase extends ADORecordSet_array {
@@ -556,5 +546,4 @@ class ADORecordSet_array_sybase extends ADORecordSet_array {
 		// h-m-s-MM-DD-YY
 		return adodb_mktime($rr[4], $rr[5], 0, $themth, $rr[2], $rr[3]);
 	}
-
 }

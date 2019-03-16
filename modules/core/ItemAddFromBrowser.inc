@@ -46,9 +46,10 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 	public function handleRequest($form, &$item, &$addController = null) {
 		global $gallery;
 
-		$status             = array();
-		$error              = array();
-		$uploaded           = false;
+		$status   = array();
+		$error    = array();
+		$uploaded = false;
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -81,8 +82,9 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 						$file['caption'] = GalleryUtilities::htmlSafe($file['caption'], true);
 					}
 
-					$filename             = basename($file['name']);
-					$base                 = GalleryUtilities::getFileBase($filename);
+					$filename = basename($file['name']);
+					$base     = GalleryUtilities::getFileBase($filename);
+
 					list($ret, $mimeType) = GalleryCoreApi::getMimeType($filename, $file['type']);
 
 					if ($ret) {
@@ -121,7 +123,6 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 						$mimeType,
 						$item->getId()
 					);
-
 					// Get rid of the tmp file if necessary
 					if ($needToDeleteTmpFile) {
 						@$platform->unlink($tmpFile);
@@ -192,8 +193,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 						'warnings' => array($warning),
 					);
 				}
-
-}
+			}
 
 			if ($uploaded || empty($status)) {
 				/*
@@ -207,8 +207,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 					$status['addedFiles']
 				);
 			}
-
-}
+		}
 
 		return array(null, $error, $status);
 	}
@@ -230,7 +229,8 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 			$maxFileSize = $matches[1] * 1024 * 1024;
 		}
 
-		$status             = GalleryUtilities::getRequestVariables('ItemAddFromBrowserStatus');
+		$status = GalleryUtilities::getRequestVariables('ItemAddFromBrowserStatus');
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -257,8 +257,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 					)
 				);
 			}
-
-}
+		}
 
 		if ($form['formName'] != 'ItemAddFromBrowser') {
 			$form['set'] = array(
@@ -312,5 +311,4 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 
 		return array(null, $module->translate('From Web Browser'));
 	}
-
 }

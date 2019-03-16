@@ -55,8 +55,9 @@ class DcrawToolkit extends GalleryToolkit {
 				}
 
 				if (isset($toolkit)) {
-					$platform                             =& $gallery->getPlatform();
-					$tempfile                             = $platform->tempnam($gallery->getConfig('data.gallery.tmp'), 'dcrw_');
+					$platform =& $gallery->getPlatform();
+					$tempfile = $platform->tempnam($gallery->getConfig('data.gallery.tmp'), 'dcrw_');
+
 					list($ret, $outputMimeType, $context) = $this->performOperation(
 						'image/x-dcraw',
 						'convert-to-image/x-portable-pixmap',
@@ -78,8 +79,7 @@ class DcrawToolkit extends GalleryToolkit {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-} else {
+				} else {
 					// We have no idea :-(
 					$results = array(0, 0);
 				}
@@ -182,6 +182,5 @@ class DcrawToolkit extends GalleryToolkit {
 			default:
 				return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null, null);
 		}
-
-}
+	}
 }

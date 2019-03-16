@@ -49,8 +49,9 @@ class PathInfoParserTest extends RewriteParserTestCase {
 	}
 
 	public function testHandleTestResultsRequest1() {
-		$form                       = array();
-		$form['force']['test']      = 1;
+		$form                  = array();
+		$form['force']['test'] = 1;
+
 		list($ret, $error, $status) = $this->_parser->handleTestResultsRequest($form);
 
 		if ($ret) {
@@ -68,7 +69,6 @@ class PathInfoParserTest extends RewriteParserTestCase {
 		}
 
 		$this->assertEquals('1', $forced);
-
 		$this->assertEquals(
 			array(
 				'saved' => 1,
@@ -80,7 +80,8 @@ class PathInfoParserTest extends RewriteParserTestCase {
 	}
 
 	public function testHandleTestResultsRequest2() {
-		$form                       = array();
+		$form = array();
+
 		list($ret, $error, $status) = $this->_parser->handleTestResultsRequest($form);
 
 		if ($ret) {
@@ -98,7 +99,6 @@ class PathInfoParserTest extends RewriteParserTestCase {
 		}
 
 		$this->assertEquals('0', $forced);
-
 		$this->assertEquals(
 			array(
 				'saved' => 1,
@@ -126,5 +126,4 @@ class PathInfoParserTest extends RewriteParserTestCase {
 
 		$this->assertFalse($status, 'forced');
 	}
-
 }

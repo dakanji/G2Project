@@ -114,8 +114,7 @@ class GalleryPluginHelper_simple {
 						if ($ret) {
 							return array($ret, null);
 						}
-
-} else {
+					} else {
 						return array(
 							GalleryCoreApi::error(
 								ERROR_BAD_PARAMETER,
@@ -126,8 +125,7 @@ class GalleryPluginHelper_simple {
 							null,
 						);
 					}
-
-}
+				}
 
 				GalleryCoreApi::requireOnce($pluginFile);
 
@@ -142,8 +140,7 @@ class GalleryPluginHelper_simple {
 						null,
 					);
 				}
-
-}
+			}
 
 			$plugin = new $pluginClass();
 
@@ -239,14 +236,12 @@ class GalleryPluginHelper_simple {
 						$plugin,
 					);
 				}
-
-}
+			}
 
 			if ($gallery->getDebug()) {
 				$gallery->debug(sprintf('The version of the %s plugin is ok', $pluginId));
 			}
-
-}
+		}
 
 		return array(null, $plugin);
 	}
@@ -401,8 +396,7 @@ class GalleryPluginHelper_simple {
 
 					continue;
 				}
-
-}
+			}
 
 			$queryIds[] = (int)$itemId;
 		}
@@ -427,6 +421,7 @@ class GalleryPluginHelper_simple {
 	    AND
 	    [GalleryPluginParameterMap::itemId] ' . $whereId;
 		array_unshift($queryIds, $pluginType, $pluginId);
+
 		list($ret, $searchResults) = $gallery->search($query, $queryIds);
 
 		if ($ret) {
@@ -555,11 +550,9 @@ class GalleryPluginHelper_simple {
 									$tmp                            = explode(',', $plugins[$pluginId][$paramName]);
 									$plugins[$pluginId][$paramName] = (count($tmp) < 2) ? array(-1, -1) : array((int)$tmp[0], (int)$tmp[1]);
 								}
-
-}
+							}
 						}
-
-}
+					}
 
 					$platform->closedir($dir);
 				}
@@ -579,8 +572,7 @@ class GalleryPluginHelper_simple {
 
 						unset($plugins[$pluginId]);
 					}
-
-}
+				}
 
 				GalleryDataCache::putToDisk(
 					array(
@@ -653,5 +645,4 @@ class GalleryPluginHelper_simple {
 
 		return array(null, $data);
 	}
-
 }

@@ -57,8 +57,7 @@ class AdminExifController extends GalleryController {
 						$properties[] = $property;
 						$count++;
 					}
-
-}
+				}
 
 				$ret = ExifHelper::setProperties(EXIF_SUMMARY, $properties);
 
@@ -72,8 +71,7 @@ class AdminExifController extends GalleryController {
 			} else {
 				$error[] = 'form[error][available][missing]';
 			}
-
-} elseif (isset($form['action']['availableToDetailed'])) {
+		} elseif (isset($form['action']['availableToDetailed'])) {
 			list($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 
 			if ($ret) {
@@ -88,8 +86,7 @@ class AdminExifController extends GalleryController {
 						$properties[] = $property;
 						$count++;
 					}
-
-}
+				}
 
 				$ret = ExifHelper::setProperties(EXIF_DETAILED, $properties);
 
@@ -103,8 +100,7 @@ class AdminExifController extends GalleryController {
 			} else {
 				$error[] = 'form[error][available][missing]';
 			}
-
-} elseif (isset($form['action']['removeFromSummary'])) {
+		} elseif (isset($form['action']['removeFromSummary'])) {
 			list($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 
 			if ($ret) {
@@ -121,8 +117,7 @@ class AdminExifController extends GalleryController {
 					} else {
 						$count++;
 					}
-
-}
+				}
 
 				$ret = ExifHelper::setProperties(EXIF_SUMMARY, $newProperties);
 
@@ -136,8 +131,7 @@ class AdminExifController extends GalleryController {
 			} else {
 				$error[] = 'form[error][summary][missing]';
 			}
-
-} elseif (isset($form['action']['resetSummary'])) {
+		} elseif (isset($form['action']['resetSummary'])) {
 			$ret = ExifHelper::setDefaultProperties(EXIF_SUMMARY);
 
 			if ($ret) {
@@ -164,8 +158,7 @@ class AdminExifController extends GalleryController {
 					} else {
 						$count++;
 					}
-
-}
+				}
 
 				$ret = ExifHelper::setProperties(EXIF_DETAILED, $newProperties);
 
@@ -179,8 +172,7 @@ class AdminExifController extends GalleryController {
 			} else {
 				$error[] = 'form[error][detailed][missing]';
 			}
-
-} elseif (isset($form['action']['resetDetailed'])) {
+		} elseif (isset($form['action']['resetDetailed'])) {
 			$ret = ExifHelper::setDefaultProperties(EXIF_DETAILED);
 
 			if ($ret) {
@@ -211,11 +203,9 @@ class AdminExifController extends GalleryController {
 								$properties[$i]     = $save;
 								$count++;
 							}
-
-}
+						}
 					}
-
-}
+				}
 
 				$ret = ExifHelper::setProperties(EXIF_SUMMARY, $properties);
 
@@ -229,8 +219,7 @@ class AdminExifController extends GalleryController {
 			} else {
 				$error[] = 'form[error][summary][missing]';
 			}
-
-} elseif (isset($form['action']['moveDownSummary'])) {
+		} elseif (isset($form['action']['moveDownSummary'])) {
 			list($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 
 			if ($ret) {
@@ -251,11 +240,9 @@ class AdminExifController extends GalleryController {
 								$properties[$i]     = $save;
 								$count++;
 							}
-
-}
+						}
 					}
-
-}
+				}
 
 				$ret = ExifHelper::setProperties(EXIF_SUMMARY, $properties);
 
@@ -269,8 +256,7 @@ class AdminExifController extends GalleryController {
 			} else {
 				$error[] = 'form[error][summary][missing]';
 			}
-
-} elseif (isset($form['action']['moveUpDetailed'])) {
+		} elseif (isset($form['action']['moveUpDetailed'])) {
 			list($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 
 			if ($ret) {
@@ -291,11 +277,9 @@ class AdminExifController extends GalleryController {
 								$properties[$i]     = $save;
 								$count++;
 							}
-
-}
+						}
 					}
-
-}
+				}
 
 				$ret = ExifHelper::setProperties(EXIF_DETAILED, $properties);
 
@@ -309,8 +293,7 @@ class AdminExifController extends GalleryController {
 			} else {
 				$error[] = 'form[error][detailed][missing]';
 			}
-
-} elseif (isset($form['action']['moveDownDetailed'])) {
+		} elseif (isset($form['action']['moveDownDetailed'])) {
 			list($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 
 			if ($ret) {
@@ -331,11 +314,9 @@ class AdminExifController extends GalleryController {
 								$properties[$i]     = $save;
 								$count++;
 							}
-
-}
+						}
 					}
-
-}
+				}
 
 				$ret = ExifHelper::setProperties(EXIF_DETAILED, $properties);
 
@@ -349,8 +330,7 @@ class AdminExifController extends GalleryController {
 			} else {
 				$error[] = 'form[error][detailed][missing]';
 			}
-
-} elseif (isset($form['action']['save'])) {
+		} elseif (isset($form['action']['save'])) {
 			$addOption = (isset($form['item']['summary']) ? EXIF_ITEM_SUMMARY : 0) | (isset($form['item']['description']) ? EXIF_ITEM_DESCRIPTION : 0) | (isset($form['item']['keywords']) ? IPTC_ITEM_KEYWORDS : 0) | (isset($form['item']['objectName']) ? IPTC_ITEM_TITLE : 0) | (isset($form['item']['exifrotate']) ? EXIF_ITEM_ROTATE : 0) | (isset($form['item']['exifrotatepreserve']) ? EXIF_ITEM_ROTATE_PRESERVE : 0);
 
 			$ret = GalleryCoreApi::setPluginParameter('module', 'exif', 'addOption', $addOption);
@@ -376,7 +356,6 @@ class AdminExifController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -393,7 +372,8 @@ class AdminExifView extends GalleryView {
 			return array($ret, null);
 		}
 
-		$mode               = GalleryUtilities::getRequestVariables('mode');
+		$mode = GalleryUtilities::getRequestVariables('mode');
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'exif');
 
 		if ($ret) {
@@ -402,7 +382,8 @@ class AdminExifView extends GalleryView {
 
 		if ($form['formName'] != 'AdminExif') {
 			// Load up our form data
-			$form['formName']      = 'AdminExif';
+			$form['formName'] = 'AdminExif';
+
 			list($ret, $addOption) = $module->getParameter('addOption');
 
 			if ($ret) {
@@ -423,7 +404,8 @@ class AdminExifView extends GalleryView {
 		$visibleKeys = array();
 
 		// Prepare the summary list
-		$summaryList     = array();
+		$summaryList = array();
+
 		list($ret, $tmp) = ExifHelper::getProperties(EXIF_SUMMARY);
 
 		if ($ret) {
@@ -435,7 +417,8 @@ class AdminExifView extends GalleryView {
 		}
 
 		// Prepare the detailed list
-		$detailedList    = array();
+		$detailedList = array();
+
 		list($ret, $tmp) = ExifHelper::getProperties(EXIF_DETAILED);
 
 		if ($ret) {
@@ -482,5 +465,4 @@ class AdminExifView extends GalleryView {
 			),
 		);
 	}
-
 }

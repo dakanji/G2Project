@@ -73,8 +73,9 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		}
 
 		// Force translated text to English to make comparisons easier.
-		$translator               =& $gallery->getTranslator();
-		$this->_languageCode      = $translator->_languageCode;
+		$translator          =& $gallery->getTranslator();
+		$this->_languageCode = $translator->_languageCode;
+
 		list($ret, $languageCode) = $translator->init('en');
 
 		if ($ret) {
@@ -112,7 +113,8 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		global $gallery;
 
 		$translator =& $gallery->getTranslator();
-		list($ret)  = $translator->init($this->_languageCode);
+
+		list($ret) = $translator->init($this->_languageCode);
 
 		if ($ret) {
 			$this->failWithStatus($ret);
@@ -125,8 +127,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testGetRecords() {
 		GalleryUtilities::putRequestVariable('command', 'getRecords');
@@ -138,7 +139,6 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 			array('SELECT COUNT(*) FROM [EventLogMap]', array(), array()),
 			array(null, new UnitTestStorageSearchResults(array(array(1))))
 		);
-
 		$this->_storage->setReply(
 			'getMapEntry',
 			array(
@@ -201,7 +201,6 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 			array('SELECT COUNT(*) FROM [EventLogMap]', array(), array()),
 			array(null, new UnitTestStorageSearchResults(array(array(1))))
 		);
-
 		$this->_storage->setReply(
 			'getMapEntry',
 			array(
@@ -386,5 +385,4 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		 */
 		$this->assertEquals('[]', $results);
 	}
-
 }

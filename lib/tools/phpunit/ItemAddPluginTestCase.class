@@ -57,13 +57,13 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function handleRequest(&$item, $errorCode = null) {
 		// Get our form variables
-		$form                       = GalleryUtilities::getFormVariables('form');
-		$this->_addController       = new ItemAddPluginTestItemAddController();
+		$form                 = GalleryUtilities::getFormVariables('form');
+		$this->_addController = new ItemAddPluginTestItemAddController();
+
 		list($ret, $error, $status) = $this->_plugin->handleRequest($form, $item, $this->_addController);
 
 		if (isset($errorCode)) {
@@ -85,8 +85,7 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 					)
 				);
 			}
-
-} elseif ($ret) {
+		} elseif ($ret) {
 			$this->failWithStatus($ret);
 
 			return array($error, $status);
@@ -107,7 +106,6 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 	public function _translate($message) {
 		return $this->_module->translate($message);
 	}
-
 }
 
 /**
@@ -125,5 +123,4 @@ class ItemAddPluginTestItemAddController {
 
 		return null;
 	}
-
 }

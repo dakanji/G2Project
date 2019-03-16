@@ -45,8 +45,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 			if ($ret) {
 				return true;
 			}
-
-}
+		}
 
 		include_once __DIR__ . '/../../modules/core/module.inc';
 		include_once __DIR__ . '/../../modules/core/CoreModuleExtras.inc';
@@ -105,11 +104,9 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 								$versions['core']
 							);
 						}
-
-}
+					}
 				}
-
-} else {
+			} else {
 				$gallery->debug('Unable to selectAdminUser for core upgrade: ' . $ret->getAsText());
 			}
 
@@ -148,8 +145,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 					 */
 					$templateData['isTryingToDowngrade'] = 1;
 				}
-
-}
+			}
 		}
 
 		if ($templateData['canChmod']
@@ -192,5 +188,4 @@ System and Gallery information:
 "
 		);
 	}
-
 }

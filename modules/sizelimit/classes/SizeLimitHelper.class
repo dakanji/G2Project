@@ -121,8 +121,7 @@ class SizeLimitHelper {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -187,10 +186,10 @@ class SizeLimitHelper {
 			if ($ret) {
 				return $ret;
 			}
+		}
 
-}
+		$operationString = $operation . '|' . implode(',', $args);
 
-		$operationString        = $operation . '|' . implode(',', $args);
 		list($ret, $operations) = GalleryCoreApi::mergeDerivativeOperations(
 			$preferred->getDerivativeOperations(),
 			$operationString
@@ -222,8 +221,7 @@ class SizeLimitHelper {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		if ($operation == 'scale') {
 			list($width, $height) = GalleryUtilities::scaleDimensionsToFit(
@@ -238,8 +236,7 @@ class SizeLimitHelper {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -281,14 +278,11 @@ class SizeLimitHelper {
 						if ($ret) {
 							return $ret;
 						}
-
-}
+					}
 				}
-
-}
+			}
 		}
 
 		return null;
 	}
-
 }

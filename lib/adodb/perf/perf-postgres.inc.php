@@ -166,11 +166,9 @@ class perf_postgres extends adodb_perf {
 					if (crc32($sql) == $partial) {
 						break;
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		$sql = str_replace('?', "''", $sql);
 		$s   = '<p><b>Explain</b>: ' . htmlspecialchars($sql) . '</p>';
@@ -186,13 +184,11 @@ class perf_postgres extends adodb_perf {
 
 				$rs->MoveNext();
 			}
-
-}
+		}
 
 		$s .= '</pre>';
 		$s .= $this->Tracer($sql, $partial);
 
 		return $s;
 	}
-
 }

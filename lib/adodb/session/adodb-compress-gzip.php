@@ -47,8 +47,7 @@ class ADODB_Compress_Gzip {
 		if (null !== $min_length) {
 			$this->setMinLength($min_length);
 		}
-
-}
+	}
 
 	public function write($data, $key) {
 		if (strlen($data) < $this->_min_length) {
@@ -65,7 +64,6 @@ class ADODB_Compress_Gzip {
 	public function read($data, $key) {
 		return $data ? gzuncompress($data) : $data;
 	}
-
 }
 
 return 1;

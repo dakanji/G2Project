@@ -207,8 +207,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testEditThumbnail() {
 		// Use valid inputs
@@ -373,8 +372,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 			if ($lTest !== false) {
 				break;
 			}
-
-}
+		}
 
 		if (empty($newLocale)) {
 			return $this->assertFalse(true, 'Unable to select German locale');
@@ -407,7 +405,6 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 
 		setlocale(LC_ALL, $currentLocale);
 	}
-
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryUnknownItem.class');
@@ -438,7 +435,6 @@ class ItemEditPhotoThumbnailTestItem extends GalleryUnknownItem {
 	public function getClassName() {
 		return 'ItemEditPhotoThumbnailTestItem';
 	}
-
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
@@ -474,5 +470,4 @@ class ItemEditPhotoThumbnailPluginTestToolkit extends GalleryToolkit {
 
 		return array(null, $mimeType, $context);
 	}
-
 }

@@ -27,7 +27,6 @@ class ADODB_oci8quercus extends ADODB_oci8 {
 	public $dataProvider = 'oci8';
 
 	public function __construct() {}
-
 }
 
 /*--------------------------------------------------------------------------------------
@@ -62,8 +61,7 @@ class ADORecordset_oci8quercus extends ADORecordset_oci8 {
 
 					break;
 			}
-
-} else {
+		} else {
 			$fieldOffset    += 1;
 			$fld->name       = oci_field_name($this->_queryID, $fieldOffset);
 			$fld->type       = oci_field_type($this->_queryID, $fieldOffset);
@@ -93,5 +91,4 @@ class ADORecordset_oci8quercus extends ADORecordset_oci8 {
 
 		return $fld;
 	}
-
 }

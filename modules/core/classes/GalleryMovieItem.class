@@ -152,7 +152,6 @@ class GalleryMovieItem extends GalleryDataItem {
 		$this->setWidth(0);
 		$this->setHeight(0);
 		$this->setDuration(0);
-
 		// We're linkable
 		$this->setIsLinkable(true);
 
@@ -191,7 +190,8 @@ class GalleryMovieItem extends GalleryDataItem {
 			return $ret;
 		}
 
-		$mimeType            = $this->getMimeType();
+		$mimeType = $this->getMimeType();
+
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions-and-duration');
 
 		if ($ret) {
@@ -216,8 +216,7 @@ class GalleryMovieItem extends GalleryDataItem {
 				} else {
 					return $ret;
 				}
-
-}
+			}
 
 			$this->setWidth($dimensions[0]);
 			$this->setHeight($dimensions[1]);
@@ -239,8 +238,7 @@ class GalleryMovieItem extends GalleryDataItem {
 			if (!$ret) {
 				return array($core->translate('Movie'), $core->translate('movie'));
 			}
-
-}
+		}
 
 		return array('Movie', 'movie');
 	}
@@ -343,8 +341,7 @@ class GalleryMovieItem extends GalleryDataItem {
 			default:
 				return null;
 		}
-
-}
+	}
 
 	/**
 	 * @see GalleryEntity::getClassName
@@ -376,5 +373,4 @@ class GalleryMovieItem extends GalleryDataItem {
 	public function setDuration($duration) {
 		$this->duration = $duration;
 	}
-
 }

@@ -47,5 +47,4 @@ class StatusTest extends GalleryTestCase {
 
 		$this->assertEquals(sort($expected), sort($codes));
 	}
-
 }

@@ -94,7 +94,6 @@ class DeleteCommentController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -135,7 +134,8 @@ class DeleteCommentView extends GalleryView {
 		}
 
 		// Associate the commenter's info
-		$commenterId           = $comment->getCommenterId();
+		$commenterId = $comment->getCommenterId();
+
 		list($ret, $commenter) = GalleryCoreApi::loadEntitiesById($commenterId, 'GalleryUser');
 
 		if ($ret) {
@@ -161,5 +161,4 @@ class DeleteCommentView extends GalleryView {
 			),
 		);
 	}
-
 }

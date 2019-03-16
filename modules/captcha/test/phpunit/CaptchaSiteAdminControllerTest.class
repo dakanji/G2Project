@@ -56,8 +56,7 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testSave() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -236,7 +235,6 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(3, (int)$params['failedAttemptThreshold'], 'threshold');
 		$this->assertEquals('HIGH', $params['unittest.level'], 'level 1');
 		$this->assertEquals('LOW', $params['unittest.2.level'], 'level 2');
-
 		CaptchaAdminOption::getMe()->delTestOptions();
 	}
 
@@ -263,7 +261,6 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		CaptchaAdminOption::getMe()->delTestOptions();
 	}
-
 }
 
 GalleryCoreApi::requireOnce('modules/captcha/CaptchaSiteAdmin.inc');
@@ -301,5 +298,4 @@ class CaptchaSiteAdminTestOption extends CaptchaAdminOption {
 			array('HIGH', 'LOW'),
 		);
 	}
-
 }

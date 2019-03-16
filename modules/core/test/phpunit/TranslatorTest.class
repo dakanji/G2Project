@@ -71,8 +71,7 @@ class TranslatorTest extends GalleryTestCase {
 
 			$this->assertEquals($value, $actual, $param);
 		}
-
-}
+	}
 
 	public function tearDown() {
 		global $gallery;
@@ -93,8 +92,7 @@ class TranslatorTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testGetLanguageCodeFromRequest() {
 		global $gallery;
@@ -121,7 +119,8 @@ class TranslatorTest extends GalleryTestCase {
 		// Init with a null language code and a valid accept language
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de_DE';
 		$translator                      = GalleryTranslator::getMe();
-		list($ret, $languageCode)        = $translator->init();
+
+		list($ret, $languageCode) = $translator->init();
 
 		if ($ret) {
 			return $ret;
@@ -171,8 +170,7 @@ class TranslatorTest extends GalleryTestCase {
 		} else {
 			$this->assertEquals($origLang, getenv('LANG'), 'valid init, lang unchanged');
 		}
-
-}
+	}
 
 	// Use the Gallery::initTranslator method and make sure the activeLanguageCode has changed
 	public function testGetLanguageCodeFromRequest2() {
@@ -382,8 +380,7 @@ class TranslatorTest extends GalleryTestCase {
 		} else {
 			$this->assertEquals('Create', $results);
 		}
-
-}
+	}
 
 	public function testTranslatePlural() {
 		global $gallery;
@@ -431,12 +428,10 @@ class TranslatorTest extends GalleryTestCase {
 			} else {
 				$this->assertEquals('2 usuario coincide con su filtro', $results);
 			}
-
-} else {
+		} else {
 			$this->assertEquals('2 users match your filter', $results);
 		}
-
-}
+	}
 
 	public function testTranslateCharset() {
 		global $gallery;
@@ -458,11 +453,11 @@ class TranslatorTest extends GalleryTestCase {
 		} else {
 			$this->assertEquals('Album', $results);
 		}
-
-}
+	}
 
 	public function testComment() {
-		$translator               = GalleryTranslator::getMe();
+		$translator = GalleryTranslator::getMe();
+
 		list($ret, $languageCode) = $translator->init('en_US');
 
 		if ($ret) {
@@ -484,7 +479,8 @@ class TranslatorTest extends GalleryTestCase {
 
 	public function testApiChange() {
 		// Core API 7.10 now allows simple string param, and 'args' array insead of 'arg1', etc
-		$translator               = GalleryTranslator::getMe();
+		$translator = GalleryTranslator::getMe();
+
 		list($ret, $languageCode) = $translator->init('en_US');
 
 		if ($ret) {
@@ -551,6 +547,7 @@ class TranslatorTest extends GalleryTestCase {
 		$poPath     = "${modulePath}po/";
 
 		$platform->setReply('glob', array("${poPath}*.mo", null), array());
+
 		$platform->setReply(
 			'glob',
 			array("${modulePath}locale/*/LC_MESSAGES/*.mo", null),
@@ -589,11 +586,17 @@ class TranslatorTest extends GalleryTestCase {
 
 		// This next block is what GalleryUtilities::guaranteeDirExists requires
 		$platform->setReply('file_exists', array('/g2data/locale/aa/LC_MESSAGES/'), false);
+
 		$platform->setReply('file_exists', array('/g2data/locale/aa/LC_MESSAGES/'), false);
+
 		$platform->setReply('file_exists', array('/g2data/locale/aa'), false);
+
 		$platform->setReply('file_exists', array('/g2data/locale'), false);
+
 		$platform->setReply('file_exists', array('/g2data'), true);
+
 		$platform->setReply('is_dir', array('/g2data'), true);
+
 		$platform->setReply('mkdir', array('/g2data/locale', 755), true);
 		$platform->setReply('mkdir', array('/g2data/locale/aa', 755), true);
 		$platform->setReply('mkdir', array('/g2data/locale/aa/LC_MESSAGES/', 755), true);
@@ -655,21 +658,25 @@ class TranslatorTest extends GalleryTestCase {
 			array("${codeBase}modules/*/po", null),
 			array("${codeBase}modules/test/po")
 	);
+
 		$platform->setReply(
 			'file_exists',
 			array('/g2data/locale/wx_YZ/LC_MESSAGES/modules_test.mo'),
 			false
 	);
+
 		$platform->setReply(
 			'file_exists',
 			array("${codeBase}modules/test/po/wx_YZ.mo"),
 			false
 	);
+
 		$platform->setReply(
 			'file_exists',
 			array('/g2data/locale/wx/LC_MESSAGES/modules_test.mo'),
 			false
 	);
+
 		$platform->setReply(
 			'file_exists',
 			array("${codeBase}modules/test/po/wx.mo"),
@@ -678,18 +685,26 @@ class TranslatorTest extends GalleryTestCase {
 
 		// This next block is what GalleryUtilities::guaranteeDirExists requires
 		$platform->setReply('file_exists', array('/g2data/locale/wx/LC_MESSAGES/'), false);
+
 		$platform->setReply('file_exists', array('/g2data/locale/wx/LC_MESSAGES/'), false);
+
 		$platform->setReply('file_exists', array('/g2data/locale/wx'), false);
+
 		$platform->setReply('file_exists', array('/g2data/locale'), true);
+
 		$platform->setReply('is_dir', array('/g2data/locale'), true);
+
 		$platform->setReply('mkdir', array('/g2data/locale/wx', 755), true);
+
 		$platform->setReply('mkdir', array('/g2data/locale/wx/LC_MESSAGES/', 755), true);
+
 		$platform->setReply(
 			'copy',
 			array("${codeBase}modules/test/po/wx.mo",
 			  '/g2data/locale/wx/LC_MESSAGES/modules_test.mo', ),
 			true
 	);
+
 		$platform->setReply(
 			'glob',
 			array("${codeBase}themes/*/po", null),
@@ -826,5 +841,4 @@ class TranslatorTest extends GalleryTestCase {
 			'en_GB'
 	);
 	}
-
 }

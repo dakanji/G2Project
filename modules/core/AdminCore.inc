@@ -101,12 +101,10 @@ class AdminCoreController extends GalleryController {
 					} else {
 						$error[] = 'form[error][cookie][invalidPath]';
 					}
-
-} else {
+				} else {
 					$form['cookie']['path'] = '';
 				}
-
-}
+			}
 
 			if (isset($form['cookie']['domain'])) {
 				// It should either be empty or a substring of the request-host
@@ -128,12 +126,10 @@ class AdminCoreController extends GalleryController {
 					} else {
 						$error[] = 'form[error][cookie][invalidDomain]';
 					}
-
-} else {
+				} else {
 					$form['cookie']['domain'] = '';
 				}
-
-}
+			}
 		}
 
 		if (isset($form['action']['emailTest'])) {
@@ -147,8 +143,7 @@ class AdminCoreController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		if ($canSave && empty($error)) {
@@ -187,8 +182,7 @@ class AdminCoreController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 			}
 
 			if (isset($form['smtp']['password'])
@@ -206,8 +200,7 @@ class AdminCoreController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 
 			$status['saved']     = 1;
 			$redirect['view']    = 'core.SiteAdmin';
@@ -239,8 +232,7 @@ class AdminCoreController extends GalleryController {
 			} else {
 				$status['emailTestSuccess'] = 1;
 			}
-
-} elseif (isset($form['action']['reset'])) {
+		} elseif (isset($form['action']['reset'])) {
 			// Redirect back to the same view to reset the form
 			$redirect['view']    = 'core.SiteAdmin';
 			$redirect['subView'] = 'core.AdminCore';
@@ -258,7 +250,6 @@ class AdminCoreController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -444,5 +435,4 @@ class AdminCoreView extends GalleryView {
 			),
 		);
 	}
-
 }

@@ -109,8 +109,7 @@ function smarty_function_html_table($params, &$smarty) {
 
 				break;
 		}
-
-}
+	}
 
 	$loop_count = count($loop);
 
@@ -122,8 +121,7 @@ function smarty_function_html_table($params, &$smarty) {
 			// no cols specified, but rows
 			$cols_count = ceil($loop_count / $rows);
 		}
-
-}
+	}
 
 	$output = "<table $table_attr>\n";
 
@@ -163,8 +161,7 @@ function smarty_function_html_table($params, &$smarty) {
 			} else {
 				$output .= '<td' . smarty_function_html_table_cycle('td', $td_attr, $c) . ">$trailpad</td>\n";
 			}
-
-}
+		}
 
 		$output .= "</tr>\n";
 	}

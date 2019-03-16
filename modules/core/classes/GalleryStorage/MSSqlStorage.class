@@ -68,8 +68,7 @@ class MSSqlStorage extends GalleryStorage {
 			} else {
 				return array();
 			}
-
-}
+		}
 
 		if (version_compare($this->_serverInfo, '9.0', '<')) {
 			return array(
@@ -234,5 +233,4 @@ class MSSqlStorage extends GalleryStorage {
 	public function decodeBlob($blob) {
 		return stripcslashes($blob);
 	}
-
 }

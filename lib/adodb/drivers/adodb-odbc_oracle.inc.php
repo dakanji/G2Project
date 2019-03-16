@@ -22,10 +22,8 @@ if (!defined('_ADODB_ODBC_LAYER')) {
 }
 
 class ADODB_odbc_oracle extends ADODB_odbc {
-	public $databaseType = 'odbc_oracle';
-
-	// string to use to replace quotes
-	public $replaceQuote    = "''";
+	public $databaseType    = 'odbc_oracle';
+	public $replaceQuote    = "''"; // string to use to replace quotes
 	public $concat_operator = '||';
 	public $fmtDate         = "'Y-m-d 00:00:00'";
 	public $fmtTimeStamp    = "'Y-m-d h:i:sA'";
@@ -68,8 +66,7 @@ class ADODB_odbc_oracle extends ADODB_odbc {
 
 		$retarr = array();
 
-		while (!$rs->EOF) {
-			//print_r($rs->fields);
+		while (!$rs->EOF) { //print_r($rs->fields);
 			$fld             = new ADOFieldObject();
 			$fld->name       = $rs->fields[0];
 			$fld->type       = $rs->fields[1];
@@ -110,7 +107,6 @@ class ADODB_odbc_oracle extends ADODB_odbc {
 		//if ($this->_connectionID) odbc_autocommit($this->_connectionID,true);
 		return $this->_connectionID != false;
 	}
-
 }
 
 class ADORecordSet_odbc_oracle extends ADORecordSet_odbc {
@@ -119,5 +115,4 @@ class ADORecordSet_odbc_oracle extends ADORecordSet_odbc {
 	public function __construct($id, $mode = false) {
 		return parent::__construct($id, $mode);
 	}
-
 }

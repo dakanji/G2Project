@@ -44,8 +44,7 @@ class UserSelfRegistrationController extends GalleryController {
 				if (empty($form[$key])) {
 					$error[] = 'form[error][' . $key . '][missing]';
 				}
-
-}
+			}
 
 			if (!empty($form['email']) && !GalleryUtilities::isValidEmailString($form['email'])) {
 				$error[] = 'form[error][email][invalid]';
@@ -83,8 +82,7 @@ class UserSelfRegistrationController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 			}
 
 			// Let each plugin do its verification
@@ -100,8 +98,7 @@ class UserSelfRegistrationController extends GalleryController {
 				if (!$continue) {
 					break;
 				}
-
-}
+			}
 
 			// If all the right fields are in place then go ahead and create the user
 			if (empty($error)) {
@@ -127,7 +124,6 @@ class UserSelfRegistrationController extends GalleryController {
 				} else {
 					$user->setEmail($form['email']);
 					$user->setFullName($form['fullName']);
-
 					GalleryUtilities::unsanitizeInputValues($form['password1'], false);
 
 					$user->changePassword($form['password1']);
@@ -165,9 +161,7 @@ class UserSelfRegistrationController extends GalleryController {
 						if ($ret) {
 							return array($ret, null);
 						}
-
-} else {
-						// confirmation == 'admin'
+					} else { // confirmation == 'admin'
 						$redirect['pending'] = true;
 					}
 
@@ -177,15 +171,13 @@ class UserSelfRegistrationController extends GalleryController {
 						if ($ret) {
 							return array($ret, null);
 						}
-
-}
+					}
 
 					// Request a redirect to the confirmation screen
 					$redirect['view']    = 'core.UserAdmin';
 					$redirect['subView'] = 'register.SelfRegistrationSuccess';
 				}
-
-}
+			}
 		}
 
 		if (!empty($redirect)) {
@@ -211,7 +203,6 @@ class UserSelfRegistrationController extends GalleryController {
 	public function setPluginInstances($pluginInstances) {
 		$this->_pluginInstances = $pluginInstances;
 	}
-
 }
 
 /**
@@ -258,8 +249,7 @@ class UserSelfRegistrationView extends GalleryView {
 			if (isset($data['file'])) {
 				$UserSelfRegistration['plugins'][] = $data;
 			}
-
-}
+		}
 
 		$template->setVariable('UserSelfRegistration', $UserSelfRegistration);
 		$template->setVariable('controller', 'register.UserSelfRegistration');
@@ -271,5 +261,4 @@ class UserSelfRegistrationView extends GalleryView {
 			),
 		);
 	}
-
 }

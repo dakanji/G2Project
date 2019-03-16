@@ -29,10 +29,8 @@ class ADODB_informix extends ADODB_informix72 {
 	public $ansiOuter    = true;
 
 	public function IfNull($field, $ifNull) {
-		// if Informix 9.X or 10.X
-		return " NVL($field, $ifNull) ";
+		return " NVL($field, $ifNull) "; // if Informix 9.X or 10.X
 	}
-
 }
 
 class ADORecordset_informix extends ADORecordset_informix72 {
@@ -41,5 +39,4 @@ class ADORecordset_informix extends ADORecordset_informix72 {
 	public function __construct($id, $mode = false) {
 		parent::__construct($id, $mode);
 	}
-
 }

@@ -51,8 +51,7 @@ class GalleryPermissionHelper_simple {
 			} else {
 				$aclIds = array_intersect($aclIds, $requiredAclIds);
 			}
-
-}
+		}
 
 		return array(null, $aclIds);
 	}
@@ -85,17 +84,18 @@ class GalleryPermissionHelper_simple {
 				if (!empty($sessionEntityIds)) {
 					$groupIds = array_merge($groupIds, $sessionEntityIds);
 				}
+			}
 
-}
+			$entityIdMarkers = GalleryUtilities::makeMarkers(count($groupIds) + 1);
 
-			$entityIdMarkers  = GalleryUtilities::makeMarkers(count($groupIds) + 1);
 			list($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits($permission);
 
 			if ($ret) {
 				return array($ret, null);
 			}
 
-			$storage                      =& $gallery->getStorage();
+			$storage =& $gallery->getStorage();
+
 			list($ret, $bitAndPermission) = $storage->getFunctionSql('BITAND', array('[GalleryAccessMap::permission]', '?'));
 
 			if ($ret) {
@@ -113,11 +113,12 @@ class GalleryPermissionHelper_simple {
 			' . $bitAndPermission . ' = ?
 			';
 
-			$storage             =& $gallery->getStorage();
-			$data                = array((int)$userId);
-			$data                = array_merge($data, $groupIds);
-			$data[]              = $storage->convertIntToBits($bits);
-			$data[]              = $storage->convertIntToBits($bits);
+			$storage =& $gallery->getStorage();
+			$data    = array((int)$userId);
+			$data    = array_merge($data, $groupIds);
+			$data[]  = $storage->convertIntToBits($bits);
+			$data[]  = $storage->convertIntToBits($bits);
+
 			list($ret, $results) = $gallery->search($query, $data);
 
 			if ($ret) {
@@ -201,7 +202,8 @@ class GalleryPermissionHelper_simple {
 		$cacheKey = 'GalleryPermissionHelper::_allPermissions';
 
 		if (!GalleryDataCache::containsKey($cacheKey)) {
-			$permissions               = array();
+			$permissions = array();
+
 			list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 				'GalleryPermissionSetMap',
 				array('module', 'permission', 'description', 'bits', 'flags')
@@ -289,8 +291,7 @@ class GalleryPermissionHelper_simple {
 		}
 
 		if (null === $userId) {
-			// default user id
-			$userId = $gallery->getActiveUserId();
+			$userId = $gallery->getActiveUserId(); // default user id
 		}
 
 		$sessionPermissions = (int)$sessionPermissions;
@@ -314,7 +315,8 @@ class GalleryPermissionHelper_simple {
 			return array(null, $permTable);
 		}
 
-		$itemIdMarkers        = GalleryUtilities::makeMarkers(count($itemIds));
+		$itemIdMarkers = GalleryUtilities::makeMarkers(count($itemIds));
+
 		list($ret, $groupIds) = GalleryCoreApi::fetchGroupsForUser($userId);
 
 		if ($ret) {
@@ -331,12 +333,12 @@ class GalleryPermissionHelper_simple {
 			if (!empty($sessionEntityIds)) {
 				$groupIds = array_merge($groupIds, $sessionEntityIds);
 			}
+		}
 
-}
+		$entityIdMarkers = GalleryUtilities::makeMarkers(count($groupIds) + 1);
+		$groupBy         = 'GROUP BY [GalleryAccessSubscriberMap::itemId]';
+		$storage         =& $gallery->getStorage();
 
-		$entityIdMarkers   = GalleryUtilities::makeMarkers(count($groupIds) + 1);
-		$groupBy           = 'GROUP BY [GalleryAccessSubscriberMap::itemId]';
-		$storage           =& $gallery->getStorage();
 		list($ret, $bitOr) = $storage->getFunctionSql(
 			'BIT_OR',
 			array(
@@ -353,8 +355,7 @@ class GalleryPermissionHelper_simple {
 			} else {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		$query  = '
 		SELECT
@@ -372,6 +373,7 @@ class GalleryPermissionHelper_simple {
 		$data   = $itemIds;
 		$data[] = (int)$userId;
 		array_splice($data, count($data), 0, $groupIds);
+
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
@@ -397,8 +399,7 @@ class GalleryPermissionHelper_simple {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-} else {
+			} else {
 				$permissions = array();
 			}
 
@@ -410,8 +411,7 @@ class GalleryPermissionHelper_simple {
 				if ($userId == $gallery->getActiveUserId()) {
 					GalleryDataCache::cachePermissions($itemId, $permission['id']);
 				}
-
-}
+			}
 
 			// Cache the permissions in memory.
 			$cacheKey = "GalleryPermissionHelper::getPermissions($itemId,$userId,$sessionPermissions)";
@@ -477,8 +477,7 @@ class GalleryPermissionHelper_simple {
 
 							$leftoverBits &= ~$permission['bits'];
 						}
-
-}
+					}
 				}
 
 				/*
@@ -503,14 +502,11 @@ class GalleryPermissionHelper_simple {
 									if ($leftoverBits == 0) {
 										break;
 									}
-
-}
+								}
 							}
-
-}
+						}
 					}
-
-}
+				}
 			} else {
 				foreach ($allPermissions as $id => $permission) {
 					if (($permission['bits'] & $permissionBits) == $permission['bits']) {
@@ -520,8 +516,7 @@ class GalleryPermissionHelper_simple {
 							'description' => $permission['description'],
 						);
 					}
-
-}
+				}
 			}
 
 			GalleryDataCache::put($cacheKey, $results);
@@ -569,8 +564,7 @@ class GalleryPermissionHelper_simple {
 				// fetchPermissionsForItems already caches all hits, cache misses here too.
 				GalleryDataCache::put($cacheKey, array());
 			}
-
-}
+		}
 
 		return array(null, $permissions);
 	}
@@ -592,6 +586,5 @@ class GalleryPermissionHelper_simple {
 		if (!in_array($entityId, $sessionPerms)) {
 			$sessionPerms[] = (int)$entityId;
 		}
-
-}
+	}
 }

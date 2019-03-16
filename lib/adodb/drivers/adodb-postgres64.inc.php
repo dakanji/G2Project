@@ -52,8 +52,7 @@ function adodb_addslashes($s) {
 	}
 
 	if (strncmp($s, "'", 1) === 0 && substr($s, $len - 1) == "'") {
-		// already quoted
-		return $s;
+		return $s; // already quoted
 	}
 
 	return "'" . addslashes($s) . "'";
@@ -73,8 +72,7 @@ class ADODB_postgres64 extends ADOConnection {
 		select viewname,'V' from pg_views where viewname not like 'pg\_%'";
 
 	//"select tablename from pg_tables where tablename not like 'pg_%' order by 1";
-	// accepts dates in ISO format
-	public $isoDates       = true;
+	public $isoDates       = true; // accepts dates in ISO format
 	public $sysDate        = 'CURRENT_DATE';
 	public $sysTimeStamp   = 'CURRENT_TIMESTAMP';
 	public $blobEncodeType = 'C';
@@ -98,44 +96,25 @@ class ADODB_postgres64 extends ADOConnection {
 		AND (i.indkey[0] = a.attnum OR i.indkey[1] = a.attnum OR i.indkey[2] = a.attnum OR i.indkey[3] = a.attnum OR i.indkey[4] = a.attnum OR i.indkey[5] = a.attnum OR i.indkey[6] = a.attnum OR i.indkey[7] = a.attnum)
 		AND a.attrelid = bc.oid AND bc.relname = '%s'";
 	public $hasAffectedRows = true;
-
-	// set to true for pgsql 7 only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
-	public $hasLimit = false;
-
+	public $hasLimit        = false;  // set to true for pgsql 7 only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
 	// below suggested by Freek Dijkstra
-	// string that represents TRUE for a database
-	public $true = 'TRUE';
-
-	// string that represents FALSE for a database
-	public $false = 'FALSE';
-
-	// used by DBDate() as the default date format used by the database
-	public $fmtDate = "'Y-m-d'";
-
-	// used by DBTimeStamp as the default timestamp fmt.
-	public $fmtTimeStamp    = "'Y-m-d H:i:s'";
+	public $true            = 'TRUE';     // string that represents TRUE for a database
+	public $false           = 'FALSE';       // string that represents FALSE for a database
+	public $fmtDate         = "'Y-m-d'";   // used by DBDate() as the default date format used by the database
+	public $fmtTimeStamp    = "'Y-m-d H:i:s'"; // used by DBTimeStamp as the default timestamp fmt.
 	public $hasMoveFirst    = true;
 	public $hasGenID        = true;
 	public $_genIDSQL       = "SELECT NEXTVAL('%s')";
 	public $_genSeqSQL      = 'CREATE SEQUENCE %s START %s';
 	public $_dropSeqSQL     = 'DROP SEQUENCE %s';
 	public $metaDefaultsSQL = "SELECT d.adnum as num, d.adsrc as def from pg_attrdef d, pg_class c where d.adrelid=c.oid and c.relname='%s' order by d.adnum";
-
-	/// random function
-	public $random = 'random()';
-
-	// apparently pgsql does not autorollback properly before php 4.3.4
-	public $autoRollback = true;
-
-	// http://bugs.php.net/bug.php?id=25404
-	public $uniqueIisR = true;
-
-	// requires postgresql 7.3+ and ability to modify database
-	public $_bindInputArray = false;
-
-	// set to true to disable blob checking, resulting in 2-5% improvement in performance.
-	public $disableBlobs = false;
-	public $_pnum        = 0;
+	public $random          = 'random()';       /// random function
+	public $autoRollback    = true; // apparently pgsql does not autorollback properly before php 4.3.4
+							// http://bugs.php.net/bug.php?id=25404
+	public $uniqueIisR      = true;
+	public $_bindInputArray = false; // requires postgresql 7.3+ and ability to modify database
+	public $disableBlobs    = false; // set to true to disable blob checking, resulting in 2-5% improvement in performance.
+	public $_pnum           = 0;
 
 	// The last (fmtTimeStamp is not entirely correct:
 	// PostgreSQL also has support for time zones,
@@ -175,8 +154,7 @@ class ADODB_postgres64 extends ADOConnection {
 			if (isset($arr[0])) {
 				return $arr[0];
 			}
-
-}
+		}
 
 		return false;
 	}
@@ -278,8 +256,7 @@ class ADODB_postgres64 extends ADOConnection {
 					union
 					select viewname,'V' from pg_views where viewname like $mask";
 			}
-
-}
+		}
 
 		$ret = ADOConnection::MetaTables($ttype, $showSchema);
 
@@ -412,8 +389,7 @@ class ADODB_postgres64 extends ADOConnection {
 					} else {
 						$s .= '"' . $ch . '"';
 					}
-
-}
+			}
 		}
 
 		return $s . "')";
@@ -485,6 +461,7 @@ class ADODB_postgres64 extends ADOConnection {
 	 *
 	 * Since adodb 4.54, this returns the blob, instead of sending it to stdout. Also
 	 * added maxsize parameter, which defaults to $db->maxblobsize if not defined.
+
 	 */
 	public function BlobDecode($blob, $maxsize = false, $hastrans = true) {
 		if (!$this->GuessOID($blob)) {
@@ -520,11 +497,11 @@ class ADODB_postgres64 extends ADOConnection {
 	}
 
 	/*
-			See http://www.postgresql.org/idocs/index.php?datatype-binary.html
-			NOTE: SQL string literals (input strings) must be preceded with two backslashes
-			due to the fact that they must pass through two parsers in the PostgreSQL
-			backend.
-		*/
+		See http://www.postgresql.org/idocs/index.php?datatype-binary.html
+		NOTE: SQL string literals (input strings) must be preceded with two backslashes
+		due to the fact that they must pass through two parsers in the PostgreSQL
+		backend.
+	*/
 	public function BlobEncode($blob) {
 		if (ADODB_PHPVER >= 0x5200) {
 			return pg_escape_bytea($this->_connectionID, $blob);
@@ -535,8 +512,7 @@ class ADODB_postgres64 extends ADOConnection {
 		}
 
 		// 92=backslash, 0=null, 39=single-quote
-		// \  null  '
-		$badch = array(chr(92), chr(0), chr(39));
+		$badch = array(chr(92), chr(0), chr(39)); // \  null  '
 		$fixch = array('\\\\134', '\\\\000', '\\\\047');
 
 		return adodb_str_replace($badch, $fixch, $blob);
@@ -565,8 +541,7 @@ class ADODB_postgres64 extends ADOConnection {
 			} else {
 				$date = 'timestamp ' . $date;
 			}
-
-}
+		}
 
 		return "($date+interval'" . ($dayFraction * 1440) . " minutes')";
 
@@ -661,8 +636,7 @@ class ADODB_postgres64 extends ADOConnection {
 					$num = $rsdef->fields['num'];
 					$s   = $rsdef->fields['def'];
 
-					if (strpos($s, '::') === false && substr($s, 0, 1) == "'") {
-						// quoted strings hack... for now... fixme
+					if (strpos($s, '::') === false && substr($s, 0, 1) == "'") { // quoted strings hack... for now... fixme
 						$s = substr($s, 1);
 						$s = substr($s, 0, strlen($s) - 1);
 					}
@@ -671,8 +645,7 @@ class ADODB_postgres64 extends ADOConnection {
 
 					$rsdef->MoveNext();
 				}
-
-} else {
+			} else {
 				ADOConnection::outp('==> SQL => ' . $sql);
 			}
 
@@ -720,11 +693,9 @@ class ADODB_postgres64 extends ADOConnection {
 					}
 
 					if ($fld->name == $key['column_name'] and $key['unique_key'] == 't') {
-						// What name is more compatible?
-						$fld->unique = true;
+						$fld->unique = true; // What name is more compatible?
 					}
-
-}
+				}
 			}
 
 			if ($ADODB_FETCH_MODE == ADODB_FETCH_NUM) {
@@ -763,8 +734,7 @@ class ADODB_postgres64 extends ADOConnection {
 
 		$this->_findschema($table, $schema);
 
-		if ($schema) {
-			// requires pgsql 7.3+ - pg_namespace used.
+		if ($schema) { // requires pgsql 7.3+ - pg_namespace used.
 			$sql = '
 				SELECT c.relname as "Name", i.indisunique as "Unique", i.indkey as "Columns"
 				FROM pg_catalog.pg_class c
@@ -866,8 +836,7 @@ class ADODB_postgres64 extends ADOConnection {
 				} elseif (!empty($this->port)) {
 					$str .= ' port=' . $this->port;
 				}
-
-}
+			}
 
 			if ($user) {
 				$str .= ' user=' . $user;
@@ -880,16 +849,13 @@ class ADODB_postgres64 extends ADOConnection {
 			if ($db) {
 				$str .= ' dbname=' . $db;
 			}
-
-}
+		}
 
 		//if ($user) $linea = "user=$user host=$linea password=$pwd dbname=$db port=5432";
-		if ($ctype === 1) {
-			// persistent
+		if ($ctype === 1) { // persistent
 			$this->_connectionID = pg_pconnect($str);
 		} else {
-			if ($ctype === -1) {
-				// nconnect, we trick pgsql ext by changing the connection str
+			if ($ctype === -1) { // nconnect, we trick pgsql ext by changing the connection str
 				static $ncnt;
 
 				if (empty($ncnt)) {
@@ -912,8 +878,7 @@ class ADODB_postgres64 extends ADOConnection {
 		$info            = $this->ServerInfo();
 		$this->pgVersion = (float)substr($info['version'], 0, 3);
 
-		if ($this->pgVersion >= 7.1) {
-			// good till version 999
+		if ($this->pgVersion >= 7.1) { // good till version 999
 			$this->_nestedSQL = true;
 		}
 
@@ -966,12 +931,10 @@ class ADODB_postgres64 extends ADOConnection {
 					if (strncmp($v, "'", 1) !== 0) {
 						$execp .= $this->qstr($v);
 					}
-
-} else {
+				} else {
 					$execp .= $v;
 				}
-
-}
+			}
 
 			if ($execp) {
 				$exsql = "EXECUTE $plan ($execp)";
@@ -997,8 +960,7 @@ class ADODB_postgres64 extends ADOConnection {
 					} else {
 						$params .= 'REAL';
 					}
-
-}
+				}
 
 				$sqlarr = explode('?', $sql);
 
@@ -1022,8 +984,7 @@ class ADODB_postgres64 extends ADOConnection {
 			if ($rez) {
 				$rez = pg_execute($this->_connectionID, $exsql);
 			}
-
-} else {
+		} else {
 			//adodb_backtrace();
 			$rez = pg_query($this->_connectionID, $sql);
 		}
@@ -1063,23 +1024,20 @@ class ADODB_postgres64 extends ADOConnection {
 				if ($this->_errorMsg) {
 					return $this->_errorMsg;
 				}
-
-}
+			}
 
 			if (!empty($this->_connectionID)) {
 				$this->_errorMsg = @pg_last_error($this->_connectionID);
 			} else {
 				$this->_errorMsg = $this->_errconnect();
 			}
-
-} else {
+		} else {
 			if (empty($this->_connectionID)) {
 				$this->_errconnect();
 			} else {
 				$this->_errorMsg = @pg_errormessage($this->_connectionID);
 			}
-
-}
+		}
 
 		return $this->_errorMsg;
 	}
@@ -1115,16 +1073,13 @@ class ADODB_postgres64 extends ADOConnection {
 
 	// Maximum size of C field
 	public function CharMax() {
-		// should be 1 Gb?
-		return 1000000000;
+		return 1000000000;  // should be 1 Gb?
 	}
 
 	// Maximum size of X field
 	public function TextMax() {
-		// should be 1 Gb?
-		return 1000000000;
+		return 1000000000; // should be 1 Gb?
 	}
-
 }
 
 /*--------------------------------------------------------------------------------------
@@ -1191,11 +1146,9 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 				if (pg_field_type($qid, $i) == 'bytea') {
 					$this->_blobArr[$i] = pg_field_name($qid, $i);
 				}
-
-}
+			}
 		}
-
-}
+	}
 
 	// Use associative array to get fields array
 	public function Fields($colname) {
@@ -1211,8 +1164,7 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 
 				$this->bind[strtoupper($o->name)] = $i;
 			}
-
-}
+		}
 
 		return $this->fields[$this->bind[strtoupper($colname)]];
 	}
@@ -1244,15 +1196,13 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 			foreach ($this->_blobArr as $k => $v) {
 				$this->fields[$k] = self::_decode($this->fields[$k]);
 			}
-
-}
+		}
 
 		if ($this->fetchMode == PGSQL_ASSOC || $this->fetchMode == PGSQL_BOTH) {
 			foreach ($this->_blobArr as $k => $v) {
 				$this->fields[$v] = self::_decode($this->fields[$v]);
 			}
-
-}
+		}
 	}
 
 	// 10% speedup to move MoveNext to child class
@@ -1270,8 +1220,7 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 
 					return true;
 				}
-
-}
+			}
 
 			$this->fields = false;
 			$this->EOF    = true;
@@ -1365,6 +1314,5 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 			default:
 				return 'N';
 		}
-
-}
+	}
 }

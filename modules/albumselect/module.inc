@@ -38,9 +38,7 @@ class AlbumSelectModule extends GalleryModule {
 				'Jump directly to any album using a select box or tree view'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -79,8 +77,7 @@ class AlbumSelectModule extends GalleryModule {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	/**
 	 * @see GalleryModule::upgrade
@@ -100,8 +97,7 @@ class AlbumSelectModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		foreach (array(
@@ -118,8 +114,7 @@ class AlbumSelectModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
-} elseif ($key == 'sort' && ($params[$key] == '0' || $params[$key] == '1')) {
+			} elseif ($key == 'sort' && ($params[$key] == '0' || $params[$key] == '1')) {
 				// v0.9.4 changed 'sort' param from 0/1 to manual/title
 				$value = ($params[$key] == 1) ? 'title' : 'manual';
 
@@ -128,8 +123,7 @@ class AlbumSelectModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		// Changed cache keys to include language code in 0.9.13
@@ -179,8 +173,7 @@ class AlbumSelectModule extends GalleryModule {
 			if ($sort == 'manual') {
 				$invalidateCache = true;
 			}
-
-} elseif ($event->getEventName() == 'GalleryEntity::save') {
+		} elseif ($event->getEventName() == 'GalleryEntity::save') {
 			$entity = $event->getEntity();
 
 			if ($entity->getEntityType() == 'GalleryAlbumItem') {
@@ -194,12 +187,10 @@ class AlbumSelectModule extends GalleryModule {
 					if ($sort == 'album') {
 						$invalidateCache = true;
 					}
-
-} elseif ($entity->isModified('title')) {
+				} elseif ($entity->isModified('title')) {
 					$invalidateCache = true;
 				}
-
-}
+			}
 		}
 
 		if ($invalidateCache) {
@@ -213,5 +204,4 @@ class AlbumSelectModule extends GalleryModule {
 
 		return array(null, null);
 	}
-
 }

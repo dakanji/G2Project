@@ -30,8 +30,6 @@
  *  function describeMap($mapName, $tryAllModules=false) {
  *      return $this->_makeReply('describeMap', array($mapName, $tryAllModules));
  *
- *
- *
  *  }
  *
  * @package Gallery
@@ -54,14 +52,12 @@ class MockObject {
 
 	public function isComplete() {
 		foreach ($_GET[$this->_className]['replies'] as $reply) {
-			if (!$reply[3]) {
-				// ignore optional replies
+			if (!$reply[3]) { // ignore optional replies
 				$incomplete = true;
 
 				break;
 			}
-
-}
+		}
 
 		return empty($incomplete) && !$_GET[$this->_className]['errorCount'];
 	}
@@ -82,18 +78,15 @@ class MockObject {
 			}
 
 			if (!$expected[3]) {
-				// Not optional -- error
-				break;
+				break; // Not optional -- error
 			}
-
-}
+		}
 
 		$_GET[$this->_className]['errorCount']++;
 
 		$ret = GalleryCoreApi::error(ERROR_UNKNOWN, null, null, 'Unhandled reply in MockObject');
 
 		echo '<br/><br/>' . $ret->getAsHtml();
-
 		printf(
 			'<br/><b>Mismatch At</b>: %s<br/>',
 			htmlspecialchars(
@@ -137,14 +130,11 @@ class MockObject {
 				if (!preg_match($value, $actual[$i++])) {
 					return false;
 				}
-
-} elseif ($value != $actual[$i++]) {
+			} elseif ($value != $actual[$i++]) {
 				return false;
 			}
-
-}
+		}
 
 		return $i == count($actual);
 	}
-
 }

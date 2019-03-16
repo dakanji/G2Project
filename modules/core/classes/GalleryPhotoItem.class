@@ -138,7 +138,6 @@ class GalleryPhotoItem extends GalleryDataItem {
 
 		// We're linkable
 		$this->setIsLinkable(true);
-
 		// Default to empty dimensions
 		$this->setWidth(0);
 		$this->setHeight(0);
@@ -242,8 +241,7 @@ class GalleryPhotoItem extends GalleryDataItem {
 			if (!$ret) {
 				return array($core->translate('Photo'), $core->translate('photo'));
 			}
-
-}
+		}
 
 		return array('Photo', 'photo');
 	}
@@ -294,16 +292,14 @@ class GalleryPhotoItem extends GalleryDataItem {
 					if (isset($value)) {
 						$html .= " $attr=\"$value\"";
 					}
-
-}
+				}
 
 				return $html . '/>';
 
 			default:
 				return null;
 		}
-
-}
+	}
 
 	/**
 	 * @see GalleryEntity::getClassName
@@ -327,5 +323,4 @@ class GalleryPhotoItem extends GalleryDataItem {
 	public function setHeight($height) {
 		$this->height = $height;
 	}
-
 }

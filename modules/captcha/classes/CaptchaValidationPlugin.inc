@@ -42,7 +42,8 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
 	public function performValidation(&$form, $options = array()) {
 		global $gallery;
 
-		$session                                 =& $gallery->getSession();
+		$session =& $gallery->getSession();
+
 		list($ret, $useCaptcha, $failedAttempts) = $this->_shouldValidate($options);
 
 		if ($ret) {
@@ -68,8 +69,7 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
 				// Clear key in session on validation failure to thwart automated attacks
 				$session->remove('captcha.key');
 			}
-
-}
+		}
 
 		if (isset($options['pass']) && !$options['pass']) {
 			// Increment failure count either in db or session
@@ -84,12 +84,10 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
 				if ($ret) {
 					return array($ret, null, null);
 				}
-
-} else {
+			} else {
 				$session->put('captcha.failedAttempts', $failedAttempts + 1);
 			}
-
-} elseif (isset($options['pass']) && $options['pass']
+		} elseif (isset($options['pass']) && $options['pass']
 			&& $success && $failedAttempts > 0 && !empty($options['key'])
 		) {
 			$ret = GalleryCoreApi::removePluginParameter(
@@ -101,8 +99,7 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		return array(null, $error, $success);
 	}
@@ -185,8 +182,7 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
 					if ($ret) {
 						return array($ret, null, null);
 					}
-
-}
+				}
 
 				if ($failedAttempts > $failedAttemptThreshold) {
 					$useCaptcha = true;
@@ -205,5 +201,4 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
 
 		return array(null, $useCaptcha, (int)$failedAttempts);
 	}
-
 }

@@ -114,7 +114,8 @@ class MaintenanceHelper_simple {
 	public static function addRun($taskId, $timestamp, $success, $details) {
 		global $gallery;
 
-		$storage           =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
+
 		list($ret, $runId) = $storage->getUniqueId();
 
 		if ($ret) {
@@ -149,8 +150,9 @@ class MaintenanceHelper_simple {
 
 		// If already in the requested mode, don't have to do anything.
 		if ($currentMode !== $mode) {
-			$platform           =& $gallery->getPlatform();
-			$versionFile        = $gallery->getConfig('data.gallery.version');
+			$platform    =& $gallery->getPlatform();
+			$versionFile = $gallery->getConfig('data.gallery.version');
+
 			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 			if ($ret) {
@@ -191,5 +193,4 @@ class MaintenanceHelper_simple {
 
 		return null;
 	}
-
 }

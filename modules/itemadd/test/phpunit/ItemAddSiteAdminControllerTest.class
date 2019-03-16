@@ -44,8 +44,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function _setUploadDirs($data) {
 		foreach ($data as $i => $value) {
@@ -57,15 +56,13 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 				if ($ret) {
 					return $ret;
 				}
-
-} else {
+			} else {
 				$ret = GalleryCoreApi::removePluginParameter('module', 'itemadd', $key);
 
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		return null;
@@ -174,8 +171,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		foreach ($valueMap as $key => $expectedValue) {
 			$this->assertEquals($expectedValue, $params[$key], "value mismatch for $key");
 		}
-
-}
+	}
 
 	public function testAddUploadLocalServerDirMissing() {
 		GalleryUtilities::putRequestVariable('form[uploadLocalServer][newDir]', '');
@@ -324,6 +320,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		$platform = new UnitTestPlatform();
 
 		$platform->setReply('splitPath', array('/test/../path'), array('/', 'test', '..', 'path'));
+
 		$platform->setReply('realpath', array('/test/../path'), '/path');
 		$platform->setReply('isRestrictedByOpenBaseDir', array('/path'), false);
 		$platform->setReply('is_readable', array('/path'), true);
@@ -610,7 +607,6 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 	}
-
 }
 
 /**
@@ -645,8 +641,7 @@ class ItemAddSiteAdminControllerTestPhpVm extends GalleryPhpVm {
 			default:
 				return function_exists($functionName);
 		}
-
-}
+	}
 
 	public function setlocale($category, $locale) {
 		return '';
@@ -659,5 +654,4 @@ class ItemAddSiteAdminControllerTestPhpVm extends GalleryPhpVm {
 	public function nl_langinfo($item) {
 		return 'ISO-8859-1';
 	}
-
 }

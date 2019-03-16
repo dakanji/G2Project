@@ -79,8 +79,7 @@ class Php43CompatibilityTest extends CodeAuditTestCase {
 				if (!isset($this->_exceptions[$keyword][basename($fileName)])) {
 					$longCheckRequired = true;
 				}
-
-}
+			}
 		}
 
 		if (!$longCheckRequired) {
@@ -114,12 +113,9 @@ class Php43CompatibilityTest extends CodeAuditTestCase {
 								)
 							);
 						}
-
-}
+					}
 				}
-
-}
+			}
 		}
-
-}
+	}
 }

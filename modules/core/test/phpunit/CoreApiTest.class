@@ -32,7 +32,8 @@ class CoreApiTest extends GalleryTestCase {
 	}
 
 	public function testGetDefaultAlbumId() {
-		$expectedId            = $this->_getRootId();
+		$expectedId = $this->_getRootId();
+
 		list($ret, $defaultId) = GalleryCoreApi::getDefaultAlbumId();
 
 		if ($ret) {
@@ -71,5 +72,4 @@ class CoreApiTest extends GalleryTestCase {
 		$this->assertTrue(isset($blocks['core']['LoginBlock']));
 		$this->assertTrue(isset($blocks['core']['PeerList']));
 	}
-
 }

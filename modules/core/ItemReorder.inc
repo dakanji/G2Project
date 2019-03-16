@@ -81,8 +81,9 @@ class ItemReorderController extends GalleryController {
 
 			// Make sure that the selectedId and targetId are children of the album
 			if (empty($error)) {
-				$selectedId           = (int)$form['selectedId'];
-				$targetId             = (int)$form['targetId'];
+				$selectedId = (int)$form['selectedId'];
+				$targetId   = (int)$form['targetId'];
+
 				list($ret, $entities) = GalleryCoreApi::loadEntitiesById(array($selectedId, $targetId), 'GalleryItem');
 
 				if ($ret) {
@@ -107,8 +108,7 @@ class ItemReorderController extends GalleryController {
 				) {
 					return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
 				}
-
-}
+			}
 
 			if (empty($error)) {
 				$loopCount = 0;
@@ -159,8 +159,7 @@ class ItemReorderController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 
 				$newWeight = $orderWeights[$targetId] + $delta;
 
@@ -186,8 +185,7 @@ class ItemReorderController extends GalleryController {
 				$redirect['itemId']  = $itemId;
 				$status['saved']     = 1;
 			}
-
-} elseif (isset($form['action']['cancel'])) {
+		} elseif (isset($form['action']['cancel'])) {
 			$redirect['return'] = true;
 		}
 
@@ -203,7 +201,6 @@ class ItemReorderController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -255,8 +252,7 @@ class ItemReorderView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		if ($orderBy != 'orderWeight') {
 			$show['automaticOrderMessage'] = 1;
@@ -319,5 +315,4 @@ class ItemReorderView extends GalleryView {
 
 		return array(null, $core->translate('reorder items'));
 	}
-
 }

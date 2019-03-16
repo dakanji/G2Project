@@ -51,8 +51,7 @@ function smarty_core_process_cached_inserts($params, &$smarty) {
 			} else {
 				$smarty->_eval($php_resource);
 			}
-
-}
+		}
 
 		$function_name = $smarty->_plugins['insert'][$name][0];
 
@@ -78,8 +77,7 @@ function smarty_core_process_cached_inserts($params, &$smarty) {
 				'exec_time' => smarty_core_get_microtime($_params, $smarty) - $debug_start_time,
 			);
 		}
-
-}
+	}
 
 	return $params['results'];
 }

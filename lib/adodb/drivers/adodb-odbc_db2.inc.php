@@ -100,8 +100,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 		}
 
 		public function IfNull($field, $ifNull) {
-			// if DB2 UDB
-			return " COALESCE($field, $ifNull) ";
+			return " COALESCE($field, $ifNull) "; // if DB2 UDB
 		}
 
 		public function ServerInfo() {
@@ -174,16 +173,13 @@ if (!defined('ADODB_ODBC_DB2')) {
 						if (strncmp($type, 'V', 1) === 0) {
 							$arr2[] = $arr[$i][2];
 						}
-
-} elseif (strncmp($type, 'T', 1) === 0) {
+					} elseif (strncmp($type, 'T', 1) === 0) {
 						$arr2[] = $arr[$i][2];
 					}
-
-} elseif (strncmp($type, 'S', 1) !== 0) {
+				} elseif (strncmp($type, 'S', 1) !== 0) {
 					$arr2[] = $arr[$i][2];
 				}
-
-}
+			}
 
 			return $arr2;
 		}
@@ -321,8 +317,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 
 						$s .= $this->qstr($ch);
 				}
-
-}
+			}
 
 			return $s;
 		}
@@ -348,8 +343,7 @@ if (!defined('ADODB_ODBC_DB2')) {
 
 			return $rs;
 		}
-
-}
+	}
 
 	class ADORecordSet_odbc_db2 extends ADORecordSet_odbc {
 		public $databaseType = 'db2';
@@ -411,8 +405,6 @@ if (!defined('ADODB_ODBC_DB2')) {
 				default:
 					return 'N';
 			}
-
-}
+		}
 	}
-
 } //define

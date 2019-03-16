@@ -56,12 +56,13 @@ class ItemAddFromServer extends ItemAddPlugin {
 	public function handleRequest($form, &$item, &$addController = null) {
 		global $gallery;
 
-		$this->_platform           =& $gallery->getPlatform();
-		$this->_dirSep             = $this->_platform->getDirectorySeparator();
-		$this->_templateAdapter    =& $gallery->getTemplateAdapter();
-		$this->_storage            =& $gallery->getStorage();
-		$status                    = $error                    = array();
-		$this->_addController      =& $addController;
+		$this->_platform        =& $gallery->getPlatform();
+		$this->_dirSep          = $this->_platform->getDirectorySeparator();
+		$this->_templateAdapter =& $gallery->getTemplateAdapter();
+		$this->_storage         =& $gallery->getStorage();
+		$status                 = $error                 = array();
+		$this->_addController   =& $addController;
+
 		list($ret, $hasPermission) = $this->isAppropriate();
 
 		if ($ret) {
@@ -117,7 +118,8 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 			$this->_addingItemsMessage = $module->translate('Adding items');
 			$this->_fileCountMessage   = $module->translate('Scanning directory');
-			list($ret, $lockId)        = GalleryCoreApi::acquireReadLock($item->getId());
+
+			list($ret, $lockId) = GalleryCoreApi::acquireReadLock($item->getId());
 
 			if ($ret) {
 				return array($ret, null, null);
@@ -136,7 +138,6 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 					if (++$i % 200 == 0) {
 						$gallery->guaranteeTimeLimit(30);
-
 						// Inaccurate, but giving the impression of progress
 						$this->_templateAdapter->updateProgressBar(
 							$this->_fileCountMessage,
@@ -144,8 +145,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 							$i / ($i + 500)
 						);
 					}
-
-}
+				}
 			}
 
 			$requiresAddAlbumPermission = false;
@@ -161,7 +161,6 @@ class ItemAddFromServer extends ItemAddPlugin {
 				foreach ($form['localServerDirectories'] as $directory => $data) {
 					if (++$i % 200 == 0) {
 						$gallery->guaranteeTimeLimit(30);
-
 						// Inaccurate, but giving the impression of progress
 						$this->_templateAdapter->updateProgressBar(
 							$this->_fileCountMessage,
@@ -181,8 +180,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 					$this->_totalItems++;
 					$this->_totalItems += $this->_getFileCountForDirectory($dir . urldecode($directory), $i);
 				}
-
-}
+			}
 
 			if ($requiresAddAlbumPermission) {
 				// Make sure we have permission to add subalbums
@@ -193,8 +191,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 					return array($ret, null, null);
 				}
-
-}
+			}
 
 			$gallery->guaranteeTimeLimit(30);
 
@@ -263,8 +260,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 							return array($ret, null, null);
 						}
-
-}
+					}
 
 					if ($this->_addedItems - $this->_lastPostProcessed >= $this->_processBatch) {
 						$this->_lastPostProcessed = $this->_addedItems;
@@ -282,11 +278,9 @@ class ItemAddFromServer extends ItemAddPlugin {
 						if ($optionErrors) {
 							break;
 						}
-
-}
+					}
 				}
-
-}
+			}
 
 			if (empty($error) && !empty($form['localServerDirectories'])) {
 				$this->_localServerDirList = $localServerDirList;
@@ -308,7 +302,8 @@ class ItemAddFromServer extends ItemAddPlugin {
 						continue;
 					}
 
-					$useSymlink          = isset($data['useSymlink']);
+					$useSymlink = isset($data['useSymlink']);
+
 					list($ret, $albumId) = $this->addDirectory(
 						$item->getId(),
 						$path,
@@ -324,8 +319,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 						return array($ret, null, null);
 					}
 
-					// Increment either way
-					$this->_addedItems++;
+					$this->_addedItems++; // Increment either way
 
 					if ($this->_addedItems % $this->_progressBatch == 0) {
 						$gallery->guaranteeTimeLimit(30);
@@ -342,8 +336,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 							return array($ret, null, null);
 						}
-
-}
+					}
 
 					if ($albumId) {
 						$ret = $this->processDirectory(
@@ -361,19 +354,16 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 							return array($ret, null, null);
 						}
-
-}
+					}
 				}
-
-}
+			}
 
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		return array(null, $error, $status);
 	}
@@ -389,8 +379,9 @@ class ItemAddFromServer extends ItemAddPlugin {
 	 * @return GalleryStatus
 	 */
 	public function addItem($parentId, $file, $useSymlink, $textFields, &$status, &$error) {
-		$fileName             = basename($file);
-		$base                 = GalleryUtilities::getFileBase($fileName);
+		$fileName = basename($file);
+		$base     = GalleryUtilities::getFileBase($fileName);
+
 		list($ret, $mimeType) = GalleryCoreApi::getMimeType($fileName);
 
 		if ($ret) {
@@ -401,9 +392,10 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 		GalleryUtilities::sanitizeInputValues($base);
 
-		$title               = ($textFields['title']) ? $base : '';
-		$summary             = ($textFields['summary']) ? $base : '';
-		$description         = ($textFields['description']) ? $base : '';
+		$title       = ($textFields['title']) ? $base : '';
+		$summary     = ($textFields['summary']) ? $base : '';
+		$description = ($textFields['description']) ? $base : '';
+
 		list($ret, $newItem) = GalleryCoreApi::addItemToAlbum(
 			$file,
 			$fileName,
@@ -457,9 +449,10 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 		GalleryUtilities::sanitizeInputValues($dirNameUtf8);
 
-		$dirTitle          = $textFields['title'] ? $dirNameUtf8 : null;
-		$dirSummary        = $textFields['summary'] ? $dirNameUtf8 : null;
-		$dirDescription    = $textFields['description'] ? $dirNameUtf8 : null;
+		$dirTitle       = $textFields['title'] ? $dirNameUtf8 : null;
+		$dirSummary     = $textFields['summary'] ? $dirNameUtf8 : null;
+		$dirDescription = $textFields['description'] ? $dirNameUtf8 : null;
+
 		list($ret, $album) = GalleryCoreApi::createAlbum(
 			$parentId,
 			$dirName,
@@ -556,8 +549,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 					if ($newAlbumId) {
 						$albumList[$newAlbumId] = $filePath;
 					}
-
-} else {
+				} else {
 					$ret = $this->addItem(
 						$albumId,
 						$filePath,
@@ -572,8 +564,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 						return $ret;
 					}
-
-}
+				}
 
 				if ($this->_addedItems++ % $this->_progressBatch == 0) {
 					$gallery->guaranteeTimeLimit(30);
@@ -590,8 +581,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 						return $ret;
 					}
-
-}
+				}
 			}
 
 			if ($i++ % 100 == 0) {
@@ -607,8 +597,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 				// Bail out if an error has occurred
 				break;
 			}
-
-}
+		}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
@@ -655,8 +644,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 				// Bail out if an error has occurred
 				break;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -678,7 +666,6 @@ class ItemAddFromServer extends ItemAddPlugin {
 		while (($fileName = $this->_platform->readdir($handle)) !== false) {
 			if (++$progressCount % 200 == 0) {
 				$gallery->guaranteeTimeLimit(30);
-
 				// Inaccurate, but giving the impression of progress
 				$this->_templateAdapter->updateProgressBar(
 					$this->_fileCountMessage,
@@ -702,8 +689,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 			if ($this->_platform->is_dir($fileName)) {
 				$dirList[] = $fileName;
 			}
-
-}
+		}
 
 		$this->_platform->closedir($handle);
 
@@ -879,8 +865,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 									'fileKey'  => urlencode($fileName),
 								);
 							}
-
-}
+						}
 					}
 
 					$platform->closedir($handle);
@@ -917,8 +902,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 					// Change localServerPath from file path to parent dir
 					$form['localServerPath'] = GalleryCoreApi::convertToUtf8(dirname($path));
 				}
-
-}
+			}
 		}
 
 		// Do we have permission to add subalbums
@@ -956,8 +940,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 				if (count($ItemAddFromServer['pathElements']) > 1) {
 					$accumulator .= $slash;
 				}
-
-}
+			}
 		}
 
 		$session     =& $gallery->getSession();
@@ -1030,5 +1013,4 @@ class ItemAddFromServer extends ItemAddPlugin {
 
 		return strcasecmp($a['fileName'], $b['fileName']);
 	}
-
 }

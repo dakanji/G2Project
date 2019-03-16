@@ -110,7 +110,8 @@ class SquareThumbToolkit extends GalleryToolkit {
 		// Try to crop/fit according to param, but fallback to other based on toolkit support
 		if ($width != $height) {
 			for ($i = 0; $i < 2; $i++) {
-				$operation                      = ($square['mode'] == 'fit') ? 'composite' : 'crop';
+				$operation = ($square['mode'] == 'fit') ? 'composite' : 'crop';
+
 				list($ret, $toolkit, $nextMime) = GalleryCoreApi::getToolkitByOperation($mimeType, $operation);
 
 				if ($ret) {
@@ -123,8 +124,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 
 				$square['mode'] = ($square['mode'] == 'fit') ? 'crop' : 'fit';
 			}
-
-}
+		}
 
 		if ($width != $height && $square['mode'] == 'crop') {
 			// Crop to square
@@ -148,10 +148,10 @@ class SquareThumbToolkit extends GalleryToolkit {
 					$subContext['next.toolkit']   = $nextToolkit;
 					$subContext['next.operation'] = 'thumbnail';
 				}
+			}
 
-}
+			$args = ($width > $height) ? array(100 * (1 - $height / $width) / 2, 0, 100 * $height / $width, 100) : array(0, 100 * (1 - $width / $height) / 2, 100, 100 * $width / $height);
 
-			$args                              = ($width > $height) ? array(100 * (1 - $height / $width) / 2, 0, 100 * $height / $width, 100) : array(0, 100 * (1 - $width / $height) / 2, 100, 100 * $width / $height);
 			list($ret, $mimeType, $subContext) = $toolkit->performOperation(
 				$mimeType,
 				'crop',
@@ -176,7 +176,8 @@ class SquareThumbToolkit extends GalleryToolkit {
 				return array($ret, null, null);
 			}
 
-			$subContext['next.toolkit']        = $subContext['next.operation']               = null;
+			$subContext['next.toolkit'] = $subContext['next.operation']        = null;
+
 			list($ret, $mimeType, $subContext) = $toolkit->performOperation(
 				$mimeType,
 				'thumbnail',
@@ -321,7 +322,6 @@ class SquareThumbToolkit extends GalleryToolkit {
 				),
 				$newContext
 			);
-
 			@$platform->unlink($tmpFilename);
 
 			if ($ret) {
@@ -340,8 +340,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 					null,
 				);
 			}
-
-}
+		}
 
 		$context['width']  = $subContext['width'];
 		$context['height'] = $subContext['height'];
@@ -385,17 +384,14 @@ class SquareThumbToolkit extends GalleryToolkit {
 
 						$handled = true;
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		if (!$handled) {
 			parent::getMe()->estimateDimensions($derivative, $source);
 		}
-
-}
+	}
 
 	/**
 	 * Get toolkit for thumbnail operation.
@@ -447,5 +443,4 @@ class SquareThumbToolkit extends GalleryToolkit {
 
 		return array(null, $toolkit);
 	}
-
 }

@@ -72,7 +72,6 @@ class AdminDeleteUserQuotaControllerTest extends GalleryControllerTestCase {
 	 */
 	public function testDeleteUserQuota() {
 		$this->_createUserQuota($this->_user->getId(), 2048);
-
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 
@@ -100,8 +99,7 @@ class AdminDeleteUserQuotaControllerTest extends GalleryControllerTestCase {
 		} else {
 			$this->_deleteUserQuota($this->_user->getId());
 		}
-
-}
+	}
 
 	public function testDeleteUserQuotaUserIdMissing() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -142,8 +140,7 @@ class AdminDeleteUserQuotaControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return array($ret, null);
 		}
-
-}
+	}
 
 	public function _deleteUserQuota($userId) {
 		$ret = GalleryCoreApi::removeMapEntry(
@@ -156,6 +153,5 @@ class AdminDeleteUserQuotaControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return array($ret, null);
 		}
-
-}
+	}
 }

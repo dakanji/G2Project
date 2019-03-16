@@ -42,9 +42,7 @@ class SquareThumbModule extends GalleryModule {
 				'Make square shaped thumbnails'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -85,8 +83,7 @@ class SquareThumbModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		return null;
@@ -185,8 +182,7 @@ class SquareThumbModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-} else {
+		} else {
 			// Can't activate unless there's a toolkit to leech off of
 			return array(
 				null,
@@ -204,8 +200,7 @@ class SquareThumbModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		list($ret, $redirect) = parent::activate($postActivationEvent);
 
@@ -246,8 +241,7 @@ class SquareThumbModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-} else {
+		} else {
 			$composite = array();
 		}
 
@@ -269,8 +263,7 @@ class SquareThumbModule extends GalleryModule {
 
 					break;
 				}
-
-}
+			}
 		}
 
 		return array(null, $mimeTypes);
@@ -306,8 +299,7 @@ class SquareThumbModule extends GalleryModule {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		return array(null, null);
@@ -319,5 +311,4 @@ class SquareThumbModule extends GalleryModule {
 	public function getConfigurationView() {
 		return 'squarethumb.CantActivate';
 	}
-
 }

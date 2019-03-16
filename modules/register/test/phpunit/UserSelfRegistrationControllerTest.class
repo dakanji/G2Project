@@ -60,8 +60,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$this->_emailSubject = '';
 
@@ -100,6 +99,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
+
 		GalleryUtilities::putRequestVariable('form[password1]', 'password');
 		GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
@@ -133,7 +133,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 		$this->assertTrue(GalleryUtilities::isA($user, 'GalleryUser'), 'type is GalleryUser');
 		$this->_markForCleanup($user);
-
 		// Make sure welcome email was "sent"
 		$this->assertFalse(
 			empty($this->_emailBody),
@@ -162,6 +161,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
+
 		GalleryUtilities::putRequestVariable('form[password1]', 'password');
 		GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
@@ -196,7 +196,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($user);
-
 		// Make sure confirmation email was "sent"
 		$this->assertFalse(
 			empty(
@@ -229,6 +228,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[userName]', $userName);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
+
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
 		GalleryUtilities::putRequestVariable('form[password1]', 'pass&word>');
 		GalleryUtilities::putRequestVariable('form[password2]', 'pass&word>');
@@ -264,7 +264,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($user);
-
 		// verify un-entitized username was used in email
 		// the confirm link should also use unentitized(but urlencoded) value; not verified here
 		$this->assertTrue(
@@ -312,6 +311,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'bad!email@test.com');
 		GalleryUtilities::putRequestVariable('form[password1]', 'pass');
+
 		GalleryUtilities::putRequestVariable('form[password2]', 'pass');
 
 		$results = $this->handleRequest();
@@ -337,6 +337,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
+
 		GalleryUtilities::putRequestVariable('form[password1]', 'passwordRight');
 		GalleryUtilities::putRequestVariable('form[password2]', 'passwordWrong');
 
@@ -369,6 +370,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
+
 		GalleryUtilities::putRequestVariable('form[password1]', 'password');
 		GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
@@ -429,6 +431,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
+
 		GalleryUtilities::putRequestVariable('form[password1]', 'password');
 		GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
@@ -491,6 +494,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
+
 		GalleryUtilities::putRequestVariable('form[password1]', 'password');
 		GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
@@ -532,6 +536,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
+
 		GalleryUtilities::putRequestVariable('form[password1]', 'password');
 		GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
@@ -584,6 +589,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
+
 		GalleryUtilities::putRequestVariable('form[password1]', 'password');
 		GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
@@ -645,6 +651,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
+
 		GalleryUtilities::putRequestVariable('form[password1]', 'password');
 		GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
@@ -683,7 +690,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 		$this->_markForCleanup($user);
 	}
-
 }
 
 class RegisterDummyPlatform {
@@ -777,7 +783,6 @@ class RegisterDummyPlatform {
 	public function unlink($filename) {
 		return $this->_platform->unlink($filename);
 	}
-
 }
 
 /**
@@ -795,5 +800,4 @@ class UserSelfRegistrationControllerTestPlugin extends GalleryValidationPlugin {
 	public function performValidation(&$form, $options = array()) {
 		return array(null, $this->_errors, $this->_continue);
 	}
-
 }

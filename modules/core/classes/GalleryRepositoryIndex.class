@@ -78,10 +78,11 @@ class GalleryRepositoryIndex {
 	public function update() {
 		global $gallery;
 
-		$platform                 =& $gallery->getPlatform();
-		$indexUrl                 = $gallery->getConfig('repository.url') . $this->_source . '/index';
-		$indexHashUrl             = $indexUrl . '.hash';
-		$path                     = $this->getRepositoryCacheDir();
+		$platform     =& $gallery->getPlatform();
+		$indexUrl     = $gallery->getConfig('repository.url') . $this->_source . '/index';
+		$indexHashUrl = $indexUrl . '.hash';
+		$path         = $this->getRepositoryCacheDir();
+
 		list($success1, $ignored) = GalleryUtilities::guaranteeDirExists($path . 'modules');
 
 		list($success2, $ignored) = GalleryUtilities::guaranteeDirExists($path . 'themes');
@@ -322,6 +323,7 @@ class GalleryRepositoryIndex {
 		return array(
 			null,
 			$this->_index[$pluginType . 's'][$pluginId]['header'],
+
 		);
 	}
 
@@ -373,8 +375,7 @@ class GalleryRepositoryIndex {
 				if ($installed) {
 					$languageData[$langCode] = $version;
 				}
-
-}
+			}
 
 			return array(null, $languageData);
 		}
@@ -627,8 +628,7 @@ class GalleryRepositoryIndex {
 
 					$pluginList[$pluginType][$pluginId]['localVersion'] = $version;
 				}
-
-}
+			}
 		}
 
 		return array(null, $pluginList);
@@ -731,7 +731,8 @@ class GalleryRepositoryIndex {
 						continue;
 					}
 
-					$stringsRevision        = $entry['header']['stringsRevision'];
+					$stringsRevision = $entry['header']['stringsRevision'];
+
 					list($ret, $pluginName) = $this->getPluginName($pluginType, $pluginId);
 
 					if ($ret) {
@@ -778,14 +779,11 @@ class GalleryRepositoryIndex {
 							$files[$pluginType][$pluginId]['files']['descriptor'] = $descriptorUrl;
 							$files[$pluginType][$pluginId]['files'][$locale]      = $packageUrl;
 						}
-
-}
+					}
 				}
-
-}
+			}
 		}
 
 		return array(null, $files);
 	}
-
 }

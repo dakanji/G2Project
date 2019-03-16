@@ -57,8 +57,7 @@ class CleanCacheStep extends UpgradeStep {
 					if (!$platform->recursiveRmDir($dir)) {
 						$templateData['unclean'][] = $dir;
 					}
-
-}
+				}
 			}
 
 			$attempts--;
@@ -95,5 +94,4 @@ class CleanCacheStep extends UpgradeStep {
 
 		$this->setComplete(true);
 	}
-
 }

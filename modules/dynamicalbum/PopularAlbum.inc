@@ -65,5 +65,4 @@ class PopularAlbumView extends UpdatesAlbumView {
 			'itemId'
 		);
 	}
-
 }

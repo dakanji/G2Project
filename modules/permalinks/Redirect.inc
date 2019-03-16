@@ -58,8 +58,7 @@ class RedirectController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		if (empty($itemId) || !$hasPermission) {
 			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
@@ -79,5 +78,4 @@ class RedirectController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }

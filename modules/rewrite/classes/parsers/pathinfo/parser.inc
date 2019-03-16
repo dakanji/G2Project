@@ -103,12 +103,10 @@ class PathInfoParser extends RewriteParser {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		$status['saved'] = 1;
 
 		return array(null, $error, $status);
 	}
-
 }

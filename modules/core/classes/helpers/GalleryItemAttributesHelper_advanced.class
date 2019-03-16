@@ -259,9 +259,10 @@ class GalleryItemAttributesHelper_advanced {
 	public static function updateParentSequence($oldParentSequence, $newParentSequence) {
 		global $gallery;
 
-		$oldParentSequence     = join('/', $oldParentSequence) . '/';
-		$newParentSequence     = join('/', $newParentSequence) . '/';
-		$storage               =& $gallery->getStorage();
+		$oldParentSequence = join('/', $oldParentSequence) . '/';
+		$newParentSequence = join('/', $newParentSequence) . '/';
+		$storage           =& $gallery->getStorage();
+
 		list($ret, $substring) = $storage->getFunctionSql(
 			'SUBSTRING',
 			array(
@@ -296,5 +297,4 @@ class GalleryItemAttributesHelper_advanced {
 
 		return null;
 	}
-
 }

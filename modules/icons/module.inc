@@ -37,9 +37,7 @@ class IconsModule extends GalleryModule {
 				'Display icons for links'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -81,8 +79,7 @@ class IconsModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		if (empty($currentVersion)) {
@@ -111,8 +108,7 @@ class IconsModule extends GalleryModule {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				// Fall Through
 			case '0.9.3':
@@ -184,5 +180,4 @@ class IconsModule extends GalleryModule {
 			),
 		);
 	}
-
 }

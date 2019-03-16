@@ -147,13 +147,11 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-} else {
+				} else {
 					// There is no matching request for this userName and authString combo
 					$error[] = 'form[error][request][missing]';
 				}
-
-}
+			}
 		} elseif (isset($form['action']['cancel'])) {
 			$results['return'] = 1;
 		}
@@ -172,7 +170,6 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -202,8 +199,7 @@ class UserRecoverPasswordConfirmView extends GalleryView {
 			if (empty($form['password1']) || empty($form['password2'])) {
 				$form['error']['password']['missing'] = 1;
 			}
-
-} else {
+		} else {
 			$form['userName']   = GalleryUtilities::getRequestVariables('userName');
 			$form['authString'] = GalleryUtilities::getRequestVariables('authString');
 			$form['formName']   = 'UserRecoverPasswordConfirm';
@@ -242,5 +238,4 @@ class UserRecoverPasswordConfirmView extends GalleryView {
 			),
 		);
 	}
-
 }

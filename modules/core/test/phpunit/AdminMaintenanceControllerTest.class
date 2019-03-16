@@ -100,16 +100,14 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 				// Don't return early here, give the loop a chance to try to clear all tasks
 				$this->failWithStatus($ret);
 			}
-
-}
+		}
 
 		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testRunTaskSuccess() {
 		GalleryUtilities::putRequestVariable('form[action][runTask]', 1);
@@ -140,9 +138,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue($info['runId'] > 0);
-
-		// assert that it's recent
-		$this->assertTrue($info['timestamp'] > time() - 2);
+		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
 		$this->assertTrue($info['success']);
 		$this->assertEquals(array('success details'), $info['details']);
 	}
@@ -206,9 +202,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue($info['runId'] > 0);
-
-		// assert that it's recent
-		$this->assertTrue($info['timestamp'] > time() - 2);
+		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
 		$this->assertTrue($info['success']);
 		$this->assertEquals(array('success details'), $info['details']);
 	}
@@ -275,9 +269,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue($info['runId'] > 0);
-
-		// assert that it's recent
-		$this->assertTrue($info['timestamp'] > time() - 2);
+		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
 		$this->assertFalse($info['success']);
 		$this->assertEquals(array('fail details'), $info['details']);
 	}
@@ -325,8 +317,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 			} else {
 				return $ret;
 			}
-
-} else {
+		} else {
 			$this->assertFalse(true, 'The task did not fail');
 		}
 
@@ -343,9 +334,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue($info['runId'] > 0);
-
-		// assert that it's recent
-		$this->assertTrue($info['timestamp'] > time() - 2);
+		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
 		$this->assertFalse($info['success']);
 		$this->assertTrue(strstr($info['details'], 'ERROR_UNKNOWN'));
 	}
@@ -379,13 +368,10 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue($info['runId'] > 0);
-
-		// assert that it's recent
-		$this->assertTrue($info['timestamp'] > time() - 2);
+		$this->assertTrue($info['timestamp'] > time() - 2);  // assert that it's recent
 		$this->assertFalse($info['success']);
 		$this->assertEquals(array('fail details'), $info['details']);
 	}
-
 }
 
 class AdminMaintenanceControllerTestTaskSuccess extends MaintenanceTask {
@@ -400,7 +386,6 @@ class AdminMaintenanceControllerTestTaskSuccess extends MaintenanceTask {
 	public function run() {
 		return array(null, true, array('success details'));
 	}
-
 }
 
 class AdminMaintenanceControllerTestTaskProgressBar extends MaintenanceTask {
@@ -437,7 +422,6 @@ class AdminMaintenanceControllerTestTaskProgressBar extends MaintenanceTask {
 	public function requiresProgressBar() {
 		return true;
 	}
-
 }
 
 class AdminMaintenanceControllerTestTaskFail extends MaintenanceTask {
@@ -452,7 +436,6 @@ class AdminMaintenanceControllerTestTaskFail extends MaintenanceTask {
 	public function run() {
 		return array(null, false, array('fail details'));
 	}
-
 }
 
 class AdminMaintenanceControllerTestUrlGenerator {
@@ -465,5 +448,4 @@ class AdminMaintenanceControllerTestUrlGenerator {
 
 		return implode(',', $buf);
 	}
-
 }

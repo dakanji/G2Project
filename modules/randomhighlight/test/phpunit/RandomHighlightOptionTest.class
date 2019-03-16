@@ -227,7 +227,6 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 		}
 
 		$this->assertEquals('|RandomHighlight|', $highlight->getOnLoadHandlers(), 'on');
-
 		/*
 		 * Negative duration forces re-highlight; dummy toolkit sets width value.
 		 * Here we also verify that if the source thumbnail is smaller than the desired
@@ -299,6 +298,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 					$highlight->getDerivativeSourceId(),
 					"new source, iteration $i"
 				);
+
 				$this->assertEquals(150, $highlight->getWidth(), "highlight width, iteration $i");
 				$this->assertEquals(200, $highlight->getHeight(), "highlight height, iter. $i");
 			} else {
@@ -310,8 +310,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 				$this->assertEquals(200, $highlight->getWidth(), "highlight width, iteration $i");
 				$this->assertEquals(150, $highlight->getHeight(), "highlight height, iter. $i");
 			}
-
-}
+		}
 	}
 
 	public function testHighlightPermission() {
@@ -495,8 +494,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$form['RandomHighlightOption']['isRandomHighlight'] = 1;
 		$result                                             = $this->_handleRequestAfterEdit($form, $this->_album);
@@ -514,7 +512,6 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 		$this->assertEquals(200, $highlight->getWidth(), 'new highlight width');
 		$this->assertEquals(150, $highlight->getHeight(), 'new highlight height');
 	}
-
 }
 
 /**

@@ -56,9 +56,10 @@ class ItemAddFromWeb extends ItemAddPlugin {
 	public function handleRequest($form, &$item, &$addController = null) {
 		global $gallery;
 
-		$templateAdapter           =& $gallery->getTemplateAdapter();
-		$storage                   =& $gallery->getStorage();
-		$status                    = $error                    = array();
+		$templateAdapter =& $gallery->getTemplateAdapter();
+		$storage         =& $gallery->getStorage();
+		$status          = $error          = array();
+
 		list($ret, $hasPermission) = $this->isAppropriate();
 
 		if ($ret) {
@@ -120,11 +121,12 @@ class ItemAddFromWeb extends ItemAddPlugin {
 
 					GalleryUtilities::sanitizeInputValues($base);
 
-					$title               = (isset($form['set']['title']) && $form['set']['title']) ? $base : '';
-					$summary             = (isset($form['set']['summary'])
+					$title       = (isset($form['set']['title']) && $form['set']['title']) ? $base : '';
+					$summary     = (isset($form['set']['summary'])
 					&& $form['set']['summary']) ? $base : '';
-					$description         = (isset($form['set']['description'])
+					$description = (isset($form['set']['description'])
 					&& $form['set']['description']) ? $base : '';
+
 					list($ret, $newItem) = GalleryCoreApi::addItemToAlbum(
 						$tmpFile,
 						$fileName,
@@ -166,8 +168,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 					if ($optionErrors) {
 						break;
 					}
-
-}
+				}
 
 				$gallery->guaranteeTimeLimit(60);
 				$templateAdapter->updateProgressBar(
@@ -183,8 +184,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 				if ($ret) {
 					return array($ret, null, null);
 				}
-
-}
+			}
 		}
 
 		return array(null, $error, $status);
@@ -214,8 +214,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 				if (empty($baseUrlComponents['scheme']) || $baseUrlComponents['scheme'] != 'http') {
 					$form['error']['webPage']['invalid'] = 1;
 				}
-
-}
+			}
 
 			if (empty($form['error'])) {
 				list($successful, $buffer, $response, $headers, $actualUrl) = GalleryCoreApi::fetchWebPage($form['webPage']);
@@ -223,8 +222,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 				if (empty($buffer) || !$successful) {
 					$form['error']['webPage']['unavailable'] = 1;
 				}
-
-}
+			}
 
 			if (empty($form['error'])) {
 				if (isset($actualUrl) && $actualUrl != $form['webPage']) {
@@ -270,8 +268,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 							'itemType' => $typeName,
 						);
 					}
-
-} else {
+				} else {
 					// Check for <base href="..."/> element
 					if (preg_match(
 						'#<base(?:\W|\W[^>]*?\W)href\s*=\s*'
@@ -289,8 +286,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 							if (!empty($specifiedBaseUrl)) {
 								break;
 							}
-
-}
+						}
 
 						$specifiedComponents = parse_url($specifiedBaseUrl);
 
@@ -302,8 +298,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 							foreach ($specifiedComponents as $key => $value) {
 								$baseUrlComponents[$key] = $value;
 							}
-
-}
+						}
 					}
 
 					/*
@@ -375,14 +370,12 @@ class ItemAddFromWeb extends ItemAddPlugin {
 									if ($basePath != '/') {
 										$basePath .= '/';
 									}
-
-}
+								}
 
 								$tmp .= $basePath;
 								$url  = $tmp . $url;
 							}
-
-}
+						}
 
 						list($ret, $typeName) = $this->_getTypeName($url, $matches[1][$i]);
 
@@ -396,16 +389,14 @@ class ItemAddFromWeb extends ItemAddPlugin {
 								'itemType' => $typeName,
 							);
 						}
-
-}
+					}
 				}
 
 				if (empty($form['webPageUrls'])) {
 					// Didn't find any urls to add
 					$form['error']['webPage']['noUrlsFound'] = 1;
 				}
-
-}
+			}
 		}
 
 		if (!isset($form['set'])) {
@@ -467,8 +458,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 			} else {
 				$fileName = basename($url);
 			}
-
-}
+		}
 
 		if (!empty($urlComponents['path'])) {
 			list($ret, $mimeType) = GalleryCoreApi::getMimeType($urlComponents['path']);
@@ -480,8 +470,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 			if (!empty($mimeType) && $mimeType != 'application/unknown') {
 				return array(null, $mimeType, $fileName);
 			}
-
-}
+		}
 
 		if (!empty($urlComponents['query'])) {
 			/*
@@ -497,8 +486,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 			if (!empty($mimeType) && $mimeType != 'application/unknown') {
 				return array(null, $mimeType, $fileName);
 			}
-
-}
+		}
 
 		if (!empty($headers['Content-Disposition'])
 			&& preg_match('/filename="(.*?)"/', $headers['Content-Disposition'], $match)
@@ -512,8 +500,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 			if (!empty($mimeType) && $mimeType != 'application/unknown') {
 				return array(null, $mimeType, $fileName);
 			}
-
-}
+		}
 
 		if (!empty($headers['Content-Type'])) {
 			list($ret, $mimeType) = GalleryCoreApi::getMimeType('ignored', $headers['Content-Type']);
@@ -589,5 +576,4 @@ class ItemAddFromWeb extends ItemAddPlugin {
 
 		return array(null, $module->translate('From Web Page'));
 	}
-
 }

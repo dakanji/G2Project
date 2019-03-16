@@ -252,10 +252,8 @@ class GalleryEntity extends GalleryPersistent {
 
 		// Set the creation time on this entity
 		$this->setCreationTimestamp(time());
-
 		// Set the object type
 		$this->setEntityType($this->getClassName());
-
 		// But attach to the linked entity
 		$this->setIsLinkable(true);
 		$this->setLinkId($entity->getId());
@@ -302,8 +300,7 @@ class GalleryEntity extends GalleryPersistent {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		if ($this->isModified()) {
 			// Change the modification date
@@ -321,8 +318,7 @@ class GalleryEntity extends GalleryPersistent {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 
 			$storage           =& $gallery->getStorage();
 			$changedEntityType = $this->isModified('entityType');
@@ -370,8 +366,7 @@ class GalleryEntity extends GalleryPersistent {
 					array($classFile)
 				);
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -395,7 +390,8 @@ class GalleryEntity extends GalleryPersistent {
 			);
 		}
 
-		$storage                 =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
+
 		list($ret, $freshEntity) = $storage->refreshEntity($this);
 
 		if ($ret) {
@@ -501,8 +497,7 @@ class GalleryEntity extends GalleryPersistent {
 
 				$target = $data[$target]['parent'];
 			}
-
-} else {
+		} else {
 			$this->setLinkedEntity(null);
 		}
 
@@ -554,11 +549,9 @@ class GalleryEntity extends GalleryPersistent {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -763,5 +756,4 @@ class GalleryEntity extends GalleryPersistent {
 		// See bug 1662652
 		return null;
 	}
-
 }

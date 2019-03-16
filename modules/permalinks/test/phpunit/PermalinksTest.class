@@ -98,16 +98,14 @@ class PermalinksTest extends GalleryTestCase {
 			if ($ret) {
 				$this->failWithStatus($ret);
 			}
-
-}
+		}
 
 		$ret = parent::tearDown();
 
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testFetchItemIdForAlias() {
 		list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias('testAlias');
@@ -320,5 +318,4 @@ class PermalinksTest extends GalleryTestCase {
 
 		$this->assertEquals(array($album->pathComponent), $aliasesAlbum);
 	}
-
 }

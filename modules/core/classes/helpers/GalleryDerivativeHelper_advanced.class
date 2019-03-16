@@ -102,8 +102,7 @@ class GalleryDerivativeHelper_advanced {
 			while ($result = $searchResults->nextResult()) {
 				$ids[$result[0]] = 1;
 			}
-
-}
+		}
 
 		unset($ids[$id]);
 		$ids = array_keys($ids);
@@ -144,15 +143,15 @@ class GalleryDerivativeHelper_advanced {
 
 					return $ret;
 				}
-
-}
+			}
 
 			// Apply the transform as necessary
 			$changed = $changedIds = array();
 
 			foreach ($derivatives as $derivative) {
 				foreach ($toolkits as $toolkitId => $toolkit) {
-					$currentOperations             = $derivative->getDerivativeOperations();
+					$currentOperations = $derivative->getDerivativeOperations();
+
 					list($success, $newOperations) = $toolkit->applyTransform($operation, $currentOperations, $reverse);
 
 					if ($success) {
@@ -169,8 +168,7 @@ class GalleryDerivativeHelper_advanced {
 
 						break;
 					}
-
-}
+				}
 			}
 
 			$ret = GalleryCoreApi::releaseLocks($lockId);
@@ -178,8 +176,7 @@ class GalleryDerivativeHelper_advanced {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -307,16 +304,14 @@ class GalleryDerivativeHelper_advanced {
 
 					return $ret;
 				}
-
-}
+			}
 
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
 			if ($ret) {
 				return $ret;
 			}
-
-} else {
+		} else {
 			// If we have no preferred, then create one
 			if (empty($preferred)) {
 				list($ret, $preferred) = GalleryCoreApi::newFactoryInstanceByHint(
@@ -346,8 +341,7 @@ class GalleryDerivativeHelper_advanced {
 				if ($ret) {
 					return $ret;
 				}
-
-} else {
+			} else {
 				// Otherwise, lock the preferred so that we can modify it
 				list($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($preferred->getId());
 
@@ -360,10 +354,10 @@ class GalleryDerivativeHelper_advanced {
 				if ($ret) {
 					return $ret;
 				}
+			}
 
-}
+			$operationString = $operation . '|' . join(',', $args);
 
-			$operationString        = $operation . '|' . join(',', $args);
 			list($ret, $operations) = GalleryCoreApi::mergeDerivativeOperations(
 				$preferred->getDerivativeOperations(),
 				$operationString
@@ -404,8 +398,7 @@ class GalleryDerivativeHelper_advanced {
 				if ($ret) {
 					return $ret;
 				}
-
-} else {
+			} else {
 				$ret = $preferred->save();
 
 				if ($ret) {
@@ -413,8 +406,7 @@ class GalleryDerivativeHelper_advanced {
 
 					return $ret;
 				}
-
-}
+			}
 
 			if (!empty($lockIds)) {
 				$ret = GalleryCoreApi::releaseLocks($lockIds);
@@ -422,8 +414,7 @@ class GalleryDerivativeHelper_advanced {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		if ($operation == 'rotate' && $args != array(180)) {
@@ -432,15 +423,13 @@ class GalleryDerivativeHelper_advanced {
 			if ($ret) {
 				return $ret;
 			}
-
-} elseif (empty($preferred) && !$preserveOriginal) {
+		} elseif (empty($preferred) && !$preserveOriginal) {
 			$ret = GalleryCoreApi::expireDerivativeTreeBySourceIds(array($item->getId()));
 
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -515,8 +504,7 @@ class GalleryDerivativeHelper_advanced {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 
 			// Release locks
 			$ret = GalleryCoreApi::releaseLocks($lockId);
@@ -524,8 +512,7 @@ class GalleryDerivativeHelper_advanced {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -551,8 +538,7 @@ class GalleryDerivativeHelper_advanced {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -681,8 +667,7 @@ class GalleryDerivativeHelper_advanced {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		if (empty($operationSet1)) {
 			$results = $operationSet2;
@@ -703,8 +688,7 @@ class GalleryDerivativeHelper_advanced {
 						'args' => explode(',', $args),
 					);
 				}
-
-}
+			}
 
 			foreach (explode(';', $operationSet2) as $opString) {
 				if (strpos($opString, '|') === false) {
@@ -720,8 +704,7 @@ class GalleryDerivativeHelper_advanced {
 						'args' => explode(',', $args),
 					);
 				}
-
-}
+			}
 
 			/*
 			 * Merge operation set 2 into operation set 1, starting from the tail end of operation
@@ -750,8 +733,7 @@ class GalleryDerivativeHelper_advanced {
 
 							break 2;
 						}
-
-}
+					}
 				}
 
 				if (!$success) {
@@ -761,8 +743,7 @@ class GalleryDerivativeHelper_advanced {
 					} else {
 						$operations1[] = $operations2[$i];
 					}
-
-}
+				}
 			}
 
 			// Our merge is complete, so convert our operations back into a string
@@ -782,8 +763,7 @@ class GalleryDerivativeHelper_advanced {
 			if (!empty($resultsArray)) {
 				$results = join(';', $resultsArray);
 			}
-
-}
+		}
 
 		return array(null, $results);
 	}
@@ -801,8 +781,7 @@ class GalleryDerivativeHelper_advanced {
 				if (strncmp($opString, $match, $matchLength)) {
 					$newOperations[] = $opString;
 				}
-
-}
+			}
 
 			$operationSet = join(';', $newOperations);
 		}
@@ -863,8 +842,7 @@ class GalleryDerivativeHelper_advanced {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 
 			// Repeat the process on the next set of derivatives
 			$ret = GalleryDerivativeHelper_advanced::expireDerivativeTreeBySourceIds($derivativeIds);
@@ -872,8 +850,7 @@ class GalleryDerivativeHelper_advanced {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -947,8 +924,7 @@ class GalleryDerivativeHelper_advanced {
 
 					return $ret;
 				}
-
-}
+			}
 
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
@@ -964,8 +940,7 @@ class GalleryDerivativeHelper_advanced {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -1008,8 +983,7 @@ class GalleryDerivativeHelper_advanced {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		/*
 		 * Rebuild the cache.  Lock it, then refresh it in case it was modified
@@ -1093,10 +1067,8 @@ class GalleryDerivativeHelper_advanced {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		return array(null, $source);
 	}
-
 }

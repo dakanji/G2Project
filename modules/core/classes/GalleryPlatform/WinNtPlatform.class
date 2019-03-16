@@ -65,8 +65,7 @@ class WinNtPlatform extends GalleryPlatform {
 				} else {
 					$command .= ' "' . $arg . '" ';
 				}
-
-}
+			}
 		}
 
 		// We're going to redirect STDERR to a file
@@ -97,6 +96,7 @@ class WinNtPlatform extends GalleryPlatform {
 
 		$results = array();
 		exec($command, $results, $status);
+
 		list($ret, $expected) = GalleryCoreApi::getPluginParameter('module', 'core', 'exec.expectedStatus');
 
 		if ($ret) {
@@ -119,13 +119,11 @@ class WinNtPlatform extends GalleryPlatform {
 						if (!empty($buf)) {
 							$stderr[] = $buf;
 						}
-
-}
+					}
 
 					$this->fclose($fd);
 				}
-
-}
+			}
 
 			$this->unlink($debugFile);
 		}
@@ -180,8 +178,7 @@ class WinNtPlatform extends GalleryPlatform {
 			if (!empty($element)) {
 				$list[] = $element;
 			}
-
-}
+		}
 
 		return $list;
 	}
@@ -219,5 +216,4 @@ class WinNtPlatform extends GalleryPlatform {
 
 		return parent::strftime($format, $timestamp);
 	}
-
 }

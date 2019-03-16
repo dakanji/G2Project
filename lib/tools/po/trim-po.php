@@ -33,8 +33,7 @@ if ($langpath == $path || !file_exists($langpath)) {
 		if (substr($id, 5) != substr($data['msgstr'], 6)) {
 			echo $data['before'] . $id . $data['msgstr'] . "\n";
 		}
-
-}
+	}
 
 	exit;
 }
@@ -52,7 +51,6 @@ foreach ($po as $id => $data) {
 	if (!isset($langpo[$id]) || $langpo[$id]['msgstr'] != $data['msgstr']) {
 		echo $data['before'] . $id . $data['msgstr'] . "\n";
 	}
-
 }
 
 function isValidUtf8($string) {
@@ -87,8 +85,7 @@ function isValidUtf8($string) {
 				 */
 				$valid = true;
 			}
-
-}
+		}
 	}
 
 	return $valid;
@@ -103,7 +100,6 @@ function checkStringForBadUtf8($string, $path) {
 			. " \"$printableString\" in file $path\n"
 		);
 	}
-
 }
 
 function checkMessageForValidity($msgid, $msgstr, $isFuzzy, $path) {
@@ -116,7 +112,6 @@ function checkMessageForValidity($msgid, $msgstr, $isFuzzy, $path) {
 		checkStringForHtml($string, 'msgstr', $path);
 		checkStringForBadUtf8($string, $path);
 	}
-
 }
 
 function checkStringForHtml($string, $type, $path) {
@@ -161,10 +156,8 @@ function checkStringForHtml($string, $type, $path) {
 					. "\"$string\" in file $path\n"
 				);
 			}
-
-}
+		}
 	}
-
 }
 
 function _parsePoLinesForMessageString($poLines) {
@@ -175,8 +168,7 @@ function _parsePoLinesForMessageString($poLines) {
 		if (preg_match('/^[^"]*"(.*)"/', $line, $matches)) {
 			$message .= $matches[1];
 		}
-
-}
+	}
 
 	return $message;
 }
@@ -218,8 +210,7 @@ function readPo($path) {
 		} else {
 			$before .= $line;
 		}
-
-}
+	}
 
 	if ($key && $value) {
 		$data[$key] = array(

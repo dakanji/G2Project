@@ -51,7 +51,8 @@ class QuotasCallbacks {
 					return $ret;
 				}
 
-				$userQuotaValueKB                                          = $block['quotaValue'];
+				$userQuotaValueKB = $block['quotaValue'];
+
 				list($ret, $block['quotaValue'], $block['quotaValueUnit']) = GalleryQuotasHelper::humanReadableFromKilobytes($block['quotaValue']);
 
 				if ($ret) {
@@ -86,5 +87,4 @@ class QuotasCallbacks {
 
 		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
-
 }

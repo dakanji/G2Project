@@ -37,8 +37,9 @@ class AdminDeleteUserQuotaController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$results          = $status                   = $error                   = array();
-		$userId           = GalleryUtilities::getRequestVariables('userId');
+		$results = $status          = $error          = array();
+		$userId  = GalleryUtilities::getRequestVariables('userId');
+
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {
@@ -75,8 +76,7 @@ class AdminDeleteUserQuotaController extends GalleryController {
 				$redirect['subView']   = 'quotas.AdminQuotas';
 				$status['deletedUser'] = $user->getUserName();
 			}
-
-}
+		}
 
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
@@ -90,7 +90,6 @@ class AdminDeleteUserQuotaController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -109,7 +108,8 @@ class AdminDeleteUserQuotaView extends GalleryView {
 
 		GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 
-		$userId           = GalleryUtilities::getRequestVariables('userId');
+		$userId = GalleryUtilities::getRequestVariables('userId');
+
 		list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
 		if ($ret) {
@@ -129,6 +129,7 @@ class AdminDeleteUserQuotaView extends GalleryView {
 		}
 
 		$AdminDeleteUserQuota = array();
+
 		list($ret, $AdminDeleteUserQuota['quotaSize'], $AdminDeleteUserQuota['quotaUnit']) = GalleryQuotasHelper::humanReadableFromKilobytes($userQuota['quota']);
 
 		if ($ret) {
@@ -147,5 +148,4 @@ class AdminDeleteUserQuotaView extends GalleryView {
 			),
 		);
 	}
-
 }

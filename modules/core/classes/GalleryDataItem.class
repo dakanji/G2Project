@@ -106,8 +106,7 @@ class GalleryDataItem extends GalleryItem {
 			if (!$ret && isset($renderer)) {
 				return $renderer->canBeViewedInline($this);
 			}
-
-}
+		}
 
 		if (isset($mimeList) && in_array($this->getMimeType(), $mimeList)) {
 			return true;
@@ -200,14 +199,12 @@ class GalleryDataItem extends GalleryItem {
 			if (!$platform->symlink($inputFileName, $newFileName)) {
 				return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
 			}
-
-} else {
+		} else {
 			// Copy the file to its new location
 			if (!$platform->copy($inputFileName, $newFileName)) {
 				return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
 			}
-
-}
+		}
 
 		// Set my file size
 		$this->setSize($platform->filesize($newFileName));
@@ -230,7 +227,8 @@ class GalleryDataItem extends GalleryItem {
 			return $ret;
 		}
 
-		$platform               =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $sourcePath) = $linkedEntity->fetchPath();
 
 		if ($ret) {
@@ -291,8 +289,7 @@ class GalleryDataItem extends GalleryItem {
 					"Could not delete $path"
 				);
 			}
-
-}
+		}
 
 		// Delete the fast-download cache if it exists
 		GalleryCoreApi::deleteFastDownloadFileById($this->getId());
@@ -307,7 +304,8 @@ class GalleryDataItem extends GalleryItem {
 	public function rescan() {
 		global $gallery;
 
-		$platform         =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $path) = $this->fetchPath();
 
 		if ($ret) {
@@ -315,7 +313,6 @@ class GalleryDataItem extends GalleryItem {
 		}
 
 		$this->setSize($platform->filesize($path));
-
 		GalleryCoreApi::deleteFastDownloadFileById($this->getId());
 
 		return null;
@@ -377,15 +374,13 @@ class GalleryDataItem extends GalleryItem {
 				if ($platform->file_exists($newPath)) {
 					$error = GalleryCoreApi::error(ERROR_COLLISION);
 				}
-
-}
+			}
 
 			if (!isset($error)) {
 				if (!$platform->rename($currentPath, $newPath)) {
 					$error = GalleryCoreApi::error(ERROR_BAD_PATH);
 				}
-
-}
+			}
 		}
 
 		// Release locks
@@ -463,5 +458,4 @@ class GalleryDataItem extends GalleryItem {
 	public function setSize($size) {
 		$this->size = $size;
 	}
-
 }

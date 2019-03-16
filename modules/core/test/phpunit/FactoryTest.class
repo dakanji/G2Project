@@ -109,8 +109,7 @@ class FactoryTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function tearDown() {
 		foreach (array('factoryTest', 'factoryTest2') as $moduleId) {
@@ -125,16 +124,14 @@ class FactoryTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	/**
 	 * Register an implementation, create new instance
@@ -455,8 +452,7 @@ class FactoryTest extends GalleryTestCase {
 		} else {
 			$this->fail('TestErrorHandler error listener not set');
 		}
-
-}
+	}
 
 	public function testRegisterFactoryImplementationForRequestDeleteCache() {
 		$handlerPath = __DIR__;
@@ -500,7 +496,6 @@ class FactoryTest extends GalleryTestCase {
 
 		$this->assertTrue($result, 'TestErrorHandler error listener is still set');
 	}
-
 }
 
 /**
@@ -521,10 +516,10 @@ class FactoryTestDummy2 {}
 class FactoryTestModule extends GalleryModule {
 	public function __construct() {
 		$this->setId('factoryTest');
+
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$this->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 	}
-
 }
 
 class FactoryTestModule2 extends GalleryModule {
@@ -533,5 +528,4 @@ class FactoryTestModule2 extends GalleryModule {
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$this->setRequiredModuleApi(GalleryModule::getMe()->getApiVersion());
 	}
-
 }

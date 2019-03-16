@@ -229,7 +229,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		GalleryDataCache::reset();
 
 		// Fetch all permissions and compare the ones we care about
-		$count                   = 0;
+		$count = 0;
+
 		list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), false);
 
 		if ($ret) {
@@ -250,8 +251,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 
 				$count++;
 			}
-
-}
+		}
 
 		$this->assertEquals(1, $count);
 	}
@@ -341,8 +341,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 
 					$count++;
 				}
-
-}
+			}
 		}
 
 		$this->assertEquals(3, $count);
@@ -516,8 +515,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			if (isset($permission['groupId']) && $permission['groupId'] == $this->_group->getId()) {
 				$this->assertFalse(true, 'invalid group permission found');
 			}
-
-}
+		}
 	}
 
 	public function testDeleteGroupPermissionCascade() {
@@ -585,11 +583,9 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 						'invalid group permission found: ' . serialize($permission)
 					);
 				}
-
-}
+			}
 		}
-
-}
+	}
 
 	public function testAddUserPermission() {
 		// Use valid inputs
@@ -619,7 +615,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		GalleryDataCache::reset();
 
 		// Fetch all permissions and compare the ones we care about
-		$count                   = 0;
+		$count = 0;
+
 		list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($this->_albumParent->getId(), false);
 
 		if ($ret) {
@@ -640,8 +637,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 
 				$count++;
 			}
-
-}
+		}
 
 		$this->assertEquals(1, $count);
 	}
@@ -728,8 +724,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 
 					$count++;
 				}
-
-}
+			}
 		}
 
 		$this->assertEquals(3, $count);
@@ -896,8 +891,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 			) {
 				$this->assertFalse(true, 'invalid user permission found');
 			}
-
-}
+		}
 	}
 
 	public function testDeleteUserPermissionCascade() {
@@ -965,17 +959,14 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 						'invalid user permission found: ' . serialize($permission)
 					);
 				}
-
-}
+			}
 		}
-
-}
+	}
 
 	public function testUnauthorizedPermissionChange() {
 		global $gallery;
 
 		$gallery->setActiveUser($this->_user);
-
 		GalleryUtilities::putRequestVariable('itemId', $this->_albumParent->getId());
 		GalleryUtilities::putRequestVariable('form[action][addUserPermission]', 1);
 		GalleryUtilities::putRequestVariable('form[user][permission]', 'core.edit');
@@ -1151,12 +1142,10 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 				} elseif ($permission['permission'] == 'core.changePermissions') {
 					$foundChange = true;
 				}
-
-}
+			}
 		}
 
 		$this->assertTrue($foundEdit, 'user should have core.edit permission');
 		$this->assertTrue($foundChange, 'user should have core.changePermissions permission');
 	}
-
 }

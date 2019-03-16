@@ -31,11 +31,7 @@
  * In tearDown() or at the end of the test, call:
  *
  *
- *
- *
  *  $this->assertTrue($repository->isComplete(), $repository->getRemaining());
- *
- *
  *
  * This check verifies that all expected calls were received.
  *
@@ -169,5 +165,4 @@ class UnitTestRepository extends MockObject {
 	public function removeObsoleteFiles($pluginType, $pluginId) {
 		return $this->_makeReply('removeObsoleteFiles', array($pluginType, $pluginId));
 	}
-
 }

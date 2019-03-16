@@ -167,12 +167,10 @@ class GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-} else {
+			} else {
 				return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED), null);
 			}
-
-}
+		}
 
 		$controllerClassName = $class . 'Controller';
 
@@ -198,8 +196,7 @@ class GalleryController {
 					null,
 				);
 			}
-
-}
+		}
 
 		return array(null, new $controllerClassName());
 	}
@@ -311,8 +308,7 @@ class GalleryController {
 				// Avoid information disclosure by treating this as if the item didn't exist.
 				return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 			}
-
-}
+		}
 
 		return array(null, $item);
 	}
@@ -323,7 +319,8 @@ class GalleryController {
 	public function permissionCheck($ret) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
 
-		$view                = new GalleryView();
+		$view = new GalleryView();
+
 		list($ret, $results) = $view->_permissionCheck($ret);
 
 		if (!empty($results['redirect'])) {
@@ -332,5 +329,4 @@ class GalleryController {
 
 		return array($ret, $results);
 	}
-
 }

@@ -17,7 +17,6 @@ class ADODB_Encrypt_SHA1 {
 
 		return $sha1crypt->decrypt($data, $key);
 	}
-
 }
 
 return 1;

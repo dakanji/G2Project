@@ -232,8 +232,7 @@ class SystemChecksStep extends InstallStep {
 			if (!function_exists($function)) {
 				$missingFilesystemFunctions[] = $function;
 			}
-
-}
+		}
 
 		if (!empty($missingFilesystemFunctions)) {
 			$templateData['check'][] = array(
@@ -387,8 +386,7 @@ class SystemChecksStep extends InstallStep {
 			if (GalleryUtilities::getPhpIniBool($outputFunction) || (int)ini_get($outputFunction) > 0) {
 				$outputBuffers[] = $outputFunction;
 			}
-
-}
+		}
 
 		foreach (array(
 			'output_handler',
@@ -397,8 +395,7 @@ class SystemChecksStep extends InstallStep {
 			if (($value = ini_get($outputHandler)) && !empty($value)) {
 				$outputBuffers[] = $outputHandler;
 			}
-
-}
+		}
 
 		if (!empty($outputBuffers)) {
 			$templateData['check'][] = array(
@@ -479,8 +476,7 @@ class SystemChecksStep extends InstallStep {
 						_('There are missing/modified files!')
 					);
 				}
-
-}
+			}
 
 			$galleryStub->setConfig('systemchecks.issvninstall', $isSvnInstall);
 		}
@@ -530,8 +526,7 @@ class SystemChecksStep extends InstallStep {
 
 				return true;
 			}
-
-}
+		}
 
 		closedir($dh);
 
@@ -578,15 +573,13 @@ class SystemChecksStep extends InstallStep {
 				if ($useSetTimeLimit) {
 					set_time_limit(180);
 				}
-
-}
+			}
 
 			if (!empty($info['removed'])) {
 				if (file_exists($path)) {
 					$shouldRemove[] = $file;
 				}
-
-} elseif (!file_exists($path)) {
+			} elseif (!file_exists($path)) {
 				$missing[] = $file;
 			} else {
 				/*
@@ -603,8 +596,7 @@ class SystemChecksStep extends InstallStep {
 
 					$modified[] = $file;
 				}
-
-}
+			}
 		}
 
 		return array(
@@ -613,5 +605,4 @@ class SystemChecksStep extends InstallStep {
 			'shouldRemove' => $shouldRemove,
 		);
 	}
-
 }

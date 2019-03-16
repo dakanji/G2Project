@@ -279,11 +279,17 @@ class WatermarkImage extends GalleryEntity {
 		}
 
 		$this->setName($targetName);
+
 		$this->setFileName($targetFilename);
+
 		$this->setMimeType($mimeType);
+
 		$this->setWidth(0);
+
 		$this->setHeight(0);
+
 		$this->setXPercentage(100);
+
 		$this->setYPercentage(100);
 		$this->setApplyToPreferred(false);
 		$this->setApplyToResizes(true);
@@ -443,21 +449,18 @@ class WatermarkImage extends GalleryEntity {
 					if (isset($value)) {
 						$html .= " $attr=\"$value\"";
 					}
-
-}
+				}
 
 				return $html . '/>';
 
 			default:
 				return null;
 		}
-
-}
+	}
 
 	/**
 	 * So WatermarkImage is displayable with {g->image}
-
-*/
+	 */
 	public function getRenderer() {
 		return null;
 	}
@@ -564,5 +567,4 @@ class WatermarkImage extends GalleryEntity {
 	public function setYPercentage($yPercentage) {
 		$this->yPercentage = $yPercentage;
 	}
-
 }

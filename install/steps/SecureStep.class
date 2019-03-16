@@ -50,13 +50,11 @@ class SecureStep extends InstallStep {
 				$templateData['dir']['secure']  = !((int)$dirMode[1] & 2 || (int)$dirMode[2] & 2);
 				$templateData['secure']         = $templateData['file']['secure'] && $templateData['dir']['secure'];
 			}
-
-}
+		}
 
 		$templateData['showFileSystemPermissionWarnings'] = $doFilesystemPermissionCheck;
 		$templateData['bodyFile']                         = 'Secure.html';
 
 		$this->setComplete(true);
 	}
-
 }

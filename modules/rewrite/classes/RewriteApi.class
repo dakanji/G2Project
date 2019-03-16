@@ -49,8 +49,7 @@ class RewriteApi {
 		if ($ret) {
 			$this->_error = $ret;
 		}
-
-}
+	}
 
 	/**
 	 * When using this API you should first make sure that your code is compatible with it.
@@ -257,14 +256,12 @@ class RewriteApi {
 					if (!$replacePatterns && isset($history[$ruleId]['pattern'])) {
 						$activeRule['pattern'] = $history[$ruleId]['pattern'];
 					}
-
-}
+				}
 
 				$activeRules[$moduleId][$ruleId] = $activeRule;
 				unset($history[$ruleId]);
 			}
-
-}
+		}
 
 		list($ret, $code, $errorId) = $this->_parser->saveActiveRules(
 			$this->_parser,
@@ -283,8 +280,7 @@ class RewriteApi {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		return array(null, $code == REWRITE_STATUS_OK);
 	}
@@ -311,5 +307,4 @@ class RewriteApi {
 	public function getParserType() {
 		return $this->_parser->getParserType();
 	}
-
 }

@@ -52,8 +52,7 @@ class GalleryChildEntityHelper_simple {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-} else {
+		} else {
 			$ids = array();
 		}
 
@@ -84,8 +83,7 @@ class GalleryChildEntityHelper_simple {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-} else {
+		} else {
 			$ids = array();
 		}
 
@@ -271,8 +269,7 @@ class GalleryChildEntityHelper_simple {
 			while ($result = $searchResults->nextResult()) {
 				$ids[] = (int)$result[0];
 			}
-
-}
+		}
 
 		return array(null, $ids);
 	}
@@ -395,15 +392,13 @@ class GalleryChildEntityHelper_simple {
 
 						break;
 					}
-
-}
+				}
 			}
 
 			if (empty($parentIds)) {
 				return array(null, array());
 			}
-
-}
+		}
 
 		list($ret, $parents) = GalleryCoreApi::loadEntitiesById($parentIds, 'GalleryItem');
 
@@ -464,8 +459,7 @@ class GalleryChildEntityHelper_simple {
 			if (empty($aclIds)) {
 				return array(null, array());
 			}
-
-}
+		}
 
 		$data[] = $sequence;
 
@@ -772,10 +766,8 @@ class GalleryChildEntityHelper_simple {
 				$order[]  = $column . $direction;
 				$select[] = $column;
 			}
-
-}
+		}
 
 		return array(null, $select, $join, $condition, $order);
 	}
-
 }

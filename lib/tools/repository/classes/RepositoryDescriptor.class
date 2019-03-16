@@ -114,7 +114,8 @@ class RepositoryDescriptor extends RepositoryObject {
 		 * Get translated strings for all supported languages. All
 		 * locales must be installed on the system for this to work.
 		 */
-		$translator                                =& $gallery->getTranslator();
+		$translator =& $gallery->getTranslator();
+
 		list($supportedLanguages, $defaultCountry) = $translator->getLanguageData();
 
 		foreach ($supportedLanguages as $language => $countries) {
@@ -143,8 +144,7 @@ class RepositoryDescriptor extends RepositoryObject {
 
 					$descriptions[$languageCode][$stringId] = $translatedString;
 				}
-
-}
+			}
 		}
 
 		$this->_data['descriptions'] = $descriptions;
@@ -166,8 +166,7 @@ class RepositoryDescriptor extends RepositoryObject {
 			if (!in_array(substr($this->_pluginDir, -1), array('/', '\\'))) {
 				$this->_pluginDir .= '/';
 			}
-
-}
+		}
 
 		if (!$platform->file_exists($this->_pluginDir . 'MANIFEST')) {
 			// Don't do anything.  Integrity check will fail on this
@@ -215,8 +214,7 @@ class RepositoryDescriptor extends RepositoryObject {
 				$stringsRevision                                           = $this->_data['header']['stringsRevision'];
 				$this->_data['languages'][$stringsRevision][$languageCode] = $revision;
 			}
-
-}
+		}
 
 		$this->setOutputFile(
 			sprintf(
@@ -226,7 +224,6 @@ class RepositoryDescriptor extends RepositoryObject {
 				$this->getBuildTimestamp()
 			)
 		);
-
 		// Put data into template.
 		$this->_template->setVariable('contents', serialize($this->_data));
 
@@ -273,8 +270,7 @@ class RepositoryDescriptor extends RepositoryObject {
 				if (empty($data['directories'][$dir]['packages'])) {
 					$data['directories'][$dir]['packages'] = $this->getPackageNames($dir);
 				}
-
-}
+			}
 
 			$data['files'][$file] = array(
 				'bytes'      => $fileInfo['size'],
@@ -294,8 +290,7 @@ class RepositoryDescriptor extends RepositoryObject {
 
 				$data['header']['stringsRevision'] = $revision;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -318,8 +313,7 @@ class RepositoryDescriptor extends RepositoryObject {
 			} elseif (preg_match('#po/(.*?)\.[pm]o#', $path, $localeId)) {
 				$packages[] = 'lang-' . $localeId[1];
 			}
-
-} else {
+		} else {
 			$packages[] = 'base';
 		}
 
@@ -339,8 +333,7 @@ class RepositoryDescriptor extends RepositoryObject {
 			if (in_array($package, $directoryMetaData['packages'])) {
 				$directories[] = $dir;
 			}
-
-}
+		}
 
 		sort($directories);
 
@@ -360,8 +353,7 @@ class RepositoryDescriptor extends RepositoryObject {
 			if (in_array($package, $fileMetaData['packages'])) {
 				$files[] = $file;
 			}
-
-}
+		}
 
 		sort($files);
 
@@ -380,8 +372,7 @@ class RepositoryDescriptor extends RepositoryObject {
 			foreach ($this->_data['files'] as $file => $info) {
 				$packageTypes = array_merge($packageTypes, $info['packages']);
 			}
-
-}
+		}
 
 		$packageTypes = array_unique($packageTypes);
 		sort($packageTypes);
@@ -445,11 +436,9 @@ class RepositoryDescriptor extends RepositoryObject {
 							$stat[7]
 						);
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		return $errors;
 	}
@@ -477,5 +466,4 @@ class RepositoryDescriptor extends RepositoryObject {
 	public function getLanguageRevision($languageCode) {
 		return $this->_data['languages'][$this->getStringsRevision()][$languageCode];
 	}
-
 }

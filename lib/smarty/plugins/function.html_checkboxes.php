@@ -99,12 +99,10 @@ function smarty_function_html_checkboxes($params, &$smarty) {
 
 				break;
 		}
-
-}
+	}
 
 	if (!isset($options) && !isset($values)) {
-		// raise error here?
-		return '';
+		return ''; // raise error here?
 	}
 
 	settype($selected, 'array');
@@ -114,21 +112,18 @@ function smarty_function_html_checkboxes($params, &$smarty) {
 		foreach ($options as $_key => $_val) {
 			$_html_result[] = smarty_function_html_checkboxes_output($name, $_key, $_val, $selected, $extra, $separator, $labels);
 		}
-
-} else {
+	} else {
 		foreach ($values as $_i => $_key) {
 			$_val           = isset($output[$_i]) ? $output[$_i] : '';
 			$_html_result[] = smarty_function_html_checkboxes_output($name, $_key, $_val, $selected, $extra, $separator, $labels);
 		}
-
-}
+	}
 
 	if (!empty($params['assign'])) {
 		$smarty->assign($params['assign'], $_html_result);
 	} else {
 		return implode("\n", $_html_result);
 	}
-
 }
 
 function smarty_function_html_checkboxes_output($name, $value, $output, $selected, $extra, $separator, $labels) {

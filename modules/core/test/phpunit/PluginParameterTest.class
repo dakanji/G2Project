@@ -61,8 +61,7 @@ class PluginParameterTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testAddParameter() {
 		global $gallery;
@@ -113,8 +112,7 @@ class PluginParameterTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		list($ret, $newValue) = GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key);
 
@@ -142,8 +140,7 @@ class PluginParameterTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		list($ret, $newValues) = GalleryCoreApi::fetchAllPluginParameters('module', 'unitTestModule');
 
@@ -154,8 +151,7 @@ class PluginParameterTest extends GalleryTestCase {
 		for ($i = 0; $i < 3; $i++) {
 			$this->assertEquals("${value}-$i", $newValues["${key}-$i"]);
 		}
-
-}
+	}
 
 	public function testAddItemParameters() {
 		global $gallery;
@@ -175,8 +171,7 @@ class PluginParameterTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		for ($i = 0; $i < 3; $i++) {
 			list($ret, $newValue) = GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key, $i);
@@ -187,8 +182,7 @@ class PluginParameterTest extends GalleryTestCase {
 
 			$this->assertEquals("${value}-$i", $newValue);
 		}
-
-}
+	}
 
 	public function testCleanupAfterDeleteEntity() {
 		list($ret, $album) = $this->_createRandomAlbum($this->_parentAlbum->getId());
@@ -285,8 +279,7 @@ class PluginParameterTest extends GalleryTestCase {
 
 			$this->assertEquals($param, $val, 'Parameter "foo1" (' . $item . ') should be ' . $val);
 		}
-
-}
+	}
 
 	public function testAddPluginParameterFieldTypes() {
 		global $gallery;
@@ -337,7 +330,6 @@ class PluginParameterTest extends GalleryTestCase {
 		);
 		GalleryCoreApi::setPluginParameter('module', 'foo', 'bar', '55', 3);
 	}
-
 }
 
 class PluginParameterTestMockStorage {
@@ -404,5 +396,4 @@ class PluginParameterTestMockStorage {
 	public function removeMapEntry($map, $match) {
 		return null;
 	}
-
 }

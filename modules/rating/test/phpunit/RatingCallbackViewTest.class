@@ -75,8 +75,7 @@ class RatingCallbackViewTest extends GalleryTestCase {
 		if ($ret || !isset($this->_view)) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testRenderImmediate() {
 		$rating = mt_rand(1, 5);
@@ -100,10 +99,8 @@ class RatingCallbackViewTest extends GalleryTestCase {
 
 		// Item id
 		$this->assertEquals($this->_item->getId(), (int)$results[0]);
-
 		// New average rating
 		$this->assertEquals($rating, (int)$results[1]);
-
 		// User rating
 		$this->assertEquals($rating, (int)$results[3]);
 
@@ -142,10 +139,8 @@ class RatingCallbackViewTest extends GalleryTestCase {
 
 		// Item id
 		$this->assertEquals($this->_item->getId(), (int)$results[0]);
-
 		// New average rating
 		$this->assertEquals($rating, (int)$results[1], 'Seed average rating is incorrect.');
-
 		// User rating
 		$this->assertEquals($rating, (int)$results[3], 'Seed user rating is incorrect.');
 
@@ -209,7 +204,6 @@ class RatingCallbackViewTest extends GalleryTestCase {
 
 		// Should be empty
 		$this->assertTrue(empty($results[0]), 'Results not empty.');
-
 		// Nothing should be returned past first line
 		$this->assertFalse(isset($results[1]));
 	}
@@ -236,10 +230,8 @@ class RatingCallbackViewTest extends GalleryTestCase {
 
 		// Item id
 		$this->assertEquals($this->_item->getId(), (int)$results[0]);
-
 		// New average rating
 		$this->assertEquals($rating, (int)$results[1], 'Seed average rating is incorrect.');
-
 		// User rating
 		$this->assertEquals($rating, (int)$results[3], 'Seed user rating is incorrect.');
 
@@ -313,10 +305,8 @@ class RatingCallbackViewTest extends GalleryTestCase {
 
 		// Item id
 		$this->assertEquals($this->_item->getId(), (int)$results[0]);
-
 		// New average rating
 		$this->assertEquals($newRating, (int)$results[1], 'Average rating is incorrect.');
-
 		// User rating
 		$this->assertEquals($newRating, (int)$results[3], 'User rating is incorrect.');
 
@@ -332,5 +322,4 @@ class RatingCallbackViewTest extends GalleryTestCase {
 
 		$this->assertEquals($votesString, $results[2], 'Vote count is incorrect.');
 	}
-
 }

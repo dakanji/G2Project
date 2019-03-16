@@ -125,8 +125,9 @@ class CustomFieldSearch extends GallerySearchInterface_1_0 {
 			return array($ret, null);
 		}
 
-		$result              = $results->nextResult();
-		$numRows             = (int)$result[0];
+		$result  = $results->nextResult();
+		$numRows = (int)$result[0];
+
 		list($ret, $results) = $gallery->search(
 			$query,
 			$data,
@@ -165,5 +166,4 @@ class CustomFieldSearch extends GallerySearchInterface_1_0 {
 
 		return array(null, $data);
 	}
-
 }

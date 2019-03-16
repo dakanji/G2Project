@@ -85,15 +85,15 @@ class ViewCartView extends GalleryView {
 
 							break;
 						}
-
-}
+					}
 				}
 
 				$itemTypeNames[$item->getId()] = $item->itemTypeName();
 			}
 
 			// Filter out unsupported actions
-			$itemIds                   = array_keys($supportedItemIds);
+			$itemIds = array_keys($supportedItemIds);
+
 			list($ret, $permissionMap) = GalleryCoreApi::fetchPermissionsForItems($itemIds);
 
 			if ($ret) {
@@ -112,16 +112,14 @@ class ViewCartView extends GalleryView {
 						if (!empty($permissionMap[$itemId][$permissionId])) {
 							$grantedPermissions++;
 						}
-
-}
+					}
 
 					if ($grantedPermissions == count($pluginData['requiredPermissions'])) {
 						$plugins[$pluginId]['isAvailable'] = 1;
 
 						break;
 					}
-
-}
+				}
 			}
 
 			// Fetch thumbnails
@@ -134,8 +132,7 @@ class ViewCartView extends GalleryView {
 			foreach ($thumbnailList as $thumbnail) {
 				$thumbnails[$thumbnail->getParentId()] = (array)$thumbnail;
 			}
-
-}
+		}
 
 		$ViewCart['items']         = $items;
 		$ViewCart['itemTypeNames'] = $itemTypeNames;
@@ -236,5 +233,4 @@ class ViewCartView extends GalleryView {
 
 		return array(null, $module->translate('view cart'));
 	}
-
 }

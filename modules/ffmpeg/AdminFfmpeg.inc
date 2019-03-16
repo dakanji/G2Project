@@ -58,8 +58,7 @@ class AdminFfmpegController extends GalleryController {
 							if ($form['path'][strlen($form['path']) - 1] != $slash) {
 								$form['path'] .= $slash;
 							}
-
-}
+						}
 
 						// Try adding on "ffmpeg"
 						$path = $form['path'] . 'ffmpeg';
@@ -72,8 +71,7 @@ class AdminFfmpegController extends GalleryController {
 
 							GalleryUtilities::putRequestVariable('form.path', $path);
 						}
-
-}
+					}
 
 					if (empty($error)) {
 						if ($platform->is_file($form['path'])
@@ -81,8 +79,7 @@ class AdminFfmpegController extends GalleryController {
 						) {
 							$error[] = 'form[error][path][notExecutable]';
 						}
-
-}
+					}
 				} else {
 					$error[] = 'form[error][path][badPath]';
 				}
@@ -96,8 +93,7 @@ class AdminFfmpegController extends GalleryController {
 						} else {
 							return array($ret, null);
 						}
-
-} else {
+					} else {
 						$failCount = 0;
 
 						foreach ($testResults as $testResult) {
@@ -105,17 +101,14 @@ class AdminFfmpegController extends GalleryController {
 							if (!$testResult['success']) {
 								$failCount++;
 							}
-
-}
+						}
 
 						if ($failCount > 0) {
 							$error[] = 'form[error][path][testError]';
 						}
-
-}
+					}
 				}
-
-}
+			}
 
 			if (empty($error) && isset($form['action']['save'])) {
 				if (isset($form['addWatermark']) && $form['addWatermark']) {
@@ -193,8 +186,7 @@ class AdminFfmpegController extends GalleryController {
 					$redirect['subView']  = 'core.AdminPlugins';
 					$status['configured'] = 'ffmpeg';
 				}
-
-}
+			}
 		} elseif (isset($form['action']['reset'])) {
 			$redirect['view']    = 'core.SiteAdmin';
 			$redirect['subView'] = 'ffmpeg.AdminFfmpeg';
@@ -232,7 +224,8 @@ class AdminFfmpegController extends GalleryController {
 		}
 
 		while (!empty($ids)) {
-			$idSet              = array_splice($ids, 0, 100);
+			$idSet = array_splice($ids, 0, 100);
+
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($idSet);
 
 			if ($ret) {
@@ -257,16 +250,14 @@ class AdminFfmpegController extends GalleryController {
 
 					return $ret;
 				}
-
-}
+			}
 
 			$ret = GalleryCoreApi::releaseLocks($lockId);
 
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -281,8 +272,7 @@ class AdminFfmpegController extends GalleryController {
 
 			$thumbnail->setDerivativeOperations($operations);
 		}
-
-}
+	}
 
 	public function _removeWatermark(&$thumbnail) {
 		$operations = $thumbnail->getDerivativeOperations();
@@ -297,7 +287,6 @@ class AdminFfmpegController extends GalleryController {
 			)
 		);
 	}
-
 }
 
 /**
@@ -328,16 +317,14 @@ class AdminFfmpegView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 
 			$form['formName'] = 'AdminFfmpeg';
 		} else {
 			if (!isset($form['useWatermark'])) {
 				$form['useWatermark'] = 0;
 			}
-
-}
+		}
 
 		$platform         =& $gallery->getPlatform();
 		$tests            = array();
@@ -376,18 +363,15 @@ class AdminFfmpegView extends GalleryView {
 					} else {
 						return array($ret, null);
 					}
-
-}
+				}
 
 				foreach ($tests as $test) {
 					if (!$test['success']) {
 						$failCount++;
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation('image/jpeg', 'composite');
 
@@ -440,5 +424,4 @@ class AdminFfmpegView extends GalleryView {
 			),
 		);
 	}
-
 }

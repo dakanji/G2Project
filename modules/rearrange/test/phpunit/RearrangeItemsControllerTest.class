@@ -59,8 +59,7 @@ class RearrangeItemsControllerTest extends GalleryControllerTestCase {
 				if ($ret) {
 					return $ret;
 				}
-
-} else {
+			} else {
 				list($ret, $this->_child[$i]) = $this->_createRandomDataItem($this->_album->getId());
 
 				if ($ret) {
@@ -73,8 +72,7 @@ class RearrangeItemsControllerTest extends GalleryControllerTestCase {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 			}
 
 			$ret = GalleryCoreApi::setItemOrderWeight($this->_child[$i]->getId(), $i * 1000);
@@ -85,8 +83,7 @@ class RearrangeItemsControllerTest extends GalleryControllerTestCase {
 
 			$this->_childIds[] = $this->_child[$i]->getId();
 		}
-
-}
+	}
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
@@ -167,7 +164,8 @@ class RearrangeItemsControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[list]', '1,4,2,3,0');
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 
-		$results              = $this->handleRequest(ERROR_BAD_PARAMETER);
+		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
+
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($this->_album);
 
 		if ($ret) {
@@ -184,5 +182,4 @@ class RearrangeItemsControllerTest extends GalleryControllerTestCase {
 			$childIds
 		);
 	}
-
 }

@@ -219,8 +219,7 @@ class ExifHelper {
 
 			$gallery->debug(str_replace("\0", '', $buf));
 		}
-
-}
+	}
 
 	/**
 	 * Return the raw IPTC data as a lib/JPEG object. This method call has the penalty to have
@@ -258,7 +257,6 @@ class ExifHelper {
 		if ($gallery->getDebug()) {
 			// Capture old-school print_r() to support older PHP
 			ob_start();
-
 			print_r($result->getRawInfo());
 
 			$buf = ob_get_contents();
@@ -283,14 +281,16 @@ class ExifHelper {
 	public static function getExifData($path, $viewMode) {
 		$rawExifData = array();
 		self::_fetchRawExifData($path, $rawExifData);
+
 		list($ret, $iptcObj) = self::getIptcObject($path);
 
 		if ($ret) {
 			return array($ret, null);
 		}
 
-		$exifKeys               = self::getExifKeys();
-		$results                = array();
+		$exifKeys = self::getExifKeys();
+		$results  = array();
+
 		list($ret, $properties) = self::getProperties($viewMode);
 
 		if ($ret) {
@@ -320,8 +320,7 @@ class ExifHelper {
 
 					break;
 				}
-
-}
+			}
 		}
 
 		return array(null, $results);
@@ -427,8 +426,7 @@ class ExifHelper {
 				if (isset($value)) {
 					return $value;
 				}
-
-}
+			}
 		}
 
 		return null;
@@ -471,8 +469,7 @@ class ExifHelper {
 			} else {
 				$time -= $offset;
 			}
-
-}
+		}
 
 		return $time;
 	}
@@ -613,8 +610,7 @@ class ExifHelper {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -641,6 +637,7 @@ class ExifHelper {
 	 */
 	public static function getExifKeys() {
 		global $gallery;
+
 		static $data;
 
 		if (!empty($data)) {
@@ -1681,5 +1678,4 @@ class ExifHelper {
 
 		return $data;
 	}
-
 }

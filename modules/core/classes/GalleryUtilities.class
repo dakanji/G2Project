@@ -148,8 +148,7 @@ class GalleryUtilities {
 				foreach ($postForm['tmp_name'] as $i => $unused) {
 					$postForm['tmp_name'][$i] = addslashes($postForm['tmp_name'][$i]);
 				}
-
-}
+			}
 
 			$form = GalleryUtilities::array_merge_replace($form, $postForm);
 		}
@@ -184,8 +183,7 @@ class GalleryUtilities {
 			if (empty($filter[$key])) {
 				$values[$prefix ? substr($key, $prefixLength) : $key] = $value;
 			}
-
-}
+		}
 
 		return $values;
 	}
@@ -223,8 +221,7 @@ class GalleryUtilities {
 
 					$array[$key] = $value;
 				}
-
-}
+			}
 		}
 
 		return $array;
@@ -281,15 +278,13 @@ class GalleryUtilities {
 			if (substr($key, 0, $prefixLength) == GALLERY_FORM_VARIABLE_PREFIX) {
 				$values[substr($key, $prefixLength)] = $value;
 			}
-
-}
+		}
 
 		foreach ($_GET as $key => $value) {
 			if (substr($key, 0, $prefixLength) == GALLERY_FORM_VARIABLE_PREFIX) {
 				$values[substr($key, $prefixLength)] = $value;
 			}
-
-}
+		}
 
 		// Sanitize the input
 		GalleryUtilities::sanitizeInputValues($values);
@@ -774,8 +769,7 @@ class GalleryUtilities {
 
 				GalleryUtilities::sanitizeInputValues($value[$newKey]);
 			}
-
-} else {
+		} else {
 			// Simulate calling htmlspecialchars($value, ENT_COMPAT, 'UTF-8')
 			$value = str_replace(
 				array('&', '"', '<', '>'),
@@ -788,11 +782,9 @@ class GalleryUtilities {
 				if (get_magic_quotes_gpc()) {
 					$value = stripslashes($value);
 				}
-
-}
+			}
 		}
-
-}
+	}
 
 	/**
 	 * Undo preprocessing from sanitizeInputValues (useful when we put values back in the request).
@@ -805,8 +797,7 @@ class GalleryUtilities {
 			foreach (array_keys($value) as $key) {
 				GalleryUtilities::unsanitizeInputValues($value[$key], $adaptForMagicQuotes);
 			}
-
-} else {
+		} else {
 			// Unsanitize dangerous html entities
 			$value = html_entity_decode($value);
 
@@ -815,11 +806,9 @@ class GalleryUtilities {
 				if (get_magic_quotes_gpc()) {
 					$value = addslashes($value);
 				}
-
-}
+			}
 		}
-
-}
+	}
 
 	/**
 	 * Unescape embedded UTF-8 entities in the given string.
@@ -834,8 +823,7 @@ class GalleryUtilities {
 
 					//return GalleryUtilities::unicodeValueToUtf8Value($match);
 				}
-
-},
+			},
 			$inString
 		);
 
@@ -1028,8 +1016,7 @@ class GalleryUtilities {
 		) {
 			$responseHeaders['status'] = 'HTTP/1.0 302 Found';
 		}
-
-}
+	}
 
 	/**
 	 * Array of response headers which have already been set.
@@ -1073,8 +1060,7 @@ class GalleryUtilities {
 			if (!$compare($element, $path, strlen($element))) {
 				return true;
 			}
-
-}
+		}
 
 		return false;
 	}
@@ -1112,11 +1098,9 @@ class GalleryUtilities {
 
 						break;
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		return $addr;
 	}
@@ -1152,8 +1136,7 @@ class GalleryUtilities {
 			if ($platform->file_exists($dir)) {
 				return array($platform->is_dir($dir), array());
 			}
-
-}
+		}
 
 		$parentDir = dirname($dir);
 
@@ -1169,8 +1152,7 @@ class GalleryUtilities {
 			if ($success) {
 				$created[] = $dir;
 			}
-
-}
+		}
 
 		return array($success, $created);
 	}
@@ -1185,8 +1167,7 @@ class GalleryUtilities {
 		if (empty($albums)) {
 			$tree = array();
 
-			// Help CodeAudit match up returns
-			return $tree;
+			return $tree;  // Help CodeAudit match up returns
 		}
 
 		// Index the albums by id
@@ -1201,8 +1182,7 @@ class GalleryUtilities {
 				$map[$albumId]['parent']      = $parentId;
 				$map[$parentId]['children'][] = $albumId;
 			}
-
-}
+		}
 
 		/*
 		 * Prune parents that don't exist.  This can occur if we have multiple roots (unusual) or an
@@ -1212,16 +1192,14 @@ class GalleryUtilities {
 			if (isset($info['parent']) && !isset($map[$info['parent']]['instance'])) {
 				unset($map[$info['parent']]);
 			}
-
-}
+		}
 
 		// Find root albums
 		foreach ($map as $id => $info) {
 			if (!isset($info['parent']) || !isset($map[$info['parent']])) {
 				$roots[] = $id;
 			}
-
-}
+		}
 
 		// Walk the root albums
 		$tree = array();
@@ -1254,8 +1232,7 @@ class GalleryUtilities {
 					GalleryUtilities::_createDepthTree($map, $childId, $depth + 1)
 				);
 			}
-
-}
+		}
 
 		return $data;
 	}
@@ -1302,11 +1279,9 @@ class GalleryUtilities {
 							// Non-item parent, like an album.  Add extension for this mime type.
 							$pseudoFileName .= '.' . $extensions[0];
 						}
-
-}
+					}
 				}
-
-}
+			}
 		}
 
 		return array(
@@ -1353,8 +1328,7 @@ class GalleryUtilities {
 				if (file_exists($base . $dir . '/' . $file . '/MANIFEST')) {
 					$list[] = $dir . '/' . $file . '/MANIFEST';
 				}
-
-}
+			}
 
 			closedir($dh);
 		}
@@ -1410,8 +1384,7 @@ class GalleryUtilities {
 						'size_crlf'     => $size_crlf,
 					);
 				}
-
-}
+			}
 		}
 
 		return $manifest;
@@ -1439,8 +1412,7 @@ class GalleryUtilities {
 				$char += ($char > 90) ? 13 : ($char > 57) ? 7 : 0;
 				$salt .= chr($char);
 			}
-
-} else {
+		} else {
 			$salt = substr($salt, 0, 4);
 		}
 
@@ -1480,8 +1452,7 @@ class GalleryUtilities {
 			if (!is_int($required[$i]) || !is_int($provided[$i])) {
 				return false;
 			}
-
-}
+		}
 
 		if ($required[0] != $provided[0]) {
 			return false;
@@ -1508,8 +1479,7 @@ class GalleryUtilities {
 			if (is_array($item) && !empty($item)) {
 				$keys = array_merge($keys, GalleryUtilities::arrayKeysRecursive($item));
 			}
-
-}
+		}
 
 		return $keys;
 	}
@@ -1684,8 +1654,7 @@ class GalleryUtilities {
 
 						$tok = strtok(',;');
 					}
-
-} else {
+				} else {
 					/*
 					 * We can't just tokenize the Cookie header string because there are
 					 * quoted-strings and delimiters in quoted-string should be handled as values
@@ -1715,8 +1684,7 @@ class GalleryUtilities {
 										$fixedCookies
 									);
 
-									// Next attr starts at next char
-									$lastPos = $i + 1;
+									$lastPos = $i + 1; // Next attr starts at next char
 								}
 
 								break;
@@ -1743,11 +1711,9 @@ class GalleryUtilities {
 							$fixedCookies
 						);
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		/*
 		 * To test methods that call fixCookieVars, we have to first unset the static $fixed
@@ -1758,8 +1724,7 @@ class GalleryUtilities {
 		if ($unset) {
 			$fixed = null;
 		}
-
-}
+	}
 
 	/**
 	 * Register a cookie variable safely.
@@ -1808,8 +1773,7 @@ class GalleryUtilities {
 			if ($key[$i] == ' ' || $key[$i] == '.') {
 				$key[$i] = '_';
 			}
-
-}
+		}
 
 		/*
 		 * Don't register non-NAME attributes like domain, path, ... which are all starting with a
@@ -1834,8 +1798,7 @@ class GalleryUtilities {
 			$_COOKIE[$key]      = $val;
 			$fixedCookies[$key] = true;
 		}
-
-}
+	}
 
 	/**
 	 * ASCII version of PHP's strtolower().  PHP's strtolower doesn't work in all locales as
@@ -1878,11 +1841,9 @@ class GalleryUtilities {
 						} else {
 							$intArray[$key] = $value;
 						}
-
-}
+					}
 				}
-
-} else {
+			} else {
 				for ($i = 0; $i < count($strArray); $i++) {
 					if (is_array($strArray[$i])) {
 						$intArray[$i] = self::strArrToIntArr($strArray[$i]);
@@ -1892,11 +1853,9 @@ class GalleryUtilities {
 						} else {
 							$intArray[$i] = $strArray[$i];
 						}
-
-}
+					}
 				}
-
-}
+			}
 
 			return $intArray;
 		}
@@ -1910,7 +1869,6 @@ class GalleryUtilities {
 	public static function doEval($code) {
 		// Temp override
 		return eval($code);
-
 		$tempfile = tempnam(sys_get_temp_dir(), 'EVL');
 		file_put_contents($tempfile, "<?php\n" . $code);
 		ob_start();
@@ -1923,5 +1881,4 @@ class GalleryUtilities {
 
 		return $data;
 	}
-
 }

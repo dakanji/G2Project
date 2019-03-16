@@ -152,15 +152,15 @@ class ADODB_Session {
 	static $_lock = false;
 
 		if (!is_null($lock)) $_lock = $lock;
-
 		return $lock;
 	}
 
-*/
+	*/
 
 	// !
 	public static function driver($driver = null) {
-		static $_driver = 'mysql', $set     = false;
+		static $_driver = 'mysql';
+		static $set     = false;
 
 		if (null !== $driver) {
 			$_driver = trim($driver);
@@ -170,15 +170,15 @@ class ADODB_Session {
 			if (isset($GLOBALS['ADODB_SESSION_DRIVER'])) {
 				return $GLOBALS['ADODB_SESSION_DRIVER'];
 			}
-
-}
+		}
 
 		return $_driver;
 	}
 
 	// !
 	public static function host($host = null) {
-		static $_host = 'localhost', $set   = false;
+		static $_host = 'localhost';
+		static $set   = false;
 
 		if (null !== $host) {
 			$_host = trim($host);
@@ -188,15 +188,15 @@ class ADODB_Session {
 			if (isset($GLOBALS['ADODB_SESSION_CONNECT'])) {
 				return $GLOBALS['ADODB_SESSION_CONNECT'];
 			}
-
-}
+		}
 
 		return $_host;
 	}
 
 	// !
 	public static function user($user = null) {
-		static $_user = 'root', $set   = false;
+		static $_user = 'root';
+		static $set   = false;
 
 		if (null !== $user) {
 			$_user = trim($user);
@@ -206,15 +206,15 @@ class ADODB_Session {
 			if (isset($GLOBALS['ADODB_SESSION_USER'])) {
 				return $GLOBALS['ADODB_SESSION_USER'];
 			}
-
-}
+		}
 
 		return $_user;
 	}
 
 	// !
 	public static function password($password = null) {
-		static $_password = '', $set       = false;
+		static $_password = '';
+		static $set       = false;
 
 		if (null !== $password) {
 			$_password = $password;
@@ -224,15 +224,15 @@ class ADODB_Session {
 			if (isset($GLOBALS['ADODB_SESSION_PWD'])) {
 				return $GLOBALS['ADODB_SESSION_PWD'];
 			}
-
-}
+		}
 
 		return $_password;
 	}
 
 	// !
 	public static function database($database = null) {
-		static $_database = '', $set       = false;
+		static $_database = '';
+		static $set       = false;
 
 		if (null !== $database) {
 			$_database = trim($database);
@@ -242,8 +242,7 @@ class ADODB_Session {
 			if (isset($GLOBALS['ADODB_SESSION_DB'])) {
 				return $GLOBALS['ADODB_SESSION_DB'];
 			}
-
-}
+		}
 
 		return $_database;
 	}
@@ -261,7 +260,8 @@ class ADODB_Session {
 
 	// !
 	public static function lifetime($lifetime = null) {
-		static $_lifetime, $set = false;
+		static $_lifetime;
+		static $set = false;
 
 		if (null !== $lifetime) {
 			$_lifetime = (int)$lifetime;
@@ -271,8 +271,7 @@ class ADODB_Session {
 			if (isset($GLOBALS['ADODB_SESS_LIFE'])) {
 				return $GLOBALS['ADODB_SESS_LIFE'];
 			}
-
-}
+		}
 
 		if (!$_lifetime) {
 			$_lifetime = ini_get('session.gc_maxlifetime');
@@ -282,15 +281,15 @@ class ADODB_Session {
 				//print "<h3>Session Error: PHP.INI setting <i>session.gc_maxlifetime</i>not set: $lifetime</h3>";
 				$_lifetime = 1440;
 			}
-
-}
+		}
 
 		return $_lifetime;
 	}
 
 	// !
 	public static function debug($debug = null) {
-		static $_debug = false, $set    = false;
+		static $_debug = false;
+		static $set    = false;
 
 		if (null !== $debug) {
 			$_debug = (bool)$debug;
@@ -306,15 +305,15 @@ class ADODB_Session {
 			if (isset($GLOBALS['ADODB_SESS_DEBUG'])) {
 				return $GLOBALS['ADODB_SESS_DEBUG'];
 			}
-
-}
+		}
 
 		return $_debug;
 	}
 
 	// !
 	public static function expireNotify($expire_notify = null) {
-		static $_expire_notify, $set = false;
+		static $_expire_notify;
+		static $set = false;
 
 		if (null !== $expire_notify) {
 			$_expire_notify = $expire_notify;
@@ -324,15 +323,15 @@ class ADODB_Session {
 			if (isset($GLOBALS['ADODB_SESSION_EXPIRE_NOTIFY'])) {
 				return $GLOBALS['ADODB_SESSION_EXPIRE_NOTIFY'];
 			}
-
-}
+		}
 
 		return $_expire_notify;
 	}
 
 	// !
 	public static function table($table = null) {
-		static $_table = 'sessions2', $set    = false;
+		static $_table = 'sessions2';
+		static $set    = false;
 
 		if (null !== $table) {
 			$_table = trim($table);
@@ -342,15 +341,15 @@ class ADODB_Session {
 			if (isset($GLOBALS['ADODB_SESSION_TBL'])) {
 				return $GLOBALS['ADODB_SESSION_TBL'];
 			}
-
-}
+		}
 
 		return $_table;
 	}
 
 	// !
 	public static function optimize($optimize = null) {
-		static $_optimize = false, $set       = false;
+		static $_optimize = false;
+		static $set       = false;
 
 		if (null !== $optimize) {
 			$_optimize = (bool)$optimize;
@@ -360,8 +359,7 @@ class ADODB_Session {
 			if (defined('ADODB_SESSION_OPTIMIZE')) {
 				return true;
 			}
-
-}
+		}
 
 		return $_optimize;
 	}
@@ -374,7 +372,8 @@ class ADODB_Session {
 
 	// !
 	public static function clob($clob = null) {
-		static $_clob = false, $set   = false;
+		static $_clob = false;
+		static $set   = false;
 
 		if (null !== $clob) {
 			$_clob = strtolower(trim($clob));
@@ -384,8 +383,7 @@ class ADODB_Session {
 			if (isset($GLOBALS['ADODB_SESSION_USE_LOBS'])) {
 				return $GLOBALS['ADODB_SESSION_USE_LOBS'];
 			}
-
-}
+		}
 
 		return $_clob;
 	}
@@ -519,8 +517,7 @@ class ADODB_Session {
 		if (isset($options['debug'])) {
 			self::debug($options['debug']);
 		}
-
-}
+	}
 
 	/*!
 		Create the connection to the database.
@@ -557,8 +554,7 @@ class ADODB_Session {
 			ADOConnection::outp(" driver=$driver user=$user db=$database ");
 		}
 
-		if (empty($conn->_connectionID)) {
-			// not dsn
+		if (empty($conn->_connectionID)) { // not dsn
 			if ($persist) {
 				switch ($persist) {
 					default:
@@ -577,14 +573,11 @@ class ADODB_Session {
 
 						break;
 				}
-
-} else {
+			} else {
 				$ok = $conn->Connect($host, $user, $password, $database);
 			}
-
-} else {
-			// $conn->_connectionID is set after call to ADONewConnection
-			$ok = true;
+		} else {
+			$ok = true; // $conn->_connectionID is set after call to ADONewConnection
 		}
 
 		if ($ok) {
@@ -650,8 +643,7 @@ class ADODB_Session {
 					if (is_object($f)) {
 						$v = $f->read($v, self::_sessionKey());
 					}
-
-}
+				}
 
 				$v = rawurldecode($v);
 			}
@@ -712,14 +704,12 @@ class ADODB_Session {
 
 			if ($expire_notify) {
 				$var = reset($expire_notify);
-
 				global $$var;
 
 				if (isset($$var)) {
 					$expirevar = $$var;
 				}
-
-}
+			}
 
 			$sql = "UPDATE $table SET expiry = $expiry ,expireref=" . $conn->Param('0') . ", modified = $sysTimeStamp WHERE $binary sesskey = " . $conn->Param('1') . " AND expiry >= $sysTimeStamp";
 			$rs  = $conn->Execute($sql, array($expirevar, $key));
@@ -733,24 +723,20 @@ class ADODB_Session {
 			if (is_object($f)) {
 				$val = $f->write($val, self::_sessionKey());
 			}
-
-}
+		}
 
 		$expireref = '';
 
 		if ($expire_notify) {
 			$var = reset($expire_notify);
-
 			global $$var;
 
 			if (isset($$var)) {
 				$expireref = $$var;
 			}
+		}
 
-}
-
-		if (!$clob) {
-			// no lobs, simply use replace()
+		if (!$clob) {   // no lobs, simply use replace()
 			$rs = $conn->Execute("SELECT COUNT(*) AS cnt FROM $table WHERE $binary sesskey = " . $conn->Param(0), array($key));
 
 			if ($rs) {
@@ -813,15 +799,12 @@ class ADODB_Session {
 			if ($rs) {
 				$rs->Close();
 			}
-
-}
+		}
 
 		/*
 		if (ADODB_Session::Lock()) {
 			$conn->CommitTrans();
-		}
-
-*/
+		}*/
 		return $rs ? true : false;
 	}
 
@@ -914,10 +897,8 @@ class ADODB_Session {
 		}
 
 		$savem = $conn->SetFetchMode(ADODB_FETCH_NUM);
-
-		// add order by to prevent deadlock
-		$sql = "SELECT expireref, sesskey FROM $table WHERE expiry < $time ORDER BY 2";
-		$rs  = $conn->SelectLimit($sql, 1000);
+		$sql   = "SELECT expireref, sesskey FROM $table WHERE expiry < $time ORDER BY 2"; // add order by to prevent deadlock
+		$rs    = $conn->SelectLimit($sql, 1000);
 
 		if ($debug) {
 			self::_dumprs($rs);
@@ -957,16 +938,14 @@ class ADODB_Session {
 					$conn->CommitTrans();
 					$conn->BeginTrans();
 				}
-
-}
+			}
 
 			$rs->Close();
 
 			if ($tr) {
 				$conn->CommitTrans();
 			}
-
-}
+		}
 
 		// suggested by Cameron, "GaM3R" <gamr@outworld.cx>
 		if ($optimize) {
@@ -983,12 +962,10 @@ class ADODB_Session {
 			if (!empty($sql)) {
 				$conn->Execute($sql);
 			}
-
-}
+		}
 
 		return true;
 	}
-
 }
 
 ADODB_Session::_init();

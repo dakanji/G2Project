@@ -28,14 +28,9 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryChildEntity.class');
  * @version $Revision: 18152 $
  */
 class StorageTest extends GalleryTestCase {
-	// backup of ADODB object
-	public $_db;
-
-	// results from the generated query on the regular db connection
-	public $_results;
-
-	// results on the non transactional db connection
-	public $_resultsNonTransactional;
+	public $_db;        // backup of ADODB object
+	public $_results;   // results from the generated query on the regular db connection
+	public $_resultsNonTransactional;   // results on the non transactional db connection
 
 	public function __construct($methodName) {
 		parent::__construct($methodName);
@@ -172,8 +167,7 @@ class StorageTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function _getNonTransactionalResults() {
 		global $gallery;
@@ -682,10 +676,11 @@ class StorageTest extends GalleryTestCase {
 	public function testGetMapEntriesAll() {
 		global $gallery;
 
-		$storage                   =& $gallery->getStorage();
-		$mapName                   = 'GalleryTest2Map';
-		$select                    = array('field4');
-		$match                     = array();
+		$storage =& $gallery->getStorage();
+		$mapName = 'GalleryTest2Map';
+		$select  = array('field4');
+		$match   = array();
+
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry($mapName, $select, $match);
 
 		if ($ret) {
@@ -1007,8 +1002,7 @@ class StorageTest extends GalleryTestCase {
 				"boolean false for $type"
 			);
 		}
-
-}
+	}
 
 	public function testNormalizeValueBitNotNull() {
 		global $gallery;
@@ -1018,6 +1012,7 @@ class StorageTest extends GalleryTestCase {
 		$memberData['type']    = STORAGE_TYPE_BOOLEAN;
 
 		$this->assertEquals(0, $storage->_normalizeValue(false, $memberData), 'boolean false');
+
 		$this->assertEquals(1, $storage->_normalizeValue('foo', $memberData), 'string');
 		$this->assertEquals(1, $storage->_normalizeValue(1, $memberData), 'int 1');
 		$this->assertEquals(0, $storage->_normalizeValue('', $memberData), 'empty string');
@@ -1056,8 +1051,7 @@ class StorageTest extends GalleryTestCase {
 				"null for $type"
 			);
 		}
-
-}
+	}
 
 	// Do not change empty strings to NULL
 	public function testNormalizeValueNotNullEmptyNotAllowed() {
@@ -1093,8 +1087,7 @@ class StorageTest extends GalleryTestCase {
 				"null for $type"
 			);
 		}
-
-}
+	}
 
 	public function testNormalizeValueToBoolean() {
 		global $gallery;
@@ -1106,6 +1099,7 @@ class StorageTest extends GalleryTestCase {
 		$memberData['notNull'] = false;
 
 		$this->assertEquals(1, $storage->_normalizeValue('foo', $memberData), 'from string');
+
 		$this->assertEquals(
 			0,
 			$storage->_normalizeValue('', $memberData, false),
@@ -1153,11 +1147,13 @@ class StorageTest extends GalleryTestCase {
 			$storage->_normalizeValue($value, $memberData, true),
 			'from string 3'
 		);
+
 		$this->assertEquals(
 			str_repeat('x', 128),
 			$storage->_normalizeValue($value, $memberData),
 			'from string with truncate'
 		);
+
 		$this->assertEquals('15', $storage->_normalizeValue(15, $memberData), 'from integer');
 		$this->assertEquals(
 			'0',
@@ -1269,8 +1265,7 @@ class StorageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testEncodeDecodeBlob() {
 		global $gallery;
@@ -1339,8 +1334,7 @@ class StorageTest extends GalleryTestCase {
 
 				$this->assertFalse(true, 'Result bytes:' . $bytes);
 			}
-
-} else {
+		} else {
 			$this->assertFalse(true, 'SELECT failed, got nothing back!');
 		}
 
@@ -1362,8 +1356,7 @@ class StorageTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testTruncateString() {
 		global $gallery;
@@ -1441,8 +1434,7 @@ class StorageTest extends GalleryTestCase {
 			$this->assertEquals(1, $results->resultCount(), 'no / wrong rows selected');
 			$this->assertEquals(array($expected), $results->nextResult(), 'inserted string');
 		}
-
-}
+	}
 
 	public function testOptimize() {
 		global $gallery;
@@ -1470,8 +1462,7 @@ class StorageTest extends GalleryTestCase {
 					array(),
 				);
 			}
-
-}
+		}
 
 		array_unshift($mockedResults, $tablesRecordSet);
 
@@ -1486,7 +1477,6 @@ class StorageTest extends GalleryTestCase {
 
 		// Ignore the loadTableVersions query
 		array_shift($this->_results);
-
 		$this->assertEquals($expectedQueries, $this->_results);
 	}
 
@@ -1517,8 +1507,7 @@ class StorageTest extends GalleryTestCase {
 					array(),
 				);
 			}
-
-}
+		}
 
 		array_unshift($mockedResults, $tablesRecordSet);
 
@@ -1533,7 +1522,6 @@ class StorageTest extends GalleryTestCase {
 
 		// Ignore the loadTableVersions query
 		array_shift($this->_results);
-
 		$this->assertEquals($expectedQueries, $this->_results);
 	}
 
@@ -1590,7 +1578,8 @@ class StorageTest extends GalleryTestCase {
 	public function testDescribeMapReadsFromMemoryCache() {
 		global $gallery;
 
-		$storage                 =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
+
 		list($ret, $testMapInfo) = GalleryCoreApi::describeMap('GalleryTestMap');
 
 		if ($ret) {
@@ -1742,7 +1731,8 @@ class StorageTest extends GalleryTestCase {
 		$storage =& $gallery->getStorage();
 
 		// Use a real SQL connection for this test
-		$storage->_db              = $this->_db;
+		$storage->_db = $this->_db;
+
 		list($ret, $randStatement) = $storage->getFunctionSql('RANDOM_INTEGER', array());
 
 		if ($ret) {
@@ -1751,6 +1741,7 @@ class StorageTest extends GalleryTestCase {
 
 		$query                     = "SELECT [::id], $randStatement FROM [GalleryEntity]";
 		$options['limit']['count'] = 2;
+
 		list($ret, $searchResults) = $storage->search($query, array(), $options);
 
 		if ($ret) {
@@ -1780,15 +1771,12 @@ class StorageTest extends GalleryTestCase {
 				$randValue . ' must be an integer number'
 			);
 		}
-
-}
+	}
 }
 
 class StorageTestDB {
 	public $_testCase;
-
-	// Pretend we're already in a transaction
-	public $transCnt = 1;
+	public $transCnt = 1; // Pretend we're already in a transaction
 	public $_recordSets;
 
 	public function __construct(&$testCase, $resultsType) {
@@ -1824,7 +1812,6 @@ class StorageTestDB {
 	public function SetFetchMode($val) {
 		return true;
 	}
-
 }
 
 class StorageTestRecordSet {
@@ -1844,5 +1831,4 @@ class StorageTestRecordSet {
 
 		return $result;
 	}
-
 }

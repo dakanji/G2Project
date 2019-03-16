@@ -61,8 +61,7 @@ class ResetFailureCountsTask extends MaintenanceTask {
 				if ($ret) {
 					return array($ret, null, null);
 				}
-
-}
+			}
 		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'captcha');
@@ -73,5 +72,4 @@ class ResetFailureCountsTask extends MaintenanceTask {
 
 		return array(null, true, array($module->translate('Successfully reset failure counts')));
 	}
-
 }

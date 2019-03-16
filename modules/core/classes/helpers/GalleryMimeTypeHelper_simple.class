@@ -32,7 +32,8 @@ class GalleryMimeTypeHelper_simple {
 	 * @see GalleryCoreApi::getMimeType
 	 */
 	public static function getMimeType($filename, $requestMimeType = null) {
-		$extension            = GalleryUtilities::getFileExtension($filename);
+		$extension = GalleryUtilities::getFileExtension($filename);
+
 		list($ret, $mimetype) = GalleryMimeTypeHelper_simple::convertExtensionToMime($extension);
 
 		if ($ret) {
@@ -52,8 +53,7 @@ class GalleryMimeTypeHelper_simple {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		return array(null, $mimetype);
@@ -178,13 +178,11 @@ class GalleryMimeTypeHelper_simple {
 						$mimeData['by-mimetype'][$result[1]]['exts'][]    = $result[0];
 						$mimeData['by-mimetype'][$result[1]]['viewable'] |= (bool)$result[2];
 					}
-
-}
+				}
 
 				GalleryDataCache::putToDisk($cacheParams, $mimeData);
 			}
-
-}
+		}
 
 		$ret = array(null, &$mimeData);
 
@@ -218,5 +216,4 @@ class GalleryMimeTypeHelper_simple {
 		$mimeData =& GalleryMimeTypeHelper_simple::_getSingleton();
 		$mimeData = array();
 	}
-
 }

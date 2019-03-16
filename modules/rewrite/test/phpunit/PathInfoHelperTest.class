@@ -120,7 +120,6 @@ class PathInfoHelperTest extends GalleryTestCase {
 		$this->assertEquals(REWRITE_STATUS_OK, $status, 'status');
 		$this->assertEquals(REWRITE_STATUS_NO_PATH_INFO, $trueStatus, 'trueStatus');
 	}
-
 }
 
 /**
@@ -239,5 +238,4 @@ class PathInfoHelperMockPlatform extends GalleryPlatform {
 
 		return parent::fflush($handle);
 	}
-
 }

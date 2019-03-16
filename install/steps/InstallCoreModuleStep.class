@@ -107,8 +107,7 @@ class InstallCoreModuleStep extends InstallStep {
 				if (!$platform->recursiveRmDir($dir)) {
 					return false;
 				}
-
-}
+			}
 		}
 
 		$template->renderStatusMessage(_('Installing the core module'), null, 0.05);
@@ -122,7 +121,8 @@ class InstallCoreModuleStep extends InstallStep {
 			 * that they said that it was ok to reuse existing tables in the database setup step,
 			 * which means we don't have to perform an install now.
 			 */
-			$storage                 =& $gallery->getStorage();
+			$storage =& $gallery->getStorage();
+
 			list($ret, $isInstalled) = $storage->isInstalled();
 
 			if ($ret) {
@@ -137,8 +137,7 @@ class InstallCoreModuleStep extends InstallStep {
 				$templateData['errors'][]     = _('Unable to communicate with the database');
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
-
-}
+		}
 
 		if (empty($templateData['errors'])) {
 			$gallery->debug('Load core module');
@@ -159,8 +158,7 @@ class InstallCoreModuleStep extends InstallStep {
 				$templateData['errors'][]     = _('Unable to load the core module');
 				$templateData['stackTrace'][] = $ret->getAsHtml();
 			}
-
-}
+		}
 
 		$template->renderStatusMessage(_('Installing the core module'), null, 0.1);
 		$gallery->guaranteeTimeLimit(180);
@@ -169,7 +167,6 @@ class InstallCoreModuleStep extends InstallStep {
 
 		if ($freshInstall) {
 			$gallery->debug('Hand over admin user parameters');
-
 			// It is a fresh install.  Hand over install config parameters.
 			$gallery->setConfig(
 				'setup.admin.userName',
@@ -253,12 +250,9 @@ class InstallCoreModuleStep extends InstallStep {
 				} else {
 					$gallery->debug('Committed transaction successfully');
 				}
-
-} else {
+			} else {
 				$gallery->debug('NOT installing, rollback!');
-
-				// Ignore any errors from this
-				$storage->rollbackTransaction();
+				$storage->rollbackTransaction(); // Ignore any errors from this
 
 				/*
 				 * Don't allow this step to complete when only partially installed.  Verify that
@@ -273,11 +267,11 @@ class InstallCoreModuleStep extends InstallStep {
 				} else {
 					$gallery->debug('Core module version is ok');
 				}
-
-}
+			}
 		}
 
 		$this->resetL10Domain();
+
 		$template->renderStatusMessage(_('Installing the core module'), '', 1.0);
 		$gallery->guaranteeTimeLimit(120);
 		$gallery->debug('Finish install core module step');
@@ -313,7 +307,8 @@ class InstallCoreModuleStep extends InstallStep {
 
 	// Adds some system information to the log
 	public function _addSystemInformationToDebugLog() {
-		global $gallery, $galleryStub;
+		global $gallery;
+		global $galleryStub;
 
 		$storage      =& $gallery->getStorage();
 		$isSvnInstall = $galleryStub->getConfig('systemchecks.issvninstall');
@@ -338,5 +333,4 @@ System and Gallery information:
 "
 		);
 	}
-
 }

@@ -217,7 +217,8 @@ class Gallery {
 	 * @see GalleryStorage::search
 	 */
 	public function search($query, $data = array(), $options = array()) {
-		$storage             =& $this->getStorage();
+		$storage =& $this->getStorage();
+
 		list($ret, $results) = $storage->search($query, $data, $options);
 
 		if ($ret) {
@@ -249,11 +250,9 @@ class Gallery {
 				if (!empty($language)) {
 					$session->put('core.language', $language);
 				}
-
-}
+			}
 		}
-
-}
+	}
 
 	/**
 	 * Get the Id of the active user.
@@ -318,8 +317,7 @@ class Gallery {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -382,8 +380,7 @@ class Gallery {
 
 					return $ret;
 				}
-
-} else {
+			} else {
 				$which = 'null';
 			}
 
@@ -412,8 +409,7 @@ class Gallery {
 
 					return $ret;
 			}
-
-}
+		}
 
 		$ret = array(null, &$this->_lockSystem);
 
@@ -435,8 +431,7 @@ class Gallery {
 				if ($this->getDebug()) {
 					$this->debug(sprintf('Lock id %d was left hanging!', $lockId));
 				}
-
-}
+			}
 
 			// Release all locks and ignore any errors
 			$this->_lockSystem->releaseAllLocks();
@@ -447,8 +442,7 @@ class Gallery {
 		if (isset($this->_storage)) {
 			$this->_storage->rollbackTransaction();
 		}
-
-}
+	}
 
 	/**
 	 * Return an instance of the GalleryStorage class
@@ -524,8 +518,7 @@ class Gallery {
 
 					$this->_storage = new GalleryStorage($config);
 			}
-
-}
+		}
 
 		return $this->_storage;
 	}
@@ -604,7 +597,8 @@ class Gallery {
 				return $ret;
 			}
 
-			$this->_translator        = GalleryTranslator::getMe();
+			$this->_translator = GalleryTranslator::getMe();
+
 			list($ret, $languageCode) = $this->_translator->init($language, $dontUseDatabase);
 
 			if ($ret) {
@@ -616,8 +610,7 @@ class Gallery {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -679,7 +672,6 @@ class Gallery {
 			$this->_timeLimit = $now + max($limit, 30);
 
 			set_time_limit($this->_timeLimit - $now);
-
 			/*
 			 * Then make sure our locks stick around.  Even though this returns a status code, we
 			 * really don't want to make guaranteeTimeLimit() return a status code since we want to
@@ -688,8 +680,7 @@ class Gallery {
 			if (isset($this->_lockSystem)) {
 				$this->_lockSystem->refreshLocks($this->_timeLimit);
 			}
-
-}
+		}
 	}
 
 	/**
@@ -708,8 +699,7 @@ class Gallery {
 		} else {
 			$this->_profile = $profile;
 		}
-
-}
+	}
 
 	/**
 	 * Get the profiling state
@@ -749,8 +739,7 @@ class Gallery {
 		if (isset($this->_storage)) {
 			$this->_storage->setDebug((bool)$debug);
 		}
-
-}
+	}
 
 	/**
 	 * Set the location of debugging output
@@ -801,8 +790,7 @@ class Gallery {
 		if (isset($this->_storage) && !$this->_debug) {
 			$this->_storage->setDebug(true);
 		}
-
-}
+	}
 
 	/**
 	 * Stop recording the debug snippet and return whatever got recorded.
@@ -847,18 +835,15 @@ class Gallery {
 					fwrite($fd, "$date [" . $id . "] $msg\n");
 					fclose($fd);
 				}
-
-} elseif (!strcmp($this->_debug, 'immediate')) {
+			} elseif (!strcmp($this->_debug, 'immediate')) {
 				echo "$msg\n";
 			}
-
-}
+		}
 
 		if ($this->_debugSnippetActive) {
 			$this->_debugSnippet .= wordwrap($msg) . "\n";
 		}
-
-}
+	}
 
 	/**
 	 * Output a print_r style debug message
@@ -876,8 +861,7 @@ class Gallery {
 
 			$this->debug($buf);
 		}
-
-}
+	}
 
 	/**
 	 * Return the template adapter.  There is only ever one in the system.
@@ -922,8 +906,7 @@ class Gallery {
 	 * @see GalleryPlugin::translate
 	 */
 	public function i18n($value) {
-		// Just pass the text through
-		return is_array($value) ? $value['text'] : $value;
+		return is_array($value) ? $value['text'] : $value;  // Just pass the text through
 	}
 
 	/**
@@ -1063,14 +1046,12 @@ class Gallery {
 
 				break;
 			}
-
-}
+		}
 
 		if (!isset($duplicate)) {
 			$this->_shutdownActions[] = $action;
 		}
-
-}
+	}
 
 	/**
 	 * Process registered shutdown actions.
@@ -1093,11 +1074,9 @@ class Gallery {
 						$this->debug_r($action);
 						$this->debug_r($ret);
 					}
-
-}
+				}
 			}
-
-}
+		}
 	}
 
 	/**
@@ -1114,5 +1093,4 @@ class Gallery {
 
 		return $this->_phpVm;
 	}
-
 }

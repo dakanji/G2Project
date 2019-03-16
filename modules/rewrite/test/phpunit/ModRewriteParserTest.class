@@ -61,8 +61,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$this->_testPassString = 'PASS_REWRITE';
 	}
@@ -71,7 +70,8 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
 		$testRules['rewriteparsermock'][0] = 'bogus1';
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules(
+
+		list($ret, $code, $errno) = $this->_parser->saveActiveRules(
 			$this->_parser,
 			$testRules,
 			null
@@ -142,8 +142,9 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 	}
 
 	public function testSaveAccessList() {
-		$accessList       = array('phpunit.test1', 'phpunit.test2');
-		$ourParser        = $this->_parser;
+		$accessList = array('phpunit.test1', 'phpunit.test2');
+		$ourParser  = $this->_parser;
+
 		list($ret, $code) = $ourParser->saveAccessList($accessList, true, $ourParser);
 
 		if ($ret) {
@@ -180,8 +181,9 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 	public function testSaveAccessListEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
-		$accessList       = array('phpunit.test1', 'phpunit.test2');
-		$ourParser        = $this->_parser;
+		$accessList = array('phpunit.test1', 'phpunit.test2');
+		$ourParser  = $this->_parser;
+
 		list($ret, $code) = $ourParser->saveAccessList($accessList, false, $ourParser);
 
 		if ($ret) {
@@ -220,7 +222,8 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 	public function testSaveAccessListCantWrite() {
 		$this->_platform->_isWriteable = false;
 		$accessList                    = array('phpunit.test1', 'phpunit.test2');
-		list($ret, $code)              = $this->_parser->saveAccessList($accessList, true);
+
+		list($ret, $code) = $this->_parser->saveAccessList($accessList, true);
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -260,7 +263,8 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
-		$accessList       = array('phpunit.test1', 'phpunit.test2');
+		$accessList = array('phpunit.test1', 'phpunit.test2');
+
 		list($ret, $code) = $this->_parser->saveAccessList($accessList, true);
 
 		if ($ret) {
@@ -312,8 +316,9 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 	}
 
 	public function testHandleTestResultsRequest1() {
-		$form                       = $error                       = $status                       = array();
-		$form['force']['test1']     = 1;
+		$form                   = $error                   = $status                   = array();
+		$form['force']['test1'] = 1;
+
 		list($ret, $error, $status) = $this->_parser->handleTestResultsRequest($form);
 
 		if ($ret) {
@@ -349,8 +354,9 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 	}
 
 	public function testHandleTestResultsRequest2() {
-		$form                       = array();
-		$form['force']['test2']     = 1;
+		$form                   = array();
+		$form['force']['test2'] = 1;
+
 		list($ret, $error, $status) = $this->_parser->handleTestResultsRequest($form);
 
 		if ($ret) {
@@ -386,7 +392,8 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 	}
 
 	public function testHandleTestResultsRequest3() {
-		$form                       = array();
+		$form = array();
+
 		list($ret, $error, $status) = $this->_parser->handleTestResultsRequest($form);
 
 		if ($ret) {
@@ -425,8 +432,9 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
-		$form['embeddedLocation']   = 'test';
-		$form['embeddedHtaccess']   = '/phpunit/test/';
+		$form['embeddedLocation'] = 'test';
+		$form['embeddedHtaccess'] = '/phpunit/test/';
+
 		list($ret, $error, $status) = $this->_parser->handleAdminParserRequest($form);
 
 		if ($ret) {
@@ -455,7 +463,6 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 		$this->assertEquals('/phpunit/test', $embeddedHtaccess);
 		$this->assertEquals('/test/', $embeddedLocation);
-
 		$this->assertEquals(
 			array(
 				'saved' => 1,
@@ -474,8 +481,9 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
-		$form['embeddedLocation']   = '/';
-		$form['embeddedHtaccess']   = '/phpunit/test';
+		$form['embeddedLocation'] = '/';
+		$form['embeddedHtaccess'] = '/phpunit/test';
+
 		list($ret, $error, $status) = $this->_parser->handleAdminParserRequest($form);
 
 		if ($ret) {
@@ -504,7 +512,6 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 		$this->assertEquals('/phpunit/test', $embeddedHtaccess);
 		$this->assertEquals('/', $embeddedLocation);
-
 		$this->assertEquals(
 			array(
 				'saved' => 1,
@@ -526,7 +533,8 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		$this->_platform->_isWriteable = false;
 		$form['embeddedLocation']      = '/test/';
 		$form['embeddedHtaccess']      = '/phpunit/test';
-		list($ret, $error, $status)    = $this->_parser->handleAdminParserRequest($form);
+
+		list($ret, $error, $status) = $this->_parser->handleAdminParserRequest($form);
 
 		if ($ret) {
 			return $ret;
@@ -623,8 +631,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		list($ret, $status) = $this->_parser->needsEmbedConfig();
 
@@ -689,7 +696,8 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 	public function testSaveEmbedConfig3() {
 		$this->_platform->_isWriteable = false;
 		$params                        = array();
-		list($ret, $code, $errstr)     = $this->_parser->saveEmbedConfig($params);
+
+		list($ret, $code, $errstr) = $this->_parser->saveEmbedConfig($params);
 
 		if ($ret) {
 			return $ret;
@@ -700,5 +708,4 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 		$this->_platform->_isWriteable = true;
 	}
-
 }

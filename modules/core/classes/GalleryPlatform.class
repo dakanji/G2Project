@@ -166,8 +166,7 @@ class GalleryPlatform {
 			if ($gallery->getDebug()) {
 				$gallery->debug("chose new file name: $newFilename");
 			}
-
-}
+		}
 
 		if (move_uploaded_file($filename, $newFilename)) {
 			return $newFilename;
@@ -198,8 +197,7 @@ class GalleryPlatform {
 			if ($dirname !== $dir) {
 				$tempfile = $dir . $slash . basename($tempfile);
 			}
-
-}
+		}
 
 		return $tempfile;
 	}
@@ -644,8 +642,7 @@ class GalleryPlatform {
 			if ($ret == false) {
 				return false;
 			}
-
-}
+		}
 
 		closedir($fd);
 
@@ -832,10 +829,7 @@ class GalleryPlatform {
 			 * out .. and . and then check against the dir list.  Here we do an ok job of doing the
 			 * same, though it isn't perfect.
 			 */
-
-			// Do this by hand because preg_quote() isn't reliable
-			$s = '\\\/';
-
+			$s = '\\\/';  // Do this by hand because preg_quote() isn't reliable
 			if (!preg_match("{^([a-zA-Z]+:)?[$s]}", $path)) {
 				$path = $this->getcwd() . $slash . $path;
 			}
@@ -851,8 +845,7 @@ class GalleryPlatform {
 					$lastpath = $realpath
 				);
 			}
-
-}
+		}
 
 		$function = $caseSensitive ? 'strncmp' : 'strncasecmp';
 
@@ -868,8 +861,7 @@ class GalleryPlatform {
 			if (!$function($baseDirMatch, $realpath . $slash, strlen($baseDirMatch))) {
 				return false;
 			}
-
-}
+		}
 
 		return true;
 	}
@@ -1096,8 +1088,7 @@ class GalleryPlatform {
 		if (empty($exists)) {
 			$this->chmod($file);
 		}
-
-}
+	}
 
 	/**
 	 * mail -- Send an email.  Lines in the headers and body should be terminated with \r\n in
@@ -1119,7 +1110,8 @@ class GalleryPlatform {
 			$gallery->debug("mail($to, $subject, $body, $headers)");
 		}
 
-		$config             = array();
+		$config = array();
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 
 		if (!$ret) {
@@ -1127,8 +1119,7 @@ class GalleryPlatform {
 				if (strncmp($key, 'smtp.', 5) == 0) {
 					$config[$key] = $value;
 				}
-
-}
+			}
 		}
 
 		if (!empty($config['smtp.host'])) {
@@ -1373,8 +1364,7 @@ class GalleryPlatform {
 				if ($file != '.' && $file != '..') {
 					$list[] = $path . $slash . $file;
 				}
-
-}
+			}
 
 			$this->closedir($dir);
 
@@ -1382,8 +1372,7 @@ class GalleryPlatform {
 				if (!$this->_recursiveChmod($path, $dirMode, $fileMode)) {
 					return false;
 				}
-
-}
+			}
 		} elseif ($fileMode >= 0 && !$this->chmod($path, $fileMode)) {
 			return false;
 		}
@@ -1427,8 +1416,7 @@ class GalleryPlatform {
 			) {
 				return false;
 			}
-
-}
+		}
 
 		$this->closedir($dir);
 
@@ -1461,8 +1449,7 @@ class GalleryPlatform {
 			} else {
 				$newFormat .= $piece;
 			}
-
-}
+		}
 
 		// Call strftime and convert to UTF-8; escape % characters before sprintf
 		$newFormat = str_replace(
@@ -1506,5 +1493,4 @@ class GalleryPlatform {
 
 		GalleryDataCache::remove('GalleryPlatform::_loadPermissionPreferences');
 	}
-
 }

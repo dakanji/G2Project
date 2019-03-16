@@ -65,8 +65,7 @@ class CoreModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testGetItemAdminViews() {
 		global $gallery;
@@ -464,6 +463,7 @@ class CoreModuleTest extends GalleryTestCase {
 			array(
 				$this->_module->getVersion() . "\n",
 				$this->_module->getGalleryVersion(),
+
 			)
 		);
 
@@ -497,6 +497,7 @@ class CoreModuleTest extends GalleryTestCase {
 			array(
 				$this->_module->getVersion() . "\n",
 				$this->_module->getGalleryVersion() . "\n",
+
 				'maintenance-mode',
 			)
 		);
@@ -531,6 +532,7 @@ class CoreModuleTest extends GalleryTestCase {
 			array(
 				$this->_module->getVersion() . "\n",
 				$this->_module->getGalleryVersion() . "\n",
+
 				'maintenance-mode:http://g2.com/maintenance.html',
 			)
 		);
@@ -542,5 +544,4 @@ class CoreModuleTest extends GalleryTestCase {
 			'Config:mode.maintenance has not been overwritten.'
 		);
 	}
-
 }

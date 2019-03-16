@@ -44,8 +44,7 @@ class MultiLangSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testMultiLangSiteAdminControllerReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
@@ -120,5 +119,4 @@ class MultiLangSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals('', $languages, 'languages');
 	}
-
 }

@@ -70,8 +70,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$gallery->setPlatform($this->_platform);
 
@@ -81,7 +80,8 @@ class NetPbmToolkitTest extends GalleryTestCase {
 
 	public function testPerformOperations() {
 		$this->_chmodWasCalled = false;
-		list($ret, $mimeType)  = $this->_toolkit->performOperation(
+
+		list($ret, $mimeType) = $this->_toolkit->performOperation(
 			'image/gif',
 			'thumbnail',
 			'testPerformOperations1.gif',
@@ -124,7 +124,8 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		}
 
 		$this->_chmodWasCalled = false;
-		list($ret, $mimeType)  = $this->_toolkit->performOperation(
+
+		list($ret, $mimeType) = $this->_toolkit->performOperation(
 			'image/tiff',
 			'rotate',
 			'testPerformOperations6.tiff',
@@ -177,9 +178,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 				0,
 				0,
 			)
-			// image alignment x, y (overridden by top-right alignment)
-		);
-
+		); // image alignment x, y (overridden by top-right alignment)
 		if ($ret) {
 			return $ret;
 		}
@@ -199,15 +198,14 @@ class NetPbmToolkitTest extends GalleryTestCase {
 				99,
 				99,
 			)
-			// image alignment x, y
-		);
-
+		); // image alignment x, y
 		if ($ret) {
 			return $ret;
 		}
 
 		$this->_platform->_counter = 2;
-		list($ret, $mimeType)      = $this->_toolkit->performOperation(
+
+		list($ret, $mimeType) = $this->_toolkit->performOperation(
 			'image/jpeg',
 			'compress',
 			'testPerformOperations14.jpg',
@@ -429,8 +427,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	/**
 	 * Ensure queued operations that affect image size are taken into account
@@ -600,8 +597,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 
 			$this->assertEquals($expectedContexts[$j++], $checkContext, 'context $j');
 		}
-
-}
+	}
 
 	public function testGetProperties() {
 		list($ret, $results) = $this->_toolkit->getProperty('image/gif', 'dimensions', 'testGetProperties1.gif');
@@ -1110,7 +1106,6 @@ class NetPbmToolkitTest extends GalleryTestCase {
 			$mimeTypes
 		);
 	}
-
 }
 
 /**
@@ -1680,8 +1675,7 @@ class NetPbmToolkitTestPlatform extends WinNtPlatform {
 				case '/windowsCygwin/pamquant': // test files that don't have end in .exe
 					return array(1, array(), array());
 			}
-
-}
+		}
 
 		var_dump($cmd);
 
@@ -1702,8 +1696,7 @@ class NetPbmToolkitTestPlatform extends WinNtPlatform {
 			case '/validPath/':
 				return false;
 		}
-
-}
+	}
 
 	public function file_exists($path) {
 		switch ($path) {
@@ -1830,8 +1823,7 @@ class NetPbmToolkitTestPlatform extends WinNtPlatform {
 					case 0:
 						return 150 << 10;
 				}
-
-}
+		}
 
 		echo "filesize $path<br/>\n";
 
@@ -1843,5 +1835,4 @@ class NetPbmToolkitTestPlatform extends WinNtPlatform {
 
 		return true;
 	}
-
 }

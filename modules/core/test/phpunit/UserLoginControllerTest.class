@@ -102,8 +102,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testLogin() {
 		global $gallery;
@@ -122,14 +121,15 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 		// May get a redirect url (like from useralbum module) or return
 		$this->assertTrue(isset($results['return']) || isset($results['redirect']), 'result');
+
 		$this->assertEquals(array(), $results['status'], 'status');
+
 		$this->assertEquals(array(), $results['error'], 'error');
 		$this->assertEquals($this->_user->getId(), $gallery->getActiveUserId());
 		$this->assertTrue(
 			$this->_mockSession->regenerateWasCalled(),
 			'$session->regenerate() was not called'
 		);
-
 		// Verify our event got posted
 		$this->assertEventFired('Gallery::Login', $this->_user);
 	}
@@ -186,7 +186,6 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markForCleanup($user);
-
 		GalleryUtilities::putRequestVariable('form[action][login]', 1);
 		GalleryUtilities::putRequestVariable('form[username]', $user->getUserName());
 		GalleryUtilities::putRequestVariable('form[password]', 'pass&word');
@@ -506,7 +505,6 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 		$this->_becomeGuestUser();
 		$this->_loadTemplate();
-
 		// Verify that header and exit has been called
 		$this->assertEquals(
 			"Location: $expectedUrl",
@@ -530,7 +528,6 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 		$this->_becomeGuestUser();
 		$this->_loadTemplate();
-
 		// Verify that header and exit has been called
 		$this->assertEquals(
 			'Location: ' . $urlGenerator->makeUrl('/'),
@@ -556,7 +553,6 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 		// Verify that we render the normal user login view
 		$this->assertEquals(0, $this->_exitCalls, 'exit called');
-
 		$this->assertEquals(
 			array(
 				'body' => 'modules/core/templates/UserLogin.tpl',
@@ -581,7 +577,6 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 		// Verify that we render the normal user login view
 		$this->assertEquals(0, $this->_exitCalls, 'exit called');
-
 		$this->assertEquals(
 			array(
 				'body' => 'modules/core/templates/UserLogin.tpl',
@@ -607,7 +602,6 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 		// Verify that we render the normal user login view
 		$this->assertEquals(0, $this->_exitCalls, 'exit called');
-
 		$this->assertEquals(
 			array(
 				'body' => 'modules/core/templates/UserLogin.tpl',
@@ -633,7 +627,6 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 		$this->_becomeGuestUser();
 		$this->_loadTemplate();
-
 		// Verify that header and exit has been called
 		$this->assertEquals(
 			'Location: http://test.com/test.php?'
@@ -659,7 +652,6 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 		return $view->loadTemplate($template, $form);
 	}
-
 }
 
 /**
@@ -677,7 +669,6 @@ class UserLoginControllerTestPlugin extends GalleryValidationPlugin {
 	public function performValidation(&$form, $options = array()) {
 		return array(null, $this->_errors, $this->_continue);
 	}
-
 }
 
 /**
@@ -728,7 +719,6 @@ class UserLoginControllerTestSession {
 	public function hasSiteAdminSessionExpired() {
 		return array(null, true);
 	}
-
 }
 
 /**
@@ -753,5 +743,4 @@ class UserLoginTestPhpVm {
 	public function exit_($status = null) {
 		$this->_test->_exitCalls++;
 	}
-
 }

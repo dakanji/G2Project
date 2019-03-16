@@ -48,10 +48,8 @@ class ADORecordset_sqlitepo extends ADORecordset_sqlite {
 
 				$this->fields[$n] = $v;
 			}
-
-}
+		}
 
 		return !empty($this->fields);
 	}
-
 }

@@ -117,8 +117,7 @@ class ThumbnailModuleExtras {
 							"Unable to move $oldDir to $thumbnailDir"
 						);
 					}
-
-} else {
+				} else {
 					list($success) = GalleryUtilities::guaranteeDirExists($thumbnailDir);
 
 					if (!$success) {
@@ -129,8 +128,7 @@ class ThumbnailModuleExtras {
 							"Unable to create $thumbnailDir"
 						);
 					}
-
-}
+				}
 
 				// Fall Through
 			case '0.9.2':
@@ -171,7 +169,8 @@ class ThumbnailModuleExtras {
 					return $ret;
 				}
 
-				$containerId        = (int)$containerId;
+				$containerId = (int)$containerId;
+
 				list($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 
 				if ($ret) {
@@ -251,8 +250,7 @@ class ThumbnailModuleExtras {
 
 							return $ret;
 						}
-
-}
+					}
 
 					$ret = GalleryCoreApi::releaseLocks($lockId);
 
@@ -265,8 +263,7 @@ class ThumbnailModuleExtras {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				// Custom thumbnails are now stored hierarchically, not flat anymore.
 				$query = '
@@ -340,7 +337,8 @@ class ThumbnailModuleExtras {
 							return $ret;
 						}
 
-						$dir           = dirname($path);
+						$dir = dirname($path);
+
 						list($success) = GalleryUtilities::guaranteeDirExists($dir);
 
 						if (!$success) {
@@ -369,8 +367,7 @@ class ThumbnailModuleExtras {
 									sprintf('Failed to rename(%s, %s)', $oldPath, $path)
 								);
 							}
-
-} else {
+						} else {
 							$message = sprintf(
 								'Moving custom thumbnail with id %d and parentId %d ' .
 								'failed! File "%s" does not exist.',
@@ -389,8 +386,7 @@ class ThumbnailModuleExtras {
 							} else {
 								$gallery->debug($message . " And file $path already exists, skipping.");
 							}
-
-}
+						}
 
 						$ret = $thumb->save();
 
@@ -408,16 +404,14 @@ class ThumbnailModuleExtras {
 
 							return $ret;
 						}
-
-}
+					}
 
 					$ret = GalleryCoreApi::releaseLocks($lockId);
 
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				/*
 				 * We no longer need the fileName in the ThumbnailImage class since it inherits
@@ -482,8 +476,7 @@ class ThumbnailModuleExtras {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		// Set some defaults if not already supported
 		list($ret, $toolkitMime) = ThumbnailHelper::fetchToolkitSupport();
@@ -533,18 +526,15 @@ class ThumbnailModuleExtras {
 						if ($ret) {
 							return array($ret, null);
 						}
-
-} else {
+					} else {
 						$ret = ThumbnailHelper::updateItem($itemId[$mimeImage], $mime);
 
 						if ($ret) {
 							return array($ret, null);
 						}
-
-}
+					}
 				}
-
-}
+			}
 		}
 
 		return array(null, null);
@@ -582,5 +572,4 @@ class ThumbnailModuleExtras {
 
 		return null;
 	}
-
 }

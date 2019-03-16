@@ -160,13 +160,11 @@ class StringParser_BBCode extends StringParser {
 	 */
 	public function addCode($name, $callback_type, $callback_func, $callback_params, $content_type, $allowed_within, $not_allowed_within) {
 		if (isset($this->_codes[$name])) {
-			// already exists
-			return false;
+			return false; // already exists
 		}
 
 		if (!preg_match('/^[a-zA-Z0-9*_!+-]+$/', $name)) {
-			// invalid
-			return false;
+			return false; // invalid
 		}
 
 		$this->_codes[$name] = array(
@@ -257,8 +255,7 @@ class StringParser_BBCode extends StringParser {
 	public function setMaxOccurrences($type, $count) {
 		settype($count, 'integer');
 
-		if ($count < 0) {
-			// sorry, does not make any sense
+		if ($count < 0) { // sorry, does not make any sense
 			return false;
 		}
 
@@ -552,8 +549,7 @@ class StringParser_BBCode extends StringParser {
 			default:
 				return false;
 		}
-
-}
+	}
 
 	/**
 	 * Restart parsing after current block
@@ -597,8 +593,7 @@ class StringParser_BBCode extends StringParser {
 				if (is_string($ntext)) {
 					$text = $ntext;
 				}
-
-}
+			}
 		}
 
 		return $text;
@@ -649,25 +644,19 @@ class StringParser_BBCode extends StringParser {
 				if (trim($needle) == ':' || trim($needle) == '=') {
 					$this->_quoting = null;
 
-					// default value parser
-					$this->_setStatus(3);
-
+					$this->_setStatus(3); // default value parser
 					break;
 				}
 
 				if (trim($needle) == '="' || trim($needle) == '= "' || trim($needle) == '=\'' || trim($needle) == '= \'') {
 					$this->_quoting = substr(trim($needle), -1);
 
-					// default value parser with quotation
-					$this->_setStatus(3);
-
+					$this->_setStatus(3); // default value parser with quotation
 					break;
 				}
 
 				if ($needle == ' ') {
-					// attribute parser
-					$this->_setStatus(4);
-
+					$this->_setStatus(4); // attribute parser
 					break;
 				}
 
@@ -712,8 +701,7 @@ class StringParser_BBCode extends StringParser {
 					if (!$this->_popNode()) {
 						return false;
 					}
-
-}
+				}
 
 				break;
 
@@ -773,8 +761,7 @@ class StringParser_BBCode extends StringParser {
 					}
 
 					// just ignore and continue in same mode
-					// reset parameters
-					$this->_setStatus(4);
+					$this->_setStatus(4); // reset parameters
 
 					return true;
 				}
@@ -883,8 +870,7 @@ class StringParser_BBCode extends StringParser {
 
 						return true;
 					}
-
-}
+				}
 
 				$closecount = $this->_savedCloseCount;
 
@@ -902,14 +888,12 @@ class StringParser_BBCode extends StringParser {
 						if (!$this->_popNode()) {
 							return false;
 						}
-
-}
+					}
 
 					if (!$this->_pushNode($mynode)) {
 						return false;
 					}
-
-}
+				}
 
 				$this->_setStatus(0);
 				$this->_popNode();
@@ -945,8 +929,7 @@ class StringParser_BBCode extends StringParser {
 			if ($occs >= $max_occs) {
 				return $this->_reparseAfterCurrentBlock();
 			}
-
-}
+		}
 
 		$closecount = 0;
 
@@ -1002,21 +985,18 @@ class StringParser_BBCode extends StringParser {
 				if (!$this->_popNode()) {
 					return false;
 				}
-
-}
+			}
 
 			if (!$this->_pushNode($mynode)) {
 				return false;
 			}
-
-}
+		}
 
 		if ($this->_codes[$name]['callback_type'] == 'simple_replace_single' || $this->_codes[$name]['callback_type'] == 'callback_replace_single') {
 			if (!$this->_popNode()) {
 				return false;
 			}
-
-}
+		}
 
 		return true;
 	}
@@ -1046,8 +1026,7 @@ class StringParser_BBCode extends StringParser {
 			if ($this->_stack[$i]->getFlag('closetag', 'integer', BBCODE_CLOSETAG_IMPLICIT) == BBCODE_CLOSETAG_MUSTEXIST) {
 				return false;
 			}
-
-}
+		}
 
 		return false;
 	}
@@ -1066,8 +1045,7 @@ class StringParser_BBCode extends StringParser {
 				if (!$this->_stack[$i]->validate('validate_again')) {
 					return false;
 				}
-
-}
+			}
 		}
 
 		return true;
@@ -1089,25 +1067,21 @@ class StringParser_BBCode extends StringParser {
 		$not_allowed_within = $this->_codes[$name]['not_allowed_within'];
 		$scount             = count($this->_stack);
 
-		if ($scount == 2) {
-			// top level element
+		if ($scount == 2) { // top level element
 			if (!in_array($this->_rootContentType, $allowed_within)) {
 				return false;
 			}
-
-} else {
+		} else {
 			if (!in_array($this->_stack[$scount - 2]->_codeInfo['content_type'], $allowed_within)) {
 				return $this->_isOpenableWithClose($name, $closecount);
 			}
-
-}
+		}
 
 		for ($i = 1; $i < $scount - 1; $i++) {
 			if (in_array($this->_stack[$i]->_codeInfo['content_type'], $not_allowed_within)) {
 				return $this->_isOpenableWithClose($name, $closecount);
 			}
-
-}
+		}
 
 		return true;
 	}
@@ -1152,8 +1126,7 @@ class StringParser_BBCode extends StringParser {
 				if (!$this->_stack[$i]->validate('validate_again')) {
 					return false;
 				}
-
-}
+			}
 		}
 
 		return false;
@@ -1176,8 +1149,7 @@ class StringParser_BBCode extends StringParser {
 
 		while (count($this->_stack) > 1) {
 			if ($this->_topNode('getFlag', 'closetag', 'integer', BBCODE_CLOSETAG_IMPLICIT) == BBCODE_CLOSETAG_MUSTEXIST) {
-				// sorry
-				return false;
+				return false; // sorry
 			}
 
 			$res = $this->_popNode();
@@ -1185,8 +1157,7 @@ class StringParser_BBCode extends StringParser {
 			if (!$res) {
 				return false;
 			}
-
-}
+		}
 
 		return true;
 	}
@@ -1220,8 +1191,7 @@ class StringParser_BBCode extends StringParser {
 			if ($cmp_name == $lname) {
 				return $this->_stack[$i];
 			}
-
-}
+		}
 
 		$result = false;
 
@@ -1295,7 +1265,6 @@ class StringParser_BBCode extends StringParser {
 					}
 
 					// don't break!
-
 					// Fall Through
 				case BBCODE_NEWLINE_DROP:
 					if ($ol && $output[0] == "\n") {
@@ -1313,7 +1282,6 @@ class StringParser_BBCode extends StringParser {
 					}
 
 					// don't break!
-
 					// Fall Through
 				case BBCODE_NEWLINE_DROP:
 					if ($ol && $output[$ol - 1] == "\n") {
@@ -1339,8 +1307,7 @@ class StringParser_BBCode extends StringParser {
 				if ($node->_parent === null) {
 					return $before . $output . $after;
 				}
-
-}
+			}
 
 			if ($node->_parent->_type == STRINGPARSER_NODE_ROOT) {
 				return $before . $this->_applyParsers($this->_rootContentType, $output) . $after;
@@ -1352,8 +1319,7 @@ class StringParser_BBCode extends StringParser {
 
 			return $before . $output . $after;
 		}
-
-}
+	}
 
 	/**
 	 * Abstract method: Manipulate the tree
@@ -1413,8 +1379,7 @@ class StringParser_BBCode extends StringParser {
 
 				unset($n);
 			}
-
-}
+		}
 
 		// second pass a: do paragraph handling on root element
 		if ($this->_rootParagraphHandling) {
@@ -1423,8 +1388,7 @@ class StringParser_BBCode extends StringParser {
 			if (!$res) {
 				return false;
 			}
-
-}
+		}
 
 		// second pass b: do paragraph handling on other elements
 		unset($nodes);
@@ -1437,8 +1401,7 @@ class StringParser_BBCode extends StringParser {
 			if (!$res) {
 				return false;
 			}
-
-}
+		}
 
 		// second pass c: search for empty paragraph nodes and remove them
 		unset($nodes);
@@ -1509,8 +1472,7 @@ class StringParser_BBCode extends StringParser {
 					unset($paragraph);
 					$paragraph = new StringParser_BBCode_Node_Paragraph();
 				}
-
-}
+			}
 		}
 
 		$count = count($dest_nodes);
@@ -1567,14 +1529,12 @@ class StringParser_BBCode extends StringParser {
 						if ($cpos == 0) {
 							$subnode->setFlag($flag, $value);
 						}
-
-} elseif ($flag == 'newlinemode.end') {
+					} elseif ($flag == 'newlinemode.end') {
 						// do nothing
 					} else {
 						$subnode->setFlag($flag, $value);
 					}
-
-}
+				}
 
 				$dest_nodes[] =& $subnode;
 				unset($subnode);
@@ -1589,8 +1549,7 @@ class StringParser_BBCode extends StringParser {
 				if ($value !== null) {
 					$subnode->setFlag('newlinemode.begin', $value);
 				}
-
-}
+			}
 
 			$value = $node->getFlag('newlinemode.end', 'integer', null);
 
@@ -1685,14 +1644,12 @@ class StringParser_BBCode extends StringParser {
 				if (in_array($param, $attributes)) {
 					return $result;
 				}
-
-}
+			}
 		} else {
 			if (in_array($p, $attributes)) {
 				return $result;
 			}
-
-}
+		}
 
 		return !$result;
 	}
@@ -1719,8 +1676,7 @@ class StringParser_BBCode extends StringParser {
 
 				break;
 			}
-
-}
+		}
 
 		if ($found === false || ($this->_caseSensitive && $this->getCodeFlag($found, 'case_sensitive', 'boolean', true))) {
 			return false;
@@ -1728,7 +1684,6 @@ class StringParser_BBCode extends StringParser {
 
 		return $rname;
 	}
-
 }
 
 /**
@@ -1808,8 +1763,7 @@ class StringParser_BBCode_Node_Paragraph extends StringParser_Node {
 
 			return false;
 		}
-
-}
+	}
 }
 
 /**
@@ -2107,7 +2061,6 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 			// ELSE WE WILL ERASE THE NODE ITSELF! EVIL!
 			if ($ret->_type != STRINGPARSER_NODE_TEXT && !$ret->hadCloseTag()) {
 				$ret2 =& $ret->_findPrevAdjentTextNodeHelper();
-
 				unset($ret);
 
 				$ret =& $ret2;
@@ -2118,8 +2071,7 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 
 				$ret = null;
 			}
-
-}
+		}
 
 		return $ret;
 	}
@@ -2151,8 +2103,7 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 
 				break;
 			}
-
-}
+		}
 
 		if ($found === false) {
 			return $ret;
@@ -2198,8 +2149,7 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 
 				break;
 			}
-
-}
+		}
 
 		if ($found === false) {
 			return $ret;
@@ -2315,8 +2265,7 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 					if ($val == BBCODE_PARAGRAPH_ALLOW_BREAKUP) {
 						$this->_flags['paragraph_type'] = BBCODE_PARAGRAPH_ALLOW_INSIDE;
 					}
-
-}
+				}
 
 				return $res;
 			}
@@ -2342,8 +2291,7 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 	public function getReplacement($subcontent) {
 		if ($this->_codeInfo['callback_type'] == 'simple_replace' || $this->_codeInfo['callback_type'] == 'simple_replace_single') {
 			if ($this->_codeInfo['callback_type'] == 'simple_replace_single') {
-				if (strlen($subcontent)) {
-					// can't be!
+				if (strlen($subcontent)) { // can't be!
 					return false;
 				}
 
@@ -2394,5 +2342,4 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 
 		return $str;
 	}
-
 }

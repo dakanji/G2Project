@@ -45,7 +45,6 @@ class SearchShowAllController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -145,8 +144,7 @@ class SearchShowAllView extends GalleryView {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 
 				$maxPages = ceil($results['count'] / $pageSize);
 			}
@@ -159,8 +157,7 @@ class SearchShowAllView extends GalleryView {
 					if (isset($result['itemId'])) {
 						$itemIds[$result['itemId']] = 1;
 					}
-
-}
+				}
 
 				$itemIds = array_keys($itemIds);
 
@@ -186,11 +183,9 @@ class SearchShowAllView extends GalleryView {
 					foreach ($thumbnailList as $thumbnail) {
 						$thumbnails[$thumbnail->getParentId()] = (array)$thumbnail;
 					}
-
-}
+				}
 			}
-
-} else {
+		} else {
 			$form['searchCriteria'] = '';
 		}
 
@@ -224,5 +219,4 @@ class SearchShowAllView extends GalleryView {
 			),
 		);
 	}
-
 }

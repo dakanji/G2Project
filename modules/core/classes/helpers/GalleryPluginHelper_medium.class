@@ -160,8 +160,7 @@ class GalleryPluginHelper_medium {
 					if ($platform->is_file($path . '/' . $pluginFile)) {
 						$pluginIds[] = $file;
 					}
-
-}
+				}
 
 				$platform->closedir($dir);
 			}
@@ -390,8 +389,7 @@ class GalleryPluginHelper_medium {
 				if ($ret) {
 					return $ret;
 				}
-
-} else {
+			} else {
 				$ret = GalleryPluginHelper_medium::_updateParameter(
 					$pluginType,
 					$pluginId,
@@ -403,8 +401,7 @@ class GalleryPluginHelper_medium {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 
 			// Invalidate our cache
 			$cacheKey = "GalleryPluginHelper::fetchAllParameters($pluginType, $pluginId, $id)";
@@ -536,5 +533,4 @@ class GalleryPluginHelper_medium {
 			true
 		);
 	}
-
 }

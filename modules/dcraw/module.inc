@@ -39,9 +39,7 @@ class DcrawModule extends GalleryModule {
 				'Graphics toolkit for processing RAW format images'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -192,8 +190,7 @@ class DcrawModule extends GalleryModule {
 				if (!($ret->getErrorCode() & ERROR_COLLISION)) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		list($ret, $redirect) = parent::activate($postActivationEvent);
@@ -324,8 +321,7 @@ class DcrawModule extends GalleryModule {
 				if (!$testResult['success']) {
 					$failCount++;
 				}
-
-}
+			}
 
 			if ($failCount == 0) {
 				// We have a winner
@@ -337,8 +333,7 @@ class DcrawModule extends GalleryModule {
 
 				return array(null, true);
 			}
-
-}
+		}
 
 		return array(null, false);
 	}
@@ -364,5 +359,4 @@ class DcrawModule extends GalleryModule {
 	public function getConfigurationView() {
 		return 'dcraw.AdminDcraw';
 	}
-
 }

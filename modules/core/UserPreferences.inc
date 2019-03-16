@@ -75,7 +75,8 @@ class UserPreferencesController extends GalleryController {
 				return array($ret, null);
 			}
 
-			$userId             = $gallery->getActiveUserId();
+			$userId = $gallery->getActiveUserId();
+
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($userId);
 
 			if ($ret) {
@@ -104,8 +105,7 @@ class UserPreferencesController extends GalleryController {
 				if (!GalleryUtilities::isValidEmailString($form['email'])) {
 					$error[] = 'form[error][email][invalid]';
 				}
-
-}
+			}
 
 			if (!empty($form['currentPassword'])) {
 				GalleryUtilities::unsanitizeInputValues($form['currentPassword'], false);
@@ -124,8 +124,7 @@ class UserPreferencesController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 
 				/*
 				 * To be consistent, we really should post a Gallery::Login event here to show
@@ -135,8 +134,7 @@ class UserPreferencesController extends GalleryController {
 				 *
 				 * @see UserChangePasswordController::handleRequest
 				 */
-
-}
+			}
 
 			// Set a default if for some reason it doesn't get sent from the browser
 			$form['email'] = empty($form['email']) ? '' : $form['email'];
@@ -146,8 +144,7 @@ class UserPreferencesController extends GalleryController {
 				if (empty($form['currentPassword'])) {
 					$error[] = 'form[error][currentPassword][missing]';
 				}
-
-}
+			}
 
 			// If all the right fields are in place then go ahead and modify the user.
 			if (empty($error)) {
@@ -182,8 +179,7 @@ class UserPreferencesController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
@@ -197,7 +193,6 @@ class UserPreferencesController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -270,8 +265,7 @@ class UserPreferencesView extends GalleryView {
 			foreach ($countryList as $country => $languageData) {
 				$languageList[$language . '_' . $country] = $languageData['description'];
 			}
-
-}
+		}
 
 		$UserPreferences['translationsSupported'] = $translator->canTranslate();
 		$UserPreferences['languageList']          = $languageList;
@@ -299,5 +293,4 @@ class UserPreferencesView extends GalleryView {
 
 		return array(null, $core->translate('your account'));
 	}
-
 }

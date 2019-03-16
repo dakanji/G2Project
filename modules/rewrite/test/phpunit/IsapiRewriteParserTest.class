@@ -56,15 +56,15 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$this->_testPassString = 'PASS_ISAPI_REWRITE';
 	}
 
 	public function testSaveAccessList() {
-		$accessList       = array('phpunit.test1', 'phpunit.test2');
-		$ourParser        = $this->_parser;
+		$accessList = array('phpunit.test1', 'phpunit.test2');
+		$ourParser  = $this->_parser;
+
 		list($ret, $code) = $ourParser->saveAccessList($accessList, true, $ourParser);
 
 		if ($ret) {
@@ -100,8 +100,9 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 	public function testSaveAccessListEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
-		$accessList       = array('phpunit.test1', 'phpunit.test2');
-		$ourParser        = $this->_parser;
+		$accessList = array('phpunit.test1', 'phpunit.test2');
+		$ourParser  = $this->_parser;
+
 		list($ret, $code) = $ourParser->saveAccessList($accessList, false, $ourParser);
 
 		if ($ret) {
@@ -140,7 +141,8 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		$this->_platform->_isWriteable = false;
 		$accessList                    = array('phpunit.test1', 'phpunit.test2');
 		$ourParser                     = $this->_parser;
-		list($ret, $code)              = $ourParser->saveAccessList($accessList, true, $ourParser);
+
+		list($ret, $code) = $ourParser->saveAccessList($accessList, true, $ourParser);
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -179,8 +181,9 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
-		$accessList       = array('phpunit.test1', 'phpunit.test2');
-		$ourParser        = $this->_parser;
+		$accessList = array('phpunit.test1', 'phpunit.test2');
+		$ourParser  = $this->_parser;
+
 		list($ret, $code) = $ourParser->saveAccessList($accessList, true, $ourParser);
 
 		if ($ret) {
@@ -249,8 +252,9 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 	}
 
 	public function testHandleTestResultsRequest1() {
-		$form                       = array();
-		$form['force']['test']      = 1;
+		$form                  = array();
+		$form['force']['test'] = 1;
+
 		list($ret, $error, $status) = $this->_parser->handleTestResultsRequest($form);
 
 		if ($ret) {
@@ -268,7 +272,6 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		}
 
 		$this->assertEquals('1', $forced);
-
 		$this->assertEquals(
 			array(
 				'saved' => 1,
@@ -280,7 +283,8 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 	}
 
 	public function testHandleTestResultsRequest2() {
-		$form                       = array();
+		$form = array();
+
 		list($ret, $error, $status) = $this->_parser->handleTestResultsRequest($form);
 
 		if ($ret) {
@@ -298,7 +302,6 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		}
 
 		$this->assertEquals('0', $forced);
-
 		$this->assertEquals(
 			array(
 				'saved' => 1,
@@ -314,8 +317,9 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
-		$form['embeddedLocation']   = 'test';
-		$form['httpdini']           = '/phpunit/test';
+		$form['embeddedLocation'] = 'test';
+		$form['httpdini']         = '/phpunit/test';
+
 		list($ret, $error, $status) = $this->_parser->handleAdminParserRequest($form);
 
 		if ($ret) {
@@ -344,7 +348,6 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 
 		$this->assertEquals('/phpunit/test', $httpdini);
 		$this->assertEquals('/test/', $embeddedLocation);
-
 		$this->assertEquals(
 			array(
 				'saved' => 1,
@@ -363,8 +366,9 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
-		$form['embeddedLocation']   = '/';
-		$form['httpdini']           = '/phpunit/test';
+		$form['embeddedLocation'] = '/';
+		$form['httpdini']         = '/phpunit/test';
+
 		list($ret, $error, $status) = $this->_parser->handleAdminParserRequest($form);
 
 		if ($ret) {
@@ -393,7 +397,6 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 
 		$this->assertEquals('/phpunit/test', $httpdini);
 		$this->assertEquals('/', $embeddedLocation);
-
 		$this->assertEquals(
 			array(
 				'saved' => 1,
@@ -417,7 +420,8 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		$this->_platform->_isWriteable = false;
 		$form['embeddedLocation']      = '/test/';
 		$form['httpdini']              = '/phpunit/test';
-		list($ret, $error, $status)    = $this->_parser->handleAdminParserRequest($form);
+
+		list($ret, $error, $status) = $this->_parser->handleAdminParserRequest($form);
 
 		if ($ret) {
 			return $ret;
@@ -576,7 +580,8 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 	public function testSaveEmbedConfig3() {
 		$this->_platform->_isWriteable = false;
 		$params                        = array();
-		list($ret, $code, $errstr)     = $this->_parser->saveEmbedConfig($params);
+
+		list($ret, $code, $errstr) = $this->_parser->saveEmbedConfig($params);
 
 		if ($ret) {
 			return $ret;
@@ -590,7 +595,8 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveBadTestCondition() {
 		$testRules['rewriteparsermock'][4] = array();
-		list($ret, $code, $errno)          = $this->_parser->saveActiveRules(
+
+		list($ret, $code, $errno) = $this->_parser->saveActiveRules(
 			$this->_parser,
 			$testRules
 		);
@@ -650,5 +656,4 @@ class IsapiRewriteParserTest extends RewriteParserTestCase {
 		$this->assertEquals(array('rewriteparsermock', 0), $errno);
 		$this->assertEquals($expected, unserialize($activeRules));
 	}
-
 }

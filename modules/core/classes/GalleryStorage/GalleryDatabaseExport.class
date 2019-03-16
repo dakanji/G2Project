@@ -97,8 +97,9 @@ class GalleryDatabaseExport {
 			'total'    => 100,
 		);
 
-		$storageConfig                     = $gallery->getConfig('storage.config');
-		$this->_fieldPrefixLength          = strlen($storageConfig['columnPrefix']);
+		$storageConfig            = $gallery->getConfig('storage.config');
+		$this->_fieldPrefixLength = strlen($storageConfig['columnPrefix']);
+
 		list($ret, $fileHandle, $filepath) = $this->_openBackupFileForWriting($fileName);
 
 		if ($ret) {
@@ -249,8 +250,7 @@ class GalleryDatabaseExport {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		$written = $platform->fwrite($fileHandle, '</export>' . "\n");
 
@@ -297,7 +297,8 @@ class GalleryDatabaseExport {
 	public function _exportPluginStatus($handle, $pluginType, $plugins, &$warnings) {
 		global $gallery;
 
-		$platform               =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core', true);
 
 		if ($ret) {
@@ -342,8 +343,7 @@ class GalleryDatabaseExport {
 					'Unable to write to export file'
 				);
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -433,8 +433,7 @@ class GalleryDatabaseExport {
 
 				$this->updateStatus();
 			}
-
-}
+		}
 
 		foreach ($sql['table'] as $table => $unused) {
 			$ret = $this->_exportTable($handle, $table, $warnings);
@@ -442,8 +441,7 @@ class GalleryDatabaseExport {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$written = $platform->fwrite($handle, '  </plugin>' . "\n");
 
@@ -471,8 +469,9 @@ class GalleryDatabaseExport {
 	public function _exportSequence($handle, $sequenceId) {
 		global $gallery;
 
-		$storage                   =& $gallery->getStorage();
-		$platform                  =& $gallery->getPlatform();
+		$storage  =& $gallery->getStorage();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $sequenceValue) = $storage->getUniqueId($sequenceId);
 
 		if ($ret) {
@@ -507,8 +506,9 @@ class GalleryDatabaseExport {
 	public function _exportTable($handle, $table, &$warnings) {
 		global $gallery;
 
-		$storage                =& $gallery->getStorage();
-		$platform               =& $gallery->getPlatform();
+		$storage  =& $gallery->getStorage();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core', true);
 
 		if ($ret) {
@@ -517,9 +517,10 @@ class GalleryDatabaseExport {
 
 		list($name1, $name2, $nameInSchema) = $storage->_translateTableName($table);
 
-		$query               = 'SELECT [::createSql], [::pluginId], [::type], [::info]
+		$query = 'SELECT [::createSql], [::pluginId], [::type], [::info]
 		    FROM [GallerySchema]
 		   WHERE [::name] = ?';
+
 		list($ret, $results) = $storage->search($query, array($nameInSchema));
 
 		if ($ret) {
@@ -591,8 +592,7 @@ class GalleryDatabaseExport {
 					'Unable to write to export file'
 				);
 			}
-
-}
+		}
 
 		$written = $platform->fwrite($handle, '      </definition>' . "\n");
 
@@ -620,8 +620,7 @@ class GalleryDatabaseExport {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$written = $platform->fwrite($handle, '    </table>' . "\n");
 
@@ -649,8 +648,9 @@ class GalleryDatabaseExport {
 	public function _exportData($handle, $table, &$warnings) {
 		global $gallery;
 
-		$storage                =& $gallery->getStorage();
-		$platform               =& $gallery->getPlatform();
+		$storage  =& $gallery->getStorage();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core', true);
 
 		if ($ret) {
@@ -784,7 +784,8 @@ class GalleryDatabaseExport {
 
 			while ($rowsRead < $rowCount) {
 				$options['limit']['offset'] = $offset;
-				list($ret, $results)        = $storage->search($query, array(), $options);
+
+				list($ret, $results) = $storage->search($query, array(), $options);
 
 				if ($ret) {
 					return $ret;
@@ -811,8 +812,7 @@ class GalleryDatabaseExport {
 
 							$line .= '<f>' . $this->_encodeHtmlSpecialChars($val) . '</f>';
 						}
-
-}
+					}
 
 					$line   .= "</row>\n";
 					$written = $platform->fwrite($handle, $line);
@@ -825,8 +825,7 @@ class GalleryDatabaseExport {
 							'Unable to write to export file'
 						);
 					}
-
-}
+				}
 
 				$this->updateStatus();
 
@@ -843,8 +842,7 @@ class GalleryDatabaseExport {
 					'Unable to write to export file'
 				);
 			}
-
-} else {
+		} else {
 			$this->updateStatus();
 		}
 
@@ -862,10 +860,10 @@ class GalleryDatabaseExport {
 		global $gallery;
 
 		$this->_callBack['progress']++;
+
 		$complete = $this->_callBack['progress'] / $this->_callBack['total'];
 
 		call_user_func_array($this->_callBack['callback'], array($complete));
-
 		$gallery->guaranteeTimeLimit(60);
 	}
 
@@ -886,7 +884,8 @@ class GalleryDatabaseExport {
 		$phpVm    = $gallery->getPhpVm();
 
 		if (empty($fileName)) {
-			$dirName               = $gallery->getConfig('data.gallery.backup');
+			$dirName = $gallery->getConfig('data.gallery.backup');
+
 			list($exists, $unused) = GalleryUtilities::guaranteeDirExists($dirName);
 
 			if (!$exists) {
@@ -926,5 +925,4 @@ class GalleryDatabaseExport {
 
 		return array(null, $handle, $fileName);
 	}
-
 }

@@ -66,8 +66,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function tearDown() {
 		$ret = parent::tearDown();
@@ -75,8 +74,7 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testSave() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -171,7 +169,8 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 		 * GalleryCoreApi::getPluginParameter calls too.  So for now just make sure that the table
 		 * is clean when we're done.
 		 */
-		$storage             =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
+
 		list($ret, $results) = $storage->search('SELECT COUNT(*) FROM [GalleryCacheMap]', array());
 
 		if ($ret) {
@@ -182,5 +181,4 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals(0, (int)$result[0]);
 	}
-
 }

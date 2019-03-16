@@ -45,7 +45,6 @@ class MailHelperTest extends GalleryTestCase {
 		}
 
 		$this->templateFile = 'modules/core/test/data/MailHelperTest.tpl';
-
 		global $gallery;
 
 		$this->_originalPlatform =& $gallery->getPlatform();
@@ -281,7 +280,6 @@ class MailHelperTest extends GalleryTestCase {
 
 		$this->assertEquals(4, $this->_dummyPlatform->getMailedCount(), 'MailedCount incorrect');
 	}
-
 }
 
 /**
@@ -384,5 +382,4 @@ class MailHelperDummyPlatform {
 			$headers
 		);
 	}
-
 }

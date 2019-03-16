@@ -203,8 +203,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testScalePreserveOriginal() {
 		// Use valid inputs
@@ -699,7 +698,6 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		list($ret, $this->_derivative[0]) = $this->_derivative[0]->refresh();
 
 		$this->assertFalse($ret);
-
 		// Make sure that its postfilter is still the same, but its rotate op is gone
 		$this->assertEquals('bogus|1,2,3', $this->_derivative[0]->getDerivativeOperations());
 		$this->assertEquals('bogus|4,5,6', $this->_derivative[0]->getPostFilterOperations());
@@ -773,7 +771,6 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 
 		$this->assertFalse($result, 'should not be supported');
 	}
-
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
@@ -806,7 +803,6 @@ class ItemEditRotateAndScalePhotoPluginTestToolkit extends GalleryToolkit {
 
 		$platform->fwrite($fd, $operationName);
 		$platform->fclose($fd);
-
 		// Clear cache to ensure new filesize will be seen
 		$platform->clearstatcache();
 
@@ -870,6 +866,5 @@ class ItemEditRotateAndScalePhotoPluginTestToolkit extends GalleryToolkit {
 			default:
 				return array(false, null, null);
 		}
-
-}
+	}
 }

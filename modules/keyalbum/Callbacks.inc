@@ -28,11 +28,12 @@ class KeyAlbumCallbacks {
 	public function callback($params, &$smarty, $callback, $userId) {
 		switch ($callback) {
 			case 'LoadKeywords':
-				$onlyPublic              = (bool)$params['onlyPublic'];
-				$sizeLimit               = (int)$params['sizeLimit'];
-				$param                   = 'allKeywords' . ($onlyPublic ? '.public' : '')
+				$onlyPublic       = (bool)$params['onlyPublic'];
+				$sizeLimit        = (int)$params['sizeLimit'];
+				$param            = 'allKeywords' . ($onlyPublic ? '.public' : '')
 				. ($sizeLimit ? '.' . $sizeLimit : '');
-				$includeFrequency        = (bool)$params['includeFrequency'];
+				$includeFrequency = (bool)$params['includeFrequency'];
+
 				list($ret, $lastUpdated) = GalleryCoreApi::getPluginParameter(
 					'module',
 					'keyalbum',
@@ -56,8 +57,7 @@ class KeyAlbumCallbacks {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				list($ret, $keywords) = GalleryCoreApi::getPluginParameter(
 					'module',
@@ -157,8 +157,7 @@ class KeyAlbumCallbacks {
 				. GalleryUtilities::makeMarkers(count($aclIds)) . ')
 				';
 			}
-
-}
+		}
 
 		list($ret, $searchResults) = $gallery->search($query, $aclIds);
 
@@ -191,8 +190,7 @@ class KeyAlbumCallbacks {
 				} elseif (++$keywords[$keyword]['count'] > $maxCount) {
 					$maxCount = $keywords[$keyword]['count'];
 				}
-
-}
+			}
 		}
 
 		$minCount = $maxCount;
@@ -201,8 +199,7 @@ class KeyAlbumCallbacks {
 			if ($keyword['count'] < $minCount) {
 				$minCount = $keyword['count'];
 			}
-
-}
+		}
 
 		if ($sizeLimit > 0 && count($keywords) > $sizeLimit) {
 			// Sort by frequency and drop least common
@@ -268,5 +265,4 @@ class KeyAlbumCallbacks {
 
 		return null;
 	}
-
 }

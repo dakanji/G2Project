@@ -31,7 +31,9 @@ class CarbonTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('carbon');
+
 		$this->setName($gallery->i18n('Carbon'));
+
 		$this->setDescription(
 			$gallery->i18n(
 				'Gallery2 theme by mincel.com'
@@ -40,7 +42,6 @@ class CarbonTheme extends GalleryTheme {
 		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
-
 		$this->setStandardSettings(
 			array(
 				'rows'                 => 3,
@@ -256,11 +257,9 @@ class CarbonTheme extends GalleryTheme {
 					if (!$success) {
 						$error[$blockKey] = $this->translate('Format: [module.BlockName param=value] ...');
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		return $error;
 	}
@@ -433,11 +432,9 @@ class CarbonTheme extends GalleryTheme {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		return null;
 	}
-
 }

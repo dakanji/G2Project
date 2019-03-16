@@ -29,9 +29,7 @@ class ADODB2_firebird extends ADODB_DataDict {
 				return 'VARCHAR(4000)';
 
 			case 'C2':
-				// up to 32K
-				return 'VARCHAR';
-
+				return 'VARCHAR'; // up to 32K
 			case 'X2':
 				return 'VARCHAR(4000)';
 
@@ -72,8 +70,7 @@ class ADODB2_firebird extends ADODB_DataDict {
 			default:
 				return $meta;
 		}
-
-}
+	}
 
 	public function NameQuote($name = null) {
 		if (!is_string($name)) {
@@ -188,5 +185,4 @@ class ADODB2_firebird extends ADODB_DataDict {
 
 		return $sql;
 	}
-
 }

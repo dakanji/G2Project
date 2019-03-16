@@ -28,7 +28,8 @@
  * -------------------------------------------------------------
  */
 function smarty_modifier_markup($text) {
-	static $parsers = array(), $cacheKey = 'smarty_modifier_markup';
+	static $parsers  = array();
+	static $cacheKey = 'smarty_modifier_markup';
 
 	$stripTags = false;
 	$args      = func_get_args();
@@ -40,8 +41,7 @@ function smarty_modifier_markup($text) {
 		} else {
 			$markupType = $arg;
 		}
-
-}
+	}
 
 	if (!isset($markupType)) {
 		if (!GalleryDataCache::containsKey($cacheKey)) {
@@ -78,8 +78,7 @@ function smarty_modifier_markup($text) {
 			default:
 				$parsers[$markupType] = new GalleryNoMarkupParser();
 		}
-
-}
+	}
 
 	$text = $parsers[$markupType]->parse($text);
 
@@ -90,14 +89,12 @@ class GalleryNoMarkupParser {
 	public function parse($text) {
 		return $text;
 	}
-
 }
 
 class GalleryHtmlMarkupParser {
 	public function parse($text) {
 		return GalleryUtilities::htmlSafe(html_entity_decode($text));
 	}
-
 }
 
 class GalleryBbcodeMarkupParser {
@@ -117,7 +114,6 @@ class GalleryBbcodeMarkupParser {
 			array('block', 'inline', 'link', 'listitem', 'list'),
 			array($this, 'convertLineBreaks')
 		);
-
 		/*
 		 * Escape all characters everywhere
 		 * We do not need this as G2 does not allow raw entities into the database
@@ -129,13 +125,10 @@ class GalleryBbcodeMarkupParser {
 
 		// Convert line endings
 		$this->_bbcode->addParser(array('block', 'inline', 'link', 'listitem'), 'nl2br');
-
 		// Strip last line break in list items
 		$this->_bbcode->addParser(array('listitem'), array($this, 'stripLastLineBreak'));
-
 		// Strip contents in list elements
 		$this->_bbcode->addParser(array('list'), array($this, 'stripContents'));
-
 		// [b], [i]
 		$this->_bbcode->addCode(
 			'b',
@@ -199,7 +192,6 @@ class GalleryBbcodeMarkupParser {
 			array('listitem', 'block', 'inline', 'link'),
 			array()
 		);
-
 		// [list] [*]Element [/list]
 		$this->_bbcode->addCode(
 			'list',
@@ -291,5 +283,4 @@ class GalleryBbcodeMarkupParser {
 	public function stripLastLineBreak($text) {
 		return preg_replace("/\n( +)?$/", '$1', $text);
 	}
-
 }

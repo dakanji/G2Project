@@ -47,8 +47,7 @@ class AdminQuotasController extends GalleryController {
 				if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		if (!empty($form['text']['userName'])) {
@@ -58,8 +57,7 @@ class AdminQuotasController extends GalleryController {
 				if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
@@ -79,8 +77,7 @@ class AdminQuotasController extends GalleryController {
 				if (isset($groupQuota['id'])) {
 					$error[] = 'form[error][text][GroupQuotaExists]';
 				}
-
-}
+			}
 
 			if (empty($error)) {
 				// Show the "create group quota" view
@@ -88,8 +85,7 @@ class AdminQuotasController extends GalleryController {
 				$redirect['subView'] = 'quotas.AdminCreateGroupQuota';
 				$redirect['groupId'] = $group->getId();
 			}
-
-} elseif (isset($form['action']['user']['createFromText'])) {
+		} elseif (isset($form['action']['user']['createFromText'])) {
 			if (empty($form['text']['userName'])) {
 				$error[] = 'form[error][text][noUserSpecified]';
 			} elseif (null === $user) {
@@ -104,8 +100,7 @@ class AdminQuotasController extends GalleryController {
 				if (isset($userQuota['id'])) {
 					$error[] = 'form[error][text][UserQuotaExists]';
 				}
-
-}
+			}
 
 			if (empty($error)) {
 				// Show the "create user quota" view
@@ -113,8 +108,7 @@ class AdminQuotasController extends GalleryController {
 				$redirect['subView'] = 'quotas.AdminCreateUserQuota';
 				$redirect['userId']  = $user->getId();
 			}
-
-} elseif (isset($form['action']['group']['editFromText'])) {
+		} elseif (isset($form['action']['group']['editFromText'])) {
 			if (empty($form['text']['groupName'])) {
 				$error[] = 'form[error][text][noGroupSpecified]';
 			} elseif ($group == null) {
@@ -129,8 +123,7 @@ class AdminQuotasController extends GalleryController {
 				if (!isset($groupQuota['id'])) {
 					$error[] = 'form[error][text][noSuchGroupQuota]';
 				}
-
-}
+			}
 
 			if (empty($error)) {
 				// Show the "edit group quota" view
@@ -138,8 +131,7 @@ class AdminQuotasController extends GalleryController {
 				$redirect['subView'] = 'quotas.AdminEditGroupQuota';
 				$redirect['groupId'] = $group->getId();
 			}
-
-} elseif (isset($form['action']['user']['editFromText'])) {
+		} elseif (isset($form['action']['user']['editFromText'])) {
 			if (empty($form['text']['userName'])) {
 				$error[] = 'form[error][text][noUserSpecified]';
 			} elseif ($user == null) {
@@ -154,8 +146,7 @@ class AdminQuotasController extends GalleryController {
 				if (!isset($userQuota['id'])) {
 					$error[] = 'form[error][text][noSuchUserQuota]';
 				}
-
-}
+			}
 
 			if (empty($error)) {
 				// Show the "edit user quota" view
@@ -163,8 +154,7 @@ class AdminQuotasController extends GalleryController {
 				$redirect['subView'] = 'quotas.AdminEditUserQuota';
 				$redirect['userId']  = $user->getId();
 			}
-
-} elseif (isset($form['action']['group']['deleteFromText'])) {
+		} elseif (isset($form['action']['group']['deleteFromText'])) {
 			if (empty($form['text']['groupName'])) {
 				$error[] = 'form[error][text][noGroupSpecified]';
 			} elseif ($group == null) {
@@ -179,8 +169,7 @@ class AdminQuotasController extends GalleryController {
 				if (!isset($groupQuota['id'])) {
 					$error[] = 'form[error][text][noSuchGroupQuota]';
 				}
-
-}
+			}
 
 			if (empty($error)) {
 				// Show the "delete group quota" view
@@ -188,8 +177,7 @@ class AdminQuotasController extends GalleryController {
 				$redirect['subView'] = 'quotas.AdminDeleteGroupQuota';
 				$redirect['groupId'] = $group->getId();
 			}
-
-} elseif (isset($form['action']['user']['deleteFromText'])) {
+		} elseif (isset($form['action']['user']['deleteFromText'])) {
 			if (empty($form['text']['userName'])) {
 				$error[] = 'form[error][text][noUserSpecified]';
 			} elseif ($user == null) {
@@ -204,8 +192,7 @@ class AdminQuotasController extends GalleryController {
 				if (!isset($userQuota['id'])) {
 					$error[] = 'form[error][text][noSuchUserQuota]';
 				}
-
-}
+			}
 
 			if (empty($error)) {
 				// Show the "delete user quota" view
@@ -213,8 +200,7 @@ class AdminQuotasController extends GalleryController {
 				$redirect['subView'] = 'quotas.AdminDeleteUserQuota';
 				$redirect['userId']  = $user->getId();
 			}
-
-}
+		}
 
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
@@ -228,7 +214,6 @@ class AdminQuotasController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -287,7 +272,8 @@ class AdminQuotasView extends GalleryView {
 		// Calculate the next/back pages
 		$form['list']['group']['nextPage'] = min($form['list']['group']['page'] + 1, $form['list']['group']['maxPages']);
 		$form['list']['group']['backPage'] = max(1, $form['list']['group']['page'] - 1);
-		list($ret, $groupNames)            = GalleryQuotasHelper::fetchQuotaGroupIdList(
+
+		list($ret, $groupNames) = GalleryQuotasHelper::fetchQuotaGroupIdList(
 			$form['list']['group']['pageSize'],
 			(($form['list']['group']['page'] - 1) * $form['list']['group']['pageSize'])
 		);
@@ -299,7 +285,8 @@ class AdminQuotasView extends GalleryView {
 		$form['list']['groupNames'] = array();
 
 		foreach ($groupNames as $groupId => $values) {
-			$form['list']['groupNames'][$groupId]['groupName']  = $values['name'];
+			$form['list']['groupNames'][$groupId]['groupName'] = $values['name'];
+
 			list($ret,
 			$form['list']['groupNames'][$groupId]['quotaSize'],
 			$form['list']['groupNames'][$groupId]['quotaUnit']) = GalleryQuotasHelper::humanReadableFromKilobytes($values['quota']);
@@ -307,8 +294,7 @@ class AdminQuotasView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		$form['list']['user']['count']    = $totalUserCount;
 		$form['list']['user']['pageSize'] = $totalUserCount > 10 ? 10 : $totalUserCount + 2;
@@ -323,7 +309,8 @@ class AdminQuotasView extends GalleryView {
 		// Calculate the next/back pages
 		$form['list']['user']['nextPage'] = min($form['list']['user']['page'] + 1, $form['list']['user']['maxPages']);
 		$form['list']['user']['backPage'] = max(1, $form['list']['user']['page'] - 1);
-		list($ret, $userNames)            = GalleryQuotasHelper::fetchQuotaUserIdList(
+
+		list($ret, $userNames) = GalleryQuotasHelper::fetchQuotaUserIdList(
 			$form['list']['user']['pageSize'],
 			(($form['list']['user']['page'] - 1) * $form['list']['user']['pageSize'])
 		);
@@ -335,7 +322,8 @@ class AdminQuotasView extends GalleryView {
 		$form['list']['userNames'] = array();
 
 		foreach ($userNames as $userId => $values) {
-			$form['list']['userNames'][$userId]['userName']   = $values['name'];
+			$form['list']['userNames'][$userId]['userName'] = $values['name'];
+
 			list($ret,
 			$form['list']['userNames'][$userId]['quotaSize'],
 			$form['list']['userNames'][$userId]['quotaUnit']) = GalleryQuotasHelper::humanReadableFromKilobytes($values['quota']);
@@ -343,8 +331,7 @@ class AdminQuotasView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		$AdminQuotas                    = array();
 		$AdminQuotas['totalGroupCount'] = $totalGroupCount;
@@ -360,5 +347,4 @@ class AdminQuotasView extends GalleryView {
 			),
 		);
 	}
-
 }

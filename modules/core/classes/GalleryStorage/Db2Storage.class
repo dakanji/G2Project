@@ -82,8 +82,7 @@ class Db2Storage extends GalleryStorage {
 			if (empty($recordSet)) {
 				return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
 			}
-
-}
+		}
 
 		$tmpDb->Close();
 
@@ -138,16 +137,14 @@ class Db2Storage extends GalleryStorage {
 						'under the assumption that this is an upgrade'
 					);
 				}
-
-} else {
+			} else {
 				// 3) Create/Catalog the UDFs
 				$ret = $this->_executeSqlFile(__DIR__ . $slash . 'Db2CreateUdfs.sql');
 
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 
 			// 4) Disconnect from the database
 			$tmpDb->Close();
@@ -321,7 +318,8 @@ class Db2Storage extends GalleryStorage {
 	public function getVersion() {
 		global $gallery;
 
-		$platform                =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
+
 		list($success, $results) = $platform->exec(array(array('db2level')));
 
 		if ($success && is_array($results)) {
@@ -364,5 +362,4 @@ class Db2Storage extends GalleryStorage {
 	public function decodeBlob($blob) {
 		return stripcslashes($blob);
 	}
-
 }

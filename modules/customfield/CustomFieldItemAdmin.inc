@@ -38,8 +38,9 @@ class CustomFieldItemAdminController extends GalleryController {
 	public function handleRequest($form) {
 		global $gallery;
 
-		$session          =& $gallery->getSession();
-		$adminMode        = GalleryUtilities::getRequestVariables('cfAdmin');
+		$session   =& $gallery->getSession();
+		$adminMode = GalleryUtilities::getRequestVariables('cfAdmin');
+
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
@@ -105,8 +106,7 @@ class CustomFieldItemAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 
 			// Revert to global settings:
 			if ($adminMode == -2) {
@@ -162,8 +162,7 @@ class CustomFieldItemAdminController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 
 				// Remove remaining field values
 				$ret = GalleryCoreApi::removeMapEntry(
@@ -176,8 +175,7 @@ class CustomFieldItemAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 
 			// Set admin mode in session
 			if ($adminMode > 0) {
@@ -185,8 +183,7 @@ class CustomFieldItemAdminController extends GalleryController {
 			} else {
 				$session->remove(CUSTOM_FIELD_SESSION_KEY);
 			}
-
-}
+		}
 
 		$results['return'] = 1;
 		$results['status'] = array();
@@ -194,5 +191,4 @@ class CustomFieldItemAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }

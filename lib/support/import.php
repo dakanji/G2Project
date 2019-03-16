@@ -96,7 +96,8 @@ if ($ret) {
 			$template->renderStatusMessage('Restoring Gallery Database', '', 0);
 
 			// Do the database import
-			$importer           = $storage->getDatabaseImporter();
+			$importer = $storage->getDatabaseImporter();
+
 			list($ret, $errors) = $importer->importToDb($verifiedFile, 'importProgressCallback');
 
 			if ($ret) {
@@ -108,8 +109,7 @@ if ($ret) {
 					foreach ($errors as $status) {
 						$templateData['errors'][] = $status->getAsHtml();
 					}
-
-}
+				}
 			}
 
 			// The import processing sets Gallery into maintenance mode, undo that now
@@ -123,14 +123,12 @@ if ($ret) {
 			$templateData['hideStatusBlock'] = 1;
 			$renderFullPage                  = false;
 		}
-
-} else {
+	} else {
 		getBackupFiles($templateData);
 
 		// Render the output
 		$templateData['bodyFile'] = 'ImportRequest.html';
 	}
-
 }
 
 if (!$ret) {
@@ -139,7 +137,6 @@ if (!$ret) {
 	if ($ret) {
 		$templateData['errors'][] = $ret->getAsHtml();
 	}
-
 }
 
 if ($renderFullPage) {
@@ -156,7 +153,8 @@ if ($renderFullPage) {
  * @return boolean true if there are no verification messages to display.
  */
 function verifyVersions(&$templateData, $importFile) {
-	global $gallery, $template;
+	global $gallery;
+	global $template;
 
 	$storage  =& $gallery->getStorage();
 	$importer = $storage->getDatabaseImporter();
@@ -208,7 +206,6 @@ function getBackupFiles(&$templateData) {
 	if (count($files) == 0) {
 		$templateData['errors'][] = 'There are no backups found. You will probably have to reinstall.';
 	}
-
 }
 
 /**

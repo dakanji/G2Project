@@ -115,7 +115,8 @@ class GalleryAlbumItem extends GalleryItem {
 			return $ret;
 		}
 
-		$albumName          = $this->getPathComponent();
+		$albumName = $this->getPathComponent();
+
 		list($ret, $parent) = GalleryCoreApi::loadEntitiesById($parentId, 'GalleryItem');
 
 		if ($ret) {
@@ -154,8 +155,7 @@ class GalleryAlbumItem extends GalleryItem {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 
 			list($ret, $themeParams) = GalleryCoreApi::fetchAllPluginParameters('theme', $theme, $parent->getId());
 
@@ -175,8 +175,7 @@ class GalleryAlbumItem extends GalleryItem {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		} else {
 			$this->setTheme(null);
 			$this->setOrderBy(null);
@@ -259,7 +258,8 @@ class GalleryAlbumItem extends GalleryItem {
 	public function _createDir($albumDir) {
 		global $gallery;
 
-		$platform         =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $perm) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',
@@ -337,8 +337,7 @@ class GalleryAlbumItem extends GalleryItem {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		return null;
@@ -381,8 +380,7 @@ class GalleryAlbumItem extends GalleryItem {
 			if (!$platform->recursiveRmdir($path)) {
 				return GalleryCoreApi::error(ERROR_BAD_PATH);
 			}
-
-}
+		}
 
 		$storage =& $gallery->getStorage();
 
@@ -419,8 +417,7 @@ class GalleryAlbumItem extends GalleryItem {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$platform =& $gallery->getPlatform();
 
@@ -454,15 +451,13 @@ class GalleryAlbumItem extends GalleryItem {
 			if ($platform->file_exists($newPath)) {
 				$error = GalleryCoreApi::error(ERROR_COLLISION);
 			}
-
-}
+		}
 
 		if (!isset($error)) {
 			if (!$platform->rename($currentPath, $newPath)) {
 				$error = GalleryCoreApi::error(ERROR_BAD_PATH);
 			}
-
-}
+		}
 
 		// Release locks
 		$ret = GalleryCoreApi::releaseLocks($lockId);
@@ -541,8 +536,7 @@ class GalleryAlbumItem extends GalleryItem {
 			if (!$ret) {
 				return array($core->translate('Album'), $core->translate('album'));
 			}
-
-}
+		}
 
 		return array('Album', 'album');
 	}
@@ -577,5 +571,4 @@ class GalleryAlbumItem extends GalleryItem {
 	public function setOrderDirection($orderDirection) {
 		$this->orderDirection = $orderDirection;
 	}
-
 }

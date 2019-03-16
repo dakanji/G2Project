@@ -39,9 +39,7 @@ class FfmpegModule extends GalleryModule {
 				'A toolkit for processing movies'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -70,7 +68,8 @@ class FfmpegModule extends GalleryModule {
 	public function upgrade($currentVersion, $x1 = null) {
 		global $gallery;
 
-		$platform           =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'ffmpeg');
 
 		if ($ret) {
@@ -87,13 +86,13 @@ class FfmpegModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
-		$slash         = $platform->getDirectorySeparator();
-		$pluginDir     = $gallery->getConfig('data.gallery.plugins_data');
-		$imageDir      = $pluginDir . "modules${slash}ffmpeg";
+		$slash     = $platform->getDirectorySeparator();
+		$pluginDir = $gallery->getConfig('data.gallery.plugins_data');
+		$imageDir  = $pluginDir . "modules${slash}ffmpeg";
+
 		list($success) = GalleryUtilities::guaranteeDirExists($imageDir);
 
 		if (!$success) {
@@ -246,8 +245,7 @@ class FfmpegModule extends GalleryModule {
 				if (!$testResult['success']) {
 					$failCount++;
 				}
-
-}
+			}
 
 			if ($failCount == 0) {
 				// We have a winner
@@ -259,8 +257,7 @@ class FfmpegModule extends GalleryModule {
 
 				return array(null, true);
 			}
-
-}
+		}
 
 		return array(null, false);
 	}
@@ -309,8 +306,7 @@ class FfmpegModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		foreach ($results['properties'] as $property => $info) {
 			$ret = GalleryCoreApi::registerToolkitProperty(
@@ -324,8 +320,7 @@ class FfmpegModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		list($ret, $redirect) = parent::activate($postActivationEvent);
 
@@ -356,8 +351,7 @@ class FfmpegModule extends GalleryModule {
 			if (empty($value)) {
 				return array(null, true);
 			}
-
-}
+		}
 
 		return array(null, false);
 	}
@@ -383,5 +377,4 @@ class FfmpegModule extends GalleryModule {
 	public function getConfigurationView() {
 		return 'ffmpeg.AdminFfmpeg';
 	}
-
 }

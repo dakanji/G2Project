@@ -70,7 +70,8 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 		$fallback = true,
 		$sets = array('common', 'album', 'photo')
 	) {
-		$isContainer       = ($containerId > 0);
+		$isContainer = ($containerId > 0);
+
 		list($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'customfield', $containerId);
 
 		if ($ret) {
@@ -99,8 +100,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 					'choices' => array_splice($list, 3),
 				);
 			}
-
-}
+		}
 
 		return array(null, $result, $isContainer);
 	}
@@ -137,8 +137,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -165,8 +164,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 			if ($idx >= 0) {
 				return array(null, false);
 			}
-
-}
+		}
 
 		$param[$set][] = array(
 			'field'   => $newField,
@@ -201,8 +199,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 			if ($item['field'] == $field) {
 				return $i;
 			}
-
-}
+		}
 
 		return -1;
 	}
@@ -253,8 +250,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+		}
 
 		return null;
 	}
@@ -286,11 +282,12 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 		}
 
 		foreach ($items as $item) {
-			$albumItemCheck                                    = GalleryUtilities::isA($item, 'GalleryAlbumItem');
-			$itemId                                            = (int)$item->getId();
-			$itemIds[]                                         = $itemId;
-			$result[$itemId]                                   = array();
-			$containerId                                       = $albumItemCheck ? $itemId : (int)$item->getParentId();
+			$albumItemCheck  = GalleryUtilities::isA($item, 'GalleryAlbumItem');
+			$itemId          = (int)$item->getId();
+			$itemIds[]       = $itemId;
+			$result[$itemId] = array();
+			$containerId     = $albumItemCheck ? $itemId : (int)$item->getParentId();
+
 			list($ret, $param[$itemId], $isContainer[$itemId]) = $this->loadParameters(
 				$containerId
 			);
@@ -298,8 +295,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
-
-}
+		}
 
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'CustomFieldMap',
@@ -331,11 +327,9 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 					} elseif (isset($fillSet) && ($set == 'common' || $set == $fillSet)) {
 						$result[$itemId][$field] = '';
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		return array(null, $result, $param, $isContainer);
 	}
@@ -353,6 +347,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 		$photoItemCheckRes = $photoItemCheck ? 2 : 0;
 		$set               = $albumItemCheck ? 1 : $photoItemCheckRes;
 		$containerId       = ($set == 1) ? $item->getId() : $item->getParentId();
+
 		list($ret, $param) = GalleryCoreApi::fetchAllPluginParameters(
 			'module',
 			'customfield',
@@ -392,8 +387,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		return null;
@@ -419,8 +413,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		return array(null, null);
 	}
@@ -455,8 +448,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 							'choices' => $param[$set][$oldidx]['choices'],
 						);
 					}
-
-}
+				}
 			}
 
 			$ret = $this->saveParameters($newParam, $containerId);
@@ -487,9 +479,9 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 			} else {
 				$status['error']['duplicate'] = 1;
 			}
-
-} elseif (isset($form['action']['go'])) {
+		} elseif (isset($form['action']['go'])) {
 			foreach ($form['action']['go'] as $set => $tmp) {}
+
 			list($ret, $param, $isContainer) = $this->loadParameters($containerId, false);
 
 			if ($ret) {
@@ -589,16 +581,14 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 			if (empty($status)) {
 				$status['moved'] = 1;
 			}
-
-} elseif (isset($form['action']['picklist'])) {
+		} elseif (isset($form['action']['picklist'])) {
 			$choices = array();
 
 			foreach (array_map('trim', explode("\n", $form['picklist'])) as $tmp) {
 				if (!empty($tmp)) {
 					$choices[] = $tmp;
 				}
-
-}
+			}
 
 			list($ret, $param) = $this->loadParameters($containerId, false);
 
@@ -627,8 +617,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 
 					break;
 				}
-
-}
+			}
 		} // else $form['action']['reset']
 		return array(null, $status);
 	}
@@ -688,8 +677,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 			if (!$added) {
 				$duplicates[] = $fieldName;
 			}
-
-}
+		}
 
 		return array(null, $duplicates);
 	}
@@ -712,5 +700,4 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 
 		return null;
 	}
-
 }

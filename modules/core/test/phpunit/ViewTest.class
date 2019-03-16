@@ -54,8 +54,7 @@ class ViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testLoadViewFail() {
 		list($ret, $view) = GalleryView::getMe()->loadView('viewtest.SomeRandomView');
@@ -65,8 +64,7 @@ class ViewTest extends GalleryTestCase {
 		} else {
 			$this->assertTrue(false, 'The view of a deactivated module should not load.');
 		}
-
-}
+	}
 
 	public function testGetConfigurationView() {
 		/*
@@ -78,8 +76,7 @@ class ViewTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testGetItem() {
 		global $gallery;
@@ -97,7 +94,6 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($album);
-
 		GalleryUtilities::putRequestVariable('itemId', $album->getId());
 
 		list($ret, $item, $wasSpecified) = $view->getItem();
@@ -135,7 +131,6 @@ class ViewTest extends GalleryTestCase {
 
 		$this->assertTrue($wasSpecified, 'ShowItem specified');
 		$this->assertEquals($this->_getRootId(), $item->getId(), 'ShowItem root album by default');
-
 		// Override default album
 		$gallery->setConfig('defaultAlbumId', $album->getId());
 
@@ -183,7 +178,6 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		$this->_markForCleanup($album);
-
 		GalleryUtilities::putRequestVariable('itemId', $album->getId());
 
 		$ret = GalleryCoreApi::removeItemPermissions($album->getId());
@@ -200,8 +194,7 @@ class ViewTest extends GalleryTestCase {
 
 				return $ret;
 			}
-
-} else {
+		} else {
 			$this->fail('Expected ERROR_MISSING_OBJECT, no error returned');
 		}
 
@@ -287,8 +280,7 @@ class ViewTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		if (isset($theme)) {
 			$this->assertEquals($expectedThemeId, $theme->getId());
@@ -313,8 +305,7 @@ class ViewTest extends GalleryTestCase {
 				'No param value returned'
 			);
 		}
-
-}
+	}
 
 	public function testLoadThemeAndParametersForAlbumItem() {
 		list($ret, $view, $itemId) = $this->_prepareForLoadThemeAndParameters(false, 'viewtestthemeid1');
@@ -648,8 +639,9 @@ class ViewTest extends GalleryTestCase {
 			true
 		);
 
-		$template                    = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
-		$view                        = new ViewTestAdminView();
+		$template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
+		$view     = new ViewTestAdminView();
+
 		list($ret, $results, $theme) = $view->doLoadTemplate($template);
 
 		if ($ret) {
@@ -710,7 +702,8 @@ class ViewTest extends GalleryTestCase {
 		);
 
 		// Config view is Module View with no itemId defined
-		$view                        = new ViewTestConfigView();
+		$view = new ViewTestConfigView();
+
 		list($ret, $results, $theme) = $view->doLoadTemplate($template);
 
 		if ($ret) {
@@ -748,7 +741,6 @@ class ViewTest extends GalleryTestCase {
 		$gallery->_phpVm = new UnitTestPhpVm();
 
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
-
 		// Optional md5 call if authToken needs to be created and placed in session
 		$gallery->_phpVm->setReply(
 			'md5',
@@ -767,7 +759,8 @@ class ViewTest extends GalleryTestCase {
 
 		$this->_markForCleanup($item);
 
-		$itemId                      = $item->getId();
+		$itemId = $item->getId();
+
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
@@ -790,7 +783,8 @@ class ViewTest extends GalleryTestCase {
 			)
 		);
 
-		$view                        = new ViewTestItemView();
+		$view = new ViewTestItemView();
+
 		list($ret, $results, $theme) = $view->doLoadTemplate($template);
 
 		if ($ret) {
@@ -809,7 +803,9 @@ class ViewTest extends GalleryTestCase {
 		$gallery->_phpVm = new UnitTestPhpVm();
 
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
+
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
+
 		$gallery->_phpVm->setReply('headers_sent', array(), false);
 		$gallery->_phpVm->setReply('header', array('Cache-Control: no-cache', ''), true);
 		$gallery->_phpVm->setReply('header', array('Pragma: no-cache', ''), true);
@@ -818,7 +814,6 @@ class ViewTest extends GalleryTestCase {
 			array('Expires: Sun, 09 Mar 2008 21:00:00 GMT', ''),
 			true
 		);
-
 		// Optional md5 call if authToken needs to be created and placed in session
 		$gallery->_phpVm->setReply(
 			'md5',
@@ -837,7 +832,8 @@ class ViewTest extends GalleryTestCase {
 
 		$this->_markForCleanup($item);
 
-		$itemId                      = $item->getId();
+		$itemId = $item->getId();
+
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
@@ -860,7 +856,8 @@ class ViewTest extends GalleryTestCase {
 			)
 		);
 
-		$view                        = new ViewTestItemView();
+		$view = new ViewTestItemView();
+
 		list($ret, $results, $theme) = $view->doLoadTemplate($template);
 
 		if ($ret) {
@@ -898,7 +895,6 @@ class ViewTest extends GalleryTestCase {
 		$gallery->_phpVm = new UnitTestPhpVm();
 
 		$gallery->_phpVm->setReply('time', array(), strtotime('Sun, 16 Mar 2008 21:00:00 GMT'));
-
 		// Optional md5 call if authToken needs to be created and placed in session
 		$gallery->_phpVm->setReply(
 			'md5',
@@ -917,7 +913,8 @@ class ViewTest extends GalleryTestCase {
 
 		$this->_markForCleanup($item);
 
-		$itemId                       = $item->getId();
+		$itemId = $item->getId();
+
 		list($ret, $everybodyGroupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
 
 		if ($ret) {
@@ -941,7 +938,8 @@ class ViewTest extends GalleryTestCase {
 		);
 
 		// This view overrides default cache control functionality
-		$view                        = new ViewTestNoAutoCacheControlItemView();
+		$view = new ViewTestNoAutoCacheControlItemView();
+
 		list($ret, $results, $theme) = $view->doLoadTemplate($template);
 
 		if ($ret) {
@@ -985,7 +983,8 @@ class ViewTest extends GalleryTestCase {
 	public function testPermissionCheckForRegisteredUser() {
 		global $gallery;
 
-		$galleryView      = new GalleryView();
+		$galleryView = new GalleryView();
+
 		list($ret, $user) = $this->_createRandomUser();
 
 		if ($ret) {
@@ -1001,7 +1000,8 @@ class ViewTest extends GalleryTestCase {
 	}
 
 	public function testPermissionCheckAuthTimeoutExpired() {
-		$galleryView         = new GalleryView();
+		$galleryView = new GalleryView();
+
 		list($ret, $results) = $galleryView->_permissionCheck(GalleryCoreApi::error(ERROR_PERMISSION_DENIED));
 
 		if ($ret) {
@@ -1022,7 +1022,8 @@ class ViewTest extends GalleryTestCase {
 	}
 
 	public function testPermissionCheckHasPermission() {
-		$galleryView         = new GalleryView();
+		$galleryView = new GalleryView();
+
 		list($ret, $results) = $galleryView->_permissionCheck(null);
 
 		if ($ret) {
@@ -1063,7 +1064,8 @@ class ViewTest extends GalleryTestCase {
 	public function testPermissionCheckErrorMissingObjectForRegisteredUser() {
 		global $gallery;
 
-		$galleryView      = new GalleryView();
+		$galleryView = new GalleryView();
+
 		list($ret, $user) = $this->_createRandomUser();
 
 		if ($ret) {
@@ -1079,7 +1081,8 @@ class ViewTest extends GalleryTestCase {
 	}
 
 	public function testPermissionCheckErrorMissingObjectForAdmin() {
-		$galleryView         = new GalleryView();
+		$galleryView = new GalleryView();
+
 		list($ret, $results) = $galleryView->_permissionCheck(GalleryCoreApi::error(ERROR_MISSING_OBJECT));
 
 		$this->assertErrorEquals(ERROR_MISSING_OBJECT, $ret, true);
@@ -1087,13 +1090,13 @@ class ViewTest extends GalleryTestCase {
 	}
 
 	public function testPermissionCheckOtherError() {
-		$galleryView         = new GalleryView();
+		$galleryView = new GalleryView();
+
 		list($ret, $results) = $galleryView->_permissionCheck(GalleryCoreApi::error(ERROR_STORAGE_FAILURE));
 
 		$this->assertErrorEquals(ERROR_STORAGE_FAILURE, $ret, true);
 		$this->assertEquals(null, $results, 'Results should be null');
 	}
-
 }
 
 class ViewTestModule {
@@ -1104,7 +1107,6 @@ class ViewTestModule {
 	public function getConfigurationView() {
 		return 'viewtest.ViewTestConfig';
 	}
-
 }
 
 class ViewTestConfigView extends GalleryView {}
@@ -1112,14 +1114,12 @@ class ViewTestAdminView extends GalleryView {
 	public function getViewType() {
 		return VIEW_TYPE_ADMIN;
 	}
-
 }
 
 class ViewTestItemView extends GalleryView {
 	public function getViewType() {
 		return VIEW_TYPE_SHOW_ITEM;
 	}
-
 }
 
 class ViewTestNoAutoCacheControlItemView extends GalleryView {
@@ -1130,7 +1130,6 @@ class ViewTestNoAutoCacheControlItemView extends GalleryView {
 	public function autoCacheControl() {
 		return false;
 	}
-
 }
 
 class ViewTestThemeId1Theme {
@@ -1150,7 +1149,6 @@ class ViewTestThemeId1Theme {
 			),
 		);
 	}
-
 }
 
 class ViewTestThemeId2Theme {
@@ -1165,7 +1163,6 @@ class ViewTestThemeId2Theme {
 	public function fetchParameters($itemId = 0) {
 		return array(null, array());
 	}
-
 }
 
 class ViewTestEventListener {
@@ -1203,5 +1200,4 @@ class ViewTestEventListener {
 			),
 		);
 	}
-
 }

@@ -44,8 +44,7 @@ class JCrypt {
 			if ($strong) {
 				return $sslStr;
 			}
-
-}
+		}
 
 		/*
 		 * Collect any entropy available in the system along with a number
@@ -67,8 +66,7 @@ class JCrypt {
 			if ($handle) {
 				$urandom = true;
 			}
-
-}
+		}
 
 		while ($length > strlen($randomStr)) {
 			$bytes  = ($total > $shaHashLength) ? $shaHashLength : $total;
@@ -140,8 +138,7 @@ class JCrypt {
 
 					$entropy .= $microStart . microtime(true);
 				}
-
-}
+			}
 
 			$randomStr .= sha1($entropy);
 		}
@@ -152,5 +149,4 @@ class JCrypt {
 
 		return substr($randomStr, 0, $length);
 	}
-
 }

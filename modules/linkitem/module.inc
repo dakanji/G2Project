@@ -37,9 +37,7 @@ class LinkItemModule extends GalleryModule {
 				'Create links to other albums or external urls'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -68,10 +66,11 @@ class LinkItemModule extends GalleryModule {
 	public function upgrade($currentVersion, $x1 = null) {
 		global $gallery;
 
-		$platform      =& $gallery->getPlatform();
-		$slash         = $platform->getDirectorySeparator();
-		$imageDir      = $gallery->getConfig('data.gallery.plugins_data');
-		$imageDir     .= "modules${slash}linkitem";
+		$platform  =& $gallery->getPlatform();
+		$slash     = $platform->getDirectorySeparator();
+		$imageDir  = $gallery->getConfig('data.gallery.plugins_data');
+		$imageDir .= "modules${slash}linkitem";
+
 		list($success) = GalleryUtilities::guaranteeDirExists($imageDir);
 
 		if (!$success) {
@@ -103,8 +102,7 @@ class LinkItemModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 			'module',
@@ -126,8 +124,7 @@ class LinkItemModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		return null;
@@ -286,11 +283,9 @@ class LinkItemModule extends GalleryModule {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		return array(null, null);
 	}
-
 }

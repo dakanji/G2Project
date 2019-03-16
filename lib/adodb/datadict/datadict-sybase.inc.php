@@ -28,9 +28,7 @@ class ADODB2_sybase extends ADODB_DataDict {
 			$len      = $fieldobj->max_length;
 		}
 
-		// mysql max_length is not accurate
-		$len = -1;
-
+		$len = -1; // mysql max_length is not accurate
 		switch (strtoupper($t)) {
 			case 'INT':
 			case 'INTEGER':
@@ -53,8 +51,7 @@ class ADODB2_sybase extends ADODB_DataDict {
 			default:
 				return parent::MetaType($t, $len, $fieldobj);
 		}
-
-}
+	}
 
 	public function ActualType($meta) {
 		switch (strtoupper($meta)) {
@@ -108,12 +105,12 @@ class ADODB2_sybase extends ADODB_DataDict {
 			default:
 				return $meta;
 		}
-
-}
+	}
 
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname            = $this->TableName($tabname);
-		$f                  = array();
+		$tabname = $this->TableName($tabname);
+		$f       = array();
+
 		list($lines, $pkey) = $this->_GenFields($flds);
 
 		$s = "ALTER TABLE $tabname $this->addCol";
@@ -129,8 +126,9 @@ class ADODB2_sybase extends ADODB_DataDict {
 	}
 
 	public function AlterColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
-		$tabname            = $this->TableName($tabname);
-		$sql                = array();
+		$tabname = $this->TableName($tabname);
+		$sql     = array();
+
 		list($lines, $pkey) = $this->_GenFields($flds);
 
 		foreach ($lines as $v) {
@@ -236,7 +234,7 @@ class ADODB2_sybase extends ADODB_DataDict {
 		( search_conditions )
 	}
 
-*/
+	*/
 
 	/*
 	CREATE [ UNIQUE ] [ CLUSTERED | NONCLUSTERED ] INDEX index_name
@@ -251,7 +249,7 @@ class ADODB2_sybase extends ADODB_DataDict {
 			SORT_IN_TEMPDB
 		}
 
-*/
+	*/
 	public function _IndexSQL($idxname, $tabname, $flds, $idxoptions) {
 		$sql = array();
 
@@ -261,8 +259,7 @@ class ADODB2_sybase extends ADODB_DataDict {
 			if (isset($idxoptions['DROP'])) {
 				return $sql;
 			}
-
-}
+		}
 
 		if (empty($flds)) {
 			return $sql;
@@ -285,5 +282,4 @@ class ADODB2_sybase extends ADODB_DataDict {
 
 		return $sql;
 	}
-
 }

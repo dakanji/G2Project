@@ -67,8 +67,7 @@ class GdToolkitTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		// Watermarks are relative to data.gallery.base
 		$this->_oldBase = $gallery->getConfig('data.gallery.base');
@@ -90,8 +89,7 @@ class GdToolkitTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testPerformOperations() {
 		foreach ($this->_gdEnvironments as $environment) {
@@ -99,7 +97,8 @@ class GdToolkitTest extends GalleryTestCase {
 			$this->_gdFunctionality->setEnvironment($environment);
 			$this->_toolkit->setGdFunctionality($this->_gdFunctionality);
 
-			$gd                      =& $this->_gdFunctionality;
+			$gd =& $this->_gdFunctionality;
+
 			list($ret, $isSupported) = GdToolkitHelper::isGdVersionSupported(null, $gd);
 
 			if ($ret) {
@@ -263,7 +262,6 @@ class GdToolkitTest extends GalleryTestCase {
 						$this->_gdFunctionality->getOutputFileData('/valid/rotated.ext'),
 						'rotate'
 					);
-
 					$this->assertEquals(
 						array(
 							'width'  => 200,
@@ -332,9 +330,7 @@ class GdToolkitTest extends GalleryTestCase {
 							0,
 							0,
 						)
-						// image alignment x, y
-					);
-
+					); // image alignment x, y
 					if ($ret) {
 						return $ret;
 					}
@@ -382,9 +378,7 @@ class GdToolkitTest extends GalleryTestCase {
 							99,
 							99,
 						)
-						// image alignment x, y
-					);
-
+					); // image alignment x, y
 					if ($ret) {
 						return $ret;
 					}
@@ -398,7 +392,8 @@ class GdToolkitTest extends GalleryTestCase {
 
 				if (GdToolkitHelper::isOperationSupported('compress', $gd)) {
 					$this->_gdFunctionality->_counter = 2;
-					list($ret, $resultMimeType)       = $this->_toolkit->performOperation(
+
+					list($ret, $resultMimeType) = $this->_toolkit->performOperation(
 						$mimeType,
 						'compress',
 						'compressMe.jpg',
@@ -425,8 +420,7 @@ class GdToolkitTest extends GalleryTestCase {
 						"memory leak for $mimeType / compress"
 					);
 				}
-
-}
+			}
 		}
 
 		// Test a functionality that doesn't exist
@@ -485,8 +479,7 @@ class GdToolkitTest extends GalleryTestCase {
 				'memory leak for bogus property'
 			);
 		}
-
-}
+	}
 
 	public function testMergeOperations() {
 		list($success, $operation, $args) = $this->_toolkit->mergeOperations('crop', array(1, 2, 3, 4), 'crop', array(3, 4, 5, 6));
@@ -577,8 +570,7 @@ class GdToolkitTest extends GalleryTestCase {
 				'Environment ' . $environment['name']
 			);
 		}
-
-}
+	}
 
 	public function testGetOperationsAndProperties() {
 		foreach ($this->_gdEnvironments as $environment) {
@@ -788,15 +780,15 @@ class GdToolkitTest extends GalleryTestCase {
 				'Environment ' . $environment['name']
 			);
 		}
-
-}
+	}
 
 	public function testFlattenAlphaChannelForGifWithoutIndexForTransparentColor() {
 		// We use the other case (has transparent color index) in other tests for simplicity
 		$this->_gdFunctionality->setEnvironment(array_pop($this->_gdEnvironments));
 		$this->_toolkit->setGdFunctionality($this->_gdFunctionality);
 
-		$gd              =& $this->_gdFunctionality;
+		$gd =& $this->_gdFunctionality;
+
 		list($ret, $res) = $this->_toolkit->_getTrueColorImageRes(200, 300, true);
 
 		if ($ret) {
@@ -806,7 +798,6 @@ class GdToolkitTest extends GalleryTestCase {
 		$hasTransparency = $this->_toolkit->_canHaveTransparency('image/gif', $res);
 
 		$this->assertTrue($hasTransparency, 'has transparency');
-
 		// After some operation, the resource has no transparent color index anymore...
 		$gd->imagecolortransparent($res, -1);
 
@@ -829,7 +820,6 @@ class GdToolkitTest extends GalleryTestCase {
 		$this->_toolkit->_free($res);
 		$this->assertEquals(0, $gd->_undestroyedResourceCounter, 'memory leak');
 		$this->assertEquals(2, $gd->_resourceCounter, 'total resources used');
-
 		$this->assertEquals(
 			array(
 				'x'        => 200,
@@ -840,5 +830,4 @@ class GdToolkitTest extends GalleryTestCase {
 			'properties / operations on resulting resource'
 		);
 	}
-
 }

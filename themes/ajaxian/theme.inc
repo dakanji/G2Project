@@ -31,7 +31,9 @@ class AjaxianTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('ajaxian');
+
 		$this->setName($gallery->i18n('Ajaxian'));
+
 		$this->setDescription(
 			$gallery->i18n(
 				'DHTML-enabled Slideshow theme'
@@ -40,7 +42,6 @@ class AjaxianTheme extends GalleryTheme {
 		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
-
 		$this->setStandardSettings(
 			array(
 				'rows'            => 3,
@@ -279,8 +280,7 @@ class AjaxianTheme extends GalleryTheme {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		$i = -1;
 
@@ -302,8 +302,7 @@ class AjaxianTheme extends GalleryTheme {
 					if ($ret) {
 						return array($ret, null, null);
 					}
-
-}
+				}
 
 				$children[$i]['thumbnail'] = (array)$thumbnails[$childId];
 			}
@@ -320,8 +319,7 @@ class AjaxianTheme extends GalleryTheme {
 				foreach ($resizedImages[$childId] as $resize) {
 					$images[] = $resize;
 				}
-
-}
+			}
 
 			if (empty($images)) {
 				if (isset($permissions['core.viewSource'])) {
@@ -331,8 +329,7 @@ class AjaxianTheme extends GalleryTheme {
 					} elseif ($child->canBeViewedInline()) {
 						$images[] = $child;
 					}
-
-}
+				}
 			}
 
 			if (!empty($images)) {
@@ -348,8 +345,7 @@ class AjaxianTheme extends GalleryTheme {
 					if ($ret) {
 						return array($ret, null, null);
 					}
-
-}
+				}
 
 				$image = (array)$image;
 			}
@@ -367,10 +363,8 @@ class AjaxianTheme extends GalleryTheme {
 			} else {
 				$imageWidths[] = $imageHeights[] = -1;
 			}
-
-}
+		}
 
 		return array(null, $imageWidths, $imageHeights);
 	}
-
 }

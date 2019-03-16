@@ -91,8 +91,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testDownloadCancel() {
 		global $gallery;
@@ -189,7 +188,6 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 			$callback[0],
 			'Incorrect callback method'
 		);
-
 		$this->assertEquals(
 			array(
 				'test' => array(
@@ -211,7 +209,6 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 
 		$this->assertTrue($storage->isComplete(), $storage->getRemaining());
 	}
-
 }
 
 class AdminRepositoryDownloadControllerTestUrlGenerator {
@@ -224,7 +221,6 @@ class AdminRepositoryDownloadControllerTestUrlGenerator {
 
 		return implode(',', $buf);
 	}
-
 }
 
 class AdminRepositoryDownloadControllerTestModule {
@@ -245,7 +241,6 @@ class AdminRepositoryDownloadControllerTestModule {
 
 		return array(null, array());
 	}
-
 }
 
 class AdminRepositoryDownloadControllerTestWrapper extends AdminRepositoryDownloadController {
@@ -265,7 +260,6 @@ class AdminRepositoryDownloadControllerTestWrapper extends AdminRepositoryDownlo
 
 		return array(null, $pluginStatus);
 	}
-
 }
 
 class AdminRepositoryDownloadControllerTestPhpVm {
@@ -280,5 +274,4 @@ class AdminRepositoryDownloadControllerTestPhpVm {
 	public function time() {
 		return time();
 	}
-
 }

@@ -58,15 +58,13 @@ function smarty_core_read_cache_file(&$params, &$smarty) {
 			// cache expired, regenerate
 			return false;
 		}
-
-} else {
+	} else {
 		// caching by lifetime
 		if ($smarty->cache_lifetime > -1 && (time() - $_cache_info['timestamp'] > $smarty->cache_lifetime)) {
 			// cache expired, regenerate
 			return false;
 		}
-
-}
+	}
 
 	if ($smarty->compile_check) {
 		$_params = array(
@@ -81,8 +79,7 @@ function smarty_core_read_cache_file(&$params, &$smarty) {
 				// template file has changed, regenerate cache
 				return false;
 			}
-
-}
+		}
 
 		if (isset($_cache_info['config'])) {
 			$_params = array(
@@ -98,11 +95,9 @@ function smarty_core_read_cache_file(&$params, &$smarty) {
 					// config file has changed, regenerate cache
 					return false;
 				}
-
-}
+			}
 		}
-
-}
+	}
 
 	$content_cache[$params['tpl_file'] . ',' . $params['cache_id'] . ',' . $params['compile_id']] = array($params['results'], $_cache_info);
 	$smarty->_cache_info = $_cache_info;

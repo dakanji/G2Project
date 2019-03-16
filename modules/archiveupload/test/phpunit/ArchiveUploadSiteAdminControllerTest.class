@@ -216,7 +216,6 @@ class ArchiveUploadSiteAdminControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 	}
-
 }
 
 /**
@@ -302,6 +301,5 @@ class ArchiveUploadSiteAdminControllerTestPlatform {
 			default:
 				return array(0, array(), array());
 		}
-
-}
+	}
 }

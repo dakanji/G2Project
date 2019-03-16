@@ -133,7 +133,6 @@ class GalleryAnimationItem extends GalleryDataItem {
 		// Default to empty dimensions
 		$this->setWidth(0);
 		$this->setHeight(0);
-
 		// We're linkable
 		$this->setIsLinkable(true);
 
@@ -172,7 +171,8 @@ class GalleryAnimationItem extends GalleryDataItem {
 			return $ret;
 		}
 
-		$mimeType            = $this->getMimeType();
+		$mimeType = $this->getMimeType();
+
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
 
 		if ($ret) {
@@ -211,8 +211,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 			if (!$ret) {
 				return array($core->translate('Animation'), $core->translate('animation'));
 			}
-
-}
+		}
 
 		return array('Animation', 'animation');
 	}
@@ -372,8 +371,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 			default:
 				return null;
 		}
-
-}
+	}
 
 	/**
 	 * @see GalleryEntity::getClassName
@@ -397,5 +395,4 @@ class GalleryAnimationItem extends GalleryDataItem {
 	public function setHeight($height) {
 		$this->height = $height;
 	}
-
 }

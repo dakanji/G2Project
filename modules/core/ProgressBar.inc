@@ -46,5 +46,4 @@ class ProgressBarView extends GalleryView {
 	public function getViewType() {
 		return VIEW_TYPE_PROGRESS_BAR;
 	}
-
 }

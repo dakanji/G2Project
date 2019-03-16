@@ -52,10 +52,11 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 	public function run() {
 		global $gallery;
 
-		$templateAdapter    =& $gallery->getTemplateAdapter();
-		$urlGenerator       =& $gallery->getUrlGenerator();
-		$platform           =& $gallery->getPlatform();
-		$baseDir            = rtrim(GalleryCoreApi::getCodeBasePath(), DIRECTORY_SEPARATOR);
+		$templateAdapter =& $gallery->getTemplateAdapter();
+		$urlGenerator    =& $gallery->getUrlGenerator();
+		$platform        =& $gallery->getPlatform();
+		$baseDir         = rtrim(GalleryCoreApi::getCodeBasePath(), DIRECTORY_SEPARATOR);
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'rewrite');
 
 		if ($ret) {
@@ -134,8 +135,7 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 
 				$templateAdapter->updateProgressBar($message, '', $i / $total);
 			}
-
-}
+		}
 
 		$status[0] = $module->translate(
 			array(
@@ -154,5 +154,4 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 	public function requiresProgressBar() {
 		return true;
 	}
-
 }

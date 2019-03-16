@@ -57,8 +57,7 @@ class GalleryCharsetHelper_simple {
 			) {
 				$sourceEncoding = null;
 			}
-
-}
+		}
 
 		if (empty($sourceEncoding)) {
 			$lcTable = explode(';', $phpVm->setlocale(LC_ALL, '0'));
@@ -80,8 +79,7 @@ class GalleryCharsetHelper_simple {
 
 						break;
 					}
-
-}
+				}
 			}
 
 			if (!empty($lcCandidate) && ($i = strpos($lcCandidate, '.')) !== false) {
@@ -92,8 +90,7 @@ class GalleryCharsetHelper_simple {
 				// Unable to determine source encoding - no conversion possible
 				return $sourceEncoding;
 			}
-
-}
+		}
 
 		/*
 		 * Remap some known charset issues.
@@ -119,8 +116,7 @@ class GalleryCharsetHelper_simple {
 					} else {
 						$sourceEncoding = 'CP' . $intEncoding;
 					}
-
-}
+				}
 		}
 
 		// FreeBSD may return charset with missing hyphen from nl_langinfo
@@ -157,8 +153,7 @@ class GalleryCharsetHelper_simple {
 			if (($result = $phpVm->iconv($sourceEncoding, 'UTF-8', $string)) !== false) {
 				return $result;
 			}
-
-}
+		}
 
 		if ($phpVm->function_exists('mb_convert_encoding')) {
 			return $phpVm->mb_convert_encoding($string, 'UTF-8', $sourceEncoding);
@@ -181,8 +176,7 @@ class GalleryCharsetHelper_simple {
 					foreach ($matches as $match) {
 						return $charset[ord($match)];
 					}
-
-},
+				},
 				$string
 			);
 		}
@@ -217,8 +211,7 @@ class GalleryCharsetHelper_simple {
 			) {
 				return $result;
 			}
-
-}
+		}
 
 		if ($phpVm->function_exists('mb_convert_encoding')) {
 			return $phpVm->mb_convert_encoding($string, $targetEncoding, 'UTF-8');
@@ -269,8 +262,7 @@ class GalleryCharsetHelper_simple {
 					'modules/core/classes/helpers/GalleryCharsetHelper_medium.class'
 				);
 			}
-
-}
+		}
 
 		$result = $hasMbSubstr ? (string)mb_substr($string, $start, $length, 'UTF-8') : GalleryCharsetHelper_medium::phpUtf8Substring($string, $start, $length);
 
@@ -290,13 +282,11 @@ class GalleryCharsetHelper_simple {
 					'modules/core/classes/helpers/GalleryCharsetHelper_medium.class'
 				);
 			}
-
-}
+		}
 
 		$result = $hasMbStrCut ? (string)mb_strcut($string, $start, $length, 'UTF-8') : GalleryCharsetHelper_medium::phpUtf8Strcut($string, $start, $length);
 
 		// Truncate partial HTML entity at end of result
 		return preg_replace('/&[^;]{0,6}$/', '', $result);
 	}
-
 }

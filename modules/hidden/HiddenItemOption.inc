@@ -47,7 +47,8 @@ class HiddenItemOption extends ItemEditOption {
 	public function loadTemplate(&$template, &$form, $item, $thumbnail) {
 		$form['HiddenItemOption']['isHidden'] = $item->hasOnLoadHandler('Hidden');
 		$form['HiddenItemOption']['isAlbum']  = $item->getCanContainChildren();
-		list($ret, $module)                   = GalleryCoreApi::loadPlugin('module', 'hidden');
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'hidden');
 
 		if ($ret) {
 			return array($ret, null, null);
@@ -93,15 +94,13 @@ class HiddenItemOption extends ItemEditOption {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-} else {
+		} else {
 			$ret = HiddenHelper::getMe()->unHideItem($item, $useProgressBar);
 
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		return array(null, $error, $warning);
 	}
@@ -114,5 +113,4 @@ class HiddenItemOption extends ItemEditOption {
 		return isset($form['HiddenItemOption']['progressBar'])
 		&& ($form['HiddenItemOption']['progressBar'] == 'hide') == !empty($form['HiddenItemOption']['setHidden']);
 	}
-
 }

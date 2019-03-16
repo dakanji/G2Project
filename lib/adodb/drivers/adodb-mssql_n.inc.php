@@ -148,8 +148,7 @@ class ADODB_mssql_n extends ADODB_mssql {
 				if (!empty($pairs)) {
 					$inboundValue = str_replace($pairs, array_keys($pairs), $inboundValue);
 				}
-
-}
+			}
 
 			// Remove the rest of literals present in the query
 			$literals = array();
@@ -164,8 +163,7 @@ class ADODB_mssql_n extends ADODB_mssql {
 				if (!empty($literals)) {
 					$inboundValue = str_replace($literals, array_keys($literals), $inboundValue);
 				}
-
-}
+			}
 
 			// Analyse literals to prepend the N char to them if their contents aren't numeric
 			if (!empty($literals)) {
@@ -177,8 +175,7 @@ class ADODB_mssql_n extends ADODB_mssql {
 						 */
 						$literals[$key] = 'N' . trim($value, 'N');
 					}
-
-}
+				}
 			}
 
 			// Re-apply literals to the text
@@ -206,8 +203,7 @@ class ADODB_mssql_n extends ADODB_mssql {
 				// Place the transformed value into the outbound array
 				$outboundArray[$inboundKey] = $inboundValue;
 			}
-
-}
+		}
 
 		// Any transformations are in the $outboundArray
 		if ($inboundIsArray) {
@@ -217,7 +213,6 @@ class ADODB_mssql_n extends ADODB_mssql {
 		// We passed a string in originally
 		return $outboundArray[0];
 	}
-
 }
 
 class ADORecordset_mssql_n extends ADORecordset_mssql {
@@ -226,5 +221,4 @@ class ADORecordset_mssql_n extends ADORecordset_mssql {
 	public function __construct($id, $mode = false) {
 		parent::__construct($id, $mode);
 	}
-
 }

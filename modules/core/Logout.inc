@@ -70,8 +70,7 @@ class LogoutController extends GalleryController {
 			if (!empty($value['delegate'])) {
 				$results['delegate'] = $value['delegate'];
 			}
-
-}
+		}
 
 		$session =& $gallery->getSession();
 
@@ -116,5 +115,4 @@ class LogoutController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }

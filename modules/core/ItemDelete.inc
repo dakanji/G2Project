@@ -46,7 +46,8 @@ class ItemDeleteController extends GalleryController {
 	public function handleRequest($form) {
 		global $gallery;
 
-		$status           = $error           = array();
+		$status = $error = array();
+
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {
@@ -105,8 +106,7 @@ class ItemDeleteController extends GalleryController {
 							null,
 						);
 					}
-
-}
+				}
 
 				// if we are still here, all are deletable
 				$storage =& $gallery->getStorage();
@@ -124,8 +124,7 @@ class ItemDeleteController extends GalleryController {
 						if ($ret) {
 							return array($ret, null);
 						}
-
-}
+					}
 				}
 
 				list($ret, $success) = GalleryCoreApi::guaranteeAlbumHasThumbnail($itemId);
@@ -146,7 +145,8 @@ class ItemDeleteController extends GalleryController {
 				'itemId' => $itemId,
 			);
 		} elseif (isset($form['action']['next'])) {
-			$page                = GalleryUtilities::getRequestVariables('page');
+			$page = GalleryUtilities::getRequestVariables('page');
+
 			list($ret, $peerIds) = GalleryCoreApi::fetchChildItemIdsWithPermission(
 				$itemId,
 				array('core.delete', 'core.view')
@@ -177,7 +177,6 @@ class ItemDeleteController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -256,8 +255,7 @@ class ItemDeleteView extends GalleryView {
 					if ($peerIds[$i] == $selectedId) {
 						$page = ceil(($i + 1) / $form['numPerPage']);
 					}
-
-}
+				}
 			}
 
 			$start   = $form['numPerPage'] * ($page - 1);
@@ -270,8 +268,7 @@ class ItemDeleteView extends GalleryView {
 					if (isset($selectedIds[$peerId])) {
 						unset($selectedIds[$peerId]);
 					}
-
-}
+				}
 			}
 
 			// load peers
@@ -312,11 +309,9 @@ class ItemDeleteView extends GalleryView {
 						} elseif ($type == DERIVATIVE_TYPE_IMAGE_THUMBNAIL) {
 							$peers[$peerItem->getId()]['thumbnail'] = (array)$derivative;
 						}
-
-}
+					}
 				}
-
-}
+			}
 
 			// Get child counts
 			if (isset($peerTypes['album'])) {
@@ -325,8 +320,7 @@ class ItemDeleteView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		$urlGenerator                       =& $gallery->getUrlGenerator();
@@ -365,5 +359,4 @@ class ItemDeleteView extends GalleryView {
 
 		return array(null, $core->translate('delete an item'));
 	}
-
 }

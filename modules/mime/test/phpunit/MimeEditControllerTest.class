@@ -46,8 +46,7 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testApplyNotViewable() {
 		GalleryUtilities::putRequestVariable('form[action][apply]', 1);
@@ -307,8 +306,6 @@ class MimeEditControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 	}
-
 }

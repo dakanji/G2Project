@@ -45,7 +45,8 @@ function smarty_modifier_entitytruncate($string, $length, $etc = '...', $breakWo
 	 * Convert multibyte characters to html entities and then get an entity-safe substring.
 	 * Split the string exactly on the boundary.  If there's no change, then we're done.
 	 */
-	$string            = GalleryUtilities::utf8ToUnicodeEntities($string);
+	$string = GalleryUtilities::utf8ToUnicodeEntities($string);
+
 	list($tmp, $piece) = GalleryUtilities::entitySubstr($string, 0, $length);
 
 	if ($piece == $string) {
@@ -68,8 +69,7 @@ function smarty_modifier_entitytruncate($string, $length, $etc = '...', $breakWo
 				// Found a space, truncate there.
 				$piece = substr($piece, 0, $splitIndex);
 			}
-
-}
+		}
 
 		$piece .= $etc;
 	}

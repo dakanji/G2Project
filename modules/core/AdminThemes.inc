@@ -121,8 +121,7 @@ class AdminThemesController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 
 			if (isset($form['default']['newAlbumsUseDefaults'])
 				&& !in_array($form['default']['newAlbumsUseDefaults'], array('true', 'false'))
@@ -159,8 +158,7 @@ class AdminThemesController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 			}
 
 			// Switch to display the theme settings for the default theme if it has changed
@@ -186,12 +184,10 @@ class AdminThemesController extends GalleryController {
 						if ($ret) {
 							return array($ret, null);
 						}
-
-} else {
+					} else {
 						return array($ret, null);
 					}
-
-}
+				}
 			}
 
 			if ($theme && isset($form['action']['saveTheme'])) {
@@ -233,8 +229,7 @@ class AdminThemesController extends GalleryController {
 							if ($ret) {
 								return array($ret, null);
 							}
-
-}
+						}
 					}
 
 					if ($theme->isAdvancedSettings()) {
@@ -247,8 +242,7 @@ class AdminThemesController extends GalleryController {
 						if (empty($error)) {
 							$status[$statusKey] = $theme->translate($theme->getName());
 						}
-
-}
+					}
 
 					if (empty($error)) {
 						// Redirect upon success
@@ -257,8 +251,7 @@ class AdminThemesController extends GalleryController {
 						$redirect['themeId']  = $themeId;
 						$status['savedTheme'] = $theme->translate($theme->getName());
 					}
-
-} else {
+				} else {
 					foreach ($validationErrors as $validationKey => $validationMessage) {
 						$error[]                      = sprintf('form[error][key][%s][invalid]', $validationKey);
 						$errorMessage[$validationKey] = $validationMessage;
@@ -266,15 +259,13 @@ class AdminThemesController extends GalleryController {
 
 					GalleryUtilities::putRequestVariable('form[errorMessage]', $errorMessage);
 				}
-
-} elseif ($theme && isset($form['action']['undoTheme'])) {
+			} elseif ($theme && isset($form['action']['undoTheme'])) {
 				$redirect['view']        = 'core.SiteAdmin';
 				$redirect['subView']     = 'core.AdminThemes';
 				$redirect['themeId']     = $themeId;
 				$status['restoredTheme'] = $theme->translate($theme->getName());
 			}
-
-}
+		}
 
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
@@ -288,7 +279,6 @@ class AdminThemesController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -356,8 +346,7 @@ class AdminThemesView extends GalleryView {
 				if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		// Reload the theme list, which may now be updated because of obsolete modules.
@@ -443,8 +432,7 @@ class AdminThemesView extends GalleryView {
 
 							$entry['state'] = 'upgrade';
 						}
-
-} else {
+					} else {
 						$entry['action'][] = array(
 							'text'   => $module->translate('activate'),
 							'params' => array(
@@ -463,8 +451,7 @@ class AdminThemesView extends GalleryView {
 							),
 						);
 					}
-
-} else {
+				} else {
 					$entry['state'] = 'active';
 
 					if ($id != $defaultThemeId) {
@@ -490,8 +477,7 @@ class AdminThemesView extends GalleryView {
 
 						$entry['state'] = 'upgrade';
 					}
-
-}
+				}
 			} else {
 				$entry['state']                    = 'incompatible';
 				$entry['api']['required']['theme'] = join(
@@ -523,8 +509,7 @@ class AdminThemesView extends GalleryView {
 			if (!empty($status['active'])) {
 				$themeList[$id] = $theme->translate($theme->getName());
 			}
-
-}
+		}
 
 		$AdminThemes = array();
 
@@ -551,8 +536,7 @@ class AdminThemesView extends GalleryView {
 				} else {
 					$form['default']['presort'] = '';
 				}
-
-}
+			}
 
 			list($outer, $inner) = explode('.', $key);
 
@@ -598,8 +582,7 @@ class AdminThemesView extends GalleryView {
 			} else {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		if ($theme) {
 			if ($theme->isAdvancedSettings()) {
@@ -617,8 +600,7 @@ class AdminThemesView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		list($ret, $AdminThemes['availableBlocks']) = GalleryCoreApi::loadAvailableBlocks();
 
@@ -645,8 +627,7 @@ class AdminThemesView extends GalleryView {
 
 					$settingTypes[$setting['type']] = 1;
 				}
-
-}
+			}
 		}
 
 		if ($theme && isset($AdminThemes['settings'])) {
@@ -657,8 +638,7 @@ class AdminThemesView extends GalleryView {
 
 					break;
 				}
-
-}
+			}
 		}
 
 		$AdminThemes['themes']  = $themes;
@@ -674,5 +654,4 @@ class AdminThemesView extends GalleryView {
 			),
 		);
 	}
-
 }

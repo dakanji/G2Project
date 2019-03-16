@@ -78,7 +78,6 @@ class ConfirmDeleteController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -93,10 +92,11 @@ class ConfirmDeleteView extends GalleryView {
 
 		if ($form['formName'] != 'ConfirmDelete') {
 			$form['formName'] = 'ConfirmDelete';
+
 			list(
 				$form['watermarkId'],
 				$form['fromAdmin']
-			)                 = GalleryUtilities::getRequestVariables(
+			) = GalleryUtilities::getRequestVariables(
 				'watermarkId',
 				'fromAdmin'
 			);
@@ -155,5 +155,4 @@ class ConfirmDeleteView extends GalleryView {
 			),
 		);
 	}
-
 }

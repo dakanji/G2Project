@@ -66,7 +66,8 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 	public function run() {
 		global $gallery;
 
-		$templateAdapter    =& $gallery->getTemplateAdapter();
+		$templateAdapter =& $gallery->getTemplateAdapter();
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -119,8 +120,7 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 					if ($ret) {
 						return array($ret, null, null);
 					}
-
-}
+				}
 
 				$toolkits = $toolkitMap[$mimeType];
 
@@ -171,8 +171,7 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 
 							break;
 						}
-
-}
+					}
 				}
 
 				$i++;
@@ -210,5 +209,4 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 	public function requiresProgressBar() {
 		return true;
 	}
-
 }

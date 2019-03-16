@@ -51,8 +51,7 @@ class LinkItemSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
@@ -77,7 +76,6 @@ class LinkItemSiteAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -107,8 +105,7 @@ class LinkItemSiteAdminView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		GalleryCoreApi::requireOnce('modules/linkitem/classes/LinkItemToolkit.class');
@@ -121,7 +118,6 @@ class LinkItemSiteAdminView extends GalleryView {
 						. $platform->getDirectorySeparator() . 'params.txt',
 			)
 		);
-
 		$template->setVariable('controller', 'linkitem.LinkItemSiteAdmin');
 
 		return array(
@@ -131,5 +127,4 @@ class LinkItemSiteAdminView extends GalleryView {
 			),
 		);
 	}
-
 }

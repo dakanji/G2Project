@@ -63,8 +63,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function tearDown() {
 		$ret = GalleryCoreApi::releaseAllLocks();
@@ -88,19 +87,16 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testNoFile() {
 		// No file
@@ -249,8 +245,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		} else {
 			$this->assertTrue(false, 'Expected object is not a watermark!');
 		}
-
-}
+	}
 
 	public function testDelete() {
 		// Create something to delete
@@ -304,8 +299,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testDeleteForceDefault() {
 		// Create something to delete
@@ -315,7 +309,8 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$idToDelete                        = $watermark->getId();
+		$idToDelete = $watermark->getId();
+
 		list($ret, $oldDefaultWatermarkId) = GalleryCoreApi::getPluginParameter('module', 'watermark', 'defaultWatermarkId');
 
 		if ($ret) {
@@ -329,8 +324,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		// Delete it
 		GalleryUtilities::removeFormVariables('form');
@@ -382,7 +376,6 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->assertTrue(!empty($defaultWatermarkId), 'Expected new default watermark');
-
 		// If there are several watermarks, we can't be sure which one will be selected
 		$this->assertTrue(
 			(int)$defaultWatermarkId != (int)$idToDelete,
@@ -466,8 +459,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testIllegalDelete() {
 		// valid, but illegal
@@ -539,8 +531,7 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 		} else {
 			$this->assertTrue(false, 'Object is not a watermark');
 		}
-
-}
+	}
 
 	public function _fetchWatermarkMapByFilename() {
 		list($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
@@ -625,5 +616,4 @@ class WatermarkSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		return array(null, $watermark);
 	}
-
 }

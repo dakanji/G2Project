@@ -75,8 +75,7 @@ class ADODB2_sapdb extends ADODB_DataDict {
 			default:
 				return $meta;
 		}
-
-}
+	}
 
 	public function MetaType($t, $len = -1, $fieldobj = false) {
 		if (is_object($t)) {
@@ -138,16 +137,18 @@ class ADODB2_sapdb extends ADODB_DataDict {
 	}
 
 	public function AddColumnSQL($tabname, $flds) {
-		$tabname            = $this->TableName($tabname);
-		$sql                = array();
+		$tabname = $this->TableName($tabname);
+		$sql     = array();
+
 		list($lines, $pkey) = $this->_GenFields($flds);
 
 		return array('ALTER TABLE ' . $tabname . ' ADD (' . implode(', ', $lines) . ')');
 	}
 
 	public function AlterColumnSQL($tabname, $flds, $tableflds = '', $tableoptions = '') {
-		$tabname            = $this->TableName($tabname);
-		$sql                = array();
+		$tabname = $this->TableName($tabname);
+		$sql     = array();
+
 		list($lines, $pkey) = $this->_GenFields($flds);
 
 		return array('ALTER TABLE ' . $tabname . ' MODIFY (' . implode(', ', $lines) . ')');
@@ -166,5 +167,4 @@ class ADODB2_sapdb extends ADODB_DataDict {
 
 		return array('ALTER TABLE ' . $tabname . ' DROP (' . implode(', ', $flds) . ')');
 	}
-
 }

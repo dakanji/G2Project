@@ -39,9 +39,7 @@ class NewItemsModule extends GalleryModule {
 				'Highlight new/updated Gallery items'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -78,8 +76,7 @@ class NewItemsModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		return null;
@@ -147,8 +144,7 @@ class NewItemsModule extends GalleryModule {
 				$summaries[$item->getId()] = '<span class="giUpdated">'
 				. $updatedString . '</span>';
 			}
-
-}
+		}
 
 		return array(null, $summaries);
 	}
@@ -165,5 +161,4 @@ class NewItemsModule extends GalleryModule {
 
 		return parent::uninstall();
 	}
-
 }

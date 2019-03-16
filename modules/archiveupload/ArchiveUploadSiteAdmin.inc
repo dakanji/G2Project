@@ -68,14 +68,12 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 					if ($valid) {
 						$form['unzipPath'] = $retryPath;
 					}
-
-}
+				}
 
 				if (!$valid) {
 					$error[] = 'form[error][unzipPath][' . $errorType . ']';
 				}
-
-}
+			}
 
 			if (empty($error) && isset($form['action']['save'])) {
 				$ret = GalleryCoreApi::setPluginParameter(
@@ -119,8 +117,7 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 					$redirectSubview      = 'core.AdminPlugins';
 					$status['configured'] = 'archiveupload';
 				}
-
-}
+			}
 		} elseif (isset($form['action']['cancel'])) {
 			$redirectSubview = 'core.AdminPlugins';
 		} elseif (isset($form['action']['reset'])) {
@@ -144,7 +141,6 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -170,8 +166,7 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'archiveupload');
@@ -206,8 +201,7 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 				if (!empty($output)) {
 					$test['message'] = $output;
 				}
-
-}
+			}
 
 			if (isset($test)) {
 				$template->setVariable(
@@ -217,8 +211,7 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 					)
 				);
 			}
-
-}
+		}
 
 		$template->setVariable('controller', 'archiveupload.ArchiveUploadSiteAdmin');
 
@@ -229,5 +222,4 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 			),
 		);
 	}
-
 }

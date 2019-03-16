@@ -53,8 +53,7 @@ if (!$HTMLbody) {
 			$parts           = explode(':', $pair);
 			$args[$parts[0]] = $parts[1];
 		}
-
-}
+	}
 
 	list($HTMLhead, $HTMLForm, $HTMLbody) = process($vw, $args);
 }
@@ -173,8 +172,7 @@ function process($renderType, $args = array()) {
 
 									$display .= '<p>Fixed: ' . $rows . 'object(s)</p>';
 								}
-
-}
+							}
 						}
 
 						if ($display != '') {
@@ -185,18 +183,15 @@ function process($renderType, $args = array()) {
 							$url      = THIS_SCRIPT . '&args=msg:' . urlencode(base64_encode('<div class="success center">No missing entities were found.</div>')) . '|adv:true';
 							$headData = '<meta http-equiv="refresh" content="0; URL=' . $url . '">' . "\n";
 						}
-
-} else {
+					} else {
 						$adv      = false;
 						$bodyMain = $err;
 					}
-
-} else {
+				} else {
 					$adv      = false;
 					$bodyMain = $err;
 				}
-
-} elseif ($renderType == 'resChk') {
+			} elseif ($renderType == 'resChk') {
 				// Get Ids of all missing derivatives under the album tree
 				list($err, $DerivativeIds) = getMissingDerivatives($gID);
 
@@ -222,8 +217,7 @@ function process($renderType, $args = array()) {
 						for ($i = $start; $i < $end; $i++) {
 							$missingIds[] = $DerivativeIds[$i];
 						}
-
-}
+					}
 
 					// Delete database references to missing derivatives in this batch
 					$tables = array(
@@ -247,8 +241,7 @@ function process($renderType, $args = array()) {
 
 								$display .= '<p>Fixed: ' . $rows . 'derivatives(s)</p>';
 							}
-
-}
+						}
 					}
 
 					// Handle page display and looping
@@ -265,11 +258,9 @@ function process($renderType, $args = array()) {
 						$url      = THIS_SCRIPT . '&args=msg:' . urlencode(base64_encode('<div class="success center">No missing derivatives were found.</div>')) . '&gID=' . $gID;
 						$headData = '<meta http-equiv="refresh" content="0; URL=' . $url . '">' . "\n";
 					}
-
-}
+				}
 			}
-
-}
+		}
 	}
 
 	// Build form to show on page
@@ -292,15 +283,13 @@ function process($renderType, $args = array()) {
 			} else {
 				$bodyMain = $err;
 			}
-
-} elseif (!$hide) {
+		} elseif (!$hide) {
 			$show      = true;
 			$bodyForm .= '<p class="description">STEP 2: Choose derivative search batch size</p>' . "\n";
 			$bodyForm .= '<form action="' . THIS_SCRIPT . '" id="derivativesForm" method="post">' . "\n";
 			$bodyForm .= '</form>' . "\n";
 		}
-
-}
+	}
 
 	$bodyForm .= '<form action="' . THIS_SCRIPT . '" id="resetForm" method="post">' . "\n";
 	$bodyForm .= '	<input type="hidden" id="reset" name="reset" value="true">' . "\n";
@@ -316,8 +305,7 @@ function process($renderType, $args = array()) {
 		} else {
 			$bodyForm = $bodyForm . '<br>' . "\n";
 		}
-
-}
+	}
 
 	return array($headData, $bodyForm, $bodyMain);
 }
@@ -342,10 +330,11 @@ function getAlbumIdsRecursive($id) {
 }
 
 function getItemIdsRecursive($id) {
-	$err                  = null;
-	$albums               = array();
-	$itemIds              = array();
-	$missingIds           = array();
+	$err        = null;
+	$albums     = array();
+	$itemIds    = array();
+	$missingIds = array();
+
 	list($err, $albumIds) = getAlbumIdsRecursive($id);
 
 	if (!$err) {
@@ -382,20 +371,19 @@ function getItemIdsRecursive($id) {
 				if ($ret || (!file_exists($path) && !is_dir($path))) {
 					$missingIds[] = $id;
 				}
-
-}
+			}
 		}
-
-}
+	}
 
 	return array($err, $missingIds);
 }
 
 function getMissingDerivatives($id) {
-	$err                  = null;
-	$itemIds              = array();
-	$missingIds           = array();
-	$albums               = array();
+	$err        = null;
+	$itemIds    = array();
+	$missingIds = array();
+	$albums     = array();
+
 	list($err, $albumIds) = getAlbumIdsRecursive($id);
 
 	if (!$err) {
@@ -435,11 +423,9 @@ function getMissingDerivatives($id) {
 				if ($ret || (!file_exists($path) && !is_dir($path))) {
 					$missingIds[] = $id;
 				}
-
-}
+			}
 		}
-
-}
+	}
 
 	return array($err, $missingIds);
 }
@@ -454,8 +440,7 @@ function getRoot() {
 		if ($ret) {
 			$err = '<div class="error center"><h2>Could not locate gallery root album.</h2></div><div class="error left">' . $ret->getAsHtml() . '</div>';
 		}
-
-} else {
+	} else {
 		list($ret, $defaultId) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',
@@ -465,21 +450,22 @@ function getRoot() {
 		if ($ret) {
 			$err = '<div class="error center"><h2>Could not locate gallery root album.</h2></div><div class="error left">' . $ret->getAsHtml() . '</div>';
 		}
-
-}
+	}
 
 	return array($err, $defaultId);
 }
 
 function getAlbumSelector($gID) {
-	$err                = null;
-	$albumSelectorCode  = null;
-	$albumSelector      = null;
-	$albums             = array();
+	$err               = null;
+	$albumSelectorCode = null;
+	$albumSelector     = null;
+	$albums            = array();
+
 	list($err, $rootID) = getRoot();
 
 	if (!$err) {
-		$gID                = (isset($gID) && $gID != '') ? $gID : $rootID;
+		$gID = (isset($gID) && $gID != '') ? $gID : $rootID;
+
 		list($err, $albums) = getAlbumTree($gID);
 
 		if (!$err) {
@@ -488,8 +474,7 @@ function getAlbumSelector($gID) {
 			foreach ($albums as $album) {
 				$albumSelector .= '<option value=' . $album->getId() . '>' . $album->getTitle() . '</option>';
 			}
-
-}
+		}
 
 		$albumSelectorCode = "\n" . jsessAdd('select', $albumSelector) . "\n" . '<script type="text/javascript">window.onload=jsAlbumSelect;</script>' . "\n";
 	}
@@ -498,8 +483,9 @@ function getAlbumSelector($gID) {
 }
 
 function getAlbumTree($gID) {
-	$err              = $ret                      = $album                      = null;
-	$albumIds         = $albums                 = array();
+	$err      = $ret              = $album              = null;
+	$albumIds = $albums         = array();
+
 	list($ret, $tree) = GalleryCoreApi::fetchAlbumTree($gID, null, null, true);
 
 	if ($ret) {
@@ -516,8 +502,7 @@ function getAlbumTree($gID) {
 
 			$albums[] = $album;
 		}
-
-}
+	}
 
 	return array($err, $albums);
 }
@@ -559,8 +544,7 @@ function jsessAdd($tag = 'dummy', $msg = 'dummy') {
 					var node = document.getElementById(id);
 					node.innerHTML = content;
 				}
-
-}
+			}
 
 			function jsAlbumSelect() {
 				if (typeof(jsess.missingObjectFix_select) !== "undefined") {

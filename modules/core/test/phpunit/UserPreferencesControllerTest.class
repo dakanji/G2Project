@@ -40,8 +40,9 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$session                 =& $gallery->getSession();
-		$this->_currentLanguage  = $session->get('core.language');
+		$session                =& $gallery->getSession();
+		$this->_currentLanguage = $session->get('core.language');
+
 		list($ret, $this->_user) = $this->_createUser(
 			array(
 				'hashedPassword' => GalleryUtilities::md5Salt('TestPassword'),
@@ -72,8 +73,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
@@ -312,8 +312,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 				'no suffix'
 			);
 		}
-
-}
+	}
 
 	// No password is needed for non-email changes
 	public function testEditOtherThanEmailWithoutPassword() {
@@ -403,7 +402,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals('Test User', $this->_user->getFullName());
 		$this->assertEquals('test@email.com', $this->_user->getEmail());
 		$this->assertEquals('te', $this->_user->getLanguage());
-
 		// Verify our event got posted
 		$this->assertEventFired(
 			'Gallery::FailedLogin',
@@ -455,7 +453,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals('Test User', $this->_user->getFullName());
 		$this->assertEquals('test@email.com', $this->_user->getEmail());
 		$this->assertEquals('te', $this->_user->getLanguage());
-
 		// Verify our event got posted
 		$this->assertEventFired(
 			'Gallery::FailedLogin',
@@ -506,7 +503,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->setConfig('anonymousUserId', $this->_user->getId());
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.me');
@@ -534,7 +530,6 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 		$this->_markForCleanup($this->_user2);
 		$gallery->setActiveUser($this->_user2);
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.me');
@@ -599,6 +594,5 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 }

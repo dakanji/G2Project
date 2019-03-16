@@ -93,8 +93,7 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 	}
 
 	public function testInterface() {
@@ -117,8 +116,7 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 			if ($key[0] == '_') {
 				unset($params[$key]);
 			}
-
-}
+		}
 
 		ksort($params);
 		$this->assertEquals(
@@ -150,8 +148,7 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 			if ($key[0] == '_') {
 				unset($params[$key]);
 			}
-
-}
+		}
 
 		ksort($params);
 		$this->assertEquals(
@@ -224,5 +221,4 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 		);
 		$this->assertEquals(true, $isContainer[$this->_item->getId()], 'Album-specific settings');
 	}
-
 }

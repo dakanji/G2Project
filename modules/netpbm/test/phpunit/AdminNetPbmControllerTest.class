@@ -55,8 +55,7 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$mainPlatform = $gallery->getPlatform();
 		$testPlatform = new AdminNetPbmControllerTestPlatform($mainPlatform);
@@ -131,7 +130,6 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 			array(null, '12'),
 			GalleryCoreApi::getPluginParameter('module', 'netpbm', 'jpegQuality')
 		);
-
 		// Verify we detected which binaries to use:
 		$this->assertEquals(
 			array(null, 'pnmcomp'),
@@ -253,7 +251,6 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 	}
-
 }
 
 /**
@@ -335,11 +332,9 @@ class AdminNetPbmControllerTestPlatform {
 			default:
 				return array(0, null);
 		}
-
-}
+	}
 
 	public function realpath($file) {
 		return $this->_platform->realpath($file);
 	}
-
 }

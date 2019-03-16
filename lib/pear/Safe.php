@@ -418,8 +418,7 @@ class HTML_Safe {
 					if (!in_array($name, $this->attributesNS)) {
 						continue;
 					}
-
-}
+				}
 
 				if (($value === true) || (null === $value)) {
 					$value = $name;
@@ -448,15 +447,13 @@ class HTML_Safe {
 						if (preg_match($css, $value)) {
 							continue 2;
 						}
-
-}
+					}
 
 					foreach ($this->_protoRegexps as $proto) {
 						if (preg_match($proto, $value)) {
 							continue 2;
 						}
-
-}
+					}
 				}
 
 				$tempval = preg_replace_callback(
@@ -465,8 +462,7 @@ class HTML_Safe {
 						foreach ($matches as $match) {
 							return chr($match);
 						}
-
-},
+					},
 					$value
 				);
 
@@ -476,8 +472,7 @@ class HTML_Safe {
 						foreach ($matches as $match) {
 							return chr(hexdec($match));
 						}
-
-},
+					},
 					$tempval
 				);
 
@@ -489,8 +484,7 @@ class HTML_Safe {
 							if (preg_match($proto, $tempval)) {
 								continue 2;
 							}
-
-}
+						}
 					} else {
 						$_tempval = explode(':', $tempval);
 						$proto    = $_tempval[0];
@@ -498,15 +492,13 @@ class HTML_Safe {
 						if (!in_array($proto, $this->whiteProtocols)) {
 							continue;
 						}
-
-}
+					}
 				}
 
 				$value         = str_replace('"', '&quot;', $value);
 				$this->_xhtml .= ' ' . $name . '="' . $value . '"';
 			}
-
-}
+		}
 
 		return true;
 	}
@@ -735,6 +727,7 @@ class HTML_Safe {
 
 		// Set up the parser
 		$parser->set_object($this);
+
 		$parser->set_element_handler('_openHandler', '_closeHandler');
 		$parser->set_data_handler('_dataHandler');
 		$parser->set_escape_handler('_escapeHandler');
@@ -778,7 +771,6 @@ class HTML_Safe {
 	public function repackUTF7Back($str) {
 		return $str[1] . '+' . rtrim(base64_encode($str[2]), '=') . '-';
 	}
-
 }
 
 /*

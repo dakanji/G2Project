@@ -39,9 +39,7 @@ class ThumbnailModule extends GalleryModule {
 				'Set default thumbnails for non-image items'
 			)
 		);
-
-		// Update upgrade() & ThumbnailModuleExtras::upgrade as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() & ThumbnailModuleExtras::upgrade as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -259,11 +257,9 @@ class ThumbnailModule extends GalleryModule {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		return array(null, null);
 	}
-
 }

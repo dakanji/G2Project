@@ -43,8 +43,9 @@ class ItemAttributesTest extends GalleryTestCase {
 		$this->_saveSession = $gallery->_session;
 
 		// Clear response headers
-		$headers                  =& GalleryUtilities::_getResponseHeaders();
-		$headers                  = array();
+		$headers =& GalleryUtilities::_getResponseHeaders();
+		$headers = array();
+
 		list($ret, $this->_album) = $this->_createRandomAlbum(
 			$this->_getRootId(),
 			array(
@@ -120,8 +121,7 @@ class ItemAttributesTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 	}
 
 	public function tearDown() {
@@ -134,8 +134,7 @@ class ItemAttributesTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	/**
 	 * Update the view count and verify it.
@@ -213,8 +212,7 @@ class ItemAttributesTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		list($ret, $viewCount) = GalleryCoreApi::fetchItemViewCount($this->_items[0]->getId());
 
@@ -318,7 +316,6 @@ class ItemAttributesTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(0, $viewCount, 'first attempt, search engine -> do not increment');
-
 		// It only sets the header if it actually increments
 		$this->assertEquals(array(), GalleryUtilities::_getResponseHeaders());
 	}
@@ -353,7 +350,6 @@ class ItemAttributesTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(1, $viewCount, 'First attempt, not search engine -> increment');
-
 		$this->assertEquals(
 			array(
 				'last-modified' => 'Last-Modified: ' . GalleryUtilities::getHttpDate($now),
@@ -498,8 +494,7 @@ class ItemAttributesTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		list($ret, $higher) = GalleryCoreApi::fetchNextItemWeight($this->_items[1]->getId(), HIGHER_WEIGHT);
 
@@ -530,8 +525,7 @@ class ItemAttributesTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		list($ret, $max) = GalleryCoreApi::fetchMaxChildWeight($this->_album->getId(), HIGHER_WEIGHT);
 
@@ -560,8 +554,7 @@ class ItemAttributesTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$ret = GalleryCoreApi::rebalanceChildOrderWeights($this->_album->getId(), 100);
 
@@ -589,8 +582,7 @@ class ItemAttributesTest extends GalleryTestCase {
 				)
 			);
 		}
-
-}
+	}
 
 	public function testFetchParentSequence() {
 		global $gallery;
@@ -635,7 +627,6 @@ class ItemAttributesTest extends GalleryTestCase {
 			$parentSequence,
 			'item parent sequence'
 		);
-
 		// Set virtual root
 		$gallery->setConfig('breadcrumbRootId', $this->_items[1]->getId());
 
@@ -711,8 +702,7 @@ class ItemAttributesTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		// Drop perms for one item and one album
 		$ret = GalleryCoreApi::removeItemPermissions($item[0]->getId());
@@ -767,8 +757,7 @@ class ItemAttributesTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		// Drop perms for one item and one album
 		$ret = GalleryCoreApi::removeItemPermissions($item[0]->getId());
@@ -841,8 +830,7 @@ class ItemAttributesTest extends GalleryTestCase {
 		} else {
 			$session->remove(GALLERY_PERMISSION_SESSION_KEY);
 		}
-
-}
+	}
 
 	public function testFetchDescendentCountsDifferentUser() {
 		global $gallery;
@@ -868,8 +856,7 @@ class ItemAttributesTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		// Drop perms for one item and one album
 		$ret = GalleryCoreApi::removeItemPermissions($item[0]->getId());
@@ -925,7 +912,6 @@ class ItemAttributesTest extends GalleryTestCase {
 			$counts
 		);
 	}
-
 }
 
 class ItemAttributesTestSession {
@@ -973,7 +959,6 @@ class ItemAttributesTestSession {
 	public function isSearchEngineSession() {
 		return $this->_isSearchEngineSession;
 	}
-
 }
 
 class ItemAttributesTestPhpVm extends GalleryPhpVm {
@@ -1010,5 +995,4 @@ class ItemAttributesTestPhpVm extends GalleryPhpVm {
 
 		return time();
 	}
-
 }

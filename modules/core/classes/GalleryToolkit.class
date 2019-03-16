@@ -126,8 +126,7 @@ class GalleryToolkit {
 
 							break;
 					}
-
-}
+				}
 
 				$newOperations = array();
 
@@ -195,13 +194,11 @@ class GalleryToolkit {
 					} else {
 						$newOperations[] = $operation;
 					}
-
-}
+				}
 
 				$transformedOperations = join(';', $newOperations);
 			}
-
-}
+		}
 
 		return array(true, $transformedOperations);
 	}
@@ -233,8 +230,7 @@ class GalleryToolkit {
 			) {
 				return array(false, null, null);
 			}
-
-}
+		}
 
 		switch ($operation1) {
 			case 'crop':
@@ -264,8 +260,7 @@ class GalleryToolkit {
 			default:
 				return array(false, null, null);
 		}
-
-}
+	}
 
 	/**
 	 * Estimate the dimensions of a GalleryDerivativeImage from its operations and its source.
@@ -309,11 +304,8 @@ class GalleryToolkit {
 						$derivative->setWidth($newWidth);
 						$derivative->setHeight($newHeight);
 					}
-
-}
+				}
 			}
-
-}
+		}
 	}
-
 }

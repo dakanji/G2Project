@@ -32,7 +32,8 @@ class CommentCallbacks {
 
 		switch ($callback) {
 			case 'LoadComments':
-				$itemId           = $params['itemId'];
+				$itemId = $params['itemId'];
+
 				list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryItem');
 
 				if ($ret) {
@@ -85,8 +86,7 @@ class CommentCallbacks {
 						if ($ret) {
 							return $ret;
 						}
-
-}
+					}
 
 					if (!$anonymousViewable) {
 						$expires = $gallery->getHttpDate($phpVm->time() - 7 * 24 * 3600);
@@ -95,8 +95,7 @@ class CommentCallbacks {
 						$phpVm->header('Pragma: no-cache');
 						$phpVm->header('Expires: ' . $expires);
 					}
-
-}
+				}
 
 				$viewMax = $params['show'];
 
@@ -135,14 +134,12 @@ class CommentCallbacks {
 						if ($ret) {
 							return $ret;
 						}
-
-}
+					}
 
 					foreach ($commentersList as $commenter) {
 						$commenters[$commenter->getId()] = (array)$commenter;
 					}
-
-} else {
+				} else {
 					$totalComments = 0;
 				}
 
@@ -175,7 +172,8 @@ class CommentCallbacks {
 
 				GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
 
-				$form                   =& $smarty->_tpl_vars['form'];
+				$form =& $smarty->_tpl_vars['form'];
+
 				list($ret, $AddComment) = GalleryCommentHelper::getMe()->getAddComment($item, $form);
 
 				if ($ret) {
@@ -194,5 +192,4 @@ class CommentCallbacks {
 
 		return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
 	}
-
 }

@@ -68,8 +68,7 @@ class UserAlbumController extends GalleryController {
 			if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		if (!isset($album) && $createMode == 'access') {
 			// If userId matches active user then create the user album
@@ -90,8 +89,7 @@ class UserAlbumController extends GalleryController {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		$results = array(
 			'delegate' => array(
@@ -104,5 +102,4 @@ class UserAlbumController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }

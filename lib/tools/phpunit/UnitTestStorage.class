@@ -36,11 +36,7 @@
  * In tearDown() call:
  *
  *
- *
- *
  *  $this->assertTrue($this->_storage->isComplete(), $this->_storage->getRemaining());
- *
- *
  *
  *
  * The check in tearDown() verifies that all expected calls were received.
@@ -66,8 +62,7 @@ class UnitTestStorage extends MockObject {
 			 */
 			echo $ret->getAsHtml();
 		}
-
-}
+	}
 
 	public function setReply($function, $inputs, $outputs, $optional = false) {
 		if ($this->_lockSystem != 'database'
@@ -316,7 +311,6 @@ class UnitTestStorage extends MockObject {
 
 		$this->_extras->setReply($function, $inputs, $outputs, $optional);
 	}
-
 }
 
 class UnitTestStorageExtras extends MockObject {
@@ -344,7 +338,6 @@ class UnitTestStorageExtras extends MockObject {
 			array($tableNameInSchema, $tableSql, $moduleId, $type, $info)
 		);
 	}
-
 }
 
 class UnitTestStorageSearchResults {
@@ -363,5 +356,4 @@ class UnitTestStorageSearchResults {
 	public function nextResult() {
 		return count($this->_data) > 0 ? array_shift($this->_data) : false;
 	}
-
 }

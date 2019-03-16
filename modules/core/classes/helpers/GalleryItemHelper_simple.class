@@ -53,8 +53,7 @@ class GalleryItemHelper_simple {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		// No default?  We're screwed
 		if (empty($themeId)) {
@@ -88,14 +87,14 @@ class GalleryItemHelper_simple {
 			} else {
 				$missing[] = $itemId;
 			}
-
-}
+		}
 
 		if (empty($missing)) {
 			return array(null, $counts);
 		}
 
-		$parentIdMarkers    = GalleryUtilities::makeMarkers(count($missing));
+		$parentIdMarkers = GalleryUtilities::makeMarkers(count($missing));
+
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
 
 		if ($ret) {
@@ -125,7 +124,8 @@ class GalleryItemHelper_simple {
 				$aclMarkers
 			);
 
-			$data                      = array_merge($missing, $aclIds);
+			$data = array_merge($missing, $aclIds);
+
 			list($ret, $searchResults) = $gallery->search($query, $data);
 
 			if ($ret) {
@@ -139,8 +139,7 @@ class GalleryItemHelper_simple {
 					$result[1]
 				);
 			}
-
-}
+		}
 
 		return array(null, $counts);
 	}
@@ -185,8 +184,7 @@ class GalleryItemHelper_simple {
 			if (!isset($counts[$itemId])) {
 				$remaining[] = $itemId;
 			}
-
-}
+		}
 
 		if (!empty($remaining)) {
 			list($ret, $results) = GalleryItemHelper_simple::fetchUncachedDescendentCounts(
@@ -212,8 +210,7 @@ class GalleryItemHelper_simple {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 
 			/*
 			 * Merge the results together.
@@ -222,8 +219,7 @@ class GalleryItemHelper_simple {
 			foreach ($results as $key => $value) {
 				$counts[$key] = $value;
 			}
-
-}
+		}
 
 		$counts = GalleryUtilities::strArrToIntArr($counts);
 
@@ -259,9 +255,10 @@ class GalleryItemHelper_simple {
 			return array(null, array());
 		}
 
-		$aclMarkers         = GalleryUtilities::makeMarkers(count($aclIds));
-		$itemMarkers        = GalleryUtilities::makeMarkers(count($itemIds));
-		$storage            =& $gallery->getStorage();
+		$aclMarkers  = GalleryUtilities::makeMarkers(count($aclIds));
+		$itemMarkers = GalleryUtilities::makeMarkers(count($itemIds));
+		$storage     =& $gallery->getStorage();
+
 		list($ret, $concat) = $storage->getFunctionSql(
 			'CONCAT',
 			array(
@@ -312,7 +309,8 @@ class GalleryItemHelper_simple {
 			$aclMarkers
 		);
 
-		$data                      = array_merge($itemIds, $aclIds);
+		$data = array_merge($itemIds, $aclIds);
+
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
@@ -329,8 +327,7 @@ class GalleryItemHelper_simple {
 			if (!isset($counts[$itemId])) {
 				$counts[$itemId] = 0;
 			}
-
-}
+		}
 
 		return array(null, $counts);
 	}
@@ -381,7 +378,8 @@ class GalleryItemHelper_simple {
 					$aclMarkers
 				);
 
-				$data                      = array_merge(array($itemType), $aclIds);
+				$data = array_merge(array($itemType), $aclIds);
+
 				list($ret, $searchResults) = $gallery->search($query, $data);
 
 				if ($ret) {
@@ -439,8 +437,7 @@ class GalleryItemHelper_simple {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		list($ret, $parentSequence) = GalleryCoreApi::fetchParentSequence($itemId);
 
@@ -454,8 +451,7 @@ class GalleryItemHelper_simple {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		$parentSequence[] = $itemId;
 		$parentSequence   = implode('/', $parentSequence);
@@ -484,7 +480,8 @@ class GalleryItemHelper_simple {
 			$aclMarkers
 		);
 
-		$data                      = $aclIds;
+		$data = $aclIds;
+
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
@@ -507,13 +504,11 @@ class GalleryItemHelper_simple {
 				if (isset($branch[$id])) {
 					$branch =& $branch[$id];
 				}
-
-}
+			}
 
 			$branch[$result[0]] = array();
 		}
 
 		return array(null, $tree);
 	}
-
 }

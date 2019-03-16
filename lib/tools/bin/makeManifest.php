@@ -49,8 +49,7 @@ if (empty($SRCDIR)) {
 			if (!preg_match('#^(modules|themes)(/\w+)?/?$#', $path)) {
 				die("The path '$path' must be a relative path to a plugin (e.g. modules/core)");
 			}
-
-}
+		}
 	}
 
 	/**
@@ -63,8 +62,7 @@ if (empty($SRCDIR)) {
 		if (!$quiet) {
 			echo "$message\n";
 		}
-
-}
+	}
 
 	makeManifest($path);
 }
@@ -82,8 +80,7 @@ function makeManifest($filterPath = '') {
 		} else {
 			$baseDir = getcwd();
 		}
-
-} else {
+	} else {
 		$baseDir = $SRCDIR . '/gallery2/';
 		chdir($baseDir);
 	}
@@ -108,8 +105,7 @@ function makeManifest($filterPath = '') {
 		} else {
 			$sections['MANIFEST'][] = $file;
 		}
-
-}
+	}
 
 	// Now generate the checksum files
 	quiet_print('Generating checksums...');
@@ -172,8 +168,7 @@ function makeManifest($filterPath = '') {
 					$size_crlf
 				);
 			}
-
-}
+		}
 
 		if (!empty($oldLines)) {
 			foreach ($oldLines as $line) {
@@ -187,23 +182,20 @@ function makeManifest($filterPath = '') {
 					if (empty($seen[$file])) {
 						$deleted[$file] = true;
 					}
-
-} else {
+				} else {
 					preg_match('/^(.+?)\t/', $line, $matches);
 					$file = trim($matches[1]);
 
 					if (empty($seen[$file])) {
 						$deleted[$file] = true;
 					}
-
-}
+				}
 			}
 
 			foreach ($deleted as $file => $unused) {
 				$newContent .= "R\t$file$nl";
 			}
-
-}
+		}
 
 		if ($oldContent != $newContent) {
 			file_put_contents($baseDir . $manifest, $newContent);

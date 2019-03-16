@@ -98,8 +98,7 @@ class ModRewriteParser extends RewriteParser {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		list($ret, $message) = parent::getErrorMessage($code, $rewriteModule);
 
@@ -148,8 +147,7 @@ class ModRewriteParser extends RewriteParser {
 				default:
 					return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 			}
-
-}
+		}
 
 		return array(null, $message);
 	}
@@ -193,8 +191,7 @@ class ModRewriteParser extends RewriteParser {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		if (isset($form['force']['test2'])) {
 			$ret = GalleryCoreApi::setPluginParameter(
@@ -212,8 +209,7 @@ class ModRewriteParser extends RewriteParser {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		$status['saved'] = 1;
 
@@ -301,8 +297,7 @@ class ModRewriteParser extends RewriteParser {
 			if (empty($value)) {
 				return array(null, true);
 			}
-
-}
+		}
 
 		return array(null, false);
 	}
@@ -350,5 +345,4 @@ class ModRewriteParser extends RewriteParser {
 			($code != REWRITE_STATUS_OK) ? $this->getErrorMessage($code) : null,
 		);
 	}
-
 }

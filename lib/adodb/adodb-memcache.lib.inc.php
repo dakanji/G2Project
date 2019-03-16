@@ -8,7 +8,6 @@ if (!defined('ADODB_DIR')) {
 global $ADODB_INCLUDED_MEMCACHE;
 
 $ADODB_INCLUDED_MEMCACHE = 1;
-
 global $ADODB_INCLUDED_CSV;
 
 if (empty($ADODB_INCLUDED_CSV)) {
@@ -26,17 +25,10 @@ if (empty($ADODB_INCLUDED_CSV)) {
   Latest version is available at http://adodb.sourceforge.net
 Usage:
 $db = NewADOConnection($driver);
-
-/// should we use memCache instead of caching in files
-$db->memCache = true;
+$db->memCache = true; /// should we use memCache instead of caching in files
 $db->memCacheHost = array($ip1, $ip2, $ip3);
-
-/// this is default memCache port
-$db->memCachePort = 11211;
-
-/// Use 'true' to store the item compressed (uses zlib)
-$db->memCacheCompress = false;
-
+$db->memCachePort = 11211; /// this is default memCache port
+$db->memCacheCompress = false; /// Use 'true' to store the item compressed (uses zlib)
 $db->Connect(...);
 $db->CacheExecute($sql);
 
@@ -44,17 +36,12 @@ $db->CacheExecute($sql);
   Class instance is stored in $ADODB_CACHE
 */
 class ADODB_Cache_MemCache {
-	// create caching directory structure?
-	public $createdir = false;
-
+	public $createdir = false; // create caching directory structure?
 	//-----------------------------
 	// memcache specific variables
-	// array of hosts
-	public $hosts;
-	public $port = 11211;
-
-	// memcache compression with zlib
-	public $compress   = false;
+	public $hosts; // array of hosts
+	public $port       = 11211;
+	public $compress   = false; // memcache compression with zlib
 	public $_connected = false;
 	public $_memcache  = false;
 
@@ -84,8 +71,7 @@ class ADODB_Cache_MemCache {
 			if (!@$memcache->addServer($host, $this->port, true)) {
 				$failcnt += 1;
 			}
-
-}
+		}
 
 		if ($failcnt == sizeof($this->hosts)) {
 			$err = 'Can\'t connect to any memcache server';
@@ -107,8 +93,7 @@ class ADODB_Cache_MemCache {
 			if (!$this->connect($err) && $debug) {
 				ADOConnection::outp($err);
 			}
-
-}
+		}
 
 		if (!$this->_memcache) {
 			return false;
@@ -158,8 +143,7 @@ class ADODB_Cache_MemCache {
 		}
 
 		if ($rs->timeCreated == 0) {
-			// apparently have been reports that timeCreated was set to 0 somewhere
-			return $rs;
+			return $rs; // apparently have been reports that timeCreated was set to 0 somewhere
 		}
 
 		$tdiff = (int)($rs->timeCreated + $secs2cache - time());
@@ -189,8 +173,7 @@ class ADODB_Cache_MemCache {
 
 					return $false;
 			}
-
-}
+		}
 
 		return $rs;
 	}
@@ -202,8 +185,7 @@ class ADODB_Cache_MemCache {
 			if (!$this->connect($err) && $debug) {
 				ADOConnection::outp($err);
 			}
-
-}
+		}
 
 		if (!$this->_memcache) {
 			return false;
@@ -217,8 +199,7 @@ class ADODB_Cache_MemCache {
 			} else {
 				ADOConnection::outp("flushall: succeeded!<br>\n");
 			}
-
-}
+		}
 
 		return $del;
 	}
@@ -230,8 +211,7 @@ class ADODB_Cache_MemCache {
 			if (!$this->connect($err) && $debug) {
 				ADOConnection::outp($err);
 			}
-
-}
+		}
 
 		if (!$this->_memcache) {
 			return false;
@@ -245,8 +225,7 @@ class ADODB_Cache_MemCache {
 			} else {
 				ADOConnection::outp("flushcache: $key entry flushed from memcached server!<br>\n");
 			}
-
-}
+		}
 
 		return $del;
 	}
@@ -255,5 +234,4 @@ class ADODB_Cache_MemCache {
 	public function createdir($dir, $hash) {
 		return true;
 	}
-
 }

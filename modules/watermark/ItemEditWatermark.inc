@@ -33,8 +33,9 @@ class ItemEditWatermark extends ItemEditPlugin {
 	public function handleRequest($form, &$item, &$preferred) {
 		global $gallery;
 
-		$status             = null;
-		$error              = array();
+		$status = null;
+		$error  = array();
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'watermark');
 
 		if ($ret) {
@@ -47,8 +48,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 			if ($ret) {
 				return array($ret, null, null, null);
 			}
-
-}
+		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'watermark');
 
@@ -105,13 +105,11 @@ class ItemEditWatermark extends ItemEditPlugin {
 					if ($ret) {
 						return array($ret, null, null, null);
 					}
-
-}
+				}
 
 				$status = $module->translate('Watermark applied successfully');
 			}
-
-} elseif (isset($form['action']['remove'])) {
+		} elseif (isset($form['action']['remove'])) {
 			if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 				$templateAdapter =& $gallery->getTemplateAdapter();
 				$templateAdapter->registerTrailerCallback(
@@ -132,8 +130,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 				if ($ret) {
 					return array($ret, null, null, null);
 				}
-
-}
+			}
 
 			$status = $module->translate('Watermark removed successfully');
 		}
@@ -171,21 +168,20 @@ class ItemEditWatermark extends ItemEditPlugin {
 			if ($ret) {
 				return $ret;
 			}
-
-} else {
+		} else {
 			list($ret, $itemIds) = GalleryCoreApi::fetchChildItemIdsWithPermission($item->getId(), 'core.edit');
 
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$i     = 0;
 		$total = count($itemIds);
 
 		while (!empty($itemIds)) {
-			$batchIds          = array_splice($itemIds, 0, 100);
+			$batchIds = array_splice($itemIds, 0, 100);
+
 			list($ret, $items) = GalleryCoreApi::loadEntitiesById($batchIds, 'GalleryItem');
 
 			if ($ret) {
@@ -204,8 +200,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 						if ($ret) {
 							return $ret;
 						}
-
-} elseif ($this->isSupported($item, null)) {
+					} elseif ($this->isSupported($item, null)) {
 						$params[1] = $item;
 
 						$ret = call_user_func_array(
@@ -216,19 +211,16 @@ class ItemEditWatermark extends ItemEditPlugin {
 						if ($ret) {
 							return $ret;
 						}
-
-}
+					}
 				}
-
-}
+			}
 
 			$ret = $storage->checkPoint();
 
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$templateAdapter->completeProgressBar($redirect);
 
@@ -286,8 +278,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 
 				return $ret;
 			}
-
-}
+		}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
@@ -317,8 +308,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		return null;
@@ -346,7 +336,8 @@ class ItemEditWatermark extends ItemEditPlugin {
 		$derivatives = array();
 
 		if (GalleryUtilities::isA($item, 'GalleryDataItem')) {
-			$displayImage            = $item;
+			$displayImage = $item;
+
 			list($ret, $derivatives) = GalleryCoreApi::fetchDerivativesByItemIds(array($itemId));
 
 			if ($ret) {
@@ -361,11 +352,9 @@ class ItemEditWatermark extends ItemEditPlugin {
 						$displayImage = $derivative;
 						$smallestSize = $derivative->getDerivativeSize();
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		if ($form['formName'] != 'ItemEditWatermark') {
 			// First time around, reset the form
@@ -410,11 +399,9 @@ class ItemEditWatermark extends ItemEditPlugin {
 
 								break;
 							}
-
-}
+						}
 					}
-
-}
+				}
 			}
 
 			if (!empty($watermarks) && !isset($form['watermarkId'])) {
@@ -423,8 +410,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 				$form['xPercent']    = $watermarks[$watermarkIds[0]]['xPercentage'];
 				$form['yPercent']    = $watermarks[$watermarkIds[0]]['yPercentage'];
 			}
-
-}
+		}
 
 		$ItemEditWatermark = array(
 			'watermarks' => $watermarks,
@@ -462,12 +448,10 @@ class ItemEditWatermark extends ItemEditPlugin {
 			if ($ret || !$isAdmin) {
 				return false;
 			}
-
-}
+		}
 
 		if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
-			// Just check common type to show tab for albums
-			$mimeType = 'image/jpeg';
+			$mimeType = 'image/jpeg'; // Just check common type to show tab for albums
 		} elseif (GalleryUtilities::isA($item, 'GalleryDataItem')) {
 			$mimeType = $item->getMimeType();
 		} else {
@@ -477,8 +461,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 		list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, 'composite');
 
 		if ($ret) {
-			// Swallow the error for now
-			return false;
+			return false; // Swallow the error for now
 		}
 
 		if (isset($toolkit)) {
@@ -491,27 +474,25 @@ class ItemEditWatermark extends ItemEditPlugin {
 		);
 
 		if ($ret) {
-			// Swallow the error for now
-			return false;
+			return false; // Swallow the error for now
 		}
 
 		if (!empty($preferredTable[$item->getId()])) {
-			$preferred           = $preferredTable[$item->getId()];
+			$preferred = $preferredTable[$item->getId()];
+
 			list($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation(
 				$preferred->getMimeType(),
 				'composite'
 			);
 
 			if ($ret) {
-				// Swallow the error for now
-				return false;
+				return false; // Swallow the error for now
 			}
 
 			if (isset($toolkit)) {
 				return true;
 			}
-
-}
+		}
 
 		return false;
 	}
@@ -528,5 +509,4 @@ class ItemEditWatermark extends ItemEditPlugin {
 
 		return array(null, $module->translate('Watermark'));
 	}
-
 }

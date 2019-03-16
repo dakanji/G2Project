@@ -45,8 +45,7 @@ class RepositoryTestTemplate {
 		if (!empty($contentsVariable)) {
 			$this->_variables['contents'] = $contentsVariable;
 		}
-
-}
+	}
 
 	public function setVariable($key, $value) {
 		$this->_variables[] = $key == 'random' ? array(
@@ -71,5 +70,4 @@ class RepositoryTestTemplate {
 	public function fetch($template) {
 		return array(null, $this->_templateContents);
 	}
-
 }

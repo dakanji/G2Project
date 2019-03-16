@@ -50,8 +50,7 @@ class ColorPackTest extends GalleryTestCase {
 
 			return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 		}
-
-}
+	}
 
 	public function testColorPackList() {
 		list($ret, $list) = $this->_colorpack->getColorPacks();
@@ -74,7 +73,6 @@ class ColorPackTest extends GalleryTestCase {
 
 		$this->assertEquals(array('modules/colorpack/packs/blue/color.css'), $template->style);
 	}
-
 }
 
 /**
@@ -87,5 +85,4 @@ class ColorPackDummyGalleryTemplate {
 	public function style($tpl) {
 		$this->style[] = $tpl;
 	}
-
 }

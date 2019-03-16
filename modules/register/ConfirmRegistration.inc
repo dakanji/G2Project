@@ -60,12 +60,10 @@ class ConfirmRegistrationController extends GalleryController {
 				} else {
 					$results['error'][] = 'form[error][unknownUser]';
 				}
-
-} else {
+			} else {
 				return array($ret, null);
 			}
-
-} else {
+		} else {
 			// verify registration key:
 			if ($regKey != $user->getRegistrationKey()) {
 				$results['error'][] = 'form[error][unknownUser]';
@@ -75,8 +73,7 @@ class ConfirmRegistrationController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		if (empty($results['redirect'])) {
@@ -88,7 +85,6 @@ class ConfirmRegistrationController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -108,5 +104,4 @@ class ConfirmRegistrationView extends GalleryView {
 			),
 		);
 	}
-
 }

@@ -287,7 +287,6 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 		);
 		$this->assertEquals(3, $this->_ranIdentify, 'ran identify');
 	}
-
 }
 
 /**
@@ -386,8 +385,7 @@ class AdminImageMagickControllerTestPlatform {
 			default:
 				return array(0, array());
 		}
-
-}
+	}
 
 	public function getDirectorySeparator() {
 		return $this->_platform->getDirectorySeparator();
@@ -404,5 +402,4 @@ class AdminImageMagickControllerTestPlatform {
 	public function getcwd() {
 		return '/tmp';
 	}
-
 }

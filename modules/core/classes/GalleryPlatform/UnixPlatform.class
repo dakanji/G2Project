@@ -46,8 +46,7 @@ class UnixPlatform extends GalleryPlatform {
 
 				$this->_beNice = 0;
 			}
-
-}
+		}
 
 		if ($this->_beNice) {
 			$preamble = 'nice ';
@@ -69,8 +68,7 @@ class UnixPlatform extends GalleryPlatform {
 				} else {
 					$command .= ' "' . $arg . '" ';
 				}
-
-}
+			}
 		}
 
 		// Redirect STDERR to a file
@@ -101,8 +99,7 @@ class UnixPlatform extends GalleryPlatform {
 
 				$this->_execExpectedStatus = 0;
 			}
-
-}
+		}
 
 		$stderr = array();
 
@@ -116,13 +113,11 @@ class UnixPlatform extends GalleryPlatform {
 						if (!empty($buf)) {
 							$stderr[] = $buf;
 						}
-
-}
+					}
 
 					$this->fclose($fd);
 				}
-
-}
+			}
 
 			$this->unlink($debugFile);
 		}
@@ -167,8 +162,7 @@ class UnixPlatform extends GalleryPlatform {
 			} elseif (empty($list)) {
 				$list[] = $slash;
 			}
-
-}
+		}
 
 		return $list;
 	}
@@ -187,5 +181,4 @@ class UnixPlatform extends GalleryPlatform {
 	public function getLineEnding() {
 		return "\n";
 	}
-
 }

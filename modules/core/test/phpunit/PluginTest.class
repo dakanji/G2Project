@@ -128,8 +128,7 @@ class PluginTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testFetchPluginStatusForWrongPluginType() {
 		list($ret, $status) = GalleryCoreApi::fetchPluginStatus('foo');
@@ -148,12 +147,19 @@ class PluginTest extends GalleryTestCase {
 			$path     = GalleryCoreApi::getCodeBasePath($type . 's/');
 
 			$platform->setReply('opendir', array($path), 'fh');
+
 			$platform->setReply('readdir', array('fh'), '.');
+
 			$platform->setReply('readdir', array('fh'), '..');
+
 			$platform->setReply('readdir', array('fh'), 'CVS');
+
 			$platform->setReply('readdir', array('fh'), 'moo');
+
 			$platform->setReply('is_file', array($path . 'moo/' . $type . '.inc'), true);
+
 			$platform->setReply('readdir', array('fh'), 'foo');
+
 			$platform->setReply('is_file', array($path . 'foo/' . $type . '.inc'), false);
 			$platform->setReply('readdir', array('fh'), 'bar');
 			$platform->setReply('is_file', array($path . 'bar/' . $type . '.inc'), true);
@@ -172,8 +178,7 @@ class PluginTest extends GalleryTestCase {
 
 			$this->assertEquals($expectedIds, $pluginIds, "$type ids do not match");
 		}
-
-}
+	}
 
 	public function testActivateFlushesTemplateCacheAndLocalUrlMap() {
 		global $gallery;
@@ -207,7 +212,9 @@ class PluginTest extends GalleryTestCase {
 			array('/cache/theme/_all/0/0/GalleryPluginHelper_fetchPluginStatus.inc'),
 			false
 		);
+
 		$platform->setReply('file_exists', array('/cache/theme/_all/localUrlMap.txt'), true);
+
 		$platform->setReply('is_dir', array('/cache/theme/_all/localUrlMap.txt'), false);
 		$platform->setReply('unlink', array('/cache/theme/_all/localUrlMap.txt'), true);
 		$platform->setReply('file_exists', array($templateDir), true);
@@ -324,7 +331,6 @@ class PluginTest extends GalleryTestCase {
 
 		$this->assertTrue($testRepository->isComplete(), $testRepository->getRemaining());
 	}
-
 }
 
 class PluginTestCompatibleModule extends GalleryModule {}
@@ -352,5 +358,4 @@ class PluginTestPlugin extends GalleryPlugin {
 	public function getRequiredThemeApi() {
 		return $this->_requiredThemeApi;
 	}
-
 }

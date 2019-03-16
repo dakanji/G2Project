@@ -275,5 +275,4 @@ class GalleryPendingUser extends GalleryEntity {
 	public function setRegistrationKey($registrationKey) {
 		$this->registrationKey = $registrationKey;
 	}
-
 }

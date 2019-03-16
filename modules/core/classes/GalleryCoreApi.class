@@ -3599,8 +3599,7 @@ class GalleryCoreApi {
 
 			include_once __DIR__ . '/../../../' . $file;
 		}
-
-}
+	}
 
 	/**
 	 * Send an email using a smarty template for the message body
@@ -3717,7 +3716,8 @@ class GalleryCoreApi {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
 
-		$storage                   =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
+
 		list($ret, $searchResults) = $storage->getMapEntry($mapName, $select, $match, $optional);
 
 		if ($ret) {
@@ -3809,7 +3809,8 @@ class GalleryCoreApi {
 	public static function describeMap($mapName, $tryAllModules = false) {
 		global $gallery;
 
-		$storage                =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
+
 		list($ret, $entityInfo) = $storage->describeMap($mapName, $tryAllModules);
 
 		if ($ret) {
@@ -3830,7 +3831,8 @@ class GalleryCoreApi {
 	public static function describeEntity($entityName, $tryAllModules = false) {
 		global $gallery;
 
-		$storage                =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
+
 		list($ret, $entityInfo) = $storage->describeEntity($entityName, $tryAllModules);
 
 		if ($ret) {
@@ -3890,8 +3892,7 @@ class GalleryCoreApi {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		return array(null, (int)$defaultId);
 	}
@@ -3917,8 +3918,7 @@ class GalleryCoreApi {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		return array(null, $id);
 	}
@@ -4194,5 +4194,4 @@ class GalleryCoreApi {
 
 		return GalleryEventLogHelper_medium::addEventLogEntry($type, $summary, $details);
 	}
-
 }

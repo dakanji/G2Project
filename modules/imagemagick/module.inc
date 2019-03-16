@@ -40,9 +40,7 @@ class ImageMagickModule extends GalleryModule {
 				'ImageMagick / GraphicsMagick Graphics Toolkit'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -88,8 +86,7 @@ class ImageMagickModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		if (!empty($params['path']) && empty($params['versionOk'])) {
@@ -107,8 +104,7 @@ class ImageMagickModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
-} else {
+			} else {
 				list($ret, $isActive) = $this->isActive();
 
 				if ($ret) {
@@ -119,8 +115,7 @@ class ImageMagickModule extends GalleryModule {
 					// Force upgrade from site admin to see vulnerable-version warning
 					return GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED);
 				}
-
-}
+			}
 		}
 
 		return null;
@@ -199,8 +194,7 @@ class ImageMagickModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		// Check CMYK colorspace support
 		list($ret, $cmykSupport) = $this->getParameter('cmykSupport');
@@ -215,15 +209,13 @@ class ImageMagickModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-} elseif (isset($results['properties']['colorspace']) && $cmykSupport == 'none') {
+		} elseif (isset($results['properties']['colorspace']) && $cmykSupport == 'none') {
 			$ret = $this->setParameter('cmykSupport', $cmykSupport = 'off');
 
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		foreach ($results['properties'] as $property => $info) {
 			if ($property == 'colorspace' && $cmykSupport != 'on') {
@@ -242,8 +234,7 @@ class ImageMagickModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		// Save some platform specific ImageMagick parameters
 		$ret = ImageMagickToolkitHelper::savePlatformParameters();
@@ -286,8 +277,7 @@ class ImageMagickModule extends GalleryModule {
 			if (empty($value)) {
 				return array(null, true);
 			}
-
-}
+		}
 
 		return array(null, false);
 	}
@@ -391,8 +381,7 @@ class ImageMagickModule extends GalleryModule {
 				if (!$testResult['success']) {
 					$failCount++;
 				}
-
-}
+			}
 
 			if ($failCount == 0) {
 				// We have a winner
@@ -423,15 +412,13 @@ class ImageMagickModule extends GalleryModule {
 					if ($ret) {
 						return array($ret, false);
 					}
-
-} else {
+				} else {
 					$vulnerable = true;
 				}
 
 				return array(null, !$vulnerable);
 			}
-
-}
+		}
 
 		return array(null, false);
 	}
@@ -457,5 +444,4 @@ class ImageMagickModule extends GalleryModule {
 	public function getConfigurationView() {
 		return 'imagemagick.AdminImageMagick';
 	}
-
 }

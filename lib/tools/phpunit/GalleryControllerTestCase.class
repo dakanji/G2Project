@@ -43,8 +43,7 @@ class GalleryControllerTestCase extends GalleryTestCase {
 		if ($ret) {
 			$this->fail($ret->getAsHtml());
 		}
-
-}
+	}
 
 	public function setUp($setup = null) {
 		$ret = parent::setUp($setup);
@@ -60,7 +59,8 @@ class GalleryControllerTestCase extends GalleryTestCase {
 
 	public function handleRequest($errorCode = null) {
 		// Get our form variables
-		$form                = GalleryUtilities::getFormVariables('form');
+		$form = GalleryUtilities::getFormVariables('form');
+
 		list($ret, $results) = $this->_controller->handleRequest($form);
 
 		if (isset($errorCode)) {
@@ -86,8 +86,7 @@ class GalleryControllerTestCase extends GalleryTestCase {
 						)
 					);
 				}
-
-} else {
+			} else {
 				$this->fail(
 					sprintf(
 						'Expected error code (%s) but test was successful',
@@ -100,8 +99,7 @@ class GalleryControllerTestCase extends GalleryTestCase {
 					)
 				);
 			}
-
-} elseif ($ret) {
+		} elseif ($ret) {
 			$this->fail($ret->getAsHtml());
 
 			return array();
@@ -123,5 +121,4 @@ class GalleryControllerTestCase extends GalleryTestCase {
 
 		return $results;
 	}
-
 }

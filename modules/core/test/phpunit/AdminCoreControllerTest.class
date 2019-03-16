@@ -85,8 +85,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 			GalleryUtilities::putRequestVariable('form[' . $outer . '][' . $inner . ']', $value);
 		}
-
-}
+	}
 
 	public function testChangeValues() {
 		$valueMap = $this->_valueMap;
@@ -122,8 +121,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 			$this->assertEquals($expectedValue, $realValue, "value mismatch for $key");
 		}
-
-}
+	}
 
 	public function testChangeEmailPasswordWithStars() {
 		$valueMap = $this->_valueMap;
@@ -373,8 +371,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 				'stored path mismatch for "' . $testCase['path'] . '"'
 			);
 		}
-
-}
+	}
 
 	// Test that we don't accept just any cookie domain
 	public function testChangeCookieDomain() {
@@ -501,8 +498,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 				'stored domain mismatch for "' . $testCase['domain'] . '"'
 			);
 		}
-
-}
+	}
 
 	public function testInvalidSmtpFrom() {
 		GalleryUtilities::putRequestVariable('form[smtp][server]', 'smtp.example.com');
@@ -635,7 +631,6 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			'status keys'
 		);
 		$this->assertEquals(1, $results['status']['saved'], 'saved');
-
 		$this->assertTrue(
 			strpos(
 				$results['status']['emailTestError'],
@@ -678,7 +673,6 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 	}
-
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/UnixPlatform.class');
@@ -692,7 +686,6 @@ class AdminCoreControllerTestUnixPlatform extends UnixPlatform {
 	public function mail($to = null, $subject = null, $body = null, $headers = null) {
 		return $this->_succeed;
 	}
-
 }
 
 class AdminCoreControllerTestWinNtPlatform extends WinNtPlatform {
@@ -703,7 +696,6 @@ class AdminCoreControllerTestWinNtPlatform extends WinNtPlatform {
 	public function mail($to = null, $subject = null, $body = null, $headers = null) {
 		return $this->_succeed;
 	}
-
 }
 
 /**
@@ -717,5 +709,4 @@ class AdminCoreControllerTestUrlGenerator {
 
 		return 'http://www.example.com/sub/application/';
 	}
-
 }

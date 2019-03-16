@@ -118,15 +118,13 @@ if (empty($config)) {
 			$options['wrongPassword'] = 1;
 			render('passwordForm', $options);
 		}
-
-} else {
+	} else {
 		if (isset($_POST['password'])) {
 			$options['missingPassword'] = 1;
 		}
 
 		render('passwordForm', $options);
 	}
-
 }
 
 if (GallerySetupUtilities::isSessionAuthenticated()) {
@@ -143,12 +141,10 @@ function startForm($action = '', $name = null) {
 	if (!GallerySetupUtilities::areCookiesSupported()) {
 		echo '<input type="hidden" name="' . session_name() . '" value="' . session_id() . '">';
 	}
-
 }
 
 function render($renderType, $options = array()) {
 	global $baseUrl; ?>
-
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>

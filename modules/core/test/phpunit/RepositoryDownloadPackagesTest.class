@@ -87,8 +87,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function _setRepositoryResponses($params = array()) {
 		global $gallery;
@@ -190,7 +189,6 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			);
 
 			$retCode = !empty($responses[$package]) ? $responses[$package] : false;
-
 			$this->_repository->_utilities->setReply(
 				'unpackPackage',
 				array($cachePath . $relativeFile, $outputDir),
@@ -214,8 +212,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 				null
 			);
 		}
-
-}
+	}
 
 	public function testDownloadPackages() {
 		// Set up repository responses
@@ -231,7 +228,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			),
 		);
 
-		$this->_callback['total']        = 8;
+		$this->_callback['total'] = 8;
+
 		list($ret, $reactivate, $status) = $this->_repository->downloadPackagesForPlugin(
 			'module',
 			'testModule',
@@ -275,7 +273,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			),
 		);
 
-		$this->_callback['total']        = 8;
+		$this->_callback['total'] = 8;
+
 		list($ret, $reactivate, $status) = $this->_repository->downloadPackagesForPlugin(
 			'module',
 			'testModule',
@@ -328,7 +327,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			),
 		);
 
-		$this->_callback['total']        = 8;
+		$this->_callback['total'] = 8;
+
 		list($ret, $reactivate, $status) = $this->_repository->downloadPackagesForPlugin(
 			'module',
 			'testModule',
@@ -344,8 +344,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		} else {
 			$this->fail('ERROR_PLATFORM_FAILURE should not be ignored');
 		}
-
-}
+	}
 
 	public function testDownloadPackagesDescriptorPreVerifyFailure() {
 		global $gallery;
@@ -371,7 +370,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			),
 		);
 
-		$this->_callback['total']        = 8;
+		$this->_callback['total'] = 8;
+
 		list($ret, $reactivate, $status) = $this->_repository->downloadPackagesForPlugin(
 			'module',
 			'testModule',
@@ -426,7 +426,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			),
 		);
 
-		$this->_callback['total']        = 8;
+		$this->_callback['total'] = 8;
+
 		list($ret, $reactivate, $status) = $this->_repository->downloadPackagesForPlugin(
 			'module',
 			'testModule',
@@ -483,7 +484,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			),
 		);
 
-		$this->_callback['total']        = 8;
+		$this->_callback['total'] = 8;
+
 		list($ret, $reactivate, $status) = $this->_repository->downloadPackagesForPlugin(
 			'module',
 			'testModule',
@@ -499,8 +501,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		} else {
 			$this->fail('ERROR_PLATFORM_FAILURE should not be ignored');
 		}
-
-}
+	}
 
 	public function testDownloadFailureOnLanguagePackage() {
 		global $gallery;
@@ -526,7 +527,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			),
 		);
 
-		$this->_callback['total']        = 8;
+		$this->_callback['total'] = 8;
+
 		list($ret, $reactivate, $status) = $this->_repository->downloadPackagesForPlugin(
 			'module',
 			'testModule',
@@ -583,7 +585,8 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			),
 		);
 
-		$this->_callback['total']        = 8;
+		$this->_callback['total'] = 8;
+
 		list($ret, $reactivate, $status) = $this->_repository->downloadPackagesForPlugin(
 			'module',
 			'testModule',
@@ -599,6 +602,5 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 		} else {
 			$this->fail('ERROR_PLATFORM_FAILURE should not be ignored');
 		}
-
-}
+	}
 }

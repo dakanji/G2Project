@@ -44,8 +44,7 @@ class SquareThumbSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testSquareThumbSiteAdminControllerReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
@@ -172,5 +171,4 @@ class SquareThumbSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals(null, $results);
 	}
-
 }

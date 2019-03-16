@@ -160,8 +160,7 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testCantRemoveSelfFromSiteAdmins() {
 		global $gallery;
@@ -181,7 +180,6 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 
 		// Become that user
 		$gallery->setActiveUser($this->_user);
-
 		GalleryUtilities::putRequestVariable('groupId', $adminGroupId);
 		GalleryUtilities::putRequestVariable('form[action][remove]', 1);
 		GalleryUtilities::putRequestVariable(
@@ -296,5 +294,4 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 	}
-
 }

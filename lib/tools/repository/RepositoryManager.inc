@@ -124,8 +124,7 @@ class RepositoryManagerControllerAndView extends RepositoryControllerAndView {
 
 					$removedFiles[] = $file;
 				}
-
-}
+			}
 		}
 
 		$this->showView(
@@ -137,5 +136,4 @@ class RepositoryManagerControllerAndView extends RepositoryControllerAndView {
 
 		return null;
 	}
-
 }

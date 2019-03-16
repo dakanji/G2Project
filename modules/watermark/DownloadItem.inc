@@ -118,8 +118,7 @@ class DownloadItemView extends GalleryView {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$mimeType = $item->getMimeType();
 
@@ -162,8 +161,7 @@ class DownloadItemView extends GalleryView {
 						// Ignore error if this watermark has been deleted
 						return $ret;
 					}
-
-}
+				}
 			}
 
 			if (isset($watermark)) {
@@ -197,8 +195,7 @@ class DownloadItemView extends GalleryView {
 
 				$path = $tmpFile;
 			}
-
-}
+		}
 
 		$ret = $this->_sendFile(
 			array(
@@ -305,8 +302,7 @@ class DownloadItemView extends GalleryView {
 
 				// DERIVATIVE_TYPE_IMAGE_PREFERRED uses core.viewSource
 			}
-
-}
+		}
 
 		$ret = GalleryCoreApi::assertHasItemPermission($itemIdForPermission, $permission);
 
@@ -322,21 +318,18 @@ class DownloadItemView extends GalleryView {
 					if ($ret2) {
 						return $ret2;
 					}
-
-}
+				}
 
 				if ($permission == 'core.view' || empty($hasPermission)) {
 					$ret->addErrorCode(ERROR_MISSING_OBJECT);
 
 					return $ret;
 				}
-
-}
+			}
 
 			return $ret;
 		}
 
 		return null;
 	}
-
 }

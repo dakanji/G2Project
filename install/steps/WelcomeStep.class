@@ -60,14 +60,11 @@ class WelcomeStep extends InstallStep {
 					$code                             = $lang . '_' . $country;
 					$templateData['languages'][$code] = $data['description'];
 				}
-
-}
+			}
 		}
-
-}
+	}
 
 	public function isOptional() {
 		return true;
 	}
-
 }

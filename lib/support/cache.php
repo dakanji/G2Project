@@ -70,8 +70,7 @@ function getCaches() {
 		foreach ($dirs as $key => $ignored) {
 			$dirs[$key][0] = isset($set[$key]);
 		}
-
-}
+	}
 
 	return $dirs;
 }
@@ -103,12 +102,10 @@ function recursiveRmdir($dirname, &$status) {
 				} else {
 					$status[] = array('error', "Error removing $path");
 				}
-
-} else {
+			} else {
 				$count++;
 			}
-
-}
+		}
 	}
 
 	closedir($fd);
@@ -179,8 +176,7 @@ function clearInstallUpgradeLogs() {
 				} else {
 					$status[] = array('error', "Error removing $path$filename");
 				}
-
-}
+			}
 		}
 
 		closedir($fd);

@@ -44,7 +44,8 @@ class AdminDcrawController extends GalleryController {
 			if (empty($form['path'])) {
 				$error[] = 'form[error][path][missing]';
 			} else {
-				$form['path']                      = trim($form['path']);
+				$form['path'] = trim($form['path']);
+
 				list($ret, $testResults, $version) = DcrawToolkitHelper::testBinary($form['path']);
 
 				if ($ret) {
@@ -53,8 +54,7 @@ class AdminDcrawController extends GalleryController {
 					} else {
 						return array($ret, null);
 					}
-
-} else {
+				} else {
 					$failCount = 0;
 
 					foreach ($testResults as $testResult) {
@@ -62,14 +62,12 @@ class AdminDcrawController extends GalleryController {
 						if (!$testResult['success']) {
 							$failCount++;
 						}
-
-}
+					}
 
 					if ($failCount > 0) {
 						$error[] = 'form[error][path][testError]';
 					}
-
-}
+				}
 			}
 
 			if (empty($error)) {
@@ -82,8 +80,7 @@ class AdminDcrawController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'dcraw');
 
@@ -106,8 +103,7 @@ class AdminDcrawController extends GalleryController {
 					$redirect['subView']  = 'core.AdminPlugins';
 					$status['configured'] = 'dcraw';
 				}
-
-}
+			}
 		} elseif (isset($form['action']['reset'])) {
 			$redirect['view']    = 'core.SiteAdmin';
 			$redirect['subView'] = 'dcraw.AdminDcraw';
@@ -128,7 +124,6 @@ class AdminDcrawController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -149,14 +144,14 @@ class AdminDcrawView extends GalleryView {
 
 		// Load our default values if we didn't just come from this form.
 		if ($form['formName'] != 'AdminDcraw') {
-			$form['formName']         = 'AdminDcraw';
+			$form['formName'] = 'AdminDcraw';
+
 			list($ret, $form['path']) = GalleryCoreApi::getPluginParameter('module', 'dcraw', 'path');
 
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		$form['path'] = trim($form['path']);
 		$tests        = array();
@@ -179,8 +174,7 @@ class AdminDcrawView extends GalleryView {
 					} else {
 						return array($ret, null);
 					}
-
-} else {
+				} else {
 					$success = true;
 
 					foreach ($testResults as $testResult) {
@@ -193,13 +187,11 @@ class AdminDcrawView extends GalleryView {
 					}
 
 					if ($success) {}
-
-}
+				}
 			} else {
 				$form['error']['path']['missing'] = 1;
 			}
-
-}
+		}
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'dcraw');
 
@@ -234,5 +226,4 @@ class AdminDcrawView extends GalleryView {
 			),
 		);
 	}
-
 }

@@ -46,7 +46,8 @@ class UserChangePasswordController extends GalleryController {
 	public function handleRequest($form) {
 		global $gallery;
 
-		$user                    = $gallery->getActiveUser();
+		$user = $gallery->getActiveUser();
+
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
 		if ($ret) {
@@ -88,8 +89,7 @@ class UserChangePasswordController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 
 				/*
 				 * To be consistent, we really should post a Gallery::Login event here to show
@@ -99,8 +99,7 @@ class UserChangePasswordController extends GalleryController {
 				 *
 				 * @see UserPreferencesController::handleRequest
 				 */
-
-}
+			}
 
 			if (empty($form['password1'])) {
 				$error[] = 'form[error][password1][missing]';
@@ -152,8 +151,7 @@ class UserChangePasswordController extends GalleryController {
 				$redirect['subView']       = 'core.UserChangePassword';
 				$status['changedPassword'] = 1;
 			}
-
-}
+		}
 
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
@@ -167,7 +165,6 @@ class UserChangePasswordController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -231,5 +228,4 @@ class UserChangePasswordView extends GalleryView {
 
 		return array(null, $core->translate('change password'));
 	}
-
 }

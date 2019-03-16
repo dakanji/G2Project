@@ -57,8 +57,7 @@ class RatingItemEdit extends ItemEditOption {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		return array(null, array(), array());
 	}
@@ -78,8 +77,7 @@ class RatingItemEdit extends ItemEditOption {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		return array(null, 'modules/rating/templates/RatingItemEdit.tpl', 'modules_rating');
 	}
@@ -90,5 +88,4 @@ class RatingItemEdit extends ItemEditOption {
 	public function isAppropriate($item, $thumbnail) {
 		return array(null, true);
 	}
-
 }

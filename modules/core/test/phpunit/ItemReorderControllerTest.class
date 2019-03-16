@@ -75,8 +75,7 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 	}
 
 	public function testCancel() {
@@ -339,8 +338,7 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
 		GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[1]->getId());
@@ -390,8 +388,7 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());
 		GalleryUtilities::putRequestVariable('form[selectedId]', $this->_child[4]->getId());
@@ -432,5 +429,4 @@ class ItemReorderControllerTest extends GalleryControllerTestCase {
 			$childIds
 		);
 	}
-
 }

@@ -58,7 +58,8 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$this->_thumbnails                = array();
+		$this->_thumbnails = array();
+
 		list($ret, $this->_thumbnails[0]) = $this->_createDerivative(
 			$this->_images[0],
 			$this->_images[0]->getId(),
@@ -70,7 +71,8 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$this->_resizes                = array();
+		$this->_resizes = array();
+
 		list($ret, $this->_resizes[0]) = $this->_createDerivative(
 			$this->_images[0],
 			$this->_images[0]->getId(),
@@ -82,7 +84,8 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$this->_items                = array();
+		$this->_items = array();
+
 		list($ret, $this->_items[0]) = $this->_createRandomDataItem(
 			$this->_album->getId(),
 			'test/file'
@@ -92,7 +95,8 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$this->_itemThumbnails                = array();
+		$this->_itemThumbnails = array();
+
 		list($ret, $this->_itemThumbnails[0]) = $this->_createDerivative(
 			$this->_items[0],
 			$this->_items[0]->getId(),
@@ -173,8 +177,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 
 			$this->assertEquals($expected, $derivative->getPostFilterOperations());
 		}
-
-}
+	}
 
 	public function testMultipleWatermarkItem() {
 		$totalTestItems = 3;
@@ -227,8 +230,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$form['WatermarkOption']['watermarkId'] = $this->_watermark->getId();
 		$result                                 = $this->_handleRequestAfterAdd($form, $this->_images);
@@ -251,8 +253,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 
 				$this->assertEquals($expected, $derivative->getPostFilterOperations());
 			}
-
-}
+		}
 	}
 
 	public function testWatermarkItemWithNoWatermark() {
@@ -275,8 +276,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 			);
 			$this->assertEquals(1, $derivative->getSerialNumber());
 		}
-
-}
+	}
 
 	public function testMultipleWatermarkItemWithNoWatermark() {
 		$totalTestItems = 3;
@@ -309,8 +309,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$form['WatermarkOption']['watermarkId'] = '';
 		$result                                 = $this->_handleRequestAfterAdd($form, $this->_images);
@@ -332,8 +331,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 				);
 				$this->assertEquals(1, $derivative->getSerialNumber());
 			}
-
-}
+		}
 	}
 
 	public function testWatermarkNonImage() {
@@ -379,8 +377,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$form['WatermarkOption']['watermarkId'] = $this->_watermark->getId();
 		$result                                 = $this->_handleRequestAfterAdd($form, $this->_items);
@@ -401,8 +398,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 			);
 			$this->assertEquals(1, $derivative->getSerialNumber());
 		}
-
-}
+	}
 
 	public function testForceWatermark() {
 		$ret = GalleryCoreApi::setPluginParameter(
@@ -446,8 +442,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 
 			$this->assertEquals($expected, $derivative->getPostFilterOperations());
 		}
-
-}
+	}
 
 	public function testWatermarkWatermarkIdInvalid() {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'watermark');
@@ -478,5 +473,4 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 		);
 		$this->assertEquals(1, $derivative->getSerialNumber());
 	}
-
 }

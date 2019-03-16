@@ -484,7 +484,6 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		);
 
 		$this->assertFalse($supportsOffset, 'offset');
-
 		sort($mimeTypes);
 
 		$this->assertEquals($expectedMimeTypes, $mimeTypes);
@@ -514,7 +513,8 @@ class FfmpegToolkitTest extends GalleryTestCase {
 
 	public function testPerformOperation() {
 		$this->_chmodWasCalled = false;
-		list($ret, $results)   = $this->_toolkit->performOperation(
+
+		list($ret, $results) = $this->_toolkit->performOperation(
 			'video/avi',
 			'convert-to-image/jpeg',
 			'testPerformOperation1.avi',
@@ -531,7 +531,8 @@ class FfmpegToolkitTest extends GalleryTestCase {
 	}
 
 	public function testPerformOperationWithOffset() {
-		$this->_chmodWasCalled         = false;
+		$this->_chmodWasCalled = false;
+
 		list($ret, $results, $context) = $this->_toolkit->performOperation(
 			'video/avi',
 			'select-offset',
@@ -545,7 +546,6 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals($results, 'video/avi', 'mime after offset');
-
 		$this->assertEquals(
 			array(
 				'ffmpeg.offset' => '1.2',
@@ -573,7 +573,8 @@ class FfmpegToolkitTest extends GalleryTestCase {
 	}
 
 	public function testPerformSetAudioChannels() {
-		$this->_chmodWasCalled         = false;
+		$this->_chmodWasCalled = false;
+
 		list($ret, $results, $context) = $this->_toolkit->performOperation(
 			'video/avi',
 			'set-audio-channels',
@@ -587,7 +588,6 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals($results, 'video/avi', 'mime after audiochannels');
-
 		$this->assertEquals(
 			array(
 				'audioChannels' => '2',
@@ -598,7 +598,8 @@ class FfmpegToolkitTest extends GalleryTestCase {
 	}
 
 	public function testPerformSetAudioRate() {
-		$this->_chmodWasCalled         = false;
+		$this->_chmodWasCalled = false;
+
 		list($ret, $results, $context) = $this->_toolkit->performOperation(
 			'video/avi',
 			'set-audio-samplerate',
@@ -612,7 +613,6 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals($results, 'video/avi', 'mime after audiorate');
-
 		$this->assertEquals(
 			array(
 				'sampleRate' => '11025',
@@ -624,7 +624,8 @@ class FfmpegToolkitTest extends GalleryTestCase {
 
 	public function testPerformConvertFlv() {
 		$this->_chmodWasCalled = false;
-		list($ret, $results)   = $this->_toolkit->performOperation(
+
+		list($ret, $results) = $this->_toolkit->performOperation(
 			'video/avi',
 			'convert-to-video/x-flv',
 			'testPerformOperation1.avi',
@@ -639,7 +640,6 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		$this->assertEquals($results, 'video/x-flv');
 		$this->assertTrue($this->_chmodWasCalled, 'chmod not called');
 	}
-
 }
 
 /**
@@ -650,7 +650,8 @@ class FfmpegToolkitTest extends GalleryTestCase {
  */
 class FfmpegToolkitTestPlatform {
 	public function init(&$test) {
-		$this->_test                   =& $test;
+		$this->_test =& $test;
+
 		list($ret, $this->_ffmpegPath) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'ffmpeg',
@@ -1052,8 +1053,7 @@ class FfmpegToolkitTestPlatform {
 			case '/validPath/':
 				return false;
 		}
-
-}
+	}
 
 	public function file_exists($path) {
 		switch ($path) {
@@ -1064,8 +1064,7 @@ class FfmpegToolkitTestPlatform {
 			case '/validPath/bogusBinary':
 				return true;
 		}
-
-}
+	}
 
 	public function is_file($path) {
 		switch ($path) {
@@ -1115,5 +1114,4 @@ class FfmpegToolkitTestPlatform {
 
 		return true;
 	}
-
 }

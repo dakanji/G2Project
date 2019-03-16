@@ -32,6 +32,7 @@ class SliderTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('slider');
+
 		$this->setName($gallery->i18n('Slider'));
 		$this->setDescription(
 			$gallery->i18n(
@@ -42,7 +43,6 @@ class SliderTheme extends GalleryTheme {
 		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
-
 		$this->setStandardSettings(
 			array(
 				'colorpack'      => '',
@@ -100,7 +100,8 @@ class SliderTheme extends GalleryTheme {
 			return array($ret, null);
 		}
 
-		$theme                                  =& $template->getVariableByReference('theme');
+		$theme =& $template->getVariableByReference('theme');
+
 		list($ret, $imageWidths, $imageHeights) = $this->_buildItemList($childIds, $theme['children']);
 
 		if ($ret) {
@@ -183,8 +184,7 @@ class SliderTheme extends GalleryTheme {
 
 				break;
 			}
-
-}
+		}
 
 		return array(null, $tplFile);
 	}
@@ -296,8 +296,7 @@ class SliderTheme extends GalleryTheme {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		$i = -1;
 
@@ -320,8 +319,7 @@ class SliderTheme extends GalleryTheme {
 					if ($ret) {
 						return array($ret, null, null);
 					}
-
-}
+				}
 
 				$children[$i]['thumbnail'] = (array)$thumbnails[$childId];
 			}
@@ -341,15 +339,13 @@ class SliderTheme extends GalleryTheme {
 				} elseif ($child->canBeViewedInline()) {
 					$images[] = $child;
 				}
-
-}
+			}
 
 			if (isset($permissions['core.viewResizes'], $resizedImages[$childId])) {
 				foreach ($resizedImages[$childId] as $resize) {
 					$images[] = $resize;
 				}
-
-}
+			}
 
 			if (isset($thumbnails[$childId])) {
 				$images[] = $thumbnails[$childId];
@@ -369,8 +365,7 @@ class SliderTheme extends GalleryTheme {
 					if ($ret) {
 						return array($ret, null, null);
 					}
-
-}
+				}
 
 				$image                      = (array)$image;
 				$children[$i]['image']      = $image;
@@ -388,11 +383,9 @@ class SliderTheme extends GalleryTheme {
 					$children[$i]['renderItem'] = 1;
 					$imageWidths[]              = $imageHeights[]              = -1;
 				}
-
-}
+			}
 		}
 
 		return array(null, $imageWidths, $imageHeights);
 	}
-
 }

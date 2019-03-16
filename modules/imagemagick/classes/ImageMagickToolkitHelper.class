@@ -66,8 +66,7 @@ class ImageMagickToolkitHelper {
 					'outputMimeType' => $convertToMimeType,
 				);
 			}
-
-}
+		}
 
 		// Scale
 		$operations['scale'] = array(
@@ -247,10 +246,7 @@ class ImageMagickToolkitHelper {
 					'application/x-shockwave-flash',
 				)
 			),
-
-		// Supported by php getimagesize
-		);
-
+		); // Supported by php getimagesize
 		if (!empty($multiPageMimeTypes)) {
 			$properties['page-count'] = array(
 				'type'        => 'int',
@@ -266,8 +262,7 @@ class ImageMagickToolkitHelper {
 				$cmykTypes[] = $mimeType;
 				$rgbTypes[]  = substr($mimeType, 0, -5);
 			}
-
-}
+		}
 
 		if (!empty($cmykTypes)) {
 			$properties['colorspace'] = array(
@@ -311,15 +306,13 @@ class ImageMagickToolkitHelper {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-} else {
+		} else {
 			list($ret, $binary) = ImageMagickToolkitHelper::discoverBinary($imageMagickPath);
 
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		if (empty($binary)) {
 			return array(
@@ -364,8 +357,7 @@ class ImageMagickToolkitHelper {
 			if (empty($imageMagickPath)) {
 				return array(GalleryCoreApi::error(ERROR_MISSING_VALUE), null);
 			}
-
-}
+		}
 
 		$tests   = array();
 		$tests[] = array(
@@ -460,7 +452,8 @@ class ImageMagickToolkitHelper {
 				return array($ret, null);
 			}
 
-			$command                 = array_merge($command, array($dataPath . $test['file']));
+			$command = array_merge($command, array($dataPath . $test['file']));
+
 			list($success, $results) = $platform->exec(array($command));
 
 			$successCount += $success;
@@ -471,11 +464,9 @@ class ImageMagickToolkitHelper {
 					foreach ($test['mime'] as $type) {
 						$mimeTypes[$type] = 1;
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		$platform->chdir($oldPwd);
 
@@ -494,8 +485,7 @@ class ImageMagickToolkitHelper {
 				if (isset($mimeTypes[$mimeType])) {
 					$mimeTypes[$mimeType . '-cmyk'] = 1;
 				}
-
-}
+			}
 		}
 
 		return array(null, array_keys($mimeTypes));
@@ -565,7 +555,8 @@ class ImageMagickToolkitHelper {
 						$success = false;
 						$results = array($module->translate('File does not exist'));
 					} else {
-						$command                 = array_merge($command, array($dataPath . 'test.gif'));
+						$command = array_merge($command, array($dataPath . 'test.gif'));
+
 						list($success, $results) = $platform->exec(array($command));
 					}
 
@@ -761,8 +752,7 @@ class ImageMagickToolkitHelper {
 
 				break;
 			}
-
-}
+		}
 
 		$platform->chdir($oldCwd);
 
@@ -794,8 +784,7 @@ class ImageMagickToolkitHelper {
 			if (empty($imageMagickPath)) {
 				return array(GalleryCoreApi::error(ERROR_MISSING_VALUE), null);
 			}
-
-}
+		}
 
 		/*
 		 * If the path is not restricted by open_basedir, then verify that it's legal.
@@ -840,7 +829,8 @@ class ImageMagickToolkitHelper {
 	public static function discoverVersion($imageMagickPath = null) {
 		global $gallery;
 
-		$platform            =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $command) = ImageMagickToolkitHelper::getCommand('identify', $imageMagickPath);
 
 		if ($ret) {
@@ -859,8 +849,7 @@ class ImageMagickToolkitHelper {
 
 				return array(null, $version, $vulnerable);
 			}
-
-}
+		}
 
 		return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null);
 	}
@@ -878,7 +867,8 @@ class ImageMagickToolkitHelper {
 	public static function discoverCompositeCmd($imageMagickPath = null) {
 		global $gallery;
 
-		$platform           =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $binary) = ImageMagickToolkitHelper::discoverBinary($imageMagickPath);
 
 		if ($ret) {
@@ -900,8 +890,7 @@ class ImageMagickToolkitHelper {
 			if (empty($imageMagickPath)) {
 				return array(GalleryCoreApi::error(ERROR_MISSING_VALUE), null);
 			}
-
-}
+		}
 
 		$binaries = array('combine', 'composite');
 
@@ -912,8 +901,7 @@ class ImageMagickToolkitHelper {
 			if ($platform->file_exists($binaryPath) && $platform->is_executable($binaryPath)) {
 				return array(null, $binary);
 			}
-
-}
+		}
 
 		return array(null, 'composite');
 	}
@@ -931,9 +919,10 @@ class ImageMagickToolkitHelper {
 	public static function discoverRemoveMetaDataSwitch($imageMagickPath = null) {
 		global $gallery;
 
-		$platform               =& $gallery->getPlatform();
-		$slash                  = $platform->getDirectorySeparator();
-		$dataPath               = dirname(__DIR__) . "${slash}data${slash}";
+		$platform =& $gallery->getPlatform();
+		$slash    = $platform->getDirectorySeparator();
+		$dataPath = dirname(__DIR__) . "${slash}data${slash}";
+
 		list($ret, $convertCmd) = ImageMagickToolkitHelper::getCommand(
 			'convert',
 			$imageMagickPath
@@ -966,7 +955,8 @@ class ImageMagickToolkitHelper {
 				array($dataPath . 'testProfile.jpg', $tmpFilename)
 			);
 
-			$originalSize            = $platform->filesize($dataPath . 'testProfile.jpg');
+			$originalSize = $platform->filesize($dataPath . 'testProfile.jpg');
+
 			list($success, $results) = $platform->exec(array($command));
 
 			$size = $platform->filesize($tmpFilename);
@@ -977,8 +967,7 @@ class ImageMagickToolkitHelper {
 				if ($size > 0 && $size < $originalSize) {
 					return array(null, $param);
 				}
-
-}
+			}
 		}
 
 		return array(null, array());
@@ -993,9 +982,10 @@ class ImageMagickToolkitHelper {
 	public static function discoverColorspaceSupport($imageMagickPath = null) {
 		global $gallery;
 
-		$platform               =& $gallery->getPlatform();
-		$slash                  = $platform->getDirectorySeparator();
-		$dataPath               = dirname(__DIR__) . "${slash}data${slash}";
+		$platform =& $gallery->getPlatform();
+		$slash    = $platform->getDirectorySeparator();
+		$dataPath = dirname(__DIR__) . "${slash}data${slash}";
+
 		list($ret, $convertCmd) = ImageMagickToolkitHelper::getCommand('convert', $imageMagickPath);
 
 		if ($ret) {
@@ -1024,7 +1014,8 @@ class ImageMagickToolkitHelper {
 			);
 		}
 
-		$cmykSupport             = false;
+		$cmykSupport = false;
+
 		list($success, $results) = $platform->exec(
 			array(
 				array_merge($identifyCmd, array('-format', '%r', $dataPath . 'cmyk.jpg')),
@@ -1052,8 +1043,7 @@ class ImageMagickToolkitHelper {
 					// We successfully identified a CMYK jpeg and converted it to RGB
 					$cmykSupport = true;
 				}
-
-}
+			}
 		}
 
 		@$platform->unlink($tmpFilename);
@@ -1151,5 +1141,4 @@ class ImageMagickToolkitHelper {
 
 		return null;
 	}
-
 }

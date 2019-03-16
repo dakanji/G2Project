@@ -80,8 +80,7 @@ class SimpleCallbackView extends GalleryView {
 					if (!$ret) {
 						echo implode("\n", $usernames);
 					}
-
-}
+				}
 
 				break;
 
@@ -92,8 +91,7 @@ class SimpleCallbackView extends GalleryView {
 					if (!$ret) {
 						echo implode("\n", $groupNames);
 					}
-
-}
+				}
 
 				break;
 
@@ -149,8 +147,7 @@ class SimpleCallbackView extends GalleryView {
 			if (!$platform->is_dir($path)) {
 				return array();
 			}
-
-}
+		}
 
 		$dirList = $fileList = array();
 
@@ -176,8 +173,7 @@ class SimpleCallbackView extends GalleryView {
 				} elseif ($getFiles && $platform->is_file($file)) {
 					$fileList[] = GalleryCoreApi::convertToUtf8($file);
 				}
-
-}
+			}
 
 			$platform->closedir($dir);
 
@@ -187,5 +183,4 @@ class SimpleCallbackView extends GalleryView {
 
 		return empty($dirList) ? $fileList : array_merge($dirList, $fileList);
 	}
-
 }

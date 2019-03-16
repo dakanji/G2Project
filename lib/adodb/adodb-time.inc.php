@@ -300,9 +300,7 @@ $ADODB_DATETIME_CLASS = (PHP_VERSION >= 5.2);
 	also with Linux, RH 7.3 and later!
 	glibc-2.2.5-34 and greater has been changed to return -1 for dates <
 	1970.  This used to work.  The problem exists with RedHat 7.3 and 8.0
-
-	// prints -1
-	echo (mktime(0, 0, 0, 1, 1, 1960));
+	echo (mktime(0, 0, 0, 1, 1, 1960));  // prints -1
 	References:
 	 http://bugs.php.net/bug.php?id=20048&edit=2
 	 http://lists.debian.org/debian-glibc/2002/debian-glibc-200205/msg00010.html
@@ -513,8 +511,7 @@ function adodb_date_test() {
 
 					break;
 				}
-
-}
+			}
 
 			echo "<b>Error date(): $ts<br><pre>
 &nbsp; \"$s1\" (date len=" . strlen($s1) . ")
@@ -534,8 +531,7 @@ function adodb_date_test() {
 			echo '<p>';
 			$fail = true;
 		}
-
-}
+	}
 
 	// Test generation of dates outside 1901-2038
 	echo '<p>Testing random dates between 100 and 4000</p>';
@@ -592,7 +588,6 @@ function adodb_date_test() {
 	} else {
 		echo '<p><b>Failed</b> :-(</p>';
 	}
-
 }
 
 function adodb_time() {
@@ -620,8 +615,7 @@ function adodb_dow($year, $month, $day) {
 		} else {
 			$greg_correction = 0;
 		}
-
-} else {
+	} else {
 		$greg_correction = 0;
 	}
 
@@ -692,15 +686,13 @@ function adodb_year_digit_check($y) {
 		} else {
 			$y = $y + $c0 * 100;
 		}
-
-}
+	}
 
 	return $y;
 }
 
 function adodb_get_gmt_diff_ts($ts) {
-	if (0 <= $ts && $ts <= 0x7FFFFFFF) {
-		// check if number in 32-bit signed range) {
+	if (0 <= $ts && $ts <= 0x7FFFFFFF) { // check if number in 32-bit signed range) {
 		$arr = getdate($ts);
 		$y   = $arr['year'];
 		$m   = $arr['mon'];
@@ -717,6 +709,7 @@ function adodb_get_gmt_diff_ts($ts) {
  */
 function adodb_get_gmt_diff($y, $m, $d) {
 	static $TZ,$tzo;
+
 	global $ADODB_DATETIME_CLASS;
 
 	if (!defined('ADODB_TEST_DATES')) {
@@ -752,8 +745,7 @@ function adodb_get_gmt_diff($y, $m, $d) {
 			$tobj = new DateTimeZone($tzonename);
 			$TZ = -timezone_offset_get($tobj,new DateTime("now",$tzo));
 		}
-
-}
+	}
 
 	*/
 	if (empty($TZ)) {
@@ -772,14 +764,11 @@ function adodb_getdate($d = false, $fast = false) {
 	}
 
 	if (!defined('ADODB_TEST_DATES')) {
-		if ((abs($d) <= 0x7FFFFFFF)) {
-			// check if number in 32-bit signed range
-			if (!defined('ADODB_NO_NEGATIVE_TS') || $d >= 0) {
-				// if windows, must be +ve integer
+		if ((abs($d) <= 0x7FFFFFFF)) { // check if number in 32-bit signed range
+			if (!defined('ADODB_NO_NEGATIVE_TS') || $d >= 0) { // if windows, must be +ve integer
 				return @getdate($d);
 			}
-
-}
+		}
 	}
 
 	return _adodb_getdate($d);
@@ -794,7 +783,6 @@ function adodb_date_gentable($out=true)
 		$s = adodb_gmmktime(0,0,0,1,1,$i);
 		echo "$i => $s,<br>";
 	}
-
 }
 
 adodb_date_gentable();
@@ -806,6 +794,7 @@ echo "<hr />$i ";
 */
 $_month_table_normal = array('', 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
 $_month_table_leaf   = array('', 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+
 function adodb_validdate($y, $m, $d) {
 	global $_month_table_normal,$_month_table_leaf;
 
@@ -841,6 +830,7 @@ function adodb_validdate($y, $m, $d) {
  */
 function _adodb_getdate($origd = false, $fast = false, $is_gmt = false) {
 	static $YRS;
+
 	global $_month_table_normal,$_month_table_leaf;
 
 	$d           = $origd - ($is_gmt ? 0 : adodb_get_gmt_diff_ts($origd));
@@ -849,8 +839,7 @@ function _adodb_getdate($origd = false, $fast = false, $is_gmt = false) {
 	$_min_power  = 60;
 
 	if ($d < -12219321600) {
-		// if 15 Oct 1582 or earlier, gregorian correction
-		$d -= 86400 * 10;
+		$d -= 86400 * 10; // if 15 Oct 1582 or earlier, gregorian correction
 	}
 
 	$_month_table_normal = array('', 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
@@ -918,11 +907,9 @@ function _adodb_getdate($origd = false, $fast = false, $is_gmt = false) {
 			else $d += $d365;
 			if ($d >= 0) {
 				$year = $a;
-
 				break;
 			}
-
-}
+		}
 
 		*/
 		$lastsecs = 0;
@@ -960,8 +947,7 @@ function _adodb_getdate($origd = false, $fast = false, $is_gmt = false) {
 
 				break;
 			}
-
-}
+		}
 
 		$secsInYear = 86400 * ($leaf ? 366 : 365) + $lastd;
 		$d          = $lastd;
@@ -977,8 +963,7 @@ function _adodb_getdate($origd = false, $fast = false, $is_gmt = false) {
 
 				break;
 			}
-
-}
+		}
 
 		$d    = $lastd;
 		$day  = $ndays + ceil(($d + 1) / ($_day_power));
@@ -999,8 +984,7 @@ function _adodb_getdate($origd = false, $fast = false, $is_gmt = false) {
 
 				break;
 			}
-
-}
+		}
 
 		$secsInYear = $lastd;
 		$d          = $lastd;
@@ -1016,8 +1000,7 @@ function _adodb_getdate($origd = false, $fast = false, $is_gmt = false) {
 
 				break;
 			}
-
-}
+		}
 
 		$d    = $lastd;
 		$day  = ceil(($d + 1) / $_day_power);
@@ -1065,7 +1048,6 @@ function _adodb_getdate($origd = false, $fast = false, $is_gmt = false) {
 				$dates .= sprintf('%s%04d',($gmt<=0)?'+':'-',abs($gmt)/36);
 			else
 				$dates .= sprintf('%s%04d',($gmt<0)?'+':'-',abs($gmt)/36);
-
 			break;*/
 function adodb_tz_offset($gmt, $isphp5) {
 	$zhrs = abs($gmt) / 3600;
@@ -1104,8 +1086,7 @@ function adodb_date2($fmt, $d = false, $is_gmt = false) {
 		} else {
 			$d = @adodb_mktime($rr[5], $rr[6], $rr[7], $rr[2], $rr[3], $rr[1], false, $is_gmt);
 		}
-
-}
+	}
 
 	return adodb_date($fmt, $d, $is_gmt);
 }
@@ -1115,32 +1096,29 @@ function adodb_date2($fmt, $d = false, $is_gmt = false) {
  */
 function adodb_date($fmt, $d = false, $is_gmt = false) {
 	static $daylight;
+
 	global $ADODB_DATETIME_CLASS;
+
 	static $jan1_1971;
 
 	if (!isset($daylight)) {
 		$daylight = function_exists('adodb_daylight_sv');
 
 		if (empty($jan1_1971)) {
-			// we only use date() when > 1970 as adodb_mktime() only uses mktime() when > 1970
-			$jan1_1971 = mktime(0, 0, 0, 1, 1, 1971);
+			$jan1_1971 = mktime(0, 0, 0, 1, 1, 1971); // we only use date() when > 1970 as adodb_mktime() only uses mktime() when > 1970
 		}
-
-}
+	}
 
 	if ($d === false) {
 		return ($is_gmt) ? @gmdate($fmt) : @date($fmt);
 	}
 
 	if (!defined('ADODB_TEST_DATES')) {
-		if ((abs($d) <= 0x7FFFFFFF)) {
-			// check if number in 32-bit signed range
-			if (!defined('ADODB_NO_NEGATIVE_TS') || $d >= $jan1_1971) {
-				// if windows, must be +ve integer
+		if ((abs($d) <= 0x7FFFFFFF)) { // check if number in 32-bit signed range
+			if (!defined('ADODB_NO_NEGATIVE_TS') || $d >= $jan1_1971) { // if windows, must be +ve integer
 				return ($is_gmt) ? @gmdate($fmt, $d) : @date($fmt, $d);
 			}
-
-}
+		}
 	}
 
 	$_day_power = 86400;
@@ -1344,8 +1322,7 @@ function adodb_date($fmt, $d = false, $is_gmt = false) {
 					} else {
 						$hh = $hour;
 					}
-
-}
+				}
 
 				if ($hh < 10) {
 					$dates .= '0' . $hh;
@@ -1369,8 +1346,7 @@ function adodb_date($fmt, $d = false, $is_gmt = false) {
 					} else {
 						$hh = $hour;
 					}
-
-}
+				}
 
 				$dates .= $hh;
 
@@ -1436,8 +1412,7 @@ function adodb_date($fmt, $d = false, $is_gmt = false) {
 
 				break;
 		}
-
-}
+	}
 
 	return $dates;
 }
@@ -1476,8 +1451,7 @@ function adodb_mktime($hr, $min, $sec, $mon = false, $day = false, $year = false
 		if ($usephpfns) {
 			return $is_gmt ? @gmmktime($hr, $min, $sec, $mon, $day, $year) : @mktime($hr, $min, $sec, $mon, $day, $year);
 		}
-
-}
+	}
 
 	$gmt_different = ($is_gmt) ? 0 : adodb_get_gmt_diff($year, $mon, $day);
 
@@ -1528,8 +1502,7 @@ function adodb_mktime($hr, $min, $sec, $mon = false, $day = false, $year = false
 				for ($b = 1; $b < $mon; $b++) {
 					$_total_date += $loop_table[$b];
 				}
-
-}
+			}
 		}
 
 		$_total_date += $day - 1;
@@ -1553,8 +1526,7 @@ function adodb_mktime($hr, $min, $sec, $mon = false, $day = false, $year = false
 				for ($b = 12; $b > $mon; $b--) {
 					$_total_date += $loop_table[$b];
 				}
-
-}
+			}
 		}
 
 		$_total_date += $loop_table[$mon] - $day;
@@ -1572,8 +1544,7 @@ function adodb_mktime($hr, $min, $sec, $mon = false, $day = false, $year = false
 
 			// if in limbo, reset to 15 Oct 1582.
 		}
-
-}
+	}
 
 	//print " dmy=$day/$mon/$year $hr:$min:$sec => " .$ret;
 	return $ret;
@@ -1588,32 +1559,24 @@ function adodb_strftime($fmt, $ts = false, $is_gmt = false) {
 	global $ADODB_DATE_LOCALE;
 
 	if (!defined('ADODB_TEST_DATES')) {
-		if ((abs($ts) <= 0x7FFFFFFF)) {
-			// check if number in 32-bit signed range
-			if (!defined('ADODB_NO_NEGATIVE_TS') || $ts >= 0) {
-				// if windows, must be +ve integer
+		if ((abs($ts) <= 0x7FFFFFFF)) { // check if number in 32-bit signed range
+			if (!defined('ADODB_NO_NEGATIVE_TS') || $ts >= 0) { // if windows, must be +ve integer
 				return ($is_gmt) ? @gmstrftime($fmt, $ts) : @strftime($fmt, $ts);
 			}
-
-}
+		}
 	}
 
 	if (empty($ADODB_DATE_LOCALE)) {
 		/*
-
-		// 30 Dec 1970, 1 am
-		$tstr = strtoupper(gmstrftime('%c',31366800));
+		$tstr = strtoupper(gmstrftime('%c',31366800)); // 30 Dec 1970, 1 am
 		$sep = substr($tstr,2,1);
 		$hasAM = strrpos($tstr,'M') !== false;
 		*/
 
 		// see http://phplens.com/lens/lensforum/msgs.php?id=14865 for reasoning, and changelog for version 0.24
-		// 30 Dec 1970, 1 am
-		$dstr = gmstrftime('%x', 31366800);
-		$sep  = substr($dstr, 2, 1);
-
-		// 30 Dec 1970, 1 am
-		$tstr                = strtoupper(gmstrftime('%X', 31366800));
+		$dstr                = gmstrftime('%x', 31366800); // 30 Dec 1970, 1 am
+		$sep                 = substr($dstr, 2, 1);
+		$tstr                = strtoupper(gmstrftime('%X', 31366800)); // 30 Dec 1970, 1 am
 		$hasAM               = strrpos($tstr, 'M') !== false;
 		$ADODB_DATE_LOCALE   = array();
 		$ADODB_DATE_LOCALE[] = strncmp($tstr, '30', 2) == 0 ? 'd' . $sep . 'm' . $sep . 'y' : 'm' . $sep . 'd' . $sep . 'y';
@@ -1633,8 +1596,7 @@ function adodb_strftime($fmt, $ts = false, $is_gmt = false) {
 			} else {
 				$inpct = true;
 			}
-
-} elseif ($inpct) {
+		} elseif ($inpct) {
 			$inpct = false;
 
 			switch ($ch) {
@@ -1684,9 +1646,7 @@ function adodb_strftime($fmt, $ts = false, $is_gmt = false) {
 				case 'C':
 					$fmtdate .= '\C?';
 
-					// century
-					break;
-
+					break; // century
 				case 'd':
 					$fmtdate .= 'd';
 
@@ -1705,15 +1665,11 @@ function adodb_strftime($fmt, $ts = false, $is_gmt = false) {
 				case 'g':
 					$fmtdate .= '\g?';
 
-					//?
-					break;
-
+					break; //?
 				case 'G':
 					$fmtdate .= '\G?';
 
-					//?
-					break;
-
+					break; //?
 				case 'H':
 					$fmtdate .= 'H';
 
@@ -1728,9 +1684,7 @@ function adodb_strftime($fmt, $ts = false, $is_gmt = false) {
 					$fmtdate .= '?z';
 					$parsej   = true;
 
-					// wrong as j=1-based, z=0-basd
-					break;
-
+					break; // wrong as j=1-based, z=0-basd
 				case 'm':
 					$fmtdate .= 'm';
 
@@ -1780,16 +1734,12 @@ function adodb_strftime($fmt, $ts = false, $is_gmt = false) {
 					$fmtdate .= '?u';
 					$parseu   = true;
 
-					// wrong strftime=1-based, date=0-based
-					break;
-
+					break; // wrong strftime=1-based, date=0-based
 				case 'U':
 					$fmtdate .= '?U';
 					$parseU   = true;
 
-					// wrong strftime=1-based, date=0-based
-					break;
-
+					break;// wrong strftime=1-based, date=0-based
 				case 'x':
 					$fmtdate .= $ADODB_DATE_LOCALE[0];
 
@@ -1804,16 +1754,12 @@ function adodb_strftime($fmt, $ts = false, $is_gmt = false) {
 					$fmtdate .= '?w';
 					$parseu   = true;
 
-					// wrong strftime=1-based, date=0-based
-					break;
-
+					break; // wrong strftime=1-based, date=0-based
 				case 'W':
 					$fmtdate .= '?W';
 					$parseU   = true;
 
-					// wrong strftime=1-based, date=0-based
-					break;
-
+					break;// wrong strftime=1-based, date=0-based
 				case 'y':
 					$fmtdate .= 'y';
 
@@ -1829,14 +1775,12 @@ function adodb_strftime($fmt, $ts = false, $is_gmt = false) {
 
 					break;
 			}
-
-} elseif (('A' <= ($ch) && ($ch) <= 'Z') || ('a' <= ($ch) && ($ch) <= 'z')) {
+		} elseif (('A' <= ($ch) && ($ch) <= 'Z') || ('a' <= ($ch) && ($ch) <= 'z')) {
 			$fmtdate .= '\\' . $ch;
 		} else {
 			$fmtdate .= $ch;
 		}
-
-}
+	}
 
 	//echo "fmt=",$fmtdate,"<br>";
 	if ($ts === false) {

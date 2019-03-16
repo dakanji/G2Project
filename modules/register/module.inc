@@ -37,9 +37,7 @@ class RegisterModule extends GalleryModule {
 				'New User Registration'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -88,8 +86,7 @@ class RegisterModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		return null;
@@ -139,7 +136,8 @@ class RegisterModule extends GalleryModule {
 	 * @see GalleryModule::getSystemLinks
 	 */
 	public function getSystemLinks() {
-		$links                   = array();
+		$links = array();
+
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
 
 		if ($ret) {
@@ -164,7 +162,8 @@ class RegisterModule extends GalleryModule {
 	 * @see GalleryModule::getUserAdminViews
 	 */
 	public function getUserAdminViews($user) {
-		$views                   = array();
+		$views = array();
+
 		list($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser($user->getId());
 
 		if ($ret) {
@@ -195,5 +194,4 @@ class RegisterModule extends GalleryModule {
 			),
 		);
 	}
-
 }

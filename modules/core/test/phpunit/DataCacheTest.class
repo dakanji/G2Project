@@ -80,8 +80,7 @@ class DataCacheTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testPutAndGet() {
 		$key   = 'test-key';
@@ -120,6 +119,7 @@ class DataCacheTest extends GalleryTestCase {
 		GalleryDataCache::reset();
 
 		$this->assertFalse(GalleryDataCache::containsKey($key), 'Could not reset GDC');
+
 		$this->assertTrue(GalleryDataCache::containsKey($pKey), 'Reset GDC deleted a protected var');
 
 		GalleryDataCache::reset(true);
@@ -136,18 +136,25 @@ class DataCacheTest extends GalleryTestCase {
 		GalleryDataCache::put('bar(3, 4)', 'baz');
 		GalleryDataCache::put('bar(4)', 'baz');
 		GalleryDataCache::removeByPattern('foo\(2, ');
+
 		GalleryDataCache::removeByPattern('bar');
 
 		$this->assertTrue(GalleryDataCache::containsKey('foo(1, 2, 3, 4)', 'baz'));
+
 		$this->assertFalse(GalleryDataCache::containsKey('foo(2, 3, 4)', 'baz'));
+
 		$this->assertFalse(GalleryDataCache::containsKey('bar(3, 4)', 'baz'));
+
 		$this->assertFalse(GalleryDataCache::containsKey('bar(4)', 'baz'));
 	}
 
 	public function testGetCacheTuple() {
 		$this->assertEquals(array('0', '0'), GalleryDataCache::getCacheTuple(0));
+
 		$this->assertEquals(array('0', '0'), GalleryDataCache::getCacheTuple(1));
+
 		$this->assertEquals(array('0', '2'), GalleryDataCache::getCacheTuple(21));
+
 		$this->assertEquals(array('0', '9'), GalleryDataCache::getCacheTuple(99));
 		$this->assertEquals(array('7', '2'), GalleryDataCache::getCacheTuple(721));
 		$this->assertEquals(array('3', '4'), GalleryDataCache::getCacheTuple(3412312));
@@ -280,8 +287,7 @@ class DataCacheTest extends GalleryTestCase {
 		foreach ($cases as $expectedPath => $info) {
 			$this->assertEquals($expectedPath, GalleryDataCache::getCachePath($info));
 		}
-
-}
+	}
 
 	public function testPutToDisk() {
 		global $gallery;
@@ -548,6 +554,7 @@ class DataCacheTest extends GalleryTestCase {
 		GalleryDataCache::removeFromDisk($cacheParams);
 
 		$this->assertTrue(class_exists('DataCacheTest_class1'), 'class1 should exist');
+
 		$this->assertTrue(class_exists('DataCacheTest_class2'), 'class2 should exist');
 	}
 
@@ -561,19 +568,21 @@ class DataCacheTest extends GalleryTestCase {
 			GalleryDataCache::hasPermission('1', 'test.TestPermission'),
 			'1 should have permission test.TestPermission'
 		);
+
 		$this->assertTrue(
 			GalleryDataCache::hasPermission('2', 'test.TestPermission'),
 			'2 should have permission test.TestPermission'
 		);
+
 		$this->assertTrue(
 			!GalleryDataCache::hasPermission('3', 'test.TestPermission'),
 			'3 shouldn\'t have permission test.TestPermission'
 		);
+
 		$this->assertTrue(
 			!GalleryDataCache::hasPermission('1', 'test.OtherPermission'),
 			'1 shouldn\'t have permission test.OtherPermission'
 		);
-
 		GalleryDataCache::cachePermissions(array('3'), 'test.OtherPermission');
 
 		$this->assertTrue(
@@ -668,7 +677,8 @@ class DataCacheTest extends GalleryTestCase {
 
 	public function testShouldCachePostRequest() {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
-		list($ret, $shouldCache)   = GalleryDataCache::shouldCache('read', 'page');
+
+		list($ret, $shouldCache) = GalleryDataCache::shouldCache('read', 'page');
 
 		if ($ret) {
 			return $ret;
@@ -682,7 +692,8 @@ class DataCacheTest extends GalleryTestCase {
 
 		$_SERVER['HTTP_PRAGMA']    = 'no-cache';
 		$_SERVER['REQUEST_METHOD'] = 'POST';
-		list($ret, $shouldCache)   = GalleryDataCache::shouldCache('read', 'page');
+
+		list($ret, $shouldCache) = GalleryDataCache::shouldCache('read', 'page');
 
 		if ($ret) {
 			return $ret;
@@ -696,7 +707,8 @@ class DataCacheTest extends GalleryTestCase {
 
 		$_SERVER['HTTP_CACHE_CONTROL'] = 'no-cache';
 		$_SERVER['REQUEST_METHOD']     = 'POST';
-		list($ret, $shouldCache)       = GalleryDataCache::shouldCache('read', 'page');
+
+		list($ret, $shouldCache) = GalleryDataCache::shouldCache('read', 'page');
 
 		if ($ret) {
 			return $ret;
@@ -811,7 +823,8 @@ class DataCacheTest extends GalleryTestCase {
 		}
 
 		// Use mock VM to enforce valid headers, so that the active browser doesn't interfere
-		$gallery->_phpVm         = new DataCacheTestMockVm();
+		$gallery->_phpVm = new DataCacheTestMockVm();
+
 		list($ret, $shouldCache) = GalleryDataCache::shouldCache('read', 'partial');
 
 		if ($ret) {
@@ -998,7 +1011,6 @@ class DataCacheTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('test', $result, 'first');
-
 		// Clean on, 25 seconds after start, no rows should be cleaned.
 		$gallery->_phpVm->setTime(125);
 
@@ -1015,7 +1027,6 @@ class DataCacheTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('test', $result, 'We cleaned to early.');
-
 		// Guest user cache, clean on, 35 seconds after start, no rows should be cleaned.
 		$gallery->setActiveUser($anonymousUser);
 		$gallery->_phpVm->setTime(135);
@@ -1037,7 +1048,6 @@ class DataCacheTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('test', $result, 'Guest cleaned user row!');
-
 		// Check if dice is set to 6 we don't clean.
 		$gallery->_phpVm->setRand(6);
 		$gallery->_phpVm->setTime(135);
@@ -1057,7 +1067,6 @@ class DataCacheTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals('test', $result, 'We cleaned first row while rand() returned 6.');
-
 		// Expire all user rows with this last call, guest untouched and this one.
 		$gallery->_phpVm->setTime(200);
 		$gallery->_phpVm->setRand(1);
@@ -1100,7 +1109,8 @@ class DataCacheTest extends GalleryTestCase {
 		$this->assertEquals(null, $result, 'Cache entry should be obsolete.');
 
 		// Verify the number of rows that we should have in the DB.
-		$query               = 'SELECT * FROM [GalleryCacheMap]';
+		$query = 'SELECT * FROM [GalleryCacheMap]';
+
 		list($ret, $results) = $gallery->search($query);
 
 		if ($ret) {
@@ -1170,7 +1180,6 @@ class DataCacheTest extends GalleryTestCase {
 			'The persisted copy of the local url map was not deleted from disk'
 		);
 	}
-
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPhpVm.class');
@@ -1198,7 +1207,6 @@ class DataCacheTestMockVm extends GalleryPhpVm {
 
 		parent::rand($min, $max);
 	}
-
 }
 
 /**
@@ -1211,7 +1219,6 @@ class DataCacheTestPlatform_testGetFromDisk {
 	public function file_exists($path) {
 		return false;
 	}
-
 }
 
 /**
@@ -1307,5 +1314,4 @@ class DataCacheTestPlatform {
 	public function is_dir($path) {
 		return preg_match('{/(module|theme)/\w+$}', $path);
 	}
-
 }

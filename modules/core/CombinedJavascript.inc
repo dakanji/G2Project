@@ -105,8 +105,7 @@ class CombinedJavascriptView extends GalleryView {
 				 */
 				$phpVm->header('Cache-Control: private, x-gzip-ok="public"');
 			}
-
-}
+		}
 
 		if (!isset($cacheData)) {
 			$cacheData =& GalleryDataCache::getFromDisk(
@@ -120,8 +119,7 @@ class CombinedJavascriptView extends GalleryView {
 			if (isset($cacheData)) {
 				$phpVm->header('Cache-Control: public');
 			}
-
-}
+		}
 
 		if (isset($cacheData)) {
 			$phpVm->header('Content-type: text/javascript; charset=UTF-8');
@@ -154,5 +152,4 @@ class CombinedJavascriptView extends GalleryView {
 	public function isAllowedInEmbedOnly() {
 		return true;
 	}
-
 }

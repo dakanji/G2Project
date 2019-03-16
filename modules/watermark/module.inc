@@ -39,9 +39,7 @@ class WatermarkModule extends GalleryModule {
 				'Watermark your images'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -131,8 +129,7 @@ class WatermarkModule extends GalleryModule {
 							"Unable to move $oldDir to $watermarkDir"
 						);
 					}
-
-} else {
+				} else {
 					list($success) = GalleryUtilities::guaranteeDirExists(
 						$watermarkDir
 					);
@@ -145,8 +142,7 @@ class WatermarkModule extends GalleryModule {
 							"Unable to create $watermarkDir"
 						);
 					}
-
-}
+				}
 
 				// Update all derivatives that use watermarks
 				$query = "
@@ -185,7 +181,8 @@ class WatermarkModule extends GalleryModule {
 						$ids[] = (int)$result[0];
 					}
 
-					$ids              = array();
+					$ids = array();
+
 					list($ret, $lock) = GalleryCoreApi::acquireWriteLock($ids);
 
 					if ($ret) {
@@ -219,16 +216,14 @@ class WatermarkModule extends GalleryModule {
 
 							return $ret;
 						}
-
-}
+					}
 
 					$ret = GalleryCoreApi::releaseLocks($lock);
 
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				// Fall Through
 			case '0.9.2':
@@ -302,8 +297,7 @@ class WatermarkModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		return null;
@@ -318,7 +312,8 @@ class WatermarkModule extends GalleryModule {
 		GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 		// Delete all watermarks and remove uses of them
-		$query                     = 'SELECT [WatermarkImage::id] FROM [WatermarkImage]';
+		$query = 'SELECT [WatermarkImage::id] FROM [WatermarkImage]';
+
 		list($ret, $searchResults) = $gallery->search($query);
 
 		if ($ret) {
@@ -331,8 +326,7 @@ class WatermarkModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$ret = parent::uninstall();
 
@@ -477,11 +471,9 @@ class WatermarkModule extends GalleryModule {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		return array(null, null);
 	}
@@ -540,5 +532,4 @@ class WatermarkModule extends GalleryModule {
 
 		return $rules;
 	}
-
 }

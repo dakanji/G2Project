@@ -31,9 +31,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 	public function _init($parentDriver) {
 		$this->pdoDriver               = $parentDriver;
 		$parentDriver->_bindInputArray = true;
-
-		// // should be set to false because of PDO SQLite driver not supporting changing autocommit mode
-		$parentDriver->hasTransactions = false;
+		$parentDriver->hasTransactions = false; // // should be set to false because of PDO SQLite driver not supporting changing autocommit mode
 		$parentDriver->hasInsertID     = true;
 	}
 
@@ -88,8 +86,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 				if (!$ok) {
 					return false;
 				}
-
-}
+			}
 
 			$parent->Execute(sprintf($this->_genIDSQL, $seq, $num));
 
@@ -99,8 +96,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 
 				return (int)$num;
 			}
-
-}
+		}
 
 		if ($fn = $parent->raiseErrorFn) {
 			$fn($parent->databaseType, 'GENID', -32000, "Unable to generate unique id after $MAXLOOPS attempts", $seq, $num);
@@ -230,8 +226,7 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 			} else {
 				$arr[strtoupper($fld->name)] = $fld;
 			}
-
-}
+		}
 
 		$rs->Close();
 
@@ -257,5 +252,4 @@ class ADODB_pdo_sqlite extends ADODB_pdo {
 
 		return $ret;
 	}
-
 }

@@ -109,8 +109,7 @@ class PostgreSqlStorage extends GalleryStorage {
 			 * XXX: At some point figure out a way to detect if the aggregate is
 			 * already there before trying to install it again.
 			 */
-
-}
+		}
 
 		$ret = parent::configureStore($moduleId, $upgradeInfo);
 
@@ -130,8 +129,7 @@ class PostgreSqlStorage extends GalleryStorage {
 			$db->Execute('set search_path to ' . $this->_schema);
 			$this->_traceStop();
 		}
-
-}
+	}
 
 	/**
 	 * @see GalleryStorage::convertIntToBits
@@ -289,5 +287,4 @@ class PostgreSqlStorage extends GalleryStorage {
 	public function decodeBlob($blob) {
 		return stripcslashes($blob);
 	}
-
 }

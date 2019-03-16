@@ -68,7 +68,8 @@ class MultiLangSearchTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->_randomKey         = 'a' . mt_rand() . 'z';
+		$this->_randomKey = 'a' . mt_rand() . 'z';
+
 		list($ret, $this->_album) = $this->_createRandomAlbum(
 			$this->_getRootId(),
 			array(
@@ -144,8 +145,7 @@ class MultiLangSearchTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testGetSearchModuleInfoDefaultLanguage() {
 		global $gallery;
@@ -184,6 +184,7 @@ class MultiLangSearchTest extends GalleryTestCase {
 		}
 
 		$gallery->setActiveLanguageCode($defaultLanguage == 'de_DE' ? 'fr_FR' : 'de_DE');
+
 		list($ret, $info) = $this->_search->getSearchModuleInfo();
 
 		if ($ret) {
@@ -374,5 +375,4 @@ class MultiLangSearchTest extends GalleryTestCase {
 			$results
 		);
 	}
-
 }

@@ -62,8 +62,7 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 	}
 
 	public function testEnableAlbumRatings() {
@@ -72,6 +71,7 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[minLimit]', '1.5');
 		GalleryUtilities::putRequestVariable('form[description]', 'desc');
 		GalleryUtilities::putRequestVariable('form[orderBy]', 'title');
+
 		GalleryUtilities::putRequestVariable('form[orderDirection]', ORDER_ASCENDING);
 		GalleryUtilities::putRequestVariable('form[presort]', '');
 		GalleryUtilities::putRequestVariable('form[themeId]', 'ratingTest');
@@ -111,8 +111,7 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 			if ($key[0] == '_') {
 				unset($params[$key]);
 			}
-
-}
+		}
 
 		ksort($params);
 		$this->assertEquals(
@@ -136,6 +135,7 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[description]', '');
 		GalleryUtilities::putRequestVariable('form[orderBy]', 'RatingSortOrder');
 		GalleryUtilities::putRequestVariable('form[orderDirection]', ORDER_DESCENDING);
+
 		GalleryUtilities::putRequestVariable('form[presort]', 'albumsFirst');
 		GalleryUtilities::putRequestVariable('form[themeId]', 'ratingTest');
 		GalleryUtilities::putRequestVariable('form[currentThemeId]', 'ratingTest');
@@ -174,8 +174,7 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 			if ($key[0] == '_') {
 				unset($params[$key]);
 			}
-
-}
+		}
 
 		ksort($params);
 		$this->assertEquals(
@@ -209,7 +208,6 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 	}
-
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
@@ -222,5 +220,4 @@ class RatingTestTheme extends GalleryTheme {
 		$this->setId('ratingTest');
 		$this->setStandardSettings(array());
 	}
-
 }

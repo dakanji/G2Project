@@ -63,8 +63,7 @@ class AdminSelfRegistrationController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 			}
 
 			$status['saved'] = 1;
@@ -82,8 +81,7 @@ class AdminSelfRegistrationController extends GalleryController {
 				if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 					return array($ret, null);
 				}
-
-} else {
+			} else {
 				$userName = $pendingUser->getUserName();
 
 				$ret = GalleryPendingUserHelper::createGalleryUser($pendingUser);
@@ -94,8 +92,7 @@ class AdminSelfRegistrationController extends GalleryController {
 
 				$status['activated'] = $userName;
 			}
-
-} elseif (isset($form['action']['delete'])) {
+		} elseif (isset($form['action']['delete'])) {
 			list($ret, $pendingUser) = GalleryCoreApi::loadEntitiesById(
 				$form['userId'],
 				'GalleryPendingUser'
@@ -105,9 +102,9 @@ class AdminSelfRegistrationController extends GalleryController {
 				if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 					return array($ret, null);
 				}
+			} else {
+				$userName = $pendingUser->getUserName();
 
-} else {
-				$userName         = $pendingUser->getUserName();
 				list($ret, $lock) = GalleryCoreApi::acquireWriteLock(array($pendingUser->getId()));
 
 				if ($ret) {
@@ -128,8 +125,7 @@ class AdminSelfRegistrationController extends GalleryController {
 
 				$status['deleted'] = $userName;
 			}
-
-} // else $form['action']['cancel']
+		} // else $form['action']['cancel']
 		if (empty($error)) {
 			$results['redirect'] = array(
 				'view'    => 'core.SiteAdmin',
@@ -145,7 +141,6 @@ class AdminSelfRegistrationController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -190,8 +185,7 @@ class AdminSelfRegistrationView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 
 			$form['formName'] = 'AdminSelfRegistration';
 		}
@@ -214,8 +208,9 @@ class AdminSelfRegistrationView extends GalleryView {
 				$form['list']['page'] = $form['list']['maxPages'];
 			}
 
-			$form['list']['nextPage']              = min($form['list']['page'] + 1, $form['list']['maxPages']);
-			$form['list']['backPage']              = max(1, $form['list']['page'] - 1);
+			$form['list']['nextPage'] = min($form['list']['page'] + 1, $form['list']['maxPages']);
+			$form['list']['backPage'] = max(1, $form['list']['page'] - 1);
+
 			list($ret, $form['list']['userNames']) = GalleryPendingUserHelper::fetchUserData(
 				$form['list']['pageSize'],
 				($form['list']['page'] - 1) * $form['list']['pageSize']
@@ -224,8 +219,7 @@ class AdminSelfRegistrationView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		$selfregistration                          = array();
 		$selfregistration['emailConfirmationList'] = array(
@@ -249,5 +243,4 @@ class AdminSelfRegistrationView extends GalleryView {
 			),
 		);
 	}
-
 }

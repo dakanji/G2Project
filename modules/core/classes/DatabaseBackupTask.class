@@ -69,6 +69,7 @@ class DatabaseBackupTask extends MaintenanceTask {
 
 		$this->_templateAdapter =& $gallery->getTemplateAdapter();
 		$storage                =& $gallery->getStorage();
+
 		list($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -80,7 +81,8 @@ class DatabaseBackupTask extends MaintenanceTask {
 
 		$this->_templateAdapter->updateProgressBar($this->_progressBarTitle, '', 0);
 
-		$exporter                        = $storage->getDatabaseExporter();
+		$exporter = $storage->getDatabaseExporter();
+
 		list($ret, $backupFile, $result) = $exporter->exportToXmlFile(
 			array($this, 'progressCallBack')
 		);
@@ -135,5 +137,4 @@ class DatabaseBackupTask extends MaintenanceTask {
 			$percentage
 		);
 	}
-
 }

@@ -86,8 +86,7 @@ class ThemeTest extends GalleryTestCase {
 			if ($ret) {
 				$this->failWithStatus($ret);
 			}
-
-}
+		}
 
 		$ret = $this->_theme->uninstall();
 
@@ -106,8 +105,7 @@ class ThemeTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testPackSettingBlockList1() {
 		$this->assertEquals(
@@ -548,8 +546,7 @@ class ThemeTest extends GalleryTestCase {
 			if (!$success) {
 				return $this->assertFalse(true, 'block-list error');
 			}
-
-}
+		}
 
 		list($ret, $results) = $this->_theme->loadTemplate(
 			$view,
@@ -657,7 +654,6 @@ class ThemeTest extends GalleryTestCase {
 
 		ini_set('pcre.backtrack_limit', $backtraceLimit);
 	}
-
 }
 
 /**
@@ -668,6 +664,7 @@ class ThemeTestTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('themetest');
+
 		$this->setName('ThemeTest Theme');
 		$this->setDescription('Unit test theme');
 		$this->setVersion('0.9.0');
@@ -682,7 +679,6 @@ class ThemeTestTheme extends GalleryTheme {
 
 		return null;
 	}
-
 }
 
 /**
@@ -702,8 +698,7 @@ class ThemeTestPlatform extends GalleryPlatform {
 				while (false !== ($file = parent::readdir($dir))) {
 					array_push($this->_list, $file);
 				}
-
-}
+			}
 
 			array_push($this->_list, 'themetest');
 
@@ -750,5 +745,4 @@ class ThemeTestPlatform extends GalleryPlatform {
 	public function recursiveRmdir($path) {
 		return true;
 	}
-
 }

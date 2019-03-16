@@ -42,5 +42,4 @@ class ExifInterface_1_0 {
 	public static function getMetaData($itemIds, $properties = array()) {
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
-
 }

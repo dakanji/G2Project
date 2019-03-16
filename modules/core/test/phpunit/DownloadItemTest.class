@@ -94,8 +94,7 @@ class DownloadItemTest extends GalleryTestCase {
 			if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 				return $ret;
 			}
-
-} else {
+		} else {
 			$this->fail('expected error 1, got no error');
 		}
 
@@ -128,12 +127,10 @@ class DownloadItemTest extends GalleryTestCase {
 			if (!($ret->getErrorCode() & ERROR_BAD_PARAMETER)) {
 				return $ret;
 			}
-
-} else {
+		} else {
 			$this->fail('expected error 2, got no error');
 		}
-
-}
+	}
 
 	public function testItemPermission() {
 		// Item needs core.viewSource
@@ -344,7 +341,6 @@ class DownloadItemTest extends GalleryTestCase {
 		$session =& $gallery->getSession();
 
 		$session->put('core.isPrintService', array(2, $this->_item->getId()));
-
 		// Still need core.view
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 
@@ -386,12 +382,10 @@ class DownloadItemTest extends GalleryTestCase {
 			if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 				return $ret;
 			}
-
-} else {
+		} else {
 			$this->fail('expected error, got none');
 		}
-
-}
+	}
 
 	public function testDownloadEntityWithAssociatedPermission() {
 		/*
@@ -435,8 +429,7 @@ class DownloadItemTest extends GalleryTestCase {
 			if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 				return $ret;
 			}
-
-} else {
+		} else {
 			$this->fail('expected error, got none');
 		}
 
@@ -453,8 +446,7 @@ class DownloadItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 }
 
 /**
@@ -462,7 +454,6 @@ class DownloadItemTest extends GalleryTestCase {
  */
 class DownloadItemTestPhpVm extends GalleryPhpVm {
 	public function header($string, $replace = null) {}
-
 }
 
 class DownloadItemTestChildEntity extends GalleryChildEntity {
@@ -473,7 +464,6 @@ class DownloadItemTestChildEntity extends GalleryChildEntity {
 	public function fetchPath() {
 		return array(null, __FILE__);
 	}
-
 }
 
 class DownloadItemTestEntity extends GalleryEntity {
@@ -490,11 +480,11 @@ class DownloadItemTestEntity extends GalleryEntity {
 	public function getClassName() {
 		return $this->className;
 	}
+}
 
-}function DownloadItemTest_error_handler($errorNumber, $errorString, $file, $line, $context) {
+function DownloadItemTest_error_handler($errorNumber, $errorString, $file, $line, $context) {
 	if ($errorNumber == 2048) {
-		// E_STRICT
-		return;
+		return; // E_STRICT
 	}
 
 	if (error_reporting() == 0 && strpos($errorString, 'apacheSetenvBroken') !== false) {

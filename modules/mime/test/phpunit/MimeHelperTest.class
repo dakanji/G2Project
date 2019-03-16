@@ -45,8 +45,7 @@ class MimeHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function tearDown() {
 		$ret = GalleryCoreApi::removeMimeType(
@@ -64,8 +63,7 @@ class MimeHelperTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testMimeTypeMap() {
 		list($ret, $typeMap) = MimeHelper::getMimeTypeMap();
@@ -77,5 +75,4 @@ class MimeHelperTest extends GalleryTestCase {
 		$this->assertEquals(array('xxx'), $typeMap['ext']['test/test'], 'Extensions');
 		$this->assertFalse($typeMap['viewable']['test/test'], 'Viewable');
 	}
-
 }

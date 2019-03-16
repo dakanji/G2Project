@@ -155,13 +155,10 @@ class WatermarkOption extends ItemAddOption {
 					if ($ret) {
 						return array($ret, null, null);
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		return array(null, array(), array());
 	}
-
 }

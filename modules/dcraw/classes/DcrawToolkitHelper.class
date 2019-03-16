@@ -116,8 +116,7 @@ class DcrawToolkitHelper {
 					'success' => true,
 				);
 			}
-
-}
+		}
 
 		if (empty($testArray)) {
 			$testArray[] = array(
@@ -133,5 +132,4 @@ class DcrawToolkitHelper {
 
 		return array(null, $testArray, $version);
 	}
-
 }

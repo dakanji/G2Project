@@ -67,8 +67,7 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function _createSubAlbumWithItems($parentId, $top = false) {
 		list($ret, $album) = $this->_createRandomAlbum($parentId);
@@ -126,8 +125,7 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		$items = array();
 
@@ -137,8 +135,7 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		return array(null, $album, $items);
 	}
@@ -511,5 +508,4 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 
 		$this->assertFalse(empty($permissions['core.view']), 'Sub item[1] should have core.view');
 	}
-
 }

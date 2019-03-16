@@ -92,8 +92,7 @@ class IsapiRewriteHelper {
 			if ($code != REWRITE_STATUS_OK) {
 				return array(null, $code, $errorId);
 			}
-
-}
+		}
 
 		list($ret, $code) = self::writeFile($regexRules);
 
@@ -261,9 +260,10 @@ class IsapiRewriteHelper {
 	public static function getHttpdiniContent($regexRules, $embedded = false) {
 		global $gallery;
 
-		$urlGenerator                             =& $gallery->getUrlGenerator();
-		$Httpdini                                 = array();
-		$Httpdini['galleryId']                    = GALLERY_CONFIG_DIR;
+		$urlGenerator          =& $gallery->getUrlGenerator();
+		$Httpdini              = array();
+		$Httpdini['galleryId'] = GALLERY_CONFIG_DIR;
+
 		list($ret, $Httpdini['galleryDirectory']) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'rewrite',
@@ -280,7 +280,8 @@ class IsapiRewriteHelper {
 		$Httpdini['host']        = preg_quote(GalleryUtilities::getServerVar('SERVER_NAME'));
 
 		if ($embedded) {
-			$Httpdini['baseFile']              = $urlGenerator->_file[false];
+			$Httpdini['baseFile'] = $urlGenerator->_file[false];
+
 			list($ret, $Httpdini['directory']) = GalleryCoreApi::getPluginParameter(
 				'module',
 				'rewrite',
@@ -372,8 +373,7 @@ class IsapiRewriteHelper {
 							if (strncmp($condition['test'], 'HTTP:', 5) === 0) {
 								$condition['test'] = substr($condition['test'], 5) . ':';
 							}
-
-}
+					}
 
 					// Condition pattern ends with unescaped '$'
 					if (substr($condition['pattern'], -1) == '$'
@@ -389,8 +389,7 @@ class IsapiRewriteHelper {
 							// Avoid pattern (?!) (isapi_rewrite logs a parse error).
 							$condition['pattern'] = '(?!.{0})';
 						}
-
-} else {
+					} else {
 						if ($isNegative) {
 							$condition['pattern'] = '(?!' . $condition['pattern'] . ')';
 						}
@@ -411,8 +410,7 @@ class IsapiRewriteHelper {
 
 					$regexRule['conditions'][$conditionId] = $condition;
 				}
-
-}
+			}
 
 			$regexRule['conditions'][] = array(
 				'test'    => 'Host:',
@@ -451,8 +449,7 @@ class IsapiRewriteHelper {
 			 * the last sub-expression, count($regexRules['keywords'] + 1, matches %{QUERY_STRING}
 			 * and the second last sub-expression, count($regexRules['keywords']), matches
 			 * %{REQUEST_URI}
-
-*/
+			 */
 			$regexRule['substitution'] = str_replace(
 				'%{REQUEST_URI}',
 				'$' . count($regexRule['keywords']),
@@ -534,7 +531,8 @@ class IsapiRewriteHelper {
 	public static function checkFile() {
 		global $gallery;
 
-		$platform         =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $file) = self::getHttpdiniPath();
 
 		if ($ret) {
@@ -553,8 +551,7 @@ class IsapiRewriteHelper {
 			if (!$platform->is_writeable($file)) {
 				return array(null, REWRITE_STATUS_HTTPDINI_CANT_WRITE);
 			}
-
-} else {
+		} else {
 			return array(null, REWRITE_STATUS_HTTPDINI_MISSING);
 		}
 
@@ -573,7 +570,8 @@ class IsapiRewriteHelper {
 	public static function checkIsapiRewrite() {
 		global $gallery;
 
-		$urlGenerator       =& $gallery->getUrlGenerator();
+		$urlGenerator =& $gallery->getUrlGenerator();
+
 		list($ret, $forced) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'rewrite',
@@ -615,8 +613,9 @@ class IsapiRewriteHelper {
 	public static function writeFile($regexRules) {
 		global $gallery;
 
-		$platform         =& $gallery->getPlatform();
-		$galleryId        = preg_quote(GALLERY_CONFIG_DIR, '/');
+		$platform  =& $gallery->getPlatform();
+		$galleryId = preg_quote(GALLERY_CONFIG_DIR, '/');
+
 		list($ret, $file) = self::getHttpdiniPath();
 
 		if ($ret) {
@@ -641,8 +640,7 @@ class IsapiRewriteHelper {
 
 				$htaccess .= "\r\n" . $embedded;
 			}
-
-}
+		}
 
 		if ($platform->file_exists($file)) {
 			if (!$platform->is_readable($file)) {
@@ -670,8 +668,7 @@ class IsapiRewriteHelper {
 				} else {
 					$newHtaccess = $newHtaccess . "[ISAPI_Rewrite]\r\n" . $htaccess . "\r\n";
 				}
-
-}
+			}
 		} else {
 			$newHtaccess = "[ISAPI_Rewrite]\r\n" . $htaccess . "\r\n";
 		}
@@ -694,11 +691,12 @@ class IsapiRewriteHelper {
 		global $gallery;
 
 		$urlGenerator =& $gallery->getUrlGenerator();
+
 		list(
 			$ret,
 			$TestResults['isapiInfo'],
 			$TestResults['trueIsapiInfo']
-			)         = self::checkIsapiRewrite();
+			) = self::checkIsapiRewrite();
 
 		if ($ret) {
 			return $ret;
@@ -760,8 +758,9 @@ class IsapiRewriteHelper {
 			}
 
 			if (GalleryUtilities::isEmbedded()) {
-				$AdminParser['isEmbedded']            = 1;
-				$AdminParser['host']                  = substr($urlGenerator->makeUrl('/'), 0, -1);
+				$AdminParser['isEmbedded'] = 1;
+				$AdminParser['host']       = substr($urlGenerator->makeUrl('/'), 0, -1);
+
 				list($ret, $form['embeddedLocation']) = GalleryCoreApi::getPluginParameter(
 					'module',
 					'rewrite',
@@ -771,8 +770,7 @@ class IsapiRewriteHelper {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		$AdminParser['action']   = 1;
@@ -819,11 +817,9 @@ class IsapiRewriteHelper {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		return array(null, $code);
 	}
-
 }

@@ -71,8 +71,7 @@ class PathInfoHelper {
 			if ($code != REWRITE_STATUS_OK) {
 				return array(null, $code, $errorId);
 			}
-
-}
+		}
 
 		$ret = PathInfoHelper::saveParser($regexRules);
 
@@ -124,8 +123,7 @@ class PathInfoHelper {
 			 * Backreference 0 contains the text that matched the full pattern, backreference 1
 			 * contains the text that matched the first parenthesized subpattern, and so on.
 			 */
-
-} elseif (count($rule['keywords']) < 2) {
+			} elseif (count($rule['keywords']) < 2) {
 				$static['/' . $rule['pattern']] = array(
 					'queryString' => $rule['queryString'],
 				);
@@ -136,8 +134,7 @@ class PathInfoHelper {
 					'queryString' => $rule['queryString'],
 				);
 			}
-
-}
+		}
 
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
@@ -170,7 +167,8 @@ class PathInfoHelper {
 	public static function checkPathInfo() {
 		global $gallery;
 
-		$urlGenerator       =& $gallery->getUrlGenerator();
+		$urlGenerator =& $gallery->getUrlGenerator();
+
 		list($ret, $forced) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'rewrite',
@@ -210,6 +208,7 @@ class PathInfoHelper {
 		global $gallery;
 
 		$urlGenerator =& $gallery->getUrlGenerator();
+
 		list($ret, $TestResults['pathInfo'], $TestResults['truePathInfo']) = PathInfoHelper::checkPathInfo();
 
 		if ($ret) {
@@ -233,5 +232,4 @@ class PathInfoHelper {
 
 		return null;
 	}
-
 }

@@ -46,8 +46,7 @@ class GalleryPendingUserTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testPendingUserCreation() {
 		global $gallery;
@@ -74,8 +73,7 @@ class GalleryPendingUserTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testPendingUserPassword() {
 		// Verify hashed password is created as GalleryUser would
@@ -141,5 +139,4 @@ class GalleryPendingUserTest extends GalleryTestCase {
 
 		return array(null, $user);
 	}
-
 }

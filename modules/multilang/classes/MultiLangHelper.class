@@ -72,7 +72,8 @@ class MultiLangHelper {
 	 * @return GalleryStatus a status code
 	 */
 	public static function setItemData($item, $language, $title = null, $summary = null, $description = null) {
-		$itemId           = $item->getId();
+		$itemId = $item->getId();
+
 		list($ret, $data) = MultiLangHelper::getItemData($itemId);
 
 		if ($ret) {
@@ -116,11 +117,9 @@ class MultiLangHelper {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 			}
-
-} else {
+		} else {
 			// Update or insert new data
 			if (isset($data[$language])) {
 				$ret = GalleryCoreApi::updateMapEntry(
@@ -139,8 +138,7 @@ class MultiLangHelper {
 				if ($ret) {
 					return $ret;
 				}
-
-} else {
+			} else {
 				$ret = GalleryCoreApi::addMapEntry(
 					'MultiLangItemMap',
 					array(
@@ -178,11 +176,9 @@ class MultiLangHelper {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		if ($item->getParentId()) {
 			global $gallery;
@@ -200,8 +196,7 @@ class MultiLangHelper {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -235,5 +230,4 @@ class MultiLangHelper {
 
 		return null;
 	}
-
 }

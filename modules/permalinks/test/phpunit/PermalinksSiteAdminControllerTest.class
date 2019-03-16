@@ -44,8 +44,7 @@ class PermalinksSiteAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testPermalinksSiteAdminController() {
 		// test toggling autoPermalink
@@ -107,6 +106,5 @@ class PermalinksSiteAdminControllerTest extends GalleryControllerTestCase {
 
 			$this->assertEquals($expectedValue, $value, $key);
 		}
-
-}
+	}
 }

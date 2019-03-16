@@ -49,8 +49,7 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function tearDown() {
 		global $gallery;
@@ -63,8 +62,7 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testTurnOnGuestPreviewMode() {
 		global $gallery;
@@ -129,5 +127,4 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals(1, $session->get('theme.guestPreviewMode'));
 	}
-
 }

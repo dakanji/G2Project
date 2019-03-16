@@ -38,11 +38,9 @@ function smarty_core_load_plugins($params, &$smarty) {
 					$_plugin[3] = true;
 
 					if (!isset($_plugin[4])) {
-						// cacheable
-						$_plugin[4] = true;
+						$_plugin[4] = true; // cacheable
 					}
-
-}
+				}
 			}
 
 			continue;
@@ -60,8 +58,7 @@ function smarty_core_load_plugins($params, &$smarty) {
 
 				continue;
 			}
-
-}
+		}
 
 		$_plugin_file = $smarty->_get_plugin_filepath($_type, $_name);
 
@@ -84,8 +81,7 @@ function smarty_core_load_plugins($params, &$smarty) {
 
 				continue;
 			}
-
-}
+		}
 
 		/*
 		 * In case of insert plugins, their code may be loaded later via
@@ -113,14 +109,12 @@ function smarty_core_load_plugins($params, &$smarty) {
 						$_plugin_func = $_name;
 						$_found       = true;
 					}
-
-}
+				}
 			} elseif ($_type == 'function') {
 				// This is a catch-all situation.
 				$_message = "unknown tag - '$_name'";
 			}
-
-}
+		}
 
 		if ($_found) {
 			$smarty->_plugins[$_type][$_name] = array($_plugin_func, $_tpl_file, $_tpl_line, true, true);
@@ -128,8 +122,7 @@ function smarty_core_load_plugins($params, &$smarty) {
 			// output error
 			$smarty->_trigger_fatal_error('[plugin] ' . $_message, $_tpl_file, $_tpl_line, __FILE__, __LINE__);
 		}
-
-}
+	}
 }
 
 // vim: set expandtab:

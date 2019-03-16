@@ -82,8 +82,7 @@ class AddToCartControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function tearDown() {
 		// Restore the existing cart
@@ -98,8 +97,7 @@ class AddToCartControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testAddItem() {
 		// Create a test item
@@ -150,8 +148,7 @@ class AddToCartControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
 
@@ -245,8 +242,7 @@ class AddToCartControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		// Put the items in the cart
 		$ret = CartHelper::setCartItemCounts(
@@ -475,5 +471,4 @@ class AddToCartControllerTest extends GalleryControllerTestCase {
 			$cartItemCounts
 		);
 	}
-
 }

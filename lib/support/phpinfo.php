@@ -68,7 +68,6 @@ if (file_exists($g2data_path)) {
 		$g2_user   = $g2_lst[2];
 		$g2_group  = $g2_lst[3];
 	}
-
 }
 
 if (!isset($data_path)) {
@@ -161,21 +160,18 @@ a:focus {
 	.container {
 		width: 750px;
 	}
-
 }
 
 @media (min-width: 992px) {
 	.container {
 		width: 970px;
 	}
-
 }
 
 @media (min-width: 1200px) {
 	.container {
 		width: 1170px;
 	}
-
 }
 
 .container:before,

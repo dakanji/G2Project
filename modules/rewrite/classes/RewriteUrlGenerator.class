@@ -53,14 +53,12 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 				if (!isset($params[$key]) || $params[$key] != $value) {
 					continue 2;
 				}
-
-}
+			}
 
 			// $shortUrl['match'] is subset of $params
 			return $shortUrl;
 		}
-
-}
+	}
 
 	/**
 	 * @see GalleryUrlGenerator::init
@@ -115,8 +113,7 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -201,8 +198,7 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 				if (!$ret) {
 					return $ret;
 				}
-
-} elseif (!empty($params[$arg])) {
+			} elseif (!empty($params[$arg])) {
 				$value = $params[$arg];
 
 				if (!empty($options['urlEncode']) || !isset($options['urlEncode'])) {
@@ -217,12 +213,10 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 				} else {
 					$unsetItemId = true;
 				}
-
-} else {
+			} else {
 				return false;
 			}
-
-}
+		}
 
 		if (isset($unsetItemId)) {
 			unset($params['itemId']);
@@ -244,8 +238,7 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 			if ($ret) {
 				return null;
 			}
-
-}
+		}
 
 		list($ret, $entity) = GalleryCoreApi::loadEntitiesById($itemId, 'GalleryEntity');
 
@@ -277,5 +270,4 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 	public function _getBaseParamString($forceDirect = false) {
 		return '';
 	}
-
 }

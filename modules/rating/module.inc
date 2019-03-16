@@ -36,9 +36,7 @@ class RatingModule extends GalleryModule {
 				'Let Users Rate Gallery2 Items'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -141,8 +139,7 @@ class RatingModule extends GalleryModule {
 			if ($enabledAlbums[$parentId]) {
 				$numEnabledAlbums++;
 			}
-
-}
+		}
 
 		if (empty($numEnabledAlbums)) {
 			return array(null, array());
@@ -286,8 +283,7 @@ class RatingModule extends GalleryModule {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				// Give everybody rating permission by default
 				$gallery->guaranteeTimeLimit(300);
@@ -363,8 +359,7 @@ class RatingModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		if (!isset($params['themeSettingsId'])) {
@@ -400,8 +395,7 @@ class RatingModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -476,8 +470,7 @@ class RatingModule extends GalleryModule {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		return array(null, $result);
@@ -495,5 +488,4 @@ class RatingModule extends GalleryModule {
 
 		return parent::uninstall();
 	}
-
 }

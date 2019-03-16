@@ -108,8 +108,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testCustomFieldItemAdminController() {
 		global $gallery;
@@ -236,5 +235,4 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 		);
 		$this->assertEquals(false, $isContainer[$this->_item->getId()], 'Global settings');
 	}
-
 }

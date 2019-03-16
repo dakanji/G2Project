@@ -115,16 +115,14 @@ class KeywordAlbumView extends GalleryView {
 				// Ignore errors here so fallback theme can be used
 				return array(null, null, array(), $item);
 			}
-
-} else {
+		} else {
 			list($ret, $theme) = GalleryView::_loadTheme($moduleParams['themeId']);
 
 			if ($ret || !isset($theme)) {
 				// Ignore errors here so fallback theme can be used
 				return array(null, null, array(), $item);
 			}
-
-}
+		}
 
 		list($ret, $params) = $theme->fetchParameters($moduleParams['themeSettingsId']);
 
@@ -139,7 +137,8 @@ class KeywordAlbumView extends GalleryView {
 	 * @see GalleryView::loadTemplate
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {
-		$theme                  =& $template->getVariableByReference('theme');
+		$theme =& $template->getVariableByReference('theme');
+
 		list($keyword, $itemId) = GalleryUtilities::getRequestVariables('keyword', 'itemId');
 
 		$rawKeyword = $keyword;
@@ -158,8 +157,7 @@ class KeywordAlbumView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-} else {
+		} else {
 			// Item in dynamic album; use core.ShowItem to check permission, increment view count
 			list($ret, $showItem) = GalleryView::getMe()->loadView('core.ShowItem');
 
@@ -176,8 +174,7 @@ class KeywordAlbumView extends GalleryView {
 			if (isset($result['redirect'])) {
 				return array(null, $result);
 			}
-
-}
+		}
 
 		return array(null, array());
 	}
@@ -269,5 +266,4 @@ class KeywordAlbumView extends GalleryView {
 
 		return array(null, $module->translate('keyword album'));
 	}
-
 }

@@ -52,9 +52,10 @@ class AdminPerformanceController extends GalleryController {
 			return array($ret, null);
 		}
 
-		$results                  = array();
-		$status                   = array();
-		$error                    = array();
+		$results = array();
+		$status  = array();
+		$error   = array();
+
 		list($ret, $acceleration) = GalleryCoreApi::getPluginParameter('module', 'core', 'acceleration');
 
 		if ($ret) {
@@ -98,8 +99,7 @@ class AdminPerformanceController extends GalleryController {
 					default:
 						return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 				}
-
-}
+			}
 
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
@@ -154,7 +154,6 @@ class AdminPerformanceController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -192,7 +191,8 @@ class AdminPerformanceView extends GalleryView {
 
 		// Load some standard form parameters
 		if ($form['formName'] != 'AdminPerformance') {
-			$form['formName']         = 'AdminPerformance';
+			$form['formName'] = 'AdminPerformance';
+
 			list($ret, $acceleration) = $module->getParameter('acceleration');
 
 			if ($ret) {
@@ -211,8 +211,7 @@ class AdminPerformanceView extends GalleryView {
 				if (!isset($form['acceleration'][$class]['expiration'])) {
 					$form['acceleration'][$class]['expiration'] = '0';
 				}
-
-}
+			}
 
 			list($ret, $compileCheck) = $module->getParameter('smarty.compile_check');
 
@@ -293,5 +292,4 @@ class AdminPerformanceView extends GalleryView {
 			),
 		);
 	}
-
 }

@@ -33,8 +33,7 @@ function smarty_core_assemble_plugin_filepath($params, &$smarty) {
 
 				break;
 			}
-
-}
+		}
 
 		// try relative to cwd (or absolute)
 		if (@is_readable($_plugin_filepath)) {
@@ -42,8 +41,7 @@ function smarty_core_assemble_plugin_filepath($params, &$smarty) {
 
 			break;
 		}
-
-}
+	}
 
 	if ($_return === false) {
 		// still not found, try PHP include_path
@@ -61,11 +59,9 @@ function smarty_core_assemble_plugin_filepath($params, &$smarty) {
 
 					break;
 				}
-
-}
+			}
 		}
-
-}
+	}
 
 	$smarty->_filepaths_cache[$_plugin_filename] = $_return;
 

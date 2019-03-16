@@ -96,6 +96,5 @@ class GallerySmarty extends Smarty {
 				sprintf('Smarty error: %s', $error_msg, $error_type)
 			);
 		}
-
-}
+	}
 }

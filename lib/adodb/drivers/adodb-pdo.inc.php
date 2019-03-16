@@ -64,18 +64,15 @@ function adodb_pdo_type($t) {
 		default:
 			return 'NUMERIC';
 	}
-
 }
 
 // ----------------------------------------------------------------------------
 class ADODB_pdo extends ADOConnection {
-	public $databaseType = 'pdo';
-	public $dataProvider = 'pdo';
-	public $fmtDate      = "'Y-m-d'";
-	public $fmtTimeStamp = "'Y-m-d, h:i:sA'";
-
-	// string to use to replace quotes
-	public $replaceQuote    = "''";
+	public $databaseType    = 'pdo';
+	public $dataProvider    = 'pdo';
+	public $fmtDate         = "'Y-m-d'";
+	public $fmtTimeStamp    = "'Y-m-d, h:i:sA'";
+	public $replaceQuote    = "''"; // string to use to replace quotes
 	public $hasAffectedRows = true;
 	public $_bindInputArray = true;
 	public $_genIDSQL;
@@ -146,8 +143,7 @@ class ADODB_pdo extends ADOConnection {
 				default:
 					$argDSN .= ';dbname=' . $argDatabasename;
 			}
-
-}
+		}
 
 		try {
 			$this->_connectionID = new PDO($argDSN, $argUsername, $argPassword);
@@ -270,8 +266,7 @@ class ADODB_pdo extends ADOConnection {
 		} else {
 			$obj->bindParam($name, $var);
 		}
-
-}
+	}
 
 	public function OffsetDate($dayFraction, $date = false) {
 		return $this->_driver->OffsetDate($dayFraction, $date);
@@ -328,14 +323,12 @@ class ADODB_pdo extends ADOConnection {
 			} else {
 				$err = -1;
 			}
-
-} else {
+		} else {
 			return 0;
 		}
 
 		if ($err == '00000') {
-			// allows empty check
-			return 0;
+			return 0; // allows empty check
 		}
 
 		return $err;
@@ -349,8 +342,7 @@ class ADODB_pdo extends ADOConnection {
 		if (method_exists($this->_driver, 'SetAutoCommit')) {
 			$this->_driver->SetAutoCommit($auto_commit);
 		}
-
-}
+	}
 
 	public function SetTransactionMode($transaction_mode) {
 		if (method_exists($this->_driver, 'SetTransactionMode')) {
@@ -501,8 +493,7 @@ class ADODB_pdo extends ADOConnection {
 			} else {
 				$ok = $stmt->execute();
 			}
-
-}
+		}
 
 		$this->_errormsg = false;
 		$this->_errorno  = false;
@@ -520,8 +511,7 @@ class ADODB_pdo extends ADOConnection {
 				$this->_errormsg = $arr[2];
 				$this->_errorno  = $arr[1];
 			}
-
-} else {
+		} else {
 			$this->_errormsg = false;
 			$this->_errorno  = false;
 		}
@@ -567,7 +557,6 @@ class ADODB_pdo extends ADOConnection {
 
 		return "'$s'";
 	}
-
 }
 
 class ADODB_pdo_base extends ADODB_pdo {
@@ -597,7 +586,6 @@ class ADODB_pdo_base extends ADODB_pdo {
 	public function MetaColumns($table, $normalize = true) {
 		return false;
 	}
-
 }
 
 class ADOPDOStatement {
@@ -625,8 +613,7 @@ class ADOPDOStatement {
 		} else {
 			$this->_stmt->bindParam($name, $var);
 		}
-
-}
+	}
 
 	public function Affected_Rows() {
 		return ($this->_stmt) ? $this->_stmt->rowCount() : 0;
@@ -661,7 +648,6 @@ class ADOPDOStatement {
 
 		return $this->_connectionID->errorInfo();
 	}
-
 }
 
 /*--------------------------------------------------------------------------------------
@@ -722,15 +708,12 @@ class ADORecordSet_pdo extends ADORecordSet {
 			$this->_currentRow = 0;
 
 			if ($this->EOF = ($this->_fetch() === false)) {
-				// _numOfRows could be -1
-				$this->_numOfRows = 0;
+				$this->_numOfRows = 0; // _numOfRows could be -1
 			}
-
-} else {
+		} else {
 			$this->EOF = true;
 		}
-
-}
+	}
 
 	public function _initrs() {
 		global $ADODB_COUNTRECS;
@@ -746,8 +729,7 @@ class ADORecordSet_pdo extends ADORecordSet {
 
 	// returns the field object
 	public function FetchField($fieldOffset = -1) {
-		// offsets begin at 1
-		$off = $fieldOffset + 1;
+		$off = $fieldOffset + 1; // offsets begin at 1
 		$o   = new ADOFieldObject();
 		$arr = @$this->_queryID->getColumnMeta($fieldOffset);
 
@@ -822,10 +804,8 @@ class ADORecordSet_pdo extends ADORecordSet {
 
 				$this->bind[strtoupper($o->name)] = $i;
 			}
-
-}
+		}
 
 		return $this->fields[$this->bind[strtoupper($colname)]];
 	}
-
 }

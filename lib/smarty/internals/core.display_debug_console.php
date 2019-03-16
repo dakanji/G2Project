@@ -39,7 +39,6 @@ function smarty_core_display_debug_console($params, &$smarty) {
 
 	if ($smarty->_compile_resource($smarty->debug_tpl, $_compile_path)) {
 		ob_start();
-
 		$smarty->_include($_compile_path);
 
 		$_results = ob_get_contents();

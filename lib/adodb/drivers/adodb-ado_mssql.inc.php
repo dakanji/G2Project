@@ -26,7 +26,6 @@ if (!defined('_ADODB_ADO_LAYER')) {
 	} else {
 		include ADODB_DIR . '/drivers/adodb-ado.inc.php';
 	}
-
 }
 
 class ADODB_ado_mssql extends ADODB_ado {
@@ -37,15 +36,12 @@ class ADODB_ado_mssql extends ADODB_ado {
 	public $sysTimeStamp = 'GetDate()';
 	public $leftOuter    = '*=';
 	public $rightOuter   = '=*';
+	public $ansiOuter    = true; // for mssql7 or later
+	public $substr       = 'substring';
+	public $length       = 'len';
+	public $_dropSeqSQL  = 'drop table %s';
 
-	// for mssql7 or later
-	public $ansiOuter   = true;
-	public $substr      = 'substring';
-	public $length      = 'len';
-	public $_dropSeqSQL = 'drop table %s';
-
-	// always open recordsets, so no transaction problems.
-	//var $_inTransaction = 1;
+	//var $_inTransaction = 1; // always open recordsets, so no transaction problems.
 	public function _insertid() {
 		return $this->GetOne('select SCOPE_IDENTITY()');
 	}
@@ -85,18 +81,13 @@ class ADODB_ado_mssql extends ADODB_ado {
 		$osoptions[1] = null;
 		$osoptions[2] = $table;
 		$osoptions[3] = null;
-
-		//tables
-		$adors = @$dbc->OpenSchema(4, $osoptions);
-
+		$adors        = @$dbc->OpenSchema(4, $osoptions);//tables
 		if ($adors) {
 			while (!$adors->EOF) {
-				$fld       = new ADOFieldObject();
-				$c         = $adors->Fields(3);
-				$fld->name = $c->Value;
-
-				// cannot discover type in ADO!
-				$fld->type       = 'CHAR';
+				$fld             = new ADOFieldObject();
+				$c               = $adors->Fields(3);
+				$fld->name       = $c->Value;
+				$fld->type       = 'CHAR'; // cannot discover type in ADO!
 				$fld->max_length = -1;
 
 				$arr[strtoupper($fld->name)] = $fld;
@@ -163,7 +154,6 @@ class ADODB_ado_mssql extends ADODB_ado {
 		// in old implementation, pre 1.90, we returned GUID...
 		//return $this->GetOne("SELECT CONVERT(varchar(255), NEWID()) AS 'Char'");
 	}
-
 } // end class
 class ADORecordSet_ado_mssql extends ADORecordSet_ado {
 	public $databaseType = 'ado_mssql';
@@ -171,5 +161,4 @@ class ADORecordSet_ado_mssql extends ADORecordSet_ado {
 	public function __construct($id, $mode = false) {
 		return parent::__construct($id, $mode);
 	}
-
 }

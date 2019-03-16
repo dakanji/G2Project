@@ -88,7 +88,7 @@ class LinkItemToolkit extends GalleryToolkit {
 			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null);
 		}
 
-*/
+		*/
 		list($ret, $snapshotExec) = GalleryCoreApi::getPluginParameter('module', 'linkitem', 'snapshotExec');
 
 		if ($ret) {
@@ -114,10 +114,10 @@ class LinkItemToolkit extends GalleryToolkit {
 			if (isset($map[$param])) {
 				$exec[$i] = $map[$param];
 			}
-
-}
+		}
 
 		array_unshift($exec, $snapshotExec);
+
 		list($success, $output, $error) = $platform->exec(array($exec));
 
 		@$platform->unlink($tmpBase);
@@ -158,10 +158,8 @@ class LinkItemToolkit extends GalleryToolkit {
 			if (!empty($lines)) {
 				return rtrim(array_shift($lines));
 			}
-
-}
+		}
 
 		return '--width %WIDTH% --height %HEIGHT% %URL% %OUTFILE%';
 	}
-
 }

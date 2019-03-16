@@ -69,12 +69,10 @@ function smarty_function_html_options($params, &$smarty) {
 
 				break;
 		}
-
-}
+	}
 
 	if (!isset($options) && !isset($values)) {
-		// raise error here?
-		return '';
+		return ''; // raise error here?
 	}
 
 	$_html_result = '';
@@ -83,14 +81,12 @@ function smarty_function_html_options($params, &$smarty) {
 		foreach ($options as $_key => $_val) {
 			$_html_result .= smarty_function_html_options_optoutput($_key, $_val, $selected);
 		}
-
-} else {
+	} else {
 		foreach ($values as $_i => $_key) {
 			$_val          = isset($output[$_i]) ? $output[$_i] : '';
 			$_html_result .= smarty_function_html_options_optoutput($_key, $_val, $selected);
 		}
-
-}
+	}
 
 	if (!empty($name)) {
 		$_html_result = '<select name="' . $name . '"' . $extra . '>' . "\n" . $_html_result . '</select>' . "\n";

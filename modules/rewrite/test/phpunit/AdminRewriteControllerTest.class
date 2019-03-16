@@ -59,8 +59,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		// Make sure we use the mock parser
 		GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
@@ -100,8 +99,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function tearDown() {
 		list($ret, $redirect) = $this->_module->deactivate(false);
@@ -121,8 +119,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testRefresh() {
 		GalleryUtilities::putRequestVariable('form[action][refresh]', 1);
@@ -782,7 +779,6 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 			'handleRequest'
 		);
 	}
-
 }
 
 /**
@@ -880,8 +876,7 @@ class AdminRewriteMockParser extends RewriteParser {
 			if ($code != REWRITE_STATUS_OK) {
 				return array(null, $code, $errorId);
 			}
-
-}
+		}
 
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
@@ -933,7 +928,6 @@ class AdminRewriteMockParser extends RewriteParser {
 
 		return array(null, REWRITE_STATUS_OK);
 	}
-
 }
 
 /**
@@ -947,11 +941,10 @@ class AdminRewriteMockModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('adminrewritemock');
+
 		$this->setName('AdminRewrite Test Module');
 		$this->setDescription('Unit test module');
-
-		// Update upgrade() as required
-		$this->setVersion('7.0.0');
+		$this->setVersion('7.0.0'); // Update upgrade() as required
 		$this->setGroup('data', 'Gallery');
 		$this->setRequiredCoreApi(GalleryCoreApi::getApiVersion());
 		$this->setRequiredModuleApi(GalleryModule::getApiVersion());
@@ -998,7 +991,6 @@ class AdminRewriteMockModule extends GalleryModule {
 
 		return $rules;
 	}
-
 }
 
 /**
@@ -1024,8 +1016,7 @@ class AdminRewriteMockPlatform extends GalleryPlatform {
 				while (false !== ($file = parent::readdir($dir))) {
 					array_push($this->_list, $file);
 				}
-
-}
+			}
 
 			array_push($this->_list, 'adminrewritemock');
 
@@ -1064,5 +1055,4 @@ class AdminRewriteMockPlatform extends GalleryPlatform {
 	public function recursiveRmdir($path) {
 		return true;
 	}
-
 }

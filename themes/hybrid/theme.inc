@@ -31,7 +31,9 @@ class HybridTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('hybrid');
+
 		$this->setName($gallery->i18n('Hybrid'));
+
 		$this->setDescription(
 			$gallery->i18n(
 				'Combined album/image/slideshow dynamic view'
@@ -40,7 +42,6 @@ class HybridTheme extends GalleryTheme {
 		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
-
 		$this->setStandardSettings(
 			array(
 				'rows'             => 30,
@@ -195,7 +196,8 @@ class HybridTheme extends GalleryTheme {
 			return array($ret, null);
 		}
 
-		$theme                                  =& $template->getVariableByReference('theme');
+		$theme =& $template->getVariableByReference('theme');
+
 		list($ret, $imageWidths, $imageHeights) = $this->_buildItemList($childIds, $theme['children']);
 
 		if ($ret) {
@@ -228,8 +230,7 @@ class HybridTheme extends GalleryTheme {
 
 					break;
 				}
-
-}
+			}
 		}
 
 		if (isset($viewIndex)) {
@@ -290,7 +291,8 @@ class HybridTheme extends GalleryTheme {
 				return array($ret, null);
 			}
 
-			$theme                 =& $template->getVariableByReference('theme');
+			$theme =& $template->getVariableByReference('theme');
+
 			list($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
 
 			if ($ret) {
@@ -313,7 +315,8 @@ class HybridTheme extends GalleryTheme {
 			return array($ret, null);
 		}
 
-		$theme                =& $template->getVariableByReference('theme');
+		$theme =& $template->getVariableByReference('theme');
+
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($parent, null, null, $theme['actingUserId']);
 
 		if ($ret) {
@@ -329,8 +332,7 @@ class HybridTheme extends GalleryTheme {
 
 				break;
 			}
-
-}
+		}
 
 		$redirect = array(
 			'view'   => 'core.ShowItem',
@@ -449,8 +451,7 @@ class HybridTheme extends GalleryTheme {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		$i = -1;
 
@@ -465,8 +466,7 @@ class HybridTheme extends GalleryTheme {
 					if ($ret) {
 						return array($ret, null, null);
 					}
-
-}
+				}
 
 				$children[$i]['thumbnail'] = (array)$thumbnails[$childId];
 			}
@@ -490,15 +490,13 @@ class HybridTheme extends GalleryTheme {
 				} elseif ($child->canBeViewedInline()) {
 					$images[] = $child;
 				}
-
-}
+			}
 
 			if (isset($permissions['core.viewResizes'], $resizedImages[$childId])) {
 				foreach ($resizedImages[$childId] as $resize) {
 					$images[] = $resize;
 				}
-
-}
+			}
 
 			if (!isset($permissions['core.viewSource']) && isset($thumbnails[$childId])) {
 				// Only use thumbnail as view if we can't link to original file
@@ -517,8 +515,7 @@ class HybridTheme extends GalleryTheme {
 					if ($ret) {
 						return array($ret, null, null);
 					}
-
-}
+				}
 
 				$image                      = (array)$image;
 				$children[$i]['image']      = $image;
@@ -535,11 +532,9 @@ class HybridTheme extends GalleryTheme {
 					$children[$i]['renderItem'] = 1;
 					$imageWidths[]              = $imageHeights[] = -1;
 				}
-
-}
+			}
 		}
 
 		return array(null, $imageWidths, $imageHeights);
 	}
-
 }

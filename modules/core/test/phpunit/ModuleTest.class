@@ -44,7 +44,8 @@ class ModuleTest extends GalleryTestCase {
 		GalleryDataCache::reset(true);
 
 		$_REQUEST['testCase'] = $this;
-		list($ret, $module)   = GalleryCoreApi::loadPlugin('module', 'moduletest');
+
+		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'moduletest');
 
 		if ($ret) {
 			return $ret;
@@ -74,8 +75,7 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function tearDown() {
 		// If a unittest fails it might not deactivate/uninstall the mock module properly
@@ -97,8 +97,7 @@ class ModuleTest extends GalleryTestCase {
 			if ($ret) {
 				$this->failWithStatus($ret);
 			}
-
-}
+		}
 
 		$ret = $module->uninstall();
 
@@ -117,8 +116,7 @@ class ModuleTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testModuleCycle() {
 		global $gallery;
@@ -187,8 +185,7 @@ class ModuleTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		// Install the module
 		$ret = $module->installOrUpgrade();
@@ -357,7 +354,6 @@ class ModuleTest extends GalleryTestCase {
 			empty($plugins[$module->getId()]['active']),
 			'wrong PluginMap value for active (3)'
 		);
-
 		// Upgrade the module
 		$module->setVersion('1.0.1');
 
@@ -753,7 +749,8 @@ class ModuleTest extends GalleryTestCase {
 	public function _fetchPermissionBitsForItem($itemId) {
 		global $gallery;
 
-		$userId               = $gallery->getActiveUserId();
+		$userId = $gallery->getActiveUserId();
+
 		list($ret, $groupIds) = GalleryCoreApi::fetchGroupsForUser($userId);
 
 		if ($ret) {
@@ -763,7 +760,8 @@ class ModuleTest extends GalleryTestCase {
 		$groupIds             = array_keys($groupIds);
 		$userOrGroupIdMarkers = GalleryUtilities::makeMarkers(count($groupIds) + 1);
 		$storage              =& $gallery->getStorage();
-		list($ret, $bitOr)    = $storage->getFunctionSql(
+
+		list($ret, $bitOr) = $storage->getFunctionSql(
 			'BIT_OR',
 			array(
 				'[GalleryAccessMap::permission]',
@@ -778,8 +776,7 @@ class ModuleTest extends GalleryTestCase {
 			} else {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		$query = '
 	SELECT
@@ -796,6 +793,7 @@ class ModuleTest extends GalleryTestCase {
 
 		$data = array($itemId, $userId);
 		array_splice($data, count($data), 0, $groupIds);
+
 		list($ret, $searchResults) = $gallery->search($query, $data);
 
 		if ($ret) {
@@ -811,7 +809,6 @@ class ModuleTest extends GalleryTestCase {
 
 		return array(null, $bits);
 	}
-
 }
 
 /**
@@ -825,8 +822,11 @@ class ModuleTestModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('moduletest');
+
 		$this->setName('ModuleTest Module');
+
 		$this->setDescription('Unit test module');
+
 		$this->setVersion('1.0.0');
 		$this->setGroup('data', 'Gallery');
 		$this->setCallbacks('');
@@ -849,8 +849,7 @@ class ModuleTestModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-
-} else {
+		} else {
 			$ret = GalleryCoreApi::registerPermission(
 				$this->getId(),
 				'moduletest.two',
@@ -860,8 +859,7 @@ class ModuleTestModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -910,7 +908,6 @@ class ModuleTestModule extends GalleryModule {
 	public function getModuleEntityTypes() {
 		return array('ModuleTestEntity');
 	}
-
 }
 
 /**
@@ -921,7 +918,6 @@ class ModuleTestOnLoadHandler {
 	public function onLoad(&$entity, $duringUpgrade) {
 		return null;
 	}
-
 }
 
 /**
@@ -932,7 +928,6 @@ class ModuleTestEntity extends GalleryEntity {
 	public function getClassName() {
 		return 'ModuleTestEntity';
 	}
-
 }
 
 /**
@@ -954,8 +949,7 @@ class ModuleTestPlatform extends GalleryPlatform {
 				while (false !== ($file = parent::readdir($dir))) {
 					array_push($this->_list, $file);
 				}
-
-}
+			}
 
 			array_push($this->_list, 'moduletest');
 
@@ -1012,7 +1006,6 @@ class ModuleTestPlatform extends GalleryPlatform {
 	public function getDirectorySeparator() {
 		return '/';
 	}
-
 }
 
 class ModuleTestEventListener {
@@ -1034,5 +1027,4 @@ class ModuleTestEventListener {
 
 		return array(null, null);
 	}
-
 }

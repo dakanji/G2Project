@@ -45,8 +45,7 @@ function ADODB_Error_PEAR($dbms, $fn, $errno, $errmsg, $p1 = false, $p2 = false)
 	global $ADODB_Last_PEAR_Error;
 
 	if (error_reporting() == 0) {
-		// obey @ protocol
-		return;
+		return; // obey @ protocol
 	}
 
 	switch ($fn) {

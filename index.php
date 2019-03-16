@@ -39,7 +39,6 @@ if (preg_match('|^(/(?:[^?#/]+/)*)(.*)|', $path, $matches)) {
 	if (!empty($matches[2]) && ($pos = strpos($matches[2], '?')) !== false) {
 		$path .= substr($matches[2], $pos);
 	}
-
 }
 
 $urlGenerator  = new GalleryUrlGenerator();

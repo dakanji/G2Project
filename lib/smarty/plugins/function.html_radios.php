@@ -105,12 +105,10 @@ function smarty_function_html_radios($params, &$smarty) {
 
 				break;
 		}
-
-}
+	}
 
 	if (!isset($options) && !isset($values)) {
-		// raise error here?
-		return '';
+		return ''; // raise error here?
 	}
 
 	$_html_result = array();
@@ -119,21 +117,18 @@ function smarty_function_html_radios($params, &$smarty) {
 		foreach ($options as $_key => $_val) {
 			$_html_result[] = smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels, $label_ids);
 		}
-
-} else {
+	} else {
 		foreach ($values as $_i => $_key) {
 			$_val           = isset($output[$_i]) ? $output[$_i] : '';
 			$_html_result[] = smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels, $label_ids);
 		}
-
-}
+	}
 
 	if (!empty($params['assign'])) {
 		$smarty->assign($params['assign'], $_html_result);
 	} else {
 		return implode("\n", $_html_result);
 	}
-
 }
 
 function smarty_function_html_radios_output($name, $value, $output, $selected, $extra, $separator, $labels, $label_ids) {
@@ -146,8 +141,7 @@ function smarty_function_html_radios_output($name, $value, $output, $selected, $
 		} else {
 			$_output .= '<label>';
 		}
-
-}
+	}
 
 	$_output .= '<input type="radio" name="'
 		. smarty_function_escape_special_chars($name) . '" value="'

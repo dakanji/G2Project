@@ -101,8 +101,7 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 				$selectMap[$column] = $columnNumber++;
 				$selectList[]       = $column;
 			}
-
-}
+		}
 
 		// Always select back title and summary
 		foreach (array('[GalleryItem::title]', '[GalleryItem::summary]') as $column) {
@@ -110,10 +109,10 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 				$selectMap[$column] = $columnNumber++;
 				$selectList[]       = $column;
 			}
+		}
 
-}
+		$storage =& $gallery->getStorage();
 
-		$storage            =& $gallery->getStorage();
 		list($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds(
 			'core.view',
 			$gallery->getActiveUserId()
@@ -239,8 +238,7 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 						'value' => $result[$selectMap[$columnName] + 4],
 					);
 				}
-
-}
+			}
 
 			$fields[] = array(
 				'key'   => $text['owner'],
@@ -262,5 +260,4 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 
 		return array(null, $data);
 	}
-
 }

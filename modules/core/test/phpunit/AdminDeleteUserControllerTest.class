@@ -83,16 +83,14 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 			if ($ret[$i]) {
 				$this->failWithStatus($ret[$i]);
 			}
-
-}
+		}
 
 		$ret = parent::tearDown();
 
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
@@ -123,7 +121,6 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		}
 
 		$this->_markUserForCleanup($user);
-
 		GalleryUtilities::putRequestVariable('userId', $user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 
@@ -153,12 +150,10 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 			if (!$ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 				return $ret;
 			}
-
-} else {
+		} else {
 			$this->assertFalse(true, 'The user was actually deleted');
 		}
-
-}
+	}
 
 	/**
 	 * Try to delete the active user (this will fail silently)
@@ -236,7 +231,8 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		// Get a username that doesn't exist
 		while (true) {
-			$name                  = 'testuser-' . mt_rand();
+			$name = 'testuser-' . mt_rand();
+
 			list($ret, $dummyUser) = GalleryCoreApi::fetchUserByUserName($name);
 
 			if ($ret) {
@@ -246,8 +242,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 				return $ret;
 			}
-
-}
+		}
 
 		GalleryUtilities::putRequestVariable('userId', $user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
@@ -279,8 +274,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 			} else {
 				return $ret;
 			}
-
-}
+		}
 
 		// The teardown code takes care of deleting the user
 	}
@@ -300,7 +294,6 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		$this->_markForCleanup($user);
 		$this->_markUserForCleanup($user);
-
 		GalleryUtilities::putRequestVariable('userId', $user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[text][newOwner]', $user->getuserName());
@@ -331,8 +324,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 			} else {
 				return $ret;
 			}
-
-}
+		}
 
 		// The teardown code takes care of deleting the user
 	}
@@ -396,8 +388,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 			} else {
 				return $ret;
 			}
-
-}
+		}
 
 		// The teardown code takes care of the deletion of the user
 	}
@@ -452,7 +443,6 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		// Now execute the request
 		$gallery->setActiveUser($this->_activeUserBackup);
-
 		GalleryUtilities::putRequestVariable('userId', $user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[deletionVariant]', 'deleteItems');
@@ -489,8 +479,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			$this->assertFalse(true, 'The item was not deleted and/or there was an error');
 		}
-
-}
+	}
 
 	/**
 	 * Create a user, add 1 item, delete the user
@@ -532,7 +521,6 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		// Now execute the request
 		$gallery->setActiveUser($this->_activeUserBackup);
-
 		GalleryUtilities::putRequestVariable('userId', $user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[deletionVariant]', 'deleteItems');
@@ -641,7 +629,6 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		// Now execute the request
 		$gallery->setActiveUser($this->_activeUserBackup);
-
 		GalleryUtilities::putRequestVariable('userId', $user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[text][newOwner]', $newOwner->getuserName());
@@ -760,5 +747,4 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 	public function _markUserForCleanup($user) {
 		$this->_userIds[] = $user->getId();
 	}
-
 }

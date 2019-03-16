@@ -143,6 +143,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[title]', ' new title ');
 		GalleryUtilities::putRequestVariable('form[summary]', ' new summary ');
 		GalleryUtilities::putRequestVariable('form[keywords]', ' new keywords ');
+
 		GalleryUtilities::putRequestVariable('form[description]', ' new description ');
 		GalleryUtilities::putRequestVariable(
 			'form[serialNumber]',
@@ -183,8 +184,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		} else {
 			$this->assertFalse(true, 'thumbnail missing');
 		}
-
-}
+	}
 
 	public function testMaliciousMarkup() {
 		$item = $this->_item[0];
@@ -238,8 +238,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 			$this->assertEquals($value, $item->getDescription(), "description $markup");
 		}
-
-}
+	}
 
 	public function testInvalidPathComponent() {
 		$newPathComponent = $this->_item[0]->getPathComponent() . mt_rand();
@@ -348,6 +347,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[title]', '');
 		GalleryUtilities::putRequestVariable('form[summary]', $rootAlbum->getSummary());
 		GalleryUtilities::putRequestVariable('form[keywords]', $rootAlbum->getKeywords());
+
 		GalleryUtilities::putRequestVariable('form[description]', $rootAlbum->getDescription());
 		GalleryUtilities::putRequestVariable('form[serialNumber]', $rootAlbum->getSerialNumber());
 
@@ -381,6 +381,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[title]', $rootAlbum->getTitle());
 		GalleryUtilities::putRequestVariable('form[summary]', $rootAlbum->getSummary());
 		GalleryUtilities::putRequestVariable('form[keywords]', $rootAlbum->getKeywords());
+
 		GalleryUtilities::putRequestVariable('form[description]', $rootAlbum->getDescription());
 		GalleryUtilities::putRequestVariable('form[serialNumber]', $rootAlbum->getSerialNumber());
 
@@ -413,6 +414,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[title]', ' ');
 		GalleryUtilities::putRequestVariable('form[summary]', $rootAlbum->getSummary());
 		GalleryUtilities::putRequestVariable('form[keywords]', $rootAlbum->getKeywords());
+
 		GalleryUtilities::putRequestVariable('form[description]', $rootAlbum->getDescription());
 		GalleryUtilities::putRequestVariable('form[serialNumber]', $rootAlbum->getSerialNumber());
 
@@ -447,6 +449,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[title]', 'new title');
 		GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
 		GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
+
 		GalleryUtilities::putRequestVariable('form[description]', 'new description');
 		GalleryUtilities::putRequestVariable('form[serialNumber]', 1);
 
@@ -488,7 +491,6 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		);
 
 		$this->assertEquals($targetPath, $newPath);
-
 		// Make sure that the dir was actually moved
 		$this->assertTrue($platform->file_exists($targetPath));
 	}
@@ -503,6 +505,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[title]', 'new title');
 		GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
 		GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
+
 		GalleryUtilities::putRequestVariable('form[description]', 'new description');
 		GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
 
@@ -513,7 +516,8 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		global $gallery;
 
 		// Get some stats on the file before we try moving
-		$platform                 =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $originalPath) = $this->_item[0]->fetchPath();
 
 		if ($ret) {
@@ -526,6 +530,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[title]', 'new title');
 		GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
 		GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
+
 		GalleryUtilities::putRequestVariable('form[description]', 'new description');
 		GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
 
@@ -545,7 +550,6 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->assertEquals($originalPath, $newPath);
-
 		// Make sure that the file wasn't moved
 		$this->assertTrue($platform->file_exists($originalPath), 'File should not have been moved');
 	}
@@ -554,7 +558,8 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		global $gallery;
 
 		// Get some stats on the file before we try moving
-		$platform                 =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $originalPath) = $this->_album[0]->fetchPath();
 
 		if ($ret) {
@@ -567,6 +572,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[title]', 'new title');
 		GalleryUtilities::putRequestVariable('form[summary]', 'new summary');
 		GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
+
 		GalleryUtilities::putRequestVariable('form[description]', 'new description');
 		GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
 
@@ -586,7 +592,6 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->assertEquals($originalPath, $newPath);
-
 		// Make sure that the file wasn't moved
 		$this->assertTrue($platform->file_exists($originalPath), 'Album should not have been moved');
 	}
@@ -602,6 +607,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Date_Year]', '2003');
 		GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Time_Hour]', '22');
 		GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Time_Minute]', '50');
+
 		GalleryUtilities::putRequestVariable('form[originationTimestampSplit][Time_Second]', '59');
 
 		// Perform the request and verify that we are ok
@@ -642,8 +648,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		} else {
 			$this->assertTrue(false, 'We should have a thumbnail');
 		}
-
-}
+	}
 
 	public function testCreateAlbumHighlight() {
 		list($ret, $item) = $this->_createRandomDataItem($this->_album[0]->getId(), 'test/file');
@@ -660,7 +665,6 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->assertTrue(empty($thumbTable), 'We shouldn\'t have a thumbnail');
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[thumbnail][size]', 200);
 
@@ -688,8 +692,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		} else {
 			$this->assertTrue(false, 'We should have a thumbnail');
 		}
-
-}
+	}
 
 	public function testRemoveThumbnail() {
 		// Verify we have a thumbnail
@@ -700,7 +703,6 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->assertTrue(isset($thumbTable[$this->_item[0]->getId()]), 'We should have a thumbnail');
-
 		// Use valid inputs
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[thumbnail][size]', '');
@@ -736,7 +738,6 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$this->assertTrue(isset($thumbTable[$this->_item[0]->getId()]), 'We should have a thumbnail');
-
 		// Use valid inputs
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[thumbnail][size]', '0');
@@ -808,9 +809,9 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[summary]', $item->getSummary());
 		GalleryUtilities::putRequestVariable('form[keywords]', $item->getKeywords());
 		GalleryUtilities::putRequestVariable('form[description]', $item->getDescription());
+
 		GalleryUtilities::putRequestVariable('form[serialNumber]', $item->getSerialNumber());
 	}
-
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
@@ -859,5 +860,4 @@ class ItemEditItemPluginTestToolkit extends GalleryToolkit {
 			array_merge($args1, array('+'), $args2),
 		);
 	}
-
 }

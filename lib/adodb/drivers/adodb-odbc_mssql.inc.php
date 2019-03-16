@@ -34,23 +34,17 @@ class ADODB_odbc_mssql extends ADODB_odbc {
 		(case when c.xusertype=61 then 0 else c.xprec end),
 		(case when c.xusertype=61 then 0 else c.xscale end)
 		from syscolumns c join systypes t on t.xusertype=c.xusertype join sysobjects o on o.id=c.id where o.name='%s'";
-
-	// support mssql/interbase SELECT TOP 10 * FROM TABLE
-	public $hasTop       = 'top';
-	public $sysDate      = 'GetDate()';
-	public $sysTimeStamp = 'GetDate()';
-	public $leftOuter    = '*=';
-	public $rightOuter   = '=*';
-	public $substr       = 'substring';
-	public $length       = 'len';
-
-	// for mssql7 or later
-	public $ansiOuter = true;
-
-	// 'select SCOPE_IDENTITY'; # for mssql 2000
-	public $identitySQL = 'select SCOPE_IDENTITY()';
-	public $hasInsertID = true;
-	public $connectStmt = 'SET CONCAT_NULL_YIELDS_NULL OFF';
+	public $hasTop           = 'top';        // support mssql/interbase SELECT TOP 10 * FROM TABLE
+	public $sysDate          = 'GetDate()';
+	public $sysTimeStamp     = 'GetDate()';
+	public $leftOuter        = '*=';
+	public $rightOuter       = '=*';
+	public $substr           = 'substring';
+	public $length           = 'len';
+	public $ansiOuter        = true; // for mssql7 or later
+	public $identitySQL      = 'select SCOPE_IDENTITY()'; // 'select SCOPE_IDENTITY'; # for mssql 2000
+	public $hasInsertID      = true;
+	public $connectStmt      = 'SET CONCAT_NULL_YIELDS_NULL OFF';
 
 	// When SET CONCAT_NULL_YIELDS_NULL is ON,
 	// concatenating a null value with a string yields a NULL result
@@ -80,8 +74,7 @@ class ADODB_odbc_mssql extends ADODB_odbc {
 	}
 
 	public function IfNull($field, $ifNull) {
-		// if MS SQL Server
-		return " ISNULL($field, $ifNull) ";
+		return " ISNULL($field, $ifNull) "; // if MS SQL Server
 	}
 
 	public function _insertid() {
@@ -129,15 +122,13 @@ order by constraint_name, referenced_table_name, keyno";
 
 				$arr2[$a] = $b;
 			}
-
-}
+		}
 
 		return $arr2;
 	}
 
 	public function MetaTables($ttype = false, $showSchema = false, $mask = false) {
-		if ($mask) {
-			//$this->debug=1;
+		if ($mask) {//$this->debug=1;
 			$save                 = $this->metaTablesSQL;
 			$mask                 = $this->qstr($mask);
 			$this->metaTablesSQL .= " AND name like $mask";
@@ -209,8 +200,7 @@ order by constraint_name, referenced_table_name, keyno";
 				if ($fld->scale > 0) {
 					$fld->max_length += 1;
 				}
-
-} else {
+			} else {
 				$fld->max_length = $rs->fields[2];
 			}
 
@@ -238,7 +228,6 @@ order by constraint_name, referenced_table_name, keyno";
 			INNER JOIN dbo.syscolumns c ON K.id = C.id AND K.colid = C.Colid
 			WHERE LEFT(i.name, 8) <> '_WA_Sys_' AND o.status >= 0 AND O.Name LIKE $table
 			ORDER BY O.name, I.Name, K.keyno";
-
 		global $ADODB_FETCH_MODE;
 
 		$save             = $ADODB_FETCH_MODE;
@@ -429,12 +418,10 @@ order by constraint_name, referenced_table_name, keyno";
 
 					break;
 			}
-
-}
+		}
 
 		return $s;
 	}
-
 }
 
 class ADORecordSet_odbc_mssql extends ADORecordSet_odbc {
@@ -443,5 +430,4 @@ class ADORecordSet_odbc_mssql extends ADORecordSet_odbc {
 	public function __construct($id, $mode = false) {
 		return parent::__construct($id, $mode);
 	}
-
 }

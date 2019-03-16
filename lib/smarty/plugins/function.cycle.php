@@ -56,8 +56,7 @@ function smarty_function_cycle($params, &$smarty) {
 
 			return;
 		}
-
-} else {
+	} else {
 		if (isset($cycle_vars[$name]['values'])
 			&& $cycle_vars[$name]['values'] != $params['values']
 		) {
@@ -101,8 +100,7 @@ function smarty_function_cycle($params, &$smarty) {
 		} else {
 			$cycle_vars[$name]['index']++;
 		}
-
-}
+	}
 
 	return $retval;
 }

@@ -13,15 +13,9 @@
 // specific code for tohtml
 global $gSQLMaxRows,$gSQLBlockRows,$ADODB_ROUND;
 
-// rounding
-$ADODB_ROUND = 4;
-
-// max no of rows to download
-$gSQLMaxRows = 1000;
-
-// max no of rows per table block
-$gSQLBlockRows = 20;
-
+$ADODB_ROUND   = 4; // rounding
+$gSQLMaxRows   = 1000; // max no of rows to download
+$gSQLBlockRows = 20; // max no of rows per table block
 // RecordSet to HTML Table
 //------------------------------------------------------------
 // Convert a recordset to a html table. Multiple tables are generated
@@ -44,7 +38,6 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 	$s     = '';
 	$rows  = 0;
 	$docnt = false;
-
 	global $gSQLMaxRows,$gSQLBlockRows,$ADODB_ROUND;
 
 	if (!$rs) {
@@ -164,15 +157,12 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 				  function mime_content_type ($file) {
 					return exec("file -bi ".escapeshellarg($file));
 				  }
-
-}
+				}
 
 				$t = mime_content_type($tmpname);
 				$s .= (substr($t,0,5)=="image") ? " <td><img src='$tmpname' alt='$t'></td>\\n" : " <td><a
 				href='$tmpname'>$t</a></td>\\n";
-
 				break;
-
 				*/
 				default:
 					if ($htmlspecialchars) {
@@ -187,8 +177,7 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 
 					$s .= '	<TD>' . str_replace("\n", '<br>', stripslashes($v)) . "</TD>\n";
 			}
-
-} // for
+		} // for
 		$s    .= "</TR>\n\n";
 		$rows += 1;
 
@@ -201,8 +190,7 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 
 		// additional EOF check to prevent a widow header
 		if (!$rs->EOF && $rows % $gSQLBlockRows == 0) {
-			// not needed as PHP aborts script, unlike ASP
-			//if (connection_aborted()) break;
+			//if (connection_aborted()) break;// not needed as PHP aborts script, unlike ASP
 			if ($echo) {
 				echo $s . "</TABLE>\n\n";
 			} else {
@@ -211,8 +199,7 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 
 			$s = $hdr;
 		}
-
-} // while
+	} // while
 	if ($echo) {
 		echo $s . "</TABLE>\n\n";
 	} else {
@@ -223,8 +210,7 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 		if ($echo) {
 			echo '<H2>' . $rows . ' Rows</H2>';
 		}
-
-}
+	}
 
 	return ($echo) ? $rows : $html;
 }
@@ -235,9 +221,7 @@ function arr2html(&$arr, $ztabhtml = '', $zheaderarray = '') {
 		$ztabhtml = 'BORDER=1';
 	}
 
-	//';print_r($arr);
-	$s = "<TABLE $ztabhtml>";
-
+	$s = "<TABLE $ztabhtml>";//';print_r($arr);
 	if ($zheaderarray) {
 		$s .= '<TR>';
 
@@ -262,8 +246,7 @@ function arr2html(&$arr, $ztabhtml = '', $zheaderarray = '') {
 
 				$s .= "	<TD>$val</TD>\n";
 			}
-
-} elseif ($a) {
+		} elseif ($a) {
 			$s .= '	<TD>' . $a . "</TD>\n";
 		} else {
 			$s .= "	<TD>&nbsp;</TD>\n";

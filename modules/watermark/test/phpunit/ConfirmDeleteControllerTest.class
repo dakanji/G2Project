@@ -120,8 +120,7 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testUserCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
@@ -145,7 +144,6 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->setActiveUser($this->_saveUser);
-
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
 		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
 		GalleryUtilities::putRequestVariable('form[fromAdmin]', 1);
@@ -202,7 +200,6 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$gallery->setActiveUser($this->_saveUser);
-
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
 		GalleryUtilities::putRequestVariable('form[fromAdmin]', 1);
@@ -236,5 +233,4 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals('', $derivative->getPostfilterOperations(), 'not watermarked');
 	}
-
 }

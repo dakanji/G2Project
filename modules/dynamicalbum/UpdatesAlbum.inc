@@ -119,16 +119,14 @@ class UpdatesAlbumView extends GalleryView {
 				// Ignore errors here so fallback theme can be used
 				return array(null, null, array(), $item);
 			}
-
-} else {
+		} else {
 			list($ret, $theme) = GalleryView::_loadTheme($moduleParams['themeId']);
 
 			if ($ret || !isset($theme)) {
 				// Ignore errors here so fallback theme can be used
 				return array(null, null, array(), $item);
 			}
-
-}
+		}
 
 		list($ret, $params) = $theme->fetchParameters($moduleParams['themeSettingsId']);
 
@@ -169,8 +167,7 @@ class UpdatesAlbumView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-} else {
+		} else {
 			// Item in dynamic album; use core.ShowItem to check permission, increment view count
 			list($ret, $showItem) = GalleryView::loadView('core.ShowItem');
 
@@ -187,8 +184,7 @@ class UpdatesAlbumView extends GalleryView {
 			if (isset($result['redirect'])) {
 				return array(null, $result);
 			}
-
-}
+		}
 
 		return array(null, array());
 	}
@@ -209,7 +205,8 @@ class UpdatesAlbumView extends GalleryView {
 	) {
 		global $gallery;
 
-		$storage            =& $gallery->getStorage();
+		$storage =& $gallery->getStorage();
+
 		list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'dynamicalbum');
 
 		if ($ret) {
@@ -282,8 +279,7 @@ class UpdatesAlbumView extends GalleryView {
 			} else {
 				$query = '[' . $table . '::' . $id . '] <> ' . (int)$albumId;
 			}
-
-}
+		}
 
 		if ($table == $class) {
 			$class = null;
@@ -348,5 +344,4 @@ class UpdatesAlbumView extends GalleryView {
 
 		return array(null, $module->translate($this->_viewDescription));
 	}
-
 }

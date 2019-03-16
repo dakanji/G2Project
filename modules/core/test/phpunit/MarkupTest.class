@@ -342,5 +342,4 @@ class MarkupTest extends GalleryTestCase {
 			$this->_html->parse('good<script>evil</script> good<body onload=alert("evil")> good')
 		);
 	}
-
 }

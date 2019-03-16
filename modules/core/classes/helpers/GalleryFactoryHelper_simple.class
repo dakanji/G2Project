@@ -112,14 +112,12 @@ class GalleryFactoryHelper_simple {
 						foreach ($hints as $hint) {
 							$registry['hints'][$result[0]][$hint][$result[2]] = $result[1];
 						}
-
-}
+					}
 				}
 
 				GalleryDataCache::putToDisk($cacheParams, $registry);
 			}
-
-}
+		}
 
 		$ret = array(null, &$registry);
 
@@ -150,15 +148,15 @@ class GalleryFactoryHelper_simple {
 
 				break;
 			}
-
-}
+		}
 
 		if (!isset($classNames)) {
 			return array(null, null);
 		}
 
 		// Right now we just use the first available hint
-		$className            = $classNames[0];
+		$className = $classNames[0];
+
 		list($ret, $instance) = GalleryFactoryHelper_simple::newInstance($classType, $className);
 
 		if ($ret) {
@@ -233,8 +231,7 @@ class GalleryFactoryHelper_simple {
 					null,
 				);
 			}
-
-}
+		}
 
 		return array(null, new $className());
 	}
@@ -253,7 +250,8 @@ class GalleryFactoryHelper_simple {
 			return array(null, null);
 		}
 
-		$className            = $registry['ids'][$classType][$id];
+		$className = $registry['ids'][$classType][$id];
+
 		list($ret, $instance) = GalleryFactoryHelper_simple::newInstance($classType, $className);
 
 		if ($ret) {
@@ -281,5 +279,4 @@ class GalleryFactoryHelper_simple {
 
 		return array(null, $result);
 	}
-
 }

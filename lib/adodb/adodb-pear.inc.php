@@ -16,7 +16,7 @@
  * and Tomas V.V.Cox <cox@idecnet.com>. Portions (c)1997-2002 The PHP Group.
  */
 
-/*
+ /*
  We support:
  DB_Common
  ---------
@@ -206,8 +206,7 @@ class DB {
 
 						break;
 				}
-
-}
+			}
 		} else {
 			$persist = false;
 		}
@@ -274,8 +273,7 @@ class DB {
 		 *	(get_class( $value ) == "db_warning" ||
 		 *	 is_subclass_of($value, "db_warning"));
 		 */
-
-}
+	}
 
 	/**
 	 * Parse a data source name
@@ -359,8 +357,7 @@ class DB {
 			} else {
 				$parsed['username'] = urldecode($str);
 			}
-
-}
+		}
 
 		// Find protocol and hostspec
 		// $dsn => protocol+hostspec/database
@@ -413,5 +410,4 @@ class DB {
 
 		return true;
 	}
-
 }

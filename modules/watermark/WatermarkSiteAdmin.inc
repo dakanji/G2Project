@@ -76,8 +76,7 @@ class WatermarkSiteAdminController extends GalleryController {
 					'fromAdmin'   => 1,
 				);
 			}
-
-} elseif (isset($form['action']['save'])) {
+		} elseif (isset($form['action']['save'])) {
 			foreach (array('allowUserWatermarks', 'forceDefaultWatermark') as $key) {
 				$ret = GalleryCoreApi::setPluginParameter(
 					'module',
@@ -89,8 +88,7 @@ class WatermarkSiteAdminController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 
 			foreach (array('hotlinkWatermarkId', 'defaultWatermarkId') as $key) {
 				if (!empty($form[$key])) {
@@ -104,8 +102,7 @@ class WatermarkSiteAdminController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 			}
 
 			if (!empty($form['forceDefaultWatermark']) && empty($form['defaultWatermarkId'])) {
@@ -127,7 +124,6 @@ class WatermarkSiteAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -164,8 +160,7 @@ class WatermarkSiteAdminView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 		}
 
 		list($ret, $list) = WatermarkHelper::fetchWatermarks();
@@ -194,8 +189,7 @@ class WatermarkSiteAdminView extends GalleryView {
 			for ($i = 0; $i < sizeof($tmp); $i++) {
 				$owners[$tmp[$i]->getId()] = (array)$tmp[$i];
 			}
-
-}
+		}
 
 		// Set the form's encoding type since we're uploading binary files
 		if ($template->hasVariable('SiteAdmin')) {
@@ -221,5 +215,4 @@ class WatermarkSiteAdminView extends GalleryView {
 			),
 		);
 	}
-
 }

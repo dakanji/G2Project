@@ -37,8 +37,9 @@ class NewItemsHelper {
 	public static function fetchAlbumCount() {
 		global $gallery;
 
-		$query               = 'SELECT COUNT([GalleryAlbumItem::id]) FROM [GalleryAlbumItem] ' .
+		$query = 'SELECT COUNT([GalleryAlbumItem::id]) FROM [GalleryAlbumItem] ' .
 		 'WHERE [GalleryAlbumItem::orderBy] LIKE \'%NewItems%\'';
+
 		list($ret, $results) = $gallery->search($query);
 
 		if ($ret) {
@@ -62,8 +63,9 @@ class NewItemsHelper {
 	public static function resetNewItemSorts() {
 		global $gallery;
 
-		$query               = 'SELECT [GalleryAlbumItem::id] FROM [GalleryAlbumItem] ' .
+		$query = 'SELECT [GalleryAlbumItem::id] FROM [GalleryAlbumItem] ' .
 		 'WHERE [GalleryAlbumItem::orderBy] LIKE \'%NewItems%\'';
+
 		list($ret, $results) = $gallery->search($query);
 
 		if ($ret) {
@@ -75,7 +77,8 @@ class NewItemsHelper {
 				$gallery->guaranteeTimeLimit(5);
 			}
 
-			$itemId             = (int)$result[0];
+			$itemId = (int)$result[0];
+
 			list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
 
 			if ($ret) {
@@ -102,10 +105,8 @@ class NewItemsHelper {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
-
 }

@@ -39,9 +39,7 @@ class MultiLangModule extends GalleryModule {
 				'Support item captions in multiple languages'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -74,8 +72,7 @@ class MultiLangModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -215,8 +212,7 @@ class MultiLangModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -239,10 +235,8 @@ class MultiLangModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		return array(null, null);
 	}
-
 }

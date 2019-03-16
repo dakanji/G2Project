@@ -79,20 +79,16 @@ class ADODB_borland_ibase extends ADODB_ibase {
 				$b   = $offset + $nrows;
 				$str = " ROWS $a TO $b";
 			}
-
-} else {
+		} else {
 			// ok, skip
-			$a = $offset + 1;
-
-			// 999 million
-			$str = " ROWS $a TO 999999999";
+			$a   = $offset + 1;
+			$str = " ROWS $a TO 999999999"; // 999 million
 		}
 
 		$sql .= $str;
 
 		return ($secs2cache) ? $this->CacheExecute($secs2cache, $sql, $inputarr) : $this->Execute($sql, $inputarr);
 	}
-
 }
 
 class ADORecordSet_borland_ibase extends ADORecordSet_ibase {
@@ -101,5 +97,4 @@ class ADORecordSet_borland_ibase extends ADORecordSet_ibase {
 	public function __construct($id, $mode = false) {
 		parent::__construct($id, $mode);
 	}
-
 }

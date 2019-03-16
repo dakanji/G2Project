@@ -67,8 +67,7 @@ class EventHandlerTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		list($ret, $this->_childAlbum) = $this->_createRandomAlbum($this->_album->getId());
 
@@ -105,5 +104,4 @@ class EventHandlerTest extends GalleryTestCase {
 			'Copied Album'
 		);
 	}
-
 }

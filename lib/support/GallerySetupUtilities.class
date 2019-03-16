@@ -50,7 +50,6 @@ class GallerySetupUtilitiesStub {
 	public function setDebugLogFile() {}
 
 	public function setProfile() {}
-
 }
 
 class GallerySetupUtilities {
@@ -69,8 +68,7 @@ class GallerySetupUtilities {
 			foreach ($_SESSION as $key => $value) {
 				$sessionData[$key] = $value;
 			}
-
-}
+		}
 
 		// 2. Delete the old session
 		session_unset();
@@ -90,8 +88,7 @@ class GallerySetupUtilities {
 		foreach ($sessionData as $key => $value) {
 			$_SESSION[$key] = $value;
 		}
-
-}
+	}
 
 	/**
 	 * Are cookies supported by the current user-agent?
@@ -135,8 +132,7 @@ class GallerySetupUtilities {
 			if ($ret) {
 				return false;
 			}
-
-}
+		}
 
 		list($ret, $attempts) = GalleryCoreApi::getPluginParameter(
 			'module',
@@ -154,8 +150,7 @@ class GallerySetupUtilities {
 			if ($ret) {
 				return false;
 			}
-
-}
+		}
 
 		return $attempts;
 	}
@@ -187,8 +182,7 @@ class GallerySetupUtilities {
 			if ($ret) {
 				return false;
 			}
-
-}
+		}
 
 		$ret = GalleryCoreApi::setPluginParameter(
 			'module',
@@ -207,8 +201,7 @@ class GallerySetupUtilities {
 			if ($ret) {
 				return false;
 			}
-
-} else {
+		} else {
 			$storage =& $gallery->getStorage();
 
 			$ret = $storage->checkPoint();
@@ -216,8 +209,7 @@ class GallerySetupUtilities {
 			if ($ret) {
 				return false;
 			}
-
-}
+		}
 
 		return true;
 	}
@@ -403,8 +395,7 @@ class GallerySetupUtilities {
 			if (strlen($sessionId) >= 10) {
 				session_id($sessionId);
 			}
-
-}
+		}
 
 		if (@ini_get('session.save_handler') == 'user') {
 			/*
@@ -448,8 +439,7 @@ class GallerySetupUtilities {
 			$_SESSION['_remoteId']  = $remoteId;
 			$_SESSION['_startTime'] = time();
 		}
-
-}
+	}
 
 	/**
 	 * Notify the site administrator by email that there have been too many failed attempts
@@ -502,8 +492,7 @@ class GallerySetupUtilities {
 			if (!empty($email)) {
 				$toList[] = $email;
 			}
-
-}
+		}
 
 		// Note: we don't have localization for lib support yet, so this is not internationalized
 		if (!empty($toList)) {
@@ -520,8 +509,7 @@ class GallerySetupUtilities {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$ret = GalleryEmbed::done();
 
@@ -531,5 +519,4 @@ class GallerySetupUtilities {
 
 		return null;
 	}
-
 }

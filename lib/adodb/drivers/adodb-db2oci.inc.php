@@ -32,7 +32,6 @@ if (!defined('ADODB_DB2OCI')) {
 	$v = (integer) substr($p,1);
 	if ($v > $_COLONSZ) return $p;
 	$_COLONARR[] = $v;
-
 	return '?';
 	}
 
@@ -52,7 +51,7 @@ if (!defined('ADODB_DB2OCI')) {
 	return array($sql2,$arr2);
 	}
 
-*/
+	*/
 
 	/*
 	Smart remapping of :0, :1 bind vars to ? ?
@@ -133,8 +132,7 @@ if (!defined('ADODB_DB2OCI')) {
 							$nprev  = $at - 1;
 							$arr2[] = $arr[$n];
 						}
-
-}
+					}
 
 					break;
 
@@ -221,16 +219,13 @@ if (!defined('ADODB_DB2OCI')) {
 						if (strncmp($type, 'V', 1) === 0) {
 							$arr2[] = $name;
 						}
-
-} elseif (strncmp($type, 'T', 1) === 0 && strncmp($owner, 'SYS', 3) !== 0) {
+					} elseif (strncmp($type, 'T', 1) === 0 && strncmp($owner, 'SYS', 3) !== 0) {
 						$arr2[] = $name;
 					}
-
-} elseif (strncmp($type, 'T', 1) === 0 && strncmp($owner, 'SYS', 3) !== 0) {
+				} elseif (strncmp($type, 'T', 1) === 0 && strncmp($owner, 'SYS', 3) !== 0) {
 					$arr2[] = $name;
 				}
-
-}
+			}
 
 			return $arr2;
 		}
@@ -242,8 +237,7 @@ if (!defined('ADODB_DB2OCI')) {
 
 			return parent::_Execute($sql, $inputarr);
 		}
-
-}
+	}
 
 	class ADORecordSet_db2oci extends ADORecordSet_db2 {
 		public $databaseType = 'db2oci';
@@ -251,6 +245,5 @@ if (!defined('ADODB_DB2OCI')) {
 		public function __construct($id, $mode = false) {
 			return parent::__construct($id, $mode);
 		}
-
-}
+	}
 } //define

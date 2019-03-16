@@ -128,8 +128,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testAlbumSelectManualSort() {
 		global $gallery;
@@ -262,8 +261,7 @@ class AlbumSelectTest extends GalleryTestCase {
 				if ($node['id'] == $this->_album->getId()) {
 					$albumNode = $nodeId;
 				}
-
-} else {
+			} else {
 				unset($data['tree'][$idx]);
 			}
 
@@ -346,8 +344,7 @@ class AlbumSelectTest extends GalleryTestCase {
 			if ($tree[$i]['id'] == $this->_album->getId()) {
 				break;
 			}
-
-}
+		}
 
 		$this->assertTrue($i < count($tree), 'test album not found');
 
@@ -411,14 +408,16 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 
 		// Preparation
-		$userId                   = $gallery->getActiveUserId();
+		$userId = $gallery->getActiveUserId();
+
 		list($ret, $languageCode) = $gallery->getActiveLanguageCode();
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$callbackParams          = array();
+		$callbackParams = array();
+
 		list($ret, $rootAlbumId) = GalleryCoreApi::getDefaultAlbumId();
 
 		if ($ret) {
@@ -476,7 +475,6 @@ class AlbumSelectTest extends GalleryTestCase {
 			$titlesForJs[$this->_album->getId()],
 			'cached title for javascript'
 		);
-
 		// Change the album title
 		$this->_album->setTitle('Changed Title');
 
@@ -537,7 +535,6 @@ class AlbumSelectTest extends GalleryTestCase {
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumTree'];
 
 		$this->assertFalse(empty($data['albumTreeName']), 'albumTreeName');
-
 		// And now with an alternative root
 		$gallery->setConfig('defaultAlbumId', $this->_album->getId());
 		$gallery->setConfig('breadcrumbRootId', $this->_album->getId());
@@ -651,7 +648,6 @@ class AlbumSelectTest extends GalleryTestCase {
 			'test albums in tree, without session permissions (1)',
 			false
 		);
-
 		// Then test with session permission
 		$session->put(GALLERY_PERMISSION_SESSION_KEY, array($itemId));
 
@@ -674,7 +670,6 @@ class AlbumSelectTest extends GalleryTestCase {
 			'test albums in tree with session permissions',
 			true
 		);
-
 		// Again without session permissions
 		$session->put(GALLERY_PERMISSION_SESSION_KEY, array());
 
@@ -743,7 +738,6 @@ class AlbumSelectTest extends GalleryTestCase {
 			$message
 		);
 	}
-
 }
 
 /**
@@ -760,5 +754,4 @@ class AlbumSelectDummyGalleryTemplate {
 	public function style($path) {}
 
 	public function javascript($path) {}
-
 }

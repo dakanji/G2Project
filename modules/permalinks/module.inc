@@ -42,9 +42,7 @@ class PermalinksModule extends GalleryModule {
 				'Create simpler permanent aliases to your items space'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -89,8 +87,7 @@ class PermalinksModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		return null;
@@ -107,7 +104,8 @@ class PermalinksModule extends GalleryModule {
 		}
 
 		// Automatically activate the rewrite rules, if the rewrite module is active
-		$success                = false;
+		$success = false;
+
 		list($ret, $rewriteApi) = GalleryCoreApi::newFactoryInstance('RewriteApi');
 
 		if ($ret) {
@@ -120,8 +118,7 @@ class PermalinksModule extends GalleryModule {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		if (!$success) {
 			return array(
@@ -214,11 +211,9 @@ class PermalinksModule extends GalleryModule {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 			}
-
-} elseif ($event->getEventName() == 'Gallery::DeactivatePlugin'
+		} elseif ($event->getEventName() == 'Gallery::DeactivatePlugin'
 			&& $data['pluginId'] == 'rewrite'
 			&& $data['pluginType'] == 'module'
 		) {
@@ -235,8 +230,7 @@ class PermalinksModule extends GalleryModule {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 		} elseif ($event->getEventName() == 'GalleryEntity::save') {
 			list($ret, $autoPermalink) = GalleryCoreApi::getPluginParameter(
 				'module',
@@ -270,11 +264,9 @@ class PermalinksModule extends GalleryModule {
 
 						// We have a collision... not really a problem, just eat it
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		return array(null, null);
 	}
@@ -305,5 +297,4 @@ class PermalinksModule extends GalleryModule {
 			),
 		);
 	}
-
 }

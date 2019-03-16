@@ -94,8 +94,7 @@ class UserLoginController extends GalleryController {
 				if ($isDisabled) {
 					$error[] = 'form[error][username][disabled]';
 				}
-
-}
+			}
 
 			if (empty($error)) {
 				list($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['username']);
@@ -143,8 +142,7 @@ class UserLoginController extends GalleryController {
 						if ($ret) {
 							return array($ret, null);
 						}
-
-}
+					}
 				}
 
 				// Let each plugin do its verification
@@ -160,8 +158,7 @@ class UserLoginController extends GalleryController {
 					if (!$continue) {
 						break;
 					}
-
-}
+				}
 			}
 
 			if (empty($error)) {
@@ -184,12 +181,10 @@ class UserLoginController extends GalleryController {
 					} else {
 						$results['return'] = 1;
 					}
-
-} else {
+				} else {
 					$error[] = 'form[error][invalidPassword]';
 				}
-
-}
+			}
 
 			if (!empty($error)) {
 				if (!empty($form['username'])) {
@@ -205,11 +200,9 @@ class UserLoginController extends GalleryController {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 			}
-
-} elseif (isset($form['action']['cancel'])) {
+		} elseif (isset($form['action']['cancel'])) {
 			$results['return'] = 1;
 		}
 
@@ -223,7 +216,6 @@ class UserLoginController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -281,15 +273,15 @@ class UserLoginView extends GalleryView {
 				$phpVm->header("Location: $redirectUrl");
 				$phpVm->exit_();
 			}
-
-}
+		}
 
 		if ($form['formName'] != 'UserLogin') {
 			$form['formName'] = 'UserLogin';
 			$form['username'] = '';
 		}
 
-		$reauthenticate      = false;
+		$reauthenticate = false;
+
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
@@ -302,8 +294,7 @@ class UserLoginView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		$template->setVariable('reauthenticate', $reauthenticate);
 		$template->setVariable('controller', 'core.UserLogin');
@@ -315,5 +306,4 @@ class UserLoginView extends GalleryView {
 			),
 		);
 	}
-
 }

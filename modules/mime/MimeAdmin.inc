@@ -86,7 +86,6 @@ class MimeAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -104,7 +103,8 @@ class MimeAdminView extends GalleryView {
 		}
 
 		if ($form['formName'] != 'MimeAdmin') {
-			$form['formName']   = 'MimeAdmin';
+			$form['formName'] = 'MimeAdmin';
+
 			list($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'mime');
 
 			if ($ret) {
@@ -117,8 +117,7 @@ class MimeAdminView extends GalleryView {
 			foreach (explode(' | ', $params['mimeList']) as $mime) {
 				$form['upload'][$mime] = true;
 			}
-
-}
+		}
 
 		GalleryCoreApi::requireOnce('modules/mime/classes/MimeHelper.class');
 
@@ -146,5 +145,4 @@ class MimeAdminView extends GalleryView {
 			),
 		);
 	}
-
 }

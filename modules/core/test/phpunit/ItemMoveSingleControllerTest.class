@@ -159,8 +159,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function _setDerivativePreferences() {
 		$args      = func_get_args();
@@ -195,8 +194,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 	}
 
 	public function _getDerivativeSizes($itemIds) {
@@ -204,7 +202,8 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 			$itemIds = array($itemIds);
 		}
 
-		$data                   = array();
+		$data = array();
+
 		list($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
 
 		if ($ret) {
@@ -231,8 +230,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 					'op'   => $deriv->getDerivativeOperations(),
 				);
 			}
-
-}
+		}
 
 		return count($data) == 1 ? array_shift($data) : $data;
 	}
@@ -557,7 +555,8 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$thumb              = $thumbnails[$this->_item->getId()];
+		$thumb = $thumbnails[$this->_item->getId()];
+
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumb->getId());
 
 		if ($ret) {
@@ -649,7 +648,6 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 			'Derivative sizes after move'
 		);
 	}
-
 }
 
 /**

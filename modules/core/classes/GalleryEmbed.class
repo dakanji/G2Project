@@ -89,7 +89,8 @@ class GalleryEmbed {
 	 */
 	public static function init($initParams = array()) {
 		// GDC as static var replacement for better testability
-		static $firstCacheKey = 'GalleryEmbed::initFirstPass', $secondCacheKey = 'GalleryEmbed::initSecondPass';
+		static $firstCacheKey  = 'GalleryEmbed::initFirstPass';
+		static $secondCacheKey = 'GalleryEmbed::initSecondPass';
 
 		// Only InitFirstPass if not already done so in a prior call
 		if (!GalleryDataCache::containsKey($firstCacheKey)) {
@@ -116,8 +117,7 @@ class GalleryEmbed {
 					'Embedding API version is incompatible'
 				);
 			}
-
-}
+		}
 
 		global $gallery;
 
@@ -138,8 +138,7 @@ class GalleryEmbed {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		if (empty($initParams) || (isset($initParams['fullInit']) && $initParams['fullInit'])) {
 			// Only InitSecondPass if not already done so in a prior call
@@ -152,8 +151,7 @@ class GalleryEmbed {
 
 				GalleryDataCache::put($secondCacheKey, true);
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -164,7 +162,8 @@ class GalleryEmbed {
 	 * @return GalleryStatus a status object
 	 */
 	public static function done() {
-		global $gallery, $gallerySetErrorHandler;
+		global $gallery;
+		global $gallerySetErrorHandler;
 
 		$session =& $gallery->getSession();
 
@@ -182,8 +181,7 @@ class GalleryEmbed {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		if (!empty($gallerySetErrorHandler)) {
 			restore_error_handler();
@@ -255,7 +253,8 @@ class GalleryEmbed {
 			}
 
 			if ($results->resultCount()) {
-				$row                     = $results->nextResult();
+				$row = $results->nextResult();
+
 				list($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup($row[0]);
 
 				if ($ret) {
@@ -266,8 +265,7 @@ class GalleryEmbed {
 				if ($isSiteAdmin) {
 					$session->put('session.siteAdminActivityTimestamp', $phpVm->time());
 				}
-
-}
+			}
 		}
 
 		$idInSession = $session->get('embed.id.externalUser');
@@ -308,8 +306,7 @@ class GalleryEmbed {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 
 			$ret = $session->reset();
 
@@ -327,8 +324,7 @@ class GalleryEmbed {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		// The session language has precedence over the user default language
 		if (!empty($language)) {
@@ -377,8 +373,7 @@ class GalleryEmbed {
 			if ($ret) {
 				return $ret;
 			}
-
-} else {
+		} else {
 			$session->regenerate();
 		}
 
@@ -437,8 +432,7 @@ class GalleryEmbed {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -619,8 +613,7 @@ class GalleryEmbed {
 		if (isset($args['creationtimestamp'])) {
 			$user->setCreationTimestamp($args['creationtimestamp']);
 		}
-
-}
+	}
 
 	/**
 	 * Delete a G2 user.
@@ -816,8 +809,7 @@ class GalleryEmbed {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -877,6 +869,7 @@ class GalleryEmbed {
 		GalleryCoreApi::requireOnce('modules/search/classes/SearchUtilities.class');
 
 		$searchInstances = $searchResults = array();
+
 		list($ret, $ids) = GalleryCoreApi::getAllFactoryImplementationIds('GallerySearchInterface_1_0');
 
 		if ($ret) {
@@ -889,8 +882,7 @@ class GalleryEmbed {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		foreach ($searchInstances as $id => $instance) {
 			list($ret, $searchInfo) = $instance->getSearchModuleInfo();
@@ -905,8 +897,7 @@ class GalleryEmbed {
 				if ($info['enabled']) {
 					$options[$option] = true;
 				}
-
-}
+			}
 
 			list($ret, $searchResults[$id]) = $instance->search(
 				$options,
@@ -973,8 +964,7 @@ class GalleryEmbed {
 			if ($info['enabled']) {
 				$options[$option] = true;
 			}
-
-}
+		}
 
 		list($ret, $searchResults) = $searchInstance->search(
 			$options,
@@ -1024,8 +1014,7 @@ class GalleryEmbed {
 			foreach ($regs[0] as $script) {
 				$javascript[] = $script;
 			}
-
-}
+		}
 
 		// More than one style allowed
 		if (preg_match_all(
@@ -1038,16 +1027,14 @@ class GalleryEmbed {
 			foreach ($regs[0] as $style) {
 				$css[] = $style;
 			}
-
-}
+		}
 
 		// More than one meta tag allowed
 		if (preg_match_all('/<meta .*\/>/Usi', $headhtml, $regs, PREG_PATTERN_ORDER)) {
 			foreach ($regs[0] as $metaTag) {
 				$meta[] = $metaTag;
 			}
-
-}
+		}
 
 		return array($title, $css, $javascript, $meta);
 	}
@@ -1144,8 +1131,7 @@ class GalleryEmbed {
 			} elseif ($key == 'entityId') {
 				$map[$result[0]] = $entry;
 			}
-
-}
+		}
 
 		return array(null, $map);
 	}
@@ -1327,14 +1313,14 @@ class GalleryEmbed {
 			$head = $template->getVariable('head');
 
 			if (!empty($head['tpl'])) {
-				$tpl                  = array_keys($head['tpl'])[0];
+				$tpl = array_keys($head['tpl'])[0];
+
 				list($ret, $headHtml) = $template->fetch("gallery:$tpl");
 
 				if ($ret) {
 					return array($ret, null, null);
 				}
-
-}
+			}
 
 			if (isset($head['style'])) {
 				foreach ($head['style'] as $style => $ignored) {
@@ -1349,8 +1335,7 @@ class GalleryEmbed {
 
 					$css[] = '<link rel="stylesheet" type="text/css" href="' . $cssUrl . '"/>';
 				}
-
-}
+			}
 
 			if (isset($head['javascript'])) {
 				foreach ($head['javascript'] as $script => $ignored) {
@@ -1365,8 +1350,7 @@ class GalleryEmbed {
 
 					$javascript[] = '<script type="text/javascript" src="' . $jsUrl . '"></script>';
 				}
-
-}
+			}
 		}
 
 		$headHtml .= empty($css) ? '' : "\n" . implode("\n", $css);
@@ -1413,8 +1397,7 @@ class GalleryEmbed {
 				if (!empty($urlComponents['host'])) {
 					$localhost = $phpVm->gethostbyname($urlComponents['host']);
 				}
-
-}
+			}
 
 			if (!empty($remotehost) && !empty($localhost) && $remotehost === $localhost) {
 				if ($phpVm->defined('GALLERY_CONFIG_DIR')) {
@@ -1427,9 +1410,7 @@ class GalleryEmbed {
 						. GalleryCoreApi::getCodeBasePath('embed.php')
 					);
 				}
-
-}
+			}
 		}
-
-}
+	}
 }

@@ -61,8 +61,7 @@ class AdminUsersController extends GalleryController {
 			if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		if (isset($form['action']['filterClear'])) {
 			// Clear the filter
@@ -82,8 +81,7 @@ class AdminUsersController extends GalleryController {
 				$redirect['userId']  = $user->getId();
 				$redirect['subView'] = 'core.AdminEditUser';
 			}
-
-} elseif (isset($form['action']['deleteFromText'])) {
+		} elseif (isset($form['action']['deleteFromText'])) {
 			if (empty($form['text']['userName'])) {
 				$error[] = 'form[error][text][noUserSpecified]';
 			} elseif ($user == null) {
@@ -106,8 +104,7 @@ class AdminUsersController extends GalleryController {
 				if ($user->getId() == $gallery->getActiveUserId()) {
 					$error[] = 'form[error][text][cantDeleteSelf]';
 				}
-
-}
+			}
 
 			if (empty($error)) {
 				// Show the "delete user" view
@@ -115,8 +112,7 @@ class AdminUsersController extends GalleryController {
 				$redirect['subView'] = 'core.AdminDeleteUser';
 				$redirect['userId']  = $user->getId();
 			}
-
-}
+		}
 
 		if (!empty($redirect)) {
 			$results['redirect'] = $redirect;
@@ -130,7 +126,6 @@ class AdminUsersController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -193,8 +188,7 @@ class AdminUsersView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		// Figure out our max pages, make sure our current page fits in it
 		$form['list']['maxPages'] = ceil($form['list']['count'] / $form['list']['pageSize']);
@@ -206,7 +200,8 @@ class AdminUsersView extends GalleryView {
 		// Calculate the next/back pages
 		$form['list']['nextPage'] = min($form['list']['page'] + 1, $form['list']['maxPages']);
 		$form['list']['backPage'] = max(1, $form['list']['page'] - 1);
-		list($ret, $userNames)    = GalleryCoreApi::fetchUserNames(
+
+		list($ret, $userNames) = GalleryCoreApi::fetchUserNames(
 			$form['list']['pageSize'],
 			($form['list']['page'] - 1) * $form['list']['pageSize'],
 			$form['list']['filter']
@@ -278,5 +273,4 @@ class AdminUsersView extends GalleryView {
 			),
 		);
 	}
-
 }

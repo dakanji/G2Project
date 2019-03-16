@@ -37,9 +37,7 @@ class GalleryTranslatorHelper_medium {
 		$platform =& $gallery->getPlatform();
 		$codeBase = GalleryCoreApi::getCodeBasePath();
 
-		// the glob may take a long time
-		$gallery->guaranteeTimeLimit(30);
-
+		$gallery->guaranteeTimeLimit(30);  // the glob may take a long time
 		$pluginPath     = "$codeBase${pluginType}s/$pluginId/";
 		$moFilesInPoDir = $platform->glob("${pluginPath}po/*.mo");
 
@@ -63,7 +61,8 @@ class GalleryTranslatorHelper_medium {
 					continue;
 				}
 
-				$destinationDir          = $g2locale . sprintf($localeDirPattern, $matches[1]);
+				$destinationDir = $g2locale . sprintf($localeDirPattern, $matches[1]);
+
 				list($success, $created) = GalleryUtilities::guaranteeDirExists($destinationDir);
 
 				if (!$success) {
@@ -76,8 +75,7 @@ class GalleryTranslatorHelper_medium {
 				if (!$success) {
 					return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
 				}
-
-}
+			}
 		}
 
 		return null;
@@ -91,9 +89,7 @@ class GalleryTranslatorHelper_medium {
 
 		$platform =& $gallery->getPlatform();
 
-		// the glob may take a long time
-		$gallery->guaranteeTimeLimit(30);
-
+		$gallery->guaranteeTimeLimit(30);  // the glob may take a long time
 		$moFiles = $platform->glob(
 			$gallery->getConfig('data.gallery.locale')
 			. "*/LC_MESSAGES/${pluginType}s_$pluginId.mo"
@@ -107,8 +103,7 @@ class GalleryTranslatorHelper_medium {
 
 				$success &= $platform->unlink($moPath);
 			}
-
-}
+		}
 
 		return $success ? null : GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
 	}
@@ -163,11 +158,9 @@ class GalleryTranslatorHelper_medium {
 						if (!$success) {
 							return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
 						}
-
-}
+					}
 				}
-
-}
+			}
 		}
 
 		return null;
@@ -245,8 +238,7 @@ class GalleryTranslatorHelper_medium {
 					) {
 						$installedLanguages[basename($directory)] = 1;
 					}
-
-}
+				}
 
 				foreach ($supportedLanguages as $language => $countryList) {
 					foreach ($countryList as $country => $languageData) {
@@ -263,11 +255,9 @@ class GalleryTranslatorHelper_medium {
 							if (empty($supportedLanguages[$language])) {
 								unset($supportedLanguages[$language]);
 							}
-
-}
+						}
 					}
-
-}
+				}
 			} else {
 				$default['en']['US'] = $supportedLanguages['en']['US'];
 				$supportedLanguages  = $default;
@@ -280,5 +270,4 @@ class GalleryTranslatorHelper_medium {
 
 		return $supportedLanguages;
 	}
-
 }

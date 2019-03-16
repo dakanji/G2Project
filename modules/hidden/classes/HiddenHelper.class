@@ -91,8 +91,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		if (!isset($passwordInterface)) {
 			list($ret, $passwordInterface) = GalleryCoreApi::newFactoryInstance(
@@ -106,8 +105,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if (!isset($passwordInterface)) {
 				$passwordInterface = false;
 			}
-
-}
+		}
 
 		// Init/update progress bar if needed
 		if (!isset($progressBar)) {
@@ -182,8 +180,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		if ($hiddenAncestor) {
 			$ret = GalleryCoreApi::removeEntityPermission($itemId, $hiddenAncestor, 'core.view');
@@ -191,8 +188,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		if ($passwordAncestor) {
 			$ret = GalleryCoreApi::removeEntityPermission($itemId, $passwordAncestor, 'core.view');
@@ -200,8 +196,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		// Add session based permission
 		$ret = GalleryCoreApi::addEntityPermission($itemId, $hideId, 'core.view');
@@ -255,8 +250,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		// Now apply to children as well, but stop at password protected item
@@ -268,8 +262,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		if ($item->getCanContainChildren() && !$hasPassword) {
 			list($ret, $childIds) = GalleryCoreApi::fetchChildItemIdsIgnorePermissions($item);
@@ -297,11 +290,9 @@ class HiddenHelper extends HiddenInterface_1_0 {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		if ($hideId == $itemId) {
 			// All done.. cleanup
@@ -320,8 +311,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 
 				$progressBar = false;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -372,8 +362,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if (!isset($passwordInterface)) {
 				$passwordInterface = false;
 			}
-
-}
+		}
 
 		// Init/update progress bar if needed
 		if (!isset($progressBar)) {
@@ -425,8 +414,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		// Remove session based permission
 		if ($item->getId() != $hideId || !$hasPassword) {
@@ -435,8 +423,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		// Remove onLoadHandler and remove from ItemHiddenMap
 		if ($itemId == $hideId) {
@@ -478,8 +465,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		// Check for a hidden ancestor
 		if (!isset($hiddenAncestor)) {
@@ -491,8 +477,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		if ($hiddenAncestor) {
 			// Mark as hidden under a different id
@@ -501,15 +486,13 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
-
-} elseif ($passwordAncestor) {
+		} elseif ($passwordAncestor) {
 			$ret = GalleryCoreApi::addEntityPermission($itemId, $passwordAncestor, 'core.view');
 
 			if ($ret) {
 				return $ret;
 			}
-
-} else {
+		} else {
 			// Restore public view permission
 			if (!isset($coreParams)) {
 				list($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters(
@@ -520,8 +503,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 
 			list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($itemId);
 
@@ -571,8 +553,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 
 					$groupSee = true;
 				}
-
-}
+			}
 
 			if (!$groupSee && $hasPassword) {
 				// Add public core.view permission to password item
@@ -585,8 +566,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		// Now apply to children as well, but stop at password protected item
@@ -619,11 +599,9 @@ class HiddenHelper extends HiddenInterface_1_0 {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		if ($hideId == $itemId) {
 			// All done.. cleanup
@@ -642,8 +620,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 
 				$progressBar = false;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -682,8 +659,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 				if ($hasPassword) {
 					$passwordAncestor = $ancestor->getId();
 				}
-
-}
+			}
 		}
 
 		return array(null, $hiddenAncestor, $passwordAncestor);
@@ -698,8 +674,9 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	public function handleMoveItem($item) {
 		global $gallery;
 
-		$oldParentId         = $item->getOriginalValue('parentId');
-		$newParentId         = $item->getParentId();
+		$oldParentId = $item->getOriginalValue('parentId');
+		$newParentId = $item->getParentId();
+
 		list($ret, $parents) = GalleryCoreApi::loadEntitiesById(
 			array($oldParentId, $newParentId),
 			'GalleryItem'
@@ -723,8 +700,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 				if ($ancestor->hasOnLoadHandler('Hidden')) {
 					$hiddenAncestor = $ancestor->getId();
 				}
-
-}
+			}
 
 			$hiddenAncestors[] = $hiddenAncestor;
 		}
@@ -738,8 +714,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
-
-} elseif ($hiddenAncestors[0]) {
+		} elseif ($hiddenAncestors[0]) {
 			// Old location was hidden, new location is not
 			$gallery->guaranteeTimeLimit(60);
 
@@ -748,8 +723,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -760,5 +734,4 @@ class HiddenHelper extends HiddenInterface_1_0 {
 	public function isHidden($item) {
 		return array(null, $item->hasOnLoadHandler('Hidden'));
 	}
-
 }

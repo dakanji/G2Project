@@ -45,7 +45,6 @@ class UserWatermarkEditController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -74,5 +73,4 @@ class UserWatermarkEditView extends GalleryView {
 			),
 		);
 	}
-
 }

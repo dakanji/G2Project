@@ -89,7 +89,7 @@ class NetPbmToolkit extends GalleryToolkit {
 
 		// Use context look-ahead to see if we can queue up parameters to use later..
 		$queueIt    = isset($context['next.toolkit']) && $context['next.toolkit'] == $this
-																																											     && $operationName != 'compress'    && $context['next.operation'] != 'compress';
+																																										      && $operationName != 'compress'       && $context['next.operation'] != 'compress';
 		$usePercent = in_array($operationName, array('thumbnail', 'scale', 'resize'))
 		&& (substr($parameters[0], -1) == '%'
 			|| (isset($parameters[1]) && substr($parameters[1], -1) == '%'));
@@ -104,8 +104,7 @@ class NetPbmToolkit extends GalleryToolkit {
 
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		if ($usePercent) {
 			// Convert percentages to real image dimensions
@@ -116,8 +115,7 @@ class NetPbmToolkit extends GalleryToolkit {
 			if (isset($parameters[1]) && substr($parameters[1], -1) == '%') {
 				$parameters[1] = (int)round($height * rtrim($parameters[1], '%') / 100);
 			}
-
-}
+		}
 
 		switch ($operationName) {
 			case 'thumbnail':
@@ -129,7 +127,6 @@ class NetPbmToolkit extends GalleryToolkit {
 				}
 
 				// fall through to scale
-
 				// Fall Through
 			case 'scale':
 				$ysize       = empty($parameters[1]) ? $parameters[0] : $parameters[1];
@@ -392,8 +389,7 @@ class NetPbmToolkit extends GalleryToolkit {
 							null,
 						);
 					}
-
-}
+				}
 
 				$pnmcomp = array($this->_pnmCmd('pnmcomp'));
 
@@ -462,8 +458,7 @@ class NetPbmToolkit extends GalleryToolkit {
 
 								return array($ret, null, null);
 							}
-
-}
+						}
 
 						// Convert from percentages to pixels
 						$compositeAlignX = (int)($compositeAlignX / 100 * ($width - $compositeWidth));
@@ -501,15 +496,10 @@ class NetPbmToolkit extends GalleryToolkit {
 				$pnmcomp[]   = $tmpOverlay;
 				$transform[] = $pnmcomp;
 
-				// case composite
-				break;
-
+				break; // case composite
 			case 'compress':
 				$targetSize = $parameters[0];
-
-				// Size in KB
-				$fileSize = $platform->filesize($sourceFilename) >> 10;
-
+				$fileSize   = $platform->filesize($sourceFilename) >> 10; // Size in KB
 				if ($fileSize <= $targetSize) {
 					break;
 				}
@@ -588,8 +578,7 @@ class NetPbmToolkit extends GalleryToolkit {
 					null,
 				);
 			}
-
-}
+		}
 
 		/*
 		 * Use context look-ahead to see if we can queue up these parameters
@@ -640,13 +629,11 @@ class NetPbmToolkit extends GalleryToolkit {
 				if ($platform->file_exists($tmpFile)) {
 					@$platform->unlink($tmpFile);
 				}
-
-}
+			}
 
 			unset($context['netpbm.tmp']);
 		}
-
-}
+	}
 
 	/**
 	 * @see GalleryToolkit::getImageDimensions
@@ -695,8 +682,7 @@ class NetPbmToolkit extends GalleryToolkit {
 			if (preg_match('/(\d+) by (\d+)/', $line, $regs)) {
 				return array(null, $regs[1], $regs[2]);
 			}
-
-}
+		}
 
 		return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), null, null);
 	}
@@ -770,14 +756,12 @@ class NetPbmToolkit extends GalleryToolkit {
 
 					break;
 				}
-
-}
+			}
 
 			if (!$spliced) {
 				$comand[0][] = $sourceFilename;
 			}
-
-}
+		}
 
 		list($ret, $output) = $this->_exec($command);
 
@@ -798,7 +782,8 @@ class NetPbmToolkit extends GalleryToolkit {
 			}
 
 			if (!empty($jheadPath)) {
-				$cmd                         = array($jheadPath . 'jhead', '-te', $sourceFilename, $tmpFilename);
+				$cmd = array($jheadPath . 'jhead', '-te', $sourceFilename, $tmpFilename);
+
 				list($ret, $stdout, $stderr) = $this->_exec(array($cmd));
 
 				if ($ret) {
@@ -806,8 +791,7 @@ class NetPbmToolkit extends GalleryToolkit {
 
 					return GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE);
 				}
-
-}
+			}
 		}
 
 		$success = $platform->rename($tmpFilename, $destFilename);
@@ -908,8 +892,7 @@ class NetPbmToolkit extends GalleryToolkit {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		switch ($mimeType) {
 			case 'image/png':
@@ -993,8 +976,9 @@ class NetPbmToolkit extends GalleryToolkit {
 	public function _exec($cmdArray) {
 		global $gallery;
 
-		$cmdArray                        = $this->_extractCommands($cmdArray);
-		$platform                        =& $gallery->getPlatform();
+		$cmdArray = $this->_extractCommands($cmdArray);
+		$platform =& $gallery->getPlatform();
+
 		list($success, $stdout, $stderr) = $platform->exec($cmdArray);
 
 		if (!$success) {
@@ -1013,7 +997,8 @@ class NetPbmToolkit extends GalleryToolkit {
 	public function _pnmCmd($cmd) {
 		global $gallery;
 
-		$platform               =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $netPbmPath) = GalleryCoreApi::getPluginParameter('module', 'netpbm', 'path');
 
 		if ($ret) {
@@ -1028,8 +1013,7 @@ class NetPbmToolkit extends GalleryToolkit {
 				// TODO: This method is expected to return string
 				return $ret;
 			}
-
-}
+		}
 
 		return $netPbmPath . $cmd;
 	}
@@ -1074,8 +1058,7 @@ class NetPbmToolkit extends GalleryToolkit {
 			} else {
 				array_push($results, $cmd);
 			}
-
-}
+		}
 
 		if ($arrayElements == count($cmdArray)) {
 			return $results;
@@ -1083,5 +1066,4 @@ class NetPbmToolkit extends GalleryToolkit {
 
 		return array($results);
 	}
-
 }

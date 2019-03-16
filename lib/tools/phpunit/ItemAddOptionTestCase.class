@@ -50,8 +50,7 @@ class ItemAddOptionTestCase extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function _handleRequestAfterAdd($form, $items, $errorCode = null) {
 		list($ret, $errors, $warnings) = $this->_option->handleRequestAfterAdd($form, $items);
@@ -72,13 +71,11 @@ class ItemAddOptionTestCase extends GalleryTestCase {
 					)
 				);
 			}
-
-} elseif ($ret) {
+		} elseif ($ret) {
 			return $ret;
 		} else {
 			// Check to make sure we got back everything we want
 			$this->assertTrue(isset($errors) && is_array($errors), 'option error results missing');
-
 			// Check to make sure we got back everything we want
 			$this->assertTrue(
 				isset($warnings) && is_array($warnings),
@@ -92,5 +89,4 @@ class ItemAddOptionTestCase extends GalleryTestCase {
 	public function _translate($message) {
 		return $this->_module->translate($message);
 	}
-
 }

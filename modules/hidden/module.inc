@@ -45,9 +45,7 @@ class HiddenModule extends GalleryModule {
 				'accessed with the right URL'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -108,8 +106,7 @@ class HiddenModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -210,8 +207,7 @@ class HiddenModule extends GalleryModule {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		$ret = parent::uninstall();
@@ -244,8 +240,7 @@ class HiddenModule extends GalleryModule {
 				// Use a blunt instrument to clear the permission cache.
 				GalleryDataCache::reset();
 			}
-
-}
+		}
 
 		return null;
 	}
@@ -273,8 +268,7 @@ class HiddenModule extends GalleryModule {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 
 				break;
 
@@ -292,8 +286,7 @@ class HiddenModule extends GalleryModule {
 					if ($ret) {
 						return array($ret, null);
 					}
-
-}
+				}
 
 				break;
 
@@ -335,9 +328,10 @@ class HiddenModule extends GalleryModule {
 						$ids = array_merge($ids, $childIds);
 					}
 
-					$query                     = 'SELECT [::itemId] FROM [ItemHiddenMap]
+					$query = 'SELECT [::itemId] FROM [ItemHiddenMap]
 			   WHERE [ItemHiddenMap::itemId] IN ('
 					 . GalleryUtilities::makeMarkers(count($ids)) . ')';
+
 					list($ret, $searchResults) = $gallery->search($query, $ids);
 
 					if ($ret) {
@@ -382,16 +376,13 @@ class HiddenModule extends GalleryModule {
 							if ($ret) {
 								return array($ret, null);
 							}
-
-}
+						}
 					}
-
-}
+				}
 
 				break;
 		}
 
 		return array(null, null);
 	}
-
 }

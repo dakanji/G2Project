@@ -50,7 +50,8 @@ class RearrangeItemsController extends GalleryController {
 		$error  = array();
 
 		if (isset($form['action']['save'])) {
-			$list                 = explode(',', $form['list']);
+			$list = explode(',', $form['list']);
+
 			list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item);
 
 			if ($ret) {
@@ -81,8 +82,7 @@ class RearrangeItemsController extends GalleryController {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-}
+			}
 
 			$event = GalleryCoreApi::newEvent('Gallery::ItemOrder');
 
@@ -107,7 +107,6 @@ class RearrangeItemsController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -146,8 +145,7 @@ class RearrangeItemsView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		if ($orderBy != 'orderWeight') {
 			$RearrangeItems['automaticOrderMessage'] = 1;
@@ -186,11 +184,11 @@ class RearrangeItemsView extends GalleryView {
 						if ($ret) {
 							return array($ret, null);
 						}
-
-}
+					}
 
 					$child['thumbnail'] = (array)$thumb;
-					list($w, $h)        = GalleryUtilities::shrinkDimensionsToFit(
+
+					list($w, $h) = GalleryUtilities::shrinkDimensionsToFit(
 						$thumb->getWidth(),
 						$thumb->getHeight(),
 						100
@@ -255,5 +253,4 @@ class RearrangeItemsView extends GalleryView {
 
 		return array(null, $module->translate('rearrange items'));
 	}
-
 }

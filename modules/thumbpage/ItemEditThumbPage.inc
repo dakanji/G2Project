@@ -31,8 +31,9 @@ class ItemEditThumbPage extends ItemEditPlugin {
 	 * @see ItemEditPlugin::handleRequest
 	 */
 	public function handleRequest($form, &$item, &$preferred) {
-		$status             = null;
-		$error              = array();
+		$status = null;
+		$error  = array();
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
 
 		if ($ret) {
@@ -55,8 +56,7 @@ class ItemEditThumbPage extends ItemEditPlugin {
 				if ($form['page'] != $regs[4]) {
 					$operations = str_replace($regs[1], $regs[2] . $form['page'], $operations);
 				}
-
-} else {
+			} else {
 				$operations = 'select-page|' . $form['page'] . ';' . $operations;
 			}
 
@@ -101,8 +101,7 @@ class ItemEditThumbPage extends ItemEditPlugin {
 			) {
 				$form['page'] = $regs[2];
 			}
-
-}
+		}
 
 		list($ret, $count) = $this->_getPageCount($item);
 
@@ -143,8 +142,7 @@ class ItemEditThumbPage extends ItemEditPlugin {
 
 					return !$ret && $count > 1;
 				}
-
-}
+			}
 		}
 
 		return false;
@@ -195,5 +193,4 @@ class ItemEditThumbPage extends ItemEditPlugin {
 
 		return array(null, $result[0]);
 	}
-
 }

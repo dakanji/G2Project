@@ -20,17 +20,13 @@ $file     = $fileInfo['filename'] . '.' . $fileInfo['extension'];
 $oldURL = $_SERVER['REQUEST_URI'];
 
 // Replace script filename with "index.php" and use a placeholder to represent "?" for later
-$newURL = str_replace($file, 'index.php{{={placeholder}=}
-
-}' . $fileInfo['filename'], $oldURL);
+$newURL = str_replace($file, 'index.php{{={placeholder}=}}' . $fileInfo['filename'], $oldURL);
 
 // Replace any "?" in the string with "&"
 $newURL = str_replace('?', '&', $newURL);
 
 // Change placeholder to "?" to finalise the URL
-$newURL = str_replace('{{={placeholder}=}
-
-}', '?', $newURL);
+$newURL = str_replace('{{={placeholder}=}}', '?', $newURL);
 
 /**
  * If the request was a "POST" request, build page with a javascript auto self submitting form

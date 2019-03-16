@@ -47,5 +47,4 @@ class ColorPackInterface_1_0 {
 	public function selectColorPack(&$template, $colorpack) {
 		return GalleryCoreApi::error(ERROR_UNIMPLEMENTED);
 	}
-
 }

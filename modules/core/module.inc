@@ -30,13 +30,13 @@ class CoreModule extends GalleryModule {
 		global $gallery;
 
 		$this->setId('core');
+
 		$this->setName($gallery->i18n('Core'));
 		$this->setDescription(
 			$gallery->i18n(
 				'Gallery 2 Core Module'
 			)
 		);
-
 		// Update CoreModuleExtras::upgrade and CoreModuleExtras::_prepareConfigUpgrade too!
 		$this->setVersion('1.4.0');
 		$this->setRequiredCoreApi(array(8, 0));
@@ -70,7 +70,8 @@ class CoreModule extends GalleryModule {
 	public function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId = null) {
 		global $gallery;
 
-		$urlGenerator       =& $gallery->getUrlGenerator();
+		$urlGenerator =& $gallery->getUrlGenerator();
+
 		list($ret, $rootId) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',
@@ -374,8 +375,7 @@ class CoreModule extends GalleryModule {
 					'params' => $params,
 				);
 			}
-
-}
+		}
 
 		return array(null, $links);
 	}
@@ -392,7 +392,8 @@ class CoreModule extends GalleryModule {
 			return array($ret, null);
 		}
 
-		$links               = array();
+		$links = array();
+
 		list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 
 		if ($ret) {
@@ -444,8 +445,7 @@ class CoreModule extends GalleryModule {
 					),
 				);
 			}
-
-}
+		}
 
 		return array(null, $links);
 	}
@@ -538,15 +538,13 @@ class CoreModule extends GalleryModule {
 						'view' => 'core.UserChangePassword',
 					);
 				}
-
-} else {
+			} else {
 				$views[] = array(
 					'name' => $this->translate('Login'),
 					'view' => 'core.UserLogin',
 				);
 			}
-
-}
+		}
 
 		return array(null, $views);
 	}
@@ -557,7 +555,8 @@ class CoreModule extends GalleryModule {
 	public function getItemAdminViews($item) {
 		global $gallery;
 
-		$views                   = array();
+		$views = array();
+
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {
@@ -579,8 +578,7 @@ class CoreModule extends GalleryModule {
 			} else {
 				$childCount = $childCounts[$item->getId()];
 			}
-
-}
+		}
 
 		// Fetch thumbnail ids
 		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
@@ -589,8 +587,9 @@ class CoreModule extends GalleryModule {
 			return array($ret, null);
 		}
 
-		$hasThumb                      = !empty($thumbTable[$item->getId()]);
-		$parentId                      = $item->getParentId();
+		$hasThumb = !empty($thumbTable[$item->getId()]);
+		$parentId = $item->getParentId();
+
 		list($ret, $parentPermissions) = GalleryCoreApi::getPermissions($parentId);
 
 		if ($ret) {
@@ -722,8 +721,7 @@ class CoreModule extends GalleryModule {
 					'view' => 'core.ItemDelete',
 				);
 			}
-
-}
+		}
 
 		if (isset($permissions['core.addDataItem']) && $isAlbum) {
 			$views[] = array(
@@ -813,11 +811,9 @@ class CoreModule extends GalleryModule {
 
 							$gallery->setConfig('mode.maintenance', $newMode);
 						}
-
-}
+					}
 				}
-
-} else {
+			} else {
 				/*
 				 * If we get here we are probably doing a fresh install so just return 0, 0 and
 				 * the rest of the install should work properly.
@@ -827,8 +823,7 @@ class CoreModule extends GalleryModule {
 					'gallery' => 0,
 				);
 			}
-
-}
+		}
 
 		return $versions;
 	}
@@ -847,5 +842,4 @@ class CoreModule extends GalleryModule {
 
 		return null;
 	}
-
 }

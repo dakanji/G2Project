@@ -47,7 +47,8 @@ class ItemDeleteSingleController extends GalleryController {
 	public function handleRequest($form) {
 		global $gallery;
 
-		$urlGenerator            =& $gallery->getUrlGenerator();
+		$urlGenerator =& $gallery->getUrlGenerator();
+
 		list($pageItemId, $page) = GalleryUtilities::getRequestVariables('pageId', 'page');
 
 		list($ret, $item) = $this->getItem();
@@ -118,5 +119,4 @@ class ItemDeleteSingleController extends GalleryController {
 
 		return array(null, $result);
 	}
-
 }

@@ -39,9 +39,7 @@ class RewriteModule extends GalleryModule {
 				'Enables short URLs using Apache mod_rewrite, ISAPI Rewrite, or PathInfo'
 			)
 		);
-
-		// Update upgrade() & RewriteModuleExtras::upgrade as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() & RewriteModuleExtras::upgrade as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -97,8 +95,7 @@ class RewriteModule extends GalleryModule {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$ret = parent::uninstall();
 
@@ -183,8 +180,7 @@ class RewriteModule extends GalleryModule {
 					'pattern' => 'd/%itemId%-%serialNumber%/%fileName%',
 				);
 			}
-
-}
+		}
 
 		list($ret, $code) = $rewriteParser->saveActiveRules($activeRules);
 
@@ -237,8 +233,7 @@ class RewriteModule extends GalleryModule {
 						null,
 					);
 			}
-
-}
+		}
 
 		return array(null, null);
 	}
@@ -457,5 +452,4 @@ class RewriteModule extends GalleryModule {
 
 		return $rules;
 	}
-
 }

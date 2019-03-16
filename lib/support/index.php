@@ -34,8 +34,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
 
 			return;
 		}
-
-}
+	}
 }
 
 function generateUrl($uri, $print = true) {

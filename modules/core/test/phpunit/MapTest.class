@@ -76,8 +76,7 @@ class MapTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testUpdateNull() {
 		// Ensure updateMapEntry() method will accept null input values..
@@ -141,6 +140,5 @@ class MapTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 }

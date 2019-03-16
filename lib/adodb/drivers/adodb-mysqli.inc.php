@@ -39,23 +39,21 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 	$ADODB_EXTENSION = false;
 	class ADODB_mysqli extends ADOConnection {
-		public $databaseType    = 'mysqli';
-		public $dataProvider    = 'mysql';
-		public $hasInsertID     = true;
-		public $hasAffectedRows = true;
-		public $metaTablesSQL   = "SELECT
+		public $databaseType     = 'mysqli';
+		public $dataProvider     = 'mysql';
+		public $hasInsertID      = true;
+		public $hasAffectedRows  = true;
+		public $metaTablesSQL    = "SELECT
 			TABLE_NAME,
 			CASE WHEN TABLE_TYPE = 'VIEW' THEN 'V' ELSE 'T' END
 		FROM INFORMATION_SCHEMA.TABLES
 		WHERE TABLE_SCHEMA=";
-		public $metaColumnsSQL  = 'SHOW COLUMNS FROM `%s`';
-		public $fmtTimeStamp    = "'Y-m-d H:i:s'";
-		public $hasLimit        = true;
-		public $hasMoveFirst    = true;
-		public $hasGenID        = true;
-
-		// accepts dates in ISO format
-		public $isoDates         = true;
+		public $metaColumnsSQL   = 'SHOW COLUMNS FROM `%s`';
+		public $fmtTimeStamp     = "'Y-m-d H:i:s'";
+		public $hasLimit         = true;
+		public $hasMoveFirst     = true;
+		public $hasGenID         = true;
+		public $isoDates         = true; // accepts dates in ISO format
 		public $sysDate          = 'CURDATE()';
 		public $sysTimeStamp     = 'NOW()';
 		public $hasTransactions  = true;
@@ -63,19 +61,13 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		public $poorAffectedRows = true;
 		public $clientFlags      = 0;
 		public $substr           = 'substring';
-
-		//Default to 3306 to fix HHVM bug
-		public $port = 3306;
-
-		//Default to empty string to fix HHVM bug
-		public $socket          = '';
-		public $_bindInputArray = false;
-
-		/// string to use to quote identifiers and names
-		public $nameQuote   = '`';
-		public $optionFlags = array(array(MYSQLI_READ_DEFAULT_GROUP, 0));
-		public $arrayClass  = 'ADORecordSet_array_mysqli';
-		public $multiQuery  = false;
+		public $port             = 3306; //Default to 3306 to fix HHVM bug
+		public $socket           = ''; //Default to empty string to fix HHVM bug
+		public $_bindInputArray  = false;
+		public $nameQuote        = '`';       /// string to use to quote identifiers and names
+		public $optionFlags      = array(array(MYSQLI_READ_DEFAULT_GROUP, 0));
+		public $arrayClass       = 'ADORecordSet_array_mysqli';
+		public $multiQuery       = false;
 
 		public function __construct() {
 			// if(!extension_loaded("mysqli"))
@@ -175,6 +167,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 		// When is this used? Close old connection first?
 		// In _connect(), check $this->forceNewConnect?
+
 		public function _nconnect($argHostname, $argUsername, $argPassword, $argDatabasename) {
 			$this->forceNewConnect = true;
 
@@ -182,8 +175,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		}
 
 		public function IfNull($field, $ifNull) {
-			// if MySQL
-			return " IFNULL($field, $ifNull) ";
+			return " IFNULL($field, $ifNull) "; // if MySQL
 		}
 
 		// do not use $ADODB_COUNTRECS
@@ -223,7 +215,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 			//$this->Execute('SET AUTOCOMMIT=0');
 			mysqli_autocommit($this->_connectionID, false);
-
 			$this->Execute('BEGIN');
 
 			return true;
@@ -325,8 +316,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				if ($this->debug) {
 					ADOConnection::outp('mysqli_insert_id() failed : ' . $this->ErrorMsg());
 				}
-
-}
+			}
 
 			return $result;
 		}
@@ -339,8 +329,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				if ($this->debug) {
 					ADOConnection::outp('mysqli_affected_rows() failed : ' . $this->ErrorMsg());
 				}
-
-}
+			}
 
 			return $result;
 		}
@@ -374,16 +363,13 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				return false;
 			}
 
-			$getnext = sprintf($this->_genIDSQL, $seqname);
-
-			// save the current status
-			$holdtransOK = $this->_transOK;
+			$getnext     = sprintf($this->_genIDSQL, $seqname);
+			$holdtransOK = $this->_transOK; // save the current status
 			$rs          = @$this->Execute($getnext);
 
 			if (!$rs) {
 				if ($holdtransOK) {
-					//if the status was ok before reset
-					$this->_transOK = true;
+					$this->_transOK = true; //if the status was ok before reset
 				}
 
 				$u = strtoupper($seqname);
@@ -582,8 +568,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 						break;
 				}
-
-}
+			}
 
 			$s .= "')";
 
@@ -656,8 +641,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 						'remarks' => $row[7],
 					);
 				}
-
-}
+			}
 
 			$rs = $this->Execute('SHOW FUNCTION STATUS' . $likepattern);
 
@@ -671,8 +655,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 						'remarks' => $row[7],
 					);
 				}
-
-}
+			}
 
 			// restore fetchmode
 			if (isset($savem)) {
@@ -765,8 +748,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 					} else {
 						$foreign_keys[$ref_table][] = "{$my_field[$j]}={$ref_field[$j]}";
 					}
-
-}
+				}
 			}
 
 			return $foreign_keys;
@@ -818,12 +800,10 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 					$fld->type       = $query_array[1];
 					$fld->max_length = is_numeric($query_array[2]) ? $query_array[2] : -1;
 				} elseif (preg_match('/^(enum)\((.*)\)$/i', $type, $query_array)) {
-					$fld->type  = $query_array[1];
-					$arr        = explode(',', $query_array[2]);
-					$fld->enums = $arr;
-
-					// PHP >= 4.0.6
-					$zlen            = max(array_map('strlen', $arr)) - 2;
+					$fld->type       = $query_array[1];
+					$arr             = explode(',', $query_array[2]);
+					$fld->enums      = $arr;
+					$zlen            = max(array_map('strlen', $arr)) - 2; // PHP >= 4.0.6
 					$fld->max_length = ($zlen > 0) ? $zlen : 1;
 				} else {
 					$fld->type       = $type;
@@ -846,8 +826,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 					} else {
 						$fld->has_default = false;
 					}
-
-}
+				}
 
 				if ($save == ADODB_FETCH_NUM) {
 					$retarr[] = $fld;
@@ -866,11 +845,8 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		// returns true or false
 		public function SelectDB($dbName) {
 			//      $this->_connectionID = $this->mysqli_resolve_link($this->_connectionID);
-			$this->database = $dbName;
-
-			// obsolete, retained for compat with older adodb versions
-			$this->databaseName = $dbName;
-
+			$this->database     = $dbName;
+			$this->databaseName = $dbName; // obsolete, retained for compat with older adodb versions
 			if ($this->_connectionID) {
 				$result = @mysqli_select_db($this->_connectionID, $dbName);
 
@@ -911,7 +887,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 		public function Prepare($sql) {
 			return $sql;
-
 			$stmt = $this->_connectionID->prepare($sql);
 
 			if (!$stmt) {
@@ -933,6 +908,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			// return value of the stored proc (ie the number of rows affected).
 			// Commented out for reasons of performance. You should retrieve every recordset yourself.
 			//	if (!mysqli_next_result($this->connection->_connectionID))	return false;
+
 			if (is_array($sql)) {
 				// Prepare() not supported because mysqli_stmt_execute does not return a recordset, but
 				// returns as bound variables.
@@ -947,8 +923,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 					} else {
 						$a .= 'd';
 					}
-
-}
+				}
 
 				$fnarr = array_merge(array($stmt, $a), $inputarr);
 
@@ -962,12 +937,10 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			/*
 			if (!$mysql_res = mysqli_query($this->_connectionID, $sql, ($ADODB_COUNTRECS) ? MYSQLI_STORE_RESULT : MYSQLI_USE_RESULT)) {
 			if ($this->debug) ADOConnection::outp("Query: " . $sql . " failed. " . $this->ErrorMsg());
-
 			return false;
 			}
 
 			return $mysql_res;
-
 			*/
 			if ($this->multiQuery) {
 				$rs = mysqli_multi_query($this->_connectionID, $sql . ';');
@@ -975,18 +948,15 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				if ($rs) {
 					$rs = ($ADODB_COUNTRECS) ? @mysqli_store_result($this->_connectionID) : @mysqli_use_result($this->_connectionID);
 
-					// mysqli_more_results( $this->_connectionID )
-					return $rs ? $rs : true;
+					return $rs ? $rs : true; // mysqli_more_results( $this->_connectionID )
 				}
-
-} else {
+			} else {
 				$rs = mysqli_query($this->_connectionID, $sql, $ADODB_COUNTRECS ? MYSQLI_STORE_RESULT : MYSQLI_USE_RESULT);
 
 				if ($rs) {
 					return $rs;
 				}
-
-}
+			}
 
 			if ($this->debug) {
 				ADOConnection::outp('Query: ' . $sql . ' failed. ' . $this->ErrorMsg());
@@ -1067,8 +1037,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 			return true;
 		}
-
-}
+	}
 
 	/*--------------------------------------------------------------------------------------
 	 Class Name: Recordset
@@ -1187,8 +1156,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 
 					$this->bind[strtoupper($o->name)] = $i;
 				}
-
-}
+			}
 
 			return $this->fields[$this->bind[strtoupper($colname)]];
 		}
@@ -1245,6 +1213,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			}
 
 			$this->_currentRow++;
+
 			$this->fields = @mysqli_fetch_array($this->_queryID, $this->fetchMode);
 
 			if (is_array($this->fields)) {
@@ -1273,8 +1242,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				while (mysqli_more_results($this->connection->_connectionID)) {
 					mysqli_next_result($this->connection->_connectionID);
 				}
-
-}
+			}
 
 			if ($this->_queryID instanceof mysqli_result) {
 				mysqli_free_result($this->_queryID);
@@ -1317,9 +1285,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				$len      = $fieldobj->max_length;
 			}
 
-			// mysql max_length is not accurate
-			$len = -1;
-
+			$len = -1; // mysql max_length is not accurate
 			switch (strtoupper($t)) {
 				case 'STRING':
 				case 'CHAR':
@@ -1399,8 +1365,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 					//if (!is_numeric($t)) echo "<p>--- Error in type matching $t -----</p>";
 					return 'N';
 			}
-
-}
+		}
 
 		// function
 	} // rs class
@@ -1416,9 +1381,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			$len      = $fieldobj->max_length;
 		}
 
-		// mysql max_length is not accurate
-		$len = -1;
-
+		$len = -1; // mysql max_length is not accurate
 		switch (strtoupper($t)) {
 			case 'STRING':
 			case 'CHAR':
@@ -1498,8 +1461,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				//if (!is_numeric($t)) echo "<p>--- Error in type matching $t -----</p>";
 				return 'N';
 		}
-
-}
+	}
 
 	// function
 }

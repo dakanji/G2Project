@@ -24,25 +24,19 @@ if (!defined('_ADODB_ODBC_LAYER')) {
 if (!defined('ADODB_VFP')) {
 	define('ADODB_VFP', 1);
 	class ADODB_vfp extends ADODB_odbc {
-		public $databaseType = 'vfp';
-		public $fmtDate      = '{^Y-m-d}';
-		public $fmtTimeStamp = '{^Y-m-d, h:i:sA}';
-		public $replaceQuote = "'+chr(39)+'";
-		public $true         = '.T.';
-		public $false        = '.F.';
-
-		// support mssql SELECT TOP 10 * FROM TABLE
-		public $hasTop = 'top';
-
-		// strangely enough, setting to true does not work reliably
-		public $_bindInputArray = false;
+		public $databaseType    = 'vfp';
+		public $fmtDate         = '{^Y-m-d}';
+		public $fmtTimeStamp    = '{^Y-m-d, h:i:sA}';
+		public $replaceQuote    = "'+chr(39)+'";
+		public $true            = '.T.';
+		public $false           = '.F.';
+		public $hasTop          = 'top';        // support mssql SELECT TOP 10 * FROM TABLE
+		public $_bindInputArray = false; // strangely enough, setting to true does not work reliably
 		public $sysTimeStamp    = 'datetime()';
 		public $sysDate         = 'date()';
 		public $ansiOuter       = true;
 		public $hasTransactions = false;
-
-		// See sqlext.h, SQL_CUR_DEFAULT == SQL_CUR_USE_DRIVER == 2L
-		public $curmode = false;
+		public $curmode         = false; // See sqlext.h, SQL_CUR_DEFAULT == SQL_CUR_USE_DRIVER == 2L
 
 		public function Time() {
 			return time();
@@ -69,8 +63,7 @@ if (!defined('ADODB_VFP')) {
 
 			return $ret;
 		}
-
-}
+	}
 
 	class ADORecordSet_vfp extends ADORecordSet_odbc {
 		public $databaseType = 'vfp';
@@ -111,8 +104,6 @@ if (!defined('ADODB_VFP')) {
 				default:
 					return 'N';
 			}
-
-}
+		}
 	}
-
 } //define

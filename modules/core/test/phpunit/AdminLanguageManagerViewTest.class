@@ -100,8 +100,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testGetAllLanguagesCompatible() {
 		global $gallery;
@@ -204,7 +203,6 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 		);
 
 		$this->assertEquals($expected, $languagePackages, 'Language packages incorrect');
-
 		$this->assertEquals(
 			array(
 				'upgrade'  => true,
@@ -303,7 +301,6 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 		);
 
 		$this->assertEquals($expected, $languagePackages, 'Language packages incorrect');
-
 		$this->assertEquals(
 			array(
 				'upgrade'  => false,
@@ -405,7 +402,6 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 		);
 
 		$this->assertEquals($expected, $languagePackages, 'Language packages incorrect');
-
 		$this->assertEquals(
 			array(
 				'upgrade'  => true,
@@ -416,7 +412,6 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 			'Enable all flags incorrect'
 		);
 	}
-
 }
 
 class AdminLanguagesViewTestTranslator extends GalleryTranslator {
@@ -462,5 +457,4 @@ class AdminLanguagesViewTestTranslator extends GalleryTranslator {
 	public function canTranslate() {
 		return true;
 	}
-
 }

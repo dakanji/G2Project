@@ -58,7 +58,6 @@ if (isset($advance) || isset($deep)) {
 	if ((null === $output) == false) {
 		$output = process($search_string, $advance, $deep);
 	}
-
 }
 
 // Connect to Gallery2
@@ -156,20 +155,17 @@ function process($search_string, $advance, $deep) {
 								$html .= '<div class="success center">Found ' . mysql_affected_rows() . ' ' . $instance .
 								' in Column "' . $g2_column . '" of Table "' . $g2_table . '"</div>';
 							}
-
-}
+						}
 
 						// Release memory
 						mysql_free_result($success);
 					}
-
-}
+				}
 
 				// Release memory
 				mysql_free_result($result);
 			}
-
-}
+		}
 	} elseif ($advance) {
 		// html error message for empty search string if not first page load
 		$html = '<div class="error center">Error: Empty Search String</div>';

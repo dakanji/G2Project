@@ -44,9 +44,7 @@ class CommentModule extends GalleryModule {
 				'User commenting system'
 			)
 		);
-
-		// Update upgrade() as required
-		$this->setVersion('2.0.0');
+		$this->setVersion('2.0.0'); // Update upgrade() as required
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredModuleApi(array(4, 0));
 
@@ -139,8 +137,7 @@ class CommentModule extends GalleryModule {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				foreach (array(
 					'comments.show'     => 10,
@@ -153,8 +150,7 @@ class CommentModule extends GalleryModule {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				break;
 
@@ -201,8 +197,7 @@ class CommentModule extends GalleryModule {
 					if ($ret) {
 						return $ret;
 					}
-
-}
+				}
 
 				// Fall Through
 			case '1.0.6':
@@ -411,8 +406,7 @@ class CommentModule extends GalleryModule {
 						),
 					);
 				}
-
-}
+			}
 		}
 
 		return array(null, $links);
@@ -450,8 +444,7 @@ class CommentModule extends GalleryModule {
 						)
 					);
 				}
-
-}
+			}
 		}
 
 		return array(null, $summaries);
@@ -461,7 +454,8 @@ class CommentModule extends GalleryModule {
 	 * @see GalleryModule::getItemAdminViews
 	 */
 	public function getItemAdminViews($item) {
-		$views                   = array();
+		$views = array();
+
 		list($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 
 		if ($ret) {
@@ -524,5 +518,4 @@ class CommentModule extends GalleryModule {
 
 		return $rules;
 	}
-
 }

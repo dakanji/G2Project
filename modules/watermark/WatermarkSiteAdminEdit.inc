@@ -51,7 +51,6 @@ class WatermarkSiteAdminEditController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -86,5 +85,4 @@ class WatermarkSiteAdminEditView extends GalleryView {
 			),
 		);
 	}
-
 }

@@ -64,8 +64,7 @@ class UserRecoverPasswordAdminController extends GalleryController {
 				if (empty($form['skipAuth'])) {
 					$error[] = 'form[error][authString][incorrect]';
 				}
-
-}
+			}
 
 			if (empty($error)) {
 				if (empty($form['userName'])) {
@@ -77,8 +76,7 @@ class UserRecoverPasswordAdminController extends GalleryController {
 				} elseif ($form['password1'] != $form['password2']) {
 					$error[] = 'form[error][password][mismatch]';
 				}
-
-}
+			}
 
 			if (empty($error)) {
 				list($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['userName']);
@@ -138,8 +136,7 @@ class UserRecoverPasswordAdminController extends GalleryController {
 				} else {
 					$error[] = 'form[error][userName][incorrect]';
 				}
-
-}
+			}
 		} elseif (isset($form['action']['cancel'])) {
 			$results['return'] = 1;
 		}
@@ -161,7 +158,6 @@ class UserRecoverPasswordAdminController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -217,8 +213,7 @@ class UserRecoverPasswordAdminView extends GalleryView {
 			} else {
 				$error['authString']['incorrect'] = 1;
 			}
-
-}
+		}
 
 		$status['userName']                     = GalleryUtilities::getRequestVariables('userName');
 		$UserRecoverPasswordAdmin['authString'] = $authString;
@@ -252,5 +247,4 @@ class UserRecoverPasswordAdminView extends GalleryView {
 
 		$session->put('core.UserRecoverPasswordAdminAuthKey', md5($rand));
 	}
-
 }

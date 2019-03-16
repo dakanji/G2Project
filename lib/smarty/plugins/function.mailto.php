@@ -89,8 +89,7 @@ function smarty_function_mailto($params, &$smarty) {
 				// Fall Through
 			default:
 		}
-
-}
+	}
 
 	$mail_parm_vals = '';
 
@@ -155,8 +154,7 @@ function smarty_function_mailto($params, &$smarty) {
 			} else {
 				$address_encode .= $address[$x];
 			}
-
-}
+		}
 
 		$text_encode = '';
 

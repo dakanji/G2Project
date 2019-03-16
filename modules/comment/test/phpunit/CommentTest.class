@@ -79,6 +79,7 @@ class CommentTest extends GalleryTestCase {
 			}
 
 			$this->assertTrue(isset($this->_comment[$i]), 'Missing comment instance');
+
 			$this->_comment[$i]->create($this->_item->getId());
 			$this->_comment[$i]->setCommenterId($gallery->getActiveUserId());
 			$this->_comment[$i]->setHost('127.0.0.1');
@@ -98,8 +99,7 @@ class CommentTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 	}
 
 	public function testFetchComments() {
@@ -117,6 +117,7 @@ class CommentTest extends GalleryTestCase {
 			array(
 				$this->_comment[0],
 				$this->_comment[1],
+
 			),
 			$comments
 		);
@@ -189,6 +190,7 @@ class CommentTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(isset($comment), 'Missing comment instance');
+
 		$comment->create($item2->getId());
 		$comment->setCommenterId($gallery->getActiveUserId());
 		$comment->setHost('127.0.0.1');
@@ -248,6 +250,7 @@ class CommentTest extends GalleryTestCase {
 				$this->_comment[2],
 				$this->_comment[3],
 				$this->_comment[4],
+
 			),
 			$comments,
 			'all publish status types'
@@ -265,7 +268,6 @@ class CommentTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(array($this->_comment[0]), $comments, 'guest/offset');
-
 		// This multiroot setting used to break query
 		$gallery->setConfig('breadcrumbRootId', $this->_album->getId());
 
@@ -295,7 +297,8 @@ class CommentTest extends GalleryTestCase {
 		$permissions[$itemId]['comment.view'] = 1;
 		$permissions[$itemId]['core.view']    = 1;
 		$unused                               = null;
-		list($ret, $content)                  = $module->getItemSummaries(array($this->_item), $permissions, $unused);
+
+		list($ret, $content) = $module->getItemSummaries(array($this->_item), $permissions, $unused);
 
 		if ($ret) {
 			return $ret;
@@ -308,6 +311,7 @@ class CommentTest extends GalleryTestCase {
 
 		// Get the item summary again, but without having the permissions
 		unset($content);
+
 		list($ret, $content) = $module->getItemSummaries(
 			array($this->_item),
 			array(
@@ -334,6 +338,7 @@ class CommentTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue(isset($comment), 'Missing comment instance');
+
 		$comment->create($this->_item->getId());
 		$comment->setCommenterId($gallery->getActiveUserId());
 		$comment->setHost('127.0.0.1');
@@ -373,8 +378,7 @@ class CommentTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	// Verify that the comments are deleted if the commenter is deleted
 	public function testDeleteCommentsOnDeleteUserEvent() {
@@ -399,6 +403,7 @@ class CommentTest extends GalleryTestCase {
 			}
 
 			$this->assertTrue(isset($myComment[$i]), 'Missing comment instance');
+
 			$myComment[$i]->create($this->_item->getId());
 			$myComment[$i]->setCommenterId($user->getId());
 			$myComment[$i]->setHost('127.0.0.1');
@@ -410,8 +415,7 @@ class CommentTest extends GalleryTestCase {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		// Assert that everything is as expected before executing the test
 		list($ret, $comments) = GalleryCommentHelper::getMe()->fetchComments(
@@ -484,8 +488,7 @@ class CommentTest extends GalleryTestCase {
 				'commenterId wrong after the test'
 			);
 		}
-
-}
+	}
 
 	public function testFetchCommentsWithPublishStatus() {
 		list($ret, $comments) = GalleryCommentHelper::getMe()->fetchComments(
@@ -843,7 +846,6 @@ class CommentTest extends GalleryTestCase {
 
 		$this->assertEquals($this->_comment[4]->getDate(), $commentTime, 'Comment 4');
 	}
-
 }
 
 class CommentTest_MockAkismetApi {
@@ -872,7 +874,6 @@ class CommentTest_MockAkismetApi {
 	public function wasCalled($function) {
 		return !empty($_GET['mock']['called'][$function]);
 	}
-
 }
 
 class CommentTest_GalleryCommentHelper_MockCheckWithAkismet extends GalleryCommentHelper {
@@ -889,5 +890,4 @@ class CommentTest_GalleryCommentHelper_MockCheckWithAkismet extends GalleryComme
 
 		return null;
 	}
-
 }

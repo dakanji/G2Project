@@ -61,8 +61,7 @@ class NetPbmToolkitHelper {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		// -------------------- Operations --------------------
 		// Convert TIFF and PPM to JPEG
@@ -221,9 +220,7 @@ class NetPbmToolkitHelper {
 				'image/x-portable-pixmap',
 				'application/x-shockwave-flash',
 			)
-			// Supported by php getimagesize
-		);
-
+		); // Supported by php getimagesize
 		return array(
 			null,
 			array(
@@ -361,8 +358,7 @@ class NetPbmToolkitHelper {
 						if (!$isRestrictedPath && !$platform->file_exists($fullPath)) {
 							$fullPath .= '.exe';
 						}
-
-}
+					}
 
 					if (!$isRestrictedPath && !$platform->file_exists($fullPath)) {
 						continue;
@@ -387,8 +383,7 @@ class NetPbmToolkitHelper {
 							'message' => $results,
 						);
 					}
-
-}
+				}
 
 				if (!empty($test)) {
 					$tests[] = $test;
@@ -400,8 +395,7 @@ class NetPbmToolkitHelper {
 						if ($ret) {
 							return array($ret, null, null);
 						}
-
-}
+					}
 
 					$tests[] = array(
 						'name'    => str_replace('|', $module->translate(' or '), $binaries),
@@ -421,8 +415,7 @@ class NetPbmToolkitHelper {
 			if (!$failCount && !empty($mimeList)) {
 				$mimeTypes = array_merge($mimeTypes, explode('|', $mimeList));
 			}
-
-}
+		}
 
 		return array(null, $tests, $mimeTypes);
 	}
@@ -449,8 +442,7 @@ class NetPbmToolkitHelper {
 				if (preg_match("|$match|", $test['name'])) {
 					$binary[$key] = $test['name'];
 				}
-
-}
+			}
 		}
 
 		foreach (array_keys($paramList) as $key) {
@@ -464,10 +456,8 @@ class NetPbmToolkitHelper {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		return null;
 	}
-
 }

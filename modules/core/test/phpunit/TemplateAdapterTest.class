@@ -146,7 +146,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 	public function testForceFullUrlOn() {
 		$this->_setupAdapterWithMocks();
-
 		$this->_templateAdapter->url(
 			array(
 				'arg1'         => 'foo=bar',
@@ -154,7 +153,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 			),
 			$this->_mockSmarty
 		);
-
 		$this->assertEquals(
 			array(
 				array(
@@ -170,14 +168,12 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 	public function testForceFullUrlOff() {
 		$this->_setupAdapterWithMocks();
-
 		$this->_templateAdapter->url(
 			array(
 				'arg1' => 'foo=bar',
 			),
 			$this->_mockSmarty
 		);
-
 		$this->assertEquals(
 			array(
 				array(
@@ -191,7 +187,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 	public function testUrlParamsAndArgs() {
 		$this->_setupAdapterWithMocks();
-
 		$this->_templateAdapter->url(
 			array(
 				'params' => array(
@@ -201,7 +196,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 			),
 			$this->_mockSmarty
 		);
-
 		$this->assertEquals(
 			array(
 				array(
@@ -216,7 +210,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 	public function testUrlOptionsAndBulkOptions() {
 		$this->_setupAdapterWithMocks();
-
 		$this->_templateAdapter->url(
 			array(
 				'options' => array(
@@ -227,7 +220,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 			),
 			$this->_mockSmarty
 		);
-
 		$this->assertEquals(
 			array(
 				array(),
@@ -361,7 +353,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 			),
 			$this->_mockSmarty
 		);
-
 		$this->assertEquals(
 			array(
 				array(
@@ -392,7 +383,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 			),
 			$this->_mockSmarty
 		);
-
 		$this->assertEquals(
 			array(
 				array(
@@ -430,7 +420,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 			),
 			$this->_mockSmarty
 		);
-
 		$this->assertEquals(
 			array(
 				array(
@@ -488,7 +477,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$base = GalleryCoreApi::getCodeBasePath();
 
 		$gallery->_platform->setReply('file_exists', array($base . 'path/file1.js'), true);
-
 		$gallery->_platform->setReply(
 			'stat',
 			array($base . 'path/file1.js'),
@@ -499,7 +487,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$gallery->_platform->setReply('file_exists', array($base . 'path/file2.txt'), true);
-
 		$gallery->_platform->setReply(
 			'stat',
 			array($base . 'path/file2.txt'),
@@ -510,15 +497,21 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$gallery->_phpVm->setReply('md5', array('path/file1.js 7 9,path/file2.txt 7 9,'), 'MD5KEY');
+
 		$gallery->_platform->setReply(
 			'file_exists',
 			array('/cache/module/_all/0/0/CombinedJavascript_MD5KEY.inc'),
 			false
 		);
+
 		$gallery->_platform->setReply('file_get_contents', array($base . 'path/file1.js'), 'ONE');
+
 		$gallery->_phpVm->setReply('function_exists', array('gzencode'), true);
+
 		$gallery->_platform->setReply('file_get_contents', array($base . 'path/file2.txt'), 'TWO');
+
 		$gallery->_platform->setReply('file_exists', array('/cache/module/_all/0/0'), true);
+
 		$gallery->_platform->setReply('is_dir', array('/cache/module/_all/0/0'), true);
 		$gallery->_platform->setReply(
 			'atomicWrite',
@@ -636,7 +629,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$base     = GalleryCoreApi::getCodeBasePath();
 
 		$platform->setReply('file_exists', array($base . $filename), true);
-
 		$platform->setReply(
 			'stat',
 			array($base . $filename),
@@ -647,6 +639,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$gallery->_phpVm->setReply('md5', array($filename . ' 7 9,'), $md5Key);
+
 		$platform->setReply(
 			'file_exists',
 			array('/cache/module/_all/0/0/CombinedJavascript_' . $md5Key . '.inc'),
@@ -820,7 +813,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 		}
 
 		$this->_templateAdapter->block($params, $this->_mockSmarty);
-
 		$this->assertEquals(
 			array(
 				'smarty_include_tpl_file' => 'gallery:modules/core/templates/blocks/Missing.tpl',
@@ -867,7 +859,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 		}
 
 		$this->_templateAdapter->block($params, $this->_mockSmarty);
-
 		$this->assertEquals(
 			array(
 				'smarty_include_tpl_file' => 'gallery:modules/core/templates/blocks/Bogus.tpl',
@@ -914,7 +905,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 		}
 
 		$this->_templateAdapter->block($params, $this->_mockSmarty);
-
 		$this->assertEquals(
 			array(
 				'smarty_include_tpl_file' => 'gallery:modules/core/templates/blocks/Missing.tpl',
@@ -938,7 +928,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$template->meta('test1', 'value 1');
 		$template->meta('test2', 'value 2', true);
 		$template->style('/test.css');
-
 		$template->link(
 			array(
 				'attr1' => 'value1',
@@ -981,7 +970,6 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$template->meta('test1', 'value 1');
 		$template->meta('test2', 'value 2', true);
 		$template->style('/test.css');
-
 		$template->link(
 			array(
 				'attr1' => 'value1',
@@ -1015,14 +1003,12 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 		$this->assertEquals(implode("\n", $expected), $output);
 	}
-
 }
 
 class TemplateAdapterMockTheme {
 	public function getId() {
 		return 'mock';
 	}
-
 }
 
 class TemplateAdapterMockSmarty {
@@ -1039,7 +1025,6 @@ class TemplateAdapterMockSmarty {
 	public function _get_compile_path($path) {
 		return $path;
 	}
-
 }
 
 class TemplateAdapterMockUrlGenerator {
@@ -1050,7 +1035,6 @@ class TemplateAdapterMockUrlGenerator {
 
 		return $this->_calls;
 	}
-
 }
 
 class TemplateAdapterMockTranslator {
@@ -1069,5 +1053,4 @@ class TemplateAdapterMockTranslator {
 
 		return array(null, $result);
 	}
-
 }

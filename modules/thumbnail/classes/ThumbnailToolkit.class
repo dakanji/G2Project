@@ -50,7 +50,8 @@ class ThumbnailToolkit extends GalleryToolkit {
 
 		global $gallery;
 
-		$platform                =& $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
+
 		list($ret, $mimeTypeMap) = ThumbnailHelper::fetchMimeTypeMap();
 
 		if ($ret) {
@@ -136,5 +137,4 @@ class ThumbnailToolkit extends GalleryToolkit {
 
 		return array(null, $mimeType, $context);
 	}
-
 }

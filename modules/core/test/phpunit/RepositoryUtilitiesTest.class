@@ -136,8 +136,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 				)
 			);
 		}
-
-}
+	}
 
 	public function testCompareRevisions() {
 		$utilities = new GalleryRepositoryUtilities();
@@ -164,8 +163,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 			$this->assertEquals($case['expectedRelation'], $relation);
 		}
-
-}
+	}
 
 	public function testExtractRevision() {
 		$utilities = new GalleryRepositoryUtilities();
@@ -183,8 +181,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 			$this->assertEquals($result, $revision, "Testcase: $case");
 		}
-
-}
+	}
 
 	public function testGetFirstBytesFromFile() {
 		global $gallery;
@@ -239,8 +236,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 			$this->assertEquals($result, $description, "Testcase: $case");
 		}
-
-}
+	}
 
 	public function testGetLanguageBaseRevision() {
 		global $gallery;
@@ -255,7 +251,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform->setReply('fclose', array('handle'), true);
 		$gallery->setPlatform($platform);
 
-		$utilities            = new GalleryRepositoryUtilities();
+		$utilities = new GalleryRepositoryUtilities();
+
 		list($ret, $revision) = $utilities->getLanguageBaseRevision('testPlugin', 'testModule');
 
 		if ($ret) {
@@ -286,6 +283,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			$path     = GalleryCoreApi::getCodeBasePath($case['pluginType'] . 's/');
 
 			$platform->setReply('opendir', array($path), 'fh');
+
 			$platform->setReply('readdir', array('fh'), 'testModule');
 			$platform->setReply(
 				'is_file',
@@ -302,7 +300,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			$platform->setReply('closedir', array('fh'), true);
 			$gallery->setPlatform($platform);
 
-			$utilities               = new GalleryRepositoryUtilities();
+			$utilities = new GalleryRepositoryUtilities();
+
 			list($ret, $isAvailable) = $utilities->isPluginAvailable($case['pluginType'], $case['pluginId']);
 
 			if ($ret) {
@@ -311,8 +310,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 			$this->assertEquals($case['isAvailable'], $isAvailable);
 		}
-
-}
+	}
 
 	public function testIsPluginCompatible() {
 		$utilities = new GalleryRepositoryUtilities();
@@ -423,8 +421,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 				)
 			);
 		}
-
-}
+	}
 
 	public function testGetProvidedApis() {
 		$utilities = new GalleryRepositoryUtilities();
@@ -501,8 +498,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 				'expectedPluginApi ' . $i
 			);
 		}
-
-}
+	}
 
 	public function testGetPluginPackages() {
 		$this->_testStorage->setSearchResults(
@@ -512,7 +508,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			)
 		);
 
-		$utilities            = new GalleryRepositoryUtilities();
+		$utilities = new GalleryRepositoryUtilities();
+
 		list($ret, $packages) = $utilities->getPluginPackages('module', 'testModule');
 
 		if ($ret) {
@@ -569,7 +566,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			)
 		);
 
-		$utilities           = new GalleryRepositoryUtilities();
+		$utilities = new GalleryRepositoryUtilities();
+
 		list($ret, $version) = $utilities->getPluginVersion('module', 'testModule');
 
 		if ($ret) {
@@ -592,6 +590,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 
 		$platform->setReply('fsockopen', array('example.com', 80, null, null, 5), 'fd');
+
 		$platform->setReply(
 			'fwrite',
 			array(
@@ -602,12 +601,19 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			),
 			true
 		);
+
 		$platform->setReply('fflush', array('fd'), null);
+
 		$platform->setReply('fgets', array('fd', 4096), "HTTP/1.1 200 OK\r\n");
+
 		$platform->setReply('feof', array('fd'), false);
+
 		$platform->setReply('fgets', array('fd', 4096), "\r\n");
+
 		$platform->setReply('feof', array('fd'), false);
+
 		$platform->setReply('fread', array('fd', 4096), 'data');
+
 		$platform->setReply('feof', array('fd'), true);
 		$platform->setReply('fclose', array('fd'), null);
 		$gallery->setPlatform($platform);
@@ -631,6 +637,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 
 		$platform->setReply('fsockopen', array('example.com', 80, null, null, 5), 'fd');
+
 		$platform->setReply(
 			'fwrite',
 			array(
@@ -641,12 +648,19 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			),
 			true
 		);
+
 		$platform->setReply('fflush', array('fd'), null);
+
 		$platform->setReply('fgets', array('fd', 4096), "HTTP/1.1 200 OK\r\n");
+
 		$platform->setReply('feof', array('fd'), false);
+
 		$platform->setReply('fgets', array('fd', 4096), "\r\n");
+
 		$platform->setReply('feof', array('fd'), false);
+
 		$platform->setReply('fread', array('fd', 4096), 'data');
+
 		$platform->setReply('feof', array('fd'), true);
 		$platform->setReply('fclose', array('fd'), null);
 		$gallery->setPlatform($platform);
@@ -670,6 +684,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform = new UnitTestPlatform();
 
 		$platform->setReply('fsockopen', array('example.com', 80, null, null, 5), 'fd');
+
 		$platform->setReply(
 			'fwrite',
 			array(
@@ -680,13 +695,21 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			),
 			true
 		);
+
 		$platform->setReply('fflush', array('fd'), null);
+
 		$platform->setReply('fgets', array('fd', 4096), "HTTP/1.1 200 OK\r\n");
+
 		$platform->setReply('feof', array('fd'), false);
+
 		$platform->setReply('fgets', array('fd', 4096), "\r\n");
+
 		$platform->setReply('feof', array('fd'), false);
+
 		$platform->setReply('fread', array('fd', 4096), 'data');
+
 		$platform->setReply('feof', array('fd'), true);
+
 		$platform->setReply('fclose', array('fd'), null);
 		$gallery->setPlatform($platform);
 		$this->assertEquals(
@@ -827,8 +850,11 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform       = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array("$modules/m1/"), true);
+
 		$platform->setReply('is_writeable', array("$modules/m1/"), true);
+
 		$platform->setReply('is_dir', array("$modules/m1/"), true);
+
 		$platform->setReply('file_exists', array("$modules/m1/f1"), true);
 		$platform->setReply('is_writeable', array("$modules/m1/f1"), true);
 		$platform->setReply('file_exists', array("$modules/m1/d2/f2"), true);
@@ -850,16 +876,13 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform       = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array("$modules/m1/"), true);
+
 		$platform->setReply('is_writeable', array("$modules/m1/"), true);
 		$platform->setReply('is_dir', array("$modules/m1/"), true);
 		$platform->setReply('file_exists', array("$modules/m1/f1"), true);
-
-		// bad!
-		$platform->setReply('is_writeable', array("$modules/m1/f1"), false);
+		$platform->setReply('is_writeable', array("$modules/m1/f1"), false); // bad!
 		$platform->setReply('file_exists', array("$modules/m1/d2/f2"), true);
-
-		// bad!
-		$platform->setReply('is_writeable', array("$modules/m1/d2/f2"), false);
+		$platform->setReply('is_writeable', array("$modules/m1/d2/f2"), false); // bad!
 		$gallery->setPlatform($platform);
 
 		$utilties = new GalleryRepositoryUtilities();
@@ -903,14 +926,14 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform       = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array("$modules/m1/"), true);
+
 		$platform->setReply('is_writeable', array("$modules/m1/"), true);
+
 		$platform->setReply('is_dir', array("$modules/m1/"), true);
 		$platform->setReply('file_exists', array("$modules/m1/f1"), true);
 		$platform->setReply('is_writeable', array("$modules/m1/f1"), true);
 		$platform->setReply('file_exists', array("$modules/m1/d2/f2"), false);
-
-		// missing!
-		$platform->setReply('file_exists', array("$modules/m1/d2/"), false);
+		$platform->setReply('file_exists', array("$modules/m1/d2/"), false); // missing!
 		$gallery->setPlatform($platform);
 
 		$utilties = new GalleryRepositoryUtilities();
@@ -928,10 +951,15 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform       = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array("$modules/m1/"), true);
+
 		$platform->setReply('is_writeable', array("$modules/m1/"), true);
+
 		$platform->setReply('is_dir', array("$modules/m1/"), true);
+
 		$platform->setReply('file_exists', array("$modules/m1/f1"), true);
+
 		$platform->setReply('is_writeable', array("$modules/m1/f1"), true);
+
 		$platform->setReply('file_exists', array("$modules/m1/d2/f2"), false);
 		$platform->setReply('file_exists', array("$modules/m1/d2/"), true);
 		$platform->setReply('is_writeable', array("$modules/m1/d2/"), true);
@@ -953,16 +981,18 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform       = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array("$modules/m1/"), true);
+
 		$platform->setReply('is_writeable', array("$modules/m1/"), true);
+
 		$platform->setReply('is_dir', array("$modules/m1/"), true);
+
 		$platform->setReply('file_exists', array("$modules/m1/f1"), true);
+
 		$platform->setReply('is_writeable', array("$modules/m1/f1"), true);
 		$platform->setReply('file_exists', array("$modules/m1/d2/f2"), false);
 		$platform->setReply('file_exists', array("$modules/m1/d2/"), true);
 		$platform->setReply('is_writeable', array("$modules/m1/d2/"), true);
-
-		// bad!
-		$platform->setReply('is_dir', array("$modules/m1/d2/"), false);
+		$platform->setReply('is_dir', array("$modules/m1/d2/"), false);  // bad!
 		$gallery->setPlatform($platform);
 
 		$utilties = new GalleryRepositoryUtilities();
@@ -983,9 +1013,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$platform       = new UnitTestPlatform();
 
 		$platform->setReply('file_exists', array("$modules/m1/"), true);
-
-		// bad!
-		$platform->setReply('is_writeable', array("$modules/m1/"), false);
+		$platform->setReply('is_writeable', array("$modules/m1/"), false); // bad!
 		$gallery->setPlatform($platform);
 
 		$utilties = new GalleryRepositoryUtilities();
@@ -1029,9 +1057,10 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			array("$modules/testModule/moduleFile1"),
 			'moduleFile1'
 		);
-		$platform->setReply('file_exists', array("$modules/testModule/moduleFile1"), true);
-		$platform->setReply('filesize', array("$modules/testModule/moduleFile1"), 1337);
 
+		$platform->setReply('file_exists', array("$modules/testModule/moduleFile1"), true);
+
+		$platform->setReply('filesize', array("$modules/testModule/moduleFile1"), 1337);
 		// moduleFile2
 		$platform->setReply(
 			'file_get_contents',
@@ -1089,12 +1118,10 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			} else {
 				$phpVm->setReply('function_exists', array('gzinflate'), false);
 			}
-
-} else {
+		} else {
 			$platform->setReply('fgets', array('handle', 4096), "file:$file {$dataLength}\r\n");
 		}
-
-}
+	}
 
 	public function testSplitAggregatePackage() {
 		global $gallery;
@@ -1108,19 +1135,24 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$phpVm           = $gallery->getPhpVm();
 
 		$gallery->setConfig('repository.cache', '/cache/');
+
 		$platform->setReply('fopen', array('tempOut', 'r', null), 'handle');
+
 		$this->_setSplitPackagesResponses(
 			'modules/testModule-1.0-22222.descriptor',
 			'Module Descriptor Data'
 		);
+
 		$this->_setSplitPackagesResponses(
 			'modules/testModule-1.0-22222-base.package',
 			'Module Base Data'
 		);
+
 		$this->_setSplitPackagesResponses(
 			'modules/testModule-lang-en_GB-11111-22222.package',
 			'Module Language en_GB Data'
 		);
+
 		$this->_setSplitPackagesResponses(
 			'themes/testTheme-1.0.1-22222.descriptor.gz',
 			'Theme Descriptor Data'
@@ -1144,7 +1176,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			'total'   => 10,
 		);
 
-		$utilities            = new GalleryRepositoryUtilities();
+		$utilities = new GalleryRepositoryUtilities();
+
 		list($ret, $packages) = $utilities->splitAggregatePackage('test', 'tempOut', $callback);
 
 		if ($ret) {
@@ -1193,7 +1226,6 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 		$gallery->setConfig('repository.cache', '/cache/');
 		$platform->setReply('fopen', array('tempOut', 'r', null), 'handle');
-
 		$this->_setSplitPackagesResponses(
 			'themes/testTheme-11111-22222.descriptor',
 			'Descriptor Data',
@@ -1212,7 +1244,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			'total'   => 10,
 		);
 
-		$utilities            = new GalleryRepositoryUtilities();
+		$utilities = new GalleryRepositoryUtilities();
+
 		list($ret, $packages) = $utilities->splitAggregatePackage('test', 'tempOut', $callback);
 
 		$this->assertErrorEquals(ERROR_UNSUPPORTED_FILE_TYPE, $ret);
@@ -1236,7 +1269,6 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			'modules/testModule-1.0-22222.descriptor',
 			'Module Descriptor Data'
 		);
-
 		$this->_setSplitPackagesResponses(
 			'modules/testModule-1.0-22222-base.package.gz',
 			'Module Base Data',
@@ -1255,7 +1287,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			'total'   => 10,
 		);
 
-		$utilities            = new GalleryRepositoryUtilities();
+		$utilities = new GalleryRepositoryUtilities();
+
 		list($ret, $packages) = $utilities->splitAggregatePackage('test', 'tempOut', $callback);
 
 		$this->assertErrorEquals(ERROR_UNSUPPORTED_FILE_TYPE, $ret);
@@ -1274,6 +1307,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 				array($handle, 4096),
 				"HTTP/1.1 {$failed['download']}\r\n"
 			);
+
 			$platform->setReply('feof', array('fd'), true);
 		} else {
 			$platform->setReply('fgets', array($handle, 4096), "HTTP/1.1 200 OK\r\n");
@@ -1293,8 +1327,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			$platform->setReply('feof', array($handle), false);
 			$platform->setReply('fgets', array($handle, 4096), "\r\n");
 		}
-
-}
+	}
 
 	public function _setAggregrateDownloadResponses($files, $errors = array()) {
 		global $gallery;
@@ -1328,8 +1361,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 				// Build expected Response
 				$responseData .= sprintf("file: %s %d\n%s", $encodedFile, strlen($data), $data);
 			}
-
-}
+		}
 
 		$requestDataLength = strlen($requestData);
 		$requestData       = "POST /repository/test/multipart/?{$this->_apis} "
@@ -1338,13 +1370,18 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		. "Content-Length: {$requestDataLength}\r\n\r\n" . $requestData;
 
 		$platform->setReply('fwrite', array('fd', $requestData, null), true);
+
 		$platform->setReply('fflush', array('fd'), null);
+
 		$this->_setDownloadHeaders('fd', $errors);
+
 		$platform->setReply('fopen', array($outputFile, 'wb', null), 'handle');
 
 		if (empty($errors['download'])) {
 			$platform->setReply('feof', array('fd'), false);
+
 			$platform->setReply('fread', array('fd', 4096), $responseData);
+
 			$platform->setReply(
 				'fwrite',
 				array('handle', $responseData, null),
@@ -1359,8 +1396,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		if (!empty($errors['download'])) {
 			$platform->setReply('unlink', array($outputFile), true);
 		}
-
-}
+	}
 
 	public function testDownloadAggregatePackages() {
 		global $gallery;
@@ -1383,7 +1419,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 		$this->_setAggregrateDownloadResponses($files);
 
-		$utilities            = new GalleryRepositoryUtilities();
+		$utilities = new GalleryRepositoryUtilities();
+
 		list($ret, $packages) = $utilities->downloadAggregatePackages('test', array_keys($files));
 
 		if ($ret) {
@@ -1420,7 +1457,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			)
 		);
 
-		$utilities            = new GalleryRepositoryUtilities();
+		$utilities = new GalleryRepositoryUtilities();
+
 		list($ret, $packages) = $utilities->downloadAggregatePackages('test', array_keys($files));
 
 		$this->assertErrorEquals(ERROR_BAD_PATH, $ret);
@@ -1453,13 +1491,13 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 			)
 		);
 
-		$utilities            = new GalleryRepositoryUtilities();
+		$utilities = new GalleryRepositoryUtilities();
+
 		list($ret, $packages) = $utilities->downloadAggregatePackages('test', array_keys($files));
 
 		$this->assertErrorEquals(ERROR_PLATFORM_FAILURE, $ret);
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}
-
 }
 
 class RepositoryUtilitiesTestPhpVm extends GalleryPhpVm {
@@ -1478,12 +1516,10 @@ class RepositoryUtilitiesTestPhpVm extends GalleryPhpVm {
 	public function gzinflate($data = null, $length = null) {
 		return "uncompressed-$data";
 	}
-
 }
 
 class RepositoryUtilitiesTestPlugin {
 	public function getVersion() {
 		return 'someVersion';
 	}
-
 }

@@ -113,16 +113,14 @@ class DataItemTest extends GalleryTestCase {
 				$this->assertTrue($platform->file_exists($entityPath), "$entityPath does not exist");
 				$this->assertTrue($platform->is_file($entityPath), "$entityPath is not a directory");
 			}
-
-}
+		}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testMoveCollision() {
 		global $gallery;
@@ -213,8 +211,7 @@ class DataItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	/**
 	 * Create an data item being a symlink to an existing file
@@ -282,8 +279,7 @@ class DataItemTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testRescan() {
 		global $gallery;
@@ -345,5 +341,4 @@ class DataItemTest extends GalleryTestCase {
 		$this->assertEquals($platform->filesize(__FILE__), $item->getSize(), 'updated size');
 		$this->assertFalse($platform->file_exists($path), 'fast-download file should be removed');
 	}
-
 }

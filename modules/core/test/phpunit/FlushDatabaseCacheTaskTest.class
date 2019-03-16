@@ -41,7 +41,8 @@ class FlushDatabaseCacheTaskTest extends GalleryTestCase {
 
 		$gallery->setPlatform($mockPlatform);
 
-		$task                          = new FlushDatabaseCacheTask();
+		$task = new FlushDatabaseCacheTask();
+
 		list($ret, $success, $details) = $task->run();
 
 		if ($ret) {
@@ -94,7 +95,8 @@ class FlushDatabaseCacheTaskTest extends GalleryTestCase {
 
 		$gallery->setPlatform($mockPlatform);
 
-		$task                          = new FlushDatabaseCacheTask();
+		$task = new FlushDatabaseCacheTask();
+
 		list($ret, $success, $details) = $task->run();
 
 		if ($ret) {
@@ -135,7 +137,6 @@ class FlushDatabaseCacheTaskTest extends GalleryTestCase {
 			$mockPlatform->getCalls()
 		);
 	}
-
 }
 
 class FlushDatabaseCacheTaskTestPlatform {
@@ -173,5 +174,4 @@ class FlushDatabaseCacheTaskTestPlatform {
 	public function realpath($path) {
 		return $path;
 	}
-
 }

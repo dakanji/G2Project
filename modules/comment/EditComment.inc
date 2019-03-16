@@ -74,8 +74,7 @@ class EditCommentController extends GalleryController {
 				if ($ret) {
 					$error[] = 'form[error][commenterName][invalid]';
 				}
-
-}
+			}
 
 			if (empty($form['subject'])) {
 				$form['subject'] = '';
@@ -136,6 +135,7 @@ class EditCommentController extends GalleryController {
 				}
 
 				$comment->setCommenterId($commenter->getId());
+
 				$comment->setHost($form['host']);
 				$comment->setSubject($form['subject']);
 				$comment->setComment($form['comment']);
@@ -158,8 +158,7 @@ class EditCommentController extends GalleryController {
 				$redirect['view']   = 'comment.CommentChangeConfirmation';
 				$redirect['itemId'] = (int)$itemId;
 			}
-
-} elseif (isset($form['action']['preview'])) {
+		} elseif (isset($form['action']['preview'])) {
 			// Verify the input parameters
 			if (empty($form['commenterName'])) {
 				$error[] = 'form[error][commenterName][missing]';
@@ -169,8 +168,7 @@ class EditCommentController extends GalleryController {
 				if ($ret) {
 					$error[] = 'form[error][commenterName][invalid]';
 				}
-
-}
+			}
 
 			if (empty($form['subject'])) {
 				$form['subject'] = '';
@@ -204,7 +202,6 @@ class EditCommentController extends GalleryController {
 
 		return array(null, $results);
 	}
-
 }
 
 /**
@@ -248,7 +245,8 @@ class EditCommentView extends GalleryView {
 		}
 
 		// Associate the commenter's info
-		$commenterId           = $comment->getCommenterId();
+		$commenterId = $comment->getCommenterId();
+
 		list($ret, $commenter) = GalleryCoreApi::loadEntitiesById($commenterId, 'GalleryUser');
 
 		if ($ret) {
@@ -297,5 +295,4 @@ class EditCommentView extends GalleryView {
 			),
 		);
 	}
-
 }

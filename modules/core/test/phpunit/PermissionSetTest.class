@@ -102,8 +102,7 @@ class PermissionSetTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function tearDown() {
 		$ret = GalleryCoreApi::unregisterModulePermissions('testModule');
@@ -117,8 +116,7 @@ class PermissionSetTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testGetPermissionIds() {
 		// Four defined perms
@@ -338,7 +336,6 @@ class PermissionSetTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(2, sizeof($ids));
-
 		// Unordered comparison
 		$this->assertEquals(
 			array(
@@ -351,5 +348,4 @@ class PermissionSetTest extends GalleryTestCase {
 			)
 		);
 	}
-
 }

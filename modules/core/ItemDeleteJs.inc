@@ -88,7 +88,8 @@ class ItemDeleteJsView extends GalleryView {
 				 */
 				global $gallery;
 
-				$platform         =& $gallery->getPlatform();
+				$platform =& $gallery->getPlatform();
+
 				list($ret, $lang) = $gallery->getActiveLanguageCode();
 
 				if ($ret) {
@@ -102,8 +103,7 @@ class ItemDeleteJsView extends GalleryView {
 					if (($stat = $platform->stat($inc)) && $stat[9] > $when) {
 						$new = true;
 					}
-
-} else {
+				} else {
 					$lang = substr($lang, 0, 2);
 					$inc  = $gallery->getConfig('data.gallery.base')
 					. "locale/$lang/LC_MESSAGES/modules_core.mo";
@@ -113,16 +113,14 @@ class ItemDeleteJsView extends GalleryView {
 					) {
 						$new = true;
 					}
-
-}
+				}
 
 				if (!isset($new)) {
 					header('HTTP/1.0 304 Not Modified');
 
 					return null;
 				}
-
-}
+			}
 		}
 
 		header('Content-type: text/javascript; charset=UTF-8');
@@ -133,5 +131,4 @@ class ItemDeleteJsView extends GalleryView {
 
 		return $ret;
 	}
-
 }

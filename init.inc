@@ -18,6 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * Perform all necessary initialization of the Gallery framework
  * @package Gallery
@@ -99,11 +100,20 @@ function GalleryInitFirstPass($params = array()) {
 
 	// Set our various data paths
 	$gallery->setConfig('data.gallery.cache', $dataBase . 'cache' . $slash);
+
 	$gallery->setConfig('data.gallery.albums', $dataBase . 'albums' . $slash);
+
 	$gallery->setConfig('data.gallery.locks', $dataBase . 'locks' . $slash);
+
 	$gallery->setConfig('data.gallery.tmp', $dataBase . 'tmp' . $slash);
+
 	$gallery->setConfig('data.smarty.base', $dataBase . 'smarty' . $slash);
-	$gallery->setConfig('data.smarty.templates_c', $dataBase . 'smarty' . $slash . 'templates_c' . $slash);
+
+	$gallery->setConfig(
+		'data.smarty.templates_c',
+		$dataBase . 'smarty' . $slash . 'templates_c' . $slash
+	);
+
 	$gallery->setConfig('data.gallery.plugins', $galleryBase . 'plugins' . $slash);
 	$gallery->setConfig('data.gallery.plugins_data', $dataBase . 'plugins_data' . $slash);
 	$gallery->setConfig('data.gallery.version', $dataBase . 'versions.dat');
@@ -133,29 +143,11 @@ function GalleryInitFirstPass($params = array()) {
 	// Allow for overrides from GalleryEmbed ($param) or from config.php
 	$configBaseUri = @$gallery->getConfig('baseUri');
 
-	if (empty($configBaseUri)) {
-		$configBaseUri = null;
-	}
-
-	if (isset($params['baseUri'])) {
-		$ourBaseUri = $params['baseUri'];
-	} else {
-		$ourBaseUri = $configBaseUri;
-	}
-
-	if (isset($params['g2Uri'])) {
-		$ourG2Uri = $params['g2Uri'];
-	} else {
-		$ourG2Uri = null;
-	}
-
-	if (isset($params['embedSessionString'])) {
-		$ourEmbedSessionString = $params['embedSessionString'];
-	} else {
-		$ourEmbedSessionString = null;
-	}
-
-	$ret = $urlGenerator->init($ourBaseUri, $ourG2Uri, $ourEmbedSessionString);
+	$ret = $urlGenerator->init(
+		isset($params['baseUri']) ? $params['baseUri'] : (!empty($configBaseUri) ? $configBaseUri : null),
+		isset($params['g2Uri']) ? $params['g2Uri'] : null,
+		isset($params['embedSessionString']) ? $params['embedSessionString'] : null
+	);
 
 	if ($ret) {
 		return $ret;

@@ -22,12 +22,9 @@ require_once ADODB_DIR . '/tohtml.inc.php';
 
 define('ADODB_OPT_HIGH', 2);
 define('ADODB_OPT_LOW', 1);
-
 global $ADODB_PERF_MIN;
 
-// log only if >= minimum number of secs to run
-$ADODB_PERF_MIN = 0.05;
-
+$ADODB_PERF_MIN = 0.05; // log only if >= minimum number of secs to run
 // returns in K the memory of current process, or 0 if not known
 function adodb_getmem() {
 	if (function_exists('memory_get_usage')) {
@@ -88,14 +85,12 @@ function adodb_log_sql(&$connx, $sql, $inputarr) {
 			} else {
 				$prefix = '';
 			}
-
-} else {
+		} else {
 			$conn   = $connx;
 			$prefix = '';
 		}
 
-		// disable logsql error simulation
-		$conn->_logsql = false;
+		$conn->_logsql = false; // disable logsql error simulation
 		$dbT           = $conn->databaseType;
 		$time          = $a1 - $a0;
 
@@ -125,8 +120,7 @@ function adodb_log_sql(&$connx, $sql, $inputarr) {
 			if (isset($_SERVER['PHP_SELF'])) {
 				$tracer .= htmlspecialchars($_SERVER['PHP_SELF']);
 			}
-
-} elseif (isset($_SERVER['PHP_SELF'])) {
+		} elseif (isset($_SERVER['PHP_SELF'])) {
 			$tracer .= '<br>' . htmlspecialchars($_SERVER['PHP_SELF']);
 		}
 
@@ -145,16 +139,14 @@ function adodb_log_sql(&$connx, $sql, $inputarr) {
 					if (gettype($xar_param) == 'string') {
 						$xar_params[$xar_param_key] = '"' . $xar_param . '"';
 					}
-
-}
+				}
 
 				$params = implode(', ', $xar_params);
 
 				if (strlen($params) >= 3000) {
 					$params = substr($params, 0, 3000);
 				}
-
-}
+			}
 		} else {
 			$params = '';
 		}
@@ -225,18 +217,15 @@ function adodb_log_sql(&$connx, $sql, $inputarr) {
 		if ($ok) {
 			$conn->_logsql = true;
 		} else {
-			$err2 = $conn->ErrorMsg();
-
-			// enable logsql error simulation
-			$conn->_logsql = true;
+			$err2          = $conn->ErrorMsg();
+			$conn->_logsql = true; // enable logsql error simulation
 			$perf          = NewPerfMonitor($conn);
 
 			if ($perf) {
 				if ($perf->CreateLogTable()) {
 					$ok = $conn->Execute($isql, $arr);
 				}
-
-} else {
+			} else {
 				$ok = $conn->Execute(
 					"create table $perf_table (
 						created varchar(50),
@@ -253,8 +242,7 @@ function adodb_log_sql(&$connx, $sql, $inputarr) {
 				ADOConnection::outp("<p><b>LOGSQL Insert Failed</b>: $isql<br>$err2</p>");
 				$conn->_logsql = false;
 			}
-
-}
+		}
 
 		$connx->_errorMsg  = $errM;
 		$connx->_errorCode = $errN;
@@ -278,15 +266,13 @@ Each database parameter element in the array is itself an array consisting of:
 */
 class adodb_perf {
 	public $conn;
-	public $color     = '#F0F0F0';
-	public $table     = '<table border=1 bgcolor=white>';
-	public $titles    = '<tr><td><b>Parameter</b></td><td><b>Value</b></td><td><b>Description</b></td></tr>';
-	public $warnRatio = 90;
-	public $tablesSQL = false;
-	public $cliFormat = "%32s => %s \r\n";
-
-	// used for casting sql1 to text for mssql
-	public $sql1           = 'sql1';
+	public $color          = '#F0F0F0';
+	public $table          = '<table border=1 bgcolor=white>';
+	public $titles         = '<tr><td><b>Parameter</b></td><td><b>Value</b></td><td><b>Description</b></td></tr>';
+	public $warnRatio      = 90;
+	public $tablesSQL      = false;
+	public $cliFormat      = "%32s => %s \r\n";
+	public $sql1           = 'sql1';  // used for casting sql1 to text for mssql
 	public $explain        = true;
 	public $helpurl        = '<a href="http://adodb.sourceforge.net/docs-adodb.htm#logsql">LogSQL help</a>';
 	public $createTableSQL = false;
@@ -342,8 +328,7 @@ class adodb_perf {
 			}
 
 			if (PHP_VERSION == '4.3.10') {
-				// see http://bugs.php.net/bug.php?id=31737
-				return false;
+				return false; // see http://bugs.php.net/bug.php?id=31737
 			}
 
 			static $FAIL = false;
@@ -372,8 +357,7 @@ class adodb_perf {
 				foreach ($objWMIService->ExecQuery($myQuery) as $objItem) {
 					$info[0] = $objItem->PercentProcessorTime();
 				}
-
-} catch (Exception $e) {
+			} catch (Exception $e) {
 				$FAIL = true;
 
 				echo $e->getMessage();
@@ -404,18 +388,14 @@ class adodb_perf {
 			$info = explode(' ', $line);
 
 			if ($info[0] == 'cpu') {
-				// pop off "cpu"
-				array_shift($info);
-
+				array_shift($info);  // pop off "cpu"
 				if (!$info[0]) {
-					// pop off blank space (if any)
-					array_shift($info);
+					array_shift($info); // pop off blank space (if any)
 				}
 
 				return $info;
 			}
-
-}
+		}
 
 		return false;
 	}
@@ -444,8 +424,7 @@ class adodb_perf {
 		SwapFree:      2085664 kB
 		Committed_AS:   348732 kB
 		*/
-
-}
+	}
 
 	// Remember that this is client load, not db server load!
 	public $_lastLoad;
@@ -488,7 +467,6 @@ class adodb_perf {
 		$perf_table            = self::table();
 		$saveE                 = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
-
 		global $ADODB_FETCH_MODE;
 
 		$save             = $ADODB_FETCH_MODE;
@@ -514,8 +492,7 @@ class adodb_perf {
 			foreach ($arr as $k) {
 				$s .= sprintf('%4d', $k[0]) . ' &nbsp; ' . strip_tags($k[1]) . '<br>';
 			}
-
-}
+		}
 
 		if (isset($savem)) {
 			$this->conn->SetFetchMode($savem);
@@ -545,9 +522,7 @@ class adodb_perf {
 		$saveE                 = $this->conn->fnExecute;
 		$this->conn->fnExecute = false;
 		$perf_table            = self::table();
-
-		//,$numsql);
-		$rs                    = $this->conn->SelectLimit("select distinct count(*),sql1,tracer as error_msg from $perf_table where tracer like 'ERROR:%' group by sql1,tracer order by 1 desc", $numsql);
+		$rs                    = $this->conn->SelectLimit("select distinct count(*),sql1,tracer as error_msg from $perf_table where tracer like 'ERROR:%' group by sql1,tracer order by 1 desc", $numsql);//,$numsql);
 		$this->conn->fnExecute = $saveE;
 
 		if ($rs) {
@@ -630,7 +605,6 @@ class adodb_perf {
 
 			$s .= '<tr><td>' . adodb_round($rs->fields[0], 6) . '<td align=right>' . $rs->fields[2] . '<td><font size=-1>' . $prefix . htmlspecialchars($sql) . $suffix . '</font>' .
 				'<td>' . $rs->fields[3] . '<td>' . $rs->fields[4] . '</tr>';
-
 			$rs->MoveNext();
 		}
 
@@ -724,7 +698,6 @@ class adodb_perf {
 
 			$s .= '<tr><td>' . adodb_round($rs->fields[0], 6) . '<td align=right>' . $rs->fields[2] . '<td><font size=-1>' . $prefix . htmlspecialchars($sql) . $suffix . '</font>' .
 				'<td>' . $rs->fields[3] . '<td>' . $rs->fields[4] . '</tr>';
-
 			$rs->MoveNext();
 		}
 
@@ -900,8 +873,7 @@ class adodb_perf {
 			if ($_GET['nsql'] > 0) {
 				$nsql = $_SESSION['ADODB_PERF_SQL'] = (int)$_GET['nsql'];
 			}
-
-}
+		}
 
 		echo "<title>ADOdb Performance Monitor on $app</title><body bgcolor=white>";
 
@@ -912,7 +884,6 @@ class adodb_perf {
 		}
 
 		$allowsql = !defined('ADODB_PERF_NO_RUN_SQL');
-
 		global $ADODB_PERF_MIN;
 
 		$app .= " (Min sql timing \$ADODB_PERF_MIN=$ADODB_PERF_MIN secs)";
@@ -970,9 +941,7 @@ class adodb_perf {
 				}
 
 				echo $this->SuspiciousSQL($nsql);
-
 				echo $this->ExpensiveSQL($nsql);
-
 				echo $this->InvalidSQL($nsql);
 
 				break;
@@ -1035,8 +1004,7 @@ class adodb_perf {
 			sleep($secs);
 			$arro = $arr;
 		}
-
-}
+	}
 
 	// Returns basic health check in a command line interface
 	public function HealthCheckCLI() {
@@ -1111,8 +1079,7 @@ class adodb_perf {
 
 					//$val = htmlspecialchars($val);
 				}
-
-}
+			}
 
 			if ($category != $oldc) {
 				$oldc = $category;
@@ -1133,8 +1100,7 @@ class adodb_perf {
 			} else {
 				$html .= "<tr$bgc><td>" . $name . '</td><td>' . $val . '</td><td>' . $desc . "</td></tr>\n";
 			}
-
-}
+		}
 
 		if (!$cli) {
 			$html .= "</table>\n";
@@ -1249,23 +1215,20 @@ class adodb_perf {
 					echo '<table width=98% bgcolor=#C0C0FF><tr><td>&nbsp;</td></tr></table>';
 					rs2html($rs);
 				}
-
-} else {
+			} else {
 				$e1 = (int)$this->conn->ErrorNo();
 				$e2 = $this->conn->ErrorMsg();
 
 				if (($e1) || ($e2)) {
 					if (empty($e1)) {
-						// postgresql fix
-						$e1 = '-1';
+						$e1 = '-1'; // postgresql fix
 					}
 
 					echo ' &nbsp; ' . $e1 . ': ' . $e2;
 				} else {
 					echo '<p>No Recordset returned<br></p>';
 				}
-
-}
+			}
 		} // foreach
 	}
 
@@ -1328,8 +1291,7 @@ class adodb_perf {
 		foreach ($args as $table) {
 			$this->optimizeTable($table, $mode);
 		}
-
-}
+	}
 
 	/**
 	 * Reorganise the table-indices/statistics/.. depending on the given mode.
@@ -1374,8 +1336,7 @@ class adodb_perf {
 			if (!$this->optimizeTable($table)) {
 				return false;
 			}
-
-}
+		}
 
 		return true;
 	}

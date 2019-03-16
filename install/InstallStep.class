@@ -67,8 +67,7 @@ class InstallStep {
 	}
 
 	public function processRequest() {
-		// true means continue rendering the page
-		return true;
+		return true; // true means continue rendering the page
 	}
 
 	public function loadTemplateData(&$templateData) {
@@ -110,6 +109,5 @@ class InstallStep {
 		if (function_exists('textdomain')) {
 			textdomain('gallery2_install');
 		}
-
-}
+	}
 }

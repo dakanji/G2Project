@@ -15,8 +15,7 @@ class ADODB_pdo_mssql extends ADODB_pdo {
 	public $sysTimeStamp = 'GetDate()';
 
 	public function _init($parentDriver) {
-		// <<< BUG IN PDO mssql driver
-		$parentDriver->hasTransactions = false;
+		$parentDriver->hasTransactions = false; // <<< BUG IN PDO mssql driver
 		$parentDriver->_bindInputArray = false;
 		$parentDriver->hasInsertID     = true;
 	}
@@ -54,5 +53,4 @@ class ADODB_pdo_mssql extends ADODB_pdo {
 	public function MetaColumns($table, $normalize = true) {
 		return false;
 	}
-
 }

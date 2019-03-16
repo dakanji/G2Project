@@ -68,8 +68,7 @@ class ShowTreeView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		$parentIds = $childIds = $entityObjects = $isItemTable = $entityTable = array();
 
@@ -83,8 +82,7 @@ class ShowTreeView extends GalleryView {
 				if ($ret) {
 					return array($ret, null);
 				}
-
-} elseif ($entity->getParentId()) {
+			} elseif ($entity->getParentId()) {
 				$parentIds[] = $entity->getParentId();
 			}
 
@@ -101,8 +99,7 @@ class ShowTreeView extends GalleryView {
 			while ($result = $results->nextResult()) {
 				$childIds[] = (int)$result[0];
 			}
-
-}
+		}
 
 		if (!empty($parentIds) || !empty($childIds)) {
 			// Load everything at once
@@ -114,14 +111,12 @@ class ShowTreeView extends GalleryView {
 			if ($ret) {
 				return array($ret, null);
 			}
-
-}
+		}
 
 		$entityObjects[] = $entity;
 
 		foreach ($entityObjects as $entity) {
 			$isItemTable[$entity->getId()] = GalleryUtilities::isA($entity, 'GalleryItem');
-
 			$entityTable[$entity->getId()] = (array)$entity;
 		}
 
@@ -131,7 +126,6 @@ class ShowTreeView extends GalleryView {
 		$ShowTree['entityId']    = $entityId;
 		$ShowTree['entityTable'] = $entityTable;
 		$ShowTree['isItem']      = $isItemTable;
-
 		$template->setVariable('ShowTree', $ShowTree);
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'debug');
@@ -149,5 +143,4 @@ class ShowTreeView extends GalleryView {
 			),
 		);
 	}
-
 }

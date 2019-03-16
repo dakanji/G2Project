@@ -394,7 +394,6 @@ class DerivativeTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($current, 'cache is not current');
-
 		// Check if the derivative is marked as broken
 		$this->assertEquals(1, $derivative->getIsBroken(), 'Cache is not marked as broken');
 
@@ -426,7 +425,6 @@ class DerivativeTest extends GalleryTestCase {
 			$derivative->getDerivativeSize(),
 			'Incorrect broken derivative size'
 		);
-
 		// Change the toolkit operation
 		$derivative->setDerivativeOperations('test-operation');
 
@@ -474,7 +472,6 @@ class DerivativeTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($current, 'cache is not current after fix');
-
 		// Check if the derivative is not marked as broken
 		$this->assertFalse($derivative->getIsBroken(), 'Derivative is still broken');
 
@@ -521,7 +518,6 @@ class DerivativeTest extends GalleryTestCase {
 			$derivative->getId(),
 			true
 		);
-
 		// Ret should be ERROR_PLATFORM_FAILURE
 		$gallery->setPlatform($platform);
 		$this->assertTrue(
@@ -1180,8 +1176,7 @@ B|1,2',
 		} else {
 			$this->assertFalse(true, 'dest file missing');
 		}
-
-}
+	}
 
 	public function testHasNoOperations() {
 		list($ret, $derivative) = $this->_createDerivative(
@@ -1223,8 +1218,7 @@ B|1,2',
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		// Add a thumbnail preference for single album
 		$ret = GalleryCoreApi::addDerivativePreference(
@@ -1331,8 +1325,9 @@ B|1,2',
 			'Remove prefs'
 		);
 	}
+}
 
-}function DerivativeTestCmp($a, $b) {
+function DerivativeTestCmp($a, $b) {
 	return $a['derivativeType'] - $b['derivativeType'];
 }
 
@@ -1410,7 +1405,6 @@ class DerivativeTestToolkit extends GalleryToolkit {
 
 		return array(false, null, null);
 	}
-
 }
 
 /**
@@ -1423,7 +1417,6 @@ class DerivativeTestItem extends GalleryDataItem {
 	public function getClassName() {
 		return 'DerivativeTestItem';
 	}
-
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
@@ -1437,7 +1430,6 @@ class DerivativeTestWinNtPlatform extends WinNtPlatform {
 	public function copy($source, $dest) {
 		return false;
 	}
-
 }
 
 class DerivativeTestUnixPlatform extends UnixPlatform {
@@ -1445,5 +1437,4 @@ class DerivativeTestUnixPlatform extends UnixPlatform {
 	public function copy($source, $dest) {
 		return false;
 	}
-
 }

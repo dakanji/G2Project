@@ -228,8 +228,7 @@ class WatermarkTest extends GalleryTestCase {
 
 			$this->assertEquals($filter, $derivative->getPostFilterOperations());
 		}
-
-}
+	}
 
 	public function testReplaceWatermark() {
 		// Create an item to watermark
@@ -362,12 +361,10 @@ class WatermarkTest extends GalleryTestCase {
 
 				$this->assertEquals($preferred->getId(), $derivative->getDerivativeSourceId());
 			}
-
-} else {
+		} else {
 			$this->assertTrue(false, 'missing preferred');
 		}
-
-}
+	}
 
 	public function testWatermarkItemDeletePreferred() {
 		// Create an item to watermark
@@ -451,6 +448,5 @@ class WatermarkTest extends GalleryTestCase {
 
 			$this->assertEquals($item->getId(), $derivative->getDerivativeSourceId());
 		}
-
-}
+	}
 }

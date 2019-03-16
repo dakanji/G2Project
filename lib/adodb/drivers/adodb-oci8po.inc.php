@@ -23,11 +23,9 @@ if (!defined('ADODB_DIR')) {
 require_once ADODB_DIR . '/drivers/adodb-oci8.inc.php';
 
 class ADODB_oci8po extends ADODB_oci8 {
-	public $databaseType = 'oci8po';
-	public $dataProvider = 'oci8';
-
-	//changed by smondino@users.sourceforge. net
-	public $metaColumnsSQL = "select lower(cname),coltype,width, SCALE, PRECISION, NULLS, DEFAULTVAL from col where tname='%s' order by colno";
+	public $databaseType   = 'oci8po';
+	public $dataProvider   = 'oci8';
+	public $metaColumnsSQL = "select lower(cname),coltype,width, SCALE, PRECISION, NULLS, DEFAULTVAL from col where tname='%s' order by colno"; //changed by smondino@users.sourceforge. net
 	public $metaTablesSQL  = "select lower(table_name),table_type from cat where table_type in ('TABLE','VIEW')";
 
 	public function __construct() {
@@ -79,8 +77,7 @@ class ADODB_oci8po extends ADODB_oci8 {
 				foreach ($inputarr as $v) {
 					$arr['bind' . $i++] = $v;
 				}
-
-} else {
+			} else {
 				// Need to identify if the ? is inside a quoted string, and if
 				// so not use it as a bind variable
 				preg_match_all('/".*\??"|\'.*\?.*?\'/', $sql, $matches);
@@ -99,17 +96,14 @@ class ADODB_oci8po extends ADODB_oci8 {
 					foreach ($inputarr as $k => $v) {
 						$sql .= ":$k" . $sqlarr[++$i];
 					}
-
-}
+				}
 
 				$sql = str_replace('-QUESTIONMARK-', '?', $sql);
 			}
-
-}
+		}
 
 		return ADODB_oci8::_query($sql, $inputarr);
 	}
-
 }
 
 /*--------------------------------------------------------------------------------------
@@ -135,8 +129,7 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 
 				$this->bind[strtoupper($o->name)] = $i;
 			}
-
-}
+		}
 
 		return $this->fields[$this->bind[strtoupper($colname)]];
 	}
@@ -160,8 +153,7 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 			if ($sc == 0) {
 				$fld->type = 'INT';
 			}
-
-}
+		}
 
 		return $fld;
 	}
@@ -182,8 +174,7 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 					if (is_string($v)) {
 						$this->fields[$k] = rtrim($v);
 					}
-
-}
+				}
 			}
 
 			return true;
@@ -211,8 +202,7 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 
 				return $arr;
 			}
-
-}
+		}
 
 		$ret = @oci_fetch_array($this->_queryID, $this->fetchMode);
 
@@ -253,13 +243,10 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 					if (is_string($v)) {
 						$this->fields[$k] = rtrim($v);
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		return $ret !== false;
 	}
-
 }

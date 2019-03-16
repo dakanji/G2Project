@@ -63,8 +63,7 @@ class FastDownloadTest extends GalleryTestCase {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		/*
@@ -98,8 +97,7 @@ class FastDownloadTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function testCreateFastDownloadFileForDerivative() {
 		global $gallery;
@@ -107,11 +105,8 @@ class FastDownloadTest extends GalleryTestCase {
 		$bytesWritten = '';
 		$platform     = new FastDownloadTestCreateFastDownloadPlatform($bytesWritten);
 
-		// content length
-		$platform->setStat(7, 50);
-
-		// last mod date
-		$platform->setStat(9, 1);
+		$platform->setStat(7, 50);    // content length
+		$platform->setStat(9, 1);     // last mod date
 		$gallery->setPlatform($platform);
 
 		list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
@@ -161,8 +156,7 @@ class FastDownloadTest extends GalleryTestCase {
 		if (isset($gallery->_lockSystem)) {
 			$gallery->_lockSystem->releaseQueue();
 		}
-
-}
+	}
 
 	public function testCreateFastDownloadFileForDataItem() {
 		global $gallery;
@@ -170,11 +164,8 @@ class FastDownloadTest extends GalleryTestCase {
 		$bytesWritten = '';
 		$platform     = new FastDownloadTestCreateFastDownloadPlatform($bytesWritten);
 
-		// content length
-		$platform->setStat(7, 50);
-
-		// last mod date
-		$platform->setStat(9, 1);
+		$platform->setStat(7, 50);    // content length
+		$platform->setStat(9, 1);     // last mod date
 		$gallery->setPlatform($platform);
 
 		list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
@@ -222,8 +213,7 @@ class FastDownloadTest extends GalleryTestCase {
 		if (isset($gallery->_lockSystem)) {
 			$gallery->_lockSystem->releaseQueue();
 		}
-
-}
+	}
 
 	public function testMaliciousUrlComponent() {
 		global $gallery;
@@ -392,8 +382,7 @@ class FastDownloadTest extends GalleryTestCase {
 			for ($j = 0; $j < 2; $j++) {
 				$ids[] = $this->_derivatives[$j][$i]->getId();
 			}
-
-}
+		}
 
 		$ids[] = $this->_derivatives[0][2]->getId();
 		$ids[] = $this->_item[0]->getId();
@@ -409,7 +398,6 @@ class FastDownloadTest extends GalleryTestCase {
 
 		$this->assertEquals($expected, $buf['unlink'], 'wrongfully deleted files');
 	}
-
 }
 
 /**
@@ -458,7 +446,6 @@ class FastDownloadTestCreateFastDownloadPlatform {
 	public function getDirectorySeparator() {
 		return DIRECTORY_SEPARATOR;
 	}
-
 }
 
 /**
@@ -488,5 +475,4 @@ class FastDownloadTestRemovePermissionPlatform {
 	public function getDirectorySeparator() {
 		return DIRECTORY_SEPARATOR;
 	}
-
 }

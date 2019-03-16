@@ -31,7 +31,9 @@ class TileTheme extends GalleryTheme {
 		global $gallery;
 
 		$this->setId('tile');
+
 		$this->setName($gallery->i18n('Tile'));
+
 		$this->setDescription(
 			$gallery->i18n(
 				'Tile view of background image and image thumbnails'
@@ -40,7 +42,6 @@ class TileTheme extends GalleryTheme {
 		$this->setVersion('2.0.0');
 		$this->setRequiredCoreApi(array(8, 0));
 		$this->setRequiredThemeApi(array(3, 0));
-
 		$this->setStandardSettings(
 			array(
 				'colorpack'     => '',
@@ -71,8 +72,7 @@ class TileTheme extends GalleryTheme {
 			if (!isset($params[$key])) {
 				$params[$key] = '0';
 			}
-
-}
+		}
 	}
 
 	/**
@@ -115,8 +115,7 @@ class TileTheme extends GalleryTheme {
 			for ($j = 0; $j < $params['cols']; $j++) {
 				$map[$i][$j] = 0;
 			}
-
-}
+		}
 
 		if (!empty($params['map'])) {
 			foreach (explode(';', $params['map']) as $key) {
@@ -127,11 +126,11 @@ class TileTheme extends GalleryTheme {
 					$params['row_' . $value[2]] = $value[0] + 1;
 					$params['col_' . $value[2]] = $value[1] + 1;
 				}
-
-}
+			}
 		}
 
-		$theme['map']                           = $map;
+		$theme['map'] = $map;
+
 		list($ret, $imageWidths, $imageHeights) = $this->_buildItemList(
 			$childIds,
 			$theme['children']
@@ -228,8 +227,7 @@ class TileTheme extends GalleryTheme {
 
 				break;
 			}
-
-}
+		}
 
 		return array(null, $tplFile);
 	}
@@ -337,8 +335,7 @@ class TileTheme extends GalleryTheme {
 			if ($ret) {
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		$i = -1;
 
@@ -355,8 +352,7 @@ class TileTheme extends GalleryTheme {
 					if ($ret) {
 						return array($ret, null, null);
 					}
-
-}
+				}
 
 				$children[$i]['thumbnail'] = (array)$thumbnails[$childId];
 			}
@@ -382,15 +378,13 @@ class TileTheme extends GalleryTheme {
 				} else {
 					$images[] = $child;
 				}
-
-}
+			}
 
 			if (isset($permissions['core.viewResizes'], $resizedImages[$childId])) {
 				foreach ($resizedImages[$childId] as $resize) {
 					$images[] = $resize;
 				}
-
-}
+			}
 
 			if (isset($thumbnails[$childId])) {
 				$images[] = $thumbnails[$childId];
@@ -408,8 +402,7 @@ class TileTheme extends GalleryTheme {
 					if ($ret) {
 						return array($ret, null, null);
 					}
-
-}
+				}
 
 				$image                      = (array)$image;
 				$children[$i]['image']      = $image;
@@ -427,8 +420,7 @@ class TileTheme extends GalleryTheme {
 					$children[$i]['renderItem'] = 1;
 					$imageWidths[]              = $imageHeights[]              = -1;
 				}
-
-}
+			}
 		}
 
 		return array(null, $imageWidths, $imageHeights);
@@ -490,7 +482,8 @@ class TileTheme extends GalleryTheme {
 		$theme                 =& $template->getVariableByReference('theme');
 		$theme['param']        = $params;
 		$theme['actingUserId'] = $gallery->getActiveUserId();
-		list($ret, $childIds)  = GalleryCoreApi::fetchChildItemIds($item);
+
+		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item);
 
 		if ($ret) {
 			return array($ret, null);
@@ -537,8 +530,7 @@ class TileTheme extends GalleryTheme {
 					if ($ret) {
 						return array($ret, null, null);
 					}
-
-}
+				}
 			}
 
 			$map = array();
@@ -551,8 +543,7 @@ class TileTheme extends GalleryTheme {
 					if (isset($form[$k2]) && $value > 0 && $form[$k2] > 0) {
 						$map[] = ($value - 1) . ',' . ($form[$k2] - 1) . ',' . $id;
 					}
-
-}
+				}
 			}
 
 			$ret = GalleryCoreApi::setPluginParameter(
@@ -572,5 +563,4 @@ class TileTheme extends GalleryTheme {
 
 		return array(null, $error, $status);
 	}
-
 }

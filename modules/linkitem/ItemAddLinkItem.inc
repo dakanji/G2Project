@@ -75,8 +75,7 @@ class ItemAddLinkItem extends ItemAddPlugin {
 
 						return array($ret, null, null);
 					}
-
-}
+				}
 
 				if (empty($error)) {
 					$ret = $newItem->save();
@@ -119,8 +118,7 @@ class ItemAddLinkItem extends ItemAddPlugin {
 						if (!empty($thumbnailTable)) {
 							$source = array_shift($thumbnailTable);
 						}
-
-}
+					}
 
 					list($ret, $derivative) = GalleryCoreApi::newFactoryInstanceByHint(
 						'GalleryDerivative',
@@ -161,8 +159,7 @@ class ItemAddLinkItem extends ItemAddPlugin {
 
 							break;
 						}
-
-}
+					}
 
 					if (empty($derivativeOperations)) {
 						GalleryCoreApi::releaseLocks($lockIds);
@@ -198,8 +195,9 @@ class ItemAddLinkItem extends ItemAddPlugin {
 						}
 
 						if ($isSupported) {
-							$watermarkOp                              = 'composite|plugins_data/modules/linkitem/arrow.png,'
+							$watermarkOp = 'composite|plugins_data/modules/linkitem/arrow.png,'
 							. 'image/png,14,14,bottom-right,0,0';
+
 							list($ret, $isSupported, $outputMimeType) = GalleryCoreApi::isSupportedOperationSequence(
 								$outputMimeType,
 								$watermarkOp
@@ -215,8 +213,7 @@ class ItemAddLinkItem extends ItemAddPlugin {
 								$derivative->setPostFilterOperations($watermarkOp);
 								$derivative->setMimeType($outputMimeType);
 							}
-
-}
+						}
 
 						$derivative->setDerivativeSourceId($source->getId());
 						$derivative->setWidth(0);
@@ -258,8 +255,7 @@ class ItemAddLinkItem extends ItemAddPlugin {
 
 								return array($ret, null, null);
 							}
-
-}
+						}
 					}
 
 					$fileName               = $newItem->getTitle();
@@ -275,8 +271,7 @@ class ItemAddLinkItem extends ItemAddPlugin {
 				if ($ret) {
 					return array($ret, null, null);
 				}
-
-}
+			}
 		}
 
 		return array(null, $error, $status);
@@ -331,5 +326,4 @@ class ItemAddLinkItem extends ItemAddPlugin {
 
 		return array(null, $module->translate('Link'));
 	}
-
 }

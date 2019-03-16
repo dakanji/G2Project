@@ -56,8 +56,7 @@ class MovieThumbnailOption extends ItemAddOption {
 			if (GalleryUtilities::isA($item, 'GalleryMovieItem')) {
 				$movieIds[] = $item->getId();
 			}
-
-}
+		}
 
 		if (!empty($movieIds)) {
 			list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($movieIds);
@@ -69,8 +68,7 @@ class MovieThumbnailOption extends ItemAddOption {
 			foreach ($thumbTable as $itemId => $thumbnail) {
 				$thumbIds[] = $thumbnail->getId();
 			}
-
-}
+		}
 
 		if (empty($thumbIds)) {
 			return array(null, $errors, $warnings);
@@ -109,8 +107,7 @@ class MovieThumbnailOption extends ItemAddOption {
 
 				return array($ret, null, null);
 			}
-
-}
+		}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
 
@@ -120,5 +117,4 @@ class MovieThumbnailOption extends ItemAddOption {
 
 		return array(null, $errors, $warnings);
 	}
-
 }

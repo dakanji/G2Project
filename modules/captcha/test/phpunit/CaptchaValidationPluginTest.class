@@ -104,8 +104,7 @@ class CaptchaValidationPluginTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testLoadTemplateDefault() {
 		// With no options, level defaults to HIGH
@@ -320,7 +319,6 @@ class CaptchaValidationPluginTest extends GalleryTestCase {
 		}
 
 		$this->assertEquals(1, (int)$count, 'failure count 2');
-
 		// Successful validation but invalid entry
 		$session->put('captcha.key', '1234');
 
@@ -453,5 +451,4 @@ class CaptchaValidationPluginTest extends GalleryTestCase {
 			'fail 2'
 		);
 	}
-
 }

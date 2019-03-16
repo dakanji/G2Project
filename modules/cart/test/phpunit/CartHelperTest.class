@@ -56,8 +56,7 @@ class CartHelperTest extends GalleryTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function tearDown() {
 		// Restore the existing cart
@@ -72,8 +71,7 @@ class CartHelperTest extends GalleryTestCase {
 		if ($ret) {
 			$this->failWithStatus($ret);
 		}
-
-}
+	}
 
 	public function testAddItemsToCart() {
 		// Create test data
@@ -307,5 +305,4 @@ class CartHelperTest extends GalleryTestCase {
 
 		$this->assertEquals(array(), $cartItems, 'cart items');
 	}
-
 }

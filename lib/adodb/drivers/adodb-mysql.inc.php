@@ -24,23 +24,21 @@ if (!defined('ADODB_DIR')) {
 if (!defined('_ADODB_MYSQL_LAYER')) {
 	define('_ADODB_MYSQL_LAYER', 1);
 	class ADODB_mysql extends ADOConnection {
-		public $databaseType    = 'mysql';
-		public $dataProvider    = 'mysql';
-		public $hasInsertID     = true;
-		public $hasAffectedRows = true;
-		public $metaTablesSQL   = "SELECT
+		public $databaseType     = 'mysql';
+		public $dataProvider     = 'mysql';
+		public $hasInsertID      = true;
+		public $hasAffectedRows  = true;
+		public $metaTablesSQL    = "SELECT
 			TABLE_NAME,
 			CASE WHEN TABLE_TYPE = 'VIEW' THEN 'V' ELSE 'T' END
 		FROM INFORMATION_SCHEMA.TABLES
 		WHERE TABLE_SCHEMA=";
-		public $metaColumnsSQL  = 'SHOW COLUMNS FROM `%s`';
-		public $fmtTimeStamp    = "'Y-m-d H:i:s'";
-		public $hasLimit        = true;
-		public $hasMoveFirst    = true;
-		public $hasGenID        = true;
-
-		// accepts dates in ISO format
-		public $isoDates         = true;
+		public $metaColumnsSQL   = 'SHOW COLUMNS FROM `%s`';
+		public $fmtTimeStamp     = "'Y-m-d H:i:s'";
+		public $hasLimit         = true;
+		public $hasMoveFirst     = true;
+		public $hasGenID         = true;
+		public $isoDates         = true; // accepts dates in ISO format
 		public $sysDate          = 'CURDATE()';
 		public $sysTimeStamp     = 'NOW()';
 		public $hasTransactions  = false;
@@ -49,19 +47,14 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 		public $clientFlags      = 0;
 		public $charSet          = '';
 		public $substr           = 'substring';
-
-		/// string to use to quote identifiers and names
-		public $nameQuote = '`';
-
-		// true if compat with mysql 3.23
-		public $compat323 = false;
+		public $nameQuote        = '`';       /// string to use to quote identifiers and names
+		public $compat323        = false;         // true if compat with mysql 3.23
 
 		public function __construct() {
 			if (defined('ADODB_EXTENSION')) {
 				$this->rsPrefix .= 'ext_';
 			}
-
-}
+		}
 
 		// SetCharSet - switch the client encoding
 		public function SetCharSet($charset_name) {
@@ -92,8 +85,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 		}
 
 		public function IfNull($field, $ifNull) {
-			// if MySQL
-			return " IFNULL($field, $ifNull) ";
+			return " IFNULL($field, $ifNull) "; // if MySQL
 		}
 
 		public function MetaProcedures($NamePattern = false, $catalog = null, $schemaPattern = null) {
@@ -129,8 +121,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 						'remarks' => $row[7],
 					);
 				}
-
-}
+			}
 
 			$rs = $this->Execute('SHOW FUNCTION STATUS' . $likepattern);
 
@@ -144,8 +135,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 						'remarks' => $row[7],
 					);
 				}
-
-}
+			}
 
 			// restore fetchmode
 			if (isset($savem)) {
@@ -250,8 +240,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 					if (is_resource($this->_connectionID)) {
 						return "'" . mysql_real_escape_string($s, $this->_connectionID) . "'";
 					}
-
-}
+				}
 
 				if ($this->replaceQuote[0] == '\\') {
 					$s = adodb_str_replace(array('\\', "\0"), array('\\\\', "\\\0"), $s);
@@ -287,8 +276,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 
 					return reset($rs->fields);
 				}
-
-} else {
+			} else {
 				return ADOConnection::GetOne($sql, $inputarr);
 			}
 
@@ -299,8 +287,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 			if ($this->debug) {
 				ADOConnection::outp("Transactions not supported in 'mysql' driver. Use 'mysqlt' or 'mysqli' driver");
 			}
-
-}
+		}
 
 		public function _affectedrows() {
 			return mysql_affected_rows($this->_connectionID);
@@ -338,15 +325,12 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 			$savelog       = $this->_logsql;
 			$this->_logsql = false;
 			$getnext       = sprintf($this->_genIDSQL, $seqname);
-
-			// save the current status
-			$holdtransOK = $this->_transOK;
-			$rs          = @$this->Execute($getnext);
+			$holdtransOK   = $this->_transOK; // save the current status
+			$rs            = @$this->Execute($getnext);
 
 			if (!$rs) {
 				if ($holdtransOK) {
-					//if the status was ok before reset
-					$this->_transOK = true;
+					$this->_transOK = true; //if the status was ok before reset
 				}
 
 				$u = strtoupper($seqname);
@@ -498,8 +482,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 
 						break;
 				}
-
-}
+			}
 
 			$s .= "')";
 
@@ -661,12 +644,10 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 					$fld->type       = $query_array[1];
 					$fld->max_length = is_numeric($query_array[2]) ? $query_array[2] : -1;
 				} elseif (preg_match('/^(enum)\((.*)\)$/i', $type, $query_array)) {
-					$fld->type  = $query_array[1];
-					$arr        = explode(',', $query_array[2]);
-					$fld->enums = $arr;
-
-					// PHP >= 4.0.6
-					$zlen            = max(array_map('strlen', $arr)) - 2;
+					$fld->type       = $query_array[1];
+					$arr             = explode(',', $query_array[2]);
+					$fld->enums      = $arr;
+					$zlen            = max(array_map('strlen', $arr)) - 2; // PHP >= 4.0.6
 					$fld->max_length = ($zlen > 0) ? $zlen : 1;
 				} else {
 					$fld->type       = $type;
@@ -689,8 +670,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 					} else {
 						$fld->has_default = false;
 					}
-
-}
+				}
 
 				if ($save == ADODB_FETCH_NUM) {
 					$retarr[] = $fld;
@@ -708,11 +688,8 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 
 		// returns true or false
 		public function SelectDB($dbName) {
-			$this->database = $dbName;
-
-			// obsolete, retained for compat with older adodb versions
-			$this->databaseName = $dbName;
-
+			$this->database     = $dbName;
+			$this->databaseName = $dbName; // obsolete, retained for compat with older adodb versions
 			if ($this->_connectionID) {
 				return @mysql_select_db($dbName, $this->_connectionID);
 			}
@@ -743,9 +720,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 		// returns queryID or false
 		public function _query($sql, $inputarr = false) {
 			return mysql_query($sql, $this->_connectionID);
-
 			/*
-
 			global $ADODB_COUNTRECS;
 
 			if($ADODB_COUNTRECS)
@@ -754,12 +729,9 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 
 			else
 
-			// requires PHP >= 4.0.6
-			return @mysql_unbuffered_query($sql,$this->_connectionID);
-
+			return @mysql_unbuffered_query($sql,$this->_connectionID); // requires PHP >= 4.0.6
 			*/
-
-}
+		}
 
 		// Returns: the last error message from previous database operation
 		public function ErrorMsg() {
@@ -858,14 +830,12 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 					} else {
 						$foreign_keys[$ref_table][] = "{$my_field[$j]}={$ref_field[$j]}";
 					}
-
-}
+				}
 			}
 
 			return $foreign_keys;
 		}
-
-}
+	}
 
 	/*--------------------------------------------------------------------------------------
 	 Class Name: Recordset
@@ -917,24 +887,18 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				$f = @mysql_field_flags($this->_queryID, $fieldOffset);
 
 				if ($o) {
-					// suggested by: Jim Nicholson (jnich#att.com)
-					$o->max_length = @mysql_field_len($this->_queryID, $fieldOffset);
+					$o->max_length = @mysql_field_len($this->_queryID, $fieldOffset); // suggested by: Jim Nicholson (jnich#att.com)
 				}
 
-				// mysql returns the max length less spaces -- so it is unrealiable
-				//$o->max_length = -1;
+				//$o->max_length = -1; // mysql returns the max length less spaces -- so it is unrealiable
 				if ($o) {
 					$o->binary = (strpos($f, 'binary') !== false);
 				}
-
-} else {
-				// The $fieldOffset argument is not provided thus its -1
+			} else {  // The $fieldOffset argument is not provided thus its -1
 				$o = @mysql_fetch_field($this->_queryID);
 
-				// suggested by: Jim Nicholson (jnich#att.com)
-				//if ($o) $o->max_length = @mysql_field_len($this->_queryID);
-				// mysql returns the max length less spaces -- so it is unrealiable
-				$o->max_length = -1;
+				//if ($o) $o->max_length = @mysql_field_len($this->_queryID); // suggested by: Jim Nicholson (jnich#att.com)
+				$o->max_length = -1; // mysql returns the max length less spaces -- so it is unrealiable
 			}
 
 			return $o;
@@ -965,8 +929,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 
 					$this->bind[strtoupper($o->name)] = $i;
 				}
-
-}
+			}
 
 			return $this->fields[$this->bind[strtoupper($colname)]];
 		}
@@ -1019,9 +982,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				$len      = $fieldobj->max_length;
 			}
 
-			// mysql max_length is not accurate
-			$len = -1;
-
+			$len = -1; // mysql max_length is not accurate
 			switch (strtoupper($t)) {
 				case 'STRING':
 				case 'CHAR':
@@ -1073,8 +1034,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				default:
 					return 'N';
 			}
-
-}
+		}
 	}
 
 	class ADORecordSet_ext_mysql extends ADORecordSet_mysql {
@@ -1085,6 +1045,5 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 		public function MoveNext() {
 			return @adodb_movenext($this);
 		}
-
-}
+	}
 }

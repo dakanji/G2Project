@@ -120,8 +120,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 				if ($ret) {
 					return $ret;
 				}
-
-}
+			}
 		}
 
 		list($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'quotas');
@@ -161,8 +160,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 			if ($ret) {
 				$this->failWithStatus($ret);
 			}
-
-}
+		}
 
 		$ret = parent::tearDown();
 
@@ -233,7 +231,8 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$filesize                = (int)($this->_platform->filesize(__FILE__) / 1024);
+		$filesize = (int)($this->_platform->filesize(__FILE__) / 1024);
+
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
 
 		$this->assertEquals(array(), $errors, 'errors');
@@ -320,7 +319,8 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$filesize          = (int)($this->_platform->filesize(__FILE__) / 1024);
+		$filesize = (int)($this->_platform->filesize(__FILE__) / 1024);
+
 		list($ret, $item2) = $this->_createRandomDataItem($this->_album->getId());
 
 		if ($ret) {
@@ -379,7 +379,8 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$filesize                = (int)($this->_platform->filesize(__FILE__) / 1024);
+		$filesize = (int)($this->_platform->filesize(__FILE__) / 1024);
+
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
 
 		$this->assertEquals(array(), $errors, 'errors');
@@ -506,7 +507,8 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		$filesize                = (int)($this->_platform->filesize(__FILE__) / 1024);
+		$filesize = (int)($this->_platform->filesize(__FILE__) / 1024);
+
 		list($errors, $warnings) = $this->_handleRequestAfterAdd(array(), array($item));
 
 		$this->assertEquals(array(), $errors, 'errors');
@@ -591,5 +593,4 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 			'item should have been deleted'
 		);
 	}
-
 }

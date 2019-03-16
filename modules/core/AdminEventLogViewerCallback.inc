@@ -68,10 +68,11 @@ class AdminEventLogViewerCallbackView extends GalleryView {
 			return $ret;
 		}
 
-		$session            =& $gallery->getSession();
-		$storage            =& $gallery->getStorage();
-		$platform           =& $gallery->getPlatform();
-		$command            = GalleryUtilities::getRequestVariables('command');
+		$session  =& $gallery->getSession();
+		$storage  =& $gallery->getStorage();
+		$platform =& $gallery->getPlatform();
+		$command  = GalleryUtilities::getRequestVariables('command');
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 
 		if ($ret) {
@@ -105,16 +106,18 @@ class AdminEventLogViewerCallbackView extends GalleryView {
 					$pageSize = 10;
 				}
 
-				$query               = 'SELECT COUNT(*) FROM [EventLogMap]';
+				$query = 'SELECT COUNT(*) FROM [EventLogMap]';
+
 				list($ret, $results) = $gallery->search($query);
 
 				if ($ret) {
 					return $ret;
 				}
 
-				$result              = $results->nextResult();
-				$totalRecords        = $result[0];
-				$totalPages          = ceil($totalRecords / $pageSize);
+				$result       = $results->nextResult();
+				$totalRecords = $result[0];
+				$totalPages   = ceil($totalRecords / $pageSize);
+
 				list($ret, $results) = GalleryCoreApi::getMapEntry(
 					'EventLogMap',
 					array('id', 'timestamp', 'type', 'location', 'client', 'summary'),
@@ -220,5 +223,4 @@ class AdminEventLogViewerCallbackView extends GalleryView {
 
 		return null;
 	}
-
 }

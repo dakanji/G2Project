@@ -143,6 +143,5 @@ class AdminCreateGroupControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 }

@@ -46,5 +46,4 @@ class ActivationWarningView extends GalleryView {
 			),
 		);
 	}
-
 }

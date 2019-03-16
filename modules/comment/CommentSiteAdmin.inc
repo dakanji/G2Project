@@ -55,7 +55,8 @@ class CommentSiteAdminController extends GalleryController {
 				$error[] = 'form[error][show]';
 			}
 
-			$validApiKey        = false;
+			$validApiKey = false;
+
 			list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 
 			if ($ret) {
@@ -84,8 +85,7 @@ class CommentSiteAdminController extends GalleryController {
 					if (!$validApiKey) {
 						$error[] = 'form[error][apiKey][invalid]';
 					}
-
-}
+				}
 			}
 
 			if (empty($error)) {
@@ -124,8 +124,7 @@ class CommentSiteAdminController extends GalleryController {
 
 				$status['saved'] = 1;
 			}
-
-} elseif (isset($form['action']['checkAllWithAkismet'])) {
+		} elseif (isset($form['action']['checkAllWithAkismet'])) {
 			$templateAdapter =& $gallery->getTemplateAdapter();
 			$templateAdapter->registerTrailerCallback(
 				array($this, 'checkAllWithAkismet'),
@@ -158,17 +157,19 @@ class CommentSiteAdminController extends GalleryController {
 	public function checkAllWithAkismet($akismet) {
 		global $gallery;
 
-		$templateAdapter    =& $gallery->getTemplateAdapter();
-		$session            =& $gallery->getSession();
-		$urlGenerator       =& $gallery->getUrlGenerator();
-		$storage            =& $gallery->getStorage();
+		$templateAdapter =& $gallery->getTemplateAdapter();
+		$session         =& $gallery->getSession();
+		$urlGenerator    =& $gallery->getUrlGenerator();
+		$storage         =& $gallery->getStorage();
+
 		list($ret, $rootId) = GalleryCoreApi::getDefaultAlbumId();
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$status             = array();
+		$status = array();
+
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
 
 		if ($ret) {
@@ -249,8 +250,7 @@ class CommentSiteAdminController extends GalleryController {
 
 					$spamCount++;
 				}
-
-}
+			}
 
 			if ($checkedCount >= $total) {
 				break;
@@ -261,8 +261,7 @@ class CommentSiteAdminController extends GalleryController {
 			if ($ret) {
 				return $ret;
 			}
-
-}
+		}
 
 		$templateAdapter->updateProgressBar($module->translate('Done checking comments'), '', 1);
 
@@ -289,7 +288,6 @@ class CommentSiteAdminController extends GalleryController {
 
 		return null;
 	}
-
 }
 
 /**
@@ -335,5 +333,4 @@ class CommentSiteAdminView extends GalleryView {
 			),
 		);
 	}
-
 }

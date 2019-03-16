@@ -81,11 +81,9 @@ class perf_db2 extends adodb_perf {
 					if (crc32($sql) == $partial) {
 						break;
 					}
-
-}
+				}
 			}
-
-}
+		}
 
 		$qno = mt_rand();
 		$ok  = $this->conn->Execute("EXPLAIN PLAN SET QUERYNO=$qno FOR $sql");
@@ -99,8 +97,7 @@ class perf_db2 extends adodb_perf {
 			if ($rs) {
 				rs2html($rs);
 			}
-
-}
+		}
 
 		$s = ob_get_contents();
 		ob_end_clean();
@@ -127,5 +124,4 @@ class perf_db2 extends adodb_perf {
 
 		return rs2html($rs, false, false, false, false);
 	}
-
 }

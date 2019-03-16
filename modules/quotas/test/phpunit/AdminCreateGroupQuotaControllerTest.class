@@ -216,8 +216,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function _createGroupQuota($groupId, $quota) {
 		$ret = GalleryCoreApi::addMapEntry(
@@ -231,8 +230,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 
 	public function _deleteGroupQuota($groupId) {
 		$ret = GalleryCoreApi::removeMapEntry(
@@ -245,6 +243,5 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 		if ($ret) {
 			return $ret;
 		}
-
-}
+	}
 }
