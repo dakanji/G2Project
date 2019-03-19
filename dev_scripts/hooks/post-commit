@@ -1,17 +1,23 @@
 #!/bin/sh
 
+PROJECT=$(php -r "echo dirname(dirname(dirname(realpath('$0'))));")
+PHP_CS_CACHE="$PROJECT/.php_cs.cache"
+
 # Update the Developer Environment at Random
 LO_VAL=1
-HI_VAL=13
+HI_VAL=5
 FREQ_UPDATE_FLAG=$(($LO_VAL + $RANDOM%(1 + $HI_VAL - $LO_VAL)))
 if [ $FREQ_UPDATE_FLAG -eq $((($HI_VAL + $LO_VAL) / 2)) ];
 then
-	composer install && rm -f .php_cs_cache
+	composer install && rm -f $PHP_CS_CACHE
 fi
 
-XX_VAL=$(($HI_VAL * $HI_VAL))
+XX_VAL=$(($HI_VAL * $HI_VAL * $HI_VAL))
 RARE_UPDATE_FLAG=$(($LO_VAL + $RANDOM%(1 + $XX_VAL - $LO_VAL)))
 if [ $RARE_UPDATE_FLAG -eq $((($XX_VAL + $LO_VAL) / 2)) ];
 then
-	composer install --no-dev && composer install && rm -f .php_cs_cache
+	composer install --no-dev && composer install && rm -f $PHP_CS_CACHE
 fi
+
+
+rm -f /Applications/MAMP/htdocs/G2Project/.php_cs_cache
