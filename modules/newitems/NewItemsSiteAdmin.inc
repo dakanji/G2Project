@@ -96,6 +96,7 @@ class NewItemsSiteAdminController extends GalleryController {
 
 			$status['reset'] = 1;
 		} // else $form['action']['reset']
+
 		// Figure out where to redirect upon success
 		$method                      = empty($error) ? 'redirect' : 'delegate';
 		$results[$method]['view']    = 'core.SiteAdmin';

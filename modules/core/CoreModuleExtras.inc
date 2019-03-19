@@ -1193,6 +1193,7 @@ class CoreModuleExtras {
 						return $ret;
 					}
 				} // Else a group with that name already exists, nothing to do
+
 				// Fall Through
 			case '0.9.16':
 				// Beta 3 release!
@@ -5050,6 +5051,7 @@ class CoreModuleExtras {
 
 						$gallery->guaranteeTimeLimit(120);
 					} // End for each table
+
 					if ($converted) {
 						// Clear any cache data since it may be in the wrong character set
 						$gallery->guaranteeTimeLimit(60);
@@ -5063,6 +5065,7 @@ class CoreModuleExtras {
 				} // End if database character set not UTF-8
 			} // End if MySql version > 4.1.0
 		} // End if MySQL
+
 			return array(null, $converted);
 	}
 

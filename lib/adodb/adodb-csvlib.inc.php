@@ -208,7 +208,8 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 								return $false;
 						} // switch
 					} // if check flush cache
-				}// (timeout>0)
+				} // (timeout>0)
+
 				$ttl = $meta[1];
 			}
 

@@ -1003,19 +1003,24 @@ function formatData($type, $tag, $intel, $data) {
 
 		if ($intel == 1) {
 			$top = hexdec(substr($data, 8, 8));
-		}   //intel stores them bottom-top
+		} //intel stores them bottom-top
+
 		else {
 			$top = hexdec(substr($data, 0, 8));
-		}               //motorola stores them top-bottom
+		} //motorola stores them top-bottom
+
 		if ($intel == 1) {
 			$bottom = hexdec(substr($data, 0, 8));
-		}   //intel stores them bottom-top
+		} //intel stores them bottom-top
+
 		else {
 			$bottom = hexdec(substr($data, 8, 8));
-		}           //motorola stores them top-bottom
+		} //motorola stores them top-bottom
+
 		if ($type == 'SRATIONAL' && $top > 2147483647) {
 			$top = $top - 4294967296;
-		}       //this makes the number signed instead of unsigned
+		} //this makes the number signed instead of unsigned
+
 		if ($bottom != 0) {
 			$data = $top / $bottom;
 		} elseif ($top == 0) {
@@ -1092,10 +1097,12 @@ function formatData($type, $tag, $intel, $data) {
 
 		if ($type == 'SSHORT' && $data > 32767) {
 			$data = $data - 65536;
-		}   //this makes the number signed instead of unsigned
+		} //this makes the number signed instead of unsigned
+
 		if ($type == 'SLONG' && $data > 2147483647) {
 			$data = $data - 4294967296;
-		}   //this makes the number signed instead of unsigned
+		} //this makes the number signed instead of unsigned
+
 		if ($tag == '0112') {
 			//Orientation
 			if ($data == 1) {
@@ -1680,6 +1687,7 @@ function read_exif_data_raw($path, $verbose) {
 	if (hexdec($offset) > 8) {
 		$unknown = fread($in, hexdec($offset) - 8);
 	} //fixed this bug in 1.3
+
 	//add 12 to the offset to account for TIFF header
 	$globalOffset += 12;
 

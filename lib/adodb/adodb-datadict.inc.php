@@ -828,6 +828,7 @@ class ADODB_DataDict {
 						break;
 				} //switch
 			} // foreach $fld
+
 			//--------------------
 			// VALIDATE FIELD INFO
 			if (!strlen($fname)) {
@@ -943,6 +944,7 @@ class ADODB_DataDict {
 				$this->autoIncrement = true;
 			}
 		} // foreach $flds
+
 		return array($lines, $pkey, $idxs);
 	}
 

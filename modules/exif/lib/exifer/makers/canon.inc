@@ -120,6 +120,7 @@ function formatCanonData($type, $tag, $intel, $data, $exif, &$result) {
 			if ($result['Bytes'] != strlen($data) / 2) {
 				return $result;
 			} //Bad chunk
+
 			$result['Macro'] = hexdec(intel2Moto(substr($data, $place, 4)));
 
 			//1
@@ -791,6 +792,7 @@ function formatCanonData($type, $tag, $intel, $data, $exif, &$result) {
 			if ($result['Bytes'] != strlen($data) / 2) {
 				return $result;
 			} //Bad chunk
+
 			$result['Unknown'] = hexdec(intel2Moto(substr($data, $place, 4)));
 
 			//1
@@ -893,24 +895,31 @@ function formatCanonData($type, $tag, $intel, $data, $exif, &$result) {
 			if ($result['AFPointUsed'] & 0x0001) {
 				$afPointUsed[] = 'Right';
 			} //bit 0
+
 			if ($result['AFPointUsed'] & 0x0002) {
 				$afPointUsed[] = 'Center';
 			} //bit 1
+
 			if ($result['AFPointUsed'] & 0x0004) {
 				$afPointUsed[] = 'Left';
 			} //bit 2
+
 			if ($result['AFPointUsed'] & 0x0800) {
 				$afPointUsed[] = '12';
 			} //bit 12
+
 			if ($result['AFPointUsed'] & 0x1000) {
 				$afPointUsed[] = '13';
 			} //bit 13
+
 			if ($result['AFPointUsed'] & 0x2000) {
 				$afPointUsed[] = '14';
 			} //bit 14
+
 			if ($result['AFPointUsed'] & 0x4000) {
 				$afPointUsed[] = '15';
 			} //bit 15
+
 			$result['AFPointUsed'] = implode(',', $afPointUsed);
 			$result['FlashBias']   = intel2Moto(substr($data, $place, 4));
 

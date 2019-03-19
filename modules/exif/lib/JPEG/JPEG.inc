@@ -1358,6 +1358,7 @@ class JPEG {
 			// That's the expected value
 			return false;
 		} // Unexpected data
+
 		if ($isBigEndian) {
 			$this->_info['exif']['ByteAlign'] = 'Big Endian';
 		} else {
@@ -1369,6 +1370,7 @@ class JPEG {
 		if ($offsetIFD0 < 8) {
 			return false;
 		} // Unexpected data
+
 		$offsetIFD1 = $this->_readIFD($data, $pos, $offsetIFD0, $isBigEndian, 'ifd0');
 
 		if ($offsetIFD1 != 0) {
@@ -1398,6 +1400,7 @@ class JPEG {
 			if (($type < 1) || ($type > 12)) {
 				return false;
 			} // Unexpected Type
+
 			$typeLengths = array(-1, 1, 1, 2, 4, 8, 1, 1, 2, 4, 8, 4, 8);
 			$dataLength  = $typeLengths[$type] * $count;
 

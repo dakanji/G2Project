@@ -96,7 +96,8 @@ class AdminDeleteUserController extends GalleryController {
 				if ($ret) {
 					if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 						return array($ret, null);
-					}   // the user was spelled incorrectly, return an error page
+					} // the user was spelled incorrectly, return an error page
+
 					$error[] = 'form[error][text][noSuchUser]';
 				} elseif ($newOwner->getId() == $userId) {
 					// new Owner = deleted user, doesn't make sense
@@ -164,6 +165,7 @@ class AdminDeleteUserController extends GalleryController {
 						return array($ret, null);
 					}
 				} // /if !empty($itemIds)
+
 				// Delete the user
 				$ret = GalleryCoreApi::deleteEntityById($user->getId(), 'GalleryUser');
 

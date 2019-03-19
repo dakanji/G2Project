@@ -225,16 +225,20 @@ function lookup_GPS_tag($tag) {
 function GPSRational($data, $intel) {
 	if ($intel == 1) {
 		$top = hexdec(substr($data, 8, 8));
-	}   //intel stores them bottom-top
+	} //intel stores them bottom-top
+
 	else {
 		$top = hexdec(substr($data, 0, 8));
-	}               //motorola stores them top-bottom
+	} //motorola stores them top-bottom
+
 	if ($intel == 1) {
 		$bottom = hexdec(substr($data, 0, 8));
-	}   //intel stores them bottom-top
+	} //intel stores them bottom-top
+
 	else {
 		$bottom = hexdec(substr($data, 8, 8));
-	}           //motorola stores them top-bottom
+	} //motorola stores them top-bottom
+
 	if ($bottom != 0) {
 		$data = $top / $bottom;
 	} elseif ($top == 0) {
@@ -262,19 +266,24 @@ function formatGPSData($type, $tag, $intel, $data) {
 
 		if ($intel == 1) {
 			$top = hexdec(substr($data, 8, 8));
-		}   //intel stores them bottom-top
+		} //intel stores them bottom-top
+
 		else {
 			$top = hexdec(substr($data, 0, 8));
-		}               //motorola stores them top-bottom
+		} //motorola stores them top-bottom
+
 		if ($intel == 1) {
 			$bottom = hexdec(substr($data, 0, 8));
-		}   //intel stores them bottom-top
+		} //intel stores them bottom-top
+
 		else {
 			$bottom = hexdec(substr($data, 8, 8));
-		}           //motorola stores them top-bottom
+		} //motorola stores them top-bottom
+
 		if ($type == 'SRATIONAL' && $top > 2147483647) {
 			$top = $top - 4294967296;
-		}       //this makes the number signed instead of unsigned
+		} //this makes the number signed instead of unsigned
+
 		if ($tag == '0002' || $tag == '0004') {
 			//Latitude
 			$hour    = GPSRational(substr($data, 0, 16), $intel);

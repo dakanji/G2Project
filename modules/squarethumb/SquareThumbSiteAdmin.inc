@@ -92,6 +92,7 @@ class SquareThumbSiteAdminController extends GalleryController {
 				$status['saved'] = 1;
 			}
 		} // else $form['action']['reset']
+
 		$method  = empty($error) ? 'redirect' : 'delegate';
 		$results = array(
 			$method  => array(

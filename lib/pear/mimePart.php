@@ -350,6 +350,7 @@ class Mail_mimePart {
 
 				$newline .= $char;
 			} // end of for
+
 			$output .= $newline . $eol;
 		}
 

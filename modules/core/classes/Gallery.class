@@ -955,7 +955,8 @@ class Gallery {
 
 			if (get_magic_quotes_runtime()) {
 				@set_magic_quotes_runtime(0);
-			}// deprecated in PHP5.3
+			} // deprecated in PHP5.3
+
 			set_time_limit(0);
 
 			while (!feof($fd)) {

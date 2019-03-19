@@ -87,6 +87,7 @@ class ItemMakeHighlightController extends GalleryController {
 				return array($ret, null);
 			}
 		} // else $form['action']['cancel']
+
 		$results['return'] = true;
 		$results['status'] = $status;
 		$results['error']  = $error;

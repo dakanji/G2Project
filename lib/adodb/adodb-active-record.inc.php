@@ -1287,5 +1287,6 @@ function adodb_GetActiveRecordsClass(
 
 		$arr[] = $obj;
 	} // foreach($rows as $row)
+
 	return $arr;
 }

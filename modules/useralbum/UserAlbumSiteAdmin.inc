@@ -63,6 +63,7 @@ class UserAlbumSiteAdminController extends GalleryController {
 
 			$status['saved'] = 1;
 		} // else $form['action']['reset']
+
 		// Figure out where to redirect upon success
 		$results['redirect']['view']    = 'core.SiteAdmin';
 		$results['redirect']['subView'] = 'useralbum.UserAlbumSiteAdmin';

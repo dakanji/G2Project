@@ -772,6 +772,7 @@ class ADORecordSet_ado extends ADORecordSet {
 			$f = next($this->_flds);
 			$t = next($this->_tarr);
 		} // for
+
 		if ($this->hideErrors) {
 			error_reporting($olde);
 		}

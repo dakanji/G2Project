@@ -618,6 +618,7 @@ class CustomFieldHelper extends CustomFieldInterface_1_0 {
 				}
 			}
 		} // else $form['action']['reset']
+
 		return array(null, $status);
 	}
 

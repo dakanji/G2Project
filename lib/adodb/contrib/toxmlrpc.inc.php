@@ -206,8 +206,10 @@ function xmlrpcval2rs(&$xmlrpcval) {
 				$fld->default_value = $value->scalarval();
 			}
 		} // while
+
 		$fields_array[] = $fld;
 	} // for
+
 	// fetch recordset information into php array
 	$body = $xmlrpcval->structmem('body');
 
@@ -220,6 +222,7 @@ function xmlrpcval2rs(&$xmlrpcval) {
 			$data_array[$i][$j] = $temp->scalarval();
 		} // for j
 	} // for i
+
 	// finally build in-memory recordset object and return it
 	$rs = new ADORecordSet_array();
 

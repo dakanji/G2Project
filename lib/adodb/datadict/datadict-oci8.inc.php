@@ -274,9 +274,11 @@ class ADODB2_oci8 extends ADODB_DataDict {
 		if (strlen($seqname) > 30) {
 			$seqname = $this->seqPrefix . uniqid('');
 		} // end if
+
 		if (strlen($trigname) > 30) {
 			$trigname = $this->trigPrefix . uniqid('');
 		} // end if
+
 		if (isset($tableoptions['REPLACE'])) {
 			$sql[] = "DROP SEQUENCE $seqname";
 		}

@@ -135,6 +135,7 @@ if (!defined('ADODB_SYBASE_SQLANYWHERE')) {
 			return true;
 		}
 	} //class
+
 	class ADORecordSet_sqlanywhere extends ADORecordSet_odbc {
 		public $databaseType = 'sqlanywhere';
 

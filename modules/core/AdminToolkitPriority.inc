@@ -80,6 +80,7 @@ class AdminToolkitPriorityController extends GalleryController {
 			GalleryDataCache::removeByPattern('GalleryToolkitHelper::');
 			$status['saved'] = 1;
 		} // else $form['action']['reset']
+
 		$results['return']              = 0;
 		$results['redirect']['view']    = 'core.SiteAdmin';
 		$results['redirect']['subView'] = 'core.AdminToolkitPriority';

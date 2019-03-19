@@ -298,6 +298,7 @@ class GallerySession {
 				}
 			}
 		} // End for existing persistent sessions
+
 		// Initialize the secure flag if HTTPS
 		if ($this->_isPersistent) {
 			$isSecure = (bool)$this->get('secure');
@@ -356,6 +357,7 @@ class GallerySession {
 				return $ret;
 			}
 		} // Else: not a new session
+
 		/*
 		 * Send a cookie to the browser, if necessry ( this must be done before we start outputting
 		 * HTML because the DownloadItem requests might come in before we reach $session->save() )
@@ -1054,6 +1056,7 @@ class GallerySession {
 				}
 			}
 		} // Else: no sessionId specified, thus we've no session yet
+
 		if (!$this->_isPersistent) {
 			$this->_emptySessionData();
 		}

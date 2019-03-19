@@ -211,7 +211,8 @@ class ADODB_mssql extends ADOConnection {
 			if ($this->replaceQuote == "\\'") {
 				// ' already quoted, no need to change anything
 				return "'$s'";
-			}  // change \' to '' for sybase/mssql
+			} // change \' to '' for sybase/mssql
+
 			$s = str_replace('\\\\', '\\', $s);
 
 			return "'" . str_replace("\\'", $this->replaceQuote, $s) . "'";

@@ -204,6 +204,7 @@ if (!defined('_ADODB_CSV_LAYER')) {
 			return true;
 		}
 	} // class
+
 	class ADORecordset_csv extends ADORecordset {
 		public function __construct($id, $mode = false) {
 			parent::__construct($id, $mode);

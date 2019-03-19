@@ -126,6 +126,7 @@ class AdminSelfRegistrationController extends GalleryController {
 				$status['deleted'] = $userName;
 			}
 		} // else $form['action']['cancel']
+
 		if (empty($error)) {
 			$results['redirect'] = array(
 				'view'    => 'core.SiteAdmin',

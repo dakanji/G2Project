@@ -880,7 +880,6 @@ function openErrorBox() {
 		<h2>Details:</h2>
 	<?php
 } // end function openErrorBox() {
-
 function closeErrorBox() {
 	global $errorBoxOpen;
 

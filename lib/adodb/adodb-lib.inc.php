@@ -381,6 +381,7 @@ function _adodb_getmenu(
 
 		$zthis->MoveNext();
 	} // while
+
 	// closing last optgroup
 	if ($optgroup != null) {
 		$s .= "\n</optgroup>";
@@ -501,6 +502,7 @@ function _adodb_getmenu_gp(
 
 		$zthis->MoveNext();
 	} // while
+
 	// closing last optgroup
 	if ($optgroup != null) {
 		$s .= "\n</optgroup>";

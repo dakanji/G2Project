@@ -188,6 +188,7 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 					$s .= '	<TD>' . str_replace("\n", '<br>', stripslashes($v)) . "</TD>\n";
 			}
 		} // for
+
 		$s    .= "</TR>\n\n";
 		$rows += 1;
 
@@ -196,6 +197,7 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 
 			break;
 		} // switch
+
 		$rs->MoveNext();
 
 		// additional EOF check to prevent a widow header
@@ -211,6 +213,7 @@ function rs2html(&$rs, $ztabhtml = false, $zheaderarray = false, $htmlspecialcha
 			$s = $hdr;
 		}
 	} // while
+
 	if ($echo) {
 		echo $s . "</TABLE>\n\n";
 	} else {

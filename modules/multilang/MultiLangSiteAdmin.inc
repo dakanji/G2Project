@@ -56,6 +56,7 @@ class MultiLangSiteAdminController extends GalleryController {
 			// TODO: if removed some language then optionally delete all data for that language?
 			$status['saved'] = 1;
 		} // else $form['action']['reset']
+
 		// Figure out where to redirect upon success
 		$results['redirect']['view']    = 'core.SiteAdmin';
 		$results['redirect']['subView'] = 'multilang.MultiLangSiteAdmin';
