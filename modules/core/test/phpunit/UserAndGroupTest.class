@@ -1919,6 +1919,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		 * If this is ever changed, ensure all these interfaces set the password correctly.
 		 */
 		$password = $entityPassword = 'pass<word"';
+
 		GalleryUtilities::sanitizeInputValues($entityPassword, false);
 
 		$user->changePassword($entityPassword);

@@ -245,6 +245,7 @@ class ExifHelperTest extends GalleryTestCase {
 		$this->assertEquals('Headline, Ueberschrift', $data, 'IPTC/Headline mismatch');
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'SpecialInstructions'));
+
 		$this->assertEquals(
 			'SpecialInstructions, Anweisungen',
 			$data,
@@ -279,6 +280,7 @@ class ExifHelperTest extends GalleryTestCase {
 		$this->assertEquals('Source, Quelle', $data, 'IPTC/Source mismatch');
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'CopyrightNotice'));
+
 		$this->assertEquals(
 			'CopyrightNotice, Copyright-Informationen',
 			$data,
@@ -306,6 +308,7 @@ class ExifHelperTest extends GalleryTestCase {
 		$this->assertEquals('City, Ort', $data, 'IPTC/City mismatch');
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'ProvinceState'));
+
 		$this->assertEquals(
 			'ProvinceState, Bundesland/Kanton',
 			$data,
@@ -412,6 +415,7 @@ class ExifHelperTest extends GalleryTestCase {
 		$this->assertEquals('Headline: IPTC/Headline', $data, 'IPTC/Headline mismatch');
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'SpecialInstructions'));
+
 		$this->assertEquals(
 			'Special instructions: IPTC/SpecialInstructions',
 			$data,
@@ -455,6 +459,7 @@ class ExifHelperTest extends GalleryTestCase {
 		$this->assertEquals('Byline title: IPTC/BylineTitle', $data, 'IPTC/BylineTitle mismatch');
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'CopyrightNotice'));
+
 		$this->assertEquals(
 			'Copyright: IPTC/CopyrightNotice',
 			$data,
@@ -476,6 +481,7 @@ class ExifHelperTest extends GalleryTestCase {
 		$this->assertTrue(isset($iptcObj));
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'Caption'), 'ISO-8859-1');
+
 		$this->assertEquals(
 			'caption with german umlauts and sharp s: ' .
 			"\xC3\xA4\xC3\xB6\xC3\xBC\xC3\x84\xC3\x96\xC3\x9C\xC3\x9F",
@@ -582,6 +588,7 @@ class ExifHelperTest extends GalleryTestCase {
 
 	public function testPostProcessValueDoesSanitize() {
 		$originalValue = 'A text with \ some backslashes \\.';
+
 		$this->assertEquals(
 			$originalValue,
 			ExifHelper::postProcessValue('SomeValue', $originalValue),

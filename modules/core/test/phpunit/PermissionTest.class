@@ -160,6 +160,7 @@ class PermissionTest extends GalleryTestCase {
 		 * events
 		 */
 		$listener = new PermissionTestEventListener($this);
+
 		GalleryCoreApi::registerEventListener('Gallery::ViewableTreeChange', $listener);
 		GalleryCoreApi::registerEventListener('Gallery::RemovePermission', $listener);
 
@@ -201,6 +202,7 @@ class PermissionTest extends GalleryTestCase {
 
 		// Verify the event
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId'          => $userId,
@@ -228,6 +230,7 @@ class PermissionTest extends GalleryTestCase {
 
 		// Verify the event
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId'          => $groupEventUserId,
@@ -270,6 +273,7 @@ class PermissionTest extends GalleryTestCase {
 
 		// Verify the event
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId'          => $userId,
@@ -297,6 +301,7 @@ class PermissionTest extends GalleryTestCase {
 
 		// Verify the event
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId'          => $groupEventUserId,
@@ -324,6 +329,7 @@ class PermissionTest extends GalleryTestCase {
 
 		// Verify the event
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId'          => $groupEventUserId,
@@ -508,6 +514,7 @@ class PermissionTest extends GalleryTestCase {
 
 			usort($compressedPerms, array('PermissionTest', '_sortPermissions'));
 			usort($uncompressedPerms, array('PermissionTest', '_sortPermissions'));
+
 			$this->assertEquals(
 				$expectedCompressed,
 				$compressedPerms,
@@ -541,6 +548,7 @@ class PermissionTest extends GalleryTestCase {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::RemovePermission');
+
 		$event->setData(
 			array(
 				'userId'         => $userId,
@@ -554,6 +562,7 @@ class PermissionTest extends GalleryTestCase {
 		$this->assertEquals($event, $listener->getEvent(), 'removeUserPermission, not recursive');
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId'          => $userId,
@@ -587,6 +596,7 @@ class PermissionTest extends GalleryTestCase {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::RemovePermission');
+
 		$event->setData(
 			array(
 				'userId'         => null,
@@ -600,6 +610,7 @@ class PermissionTest extends GalleryTestCase {
 		$this->assertEquals($event, $listener->getEvent(), 'removeGroupPermission, not recursive');
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId'          => $groupEventUserId,
@@ -662,8 +673,7 @@ class PermissionTest extends GalleryTestCase {
 			'Gallery::RemovePermission'
 		);
 
-		$itemIdsAndBits = array();
-
+		$itemIdsAndBits                             = array();
 		$itemIdsAndBits[$this->_albums[0]->getId()] = $viewDeltaBits;
 
 		for ($i = 1; $i < count($this->_albums); $i++) {
@@ -671,7 +681,6 @@ class PermissionTest extends GalleryTestCase {
 		}
 
 		$itemIdsAndBits[$item[0]->getId()] = $viewAllBits;
-
 		$itemIdsAndBits[$item[1]->getId()] = $viewAllBits;
 
 		$event->setData(
@@ -685,6 +694,7 @@ class PermissionTest extends GalleryTestCase {
 		$this->assertEquals($event, $listener->getEvent(), 'removeUserPermission, recursive 1');
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId'          => $userId,
@@ -725,7 +735,6 @@ class PermissionTest extends GalleryTestCase {
 		}
 
 		$itemIdsAndBits[$item[0]->getId()] = $deleteBits;
-
 		$itemIdsAndBits[$item[1]->getId()] = $deleteBits;
 
 		$event->setData(
@@ -739,6 +748,7 @@ class PermissionTest extends GalleryTestCase {
 		$this->assertEquals($event, $listener->getEvent(), 'removeGroupPermission, recursive');
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId'          => $groupEventUserId,
@@ -842,6 +852,7 @@ class PermissionTest extends GalleryTestCase {
 		 * events
 		 */
 		$listener = new PermissionTestEventListener($this);
+
 		GalleryCoreApi::registerEventListener('Gallery::ViewableTreeChange', $listener);
 		GalleryCoreApi::registerEventListener('Gallery::RemovePermission', $listener);
 
@@ -855,6 +866,7 @@ class PermissionTest extends GalleryTestCase {
 		// Check that the correct events have been created
 		// Verify the event
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId' => null,
@@ -875,6 +887,7 @@ class PermissionTest extends GalleryTestCase {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::RemovePermission');
+
 		$event->setData(
 			array(
 				'userId'         => 0,
@@ -1553,6 +1566,7 @@ class PermissionTest extends GalleryTestCase {
 		global $gallery;
 
 		GalleryDataCache::clearPermissionCache();
+
 		$this->assertTrue(
 			!GalleryDataCache::hasPermission($this->_getRootId(), 'core.view'),
 			'Nothing should be cached in the beginning'
@@ -1828,8 +1842,10 @@ class PermissionTest extends GalleryTestCase {
 		$userId  = 99;
 		$userId2 = $gallery->getActiveUserId();
 		$itemId  = $this->_albums[0]->getId();
+
 		GalleryDataCache::reset();
 		GalleryDataCache::clearPermissionCache();
+
 		$true     = true;
 		$cacheKey = "GalleryPermissionHelper::getPermissions($itemId,$userId,$true)";
 		GalleryDataCache::put(
@@ -2210,11 +2226,13 @@ class PermissionTest extends GalleryTestCase {
 		$session->remove(GALLERY_PERMISSION_SESSION_KEY);
 
 		GalleryCoreApi::addPermissionToSession(12345);
+
 		$results = $session->get(GALLERY_PERMISSION_SESSION_KEY);
 
 		$this->assertEquals(array(12345), $results);
 
 		GalleryCoreApi::addPermissionToSession(67890);
+
 		$results = $session->get(GALLERY_PERMISSION_SESSION_KEY);
 
 		$this->assertEquals(array(12345, 67890), $results);

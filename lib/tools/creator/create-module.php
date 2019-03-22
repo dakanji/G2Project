@@ -119,22 +119,16 @@ if (file_exists($modulePath)) {
 
 // Create module.inc
 $fd = safe_fopen("$modulePath/module.inc");
-
 fwrite($fd, $smarty->fetch(__DIR__ . '/module.inc.tpl'));
-
 fclose($fd);
 
 // Create our sample view and template
 $fd = safe_fopen("$modulePath/$ucModuleId.inc");
-
 fwrite($fd, $smarty->fetch(__DIR__ . '/MyPage.inc.tpl'));
-
 fclose($fd);
 mkdir("$modulePath/templates");
 $fd = safe_fopen("$modulePath/templates/$ucModuleId.tpl");
-
 fwrite($fd, $smarty->fetch(__DIR__ . '/MyPage.tpl.tpl'));
-
 fclose($fd);
 
 // Create our map
@@ -144,27 +138,19 @@ mkdir($modulePath . '/classes/GalleryStorage');
 $smarty->assign('makefileType', 'classes');
 
 $fd = safe_fopen("$modulePath/classes/GNUmakefile");
-
 fwrite($fd, $smarty->fetch(__DIR__ . '/GNUmakefile.tpl'));
-
 fclose($fd);
 
 $smarty->assign('makefileType', 'GalleryStorage');
 
 $fd = safe_fopen("$modulePath/classes/GalleryStorage/GNUmakefile");
-
 fwrite($fd, $smarty->fetch(__DIR__ . '/GNUmakefile.tpl'));
-
 fclose($fd);
 $fd = safe_fopen("$modulePath/classes/Maps.xml");
-
 fwrite($fd, $smarty->fetch(__DIR__ . '/map.tpl'));
-
 fclose($fd);
 $fd = safe_fopen($modulePath . '/classes/' . $ucModuleId . 'Helper.class');
-
 fwrite($fd, $smarty->fetch(__DIR__ . '/MyPageHelper.class.tpl'));
-
 fclose($fd);
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * *\n";
 echo "Your module is ready!  You must build it by doing: \n";

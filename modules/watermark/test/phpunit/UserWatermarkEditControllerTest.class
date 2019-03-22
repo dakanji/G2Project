@@ -120,7 +120,9 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[whichDerivative][preferred]', 'on');
 		GalleryUtilities::putRequestVariable('form[whichDerivative][resizes]', 'on');
 		GalleryUtilities::putRequestVariable('form[whichDerivative][thumbnail]', 'on');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -157,7 +159,9 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[xPercentage]', '25.51');
 		GalleryUtilities::putRequestVariable('form[yPercentage]', '50.12');
 		GalleryUtilities::putRequestVariable('form[whichDerivative][thumbnail]', 'on');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -190,7 +194,9 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 	public function testEditMissingEverything() {
 		GalleryUtilities::putRequestVariable('watermarkId', $this->_watermark->getId());
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -229,7 +235,9 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[xPercentage]', '25.51');
 		GalleryUtilities::putRequestVariable('form[yPercentage]', '50.12');
 		GalleryUtilities::putRequestVariable('form[whichDerivative][resizes]', 'on');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -264,7 +272,9 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[xPercentage]', '25.51');
 		GalleryUtilities::putRequestVariable('form[yPercentage]', '50.12');
 		GalleryUtilities::putRequestVariable('form[whichDerivative][resizes]', 'on');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -297,7 +307,9 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('watermarkId', $this->_watermark->getId());
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -327,7 +339,9 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[xPercentage]', '101.51');
 		GalleryUtilities::putRequestVariable('form[yPercentage]', '-5.12');
 		GalleryUtilities::putRequestVariable('form[whichDerivative][thumbnail]', 'on');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -421,6 +435,7 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[tmp_name][1]', $sourceFile);
 		GalleryUtilities::putRequestVariable('form[type][1]', $postMimeType);
 		GalleryUtilities::putRequestVariable('form[name][1]', 'file.class');
+
 		$results  = $this->handleRequest();
 		$expected = ($postMimeType == 'test/file') ? array(
 			'redirect' => array(
@@ -471,4 +486,3 @@ class UserWatermarkEditControllerTest extends GalleryControllerTestCase {
 		);
 	}
 }
-

@@ -82,13 +82,11 @@ class UnitTestStorage extends MockObject {
 
 	public function isComplete() {
 		return parent::isComplete()
-
 		&& !empty($this->_extras) ? $this->_extras->isComplete() : true;
 	}
 
 	public function getRemaining() {
 		return parent::getRemaining()
-
 		. (!empty($this->_extras) ? $this->_extras->getRemaining() : '');
 	}
 

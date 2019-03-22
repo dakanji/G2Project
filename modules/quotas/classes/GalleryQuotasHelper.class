@@ -58,6 +58,7 @@ class GalleryQuotasHelper {
 			$itemIdMarkers = GalleryUtilities::makeMarkers(count($excludeIds));
 
 			$query .= '  AND
+
 			[GalleryItem::id] NOT IN (' . $itemIdMarkers . ')';
 		}
 

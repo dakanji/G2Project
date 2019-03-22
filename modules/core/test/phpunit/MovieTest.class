@@ -41,6 +41,7 @@ class MovieTest extends GalleryTestCase {
 		}
 
 		$path = 'modules/core/test/phpunit/MovieTest.class';
+
 		$this->_registerFactoryImplementationForTest(
 			'GalleryToolkit',
 			'MovieTestToolkit',
@@ -147,4 +148,3 @@ class MovieTestToolkit {
 		return array(GalleryCoreApi::error($_REQUEST['toolkitError']), null);
 	}
 }
-

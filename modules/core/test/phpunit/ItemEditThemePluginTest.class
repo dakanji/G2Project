@@ -123,6 +123,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Successfully saved theme settings')),
 			$results
@@ -145,6 +146,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(
 			array(array('form[error][key][rows][invalid]'), null),
 			$results
@@ -166,6 +168,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Successfully saved theme settings')),
 			$results
@@ -192,6 +195,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Successfully saved theme settings')),
 			$results
@@ -224,6 +228,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_grandchildAlbum, $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Successfully saved theme settings')),
 			$results
@@ -249,6 +254,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Successfully changed theme')),
 			$results
@@ -274,6 +280,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Successfully changed theme')),
 			$results
@@ -293,6 +300,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 	public function testChooseBogusTheme() {
 		GalleryUtilities::putRequestVariable('form[theme]', 'BogusBogus!');
 		GalleryUtilities::putRequestVariable('form[action][chooseTheme]', 1);
+
 		$results = $this->handleRequest($this->_album, $this->_preferred, ERROR_BAD_PARAMETER);
 	}
 
@@ -300,6 +308,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[theme]', 'ItemEditThemeControllerTest');
 		GalleryUtilities::putRequestVariable('form[action][chooseTheme]', 1);
 		GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
+
 		$results = $this->handleRequest($this->_album, $this->_preferred, ERROR_OBSOLETE_DATA);
 	}
 
@@ -318,6 +327,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Successfully changed theme')),
 			$results

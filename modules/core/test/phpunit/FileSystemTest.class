@@ -419,6 +419,7 @@ class FileSystemTest extends GalleryTestCase {
 		}
 
 		$size = $entityInfo['GalleryFileSystemEntity']['members']['pathComponent']['size'];
+
 		$this->assertEquals(
 			128,
 			strlen($storage->_truncateString($string, $size)),

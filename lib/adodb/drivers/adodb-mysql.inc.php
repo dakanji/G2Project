@@ -784,7 +784,6 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 		// returns true or false
 		public function _close() {
 			@mysql_close($this->_connectionID);
-
 			$this->charSet       = '';
 			$this->_connectionID = false;
 		}
@@ -891,6 +890,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 			}
 
 			$this->adodbFetchMode = $mode;
+
 			parent::__construct($queryID);
 		}
 
@@ -950,8 +950,7 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 				$this->bind = array();
 
 				for ($i = 0; $i < $this->_numOfFields; $i++) {
-					$o = $this->FetchField($i);
-
+					$o                                = $this->FetchField($i);
 					$this->bind[strtoupper($o->name)] = $i;
 				}
 			}
@@ -996,7 +995,6 @@ if (!defined('_ADODB_MYSQL_LAYER')) {
 
 		public function _close() {
 			@mysql_free_result($this->_queryID);
-
 			$this->_queryID = false;
 		}
 

@@ -127,6 +127,7 @@ class DynamicAlbumTest extends GalleryTestCase {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$this->_template = new GalleryTemplate(dirname(dirname(dirname(dirname(__DIR__)))));
 		$this->_class    = array(
 			'date'   => 'UpdatesAlbum',
@@ -302,6 +303,7 @@ class DynamicAlbumTest extends GalleryTestCase {
 			'random' => $this->_randomView,
 		) as $key => $view) {
 			GalleryUtilities::putRequestVariable('show', $type[$key]);
+
 			$template = new GalleryTemplate(
 				dirname(dirname(dirname(dirname(__DIR__))))
 			);
@@ -379,6 +381,7 @@ class DynamicAlbumTest extends GalleryTestCase {
 		}
 
 		$theme =& $this->_template->getVariableByReference('theme');
+
 		$this->assertEquals(
 			array(
 				'view' => 'dynamicalbum.UpdatesAlbum',
@@ -587,4 +590,3 @@ class DynamicAlbumTest extends GalleryTestCase {
 		$this->assertEquals(array(), $links, 'none');
 	}
 }
-

@@ -148,7 +148,6 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 		$this->assertFalse(empty($this->_fileContent), 'success fileContent');
 
 		unset($this->_fileContent);
-
 		$this->_platform->_isReadable = false;
 
 		list($ret, $code) = IsapiRewriteHelper::writeFile(array());

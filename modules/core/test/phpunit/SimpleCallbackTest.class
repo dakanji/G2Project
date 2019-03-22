@@ -47,6 +47,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 		}
 
 		$this->_userNames = $this->_groupNames = array();
+
 		GalleryDataCache::reset();
 	}
 
@@ -99,7 +100,6 @@ class SimpleCallbackTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
 
 		$results = $this->_runCallback();
-
 		sort($this->_userNames);
 
 		$this->assertEquals(join("\n", $this->_userNames), $results);
@@ -145,8 +145,8 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('command', 'lookupUsername');
 		GalleryUtilities::putRequestVariable('prefix', $search);
-		$results = $this->_runCallback();
 
+		$results = $this->_runCallback();
 		sort($this->_userNames);
 
 		$this->assertEquals(join("\n", $this->_userNames), $results);
@@ -161,7 +161,6 @@ class SimpleCallbackTest extends GalleryTestCase {
 		GalleryUtilities::putRequestVariable('prefix', $this->_tag);
 
 		$results = $this->_runCallback();
-
 		sort($this->_groupNames);
 
 		$this->assertEquals(join("\n", $this->_groupNames), $results);
@@ -192,8 +191,8 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('command', 'lookupGroupname');
 		GalleryUtilities::putRequestVariable('prefix', $search);
-		$results = $this->_runCallback();
 
+		$results = $this->_runCallback();
 		sort($this->_groupNames);
 
 		$this->assertEquals(join("\n", $this->_groupNames), $results);
@@ -202,6 +201,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	public function testLookupDirectories() {
 		GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
 		GalleryUtilities::putRequestVariable('prefix', dirname(__DIR__));
+
 		$results = $this->_runCallback();
 
 		$this->assertTrue(strstr($results, __DIR__), 'Missing result');
@@ -210,6 +210,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	public function testLookupDirectoriesWithPattern() {
 		GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
 		GalleryUtilities::putRequestVariable('prefix', dirname(dirname(__DIR__)) . '/c');
+
 		$results = $this->_runCallback();
 
 		$this->assertTrue(strstr($results, 'classes'), 'Missing classes in: ' . $results);
@@ -233,6 +234,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
 		GalleryUtilities::putRequestVariable('prefix', '/php<unit');
+
 		$results = $this->_runCallback();
 
 		$this->assertEquals('/php&lt;unit/test', $results, 'results');
@@ -262,9 +264,12 @@ class SimpleCallbackTest extends GalleryTestCase {
 		// German umlaut '�' in ISO-8859-1
 		$umlautUtf8 = GalleryCoreApi::convertToUtf8(chr(228), 'ISO-8859-1');
 		$prefix     = '/php' . $umlautUtf8 . 'unit';
+
 		GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
 		GalleryUtilities::putRequestVariable('prefix', $prefix);
+
 		$results = $this->_runCallback();
+
 		$this->assertEquals(
 			$prefix . '/t' . $umlautUtf8 . 'st',
 			$results,
@@ -281,6 +286,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
 		GalleryUtilities::putRequestVariable('prefix', dirname(__DIR__));
+
 		$results = $this->_runCallback();
 
 		// Regular users can't see results
@@ -292,6 +298,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
 		GalleryUtilities::putRequestVariable('prefix', dirname(__DIR__));
+
 		$results = $this->_runCallback();
 
 		// Guests can't see results
@@ -301,6 +308,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	public function testLookupFiles() {
 		GalleryUtilities::putRequestVariable('command', 'lookupFiles');
 		GalleryUtilities::putRequestVariable('prefix', __DIR__);
+
 		$results = $this->_runCallback();
 
 		$this->assertTrue(strstr($results, __FILE__), 'Missing result');
@@ -309,6 +317,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	public function testLookupFilesWithPattern() {
 		GalleryUtilities::putRequestVariable('command', 'lookupFiles');
 		GalleryUtilities::putRequestVariable('prefix', __DIR__ . '/Si');
+
 		$results = $this->_runCallback();
 
 		$this->assertTrue(strstr($results, __FILE__), 'Missing result in: ' . $results);
@@ -338,6 +347,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('command', 'lookupFiles');
 		GalleryUtilities::putRequestVariable('prefix', '/php&unit');
+
 		$results = $this->_runCallback();
 
 		// Dirs listed first, results entitized
@@ -371,8 +381,10 @@ class SimpleCallbackTest extends GalleryTestCase {
 		// German umlaut '�' in ISO-8859-1
 		$umlautUtf8 = GalleryCoreApi::convertToUtf8(chr(228), 'ISO-8859-1');
 		$prefix     = '/php' . $umlautUtf8 . 'unit';
+
 		GalleryUtilities::putRequestVariable('command', 'lookupFiles');
 		GalleryUtilities::putRequestVariable('prefix', $prefix);
+
 		$results = $this->_runCallback();
 
 		// Dirs listed first, results in UTF-8
@@ -392,6 +404,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('command', 'lookupFiles');
 		GalleryUtilities::putRequestVariable('prefix', __DIR__);
+
 		$results = $this->_runCallback();
 
 		// Regular users can't see results
@@ -403,6 +416,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('command', 'lookupFiles!');
 		GalleryUtilities::putRequestVariable('prefix', __DIR__);
+
 		$results = $this->_runCallback();
 
 		// Guests can't see results
@@ -438,6 +452,7 @@ class SimpleCallbackTestPlatform extends UnitTestPlatform {
 		global $gallery;
 
 		$this->_originalPlatform =& $gallery->getPlatform();
+
 		parent::__construct();
 	}
 

@@ -110,6 +110,7 @@ function smarty_function_math($params, &$smarty) {
 	}
 
 	$smarty_math_result = null;
+
 	GalleryUtilities::doEval('$smarty_math_result = ' . $equation . ';');
 
 	if (empty($params['format'])) {

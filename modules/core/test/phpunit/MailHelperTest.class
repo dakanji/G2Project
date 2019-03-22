@@ -194,6 +194,7 @@ class MailHelperTest extends GalleryTestCase {
 		}
 
 		$response = $this->_dummyPlatform->getMailData();
+
 		$this->assertEquals(
 			'From: mailhelpertest3_function_input@test.com',
 			$response['headers'][1]
@@ -225,6 +226,7 @@ class MailHelperTest extends GalleryTestCase {
 		}
 
 		$response = $this->_dummyPlatform->getMailData();
+
 		$this->assertEquals(
 			'Content-Type: text/html',
 			$response['headers'][1],
@@ -384,4 +386,3 @@ class MailHelperDummyPlatform {
 		);
 	}
 }
-

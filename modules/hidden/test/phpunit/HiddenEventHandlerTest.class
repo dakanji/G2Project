@@ -145,6 +145,7 @@ class HiddenEventHandlerTest extends GalleryTestCase {
 
 		$gallery->_storage = new UnitTestStorage();
 		$storage           =& $gallery->getStorage();
+
 		$storage->setReply(
 			'removeMapEntry',
 			array(

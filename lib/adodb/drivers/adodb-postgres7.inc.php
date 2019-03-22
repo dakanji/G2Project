@@ -129,6 +129,7 @@ class ADODB_postgres7 extends ADODB_postgres64 {
 
 	/*
 	function Prepare($sql)
+
 	{
 		$info = $this->ServerInfo();
 

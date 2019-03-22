@@ -388,6 +388,7 @@ class RewriteModuleExtras {
 				// Update regex rules structure to reuse code from GalleryUrlGenerator
 			case '1.1.11':
 				// Add generateUrl options and %{REQUEST_URI} handling to rewrite rule format
+
 				/**
 				 * Clear the tpl cache since our .htaccess and isapi templates have changed and the file
 				 * modification timestamp is not guaranteed to be newer than the compiled files.

@@ -33,7 +33,9 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -49,6 +51,7 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 
 	public function testCreateUser() {
 		$userName = 'user-' . mt_rand();
+
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('form[userName]', $userName);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
@@ -56,7 +59,9 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
 		GalleryUtilities::putRequestVariable('form[password1]', 'password');
 		GalleryUtilities::putRequestVariable('form[password2]', 'password');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -84,6 +89,7 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 
 	public function testCreateEntityPassword() {
 		$userName = 'user-' . mt_rand();
+
 		GalleryUtilities::putRequestVariable('form[action][create]', 1);
 		GalleryUtilities::putRequestVariable('form[userName]', $userName);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
@@ -91,7 +97,9 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
 		GalleryUtilities::putRequestVariable('form[password1]', 'pass&word');
 		GalleryUtilities::putRequestVariable('form[password2]', 'pass&word');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -122,6 +130,7 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 
 		// Create one user
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -151,7 +160,9 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
 		GalleryUtilities::putRequestVariable('form[password1]', 'passwordRight');
 		GalleryUtilities::putRequestVariable('form[password2]', 'passwordWrong');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -176,7 +187,9 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
 		GalleryUtilities::putRequestVariable('form[password1]', 'password');
 		GalleryUtilities::putRequestVariable('form[password2]', 'password');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -194,6 +207,7 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 
 		// Create a second user with the same name
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -215,4 +229,3 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 		$this->_markForCleanup($user);
 	}
 }
-

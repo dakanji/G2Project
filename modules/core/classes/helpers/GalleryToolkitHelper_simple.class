@@ -177,6 +177,7 @@ class GalleryToolkitHelper_simple {
 	     WHERE
 		[GalleryToolkitOperationMimeTypeMap::priority] >= 20
 		AND
+
 		[GalleryToolkitOperationMimeTypeMap::priority] <= 40';
 
 		list($ret, $results) = $gallery->search($query);

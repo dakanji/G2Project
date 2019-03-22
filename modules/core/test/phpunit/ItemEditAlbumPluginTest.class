@@ -202,6 +202,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(
 			array(
 				array(),
@@ -272,6 +273,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(
 			array(
 				array(
@@ -296,6 +298,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(
 			array(
 				array(
@@ -327,6 +330,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
 		// invalid serial number
 		GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
+
 		$results = $this->handleRequest($this->_album, $this->_preferred, ERROR_OBSOLETE_DATA);
 	}
 
@@ -518,6 +522,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(
 			array(
 				array(),
@@ -756,6 +761,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($album, $this->_preferred);
+
 		$this->assertEquals(
 			array(
 				array(),
@@ -789,6 +795,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$resizesPhotoID = array_key_exists($photoID, $resizes);
+
 		$this->assertTrue(
 			$resizesPhotoID,
 			'Missing resizes for new photo'
@@ -796,6 +803,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
 		if ($resizesPhotoID) {
 			$resizes = $resizes[$photoID];
+
 			$this->assertEquals(
 				1,
 				sizeof($resizes),
@@ -942,6 +950,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$results                   = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Settings saved successfully.')),
 			$results
@@ -1040,6 +1049,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(
 			array(
 				array(),
@@ -1067,6 +1077,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		}
 
 		usort($preferences, 'ItemEditAlbumPluginTestCmp');
+
 		$this->assertEquals(
 			array(
 				array(
@@ -1102,6 +1113,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		}
 
 		usort($preferences, 'ItemEditAlbumPluginTestCmp');
+
 		$this->assertEquals(
 			array(
 				array(
@@ -1138,6 +1150,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		}
 
 		usort($preferences, 'ItemEditAlbumPluginTestCmp');
+
 		$this->assertEquals(
 			array(
 				array(
@@ -1179,6 +1192,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album, $this->_preferred);
+
 		$this->assertEquals(
 			array(
 				array(),
@@ -1206,6 +1220,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		}
 
 		usort($preferences, 'ItemEditAlbumPluginTestCmp');
+
 		$this->assertEquals(
 			array(
 				array(

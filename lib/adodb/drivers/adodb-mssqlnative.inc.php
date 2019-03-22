@@ -151,6 +151,7 @@ class ADODB_mssqlnative extends ADOConnection {
 	public function __construct() {
 		if ($this->debug) {
 			ADOConnection::outp('<pre>');
+
 			sqlsrv_set_error_handling(SQLSRV_ERRORS_LOG_ALL);
 			sqlsrv_log_set_severity(SQLSRV_LOG_SEVERITY_ALL);
 			sqlsrv_log_set_subsystems(SQLSRV_LOG_SYSTEM_ALL);
@@ -277,7 +278,6 @@ class ADODB_mssqlnative extends ADOConnection {
 		}
 
 		sqlsrv_begin_transaction($this->_connectionID);
-
 		$start -= 1;
 
 		//was float(53)
@@ -327,7 +327,6 @@ class ADODB_mssqlnative extends ADOConnection {
 		}
 
 		sqlsrv_begin_transaction($this->_connectionID);
-
 		$ok = $this->Execute("update $seq with (tablock,holdlock) set id = id + 1");
 
 		if (!$ok) {
@@ -350,7 +349,6 @@ class ADODB_mssqlnative extends ADOConnection {
 		}
 
 		$num = $this->GetOne("select id from $seq");
-
 		sqlsrv_commit($this->_connectionID);
 
 		return $num;
@@ -547,17 +545,13 @@ class ADODB_mssqlnative extends ADOConnection {
 	/*
 	 * Usage:
 	 *
-
 	 * $this->BeginTrans();
-
 	 * $this->RowLock('table1,table2','table1.id=33 and table2.id=table1.id');
 	 * # lock row 33 for both tables
 	 *
 	 * # some operation on both tables table1 and table2
 	 *
-
 	 * $this->CommitTrans();
-
 	 *
 	 * See http://www.swynk.com/friends/achigrik/SQL70Locks.asp
 	 */
@@ -1069,6 +1063,7 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 		global $ADODB_COUNTRECS;
 
 		// KMN # if ($this->connection->debug) ADOConnection::outp("(before) ADODB_COUNTRECS: {$ADODB_COUNTRECS} _numOfRows: {$this->_numOfRows} _numOfFields: {$this->_numOfFields}");
+
 		/*
 		 * $retRowsAff = sqlsrv_rows_affected($this->_queryID);
 		 * "If you need to determine the number of rows a query will return
@@ -1124,8 +1119,7 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
-
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

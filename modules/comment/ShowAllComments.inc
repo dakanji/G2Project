@@ -80,8 +80,7 @@ class ShowAllCommentsView extends GalleryView {
 		for ($i = 0; $i < count($comments); $i++) {
 			// Get the commenter ids
 			$commenters[$comments[$i]->getCommenterId()] = 1;
-
-			$itemIds[$comments[$i]->getParentId()] = 1;
+			$itemIds[$comments[$i]->getParentId()]       = 1;
 
 			// Extract the member data
 			$comments[$i]             = (array)$comments[$i];

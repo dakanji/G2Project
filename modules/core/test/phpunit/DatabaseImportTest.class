@@ -75,7 +75,9 @@ class DatabaseImportTest extends GalleryTestCase {
 
 		$platform =& $gallery->getPlatform();
 		$storage  =& $gallery->getStorage();
+
 		GalleryDataCache::reset(true);
+
 		$pluginStatus = array(
 			'DatabaseImportTest1' => array(
 				'active'            => 1,
@@ -104,7 +106,9 @@ class DatabaseImportTest extends GalleryTestCase {
 		);
 
 		$cacheKey = 'GalleryPluginHelper::fetchPluginStatus(module)';
+
 		GalleryDataCache::put($cacheKey, $pluginStatus);
+
 		$installedModuleVersion     = GalleryModule::getMe()->getApiVersion();
 		$installedCoreVersion       = GalleryCoreApi::getApiVersion();
 		$installedModuleApi         = implode('.', $installedModuleVersion);
@@ -204,7 +208,9 @@ class DatabaseImportTest extends GalleryTestCase {
 	    AND
 	    [GalleryPluginParameterMap::pluginId] = ?
 	    AND
+
 	    [GalleryPluginParameterMap::itemId] = ?';
+
 		$storage->setReply(
 			'search',
 			array($select, array('module', 'DatabaseImportTest1', 0), array()),
@@ -269,6 +275,7 @@ class DatabaseImportTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
+
 		$storage->setReply(
 			'_translateTableName',
 			array('GalleryTestTable'),
@@ -305,6 +312,7 @@ class DatabaseImportTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
+
 		$storage->setReply(
 			'_translateTableName',
 			array('TestTable'),
@@ -316,6 +324,7 @@ class DatabaseImportTest extends GalleryTestCase {
 
 		$query = 'INSERT INTO g2_TestTable (g_accessListId, g_userOrGroupId, g_permission) '
 			. 'VALUES (?,?,?)';
+
 		$storage->setReply(
 			'_normalizeValue',
 			array(

@@ -30,6 +30,7 @@
 class CodeAuditTestCase extends GalleryTestCase {
 	public function __construct($methodName) {
 		parent::__construct($methodName);
+
 		$this->_shouldHalt = false;
 		$this->_baseDir    = realpath(__DIR__ . '/../../..');
 		$this->_checkTime  = time();
@@ -339,7 +340,6 @@ class CodeAuditTestCase extends GalleryTestCase {
 			if ($fileName) {
 				// Only cache the most recently used file (memory usage)
 				unset($this->_tokens);
-
 				$this->_tokens[$fileName] = $tokens;
 			}
 		} else {
@@ -403,7 +403,6 @@ class CodeAuditTestCase extends GalleryTestCase {
 			$parenCount = 1;
 
 			while (($i = $this->_getNextTokenIndex($tokens, $i)) && isset($tokens[$i])
-
 			&& $parenCount != 0) {
 				switch ($tokens[$i]) {
 					case ')':
@@ -455,7 +454,6 @@ class CodeAuditTestCase extends GalleryTestCase {
 		$param  = '';
 
 		while (($i = $this->_getNextTokenIndex($tokens, $i)) && isset($tokens[$i])
-
 			&& $parenCount != 0) {
 			switch ($tokens[$i]) {
 				case ')':

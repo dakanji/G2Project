@@ -81,6 +81,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -113,6 +114,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -145,6 +147,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -171,7 +174,9 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -187,7 +192,9 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -208,6 +215,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -228,6 +236,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -248,6 +257,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -268,6 +278,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -301,7 +312,9 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[path]', $path);
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[addWatermark]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -333,7 +346,9 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[addWatermark]', 0);
 		GalleryUtilities::putRequestVariable('form[removeWatermark]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -384,6 +399,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 			AND
 				[GalleryChildEntity::parentId] = [GalleryEntity::id]
 			AND
+
 				[GalleryEntity::entityType] = \'GalleryMovieItem\'';
 
 		list($ret, $searchResults) = $gallery->search($query);

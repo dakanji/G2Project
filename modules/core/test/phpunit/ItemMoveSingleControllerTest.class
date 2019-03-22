@@ -252,6 +252,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 
 		// Verify derivatives were created ok
 		$sizes = $this->_getDerivativeSizes($this->_item->getId());
+
 		$this->assertEquals(
 			array(
 				array(
@@ -279,6 +280,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -312,13 +314,13 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 
 		// Verify derivatives were recreated with preferences of new parent album
 		$sizes = $this->_getDerivativeSizes($this->_item->getId());
+
 		$this->assertEquals(
 			array(
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
 					'op'   => 'thumbnail|200',
 				),
-
 				// Order differs because old 400 kept as-is, and old 300 is reused for 600.
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,
@@ -343,6 +345,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_rootAlbum->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -376,6 +379,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 
 		// Verify derivatives were recreated with preferences of new parent album
 		$sizes = $this->_getDerivativeSizes($this->_item->getId());
+
 		$this->assertEquals(
 			array(
 				array(
@@ -402,7 +406,9 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 	public function testMoveItemIntoEmptyDestination() {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -425,6 +431,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_rootAlbum->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -453,6 +460,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_childAlbum->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -578,6 +586,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 
 		// Verify derivatives were created ok
 		$sizes = $this->_getDerivativeSizes($this->_item->getId());
+
 		$this->assertEquals(
 			array(
 				array(
@@ -605,6 +614,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -622,13 +632,13 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 
 		// Verify derivatives were recreated with preferences of new parent album
 		$sizes = $this->_getDerivativeSizes($this->_item->getId());
+
 		$this->assertEquals(
 			array(
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
 					'op'   => 'crop|0,0,50,50;thumbnail|200',
 				),
-
 				// Order differs because old 400 kept as-is, and old 300 is reused for 600.
 				array(
 					'type' => DERIVATIVE_TYPE_IMAGE_RESIZE,

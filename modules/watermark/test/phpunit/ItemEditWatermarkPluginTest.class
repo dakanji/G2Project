@@ -94,7 +94,6 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 			array($subalbumId, 'test/file', false, 0, true),
 		) as $info) {
 			list($ret,
-
 			$this->_items[], $this->_preferreds[], $this->_resizes[], $this->_thumbnails[]) = call_user_func_array(array($this, '_createItem'), $info);
 
 			if ($ret) {
@@ -188,7 +187,9 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
 		GalleryUtilities::putRequestVariable('form[xPercent]', 25);
 		GalleryUtilities::putRequestVariable('form[yPercent]', 50);
+
 		$results = $this->handleRequest($this->_item, $this->_preferred);
+
 		$this->assertEquals(
 			array(
 				array(),
@@ -222,7 +223,9 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
 		GalleryUtilities::putRequestVariable('form[xPercent]', 25);
 		GalleryUtilities::putRequestVariable('form[yPercent]', 50);
+
 		$results = $this->handleRequest($this->_item, $this->_preferred);
+
 		$this->assertEquals(
 			array(array('form[error][versions][missing]'), null),
 			$results
@@ -231,7 +234,9 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 
 	public function testRemoveWatermark() {
 		GalleryUtilities::putRequestVariable('form[action][remove]', 1);
+
 		$results = $this->handleRequest($this->_item, $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Watermark removed successfully')),
 			$results
@@ -274,7 +279,9 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[watermarkId]', $this->_watermark->getId());
 		GalleryUtilities::putRequestVariable('form[xPercent]', 25);
 		GalleryUtilities::putRequestVariable('form[yPercent]', 50);
+
 		$results = $this->handleRequest($this->_item, $this->_preferred);
+
 		$this->assertEquals(
 			array(
 				array(),
@@ -350,7 +357,9 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 
 		// Now tell the controller to remove watermarks
 		GalleryUtilities::putRequestVariable('form[action][remove]', 1);
+
 		$results = $this->handleRequest($this->_item, $this->_preferred);
+
 		$this->assertEquals(
 			array(
 				array(),
@@ -426,6 +435,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		}
 
 		$progress = $this->_templateAdapter->getProgressBarDump();
+
 		$this->assertTrue(
 			preg_match(
 				'/0.*core.ItemEdit.*' . $this->_album->getId() . '/',
@@ -469,7 +479,6 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 
 				$expected = $getsWatermark && ($applyToThumbnail
 				|| $derivative->getDerivativeType() != DERIVATIVE_TYPE_IMAGE_THUMBNAIL) ? 'composite|plugins_data/modules/watermark/'
-
 				. $this->_watermark->getFileName() . ',image/gif,62,75,manual,' . $location : '';
 
 				$this->assertEquals(
@@ -574,6 +583,7 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 		$this->assertTrue(!$this->_plugin->isSupported($this->_item, $this->_thumbnail), 'non admin');
 
 		GalleryUtilities::putRequestVariable('form[action][remove]', 1);
+
 		$results = $this->handleRequest($this->_item, $this->_preferred, ERROR_PERMISSION_DENIED);
 	}
 

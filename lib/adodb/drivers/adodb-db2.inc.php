@@ -120,7 +120,6 @@ class ADODB_db2 extends ADOConnection {
 		// This needs to be set before the connect().
 		// Replaces the odbc_binmode() call that was in Execute()
 		ini_set('ibm_db2.binmode', $this->binmode);
-
 		$this->_errorMsg = '';
 
 		if ($argDatabasename && empty($argDSN)) {
@@ -749,10 +748,9 @@ class ADODB_db2 extends ADOConnection {
 					$fld->max_length = $rs->fields[7];
 				}
 
-				$fld->not_null    = !empty($rs->fields[10]);
-				$fld->scale       = $rs->fields[8];
-				$fld->primary_key = false;
-
+				$fld->not_null                  = !empty($rs->fields[10]);
+				$fld->scale                     = $rs->fields[8];
+				$fld->primary_key               = false;
 				$retarr[strtoupper($fld->name)] = $fld;
 			} elseif (sizeof($retarr) > 0) {
 				break;
@@ -969,8 +967,7 @@ class ADORecordSet_db2 extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
-
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

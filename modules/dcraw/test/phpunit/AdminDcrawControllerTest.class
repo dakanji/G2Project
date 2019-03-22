@@ -86,6 +86,7 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -117,6 +118,7 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -148,6 +150,7 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -179,6 +182,7 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -199,7 +203,9 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 
 	public function testSaveMissingPath() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -221,6 +227,7 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 		$this->_platform->setReply('is_file', array('/bad/path'), 0);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -256,6 +263,7 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -271,7 +279,9 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -287,7 +297,9 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -301,4 +313,3 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 		);
 	}
 }
-

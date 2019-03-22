@@ -200,6 +200,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		'qcif cif 4cif';
 		$output[] = 'Motion estimation methods: zero(fastest) full(slowest) log phods ' .
 		'epzs(default) x1';
+
 		$this->assertEquals(
 			array(
 				array(
@@ -415,6 +416,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		$output[] = 'even though both encoding and decoding are supported for example, the h263';
 		$output[] = 'decoder corresponds to the h263 and h263p encoders, for file formats its even';
 		$output[] = 'worse';
+
 		$this->assertEquals(
 			array(
 				array(
@@ -472,6 +474,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		$output[] = 'Frame size abbreviations: sqcif qcif cif 4cif';
 		$output[] = 'Motion estimation methods: zero(fastest) full(slowest) log phods ' .
 		'epzs(default) x1';
+
 		$this->assertEquals(
 			array(
 				array(
@@ -500,6 +503,7 @@ class FfmpegToolkitTest extends GalleryTestCase {
 		}
 
 		$output[] = 'Bogus stdout';
+
 		$this->assertEquals(
 			array(
 				array(

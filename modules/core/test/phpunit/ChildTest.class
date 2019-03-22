@@ -109,6 +109,7 @@ class ChildTest extends GalleryTestCase {
 		}
 
 		sort($childIds);
+
 		$this->assertEquals(
 			array(
 				$this->_child[0]->getId(),
@@ -495,6 +496,7 @@ class ChildTest extends GalleryTestCase {
 		}
 
 		sort($childIds);
+
 		$this->assertEquals(
 			array(
 				$this->_child[0]->getId(),

@@ -94,6 +94,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$this->_template = new GalleryTemplate(dirname(dirname(dirname(dirname(__DIR__)))));
 	}
 
@@ -152,7 +153,9 @@ class KeywordAlbumTest extends GalleryTestCase {
 
 		$theme                 =& $this->_template->getVariableByReference('theme');
 		$theme['actingUserId'] = $gallery->getActiveUserId();
+
 		GalleryUtilities::putRequestVariable('keyword', 'test&key');
+
 		$form = array();
 
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
@@ -183,6 +186,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 
 		// Query for items with both testkey and fun keywords
 		GalleryUtilities::putRequestVariable('keyword', 'test&key,fun');
+
 		$form = array();
 
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
@@ -225,6 +229,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		}
 
 		$theme =& $this->_template->getVariableByReference('theme');
+
 		$this->assertEquals(
 			array(
 				'view'    => 'keyalbum.KeywordAlbum',
@@ -286,6 +291,7 @@ class KeywordAlbumTest extends GalleryTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('view', 'test.TestView');
+
 		$unused = null;
 
 		list($ret, $summaries) = $this->_module->getItemSummaries($itemList, $permissions, $unused);
@@ -384,4 +390,3 @@ class KeywordAlbumTest extends GalleryTestCase {
 		$this->assertEquals(array(), $summaries, 'album not');
 	}
 }
-

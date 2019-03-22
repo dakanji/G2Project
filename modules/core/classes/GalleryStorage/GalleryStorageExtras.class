@@ -163,9 +163,7 @@ class GalleryStorageExtras {
 
 					$memberData[] = $columnInfo;
 					$callbacks[]  = $columnName;
-
 					$columns[$tableName . '.' . $this->_gs->_translateColumnName($columnName)] = 1;
-
 					$tables[$tableName] = 1;
 				}
 
@@ -1323,7 +1321,6 @@ class GalleryStorageExtras {
 			if (array_key_exists($memberName, $match)) {
 				if (GalleryUtilities::isA($match[$memberName], 'GallerySqlFragment')) {
 					$where[] = $this->_gs->_translateColumnName($memberName) . ' '
-
 					. $this->_gs->_translateQuery($match[$memberName]->getFragment());
 
 					foreach ($match[$memberName]->getValues() as $value) {
@@ -2068,7 +2065,6 @@ class GalleryStorageExtras {
 
 		$query = 'SELECT ' . $this->_gs->_translateColumnName('name') . ', '
 		. $this->_gs->_translateColumnName('major') . ', '
-
 		. $this->_gs->_translateColumnName('minor') . ' FROM ' . $schemaTableName;
 
 		$this->_gs->_traceStart();

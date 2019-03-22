@@ -382,6 +382,7 @@ class GalleryDataCache {
 
 		$cacheFile = GalleryDataCache::getCachePath($pathInfo);
 		$platform  =& $gallery->getPlatform();
+
 		GalleryUtilities::guaranteeDirExists(dirname($cacheFile));
 
 		// This will either succeed, or leave no trace of its attempt.
@@ -900,6 +901,7 @@ class GalleryDataCache {
 
 		if ($action == 'read') {
 			$noCache = (GalleryUtilities::getServerVar('HTTP_PRAGMA') == 'no-cache' ||
+
 			GalleryUtilities::getServerVar('HTTP_CACHE_CONTROL') == 'no-cache');
 
 			if ($noCache) {

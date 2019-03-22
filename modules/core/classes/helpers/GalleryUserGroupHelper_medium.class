@@ -66,7 +66,9 @@ class GalleryUserGroupHelper_medium {
 		}
 
 		GalleryDataCache::remove("GalleryUserGroupHelper::isUserInGroup($userId,$groupId)");
+
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId' => $userId,
@@ -110,7 +112,9 @@ class GalleryUserGroupHelper_medium {
 		}
 
 		GalleryDataCache::remove("GalleryUserGroupHelper::isUserInGroup($userId,$groupId)");
+
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId' => $userId,
@@ -152,6 +156,7 @@ class GalleryUserGroupHelper_medium {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId' => $userId,
@@ -208,6 +213,7 @@ class GalleryUserGroupHelper_medium {
 			}
 
 			$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 			$event->setData(
 				array(
 					'userId' => array_keys($userData),

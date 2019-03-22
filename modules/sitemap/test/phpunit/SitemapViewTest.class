@@ -71,7 +71,6 @@ class SitemapViewTest extends GalleryTestCase {
 			53,       // change every week  (not exactly 52 -- round up)
 			13,       // change every month (not exactly 12 -- round up)
 			1,
-
 		// change every year
 		);
 
@@ -136,6 +135,7 @@ class SitemapViewTest extends GalleryTestCase {
 		("<url><loc>url:$ids[5]</loc><lastmod>2006-01-01T08:00:05+00:00</lastmod>" .
 		 "<changefreq>yearly</changefreq></url>\n") .
 		'</urlset>';
+
 		$this->assertEquals(
 			explode("\n", $expected),
 			explode("\n", $results)

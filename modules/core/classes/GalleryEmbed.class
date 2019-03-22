@@ -866,6 +866,7 @@ class GalleryEmbed {
 		$session->doNotUseTempId();
 
 		GalleryCoreApi::requireOnce('modules/search/classes/SearchUtilities.class');
+
 		$searchInstances = $searchResults = array();
 
 		list($ret, $ids) = GalleryCoreApi::getAllFactoryImplementationIds('GallerySearchInterface_1_0');
@@ -1265,13 +1266,16 @@ class GalleryEmbed {
 
 		// Load the G2 templating engine
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$template = new GalleryTemplate(__DIR__ . '/../../..');
 
 		$template->setVariable('l10Domain', 'modules_' . $moduleId);
 
 		// Invoke the preload, if available
 		$blockId = $moduleId . '.' . $blockName;
+
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
+
 		$theme = new GalleryTheme();
 
 		$ret = $theme->preloadBlock($template, $blockId, $params);

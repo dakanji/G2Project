@@ -907,6 +907,7 @@ function _adodb_getdate($origd = false, $fast = false, $is_gmt = false) {
 		// Fri, 13 Dec 1901 20:45:54 GMT to Tue, 19 Jan 2038 03:14:07 GMT
 		// old algorithm iterates through all years. new algorithm does it in
 		// 10 year blocks
+
 		/*
 		# old algo
 

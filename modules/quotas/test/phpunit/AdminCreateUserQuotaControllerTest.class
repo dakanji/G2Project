@@ -51,7 +51,9 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -73,6 +75,7 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -96,6 +99,7 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -113,7 +117,9 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 
 		// quota size
 		GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -129,7 +135,9 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 		// quota unit only
 		GalleryUtilities::removeRequestVariable('form[quotaSize]');
 		GalleryUtilities::putRequestVariable('form[quotaUnit]', 'MB');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -145,6 +153,7 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 
 	public function testCreateUserQuotaUserIdMissing() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
 
@@ -156,6 +165,7 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -172,6 +182,7 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 
 		// Attempt to create a quota for the user that already has one
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -214,4 +225,3 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 		}
 	}
 }
-

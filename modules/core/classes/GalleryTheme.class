@@ -296,7 +296,6 @@ class GalleryTheme extends GalleryPlugin {
 			}
 
 			$sample = ' (<a href="' . $sampleUrl . '">'
-
 			. $core->translate('View Samples') . '</a>)';
 
 			if (isset($params['albumFrame'], $standard['albumFrame'])) {
@@ -462,6 +461,7 @@ class GalleryTheme extends GalleryPlugin {
 					// success
 				} else {
 					GalleryCoreApi::requireOnce('lib/JSON/JSON.php');
+
 					$json = new Services_JSON(SERVICES_JSON_LOOSE_TYPE);
 
 					// The sanitizer will escape quotes, so unescape them
@@ -518,6 +518,7 @@ class GalleryTheme extends GalleryPlugin {
 					$value   = '[]';
 				} else {
 					GalleryCoreApi::requireOnce('lib/JSON/JSON.php');
+
 					$json = new Services_JSON();
 
 					for ($i = 0; $i < count($input); $i++) {
@@ -1308,6 +1309,7 @@ class GalleryTheme extends GalleryPlugin {
 
 		if ($platform->file_exists(GalleryCoreApi::getCodeBasePath($path))) {
 			GalleryCoreApi::requireOnce($path);
+
 			$className = $module . 'Preloads';
 			$instance  = new $className();
 
@@ -1475,12 +1477,10 @@ class GalleryTheme extends GalleryPlugin {
 
 		if (isset($load['owner'])) {
 			$userIds[$item->getOwnerId()] = true;
-
-			$childOwnerIds = array();
+			$childOwnerIds                = array();
 
 			foreach ($childItems as $child) {
-				$userIds[$child->getOwnerId()] = true;
-
+				$userIds[$child->getOwnerId()]       = true;
 				$childOwnerIds[$child->getOwnerId()] = true;
 			}
 

@@ -104,6 +104,7 @@ class UserLoginController extends GalleryController {
 				}
 
 				GalleryUtilities::unsanitizeInputValues($form['password'], false);
+
 				$isCorrect = (isset($user) && $user->isCorrectPassword($form['password']));
 
 				// Prepare for validation
@@ -188,6 +189,7 @@ class UserLoginController extends GalleryController {
 			if (!empty($error)) {
 				if (!empty($form['username'])) {
 					$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
+
 					$event->setData(
 						array(
 							'userName' => $form['username'],

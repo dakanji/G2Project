@@ -36,8 +36,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 		}
 
 		$is_serial = is_object($fieldobj) && !empty($fieldobj->primary_key) && !empty($fieldobj->unique) &&
-
-			!empty($fieldobj->has_default) && substr($fieldobj->default_value, 0, 8) == 'nextval(';
+			!empty($fieldobj->has_default)   && substr($fieldobj->default_value, 0, 8) == 'nextval(';
 
 		switch (strtoupper($t)) {
 			case 'INTERVAL':
@@ -218,6 +217,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 
 	/*
 	function AlterColumnSQL($tabname, $flds, $tableflds='',$tableoptions='')
+
 	{
 		if (!$tableflds) {
 			if ($this->debug) ADOConnection::outp("AlterColumnSQL needs a complete table-definiton for PostgreSQL");

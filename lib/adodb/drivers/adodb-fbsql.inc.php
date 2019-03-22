@@ -119,11 +119,10 @@ if (!defined('_ADODB_FBSQL_LAYER')) {
 						$fld->max_length = -1;
 					}
 
-					$fld->not_null       = ($rs->fields[2] != 'YES');
-					$fld->primary_key    = ($rs->fields[3] == 'PRI');
-					$fld->auto_increment = (strpos($rs->fields[5], 'auto_increment') !== false);
-					$fld->binary         = (strpos($fld->type, 'blob') !== false);
-
+					$fld->not_null                  = ($rs->fields[2] != 'YES');
+					$fld->primary_key               = ($rs->fields[3] == 'PRI');
+					$fld->auto_increment            = (strpos($rs->fields[5], 'auto_increment') !== false);
+					$fld->binary                    = (strpos($fld->type, 'blob') !== false);
 					$retarr[strtoupper($fld->name)] = $fld;
 
 					$rs->MoveNext();

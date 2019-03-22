@@ -143,6 +143,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 		);
 
 		$results = $this->loadTemplate();
+
 		$this->assertEquals(
 			array(
 				'body' => 'modules/cart/templates/ViewCart.tpl',
@@ -212,6 +213,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 		}
 
 		$results = $this->loadTemplate();
+
 		$this->assertEquals(
 			array(
 				'body' => 'modules/cart/templates/ViewCart.tpl',
@@ -220,6 +222,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 		);
 
 		$templateData = $this->_template->getVariable('ViewCart');
+
 		$this->assertEquals(
 			array($this->_photoItem->getId(), $this->_movieItem->getId()),
 			array_keys($templateData['items']),
@@ -280,6 +283,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 		}
 
 		$results = $this->loadTemplate();
+
 		$this->assertEquals(
 			array(
 				'body' => 'modules/cart/templates/ViewCart.tpl',
@@ -288,6 +292,7 @@ class ViewCartViewTest extends GalleryViewTestCase {
 		);
 
 		$templateData = $this->_template->getVariable('ViewCart');
+
 		$this->assertEquals(
 			array($this->_photoItem->getId()),
 			array_keys($templateData['items']),

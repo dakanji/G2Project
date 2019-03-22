@@ -299,6 +299,7 @@ class ItemTest extends GalleryTestCase {
 			);
 
 			$inlineOk = ($html != 'ERROR' && $html != null);
+
 			$this->assertEquals(
 				$inlineOk,
 				$instance->canBeViewedInline(),
@@ -475,6 +476,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$counts = GalleryUtilities::strArrToIntArr($counts);
+
 		$this->assertEquals(
 			array(
 				$this->_album->getId() => 3,
@@ -496,6 +498,7 @@ class ItemTest extends GalleryTestCase {
 
 		// We can view child[0] and child[2]
 		$counts = GalleryUtilities::strArrToIntArr($counts);
+
 		$this->assertEquals(
 			array(
 				$this->_album->getId() => 2,
@@ -2295,6 +2298,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		$preferred = $preferreds[$photo->getId()];
+
 		$this->assertEquals(
 			'test-operation;convert-to-image/x-portable-pixmap;convert-to-image/jpeg',
 			$preferred->getDerivativeOperations()
@@ -2532,6 +2536,7 @@ class ItemTest extends GalleryTestCase {
 		$this->assertFalse(empty($thumbTable[$newItem->getId()]), 'missing thumbnail');
 
 		$operation = $thumbTable[$newItem->getId()]->getDerivativeOperations();
+
 		$this->assertTrue(
 			($operation == 'thumbnail|[0]' ||
 			$operation == 'thumbnail|[1]'),

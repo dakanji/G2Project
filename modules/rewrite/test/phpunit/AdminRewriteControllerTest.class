@@ -123,7 +123,9 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 
 	public function testRefresh() {
 		GalleryUtilities::putRequestVariable('form[action][refresh]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -150,6 +152,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -235,7 +238,9 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 
 	public function testSaveNoRules() {
 		GalleryUtilities::putRequestVariable('form[action][rules]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -281,7 +286,9 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][rules]', true);
 		GalleryUtilities::putRequestVariable('form[rules][adminrewritemock][3][active]', true);
 		GalleryUtilities::putRequestVariable('form[rules][adminrewritemock][4][active]', true);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -328,7 +335,9 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][rules]', 1);
 		GalleryUtilities::putRequestVariable('form[rules][rewrite][0][active]', 1);
 		GalleryUtilities::putRequestVariable('form[rules][rewrite][0][pattern]', '');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -374,7 +383,9 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[rules][rewrite][0][pattern]', 'dupe/');
 		GalleryUtilities::putRequestVariable('form[rules][rewrite][1][active]', 1);
 		GalleryUtilities::putRequestVariable('form[rules][rewrite][1][pattern]', 'dupe/');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -421,7 +432,9 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][rules]', 1);
 		GalleryUtilities::putRequestVariable('form[rules][rewrite][0][active]', 1);
 		GalleryUtilities::putRequestVariable('form[rules][rewrite][0][pattern]', 'uv/%badKey%');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -470,6 +483,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -524,6 +538,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -599,7 +614,9 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][accessList]', 1);
 		GalleryUtilities::putRequestVariable('form[accessList][0]', 'unit1.test');
 		GalleryUtilities::putRequestVariable('form[accessList][1]', 'unit2.test');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -645,7 +662,9 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][accessList]', 1);
 		GalleryUtilities::putRequestVariable('form[accessList][0]', '');
 		GalleryUtilities::putRequestVariable('form[allowEmptyReferer]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -690,7 +709,9 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 	public function testTestParser1() {
 		GalleryUtilities::putRequestVariable('form[action][testParser]', 1);
 		GalleryUtilities::putRequestVariable('form[phpunit]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -710,7 +731,9 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 
 	public function testTestParser2() {
 		GalleryUtilities::putRequestVariable('form[action][testParser]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -729,7 +752,9 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 	public function testAdminParser1() {
 		GalleryUtilities::putRequestVariable('form[action][adminParser]', 1);
 		GalleryUtilities::putRequestVariable('form[phpunit]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -752,7 +777,9 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 
 	public function testAdminParser2() {
 		GalleryUtilities::putRequestVariable('form[action][adminParser]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(

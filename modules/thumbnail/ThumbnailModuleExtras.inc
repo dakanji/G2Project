@@ -134,6 +134,7 @@ class ThumbnailModuleExtras {
 			case '0.9.2':
 			case '0.9.3':
 				// Now allow thumbnail for root album; remove parent for mime type thumbnails
+
 				/* NOTE:
 				 * Upgrade code merged into case '1.0.7' since it changes a superset of this case.
 				 */
@@ -154,6 +155,7 @@ class ThumbnailModuleExtras {
 				$gallery->guaranteeTimeLimit(60);
 
 				$storage =& $gallery->getStorage();
+
 				GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailImage.class');
 
 				$ret = ThumbnailModuleExtras::_createThumbnailContainer($module);
@@ -485,6 +487,7 @@ class ThumbnailModuleExtras {
 		}
 
 		$itemId = array();
+
 		GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailImage.class');
 
 		foreach (array(

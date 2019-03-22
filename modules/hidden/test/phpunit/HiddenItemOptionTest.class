@@ -163,6 +163,7 @@ class HiddenItemOptionTest extends ItemEditOptionTestCase {
 		}
 
 		$isHidden = (bool)$hiddenBy;
+
 		$this->assertEquals(
 			$isHidden && ($item->getId() == $hiddenBy),
 			$item->hasOnLoadHandler('Hidden'),

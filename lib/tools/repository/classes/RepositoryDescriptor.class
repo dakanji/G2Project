@@ -244,7 +244,9 @@ class RepositoryDescriptor extends RepositoryObject {
 		$platform     =& $gallery->getPlatform();
 		$manifest     = array();
 		$manifestFile = $pluginDir . 'MANIFEST';
+
 		GalleryUtilities::readIndividualManifest($manifestFile, $manifest);
+
 		$g2Base           = GalleryCoreApi::getCodeBasePath();
 		$ignoreOffset     = strlen(substr($pluginDir, strlen($g2Base)));
 		$manifestContents = $this->filterManifestForBasePackage(

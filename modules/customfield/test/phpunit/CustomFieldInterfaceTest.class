@@ -119,6 +119,7 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 		}
 
 		ksort($params);
+
 		$this->assertEquals(
 			array(
 				'album'  => '',
@@ -151,6 +152,7 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 		}
 
 		ksort($params);
+
 		$this->assertEquals(
 			array(
 				'album'  => '',
@@ -184,6 +186,7 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 		}
 
 		ksort($params);
+
 		$this->assertEquals(
 			array(
 				'common' => 'Photographer`0`1|Location`0`1|One`0`1',
@@ -222,4 +225,3 @@ class CustomFieldInterfaceTest extends GalleryTestCase {
 		$this->assertEquals(true, $isContainer[$this->_item->getId()], 'Album-specific settings');
 	}
 }
-

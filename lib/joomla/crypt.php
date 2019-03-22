@@ -10,6 +10,7 @@
  */
 
 //defined('JPATH_BASE') or die();
+
 /**
  * JCrypt is a Joomla Platform class for handling basic encryption/decryption of data.
  *

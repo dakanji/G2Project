@@ -211,6 +211,7 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[action][addLinkItem]', 1);
 		GalleryUtilities::putRequestVariable('form[linkType]', 'album');
 		GalleryUtilities::putRequestVariable('form[linkedAlbumId]', -123);
+
 		$results = $this->handleRequest($this->_album);
 
 		$this->assertEquals(array('form[error][linkedAlbumId][invalid]'), $results[0], 'error');
@@ -287,10 +288,10 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[action][addLinkItem]', 1);
 		GalleryUtilities::putRequestVariable('form[linkType]', 'url');
 		GalleryUtilities::putRequestVariable('form[linkUrl]', '');
+
 		$results = $this->handleRequest($this->_album);
 
 		$this->assertEquals(array('form[error][linkUrl][missing]'), $results[0], 'error');
 		$this->assertEquals(array(), $results[1], 'status');
 	}
 }
-

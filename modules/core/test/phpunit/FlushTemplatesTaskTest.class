@@ -120,12 +120,14 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 class FlushTemplatesTaskTestPlatform {
 	public function __construct($failedCalls) {
 		GalleryUtilities::putRequestVariable('calls', array());
+
 		$this->_failedCalls = $failedCalls;
 	}
 
 	public function _addCall($call) {
 		$calls   = GalleryUtilities::getRequestVariables('calls');
 		$calls[] = $call;
+
 		GalleryUtilities::putRequestVariable('calls', $calls);
 
 		return !in_array($call, $this->_failedCalls);
@@ -151,4 +153,3 @@ class FlushTemplatesTaskTestPlatform {
 		return $path;
 	}
 }
-

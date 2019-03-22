@@ -240,6 +240,7 @@ class GalleryPlugin {
 			}
 
 			$event = GalleryCoreApi::newEvent('Gallery::ActivatePlugin');
+
 			$event->setData(
 				array(
 					'pluginType' => $this->getPluginType(),
@@ -409,6 +410,7 @@ class GalleryPlugin {
 	 */
 	public function _postDeactivationEvent() {
 		$event = GalleryCoreApi::newEvent('Gallery::DeactivatePlugin');
+
 		$event->setData(
 			array(
 				'pluginType' => $this->getPluginType(),
@@ -443,7 +445,6 @@ class GalleryPlugin {
 		// Remove data directory for this plugin
 		$platform =& $gallery->getPlatform();
 		$dataDir  = $gallery->getConfig('data.gallery.plugins_data') . $this->getPluginType() .
-
 		   's' . $platform->getDirectorySeparator() . $this->getId();
 
 		if ($platform->is_dir($dataDir)) {
@@ -466,6 +467,7 @@ class GalleryPlugin {
 		$this->_flushPluginCache();
 
 		$event = GalleryCoreApi::newEvent('Gallery::UninstallPlugin');
+
 		$event->setData(
 			array(
 				'pluginType' => $this->getPluginType(),
@@ -598,6 +600,7 @@ class GalleryPlugin {
 	public function _flushPluginCache() {
 		// Flush the cache
 		$pluginType = $this->getPluginType();
+
 		GalleryDataCache::remove("GalleryPluginHelper::fetchPluginStatus($pluginType)");
 		GalleryDataCache::removeFromDisk(
 			array(

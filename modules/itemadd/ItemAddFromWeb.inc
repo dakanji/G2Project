@@ -98,6 +98,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 				$tmpDir             = $gallery->getConfig('data.gallery.tmp');
 				$tmpFile            = $platform->tempnam($tmpDir, 'add');
 				$successfullyCopied = false;
+
 				GalleryUtilities::unsanitizeInputValues($url, false);
 
 				if (empty($extraHeaders)) {
@@ -119,6 +120,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 					list($base) = GalleryUtilities::getFileNameComponents($fileName);
 
 					GalleryUtilities::sanitizeInputValues($base);
+
 					$title       = (isset($form['set']['title']) && $form['set']['title']) ? $base : '';
 					$summary     = (isset($form['set']['summary'])
 					&& $form['set']['summary']) ? $base : '';
@@ -140,7 +142,9 @@ class ItemAddFromWeb extends ItemAddPlugin {
 					}
 
 					$sanitizedUrl = $url;
+
 					GalleryUtilities::sanitizeInputValues($url);
+
 					$status['addedFiles'][] = array(
 						'fileName' => $url,
 						'id'       => $newItem->getId(),

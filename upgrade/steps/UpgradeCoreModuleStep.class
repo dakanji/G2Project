@@ -169,6 +169,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 		$storage       =& $gallery->getStorage();
 		$isSvnInstall  = file_exists(dirname(dirname(__DIR__)) . '/.svn');
 		$fileIntegrity = isset($_SESSION['fileintegrity']) ? $_SESSION['fileintegrity'] : 'Unknown';
+
 		$gallery->debug(
 			"\n
 --------------------------------------------------------

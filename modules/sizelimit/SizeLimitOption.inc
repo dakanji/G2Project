@@ -359,6 +359,7 @@ class SizeLimitOption extends ItemEditOption {
 
 			foreach ($descendents as $item) {
 				$numberOfItemsResized++;
+
 				$templateAdapter->updateProgressBar(
 					$module->translate('Resizing photo'),
 					$item->getTitle(),

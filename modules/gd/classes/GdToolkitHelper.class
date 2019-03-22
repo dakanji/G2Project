@@ -514,6 +514,7 @@ class GdToolkitHelper {
 
 		if (!isset($gdFunctionality)) {
 			GalleryCoreApi::requireOnce('modules/gd/classes/GdFunctionality.class');
+
 			$gdFunctionality = new GdFunctionality();
 		}
 

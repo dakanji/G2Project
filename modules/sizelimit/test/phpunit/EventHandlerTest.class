@@ -49,6 +49,7 @@ class EventHandlerTest extends GalleryTestCase {
 
 	public function testCopy() {
 		$event = GalleryCoreApi::newEvent('GalleryEntity::save');
+
 		foreach (array(
 			'width'        => 768,
 			'height'       => 1024,
@@ -104,4 +105,3 @@ class EventHandlerTest extends GalleryTestCase {
 		);
 	}
 }
-

@@ -109,6 +109,7 @@ class CaptchaValidationPluginTest extends GalleryTestCase {
 	public function testLoadTemplateDefault() {
 		// With no options, level defaults to HIGH
 		$result = $this->_plugin->loadTemplate($this->_form);
+
 		$this->assertEquals(
 			array(
 				null,
@@ -216,6 +217,7 @@ class CaptchaValidationPluginTest extends GalleryTestCase {
 	public function testValidateMissingCode() {
 		// With no options, level defaults to HIGH
 		$result = $this->_plugin->performValidation($this->_form);
+
 		$this->assertEquals(
 			array(
 				null,

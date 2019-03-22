@@ -27,6 +27,7 @@
  */
 
 // Derivative types
+
 /**
  * Thumbnail image type
  */
@@ -43,6 +44,7 @@ define('DERIVATIVE_TYPE_IMAGE_RESIZE', 2);
 define('DERIVATIVE_TYPE_IMAGE_PREFERRED', 3);
 
 // Group types
+
 /**
  * A normal group
  */
@@ -64,6 +66,7 @@ define('GROUP_SITE_ADMINS', 3);
 define('GROUP_EVERYBODY', 4);
 
 // Storage constants
+
 /**
  * Integer type
  */
@@ -117,6 +120,7 @@ define('STORAGE_SIZE_MEDIUM', 0x00000002);
 define('STORAGE_SIZE_LARGE', 0x00000004);
 
 // Item order constants
+
 /**
  * Order in an ascending fashion
  */
@@ -138,6 +142,7 @@ define('LOWER_WEIGHT', -1);
 define('HIGHER_WEIGHT', 1);
 
 // Permission constants
+
 /**
  * This is the special "All Access" permission
  */
@@ -154,6 +159,7 @@ define('GALLERY_PERMISSION_COMPOSITE', 0x00000002);
 define('GALLERY_PERMISSION_SESSION_KEY', 'core.sessionPermissionEntityIds');
 
 // Lock constants
+
 /**
  * Read lock type
  */
@@ -165,6 +171,7 @@ define('LOCK_READ', 1);
 define('LOCK_WRITE', 2);
 
 // View types
+
 /**
  * Module view
  */
@@ -196,6 +203,7 @@ define('VIEW_TYPE_ERROR', 5);
 define('GALLERY_DEFAULT_VIEW', 'core.ShowItem');
 
 // Status code bitflags
+
 /**
  * The operation had errors
  * @todo (bharat): Get rid of this; it's no longer necessary
@@ -350,6 +358,7 @@ define('EXTERNAL_ACCESS_WRITE', 0x00000002);
 define('EXTERNAL_ACCESS_FULL', 0x00000003);
 
 // Export / Import Schema Version Number
+
 /**
  * Current Schema Version
  */

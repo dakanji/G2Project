@@ -84,7 +84,9 @@ class RatingHelperTest extends GalleryTestCase {
 		}
 
 		$this->_origSession = $gallery->_session;
+
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
+
 		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 	}
 

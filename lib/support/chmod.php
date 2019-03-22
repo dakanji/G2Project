@@ -71,7 +71,6 @@ $permissions = (string)getRequestVariable('permissions');
 
 if (empty($permissions)) {
 	$permissions = $DEFAULT_FOLDER_PERMISSIONS->getAsString() .
-
 	$DEFAULT_FILE_PERMISSIONS->getAsString();
 }
 
@@ -238,6 +237,7 @@ printStatus($status);
 printFooter();
 
 // Functions and Classes
+
 /**
  * Changes the filesystem permissions of a file or a folder recursively.  Also prints out folder
  * names online on success / error and prints out filenames on error as well.
@@ -880,6 +880,7 @@ function openErrorBox() {
 		<h2>Details:</h2>
 	<?php
 } // end function openErrorBox() {
+
 function closeErrorBox() {
 	global $errorBoxOpen;
 

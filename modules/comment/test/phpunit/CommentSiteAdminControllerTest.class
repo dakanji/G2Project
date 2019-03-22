@@ -60,7 +60,9 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testCommentSiteAdminControllerReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -80,8 +82,10 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[moderate]', 1);
 		GalleryUtilities::putRequestVariable('form[apiKey]', '3abX');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
 		$this->_controller->_akismet = new CommentSiteAdminControllerTest_FakeAkismetApi(true);
 		$results                     = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -115,7 +119,9 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testCommentSiteAdminControllerSaveNoShow() {
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -132,7 +138,9 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function testCommentSiteAdminControllerSaveBadShow() {
 		GalleryUtilities::putRequestVariable('form[show]', 'abc5000');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -151,8 +159,10 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[show]', '12');
 		GalleryUtilities::putRequestVariable('form[apiKey]', '');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
 		$this->_controller->_akismet = new CommentSiteAdminControllerTest_FakeAkismetApi(true);
 		$results                     = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -186,8 +196,10 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[show]', '12');
 		GalleryUtilities::putRequestVariable('form[apiKey]', 'somethinginvalid');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
 		$this->_controller->_akismet = new CommentSiteAdminControllerTest_FakeAkismetApi(false);
 		$results                     = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -222,6 +234,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		// Ensure that the API key gets doesn't get rejected because of a remote server
 		$this->_controller->_akismet = new CommentSiteAdminControllerTest_FakeAkismetApi(true);
 		$results                     = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -237,7 +250,9 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testCheckAllWithAkismet() {
 		GalleryUtilities::putRequestVariable('form[action][checkAllWithAkismet]', '1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -318,6 +333,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		$status = $this->_getStatusFromProgressBar();
+
 		$this->assertEquals(
 			array(
 				'checked' => array(

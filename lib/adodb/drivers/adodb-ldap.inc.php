@@ -181,7 +181,6 @@ class ADODB_ldap extends ADOConnection {
 	// closes the LDAP connection
 	public function _close() {
 		@ldap_close($this->_connectionID);
-
 		$this->_connectionID = false;
 	}
 
@@ -295,11 +294,8 @@ class ADODB_ldap extends ADOConnection {
 
 		// The host name (or list of hosts) for the primary LDAP server.
 		ldap_get_option($this->_connectionID, LDAP_OPT_HOST_NAME, $version['LDAP_OPT_HOST_NAME']);
-
 		ldap_get_option($this->_connectionID, LDAP_OPT_ERROR_NUMBER, $version['LDAP_OPT_ERROR_NUMBER']);
-
 		ldap_get_option($this->_connectionID, LDAP_OPT_ERROR_STRING, $version['LDAP_OPT_ERROR_STRING']);
-
 		ldap_get_option($this->_connectionID, LDAP_OPT_MATCHED_DN, $version['LDAP_OPT_MATCHED_DN']);
 
 		return $this->version = $version;
@@ -450,7 +446,6 @@ class ADORecordSet_ldap extends ADORecordSet {
 
 	public function _close() {
 		@ldap_free_result($this->_queryID);
-
 		$this->_queryID = false;
 	}
 }

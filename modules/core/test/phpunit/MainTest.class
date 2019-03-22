@@ -43,7 +43,9 @@ class MainTest extends GalleryTestCase {
 		$_SERVER['HTTP_HOST']   = 'example.com';
 		$_SERVER['SERVER_PORT'] = 80;
 		$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php';
+
 		GalleryUtilities::putRequestVariable('view', 'core.Foo');
+
 		$this->_urlGenerator = new GalleryUrlGenerator();
 
 		$ret = $this->_urlGenerator->init('phpunit_test.php');
@@ -153,6 +155,7 @@ class MainTest extends GalleryTestCase {
 		$gallery->setConfig('mode.maintenance', true);
 
 		$urlGenerator =& $gallery->getUrlGenerator();
+
 		GalleryUtilities::putRequestVariable('controller', 'core.FooController');
 
 		list($ret, $g2Data) = _GalleryMain();
@@ -257,13 +260,13 @@ class MainTest extends GalleryTestCase {
 
 		$sessionId  = $session->getId();
 		$sessionKey = $session->getKey();
+
 		$this->assertTrue(
 			!empty($sessionId) && !empty($sessionKey),
 			'Initial session assertion failed'
 		);
 
 		$sessionParamString = GalleryUtilities::prefixFormVariable(urlencode($session->getKey())) . '=' .
-
 		urlencode($session->getId());
 
 		// URLs that shouldn't be changed (because they already have the session param)
@@ -333,6 +336,7 @@ class MainTest extends GalleryTestCase {
 
 		// Make sure the redirect has no sessionId in it
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
+
 		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 		$session = new GallerySession();
 
@@ -370,6 +374,7 @@ class MainTest extends GalleryTestCase {
 	public function testDoRedirectRemoveTrailingQMark() {
 		// Make sure the redirect has no sessionId in it
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
+
 		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 		$session = new GallerySession();
 
@@ -408,10 +413,12 @@ class MainTest extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		GalleryUtilities::removeRequestVariable('view');
 		GalleryUtilities::putRequestVariable('controller', 'core.UserPreferences');
 		GalleryUtilities::removeRequestVariable('authToken');
 		GalleryUtilities::removeRequestVariable('form[authToken]');
+
 		$session->_isPersistent = true;
 
 		list($ret, $g2Data) = _GalleryMain();
@@ -429,10 +436,12 @@ class MainTest extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		GalleryUtilities::removeRequestVariable('controller');
 		GalleryUtilities::putRequestVariable('view', 'core.SimpleCallback');
 		GalleryUtilities::removeRequestVariable('authToken');
 		GalleryUtilities::removeRequestVariable('form[authToken]');
+
 		$session->_isPersistent = true;
 
 		list($ret, $g2Data) = _GalleryMain();
@@ -450,10 +459,12 @@ class MainTest extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		GalleryUtilities::removeRequestVariable('view');
 		GalleryUtilities::putRequestVariable('controller', 'core.FooControllerController');
 		GalleryUtilities::removeRequestVariable('authToken');
 		GalleryUtilities::removeRequestVariable('form[authToken]');
+
 		$session->_isPersistent = true;
 
 		list($ret, $g2Data) = _GalleryMain();
@@ -722,6 +733,7 @@ class MainTest extends GalleryTestCase {
 		$this->assertEquals('Gallery::BeforeDisplay', $receivedEvent->getEventName());
 
 		$receivedData = $receivedEvent->getData();
+
 		$this->assertEquals(
 			'gallery:themes',
 			substr($receivedData['templatePath'], 0, 14),
@@ -769,6 +781,7 @@ class MainTest extends GalleryTestCase {
 
 	public function testImmediateViewRequestWithoutAutoCacheControl() {
 		GalleryUtilities::putRequestVariable('view', 'core.MainTestImmediateItemNoAutoCache');
+
 		$_REQUEST['header'] = array();
 
 		list($ret, $g2Data) = _GalleryMain();
@@ -804,6 +817,7 @@ class MainTestPhpVm extends GalleryPhpVm {
 }
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
+
 class FooView extends GalleryView {}
 
 /**

@@ -31,6 +31,7 @@
  */
 
 // $Id$
+
 /**
  * DIR_SEP isn't used anymore, but third party apps might
  */
@@ -380,6 +381,7 @@ class Smarty {
 	public $config_fix_newlines = true;
 
 	// #@-
+
 	/**
 	 * If a template cannot be found, this PHP function will be executed.
 	 * Useful for creating templates on-the-fly or other special action.
@@ -1176,7 +1178,6 @@ class Smarty {
 		if ($this->caching) {
 			// save old cache_info, initialize cache_info
 			array_push($_cache_info, $this->_cache_info);
-
 			$this->_cache_info = array();
 			$_params           = array(
 				'tpl_file'   => $resource_name,
@@ -1987,7 +1988,6 @@ class Smarty {
 		// config vars are treated as local, so push a copy of the
 		// current ones onto the front of the stack
 		array_unshift($this->_config, $this->_config[0]);
-
 		$_smarty_compile_path = $this->_get_compile_path($params['smarty_include_tpl_file']);
 
 		if ($this->_is_compiled($params['smarty_include_tpl_file'], $_smarty_compile_path)
@@ -1998,7 +1998,6 @@ class Smarty {
 
 		// pop the local vars off the front of the stack
 		array_shift($this->_config);
-
 		$this->_inclusion_depth--;
 
 		if ($this->debugging) {

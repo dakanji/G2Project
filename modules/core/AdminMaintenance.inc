@@ -77,6 +77,7 @@ class AdminMaintenanceController extends GalleryController {
 				if (!$task->requiresMaintenanceMode() || $mode) {
 					if ($task->requiresProgressBar()) {
 						$templateAdapter =& $gallery->getTemplateAdapter();
+
 						$templateAdapter->registerTrailerCallback(
 							array($this, 'runTask'),
 							array($taskId, $task, true)

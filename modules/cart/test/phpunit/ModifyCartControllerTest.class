@@ -95,13 +95,20 @@ class ModifyCartControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
-			array('redirect' => array('view' => 'cart.ViewCart',
-							  'itemId'       => $this->_album->getId(), ),
-				  'status'   => array('cartModified' => 1),
-				  'error'    => array(), ),
+			array(
+				'redirect' => array(
+					'view'   => 'cart.ViewCart',
+					'itemId' => $this->_album->getId(),
+				),
+				'status'   => array(
+					'cartModified' => 1,
+				),
+				'error'    => array(),
+			),
 			$results
-	);
+		);
 
 		// Verify our cart
 		list($ret, $cartItemCounts) = CartHelper::fetchCartItemCounts();
@@ -110,7 +117,12 @@ class ModifyCartControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals(array(2 => 5), $cartItemCounts);
+		$this->assertEquals(
+			array(
+				2 => 5,
+			),
+			$cartItemCounts
+		);
 	}
 
 	public function testEmptyCart() {
@@ -120,13 +132,20 @@ class ModifyCartControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
-			array('redirect' => array('view' => 'cart.ViewCart',
-							  'itemId'       => $this->_album->getId(), ),
-				  'status'   => array('cartModified' => 1),
-				  'error'    => array(), ),
+			array(
+				'redirect' => array(
+					'view'   => 'cart.ViewCart',
+					'itemId' => $this->_album->getId(),
+				),
+				'status'   => array(
+					'cartModified' => 1,
+				),
+				'error'    => array(),
+			),
 			$results
-	);
+		);
 
 		// Verify our cart
 		list($ret, $cartItemCounts) = CartHelper::fetchCartItemCounts();
@@ -145,7 +164,7 @@ class ModifyCartControllerTest extends GalleryControllerTestCase {
 			'image/jpeg',
 			array(),
 			GalleryCoreApi::getCodeBasePath('modules/core/test/data/test1.jpg')
-	);
+		);
 
 		if ($ret) {
 			return $ret;
@@ -160,8 +179,10 @@ class ModifyCartControllerTest extends GalleryControllerTestCase {
 		}
 
 		$dataItemId     = $dataItem->getId();
-		$cartItemCounts = array($dataItemId => 2,
-				$photoItemId                => 1, );
+		$cartItemCounts = array(
+			$dataItemId  => 2,
+			$photoItemId => 1,
+		);
 
 		$ret = CartHelper::setCartItemCounts($cartItemCounts);
 
@@ -181,34 +202,42 @@ class ModifyCartControllerTest extends GalleryControllerTestCase {
 			'modifycartcontrollertest',
 			__FILE__,
 			'cart'
-	);
+		);
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
-		$this->assertEquals(
-			array('redirect' => array('controller' => 'cart.TestPlugin'),
 
-				  // Verify that itemId is not set, see bug 2013274
-				  'status'   => array('cartModified' => 1),
-				  'error'    => array(), ),
+		$this->assertEquals(
+			array(
+				'redirect' => array(
+					'controller' => 'cart.TestPlugin',
+				),
+				// Verify that itemId is not set, see bug 2013274
+				'status'   => array(
+					'cartModified' => 1,
+				),
+				'error'    => array(),
+			),
 			$results
-	);
+		);
 
 		// Verify that the cart has been processed correctly (filtered and updated count)
+
 		/**
 		 * @todo Shouldn't we update item counts on fulfillment requests as well?
 		 */
 		$this->assertEquals(
-			array($photoItemId => 1),
+			array(
+				$photoItemId => 1,
+			),
 			$_SERVER['ModifyCartControllerTest']['cartItemIds'],
 			'cart contents sent to cart plugin'
-	);
+		);
 	}
 }
 
 // extends CartPluginInterface_1_1
-class ModifyCartControllerTestCartPlugin 
-{
+class ModifyCartControllerTestCartPlugin {
 	public function getSupportedItemTypes() {
 		return array('GalleryPhotoItem');
 	}
@@ -220,11 +249,15 @@ class ModifyCartControllerTestCartPlugin
 	public function fulfillCart($cartItemIds) {
 		$_SERVER['ModifyCartControllerTest']['cartItemIds'] = $cartItemIds;
 
-		return array(null, array('controller' => 'cart.TestPlugin'));
+		return array(
+			null,
+			array(
+				'controller' => 'cart.TestPlugin',
+			),
+		);
 	}
 
 	public function getRequiredPermissions() {
 		return array('core.view');
 	}
 }
-

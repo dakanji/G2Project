@@ -226,9 +226,8 @@ class ADODB_ado extends ADOConnection {
 					$fld->name = $c->Value;
 
 					// cannot discover type in ADO!
-					$fld->type       = 'CHAR';
-					$fld->max_length = -1;
-
+					$fld->type                   = 'CHAR';
+					$fld->max_length             = -1;
 					$arr[strtoupper($fld->name)] = $fld;
 				}
 
@@ -474,8 +473,7 @@ class ADORecordSet_ado extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
-
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

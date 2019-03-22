@@ -279,7 +279,6 @@ class GalleryLockSystem {
 		// Queue locks for release
 		foreach ($lockIds as $lockId) {
 			$this->_releaseQueue[$lockId] = $this->_locks[$lockId];
-
 			unset($this->_locks[$lockId]);
 		}
 
@@ -351,7 +350,6 @@ class GalleryLockSystem {
 		foreach ($relock as $lockId => $ids) {
 			foreach ($ids as $id) {
 				$this->_locks[$newLockId]['ids'][$id] = $this->_releaseQueue[$lockId]['ids'][$id];
-
 				unset($this->_releaseQueue[$lockId]['ids'][$id]);
 			}
 

@@ -142,6 +142,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			$gallery->guaranteeTimeLimit(120);
 
 			$templateAdapter =& $gallery->getTemplateAdapter();
+
 			$templateAdapter->updateProgressBar(
 				$progressBar['title'],
 				$progressBar['text'],
@@ -399,6 +400,7 @@ class HiddenHelper extends HiddenInterface_1_0 {
 			$gallery->guaranteeTimeLimit(120);
 
 			$templateAdapter =& $gallery->getTemplateAdapter();
+
 			$templateAdapter->updateProgressBar(
 				$progressBar['title'],
 				$progressBar['text'],

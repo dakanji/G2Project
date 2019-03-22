@@ -97,6 +97,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('activate', array(null, array()));
 
 		$result = $this->_handleCallback('install');
+
 		$this->assertEquals(
 			array(
 				'status' => 'success',
@@ -127,6 +128,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('activate', array(null, array()));
 
 		$result = $this->_handleCallback('install');
+
 		$this->assertEquals(
 			array(
 				'status' => 'success',
@@ -153,6 +155,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('autoConfigure', array(null, false));
 
 		$result = $this->_handleCallback('install');
+
 		$this->assertEquals(
 			array(
 				'status' => 'success',
@@ -188,6 +191,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		);
 
 		$result = $this->_handleCallback('install');
+
 		$this->assertEquals(
 			array(
 				'status' => 'success',
@@ -219,6 +223,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('activate', array(null, array()));
 
 		$result = $this->_handleCallback('upgrade');
+
 		$this->assertEquals(
 			array(
 				'status' => 'success',
@@ -249,6 +254,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('activate', array(null, array()));
 
 		$result = $this->_handleCallback('upgrade');
+
 		$this->assertEquals(
 			array(
 				'status' => 'success',
@@ -278,6 +284,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('activate', array(null, array()));
 
 		$result = $this->_handleCallback('activate');
+
 		$this->assertEquals(
 			array(
 				'status' => 'success',
@@ -299,6 +306,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('activate', array(null, array()));
 
 		$result = $this->_handleCallback('activate');
+
 		$this->assertEquals(
 			array(
 				'status' => 'success',
@@ -330,6 +338,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		);
 
 		$result = $this->_handleCallback('activate');
+
 		$this->assertEquals(
 			array(
 				'status'   => 'redirect',
@@ -363,6 +372,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		);
 
 		$result = $this->_handleCallback('activate');
+
 		$this->assertEquals(
 			array(
 				'status'   => 'redirect',
@@ -387,6 +397,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('needsConfiguration', array(null, true));
 
 		$result = $this->_handleCallback('activate');
+
 		$this->assertEquals(
 			array(
 				'status' => 'invalid',
@@ -406,6 +417,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('deactivate', array(null, array()));
 
 		$result = $this->_handleCallback('deactivate');
+
 		$this->assertEquals(
 			array(
 				'status' => 'success',
@@ -437,6 +449,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('deactivate', array(null, array()));
 
 		$result = $this->_handleCallback('deactivate');
+
 		$this->assertEquals(
 			array(
 				'status' => 'success',
@@ -467,6 +480,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('isActive', array(null, true));
 
 		$result = $this->_handleCallback('deactivate');
+
 		$this->assertEquals(
 			array(
 				'status' => 'invalid',
@@ -483,6 +497,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('isActive', array(null, false));
 
 		$result = $this->_handleCallback('deactivate');
+
 		$this->assertEquals(
 			array(
 				'status' => 'invalid',
@@ -501,6 +516,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('isActive', array(null, false));
 
 		$result = $this->_handleCallback('deactivate');
+
 		$this->assertEquals(
 			array(
 				'status' => 'invalid',
@@ -520,6 +536,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('uninstall', null);
 
 		$result = $this->_handleCallback('uninstall');
+
 		$this->assertEquals(
 			array(
 				'status' => 'success',
@@ -539,6 +556,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('uninstall', null);
 
 		$result = $this->_handleCallback('uninstall');
+
 		$this->assertEquals(
 			array(
 				'status' => 'success',
@@ -558,6 +576,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('uninstall', null);
 
 		$result = $this->_handleCallback('uninstall');
+
 		$this->assertEquals(
 			array(
 				'status' => 'success',
@@ -627,6 +646,7 @@ class PluginCallbackTest extends GalleryTestCase {
 	public function testDeleteModuleFailsToRmdir() {
 		GalleryUtilities::putRequestVariable('pluginType', 'module');
 		GalleryUtilities::putRequestVariable('pluginId', 'PluginCallbackControllerTest');
+
 		$this->_platform->setReply(
 			'recursiveRmdir',
 			array(GalleryCoreApi::getCodeBasePath('modules/PluginCallbackControllerTest')),
@@ -636,6 +656,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		$this->_testPlugin->setResult('uninstall', null);
 
 		$result = $this->_handleCallback('delete');
+
 		$this->assertEquals(
 			array(
 				'status' => 'fail',
@@ -993,6 +1014,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		global $gallery;
 
 		GalleryUtilities::putRequestVariable('command', 'test');
+
 		$saveStorage       = $gallery->_storage;
 		$gallery->_storage = new PluginCallbackMockStorage();
 		$mockStorage       =& $gallery->_storage;
@@ -1010,6 +1032,7 @@ class PluginCallbackTest extends GalleryTestCase {
 
 		$results = ob_get_contents();
 		ob_end_clean();
+
 		$this->assertEquals(
 			'{"status":"error"}',
 			$results,
@@ -1031,6 +1054,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		global $gallery;
 
 		GalleryUtilities::putRequestVariable('command', 'test');
+
 		$saveStorage       = $gallery->_storage;
 		$gallery->_storage = new PluginCallbackMockStorage();
 		$mockStorage       =& $gallery->_storage;
@@ -1061,6 +1085,7 @@ class PluginCallbackTest extends GalleryTestCase {
 		global $gallery;
 
 		GalleryUtilities::putRequestVariable('command', 'test');
+
 		$saveStorage       = $gallery->_storage;
 		$gallery->_storage = new PluginCallbackMockStorage();
 		$mockStorage       =& $gallery->_storage;

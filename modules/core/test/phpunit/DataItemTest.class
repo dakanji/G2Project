@@ -93,6 +93,7 @@ class DataItemTest extends GalleryTestCase {
 			if ($i > 0) {
 				$expectedPathComponent = sprintf('valid_path_%03d.txt', $i);
 				$actualPathComponent   = $entity[$i]->getPathComponent();
+
 				$this->assertEquals(
 					$expectedPathComponent,
 					$actualPathComponent,

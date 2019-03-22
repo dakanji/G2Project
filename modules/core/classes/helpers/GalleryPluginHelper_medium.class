@@ -244,6 +244,7 @@ class GalleryPluginHelper_medium {
 
 			// Invalidate our cache
 			$cacheKey = "GalleryPluginHelper::fetchAllParameters($pluginType, $pluginId, $itemId)";
+
 			GalleryDataCache::remove($cacheKey);
 			GalleryDataCache::removeFromDisk(
 				array(
@@ -285,6 +286,7 @@ class GalleryPluginHelper_medium {
 
 		// Invalidate the entire cache for this plugin, because we can't invalidate by value
 		$cacheKey = "GalleryPluginHelper::fetchAllParameters\($pluginType, $pluginId, .*\)";
+
 		GalleryDataCache::removeByPattern($cacheKey);
 		GalleryDataCache::removeFromDisk(
 			array(
@@ -403,6 +405,7 @@ class GalleryPluginHelper_medium {
 
 			// Invalidate our cache
 			$cacheKey = "GalleryPluginHelper::fetchAllParameters($pluginType, $pluginId, $id)";
+
 			GalleryDataCache::remove($cacheKey);
 			GalleryDataCache::removeFromDisk(
 				array(
@@ -463,6 +466,7 @@ class GalleryPluginHelper_medium {
 		}
 
 		$cacheKey = "GalleryPluginHelper::fetchAllParameters($pluginType, $pluginId, $itemId)";
+
 		GalleryDataCache::remove($cacheKey);
 
 		return null;
@@ -507,6 +511,7 @@ class GalleryPluginHelper_medium {
 		}
 
 		$cacheKey = "GalleryPluginHelper::fetchAllParameters($pluginType, $pluginId, $itemId)";
+
 		GalleryDataCache::remove($cacheKey);
 
 		return null;

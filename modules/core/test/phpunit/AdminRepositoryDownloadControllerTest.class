@@ -75,6 +75,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 		$supportedLanguages['es']['ES']['description'] = 'Espa&#241;ol';
 		$supportedLanguages['es']['MX']['description'] = 'Espa&#241;ol (MX)';
 		$supportedLanguages['es']['AR']['description'] = 'Espa&#241;ol (AR)';
+
 		GalleryDataCache::put($cacheKey, $supportedLanguages);
 
 		$session->put('session.siteAdminActivityTimestamp', time());
@@ -98,7 +99,9 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[pluginType]', 'module');
 		GalleryUtilities::putRequestVariable('form[pluginId]', 'testModule');
 		GalleryUtilities::putRequestVariable('form[action][cancel]', '1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -125,6 +128,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[pluginId]', 'testModule');
 		GalleryUtilities::putRequestVariable('form[base]', 'test:22222');
 		GalleryUtilities::putRequestVariable('form[action][download]', '1');
+
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 
@@ -136,6 +140,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 
 		$gallery->_storage = new UnitTestStorage();
 		$storage           =& $gallery->getStorage();
+
 		$storage->setReply(
 			'getMapEntry',
 			array(
@@ -165,6 +170,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -180,6 +186,7 @@ class AdminRepositoryDownloadControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(1, $mockAdapter->getCallbackCount());
 
 		$callback = $mockAdapter->getCallback(0);
+
 		$this->assertEquals(
 			array($this->_controller, 'performDownloadAndInstallation'),
 			$callback[0],

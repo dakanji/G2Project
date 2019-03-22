@@ -30,7 +30,6 @@ if (version_compare(phpversion(), '5.3', '>=')) {
 }
 
 /*
-
  * interface Test {
  *    function run(&$aTestResult);
  *    function countTestCases();
@@ -914,6 +913,7 @@ class TestCase extends Assert {
 
 	public function fail($message = 0) {
 		//printf("TestCase::fail(%s)<br>\n", ($message) ? $message : '');
+
 		/* JUnit throws AssertionFailedError here.  We just record the
 		failure and carry on */
 		$this->fExceptions[] = new PHPUnitException($message, 'FAILURE');
@@ -1086,7 +1086,6 @@ class TestSuite {
 		/* Number of TestCases comprising this TestSuite (including those
 		in any constituent TestSuites) */
 		$count = 0;
-
 		reset($this->fTests);
 
 		foreach ($this->fTests as $na => $test_case) {
@@ -1140,6 +1139,7 @@ class TestResult {
 
 	public function _endTest(&$test) {
 		// protected
+
 		/* specialize this for end-of-test action, such as progress
 		reports  */
 	}
@@ -1267,7 +1267,6 @@ class TextTestResult extends TestResult {
 		if ($nErrors > 0) {
 			echo '<h2>Errors</h2>';
 			echo "\n<ol>\n";
-
 			reset($this->fErrors);
 
 			foreach ($this->fErrors as $i => $error) {
@@ -1275,9 +1274,7 @@ class TextTestResult extends TestResult {
 				printf("<li>%s</li>\n", $failedTestName);
 				$exception = $error->getException();
 				echo "\n<ul>";
-
 				printf("<li>%s</li>\n", $exception->getMessage());
-
 				echo '</ul>';
 			}
 
@@ -1311,6 +1308,7 @@ class PrettyTestResult extends TestResult {
 	public function __construct() {
 		// call superclass constructor
 		parent::__construct();
+
 		echo '<h2>Test Results</h2>';
 		echo '<TABLE CELLSPACING="1" CELLPADDING="1" BORDER="0" WIDTH="90%" ALIGN="CENTER" class="details">';
 		echo '<TR><TH>#</TH><TH>Module</TH><TH>Class</TH><TH>Function</TH><TH>Success?</TH><TH>Time</TH></TR>';
@@ -1323,9 +1321,7 @@ class PrettyTestResult extends TestResult {
 		$nRun      = $this->countTests();
 		$nFailures = $this->countFailures();
 		echo '<h2>Summary</h2>';
-
 		printf('<p>%2.4f seconds elapsed</p>', $this->_totalElapsed);
-
 		printf('<p>%s test%s run</p>', $nRun, ($nRun == 1) ? '' : 's');
 		printf("<p>%s failure%s.</p>\n", $nFailures, ($nFailures == 1) ? '' : 's');
 
@@ -1373,7 +1369,6 @@ class PrettyTestResult extends TestResult {
 		}
 
 		printf("<TR><TD$style>%d</TD><TD$style>%s </TD><TD$style>%s </TD><TD$style>%s </TD>", $this->fRunTests, $test->getModuleId(), $test->classname(), $test->name());
-
 		flush();
 	}
 

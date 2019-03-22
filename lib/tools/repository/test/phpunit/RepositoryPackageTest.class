@@ -124,6 +124,7 @@ class RepositoryPackageTest extends GalleryTestCase {
 		);
 
 		$platform = new UnitTestPlatform();
+
 		$platform->setReply(
 			'file_get_contents',
 			array('pluginDirectory/file1'),
@@ -163,6 +164,7 @@ class RepositoryPackageTest extends GalleryTestCase {
 
 		$this->_package->_descriptor = new RepositoryPackageTestDescriptor();
 		$platform                    = new UnitTestPlatform();
+
 		$platform->setReply(
 			'file_get_contents',
 			array('pluginDirectory/file1'),
@@ -230,6 +232,7 @@ class RepositoryPackageTest extends GalleryTestCase {
 
 	public function testGetPackageFileName() {
 		$this->_package->_descriptor = new RepositoryPackageTestDescriptor();
+
 		$this->assertEquals(
 			'testplugin-1.0.0-19700411131300-base.package',
 			$this->_package->getPackageFileName('base'),
@@ -255,6 +258,7 @@ class RepositoryPackageTest extends GalleryTestCase {
 
 		$gallery->_phpVm = new RepositoryPackageTestPhpVm();
 		$testPackage     = new RepositoryPackageTestPackage();
+
 		$this->assertEquals(
 			'mock-filename',
 			$testPackage->getPackageHash('package-type', 20)

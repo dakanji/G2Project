@@ -70,7 +70,9 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -91,6 +93,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -137,6 +140,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -178,6 +182,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -197,6 +202,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -222,6 +228,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -239,6 +246,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -270,6 +278,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -297,6 +306,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -332,6 +342,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -375,6 +386,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -424,6 +436,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -445,6 +458,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Fake a specific charset to isolate this test
 		GalleryDataCache::put('GalleryCharsetHelper_simple::detectSystemCharset', 'ISO-8859-1');
+
 		$gallery->_phpVm = new ItemAddSiteAdminControllerTestPhpVm('');
 		$platform        = new UnitTestPlatform();
 		$iso88591String  = '/php' . chr(228) . 'unit';
@@ -458,6 +472,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 		// German umlaut '�' in ISO-8859-1
 		$umlautUtf8 = GalleryCoreApi::convertToUtf8(chr(228), 'ISO-8859-1');
 		$dir        = '/php' . $umlautUtf8 . 'unit';
+
 		GalleryUtilities::putRequestVariable('form[action][addUploadLocalServerDir]', 1);
 		GalleryUtilities::putRequestVariable('form[uploadLocalServer][newDir]', $dir);
 		GalleryUtilities::putRequestVariable('form[fromweb]', 'admin');
@@ -465,6 +480,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -512,6 +528,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -557,6 +574,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -591,6 +609,7 @@ class ItemAddSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(

@@ -69,6 +69,7 @@ if (empty($config)) {
 
 	if (empty($options['key'])) {
 		$options['key'] = GallerySetupUtilities::generateAuthenticationKey();
+
 		GallerySetupUtilities::setAuthenticationKey($options['key']);
 	}
 

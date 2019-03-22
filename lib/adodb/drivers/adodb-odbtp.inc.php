@@ -74,6 +74,7 @@ class ADODB_odbtp extends ADOConnection {
 
 	/*
 	function DBDate($d,$isfld=false)
+
 	{
 		if (empty($d) && $d !== 0) return 'null';
 
@@ -86,6 +87,7 @@ class ADODB_odbtp extends ADOConnection {
 	}
 
 	function DBTimeStamp($d,$isfld=false)
+
 	{
 		if (empty($d) && $d !== 0) return 'null';
 
@@ -849,6 +851,7 @@ class ADORecordSet_odbtp extends ADORecordSet {
 		}
 
 		$this->fetchMode = $mode;
+
 		parent::__construct($queryID);
 	}
 
@@ -908,8 +911,7 @@ class ADORecordSet_odbtp extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$name = @odbtp_field_name($this->_queryID, $i);
-
+				$name                          = @odbtp_field_name($this->_queryID, $i);
 				$this->bind[strtoupper($name)] = $i;
 			}
 		}

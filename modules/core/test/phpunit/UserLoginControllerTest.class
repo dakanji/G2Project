@@ -153,6 +153,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		}
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -189,6 +190,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][login]', 1);
 		GalleryUtilities::putRequestVariable('form[username]', $user->getUserName());
 		GalleryUtilities::putRequestVariable('form[password]', 'pass&word');
+
 		$results = $this->handleRequest();
 
 		// May get a redirect url (like from useralbum module) or return
@@ -216,6 +218,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		}
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -242,7 +245,9 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][login]', 1);
 		GalleryUtilities::putRequestVariable('form[username]', $this->_user->getUserName());
 		GalleryUtilities::putRequestVariable('form[password]', 'wrong password');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -260,7 +265,9 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][login]', 1);
 		GalleryUtilities::putRequestVariable('form[username]', '');
 		GalleryUtilities::putRequestVariable('form[password]', '');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -279,7 +286,9 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'return' => 1,
@@ -298,6 +307,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][login]', 1);
 		GalleryUtilities::putRequestVariable('form[username]', 'bogus-user');
 		GalleryUtilities::putRequestVariable('form[password]', 'wrong-password');
+
 		$plugin = new UserLoginControllerTestPlugin();
 
 		$plugin->setErrors(array('form[error][UserLoginControllerTestPlugin][anError]'));
@@ -305,6 +315,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		$this->_controller->setPluginInstances(array($plugin));
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -327,6 +338,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][login]', 1);
 		GalleryUtilities::putRequestVariable('form[username]', $this->_user->getUserName());
 		GalleryUtilities::putRequestVariable('form[password]', 'totally-wrong-password');
+
 		$plugin1 = new UserLoginControllerTestPlugin();
 
 		$plugin1->setErrors(array('form[error][UserLoginControllerTestPlugin1][anError]'));
@@ -339,6 +351,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		$this->_controller->setPluginInstances(array($plugin1, $plugin2));
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -364,6 +377,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][login]', 1);
 		GalleryUtilities::putRequestVariable('form[username]', $this->_user->getUserName());
 		GalleryUtilities::putRequestVariable('form[password]', 'totally-wrong-password');
+
 		$plugin1 = new UserLoginControllerTestPlugin();
 
 		$plugin1->setErrors(array('form[error][UserLoginControllerTestPlugin1][anError]'));
@@ -376,6 +390,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		$this->_controller->setPluginInstances(array($plugin1, $plugin2));
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -398,6 +413,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 		// from _createRandomUser:
 		GalleryUtilities::putRequestVariable('form[password]', 'password');
+
 		$plugin = new UserLoginControllerTestPlugin();
 
 		$plugin->setErrors(array('form[error][UserLoginControllerTestPlugin][anError]'));
@@ -405,6 +421,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 		$this->_controller->setPluginInstances(array($plugin));
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -429,6 +446,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 		// from _createRandomUser:
 		GalleryUtilities::putRequestVariable('form[password]', 'password');
+
 		$plugin = new UserLoginControllerTestPlugin();
 
 		$plugin->setErrors(array());
@@ -462,6 +480,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 		// from _createRandomUser:
 		GalleryUtilities::putRequestVariable('form[password]', 'password');
+
 		$plugin = new UserLoginControllerTestPlugin();
 
 		$plugin->setErrors(array('form[error][UserLoginControllerTestPlugin][anError]'));
@@ -510,6 +529,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 		$gallery->_phpVm = new UserLoginTestPhpVm($this);
 		$urlGenerator    =& $gallery->getUrlGenerator();
+
 		$gallery->setConfig(
 			'loginRedirect',
 			array(
@@ -611,6 +631,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 		$gallery->_phpVm = new UserLoginTestPhpVm($this);
 		$urlGenerator    =& $gallery->getUrlGenerator();
+
 		$gallery->setConfig(
 			'loginRedirect',
 			array(
@@ -740,4 +761,3 @@ class UserLoginTestPhpVm {
 		$this->_test->_exitCalls++;
 	}
 }
-

@@ -99,6 +99,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 
 		// Descriptor.
 		$descriptorUrl = $repositoryUrl . 'testModule-descriptor';
+
 		$this->_repository->_utilities->setReply(
 			'downloadFile',
 			array($descriptorUrl, null),
@@ -157,6 +158,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			$relativeFile    = 'testModule-' . $locale . '-package';
 			$packageFile     = $repositoryUrl . $relativeFile;
 			$downloadFailure = !empty($params['downloadPackageFailure'][$package]);
+
 			$this->_repository->_utilities->setReply(
 				'downloadFile',
 				array($packageFile, null),
@@ -189,6 +191,7 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			);
 
 			$retCode = !empty($responses[$package]) ? $responses[$package] : false;
+
 			$this->_repository->_utilities->setReply(
 				'unpackPackage',
 				array($cachePath . $relativeFile, $outputDir),

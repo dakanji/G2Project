@@ -60,7 +60,9 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 	public function testDone() {
 		GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
 		GalleryUtilities::putRequestVariable('form[action][done]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -90,6 +92,7 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -137,6 +140,7 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable(sprintf('form[userIds][%s]', $newUser->getId()), 1);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -188,6 +192,7 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -215,6 +220,7 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[text][userName]', $this->_user->getUserName());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -235,7 +241,9 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
 		GalleryUtilities::putRequestVariable('form[text][userName]', 'bogus-user-' . mt_rand());
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -253,7 +261,9 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
 		GalleryUtilities::putRequestVariable('form[action][add]', 1);
 		GalleryUtilities::putRequestVariable('form[text][userName]', '');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -280,6 +290,7 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[text][userName]', $this->_user->getUserName());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -293,4 +304,3 @@ class AdminEditGroupUsersControllerTest extends GalleryControllerTestCase {
 		);
 	}
 }
-

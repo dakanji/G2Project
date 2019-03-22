@@ -49,6 +49,7 @@ class ItemAddSiteAdminController extends GalleryController {
 
 		if (isset($form['action']['addUploadLocalServerDir'])) {
 			$path = $form['uploadLocalServer']['newDir'];
+
 			GalleryUtilities::unsanitizeInputValues($path, false);
 
 			// $path is UTF-8, $realPath is in the system charset for filesystem interactions

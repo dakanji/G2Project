@@ -48,7 +48,9 @@ class IconsSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testIconsSiteAdminControllerReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -65,7 +67,9 @@ class IconsSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function testIconsSiteAdminControllerSave() {
 		GalleryUtilities::putRequestVariable('form[iconpack]', 'testpack');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -91,7 +95,9 @@ class IconsSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testIconsSiteAdminControllerSaveNoIconPack() {
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -105,4 +111,3 @@ class IconsSiteAdminControllerTest extends GalleryControllerTestCase {
 		);
 	}
 }
-

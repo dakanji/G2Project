@@ -259,7 +259,6 @@ class CoreModule extends GalleryModule {
 						),
 						$itemTypeNames[2]
 					),
-
 					// Params are for g->linkId used by icons, or themes ignoring 'script'
 					'params' => array(
 						'view'       => 'core.ItemAdmin',
@@ -796,6 +795,7 @@ class CoreModule extends GalleryModule {
 				if (count($versionArray) >= 2) {
 					$versions['core']    = rtrim($versionArray[0]);
 					$versions['gallery'] = rtrim($versionArray[1]);
+
 					GalleryDataCache::put('CoreModule::installedVersions', $versions, true);
 
 					if (isset($versionArray[2])) {

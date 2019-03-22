@@ -76,6 +76,7 @@ class RatingAlbumTest extends GalleryTestCase {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$this->_template = new GalleryTemplate(dirname(dirname(dirname(dirname(__DIR__)))));
 
 		$ret = $this->_markPluginParametersForCleanup('module', 'rating');
@@ -151,7 +152,9 @@ class RatingAlbumTest extends GalleryTestCase {
 
 		$theme                 =& $this->_template->getVariableByReference('theme');
 		$theme['actingUserId'] = $gallery->getActiveUserId();
+
 		GalleryUtilities::putRequestVariable('limit', '3.45');
+
 		$form = array();
 
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
@@ -195,6 +198,7 @@ class RatingAlbumTest extends GalleryTestCase {
 		}
 
 		$theme =& $this->_template->getVariableByReference('theme');
+
 		$this->assertEquals(
 			array(
 				'view'  => 'rating.RatingAlbum',
@@ -241,6 +245,7 @@ class RatingAlbumTest extends GalleryTestCase {
 
 	public function testLimitTooLow() {
 		GalleryUtilities::putRequestVariable('limit', '1.5');
+
 		$form = array();
 
 		list($ret, $result) = $this->_view->loadTemplate($this->_template, $form);
@@ -261,4 +266,3 @@ class RatingAlbumTest extends GalleryTestCase {
 		);
 	}
 }
-

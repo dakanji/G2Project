@@ -44,6 +44,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[text][groupName]', $group->getGroupName());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -71,6 +72,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[text][userName]', $user->getUserName());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -100,6 +102,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[text][groupName]', $group->getGroupName());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -118,7 +121,9 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		// Missing group name
 		GalleryUtilities::putRequestVariable('form[action][group][editFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][groupName]', null);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -139,6 +144,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -167,6 +173,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[text][userName]', $user->getUserName());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -185,7 +192,9 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		// Missing user name
 		GalleryUtilities::putRequestVariable('form[action][user][editFromText]', 1);
 		GalleryUtilities::putRequestVariable('form[text][userName]', null);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -206,6 +215,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -234,6 +244,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[text][groupName]', $group->getGroupName());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -252,7 +263,9 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		// Missing group name
 		GalleryUtilities::putRequestVariable('form[action][group][deleteFromText]', 1);
 		GalleryUtilities::removeRequestVariable('form[text][groupName]');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -273,6 +286,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -301,6 +315,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[text][userName]', $user->getUserName());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -319,7 +334,9 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		// Missing user name
 		GalleryUtilities::putRequestVariable('form[action][user][deleteFromText]', 1);
 		GalleryUtilities::removeRequestVariable('form[text][userName]');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -340,6 +357,7 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -380,4 +398,3 @@ class AdminQuotasControllerTest extends GalleryControllerTestCase {
 		}
 	}
 }
-

@@ -291,9 +291,7 @@ class StringParser {
 		$this->_output  = null;
 		$this->_length  = strlen($this->_text);
 		$this->_cpos    = 0;
-
 		unset($this->_stack);
-
 		$this->_stack = array();
 
 		if (is_object($this->_root)) {
@@ -301,7 +299,6 @@ class StringParser {
 		}
 
 		unset($this->_root);
-
 		$this->_root     = new StringParser_Node_Root();
 		$this->_stack[0] =& $this->_root;
 
@@ -380,9 +377,7 @@ class StringParser {
 
 		if (null === $this->_output) {
 			$root =& $this->_root;
-
 			unset($this->_root);
-
 			$this->_root = null;
 
 			while (count($this->_stack)) {
@@ -404,7 +399,6 @@ class StringParser {
 		}
 
 		unset($this->_root);
-
 		$this->_root = null;
 
 		while (count($this->_stack)) {
@@ -874,7 +868,6 @@ class StringParser {
 	 */
 	public function _popNode() {
 		$stack_count = count($this->_stack);
-
 		unset($this->_stack[$stack_count - 1]);
 
 		return true;
@@ -1346,7 +1339,6 @@ class StringParser_Node {
 		// because of this, we have to unset the variable to remove
 		// the reference and then redeclare the variable
 		unset($object->_parent);
-
 		$object->_parent = null;
 
 		// we have to unset it because else it will be overridden in
@@ -1675,6 +1667,7 @@ class StringParser_Node_Text extends StringParser_Node {
 	 */
 	public function __construct($content, $occurredAt = -1) {
 		parent::__construct($occurredAt);
+
 		$this->content = $content;
 	}
 

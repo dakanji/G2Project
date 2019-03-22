@@ -98,6 +98,7 @@ class CommentCallbacks {
 				}
 
 				$viewMax = $params['show'];
+
 				GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
 
 				list($ret, $comments) = GalleryCommentHelper::getMe()->fetchComments($item->getId(), $viewMax, ORDER_DESCENDING);
@@ -170,6 +171,7 @@ class CommentCallbacks {
 				}
 
 				GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
+
 				$form =& $smarty->_tpl_vars['form'];
 
 				list($ret, $AddComment) = GalleryCommentHelper::getMe()->getAddComment($item, $form);

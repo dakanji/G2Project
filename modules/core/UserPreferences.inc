@@ -113,6 +113,7 @@ class UserPreferencesController extends GalleryController {
 				if (!$user->isCorrectPassword($form['currentPassword'])) {
 					$error[] = 'form[error][currentPassword][incorrect]';
 					$event   = GalleryCoreApi::newEvent('Gallery::FailedLogin');
+
 					$event->setData(
 						array(
 							'userName' => $user->getUserName(),

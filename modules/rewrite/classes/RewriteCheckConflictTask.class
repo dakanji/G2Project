@@ -40,8 +40,8 @@ class RewriteCheckConflictTask extends MaintenanceTask {
 			'l10Domain'   => 'modules_rewrite',
 			'title'       => $gallery->i18n('Check short style URLs for filesystem conflicts'),
 			'description' => $gallery->i18n(
-				'This will go through all your Gallery items and check if the short ' .
-				'style URL links to an existing file or directory on your webserver.'
+				'This will go through all your Gallery items and check if the short '
+				. 'style URL links to an existing file or directory on your webserver.'
 			),
 		);
 	}

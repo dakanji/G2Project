@@ -320,8 +320,7 @@ class ItemCreateReplicaView extends GalleryView {
 			$peers = array();
 
 			foreach ($peerItems as $peerItem) {
-				$peers[$peerItem->getId()] = (array)$peerItem;
-
+				$peers[$peerItem->getId()]             = (array)$peerItem;
 				$peers[$peerItem->getId()]['selected'] = isset($form['selectedIds'][$peerItem->getId()]);
 
 				// While we're at it, attach the thumbnails

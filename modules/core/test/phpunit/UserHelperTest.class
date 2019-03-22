@@ -93,6 +93,7 @@ class UserHelperTest extends GalleryTestCase {
 
 	public function testGalleryFailedLoginEventFirstFailure() {
 		$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
+
 		$event->setData(
 			array(
 				'userName' => 'MockUser',
@@ -147,6 +148,7 @@ class UserHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
+
 		$event->setData(
 			array(
 				'userName' => 'MockUser',
@@ -200,6 +202,7 @@ class UserHelperTest extends GalleryTestCase {
 		global $gallery;
 
 		$event = GalleryCoreApi::newEvent('Gallery::FailedLogin');
+
 		$event->setData(
 			array(
 				'userName' => 'MockUser',

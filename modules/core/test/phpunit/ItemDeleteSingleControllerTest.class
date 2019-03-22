@@ -69,6 +69,7 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
 		$results = GalleryUtilities::strArrToIntArr($results);
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -107,6 +108,7 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -146,6 +148,7 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -233,4 +236,3 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 		$results = $this->handleRequest(ERROR_MISSING_OBJECT);
 	}
 }
-

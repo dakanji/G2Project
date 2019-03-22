@@ -199,6 +199,7 @@ class AlbumSelectCallbacks {
 						$newTreeSorter = new AlbumSelectTreeSorter($titles);
 						$sorter        = ($params['sort'] == 'title') ? $newTreeSorter : null;
 						$nodeId        = 0;
+
 						$this->_parseTree(
 							$tree,
 							$treeList,
@@ -274,7 +275,6 @@ class AlbumSelectCallbacks {
 							$prefixLength    = strlen($links['prefix']);
 						} else {
 							while ($prefixLength
-
 							&& strncmp($links[$id], $links['prefix'], $prefixLength)) {
 								$links['prefix'] = substr($links['prefix'], 0, -1);
 								$prefixLength--;
@@ -291,6 +291,7 @@ class AlbumSelectCallbacks {
 					}
 
 					$dataToCache = array($treeList, $titles, $titlesForJs, $links);
+
 					GalleryDataCache::putToDisk($cachePathInfo, $dataToCache);
 				}
 

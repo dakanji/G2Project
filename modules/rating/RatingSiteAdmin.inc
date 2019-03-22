@@ -59,7 +59,6 @@ class RatingSiteAdminController extends GalleryController {
 			$status = empty($status) ? array() : array('statusMessage' => $status);
 
 			if (!isset($form['minLimit'])
-
 			|| !is_numeric($form['minLimit'] = str_replace(',', '.', $form['minLimit']))) {
 				$error[] = 'form[error][minLimit]';
 			}
@@ -113,7 +112,6 @@ class RatingSiteAdminView extends GalleryView {
 
 		if ($form['formName'] != 'RatingSiteAdmin') {
 			foreach (array('allowAlbumRating', 'themeId', 'orderBy', 'orderDirection', 'minLimit',
-
 			   'description', ) as $key) {
 				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'rating', $key);
 

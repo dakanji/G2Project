@@ -97,7 +97,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		// Choose an arbitrary time
 		$time = time() - 5;
 
-		$ret  = MaintenanceHelper_simple::addRun(
+		$ret = MaintenanceHelper_simple::addRun(
 			'MaintenanceHelperTestTask',
 			$time,
 			true,
@@ -121,7 +121,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		// Choose an arbitrary time
 		$time = time() + 15;
 
-		$ret  = MaintenanceHelper_simple::addRun(
+		$ret = MaintenanceHelper_simple::addRun(
 			'MaintenanceHelperTestTask',
 			$time,
 			false,
@@ -148,6 +148,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		$gallery->setPlatform($UnitTestPlatform);
 
 		$platform =& $gallery->getPlatform();
+
 		GalleryDataCache::remove('CoreModule::installedVersions');
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -240,6 +241,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		$gallery->setPlatform($UnitTestPlatform);
 
 		$platform =& $gallery->getPlatform();
+
 		GalleryDataCache::remove('CoreModule::installedVersions');
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -264,6 +266,7 @@ class MaintenanceHelperTest extends GalleryTestCase {
 		$platform->setReply('atomicWrite', array($versionFile, $writeString), true);
 
 		$ret = GalleryCoreApi::setMaintenanceMode('http://test.gallery.com/maintenance.html');
+
 		if ($ret) {
 			return $ret;
 		}
@@ -312,4 +315,3 @@ class MaintenanceHelperTestTask extends MaintenanceTask {
 		return array(null, false, array('fail details'));
 	}
 }
-

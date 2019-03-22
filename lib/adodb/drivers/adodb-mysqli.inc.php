@@ -1010,7 +1010,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		// returns true or false
 		public function _close() {
 			@mysqli_close($this->_connectionID);
-
 			$this->_connectionID = false;
 		}
 
@@ -1095,6 +1094,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			}
 
 			$this->adodbFetchMode = $mode;
+
 			parent::__construct($queryID);
 		}
 
@@ -1174,8 +1174,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				$this->bind = array();
 
 				for ($i = 0; $i < $this->_numOfFields; $i++) {
-					$o = $this->FetchField($i);
-
+					$o                                = $this->FetchField($i);
 					$this->bind[strtoupper($o->name)] = $i;
 				}
 			}
@@ -1189,7 +1188,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			}
 
 			mysqli_data_seek($this->_queryID, $row);
-
 			$this->EOF = false;
 
 			return true;
@@ -1199,7 +1197,6 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 			global $ADODB_COUNTRECS;
 
 			mysqli_free_result($this->_queryID);
-
 			$this->_queryID = -1;
 
 			// Move to the next recordset, or return false if there is none. In a stored proc

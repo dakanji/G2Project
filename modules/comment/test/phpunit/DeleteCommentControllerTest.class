@@ -76,7 +76,9 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item[0]->getId());
 		GalleryUtilities::putRequestVariable('commentId', $this->_comment[0]->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -99,6 +101,7 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item[0]->getId());
 		GalleryUtilities::putRequestVariable('commentId', 123123123);
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
+
 		$results = $this->handleRequest(ERROR_MISSING_OBJECT);
 	}
 
@@ -109,6 +112,7 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item[0]->getId());
 		GalleryUtilities::putRequestVariable('commentId', $this->_comment[1]->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
+
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
 
@@ -120,6 +124,7 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -133,4 +138,3 @@ class DeleteCommentControllerTest extends GalleryControllerTestCase {
 		);
 	}
 }
-

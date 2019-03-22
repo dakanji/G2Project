@@ -52,7 +52,7 @@ class GalleryItemHelper_medium {
 
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-		$query  = sprintf(
+		$query = sprintf(
 			'
 			SELECT
 				[GalleryItem::id]
@@ -70,6 +70,7 @@ class GalleryItemHelper_medium {
 		',
 			$aclMarkers
 		);
+
 		$data   = array();
 		$data[] = $itemType;
 		$data   = array_merge($data, $aclIds);
@@ -570,6 +571,7 @@ class GalleryItemHelper_medium {
 				// Oh well -- try the next preference
 				if (isset($lockId)) {
 					GalleryCoreApi::releaseLocks(array($lockId));
+
 					unset($lockId);
 				}
 

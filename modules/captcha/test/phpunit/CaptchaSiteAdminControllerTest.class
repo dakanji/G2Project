@@ -61,7 +61,9 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function testSave() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[failedAttemptThreshold]', 3);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -91,19 +93,23 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testSaveWithMissingThreshold() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
 
 	public function testSaveWithNonNumericThreshold() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[failedAttemptThreshold]', 'two');
+
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
 
 	public function testSaveWithTooLowThreshold() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[failedAttemptThreshold]', -5);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -134,7 +140,9 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function testSaveWithTooHighThreshold() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[failedAttemptThreshold]', 10);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -165,7 +173,9 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
 		GalleryUtilities::putRequestVariable('form[failedAttemptThreshold]', 3);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -199,12 +209,13 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 				'testOptionId2' => new CaptchaSiteAdminTestOption('unittest.2.level'),
 			)
 		);
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[failedAttemptThreshold]', 3);
 		GalleryUtilities::putRequestVariable('form[level][testOptionId1]', 'HIGH');
 		GalleryUtilities::putRequestVariable('form[level][testOptionId2]', 'LOW');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -246,7 +257,6 @@ class CaptchaSiteAdminControllerTest extends GalleryControllerTestCase {
 				'testOptionId' => new CaptchaSiteAdminTestOption(),
 			)
 		);
-
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[failedAttemptThreshold]', 3);
 		GalleryUtilities::putRequestVariable('form[level][testOptionId]', 'MEDIUM');

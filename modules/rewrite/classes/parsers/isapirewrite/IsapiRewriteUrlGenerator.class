@@ -33,10 +33,18 @@ class IsapiRewriteUrlGenerator extends RewriteUrlGenerator {
 	 * @see GalleryUrlGenerator::init
 	 */
 	public function init($baseUri = null, $g2Uri = null, $embedSessionString = null) {
-		// Verify that we're configured to work in this mode.  Else disable short-URLs.
-		$location = GalleryUtilities::isEmbedded() ? 'embeddedLocation' : 'galleryLocation';
+		// Verify that we are configured to work in this mode.  Else disable short-URLs.
+		if (GalleryUtilities::isEmbedded()) {
+			$location = 'embeddedLocation';
+		} else {
+			$location = 'galleryLocation';
+		}
 
-		list($ret, $configuredLocation) = GalleryCoreApi::getPluginParameter('module', 'rewrite', 'isapirewrite.' . $location);
+		list($ret, $configuredLocation) = GalleryCoreApi::getPluginParameter(
+			'module',
+			'rewrite',
+			'isapirewrite.' . $location
+		);
 
 		if ($ret) {
 			return $ret;
@@ -124,4 +132,3 @@ class IsapiRewriteUrlGenerator extends RewriteUrlGenerator {
 		return $this->_currentUrlBaseDir[$forceDirect];
 	}
 }
-

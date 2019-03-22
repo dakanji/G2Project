@@ -26,6 +26,7 @@ if (!defined('ADODB_DB2OCI')) {
 
 	// regex code for smart remapping of :0, :1 bind vars to ? ?
 	function _colontrack($p)
+
 	{
 	global $_COLONARR,$_COLONSZ;
 
@@ -39,6 +40,7 @@ if (!defined('ADODB_DB2OCI')) {
 
 	// smart remapping of :0, :1 bind vars to ? ?
 	function _colonscope($sql,$arr)
+
 	{
 	global $_COLONARR,$_COLONSZ;
 

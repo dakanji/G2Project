@@ -80,8 +80,7 @@ class ViewCartView extends GalleryView {
 					foreach ($pluginData['supportedItemTypes'] as $type) {
 						if ($type == '*' || GalleryUtilities::isA($item, $type)) {
 							$plugins[$pluginId]['supported'][$item->getId()] = 1;
-
-							$supportedItemIds[$item->getId()] = 1;
+							$supportedItemIds[$item->getId()]                = 1;
 
 							break;
 						}

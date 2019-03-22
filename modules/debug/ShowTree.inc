@@ -117,7 +117,6 @@ class ShowTreeView extends GalleryView {
 
 		foreach ($entityObjects as $entity) {
 			$isItemTable[$entity->getId()] = GalleryUtilities::isA($entity, 'GalleryItem');
-
 			$entityTable[$entity->getId()] = (array)$entity;
 		}
 

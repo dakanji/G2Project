@@ -100,6 +100,7 @@ class MultiLangItemEdit extends ItemEditPlugin {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		GalleryCoreApi::requireOnce('modules/multilang/classes/MultiLangHelper.class');
 
 		if ($form['formName'] != 'MultiLangItemEdit') {

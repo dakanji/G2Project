@@ -60,6 +60,7 @@ if (!defined('_ADODB_LAYER')) {
 
 if (!defined('ADODB_SESSION')) {
 	define('ADODB_SESSION', 1);
+
 	global  $ADODB_SESSION_CONNECT,
 	$ADODB_SESSION_DRIVER,
 	$ADODB_SESSION_USER,
@@ -348,6 +349,7 @@ if (!defined('ADODB_SESSION')) {
 }
 
 // TEST SCRIPT -- UNCOMMENT
+
 /*
 
 if (0) {

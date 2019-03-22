@@ -64,6 +64,7 @@ class EmbedTest extends GalleryTestCase {
 
 		// Clean all cached variables
 		GalleryDataCache::reset();
+
 		$session             =& $gallery->getSession();
 		$session->_sessionId = md5(mt_rand());
 
@@ -77,6 +78,7 @@ class EmbedTest extends GalleryTestCase {
 		$GLOBALS['gallery'] = $this->_origGallery;
 		$gallery            =& $GLOBALS['gallery'];
 		$gallery->_session  = $this->_savedSession;
+
 		GalleryDataCache::reset();
 
 		$ret = parent::tearDown();
@@ -217,6 +219,7 @@ class EmbedTest extends GalleryTestCase {
 		global $gallery;
 
 		$urlgenerator =& $gallery->getUrlGenerator();
+
 		$this->assertEquals(
 			$expectedUrl,
 			$urlgenerator->getCurrentUrlDir(),
@@ -270,6 +273,7 @@ class EmbedTest extends GalleryTestCase {
 		);
 
 		// Now check initSecondPass
+
 		/*
 		 * TODO: Currently, calling initSecondPass just sets the activeUserId, which isn't
 		 * harmful and the same is done in GalleryEmbed::init (checkActiveUser)
@@ -303,6 +307,7 @@ class EmbedTest extends GalleryTestCase {
 
 		// Reset for next try
 		GalleryDataCache::reset();
+
 		$this->assertTrue(
 			!GalleryDataCache::containsKey($firstCacheKey),
 			'GDC reset did not delete GalleryEmbed:initFirstPass key.'
@@ -335,6 +340,7 @@ class EmbedTest extends GalleryTestCase {
 
 		// Reset for next try
 		GalleryDataCache::reset();
+
 		$this->assertTrue(
 			!GalleryDataCache::containsKey($firstCacheKey),
 			'GDC reset did not delete GalleryEmbed:initFirstPass key.'
@@ -879,7 +885,9 @@ class EmbedTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new UnitTestPhpVm();
+
 		GalleryUtilities::putRequestVariable('getEmbedPath', '1', false);
+
 		$_SERVER['REMOTE_ADDR'] = '192.168.1.25';
 		$_SERVER['SERVER_ADDR'] = '192.168.1.25';
 
@@ -900,7 +908,9 @@ class EmbedTest extends GalleryTestCase {
 		global $gallery;
 
 		$gallery->_phpVm = new UnitTestPhpVm();
+
 		GalleryUtilities::putRequestVariable('getEmbedPath', '1', false);
+
 		$_SERVER['REMOTE_ADDR'] = '192.168.1.26';
 		$_SERVER['SERVER_ADDR'] = '192.168.1.25';
 
@@ -919,6 +929,7 @@ class EmbedTest extends GalleryTestCase {
 
 		$gallery->setConfig('baseUri', 'http://192.168.1.25');
 		GalleryUtilities::putRequestVariable('getEmbedPath', '1', false);
+
 		$_SERVER['REMOTE_ADDR'] = '192.168.1.25';
 		unset($_SERVER['SERVER_ADDR'], $_SERVER['SERVER_NAME']);
 
@@ -943,6 +954,7 @@ class EmbedTest extends GalleryTestCase {
 
 		$gallery->setConfig('baseUri', 'http://192.168.1.25');
 		GalleryUtilities::putRequestVariable('getEmbedPath', '1', false);
+
 		$_SERVER['REMOTE_ADDR'] = '192.168.1.25';
 		unset($_SERVER['SERVER_ADDR'], $_SERVER['SERVER_NAME']);
 

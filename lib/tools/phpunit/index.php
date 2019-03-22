@@ -366,9 +366,7 @@ class GalleryTestResult extends TestResult {
 		if (!isset($compactView)) {
 			echo '<script type="text/javascript">';
 			echo 'function setTxt(i,t) { document.getElementById(i).firstChild.nodeValue=t; }';
-
 			printf("setTxt('testTime','%2.4f');", $this->_totalElapsed);
-
 			printf("setTxt('testCount','%s test%s');", $nRun, ($nRun == 1) ? '' : 's');
 
 			if ($this->_testsRunThenSkipped) {
@@ -391,7 +389,6 @@ class GalleryTestResult extends TestResult {
 			);
 
 			printf("setTxt('testReport', '%s');", $this->_getTestResultRecord());
-
 			printf('setUsername("NAME_PLACEHOLDER", getUsernameFromCookie());');
 			echo "document.getElementById('testSummary').style.display='block';</script>\n";
 		}
@@ -520,7 +517,6 @@ class GalleryTestResult extends TestResult {
 					$test->name() . '$'
 				) .
 				'" name="fail' . $this->fRunTests . '">' . $test->classname() . '.' .
-
 				$test->name() . "</a></li><ul>\n";
 
 				foreach ($test->getExceptions() as $exception) {
@@ -547,9 +543,7 @@ class GalleryTestResult extends TestResult {
 		}
 
 		echo '<script type="text/javascript">r=document.getElementById(\'testRow'
-
 		. $this->fRunTests . "');$extra";
-
 		echo "r.cells[4].className='$class';$text";
 		echo "r.cells[5].firstChild.nodeValue='$elapsed';$cmd;</script>\n$failure";
 		flush();
@@ -684,11 +678,10 @@ foreach (array(
 }
 
 // Uncomment below to see debug output before tests run
+
 /*
  * print "<pre>";
-
  * print $gallery->getDebugBuffer();
-
  * print "</pre>";
  */
 require __DIR__ . '/index.tpl';

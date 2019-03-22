@@ -1305,6 +1305,7 @@ class CoreModuleExtras {
 				@$platform->mkdir($locksDir);
 
 				// Mark old broken derivatives as such with our new isBroken flag
+
 				/*
 				 * This is the filesize and the crc32 checksum of the broken derivative placeholder
 				 * image that we used in beta 3 and earlier versions.
@@ -2226,7 +2227,6 @@ class CoreModuleExtras {
 				// GallerySession change: Store sessions in the database and no longer on disk
 				$sessionsDir = $gallery->getConfig('data.gallery.base')
 				. 'sessions'
-
 				. $platform->getDirectorySeparator();
 
 				if ($platform->file_exists($sessionsDir)) {
@@ -3388,6 +3388,7 @@ class CoreModuleExtras {
 					IN
 						(\'_maps\', \'_entities\')
 					AND
+
 						[::pluginType] = \'module\'';
 
 				$ret = $storage->execute($query);
@@ -3499,6 +3500,7 @@ class CoreModuleExtras {
 				$totalOperations      = count($pluginList['module']) + count($pluginList['theme']);
 				$currentOperation     = 0;
 				$upgradingMessageText = $module->translate('Creating Package Map');
+
 				GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepository.class');
 
 				if (!empty($repositories)) {
@@ -3837,10 +3839,8 @@ class CoreModuleExtras {
 				* setups, this setting can be quite handy.
 				* Examples (the positions of the slashes (\'/\') are important):
 				*   override the path: $gallery->setConfig(\'baseUri\', \'/another/path/\');
-
 				*   override the host + path:
 				* $gallery->setConfig(\'baseUri\', \'example.com/gallery2/\');
-
 				*   override the protocol + host + path + file:
 				*           $gallery->setConfig(\'baseUri\', \'https://example.com:8080/gallery2/index.php\');
 				*/
@@ -3864,8 +3864,7 @@ class CoreModuleExtras {
 					)
 				);
 
-				$edit['regexp'] = '{\$gallery->setConfig\(\'data\.gallery\.base\',.*?;}s';
-
+				$edit['regexp']      = '{\$gallery->setConfig\(\'data\.gallery\.base\',.*?;}s';
 				$edit['replacement'] = '$gallery->setConfig(\'data.gallery.base\', \''
 				. $tmp . '\');';
 				$configChanges[]     = array(
@@ -4159,6 +4158,7 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryGroup.class');
+
 		$group     = new GalleryGroup();
 		$groupName = $module->translate('Registered Users');
 
@@ -4203,6 +4203,7 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryGroup.class');
+
 		$group     = new GalleryGroup();
 		$groupName = $module->translate('Site Admins');
 
@@ -4247,6 +4248,7 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryGroup.class');
+
 		$group     = new GalleryGroup();
 		$groupName = $module->translate('Everybody');
 
@@ -4291,6 +4293,7 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryUser.class');
+
 		$user     = new GalleryUser();
 		$userName = 'guest';
 		$fullName = $module->translate('Guest');
@@ -4359,6 +4362,7 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryUser.class');
+
 		$user = new GalleryUser();
 
 		/*
@@ -4419,6 +4423,7 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryAlbumItem.class');
+
 		$album = new GalleryAlbumItem();
 
 		$ret = $album->createRoot();
@@ -4491,6 +4496,7 @@ class CoreModuleExtras {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
+
 		$lock = new GalleryEntity();
 
 		$lock->create();

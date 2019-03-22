@@ -246,6 +246,7 @@ function adodb_log_sql(&$connx, $sql, $inputarr) {
 
 			if (!$ok) {
 				ADOConnection::outp("<p><b>LOGSQL Insert Failed</b>: $isql<br>$err2</p>");
+
 				$conn->_logsql = false;
 			}
 		}
@@ -578,6 +579,7 @@ class adodb_perf {
 		$rs = $this->conn->SelectLimit(
 			"select avg(timer) as avg_timer,$sql1,count(*),max(timer) as max_timer,min(timer) as min_timer
 				from $perf_table
+
 				where {$this->conn->upperCase}({$this->conn->substr}(sql0,1,5)) not in ('DROP ','INSER','COMMI','CREAT')
 				and (tracer is null or tracer not like 'ERROR:%')
 				group by sql1
@@ -671,6 +673,7 @@ class adodb_perf {
 		$rs = $this->conn->SelectLimit(
 			"select sum(timer) as total,$sql1,count(*),max(timer) as max_timer,min(timer) as min_timer
 				from $perf_table
+
 				where {$this->conn->upperCase}({$this->conn->substr}(sql0,1,5))  not in ('DROP ','INSER','COMMI','CREAT')
 				and (tracer is null or tracer not like 'ERROR:%')
 				group by sql1

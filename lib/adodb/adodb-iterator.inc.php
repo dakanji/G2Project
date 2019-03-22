@@ -1,5 +1,6 @@
 <?php
 
+
 /*
   @version   v5.20.12  30-Mar-2018
   @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
@@ -12,9 +13,11 @@
   the ADODB_Iterator class.
 		  $rs = $db->Execute("select * from adoxyz");
 
+
 		foreach($rs as $k => $v) {
 			echo $k; print_r($v); echo "<br>";
 		}
+
 
 	Iterator code based on http://cvs.php.net/cvs.php/php-src/ext/spl/examples/cachingiterator.inc?login=2
 	Moved to adodb.inc.php to improve performance.

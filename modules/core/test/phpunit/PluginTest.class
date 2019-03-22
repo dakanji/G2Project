@@ -193,12 +193,14 @@ class PluginTest extends GalleryTestCase {
 
 		GalleryDataCache::put('GalleryPluginHelper::fetchPluginStatus(theme)', $themeStatus);
 		GalleryDataCache::setFileCachingEnabled(true);
+
 		$templateDir = '/templates';
 
 		$gallery->setConfig('data.smarty.templates_c', $templateDir);
 		$gallery->setConfig('data.gallery.cache', '/cache/');
 
 		$platform = new UnitTestPlatform();
+
 		$platform->setReply(
 			'file_exists',
 			array('/cache/theme/_all/0/0/GalleryPluginHelper_fetchPluginStatus.inc'),
@@ -212,6 +214,7 @@ class PluginTest extends GalleryTestCase {
 		$gallery->setPlatform($platform);
 
 		$gallery->_storage = new UnitTestStorage();
+
 		$gallery->_storage->setReply(
 			'addMapEntry',
 			array(
@@ -242,6 +245,7 @@ class PluginTest extends GalleryTestCase {
 		global $gallery;
 
 		GalleryDataCache::reset(true);
+
 		$plugin = new PluginTestPlugin();
 
 		$plugin->setPluginType('module');
@@ -252,6 +256,7 @@ class PluginTest extends GalleryTestCase {
 
 		$cacheKey       = 'GalleryRepository::getRepositories(,GalleryRepository)';
 		$testRepository = new UnitTestRepository();
+
 		$testRepository->setReply(
 			'scanPlugin',
 			array('module', 'plugintest'),
@@ -282,6 +287,7 @@ class PluginTest extends GalleryTestCase {
 		global $gallery;
 
 		GalleryDataCache::reset(true);
+
 		$plugin = new PluginTestPlugin();
 
 		$plugin->setPluginType('module');
@@ -292,6 +298,7 @@ class PluginTest extends GalleryTestCase {
 
 		$cacheKey       = 'GalleryRepository::getRepositories(,GalleryRepository)';
 		$testRepository = new UnitTestRepository();
+
 		$testRepository->setReply(
 			'scanPlugin',
 			array('module', 'plugintest'),

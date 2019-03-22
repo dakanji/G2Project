@@ -106,6 +106,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 
 		// Force system charset to ISO-8859-1 so convertToUtf8 will work on test data
 		$gallery->_phpVm = new ItemAddFromServerTestPhpVm();
+
 		GalleryDataCache::remove('GalleryCharsetHelper_simple::detectSystemCharset');
 	}
 
@@ -504,7 +505,6 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 			);
 
 			$seenWeights[$item->getParentId()][$orderWeight] = 1;
-
 			$i++;
 		}
 	}
@@ -530,6 +530,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		$platform =& $gallery->getPlatform();
 		$dirSep   = $platform->getDirectorySeparator();
 		$baseDir  = $this->_baseDir . $dirSep . 'data';
+
 		GalleryUtilities::putRequestVariable('form[action][addFromLocalServer]', 1);
 		GalleryUtilities::putRequestVariable('form[localServerPath]', $baseDir);
 		GalleryUtilities::putRequestVariable('form[set][title]', 1);
@@ -622,11 +623,13 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		$platform =& $gallery->getPlatform();
 		$dirSep   = $platform->getDirectorySeparator();
 		$baseDir  = $this->_baseDir . $dirSep;
+
 		GalleryUtilities::putRequestVariable('form[action][addFromLocalServer]', 1);
 		GalleryUtilities::putRequestVariable('form[localServerPath]', $baseDir);
 		GalleryUtilities::putRequestVariable('form[localServerFiles][..%2Ffoo][selected]', 1);
 		GalleryUtilities::putRequestVariable('form[localServerDirectories][..%2Fbar][selected]', 1);
 		GalleryUtilities::putRequestVariable('form[set][title]', 1);
+
 		$results = $this->handleRequest($this->_rootAlbum);
 
 		$this->assertEquals(array(array(), array()), $results);
@@ -639,16 +642,19 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		$platform =& $gallery->getPlatform();
 		$dirSep   = $platform->getDirectorySeparator();
 		$baseDir  = $this->_baseDir . $dirSep . 'data' . $dirSep;
+
 		GalleryUtilities::putRequestVariable('form[action][addFromLocalServer]', 1);
 		GalleryUtilities::putRequestVariable('form[localServerPath]', $baseDir . '<My "Files">');
 		GalleryUtilities::putRequestVariable('form[localServerFiles][foo][selected]', 1);
 		GalleryUtilities::putRequestVariable('form[set][title]', 1);
+
 		$results = $this->handleRequest($this->_rootAlbum);
 
 		if (empty($results[1]['addedFiles'][0]['id'])) {
 			$this->assertTrue(false, 'missing id of added item');
 		} else {
 			$id = $results[1]['addedFiles'][0]['id'];
+
 			$this->assertEquals(
 				array(
 					array(),

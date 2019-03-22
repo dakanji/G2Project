@@ -207,9 +207,7 @@ class ADODB_Pager {
 
 		ob_start();
 		$gSQLBlockRows = $this->rows;
-
 		rs2html($this->rs, $this->gridAttributes, $this->gridHeader, $this->htmlSpecialChars);
-
 		$s = ob_get_contents();
 		ob_end_clean();
 

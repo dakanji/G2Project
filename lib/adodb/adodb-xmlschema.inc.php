@@ -1,6 +1,7 @@
 <?php
 
 // Copyright (c) 2004 ars Cognita Inc., all rights reserved
+
 /* ******************************************************************************
 	Released under both BSD license and Lesser GPL library license.
 	 Whenever there is any discrepancy between the two licenses,
@@ -1177,7 +1178,6 @@ class dbQuerySet extends dbObject {
 		}
 
 		$this->queries[] = $return = trim($this->query);
-
 		unset($this->query);
 
 		return $return;
@@ -1719,7 +1719,6 @@ class adoSchema {
 		switch (strtoupper($tag)) {
 			case 'TABLE':
 				$this->obj = new dbTable($this, $attributes);
-
 				xml_set_object($parser, $this->obj);
 
 				break;
@@ -1727,7 +1726,6 @@ class adoSchema {
 			case 'SQL':
 				if (!isset($attributes['PLATFORM']) or $this->supportedPlatform($attributes['PLATFORM'])) {
 					$this->obj = new dbQuerySet($this, $attributes);
-
 					xml_set_object($parser, $this->obj);
 				}
 

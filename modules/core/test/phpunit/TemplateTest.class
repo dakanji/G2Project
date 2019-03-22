@@ -299,6 +299,7 @@ class TemplateTest extends GalleryTestCase {
 
 	public function testSmartyCompileCheckByPluginParam() {
 		GalleryDataCache::remove('GalleryTemplate::compileCheck');
+
 		$template = new GalleryTemplate('/legal/path');
 
 		$this->assertFalse($template->_smarty->compile_check, 'SmartyCompileCheckByPluginParam 1');
@@ -323,8 +324,10 @@ class TemplateTest extends GalleryTestCase {
 
 	public function testSmartyCompileCheckEnabledIfNoCacheRequested() {
 		GalleryDataCache::remove('GalleryTemplate::compileCheck');
+
 		$_SERVER['HTTP_PRAGMA'] = 'no-cache';
 		$template               = new GalleryTemplate('/legal/path');
+
 		$this->assertTrue(
 			$template->_smarty->compile_check,
 			'SmartyCompileCheckEnabledIfNoCacheRequested'
@@ -333,6 +336,7 @@ class TemplateTest extends GalleryTestCase {
 
 	public function testSmartyCompileCheckUsesCache() {
 		GalleryDataCache::remove('GalleryTemplate::compileCheck');
+
 		$template = new GalleryTemplate('/legal/path');
 
 		$this->assertFalse($template->_smarty->compile_check, 'SmartyCompileCheckUsesCache 1');
@@ -349,6 +353,7 @@ class TemplateTest extends GalleryTestCase {
 		$template->style('/path/to/foo.css');
 
 		$head = $template->getVariable('head');
+
 		$this->assertEquals(
 			array(
 				'<link rel="stylesheet" type="text/css" href="/path/to/foo.css"/>' => true,
@@ -359,6 +364,7 @@ class TemplateTest extends GalleryTestCase {
 
 	public function testLink() {
 		$template = new GalleryTemplate('');
+
 		$template->link(
 			array(
 				'attr1' => 'value1',
@@ -367,6 +373,7 @@ class TemplateTest extends GalleryTestCase {
 		);
 
 		$head = $template->getVariable('head');
+
 		$this->assertEquals(
 			array(
 				'<link attr1="value1" attr2="value2"/>' => true,
@@ -634,4 +641,3 @@ class TemplateTestInactiveTheme {
 		return array(null, array());
 	}
 }
-

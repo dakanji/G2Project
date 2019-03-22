@@ -77,7 +77,9 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -94,7 +96,9 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 	public function testUndo() {
 		GalleryUtilities::putRequestVariable('form[action][undo]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -112,12 +116,15 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'email@test.me');
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
 		GalleryUtilities::putRequestVariable('form[currentPassword]', 'TestPassword');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -153,7 +160,9 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			'  email_with-leading@space.test-o.com'
 		);
 		GalleryUtilities::putRequestVariable('form[currentPassword]', 'TestPassword');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -186,6 +195,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 		// As a non-admin, we'll get an error about it being missing
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -202,6 +212,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 		// Now it lets us submit with a missing email
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -228,7 +239,9 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 			GalleryUtilities::putRequestVariable('form[email]', 'no-at.test.com');
 			GalleryUtilities::putRequestVariable('form[currentPassword]', 'TestPassword');
+
 			$results = $this->handleRequest();
+
 			$this->assertEquals(
 				array(
 					'delegate' => array(
@@ -243,7 +256,9 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			);
 
 			GalleryUtilities::putRequestVariable('form[email]', 'bad,char@test.com');
+
 			$results = $this->handleRequest();
+
 			$this->assertEquals(
 				array(
 					'delegate' => array(
@@ -258,7 +273,9 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			);
 
 			GalleryUtilities::putRequestVariable('form[email]', 'space test@fun.com');
+
 			$results = $this->handleRequest();
+
 			$this->assertEquals(
 				array(
 					'delegate' => array(
@@ -273,7 +290,9 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			);
 
 			GalleryUtilities::putRequestVariable('form[email]', 'bad.suffix@test.commmmm');
+
 			$results = $this->handleRequest();
+
 			$this->assertEquals(
 				array(
 					'delegate' => array(
@@ -288,7 +307,9 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 			);
 
 			GalleryUtilities::putRequestVariable('form[email]', 'no@suffix');
+
 			$results = $this->handleRequest();
+
 			$this->assertEquals(
 				array(
 					'delegate' => array(
@@ -309,6 +330,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'test@email.com');
@@ -316,12 +338,14 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 		// Make sure the test suit actually unsets previous request vars
 		$form = GalleryUtilities::getFormVariables('form');
+
 		$this->assertTrue(
 			!isset($form['currentPassword']),
 			'precondition failed, password was specified'
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -354,6 +378,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'test@email.com');
@@ -367,6 +392,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		}
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -405,6 +431,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'new@email.com');
@@ -418,6 +445,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		}
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -456,11 +484,14 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'new@email.com');
 		GalleryUtilities::putRequestVariable('form[language]', 'language');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -543,7 +574,9 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[email]', 'new-email@example.com');
 		GalleryUtilities::putRequestVariable('form[currentPassword]', 'pass&word');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -584,4 +617,3 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		}
 	}
 }
-

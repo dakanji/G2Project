@@ -150,6 +150,7 @@ class RepositoryObjectTest extends GalleryTestCase {
 
 		$descriptor  = new RepositoryDescriptor();
 		$newManifest = $descriptor->filterManifestForBasePackage($manifest);
+
 		$this->assertEquals(
 			array(
 				'# $' . 'Revision: 15342 $',
@@ -164,4 +165,3 @@ class RepositoryObjectTest extends GalleryTestCase {
 		);
 	}
 }
-

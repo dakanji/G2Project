@@ -1229,6 +1229,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 class SetSizeOptionTestPlatform extends GalleryPlatform {
 	public function __construct($originalPlatform) {
 		$this->_savedPlatform = $originalPlatform;
+
 		GalleryUtilities::putRequestVariable('resizePerformed', false);
 		GalleryUtilities::putRequestVariable('compressPerformed', false);
 	}
@@ -1320,6 +1321,7 @@ class SetSizeOptionTestToolkit extends GalleryToolkit {
 		}
 
 		$operations[] = $operationName;
+
 		GalleryUtilities::putRequestVariable('operation', $operations);
 
 		return array(null, $mimeType, $context);

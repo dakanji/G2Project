@@ -73,7 +73,9 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'return'   => 0,
@@ -92,7 +94,9 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[priority][27]', 'TestToolkitPriority');
 		GalleryUtilities::putRequestVariable('form[priority][30]', 'TestToolkitPriority2');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'return'   => 0,

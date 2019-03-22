@@ -42,6 +42,7 @@ class ModuleTest extends GalleryTestCase {
 
 		// Register a new module
 		GalleryDataCache::reset(true);
+
 		$_REQUEST['testCase'] = $this;
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'moduletest');

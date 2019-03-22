@@ -125,6 +125,7 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 			}
 
 			$templateAdapter =& $gallery->getTemplateAdapter();
+
 			$templateAdapter->registerTrailerCallback(
 				array($this, 'updatePluginStatus'),
 				array(
@@ -163,7 +164,9 @@ class AdminRepositoryController extends AdminRepositoryDownloadAndInstallControl
 			} else {
 				// Start upgrade process and show progress bar.
 				GalleryCoreApi::requireOnce('modules/core/AdminRepositoryDownload.inc');
+
 				$templateAdapter =& $gallery->getTemplateAdapter();
+
 				$templateAdapter->registerTrailerCallback(
 					array($this, 'performDownloadAndInstallation'),
 					array($packages, $repositories)
@@ -383,6 +386,7 @@ class AdminRepositoryView extends GalleryView {
 
 		if (!empty($AdminRepository['browseData'])) {
 			GalleryCoreApi::requireOnce('modules/core/AdminPlugins.inc');
+
 			uasort($AdminRepository['browseData'], array($this, 'pluginSort'));
 		}
 

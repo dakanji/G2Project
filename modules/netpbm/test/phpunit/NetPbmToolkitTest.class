@@ -320,6 +320,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 
 		$context['next.toolkit']   = null;
 		$context['next.operation'] = null;
+
 		$this->assertEquals(
 			array(
 				'next.toolkit'     => null,
@@ -378,6 +379,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 
 		$context['next.toolkit']   = null;
 		$context['next.operation'] = null;
+
 		$this->assertEquals(
 			array(
 				'next.toolkit'     => null,
@@ -871,6 +873,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 
 		$mimeTypes[] = 'image/x-portable-pixmap';
 		$mimeTypes[] = 'application/x-shockwave-flash';
+
 		$this->assertEquals(
 			array(
 				'dimensions' => array(
@@ -1147,6 +1150,7 @@ class NetPbmToolkitTestPlatform extends WinNtPlatform {
 		global $gallery;
 
 		$toolkitCallCount = (int)GalleryUtilities::getRequestVariables('toolkitCallCount');
+
 		GalleryUtilities::putRequestVariable('toolkitCallCount', $toolkitCallCount + 1);
 
 		if (serialize($cmd) == serialize(

@@ -691,6 +691,7 @@ class ADORecordSet_pdo extends ADORecordSet {
 
 		$this->fetchMode = $mode;
 		$this->_queryID  = $id;
+
 		parent::__construct($id);
 	}
 
@@ -806,8 +807,7 @@ class ADORecordSet_pdo extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
-
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

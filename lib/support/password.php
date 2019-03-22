@@ -236,6 +236,7 @@ function validate() {
 	if (!isset($advance)) {
 		// Generate the auth string on the first visit to this view
 		$key = GallerySetupUtilities::generateAuthenticationKey();
+
 		GallerySetupUtilities::setAuthenticationKey($key);
 	}
 
@@ -303,6 +304,7 @@ if (!isset($output)) {
 
 // Deactivate G2 API Framework
 GalleryEmbed::done();
+
 ?>
 <html lang="en">
 <head>

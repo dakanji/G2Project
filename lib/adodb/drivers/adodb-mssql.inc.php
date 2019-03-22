@@ -932,6 +932,7 @@ order by constraint_name, referenced_table_name, keyno";
 		if ($this->debug) {
 			$prefix = ($isOutput) ? 'Out' : 'In';
 			$ztype  = (empty($type)) ? 'false' : $type;
+
 			ADOConnection::outp("{$prefix}Parameter(\$stmt, \$php_var='$var', \$name='$name', \$maxLen=$maxLen, \$type=$ztype);");
 		}
 
@@ -1141,8 +1142,7 @@ class ADORecordset_mssql extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
-
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}
@@ -1219,7 +1219,6 @@ class ADORecordset_mssql extends ADORecordSet {
 
 						if ($kn != $k) {
 							unset($this->fields[$k]);
-
 							$this->fields[$kn] = $v;
 						}
 					}
@@ -1229,7 +1228,6 @@ class ADORecordset_mssql extends ADORecordSet {
 
 						if ($kn != $k) {
 							unset($this->fields[$k]);
-
 							$this->fields[$kn] = $v;
 						}
 					}
@@ -1284,7 +1282,6 @@ class ADORecordset_mssql extends ADORecordSet {
 
 					if ($kn != $k) {
 						unset($this->fields[$k]);
-
 						$this->fields[$kn] = $v;
 					}
 				}
@@ -1294,7 +1291,6 @@ class ADORecordset_mssql extends ADORecordSet {
 
 					if ($kn != $k) {
 						unset($this->fields[$k]);
-
 						$this->fields[$kn] = $v;
 					}
 				}

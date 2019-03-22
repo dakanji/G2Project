@@ -75,7 +75,6 @@ class perf_postgres extends adodb_perf {
 			'(effective cache size)',
 		),
 		'Memory Usage',
-
 		// Postgres 7.5 changelog: Rename server parameters SortMem and VacuumMem to work_mem and maintenance_work_mem;
 			'sort/work buffer size'   => array(
 				'CACHE',

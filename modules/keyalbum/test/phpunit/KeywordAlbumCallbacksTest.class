@@ -189,6 +189,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 
 		foreach ($data as $keyword) {
 			$found[$keyword['name']] = true;
+
 			$this->assertTrue(
 				isset($keyword['weight']) && $keyword['weight'] >= 0 && $keyword['weight'] <= 3,
 				'bad/missing weight: ' . print_r($keyword, true)
@@ -635,22 +636,16 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 		);
 
 		foreach (array(
-
 			// All keywords
 			array('allKeywords.time', false, 0, false, 3, array()),
-
 			// All keywords with frequency data
 			array('allKeywords.time', false, 0, true, 3, array()),
-
 			// Three most common keywords
 			array('allKeywords.3.time', false, 3, false, 6, array()),
-
 			// Keywords for public items
 			array('allKeywords.public.time', true, 0, false, 3, array(123, 456)),
-
 			// Keywords for public items but guest has no ACLs
 			array('allKeywords.public.time', true, 0, false, 3, array()),
-
 			// Verify cached value is used
 			array('allKeywords.public.time', false, 3, false, 3, array()),
 		) as $i => $params) {
@@ -661,6 +656,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			}
 
 			GalleryDataCache::put($aclCacheKey, $params[5]);
+
 			$block = array();
 
 			$ret = $this->_callbacks->callback(

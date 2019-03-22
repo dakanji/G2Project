@@ -202,6 +202,7 @@ class ItemMoveController extends GalleryController {
 
 						if ($ret) {
 							$lockIds[] = $currentLockId;
+
 							GalleryCoreApi::releaseLocks($lockIds);
 
 							return array($ret, null);
@@ -213,6 +214,7 @@ class ItemMoveController extends GalleryController {
 
 						if ($ret) {
 							$lockIds[] = $currentLockId;
+
 							GalleryCoreApi::releaseLocks($lockIds);
 
 							return array($ret, null);
@@ -227,6 +229,7 @@ class ItemMoveController extends GalleryController {
 
 							if ($ret) {
 								$lockIds[] = $currentLockId;
+
 								GalleryCoreApi::releaseLocks($lockIds);
 
 								return array($ret, null);

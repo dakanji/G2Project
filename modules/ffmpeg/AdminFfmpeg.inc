@@ -68,6 +68,7 @@ class AdminFfmpegController extends GalleryController {
 						} else {
 							// Got a match
 							$form['path'] = $path;
+
 							GalleryUtilities::putRequestVariable('form.path', $path);
 						}
 					}
@@ -116,6 +117,7 @@ class AdminFfmpegController extends GalleryController {
 		    FROM [GalleryDerivative], [GalleryChildEntity], [GalleryEntity]
 		    WHERE [GalleryDerivative::id] = [GalleryChildEntity::id]
 		      AND [GalleryChildEntity::parentId] = [GalleryEntity::id]
+
 		      AND [GalleryEntity::entityType] = \'GalleryMovieItem\'';
 
 					$ret = $this->_processThumbnails($query, '_addWatermark');
@@ -275,6 +277,7 @@ class AdminFfmpegController extends GalleryController {
 
 	public function _removeWatermark(&$thumbnail) {
 		$operations = $thumbnail->getDerivativeOperations();
+
 		$thumbnail->setDerivativeOperations(
 			rtrim(
 				preg_replace(

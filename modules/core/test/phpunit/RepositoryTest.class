@@ -71,6 +71,7 @@ class RepositoryTest extends GalleryTestCase {
 		$header              = $index["{$pluginType}s"][$pluginId]['header'];
 		$expectedUpgradeInfo = $case['expectedUpgradeInfo'];
 		$installed           = $case['installed'][$pluginId];
+
 		$utilities->setReply(
 			'getPluginPackages',
 			array($pluginType, $pluginId),
@@ -84,6 +85,7 @@ class RepositoryTest extends GalleryTestCase {
 		);
 
 		$base = $installed['packages']['base'];
+
 		$utilities->setReply(
 			'compareVersions',
 			array($base['version'], $base['newVersion'], $base['build'], $base['newBuild']),
@@ -1054,7 +1056,6 @@ class RepositoryTest extends GalleryTestCase {
 								'relation'     => 'equal',
 								'locked'       => 1,
 							),
-
 							/**
 							 * this language is not considered "locked"
 							 * because it does not exist in the original install
@@ -1222,10 +1223,8 @@ class RepositoryTest extends GalleryTestCase {
 							),
 						),
 					),
-
 					// This better be incompatible!
 					'requiredModuleApi'   => array(9999, 9999),
-
 					// the module is incompatible, but the theme is ok
 					'expectedPackages'    => array(
 						'theme' => array(
@@ -1258,6 +1257,7 @@ class RepositoryTest extends GalleryTestCase {
 		// Portuguese
 		$supportedLanguages['pt']['BR']['description'] = 'Portugu&#234;s Brasileiro';
 		$supportedLanguages['pt']['PT']['description'] = 'Portugu&#234;s';
+
 		GalleryDataCache::put($cacheKey, $supportedLanguages);
 
 		foreach (array('en_US', 'en_GB', 'pt_PT', 'pt_BR') as $lang) {
@@ -1397,7 +1397,6 @@ class RepositoryTest extends GalleryTestCase {
 		$rHeaderC['coreApiVersion']   = explode('.', $repositoryCoreApiVersion);
 		$testCases                    = array(
 			array(
-
 				// Simulate a newer repository core version than the one currently installed.
 				'repositoryCoreVersion' => $this->calculateVersion(
 					$installedCoreVersion,
@@ -1412,7 +1411,6 @@ class RepositoryTest extends GalleryTestCase {
 				),
 			),
 			array(
-
 				// Simulate an older repository core version than the one currently installed.
 				'repositoryCoreVersion' => $this->calculateVersion(
 					$installedCoreVersion,
@@ -1423,7 +1421,6 @@ class RepositoryTest extends GalleryTestCase {
 				'expectedApiVersions'   => array(),
 			),
 			array(
-
 				// Simulate an identical repository core version as the one currently installed.
 				'repositoryCoreVersion' => $installedCoreVersion,
 				'expectedRelation'      => 'equal',
@@ -1437,6 +1434,7 @@ class RepositoryTest extends GalleryTestCase {
 			// Restore $this->_index->_index['modules']['core']['header']
 			$this->_index->_index['modules']['core']['header'] = $rHeaderC;
 			$utilities                                         = new UnitTestRepositoryUtilities();
+
 			$utilities->setReply(
 				'compareVersions',
 				array($case['repositoryCoreVersion'], $installedCoreVersion, null, null),
@@ -1498,6 +1496,7 @@ class RepositoryTest extends GalleryTestCase {
 
 		if (!empty($case['installedPackages']['base'])) {
 			$installedPackages = $case['installedPackages']['base'];
+
 			$utilities->setReply(
 				'getPluginPackages',
 				array('module', 'testModule'),
@@ -1906,6 +1905,7 @@ class RepositoryTest extends GalleryTestCase {
 			);
 
 			$expected = isset($data[$locale]) ? $data[$locale] : $core->translate('Themes');
+
 			$this->assertEquals(
 				$expected,
 				$pluginList['testTheme']['groupLabel'],
@@ -1932,6 +1932,7 @@ class RepositoryTest extends GalleryTestCase {
 		);
 
 		uasort($testCase, array($repository, 'comparePluginListEntries'));
+
 		$this->assertEquals(
 			array(
 				'plugin3Id' => array(
@@ -2110,6 +2111,7 @@ class RepositoryTest extends GalleryTestCase {
 		$repository->_utilities = new UnitTestRepositoryUtilities();
 		$repository->_index     = $this->_index;
 		$repository->_source    = 'test';
+
 		$repository->_utilities->setReply(
 			'downloadFile',
 			array('repositoryUrl/test/RepositoryTest.package', null),
@@ -2175,6 +2177,7 @@ class RepositoryTest extends GalleryTestCase {
 		$repository             = new GalleryRepository();
 		$utilities              = new UnitTestRepositoryUtilities();
 		$repository->_utilities =& $utilities;
+
 		$utilities->setReply(
 			'getFileRevision',
 			array(GalleryCoreApi::getCodeBasePath('modules/RepositoryTest/MANIFEST')),
@@ -2269,6 +2272,7 @@ class RepositoryTest extends GalleryTestCase {
 		$repository             = new GalleryRepository();
 		$utilities              = new UnitTestRepositoryUtilities();
 		$repository->_utilities =& $utilities;
+
 		$utilities->setReply(
 			'getFileRevision',
 			array(GalleryCoreApi::getCodeBasePath('modules/RepositoryTest/MANIFEST')),
@@ -2333,6 +2337,7 @@ class RepositoryTest extends GalleryTestCase {
 		$repository             = new GalleryRepository();
 		$utilities              = new UnitTestRepositoryUtilities();
 		$repository->_utilities =& $utilities;
+
 		$utilities->setReply(
 			'getFileRevision',
 			array(GalleryCoreApi::getCodeBasePath('modules/RepositoryTest/MANIFEST')),
@@ -2430,6 +2435,7 @@ class RepositoryTest extends GalleryTestCase {
 		$repository->_utilities = null;
 		$modules                = GalleryCoreApi::getCodeBasePath('modules');
 		$platform               = new UnitTestPlatform();
+
 		$platform->setReply(
 			'file_exists',
 			array($modules . '/RepositoryTest/MANIFEST'),
@@ -2582,6 +2588,7 @@ class RepositoryTest extends GalleryTestCase {
 		// Portuguese
 		$supportedLanguages['pt']['BR']['description'] = 'Portugu&#234;s Brasileiro';
 		$supportedLanguages['pt']['PT']['description'] = 'Portugu&#234;s';
+
 		GalleryDataCache::put($cacheKey, $supportedLanguages);
 
 		return array($repository, $languages);
@@ -3188,6 +3195,7 @@ class RepositoryTest extends GalleryTestCase {
 		$repository->_source    = 'test';
 		$repository->_utilities = new UnitTestRepositoryUtilities();
 		$repository->_index     = $this->_index;
+
 		$repository->_utilities->setReply(
 			'downloadAggregatePackages',
 			array(
@@ -3231,6 +3239,7 @@ class RepositoryTest extends GalleryTestCase {
 		$repository->_utilities = new UnitTestRepositoryUtilities();
 		$repository->_index     = $this->_index;
 		$modules                = GalleryCoreApi::getCodeBasePath('modules');
+
 		$platform->setReply(
 			'file',
 			array($modules . '/RepositoryTest/MANIFEST', null),

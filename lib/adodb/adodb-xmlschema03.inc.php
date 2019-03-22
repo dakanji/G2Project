@@ -1,6 +1,7 @@
 <?php
 
 // Copyright (c) 2004-2005 ars Cognita Inc., all rights reserved
+
 /* ******************************************************************************
 	Released under both BSD license and Lesser GPL library license.
 	 Whenever there is any discrepancy between the two licenses,
@@ -1294,7 +1295,6 @@ class dbQuerySet extends dbObject {
 		}
 
 		$this->queries[] = $return = trim($this->query);
-
 		unset($this->query);
 
 		return $return;
@@ -1909,7 +1909,6 @@ class adoSchema {
 			case 'TABLE':
 				if (!isset($attributes['PLATFORM']) or $this->supportedPlatform($attributes['PLATFORM'])) {
 					$this->obj = new dbTable($this, $attributes);
-
 					xml_set_object($parser, $this->obj);
 				}
 
@@ -1918,7 +1917,6 @@ class adoSchema {
 			case 'SQL':
 				if (!isset($attributes['PLATFORM']) or $this->supportedPlatform($attributes['PLATFORM'])) {
 					$this->obj = new dbQuerySet($this, $attributes);
-
 					xml_set_object($parser, $this->obj);
 				}
 
@@ -1988,6 +1986,7 @@ class adoSchema {
 
 	// compat for pre-4.3 - jlim
 	function _file_get_contents($path)
+
 	{
 		if (function_exists('file_get_contents')) return file_get_contents($path);
 

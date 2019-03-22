@@ -462,6 +462,7 @@ class GalleryTemplateAdapter {
 		foreach ($head['tpl'] as $path => $l10Domain) {
 			// Guard template vars so that the include doesn't pollute our namespace
 			$save = $smarty->_tpl_vars;
+
 			$smarty->_smarty_include(
 				array(
 					'smarty_include_tpl_file' => "gallery:$path",
@@ -509,6 +510,7 @@ class GalleryTemplateAdapter {
 		$pattern       = '<script type="text/javascript" src="%s"></script>';
 
 		// Special case utilities.js is superset of yahoo-dom-event.js
+
 		/** @todo move this check into GalleryTemplate::javascript */
 		$yde = array_search('lib/yui/yahoo-dom-event.js', $files);
 
@@ -671,6 +673,7 @@ class GalleryTemplateAdapter {
 
 		// Guard template vars so that the include doesn't pollute our namespace
 		$save = $smarty->_tpl_vars;
+
 		$smarty->_smarty_include(
 			array(
 				'smarty_include_tpl_file' => 'gallery:modules/core/templates/AutoComplete.tpl',
@@ -698,6 +701,7 @@ class GalleryTemplateAdapter {
 
 		// Guard template vars so that the include doesn't pollute our namespace
 		$save = $smarty->_tpl_vars;
+
 		$smarty->_smarty_include(
 			array(
 				'smarty_include_tpl_file' => 'gallery:modules/core/templates/Dimensions.tpl',
@@ -729,6 +733,7 @@ class GalleryTemplateAdapter {
 
 		// Guard template vars so that the include doesn't pollute our namespace
 		$save = $smarty->_tpl_vars;
+
 		$smarty->_smarty_include(
 			array(
 				'smarty_include_tpl_file' => 'gallery:modules/core/templates/DefaultButton.tpl',
@@ -1143,6 +1148,7 @@ class GalleryTemplateAdapter {
 		if (isset($params['include'])) {
 			// Guard template vars so that the include doesn't pollute our namespace
 			$save = $smarty->_tpl_vars;
+
 			$smarty->_smarty_include(
 				array(
 					'smarty_include_tpl_file' => 'gallery:themes/' . $this->_theme->getId() . '/templates/' . $params['include'],
@@ -1235,6 +1241,7 @@ class GalleryTemplateAdapter {
 
 		// Guard template vars so that the include doesn't pollute our namespace
 		$save = $smarty->_tpl_vars;
+
 		$smarty->_smarty_include(
 			array(
 				'smarty_include_tpl_file' => "gallery:modules/$module/templates/blocks/$file.tpl",
@@ -1276,6 +1283,7 @@ class GalleryTemplateAdapter {
 
 		// Guard template vars so that the include doesn't pollute our namespace
 		$save = $smarty->_tpl_vars;
+
 		$smarty->_smarty_include(
 			array(
 				'smarty_include_tpl_file' => "gallery:modules/$module/templates/containers/$file.tpl",
@@ -1317,6 +1325,7 @@ class GalleryTemplateAdapter {
 
 		if (!empty($status[$module]['active'])) {
 			GalleryCoreApi::requireOnce("modules/$module/Callbacks.inc");
+
 			$userId    = $smarty->_tpl_vars['theme']['actingUserId'];
 			$className = "${module}Callbacks";
 			$class     = new $className();
@@ -1550,7 +1559,6 @@ class GalleryTemplateAdapter {
 			$status = $status->getAsHtml($isAdmin);
 		} else {
 			$status = 'Error ('
-
 			. implode(', ', $status->getErrorCodeConstants($status->getErrorCode())) . ')';
 		}
 

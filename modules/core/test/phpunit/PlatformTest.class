@@ -91,6 +91,7 @@ class PlatformTest extends GalleryTestCase {
 
 			foreach (array('platformTest', 'srcDir') as $subDir) {
 				$sourceDir .= "$subDir/";
+
 				$this->assertTrue(
 					mkdir($sourceDir, 0777),
 					'Failed to create test directory: ' . $subDir
@@ -773,6 +774,7 @@ class PlatformTest extends GalleryTestCase {
 		);
 
 		$gallery->_phpVm = new PlatformTestPhpVm('', $this);
+
 		$this->assertTrue(
 			!$this->_platform->isRestrictedByOpenBaseDir('/bogus/path'),
 			'bogus path with no restriction'
@@ -780,6 +782,7 @@ class PlatformTest extends GalleryTestCase {
 
 		// Open_basedir with multiple entries
 		$platform = $isWin ? new PlatformTestOpenBaseDirWinNtPlatform() : new PlatformTestOpenBaseDirUnixPlatform();
+
 		$platform->setRealpathData(
 			array(
 				'C:\\Test'       => 'C:\\Test',
@@ -796,6 +799,7 @@ class PlatformTest extends GalleryTestCase {
 		);
 
 		$gallery->_phpVm = new PlatformTestPhpVm($isWin ? 'C:\\Test;D:\\Fun\\' : '/test:/fun/', $this);
+
 		$this->assertTrue(
 			!$platform->isRestrictedByOpenBaseDir($isWin ? 'C:\\Test\\file' : '/test/file'),
 			'first path'
@@ -824,6 +828,7 @@ class PlatformTest extends GalleryTestCase {
 			);
 
 			$gallery->_phpVm = new PlatformTestPhpVm('/test/real', $this);
+
 			$this->assertTrue(
 				!$platform->isRestrictedByOpenBaseDir('/test/link/file'),
 				'path with symlink, open_basedir has realpath'
@@ -838,6 +843,7 @@ class PlatformTest extends GalleryTestCase {
 			);
 
 			$gallery->_phpVm = new PlatformTestPhpVm('/test/link', $this);
+
 			$this->assertTrue(
 				!$platform->isRestrictedByOpenBaseDir('/test/real/file'),
 				'realpath given, open_basedir has symlink'
@@ -909,6 +915,7 @@ class PlatformTest extends GalleryTestCase {
 			$this->assertTrue($platform->isRestrictedByOpenBaseDir('/lonk/file'), 'not match prefix');
 
 			$gallery->_phpVm = new PlatformTestPhpVm('/link/fu', $this);
+
 			$this->assertTrue(
 				$platform->isRestrictedByOpenBaseDir('/test/fun'),
 				'realpath given, open_basedir has prefix with link parent'
@@ -925,6 +932,7 @@ class PlatformTest extends GalleryTestCase {
 
 		// Open_basedir with .
 		$gallery->_phpVm = new PlatformTestPhpVm('.', $this);
+
 		$this->assertTrue(
 			!$this->_platform->isRestrictedByOpenBaseDir(
 				__DIR__ . '/../../../../lib/tools/phpunit/index.php'
@@ -934,6 +942,7 @@ class PlatformTest extends GalleryTestCase {
 
 		// Open_basedir with trailing slash
 		$s = $this->_platform->getDirectorySeparator();
+
 		$platform->setRealpathData(
 			array(
 				"${s}test${s}" => "${s}test",
@@ -957,6 +966,7 @@ class PlatformTest extends GalleryTestCase {
 		);
 
 		$gallery->_phpVm = new PlatformTestPhpVm("${s}test", $this);
+
 		$this->assertTrue(
 			!$platform->isRestrictedByOpenBaseDir("${s}test${s}bogus"),
 			'valid bogus path'
@@ -1001,6 +1011,7 @@ class PlatformTest extends GalleryTestCase {
 
 		$gallery->_phpVm = new PlatformTestPhpVm('/', $this);
 		$platform        = new PlatformTestOpenBaseDirUnixPlatform();
+
 		$platform->setRealpathData(
 			array(
 				'/test/file' => '/test/file',
@@ -1101,6 +1112,7 @@ class PlatformTest extends GalleryTestCase {
 		 * test-framework (yet)
 		 */
 		$testData1 = "this is a test\nmultiline\ntest";
+
 		$this->assertTrue(
 			$this->_platform->atomicWrite($this->_destFile, $testData1, 'wb'),
 			'write 1 failed'
@@ -1112,6 +1124,7 @@ class PlatformTest extends GalleryTestCase {
 
 		// Now write another text to the same file and see if it's ok
 		$testData2 = "this is a test\nmultiline\ntest\nmore\ntext";
+
 		$this->assertTrue(
 			$this->_platform->atomicWrite($this->_destFile, $testData2, 'wb'),
 			'write 2 failed'

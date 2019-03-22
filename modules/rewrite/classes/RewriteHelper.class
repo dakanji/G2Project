@@ -118,13 +118,10 @@ class RewriteHelper {
 			return array($ret, null, null, null, null);
 		}
 
-		$accessList = unserialize($accessList);
-
-		$ourHostNames[$urlGenerator->getHostName()] = true;
-
+		$accessList                                     = unserialize($accessList);
+		$ourHostNames[$urlGenerator->getHostName()]     = true;
 		$ourHostNames[$urlGenerator->getHostName(true)] = true;
-
-		$accessList = array_merge($accessList, array_keys($ourHostNames));
+		$accessList                                     = array_merge($accessList, array_keys($ourHostNames));
 
 		// Get allow empty referer
 		list($ret, $allowEmptyReferer) = GalleryCoreApi::getPluginParameter(

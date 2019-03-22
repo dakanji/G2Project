@@ -59,6 +59,7 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 
 		$this->_versionFile         = $gallery->getConfig('data.gallery.version');
 		$this->_versionContentsBase = $module->getVersion() . "\n" . $module->getGalleryVersion();
+
 		GalleryDataCache::remove('CoreModule::installedVersions');
 	}
 
@@ -80,7 +81,9 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][setMode]', 1);
 		GalleryUtilities::putRequestVariable('form[setMode][mode]', 'on');
 		GalleryUtilities::putRequestVariable('form[setMode][url]', '');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -118,7 +121,9 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][setMode]', 1);
 		GalleryUtilities::putRequestVariable('form[setMode][mode]', 'on');
 		GalleryUtilities::putRequestVariable('form[setMode][url]', $url);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -160,7 +165,9 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][setMode]', 1);
 		GalleryUtilities::putRequestVariable('form[setMode][url]', '');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -187,7 +194,9 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[action][setMode]', 1);
 		GalleryUtilities::putRequestVariable('form[setMode][url]', '');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -208,4 +217,3 @@ class AdminMaintenanceControllerModeTest extends GalleryControllerTestCase {
 		$this->assertTrue($this->_platform->isComplete(), $this->_platform->getRemaining());
 	}
 }
-

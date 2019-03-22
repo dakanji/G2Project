@@ -408,6 +408,7 @@ class ADODB_informix72 extends ADOConnection {
 
 	// ifx_do does not accept bind parameters - weird ???
 	function Prepare($sql)
+
 	{
 		$stmt = ifx_prepare($sql);
 

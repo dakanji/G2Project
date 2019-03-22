@@ -103,6 +103,7 @@ class DatabaseStorageTest extends GalleryTestCase {
 
 	public function testParseSqlTemplate2() {
 		$results = GalleryStorageExtras::parseSqlTemplate($this->_data, 'database_with_only_tables');
+
 		$this->assertEquals(
 			array(
 				'table'  => array(
@@ -118,6 +119,7 @@ class DatabaseStorageTest extends GalleryTestCase {
 
 	public function testParseSqlTemplate3() {
 		$results = GalleryStorageExtras::parseSqlTemplate($this->_data, 'database_with_only_removes');
+
 		$this->assertEquals(
 			array(
 				'table'  => array(),
@@ -137,6 +139,7 @@ class DatabaseStorageTest extends GalleryTestCase {
 
 	public function testParseSqlTemplate4() {
 		$results = GalleryStorageExtras::parseSqlTemplate($this->_data, 'database_with_nothing');
+
 		$this->assertEquals(
 			array(
 				'table'  => array(),
@@ -148,4 +151,3 @@ class DatabaseStorageTest extends GalleryTestCase {
 		);
 	}
 }
-

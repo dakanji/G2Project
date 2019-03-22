@@ -391,6 +391,7 @@ class GalleryPluginHelper_simple {
 
 				if (isset($cacheData)) {
 					$data[$itemId] = $cacheData;
+
 					GalleryDataCache::put($cacheKey, $cacheData);
 
 					continue;
@@ -418,7 +419,9 @@ class GalleryPluginHelper_simple {
 	    AND
 	    [GalleryPluginParameterMap::pluginId] = ?
 	    AND
+
 	    [GalleryPluginParameterMap::itemId] ' . $whereId;
+
 		array_unshift($queryIds, $pluginType, $pluginId);
 
 		list($ret, $searchResults) = $gallery->search($query, $queryIds);

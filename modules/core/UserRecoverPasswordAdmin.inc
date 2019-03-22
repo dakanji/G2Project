@@ -239,7 +239,9 @@ class UserRecoverPasswordAdminView extends GalleryView {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		GalleryCoreApi::requireOnce('lib/joomla/crypt.php');
+
 		$j    = new JCrypt();
 		$rand = $j->genRandomBytes(32);
 

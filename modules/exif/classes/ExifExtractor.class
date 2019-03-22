@@ -69,6 +69,7 @@ class ExifExtractor extends ExifInterface_1_0 {
 
 			$data[$itemId] = array();
 			$rawExifData   = read_exif_data_raw($path, false);
+
 			GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 
 			list($ret, $iptcObj) = ExifHelper::getIptcObject($path);

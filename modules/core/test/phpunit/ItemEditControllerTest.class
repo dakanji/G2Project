@@ -57,6 +57,7 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 		$this->_unregisterFactoryImplementationForTest('ItemEditOption');
 
 		$path = 'modules/core/test/phpunit/ItemEditControllerTest.class';
+
 		$this->_registerFactoryImplementationForTest(
 			'ItemEditPlugin',
 			'ItemEditControllerTestPluginSuccess',
@@ -114,7 +115,9 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 		GalleryUtilities::putRequestVariable('form[serialNumber]', $this->_item->getSerialNumber());
 		GalleryUtilities::putRequestVariable('editPlugin', 'ItemEditControllerTestPluginSuccess');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -137,7 +140,9 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 		GalleryUtilities::putRequestVariable('form[serialNumber]', $this->_item->getSerialNumber());
 		GalleryUtilities::putRequestVariable('editPlugin', 'ItemEditControllerTestPluginSuccess');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -164,7 +169,9 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 			'ItemEditControllerTestPluginFailAndWarn'
 		);
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -203,9 +210,11 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[serialNumber]', $this->_item->getSerialNumber());
 		GalleryUtilities::putRequestVariable('editPlugin', 'ItemEditControllerTestPluginSuccess');
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$gallery->_templateAdapter = new MockTemplateAdapter();
 		$templateAdapter           =& $gallery->getTemplateAdapter();
 		$results                   = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -244,9 +253,11 @@ class ItemEditControllerTest extends GalleryControllerTestCase {
 			'ItemEditControllerTestPluginRequiresProgressBar'
 		);
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$gallery->_templateAdapter = new MockTemplateAdapter();
 		$templateAdapter           =& $gallery->getTemplateAdapter();
 		$results                   = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -376,4 +387,3 @@ class ItemEditControllerTestOptionWithProgressBar extends ItemEditOption {
 		return true;
 	}
 }
-

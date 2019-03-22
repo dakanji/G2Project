@@ -301,6 +301,7 @@ class AkismetApiTest extends GalleryTestCase {
 		);
 
 		$akismet = new AkismetApiTest_AkismetApiWithMockUserAgent();
+
 		$this->assertEquals(
 			array(
 				null,
@@ -378,6 +379,7 @@ class AkismetApiTest extends GalleryTestCase {
 		);
 
 		$akismet = new AkismetApiTest_AkismetApiWithMockUserAgent();
+
 		$this->assertEquals(
 			array(
 				null,

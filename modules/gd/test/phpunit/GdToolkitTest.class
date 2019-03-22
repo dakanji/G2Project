@@ -773,6 +773,7 @@ class GdToolkitTest extends GalleryTestCase {
 			);
 
 			$environment['mimeTypes'][] = 'application/x-shockwave-flash';
+
 			$this->assertEquals(
 				array(
 					'dimensions' => array(

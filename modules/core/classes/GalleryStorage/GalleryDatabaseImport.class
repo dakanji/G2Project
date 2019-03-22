@@ -402,7 +402,6 @@ class GalleryDatabaseImport extends GalleryImportElement {
 
 			// Process the file until complete or errors occur.
 			while (empty($this->_errors)
-
 			&& $data = $platform->fread($handle, $this->_fileReadChunkSize)) {
 				/*
 				 * When the file was exported, the data and fields were encoded to remove any
@@ -521,6 +520,7 @@ class _GalleryPluginTag extends GalleryImportElement {
 
 	public function __construct($parent, $attributes) {
 		parent::__construct($parent);
+
 		$this->_id = $attributes['id'];
 	}
 
@@ -554,6 +554,7 @@ class _GallerySequenceTag extends GalleryImportElement {
 
 	public function __construct($parent, $attributes) {
 		parent::__construct($parent);
+
 		$this->_sequenceName = $attributes['name'];
 		$this->_startValue   = $attributes['start-value'];
 	}
@@ -592,6 +593,7 @@ class _GalleryTableTag extends GalleryImportElement {
 
 	public function __construct($parent, $attributes) {
 		parent::__construct($parent);
+
 		$this->_name = $attributes['name'];
 	}
 
@@ -638,6 +640,7 @@ class _GalleryTableDefinitionTag extends GalleryImportElement {
 
 	public function __construct($parent, $tableName, $attributes) {
 		parent::__construct($parent);
+
 		$this->_name     = $tableName;
 		$this->_moduleId = $attributes['module-id'];
 	}
@@ -729,6 +732,7 @@ class _GalleryCreateSqlTag extends GalleryImportElement {
 
 	public function GalleryTableImport($parent, $attributes) {
 		parent::__construct($parent);
+
 		$this->_currentSql = '';
 	}
 
@@ -753,6 +757,7 @@ class _GalleryTableInfoTag extends GalleryImportElement {
 
 	public function __construct($parent, $attributes) {
 		parent::__construct($parent);
+
 		$this->_tableInfo = '';
 		$this->_tableType = $attributes['type'];
 	}
@@ -839,6 +844,7 @@ class _GalleryFieldDefinitionTag extends GalleryImportElement {
 
 	public function __construct($parent, $attributes) {
 		parent::__construct($parent);
+
 		$colName                        = GalleryUtilities::strToLower($attributes['name']);
 		$this->_translatedName          = $this->_storage->_translateColumnName($colName);
 		$this->_fieldDefinition['type'] = $attributes['type'];
@@ -872,12 +878,11 @@ class _GalleryRowTag extends GalleryImportElement {
 
 	public function __construct($parent, $tableName, $fields, $attributes) {
 		parent::__construct($parent);
+
 		$this->_fields     = $fields;
 		$this->_fieldNames = array_keys($fields);
 		$this->_currentSql = 'INSERT INTO ' . $tableName . ' (' . implode(', ', $this->_fieldNames)
-
 		   . ') VALUES (' . GalleryUtilities::makeMarkers(count($this->_fieldNames)) . ')';
-
 		$this->_rowData    = array();
 		$this->_fieldIndex = 0;
 	}
@@ -936,6 +941,7 @@ class _GalleryFieldValueTag extends GalleryImportElement {
 
 	public function __construct($parent, $memberData, $attributes) {
 		parent::__construct($parent);
+
 		$this->_fieldData   = '';
 		$this->_isFieldNull = !empty($attributes['null']);
 		$this->_memberData  = $memberData;
@@ -982,14 +988,11 @@ class GalleryXmlProcessor {
 	public function __construct($rootElement) {
 		$this->_elementStack[] = $rootElement;
 		$this->_xmlParser      = xml_parser_create('UTF-8');
-
 		xml_parser_set_option($this->_xmlParser, XML_OPTION_CASE_FOLDING, 0);
-
 		xml_set_object($this->_xmlParser, $this);
 
 		// Initialize the XML callback functions
 		xml_set_element_handler($this->_xmlParser, '_processStartElement', '_processEndElement');
-
 		xml_set_character_data_handler($this->_xmlParser, '_processCData');
 	}
 

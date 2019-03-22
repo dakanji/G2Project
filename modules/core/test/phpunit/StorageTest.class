@@ -95,6 +95,7 @@ class StorageTest extends GalleryTestCase {
 
 		// Note: keep this cache key in sync with GalleryStorage::describeMap()
 		GalleryDataCache::put('GalleryStorage::describeMap()', $map);
+
 		$entity = array(
 			'GalleryChildEntity' => array(
 				'parent'  => 'GalleryEntity',
@@ -189,6 +190,7 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
+
 		$this->assertEquals(
 			'SELECT ' . $storage->_tablePrefix . 'Test_table.' . $storage->_columnPrefix
 			. 'Test_column FROM ' . $storage->_tablePrefix . 'Test_table',
@@ -623,6 +625,7 @@ class StorageTest extends GalleryTestCase {
 		}
 
 		$results = GalleryUtilities::strArrToIntArr($this->_results);
+
 		$this->assertEquals(
 			array(
 				array(
@@ -662,6 +665,7 @@ class StorageTest extends GalleryTestCase {
 		}
 
 		$results = GalleryUtilities::strArrToIntArr($this->_results);
+
 		$this->assertEquals(
 			array(
 				array(
@@ -735,6 +739,7 @@ class StorageTest extends GalleryTestCase {
 		}
 
 		$results = GalleryUtilities::strArrToIntArr($this->_results);
+
 		$this->assertEquals(
 			array(
 				array(
@@ -777,6 +782,7 @@ class StorageTest extends GalleryTestCase {
 		}
 
 		$results = GalleryUtilities::strArrToIntArr($this->_results);
+
 		$this->assertEquals(
 			array(
 				array(
@@ -815,6 +821,7 @@ class StorageTest extends GalleryTestCase {
 		}
 
 		$results = GalleryUtilities::strArrToIntArr($this->_results);
+
 		$this->assertEquals(
 			array(
 				array(
@@ -986,6 +993,7 @@ class StorageTest extends GalleryTestCase {
 		) as $type) {
 			$memberData['type'] = $type;
 			$memberData['size'] = $type & STORAGE_TYPE_STRING ? STORAGE_SIZE_MEDIUM : null;
+
 			$this->assertFalse(
 				null === $storage->_normalizeValue('', $memberData),
 				"empty string for $type"
@@ -1039,6 +1047,7 @@ class StorageTest extends GalleryTestCase {
 		) as $type) {
 			$memberData['type'] = $type;
 			$memberData['size'] = $type & STORAGE_TYPE_STRING ? STORAGE_SIZE_MEDIUM : null;
+
 			$this->assertFalse(
 				null === $storage->_normalizeValue('', $memberData),
 				"empty string for $type"
@@ -1075,6 +1084,7 @@ class StorageTest extends GalleryTestCase {
 		) as $type) {
 			$memberData['type'] = $type;
 			$memberData['size'] = $type & STORAGE_TYPE_STRING ? STORAGE_SIZE_MEDIUM : null;
+
 			$this->assertFalse(
 				null === $storage->_normalizeValue('', $memberData),
 				"empty string for $type"
@@ -1118,6 +1128,7 @@ class StorageTest extends GalleryTestCase {
 
 		$storage            =& $gallery->getStorage();
 		$memberData['type'] = STORAGE_TYPE_INTEGER;
+
 		$this->assertEquals(
 			1,
 			$storage->_normalizeValue('1', $memberData, true),
@@ -1144,6 +1155,7 @@ class StorageTest extends GalleryTestCase {
 
 		$value              = str_repeat('x', 135);
 		$memberData['size'] = STORAGE_SIZE_MEDIUM;
+
 		$this->assertEquals(
 			$value,
 			$storage->_normalizeValue($value, $memberData, true),
@@ -1174,6 +1186,7 @@ class StorageTest extends GalleryTestCase {
 
 		$storage            =& $gallery->getStorage();
 		$memberData['type'] = 0x00000080;
+
 		$this->assertEquals(
 			array(1, 'foo'),
 			$storage->_normalizeValue(array(1, 'foo'), $memberData)
@@ -1202,6 +1215,7 @@ class StorageTest extends GalleryTestCase {
 
 		$storage            =& $gallery->getStorage();
 		$memberData['type'] = STORAGE_TYPE_TEXT;
+
 		$this->assertEquals(
 			str_repeat('1', 10),
 			$storage->_normalizeValue((int)str_repeat('1', 10), $memberData)
@@ -1319,6 +1333,7 @@ class StorageTest extends GalleryTestCase {
 		if ($results->resultCount() > 0) {
 			$result = $results->nextResult();
 			$result = $storage->decodeBlob($result[0]);
+
 			$this->assertEquals(
 				$blobData,
 				$result,
@@ -1531,6 +1546,7 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
+
 		GalleryDataCache::reset();
 
 		// Prepare mocked record sets
@@ -1609,7 +1625,9 @@ class StorageTest extends GalleryTestCase {
 		global $gallery;
 
 		$storage =& $gallery->getStorage();
+
 		GalleryDataCache::reset();
+
 		$entityEntry = array(
 			'GalleryEntity' => array(
 				'members' => array(
@@ -1717,6 +1735,7 @@ class StorageTest extends GalleryTestCase {
 		}
 
 		$expectedQuery = ($storage->getType() == 'sqlite' || $storage->getType() == 'db2') ? sprintf('DELETE FROM %sTest2Map', $storage->_tablePrefix) : sprintf('TRUNCATE TABLE %sTest2Map', $storage->_tablePrefix);
+
 		$this->assertEquals(
 			array(array($expectedQuery, array())),
 			$this->_getNonTransactionalResults(),

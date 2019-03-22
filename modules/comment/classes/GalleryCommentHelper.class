@@ -222,6 +222,7 @@ class GalleryCommentHelper {
 		OR
 		[GalleryItemAttributesMap::parentSequence] LIKE ?)
 		AND
+
 		[GalleryAccessSubscriberMap::itemId] = [GalleryItemAttributesMap::itemId]';
 
 		if (null === $publishStatus) {
@@ -236,6 +237,7 @@ class GalleryCommentHelper {
 			$statusMarkers = GalleryUtilities::makeMarkers($publishStatusCount);
 			$queryBase    .= '
 			AND
+
 			[GalleryComment::publishStatus] IN (' . $statusMarkers . ')';
 		}
 
@@ -600,6 +602,7 @@ class GalleryCommentHelper {
 
 					if ($akismetActive) {
 						GalleryCoreApi::requireOnce('modules/comment/classes/AkismetApi.class');
+
 						$akismet = new AkismetApi();
 
 						$ret = $this->checkWithAkismet($comment, $akismet);

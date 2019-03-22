@@ -154,6 +154,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
+
 		$this->assertEquals(
 			'zzz\\z&amp;zz&quot;zz',
 			$data['titles'][$this->_album->getId()],
@@ -169,6 +170,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		// Test album and its subalbums should be last 4 tree items: subalbums 1,2,3
 		$albumNode = count($data['tree']) - 3;
+
 		$this->assertEquals(
 			array(
 				array(
@@ -225,6 +227,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
+
 		$this->assertEquals(
 			'zzz\\z&amp;zz&quot;zz',
 			$data['titles'][$this->_album->getId()],
@@ -324,6 +327,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		}
 
 		$data = $smarty->_tpl_vars['block']['albumselect']['LoadAlbumData']['albumSelect'];
+
 		$this->assertEquals(
 			'zzz\\z&amp;zz&quot;zz',
 			$data['titles'][$this->_album->getId()],
@@ -349,6 +353,7 @@ class AlbumSelectTest extends GalleryTestCase {
 		$this->assertTrue($i < count($tree), 'test album not found');
 
 		$albumNode = $tree[$i]['nodeId'];
+
 		$this->assertEquals(
 			array(
 				array(
@@ -386,6 +391,7 @@ class AlbumSelectTest extends GalleryTestCase {
 
 		$smarty    = new GallerySmarty();
 		$callbacks = new AlbumSelectCallbacks();
+
 		GalleryDataCache::setFileCachingEnabled(true);
 
 		$ret = $this->_registerEventListener('GalleryEntity::save', 'AlbumSelectModule');
@@ -608,7 +614,9 @@ class AlbumSelectTest extends GalleryTestCase {
 		global $gallery;
 
 		$session =& $gallery->getSession();
+
 		GalleryDataCache::setFileCachingEnabled(true);
+
 		$smarty    = new GallerySmarty();
 		$callbacks = new AlbumSelectCallbacks();
 

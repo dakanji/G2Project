@@ -43,6 +43,7 @@ if (!defined('_ADODB_ACCESS')) {
 			global $ADODB_EXTENSION;
 
 			$ADODB_EXTENSION = false;
+
 			parent::__construct();
 		}
 

@@ -31,6 +31,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 
 	public function __construct($methodName) {
 		parent::__construct($methodName);
+
 		$this->_errorCount = 0;
 	}
 
@@ -62,7 +63,6 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 
 		// Grab Project-Id-Version, which we'll check against this file's peers in finishScan()
 		preg_match('/Project-Id-Version:(.*).."/', $buffer, $matches);
-
 		$this->_idMap[dirname($fileName)][basename($fileName)] = trim($matches[1]);
 
 		// First line must be "# <dollar-sign>Id<dollar-sign>
@@ -164,6 +164,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 					$domain          = basename(dirname($poDir));
 					$mismatches      = join(', ', array_merge(array_keys($wrongFormat), array_keys($hash)));
 					$probablyCorrect = empty($probablyCorrect) ? "Gallery: $domain" : $probablyCorrect;
+
 					$this->assertFalse(
 						true,
 						sprintf(

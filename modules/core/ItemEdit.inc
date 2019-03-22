@@ -153,6 +153,7 @@ class ItemEditController extends GalleryController {
 
 			if (empty($error) && $progressBarOptions) {
 				$templateAdapter =& $gallery->getTemplateAdapter();
+
 				$templateAdapter->registerTrailerCallback(
 					array($this, 'runProgressBarOptions'),
 					array($progressBarOptions, $form, $item, $preferred, $status, $editPlugin)

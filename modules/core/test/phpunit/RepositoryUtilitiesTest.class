@@ -318,7 +318,6 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$themeApi  = implode('.', GalleryTheme::getMe()->getApiVersion());
 		$testCases = array(
 			array(
-
 				// Cases with provided APIs from current Gallery install.
 				'requiredCoreApi'   => $coreApi,
 				'requiredPluginApi' => $moduleApi,
@@ -334,7 +333,6 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 				'isCompatible'      => true,
 			),
 			array(
-
 				// Cases with specified provided APIs.
 				'requiredCoreApi'   => '2.0',
 				'requiredPluginApi' => '2.0',
@@ -429,7 +427,6 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		$themeApi  = implode('.', GalleryTheme::getMe()->getApiVersion());
 		$testCases = array(
 			array(
-
 				// Cases with provided APIs from current Gallery install.
 				'pluginType'        => 'module',
 				'providedApis'      => null,
@@ -443,7 +440,6 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 				'expectedPluginApi' => $themeApi,
 			),
 			array(
-
 				// Cases with specified provided APIs.
 				'pluginType'        => 'theme',
 				'providedApis'      => array(
@@ -730,6 +726,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		);
 
 		$searches = $this->_testStorage->getSearches();
+
 		$this->assertEquals(
 			array(
 				'map'    => 'GalleryPluginPackageMap',
@@ -784,6 +781,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		);
 
 		$searches = $this->_testStorage->getSearches();
+
 		$this->assertEquals(
 			array(
 				'map'    => 'GalleryPluginPackageMap',

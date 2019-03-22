@@ -60,6 +60,7 @@ class GdToolkit extends GalleryToolkit {
 	public function &_getGdFunctionality() {
 		if (!isset($this->_gdFunctionality)) {
 			GalleryCoreApi::requireOnce('modules/gd/classes/GdFunctionality.class');
+
 			$gd = new GdFunctionality();
 
 			$this->setGdFunctionality($gd);
@@ -76,7 +77,6 @@ class GdToolkit extends GalleryToolkit {
 	 */
 	public function setGdFunctionality(&$obj) {
 		$this->_gdFunctionality =& $obj;
-
 		unset($this->_hasImageCreateTrueColor);
 	}
 

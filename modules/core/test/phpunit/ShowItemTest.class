@@ -59,6 +59,7 @@ class ShowItemTest extends GalleryTestCase {
 		}
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$this->_template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
 	}
 
@@ -80,6 +81,7 @@ class ShowItemTest extends GalleryTestCase {
 		}
 
 		$match = 'themes/' . $theme->getId() . '/templates';
+
 		$this->assertEquals(
 			substr($result['body'], 0, strlen($match)),
 			$match,
@@ -109,6 +111,7 @@ class ShowItemTest extends GalleryTestCase {
 
 	public function testAlbumSourcePermission() {
 		// Verify viewing album contents requires ?? permission
+
 		/*
 		 * We briefly put code in place to require core.viewSource to view album contents..
 		 * This allows setting permissions such that guests can see an album thumbnail but
@@ -185,6 +188,7 @@ class ShowItemTest extends GalleryTestCase {
 		}
 
 		$match = 'themes/' . $theme->getId() . '/templates';
+
 		$this->assertEquals(
 			substr($result['body'], 0, strlen($match)),
 			$match,

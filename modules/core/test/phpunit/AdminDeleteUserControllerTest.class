@@ -53,7 +53,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		$this->_userIds = array();
 
-		// Save activeUser, we're gonna change it during the tests
+		// Save activeUser as it will be changed during the tests
 		$this->_activeUserBackup = $gallery->getActiveUser();
 	}
 
@@ -94,7 +94,9 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -123,8 +125,11 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('userId', $user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
+
 		$results = $this->handleRequest();
+
 		GalleryDataCache::reset();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -160,8 +165,11 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('userId', $gallery->getActiveUserId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
+
 		$results = $this->handleRequest();
+
 		GalleryDataCache::reset();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -189,8 +197,11 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('userId', $anonymousUserId);
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
+
 		$results = $this->handleRequest();
+
 		GalleryDataCache::reset();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -239,8 +250,11 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[text][newOwner]', $name);
 		GalleryUtilities::putRequestVariable('form[deletionVariant]', 'assignNewOwner');
+
 		$results = $this->handleRequest();
+
 		GalleryDataCache::reset();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -287,8 +301,11 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[text][newOwner]', $user->getuserName());
 		GalleryUtilities::putRequestVariable('form[deletionVariant]', 'assignNewOwner');
+
 		$results = $this->handleRequest();
+
 		GalleryDataCache::reset();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -348,8 +365,11 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[text][newOwner]', $anonymousUser->getuserName());
 		GalleryUtilities::putRequestVariable('form[deletionVariant]', 'assignNewOwner');
+
 		$results = $this->handleRequest();
+
 		GalleryDataCache::reset();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -430,8 +450,11 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('userId', $user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[deletionVariant]', 'deleteItems');
+
 		$results = $this->handleRequest();
+
 		GalleryDataCache::reset();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -506,8 +529,11 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('userId', $user->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[deletionVariant]', 'deleteItems');
+
 		$results = $this->handleRequest();
+
 		GalleryDataCache::reset();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -613,8 +639,11 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
 		GalleryUtilities::putRequestVariable('form[text][newOwner]', $newOwner->getuserName());
 		GalleryUtilities::putRequestVariable('form[deletionVariant]', 'assignNewOwner');
+
 		$results = $this->handleRequest();
+
 		GalleryDataCache::reset();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -725,4 +754,3 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$this->_userIds[] = $user->getId();
 	}
 }
-

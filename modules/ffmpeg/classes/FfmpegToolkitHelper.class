@@ -276,6 +276,7 @@ class FfmpegToolkitHelper {
 		}
 
 		// We only care about video for now
+
 		/** @todo: Add '3g2' => '3g2', '3gp' => '3gp' when recognized as videos */
 		$relevantTypes = array(
 			'mpeg' => 'mpeg',
@@ -354,6 +355,7 @@ class FfmpegToolkitHelper {
 			 */
 			if (preg_match('|Input audio/video file formats: (.*)$|', $resultLine, $regs)) {
 				// We have found 0.4.7 format, read single line
+
 				/** @todo: Support mimeTypesEncoder and encoderAudioCodecs */
 				foreach (explode(' ', $regs[1]) as $type) {
 					if (isset($relevantTypes[$type])) {
@@ -372,6 +374,7 @@ class FfmpegToolkitHelper {
 				$success = true;
 			} elseif (preg_match('/  Decod(?:ing|ers): (.*)$/', $resultLine, $regs)) {
 				// We have found 0.4.6 format, read until Codec: line
+
 				/** @todo: Support mimeTypesEncoder and encoderAudioCodecs */
 				do {
 					foreach (explode(' ', $regs[1]) as $type) {

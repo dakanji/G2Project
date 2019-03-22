@@ -89,6 +89,7 @@ class SvnAuditTest extends CodeAuditTestCase {
 		);
 
 		parent::__construct($methodName);
+
 		$this->_errorCount = 0;
 	}
 

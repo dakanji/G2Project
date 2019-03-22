@@ -221,6 +221,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_unused);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results
@@ -281,6 +282,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($this->_item, $this->_unused);
+
 		$this->assertEquals(
 			array(
 				array(
@@ -309,6 +311,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($this->_item, $this->_unused);
+
 		$this->assertEquals(
 			array(
 				array(
@@ -338,6 +341,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_unused);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results
@@ -369,6 +373,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 
 				$expectedOperations  = ($i < 2) ? ('scale|' . 100 * ($i + 1) . ',' . 100 * ($i + 1)) : 'scale|300,600';
 				$expectedOperations .= ';convert-to-image/jpeg';
+
 				$this->assertEquals(
 					$expectedOperations,
 					$resizeTable[$itemId][$i]->getDerivativeOperations()
@@ -425,6 +430,7 @@ class ItemEditPhotoPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_unused);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results

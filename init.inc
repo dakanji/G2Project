@@ -4,19 +4,17 @@
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
+ * This program is free software; you can redistribute it and/or modify it under the terms of
+ * the GNU General Public License as published by the Free Software Foundation;
+ * either version 2 of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with this program;
+ * if not, write to the Free Software Foundation, Inc., 51 Franklin Street - Fifth Floor,
+ * Boston, MA  02110-1301, USA.
  */
 
 /**
@@ -64,9 +62,11 @@ function GalleryInitFirstPass($params = array()) {
 
 	if (!strncasecmp(PHP_OS, 'win', 3)) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
+
 		$platform = new WinNtPlatform();
 	} else {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/UnixPlatform.class');
+
 		$platform = new UnixPlatform();
 	}
 
@@ -125,17 +125,36 @@ function GalleryInitFirstPass($params = array()) {
 
 	if (!isset($urlGenerator)) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryUrlGenerator.class');
+
 		$urlGenerator = new GalleryUrlGenerator();
 	}
 
 	// Allow for overrides from GalleryEmbed ($param) or from config.php
 	$configBaseUri = @$gallery->getConfig('baseUri');
 
-	$ret = $urlGenerator->init(
-		isset($params['baseUri']) ? $params['baseUri'] : (!empty($configBaseUri) ? $configBaseUri : null),
-		isset($params['g2Uri']) ? $params['g2Uri'] : null,
-		isset($params['embedSessionString']) ? $params['embedSessionString'] : null
-	);
+	if (empty($configBaseUri)) {
+		$configBaseUri = null;
+	}
+
+	if (isset($params['baseUri'])) {
+		$ourBaseUri = $params['baseUri'];
+	} else {
+		$ourBaseUri = $configBaseUri;
+	}
+
+	if (isset($params['g2Uri'])) {
+		$ourG2Uri = $params['g2Uri'];
+	} else {
+		$ourG2Uri = null;
+	}
+
+	if (isset($params['embedSessionString'])) {
+		$ourEmbedSessionString = $params['embedSessionString'];
+	} else {
+		$ourEmbedSessionString = null;
+	}
+
+	$ret = $urlGenerator->init($ourBaseUri, $ourG2Uri, $ourEmbedSessionString);
 
 	if ($ret) {
 		return $ret;
@@ -280,7 +299,6 @@ function GalleryPhpErrorHandler($errorNumber, $errorString, $file, $line, $conte
 		E_USER_ERROR      => 'User Error',
 		E_USER_WARNING    => 'User Warning',
 		E_USER_NOTICE     => 'User Notice',
-
 	// PHP5+: E_STRICT => 'Runtime Notice'
 	// PHP5.2+: E_RECOVERABLE_ERROR => 'Catchable Fatal Error'
 	);

@@ -32,6 +32,7 @@ class TemplateAuditTest extends CodeAuditTestCase {
 		global $gallery;
 
 		parent::__construct($methodName);
+
 		$platform                   =& $gallery->getPlatform();
 		$this->_lineEnding          = $platform->getLineEnding();
 		$this->_revisionPattern     = ' \* \$Revision(:.+)?\$';
@@ -44,9 +45,7 @@ class TemplateAuditTest extends CodeAuditTestCase {
 		$this->_headerPattern       = join("(\r\n|\n)", $lines);
 		$this->_headerLines         = $lines;
 		$this->_expectedHeaderLines = $lines;
-
 		array_splice($this->_expectedHeaderLines, 1, 1, $this->_revisionPlaceHolder);
-
 		$this->_exceptions                  = array();
 		$this->_exceptions['header']        = array();
 		$this->_exception['hiddenFormVars'] = array(
@@ -112,7 +111,6 @@ class TemplateAuditTest extends CodeAuditTestCase {
 
 		// Grab the expected number of lines and compare them
 		$actual = preg_split("/(\r\n|\n)/", $buffer, sizeof($this->_expectedHeaderLines) + 1);
-
 		array_splice($actual, sizeof($this->_expectedHeaderLines), 1);
 
 		// Get rid of the revision line, since we can't compare that

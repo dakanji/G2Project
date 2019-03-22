@@ -107,6 +107,7 @@ class MarkupTest extends GalleryTestCase {
 
 	public function testStripLastLineBreak() {
 		$results = $this->_bbcode->parse("[list][*]one\ntwo\n[*]three[*]four\n[/list]");
+
 		$this->assertEquals(
 			"<ul><li>one<br />\ntwo<br /></li>\n<li>three</li>" .
 			"\n<li>four<br /></li>\n</ul>",
@@ -165,6 +166,7 @@ class MarkupTest extends GalleryTestCase {
 	public function testUrl3() {
 		// Seems kind of silly that we add rel="nofollow" to mailto: urls, but it doesn't hurt
 		$results = $this->_bbcode->parse('[url=mailto:monkey@fruit.com]content[/url]');
+
 		$this->assertEquals(
 			'<a href="mailto:monkey@fruit.com" rel="nofollow">content</a>',
 			$results
@@ -343,4 +345,3 @@ class MarkupTest extends GalleryTestCase {
 		);
 	}
 }
-

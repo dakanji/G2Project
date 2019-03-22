@@ -46,6 +46,7 @@ class CaptchaHelperTest extends GalleryTestCase {
 
 		$gallery->_phpVm = $phpVm;
 		$report          = CaptchaHelper::testRequiredGdFunctions();
+
 		$this->assertEquals(
 			array(
 				'success' => array(
@@ -76,6 +77,7 @@ class CaptchaHelperTest extends GalleryTestCase {
 
 		$gallery->_phpVm = $phpVm;
 		$report          = CaptchaHelper::testRequiredGdFunctions();
+
 		$this->assertEquals(
 			array(
 				'success' => array(
@@ -107,6 +109,7 @@ class CaptchaHelperTest extends GalleryTestCase {
 
 		$gallery->_phpVm = $phpVm;
 		$report          = CaptchaHelper::testRequiredGdFunctions();
+
 		$this->assertEquals(
 			array(
 				'success' => array(),
@@ -133,4 +136,3 @@ class CaptchaHelperTestPhpVm {
 		return $this->_function_exists[$functionName];
 	}
 }
-

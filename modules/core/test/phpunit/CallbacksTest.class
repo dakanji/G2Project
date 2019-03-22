@@ -56,6 +56,7 @@ class CallbacksTest extends GalleryTestCase {
 		$countryList      = array_values($supportedLanguages)[0];
 		$country          = array_keys($countryList)[0];
 		$countryData      = array_values($countryList)[0];
+
 		$this->assertEquals(
 			$countryData['description'],
 			$LanguageSelector['list'][$language . '_' . $country]
@@ -219,6 +220,7 @@ class CallbacksTest extends GalleryTestCase {
 		);
 
 		$data =& $this->_smarty->_tpl_vars['block']['core']['LoadPeers'];
+
 		$this->assertEquals(
 			array('peers', 'peerCount', 'thisPeerIndex', 'parent'),
 			array_keys($data),
@@ -415,4 +417,3 @@ class CallbacksTest extends GalleryTestCase {
 		$this->assertTrue(is_array($this->_smarty->_tpl_vars['block']['core']['ValidationPlugins']));
 	}
 }
-

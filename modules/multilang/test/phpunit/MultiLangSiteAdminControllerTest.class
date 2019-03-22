@@ -48,7 +48,9 @@ class MultiLangSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testMultiLangSiteAdminControllerReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -67,7 +69,9 @@ class MultiLangSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[languages][1]', 'he_IL');
 		GalleryUtilities::putRequestVariable('form[languages][2]', 'zh_CN');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -93,7 +97,9 @@ class MultiLangSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testMultiLangSiteAdminControllerSaveNoLanguages() {
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -117,4 +123,3 @@ class MultiLangSiteAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals('', $languages, 'languages');
 	}
 }
-

@@ -144,8 +144,7 @@ class AdminModerateSpamView extends GalleryView {
 		foreach ($comments as $i => $comment) {
 			// Get the commenter ids
 			$commenters[$comments[$i]->getCommenterId()] = 1;
-
-			$itemIds[$comments[$i]->getParentId()] = 1;
+			$itemIds[$comments[$i]->getParentId()]       = 1;
 
 			// Extract the member data
 			$comments[$i]             = (array)$comments[$i];

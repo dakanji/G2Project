@@ -112,7 +112,9 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 	public function testRunTaskSuccess() {
 		GalleryUtilities::putRequestVariable('form[action][runTask]', 1);
 		GalleryUtilities::putRequestVariable('taskId', 'AdminMaintenanceControllerTestTaskSuccess');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -158,6 +160,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 		$mockUrlGenerator          = new AdminMaintenanceControllerTestUrlGenerator();
 		$gallery->_urlGenerator    =& $mockUrlGenerator;
 		$results                   = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -219,11 +222,13 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 			'AdminMaintenanceControllerTestTaskProgressBar'
 		);
 		GalleryUtilities::putRequestVariable('forceTaskToFail', 1);
+
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$mockUrlGenerator          = new AdminMaintenanceControllerTestUrlGenerator();
 		$gallery->_urlGenerator    =& $mockUrlGenerator;
 		$results                   = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -287,11 +292,13 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 			'AdminMaintenanceControllerTestTaskProgressBar'
 		);
 		GalleryUtilities::putRequestVariable('forceTaskToError', 1);
+
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$mockUrlGenerator          = new AdminMaintenanceControllerTestUrlGenerator();
 		$gallery->_urlGenerator    =& $mockUrlGenerator;
 		$results                   = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -347,7 +354,9 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 	public function testRunTaskFail() {
 		GalleryUtilities::putRequestVariable('form[action][runTask]', 1);
 		GalleryUtilities::putRequestVariable('taskId', 'AdminMaintenanceControllerTestTaskFail');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(

@@ -21,6 +21,7 @@
 		SAP
 	If you do, then execute:
 		ADODB_Session::dataFieldName('session_data');
+
 */
 if (!defined('_ADODB_LAYER')) {
 	include realpath(__DIR__ . '/../adodb.inc.php');
@@ -131,8 +132,10 @@ class ADODB_Session {
 	/////////////////////
 	// getter/setter methods
 	/////////////////////
+
 	/*
 	function Lock($lock=null)
+
 	{
 	static $_lock = false;
 
@@ -581,7 +584,6 @@ class ADODB_Session {
 		$conn = ADODB_Session::_conn();
 
 		if ($conn) $conn->Close();
-
 		*/
 		return true;
 	}
@@ -803,6 +805,7 @@ class ADODB_Session {
 		if ($conn->databaseType == 'access') {
 			$sql = "SELECT sesskey FROM $table WHERE $binary sesskey = $qkey";
 			$rs  = $conn->Execute($sql);
+
 			self::_dumprs($rs);
 
 			if ($rs) {
@@ -838,6 +841,7 @@ class ADODB_Session {
 			$savem = $conn->SetFetchMode(ADODB_FETCH_NUM);
 			$sql   = "SELECT expireref, sesskey FROM $table WHERE $binary sesskey = $qkey";
 			$rs    = $conn->Execute($sql);
+
 			self::_dumprs($rs);
 
 			$conn->SetFetchMode($savem);
@@ -860,6 +864,7 @@ class ADODB_Session {
 
 		$sql = "DELETE FROM $table WHERE $binary sesskey = $qkey";
 		$rs  = $conn->Execute($sql);
+
 		self::_dumprs($rs);
 
 		return $rs ? true : false;
@@ -887,6 +892,7 @@ class ADODB_Session {
 			$savem = $conn->SetFetchMode(ADODB_FETCH_NUM);
 			$sql   = "SELECT expireref, sesskey FROM $table WHERE expiry < $time";
 			$rs    = $conn->Execute($sql);
+
 			self::_dumprs($rs);
 
 			$conn->SetFetchMode($savem);
@@ -921,6 +927,7 @@ class ADODB_Session {
 			} else {
 				$sql = "DELETE FROM $table WHERE expiry < $time";
 				$rs  = $conn->Execute($sql);
+
 				self::_dumprs($rs);
 
 				if ($rs) {

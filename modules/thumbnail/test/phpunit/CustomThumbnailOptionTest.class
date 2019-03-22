@@ -224,6 +224,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		$this->assertEquals(array($this->_item->getId()), array_keys($thumbnails), 'derivative');
 
 		$thumbnail = array_shift($thumbnails);
+
 		$this->assertEquals(
 			$thumbnailImage->getId(),
 			$thumbnail->getDerivativeSourceId(),
@@ -297,6 +298,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		$this->assertEquals(array($this->_item->getId()), array_keys($thumbnails), 'derivative');
 
 		$thumbnail = array_shift($thumbnails);
+
 		$this->assertEquals(
 			$thumbnailImage->getId(),
 			$thumbnail->getDerivativeSourceId(),
@@ -375,6 +377,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		$this->assertEquals(array($this->_image->getId()), array_keys($thumbnails), 'derivative');
 
 		$thumbnail = array_shift($thumbnails);
+
 		$this->assertEquals(
 			$thumbnailImage->getId(),
 			$thumbnail->getDerivativeSourceId(),
@@ -421,6 +424,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 
 		if (!empty($thumbnails)) {
 			$thumbnail = array_shift($thumbnails);
+
 			$this->assertEquals(
 				$this->_image->getId(),
 				$thumbnail->getDerivativeSourceId(),
@@ -475,6 +479,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		$this->assertEquals(array($this->_album->getId()), array_keys($thumbnails), 'highlight');
 
 		$thumbnail = array_shift($thumbnails);
+
 		$this->assertEquals(
 			$thumbnailImage->getId(),
 			$thumbnail->getDerivativeSourceId(),
@@ -515,6 +520,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		);
 
 		$thumbnail = array_shift($thumbnails);
+
 		$this->assertEquals(
 			$this->_derivative->getId(),
 			$thumbnail->getDerivativeSourceId(),
@@ -565,6 +571,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		$this->assertEquals(array($album->getId()), array_keys($thumbnails), 'highlight');
 
 		$thumbnail = array_shift($thumbnails);
+
 		$this->assertEquals(
 			$thumbnailImage->getId(),
 			$thumbnail->getDerivativeSourceId(),
@@ -650,6 +657,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 		$this->assertEquals(array($this->_album->getId()), array_keys($thumbnails), 'highlight');
 
 		$thumbnail = array_shift($thumbnails);
+
 		$this->assertEquals(
 			$thumbnailImage->getId(),
 			$thumbnail->getDerivativeSourceId(),

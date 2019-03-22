@@ -413,6 +413,7 @@ class DownloadItemTest extends GalleryTestCase {
 		$this->_markForCleanup($entity);
 
 		$cacheKey = 'GalleryEntityHelper::loadEntitiesById(' . $entity->getId() . ')';
+
 		GalleryDataCache::put($cacheKey, $entity);
 		GalleryUtilities::putRequestVariable('itemId', $entity->getId());
 

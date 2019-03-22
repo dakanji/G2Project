@@ -64,6 +64,7 @@ class ItemEditAnimationPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_preferred);
+
 		$this->assertEquals(
 			array(
 				array(),
@@ -92,6 +93,7 @@ class ItemEditAnimationPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_preferred);
+
 		$this->assertEquals(
 			array(
 				array(),
@@ -119,6 +121,7 @@ class ItemEditAnimationPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_preferred);
+
 		$this->assertEquals(
 			array(
 				array(
@@ -139,7 +142,7 @@ class ItemEditAnimationPluginTest extends ItemEditPluginTestCase {
 
 		// Use invalid serial number
 		GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
+
 		$results = $this->handleRequest($this->_item, $this->_preferred, ERROR_OBSOLETE_DATA);
 	}
 }
-

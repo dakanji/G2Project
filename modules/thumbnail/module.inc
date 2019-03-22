@@ -246,7 +246,6 @@ class ThumbnailModule extends GalleryModule {
 			if (GalleryUtilities::isA($source, 'ThumbnailImage')) {
 				// Prevent that we try to restore the thumbnail during the deletion.
 				$key = 'ThumbnailImage::delete';
-
 				GalleryDataCache::put($key, $entity->getId());
 
 				$ret = GalleryCoreApi::deleteEntityById(

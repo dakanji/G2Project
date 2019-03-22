@@ -83,6 +83,7 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -113,6 +114,7 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		ksort($params);
+
 		$this->assertEquals(
 			array(
 				'allowAlbumRating' => 1,
@@ -145,6 +147,7 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -175,6 +178,7 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 		}
 
 		ksort($params);
+
 		$this->assertEquals(
 			array(
 				'allowAlbumRating' => 0,
@@ -192,7 +196,9 @@ class RatingSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', 'Reset');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -218,4 +224,3 @@ class RatingTestTheme extends GalleryTheme {
 		$this->setStandardSettings(array());
 	}
 }
-

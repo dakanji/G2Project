@@ -68,6 +68,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveActiveRulesEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$testRules['rewriteparsermock'][0] = 'bogus1';
 
 		list($ret, $code, $errno) = $this->_parser->saveActiveRules(
@@ -103,6 +104,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveBadActiveRulesEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$testRules['rewriteparsermock'][0] = array(
 			'pattern' => 'p/%bogus%',
 		);
@@ -178,6 +180,7 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveAccessListEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$accessList = array('phpunit.test1', 'phpunit.test2');
 		$ourParser  = $this->_parser;
 
@@ -257,7 +260,9 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testSaveAccessListEmbeddedCantWrite() {
 		$this->_platform->_isWriteable = false;
+
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$accessList = array('phpunit.test1', 'phpunit.test2');
 
 		list($ret, $code) = $this->_parser->saveAccessList($accessList, true);
@@ -424,7 +429,9 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testHandleAdminParserRequest1() {
 		$form = array();
+
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$form['embeddedLocation'] = 'test';
 		$form['embeddedHtaccess'] = '/phpunit/test/';
 
@@ -472,7 +479,9 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testHandleAdminParserRequest2() {
 		$form = array();
+
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$form['embeddedLocation'] = '/';
 		$form['embeddedHtaccess'] = '/phpunit/test';
 
@@ -520,7 +529,9 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 
 	public function testHandleAdminParserRequest3() {
 		$form = array();
+
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$this->_platform->_isWriteable = false;
 		$form['embeddedLocation']      = '/test/';
 		$form['embeddedHtaccess']      = '/phpunit/test';
@@ -558,11 +569,13 @@ class ModRewriteParserTest extends RewriteParserTestCase {
 		$this->assertFalse(isset($this->_fileContent), 'file');
 
 		GalleryDataCache::remove('G2_EMBED');
+
 		$this->_platform->_isWriteable = true;
 	}
 
 	public function testHandleAdminParserRequest4() {
 		$form = array();
+
 		GalleryDataCache::put('G2_EMBED', 1, true);
 
 		list($ret, $error, $status) = $this->_parser->handleAdminParserRequest($form);

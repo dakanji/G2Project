@@ -154,11 +154,9 @@ class UserAlbumTest extends GalleryTestCase {
 
 		foreach ($permissions as $perm) {
 			if ($perm == array('groupId' => $this->_allUserGroupId,
-
 				   'permission'          => 'core.viewResizes', )) {
 				$seenViewResizes = true;
 			} elseif ($perm == array('groupId' => $this->_allUserGroupId,
-
 					  'permission'             => 'core.viewSource', )) {
 				$seenViewSource = true;
 			}

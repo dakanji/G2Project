@@ -94,7 +94,7 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 				'split'          => $split,
 			)
 
- as $key => $value) {
+			as $key => $value) {
 				$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum', $key, $value);
 
 				if ($ret) {

@@ -72,7 +72,9 @@ class MimeAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[action][save]', 'Save');
 		GalleryUtilities::putRequestVariable('form[allowMime]', 'all');
 		GalleryUtilities::putRequestVariable('form[upload][test/test]', 'on');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -102,7 +104,9 @@ class MimeAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[allowMime]', 'block');
 		GalleryUtilities::putRequestVariable('form[upload][image/bmp]', 'on');
 		GalleryUtilities::putRequestVariable('form[upload][test/test]', 'on');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -129,7 +133,9 @@ class MimeAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testDelete() {
 		GalleryUtilities::putRequestVariable('form[action][delete]', 'test/test');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -154,4 +160,3 @@ class MimeAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(array(), $extensions, 'Delete results');
 	}
 }
-

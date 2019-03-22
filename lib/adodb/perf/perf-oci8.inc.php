@@ -172,7 +172,6 @@ AND    b.name = 'sorts (memory)'",
 			"select value from v\$parameter where name='sort_area_size'",
 			'max in-mem sort_area_size (per query), uses memory in pga',
 		),
-
 		/*'pga usage at peak' => array('RATIOU',
 		'=PGA','Mb utilization at peak transactions (requires Oracle 9i+)'),*/
 	'Transactions',
@@ -199,7 +198,6 @@ AND    b.name = 'sorts (memory)'",
 			"select value from v\$parameter where name = 'cursor_sharing'",
 			'Cursor reuse strategy. Recommended is FORCE (8i+) or SIMILAR (9i+). See <a href=http://www.praetoriate.com/oracle_tips_cursor_sharing.htm>cursor_sharing</a>.',
 		),
-
 		/*
 		'cursor reuse' => array('CURSOR',
 			"select count(*) from (select sql_text_wo_constants, count(*)
@@ -218,7 +216,6 @@ AND    b.name = 'sorts (memory)'",
 		),
 		'Waits',
 		'Recent wait events'            => array('WAITS', 'select \'Top 5 events\' from dual', '=TopRecentWaits'),
-
 		//      'Historical wait SQL' => array('WAITS','select \'Last 2 days\' from dual','=TopHistoricalWaits'), -- requires AWR license
 				'Backup',
 		'Achivelog Mode'                => array('BACKUP', 'select log_mode from v$database', '=LogMode'),
@@ -233,7 +230,6 @@ FROM v\$parameter v1, v\$parameter v2 WHERE v1.name='log_archive_dest' AND v2.na
 		'Flashback Usage'               => array('BACKUP', "select nvl('-','Flashback Area not used') from v\$parameter where name=lower('DB_RECOVERY_FILE_DEST')", '=FlashUsage', 'Flashback area usage.'),
 		'Control File Keep Time'        => array('BACKUP', "select value from v\$parameter where name='control_file_record_keep_time'", 'No of days to keep RMAN info in control file.  Recommended set to x2 or x3 times the frequency of your full backup.'),
 		'Recent RMAN Jobs'              => array('BACKUP', "select '-' from dual", '=RMAN'),
-
 		//		'Control File Keep Time' => array('BACKUP', "select value from v\$parameter where name='control_file_record_keep_time'",'No of days to keep RMAN info in control file. I recommend it be set to x2 or x3 times the frequency of your full backup.'),
 		'Storage',
 		'Tablespaces'                   => array('TABLESPACE', "select '-' from dual", '=TableSpace'),

@@ -137,6 +137,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 	public function testEditItem() {
 		// Use valid inputs
 		$newPathComponent = $this->_item[0]->getPathComponent() . mt_rand();
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[pathComponent]', $newPathComponent);
 		GalleryUtilities::putRequestVariable('form[title]', ' new title ');
@@ -151,6 +152,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results
@@ -186,6 +188,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 	public function testMaliciousMarkup() {
 		$item = $this->_item[0];
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[pathComponent]', $item->getPathComponent());
 		GalleryUtilities::putRequestVariable(
@@ -210,6 +213,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 			GalleryUtilities::putRequestVariable('form[serialNumber]', $item->getSerialNumber());
 
 			$results = $this->handleRequest($item, $this->_preferred);
+
 			$this->assertEquals(
 				array(array(), $this->_translate('Changes saved successfully')),
 				$results,
@@ -239,11 +243,13 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 	public function testInvalidPathComponent() {
 		$newPathComponent = $this->_item[0]->getPathComponent() . mt_rand();
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[pathComponent]', '#$%W$%W?$%W%/');
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+
 		$this->assertEquals(
 			array(array('form[error][pathComponent][invalid]'), null),
 			$results
@@ -256,6 +262,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we fail
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+
 		$this->assertEquals(
 			array(array('form[error][pathComponent][invalid]'), null),
 			$results
@@ -264,11 +271,13 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 	public function testMissingPathComponent() {
 		$newPathComponent = $this->_item[0]->getPathComponent() . mt_rand();
+
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::removeRequestVariable('form[pathComponent]');
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+
 		$this->assertEquals(
 			array(array('form[error][pathComponent][missing]'), null),
 			$results
@@ -295,6 +304,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify success (the controller works around the collision)
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results
@@ -347,6 +357,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($rootAlbum, $this->_preferred);
+
 		$this->assertEquals(
 			array(array('form[error][title][missingRootTitle]'), null),
 			$results
@@ -414,6 +425,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($rootAlbum, $this->_preferred);
+
 		$this->assertEquals(
 			array(array('form[error][title][missingRootTitle]'), null),
 			$results
@@ -446,6 +458,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album[0], $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results
@@ -499,6 +512,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
 		GalleryUtilities::putRequestVariable('form[description]', 'new description');
 		GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
+
 		$results = $this->handleRequest($this->_item[0], $this->_preferred, ERROR_OBSOLETE_DATA);
 	}
 
@@ -522,6 +536,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
 		GalleryUtilities::putRequestVariable('form[description]', 'new description');
 		GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
+
 		$results = $this->handleRequest($this->_item[0], $this->_preferred, ERROR_OBSOLETE_DATA);
 
 		// Make sure the object is still in the original path
@@ -563,6 +578,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[keywords]', 'new keywords');
 		GalleryUtilities::putRequestVariable('form[description]', 'new description');
 		GalleryUtilities::putRequestVariable('form[serialNumber]', -1);
+
 		$results = $this->handleRequest($this->_album[0], $this->_preferred, ERROR_OBSOLETE_DATA);
 
 		// Make sure the object is still in the original path
@@ -599,6 +615,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we are ok
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results
@@ -614,6 +631,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item[1], $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results
@@ -660,6 +678,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_album[0], $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results
@@ -700,6 +719,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results
@@ -736,6 +756,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item[0], $this->_preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results
@@ -786,6 +807,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest($this->_album[0], $this->_preferred);
+
 		$this->assertEquals(
 			array(array('form[error][thumbnail][create][forAlbum]'), null),
 			$results

@@ -63,9 +63,11 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		global $gallery;
 
 		GalleryUtilities::putRequestVariable('form[action][update]', 1);
+
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$results                   = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -114,6 +116,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		$mockAdapter               = new MockTemplateAdapter();
 		$gallery->_templateAdapter =& $mockAdapter;
 		$results                   = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -143,6 +146,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 
 	public function testUpgradeAllNoUpgradeAvailable() {
 		GalleryUtilities::putRequestVariable('form[action][upgradeAll]', 1);
+
 		$repository = new UnitTestRepository();
 
 		$repository->setReply('getAllUpgradeablePackages', array(), array(null, array()));
@@ -151,6 +155,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 
 		// Test case when no upgradeable packages exist.
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -168,6 +173,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 
 	public function testUpgradeAll() {
 		GalleryUtilities::putRequestVariable('form[action][upgradeAll]', 1);
+
 		$packages = array(
 			'module' => array(
 				'testModule' => array(
@@ -185,6 +191,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 
 		// Test case when some packages are upgradeable.
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(

@@ -116,6 +116,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		);
 
 		$repository = new UnitTestRepository();
+
 		$repository->setReply(
 			'getDownloadFileList',
 			array($expectedPluginData),
@@ -206,6 +207,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		);
 
 		$repository = new UnitTestRepository();
+
 		$repository->setReply(
 			'getDownloadFileList',
 			array($expectedPluginData),
@@ -294,6 +296,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		);
 
 		$repository = new UnitTestRepository();
+
 		$repository->setReply(
 			'getDownloadFileList',
 			array($expectedPluginData),
@@ -383,6 +386,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		);
 
 		$repository = new UnitTestRepository();
+
 		$repository->setReply(
 			'getDownloadFileList',
 			array($expectedPluginData),
@@ -435,6 +439,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 		$session =& $gallery->getSession();
 		$status  = $session->getStatus();
+
 		$this->assertEquals(
 			array(
 				'error' => array(
@@ -478,6 +483,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		);
 
 		$repository = new UnitTestRepository();
+
 		$repository->setReply(
 			'getDownloadFileList',
 			array($expectedPluginData),
@@ -588,6 +594,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		);
 
 		$repository = new UnitTestRepository();
+
 		$repository->setReply(
 			'getDownloadFileList',
 			array($expectedPluginData),
@@ -752,6 +759,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 		$gallery->_templateAdapter = new MockTemplateAdapter();
 		$gallery->_session         = new AdminRepositoryControllerTestSession();
 		$gallery->_storage         = new UnitTestStorage();
+
 		$gallery->_storage->setReply(
 			'removeAllMapEntries',
 			array('GalleryPluginPackageMap', false),
@@ -828,6 +836,7 @@ class AdminRepositoryDownloadAndInstallControllerTest extends GalleryControllerT
 
 		$session                      =& $gallery->getSession();
 		$expectedStatus['scanPlugin'] = array('module2');
+
 		$this->assertEquals(
 			$expectedStatus,
 			$session->getStatus(),

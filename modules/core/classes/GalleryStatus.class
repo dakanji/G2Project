@@ -243,12 +243,10 @@ class GalleryStatus {
 		if (!class_exists('GalleryTestCase')) {
 			$platform    =& $gallery->getPlatform();
 			$basePaths[] = $platform->realpath(__DIR__ . '/../../../') .
-
 			$platform->getDirectorySeparator();
 
 			// The codebase is not necessarily the config dir (multisites)
 			$basePaths[] = $platform->realpath(GALLERY_CONFIG_DIR . '/') .
-
 			$platform->getDirectorySeparator();
 		}
 

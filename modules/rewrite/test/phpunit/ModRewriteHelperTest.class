@@ -199,7 +199,6 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		$this->assertFalse(empty($this->_fileContent), 'success fileContent');
 
 		unset($this->_fileContent);
-
 		$this->_platform->_isReadable = false;
 
 		list($ret, $code) = ModRewriteHelper::writeFile(array());
@@ -235,7 +234,6 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		$this->assertFalse(empty($this->_embeddedFileContent), 'success fileContent');
 
 		unset($this->_embeddedFileContent);
-
 		$this->_platform->_isReadableEmbed = false;
 
 		list($ret, $code) = ModRewriteHelper::writeFile(array(), true);
@@ -266,6 +264,7 @@ class ModRewriteHelperTest extends GalleryTestCase {
 		 * the RewriteRule.
 		 */
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$testRules[0] = array(
 			'pattern'     => 'd/Test-Download-Rule',
 			'keywords'    => array(),

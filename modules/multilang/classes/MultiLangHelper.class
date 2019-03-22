@@ -184,6 +184,7 @@ class MultiLangHelper {
 			global $gallery;
 
 			$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 			$event->setData(
 				array(
 					'userId' => null,

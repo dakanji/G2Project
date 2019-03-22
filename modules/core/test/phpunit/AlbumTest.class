@@ -679,6 +679,7 @@ class AlbumTest extends GalleryTestCase {
 		// The album's derivative is sourced to the child
 		if (!empty($thumbTable)) {
 			$thumb = $thumbTable[$this->_parentAlbum->getId()];
+
 			$this->assertEquals(
 				$child->getId(),
 				$thumb->getDerivativeSourceId(),
@@ -799,6 +800,7 @@ class AlbumTest extends GalleryTestCase {
 
 			if ($i > 0) {
 				$expectedPathComponent = sprintf('valid_path_%03d', $i);
+
 				$this->assertEquals(
 					$expectedPathComponent,
 					$entity[$i]->getPathComponent(),

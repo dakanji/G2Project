@@ -578,6 +578,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
 			$context['next.toolkit']   = null;
 			$context['next.operation'] = null;
+
 			$this->assertEquals(
 				array(
 					'next.toolkit'          => null,
@@ -1662,8 +1663,7 @@ class ImageMagickToolkitTestPlatform {
 	}
 
 	public function tempnam($dir, $prefix) {
-		$fileName = $dir . $prefix . md5(mt_rand());
-
+		$fileName                          = $dir . $prefix . md5(mt_rand());
 		$this->_files[basename($fileName)] = 'temp';
 
 		// echo $this->_environment['path'] . ": tempnam($dir, $prefix) = $fileName<br>\n";

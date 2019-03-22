@@ -216,6 +216,7 @@ class KeyAlbumModule extends GalleryModule {
 	 */
 	public function splitKeywords($keywords, $split) {
 		$result = array();
+
 		GalleryUtilities::unsanitizeInputValues($keywords, false);
 
 		foreach (preg_split('/[' . $split . ']+/u', $keywords) as $keyword) {
@@ -223,6 +224,7 @@ class KeyAlbumModule extends GalleryModule {
 
 			if (!empty($keyword)) {
 				GalleryUtilities::sanitizeInputValues($keyword, false);
+
 				$result[$rawKeyword] = $keyword;
 			}
 		}

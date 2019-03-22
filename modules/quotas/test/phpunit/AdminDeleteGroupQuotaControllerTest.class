@@ -54,6 +54,7 @@ class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -75,7 +76,9 @@ class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -103,6 +106,7 @@ class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
 
 	public function testDeleteGroupQuotaGroupIdMissing() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
 
@@ -112,7 +116,9 @@ class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
 	public function testDeleteNonExistantGroupQuota() {
 		GalleryUtilities::putRequestVariable('groupId', $this->_group->getId());
 		GalleryUtilities::putRequestVariable('form[action][delete]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -153,4 +159,3 @@ class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
 		}
 	}
 }
-

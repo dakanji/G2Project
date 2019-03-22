@@ -91,7 +91,6 @@ class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$this->_expectedUrl[7] = 'v' . $this->_testItemPath . '.html';
 		$this->_expectedUrl[8] = 'index.php?page=photos&amp;g2_itemId=-5759';
 		$this->_expectedUrl[9] = 'index.php?page=photos&amp;g2_itemId=' .
-
 		$this->_derivative->getId();
 
 		$this->_expectedUrl[10] = ltrim($this->_testAlbumPath, '/') . 'test.html';
@@ -101,6 +100,7 @@ class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$this->_expectedUrl[14] = 'phpunit/';
 		$this->_expectedUrl[15] = $this->_signUrl('phpunit2/');
 		$this->_expectedUrl[16] = 'phpunit/' . urlencode($this->_urlEncodePath);
+
 		parent::testGenerateUrlOverrideBaseUri();
 	}
 
@@ -186,4 +186,3 @@ class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 		$this->assertFalse($this->_urlGenerator->_error, 'init error when embedded');
 	}
 }
-

@@ -214,9 +214,7 @@ class ADODB_Active_Record {
 
 		if (isset($options['new']) && true === $options['new']) {
 			$table =& $this->TableInfo();
-
 			unset($table->_hasMany, $table->_belongsTo);
-
 			$table->_hasMany   = array();
 			$table->_belongsTo = array();
 		}
@@ -338,7 +336,6 @@ class ADODB_Active_Record {
 
 				// Fall Through
 			default:
-				// ?
 				return substr($table, 0, $len - 1);
 		}
 	}
@@ -1037,7 +1034,6 @@ class ADODB_Active_Record {
 								$this->$foreignName = array(clone $foreignObj);
 							} else {
 								$foreignObj = $obj->$foreignName;
-
 								array_push($this->$foreignName, clone $foreignObj);
 							}
 						}
@@ -1054,7 +1050,6 @@ class ADODB_Active_Record {
 								$this->$foreignName = array(clone $foreignObj);
 							} else {
 								$foreignObj = $obj->$foreignName;
-
 								array_push($this->$foreignName, clone $foreignObj);
 							}
 						}
@@ -1600,7 +1595,6 @@ function adodb_GetActiveRecordsClass(
 							} else {
 								// Pluck pluck!
 								$foreignObj = $obj->$foreignName;
-
 								array_push($masterObj->$foreignName, clone $foreignObj);
 							}
 						}
@@ -1622,7 +1616,6 @@ function adodb_GetActiveRecordsClass(
 							} else {
 								// Pluck pluck!
 								$foreignObj = $obj->$foreignName;
-
 								array_push($masterObj->$foreignName, clone $foreignObj);
 							}
 						}

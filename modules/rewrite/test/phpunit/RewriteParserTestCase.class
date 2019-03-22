@@ -58,6 +58,7 @@ class RewriteParserTestCase extends GalleryTestCase {
 		}
 
 		$this->_parser = new $rewriteParserName();
+
 		GalleryUtilities::putRequestVariable('rewriteTest', 'pass');
 
 		// Set up our mock platform
@@ -418,6 +419,7 @@ class RewriteParserTestCase extends GalleryTestCase {
 
 	public function testSaveActiveRulesEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$testRules['rewriteparsermock'][0] = array('pattern' => 'bogus1');
 
 		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser, $testRules);
@@ -451,6 +453,7 @@ class RewriteParserTestCase extends GalleryTestCase {
 
 	public function testSaveBadActiveRulesEmbedded() {
 		GalleryDataCache::put('G2_EMBED', 1, true);
+
 		$testRules['rewriteparsermock'][0] = array('pattern' => 'p/%bogus%');
 
 		list($ret, $code, $errno) = $this->_parser->saveActiveRules($this->_parser, $testRules);

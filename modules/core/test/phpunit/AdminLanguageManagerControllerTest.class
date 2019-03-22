@@ -158,6 +158,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -201,6 +202,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		);
 
 		$storage =& $gallery->getStorage();
+
 		$storage->setReply(
 			'updateMapEntry',
 			array(
@@ -220,6 +222,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -436,6 +439,7 @@ class AdminLanguageManagerControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(

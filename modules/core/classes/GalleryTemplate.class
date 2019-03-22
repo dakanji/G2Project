@@ -379,6 +379,7 @@ class GalleryTemplate {
 		global $gallery;
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GallerySmarty.class');
+
 		$smarty = new GallerySmarty();
 
 		// Compiled templates go here
@@ -397,6 +398,7 @@ class GalleryTemplate {
 		$smarty->use_sub_dirs  = false;
 		$smarty->compile_check = GalleryTemplate::shouldDoCompileCheck();
 		$templateAdapter       =& $gallery->getTemplateAdapter();
+
 		$smarty->register_object(
 			'g',
 			$templateAdapter,
@@ -457,6 +459,7 @@ class GalleryTemplate {
 			}
 
 			$compileCheck = (bool)$compileCheck;
+
 			GalleryDataCache::put($cacheKey, $compileCheck);
 		} else {
 			$compileCheck = GalleryDataCache::get($cacheKey);

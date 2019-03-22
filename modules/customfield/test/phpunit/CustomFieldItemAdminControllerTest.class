@@ -120,6 +120,7 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'return' => 1,
@@ -155,7 +156,9 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 		// Change admin mode..
 		GalleryUtilities::removeFormVariables('form');
 		GalleryUtilities::putRequestVariable('cfAdmin', '-1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'return' => 1,
@@ -172,7 +175,9 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::removeFormVariables('form');
 		GalleryUtilities::putRequestVariable('cfAdmin', '1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'return' => 1,
@@ -204,7 +209,9 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 		// Revert to global settings..
 		GalleryUtilities::removeFormVariables('form');
 		GalleryUtilities::putRequestVariable('cfAdmin', '-2');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'return' => 1,
@@ -233,4 +240,3 @@ class CustomFieldItemAdminControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(false, $isContainer[$this->_item->getId()], 'Global settings');
 	}
 }
-

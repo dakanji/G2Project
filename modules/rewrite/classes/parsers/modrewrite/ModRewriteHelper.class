@@ -337,6 +337,7 @@ class ModRewriteHelper {
 
 		// Substitute with what the Gallery URL generator would generate
 		$galleryUrlGenerator = new GalleryUrlGenerator();
+
 		$galleryUrlGenerator->init(
 			$Htaccess['directory'] . $Htaccess['baseFile'],
 			$Htaccess['galleryDirectory'] . GALLERY_MAIN_PHP
@@ -398,6 +399,7 @@ class ModRewriteHelper {
 
 		// Render template
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$template = new GalleryTemplate(__DIR__ . '/../../../templates', true, false);
 
 		$template->setVariable('Htaccess', $Htaccess);

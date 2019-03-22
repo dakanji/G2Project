@@ -330,7 +330,9 @@ class GalleryUtilities {
 		// Simulate the damage caused by magic_quotes
 		GalleryUtilities::unsanitizeInputValues($key);
 		GalleryUtilities::unsanitizeInputValues($value);
+
 		$keyPath = preg_split('/[\[\]]/', $key, -1, PREG_SPLIT_NO_EMPTY);
+
 		GalleryUtilities::_internalPutRequestVariable($keyPath, $value, $_GET);
 	}
 
@@ -380,6 +382,7 @@ class GalleryUtilities {
 		}
 
 		$keyPath = preg_split('/[\[\]]/', $key, -1, PREG_SPLIT_NO_EMPTY);
+
 		GalleryUtilities::_internalRemoveRequestVariable($keyPath, $_GET);
 		GalleryUtilities::_internalRemoveRequestVariable($keyPath, $_POST);
 	}
@@ -756,6 +759,7 @@ class GalleryUtilities {
 		if (is_array($value)) {
 			foreach (array_keys($value) as $key) {
 				$newKey = $key;
+
 				GalleryUtilities::sanitizeInputValues($newKey);
 
 				if ($key != $newKey) {
@@ -1554,6 +1558,7 @@ class GalleryUtilities {
 		}
 
 		$value = $_SERVER[$key];
+
 		GalleryUtilities::sanitizeInputValues($value);
 
 		return $value;
@@ -1571,7 +1576,9 @@ class GalleryUtilities {
 
 		// Fix PHP HTTP_COOKIE header bug http://bugs.php.net/bug.php?id=32802
 		GalleryUtilities::fixCookieVars();
+
 		$value = $_COOKIE[$key];
+
 		GalleryUtilities::sanitizeInputValues($value);
 
 		return $value;
@@ -1645,6 +1652,7 @@ class GalleryUtilities {
 
 					while ($tok) {
 						GalleryUtilities::_registerCookieAttr($tok, $fixedCookies);
+
 						$tok = strtok(',;');
 					}
 				} else {

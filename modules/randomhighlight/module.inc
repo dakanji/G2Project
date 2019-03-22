@@ -385,6 +385,7 @@ class RandomHighlightModule extends GalleryModule {
 	      AND
 		([GalleryDerivative::isBroken] = 0 OR [GalleryDerivative::isBroken] IS NULL)
 	      AND
+
 		[GalleryChildEntity::parentId] IN (';
 
 			for ($n = 5; !empty($itemIds); $n += 10) {
@@ -446,6 +447,7 @@ class RandomHighlightModule extends GalleryModule {
 			}
 
 			$onLoadHandlers = $thumbnail->getOnLoadHandlers();
+
 			$thumbnail->setOnLoadHandlers(
 				preg_replace(
 					'{\|RandomHighlight(Private)?\|}',

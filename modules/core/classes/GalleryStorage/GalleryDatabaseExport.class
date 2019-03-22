@@ -519,6 +519,7 @@ class GalleryDatabaseExport {
 
 		$query = 'SELECT [::createSql], [::pluginId], [::type], [::info]
 		    FROM [GallerySchema]
+
 		   WHERE [::name] = ?';
 
 		list($ret, $results) = $storage->search($query, array($nameInSchema));
@@ -578,10 +579,8 @@ class GalleryDatabaseExport {
 		}
 
 		if (!empty($tableType) && !empty($tableInfo)) {
-			$line = '        <table-info type="' . $tableType . '">' . '<![CDATA['
-
+			$line    = '        <table-info type="' . $tableType . '">' . '<![CDATA['
 			. $this->_encodeHtmlSpecialChars($tableInfo) . ']]>' . '</table-info>' . "\n";
-
 			$written = $platform->fwrite($handle, $line);
 
 			if (!$written) {
@@ -861,7 +860,6 @@ class GalleryDatabaseExport {
 
 		$this->_callBack['progress']++;
 		$complete = $this->_callBack['progress'] / $this->_callBack['total'];
-
 		call_user_func_array($this->_callBack['callback'], array($complete));
 
 		$gallery->guaranteeTimeLimit(60);

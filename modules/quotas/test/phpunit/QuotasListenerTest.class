@@ -148,6 +148,7 @@ class QuotasListenerTest extends GalleryTestCase {
 	public function testDeleteEntityQuotasListener() {
 		// Enable event listener (normally disabled for unit tests)
 		$QuotasModule = new QuotasModule();
+
 		$this->_registerTestEventListener(
 			'GalleryEntity::delete',
 			$QuotasModule
@@ -184,6 +185,7 @@ class QuotasListenerTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($quotaExists == true, 'Quota should exist for this user');
+
 		$this->assertEquals(
 			array(
 				'id'    => $this->_user->getId(),
@@ -237,6 +239,7 @@ class QuotasListenerTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($quotaExists == true, 'Quota should exist for this group');
+
 		$this->assertEquals(
 			array(
 				'id'    => $this->_group->getId(),

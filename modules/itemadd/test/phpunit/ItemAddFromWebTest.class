@@ -225,6 +225,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		);
 		GalleryUtilities::putRequestVariable('form[set][title]', 1);
 		GalleryUtilities::putRequestVariable('form[set][summary]', 1);
+
 		$basenames = array('test1', 'test2', 'test3', 'test4', 'apo\'strophe');
 
 		// Perform the request and verify that we succeeded
@@ -308,6 +309,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[set][title]', 1);
 		GalleryUtilities::putRequestVariable('form[set][summary]', 1);
 		GalleryUtilities::putRequestVariable('form[set][description]', 1);
+
 		$basenames = array('test1', 'test2', 'test3', 'test4', 'apo\'strophe');
 
 		// Perform the request and verify that we succeeded
@@ -1239,7 +1241,6 @@ class ItemAddFromWebTestPlatform {
 		 */
 		if ($length >= strlen(join("\n", $this->_readBuffer[$handle]))) {
 			$tmp = join("\n", $this->_readBuffer[$handle]);
-
 			unset($this->_readBuffer[$handle]);
 
 			return $tmp;

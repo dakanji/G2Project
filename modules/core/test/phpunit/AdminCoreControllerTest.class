@@ -96,6 +96,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -141,6 +142,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -187,6 +189,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -224,6 +227,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -265,7 +269,6 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			'language.useBrowserPref' => 'IGNORED',
 			'session.lifetime'        => 'IGNORED',
 			'misc.markup'             => 'IGNORED',
-
 			// Set the cookie path in this test, the domain has to be a valid value
 			'cookie.domain'           => '.example.com',
 			'lock.system'             => 'IGNORED',
@@ -338,6 +341,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			);
 
 			$kind = $testCase['saved'] ? 'redirect' : 'delegate';
+
 			$this->assertEquals(
 				array(
 					$kind    => array(
@@ -365,6 +369,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			}
 
 			$expPath = $testCase['saved'] ? $testCase['ep'] : '/bad/';
+
 			$this->assertEquals(
 				$expPath,
 				$realValue,
@@ -391,7 +396,6 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			'language.useBrowserPref' => 'IGNORED',
 			'session.lifetime'        => 'IGNORED',
 			'misc.markup'             => 'IGNORED',
-
 			// Set the cookie domain in this test, set the path to a valid value
 			'cookie.path'             => '/sub/',
 			'lock.system'             => 'IGNORED',
@@ -464,6 +468,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			);
 
 			$kind = $testCase['saved'] ? 'redirect' : 'delegate';
+
 			$this->assertEquals(
 				array(
 					$kind    => array(
@@ -492,6 +497,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			}
 
 			$expPath = $testCase['saved'] ? $testCase['ep'] : 'bad';
+
 			$this->assertEquals(
 				$expPath,
 				$realValue,
@@ -504,7 +510,9 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[smtp][server]', 'smtp.example.com');
 		GalleryUtilities::putRequestVariable('form[smtp][from]', 'bad address@fun.com');
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -521,7 +529,9 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	public function testEmailTestMissingEmail() {
 		GalleryUtilities::putRequestVariable('form[emailTest][to]', '');
 		GalleryUtilities::putRequestVariable('form[action][emailTest]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -538,7 +548,9 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	public function testEmailTestInvalidEmail() {
 		GalleryUtilities::putRequestVariable('form[emailTest][to]', 'abc');
 		GalleryUtilities::putRequestVariable('form[action][emailTest]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -569,7 +581,9 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[emailTest][to]', 'nobody@nowhere.com');
 		GalleryUtilities::putRequestVariable('form[action][emailTest]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -610,7 +624,9 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('form[emailTest][to]', 'nobody@nowhere.com');
 		GalleryUtilities::putRequestVariable('form[action][emailTest]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'view'    => 'core.SiteAdmin',
@@ -655,7 +671,9 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[smtp][server]', 'smtp.example.com');
 		GalleryUtilities::putRequestVariable('form[default][language]', 'en');
 		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(

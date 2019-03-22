@@ -56,7 +56,6 @@ class TranslatorTest extends GalleryTestCase {
 
 		// Disable browser check, set default lang != hardcoded lang, set dir perms
 		foreach (array('default.language' => 'fr_FR', 'language.useBrowserPref' => '0',
-
 			   'permissions.directory'    => '755', ) as $param => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'core', $param, $value);
 
@@ -155,6 +154,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		// Invalid,valid accept language
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'xx,no';
+
 		$this->assertEquals(
 			'no_NO',
 			$translator->getLanguageCodeFromRequest(),
@@ -620,6 +620,7 @@ class TranslatorTest extends GalleryTestCase {
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale/');
 
 		$base = GalleryCoreApi::getCodeBasePath();
+
 		$platform->setReply(
 			'glob',
 			array('/g2data/locale/*/LC_MESSAGES/modules_TranslatorTest.mo', null),
@@ -649,6 +650,7 @@ class TranslatorTest extends GalleryTestCase {
 		$gallery->setConfig('data.gallery.locale', '/g2data/locale/');
 
 		$codeBase = GalleryCoreApi::getCodeBasePath();
+
 		$platform->setReply(
 			'glob',
 			array("${codeBase}modules/*/po", null),
@@ -733,6 +735,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		if ($locale != 'en_US') {
 			$language = substr($locale, 0, 2);
+
 			$platform->setReply(
 				'glob',
 				array("${codeBase}modules/*/po", null),
@@ -782,6 +785,7 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$translator =& $gallery->getTranslator();
+
 		$this->assertEquals(
 			array(null, 'en'),
 			$translator->getLanguageCodeFromLocale('en_US'),
@@ -798,6 +802,7 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$translator =& $gallery->getTranslator();
+
 		$this->assertEquals(
 			array(null, 'zh_CN'),
 			$translator->getLanguageCodeFromLocale('zh_CN'),
@@ -814,6 +819,7 @@ class TranslatorTest extends GalleryTestCase {
 		global $gallery;
 
 		$translator =& $gallery->getTranslator();
+
 		$this->assertEquals(
 			array(null, 'en', 'US'),
 			$translator->getLanguageAndCountryFromLanguageCode('en'),

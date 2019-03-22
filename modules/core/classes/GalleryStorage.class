@@ -780,7 +780,6 @@ class GalleryStorage {
 			if (array_key_exists($memberName, $change)) {
 				if (GalleryUtilities::isA($change[$memberName], 'GallerySqlFragment')) {
 					$set[] = $this->_translateColumnName($memberName) . ' ' .
-
 					$this->_translateQuery($change[$memberName]->getFragment());
 
 					foreach ($change[$memberName]->getValues() as $value) {
@@ -830,7 +829,6 @@ class GalleryStorage {
 	public function _getWhereSql($memberName, $memberData, $matchValue, &$where, &$wheredata) {
 		if (GalleryUtilities::isA($matchValue, 'GallerySqlFragment')) {
 			$where[] = $this->_translateColumnName($memberName) . ' ' .
-
 			$this->_translateQuery($matchValue->getFragment());
 
 			foreach ($matchValue->getValues() as $value) {
@@ -1435,8 +1433,10 @@ class GalleryStorage {
 		if (!$tryAllModules && !$isInstallOrUpgrade) {
 			$query = 'SELECT [Schema::info] FROM [GalleryPluginMap], [Schema]
 		       WHERE [GalleryPluginMap::pluginId] = [Schema::pluginId]
+
 			 AND [Schema::type] = ? AND [GalleryPluginMap::active] = ?';
-			$data  = array($type, 1);
+
+			$data = array($type, 1);
 		} else {
 			$query = 'SELECT [Schema::info] FROM [Schema] WHERE [Schema::type] = ?';
 
@@ -1535,7 +1535,6 @@ class GalleryStorage {
 	 */
 	public function _normalizeValue($value, $memberData, $fromDb = false) {
 		$notNull = !empty($memberData['notNull']) ||
-
 		(!empty($memberData['notNullEmptyAllowed']) && $this->_isEmptyAllowedForNotNullColumn);
 
 		if (null === $value && !$notNull) {

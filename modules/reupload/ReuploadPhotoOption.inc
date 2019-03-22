@@ -144,6 +144,7 @@ class ReuploadPhotoOption extends ItemEditOption {
 				$platform->unlink($tmpfname);
 
 				GalleryCoreApi::releaseLocks($lockIds);
+
 				$error[] = 'form[error][reupload][toolkit]';
 
 				return array(null, $error, $status);

@@ -38,6 +38,7 @@ if (php_sapi_name() == 'cli') {
 
 	for ($i = 1; $i < count($argv); $i++) {
 		$arg = explode('=', $argv[$i]);
+
 		GalleryUtilities::putRequestVariable($arg[0], $arg[1], false);
 	}
 }

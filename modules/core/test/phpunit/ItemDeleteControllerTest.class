@@ -73,6 +73,7 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -130,6 +131,7 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
 		$results = GalleryUtilities::strArrToIntArr($results);
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -177,6 +179,7 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -225,6 +228,7 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(

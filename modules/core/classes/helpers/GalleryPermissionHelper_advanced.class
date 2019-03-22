@@ -51,6 +51,7 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId'          => $userId,
@@ -139,6 +140,7 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId'          => $userId,
@@ -208,6 +210,7 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId'          => $userId,
@@ -578,8 +581,11 @@ class GalleryPermissionHelper_advanced {
 
 				// Clear the in-memory permission cache for this item (all groups, users).
 				$cacheKey = 'GalleryPermissionHelper::getPermissions\(' . $targetItemId . ',\d+,\d\)';
+
 				GalleryDataCache::removeByPattern($cacheKey);
+
 				$cacheKey = 'GalleryPermissionHelper::fetchAccessListIds\(.*\)';
+
 				GalleryDataCache::removeByPattern($cacheKey);
 			}
 		}
@@ -657,6 +663,7 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId' => null,
@@ -687,6 +694,7 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::RemovePermission');
+
 		$event->setData(
 			array(
 				'userId'         => 0,
@@ -1279,6 +1287,7 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		$permissions[$data['permission']] = $data;
+
 		GalleryDataCache::put($cacheKey, $permissions);
 
 		$ret = GalleryCoreApi::addMapEntry(

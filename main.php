@@ -4,8 +4,8 @@
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2008 Bharat Mediratta
  *
- * This program is free software; you can redistribute it and/or modify it under the terms
- * of the GNU General Public License as published by the Free Software Foundation;
+ * This program is free software; you can redistribute it and/or modify it under the terms of
+ * the GNU General Public License as published by the Free Software Foundation;
  * either version 2 of the License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
@@ -387,6 +387,7 @@ function _GalleryMain($embedded = false, $template = null) {
 	// Load and run the appropriate view
 	if (empty($viewName)) {
 		$viewName = GALLERY_DEFAULT_VIEW;
+
 		GalleryUtilities::putRequestVariable('view', $viewName);
 	}
 
@@ -555,6 +556,7 @@ function _GalleryMain($embedded = false, $template = null) {
 		} else {
 			if (!isset($template)) {
 				GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 				$template = new GalleryTemplate(__DIR__);
 			}
 
@@ -820,7 +822,6 @@ function _GalleryMain_doRedirect(
 				 */
 				$session            =& $gallery->getSession();
 				$sessionParamString = GalleryUtilities::prefixFormVariable(urlencode($session->getKey())) . '='
-
 				. urlencode($session->getId());
 
 				if ($session->isPersistent() && !strstr($redirectUrl, $sessionParamString)) {
@@ -860,6 +861,7 @@ function _GalleryMain_errorHandler($error, $g2Data = null) {
 	global $gallery;
 
 	GalleryCoreApi::requireOnce('modules/core/ErrorPage.inc');
+
 	$handledError = ErrorPageView::getMe()->errorHandler($error, $g2Data);
 
 	if (!$handledError) {

@@ -24,6 +24,7 @@
 // +----------------------------------------------------------------------+
 // PEAR  Id: HTMLSax3.php,v 1.2 2007/10/29 21:41:34 hfuecks
 //   G2 $Id: HTMLSax3.php 20957 2009-12-16 04:57:07Z mindless $
+
 /**
  * Main parser components
  * @package XML_HTMLSax3
@@ -39,6 +40,7 @@
 //}
 //require_once(XML_HTMLSAX3 . 'HTMLSax3/States.php');
 //require_once(XML_HTMLSAX3 . 'HTMLSax3/Decorators.php');
+
 /**
  * Base State Parser
  * @package XML_HTMLSax3
@@ -369,6 +371,7 @@ class XML_HTMLSax3_StateParser_Gtet430 extends XML_HTMLSax3_StateParser {
 	 */
 	public function __construct(& $htmlsax) {
 		parent::__construct($htmlsax);
+
 		$this->parser_options['XML_OPTION_TRIM_DATA_NODES']   = 0;
 		$this->parser_options['XML_OPTION_CASE_FOLDING']      = 0;
 		$this->parser_options['XML_OPTION_LINEFEED_BREAK']    = 0;
@@ -696,6 +699,7 @@ class XML_HTMLSax3 {
 // | Authors: Many @ Sitepointforums Advanced PHP Forums                  |
 // +----------------------------------------------------------------------+
 // PEAR  Id: States.php,v 1.3 2007/10/29 21:41:35 hfuecks
+
 /**
  * Parsing states.
  * @package XML_HTMLSax3
@@ -898,6 +902,7 @@ class XML_HTMLSax3_OpeningTagState {
 				}
 
 				$context->handler_object_element
+
 					->{$context->handler_method_opening}(
 						$context->htmlsax,
 						$tag,
@@ -905,6 +910,7 @@ class XML_HTMLSax3_OpeningTagState {
 						true
 					);
 				$context->handler_object_element
+
 					->{$context->handler_method_closing}(
 						$context->htmlsax,
 						$tag,
@@ -912,6 +918,7 @@ class XML_HTMLSax3_OpeningTagState {
 					);
 			} else {
 				$context->handler_object_element
+
 					->{$context->handler_method_opening}(
 						$context->htmlsax,
 						$tag,
@@ -1052,6 +1059,7 @@ class XML_HTMLSax3_PiState {
 // | Authors: Many @ Sitepointforums Advanced PHP Forums                  |
 // +----------------------------------------------------------------------+
 // PEAR  Id: Decorators.php,v 1.2 2007/10/29 21:41:35 hfuecks
+
 /**
  * Decorators for dealing with parser options
  * @package XML_HTMLSax3

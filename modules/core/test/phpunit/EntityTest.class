@@ -128,6 +128,7 @@ class EntityTest extends GalleryTestCase {
 		if (GalleryDataCache::isFileCachingEnabled()) {
 			// Load back from disk cache and verify it
 			GalleryDataCache::reset();
+
 			$data =& GalleryDataCache::getFromDisk(
 				array(
 					'type'   => 'entity',
@@ -230,6 +231,7 @@ class EntityTest extends GalleryTestCase {
 
 		// During upgrades the session has 'isUpgrade' key
 		GalleryDataCache::reset();
+
 		unset($newEntity);
 
 		$session->put('isUpgrade', true);
@@ -316,6 +318,7 @@ class EntityTest extends GalleryTestCase {
 	public function testEmptyVsNull() {
 		// Ensure we can save and reset empty string without triggering modified flag
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
+
 		$entity = new GalleryEntity();
 
 		$ret = $entity->create();
@@ -347,8 +350,10 @@ class EntityTest extends GalleryTestCase {
 
 	public function testSaveWithoutEvent() {
 		$listener = new EntityTestEventListener($this);
+
 		GalleryCoreApi::registerEventListener('GalleryEntity::save', $listener);
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
+
 		$entity = new GalleryEntity();
 
 		$ret = $entity->create();

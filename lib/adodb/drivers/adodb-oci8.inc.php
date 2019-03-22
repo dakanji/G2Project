@@ -1373,6 +1373,7 @@ END;
 		if ($this->debug) {
 			$prefix = ($isOutput) ? 'Out' : 'In';
 			$ztype  = (empty($type)) ? 'false' : $type;
+
 			ADOConnection::outp("{$prefix}Parameter(\$stmt, \$php_var='$var', \$name='$name', \$maxLen=$maxLen, \$type=$ztype);");
 		}
 
@@ -1595,7 +1596,6 @@ END;
 		}
 
 		oci_close($this->_connectionID);
-
 		$this->_stmt         = false;
 		$this->_connectionID = false;
 	}
@@ -1940,8 +1940,7 @@ class ADORecordset_oci8 extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
-
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}
@@ -1973,12 +1972,10 @@ class ADORecordset_oci8 extends ADORecordSet {
 
 		if (!empty($this->_refcursor)) {
 			oci_free_cursor($this->_refcursor);
-
 			$this->_refcursor = false;
 		}
 
 		@oci_free_statement($this->_queryID);
-
 		$this->_queryID = false;
 	}
 

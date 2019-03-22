@@ -219,6 +219,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Thumbnail cropped successfully')),
 			$results
@@ -248,6 +249,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Thumbnail cropped successfully')),
 			$results
@@ -277,6 +279,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Thumbnail cropped successfully')),
 			$results
@@ -336,7 +339,9 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 		);
 
 		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
+
 		$results = $this->handleRequest($this->_item2, $this->_derivative[2]);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Thumbnail reset successfully')),
 			$results,
@@ -382,7 +387,9 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[crop][y]', '50');
 		GalleryUtilities::putRequestVariable('form[crop][width]', '200');
 		GalleryUtilities::putRequestVariable('form[crop][height]', '200');
+
 		$results = $this->handleRequest($this->_item, $this->_derivative[0]);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Thumbnail cropped successfully')),
 			$results

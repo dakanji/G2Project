@@ -370,6 +370,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 
 		if ($this->getParentId()) {
 			$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 			$event->setData(
 				array(
 					'userId' => null,
@@ -409,6 +410,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 		}
 
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 		$event->setData(
 			array(
 				'userId' => null,
@@ -494,6 +496,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 
 			if ($this->getParentId()) {
 				$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
+
 				$event->setData(
 					array(
 						'userId' => null,

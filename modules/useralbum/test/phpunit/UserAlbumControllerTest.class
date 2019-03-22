@@ -106,6 +106,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		$gallery->setActiveUser($this->_userWithAlbum);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -197,6 +198,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('userId', $this->_userWithAlbum->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -833,4 +835,3 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 		return null;
 	}
 }
-

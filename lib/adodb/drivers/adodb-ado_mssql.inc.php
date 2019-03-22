@@ -95,9 +95,8 @@ class ADODB_ado_mssql extends ADODB_ado {
 				$fld->name = $c->Value;
 
 				// cannot discover type in ADO!
-				$fld->type       = 'CHAR';
-				$fld->max_length = -1;
-
+				$fld->type                   = 'CHAR';
+				$fld->max_length             = -1;
 				$arr[strtoupper($fld->name)] = $fld;
 
 				$adors->MoveNext();

@@ -85,6 +85,7 @@ class DataCacheTest extends GalleryTestCase {
 	public function testPutAndGet() {
 		$key   = 'test-key';
 		$value = 'test-value';
+
 		GalleryDataCache::put($key, $value);
 
 		$this->assertEquals($value, GalleryDataCache::get($key));
@@ -93,6 +94,7 @@ class DataCacheTest extends GalleryTestCase {
 	public function testContainsKey() {
 		$key   = 'test-key';
 		$value = 'test-value';
+
 		GalleryDataCache::put($key, $value);
 
 		$this->assertTrue(GalleryDataCache::containsKey($key));
@@ -101,6 +103,7 @@ class DataCacheTest extends GalleryTestCase {
 	public function testReset() {
 		$key   = 'test-key';
 		$value = 'test-value';
+
 		GalleryDataCache::put($key, $value);
 
 		$this->assertTrue(GalleryDataCache::containsKey($key), 'Could not put a var to GDC');
@@ -108,6 +111,7 @@ class DataCacheTest extends GalleryTestCase {
 		// Add a protected var
 		$pKey   = 'prot-test-key';
 		$pValue = 'prot-test-value';
+
 		GalleryDataCache::put($pKey, $pValue, true);
 
 		$this->assertTrue(GalleryDataCache::containsKey($pKey), 'Could not put a protected var to GDC');
@@ -118,6 +122,7 @@ class DataCacheTest extends GalleryTestCase {
 		$this->assertTrue(GalleryDataCache::containsKey($pKey), 'Reset GDC deleted a protected var');
 
 		GalleryDataCache::reset(true);
+
 		$this->assertTrue(
 			!GalleryDataCache::containsKey($pKey),
 			'Reset(true) did not delete protected vars'
@@ -300,7 +305,6 @@ class DataCacheTest extends GalleryTestCase {
 			'|' . serialize($testdata),
 			DataCacheTestPlatform::getMe()->getFileContents('/data/cache/entity/0/0/1.inc')
 		);
-
 		DataCacheTestPlatform::getMe()->reset();
 		GalleryDataCache::putToDisk(
 			array(
@@ -315,7 +319,6 @@ class DataCacheTest extends GalleryTestCase {
 			'required-class|' . serialize($testdata),
 			DataCacheTestPlatform::getMe()->getFileContents('/data/cache/entity/0/0/1.inc')
 		);
-
 		DataCacheTestPlatform::getMe()->reset();
 		GalleryDataCache::putToDisk(
 			array(
@@ -330,7 +333,6 @@ class DataCacheTest extends GalleryTestCase {
 			'required-class1,required-class2|' . serialize($testdata),
 			DataCacheTestPlatform::getMe()->getFileContents('/data/cache/entity/0/0/1.inc')
 		);
-
 		DataCacheTestPlatform::getMe()->reset();
 		GalleryDataCache::putToDisk(
 			array(
@@ -344,8 +346,8 @@ class DataCacheTest extends GalleryTestCase {
 			'|' . serialize($testdata),
 			DataCacheTestPlatform::getMe()->getFileContents('/data/cache/entity/0/2/21.inc')
 		);
-
 		DataCacheTestPlatform::getMe()->reset();
+
 		$testdata = '|test#with\'funky"chars? \\*&%$[]}{ end';
 		GalleryDataCache::putToDisk(
 			array(
@@ -359,7 +361,6 @@ class DataCacheTest extends GalleryTestCase {
 			'|' . serialize($testdata),
 			DataCacheTestPlatform::getMe()->getFileContents('/data/cache/entity/7/2/721.inc')
 		);
-
 		DataCacheTestPlatform::getMe()->reset();
 	}
 
@@ -397,7 +398,6 @@ class DataCacheTest extends GalleryTestCase {
 			DataCacheTestPlatform::getMe()->wasFileDeleted('/data/cache/entity/0/0/1.inc'),
 			'file was not deleted'
 		);
-
 		DataCacheTestPlatform::getMe()->reset();
 		GalleryDataCache::removeFromDisk(
 			array(
@@ -411,7 +411,6 @@ class DataCacheTest extends GalleryTestCase {
 			DataCacheTestPlatform::getMe()->wasFileDeleted('/data/cache/module/core/0/0/1.inc'),
 			'file was not deleted'
 		);
-
 		DataCacheTestPlatform::getMe()->reset();
 		GalleryDataCache::removeFromDisk(
 			array(
@@ -424,7 +423,6 @@ class DataCacheTest extends GalleryTestCase {
 			DataCacheTestPlatform::getMe()->wasDirDeleted('/data/cache/module/core'),
 			'dir was not deleted'
 		);
-
 		DataCacheTestPlatform::getMe()->reset();
 		GalleryDataCache::removeFromDisk(
 			array(
@@ -435,6 +433,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		foreach (array_keys($modulePluginStatus) as $moduleId) {
 			$targetFile = '/data/cache/module/' . $moduleId . '/0/0/1.inc';
+
 			$this->assertTrue(
 				DataCacheTestPlatform::getMe()->wasFileDeleted($targetFile),
 				"$targetFile was not deleted"
@@ -451,6 +450,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		foreach (array_keys($themePluginStatus) as $themeId) {
 			$targetFile = '/data/cache/theme/' . $themeId . '/0/0/1.inc';
+
 			$this->assertTrue(
 				DataCacheTestPlatform::getMe()->wasFileDeleted($targetFile),
 				"$targetFile was not deleted"
@@ -510,6 +510,7 @@ class DataCacheTest extends GalleryTestCase {
 		);
 
 		GalleryDataCache::putToDisk($cacheParams, $data);
+
 		$readBack =& GalleryDataCache::getFromDisk($cacheParams);
 
 		$this->assertEquals($data, $readBack, 'no classes');
@@ -548,6 +549,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		GalleryDataCache::remove('GalleryDataCache::cachePermissions::newEntries');
 		GalleryDataCache::cachePermissions(array('1', '2'), 'test.TestPermission');
+
 		$this->assertTrue(
 			GalleryDataCache::hasPermission('1', 'test.TestPermission'),
 			'1 should have permission test.TestPermission'
@@ -564,8 +566,8 @@ class DataCacheTest extends GalleryTestCase {
 			!GalleryDataCache::hasPermission('1', 'test.OtherPermission'),
 			'1 shouldn\'t have permission test.OtherPermission'
 		);
-
 		GalleryDataCache::cachePermissions(array('3'), 'test.OtherPermission');
+
 		$this->assertTrue(
 			GalleryDataCache::hasPermission('1', 'test.TestPermission'),
 			'1 should still have permission test.TestPermission'

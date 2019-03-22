@@ -425,6 +425,7 @@ class CommentTest extends GalleryTestCase {
 		}
 
 		$otherCommentsCount = count($this->_comment);
+
 		$this->assertEquals(
 			$otherCommentsCount + 3,
 			count($comments),
@@ -669,6 +670,7 @@ class CommentTest extends GalleryTestCase {
 		}
 
 		GalleryCommentHelper::getMe()->setAkismetSaveListenerSwitch(false);
+
 		$helper = new CommentTest_GalleryCommentHelper_MockCheckWithAkismet();
 		$event  = new GalleryEvent();
 
@@ -885,4 +887,3 @@ class CommentTest_GalleryCommentHelper_MockCheckWithAkismet extends GalleryComme
 		return null;
 	}
 }
-

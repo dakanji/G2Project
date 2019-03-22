@@ -30,6 +30,7 @@
  */
 
 // $Id$
+
 /**
  * Config file reading class
  * @package Smarty
@@ -63,6 +64,7 @@ class Config_File {
 	public $fix_newlines = true;
 
 	// #@-
+
 	/** @access private */
 	public $_config_path = '';
 	public $_config_data = array();

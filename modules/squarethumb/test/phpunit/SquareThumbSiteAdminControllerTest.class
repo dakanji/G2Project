@@ -48,7 +48,9 @@ class SquareThumbSiteAdminControllerTest extends GalleryControllerTestCase {
 
 	public function testSquareThumbSiteAdminControllerReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', '1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -66,7 +68,9 @@ class SquareThumbSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[mode]', 'crop');
 		GalleryUtilities::putRequestVariable('form[color]', '159cE0');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -85,7 +89,9 @@ class SquareThumbSiteAdminControllerTest extends GalleryControllerTestCase {
 	public function testSquareThumbSiteAdminControllerSaveFitNoColor() {
 		GalleryUtilities::putRequestVariable('form[mode]', 'fit');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -103,7 +109,9 @@ class SquareThumbSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[mode]', 'crop');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 		GalleryUtilities::removeRequestVariable('form[color]');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -123,7 +131,9 @@ class SquareThumbSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[mode]', 'fit');
 		GalleryUtilities::putRequestVariable('form[color]', '123Q45');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -137,7 +147,9 @@ class SquareThumbSiteAdminControllerTest extends GalleryControllerTestCase {
 		);
 
 		GalleryUtilities::putRequestVariable('form[color]', '1234567');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -155,12 +167,14 @@ class SquareThumbSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[mode]', 'fit');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 		GalleryUtilities::putRequestVariable('form[color]', '123456');
+
 		$cacheKey = 'GalleryToolkitHelper::getToolkitByOperation(image/x-portable-pixmap, '
 		. 'convert-to-image/jpeg)';
+
 		GalleryDataCache::put($cacheKey, array(null, null));
+
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 
 		$this->assertEquals(null, $results);
 	}
 }
-

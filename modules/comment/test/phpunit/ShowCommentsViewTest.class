@@ -140,6 +140,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 
 		$template = new UnitTestTemplate();
+
 		$template->setVariable(
 			'head',
 			array(
@@ -157,6 +158,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 		}
 
 		$head = $template->getVariable('head');
+
 		$this->assertEquals(
 			array(
 				array(
@@ -199,6 +201,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 
 		$template = new UnitTestTemplate();
+
 		$template->setVariable(
 			'head',
 			array(
@@ -216,6 +219,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 		}
 
 		$head = $template->getVariable('head');
+
 		$this->assertEquals(
 			array(
 				array(
@@ -276,6 +280,7 @@ class ShowCommentsViewTest extends GalleryViewTestCase {
 		}
 
 		$template = new UnitTestTemplate();
+
 		$template->setVariable(
 			'head',
 			array(

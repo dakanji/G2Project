@@ -114,6 +114,7 @@ class RatingCallbacksTest extends GalleryTestCase {
 
 		$data    = $this->_smarty->_tpl_vars['block']['rating']['RatingData'];
 		$summary = $this->_smarty->_tpl_vars['block']['rating']['RatingSummary'];
+
 		$this->assertEquals(
 			array(
 				'ratingValues' => array(1, 2, 3, 4, 5),
@@ -154,6 +155,7 @@ class RatingCallbacksTest extends GalleryTestCase {
 
 		$data    = $this->_smarty->_tpl_vars['block']['rating']['RatingData'];
 		$summary = $this->_smarty->_tpl_vars['block']['rating']['RatingSummary'];
+
 		$this->assertEquals(
 			array(
 				'ratingValues' => array(1, 2, 3, 4, 5),
@@ -301,6 +303,7 @@ class RatingCallbacksTest extends GalleryTestCase {
 
 		$data    = $this->_smarty->_tpl_vars['block']['rating']['RatingData'];
 		$summary = $this->_smarty->_tpl_vars['block']['rating']['RatingSummary'];
+
 		$this->assertEquals(
 			array(
 				'ratingValues' => array(1, 2, 3, 4, 5),
@@ -372,6 +375,7 @@ class RatingCallbacksTest extends GalleryTestCase {
 
 		$data    = $this->_smarty->_tpl_vars['block']['rating']['RatingData'];
 		$summary = $this->_smarty->_tpl_vars['block']['rating']['RatingSummary'];
+
 		$this->assertEquals(
 			array(
 				'ratingValues' => array(1, 2, 3, 4, 5),
@@ -443,4 +447,3 @@ class RatingCallbacksTest extends GalleryTestCase {
 		$this->assertFalse(isset($this->_smarty->_tpl_vars['block']), 'Received rating block.');
 	}
 }
-

@@ -141,6 +141,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		global $gallery;
 
 		unset($_SERVER['HTTP_ACCEPT_ENCODING']);
+
 		GalleryUtilities::putRequestVariable('key', '/../sensitive_file');
 
 		$gallery->_phpVm->setReply('function_exists', array('getallheaders'), false);
@@ -158,6 +159,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		global $gallery;
 
 		GalleryDataCache::setFileCachingEnabled(true);
+
 		$path = $gallery->getConfig('data.gallery.cache') . $file;
 
 		$gallery->_platform->setReply('file_exists', array($path), true);
@@ -168,6 +170,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		global $gallery;
 
 		$_SERVER['HTTP_ACCEPT_ENCODING'] = 'gzip,and,other,stuff';
+
 		GalleryUtilities::putRequestVariable('key', '123');
 
 		$gallery->_phpVm->setReply('function_exists', array('getallheaders'), false);
@@ -214,6 +217,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		global $gallery;
 
 		$_SERVER['HTTP_ACCEPT_ENCODING'] = 'something_that_doesnt_include_compression';
+
 		GalleryUtilities::putRequestVariable('key', '123');
 
 		$gallery->_phpVm->setReply('function_exists', array('getallheaders'), false);
@@ -252,6 +256,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		global $gallery;
 
 		$_SERVER['HTTP_ACCEPT_ENCODING'] = 'gzip,and,other,stuff';
+
 		GalleryUtilities::putRequestVariable('key', '123');
 
 		$gallery->_phpVm->setReply('function_exists', array('getallheaders'), false);
@@ -292,6 +297,7 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		}
 
 		$_SERVER['HTTP_ACCEPT_ENCODING'] = 'something_that_doesnt_include_compression';
+
 		GalleryUtilities::putRequestVariable('key', '123');
 
 		$gallery->_phpVm->setReply('function_exists', array('getallheaders'), false);
@@ -326,4 +332,3 @@ class CombinedJavascriptTest extends GalleryImmediateViewTestCase {
 		$this->assertEquals('regular data', $results);
 	}
 }
-

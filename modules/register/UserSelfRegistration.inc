@@ -32,6 +32,7 @@ class UserSelfRegistrationController extends GalleryController {
 	 */
 	public function handleRequest($form) {
 		GalleryCoreApi::requireOnce('modules/register/classes/GalleryPendingUserHelper.class');
+
 		$results = $status = $error = array();
 
 		if (isset($form['action']['cancel'])) {

@@ -85,6 +85,7 @@ if ($ret) {
 
 		// Sanitize the input
 		GalleryUtilities::sanitizeInputValues($verifiedFile);
+
 		$doImportFlag = true;
 
 		if ($verifiedFile != $importFile) {

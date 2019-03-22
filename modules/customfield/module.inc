@@ -104,6 +104,7 @@ class CustomFieldModule extends GalleryModule {
 	public function getItemSummaries($items, $permissions, &$template) {
 		GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
 		GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.markup.php');
+
 		$summaries = array();
 
 		list($ret, $data) = CustomFieldHelper::getMe()->fetchFieldValues($items, 'summary');

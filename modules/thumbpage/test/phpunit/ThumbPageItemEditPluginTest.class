@@ -93,6 +93,7 @@ class ThumbPageItemEditPluginTest extends ItemEditPluginTestCase {
 
 	public function testReset() {
 		GalleryUtilities::putRequestVariable('form[action][reset]', 1);
+
 		$preferred = null;
 		$results   = $this->handleRequest($this->_item, $preferred);
 
@@ -102,8 +103,10 @@ class ThumbPageItemEditPluginTest extends ItemEditPluginTestCase {
 	public function testSave() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[page]', 2);
+
 		$preferred = null;
 		$results   = $this->handleRequest($this->_item, $preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results,
@@ -124,7 +127,9 @@ class ThumbPageItemEditPluginTest extends ItemEditPluginTestCase {
 
 		// Set back to page one, which removes select-page operation..
 		GalleryUtilities::putRequestVariable('form[page]', 1);
+
 		$results = $this->handleRequest($this->_item, $preferred);
+
 		$this->assertEquals(
 			array(array(), $this->_translate('Changes saved successfully')),
 			$results,
@@ -169,4 +174,3 @@ class ThumbPageTestToolkit extends GalleryToolkit {
 		return array(null, array(5));
 	}
 }
-

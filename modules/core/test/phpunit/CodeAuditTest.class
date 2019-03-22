@@ -33,7 +33,9 @@ class CodeAuditTest extends CodeAuditTestCase {
 		global $gallery;
 
 		$platform =& $gallery->getPlatform();
+
 		parent::__construct($methodName);
+
 		$this->_exception['endphp']       = array();
 		$this->_exception['preamble']     = '{(?:/TestCase/|templates/blocks/blocks.inc|(?:install|upgrade)/index.php|' .
 		'data/Sample(?:Descriptors|Index).inc|DataCacheTest_\d+.class|getid3/lib/getid3|' .
@@ -203,6 +205,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 
 				foreach ($calls as $call) {
 					$params = $this->getFunctionParameters($call);
+
 					$this->assertTrue(
 						count($params) == 2,
 						sprintf(

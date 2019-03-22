@@ -220,6 +220,7 @@ class LinkItemTest extends GalleryTestCase {
 
 		// Make sure the redirect has no sessionId in it
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
+
 		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 		$session = new GallerySession();
 
@@ -324,6 +325,7 @@ class LinkItemTest extends GalleryTestCase {
 
 		$savePlatform =& $gallery->getPlatform();
 		$platform     = new UnitTestPlatform();
+
 		$platform->setReply(
 			'copy',
 			array(
@@ -378,6 +380,7 @@ class LinkItemTest extends GalleryTestCase {
 		}
 
 		$platform = new UnitTestPlatform();
+
 		$platform->setReply(
 			'tempnam',
 			array(

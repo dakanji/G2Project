@@ -287,6 +287,7 @@ class DatabaseExportTest extends GalleryTestCase {
 
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
+
 		$storage->setReply(
 			'_translateTableName',
 			array('TestTable2'),
@@ -335,6 +336,7 @@ class DatabaseExportTest extends GalleryTestCase {
 
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
+
 		$storage->setReply(
 			'_translateTableName',
 			array('TestTableMap'),
@@ -524,6 +526,7 @@ class DatabaseExportTest extends GalleryTestCase {
 
 		$storage  =& $gallery->getStorage();
 		$platform =& $gallery->getPlatform();
+
 		$storage->setReply(
 			'_translateTableName',
 			array('TestTable'),

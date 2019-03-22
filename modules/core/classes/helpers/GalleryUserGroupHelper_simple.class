@@ -84,6 +84,7 @@ class GalleryUserGroupHelper_simple {
 		}
 
 		$result = $searchResults->resultCount() ? true : false;
+
 		GalleryDataCache::put($cacheKey, $result);
 
 		return array(null, $result);

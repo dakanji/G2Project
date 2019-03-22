@@ -151,6 +151,7 @@ class AdminRepositoryDownloadController extends AdminRepositoryDownloadAndInstal
 				}
 
 				$templateAdapter =& $gallery->getTemplateAdapter();
+
 				$templateAdapter->registerTrailerCallback(
 					array($this, 'performDownloadAndInstallation'),
 					array($installPackages, $repositories)

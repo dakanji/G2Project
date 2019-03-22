@@ -190,8 +190,10 @@ class GalleryEntityHelper_medium {
 		global $gallery;
 
 		$query = 'SELECT [GalleryEntity::id] FROM [GalleryEntity]
+
 		  WHERE [GalleryEntity::onLoadHandlers] LIKE ?';
-		$i     = 0;
+
+		$i = 0;
 
 		foreach ($handlerIds as $handlerId) {
 			list($ret, $results) = $gallery->search($query, array("%|$handlerId|%"));

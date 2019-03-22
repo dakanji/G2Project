@@ -322,7 +322,7 @@ function secureStorageFolder($dataBase) {
 
 // Returns something like https://example.com
 function getBaseUrl() {
-	// Can't use GalleryUrlGenerator::makeUrl since it's an object method
+	// Cannot use GalleryUrlGenerator::makeUrl since it is an object method
 	if (!($hostName = GalleryUtilities::getServerVar('HTTP_X_FORWARDED_HOST'))) {
 		$hostName = GalleryUtilities::getServerVar('HTTP_HOST');
 	}
@@ -352,10 +352,7 @@ function generateUrl($uri, $print = true) {
 	if (!strncmp($uri, 'index.php', 9)) {
 		// Cookieless browsing: If session.use_trans_sid is on then it will add the session id.
 		if (!GallerySetupUtilities::areCookiesSupported() && !ini_get('session.use_trans_sid')) {
-			/*
-			 * Don't use SID since it's a constant and we change (regenerate) the session id
-			 * in the request
-			 */
+			// Do not use SID as it is a constant and we regenerate the session id in the request
 			$sid  = session_name() . '=' . session_id();
 			$uri .= !strpos($uri, '?') ? '?' : '&amp;';
 			$uri .= $sid;
@@ -370,7 +367,7 @@ function generateUrl($uri, $print = true) {
 }
 
 /*
- * We don't store the steps in the session in raw form because that
+ * We do not store the steps in the session in raw form because that
  * will break in environments where session.auto_start is on since
  * it will try to instantiate the classes before they've been defined
  */

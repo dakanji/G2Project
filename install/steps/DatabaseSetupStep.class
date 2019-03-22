@@ -317,12 +317,12 @@ class DatabaseSetupStep extends InstallStep {
 					$templateData['showConfirmCleanInstall'] = 1;
 					$templateData['warnings'][]              = _(
 						'Gallery tables already exist in this database but there is no '
-							. "'versions.dat' file in your G2 storage directory "
-							. 'which we interpret as a broken state of Gallery2. '
-							. 'Either create a versions.dat file with the correct format '
-							. 'if you think your Gallery2 Installation should still work '
-							. ' or select a clean install, which will erase all data '
-							. 'in the database and in the storage directory.'
+						. "'versions.dat' file in your G2 storage directory "
+						. 'which we interpret as a broken state of Gallery2. '
+						. 'Either create a versions.dat file with the correct format '
+						. 'if you think your Gallery2 Installation should still work '
+						. ' or select a clean install, which will erase all data '
+						. 'in the database and in the storage directory.'
 					);
 				} elseif (empty($dbVersion) && !empty($datVersion)) {
 					// Database tables don't exist, but g2data has versions.dat
@@ -331,9 +331,9 @@ class DatabaseSetupStep extends InstallStep {
 					$templateData['showConfirmCleanInstall'] = 1;
 					$templateData['warnings'][]              = _(
 						'The G2 storage directory has a versions.dat file of an old install. '
-							. 'But the Gallery database tables do not exist. '
-							. 'Select a clean install to erase all data  '
-							. 'in the Gallery storage and to advance to the next step.'
+						. 'But the Gallery database tables do not exist. '
+						. 'Select a clean install to erase all data  '
+						. 'in the Gallery storage and to advance to the next step.'
 					);
 				} elseif ($dbVersion != $datVersion) {
 					// Installed version is not ok, mismatch between g2data and the database
@@ -342,11 +342,11 @@ class DatabaseSetupStep extends InstallStep {
 					$templateData['showConfirmCleanInstall'] = 1;
 					$templateData['warnings'][]              = _(
 						'Gallery tables already exist in the database and there is a versions.'
-							. 'dat file in the Gallery storage directory. But the version of the '
-							. 'installed Gallery database tables does not match the version of '
-							. 'the installed data in the Gallery storage directory. '
-							. 'Select a clean install to erase all data in the database '
-							. 'and in the storage directory and to advance to the next step.'
+						. 'dat file in the Gallery storage directory. But the version of the '
+						. 'installed Gallery database tables does not match the version of '
+						. 'the installed data in the Gallery storage directory. '
+						. 'Select a clean install to erase all data in the database '
+						. 'and in the storage directory and to advance to the next step.'
 					);
 				} else {
 					// Installed version is ok, offer Reuse Tables and Clean Install.
@@ -355,10 +355,10 @@ class DatabaseSetupStep extends InstallStep {
 					$templateData['showConfirmReuseTables']  = 1;
 					$templateData['warnings'][]              = _(
 						'Gallery tables already exist in the database and the Gallery storage '
-							. 'directory seems to be intact. '
-							. 'Either choose to reuse the existing database tables and storage '
-							. 'directory data or select a clean install to erase all '
-							. 'existing data in the database and the storage directory.'
+						. 'directory seems to be intact. '
+						. 'Either choose to reuse the existing database tables and storage '
+						. 'directory data or select a clean install to erase all '
+						. 'existing data in the database and the storage directory.'
 					);
 				}
 			}
@@ -376,8 +376,8 @@ class DatabaseSetupStep extends InstallStep {
 				// Reset the storage directory
 				if (!$this->_emptyGalleryStorageDirectory()) {
 					$templateData['errors'][] = _(
-						'Could not execute the required API to erase the storage directory. ' .
-						'Please erase the Gallery storage directory manually.'
+						'Could not execute the required API to erase the storage directory. '
+						. 'Please erase the Gallery storage directory manually.'
 					);
 				} else {
 					$storageCleaned = true;
@@ -485,7 +485,6 @@ class DatabaseSetupStep extends InstallStep {
 		}
 
 		$contents = $this->_debugContents;
-
 		unset($this->_debugContents);
 
 		return $contents;
@@ -546,8 +545,7 @@ class DatabaseSetupStep extends InstallStep {
 		}
 
 		// Load the Test SQL code
-		include_once __DIR__ .
-		 '/../../modules/core/classes/GalleryStorage/GalleryStorageExtras.class';
+		include_once __DIR__ . '/../../modules/core/classes/GalleryStorage/GalleryStorageExtras.class';
 
 		// GalleryPlatform is not available at this point
 		$schemaTpl = __DIR__ . '/../../modules/core/classes/GalleryStorage/schema.tpl';
@@ -574,9 +572,9 @@ class DatabaseSetupStep extends InstallStep {
 			return array(
 				false,
 				_(
-					'Failed to create a database test sequence. ' .
-					'Check the returned error message and README.html ' .
-					'for missing privileges and clean up the database.'
+					'Failed to create a database test sequence. '
+					. 'Check the returned error message and README.html '
+					. 'for missing privileges and clean up the database.'
 				),
 			);
 		}
@@ -587,9 +585,9 @@ class DatabaseSetupStep extends InstallStep {
 			return array(
 				false,
 				_(
-					'Test failed to drop a database test sequence. ' .
-					'Check the returned error message and README.html ' .
-					'for missing privileges and clean up the database.'
+					'Test failed to drop a database test sequence. '
+					. 'Check the returned error message and README.html '
+					. 'for missing privileges and clean up the database.'
 				),
 			);
 		}
@@ -637,8 +635,8 @@ class DatabaseSetupStep extends InstallStep {
 					return array(
 						false,
 						_(
-							'Check the returned error message and README.html ' .
-							'for missing privileges and clean up the database.'
+							'Check the returned error message and README.html '
+							. 'for missing privileges and clean up the database.'
 						),
 					);
 				}
@@ -787,8 +785,7 @@ class DatabaseSetupStep extends InstallStep {
 
 			include_once __DIR__ . '/../../modules/core/classes/GalleryCoreApi.class';
 
-			include_once __DIR__ .
-			 '/../../modules/core/classes/GalleryCapabilities.class';
+			include_once __DIR__ . '/../../modules/core/classes/GalleryCapabilities.class';
 
 			include_once __DIR__ . '/../../modules/core/classes/GalleryPlatform.class';
 
@@ -826,6 +823,7 @@ class DatabaseSetupStep extends InstallStep {
 			);
 
 			$success = !$ret;
+
 			GalleryDataCache::setFileCachingEnabled(false);
 			GalleryDataCache::reset();
 		}

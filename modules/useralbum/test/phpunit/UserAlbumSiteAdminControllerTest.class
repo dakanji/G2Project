@@ -60,6 +60,7 @@ class UserAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -83,6 +84,7 @@ class UserAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -120,4 +122,3 @@ class UserAlbumSiteAdminControllerTest extends GalleryControllerTestCase {
 		);
 	}
 }
-

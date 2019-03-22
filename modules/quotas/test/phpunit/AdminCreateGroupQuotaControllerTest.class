@@ -41,7 +41,9 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('groupId', $group->getId());
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -72,6 +74,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('groupId', $group->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -103,6 +106,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('groupId', $group->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -120,7 +124,9 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 
 		// quota size
 		GalleryUtilities::putRequestVariable('form[quotaSize]', 2048);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -136,7 +142,9 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 		// quota unit only
 		GalleryUtilities::removeRequestVariable('form[quotaSize]');
 		GalleryUtilities::putRequestVariable('form[quotaUnit]', 'MB');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -154,6 +162,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 
 	public function testCreateGroupQuotaGroupIdMissing() {
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
 
@@ -172,6 +181,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('groupId', $group->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -188,6 +198,7 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 
 		// Attempt to create a quota for the group that already has one
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -241,4 +252,3 @@ class AdminCreateGroupQuotaControllerTest extends GalleryControllerTestCase {
 		}
 	}
 }
-

@@ -42,6 +42,7 @@ class CharsetTest extends GalleryTestCase {
 	public function testAssertMbFunctionOverloadingDisabled() {
 		// Assert that we're not accidentaly using mb_ functions in our fallback
 		$mbFuncOverload = (int)ini_get('mbstring.func_overload');
+
 		$this->assertTrue(
 			!($mbFuncOverload & 2),
 			'mb function overload str functions. ' .
@@ -149,6 +150,7 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('recode_string', false);
 
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals(
 			chr(195) . chr(181),
 			GalleryCoreApi::convertToUtf8(chr(245), 'ISO-8859-1')
@@ -165,6 +167,7 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('recode_string', false);
 
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals(
 			chr(245),
 			GalleryCoreApi::convertFromUtf8(chr(195) . chr(181), 'ISO-8859-1')
@@ -182,6 +185,7 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setFunctionExists('recode_string', false);
 
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals(
 			"\xe2\x80\xa0",
 			GalleryCoreApi::convertToUtf8(chr(134), 'Windows-1252'),
@@ -274,6 +278,7 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setReturn('iconv', array('ISO-8859-1', 'UTF-8', 'foo'), false);
 
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals(
 			chr(195) . chr(181),
 			GalleryCoreApi::convertToUtf8(chr(245), 'ISO-8859-1')
@@ -292,6 +297,7 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setReturn('iconv', array('UTF-8', 'ISO-8859-1//IGNORE', 'foo'), false);
 
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals(
 			chr(245),
 			GalleryCoreApi::convertFromUtf8(chr(195) . chr(181), 'ISO-8859-1')
@@ -406,6 +412,7 @@ class CharsetTest extends GalleryTestCase {
 
 		// Verify we map 1252 from setlocale to full charset name
 		GalleryDataCache::reset();
+
 		$phpVm->setReturn(
 			'setlocale',
 			array(LC_ALL, '0'),
@@ -422,6 +429,7 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setReturn('setlocale', array(LC_ALL, '0'), 'German_Switzerland.1252');
 
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals(
 			'Windows-1252',
 			GalleryCharsetHelper_simple::detectSystemCharset(),
@@ -434,6 +442,7 @@ class CharsetTest extends GalleryTestCase {
 		$phpVm->setReturn('setlocale', array(LC_ALL, '0'), 'German_Switzerland.1252');
 
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals(
 			'Windows-1252',
 			GalleryCharsetHelper_simple::detectSystemCharset(),
@@ -442,6 +451,7 @@ class CharsetTest extends GalleryTestCase {
 
 		// All .125x charsets should get converted to CP125x
 		GalleryDataCache::reset();
+
 		$phpVm->setReturn(
 			'setlocale',
 			array(LC_ALL, '0'),
@@ -454,6 +464,7 @@ class CharsetTest extends GalleryTestCase {
 
 		// All .125x charsets should get converted to CP125x
 		GalleryDataCache::reset();
+
 		$phpVm->setReturn(
 			'setlocale',
 			array(LC_ALL, '0'),
@@ -486,6 +497,7 @@ class CharsetTest extends GalleryTestCase {
 		);
 
 		$gallery->_phpVm = $phpVm;
+
 		$this->assertEquals(
 			'CP1251',
 			GalleryCharsetHelper_simple::detectSystemCharset(),
@@ -606,6 +618,7 @@ class CharsetTest extends GalleryTestCase {
 		$utf8 = ("\xd0\xa0\xd1\x83\xd1\x81\xd1\x81\xd0\xba\xd0" .
 		 "\xb8\xd0\xb9\xd0\x97\xd0\xb4\xd1\x80\xd0\xb0" .
 		 "\xd0\xb2\xd1\x81\xd1\x82\xd0\xb2\xd1\x83");
+
 		$this->assertEquals(
 			"\xd0\xa0",
 			GalleryCoreApi::utf8Substring($utf8, 0, 1),
@@ -632,6 +645,7 @@ class CharsetTest extends GalleryTestCase {
 		 "\x9c \xd7\x9c\xd7\x90\xd7\x9b\xd7\x95\xd7\x9c \xd7\x96" .
 		 "\xd7\x9b\xd7\x95\xd7\x9b\xd7\x99\xd7\xaa \xd7\x95\xd7" .
 		 "\x96\xd7\x94 \xd7\x9c\xd7\x90 \xd7\x9e\xd7\x96\xd7\x99");
+
 		$this->assertEquals(
 			"\xd7\x90",
 			GalleryCoreApi::utf8Substring($utf8, 0, 1),
@@ -655,6 +669,7 @@ class CharsetTest extends GalleryTestCase {
 
 		// Test some special characters
 		$utf8 = 'apo\'strophe.jpg "quotes"';
+
 		$this->assertEquals(
 			'apo\'strophe.jpg "quotes"',
 			GalleryCoreApi::utf8Substring($utf8, 0, 24),
@@ -701,9 +716,10 @@ class CharsetTest extends GalleryTestCase {
 
 	public function testUtf8Strcut() {
 		// Russian
-		$utf8       = ("\xd0\xa0\xd1\x83\xd1\x81\xd1\x81\xd0\xba\xd0" .
+		$utf8 = ("\xd0\xa0\xd1\x83\xd1\x81\xd1\x81\xd0\xba\xd0" .
 		 "\xb8\xd0\xb9\xd0\x97\xd0\xb4\xd1\x80\xd0\xb0" .
 		 "\xd0\xb2\xd1\x81\xd1\x82\xd0\xb2\xd1\x83");
+
 		$this->assertEquals(
 			"\xd0\xa0\xd1\x83\xd1\x81\xd1\x81\xd0\xba",
 			$result = GalleryCoreApi::utf8Strcut($utf8, 0, 10),
@@ -755,6 +771,7 @@ class CharsetTest extends GalleryTestCase {
 
 		// Test some special characters
 		$utf8 = 'apo\'strophe.jpg "quotes"';
+
 		$this->assertEquals(
 			'apo\'strophe.jpg "quote',
 			GalleryCoreApi::utf8Strcut($utf8, 0, 22),
@@ -845,4 +862,3 @@ class CharsetTestPhpVm {
 		}
 	}
 }
-

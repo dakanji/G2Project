@@ -454,7 +454,6 @@ class GalleryPlatform {
 			}
 
 			chmod($tempFile, $this->_filePerms);
-
 			$bytesWritten = fwrite($fd, $data);
 
 			if ($bytesWritten == strlen($data)) {
@@ -737,6 +736,7 @@ class GalleryPlatform {
 				$blacklistedExtensions = GalleryDataCache::get($blacklistKey);
 			} else {
 				$blacklistedExtensions = array_flip($this->_blacklistedFileExtensions);
+
 				GalleryDataCache::put($blacklistKey, $blacklistedExtensions);
 			}
 

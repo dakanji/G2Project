@@ -476,12 +476,10 @@ class Services_JSON {
 	public function reduce_string($str) {
 		$str = preg_replace(
 			array(
-
 				// eliminate single line comments in '// ...' form
 				'#^\s*//(.+)$#m',
 				// eliminate multi-line comments in '/* ... */' form, at start of string
 				'#^\s*/\*(.+)\*/#Us',
-
 				// eliminate multi-line comments in '/* ... */' form, at end of string
 				'#/\*(.+)\*/\s*$#Us',
 			),

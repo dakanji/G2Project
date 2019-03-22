@@ -76,6 +76,7 @@ class ItemCreateReplicaSingleControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -138,7 +139,9 @@ class ItemCreateReplicaSingleControllerTest extends GalleryControllerTestCase {
 
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 		GalleryUtilities::putRequestVariable('form[action][link]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -185,4 +188,3 @@ class ItemCreateReplicaSingleControllerTest extends GalleryControllerTestCase {
 		$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
 	}
 }
-

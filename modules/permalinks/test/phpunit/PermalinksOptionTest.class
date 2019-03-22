@@ -136,6 +136,7 @@ class PermalinksOptionTest extends ItemEditOptionTestCase {
 
 		// now test a collision, this generates an error with some DB drivers, that's OK
 		$result = $this->_handleRequestAfterEdit($form, $this->_item);
+
 		$this->assertEquals(
 			array(array('form[error][PermalinksOption][exists]'), array()),
 			$result

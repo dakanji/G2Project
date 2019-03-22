@@ -306,6 +306,7 @@ class ThemeTest extends GalleryTestCase {
 
 		$data   = '[' . $data . ']';
 		$actual = $this->_theme->packSetting('block-list', $data);
+
 		$this->assertEquals(
 			array(true, $expected),
 			array($actual[0], unserialize($actual[1]))
@@ -596,6 +597,7 @@ class ThemeTest extends GalleryTestCase {
 		);
 
 		$results = $this->_theme->splitHtml($html, $extraHtml);
+
 		$this->assertEquals(
 			array(
 				'headHtml'          => '
@@ -639,6 +641,7 @@ class ThemeTest extends GalleryTestCase {
 		);
 
 		$results = $this->_theme->splitHtml($html, $extraHtml);
+
 		$this->assertEquals(
 			array(
 				'headHtml'          => '

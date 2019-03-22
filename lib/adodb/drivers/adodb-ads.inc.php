@@ -573,9 +573,8 @@ class ADODB_ads extends ADOConnection {
 					$fld->max_length = $rs->fields[7];
 				}
 
-				$fld->not_null = !empty($rs->fields[10]);
-				$fld->scale    = $rs->fields[8];
-
+				$fld->not_null                  = !empty($rs->fields[10]);
+				$fld->scale                     = $rs->fields[8];
 				$retarr[strtoupper($fld->name)] = $fld;
 			} elseif (sizeof($retarr) > 0) {
 				break;
@@ -684,9 +683,7 @@ class ADODB_ads extends ADOConnection {
 				$stmtid                  = true;
 			} else {
 				$this->_lastAffectedRows = 0;
-
 				ads_binmode($stmtid, $this->binmode);
-
 				ads_longreadlen($stmtid, $this->maxblobsize);
 			}
 
@@ -808,8 +805,7 @@ class ADORecordSet_ads extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
-
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

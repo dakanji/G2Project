@@ -162,6 +162,7 @@ class ADODB2_mssql extends ADODB_DataDict {
 
 	/*
 	function AlterColumnSQL($tabname, $flds, $tableflds='', $tableoptions='')
+
 	{
 		$tabname = $this->TableName ($tabname);
 		$sql = array();

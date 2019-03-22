@@ -126,9 +126,7 @@ class ADODB_ibase extends ADOConnection {
 			ibase_timefmt($this->ibase_timefmt, IBASE_TIME);
 		} else {
 			ini_set('ibase.timestampformat', $this->ibase_timestampfmt);
-
 			ini_set('ibase.dateformat', $this->ibase_datefmt);
-
 			ini_set('ibase.timeformat', $this->ibase_timefmt);
 		}
 
@@ -1012,6 +1010,7 @@ class ADORecordset_ibase extends ADORecordSet {
 		global $ADODB_FETCH_MODE;
 
 		$this->fetchMode = ($mode === false) ? $ADODB_FETCH_MODE : $mode;
+
 		parent::__construct($id);
 	}
 
@@ -1122,8 +1121,7 @@ class ADORecordset_ibase extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
-
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

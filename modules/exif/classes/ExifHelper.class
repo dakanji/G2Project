@@ -203,6 +203,7 @@ class ExifHelper {
 		global $gallery;
 
 		GalleryCoreApi::requireOnce('modules/exif/lib/exifer/exif.inc');
+
 		$platform =& $gallery->getPlatform();
 
 		if (!$platform->file_exists($path)) {
@@ -250,14 +251,13 @@ class ExifHelper {
 		}
 
 		GalleryCoreApi::requireOnce('modules/exif/lib/JPEG/JPEG.inc');
+
 		$result = new JPEG($path);
 
 		if ($gallery->getDebug()) {
 			// Capture old-school print_r() to support older PHP
 			ob_start();
-
 			print_r($result->getRawInfo());
-
 			$buf = ob_get_contents();
 			ob_end_clean();
 
@@ -279,6 +279,7 @@ class ExifHelper {
 	 */
 	public static function getExifData($path, $viewMode) {
 		$rawExifData = array();
+
 		self::_fetchRawExifData($path, $rawExifData);
 
 		list($ret, $iptcObj) = self::getIptcObject($path);
@@ -403,6 +404,7 @@ class ExifHelper {
 	 */
 	public static function getOriginationTimestamp($path) {
 		$rawExifData = array();
+
 		self::_fetchRawExifData($path, $rawExifData);
 
 		/*

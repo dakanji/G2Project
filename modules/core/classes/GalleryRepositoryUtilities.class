@@ -302,8 +302,10 @@ class GalleryRepositoryUtilities {
 		// If no provided core API versions were specified, get versions from installed core.
 		list($providedCoreApi, $providedPluginApi) = $this->getProvidedApis($pluginType, $providedApis);
 
-		return GalleryUtilities::isCompatibleWithApi($requiredCoreApi, $providedCoreApi)
-		&& GalleryUtilities::isCompatibleWithApi($requiredPluginApi, $providedPluginApi);
+		$compatibleCoreApi   = GalleryUtilities::isCompatibleWithApi($requiredCoreApi, $providedCoreApi);
+		$compatiblePluginApi = GalleryUtilities::isCompatibleWithApi($requiredPluginApi, $providedPluginApi);
+
+		return $compatibleCoreApi && $compatiblePluginApi;
 	}
 
 	/**
@@ -326,7 +328,12 @@ class GalleryRepositoryUtilities {
 			 * is typically called from controller code.
 			 */
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
-			$providedPluginApi = $pluginType == 'module' ? GalleryModule::getMe()->getApiVersion() : GalleryTheme::getMe()->getApiVersion();
+
+			if ($pluginType == 'module') {
+				$providedPluginApi = GalleryModule::getMe()->getApiVersion();
+			} else {
+				$providedPluginApi = GalleryTheme::getMe()->getApiVersion();
+			}
 		} else {
 			$providedCoreApi[0]   = (int)$providedApis['core'][0];
 			$providedCoreApi[1]   = (int)$providedApis['core'][1];
@@ -847,6 +854,7 @@ class GalleryRepositoryUtilities {
 
 		if (empty($apiQueryParams)) {
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
+
 			$apiQueryParams = sprintf(
 				'coreApi=%s&moduleApi=%s&themeApi=%s',
 				join('.', GalleryCoreApi::getApiVersion()),

@@ -145,7 +145,6 @@ class CreateConfigFileStep extends InstallStep {
 				// Finally write the config file
 				if ($writeConfigFile) {
 					fwrite($out, $this->_getConfigContents());
-
 					fclose($out);
 				}
 			}
@@ -244,14 +243,14 @@ class CreateConfigFileStep extends InstallStep {
 		$recommendUpgrade = false;
 
 		if ($freshInstall) {
-			// It's a fresh install
+			// It is a fresh install
 			$versionsOk = true;
 		} else {
 			// Get the installed version from the DatabaseSetup Step
 			$tmp                   = $galleryStub->getConfig('installed.version');
 			$versions['installed'] = empty($tmp) ? ' ' : $tmp;
 
-			// ^Avoid http://bugs.php.net/bug.php?id=17433
+			// Avoid http://bugs.php.net/bug.php?id=17433
 			// Get the codebase version, also from the DB setup step
 			$versions['codebase'] = $galleryStub->getConfig('codebase.version');
 

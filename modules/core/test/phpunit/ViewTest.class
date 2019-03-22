@@ -652,6 +652,7 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		$head = $template->getVariable('head');
+
 		$this->assertEquals(
 			array(
 				array(
@@ -697,6 +698,7 @@ class ViewTest extends GalleryTestCase {
 		);
 
 		$template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
+
 		$template->setVariable(
 			'head',
 			array(
@@ -714,6 +716,7 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		$head = $template->getVariable('head');
+
 		$this->assertEquals(
 			array(
 				array(
@@ -778,7 +781,9 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('itemId', $itemId);
+
 		$template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
+
 		$template->setVariable(
 			'head',
 			array(
@@ -849,7 +854,9 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('itemId', $itemId);
+
 		$template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
+
 		$template->setVariable(
 			'head',
 			array(
@@ -866,6 +873,7 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		$head = $template->getVariable('head');
+
 		$this->assertEquals(
 			array(
 				array(
@@ -930,7 +938,9 @@ class ViewTest extends GalleryTestCase {
 		}
 
 		GalleryUtilities::putRequestVariable('itemId', $itemId);
+
 		$template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
+
 		$template->setVariable(
 			'head',
 			array(
@@ -1177,6 +1187,7 @@ class ViewTestEventListener {
 
 	public function handleEvent($event) {
 		$data = $event->getData();
+
 		$this->_testCase->assertEquals(
 			array(
 				'viewType' => VIEW_TYPE_SHOW_ITEM,

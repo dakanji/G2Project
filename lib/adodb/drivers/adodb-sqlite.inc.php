@@ -186,7 +186,6 @@ class ADODB_sqlite extends ADOConnection {
 
 	public function _createFunctions() {
 		@sqlite_create_function($this->_connectionID, 'adodb_date', 'adodb_date', 1);
-
 		@sqlite_create_function($this->_connectionID, 'adodb_date2', 'adodb_date2', 2);
 	}
 
@@ -475,8 +474,7 @@ class ADORecordset_sqlite extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
-
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

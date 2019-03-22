@@ -26,6 +26,7 @@ if (!class_exists('XML_HTMLSax3')) {
 if (class_exists('HTML_Safe')) {
 	return;
 } // @G2 - done if defined elsewhere (when embedded)
+
 /**
  *
  * HTML_Safe Parser
@@ -517,7 +518,6 @@ class HTML_Safe {
 
 		if (in_array($name, $this->deleteTagsContent)) {
 			array_push($this->_dcStack, $name);
-
 			$this->_dcCounter[$name] = isset($this->_dcCounter[$name]) ? $this->_dcCounter[$name] + 1 : 1;
 		}
 
@@ -580,9 +580,7 @@ class HTML_Safe {
 		$this->_writeAttrs($attrs);
 
 		$this->_xhtml .= '>';
-
 		array_push($this->_stack, $name);
-
 		$this->_counter[$name] = isset($this->_counter[$name]) ? $this->_counter[$name] + 1 : 1;
 
 		return true;

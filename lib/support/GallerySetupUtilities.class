@@ -431,6 +431,7 @@ class GallerySetupUtilities {
 			 * id, delete all data from this session and bless the new session.
 			 */
 			GallerySetupUtilities::regenerateSession();
+
 			session_unset();
 			$sessionId = null;
 		}

@@ -40,6 +40,7 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'return'   => 1,
@@ -69,6 +70,7 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'return'   => 1,
@@ -98,6 +100,7 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'return'   => 1,

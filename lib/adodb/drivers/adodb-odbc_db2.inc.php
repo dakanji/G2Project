@@ -56,6 +56,7 @@ Connect() when using the CLI interface. From Halmai Csongor csongor.halmai#nexum
 > The symptom is that if I change the database engine from postgres or any other to DB2 then the following
 > connection command becomes wrong despite being described this version to be correct in the docs.
 >
+
 > $connection_object->Connect( $DATABASE_HOST, $DATABASE_AUTH_USER_NAME, $DATABASE_AUTH_PASSWORD, $DATABASE_NAME )
 >
 > In case of DB2 I had to swap the first and last arguments in order to connect properly.

@@ -262,6 +262,7 @@ function selectAdminUser($fallback = false) {
 			$gallery->debug('Unable to load admin user. Using in-memory user object as fallback');
 
 			GalleryCoreApi::requireOnce('modules/core/classes/GalleryUser.class');
+
 			$adminUser = new GalleryUser();
 
 			$adminUser->setId((int)$userId);

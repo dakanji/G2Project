@@ -136,6 +136,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -181,6 +182,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -203,7 +205,9 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[comment]', '');
 		GalleryUtilities::putRequestVariable('form[commenterName]', '');
 		GalleryUtilities::putRequestVariable('form[publishStatus]', '');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -233,6 +237,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -259,6 +264,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -288,6 +294,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -310,6 +317,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item[0]->getId());
 		GalleryUtilities::putRequestVariable('commentId', 123123123);
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$results = $this->handleRequest(ERROR_MISSING_OBJECT);
 	}
 
@@ -320,6 +328,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item[0]->getId());
 		GalleryUtilities::putRequestVariable('commentId', $this->_comment[1]->getId());
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$results = $this->handleRequest(ERROR_BAD_PARAMETER);
 	}
 
@@ -359,6 +368,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -404,6 +414,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -434,6 +445,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -475,6 +487,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -516,6 +529,7 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		);
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -540,4 +554,3 @@ class EditCommentControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(COMMENT_PUBLISH_STATUS_SPAM, $comment->getPublishStatus());
 	}
 }
-

@@ -109,6 +109,7 @@ class LinkItemSiteAdminView extends GalleryView {
 		}
 
 		GalleryCoreApi::requireOnce('modules/linkitem/classes/LinkItemToolkit.class');
+
 		$template->setVariable(
 			'LinkItemSiteAdmin',
 			array(

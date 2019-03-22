@@ -317,8 +317,7 @@ class GalleryUserHelper_medium {
 			// Do not delete albums
 			if ($item->getCanContainChildren()) {
 				$albums[$item->getId()] = $item;
-
-				$albumIds[] = $item->getId();
+				$albumIds[]             = $item->getId();
 
 				continue;
 			}

@@ -250,6 +250,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->_setupAdapterWithMocks();
 
 		$result = GalleryTemplateAdapter::getMe()->changeInDescendents($test, $this->_mockSmarty);
+
 		$this->assertEquals(
 			'<input type="checkbox" id="pirate_ChangeInDescendents" ' .
 			'name="g2_form[changeInDescendents][pirate]"/> <label ' .
@@ -412,6 +413,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 		$base         = dirname(dirname(__DIR__)) . '/../../';
 		$mockPlatform = new UnitTestPlatform();
+
 		$mockPlatform->setReply(
 			'file_exists',
 			array($base . 'themes/mock/templates/local/foo.css'),
@@ -452,6 +454,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 
 		$url                          = 'http://example.com/main.php?foo=bar';
 		$this->_mockSmarty->_tpl_vars = 1;
+
 		$this->_templateAdapter->autoComplete(
 			array(
 				'element' => 'giFormUsername',
@@ -461,6 +464,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$expectedUrl = $url . '&g2_authToken=' . $session->getAuthToken();
+
 		$this->assertEquals(
 			array(
 				'smarty_include_tpl_file' => 'gallery:modules/core/templates/AutoComplete.tpl',
@@ -480,6 +484,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$gallery->_phpVm        = new UnitTestPhpVm();
 		$gallery->_platform     = new UnitTestPlatform();
 		$gallery->_urlGenerator = new UnitTestUrlGenerator();
+
 		GalleryDataCache::setFileCachingEnabled(true);
 
 		$gallery->setConfig('data.gallery.cache', '/cache/');
@@ -538,6 +543,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 
 		$templateAdapter = new GalleryTemplateAdapter();
+
 		$templateAdapter->_combineJavascriptFiles(
 			array('path/file1.js', 'path/file2.txt', 'main.php?foo=bar'),
 			$output
@@ -564,6 +570,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$gallery->_phpVm        = new UnitTestPhpVm();
 		$gallery->_platform     = new UnitTestPlatform();
 		$gallery->_urlGenerator = new UnitTestUrlGenerator();
+
 		GalleryDataCache::setFileCachingEnabled(true);
 
 		$gallery->setConfig('data.gallery.cache', '/cache/');
@@ -571,12 +578,14 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->_buildPlatformResponses('path/file2.txt', 'MD5KEY2', 'FOUR');
 
 		$templateAdapter = new GalleryTemplateAdapter();
+
 		$templateAdapter->_combineJavascriptFiles(
 			array('path/file1.js', 'main.php?foo=bar', 'path/file2.txt'),
 			$output
 		);
 
 		$expected = array('');
+
 		$this->assertEquals(
 			array(
 				'<script type="text/javascript" '
@@ -601,18 +610,21 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$gallery->_phpVm        = new UnitTestPhpVm();
 		$gallery->_platform     = new UnitTestPlatform();
 		$gallery->_urlGenerator = new UnitTestUrlGenerator();
+
 		GalleryDataCache::setFileCachingEnabled(true);
 
 		$gallery->setConfig('data.gallery.cache', '/cache/');
 		$this->_buildPlatformResponses('lib/yui/utilities.js', 'MD5KEY', 'THREE');
 
 		$templateAdapter = new GalleryTemplateAdapter();
+
 		$templateAdapter->_combineJavascriptFiles(
 			array('lib/yui/yahoo-dom-event.js', 'lib/yui/utilities.js'),
 			$output
 		);
 
 		$expected = array('');
+
 		$this->assertEquals(
 			array(
 				'<script type="text/javascript" '
@@ -655,6 +667,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$platform->setReply('is_dir', array('/cache/module/_all/0/0'), true);
 
 		$length = strlen($content);
+
 		$platform->setReply(
 			'atomicWrite',
 			array(
@@ -838,6 +851,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->_setupAdapterWithMocks();
 
 		$mockPlatform = new UnitTestPlatform();
+
 		$mockPlatform->setReply(
 			'file_exists',
 			array('gallery:modules/core/templates/blocks/Bogus.tpl'),
@@ -885,6 +899,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		$this->_setupAdapterWithMocks();
 
 		$mockPlatform = new UnitTestPlatform();
+
 		$mockPlatform->setReply(
 			'file_exists',
 			array('gallery:modules/core/templates/blocks/Bogus.tpl'),
@@ -928,6 +943,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 	public function testHeadContentFromTemplate() {
 		// Use a real GalleryTemplate / smarty instance to test the whole loop
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
 
 		$template->title('My Test Page');
@@ -970,6 +986,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 	public function testHeadContentFromTemplateNoCombinedJavascript() {
 		// Use a real GalleryTemplate / smarty instance to test the whole loop
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$template = new GalleryTemplate(GalleryCoreApi::getCodeBasePath());
 
 		$template->title('My Test Page');

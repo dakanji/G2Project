@@ -35,6 +35,7 @@ class MailHelper_simple {
 		global $gallery;
 
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$template = new GalleryTemplate(__DIR__ . '/../../../..', true, false);
 
 		// Set the smarty variables from the data array

@@ -297,6 +297,7 @@ class IsapiRewriteHelper {
 
 		// Substitute with what the Gallery URL generator would generate
 		$galleryUrlGenerator = new GalleryUrlGenerator();
+
 		$galleryUrlGenerator->init(
 			$Httpdini['directory'] . $Httpdini['baseFile'],
 			$Httpdini['galleryDirectory'] . GALLERY_MAIN_PHP
@@ -469,7 +470,13 @@ class IsapiRewriteHelper {
 				 * with the last sub-expression, count($regexRules['keywords'] + 1
 				 */
 				if (in_array('QSA', $regexRule['flags'])) {
-					$regexRule['substitution'] .= (strpos($regexRule['substitution'], '?') === false ? '?' : '&') . '$' . (count($regexRule['keywords']) + 1);
+					if (strpos($regexRule['substitution'], '?') === false) {
+						$tVar = '?';
+					} else {
+						$tVar = '&';
+					}
+
+					$regexRule['substitution'] .= $tVar . '$' . count($regexRule['keywords']) + 1;
 				}
 
 				/*
@@ -489,6 +496,7 @@ class IsapiRewriteHelper {
 
 		// Render template
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$template = new GalleryTemplate(__DIR__ . '/../../../templates', true, false);
 
 		$template->setVariable('Httpdini', $Httpdini);

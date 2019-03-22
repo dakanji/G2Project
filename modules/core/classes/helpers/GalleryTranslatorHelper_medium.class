@@ -207,6 +207,7 @@ class GalleryTranslatorHelper_medium {
 			}
 
 			$languageDescription = $languageData['description'];
+
 			GalleryDataCache::put($cacheKey, $languageDescription);
 		} else {
 			$languageDescription = GalleryDataCache::get($cacheKey);

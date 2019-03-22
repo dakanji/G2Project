@@ -37,6 +37,7 @@ if (!function_exists('ctype_alnum')) {
 }
 
 //Lens_ParseTest();
+
 /**
  * Parse arguments, treat "text" (text) and 'text' as quotation marks.
  * To escape, use "" or '' or ))
@@ -319,7 +320,6 @@ class ADODB_DataDict {
 			'NUM'                         => 'N',
 			'NUMERIC'                     => 'N',
 			'MONEY'                       => 'N',
-
 			// informix 9.2
 			'SQLINT'                      => 'I',
 			'SQLSERIAL'                   => 'I',
@@ -335,7 +335,6 @@ class ADODB_DataDict {
 			'SQLINTERVAL'                 => 'N',
 			'SQLBYTES'                    => 'B',
 			'SQLTEXT'                     => 'X',
-
 			// informix 10
 			'SQLINT8'                     => 'I8',
 			'SQLSERIAL8'                  => 'I8',

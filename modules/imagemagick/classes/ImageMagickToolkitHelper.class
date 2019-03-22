@@ -45,6 +45,7 @@ class ImageMagickToolkitHelper {
 		}
 
 		// -------------------- Operations --------------------
+
 		/*
 		 * Provide some mime type conversions.  G2 will use convert-to-image/jpeg for
 		 * types that are not viewable inline (TIFF, SVG, PDF, etc)..
@@ -246,7 +247,6 @@ class ImageMagickToolkitHelper {
 					'application/x-shockwave-flash',
 				)
 			),
-
 		// Supported by php getimagesize
 		);
 

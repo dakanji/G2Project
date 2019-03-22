@@ -168,7 +168,6 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		}
 
 		$can[$this->_comment[2]->getId()]['delete'] = false;
-
 		$can[$this->_comment[3]->getId()]['delete'] = false;
 
 		$this->assertEquals(sort($can), sort($data['can']), 'permissions');
@@ -247,6 +246,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_album->getId());
 
 		$template = new UnitTestTemplate();
+
 		$template->setVariable(
 			'head',
 			array(
@@ -264,6 +264,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		}
 
 		$head = $template->getVariable('head');
+
 		$this->assertEquals(
 			array(
 				array(
@@ -323,6 +324,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		}
 
 		$template = new UnitTestTemplate();
+
 		$template->setVariable(
 			'head',
 			array(
@@ -340,6 +342,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		}
 
 		$head = $template->getVariable('head');
+
 		$this->assertEquals(
 			array(
 				array(
@@ -400,6 +403,7 @@ class ShowAllCommentsViewTest extends GalleryViewTestCase {
 		}
 
 		$template = new UnitTestTemplate();
+
 		$template->setVariable(
 			'head',
 			array(

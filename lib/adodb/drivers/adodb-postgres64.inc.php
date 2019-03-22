@@ -426,7 +426,6 @@ class ADODB_postgres64 extends ADOConnection {
 	 */
 	public function UpdateBlobFile($table, $column, $path, $where, $blobtype = 'BLOB') {
 		pg_query($this->_connectionID, 'begin');
-
 		$fd       = fopen($path, 'r');
 		$contents = fread($fd, filesize($path));
 		fclose($fd);
@@ -437,7 +436,6 @@ class ADODB_postgres64 extends ADOConnection {
 
 		// $oid = pg_lo_import ($path);
 		pg_query($this->_connectionID, 'commit');
-
 		$rs  = ADOConnection::UpdateBlob($table, $column, $oid, $where, $blobtype);
 		$rez = !empty($rs);
 
@@ -454,9 +452,7 @@ class ADODB_postgres64 extends ADOConnection {
 	 */
 	public function BlobDelete($blob) {
 		pg_query($this->_connectionID, 'begin');
-
 		$result = @pg_lo_unlink($blob);
-
 		pg_query($this->_connectionID, 'commit');
 
 		return $result;
@@ -1087,12 +1083,10 @@ class ADODB_postgres64 extends ADOConnection {
 
 		if ($this->_resultid) {
 			@pg_free_result($this->_resultid);
-
 			$this->_resultid = false;
 		}
 
 		@pg_close($this->_connectionID);
-
 		$this->_connectionID = false;
 
 		return true;
@@ -1189,8 +1183,7 @@ class ADORecordSet_postgres64 extends ADORecordSet {
 			$this->bind = array();
 
 			for ($i = 0; $i < $this->_numOfFields; $i++) {
-				$o = $this->FetchField($i);
-
+				$o                                = $this->FetchField($i);
 				$this->bind[strtoupper($o->name)] = $i;
 			}
 		}

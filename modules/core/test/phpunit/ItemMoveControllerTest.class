@@ -322,6 +322,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[0]->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -375,6 +376,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[destination]', $peer->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -470,6 +472,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
 		$results = GalleryUtilities::strArrToIntArr($results);
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -517,6 +520,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -546,7 +550,9 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 			)
 		);
 		GalleryUtilities::putRequestVariable('form[action][move]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -577,6 +583,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[1]->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -611,6 +618,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[3]->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -645,6 +653,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[2]->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -675,6 +684,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[0]->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -709,6 +719,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[1]->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -743,6 +754,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[0]->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -783,6 +795,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 
 		// Verify they were created ok..
 		$sizes = $this->_getDerivativeSizes($this->_item->getId());
+
 		$this->assertEquals(
 			array(
 				array(
@@ -809,6 +822,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album[1]->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -845,6 +859,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 
 		// Verify derivatives were recreated with preferences of new parent album
 		$sizes = $this->_getDerivativeSizes($this->_item->getId());
+
 		$this->assertEquals(
 			array(
 				array(

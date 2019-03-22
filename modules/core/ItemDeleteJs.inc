@@ -66,6 +66,7 @@ class ItemDeleteJsView extends GalleryView {
 	 */
 	public function renderImmediate($status = null, $error = null) {
 		GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+
 		$template = new GalleryTemplate(dirname(dirname(__DIR__)));
 
 		$template->setVariable('l10Domain', 'modules_core');

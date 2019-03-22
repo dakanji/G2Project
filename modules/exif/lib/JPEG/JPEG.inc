@@ -29,6 +29,7 @@
 // | commented and adapted to Gallery 2 by <rehfeld@georg-rehfeld.de>     |
 // +----------------------------------------------------------------------+
 // $Id: JPEG.inc 16769 2007-07-16 16:06:17Z mindless $
+
 /**************************************************************************
  * JPEG
  * ----
@@ -40,17 +41,11 @@
  *
  * $jpeg = new JPEG('images/photos001.jpg');
  *
-
  * echo $jpeg->getExifField("ApertureValue");
-
  * echo $jpeg->getIPTCField("Caption");
-
  *
-
  * $jpeg->setIPTCField("Byline", "Sebastian Delmont");
-
  * $jpeg->save("images/photos001-bis.jpg");
-
  *
  * $info = $jpeg->getBasicInfo();
  * echo $info['Width'] . "x" . $info['Height'];
@@ -60,6 +55,7 @@
 
 //-re- nothing used from PEAR
 //require_once 'PEAR.php';
+
 /**
  *
  * @TODO: -re- record error reasons (code + message)
@@ -87,7 +83,6 @@ class JPEG {
 		$this->_fileName = $fileName;
 		$this->_fp       = null;
 		$this->_type     = 'unknown';
-
 		unset($this->_info, $this->_markers);
 	}
 
@@ -713,7 +708,6 @@ class JPEG {
 		$this->_fileName = null;
 		$this->_fp       = null;
 		$this->_type     = 'unknown';
-
 		unset($this->_markers, $this->_info);
 	}
 
@@ -733,7 +727,6 @@ class JPEG {
 	 */
 	public function _readJPEG() {
 		unset($this->_markers, $this->_info);
-
 		$this->_markers = array();
 		$this->_info    = array();
 		$this->_fp      = @fopen($this->_fileName, 'rb');
@@ -863,7 +856,6 @@ class JPEG {
 
 		if ($this->_fp) {
 			fclose($this->_fp);
-
 			$this->_fp = null;
 		}
 
@@ -934,9 +926,7 @@ class JPEG {
 
 		if ($this->_fpout) {} else {
 			$this->_fpout = null;
-
 			fclose($this->_fp);
-
 			$this->_fp = null;
 
 			// ERROR: Can't open output file
@@ -957,7 +947,6 @@ class JPEG {
 
 		// (0xFF + SOI)
 		fputs($this->_fpout, chr(0xD8), 1);
-
 		$count = 0;
 		$done  = false;
 		$ok    = true;
@@ -1063,13 +1052,11 @@ class JPEG {
 
 		if ($this->_fp) {
 			fclose($this->_fp);
-
 			$this->_fp = null;
 		}
 
 		if ($this->_fpout) {
 			fclose($this->_fpout);
-
 			$this->_fpout = null;
 		}
 
@@ -1085,11 +1072,8 @@ class JPEG {
 		}
 
 		fputs($this->_fpout, chr(0xFF), 1);
-
 		fputs($this->_fpout, chr($marker), 1);
-
 		fputs($this->_fpout, chr((($length + 2) & 0x0000FF00) >> 8), 1);
-
 		fputs($this->_fpout, chr((($length + 2) & 0x000000FF) >> 0), 1);
 
 		if (isset($data)) {
@@ -1112,13 +1096,11 @@ class JPEG {
 				// Copy until EOF
 				while (!feof($this->_fp)) {
 					$data =& fread($this->_fp, 1024 * 16);
-
 					fputs($this->_fpout, $data, strlen($data));
 				}
 			} else {
 				// Copy only $length bytes
 				$data =& fread($this->_fp, $length);
-
 				fputs($this->_fpout, $data, $length);
 			}
 		}
@@ -2397,7 +2379,6 @@ class JPEG {
 		if (isset($this->_info['adobe']['raw']) && (count($this->_info['adobe']['raw']) > 0)) {
 			$data = "Photoshop 3.0\0";
 			$pos  = 14;
-
 			reset($this->_info['adobe']['raw']);
 
 			foreach ($this->_info['adobe']['raw'] as $key => $vNil) {
@@ -2443,7 +2424,6 @@ class JPEG {
 		$data      = ' ';
 		$pos       = 0;
 		$IPTCNames =& $this->_iptcNameTags();
-
 		reset($this->_info['iptc']);
 
 		foreach ($this->_info['iptc'] as $label => $vNil) {

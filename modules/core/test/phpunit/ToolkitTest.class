@@ -768,6 +768,7 @@ crop|15,20.5,40.62,50'
 
 	public function testMergeOperations() {
 		$toolkit = new TestToolkit();
+
 		$this->assertEquals(
 			array(true, 'thumbnail', array(150)),
 			$toolkit->mergeOperations('thumbnail', array(100), 'thumbnail', array(150)),

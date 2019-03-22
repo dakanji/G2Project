@@ -62,7 +62,9 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 	public function testCancel() {
 		GalleryUtilities::putRequestVariable('userId', $this->_user[0]->getId());
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -79,7 +81,9 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 	public function testUndo() {
 		GalleryUtilities::putRequestVariable('userId', $this->_user[0]->getId());
 		GalleryUtilities::putRequestVariable('form[action][undo]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -105,7 +109,9 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password1]', '');
 		GalleryUtilities::putRequestVariable('form[password2]', '');
 		GalleryUtilities::putRequestVariable('form[locked]', '');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -133,7 +139,9 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password1]', '');
 		GalleryUtilities::putRequestVariable('form[password2]', '');
 		GalleryUtilities::putRequestVariable('form[locked]', '');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -161,7 +169,9 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password1]', '');
 		GalleryUtilities::putRequestVariable('form[password2]', '');
 		GalleryUtilities::putRequestVariable('form[locked]', '');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -185,7 +195,9 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password1]', 'x');
 		GalleryUtilities::putRequestVariable('form[password2]', '');
 		GalleryUtilities::putRequestVariable('form[locked]', '');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -211,7 +223,9 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[language]', '');
 		GalleryUtilities::putRequestVariable('form[password1]', '');
 		GalleryUtilities::putRequestVariable('form[password2]', '');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -237,7 +251,9 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password1]', $password);
 		GalleryUtilities::putRequestVariable('form[password2]', $password);
 		GalleryUtilities::putRequestVariable('form[locked]', '');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -265,8 +281,10 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		// Trailing space on full/username with no other changes used to give db error on mysql
 		GalleryUtilities::putRequestVariable('userId', $this->_user[0]->getId());
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
+
 		$userName = $this->_user[0]->getUserName();
 		$fullName = $this->_user[0]->getFullName();
+
 		GalleryUtilities::putRequestVariable('form[userName]', "$userName  ");
 		GalleryUtilities::putRequestVariable('form[fullName]', "$fullName   ");
 		GalleryUtilities::putRequestVariable('form[email]', $this->_user[0]->getEmail());
@@ -274,7 +292,9 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password1]', '');
 		GalleryUtilities::putRequestVariable('form[password2]', '');
 		GalleryUtilities::putRequestVariable('form[locked]', '');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -318,7 +338,9 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password1]', '');
 		GalleryUtilities::putRequestVariable('form[password2]', '');
 		GalleryUtilities::putRequestVariable('form[locked]', 'on');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -350,7 +372,9 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[password1]', '');
 		GalleryUtilities::putRequestVariable('form[password2]', '');
 		GalleryUtilities::putRequestVariable('form[locked]', '');
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -400,6 +424,7 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		}
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -429,4 +454,3 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(0, $searchResults->resultCount());
 	}
 }
-

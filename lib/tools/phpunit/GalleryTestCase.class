@@ -31,6 +31,7 @@ class GalleryTestCase extends TestCase {
 
 	public function __construct($methodName) {
 		parent::__construct($methodName);
+
 		$this->_cleanup = array(
 			'entity'           => array(),
 			'factoryModuleId'  => array(),
@@ -365,7 +366,9 @@ class GalleryTestCase extends TestCase {
 
 		GalleryDataCache::setFileCachingEnabled(true);
 		GalleryDataCache::setMemoryCachingEnabled(true);
+
 		$counter =& GalleryTestCase::getEntityCounter();
+
 		$this->assertTrue(
 			$counter->getCount() == 0,
 			sprintf(
@@ -457,6 +460,7 @@ class GalleryTestCase extends TestCase {
 		global $gallery;
 
 		$message = $gallery->getDebugBuffer() . $message;
+
 		parent::assertTrue($condition, $message);
 	}
 
@@ -464,6 +468,7 @@ class GalleryTestCase extends TestCase {
 		global $gallery;
 
 		$message = $gallery->getDebugBuffer() . $message;
+
 		parent::assertFalse($condition, $message);
 	}
 
@@ -481,6 +486,7 @@ class GalleryTestCase extends TestCase {
 
 		if ($err) {
 			$message .= sprintf('&nbsp;<br/><b>Mismatch At</b>: %s', htmlspecialchars($err));
+
 			parent::assertEquals($expected, $actual, $message);
 		}
 	}
@@ -1522,7 +1528,6 @@ class EntityCounterEventListener {
 
 				if ($entity->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
 					$this->_count++;
-
 					$this->_ids[$entity->getClassName()][] = $entity->getId();
 				}
 

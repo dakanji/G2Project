@@ -107,6 +107,7 @@ class AdminDeleteGroupQuotaView extends GalleryView {
 		}
 
 		GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
+
 		$groupId = GalleryUtilities::getRequestVariables('groupId');
 
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
@@ -148,4 +149,3 @@ class AdminDeleteGroupQuotaView extends GalleryView {
 		);
 	}
 }
-

@@ -283,6 +283,7 @@ class PasswordModule extends GalleryModule {
 
 					$urlGenerator =& $gallery->getUrlGenerator();
 					$phpVm        = $gallery->getPhpVm();
+
 					$phpVm->header(
 						'Location: ' . $urlGenerator->generateUrl(
 							array(

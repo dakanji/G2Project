@@ -45,9 +45,13 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 
 		// Load the cache for testing
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(module)';
+
 		GalleryDataCache::put($cacheKey, array('testModule'));
+
 		$cacheKey = 'GalleryPluginHelper::getAllPluginIds(theme)';
+
 		GalleryDataCache::put($cacheKey, array('testTheme'));
+
 		$gallery->_translator  = AdminLanguagesViewTestTranslator::getMe();
 		$cacheKey              = 'GalleryRepository::getRepositories(,GalleryRepository)';
 		$this->_testRepository = new UnitTestRepository();
@@ -72,6 +76,7 @@ class AdminLanguageManagerViewTest extends GalleryViewTestCase {
 		);
 
 		GalleryDataCache::put($cacheKey, $supportedLanguages);
+
 		$UnitTestPlatform = new UnitTestPlatform();
 
 		$gallery->setPlatform($UnitTestPlatform);

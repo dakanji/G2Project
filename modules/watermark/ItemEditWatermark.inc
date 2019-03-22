@@ -81,6 +81,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 
 				if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 					$templateAdapter =& $gallery->getTemplateAdapter();
+
 					$templateAdapter->registerTrailerCallback(
 						array($this, 'bulkOperation'),
 						array(
@@ -112,6 +113,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 		} elseif (isset($form['action']['remove'])) {
 			if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 				$templateAdapter =& $gallery->getTemplateAdapter();
+
 				$templateAdapter->registerTrailerCallback(
 					array($this, 'bulkOperation'),
 					array(

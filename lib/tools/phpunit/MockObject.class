@@ -68,7 +68,6 @@ class MockObject {
 	public function getRemaining() {
 		return 'Error count: ' . $_GET[$this->_className]['errorCount']
 		. "\nRemaining requests: "
-
 		. print_r($_GET[$this->_className]['replies'], true);
 	}
 
@@ -91,7 +90,6 @@ class MockObject {
 		$ret = GalleryCoreApi::error(ERROR_UNKNOWN, null, null, 'Unhandled reply in MockObject');
 
 		echo '<br/><br/>' . $ret->getAsHtml();
-
 		printf(
 			'<br/><b>Mismatch At</b>: %s<br/>',
 			htmlspecialchars(

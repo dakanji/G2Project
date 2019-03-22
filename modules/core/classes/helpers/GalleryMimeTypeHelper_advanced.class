@@ -37,7 +37,6 @@ class GalleryMimeTypeHelper_advanced {
 	 */
 	public static function initializeMimeTypes() {
 		$mimeTypes = array(
-
 			// This data was lifted from Apache's mime.types listing.
 			'z'       => 'application/x-compress',
 			'ai'      => 'application/postscript',
@@ -176,14 +175,12 @@ class GalleryMimeTypeHelper_advanced {
 			'xwd'     => 'image/x-xwindowdump',
 			'xyz'     => 'chemical/x-xyz',
 			'zip'     => 'application/zip',
-
 			// And some of my own additions
 			// From support.microsoft.com/support/kb/articles/Q284/0/94.ASP
 			'asf'     => 'video/x-ms-asf',
 			'asx'     => 'video/x-ms-asx',
 			'wmv'     => 'video/x-ms-wmv',
 			'wma'     => 'audio/x-ms-wma',
-
 			// JPEG 2000: From RFC 3745: http://www.faqs.org/rfcs/rfc3745.html
 			'jp2'     => 'image/jp2',
 			'jpg2'    => 'image/jp2',
@@ -193,7 +190,6 @@ class GalleryMimeTypeHelper_advanced {
 			'mjp2'    => 'video/mj2',
 			'jpm'     => 'image/jpm',
 			'jpgm'    => 'image/jpgm',
-
 			// Other
 			'psd'     => 'application/photoshop',
 			'pcd'     => 'image/x-photo-cd',
@@ -306,4 +302,3 @@ class GalleryMimeTypeHelper_advanced {
 		return null;
 	}
 }
-

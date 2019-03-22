@@ -115,6 +115,7 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'return' => true,
@@ -129,7 +130,9 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 		GalleryUtilities::putRequestVariable('form[parentId]', $this->_subalbum->getId());
 		GalleryUtilities::putRequestVariable('form[action][makeHighlight]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'return' => true,
@@ -157,7 +160,9 @@ class ItemMakeHighlightControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('itemId', $this->_item->getId());
 		GalleryUtilities::putRequestVariable('form[parentId]', $this->_album->getId());
 		GalleryUtilities::putRequestVariable('form[action][makeHighlight]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'return' => true,

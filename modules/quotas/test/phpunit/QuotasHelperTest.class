@@ -181,6 +181,7 @@ class QuotasHelperTest extends GalleryTestCase {
 			}
 
 			$expectedUsage += (($j * 1024) + 102400) / 1024;
+
 			$this->assertTrue(
 				$userDiskUsage == $expectedUsage,
 				'User\'s disk usage is incorrect! Item ' . $j
@@ -236,6 +237,7 @@ class QuotasHelperTest extends GalleryTestCase {
 			}
 
 			$expectedUsage += 1048576;
+
 			$this->assertEquals(
 				$expectedUsage,
 				$userDiskUsage,
@@ -379,6 +381,7 @@ class QuotasHelperTest extends GalleryTestCase {
 
 		$this->assertTrue($groupQuotaExists == true, 'Quota existance failure');
 		$this->assertTrue($groupQuotaInfo['quota'] == 4, 'The group quota should be 4 KB');
+
 		$this->_removeMapEntry(
 			array(
 				'userOrGroupId' => $this->_group->getId(),
@@ -481,6 +484,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($postGroupCount = $preGroupCount + 1, 'Group Counts do not match up');
+
 		$this->_removeMapEntry(
 			array(
 				'userOrGroupId' => $this->_group->getId(),
@@ -560,6 +564,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($postUserCount = $preUserCount + 1, 'User Counts do not match up');
+
 		$this->_removeMapEntry(
 			array(
 				'userOrGroupId' => $this->_user->getId(),
@@ -593,6 +598,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($quotaExists == true, 'Quota should exist for this group');
+
 		$this->assertEquals(
 			array(
 				'id'    => $this->_group->getId(),
@@ -636,6 +642,7 @@ class QuotasHelperTest extends GalleryTestCase {
 		}
 
 		$this->assertTrue($quotaExists == true, 'Quota should exist for this user');
+
 		$this->assertEquals(
 			array(
 				'id'    => $this->_user->getId(),

@@ -178,6 +178,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 				// Recreate the thumbnails, if requested to do so
 				if (isset($form['recreateThumbnails'])) {
 					$templateAdapter =& $gallery->getTemplateAdapter();
+
 					$templateAdapter->registerTrailerCallback(
 						array($this, 'runRecreateThumbnails'),
 						array($form, $item, $preferred)
@@ -189,6 +190,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 				// Recreate the resizes, if requested to do so
 				if (isset($form['recreateResizes'])) {
 					$templateAdapter =& $gallery->getTemplateAdapter();
+
 					$templateAdapter->registerTrailerCallback(
 						array($this, 'runRecreateResizes'),
 						array($form, $item, $preferred)

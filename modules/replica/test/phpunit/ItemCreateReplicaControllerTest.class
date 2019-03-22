@@ -79,6 +79,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'redirect' => array(
@@ -185,7 +186,9 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 			)
 		);
 		GalleryUtilities::putRequestVariable('form[action][link]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -275,6 +278,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -317,6 +321,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 
 		// Perform the request and verify that we succeeded
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(
@@ -359,7 +364,9 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 			)
 		);
 		GalleryUtilities::putRequestVariable('form[action][cancel]', 1);
+
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'return' => 1,
@@ -383,6 +390,7 @@ class ItemCreateReplicaControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[destination]', $this->_album->getId());
 
 		$results = $this->handleRequest();
+
 		$this->assertEquals(
 			array(
 				'delegate' => array(

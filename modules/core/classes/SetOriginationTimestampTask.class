@@ -75,6 +75,7 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 		}
 
 		$message = $module->translate('Processing...');
+
 		$templateAdapter->updateProgressBar(
 			$module->translate('Refresh Capture Dates'),
 			$message,

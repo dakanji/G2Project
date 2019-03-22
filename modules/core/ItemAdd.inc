@@ -604,6 +604,7 @@ class ItemAddController extends GalleryController {
 			if ($this->_platform->is_dir($path)) {
 				if ($canAddAlbums) {
 					$title = $filename;
+
 					GalleryUtilities::sanitizeInputValues($title);
 
 					list($ret, $album) = GalleryCoreApi::createAlbum(
@@ -676,6 +677,7 @@ class ItemAddController extends GalleryController {
 
 				if ($titleMode == 'file') {
 					$title = $filename;
+
 					GalleryUtilities::sanitizeInputValues($title);
 				} elseif ($titleMode == 'base') {
 					list($title) = GalleryUtilities::getFileNameComponents($filename);
@@ -702,7 +704,9 @@ class ItemAddController extends GalleryController {
 
 			if ($newItem) {
 				$sanitizedFilename = $filename;
+
 				GalleryUtilities::sanitizeInputValues($sanitizedFilename);
+
 				$addedFiles[] = array(
 					'fileName' => $sanitizedFilename,
 					'id'       => $newItem->getId(),

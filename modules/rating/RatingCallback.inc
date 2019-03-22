@@ -100,7 +100,6 @@ class RatingCallbackView extends GalleryView {
 				. $results['rating'] . "\n"
 				. $results['votesString'] . "\n"
 				. $results['userRating'] . "\n"
-
 				. $session->getAuthToken();
 
 				/*

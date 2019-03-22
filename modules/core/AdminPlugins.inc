@@ -102,6 +102,7 @@ class AdminPluginsView extends GalleryView {
 
 			$platform =& $gallery->getPlatform();
 			$g2Dir    = dirname(dirname(__DIR__)) . '/';
+
 			GalleryCoreApi::requireOnce('modules/core/PluginCallback.inc');
 
 			foreach ($pluginStatus[$type] as $pluginId => $status) {

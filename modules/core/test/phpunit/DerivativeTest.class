@@ -313,6 +313,7 @@ class DerivativeTest extends GalleryTestCase {
 		}
 
 		$ops =& DerivativeTestToolkit::getPerformedOperations();
+
 		$this->assertEquals(
 			array(
 				array(
@@ -420,6 +421,7 @@ class DerivativeTest extends GalleryTestCase {
 		}
 
 		$size = $platform->filesize($derivative->getBrokenDerivativePath());
+
 		$this->assertEquals(
 			$size,
 			$derivative->getDerivativeSize(),
@@ -583,6 +585,7 @@ class DerivativeTest extends GalleryTestCase {
 		}
 
 		asort($ids);
+
 		$this->assertEquals(
 			array(
 				$this->_root->getId() => $derivative1,
@@ -1093,6 +1096,7 @@ B|1,2',
 		}
 
 		$ops =& DerivativeTestToolkit::getPerformedOperations();
+
 		$this->assertEquals(
 			array(
 				array(
@@ -1270,6 +1274,7 @@ B|1,2',
 		}
 
 		usort($preferences, 'DerivativeTestCmp');
+
 		$this->assertEquals(
 			array(
 				array(

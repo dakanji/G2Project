@@ -537,6 +537,7 @@ class GallerySession {
 
 		// Unset the cookie and any request variables so that we'll regenerate a new id in init()
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
+
 		unset($_COOKIE[SESSION_ID_PARAMETER]);
 
 		// Reset 'cached' variables
@@ -1214,9 +1215,11 @@ class GallerySession {
 		$lastWeek       = $phpVm->time() - 86400 * 7;
 
 		// Only delete in small chunks, else we may lock the whole Gallery for too long
-		$where  = '
+		$where = '
 		WHERE [GallerySessionMap::creationTimestamp] < ?
+
 		OR [GallerySessionMap::modificationTimestamp] < ?';
+
 		$data[] = (int)$lifetimeCutoff;
 		$data[] = (int)$inactiveCutoff;
 
