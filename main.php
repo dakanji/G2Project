@@ -40,8 +40,17 @@ if ($gallery->isEmbedded()) {
 	include_once __DIR__ . '/init.inc';
 } else {
 	// If this is a request for a public data file, give it to the user immediately
-	$unsanitizedView = isset($_GET[GALLERY_FORM_VARIABLE_PREFIX . 'view']) ? $_GET[GALLERY_FORM_VARIABLE_PREFIX . 'view'] : null;
-	$itemId          = (int)(isset($_GET[GALLERY_FORM_VARIABLE_PREFIX . 'itemId']) ? $_GET[GALLERY_FORM_VARIABLE_PREFIX . 'itemId'] : null);
+	if (isset($_GET[GALLERY_FORM_VARIABLE_PREFIX . 'view'])) {
+		$unsanitizedView = $_GET[GALLERY_FORM_VARIABLE_PREFIX . 'view'];
+	} else {
+		$unsanitizedView = null;
+	}
+
+	if (isset($_GET[GALLERY_FORM_VARIABLE_PREFIX . 'itemId'])) {
+		$itemId = (int)$_GET[GALLERY_FORM_VARIABLE_PREFIX . 'itemId'];
+	} else {
+		$itemId = null;
+	}
 
 	if ($unsanitizedView == 'core.DownloadItem' && !empty($itemId)) {
 		/*
@@ -665,6 +674,35 @@ function _GalleryMain($embedded = false, $template = null) {
 					return array($ret, null);
 				}
 
+				/*
+				 * DA Note: Added Event - BeforeOutput
+				 * Event handlers should return array($ret, array($cacheStatus as boolean, $htmlData as string));
+				 */
+				$event = GalleryCoreApi::newEvent('Gallery::BeforeOutput');
+
+				$event->setEntity($template);
+
+				$event->setData(
+					array(
+						'templatePath' => $templatePath,
+						'view'         => $view,
+						'html'         => $html,
+					)
+				);
+				list($ret, $output) = GalleryCoreApi::postEvent($event);
+
+				if ($ret) {
+					return array($ret, null);
+				}
+
+				if ($output) {
+					if ($output[0] === 'false') {
+						$shouldCache = null;
+					}
+
+					$html = $output[1];
+				}
+
 				if ($embedded) {
 					$html = $theme->splitHtml($html, $results);
 				}
@@ -821,7 +859,8 @@ function _GalleryMain_doRedirect(
 				 * URL, else append it
 				 */
 				$session            =& $gallery->getSession();
-				$sessionParamString = GalleryUtilities::prefixFormVariable(urlencode($session->getKey())) . '='
+				$sessionParamString = GalleryUtilities::prefixFormVariable(urlencode($session->getKey()))
+				. '='
 				. urlencode($session->getId());
 
 				if ($session->isPersistent() && !strstr($redirectUrl, $sessionParamString)) {
