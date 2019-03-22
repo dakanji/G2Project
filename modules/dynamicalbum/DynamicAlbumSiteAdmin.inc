@@ -158,7 +158,12 @@ class DynamicAlbumSiteAdminView extends GalleryView {
 				'itemlink.views',
 				'itemlink.random',
 			) as $key) {
-				list($ret, $form[strtr($key, '.', '_')]) = GalleryCoreApi::getPluginParameter('module', 'dynamicalbum', $key);
+				list($ret, $form[strtr($key, '.', '_')]) = GalleryCoreApi::getPluginParameter(
+					'module',
+					'
+					dynamicalbum',
+					$key
+				);
 
 				if ($ret) {
 					return array($ret, null);

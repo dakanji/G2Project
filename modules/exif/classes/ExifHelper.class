@@ -355,7 +355,11 @@ class ExifHelper {
 
 				if (isset($value)) {
 					// Convert to localized string
-					list($ret, $format) = GalleryCoreApi::getPluginParameter('module', 'core', 'format.datetime');
+					list($ret, $format) = GalleryCoreApi::getPluginParameter(
+						'module',
+						'core',
+						'format.datetime'
+					);
 
 					if ($ret || empty($format)) {
 						$format = '$x $X';
