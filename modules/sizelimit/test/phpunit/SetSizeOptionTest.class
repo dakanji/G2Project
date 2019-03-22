@@ -700,9 +700,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			'height'       => 1024,
 			'size'         => 1000,
 			'keepOriginal' => 1,
-		)
-
- as $key => $value) {
+		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
 				'sizelimit',
@@ -761,9 +759,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			'height'       => 1024,
 			'size'         => 1000,
 			'keepOriginal' => 1,
-		)
-
- as $key => $value) {
+		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
 				'sizelimit',
@@ -848,9 +844,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			'height'       => 1024,
 			'size'         => 1000,
 			'keepOriginal' => 0,
-		)
-
- as $key => $value) {
+		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
 				'sizelimit',
@@ -904,9 +898,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			'height'       => 1024,
 			'size'         => 1000,
 			'keepOriginal' => 0,
-		)
-
- as $key => $value) {
+		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
 				'sizelimit',
@@ -978,9 +970,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			'height'       => 1024,
 			'size'         => 1000,
 			'keepOriginal' => 0,
-		)
-
- as $key => $value) {
+		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
 				'sizelimit',
@@ -1007,9 +997,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			'height'       => 1024,
 			'size'         => 1000,
 			'keepOriginal' => 0,
-		)
-
- as $key => $value) {
+		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
 				'sizelimit',
@@ -1056,9 +1044,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
 			'height'       => 2400,
 			'size'         => 30000,
 			'keepOriginal' => 0,
-		)
-
- as $key => $value) {
+		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter(
 				'module',
 				'sizelimit',

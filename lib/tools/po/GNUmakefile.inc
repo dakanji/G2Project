@@ -94,14 +94,18 @@ install: check-g2data update
 	    if test -d ../locale; then \
 		if ! "$(TOOLDIR)"/po/shtool mkdir -p ../locale/$${LOCALE}/LC_MESSAGES; then \
 		    echo "Could not create directory: ../locale/$${LOCALE}/LC_MESSAGES"; \
+
 		    exit 1; \
+
 		fi; \
 		MO_FILE=../locale/$${LOCALE}/LC_MESSAGES/$(APPLICATION).mo; \
 	    elif test "$(APPLICATION)" = "gallery2_install" \
 		   || test "$(APPLICATION)" = "gallery2_upgrade";  then \
 		if ! $(TOOLDIR)/po/shtool mkdir -p ../../locale/$${LOCALE}/LC_MESSAGES; then \
 		    echo "Could not create directory: ../../locale/$${LOCALE}/LC_MESSAGES"; \
+
 		    exit 1; \
+
 		fi; \
 		MO_FILE=../../locale/$${LOCALE}/LC_MESSAGES/$(APPLICATION).mo; \
 	    else \

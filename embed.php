@@ -33,7 +33,6 @@ require_once __DIR__ . '/modules/core/classes/GalleryDataCache.class';
 GalleryDataCache::put('G2_EMBED', 1, true);
 
 require __DIR__ . '/main.php';
-
 require __DIR__ . '/modules/core/classes/GalleryEmbed.class';
 
 GalleryEmbed::getEmbedPathByHttpRequest();

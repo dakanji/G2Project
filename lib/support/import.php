@@ -31,11 +31,8 @@ if (!defined('G2_SUPPORT')) {
 $g2Base = dirname(dirname(__DIR__)) . '/';
 
 require_once $g2Base . 'modules/core/classes/GalleryCoreApi.class';
-
 require_once $g2Base . 'modules/core/classes/GalleryStorage.class';
-
 require_once $g2Base . 'modules/core/classes/GalleryUtilities.class';
-
 require_once $g2Base . 'lib/support/SupportStatusTemplate.class';
 
 $templateData = array();

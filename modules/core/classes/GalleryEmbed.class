@@ -388,7 +388,6 @@ class GalleryEmbed {
 	 */
 	public static function logout($params = array()) {
 		include_once __DIR__ . '/GalleryCoreApi.class';
-
 		include_once __DIR__ . '/GallerySession.class';
 
 		$hasSession = GalleryUtilities::getCookieVar(SESSION_ID_PARAMETER);

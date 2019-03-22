@@ -32,9 +32,7 @@ if (!defined('GALLERY_FORM_VARIABLE_PREFIX')) {
 }
 
 require_once __DIR__ . '/modules/core/classes/Gallery.class';
-
 require_once __DIR__ . '/modules/core/classes/GalleryDataCache.class';
-
 require_once __DIR__ . '/lib/composer/vendor/autoload.php';
 
 /*

@@ -45,9 +45,7 @@
 define('ADODB_PEAR', __DIR__);
 
 require_once 'PEAR.php';
-
 require_once ADODB_PEAR . '/adodb-errorpear.inc.php';
-
 require_once ADODB_PEAR . '/adodb.inc.php';
 
 if (!defined('DB_OK')) {

@@ -124,7 +124,6 @@ if (!defined('XMLS_DEFAULT_UPGRADE_METHOD')) {
  */
 if (!defined('_ADODB_LAYER')) {
 	include 'adodb.inc.php';
-
 	include 'adodb-datadict.inc.php';
 }
 

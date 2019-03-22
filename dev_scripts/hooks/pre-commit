@@ -73,10 +73,10 @@ else
 			RET=$(perl -p -i -e 's/^(\s*)([^\}]+\})(\s*)(\/\*[^\*]+\*\/)([^\n]+\n)/\n$1$2\n$1$4$5\n/' $FILE)
 			# 04. Remove all blank lines
 			RET=$(perl -p -i -e 's/^\s*$//' $FILE)
-			# 05. Add blank lines before and after single line "global", "static", "return", "break", "continue" "require" and "include" calls
-			RET=$(perl -p -i -e 's/^(\s*)(global|static|return|break|continue|require|include)([^;]*;)(.*)$/\n\n$1$2$3$4\n\n/' $FILE)
-			# 06. Add blank line before other "global", "static", "return", "break", "continue" "require" and "include" calls
-			RET=$(perl -p -i -e 's/^(\s*)(global|static|return|break|continue|require|include)([^\n]+\n)/\n\n$1$2$3/' $FILE)
+			# 05. Add blank lines before and after single line "global", "static", "return", "break", "exit", "continue" "require" and "include" calls
+			RET=$(perl -p -i -e 's/^(\s*)(global|static|return|break|exit|continue|require|include)([^;]*;)(.*)$/\n\n$1$2$3$4\n\n/' $FILE)
+			# 06. Add blank line before other "global", "static", "return", "break", "exit", "continue" "require" and "include" calls
+			RET=$(perl -p -i -e 's/^(\s*)(global|static|return|break|exit|continue|require|include)([^\n]+\n)/\n\n$1$2$3/' $FILE)
 			# 07. Add blank line before "$query", "$ret" and "list" calls
 			RET=$(perl -p -i -e 's/^(\s*)(\$query\s+\.?=|\$ret\s*=|list\()/\n\n$1$2/' $FILE)
 			# 08. Add blank line after single line "$query", "$ret" and "list" calls
@@ -144,11 +144,11 @@ else
 			RET=$(perl -0777 -p -i -e 's/([^,]+,)(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/([^,]+,)(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
 			# 27. Remove blank lines between consecutive calls to static mathods
-			RET=$(perl -0777 -p -i -e 's/(\n[^=\$\.\?\:\/\*]*::)([^;]+;)([^\n]*)(\s*\n\s*){1,}(\n\s*)([^=\$\.\?\:\/\*]+::)([^;]+;)([^\n]*\n)/$1$2$3$5$6$7$8/gms' $FILE)
-			RET=$(perl -0777 -p -i -e 's/(\n[^=\$\.\?\:\/\*]*::)([^;]+;)([^\n]*)(\s*\n\s*){1,}(\n\s*)([^=\$\.\?\:\/\*]+::)([^;]+;)([^\n]*\n)/$1$2$3$5$6$7$8/gms' $FILE)
-			RET=$(perl -0777 -p -i -e 's/(\n[^=\$\.\?\:\/\*]*::)([^;]+;)([^\n]*)(\s*\n\s*){1,}(\n\s*)([^=\$\.\?\:\/\*]+::)([^;]+;)([^\n]*\n)/$1$2$3$5$6$7$8/gms' $FILE)
-			RET=$(perl -0777 -p -i -e 's/(\n[^=\$\.\?\:\/\*]*::)([^;]+;)([^\n]*)(\s*\n\s*){1,}(\n\s*)([^=\$\.\?\:\/\*]+::)([^;]+;)([^\n]*\n)/$1$2$3$5$6$7$8/gms' $FILE)
-			RET=$(perl -0777 -p -i -e 's/(\n[^=\$\.\?\:\/\*]*::)([^;]+;)([^\n]*)(\s*\n\s*){1,}(\n\s*)([^=\$\.\?\:\/\*]+::)([^;]+;)([^\n]*\n)/$1$2$3$5$6$7$8/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/(\n[^=\$\(\{\.\?\:\/\*]+::)([^;]+;)([^\n]*)(\s*\n\s*){1,}(\n\s*)([^=\$\(\{\.\?\:\/\*]+::)([^;]+;)([^\n]*\n)/$1$2$3$5$6$7$8/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/(\n[^=\$\(\{\.\?\:\/\*]+::)([^;]+;)([^\n]*)(\s*\n\s*){1,}(\n\s*)([^=\$\(\{\.\?\:\/\*]+::)([^;]+;)([^\n]*\n)/$1$2$3$5$6$7$8/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/(\n[^=\$\(\{\.\?\:\/\*]+::)([^;]+;)([^\n]*)(\s*\n\s*){1,}(\n\s*)([^=\$\(\{\.\?\:\/\*]+::)([^;]+;)([^\n]*\n)/$1$2$3$5$6$7$8/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/(\n[^=\$\(\{\.\?\:\/\*]+::)([^;]+;)([^\n]*)(\s*\n\s*){1,}(\n\s*)([^=\$\(\{\.\?\:\/\*]+::)([^;]+;)([^\n]*\n)/$1$2$3$5$6$7$8/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/(\n[^=\$\(\{\.\?\:\/\*]+::)([^;]+;)([^\n]*)(\s*\n\s*){1,}(\n\s*)([^=\$\(\{\.\?\:\/\*]+::)([^;]+;)([^\n]*\n)/$1$2$3$5$6$7$8/gms' $FILE)
 			# 28. Remove blank lines between consecutive "$XYZ->" calls
 			RET=$(perl -0777 -p -i -e 's/(\n\s*)(\$[^-=]+->)([^=;]+;)(\s*\n\s*){1,}\n(\s*)(\$[^-=]+->)([^=;]+;)/$1$2$3\n$5$6$7/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\n\s*)(\$[^-=]+->)([^=;]+;)(\s*\n\s*){1,}\n(\s*)(\$[^-=]+->)([^=;]+;)/$1$2$3\n$5$6$7/gms' $FILE)
@@ -161,67 +161,61 @@ else
 			RET=$(perl -0777 -p -i -e 's/(\n\s*)(global|static)([^;]+;)(\s*\n\s*){1,}(\n\s*)(global|static)([^\n]+\n)/$1$2$3$5$6$7/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\n\s*)(global|static)([^;]+;)(\s*\n\s*){1,}(\n\s*)(global|static)([^\n]+\n)/$1$2$3$5$6$7/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\n\s*)(global|static)([^;]+;)(\s*\n\s*){1,}(\n\s*)(global|static)([^\n]+\n)/$1$2$3$5$6$7\n/gms' $FILE)
-			# 30. Remove blank lines between consecutive "require" and "include" calls
-			RET=$(perl -0777 -p -i -e 's/(\n\s*)(require|include)([^;]+;)(\s*\n\s*){1,}(\n\s*)(require|include)([^\n]+\n)/$1$2$3$5$6$7/gms' $FILE)
-			RET=$(perl -0777 -p -i -e 's/(\n\s*)(require|include)([^;]+;)(\s*\n\s*){1,}(\n\s*)(require|include)([^\n]+\n)/$1$2$3$5$6$7/gms' $FILE)
-			RET=$(perl -0777 -p -i -e 's/(\n\s*)(require|include)([^;]+;)(\s*\n\s*){1,}(\n\s*)(require|include)([^\n]+\n)/$1$2$3$5$6$7/gms' $FILE)
-			RET=$(perl -0777 -p -i -e 's/(\n\s*)(require|include)([^;]+;)(\s*\n\s*){1,}(\n\s*)(require|include)([^\n]+\n)/$1$2$3$5$6$7/gms' $FILE)
-			RET=$(perl -0777 -p -i -e 's/(\n\s*)(require|include)([^;]+;)(\s*\n\s*){1,}(\n\s*)(require|include)([^\n]+\n)/$1$2$3$5$6$7/gms' $FILE)
-			# 31. Combine consecutive "global" $XYZ calls
+			# 30. Combine consecutive "global" $XYZ calls
 			RET=$(perl -0777 -p -i -e 's/(\n\s*)(global)([^;]+)(;)(\n\s*)(global)([^;]+;)([^\n]*\n)/$1$2$3, $7$8/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\n\s*)(global)([^;]+)(;)(\n\s*)(global)([^;]+;)([^\n]*\n)/$1$2$3, $7$8/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\n\s*)(global)([^;]+)(;)(\n\s*)(global)([^;]+;)([^\n]*\n)/$1$2$3, $7$8/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\n\s*)(global)([^;]+)(;)(\n\s*)(global)([^;]+;)([^\n]*\n)/$1$2$3, $7$8/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\n\s*)(global)([^;]+)(;)(\n\s*)(global)([^;]+;)([^\n]*\n)/$1$2$3, $7$8/gms' $FILE)
-			# 32. Combine consecutive "static" $XYZ calls
+			# 31. Combine consecutive "static" $XYZ calls
 			RET=$(perl -0777 -p -i -e 's/(\n\s*)(static)([^;]+)(;)(\n\s*)(static)([^;]+;)([^\n]*\n)/$1$2$3, $7$8/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\n\s*)(static)([^;]+)(;)(\n\s*)(static)([^;]+;)([^\n]*\n)/$1$2$3, $7$8/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\n\s*)(static)([^;]+)(;)(\n\s*)(static)([^;]+;)([^\n]*\n)/$1$2$3, $7$8/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\n\s*)(static)([^;]+)(;)(\n\s*)(static)([^;]+;)([^\n]*\n)/$1$2$3, $7$8/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\n\s*)(static)([^;]+)(;)(\n\s*)(static)([^;]+;)([^\n]*\n)/$1$2$3, $7$8/gms' $FILE)
-			# 33. Separate multiline comment blocks
+			# 32. Separate multiline comment blocks
 			RET=$(perl -0777 -p -i -e 's/(\s*)(\*\/)\s*\n*(\s*\/\*)/$1$2\n\n$3/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\s*)(\*\/)\s*\n*(\s*\/\*)/$1$2\n\n$3/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\s*)(\*\/)\s*\n*(\s*\/\*)/$1$2\n\n$3/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\s*)(\*\/)\s*\n*(\s*\/\*)/$1$2\n\n$3/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\s*)(\*\/)\s*\n*(\s*\/\*)/$1$2\n\n$3/gms' $FILE)
-			# 34. Remove blank lines before closing braces
+			# 33. Remove blank lines before closing braces
 			RET=$(perl -0777 -p -i -e 's/(\s*\n\s*){1,}(\n\s*)\}/$2\}/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\s*\n\s*){1,}(\n\s*)\}/$2\}/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\s*\n\s*){1,}(\n\s*)\}/$2\}/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\s*\n\s*){1,}(\n\s*)\}/$2\}/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\s*\n\s*){1,}(\n\s*)\}/$2\}/gms' $FILE)
-			# 35. Remove blank lines before else statements
+			# 34. Remove blank lines before else statements
 			RET=$(perl -0777 -p -i -e 's/(\s*\n\s*){1,}(\n\s*)(\}|\))([^\{]+\{)([^\n]*\n)/$2$3$4$5\n/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\s*\n\s*){1,}(\n\s*)(\}|\))([^\{]+\{)([^\n]*\n)/$2$3$4$5\n/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\s*\n\s*){1,}(\n\s*)(\}|\))([^\{]+\{)([^\n]*\n)/$2$3$4$5\n/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\s*\n\s*){1,}(\n\s*)(\}|\))([^\{]+\{)([^\n]*\n)/$2$3$4$5\n/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\s*\n\s*){1,}(\n\s*)(\}|\))([^\{]+\{)([^\n]*\n)/$2$3$4$5\n/gms' $FILE)
-			# 36. Remove blank lines after opening braces
+			# 35. Remove blank lines after opening braces
 			RET=$(perl -0777 -p -i -e 's/([^\{]+\{)(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/([^\{]+\{)(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/([^\{]+\{)(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/([^\{]+\{)(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/([^\{]+\{)(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
-			# 37. Remove blank lines after opening brackets
+			# 36. Remove blank lines after opening brackets
 			RET=$(perl -0777 -p -i -e 's/([^\(]+\()(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/([^\(]+\()(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/([^\(]+\()(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/([^\(]+\()(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/([^\(]+\()(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
-			# 38. Remove blank lines after ending full stop
+			# 37. Remove blank lines after ending full stop
 			RET=$(perl -0777 -p -i -e 's/([^\.]+\.)(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/([^\.]+\.)(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/([^\.]+\.)(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/([^\.]+\.)(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/([^\.]+\.)(\s*\n\s*){1,}(\n\s*)([^\n]+\n)/$1$3$4/gms' $FILE)
-			# 39. Remove blank lines before "if" continuation operators
+			# 38. Remove blank lines before "if" continuation operators
 			RET=$(perl -0777 -p -i -e 's/(\s*\n\s*){1,}(\n\s*)(\&\&|\|\|)/$2$3/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\s*\n\s*){1,}(\n\s*)(\&\&|\|\|)/$2$3/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\s*\n\s*){1,}(\n\s*)(\&\&|\|\|)/$2$3/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\s*\n\s*){1,}(\n\s*)(\&\&|\|\|)/$2$3/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\s*\n\s*){1,}(\n\s*)(\&\&|\|\|)/$2$3/gms' $FILE)
-			# 40. Compress multiple blank lines
+			# 39. Compress multiple blank lines
 			RET=$(perl -0777 -p -i -e 's/(\n\s*){2,}(\n\s*)/\n$2/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\n\s*){2,}(\n\s*)/\n$2/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/(\n\s*){2,}(\n\s*)/\n$2/gms' $FILE)
@@ -240,6 +234,18 @@ else
 			RET=$(perl -i -pe 's/=& \s*/=& /' $FILE)
 			# 02. Close empty braces on same line as opening brace
 			RET=$(perl -i -0pe 's/\{\s*\n\s*\}([^\w]*)/{}$1/gms' $FILE)
+			# 03. Remove blank lines between consecutive "require" and "include" calls
+			RET=$(perl -0777 -p -i -e 's/(\n\s*)(require|include)([^;]+;)(\s*\n\s*){1,}(\n\s*)(require|include)([^\n]+\n)/$1$2$3$5$6$7/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/(\n\s*)(require|include)([^;]+;)(\s*\n\s*){1,}(\n\s*)(require|include)([^\n]+\n)/$1$2$3$5$6$7/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/(\n\s*)(require|include)([^;]+;)(\s*\n\s*){1,}(\n\s*)(require|include)([^\n]+\n)/$1$2$3$5$6$7/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/(\n\s*)(require|include)([^;]+;)(\s*\n\s*){1,}(\n\s*)(require|include)([^\n]+\n)/$1$2$3$5$6$7/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/(\n\s*)(require|include)([^;]+;)(\s*\n\s*){1,}(\n\s*)(require|include)([^\n]+\n)/$1$2$3$5$6$7/gms' $FILE)
+			# 04. Fix foreach
+			RET=$(perl -0777 -p -i -e 's/([^\)]+\))(\s*\n\s*){1,}(as\s)/$1 $3/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/([^\)]+\))(\s*\n\s*){1,}(as\s)/$1 $3/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/([^\)]+\))(\s*\n\s*){1,}(as\s)/$1 $3/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/([^\)]+\))(\s*\n\s*){1,}(as\s)/$1 $3/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/([^\)]+\))(\s*\n\s*){1,}(as\s)/$1 $3/gms' $FILE)
 
 			# Ensure syntax errors have not been introduced
 			RET=$(php -l -d display_errors=0 $FILE)

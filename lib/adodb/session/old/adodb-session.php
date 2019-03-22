@@ -185,9 +185,9 @@ if (!defined('ADODB_SESSION')) {
 	*/
 
 	/****************************************************************************************\
-				Create the connection to the database.
-					If $ADODB_SESS_CONN already exists, reuse that connection
-			****************************************************************************************/
+					Create the connection to the database.
+						If $ADODB_SESS_CONN already exists, reuse that connection
+				****************************************************************************************/
 	function adodb_sess_open($save_path, $session_name, $persist = true) {
 		global $ADODB_SESS_CONN;
 

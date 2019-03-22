@@ -48,7 +48,6 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 		}
 
 		include_once __DIR__ . '/../../modules/core/module.inc';
-
 		include_once __DIR__ . '/../../modules/core/CoreModuleExtras.inc';
 
 		$core     = new CoreModule();

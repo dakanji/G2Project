@@ -65,15 +65,26 @@ class RatingSiteAdminController extends GalleryController {
 		}
 
 		if (isset($form['action']['save']) && empty($error)) {
-			foreach (array('allowAlbumRating' => empty($form['allowAlbumRating']) ? 0 : 1,
-			   'themeId'                      => $form['themeId'],
-			   'orderBy'                      => (empty($form['presort']) ? '' : $form['presort'] . '|')
-					. $form['orderBy'],
-			   'orderDirection'               => $form['orderDirection'],
-			   'minLimit'                     => $form['minLimit'],
-			   'description'                  => $form['description'], )
+			if (empty($form['allowAlbumRating'])) {
+				$allowAlbumRating = 0;
+			} else {
+				$allowAlbumRating = 1;
+			}
 
-			as $key => $value) {
+			if (empty($form['presort'])) {
+				$presort = '';
+			} else {
+				$presort = $form['presort'] . '|') . $form['orderBy'];
+			}
+
+			foreach (array(
+				'allowAlbumRating' => $allowAlbumRating,
+				'themeId'          => $form['themeId'],
+				'orderBy'          => $presort,
+				'orderDirection'   => $form['orderDirection'],
+				'minLimit'         => $form['minLimit'],
+				'description'      => $form['description'],
+		   ) as $key => $value) {
 				$ret = GalleryCoreApi::setPluginParameter('module', 'rating', $key, $value);
 
 				if ($ret) {

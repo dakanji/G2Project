@@ -292,7 +292,6 @@ class InstallOtherModulesStep extends InstallStep {
 			}
 
 			include_once __DIR__ . '/../../bootstrap.inc';
-
 			include_once __DIR__ . '/../../init.inc';
 
 			$ret = GalleryInitFirstPass(

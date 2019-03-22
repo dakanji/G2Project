@@ -23,11 +23,8 @@ define('G2_SUPPORT_MAX_SESSION_LIFETIME', 2 * 60 * 60);
 define('G2_SETUP_SESSION_NAME', 'G2SETUPSID');
 
 require_once dirname(dirname(__DIR__)) . '/modules/core/classes/GalleryUtilities.class';
-
 require_once dirname(dirname(__DIR__)) . '/modules/core/classes/GalleryDataCache.class';
-
 require_once dirname(dirname(__DIR__)) . '/modules/core/classes/GallerySession.class';
-
 require_once dirname(dirname(__DIR__)) . '/modules/core/classes/GalleryPlatform.class';
 
 /**

@@ -45,11 +45,11 @@ class RewriteParserTestCase extends GalleryTestCase {
 		// Set up our environment
 		$activeRules['rewriteparsermock'][0] = array('pattern' => 'bogus');
 
-		foreach (array('activeRules' => serialize($activeRules),
-			   'allowEmptyReferer'   => '0',
-			   'accessList'          => serialize(array('phpunit.test')), )
-
-		as $key => $value) {
+		foreach (array(
+			'activeRules'       => serialize($activeRules),
+			'allowEmptyReferer' => '0',
+			'accessList'        => serialize(array('phpunit.test')),
+		) as $key => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', $key, $value);
 
 			if ($ret) {

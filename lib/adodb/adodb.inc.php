@@ -5674,7 +5674,6 @@ if (!defined('_ADODB_LAYER')) {
 		}
 
 		include_once ADODB_DIR . '/adodb-lib.inc.php';
-
 		include_once ADODB_DIR . '/adodb-datadict.inc.php';
 
 		$path = ADODB_DIR . "/datadict/datadict-$drivername.inc.php";

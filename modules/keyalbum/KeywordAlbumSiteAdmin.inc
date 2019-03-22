@@ -92,9 +92,7 @@ class KeywordAlbumSiteAdminController extends GalleryController {
 				'summaryLinks'   => $form['summaryLinks'],
 				'description'    => $form['description'],
 				'split'          => $split,
-			)
-
-			as $key => $value) {
+			) as $key => $value) {
 				$ret = GalleryCoreApi::setPluginParameter('module', 'keyalbum', $key, $value);
 
 				if ($ret) {

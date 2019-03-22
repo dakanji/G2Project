@@ -34,7 +34,6 @@ class InstallCoreModuleStep extends InstallStep {
 		define('GALLERY_CONFIG_DIR', $_SESSION['configPath']);
 
 		include __DIR__ . '/../../bootstrap.inc';
-
 		include __DIR__ . '/../../init.inc';
 
 		$template = new StatusTemplate();

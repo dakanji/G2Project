@@ -25,9 +25,7 @@
 define('G2_SUPPORT_URL_FRAGMENT', '../../support/');
 
 require '../../support/security.inc';
-
 require '../../../bootstrap.inc';
-
 require_once '../../../init.inc';
 
 define('GALLERY_MAIN_PHP', 'index.php');

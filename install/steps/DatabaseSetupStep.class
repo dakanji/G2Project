@@ -747,7 +747,6 @@ class DatabaseSetupStep extends InstallStep {
 
 			// Include basic G2 classes to use G2 API to get the core version etc.
 			include_once __DIR__ . '/../../modules/core/classes/Gallery.class';
-
 			include_once __DIR__ . '/../../modules/core/classes/GalleryDataCache.class';
 
 			$GLOBALS['gallery'] = new Gallery();
@@ -784,9 +783,7 @@ class DatabaseSetupStep extends InstallStep {
 			$initiated = $platformLevel;
 
 			include_once __DIR__ . '/../../modules/core/classes/GalleryCoreApi.class';
-
 			include_once __DIR__ . '/../../modules/core/classes/GalleryCapabilities.class';
-
 			include_once __DIR__ . '/../../modules/core/classes/GalleryPlatform.class';
 
 			$GalleryPlatform = new GalleryPlatform();

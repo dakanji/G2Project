@@ -325,9 +325,11 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		// Fetch all permissions and compare the ones we care about
 		$count = 0;
 
-		foreach (array($this->_albumParent, $this->_albumChild, $differentPermissionChildAlbum)
-
-		as $album) {
+		foreach (array(
+			$this->_albumParent,
+			$this->_albumChild,
+			$differentPermissionChildAlbum
+		) as $album) {
 			list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), false);
 
 			if ($ret) {
@@ -717,9 +719,11 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		// Fetch all permissions and compare the ones we care about
 		$count = 0;
 
-		foreach (array($this->_albumParent, $this->_albumChild, $differentPermissionChildAlbum)
-
-		as $album) {
+		foreach (array(
+			$this->_albumParent,
+			$this->_albumChild,
+			$differentPermissionChildAlbum
+		) as $album) {
 			list($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($album->getId(), false);
 
 			if ($ret) {

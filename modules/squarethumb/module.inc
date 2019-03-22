@@ -77,9 +77,10 @@ class SquareThumbModule extends GalleryModule {
 			return $ret;
 		}
 
-		foreach (array('mode' => 'crop', 'color' => '000000')
-
-		as $key => $value) {
+		foreach (array(
+			'mode' => 'crop',
+			'color' => '000000'
+		) as $key => $value) {
 			if (!isset($params[$key])) {
 				$ret = $this->setParameter($key, $value);
 

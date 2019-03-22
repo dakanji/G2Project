@@ -99,9 +99,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		$origLang = getenv('LANG');
 
-		foreach (array('language.useBrowserPref' => '1')
-
-		 as $param => $value) {
+		foreach (array('language.useBrowserPref' => '1') as $param => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'core', $param, $value);
 
 			if ($ret) {
@@ -188,9 +186,7 @@ class TranslatorTest extends GalleryTestCase {
 
 		$session->remove('core.language');
 
-		foreach (array('language.useBrowserPref' => '1')
-
-		 as $param => $value) {
+		foreach (array('language.useBrowserPref' => '1') as $param => $value) {
 			$ret = GalleryCoreApi::setPluginParameter('module', 'core', $param, $value);
 
 			if ($ret) {

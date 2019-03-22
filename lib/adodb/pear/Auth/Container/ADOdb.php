@@ -13,11 +13,8 @@
 	Richard Tango-Lowy <richtl#arscognita.com>
 */
 require_once 'Auth/Container.php';
-
 require_once 'adodb.inc.php';
-
 require_once 'adodb-pear.inc.php';
-
 require_once 'adodb-errorpear.inc.php';
 
 /**
