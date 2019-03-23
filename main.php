@@ -122,6 +122,17 @@ if (!empty($gallerySetErrorHandler)) {
 function GalleryMain($embedded = false) {
 	global $gallery;
 
+	/*
+	 * DA Note: Added Event - BeforeProcess
+	 * Event handlers should return array($ret, $ignored ... which is ignored);
+	 */
+	$event               = GalleryCoreApi::newEvent('Gallery::BeforeProcess');
+	list($ret, $ignored) = GalleryCoreApi::postEvent($event);
+
+	if ($ret) {
+		return array($ret, null);
+	}
+
 	// Process the request
 	list($ret, $g2Data) = _GalleryMain($embedded);
 
@@ -191,8 +202,7 @@ function GalleryMain($embedded = false) {
 
 /**
  * Process our request.
- * @return array GalleryStatus a status code
- *               array
+ * @return array GalleryStatus a status code array
  */
 function _GalleryMain($embedded = false, $template = null) {
 	global $gallery;
@@ -689,6 +699,7 @@ function _GalleryMain($embedded = false, $template = null) {
 						'html'         => $html,
 					)
 				);
+
 				list($ret, $output) = GalleryCoreApi::postEvent($event);
 
 				if ($ret) {
