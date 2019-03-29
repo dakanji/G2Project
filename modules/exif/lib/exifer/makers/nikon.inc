@@ -597,6 +597,7 @@ function parseNikon($block, &$result) {
 
 			$formated_data = formatNikonData($type, $tag, $intel, $model, $data);
 
+			// Patch from https://sourceforge.net/p/gallery/patches/225/
 			if ($tag == '0002' && $formated_data >= 0x10000) {
 				$formated_data = floor($formated_data / 0x10000);
 			}
