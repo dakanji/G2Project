@@ -126,7 +126,7 @@ class ShowAllCommentsView extends GalleryView {
 
 		$cacheControl = false;
 
-		// Pages shouldn't be cached if any of the comments is not accessible for anonymous
+		// Pages should not be cached if any of the comments is not accessible for anonymous
 		list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 		if ($ret) {
@@ -148,7 +148,7 @@ class ShowAllCommentsView extends GalleryView {
 				$can[$comment['id']][$canFlag] = isset($permissions[$permission]);
 			}
 
-			// If we already set cache control, don't check any more
+			// If we already set cache control, do not check any more
 			if (!$cacheControl) {
 				// If !comment.view || !core.view
 				list($ret, $anonymousViewable) = GalleryCoreApi::hasItemPermission(

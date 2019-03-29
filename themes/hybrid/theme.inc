@@ -496,7 +496,7 @@ class HybridTheme extends GalleryTheme {
 			}
 
 			if (!isset($permissions['core.viewSource']) && isset($thumbnails[$childId])) {
-				// Only use thumbnail as view if we can't link to original file
+				// Only use thumbnail as view if we cannot link to original file
 				$images[] = $thumbnails[$childId];
 			}
 

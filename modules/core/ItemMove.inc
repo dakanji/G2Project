@@ -40,7 +40,7 @@ class ItemMoveController extends GalleryController {
 
 	/**
 	 * @see GalleryController::handleRequest
-	 * @todo Scalability - Don't load all album-items into memory. Need a way to load the items
+	 * @todo Scalability - Do not load all album-items into memory. Need a way to load the items
 	 *       incrementally, e.g. with an AJAX-powered tree widget.
 	 */
 	public function handleRequest($form) {
@@ -70,7 +70,7 @@ class ItemMoveController extends GalleryController {
 				}
 
 				if (!isset($permissions['core.view'])) {
-					// Avoid information disclosure, act as if the item didn't exist.
+					// Avoid information disclosure, act as if the item does not exist.
 					return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 				}
 
@@ -81,7 +81,7 @@ class ItemMoveController extends GalleryController {
 					$error[] = 'form[error][destination][permission]';
 				}
 
-				// Load destination parent ids: we don't want recursive moves
+				// Load destination parent ids: we do not want recursive moves
 				list($ret, $newParentAncestorIds) = GalleryCoreApi::fetchParentSequence($newParentId);
 
 				if ($ret) {
@@ -115,7 +115,7 @@ class ItemMoveController extends GalleryController {
 				foreach ($selectedItems as $selectedItem) {
 					$selectedId = $selectedItem->getId();
 
-					// Can't move into a tree that is included in the source
+					// Cannot move into a tree that is included in the source
 					if (in_array($selectedId, $newParentAncestorIds)) {
 						$error[] = 'form[error][source][' . $selectedId . '][selfMove]';
 
@@ -185,7 +185,7 @@ class ItemMoveController extends GalleryController {
 						$currentIds[] = $item->getId();
 					}
 
-					// Write lock all the items we're moving
+					// Write lock all the items we are moving
 					list($ret, $currentLockId) = GalleryCoreApi::acquireWriteLock($currentIds);
 
 					if ($ret) {
@@ -385,7 +385,7 @@ class ItemMoveView extends GalleryView {
 			$numPages = ceil(sizeof($peerIds) / $form['numPerPage']);
 
 			if (empty($page)) {
-				// determine which page we're on
+				// determine which page we are on
 				$page = 1;
 
 				for ($i = 0; $i < sizeof($peerIds); $i++) {
@@ -446,7 +446,7 @@ class ItemMoveView extends GalleryView {
 
 				$peers[$peerItem->getId()]['selected'] = isset($form['selectedIds'][$peerItem->getId()]);
 
-				// While we're at it, attach thumbnails and resizes
+				// While we are at it, attach thumbnails and resizes
 				if (isset($derivatives[$peerItem->getId()])) {
 					foreach ($derivatives[$peerItem->getId()] as $derivative) {
 						$type = $derivative->getDerivativeType();

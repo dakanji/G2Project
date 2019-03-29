@@ -332,9 +332,9 @@ class AdminThemesView extends GalleryView {
 		}
 
 		/*
-		 * It's possible that we have some out-of-date themes which haven't been deactivated yet,
+		 * It is possible that we have some out-of-date themes which have not been deactivated yet,
 		 * since the deactivation only occurs when we try to load the theme.  Load all the active
-		 * themes now to force the version check, then reload the theme status when we're done to
+		 * themes now to force the version check, then reload the theme status when we are done to
 		 * pick up any changes we trigger.
 		 */
 		foreach ($themes as $id => $status) {
@@ -355,7 +355,7 @@ class AdminThemesView extends GalleryView {
 		}
 
 		/*
-		 * Figure out how many active themes we have (because we don't allow
+		 * Figure out how many active themes we have (because we do not allow
 		 * deactivating the last one.
 		 */
 		$activeCount = 0;
@@ -403,7 +403,7 @@ class AdminThemesView extends GalleryView {
 					$entry['state'] = 'inactive';
 
 					/*
-					 * If the database versions doesn't match the theme
+					 * If the database versions does not match the theme
 					 * version, we need to get the user to install the theme.
 					 */
 					if ($status['version'] != $theme->getVersion()) {
@@ -574,7 +574,7 @@ class AdminThemesView extends GalleryView {
 		if ($ret) {
 			if ($ret->getErrorCode() & (ERROR_PLUGIN_VERSION_MISMATCH | ERROR_BAD_PARAMETER | ERROR_BAD_PLUGIN)
 			) {
-				// The default theme isn't available. Show a warning, don't load any settings.
+				// The default theme is not available. Show a warning, do not load any settings.
 				$theme                             = null;
 				$form['error']['themeUnavailable'] = true;
 			} else {

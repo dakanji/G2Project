@@ -68,7 +68,7 @@ class GalleryController {
 	 * </pre>
 	 *
 	 * If you delegate, your form and request variables will persist to the view, since it is
-	 * being handled inside the same request.  However, if you redirect you'll have to put any
+	 * being handled inside the same request.  However, if you redirect you will have to put any
 	 * form variables that you want to pass to the subsequent view into the redirect url, since
 	 * it will be processed in a new request.  The browser will receive a redirect and then post
 	 * the new url.  So for example, if you want to redirect to a confirmation view and specify
@@ -82,14 +82,14 @@ class GalleryController {
 	 * </pre>
 	 *
 	 * <b>Status</b> data is passed to the view and can be in any form that you want.
-	 * Typically it's simple key value pairs, like this:
+	 * Typically it is simple key value pairs, like this:
 	 * <pre>
 	 *    array('myAction' => 'wasSuccessful')
 	 * </pre>
 	 *
 	 * If you pass status data back on a redirect, it will be automatically stored in the session
 	 * and the url will be modified to contain a marker to this status information.  After the
-	 * redirect, we'll retrieve it back from the database and pass it to the view.  Status data
+	 * redirect, we will retrieve it back from the database and pass it to the view.  Status data
 	 * sent back upon delegation is passed directly to the view.
 	 *
 	 * <b>Error</b> data is an array of values, like this:
@@ -103,7 +103,7 @@ class GalleryController {
 	 *
 	 * <b>Return</b> is a special parameter.  If you set this to a non-false value, it will look
 	 * for a special request variable called "return" in the request scope.  This variable is
-	 * expected to contain a URL, and we'll return a redirect to that URL.  This is useful in
+	 * expected to contain a URL, and we will return a redirect to that URL.  This is useful in
 	 * the case where we want to use this controller in the middle of a workflow.  A good example
 	 * of this is when we click the "Login" link on the main page.  We pass control to the
 	 * UserLogin controller, and when its done, it uses the "return" flag to indicate that we
@@ -220,7 +220,7 @@ class GalleryController {
 	/**
 	 * Whether the controller opts-out from the framework's auth token check.
 	 *
-	 * Some protocols don't allow to add authentication tokens to controller requests, but all
+	 * Some protocols do not allow to add authentication tokens to controller requests, but all
 	 * normal Gallery controllers should not override this method.
 	 *
 	 * @return boolean true if the controller opts-out from the auth token check
@@ -253,7 +253,7 @@ class GalleryController {
 		if (!$session->isPersistent()) {
 			/*
 			 * Fake requests on behalf of guests is seen as a form of spam and spam protection
-			 * should take care of that.  Don't handle it here.
+			 * should take care of that.  Do not handle it here.
 			 */
 			return null;
 		}
@@ -264,7 +264,7 @@ class GalleryController {
 			return null;
 		}
 
-		// Omit check if we're in maintenance mode
+		// Omit check if we are in maintenance mode
 		if ($gallery->getConfig('mode.maintenance')) {
 			return null;
 		}
@@ -303,7 +303,7 @@ class GalleryController {
 			}
 
 			if (!$hasPermission) {
-				// Avoid information disclosure by treating this as if the item didn't exist.
+				// Avoid information disclosure by treating this as if the item does not exist.
 				return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 			}
 		}

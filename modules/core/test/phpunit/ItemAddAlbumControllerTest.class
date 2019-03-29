@@ -135,7 +135,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		// Verify that the new album's path component is unique (it's got _001 as a suffix)
+		// Verify that the new album's path component is unique (it has got _001 as a suffix)
 		$this->assertEquals($subAlbum->getPathComponent() . '_001', $newAlbum->getPathComponent());
 	}
 
@@ -328,7 +328,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 		$this->assertEquals(2, sizeof($ids));
 
-		// We want the larger id, since it's the newer one
+		// We want the larger id, since it is the newer one
 		return max($ids[0], $ids[1]);
 	}
 

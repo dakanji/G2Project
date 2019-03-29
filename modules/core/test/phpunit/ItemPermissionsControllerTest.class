@@ -1026,7 +1026,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testRemoveEditPermissionFromSelf() {
-		// Verify that we can't remove our own ability to change permissions
+		// Verify that we cannot remove our own ability to change permissions
 		global $gallery;
 
 		$gallery->setActiveUser($this->_user);

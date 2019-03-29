@@ -393,7 +393,7 @@ class GalleryRepositoryIndex {
 
 	/**
 	 * Returns the specified plugin's name in the active language.
-	 * If it's not available in the active language, fall back to 'en_US'.
+	 * If it is not available in the active language, fall back to 'en_US'.
 	 *
 	 * @param string $pluginType
 	 * @param string $pluginId

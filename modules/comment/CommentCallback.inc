@@ -110,7 +110,7 @@ class CommentCallbackView extends GalleryView {
 		}
 
 		if (empty($permissions['core.view'])) {
-			// Avoid information disclosure, act as if the item didn't exist.
+			// Avoid information disclosure, act as if the item does not exist.
 			return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 		}
 
@@ -160,7 +160,7 @@ class CommentCallbackView extends GalleryView {
 		if (empty($permissions['core.view'])) {
 			GalleryCoreApi::releaseLocks($lockId);
 
-			// Avoid information disclosure, act as if the item didn't exist.
+			// Avoid information disclosure, act as if the item does not exist.
 			return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 		}
 

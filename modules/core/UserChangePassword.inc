@@ -92,7 +92,7 @@ class UserChangePasswordController extends GalleryController {
 
 				/*
 				 * To be consistent, we really should post a Gallery::Login event here to show
-				 * that the user successfully authenticated.  But they're not really logging in so
+				 * that the user successfully authenticated.  But they are not really logging in so
 				 * that's misleading.  Perhaps we should rename the events to Gallery::Authenticate
 				 * and Gallery::FailedAuthenticate to be more accurate, and then post those here?
 				 *

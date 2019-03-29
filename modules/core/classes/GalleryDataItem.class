@@ -78,7 +78,7 @@ class GalleryDataItem extends GalleryItem {
 
 	/**
 	 * Data items that can be viewed inline (photos, movies, etc) should return true.
-	 * Items that can't be viewed inline (word documents, text, etc) should return false.
+	 * Items that cannot be viewed inline (word documents, text, etc) should return false.
 	 *
 	 * Classes that return true for this query must implement getWidth() and getHeight()
 	 *
@@ -147,8 +147,8 @@ class GalleryDataItem extends GalleryItem {
 		}
 
 		/*
-		 * The parent must be read locked at this point to make sure that it's
-		 * not going to be moved around while we're adding stuff to it.
+		 * The parent must be read locked at this point to make sure that it is
+		 * not going to be moved around while we are adding stuff to it.
 		 */
 		if (!GalleryCoreApi::isReadLocked($parentId)) {
 			return GalleryCoreApi::error(ERROR_LOCK_REQUIRED);
@@ -185,9 +185,9 @@ class GalleryDataItem extends GalleryItem {
 		$newFileName = $parentPath . $this->getPathComponent();
 
 		/*
-		 * XXX: Race condition here!  It's possible for two threads to be
+		 * XXX: Race condition here!  It is possible for two threads to be
 		 * adding a file with the same name to the container at the same time.
-		 * We have to write lock the container to be sure that this doesn't happen.
+		 * We have to write lock the container to be sure that this does not happen.
 		 */
 		if ($symlink) {
 			if (!$platform->isSymlinkSupported()) {
@@ -269,7 +269,7 @@ class GalleryDataItem extends GalleryItem {
 			return $ret;
 		}
 
-		// Delete our source file, if we're not a link
+		// Delete our source file, if we are not a link
 		if (!$this->isLinked()) {
 			list($ret, $path) = $this->fetchPath();
 
@@ -330,7 +330,7 @@ class GalleryDataItem extends GalleryItem {
 			return null;
 		}
 
-		// Read lock the parent so that we don't have a race condition below
+		// Read lock the parent so that we do not have a race condition below
 		list($ret, $lockId) = GalleryCoreApi::acquireReadLock($this->getParentId());
 
 		if ($ret) {
@@ -358,7 +358,7 @@ class GalleryDataItem extends GalleryItem {
 			$error = $ret;
 		}
 
-		// Only rename the filesystem entity if we're not a link
+		// Only rename the filesystem entity if we are not a link
 		if (!$this->isLinked()) {
 			/*
 			 * Grab the new name from the path component, since GalleryFileSystemEntity
@@ -406,7 +406,7 @@ class GalleryDataItem extends GalleryItem {
 		global $gallery;
 
 		/*
-		 * Source files in the item's directory.  But the parent may be an item that doesn't have
+		 * Source files in the item's directory.  But the parent may be an item that does not have
 		 * its own directory, so we need to get the path of the nearest parent who is a container
 		 * (eg an AlbumItem), because a container has a directory for the items it contains.
 		 */

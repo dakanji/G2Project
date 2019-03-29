@@ -218,7 +218,7 @@ class ADODB_sqlite3 extends ADOConnection {
 			$this->_errorNo = $this->_connectionID->lastErrorCode();
 		}
 
-		// If no data was returned, we don't need to create a real recordset
+		// If no data was returned, we do not need to create a real recordset
 		elseif ($rez->numColumns() == 0) {
 			$rez->finalize();
 

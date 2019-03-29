@@ -288,7 +288,7 @@ class DerivativeTest extends GalleryTestCase {
 		$this->assertTrue($rebuilt, 'thumb was rebuilt');
 
 		/*
-		 * We're expecting that we performed testRebuildThumbnailOfSmallerThumbnail-1 on the first
+		 * We are expecting that we performed testRebuildThumbnailOfSmallerThumbnail-1 on the first
 		 * thumbnail (from the source) and testRebuildThumbnailOfSmallerThumbnail-2 on the second
 		 * thumbnail (equally from the source -- NOT from the first thumbnail).
 		 */
@@ -762,7 +762,7 @@ B|1,2',
 
 		$this->assertEquals('C|4,5;B|1,2', $result);
 
-		// Make sure operations with no args don't gain an unnecessary |
+		// Make sure operations with no args do not gain an unnecessary |
 		list($ret, $result) = GalleryCoreApi::mergeDerivativeOperations(
 			'A|1,2;D;B|1,2',
 			'B|3,4;A|5,6'
@@ -838,12 +838,12 @@ B|1,2',
 	}
 
 	/**
-	 * This test makes sure that we're generating the right set of operations for our derivatives
+	 * This test makes sure that we are generating the right set of operations for our derivatives
 	 * for a given derivative tree, including derivative operations and postfilters.
 	 */
 	public function testFetchFinalOperations() {
 		/*
-		 * If we've got the following scenario where derivative commands are marked with <> and
+		 * If we have got the following scenario where derivative commands are marked with <> and
 		 * postfilter operations are marked with []:
 		 *
 		 * Source Image A.jpg (640x480):
@@ -869,7 +869,7 @@ B|1,2',
 		 * Preferred  B1: B.jpg                                              watermark|B1
 		 *
 		 * Note how A3's thumbnail|75 overrides A2's thumbnail|150.
-		 * Note how A2 is not watermarked, though it's source (A1) is.
+		 * Note how A2 is not watermarked, though it is source (A1) is.
 		 */
 
 		// No link or preferred --> return the item itself
@@ -1032,7 +1032,7 @@ B|1,2',
 		 * Verify that we are able to re-use the preferred's data file if the preferred has no
 		 * postfilter operations.  Ie, if we have a thumb based on a preferred based on a source,
 		 * and we want to build the thumb, we can start building from the preferred instead of
-		 * going all the way back to the source, as long as the preferred doesn't have a
+		 * going all the way back to the source, as long as the preferred does not have a
 		 * postfilter that would render its output file unusable to us.
 		 */
 		list($ret, $item) = $this->_createRandomDataItem($this->_root->getId(), 'test/file');
@@ -1072,7 +1072,7 @@ B|1,2',
 		$this->assertTrue($rebuilt, 'thumb was rebuilt');
 
 		/*
-		 * We're expecting that we build the preferred (source-to-preferred), then we build the
+		 * We are expecting that we build the preferred (source-to-preferred), then we build the
 		 * thumb (preferred-to-thumb).
 		 */
 		list($ret, $sourcePath) = $item->fetchPath();
@@ -1312,7 +1312,7 @@ B|1,2',
 			DERIVATIVE_TYPE_IMAGE_RESIZE
 		);
 
-		// and check that it's gone, but the other type remains
+		// and check that it is gone, but the other type remains
 		list($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem($albumId[0]);
 
 		if ($ret) {

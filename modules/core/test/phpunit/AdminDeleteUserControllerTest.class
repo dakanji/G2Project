@@ -30,7 +30,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		parent::__construct($methodName, 'core.AdminDeleteUser');
 	}
 
-	// We're creating a tree of test items owned by the user
+	// We are creating a tree of test items owned by the user
 	public function setUp($x1 = null) {
 		global $gallery;
 
@@ -229,7 +229,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 		$this->_markForCleanup($user);
 		$this->_markUserForCleanup($user);
 
-		// Get a username that doesn't exist
+		// Get a username that does not exist
 		while (true) {
 			$name = 'testuser-' . mt_rand();
 
@@ -485,7 +485,7 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 
 	/**
 	 * Create a user, add 1 item, delete the user
-	 * The user doesn't have the permission to delete the item
+	 * The user does not have the permission to delete the item
 	 * The item should have a new owner, Site Admin
 	 */
 	public function testDeleteUserDeleteItemWithoutPermission() {

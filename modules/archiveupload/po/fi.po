@@ -54,7 +54,7 @@ msgstr "Asetukset tallennettu"
 msgid ""
 "This module will enable extraction of individual files from a zip archive to add each item "
 "to Gallery.  You must locate or install an unzip binary on your server, then enter the path "
-"to it in the text box below.  If you're on a Unix machine, don't forget to make the binary "
+"to it in the text box below.  If you are on a Unix machine, do not forget to make the binary "
 "executable (<i>chmod 755 unzip</i> in the right directory should do it)"
 msgstr ""
 "Tämä moduuli mahdollistaa yksittäisten tiedostojen oton zip -pakkauksesta lisätäksesi kunkin "
@@ -75,10 +75,10 @@ msgstr "Polku unzip -ohjelmaan:"
 msgid "You must enter a path to your unzip binary"
 msgstr "Sinun tulee antaa polku unzip -ohjelmaan"
 
-msgid "The path you entered doesn't contain a valid unzip binary."
+msgid "The path you entered does not contain a valid unzip binary."
 msgstr "Polku jonka annoit ei sisällä toimivaa unzip -ohjelmaa."
 
-msgid "The path you entered isn't a valid path to an unzip binary."
+msgid "The path you entered is not a valid path to an unzip binary."
 msgstr "Polku jonka annoit ei ole käyttökelpoinen polku unzip -ohjelmaan."
 
 #, c-format

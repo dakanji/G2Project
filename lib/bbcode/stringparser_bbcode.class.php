@@ -695,7 +695,7 @@ class StringParser_BBCode extends StringParser {
 				// this validates the code(s) to be closed after the content tree of
 				// that code(s) are built - if the second validation fails, we will have
 				// to reparse. note that as _reparseAfterCurrentBlock will not work correctly
-				// if we're in $status == 2, we will have to set our status to 0 manually
+				// if we are in $status == 2, we will have to set our status to 0 manually
 				if (!$this->_validateCloseTags($closecount)) {
 					$this->_setStatus(0);
 
@@ -741,7 +741,7 @@ class StringParser_BBCode extends StringParser {
 					}
 
 					if ($needle == $this->_quoting) {
-						// can't be, only ']' and ' ' allowed after quoting char
+						// cannot be, only ']' and ' ' allowed after quoting char
 						return $this->_reparseAfterCurrentBlock();
 					}
 
@@ -843,7 +843,7 @@ class StringParser_BBCode extends StringParser {
 					}
 
 					if ($needle == $this->_quoting) {
-						// can't be, only ']' and ' ' allowed after quoting char
+						// cannot be, only ']' and ' ' allowed after quoting char
 						return $this->_reparseAfterCurrentBlock();
 					}
 
@@ -877,7 +877,7 @@ class StringParser_BBCode extends StringParser {
 						// this matched
 						$this->_cpos += strlen($this->_topNode('name')) + 1;
 					} else {
-						// it didn't match
+						// it did not match
 						$this->_appendText($needle);
 
 						return true;
@@ -1278,7 +1278,7 @@ class StringParser_BBCode extends StringParser {
 						$before = "\n";
 					}
 
-					// don't break!
+					// do not break!
 					// Fall Through
 				case BBCODE_NEWLINE_DROP:
 					if ($ol && $output[0] == "\n") {
@@ -1295,7 +1295,7 @@ class StringParser_BBCode extends StringParser {
 						$after = "\n";
 					}
 
-					// don't break!
+					// do not break!
 					// Fall Through
 				case BBCODE_NEWLINE_DROP:
 					if ($ol && $output[$ol - 1] == "\n") {
@@ -1306,7 +1306,7 @@ class StringParser_BBCode extends StringParser {
 					break;
 			}
 
-			// can't do anything
+			// cannot do anything
 			if ($node->_parent === null) {
 				return $before . $output . $after;
 			}
@@ -2187,7 +2187,7 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 	/**
 	 * Helper function for findPrevAdjentTextNode
 	 *
-	 * Looks at the last child node; if it's a text node, it returns it,
+	 * Looks at the last child node; if it is a text node, it returns it,
 	 * if the element node did not have an open tag, it calls itself
 	 * recursively.
 	 */
@@ -2269,7 +2269,7 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 				$res         = call_user_func_array($this->_codeInfo['callback_func'], $callArray);
 
 				if ($res) {
-					// ok, now, if we've got a usecontent type, set a flag that
+					// ok, now, if we have got a usecontent type, set a flag that
 					// this may not be broken up by paragraph handling!
 					// but PLEASE do NOT change if already set to any other setting
 					// than BBCODE_PARAGRAPH_ALLOW_BREAKUP because we could
@@ -2306,7 +2306,7 @@ class StringParser_BBCode_Node_Element extends StringParser_Node {
 		if ($this->_codeInfo['callback_type'] == 'simple_replace' || $this->_codeInfo['callback_type'] == 'simple_replace_single') {
 			if ($this->_codeInfo['callback_type'] == 'simple_replace_single') {
 				if (strlen($subcontent)) {
-					// can't be!
+					// cannot be!
 					return false;
 				}
 

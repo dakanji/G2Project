@@ -739,11 +739,11 @@ class GalleryPlatform {
 			}
 
 			/*
-			 * If we don't know exactly what type this file is, we have to assume that it's
+			 * If we do not know exactly what type this file is, we have to assume that it is
 			 * something malicious.  In that case, it might be a server side script of some kind and
-			 * we don't want that to wind up in the albums directory in a pure state because it may
+			 * we do not want that to wind up in the albums directory in a pure state because it may
 			 * open up a security hole on systems that have placed the gallery data directory inside
-			 * the document root.  So mangle the extension to make sure that the webserver doesn't
+			 * the document root.  So mangle the extension to make sure that the webserver does not
 			 * execute it.
 			 */
 			list($ret, $tmp) = GalleryCoreApi::convertExtensionToMime($extension);
@@ -824,10 +824,10 @@ class GalleryPlatform {
 			/*
 			 * PHP's open_basedir will actually take an invalid path, resolve relative paths, parse
 			 * out .. and . and then check against the dir list.  Here we do an ok job of doing the
-			 * same, though it isn't perfect.
+			 * same, though it is not perfect.
 			 */
 
-			// Do this by hand because preg_quote() isn't reliable
+			// Do this by hand because preg_quote() is not reliable
 			$s = '\\\/';
 
 			if (!preg_match("{^([a-zA-Z]+:)?[$s]}", $path)) {

@@ -22,7 +22,7 @@
 
 <div class="gbBlock">
   <p class="giDescription">
-    {g->text text="FFMPEG is a graphics toolkit that can be used to process video files that you upload to Gallery.  You must install the FFMPEG binary on your server, then enter the path to it in the text box below.  If you're on a Unix machine, don't forget to make the binary executable (<i>chmod 755 ffmpeg</i> in the right directory should do it)"}
+    {g->text text="FFMPEG is a graphics toolkit that can be used to process video files that you upload to Gallery.  You must install the FFMPEG binary on your server, then enter the path to it in the text box below.  If you are on a Unix machine, do not forget to make the binary executable (<i>chmod 755 ffmpeg</i> in the right directory should do it)"}
   </p>
 {if !$AdminFfmpeg.canExec}
   <p class="giWarning">
@@ -49,12 +49,12 @@
   {/if}
   {if isset($form.error.path.testError)}
   <div class="giError">
-    {g->text text="The path you entered doesn't contain a valid FFMPEG binary. Use the 'test' button to check where the error is."}
+    {g->text text="The path you entered does not contain a valid FFMPEG binary. Use the 'test' button to check where the error is."}
   </div>
   {/if}
   {if isset($form.error.path.badPath)}
   <div class="giError">
-    {g->text text="The path you entered isn't a valid path to a <b>ffmpeg</b> binary."}
+    {g->text text="The path you entered is not a valid path to a <b>ffmpeg</b> binary."}
   </div>
   {/if}
   {if isset($form.error.path.notExecutable)}

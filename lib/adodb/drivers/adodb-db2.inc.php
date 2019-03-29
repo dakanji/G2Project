@@ -97,7 +97,7 @@ class ADODB_db2 extends ADOConnection {
 		}
 
 		// For db2_connect(), there is an optional 4th arg.  If present, it must be
-		// an array of valid options.  So far, we don't use them.
+		// an array of valid options.  So far, we do not use them.
 		$this->_errorMsg = @db2_conn_errormsg();
 
 		if (isset($this->connectStmt)) {
@@ -819,7 +819,7 @@ class ADODB_db2 extends ADOConnection {
 		$stmt = db2_prepare($this->_connectionID, $sql);
 
 		if (!$stmt) {
-			// we don't know whether db2 driver is parsing prepared stmts, so just return sql
+			// we do not know whether db2 driver is parsing prepared stmts, so just return sql
 			return $sql;
 		}
 

@@ -510,7 +510,7 @@ class ADODB_DataDict {
 	/**
 	 * Change the definition of one column
 	 *
-	 * As some DBM's can't do that on there own, you need to supply the complete defintion of the new table,
+	 * As some DBM's cannot do that on there own, you need to supply the complete defintion of the new table,
 	 * to allow, recreating the table and copying the content over to the new table
 	 * @param string $tabname table-name
 	 * @param string $flds column-name and type for the changed column
@@ -574,7 +574,7 @@ class ADODB_DataDict {
 	/**
 	 * Drop one column
 	 *
-	 * Some DBM's can't do that on there own, you need to supply the complete defintion of the new table,
+	 * Some DBM's cannot do that on there own, you need to supply the complete defintion of the new table,
 	 * to allow, recreating the table and copying the content over to the new table
 	 * @param string $tabname table-name
 	 * @param string $flds column-name and type for the changed column
@@ -695,7 +695,7 @@ class ADODB_DataDict {
 					}
 				}
 
-				// reset it, so we don't get next field 1st token as INDEX...
+				// reset it, so we do not get next field 1st token as INDEX...
 				$hasparam = false;
 				$flds[]   = $f1;
 			}
@@ -1118,7 +1118,7 @@ class ADODB_DataDict {
 	/**
 	 * "Florian Buzin [ easywe ]" <florian.buzin#easywe.de>
 	 *
-	 * This function changes/adds new fields to your table. You don't
+	 * This function changes/adds new fields to your table. You do not
 	 * have to know if the col is new or not. It will check on its own.
 	 */
 	public function ChangeTableSQL($tablename, $flds, $tableoptions = false, $dropOldFlds = false) {
@@ -1156,7 +1156,7 @@ class ADODB_DataDict {
 
 			foreach ($flds as $k => $v) {
 				if (isset($cols[$k]) && is_object($cols[$k])) {
-					// If already not allowing nulls, then don't change
+					// If already not allowing nulls, then do not change
 					$obj = $cols[$k];
 
 					if (isset($obj->not_null) && $obj->not_null) {

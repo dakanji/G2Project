@@ -83,7 +83,7 @@ class IcuVersion
      * @param int|null $precision The number of components to include. Pass
      *                            NULL to return the version unchanged.
      *
-     * @return string|null the normalized ICU version or NULL if it couldn't be
+     * @return string|null the normalized ICU version or NULL if it could not be
      *                     normalized
      */
     public static function normalize($version, $precision)

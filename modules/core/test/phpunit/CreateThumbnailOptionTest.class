@@ -194,7 +194,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		}
 	}
 
-	// This won't do anything, but shouldn't have any errors either.
+	// This would not do anything, but should not have any errors either.
 	public function testCreateWithNoThumbnail() {
 		$form['CreateThumbnailOption']['createThumbnail'] = 1;
 
@@ -204,7 +204,7 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 		$this->assertEquals($errors, $this->_noErrors);
 	}
 
-	// This won't do anything, but shouldn't have any errors either.
+	// This would not do anything, but should not have any errors either.
 	public function testCreateMultipleWithNoThumbnail() {
 		$totalTestItems = 3;
 

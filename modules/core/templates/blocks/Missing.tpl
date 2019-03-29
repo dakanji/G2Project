@@ -4,5 +4,5 @@
  *}
 {* Fallback block. Display if the real block is missing for whatever reason *}
 <div class="giWarning">
-  {g->text text="WARNING: block %s doesn't exist." arg1=$type}
+  {g->text text="WARNING: block %s does not exist." arg1=$type}
 </div>

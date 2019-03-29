@@ -616,7 +616,7 @@ class ADODB_Session {
 
 		$sql = "SELECT $ADODB_SESSION_SELECT_FIELDS FROM $table WHERE sesskey = $binary " . $conn->Param(0) . ' AND expiry >= ' . $conn->sysTimeStamp;
 
-		/* Lock code does not work as it needs to hold transaction within whole page, and we don't know if
+		/* Lock code does not work as it needs to hold transaction within whole page, and we do not know if
 		  developer has commited elsewhere... :(
 		 */
 

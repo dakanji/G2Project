@@ -88,9 +88,9 @@ class CoreModule extends GalleryModule {
 		}
 
 		/*
-		 * We're not doing this as the acting user id, but that's OK because we're not displaying
-		 * the result; we're only using it as a gating factor for whether or not we show a link, and
-		 * that'll also be gated by the permissions we receive which *will* be for the acting user.
+		 * We are not doing this as the acting user id, but that's OK because we are not displaying
+		 * the result; we are only using it as a gating factor for whether or not we show a link, and
+		 * that will also be gated by the permissions we receive which *will* be for the acting user.
 		 */
 		list($ret, $childCounts) = GalleryCoreApi::fetchChildCounts($itemIds);
 
@@ -738,7 +738,7 @@ class CoreModule extends GalleryModule {
 	}
 
 	/**
-	 * We pushed all this code into its own file since we need it very rarely so it doesn't make
+	 * We pushed all this code into its own file since we need it very rarely so it does not make
 	 * sense to load it every single time.
 	 *
 	 * @see GalleryModule::install
@@ -771,7 +771,7 @@ class CoreModule extends GalleryModule {
 
 	/**
 	 * Get the version of the core module and of Gallery itself.  We store this on disk to avoid
-	 * having to load up the database (which can be problematic if we're doing an upgrade and don't
+	 * having to load up the database (which can be problematic if we are doing an upgrade and do not
 	 * want to count a specific database schema). If the versions.dat file indicates that Gallery
 	 * is in maintenance mode, then set the configuration value to indicate this.
 	 *

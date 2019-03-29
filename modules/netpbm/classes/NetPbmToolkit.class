@@ -120,7 +120,7 @@ class NetPbmToolkit extends GalleryToolkit {
 
 		switch ($operationName) {
 			case 'thumbnail':
-				// Don't enlarge images for a thumbnail
+				// Do not enlarge images for a thumbnail
 				$preserveMetaData = false;
 
 				if ($width <= $parameters[0] && $height <= $parameters[0]) {
@@ -327,7 +327,7 @@ class NetPbmToolkit extends GalleryToolkit {
 					case 'image/tiff':
 						/*
 						 * This is only because my decomposed alpha was "all black", and
-						 * made it seem like it wasn't doing anything
+						 * made it seem like it was not doing anything
 						 */
 						$useAlpha      = 0;
 						$getOverlayCmd = array(
@@ -648,8 +648,8 @@ class NetPbmToolkit extends GalleryToolkit {
 		global $gallery;
 
 		/*
-		 * Run it through PHP first, it's faster and more portable.  If it runs
-		 * afoul of open_basedir it'll return false and we can try NetPBM.
+		 * Run it through PHP first, it is faster and more portable.  If it runs
+		 * afoul of open_basedir it will return false and we can try NetPBM.
 		 */
 		$platform =& $gallery->getPlatform();
 		$results  = $platform->getimagesize($filename);
@@ -751,8 +751,8 @@ class NetPbmToolkit extends GalleryToolkit {
 			/*
 			 * The source file was PPM already so we have no conversion command.  Attach the file as
 			 * input to the first command in the chain.  If the first command is in the middle of
-			 * a sequence, we can just add the filename to the end of the command.  If it's at
-			 * the end of the sequence, then we're redirecting output to a file so we have to add
+			 * a sequence, we can just add the filename to the end of the command.  If it is at
+			 * the end of the sequence, then we are redirecting output to a file so we have to add
 			 * the input file before the '>' redirect.
 			 */
 			for ($i = 0; $i < sizeof($command[0]); $i++) {

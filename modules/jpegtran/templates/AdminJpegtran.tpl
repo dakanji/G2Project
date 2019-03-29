@@ -14,7 +14,7 @@
 
 <div class="gbBlock">
   <p class="giDescription">
-    {g->text text="Jpegtran is a tool that can be used to rotate and crop JPEG images without degrading image quality.  You must install the jpegtran binary (part of libjpeg) on your server, then enter the path to it in the text box below.  If you're on a Unix machine, don't forget to make the binary executable (%s should do it)."
+    {g->text text="Jpegtran is a tool that can be used to rotate and crop JPEG images without degrading image quality.  You must install the jpegtran binary (part of libjpeg) on your server, then enter the path to it in the text box below.  If you are on a Unix machine, do not forget to make the binary executable (%s should do it)."
      arg1="<i>chmod 755 jpegtran</i>"}
   </p>
 
@@ -40,12 +40,12 @@
         {/if}
         {if isset($form.error.path.testError)}
         <div class="giError">
-          {g->text text="The path you entered doesn't contain a valid jpegtran binary. Use the 'test' button to check where the error is."}
+          {g->text text="The path you entered does not contain a valid jpegtran binary. Use the 'test' button to check where the error is."}
         </div>
         {/if}
         {if isset($form.error.path.badPath)}
         <div class="giError">
-          {g->text text="The path you entered isn't a valid path to a <b>jpegtran</b> binary."}
+          {g->text text="The path you entered is not a valid path to a <b>jpegtran</b> binary."}
         </div>
         {/if}
         {if isset($form.error.path.notExecutable)}

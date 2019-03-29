@@ -6,7 +6,7 @@
  * Go through each breadcrumb and display it as a link.
  *
  * G2 uses the highlight id to figure out which page to draw when you follow the
- * breadcrumbs back up the album tree.  Don't make the last item a link.
+ * breadcrumbs back up the album tree.  Do not make the last item a link.
  *}
 <div class="{$class}">
   {foreach name=parent from=$theme.parents item=parent}

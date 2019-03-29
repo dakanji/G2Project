@@ -235,7 +235,7 @@ class ChildTest extends GalleryTestCase {
 			}
 
 			if (count($data) < 3) {
-				// Don't know exact order to expect, just make sure all 3 items are there
+				// Do not know exact order to expect, just make sure all 3 items are there
 				$data = array(1, 2, 3);
 				sort($childIds);
 			}
@@ -443,7 +443,7 @@ class ChildTest extends GalleryTestCase {
 			'Inital'
 		);
 
-		// Verify 2 references to GalleryEntity table don't produce bad sql (2 joins)
+		// Verify 2 references to GalleryEntity table do not produce bad sql (2 joins)
 		list($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array($this->_root->getId()));
 
 		if ($ret) {
@@ -625,7 +625,7 @@ class ChildTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Don't need any results.. just validating that SQL query is ok, no error returned
+		// Do not need any results.. just validating that SQL query is ok, no error returned
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($album);
 
 		if ($ret) {
@@ -649,7 +649,7 @@ class ChildTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Don't need any results.. just validating that SQL query is ok, no error returned
+		// Do not need any results.. just validating that SQL query is ok, no error returned
 		list($ret, $childIds) = GalleryCoreApi::fetchChildAlbumItemIds($album);
 
 		if ($ret) {
@@ -688,7 +688,7 @@ class ChildTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Don't need any results.. just validating that SQL query is ok, no error returned
+		// Do not need any results.. just validating that SQL query is ok, no error returned
 		list($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($album);
 
 		if ($ret) {
@@ -845,7 +845,7 @@ class ChildTest extends GalleryTestCase {
 		$this->_markForCleanup($user);
 		$gallery->setActiveUser($user);
 
-		// the goal here is to test for the permissions that "everyone" doesn't have
+		// the goal here is to test for the permissions that "everyone" does not have
 		list($ret, $childIds) = GalleryCoreApi::fetchDescendentItemIds($this->_root, null, null, 'core.all');
 
 		if ($ret) {
@@ -898,7 +898,7 @@ class ChildTestSortOrder extends GallerySortInterface_1_2 {
 	}
 
 	public function getSortOrder($direction) {
-		// Won't match anything.. just used to ensure valid SQL is constructed
+		// Wo not match anything.. just used to ensure valid SQL is constructed
 		return array(
 			null,
 			'[GalleryUser::userName]' . $direction,

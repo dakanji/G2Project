@@ -126,8 +126,8 @@ class ModuleTest extends GalleryTestCase {
 		}
 
 		/*
-		 * Add bogus used theme blocks to test if they're removed after activate(). Bug #1636339
-		 * For now not testing false positives in the same module since we can't easily inject
+		 * Add bogus used theme blocks to test if they are removed after activate(). Bug #1636339
+		 * For now not testing false positives in the same module since we cannot easily inject
 		 * blocks into loadAvailableBlocks().
 		 */
 		$ret = GalleryCoreApi::setPluginParameter(
@@ -317,7 +317,7 @@ class ModuleTest extends GalleryTestCase {
 			'bogusTheme parameter'
 		);
 
-		// Make sure the real block hasn't been removed.
+		// Make sure the real block has not been removed.
 		if ($blockAvailable) {
 			list($ret, $realBlock) = GalleryCoreApi::getPluginParameter('theme', 'bogusTheme', 'albumBlocks', 1337);
 

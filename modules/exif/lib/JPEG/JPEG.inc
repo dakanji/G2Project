@@ -72,7 +72,7 @@ class JPEG {
 	/**
 	 * Constructs a new JPEG object for the given jpeg file.
 	 *
-	 * Constuction is a cheap operation and doesn't require the file to
+	 * Constuction is a cheap operation and does not require the file to
 	 * exist. The given filename may actually be a URL instead of a local
 	 * file.
 	 *
@@ -715,7 +715,7 @@ class JPEG {
 	 * Reads the associated jpeg file and preparses important meta data into
 	 * internal array slots.
 	 *
-	 * The jpeg file isn't parsed completely though, only the meta data
+	 * The jpeg file is not parsed completely though, only the meta data
 	 * parts are copied over binary into the _markers array. The primary image data
 	 * is skipped over.
 	 *
@@ -740,7 +740,7 @@ class JPEG {
 		} else {
 			$this->_fp = null;
 
-			// ERROR: Can't open file
+			// ERROR: Cannot open file
 			return false;
 		}
 
@@ -843,7 +843,7 @@ class JPEG {
 			} elseif (!$done) {
 				$result = @fseek($this->_fp, $length, SEEK_CUR);
 
-				// fseek doesn't seem to like HTTP 'files', but fgetc has no problem
+				// fseek does not seem to like HTTP 'files', but fgetc has no problem
 				if (!($result === 0)) {
 					for ($i = 0; $i < $length; $i++) {
 						fgetc($this->_fp);
@@ -918,7 +918,7 @@ class JPEG {
 		} else {
 			$this->_fp = null;
 
-			// ERROR: Can't open file
+			// ERROR: Cannot open file
 			return false;
 		}
 
@@ -929,7 +929,7 @@ class JPEG {
 			fclose($this->_fp);
 			$this->_fp = null;
 
-			// ERROR: Can't open output file
+			// ERROR: Cannot open output file
 			return false;
 		}
 
@@ -1084,7 +1084,7 @@ class JPEG {
 				// Skip the original data
 				$result = @fseek($this->_fp, $origLength, SEEK_CUR);
 
-				// fseek doesn't seem to like HTTP 'files', but fgetc has no problem
+				// fseek does not seem to like HTTP 'files', but fgetc has no problem
 				if ($result != 0) {
 					for ($i = 0; $i < $origLength; $i++) {
 						fgetc($this->_fp);
@@ -1320,7 +1320,7 @@ class JPEG {
 		$pos                 = 6;
 		$this->_info['exif'] = array();
 
-		// We don't increment $pos after this because Exif uses offsets relative to this point
+		// We do not increment $pos after this because Exif uses offsets relative to this point
 		$byteAlign = $this->_getShort($data, $pos + 0);
 
 		if ($byteAlign == 0x4949) {
@@ -3336,7 +3336,7 @@ class JPEG {
 
 	/**
 	 * Gets the given lenght string/bytes out of the given data starting at the given position.
-	 * If a length isn't given all available data is returned.
+	 * If a length is not given all available data is returned.
 	 *
 	 * @param string  the data to extract part of
 	 * @param int     the start position of extraction

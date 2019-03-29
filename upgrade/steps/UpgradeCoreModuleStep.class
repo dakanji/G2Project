@@ -32,7 +32,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 		$gallery->startRecordingDebugSnippet();
 
 		/*
-		 * We'll need a translator to load up the core module for the
+		 * We will need a translator to load up the core module for the
 		 * GalleryPlugin::setGroup() method to work.
 		 */
 		$translator =& $gallery->getTranslator();
@@ -51,7 +51,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 		$core     = new CoreModule();
 		$versions = $core->getInstalledVersions();
 
-		// We didn't have these values before 2.0-alpha-3 when the core version was 0.8
+		// We did not have these values before 2.0-alpha-3 when the core version was 0.8
 		if (!isset($versions['core'])) {
 			$versions['core'] = '0.8';
 		}

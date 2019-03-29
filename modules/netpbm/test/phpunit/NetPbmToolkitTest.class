@@ -95,7 +95,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 
 		/*
 		 * Test platform will support jhead for 4.jpg but not for 41.jpg
-		 * This ensures thumbnail operation doesn't preserve metadata
+		 * This ensures thumbnail operation does not preserve metadata
 		 */
 		list($ret, $mimeType) = $this->_toolkit->performOperation(
 			'image/jpeg',
@@ -253,7 +253,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 
 		$this->assertTrue($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION, 'bad op');
 
-		// Make sure that we actually convert the file, and don't just copy it over
+		// Make sure that we actually convert the file, and do not just copy it over
 		GalleryUtilities::putRequestVariable('toolkitCallCount', 0);
 
 		list($ret, $mimeType) = $this->_toolkit->performOperation(
@@ -1116,7 +1116,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 /**
  * Test platform
  *
- * Note: this has to extend WinNtPlatform because when we're doing binary discovery
+ * Note: this has to extend WinNtPlatform because when we are doing binary discovery
  * we detect windows and try to append .exe to the binary filename.
  *
  * @package NetPbm
@@ -1677,7 +1677,7 @@ class NetPbmToolkitTestPlatform extends WinNtPlatform {
 				case '/windowsCygwin/pamfile.exe':  // test pamfile instead of pnmfile
 				case '/windowsCygwin/pnmcomp.exe':
 				case '/windowsCygwin/pnmflip.exe':
-				case '/windowsCygwin/pamquant': // test files that don't have end in .exe
+				case '/windowsCygwin/pamquant': // test files that do not have end in .exe
 					return array(1, array(), array());
 			}
 		}
@@ -1754,7 +1754,7 @@ class NetPbmToolkitTestPlatform extends WinNtPlatform {
 			case '/windowsCygwin/pamfile.exe':  // test pamfile instead of pnmfile
 			case '/windowsCygwin/pnmcomp.exe':
 			case '/windowsCygwin/pnmflip.exe':
-			case '/windowsCygwin/pnmquant': // test files that don't have end in .exe
+			case '/windowsCygwin/pnmquant': // test files that do not have end in .exe
 			case '/windowsCygwin/':
 				return true;
 		}
@@ -1782,7 +1782,7 @@ class NetPbmToolkitTestPlatform extends WinNtPlatform {
 	}
 
 	public function unlink($path) {
-		// we don't create any files, so no need to unlink any
+		// we do not create any files, so no need to unlink any
 	}
 
 	public function getimagesize($path) {

@@ -52,7 +52,7 @@ class ConvertDatabaseToUtf8Task extends MaintenanceTask {
 			'If you created your database with MySQL 3.x and you upgrade to MySQL 4.x, you ' .
 			'will experience scrambled characters until you convert your database to use ' .
 			'UTF8.  This operation is harmless if your database is already converted, so ' .
-			'it\'s safe to try it if you\'re unsure.  After using this, you should run the ' .
+			'it\'s safe to try it if you are unsure.  After using this, you should run the ' .
 			'\'Delete database cache\' task to get rid of any corruption in your cache.'
 		);
 

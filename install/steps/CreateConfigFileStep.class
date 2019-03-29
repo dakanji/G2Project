@@ -53,7 +53,7 @@ class CreateConfigFileStep extends InstallStep {
 		$templateData['OS'] = strncasecmp(PHP_OS, 'win', 3) ? 'unix' : 'winnt';
 
 		if (file_exists($configFilePath) && !is_writeable($configFilePath)) {
-			// The file exists but we can't write to it
+			// The file exists but we cannot write to it
 			if (file_get_contents($configFilePath) == $this->_getConfigContents()) {
 				// The proper contents are in the file, we can advance to the next step
 				$this->setComplete(true);
@@ -67,7 +67,7 @@ class CreateConfigFileStep extends InstallStep {
 				$templateData['galleryDir']                = basename($configDir);
 			}
 		} else {
-			// Don't (overwrite) the config file, if we recommend an upgrade
+			// Do not (overwrite) the config file, if we recommend an upgrade
 			$writeConfigFile    = false;
 			$freshInstall       = $galleryStub->getConfig('freshInstall');
 			$versionStatus      = false;
@@ -78,13 +78,13 @@ class CreateConfigFileStep extends InstallStep {
 			);
 
 			if (!$freshInstall) {
-				// We are reusing database tables, it's not a fresh install
+				// We are reusing database tables, it is not a fresh install
 				list($versionStatus, $upgradeRecommended, $versions) = $this->_versionCheck();
 
 				if (!$versionStatus && file_exists($configFilePath)) {
 					if ($upgradeRecommended) {
 						/*
-						 * Only write config.php, if it's empty. Else, the upgrader would
+						 * Only write config.php, if it is empty. Else, the upgrader would
 						 * assume a wrong state of config.php when it tries to update it.
 						 */
 						$configContents = implode('', file($configFilePath));
@@ -100,7 +100,7 @@ class CreateConfigFileStep extends InstallStep {
 				$writeConfigFile = true;
 			}
 
-			// Before writing, check if the file is writable and give instructions if it isn't
+			// Before writing, check if the file is writable and give instructions if it is not
 			if ($writeConfigFile && !$out = @fopen($configFilePath, 'w')) {
 				// Give the user instructions
 				$templateData['bodyFile']   = 'CreateConfigFileInstructions.html';
@@ -224,7 +224,7 @@ class CreateConfigFileStep extends InstallStep {
 	/**
 	 * Check installed version vs. codebase version
 	 *
-	 * If G2 isn't installed at the moment or the installed version is the same as the codebase
+	 * If G2 is not installed at the moment or the installed version is the same as the codebase
 	 * version, advance to the next step. Else, give a warning and instruct to run the upgrader if
 	 * codebase version > installed version.
 	 * Note: database = g2data version, checked in db step
@@ -258,14 +258,14 @@ class CreateConfigFileStep extends InstallStep {
 				$versionsOk = true;
 			} elseif ($cmp < 0) {
 				/*
-				 * G2 is installed, but its version doesn't match the codebase version.
+				 * G2 is installed, but its version does not match the codebase version.
 				 * Recommend an upgrade (redirect to the upgrader)
 				 */
 				$recommendUpgrade = true;
 			}
 
 			/*
-			 * G2 is installed, but its version doesn't match the codebase version.
+			 * G2 is installed, but its version does not match the codebase version.
 			 * And no upgrade is recommended because the codebase version is not newer than
 			 * the installed version. Something's wrong.
 			 */

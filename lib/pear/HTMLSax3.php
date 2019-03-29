@@ -519,7 +519,7 @@ class XML_HTMLSax3 {
 	 * or CDATA markup inside an XML escape, if found.</li>
 	 * </ul>
 	 * To get HTMLSax to behave in the same way as the native PHP SAX parser,
-	 * using it's default state, you need to switch on XML_OPTION_LINEFEED_BREAK,
+	 * using it is default state, you need to switch on XML_OPTION_LINEFEED_BREAK,
 	 * XML_OPTION_ENTITIES_PARSED and XML_OPTION_CASE_FOLDING
 	 * @param string name of parser option
 	 * @param int (optional) 1 to switch on, 0 for off
@@ -1425,7 +1425,7 @@ class XML_HTMLSax3_Escape_Stripper {
 
 			$data = preg_replace($patterns, '', $data);
 
-		// Check for XML CDATA sections (note: don't do both!)
+		// Check for XML CDATA sections (note: do not do both!)
 		} elseif (substr($data, 0, 1) == '[') {
 			$patterns = array(
 				'/^\[.*CDATA.*\[/s', // Opening CDATA

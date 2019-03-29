@@ -35,8 +35,8 @@ class IconsImpl extends IconsInterface_1_0 {
 		$platform =& $gallery->getPlatform();
 
 		/*
-		 * Load the plugin even if it's deactivated since we only need it for translation, and
-		 * it's possible that this is getting called during the core upgrade, when we won't be
+		 * Load the plugin even if it is deactivated since we only need it for translation, and
+		 * it is possible that this is getting called during the core upgrade, when we would not be
 		 * able to properly deal with deactivated plugins.
 		 */
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'icons', true);

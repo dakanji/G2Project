@@ -91,9 +91,9 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 		}
 
 		/*
-		 * The parent must be read locked at this point to make sure that it's not going to be
-		 * moved around while we're adding stuff to it.  Realistically, the entire parent tree must
-		 * be locked but it's not really practical to check the whole tree so just check the parent.
+		 * The parent must be read locked at this point to make sure that it is not going to be
+		 * moved around while we are adding stuff to it.  Realistically, the entire parent tree must
+		 * be locked but it is not really practical to check the whole tree so just check the parent.
 		 */
 		if (!GalleryCoreApi::isReadLocked($parentId)) {
 			return GalleryCoreApi::error(ERROR_LOCK_REQUIRED);
@@ -289,9 +289,9 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 	public function delete() {
 		/*
 		 * The parent must be read or write locked at this point to make sure
-		 * that it's not going to be moved around while we're deleting stuff
+		 * that it is not going to be moved around while we are deleting stuff
 		 * from its children.  Realistically, the entire parent tree must be at
-		 * least read locked but it's not really practical to check the entire
+		 * least read locked but it is not really practical to check the entire
 		 * tree so just check the parent.
 		 */
 		$parentId = $this->getParentId();
@@ -417,7 +417,7 @@ class GalleryFileSystemEntity extends GalleryChildEntity {
 
 		/*
 		 * The album path ends with a slash, and the logical path starts with one (because the
-		 * root path component is empty) so we'll have two slashes, unless we remove one of them.
+		 * root path component is empty) so we will have two slashes, unless we remove one of them.
 		 */
 		$logicalPath = substr($logicalPath, 1);
 

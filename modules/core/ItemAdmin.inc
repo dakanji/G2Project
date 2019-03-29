@@ -44,7 +44,7 @@ class ItemAdminView extends GalleryView {
 	public function loadTemplate(&$template = null, &$form = null) {
 		global $gallery;
 
-		// Figure out the item we're referring to
+		// Figure out the item we are referring to
 		list($ret, $item) = $this->getItem();
 
 		if ($ret) {

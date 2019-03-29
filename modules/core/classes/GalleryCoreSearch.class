@@ -188,7 +188,7 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 		$result  = $results->nextResult();
 		$numRows = (int)$result[0];
 
-		// Get the results that we're interested in
+		// Get the results that we are interested in
 		list($ret, $results) = $gallery->search(
 			$query,
 			$data,

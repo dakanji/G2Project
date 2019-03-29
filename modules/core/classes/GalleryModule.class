@@ -87,7 +87,7 @@ class GalleryModule extends GalleryPlugin {
 	 *
 	 * @todo for next major version bump:
 	 * - Change GalleryDataItem::render to match GalleryRenderer::render and
-	 *   consider dropping the format, since it's always HTML.
+	 *   consider dropping the format, since it is always HTML.
 	 * - Drop the redirect url from GalleryPlugin::deactivate() (also requires a
 	 *   major bump in GalleryTheme)
 	 * - Remove TYPE=DB_TABLE_TYPE replacement in MySqlStorage::_getSqlReplacements
@@ -145,7 +145,7 @@ class GalleryModule extends GalleryPlugin {
 			$gallery->debug('In bootstrap mode (core module)');
 
 			/*
-			 * If we're in bootstrap mode, then we may not even have a version table.  If we try
+			 * If we are in bootstrap mode, then we may not even have a version table.  If we try
 			 * to query it, we will cause our current transaction to abort on some databases.
 			 * So, just assume that there's no installed version.
 			 */
@@ -278,7 +278,7 @@ class GalleryModule extends GalleryPlugin {
 
 			/*
 			 * Reactivate myself so that any activate based tasks like registering factory
-			 * implementations, toolkit operations, etc can happen.  Note that it's possible for
+			 * implementations, toolkit operations, etc can happen.  Note that it is possible for
 			 * this to successfully deactivate and then fail to activate again.  upgrade() should
 			 * get the module read properly but it may fail under some edge cases.
 			 */
@@ -497,7 +497,7 @@ class GalleryModule extends GalleryPlugin {
 			);
 		}
 
-		// Make sure that we don't need configuration before we allow activation.
+		// Make sure that we do not need configuration before we allow activation.
 		list($ret, $needs) = $this->needsConfiguration();
 
 		if ($ret) {
@@ -559,7 +559,7 @@ class GalleryModule extends GalleryPlugin {
 	 *               boolean was module able to autoconfigure
 	 */
 	public function autoConfigure() {
-		// By default we don't need any configuration
+		// By default we do not need any configuration
 		return array(null, true);
 	}
 
@@ -842,7 +842,7 @@ class GalleryModule extends GalleryPlugin {
 			return $ret;
 		}
 
-		// Go through each available theme and find which blocks they're using.
+		// Go through each available theme and find which blocks they are using.
 		while ($result = $searchResults->nextResult()) {
 			$themeId     = $result[0];
 			$itemId      = $result[1];

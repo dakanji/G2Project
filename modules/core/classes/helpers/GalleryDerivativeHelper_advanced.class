@@ -153,7 +153,7 @@ class GalleryDerivativeHelper_advanced {
 					list($success, $newOperations) = $toolkit->applyTransform($operation, $currentOperations, $reverse);
 
 					if ($success) {
-						// It might not have changed, but setting it here won't hurt
+						// It might not have changed, but setting it here would not hurt
 						$derivative->setDerivativeOperations($newOperations);
 
 						$ret = $derivative->save();
@@ -204,7 +204,7 @@ class GalleryDerivativeHelper_advanced {
 			$isLinkedTo = !empty($linkedIds);
 		}
 
-		// Force us to preserve original if we're a link
+		// Force us to preserve original if we are a link
 		if (!$preserveOriginal && ($isLinked || $isLinkedTo)) {
 			$preserveOriginal = true;
 		}
@@ -213,7 +213,7 @@ class GalleryDerivativeHelper_advanced {
 
 		if (empty($preferred) && !$preserveOriginal) {
 			/*
-			 * We have no preferred photo, and we're not preserving the original.  So, we're
+			 * We have no preferred photo, and we are not preserving the original.  So, we are
 			 * changing the original photo here.  Make the appropriate change, then expire the
 			 * derivative tree.
 			 * Note that we are explicitly not allowing linked items to execute this code!
@@ -289,7 +289,7 @@ class GalleryDerivativeHelper_advanced {
 				return $ret;
 			}
 
-			// Save the item, if it's modified
+			// Save the item, if it is modified
 			if ($item->isModified()) {
 				if (isset($serialNumber)) {
 					$item->setSerialNumber($serialNumber);
@@ -957,7 +957,7 @@ class GalleryDerivativeHelper_advanced {
 			return array($ret, null);
 		}
 
-		// Check to see if we're a broken derivative.
+		// Check to see if we are a broken derivative.
 		$sourceId = $derivative->getDerivativeSourceId();
 
 		if (empty($sourceId)) {
@@ -974,7 +974,7 @@ class GalleryDerivativeHelper_advanced {
 			return array($ret, null);
 		}
 
-		// If the source is a derivative, make sure it's current
+		// If the source is a derivative, make sure it is current
 		if (GalleryUtilities::isA($source, 'GalleryDerivative')) {
 			list($ret, $source) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($source->getId(), true);
 

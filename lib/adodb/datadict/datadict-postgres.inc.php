@@ -55,7 +55,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 
 			case 'IMAGE': // user defined type
 			case 'BLOB': // user defined type
-			case 'BIT': // This is a bit string, not a single bit, so don't return 'L'
+			case 'BIT': // This is a bit string, not a single bit, so do not return 'L'
 			case 'VARBIT':
 			case 'BYTEA':
 				return 'B';
@@ -206,7 +206,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 	/**
 	 * Change the definition of one column
 	 *
-	 * Postgres can't do that on it's own, you need to supply the complete defintion of the new table,
+	 * Postgres cannot do that on it is own, you need to supply the complete defintion of the new table,
 	 * to allow, recreating the table and copying the content over to the new table
 	 * @param string $tabname table-name
 	 * @param string $flds column-name and type for the changed column
@@ -246,10 +246,10 @@ class ADODB2_postgres extends ADODB_DataDict {
 					$v = preg_replace('/NOT NULL/i', '', $v);
 				}
 
-				// this next block doesn't work - there is no way that I can see to
+				// this next block does not work - there is no way that I can see to
 				// explicitly ask a column to be null using $flds
 				elseif ($set_null = preg_match('/NULL/i', $v)) {
-					// if they didn't specify not null, see if they explicitely asked for null
+					// if they did not specify not null, see if they explicitely asked for null
 					// Lookbehind pattern covers the case 'fieldname NULL datatype DEFAULT NULL'
 					// only the first NULL should be removed, not the one specifying
 					// the default value
@@ -335,7 +335,7 @@ class ADODB2_postgres extends ADODB_DataDict {
 	/**
 	 * Drop one column
 	 *
-	 * Postgres < 7.3 can't do that on it's own, you need to supply the complete defintion of the new table,
+	 * Postgres < 7.3 cannot do that on it is own, you need to supply the complete defintion of the new table,
 	 * to allow, recreating the table and copying the content over to the new table
 	 * @param string $tabname table-name
 	 * @param string $flds column-name and type for the changed column

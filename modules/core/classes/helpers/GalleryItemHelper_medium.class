@@ -158,7 +158,7 @@ class GalleryItemHelper_medium {
 		global $gallery;
 
 		/*
-		 * Assume that we've got a working mime type, go ahead and
+		 * Assume that we have got a working mime type, go ahead and
 		 * get an appropriate GalleryDataItem from the GalleryFactory.
 		 */
 		list($ret, $newItem) = GalleryCoreApi::newItemByMimeType($mimeType);
@@ -171,7 +171,7 @@ class GalleryItemHelper_medium {
 
 		if ($ret) {
 			if ($ret->getErrorCode() & ERROR_BAD_DATA_TYPE) {
-				// Well, it wasn't what we thought it was.  Make it an unknown
+				// Well, it was not what we thought it was.  Make it an unknown
 				$gallery->debug(
 					sprintf(
 						'Failed to create item type %s, falling back on unknown',
@@ -343,7 +343,7 @@ class GalleryItemHelper_medium {
 
 			if ($newOperations != $operations) {
 				/*
-				 * We now have operations to make it viewable.  If we don't have a preferred, then
+				 * We now have operations to make it viewable.  If we do not have a preferred, then
 				 * create one with those operations.  If we already have a preferred then just
 				 * update it to use these operations.
 				 */
@@ -471,7 +471,7 @@ class GalleryItemHelper_medium {
 				}
 			}
 
-			// Special case to make sure that we don't upsample photos
+			// Special case to make sure that we do not upsample photos
 			if (GalleryUtilities::isA($item, 'GalleryPhotoItem')) {
 				if (preg_match('/(^|;)scale\|(\d+)(,(\d+))?/', $operations, $matches)) {
 					if (empty($matches[4])) {
@@ -552,7 +552,7 @@ class GalleryItemHelper_medium {
 			}
 
 			/*
-			 * Validate/update the operations to make sure that they're supported
+			 * Validate/update the operations to make sure that they are supported
 			 * by an active toolkit and produce a viewable mime type.
 			 */
 			list($ret, $operations, $outputMimeType) = GalleryCoreApi::makeSupportedViewableOperationSequence(
@@ -703,7 +703,7 @@ class GalleryItemHelper_medium {
 
 		/*
 		 * If at this point $source is undefined then we have no source
-		 * thumbnail and that means that we're done.
+		 * thumbnail and that means that we are done.
 		 */
 		$lockIds = array();
 
@@ -712,7 +712,7 @@ class GalleryItemHelper_medium {
 
 			if ($ret) {
 				if (!empty($lockIds)) {
-					// Ignore errors -- we're already in an error handler
+					// Ignore errors -- we are already in an error handler
 					GalleryCoreApi::releaseLocks($lockIds);
 				}
 
@@ -728,7 +728,7 @@ class GalleryItemHelper_medium {
 
 				if ($ret) {
 					if (!empty($lockIds)) {
-						// Ignore errors -- we're already in an error handler
+						// Ignore errors -- we are already in an error handler
 						GalleryCoreApi::releaseLocks($lockIds);
 					}
 
@@ -739,7 +739,7 @@ class GalleryItemHelper_medium {
 
 				if ($ret) {
 					if (!empty($lockIds)) {
-						// Ignore errors -- we're already in an error handler
+						// Ignore errors -- we are already in an error handler
 						GalleryCoreApi::releaseLocks($lockIds);
 					}
 
@@ -756,7 +756,7 @@ class GalleryItemHelper_medium {
 
 				if ($ret) {
 					if (!empty($lockIds)) {
-						// Ignore errors -- we're already in an error handler
+						// Ignore errors -- we are already in an error handler
 						GalleryCoreApi::releaseLocks($lockIds);
 					}
 
@@ -765,7 +765,7 @@ class GalleryItemHelper_medium {
 
 				if (!isset($derivative)) {
 					if (!empty($lockIds)) {
-						// Ignore errors -- we're already in an error handler
+						// Ignore errors -- we are already in an error handler
 						GalleryCoreApi::releaseLocks($lockIds);
 					}
 
@@ -779,7 +779,7 @@ class GalleryItemHelper_medium {
 
 				if ($ret) {
 					if (!empty($lockIds)) {
-						// Ignore errors -- we're already in an error handler
+						// Ignore errors -- we are already in an error handler
 						GalleryCoreApi::releaseLocks($lockIds);
 					}
 
@@ -797,7 +797,7 @@ class GalleryItemHelper_medium {
 
 				if ($ret) {
 					if (!empty($lockIds)) {
-						// Ignore errors -- we're already in an error handler
+						// Ignore errors -- we are already in an error handler
 						GalleryCoreApi::releaseLocks($lockIds);
 					}
 
@@ -815,7 +815,7 @@ class GalleryItemHelper_medium {
 
 				if ($ret) {
 					if (!empty($lockIds)) {
-						// Ignore errors -- we're already in an error handler
+						// Ignore errors -- we are already in an error handler
 						GalleryCoreApi::releaseLocks($lockIds);
 					}
 
@@ -845,7 +845,7 @@ class GalleryItemHelper_medium {
 			if (isset($derivativeOperations)) {
 				/*
 				 * Validate the stored preferences to make sure that
-				 * they're supported by an active toolkit.
+				 * they are supported by an active toolkit.
 				 */
 				list($ret, $isSupported, $outputMimeType) = GalleryCoreApi::isSupportedOperationSequence(
 					$sourceMimeType,
@@ -880,7 +880,7 @@ class GalleryItemHelper_medium {
 
 				if ($ret) {
 					if (!empty($lockIds)) {
-						// Ignore errors -- we're already in an error handler
+						// Ignore errors -- we are already in an error handler
 						GalleryCoreApi::releaseLocks($lockIds);
 					}
 
@@ -891,7 +891,7 @@ class GalleryItemHelper_medium {
 
 				if ($ret) {
 					if (!empty($lockIds)) {
-						// Ignore errors -- we're already in an error handler
+						// Ignore errors -- we are already in an error handler
 						GalleryCoreApi::releaseLocks($lockIds);
 					}
 
@@ -945,7 +945,7 @@ class GalleryItemHelper_medium {
 	 * </ul>
 	 *
 	 * If you provide just a user id, it will invalidate all cached values for
-	 * that user.  If you provide just an item id, it'll invalidate that id and
+	 * that user.  If you provide just an item id, it will invalidate that id and
 	 * all of its parents for all users.  If you provide both, it will only
 	 * invalidate for the intersection of the user and the item ids.
 	 *

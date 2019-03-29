@@ -201,7 +201,7 @@ class GalleryChildEntityHelper_simple {
 	 * @param string|array $requiredPermission a single required permission-id (can be null)
 	 *                                         or an array or permission-ids
 	 * @param boolean $linkableOnly whether to restrict to linkable items only
-	 * @param int $userId the userid we're doing this for (defaults to active user id)
+	 * @param int $userId the userid we are doing this for (defaults to active user id)
 	 * @return array GalleryStatus a status code
 	 *               array of item ids
 	 * @access private
@@ -329,7 +329,7 @@ class GalleryChildEntityHelper_simple {
 			. $table . '::' . $column . ']'] = 1;
 		}
 
-		// Don't self join
+		// Do not self join
 		$baseId = '[' . $baseTable . '::' . $baseIdColumn . ']';
 		unset($join['INNER JOIN [' . $baseTable . '] ON [BASE::ID] = ' . $baseId], $join['LEFT JOIN [' . $baseTable . '] ON [BASE::ID] = ' . $baseId]);
 
@@ -574,7 +574,7 @@ class GalleryChildEntityHelper_simple {
 		$storage =& $gallery->getStorage();
 
 		/*
-		 * Don't simply plug getOrderBy into the SQL clause, or we could open
+		 * Do not simply plug getOrderBy into the SQL clause, or we could open
 		 * the door for SQL injection.
 		 */
 		$usingDefaults = false;

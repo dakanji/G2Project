@@ -92,7 +92,7 @@ class MainTest extends GalleryTestCase {
 	public function _getResponseHeaders() {
 		$headers = GalleryUtilities::_getResponseHeaders();
 
-		// We're not interested in the status header
+		// We are not interested in the status header
 		unset($headers['status']);
 
 		return $headers;
@@ -236,7 +236,7 @@ class MainTest extends GalleryTestCase {
 			'Zeus',
 		);
 
-		// Controllers that shouldn't trigger the fix, just a few samples
+		// Controllers that should not trigger the fix, just a few samples
 		$okControllers = array('core.ItemAdd', 'migrate.Redirect', null, 'core.ItemMove');
 
 		// Controllers that should trigger the fix
@@ -267,7 +267,7 @@ class MainTest extends GalleryTestCase {
 		$sessionParamString = GalleryUtilities::prefixFormVariable(urlencode($session->getKey())) . '=' .
 		urlencode($session->getId());
 
-		// URLs that shouldn't be changed (because they already have the session param)
+		// URLs that should not be changed (because they already have the session param)
 		$okUrls = array(
 			"main.php?$sessionParamString",
 			'main.php?g2_view=core.ShowItem&amp;' .
@@ -329,7 +329,7 @@ class MainTest extends GalleryTestCase {
 	public function testDoRedirectConvertsToAbsoluteUrl() {
 		global $gallery;
 
-		// Ensure getCurrentRequestUri result isn't cached
+		// Ensure getCurrentRequestUri result is not cached
 		GalleryDataCache::reset();
 
 		// Make sure the redirect has no sessionId in it
@@ -841,7 +841,7 @@ class MainTest_BeforeDisplayListener {
 }
 
 /**
- * Fake GalleryTemplate that doesn't actually fetch the data.
+ * Fake GalleryTemplate that does not actually fetch the data.
  */
 class MainTest_FakeTemplate extends GalleryTemplate {
 	public function __construct() {

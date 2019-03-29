@@ -123,7 +123,7 @@ class Services_JSON {
 	 *                                   "{...}" syntax creates associative arrays
 	 *                                   instead of objects in decode().
 	 *                           - SERVICES_JSON_SUPPRESS_ERRORS:  error suppression.
-	 *                                   Values which can't be encoded (e.g. resources)
+	 *                                   Values which cannot be encoded (e.g. resources)
 	 *                                   appear as NULL instead of throwing errors.
 	 *                                   By default, a deeply-nested resource will
 	 *                                   bubble up with an error, so all return values
@@ -520,7 +520,7 @@ class Services_JSON {
 				$m = array();
 
 				if (is_numeric($str)) {
-					// Lookie-loo, it's a number
+					// Lookie-loo, it is a number
 					// This would work on its own, but I'm trying to be
 					// good about returning integers where appropriate:
 					// return (float)$str;
@@ -685,7 +685,7 @@ class Services_JSON {
 
 						if (($c == $strlen_chrs) || (($chrs[$c] == ',') && ($top['what'] == SERVICES_JSON_SLICE))) {
 							// found a comma that is not inside a string, array, etc.,
-							// OR we've reached the end of the character list
+							// OR we have reached the end of the character list
 							$slice = substr($chrs, $top['where'], ($c - $top['where']));
 							array_push(
 								$stk,
@@ -746,7 +746,7 @@ class Services_JSON {
 							&& (($chrs[$c - 1] != '\\')
 							|| ($chrs[$c - 1] == '\\' && $chrs[$c - 2] == '\\'))
 						) {
-							// found a quote, we're in a string, and it's not escaped
+							// found a quote, we are in a string, and it is not escaped
 							array_pop($stk);
 
 						//print("Found end of string at {$c}: ".substr($chrs, $top['where'], (1 + 1 + $c - $top['where']))."\n");
@@ -765,7 +765,7 @@ class Services_JSON {
 
 						//print("Found start of array at {$c}\n");
 						} elseif (($chrs[$c] == ']') && ($top['what'] == SERVICES_JSON_IN_ARR)) {
-							// found a right-bracket, and we're in an array
+							// found a right-bracket, and we are in an array
 							array_pop($stk);
 
 						//print("Found end of array at {$c}: ".substr($chrs, $top['where'], (1 + $c - $top['where']))."\n");
@@ -784,7 +784,7 @@ class Services_JSON {
 
 						//print("Found start of object at {$c}\n");
 						} elseif (($chrs[$c] == '}') && ($top['what'] == SERVICES_JSON_IN_OBJ)) {
-							// found a right-brace, and we're in an object
+							// found a right-brace, and we are in an object
 							array_pop($stk);
 
 						//print("Found end of object at {$c}: ".substr($chrs, $top['where'], (1 + $c - $top['where']))."\n");
@@ -805,7 +805,7 @@ class Services_JSON {
 
 						//print("Found start of comment at {$c}\n");
 						} elseif (($substr_chrs_c_2 == '*/') && ($top['what'] == SERVICES_JSON_IN_CMT)) {
-							// found a comment end, and we're in one now
+							// found a comment end, and we are in one now
 							array_pop($stk);
 							$c++;
 

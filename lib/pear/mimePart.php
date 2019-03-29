@@ -43,7 +43,7 @@
  *
  * Why use this instead of mime.php?
  *   mime.php is a userfriendly api to this class for
- *   people who aren't interested in the internals of
+ *   people who are not interested in the internals of
  *   mime mail. This class however allows full control
  *   over the email.
  *
@@ -355,7 +355,7 @@ class Mail_mimePart {
 			$output .= $newline . $eol;
 		}
 
-		// Don't want last crlf
+		// Do not want last crlf
 		$output = substr($output, 0, -1 * strlen($eol));
 
 		return $output;

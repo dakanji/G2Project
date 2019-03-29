@@ -97,7 +97,7 @@ class GalleryFileSystemEntityHelper_medium {
 
 		/*
 		 * If given string was extended characters that were all converted to "_" then
-		 * autogenerate a new filename.. we'll use today's date.
+		 * autogenerate a new filename.. we will use today's date.
 		 */
 		if (rtrim($fileBase, '_') == '') {
 			$fileBase = $platform->strftime('%Y%m%d');
@@ -108,7 +108,7 @@ class GalleryFileSystemEntityHelper_medium {
 		 *     <fileBase>_001.<extension>
 		 *     <fileBase>_002.<extension>
 		 *     etc.
-		 * Don't be intimidated by the first 100 collisions
+		 * Do not be intimidated by the first 100 collisions
 		 */
 		$retry = 0;
 
@@ -119,7 +119,7 @@ class GalleryFileSystemEntityHelper_medium {
 				$extension
 			);
 
-			// Make sure that we don't have a collision in the db.
+			// Make sure that we do not have a collision in the db.
 			list($ret, $isCollision) = GalleryFileSystemEntityHelper_medium::checkPathCollision(
 				$newPathComponent,
 				$parentId,

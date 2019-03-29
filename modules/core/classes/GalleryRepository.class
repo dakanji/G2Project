@@ -178,7 +178,7 @@ class GalleryRepository {
 		if ($ret) {
 			if ($ret->getErrorCode() & ERROR_BAD_PARAMETER) {
 				/*
-				 * No header for the core module.  Maybe the core package isn't available in any
+				 * No header for the core module.  Maybe the core package is not available in any
 				 * this repository.
 				 */
 				return array(null, false, array());
@@ -190,8 +190,8 @@ class GalleryRepository {
 		$repositoryVersion = $header['version'];
 
 		/*
-		 * We only compare versions, not builds, because upgrading the core module isn't something
-		 * that's done very often, at least until it's done manually.
+		 * We only compare versions, not builds, because upgrading the core module is not something
+		 * that's done very often, at least until it is done manually.
 		 */
 		list($ret, $relation) = $this->_utilities->compareVersions($repositoryVersion, $core->getVersion());
 
@@ -602,14 +602,14 @@ class GalleryRepository {
 	public function createPluginsDirectory() {
 		global $gallery;
 
-		// Create repository cache directory if it doesn't exist.
+		// Create repository cache directory if it does not exist.
 		$repositoryCachePath = $gallery->getConfig('repository.cache');
 		$platform            =& $gallery->getPlatform();
 
 		list($success, $created) = GalleryUtilities::guaranteeDirExists($repositoryCachePath);
 
 		if (!$success) {
-			return array(false, $gallery->i18n('Couldn\'t create repository cache path.'));
+			return array(false, $gallery->i18n('Could not create repository cache path.'));
 		}
 
 		// Create repository cache subdirectories.
@@ -620,7 +620,7 @@ class GalleryRepository {
 				return array(
 					false,
 					$gallery->i18n(
-						'Couldn\'t create cache subdirectory. '
+						'Could not create cache subdirectory. '
 						. 'Make sure the web server has write permissions in it.'
 					),
 				);
@@ -736,7 +736,7 @@ class GalleryRepository {
 					ERROR_PLATFORM_FAILURE,
 					__FILE__,
 					__LINE__,
-					"Couldn't create directory [$pluginOutputDir]"
+					"Could not create directory [$pluginOutputDir]"
 				),
 				null,
 			);
@@ -971,7 +971,7 @@ class GalleryRepository {
 	 *
 	 * @param string $packageName name of the package to check
 	 * @param array $descriptor descriptor of the plugin the package belongs to
-	 * @return array of files that can't be overwritten (empty array if everything is ok)
+	 * @return array of files that cannot be overwritten (empty array if everything is ok)
 	 */
 	public function preVerifyPackage($packageName, $descriptor) {
 		return $this->_utilities->preVerifyPackage(
@@ -1028,9 +1028,9 @@ class GalleryRepository {
 
 		if (!$platform->file_exists($manifestPath)) {
 			/*
-			 * We won't know the revision of this module, so ignore it.  TODO: perhaps we should
+			 * We would not know the revision of this module, so ignore it.  TODO: perhaps we should
 			 * fall back on the revision of the module.inc file?  But if this is a user-written or
-			 * a contrib module, then it is probably not in svn which means that isn't valid
+			 * a contrib module, then it is probably not in svn which means that is not valid
 			 * anyway.  Ignoring it is probably safest.
 			 */
 			return null;
@@ -1339,7 +1339,7 @@ class GalleryRepository {
 							ERROR_PLATFORM_FAILURE,
 							__FILE__,
 							__LINE__,
-							"Couldn't create directory [$pluginOutputDir]"
+							"Could not create directory [$pluginOutputDir]"
 						),
 						null,
 					);

@@ -140,7 +140,7 @@ msgstr "exec() 허용확인"
 
 msgid ""
 "Warning: The exec() function is disabled in your PHP by the <b>disabled_functions</b> "
-"parameter in php.ini. You won't be able to use modules that require external binaries (e.g. "
+"parameter in php.ini. You would not be able to use modules that require external binaries (e.g. "
 "ImageMagick, NetPBM or Ffmpeg). This can only be set server-wide, so you will need to change "
 "it in the global php.ini."
 msgstr ""
@@ -307,7 +307,7 @@ msgstr ""
 
 #, fuzzy
 msgid ""
-"Note: You're running Gallery from SVN, so recently removed files may appear here.  It might "
+"Note: You are running Gallery from SVN, so recently removed files may appear here.  It might "
 "be safe to ignore these."
 msgstr ""
 "주의: CVS의 Gallery가 실행중입니다. 최근 삭제된 파일이 여기에 나올것입니다. 안전에 문제가 있"
@@ -318,7 +318,7 @@ msgid "Missing files (%d)"
 msgstr "파일이 없습니다.(%d)"
 
 msgid ""
-"Note: You're running Gallery from SVN, so some modified files are to be expected.  You can "
+"Note: You are running Gallery from SVN, so some modified files are to be expected.  You can "
 "probably ignore these, but to be safe you should make sure that you do 'svn update' before "
 "continuing."
 msgstr ""
@@ -329,8 +329,8 @@ msgstr "수정된 파일 (%d 개있음)"
 
 #, c-format
 msgid ""
-"These files are no longer part of Gallery. They probably won't cause any problems but it is "
-"a good idea to remove them to keep your install clean.  Gallery can't remove these files for "
+"These files are no longer part of Gallery. They probably would not cause any problems but it is "
+"a good idea to remove them to keep your install clean.  Gallery cannot remove these files for "
 "you, but you can download and run %sthis script%s in your gallery2 directory to delete them "
 "for you."
 msgstr ""
@@ -471,7 +471,7 @@ msgstr ""
 msgid ""
 "In order to proceed with the upgrade process, we have to verify that you are who you claim.  "
 "When you performed the install, you entered a password which went into your config.php.  "
-"Type that in now.  Refer to your config.php if you've forgotten what you entered."
+"Type that in now.  Refer to your config.php if you have forgotten what you entered."
 msgstr ""
 
 msgid "Password:"
@@ -489,12 +489,12 @@ msgstr ""
 msgid ""
 "In order to proceed with the upgrade process, we have to verify that you are who you claim.  "
 "The best way to be sure is to ask you to make a tiny change in the Gallery directory which "
-"will prove that you have the right permissions.  So, we're going to ask that you create a "
+"will prove that you have the right permissions.  So, we are going to ask that you create a "
 "new text file called %s in the %s directory on your webserver (that's the same directory "
 "where %s is located). It must contain the following randomly generated characters:"
 msgstr ""
 
-msgid "Once you've uploaded the file, click below to continue."
+msgid "Once you have uploaded the file, click below to continue."
 msgstr "파일을 올리기가 끝났으면, 다음으로 넘어가기 위해 아래의 버튼을 누르십시오."
 
 msgid "Authenticate Me"
@@ -511,13 +511,13 @@ msgstr "캐쉬파일 지우기"
 
 msgid ""
 "Gallery creates temporary copies of some of your data on your hard drive.  This helps it to "
-"run faster.  But when you upgrade, some of these files might be out of date so it's a good "
+"run faster.  But when you upgrade, some of these files might be out of date so it is a good "
 "idea to get rid of them now.  Gallery will create them again as it needs them."
 msgstr ""
 
 msgid ""
 "We were unable to clean the following cache directories.  This is probably ok, but if you "
-"notice any weird behaviour, you should try to delete these directories yourself.  It's "
+"notice any weird behaviour, you should try to delete these directories yourself.  It is "
 "perfectly safe to get rid of them at any time."
 msgstr ""
 
@@ -591,7 +591,7 @@ msgid "Gallery Database Backup successful."
 msgstr ""
 
 #, fuzzy
-msgid "We've successfully backed up the data in your Gallery database."
+msgid "We have successfully backed up the data in your Gallery database."
 msgstr "Gallery Core 모듈이 성공적으로 판올림 돼었습니다."
 
 msgid "The following warnings were produced during the backup process:"
@@ -658,7 +658,7 @@ msgid "You tried to run the upgrade process but a valid config.php is missing."
 msgstr ""
 
 msgid ""
-"If you've lost your config.php file when replacing the Gallery 2 files in the preparation "
+"If you have lost your config.php file when replacing the Gallery 2 files in the preparation "
 "for this upgrade, please restore it and try again."
 msgstr ""
 
@@ -693,7 +693,7 @@ msgstr ""
 #, c-format
 msgid ""
 "Something went wrong when we tried to upgrade the core module.  In the boxes below you can "
-"find some debug information.  Report this in the %sGallery Forums%s and we'll help you "
+"find some debug information.  Report this in the %sGallery Forums%s and we will help you "
 "diagnose the problem."
 msgstr ""
 
@@ -754,7 +754,7 @@ msgstr "config.php를 다시 확인합니다."
 msgid "Upgraded Gallery Core Module successfully."
 msgstr "Core 모듈을 판올림하였습니다."
 
-msgid "We've successfully upgraded the Gallery Core Module."
+msgid "We have successfully upgraded the Gallery Core Module."
 msgstr "Gallery Core 모듈이 성공적으로 판올림 돼었습니다."
 
 #, c-format

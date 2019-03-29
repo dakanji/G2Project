@@ -75,7 +75,7 @@ class GalleryUnknownItem extends GalleryDataItem {
 			return $ret;
 		}
 
-		// We're linkable
+		// We are linkable
 		$this->setIsLinkable(true);
 
 		return null;

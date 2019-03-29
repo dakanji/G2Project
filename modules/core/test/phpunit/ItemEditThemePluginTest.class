@@ -58,7 +58,7 @@ class ItemEditThemePluginTest extends ItemEditPluginTestCase {
 		}
 
 		/*
-		 * Also check the grandchild album - to make sure that descendents don't
+		 * Also check the grandchild album - to make sure that descendents do not
 		 * just return children
 		 */
 		list($ret, $this->_grandchildAlbum) = $this->_createRandomAlbum(

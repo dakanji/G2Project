@@ -38,8 +38,8 @@ class CleanCacheStep extends UpgradeStep {
 
 		/*
 		 * Try multiple times to clean the cache because for busy gallery installs that are
-		 * getting upgraded when not in maintenance mode, it's possible for new entries to get
-		 * cached while we're cleaning out old ones.  The first round of cleaning takes a long
+		 * getting upgraded when not in maintenance mode, it is possible for new entries to get
+		 * cached while we are cleaning out old ones.  The first round of cleaning takes a long
 		 * time so the window is big.  Subsequent runs are very fast, though so after 3 attempts
 		 * we should be good unless there's a real problem.
 		 */
@@ -79,7 +79,7 @@ class CleanCacheStep extends UpgradeStep {
 
 		/*
 		 * Delete the install.log file that's left over from 2.0 and 2.0.1 installs
-		 * since it's in a known location and contains potential information leaks.
+		 * since it is in a known location and contains potential information leaks.
 		 */
 		$dataBase             = $gallery->getConfig('data.gallery.base');
 		$legacyInstallLogPath = sprintf('%s/install.log', $dataBase);

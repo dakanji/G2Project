@@ -50,7 +50,7 @@ class GalleryAlbumItem extends GalleryItem {
 	public $theme;
 
 	/**
-	 * Specify the name of the field that we're using to order children
+	 * Specify the name of the field that we are using to order children
 	 * @var string
 	 *
 	 * @g2 <member>
@@ -62,7 +62,7 @@ class GalleryAlbumItem extends GalleryItem {
 	public $orderBy;
 
 	/**
-	 * Specify the order direction that we're applying to the orderBy field
+	 * Specify the order direction that we are applying to the orderBy field
 	 * @var string
 	 *
 	 * @g2 <member>
@@ -404,7 +404,7 @@ class GalleryAlbumItem extends GalleryItem {
 			return null;
 		}
 
-		// Read lock the parent so that we don't have a race condition below.
+		// Read lock the parent so that we do not have a race condition below.
 		if (GalleryCoreApi::isReadLocked($this->getParentId())
 			|| GalleryCoreApi::isWriteLocked($this->getParentId())
 		) {

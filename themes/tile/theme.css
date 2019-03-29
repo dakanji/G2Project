@@ -59,7 +59,7 @@ div#image img {
 	border-width: 0 0 1px 0;
 	border-style: inherit;
 	border-color: inherit;
-	/* IE can't inherit these */
+	/* IE cannot inherit these */
 	border-style: expression(parentElement.currentStyle.borderStyle);
 	border-color: expression(parentElement.currentStyle.borderColor);
 }
@@ -121,7 +121,7 @@ table.gbDataTable th, table.gbDataTable td {
 
 /* ********************************************************************************
  * Sections
- * body.gallery     Page body in G2 standalone (doesn't apply to embedded)
+ * body.gallery     Page body in G2 standalone (does not apply to embedded)
  * #gallery         Page container
  * #gsNavBar   Top bar with breadcrumb and other links
  * #gsSidebar       Sidebar

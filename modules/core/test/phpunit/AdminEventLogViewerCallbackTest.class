@@ -51,7 +51,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Force the date time format to something bogus, then load it so that it's in the cache
+		// Force the date time format to something bogus, then load it so that it is in the cache
 		$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'format.datetime', 'FAKE_FMT');
 
 		if ($ret) {
@@ -333,7 +333,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		}
 
 		/*
-		 * Our JSON interpreter doesn't realize that we mean for this to be an object because it's
+		 * Our JSON interpreter does not realize that we mean for this to be an object because it is
 		 * an empty array.  So it returns an encoding of a Javascript array instead of a
 		 * Javascript object.
 		 */
@@ -341,7 +341,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 	}
 
 	public function testGetRecordDetailsInvalidId() {
-		// Use an id that doesn't exist
+		// Use an id that does not exist
 		GalleryUtilities::putRequestVariable('command', 'getRecordDetails');
 		GalleryUtilities::putRequestVariable('id', 123456789);
 
@@ -379,7 +379,7 @@ class AdminEventLogViewerCallbackTest extends GalleryTestCase {
 		}
 
 		/*
-		 * Our JSON interpreter doesn't realize that we mean for this to be an object because it's
+		 * Our JSON interpreter does not realize that we mean for this to be an object because it is
 		 * an empty array.  So it returns an encoding of a Javascript array instead of a
 		 * Javascript object.
 		 */

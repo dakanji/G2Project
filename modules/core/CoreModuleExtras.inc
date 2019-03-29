@@ -65,7 +65,7 @@ class CoreModuleExtras {
 			$gallery->debug('Current version not set');
 
 			/*
-			 * This is either an initial install or an upgrade from version 0.8 (which didn't have
+			 * This is either an initial install or an upgrade from version 0.8 (which did not have
 			 * the core versions.dat file).  Use a module parameter as our acid test.
 			 *
 			 * @todo Get rid of this when we stop supporting upgrades from alphas
@@ -92,7 +92,7 @@ class CoreModuleExtras {
 		 * We converted the character set for MySQL to UTF8 in version 1.0.27, but this only
 		 * applies if you are running MySQL 4.  If you install MySQL 4 after upgrading past 1.0.27
 		 * then you'd get stuck with the non-UTF8 character set and you'd get scrambled output.
-		 * To remedy this, we check here to see if you're using a version more recent than 1.0.26
+		 * To remedy this, we check here to see if you are using a version more recent than 1.0.26
 		 * and if so, we perform the conversion now.  Otherwise, we perform the conversion in-line
 		 * in the 1.0.26 upgrade block below.
 		 */
@@ -171,7 +171,7 @@ class CoreModuleExtras {
 		 * README: How to update the block below
 		 *
 		 * If you add a new feature to the core module and revise the version, you should do the
-		 * following.  Supposing the current version is 1.0.1 and you're adding 1.0.2.  Go to the
+		 * following.  Supposing the current version is 1.0.1 and you are adding 1.0.2.  Go to the
 		 * end of the switch and find the 'end of upgrade path' case.  Create a new case *above*
 		 * that one with the old version number.  For our example, add: "case '1.0.1':" and
 		 * then your code.  Do *not* put in a break statement.  (Update _prepareConfigUpgrade too).
@@ -417,7 +417,7 @@ class CoreModuleExtras {
 				$gallery->guaranteeTimeLimit(180);
 
 				/*
-				 * Register our permissions.  Since we're storing internationalized strings in the
+				 * Register our permissions.  Since we are storing internationalized strings in the
 				 * database, we have to give our internationalized string extractor a clue that these
 				 * strings get translated.  So put a line like this translate('key') in for each
 				 * description so that our extractor can find it.
@@ -670,7 +670,7 @@ class CoreModuleExtras {
 			case '0.8.8':
 				/*
 				 * This was not originally part of the 0.8.9 upgrade, but added much later.  Upgrade
-				 * code after this will need valid factory registrations so we can't wait until
+				 * code after this will need valid factory registrations so we cannot wait until
 				 * upgrade() completes to register during reactivate().
 				 */
 				$ret = $this->performFactoryRegistrations($module);
@@ -682,7 +682,7 @@ class CoreModuleExtras {
 				// Fall Through
 			case '0.8.9':
 				/*
-				 * Set all factory implementation weights to 5.  We'll re-register all core
+				 * Set all factory implementation weights to 5.  We will re-register all core
 				 * implementations with a weight of 4 so that they get precedence.
 				 */
 				$query = 'UPDATE [GalleryFactoryMap] SET [::orderWeight] = 5';
@@ -954,7 +954,7 @@ class CoreModuleExtras {
 
 					/*
 					 * Process these queries in chunks since we may have thousands of items with the
-					 * same permissions and we don't want to give the database a heart attack
+					 * same permissions and we do not want to give the database a heart attack
 					 */
 					$chunkSize = 200;
 
@@ -1088,7 +1088,7 @@ class CoreModuleExtras {
 							 * Except maybe we could check permissions here.
 							 */
 						} else {
-							// There's a file there.  There shouldn't be.  Move it out of the way.
+							// There's a file there.  There should not be.  Move it out of the way.
 							if (!@$platform->rename($newDir, "$newDir.old")
 								|| !@$platform->mkdir($dir)
 							) {
@@ -1137,8 +1137,8 @@ class CoreModuleExtras {
 
 				/*
 				 * Changed 'All Users' to 'Registered Users'
-				 * Don't change if the user modified the name already!
-				 * Don't change if there is already a group with the new name
+				 * Do not change if the user modified the name already!
+				 * Do not change if there is already a group with the new name
 				 */
 				list($ret, $group) = GalleryCoreApi::fetchGroupByGroupName(
 					$module->translate('Registered Users')
@@ -1317,7 +1317,7 @@ class CoreModuleExtras {
 
 				/*
 				 * 1. Get a list of all derivatives that are not already marked as isBroken
-				 *    (We can't count on derivativeSize being correct, so check all derivatives)
+				 *    (We cannot count on derivativeSize being correct, so check all derivatives)
 				 * Update: upgrade from pre-beta-1 will fail to load RandomHighlightDerivativeImage
 				 *         so restrict this query to only GalleryDerivativeImage
 				 */
@@ -1375,9 +1375,9 @@ class CoreModuleExtras {
 
 					/*
 					 * The outer loop is for each derivativeId and we upgrade a progress bar every
-					 * $progressStepSize ids.  We don't load entity by entity, but in batches of
+					 * $progressStepSize ids.  We do not load entity by entity, but in batches of
 					 * $loadBatchSize.
-					 * And we don't save the items that were detected as broken
+					 * And we do not save the items that were detected as broken
 					 * derivatives one by one, but also in batches of $saveBatchSize,
 					 * i.e. we acquire and release the locks in this batch size,
 					 * but still have to save entity by entity because Gallery has no
@@ -1466,8 +1466,8 @@ class CoreModuleExtras {
 							}
 
 							/*
-							 * 3. Filter out derivatives that don't return true for isCacheCurrent
-							 *    (= don't have a cache file yet = would be rebuilt anyway)
+							 * 3. Filter out derivatives that do not return true for isCacheCurrent
+							 *    (= do not have a cache file yet = would be rebuilt anyway)
 							 */
 							list($ret, $current) = $derivative->isCacheCurrent();
 
@@ -1480,7 +1480,7 @@ class CoreModuleExtras {
 							}
 
 							/*
-							 * 4. Filter out derivatives that don't have the same file size as the
+							 * 4. Filter out derivatives that do not have the same file size as the
 							 *    broken image placeholder
 							 */
 							list($ret, $path) = $derivative->fetchPath();
@@ -1885,7 +1885,7 @@ class CoreModuleExtras {
 
 				foreach ($pluginDirectories as $pluginDirectory) {
 					if (@$platform->file_exists($pluginDirectory)) {
-						// We're not interested in whether it succeeded or not
+						// We are not interested in whether it succeeded or not
 						@$platform->recursiveRmDir($pluginDirectory);
 					}
 				}
@@ -2256,7 +2256,7 @@ class CoreModuleExtras {
 							ERROR_PLATFORM_FAILURE,
 							__FILE__,
 							__LINE__,
-							"Can't access session dir"
+							"Cannot access session dir"
 						);
 					}
 
@@ -2574,7 +2574,7 @@ class CoreModuleExtras {
 				$gallery->debug('Finished adding an index to the AccessMap table');
 
 				/*
-				 * Make sure the schema update is stored, can't use updateMapEntry because schema is not
+				 * Make sure the schema update is stored, cannot use updateMapEntry because schema is not
 				 * in Maps.xml
 				 */
 				$query = sprintf(
@@ -3188,7 +3188,7 @@ class CoreModuleExtras {
 				/**
 				 * Added EventLogMap.  A new G2 install will create this sequence in
 				 * GalleryStorage::configureStore.  Here in an upgrade we call getUniqueId which will
-				 * create the sequence if it doesn't exist.  Checkpoint first because the error that
+				 * create the sequence if it does not exist.  Checkpoint first because the error that
 				 * leads to sequence creation may invalidate a pending transaction (postgres).
 				 */
 				$ret = $storage->checkPoint();
@@ -3619,13 +3619,13 @@ class CoreModuleExtras {
 		}
 
 		if ($versionDatError) {
-			$gallery->debug('Error: Can\'t write to versions file');
+			$gallery->debug('Error: Cannot write to versions file');
 
 			return GalleryCoreApi::error(
 				ERROR_PLATFORM_FAILURE,
 				__FILE__,
 				__LINE__,
-				'Can\'t write to the versions file'
+				'Cannot write to the versions file'
 			);
 		}
 
@@ -3652,7 +3652,7 @@ class CoreModuleExtras {
 		 * README: How to update the block below
 		 *
 		 * If you add a new feature to the core module and revise the version, you should do the
-		 * following.  Supposing the current version is 1.0.1 and you're adding 1.0.2.  Go to the
+		 * following.  Supposing the current version is 1.0.1 and you are adding 1.0.2.  Go to the
 		 * end of the switch and find the 'end of upgrade path' case.  Create a new case *above*
 		 * that one with the old version number.  For our example you'd add: "case '1.0.1':" and
 		 * then your code.  Do *not* put in a break statement.  (Update upgrade function too).
@@ -3703,7 +3703,7 @@ class CoreModuleExtras {
 
 					/*
 					 * Allow a particular IP address to access the session (it still must know the
-					 * session id) even though it doesn\'t match the address/user agent that created
+					 * session id) even though it does not match the address/user agent that created
 					 * the session.  Put the address of validator.w3.org (\'128.30.52.13\') here
 					 * to allow validation of non-public Gallery pages from the links
 					 * at the bottom of the page.
@@ -3955,7 +3955,7 @@ class CoreModuleExtras {
 				$edit['regexp']      = '{(<\?php\s*(?:/\*.*?\*/\s*)?)}s';
 				$edit['replacement'] = '\1/*
 			* When display_errors is enabled, PHP errors are printed to the output.
-			* For production web sites, you\'re strongly encouraged to turn this feature off,
+			* For production web sites, you are strongly encouraged to turn this feature off,
 			* and use error logging instead.
 			* During development, you should set the value to 1 to ensure that you notice PHP
 			* warnings and notices that are not covered in unit tests (e.g. template issues).
@@ -4005,7 +4005,7 @@ class CoreModuleExtras {
 			case '1.2.30':
 			case '1.2.31':
 			case '1.2.32':
-				// Change the baseUri if it's not set.
+				// Change the baseUri if it is not set.
 				$urlGenerator        =& $gallery->getUrlGenerator();
 				$urlPath             = preg_replace(
 					'|^(.*/)upgrade/index.php.*$|s',
@@ -4342,7 +4342,7 @@ class CoreModuleExtras {
 	public function _createAdminUser($module) {
 		global $gallery;
 
-		// Don't create if there is already a user in the admin group
+		// Do not create if there is already a user in the admin group
 		list($ret, $adminGroupId) = $module->getParameter('id.adminGroup');
 
 		if ($ret) {
@@ -4364,7 +4364,7 @@ class CoreModuleExtras {
 		$user = new GalleryUser();
 
 		/*
-		 * Get the admin name and data from the installer and default to 'admin' if it's not
+		 * Get the admin name and data from the installer and default to 'admin' if it is not
 		 * available for some reason
 		 */
 		$userName = $gallery->getConfig('setup.admin.userName');
@@ -4396,7 +4396,7 @@ class CoreModuleExtras {
 		}
 
 		/*
-		 * The rest of the bootstrap code won't work so well unless we're logged in, so log in as
+		 * The rest of the bootstrap code would not work so well unless we are logged in, so log in as
 		 * the admin user now
 		 */
 		$gallery->setActiveUser($user);
@@ -4803,7 +4803,7 @@ class CoreModuleExtras {
 		);
 
 		/*
-		 * Unlike other modules, the core module doesn't get deactivated so its factory
+		 * Unlike other modules, the core module does not get deactivated so its factory
 		 * registrations may still be around from before.  Unregister them now before reregistering
 		 * them all.
 		 */

@@ -3,7 +3,7 @@
 /*
  * ATTENTION:
  *
- * If you're seeing this in your browser, and are trying to install Gallery,
+ * If you are seeing this in your browser, and are trying to install Gallery,
  * you either do not have PHP installed, or if it is installed, it is not
  * properly enabled. Please visit the following page for assistance:
  *
@@ -54,7 +54,7 @@ require_once $g2Base . 'lib/support/GallerySetupUtilities.class';
 define('INDEX_PHP', basename(__FILE__));
 
 /*
- * If gettext isn't enabled, subvert the _() text translation function
+ * If gettext is not enabled, subvert the _() text translation function
  * and just pass the string on through in English
  */
 if (!function_exists('_')) {
@@ -128,7 +128,7 @@ if (!isset($_GET['startOver']) && !empty($_SESSION['install_steps'])) {
 	}
 }
 
-// If we don't have our steps in our session, initialize them now.
+// If we do not have our steps in our session, initialize them now.
 if (empty($steps) || !is_array($steps)) {
 	$steps = array();
 
@@ -146,7 +146,7 @@ if (empty($steps) || !is_array($steps)) {
 		}
 	}
 
-	// Don't do this in the loop, since not all steps are relevant
+	// Do not do this in the loop, since not all steps are relevant
 	$steps[count($steps) - 1]->setIsLastStep(true);
 }
 
@@ -167,7 +167,7 @@ if (!empty($_GET['doOver'])) {
 	$currentStep->setComplete(false);
 }
 
-// If the current step is incomplete, the rest of the steps can't be complete either
+// If the current step is incomplete, the rest of the steps cannot be complete either
 if (!$currentStep->isComplete()) {
 	for ($i = $stepNumber + 1; $i < count($steps); $i++) {
 		$steps[$i]->setComplete(false);
@@ -285,10 +285,10 @@ function populateDataDirectory($dataBase) {
 
 /**
  * Secure the storage folder from attempts to access it directly via the web by adding a
- * .htaccess with a "Deny from all" directive. This won't have any effect on webservers other
+ * .htaccess with a "Deny from all" directive. This would not have any effect on webservers other
  * than Apache 1.2+ though.
- * Since we can't reliably tell whether the storage folder is web-accessible or not,
- * we add this in all cases. It doesn't hurt.
+ * Since we cannot reliably tell whether the storage folder is web-accessible or not,
+ * we add this in all cases. It does not hurt.
  * @param string $dataBase absolute filesystem path to the storage folder
  * @return boolean true if the .htaccess file has been created successfully
  */
@@ -361,7 +361,7 @@ function generateUrl($uri, $print = true) {
 /*
  * We do not store the steps in the session in raw form because that
  * will break in environments where session.auto_start is on since
- * it will try to instantiate the classes before they've been defined
+ * it will try to instantiate the classes before they have been defined
  */
 $_SESSION['install_steps'] = serialize($steps);
 

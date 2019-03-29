@@ -370,7 +370,7 @@ class DownloadItemTest extends GalleryTestCase {
 	}
 
 	public function testDownloadBogusEntityFailsWithErrorMissingObject() {
-		// GalleryUser doesn't implement the required interface (fetchPath, getMimeType)
+		// GalleryUser does not implement the required interface (fetchPath, getMimeType)
 		GalleryUtilities::putRequestVariable('itemId', $this->_userId);
 
 		list($ret, $output) = $this->_download();
@@ -420,8 +420,8 @@ class DownloadItemTest extends GalleryTestCase {
 
 		if ($ret) {
 			/*
-			 * We don't know what permission to check for arbitrary entities. Avoid information
-			 * disclosure by treating such bogus requests as if the entity didn't exist.
+			 * We do not know what permission to check for arbitrary entities. Avoid information
+			 * disclosure by treating such bogus requests as if the entity does not exist.
 			 */
 			$this->assertTrue($ret->getErrorCode() & ERROR_MISSING_OBJECT, 'expected error');
 

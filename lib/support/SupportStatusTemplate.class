@@ -94,7 +94,7 @@ class SupportStatusTemplate {
 
 	/**
 	 * Render the whole page, except for the status block and messages.  This is the way
-	 * that we render most pages that don't have interactive status messages.
+	 * that we render most pages that do not have interactive status messages.
 	 * @param array $templateData
 	 */
 	public function renderHeaderBodyAndFooter($templateData) {

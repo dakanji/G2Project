@@ -552,7 +552,7 @@ class FileSystemTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Execute the test: Try to use a path component that collides once it's truncated.
+		// Execute the test: Try to use a path component that collides once it is truncated.
 		$newComponent = $component . 'abcdefghi';
 
 		list($ret, $isCollision) = GalleryCoreApi::checkPathCollision($newComponent, $this->_getRootId());
@@ -646,7 +646,7 @@ class FileSystemTestPlatformForRename extends GalleryPlatform {
 	 * Rename a file/dir
 	 *
 	 * Override rename method for the testMoveRenamePaths
-	 * It won't rename the item actually, just check if the paths contain no invalid slashs
+	 * It would not rename the item actually, just check if the paths contain no invalid slashs
 	 */
 	public function rename($oldname, $newname) {
 		global $gallery;
@@ -676,12 +676,12 @@ class FileSystemTestPlatformForRename extends GalleryPlatform {
 		);
 
 		/* We had a case where FileSystemEntity::move produced a rename(a,b) path b, which had a
-		 * separator too much and this additional seapartor wasn't even platform specific, but
-		 * just '/'. The consequence: ->move() didn't work on windows xp.
+		 * separator too much and this additional seapartor was not even platform specific, but
+		 * just '/'. The consequence: ->move() did not work on windows xp.
 		 * What we do here is: Force a windows xp separator '\' and check if no '/' separator is
 		 * found in the paths. nested ifs are not necessary, but more readable.
-		 * And we don't accept // or \\ in our paths. Most probably this won't be an issue, but
-		 * it's good to create exactly the paths that we actually indend to create.
+		 * And we do not accept // or \\ in our paths. Most probably this would not be an issue, but
+		 * it is good to create exactly the paths that we actually indend to create.
 		 */
 		if ($this->_separator == '\\') {
 			if (strrchr($oldname, '/') || strrchr($newname, '/')

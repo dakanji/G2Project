@@ -44,7 +44,7 @@ class GalleryUserHelper_simple {
 				__FILE__,
 				__LINE__,
 				sprintf(
-					'user id: %s doesn\'t have permission: %s for item id: %s',
+					'user id: %s does not have permission: %s for item id: %s',
 					$gallery->getActiveUserId(),
 					$permission,
 					$itemId
@@ -95,7 +95,7 @@ class GalleryUserHelper_simple {
 
 		/*
 		 * TODO: We could get and cache the accessListId here, and then do a
-		 * hash lookup to see if it's in our valid aclid list.
+		 * hash lookup to see if it is in our valid aclid list.
 		 */
 		list($ret, $searchResults) = GalleryCoreApi::getMapEntry(
 			'GalleryAccessSubscriberMap',

@@ -17,7 +17,7 @@
  * Boston, MA  02110-1301, USA.
  */
 if (php_sapi_name() == 'cli') {
-	// We don't apply this security check to command-line PHP
+	// We do not apply this security check to command-line PHP
 	return;
 }
 
@@ -42,7 +42,7 @@ if (!empty($config) && $config['galleryBaseUrl'] != '') {
 
 /*
  * If the config, or setup.password is missing, main.php will try to send us to the installer.
- * We don't want that to happen, so check for ourselves first.
+ * We do not want that to happen, so check for ourselves first.
  */
 $options = array();
 
@@ -108,7 +108,7 @@ if (empty($config)) {
 			if ($options['attempts'] >= G2_SUPPORT_MAX_LOGIN_ATTEMPTS) {
 				$ret = GallerySetupUtilities::notifySiteAdministrator();
 
-				// swallow return code; we can't do anything with it
+				// swallow return code; we cannot do anything with it
 			}
 
 			render('loginTxtForm', $options);
@@ -130,7 +130,7 @@ if (GallerySetupUtilities::isSessionAuthenticated()) {
 	return;
 }
 
-// Unless we're properly authenticated, this is the end of the line
+// Unless we are properly authenticated, this is the end of the line
 exit;
 
 function startForm($action = '', $name = null) {

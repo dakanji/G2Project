@@ -51,7 +51,7 @@ function knackerEvent(eventObject) {
 }
 
 /*
- * Safari doesn't support canceling events in the standard way, so we must
+ * Safari does not support canceling events in the standard way, so we must
  * hard-code an event return false for it to work.
  */
 function cancelEventSafari() {

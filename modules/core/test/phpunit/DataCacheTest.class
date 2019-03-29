@@ -470,12 +470,12 @@ class DataCacheTest extends GalleryTestCase {
 		$gallery->setPlatform($DataCacheTestPlatform_testGetFromDisk);
 
 		/*
-		 * GalleryDataCache::getFromDisk uses include() and we don't have a
-		 * platform wrapper for that.  We can't easily wrap that function
+		 * GalleryDataCache::getFromDisk uses include() and we do not have a
+		 * platform wrapper for that.  We cannot easily wrap that function
 		 * because we want to take advantage of the fact that include() shares
 		 * the lexical scope of the calling function, and wrapping it would
 		 * change that scope.  But we can at least partially exercise the
-		 * function and make sure it doesn't throw any errors.
+		 * function and make sure it does not throw any errors.
 		 */
 		GalleryDataCache::getFromDisk(
 			array(
@@ -558,11 +558,11 @@ class DataCacheTest extends GalleryTestCase {
 		);
 		$this->assertTrue(
 			!GalleryDataCache::hasPermission('3', 'test.TestPermission'),
-			'3 shouldn\'t have permission test.TestPermission'
+			'3 should not have permission test.TestPermission'
 		);
 		$this->assertTrue(
 			!GalleryDataCache::hasPermission('1', 'test.OtherPermission'),
-			'1 shouldn\'t have permission test.OtherPermission'
+			'1 should not have permission test.OtherPermission'
 		);
 		GalleryDataCache::cachePermissions(array('3'), 'test.OtherPermission');
 
@@ -572,7 +572,7 @@ class DataCacheTest extends GalleryTestCase {
 		);
 		$this->assertTrue(
 			!GalleryDataCache::hasPermission('1', 'test.OtherPermission'),
-			'1 still shouldn\'t have permission test.OtherPermission'
+			'1 still should not have permission test.OtherPermission'
 		);
 		$this->assertTrue(
 			GalleryDataCache::hasPermission('3', 'test.OtherPermission'),
@@ -580,7 +580,7 @@ class DataCacheTest extends GalleryTestCase {
 		);
 		$this->assertTrue(
 			!GalleryDataCache::hasPermission('3', 'test.TestPermission'),
-			'3 shouldn\'t have permission test.TestPermission'
+			'3 should not have permission test.TestPermission'
 		);
 	}
 
@@ -803,7 +803,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Use mock VM to enforce valid headers, so that the active browser doesn't interfere
+		// Use mock VM to enforce valid headers, so that the active browser does not interfere
 		$gallery->_phpVm = new DataCacheTestMockVm();
 
 		list($ret, $shouldCache) = GalleryDataCache::shouldCache('read', 'partial');
@@ -927,7 +927,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		$gallery->_phpVm = new DataCacheTestMockVm();
 
-		// We don't care about rand.
+		// We do not care about rand.
 		$gallery->_phpVm->setRand(1);
 
 		$activeUser   = $gallery->getActiveUser();
@@ -965,7 +965,7 @@ class DataCacheTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Initialize to language of active user, so we don't get a different cache key later.
+		// Initialize to language of active user, so we do not get a different cache key later.
 		$gallery->setActiveUser($anonymousUser);
 		$gallery->setActiveUser($activeUser);
 
@@ -1032,7 +1032,7 @@ class DataCacheTest extends GalleryTestCase {
 
 		$this->assertEquals('test', $result, 'Guest cleaned user row!');
 
-		// Check if dice is set to 6 we don't clean.
+		// Check if dice is set to 6 we do not clean.
 		$gallery->_phpVm->setRand(6);
 		$gallery->_phpVm->setTime(135);
 

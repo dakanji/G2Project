@@ -579,7 +579,7 @@ class dbTable extends dbObject {
 				}
 			}
 
-			// if table doesn't exist
+			// if table does not exist
 		} else {
 			if ($this->drop_table) {
 				return $sql;
@@ -592,7 +592,7 @@ class dbTable extends dbObject {
 		$fldarray = array();
 
 		foreach ($this->fields as $field_id => $finfo) {
-			// Set an empty size if it isn't supplied
+			// Set an empty size if it is not supplied
 			if (!isset($finfo['SIZE'])) {
 				$finfo['SIZE'] = '';
 			}
@@ -613,7 +613,7 @@ class dbTable extends dbObject {
 						$value                       = $opt[key($opt)];
 						@$fldarray[$field_id][$key] .= $value;
 
-					// Option doesn't have arguments
+					// Option does not have arguments
 					} else {
 						$fldarray[$field_id][$opt] = $opt;
 					}
@@ -831,7 +831,7 @@ class dbIndex extends dbObject {
 			return null;
 		}
 
-		// eliminate any columns that aren't in the table
+		// eliminate any columns that are not in the table
 		foreach ($this->columns as $id => $col) {
 			if (!isset($this->parent->fields[$id])) {
 				unset($this->columns[$id]);
@@ -942,7 +942,7 @@ class dbData extends dbObject {
 	 * @return string Field list
 	 */
 	public function addField($attributes) {
-		// check we're in a valid row
+		// check we are in a valid row
 		if (!isset($this->row) || !isset($this->data[$this->row])) {
 			return;
 		}
@@ -966,7 +966,7 @@ class dbData extends dbObject {
 	 * @return string Option list
 	 */
 	public function addData($cdata) {
-		// check we're in a valid field
+		// check we are in a valid field
 		if (isset($this->data[$this->row][$this->current_field])) {
 			// add data to field
 			$this->data[$this->row][$this->current_field] .= $cdata;
@@ -994,7 +994,7 @@ class dbData extends dbObject {
 			}
 		}
 
-		// eliminate any columns that aren't in the table
+		// eliminate any columns that are not in the table
 		foreach ($this->data as $row) {
 			$table_fields = $this->parent->fields;
 			$fields       = array();
@@ -1051,8 +1051,8 @@ class dbData extends dbObject {
 
 			// The rest of this method deals with updating existing data records.
 			if (!in_array($table, $tables) or ($mode = $xmls->existingData()) == XMLS_MODE_INSERT) {
-				// Table doesn't yet exist, so it's safe to insert.
-				logMsg("$table doesn't exist, inserting or mode is INSERT");
+				// Table does not yet exist, so it is safe to insert.
+				logMsg("$table does not exist, inserting or mode is INSERT");
 				$sql[] = 'INSERT INTO ' . $table . ' (' . implode(',', array_keys($fields)) . ') VALUES (' . implode(',', $fields) . ')';
 
 				continue;
@@ -1188,7 +1188,7 @@ class dbQuerySet extends dbObject {
 		switch ($this->currentElement) {
 			case 'QUERY':
 				// Create a new query in a SQL queryset.
-				// Ignore this query set if a platform is specified and it's different than the
+				// Ignore this query set if a platform is specified and it is different than the
 				// current connection platform.
 				if (!isset($attributes['PLATFORM']) or $this->supportedPlatform($attributes['PLATFORM'])) {
 					$this->newQuery();
@@ -1318,7 +1318,7 @@ class dbQuerySet extends dbObject {
 
 					$query = $this->prefixQuery('/^\s*((?is)DELETE\s+(FROM\s+)?)((\w+\s*,?\s*)+)(\s.*$)/', $query, $xmls->objectPrefix);
 
-					// SELECT statements aren't working yet
+					// SELECT statements are not working yet
 					// $data = preg_replace( '/(?ias)(^\s*SELECT\s+.*\s+FROM)\s+(\W\s*,?\s*)+((?i)\s+WHERE.*$)/', "\1 $prefix\2 \3", $data );
 					// Fall Through
 				case 'MANUAL':

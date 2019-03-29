@@ -88,8 +88,8 @@ class ItemEditPluginTestCase extends GalleryTestCase {
 			$this->assertTrue(isset($error) && is_array($error), 'plugin error results missing');
 
 			/*
-			 * This doesn't appear to test much, but it will cause us to examine $status so if
-			 * it's not set then we'll trigger a PHP warning which will fail the test
+			 * This does not appear to test much, but it will cause us to examine $status so if
+			 * it is not set then we will trigger a PHP warning which will fail the test
 			 */
 			$this->assertTrue(isset($status) || $status == null, 'plugin status result missing');
 		}

@@ -87,8 +87,8 @@
 
 	<h1>Gallery Unit Tests</h1>
 	<div class="section">
-		This is the Gallery test framework.  We'll use this to verify
-		that the Gallery code is functioning properly.  It'll help us
+		This is the Gallery test framework.  We will use this to verify
+		that the Gallery code is functioning properly.  It will help us
 		identify bugs in the code when we add new features, port to new
 		systems, or add support for new database back ends.  All the
 		tests should pass with a green box that says <b>PASSED</b> in it).

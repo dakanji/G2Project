@@ -44,11 +44,11 @@
     //<![CDATA[
     {*
      * Validation code.  This Javascript snippet validates the source and destination information
-     * to make sure that you don't attempt to do something that you shouldn't, ie, it will help
-     * you to avoid the situation where you try to move an item into an album where you don't have
+     * to make sure that you do not attempt to do something that you should not, ie, it will help
+     * you to avoid the situation where you try to move an item into an album where you do not have
      * the right permissions.  This is only a hint to the UI -- we perform the same permission
-     * checks on the server side (so circumventing or disabling this javascript won't allow you to
-     * do something that you don't have permission to do anyway).
+     * checks on the server side (so circumventing or disabling this javascript would not allow you to
+     * do something that you do not have permission to do anyway).
      *}
 
     // The user can add data items to these albums
@@ -82,8 +82,8 @@
 
     {*
      * Check what the destination album accepts.  If it can handle data items and
-     * album items then we're done.  Else, scan the selected items and make sure that
-     * we haven't selected something that we can't handle. If we have, then remove
+     * album items then we are done.  Else, scan the selected items and make sure that
+     * we have not selected something that we cannot handle. If we have, then remove
      * the selection and alert the user.
      *}
     function checkPermissions(form, quiet) {ldelim}
@@ -312,7 +312,7 @@
 
   {if !empty($form.error.destination.permission)}
   <div class="giError">
-    {g->text text="You don't have the permission to add items in this album"}
+    {g->text text="You do not have the permission to add items in this album"}
   </div>
   {/if}
   {if !empty($form.error.destination.empty)}

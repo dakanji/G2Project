@@ -237,7 +237,7 @@ class FastDownloadTest extends GalleryTestCase {
 		$this->assertFalse($ret, 'status');
 	}
 
-	// Fake event that removes permissions that don't affect the guest user
+	// Fake event that removes permissions that do not affect the guest user
 	public function testRemoveIrrelevantPermission() {
 		global $gallery;
 
@@ -457,7 +457,7 @@ class FastDownloadTestCreateFastDownloadPlatform {
 }
 
 /**
- * Test platform to verify that we're deleting cache files
+ * Test platform to verify that we are deleting cache files
  */
 class FastDownloadTestRemovePermissionPlatform {
 	public $_stat;

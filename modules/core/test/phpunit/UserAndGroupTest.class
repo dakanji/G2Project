@@ -362,7 +362,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		}
 	}
 
-	// Verify we can't delete the active user
+	// Verify we cannot delete the active user
 	public function testDeleteSelf() {
 		global $gallery;
 
@@ -384,7 +384,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		);
 	}
 
-	// Verify we can't delete the anonymous user
+	// Verify we cannot delete the anonymous user
 	public function testDeleteAnonymousUser() {
 		list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter(
 			'module',
@@ -402,7 +402,7 @@ class UserAndGroupTest extends GalleryTestCase {
 	}
 
 	/**
-	 * Verify we can't delete the last site admin.
+	 * Verify we cannot delete the last site admin.
 	 */
 	public function testDeleteLastAdmin() {
 		// Create a new user in a new group, and make that the Site Admins group
@@ -666,7 +666,7 @@ class UserAndGroupTest extends GalleryTestCase {
 	}
 
 	/**
-	 * Create user, fetch user names, make sure it's in there, delete user
+	 * Create user, fetch user names, make sure it is in there, delete user
 	 */
 	public function testFetchUserNames() {
 		global $gallery;
@@ -706,7 +706,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		$session =& $gallery->getSession();
 		$phpVm   = $gallery->getPhpVm();
 
-		// Ensure admin session isn't timed out (can happen during long unit test run)
+		// Ensure admin session is not timed out (can happen during long unit test run)
 		$session->put('session.siteAdminActivityTimestamp', $phpVm->time() - 2);
 
 		/*
@@ -1616,7 +1616,7 @@ class UserAndGroupTest extends GalleryTestCase {
 	}
 
 	/**
-	 * Create group, fetch group names, make sure it's in there, delete group
+	 * Create group, fetch group names, make sure it is in there, delete group
 	 */
 	public function testFetchGroupNames() {
 		global $gallery;
@@ -1717,7 +1717,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		$session =& $gallery->getSession();
 		$phpVm   = $gallery->getPhpVm();
 
-		// Ensure admin session isn't timed out (can happen during long unit test run)
+		// Ensure admin session is not timed out (can happen during long unit test run)
 		$session->put('session.siteAdminActivityTimestamp', $phpVm->time() - 2);
 
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
@@ -1803,7 +1803,7 @@ class UserAndGroupTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertFalse($hasPermission, 'guest user shouldn\'t have core.view on item');
+		$this->assertFalse($hasPermission, 'guest user should not have core.view on item');
 	}
 
 	public function testAddDuplicateUserToGroup() {
@@ -1911,7 +1911,7 @@ class UserAndGroupTest extends GalleryTestCase {
 		/*
 		 * 2.0 was released with installer not entitizing password prior to hashing, while
 		 * site admin(edit/create), user admin and registration all did.  Rather than simply
-		 * make the installer match the others we've opted for cleaner data moving forward:
+		 * make the installer match the others we have opted for cleaner data moving forward:
 		 * hash the actual password, not entitized value.  To keep old hashed passwords
 		 * working we check against both entitized and plain text in isCorrectPassword.
 		 * If this is ever changed, ensure all these interfaces set the password correctly.
@@ -1968,7 +1968,7 @@ class UserAndGroupTest extends GalleryTestCase {
 // Allow the suppression of expected errors.
 function UserAndGroupTest_error_handler($errno, $errstr, $errfile, $errline) {
 	if (error_reporting() == 0 && strpos($errstr, 'fopen(/dev/urandom)') !== false) {
-		// The @ error suppression operator was used, so don't log this error.
+		// The @ error suppression operator was used, so do not log this error.
 		return false;
 	}
 

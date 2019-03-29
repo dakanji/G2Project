@@ -750,7 +750,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	public function testGetLanguagePackageFilesScalarInput() {
 		global $gallery;
 
-		// Since we can't mock the core API, we'll use the cache to store our mock plugin.
+		// Since we cannot mock the core API, we will use the cache to store our mock plugin.
 		GalleryDataCache::put(
 			'GalleryPluginHelper::loadPlugin(module, testModule)',
 			new RepositoryIndexTestModule()
@@ -826,7 +826,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	public function testGetLanguagePackageFilesArrayInput() {
 		global $gallery;
 
-		// Since we can't mock the core API, we'll use the cache to store our mock plugin.
+		// Since we cannot mock the core API, we will use the cache to store our mock plugin.
 		GalleryDataCache::put(
 			'GalleryPluginHelper::loadPlugin(module, testModule)',
 			new RepositoryIndexTestModule()
@@ -903,7 +903,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	public function testGetLanguagePackageFilesVersionMisMatch() {
 		global $gallery;
 
-		// Since we can't mock the core API, we'll use the cache to store our mock plugin.
+		// Since we cannot mock the core API, we will use the cache to store our mock plugin.
 		GalleryDataCache::put(
 			'GalleryPluginHelper::loadPlugin(module, testModule)',
 			new RepositoryIndexTestModule()
@@ -978,7 +978,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	public function testGetLanguagePackageFilesVersionNotAvailable() {
 		global $gallery;
 
-		// Since we can't mock the core API, we'll use the cache to store our mock plugin.
+		// Since we cannot mock the core API, we will use the cache to store our mock plugin.
 		GalleryDataCache::put(
 			'GalleryPluginHelper::loadPlugin(module, testModule)',
 			new RepositoryIndexTestModule()

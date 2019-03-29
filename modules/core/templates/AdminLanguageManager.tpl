@@ -130,7 +130,7 @@
   <h3>{g->text text="Configure your Gallery"}</h3>
   {if $AdminLanguages.OS == 'unix'}
     <p class="giDescription">
-      {g->text text="Before you can proceed, you have to change some permissions so that Gallery can install plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"}
+      {g->text text="Before you can proceed, you have to change some permissions so that Gallery can install plugins for you.  It is easy.  Just execute the following in a shell or via your ftp client:"}
     </p>
     <p class="gcBackground1" style="border-width: 1px; border-style: dotted; padding: 4px">
       <b>
@@ -151,7 +151,7 @@
     </p>
   {/if}
   <p class="giDescription">
-    {g->text text="If you have trouble changing permissions, ask your system administrator for assistance.  When you've fixed the permissions, click the Check Again button to proceed."}
+    {g->text text="If you have trouble changing permissions, ask your system administrator for assistance.  When you have fixed the permissions, click the Check Again button to proceed."}
   </p>
 </div>
 

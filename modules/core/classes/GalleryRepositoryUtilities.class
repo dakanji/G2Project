@@ -112,12 +112,12 @@ class GalleryRepositoryUtilities {
 	public function compareVersions($version1, $version2, $build1 = null, $build2 = null) {
 		$relation = '';
 
-		// Compare versions if they're different.
+		// Compare versions if they are different.
 		if ($version1 != $version2) {
 			$relation = $this->compareRevisions($version1, $version2);
 		}
 
-		// Compare builds if they're specified and if versions are identical.
+		// Compare builds if they are specified and if versions are identical.
 		if (!empty($build1) && !empty($build2) && empty($relation)) {
 			if ($build1 != $build2) {
 				$relation = $build1 > $build2 ? 'newer' : 'older';
@@ -428,7 +428,7 @@ class GalleryRepositoryUtilities {
 	 * to save bandwidth.
 	 *
 	 * @param string $url url to download from
-	 * @param string $ignoreCompression don't try to get the compressed version of the file
+	 * @param string $ignoreCompression do not try to get the compressed version of the file
 	 * @return array boolean file was successfully downloaded
 	 *           string file contents
 	 */
@@ -547,7 +547,7 @@ class GalleryRepositoryUtilities {
 	 * @param string $pluginId the plugin id
 	 * @param string $packageName name of the package to check
 	 * @param array $descriptor descriptor of the plugin the package belongs to
-	 * @return array of files that can't be overwritten (empty array if everything is ok)
+	 * @return array of files that cannot be overwritten (empty array if everything is ok)
 	 */
 	public function preVerifyPackage($pluginType, $pluginId, $packageName, $descriptor) {
 		global $gallery;
@@ -635,9 +635,9 @@ class GalleryRepositoryUtilities {
 					$checksum = strlen($metaData['hash']) == 32 ? md5($contents) : sprintf('%u', crc32($contents));
 
 					/**
-					 * hash_crlf and bytes_crlf were introduced in r17072 (2.3) so they don't
-					 * exist in older packages.  Set them to null if they don't exist so that we
-					 * don't get errors below.
+					 * hash_crlf and bytes_crlf were introduced in r17072 (2.3) so they do not
+					 * exist in older packages.  Set them to null if they do not exist so that we
+					 * do not get errors below.
 					 *
 					 * @todo: remove this when all of our DP packages have been generated these
 					 * fields.
@@ -651,7 +651,7 @@ class GalleryRepositoryUtilities {
 					}
 
 					if (!$platform->file_exists($filePath)) {
-						$errorMessage = "'$filePath' doesn't exist.";
+						$errorMessage = "'$filePath' does not exist.";
 					} elseif (!in_array(
 						$platform->filesize($filePath),
 						array($metaData['bytes'], $metaData['bytes_crlf'])
@@ -659,7 +659,7 @@ class GalleryRepositoryUtilities {
 					) {
 						$errorMessage = "Size of '$filePath' did not match package descriptor.";
 					} elseif (false === $contents) {
-						$errorMessage = "Couldn't read '$filePath'.";
+						$errorMessage = "Could not read '$filePath'.";
 					} elseif (!in_array(
 						$checksum,
 						array($metaData['hash'], $metaData['hash_crlf'])
@@ -727,7 +727,7 @@ class GalleryRepositoryUtilities {
 					ERROR_PLATFORM_FAILURE,
 					__FILE__,
 					__LINE__,
-					'Couldn\'t open aggregate package file'
+					'Could not open aggregate package file'
 				),
 				null,
 			);
@@ -888,7 +888,7 @@ class GalleryRepositoryUtilities {
 					ERROR_PLATFORM_FAILURE,
 					__FILE__,
 					__LINE__,
-					'Couldn\'t create temporary file'
+					'Could not create temporary file'
 				),
 				null,
 			);

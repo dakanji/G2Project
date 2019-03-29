@@ -575,7 +575,7 @@ class ToolkitTest extends GalleryTestCase {
 
 		/*
 		 * Now verify if the direct source is not a derivative and is smaller than the
-		 * desired size that we don't upsample.
+		 * desired size that we do not upsample.
 		 */
 		$orig->setWidth(123);
 		$orig->setHeight(66);
@@ -633,7 +633,7 @@ crop|15,15,40,50',
 
 	public function testApplyTransformLocale() {
 		/*
-		 * Verify that percentages don't get written like 12,5 if the current locale
+		 * Verify that percentages do not get written like 12,5 if the current locale
 		 * uses a comma for the fraction separator.
 		 */
 		$currentLocale = setlocale(LC_ALL, '0');
@@ -752,7 +752,7 @@ crop|15,20.5,40.62,50'
 			return $ret;
 		}
 
-		$this->assertEquals(30, $priority, 'Toolkit Priority Doesn\'t Match');
+		$this->assertEquals(30, $priority, 'Toolkit Priority Does not Match');
 
 		// Test return for an undefined toolkit
 		list($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('TestToolkit2');

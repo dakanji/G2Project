@@ -14,7 +14,7 @@
 
 <div class="gbBlock">
   <p class="giDescription">
-    {g->text text="This module will enable extraction of individual files from a zip archive to add each item to Gallery.  You must locate or install an unzip binary on your server, then enter the path to it in the text box below.  If you're on a Unix machine, don't forget to make the binary executable (<i>chmod 755 unzip</i> in the right directory should do it)"}
+    {g->text text="This module will enable extraction of individual files from a zip archive to add each item to Gallery.  You must locate or install an unzip binary on your server, then enter the path to it in the text box below.  If you are on a Unix machine, do not forget to make the binary executable (<i>chmod 755 unzip</i> in the right directory should do it)"}
   </p>
 
 {if !$form.canExec}
@@ -38,12 +38,12 @@
   {/if}
   {if isset($form.error.unzipPath.exec)}
   <div class="giError">
-    {g->text text="The path you entered doesn't contain a valid unzip binary."}
+    {g->text text="The path you entered does not contain a valid unzip binary."}
   </div>
   {/if}
   {if isset($form.error.unzipPath.badPath)}
   <div class="giError">
-    {g->text text="The path you entered isn't a valid path to an unzip binary."}
+    {g->text text="The path you entered is not a valid path to an unzip binary."}
   </div>
   {/if}
   {if isset($form.error.unzipPath.notExecutable)}

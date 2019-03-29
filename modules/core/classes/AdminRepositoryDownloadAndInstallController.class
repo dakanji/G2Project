@@ -124,7 +124,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 					}
 
 					/*
-					 * Our plugin status caches are no longer valid because we've just installed
+					 * Our plugin status caches are no longer valid because we have just installed
 					 * some new code.  Load the status and ignore the cache which forces a cache
 					 * update.  @todo: add a real cache flushing method in the api instead
 					 */
@@ -154,7 +154,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 						/**
 						 * Some plugins may already be loaded (e.g. the default theme, or
 						 * authentication modules) so PHP will not let us evaluate the newly
-						 * downloaded code.  This means that we can't upgrade those modules
+						 * downloaded code.  This means that we cannot upgrade those modules
 						 * via DP; the site admin must do it by hand on the AdminPlugins page.
 						 * For now, just notify the user.
 						 *
@@ -183,7 +183,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 									return $ret;
 								}
 							} else {
-								// Themes don't need this step
+								// Themes do not need this step
 								$autoConfigured = true;
 							}
 
@@ -411,7 +411,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 
 		if (!isset($repository)) {
 			/*
-			 * The loop below needs a working repository, but we don't have one because all of our
+			 * The loop below needs a working repository, but we do not have one because all of our
 			 * existing indexes are missing or corrupted.  So create a new bogus one expressly for
 			 * the purpose of calling GalleryRepository::scanPlugin().
 			 */
@@ -433,7 +433,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 
 				if ($ret && !($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
 					/*
-					 * Something is wrong with this plugin. Maybe it's a 3rd party plugin w/o
+					 * Something is wrong with this plugin. Maybe it is a 3rd party plugin w/o
 					 * MANIFEST file, maybe it has no revisions in the po files, maybe the
 					 * module.inc is foobar. Just log and ignore it.
 					 */

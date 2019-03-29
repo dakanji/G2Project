@@ -96,7 +96,7 @@
 <div class="gbBlock">
   <p class="giDescription">
     {capture name="noPersonalInfoTransmitted"}<b>{g->text text="No personal information about you or your Gallery installation is sent to the Gallery server at any time."}</b>{/capture}
-    {g->text text="Download and install new plugins quickly and easily.  If you decide you don't like a plugin, you can delete it from your Gallery.  There are multiple different plugin repositories, you can choose which ones you want to use (it's ok to use all of them at once).  Once you've chosen, you must periodically download the latest plugin list to find out about available updates. %s On slower connections the process might take a minute or two." arg1=$smarty.capture.noPersonalInfoTransmitted}
+    {g->text text="Download and install new plugins quickly and easily.  If you decide you do not like a plugin, you can delete it from your Gallery.  There are multiple different plugin repositories, you can choose which ones you want to use (it is ok to use all of them at once).  Once you have chosen, you must periodically download the latest plugin list to find out about available updates. %s On slower connections the process might take a minute or two." arg1=$smarty.capture.noPersonalInfoTransmitted}
   </p>
 
   <div id="AdminRepository_Configure" style="height: 0px; opacity: 0; overflow: hidden;">
@@ -162,7 +162,7 @@
   <h3>{g->text text="Configure your Gallery"}</h3>
   {if $AdminRepository.OS == 'unix'}
     <p class="giDescription">
-      {g->text text="Before you can proceed, you have to change some permissions so that Gallery can install plugins for you.  It's easy.  Just execute the following in a shell or via your ftp client:"}
+      {g->text text="Before you can proceed, you have to change some permissions so that Gallery can install plugins for you.  It is easy.  Just execute the following in a shell or via your ftp client:"}
     </p>
     <p class="gcBackground1" style="border-width: 1px; border-style: dotted; padding: 4px">
       <b>
@@ -183,7 +183,7 @@
     </p>
   {/if}
   <p class="giDescription">
-    {g->text text="If you have trouble changing permissions, ask your system administrator for assistance.  When you've fixed the permissions, click the Continue button to proceed."}
+    {g->text text="If you have trouble changing permissions, ask your system administrator for assistance.  When you have fixed the permissions, click the Continue button to proceed."}
   </p>
 </div>
 

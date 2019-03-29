@@ -1311,7 +1311,7 @@ class RepositoryTest extends GalleryTestCase {
 
 			/*
 			 * Set up the platform so that it returns both testModule and testTheme only in the
-			 * first plugin base directory. This way there won't be duplication in the plugin
+			 * first plugin base directory. This way there would not be duplication in the plugin
 			 * list.
 			 */
 			$platform = new UnitTestPlatform();
@@ -2820,7 +2820,7 @@ class RepositoryTest extends GalleryTestCase {
 	}
 
 	public function _buildDescriptor($pluginData) {
-		// Leave the files empty so we don't have to generate a lot of platform calls
+		// Leave the files empty so we do not have to generate a lot of platform calls
 		return array(
 			'header'       => array(
 				'id'                => $pluginData['id'],

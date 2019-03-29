@@ -176,10 +176,10 @@ class GalleryDerivativeHelper_simple {
 			/*
 			 * Sorting this in the database triggers a filesort in MySQL which
 			 * is slow.  We expect this to be a fairly small set of derivatives
-			 * so we'll do it in memory in PHP instead and lighten the load on the DB.
+			 * so we will do it in memory in PHP instead and lighten the load on the DB.
 			 *
-			 * TODO: Consider caching this result since it's the kind of thing
-			 * that will be called often on data that won't change frequently.
+			 * TODO: Consider caching this result since it is the kind of thing
+			 * that will be called often on data that would not change frequently.
 			 */
 			sort($derivativeIds, SORT_NUMERIC);
 

@@ -112,7 +112,7 @@ $modulePath = 'modules/' . $moduleId;
 if (file_exists($modulePath)) {
 	error("$modulePath already exists!");
 } else {
-	mkdir($modulePath) || error("Can't mkdir($modulePath)");
+	mkdir($modulePath) || error("Cannot mkdir($modulePath)");
 }
 
 // Create module.inc
@@ -194,7 +194,7 @@ function cleanup() {
 }
 
 function safe_fopen($path) {
-	($fd = fopen($path, 'wb')) || error("Can't write to $path");
+	($fd = fopen($path, 'wb')) || error("Cannot write to $path");
 
 	return $fd;
 }

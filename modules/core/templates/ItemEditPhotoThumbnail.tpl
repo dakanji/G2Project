@@ -52,7 +52,7 @@
 	    {$ItemEditPhotoThumbnail.editThumbnail.cropLeft});
 
       if (document.getElementById("gallery").className == "opera") {ldelim}
-	// Opera < 9.0 doesn't support opacity
+	// Opera < 9.0 does not support opacity
 	document.getElementById("crop-frame").style.background = "transparent";
       {rdelim}
     {rdelim}

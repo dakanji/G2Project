@@ -62,7 +62,7 @@ class ItemReorderController extends GalleryController {
 		$status = $error = array();
 
 		if (isset($form['action']['reorder'])) {
-			// Verify that we've got what we need
+			// Verify that we have got what we need
 			if (empty($form['selectedId'])) {
 				$error[] = 'form[error][selectedId][missing]';
 			}
@@ -97,7 +97,7 @@ class ItemReorderController extends GalleryController {
 				if (!isset($permissions[$selectedId]['core.view'])
 					|| !isset($permissions[$selectedId]['core.view'])
 				) {
-					// Avoid information disclosure, act as if the items didn't exist.
+					// Avoid information disclosure, act as if the items does not exist.
 					return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 				}
 
@@ -136,7 +136,7 @@ class ItemReorderController extends GalleryController {
 						$delta = (int)(($next - $orderWeights[$targetId]) / 2);
 					} else {
 						/*
-						 * We couldn't get a weight, which means that the
+						 * We could not get a weight, which means that the
 						 * target is at the edge.  So go beyond the edge
 						 */
 						$delta = $before ? -1000 : 1000;
@@ -151,7 +151,7 @@ class ItemReorderController extends GalleryController {
 						return array(GalleryCoreApi::error(ERROR_UNKNOWN), null);
 					}
 
-					// A delta of 0 means that we don't have room, so rebalance
+					// A delta of 0 means that we do not have room, so rebalance
 					$ret = GalleryCoreApi::rebalanceChildOrderWeights($itemId);
 
 					if ($ret) {

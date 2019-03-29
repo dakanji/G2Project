@@ -333,7 +333,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		// Shouldn't be used; register just in case
+		// Should not be used; register just in case
 		$ret = $this->_registerRotateToolkit();
 
 		if ($ret) {
@@ -377,7 +377,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		// Shouldn't be used; register just in case
+		// Should not be used; register just in case
 		$ret = $this->_registerRotateToolkit();
 
 		if ($ret) {
@@ -438,7 +438,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
-		// Verify that we don't have a preferred
+		// Verify that we do not have a preferred
 		list($ret, $preferredIds) = GalleryCoreApi::fetchPreferredsByItemIds(array($this->_items[0]->getId()));
 
 		if ($ret) {
@@ -482,7 +482,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		// Shouldn't be used; register just in case
+		// Should not be used; register just in case
 		$ret = $this->_registerRotateToolkit();
 
 		if ($ret) {
@@ -544,7 +544,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 			return $ret;
 		}
 
-		// Register toolkit, but don't set flag so it generates an error
+		// Register toolkit, but do not set flag so it generates an error
 		$ret = $this->_registerRotateToolkit();
 
 		if ($ret) {
@@ -565,7 +565,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
 
 		$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
-		// Verify that we don't have a preferred
+		// Verify that we do not have a preferred
 		list($ret, $preferredIds) = GalleryCoreApi::fetchPreferredsByItemIds(array($this->_items[0]->getId()));
 
 		if ($ret) {

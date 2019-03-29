@@ -189,8 +189,8 @@ class EmbedTest extends GalleryTestCase {
 	}
 
 	/*
-	 * GalleryEmbed::init shouldn't be called more than once per HTTP request. If it is called
-	 * multiple times, then we make sure that it doesn't call initFirstPass or initSecondPass
+	 * GalleryEmbed::init should not be called more than once per HTTP request. If it is called
+	 * multiple times, then we make sure that it does not call initFirstPass or initSecondPass
 	 * more than once per HTTP request.
 	 */
 	public function testInitMultipleTimes() {
@@ -235,7 +235,7 @@ class EmbedTest extends GalleryTestCase {
 		);
 
 		/*
-		 * Now do what you shouldn't do, call init a second time. It shouldn't call initFirstPass
+		 * Now do what you should not do, call init a second time. It should not call initFirstPass
 		 * again, i.e. the generated urls should be the same as before.
 		 */
 		$ret = GalleryEmbed::init(
@@ -273,7 +273,7 @@ class EmbedTest extends GalleryTestCase {
 		// Now check initSecondPass
 
 		/*
-		 * TODO: Currently, calling initSecondPass just sets the activeUserId, which isn't
+		 * TODO: Currently, calling initSecondPass just sets the activeUserId, which is not
 		 * harmful and the same is done in GalleryEmbed::init (checkActiveUser)
 		 * Once we put more logic into initSecondPass, we can and should add here a test.
 		 */
@@ -395,7 +395,7 @@ class EmbedTest extends GalleryTestCase {
 		$this->assertFalse(GalleryEmbed::isCompatibleWithEmbedApi($apiVersion), '(major) API too new');
 	}
 
-	// Test the session doesn't change if the activeUserId equals the session's external id
+	// Test the session does not change if the activeUserId equals the session's external id
 	public function testCheckActiveUserSameId() {
 		global $gallery;
 
@@ -649,7 +649,7 @@ class EmbedTest extends GalleryTestCase {
 
 		/*
 		 * The session id should change with the new login, but this is handled by the Login
-		 * event handler which is mocked up and doesn't provide this functionality.
+		 * event handler which is mocked up and does not provide this functionality.
 		 */
 		$this->assertEventFired('Gallery::Login', $users[0]);
 	}
@@ -818,7 +818,7 @@ class EmbedTest extends GalleryTestCase {
 		 */
 		$storage->_getConnection(true);
 
-		// The new connection is FETCH_NUM and we didn't change the global state
+		// The new connection is FETCH_NUM and we did not change the global state
 		$this->assertEquals(ADODB_FETCH_NUM, $storage->_db->fetchMode);
 		$this->assertEquals(ADODB_FETCH_ASSOC, $GLOBALS['ADODB_FETCH_MODE']);
 

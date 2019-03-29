@@ -64,7 +64,7 @@ if (!function_exists('sqlsrv_log_set_subsystems')) {
 // Also if your month is showing as month-1,
 //   e.g. Jan 13, 2002 is showing as 13/0/2002, then see
 //     http://phplens.com/lens/lensforum/msgs.php?id=7048&x=1
-//   it's a localisation problem.
+//   it is a localisation problem.
 //----------------------------------------------------------------
 // has datetime converstion to YYYY-MM-DD format, and also mssql_fetch_assoc
 if (ADODB_PHPVER >= 0x4300) {
@@ -1133,7 +1133,7 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 	 * Get column information in the Recordset object.
 	 * fetchField() can be used in order to obtain information about
 	 *    fields in a certain query result.
-	 * If the field offset isn't specified, the next field not yet retrieved
+	 * If the field offset is not specified, the next field not yet retrieved
 	 *    by fetchField() is retrieved.
 	 *
 	 * Designed By jcortinap#jc.com.mx
@@ -1275,7 +1275,7 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 		}
 
 		if (is_array($this->fields) && array_key_exists(1, $this->fields) && !array_key_exists(0, $this->fields)) {
-			//fix fetch numeric keys since they're not 0 based
+			//fix fetch numeric keys since they are not 0 based
 			$arrFixed = array();
 
 			foreach ($this->fields as $key => $value) {

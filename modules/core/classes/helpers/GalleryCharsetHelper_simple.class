@@ -103,7 +103,7 @@ class GalleryCharsetHelper_simple {
 			default:
 				/*
 				 * Windows XP has LC_CTYPE=English_United States.1252, LC_CTYPE=Russian_Russia.1251,
-				 * etc.  Convert all the .125x types to CP125x, except Windows-1252 which we'll preserve
+				 * etc.  Convert all the .125x types to CP125x, except Windows-1252 which we will preserve
 				 * for backwards compatibility with G2.1
 				 */
 				$intEncoding = (int)$sourceEncoding;

@@ -119,7 +119,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 		/*
 		 * Some versions of ImageMagick (6.1.6) are broken if you try to do a -crop followed
 		 * by a -geometry, so if we look ahead and see a -geometry and we have a -crop in our
-		 * queue, then we can't queue the geometry.
+		 * queue, then we cannot queue the geometry.
 		 */
 		if ($queueIt
 			&& in_array($context['next.operation'], array('thumbnail', 'scale', 'resize'))
@@ -161,7 +161,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 				case 'thumbnail':
 					$cmd = 'convert';
 
-					// Don't enlarge images for a thumbnail
+					// Do not enlarge images for a thumbnail
 					if ($width > $parameters[0] || $height > $parameters[0]) {
 						$this->_addResizeParam($transform, $parameters[0]);
 
@@ -495,8 +495,8 @@ class ImageMagickToolkit extends GalleryToolkit {
 		global $gallery;
 
 		/*
-		 * Run it through PHP first, it's faster and more portable.  If it runs afoul of
-		 * open_basedir it'll return false and we can try ImageMagick.
+		 * Run it through PHP first, it is faster and more portable.  If it runs afoul of
+		 * open_basedir it will return false and we can try ImageMagick.
 		 */
 		$platform =& $gallery->getPlatform();
 		$results  = $platform->getimagesize($filename);
@@ -686,7 +686,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 				/*
 				 * ImageMagick uses (quality/10) as the compression level and
 				 * (quality%10) as a filter type.  For now, use adaptive filtering
-				 * (5) since it's their default filter (default is normally 75)
+				 * (5) since it is their default filter (default is normally 75)
 				 * but preserve the compression level.
 				 *
 				 * ref: http://www.imagemagick.org/www/ImageMagick.html
@@ -699,7 +699,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 
 		switch ($mimeType) {
 			case 'image/gif':
-				// In case it's an animated gif..
+				// In case it is an animated gif..
 				if ($cmd == 'convert') {
 					/**
 					 * Bug 1703410
@@ -736,7 +736,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 					break;
 				}
 
-				// If the output format isn't gif, pick a frame assuming it's an animated GIF.
+				// If the output format is not gif, pick a frame assuming it is an animated GIF.
 				// Fall Through
 			case 'image/tiff':
 			case 'application/pdf':
@@ -804,7 +804,7 @@ class ImageMagickToolkit extends GalleryToolkit {
 				ERROR_TOOLKIT_FAILURE,
 				__FILE__,
 				__LINE__,
-				"Can't convert to unknown mime type: $outputMimeType"
+				"Cannot convert to unknown mime type: $outputMimeType"
 			);
 		}
 

@@ -282,7 +282,7 @@ class GalleryPluginHelper_medium {
 			return $ret;
 		}
 
-		// Invalidate the entire cache for this plugin, because we can't invalidate by value
+		// Invalidate the entire cache for this plugin, because we cannot invalidate by value
 		$cacheKey = "GalleryPluginHelper::fetchAllParameters\($pluginType, $pluginId, .*\)";
 
 		GalleryDataCache::removeByPattern($cacheKey);
@@ -357,8 +357,8 @@ class GalleryPluginHelper_medium {
 		}
 
 		/*
-		 * Figure out if this is an insert or an update.  It's an insert if we don't have an
-		 * existing parameter by that name.  Otherwise, it's an update.
+		 * Figure out if this is an insert or an update.  It is an insert if we do not have an
+		 * existing parameter by that name.  Otherwise, it is an update.
 		 */
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/helpers/GalleryPluginHelper_simple.class'

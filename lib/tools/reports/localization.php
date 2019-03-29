@@ -268,7 +268,7 @@ function parsePoFiles($poFiles) {
 			$summary[$locale][$key] += $poData[$locale]['plugins'][$plugin][$key];
 		}
 
-		// Keep track of the largest message count we've seen per plugin
+		// Keep track of the largest message count we have seen per plugin
 		if (empty($maxMessageCount[$plugin]) || $total > $maxMessageCount[$plugin]) {
 			$maxMessageCount[$plugin] = $total;
 		}

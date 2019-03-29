@@ -55,7 +55,7 @@ function getCaches() {
 			'clearInstallUpgradeLogs',
 			array(),
 			'Install/Upgrade log files <span class="subtext important">' .
-			'(can\'t be recovered!)</span>',
+			'(cannot be recovered!)</span>',
 		),
 		'derivative'   => array(
 			false,
@@ -149,7 +149,7 @@ function clearG2DataDir($dir) {
 	$status = array(array('info', "Deleting dir: $path"));
 	$count  = recursiveRmdir($path, $status);
 
-	// Commented this out because it's a little noisy
+	// Commented this out because it is a little noisy
 	// $status[] = array('info', "Removed $count files and directories");
 	if (@mkdir($path)) {
 		$status[] = array('info', "Recreating dir: $path");

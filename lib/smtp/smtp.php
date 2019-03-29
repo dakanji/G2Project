@@ -27,7 +27,7 @@ function server_parse(&$socket, $response) {
 				ERROR_PLATFORM_FAILURE,
 				__FILE__,
 				__LINE__,
-				"Couldn't get mail server response code"
+				"Could not get mail server response code"
 			);
 		}
 	}

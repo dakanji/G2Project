@@ -337,7 +337,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 		);
 
 		/*
-		 * It's important that parent dirs show up before child dirs because we'll be calling
+		 * It is important that parent dirs show up before child dirs because we will be calling
 		 * mkdir on them in this order.
 		 */
 		$this->assertEquals(
@@ -404,7 +404,7 @@ class RepositoryDescriptorTest extends GalleryTestCase {
 
 	/**
 	 * I'd rather test each of these errors individually, but RepositoryDescriptor is structured
-	 * in such a way that it's hard to get data into it easily, so it's easiest to just test our
+	 * in such a way that it is hard to get data into it easily, so it is easiest to just test our
 	 * whole test MANIFEST at once.
 	 */
 	public function testCheckIntegrity() {

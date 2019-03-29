@@ -240,8 +240,8 @@ class FfmpegToolkitHelper {
 		$platform =& $gallery->getPlatform();
 
 		/*
-		 * If the path is not restricted by open_basedir, then verify that it's legal.
-		 * Else just hope that it's valid and use it.
+		 * If the path is not restricted by open_basedir, then verify that it is legal.
+		 * Else just hope that it is valid and use it.
 		 */
 		if (!$platform->isRestrictedByOpenBaseDir($ffmpegPath)) {
 			if (!$platform->file_exists($ffmpegPath) || !$platform->is_file($ffmpegPath)) {

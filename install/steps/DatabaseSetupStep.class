@@ -323,7 +323,7 @@ class DatabaseSetupStep extends InstallStep {
 						. 'in the database and in the storage directory.'
 					);
 				} elseif (empty($dbVersion) && !empty($datVersion)) {
-					// Database tables don't exist, but g2data has versions.dat
+					// Database tables do not exist, but g2data has versions.dat
 					// Explain and offer clean install.
 					$confirmRequired                         = 1;
 					$templateData['showConfirmCleanInstall'] = 1;
@@ -518,7 +518,7 @@ class DatabaseSetupStep extends InstallStep {
 		 * tablePrefix.
 		 *
 		 * Set an unused tablePrefix such that we can play with create/drop table in an
-		 * unused database "namespace". Try a few prefices, don't try to drop!
+		 * unused database "namespace". Try a few prefices, do not try to drop!
 		 */
 		$ok = false;
 
@@ -606,7 +606,7 @@ class DatabaseSetupStep extends InstallStep {
 
 		/*
 		 * Split the file where semicolons are followed by a blank line..
-		 * PL/SQL blocks will have other semicolons, so we can't split on every one.
+		 * PL/SQL blocks will have other semicolons, so we cannot split on every one.
 		 * But first, remove that last semicolon such that all statements have no semicolon
 		 * (required for oracle)
 		 */
@@ -752,7 +752,7 @@ class DatabaseSetupStep extends InstallStep {
 			$GLOBALS['gallery']->init();
 
 			/*
-			 * GalleryInitFirstPass adds a trailing slash if necessary, but we don't call it in
+			 * GalleryInitFirstPass adds a trailing slash if necessary, but we do not call it in
 			 * all cases
 			 */
 			$configPath = $galleryStub->getConfig('data.gallery.base');

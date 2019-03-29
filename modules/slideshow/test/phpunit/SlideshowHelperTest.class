@@ -457,7 +457,7 @@ class SlideshowHelperTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Photo has two resizes, we expect to see the second one since it's larger.
+		// Photo has two resizes, we expect to see the second one since it is larger.
 		$this->assertEquals(
 			array(
 				array(

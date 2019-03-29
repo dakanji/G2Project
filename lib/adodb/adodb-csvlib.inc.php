@@ -158,7 +158,7 @@ function csv2rs($url, &$err, $timeout = 0, $rsclass = 'ADORecordSet_array') {
 			}
 
 			// Under high volume loads, we want only 1 thread/process to _write_file
-			// so that we don't have 50 processes queueing to write the same data.
+			// so that we do not have 50 processes queueing to write the same data.
 			// We use probabilistic timeout, ahead of time.
 			// -4 sec before timeout, give processes 1/32 chance of timing out
 			// -2 sec before timeout, give processes 1/16 chance of timing out

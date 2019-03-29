@@ -435,7 +435,7 @@ class RatingHelperTest extends GalleryTestCase {
 		$this->assertFalse(isset($RatingData['userRating']), 'no user rating');
 		$this->assertFalse($gallery->_session->isPersistent(), 'not persistent');
 
-		// Fetch as another guest with a persistent session that hasn't rated yet
+		// Fetch as another guest with a persistent session that has not rated yet
 		$session = new GallerySession();
 
 		$ret = $session->initEmpty(true, $anonymousUserId);

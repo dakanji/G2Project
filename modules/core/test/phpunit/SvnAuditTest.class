@@ -110,7 +110,7 @@ class SvnAuditTest extends CodeAuditTestCase {
 		$propsFile = dirname($fileName) . "${slash}.svn${slash}props${slash}${base}.svn-work";
 
 		if (!$this->_platform->file_exists($propsFile)) {
-			// svn 1.4.x doesn't write .svn-work unless local prop changes are made
+			// svn 1.4.x does not write .svn-work unless local prop changes are made
 			$propsFile = dirname($fileName) . "${slash}.svn${slash}prop-base${slash}${base}.svn-base";
 		}
 

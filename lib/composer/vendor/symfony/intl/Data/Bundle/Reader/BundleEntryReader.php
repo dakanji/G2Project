@@ -150,7 +150,7 @@ class BundleEntryReader implements BundleEntryReaderInterface
         // Entry is still NULL, read error occurred. Throw an exception
         // containing the detailed path and locale
         $errorMessage = sprintf(
-            'Couldn\'t read the indices [%s] for the locale "%s" in "%s".',
+            'Could not read the indices [%s] for the locale "%s" in "%s".',
             implode('][', $indices),
             $locale,
             $path
@@ -161,7 +161,7 @@ class BundleEntryReader implements BundleEntryReaderInterface
             // Remove original locale
             array_shift($testedLocales);
             $errorMessage .= sprintf(
-                ' The indices also couldn\'t be found for the fallback locale(s) "%s".',
+                ' The indices also could not be found for the fallback locale(s) "%s".',
                 implode('", "', $testedLocales)
             );
         }

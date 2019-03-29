@@ -76,10 +76,10 @@ class AdminPluginsView extends GalleryView {
 			}
 
 			/*
-			 * It's possible that we have some out-of-date plugins which haven't been deactivated
+			 * It is possible that we have some out-of-date plugins which have not been deactivated
 			 * yet, since the deactivation only occurs when we try to load the module.  Load all
 			 * the active plugins now to force the version check, then reload the plugin status
-			 * when we're done to pick up any changes we trigger.
+			 * when we are done to pick up any changes we trigger.
 			 */
 			foreach ($pluginStatus[$type] as $pluginId => $status) {
 				if (!empty($status['active'])) {

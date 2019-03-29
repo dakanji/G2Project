@@ -159,7 +159,7 @@ class PermissionSetTest extends GalleryTestCase {
 	}
 
 	/**
-	 * We don't know what the exact bits are so don't try to assert on them.
+	 * We do not know what the exact bits are so do not try to assert on them.
 	 * Instead, make sure our round trip works
 	 */
 	public function testConvertRoundTrip1() {
@@ -188,7 +188,7 @@ class PermissionSetTest extends GalleryTestCase {
 	}
 
 	/**
-	 * We don't know what the exact bits are so don't try to assert on them.
+	 * We do not know what the exact bits are so do not try to assert on them.
 	 * Instead, make sure our round trip works
 	 */
 	public function testConvertRoundTrip2() {

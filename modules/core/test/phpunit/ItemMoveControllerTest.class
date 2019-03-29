@@ -170,7 +170,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 					break;
 
 				case 2:
-					// Can delete, can't add albums or data items
+					// Can delete, cannot add albums or data items
 					$ret = GalleryCoreApi::removeItemPermissions($itemId);
 
 					if ($ret) {
@@ -666,7 +666,7 @@ class ItemMoveControllerTest extends GalleryControllerTestCase {
 	}
 
 	/**
-	 * Test moving an item that we can't delete
+	 * Test moving an item that we cannot delete
 	 */
 	public function testMoveItemWithNoDeletePermissions() {
 		global $gallery;

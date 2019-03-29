@@ -130,7 +130,7 @@ class AkismetApiTest extends GalleryTestCase {
 
 	/**
 	 * Convenience method to digest an HTTP response and put it into the form that
-	 * GalleryCoreApi::postToWebPage can digest when it's talking to our mock platform.
+	 * GalleryCoreApi::postToWebPage can digest when it is talking to our mock platform.
 	 * @todo This should get refactored up into UnitTestPlatform so that other tests can use it.
 	 * @access private
 	 */

@@ -50,7 +50,7 @@ class SessionAuthPluginTest extends GalleryTestCase {
 
 		$this->_saveSession = $gallery->_session;
 
-		// Set up a mock session so that we don't accidentally log out the PHPUnit session
+		// Set up a mock session so that we do not accidentally log out the PHPUnit session
 		$this->_mockSession = new UserLoginControllerTestSession();
 		$gallery->_session  =& $this->_mockSession;
 	}

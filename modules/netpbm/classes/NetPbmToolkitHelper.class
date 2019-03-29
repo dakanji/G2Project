@@ -249,8 +249,8 @@ class NetPbmToolkitHelper {
 		$platform =& $gallery->getPlatform();
 
 		/*
-		 * If the path is restricted by open_basedir, then verify that it's legal.
-		 * Else just hope that it's valid and use it.
+		 * If the path is restricted by open_basedir, then verify that it is legal.
+		 * Else just hope that it is valid and use it.
 		 */
 		if (!$platform->isRestrictedByOpenBaseDir($jheadPath) && !@$platform->is_dir($jheadPath)) {
 			return array(GalleryCoreApi::error(ERROR_BAD_PATH), null, null);
@@ -302,8 +302,8 @@ class NetPbmToolkitHelper {
 		$isRestrictedPath = $platform->isRestrictedByOpenBaseDir($netPbmPath);
 
 		/*
-		 * If the path is not restricted by open_basedir, then verify that it's legal.
-		 * Else just hope that it's valid and use it.
+		 * If the path is not restricted by open_basedir, then verify that it is legal.
+		 * Else just hope that it is valid and use it.
 		 */
 		if ($isRestrictedPath || !@$platform->is_dir($netPbmPath)) {
 			return array(

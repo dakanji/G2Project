@@ -91,7 +91,7 @@ class AdminEditGroupController extends GalleryController {
 					return array($ret, null);
 				}
 
-				// Refresh our object, now that it's locked
+				// Refresh our object, now that it is locked
 				list($ret, $group) = $group->refresh();
 
 				if ($ret) {

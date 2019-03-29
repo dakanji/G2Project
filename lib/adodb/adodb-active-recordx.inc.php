@@ -1526,7 +1526,7 @@ function adodb_GetActiveRecordsClass(
 		$obj->Set($row);
 
 		// CFR: FIXME: Insane assumption here:
-		// If the first column returned is an integer, then it's a 'id' field
+		// If the first column returned is an integer, then it is a 'id' field
 		// And to make things a bit worse, I use intval() rather than is_int() because, in fact,
 		// $row[0] is not an integer.
 		// So, what does this whole block do?

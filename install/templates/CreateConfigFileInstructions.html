@@ -10,7 +10,7 @@
 			?>
 			<?php
 			printf(
-				_("Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please change its permissions.  If you're on Unix you can do <i>chmod 666 config.php</i> to fix this. You can also download the %sconfig.php%s file and replace the existing config.php in the %s directory yourself."),
+				_("Unable to write to the <b>config.php</b> configuration file in your %s directory.  Please change its permissions.  If you are on Unix you can do <i>chmod 666 config.php</i> to fix this. You can also download the %sconfig.php%s file and replace the existing config.php in the %s directory yourself."),
 				'<tt>' . $templateData['galleryDir'] . '</tt>',
 				'<a href="' . generateUrl(INDEX_PHP . '?step=' . $currentStep->getStepNumber() . '&amp;downloadConfig=1', false) . '">',
 				'</a>',
@@ -51,14 +51,14 @@
 			?>
 	<div class="example">
 	  <h2> Windows </h2>
-	  <pre> <?php echo _("On Windows, you shouldn't have to do anything special."); ?> </pre>
+	  <pre> <?php echo _("On Windows, you should not have to do anything special."); ?> </pre>
 	</div>
 			<?php
 		} ?>
 		<?php
 	}
 	?>
-	<?php echo _("When you've created this file and set the permissions properly, you can proceed.  If there's a problem, we'll tell you what to fix."); ?>
+	<?php echo _("When you have created this file and set the permissions properly, you can proceed.  If there's a problem, we will tell you what to fix."); ?>
 	</p>
 
 	<div class="go">

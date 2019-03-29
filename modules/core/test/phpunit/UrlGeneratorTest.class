@@ -43,7 +43,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$_SERVER['HTTP_HOST']   = 'example.com';
 		$_SERVER['SERVER_PORT'] = 80;
 
-		// PHP/CGI sets PATH_INFO, but we don't want that for our tests
+		// PHP/CGI sets PATH_INFO, but we do not want that for our tests
 		unset($_SERVER['PATH_INFO']);
 
 		// For the cookie.path
@@ -104,7 +104,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	}
 
 	/*
-	 * Set the cookie path to a new value / or make sure it isn't set. Then init the session
+	 * Set the cookie path to a new value / or make sure it is not set. Then init the session
 	 * again, since the session and the Url Generator are both involved in this matter.
 	 */
 	public function _prepareGenerateUrl($cookiePath, $baseUri, $g2Uri, $embedSessionString = null) {
@@ -192,7 +192,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$session =& $gallery->getSession();
 		$actual  = $this->_urlGenerator->generateUrl($params);
 
-		// If we're not using cookies, expect there to be an additional value
+		// If we are not using cookies, expect there to be an additional value
 		$session =& $gallery->getSession();
 
 		if (!$session->isUsingCookies()) {
@@ -379,7 +379,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		);
 
 		/*
-		 * All embedded G2 requests that do not go to the G2 base directly shouldn't have the
+		 * All embedded G2 requests that do not go to the G2 base directly should not have the
 		 * GALLERYSID in the URLs
 		 */
 		$this->assertEquals(
@@ -670,8 +670,8 @@ class UrlGeneratorTest extends GalleryTestCase {
 		);
 
 		/*
-		 * The return URL needs to be server relative because we don't know at this point in
-		 * wich context it'll be used later on.
+		 * The return URL needs to be server relative because we do not know at this point in
+		 * wich context it will be used later on.
 		 */
 		$params['return'] = GalleryUrlGenerator::getMe()->appendParamsToUrl(
 			'/gallery2/phpunit_test.php',
@@ -808,7 +808,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			)
 		);
 
-		// URL with baseUrl shouldn't be changed
+		// URL with baseUrl should not be changed
 		$this->assertEquals(
 			'fix_base_url/foo.php?g2_foo=bar',
 			$this->_urlGenerator->generateUrl(
@@ -891,7 +891,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			)
 		);
 
-		// URL with baseUrl shouldn't be changed
+		// URL with baseUrl should not be changed
 		$this->assertEquals(
 			'fix_base_url/foo.php?g2_foo=bar',
 			$this->_urlGenerator->generateUrl(
@@ -1385,7 +1385,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 			$values[] = GalleryUtilities::prefixFormVariable($key) . '=' . urlencode($value);
 		}
 
-		// If we're not using cookies, expect there to be an additional value
+		// If we are not using cookies, expect there to be an additional value
 		$session =& $gallery->getSession();
 
 		if (!$session->isUsingCookies()) {
@@ -1467,7 +1467,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	/*
 	 * With the g2_return parameter users can add any "back to " link or direct redirect to any
 	 * URL. We try to detect those phishing attacks by comparing the returnUrl with our current
-	 * $this->getCurrentUrlDir(). If returnUrl doesn't start with getCurrentUrlDir(), it's not a
+	 * $this->getCurrentUrlDir(). If returnUrl does not start with getCurrentUrlDir(), it is not a
 	 * redirect into the same G2 installation.
 	 * initNavigation is called after GalleryInitFirstPass and init storage, thus we can use
 	 * getCurrentUrlDir(), else it might have been a problem (RewriteUrlGenerator)
@@ -1501,7 +1501,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 		/*
 		 * Check host and path for absolute urls, absolute path for server relative URLs
-		 * and allow relative URLs that don't try to break out of the good path
+		 * and allow relative URLs that do not try to break out of the good path
 		 */
 		$goodUrls = array(
 			$this->_urlGenerator->generateUrl(
@@ -1753,7 +1753,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 		$this->assertEquals('test/local/test2.css' . $qs, $actual);
 
-		// We don't allow overrides with top level files (nor do we generate an error)
+		// We do not allow overrides with top level files (nor do we generate an error)
 		$actual = $this->_urlGenerator->generateUrl(
 			array(
 				'href' => 'favicon.ico',
@@ -2194,7 +2194,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		);
 	}
 
-	// Don't be fooled by baseFile in the return URL
+	// Do not be fooled by baseFile in the return URL
 	public function testMakeRelativeUrlBaseFileInReturnUrl() {
 		$_SERVER['REQUEST_URI']        = '/gallery2/v/AlbumName?g2_return=main.php';
 		$this->_urlGenerator->_file[0] = 'main.php';
@@ -2241,7 +2241,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 	public function testMakeRelativeUrlCachesStaticComponents() {
 		/*
-		 * The requestUri and file[0] don't depend on the parameters and can thus be cached between
+		 * The requestUri and file[0] do not depend on the parameters and can thus be cached between
 		 * calls
 		 */
 		$this->assertEquals(
@@ -2813,7 +2813,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	}
 
 	/*
-	 * Verify that we don't do any special handling for paramater keys with brackets. There seems to
+	 * Verify that we do not do any special handling for paramater keys with brackets. There seems to
 	 * be no escape sequence for them anyway.
 	 */
 	public function testAppendParamsToUrlDoesNotHandleBracketsInKeyString() {

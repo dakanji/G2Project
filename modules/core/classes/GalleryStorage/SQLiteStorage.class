@@ -75,7 +75,7 @@ class SQLiteStorage extends GalleryStorage {
 				break;
 
 			case 'BIT_OR':
-				// By default don't use BIT_OR aggregate, but OR together values in PHP.
+				// By default do not use BIT_OR aggregate, but OR together values in PHP.
 				return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION), null);
 
 			break;
@@ -108,7 +108,7 @@ class SQLiteStorage extends GalleryStorage {
 
 				/*
 				 * Go from -2^63..2^63-1 to a floating point number 0.0..1.0 and then scale it to the
-				 * desired range. Also avoids the problem of 2's complement that abs(-2^63) won't go
+				 * desired range. Also avoids the problem of 2's complement that abs(-2^63) would not go
 				 * into the range of positive signed 64bit integers (same for 32bit).
 				 */
 				$divisor = empty($has64bitRandomValues) ? '2147483648' : '9223372036854775808';

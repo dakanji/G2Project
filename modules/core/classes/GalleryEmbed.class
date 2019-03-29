@@ -280,7 +280,7 @@ class GalleryEmbed {
 				return $ret;
 			}
 
-			// Can't use getActiveUser() since it might not be set at this point
+			// Cannot use getActiveUser() since it might not be set at this point
 			$activeGalleryUserId = $gallery->getActiveUserId();
 
 			if ($anonymousUserId != $activeGalleryUserId) {
@@ -1378,7 +1378,7 @@ class GalleryEmbed {
 
 		if (!empty($getEmbedPath) && !$phpVm->headers_sent()) {
 			/*
-			 * Don't use GalleryUtilities::getRemoteHostAddress()
+			 * Do not use GalleryUtilities::getRemoteHostAddress()
 			 * since it checks headers that can be forged easily too
 			 */
 			$remotehost = GalleryUtilities::getServerVar('REMOTE_ADDR');
@@ -1401,7 +1401,7 @@ class GalleryEmbed {
 					// GALLERY_CONFIG_DIR is multisite-aware
 					$phpVm->header('X-G2-EMBED-PATH: ' . GALLERY_CONFIG_DIR . '/embed.php');
 				} else {
-					// Fallback if G2 isn't installed yet
+					// Fallback if G2 is not installed yet
 					$phpVm->header(
 						'X-G2-EMBED-PATH: '
 						. GalleryCoreApi::getCodeBasePath('embed.php')

@@ -55,7 +55,7 @@ class SlideshowHelper {
 		}
 
 		if (!$canView) {
-			// Avoid information disclosure, act as if the item didn't exist.
+			// Avoid information disclosure, act as if the item does not exist.
 			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null, null);
 		}
 
@@ -76,7 +76,7 @@ class SlideshowHelper {
 			}
 
 			if (!$canView) {
-				// Avoid information disclosure, act as if the item didn't exist.
+				// Avoid information disclosure, act as if the item does not exist.
 				return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null, null, null);
 			}
 		}
@@ -201,7 +201,7 @@ class SlideshowHelper {
 			}
 
 			/**
-			 * @todo add support for other types of items when we're confident that
+			 * @todo add support for other types of items when we are confident that
 			 * piclens/lytebox support them.
 			 */
 			if (GalleryUtilities::isA($child, 'GalleryPhotoItem')) {

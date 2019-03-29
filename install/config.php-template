@@ -20,7 +20,7 @@
 
 /*
  * When display_errors is enabled, PHP errors are printed to the output.
- * For production web sites, you're strongly encouraged to turn this feature off,
+ * For production web sites, you are strongly encouraged to turn this feature off,
  * and use error logging instead.
  * During development, you should set the value to true to ensure that you notice
  * PHP warnings and notices that are not covered in unit tests (e.g. template issues).
@@ -40,11 +40,11 @@ if (!isset($gallery) || !method_exists($gallery, 'setConfig')) {
  *
  *  $gallery->setConfig('setup.password', 'A PASSWORD');
  *
- * Choose something random and enter it in plain text.  You don't have to
- * remember it because you can always refer to this file.  You'll only be asked
- * for this password when you run Gallery's lib/tools code.  We don't provide a
+ * Choose something random and enter it in plain text.  You do not have to
+ * remember it because you can always refer to this file.  You will only be asked
+ * for this password when you run Gallery's lib/tools code.  We do not provide a
  * default password because we want you to choose one of your own (which
- * lessens the chance that you'll get hacked).
+ * lessens the chance that you will get hacked).
  */
 $gallery->setConfig('setup.password', '');
 
@@ -55,13 +55,13 @@ $gallery->setConfig('setup.password', '');
  * webserver, not just by you.
  *
  * Create an empty directory anywhere you please.  Gallery will fill this
- * directory with its own files (that you shouldn't mess with).  This directory
- * can be anywhere on your filesystem.  For security purposes, it's better
+ * directory with its own files (that you should not mess with).  This directory
+ * can be anywhere on your filesystem.  For security purposes, it is better
  * if the directory is not accessible via your webserver (ie, it should
  * not be in your DocumentRoot).  If you *do* make it available via your
- * web server then you probably won't have any security for your data files.
+ * web server then you probably would not have any security for your data files.
  *
- * Don't make this the same as your gallery directory!
+ * Do not make this the same as your gallery directory!
  */
 $gallery->setConfig('data.gallery.base', '');
 
@@ -71,7 +71,7 @@ $gallery->setConfig('data.gallery.base', '');
  * database lives, and the username and password you use to connect to it.
  *
  * You must specify the name of a database that already exists.  Gallery will
- * not create the database for you, because it's very difficult to do that in
+ * not create the database for you, because it is very difficult to do that in
  * a reliable, database-neutral fashion.  The user that you use should have
  * the following permissions:
  *
@@ -80,7 +80,7 @@ $gallery->setConfig('data.gallery.base', '');
  * You must specify a table and column prefix.  This is a few characters that
  * is prepended to any table or column name to avoid conflicting with reserved
  * words in the database or other tables you have in the same database.  In
- * fact, it's fine to let Gallery uses the same database as other applications
+ * fact, it is fine to let Gallery uses the same database as other applications
  * (including other instances of Gallery itself); the prefix is enough
  * to distinguish Gallery's tables from other applications.
  *
@@ -112,20 +112,20 @@ $gallery->setConfig('storage.config', $storeConfig);
 /*
  * Put Gallery into debug mode.  Useful for tracking down problems with the
  * application.  Not a good idea to leave it this way, though.  Possible debug
- * choices are: 'buffered', 'logged', 'immediate' or false.  Don't forget to
+ * choices are: 'buffered', 'logged', 'immediate' or false.  Do not forget to
  * use the quotes for any value but false!
  *
- * If you choose 'immediate', you'll see debugging information as soon as
- * Gallery generates it.  This can be useful at times, but it'll screw up some
+ * If you choose 'immediate', you will see debugging information as soon as
+ * Gallery generates it.  This can be useful at times, but it will screw up some
  * parts of the application flow.
  *
  * If you choose 'buffered', Gallery will display debug information in a table
- * as part of the application.  You won't necessarily get *all* the debug
+ * as part of the application.  You would not necessarily get *all* the debug
  * information but the application should work normally.
  *
  * If you choose 'logged', you must also specify:
  *    $gallery->setDebugLogFile('/path/to/writeable/file');
- * and all debug output will get printed into that file.  You'll get all the
+ * and all debug output will get printed into that file.  You will get all the
  * debug output and the application will work normally.
  *
  * For best debugging output use this line:
@@ -169,7 +169,7 @@ $gallery->setConfig('mode.embed.only', false);
 
 /*
  * Allow a particular IP address to access the session (it still must know the
- * session id) even though it doesn't match the address/user agent that created
+ * session id) even though it does not match the address/user agent that created
  * the session.  Put the address of validator.w3.org ('133.27.228.132') here to allow
  * validation of non-public Gallery pages from the links at the bottom of the page.
  */

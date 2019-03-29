@@ -79,7 +79,7 @@ class AddCommentController extends GalleryController {
 				$error[] = 'form[error][comment][missing]';
 			}
 
-			// Check for flooding - don't allow more than 1 comment every 30 seconds
+			// Check for flooding - do not allow more than 1 comment every 30 seconds
 			list($ret, $commentTime) = GalleryCommentHelper::getMe()->getLatestCommentTime(
 				GalleryUtilities::getRemoteHostAddress()
 			);

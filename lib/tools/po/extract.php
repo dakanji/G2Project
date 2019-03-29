@@ -18,7 +18,7 @@
  * Copyright 2001-2002 Chuck Hagenbuch <chuck@horde.org>
  * Copyright 2001-2002 Jan Schneider <jan@horde.org>
  *
- * We've modified the script somewhat to make it work cleanly with the
+ * We have modified the script somewhat to make it work cleanly with the
  * way that Gallery embeds internationalized text, so let's tack on our
  * own copyrights.
  *
@@ -44,7 +44,7 @@ array_shift($_SERVER['argv']);
 
 foreach ($_SERVER['argv'] as $moduleDir) {
 	if (preg_match('#^/cygdrive/(\w+)/(.*)$#', trim($moduleDir), $matches)) {
-		// Cygwin and Window PHP filesystem function don't play nice together.
+		// Cygwin and Window PHP filesystem function do not play nice together.
 		$moduleDir = $matches[1] . ':\\' . str_replace('/', '\\', $matches[2]);
 	}
 
@@ -106,7 +106,7 @@ function find($dir) {
 			$filename = $dir . $file;
 
 			if (is_dir($filename)) {
-				// Don't parse unit tests
+				// Do not parse unit tests
 				if ($file != 'test') {
 					$subdirs[] = $filename;
 				}
@@ -187,7 +187,7 @@ function extractStrings($filename) {
 						|| substr($lastString, 1, 5) === 'count')
 					) {
 						/*
-						 * Convert 'argN' => code to 'argN' => null so we don't eval that code.
+						 * Convert 'argN' => code to 'argN' => null so we do not eval that code.
 						 * Add 'null' to $buf now, then ignore content until next , or ) not in
 						 * a deeper nested ().
 						 */

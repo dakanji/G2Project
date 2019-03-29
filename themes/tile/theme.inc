@@ -464,7 +464,7 @@ class TileTheme extends GalleryTheme {
 		}
 
 		if (!GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
-			// Can't configure for dynamic album
+			// Cannot configure for dynamic album
 			return array(null, null);
 		}
 

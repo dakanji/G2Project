@@ -44,7 +44,7 @@
       </p>
     {elseif isset($ErrorPage.code.requestAuthenticationFailure)}
       <p class="giDescription">
-	{g->text text="Your change cannot be completed due to a loss of session data. Please try again. If it still doesn't work, try logging out and logging back in."}
+	{g->text text="Your change cannot be completed due to a loss of session data. Please try again. If it still does not work, try logging out and logging back in."}
       </p>
     {elseif isset($ErrorPage.code.storageFailure)}
       <p class="giDescription">

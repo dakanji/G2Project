@@ -544,7 +544,7 @@ function chmodLocaleDirRecursively() {
  */
 function getPluginList() {
 	/*
-	 * We don't want to depend on the G2 API here, so just list the folders in
+	 * We do not want to depend on the G2 API here, so just list the folders in
 	 * modules/, themes/ and in plugins/modules/, plugins/themes/.
 	 * We prefer being indepdent of the state of G2 over flexibility (e.g. if the
 	 * user hacked init.inc to set a different plugins dir name).
@@ -562,7 +562,7 @@ function getPluginList() {
 			continue;
 		}
 
-		// For each folder in the plugin dir, check if it's writeable
+		// For each folder in the plugin dir, check if it is writeable
 		while (($folderName = readdir($fh)) !== false) {
 			if ($folderName == '.' || $folderName == '..' || $folderName == '.svn') {
 				continue;
@@ -745,7 +745,7 @@ function printPageWithoutFooter(
 							">Make modules &amp; themes directories read-only</a>
 						</h2>
 						<p class="description">
-							Useful when you're not going to be making changes by hand. This makes your
+							Useful when you are not going to be making changes by hand. This makes your
 							modules and themes folders writeable. Only works if you have installed Gallery
 							with the pre-installer. Usually you can change the filesystem permissions with
 							your FTP program or command line shell.
@@ -799,7 +799,7 @@ function printPageWithoutFooter(
 			?>
 			">Make the locale folder read/write</a></h2>
 			<p class="description">
-				If you're localizing Gallery, you may see warnings when you compile up your localization
+				If you are localizing Gallery, you may see warnings when you compile up your localization
 				since you may not have permissions to copy the the new localized version into your
 				g2data/locale folder.  Making the locale folder read/write should solve this problem.
 			</p>

@@ -59,7 +59,7 @@ class ADODB_oci8po extends ADODB_oci8 {
 	 * The optimizations performed by ADODB_oci8::SelectLimit() are not
 	 * compatible with the oci8po driver, so we rely on the slower method
 	 * from the base class.
-	 * We can't properly handle prepared statements either due to preprocessing
+	 * We cannot properly handle prepared statements either due to preprocessing
 	 * of query parameters, so we treat them as regular SQL statements.
 	 */
 	public function SelectLimit($sql, $nrows = -1, $offset = -1, $inputarr = false, $secs2cache = 0) {

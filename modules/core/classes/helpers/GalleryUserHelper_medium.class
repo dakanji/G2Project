@@ -378,7 +378,7 @@ class GalleryUserHelper_medium {
 			$modifiedAlbumIds = array_keys($newModifiedAlbumIds);
 		}
 
-		// Make a new thumbnail if possible, if it doesn't succeed, we can't change it
+		// Make a new thumbnail if possible, if it does not succeed, we cannot change it
 		foreach ($remainingAlbums as $albumId => $remaining) {
 			if ($remaining) {
 				list($ret, $trueOrFalse) = GalleryCoreApi::guaranteeAlbumHasThumbnail($albumId);

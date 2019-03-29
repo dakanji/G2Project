@@ -27,7 +27,7 @@
  * a) 'assign a new owner for all his items' and
  * b) 'delete all his items and assign a new owner for all non empty albums'
  * Next there's a textfield 'New owner' in the form. Leaving blank this form means to assign the
- * items to the default new owner, 'admin'.  If user x didn't own any items, Joe can just decide
+ * items to the default new owner, 'admin'.  If user x did not own any items, Joe can just decide
  * between 'cancel' and 'delete'.  When clicking 'cancel', Joe is redirected to the AdminUsers
  * view.  When hitting 'delete' and in case
  * a) the controller checks for the new owner field and assigns the new owner to all items of
@@ -98,7 +98,7 @@ class AdminDeleteUserController extends GalleryController {
 
 					$error[] = 'form[error][text][noSuchUser]';
 				} elseif ($newOwner->getId() == $userId) {
-					// new Owner = deleted user, doesn't make sense
+					// new Owner = deleted user, does not make sense
 					$error[] = 'form[error][text][newOwnerIsDeletedUser]';
 				} elseif ($newOwner->getId() == $anonymousUserId) {
 					$error[] = 'form[error][text][newOwnerIsGuest]';
@@ -130,10 +130,10 @@ class AdminDeleteUserController extends GalleryController {
 			}
 
 			/*
-			 * Only continue to delete the user if we have no errors and if we don't try
+			 * Only continue to delete the user if we have no errors and if we do not try
 			 * to delete the anonymous user or the active user.  In theory we should never
-			 * get to this point unless we're operating on a valid user, so don't bother
-			 * sending errors back in case we can't delete.
+			 * get to this point unless we are operating on a valid user, so do not bother
+			 * sending errors back in case we cannot delete.
 			 */
 			if (empty($error) && $userId != $anonymousUserId
 				&& $userId != $gallery->getActiveUserId()
@@ -147,7 +147,7 @@ class AdminDeleteUserController extends GalleryController {
 					if ($form['deletionVariant'] == 'deleteItems') {
 						/*
 						 * Delete all items the user has permission to delete,
-						 * don't delete albums that still contain items
+						 * do not delete albums that still contain items
 						 */
 						$ret = GalleryCoreApi::deleteUserItems($user->getId());
 

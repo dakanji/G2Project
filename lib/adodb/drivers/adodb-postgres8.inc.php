@@ -23,9 +23,9 @@ class ADODB_postgres8 extends ADODB_postgres7 {
 
 	/**
 	 * Retrieve last inserted ID
-	 * Don't use OIDs, since as per {@link http://php.net/function.pg-last-oid php manual }
-	 * they won't be there in Postgres 8.1
-	 * (and they're not what the application wants back, anyway).
+	 * Do not use OIDs, since as per {@link http://php.net/function.pg-last-oid php manual }
+	 * they would not be there in Postgres 8.1
+	 * (and they are not what the application wants back, anyway).
 	 * @param string $table
 	 * @param string $column
 	 * @return int last inserted ID for given table/column, or the most recently

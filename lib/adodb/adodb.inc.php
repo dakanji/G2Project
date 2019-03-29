@@ -3392,7 +3392,7 @@ if (!defined('_ADODB_LAYER')) {
 		 * to the string single-quotes.
 		 *
 		 *
-		 * An example is  $db->qstr("Don't bother",magic_quotes_runtime());
+		 * An example is  $db->qstr("Do not bother",magic_quotes_runtime());
 		 *
 		 *
 		 *
@@ -3791,7 +3791,7 @@ if (!defined('_ADODB_LAYER')) {
 			return new ADODB_Iterator($this);
 		}
 
-		// this is experimental - i don't really know what to return...
+		// this is experimental - i do not really know what to return...
 		public function __toString() {
 			include_once ADODB_DIR . '/toexport.inc.php';
 
@@ -4087,13 +4087,13 @@ if (!defined('_ADODB_LAYER')) {
 					// return scalar values
 					if ($numIndex) {
 						while (!$this->EOF) {
-							// some bug in mssql PHP 4.02 -- doesn't handle references properly so we FORCE creating a new string
+							// some bug in mssql PHP 4.02 -- does not handle references properly so we FORCE creating a new string
 							$results[trim(($this->fields[0]))] = $this->fields[1];
 							adodb_movenext($this);
 						}
 					} else {
 						while (!$this->EOF) {
-							// some bug in mssql PHP 4.02 -- doesn't handle references properly so we FORCE creating a new string
+							// some bug in mssql PHP 4.02 -- does not handle references properly so we FORCE creating a new string
 							$v1           = trim(reset($this->fields));
 							$v2           = '' . next($this->fields);
 							$results[$v1] = $v2;
@@ -4103,14 +4103,14 @@ if (!defined('_ADODB_LAYER')) {
 				} else {
 					if ($numIndex) {
 						while (!$this->EOF) {
-							// some bug in mssql PHP 4.02 -- doesn't handle references properly so we FORCE creating a new string
+							// some bug in mssql PHP 4.02 -- does not handle references properly so we FORCE creating a new string
 							$results[trim(($this->fields[0]))] = $this->fields[1];
 
 							$this->MoveNext();
 						}
 					} else {
 						while (!$this->EOF) {
-							// some bug in mssql PHP 4.02 -- doesn't handle references properly so we FORCE creating a new string
+							// some bug in mssql PHP 4.02 -- does not handle references properly so we FORCE creating a new string
 							$v1           = trim(reset($this->fields));
 							$v2           = '' . next($this->fields);
 							$results[$v1] = $v2;
@@ -4493,7 +4493,7 @@ if (!defined('_ADODB_LAYER')) {
 		 */
 		public function Close() {
 			// free connection object - this seems to globally free the object
-			// and not merely the reference, so don't do this...
+			// and not merely the reference, so do not do this...
 			// $this->connection = false;
 			if (!$this->_closed) {
 				$this->_closed = true;
@@ -4541,7 +4541,7 @@ if (!defined('_ADODB_LAYER')) {
 		public function PO_RecordCount($table = '', $condition = '') {
 			$lnumrows = $this->_numOfRows;
 
-			// the database doesn't support native recordcount, so we do a workaround
+			// the database does not support native recordcount, so we do a workaround
 			if ($lnumrows == -1 && $this->connection) {
 				if ($table) {
 					if ($condition) {

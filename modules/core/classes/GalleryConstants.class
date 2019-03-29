@@ -204,7 +204,7 @@ define('GALLERY_DEFAULT_VIEW', 'core.ShowItem');
 
 /**
  * The operation had errors
- * @todo (bharat): Get rid of this; it's no longer necessary
+ * @todo (bharat): Get rid of this; it is no longer necessary
  */
 define('GALLERY_ERROR', 0x00000001);
 
@@ -216,13 +216,13 @@ define('GALLERY_ERROR', 0x00000001);
 define('ERROR_COLLISION', 0x00000002);
 
 /**
- * The object you're trying to access is no longer available.  Perhaps it was deleted.  You
- * shouldn't get this when an object has simply moved.
+ * The object you are trying to access is no longer available.  Perhaps it was deleted.  You
+ * should not get this when an object has simply moved.
  */
 define('ERROR_MISSING_OBJECT', 0x00000004);
 
 /**
- * The lock you're trying to acquire is currently in use and was not released within the timeout
+ * The lock you are trying to acquire is currently in use and was not released within the timeout
  * period you specified.
  */
 define('ERROR_LOCK_IN_USE', 0x00000008);
@@ -233,7 +233,7 @@ define('ERROR_LOCK_IN_USE', 0x00000008);
 define('ERROR_BAD_PARAMETER', 0x00000010);
 
 /**
- * You're missing a value necessary to continue with the current operation.
+ * You are missing a value necessary to continue with the current operation.
  */
 define('ERROR_MISSING_VALUE', 0x00000020);
 
@@ -284,7 +284,7 @@ define('ERROR_BAD_PATH', 0x00002000);
 define('ERROR_BAD_DATA_TYPE', 0x00004000);
 
 /**
- * You attempted to add a child to a GalleryItem which can't have children.
+ * You attempted to add a child to a GalleryItem which cannot have children.
  */
 define('ERROR_ILLEGAL_CHILD', 0x00008000);
 
@@ -324,17 +324,17 @@ define('ERROR_BAD_PLUGIN', 0x00200000);
 define('ERROR_CONFIGURATION_REQUIRED', 0x00400000);
 
 /**
- * You don't have permission to complete the given action.
+ * You do not have permission to complete the given action.
  */
 define('ERROR_PERMISSION_DENIED', 0x00800000);
 
 /**
- * You don't have enough space for the operation required.
+ * You do not have enough space for the operation required.
  */
 define('ERROR_OUT_OF_SPACE', 0x01000000);
 
 /**
- * The plugin exists, but the version on disk doesn't match the version in the database.
+ * The plugin exists, but the version on disk does not match the version in the database.
  */
 define('ERROR_PLUGIN_VERSION_MISMATCH', 0x02000000);
 

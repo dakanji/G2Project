@@ -118,7 +118,7 @@
   {/if}
   {if isset($form.error.list.cantRemoveSelf)}
   <div class="giError">
-    {g->text text="You can't remove yourself from this group."}
+    {g->text text="You cannot remove yourself from this group."}
   </div>
   {/if}
 </div>

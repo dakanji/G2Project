@@ -57,7 +57,7 @@ class AdminEditUserController extends GalleryController {
 			return array($ret, null);
 		}
 
-		// We treat anonymous users differently, so see if we're editing the anonymous user
+		// We treat anonymous users differently, so see if we are editing the anonymous user
 		list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',

@@ -411,7 +411,7 @@
 	}
 	/*
 	* if the URL does not contain http or is on sourceforge, replace relative urls
-	* with an alert instead of a link that probably won't work
+	* with an alert instead of a link that probably would not work
 	*/
 	function fixURLs() {
 		if ((document.location.toString().indexOf('http') != 0) || (document.location.toString().match(/(\bsourceforge\b|\bsf.net\b|\bmenalto\b)/))) {
@@ -1845,7 +1845,7 @@
 						If you do not have shell access, you can ask your provider to do it for you, or you can make a miniature PHP script containing one of the above commands. Some webhosting companies offer a control panel with a web file-browser which is capable of extracting / unarchiving archive files. It is worth a try to check if this option is available.
 					</li>
 					<li>
-						<b>Easiest (but slowest) way:</b> If you don't have shell access, you can upload the complete contents of the Gallery 2 archive to the webserver with an FTP program. This may take a lot of time and be error-prone. In this case, pay special attention to the &rsquo;System Checks&rsquo; step of the installer and make sure that there are no missing or modified files. Consider using a smart FTP program like <a href="http://filezilla.sourceforge.net/" target="_blank">FileZilla</a> to make sure that your transfer goes smoothly.
+						<b>Easiest (but slowest) way:</b> If you do not have shell access, you can upload the complete contents of the Gallery 2 archive to the webserver with an FTP program. This may take a lot of time and be error-prone. In this case, pay special attention to the &rsquo;System Checks&rsquo; step of the installer and make sure that there are no missing or modified files. Consider using a smart FTP program like <a href="http://filezilla.sourceforge.net/" target="_blank">FileZilla</a> to make sure that your transfer goes smoothly.
 					</li>
 					<li>
 						<b>Advanced way</b>: The best way to install Gallery <b>and</b> stay up to date if you have shell access to your webserver is to use <a href="https://github.com/dakanji/G2Project-main" target="_blank">Github</a>.
@@ -1966,7 +1966,7 @@
 				Download the latest code for any active third party modules that you are using, or deactivate them. If in doubt, deactivating is safe.
 			</li>
 			<li>
-				<a href="#get_latest_code">Get the latest code</a> and unpack it over your existing copy of Gallery 2. Keep your existing config.php in place, and don't touch your (g2data) data folder or the database. If you are using Git, you can just do "git update" at any time. Alternatively, you can use the <a href="http://codex.gallery2.org/Gallery2:Preinstaller" target="_blank">Gallery 2 Pre-Installer</a> to get the latest codebase.
+				<a href="#get_latest_code">Get the latest code</a> and unpack it over your existing copy of Gallery 2. Keep your existing config.php in place, and do not touch your (g2data) data folder or the database. If you are using Git, you can just do "git update" at any time. Alternatively, you can use the <a href="http://codex.gallery2.org/Gallery2:Preinstaller" target="_blank">Gallery 2 Pre-Installer</a> to get the latest codebase.
 			</li>
 			<li>If you use a PHP accelerator / cache (e.g. Turk mmCache, Ioncube PHPA, eaccelerator, Zend Studio, etc.), flush (clear) the cache of the accelerator. Omitting this step can <i>sometimes</i> lead to errors during and after the upgrade process.
 			</li>

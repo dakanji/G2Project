@@ -34,7 +34,7 @@ class ADODB_informix72 extends ADOConnection {
 	public $hasAffectedRows = true;
 	public $substr          = 'substr';
 
-	//Don't get informix tables and pseudo-tables
+	//Do not get informix tables and pseudo-tables
 	public $metaTablesSQL     = "select tabname,tabtype from systables where tabtype in ('T','V') and owner!='informix'";
 	public $metaColumnsSQL    = "select c.colname, c.coltype, c.collength, d.default,c.colno
 		from syscolumns c, systables t,outer sysdefaults d
@@ -489,7 +489,7 @@ class ADORecordset_informix72 extends ADORecordSet {
 
 	/*	Returns: an object containing field information.
 		Get column information in the Recordset object. fetchField() can be used in order to obtain information about
-		fields in a certain query result. If the field offset isn't specified, the next field that wasn't yet retrieved by
+		fields in a certain query result. If the field offset is not specified, the next field that was not yet retrieved by
 		fetchField() is retrieved.	*/
 	public function FetchField($fieldOffset = -1) {
 		if (empty($this->_fieldprops)) {

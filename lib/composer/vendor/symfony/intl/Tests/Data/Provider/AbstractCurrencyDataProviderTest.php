@@ -635,7 +635,7 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
      */
     public function testGetNamesSupportsAliases($alias, $ofLocale)
     {
-        // Can't use assertSame(), because some aliases contain scripts with
+        // Cannot use assertSame(), because some aliases contain scripts with
         // different collation (=order of output) than their aliased locale
         // e.g. sr_Latn_ME => sr_ME
         $this->assertEquals(
@@ -755,7 +755,7 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
     {
         $actual = $this->dataProvider->forNumericCode($numeric);
 
-        // Make sure that a different array order doesn't break the test
+        // Make sure that a different array order does not break the test
         sort($actual);
         sort($expected);
 

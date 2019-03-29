@@ -19,7 +19,7 @@
 
 /**
  * Helper class for handling locking.  It delegates to the active GalleryLockSystem
- * implementation that we're using, which is stored in the Gallery instance.
+ * implementation that we are using, which is stored in the Gallery instance.
  * @package GalleryCore
  * @subpackage Helpers
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -170,7 +170,7 @@ class GalleryLockHelper_simple {
 		$ret = $result[0];
 
 		if ($ret) {
-			// This method doesn't return a status code.  What should we do?
+			// This method does not return a status code.  What should we do?
 			if ($gallery->getDebug()) {
 				$gallery->debug($ret->getAsHtml());
 			}
@@ -221,7 +221,7 @@ class GalleryLockHelper_simple {
 		$ret = $result[0];
 
 		if ($ret) {
-			// This method doesn't return a status code.  What should we do?
+			// This method does not return a status code.  What should we do?
 			if ($gallery->getDebug()) {
 				$gallery->debug($ret->getAsHtml());
 			}

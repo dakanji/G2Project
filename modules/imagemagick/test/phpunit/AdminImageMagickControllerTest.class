@@ -64,7 +64,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 		$path  = $slash . 'validPath' . $slash;
 
 		/*
-		 * Set the module param to this value before submitting form so we don't
+		 * Set the module param to this value before submitting form so we do not
 		 * try to reactivate the module due to path change.
 		 */
 		$ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick', 'path', $path);
@@ -249,7 +249,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 		$path  = $slash . 'vulnerablePath' . $slash;
 
 		/*
-		 * Set the module param to this value before submitting form so we don't
+		 * Set the module param to this value before submitting form so we do not
 		 * try to reactivate the module due to path change.
 		 */
 		$ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick', 'path', $path);
@@ -358,7 +358,7 @@ class AdminImageMagickControllerTestPlatform {
 
 	public function exec($args) {
 		/*
-		 * We're going to test all of this in detail in the ImageMagickToolkitTest,
+		 * We are going to test all of this in detail in the ImageMagickToolkitTest,
 		 * so for now let's just aim for success.
 		 */
 		$slash = $this->getDirectorySeparator();

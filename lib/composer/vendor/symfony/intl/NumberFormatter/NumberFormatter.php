@@ -205,7 +205,7 @@ class NumberFormatter
     );
 
     /**
-     * The list of supported rounding modes which aren't available modes in
+     * The list of supported rounding modes which are not available modes in
      * PHP's round() function, but there's an equivalent. Keys are rounding
      * modes, values does not matter.
      */

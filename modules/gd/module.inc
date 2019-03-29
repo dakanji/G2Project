@@ -190,7 +190,7 @@ class GdModule extends GalleryModule {
 		}
 
 		/*
-		 * It also will stay requiring configuration if we don't have a
+		 * It also will stay requiring configuration if we do not have a
 		 * GD version with which we can work with.
 		 */
 		GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkitHelper.class');

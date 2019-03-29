@@ -52,7 +52,7 @@ class DownloadPicLensView extends GalleryView {
 	public function renderImmediate($status = null, $error = null) {
 		global $gallery;
 
-		// Figure out which file we're talking about
+		// Figure out which file we are talking about
 		$file    = GalleryUtilities::getRequestVariables('file');
 		$codeDir = $gallery->getConfig('data.gallery.plugins_data') . 'modules/slideshow/';
 
@@ -98,7 +98,7 @@ class DownloadPicLensView extends GalleryView {
 		$phpVm    = $gallery->getPhpVm();
 
 		/**
-		 * Try to prevent Apache's mod_deflate from gzipping the output since it's likely already
+		 * Try to prevent Apache's mod_deflate from gzipping the output since it is likely already
 		 * a binary file and broken versions of mod_deflate sometimes get the byte count wrong.
 		 */
 		if (function_exists('apache_setenv') && !@$gallery->getConfig('apacheSetenvBroken')) {
@@ -120,7 +120,7 @@ class DownloadPicLensView extends GalleryView {
 		$phpVm->header('Expires: ' . GalleryUtilities::getHttpDate(2147483647));
 		$phpVm->header('Cache-Control: public');
 
-		// If the request method is HEAD, don't send back the body
+		// If the request method is HEAD, do not send back the body
 		if ($requestMethod == 'head') {
 			$phpVm->header('Content-length: 0');
 		} else {
@@ -129,7 +129,7 @@ class DownloadPicLensView extends GalleryView {
 			}
 
 			/*
-			 * Don't use readfile() because it buffers the entire file in memory.  Profiling shows
+			 * Do not use readfile() because it buffers the entire file in memory.  Profiling shows
 			 * that this approach is as efficient as fpassthru() but we get to call
 			 * guaranteeTimeLimit which prevents it from failing on very large files
 			 */

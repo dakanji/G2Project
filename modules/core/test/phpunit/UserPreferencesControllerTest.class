@@ -191,7 +191,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 		GalleryUtilities::putRequestVariable('form[currentPassword]', 'TestPassword');
 
-		// As a non-admin, we'll get an error about it being missing
+		// As a non-admin, we will get an error about it being missing
 		$results = $this->handleRequest();
 
 		$this->assertEquals(
@@ -371,7 +371,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals('language', $session->get('core.language'), 'Language');
 	}
 
-	// If you provide an email, then return a error message if it's invalid
+	// If you provide an email, then return a error message if it is invalid
 	public function testEditOtherThanEmailInvalidPassword() {
 		global $gallery;
 

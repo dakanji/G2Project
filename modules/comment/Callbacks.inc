@@ -45,7 +45,7 @@ class CommentCallbacks {
 				}
 
 				if (empty($permissions['core.view'])) {
-					// Avoid information disclosure, act as if the item didn't exist.
+					// Avoid information disclosure, act as if the item does not exist.
 					return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 				}
 
@@ -53,7 +53,7 @@ class CommentCallbacks {
 					return null;
 				}
 
-				// Pages shouldn't be cached if comments are not accessible for anonymous
+				// Pages should not be cached if comments are not accessible for anonymous
 				if (!$phpVm->headers_sent()) {
 					list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 

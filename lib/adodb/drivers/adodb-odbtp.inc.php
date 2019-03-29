@@ -627,7 +627,7 @@ class ADODB_odbtp extends ADOConnection {
 
 	public function PrepareSP($sql, $param = true) {
 		if (!$this->_canPrepareSP) {
-			// Can't prepare procedures
+			// Cannot prepare procedures
 			return $sql;
 		}
 

@@ -71,7 +71,7 @@ class GalleryFactoryHelper_simple {
 				'id'     => '_all',
 			);
 
-			// Don't get by reference here, it'll detach $registry from the singleton
+			// Do not get by reference here, it will detach $registry from the singleton
 			$registry = GalleryDataCache::getFromDisk($cacheParams);
 
 			if (!isset($registry)) {

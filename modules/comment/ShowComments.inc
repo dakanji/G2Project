@@ -46,7 +46,7 @@ class ShowCommentsView extends GalleryView {
 		$commenters = array();
 
 		if (!empty($comments)) {
-			// Pages shouldn't be cached if any of the comments is not accessible for anonymous
+			// Pages should not be cached if any of the comments is not accessible for anonymous
 			list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
 
 			if ($ret) {

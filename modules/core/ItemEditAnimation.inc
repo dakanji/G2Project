@@ -47,7 +47,7 @@ class ItemEditAnimation extends ItemEditPlugin {
 		$status = null;
 		$error  = array();
 
-		// Figure out which command we're taking
+		// Figure out which command we are taking
 		if (isset($form['action']['save'])) {
 			if (isset($form['width']) && $form['width'] < 0) {
 				$error[] = 'form[error][width][invalid]';

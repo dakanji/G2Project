@@ -177,7 +177,7 @@ class SessionTest extends GalleryTestCase {
 
 		GalleryDataCache::reset();
 
-		// Make sure it's still there
+		// Make sure it is still there
 		$new = $session->get($key);
 
 		$this->assertEquals($value, $new);
@@ -194,7 +194,7 @@ class SessionTest extends GalleryTestCase {
 
 		GalleryDataCache::reset();
 
-		// Make sure it's gone
+		// Make sure it is gone
 		$exists = $session->exists($key);
 
 		$this->assertFalse($exists, "key $key should not exist!");
@@ -344,7 +344,7 @@ class SessionTest extends GalleryTestCase {
 	}
 
 	public function testNewSessionCollision() {
-		// Ensure we don't randomly pick a new sessionid for an existing session
+		// Ensure we do not randomly pick a new sessionid for an existing session
 		global $gallery;
 
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
@@ -1359,7 +1359,7 @@ class SessionTest extends GalleryTestCase {
 
 		$session->_sessionId = '';
 
-		// Even if there is data etc, we don't save if there's no sessionId
+		// Even if there is data etc, we do not save if there's no sessionId
 		$session->put('foo', 'bar');
 
 		$session->_forceSaveSession = true;
@@ -1413,7 +1413,7 @@ class SessionTest extends GalleryTestCase {
 	}
 
 	/**
-	 * Test if save() actually doesn't save if the current request is in the exclude list.
+	 * Test if save() actually does not save if the current request is in the exclude list.
 	 */
 	public function testSaveSessionShouldNotSave() {
 		global $gallery;
@@ -1424,7 +1424,7 @@ class SessionTest extends GalleryTestCase {
 
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
 
-		// Session shouldn't be saved in DownloadItem requests
+		// Session should not be saved in DownloadItem requests
 		GalleryUtilities::putRequestVariable('view', 'core.DownloadItem');
 
 		// Add some status data to the session and then try to save it
@@ -1598,7 +1598,7 @@ class SessionTest extends GalleryTestCase {
 				'options'
 			);
 
-		// Don't check if there was actually a DELETE (there are other tests)
+		// Do not check if there was actually a DELETE (there are other tests)
 		} else {
 			$this->assertTrue(
 				false,
@@ -1606,7 +1606,7 @@ class SessionTest extends GalleryTestCase {
 			);
 		}
 
-		// Now another save() call that shouldn't trigger a expiration
+		// Now another save() call that should not trigger a expiration
 		$gallery->_storage = new SessionTestStorage();
 
 		$this->assertEquals(
@@ -1723,7 +1723,7 @@ class SessionTest extends GalleryTestCase {
 		$this->assertTrue($session->isPersistent(), 'is persistent after regenerate');
 		$this->assertEquals(99, $session->getUserId(), 'userid unchanged after regenerate');
 
-		// Verify we won't get redirected to any links with the old session id
+		// Verify we would not get redirected to any links with the old session id
 		$this->assertEquals(
 			$sessionUrl . $session->getId(),
 			GalleryUtilities::getRequestVariables('return'),
@@ -2278,7 +2278,7 @@ class SessionTest extends GalleryTestCase {
 			// Call expire 1 time too often, nothing should happen
 		} while ($i < ($requiredIterations + 1));
 
-		// Make sure we've still got the valid sessions
+		// Make sure we have still got the valid sessions
 		$query = 'SELECT COUNT([GallerySessionMap::id]) FROM [GallerySessionMap]';
 
 		list($ret, $results) = $gallery->search($query);
@@ -2335,7 +2335,7 @@ class SessionTest extends GalleryTestCase {
 		 *  - Verify that str_replace or an equivalent function is used on all string members.
 		 *  - Verify that only the $search string is touched, but not the rest of g2_GALLERYSID=...
 		 *    since replaceSessionIdData called with just one parameter does the exact opposite.
-		 *  - Using some hex and non-hex characters around the $search string to ensure it doesn't
+		 *  - Using some hex and non-hex characters around the $search string to ensure it does not
 		 *    deal with session id characters in a special way.
 		 */
 		$html                         = 'ksaj' . $search . 'sajlksa' . "?$sessionString\"" . 'jsaj29' .
@@ -2351,7 +2351,7 @@ class SessionTest extends GalleryTestCase {
 		$data[]                       = 15;
 		$expected                     = array();
 
-		// Don't touch array keys
+		// Do not touch array keys
 		$expected[$search]                = $expectedString;
 		$expected[]                       = array($expectedString, 15, array(1));
 		$expected['object']               = new stdClass();
@@ -3330,7 +3330,7 @@ class SessionTest extends GalleryTestCase {
 		$this->assertTrue($session->isUsingCookies(), 'is using cookies');
 	}
 
-	// Search engines don't get a persistent session in Gallery
+	// Search engines do not get a persistent session in Gallery
 	public function testSearchEngineCrawlerSessions() {
 		unset($_COOKIE[SESSION_ID_PARAMETER]);
 		$_SERVER['HTTP_COOKIE']     = '';
@@ -3404,7 +3404,7 @@ class SessionTest extends GalleryTestCase {
 
 		$this->_markForCleanup($user);
 
-		// First, it's a normal search engine session
+		// First, it is a normal search engine session
 		$ret = $session->init();
 
 		if ($ret) {
@@ -3538,7 +3538,7 @@ class SessionTest extends GalleryTestCase {
 		// Test cases
 		$tests = array();
 
-		// We don't expect a cookie header when requesting a DownloadItem
+		// We do not expect a cookie header when requesting a DownloadItem
 		$tests[] = array(
 			'key'   => 'view',
 			'value' => 'core.DownloadItem',
@@ -3566,7 +3566,7 @@ class SessionTest extends GalleryTestCase {
 		unset($_COOKIE[SESSION_ID_PARAMETER], $_SERVER['HTTP_COOKIE']);
 
 		foreach ($tests as $testCase) {
-			// Skip if module isn't present
+			// Skip if module is not present
 			list($moduleId) = explode('.', $testCase['value']);
 
 			if (empty($moduleStatus[$moduleId]['active'])) {
@@ -3800,7 +3800,7 @@ class SessionTest extends GalleryTestCase {
 	}
 
 	/**
-	 * Check that we don't save sessions for core.DownloadItem, migrate.Redirect and CSS requests.
+	 * Check that we do not save sessions for core.DownloadItem, migrate.Redirect and CSS requests.
 	 */
 	public function testIsPersistentSessionAllowedForRequest() {
 		global $gallery;
@@ -3852,7 +3852,7 @@ class SessionTest extends GalleryTestCase {
 		);
 
 		foreach ($tests as $testCase) {
-			// Skip if module isn't present
+			// Skip if module is not present
 			list($moduleId) = explode('.', $testCase['value']);
 
 			if (empty($moduleStatus[$moduleId]['active'])) {
@@ -4061,7 +4061,7 @@ class SessionTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Verify init didn't treat request as session hijack
+		// Verify init did not treat request as session hijack
 		$this->assertEquals($sid, $session->getId(), 'sessionid should not change');
 
 		// Verify remoteIdentifer has been initialized
@@ -4570,7 +4570,7 @@ class SessionTestRecordSet {
 }
 
 /*
- * Our default unit test error_handler doesn't allow the suppression of errors, but PostgreSQL and
+ * Our default unit test error_handler does not allow the suppression of errors, but PostgreSQL and
  * maybe other DB driver too create a PHP warning when a insert fails due to a PK collision and we
  * need to suppress that PHP warning for the test
  */

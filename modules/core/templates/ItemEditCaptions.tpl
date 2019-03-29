@@ -89,7 +89,7 @@
     {g->text text="This item was modified by somebody else at the same time.  Your changes were lost."}
   </div>
   {/if}
-  {* We will probably  never see this message because the view won't show us items for which we have no permissions *}
+  {* We will probably  never see this message because the view would not show us items for which we have no permissions *}
   {if isset($status[$item.id].permissionDenied)}
   <div class="giError">
     {g->text text="You do not have permissions to modify this item."}

@@ -24,7 +24,7 @@
   <?php if ($isSvnInstall) {
 		?>
   <br/>
-  <?php echo _("Note: You're running Gallery from SVN, so recently removed files may appear here.  It might be safe to ignore these."); ?>
+  <?php echo _("Note: You are running Gallery from SVN, so recently removed files may appear here.  It might be safe to ignore these."); ?>
   <?php
 	} ?>
   <textarea wrap="off" readonly="readonly" rows="<?php echo count($manifest['missing'])?>" class="manifestBlock" id="ManifestSystemCheck_missing" style="display: none"><?php foreach ($manifest['missing'] as $fileName) {
@@ -50,7 +50,7 @@
   <?php if ($isSvnInstall) {
 			?>
   <br/>
-  <?php echo _("Note: You're running Gallery from SVN, so some modified files are to be expected.  You can probably ignore these, but to be safe you should make sure that you do 'svn update' before continuing."); ?>
+  <?php echo _("Note: You are running Gallery from SVN, so some modified files are to be expected.  You can probably ignore these, but to be safe you should make sure that you do 'svn update' before continuing."); ?>
   <?php
 		} ?>
   <textarea wrap="off" readonly="readonly" rows="<?php echo count($manifest['modified'])?>" class="manifestBlock" id="ManifestSystemCheck_modified" style="display: none"><?php foreach ($manifest['modified'] as $fileName) {
@@ -74,7 +74,7 @@
     </b>
   </span>
   <br/>
-  <?php echo _("These files are no longer part of Gallery. They probably won't cause any problems but it is a good idea to remove them to keep your install clean."); ?>
+  <?php echo _("These files are no longer part of Gallery. They probably would not cause any problems but it is a good idea to remove them to keep your install clean."); ?>
   <textarea wrap="off" readonly="readonly" rows="<?php echo count($manifest['shouldRemove'])?>" class="manifestBlock" id="ManifestSystemCheck_shouldRemove" style="display: none"><?php foreach ($manifest['shouldRemove'] as $fileName) {
 			?><?php echo "$fileName\n" ?><?php
 		} ?></textarea>

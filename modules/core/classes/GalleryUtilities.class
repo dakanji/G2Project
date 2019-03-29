@@ -44,14 +44,14 @@ class GalleryUtilities {
 	public static function getFileNameComponents($filename) {
 		$pos = strrpos($filename, '.');
 
-		// No dot == it's all base, no extension
+		// No dot == it is all base, no extension
 		if ($pos === false) {
 			return array($filename, '');
 		}
 
 		$pos++;
 
-		// If it's the last char in the name, just return the base
+		// If it is the last char in the name, just return the base
 		if ($pos >= strlen($filename)) {
 			return array(substr($filename, 0, $pos - 1), '');
 		}
@@ -292,7 +292,7 @@ class GalleryUtilities {
 
 	/**
 	 * Return the specified request variables (omit Gallery variable prefix).  Should be used only
-	 * when interacting with an external API where prefix can't be used.  Accept any number of keys
+	 * when interacting with an external API where prefix cannot be used.  Accept any number of keys
 	 * and return that number of values, in order.
 	 * @param one or more string parameters
 	 * @return mixed a single string value or many values
@@ -482,7 +482,7 @@ class GalleryUtilities {
 
 	/**
 	 * Scale the given width/height to a new target size, maintaining aspect ratio, but only if the
-	 * dimensions are already larger than the target (in other words, don't increase the
+	 * dimensions are already larger than the target (in other words, do not increase the
 	 * dimensions).
 	 * @param int $width
 	 * @param int $height
@@ -615,7 +615,7 @@ class GalleryUtilities {
 			$charArray       = $reg[0];
 			$charArrayLength = count($charArray);
 
-			// if $length < 0, then it's really the end index
+			// if $length < 0, then it is really the end index
 			$cookedStart  = ($start < 0) ? $charArrayLength                 + $start : $start;
 			$cookedLength = ($length < 0) ? $charArrayLength - $cookedStart + $length : $length;
 
@@ -637,7 +637,7 @@ class GalleryUtilities {
 				}
 
 				if ($actualLength + $size > $cookedLength) {
-					// We're done
+					// We are done
 					break;
 				}
 
@@ -879,7 +879,7 @@ class GalleryUtilities {
 	}
 
 	/**
-	 * Equivalent to html_entity_decode() for PHP < 4.3.0 which doesn't have it.
+	 * Equivalent to html_entity_decode() for PHP < 4.3.0 which does not have it.
 	 * @param string $string with html entities
 	 * @return same string without them
 	 * @deprecated
@@ -1048,7 +1048,7 @@ class GalleryUtilities {
 			}
 
 			/*
-			 * Make sure the compare directory has a trailing slash so that /tmp doesn't
+			 * Make sure the compare directory has a trailing slash so that /tmp does not
 			 * accidentally match /tmpfoo
 			 */
 			if ($element[strlen($element) - 1] != $slash) {
@@ -1184,7 +1184,7 @@ class GalleryUtilities {
 		}
 
 		/*
-		 * Prune parents that don't exist.  This can occur if we have multiple roots (unusual) or an
+		 * Prune parents that do not exist.  This can occur if we have multiple roots (unusual) or an
 		 * album in the middle of the hierarchy that is not viewable.
 		 */
 		foreach ($map as $id => $info) {
@@ -1237,17 +1237,17 @@ class GalleryUtilities {
 	}
 
 	/**
-	 * Return approximate filename of given GalleryEntity, or 'unknown' if we can't figure it out.
+	 * Return approximate filename of given GalleryEntity, or 'unknown' if we cannot figure it out.
 	 * @param GalleryEntity $entity
 	 * @return array GalleryStatus a status code
 	 *               string pseudoFileName a filename
 	 */
 	public static function getPseudoFileName($entity) {
 		/*
-		 * If our GalleryEntity is a GalleryFileSystemEntity, then we've got a path component so
-		 * we're cool.  If it's a derivative, then get the pseudo filename of its parent and use
+		 * If our GalleryEntity is a GalleryFileSystemEntity, then we have got a path component so
+		 * we are cool.  If it is a derivative, then get the pseudo filename of its parent and use
 		 * that instead (but make sure the extension matches derivative, as parent mime type may
-		 * differ).  If it's neither, then return 'unknown' for now.
+		 * differ).  If it is neither, then return 'unknown' for now.
 		 */
 		if (GalleryUtilities::isA($entity, 'GalleryFileSystemEntity')) {
 			$pseudoFileName = $entity->getPathComponent();
@@ -1431,7 +1431,7 @@ class GalleryUtilities {
 	/**
 	 * Verify that the API provided is compatible with the API that we require.
 	 *
-	 * We're only compatible if the major numbers are the same, and the required minor number is
+	 * We are only compatible if the major numbers are the same, and the required minor number is
 	 * less than or equal to the provided minor number.
 	 *
 	 * @param array $required (major, minor)
@@ -1505,7 +1505,7 @@ class GalleryUtilities {
 
 	/**
 	 * Return id of the search engine currently crawling the site by analyzing the current request.
-	 * @return string the crawler id, or null if it's a regular user
+	 * @return string the crawler id, or null if it is a regular user
 	 */
 	public static function identifySearchEngine() {
 		if (!isset($_SERVER['HTTP_USER_AGENT'])) {
@@ -1596,27 +1596,27 @@ class GalleryUtilities {
 	/**
 	 * Fix the superglobal $_COOKIE to conform with RFC 2965
 	 *
-	 * We don't use $_COOKIE[$cookiename] because it doesn't conform to RFC 2965 (the cookie
-	 * standard), ie. in $_COOKIE, we don't get the cookie with the most specific path for a given
+	 * We do not use $_COOKIE[$cookiename] because it does not conform to RFC 2965 (the cookie
+	 * standard), ie. in $_COOKIE, we do not get the cookie with the most specific path for a given
 	 * cookie name, we get the cookie with the least specific cookie path.  This function does it
 	 * exactly the other way around, to a) fix our cookie/login problems and to b) conform with the
 	 * RFC.  The PHP bug was already fixed in spring 2005, but we will have to deal with broken PHP
 	 * versions for a long time.
 	 * @see http://bugs.php.net/bug.php?id=32802
 	 *
-	 * Fixes also another PHP cookie bug.  PHP doesn't expect the cookie header to have
+	 * Fixes also another PHP cookie bug.  PHP does not expect the cookie header to have
 	 * quoted-strings, but they are perfectly legal according to RFC 2965.
 	 *
 	 * The third bug fixed here is an MS Internet Explorer (IE) bug.  When using default cookie
-	 * domains (no leading dot, don't set the domain in set-cookie), IE is supposed to return only
+	 * domains (no leading dot, do not set the domain in set-cookie), IE is supposed to return only
 	 * cookies that have the exact request-host as their domain.  Example:
 	 * Cookies stored in the browser with cookie domains: .example.com, .www.example.com,
 	 *          example.com, www.example.com
 	 *          The request-host is www.example.com. Thus, IE should return all those cookies but
-	 *          the example.com cookie, because it's a default domain cookie and it doesn't match
+	 *          the example.com cookie, because it is a default domain cookie and it does not match
 	 *          exactly the request-host. But IE returns the example.com cookie too.
 	 * As MS decided that it returns the cookie with the best domain-match first (unspecified in RFC
-	 * 2965), this wouldn't be a problem if PHP didn't select the last cookie in the HTTP_COOKIE
+	 * 2965), this would not be a problem if PHP did not select the last cookie in the HTTP_COOKIE
 	 * header.  But with fixCookieVars(), this case is also fixed.
 	 *
 	 * This function reevaluates the HTTP Cookie header and populates $_COOKIE with the correct
@@ -1635,7 +1635,7 @@ class GalleryUtilities {
 			if (isset($_SERVER['HTTP_COOKIE']) && !empty($_SERVER['HTTP_COOKIE'])) {
 				/*
 				 * Array to keep track of fixed cookies to not make the same mistake as PHP, ie.
-				 * don't assign values to cookies that were already fixed/set before
+				 * do not assign values to cookies that were already fixed/set before
 				 */
 				$fixedCookies = array();
 
@@ -1655,7 +1655,7 @@ class GalleryUtilities {
 					}
 				} else {
 					/*
-					 * We can't just tokenize the Cookie header string because there are
+					 * We cannot just tokenize the Cookie header string because there are
 					 * quoted-strings and delimiters in quoted-string should be handled as values
 					 * and not as delimiters.  Thus, we have to parse it character by character.
 					 */
@@ -1730,11 +1730,11 @@ class GalleryUtilities {
 	 * Register a cookie variable safely.
 	 *
 	 * Creates an entry in $_COOKIE for $attr, which is a name=value pair.  We try to mimic the PHP
-	 * source code here: make the entry binary safe, don't register non-NAME attributes (eg. cookie
+	 * source code here: make the entry binary safe, do not register non-NAME attributes (eg. cookie
 	 * version, ...)
 	 *
-	 * The one thing we don't do here is treat array cookies correctly because it would but too
-	 * involving.  But we gracefully just don't replace these array cookies in $_COOKIE, so if they
+	 * The one thing we do not do here is treat array cookies correctly because it would but too
+	 * involving.  But we gracefully just do not replace these array cookies in $_COOKIE, so if they
 	 * are used somewhere, they will be left intact by fixCookieVars().
 	 *
 	 * @param string $attr the cookie var attr, NAME [=VALUE]
@@ -1756,12 +1756,12 @@ class GalleryUtilities {
 		// Urldecode header data (php-style of name = attr handling)
 		$key = trim(urldecode($key));
 
-		// Don't accept zero length key
+		// Do not accept zero length key
 		if (($len = strlen($key)) == 0) {
 			return null;
 		}
 
-		// Don't fix cookies with '[', ']' or any array-cookies (for simplicity)
+		// Do not fix cookies with '[', ']' or any array-cookies (for simplicity)
 		$pos = strchr($key, '[');
 
 		if (strchr($key, '[') !== false || strchr($key, ']') !== false) {
@@ -1776,7 +1776,7 @@ class GalleryUtilities {
 		}
 
 		/*
-		 * Don't register non-NAME attributes like domain, path, ... which are all starting with a
+		 * Do not register non-NAME attributes like domain, path, ... which are all starting with a
 		 * dollar sign according to RFC 2965
 		 */
 		if (strpos($key, '$') === 0) {
@@ -1801,7 +1801,7 @@ class GalleryUtilities {
 	}
 
 	/**
-	 * ASCII version of PHP's strtolower().  PHP's strtolower doesn't work in all locales as
+	 * ASCII version of PHP's strtolower().  PHP's strtolower does not work in all locales as
 	 * expected, eg. in Turkish, we get non-ASCII characters for an ASCII input string.
 	 * @param string $string
 	 * @return string lowercase version of the string

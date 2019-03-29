@@ -52,7 +52,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		$error     = array();
 		$operation = null;
 
-		// Figure out which command we're taking
+		// Figure out which command we are taking
 		if (isset($form['action']['resize'])) {
 			if (empty($form['resize']['width']) || empty($form['resize']['height'])) {
 				$error[] = 'form[error][resize][size][missing]';

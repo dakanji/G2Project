@@ -118,7 +118,7 @@ class GalleryDerivative extends GalleryChildEntity {
 	/**
 	 * More operations that are applied at the very end of the derivative operations, and are
 	 * not carried down to derivatives that depend on this one.  Useful for operations like
-	 * watermarking that change the derivative in a way that we don't want to propagate.
+	 * watermarking that change the derivative in a way that we do not want to propagate.
 	 * Can be empty, because the derivative can have only a regular derivative operations.
 	 * @var string
 	 *
@@ -158,7 +158,7 @@ class GalleryDerivative extends GalleryChildEntity {
 
 	/**
 	 * Data items that can be viewed inline (photos, movies, etc) should return true.  Items that
-	 * can't be viewed inline (word documents, text, etc) should return false.
+	 * cannot be viewed inline (word documents, text, etc) should return false.
 	 *
 	 * Classes that return true for this query must implement getWidth() and getHeight()
 	 *
@@ -190,11 +190,11 @@ class GalleryDerivative extends GalleryChildEntity {
 
 				/*
 				 * Deletes can cascade in interesting ways.  For example, deleting a derivative
-				 * will get rid of any other derivatives that are sourced to it, so it's possible
+				 * will get rid of any other derivatives that are sourced to it, so it is possible
 				 * that deleting children here can lead to a MISSING_OBJECT result unless we re-run
 				 * the parent/child query each time.  Easier to just ignore the MISSING_OBJECT
-				 * error since we only care that it's gone.
-				 * Note that we get a MISSING_OBJECT error as well if the requested entity isn't an
+				 * error since we only care that it is gone.
+				 * Note that we get a MISSING_OBJECT error as well if the requested entity is not an
 				 * entity of type GalleryDerivative.
 				 */
 				if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
@@ -210,7 +210,7 @@ class GalleryDerivative extends GalleryChildEntity {
 			return $ret;
 		}
 
-		// Expire our cache, and don't abort if this fails
+		// Expire our cache, and do not abort if this fails
 		$ret = $this->expireCache();
 
 		return null;
@@ -341,7 +341,7 @@ class GalleryDerivative extends GalleryChildEntity {
 			}
 
 			/*
-			 * It's important to remember that the derivative is broken and save wouldn't be
+			 * It is important to remember that the derivative is broken and save would not be
 			 * called if we sent an error as a return value
 			 */
 			$ret = $this->save(false);
@@ -441,7 +441,7 @@ class GalleryDerivative extends GalleryChildEntity {
 			$context['height'] = $source->getHeight();
 
 			if ($context['width'] == 0 && $context['height'] == 0) {
-				// Don't put unknown size into context
+				// Do not put unknown size into context
 				$context = array();
 			}
 		}
@@ -577,11 +577,11 @@ class GalleryDerivative extends GalleryChildEntity {
 		if (GalleryUtilities::isA($source, 'GalleryDerivative')) {
 			/*
 			 * In order to build our derivative, we need to complete set of
-			 * commands from the original source file.  We can't rely on
+			 * commands from the original source file.  We cannot rely on
 			 * intervening files for two reasons:
 			 *  1.  Larger derivatives sourced on derivatives would lead to upsampling
 			 *  2.  The source derivative's cached data file may have postfilters applied, which we
-			 *      don't want for our derivative
+			 *      do not want for our derivative
 			 *
 			 * So seek backwards to the source file, then merge and apply all
 			 * the derivative operations from the intervening parents to
@@ -600,7 +600,7 @@ class GalleryDerivative extends GalleryChildEntity {
 				}
 
 				if (!GalleryUtilities::isA($tmp, 'GalleryDerivative')) {
-					// We've found our true source
+					// We have found our true source
 					$source = $tmp;
 
 					break;
@@ -611,7 +611,7 @@ class GalleryDerivative extends GalleryChildEntity {
 
 			/*
 			 * If we have a preferred at the head of the chain, and that preferred has no
-			 * postfilter operations then use that as the source.  We won't run any risk of
+			 * postfilter operations then use that as the source.  We would not run any risk of
 			 * upsampling, and it is as good a source as the original (better in fact, since we
 			 * skip at least one operation).
 			 */

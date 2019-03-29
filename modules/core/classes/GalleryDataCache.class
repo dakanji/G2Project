@@ -21,7 +21,7 @@
  * Utility class for caching data
  *
  * Very useful in the case where retrieving or building data sets is expensive, and the data
- * doesn't change during the lifetime of the request.  This class serves as a hash table where
+ * does not change during the lifetime of the request.  This class serves as a hash table where
  * any data class can store and retrieve cached data.
  *
  * @package GalleryCore
@@ -57,7 +57,7 @@ class GalleryDataCache {
 
 	/**
 	 * Is in-memory caching enabled?
-	 * @return boolean true if it's enabled
+	 * @return boolean true if it is enabled
 	 */
 	public static function isMemoryCachingEnabled() {
 		$cache =& GalleryDataCache::_getCache();
@@ -161,7 +161,7 @@ class GalleryDataCache {
 	}
 
 	/**
-	 * Perform some pruning of our cache to prevent it from growing too large when we're doing
+	 * Perform some pruning of our cache to prevent it from growing too large when we are doing
 	 * exceptionally long operations like adding many items in one request.
 	 *
 	 * @access private
@@ -564,7 +564,7 @@ class GalleryDataCache {
 		$session =& $gallery->getSession();
 
 		if (!isset($session)) {
-			// No session means we've got no cache
+			// No session means we have got no cache
 			return;
 		}
 
@@ -576,7 +576,7 @@ class GalleryDataCache {
 
 		/*
 		 * We want to put all the permissions that we cache in this request into one entry in
-		 * the session.  However we're going to get several separate requests.  So start by
+		 * the session.  However we are going to get several separate requests.  So start by
 		 * pruning down the total number of cached permission sets, then create a new set
 		 * and add all cached values to that.
 		 */
@@ -622,8 +622,8 @@ class GalleryDataCache {
 
 	/**
 	 * Look up the given permission in the cache.  Return true if the permission
-	 * exists in the cache, false if it doesn't.  A return of false doesn't mean
-	 * that the user doesn't have the permission -- just that it's not in the
+	 * exists in the cache, false if it does not.  A return of false does not mean
+	 * that the user does not have the permission -- just that it is not in the
 	 * cache.
 	 *
 	 * @param int $id the item id
@@ -830,8 +830,8 @@ class GalleryDataCache {
 					/*
 					 * Nearly always this update/insert should be OK in one pass.
 					 * However, 2 simultaneous requests may both fail to update, then both
-					 * try to insert.. the 2nd insert will fail.  In this rare case we'll
-					 * loop and try once more to update.. if it still fails we'll error out.
+					 * try to insert.. the 2nd insert will fail.  In this rare case we will
+					 * loop and try once more to update.. if it still fails we will error out.
 					 */
 					if ($i < 1) {
 						continue;
@@ -880,8 +880,8 @@ class GalleryDataCache {
 	}
 
 	/**
-	 * Should we use the cache for this page or not?  Right now we cache a page if it's a GET
-	 * request, the browser hasn't specified that it wants uncached data, and the caching policy
+	 * Should we use the cache for this page or not?  Right now we cache a page if it is a GET
+	 * request, the browser has not specified that it wants uncached data, and the caching policy
 	 * for the given user class is appropriate.
 	 *
 	 * @param string $action
@@ -908,7 +908,7 @@ class GalleryDataCache {
 		}
 
 		/*
-		 * Don't cache guest preview pages since we want a realtime preview
+		 * Do not cache guest preview pages since we want a realtime preview
 		 * and they are infrequently visited
 		 */
 		$session =& $gallery->getSession();

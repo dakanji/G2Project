@@ -147,8 +147,8 @@ class Mail_mime {
 
 	/**
 	 * Accessor function to set the body text. Body text is used if
-	 * it's not an html mail being sent or else is used to fill the
-	 * text/plain part that emails clients who don't support
+	 * it is not an html mail being sent or else is used to fill the
+	 * text/plain part that emails clients who do not support
 	 * html should show.
 	 *
 	 * @param  string  $data   Either a string or
@@ -291,7 +291,7 @@ class Mail_mime {
 
 		if (empty($filename)) {
 			$err = null; /*PEAR::raiseError(
-			  "The supplied filename for the attachment can't be empty"
+			  "The supplied filename for the attachment cannot be empty"
 			);*/
 			return $err;
 		}
@@ -890,7 +890,7 @@ class Mail_mime {
 						//Generate the header using the specified params and dynamicly
 						//determine the maximum length of such strings.
 						//75 is the value specified in the RFC. The -2 is there so
-						//the later regexp doesn't break any of the translated chars.
+						//the later regexp does not break any of the translated chars.
 						$prefix           = '=?' . $this->_build_params['head_charset'] . '?B?';
 						$suffix           = '?=';
 						$maxLength        = 75         - strlen($prefix . $suffix)         - 2;
@@ -912,7 +912,7 @@ class Mail_mime {
 						//Generate the header using the specified params and dynamicly
 						//determine the maximum length of such strings.
 						//75 is the value specified in the RFC. The -2 is there so
-						//the later regexp doesn't break any of the translated chars.
+						//the later regexp does not break any of the translated chars.
 						$prefix           = '=?' . $this->_build_params['head_charset'] . '?Q?';
 						$suffix           = '?=';
 						$maxLength        = 75         - strlen($prefix . $suffix)         - 2;

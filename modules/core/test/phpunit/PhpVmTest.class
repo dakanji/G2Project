@@ -45,7 +45,7 @@ class PhpVmTest extends GalleryTestCase {
 		$this->assertEquals(
 			md5('foobar'),
 			$this->_phpVm->md5('foobar'),
-			'PhpVm MD5 output doesn\'t match PHP output'
+			'PhpVm MD5 output does not match PHP output'
 		);
 	}
 
@@ -53,7 +53,7 @@ class PhpVmTest extends GalleryTestCase {
 		$this->assertEquals(
 			function_exists('testFunctionExists'),
 			$this->_phpVm->function_exists('testFunctionExists'),
-			'PhpVm function_exists output doesn\'t match PHP output'
+			'PhpVm function_exists output does not match PHP output'
 		);
 	}
 
@@ -61,7 +61,7 @@ class PhpVmTest extends GalleryTestCase {
 		$this->assertEquals(
 			extension_loaded('test'),
 			$this->_phpVm->extension_loaded('test'),
-			'PhpVm extension_loaded output doesn\'t match PHP output'
+			'PhpVm extension_loaded output does not match PHP output'
 		);
 	}
 
@@ -114,7 +114,7 @@ class PhpVmTest extends GalleryTestCase {
 			)
 		);
 
-		// For guests, we don't send cookies, thus prepare an existing session
+		// For guests, we do not send cookies, thus prepare an existing session
 		GalleryCoreApi::requireOnce('modules/core/classes/GallerySession.class');
 
 		$session = new GallerySession();
@@ -190,7 +190,7 @@ class PhpVmTest extends GalleryTestCase {
 		$phpVm->header('X-Foo: foo' . urlencode($crLf) . 'bar');
 	}
 
-	// This setting can't be changed during runtime
+	// This setting cannot be changed during runtime
 	public function testGetMagicQuotesGpc() {
 		$this->assertEquals(
 			get_magic_quotes_gpc(),

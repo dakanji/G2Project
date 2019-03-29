@@ -134,7 +134,7 @@ class GalleryPhotoItem extends GalleryDataItem {
 			return $ret;
 		}
 
-		// We're linkable
+		// We are linkable
 		$this->setIsLinkable(true);
 
 		// Default to empty dimensions
@@ -215,7 +215,7 @@ class GalleryPhotoItem extends GalleryDataItem {
 
 			if ($ret) {
 				/*
-				 * If we can't get the dimensions, it may be a bad image
+				 * If we cannot get the dimensions, it may be a bad image
 				 * Or our graphics code is broken.  Hard to tell which at this point.
 				 */
 				$ret->addErrorCode(ERROR_BAD_DATA_TYPE);

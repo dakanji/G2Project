@@ -120,7 +120,7 @@ class RepositoryDescriptor extends RepositoryObject {
 			foreach ($countries as $country => $description) {
 				$languageCode = $language . '_' . $country;
 
-				// We've already got the en_US strings.
+				// We have already got the en_US strings.
 				if ($languageCode == 'en_US') {
 					continue;
 				}
@@ -150,7 +150,7 @@ class RepositoryDescriptor extends RepositoryObject {
 		// Get file meta data.
 		$platform =& $gallery->getPlatform();
 
-		// Don't force the _pluginDir, so that tests can override it
+		// Do not force the _pluginDir, so that tests can override it
 		if (!isset($this->_pluginDir)) {
 			$this->_pluginDir = $platform->realpath(
 				sprintf(
@@ -167,7 +167,7 @@ class RepositoryDescriptor extends RepositoryObject {
 		}
 
 		if (!$platform->file_exists($this->_pluginDir . 'MANIFEST')) {
-			// Don't do anything.  Integrity check will fail on this
+			// Do not do anything.  Integrity check will fail on this
 			$this->_data = array();
 
 			return null;
@@ -381,7 +381,7 @@ class RepositoryDescriptor extends RepositoryObject {
 
 	/**
 	 * Check all the files in this descriptor against the MANIFEST to make sure that
-	 * they're up to date.  Return an empty array if there are no errors.
+	 * they are up to date.  Return an empty array if there are no errors.
 	 * @return array (error, error, error)
 	 */
 	public function checkIntegrity() {

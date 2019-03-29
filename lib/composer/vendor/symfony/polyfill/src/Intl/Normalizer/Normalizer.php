@@ -52,7 +52,7 @@ class Normalizer
             return true;
         }
 
-        // Pretend false as quick checks implementented in PHP won't be so quick
+        // Pretend false as quick checks implementented in PHP would not be so quick
         return false;
     }
 

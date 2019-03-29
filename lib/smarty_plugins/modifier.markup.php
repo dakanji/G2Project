@@ -51,7 +51,7 @@ function smarty_modifier_markup($text) {
 			);
 
 			if ($ret) {
-				// This code is used by the UI -- we can't return an error. Choose something safe
+				// This code is used by the UI -- we cannot return an error. Choose something safe
 				$defaultMarkupType = 'none';
 			}
 

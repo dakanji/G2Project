@@ -217,7 +217,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 		// Initialize the viewedSince timestamp
 		$this->setViewedSinceTimestamp(time());
 
-		// By default, items can't contain children
+		// By default, items cannot contain children
 		$this->setCanContainChildren($canContainChildren);
 
 		// Origination timestamp defaults to now
@@ -288,7 +288,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 		// Initialize the viewedSince timestamp
 		$this->setViewedSinceTimestamp(time());
 
-		// By default, items can't contain children
+		// By default, items cannot contain children
 		$this->setCanContainChildren(false);
 
 		// Copy over anything else from the target entity
@@ -334,10 +334,10 @@ class GalleryItem extends GalleryFileSystemEntity {
 
 			/*
 			 * Deletes can cascade in interesting ways.  For example, deleting a derivative will
-			 * get rid of any other derivatives that are sourced to it, so it's possible that
+			 * get rid of any other derivatives that are sourced to it, so it is possible that
 			 * deleting children here can lead to a MISSING_OBJECT result unless we re-run the
 			 * parent/child query each time.  Easier to just ignore the MISSING_OBJECT error
-			 * since we only care that it's gone.
+			 * since we only care that it is gone.
 			 */
 			if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 				return $ret;

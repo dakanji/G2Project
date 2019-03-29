@@ -740,7 +740,7 @@ function _adodb_pageexecute_no_last_page(&$zthis, $sql, $nrows, $page, $inputarr
 		// Remove the last row from the RS.
 		$rsreturn->_numOfRows = ($rsreturn->_numOfRows - 1);
 	} elseif ($rsreturn->_numOfRows == 0 && $page > 1) {
-		// Likely requested a page that doesn't exist, so need to find the last
+		// Likely requested a page that does not exist, so need to find the last
 		// page and return it. Revert to original method and loop through pages
 		// until we find some data...
 		$pagecounter       = $page + 1;
@@ -1016,7 +1016,7 @@ function _adodb_getinsertsql(&$zthis, &$rs, $arrFields, $magicq = false, $force 
 
 		//we need an object for the recordSet
 		//because we have to call MetaType.
-		//php can't do a $rsclass::MetaType()
+		//php cannot do a $rsclass::MetaType()
 		$rsclass               = $zthis->rsPrefix . $zthis->databaseType;
 		$recordSet             = new $rsclass(-1, $zthis->fetchMode);
 		$recordSet->connection = $zthis;

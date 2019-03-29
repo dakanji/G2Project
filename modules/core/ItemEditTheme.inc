@@ -220,7 +220,7 @@ class ItemEditTheme extends ItemEditPlugin {
 
 			if ($ret) {
 				if ($ret->getErrorCode() & (ERROR_BAD_PARAMETER | ERROR_PLUGIN_VERSION_MISMATCH)) {
-					// Ignore incompatible themes (but don't list them either)
+					// Ignore incompatible themes (but do not list them either)
 					continue;
 				}
 

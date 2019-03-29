@@ -176,7 +176,7 @@
   <h3> {g->text text="Thumbnail"} </h3>
 
   <p class="giDescription">
-    {g->text text="Set the size of the thumbnail.  The largest side of the thumbnail will be no larger than this value. Leave this field blank if you don't want a thumbnail."}
+    {g->text text="Set the size of the thumbnail.  The largest side of the thumbnail will be no larger than this value. Leave this field blank if you do not want a thumbnail."}
   </p>
 
   {if $ItemEditItem.can.createThumbnail}

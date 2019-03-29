@@ -41,7 +41,7 @@
     <?php if ($templateData['renderType'] == 'password') {
 		?>
       <p>
-	<?php echo _("In order to proceed with the upgrade process, we have to verify that you are who you claim.  When you performed the install, you entered a password which went into your config.php.  Type that in now.  Refer to your config.php if you've forgotten what you entered."); ?>
+	<?php echo _("In order to proceed with the upgrade process, we have to verify that you are who you claim.  When you performed the install, you entered a password which went into your config.php.  Type that in now.  Refer to your config.php if you have forgotten what you entered."); ?>
       </p>
       <table>
 	<tr>
@@ -66,7 +66,7 @@
       </p>
       <p>
         <?php printf(
-						_('In order to proceed with the upgrade process, we have to verify that you are who you claim.  The best way to be sure is to ask you to make a tiny change in the Gallery directory which will prove that you have the right permissions.  So, we\'re going to ask that you create a new text file called %s in the %s directory on your webserver (that\'s the same directory where %s is located). It must contain the following randomly generated characters:'),
+						_('In order to proceed with the upgrade process, we have to verify that you are who you claim.  The best way to be sure is to ask you to make a tiny change in the Gallery directory which will prove that you have the right permissions.  So, we are going to ask that you create a new text file called %s in the %s directory on your webserver (that\'s the same directory where %s is located). It must contain the following randomly generated characters:'),
 					 '<strong>authFile.txt</strong>',
 					 '<tt>' . dirname($templateData['authFile']) . '</tt>',
 					 'main.php'
@@ -75,7 +75,7 @@
       <p class="bold"><?php echo $templateData['authKey']; ?></p>
 
       <p>
-        <?php echo _("Once you've uploaded the file, click below to continue."); ?>
+        <?php echo _("Once you have uploaded the file, click below to continue."); ?>
       </p>
       <?php
 	} ?>

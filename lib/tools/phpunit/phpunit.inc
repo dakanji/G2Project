@@ -872,7 +872,7 @@ class TestCase extends Assert {
 
 			// If we just removed PHPUnit_error_handler then previous state is restored.
 			// If all error handlers are gone then test must have called restore_error_handler
-			// (preferably they don't do that).
+			// (preferably they do not do that).
 			if ($old_handler == 'PHPUnit_error_handler' || empty($old_handler)) {
 				break;
 			}

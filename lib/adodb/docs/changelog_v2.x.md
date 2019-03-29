@@ -40,7 +40,7 @@ $conn->Connect($dsn);
 - Added CreateSequence and DropSequence functions
 - Found misplaced MoveNext() in adodb-postgres.inc.php. Fixed.
 - Sybase SelectLimit not reliable because 'set rowcount' not cached - fixed.
-- Moved ADOConnection to adodb-connection.inc.php and ADORecordSet to adodb-recordset.inc.php. This allows us to use doxygen to generate documentation. Doxygen doesn't like the classes in the main adodb.inc.php file for some mysterious reason.
+- Moved ADOConnection to adodb-connection.inc.php and ADORecordSet to adodb-recordset.inc.php. This allows us to use doxygen to generate documentation. Doxygen does not like the classes in the main adodb.inc.php file for some mysterious reason.
 
 ## 2.50 - 14 Nov 2002
 
@@ -114,7 +114,7 @@ $conn->Connect($dsn);
 - Informix SelectLimit() problem with $ADODB_COUNTRECS fixed.
 - Fixed informix SELECT FIRST x DISTINCT, and not SELECT DISTINCT FIRST x - reported by F Riosa
 - Now default adodb error handlers ignores error if @ used.
-- If you set $conn->autoRollback=true, we auto-rollback persistent connections for odbc, mysql, oci8, mssql. Default for autoRollback is false. No need to do so for postgres. As interbase requires a transaction id (what a flawed api), we don't do it for interbase.
+- If you set $conn->autoRollback=true, we auto-rollback persistent connections for odbc, mysql, oci8, mssql. Default for autoRollback is false. No need to do so for postgres. As interbase requires a transaction id (what a flawed api), we do not do it for interbase.
 - Changed PageExecute() to use non-greedy preg_match when searching for "FROM" keyword.
 
 ## 2.20 - 9 July 2002
@@ -149,7 +149,7 @@ $conn->Connect($dsn);
 
 ## 2.11 - 7 June 2002
 
-- Fixed PageExecute() rewrite sql problem - COUNT(*) and ORDER BY don't go together with mssql, access and postgres. Thx to Alexander Zhukov alex#unipack.ru
+- Fixed PageExecute() rewrite sql problem - COUNT(*) and ORDER BY do not go together with mssql, access and postgres. Thx to Alexander Zhukov alex#unipack.ru
 - DB2 support for CHARACTER type added - thx John Huong huongch#bigfoot.com
 - For ado, $argProvider not properly checked. Fixed - kalimero#ngi.it
 - Added $conn->Replace() function for update with automatic insert if the record does not exist. Supported by all databases except interbase.
@@ -196,7 +196,7 @@ $conn->Connect($dsn);
 - Changed some regular expressions to be anchored by /^ $/ for speed.
 - Added UnixTimeStamp() and UnixDate() to ADOConnection(). Now these functions are in both ADOConnection and ADORecordSet classes.
 - Empty recordsets were not cached - fixed.
-- Thanks to Gaetano Giunta (g.giunta#libero.it) for the oci8 code review. We didn't agree on everything, but i hoped we agreed to disagree!
+- Thanks to Gaetano Giunta (g.giunta#libero.it) for the oci8 code review. We did not agree on everything, but i hoped we agreed to disagree!
 
 ## 1.90 - 6 April 2002
 
@@ -234,11 +234,11 @@ $conn->Connect($dsn);
 - MetaDatabases() for postgres contributed by Phil pamelant#nerim.net
 - Mitchell T. Young (mitch#youngfamily.org) contributed informix driver.
 - Fixed rs2html() problem. I cannot reproduce, so probably a problem with pre PHP 4.1.0 versions, when supporting new ADODB_FETCH_MODEs.
-- Mattia Rossi (mattia#technologist.com) contributed BlobDecode() and UpdateBlobFile() for postgresql using the postgres specific pg_lo_import()/pg_lo_open() - i don't use them but hopefully others will find this useful. See [this posting](http://phplens.com/lens/lensforum/msgs.php?id=1262) for an example of usage.
+- Mattia Rossi (mattia#technologist.com) contributed BlobDecode() and UpdateBlobFile() for postgresql using the postgres specific pg_lo_import()/pg_lo_open() - i do not use them but hopefully others will find this useful. See [this posting](http://phplens.com/lens/lensforum/msgs.php?id=1262) for an example of usage.
 - Added UpdateBlobFile() for uploading files to a database.
 - Made UpdateBlob() compatible with oci8po driver.
 - Added noNullStrings support to oci8 driver. Oracle changes all ' ' strings to nulls, so you need to set strings to ' ' to prevent the nullifying of strings. $conn->noNullStrings = true; will do this for you automatically. This is useful when you define a char column as NOT NULL.
-- Fixed UnixTimeStamp() bug - wasn't setting minutes and seconds properly. Patch from Agusti Fita i Borrell agusti#anglatecnic.com.
+- Fixed UnixTimeStamp() bug - was not setting minutes and seconds properly. Patch from Agusti Fita i Borrell agusti#anglatecnic.com.
 - Toni Tunkkari added patch for sybase dates. Problem with spaces in day part of date fixed.
 
 ## 1.71 - 18 Jan 2002
@@ -284,12 +284,12 @@ $conn->Connect($dsn);
 - GenID now returns 0 if not available. Safer is that you should check $conn->hasGenID for availability.
 - M'soft ADO we now correctly close recordset in _close() peterd#telephonetics.co.uk
 - MSSQL now supports GenID(). It generates a 16-byte GUID from mssql newid() function.
-- Changed ereg_replace to preg_replace in SelectLimit. This is a fix for mssql. Ereg doesn't support t or n! Reported by marino Carlos xaplo#postnuke-espanol.org
+- Changed ereg_replace to preg_replace in SelectLimit. This is a fix for mssql. Ereg does not support t or n! Reported by marino Carlos xaplo#postnuke-espanol.org
 - Added $recordset->connection. This is the ADOConnection object for the recordset. Works with cached and normal recordsets. Surprisingly, this had no affect on performance!
 
 ## 1.54 - 15 Nov 2001
 
-- Fixed some more bugs in PageExecute(). I am getting sick of bug in this and will have to reconsider my QA here. The main issue is that I don't use PageExecute() and to check whether it is working requires a visual inspection of the html generated currently. It is possible to write a test script but it would be quite complicated :(
+- Fixed some more bugs in PageExecute(). I am getting sick of bug in this and will have to reconsider my QA here. The main issue is that I do not use PageExecute() and to check whether it is working requires a visual inspection of the html generated currently. It is possible to write a test script but it would be quite complicated :(
 - More speedups of SelectLimit() for DB2, Oci8, access, vfp, mssql.
 
 ## 1.53 - 7 Nov 2001
@@ -322,7 +322,7 @@ $conn->Connect($dsn);
 - PageExecute() now checks for empty $rs correctly, and the errors in the docs on this subject have been fixed.
 - odbc_error() does not return 6 digit error correctly at times. Implemented workaround.
 - Added ADORecordSet_empty class. This will speedup INSERTS/DELETES/UPDATES because the return object created is much smaller.
-- Added Prepare() to odbc, and oci8 (but doesn't work properly for oci8 still).
+- Added Prepare() to odbc, and oci8 (but does not work properly for oci8 still).
 - Made pgsql a synonym for postgre7, and changed SELECT LIMIT to use OFFSET for compat with postgres 7.2.
 - Revised adodb-cryptsession.php thanks to Ari.
 - Set resources to false on _close, to force freeing of resources.
@@ -359,7 +359,7 @@ $conn->Connect($dsn);
 - Paolo S. Asioli paolo.asioli#libero.it suggested GetRowAssoc().
 - Escape quotes for oracle wrongly set to '. Now '' is used.
 - Variable binding now works in ODBC also.
-- Jumped to version 1.20 because I don't like 13 :-)
+- Jumped to version 1.20 because I do not like 13 :-)
 
 ## 1.12 - 6 June 2001
 
@@ -398,7 +398,7 @@ $conn->Connect($dsn);
 ## 0.96 - 27 Mar 2001
 
 - ADOConnection Close() did not return a value correctly. Thanks to akul#otamedia.com.
-- When the horrible magic_quotes is enabled, back-slash () is changed to double-backslash (\). This doesn't make sense for Microsoft/Sybase databases. We fix this in qstr().
+- When the horrible magic_quotes is enabled, back-slash () is changed to double-backslash (\). This does not make sense for Microsoft/Sybase databases. We fix this in qstr().
 - Fixed Sybase date problem in UnixDate() thanks to Toni Tunkkari. Also fixed MSSQL problem in UnixDate() - thanks to milhouse31#hotmail.com.
 - MoveNext() moved to leaf classes for speed in MySQL/PostgreSQL. 10-15% speedup.
 - Added null handling in bindInputArray in Execute() -- Ron Baldwin suggestion.

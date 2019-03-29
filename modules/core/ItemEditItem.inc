@@ -49,7 +49,7 @@ class ItemEditItem extends ItemEditPlugin {
 
 		if (isset($form['action']['undo'])) {
 			/*
-			 * Take no action and we'll be redirected back to the same page which will
+			 * Take no action and we will be redirected back to the same page which will
 			 * reset the form.
 			 */
 		} elseif (isset($form['action']['save'])) {
@@ -251,7 +251,7 @@ class ItemEditItem extends ItemEditPlugin {
 				}
 
 				/*
-				 * It's possible to get a collision when we rename, so try that
+				 * It is possible to get a collision when we rename, so try that
 				 * first.  If there's no collision then make the rest of the changes.
 				 */
 				$originalPathComponent = $item->getPathComponent();
@@ -314,7 +314,7 @@ class ItemEditItem extends ItemEditPlugin {
 						) {
 							/*
 							 * Move the file back and hope that this succeeds
-							 * since we're already in an error state
+							 * since we are already in an error state
 							 */
 							$item->rename($originalPathComponent);
 						}

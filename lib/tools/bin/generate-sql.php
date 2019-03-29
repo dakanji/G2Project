@@ -98,7 +98,7 @@ class BaseGenerator {
 
 		/*
 		 * crc32 returns different results on 32-bit vs. 64-bit systems.  e.g. crc32('groupId')
-		 * returns -310277968 for 32-bit systems and 3984689328 on 64-bit systems. We don't
+		 * returns -310277968 for 32-bit systems and 3984689328 on 64-bit systems. We do not
 		 * completely understand the issue, but adding 2^32 for negative crc32 values
 		 * (32-bit overflows?!) seems to do the trick. And we eschew the 64-bit unsafe modulo
 		 * operation by using substr instead of % 100000.
@@ -417,7 +417,7 @@ class MySqlGenerator extends BaseGenerator {
 					/*
 					 * In MySQL, it would be UNIQUE [INDEX] so INDEX is optional, since UNIQUE is
 					 * often called a KEY and we use <key> in our XML for UNIQUE, we just use UNIQUE
-					 * without INDEX here. Don't add an index name, see our REMOVE code.
+					 * without INDEX here. Do not add an index name, see our REMOVE code.
 					 */
 					$output .= ' UNIQUE (';
 				}
@@ -567,7 +567,7 @@ class PostgresGenerator extends BaseGenerator {
 						case 'COLUMN':
 							/* Add a new column, optionally with a default value and a not null constraint
 							 * In PG7, we can not set the default value in the add column statement
-							 * (PG8 doesn't have this limitation though). Therefore do it in 3 steps:
+							 * (PG8 does not have this limitation though). Therefore do it in 3 steps:
 							 * 1. Add the column without any options.
 							 * 2. Set the default value (only affects future rows) and add the default
 							 *    value for existing rows.
@@ -1065,8 +1065,8 @@ class OracleGenerator extends BaseGenerator {
  *  Notes regarding DB2 limitations on Table and Index names:
  *
  *  DB2 currently limits the length of table names to 30 characters, and index names to 18
- *  characters.  We don't have to worry about the 30 character table name problem because we force
- *  table names to be shorter than this in GalleryStorage (and it's very important that the table
+ *  characters.  We do not have to worry about the 30 character table name problem because we force
+ *  table names to be shorter than this in GalleryStorage (and it is very important that the table
  *  names we choose here match up with the ones that GalleryStorage expects).  However we have
  *  (and need) no such provision for indexes because this is the only place where we define index
  *  names.
@@ -1074,12 +1074,12 @@ class OracleGenerator extends BaseGenerator {
  *  The installer "database setup" step prefixes all tables and indexes with "gtst#" (5 chars).
  *  The installer default is "g2_" (3 chars).  So if we allow room for a 5 char prefix, that
  *  leaves us 13 characters for an 18-character index name.  Our index CRC values are another 5
- *  characters.  That leaves us 8 characters to use for a descriptive index name.  I don't know if
+ *  characters.  That leaves us 8 characters to use for a descriptive index name.  I do not know if
  *  DB2 index names are required to be unique in the database or just to the table so to avoid any
- *  risks we can't just use a prefix or suffix of the table name because it may overlap with
+ *  risks we cannot just use a prefix or suffix of the table name because it may overlap with
  *  another similar table name.
  *
- *  So for indexes we'll use the following format:
+ *  So for indexes we will use the following format:
  *    DB_TABLE_PREFIX + substr(table name, 0, 5) + substr(md5(table name), -2) + '_' + index crc
  *
  *  That works out to:
@@ -1112,7 +1112,7 @@ class Db2Generator extends BaseGenerator {
 	public function columnDefinition($child, $includeNotNull = true, $includeDefault = true) {
 		$output = parent::columnDefinition($child, $includeNotNull, false);
 
-		// DB2 -> Make sure DEFAULT expression doesn't have quotes for numeric
+		// DB2 -> Make sure DEFAULT expression does not have quotes for numeric
 		if ($includeDefault) {
 			$defaultValue = $this->getDefaultElement($child);
 
@@ -1385,7 +1385,7 @@ class Db2Generator extends BaseGenerator {
 					$output .= "CALL ADMIN_CMD ('REORG TABLE DB_TABLE_PREFIX" .
 					$parent['child'][0]['content'] . "');\n\n";
 
-					// DB2 can't rename columns
+					// DB2 cannot rename columns
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' ADD COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'];
 					$output .= ' ' . $this->columnDefinition($child[$i]['child'], false) . ";\n\n";
@@ -1676,7 +1676,7 @@ class MSSqlGenerator extends BaseGenerator {
 			case 'ALTER':
 				// column+
 				for ($i = 0; $i < count($child); $i++) {
-					// MSSQL can't add defaults when altering columns. Use a workaround.
+					// MSSQL cannot add defaults when altering columns. Use a workaround.
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' ADD DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . 'Temp';
 					$output .= ' ' . $this->columnDefinition($child[$i]['child'], false) . ";\n\n";
@@ -1688,7 +1688,7 @@ class MSSqlGenerator extends BaseGenerator {
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' DROP COLUMN DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'] . ";\n\n";
 
-					// MSSQL can't rename columns
+					// MSSQL cannot rename columns
 					$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'] .
 					' ADD DB_COLUMN_PREFIX' . $child[$i]['child'][0]['content'];
 					$output .= ' ' . $this->columnDefinition($child[$i]['child'], false) . ";\n\n";
@@ -1941,7 +1941,7 @@ class SQLiteGenerator extends BaseGenerator {
 						switch ($c['name']) {
 							case 'COLUMN-NAME':
 								/**
-								 * @todo Find a better way to handle DROP COLUMN. The below code doesn't
+								 * @todo Find a better way to handle DROP COLUMN. The below code does not
 								 * work in SQLite 3 and our adodb driver intercepts and handles it instead.
 								 */
 								$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $parent['child'][0]['content'];

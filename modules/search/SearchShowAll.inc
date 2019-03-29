@@ -74,7 +74,7 @@ class SearchShowAllView extends GalleryView {
 			if (empty($form['searchCriteria'])) {
 				$form['error']['searchCriteria']['missing'] = 1;
 			} else {
-				// If we click next/previous, make sure we don't change search criteria
+				// If we click next/previous, make sure we do not change search criteria
 				if (!empty($form['lastSearchCriteria'])
 					&& $form['lastSearchCriteria'] != $form['searchCriteria']
 					&& (isset($form['action']['nextPage'])

@@ -337,7 +337,7 @@ rs2html($rs2);
 - Added null check to UserTimeStamp().
 - Fixed typo in mysqlt driver in adorecordset. Thx to Andy Staudacher.
 - GenID() had a bug in the raiseErrorFn handling. Fixed. Thx Marcos Pont.
-- Datadict name quoting now handles ( ) in index fields correctly - they aren't part of the index field.
+- Datadict name quoting now handles ( ) in index fields correctly - they are not part of the index field.
 - Performance monitoring:
     1. oci8 Ixora checks moved down;
     2. expensive sql changed so that only those sql with count(*)>1 are shown;
@@ -390,7 +390,7 @@ fbird: X->VARCHAR(4000) XL->VARCHAR(32000)
 
 ## 4.60 - 24 Jan 2005
 
-- Implemented PEAR DB's autoExecute(). Simplified design because I don't like using constants when strings work fine.
+- Implemented PEAR DB's autoExecute(). Simplified design because I do not like using constants when strings work fine.
 - _rs2serialize will now update $rs->sql and $rs->oldProvider.
 - Added autoExecute().
 - Added support for postgres8 driver. Currently just remapped to postgres7 driver.
@@ -454,7 +454,7 @@ fbird: X->VARCHAR(4000) XL->VARCHAR(32000)
 ## 4.53 - 28 Sept 2004
 
 - FetchMode cached in recordset is sometimes mapped to native db fetchMode. Normally this does not matter, but when using cached recordsets, we need to switch back to using adodb fetchmode. So we cache this in $rs->adodbFetchMode if it differs from the db's fetchMode.
-- For informix we now set canSeek = false driver because stefan bodgan tells me that seeking doesn't work.
+- For informix we now set canSeek = false driver because stefan bodgan tells me that seeking does not work.
 - SetDateLocale() never worked till now ;-) Thx david#tomato.it
 - Set $_bindInputArray = true in sapdb driver. Required for clob support.
 - Fixed some PEAR::DB emulation issues with isError() and isWarning. Thx to Gert-Rainer Bitterlich.
@@ -566,7 +566,7 @@ echo "return = ".$rs."<br>";</pre>
   - if Param is OUT, uses load() after each execute. This is done automatically for you.
   - when we bind $var as LOB, we create new descriptor and return it as a Bind Result, so if we want to use OUT parameters, we have to store somewhere &$var to load() data from LOB to it.
   - IN OUT params are not working now (should not be a big problem to fix it)
-  - now mass binding not working too (I've wrote about it before)</pre>
+  - now mass binding not working too (I have wrote about it before)</pre>
 - Simplified Connect() and PConnect() error handling.
 - When extension not loaded, Connect() and PConnect() will return null. On connect error, the fns will return false.
 - CacheGetArray() added to code.
@@ -592,7 +592,7 @@ echo "return = ".$rs."<br>";</pre>
 - Suggested fix to adodb-ado.inc.php affected_rows to support PHP5 variants. Thx to Alexios Fakos.
 - Contributed bulgarian language file by Valentin Sheiretsky valio#valio.eu.org.
 - Contributed romanian language file by stefan bogdan.
-- GetInsertSQL now checks for table name (string) in $rs, and will create a recordset for that table automatically. Contributed by Walt Boring. Also added OCI_B_BLOB in bind on Walt's request - hope it doesn't break anything :-)
+- GetInsertSQL now checks for table name (string) in $rs, and will create a recordset for that table automatically. Contributed by Walt Boring. Also added OCI_B_BLOB in bind on Walt's request - hope it does not break anything :-)
 - Some minor postgres speedups in `_initrs()`.
 - ChangeTableSQL checks now if MetaColumns returns empty. Thx Jason Judge.
 - Added ADOConnection::Time(), returns current database time in unix timestamp format, or false.
@@ -663,7 +663,7 @@ echo "return = ".$rs."<br>";</pre>
 
 - Added MetaIndexes to data-dict code - thx to Dan Cech.
 - Rewritten session code by Ross Smith. Moved code to adodb/session directory.
-- Added function exists check on connecting to most drivers, so we don't crash with the unknown function error.
+- Added function exists check on connecting to most drivers, so we do not crash with the unknown function error.
 - Smart Transactions failed with GenID() when it no seq table has been created because the sql statement fails. Fix by Mark Newnham.
 - Added $db->length, which holds name of function that returns strlen.
 - Fixed error handling for bad driver in ADONewConnection - passed too few params to error-handler.

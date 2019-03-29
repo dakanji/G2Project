@@ -130,7 +130,7 @@ class SiteAdminView extends GalleryView {
 				 * be core.SiteAdmin).
 				 *
 				 * TODO: change the API to allow the module to return this form directly
-				 * so that we don't have to massage it like this.
+				 * so that we do not have to massage it like this.
 				 */
 				$currentSubView = GalleryUtilities::getRequestVariables('subView');
 
@@ -309,7 +309,7 @@ class SiteAdminView extends GalleryView {
 			return array($ret, null);
 		}
 
-		// Fallback if subView doesn't have a name
+		// Fallback if subView does not have a name
 		return array(null, $core->translate('site admin'));
 	}
 

@@ -96,9 +96,9 @@ if (!empty($_GET['run'])) {
 
 /**
  * Load up main.php so that tests that want _GalleryMain can get to it.  Do it now, though so that
- * we don't mangle the $gallery object during test runs.
+ * we do not mangle the $gallery object during test runs.
  *
- * @todo figure out a way to only do this if we're going to run a test that wants to exercise
+ * @todo figure out a way to only do this if we are going to run a test that wants to exercise
  *       _GalleryMain
  */
 ob_start();
@@ -233,7 +233,7 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 	$gallery->setUrlGenerator($urlGenerator);
 
 	/*
-	 * Commit our transaction here because we're going to have a new
+	 * Commit our transaction here because we are going to have a new
 	 * transaction for every test.
 	 */
 	$storage =& $gallery->getStorage();

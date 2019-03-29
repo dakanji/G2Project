@@ -244,7 +244,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 		}
 
 		/*
-		 * The source may be quite large.  However, it's the only input image that we can really
+		 * The source may be quite large.  However, it is the only input image that we can really
 		 * display at this point because the resized derivatives though they may be smaller, can
 		 * have different derivative commands from the source.
 		 */
@@ -264,7 +264,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 		$crop['height'] = round($crop['heightPercent'] * $source->getHeight() / 100);
 
 		/*
-		 * It's possible that the source was created before we had an appropriate image toolkit,
+		 * It is possible that the source was created before we had an appropriate image toolkit,
 		 * so its dimensions can be set to zero, which will cause us problems.  In that case,
 		 * try rescanning it.
 		 */

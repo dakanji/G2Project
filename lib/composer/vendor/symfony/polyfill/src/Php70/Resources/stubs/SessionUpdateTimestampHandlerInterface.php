@@ -11,7 +11,7 @@ interface SessionUpdateTimestampHandlerInterface
     public function validateId($key);
 
     /**
-     * Updates the timestamp of a session when its data didn't change.
+     * Updates the timestamp of a session when its data did not change.
      *
      * @param string $key
      * @param string $val

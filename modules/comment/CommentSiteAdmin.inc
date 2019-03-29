@@ -68,7 +68,7 @@ class CommentSiteAdminController extends GalleryController {
 			}
 
 			if (!empty($form['apiKey']) && $form['apiKey'] != $currentApiKey) {
-				// First validate locally (don't rely on remote server for input validation)
+				// First validate locally (do not rely on remote server for input validation)
 				if (!preg_match('/^[A-Za-z0-9]+$/', trim($form['apiKey']))) {
 					$error[] = 'form[error][apiKey][invalid]';
 				}
@@ -177,7 +177,7 @@ class CommentSiteAdminController extends GalleryController {
 
 		/*
 		 * Disable the Akismet GalleryEntity::save listener so that if Akismet reports a message
-		 * as spam and we change its publish status, we don't report it back to Akismet.
+		 * as spam and we change its publish status, we do not report it back to Akismet.
 		 */
 		GalleryCommentHelper::getMe()->setAkismetSaveListenerSwitch(false);
 

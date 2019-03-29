@@ -305,7 +305,7 @@ class AdminFfmpegView extends GalleryView {
 			return array($ret, null);
 		}
 
-		// Load our default values if we didn't just come from this form.
+		// Load our default values if we did not just come from this form.
 		if ($form['formName'] != 'AdminFfmpeg') {
 			foreach (array('path', 'useWatermark') as $key) {
 				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter(

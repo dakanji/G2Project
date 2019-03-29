@@ -114,7 +114,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		$results = $this->_runCallback();
 
-		// Guest can't see results
+		// Guest cannot see results
 		$this->assertEquals('', $results);
 	}
 
@@ -175,7 +175,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		$results = $this->_runCallback();
 
-		// Guest can't see results
+		// Guest cannot see results
 		$this->assertEquals('', $results);
 	}
 
@@ -216,7 +216,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	}
 
 	public function testLookupDirectoriesWithEntity() {
-		// Filesystem isn't entitized.. search for < should match literal <
+		// Filesystem is not entitized.. search for < should match literal <
 		global $gallery;
 
 		$platform = new SimpleCallbackTestPlatform();
@@ -241,7 +241,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	}
 
 	public function testLookupDirectoriesWithUmlauts() {
-		// Filesystem doesn't accept / return UTF-8 characters
+		// Filesystem does not accept / return UTF-8 characters
 		global $gallery;
 
 		$gallery->_phpVm = new SimpleCallbackTestPhpVm();
@@ -287,7 +287,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		$results = $this->_runCallback();
 
-		// Regular users can't see results
+		// Regular users cannot see results
 		$this->assertEquals('', $results);
 	}
 
@@ -299,7 +299,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		$results = $this->_runCallback();
 
-		// Guests can't see results
+		// Guests cannot see results
 		$this->assertEquals('', $results);
 	}
 
@@ -326,7 +326,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	}
 
 	public function testLookupFilesWithEntity() {
-		// Filesystem isn't entitized.. search for & should match literal &
+		// Filesystem is not entitized.. search for & should match literal &
 		global $gallery;
 
 		$platform = new SimpleCallbackTestPlatform();
@@ -355,7 +355,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	}
 
 	public function testLookupFilesWithUmlauts() {
-		// Filesystem doesn't accepts / return UTF-8 characters
+		// Filesystem does not accepts / return UTF-8 characters
 		global $gallery;
 
 		$gallery->_phpVm = new SimpleCallbackTestPhpVm();
@@ -405,7 +405,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		$results = $this->_runCallback();
 
-		// Regular users can't see results
+		// Regular users cannot see results
 		$this->assertEquals('', $results);
 	}
 
@@ -417,7 +417,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 		$results = $this->_runCallback();
 
-		// Guests can't see results
+		// Guests cannot see results
 		$this->assertEquals('', $results);
 	}
 }

@@ -19,7 +19,7 @@
 
 /**
  * A toolkit for manipulating files.
- * This class defines the API for file manipulation toolkits.  It's designed such that we can
+ * This class defines the API for file manipulation toolkits.  It is designed such that we can
  * create many different toolkits, each providing its own unique functions for manipulating files.
  * Some of these toolkits may be centered around a particular technology (eg, NetPBPM, ImageMagick,
  * Jhead, etc) while others may be focussed on a specific type of file (eg JPEG).
@@ -282,7 +282,7 @@ class GalleryToolkit {
 						if (GalleryUtilities::isA($source, 'GalleryDerivativeImage')) {
 							/*
 							 * If the source is also a derivative then assume the real source
-							 * is larger and allow upscaling in this estimate.  It's possible
+							 * is larger and allow upscaling in this estimate.  It is possible
 							 * the real source is actually smaller than our $target size, but
 							 * it will be corrected once the derivative is actually built.
 							 */

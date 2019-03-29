@@ -2,7 +2,7 @@ John,
 
 I have been an extremely satisfied ADODB user for several years now.
 
-To give you something back for all your hard work, I've spent the last 3
+To give you something back for all your hard work, I have spent the last 3
 days rewriting the adodb-session.php code.
 
 ----------
@@ -30,7 +30,7 @@ This will ease maintenance and support issues.
   BZip2
 
 These can be stacked, so if you want to compress and then encrypt your
-session data, it's easy.
+session data, it is easy.
 Also, the built-in MCrypt functions will be *much* faster, and more secure,
 than the MD5Crypt code.
 
@@ -79,7 +79,7 @@ correctly fix this problem, otherwise performance will suffer.
 the original code have been optimized to a single DELETE.
 
 * In ADODB_Session::destroy(), since "SELECT expireref, sesskey FROM $table
-WHERE sesskey = $qkey" will only return a single value, we don't loop on the
+WHERE sesskey = $qkey" will only return a single value, we do not loop on the
 result, we simply process the row, if any.
 
 * We close $rs after every use.
@@ -91,14 +91,14 @@ What's the Same
 I know backwards compatibility is *very* important to you.  Therefore, the
 new code is 100% backwards compatible.
 
-If you like my code, but don't "trust" it's backwards compatible, maybe we
+If you like my code, but do not "trust" it is backwards compatible, maybe we
 offer it as beta code, in a new directory for a release or two?
 
 ------------
 What's To Do
 ------------
 
-I've vascillated over whether to use a single function to get/set
+I have vascillated over whether to use a single function to get/set
 parameters:
 
 $user = ADODB_Session::user(); 	// get
@@ -109,7 +109,7 @@ or to use separate functions (which is the PEAR/Java way):
 $user = ADODB_Session::getUser();
 ADODB_Session::setUser($user);
 
-I've chosen the former as it's makes for a simpler API, and reduces the
+I have chosen the former as it is makes for a simpler API, and reduces the
 amount of code, but I'd be happy to change it to the latter.
 
 Also, do you think the class should be a singleton class, versus a static

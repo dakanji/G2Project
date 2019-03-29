@@ -95,7 +95,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 			);
 
 			if ($ret) {
-				// Don't return early here, give the loop a chance to try to clear all tasks
+				// Do not return early here, give the loop a chance to try to clear all tasks
 				$this->failWithStatus($ret);
 			}
 		}
@@ -138,7 +138,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 
 		$this->assertTrue($info['runId'] > 0);
 
-		// assert that it's recent
+		// assert that it is recent
 		$this->assertTrue($info['timestamp'] > time() - 2);
 		$this->assertTrue($info['success']);
 		$this->assertEquals(array('success details'), $info['details']);
@@ -205,7 +205,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 
 		$this->assertTrue($info['runId'] > 0);
 
-		// assert that it's recent
+		// assert that it is recent
 		$this->assertTrue($info['timestamp'] > time() - 2);
 		$this->assertTrue($info['success']);
 		$this->assertEquals(array('success details'), $info['details']);
@@ -275,7 +275,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 
 		$this->assertTrue($info['runId'] > 0);
 
-		// assert that it's recent
+		// assert that it is recent
 		$this->assertTrue($info['timestamp'] > time() - 2);
 		$this->assertFalse($info['success']);
 		$this->assertEquals(array('fail details'), $info['details']);
@@ -343,7 +343,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 
 		$this->assertTrue($info['runId'] > 0);
 
-		// assert that it's recent
+		// assert that it is recent
 		$this->assertTrue($info['timestamp'] > time() - 2);
 		$this->assertFalse($info['success']);
 		$this->assertTrue(strstr($info['details'], 'ERROR_UNKNOWN'));
@@ -380,7 +380,7 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 
 		$this->assertTrue($info['runId'] > 0);
 
-		// assert that it's recent
+		// assert that it is recent
 		$this->assertTrue($info['timestamp'] > time() - 2);
 		$this->assertFalse($info['success']);
 		$this->assertEquals(array('fail details'), $info['details']);

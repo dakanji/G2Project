@@ -206,12 +206,12 @@ class GalleryItemHelper_advanced {
 				}
 			}
 		} else {
-			// We didn't have to do anything, but the guarantee is met
+			// We did not have to do anything, but the guarantee is met
 			$success = true;
 		}
 
 		if (!$success && $highlightHasLeftTheAlbum) {
-			// We couldn't find a new thumbnail, but the existing one isn't good anymore
+			// We could not find a new thumbnail, but the existing one is not good anymore
 			$ret = GalleryCoreApi::deleteEntityById($thumbnail->getId(), 'GalleryDerivative');
 
 			if ($ret) {
@@ -228,7 +228,7 @@ class GalleryItemHelper_advanced {
 	public static function createAlbum($parentAlbumId, $name, $title, $summary, $description, $keywords) {
 		global $gallery;
 
-		// Can't work without a name and a parentAlbum
+		// Cannot work without a name and a parentAlbum
 		if (empty($parentAlbumId) || empty($name)) {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
@@ -386,7 +386,7 @@ class GalleryItemHelper_advanced {
 
 		/*
 		 * Foreach item:
-		 *   1 add permissions to newOwner directly that he didn't already have
+		 *   1 add permissions to newOwner directly that he did not already have
 		 *   2 update the item: $item->setownerId($newOwnerId)
 		 *   3 $item->save
 		 */

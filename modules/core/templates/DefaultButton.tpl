@@ -6,10 +6,10 @@
  * Hidden submit button.. to invoke a particular submit button if enter is pressed in a text
  * input it must be first in the form (onkeypress handler to call btn.click() works for some
  * browsers, but not on IE); this button also cannot have display:none or visibility:hidden
- * or IE won't use it.  We need to set display:none for opera because it doesn't allow styling
- * button borders.  IE also needs more than one text field in the form or it won't pass the
+ * or IE would not use it.  We need to set display:none for opera because it does not allow styling
+ * button borders.  IE also needs more than one text field in the form or it would not pass the
  * name/value for any submit button when enter is pressed.. we add an extra field below.
- * !important on background-color below is for IE7 so !important in colorpack doesn't override.
+ * !important on background-color below is for IE7 so !important in colorpack does not override.
  *}
 {assign var="buttonId" value="defaultSubmitBtn`$callCount`"}
 <input type="submit" name="{g->formVar var=$name}" value="" id="{$buttonId}" tabindex="-1"

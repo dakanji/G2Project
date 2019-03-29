@@ -23,13 +23,13 @@
   <h3>
 {*
 This message will be out of date as soon as we despam or delete a comment
-via Ajax, so if we're going to use it, we should refresh it with the latest
+via Ajax, so if we are going to use it, we should refresh it with the latest
 count.  I fear that may be a bit expensive so I'm leaving it out for now.
 
     {g->text one="There is %d spam comment in the queue." many="There are %d spam comments in the queue." count=$AdminModerateSpam.total arg1=$AdminModerateSpam.total}
 *}
 
-    {g->text text="You can delete all spam comments at once, but check them carefully because you can't restore deleted comments."}
+    {g->text text="You can delete all spam comments at once, but check them carefully because you cannot restore deleted comments."}
   </h3>
 </div>
 <div class="gbBlock gcBackground1">

@@ -47,7 +47,7 @@ class ItemEditMovie extends ItemEditPlugin {
 		$status = null;
 		$error  = array();
 
-		// Figure out which command we're taking
+		// Figure out which command we are taking
 		if (isset($form['action']['save'])) {
 			// Missing values get set to 0
 			if (isset($form['width']) && $form['width'] < 0) {

@@ -103,7 +103,7 @@ class EditCommentController extends GalleryController {
 				)
 			)
 			) {
-				// UI doesn't allow this so don't bother with a clean error
+				// UI does not allow this so do not bother with a clean error
 				return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 			}
 

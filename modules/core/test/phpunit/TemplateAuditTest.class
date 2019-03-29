@@ -111,7 +111,7 @@ class TemplateAuditTest extends CodeAuditTestCase {
 		$actual = preg_split("/(\r\n|\n)/", $buffer, sizeof($this->_expectedHeaderLines) + 1);
 		array_splice($actual, sizeof($this->_expectedHeaderLines), 1);
 
-		// Get rid of the revision line, since we can't compare that
+		// Get rid of the revision line, since we cannot compare that
 		for ($i = 0; $i < sizeof($actual); $i++) {
 			if (strstr($actual[$i], 'Revision')) {
 				list($revision) = array_splice($actual, $i, 1, $this->_revisionPlaceHolder);

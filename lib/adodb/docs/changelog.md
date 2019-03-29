@@ -11,8 +11,8 @@ Older changelogs:
 	- Replace each() with foreach. #373
 	- Replace deprecated create_function() calls. #404
 	- Replace $php_errormsg with error_get_last(). #405
-- adodb: Don't call `dl()` when the function is disabled #406
-- adodb: Don't bother with magic quotes when not available #407
+- adodb: Do not call `dl()` when the function is disabled #406
+- adodb: Do not bother with magic quotes when not available #407
 - adodb: fix potential SQL injection vector in SelectLimit(). #190 #311 #401
 
 ## 5.20.11 - Withdrawn

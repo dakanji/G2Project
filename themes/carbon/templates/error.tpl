@@ -8,7 +8,7 @@
     {* Let Gallery print out anything it wants to put into the <head> element *}
     {g->head}
 
-    {* If Gallery doesn't provide a header, insert our own. *}
+    {* If Gallery does not provide a header, insert our own. *}
     {if empty($head.title)}
       <title>{g->text text="Error!"}</title>
     {/if}

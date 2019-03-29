@@ -270,14 +270,14 @@ class ADODB_Active_Record {
 		// $this->$foreignRef = $this->_hasMany[$foreignRef];
 	}
 
-	// use when you don't want ADOdb to auto-pluralize tablename
+	// use when you do not want ADOdb to auto-pluralize tablename
 	public static function TableHasMany($table, $foreignRef, $foreignKey = false, $foreignClass = 'ADODB_Active_Record') {
 		$ar = new self($table);
 
 		$ar->hasMany($foreignRef, $foreignKey, $foreignClass);
 	}
 
-	// use when you don't want ADOdb to auto-pluralize tablename
+	// use when you do not want ADOdb to auto-pluralize tablename
 	public static function TableKeyHasMany($table, $tablePKey, $foreignRef, $foreignKey = false, $foreignClass = 'ADODB_Active_Record') {
 		if (!is_array($tablePKey)) {
 			$tablePKey = array($tablePKey);

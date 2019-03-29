@@ -39,7 +39,7 @@ class StorageSetupStep extends InstallStep {
 
 		/*
 		 * An example for a slightly obfuscated g2data folder name such that the location
-		 * of the storage folder can't be guessed too easily.
+		 * of the storage folder cannot be guessed too easily.
 		 */
 		$templateData['suggested_obfuscated_g2data_name'] = 'g2data_' . substr(md5(mt_rand()), 0, 10);
 		$templateData['isMultisite']                      = $galleryStub->getConfig('isMultisite');
@@ -58,7 +58,7 @@ class StorageSetupStep extends InstallStep {
 				$originalDir = $dir;
 
 				/*
-				 * Make the path absolute since relative to the install/ folder isn't the same as
+				 * Make the path absolute since relative to the install/ folder is not the same as
 				 * relative to the main.php entry file. And also check if it exists.
 				 */
 				$realPath = @realpath($dir);
@@ -175,7 +175,7 @@ class StorageSetupStep extends InstallStep {
 	 *               boolean true if the folder is accessible from the web (=insecure))
 	 */
 	public function _isStoragePathWebAccessible($dir) {
-		// Check if we can use fsockopen. Else we can't test it at all.
+		// Check if we can use fsockopen. Else we cannot test it at all.
 		if (!function_exists('fsockopen')
 			|| in_array('fsockopen', preg_split('/,\s*/', ini_get('disable_functions')))
 		) {

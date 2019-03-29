@@ -87,7 +87,7 @@ class ADODB_Cache_MemCache {
 		}
 
 		if ($failcnt == sizeof($this->hosts)) {
-			$err = 'Can\'t connect to any memcache server';
+			$err = 'Cannot connect to any memcache server';
 
 			return false;
 		}
@@ -138,7 +138,7 @@ class ADODB_Cache_MemCache {
 		$rs = $this->_memcache->get($filename);
 
 		if (!$rs) {
-			$err = 'Item with such key doesn\'t exists on the memcached server.';
+			$err = 'Item with such key does not exists on the memcached server.';
 
 			return $false;
 		}
@@ -235,7 +235,7 @@ class ADODB_Cache_MemCache {
 
 		if ($debug) {
 			if (!$del) {
-				ADOConnection::outp("flushcache: $key entry doesn't exist on memcached server!<br>\n");
+				ADOConnection::outp("flushcache: $key entry does not exist on memcached server!<br>\n");
 			} else {
 				ADOConnection::outp("flushcache: $key entry flushed from memcached server!<br>\n");
 			}

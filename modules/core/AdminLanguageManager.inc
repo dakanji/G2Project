@@ -726,7 +726,7 @@ class AdminLanguageManagerView extends GalleryView {
 		}
 
 		if (!empty($packages['en'])) {
-			// don't show English(US) as a managed language
+			// do not show English(US) as a managed language
 			unset($packages['en']);
 		}
 
@@ -760,7 +760,7 @@ class AdminLanguageManagerView extends GalleryView {
 				$packageCount += count($indexData['files']);
 
 				if (!empty($indexData['files']['descriptor'])) {
-					// don't include the descriptor in the count
+					// do not include the descriptor in the count
 					$packageCount--;
 				}
 			}

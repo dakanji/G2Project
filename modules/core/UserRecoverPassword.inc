@@ -194,7 +194,7 @@ class UserRecoverPasswordController extends GalleryController {
 					} else {
 						/*
 						 * Add the map entry before sending email to the user -
-						 * We don't want to send them mail if the data never gets into the DB
+						 * We do not want to send them mail if the data never gets into the DB
 						 */
 						$ret = GalleryCoreApi::addMapEntry(
 							'GalleryRecoverPasswordMap',

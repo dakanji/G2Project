@@ -111,7 +111,7 @@ class ArrayDeclarationSpacingSniff extends Sniff {
 
 				$nextNonWhitespace = $this->phpcsFile->findNext( \T_WHITESPACE, ( $stackPtr + 1 ), ( $opener + 1 ), true );
 				if ( $nextNonWhitespace !== $opener ) {
-					// Don't auto-fix: Something other than whitespace found between keyword and open parenthesis.
+					// Do not auto-fix: Something other than whitespace found between keyword and open parenthesis.
 					$this->phpcsFile->addError( $error, $stackPtr, $error_code );
 				} else {
 
@@ -153,7 +153,7 @@ class ArrayDeclarationSpacingSniff extends Sniff {
 				}
 			}
 
-			// This array is empty, so the below checks aren't necessary.
+			// This array is empty, so the checks below are not necessary.
 			return;
 		}
 		unset( $nextNonWhitespace );
@@ -419,7 +419,7 @@ class ArrayDeclarationSpacingSniff extends Sniff {
 				);
 
 				if ( false === $next ) {
-					// Shouldn't happen, but just in case.
+					// Should not happen, but just in case.
 					$end_of_last_item = $end_of_this_item;
 					continue;
 				}
@@ -430,7 +430,7 @@ class ArrayDeclarationSpacingSniff extends Sniff {
 			}
 
 			if ( false === $first_content ) {
-				// Shouldn't happen, but just in case.
+				// Should not happen, but just in case.
 				$end_of_last_item = $end_of_this_item;
 				continue;
 			}

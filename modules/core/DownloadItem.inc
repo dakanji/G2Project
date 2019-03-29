@@ -70,7 +70,7 @@ class DownloadItemView extends GalleryView {
 	 * @see GalleryView::renderImmediate
 	 */
 	public function renderImmediate($status = null, $error = null) {
-		// Figure out which item we're talking about
+		// Figure out which item we are talking about
 		$itemId = (int)GalleryUtilities::getRequestVariables('itemId');
 
 		if (empty($itemId)) {
@@ -85,7 +85,7 @@ class DownloadItemView extends GalleryView {
 		}
 
 		if (!method_exists($item, 'fetchPath') || !method_exists($item, 'getMimeType')) {
-			// Avoid information disclosure for bogus entities by acting as if it didn't exist
+			// Avoid information disclosure for bogus entities by acting as if it does not exist
 			return GalleryCoreApi::error(ERROR_MISSING_OBJECT);
 		}
 
@@ -108,7 +108,7 @@ class DownloadItemView extends GalleryView {
 			return $ret;
 		}
 
-		// Don't allow malicious URLs
+		// Do not allow malicious URLs
 		$fileName = GalleryUtilities::getRequestVariables('fileName');
 
 		if (!empty($fileName) && $fileName != $pseudoFileName) {
@@ -156,7 +156,7 @@ class DownloadItemView extends GalleryView {
 		$phpVm    = $gallery->getPhpVm();
 
 		/**
-		 * Try to prevent Apache's mod_deflate from gzipping the output since it's likely already
+		 * Try to prevent Apache's mod_deflate from gzipping the output since it is likely already
 		 * a binary file and broken versions of mod_deflate sometimes get the byte count wrong.
 		 */
 		if (function_exists('apache_setenv') && !@$gallery->getConfig('apacheSetenvBroken')) {
@@ -183,7 +183,7 @@ class DownloadItemView extends GalleryView {
 		 */
 		$phpVm->header('Cache-Control: private');
 
-		// If the request method is HEAD, don't send back the body
+		// If the request method is HEAD, do not send back the body
 		if ($requestMethod == 'head') {
 			$phpVm->header('Content-length: 0');
 		} else {
@@ -192,7 +192,7 @@ class DownloadItemView extends GalleryView {
 			}
 
 			/*
-			 * Don't use readfile() because it buffers the entire file in memory.  Profiling shows
+			 * Do not use readfile() because it buffers the entire file in memory.  Profiling shows
 			 * that this approach is as efficient as fpassthru() but we get to call
 			 * guaranteeTimeLimit which prevents it from failing on very large files
 			 */

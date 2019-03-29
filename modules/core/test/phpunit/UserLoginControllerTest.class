@@ -52,7 +52,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 		$this->_saveSession = $gallery->_session;
 
-		// Set up a mock session so that we don't accidentally log out the PHPUnit session
+		// Set up a mock session so that we do not accidentally log out the PHPUnit session
 		$this->_mockSession = new UserLoginControllerTestSession();
 		$gallery->_session  =& $this->_mockSession;
 		$eventHandler       = new GalleryUserHelper_medium();
@@ -299,7 +299,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 	/**
 	 * Bogus user/password, and an error from the plugin.  Plugin set to halt on failure so we
-	 * shouldn't even try to log in which means we won't see the incorrect password error
+	 * should not even try to log in which means we would not see the incorrect password error
 	 */
 	public function testPlugins1() {
 		GalleryUtilities::putRequestVariable('form[action][login]', 1);

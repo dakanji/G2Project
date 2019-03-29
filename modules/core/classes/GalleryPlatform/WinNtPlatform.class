@@ -66,13 +66,13 @@ class WinNtPlatform extends GalleryPlatform {
 			}
 		}
 
-		// We're going to redirect STDERR to a file
+		// We are going to redirect STDERR to a file
 		$tmpDir    = $gallery->getConfig('data.gallery.tmp');
 		$debugFile = tempnam($tmpDir, 'g2dbg');
 
 		/*
 		 * Ok, this is screwy, but for some reason these
-		 * don't work:
+		 * do not work:
 		 *
 		 *    cmd /c "c:\path with\spaces\binary" "arg"
 		 *    cmd /c " c:\path\\ with\spaces\binary arg "
@@ -199,9 +199,9 @@ class WinNtPlatform extends GalleryPlatform {
 	 * @see GalleryPlatform::strftime
 	 */
 	public function strftime($format, $timestamp = null) {
-		// Windows doesn't have %e but has %#d, same thing but without leading space for 1-9
+		// Windows does not have %e but has %#d, same thing but without leading space for 1-9
 		if (($pos = strpos($format, '%e')) !== false) {
-			// %#d doesn't work on 2 out of 2 tested WinXP platforms
+			// %#d does not work on 2 out of 2 tested WinXP platforms
 			$replacement = parent::strftime('%d', $timestamp);
 
 			/*

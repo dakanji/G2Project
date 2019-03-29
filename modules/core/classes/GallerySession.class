@@ -107,7 +107,7 @@ class GallerySession {
 	/**
 	 * Whether the session has been saved in the persistent store during the current request
 	 * handling.  Used to determine whether we need to "touch" the session to prevent it from
-	 * expiring in case the session data hasn't changed anyway.
+	 * expiring in case the session data has not changed anyway.
 	 * @var boolean
 	 * @access private
 	 */
@@ -218,11 +218,11 @@ class GallerySession {
 			}
 
 			/*
-			 * Many search engine crawlers don't use cookies.  Normally this leads to us putting the
+			 * Many search engine crawlers do not use cookies.  Normally this leads to us putting the
 			 * session id in the URL.  But doing so causes the search engine to do a lot of extra
 			 * work to weed out the session id, which they may not do very well.  So if we detect
-			 * that this is a search engine, don't create a session under all circumstances and
-			 * don't send cookies / don't append the sessionId to URLs.
+			 * that this is a search engine, do not create a session under all circumstances and
+			 * do not send cookies / do not append the sessionId to URLs.
 			 */
 			$searchEngineId = GalleryUtilities::identifySearchEngine();
 
@@ -321,7 +321,7 @@ class GallerySession {
 	}
 
 	/**
-	 * Start session by ensuring we've got a valid, unique sessionId and send cookie if necessary.
+	 * Start session by ensuring we have got a valid, unique sessionId and send cookie if necessary.
 	 * @return GalleryStatus a status code
 	 */
 	public function start() {
@@ -330,7 +330,7 @@ class GallerySession {
 			return null;
 		}
 
-		// If session hasn't any important data/attributes, we don't need a persistent session
+		// If session has not any important data/attributes, we do not need a persistent session
 		list($ret, $isRequired) = $this->_isPersistentSessionRequired();
 
 		if ($ret) {
@@ -345,7 +345,7 @@ class GallerySession {
 		if (!$this->_isPersistent) {
 			/*
 			 * Since getting a new collision-free sessionId requires a DB query anyway, we save the
-			 * whole session in this case.  In all typical cases (main.php), there won't be any
+			 * whole session in this case.  In all typical cases (main.php), there would not be any
 			 * session changes after start() was called, thus we actually save the session only once
 			 * per request.
 			 */
@@ -361,7 +361,7 @@ class GallerySession {
 		 * HTML because the DownloadItem requests might come in before we reach $session->save() )
 		 */
 
-		// Don't save session / send cookie for DownloadItem, CSS, migrate.Redirect requests
+		// Do not save session / send cookie for DownloadItem, CSS, migrate.Redirect requests
 		if (!isset($_COOKIE[SESSION_ID_PARAMETER])
 			|| $this->_forceSaveSession
 			|| $_COOKIE[SESSION_ID_PARAMETER] != $this->_sessionId
@@ -377,7 +377,7 @@ class GallerySession {
 	}
 
 	/**
-	 * Save any session changes to the store.  Does not save sessions that don't have a sessionId
+	 * Save any session changes to the store.  Does not save sessions that do not have a sessionId
 	 * yet.  Triggers the expiration of existing persistent sessions in 2% of all calls.
 	 * @param boolean $useNonTransactionalConnection (optional) set to true if we should save this
 	 *                session outside of any existing transaction.
@@ -398,7 +398,7 @@ class GallerySession {
 				return GalleryCoreApi::error(ERROR_MISSING_VALUE);
 			}
 
-			// Only bother saving if we've been modified at all
+			// Only bother saving if we have been modified at all
 			$serialized = $this->_getSerializedSession();
 
 			if ($serialized != $this->_loadedSessionData) {
@@ -470,7 +470,7 @@ class GallerySession {
 
 	/**
 	 * Set a new/unused sessionid.
-	 * @param boolean $emptyRemoteId (optional) if true don't initialize remoteIdentifier
+	 * @param boolean $emptyRemoteId (optional) if true do not initialize remoteIdentifier
 	 * @param int $userId (optional) user for session, defaults to anonymous
 	 * @return GalleryStatus a status code
 	 */
@@ -493,7 +493,7 @@ class GallerySession {
 
 		$this->_userId = (int)$userId;
 
-		// Get a sessionId, don't send cookies
+		// Get a sessionId, do not send cookies
 		$ret = $this->_acquireNewPersistentSession();
 
 		if ($ret) {
@@ -533,7 +533,7 @@ class GallerySession {
 		$this->_sessionId = '';
 		$this->_userId    = null;
 
-		// Unset the cookie and any request variables so that we'll regenerate a new id in init()
+		// Unset the cookie and any request variables so that we will regenerate a new id in init()
 		GalleryUtilities::removeRequestVariable(SESSION_ID_PARAMETER);
 
 		unset($_COOKIE[SESSION_ID_PARAMETER]);
@@ -618,9 +618,9 @@ class GallerySession {
 		/*
 		 * Send back a cookie
 		 *
-		 * TODO: Need to be able to decide for certain that the browser isn't accepting cookies so
-		 * that we can stop sending them.  We can do this by recording how many times we've sent a
-		 * cookie, and how many times that we've received one back in return.  Leave that for later.
+		 * TODO: Need to be able to decide for certain that the browser is not accepting cookies so
+		 * that we can stop sending them.  We can do this by recording how many times we have sent a
+		 * cookie, and how many times that we have received one back in return.  Leave that for later.
 		 */
 		if (!$delete) {
 			$cookie = 'Set-Cookie: ' . SESSION_ID_PARAMETER . '=' . $this->_sessionId;
@@ -650,7 +650,7 @@ class GallerySession {
 
 		if ($ret) {
 			if ($ret->getErrorCode() & ERROR_STORAGE_FAILURE) {
-				// During installation it's possible the database isn't around yet.  Keep going.
+				// During installation it is possible the database is not around yet.  Keep going.
 				$sessionLifetime = 0;
 			} else {
 				return $ret;
@@ -688,14 +688,14 @@ class GallerySession {
 		 * Q: Why not set the cookie domain to the actual host string (ie. .www.example.com when
 		 * Gallery is accessed like that or .example.com in other requests, ...)?
 		 * A: Because in RFC 2965, there is no rule in what order the browser should send back the
-		 * cookies.  And thus, PHP/Gallery wouldn't know which is the right cookie.
+		 * cookies.  And thus, PHP/Gallery would not know which is the right cookie.
 		 *
 		 * Q: Why not just omit the cookie domain in the set cookie calls?
 		 * A: Actually, this is a good solution.  Because if no cookie domain was set, the browser
-		 * sends only cookies back that match the requested domain exactly. So it won't return a
+		 * sends only cookies back that match the requested domain exactly. So it would not return a
 		 * example.com cookie for www.example.com and the other way around.  But, and this is a big
-		 * but, Internet Explorer doesn't conform to the RFC 2965.  IE sends back example.com and
-		 * www.example.com cookies when it shouldn't.  Together with the php bug (least, most
+		 * but, Internet Explorer does not conform to the RFC 2965.  IE sends back example.com and
+		 * www.example.com cookies when it should not.  Together with the php bug (least, most
 		 * specific cookie match in HTTP_COOKIE), this results in an unpredictable behavior for
 		 * various php version / IE scenarios.  Luckily we can fix this manually with
 		 * fixCookieVars().  That's why we chose this approach.
@@ -713,9 +713,9 @@ class GallerySession {
 		 * Q: Why force the Gallery base (standalone) path for Java applet cookies?
 		 * A: Because the applets talk to Gallery directly.  If the cookie path was set to the
 		 * embedded Gallery path, then it would not be selected for the HTTP requests of the applet
-		 * to Gallery, because it wouldn't path-match.
+		 * to Gallery, because it would not path-match.
 		 *
-		 * Therefore we don't set the cookie domain by default and offer the option to set it to a
+		 * Therefore we do not set the cookie domain by default and offer the option to set it to a
 		 * configured value if it is required (embedded multi-subdomain G2).  In embedded Gallery,
 		 * we have to append the session id to all DownloadItem unless the cookie path is configured
 		 * such that standalone and embedded Gallery set the same cookie path.
@@ -736,7 +736,7 @@ class GallerySession {
 		$cookie .= '; HttpOnly=1';
 
 		/*
-		 * Init may be called multiple times (from unit tests) but don't send headers more than
+		 * Init may be called multiple times (from unit tests) but do not send headers more than
 		 * once.  Use our PhpVm for testability.
 		 */
 		$phpVm = $gallery->getPhpVm();
@@ -749,7 +749,7 @@ class GallerySession {
 	}
 
 	/**
-	 * Acquire a new persistent session and guarantee we've got a valid, unqiue sessionId.
+	 * Acquire a new persistent session and guarantee we have got a valid, unqiue sessionId.
 	 * @return GalleryStatus a status code
 	 */
 	public function _acquireNewPersistentSession() {
@@ -799,7 +799,7 @@ class GallerySession {
 
 		$this->_isPersistent = true;
 
-		// Make sure we don't save the session a 2nd time for vain
+		// Make sure we do not save the session a 2nd time for vain
 		$this->_loadedSessionData = $this->_getSerializedSession();
 
 		// Also prevent from doing a "touch"
@@ -814,8 +814,8 @@ class GallerySession {
 	/**
 	 * Check whether this session should be persistent or not.
 	 *
-	 * For guest users, we don't create sessions, unless their session has non-default data.  Also,
-	 * the session based permission cache and the navigation isn't regarded important enough to
+	 * For guest users, we do not create sessions, unless their session has non-default data.  Also,
+	 * the session based permission cache and the navigation is not regarded important enough to
 	 * create a session.
 	 *
 	 * @return array GalleryStatus a status code, boolean session is necessary
@@ -835,7 +835,7 @@ class GallerySession {
 			}
 
 			if (!$isAnonymous && $this->_isSearchEngineSession) {
-				// The search engine has been misidentified (it's a logged in user)
+				// The search engine has been misidentified (it is a logged in user)
 				$this->_isSearchEngineSession = false;
 
 				if (empty($_COOKIE[SESSION_ID_PARAMETER])) {
@@ -852,12 +852,12 @@ class GallerySession {
 			$sessionDataCopy = $this->_sessionData;
 
 			/*
-			 * - lastViewed: We don't care about viewed count, we can check that less strict with
+			 * - lastViewed: We do not care about viewed count, we can check that less strict with
 			 *                HTTP modified since headers
-			 * - permissionCache: we don't care about the permission cache (session based
+			 * - permissionCache: we do not care about the permission cache (session based
 			 *   permissions are stored as ACLs in another session data entry)
-			 * - navigation: no, we don't need navigation
-			 * - language: only useful if it's different from what we'd have set anyway
+			 * - navigation: no, we do not need navigation
+			 * - language: only useful if it is different from what we'd have set anyway
 			 * - embed.id.externalUser: not important if mapped to the anonymousUser, else the
 			 *                          userId is not == anonymousUserId
 			 * - authToken: we only check the authToken for persistent sessions
@@ -889,13 +889,13 @@ class GallerySession {
 	/**
 	 * Whether this controller/view request generally allows creating a session.
 	 *
-	 * Don't save session in core.DownloadItem, migrate.Redirect, ... requests
-	 * Reason: In these requests we don't need to save the session or create a new one because
+	 * Do not save session in core.DownloadItem, migrate.Redirect, ... requests
+	 * Reason: In these requests we do not need to save the session or create a new one because
 	 *         a) the session is not modified (DownloadItem, CSS)
 	 *         b) we return an image / css and not a HTML page (DownloadItem, CSS)
 	 *         c) there will be either a DownloadItem / ShowItem request anyway (migrate.Redirect)
 	 *         d) in migrate.Redirect requests, the cookie path we would set would most certainly
-	 *            be wrong, because the internal mod_rewrite redirect doesn't change all PHP SERVER
+	 *            be wrong, because the internal mod_rewrite redirect does not change all PHP SERVER
 	 *            variables
 	 *
 	 *         And if we stored the session, it would result in *a lot* unneeded sessions,
@@ -984,7 +984,7 @@ class GallerySession {
 
 			if ($ret) {
 				/*
-				 * Before upgrading to 1.2.18, describeMap() (used by getMapEntry) doesn't work
+				 * Before upgrading to 1.2.18, describeMap() (used by getMapEntry) does not work
 				 * yet.  And before 1.0.22, there was no SessionMap table yet.
 				 */
 				list($ret2, $module) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -1010,7 +1010,7 @@ class GallerySession {
 				$pSession = $results->nextResult();
 
 				if ($pSession[3] > $inactiveCutoff && $pSession[2] > $lifetimeCutoff) {
-					// A session exists and it's valid
+					// A session exists and it is valid
 					$this->_userId            = (int)$pSession[0];
 					$this->_remoteIdentifier  = unserialize($pSession[1]);
 					$this->_creationTime      = (int)$pSession[2];
@@ -1042,7 +1042,7 @@ class GallerySession {
 			if (!$this->_isPersistent) {
 				/*
 				 * The sessionId was invalid.  If we got the sessionId from the cookie, delete the
-				 * cookie or we'll try to load the session on each request again.
+				 * cookie or we will try to load the session on each request again.
 				 */
 				if (isset($_COOKIE[SESSION_ID_PARAMETER])) {
 					unset($_COOKIE[SESSION_ID_PARAMETER]);
@@ -1054,7 +1054,7 @@ class GallerySession {
 					}
 				}
 			}
-		} // Else: no sessionId specified, thus we've no session yet
+		} // Else: no sessionId specified, thus we have no session yet
 
 		if (!$this->_isPersistent) {
 			$this->_emptySessionData();
@@ -1068,7 +1068,7 @@ class GallerySession {
 	 * @access private
 	 */
 	public function _emptySessionData() {
-		// Don't (re-)set sessionId since we can't ensure a collision-free id without DB queries
+		// Do not (re-)set sessionId since we cannot ensure a collision-free id without DB queries
 		global $gallery;
 
 		$phpVm                    = $gallery->getPhpVm();
@@ -1079,7 +1079,7 @@ class GallerySession {
 		$this->_modificationTime  = $phpVm->time();
 		$this->_remoteIdentifier  = $this->getRemoteIdentifier();
 
-		// Don't change userId or isUsingCookies
+		// Do not change userId or isUsingCookies
 		$this->_isPersistentSessionNew = false;
 		$this->_isSessionSaved         = false;
 	}
@@ -1239,7 +1239,7 @@ class GallerySession {
 		// TODO: Make this more OO, eg. by adding function canLimitDelete() to GalleryStorage
 		if ($storage->getType() == 'mysql') {
 			/*
-			 * MySQL supports the LIMIT clause in DELETE statements, other DBMS' don't Since SELECT
+			 * MySQL supports the LIMIT clause in DELETE statements, other DBMS' do not Since SELECT
 			 * 500 sessionIds + DELETE those sessionIds is more expensive we optimize for MySQL by
 			 * using DELETE ... LIMIT 500
 			 */
@@ -1256,7 +1256,7 @@ class GallerySession {
 		} else {
 			/*
 			 * For other DBMS first SELECT the sessionIds with a LIMIT clause then DELETE
-			 * ADOdb can't implement the LIMIT clause in subqueries DB independently!
+			 * ADOdb cannot implement the LIMIT clause in subqueries DB independently!
 			 */
 			$query                    = '
 			SELECT [GallerySessionMap::id]
@@ -1317,7 +1317,7 @@ class GallerySession {
 
 	/**
 	 * Instruct the session to not return a pseudo temporary session id on getId() calls Makes sure
-	 * that the URL generator and other componennts don't use a pseudo session id for guest users
+	 * that the URL generator and other componennts do not use a pseudo session id for guest users
 	 * without a real session.  Call this method before starting to output immediate views the
 	 * progress bar.
 	 */
@@ -1344,7 +1344,7 @@ class GallerySession {
 	/*
 	 * Returns the cookie domain.
 	 *
-	 * By default, don't set the cookie domain.  Only set it, if Gallery is configured to set it
+	 * By default, do not set the cookie domain.  Only set it, if Gallery is configured to set it
 	 * (eg. because it is a) embedded AND b) different subdomains are involved)
 	 *
 	 * @return array GalleryStatus a status code,
@@ -1381,7 +1381,7 @@ class GallerySession {
 	/**
 	 * Get a value from the session data.
 	 * @param string $key
-	 * @return string the value or null if it doesn't exist
+	 * @return string the value or null if it does not exist
 	 */
 	public function &get($key) {
 		if (isset($this->_sessionData[$key])) {
@@ -1419,7 +1419,7 @@ class GallerySession {
 	}
 
 	/**
-	 * Return a value that we can use to identify the client.  We can't tie it to the IP address
+	 * Return a value that we can use to identify the client.  We cannot tie it to the IP address
 	 * because that changes too frequently (dialup users, users behind proxies) so we have to be
 	 * creative.  Changing this algorithm will cause all existing sessions to be discarded.
 	 * @return array
@@ -1676,7 +1676,7 @@ class SessionAuthPlugin {
 		if (!empty($userId)) {
 			list($ret, $user) = GalleryCoreApi::loadEntitiesById($userId, 'GalleryUser');
 
-			// ERROR_MISSING_OBJECT check to suppress error if user id doesn't exist
+			// ERROR_MISSING_OBJECT check to suppress error if user id does not exist
 			if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 				return array($ret, null);
 			}

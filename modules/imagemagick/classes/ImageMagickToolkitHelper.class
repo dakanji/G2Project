@@ -511,8 +511,8 @@ class ImageMagickToolkitHelper {
 		$dataPath = dirname(__DIR__) . "${slash}data${slash}";
 
 		/*
-		 * If the path is not restricted by open_basedir, then verify that it's legal.
-		 * Else just hope that it's valid and use it.
+		 * If the path is not restricted by open_basedir, then verify that it is legal.
+		 * Else just hope that it is valid and use it.
 		 */
 		if (!$platform->isRestrictedByOpenBaseDir($imageMagickPath)
 			&& !@$platform->is_dir($imageMagickPath)
@@ -656,7 +656,7 @@ class ImageMagickToolkitHelper {
 							),
 						);
 					} elseif (implode('', $results) != '') {
-						// 'convert' normally doesn't say anything; if it does it was an error
+						// 'convert' normally does not say anything; if it does it was an error
 						$testArray[] = array(
 							'name'    => 'convert',
 							'success' => false,
@@ -728,7 +728,7 @@ class ImageMagickToolkitHelper {
 							),
 						);
 					} elseif (!empty($results)) {
-						// 'composite' normally doesn't say anything; if it does it was an error
+						// 'composite' normally does not say anything; if it does it was an error
 						$testArray[] = array(
 							'name'    => $compositeCmd,
 							'success' => false,
@@ -788,8 +788,8 @@ class ImageMagickToolkitHelper {
 		}
 
 		/*
-		 * If the path is not restricted by open_basedir, then verify that it's legal.
-		 * Else just hope that it's valid and use it.
+		 * If the path is not restricted by open_basedir, then verify that it is legal.
+		 * Else just hope that it is valid and use it.
 		 */
 		if ($platform->isRestrictedByOpenBaseDir($imageMagickPath)
 			|| !@$platform->is_dir($imageMagickPath)

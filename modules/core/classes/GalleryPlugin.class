@@ -269,8 +269,8 @@ class GalleryPlugin {
 	 * Deactivate this plugin.
 	 *
 	 * Note that modules and themes should not override this method to do anything critical.
-	 * Modules and themes can be forcibly deactivated during the upgrade process and it's
-	 * important that this doesn't leave the app in a broken state.
+	 * Modules and themes can be forcibly deactivated during the upgrade process and it is
+	 * important that this does not leave the app in a broken state.
 	 *
 	 * @param bool $postDeactivationEvent (optional) should we post a deactivation event?  Normally
 	 *             true, but the upgrader may choose to suppress this event so that it can
@@ -313,8 +313,8 @@ class GalleryPlugin {
 	/**
 	 * Reactivate this plugin.  The plugin is already active, so call deactivate() and then
 	 * activate().  Perform the deactivation without sending an event because the activation will
-	 * immediately follow and we don't want other plugins to sense this deactivation and
-	 * deactivate themselves.  If the plugin isn't currently active, don't do anything.
+	 * immediately follow and we do not want other plugins to sense this deactivation and
+	 * deactivate themselves.  If the plugin is not currently active, do not do anything.
 	 *
 	 * @return array GalleryStatus a status code
 	 *               array redirect info for error page (empty for success)
@@ -496,9 +496,9 @@ class GalleryPlugin {
 
 		/**
 		 * Remove old translations before installing new ones so that if any translations
-		 * got removed we don't wind up with old copies hanging around.
+		 * got removed we do not wind up with old copies hanging around.
 		 *
-		 * @todo keep track of which translations didn't get updated and remove them
+		 * @todo keep track of which translations did not get updated and remove them
 		 *       instead of using this heavy approach.
 		 */
 		if ($gallery->getDebug()) {
@@ -576,7 +576,7 @@ class GalleryPlugin {
 
 		if ($ret && !($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
 			/*
-			 * Something is wrong with this plugin. Maybe it's a 3rd party plugin w/o MANIFEST
+			 * Something is wrong with this plugin. Maybe it is a 3rd party plugin w/o MANIFEST
 			 * file, maybe it has no revisions in the po files, maybe the module.inc is foobar.
 			 * Just log and ignore it.
 			 */

@@ -48,10 +48,10 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 	 * @see CodeAuditTestCase::checkFile
 	 *
 	 * 1. Check for a sane Project-Id-Version field
-	 * 2. Check first msgid doesn't have #,fuzzy before it
+	 * 2. Check first msgid does not have #,fuzzy before it
 	 * 3. Check that the first line is "Id" svn keyword
 	 * 4. Check charset header is UTF-8
-	 * 5. Make sure translator hints and __TOKEN__ things aren't translated
+	 * 5. Make sure translator hints and __TOKEN__ things are not translated
 	 */
 	public function checkFile($fileName, $buffer) {
 		global $gallery;
@@ -59,7 +59,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 		$platform =& $gallery->getPlatform();
 		$path     = substr($fileName, strlen(dirname(dirname(dirname(dirname($fileName))))) + 1);
 
-		// Grab Project-Id-Version, which we'll check against this file's peers in finishScan()
+		// Grab Project-Id-Version, which we will check against this file's peers in finishScan()
 		preg_match('/Project-Id-Version:(.*).."/', $buffer, $matches);
 		$this->_idMap[dirname($fileName)][basename($fileName)] = trim($matches[1]);
 
@@ -75,7 +75,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 			$this->_errorCount++;
 		}
 
-		// Make sure that our first msgid isn't marked fuzzy
+		// Make sure that our first msgid is not marked fuzzy
 		$fuzzyPos = strpos($buffer, '#, fuzzy');
 		$msgIdPos = strpos($buffer, 'msgid');
 
@@ -97,10 +97,10 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 			$newline = '\n';
 		}
 
-		// Make sure __TOKEN__ things aren't translated
+		// Make sure __TOKEN__ things are not translated
 		preg_match_all(
 			'/(?<!^#, fuzzy' . $newline . ')^msgid ("(?:.(?!^msgstr))*__[A-Z]+__.*)^msgstr (.*)' .
-			'(?:\r?\n\r?\n|^$|\z)/Ums', // ^$ doesn't match an empty line on Windows
+			'(?:\r?\n\r?\n|^$|\z)/Ums', // ^$ does not match an empty line on Windows
 			$buffer,
 			$matches,
 			PREG_SET_ORDER
@@ -132,7 +132,7 @@ class LocalizationAuditTest extends CodeAuditTestCase {
 
 	/**
 	 * @see CodeAuditTestCase::finishScan
-	 * Collate our Project-Id-Version info and make sure they're consistent in every localization.
+	 * Collate our Project-Id-Version info and make sure they are consistent in every localization.
 	 */
 	public function finishScan($halted) {
 		if (!$halted) {

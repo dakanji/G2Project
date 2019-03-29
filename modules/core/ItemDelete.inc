@@ -60,7 +60,7 @@ class ItemDeleteController extends GalleryController {
 			if (!empty($form['selectedIds'])) {
 				$selectedIds = array_keys($form['selectedIds']);
 
-				// get the rootId, so we don't try to delete it
+				// get the rootId, so we do not try to delete it
 				list($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 
 				if ($ret) {
@@ -86,20 +86,20 @@ class ItemDeleteController extends GalleryController {
 								ERROR_PERMISSION_DENIED,
 								__FILE__,
 								__LINE__,
-								"Don't have permission to delete this item"
+								"Do not have permission to delete this item"
 							),
 							null,
 						);
 					}
 
-					// Make sure we're not deleting the root album
+					// Make sure we are not deleting the root album
 					if ($selectedId == $rootId) {
 						return array(
 							GalleryCoreApi::error(
 								ERROR_BAD_PARAMETER,
 								__FILE__,
 								__LINE__,
-								"Can't delete the root album"
+								"Cannot delete the root album"
 							),
 							null,
 						);
@@ -131,12 +131,12 @@ class ItemDeleteController extends GalleryController {
 					return array($ret, null);
 				}
 
-				// What do we do if we weren't successful?  No thumbnail, I guess
+				// What do we do if we were not successful?  No thumbnail, I guess
 			}
 
 			/*
 			 * Figure out where to redirect upon success.
-			 * Can't use return url because it may be for an item we just deleted
+			 * Cannot use return url because it may be for an item we just deleted
 			 */
 			$results['redirect'] = array(
 				'view'   => 'core.ShowItem',
@@ -246,7 +246,7 @@ class ItemDeleteView extends GalleryView {
 			$numPages = ceil(sizeof($peerIds) / $form['numPerPage']);
 
 			if (empty($page)) {
-				// determine which page we're on
+				// determine which page we are on
 				$page = 1;
 
 				for ($i = 0; $i < sizeof($peerIds); $i++) {
@@ -295,7 +295,7 @@ class ItemDeleteView extends GalleryView {
 
 				$peers[$peerItem->getId()]['selected'] = isset($form['selectedIds'][$peerItem->getId()]);
 
-				// While we're at it, attach thumbnails and resizes
+				// While we are at it, attach thumbnails and resizes
 				if (isset($derivatives[$peerItem->getId()])) {
 					foreach ($derivatives[$peerItem->getId()] as $derivative) {
 						$type = $derivative->getDerivativeType();

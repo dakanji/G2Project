@@ -492,7 +492,7 @@ class ADORecordSet_ado extends ADORecordSet {
 	public function _seek($row) {
 		$rs = $this->_queryID;
 
-		// absoluteposition doesn't work -- my maths is wrong ?
+		// absoluteposition does not work -- my maths is wrong ?
 		//	$rs->AbsolutePosition->$row-2;
 		//	return true;
 		if ($this->_currentRow > $row) {

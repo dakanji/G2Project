@@ -680,7 +680,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 	}
 
 	/**
-	 * Add a small (dimension wise) photo to an album and make sure that we don't create resizes
+	 * Add a small (dimension wise) photo to an album and make sure that we do not create resizes
 	 * that are larger (dimension wise) than the original.
 	 */
 	public function testRecreateResizesForSmallPhoto() {
@@ -696,7 +696,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
 		/*
 		 * Set the album preferences such that we have one resize that's smaller than the
-		 * original, and one that's larger.  We know that the image we're using is 62x75
+		 * original, and one that's larger.  We know that the image we are using is 62x75
 		 */
 		$ret = GalleryCoreApi::removeDerivativePreferencesForItem($album->getId());
 
@@ -785,7 +785,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 		// Get Photo ID
 		$photoID = $photo->getId();
 
-		// Now verify that we didn't upsample our resizes
+		// Now verify that we did not upsample our resizes
 		list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array($photoID));
 
 		if ($ret) {
@@ -1036,7 +1036,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 			return $ret;
 		}
 
-		// Check the grandchild album - make sure that descendents don't just return children
+		// Check the grandchild album - make sure that descendents do not just return children
 		list($ret, $this->_grandchildAlbum) = $this->_createRandomAlbum(
 			$this->_childAlbum->getId()
 		);

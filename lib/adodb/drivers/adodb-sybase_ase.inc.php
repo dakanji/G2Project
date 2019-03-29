@@ -111,7 +111,7 @@ class ADODB_sybase_ase extends ADODB_sybase {
 
 	public function ErrorMsg() {
 		if (!function_exists('sybase_connect')) {
-			return 'Your PHP doesn\'t contain the Sybase connection module!';
+			return 'Your PHP does not contain the Sybase connection module!';
 		}
 
 		return parent::ErrorMsg();

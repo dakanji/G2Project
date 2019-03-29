@@ -41,7 +41,7 @@ class GdToolkit extends GalleryToolkit {
 	public $_hasImageCreateTrueColor;
 
 	/**
-	 * The color used to replace transparent areas is the output format doesn't support
+	 * The color used to replace transparent areas is the output format does not support
 	 * transparency.  An RGB triple.
 	 *
 	 * @access private
@@ -193,7 +193,7 @@ class GdToolkit extends GalleryToolkit {
 				// $parameters[0]: target width, [1]: optional target height
 				$targetHeight = empty($parameters[1]) ? $parameters[0] : $parameters[1];
 
-				// Don't enlarge images for a thumbnail
+				// Do not enlarge images for a thumbnail
 				if ($operationName == 'thumbnail'
 					&& $width <= $parameters[0] && $height <= $targetHeight
 				) {
@@ -457,7 +457,7 @@ class GdToolkit extends GalleryToolkit {
 
 				$destRes = $sourceRes;
 
-				// Don't use imageCopyMerge here, as it will lose alpha-transparency
+				// Do not use imageCopyMerge here, as it will lose alpha-transparency
 				$ret = $gd->imageCopy(
 					$destRes,
 					$overlayRes,
@@ -853,7 +853,7 @@ class GdToolkit extends GalleryToolkit {
 		$gd =& $this->_getGdFunctionality();
 
 		/*
-		 * Try PHPs getimagesize first. If it runs afoul of open_basedir it'll return false and we
+		 * Try PHPs getimagesize first. If it runs afoul of open_basedir it will return false and we
 		 * can try using the GD functions
 		 */
 		$results = $gd->getImageSize($filename);
@@ -1023,10 +1023,10 @@ class GdToolkit extends GalleryToolkit {
 
 	/**
 	 * Handle the resouce according to the capabilities of the output format.
-	 *  - For formats that support an alpha channel, don't do anything.
+	 *  - For formats that support an alpha channel, do not do anything.
 	 *  - For formats that support a single transparent color, interpret everything that is more
 	 *    than 50% opaque as transparent.
-	 *  - For formats that don't support any form of transparency, fill the transparent area
+	 *  - For formats that do not support any form of transparency, fill the transparent area
 	 *    with a predefined background color.
 	 *
 	 * The code is based on phpthumb by James Heinrich <info@silisoftware.com>.
@@ -1118,7 +1118,7 @@ class GdToolkit extends GalleryToolkit {
 				$this->_free($alphaMixdownDitherImage);
 			}
 		} else {
-			// The output image can't store any transparencies. Use a background color instead.
+			// The output image cannot store any transparencies. Use a background color instead.
 			list($ret, $width, $height) = $this->_getImageDimensionsForResource($res);
 
 			if ($ret) {
@@ -1186,7 +1186,7 @@ class GdToolkit extends GalleryToolkit {
 		$canHaveTransparency = in_array($mimeType, array('image/gif', 'image/png', 'image/tiff', 'image/ico'));
 
 		if ($mimeType == 'image/gif' && $res) {
-			// Don't unnecessarily dither
+			// Do not unnecessarily dither
 			$gd                  =& $this->_getGdFunctionality();
 			$transparentColor    = $gd->imagecolortransparent($res);
 			$canHaveTransparency = $transparentColor != -1;

@@ -51,7 +51,7 @@ foreach my $file (@ARGV) {
   print OFD "</class>\n";
   close(OFD);
 
-  # It's gotta have more than the class-name, schema-version tags.
+  # It is gotta have more than the class-name, schema-version tags.
   #
   if ($tagCount == 0 || ($tagCount <= 2 && !$STUB_OK)) {
     print STDERR "No tags detected\n" unless ($QUIET);

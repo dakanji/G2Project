@@ -50,7 +50,7 @@ class OptimizeDatabaseTask extends MaintenanceTask {
 		$info['title']       = $gallery->i18n('Optimize database');
 		$info['description'] = $gallery->i18n(
 			'Improve the performance of your database.  Results will vary depending on which ' .
-			'database you\'re using, but this routine maintenance will make your Gallery run ' .
+			'database you are using, but this routine maintenance will make your Gallery run ' .
 			'faster.  Especially useful after adding or deleting many items.'
 		);
 

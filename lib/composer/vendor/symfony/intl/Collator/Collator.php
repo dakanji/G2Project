@@ -94,7 +94,7 @@ class Collator
      *
      * @param array &$array   Input array
      * @param int   $sortFlag Flags for sorting, can be one of the following:
-     *                        Collator::SORT_REGULAR - compare items normally (don't change types)
+     *                        Collator::SORT_REGULAR - compare items normally (do not change types)
      *                        Collator::SORT_NUMERIC - compare items numerically
      *                        Collator::SORT_STRING - compare items as strings
      *

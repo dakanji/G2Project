@@ -36,7 +36,7 @@ class GalleryEntityHelper_medium {
 
 		$lockIds = array();
 
-		// Don't write lock it if it's already locked somewhere else
+		// Do not write lock it if it is already locked somewhere else
 		if (!GalleryCoreApi::isWriteLocked($id)) {
 			list($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($id);
 

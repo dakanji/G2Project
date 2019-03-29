@@ -739,7 +739,7 @@ class Smarty_Compiler extends Smarty {
 
 		/*
 		 * True return value means that we either found a plugin or a
-		 * dynamically registered function. False means that we didn't and the
+		 * dynamically registered function. False means that we did not and the
 		 * compiler should now emit code to load custom function plugin for this
 		 * tag.
 		 */
@@ -827,7 +827,7 @@ class Smarty_Compiler extends Smarty {
 		}
 
 		/*
-		 * Even though we've located the plugin function, compilation
+		 * Even though we have located the plugin function, compilation
 		 * happens only once, so the plugin will still need to be loaded
 		 * at runtime for future requests.
 		 */
@@ -1541,13 +1541,13 @@ class Smarty_Compiler extends Smarty {
 
 					   return modified tokens, where the first one is the result
 					   of the 'is' expression and the rest are the tokens it
-					   didn't touch. */
+					   did not touch. */
 					$new_tokens = $this->_parse_is_expr($is_arg, array_slice($tokens, $i + 1));
 
 					// Replace the old tokens with the new ones.
 					array_splice($tokens, $is_arg_start, count($tokens), $new_tokens);
 
-					/* Adjust argument start so that it won't change from the
+					/* Adjust argument start so that it would not change from the
 					   current position for the next iteration. */
 					$i = $is_arg_start;
 
@@ -1740,7 +1740,7 @@ class Smarty_Compiler extends Smarty {
 					/* If token is not '=', we set the attribute value and go to
 					   state 0. */
 					if ($token != '=') {
-						/* We booleanize the token if it's a non-quoted possible
+						/* We booleanize the token if it is a non-quoted possible
 						   boolean value. */
 						if (preg_match('~^(on|yes|true)$~', $token)) {
 							$token = 'true';
@@ -2591,7 +2591,7 @@ class Smarty_Compiler extends Smarty {
 
 	/**
 	 * pop closing tag-name
-	 * raise an error if this stack-top doesn't match with the closing tag
+	 * raise an error if this stack-top does not match with the closing tag
 	 * @param string the closing tag's name
 	 * @return string the opening tag's name
 	 */

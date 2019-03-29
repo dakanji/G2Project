@@ -45,8 +45,8 @@ class GalleryToolkitHelper_medium {
 		global $gallery;
 
 		/*
-		 * Calculate a crc of the parameters which we'll use to make sure that
-		 * the operation we're registering matches one that we already have in
+		 * Calculate a crc of the parameters which we will use to make sure that
+		 * the operation we are registering matches one that we already have in
 		 * the database.
 		 */
 		$signature = '';
@@ -84,7 +84,7 @@ class GalleryToolkitHelper_medium {
 			if ($result[0] != $crc || $result[1] != $outputMimeType) {
 				/*
 				 * We have an operation with the same name, but different
-				 * parameters or output mime type.  We can't allow this
+				 * parameters or output mime type.  We cannot allow this
 				 * operation to be registered since it conflicts with an
 				 * existing one.  Bounce it.
 				 */
@@ -104,7 +104,7 @@ class GalleryToolkitHelper_medium {
 			}
 		} else {
 			/*
-			 * The operation doesn't already exist: create it.  First, add it
+			 * The operation does not already exist: create it.  First, add it
 			 * to the operation map
 			 */
 			$ret = GalleryCoreApi::addMapEntry(
@@ -194,14 +194,14 @@ class GalleryToolkitHelper_medium {
 			if ($result[0] != $type) {
 				/*
 				 * We have a property with the same name, but a different type.
-				 * We can't allow this property to be registered since it
+				 * We cannot allow this property to be registered since it
 				 * conflicts with an existing one.  Bounce it.
 				 */
 				return GalleryCoreApi::error(ERROR_COLLISION);
 			}
 		} else {
 			/*
-			 * The property doesn't already exist: create it.  First, add it
+			 * The property does not already exist: create it.  First, add it
 			 * to the property map
 			 */
 			$ret = GalleryCoreApi::addMapEntry(
@@ -708,7 +708,7 @@ class GalleryToolkitHelper_medium {
 			return array(null, null, null);
 		}
 
-		// If the output type isn't viewable, then try to turn it into a form that *is* viewable.
+		// If the output type is not viewable, then try to turn it into a form that *is* viewable.
 		list($ret, $isViewable) = GalleryCoreApi::isViewableMimeType($outputMimeType);
 
 		if ($ret) {

@@ -87,12 +87,12 @@ class StatusTemplate {
 
 	/**
 	 * Render the whole page, except for the status block and messages.  This is the way
-	 * that we render most pages that don't have interactive status messages.
+	 * that we render most pages that do not have interactive status messages.
 	 * @param array $templateData
 	 */
 	public function renderHeaderBodyAndFooter($templateData) {
 		/*
-		 * This is a little inefficient because we're loading MainPage twice.  But we're not
+		 * This is a little inefficient because we are loading MainPage twice.  But we are not
 		 * required to be really efficient here, and this is a nice way to compose it.
 		 */
 		$this->renderHeader();

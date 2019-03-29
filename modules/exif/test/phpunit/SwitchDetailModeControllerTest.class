@@ -51,7 +51,7 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		// Verify that we're in the right mode now
+		// Verify that we are in the right mode now
 		$session =& $gallery->getSession();
 
 		if (!$session->exists('exif.module.LoadExifInfo.mode')) {
@@ -81,7 +81,7 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		// Verify that we're in the right mode now
+		// Verify that we are in the right mode now
 		$session =& $gallery->getSession();
 
 		if (!$session->exists('exif.module.LoadExifInfo.mode')) {
@@ -111,7 +111,7 @@ class SwitchDetailModeControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		// Verify that we're in the right mode now
+		// Verify that we are in the right mode now
 		$session =& $gallery->getSession();
 
 		if (!$session->exists('exif.module.LoadExifInfo.mode')) {

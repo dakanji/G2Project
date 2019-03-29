@@ -54,7 +54,7 @@ class ItemAddConfirmationView extends GalleryView {
 
 		/*
 		 * We know what kind of operation happened, but for now let's compress
-		 * it down so that the template doesn't have to know.
+		 * it down so that the template does not have to know.
 		 */
 		$status   = $template->getVariable('status');
 		$uploaded = 0;

@@ -25,7 +25,7 @@ class RedirectToInstallerStep extends UpgradeStep {
 	public function loadTemplateData(&$templateData) {
 		global $gallery, $stepNumber;
 
-		// Add @ here in case we haven't yet upgraded config.php to include galleryBaseUrl
+		// Add @ here in case we have not yet upgraded config.php to include galleryBaseUrl
 		$baseUrl = @$gallery->getConfig('galleryBaseUrl');
 
 		if (empty($baseUrl)) {
@@ -36,7 +36,7 @@ class RedirectToInstallerStep extends UpgradeStep {
 		}
 
 		/*
-		 * Don't redirect immediately because the user might actually want to upgrade
+		 * Do not redirect immediately because the user might actually want to upgrade
 		 * but accidentally lost config.php.
 		 */
 		$this->setComplete(false);

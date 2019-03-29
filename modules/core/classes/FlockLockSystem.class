@@ -29,8 +29,8 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryLockSystem.class');
  */
 class FlockLockSystem extends GalleryLockSystem {
 	/**
-	 * Reference counts for every lock we're holding so that if we've got a file doubly read locked
-	 * we don't try to delete it until all read locks are released.
+	 * Reference counts for every lock we are holding so that if we have got a file doubly read locked
+	 * we do not try to delete it until all read locks are released.
 	 * @todo When we get rid of double read locks, we can delete this.
 	 * @var array
 	 * @access private
@@ -121,14 +121,14 @@ class FlockLockSystem extends GalleryLockSystem {
 						$this->_references[$lockFile] = 1;
 					}
 				} else {
-					// Remember that it's not locked and keep going
+					// Remember that it is not locked and keep going
 					$notLocked[$id] = $lockInfo;
 				}
 			}
 
 			if (!empty($notLocked)) {
 				if (time() > $cutoffTime) {
-					// Couldn't get the locks in time, release the ones that we have and return
+					// Could not get the locks in time, release the ones that we have and return
 					foreach (array_merge($locked, $notLocked) as $lockInfo) {
 						$this->_closeLockFile($lockInfo);
 					}

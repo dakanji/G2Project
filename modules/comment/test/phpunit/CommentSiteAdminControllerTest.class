@@ -229,7 +229,7 @@ class CommentSiteAdminControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[apiKey]', '3:15/s');
 		GalleryUtilities::putRequestVariable('form[action][save]', '1');
 
-		// Ensure that the API key gets doesn't get rejected because of a remote server
+		// Ensure that the API key gets does not get rejected because of a remote server
 		$this->_controller->_akismet = new CommentSiteAdminControllerTest_FakeAkismetApi(true);
 		$results                     = $this->handleRequest();
 

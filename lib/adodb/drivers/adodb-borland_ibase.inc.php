@@ -62,7 +62,7 @@ class ADODB_borland_ibase extends ADODB_ibase {
 		return $arr;
 	}
 
-	// Note that Interbase 6.5 uses ROWS instead - don't you love forking wars!
+	// Note that Interbase 6.5 uses ROWS instead - do not you love forking wars!
 	// 		SELECT col1, col2 FROM table ROWS 5 -- get 5 rows
 	//		SELECT col1, col2 FROM TABLE ORDER BY col1 ROWS 3 TO 7 -- first 5 skip 2
 	// Firebird uses

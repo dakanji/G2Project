@@ -160,7 +160,7 @@ foreach ($workingDirs as $targetDir) {
     ));
 }
 
-// We don't want to use fallback to English during generation
+// We do not want to use fallback to English during generation
 Locale::setDefaultFallback(null);
 echo "Generating language data...\n";
 $generator = new LanguageDataGenerator($compiler, Intl::LANGUAGE_DIR);

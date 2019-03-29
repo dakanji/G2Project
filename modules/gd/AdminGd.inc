@@ -106,7 +106,7 @@ class AdminGdView extends GalleryView {
 			return array($ret, null);
 		}
 
-		// Load our default values if we didn't just come from this form.
+		// Load our default values if we did not just come from this form.
 		if ($form['formName'] != 'AdminGd') {
 			foreach (array('path', 'jpegQuality') as $key) {
 				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'gd', $key);

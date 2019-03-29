@@ -796,7 +796,7 @@ END;
 		$offset = (int)$offset;
 
 		// Since the methods used to limit the number of returned rows rely
-		// on modifying the provided SQL query, we can't work with prepared
+		// on modifying the provided SQL query, we cannot work with prepared
 		// statements so we just extract the SQL string.
 		if (is_array($sql)) {
 			$sql = $sql[0];
@@ -1702,7 +1702,7 @@ SELECT /*+ RULE */ distinct b.column_name
 	 * Quotes a string.
 	 *
 	 *
-	 * An example is  $db->qstr("Don't bother",magic_quotes_runtime());
+	 * An example is  $db->qstr("Do not bother",magic_quotes_runtime());
 	 *
 	 *
 	 *
@@ -1837,8 +1837,8 @@ class ADORecordset_oci8 extends ADORecordSet {
 	/**
 	 * Get column information in the Recordset object.
 	 * fetchField() can be used in order to obtain information about fields
-	 * in a certain query result. If the field offset isn't specified, the next
-	 * field that wasn't yet retrieved by fetchField() is retrieved
+	 * in a certain query result. If the field offset is not specified, the next
+	 * field that was not yet retrieved by fetchField() is retrieved
 	 *
 	 * @return object containing field information
 	 */

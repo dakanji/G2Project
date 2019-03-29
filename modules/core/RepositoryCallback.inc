@@ -71,7 +71,7 @@ class RepositoryCallbackView extends GalleryView {
 			 * Filter the form values through our list of valid keys to avoid exploits
 			 * This is duplicated from AdminRepositoryController.  Success is assumed here
 			 * since the UI is not configured to actually do anything on failure.  This probably
-			 * isn't the best long term approach.
+			 * is not the best long term approach.
 			 */
 			$data = array();
 

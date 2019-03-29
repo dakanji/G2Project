@@ -18,7 +18,7 @@
  */
 
 /**
- * Scan through all of our source code and verify that we're not using anything that is not
+ * Scan through all of our source code and verify that we are not using anything that is not
  * PHP 4.3 compatible
  * @package GalleryCore
  * @subpackage PHPUnit
@@ -50,7 +50,7 @@ class Php43CompatibilityTest extends CodeAuditTestCase {
 	 * @see CodeAuditTestCase::shouldCheckFile
 	 */
 	public function shouldCheckFile($fileName) {
-		// Skip files we don't care about
+		// Skip files we do not care about
 		if ($fileName == 'Php43IllegalFunctions.inc'
 			|| substr($fileName, -10) == 'Test.class'
 			|| substr($fileName, -4) == '.tpl'

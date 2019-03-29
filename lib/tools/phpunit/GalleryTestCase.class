@@ -18,7 +18,7 @@
  */
 
 /**
- * Gallery specific version of PHPUnit's TestCase class.
+ * Gallery specific version of PHPUnit is TestCase class.
  * @package Gallery
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -157,7 +157,7 @@ class GalleryTestCase extends TestCase {
 			return $ret;
 		}
 
-		// Save useful vars so that tests don't have to worry about overwriting them
+		// Save useful vars so that tests do not have to worry about overwriting them
 		$this->_saveVars[] = $_GET;
 		$this->_saveVars[] = $_POST;
 		$this->_saveVars[] = $_REQUEST;
@@ -252,7 +252,7 @@ class GalleryTestCase extends TestCase {
 			$gallery->_lockSystem->releaseQueue();
 		}
 
-		// Make sure we're not hanging onto any locks
+		// Make sure we are not hanging onto any locks
 		$lockIds = GalleryCoreApi::getLockIds();
 
 		if (!empty($lockIds)) {
@@ -1221,7 +1221,7 @@ class GalleryTestCase extends TestCase {
 			'modules/core/classes/helpers/GalleryFactoryHelper_simple.class'
 		);
 
-		// Don't use references here
+		// Do not use references here
 		list($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
 
 		$this->_cleanup['factoryRegistry'] = $registry;
@@ -1250,7 +1250,7 @@ class GalleryTestCase extends TestCase {
 			$listenersAreRegistered = true;
 		}
 
-		// Don't use references here
+		// Do not use references here
 		$eventListeners                   = GalleryEventHelper_simple::_getEventListeners();
 		$this->_cleanup['eventListeners'] = $eventListeners;
 

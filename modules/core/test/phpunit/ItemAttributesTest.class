@@ -189,7 +189,7 @@ class ItemAttributesTest extends GalleryTestCase {
 	}
 
 	/**
-	 * Verify that we don't increment the view count until a day after the last increment within
+	 * Verify that we do not increment the view count until a day after the last increment within
 	 * the same session.
 	 */
 	public function testDontIncrementItemViewCountTooOften() {
@@ -222,7 +222,7 @@ class ItemAttributesTest extends GalleryTestCase {
 	}
 
 	/**
-	 * Verify that we don't increment the view count until a day after the last increment within
+	 * Verify that we do not increment the view count until a day after the last increment within
 	 * the same session.
 	 */
 	public function testIncrementItemViewCountThreshold() {
@@ -893,7 +893,7 @@ class ItemAttributesTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Verify that the target user can't see the item (even though the active user can)
+		// Verify that the target user cannot see the item (even though the active user can)
 		list($ret, $counts) = GalleryCoreApi::fetchDescendentCounts(
 			array($this->_album->getId(), $album->getId()),
 			$user->getId()

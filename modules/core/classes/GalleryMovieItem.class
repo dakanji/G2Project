@@ -151,7 +151,7 @@ class GalleryMovieItem extends GalleryDataItem {
 		$this->setHeight(0);
 		$this->setDuration(0);
 
-		// We're linkable
+		// We are linkable
 		$this->setIsLinkable(true);
 
 		// Detect our dimensions, if possible
@@ -203,8 +203,8 @@ class GalleryMovieItem extends GalleryDataItem {
 			if ($ret) {
 				if (!($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
 					/*
-					 * We can't get the dimensions.  It may be a bad movie, or the graphics toolkit
-					 * may be broken.  We can't tell, so set everything to zero for now.
+					 * We cannot get the dimensions.  It may be a bad movie, or the graphics toolkit
+					 * may be broken.  We cannot tell, so set everything to zero for now.
 					 *
 					 * TODO: trapping everything but storage failures is too broad.  Trap only
 					 * toolkit failures after we refactor all toolkits to set the

@@ -529,7 +529,7 @@ class SystemChecksStep extends UpgradeStep {
 
 				if (!empty($manifest['modified'])) {
 					if ($isSvnInstall) {
-						$notice = 'Note: You\'re running Gallery from SVN, so some modified ' .
+						$notice = 'Note: You are running Gallery from SVN, so some modified ' .
 						'files are to be expected.  You can probably ignore these, but to be ' .
 						'safe you should make sure that you do \'svn update\' before ' .
 						'continuing.';
@@ -881,7 +881,7 @@ class SystemChecksStep extends UpgradeStep {
 		 * tablePrefix.
 		 *
 		 * Set an unused tablePrefix such that we can play with create/drop table in an
-		 * unused database "namespace". Try a few prefices, don't try to drop!
+		 * unused database "namespace". Try a few prefices, do not try to drop!
 		 */
 		$ok = false;
 
@@ -984,7 +984,7 @@ class SystemChecksStep extends UpgradeStep {
 
 		/*
 		 * Split the file where semicolons are followed by a blank line..
-		 * PL/SQL blocks will have other semicolons, so we can't split on every one.
+		 * PL/SQL blocks will have other semicolons, so we cannot split on every one.
 		 * But first, remove that last semicolon such that all statements have no semicolon
 		 * (required for oracle)
 		 */

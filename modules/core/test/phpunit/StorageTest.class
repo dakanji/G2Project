@@ -891,7 +891,7 @@ class StorageTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Only some entity fields are set because we're not calling GalleryEntity::save() here
+		// Only some entity fields are set because we are not calling GalleryEntity::save() here
 		$this->assertEquals(
 			array(
 				array(
@@ -938,7 +938,7 @@ class StorageTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Only some entity fields are set because we're not calling GalleryEntity::save() here
+		// Only some entity fields are set because we are not calling GalleryEntity::save() here
 		$this->assertEquals(
 			array(
 				array(
@@ -1105,7 +1105,7 @@ class StorageTest extends GalleryTestCase {
 
 		$storage =& $gallery->getStorage();
 
-		// We use integers in the DB, thus cast to integer, 3rd param doesn't matter
+		// We use integers in the DB, thus cast to integer, 3rd param does not matter
 		$memberData['type']    = STORAGE_TYPE_BOOLEAN;
 		$memberData['notNull'] = false;
 
@@ -1244,7 +1244,7 @@ class StorageTest extends GalleryTestCase {
 			)
 		);
 
-		// If the \0 character wasn't properly escaped, PG would throw an error here
+		// If the \0 character was not properly escaped, PG would throw an error here
 		if ($ret) {
 			return $ret;
 		}
@@ -1794,7 +1794,7 @@ class StorageTest extends GalleryTestCase {
 class StorageTestDB {
 	public $_testCase;
 
-	// Pretend we're already in a transaction
+	// Pretend we are already in a transaction
 	public $transCnt = 1;
 	public $_recordSets;
 

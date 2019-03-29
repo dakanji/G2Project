@@ -257,7 +257,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 		);
 	}
 
-	// Make sure viewL10domain doesn't get ignored
+	// Make sure viewL10domain does not get ignored
 	public function testTextViewL10domain() {
 		global $gallery;
 

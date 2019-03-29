@@ -180,7 +180,7 @@ class RepositoryIndex extends RepositoryObject {
 						ERROR_PLATFORM_FAILURE,
 						__FILE__,
 						__LINE__,
-						"Couldn't open directory [$this->_outputDir$pluginType]"
+						"Could not open directory [$this->_outputDir$pluginType]"
 					),
 					null,
 				);
@@ -226,7 +226,7 @@ class RepositoryIndex extends RepositoryObject {
 	public function getPluginInfo() {
 		global $gallery;
 
-		// Read index from disk if it's not in memory.
+		// Read index from disk if it is not in memory.
 		if (!is_array($this->_index)) {
 			$platform  =& $gallery->getPlatform();
 			$indexPath = $this->_outputDir . $this->_fileName;
@@ -249,7 +249,7 @@ class RepositoryIndex extends RepositoryObject {
 						ERROR_BAD_PARAMETER,
 						__FILE__,
 						__LINE__,
-						"Couldn't unserialize index [$index]"
+						"Could not unserialize index [$index]"
 					),
 					null,
 				);

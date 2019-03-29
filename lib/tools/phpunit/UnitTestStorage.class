@@ -57,7 +57,7 @@ class UnitTestStorage extends MockObject {
 
 		if ($ret) {
 			/*
-			 * It's a pita for the caller to have to handle this, so just print it out, which
+			 * It is a pita for the caller to have to handle this, so just print it out, which
 			 * should raise enough of a red flag.
 			 */
 			echo $ret->getAsHtml();

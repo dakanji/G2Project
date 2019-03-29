@@ -54,7 +54,7 @@ class PostgreSqlStorage extends GalleryStorage {
 
 		/*
 		 * Use a temporary database connection such that possible errors when dropping the bit_or
-		 * function don't affect the main transaction.
+		 * function do not affect the main transaction.
 		 */
 		list($ret, $tmpDb) = $this->_getConnection(true);
 
@@ -101,7 +101,7 @@ class PostgreSqlStorage extends GalleryStorage {
 			$this->_traceStop();
 
 			/*
-			 * Ignore errors here, since we'll get them every time we try to
+			 * Ignore errors here, since we will get them every time we try to
 			 * install the aggregate, which will happen every time we upgrade core
 			 * or install in a database with another Gallery already present.
 			 *

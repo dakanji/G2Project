@@ -70,7 +70,7 @@ class ADODB_mssql_n extends ADODB_mssql {
 	 *
 	 * The orginal note indicated that this hack should only be used if ALL the char-based columns
 	 * in your DB are of type nchar, nvarchar and ntext, but testing seems to indicate that SQL server
-	 * doesn't seem to care if the statement is used against char etc fields.
+	 * does not seem to care if the statement is used against char etc fields.
 	 *
 	 * @todo This function should raise an ADOdb error if one of the transformations fail
 	 *
@@ -111,7 +111,7 @@ class ADODB_mssql_n extends ADODB_mssql {
 			}
 
 			/*
-			 * Check we haven't an odd number of single quotes (this can cause problems below
+			 * Check we have not an odd number of single quotes (this can cause problems below
 			 * and should be considered one wrong SQL). Exit with debug info.
 			 */
 			if ((substr_count($inboundValue, SINGLEQUOTE) & 1)) {
@@ -123,7 +123,7 @@ class ADODB_mssql_n extends ADODB_mssql {
 			}
 
 			/*
-			 * Check we haven't any backslash + single quote combination. It should mean wrong
+			 * Check we have not any backslash + single quote combination. It should mean wrong
 			 *  backslashes use (bad magic_quotes_sybase?). Exit with debug info.
 			 */
 			$regexp = '/(\\\\' . SINGLEQUOTE . '[^' . SINGLEQUOTE . '])/';
@@ -166,7 +166,7 @@ class ADODB_mssql_n extends ADODB_mssql {
 				}
 			}
 
-			// Analyse literals to prepend the N char to them if their contents aren't numeric
+			// Analyse literals to prepend the N char to them if their contents are not numeric
 			if (!empty($literals)) {
 				foreach ($literals as $key => $value) {
 					if (!is_numeric(trim($value, SINGLEQUOTE))) {

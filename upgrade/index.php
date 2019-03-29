@@ -3,7 +3,7 @@
 /*
  * ATTENTION:
  *
- * If you're seeing this in your browser, and are trying to upgrade Gallery,
+ * If you are seeing this in your browser, and are trying to upgrade Gallery,
  * you either do not have PHP installed, or if it is installed, it is not
  * properly enabled. Please visit the following page for assistance:
  *
@@ -55,7 +55,7 @@ require_once $g2Base . 'modules/core/classes/GalleryUtilities.class';
 require_once $g2Base . 'lib/support/GallerySetupUtilities.class';
 
 /*
- * If gettext isn't enabled, subvert the _() text translation function
+ * If gettext is not enabled, subvert the _() text translation function
  * and just pass the string on through in English
  */
 if (!function_exists('_')) {
@@ -135,7 +135,7 @@ if (!empty($storageConfig)) {
 	// Preallocate at least 5 minutes for the upgrade
 	$gallery->guaranteeTimeLimit(300);
 
-	// Check to see if we have a database.  If we don't, then go to the installer
+	// Check to see if we have a database.  If we do not, then go to the installer
 	$storage =& $gallery->getStorage();
 
 	list($ret, $isInstalled) = $storage->isInstalled();
@@ -147,7 +147,7 @@ if (!empty($storageConfig)) {
 	$error = true;
 }
 
-// If we don't have our steps in our session, initialize them now.
+// If we do not have our steps in our session, initialize them now.
 if (!isset($_GET['startOver']) && !empty($_SESSION['upgrade_steps'])) {
 	$steps = unserialize($_SESSION['upgrade_steps']);
 }
@@ -169,7 +169,7 @@ if (empty($steps) || !is_array($steps)) {
 		}
 	}
 
-	// Don't do this in the loop, since not all steps are relevant
+	// Do not do this in the loop, since not all steps are relevant
 	$steps[sizeof($steps) - 1]->setIsLastStep(true);
 }
 
@@ -200,7 +200,7 @@ if (!empty($_GET['doOver'])) {
 	$currentStep->setComplete(false);
 }
 
-// If the current step is incomplete, the rest of the steps can't be complete either
+// If the current step is incomplete, the rest of the steps cannot be complete either
 if (!$currentStep->isComplete()) {
 	for ($i = $stepNumber + 1; $i < sizeof($steps); $i++) {
 		$steps[$i]->setComplete(false);
@@ -287,7 +287,7 @@ function generateUrl($uri, $print = true) {
 		// upgrade/images/*, upgrade/styles/*, ... URLs
 		global $gallery;
 
-		// Add @ here in case we haven't yet upgraded config.php to include galleryBaseUrl
+		// Add @ here in case we have not yet upgraded config.php to include galleryBaseUrl
 		$baseUrl = @$gallery->getConfig('galleryBaseUrl');
 
 		if (!empty($baseUrl)) {
@@ -297,7 +297,7 @@ function generateUrl($uri, $print = true) {
 		// If session.use_trans_sid is on then it will add the session id.
 		if (!GallerySetupUtilities::areCookiesSupported() && !ini_get('session.use_trans_sid')) {
 			/*
-			 * Don't use SID since it's a constant and we change (regenerate) the session id
+			 * Do not use SID since it is a constant and we change (regenerate) the session id
 			 * in the request
 			 */
 			$sid  = session_name() . '=' . session_id();
@@ -314,8 +314,8 @@ function generateUrl($uri, $print = true) {
 }
 
 /*
- * We don't store the steps in the session in raw form because that
+ * We do not store the steps in the session in raw form because that
  * will break in environments where session.auto_start is on since
- * it will try to instantiate the classes before they've been defined
+ * it will try to instantiate the classes before they have been defined
  */
 $_SESSION['upgrade_steps'] = serialize($steps);

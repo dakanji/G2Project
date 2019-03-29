@@ -127,7 +127,7 @@ class GalleryChildEntity extends GalleryEntity {
 	/**
 	 * Create a root level item.
 	 * This is a special case; every other GalleryChildEntry will have a
-	 * parent.  But the root items don't have one.
+	 * parent.  But the root items do not have one.
 	 */
 	public function createRoot() {
 		$ret = parent::create();

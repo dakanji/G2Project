@@ -158,7 +158,7 @@ class CurrencyDataGenerator extends AbstractDataGenerator
     private function generateCurrencyMeta(ArrayAccessibleResourceBundle $supplementalDataBundle)
     {
         // The metadata is already de-duplicated. It contains one key "DEFAULT"
-        // which is used for currencies that don't have dedicated entries.
+        // which is used for currencies that do not have dedicated entries.
         return iterator_to_array($supplementalDataBundle['CurrencyMeta']);
     }
 

@@ -243,7 +243,7 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		// make sure they're really missing
+		// make sure they are really missing
 		foreach ($items as $item) {
 			$ret = $this->_verifyMissing($item->getId());
 
@@ -254,7 +254,7 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 	}
 
 	/**
-	 * try to delete a bunch of items some of which we don't have permission
+	 * try to delete a bunch of items some of which we do not have permission
 	 * to do so
 	 */
 	public function testDeleteMultipleItemsWithoutPermission() {
@@ -329,9 +329,9 @@ class ItemDeleteControllerTest extends GalleryControllerTestCase {
 	}
 
 	/**
-	 * Test deleting a random item that doesn't exist.  We should get a
+	 * Test deleting a random item that does not exist.  We should get a
 	 * permission denied (since the permission check happens before we even
-	 * verify that it's a valid item to prevent information leakage)
+	 * verify that it is a valid item to prevent information leakage)
 	 */
 	public function testDeleteBogusItem() {
 		list($ret, $bogusId) = $this->_getUnusedId();

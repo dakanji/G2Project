@@ -50,7 +50,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 
 		if (isset($form['action']['undo'])) {
 			/*
-			 * Take no action and we'll be redirected back to the same page
+			 * Take no action and we will be redirected back to the same page
 			 * which will reset the form
 			 */
 		} elseif (isset($form['action']['save'])) {
@@ -581,7 +581,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 
 					$operations = $resize[$mimeType]['operations'];
 
-					// Special case to make sure that we don't upsample photos
+					// Special case to make sure that we do not upsample photos
 					if (GalleryUtilities::isA($child, 'GalleryPhotoItem')
 						&& $child->getWidth() <= $resize['width']
 						&& $child->getHeight() <= $resize['height']
@@ -872,10 +872,10 @@ class ItemEditAlbum extends ItemEditPlugin {
 				} else {
 					/*
 					 * There is no thumbnail yet (maybe the file was uploaded when there was no
-					 * graphic toolkit). Build new thumbnail from source if it's a GalleryDataItem.
+					 * graphic toolkit). Build new thumbnail from source if it is a GalleryDataItem.
 					 */
 					if (!GalleryUtilities::isA($child, 'GalleryDataItem')) {
-						// It's an album or something else, we can't make a thumbnail
+						// It is an album or something else, we cannot make a thumbnail
 						continue;
 					}
 
@@ -1000,7 +1000,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		}
 
 		if (!isset($form['recreateResizes'])) {
-			// Don't show "Complete" yet if there is another task
+			// Do not show "Complete" yet if there is another task
 			$redirect = array(
 				'view'    => 'core.ItemAdmin',
 				'subView' => 'core.ItemEdit',

@@ -544,7 +544,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	}
 
 	public function testGetPluginVersion() {
-		// Since we can't mock the core API, we'll use the cache to store our mock plugin.
+		// Since we cannot mock the core API, we will use the cache to store our mock plugin.
 		GalleryDataCache::put(
 			'GalleryPluginHelper::loadPlugin(module, testModule)',
 			new RepositoryUtilitiesTestPlugin()
@@ -1165,11 +1165,11 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 		);
 
 		$this->assertEquals($expected, $packages, 'Unexpected Package list returned');
-		$this->assertEquals(6, $callback['current'], 'Callback didn\'t match');
+		$this->assertEquals(6, $callback['current'], 'Callback did not match');
 		$this->assertEquals(
 			array('0.1', '0.2', '0.3', '0.4', '0.5', '0.6'),
 			$mockAdapter->_progress,
-			'Reported progress didn\'t match'
+			'Reported progress did not match'
 		);
 		$this->assertTrue($platform->isComplete(), $platform->getRemaining());
 	}

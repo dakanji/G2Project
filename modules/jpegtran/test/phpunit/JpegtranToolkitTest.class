@@ -700,7 +700,7 @@ class JpegtranToolkitTestPlatform {
 	}
 
 	public function unlink($path) {
-		// we don't create any files, so no need to unlink any
+		// we do not create any files, so no need to unlink any
 	}
 
 	public function tempnam($dir, $prefix) {

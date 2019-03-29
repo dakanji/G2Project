@@ -86,8 +86,8 @@ class AdminGroupsController extends GalleryController {
 				$error[] = 'form[error][text][noSuchGroup]';
 			} else {
 				/*
-				 * In theory we should never get to this point unless we're operating on a valid
-				 * group, so don't bother sending errors back in case we can't delete.
+				 * In theory we should never get to this point unless we are operating on a valid
+				 * group, so do not bother sending errors back in case we cannot delete.
 				 */
 				if ($group->getGroupType() != GROUP_NORMAL) {
 					$error[] = 'form[error][text][cantDeleteGroup]';
@@ -107,8 +107,8 @@ class AdminGroupsController extends GalleryController {
 				$error[] = 'form[error][text][noSuchGroup]';
 			} else {
 				/*
-				 * In theory we should never get to this point unless we're operating on a valid
-				 * group, so don't bother sending errors back in case we can't delete.
+				 * In theory we should never get to this point unless we are operating on a valid
+				 * group, so do not bother sending errors back in case we cannot delete.
 				 */
 				if ($group->getGroupType() == GROUP_ALL_USERS
 					|| $group->getGroupType() == GROUP_EVERYBODY

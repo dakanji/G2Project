@@ -28,7 +28,7 @@
  */
 class AkismetApi {
 	/**
-	 * Check a comment to see if it's spam.
+	 * Check a comment to see if it is spam.
 	 * @param GalleryComment $comment a reference to a GalleryComment instance
 	 * @return array GalleryStatus a status code
 	 *               true if the comment is spam.
@@ -168,7 +168,7 @@ class AkismetApi {
 			return array($ret, null, null, null);
 		}
 
-		// We can't operate without an API key
+		// We cannot operate without an API key
 		if (empty($apiKey)) {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null, null, 'Missing API key');
 		}

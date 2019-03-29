@@ -26,7 +26,7 @@ $gallerySetErrorHandler = false;
 require __DIR__ . '/bootstrap.inc';
 
 /*
- * If they don't have a setup password, we assume that the config.php is empty and this is an
+ * If they do not have a setup password, we assume that the config.php is empty and this is an
  * initial install
  */
 if (!@$gallery->getConfig('setup.password')) {
@@ -70,7 +70,7 @@ if ($gallery->isEmbedded()) {
 
 		/*
 		 * Fast download depends on having data.gallery.cache set, so set it now.  If for some
-		 * reason we fail, we'll reset it in init.inc (but that's OK).
+		 * reason we fail, we will reset it in init.inc (but that's OK).
 		 */
 		$gallery->setConfig(
 			'data.gallery.cache',
@@ -84,7 +84,7 @@ if ($gallery->isEmbedded()) {
 			)
 		);
 
-		// We don't have a platform yet so we have to use the raw file_exists
+		// We do not have a platform yet so we have to use the raw file_exists
 		// Disable fast-download in maintenance mode, admins still get via core.DownloadItem
 		if (file_exists($path) && !$gallery->getConfig('mode.maintenance')) {
 			include $path;
@@ -185,9 +185,9 @@ function GalleryMain($embedded = false) {
 	if ($ret) {
 		$g2Data['isDone'] = true;
 	} elseif (isset($g2Data['redirectUrl'])) {
-		// If we're in debug mode, show a redirect page
+		// If we are in debug mode, show a redirect page
 		echo '<h1> Debug Redirect </h1> ' .
-		'Not automatically redirecting you to the next page because we\'re in debug mode<br/>';
+		'Not automatically redirecting you to the next page because we are in debug mode<br/>';
 		printf('<a href="%s">Continue to the next page</a>', $g2Data['redirectUrl']);
 		echo '<hr/>';
 		echo '<pre>';
@@ -532,7 +532,7 @@ function _GalleryMain($embedded = false, $template = null) {
 				return array($ret, null);
 			}
 
-			// From now on, don't add sessionId to URLs if there's no persistent session
+			// From now on, do not add sessionId to URLs if there's no persistent session
 			$session->doNotUseTempId();
 		}
 
@@ -858,7 +858,7 @@ function _GalleryMain_doRedirect(
 		 * Our solution: detect IIS version and append GALLERYSID to the Location URL if necessary
 		 */
 		if (in_array($controller, array('core.Logout', 'core.UserLogin', 'publishxp.Login'))) {
-			// Check if it's IIS and if the version is < 6.0
+			// Check if it is IIS and if the version is < 6.0
 			$webserver = GalleryUtilities::getServerVar('SERVER_SOFTWARE');
 
 			if (!empty($webserver)
@@ -866,7 +866,7 @@ function _GalleryMain_doRedirect(
 				&& $matches[1] < 6
 			) {
 				/*
-				 * It is IIS and it's a version with this bug, check if GALLERYSID is already in the
+				 * It is IIS and it is a version with this bug, check if GALLERYSID is already in the
 				 * URL, else append it
 				 */
 				$session            =& $gallery->getSession();

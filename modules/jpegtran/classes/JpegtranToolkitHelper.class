@@ -144,7 +144,7 @@ class JpegtranToolkitHelper {
 			return array($ret, null);
 		}
 
-		// To test the binary we'll try to rotate a small jpeg file.
+		// To test the binary we will try to rotate a small jpeg file.
 		$tmpDir      = $gallery->getConfig('data.gallery.tmp');
 		$tmpFilename = $platform->tempnam($tmpDir, 'jpgt_');
 		$command     = array(

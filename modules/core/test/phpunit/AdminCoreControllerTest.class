@@ -45,7 +45,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		}
 
 		/*
-		 * Don't set session.inactivityTimeout or session.siteAdministrationTimeout as the tests
+		 * Do not set session.inactivityTimeout or session.siteAdministrationTimeout as the tests
 		 * will fail with permission errors.
 		 */
 		$this->_valueMap = array(
@@ -164,7 +164,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			'abc',
 			$storedPass,
-			"matching number of stars shouldn't change the password"
+			"matching number of stars should not change the password"
 		);
 	}
 
@@ -211,7 +211,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals(
 			'abc',
 			$storedPass,
-			"mismatched number of stars shouldn't change the password"
+			"mismatched number of stars should not change the password"
 		);
 	}
 
@@ -249,10 +249,10 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals('pass&word', base64_decode($storedPass));
 	}
 
-	// Test that we don't accept just any cookie path
+	// Test that we do not accept just any cookie path
 	public function testChangeCookiePath() {
 		/*
-		 * AdminCore expects all the form vars, even if we test here only the cookie path.  Don't
+		 * AdminCore expects all the form vars, even if we test here only the cookie path.  Do not
 		 * set session.inactivityTimeout or session.siteAdministrationTimeout as the tests will fail
 		 * with permission errors.
 		 */
@@ -376,10 +376,10 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 		}
 	}
 
-	// Test that we don't accept just any cookie domain
+	// Test that we do not accept just any cookie domain
 	public function testChangeCookieDomain() {
 		/*
-		 * AdminCore expects all the form vars, even if we test here only the cookie path.  Don't
+		 * AdminCore expects all the form vars, even if we test here only the cookie path.  Do not
 		 * set session.inactivityTimeout or session.siteAdministrationTimeout as the tests will fail
 		 * with permission errors.
 		 */
@@ -658,7 +658,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testReset() {
-		// Set the default language to a value such that we can ensure that it hasn't changed
+		// Set the default language to a value such that we can ensure that it has not changed
 		$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'default.language', 'de');
 
 		if ($ret) {

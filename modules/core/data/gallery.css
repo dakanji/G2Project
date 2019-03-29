@@ -3,7 +3,7 @@
 /*                                                                  */
 /* Modified from the original container.css to use as many div#id   */
 /* style tags as possible to tightly scope this CSS so that it      */
-/* doesn't leak out and affect our themes.                          */
+/* does not leak out and affect our themes.                          */
 /* ================================================================ */
 .yui-overlay {
   position:absolute;
@@ -531,7 +531,7 @@ span.gTooltipTarget {
   filter: alpha(opacity=50);
 }
 
-#gTooltip.mask[id]{ /* IE6 and below Can't See This */
+#gTooltip.mask[id]{ /* IE6 and below Cannot See This */
   position:fixed;
 }
 

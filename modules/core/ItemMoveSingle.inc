@@ -69,7 +69,7 @@ class ItemMoveSingleController extends GalleryController {
 
 				/*
 				 * Assert that our permissions are correct.  The view should never try to make a
-				 * move that isn't legal so we can just bail if there's an inconsistency.
+				 * move that is not legal so we can just bail if there's an inconsistency.
 				 */
 				list($ret, $canView) = GalleryCoreApi::hasItemPermission($newParentId, 'core.view');
 
@@ -78,7 +78,7 @@ class ItemMoveSingleController extends GalleryController {
 				}
 
 				if (!$canView) {
-					// Avoid information disclosure, act as if the item didn't exist.
+					// Avoid information disclosure, act as if the item does not exist.
 					return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 				}
 
@@ -118,7 +118,7 @@ class ItemMoveSingleController extends GalleryController {
 				}
 			}
 
-			// Make sure we don't have recursive moves
+			// Make sure we do not have recursive moves
 			if (empty($error)) {
 				list($ret, $newParentAncestorIds) = GalleryCoreApi::fetchParentSequence($newParentId);
 
@@ -160,7 +160,7 @@ class ItemMoveSingleController extends GalleryController {
 					return array($ret, null);
 				}
 
-				// Write lock the item we're moving
+				// Write lock the item we are moving
 				list($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($itemId);
 
 				if ($ret) {
@@ -262,7 +262,7 @@ class ItemMoveSingleView extends GalleryView {
 
 	/**
 	 * @see GalleryView::loadTemplate
-	 * @todo Scalability - Don't load all album-items into memory. Need a way to load the items
+	 * @todo Scalability - Do not load all album-items into memory. Need a way to load the items
 	 *       incrementally, e.g. with an AJAX-powered tree widget.
 	 */
 	public function loadTemplate(&$template = null, &$form = null) {

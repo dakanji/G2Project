@@ -219,7 +219,7 @@ class ImageMagickModule extends GalleryModule {
 
 		foreach ($results['properties'] as $property => $info) {
 			if ($property == 'colorspace' && $cmykSupport != 'on') {
-				// Skip colorspace if this feature isn't turned on
+				// Skip colorspace if this feature is not turned on
 				continue;
 			}
 

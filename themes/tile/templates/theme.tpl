@@ -8,7 +8,7 @@
     {* Let Gallery print out anything it wants to put into the <head> element *}
     {g->head}
 
-    {* If Gallery doesn't provide a header, we use the album/photo title (or filename) *}
+    {* If Gallery does not provide a header, we use the album/photo title (or filename) *}
     {if empty($head.title)}
       <title>{$theme.item.title|markup:strip|default:$theme.item.pathComponent}</title>
     {/if}

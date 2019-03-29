@@ -99,7 +99,7 @@ class ControllerTest extends GalleryTestCase {
 	public function testLoadConfigurationController() {
 		/*
 		 * We can load the config controller even though the module is deactivated
-		 * because we're an admin.
+		 * because we are an admin.
 		 */
 		list($ret, $controller) = GalleryController::getMe()->loadController('controllertest.ConfigView');
 

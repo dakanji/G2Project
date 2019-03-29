@@ -435,11 +435,11 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		/*
-		 * Now we're getting back a series of acl id => item id pairs from the database, each of
-		 * which we need to convert.  When we see an acl id we haven't seen before, create a new
+		 * Now we are getting back a series of acl id => item id pairs from the database, each of
+		 * which we need to convert.  When we see an acl id we have not seen before, create a new
 		 * ACL for it with our permission change applied, and put that item id in a queue to
 		 * be moved to that new acl.  We could probably do this more efficiently with subselects
-		 * (can't use them until we raise the MySQL bar to 4.x) or temporary tables.
+		 * (cannot use them until we raise the MySQL bar to 4.x) or temporary tables.
 		 */
 		$oldToNewAclMapping = $itemsToBeRemapped = $removeEventData = array();
 
@@ -508,7 +508,7 @@ class GalleryPermissionHelper_advanced {
 							$gallery->debug('Tried to remove a non-existant permission!');
 						}
 					} elseif ($currentBits == $newBits) {
-						// The item's acl doesn't have the bits we want to remove
+						// The item's acl does not have the bits we want to remove
 					} else {
 						// Clone the acl
 						list($ret, $newAclId) = self::_copyAccessList($oldAclId);
@@ -891,7 +891,7 @@ class GalleryPermissionHelper_advanced {
 
 			/*
 			 * TODO: Replace this with an INSERT INTO..SELECT FROM when we stop supporting
-			 * MySQL 3.x since it can't handle subselects from the same table.
+			 * MySQL 3.x since it cannot handle subselects from the same table.
 			 */
 			while ($result = $searchResults->nextResult()) {
 				$ret = GalleryCoreApi::addMapEntry(
@@ -1083,7 +1083,7 @@ class GalleryPermissionHelper_advanced {
 					__FILE__,
 					__LINE__,
 					"Permission $permissionId is marked as a composite, " .
-					"but didn't specify any composites!"
+					"but did not specify any composites!"
 				);
 			}
 
@@ -1235,7 +1235,7 @@ class GalleryPermissionHelper_advanced {
 			 * Should we exclude composites from the scan?  We have to exclude
 			 * the "all access" composite, since that covers all the bits.
 			 * If we exclude composites then we may run afoul of a problem
-			 * where a permission bit is removed but it's still part of a
+			 * where a permission bit is removed but it is still part of a
 			 * different permission's composite.
 			 */
 			if ($permission['flags'] & GALLERY_PERMISSION_ALL_ACCESS) {
@@ -1246,7 +1246,7 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		/*
-		 * Bitset now has all the bits that we're using.  Scan it for an
+		 * Bitset now has all the bits that we are using.  Scan it for an
 		 * available bit.
 		 */
 		$newBit = 0;
@@ -1374,8 +1374,8 @@ class GalleryPermissionHelper_advanced {
 
 	/**
 	 * Acquire a read or write lock on our access list compacter semaphore.  While we
-	 * have this read lock, the access list can't be compacted.  While we have a write
-	 * lock, we're in the process of compacting so nobody else should be touching the
+	 * have this read lock, the access list cannot be compacted.  While we have a write
+	 * lock, we are in the process of compacting so nobody else should be touching the
 	 * access map.
 	 *
 	 * @param string $type 'read' or 'write'
@@ -1496,7 +1496,7 @@ class GalleryPermissionHelper_advanced {
 			$keyToAclId[$value][] = $key;
 		}
 
-		// We've now got buckets of duplicate acls.  Start compacting.
+		// We have now got buckets of duplicate acls.  Start compacting.
 		foreach ($keyToAclId as $key => $aclIds) {
 			$gallery->guaranteeTimeLimit(20);
 

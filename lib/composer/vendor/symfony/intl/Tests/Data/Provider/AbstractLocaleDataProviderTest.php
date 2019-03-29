@@ -50,7 +50,7 @@ abstract class AbstractLocaleDataProviderTest extends AbstractDataProviderTest
         $locales = array_keys($this->dataProvider->getNames($displayLocale));
         sort($locales);
 
-        // We can't assert on exact list of locale, as there's too many variations.
+        // We cannot assert on exact list of locale, as there's too many variations.
         // The best we can do is to make sure getNames() returns a subset of what getLocales() returns.
         $this->assertNotEmpty($locales);
         $this->assertEmpty(array_diff($locales, $this->getLocales()));
@@ -70,7 +70,7 @@ abstract class AbstractLocaleDataProviderTest extends AbstractDataProviderTest
      */
     public function testGetNamesSupportsAliases($alias, $ofLocale)
     {
-        // Can't use assertSame(), because some aliases contain scripts with
+        // Cannot use assertSame(), because some aliases contain scripts with
         // different collation (=order of output) than their aliased locale
         // e.g. sr_Latn_ME => sr_ME
         $this->assertEquals(

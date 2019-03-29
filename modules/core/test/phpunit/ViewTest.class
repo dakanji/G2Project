@@ -67,7 +67,7 @@ class ViewTest extends GalleryTestCase {
 	public function testGetConfigurationView() {
 		/*
 		 * We can load the config view even though the module is deactivated
-		 * because we're an admin.
+		 * because we are an admin.
 		 */
 		list($ret, $view) = GalleryView::getMe()->loadView('viewtest.ViewTestConfig');
 

@@ -36,7 +36,7 @@ function app_init() {
 	textdiv   = document.getElementById('textdiv');
 
 	// Replace <object> (XHTML compliant) with <iframe>
-	// Currently <object> works only with Mozilla and Opera.  IE doesn't accept
+	// Currently <object> works only with Mozilla and Opera.  IE does not accept
 	// any object.data changes, Safari only accepts new data src when object is
 	// visible, Firefox only when object is invisible.  Easier to just use iframe.
 	var popup          = document.getElementById('popup_details'), iframe = document.createElement('iframe');
@@ -279,7 +279,7 @@ function album_setfixedtitle() {
 	if (t.offsetTop == 0) {
 		album_fixedtitle = 1;
 		album_setmargin();
-	} else { // Disable fixed position titlebar if it isn't at very top
+	} else { // Disable fixed position titlebar if it is not at very top
 		t.style.position = 'static';
 	}
 }

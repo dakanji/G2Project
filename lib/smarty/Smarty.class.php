@@ -33,7 +33,7 @@
 // $Id$
 
 /**
- * DIR_SEP isn't used anymore, but third party apps might
+ * DIR_SEP is not used anymore, but third party apps might
  */
 if (!defined('DIR_SEP')) {
 	define('DIR_SEP', DIRECTORY_SEPARATOR);
@@ -1288,7 +1288,7 @@ class Smarty {
 
 		$_smarty_compile_path = $this->_get_compile_path($resource_name);
 
-		// if we just need to display the results, don't perform output
+		// if we just need to display the results, do not perform output
 		// buffering - for speed
 		$_cache_including       = $this->_cache_including;
 		$this->_cache_including = false;
@@ -1681,7 +1681,7 @@ class Smarty {
 			// see if we can get a template with the default template handler
 			if (!empty($this->default_template_handler_func)) {
 				if (!is_callable($this->default_template_handler_func)) {
-					$this->trigger_error("default template handler function \"$this->default_template_handler_func\" doesn't exist.");
+					$this->trigger_error("default template handler function \"$this->default_template_handler_func\" does not exist.");
 				} else {
 					$_return = call_user_func_array(
 						$this->default_template_handler_func,
@@ -1750,7 +1750,7 @@ class Smarty {
 						return true;
 					}
 
-					// didn't find the file, try include_path
+					// did not find the file, try include_path
 					$_params = array(
 						'file_path' => $_fullpath,
 					);

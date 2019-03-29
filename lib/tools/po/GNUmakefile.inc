@@ -36,7 +36,7 @@ all: install
 all-remove-obsolete: update remove-obsolete install
 messages.po: alwaysbuild
 	@$(PHP) -f "$(TOOLDIR)"/po/extract.php "$(MODULE_DIR)" > strings.raw.tmp
-	@# Don't extract right to strings.raw because extract.php tries to preserve
+	@# Do not extract right to strings.raw because extract.php tries to preserve
 	@# some old data from strings.raw and the > redirect blanks it out.
 	@mv strings.raw.tmp strings.raw
 	@xgettext --keyword=_ -C --no-location --add-comments=HINT: \
@@ -46,7 +46,7 @@ messages.po: alwaysbuild
 	@$(RM) messages.tmp
 %.po: messages.po
 	@perl "$(TOOLDIR)"/po/premerge-messages.pl $@ messages.po > messages.tmp
-	@# ignore errors from msgmerge, we'll catch them on the msgfmt command:
+	@# ignore errors from msgmerge, we will catch them on the msgfmt command:
 	@-if [ -s messages.tmp ]; then \
 	    msgmerge --quiet --width=95 $(COMPENDIUM) $@ messages.tmp > $@.tmp; \
 	    if [ -s $@.tmp ]; then mv $@.tmp $@; else $(RM) $@.tmp; fi; \
@@ -80,7 +80,7 @@ check-g2data:
 install: check-g2data update
 	@if ! test -z "$(DEBUG)"; then set -x; fi; \
 	if test "$(OSTYPE)" = "solaris"; then \
-	    echo "You'll probably get some warnings on Solaris. This is normal."; \
+	    echo "You will probably get some warnings on Solaris. This is normal."; \
 	    MSGFMT_CMD="$(MSGFMTSOL)"; \
 	else \
 	    MSGFMT_CMD="$(MSGFMT)"; \

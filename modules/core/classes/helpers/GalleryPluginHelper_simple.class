@@ -28,7 +28,7 @@
 class GalleryPluginHelper_simple {
 	/**
 	 * @see GalleryCoreApi::loadPlugin
-	 * @param int $depth of recursion (don't set this; it's used internally)
+	 * @param int $depth of recursion (do not set this; it is used internally)
 	 */
 	public static function loadPlugin(
 		$pluginType,
@@ -298,7 +298,7 @@ class GalleryPluginHelper_simple {
 			return array($ret, null);
 		}
 
-		// Return the value, or null if the param doesn't exist
+		// Return the value, or null if the param does not exist
 		if (!isset($params[$itemId][$parameterName])) {
 			return array(null, null);
 		}

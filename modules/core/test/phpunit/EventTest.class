@@ -212,7 +212,7 @@ class EventTest extends GalleryTestCase {
 
 		$event->setEntity($entity);
 
-		// Embedded entity has the new value, even if we don't get it by reference
+		// Embedded entity has the new value, even if we do not get it by reference
 		$entity->setId(1000);
 
 		$embeddedEntity = $event->getEntity();

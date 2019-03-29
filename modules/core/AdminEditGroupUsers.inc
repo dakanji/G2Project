@@ -77,7 +77,7 @@ class AdminEditGroupUsersController extends GalleryController {
 					$error[] = 'form[error][list][noUserSelected]';
 				} else {
 					foreach ($form['userIds'] as $userId => $dummy) {
-						// Can't remove yourself from the site admins list
+						// Cannot remove yourself from the site admins list
 						if ($group->getGroupType() == GROUP_SITE_ADMINS
 							&& $userId == $gallery->getActiveUserId()
 						) {

@@ -168,7 +168,7 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 	}
 
 	/**
-	 * Verify that we can't delete items without the right permissions
+	 * Verify that we cannot delete items without the right permissions
 	 */
 	public function testDeleteItemWithoutPermission() {
 		global $gallery;
@@ -200,7 +200,7 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 		// Perform the request and verify that we failed
 		$results = $this->handleRequest(ERROR_PERMISSION_DENIED | GALLERY_ERROR);
 
-		// make sure it's still there
+		// make sure it is still there
 		list($ret, $item) = $item->refresh();
 
 		if ($ret) {
@@ -222,9 +222,9 @@ class ItemDeleteSingleControllerTest extends GalleryControllerTestCase {
 	}
 
 	/**
-	 * Test deleting a random item that doesn't exist.  We should get a
+	 * Test deleting a random item that does not exist.  We should get a
 	 * permission denied (since the permission check happens before we even
-	 * verify that it's a valid item to prevent information leakage)
+	 * verify that it is a valid item to prevent information leakage)
 	 */
 	public function testDeleteBogusItem() {
 		// Use invalid inputs

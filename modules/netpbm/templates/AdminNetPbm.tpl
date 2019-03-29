@@ -14,7 +14,7 @@
 
 <div class="gbBlock">
   <p class="giDescription">
-    {g->text text="NetPBM is a graphics toolkit that can be used to process images that you upload to Gallery.  You must install the NetPBM binaries on your server, then enter the path to them in the text box below.  If you're on a Unix machine, don't forget to make the binaries executable (<i>chmod 755 *</i> in the NetPBM directory should do it)"}
+    {g->text text="NetPBM is a graphics toolkit that can be used to process images that you upload to Gallery.  You must install the NetPBM binaries on your server, then enter the path to them in the text box below.  If you are on a Unix machine, do not forget to make the binaries executable (<i>chmod 755 *</i> in the NetPBM directory should do it)"}
   </p>
 
 {if !$AdminNetPbm.canExec}
@@ -40,12 +40,12 @@
       {/if}
       {if isset($form.error.path.testError)}
       <div class="giError">
-	{g->text text="The path you entered doesn't contain valid NetPBM binaries. Use the 'test' button to check where the error is."}
+	{g->text text="The path you entered does not contain valid NetPBM binaries. Use the 'test' button to check where the error is."}
       </div>
       {/if}
       {if isset($form.error.path.badPath)}
       <div class="giError">
-	{g->text text="The path you entered isn't a valid path."}
+	{g->text text="The path you entered is not a valid path."}
       </div>
       {/if}
     </td>
@@ -76,7 +76,7 @@
 
   {if isset($form.error.jheadPath.badPath)}
   <div class="giError">
-    {g->text text="The path you entered isn't a valid path."}
+    {g->text text="The path you entered is not a valid path."}
   </div>
   {/if}
   {if isset($form.error.jheadPath.missing)}

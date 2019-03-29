@@ -38,7 +38,7 @@ require_once __DIR__ . '/lib/composer/vendor/autoload.php';
 /*
  * Set up our Gallery global.  This global should be the only one that Gallery requires.
  * Everything else should be inside it so that we do not pollute the namespace
- * (especially important when we're embedded inside another application).
+ * (especially important when we are embedded inside another application).
  */
 $gallery = new Gallery();
 

@@ -119,7 +119,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		// Make sure they're there
+		// Make sure they are there
 		list($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 
 		if ($ret) {
@@ -155,7 +155,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		// Make sure they're gone
+		// Make sure they are gone
 		list($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 
 		if ($ret) {
@@ -344,7 +344,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		// Make sure they're all back again
+		// Make sure they are all back again
 		list($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 
 		if ($ret) {
@@ -384,7 +384,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		// Make sure they're there
+		// Make sure they are there
 		list($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 
 		if ($ret) {
@@ -420,7 +420,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		// Make sure they're gone
+		// Make sure they are gone
 		list($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 
 		if ($ret) {
@@ -451,7 +451,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 	}
 
 	public function testMoveUpDetailed() {
-		// The very first entry, which can't be moved up.
+		// The very first entry, which cannot be moved up.
 		GalleryUtilities::putRequestVariable('form[detailed][0]', 'Make');
 
 		// Entries from the middle.
@@ -527,7 +527,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 		GalleryUtilities::putRequestVariable('form[detailed][1]', 'ISO');
 		GalleryUtilities::putRequestVariable('form[detailed][2]', 'IPTC/CopyrightNotice');
 
-		// The very last entry, which can't be moved down.
+		// The very last entry, which cannot be moved down.
 		GalleryUtilities::putRequestVariable('form[detailed][3]', 'SubjectDistance');
 		GalleryUtilities::putRequestVariable('form[action][moveDownDetailed]', 1);
 
@@ -616,7 +616,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			$results
 		);
 
-		// Make sure they're all back again
+		// Make sure they are all back again
 		list($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 
 		if ($ret) {

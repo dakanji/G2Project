@@ -77,7 +77,7 @@
   <h3> {g->text text="Filesystem Permissions"} </h3>
 
   <p class="giDescription">
-    {g->text text="Specify the default permissions for files and directories that Gallery creates. This doesn't apply to files/directories that Gallery has already created."}
+    {g->text text="Specify the default permissions for files and directories that Gallery creates. This does not apply to files/directories that Gallery has already created."}
   </p>
 
   <table class="gbDataTable"><tr>
@@ -265,7 +265,7 @@
   <h3> {g->text text="Locking System"} </h3>
 
   <p class="giDescription">
-    {g->text text="Gallery uses a system of locks to prevent simultaneous changes from interfering with each other.  There are two types of locking, each with its advantages and disadvantages.  <b>File</b> based locking is fast and efficient, but won't work on NFS filesystems and will be unreliable on Windows.  <b>Database</b> locking is slower but is more reliable.  If you are unsure which to choose, we recommend using file locking.  If you're getting many lock timeouts, you can try switching to database locking instead.  It's ok to switch back and forth."}
+    {g->text text="Gallery uses a system of locks to prevent simultaneous changes from interfering with each other.  There are two types of locking, each with its advantages and disadvantages.  <b>File</b> based locking is fast and efficient, but would not work on NFS filesystems and will be unreliable on Windows.  <b>Database</b> locking is slower but is more reliable.  If you are unsure which to choose, we recommend using file locking.  If you are getting many lock timeouts, you can try switching to database locking instead.  It is ok to switch back and forth."}
   </p>
 
   <table class="gbDataTable"><tr>
@@ -283,7 +283,7 @@
 <div class="gbBlock">
   <h3> {g->text text="Helper Processes"} </h3>
   <p class="giDescription">
-    {g->text text="Some Gallery modules will use programs on your server to do image processing, archiving and other operations.  These programs can be very computationally intensive and can impact the overall performance of a shared web server.  You can make these programs run at a lower priority so that they play nice.  If you're in a shared hosting environment and your web host is complaining, try setting your priority low."}
+    {g->text text="Some Gallery modules will use programs on your server to do image processing, archiving and other operations.  These programs can be very computationally intensive and can impact the overall performance of a shared web server.  You can make these programs run at a lower priority so that they play nice.  If you are in a shared hosting environment and your web host is complaining, try setting your priority low."}
   </p>
 
   <table class="gbDataTable">

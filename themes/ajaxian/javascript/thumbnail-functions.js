@@ -88,13 +88,13 @@ function setupMainImage() {
 		mainPhoto.style.width = MAIN_PHOTO_WIDTH + 'px';
 	} else {
 		/*
-		* The image is below our ideal slideshow width, so we don't want to stretch it
+		* The image is below our ideal slideshow width, so we do not want to stretch it
 		* horizontally.  Instead we center the image that we have a little better.
 		*/
 		mainPhoto.style.width = slideshowImageWidths[currentImageIndex] + 'px';
 		mainPhoto.style.left  = parseInt(getElementStyle(mainPhoto.id, 'left')) + ((MAIN_PHOTO_WIDTH - slideshowImageWidths[currentImageIndex]) / 2) + 'px';
 	}
-	mainPhoto.style.height = 'auto'; /* @REVISIT - Safari doesn't play nice with this */
+	mainPhoto.style.height = 'auto'; /* @REVISIT - Safari does not play nice with this */
 
 	mainPhoto.origWidth  = parseInt(getElementStyle(mainPhoto.id, 'width'));
 	mainPhoto.origLeft   = parseInt(getElementStyle(mainPhoto.id, 'left'));
@@ -143,7 +143,7 @@ function switchImages(thumbIndex, firstLoad) {
 	var newImageSrc = slideshowImages[thumbIndex];
 	var newImage    = document.createElement('img');
 
-	mainPhoto.id = null; /* Isn't enough in some browsers */
+	mainPhoto.id = null; /* Is not enough in some browsers */
 	mainPhoto.removeAttribute('id');
 
 	newImage.id = 'main-image';
@@ -341,7 +341,7 @@ function insertimagedatablock() {
 	linkPara.appendChild(fullsizeLink);
 	dataBlock.appendChild(linkPara);
 
-	/* In Gecko-based browsers, this'll fade the data block in smoothly. */
+	/* In Gecko-based browsers, this will fade the data block in smoothly. */
 	dataBlock.style.MozOpacity = 0.2;
 	showImageDataFadeTimeout   = setTimeout('fadeInImageDataBlock()', 50);
 
@@ -351,7 +351,7 @@ function insertimagedatablock() {
 function fadeInImageDataBlock() {
 	clearTimeout(showImageDataFadeTimeout);
 	var dataBlock = document.getElementById('imagedatablock');
-	/* Don't bring -moz-opacity all the way to 1.0, as it causes flicker in Firefox 1.0 */
+	/* Do not bring -moz-opacity all the way to 1.0, as it causes flicker in Firefox 1.0 */
 	if (dataBlock && getElementStyle(dataBlock.id, '-moz-opacity') < 0.92) {
 		dataBlock.style.MozOpacity = parseFloat(getElementStyle(dataBlock.id, '-moz-opacity')) + 0.08;
 		showImageDataFadeTimeout   = setTimeout('fadeInImageDataBlock()', 50);

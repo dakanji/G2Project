@@ -64,7 +64,7 @@ class ItemPermissionsController extends GalleryController {
 		$error           = array();
 
 		if (isset($form['action']['deleteGroupPermission'])) {
-			// Figure out which one we're working with
+			// Figure out which one we are working with
 			$deleteGroupPermission = array_keys($form['action']['deleteGroupPermission']);
 			$index                 = array_pop($deleteGroupPermission);
 
@@ -99,7 +99,7 @@ class ItemPermissionsController extends GalleryController {
 
 			$verifySelfPermissions = true;
 		} elseif (isset($form['action']['deleteUserPermission'])) {
-			// Figure out which one we're working with
+			// Figure out which one we are working with
 			$deleteUserPermission = array_keys($form['action']['deleteUserPermission']);
 			$index                = array_pop($deleteUserPermission);
 
@@ -166,7 +166,7 @@ class ItemPermissionsController extends GalleryController {
 			}
 
 			if (empty($error)) {
-				// Don't add the permission if it already exists
+				// Do not add the permission if it already exists
 				list($ret, $hasIt) = GalleryCoreApi::hasPermission($itemId, $user->getId(), $permission);
 
 				if ($ret) {
@@ -228,7 +228,7 @@ class ItemPermissionsController extends GalleryController {
 			}
 
 			if (empty($error)) {
-				// Don't add the permission if it already exists
+				// Do not add the permission if it already exists
 				list($ret, $hasIt) = GalleryCoreApi::hasPermission($itemId, $group->getId(), $permission);
 
 				if ($ret) {
@@ -340,7 +340,7 @@ class ItemPermissionsController extends GalleryController {
 
 					/*
 					 * Process these descendents in chunks since we may have thousands of
-					 * items and we don't want to give the database a heart attack.
+					 * items and we do not want to give the database a heart attack.
 					 */
 					$chunkSize = 200;
 
@@ -391,7 +391,7 @@ class ItemPermissionsController extends GalleryController {
 
 		if (isset($verifySelfPermissions)) {
 			/*
-			 * Make sure we don't remove our own ability to change permissions on this item.
+			 * Make sure we do not remove our own ability to change permissions on this item.
 			 * If this was a recursive remove we may lose permissions on subitems.
 			 */
 			list($ret, $canEdit) = GalleryCoreApi::hasItemPermission($itemId, 'core.edit');
@@ -439,7 +439,7 @@ class ItemPermissionsController extends GalleryController {
 
 		if (empty($error)) {
 			/*
-			 * Try compacting.  Ignore lock timeouts here; if we failed this time we'll try
+			 * Try compacting.  Ignore lock timeouts here; if we failed this time we will try
 			 * again next time.
 			 */
 			$ret = GalleryCoreApi::maybeCompactAccessLists();
@@ -514,8 +514,8 @@ class ItemPermissionsView extends GalleryView {
 		} else {
 			/*
 			 * First time around, load the form with item data.  Note that
-			 * userName and groupName can be passed in to this form so don't
-			 * initialize them unless they don't exist.
+			 * userName and groupName can be passed in to this form so do not
+			 * initialize them unless they do not exist.
 			 */
 			if (empty($form['user']['userName'])) {
 				$form['user']['userName'] = '';
@@ -590,7 +590,7 @@ class ItemPermissionsView extends GalleryView {
 		/*
 		 * Now create the separate user and group permission maps.
 		 *
-		 * Silently ignore any permissions that we come across that aren't part
+		 * Silently ignore any permissions that we come across that are not part
 		 * of the permission registry.  They may be permission associated with
 		 * modules that are not currently active.
 		 */

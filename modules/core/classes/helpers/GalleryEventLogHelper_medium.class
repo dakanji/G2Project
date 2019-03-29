@@ -43,7 +43,7 @@ class GalleryEventLogHelper_medium {
 		/*
 		 * We update the event log table in a round robin fashion so that we have a max of
 		 * $logSize rows at any given time.  When a new row comes in, first try overwriting an
-		 * existing row, and if that fails because the row didn't exist, insert a new row.
+		 * existing row, and if that fails because the row does not exist, insert a new row.
 		 */
 		list($ret, $sequenceId) = $storage->getUniqueId(DATABASE_SEQUENCE_EVENT_LOG);
 

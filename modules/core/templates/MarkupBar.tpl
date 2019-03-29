@@ -36,7 +36,7 @@
   function appendColorElement(elementId, button) {
     var colorChooser = document.getElementById('Markup_colorChooser');
     if (!button.g2ToggleMode) {
-      /* if we already have a popup, don't do anything */
+      /* if we already have a popup, do not do anything */
       if (colorChooser.style.display == 'block') {
         return;
       }

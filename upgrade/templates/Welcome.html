@@ -26,7 +26,7 @@
 	  <input type="hidden" name="step" value="<?php echo $stepNumber; ?>"/>
 	  <select name="language" onchange="this.form.submit()" style="direction:ltr">
 		<?php
-		  // Don't use $language here as it conflicts with $_SESSION if register_globals is on
+		  // Do not use $language here as it conflicts with $_SESSION if register_globals is on
 		foreach ($templateData['languages'] as $code => $description) {
 			echo '<option value="' . $code . '"';
 

@@ -359,8 +359,8 @@ class FfmpegToolkit extends GalleryToolkit {
 		list($ret, $results, $stderr) = $this->_ffmpeg($sourceFilename, array('-vstats'));
 
 		/*
-		 * Ffmpeg 0.4.6 demands an output file and we're not providing one, so we'll always
-		 * get a toolkit failure here.  :-/  Ignore it for now, but fail if we don't get
+		 * Ffmpeg 0.4.6 demands an output file and we are not providing one, so we will always
+		 * get a toolkit failure here.  :-/  Ignore it for now, but fail if we do not get
 		 * the output we want.
 		 */
 		if ($ret && !($ret->getErrorCode() & ERROR_TOOLKIT_FAILURE)) {

@@ -214,7 +214,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 		$gallery->guaranteeTimeLimit(60);
 
 		/*
-		 * We'll need a translator to load up our modules for the
+		 * We will need a translator to load up our modules for the
 		 * GalleryPlugin::setGroup() method to work.
 		 */
 		$translator =& $gallery->getTranslator();
@@ -503,7 +503,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 	}
 
 	/**
-	 * Put GD at the end of the list so that it's the lowest priority toolkit.  This is a hack,
+	 * Put GD at the end of the list so that it is the lowest priority toolkit.  This is a hack,
 	 * that we should replace with a more sophisticated system in the future.
 	 *
 	 * Note: we do the same in the installer

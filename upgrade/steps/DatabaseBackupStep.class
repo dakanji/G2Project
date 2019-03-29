@@ -109,7 +109,7 @@ class DatabaseBackupStep extends UpgradeStep {
 			$templateData['bodyFile'] = 'DatabaseBackupRequest.html';
 		}
 
-		// If maintenance mode was not set by the this step, then don't unset it.
+		// If maintenance mode was not set by the this step, then do not unset it.
 		if (!$mode) {
 			$ret = GalleryCoreApi::setMaintenanceMode(false);
 

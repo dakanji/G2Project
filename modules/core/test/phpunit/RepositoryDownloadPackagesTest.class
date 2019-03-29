@@ -242,12 +242,12 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue($reactivate, 'Unexpected don\'t re-activate');
-		$this->assertEquals(7, $this->_callback['current'], 'Callback didn\'t match');
+		$this->assertTrue($reactivate, 'Unexpected do not re-activate');
+		$this->assertEquals(7, $this->_callback['current'], 'Callback did not match');
 		$this->assertEquals(
 			array('0.13', '0.5', '0.5'),
 			$this->_templateAdapter->_progress,
-			'Reported progress didn\'t match'
+			'Reported progress did not match'
 		);
 		$this->assertEquals(array(), $status, 'Unexpected returned status');
 	}
@@ -287,12 +287,12 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertFalse($reactivate, 'Unexpected don\'t re-activate');
-		$this->assertEquals(1, $this->_callback['current'], 'Callback didn\'t match');
+		$this->assertFalse($reactivate, 'Unexpected do not re-activate');
+		$this->assertEquals(1, $this->_callback['current'], 'Callback did not match');
 		$this->assertEquals(
 			array('0.13'),
 			$this->_templateAdapter->_progress,
-			'Reported progress didn\'t match'
+			'Reported progress did not match'
 		);
 
 		$expected = array(
@@ -384,12 +384,12 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertFalse($reactivate, 'Unexpected don\'t re-activate');
-		$this->assertEquals(4, $this->_callback['current'], 'Callback didn\'t match');
+		$this->assertFalse($reactivate, 'Unexpected do not re-activate');
+		$this->assertEquals(4, $this->_callback['current'], 'Callback did not match');
 		$this->assertEquals(
 			array('0.13'),
 			$this->_templateAdapter->_progress,
-			'Reported progress didn\'t match'
+			'Reported progress did not match'
 		);
 
 		$expected = array(
@@ -440,12 +440,12 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertFalse($reactivate, 'Unexpected don\'t re-activate');
-		$this->assertEquals(5, $this->_callback['current'], 'Callback didn\'t match');
+		$this->assertFalse($reactivate, 'Unexpected do not re-activate');
+		$this->assertEquals(5, $this->_callback['current'], 'Callback did not match');
 		$this->assertEquals(
 			array('0.13', '0.5', '0.5'),
 			$this->_templateAdapter->_progress,
-			'Reported progress didn\'t match'
+			'Reported progress did not match'
 		);
 
 		$expected = array(
@@ -541,12 +541,12 @@ class RepositoryDownloadPackagesTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertTrue($reactivate, 'Unexpected don\'t re-activate');
-		$this->assertEquals(7, $this->_callback['current'], 'Callback didn\'t match');
+		$this->assertTrue($reactivate, 'Unexpected do not re-activate');
+		$this->assertEquals(7, $this->_callback['current'], 'Callback did not match');
 		$this->assertEquals(
 			array('0.13', '0.5', '0.5'),
 			$this->_templateAdapter->_progress,
-			'Reported progress didn\'t match'
+			'Reported progress did not match'
 		);
 
 		$expected = array(

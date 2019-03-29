@@ -162,7 +162,7 @@ class ItemEditController extends GalleryController {
 		}
 
 		if (empty($results['delegate'])) {
-			// It's not a progress bar view
+			// It is not a progress bar view
 			if (empty($error)) {
 				$results['redirect'] = array(
 					'view'       => 'core.ItemAdmin',
@@ -345,7 +345,7 @@ class ItemEditView extends GalleryView {
 		$defaultEditPlugin = $editPluginIds[0];
 
 		/*
-		 * If the plugin is empty get it from the session.  If it's empty there, default to the
+		 * If the plugin is empty get it from the session.  If it is empty there, default to the
 		 * first plugin we find.  Either way, save the user's preference in the session.
 		 */
 		$session              =& $gallery->getSession();
@@ -505,7 +505,7 @@ class ItemEditPlugin {
 	 *
 	 * @param GalleryItem $item
 	 * @param GalleryDerivative $thumbnail item's thumbnail
-	 * @return boolean true if it's supported
+	 * @return boolean true if it is supported
 	 */
 	public function isSupported($item, $thumbnail) {
 		return false;

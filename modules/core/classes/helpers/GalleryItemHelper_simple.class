@@ -53,7 +53,7 @@ class GalleryItemHelper_simple {
 			}
 		}
 
-		// No default?  We're screwed
+		// No default?  We are screwed
 		if (empty($themeId)) {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
@@ -212,7 +212,7 @@ class GalleryItemHelper_simple {
 
 			/*
 			 * Merge the results together.
-			 * Array_merge() renumbers numerical indices so we can't use it
+			 * Array_merge() renumbers numerical indices so we cannot use it
 			 */
 			foreach ($results as $key => $value) {
 				$counts[$key] = $value;

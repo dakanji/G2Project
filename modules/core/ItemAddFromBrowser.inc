@@ -94,7 +94,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 					$description = empty($form['set']['description']) ? '' : $file['caption'];
 
 					/*
-					 * Don't use uploaded files, because the framework cannot safely copy them.
+					 * Do not use uploaded files, because the framework cannot safely copy them.
 					 * Move it to our temporary directory first.
 					 */
 					$platform =& $gallery->getPlatform();
@@ -285,7 +285,7 @@ class ItemAddFromBrowser extends ItemAddPlugin {
 			)
 		);
 
-		// Set the ItemAdmin form's encoding type specially since we're uploading binary files
+		// Set the ItemAdmin form's encoding type specially since we are uploading binary files
 		if ($template->hasVariable('ItemAdmin')) {
 			$ItemAdmin            =& $template->getVariableByReference('ItemAdmin');
 			$ItemAdmin['enctype'] = 'multipart/form-data';

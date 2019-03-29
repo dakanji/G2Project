@@ -363,7 +363,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 
 	public function testLocale() {
 		/*
-		 * Verify that percentages don't get written like 12,5 if the current locale
+		 * Verify that percentages do not get written like 12,5 if the current locale
 		 * uses a comma for the fraction separator.
 		 */
 		$currentLocale = setlocale(LC_ALL, '0');

@@ -184,7 +184,7 @@ class IntlDateFormatter
      */
     public function format($timestamp)
     {
-        // intl allows timestamps to be passed as arrays - we don't
+        // intl allows timestamps to be passed as arrays - we do not
         if (\is_array($timestamp)) {
             $message = 'Only integer Unix timestamps and DateTime objects are supported';
             throw new MethodArgumentValueNotImplementedException(__METHOD__, 'timestamp', $timestamp, $message);
@@ -420,7 +420,7 @@ class IntlDateFormatter
      */
     public function parse($value, &$position = null)
     {
-        // We don't calculate the position when parsing the value
+        // We do not calculate the position when parsing the value
         if (null !== $position) {
             throw new MethodArgumentNotImplementedException(__METHOD__, 'position');
         }

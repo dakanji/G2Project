@@ -39,14 +39,14 @@ Updating the stub data
 
 In the previous step you updated the Icu component for the ICU version
 installed on your system. If you are using the latest ICU version, you should
-also create the stub data files which will be used by people who don't have
+also create the stub data files which will be used by people who do not have
 the intl extension installed.
 
 To update the stub files, run the update-stubs.php script:
 
     $ php Resources/bin/update-stubs.php
 
-The script will fail if you don't have the latest ICU version. If you want to
+The script will fail if you do not have the latest ICU version. If you want to
 upgrade the ICU version, adjust the return value of the
 `Intl::getIcuStubVersion()` before you run the script.
 

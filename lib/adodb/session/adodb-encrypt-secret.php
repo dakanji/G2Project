@@ -24,7 +24,7 @@ require_once HORDE_BASE . '/lib/Secret.php';
 /**
  *
  * NOTE: On Windows 2000 SP4 with PHP 4.3.1, MCrypt 2.4.x, and Apache 1.3.28,
- * the session didn't work properly.
+ * the session did not work properly.
  *
  * This may be resolved with 4.3.3.
  *

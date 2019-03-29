@@ -478,7 +478,7 @@ class UtilitiesTest extends GalleryTestCase {
 		);
 	}
 
-	// We don't convert UTF-8 to entities (we used to)
+	// We do not convert UTF-8 to entities (we used to)
 	public function testSanitizeInputValue2() {
 		$rawInput = "Op\xf0\x88\xb4\xa5s de Administra\xf0\x88\xa2\xaf";
 
@@ -590,7 +590,7 @@ class UtilitiesTest extends GalleryTestCase {
 			'test forceFullUrl'
 		);
 
-		// Simulate embedded (request URI doesn't reference Gallery install dir)
+		// Simulate embedded (request URI does not reference Gallery install dir)
 		$urlGenerator = new GalleryUrlGenerator();
 
 		$ret = $urlGenerator->init('phpunit_test.php?test=on', '/gallery2/');
@@ -1592,7 +1592,7 @@ class UtilitiesTest extends GalleryTestCase {
 			'multiple cookies, superglobal _COOKIE'
 		);
 
-		// Performance check.  It shouldn't be executed when it was already executed.
+		// Performance check.  It should not be executed when it was already executed.
 		$_COOKIE                = array();
 		$_SERVER['HTTP_COOKIE'] = '';
 
@@ -1610,7 +1610,7 @@ class UtilitiesTest extends GalleryTestCase {
 		);
 
 		/*
-		 * Even if we can't live with that case, test what happens if $_SERVER['HTTP_COOKIE']
+		 * Even if we cannot live with that case, test what happens if $_SERVER['HTTP_COOKIE']
 		 * does not exist
 		 */
 		$_COOKIE = $this->_saveCookie;
@@ -1635,7 +1635,7 @@ class UtilitiesTest extends GalleryTestCase {
 		);
 
 		/*
-		 * Check for quoted-string cookies (don't urlencode cookie values, eg. by using header()
+		 * Check for quoted-string cookies (do not urlencode cookie values, eg. by using header()
 		 * instead of setCookie())
 		 */
 		$key1 = 'foo1';
@@ -1653,7 +1653,7 @@ class UtilitiesTest extends GalleryTestCase {
 		// Use one time commas as delimiters, the other time semicolons
 		foreach (array(',', ';') as $sep) {
 			/*
-			 * Check for quoted-string cookies (don't urlencode cookie values, eg. by using header()
+			 * Check for quoted-string cookies (do not urlencode cookie values, eg. by using header()
 			 * instead of setCookie()).  And check for ordinary cookies (Netscape standard) where
 			 * values are assumed to be urlencoded.
 			 */
@@ -1910,7 +1910,7 @@ class UtilitiesTest extends GalleryTestCase {
 			),
 		);
 
-		// 11. this would be a valid array cookie, but we don't touch them
+		// 11. this would be a valid array cookie, but we do not touch them
 		$tests[] = array(
 			'add' => array('foo=bar', 'fo[o2]=>bar2'),
 			'er'  => array(
@@ -2091,7 +2091,7 @@ class UtilitiesTest extends GalleryTestCase {
 		global $gallery;
 
 		/*
-		 * Ensure mkdir of same dir isn't performed twice if guaranteeDirExists is called and the
+		 * Ensure mkdir of same dir is not performed twice if guaranteeDirExists is called and the
 		 * nested call from getPluginParameter actually creates the original dir that was requested
 		 */
 		GalleryDataCache::setFileCachingEnabled(true);
@@ -2115,8 +2115,8 @@ class UtilitiesTest extends GalleryTestCase {
 
 	/*
 	 * For a given path /a/b/c/d, file_exists() returns false for /a/b/c/d and /a/b/c and true for
-	 * /a/b if we don't have read+execute permission on /a/b.
-	 * In case we don't have r+w for the root directory /, we are in an infinite loop unless we
+	 * /a/b if we do not have read+execute permission on /a/b.
+	 * In case we do not have r+w for the root directory /, we are in an infinite loop unless we
 	 * check the result of dirname($dir).
 	 * Another common case: open_basedir.
 	 * Also note that __DIR__ returns the filename without path if any parent folder
@@ -2125,7 +2125,7 @@ class UtilitiesTest extends GalleryTestCase {
 	public function testGuaranteeDirExistsLoop3() {
 		global $gallery;
 
-		// Assume we don't have r+w permission for the root directory '/'.
+		// Assume we do not have r+w permission for the root directory '/'.
 		list($success, $created) = GalleryUtilities::guaranteeDirExists('/noread/permission');
 
 		// Basically we verify that the function finishes / that there is no infinite loop.
@@ -2454,7 +2454,7 @@ class UtilitiesTest extends GalleryTestCase {
 
 	public function testHtmlSafeWithDecode() {
 		/*
-		 * I don't fully understand why htmlSafe does this particular transform, so I'm
+		 * I do not fully understand why htmlSafe does this particular transform, so I'm
 		 * documenting it here in case it changes.
 		 */
 		$this->assertEquals(
@@ -2488,10 +2488,10 @@ class UtilitiesTest extends GalleryTestCase {
 	}
 
 	/**
-	 * The readManifest() code doesn't use GalleryPlatform and is hard to test.  So this test is
-	 * useful for when we're refactoring this code.  Delete /tmp/manifest.txt and run the test
-	 * once and it'll capture the current manifest.  Subsequent runs will compare it against that
-	 * golden version, so you can refactor the manifest code till you're happy.  But don't leave
+	 * The readManifest() code does not use GalleryPlatform and is hard to test.  So this test is
+	 * useful for when we are refactoring this code.  Delete /tmp/manifest.txt and run the test
+	 * once and it will capture the current manifest.  Subsequent runs will compare it against that
+	 * golden version, so you can refactor the manifest code till you are happy.  But do not leave
 	 * this test uncommented as otherwise it will break on the next manifest update.
 	 *
 	 * function testReadManifest() {

@@ -71,7 +71,7 @@ class DeleteSessionsTask extends MaintenanceTask {
 			return array($ret, null, null);
 		}
 
-		// Touch this admin session to ensure that we don't delete it
+		// Touch this admin session to ensure that we do not delete it
 		$session->put('touch', $phpVm->time());
 
 		$ret = $session->save();

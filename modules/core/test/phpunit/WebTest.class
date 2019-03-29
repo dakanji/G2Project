@@ -249,7 +249,7 @@ class WebTest extends GalleryTestCase {
 	}
 
 	public function testFetchRedirectedWebPageRelativeRedirect() {
-		// Make sure we redirect ok if Location header isn't absolute
+		// Make sure we redirect ok if Location header is not absolute
 		list($success, $body, $response, $headers, $actualUrl) = GalleryCoreApi::fetchWebPage('http://my.test.server:81/testFetchRelativeRedirect');
 		$expectedHeaders['Connection']                         = 'close';
 		$expectedHeaders['Date']                               = 'Mon, 24 Nov 2003 05:40:03 GMT';

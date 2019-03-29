@@ -47,7 +47,7 @@ class TruncateTest extends GalleryTestCase {
 		$string = 'truncate at 10 characters with XXX instead of ellipses and no word break';
 		$result = smarty_modifier_entitytruncate($string, 10, 'XXX');
 
-		// Can't honor word break because it's less than one word
+		// Cannot honor word break because it is less than one word
 		$this->assertEquals('truncatXXX', $result);
 	}
 
@@ -123,7 +123,7 @@ class TruncateTest extends GalleryTestCase {
 
 	public function testTruncate12() {
 		/*
-		 * Same as #11, but we don't pass values for etc and breakWords (so it uses the defaults
+		 * Same as #11, but we do not pass values for etc and breakWords (so it uses the defaults
 		 * which are the same as we used in #11)
 		 */
 		$string = "\xd0\xa6\xd0\xb2\xd0\xb5\xd1\x82\xd0\xbe\xd1\x87\xd0\xba\xd0\xb8\xd0\xa6\xd0" .

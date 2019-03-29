@@ -212,7 +212,7 @@ class LockTest extends GalleryTestCase {
 
 		$this->assertTrue(is_int($lockId), "$lockSystem: lock id is not an integer");
 
-		// Verify that they're all locked except the item itself
+		// Verify that they are all locked except the item itself
 		$this->assertTrue(
 			!GalleryCoreApi::isReadLocked($this->_subAlbums[2]->getId()),
 			"$lockSystem: a2"
@@ -264,7 +264,7 @@ class LockTest extends GalleryTestCase {
 	}
 
 	/**
-	 * Test acquiring a write lock on an entity that has already been read locked.  We don't
+	 * Test acquiring a write lock on an entity that has already been read locked.  We do not
 	 * currently require this ability, but it could be useful if adding or deleting an item from an
 	 * album triggered an update to that album.  Uncomment this test if this type of locking is ever
 	 * used.  (Note that Windows has problems doing this with flock based locks, so we may avoid

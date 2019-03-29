@@ -234,8 +234,8 @@ class GalleryDatabaseExport {
 
 		foreach ($plugins as $pluginId => $plugin) {
 			/*
-			 * If the plugin version isn't set in the plugin data array, it's not installed. We
-			 * can't use fetchPluginList() to get the installed plugins because export could be
+			 * If the plugin version is not set in the plugin data array, it is not installed. We
+			 * cannot use fetchPluginList() to get the installed plugins because export could be
 			 * called as part of the upgrader.  If it is called during the upgrade process, the
 			 * core module has not been updated, fetchPluginList() might still exhibit old behavior.
 			 */
@@ -304,7 +304,7 @@ class GalleryDatabaseExport {
 		}
 
 		foreach ($plugins as $pluginId => $plugin) {
-			// If the plugin version isn't set in the plugin data array, it's not installed
+			// If the plugin version is not set in the plugin data array, it is not installed
 			if (empty($plugin['version'])) {
 				// This plugin is not installed so issue a warning message.
 				$warnings[] = $coreModule->translate(
@@ -603,10 +603,10 @@ class GalleryDatabaseExport {
 		}
 
 		/*
-		 * Some databases (notably MySQL on Win32) don't support mixed case
-		 * table names.  So, when we get the meta table list back, it's lower
+		 * Some databases (notably MySQL on Win32) do not support mixed case
+		 * table names.  So, when we get the meta table list back, it is lower
 		 * case.  Force all metatable listings to lower case and then expect
-		 * them to be lowercase so that we're consistent.
+		 * them to be lowercase so that we are consistent.
 		 */
 		$tableLower = GalleryUtilities::strToLower($nameInSchema);
 

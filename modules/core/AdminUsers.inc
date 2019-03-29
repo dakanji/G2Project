@@ -86,8 +86,8 @@ class AdminUsersController extends GalleryController {
 				$error[] = 'form[error][text][noSuchUser]';
 			} else {
 				/*
-				 * Check to see if we're trying to delete the anonymous user, or
-				 * ourself (can't do either of those).
+				 * Check to see if we are trying to delete the anonymous user, or
+				 * ourself (cannot do either of those).
 				 */
 				list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 

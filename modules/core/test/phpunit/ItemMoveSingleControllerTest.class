@@ -501,12 +501,12 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		// The UI never displays targets that we can't add to
+		// The UI never displays targets that we cannot add to
 		$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
 	}
 
 	/**
-	 * Test moving an item that we can't delete
+	 * Test moving an item that we cannot delete
 	 */
 	public function testMoveItemWithNoDeletePermissions() {
 		global $gallery;
@@ -534,7 +534,7 @@ class ItemMoveSingleControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		// The UI shouldn't allow us to try to move an item that we can't delete
+		// The UI should not allow us to try to move an item that we cannot delete
 		$results = $this->handleRequest(ERROR_PERMISSION_DENIED);
 	}
 

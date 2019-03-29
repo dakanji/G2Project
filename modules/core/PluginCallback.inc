@@ -213,12 +213,12 @@ class PluginCallbackView extends GalleryView {
 						return $ret;
 					}
 				} else {
-					// Themes don't need configuration
+					// Themes do not need configuration
 					$needsConfiguration = false;
 				}
 
 				if ($isActive || $needsConfiguration) {
-					// UI shouldn't let us come here anyway
+					// UI should not let us come here anyway
 					$result['status'] = 'invalid';
 
 					return null;
@@ -241,7 +241,7 @@ class PluginCallbackView extends GalleryView {
 
 			case 'deactivate':
 				if (!$isActive) {
-					// UI shouldn't let us come here anyway
+					// UI should not let us come here anyway
 					$result['status'] = 'invalid';
 
 					return null;
@@ -259,7 +259,7 @@ class PluginCallbackView extends GalleryView {
 					}
 
 					if ($plugin->getId() == $defaultThemeId) {
-						// UI shouldn't let us come here anyway
+						// UI should not let us come here anyway
 						$result['status'] = 'invalid';
 					}
 				}
@@ -296,7 +296,7 @@ class PluginCallbackView extends GalleryView {
 						return $ret;
 					}
 				} else {
-					// Themes don't need this step
+					// Themes do not need this step
 					$autoConfigured = true;
 				}
 
@@ -306,7 +306,7 @@ class PluginCallbackView extends GalleryView {
 					if ($ret) {
 						if ($ret->getErrorCode() & ERROR_CONFIGURATION_REQUIRED) {
 							/*
-							 * Some modules don't override autoConfigure which defaults to success.
+							 * Some modules do not override autoConfigure which defaults to success.
 							 * Show the "Modules needs configuration" message.
 							 */
 						} else {
@@ -500,7 +500,7 @@ class PluginCallbackView extends GalleryView {
 				$state   = 'inactive';
 
 				/*
-				 * If the database versions doesn't match the module
+				 * If the database versions does not match the module
 				 * version, we need to get the user to install the module.
 				 */
 				if ($version != $plugin->getVersion()) {

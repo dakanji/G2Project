@@ -95,9 +95,9 @@ class GalleryEventHelper_simple {
 				}
 
 				/*
-				 * Ignore version mismatch here because we don't want event propagation during
+				 * Ignore version mismatch here because we do not want event propagation during
 				 * upgrade to lead the plugin framework to deactivate plugins, which will in turn
-				 * post more events.  All we want is to ignore plugins which aren't current, which
+				 * post more events.  All we want is to ignore plugins which are not current, which
 				 * we do below.
 				 */
 				list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId, true);
@@ -120,7 +120,7 @@ class GalleryEventHelper_simple {
 
 		if (!empty($allListeners[$event->getEventName()])) {
 			/*
-			 * Walk the loop using an index so that we're working with the original referenced
+			 * Walk the loop using an index so that we are working with the original referenced
 			 * object.  If we use foreach ($array as $instance) we wind up working with a
 			 * copy of the listener on PHP4.
 			 */

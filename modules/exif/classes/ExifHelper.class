@@ -222,7 +222,7 @@ class ExifHelper {
 	/**
 	 * Return the raw IPTC data as a lib/JPEG object. This method call has the penalty to have
 	 * to read in the lib/JPEG library (currently ~100KB) but nearly no penalties for the image:
-	 * it isn't read here, that happens lazily when actually accessing IPTC values.
+	 * it is not read here, that happens lazily when actually accessing IPTC values.
 	 *
 	 * @param string $path the path to a jpeg file
 	 * @return array   GalleryStatus a status code
@@ -267,7 +267,7 @@ class ExifHelper {
 
 	/**
 	 * Return the wanted EXIF/IPTC data for one given file according to the given view mode.
-	 * This method doesn't return all available EXIF/IPTC data; instead it returns only the data
+	 * This method does not return all available EXIF/IPTC data; instead it returns only the data
 	 * existing and configured to be viewed in the given mode.
 	 *
 	 * @param string $path the path to the file
@@ -325,7 +325,7 @@ class ExifHelper {
 	}
 
 	/**
-	 * Sometimes the values that are returned aren't quite as we'd like to
+	 * Sometimes the values that are returned are not quite as we'd like to
 	 * present them, so do a little post processing on the text
 	 *
 	 * @param string $property the property name (eg. "ApertureValue")
@@ -524,7 +524,7 @@ class ExifHelper {
 	 * @todo (xlerb) have IPTC input charset default in EXIF/IPTC admin interface.
 	 * @todo (xlerb) have IPTC input charset overrides for albums (maybe images too?) for cases,
 	 *      where users from different countries can upload images with IPTC data. It is such a
-	 *      pain, that the charset used isn't recorded in IPTC headers.
+	 *      pain, that the charset used is not recorded in IPTC headers.
 	 */
 	public static function getIptcValue(&$object, $keyPath, $sourceEncoding = null) {
 		if ($keyPath[0] != 'IPTC') {

@@ -70,7 +70,7 @@
     </tr></table>
   {else}
     <p class="giDescription">
-      {g->text text="You don't seem to have the GD library available on this PHP installation."}
+      {g->text text="You do not seem to have the GD library available on this PHP installation."}
     </p>
   {/if}
 </div>

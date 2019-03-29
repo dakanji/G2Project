@@ -114,8 +114,8 @@ class ShowItemView extends GalleryView {
 		}
 
 		/*
-		 * Don't increment the view count for anything but the first page of the album so that we
-		 * don't count each individual page views as an album view.  This only applies to
+		 * Do not increment the view count for anything but the first page of the album so that we
+		 * do not count each individual page views as an album view.  This only applies to
 		 * non-persistent sessions because GalleryCoreApi::incrementItemViewCount does the right
 		 * thing for persistent sessions.
 		 */

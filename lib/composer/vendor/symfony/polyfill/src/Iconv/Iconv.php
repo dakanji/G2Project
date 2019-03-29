@@ -27,7 +27,7 @@ namespace Symfony\Polyfill\Iconv;
  *
  * Charsets available for conversion are defined by files
  * in the charset/ directory and by Iconv::$alias below.
- * You're welcome to send back any addition you make.
+ * You are welcome to send back any addition you make.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  *

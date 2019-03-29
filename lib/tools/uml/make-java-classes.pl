@@ -100,7 +100,7 @@ scrub: clean
 	rm -f *.java
 
 # Gmake will automatically delete $(G2_TMPDIR)/*.xml files after creating .java files
-# because it thinks that they're intermediate files.  But, we want to save
+# because it thinks that they are intermediate files.  But, we want to save
 # them (for now), so mark them as PRECIOUS.
 #
 .PRECIOUS: $(G2_TMPDIR)/%.xml

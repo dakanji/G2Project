@@ -44,7 +44,7 @@ PDO::PARAM_STR, 2
 PDO::PARAM_LOB, 3
 
 /* get_col: will expect the ptr to point to a new PDOStatement object handle,
- * but this isn't wired up yet
+ * but this is not wired up yet
 PDO::PARAM_STMT, 4 /* hierarchical result set
 
 /* get_col ptr should point to a zend_bool

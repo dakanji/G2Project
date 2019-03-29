@@ -365,7 +365,7 @@ class GalleryTemplate {
 
 	/**
 	 * Return a properly configured instance of Smarty.  This used to be a single shared static
-	 * instance of Smarty, but now we build it every time we need it.  Theoretically we shouldn't
+	 * instance of Smarty, but now we build it every time we need it.  Theoretically we should not
 	 * be creating more than one GalleryTemplate and hence, more than one Smarty instance per
 	 * request.  However, having it as a static object makes it less testable.
 	 *
@@ -383,7 +383,7 @@ class GalleryTemplate {
 		// Compiled templates go here
 		$smarty->compile_dir = $gallery->getConfig('data.smarty.templates_c');
 
-		// Don't let Smarty change the error reporting level
+		// Do not let Smarty change the error reporting level
 		$smarty->error_reporting = error_reporting();
 
 		// We have our own plugins

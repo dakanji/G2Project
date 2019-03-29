@@ -81,7 +81,7 @@ class ExifDescriptionOption extends ItemAddOption {
 			$itemsInBatches = $items;
 
 			/*
-			 * Batch size should be <= ulimit max open files, as long as we don't query this value,
+			 * Batch size should be <= ulimit max open files, as long as we do not query this value,
 			 * assume a value of 100 which is fairly low
 			 */
 			$batchSize = 100;

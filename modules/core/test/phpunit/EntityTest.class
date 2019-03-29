@@ -277,7 +277,7 @@ class EntityTest extends GalleryTestCase {
 	public function testSetSetSet() {
 		/*
 		 * Ensure modified flag stays set if value goes null->A->B->A (ie first set of A
-		 * doesn't become the "original value" when it should stay as null)
+		 * does not become the "original value" when it should stay as null)
 		 */
 		$entity = new EntityTestEntity();
 
@@ -430,8 +430,8 @@ class EntityTest extends GalleryTestCase {
 		}
 
 		/*
-		 * width is null, because photo2 hasn't yet been loaded from the database (or refreshed)
-		 * so its onLoad hasn't been called yet, which means that it still has its original
+		 * width is null, because photo2 has not yet been loaded from the database (or refreshed)
+		 * so its onLoad has not been called yet, which means that it still has its original
 		 * value.
 		 */
 		$this->assertEquals(null, $photo2->getWidth());
@@ -442,7 +442,7 @@ class EntityTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Now that we've reloaded photo2, it has linked values
+		// Now that we have reloaded photo2, it has linked values
 		$this->assertEquals(100, $photo2->getWidth());
 		$this->assertEquals('application/unknown', $photo2->getMimeType());
 	}

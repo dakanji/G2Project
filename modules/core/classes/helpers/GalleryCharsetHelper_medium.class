@@ -2815,9 +2815,9 @@ class GalleryCharsetHelper_medium {
 			return '';
 		}
 
-		// 1. Jump to the $start byte and check if it's the start of a character.
+		// 1. Jump to the $start byte and check if it is the start of a character.
 		if ($start != 0 && (ord($string[$start]) & 0xC0) == 0x80) {
-			// It's the 2nd to 4th byte of a multibyte character, go back to the 1st byte of it
+			// It is the 2nd to 4th byte of a multibyte character, go back to the 1st byte of it
 			$j = 0;
 
 			// Go back a maximum of 3 bytes and stop at the beginning of the string
@@ -2843,7 +2843,7 @@ class GalleryCharsetHelper_medium {
 
 		if (ord($string[$end]) & 0x80) {
 			// Is it a single-byte character?
-			// It's an incomplete multibyte character, go back to the last character
+			// It is an incomplete multibyte character, go back to the last character
 			$j = 0;
 
 			// Go back a maximum of 3 bytes

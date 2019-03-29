@@ -345,7 +345,7 @@ class GalleryTemplateAdapter {
 		 * - Renderer can render the entity (with info from the item)
 		 */
 		if ($params['item']['id'] == $params['image']['id']) {
-			// XXX: Can't be more specific than entity-type = GalleryEntity here
+			// XXX: Cannot be more specific than entity-type = GalleryEntity here
 			list($ret, $item) = GalleryCoreApi::loadEntitiesById($params['item']['id'], 'GalleryEntity');
 
 			if ($ret) {
@@ -458,7 +458,7 @@ class GalleryTemplateAdapter {
 
 		// Tpl to include.
 		foreach ($head['tpl'] as $path => $l10Domain) {
-			// Guard template vars so that the include doesn't pollute our namespace
+			// Guard template vars so that the include does not pollute our namespace
 			$save = $smarty->_tpl_vars;
 
 			$smarty->_smarty_include(
@@ -527,7 +527,7 @@ class GalleryTemplateAdapter {
 
 		foreach ($files as $file) {
 			/*
-			 * Don't do caching if it's a dynamic request, for which we use the quick and dirty
+			 * Do not do caching if it is a dynamic request, for which we use the quick and dirty
 			 * approach of checking for a ? in the path.  This will fail if you register a short
 			 * url for a JS immediate view, which seems pretty unlikely.
 			 */
@@ -669,7 +669,7 @@ class GalleryTemplateAdapter {
 			$url = str_replace('&amp;', '&', $url);
 		}
 
-		// Guard template vars so that the include doesn't pollute our namespace
+		// Guard template vars so that the include does not pollute our namespace
 		$save = $smarty->_tpl_vars;
 
 		$smarty->_smarty_include(
@@ -697,7 +697,7 @@ class GalleryTemplateAdapter {
 			$this->_callCount['dimensions'] = 0;
 		}
 
-		// Guard template vars so that the include doesn't pollute our namespace
+		// Guard template vars so that the include does not pollute our namespace
 		$save = $smarty->_tpl_vars;
 
 		$smarty->_smarty_include(
@@ -729,7 +729,7 @@ class GalleryTemplateAdapter {
 			$this->_callCount['defaultButton'] = 0;
 		}
 
-		// Guard template vars so that the include doesn't pollute our namespace
+		// Guard template vars so that the include does not pollute our namespace
 		$save = $smarty->_tpl_vars;
 
 		$smarty->_smarty_include(
@@ -958,7 +958,7 @@ class GalleryTemplateAdapter {
 				$installedVersions = $core->getInstalledVersions();
 
 				if (!$isAdmin) {
-					// Don't show exact patch release to non-admins
+					// Do not show exact patch release to non-admins
 					$installedVersions['gallery'] = preg_replace('/^(\d+\.\d+).*$/', '$1', $installedVersions['gallery']);
 				}
 
@@ -1105,7 +1105,7 @@ class GalleryTemplateAdapter {
 		$buf       = '';
 
 		if ($debug == 'buffered' || $profiling) {
-			// don't worry about localizing this -- it's only debug output
+			// do not worry about localizing this -- it is only debug output
 			$buf .= '<div id="gpDebug"> <h3> Debug Output </h3>';
 
 			if ($debug == 'buffered') {
@@ -1144,7 +1144,7 @@ class GalleryTemplateAdapter {
 		global $gallery;
 
 		if (isset($params['include'])) {
-			// Guard template vars so that the include doesn't pollute our namespace
+			// Guard template vars so that the include does not pollute our namespace
 			$save = $smarty->_tpl_vars;
 
 			$smarty->_smarty_include(
@@ -1158,7 +1158,7 @@ class GalleryTemplateAdapter {
 		} elseif (isset($params['url'])) {
 			/*
 			 * Use this combo of dirname and '..' in g2Dir to avoid creating paths in the unit
-			 * test that won't be Windows compatible.
+			 * test that would not be Windows compatible.
 			 */
 			$g2Dir = dirname(__DIR__) . '/../../';
 			$base  = 'themes/' . $this->_theme->getId() . '/';
@@ -1237,7 +1237,7 @@ class GalleryTemplateAdapter {
 		$params['class']     = "block-$module-$file$class";
 		$params['l10Domain'] = "modules_$module";
 
-		// Guard template vars so that the include doesn't pollute our namespace
+		// Guard template vars so that the include does not pollute our namespace
 		$save = $smarty->_tpl_vars;
 
 		$smarty->_smarty_include(
@@ -1279,7 +1279,7 @@ class GalleryTemplateAdapter {
 			return $content;
 		}
 
-		// Guard template vars so that the include doesn't pollute our namespace
+		// Guard template vars so that the include does not pollute our namespace
 		$save = $smarty->_tpl_vars;
 
 		$smarty->_smarty_include(
@@ -1508,7 +1508,7 @@ class GalleryTemplateAdapter {
 			)
 		);
 
-		// Newline needed or Opera 9.02 won't show updates
+		// Newline needed or Opera 9.02 would not show updates
 		printf(
 			'<script type="text/javascript">'
 			. 'updateProgressBar("%s", "%s", "%s", "%s", "%s");</script>%s',
@@ -1587,7 +1587,7 @@ class GalleryTemplateAdapter {
 		);
 
 		if (($debug = $gallery->getDebug()) && $debug != 'logged') {
-			// Don't automatically redirect when in debug mode
+			// Do not automatically redirect when in debug mode
 			echo '<hr/>';
 			echo '<pre>';
 

@@ -136,7 +136,7 @@ class GalleryGroup extends GalleryEntity {
 	 * @return GalleryStatus a status code
 	 */
 	public function delete() {
-		// Don't allow to delete the special groups (admin, registered, everybody)
+		// Do not allow to delete the special groups (admin, registered, everybody)
 		if ($this->getGroupType() != GROUP_NORMAL) {
 			return GalleryCoreApi::error(
 				ERROR_BAD_PARAMETER,

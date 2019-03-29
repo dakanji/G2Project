@@ -298,7 +298,7 @@ class GalleryUser extends GalleryEntity {
 			);
 		}
 
-		// Don't allow deleting the guest user
+		// Do not allow deleting the guest user
 		list($ret, $anonymousUserId) = GalleryCoreApi::getPluginParameter(
 			'module',
 			'core',

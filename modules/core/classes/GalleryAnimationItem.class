@@ -132,7 +132,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 		$this->setWidth(0);
 		$this->setHeight(0);
 
-		// We're linkable
+		// We are linkable
 		$this->setIsLinkable(true);
 
 		// Detect our dimensions, if possible
@@ -183,7 +183,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 
 			if ($ret) {
 				/*
-				 * If we can't get the dimensions, it's probably a bad image.
+				 * If we cannot get the dimensions, it is probably a bad image.
 				 * Or our graphics code is broken.  Hard to tell which at this point.
 				 */
 				$ret->addErrorCode(ERROR_BAD_DATA_TYPE);

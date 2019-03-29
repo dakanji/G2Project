@@ -190,7 +190,7 @@ class ItemOrderTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Can't verify the order (it's random), just make sure we got the right ids
+		// Cannot verify the order (it is random), just make sure we got the right ids
 		$correctResults = array();
 
 		for ($i = 0; $i < count($this->_childItems); $i++) {

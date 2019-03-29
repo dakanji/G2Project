@@ -10,7 +10,7 @@
   </div>
   {else}
   <p class="giDescription">
-    {g->text text="Themes control the look and feel of the album.  You can choose a different theme for each album.  If you don't choose a theme, we'll use the %s theme by default." arg1="<b>`$ThemeSettingsForm.theme.name`</b>"}
+    {g->text text="Themes control the look and feel of the album.  You can choose a different theme for each album.  If you do not choose a theme, we will use the %s theme by default." arg1="<b>`$ThemeSettingsForm.theme.name`</b>"}
   </p>
   {/if}
 

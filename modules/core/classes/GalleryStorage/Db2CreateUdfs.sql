@@ -40,13 +40,13 @@ BEGIN ATOMIC
 -- G2_LIKE()
 --
 -- A UDF to perform LIKE() processing unencumbered by the limitations of DB2's LIKE().
--- DB2's LIKE() doesn't support column values or concatenation of non-literals.
+-- DB2's LIKE() does not support column values or concatenation of non-literals.
 --
 -- This UDF assumes the concatenation of the pattern parts is done on the invocation of
 -- this function.  Alternatively, this function would have to be able to handle varying
 -- numbers of args.
 --
--- This UDF doesn't currently support escape character.
+-- This UDF does not currently support escape character.
 --
 -- Wildcards supported:
 --
@@ -71,7 +71,7 @@ END IF;
 SET subject_position = 1;
 SET pattern_position = 1;
 WHILE (pattern_position <= LENGTH(pattern)) DO
-  IF subject_position > LENGTH(subject)            -- We've reached the end of the subject line,
+  IF subject_position > LENGTH(subject)            -- We have reached the end of the subject line,
   AND SUBSTR(pattern, pattern_position, 1) != '%'  -- and remainder of pattern starts with anything 
   THEN                                             -- other than '%'
     RETURN 0;
@@ -98,17 +98,17 @@ WHILE (pattern_position <= LENGTH(pattern)) DO
         THEN                                       -- Either one or both of them are non-0
           -- get the position of the nearest wildcard
           IF percent_position = 0                  -- Percent is 0, so next wildcard must be '_'
-          THEN                                     -- Don't include the wildcard in the chunk     
+          THEN                                     -- Do not include the wildcard in the chunk     
             SET pattern_chunk_end = underscore_position - 1;
           ELSE
             IF underscore_position = 0             -- Underscore is 0, so next wildcard must be '%'
-            THEN                                   -- Don't include the wildcard in the chunk
+            THEN                                   -- Do not include the wildcard in the chunk
               SET pattern_chunk_end = percent_position - 1;     
             ELSE                                   -- Neither are 0
               IF percent_position < underscore_position  -- '%' is closer than '_'
-              THEN                                       -- Don't include the wildcard in the chunk
+              THEN                                       -- Do not include the wildcard in the chunk
                 SET pattern_chunk_end = percent_position - 1;    -- '_' is closer than '%'
-              ELSE                                               -- Don't include the wildcard
+              ELSE                                               -- Do not include the wildcard
                 SET pattern_chunk_end = underscore_position - 1; -- in the chunk
               END IF;
             END IF;
@@ -119,11 +119,11 @@ WHILE (pattern_position <= LENGTH(pattern)) DO
           --
           SET pattern_chunk_end = LENGTH(pattern);
         END IF;
-        -- If there's another wildcard immediately following this one, there isn't really a chunk 
+        -- If there's another wildcard immediately following this one, there is not really a chunk 
         -- to process. If that next wildcard is a '_', we want to simply increment the pattern and 
         -- subject positions. If that next wildcard is a '%', we want to increment only the pattern
         -- pointer. But if that next wildcard is '_' and occurs at the very end of the pattern,that
-        -- puts us out of the WHILE loop, so we can't confirm that a valid character follows in the
+        -- puts us out of the WHILE loop, so we cannot confirm that a valid character follows in the
         -- source.So we set a 'character_required' variable here and test it after the WHILE loop.
         IF pattern_chunk_end = pattern_position
         THEN
@@ -172,7 +172,7 @@ WHILE (pattern_position <= LENGTH(pattern)) DO
   SET subject_position = subject_position + 1;
   SET pattern_position = pattern_position + 1;
 END WHILE;
--- We've reached the end of the pattern
+-- We have reached the end of the pattern
 IF (subject_position - 1) < LENGTH(subject)  -- there are more characters in the subject
 THEN
   IF (character_required = 1)  

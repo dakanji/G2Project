@@ -102,7 +102,7 @@ class PlatformTest extends GalleryTestCase {
 
 			$tempName = $platform->tempnam($symlink . '/', 'test');
 
-			$this->assertEquals($symlink, dirname($tempName), 'Directories don\'t match');
+			$this->assertEquals($symlink, dirname($tempName), 'Directories do not match');
 			$this->assertTrue(unlink($tempName), 'Failed to delete temporary file');
 			$this->assertTrue(unlink($symlink), 'Failed to delete symlink');
 			$this->assertTrue(rmdir($sourceDir), 'Failed to delete test source directory');
@@ -111,7 +111,7 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testMoveUploadedFile() {
-		// XXX: How do we test this?  We don't have an uploaded file :-(
+		// XXX: How do we test this?  We do not have an uploaded file :-(
 		$this->assertFalse($this->_platform->move_uploaded_file($this->_sourceFile, $this->_destFile));
 	}
 
@@ -135,7 +135,7 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testIsWriteable() {
-		// On Win32, all files are writeable so the next assertion isn't that useful!
+		// On Win32, all files are writeable so the next assertion is not that useful!
 		// $this->assertFalse($this->_platform->is_writeable(__FILE__));
 		$this->assertTrue($this->_platform->copy($this->_sourceFile, $this->_destFile));
 		$this->assertTrue($this->_platform->is_writeable($this->_destFile));
@@ -223,7 +223,7 @@ class PlatformTest extends GalleryTestCase {
 		$this->assertTrue($this->_platform->mkdir($this->_destFile));
 		$this->assertTrue($this->_platform->mkdir($this->_destFile . '/1'));
 
-		// XXX: this generates a PHP error that I can't seem to turn off.
+		// XXX: this generates a PHP error that I cannot seem to turn off.
 		// $this->assertFalse($this->_platform->rmdir($this->_destFile));
 		$this->assertTrue($this->_platform->rmdir($this->_destFile . '/1'));
 		$this->assertTrue($this->_platform->rmdir($this->_destFile));
@@ -379,7 +379,7 @@ class PlatformTest extends GalleryTestCase {
 	/**
 	 * Make sure executing a bogus path fails.
 	 *
-	 * XXX: This is a pretty weak test.  It's hard to improve it without actually shipping a
+	 * XXX: This is a pretty weak test.  It is hard to improve it without actually shipping a
 	 * known-good script though.
 	 */
 	public function testExec() {
@@ -643,7 +643,7 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testRecursiveChmod2() {
-		// Set given dir permission, don't change file permissions
+		// Set given dir permission, do not change file permissions
 		$ret = $this->_setupChmodTest();
 
 		if ($ret) {
@@ -686,7 +686,7 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testRecursiveChmod3() {
-		// Set given file permission, don't change dir permissions
+		// Set given file permission, do not change dir permissions
 		$ret = $this->_setupChmodTest();
 
 		if ($ret) {
@@ -746,7 +746,7 @@ class PlatformTest extends GalleryTestCase {
 		$this->assertEquals(
 			$realLineEnding,
 			$this->_platform->getLineEnding(),
-			"Line Endings Don't Match"
+			"Line Endings Do not Match"
 		);
 	}
 
@@ -1049,7 +1049,7 @@ class PlatformTest extends GalleryTestCase {
 	 * Try opening a socket to a bogus web server.
 	 */
 	public function testFsockopenBadHost() {
-		// We know this is going to bomb so bypass PHPunit's error handler
+		// We know this is going to bomb so bypass PHPunit is error handler
 		set_error_handler(array('PlatformTest', 'ignore_error_handler'));
 		$fd = @$this->_platform->fsockopen(
 			'www.BOGUSBOGUSBOGUSBOGUS.com',
@@ -1094,7 +1094,7 @@ class PlatformTest extends GalleryTestCase {
 	}
 
 	public function testOpenMissingFile() {
-		// We know this is going to bomb so bypass PHPunit's error handler
+		// We know this is going to bomb so bypass PHPunit is error handler
 		set_error_handler(array('PlatformTest', 'ignore_error_handler'));
 
 		// And suppress warnings when we call fopen
@@ -1120,7 +1120,7 @@ class PlatformTest extends GalleryTestCase {
 
 		$this->assertEquals($testData1, $output);
 
-		// Now write another text to the same file and see if it's ok
+		// Now write another text to the same file and see if it is ok
 		$testData2 = "this is a test\nmultiline\ntest\nmore\ntext";
 
 		$this->assertTrue(

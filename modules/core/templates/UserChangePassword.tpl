@@ -14,7 +14,7 @@
 
 <div class="gbBlock">
   <p class="giDescription">
-    {g->text text="You must enter your current password to prove that it's you, then enter your new password twice to make sure that you didn't make a mistake."}
+    {g->text text="You must enter your current password to prove that it is you, then enter your new password twice to make sure that you did not make a mistake."}
   </p>
 
   <div>

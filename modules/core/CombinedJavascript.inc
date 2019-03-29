@@ -70,7 +70,7 @@ class CombinedJavascriptView extends GalleryView {
 		$key = GalleryUtilities::getRequestVariables('key');
 
 		if (preg_match('/[^0-9a-f]/', $key)) {
-			// The key can't contain non-hex, so just terminate early
+			// The key cannot contain non-hex, so just terminate early
 			return null;
 		}
 
@@ -98,7 +98,7 @@ class CombinedJavascriptView extends GalleryView {
 
 				/*
 				 * Cache control is public for proxies that handle gzip properly.
-				 * Private for the ones that don't.
+				 * Private for the ones that do not.
 				 * http://www.mnot.net/blog/2005/05/12/google_cache
 				 */
 				$phpVm->header('Cache-Control: private, x-gzip-ok="public"');

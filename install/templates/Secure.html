@@ -13,7 +13,7 @@
     <?php if (!$templateData['file']['secure']) {
 			?>
     <p>
-      <?php printf(_("We want to make sure that your Gallery is secure.  The config.php file that this installer has edited has permissions that allow other people to write to it.  This is required because the installer qualifies as an \"other person\" when it comes to Unix file permissions.  So before you finish, you should change the permissions on this file such that other users can't write to it.  Right now your config.php has modes of %s.  We suggest that you do this:"), $templateData['file']['mode']) ?>
+      <?php printf(_("We want to make sure that your Gallery is secure.  The config.php file that this installer has edited has permissions that allow other people to write to it.  This is required because the installer qualifies as an \"other person\" when it comes to Unix file permissions.  So before you finish, you should change the permissions on this file such that other users cannot write to it.  Right now your config.php has modes of %s.  We suggest that you do this:"), $templateData['file']['mode']) ?>
     </p>
 
     <div class="example">
@@ -24,7 +24,7 @@
     <?php if (!$templateData['dir']['secure']) {
 			?>
     <p>
-      <?php echo _("We want to make sure that your Gallery is secure.  The directory containing your config.php file that this installer has edited has permissions that allow other people to write or delete files.  So before you finish, you should change the permissions on this directory such that other users can't write to it.  We suggest that you do this:") ?>
+      <?php echo _("We want to make sure that your Gallery is secure.  The directory containing your config.php file that this installer has edited has permissions that allow other people to write or delete files.  So before you finish, you should change the permissions on this directory such that other users cannot write to it.  We suggest that you do this:") ?>
     </p>
 
     <div class="example">
@@ -34,7 +34,7 @@
 		} ?>
 
     <p>
-      <?php echo _("If you really want to continue, you can.  But we recommend that you take an extra moment to make sure that you're safe.") ?>
+      <?php echo _("If you really want to continue, you can.  But we recommend that you take an extra moment to make sure that you are safe.") ?>
     </p>
     <?php
 	} ?>
@@ -42,7 +42,7 @@
     <?php if ($templateData['secure']) {
 		?>
     <p>
-      <?php echo _("We've verified that your config.php is secure.") ?>
+      <?php echo _("We have verified that your config.php is secure.") ?>
     </p>
     <?php
 	} ?>

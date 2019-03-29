@@ -244,7 +244,7 @@ class GalleryTranslatorHelper_medium {
 
 				foreach ($supportedLanguages as $language => $countryList) {
 					foreach ($countryList as $country => $languageData) {
-						// Don't apply default to Chinese for political correctness
+						// Do not apply default to Chinese for political correctness
 						if ($defaultCountry[$language] == $country && $language != 'zh') {
 							$langCode = $language;
 						} else {

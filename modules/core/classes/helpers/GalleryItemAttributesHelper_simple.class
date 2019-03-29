@@ -38,7 +38,7 @@ class GalleryItemAttributesHelper_simple {
 		if (!$session->exists('core.lastViewed')) {
 			if (!$session->isPersistent()) {
 				/*
-				 * For guests, we don't create a session.  So the lastViewed data is not available
+				 * For guests, we do not create a session.  So the lastViewed data is not available
 				 * for guests.  Thus, rely on HTTP If-Modified-Since for guests which is admittedly
 				 * quite unreliable.  Alternatively we could store this data on the client with a
 				 * non-session cookie but sending lastViewed data on each request could take a lot
@@ -55,7 +55,7 @@ class GalleryItemAttributesHelper_simple {
 					return null;
 				}
 
-				// Known search engines don't affect view counts
+				// Known search engines do not affect view counts
 				if ($session->isSearchEngineSession()) {
 					return null;
 				}
@@ -82,7 +82,7 @@ class GalleryItemAttributesHelper_simple {
 
 			if (isset($lastViewed[$itemId])) {
 				if ($elapsed - $lastViewed[$itemId] < 86400) {
-					// They viewed it within the last day, so this doesn't count
+					// They viewed it within the last day, so this does not count
 					return null;
 				}
 			}
@@ -196,7 +196,7 @@ class GalleryItemAttributesHelper_simple {
 
 		$result = $searchResults->nextResult();
 
-		// DB2 doesn't trim when storing data in a varchar column
+		// DB2 does not trim when storing data in a varchar column
 		$parentSequence = preg_split('/\//', trim($result[0]), -1, PREG_SPLIT_NO_EMPTY);
 
 		if (is_array($parentSequence)) {

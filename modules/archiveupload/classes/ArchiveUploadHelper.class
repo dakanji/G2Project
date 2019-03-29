@@ -43,8 +43,8 @@ class ArchiveUploadHelper {
 		$platform =& $gallery->getPlatform();
 
 		/*
-		 * If the path is not restricted by open_basedir, then verify that it's legal.
-		 * Else just hope that it's valid and use it.
+		 * If the path is not restricted by open_basedir, then verify that it is legal.
+		 * Else just hope that it is valid and use it.
 		 */
 		if (!$platform->isRestrictedByOpenBaseDir($unzipPath)) {
 			if (!$platform->file_exists($unzipPath) || !$platform->is_file($unzipPath)) {

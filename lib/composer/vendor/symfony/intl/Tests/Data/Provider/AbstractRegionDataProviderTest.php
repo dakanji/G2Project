@@ -321,7 +321,7 @@ abstract class AbstractRegionDataProviderTest extends AbstractDataProviderTest
      */
     public function testGetNamesSupportsAliases($alias, $ofLocale)
     {
-        // Can't use assertSame(), because some aliases contain scripts with
+        // Cannot use assertSame(), because some aliases contain scripts with
         // different collation (=order of output) than their aliased locale
         // e.g. sr_Latn_ME => sr_ME
         $this->assertEquals(

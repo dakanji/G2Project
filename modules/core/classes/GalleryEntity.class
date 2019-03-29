@@ -21,7 +21,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryPersistent.class');
 /**
  * A GalleryEntity is a stateful representation of an entity in the persistent store.  You can
  * load, modify, save and delete it.  Any modifications made to this entity will live in memory
- * until you commit the changes to the store (hence, it's stateful).
+ * until you commit the changes to the store (hence, it is stateful).
  *
  * @g2 <class-name>GalleryEntity</class-name>
  * @g2 <parent-class-name>GalleryPersistent</parent-class-name>
@@ -190,12 +190,12 @@ class GalleryEntity extends GalleryPersistent {
 		/*
 		 * Make sure the entity defined its own class name.  This is a little draconian;
 		 * it requires that your entity name is the same as the get_class() version.  We'd
-		 * just use get_class for getClassName() except that it's always lowercase in PHP4.
+		 * just use get_class for getClassName() except that it is always lowercase in PHP4.
 		 * If this causes problems we could relax the check to just make sure that
 		 *   $this->getClassName() != 'GalleryEntity'
-		 * but that wouldn't catch the case where one entity extends another one and forgets
+		 * but that would not catch the case where one entity extends another one and forgets
 		 * to override getClassName()
-		 * Don't use strcasecmp or strtolower because they are affected by locale.
+		 * Do not use strcasecmp or strtolower because they are affected by locale.
 		 */
 		if (($thisClass = get_class($this)) != $className && $thisClass != strtr($className, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')
 		) {
@@ -228,7 +228,7 @@ class GalleryEntity extends GalleryPersistent {
 	/**
 	 * Create a new linked version of this item into a new album
 	 *
-	 * @param GalleryEntity $entity the entity we're linking to
+	 * @param GalleryEntity $entity the entity we are linking to
 	 * @return array GalleryStatus a status code
 	 *               GalleryItem the linked item
 	 */
@@ -279,7 +279,7 @@ class GalleryEntity extends GalleryPersistent {
 		global $gallery;
 
 		/*
-		 * Newly created objects don't need to be locked 'cause they're not in
+		 * Newly created objects do not need to be locked 'cause they are not in
 		 * the database yet.  Everything else does.
 		 */
 		if (!GalleryCoreApi::isWriteLocked($this->getId())
@@ -332,7 +332,7 @@ class GalleryEntity extends GalleryPersistent {
 			// Update our caches
 			if ($changedEntityType) {
 				/*
-				 * We changed the entity type which probably means that the entity class doesn't
+				 * We changed the entity type which probably means that the entity class does not
 				 * line up with its embedded entityType.  Clear this from our cache so that the
 				 * next load actually gets the clean, correct version.
 				 */
@@ -380,7 +380,7 @@ class GalleryEntity extends GalleryPersistent {
 	public function refresh() {
 		global $gallery;
 
-		// Are we trying to refresh an object that isn't in the database?
+		// Are we trying to refresh an object that is not in the database?
 		if ($this->testPersistentFlag(STORAGE_FLAG_DELETED)
 			|| $this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)
 		) {
@@ -509,7 +509,7 @@ class GalleryEntity extends GalleryPersistent {
 		$onLoadHandlers = $this->getOnLoadHandlers();
 
 		if (!empty($onLoadHandlers)) {
-			// Determine whether we're in an upgrade process
+			// Determine whether we are in an upgrade process
 			$session                  =& $gallery->getSession();
 			$isDuringInstallOrUpgrade = $session->get('isInstall') || $session->get('isUpgrade');
 

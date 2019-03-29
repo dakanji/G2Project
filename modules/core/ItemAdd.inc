@@ -101,7 +101,7 @@ class ItemAddController extends GalleryController {
 		 * @todo Remove on next major API change
 		 */
 		if ($addPluginId == 'ItemAddWebDav') {
-			// Don't output any HTML (progress-bar)
+			// Do not output any HTML (progress-bar)
 			ob_start();
 
 			$ret = $this->handleRequestWithProgressBar($form, $item, $addPlugin);
@@ -146,7 +146,7 @@ class ItemAddController extends GalleryController {
 	/**
 	 * Handles the add item request and is expected to be called as a progress-bar callback.
 	 * @param array $form
-	 * @param GalleryItem $item The container to which we're adding child-items
+	 * @param GalleryItem $item The container to which we are adding child-items
 	 * @param ItemAddPlugin $addPlugin The plugin that handles this add item request
 	 * @return GalleryStatus
 	 */
@@ -362,7 +362,7 @@ class ItemAddController extends GalleryController {
 			$file =& $status['addedFiles'][$i];
 
 			if (empty($file['id']) || isset($this->_processedItems[$i])) {
-				// We couldn't add this file for whatever reason or it has been processed already
+				// We could not add this file for whatever reason or it has been processed already
 				continue;
 			}
 
@@ -410,7 +410,7 @@ class ItemAddController extends GalleryController {
 				$itemsToProcess[] = $addedItem;
 
 				/*
-				 * We can't index $itemsToProcess directly by $i because some options expect it to
+				 * We cannot index $itemsToProcess directly by $i because some options expect it to
 				 * be indexed from 0..n without holes.
 				 */
 				$itemsToProcessKeyMap[] = $i;
@@ -648,7 +648,7 @@ class ItemAddController extends GalleryController {
 					$newItem =& $album;
 				} else {
 					/*
-					 * Flattening folder structure since we're not allowed to create albums.
+					 * Flattening folder structure since we are not allowed to create albums.
 					 * Adding files but ignoring directories.
 					 */
 					$ret = $this->_recursiveAddDir(
@@ -713,7 +713,7 @@ class ItemAddController extends GalleryController {
 			}
 
 			if (count($addedFiles) % 10 == 0) {
-				// The percentage isn't accurate at all, we just keep the visual feedback going
+				// The percentage is not accurate at all, we just keep the visual feedback going
 				$this->_templateAdapter->updateProgressBar(
 					$this->_extractingArchiveMessage,
 					'',
@@ -820,7 +820,7 @@ class ItemAddView extends GalleryView {
 		}
 
 		/*
-		 * If the plugin is empty get it from the session.  If it's empty there,
+		 * If the plugin is empty get it from the session.  If it is empty there,
 		 * default to the first plugin we find.  Either way, save the user's
 		 * preference in the session.
 		 */
@@ -896,7 +896,7 @@ class ItemAddView extends GalleryView {
 			}
 		}
 
-		// Make sure that we've got some toolkits
+		// Make sure that we have got some toolkits
 		list($ret, $operations) = GalleryCoreApi::getToolkitOperations('image/jpeg');
 
 		if ($ret) {

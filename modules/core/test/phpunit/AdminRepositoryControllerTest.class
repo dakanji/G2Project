@@ -202,7 +202,7 @@ class AdminRepositoryControllerTest extends GalleryControllerTestCase {
 		);
 
 		/*
-		 * We don't test the download process itself here, because it shares
+		 * We do not test the download process itself here, because it shares
 		 * the general download code path that is tested in testDownload.
 		 */
 	}

@@ -20,14 +20,14 @@ GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 
 /**
  * Test Exif Helper functionality
- * @todo (xlerb) more tests, to be really sure, that our new underlying lib/JPEG does it's job well.
+ * @todo (xlerb) more tests, to be really sure, that our new underlying lib/JPEG does it is job well.
  *      This will ensure a working G2 even in case, lib/JPEG changes (especially because
  *      the lib/JPEG author has delegated some work on the lib to me). Also, there are plans to
  *      reduce include penalties for lib/JPEG. Let us protect against failures before
  *      actually changing the lib. And, by definition/specs, IPTC data may be spread
  *      throughout JPEG files, responsible to follow specs is the application writing IPTC data.
  *      Theoretically one could create mock files to test all variants of allowed (per spec)
- *      meta data distribution ... when I someday will be able to do that, I'll do for G2 (then
+ *      meta data distribution ... when I someday will be able to do that, I will do for G2 (then
  *      as the author of the "final" EXIF/IPTC/XMP application and surely senior developer
  *      at Adobe Inc. :).
  *      Until then I'm happy to "keep G2 running" and fall back to just test common IPTC
@@ -134,7 +134,7 @@ class ExifHelperTest extends GalleryTestCase {
 		}
 
 		/*
-		 * What we get back depends on what options we've set for our mode, which will vary
+		 * What we get back depends on what options we have set for our mode, which will vary
 		 * depending on the current settings of the database.  Even if we request a specific field,
 		 * we still may not get it back if its not in the image.  Doh.  Let's do a quick and dirty
 		 * test for now and just check for 'Make' and 'Model' to make sure that we got something.
@@ -401,7 +401,7 @@ class ExifHelperTest extends GalleryTestCase {
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'CaptionWriter'));
 
-		// SHOULD be truncated in IPTC data, IrfanView doesn't respect hat, can we read it?
+		// SHOULD be truncated in IPTC data, IrfanView does not respect hat, can we read it?
 		$this->assertEquals(
 			'Caption writer: IPTC/CaptionWriter, much toooooo looong',
 			$data,
@@ -422,7 +422,7 @@ class ExifHelperTest extends GalleryTestCase {
 
 		$data = ExifHelper::getIptcValue($iptcObj, array('IPTC', 'Category'));
 
-		// IPTC limits this to 3, PS to 2 chars. IrfanView doesn't respect that, can we read it?
+		// IPTC limits this to 3, PS to 2 chars. IrfanView does not respect that, can we read it?
 		$this->assertEquals(
 			'Category: IPTC/Category, muuuch tooo loooooong',
 			$data,
@@ -434,7 +434,7 @@ class ExifHelperTest extends GalleryTestCase {
 
 		$this->assertEquals(3, count($dataArray), 'SupplementalCategories count');
 
-		// IPTC limits this to 3, PS to 2 chars. IrfanView doesn't respect that, can we read it?
+		// IPTC limits this to 3, PS to 2 chars. IrfanView does not respect that, can we read it?
 		$this->assertTrue(
 			in_array('Supplemental categories', $dataArray),
 			'IPTC/SupplementalCategories 0 missing'

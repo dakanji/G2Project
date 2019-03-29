@@ -18,7 +18,7 @@
  */
 
 /**
- * Scan through all of our source code and verify that we're not doing anything "bad".
+ * Scan through all of our source code and verify that we are not doing anything "bad".
  * Checks for style guidelines too.
  *
  * @package GalleryCore
@@ -265,7 +265,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 
 			/*
 			 * Verify that all access to superglobal variables from the browser
-			 * is properly filtered through the framework so that we don't get remote exploits.
+			 * is properly filtered through the framework so that we do not get remote exploits.
 			 */
 			if ($checkSuperglobals && preg_match_all(
 				'/\$_(REQUEST|POST|GET|SESSION|FILES|SERVER|COOKIE)/',
@@ -278,7 +278,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 						continue;
 					}
 
-					// It's ok if it's inside a debug statement
+					// It is ok if it is inside a debug statement
 					if (preg_match("/gallery->debug(|_r)\(.*$item.*\)/", $lines[$i])) {
 						continue;
 					}
@@ -296,7 +296,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 				}
 			}
 
-			// Check that we don't mess with PHP error handler (allowed in tests).
+			// Check that we do not mess with PHP error handler (allowed in tests).
 			if (preg_match('/((?:set|restore)_error_handler)\s*\(/', $lines[$i], $matches)
 				&& strpos($fileName, '/test/phpunit/') === false
 				&& !isset($this->_exception['errorHandler'][$fileName])

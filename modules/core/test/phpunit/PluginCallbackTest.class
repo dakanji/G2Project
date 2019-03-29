@@ -271,7 +271,7 @@ class PluginCallbackTest extends GalleryTestCase {
 	}
 
 	/**
-	 * Activate a module that doesn't require configuration (this should succeed)
+	 * Activate a module that does not require configuration (this should succeed)
 	 */
 	public function testActivateModule() {
 		GalleryUtilities::putRequestVariable('pluginType', 'module');
@@ -1115,7 +1115,7 @@ class PluginCallbackTest extends GalleryTestCase {
 
 class MockGalleryStatus {
 	public function __construct() {
-		// Put something in here so that empty($this) won't return true
+		// Put something in here so that empty($this) would not return true
 		$this->something = 1;
 	}
 

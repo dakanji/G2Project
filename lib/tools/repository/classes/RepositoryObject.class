@@ -187,7 +187,7 @@ class RepositoryObject {
 	}
 
 	/**
-	 * Remove any files from the manifest that aren't applicable for the base package
+	 * Remove any files from the manifest that are not applicable for the base package
 	 * with any developer files elided.
 	 *
 	 * @param string $manifestContents the original manifest as a single string
@@ -260,7 +260,7 @@ class RepositoryObject {
 	/**
 	 * Indicates whether the file was actually written after a writeToDisk call.
 	 *
-	 * This is useful because writeToDisk doesn't overwrite files by default.
+	 * This is useful because writeToDisk does not overwrite files by default.
 	 *
 	 * @return boolean
 	 */

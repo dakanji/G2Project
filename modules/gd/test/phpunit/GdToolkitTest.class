@@ -426,7 +426,7 @@ class GdToolkitTest extends GalleryTestCase {
 			}
 		}
 
-		// Test a functionality that doesn't exist
+		// Test a functionality that does not exist
 		list($ret, $resultMimeType) = $this->_toolkit->performOperation(
 			'image/png',
 			'BOGUS',
@@ -472,7 +472,7 @@ class GdToolkitTest extends GalleryTestCase {
 				'memory leak for image/gif / dimensions'
 			);
 
-			// Test a property that doesn't exist
+			// Test a property that does not exist
 			list($ret, $results) = $this->_toolkit->getProperty('image/gif', 'BOGUS', 'BOGUS');
 
 			$this->assertTrue($ret->getErrorCode() & ERROR_UNIMPLEMENTED);

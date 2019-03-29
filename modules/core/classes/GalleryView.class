@@ -63,7 +63,7 @@ class GalleryView {
 	/**
 	 * Is this an immediate or a buffered view?
 	 *
-	 * @return boolean true if it's an immediate view
+	 * @return boolean true if it is an immediate view
 	 */
 	public function isImmediate() {
 		return false;
@@ -161,7 +161,7 @@ class GalleryView {
 					ERROR_BAD_PARAMETER,
 					__FILE__,
 					__LINE__,
-					"$viewName can't be parsed"
+					"$viewName cannot be parsed"
 				),
 				null,
 			);
@@ -417,7 +417,7 @@ class GalleryView {
 		$itemId       = (int)GalleryUtilities::getRequestVariables('itemId');
 		$wasSpecified = true;
 
-		// If we don't have an itemId, default to the root album
+		// If we do not have an itemId, default to the root album
 		if (empty($itemId)) {
 			$wasSpecified = false;
 
@@ -443,7 +443,7 @@ class GalleryView {
 			}
 
 			if (!$hasPermission) {
-				// Avoid information disclosure by treating this as if the item didn't exist.
+				// Avoid information disclosure by treating this as if the item does not exist.
 				return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null, null);
 			}
 		}
@@ -652,7 +652,7 @@ class GalleryView {
 	}
 
 	/**
-	 * Load the given theme if it's active.
+	 * Load the given theme if it is active.
 	 *
 	 * @param string $themeId
 	 * @return array GalleryStatus a status code
@@ -731,9 +731,9 @@ class GalleryView {
 						return $ret;
 					}
 
-					// Pages shouldn't be cached if not accessible for anonymous
+					// Pages should not be cached if not accessible for anonymous
 					if (empty($itemId)) {
-						// If we don't have an itemId, default to the root album
+						// If we do not have an itemId, default to the root album
 						list($ret, $itemId) = GalleryCoreApi::getDefaultAlbumId();
 
 						if ($ret) {
@@ -849,7 +849,7 @@ class GalleryView {
 		if ($ret) {
 			list($ret2, $inGroup) = GalleryCoreApi::isUserInSiteAdminGroup();
 
-			// MISSING_OBJECT should be handled like PERMISSION_DENIED, unless it's an admin
+			// MISSING_OBJECT should be handled like PERMISSION_DENIED, unless it is an admin
 			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT && ($ret2 || !$inGroup)) {
 				$ret->addErrorCode(ERROR_PERMISSION_DENIED);
 			}

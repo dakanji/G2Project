@@ -14,7 +14,7 @@
 
 {if (!$ItemAdd.hasToolkit)}
 <div class="gbBlock giWarning">
-  {g->text text="You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add images, you will probably not have any thumbnails."}
+  {g->text text="You do not have any Graphics Toolkit activated that can handle JPEG images.  If you add images, you will probably not have any thumbnails."}
   {capture name="url"}
     {g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}
   {/capture}

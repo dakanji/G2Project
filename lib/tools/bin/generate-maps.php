@@ -50,7 +50,7 @@ $smarty->template_dir    = __DIR__;
 $xmlFile                 = 'Maps.xml';
 
 if (!file_exists($xmlFile)) {
-	echo "Missing Maps.xml, can't continue.\n";
+	echo "Missing Maps.xml, cannot continue.\n";
 	cleanExit(1);
 }
 

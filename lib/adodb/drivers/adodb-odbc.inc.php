@@ -651,7 +651,7 @@ class ADODB_odbc extends ADOConnection {
 		$stmt = odbc_prepare($this->_connectionID, $sql);
 
 		if (!$stmt) {
-			// we don't know whether odbc driver is parsing prepared stmts, so just return sql
+			// we do not know whether odbc driver is parsing prepared stmts, so just return sql
 			return $sql;
 		}
 

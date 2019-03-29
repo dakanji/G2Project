@@ -113,7 +113,7 @@ class GalleryDerivativeImage extends GalleryDerivative {
 			);
 		}
 
-		// We can't have more than one THUMBNAIL or PREFERRED
+		// We cannot have more than one THUMBNAIL or PREFERRED
 		if ($derivativeType == DERIVATIVE_TYPE_IMAGE_THUMBNAIL
 			|| $derivativeType == DERIVATIVE_TYPE_IMAGE_PREFERRED
 		) {

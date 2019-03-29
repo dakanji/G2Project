@@ -29,7 +29,7 @@
 	 name="{g->formVar var="form[deletionVariant]"}" value="deleteItems"/>
       </td><td>
 	<label for="rbDeleteItems"> {g->text
-	  text="Delete all items of %s and assign a new owner for all remaining non empty albums. Items that %s doesn't have permission to delete will also be reassigned to a new owner."
+	  text="Delete all items of %s and assign a new owner for all remaining non empty albums. Items that %s does not have permission to delete will also be reassigned to a new owner."
 	  arg1=$AdminDeleteUser.user.userName arg2=$AdminDeleteUser.user.userName}
 	</label>
       </td>

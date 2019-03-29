@@ -22,7 +22,7 @@ if (!defined('ADODB_DIR')) {
 }
 
 /*
-	The big difference between mssqlpo and it's parent mssql is that mssqlpo supports
+	The big difference between mssqlpo and it is parent mssql is that mssqlpo supports
 	the more standard || string concatenation operator.
 */
 require_once ADODB_DIR . '/drivers/adodb-mssql.inc.php';

@@ -799,7 +799,7 @@ class ItemTest extends GalleryTestCase {
 
 		$this->_markForCleanup($user);
 
-		// Without permissions, the user can't add items
+		// Without permissions, the user cannot add items
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_album->getId(),
 			$user->getId(),
@@ -931,7 +931,7 @@ class ItemTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Without permissions, the user can't add items
+		// Without permissions, the user cannot add items
 		$ret = GalleryCoreApi::addUserPermission(
 			$this->_album->getId(),
 			$oldUser->getId(),
@@ -1302,8 +1302,8 @@ class ItemTest extends GalleryTestCase {
 
 	/*
 	 * Exercise a bug: if you add an unknown item to a new album, it tries to make
-	 * that item the thumbnail, but we can't thumbnail-ify it so we wind up throwing
-	 * an ERROR_UNSUPPORTED_OPERATION.  Don't let that happen!
+	 * that item the thumbnail, but we cannot thumbnail-ify it so we wind up throwing
+	 * an ERROR_UNSUPPORTED_OPERATION.  Do not let that happen!
 	 */
 	public function testSetThumbnailFromUnknownItem() {
 		list($ret, $unknownItem) = $this->_createRandomDataItem(
@@ -1465,7 +1465,7 @@ class ItemTest extends GalleryTestCase {
 		$this->assertTrue($weights[$newItem->getId()] > $maxWeight);
 
 		// Test that shutdown actions will update parent album's modification timestamp
-		// Make sure new timestamp won't equal old one even after update
+		// Make sure new timestamp would not equal old one even after update
 		sleep(1);
 
 		$gallery->performShutdownActions();
@@ -1613,7 +1613,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		/*
-		 * Verify that the new item's derivatives.. note we don't expect a preferred derivative
+		 * Verify that the new item's derivatives.. note we do not expect a preferred derivative
 		 * with convert-to-image/jpeg.. we only do this for image/* mime types.
 		 */
 		list($ret, $derivativeTable) = GalleryCoreApi::fetchDerivativesByItemIds(array($newItem->getId()));
@@ -1655,7 +1655,7 @@ class ItemTest extends GalleryTestCase {
 	}
 
 	public function testFetchItemIdCount2() {
-		// We're the admin user so this should return a positive value
+		// We are the admin user so this should return a positive value
 		list($ret, $count) = GalleryCoreApi::fetchItemIdCount('GalleryAlbumItem', 'core.changePermissions');
 
 		if ($ret) {
@@ -1715,7 +1715,7 @@ class ItemTest extends GalleryTestCase {
 				return $ret;
 			}
 
-			$this->assertEquals($truePath, $linkPath, "Link $i doesn't point to the original");
+			$this->assertEquals($truePath, $linkPath, "Link $i does not point to the original");
 		}
 
 		// Delete the original, now all links should point to the first link
@@ -1758,7 +1758,7 @@ class ItemTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals($truePath, $linkPath, "Link doesn't point to the original (link)");
+		$this->assertEquals($truePath, $linkPath, "Link does not point to the original (link)");
 		$this->assertEquals(
 			$linkedItem[0]->getId(),
 			$thumb->getDerivativeSourceId(),
@@ -1803,7 +1803,7 @@ class ItemTest extends GalleryTestCase {
 		 * trigger shutdown action for $album which was deleted too...)
 		 */
 
-		// Make sure new timestamp won't equal old one even after update
+		// Make sure new timestamp would not equal old one even after update
 		sleep(1);
 
 		$gallery->performShutdownActions();
@@ -1916,7 +1916,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		// Test that shutdown actions will update parent album's modification timestamp
-		// Make sure new timestamp won't equal old one even after update
+		// Make sure new timestamp would not equal old one even after update
 		sleep(1);
 
 		$gallery->performShutdownActions();
@@ -1945,7 +1945,7 @@ class ItemTest extends GalleryTestCase {
 	}
 
 	/**
-	 * Add a small (dimension wise) photo to an album and make sure that we don't create
+	 * Add a small (dimension wise) photo to an album and make sure that we do not create
 	 * resizes that are larger (dimension wise) than the original.
 	 */
 	public function testAddSmallPhotoToAlbum() {
@@ -1957,7 +1957,7 @@ class ItemTest extends GalleryTestCase {
 
 		/*
 		 * Set the album preferences such that we have one resize that's smaller than the
-		 * original, and one that's larger.  We know that the image we're using is 62x75
+		 * original, and one that's larger.  We know that the image we are using is 62x75
 		 */
 		$ret = GalleryCoreApi::removeDerivativePreferencesForItem($this->_album->getId());
 
@@ -2044,7 +2044,7 @@ class ItemTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Now verify that we didn't upsample our resizes
+		// Now verify that we did not upsample our resizes
 		list($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array($photo->getId()));
 
 		if ($ret) {
@@ -2084,7 +2084,7 @@ class ItemTest extends GalleryTestCase {
 			);
 		}
 
-		// Make sure setting the same highlight doesn't throw an error..
+		// Make sure setting the same highlight does not throw an error..
 		list($ret, $success) = GalleryCoreApi::setThumbnailFromItem($this->_album->getId(), $photo->getId());
 
 		if ($ret) {
@@ -2327,7 +2327,7 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		/*
-		 * Ensure we don't error out if we add-with-symlink and a problem with the datafile
+		 * Ensure we do not error out if we add-with-symlink and a problem with the datafile
 		 * requires falling back to GalleryUnknownItem (so we try the symlink twice).
 		 */
 		list($ret, $lockId) = GalleryCoreApi::acquireReadLock($this->_album->getId());
@@ -2627,7 +2627,7 @@ class ItemTestToolkit extends GalleryToolkit {
 			return array(null, array(62, 75));
 		}
 
-		// We'll reach this point in testSymlinkTwice, but we want to return an error
+		// We will reach this point in testSymlinkTwice, but we want to return an error
 		return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED), null);
 	}
 }

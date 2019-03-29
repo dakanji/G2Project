@@ -289,7 +289,7 @@ class ADORecordset_oracle extends ADORecordSet {
 
 	/*		Returns: an object containing field information.
 			   Get column information in the Recordset object. fetchField() can be used in order to obtain information about
-			   fields in a certain query result. If the field offset isn't specified, the next field that wasn't yet retrieved by
+			   fields in a certain query result. If the field offset is not specified, the next field that was not yet retrieved by
 			   fetchField() is retrieved.		*/
 	public function FetchField($fieldOffset = -1) {
 		$fld             = new ADOFieldObject();

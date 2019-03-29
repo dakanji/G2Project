@@ -33,7 +33,7 @@ class JCrypt {
 		$sslStr = '';
 
 		/*
-		 * if a secure randomness generator exists and we don't
+		 * if a secure randomness generator exists and we do not
 		 * have a buggy PHP version use it.
 		 */
 		if (function_exists('openssl_random_pseudo_bytes')
@@ -75,7 +75,7 @@ class JCrypt {
 
 			/*
 			 * Collect any entropy available from the PHP system and filesystem.
-			 * If we have ssl data that isn't strong, we use it once.
+			 * If we have ssl data that is not strong, we use it once.
 			 */
 			$entropy  = mt_rand() . uniqid(mt_rand(), true) . $sslStr;
 			$entropy .= implode('', @fstat(fopen(__FILE__, 'r')));

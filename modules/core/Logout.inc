@@ -101,7 +101,7 @@ class LogoutController extends GalleryController {
 		}
 
 		/*
-		 * Force return to core.ShowItem, as we don't know if the guest user has necessary
+		 * Force return to core.ShowItem, as we do not know if the guest user has necessary
 		 * permissions for the return page
 		 */
 		if (!isset($results['return'])

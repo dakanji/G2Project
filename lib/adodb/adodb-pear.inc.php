@@ -53,7 +53,7 @@ if (!defined('DB_OK')) {
 	define('DB_ERROR', -1);
 
 	/**
-	 * This is a special constant that tells DB the user hasn't specified
+	 * This is a special constant that tells DB the user has not specified
 	 * any particular get mode, so the default should be used.
 	 */
 	define('DB_FETCHMODE_DEFAULT', 0);

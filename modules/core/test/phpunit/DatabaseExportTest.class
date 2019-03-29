@@ -40,7 +40,7 @@ class DatabaseExportTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Preload these now, so we don't have to try loading them with the UnitTestPlatform
+		// Preload these now, so we do not have to try loading them with the UnitTestPlatform
 		list($ret, $info) = GalleryCoreApi::loadPlugin('theme', 'matrix');
 
 		if ($ret) {

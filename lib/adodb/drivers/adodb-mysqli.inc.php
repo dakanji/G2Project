@@ -1024,7 +1024,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 		}
 
 		// this is a set of functions for managing client encoding - very important if the encodings
-		// of your database and your output target (i.e. HTML) don't match
+		// of your database and your output target (i.e. HTML) do not match
 		// for instance, you may have UTF8 database and server it on-site as latin1 etc.
 		// GetCharSet - get the name of the character set the client is using now
 		// Under Windows, the functions should work with MySQL 4.1.11 and above, the set of charsets supported

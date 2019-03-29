@@ -38,7 +38,7 @@ class Gallery {
 	/**
 	 * Storage for all configuration variables, set in config.php.
 	 * The values contained here cannot be modified.
-	 * Well, they can be modified but they cannot be saved so it's not a good idea.
+	 * Well, they can be modified but they cannot be saved so it is not a good idea.
 	 * @var array
 	 * @access private
 	 */
@@ -144,7 +144,7 @@ class Gallery {
 	public $_currentView = '';
 
 	/**
-	 * The time at which we should cease whatever operation we're doing
+	 * The time at which we should cease whatever operation we are doing
 	 * @var int
 	 * @access private
 	 */
@@ -159,7 +159,7 @@ class Gallery {
 
 	/**
 	 * A facade in front of the PHP virtual machine.  We use this as an abstraction layer to let us
-	 * interpose mock objects between our code and the VM for testing purposes.  When we're not in a
+	 * interpose mock objects between our code and the VM for testing purposes.  When we are not in a
 	 * test environment, this is always an instance of GalleryPhpVm.
 	 * @var GalleryPhpVm
 	 * @access private
@@ -234,7 +234,7 @@ class Gallery {
 	public function setActiveUser($user) {
 		$this->_activeUser = $user;
 
-		// It's possible for the session not to exist during bootstrap time
+		// It is possible for the session not to exist during bootstrap time
 		$session =& $this->getSession();
 
 		if (isset($session)) {
@@ -363,7 +363,7 @@ class Gallery {
 	/**
 	 * Return the active lock system.
 	 *
-	 * @param boolean $canInit (optional) if false and lockSystem isn't yet initialized, return null
+	 * @param boolean $canInit (optional) if false and lockSystem is not yet initialized, return null
 	 * @return array GalleryStatus a status code
 	 *               GalleryLockSystem the lock implementation (reference)
 	 */
@@ -620,7 +620,7 @@ class Gallery {
 	public function getActiveLanguageCode() {
 		$session =& $this->getSession();
 
-		// During installation, we don't have a session yet
+		// During installation, we do not have a session yet
 		if (!empty($session)) {
 			$language = $session->get('core.language');
 		} else {
@@ -639,7 +639,7 @@ class Gallery {
 	public function setActiveLanguageCode($language) {
 		$session =& $this->getSession();
 
-		// During installation, we don't have a session yet
+		// During installation, we do not have a session yet
 		if (!empty($session)) {
 			$session->put('core.language', $language);
 		}
@@ -662,7 +662,7 @@ class Gallery {
 		$now = time();
 
 		if (empty($this->_timeLimit) || ($this->_timeLimit - $now < $limit)) {
-			$this->debug("[$now] can't guarantee $limit -- extending!");
+			$this->debug("[$now] cannot guarantee $limit -- extending!");
 
 			// Make sure that we extend at least a minimum of 30 seconds
 			$this->_timeLimit = $now + max($limit, 30);
@@ -670,8 +670,8 @@ class Gallery {
 
 			/*
 			 * Then make sure our locks stick around.  Even though this returns a status code, we
-			 * really don't want to make guaranteeTimeLimit() return a status code since we want to
-			 * keep it lightweight.  So swallow the return code and don't sweat it for now.
+			 * really do not want to make guaranteeTimeLimit() return a status code since we want to
+			 * keep it lightweight.  So swallow the return code and do not sweat it for now.
 			 */
 			if (isset($this->_lockSystem)) {
 				$this->_lockSystem->refreshLocks($this->_timeLimit);
@@ -817,7 +817,7 @@ class Gallery {
 			if (!strcmp($this->_debug, 'buffered')) {
 				$this->_debugBuffer .= wordwrap($msg) . "\n";
 			} elseif (!strcmp($this->_debug, 'logged')) {
-				// Don't use platform calls for these as they call debug internally!
+				// Do not use platform calls for these as they call debug internally!
 				if ($fd = fopen($this->_debugLogFile, 'a')) {
 					$date    = date('Y-m-d H:i:s');
 					$session =& $this->getSession();
@@ -924,7 +924,7 @@ class Gallery {
 		global $gallery;
 
 		/*
-		 * Note: don't use GalleryPlatform or GalleryUtilities here because this code is
+		 * Note: do not use GalleryPlatform or GalleryUtilities here because this code is
 		 * a shortcut that is used before we load those classes.
 		 */
 		$fileNameParam   = GALLERY_FORM_VARIABLE_PREFIX . 'fileName';
@@ -935,7 +935,7 @@ class Gallery {
 		}
 
 		/**
-		 * Try to prevent Apache's mod_deflate from gzipping this output since it's likely already
+		 * Try to prevent Apache's mod_deflate from gzipping this output since it is likely already
 		 * a binary file and broken versions of mod_deflate sometimes get the byte count wrong.
 		 */
 		if (function_exists('apache_setenv') && !@$gallery->getConfig('apacheSetenvBroken')) {
@@ -984,7 +984,7 @@ class Gallery {
 			$time = time();
 		}
 
-		// Use fixed list of weekdays and months, so we don't have to fiddle with locale stuff
+		// Use fixed list of weekdays and months, so we do not have to fiddle with locale stuff
 		$months = array(
 			'01' => 'Jan',
 			'02' => 'Feb',

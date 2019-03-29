@@ -38,17 +38,17 @@ if (!defined('ADODB_ERROR_HANDLER')) {
 }
 
 /**
- * Name of the sequence we'll use for GalleryEntity ids
+ * Name of the sequence we will use for GalleryEntity ids
  */
 define('DATABASE_SEQUENCE_ID', 'SequenceId');
 
 /**
- * Name of the sequence we'll use for lock ids
+ * Name of the sequence we will use for lock ids
  */
 define('DATABASE_SEQUENCE_LOCK', 'SequenceLock');
 
 /**
- * Name of the sequence we'll use for event log records
+ * Name of the sequence we will use for event log records
  */
 define('DATABASE_SEQUENCE_EVENT_LOG', 'SequenceEventLog');
 
@@ -152,7 +152,7 @@ class GalleryStorage {
 	public $_columnPrefix;
 
 	/**
-	 * A cache of member info that we've discovered about various classes
+	 * A cache of member info that we have discovered about various classes
 	 * @var array
 	 * @access protected
 	 */
@@ -187,7 +187,7 @@ class GalleryStorage {
 		$this->_isEmptyAllowedForNotNullColumn = true;
 		$this->_entityInfoCache                = array();
 
-		// We use persistent connections if the value is left out, or if it's non empty.
+		// We use persistent connections if the value is left out, or if it is non empty.
 		$this->_usePersistentConnections = !isset($config['usePersistentConnections'])
 		|| !empty($config['usePersistentConnections']);
 		$this->_schema                   = isset($config['schema']) ? $config['schema'] : '';
@@ -426,7 +426,7 @@ class GalleryStorage {
 	}
 
 	/**
-	 * Refresh all the locks that we hold so that they aren't accidentally considered expired
+	 * Refresh all the locks that we hold so that they are not accidentally considered expired
 	 *
 	 * @param array $lockIds the lock ids
 	 * @param int $freshUntil the new "fresh until" timestamp
@@ -1170,7 +1170,7 @@ class GalleryStorage {
 	}
 
 	/**
-	 * Return true if enough of this storage system is installed that there'll be a conflict if you
+	 * Return true if enough of this storage system is installed that there will be a conflict if you
 	 * try to do another install.
 	 *
 	 * @return array GalleryStatus a status code
@@ -1315,10 +1315,10 @@ class GalleryStorage {
 	 */
 	public function _translateTableName($tableName) {
 		/*
-		 * Remove the the ubiquitous "Gallery" prefix, since it's not part of the schema name.  For
+		 * Remove the the ubiquitous "Gallery" prefix, since it is not part of the schema name.  For
 		 * now we automatically translate the class name into the schema name by doing this.  If
 		 * this ever becomes a problem, we should start hand-writing the schema name instead and
-		 * then pushing that into the interface classes so that we don't have to automatically
+		 * then pushing that into the interface classes so that we do not have to automatically
 		 * generate the schema name (and get it wrong).
 		 */
 		$tableName = str_replace('Gallery', '', $tableName);

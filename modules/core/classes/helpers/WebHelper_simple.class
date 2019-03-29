@@ -45,7 +45,7 @@ class WebHelper_simple {
 		// Convert illegal characters
 		$url = str_replace(' ', '%20', $url);
 
-		// Don't redirect too far
+		// Do not redirect too far
 		if ($depth > 5) {
 			$gallery->debug('Too many levels of HTTP redirection!');
 
@@ -196,7 +196,7 @@ class WebHelper_simple {
 	public static function fetchWebPage($url, $extraHeaders = array(), $depth = 0) {
 		global $gallery;
 
-		// Don't redirect too far
+		// Do not redirect too far
 		if ($depth > 5) {
 			$gallery->debug('Too many levels of HTTP redirection!');
 
@@ -404,7 +404,7 @@ class WebHelper_simple {
 	/**
 	 * Prepare to follow redirect URL.
 	 * @param string $location
-	 * @param array $fromComponents context we're redirecting from
+	 * @param array $fromComponents context we are redirecting from
 	 * @param string redirect URL
 	 */
 	public static function _parseLocation($location, $fromComponents) {

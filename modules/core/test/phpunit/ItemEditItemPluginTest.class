@@ -552,7 +552,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		$this->assertEquals($originalPath, $newPath);
 
-		// Make sure that the file wasn't moved
+		// Make sure that the file was not moved
 		$this->assertTrue($platform->file_exists($originalPath), 'File should not have been moved');
 	}
 
@@ -594,7 +594,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 
 		$this->assertEquals($originalPath, $newPath);
 
-		// Make sure that the file wasn't moved
+		// Make sure that the file was not moved
 		$this->assertTrue($platform->file_exists($originalPath), 'Album should not have been moved');
 	}
 
@@ -660,14 +660,14 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 			return $ret;
 		}
 
-		// Verify we don't have a highlight
+		// Verify we do not have a highlight
 		list($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($this->_album[0]->getId()));
 
 		if ($ret) {
 			return $ret;
 		}
 
-		$this->assertTrue(empty($thumbTable), 'We shouldn\'t have a thumbnail');
+		$this->assertTrue(empty($thumbTable), 'We should not have a thumbnail');
 
 		GalleryUtilities::putRequestVariable('form[action][save]', 1);
 		GalleryUtilities::putRequestVariable('form[thumbnail][size]', 200);

@@ -279,8 +279,8 @@ class InstallOtherModulesStep extends InstallStep {
 
 		if (!GalleryDataCache::containsKey($cacheKey)) {
 			/*
-			 * Disable the data cache before initializing.  If we don't do this *first* then some
-			 * data (like factory registrations) will get cached now, and then the modules won't be
+			 * Disable the data cache before initializing.  If we do not do this *first* then some
+			 * data (like factory registrations) will get cached now, and then the modules would not be
 			 * able to update it later on.
 			 */
 			GalleryDataCache::setFileCachingEnabled(false);
@@ -374,7 +374,7 @@ class InstallOtherModulesStep extends InstallStep {
 	}
 
 	/**
-	 * Put GD at the end of the list so that it's the lowest priority toolkit.  This is a hack,
+	 * Put GD at the end of the list so that it is the lowest priority toolkit.  This is a hack,
 	 * that we should replace with a more sophisticated system in the future.
 	 *
 	 * Note: we do the same in the upgrader

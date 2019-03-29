@@ -44,7 +44,7 @@ class GalleryTheme extends GalleryPlugin {
 	private $_standardSettings = array();
 
 	/**
-	 * Is the page we're rendering cacheable?
+	 * Is the page we are rendering cacheable?
 	 * @var boolean
 	 * @access private
 	 */
@@ -122,7 +122,7 @@ class GalleryTheme extends GalleryPlugin {
 		}
 
 		/*
-		 * For simplicity in upgrading, we don't require themes to delete their old settings.  So
+		 * For simplicity in upgrading, we do not require themes to delete their old settings.  So
 		 * any item may be carting around extra settings that are no longer valid.  We could fix
 		 * this in the future, but for now, just leave those out of the settings list
 		 */
@@ -603,7 +603,7 @@ class GalleryTheme extends GalleryPlugin {
 			return array(null, $redirect);
 		}
 
-		// Set the default value for all settings that don't have values
+		// Set the default value for all settings that do not have values
 		list($ret, $settings) = $this->getSettings();
 
 		if ($ret) {
@@ -617,7 +617,7 @@ class GalleryTheme extends GalleryPlugin {
 		}
 
 		/*
-		 * Settings will have the correct value for all parameters, so if it's not in the map yet we
+		 * Settings will have the correct value for all parameters, so if it is not in the map yet we
 		 * should store it now
 		 */
 		foreach ($settings as $setting) {
@@ -837,10 +837,10 @@ class GalleryTheme extends GalleryPlugin {
 
 		if ($defaultTheme == $this->getId() && $postDeactivationEvent) {
 			/*
-			 * Can't deactivate default theme.  UI doesn't offer this option, so we should only
+			 * Cannot deactivate default theme.  UI does not offer this option, so we should only
 			 * reach this code if default theme needs to be upgraded.  loadPlugin will see a
 			 * redirect URL is returned and jump to upgrader (the actual redirect returned below
-			 * isn't used).  Allow this deactivate if $postDeactivationEvent is false (during
+			 * is not used).  Allow this deactivate if $postDeactivationEvent is false (during
 			 * reactivate)
 			 */
 			return array(
@@ -929,7 +929,7 @@ class GalleryTheme extends GalleryPlugin {
 		}
 
 		if ($this->getId() == 'fallbackTheme') {
-			// If theme failed to load then we're done
+			// If theme failed to load then we are done
 			$theme['isFallback']       = true;
 			$theme['fallbackTemplate'] = $viewResults['body'];
 
@@ -961,7 +961,7 @@ class GalleryTheme extends GalleryPlugin {
 			}
 		}
 
-		// Load color pack if the theme supports them (and they're available)
+		// Load color pack if the theme supports them (and they are available)
 		if (!empty($params['colorpack'])) {
 			list($ret, $colorpack) = GalleryCoreApi::newFactoryInstance(
 				'ColorPackInterface_1_0'
@@ -981,7 +981,7 @@ class GalleryTheme extends GalleryPlugin {
 		}
 
 		/*
-		 * Figure out what type of view we've got.  This is lame and not very OO.  We should create
+		 * Figure out what type of view we have got.  This is lame and not very OO.  We should create
 		 * a view hierarchy that lets them implement their own showPage() method
 		 */
 		switch ($view->getViewType()) {
@@ -1019,7 +1019,7 @@ class GalleryTheme extends GalleryPlugin {
 						$page = 1;
 					} elseif (empty($page)) {
 						/*
-						 * We don't have a page number.  If we have a highlight id, then figure out what
+						 * We do not have a page number.  If we have a highlight id, then figure out what
 						 * page that id is on and redirect to that page.
 						 */
 						$highlightId = GalleryUtilities::getRequestVariables('highlightId');
@@ -1101,7 +1101,7 @@ class GalleryTheme extends GalleryPlugin {
 								return array($ret, null);
 							}
 
-							// $childCount shouldn't be empty; check/fallback here anyway
+							// $childCount should not be empty; check/fallback here anyway
 							$theme['childCount'] = isset($childCount[$itemId]) ? $childCount[$itemId] : count($childIds);
 
 							// Store the total pages in the theme
@@ -1127,7 +1127,7 @@ class GalleryTheme extends GalleryPlugin {
 						}
 					} else {
 						/*
-						 * No pagination; load all children.  This isn't going to scale, but the theme
+						 * No pagination; load all children.  This is not going to scale, but the theme
 						 * is the boss.
 						 */
 						if (isset($isDynamicAlbum)) {
@@ -1161,7 +1161,7 @@ class GalleryTheme extends GalleryPlugin {
 					}
 				}
 
-				// Load image frames if the theme supports them (and they're available)
+				// Load image frames if the theme supports them (and they are available)
 				if (!empty($params['albumFrame'])
 					|| !empty($params['itemFrame'])
 					|| !empty($params['photoFrame'])
@@ -1195,7 +1195,7 @@ class GalleryTheme extends GalleryPlugin {
 							}
 						}
 					} else {
-						// Not available; unset params so theme won't try to use imageframe
+						// Not available; unset params so theme would not try to use imageframe
 						unset($theme['params']['albumFrame'], $theme['params']['itemFrame'], $theme['params']['photoFrame']);
 					}
 				}
@@ -1456,7 +1456,7 @@ class GalleryTheme extends GalleryPlugin {
 
 		if (!empty($childIds)) {
 			/*
-			 * Study all permissions at once so that individual permission checks later don't lead
+			 * Study all permissions at once so that individual permission checks later do not lead
 			 * to multiple database queries
 			 */
 			$ret = GalleryCoreApi::studyPermissions($childIds, $theme['actingUserId']);
@@ -1867,7 +1867,7 @@ class GalleryTheme extends GalleryPlugin {
 				}
 
 				if (!$required) {
-					// This module doesn't have anything we need.  Don't bother with it
+					// This module does not have anything we need.  Do not bother with it
 					continue;
 				}
 
@@ -1882,7 +1882,7 @@ class GalleryTheme extends GalleryPlugin {
 				}
 
 				if (isset($load['systemLinks'], $callbacks['getSystemLinks'])) {
-					// We don't use the acting user for system links -- it's too confusing
+					// We do not use the acting user for system links -- it is too confusing
 					list($ret, $links) = $module->getSystemLinks();
 
 					if ($ret) {
@@ -2127,7 +2127,7 @@ class GalleryTheme extends GalleryPlugin {
 
 				if (!empty($resizes)) {
 					foreach ($resizes[$itemId] as $resize) {
-						// Rebuild the derivative if we don't have its dimensions
+						// Rebuild the derivative if we do not have its dimensions
 						if ($resize->getWidth() == 0 || $resize->getHeight() == 0) {
 							list($ret, $resize) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent(
 								$resize->getId()
@@ -2156,7 +2156,7 @@ class GalleryTheme extends GalleryPlugin {
 					return $ret;
 				}
 
-				// Show the preferred item, if it's there
+				// Show the preferred item, if it is there
 				if (empty($preferred)) {
 					$sourceImage               = (array)$item;
 					$sourceImage['viewInline'] = $item->canBeViewedInline();
@@ -2203,7 +2203,7 @@ class GalleryTheme extends GalleryPlugin {
 				);
 			}
 
-			// Don't let the index overflow the images array
+			// Do not let the index overflow the images array
 			$imageViewsIndex = min($imageViewsIndex, count($imageViews) - 1);
 			$imageViewsIndex = max(0, $imageViewsIndex);
 
@@ -2326,7 +2326,7 @@ class GalleryTheme extends GalleryPlugin {
 
 	/**
 	 * Load all the necessary template data to render a page for a module view (any views that
-	 * aren't user, site, or item admin eg slideshow or members list).
+	 * are not user, site, or item admin eg slideshow or members list).
 	 *
 	 * @param GalleryTemplate $template
 	 * @param GalleryItem $item the item to render
@@ -2370,13 +2370,13 @@ class GalleryTheme extends GalleryPlugin {
 	 * Split the HTML content into its various component pieces.
 	 *
 	 * @param string $mainHtml the main html (<head>, <body>, etc)
-	 * @param array $extraHtml any extra html that we've generated, like sidebar HTML
+	 * @param array $extraHtml any extra html that we have generated, like sidebar HTML
 	 * @return array('headHtml' => ..., 'bodyHtml' => ...)
 	 */
 	public function splitHtml($mainHtml, $extraHtml) {
 		/*
 		 * Avoid regular expressions on very large strings due to PHP's pcre.backtrack_limit.
-		 * It's faster (no excessive backtracking) and actually required due to PHP 5.2.0's
+		 * It is faster (no excessive backtracking) and actually required due to PHP 5.2.0's
 		 * pcre.backtrack_limit which is reached with large pages like AdminPlugins.
 		 */
 		$results = array();
@@ -2403,7 +2403,7 @@ class GalleryTheme extends GalleryPlugin {
 			);
 		}
 
-		// If we extracted the sidebar, it'll be in our extra html, so move that over
+		// If we extracted the sidebar, it will be in our extra html, so move that over
 		if (isset($extraHtml['sidebarBlocksHtml'])) {
 			$results['sidebarBlocksHtml'] = $extraHtml['sidebarBlocksHtml'];
 		}

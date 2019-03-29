@@ -187,7 +187,7 @@ class ADODB_mssql extends ADOConnection {
 	 * to the string single-quotes.
 	 *
 	 *
-	 * An example is  $db->qstr("Don't bother",magic_quotes_runtime());
+	 * An example is  $db->qstr("Do not bother",magic_quotes_runtime());
 	 *
 	 *
 	 *
@@ -1152,7 +1152,7 @@ class ADORecordset_mssql extends ADORecordSet {
 
 	/*	Returns: an object containing field information.
 		Get column information in the Recordset object. fetchField() can be used in order to obtain information about
-		fields in a certain query result. If the field offset isn't specified, the next field that wasn't yet retrieved by
+		fields in a certain query result. If the field offset is not specified, the next field that was not yet retrieved by
 		fetchField() is retrieved.	*/
 	public function FetchField($fieldOffset = -1) {
 		if ($fieldOffset != -1) {

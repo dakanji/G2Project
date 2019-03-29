@@ -81,7 +81,7 @@ class TemplateTest extends GalleryTestCase {
 			$templateSource,
 			$this->_mockSmarty
 		);
-		$this->assertTrue($success, "Didn't return success");
+		$this->assertTrue($success, "Did not return success");
 		$this->assertEquals(
 			'/legal/path/templateThatHasNoLocal.tpl',
 			$templateSource,
@@ -113,7 +113,7 @@ class TemplateTest extends GalleryTestCase {
 			$templateSource,
 			$this->_mockSmarty
 		);
-		$this->assertTrue($success, "Didn't return success");
+		$this->assertTrue($success, "Did not return success");
 		$this->assertEquals(
 			'/legal/path/modules/core/templates/template.tpl',
 			$templateSource,
@@ -145,7 +145,7 @@ class TemplateTest extends GalleryTestCase {
 			$templateSource,
 			$this->_mockSmarty
 		);
-		$this->assertTrue($success, "Didn't return success");
+		$this->assertTrue($success, "Did not return success");
 		$this->assertEquals(
 			'/legal/path/modules/core/templates/local/template.tpl',
 			$templateSource,
@@ -181,7 +181,7 @@ class TemplateTest extends GalleryTestCase {
 			$templateSource,
 			$this->_mockSmarty
 		);
-		$this->assertTrue($success, "Didn't return success");
+		$this->assertTrue($success, "Did not return success");
 		$this->assertEquals(
 			$this->_baseDirOverride . '/block/local/template.tpl',
 			$templateSource,
@@ -209,7 +209,7 @@ class TemplateTest extends GalleryTestCase {
 			$templateTimestamp,
 			$this->_mockSmarty
 		);
-		$this->assertTrue($success, "Didn't return success");
+		$this->assertTrue($success, "Did not return success");
 		$this->assertEquals(98765, $templateTimestamp, 'no override');
 
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
@@ -253,7 +253,7 @@ class TemplateTest extends GalleryTestCase {
 			$templateTimestamp,
 			$this->_mockSmarty
 		);
-		$this->assertTrue($success, "Didn't return success");
+		$this->assertTrue($success, "Did not return success");
 		$this->assertEquals(12345, $templateTimestamp, 'override');
 	}
 
@@ -291,7 +291,7 @@ class TemplateTest extends GalleryTestCase {
 			$templateTimestamp,
 			$this->_mockSmarty
 		);
-		$this->assertTrue($success, "Didn't return success");
+		$this->assertTrue($success, "Did not return success");
 		$this->assertEquals(12345, $templateTimestamp, 'static');
 	}
 

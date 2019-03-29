@@ -500,7 +500,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals($isUnix ? 7 : 4, count($addedItems), 'added wrong # of items');
 
 		/*
-		 * Sort the added files list by filename because we can't guarantee
+		 * Sort the added files list by filename because we cannot guarantee
 		 * the file order across platforms.
 		 */
 		$sortAddedFilesFunc = function ($a, $b) {
@@ -637,7 +637,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		$this->assertEquals($isUnix ? 5 : 3, count($addedItems), 'added wrong # of items');
 
 		/*
-		 * Sort the added files list by filename because we can't guarantee
+		 * Sort the added files list by filename because we cannot guarantee
 		 * the file order across platforms.
 		 */
 		$sortAddedFilesFunc = function ($a, $b) {
@@ -748,7 +748,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		$addedItems = $status['addedFiles'];
 
 		/*
-		 * Sort the added files list by filename because we can't guarantee
+		 * Sort the added files list by filename because we cannot guarantee
 		 * the file order across platforms.
 		 */
 		$sortAddedFilesFunc = function ($a, $b) {
@@ -768,7 +768,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 			}
 
 			/**
-			 * On Windows, this file can't be created to begin with because it can't handle
+			 * On Windows, this file cannot be created to begin with because it cannot handle
 			 * the < and > in the filename.
 			 * @todo switch to using a mock platform so that we can test this properly on Windows
 			 */
@@ -786,7 +786,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 	public function testHandleRequestWithProgressBarAutoRedirectOnError() {
 		global $gallery;
 
-		// Ensure that we don't redirect because of time constraints
+		// Ensure that we do not redirect because of time constraints
 		$gallery->_phpVm = new ItemAddPhpVm(0, 0);
 
 		GalleryUtilities::putRequestVariable('addPlugin', 'ItemAddControllerTestPluginFail');
@@ -994,7 +994,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 		 * With PHP 7, we now use a singleton and break support for older versions of webdav
 		 */
 
-		// Don't test with the real plugin instance
+		// Do not test with the real plugin instance
 		$this->_registerFactoryImplementationForTest(
 			'ItemAddPlugin',
 			'ItemAddControllerTestAddPluginWebDav',
@@ -1055,7 +1055,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 }
 
 /**
- * ItemAddPlugin that doesn't fail, nor complete
+ * ItemAddPlugin that does not fail, nor complete
  */
 class ItemAddControllerTestPluginContinue {
 	public function handleRequest($form, &$item, &$addController = null) {
@@ -1213,7 +1213,7 @@ class ItemAddControllerTestToolkit extends GalleryToolkit {
 		$platform->copy(__FILE__, $destFilename . '/subdir' . '/blah.ext');
 
 		/**
-		 * Windows can't handle < and > in filenames so the next 3 ops will fail.  They'd fail in
+		 * Windows cannot handle < and > in filenames so the next 3 ops will fail.  They'd fail in
 		 * production, too so at least for now this is a sane test.
 		 * @todo switch to using a mock platform so that we can test this properly on Windows
 		 */

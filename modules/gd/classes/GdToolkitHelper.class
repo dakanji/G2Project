@@ -319,7 +319,7 @@ class GdToolkitHelper {
 	 *
 	 * This is ugly, but the only way that works on any PHP version. The
 	 * idea is from Justin Greer's manual comments for imageCreateTruecolor
-	 * at php.net. This really doesn't get the correct GD version if it is
+	 * at php.net. This really does not get the correct GD version if it is
 	 * an external library, since they are defined in the PHP code and
 	 * just refer to the functionality that is supported. So if one sees
 	 * "1.6.2 or higher", it can be as high as 1.8.2, depending on the PHP
@@ -479,9 +479,9 @@ class GdToolkitHelper {
 	 * This function is always defined, but will fail with a Fatal PHP error
 	 * on GD < 2.0.1. There are a lot of PHP installations compiled with
 	 * external GD libraries where phpinfo informs "2.0 or higher", so we
-	 * can't really know which version we have. Currently we will just consider
+	 * cannot really know which version we have. Currently we will just consider
 	 * any "2.0" to be "< 2.0.1", since I have never seen a 2.0 release that
-	 * doesn't support the imageCreateTrueColor().
+	 * does not support the imageCreateTrueColor().
 	 *
 	 * @return boolean
 	 */

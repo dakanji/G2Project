@@ -204,7 +204,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 				ERROR_TOOLKIT_FAILURE,
 				__FILE__,
 				__LINE__,
-				"Can't convert to unknown mime type: $outputMimeType"
+				"Cannot convert to unknown mime type: $outputMimeType"
 			);
 		}
 
@@ -1489,14 +1489,14 @@ class ImageMagickToolkitTestPlatform {
 				 * can result it in it returning "convert: geometry does not contain image"
 				 * and a 0x0 pixel image.
 				 *
-				 * I haven't verified that 6.1.3 does this also, but since we don't have a
-				 * 6.1.6 ImEnvironment yet, I'll credit this bug to 6.1.3 for now.
+				 * I have not verified that 6.1.3 does this also, but since we do not have a
+				 * 6.1.6 ImEnvironment yet, I will credit this bug to 6.1.3 for now.
 				 */
 				if ($this->_environment['version'] == '6.1.3'
 					&& preg_match('/crop.*geometry/', join(' ', $params))
 				) {
 					/*
-					 * Note: This doesn't exactly simulate what IM does.  It will continue like
+					 * Note: This does not exactly simulate what IM does.  It will continue like
 					 * everything is normal.  We just force the test to fail for now.
 					 */
 					$output = array('convert: geometry does not contain image');

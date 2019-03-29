@@ -124,7 +124,7 @@ class MarkupTest extends GalleryTestCase {
 	}
 
 	public function testImageEntity() {
-		// Our input should be properly escaped, so bbcode doesn't need to entitize things
+		// Our input should be properly escaped, so bbcode does not need to entitize things
 		$results = $this->_bbcode->parse('[img]http://image.com/get?id=123&amp;size=small[/img]');
 		$this->assertEquals(
 			'<img src="http://image.com/get?id=123&amp;size=small" alt=""/>',
@@ -162,7 +162,7 @@ class MarkupTest extends GalleryTestCase {
 	}
 
 	public function testUrl3() {
-		// Seems kind of silly that we add rel="nofollow" to mailto: urls, but it doesn't hurt
+		// Seems kind of silly that we add rel="nofollow" to mailto: urls, but it does not hurt
 		$results = $this->_bbcode->parse('[url=mailto:monkey@fruit.com]content[/url]');
 
 		$this->assertEquals(

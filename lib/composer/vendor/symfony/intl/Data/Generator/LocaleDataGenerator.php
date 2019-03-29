@@ -57,7 +57,7 @@ class LocaleDataGenerator
         // Flip to facilitate lookup
         $flippedLocales = array_flip($locales);
 
-        // Don't generate names for aliases (names will be generated for the
+        // Do not generate names for aliases (names will be generated for the
         // locale they are duplicating)
         $displayLocales = array_diff_key($flippedLocales, $aliases);
         ksort($displayLocales);
@@ -136,7 +136,7 @@ class LocaleDataGenerator
         $region = \Locale::getRegion($locale);
         $variants = \Locale::getAllVariants($locale);
 
-        // Currently the only available variant is POSIX, which we don't want
+        // Currently the only available variant is POSIX, which we do not want
         // to include in the list
         if (\count($variants) > 0) {
             return;
@@ -144,7 +144,7 @@ class LocaleDataGenerator
 
         // Some languages are translated together with their region,
         // i.e. "en_GB" is translated as "British English"
-        // we don't include these languages though because they mess up
+        // we do not include these languages though because they mess up
         // the name sorting
         // $name = $this->langBundle->getLanguageName($displayLocale, $lang, $region);
         // Some languages are simply not translated

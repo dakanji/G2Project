@@ -109,7 +109,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 		static $KIND;
 
 		if (!isset($KIND)) {
-			// Won't be KIND in Turkish locale
+			// Wo not be KIND in Turkish locale
 			$KIND = strtoupper('kind');
 		}
 
@@ -190,7 +190,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 		 * By matching records which follow a form feed and a line feed (\f\n) we ignore the first
 		 * record, which is for this directory.
 		 *
-		 * ([^\f\n]*\n){20} matches the 20 don't care fields between the name field and the deleted
+		 * ([^\f\n]*\n){20} matches the 20 do not care fields between the name field and the deleted
 		 * field.  It is enclosed in ()? because empty fields that are only followed by empty fields
 		 * may be omitted from the record.
 		 *
@@ -283,7 +283,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 	public function finishScan($halted) {}
 
 	/**
-	 * Overload this method in subclasses.  If this method returns true, we'll call checkFile on it.
+	 * Overload this method in subclasses.  If this method returns true, we will call checkFile on it.
 	 * @return true if we should check this file
 	 * @access protected
 	 */
@@ -447,7 +447,7 @@ class CodeAuditTestCase extends GalleryTestCase {
 		} while (isset($i) && $tokens[$i] !== '(');
 		$parenCount = 1;
 
-		// Explode the parameters by ',' unless we're in a sub-expression (in parens)
+		// Explode the parameters by ',' unless we are in a sub-expression (in parens)
 		$params = array();
 		$param  = '';
 

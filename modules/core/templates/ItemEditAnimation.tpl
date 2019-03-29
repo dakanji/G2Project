@@ -4,7 +4,7 @@
  *}
 <div class="gbBlock">
   <p class="giDescription">
-    {g->text text="In order for Gallery to properly display this animation, it has to know the animation's width and height.  If you have installed a graphics toolkit that can handle animation types, then these values may already be set.  If not, they may be set to 0.  If you do not enter the correct values here, the animation may appear distorted when viewed in your web browser.  Note that changing these values does <b>not</b> change the animation itself so experimenting won't cause harm."}
+    {g->text text="In order for Gallery to properly display this animation, it has to know the animation's width and height.  If you have installed a graphics toolkit that can handle animation types, then these values may already be set.  If not, they may be set to 0.  If you do not enter the correct values here, the animation may appear distorted when viewed in your web browser.  Note that changing these values does <b>not</b> change the animation itself so experimenting would not cause harm."}
   </p>
 
   <table class="gbDataTable"><tr>

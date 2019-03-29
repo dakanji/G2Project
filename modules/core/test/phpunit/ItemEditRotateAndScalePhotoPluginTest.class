@@ -211,7 +211,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[resize][height]', '80%');
 		GalleryUtilities::putRequestVariable('form[serialNumber]', $this->_item->getSerialNumber());
 
-		// Reparent the thumbnail cause we're going to want to check it later
+		// Reparent the thumbnail cause we are going to want to check it later
 		$ret = GalleryCoreApi::remapSourceIds(
 			$this->_derivative[0]->getId(),
 			$this->_item->getId()
@@ -281,7 +281,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[resize][height]', 250);
 		GalleryUtilities::putRequestVariable('form[serialNumber]', $this->_item->getSerialNumber());
 
-		// Reparent the thumbnail cause we're going to want to check it later
+		// Reparent the thumbnail cause we are going to want to check it later
 		$ret = GalleryCoreApi::remapSourceIds(
 			$this->_derivative[0]->getId(),
 			$this->_item->getId()
@@ -313,7 +313,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 			$results
 		);
 
-		// Verify that we don't have a preferred
+		// Verify that we do not have a preferred
 		list($ret, $preferredIds) = GalleryCoreApi::fetchPreferredsByItemIds(array($this->_item->getId()));
 
 		if ($ret) {
@@ -665,7 +665,7 @@ class ItemEditRotateAndScalePhotoPluginTest extends ItemEditPluginTestCase {
 	}
 
 	/**
-	 * This verifies that we don't remove preferred derivatives that have operations we don't
+	 * This verifies that we do not remove preferred derivatives that have operations we do not
 	 * understand so it covers postfilters as well as convert-to-xxx operations.
 	 */
 	public function testRevertToOriginalWithPostfilter() {

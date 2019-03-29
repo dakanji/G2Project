@@ -38,7 +38,7 @@ class CharsetTest extends GalleryTestCase {
 	}
 
 	public function testAssertMbFunctionOverloadingDisabled() {
-		// Assert that we're not accidentaly using mb_ functions in our fallback
+		// Assert that we are not accidentaly using mb_ functions in our fallback
 		$mbFuncOverload = (int)ini_get('mbstring.func_overload');
 
 		$this->assertTrue(
@@ -335,7 +335,7 @@ class CharsetTest extends GalleryTestCase {
 	public function testDetectSourceEncodingWithNlLangInfo() {
 		global $gallery;
 
-		// On windows boxes, we don't have the CODESET constant, so fake it
+		// On windows boxes, we do not have the CODESET constant, so fake it
 		if (!defined('CODESET')) {
 			define('CODESET', 'CODESET');
 		}
@@ -473,7 +473,7 @@ class CharsetTest extends GalleryTestCase {
 
 		$this->assertEquals('CP1258', GalleryCharsetHelper_simple::detectSystemCharset());
 
-		// On windows boxes, we don't have the CODESET constant, so fake it
+		// On windows boxes, we do not have the CODESET constant, so fake it
 		if (!defined('CODESET')) {
 			define('CODESET', 'CODESET');
 		}
@@ -515,7 +515,7 @@ class CharsetTest extends GalleryTestCase {
 		// nl_langinfo(CODESET) on OpenBSD 3.7 returns the wrong value (D_T_FMT value instead)
 		global $gallery;
 
-		// On windows boxes, we don't have the CODESET constant, so fake it
+		// On windows boxes, we do not have the CODESET constant, so fake it
 		if (!defined('CODESET')) {
 			define('CODESET', 'CODESET');
 		}
@@ -544,7 +544,7 @@ class CharsetTest extends GalleryTestCase {
 	public function testConvertToUtf8SystemCharset() {
 		global $gallery;
 
-		// On windows boxes, we don't have the CODESET constant, so fake it
+		// On windows boxes, we do not have the CODESET constant, so fake it
 		if (!defined('CODESET')) {
 			define('CODESET', 'CODESET');
 		}
@@ -564,7 +564,7 @@ class CharsetTest extends GalleryTestCase {
 	public function testConvertFromUtf8SystemCharset() {
 		global $gallery;
 
-		// On windows boxes, we don't have the CODESET constant, so fake it
+		// On windows boxes, we do not have the CODESET constant, so fake it
 		if (!defined('CODESET')) {
 			define('CODESET', 'CODESET');
 		}

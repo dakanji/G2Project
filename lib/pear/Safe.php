@@ -711,7 +711,7 @@ class HTML_Safe {
 		// Save all '<' symbols
 		$doc = preg_replace('/<(?=[^a-zA-Z\/\!\?\%])/', '&lt;', $doc);
 
-		// Web documents shouldn't contains \x00 symbol
+		// Web documents should not contains \x00 symbol
 		$doc = str_replace("\x00", '', $doc);
 
 		// Opera6 bug workaround

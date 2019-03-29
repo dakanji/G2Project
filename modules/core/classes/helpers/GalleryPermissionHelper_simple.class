@@ -306,7 +306,7 @@ class GalleryPermissionHelper_simple {
 				unset($itemIds[$idx]);
 			}
 
-			// Don't check the session based cache, it might be out of date.
+			// Do not check the session based cache, it might be out of date.
 		}
 
 		// Did we get all permissions from the memory cache?
@@ -448,7 +448,7 @@ class GalleryPermissionHelper_simple {
 
 			$results = array();
 
-			// Make sure we've got an integer
+			// Make sure we have got an integer
 			$permissionBits = (int)$permissionBits;
 			$leftoverBits   = $permissionBits;
 			$allAccess      = null;
@@ -457,7 +457,7 @@ class GalleryPermissionHelper_simple {
 				/*
 				 * We want to return the least number of permissions, so first process
 				 * all composites, then process all individual permissions.  Remove the
-				 * bits we've processed as we go.
+				 * bits we have processed as we go.
 				 */
 				foreach ($allPermissions as $id => $permission) {
 					if (($permission['flags'] & GALLERY_PERMISSION_COMPOSITE) > 0) {
@@ -523,7 +523,7 @@ class GalleryPermissionHelper_simple {
 
 		/*
 		 * We might have a left over value in $permissionBits here if it contains some bits
-		 * used by permissions that are no longer in the system.  That shouldn't happen if
+		 * used by permissions that are no longer in the system.  That should not happen if
 		 * modules clean up after themselves properly.
 		 */
 		return array(null, $results);

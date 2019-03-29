@@ -405,7 +405,7 @@ class UserHelperTest extends GalleryTestCase {
 
 		/*
 		 * Test in case user has a preferred language.
-		 * Invalid language code used, thus it won't be the same as the default for sure.
+		 * Invalid language code used, thus it would not be the same as the default for sure.
 		 */
 		$preSetLanguageCode = 'mo_CKUP';
 

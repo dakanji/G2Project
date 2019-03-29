@@ -11,7 +11,7 @@
 $path = $argv[1];
 
 if (preg_match('#^/cygdrive/(\w+)/(.*)$#', trim($path), $matches)) {
-	// Cygwin and Window PHP filesystem function don't play nice together.
+	// Cygwin and Window PHP filesystem function do not play nice together.
 	$path = $matches[1] . ':\\' . str_replace('/', '\\', $matches[2]);
 }
 
@@ -144,7 +144,7 @@ function checkStringForHtml($string, $type, $path) {
 	}
 
 	if (strpos($string, '&') !== false) {
-		// Can't use look-ahead assertion of variable length. Therefore exploding on &.
+		// Cannot use look-ahead assertion of variable length. Therefore exploding on &.
 		$ampStrings = explode('&', $string);
 		array_shift($ampStrings);
 

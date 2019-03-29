@@ -372,7 +372,7 @@ class GalleryLockSystem {
 	}
 
 	/**
-	 * Release any locks that we're holding
+	 * Release any locks that we are holding
 	 *
 	 * @return GalleryStatus a status code
 	 */
@@ -387,7 +387,7 @@ class GalleryLockSystem {
 	}
 
 	/**
-	 * Refresh all the locks that we hold so that they aren't accidentally considered expired
+	 * Refresh all the locks that we hold so that they are not accidentally considered expired
 	 *
 	 * @param int $freshUntil the new "fresh until" timestamp
 	 * @return GalleryStatus a status code

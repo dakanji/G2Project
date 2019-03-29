@@ -148,7 +148,7 @@ class BuildDerivativesTaskTestStorage {
 
 		$this->_searches[] = $results->resultCount();
 
-		// Return no results so task doesn't actually act on any derivatives
+		// Return no results so task does not actually act on any derivatives
 		$rs = new ADORecordSet(0);
 
 		$rs->Init();

@@ -69,7 +69,7 @@ class OracleStorage extends GalleryStorage {
 
 			case 'BIT_OR':
 				/*
-				 * By default don't use BIT_OR aggregate, but OR together values in PHP.
+				 * By default do not use BIT_OR aggregate, but OR together values in PHP.
 				 * Performing BIT_OR in the database may boost performance a bit; to do
 				 * this, see OracleCreateBitOr.sql in this directory and run the statements
 				 * with sqlplus.  Then uncomment the line below:

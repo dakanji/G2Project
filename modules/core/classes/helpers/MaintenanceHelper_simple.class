@@ -146,7 +146,7 @@ class MaintenanceHelper_simple {
 
 		$currentMode = $gallery->getConfig('mode.maintenance');
 
-		// If already in the requested mode, don't have to do anything.
+		// If already in the requested mode, do not have to do anything.
 		if ($currentMode !== $mode) {
 			$platform    =& $gallery->getPlatform();
 			$versionFile = $gallery->getConfig('data.gallery.version');
@@ -176,13 +176,13 @@ class MaintenanceHelper_simple {
 			$data = implode("\n", $versionsData);
 
 			if (!$platform->atomicWrite($versionFile, $data)) {
-				$gallery->debug('Error: Can\'t write to versions file');
+				$gallery->debug('Error: Cannot write to versions file');
 
 				return GalleryCoreApi::error(
 					ERROR_PLATFORM_FAILURE,
 					__FILE__,
 					__LINE__,
-					'Can\'t write to the versions file'
+					'Cannot write to the versions file'
 				);
 			}
 

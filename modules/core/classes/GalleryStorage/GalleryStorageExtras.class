@@ -38,7 +38,7 @@ class GalleryStorageExtras {
 
 	/**
 	 * Return a non transactional database connection.
-	 * On occasion we'll need a non-transactional connection to do things like locking and
+	 * On occasion we will need a non-transactional connection to do things like locking and
 	 * sequence handling, since they have to be consistent across may concurrent requests.
 	 * @return array GalleryStatus a status code
 	 *               ADOdb a database connection
@@ -303,8 +303,8 @@ class GalleryStorageExtras {
 					$dataTable[$tableName][$columnName] = $value;
 				} else {
 					/*
-					 * If we haven't set up a table for this class, do so now.
-					 * Otherwise we don't have a complete list of tables that we
+					 * If we have not set up a table for this class, do so now.
+					 * Otherwise we do not have a complete list of tables that we
 					 * need to insert into in order for this class to be completely
 					 * serialized.
 					 */
@@ -461,7 +461,7 @@ class GalleryStorageExtras {
 			return $ret;
 		}
 
-		// If this object has not yet been saved in the database, don't bother saving it.
+		// If this object has not yet been saved in the database, do not bother saving it.
 		if ($entity->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
 			$entity->clearPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
 			$entity->setPersistentFlag(STORAGE_FLAG_DELETED);
@@ -632,7 +632,7 @@ class GalleryStorageExtras {
 	 * @see GalleryStorage::acquireReadLock
 	 */
 	public function acquireReadLock($entityIds, $timeout) {
-		// It's ok to pass in a single id
+		// It is ok to pass in a single id
 		if (!is_array($entityIds)) {
 			$entityIds = array($entityIds);
 		}
@@ -749,7 +749,7 @@ class GalleryStorageExtras {
 			$lockInfo[$entityId] = true;
 		}
 
-		// Drop the lock request, now that we've got the read locks
+		// Drop the lock request, now that we have got the read locks
 		$requestCol = $this->_gs->_translateColumnName('request');
 
 		$query = 'DELETE FROM ' . $lockTable
@@ -782,7 +782,7 @@ class GalleryStorageExtras {
 	 * @see GalleryStorage::acquireWriteLock
 	 */
 	public function acquireWriteLock($entityIds, $timeout) {
-		// It's ok to pass in a single id
+		// It is ok to pass in a single id
 		if (!is_array($entityIds)) {
 			$entityIds = array($entityIds);
 		}
@@ -904,7 +904,7 @@ class GalleryStorageExtras {
 			$lockInfo[$entityId] = true;
 		}
 
-		// Drop the lock request, now that we've got the write locks
+		// Drop the lock request, now that we have got the write locks
 		$requestCol = $this->_gs->_translateColumnName('request');
 
 		$query = 'DELETE FROM ' . $lockTable
@@ -1611,7 +1611,7 @@ class GalleryStorageExtras {
 		}
 
 		/*
-		 * Now take care of the rest of the tables.  If the table doesn't exist, apply the current
+		 * Now take care of the rest of the tables.  If the table does not exist, apply the current
 		 * table definition.  If it already exists, check to see if there is an upgrade available
 		 * for the given table version that we should apply based on $upgradeInfo.
 		 */
@@ -1675,7 +1675,7 @@ class GalleryStorageExtras {
 					// The table exists -- see if we have an upgrade for it
 					if (empty($tableVersions[$tableNameInSchema])) {
 						/*
-						 * We've found a SQL file that matches a table in the
+						 * We have found a SQL file that matches a table in the
 						 * database, but has no matching version info in the
 						 * schema table.  How can this be?  Leave it alone.
 						 */
@@ -1886,7 +1886,7 @@ class GalleryStorageExtras {
 
 				$data[] = 'entity';
 			} else {
-				// Some tables don't have a map description (i.e. Lock).
+				// Some tables do not have a map description (i.e. Lock).
 				if (!in_array($nameInSchema, array('Schema', 'Lock'))) {
 					return GalleryCoreApi::error(
 						ERROR_STORAGE_FAILURE,
@@ -1950,7 +1950,7 @@ class GalleryStorageExtras {
 				// The table exists -- see if we should delete it
 				if (empty($tableVersions[$tableNameInSchema])) {
 					/*
-					 * We've found a SQL file that matches a table in the
+					 * We have found a SQL file that matches a table in the
 					 * database, but has no matching version info in the
 					 * schema table.  How can this be?  Leave it alone.
 					 */
@@ -2001,7 +2001,7 @@ class GalleryStorageExtras {
 		}
 
 		/*
-		 * Now take care of the rest of the tables.  If the table doesn't
+		 * Now take care of the rest of the tables.  If the table does not
 		 * exist, apply the current table definition.  If it already exists,
 		 * check to see if there is an upgrade available for the given table
 		 * version.  If so, apply it.
@@ -2011,7 +2011,7 @@ class GalleryStorageExtras {
 		$schemaColumnName = $this->_gs->_translateColumnName('name');
 
 		foreach ($moduleSql['table'] as $rawTableName => $ignored) {
-			// Don't drop the schema table, it's part of the core.
+			// Do not drop the schema table, it is part of the core.
 			if ($rawTableName == 'Schema') {
 				continue;
 			}
@@ -2104,7 +2104,7 @@ class GalleryStorageExtras {
 	public function _executeSql($buffer) {
 		/*
 		 * Split the file where semicolons are followed by a blank line..
-		 * PL/SQL blocks will have other semicolons, so we can't split on every one.
+		 * PL/SQL blocks will have other semicolons, so we cannot split on every one.
 		 */
 		foreach (preg_split('/; *\r?\n *\r?\n/s', $buffer) as $query) {
 			$query = trim($query);
@@ -2375,7 +2375,7 @@ class GalleryStorageExtras {
 	/**
 	 * Internal function to get clearance to acquire locks
 	 *
-	 * Request clearance to acquire locks and then wait until it's our turn.
+	 * Request clearance to acquire locks and then wait until it is our turn.
 	 *
 	 * @param int $cutoffTime the time to stop trying to get clearance
 	 * @return GalleryStatus a status code
@@ -2439,7 +2439,7 @@ class GalleryStorageExtras {
 			return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null);
 		}
 
-		// Wait till it's our turn
+		// Wait till it is our turn
 		while (true) {
 			$query = 'SELECT ' . $lockIdCol . ' FROM ' . $lockTable
 			. ' WHERE ' . $requestCol . '=1 ORDER BY ' . $lockIdCol . ' ASC';
@@ -2630,10 +2630,10 @@ class GalleryStorageExtras {
 		}
 
 		/*
-		 * Fall back on the parent class for any entities we don't recognize.  This is mainly so
-		 * that tests can create lightweight subclasses.  Because PHP4 doesn't have case sensitive
+		 * Fall back on the parent class for any entities we do not recognize.  This is mainly so
+		 * that tests can create lightweight subclasses.  Because PHP4 does not have case sensitive
 		 * class names we have to do a linear time lookup.
-		 * Don't use strcasecmp or strtolower because they are affected by locale.
+		 * Do not use strcasecmp or strtolower because they are affected by locale.
 		 */
 		if (!isset($entityInfo[$entityName])) {
 			$parentClass = get_parent_class($entityName);
@@ -2699,8 +2699,8 @@ class GalleryStorageExtras {
 		}
 
 		/*
-		 * Some databases (notably MySQL on Win32) don't support mixed case
-		 * table names.  So, when we get the meta table list back, it's lower
+		 * Some databases (notably MySQL on Win32) do not support mixed case
+		 * table names.  So, when we get the meta table list back, it is lower
 		 * case.  Force all metatable listings to lower case and then expect
 		 * them to be lowercase so that we are consistent.
 		 */

@@ -44,7 +44,7 @@ function updateStateCounts() {
 		for (j in pluginData[i]) {
 			var state = pluginData[i][j]['state'];
 
-			/* We don't have a legend for unconfigured */
+			/* We do not have a legend for unconfigured */
 			if (state == 'unconfigured') {
 				state = 'inactive';
 			}

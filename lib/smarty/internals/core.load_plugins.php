@@ -73,7 +73,7 @@ function smarty_core_load_plugins($params, &$smarty) {
 
 		/*
 		 * If plugin file is found, it -must- provide the properly named
-		 * plugin function. In case it doesn't, simply output the error and
+		 * plugin function. In case it does not, simply output the error and
 		 * do not fall back on any other method.
 		 */
 		if ($_found) {

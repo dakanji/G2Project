@@ -14,7 +14,7 @@
  *	Fixed the way data types and lengths are returned in MetaColumns()
  *	as well as added the default lengths for certain types
  *	Updated public variables for Netezza
- *	Still need to remove blob functions, as Netezza doesn't suppport blob
+ *	Still need to remove blob functions, as Netezza does not suppport blob
  */
 
 // security - hide paths
@@ -42,7 +42,7 @@ class ADODB_netezza extends ADODB_postgres64 {
 	public $metaColumnsSQL  = "SELECT attname, atttype FROM _v_relation_column_def WHERE name = '%s' AND attnum > 0 ORDER BY attnum";
 	public $metaColumnsSQL1 = "SELECT attname, atttype FROM _v_relation_column_def WHERE name = '%s' AND attnum > 0 ORDER BY attnum";
 
-	// netezza doesn't have keys. it does have distributions, so maybe this is
+	// netezza does not have keys. it does have distributions, so maybe this is
 	// something that can be pulled from the system tables
 	public $metaKeySQL      = '';
 	public $hasAffectedRows = true;
@@ -97,7 +97,7 @@ class ADODB_netezza extends ADODB_postgres64 {
 			$fld       = new ADOFieldObject();
 			$fld->name = $rs->fields[0];
 
-			// since we're returning type and length as one string,
+			// since we are returning type and length as one string,
 			// split them out here.
 			if ($first = strstr($rs->fields[1], '(')) {
 				$fld->max_length = trim($first, '()');

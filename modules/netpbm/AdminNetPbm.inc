@@ -44,7 +44,7 @@ class AdminNetPbmController extends GalleryController {
 			if (empty($form['path'])) {
 				$error[] = 'form[error][path][missing]';
 			} else {
-				// Set the path.  Guarantee that it's got a trailing slash.
+				// Set the path.  Guarantee that it has got a trailing slash.
 				$platform     =& $gallery->getPlatform();
 				$slash        = $platform->getDirectorySeparator();
 				$form['path'] = trim($form['path']);
@@ -198,7 +198,7 @@ class AdminNetPbmView extends GalleryView {
 			return array($ret, null);
 		}
 
-		// Load our default values if we didn't just come from this form.
+		// Load our default values if we did not just come from this form.
 		if ($form['formName'] != 'AdminNetPbm') {
 			foreach (array('path', 'jpegQuality', 'jheadPath') as $key) {
 				list($ret, $form[$key]) = GalleryCoreApi::getPluginParameter('module', 'netpbm', $key);

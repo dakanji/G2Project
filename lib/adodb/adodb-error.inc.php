@@ -139,7 +139,7 @@ function adodb_error_pg($errormsg) {
 		'Relation [\"\'].*[\"\'] already exists|Cannot insert a duplicate key into (a )?unique index.*|duplicate key.*violates unique constraint' => DB_ERROR_ALREADY_EXISTS,
 		'database ".+" does not exist$'                 => DB_ERROR_NOSUCHDB,
 		'(divide|division) by zero$'                    => DB_ERROR_DIVZERO,
-		'pg_atoi: error in .*: can\'t parse '           => DB_ERROR_INVALID_NUMBER,
+		'pg_atoi: error in .*: cannot parse '           => DB_ERROR_INVALID_NUMBER,
 		'ttribute [\"\'].*[\"\'] not found|Relation [\"\'].*[\"\'] does not have attribute [\"\'].*[\"\']' => DB_ERROR_NOSUCHFIELD,
 		'(parser: parse|syntax) error at or near \"'    => DB_ERROR_SYNTAX,
 		'referential integrity violation'               => DB_ERROR_CONSTRAINT,

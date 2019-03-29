@@ -67,7 +67,7 @@ class MultisiteStep extends InstallStep {
 
 				$uri .= '?step=' . ($this->getStepNumber() + 1);
 
-				// Cookieless browsing (see index.php), 'session.use_trans_sid' won't help here
+				// Cookieless browsing (see index.php), 'session.use_trans_sid' would not help here
 				if (!GallerySetupUtilities::areCookiesSupported()) {
 					$uri .= sprintf('&%s=%s', session_name(), session_id());
 				}

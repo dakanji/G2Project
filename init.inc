@@ -43,7 +43,7 @@ function GalleryInitFirstPass($params = array()) {
 	/*
 	 * Conditional class loading confuses APC resulting in
 	 *   "Cannot redeclare class gallerycoreapi"
-	 * log spam.  Only load GalleryCoreApi if it isn't loaded.
+	 * log spam.  Only load GalleryCoreApi if it is not loaded.
 	 */
 	if (!class_exists('GalleryCoreApi')) {
 		include_once $galleryBase . 'modules/core/classes/GalleryCoreApi.class';
@@ -223,7 +223,7 @@ function GalleryInitSecondPass() {
 
 	/*
 	 * Set our active user.  Try getting our active user from registered authentication plugins.  If
-	 * not, make us the anonymous user.  If we don't have a session, this will initiate one for us.
+	 * not, make us the anonymous user.  If we do not have a session, this will initiate one for us.
 	 */
 	list($ret, $pluginIds) = GalleryCoreApi::getAllFactoryImplementationIds('GalleryAuthPlugin');
 
@@ -283,7 +283,7 @@ function GalleryInitSecondPass() {
  */
 function GalleryPhpErrorHandler($errorNumber, $errorString, $file, $line, $context) {
 	if (error_reporting() == 0) {
-		// The @ error suppression operator was used, so don't log this error.
+		// The @ error suppression operator was used, so do not log this error.
 		return false;
 	}
 

@@ -127,7 +127,7 @@ class UserPreferencesController extends GalleryController {
 
 				/*
 				 * To be consistent, we really should post a Gallery::Login event here to show
-				 * that the user successfully authenticated.  But they're not really logging in so
+				 * that the user successfully authenticated.  But they are not really logging in so
 				 * that's misleading.  Perhaps we should rename the events to Gallery::Authenticate
 				 * and Gallery::FailedAuthenticate to be more accurate, and then post those here?
 				 *
@@ -135,7 +135,7 @@ class UserPreferencesController extends GalleryController {
 				 */
 			}
 
-			// Set a default if for some reason it doesn't get sent from the browser
+			// Set a default if for some reason it does not get sent from the browser
 			$form['email'] = empty($form['email']) ? '' : $form['email'];
 
 			// Require a password to change the email address
@@ -229,7 +229,7 @@ class UserPreferencesView extends GalleryView {
 
 		$user = $gallery->getActiveUser();
 
-		// Locked users aren't allowed to edit themselves - display message
+		// Locked users are not allowed to edit themselves - display message
 		if ($user->isLocked()) {
 			return array(
 				null,

@@ -69,7 +69,7 @@ class RatingHelper {
 			}
 		}
 
-		// Set defaults if a requested ID isn't found
+		// Set defaults if a requested ID is not found
 		foreach ($itemIds as $itemId) {
 			if (!isset($data[$itemId])) {
 				$data[$itemId] = array(
@@ -88,9 +88,9 @@ class RatingHelper {
 		$session =& $gallery->getSession();
 
 		/*
-		 * If the user doesn't have a persistent session yet, it's a guest user without a session
+		 * If the user does not have a persistent session yet, it is a guest user without a session
 		 * and since we create a persistent session when a guest rates, we know that this guest
-		 * user hasn't rated any item yet
+		 * user has not rated any item yet
 		 */
 		if ($session->isPersistent()) {
 			$searchParams = array(
@@ -149,7 +149,7 @@ class RatingHelper {
 	public static function rateItem($itemId, $rating, $userId) {
 		global $gallery;
 
-		// Make sure the user isn't a search engine crawler
+		// Make sure the user is not a search engine crawler
 		$botId = GalleryUtilities::identifySearchEngine();
 
 		if (isset($botId)) {

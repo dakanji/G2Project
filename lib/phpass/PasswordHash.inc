@@ -121,7 +121,7 @@ class PasswordHash {
 			return $output;
 		}
 
-		// We're kind of forced to use MD5 here since it's the only
+		// We are kind of forced to use MD5 here since it is the only
 		// cryptographic primitive available in all versions of PHP
 		// currently in use.  To implement our own low-level crypto
 		// in PHP would result in much worse performance and

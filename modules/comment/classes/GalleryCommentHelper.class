@@ -435,7 +435,7 @@ class GalleryCommentHelper {
 		}
 
 		if (empty($permissions['core.view'])) {
-			// Avoid information disclosure, act as if the item didn't exist.
+			// Avoid information disclosure, act as if the item does not exist.
 			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT), null);
 		}
 
@@ -620,8 +620,8 @@ class GalleryCommentHelper {
 	/**
 	 * Enable or disable the Akismet save listener for the rest of this request.  Set this value
 	 * to false to ignore changes to entities for the rest of this request.  You should disable
-	 * the save listener if you're changing a comment's publish status to match what you learned
-	 * with checkWithAkismet, so that we don't report a comment back to Akismet as spam, if it was
+	 * the save listener if you are changing a comment's publish status to match what you learned
+	 * with checkWithAkismet, so that we do not report a comment back to Akismet as spam, if it was
 	 * Akismet that told us this in the first place. The initial value for this switch is true.
 	 * @param $enabled bool true to enable the listener, false to disable it
 	 * @static
@@ -643,8 +643,8 @@ class GalleryCommentHelper {
 	}
 
 	/**
-	 * Run a comment by Akismet.  If it's a new comment, check with Akismet to see if the comment
-	 * is spam.  If it's a modified comment, submit it as ham or spam as appropriate of the
+	 * Run a comment by Akismet.  If it is a new comment, check with Akismet to see if the comment
+	 * is spam.  If it is a modified comment, submit it as ham or spam as appropriate of the
 	 * publish status has changed.
 	 *
 	 * @param GalleryComment $comment an instance of GalleryComment
@@ -658,7 +658,7 @@ class GalleryCommentHelper {
 			list($ret, $isSpam) = $akismet->checkComment($comment);
 
 			if ($ret && $ret->getErrorCode() & ERROR_UNKNOWN) {
-				// Akismet returned an error or akismet couldn't be contacted
+				// Akismet returned an error or akismet could not be contacted
 				$logError = true;
 
 				if ($comment->getPublishStatus() == COMMENT_PUBLISH_STATUS_PUBLISHED) {
@@ -677,7 +677,7 @@ class GalleryCommentHelper {
 					$ret = $akismet->submitHam($comment);
 
 					if ($ret && $ret->getErrorCode() & ERROR_UNKNOWN) {
-						// Akismet returned an error or akismet couldn't be contacted
+						// Akismet returned an error or akismet could not be contacted
 						$logError = true;
 					} elseif ($ret) {
 						return $ret;
@@ -686,7 +686,7 @@ class GalleryCommentHelper {
 					$ret = $akismet->submitSpam($comment);
 
 					if ($ret && $ret->getErrorCode() & ERROR_UNKNOWN) {
-						// Akismet returned an error or akismet couldn't be contacted
+						// Akismet returned an error or akismet could not be contacted
 						$logError = true;
 					} elseif ($ret) {
 						return $ret;

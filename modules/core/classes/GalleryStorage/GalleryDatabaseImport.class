@@ -134,7 +134,7 @@ class GalleryImportElement extends GalleryXmlHandler {
  */
 class GalleryDatabaseImport extends GalleryImportElement {
 	/**
-	 * Defines the number of bytes to read before letting the user know that we haven't forgotten
+	 * Defines the number of bytes to read before letting the user know that we have not forgotten
 	 * them.
 	 */
 	public $_fileReadChunkSize = 8192;
@@ -231,7 +231,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 			} else {
 				$errors['errors'][] = $coreModule->translate(
 					array(
-						'text' => 'Import file doesn\'t exist: %s',
+						'text' => 'Import file does not exist: %s',
 						'arg1' => $fileName,
 					)
 				);
@@ -423,7 +423,7 @@ class GalleryDatabaseImport extends GalleryImportElement {
 					ERROR_BAD_PATH,
 					__FILE__,
 					__LINE__,
-					'Import file doesn\'t exist: ' . $fileName
+					'Import file does not exist: ' . $fileName
 				),
 				null,
 			);
@@ -479,13 +479,13 @@ class _GalleryExportTag extends GalleryImportElement {
 		$versionsData = implode("\n", array($coreVersion, $galleryVersion, 'maintenance-mode'));
 
 		if (!$platform->atomicWrite($versionFile, $versionsData)) {
-			$gallery->debug('Error: Can\'t write to versions file');
+			$gallery->debug('Error: Cannot write to versions file');
 
 			return GalleryCoreApi::error(
 				ERROR_PLATFORM_FAILURE,
 				__FILE__,
 				__LINE__,
-				'Can\'t write to the versions file'
+				'Cannot write to the versions file'
 			);
 		}
 
@@ -573,7 +573,7 @@ class _GallerySequenceTag extends GalleryImportElement {
 
 		$ret = $storageExtras->dropSequence($this->_sequenceName);
 
-		// Ignore any errors and assume that if we get an error, then the sequence doesn't exist
+		// Ignore any errors and assume that if we get an error, then the sequence does not exist
 		$ret = $storageExtras->createSequence($this->_sequenceName, $this->_startValue);
 
 		if ($ret) {
@@ -670,7 +670,7 @@ class _GalleryTableDefinitionTag extends GalleryImportElement {
 
 		$ret = $this->_storage->execute('DROP TABLE ' . $table);
 
-		// Don't check the return code. Assume the table doesn't exist and create it.
+		// Do not check the return code. Assume the table does not exist and create it.
 		$storageExtras =& $this->_storage->_getExtras();
 
 		$ret = $storageExtras->_executeSql($this->_currentSql);
@@ -965,7 +965,7 @@ class _GalleryFieldValueTag extends GalleryImportElement {
 }
 
 /**
- * GalleryXmlProcessor provides a simple xml processor. It doesn't support anything fancy like
+ * GalleryXmlProcessor provides a simple xml processor. It does not support anything fancy like
  * namespaces and such.
  * @package GalleryCore
  * @subpackage Storage
@@ -1074,8 +1074,8 @@ class GalleryXmlProcessor {
 
 /**
  * Base Import Element. This class provides the basic methods that content handlers need to
- * implement.  It can't just be an interface or flagged as abstract, because it is used as a
- * place holder, the the content handler doesn't supply a new class on start element.
+ * implement.  It cannot just be an interface or flagged as abstract, because it is used as a
+ * place holder, the the content handler does not supply a new class on start element.
  */
 class GalleryXmlHandler {
 	/**

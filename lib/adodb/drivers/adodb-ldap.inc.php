@@ -344,7 +344,7 @@ class ADORecordSet_ldap extends ADORecordSet {
 	public function _initrs() {
 		/*
 		This could be teaked to respect the $COUNTRECS directive from ADODB
-		It's currently being used in the _fetch() function and the
+		It is currently being used in the _fetch() function and the
 		GetAssoc() function
 		*/
 		$this->_numOfRows = ldap_count_entries($this->connection->_connectionID, $this->_queryID);

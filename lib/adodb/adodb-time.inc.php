@@ -1453,7 +1453,7 @@ function adodb_mktime($hr, $min, $sec, $mon = false, $day = false, $year = false
 			return $is_gmt ? @gmmktime($hr, $min, $sec) : @mktime($hr, $min, $sec);
 		}
 
-		// for windows, we don't check 1970 because with timezone differences,
+		// for windows, we do not check 1970 because with timezone differences,
 		// 1 Jan 1970 could generate negative timestamp, which is illegal
 		$usephpfns = (
 			1970 < $year && $year < 2038

@@ -165,10 +165,10 @@ class AdminPerformanceControllerTest extends GalleryControllerTestCase {
 
 		/*
 		 * It would really be nice to use a mock here to avoid having to actually clear out the
-		 * database table, but it's a pain because the mock storage would have to pony up fake
+		 * database table, but it is a pain because the mock storage would have to pony up fake
 		 * data for the GalleryCoreApi::assertUserIsSiteAdministrator and
 		 * GalleryCoreApi::getPluginParameter calls too.  So for now just make sure that the table
-		 * is clean when we're done.
+		 * is clean when we are done.
 		 */
 		$storage =& $gallery->getStorage();
 

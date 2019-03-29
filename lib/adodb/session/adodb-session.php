@@ -604,7 +604,7 @@ class ADODB_Session {
 		$binary = $conn->dataProvider === 'mysql' ? '/*! BINARY */' : '';
 		$sql    = "SELECT $data FROM $table WHERE sesskey = $binary $qkey AND expiry >= " . time();
 
-		/* Lock code does not work as it needs to hold transaction within whole page, and we don't know if
+		/* Lock code does not work as it needs to hold transaction within whole page, and we do not know if
 		  developer has commited elsewhere... :(
 		 */
 

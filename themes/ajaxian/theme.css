@@ -341,7 +341,7 @@ h2 {
 	background-color: #000;
 	opacity: 0.6;
 	-moz-opacity: 0.6;
-	filter: alpha(opacity=40);  /* Lower opacity for IE since the controls don't hide */
+	filter: alpha(opacity=40);  /* Lower opacity for IE since the controls do not hide */
 }
 
 #slideshow-controls ul li {

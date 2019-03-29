@@ -440,7 +440,7 @@ class AlbumTest extends GalleryTestCase {
 			$parentId = $nested[$i]->getId();
 		}
 
-		// Now we've created our nested tree.  Fetch it all back again
+		// Now we have created our nested tree.  Fetch it all back again
 		list($ret, $actual) = GalleryCoreApi::fetchParents($nested[$iterations - 1]);
 
 		if ($ret) {
@@ -687,7 +687,7 @@ class AlbumTest extends GalleryTestCase {
 	}
 
 	public function testGuaranteeAlbumHasThumbnail3() {
-		// Album has a thumbnail but its source isn't in the album, 1 child
+		// Album has a thumbnail but its source is not in the album, 1 child
 		list($ret, $subAlbum) = $this->_createRandomAlbum($this->_parentAlbum->getId());
 
 		if ($ret) {
@@ -1279,7 +1279,7 @@ class AlbumTest extends GalleryTestCase {
 		GalleryDataCache::reset();
 
 		/*
-		 * Remove user from all groups so that they're not implicitly part of a group that has
+		 * Remove user from all groups so that they are not implicitly part of a group that has
 		 * some permissions.
 		 */
 		$ret = GalleryCoreApi::removeUserFromAllGroups($user->getId());
@@ -1519,12 +1519,12 @@ class AlbumTest extends GalleryTestCase {
 		$this->assertEquals(trim($albumName), $album->getPathComponent());
 
 		/*
-		 * Verify that the path in the database matches the path on disk, since we're expecting
+		 * Verify that the path in the database matches the path on disk, since we are expecting
 		 * that the whitespace will get trimmed on both sides.
 		 */
 		$platform =& $gallery->getPlatform();
 
-		$this->assertTrue($platform->file_exists($path), 'Path doesn\'t exist');
+		$this->assertTrue($platform->file_exists($path), 'Path does not exist');
 	}
 
 	public function testCreateAlbumEntitizesAngleBracketsButIgnoresXssPayload() {
@@ -1598,12 +1598,12 @@ class AlbumTest extends GalleryTestCase {
 		}
 
 		/*
-		 * Verify that the path in the database matches the path on disk, since we're expecting
+		 * Verify that the path in the database matches the path on disk, since we are expecting
 		 * that the whitespace will get trimmed on both sides.
 		 */
 		$platform =& $gallery->getPlatform();
 
-		$this->assertTrue($platform->file_exists($path), 'Path doesn\'t exist');
+		$this->assertTrue($platform->file_exists($path), 'Path does not exist');
 		$this->assertEquals(trim($newAlbumName), basename($path));
 		$this->assertEquals(trim($newAlbumName), $album->getPathComponent());
 	}

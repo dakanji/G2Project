@@ -102,7 +102,7 @@ class IconsModule extends GalleryModule {
 				if (isset($params['iconpack'])
 					&& $params['iconpack'] == 'paularmstrongdesigns.com'
 				) {
-					// Removed ".com" from paularmstrongdesigns.com dir, IIS 5.1 didn't like it
+					// Removed ".com" from paularmstrongdesigns.com dir, IIS 5.1 does not like it
 					$ret = $this->setParameter('iconpack', 'paularmstrongdesigns');
 
 					if ($ret) {
