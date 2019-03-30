@@ -252,6 +252,10 @@ else
 			RET=$(perl -0777 -p -i -e 's/([^\)]+\))(\s*\n\s*){1,}(as\s)/$1 $3/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/([^\)]+\))(\s*\n\s*){1,}(as\s)/$1 $3/gms' $FILE)
 			RET=$(perl -0777 -p -i -e 's/([^\)]+\))(\s*\n\s*){1,}(as\s)/$1 $3/gms' $FILE)
+			# 05 Fix token bug
+			RET=$(perl -i -pe 's/\^PHPCS_CSS_T_OPEN_TAG\^/<\?php/' $FILE)
+			RET=$(perl -i -pe 's/\^PHPCS_CSS_T_CLOSE_TAG\^/\?>/' $FILE)
+	
 
 			# Ensure syntax errors have not been introduced
 			RET=$(php -l -d display_errors=0 $FILE)
