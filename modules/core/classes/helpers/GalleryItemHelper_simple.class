@@ -108,7 +108,7 @@ class GalleryItemHelper_simple {
 					[GalleryChildEntity::parentId],
 					count([GalleryChildEntity::id])
 				FROM
-					GalleryChildEntity],
+					[GalleryChildEntity],
 					[GalleryAccessSubscriberMap]
 				WHERE
 					[GalleryChildEntity::parentId] in (%s)
@@ -116,7 +116,7 @@ class GalleryItemHelper_simple {
 					[GalleryAccessSubscriberMap::itemId] = [GalleryChildEntity::id]
 				AND
 					[GalleryAccessSubscriberMap::accessListId] in (%s)
-				GROUP BY 
+				GROUP BY
 					[GalleryChildEntity::parentId]',
 				$parentIdMarkers,
 				$aclMarkers
