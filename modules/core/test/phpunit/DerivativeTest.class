@@ -673,7 +673,6 @@ class DerivativeTest extends GalleryTestCase {
 			DERIVATIVE_TYPE_IMAGE_RESIZE,
 			'filler|1'
 		);
-
 		list($ret, $derivative2) = $this->_createDerivative(
 			$this->_root,
 			$derivative1->getId(),
@@ -705,8 +704,7 @@ class DerivativeTest extends GalleryTestCase {
 
 	public function testMergeDerivativeOperations() {
 		list($ret, $result) = GalleryCoreApi::mergeDerivativeOperations(
-			'A|1,2;
-B|1,2',
+			'A|1,2;B|1,2',
 			'A|3,4'
 		);
 
@@ -728,8 +726,7 @@ B|1,2',
 		$this->assertEquals('A|5,6;B|3,4', $result);
 
 		list($ret, $result) = GalleryCoreApi::mergeDerivativeOperations(
-			'A|1,2;
-B|1,2',
+			'A|1,2;B|1,2',
 			'C|5,6'
 		);
 
@@ -740,8 +737,7 @@ B|1,2',
 		$this->assertEquals('A|1,2;B|1,2;C|5,6', $result);
 
 		list($ret, $result) = GalleryCoreApi::mergeDerivativeOperations(
-			'A|1,2;
-B|1,2',
+			'A|1,2;B|1,2',
 			'A|-1,-2'
 		);
 
