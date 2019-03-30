@@ -1088,7 +1088,7 @@ class CoreModuleExtras {
 							 * Except maybe we could check permissions here.
 							 */
 						} else {
-							// There's a file there.  There should not be.  Move it out of the way.
+							// there is a file there.  There should not be.  Move it out of the way.
 							if (!@$platform->rename($newDir, "$newDir.old")
 								|| !@$platform->mkdir($dir)
 							) {
@@ -1911,8 +1911,7 @@ class CoreModuleExtras {
 						'Rename unnamed pre-beta-3 index to named index (ignore errors)'
 					);
 
-					$query = sprintf(
-						'
+					$query = sprintf('
 						ALTER TABLE %sAccessMap
 						DROP INDEX %saccessListId_2,
 						ADD INDEX %sAccessMap_83732(%saccessListId);',
@@ -1922,7 +1921,7 @@ class CoreModuleExtras {
 						$storage->_columnPrefix
 					);
 
-					// Ignore error, since there's nothing to do for most installations
+					// Ignore error, since there is nothing to do for most installations
 					$storage->execute($query);
 				}
 
@@ -2256,7 +2255,7 @@ class CoreModuleExtras {
 							ERROR_PLATFORM_FAILURE,
 							__FILE__,
 							__LINE__,
-							"Cannot access session dir"
+							'Cannot access session dir'
 						);
 					}
 
@@ -2527,8 +2526,7 @@ class CoreModuleExtras {
 						$indexColumns = implode('`, `' . $storage->_columnPrefix, $change[3]);
 						$indexColumns = $storage->_columnPrefix . $indexColumns;
 
-						$query = sprintf(
-							'
+						$query = sprintf('
 							ALTER TABLE `%s%s`
 							DROP INDEX `%s%s`,
 							ADD INDEX `%s%s`(`%s`);',
@@ -2541,7 +2539,7 @@ class CoreModuleExtras {
 							$indexColumns
 						);
 
-						// Ignore error, since there's nothing to do for most installations
+						// Ignore error, since there is nothing to do for most installations
 						$storage->execute($query);
 					}
 
@@ -2577,8 +2575,7 @@ class CoreModuleExtras {
 				 * Make sure the schema update is stored, cannot use updateMapEntry because schema is not
 				 * in Maps.xml
 				 */
-				$query = sprintf(
-					'
+				$query = sprintf('
 					UPDATE %sSchema
 					SET %smajor=1, %sminor=3
 					WHERE %sname=\'AccessMap\' AND %smajor=1 AND %sminor=2',
@@ -3793,8 +3790,7 @@ class CoreModuleExtras {
 				$configChanges[] = array(
 					'remove' => array(),
 					'edit'   => array(),
-					'add'    => array(
-						'
+					'add'    => array("
 
 				/*
 				* Maintenance mode.  You can disable access to the site for anyone but
@@ -3804,11 +3800,9 @@ class CoreModuleExtras {
 				*    plain unstyled page when codebase has been updated but upgrader
 				*    has not yet been run.
 				*  url (with quotes) - provide a URL where requests are redirected in
-				*    either case described above.  Example: \'/maintenance.html\'
+				*    either case described above.  Example: '/maintenance.html'
 				*/
-				$gallery->setConfig(\'mode.maintenance\', false);
-
-				',
+				$gallery->setConfig('mode.maintenance', false);",
 					),
 				);
 
@@ -3826,23 +3820,22 @@ class CoreModuleExtras {
 				$configChanges[] = array(
 					'remove' => array(),
 					'edit'   => array(),
-					'add'    => array(
-						'
+					'add'    => array("
 
 				/*
-				* This setting can be used to override Gallery\'s auto-detection of the domain-name,
+				* This setting can be used to override Gallery's auto-detection of the domain-name,
 				* protocol (http/https), URL path, and of the file & query string.
 				* Most users can leave this empty.
 				* If the server is misconfigured or for very special
 				* setups, this setting can be quite handy.
-				* Examples (the positions of the slashes (\'/\') are important):
-				*   override the path: $gallery->setConfig(\'baseUri\', \'/another/path/\');
+				* Examples (the positions of the slashes ('/') are important):
+				*   override the path: $gallery->setConfig('baseUri', '/another/path/');
 				*   override the host + path:
-				* $gallery->setConfig(\'baseUri\', \'example.com/gallery2/\');
+				* $gallery->setConfig('baseUri', 'example.com/gallery2/');
 				*   override the protocol + host + path + file:
-				*           $gallery->setConfig(\'baseUri\', \'https://example.com:8080/gallery2/index.php\');
+				*           $gallery->setConfig('baseUri', 'https://example.com:8080/gallery2/index.php');
 				*/
-				$gallery->setConfig(\'baseUri\', \'\');',
+				$gallery->setConfig('baseUri', '');",
 					),
 				);
 

@@ -145,9 +145,9 @@ class GalleryModule extends GalleryPlugin {
 			$gallery->debug('In bootstrap mode (core module)');
 
 			/*
-			 * If we are in bootstrap mode, then we may not even have a version table.  If we try
-			 * to query it, we will cause our current transaction to abort on some databases.
-			 * So, just assume that there's no installed version.
+			 * If we are in bootstrap mode, then we may not even have a version table.
+			 * If we try to query this, we will cause our current transaction to abort on some databases.
+			 * So, just assume that there is no installed version.
 			 */
 			$installedVersion = null;
 		} else {

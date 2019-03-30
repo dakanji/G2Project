@@ -41,7 +41,7 @@ class CleanCacheStep extends UpgradeStep {
 		 * getting upgraded when not in maintenance mode, it is possible for new entries to get
 		 * cached while we are cleaning out old ones.  The first round of cleaning takes a long
 		 * time so the window is big.  Subsequent runs are very fast, though so after 3 attempts
-		 * we should be good unless there's a real problem.
+		 * we should be good unless there is a real problem.
 		 */
 		$attempts = 3;
 

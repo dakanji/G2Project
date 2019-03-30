@@ -87,11 +87,16 @@
 
 	<h1>Gallery Unit Tests</h1>
 	<div class="section">
-		This is the Gallery test framework.  We will use this to verify
-		that the Gallery code is functioning properly.  It will help us
-		identify bugs in the code when we add new features, port to new
-		systems, or add support for new database back ends.  All the
-		tests should pass with a green box that says <b>PASSED</b> in it).
+		<p>
+			<a href="../../../">Return to Gallery</a>
+		</p>
+		<p>
+			This is the Gallery test framework.  We will use this to verify
+			that the Gallery code is functioning properly.  It will help us
+			identify bugs in the code when we add new features, port to new
+			systems, or add support for new database back ends.  All the
+			tests should pass with a green box that says <b>PASSED</b> in it).
+		</p>
 	</div>
 
 	<?php if (!$isSiteAdmin): ?>
@@ -423,6 +428,9 @@
 
 			<input type="button" onclick="reRun();" value="Re-run broken tests"
 			id="runBrokenButton" style="display:none"/>
+			<p>
+				<a href="../../../">Return to Gallery</a>
+			</p>
 		</div>
 
 		<?php

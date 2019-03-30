@@ -382,7 +382,12 @@ class FfmpegToolkit extends GalleryToolkit {
 		*/
 		$unknownFormat = false;
 		$successfulRun = false;
-		$width         = $height         = $duration         = $vframerate         = $asamplerate         = $achannels         = 0;
+		$width         = 0;
+		$height        = 0;
+		$duration      = 0;
+		$achannels     = 0;
+		$vframerate    = 0;
+		$asamplerate   = 0;
 
 		foreach ($stderr as $resultLine) {
 			if (preg_match('/Unknown format/', $resultLine, $regs)) {
@@ -463,10 +468,17 @@ class FfmpegToolkit extends GalleryToolkit {
 		}
 
 		// Get error output back, because ffmpeg 0.4.6 returns some useful info only to stderr!
-		list($success, $results, $error) = $platform->exec(array(array_merge(array($ffmpegPath, '-i', $sourceFilename), $args)));
+		list($success, $results, $error) = $platform->exec(
+			array(
+				array_merge(
+					array($ffmpegPath, '-i', $sourceFilename),
+					$args
+				),
+			)
+		);
 
 		if (!$success) {
-			// Return the output even if there's a failure
+			// Return the output even if there is a failure
 			return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE), $results, $error);
 		}
 

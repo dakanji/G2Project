@@ -1359,7 +1359,7 @@ class SessionTest extends GalleryTestCase {
 
 		$session->_sessionId = '';
 
-		// Even if there is data etc, we do not save if there's no sessionId
+		// Even if there is data etc, we do not save if there is no sessionId
 		$session->put('foo', 'bar');
 
 		$session->_forceSaveSession = true;
@@ -3411,7 +3411,7 @@ class SessionTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		// Then there's a login
+		// Then there is a login
 		$session->setUserId($user->getId());
 
 		$ret = $session->start();
@@ -4221,7 +4221,7 @@ class SessionTest extends GalleryTestCase {
 		$this->assertTrue($validToken, $session->get('core.authToken'), 'token has not been set');
 		$this->assertTrue($validToken, $session->getAuthToken(), 'existing auth token');
 
-		// Force it to regenerate a new one if there's none already
+		// Force it to regenerate a new one if there is none already
 		$session->put('core.authToken', null);
 		$this->assertTrue(substr($md5[1], 0, 12), $session->getAuthToken(), 'new auth token');
 	}

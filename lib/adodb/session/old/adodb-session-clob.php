@@ -148,9 +148,9 @@ if (!defined('ADODB_SESSION')) {
 	*/
 
 	/****************************************************************************************\
-					Create the connection to the database.
-						If $ADODB_SESS_CONN already exists, reuse that connection
-				****************************************************************************************/
+							Create the connection to the database.
+								If $ADODB_SESS_CONN already exists, reuse that connection
+						****************************************************************************************/
 	function adodb_sess_open($save_path, $session_name, $persist = true) {
 		global $ADODB_SESS_CONN;
 
@@ -191,8 +191,7 @@ if (!defined('ADODB_SESSION')) {
 		}
 
 		if (!$ok) {
-			ADOConnection::outp(
-				'
+			ADOConnection::outp('
 -- Session: connection failed</p>',
 				false
 			);
@@ -338,8 +337,7 @@ if (!defined('ADODB_SESSION')) {
 		}
 
 		if (!$rs) {
-			ADOConnection::outp(
-				'
+			ADOConnection::outp('
 -- Session Replace: ' . nl2br($err) . '</p>',
 				false
 			);
@@ -420,8 +418,7 @@ if (!defined('ADODB_SESSION')) {
 			$ADODB_SESS_CONN->Execute("DELETE FROM $ADODB_SESSION_TBL WHERE expiry < " . time());
 
 			if ($ADODB_SESS_DEBUG) {
-				ADOConnection::outp(
-					"
+				ADOConnection::outp("
 -- <b>Garbage Collection</b>: $qry</p>"
 				);
 			}
@@ -471,8 +468,7 @@ if (!defined('ADODB_SESSION')) {
 				error_log($msg);
 
 				if ($ADODB_SESS_DEBUG) {
-					ADOConnection::outp(
-						"
+					ADOConnection::outp("
 -- $msg</p>"
 					);
 				}
@@ -498,8 +494,7 @@ if (0) {
 	session_start();
 	session_register('AVAR');
 	$_SESSION['AVAR'] += 1;
-	ADOConnection::outp(
-		"
+	ADOConnection::outp("
 -- \$_SESSION['AVAR']={$_SESSION['AVAR']}</p>",
 		false
 	);

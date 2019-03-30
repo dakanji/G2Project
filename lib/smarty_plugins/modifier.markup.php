@@ -73,7 +73,11 @@ function smarty_modifier_markup($text) {
 
 				break;
 
-			case 'none':
+			case 'markdown':
+				$parsers[$markupType] = new GalleryMarkdownMarkupParser();
+
+				break;
+
 			default:
 				$parsers[$markupType] = new GalleryNoMarkupParser();
 		}
@@ -86,13 +90,13 @@ function smarty_modifier_markup($text) {
 
 class GalleryNoMarkupParser {
 	public function parse($text) {
-		return $text;
+		return '<p>' . $text . '</p>';
 	}
 }
 
 class GalleryHtmlMarkupParser {
 	public function parse($text) {
-		return GalleryUtilities::htmlSafe(html_entity_decode($text));
+		return '<p>' . GalleryUtilities::htmlSafe(html_entity_decode($text)) . '</p>';
 	}
 }
 
@@ -117,10 +121,7 @@ class GalleryBbcodeMarkupParser {
 		/*
 		 * Escape all characters everywhere
 		 * We do not need this as G2 does not allow raw entities into the database
-		 * $this->_bbcode->addParser(
-		 *			     'htmlspecialchars',
-		 *			     array('block', 'inline', 'link', 'listitem')
-		 * );
+		 * $this->_bbcode->addParser('htmlspecialchars',array('block', 'inline', 'link', 'listitem'));
 		 */
 
 		// Convert line endings
@@ -227,7 +228,7 @@ class GalleryBbcodeMarkupParser {
 	}
 
 	public function parse($text) {
-		return $this->_bbcode->parse($text);
+		return '<p>' . $this->_bbcode->parse($text) . '</p>';
 	}
 
 	public function url($action, $attributes, $content, $params, &$node_object) {
@@ -286,5 +287,20 @@ class GalleryBbcodeMarkupParser {
 
 	public function stripLastLineBreak($text) {
 		return preg_replace("/\n( +)?$/", '$1', $text);
+	}
+}
+
+class GalleryMarkdownMarkupParser {
+	public function __construct() {
+		GalleryCoreApi::requireOnce('lib/markdown/MarkdownExtra.inc');
+		GalleryCoreApi::requireOnce('lib/smartypants/SmartyPantsTypographer.inc');
+	}
+
+	public function parse($text) {
+		return GalleryUtilities::htmlEntityDecode(
+			SmartyPantsTypographer::defaultTransform(
+				MarkdownExtra::defaultTransform($text)
+			)
+		);
 	}
 }

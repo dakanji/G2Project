@@ -297,7 +297,7 @@ class GdToolkitTest extends GalleryTestCase {
 					);
 
 					if (in_array($mimeType, array('image/png', 'image/gif'))) {
-						// There's an additional copy to remove the transparencies
+						// there is an additional copy to remove the transparencies
 						$expected['copy'] = array('', 0, 0, 0, 0, 400, 400);
 					}
 
@@ -485,73 +485,133 @@ class GdToolkitTest extends GalleryTestCase {
 	}
 
 	public function testMergeOperations() {
-		list($success, $operation, $args) = $this->_toolkit->mergeOperations('crop', array(1, 2, 3, 4), 'crop', array(3, 4, 5, 6));
+		list($success, $operation, $args) = $this->_toolkit->mergeOperations(
+			'crop',
+			array(1, 2, 3, 4),
+			'crop',
+			array(3, 4, 5, 6)
+		);
 
 		$this->assertTrue($success);
 		$this->assertEquals('crop', $operation);
 		$this->assertEquals(array(3, 4, 5, 6), $args);
 
-		list($success, $operation, $args) = $this->_toolkit->mergeOperations('resize', array(1, 2), 'resize', array(3, 4));
+		list($success, $operation, $args) = $this->_toolkit->mergeOperations(
+			'resize',
+			array(1, 2),
+			'resize',
+			array(3, 4)
+		);
 
 		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
-		list($success, $operation, $args) = $this->_toolkit->mergeOperations('thumbnail', array(1, 2), 'resize', array(3, 4));
+		list($success, $operation, $args) = $this->_toolkit->mergeOperations(
+			'thumbnail',
+			array(1, 2),
+			'resize',
+			array(3, 4)
+		);
 
 		$this->assertTrue($success);
 		$this->assertEquals('resize', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
-		list($success, $operation, $args) = $this->_toolkit->mergeOperations('thumbnail', array(1, 2), 'thumbnail', array(3, 4));
+		list($success, $operation, $args) = $this->_toolkit->mergeOperations(
+			'thumbnail',
+			array(1, 2),
+			'thumbnail',
+			array(3, 4)
+		);
 
 		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
-		list($success, $operation, $args) = $this->_toolkit->mergeOperations('scale', array(1, 2), 'thumbnail', array(3, 4));
+		list($success, $operation, $args) = $this->_toolkit->mergeOperations(
+			'scale',
+			array(1, 2),
+			'thumbnail',
+			array(3, 4)
+		);
 
 		$this->assertTrue($success);
 		$this->assertEquals('thumbnail', $operation);
 		$this->assertEquals(array(3, 4), $args);
 
-		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(90));
+		list($success, $operation, $args) = $this->_toolkit->mergeOperations(
+			'rotate',
+			array(90),
+			'rotate',
+			array(90)
+		);
 
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(180), $args);
 
-		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(-90));
+		list($success, $operation, $args) = $this->_toolkit->mergeOperations(
+			'rotate',
+			array(90),
+			'rotate',
+			array(-90)
+		);
 
 		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
 
-		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(270), 'rotate', array(180));
+		list($success, $operation, $args) = $this->_toolkit->mergeOperations(
+			'rotate',
+			array(270),
+			'rotate',
+			array(180)
+		);
 
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(90), $args);
 
-		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(-180));
+		list($success, $operation, $args) = $this->_toolkit->mergeOperations(
+			'rotate',
+			array(90),
+			'rotate',
+			array(-180)
+		);
 
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
 
-		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(90), 'rotate', array(180));
+		list($success, $operation, $args) = $this->_toolkit->mergeOperations(
+			'rotate',
+			array(90),
+			'rotate',
+			array(180)
+		);
 
 		$this->assertTrue($success);
 		$this->assertEquals('rotate', $operation);
 		$this->assertEquals(array(-90), $args);
 
-		list($success, $operation, $args) = $this->_toolkit->mergeOperations('rotate', array(270), 'rotate', array(90));
+		list($success, $operation, $args) = $this->_toolkit->mergeOperations(
+			'rotate',
+			array(270),
+			'rotate',
+			array(90)
+		);
 
 		$this->assertTrue($success);
 		$this->assertEquals(null, $operation);
 		$this->assertEquals(null, $args);
 
-		list($success, $operation, $args) = $this->_toolkit->mergeOperations('crop', array(1, 2), 'thumbnail', array(3, 4));
+		list($success, $operation, $args) = $this->_toolkit->mergeOperations(
+			'crop',
+			array(1, 2),
+			'thumbnail',
+			array(3, 4)
+		);
 
 		$this->assertFalse($success);
 	}

@@ -330,7 +330,7 @@ class StorageSetupStep extends InstallStep {
 		/*
 		 * Ignore the status code.
 		 * We expect either a 2xx code which would mean that the file has been fetched successfully
-		 * (or there's a 404 -> redirect that suppresses the 404) and we check that later
+		 * (or there is a 404 -> redirect that suppresses the 404) and we check that later
 		 * with the probe text.
 		 * Or we expect an internal server 500 because mod_access is not installed.
 		 * Or a 403 Forbidden since the .htaccess rule works correctly.

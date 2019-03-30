@@ -24,7 +24,7 @@
  *   GalleryUtilities::getFileExtension($filename);
  *
  * Try not to jam too many methods into this class.  Only put methods here if they are of obvious
- * value to the class layer and there's no other home for them.
+ * value to the class layer and there is no other home for them.
  *
  * @package GalleryCore
  * @subpackage Classes
@@ -102,7 +102,7 @@ class GalleryUtilities {
 			/*
 			 * Later during our sanitization process we call stripslashes on our file name.  But it
 			 * may legitimately have backslashes in it (eg. c:\apache\tmp\php195.jpg), so make sure
-			 * those are escaped at this time.  There's gotta be a better way to handle this.
+			 * those are escaped at this time.  There should be a better way to handle this.
 			 */
 			$file = $_FILES[$key];
 
@@ -138,7 +138,7 @@ class GalleryUtilities {
 			/*
 			 * Later during our sanitization process we call stripslashes on our file name.  But it
 			 * may legitimately have backslashes in it (eg. c:\apache\tmp\php195.jpg), so make sure
-			 * those are escaped at this time.  There's gotta be a better way to handle this.
+			 * those are escaped at this time.  There should be a better way to handle this.
 			 */
 			$postForm = $_FILES[$key];
 

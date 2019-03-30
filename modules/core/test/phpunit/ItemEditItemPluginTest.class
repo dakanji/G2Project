@@ -387,7 +387,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 		GalleryUtilities::putRequestVariable('form[description]', $rootAlbum->getDescription());
 		GalleryUtilities::putRequestVariable('form[serialNumber]', $rootAlbum->getSerialNumber());
 
-		// There's no UI for renaming the root album so this returns a bad parameter.
+		// there is no UI for renaming the root album so this returns a bad parameter.
 		$results = $this->handleRequest($rootAlbum, $this->_preferred, ERROR_BAD_PARAMETER);
 
 		// Verify that the path component is still the same

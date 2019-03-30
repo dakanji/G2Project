@@ -43,7 +43,7 @@ function smarty_modifier_entitytruncate($string, $length, $etc = '...', $breakWo
 
 	/*
 	 * Convert multibyte characters to html entities and then get an entity-safe substring.
-	 * Split the string exactly on the boundary.  If there's no change, then we are done.
+	 * Split the string exactly on the boundary.  If there is no change, then we are done.
 	 */
 	$string = GalleryUtilities::utf8ToUnicodeEntities($string);
 

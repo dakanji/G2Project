@@ -29,7 +29,7 @@
 
   {if $AdminSlideshow.piclens.update}
   <p>
-    {g->text text="There's a newer version of PicLens available."}
+    {g->text text="there is a newer version of PicLens available."}
   </p>
   {/if}
   {elseif !$AdminSlideshow.piclens.update}

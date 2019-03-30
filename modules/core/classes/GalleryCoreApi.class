@@ -2406,7 +2406,7 @@ class GalleryCoreApi {
 	 * @param int $parentId the id of the target parent
 	 * @param int $selfId (optional) ignore path collision with this id
 	 * @return array GalleryStatus a status code
-	 *               boolean true if there's a collision
+	 *               boolean true if there is a collision
 	 */
 	public static function checkPathCollision($pathComponent, $parentId, $selfId = null) {
 		GalleryCoreApi::requireOnce(
@@ -3361,7 +3361,7 @@ class GalleryCoreApi {
 
 	/**
 	 * Add the given extension to the database and map it to the specified mime type and mark it
-	 * viewable as requested.  Return ERROR_COLLISION if there's already a mapping for the given
+	 * viewable as requested.  Return ERROR_COLLISION if there is already a mapping for the given
 	 * extension.
 	 *
 	 * @param string $extension

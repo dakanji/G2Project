@@ -532,7 +532,7 @@ class GalleryEntity extends GalleryPersistent {
 					 * persistent store (the database), but not when the entity is already in the
 					 * memory cache.
 					 *
-					 * During the core module install or upgrade, there's no active gallery session
+					 * During the core module install or upgrade, there is no active gallery session
 					 * and $duringUpgrade is set to false. If $duringUpgrade is set to false, be
 					 * aware that everything that is related to the current active user will
 					 * error-out. The recommended usage is to do nothing and just return a success

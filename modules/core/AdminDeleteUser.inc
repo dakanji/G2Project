@@ -26,7 +26,7 @@
  * presented with a choice between two radio buttons, between 'Delete user x and...'
  * a) 'assign a new owner for all his items' and
  * b) 'delete all his items and assign a new owner for all non empty albums'
- * Next there's a textfield 'New owner' in the form. Leaving blank this form means to assign the
+ * Next there is a textfield 'New owner' in the form. Leaving blank this form means to assign the
  * items to the default new owner, 'admin'.  If user x did not own any items, Joe can just decide
  * between 'cancel' and 'delete'.  When clicking 'cancel', Joe is redirected to the AdminUsers
  * view.  When hitting 'delete' and in case

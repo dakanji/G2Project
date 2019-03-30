@@ -255,7 +255,13 @@ else
 			# 05 Fix token bug
 			RET=$(perl -i -pe 's/\^PHPCS_CSS_T_OPEN_TAG\^/<\?php/' $FILE)
 			RET=$(perl -i -pe 's/\^PHPCS_CSS_T_CLOSE_TAG\^/\?>/' $FILE)
-	
+			# 06 Move single comma after opening bracket to previous line
+			RET=$(perl -0777 -p -i -e 's/([^\(]+\()(\s*\n\s*)(\x27|")(\s*\n)/$1$3$4/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/([^\(]+\()(\s*\n\s*)(\x27|")(\s*\n)/$1$3$4/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/([^\(]+\()(\s*\n\s*)(\x27|")(\s*\n)/$1$3$4/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/([^\(]+\()(\s*\n\s*)(\x27|")(\s*\n)/$1$3$4/gms' $FILE)
+			RET=$(perl -0777 -p -i -e 's/([^\(]+\()(\s*\n\s*)(\x27|")(\s*\n)/$1$3$4/gms' $FILE)
+
 
 			# Ensure syntax errors have not been introduced
 			RET=$(php -l -d display_errors=0 $FILE)

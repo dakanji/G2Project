@@ -116,7 +116,13 @@ class GalleryPermissionHelper_advanced {
 	 * @return GalleryStatus a status code
 	 * @access private
 	 */
-	public static function _postGroupEvent($groupId, $itemId, $permission, $applyToChildren, $changeType) {
+	public static function _postGroupEvent(
+		$groupId,
+		$itemId,
+		$permission,
+		$applyToChildren,
+		$changeType
+	) {
 		$userId = null;
 
 		list($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId, 'GalleryGroup');
@@ -364,23 +370,22 @@ class GalleryPermissionHelper_advanced {
 
 			$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-			$query = sprintf(
-				'
-			SELECT
-			[GalleryAccessSubscriberMap::accessListId],
-			[GalleryItemAttributesMap::itemId]
-			FROM
-			[GalleryItemAttributesMap],
-			[GalleryAccessSubscriberMap]
-			WHERE
-			[GalleryItemAttributesMap::itemId] = [GalleryAccessSubscriberMap::itemId]
-			AND
-			([GalleryItemAttributesMap::itemId] = ?
-			OR
-			([GalleryItemAttributesMap::parentSequence] LIKE ?
-			AND
-			[GalleryAccessSubscriberMap::accessListId] IN (%s)))
-			',
+			$query = sprintf('
+				SELECT
+					[GalleryAccessSubscriberMap::accessListId],
+					[GalleryItemAttributesMap::itemId]
+				FROM
+					[GalleryItemAttributesMap],
+					[GalleryAccessSubscriberMap]
+				WHERE
+					[GalleryItemAttributesMap::itemId] = [GalleryAccessSubscriberMap::itemId]
+				AND
+					([GalleryItemAttributesMap::itemId] = ?
+				OR
+					([GalleryItemAttributesMap::parentSequence] LIKE ?
+				AND
+					[GalleryAccessSubscriberMap::accessListId] IN (%s)))
+				',
 				$aclMarkers
 			);
 
@@ -724,23 +729,29 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		$query = '
-		SELECT
-		[GalleryAccessMap::userOrGroupId],
-		[GalleryUser::id],
-		[GalleryGroup::id],
-		[GalleryAccessMap::permission]
-		FROM
-		[GalleryAccessSubscriberMap], [GalleryAccessMap]
-		LEFT JOIN [GalleryUser] ON
-		[GalleryAccessMap::userOrGroupId] = [GalleryUser::id]
-		LEFT JOIN [GalleryGroup] ON
-		[GalleryAccessMap::userOrGroupId] = [GalleryGroup::id]
-		WHERE
-		[GalleryAccessSubscriberMap::itemId] = ?
-		AND
-		[GalleryAccessSubscriberMap::accessListId] = [GalleryAccessMap::accessListId]
-		ORDER BY
-		[GalleryAccessMap::permission] ASC
+			SELECT
+				[GalleryAccessMap::userOrGroupId],
+				[GalleryUser::id],
+				[GalleryGroup::id],
+				[GalleryAccessMap::permission]
+			FROM
+				[GalleryAccessSubscriberMap],
+				[GalleryAccessMap]
+			LEFT JOIN
+				[GalleryUser]
+			ON
+				[GalleryAccessMap::userOrGroupId] = [GalleryUser::id]
+			LEFT JOIN
+				[GalleryGroup]
+			ON
+				[GalleryAccessMap::userOrGroupId] = [GalleryGroup::id]
+			WHERE
+				[GalleryAccessSubscriberMap::itemId] = ?
+			AND
+				[GalleryAccessSubscriberMap::accessListId] = [GalleryAccessMap::accessListId]
+			ORDER BY
+				[GalleryAccessMap::permission]
+			ASC
 		';
 
 		list($ret, $searchResults) = $gallery->search($query, array((int)$itemId));
@@ -764,7 +775,17 @@ class GalleryPermissionHelper_advanced {
 				return array($ret, null);
 			}
 
-			$idKey = !empty($result[1]) ? 'userId' : (!empty($result[2]) ? 'groupId' : 'entityId');
+			if (!empty($result[2])) {
+				$tempVar = 'groupId';
+			} else {
+				$tempVar = 'entityId';
+			}
+
+			if (!empty($result[1])) {
+				$idKey = 'userId';
+			} else {
+				$idKey = $tempVar;
+			}
 
 			foreach ($permissions as $permission) {
 				$data[] = array(
@@ -794,16 +815,17 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		$query = '
-		SELECT
-		[GalleryAccessMap::permission]
-		FROM
-		[GalleryAccessMap], [GalleryAccessSubscriberMap]
-		WHERE
-		[GalleryAccessSubscriberMap::itemId] = ?
-		AND
-		[GalleryAccessSubscriberMap::accessListId] = [GalleryAccessMap::accessListId]
-		AND
-		[GalleryAccessMap::userOrGroupId] = ?
+			SELECT
+				[GalleryAccessMap::permission]
+			FROM
+				[GalleryAccessMap],
+				[GalleryAccessSubscriberMap]
+			WHERE
+				[GalleryAccessSubscriberMap::itemId] = ?
+			AND
+				[GalleryAccessSubscriberMap::accessListId] = [GalleryAccessMap::accessListId]
+			AND
+				[GalleryAccessMap::userOrGroupId] = ?
 		';
 
 		list($ret, $searchResults) = $gallery->search(
@@ -999,15 +1021,18 @@ class GalleryPermissionHelper_advanced {
 		}
 
 		$query = '
-		SELECT
-		[GalleryAccessSubscriberMap::itemId]
-		FROM
-		[GalleryAccessMap], [GalleryAccessSubscriberMap]
-		WHERE
-		[GalleryAccessSubscriberMap::itemId] = ?
-		AND [GalleryAccessMap::accessListId] = [GalleryAccessSubscriberMap::accessListId]
-		AND [GalleryAccessMap::userOrGroupId] IN (' . $entityIdMarkers . ')
-		AND (' . $andPermission . ' = ?)
+			SELECT
+				[GalleryAccessSubscriberMap::itemId]
+			FROM
+				[GalleryAccessMap],
+				[GalleryAccessSubscriberMap]
+			WHERE
+				[GalleryAccessSubscriberMap::itemId] = ?
+			AND
+				[GalleryAccessMap::accessListId] = [GalleryAccessSubscriberMap::accessListId]
+			AND
+				[GalleryAccessMap::userOrGroupId] IN (' . $entityIdMarkers . ')
+			AND (' . $andPermission . ' = ?)
 		';
 
 		$data   = array_merge(array((int)$itemId), $entityIds);
@@ -1082,8 +1107,7 @@ class GalleryPermissionHelper_advanced {
 					ERROR_BAD_PARAMETER,
 					__FILE__,
 					__LINE__,
-					"Permission $permissionId is marked as a composite, " .
-					"but did not specify any composites!"
+					"Permission $permissionId is marked as a composite, but did not specify any composites!"
 				);
 			}
 
@@ -1333,14 +1357,14 @@ class GalleryPermissionHelper_advanced {
 			return $ret;
 		}
 
-		$query = '
-		UPDATE
-		[GalleryAccessMap]
-		SET
-		[::permission] = ' . $andNotPermission . '
-		WHERE
-		[GalleryAccessMap::permission] != ?
-		';
+		$query = "
+			UPDATE
+				[GalleryAccessMap]
+			SET
+				[::permission] = $andNotPermission
+			WHERE
+				[GalleryAccessMap::permission] != ?
+		";
 
 		$data   = array();
 		$data[] = $storage->convertIntToBits(0x7FFFFFFF - $removeBits);
@@ -1538,13 +1562,17 @@ class GalleryPermissionHelper_advanced {
 
 		// Eliminate any unused acls
 		$query = '
-		SELECT DISTINCT
-		[GalleryAccessMap::accessListId]
-		FROM
-		[GalleryAccessMap] LEFT JOIN [GalleryAccessSubscriberMap] ON
-		[GalleryAccessMap::accessListId] = [GalleryAccessSubscriberMap::accessListId]
-		WHERE
-		[GalleryAccessSubscriberMap::accessListId] IS NULL
+			SELECT DISTINCT
+				[GalleryAccessMap::accessListId]
+			FROM
+				[GalleryAccessMap]
+			LEFT JOIN
+				[GalleryAccessSubscriberMap]
+			ON
+				[GalleryAccessMap::accessListId] = [GalleryAccessSubscriberMap::accessListId]
+			WHERE
+				[GalleryAccessSubscriberMap::accessListId]
+			IS NULL
 		';
 
 		list($ret, $searchResults) = $gallery->search($query);

@@ -206,7 +206,7 @@ class ADODB_sqlite3 extends ADOConnection {
 
 	// returns true or false
 	public function _pconnect($argHostname, $argUsername, $argPassword, $argDatabasename) {
-		// There's no permanent connect in SQLite3
+		// there is no permanent connect in SQLite3
 		return $this->_connect($argHostname, $argUsername, $argPassword, $argDatabasename);
 	}
 

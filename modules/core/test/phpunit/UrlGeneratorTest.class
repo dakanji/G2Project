@@ -933,7 +933,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 	/*
 	 * Apache is not very clear about whether REQUEST_URI is specified to be an URI without the
-	 * schema and host part or not. There's at least 1 Apache 2 setup where REQUEST_URI was a
+	 * schema and host part or not. there is at least 1 Apache 2 setup where REQUEST_URI was a
 	 * complete URL.
 	 * Since the requestUri in Gallery is expected to be an URI w/o the host part, we must
 	 * normalize whatever Apache returns.
@@ -1585,7 +1585,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 		GalleryUtilities::putRequestVariable('return', 'foo');
 
-		// Assert that there's no PHP warning during the execution of this function
+		// Assert that there is no PHP warning during the execution of this function
 		$ret = $urlGenerator->initNavigation();
 
 		if ($ret) {

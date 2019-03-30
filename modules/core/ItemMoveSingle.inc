@@ -69,7 +69,7 @@ class ItemMoveSingleController extends GalleryController {
 
 				/*
 				 * Assert that our permissions are correct.  The view should never try to make a
-				 * move that is not legal so we can just bail if there's an inconsistency.
+				 * move that is not legal so we can just bail if there is an inconsistency.
 				 */
 				list($ret, $canView) = GalleryCoreApi::hasItemPermission($newParentId, 'core.view');
 

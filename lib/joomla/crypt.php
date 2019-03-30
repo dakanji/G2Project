@@ -89,7 +89,7 @@ class JCrypt {
 			} else {
 				/*
 				 * There is no external source of entropy so we repeat calls
-				 * to mt_rand until we are assured there's real randomness in
+				 * to mt_rand until we are assured there is real randomness in
 				 * the result.
 				 *
 				 * Measure the time that the operations will take on average.

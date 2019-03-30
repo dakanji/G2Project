@@ -50,8 +50,7 @@ class GalleryItemHelper_medium {
 
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-		$query = sprintf(
-			'
+		$query = sprintf('
 			SELECT
 				[GalleryItem::id]
 			FROM

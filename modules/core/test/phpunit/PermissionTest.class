@@ -1710,7 +1710,7 @@ class PermissionTest extends GalleryTestCase {
 		 * possible that we may wind up duping an ACL that is already extraneous and then *both*
 		 * go away!  So compact the acls before we even start.  This puts us in the slightly
 		 * unfortunate position of relying on the code that we are testing, but I think that if the
-		 * initial compact does not work the test will still fail so we are safe.  If there's any
+		 * initial compact does not work the test will still fail so we are safe.  If there is any
 		 * doubt, then we can probably remedy this by finding an ACL that is actually in use and
 		 * duping that one instead.
 		 */

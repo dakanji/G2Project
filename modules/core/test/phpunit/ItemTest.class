@@ -669,7 +669,7 @@ class ItemTest extends GalleryTestCase {
 		$this->assertFalse(in_array($child[1]->getId(), $ids), 'child 1');
 		$this->assertTrue(in_array($child[2]->getId(), $ids), 'child 2');
 
-		// Make sure there's no duplication
+		// Make sure there is no duplication
 		$this->assertEquals(sizeof($ids), sizeof(array_flip(array_flip($ids))));
 	}
 
@@ -715,7 +715,7 @@ class ItemTest extends GalleryTestCase {
 		$this->assertTrue(in_array($child[1]->getId(), $ids), 'child 1');
 		$this->assertTrue(in_array($child[2]->getId(), $ids), 'child 2');
 
-		// Make sure there's no duplication
+		// Make sure there is no duplication
 		$this->assertEquals(sizeof($ids), sizeof(array_flip(array_flip($ids))));
 	}
 
@@ -775,7 +775,7 @@ class ItemTest extends GalleryTestCase {
 		$this->assertFalse(in_array($child[1]->getId(), $ids), 'child 1');
 		$this->assertTrue(in_array($child[2]->getId(), $ids), 'child 2');
 
-		// Make sure there's no duplication
+		// Make sure there is no duplication
 		$this->assertEquals(
 			sizeof($ids),
 			sizeof(array_flip(array_flip($ids))),
@@ -1758,7 +1758,7 @@ class ItemTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$this->assertEquals($truePath, $linkPath, "Link does not point to the original (link)");
+		$this->assertEquals($truePath, $linkPath, 'Link does not point to the original (link)');
 		$this->assertEquals(
 			$linkedItem[0]->getId(),
 			$thumb->getDerivativeSourceId(),

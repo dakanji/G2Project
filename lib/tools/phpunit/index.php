@@ -25,16 +25,10 @@
 define('G2_SUPPORT_URL_FRAGMENT', '../../support/');
 
 require '../../support/security.inc';
-
 require '../../../bootstrap.inc';
-
 require_once '../../../init.inc';
 
-if (function_exists('date_default_timezone_set')) {
-	// PHP 5.3 requires a default be set before using any date/time functions
-	@date_default_timezone_set(date_default_timezone_get());
-}
-
+@date_default_timezone_set(date_default_timezone_get());
 $testReportDir = $gallery->getConfig('data.gallery.base') . 'test/';
 $priorRuns     = array();
 $glob          = glob("${testReportDir}*");
@@ -110,8 +104,8 @@ ob_end_clean();
 /**
  *
  * This is an output interceptor that allows us to save the HTML output from our test run in the
- * g2data directory.  We only save the output when there's a filter value set which indicates that
- * there's an actual test run in progress.
+ * g2data directory.  We only save the output when there is a filter value set which indicates that
+ * there is an actual test run in progress.
  */
 function PhpUnitOutputInterceptor($message) {
 	global $gallery,  $testReportDir;
@@ -152,44 +146,27 @@ function PhpUnitOutputInterceptor($message) {
 	return $message;
 }
 
-	@ini_set('output_buffering', 0);
-	ob_start('PhpUnitOutputInterceptor', 256);
+@ini_set('output_buffering', 0);
+ob_start('PhpUnitOutputInterceptor', 256);
 
-	require_once 'phpunit.inc';
-
-	require_once 'GalleryTestCase.class';
-
-	require_once 'GalleryImmediateViewTestCase.class';
-
-	require_once 'GalleryControllerTestCase.class';
-
-	require_once 'GalleryViewTestCase.class';
-
-	require_once 'ItemAddPluginTestCase.class';
-
-	require_once 'ItemEditPluginTestCase.class';
-
-	require_once 'ItemEditOptionTestCase.class';
-
-	require_once 'CodeAuditTestCase.class';
-
-	require_once 'MockObject.class';
-
-	require_once 'UnitTestPlatform.class';
-
-	require_once 'UnitTestStorage.class';
-
-	require_once 'UnitTestPhpVm.class';
-
-	require_once 'UnitTestUrlGenerator.class';
-
-	require_once 'MockTemplateAdapter.class';
-
-	require_once 'UnitTestTemplate.class';
-
-	require_once 'UnitTestRepository.class';
-
-	require_once 'UnitTestRepositoryUtilities.class';
+require_once 'phpunit.inc';
+require_once 'GalleryTestCase.class';
+require_once 'GalleryImmediateViewTestCase.class';
+require_once 'GalleryControllerTestCase.class';
+require_once 'GalleryViewTestCase.class';
+require_once 'ItemAddPluginTestCase.class';
+require_once 'ItemEditPluginTestCase.class';
+require_once 'ItemEditOptionTestCase.class';
+require_once 'CodeAuditTestCase.class';
+require_once 'MockObject.class';
+require_once 'UnitTestPlatform.class';
+require_once 'UnitTestStorage.class';
+require_once 'UnitTestPhpVm.class';
+require_once 'UnitTestUrlGenerator.class';
+require_once 'MockTemplateAdapter.class';
+require_once 'UnitTestTemplate.class';
+require_once 'UnitTestRepository.class';
+require_once 'UnitTestRepositoryUtilities.class';
 
 function PhpUnitGalleryMain(&$testSuite, $filter) {
 	$ret = GalleryInitFirstPass();

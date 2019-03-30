@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>README: Gallery 2.4</title>
@@ -132,7 +131,8 @@
 		* Licensed under MIT
 		* Based on Bootstrap
 		*/
-		/*!
+
+/*!
 		* Bootstrap v3.3.7 (http://getbootstrap.com)
 		* Copyright 2011-2016 Twitter, Inc.
 		* Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -397,11 +397,14 @@
 				font-size: 1.125rem;
 			}
 		}
+
 	</style>
 	<script>
+
 	//<![CDATA[
 	function toggle(objId, togId) {
 		var o = document.getElementById(objId), t = document.getElementById(togId);
+
 		if (o.style.display == 'none') {
 			o.style.display = 'block'; t.innerHTML = '-';
 		} else {
@@ -409,6 +412,7 @@
 			t.innerHTML = '+';
 		}
 	}
+
 	/*
 	* if the URL does not contain http or is on sourceforge, replace relative urls
 	* with an alert instead of a link that probably would not work
@@ -416,14 +420,17 @@
 	function fixURLs() {
 		if ((document.location.toString().indexOf('http') != 0) || (document.location.toString().match(/(\bsourceforge\b|\bsf.net\b|\bmenalto\b)/))) {
 			var as = document.getElementsByTagName("a");
+
 			for (var i = 0; i < as.length; i++) {
 				href = as[i].getAttribute('href');
+
 				if (href) {
 					/* links to replace do not begin with # or http or irc */
 					if ((href.search('http') != 0) && (href.search('irc') != 0) && (href.toString().charAt(0) != '#')) {
 						/* Do not use setAttribute for onclick (workaround for IE) */
 						as[i].onclick = function() {
 							alert('Link disabled as it seems this file is not on a webserver');
+
 							return false;
 						};
 						as[i].setAttribute('title', "Link only works when accessing this file on a web server");
@@ -433,10 +440,10 @@
 			}
 		}
 	}
+
 	// ]]>
 	</script>
 </head>
-
 <body onload="fixURLs();">
 	<div class="container">
 		<div>
@@ -1818,7 +1825,7 @@
 			<li>
 				<b>Graphics Toolkits</b> - Gallery 2 works with many different toolkits (<a href="http://netpbm.sourceforge.net" target="_blank">NetPBM</a>, <a href="http://www.imagemagick.org/" target="_blank">ImageMagick</a>, <a href="http://php.net/gd" target="_blank">GD</a> or <a href="http://www.graphicsmagick.org/" target="_blank">GraphicsMagick</a>).
 				<br>
-				You need to activate at least one or you would not get any thumbnails, but there's no limit on how many you can have. In fact, more is better because they can work together.
+				You need to activate at least one or you would not get any thumbnails, but there is no limit on how many you can have. In fact, more is better because they can work together.
 			</li>
 		</ol>
 		<span class="toc-link">

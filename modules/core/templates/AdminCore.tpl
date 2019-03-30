@@ -136,7 +136,7 @@
   <h3> {g->text text="Embedded Markup"} </h3>
 
   <p class="giDescription">
-    {g->text text="What kind of markup should we allow in user-entered fields?  For security reasons we do not recommend that you allow raw HTML.  BBCode is a special kind of markup that is secure and allows for simple text formatting like bold, italics, lists, images and urls."}
+    {g->text text="What kind of markup should we allow in user-entered fields?  For security reasons we do not recommend that you allow raw HTML.  BBCode and Markdown are special types of markup that are secure and allow for simple text formatting."}
   </p>
 
   <table class="gbDataTable"><tr>

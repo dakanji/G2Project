@@ -119,7 +119,7 @@ WHILE (pattern_position <= LENGTH(pattern)) DO
           --
           SET pattern_chunk_end = LENGTH(pattern);
         END IF;
-        -- If there's another wildcard immediately following this one, there is not really a chunk 
+        -- If there is another wildcard immediately following this one, there is not really a chunk 
         -- to process. If that next wildcard is a '_', we want to simply increment the pattern and 
         -- subject positions. If that next wildcard is a '%', we want to increment only the pattern
         -- pointer. But if that next wildcard is '_' and occurs at the very end of the pattern,that

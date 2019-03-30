@@ -491,8 +491,7 @@ CREATE TABLE PLAN_TABLE (
 			return $s;
 		}
 
-		$rs = $this->conn->Execute(
-			"
+		$rs = $this->conn->Execute("
 		select
   '<pre>'||lpad('--', (level-1)*2,'-') || trim(operation) || ' ' || trim(options)||'</pre>'  as Operation,
   object_name,COST,CARDINALITY,bytes
@@ -516,8 +515,7 @@ CONNECT BY prior id=parent_id and statement_id='$id'"
 			return 'Oracle 9i or later required';
 		}
 
-		$rs = $this->conn->Execute(
-			"
+		$rs = $this->conn->Execute("
 select  a.name Buffer_Pool, b.size_for_estimate as cache_mb_estimate,
 	case when b.size_factor=1 then
    		'&lt;&lt;= Current'

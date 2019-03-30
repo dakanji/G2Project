@@ -133,8 +133,7 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 		}
 
 		$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
-		$countQuery = sprintf(
-			'
+		$countQuery = sprintf('
 	SELECT
 	  COUNT([GalleryItem::id])
 	FROM
@@ -149,8 +148,7 @@ class GalleryCoreSearch extends GallerySearchInterface_1_0 {
 			$aclMarkers
 		);
 
-		$query = sprintf(
-			'
+		$query = sprintf('
 	SELECT
 	  [GalleryItem::id],
 	  [GalleryUser::fullName],

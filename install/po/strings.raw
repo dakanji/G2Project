@@ -187,7 +187,7 @@ gettext("Now we need to write out all the information you provided into a file c
 gettext("Before we can proceed, you should create a file in your <b>%s</b> directory called <i>config.php</i>.  You must make sure that the webserver will be able to write to it.")
 gettext("Unix (with shell access)") /* also in: templates/StorageSetupRequest.html */
 gettext("On Windows, you should not have to do anything special.")
-gettext("When you have created this file and set the permissions properly, you can proceed.  If there's a problem, we will tell you what to fix.")
+gettext("When you have created this file and set the permissions properly, you can proceed.  If there is a problem, we will tell you what to fix.")
 gettext("Create config file")
 
 /* templates/CreateConfigFileSuccess.html */

@@ -203,8 +203,7 @@ if (!defined('ADODB_SESSION')) {
 		);
 
 		if (!$rs) {
-			ADOConnection::outp(
-				'
+			ADOConnection::outp('
 -- Session Replace: ' . $ADODB_SESS_CONN->ErrorMsg() . '</p>',
 				false
 			);
@@ -326,8 +325,7 @@ if (!defined('ADODB_SESSION')) {
 				error_log($msg);
 
 				if ($ADODB_SESS_DEBUG) {
-					ADOConnection::outp(
-						"
+					ADOConnection::outp("
 -- $msg</p>"
 					);
 				}

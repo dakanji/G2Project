@@ -768,13 +768,13 @@ class GallerySession {
 			'data'                  => serialize($this->_sessionData),
 		);
 
-		// Get new sessionId, there's a 1:2^128 probability of collision (md5), try it 5 times
+		// Get new sessionId, there is a 1:2^128 probability of collision (md5), try it 5 times
 		$remoteHost = $this->_remoteIdentifier[0];
 		$attempt    = 0;
 		$success    = false;
 
 		do {
-			// If there's sessionId given, first try it with this, else generate a new one
+			// If there is sessionId given, first try it with this, else generate a new one
 			if ($attempt != 0 || empty($this->_sessionId)) {
 				$this->_sessionId = $phpVm->md5(uniqid(substr($remoteHost . microtime() . mt_rand(1, 32767), 0, 114)));
 			}
@@ -879,7 +879,7 @@ class GallerySession {
 				unset($sessionDataCopy['core.language']);
 			}
 
-			// If there's anything left in the session data, we should probably create a session
+			// If there is anything left in the session data, we should probably create a session
 			return array(null, !empty($sessionDataCopy));
 		}
 
@@ -1035,7 +1035,7 @@ class GallerySession {
 					$this->_sessionId = '';
 				}
 			} else {
-				// There's no session with this sessionId in the database
+				// there is no session with this sessionId in the database
 				$this->_sessionId = '';
 			}
 
@@ -1277,8 +1277,7 @@ class GallerySession {
 				}
 
 				// Delete the selected sessions
-				$query = sprintf(
-					'
+				$query = sprintf('
 					DELETE FROM [GallerySessionMap]
 					WHERE [GallerySessionMap::id] IN (%s)',
 					GalleryUtilities::makeMarkers(count($ids))

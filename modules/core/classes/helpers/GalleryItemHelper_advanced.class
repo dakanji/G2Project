@@ -76,8 +76,7 @@ class GalleryItemHelper_advanced {
 
 		$accessListMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-		$query = sprintf(
-			'
+		$query = sprintf('
 			SELECT
 			[GalleryItemAttributesMap=1::itemId],
 			COUNT([GalleryAlbumItem::id]),

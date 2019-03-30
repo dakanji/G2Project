@@ -251,8 +251,8 @@ class ItemEditItem extends ItemEditPlugin {
 				}
 
 				/*
-				 * It is possible to get a collision when we rename, so try that
-				 * first.  If there's no collision then make the rest of the changes.
+				 * It is possible to get a collision when we rename, so try that first. 
+				 * If there is no collision then make the rest of the changes.
 				 */
 				$originalPathComponent = $item->getPathComponent();
 

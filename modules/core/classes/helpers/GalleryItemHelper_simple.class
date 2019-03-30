@@ -36,7 +36,10 @@ class GalleryItemHelper_simple {
 		if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 			$themeId = $item->getTheme();
 		} else {
-			list($ret, $parent) = GalleryCoreApi::loadEntitiesById($item->getParentId(), 'GalleryAlbumItem');
+			list($ret, $parent) = GalleryCoreApi::loadEntitiesById(
+				$item->getParentId(),
+				'GalleryAlbumItem'
+			);
 
 			if ($ret) {
 				return array($ret, null);
@@ -46,14 +49,18 @@ class GalleryItemHelper_simple {
 		}
 
 		if (empty($themeId)) {
-			list($ret, $themeId) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
+			list($ret, $themeId) = GalleryCoreApi::getPluginParameter(
+				'module',
+				'core',
+				'default.theme'
+			);
 
 			if ($ret) {
 				return array($ret, null);
 			}
 		}
 
-		// No default?  We are screwed
+		// Error if no default
 		if (empty($themeId)) {
 			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
 		}
@@ -102,8 +109,7 @@ class GalleryItemHelper_simple {
 		if (!empty($aclIds)) {
 			$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-			$query = sprintf(
-				'
+			$query = sprintf('
 				SELECT
 					[GalleryChildEntity::parentId],
 					count([GalleryChildEntity::id])
@@ -111,11 +117,11 @@ class GalleryItemHelper_simple {
 					[GalleryChildEntity],
 					[GalleryAccessSubscriberMap]
 				WHERE
-					[GalleryChildEntity::parentId] in (%s)
+					[GalleryChildEntity::parentId] IN (%s)
 				AND
 					[GalleryAccessSubscriberMap::itemId] = [GalleryChildEntity::id]
 				AND
-					[GalleryAccessSubscriberMap::accessListId] in (%s)
+					[GalleryAccessSubscriberMap::accessListId] IN (%s)
 				GROUP BY
 					[GalleryChildEntity::parentId]',
 				$parentIdMarkers,
@@ -282,8 +288,7 @@ class GalleryItemHelper_simple {
 			return array($ret, null);
 		}
 
-		$query = sprintf(
-			'
+		$query = sprintf('
 			SELECT
 				[GalleryItemAttributesMap=1::itemId],
 				count([GalleryItemAttributesMap=2::itemId])
@@ -292,11 +297,11 @@ class GalleryItemHelper_simple {
 				[GalleryItemAttributesMap=2],
 				[GalleryAccessSubscriberMap]
 			WHERE
-				[GalleryItemAttributesMap=1::itemId] in (%s) and %s
+				[GalleryItemAttributesMap=1::itemId] IN (%s) AND %s
 			AND
 				[GalleryItemAttributesMap=2::itemId] = [GalleryAccessSubscriberMap::itemId]
 			AND
-				[GalleryAccessSubscriberMap::accessListId] in (%s)
+				[GalleryAccessSubscriberMap::accessListId] IN (%s)
 			GROUP BY
 				[GalleryItemAttributesMap=1::itemId]',
 			$itemMarkers,
@@ -355,12 +360,11 @@ class GalleryItemHelper_simple {
 			if (!empty($aclIds)) {
 				$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
-				$query = sprintf(
-					'
+				$query = sprintf('
 					SELECT
 						count([GalleryItem::id])
 					FROM
-						GalleryEntity],
+						[GalleryEntity],
 						[GalleryItem],
 						[GalleryAccessSubscriberMap]
 					WHERE
@@ -452,26 +456,27 @@ class GalleryItemHelper_simple {
 		$parentSequence[] = $itemId;
 		$parentSequence   = implode('/', $parentSequence);
 
-		$query = sprintf(
-			'
-	SELECT
-	  [GalleryAlbumItem::id],
-	  [GalleryItemAttributesMap::parentSequence],
-	  [GalleryItemAttributesMap::orderWeight]
-	FROM
-	  [GalleryAlbumItem], [GalleryItemAttributesMap], [GalleryAccessSubscriberMap]
-	WHERE
-	  [GalleryAlbumItem::id] = [GalleryItemAttributesMap::itemId]
-	  AND
-	  [GalleryItemAttributesMap::parentSequence] LIKE \'%s/%%\'
-	  AND
-	  [GalleryAlbumItem::id] = [GalleryAccessSubscriberMap::itemId]
-	  AND
-	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
-	ORDER BY
-	  [GalleryItemAttributesMap::parentSequence],
-	  [GalleryItemAttributesMap::orderWeight]
-	',
+		$query = sprintf("
+			SELECT
+				[GalleryAlbumItem::id],
+				[GalleryItemAttributesMap::parentSequence],
+				[GalleryItemAttributesMap::orderWeight]
+			FROM
+				[GalleryAlbumItem],
+				[GalleryItemAttributesMap],
+				[GalleryAccessSubscriberMap]
+			WHERE
+				[GalleryAlbumItem::id] = [GalleryItemAttributesMap::itemId]
+			AND
+				[GalleryItemAttributesMap::parentSequence] LIKE '%s/%%'
+			AND
+				[GalleryAlbumItem::id] = [GalleryAccessSubscriberMap::itemId]
+			AND
+				[GalleryAccessSubscriberMap::accessListId] IN (%s)
+			ORDER BY
+				[GalleryItemAttributesMap::parentSequence],
+				[GalleryItemAttributesMap::orderWeight]
+			",
 			$parentSequence,
 			$aclMarkers
 		);

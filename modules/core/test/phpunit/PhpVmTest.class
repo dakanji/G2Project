@@ -201,7 +201,7 @@ class PhpVmTest extends GalleryTestCase {
 
 	public function testTime() {
 		/*
-		 * There's an incredibly slim chance that this will fail.  If it does, we should improve
+		 * there is an incredibly slim chance that this will fail.  If it does, we should improve
 		 * this test.
 		 */
 		$this->assertEquals(time(), $this->_phpVm->time());

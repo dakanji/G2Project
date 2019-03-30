@@ -12,7 +12,7 @@
     <td>
       {if !empty($theme.params.sidebarBlocks)}
       <script type="text/javascript">
-        {* hide the sidebar if there's nothing in it *}
+        {* hide the sidebar if there is nothing in it *}
         // <![CDATA[
         var el = document.getElementById("gsSidebarCol");
         var text = el.innerText;  // IE

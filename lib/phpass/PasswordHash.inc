@@ -4,7 +4,7 @@
 // Version 0.1 / genuine.
 // Written by Solar Designer <solar at openwall.com> in 2004-2006 and placed in
 // the public domain.
-// There's absolutely no warranty.
+// there is absolutely no warranty.
 // The homepage URL for this framework is:
 //	http://www.openwall.com/phpass/
 // Please be sure to update the Version line if you edit this file in any way.

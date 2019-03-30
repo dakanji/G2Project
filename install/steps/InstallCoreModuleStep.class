@@ -73,8 +73,8 @@ class InstallCoreModuleStep extends InstallStep {
 		if ($ret) {
 			$gallery->debug(
 				sprintf(
-					'Error: Unable to initialize our Gallery data, this is the ' .
-					'error stack trace: %s',
+					'Error: Unable to initialize our Gallery data, '
+					. 'this is the error stack trace: %s',
 					$ret->getAsText()
 				)
 			);
@@ -126,8 +126,8 @@ class InstallCoreModuleStep extends InstallStep {
 			if ($ret) {
 				$gallery->debug(
 					sprintf(
-						'Error: Unable to communicate with the database, this ' .
-						'is the error stack trace; %s',
+						'Error: Unable to communicate with the database, '
+						. 'this is the error stack trace; %s',
 						$ret->getAsText()
 					)
 				);
@@ -147,8 +147,8 @@ class InstallCoreModuleStep extends InstallStep {
 			if ($ret) {
 				$gallery->debug(
 					sprintf(
-						'Error: Unable to load the core module, this ' .
-						'is the error stack trace; %s',
+						'Error: Unable to load the core module, '
+						. 'this is the error stack trace; %s',
 						$ret->getAsText()
 					)
 				);
@@ -194,8 +194,8 @@ class InstallCoreModuleStep extends InstallStep {
 					$this->resetL10Domain();
 					$gallery->debug(
 						sprintf(
-							'Error: Unable to install the core module, this ' .
-							'is the error stack trace; %s',
+							'Error: Unable to install the core module, '
+							. 'this is the error stack trace; %s',
 							$ret->getAsText()
 						)
 					);
@@ -204,50 +204,48 @@ class InstallCoreModuleStep extends InstallStep {
 					$templateData['stackTrace'][] = $ret->getAsHtml();
 				} else {
 					$gallery->debug('Core module installed successfully');
-				}
+					$template->renderStatusMessage(_('Installing the core module'), '', 0.8);
+					$gallery->guaranteeTimeLimit(180);
+					$gallery->debug('Activate core module');
 
-				$template->renderStatusMessage(_('Installing the core module'), '', 0.8);
-				$gallery->guaranteeTimeLimit(180);
-				$gallery->debug('Activate core module');
+					list($ret, $ignored) = $core->activate(false);
 
-				list($ret, $ignored) = $core->activate(false);
+					$this->resetL10Domain();
 
-				$this->resetL10Domain();
+					if ($ret) {
+						$gallery->debug(
+							sprintf(
+								'Error: Unable to activate the core module, '
+								. 'this is the error stack trace; %s',
+								$ret->getAsText()
+							)
+						);
 
-				if ($ret) {
-					$gallery->debug(
-						sprintf(
-							'Error: Unable to activate the core module, this ' .
-							'is the error stack trace; %s',
-							$ret->getAsText()
-						)
-					);
+						$templateData['errors'][]     = _('Unable to activate the core module');
+						$templateData['stackTrace'][] = $ret->getAsHtml();
+					} else {
+						$gallery->debug('Core module activated successfully');
+						$template->renderStatusMessage(_('Installing the core module'), '', 0.9);
+						$gallery->guaranteeTimeLimit(180);
+						$gallery->debug('Commit transaction');
 
-					$templateData['errors'][]     = _('Unable to activate the core module');
-					$templateData['stackTrace'][] = $ret->getAsHtml();
-				} else {
-					$gallery->debug('Core module activated successfully');
-				}
+						$ret = $storage->commitTransaction();
 
-				$template->renderStatusMessage(_('Installing the core module'), '', 0.9);
-				$gallery->guaranteeTimeLimit(180);
-				$gallery->debug('Commit transaction');
+						if ($ret) {
+							$gallery->debug(
+								sprintf(
+									'Error: Unable to commit database transaction, '
+									. 'this is the error stack trace; %s',
+									$ret->getAsText()
+								)
+							);
 
-				$ret = $storage->commitTransaction();
-
-				if ($ret) {
-					$gallery->debug(
-						sprintf(
-							'Error: Unable to commit database transaction, this ' .
-							'is the error stack trace; %s',
-							$ret->getAsText()
-						)
-					);
-
-					$templateData['errors'][]     = _('Unable to commit database transaction');
-					$templateData['stackTrace'][] = $ret->getAsHtml();
-				} else {
-					$gallery->debug('Committed transaction successfully');
+							$templateData['errors'][]     = _('Unable to commit database transaction');
+							$templateData['stackTrace'][] = $ret->getAsHtml();
+						} else {
+							$gallery->debug('Committed transaction successfully');
+						}
+					}
 				}
 			} else {
 				$gallery->debug('NOT installing, rollback!');

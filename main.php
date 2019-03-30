@@ -124,9 +124,10 @@ function GalleryMain($embedded = false) {
 
 	/*
 	 * DA Note: Added Event - BeforeProcess
-	 * Event handlers should return array($ret, $ignored ... which is ignored);
+	 * Event handlers should return array($ret, $ignored ... which is ignored!);
 	 */
-	$event               = GalleryCoreApi::newEvent('Gallery::BeforeProcess');
+	$event = GalleryCoreApi::newEvent('Gallery::BeforeProcess');
+
 	list($ret, $ignored) = GalleryCoreApi::postEvent($event);
 
 	if ($ret) {
@@ -532,7 +533,7 @@ function _GalleryMain($embedded = false, $template = null) {
 				return array($ret, null);
 			}
 
-			// From now on, do not add sessionId to URLs if there's no persistent session
+			// From now on, do not add sessionId to URLs if there is no persistent session
 			$session->doNotUseTempId();
 		}
 
