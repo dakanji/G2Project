@@ -90,13 +90,13 @@ function smarty_modifier_markup($text) {
 
 class GalleryNoMarkupParser {
 	public function parse($text) {
-		return '<p>' . $text . '</p>';
+		return $text;
 	}
 }
 
 class GalleryHtmlMarkupParser {
 	public function parse($text) {
-		return '<p>' . GalleryUtilities::htmlSafe(html_entity_decode($text)) . '</p>';
+		return GalleryUtilities::htmlSafe(html_entity_decode($text));
 	}
 }
 
@@ -228,7 +228,7 @@ class GalleryBbcodeMarkupParser {
 	}
 
 	public function parse($text) {
-		return '<p>' . $this->_bbcode->parse($text) . '</p>';
+		return $this->_bbcode->parse($text);
 	}
 
 	public function url($action, $attributes, $content, $params, &$node_object) {
@@ -249,8 +249,7 @@ class GalleryBbcodeMarkupParser {
 		}
 
 		// The code is like [url=http://.../]Text[/url]
-		return '<a href="' . $attributes['default'] . '" rel="nofollow">'
-			. $content . '</a>';
+		return '<a href="' . $attributes['default'] . '" rel="nofollow">' . $content . '</a>';
 	}
 
 	public function image($action, $attrs, $content, $params, &$node_object) {
@@ -259,8 +258,19 @@ class GalleryBbcodeMarkupParser {
 		}
 
 		// Output of HTML.
-		$size = (isset($attrs['width']) ? ' width="' . (int)$attrs['width'] . '"' : '')
-		. (isset($attrs['height']) ? ' height="' . (int)$attrs['height'] . '"' : '');
+		if (isset($attrs['width'])) {
+			$widthVar = ' width="' . (int)$attrs['width'] . '"';
+		} else {
+			$widthVar = '';
+		}
+
+		if (isset($attrs['height'])) {
+			$heightVar = ' height="' . (int)$attrs['height'] . '"';
+		} else {
+			$heightVar = '';
+		}
+
+		$size = $widthVar . $heightVar;
 
 		// Input should have entities already, so no htmlspecialchars here
 		return sprintf('<img src="%s" alt=""%s/>', $content, $size);
