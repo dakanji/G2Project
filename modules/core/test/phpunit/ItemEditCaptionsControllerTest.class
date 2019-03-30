@@ -341,10 +341,8 @@ class ItemEditCaptionsControllerTest extends GalleryControllerTestCase {
 			return $ret;
 		}
 
-		// Screw up one serial number
 		GalleryUtilities::putRequestVariable(
-			'form[items][' .
-			$this->_items[2]->getId() . '][serialNumber]',
+			'form[items][' . $this->_items[2]->getId() . '][serialNumber]',
 			99
 		);
 

@@ -245,7 +245,7 @@ class GalleryDataItem extends GalleryItem {
 			return $ret;
 		}
 
-		// This path should already be legal, unless we screwed up elsewhere
+		// This path should already be legal
 		$newPath = $newPathBase . $this->getPathComponent();
 
 		if (!$platform->copy($sourcePath, $newPath)) {

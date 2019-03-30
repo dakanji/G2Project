@@ -115,13 +115,11 @@ $gallery->setConfig('storage.config', $storeConfig);
  * choices are: 'buffered', 'logged', 'immediate' or false.  Do not forget to
  * use the quotes for any value but false!
  *
- * If you choose 'immediate', you will see debugging information as soon as
- * Gallery generates it.  This can be useful at times, but it will screw up some
- * parts of the application flow.
+ * If you choose 'immediate', you will see debugging information as soon as Gallery generates it.
+ * This can be useful at times but disrupts some parts of the application flow.
  *
- * If you choose 'buffered', Gallery will display debug information in a table
- * as part of the application.  You would not necessarily get *all* the debug
- * information but the application should work normally.
+ * If you choose 'buffered', Gallery will display debug information in a table as part of the application.
+ * You would not necessarily get *all* the debug information but the application should work normally.
  *
  * If you choose 'logged', you must also specify:
  *    $gallery->setDebugLogFile('/path/to/writeable/file');
