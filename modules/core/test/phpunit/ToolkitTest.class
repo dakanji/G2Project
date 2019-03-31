@@ -596,8 +596,7 @@ class ToolkitTest extends GalleryTestCase {
 		// Rotate transform of cropped operation results in rotated coordinates
 		list($success, $result) = $toolkit->applyTransform(
 			'rotate|90',
-			'rotate|90;
-crop|15,15,40,50'
+			'rotate|90;crop|15,15,40,50'
 		);
 
 		$this->assertTrue($success);
@@ -612,8 +611,7 @@ crop|15,15,40,50'
 		// Empty transform of cropped opreation returns original values
 		list($success, $result) = $toolkit->applyTransform(
 			'',
-			'rotate|90;
-crop|15,15,40,50'
+			'rotate|90;crop|15,15,40,50'
 		);
 
 		$this->assertTrue($success);
@@ -622,8 +620,7 @@ crop|15,15,40,50'
 		// Reverse rotate transform of cropped operation results in rotated coordinates
 		list($success, $result) = $toolkit->applyTransform(
 			'rotate|90',
-			'rotate|90;
-crop|15,15,40,50',
+			'rotate|90;crop|15,15,40,50',
 			true
 		);
 
@@ -655,8 +652,7 @@ crop|15,15,40,50',
 		// Rotate transform of cropped operation results in rotated coordinates
 		list($success, $result) = $toolkit->applyTransform(
 			'rotate|90',
-			'rotate|90;
-crop|15,20.5,40.62,50'
+			'rotate|90;crop|15,20.5,40.62,50'
 		);
 
 		$this->assertTrue($success);
