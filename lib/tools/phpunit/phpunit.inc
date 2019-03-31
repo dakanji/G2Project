@@ -845,8 +845,7 @@ class TestCase extends Assert {
 				global $gallery;
 
 				/*
-				 * DA-HACK
-				 * Array check below is a hack to allow linksinthehead to passe
+				 * DA NOTE: Array check below is a hack to allow linksinthehead to pass
 				 * TODO Remove and resolve real issue.
 				 */
 				if (is_array($ret)) {
@@ -954,8 +953,7 @@ class TestCase extends Assert {
 
 	public function elapsed() {
 		list($startMicro, $startSecs) = explode(' ', $this->fTiming['start']);
-
-		list($stopMicro, $stopSecs) = explode(' ', $this->fTiming['stop']);
+		list($stopMicro, $stopSecs)   = explode(' ', $this->fTiming['stop']);
 
 		return ($stopSecs - $startSecs) + ($stopMicro - $startMicro);
 	}

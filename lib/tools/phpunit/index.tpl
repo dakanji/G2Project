@@ -67,17 +67,17 @@
 			<div class="body">
 				<?php $memLim = ini_get('memory_limit'); ?>
 				<?php $memLimVal = getBytes($memLim); ?>
-				Pass: <span id="pass_count">&nbsp;</span>, Fail <span id="fail_count">&nbsp;</span>, Skip: <span id="skip_count">&nbsp;</span>, Total: <span id="total_count">&nbsp;</span> <br/>
-				Elapsed time: <span id="elapsed_time">&nbsp;</span> <br/>
-				Estimated time remaining: <span id="estimated_time_remaining">&nbsp;</span> <br/>
+				Pass: <span id="pass_count">&nbsp;</span>, Fail <span id="fail_count">&nbsp;</span>, Skip: <span id="skip_count">&nbsp;</span>, Total: <span id="total_count">&nbsp;</span> <br>
+				Elapsed time: <span id="elapsed_time">&nbsp;</span> <br>
+				Estimated time remaining: <span id="estimated_time_remaining">&nbsp;</span> <br>
 				Memory Usage: <span id="used_memory">&nbsp;</span> (<?php echo (0 < $memLimVal) ? $memLim . " allowed" : "Unlimited"; ?>)
 			</div>
 			<div id="show_more" class="header toggle">
 				<img src="add.png" onclick="showMoreStatus()">
 			</div>
 			<div id="more" class="body" style="display: none">
-				Test running: <span id="test_running">none</span> <br/>
-				Last update: <span id="last_update_interval">not running</span> <br/>
+				Test running: <span id="test_running">none</span> <br>
+				Last update: <span id="last_update_interval">not running</span> <br>
 			</div>
 			<div id="show_less" class="header toggle" style="display: none">
 				<img src="../../../modules/icons/iconpacks/silk/delete.png" onclick="showLessStatus()">
@@ -112,9 +112,11 @@
 		<div style="float: right; width: 500px; border: 2px solid red; padding: 3px">
 			<h2 style="margin: 0px"> Development Environment Warning </h2>
 			<div style="margin-left: 5px">
-				The following settings in your development environment are not correct.  See the <a href="http://codex.gallery2.org/index.php/Gallery2:Developer_Guidelines#PHP_Settings">G2 Development Environment</a> page for more information
+				The following settings in your development environment are not correct.
+				See the <a href="http://codex.gallery2.org/index.php/Gallery2:Developer_Guidelines#PHP_Settings">
+				G2 Development Environment</a> page for more information
 			</div>
-			<br/>
+			<br>
 			<table border="0" class="details">
 				<tr>
 					<th> PHP Setting </th>
@@ -145,7 +147,7 @@
 				<script type="text/javascript"> document.getElementById('filter').focus(); </script>
 			<?php endif; ?>
 
-			<br/>
+			<br>
 			<h2>
 			</h2>
 			<div id="help_and_examples" style="display: none">
@@ -158,7 +160,9 @@
 
 				<ul id="filter_examples_list">
 					<li>
-						<a href="javascript:setFilter('AddCommentControllerTest.testAddComment')">AddCommentControllerTest.testAddComment</a>
+						<a href="javascript:setFilter('AddCommentControllerTest.testAddComment')">
+							AddCommentControllerTest.testAddComment
+						</a>
 					</li>
 					<li>
 						<a href="javascript:setFilter('AddCommentControllerTest.testAdd')">AddCommentControllerTest.testAdd</a>
@@ -294,8 +298,8 @@
 	<p><span id="testFailCount">&nbsp;</span> failed
 		with <span id="testErrorCount">&nbsp;</span></p>
 		<p><a href="http://codex.gallery2.org/Gallery2:Test_Matrix#Unit_Tests">Test Matrix Entry</a>:
-			<br/><b><span id="testReport">&nbsp;</span></b>
-			<br/>(<span><a href="javascript:changeUsername()">change username</a></span>)
+			<br><b><span id="testReport">&nbsp;</span></b>
+			<br>(<span><a href="javascript:changeUsername()">change username</a></span>)
 		</p>
 		<script type="text/javascript">
 		function getUsernameFromCookie() {

@@ -144,6 +144,10 @@ class GalleryPhpVm {
 	 * @param boolean $replace (optional)
 	 */
 	public function header($string, $replace = null) {
+		if (!GalleryUtilities::isSafeHttpHeader($string)) {
+			return;
+		}
+
 		return header($string, $replace);
 	}
 
@@ -329,4 +333,3 @@ class GalleryPhpVm {
 		return date($format);
 	}
 }
-
