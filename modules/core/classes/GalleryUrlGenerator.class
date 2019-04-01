@@ -875,8 +875,6 @@ class GalleryUrlGenerator {
 	 * @return GalleryStatus a status code
 	 */
 	public function assertIsInternalUrl($url) {
-		global $gallery;
-
 		if (!empty($url)) {
 			// Detect header injection attempts
 			if (!GalleryUtilities::isSafeHttpHeader($url)) {
@@ -943,8 +941,6 @@ class GalleryUrlGenerator {
 	 * @return string the URL
 	 */
 	public function getNavigationReturnUrl() {
-		global $gallery;
-
 		$formUrl = GalleryUtilities::getRequestVariables('formUrl');
 
 		if (!empty($formUrl)) {
