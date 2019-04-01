@@ -141,9 +141,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			'module',
 			'keyalbum',
 			'split',
-			';
-
-,\s'
+			';,\s'
 		);
 
 		if ($ret) {
@@ -257,7 +255,7 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 
 		$data = $this->_smarty->_tpl_vars['block']['keyalbum']['keywords'];
 
-		//DA-HACK
+		//DA NOTE
 		//TODO: Verify that index 0, added to pass test is really correct
 		$this->assertEquals(3, count($data[0]), '3 keywords');
 
@@ -446,9 +444,12 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			$weight[$keyword['name']] = isset($keyword['weight']) ? $keyword['weight'] : false;
 		}
 
+		// Test True
 		$this->assertTrue(isset($found['testkeyword12345']), 'album keyword');
 		$this->assertTrue(isset($found['testkeyword54321']), 'item keyword 1');
 		$this->assertTrue(isset($found['testkeyword99999']), 'item keyword 2');
+
+		// Test Equals
 		$this->assertEquals('1', $weight['testkeyword12345'], 'weight of singular keyword');
 		$this->assertEquals('1.59', $weight['testkeyword54321'], 'weight of triple keyword');
 		$this->assertEquals('1', $weight['testkeyword99999'], 'weight of double keyword');
@@ -463,10 +464,14 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 			return $ret;
 		}
 
-		$aclCacheKey                                   = "GalleryPermissionHelper::fetchAccessListIds(core.view, $guestId, 1)";
+		$aclCacheKey = "GalleryPermissionHelper::fetchAccessListIds(core.view, $guestId, 1)";
+
+		// Prep Block
 		$this->_smarty->_tpl_vars['block']['keyalbum'] = array();
-		$block                                         =& $this->_smarty->_tpl_vars['block']['keyalbum'];
-		$queries                                       = array(
+
+		// Set Block
+		$block   =& $this->_smarty->_tpl_vars['block']['keyalbum'];
+		$queries = array(
 			array(
 				'/SELECT DISTINCT\s+\[GalleryItem::keywords\]\s+FROM\s+\[GalleryItem\]\s*$/',
 				array(
@@ -684,8 +689,11 @@ class KeywordAlbumCallbacksTest extends GalleryTestCase {
 	}
 
 	public function testSplitKeywords() {
+		// Prep Block
 		$this->_smarty->_tpl_vars['block']['keyalbum'] = array();
-		$block                                         =& $this->_smarty->_tpl_vars['block']['keyalbum'];
+
+		// Set Block
+		$block =& $this->_smarty->_tpl_vars['block']['keyalbum'];
 
 		foreach (array(
 			''                    => array(),
@@ -849,7 +857,7 @@ class KeywordAlbumCallbacksTestStorage {
 					ERROR_BAD_PARAMETER,
 					__FILE__,
 					__LINE__,
-					'Unexpected query: ' . $query
+					'Unexpected query: ' . $query . '.  Expecting: ' . $this->_queries[0][0]
 				),
 				null,
 			);
