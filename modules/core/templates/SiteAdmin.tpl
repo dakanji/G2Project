@@ -38,8 +38,14 @@
 	  </li>
 	  {/foreach}
 	</ul>
+	<br>
+	<div>
+	<h2> {g->text text="Developer Options"} </h2>
+	<a href="{g->url}/../lib/tools/phpunit/index.php">Unit Tests</a>
+	</div>
       </div>
-    </div></td>
+    </div>
+</td>
 
     <td>
       <div id="gsContent" class="gcBorder1">
