@@ -323,9 +323,7 @@ class GallerySetupUtilities {
 	 * @static
 	 */
 	public static function generateAuthenticationKey() {
-		for ($len = 64, $rand = '';
-		 strlen($rand) < $len;
-		 $rand .= chr(!mt_rand(0, 2) ? mt_rand(48, 57) : (!mt_rand(0, 1) ? mt_rand(65, 90) : mt_rand(97, 122)))) {}
+		for ($len = 64, $rand = ''; strlen($rand) < $len; $rand .= chr(!mt_rand(0, 2) ? mt_rand(48, 57) : (!mt_rand(0, 1) ? mt_rand(65, 90) : mt_rand(97, 122)))) {}
 
 		return md5($rand);
 	}
@@ -334,8 +332,8 @@ class GallerySetupUtilities {
 	 * Create a downloadable text file of a specified name and contents.
 	 * Sets headers appropriately.
 	 *
-	 * @param string $name the file's name
-	 * @param string $contents the file's contents
+	 * @param string $name the file name
+	 * @param string $contents the file contents
 	 */
 	public static function generateTextFileForDownload($name, $contents) {
 		header('Content-Type: text/plain');

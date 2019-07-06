@@ -164,7 +164,7 @@ class SmartyPants {
 		$tokens = $this->tokenizeHTML($text);
 		$result = '';
 
-		// Keep track of when we're inside <pre> or <code> tags.
+		// Keep track of when we are inside <pre> or <code> tags.
 		$in_pre = 0;
 
 		// This is a cheat, used to get some context
@@ -458,7 +458,7 @@ class SmartyPants {
 		// an em-dash HTML entity, and each "---" translated to
 		// an en-dash HTML entity. Two reasons why: First, unlike the
 		// en- and em-dash syntax supported by
-		// EducateDashesOldSchool(), it's compatible with existing
+		// EducateDashesOldSchool(), it is compatible with existing
 		// entries written before SmartyPants 1.1, back when "--" was
 		// only used for em-dashes.  Second, em-dashes are more
 		// common than en-dashes, and so it sort of makes sense that

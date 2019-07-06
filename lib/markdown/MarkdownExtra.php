@@ -349,9 +349,9 @@ class MarkdownExtra extends \Michelf\Markdown {
 	 * Hashify HTML Blocks and "clean tags".
 	 *
 	 * We only want to do this for block-level HTML tags, such as headers,
-	 * lists, and tables. That's because we still want to wrap <p>s around
+	 * lists, and tables. That is because we still want to wrap <p>s around
 	 * "paragraphs" that are wrapped in non-block-level tags, such as anchors,
-	 * phrase emphasis, and spans. The list of tags we're looking for is
+	 * phrase emphasis, and spans. The list of tags we are looking for is
 	 * hard-coded.
 	 *
 	 * This works by calling _HashHTMLBlocks_InMarkdown, which then calls
@@ -585,7 +585,7 @@ class MarkdownExtra extends \Michelf\Markdown {
 
 			// Check for: Opening Block level tag or
 			//            Opening Context Block tag (like ins and del)
-			//               used as a block tag (tag is alone on it's line).
+			//               used as a block tag (tag is alone on its line).
 			elseif (preg_match('{^<(?:' . $this->block_tags_re . ')\b}', $tag)
 				|| (preg_match('{^<(?:' . $this->context_block_tags_re . ')\b}', $tag)
 				&& preg_match($newline_before_re, $parsed)

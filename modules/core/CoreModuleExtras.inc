@@ -705,7 +705,7 @@ class CoreModuleExtras {
 
 				// Fall Through
 			case '0.8.13':
-				// We used to add layout versioning here.  Now that's been moved to the 0.9.29 block.
+				// We used to add layout versioning here.  Now that is been moved to the 0.9.29 block.
 			case '0.8.14':
 				// Added Entity::onLoadHandlers; default all values to null
 				$ret = $storage->configureStore($module->getId(), array('GalleryEntity:1.0'));

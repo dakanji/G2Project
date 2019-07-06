@@ -78,7 +78,7 @@ class CleanCacheStep extends UpgradeStep {
 		}
 
 		/*
-		 * Delete the install.log file that's left over from 2.0 and 2.0.1 installs
+		 * Delete the install.log file that is left over from 2.0 and 2.0.1 installs
 		 * since it is in a known location and contains potential information leaks.
 		 */
 		$dataBase             = $gallery->getConfig('data.gallery.base');

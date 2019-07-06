@@ -1956,8 +1956,8 @@ class ItemTest extends GalleryTestCase {
 		}
 
 		/*
-		 * Set the album preferences such that we have one resize that's smaller than the
-		 * original, and one that's larger.  We know that the image we are using is 62x75
+		 * Set the album preferences such that we have one resize that is smaller than the
+		 * original, and one that is larger.  We know that the image we are using is 62x75
 		 */
 		$ret = GalleryCoreApi::removeDerivativePreferencesForItem($this->_album->getId());
 

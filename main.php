@@ -70,7 +70,7 @@ if ($gallery->isEmbedded()) {
 
 		/*
 		 * Fast download depends on having data.gallery.cache set, so set it now.  If for some
-		 * reason we fail, we will reset it in init.inc (but that's OK).
+		 * reason we fail, we will reset it in init.inc (but that is OK).
 		 */
 		$gallery->setConfig(
 			'data.gallery.cache',
@@ -539,8 +539,8 @@ function _GalleryMain($embedded = false, $template = null) {
 
 		/*
 		 * If this is an immediate view, it will send its own output directly.  This is used in the
-		 * situation where we want to send back data that's not controlled by the layout.  That's
-		 * usually something that's not user-visible like a binary file.
+		 * situation where we want to send back data that is not controlled by the layout.  That's
+		 * usually something that is not user-visible like a binary file.
 		 */
 		$data = array();
 

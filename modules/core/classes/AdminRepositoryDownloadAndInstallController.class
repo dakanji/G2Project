@@ -345,7 +345,7 @@ class AdminRepositoryDownloadAndInstallController extends GalleryController {
 
 	/**
 	 * Update the repository index, and scan all installed plugins and update
-	 * GalleryPluginPackageMap with a complete listing of everything that's installed.
+	 * GalleryPluginPackageMap with a complete listing of everything that is installed.
 	 *
 	 * @todo Show a summary page (or at least a link to it) which contains details about
 	 * the exact tasks that were performed and any errors that were encountered.

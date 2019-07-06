@@ -93,7 +93,7 @@ class PhpVmTest extends GalleryTestCase {
 	}
 
 	/*
-	 * header() can only be tested with an actual HTTP requests, that's why we added it
+	 * header() can only be tested with an actual HTTP requests, that is why we added it
 	 * to the mock VM
 	 */
 	public function testHeader() {

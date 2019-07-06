@@ -88,7 +88,7 @@ class CoreModule extends GalleryModule {
 		}
 
 		/*
-		 * We are not doing this as the acting user id, but that's OK because we are not displaying
+		 * We are not doing this as the acting user id, but that is OK because we are not displaying
 		 * the result; we are only using it as a gating factor for whether or not we show a link, and
 		 * that will also be gated by the permissions we receive which *will* be for the acting user.
 		 */

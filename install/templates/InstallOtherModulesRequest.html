@@ -1,3 +1,5 @@
+
+
   <?php if (!empty($templateData['stackTrace'])) {
 	?>
   <div class="stack_trace">
@@ -5,32 +7,34 @@
   </div><br/>
 		<?php
 }
+
 	?>
-
   <h1><?php echo _('Install Plugins'); ?></h1>
-
   <script type="text/javascript">
+
 	// <![CDATA[
 	function checkAll(newValue) {
 	for (var i = 0; i < document.forms[0].length; i++) {
 		var element = document.forms[0].elements[i];
+
 		if (element.type == 'checkbox' &&
+
 		element.name.substr(0,6) == 'module' && !element.disabled) {
 		element.checked = newValue;
 		}
 	}
 	}
+
 	// ]]>
   </script>
-
   <p>
 	<?php echo _("The following modules can be automatically installed and activated for you.  You should install at least one of the graphics toolkits otherwise Gallery cannot make thumbnails out of your images.  On most systems, the automatic install will work properly for you.  However, in some cases it may fail.  You can always activate new modules or deactivate any of the ones you choose here on the Site Administration page, so any decision you make here is not permanent."); ?>
   </p>
   <p>
-	<?php echo _("Some modules may fail to install automatically.  That's ok.  It typically means that they require some configuration, which you can do on the Site Adminstration page"); ?>
+	<?php echo _("Some modules may fail to install automatically.  That is ok.  It typically means that they require some configuration, which you can do on the Site Adminstration page"); ?>
   </p>
-
 	<?php
+
 	if (!empty($templateData['groupedModules'])) {
 		?>
 	<form method="post" action="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $stepNumber)); ?>">
@@ -59,12 +63,14 @@
 	  </tr>
 			<?php $counter = 0; ?>
 			<?php
+
 			foreach ($modules as $id => $module) {
 				?>
 				<?php $isInstalled = $templateData['moduleInstalled'][$id]; ?>
 				<?php $isInvalid = $templateData['moduleInvalid'][$id]; ?>
 	  <tr
 				<?php
+
 				if ($counter % 2 == 0) {
 					echo ' style="background-color: #eee"';
 				} ?>
@@ -73,6 +79,7 @@
 		  <input type="checkbox" checked="checked"
 		id="module_<?php echo $id; ?>" name="module[<?php echo $id; ?>]"
 				<?php
+
 				if ($isInstalled || $isInvalid) {
 					?>
 		  disabled="disabled"
@@ -84,6 +91,7 @@
 		</td>
 		<td>
 				<?php
+
 				if ($isInstalled || $isInvalid) {
 					?>
 					 <span class="disabled"> 
@@ -93,6 +101,7 @@
 				<?php echo $module->getName(); ?>
 		  </label>
 				<?php
+
 				if ($isInstalled || $isInvalid) {
 					?>
 					 </span> 
@@ -101,6 +110,7 @@
 		</td>
 		<td>
 				<?php
+
 				if ($isInstalled || $isInvalid) {
 					?>
 					 <span class="disabled"> 
@@ -108,6 +118,7 @@
 				} ?>
 				<?php echo $module->getVersion(); ?>
 				<?php
+
 				if ($isInstalled || $isInvalid) {
 					?>
 					 </span> 
@@ -116,6 +127,7 @@
 		</td>
 		<td>
 				<?php
+
 				if ($isInstalled || $isInvalid) {
 					?>
 					 <span class="disabled"> 
@@ -123,10 +135,12 @@
 				} ?>
 				<?php echo $module->getDescription(); ?>
 				<?php
+
 				if ($isInvalid) {
 					echo '<br/>' . _('(Incompatible with this Gallery version)');
 				} ?>
 				<?php
+
 				if ($isInstalled || $isInvalid) {
 					?>
 					 </span> 
@@ -140,6 +154,7 @@
 			<?php
 		} ?>
 		<?php
+
 		if ($templateData['anyInstallable']) {
 			?>
 	<tr style="background-color: #ccc">
@@ -157,8 +172,8 @@
 		} ?>
 	  </table>
 	</form>
-
 		<?php
+
 		if ($templateData['anyInstallable']) {
 			?>
 	<div class="go">

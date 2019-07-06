@@ -154,7 +154,7 @@
   <h3> {g->text text="Email"} </h3>
 
   <p class="giDescription">
-    {g->text text="By default Gallery uses PHP's built in mail function to send email which requires no configuration.  To use a smtp/mail server enter the information below, including authentication information if required.  Optionally add :port after the server name to use a non-default port."}
+    {g->text text="By default Gallery uses the PHP mail function to send email which requires no configuration.  To use a smtp/mail server enter the information below, including authentication information if required.  Optionally add :port after the server name to use a non-default port."}
   </p>
 
   <table class="gbDataTable"><tr>

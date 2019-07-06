@@ -1014,7 +1014,7 @@ class ItemAddControllerTest extends GalleryControllerTestCase {
 
 		ob_start();
 
-		// Do a static call, that's how WebDAV invokes / invoked the controller.
+		// Do a static call, that is how WebDAV invokes / invoked the controller.
 		list($ret, $results) = ItemAddController::getMe()->handleRequest(array());
 
 		$output = ob_get_contents();

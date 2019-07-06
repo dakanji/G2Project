@@ -135,7 +135,7 @@ $gallery->setDebug(false);
 
 /*
  * Profiling mode.  You can enable profiling for different parts of G2 to get an
- * idea of what's fast and slow.  Right now the only options are to enable SQL
+ * idea of what is fast and slow.  Right now the only options are to enable SQL
  * profiling:
  *
  * $gallery->setProfile(array('sql'));

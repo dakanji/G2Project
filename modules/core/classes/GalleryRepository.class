@@ -191,7 +191,7 @@ class GalleryRepository {
 
 		/*
 		 * We only compare versions, not builds, because upgrading the core module is not something
-		 * that's done very often, at least until it is done manually.
+		 * that is done very often, at least until it is done manually.
 		 */
 		list($ret, $relation) = $this->_utilities->compareVersions($repositoryVersion, $core->getVersion());
 

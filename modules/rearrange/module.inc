@@ -75,7 +75,7 @@ class RearrangeModule extends GalleryModule {
 
 		if (!empty($itemIds)) {
 			/*
-			 * This does not obey the acting user id, but that's ok because we only use it to
+			 * This does not obey the acting user id, but that is ok because we only use it to
 			 * determine if the link has children.  We are still gated on the acting user id's
 			 * permissions.
 			 */

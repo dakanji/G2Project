@@ -520,11 +520,6 @@ class Services_JSON {
 				$m = array();
 
 				if (is_numeric($str)) {
-					// Lookie-loo, it is a number
-					// This would work on its own, but I'm trying to be
-					// good about returning integers where appropriate:
-					// return (float)$str;
-					// Return float or int, as appropriate
 					return ((float)$str == (int)$str) ? (int)$str : (float)$str;
 				}
 

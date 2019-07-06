@@ -493,9 +493,7 @@ class UtilitiesTest extends GalleryTestCase {
 			"t\xc3\xa9st"                      => "t\xc3\xa9st",
 			"\x47\x32\xce\x93\xce\xb2\xc3\x80" => "G2\xce\x93\xce\xb2\xc3\x80",
 			'apo\'strophe quo"tes'             => 'apo\'strophe quo&quot;tes',
-		) as
-
-		$raw => $cooked) {
+		) as $raw => $cooked) {
 			if (get_magic_quotes_gpc()) {
 				// Simulate magic_quotes_gpc
 				$raw = addslashes($raw);
@@ -2454,8 +2452,8 @@ class UtilitiesTest extends GalleryTestCase {
 
 	public function testHtmlSafeWithDecode() {
 		/*
-		 * I do not fully understand why htmlSafe does this particular transform, so I'm
-		 * documenting it here in case it changes.
+		 * Not sure why htmlSafe does this particular transform,
+		 * So documenting it here in case it changes.
 		 */
 		$this->assertEquals(
 			'December &amp;lt;#952&gt;',

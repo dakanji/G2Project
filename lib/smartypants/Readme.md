@@ -158,7 +158,7 @@ apostrophes are used at the start of leading contractions. For example:
 In the case above, SmartyPants will turn the apostrophe into an opening
 single-quote, when in fact it should be a closing one. I don't think
 this problem can be solved in the general case -- every word processor
-I've tried gets this wrong as well. In such cases, it's best to use the
+I've tried gets this wrong as well. In such cases, it is best to use the
 proper HTML entity for closing single-quotes (`&#8217;` or `&rsquo;`) by
 hand.
 
@@ -234,7 +234,7 @@ PHP SmartyPants 1.5.1f:
 *	SmartyPants parser is now encapsulated in its own class, with methods and
 	configuration variables `public` and `protected` protection attributes.
 	This has been available in unreleased versions since a few years, but now 
-	it's official.
+	it is official.
 
 *	SmartyPants now works great with PSR-0 autoloading and Composer. If
 	however you prefer to more directly `require_once` the files, the

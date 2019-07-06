@@ -140,9 +140,7 @@ class ADODB_postgres64 extends ADOConnection {
 	// The last (fmtTimeStamp is not entirely correct:
 	// PostgreSQL also has support for time zones,
 	// and writes these time in this format: "2001-03-01 18:59:26+02".
-	// There is no code for the "+02" time zone information, so I just left that out.
-	// I'm not familiar enough with both ADODB as well as Postgres
-	// to know what the concequences are. The other values are correct (where not in 0.94)
+	// There is no code for the "+02" time zone information, so just left that out.
 	// -- Freek Dijkstra
 	public function __construct() {
 		// changes the metaColumnsSQL, adds columns: attnum[6]

@@ -1337,7 +1337,7 @@ class JPEG {
 		$alignCheck = $this->_getShort($data, $pos + 2, $isBigEndian);
 
 		if ($alignCheck != 0x002A) {
-			// That's the expected value
+			// That is the expected value
 			return false;
 		} // Unexpected data
 
@@ -1608,7 +1608,7 @@ class JPEG {
 
 				//echo sprintf("<h1>Unknown tag %02x (t: %d l: %d) %s in %s</h1>", $tag, $type, $count, $mode, $this->_fileName);
 					// Unknown Tags will be ignored!!!
-					// That's because the tag might be a pointer (like the Exif tag)
+					// That is because the tag might be a pointer (like the Exif tag)
 					// and saving it without saving the data it points to might
 					// create an invalid file.
 			}

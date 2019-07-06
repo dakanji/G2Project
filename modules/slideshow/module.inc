@@ -354,7 +354,7 @@ class SlideshowModule extends GalleryModule {
 		) {
 			/**
 			 * We store the template in the entity field because we need a reference to it, and
-			 * that's the only reference to be had.  Theoretically in PHP5 this problem goes away
+			 * that is the only reference to be had.  Theoretically in PHP5 this problem goes away
 			 * and we can store lots of stuff in the data member.  But for now, we store the
 			 * template there, and we get the item by leaning on GalleryView.
 			 */

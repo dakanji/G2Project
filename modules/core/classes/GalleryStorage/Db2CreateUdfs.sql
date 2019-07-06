@@ -178,7 +178,7 @@ THEN
   IF (character_required = 1)  
   THEN            -- See that really horrible case where there are two consecutive wildcards and
     RETURN 1;     --  the second wildcard is '_' and  that '_' is the last character in the pattern
-  ELSE  -- if there is more subject left, that's bad
+  ELSE  -- if there is more subject left, that is bad
     RETURN 0;
   END IF;
 END IF;      

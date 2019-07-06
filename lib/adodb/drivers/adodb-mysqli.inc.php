@@ -1207,7 +1207,7 @@ if (!defined('_ADODB_MYSQLI_LAYER')) {
 				return false;
 			}
 
-			// CD: There is no $this->_connectionID variable, at least in the ADO version I'm using
+			// CD: There is no $this->_connectionID variable
 			$this->_queryID = ($ADODB_COUNTRECS) ? @mysqli_store_result($this->connection->_connectionID) : @mysqli_use_result($this->connection->_connectionID);
 
 			if (!$this->_queryID) {

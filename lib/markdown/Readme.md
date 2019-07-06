@@ -3,10 +3,10 @@ PHP Markdown
 
 PHP Markdown Lib 1.8.0 - 14 Jan 2018
 
-by Michel Fortin  
+by Michel Fortin
 <https://michelf.ca/>
 
-based on Markdown by John Gruber  
+based on Markdown by John Gruber
 <https://daringfireball.net/>
 
 
@@ -25,9 +25,9 @@ software tool, originally written in Perl, that converts the plain text
 markup to HTML. PHP Markdown is a port to PHP of the original Markdown
 program by John Gruber.
 
-*	[Full documentation of the Markdown syntax](<https://daringfireball.net/projects/markdown/>)  
+*	[Full documentation of the Markdown syntax](<https://daringfireball.net/projects/markdown/>)
 	— Daring Fireball (John Gruber)
-*	[Markdown Extra syntax additions](<https://michelf.ca/projects/php-markdown/extra/>)  
+*	[Markdown Extra syntax additions](<https://michelf.ca/projects/php-markdown/extra/>)
 	— Michel Fortin
 
 
@@ -281,7 +281,7 @@ PHP Markdown Lib 1.5.0 (1 Mar 2015)
 PHP Markdown Lib 1.4.1 (4 May 2014)
 
 *	The HTML block parser will now treat `<figure>` as a block-level element
-	(as it should) and no longer wrap it in `<p>` or parse it's content with
+	(as it should) and no longer wrap it in `<p>` or parse its content with
 	the as Markdown syntax (although with Extra you can use `markdown="1"`
 	if you wish to use the Markdown syntax inside it).
 
@@ -364,7 +364,7 @@ PHP Markdown Extra 1.2.6:
 
 *	Fixed a small mistake that could cause the parser to retain an invalid
 	state related to parsing links across multiple runs. This was never
-	observed (that I know of), but it's still worth fixing.
+	observed (that I know of), but it is still worth fixing.
 
 
 Copyright and License
@@ -372,12 +372,12 @@ Copyright and License
 
 PHP Markdown Lib
 Copyright (c) 2004-2016 Michel Fortin
-<https://michelf.ca/>  
+<https://michelf.ca/>
 All rights reserved.
 
-Based on Markdown  
-Copyright (c) 2003-2005 John Gruber  
-<https://daringfireball.net/>  
+Based on Markdown
+Copyright (c) 2003-2005 John Gruber
+<https://daringfireball.net/>
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

@@ -11,7 +11,7 @@
  *
  * http://cvs.horde.org/co.php/horde/COPYING?r=2.1
  *
- * I'm not exactly sure what the license restrictions are in this case,
+ * Not exactly sure what the license restrictions are in this case,
  * but I want to give full credit to the original authors:
  *
  * Copyright 2000-2002 Joris Braakman <jbraakman@yahoo.com>
@@ -19,8 +19,7 @@
  * Copyright 2001-2002 Jan Schneider <jan@horde.org>
  *
  * We have modified the script somewhat to make it work cleanly with the
- * way that Gallery embeds internationalized text, so let's tack on our
- * own copyrights.
+ * way that Gallery embeds internationalized text
  *
  * Copyright (C) 2002-2008 Bharat Mediratta <bharat@menalto.com>
  *

@@ -181,16 +181,7 @@ function render($renderType, $options = array()) {
 	}
 
 	if ($renderType == 'passwordForm') {
-		startForm();
-
-		if (!empty($options['attempts'])) {
-			?>
-					<div class="alert alert-warning">
-						Failed login attempts: <?php echo $options['attempts']; ?> out of a total of
-						<?php echo G2_SUPPORT_MAX_LOGIN_ATTEMPTS; ?>.
-					</div>
-					<?php
-		} ?>
+		startForm(); ?>
 				<div class="alert alert-danger">
 					<p>
 						Please enter the Gallery2 setup password created during installation.
@@ -207,37 +198,37 @@ function render($renderType, $options = array()) {
 						<input type="submit" value="Authenticate" class="btn btn-primary">
 						<script>document.forms[0]['password'].focus();</script>
 					</p>
-			</div>
+				</div>
 				<?php
 
-				if (isset($options['missingPassword'])) {
-					?>
+				if (!empty($options['attempts'])) {
+					echo '
 					<div class="alert alert-warning">
-						Please enter a password!
-					</div>
-					<?php
-				} ?>
-			</form>
-						<?php
-	} ?>
-		<?php
+						Failed attempts: ' . $options['attempts'] . ' of ' . G2_SUPPORT_MAX_LOGIN_ATTEMPTS . '
+					</div>';
+				}
 
-		if ($renderType == 'loginTxtForm') {
-			?>
-			<?php startForm(); ?>
+		if (isset($options['missingPassword'])) {
+			echo '
+					<div class="alert alert-warning">
+						Please Enter a Password
+					</div>';
+		}
+
+		echo '</form>';
+	}
+
+	if ($renderType == 'loginTxtForm') {
+		startForm();
+		echo '
 			<p class="alert alert-danger">
-				<b>
-					<?php
+				<b>';
 
-					if (!empty($options['error'])) {
-						?>
-						There was a problem connecting to the database.
-						<?php
-					} else {
-						?>
-						You have exceeded the maximum attempts to login by entering a password.
-						<?php
-					} ?>
+		if (!empty($options['error'])) {
+			echo 'There was a problem connecting to the database.';
+		} else {
+			echo 'You have exceeded the maximum attempts to login by entering a password.';
+		} ?>
 				</b>
 			</p>
 			<p>
@@ -252,10 +243,10 @@ function render($renderType, $options = array()) {
 				<br>
 				Please upload this to your Gallery2 installation.
 			</div>
-			<?php
+				<?php
 
-			if (!empty($options['authFileErrors'])) {
-				?>
+				if (!empty($options['authFileErrors'])) {
+					?>
 				<div class="alert alert-danger">
 					<?php
 
@@ -271,23 +262,23 @@ function render($renderType, $options = array()) {
 					} elseif (!empty($options['authFileErrors']['mismatch'])) {
 						?>
 						The password in your authFile.txt file does not match the key above!
-							<?php
+						<?php
 					} ?>
 				</div>
-				<?php
-			} ?>
+					<?php
+				} ?>
 			<p>
-			<?php
+				<?php
 
-			if (!empty($options['error'])) {
-				// DA-Note
-				// TODO: Why is there a redundant if block?
-			} ?>
+				if (!empty($options['error'])) {
+					// DA-Note
+					// TODO: Why is there a redundant if block?
+				} ?>
 				<input type="submit" value="Authenticate">
 			</p>
 		</form>
-			<?php
-		} ?>
+				<?php
+	} ?>
 </div>
 </body>
 </html>

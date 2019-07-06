@@ -85,7 +85,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 			if (!$ret) {
 				/*
 				 * Do the upgrade in bootstrap mode so that we avoid going to the
-				 * database for anything that's not vital.
+				 * database for anything that is not vital.
 				 */
 				$ret = $core->installOrUpgrade(true, $template);
 

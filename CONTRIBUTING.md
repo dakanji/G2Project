@@ -50,6 +50,6 @@ There is also a function to update the version of Git which is embedded in the i
 
 ## Contributor License Agreement
 
-For both your and the project effort's benefit, there is a requirement to sign the [Contributor License Agreement](https://cla-assistant.io/dakanji/G2Project) before contributions can be accepted. This is to provide clarity on rights to assign and use such contributions in future. 
+For the benefit of both you and the project, there is a requirement to sign the [Contributor License Agreement](https://cla-assistant.io/dakanji/G2Project) before contributions can be accepted. This is to provide clarity on rights to assign and use such contributions in future. 
 
 You will note that the agreement imposes an obligation on the project of releasing such contributions under Version 2, or future versions, of the General Public License.

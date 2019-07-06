@@ -32,7 +32,7 @@ class SlideshowHelperTest extends GalleryTestCase {
 
 	/**
 	 * Utility function to create a simple album hierarchy for testing.  Call it with an option
-	 * string that's colon delimited where each delimited section creates one item in the album
+	 * string that is colon delimited where each delimited section creates one item in the album
 	 *  'thumbnail:thumbnail,preferred:nonphoto,thumbnail:thumbnail:resize_100'
 	 *
 	 * The above example will create an album containing:

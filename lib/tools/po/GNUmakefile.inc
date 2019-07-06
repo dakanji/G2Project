@@ -7,7 +7,7 @@
 #
 # http://cvs.horde.org/co.php/horde/COPYING?r=2.1
 #
-# I'm not exactly sure what the license restrictions are in this case,
+# Not exactly sure what the license restrictions are in this case,
 # but I want to give full credit to the original authors:
 #
 # Copyright 2000-2002 Joris Braakman <jbraakman@yahoo.com>

@@ -254,7 +254,7 @@ define('ERROR_REQUEST_FORGED', 0x00000100);
 
 /**
  * You attempted to modify an object using an in-memory version that is out of date with the version
- * that's in the storage.
+ * that is in the storage.
  */
 define('ERROR_OBSOLETE_DATA', 0x00000200);
 

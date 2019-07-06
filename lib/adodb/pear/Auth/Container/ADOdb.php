@@ -117,7 +117,7 @@ class Auth_Container_ADOdb extends Auth_Container {
 	 * Prepare database connection
 	 *
 	 * This function checks if we have already opened a connection to
-	 * the database. If that's not the case, a new connection is opened.
+	 * the database. If that is not the case, a new connection is opened.
 	 *
 	 * @access private
 	 * @return mixed True or a DB error object.
@@ -137,7 +137,7 @@ class Auth_Container_ADOdb extends Auth_Container {
 	 * Prepare query to the database
 	 *
 	 * This function checks if we have already opened a connection to
-	 * the database. If that's not the case, a new connection is opened.
+	 * the database. If that is not the case, a new connection is opened.
 	 * After that the query is passed to the database.
 	 *
 	 * @access public

@@ -343,14 +343,14 @@ class Markdown implements MarkdownInterface {
 		 * Hashify HTML blocks:
 		 *
 		 * We only want to do this for block-level HTML tags, such as headers,
-		 * lists, and tables. That's because we still want to wrap <p>s around
+		 * lists, and tables. That is because we still want to wrap <p>s around
 		 * "paragraphs" that are wrapped in non-block-level tags, such as
-		 * anchors, phrase emphasis, and spans. The list of tags we're looking
+		 * anchors, phrase emphasis, and spans. The list of tags we are looking
 		 * for is hard-coded:
 		 *
 		 * *  List "a" is made of tags which can be both inline or block-level.
 		 *    These will be treated block-level when the start tag is alone on
-		 *    its line, otherwise they're not matched here and will be taken as
+		 *    its line, otherwise they are not matched here and will be taken as
 		 *    inline later.
 		 * *  List "b" is made of tags which are always block-level;
 		 */
@@ -1162,11 +1162,11 @@ class Markdown implements MarkdownInterface {
 	 */
 	protected function processListItems($list_str, $marker_any_re) {
 		/**
-		 * The $this->list_level global keeps track of when we're inside a list.
+		 * The $this->list_level global keeps track of when we are inside a list.
 		 * Each time we enter a list, we increment it; when we leave a list,
-		 * we decrement. If it's zero, we're not in a list anymore.
+		 * we decrement. If it is zero, we are not in a list anymore.
 		 *
-		 * We do this because when we're not inside a list, we want to treat
+		 * We do this because when we are not inside a list, we want to treat
 		 * something like this:
 		 *
 		 *      I recommend upgrading to version
@@ -1176,9 +1176,9 @@ class Markdown implements MarkdownInterface {
 		 * As a single paragraph, despite the fact that the second line starts
 		 * with a digit-period-space sequence.
 		 *
-		 * Whereas when we're inside a list (or sub-list), that line will be
+		 * Whereas when we are inside a list (or sub-list), that line will be
 		 * treated as the start of a sub-list. What a kludge, huh? This is
-		 * an aspect of Markdown's syntax that's hard to parse perfectly
+		 * an aspect of Markdown's syntax that is hard to parse perfectly
 		 * without resorting to mind-reading. Perhaps the solution is to
 		 * change the syntax rules such that sub-lists must start with a
 		 * starting cardinal number; e.g. "1." or "a.".

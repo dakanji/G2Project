@@ -1804,7 +1804,7 @@ class RepositoryTest extends GalleryTestCase {
 
 			/*
 			 * If the plugin should be locally available, we set localVersion to some value,
-			 * because that's what GalleryRepositoryIndex::getPlugins() would do.
+			 * because that is what GalleryRepositoryIndex::getPlugins() would do.
 			 */
 			if ($case['isAvailable']) {
 				$case['pluginData']['plugins']['module']['testModule']['localVersion'] = 'someVersion';
@@ -2594,8 +2594,7 @@ class RepositoryTest extends GalleryTestCase {
 
 	public function testGetPluginUpgradeInfoForBasePackageUpgrade() {
 		list($repository, $languages) = $this->_prepareForGetPluginUpgradeInfo();
-
-		list($ret, $info) = $repository->getPluginUpgradeInfo('module', 'testModule');
+		list($ret, $info)             = $repository->getPluginUpgradeInfo('module', 'testModule');
 
 		if ($ret) {
 			return $ret;
@@ -2627,8 +2626,7 @@ class RepositoryTest extends GalleryTestCase {
 
 	public function testGetPluginUpgradeInfoInstalledVersionNewer() {
 		list($repository, $languages) = $this->_prepareForGetPluginUpgradeInfo(true);
-
-		list($ret, $info) = $repository->getPluginUpgradeInfo('module', 'testModule', false);
+		list($ret, $info)             = $repository->getPluginUpgradeInfo('module', 'testModule', false);
 
 		if ($ret) {
 			return $ret;

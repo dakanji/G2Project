@@ -42,7 +42,7 @@ class SmartyPantsTypographer extends \Michelf\SmartyPants {
 	// Space before a colon. "He said_: here it is."
 	public $space_colon = '&#160;';
 
-	// Space before a semicolon. "That's what I said_; that's what he said."
+	// Space before a semicolon. "That is what I said_; that is what he said."
 	public $space_semicolon = '&#160;';
 
 	// Space before a question mark and an exclamation mark: "¡_Holà_! What_?"

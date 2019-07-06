@@ -13,9 +13,6 @@
  * More recently tested with PHP 5.1.2 and Apache 2.0.55 on Windows XP SP2.
  *
  * This file was ported from "adodb-odbc.inc.php" by Larry Menard, "larry.menard#rogers.com".
- * I ripped out what I believed to be a lot of redundant or obsolete code, but there are
- * probably still some remnants of the ODBC support in this file; I'm relying on reviewers
- * of this code to point out any other things that can be removed.
  */
 
 // security - hide paths

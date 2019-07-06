@@ -698,14 +698,14 @@ class GallerySession {
 		 * www.example.com cookies when it should not.  Together with the php bug (least, most
 		 * specific cookie match in HTTP_COOKIE), this results in an unpredictable behavior for
 		 * various php version / IE scenarios.  Luckily we can fix this manually with
-		 * fixCookieVars().  That's why we chose this approach.
+		 * fixCookieVars().  That is why we chose this approach.
 		 *
 		 * Q: Why append the session id in embedded Gallery to all DownloadItem URLs?
 		 * A: In embedded Gallery, all DownloadItem requests still go directly to Gallery and not
 		 * through the emApp for performance reasons.  If we set the cookie path in embedded Gallery
 		 * to a path that matches embedded and standalone Gallery, then the standalone Gallery
 		 * cookies always have precendence over the cookies from embedded Gallery. This leads to
-		 * cookie conflicts, if the two cookies correspond to different sessions.  That's why we are
+		 * cookie conflicts, if the two cookies correspond to different sessions.  That is why we are
 		 * forced to append the session id to embedded URLs that require session management and go
 		 * directly to standalone Gallery.  DownloadItem is the only request that falls into this
 		 * category.

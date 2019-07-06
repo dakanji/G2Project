@@ -126,7 +126,7 @@ class RepositoryIndex extends RepositoryObject {
 					}
 
 					/*
-					 * Check if current plugin is a newer version of a plugin that's already in the
+					 * Check if current plugin is a newer version of a plugin that is already in the
 					 * in the index. We replace it if it is, because the index should only contain
 					 * the latest versions of plugins.
 					 */

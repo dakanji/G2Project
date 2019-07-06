@@ -294,7 +294,7 @@ class GalleryStorage {
 
 	/**
 	 * Get the reference to our GalleryStorageExtras instance where we put less frequently used code
-	 * (most code that's used to modify the database).
+	 * (most code that is used to modify the database).
 	 *
 	 * @return GalleryStorageExtras
 	 * @access protected
@@ -1457,7 +1457,7 @@ class GalleryStorage {
 	}
 
 	/**
-	 * Encode a blob of binary data into a form that's safe for a varchar column
+	 * Encode a blob of binary data into a form that is safe for a varchar column
 	 *
 	 * @param string $blob binary data
 	 * @return database safe string
@@ -1467,7 +1467,7 @@ class GalleryStorage {
 	}
 
 	/**
-	 * Decode a blob of binary data into a form that's safe for a varchar column
+	 * Decode a blob of binary data into a form that is safe for a varchar column
 	 *
 	 * @param string $blob database safe string
 	 * @return binary data

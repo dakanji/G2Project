@@ -1,6 +1,6 @@
 	<h1><?php echo _('Erase data for a clean install'); ?></h1>
-
 	<?php
+
 	if (empty($templateData['errors'])) {
 		?>
 	<p>
@@ -11,7 +11,7 @@
 		?>
 	<div class="error">
 	  <h2>
-		<?php echo _("There was an error erasing the db and storage directory data. Here's the error:"); ?>
+		<?php echo _('There was an error erasing the db and storage directory data. Here is the error:'); ?>
 	  </h2>
 	</div>
 	<div>
@@ -19,6 +19,7 @@
 	</div>
 		<?php
 	}
+
 	?>
 	<div class="go">
 	  <a href="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $currentStep->getStepNumber())); ?>" class="btn redo"><i></i><span><span></span><i></i><?php echo _('Cancel'); ?></span></a>

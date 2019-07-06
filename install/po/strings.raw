@@ -161,7 +161,7 @@ gettext("Save") /* also in: templates/DatabaseSetupRequest.html templates/Storag
 gettext("Admin user info entered successfully.")
 
 /* templates/AuthenticateRequest.html */
-gettext("In order to proceed with the install, we have to verify that you are who you claim.  The best way to be sure is to ask you to make a tiny change in the Gallery directory which will prove that you have the right permissions.  So, we are going to ask that you create a new text file called <strong>authFile.txt</strong> in the <tt>%s</tt> directory on your webserver (that's the same directory where main.php is located). It must contain the following randomly generated characters:")
+gettext("In order to proceed with the install, we have to verify that you are who you claim.  The best way to be sure is to ask you to make a tiny change in the Gallery directory which will prove that you have the right permissions.  So, we are going to ask that you create a new text file called <strong>authFile.txt</strong> in the <tt>%s</tt> directory on your webserver (that is the same directory where main.php is located). It must contain the following randomly generated characters:")
 gettext("As a convenience to you, we have prepared a %scorrect version of authFile.txt%s for you.  Download that and copy it into your <tt>%s</tt> directory and you are all set.")
 gettext("Once you have uploaded the file, click below to continue.")
 gettext("Authenticate Me")
@@ -172,7 +172,7 @@ gettext("Authentication successful!")
 /* templates/CleanInstallRequest.html */
 gettext("Erase data for a clean install")
 gettext("Are you really sure you want to delete all your data in your Gallery storage directory and all your data in your Gallery database?")
-gettext("There was an error erasing the db and storage directory data. Here's the error:")
+gettext("There was an error erasing the db and storage directory data. Here is the error:")
 gettext("Cancel")
 gettext("Erase all data")
 
@@ -237,7 +237,7 @@ gettext("We have successfully installed the core of Gallery.  Although everythin
 
 /* templates/InstallOtherModulesRequest.html */
 gettext("The following modules can be automatically installed and activated for you.  You should install at least one of the graphics toolkits otherwise Gallery cannot make thumbnails out of your images.  On most systems, the automatic install will work properly for you.  However, in some cases it may fail.  You can always activate new modules or deactivate any of the ones you choose here on the Site Administration page, so any decision you make here is not permanent.")
-gettext("Some modules may fail to install automatically.  That's ok.  It typically means that they require some configuration, which you can do on the Site Adminstration page")
+gettext("Some modules may fail to install automatically.  That is ok.  It typically means that they require some configuration, which you can do on the Site Adminstration page")
 gettext("Name")
 gettext("Version")
 gettext("Description")

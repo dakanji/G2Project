@@ -128,7 +128,7 @@ class UserPreferencesController extends GalleryController {
 				/*
 				 * To be consistent, we really should post a Gallery::Login event here to show
 				 * that the user successfully authenticated.  But they are not really logging in so
-				 * that's misleading.  Perhaps we should rename the events to Gallery::Authenticate
+				 * that is misleading.  Perhaps we should rename the events to Gallery::Authenticate
 				 * and Gallery::FailedAuthenticate to be more accurate, and then post those here?
 				 *
 				 * @see UserChangePasswordController::handleRequest
